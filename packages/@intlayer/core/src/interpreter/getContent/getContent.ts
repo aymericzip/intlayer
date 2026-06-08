@@ -1,16 +1,16 @@
-import configuration from '@intlayer/config/built';
-import { getAppLogger } from '@intlayer/config/client';
+import { internationalization } from '@intlayer/config/built';
+import type { ContentNode } from '@intlayer/types/dictionary';
 import type {
-  ContentNode,
   DeclaredLocales,
   LocalesValues,
-} from '@intlayer/types';
+} from '@intlayer/types/module_augmentation';
 import { deepTransformNode } from './deepTransform';
 import {
   conditionPlugin,
   type DeepTransformContent,
   enumerationPlugin,
   filePlugin,
+  genderPlugin,
   type IInterpreterPluginState,
   insertionPlugin,
   type NodeProps,
@@ -19,6 +19,23 @@ import {
   translationPlugin,
 } from './plugins';
 
+export const getBasePlugins = (
+  locale?: LocalesValues,
+  fallback: boolean = true
+): Plugins[] =>
+  [
+    translationPlugin(
+      locale ?? internationalization.defaultLocale,
+      fallback ? internationalization.defaultLocale : undefined
+    ),
+    enumerationPlugin,
+    conditionPlugin,
+    insertionPlugin,
+    nestedPlugin(locale ?? internationalization.defaultLocale),
+    filePlugin,
+    genderPlugin,
+  ] as Plugins[];
+
 /**
  * Transforms a node in a single pass, applying each plugin as needed.
  *
@@ -26,27 +43,14 @@ import {
  * @param locale The locale to use if your transformers need it (e.g. for translations).
  */
 export const getContent = <
-  T extends ContentNode,
-  L extends LocalesValues = DeclaredLocales,
+  const T extends ContentNode,
+  const L extends LocalesValues = DeclaredLocales,
 >(
   node: T,
   nodeProps: NodeProps,
-  locale?: L
-) => {
-  const defaultLocale = configuration?.internationalization?.defaultLocale;
-
-  const plugins: Plugins[] = [
-    insertionPlugin,
-    translationPlugin(locale ?? defaultLocale, defaultLocale),
-    enumerationPlugin,
-    conditionPlugin,
-    nestedPlugin,
-    filePlugin,
-    ...(nodeProps.plugins ?? []),
-  ];
-
-  return deepTransformNode(node, {
+  plugins: Plugins[] = []
+) =>
+  deepTransformNode(node, {
     ...nodeProps,
     plugins,
   }) as DeepTransformContent<T, IInterpreterPluginState, L>;
-};

@@ -4,7 +4,14 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import fg from 'fast-glob';
 
-const DEFAULT_PATTERNS = 'src/**/*.{md,mdx,txt,json}';
+const DEFAULT_PATTERNS = [
+  'src/**/*.{md,mdx,txt,json}',
+  '!src/**/*.test.*',
+  '!src/**/*.stories.*',
+  '!src/**/_*',
+  '!src/**/*.spec.*',
+  '!src/**/__tests__/**',
+];
 const DEFAULT_SRC_BASE_DIR = 'src';
 const DEFAULT_ASSETS_DIRNAME_IN_DIST = 'assets';
 const DEFAULT_COPY_IN = 'all';
@@ -22,9 +29,13 @@ const RESOLVED_ID = '\0utils:asset';
  * @param {'esm'|'cjs'|'all'} [opts.copyIn='all'] - If you build multiple formats, you can choose to copy only on one of them to avoid redundant work.
  */
 export const AssetPlugin = (opts = {}) => {
-  const patterns = Array.isArray(opts.patterns)
-    ? opts.patterns
-    : [opts.patterns ?? DEFAULT_PATTERNS];
+  const patterns = opts.patterns
+    ? Array.isArray(opts.patterns)
+      ? opts.patterns
+      : [opts.patterns]
+    : Array.isArray(DEFAULT_PATTERNS)
+      ? DEFAULT_PATTERNS
+      : [DEFAULT_PATTERNS];
 
   const srcBaseDir = opts.srcBaseDir ?? DEFAULT_SRC_BASE_DIR;
   const assetsDirnameInDist =
@@ -58,6 +69,7 @@ export const AssetPlugin = (opts = {}) => {
       // Determine whether we should copy for this output
       // tsdown passes Rollup-style outputOptions; we infer format from it.
       const fmt = (outputOptions?.format ?? '').toLowerCase();
+
       if (copyIn !== 'all' && fmt && copyIn !== fmt) return;
 
       const outDir = outputOptions?.dir;

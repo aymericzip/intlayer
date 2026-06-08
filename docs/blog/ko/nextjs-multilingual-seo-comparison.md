@@ -65,7 +65,7 @@ slugs:
 ### **next-intl**
 
 <Tabs>
-  <TabItem label="next-intl">
+  <Tab label="next-intl">
 
 ```tsx fileName="src/app/[locale]/about/layout.tsx"
 import type { Metadata } from "next";
@@ -154,8 +154,8 @@ export default function robots(): MetadataRoute.Robots {
 
 ### **next-i18next**
 
-  </TabItem>
-  <TabItem label="next-i18next">
+  </Tab>
+  <Tab label="next-i18next">
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -257,8 +257,8 @@ export default function robots(): MetadataRoute.Robots {
 
 ### **Intlayer**
 
-  </TabItem>
-  <TabItem label="intlayer">
+  </Tab>
+  <Tab label="intlayer">
 
 ````typescript fileName="src/app/[locale]/about/layout.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";
@@ -339,7 +339,7 @@ export default robots;
 
 > Intlayer는 사이트맵용 다국어 URL을 생성하는 `getMultilingualUrls` 함수를 제공합니다.
 
-  </TabItem>
+  </Tab>
 </Tabs>
 
 ---

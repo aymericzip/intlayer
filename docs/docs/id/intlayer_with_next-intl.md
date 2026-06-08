@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-10-05
-updatedAt: 2025-10-05
-title: Cara menerjemahkan Next.js 15 Anda menggunakan next-intl – panduan i18n 2025
-description: Temukan cara membuat situs web Next.js 15 App Router Anda menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya.
+updatedAt: 2026-05-31
+title: "next-intl i18n - Panduan lengkap menerjemahkan aplikasi Anda"
+description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi next-intl multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
   - Internasionalisasi
   - Dokumentasi
@@ -52,6 +52,10 @@ pnpm add next-intl
 yarn add next-intl
 ```
 
+```bash packageManager="bun"
+bun add next-intl
+```
+
 ```bash
 .
 ├── locales
@@ -99,7 +103,7 @@ async function loadMessages(locale: string) {
 }
 
 export default getRequestConfig(async ({ locale }) => {
-  if (!locales.includes(locale as any)) notFound();
+  if (!locales.includes(locale)) notFound();
 
   return {
     messages: await loadMessages(locale),
@@ -391,15 +395,20 @@ export const config = {
 Pasang dependensi intlayer:
 
 ```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin  -D
+npm install intlayer @intlayer/sync-json-plugin --save-dev
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin  -D
+yarn add intlayer @intlayer/sync-json-plugin --dev
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin  -D
+pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+```
+
+```bash packageManager="bun"
+bun add intlayer @intlayer/sync-json-plugin --dev
+bun x intlayer init
 ```
 
 Buat file konfigurasi intlayer:
@@ -444,4 +453,4 @@ Catatan:
 - `intlayer fill`: menggunakan penyedia AI Anda untuk mengisi terjemahan yang hilang berdasarkan locale yang telah Anda konfigurasikan.
 - `intlayer test`: memeriksa terjemahan yang hilang/tidak valid (gunakan dalam CI).
 
-Anda dapat mengonfigurasi argumen dan penyedia; lihat [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_cli.md).
+Anda dapat mengonfigurasi argumen dan penyedia; lihat [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md).

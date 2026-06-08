@@ -6,8 +6,8 @@ export const dictionaryFormSchemaContent = {
     requiredErrorName: t({
       en: 'Please enter a key for your dictionary',
       'en-GB': 'Please enter a key for your dictionary',
-      fr: 'Veuillez saisir une clef pour votre dictionaire',
-      es: 'Por favor, ingrese un clave para su diccionario',
+      fr: 'Veuillez saisir une clé pour votre dictionnaire',
+      es: 'Por favor, ingrese una clave para su diccionario',
       de: 'Bitte geben Sie einen Schlüssel für Ihr Wörterbuch ein',
       ja: '辞書のキーを入力してください',
       ko: '사전 키를 입력해 주세요',
@@ -21,13 +21,14 @@ export const dictionaryFormSchemaContent = {
       pl: 'Proszę wprowadzić klucz dla słownika',
       id: 'Silakan masukkan key untuk dictionary Anda',
       vi: 'Vui lòng nhập khóa cho từ điển của bạn',
+      uk: 'Будь ласка, введіть ключ для вашого словника',
     }),
 
     invalidTypeErrorName: t({
       en: 'Please enter a valid key for your dictionary',
       'en-GB': 'Please enter a valid key for your dictionary',
-      fr: 'Veuillez saisir une clée valide pour votre dictionaire',
-      es: 'Por favor, ingrese un clave válido para su diccionario',
+      fr: 'Veuillez saisir une clé valide pour votre dictionnaire',
+      es: 'Por favor, ingrese una clave válida para su diccionario',
       de: 'Bitte geben Sie einen gültigen Schlüssel für Ihr Wörterbuch ein',
       ja: '辞書の有効なキーを入力してください',
       ko: '유효한 사전 키를 입력해 주세요',
@@ -41,6 +42,7 @@ export const dictionaryFormSchemaContent = {
       pl: 'Proszę wprowadzić prawidłowy klucz dla słownika',
       id: 'Silakan masukkan key yang valid untuk dictionary Anda',
       vi: 'Vui lòng nhập khóa hợp lệ cho từ điển của bạn',
+      uk: 'Будь ласка, введіть дійсний ключ для вашого словника',
     }),
 
     requiredErrorProjectId: t({
@@ -61,6 +63,7 @@ export const dictionaryFormSchemaContent = {
       pl: 'Proszę wybrać projekt',
       id: 'Silakan pilih project',
       vi: 'Vui lòng chọn dự án',
+      uk: 'Будь ласка, виберіть проєкт',
     }),
 
     invalidTypeErrorProjectId: t({
@@ -81,6 +84,7 @@ export const dictionaryFormSchemaContent = {
       pl: 'Proszę wybrać prawidłowy projekt',
       id: 'Silakan pilih project yang valid',
       vi: 'Vui lòng chọn dự án hợp lệ',
+      uk: 'Будь ласка, виберіть дійсний проєкт',
     }),
   },
   title: 'Dictionary form schema',

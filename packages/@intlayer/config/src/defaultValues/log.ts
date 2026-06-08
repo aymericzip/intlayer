@@ -1,4 +1,4 @@
-import { ANSIColors } from '../logger';
+import * as ANSIColors from '../colors';
 
 export const MODE = 'default';
 

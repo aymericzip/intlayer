@@ -1,7 +1,7 @@
 'use client';
 
+import { useDevice } from '@hooks/useDevice';
 import type { ReactElement, ReactNode } from 'react';
-import { useDevice, useIsMounted } from '../../hooks';
 import type { TabSelectorItemProps } from '../TabSelector';
 import { DesktopNavbar } from './DesktopNavbar';
 import { MobileNavbar } from './MobileNavbar';
@@ -89,6 +89,10 @@ type NavbarProps<T extends TabSelectorItemProps> = {
  * @param props - Navbar component props
  * @returns Responsive navbar JSX element
  */
+export { Burger } from './Burger';
+export { DesktopNavbar } from './DesktopNavbar';
+export { MobileNavbar } from './MobileNavbar';
+
 export const Navbar = <T extends TabSelectorItemProps>({
   logo,
   mobileTopChildren,
@@ -102,9 +106,6 @@ export const Navbar = <T extends TabSelectorItemProps>({
   mobileRollable = true,
 }: NavbarProps<T>) => {
   const { isMobile } = useDevice('lg');
-  const isMoUnted = useIsMounted();
-
-  if (!isMoUnted) return <></>;
 
   return isMobile ? (
     <MobileNavbar

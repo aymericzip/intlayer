@@ -1,22 +1,30 @@
-import { basename, relative } from 'node:path';
+import { basename, join, relative } from 'node:path';
 import type { AIOptions } from '@intlayer/api';
+import {
+  loadContentDeclarations,
+  prepareIntlayer,
+  writeContentDeclaration,
+} from '@intlayer/chokidar/build';
+import {
+  type ListGitFilesOptions,
+  logConfigDetails,
+} from '@intlayer/chokidar/cli';
 import {
   formatPath,
   getGlobalLimiter,
   getTaskLimiter,
-  type ListGitFilesOptions,
-  prepareIntlayer,
-  writeContentDeclaration,
-} from '@intlayer/chokidar';
+} from '@intlayer/chokidar/utils';
+import * as ANSIColors from '@intlayer/config/colors';
 import {
-  ANSIColors,
   colorize,
   colorizeKey,
   colorizePath,
   getAppLogger,
-  getConfiguration,
-} from '@intlayer/config';
-import type { Locale } from '@intlayer/types';
+  x,
+} from '@intlayer/config/logger';
+import { getConfiguration } from '@intlayer/config/node';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { Fill } from '@intlayer/types/dictionary';
 import {
   ensureArray,
   type GetTargetDictionaryOptions,
@@ -51,6 +59,8 @@ export type FillOptions = {
  */
 export const fill = async (options?: FillOptions): Promise<void> => {
   const configuration = getConfiguration(options?.configOptions);
+  logConfigDetails(options?.configOptions);
+
   const appLogger = getAppLogger(configuration);
 
   if (options?.build === true) {
@@ -71,12 +81,57 @@ export const fill = async (options?: FillOptions): Promise<void> => {
 
   if (!aiResult?.hasAIAccess) return;
 
-  const { aiClient, aiConfig } = aiResult;
+  const { aiClient, aiConfig, isCustomAI } = aiResult;
+
+  if (isCustomAI && aiClient && aiConfig) {
+    const { hasAIAccess, error } = await aiClient.checkAISDKAccess(aiConfig);
+    if (!hasAIAccess) {
+      appLogger(`${x} ${error}`);
+      return;
+    }
+  }
 
   const targetUnmergedDictionaries =
     await getTargetUnmergedDictionaries(options);
 
+  // Load the original source content declaration files to recover function-type
+  // `fill` values that are lost when dictionaries are JSON-serialised into
+  // unmerged_dictionaries.cjs.  Dictionary-level fill takes priority over the
+  // config-level fill, but we can only know that by reading the source files.
+  const uniqueSourcePaths = [
+    ...new Set(
+      targetUnmergedDictionaries
+        .filter((unmergedDictionary) =>
+          ['local', 'hybrid'].includes(unmergedDictionary.location!)
+        )
+        .map((unmergedDictionary) => unmergedDictionary.filePath)
+        .filter(Boolean) as string[]
+    ),
+  ];
+  const sourceDictionaries = await loadContentDeclarations(
+    uniqueSourcePaths.map((sourcePath) =>
+      join(configuration.system.baseDir, sourcePath)
+    ),
+    configuration,
+    undefined,
+    {
+      logError: false,
+    }
+  );
+  // Map relative filePath → original fill value from the source file
+  const originalFillByPath = new Map<string, Fill | undefined>();
+
+  for (const dictionary of sourceDictionaries) {
+    if (dictionary.filePath) {
+      originalFillByPath.set(
+        dictionary.filePath,
+        dictionary.fill as Fill | undefined
+      );
+    }
+  }
+
   const affectedDictionaryKeys = new Set<string>();
+
   targetUnmergedDictionaries.forEach((dict) => {
     affectedDictionaryKeys.add(dict.key);
   });
@@ -126,7 +181,7 @@ export const fill = async (options?: FillOptions): Promise<void> => {
   const runners = translationTasks.map((task) =>
     taskLimiter(async () => {
       const relativePath = relative(
-        configuration?.content?.baseDir ?? process.cwd(),
+        configuration?.system?.baseDir ?? process.cwd(),
         task?.dictionaryFilePath ?? ''
       );
 
@@ -143,7 +198,7 @@ export const fill = async (options?: FillOptions): Promise<void> => {
           mode,
           aiOptions: options?.aiOptions,
           fillMetadata: !options?.skipMetadata,
-          onHandle: globalLimiter, // <= AI calls go through here
+          onHandle: globalLimiter,
           aiClient,
           aiConfig,
         }
@@ -154,23 +209,41 @@ export const fill = async (options?: FillOptions): Promise<void> => {
       const { dictionaryOutput, sourceLocale } = translationTaskResult;
 
       // Determine if we should write to separate files
-      // - If dictionary has explicit fill setting (string or object), use it
+      // - If dictionary has explicit fill setting (string, function, or object), use it
       // - If dictionary is per-locale AND has no explicit fill=false, use global fill config
       // - If dictionary is multilingual (no locale property), always write to same file
+      //
+      // NOTE: function-type fill values are lost during JSON serialisation of
+      // unmerged_dictionaries.cjs.  We recover them by checking the original
+      // source file that was loaded above (originalFillByPath).  Dictionary-level
+      // fill always takes priority over config-level fill.
+      const originalFill = originalFillByPath.get(
+        dictionaryOutput.filePath ?? ''
+      );
+
+      // originalFill is undefined when the source file had no fill property; use
+      // the (possibly JSON-preserved) dictionaryOutput.fill as a fallback so that
+      // string/boolean fill values set directly on the dict still work.
+      const dictFill: Fill | undefined =
+        originalFill !== undefined ? originalFill : dictionaryOutput.fill;
+
       const hasDictionaryLevelFill =
-        typeof dictionaryOutput.fill === 'string' ||
-        typeof dictionaryOutput.fill === 'object';
+        typeof dictFill === 'string' ||
+        typeof dictFill === 'function' ||
+        (typeof dictFill === 'object' && dictFill !== null);
 
       const isPerLocale = typeof dictionaryOutput.locale === 'string';
 
       const effectiveFill = hasDictionaryLevelFill
-        ? dictionaryOutput.fill
+        ? dictFill
         : isPerLocale
           ? (configuration.dictionary?.fill ?? true)
-          : false; // Multilingual dictionaries don't use fill by default
+          : false; // Multilingual dictionaries (no locale property) always write to same file unless explicitly set on the dictionary
 
       const isFillOtherFile =
-        typeof effectiveFill === 'string' || typeof effectiveFill === 'object';
+        typeof effectiveFill === 'string' ||
+        typeof effectiveFill === 'function' ||
+        (typeof effectiveFill === 'object' && effectiveFill !== null);
 
       if (isFillOtherFile) {
         await writeFill(

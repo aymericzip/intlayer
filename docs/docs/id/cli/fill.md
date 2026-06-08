@@ -20,17 +20,66 @@ slugs:
 
 # Isi / audit / terjemahkan kamus
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill
 ```
 
+```bash packageManager="yarn"
+yarn intlayer fill
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill
+```
+
+```bash packageManager="bun"
+bun x intlayer fill
+```
+
 Perintah ini menganalisis file deklarasi konten Anda untuk potensi masalah seperti terjemahan yang hilang, ketidakkonsistenan struktural, atau ketidakcocokan tipe. Jika ditemukan masalah, **intlayer fill** akan mengusulkan atau menerapkan pembaruan untuk menjaga kamus Anda tetap konsisten dan lengkap.
+
+Poin-poin penting:
+
+- Membagi file JSON besar menjadi potongan-potongan untuk tetap berada dalam batas jendela konteks model AI.
+- Mencoba ulang terjemahan jika format output tidak benar.
+- Menggabungkan konteks spesifik aplikasi dan file untuk meningkatkan akurasi terjemahan.
+- Mempertahankan terjemahan yang ada dengan tidak menimpa mereka.
+- Memproses file, potongan, dan locale secara paralel menggunakan sistem antrian untuk meningkatkan kecepatan.
 
 ## Alias:
 
 - `npx intlayer dictionaries fill`
 - `npx intlayer dictionary fill`
 - `npx intlayer dic fill`
+
+## Contoh output:
+
+```bash
+npx intlayer fill
+
+Preparing Intlayer (v7.5.14)
+Done 76ms
+@intlayer/ai found - Run process locally
+Provider: (default) - Model: (default) - API Key: ✓
+Affected dictionary keys for processing: app, comp-test, hello-world, lang-switcher
+ - [comp-test]      No locales to fill, Skipping comp-test.content.json
+ - [app]            Processing app.content.tsx
+ - [app]            Filling missing metadata for app.content.tsx
+ - [hello-world]    Processing test.content.ts
+ - [hello-world]   [French (fr)]      Preparing test.content.ts
+ - [hello-world]   [Spanish (es)]     Preparing test.content.ts
+ - [lang-switcher]  Processing langSwitcher.content.ts
+ - [lang-switcher]  Filling missing metadata for langSwitcher.content.ts
+ - [hello-world]    Translation completed successfully for test.content.ts
+ - [lang-switcher] [Spanish (es)]     Preparing langSwitcher.content.ts
+ - [app]           [French (fr)]      Preparing app.content.tsx
+ - [app]           [Spanish (es)]     Preparing app.content.tsx
+ - [hello-world]    Content declaration written to test.content.ts
+ - [app]            Translation completed successfully for app.content.tsx
+ - [app]            Content declaration written to app.content.tsx
+ - [lang-switcher]  Translation completed successfully for langSwitcher.content.ts
+ - [lang-switcher]  Content declaration written to langSwitcher.content.ts
+```
 
 ## Argumen:
 
@@ -89,6 +138,7 @@ Perintah ini menganalisis file deklarasi konten Anda untuk potensi masalah seper
 - **`--api-key [apiKey]`**: Berikan API key Anda sendiri untuk layanan AI.
 - **`--custom-prompt [prompt]`**: Berikan prompt khusus untuk instruksi terjemahan Anda.
 - **`--application-context [applicationContext]`**: Berikan konteks tambahan untuk terjemahan AI.
+- **`--data-serialization [dataSerialization]`**: Format serialisasi data yang digunakan untuk fitur AI Intlayer. Opsi: `json` (standar, andal), `toon` (lebih sedikit token, kurang konsisten).
 
   > Contoh: `npx intlayer fill --model gpt-3.5-turbo --provider openai --temperature 0.5 --api-key sk-1234567890 --application-context "Aplikasi saya adalah toko kucing"`
 
@@ -123,8 +173,20 @@ Perintah ini menganalisis file deklarasi konten Anda untuk potensi masalah seper
 
 ## Contoh:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
 ```
 
 Perintah ini akan menerjemahkan konten dari bahasa Inggris ke bahasa Prancis dan Spanyol untuk semua file deklarasi konten di direktori `src/home/` menggunakan model GPT-3.5 Turbo.

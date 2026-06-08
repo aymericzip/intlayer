@@ -1,8 +1,13 @@
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { colorizePath, getConfiguration } from '@intlayer/config';
-import { mergeDictionaries, normalizeDictionaries } from '@intlayer/core';
-import type { Dictionary } from '@intlayer/types';
+import { colorizePath } from '@intlayer/config/logger';
+import { assertPathWithin } from '@intlayer/config/utils';
+import {
+  mergeDictionaries,
+  normalizeDictionaries,
+} from '@intlayer/core/dictionaryManipulator';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { parallelize } from '../utils/parallelize';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';
 import type { UnmergedDictionaryOutput } from './writeUnmergedDictionary';
@@ -32,9 +37,9 @@ export type MergedDictionaryOutput = Record<string, MergedDictionaryResult>;
  */
 export const writeMergedDictionaries = async (
   groupedDictionaries: UnmergedDictionaryOutput,
-  configuration = getConfiguration()
+  configuration: IntlayerConfig
 ): Promise<MergedDictionaryOutput> => {
-  const { dictionariesDir } = configuration.content;
+  const { dictionariesDir } = configuration.system;
 
   // Create the dictionaries folder if it doesn't exist
   await mkdir(resolve(dictionariesDir), { recursive: true });
@@ -58,6 +63,8 @@ export const writeMergedDictionaries = async (
 
       const outputFileName = `${key}.json`;
       const resultFilePath = resolve(dictionariesDir, outputFileName);
+
+      assertPathWithin(resultFilePath, dictionariesDir);
 
       // Write the merged dictionary
       await writeJsonIfChanged(resultFilePath, mergedDictionary).catch(

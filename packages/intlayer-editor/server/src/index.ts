@@ -1,22 +1,21 @@
 import { existsSync, lstatSync, readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import {
-  ANSIColors,
-  colorize,
-  colorizePath,
-  getConfiguration,
-  getEnvFilePath,
-} from '@intlayer/config';
+import fastifyCompress from '@fastify/compress';
+import fastifyCookie from '@fastify/cookie';
+import fastifyCors, { type FastifyCorsOptions } from '@fastify/cors';
+import fastifyFormbody from '@fastify/formbody';
+import fastifyHelmet from '@fastify/helmet';
+import fastifyStatic from '@fastify/static';
+import * as ANSIColors from '@intlayer/config/colors';
+import { getEnvFilePath } from '@intlayer/config/env';
+import { colorize, colorizePath, getAppLogger } from '@intlayer/config/logger';
+import { getConfiguration } from '@intlayer/config/node';
 import { configurationRouter } from '@routes/config.routes';
 import { dictionaryRouter } from '@routes/dictionary.routes';
 import { checkPortAvailability } from '@utils/checkPortAvailability';
-import compression from 'compression';
-import cookieParser from 'cookie-parser';
-import cors, { type CorsOptions } from 'cors';
-import express, { type Express } from 'express';
-import { intlayer } from 'express-intlayer';
-import helmet from 'helmet';
+import Fastify, { type FastifyInstance } from 'fastify';
+import { intlayer } from 'fastify-intlayer';
 import mime from 'mime';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -26,76 +25,97 @@ const envFileOptions = {
   envFile: process.env.ENV_FILE,
 };
 
+const FALLBACK_PORT = 8000;
+const config = getConfiguration(envFileOptions);
+
+const appLogger = getAppLogger(config);
+const port = config.editor.port ?? FALLBACK_PORT;
+
+if (!config.editor.enabled) {
+  appLogger(
+    `Editor is not enabled. Add ${colorize('editor.enabled', ANSIColors.BLUE)} to ${colorizePath('intlayer.config.ts')} file to enable it.`,
+    {
+      level: 'error',
+    }
+  );
+  process.exit(0);
+}
+
 // Load package.json
 const packageJson = JSON.parse(
   readFileSync(resolve(__dirname, '../../package.json'), 'utf8')
 );
 
-const app: Express = express();
+const app: FastifyInstance = Fastify({
+  disableRequestLogging: true, // Optional: Keep logs clean like the original
+});
 
-// Load internationalization request handler
-app.use(intlayer());
-
-const FALLBACK_PORT = 8000;
-const config = getConfiguration(envFileOptions);
-const port = config.editor.port ?? FALLBACK_PORT;
+// Load internationalization plugin
+// Assuming fastify-intlayer is the Fastify equivalent of express-intlayer
+app.register(intlayer);
 
 const clientDistPath = resolve(__dirname, '../../client/dist');
 
-const corsOptions: CorsOptions = {
+const corsOptions: FastifyCorsOptions = {
   origin: '*',
   credentials: true,
 };
 
-const startServer = async (app: Express) => {
+const startServer = async (app: FastifyInstance) => {
   const isPortAvailable = await checkPortAvailability(port);
 
   if (!isPortAvailable) {
-    console.error(`\x1b[1;31mError: Port ${port} is already in use.\x1b[0m`);
+    appLogger(`Error: Port ${port} is already in use.`, {
+      level: 'error',
+    });
     process.exit(255);
   }
 
-  app.disable('x-powered-by'); // Disabled to prevent attackers from knowing that the app is running Express
-  app.use(
-    helmet({
-      contentSecurityPolicy: false,
-    })
-  );
+  // Security Headers
+  await app.register(fastifyHelmet, {
+    contentSecurityPolicy: false,
+    global: true,
+  });
 
-  app.use(cors(corsOptions));
+  // CORS
+  await app.register(fastifyCors, corsOptions);
 
-  // Compress all HTTP responses
-  app.use(compression());
+  // Compression
+  await app.register(fastifyCompress);
 
-  app.use(express.json());
+  // Cookie Parser
+  await app.register(fastifyCookie);
 
-  app.use(cookieParser());
+  // Parse application/x-www-form-urlencoded
+  await app.register(fastifyFormbody);
 
-  // Parse incoming requests with urlencoded payloads
-  app.use(express.urlencoded({ extended: true }));
+  // Register Routes
+  await app.register(dictionaryRouter, { prefix: '/api/dictionary' });
+  await app.register(configurationRouter, { prefix: '/api/config' });
 
-  app.use('/api/dictionary', dictionaryRouter);
-  app.use('/api/config', configurationRouter);
-
-  app.use(express.static(clientDistPath));
+  // Serve Static Files
+  await app.register(fastifyStatic, {
+    root: clientDistPath,
+    wildcard: false, // We handle the fallback manually to match SPA logic
+  });
 
   // For single-page applications, redirect all unmatched routes to index.html
-  app.get(/(.*)/, (req, res) => {
-    const requestedPath = join(clientDistPath, req.url); // Full path of the requested file
+  app.setNotFoundHandler((req, reply) => {
+    const requestedPath = join(clientDistPath, req.raw.url || '/');
 
     if (existsSync(requestedPath) && lstatSync(requestedPath).isFile()) {
-      // If the requested file exists, determine its MIME type and serve it
       const mimeType =
         mime.getType(requestedPath) ?? 'application/octet-stream';
-      res.setHeader('Content-Type', mimeType);
-      res.sendFile(requestedPath);
+      reply.header('Content-Type', mimeType);
+      return reply.sendFile(req.raw.url?.split('/').pop() || 'index.html');
     } else {
-      // Otherwise, serve the index.html for React Router fallback
-      res.sendFile(resolve(clientDistPath, 'index.html'));
+      return reply.sendFile('index.html');
     }
   });
 
-  app.listen(port, () => {
+  try {
+    await app.listen({ port, host: '0.0.0.0' });
+
     const dotEnvFilePath = getEnvFilePath(
       envFileOptions.env,
       envFileOptions.envFile
@@ -109,7 +129,10 @@ const startServer = async (app: Express) => {
     ${colorize('➜', ANSIColors.GREY_DARK)}  Access key:               ${config.editor.clientId ?? '-'}
     ${colorize('➜', ANSIColors.GREY_DARK)}  Environment:              ${dotEnvFilePath ?? '-'}
     `);
-  });
+  } catch (err) {
+    app.log.error(err);
+    process.exit(1);
+  }
 };
 
 // Start it up!

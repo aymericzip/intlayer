@@ -1,10 +1,11 @@
-import { formatNodeType, NodeType, type TypedNodeModel } from '@intlayer/types';
+import type { TypedNodeModel } from '@intlayer/types/nodeType';
+import { formatNodeType, INSERTION } from '@intlayer/types/nodeType';
 import { getInsertionValues } from './getInsertionValues';
 
 export type InsertionContentConstructor<
   Content = unknown,
   T extends Record<string, any> = {},
-> = TypedNodeModel<NodeType.Insertion, Content, T>;
+> = TypedNodeModel<typeof INSERTION, Content, T>;
 
 export type InsertionContent<Content = unknown> = InsertionContentConstructor<
   Content,
@@ -33,7 +34,7 @@ const insertion = <Content = unknown>(
       return getInsertionValues(content);
     }
 
-    let stringContent;
+    let stringContent: any;
 
     if (typeof content === 'function') {
       stringContent = content();
@@ -53,7 +54,7 @@ const insertion = <Content = unknown>(
     }
   };
 
-  return formatNodeType(NodeType.Insertion, content, {
+  return formatNodeType(INSERTION, content, {
     fields: getInsertions(),
   });
 };

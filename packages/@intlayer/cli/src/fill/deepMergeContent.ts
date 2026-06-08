@@ -8,8 +8,8 @@
  */
 export const deepMergeContent = <T = any>(target: T, source: T): T => {
   // Handle null/undefined
-  if (!target) return source;
-  if (!source) return target;
+  if (target === null || target === undefined) return source;
+  if (source === null || source === undefined) return target;
 
   // Handle non-objects (primitives, arrays)
   if (

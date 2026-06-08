@@ -1,10 +1,10 @@
 import { join, relative } from 'node:path';
-import { type ListGitFilesOptions, listGitFiles } from '@intlayer/chokidar';
+import { type ListGitFilesOptions, listGitFiles } from '@intlayer/chokidar/cli';
 import {
   type GetConfigurationOptions,
   getConfiguration,
-} from '@intlayer/config';
-import type { Dictionary } from '@intlayer/types';
+} from '@intlayer/config/node';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 
 export const ensureArray = <T>(value: T | T[]): T[] => [value].flat() as T[];
@@ -25,7 +25,7 @@ export const getTargetUnmergedDictionaries = async (
 ): Promise<Dictionary[]> => {
   const configuration = getConfiguration(options?.configOptions);
 
-  const { baseDir } = configuration.content;
+  const { baseDir } = configuration.system;
 
   const unmergedDictionariesRecord = getUnmergedDictionaries(configuration);
   let result = Object.values(unmergedDictionariesRecord).flat();

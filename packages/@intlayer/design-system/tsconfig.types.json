@@ -10,6 +10,14 @@
     "isolatedModules": false,
     "isolatedDeclarations": false,
     "types": ["react", "node"],
-    "preserveSymlinks": true
+    "preserveSymlinks": true,
+    "paths": {
+      "@components/*": ["./src/components/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@libs/*": ["./src/libs/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@providers/*": ["./src/providers/*"],
+      "@/*": ["./src/*"]
+    }
   }
 }

@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
+import { Button } from '../Button';
 import { Container } from '../Container';
 import { H3 } from '../Headers';
-import { Popover, PopoverXAlign, PopoverYAlign } from '.';
+import { Popover } from '.';
 
 /**
  * Popover Component Stories
@@ -52,7 +52,7 @@ export const Basic: Story = {
   render: (args) => (
     <Container className="flex items-center justify-center p-16">
       <Popover {...args} identifier="basic-popover">
-        <Button variant={ButtonVariant.OUTLINE} label="Hover for info">
+        <Button variant="outline" label="Hover for info">
           Hover for info
         </Button>
 
@@ -105,13 +105,13 @@ export const PositioningVariants: Story = {
       {/* Below Start */}
       <div className="flex justify-center">
         <Popover identifier="below-start">
-          <Button size={ButtonSize.SM} label="Below Start" color="light">
+          <Button size="sm" label="Below Start" color="light">
             Below Start
           </Button>
           <Popover.Detail
             identifier="below-start"
-            xAlign={PopoverXAlign.START}
-            yAlign={PopoverYAlign.BELOW}
+            xAlign="start"
+            yAlign="below"
           >
             <Container className="p-2">
               <p className="text-xs">Below, Start aligned</p>
@@ -123,14 +123,10 @@ export const PositioningVariants: Story = {
       {/* Below End */}
       <div className="flex justify-center">
         <Popover identifier="below-end">
-          <Button size={ButtonSize.SM} label="Below End" color="error">
+          <Button size="sm" label="Below End" color="error">
             Below End
           </Button>
-          <Popover.Detail
-            identifier="below-end"
-            xAlign={PopoverXAlign.END}
-            yAlign={PopoverYAlign.BELOW}
-          >
+          <Popover.Detail identifier="below-end" xAlign="end" yAlign="below">
             <Container className="p-2">
               <p className="text-xs">Below, End aligned</p>
             </Container>
@@ -141,13 +137,13 @@ export const PositioningVariants: Story = {
       {/* Above Start */}
       <div className="flex justify-center">
         <Popover identifier="above-start">
-          <Button size={ButtonSize.SM} label="Above Start" color="secondary">
+          <Button size="sm" label="Above Start" color="secondary">
             Above Start
           </Button>
           <Popover.Detail
             identifier="above-start"
-            xAlign={PopoverXAlign.START}
-            yAlign={PopoverYAlign.ABOVE}
+            xAlign="start"
+            yAlign="above"
           >
             <Container className="p-2">
               <p className="text-xs">Above, Start aligned</p>
@@ -159,14 +155,10 @@ export const PositioningVariants: Story = {
       {/* Above End */}
       <div className="flex justify-center">
         <Popover identifier="above-end">
-          <Button size={ButtonSize.SM} label="Above End" color="text">
+          <Button size="sm" label="Above End" color="text">
             Above End
           </Button>
-          <Popover.Detail
-            identifier="above-end"
-            xAlign={PopoverXAlign.END}
-            yAlign={PopoverYAlign.ABOVE}
-          >
+          <Popover.Detail identifier="above-end" xAlign="end" yAlign="above">
             <Container className="p-2">
               <p className="text-xs">Above, End aligned</p>
             </Container>
@@ -185,14 +177,14 @@ export const RichContent: Story = {
   render: () => (
     <Container className="flex items-center justify-center p-16">
       <Popover identifier="rich-popover">
-        <Button color={ButtonColor.PRIMARY} label="User Profile">
+        <Button color="primary" label="User Profile">
           User Profile
         </Button>
 
-        <Popover.Detail identifier="rich-popover" xAlign={PopoverXAlign.END}>
+        <Popover.Detail identifier="rich-popover" xAlign="end">
           <Container className="w-64 p-4">
             <div className="mb-3 flex items-center gap-3">
-              <div className="h-10 w-10 rounded-full bg-primary"></div>
+              <div className="size-10 rounded-full bg-primary"></div>
               <div>
                 <H3 className="font-semibold text-sm">John Doe</H3>
                 <p className="text-neutral-600 text-xs">john@example.com</p>
@@ -201,25 +193,25 @@ export const RichContent: Story = {
 
             <div className="space-y-2">
               <Button
-                variant={ButtonVariant.OUTLINE}
-                size={ButtonSize.SM}
+                variant="outline"
+                size="sm"
                 className="w-full"
                 label="Edit Profile"
               >
                 Edit Profile
               </Button>
               <Button
-                variant={ButtonVariant.OUTLINE}
-                size={ButtonSize.SM}
+                variant="outline"
+                size="sm"
                 className="w-full"
                 label="Settings"
               >
                 Settings
               </Button>
               <Button
-                color={ButtonColor.DESTRUCTIVE}
-                variant={ButtonVariant.OUTLINE}
-                size={ButtonSize.SM}
+                color="error"
+                variant="outline"
+                size="sm"
                 className="w-full"
                 label="Sign Out"
               >
@@ -241,27 +233,39 @@ export const ContextMenu: Story = {
   render: () => (
     <Container className="flex items-center justify-center p-16">
       <Popover identifier="context-menu">
-        <div className="cursor-pointer rounded border-2 border-neutral-300 border-dashed p-8 text-center transition-colors hover:border-primary">
+        <div className="cursor-pointer rounded border-2 border-neutral-300 border-dotted p-8 text-center transition-colors hover:border-primary">
           <p className="text-neutral-500 text-xs">Hover for menu</p>
         </div>
 
         <Popover.Detail
           identifier="context-menu"
           displayArrow={false}
-          xAlign={PopoverXAlign.START}
+          xAlign="start"
         >
           <Container className="py-1" transparency="xl">
-            <button className="flex w-full px-4 py-2 text-left text-sm transition-colors hover:bg-neutral-100">
+            <button
+              type="button"
+              className="flex w-full px-4 py-2 text-left text-sm transition-colors hover:bg-neutral-100"
+            >
               Cut
             </button>
-            <button className="flex w-full px-4 py-2 text-left text-sm transition-colors hover:bg-neutral-100">
+            <button
+              type="button"
+              className="flex w-full px-4 py-2 text-left text-sm transition-colors hover:bg-neutral-100"
+            >
               Copy
             </button>
-            <button className="flex w-full px-4 py-2 text-left text-sm transition-colors hover:bg-neutral-100">
+            <button
+              type="button"
+              className="flex w-full px-4 py-2 text-left text-sm transition-colors hover:bg-neutral-100"
+            >
               Paste
             </button>
             <hr className="my-1 border-neutral-200" />
-            <button className="flex w-full px-4 py-2 text-left text-destructive text-sm transition-colors hover:bg-destructive/10">
+            <button
+              type="button"
+              className="flex w-full px-4 py-2 text-left text-error text-sm transition-colors hover:bg-error/10"
+            >
               Delete
             </button>
           </Container>
@@ -279,7 +283,7 @@ export const HelpTooltip: Story = {
   render: () => (
     <Container className="flex items-center justify-center p-16">
       <div className="flex items-center gap-2">
-        <label className="font-medium text-sm">Password</label>
+        <span className="font-medium text-sm">Password</span>
 
         <Popover identifier="help-tooltip">
           <div className="flex h-5 w-5 cursor-help items-center justify-center rounded-full bg-neutral-200 text-neutral-600 text-xs">
@@ -288,8 +292,8 @@ export const HelpTooltip: Story = {
 
           <Popover.Detail
             identifier="help-tooltip"
-            xAlign={PopoverXAlign.START}
-            yAlign={PopoverYAlign.BELOW}
+            xAlign="start"
+            yAlign="below"
           >
             <Container className="max-w-xs p-3">
               <p className="text-sm">
@@ -317,7 +321,7 @@ export const Interactive: Story = {
   render: () => (
     <Container className="flex items-center justify-center p-16">
       <Popover identifier="interactive-popover">
-        <Button variant={ButtonVariant.OUTLINE} label="Interactive Popover">
+        <Button variant="outline" label="Interactive Popover">
           Interactive Popover
         </Button>
 
@@ -342,7 +346,7 @@ export const MultiplePopovers: Story = {
 
       <div className="flex flex-wrap gap-4">
         <Popover identifier="popover-1">
-          <Button size={ButtonSize.SM} label="Popover 1">
+          <Button size="sm" label="Popover 1">
             <span className="text-white">Popover 1</span>
           </Button>
           <Popover.Detail identifier="popover-1">
@@ -353,10 +357,10 @@ export const MultiplePopovers: Story = {
         </Popover>
 
         <Popover identifier="popover-2">
-          <Button size={ButtonSize.SM} label="Popover 2">
+          <Button size="sm" label="Popover 2">
             <span className="text-white">Popover 2</span>
           </Button>
-          <Popover.Detail identifier="popover-2" yAlign={PopoverYAlign.ABOVE}>
+          <Popover.Detail identifier="popover-2" yAlign="above">
             <Container className="p-2">
               <p className="text-xs">Second popover (above)</p>
             </Container>
@@ -364,10 +368,10 @@ export const MultiplePopovers: Story = {
         </Popover>
 
         <Popover identifier="popover-3">
-          <Button size={ButtonSize.SM} label="Popover 3">
+          <Button size="sm" label="Popover 3">
             <span className="text-white">Popover 3</span>
           </Button>
-          <Popover.Detail identifier="popover-3" xAlign={PopoverXAlign.END}>
+          <Popover.Detail identifier="popover-3" xAlign="end">
             <Container className="p-2">
               <p className="text-xs">Third popover (end aligned)</p>
             </Container>

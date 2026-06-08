@@ -1,20 +1,20 @@
 import type { NextPageIntlayer } from 'next-intlayer';
-import type { FC } from 'react';
+import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
+import { type FC, Suspense } from 'react';
 
 export { generateMetadata } from './metadata';
 
 // Render
 const NotFountPageContent: FC = () => {
-  // Remove i18n because of error `Cannot read properties of null (reading 'use')`
-  // const { title, content } = useIntlayer('not-found');
+  const { title, content } = useIntlayer('not-found');
 
   return (
     <>
-      <h1 className="hidden">404 - Page not found</h1>
+      <h1 className="hidden">{title}</h1>
       <span className="m-32 flex justify-center gap-3 text-center font-bold text-4xl text-darkGray md:justify-end">
         <span className="relative flex items-center">
-          Page not found
-          <span className="-translate-x-1/2 absolute left-1/2 text-[9rem] opacity-10">
+          {content}
+          <span className="absolute left-1/2 -translate-x-1/2 text-[9rem] opacity-10">
             404
           </span>
         </span>
@@ -23,8 +23,28 @@ const NotFountPageContent: FC = () => {
   );
 };
 
-const NotFountPage: NextPageIntlayer = async () => {
-  return <NotFountPageContent />;
+const NotFountPage: NextPageIntlayer = async ({ params }) => {
+  const { locale } = await params;
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <Suspense>
+        <NotFountPageContent />
+        <a
+          href="https://postyourstartup.co/startup/intlayer?ref=badge"
+          target="_blank"
+          rel="noopener"
+        >
+          <img
+            src="https://postyourstartup.co/api/badge/intlayer?theme=light"
+            alt="Featured on PostYourStartup"
+            width="212"
+            height="55"
+          />
+        </a>
+      </Suspense>
+    </IntlayerServerProvider>
+  );
 };
 
 export default NotFountPage;

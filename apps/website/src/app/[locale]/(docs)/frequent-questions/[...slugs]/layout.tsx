@@ -1,4 +1,4 @@
-import { getBlogMetadataBySlug } from '@intlayer/docs';
+import { getFrequentQuestionMetadataBySlug } from '@intlayer/docs';
 import { getLocalizedUrl, getMultilingualUrls, Locales } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalPromiseParams, NextLayoutIntlayer } from 'next-intlayer';
@@ -11,9 +11,9 @@ export type FrequentQuestionPageProps =
   LocalPromiseParams<FrequentQuestionProps>;
 
 export const generateStaticParams = async () => {
-  const blogMetadata = await getBlogMetadataBySlug([]);
+  const frequentQuestionsMetadata = await getFrequentQuestionMetadataBySlug([]);
 
-  const slugList: string[][] = blogMetadata.map((meta) => meta.slugs);
+  const slugList: string[][] = frequentQuestionsMetadata.map((meta) => meta.slugs);
 
   return slugList;
 };
@@ -23,7 +23,7 @@ export const generateMetadata = async ({
 }: FrequentQuestionPageProps): Promise<Metadata> => {
   const { locale, slugs } = await params;
 
-  const blogsData = await getBlogMetadataBySlug(
+  const blogsData = await getFrequentQuestionMetadataBySlug(
     ['frequent-questions', ...(slugs ?? [])],
     locale,
     true
@@ -40,20 +40,19 @@ export const generateMetadata = async ({
   const questionData = filteredBlogsData[0];
 
   const absoluteUrl = questionData.url;
-  const relativeUrl = questionData.relativeUrl;
 
   return {
     title: `${questionData.title} | Intlayer`,
     description: questionData.description,
     keywords: questionData.keywords,
     alternates: {
-      canonical: getLocalizedUrl(relativeUrl, Locales.ENGLISH),
+      canonical: getLocalizedUrl(absoluteUrl, locale),
       languages: {
-        ...getMultilingualUrls(relativeUrl),
-        'x-default': getLocalizedUrl(relativeUrl, Locales.ENGLISH),
+        ...getMultilingualUrls(absoluteUrl),
+        'x-default': getLocalizedUrl(absoluteUrl, Locales.ENGLISH),
       },
       types: {
-        'text/markdown': `${getLocalizedUrl(relativeUrl, locale)}.md`,
+        'text/markdown': `${getLocalizedUrl(absoluteUrl, locale)}.md`,
       },
     },
     openGraph: {

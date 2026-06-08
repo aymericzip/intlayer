@@ -13,23 +13,51 @@ slugs:
   - concept
   - cli
   - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: "Добавить опцию checkTypes"
 ---
 
 # Построение словарей
 
 Для построения ваших словарей вы можете выполнить команды:
 
-```bash
+```bash packageManager="npm"
 npx intlayer build
+```
+
+```bash packageManager="yarn"
+yarn intlayer build
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build
+```
+
+```bash packageManager="bun"
+bun x intlayer build
 ```
 
 или в режиме наблюдения
 
-```bash
+```bash packageManager="npm"
 npx intlayer build --watch
 ```
 
-Эта команда по умолчанию найдет ваши файлы декларации контента по пути `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` и построит словари в директории `.intlayer`.
+```bash packageManager="yarn"
+yarn intlayer build --watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build --watch
+```
+
+```bash packageManager="bun"
+bun x intlayer build --watch
+```
+
+Эта команда по умолчанию найдет ваши файлы декларации контента по пути `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` и построит словари в директории `.intlayer`.
 
 ## Псевдонимы:
 
@@ -62,3 +90,7 @@ npx intlayer build --watch
 - **`--no-cache`**: Отключить кэш.
 
   > Пример: `npx intlayer build --no-cache`
+
+- **`--check-types`**: Проверяет типы файлов объявления контента.
+
+  > Пример: `npx intlayer build --check-types`

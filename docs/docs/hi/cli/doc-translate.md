@@ -21,8 +21,28 @@ slugs:
 
 `doc translate` कमांड AI अनुवाद सेवाओं का उपयोग करके दस्तावेज़ फ़ाइलों को एक मूल locale से लक्षित locale में स्वचालित रूप से अनुवाद करता है।
 
-```bash
+## मुख्य बिंदु:
+
+- AI मॉडल की संदर्भ विंडो सीमा के भीतर रहने के लिए बड़ी markdown फ़ाइलों को चंक्स में विभाजित करता है।
+- यदि आउटपुट प्रारूप गलत है तो अनुवाद को पुनः प्रयास करता है।
+- अनुवाद सटीकता में सुधार के लिए एप्लिकेशन और फ़ाइल-विशिष्ट संदर्भ को शामिल करता है।
+- मौजूदा अनुवादों को अधिलेखित न करके उन्हें संरक्षित करता है।
+- गति बढ़ाने के लिए कतार प्रणाली का उपयोग करके फ़ाइलों, चंक्स और लोकेल्स को समानांतर में संसाधित करता है।
+
+```bash packageManager="npm"
 npx intlayer doc translate
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc translate
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc translate
+```
+
+```bash packageManager="bun"
+bun x intlayer doc translate
 ```
 
 ## तर्क:
@@ -78,6 +98,7 @@ npx intlayer doc translate
 - **`--temperature [temperature]`**: AI मॉडल के लिए तापमान सेटिंग।
 - **`--api-key [apiKey]`**: AI सेवा के लिए अपनी स्वयं की API कुंजी प्रदान करें।
 - **`--application-context [applicationContext]`**: AI अनुवाद के लिए अतिरिक्त संदर्भ प्रदान करें।
+- **`--data-serialization [dataSerialization]`**: Intlayer की AI सुविधाओं के लिए उपयोग किया जाने वाला डेटा सीरियलाइजेशन प्रारूप। विकल्प: `json` (मानक, विश्वसनीय), `toon` (कम टोकन, कम सुसंगत)।
 - **`--custom-prompt [prompt]`**: अनुवाद के लिए उपयोग किए जाने वाले बेस प्रॉम्प्ट को कस्टमाइज़ करें। (ध्यान दें: अधिकांश उपयोग मामलों के लिए, `--custom-instructions` विकल्प की सिफारिश की जाती है क्योंकि यह अनुवाद व्यवहार पर बेहतर नियंत्रण प्रदान करता है।)
 
   > उदाहरण: `npx intlayer doc translate --model deepseek-chat --provider deepseek --temperature 0.5 --api-key sk-1234567890 --application-context "My application is a cat store"`

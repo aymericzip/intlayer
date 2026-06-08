@@ -1,39 +1,39 @@
-import {
-  type ContentNode,
-  type KeyPath,
-  type Locale,
-  NodeType,
-} from '@intlayer/types';
+import type { ContentNode } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import * as NodeTypes from '@intlayer/types/nodeType';
 
 export const getContentNodeByKeyPath = (
   dictionaryContent: ContentNode,
   keyPath: KeyPath[],
-  fallbackLocale?: Locale
+  fallbackLocale?: LocalesValues
 ): ContentNode => {
   let currentValue: any = structuredClone(dictionaryContent);
 
   for (const keyObj of keyPath) {
     // Auto-resolve translation nodes when fallbackLocale is provided
-    if (fallbackLocale && currentValue?.nodeType === NodeType.Translation) {
-      currentValue = currentValue?.[NodeType.Translation]?.[fallbackLocale];
+    if (fallbackLocale && currentValue?.nodeType === NodeTypes.TRANSLATION) {
+      currentValue = currentValue?.[NodeTypes.TRANSLATION]?.[fallbackLocale];
     }
 
-    if (keyObj.type === NodeType.Object || keyObj.type === NodeType.Array) {
+    if (keyObj.type === NodeTypes.OBJECT || keyObj.type === NodeTypes.ARRAY) {
       currentValue = currentValue?.[keyObj.key];
     }
 
     if (
-      keyObj.type === NodeType.Translation ||
-      keyObj.type === NodeType.Condition ||
-      keyObj.type === NodeType.Enumeration
+      keyObj.type === NodeTypes.TRANSLATION ||
+      keyObj.type === NodeTypes.CONDITION ||
+      keyObj.type === NodeTypes.ENUMERATION ||
+      keyObj.type === NodeTypes.PLURAL
     ) {
       currentValue = currentValue?.[keyObj.type]?.[keyObj.key];
     }
 
     if (
-      keyObj.type === NodeType.Markdown ||
-      keyObj.type === NodeType.Insertion ||
-      keyObj.type === NodeType.File
+      keyObj.type === NodeTypes.MARKDOWN ||
+      keyObj.type === NodeTypes.HTML ||
+      keyObj.type === NodeTypes.INSERTION ||
+      keyObj.type === NodeTypes.FILE
     ) {
       currentValue = currentValue?.[keyObj.type];
     }

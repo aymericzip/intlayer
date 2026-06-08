@@ -23,7 +23,16 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@components/*": ["./src/components/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@libs/*": ["./src/libs/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@api/*": ["./src/api/*"],
+      "@providers/*": ["./src/providers/*"],
+      "@/*": ["./src/*"]
+    }
   },
 
   "include": ["**/*", ".storybook/**/*", ".intlayer/**/*"],

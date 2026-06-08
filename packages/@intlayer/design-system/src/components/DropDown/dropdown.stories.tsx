@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { ChevronDown, Menu, Settings, User } from 'lucide-react';
 import { useState } from 'react';
-import { DropDown, DropDownAlign } from './';
+import { DropDown } from './';
 
 /**
  * DropDown Component Stories
@@ -345,7 +345,7 @@ export const AlignmentOptions: Story = {
         <DropDown.Panel
           identifier="start-aligned"
           isOverable
-          align={DropDownAlign.START}
+          align="start"
           className="rounded-lg border border-gray-200 bg-white shadow-lg"
         >
           <div className="min-w-48 p-3">
@@ -365,7 +365,7 @@ export const AlignmentOptions: Story = {
       {/* End Aligned */}
       <DropDown identifier="end-aligned" className="w-48">
         <DropDown.Trigger identifier="end-aligned">
-          <div className="flex items-center gap-2 rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600">
+          <div className="flex items-center gap-2 rounded bg-error px-4 py-2 text-white hover:bg-red-600">
             <span>End Aligned</span>
             <ChevronDown size={16} />
           </div>
@@ -373,7 +373,7 @@ export const AlignmentOptions: Story = {
         <DropDown.Panel
           identifier="end-aligned"
           isOverable
-          align={DropDownAlign.END}
+          align="end"
           className="rounded-lg border border-gray-200 bg-white shadow-lg"
         >
           <div className="min-w-48 p-3">
@@ -729,7 +729,7 @@ export const NavigationMenu: Story = {
               identifier="user-nav"
               isOverable
               isFocusable
-              align={DropDownAlign.END}
+              align="end"
               className="min-w-48 rounded-lg border border-gray-200 bg-white shadow-lg"
             >
               <div className="p-2">
@@ -795,7 +795,7 @@ export const ContextMenu: Story = {
               identifier="context-menu"
               isOverable
               isFocusable
-              align={DropDownAlign.END}
+              align="end"
               className="min-w-48 rounded-lg border border-gray-200 bg-white shadow-lg"
             >
               <div className="p-1">

@@ -1,8 +1,8 @@
+import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
-  Dictionary,
   LocalesValues,
-} from '@intlayer/types';
+} from '@intlayer/types/module_augmentation';
 import { getDictionary } from '../getDictionary';
 import { IntlayerServerContext } from './IntlayerServerProvider';
 import { getServerContext } from './serverContext';
@@ -13,14 +13,17 @@ import { getServerContext } from './serverContext';
  * If the locale is not provided, it will use the locale from the server context
  */
 export const useDictionary = <
-  T extends Dictionary,
-  L extends LocalesValues = DeclaredLocales,
+  const T extends Dictionary,
+  const L extends LocalesValues = DeclaredLocales,
 >(
   dictionary: T,
-  locale?: L
+  locale?: L,
+  fallbackLocale?: DeclaredLocales
 ) => {
   const localeTarget =
-    locale ?? getServerContext<LocalesValues>(IntlayerServerContext);
+    locale ??
+    getServerContext<LocalesValues>(IntlayerServerContext) ??
+    fallbackLocale;
 
   return getDictionary<T, L>(dictionary, localeTarget as L);
 };

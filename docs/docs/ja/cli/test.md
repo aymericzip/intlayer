@@ -17,8 +17,20 @@ slugs:
 
 # 翻訳の欠落をテストする
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 ## エイリアス:
@@ -69,8 +81,20 @@ Total missing required locales: 0
 
 ## 例:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 この出力により、すべての設定されたロケールでアプリケーションが正しく動作するために、どの翻訳を完了する必要があるかを迅速に特定できます。

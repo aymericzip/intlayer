@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
-title: Cara menerjemahkan aplikasi Vite dan Vue Anda – panduan i18n 2025
-description: Temukan cara membuat situs web Vite dan Vue Anda menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya.
+updatedAt: 2026-05-31
+title: "Vite + Vue i18n - Panduan lengkap menerjemahkan aplikasi Anda"
+description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Vite + Vue multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
   - Internasionalisasi
   - Dokumentasi
@@ -15,11 +15,18 @@ slugs:
   - environment
   - vite-and-vue
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-vue-template
+applicationShowcase: https://intlayer-vite-vue-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=IE3XWkZ6a5U
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Perbarui penggunaan API useIntlayer Solid ke akses properti langsung"
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: "Tambahkan perintah init"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inisialisasi riwayat
+    changes: "Inisialisasi riwayat"
 ---
 
 # Terjemahkan situs web Vite dan Vue Anda menggunakan Intlayer | Internasionalisasi (i18n)
@@ -28,64 +35,124 @@ history:
 
 <TOC/>
 
-## Apa itu Intlayer?
+## Mengapa Intlayer dibandingkan alternatif?
 
-**Intlayer** adalah pustaka internasionalisasi (i18n) open-source yang inovatif, dirancang untuk menyederhanakan dukungan multibahasa dalam aplikasi web modern.
+Dibandingkan dengan solusi utama seperti `vue-i18n` atau `i18next`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
-Dengan Intlayer, Anda dapat:
+<AccordionGroup>
 
-- **Mengelola terjemahan dengan mudah** menggunakan kamus deklaratif di tingkat komponen.
-- **Melokalkan metadata**, rute, dan konten secara dinamis.
-- **Memastikan dukungan TypeScript** dengan tipe yang dihasilkan secara otomatis, meningkatkan autocompletion dan deteksi kesalahan.
-- **Memanfaatkan fitur canggih**, seperti deteksi dan pergantian locale secara dinamis.
+<Accordion header="Cakupan Vue Lengkap">
+
+Intlayer dioptimalkan agar berfungsi sempurna dengan Vue dengan menawarkan **pelingkupan konten tingkat komponen**, **terjemahan reaktif**, dan semua fitur yang diperlukan untuk meningkatkan internasionalisasi (i18n).
+
+</Accordion>
+
+<Accordion header="Ukuran bundle">
+
+Daripada memuat file JSON berukuran besar ke halaman Anda, muat saja konten yang diperlukan. Intlayer membantu **mengurangi ukuran bundle dan halaman Anda hingga 50%**.
+
+</Accordion>
+
+<Accordion header="Kemampuan Pemeliharaan">
+
+Mencakup konten aplikasi Anda **memfasilitasi pemeliharaan** untuk aplikasi berskala besar. Anda dapat menduplikasi atau menghapus satu folder fitur tanpa beban mental untuk meninjau seluruh basis kode konten Anda. Selain itu, Intlayer **diketik sepenuhnya** untuk memastikan keakuratan konten Anda.
+
+</Accordion>
+
+<Accordion header="Agen AI">
+
+Menempatkan konten bersama **mengurangi konteks yang diperlukan** dengan Model Bahasa Besar (LLM). Intlayer juga dilengkapi dengan serangkaian alat, seperti **CLI** untuk menguji terjemahan yang hilang,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, dan **[agent skill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, untuk menjadikan pengalaman pengembang (DX) lebih lancar bagi agen AI.
+
+</Accordion>
+
+<Accordion header="Otomatisasi">
+
+Gunakan otomatisasi untuk menerjemahkan dalam saluran CI/CD Anda menggunakan LLM pilihan Anda dengan biaya penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomatiskan ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
+
+</Accordion>
+
+<Accordion header="Pertunjukan">
+
+Menghubungkan file JSON berukuran besar ke komponen dapat menyebabkan masalah kinerja dan reaktivitas. Intlayer mengoptimalkan pemuatan konten Anda pada waktu pembuatan.
+
+</Accordion>
+
+<Accordion header="Menskalakan tanpa pengembang">
+
+Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** yang dihosting sendiri dan **[CMS lengkap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** untuk membantu Anda mengelola konten multibahasa secara **real-time**, membuat kolaborasi dengan penerjemah, copywriter, dan anggota tim lainnya menjadi lancar. Konten dapat disimpan secara lokal dan/atau jarak jauh.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
 ## Panduan Langkah demi Langkah untuk Mengatur Intlayer dalam Aplikasi Vite dan Vue
 
-<Tab defaultTab="video">
-  <TabItem label="Video" value="video">
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
   
-<iframe title="The best i18n solution for Vite and Vue? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/IE3XWkZ6a5U?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="The best i18n solution for Vite and Vue? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/IE3XWkZ6a5U?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-  </TabItem>
-  <TabItem label="Kode" value="code">
+  </Tab>
+  <Tab label="Kode" value="code">
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-vite-vue-template?embed=1&ctl=1&file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-vite-vue-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-vite-vue-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo - intlayer-vite-vue-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
 
 Lihat [Template Aplikasi](https://github.com/aymericzip/intlayer-vite-vue-template) di GitHub.
 
-### Langkah 1: Instalasi Dependensi
+<Steps>
+
+<Step number={1} title="Instalasi Dependensi">
 
 Instal paket yang diperlukan menggunakan npm:
 
 ```bash packageManager="npm"
 npm install intlayer vue-intlayer
 npm install vite-intlayer --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer vue-intlayer
 pnpm add vite-intlayer --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer vue-intlayer
 yarn add vite-intlayer --save-dev
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer vue-intlayer
+bun add vite-intlayer --dev
+bun x intlayer init
 ```
 
 - **intlayer**
 
-  Paket inti yang menyediakan alat internasionalisasi untuk manajemen konfigurasi, terjemahan, [deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md), transpile, dan [perintah CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_cli.md).
+  Paket inti yang menyediakan alat internasionalisasi untuk manajemen konfigurasi, terjemahan, [deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md), transpile, dan [perintah CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md).
 
 - **vue-intlayer**
   Paket yang mengintegrasikan Intlayer dengan aplikasi Vue. Paket ini menyediakan context providers dan composables untuk internasionalisasi Vue.
@@ -93,11 +160,13 @@ yarn add vite-intlayer --save-dev
 - **vite-intlayer**
   Termasuk plugin Vite untuk mengintegrasikan Intlayer dengan [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), serta middleware untuk mendeteksi locale yang dipilih pengguna, mengelola cookie, dan menangani pengalihan URL.
 
-### Langkah 2: Konfigurasi proyek Anda
+</Step>
+
+<Step number={2} title="Konfigurasi proyek Anda">
 
 Buat file konfigurasi untuk mengatur bahasa aplikasi Anda:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -115,90 +184,34 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Bahasa lain milik Anda
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Bahasa lain milik Anda
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 > Melalui file konfigurasi ini, Anda dapat mengatur URL yang dilokalkan, pengalihan middleware, nama cookie, lokasi dan ekstensi deklarasi konten Anda, menonaktifkan log Intlayer di konsol, dan lainnya. Untuk daftar lengkap parameter yang tersedia, lihat [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
 
-### Langkah 3: Integrasikan Intlayer dalam Konfigurasi Vite Anda
+</Step>
+
+<Step number={3} title="Integrasikan Intlayer dalam Konfigurasi Vite Anda">
 
 Tambahkan plugin intlayer ke dalam konfigurasi Anda.
 
-```typescript fileName="vite.config.ts" codeFormat="typescript"
+```typescript fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), intlayer()],
-});
-```
-
-```javascript fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
-import { intlayer } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [vue(), intlayer()],
-});
-```
-
-```javascript fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const vue = require("@vitejs/plugin-vue");
-const { intlayer } = require("vite-intlayer");
-
-// https://vitejs.dev/config/
-module.exports = defineConfig({
   plugins: [vue(), intlayer()],
 });
 ```
 
 > Plugin Vite `intlayer()` digunakan untuk mengintegrasikan Intlayer dengan Vite. Plugin ini memastikan pembuatan file deklarasi konten dan memantau file tersebut dalam mode pengembangan. Plugin ini juga mendefinisikan variabel lingkungan Intlayer dalam aplikasi Vite. Selain itu, plugin ini menyediakan alias untuk mengoptimalkan performa.
 
-### Langkah 4: Deklarasikan Konten Anda
+</Step>
+
+<Step number={4} title="Deklarasikan Konten Anda">
 
 Buat dan kelola deklarasi konten Anda untuk menyimpan terjemahan:
 
-```tsx fileName="src/helloWorld.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/helloWorld.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -244,108 +257,6 @@ const helloWorldContent = {
 } satisfies Dictionary;
 
 export default helloWorldContent;
-```
-
-```javascript fileName="src/helloWorld.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const helloWorldContent = {
-  key: "helloworld",
-  content: {
-    count: t({
-      en: "count is ",
-      id: "jumlah adalah ",
-      fr: "le compte est ",
-      es: "el recuento es ",
-    }),
-    edit: t({
-      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-      id: "Edit <code>components/HelloWorld.vue</code> dan simpan untuk menguji HMR",
-      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
-    }),
-    checkOut: t({
-      en: "Check out ",
-      id: "Periksa ",
-      fr: "Vérifiez ",
-      es: "Compruebe ",
-    }),
-    officialStarter: t({
-      en: "the official Vue + Vite starter",
-      id: "starter resmi Vue + Vite",
-      fr: "le starter officiel Vue + Vite",
-      es: "el starter oficial Vue + Vite",
-    }),
-    learnMore: t({
-      en: "Learn more about IDE Support for Vue in the ",
-      id: "Pelajari lebih lanjut tentang Dukungan IDE untuk Vue di ",
-      fr: "En savoir plus sur le support IDE pour Vue dans le ",
-      es: "Aprenda más sobre el soporte IDE para Vue en el ",
-    }),
-    vueDocs: t({
-      en: "Vue Docs Scaling up Guide",
-      id: "Panduan Scaling up Vue Docs",
-      fr: "Vue Docs Scaling up Guide",
-      es: "Vue Docs Scaling up Guide",
-    }),
-    readTheDocs: t({
-      en: "Click on the Vite and Vue logos to learn more",
-      fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
-      es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
-      id: "Klik logo Vite dan Vue untuk mempelajari lebih lanjut",
-    }),
-  },
-};
-
-export default helloWorldContent;
-```
-
-```javascript fileName="src/helloWorld.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "helloworld",
-  content: {
-    count: t({ en: "count is ", id: "jumlah adalah ", fr: "le compte est ", es: "el recuento es " }),
-    edit: t({
-      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-      id: "Edit <code>components/HelloWorld.vue</code> dan simpan untuk menguji HMR",
-      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
-    }),
-    checkOut: t({ en: "Check out ", id: "Periksa ", fr: "Vérifiez ", es: "Compruebe " }),
-    officialStarter: t({
-      en: "the official Vue + Vite starter",
-      id: "starter resmi Vue + Vite",
-      fr: "le starter officiel Vue + Vite",
-      es: "el starter oficial Vue + Vite",
-    }),
-    learnMore: t({
-      en: "Learn more about IDE Support for Vue in the ",
-      id: "Pelajari lebih lanjut tentang Dukungan IDE untuk Vue di ",
-      fr: "En savoir plus sur le support IDE pour Vue dans le ",
-      es: "Aprenda más sobre el soporte IDE para Vue en el ",
-    }),
-    vueDocs: t({
-      en: "Vue Docs Scaling up Guide",
-      id: "Panduan Scaling up Vue Docs",
-      fr: "Vue Docs Scaling up Guide",
-      es: "Vue Docs Scaling up Guide",
-    }),
-    readTheDocs: t({
-      en: "Click on the Vite and Vue logos to learn more",
-      id: "Klik pada logo Vite dan Vue untuk mempelajari lebih lanjut",
-      fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
-      es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
-    }),
-      es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
-    }),
-  },
-};
-
-module.exports = appContent;
 ```
 
 ```json fileName="src/helloWorld.content.json" contentDeclarationFormat="json"
@@ -420,24 +331,26 @@ module.exports = appContent;
 }
 ```
 
-> Deklarasi konten Anda dapat didefinisikan di mana saja dalam aplikasi Anda selama sudah dimasukkan ke dalam direktori `contentDir` (secara default, `./src`). Dan sesuai dengan ekstensi file deklarasi konten (secara default, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> Deklarasi konten Anda dapat didefinisikan di mana saja dalam aplikasi Anda selama sudah dimasukkan ke dalam direktori `contentDir` (secara default, `./src`). Dan sesuai dengan ekstensi file deklarasi konten (secara default, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Untuk detail lebih lanjut, lihat [dokumentasi deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
 
-### Langkah 5: Gunakan Intlayer dalam Kode Anda
+</Step>
+
+<Step number={5} title="Gunakan Intlayer dalam Kode Anda">
 
 Untuk memanfaatkan fitur internasionalisasi Intlayer di seluruh aplikasi Vue Anda, pertama-tama Anda perlu mendaftarkan instance singleton Intlayer di file utama Anda. Langkah ini sangat penting karena menyediakan konteks internasionalisasi ke semua komponen dalam aplikasi Anda, sehingga terjemahan dapat diakses di mana saja dalam pohon komponen Anda.
 
 ```javascript fileName=main.js
 import { createApp } from "vue";
-import { installIntlayer } from "vue-intlayer";
+import { intlayer } from "vue-intlayer";
 import App from "./App.vue";
 import "./style.css";
 
 const app = createApp(App);
 
 // Menyuntikkan provider di tingkat atas
-installIntlayer(app);
+app.use(intlayer);
 
 // Memasang aplikasi
 app.mount("#app");
@@ -514,7 +427,11 @@ Intlayer menawarkan berbagai API untuk mengakses konten Anda:
   - Gunakan `const content = useIntlayer("myContent");` dan `{{ content.myContent }}` / `<content.myContent />`.
   - Atau gunakan `const { myContent } = useIntlayer("myContent");` dan `{{ myContent }}` / `<myContent/>` untuk mendestrukturisasi konten.
 
-### (Opsional) Langkah 6: Ubah bahasa konten Anda
+> Jika aplikasi Anda sudah ada, Anda dapat menggunakan [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) secara kombinasi dengan [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md) untuk mengonversi ribuan komponen dalam satu detik.
+
+</Step>
+
+<Step number={6} title="Ubah bahasa konten Anda" isOptional={true}>
 
 Untuk mengubah bahasa konten Anda, Anda dapat menggunakan fungsi `setLocale` yang disediakan oleh composable `useLocale`. Fungsi ini memungkinkan Anda untuk mengatur locale aplikasi dan memperbarui konten sesuai dengan locale tersebut.
 
@@ -581,7 +498,9 @@ const content = useIntlayer("app"); // Buat file deklarasi intlayer terkait
 </template>
 ```
 
-### (Opsional) Langkah 7: Tambahkan Routing yang Dilokalkan ke aplikasi Anda
+</Step>
+
+<Step number={7} title="Tambahkan Routing yang Dilokalkan ke aplikasi Anda" isOptional={true}>
 
 Menambahkan routing yang dilokalkan dalam aplikasi Vue biasanya melibatkan penggunaan Vue Router dengan prefix locale. Ini membuat rute unik untuk setiap bahasa, yang berguna untuk SEO dan URL yang ramah SEO.
 
@@ -597,10 +516,12 @@ Pertama, instal Vue Router:
 
 ```bash packageManager="npm"
 npm install vue-router
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add vue-router
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
@@ -614,7 +535,7 @@ import {
   localeFlatMap,
   type Locale,
 } from 'intlayer';
-import { createIntlayerClient } from 'vue-intlayer';
+import { createIntlayerClient } from "vue-intlayer";
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from './views/home/HomeView.vue';
 import RootView from './views/root/Root.vue';
@@ -697,40 +618,24 @@ Secara paralel, Anda juga dapat menggunakan `intlayerProxy` untuk menambahkan ro
 
 > Perlu dicatat bahwa untuk menggunakan `intlayerProxy` dalam produksi, Anda perlu memindahkan paket `vite-intlayer` dari `devDependencies` ke `dependencies`.
 
-```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
+```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { intlayer, intlayerProxy } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), intlayer(), intlayerProxy()],
+  plugins: [
+    intlayerProxy(), // should be placed first
+    vue(),
+    intlayer(),
+  ],
 });
 ```
 
-```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+</Step>
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [vue(), intlayer(), intlayerProxy()],
-});
-```
-
-```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const vue = require("@vitejs/plugin-vue");
-const { intlayer, intlayerProxy } = require("vite-intlayer");
-
-// https://vitejs.dev/config/
-module.exports = defineConfig({
-  plugins: [vue(), intlayer(), intlayerProxy()],
-});
-```
-
-### (Opsional) Langkah 8: Ubah URL saat locale berubah
+<Step number={8} title="Ubah URL saat locale berubah" isOptional={true}>
 
 Untuk secara otomatis memperbarui URL ketika pengguna mengganti bahasa, Anda dapat memodifikasi komponen `LocaleSwitcher` untuk menggunakan Vue Router:
 
@@ -820,7 +725,9 @@ Tip: Untuk SEO dan aksesibilitas yang lebih baik, gunakan tag seperti `<a href="
 </ol>
 ```
 
-### (Opsional) Langkah 9: Ganti Atribut Bahasa dan Arah pada Tag HTML
+</Step>
+
+<Step number={9} title="Ganti Atribut Bahasa dan Arah pada Tag HTML" isOptional={true}>
 
 Ketika aplikasi Anda mendukung beberapa bahasa, sangat penting untuk memperbarui atribut `lang` dan `dir` pada tag `<html>` agar sesuai dengan locale saat ini. Melakukan hal ini memastikan:
 
@@ -880,7 +787,9 @@ useI18nHTMLAttributes();
 </template>
 ```
 
-### (Opsional) Langkah 10: Membuat Komponen Link yang Dilokalkan
+</Step>
+
+<Step number={10} title="Membuat Komponen Link yang Dilokalkan" isOptional={true}>
 
 Untuk memastikan navigasi aplikasi Anda menghormati locale saat ini, Anda dapat membuat komponen `Link` kustom. Komponen ini secara otomatis menambahkan prefix bahasa saat ini pada URL internal, sehingga. Misalnya, ketika pengguna berbahasa Prancis mengklik tautan ke halaman "About", mereka akan diarahkan ke `/fr/about` alih-alih `/about`.
 
@@ -979,7 +888,9 @@ import RouterLink from "@components/RouterLink.vue";
 </script>
 ```
 
-### (Opsional) Langkah 11: Render Markdown
+</Step>
+
+<Step number={11} title="Render Markdown" isOptional={true}>
 
 Intlayer mendukung rendering konten Markdown langsung di aplikasi Vue Anda. Secara default, Markdown diperlakukan sebagai teks biasa. Untuk mengubah Markdown menjadi HTML kaya, Anda dapat mengintegrasikan [markdown-it](https://github.com/markdown-it/markdown-it), sebuah parser Markdown.
 
@@ -996,7 +907,7 @@ import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
 
 const app = createApp(App);
 
-installIntlayer(app);
+app.use(intlayer);
 
 const md = new MarkdownIt({
   html: true, // mengizinkan tag HTML
@@ -1027,6 +938,107 @@ const { myMarkdownContent } = useIntlayer("my-component");
 </script>
 ```
 
+</Step>
+
+<Step number={1} title="Ekstrak konten komponen Anda" isOptional={true}>
+
+Jika Anda memiliki basis kode yang ada, mengubah ribuan file bisa memakan waktu lama.
+
+Untuk memudahkan proses ini, Intlayer mengusulkan [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) / [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md) untuk mengubah komponen Anda dan mengekstrak kontennya.
+
+Untuk mengaturnya, Anda dapat menambahkan bagian `compiler` di file `intlayer.config.ts` Anda:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... Sisa konfigurasi Anda
+  compiler: {
+    /**
+     * Menunjukkan apakah compiler harus diaktifkan.
+     */
+    enabled: true,
+
+    /**
+     * Menentukan jalur file output
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Menunjukkan apakah komponen harus disimpan setelah diubah. Dengan begitu, compiler dapat dijalankan satu kali saja untuk mengubah aplikasi, lalu dapat dihapus.
+     */
+    saveComponents: false,
+
+    /**
+     * Prefiks kunci kamus
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='Perintah ekstrak'>
+
+Jalankan extractor untuk mengubah komponen Anda dan mengekstrak kontennya
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Compiler Babel'>
+
+Perbarui `vite.config.ts` Anda untuk menyertakan plugin `intlayerCompiler`:
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // Menambahkan plugin compiler
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # Atau npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # Or pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Or yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
+</Step>
+
+</Steps>
+
 ### Konfigurasi TypeScript
 
 Intlayer menggunakan module augmentation untuk mendapatkan manfaat dari TypeScript dan membuat codebase Anda lebih kuat.
@@ -1053,8 +1065,8 @@ Disarankan untuk mengabaikan file-file yang dihasilkan oleh Intlayer. Ini memung
 
 Untuk melakukan ini, Anda dapat menambahkan instruksi berikut ke dalam file `.gitignore` Anda:
 
-```plaintext
-# Abaikan file yang dihasilkan oleh Intlayer
+```bash
+#  Abaikan file yang dihasilkan oleh Intlayer
 .intlayer
 ```
 
@@ -1074,6 +1086,80 @@ Ekstensi ini menyediakan:
 Untuk informasi lebih lanjut tentang cara menggunakan ekstensi ini, lihat dokumentasi [Intlayer VS Code Extension](https://intlayer.org/doc/vs-code-extension).
 
 ---
+
+### (Opsional) Sitemap dan robots.txt (generate saat build)
+
+Intlayer menyediakan `generateSitemap` dan `getMultilingualUrls` untuk memformat `sitemap.xml` multibahasa dan `robots.txt` yang siap untuk crawler, lalu menulisnya secara otomatis ke `public/`. Biasanya skrip Node kecil dijalankan **sebelum** Vite (misalnya hook npm `predev` / `prebuild`).
+
+#### Sitemap
+
+Generator sitemap Intlayer menghormati konfigurasi locale dan menambahkan metadata untuk crawler.
+
+> Sitemap mendukung namespace `xhtml:link` (hreflang). Alih-alih hanya daftar URL datar, Intlayer menghubungkan semua varian bahasa setiap halaman secara dua arah (mis. `/about`, `/fr/about`, atau `/about?lang=fr` tergantung mode routing).
+
+#### Robots.txt
+
+Gunakan `getMultilingualUrls` agar aturan `Disallow` mencakup semua varian URL jalur sensitif.
+
+#### 1. Buat `generate-seo.mjs` di root proyek
+
+```javascript fileName="generate-seo.mjs"
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import { generateSitemap, getMultilingualUrls } from "intlayer";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const SITE_URL = (process.env.SITE_URL || "http://localhost:5173").replace(
+  /\/$/,
+  ""
+);
+
+const pathList = [
+  { path: "/", changefreq: "daily", priority: 1.0 },
+  { path: "/about", changefreq: "monthly", priority: 0.7 },
+];
+
+const sitemapXml = generateSitemap(pathList, { siteUrl: SITE_URL });
+fs.writeFileSync(path.join(__dirname, "public", "sitemap.xml"), sitemapXml);
+
+const getAllMultilingualUrls = (urls) =>
+  urls.flatMap((url) => Object.values(getMultilingualUrls(url)));
+
+const disallowedPaths = getAllMultilingualUrls(["/admin", "/private"]);
+
+const robotsTxt = [
+  "User-agent: *",
+  "Allow: /",
+  ...disallowedPaths.map((path) => `Disallow: ${path}`),
+  "",
+  `Sitemap: ${SITE_URL}/sitemap.xml`,
+].join("\n");
+
+fs.writeFileSync(path.join(__dirname, "public", "robots.txt"), robotsTxt);
+
+console.log("SEO files generated successfully.");
+```
+
+Paket `intlayer` harus terpasang. Setel `SITE_URL` di lingkungan produksi (misalnya di CI).
+
+> Disarankan `generate-seo.mjs` untuk ESM Node. Jika memakai `generate-seo.js`, pastikan `"type": "module"` di `package.json` atau aktifkan ESM lainnya.
+
+#### 2. Jalankan skrip sebelum Vite
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "dev": "vite",
+    "prebuild": "node generate-seo.mjs",
+    "build": "vite build",
+    "preview": "vite preview"
+  }
+}
+```
+
+Sesuaikan perintah jika memakai pnpm atau yarn. Skrip juga bisa dipanggil dari CI.
 
 ### Melangkah Lebih Jauh
 

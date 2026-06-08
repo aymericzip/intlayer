@@ -1,16 +1,31 @@
-import configuration from '@intlayer/config/built';
-import { localeResolver } from '@intlayer/core';
-import type { LocalesValues } from '@intlayer/types';
+import { internationalization } from '@intlayer/config/built';
+import { setIntlayerIdentifier } from '@intlayer/config/client';
+import { localeResolver } from '@intlayer/core/localization';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import {
   type Component,
   createContext,
   createEffect,
+  createMemo,
   createSignal,
+  lazy,
+  on,
+  onMount,
   type ParentProps,
+  Suspense,
+  untrack,
   useContext,
 } from 'solid-js';
-import { IntlayerEditorProvider } from '../editor/IntlayerEditorProvider';
-import { localeCookie, setLocaleInStorage } from './useLocaleStorage';
+import { localeInStorage, setLocaleInStorage } from './useLocaleStorage';
+
+const LazyEditorProvider =
+  process.env['INTLAYER_EDITOR_ENABLED'] !== 'false'
+    ? lazy(() =>
+        import('../editor/EditorProvider').then((m) => ({
+          default: m.EditorProvider,
+        }))
+      )
+    : null;
 
 type IntlayerValue = {
   locale: () => LocalesValues;
@@ -23,22 +38,19 @@ type IntlayerValue = {
  * Context that store the current locale on the client side
  */
 export const IntlayerClientContext = createContext<IntlayerValue>({
-  locale: () =>
-    localeCookie ?? configuration?.internationalization?.defaultLocale,
+  locale: () => localeInStorage ?? internationalization?.defaultLocale,
   setLocale: () => null,
-  disableEditor: false,
 });
 
 /**
  * Hook that provides the current locale
  */
-export const useIntlayerContext = () => useContext(IntlayerClientContext);
+export const useIntlayerContext = () => useContext(IntlayerClientContext) ?? {};
 
 export type IntlayerProviderProps = ParentProps<{
   locale?: LocalesValues;
   defaultLocale?: LocalesValues;
   setLocale?: (locale: LocalesValues) => void;
-  disableEditor?: boolean;
   isCookieEnabled?: boolean;
 }>;
 
@@ -48,47 +60,16 @@ export type IntlayerProviderProps = ParentProps<{
 export const IntlayerProviderContent: Component<IntlayerProviderProps> = (
   props
 ) => {
-  const { internationalization } = configuration ?? {};
   const { defaultLocale: defaultLocaleConfig, locales: availableLocales } =
     internationalization ?? {};
 
   const defaultLocale =
-    props.locale ?? localeCookie ?? props.defaultLocale ?? defaultLocaleConfig;
+    props.locale ??
+    localeInStorage ??
+    props.defaultLocale ??
+    defaultLocaleConfig;
 
   const [currentLocale, setCurrentLocale] = createSignal(defaultLocale);
-
-  // Handle cross-frame communication for locale synchronization
-  createEffect(() => {
-    if (typeof window !== 'undefined') {
-      const handleMessage = (event: MessageEvent) => {
-        if (event.data?.type === 'INTLAYER_LOCALE_CHANGE') {
-          const newLocale = event.data.locale;
-          if (availableLocales?.includes(newLocale)) {
-            setCurrentLocale(newLocale);
-          }
-        }
-      };
-
-      window.addEventListener('message', handleMessage);
-
-      // Cleanup function
-      return () => window.removeEventListener('message', handleMessage);
-    }
-  });
-
-  // Sync locale changes with other frames
-  createEffect(() => {
-    const locale = currentLocale();
-    if (typeof window !== 'undefined') {
-      window.postMessage(
-        {
-          type: 'INTLAYER_LOCALE_CHANGE',
-          locale,
-        },
-        '*'
-      );
-    }
-  });
 
   const setLocaleBase = (newLocale: LocalesValues) => {
     if (currentLocale().toString() === newLocale.toString()) return;
@@ -105,14 +86,29 @@ export const IntlayerProviderContent: Component<IntlayerProviderProps> = (
   const setLocale = props.setLocale ?? setLocaleBase;
 
   // Use createMemo for derived reactive values
-  const resolvedLocale = () => localeResolver(props.locale ?? currentLocale());
+  const locale = createMemo(() => localeResolver(currentLocale()));
+
+  createEffect(
+    on(
+      () => props.locale,
+      (newPropLocale) => {
+        if (newPropLocale && newPropLocale !== untrack(currentLocale)) {
+          setCurrentLocale(newPropLocale);
+        }
+      },
+      { defer: true }
+    )
+  );
+
+  onMount(() => {
+    setIntlayerIdentifier();
+  });
 
   return (
     <IntlayerClientContext.Provider
       value={{
-        locale: resolvedLocale,
+        locale,
         setLocale,
-        disableEditor: props.disableEditor,
       }}
     >
       {props.children}
@@ -120,8 +116,34 @@ export const IntlayerProviderContent: Component<IntlayerProviderProps> = (
   );
 };
 
+/**
+ * Main provider for Intlayer in Solid applications.
+ *
+ * It provides the Intlayer context to your application, allowing the use
+ * of hooks like `useIntlayer` and `useLocale`.
+ *
+ * @param props - The provider props.
+ * @returns The provider component.
+ *
+ * @example
+ * ```tsx
+ * import { IntlayerProvider } from 'solid-intlayer';
+ *
+ * const App = () => (
+ *   <IntlayerProvider>
+ *     <MyComponent />
+ *   </IntlayerProvider>
+ * );
+ * ```
+ */
 export const IntlayerProvider: Component<IntlayerProviderProps> = (props) => (
-  <IntlayerEditorProvider>
-    <IntlayerProviderContent {...props} />
-  </IntlayerEditorProvider>
+  <IntlayerProviderContent {...props}>
+    {process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
+      LazyEditorProvider && (
+        <Suspense>
+          <LazyEditorProvider />
+        </Suspense>
+      )}
+    {props.children}
+  </IntlayerProviderContent>
 );

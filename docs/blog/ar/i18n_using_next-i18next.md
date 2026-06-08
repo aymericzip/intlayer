@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2025-11-01
-title: كيفية تعريب تطبيق Next.js الخاص بك باستخدام next-i18next
-description: إعداد i18n باستخدام next-i18next -  أفضل الممارسات ونصائح تحسين محركات البحث لتطبيقات Next.js متعددة اللغات، تغطي التعريب، تنظيم المحتوى، والإعداد الفني.
+updatedAt: 2026-05-31
+title: كيفية تعريب تطبيق Next.js الخاص بك باستخدام next-i18next - الدليل الكامل لترجمة Translate Next.js 16 with next-i18next — App Router Setup
+description: أفضل حل لحجم الحزمة وتحسين محركات البحث والأداء والصيانة. اجعل Next.js 16 موقع ويب متعدد اللغات في 2026، ترجمة LLM، Agent Skills & MCP.
 keywords:
   - next-i18next
   - i18next
@@ -21,7 +21,7 @@ history:
     changes: النسخة الأولية
 ---
 
-# كيفية تعريب تطبيق Next.js الخاص بك باستخدام next-i18next في عام 2025
+# كيفية تعريب تطبيق Next.js الخاص بك باستخدام next-i18next في عام 2026
 
 ## جدول المحتويات
 
@@ -75,11 +75,12 @@ history:
 ## دليل خطوة بخطوة لإعداد i18next في تطبيق Next.js
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/next-i18next-template?embed=1&ctl=1&file=src/app/i18n.ts"
+  src="https://ide.intlayer.org/aymericzip/next-i18next-template?file=src/app/i18n.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="عرض توضيحي CodeSandbox - كيفية تدويل تطبيقك باستخدام Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
+/>
 
 > راجع [قالب التطبيق](https://github.com/aymericzip/next-i18next-template) على GitHub.
 
@@ -116,7 +117,9 @@ history:
         └── ServerComponent.tsx
 ```
 
-### الخطوة 1: تثبيت التبعيات
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 قم بتثبيت الحزم اللازمة باستخدام npm:
 
@@ -136,7 +139,9 @@ yarn add i18next react-i18next i18next-resources-to-backend
 - **react-i18next**: روابط React لـ i18next التي توفر هوكات مثل `useTranslation` لمكونات العميل.
 - **i18next-resources-to-backend**: إضافة تتيح التحميل الديناميكي لملفات الترجمة، مما يسمح لك بتحميل مساحات الأسماء التي تحتاجها فقط.
 
-### الخطوة 2: تكوين مشروعك
+</Step>
+
+<Step number={2} title="تكوين مشروعك">
 
 قم بإنشاء ملف تكوين لتعريف اللغات المدعومة، اللغة الافتراضية، ودوال المساعدة لتوطين عناوين URL. يعمل هذا الملف كمصدر وحيد للحقيقة لإعداد i18n الخاص بك ويضمن سلامة الأنواع في جميع أنحاء تطبيقك.
 
@@ -191,7 +196,9 @@ export function getCookie(locale: Locale) {
 }
 ```
 
-### الخطوة 3: مركزية مساحات أسماء الترجمة
+</Step>
+
+<Step number={3} title="مركزية مساحات أسماء الترجمة">
 
 قم بإنشاء مصدر واحد للحقيقة لكل مساحة أسماء (namespace) تعرضها تطبيقك. إعادة استخدام هذه القائمة يحافظ على تزامن كود الخادم والعميل وأدوات التطوير ويفتح إمكانية التحقق القوي من نوع المفاتيح الخاصة بالمترجمين.
 
@@ -201,7 +208,9 @@ export const namespaces = ["common", "about"] as const;
 export type Namespace = (typeof namespaces)[number];
 ```
 
-### الخطوة 4: تعيين نوع قوي لمفاتيح الترجمة باستخدام TypeScript
+</Step>
+
+<Step number={4} title="تعيين نوع قوي لمفاتيح الترجمة باستخدام TypeScript">
 
 قم بتعزيز `i18next` للإشارة إلى ملفات اللغة الرسمية الخاصة بك (عادةً الإنجليزية). يقوم TypeScript بعد ذلك باستنتاج المفاتيح الصحيحة لكل مساحة أسماء، بحيث يتم التحقق من استدعاءات `t()` بشكل كامل.
 
@@ -239,7 +248,9 @@ const { t } = useTranslation("about");
 export type AboutTranslator = TFunction<"about">;
 ```
 
-### الخطوة 5: إعداد تهيئة i18n على جانب الخادم
+</Step>
+
+<Step number={5} title="إعداد تهيئة i18n على جانب الخادم">
 
 قم بإنشاء دالة تهيئة على جانب الخادم تقوم بتحميل الترجمات لمكونات الخادم. تنشئ هذه الدالة نسخة منفصلة من i18next للعرض على جانب الخادم، مما يضمن تحميل الترجمات قبل العرض.
 
@@ -294,7 +305,9 @@ export async function initI18next(
 }
 ```
 
-### الخطوة 6: إنشاء مزود i18n على جانب العميل
+</Step>
+
+<Step number={6} title="إنشاء مزود i18n على جانب العميل">
 
 قم بإنشاء مزود مكون للعميل يلف تطبيقك بسياق i18next. يستقبل هذا المزود الترجمات المحملة مسبقًا من الخادم لمنع وميض المحتوى غير المترجم (FOUC) وتجنب جلب البيانات المكرر.
 
@@ -377,7 +390,9 @@ export default function I18nProvider({
 }
 ```
 
-### الخطوة 7: تعريف مسارات اللغات الديناميكية
+</Step>
+
+<Step number={7} title="تعريف مسارات اللغات الديناميكية">
 
 قم بإعداد التوجيه الديناميكي للغات عن طريق إنشاء مجلد `[locale]` في مجلد التطبيق الخاص بك. هذا يسمح لـ Next.js بالتعامل مع التوجيه بناءً على اللغة حيث تصبح كل لغة جزءًا من عنوان URL (مثل `/en/about`، `/fr/about`).
 
@@ -414,7 +429,7 @@ export default function LocaleLayout({
   // التحقق من صحة اللغة من معلمات URL
   // إذا تم توفير لغة غير صالحة، يتم الرجوع إلى اللغة الافتراضية
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   // تحديد اتجاه النص بناءً على اللغة
@@ -429,7 +444,9 @@ export default function LocaleLayout({
 }
 ```
 
-### الخطوة 8: إنشاء ملفات الترجمة الخاصة بك
+</Step>
+
+<Step number={8} title="إنشاء ملفات الترجمة الخاصة بك">
 
 قم بإنشاء ملفات JSON لكل لغة ومساحة أسماء. تتيح لك هذه البنية تنظيم الترجمات بشكل منطقي وتحميل ما تحتاجه فقط لكل صفحة.
 
@@ -483,7 +500,9 @@ export default function LocaleLayout({
 }
 ```
 
-### الخطوة 9: استخدام الترجمات في صفحاتك
+</Step>
+
+<Step number={9} title="استخدام الترجمات في صفحاتك">
 
 قم بإنشاء مكون صفحة يقوم بتهيئة i18next على الخادم ويمرر الترجمات إلى مكونات الخادم والعميل على حد سواء. هذا يضمن تحميل الترجمات قبل العرض ويمنع وميض المحتوى.
 
@@ -543,7 +562,9 @@ export default async function AboutPage({
 }
 ```
 
-### الخطوة 10: استخدام الترجمات في مكونات العميل
+</Step>
+
+<Step number={10} title="استخدام الترجمات في مكونات العميل">
 
 يمكن لمكونات العميل استخدام الخطاف `useTranslation` للوصول إلى الترجمات. يوفر هذا الخطاف الوصول إلى دالة الترجمة ومثيل i18n، مما يتيح لك ترجمة المحتوى والوصول إلى معلومات اللغة.
 
@@ -594,7 +615,9 @@ const ClientComponent = () => {
 export default ClientComponent;
 ```
 
-### الخطوة 11: استخدام الترجمات في مكونات الخادم
+</Step>
+
+<Step number={11} title="استخدام الترجمات في مكونات الخادم">
 
 لا يمكن لمكونات الخادم استخدام React hooks، لذلك تستقبل الترجمات عبر props من مكونات الوالد الخاصة بها. هذه الطريقة تحافظ على تزامن مكونات الخادم وتسمح بتضمينها داخل مكونات العميل.
 
@@ -640,9 +663,9 @@ const ServerComponent = ({ t, locale, count }: ServerComponentProps) => {
 export default ServerComponent;
 ```
 
----
+</Step>
 
-### (اختياري) الخطوة 12: تغيير لغة المحتوى الخاص بك
+<Step number={12} title="تغيير لغة المحتوى الخاص بك" isOptional={true}>
 
 لتغيير لغة المحتوى الخاص بك في Next.js، الطريقة الموصى بها هي استخدام عناوين URL التي تحتوي على بادئة locale وروابط Next.js. المثال أدناه يقرأ locale الحالي من المسار، ويزيله من اسم المسار، ويعرض رابطًا واحدًا لكل locale متاح.
 
@@ -714,7 +737,9 @@ export default function LocaleSwitcher() {
 }
 ```
 
-### (اختياري) الخطوة 13: بناء مكون رابط محلي
+</Step>
+
+<Step number={13} title="بناء مكون رابط محلي" isOptional={true}>
 
 إعادة استخدام عناوين URL المحلية عبر تطبيقك يحافظ على اتساق التنقل وصديق لمحركات البحث (SEO). قم بتغليف `next/link` في مساعد صغير يضيف بادئة للمسارات الداخلية باستخدام اللغة النشطة مع ترك عناوين URL الخارجية بدون تغيير.
 
@@ -765,7 +790,9 @@ export default function LocalizedLink({
 
 > نصيحة: نظرًا لأن `LocalizedLink` هو بديل جاهز، قم بالترحيل تدريجيًا عن طريق تبديل الاستيرادات وترك المكون يتعامل مع عناوين URL الخاصة باللغات.
 
-### (اختياري) الخطوة 14: الوصول إلى اللغة النشطة داخل Server Actions
+</Step>
+
+<Step number={14} title="الوصول إلى اللغة النشطة داخل Server Actions" isOptional={true}>
 
 غالبًا ما تحتاج Server Actions إلى اللغة الحالية للبريد الإلكتروني أو التسجيل أو التكامل مع أطراف ثالثة. قم بدمج ملف تعريف الارتباط الخاص باللغة الذي يحدده البروكسي الخاص بك مع رأس `Accept-Language` كخيار احتياطي.
 
@@ -803,7 +830,9 @@ export async function stuffFromServer(formData: FormData) {
 
 > نظرًا لأن المساعد يعتمد على ملفات تعريف الارتباط (cookies) ورؤوس (headers) Next.js، فإنه يعمل في معالجات المسارات (Route Handlers)، والإجراءات الخادمة (Server Actions)، وسياقات الخادم فقط الأخرى.
 
-### (اختياري) الخطوة 15: تدويل بيانات التعريف الخاصة بك
+</Step>
+
+<Step number={15} title="تدويل بيانات التعريف الخاصة بك" isOptional={true}>
 
 ترجمة المحتوى أمر مهم، لكن الهدف الرئيسي من التدويل هو جعل موقعك الإلكتروني أكثر ظهورًا للعالم. التدويل (I18n) هو رافعة مذهلة لتحسين ظهور موقعك الإلكتروني من خلال تحسين محركات البحث (SEO) بشكل صحيح.
 
@@ -870,7 +899,9 @@ export default async function AboutPage() {
 }
 ```
 
-### (اختياري) الخطوة 16: تعريب خريطة الموقع الخاصة بك
+</Step>
+
+<Step number={16} title="تعريب خريطة الموقع الخاصة بك" isOptional={true}>
 
 قم بإنشاء خريطة موقع تتضمن جميع إصدارات اللغات لصفحاتك. هذا يساعد محركات البحث على اكتشاف وفهرسة جميع إصدارات اللغات لمحتواك.
 
@@ -924,7 +955,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 }
 ```
 
-### (اختياري) الخطوة 17: تعريب ملف robots.txt الخاص بك
+</Step>
+
+<Step number={17} title="تعريب ملف robots.txt الخاص بك" isOptional={true}>
 
 قم بإنشاء ملف robots.txt يتعامل بشكل صحيح مع جميع إصدارات اللغات لمساراتك المحمية. هذا يضمن أن محركات البحث لا تقوم بفهرسة صفحات المسؤول أو لوحة التحكم بأي لغة.
 
@@ -955,7 +988,9 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-### (اختياري) الخطوة 18: إعداد Middleware لتوجيه اللغة
+</Step>
+
+<Step number={18} title="إعداد Middleware لتوجيه اللغة" isOptional={true}>
 
 قم بإنشاء وكيل (proxy) لاكتشاف اللغة المفضلة للمستخدم تلقائيًا وإعادة توجيهه إلى عنوان URL مع بادئة اللغة المناسبة. هذا يحسن تجربة المستخدم من خلال عرض المحتوى بلغته المفضلة.
 
@@ -1044,7 +1079,9 @@ export const config = {
 };
 ```
 
-### (اختياري) الخطوة 19: أتمتة ترجماتك باستخدام Intlayer
+</Step>
+
+<Step number={19} title="أتمتة ترجماتك باستخدام Intlayer" isOptional={true}>
 
 Intlayer هي مكتبة **مجانية** و**مفتوحة المصدر** مصممة لمساعدتك في عملية التوطين في تطبيقك. بينما يتولى i18next تحميل الترجمات وإدارتها، يساعد Intlayer في أتمتة سير عمل الترجمة.
 
@@ -1059,12 +1096,12 @@ Intlayer هي مكتبة **مجانية** و**مفتوحة المصدر** مصم
   يوفر Intlayer دوال اختبار يمكن دمجها في خط أنابيب CI/CD الخاص بك، أو في اختبارات الوحدة الخاصة بك. تعرّف على المزيد حول [اختبار الترجمات الخاصة بك](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/testing.md).
 
 - **أتمتة ترجماتك**،  
-  يوفر Intlayer واجهة سطر أوامر (CLI) وامتداد VSCode لأتمتة ترجماتك. يمكن دمجه في خط أنابيب CI/CD الخاص بك. تعرّف على المزيد حول [أتمتة ترجماتك](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md).  
+  يوفر Intlayer واجهة سطر أوامر (CLI) وامتداد VSCode لأتمتة ترجماتك. يمكن دمجه في خط أنابيب CI/CD الخاص بك. تعرّف على المزيد حول [أتمتة ترجماتك](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md).  
   يمكنك استخدام **مفتاح API الخاص بك، ومزود الذكاء الاصطناعي الذي تختاره**. كما يوفر ترجمات واعية للسياق، راجع [ملء المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/autoFill.md).
 
 - **ربط المحتوى الخارجي**
 - **قم بأتمتة ترجماتك**،  
-  يوفر Intlayer أداة CLI وامتداد VSCode لأتمتة ترجماتك. يمكن دمجه في خط أنابيب CI/CD الخاص بك. تعرّف على المزيد حول [أتمتة ترجماتك](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md).  
+  يوفر Intlayer أداة CLI وامتداد VSCode لأتمتة ترجماتك. يمكن دمجه في خط أنابيب CI/CD الخاص بك. تعرّف على المزيد حول [أتمتة ترجماتك](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md).  
   يمكنك استخدام **مفتاح API الخاص بك، ومزود الذكاء الاصطناعي الذي تختاره**. كما يوفر ترجمات واعية للسياق، راجع [ملء المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/autoFill.md).
 
 - **ربط المحتوى الخارجي**  
@@ -1074,3 +1111,7 @@ Intlayer هي مكتبة **مجانية** و**مفتوحة المصدر** مصم
   يقدم Intlayer محررًا مرئيًا مجانيًا لتحرير محتواك باستخدام محرر مرئي. تعرّف على المزيد حول [التحرير المرئي لترجماتك](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md).
 
 والمزيد. لاكتشاف جميع الميزات التي يوفرها Intlayer، يرجى الرجوع إلى [أهمية توثيق Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/interest_of_intlayer.md).
+
+</Step>
+
+</Steps>

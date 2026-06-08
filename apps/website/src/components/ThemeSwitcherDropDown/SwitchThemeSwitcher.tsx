@@ -1,10 +1,10 @@
 'use client';
 
 import {
-  Modes,
   SwitchSelector,
   type SwitchSelectorChoices,
-} from '@intlayer/design-system';
+} from '@intlayer/design-system/switch-selector';
+import type { Modes } from '@intlayer/design-system/theme-switcher-drop-down';
 import { MoonIcon, SunIcon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';
@@ -21,13 +21,13 @@ export const SwitchThemeSwitcher: FC = () => {
           aria-label="Switch to light mode"
         />
       ),
-      value: Modes.light,
+      value: 'light',
     },
     {
       content: (
         <MoonIcon size={20} data-mode="dark" aria-label="Switch to dark mode" />
       ),
-      value: Modes.dark,
+      value: 'dark',
     },
   ] as SwitchSelectorChoices<Modes>;
 

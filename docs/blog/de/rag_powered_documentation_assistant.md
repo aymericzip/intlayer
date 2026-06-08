@@ -93,7 +93,7 @@ Dieser Kompromiss (Chunk-Größe vs. Überlappung) ist entscheidend für die Eff
 
 ## Schritt 3: Erzeugen von Embeddings
 
-Sobald die Dokumente in Chunks aufgeteilt sind, erzeugen wir **Embeddings** — hochdimensionale Vektoren, die jeden Chunk repräsentieren.
+Sobald die Dokumente in Chunks aufgeteilt sind, erzeugen wir **Embeddings**, hochdimensionale Vektoren, die jeden Chunk repräsentieren.
 
 Ich habe das OpenAI-Modell text-embedding-3-large verwendet, aber Sie können jedes moderne Embedding-Modell nutzen.
 

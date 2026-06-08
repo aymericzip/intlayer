@@ -3,7 +3,7 @@ import { describe, expect, test, vi } from 'vitest';
 import { Link } from './Link';
 
 // Mock the getLocalizedUrl function from @intlayer/core
-vi.mock('@intlayer/core', () => ({
+vi.mock('@intlayer/core/localization', () => ({
   getLocalizedUrl: vi.fn((url, locale) => `/${locale}${url}`),
 }));
 

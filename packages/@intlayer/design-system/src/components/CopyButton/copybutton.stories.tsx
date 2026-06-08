@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { useState } from 'react';
-import { ButtonColor, ButtonSize, ButtonVariant } from '../Button';
+
 import { CopyButton } from '.';
 
 /**
@@ -86,17 +86,49 @@ A specialized button component for copying text content to the clipboard with en
     size: {
       description: 'Icon button size variant',
       control: 'select',
-      options: Object.values(ButtonSize),
+      options: [
+        'xs',
+        'sm',
+        'md',
+        'lg',
+        'xl',
+        'icon-sm',
+        'icon-md',
+        'icon-lg',
+        'icon-xl',
+      ],
     },
     variant: {
       description: 'Visual style variant of the button',
       control: 'select',
-      options: Object.values(ButtonVariant),
+      options: [
+        'default',
+        'none',
+        'outline',
+        'link',
+        'invisible-link',
+        'hoverable',
+        'fade',
+        'input',
+      ],
     },
     color: {
       description: 'Color theme of the button',
       control: 'select',
-      options: Object.values(ButtonColor),
+      options: [
+        'primary',
+        'secondary',
+        'neutral',
+        'light',
+        'dark',
+        'text',
+        'card',
+        'text-inverse',
+        'current',
+        'error',
+        'success',
+        'custom',
+      ],
     },
     isLoading: {
       description: 'Shows loading spinner when true',
@@ -164,7 +196,7 @@ export const DifferentSizes: Story = {
         <div className="mb-2 font-medium text-sm">Extra Small</div>
         <CopyButton
           content="Extra small copy button"
-          size={ButtonSize.ICON_SM}
+          size="icon-sm"
           label="Copy (XS)"
         />
       </div>
@@ -172,7 +204,7 @@ export const DifferentSizes: Story = {
         <div className="mb-2 font-medium text-sm">Medium</div>
         <CopyButton
           content="Medium copy button"
-          size={ButtonSize.ICON_MD}
+          size="icon-md"
           label="Copy (MD)"
         />
       </div>
@@ -180,7 +212,7 @@ export const DifferentSizes: Story = {
         <div className="mb-2 font-medium text-sm">Large</div>
         <CopyButton
           content="Large copy button"
-          size={ButtonSize.ICON_LG}
+          size="icon-lg"
           label="Copy (LG)"
         />
       </div>
@@ -188,7 +220,7 @@ export const DifferentSizes: Story = {
         <div className="mb-2 font-medium text-sm">Extra Large</div>
         <CopyButton
           content="Extra large copy button"
-          size={ButtonSize.ICON_XL}
+          size="icon-xl"
           label="Copy (XL)"
         />
       </div>
@@ -222,17 +254,17 @@ export const ButtonVariants: Story = {
           <div className="flex items-center gap-3 rounded-lg border bg-white p-4">
             <CopyButton
               content="Default variant"
-              variant={ButtonVariant.DEFAULT}
+              variant="default"
               label="Copy (Default)"
             />
             <CopyButton
               content="Outline variant"
-              variant={ButtonVariant.OUTLINE}
+              variant="outline"
               label="Copy (Outline)"
             />
             <CopyButton
               content="Hoverable variant"
-              variant={ButtonVariant.HOVERABLE}
+              variant="hoverable"
               label="Copy (Hoverable)"
             />
           </div>
@@ -243,20 +275,20 @@ export const ButtonVariants: Story = {
           <div className="flex items-center gap-3 rounded-lg bg-gray-900 p-4">
             <CopyButton
               content="Default on dark"
-              variant={ButtonVariant.DEFAULT}
-              color={ButtonColor.PRIMARY}
+              variant="default"
+              color="primary"
               label="Copy (Primary)"
             />
             <CopyButton
               content="Outline on dark"
-              variant={ButtonVariant.OUTLINE}
-              color={ButtonColor.SUCCESS}
+              variant="outline"
+              color="success"
               label="Copy (Success)"
             />
             <CopyButton
               content="Hoverable on dark"
-              variant={ButtonVariant.HOVERABLE}
-              color={ButtonColor.NEUTRAL}
+              variant="hoverable"
+              color="neutral"
               label="Copy (Neutral)"
             />
           </div>
@@ -357,7 +389,7 @@ export const CopyFeedbackDemo: Story = {
                 <CopyButton
                   content={item.content}
                   label={`Copy ${item.label}`}
-                  size={ButtonSize.ICON_SM}
+                  size="icon-sm"
                 />
               </div>
             </div>
@@ -683,7 +715,7 @@ export const CodeDocumentation: Story = {
               content="npm install @intlayer/design-system"
               className="absolute top-2 right-2"
               label="Copy installation command"
-              color={ButtonColor.NEUTRAL}
+              color="neutral"
             />
           </div>
         </div>
@@ -692,7 +724,7 @@ export const CodeDocumentation: Story = {
           <h3 className="mb-2 font-semibold text-lg">Basic Usage</h3>
           <div className="relative">
             <pre className="overflow-x-auto rounded-lg bg-gray-900 p-4 text-gray-100">
-              <code>{`import { CopyButton } from '@intlayer/design-system';
+              <code>{`import { CopyButton } from '@intlayer/design-system/copy-button';
 
 function MyComponent() {
   return (
@@ -704,7 +736,7 @@ function MyComponent() {
 }`}</code>
             </pre>
             <CopyButton
-              content={`import { CopyButton } from '@intlayer/design-system';
+              content={`import { CopyButton } from '@intlayer/design-system/copy-button';
 
 function MyComponent() {
   return (
@@ -716,7 +748,7 @@ function MyComponent() {
 }`}
               className="absolute top-2 right-2"
               label="Copy code example"
-              color={ButtonColor.NEUTRAL}
+              color="neutral"
             />
           </div>
         </div>
@@ -745,7 +777,7 @@ function MyComponent() {
 }`}
               className="absolute top-2 right-2"
               label="Copy package.json configuration"
-              color={ButtonColor.NEUTRAL}
+              color="neutral"
             />
           </div>
         </div>
@@ -839,7 +871,7 @@ export const APIReferenceInterface: Story = {
                   <CopyButton
                     content={`https://api.example.com${endpoint.path}`}
                     label={`Copy ${endpoint.method} endpoint`}
-                    size={ButtonSize.ICON_SM}
+                    size="icon-sm"
                     onClick={() => setCopiedEndpoint(endpoint.path)}
                   />
                 </div>
@@ -854,7 +886,7 @@ export const APIReferenceInterface: Story = {
                   <CopyButton
                     content={endpoint.example}
                     label="Copy cURL example"
-                    size={ButtonSize.ICON_SM}
+                    size="icon-sm"
                     onClick={() => setCopiedEndpoint(endpoint.example)}
                   />
                 </div>

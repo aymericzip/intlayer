@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-09-09
+updatedAt: 2026-03-12
 title: Intlayer Compiler | Automatisierte Inhaltsextraktion für i18n
 description: Automatisieren Sie Ihren Internationalisierungsprozess mit dem Intlayer Compiler. Extrahieren Sie Inhalte direkt aus Ihren Komponenten für schnellere und effizientere i18n in Vite, Next.js und mehr.
 keywords:
@@ -20,9 +20,15 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.2.0
+    date: 2026-03-10
+    changes: "Update compiler options, add FilePathPattern support"
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: "Compiler-Optionen aktualisieren"
   - version: 7.3.1
     date: 2025-11-27
-    changes: Release Compiler
+    changes: "Release Compiler"
 ---
 
 # Intlayer Compiler | Automatisierte Inhaltsextraktion für i18n
@@ -49,9 +55,12 @@ Während der Compiler eine ausgezeichnete "funktioniert einfach so"-Erfahrung bi
 
 Für einen tieferen architektonischen Vergleich siehe den Blogbeitrag [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/compiler_vs_declarative_i18n.md).
 
-Als Alternative, um Ihren i18n-Prozess zu automatisieren und gleichzeitig die volle Kontrolle über Ihren Inhalt zu behalten, bietet Intlayer auch einen Auto-Extraktionsbefehl `intlayer transform` (siehe [CLI-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/transform.md)) oder den Befehl `Intlayer: extract content to Dictionary` aus der Intlayer VS Code-Erweiterung (siehe [VS Code-Erweiterungsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/vs_code_extension.md)).
+Als Alternative, um Ihren i18n-Prozess zu automatisieren und gleichzeitig die volle Kontrolle über Ihren Inhalt zu behalten, bietet Intlayer auch einen Auto-Extraktionsbefehl `intlayer extract` (siehe [CLI-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/extract.md)) oder den Befehl `Intlayer: extract content to Dictionary` aus der Intlayer VS Code-Erweiterung (siehe [VS Code-Erweiterungsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/vs_code_extension.md)).
 
 ## Verwendung
+
+<Tabs>
+ <Tab value='vite'>
 
 ### Vite
 
@@ -79,6 +88,8 @@ export default defineConfig({
 });
 ```
 
+See complete tutorial: [Intlayer Compiler with Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react_compiler.md)
+
 #### Framework-Unterstützung
 
 Das Vite-Plugin erkennt und verarbeitet automatisch verschiedene Dateitypen:
@@ -96,6 +107,9 @@ npm install @intlayer/vue-compiler
 # Für Svelte
 npm install @intlayer/svelte-compiler
 ```
+
+ </Tab>
+ <Tab value='nextjs'>
 
 ### Next.js (Babel)
 
@@ -131,3 +145,208 @@ module.exports = {
 ```
 
 Diese Konfiguration stellt sicher, dass Inhalte, die in Ihren Komponenten deklariert sind, automatisch extrahiert und während Ihres Build-Prozesses zur Generierung von Wörterbüchern verwendet werden.
+
+See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
+
+ </Tab>
+</Tabs>
+
+### Benutzerdefinierte Konfiguration
+
+Um das Verhalten des Compilers anzupassen, können Sie die Datei `intlayer.config.ts` im Stammverzeichnis Ihres Projekts aktualisieren.
+
+````ts fileName="intlayer.config.ts"
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  compiler: {
+    /**
+     * Gibt an, ob der Compiler aktiviert werden soll.
+     * Stellen Sie build-only ein, um den Compiler während der Entwicklung zu überspringen und die Startzeiten zu beschleunigen.
+     */
+    enabled: true,
+
+    /**
+     * Definiert den Pfad der Ausgabedateien. Ersetzt `outputDir`.
+     *
+     * - `./` Pfade werden relativ zum Verzeichnis der Komponente aufgelöst.
+     * - `/` Pfade werden relativ zum Projektstamm (`baseDir`) aufgelöst.
+     *
+     * - Das Einbeziehen der Variable `{{locale}}` im Pfad löst die Generierung separater Wörterbücher pro Sprache aus.
+     *
+     * Beispiel:
+     * ```ts
+     * {
+     *   // Erstelle mehrsprachige .content.ts-Dateien in der Nähe der Komponente
+     *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
+     *
+     *   // output: './{{fileName}}{{extension}}', // Äquivalent mit einem Template-String
+     * }
+     * ```
+     *
+     * ```ts
+     * {
+     *   // Erstelle zentralisierte JSON-Dateien pro Sprache im Projektstamm
+     *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+     *
+     *   // output: '/locales/{{locale}}/{{key}}.content.json', // Äquivalent mit einem Template-String
+     * }
+     * ```
+     *
+     * Liste der Variablen:
+     *   - `fileName`: Der Name der Datei.
+     *   - `key`: Der Schlüssel des Inhalts.
+     *   - `locale`: Die Sprache des Inhalts.
+     *   - `extension`: Die Dateierweiterung.
+     *   - `componentFileName`: Der Dateiname der Komponente.
+     *   - `componentExtension`: Die Dateierweiterung der Komponente.
+     *   - `format`: Das Wörterbuchformat.
+     *   - `componentFormat`: Das Wörterbuchformat der Komponente.
+     *   - `componentDirPath`: Der Verzeichnispfad der Komponente.
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Gibt an, ob die Komponenten nach der Transformation gespeichert werden sollen.
+     *
+     * - Wenn `true`, schreibt der Compiler die Komponentendatei auf die Festplatte um. Die Transformation ist also dauerhaft und der Compiler überspringt die Transformation für den nächsten Prozess. Auf diese Weise kann der Compiler die App transformieren und anschließend entfernt werden.
+     *
+     * - Wenn `false`, fügt der Compiler den `useIntlayer()` Funktionsaufruf nur in den Code der Build-Ausgabe ein und lässt die Basis-Code-Basis intakt. Die Transformation erfolgt nur im Speicher.
+     */
+    saveComponents: false,
+
+    /**
+     * Fügt nur den Inhalt in die generierte Datei ein. Hilfreich für i18next oder ICU MessageFormat pro Sprach-JSON-Ausgaben.
+     *
+     * - `output: ({ locale, key }) => `./locale/${locale}/${key}.json`,`
+     */
+    noMetadata: false,
+
+    /**
+     * Wörterbuch-Schlüssel-Präfix
+     */
+    dictionaryKeyPrefix: "", // Optionales Präfix für extrahierte Wörterbuchschlüssel hinzufügen
+  },
+};
+
+export default config;
+````
+
+### Compiler-Konfigurationsreferenz
+
+Die folgenden Eigenschaften können im Block `compiler` Ihrer Datei `intlayer.config.ts` konfiguriert werden:
+
+- **enabled**:
+  - _Typ_: `boolean | 'build-only'`
+  - _Standard_: `true`
+  - _Beschreibung_: Gibt an, ob der Compiler aktiviert werden soll.
+
+- **dictionaryKeyPrefix**:
+  - _Typ_: `string`
+  - _Standard_: `''`
+  - _Beschreibung_: Präfix für die extrahierten Wörterbuchschlüssel.
+
+- **transformPattern**:
+  - _Typ_: `string | string[]`
+  - _Standard_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}', '!**/node_modules/**']`
+  - _Beschreibung_: (Veraltet: verwenden Sie stattdessen `build.traversePattern`) Muster zum Durchlaufen des zu optimierenden Codes.
+
+- **excludePattern**:
+  - _Typ_: `string | string[]`
+  - _Standard_: `['**/node_modules/**']`
+  - _Beschreibung_: (Veraltet: verwenden Sie stattdessen `build.traversePattern`) Muster, die von der Optimierung ausgeschlossen werden sollen.
+
+- **output**:
+  - _Typ_: `FilePathPattern`
+  - _Standard_: `({ key }) => 'compiler/${key}.content.json'`
+  - _Beschreibung_: Definiert den Pfad der Ausgabedateien. Ersetzt `outputDir`. Verarbeitet dynamische Variablen wie `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, `{{componentFormat}}`. Kann als String im Format `'my/{{var}}/path'` oder als Funktion festgelegt werden.
+  - _Hinweis_: `./**/*` Pfade werden relativ zur Komponente aufgelöst. `/**/*` Pfade werden relativ zum Intlayer `baseDir` aufgelöst.
+  - _Hinweis_: Wenn die Locale im Pfad gesetzt ist, werden Wörterbücher pro Locale generiert.
+  - _Beispiel_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _Typ_: `boolean`
+  - _Standard_: `false`
+  - _Beschreibung_: Gibt an, ob die Metadaten in der Datei gespeichert werden sollen. Wenn true, speichert der Compiler nicht die Metadaten der Wörterbücher (Schlüssel, Content-Wrapper). Nützlich für i18next- oder ICU-MessageFormat-JSON-Ausgaben pro Sprache.
+  - _Hinweis_: Nützlich bei Verwendung mit dem `loadJSON`-Plugin.
+  - _Beispiel_:
+    Wenn `true`:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    Wenn `false`:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```
+
+- **saveComponents**:
+  - _Typ_: `boolean`
+  - _Standard_: `false`
+  - _Beschreibung_: Gibt an, ob die Komponenten nach der Transformation gespeichert werden sollen.
+    - Wenn `true`, schreibt der Compiler die Komponentendatei auf die Festplatte um. Die Transformation ist dauerhaft und der Compiler kann anschließend entfernt werden.
+    - Wenn `false`, fügt der Compiler den `useIntlayer()` Funktionsaufruf nur in den Code der Build-Ausgabe ein und lässt die Basis-Code-Basis intakt. Die Transformation erfolgt nur im Speicher.
+
+### Fehlende Übersetzungen ausfüllen
+
+Intlayer bietet ein CLI-Tool an, mit dem Sie fehlende Übersetzungen ausfüllen können. Sie können den Befehl `intlayer` verwenden, um fehlende Übersetzungen in Ihrem Code zu testen und auszufüllen.
+
+```bash packageManager="npm"
+npx intlayer test         # Testen, ob Übersetzungen fehlen
+```
+
+```bash packageManager="yarn"
+yarn intlayer test         # Testen, ob Übersetzungen fehlen
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # Testen, ob Übersetzungen fehlen
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # Testen, ob Übersetzungen fehlen
+```
+
+```bash packageManager="npm"
+npx intlayer fill         # Fehlende Übersetzungen ausfüllen
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # Fehlende Übersetzungen ausfüllen
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # Fehlende Übersetzungen ausfüllen
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # Fehlende Übersetzungen ausfüllen
+```
+
+### Extraktion
+
+Intlayer bietet ein CLI-Tool, um Inhalte aus Ihrem Code zu extrahieren. Sie können den Befehl `intlayer extract` verwenden, um Inhalte aus Ihrem Code zu extrahieren.
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+> Weitere Informationen finden Sie in der [CLI-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md)

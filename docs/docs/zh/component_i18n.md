@@ -78,7 +78,7 @@ export default componentContent;
 
 ## 2) 获取您的内容
 
-### 情况 A — React 应用 (Vite/SPA)
+### 情况 A. React 应用 (Vite/SPA)
 
 默认方法：使用 `useIntlayer` 通过键来获取内容。这使组件保持简洁且类型安全。
 
@@ -129,7 +129,7 @@ export function ComponentWithDictionary() {
 }
 ```
 
-### 方案 B — Next.js（App 路由）
+### 方案 B. Next.js（App 路由）
 
 优先使用服务器组件以确保数据安全和性能。在服务器文件中使用来自 `next-intlayer/server` 的 `useIntlayer`，在客户端组件中使用来自 `next-intlayer` 的 `useIntlayer`。
 
@@ -168,7 +168,7 @@ export function ClientComponent() {
 ## 为什么 Intlayer 的组件方法是最佳选择
 
 - **内容共置**：内容声明与组件紧密相邻，减少偏差并提升设计系统中的复用性。
-- **类型安全**：键和值结构均为强类型；缺失的翻译会在构建时而非运行时暴露。
+- **类型安全**：键和值结构均为强类型；缺失的翻译会在构建时 (build time)而非运行时暴露。
 - **服务器优先**：原生支持服务器组件，提升安全性和性能；客户端钩子依然保持良好的使用体验。
 - **摇树优化**：仅打包组件实际使用的内容，保持大型应用的负载体积小。
 - **开发体验与工具**：内置中间件、SEO助手，以及可选的可视化编辑器/AI翻译，简化日常工作流程。

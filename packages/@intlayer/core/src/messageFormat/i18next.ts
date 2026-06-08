@@ -1,7 +1,7 @@
-import type { Dictionary } from '@intlayer/types';
-import { NodeType } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import { deepTransformNode } from '../interpreter';
-import { enu, gender, insert } from '../transpiler';
+import { enu, gender, html, insert, plural } from '../transpiler';
 import type { JsonValue } from './ICU';
 
 // Types for our AST
@@ -171,7 +171,13 @@ const parseI18Next = (text: string): I18NextNode[] => {
 
 const i18nextNodesToIntlayer = (nodes: I18NextNode[]): any => {
   if (nodes.length === 0) return '';
-  if (nodes.length === 1 && typeof nodes[0] === 'string') return nodes[0];
+  if (nodes.length === 1 && typeof nodes[0] === 'string') {
+    const node = nodes[0];
+    if (/<[a-zA-Z0-9-]+[^>]*>/.test(node)) {
+      return html(node);
+    }
+    return node;
+  }
 
   const canFlatten = nodes.every(
     (node) => typeof node === 'string' || node.type === 'argument'
@@ -194,12 +200,20 @@ const i18nextNodesToIntlayer = (nodes: I18NextNode[]): any => {
         }
       }
     }
+    if (/<[a-zA-Z0-9-]+[^>]*>/.test(str)) {
+      return html(str);
+    }
     return insert(str);
   }
 
   if (nodes.length === 1) {
     const node = nodes[0];
-    if (typeof node === 'string') return node;
+    if (typeof node === 'string') {
+      if (/<[a-zA-Z0-9-]+[^>]*>/.test(node)) {
+        return html(node);
+      }
+      return node;
+    }
 
     if (node.type === 'argument') {
       if (node.format) {
@@ -214,39 +228,64 @@ const i18nextNodesToIntlayer = (nodes: I18NextNode[]): any => {
 
     if (node.type === 'plural') {
       const options: Record<string, any> = {};
-      for (const [key, val] of Object.entries(node.options)) {
-        let newKey = key;
-        if (key.startsWith('=')) {
-          newKey = key.substring(1);
-        } else if (key === 'one') {
-          newKey = '1';
-        } else if (key === 'two') {
-          newKey = '2';
-        } else if (key === 'few') {
-          newKey = '<=3';
-        } else if (key === 'many') {
-          newKey = '>=4';
-        } else if (key === 'other') {
-          newKey = 'fallback';
-        }
-        // Handle # replacement
-        const replacedVal = val.map((v) => {
-          if (typeof v === 'string') {
-            // In ICU plural, # is replaced by the number
-            // In i18next, if using ICU plugin, it behaves same.
-            // We map it to {{varName}} in Intlayer
-            return v.replace(/#/g, `{{${node.name}}}`);
-          }
-          return v;
-        });
+      let hasExactMatch = false;
 
-        options[newKey] = i18nextNodesToIntlayer(replacedVal);
+      for (const key of Object.keys(node.options)) {
+        if (key.startsWith('=')) {
+          hasExactMatch = true;
+          break;
+        }
       }
 
-      // Preserve variable name
-      options.__intlayer_icu_var = node.name;
+      if (hasExactMatch) {
+        for (const [key, val] of Object.entries(node.options)) {
+          let newKey = key;
+          if (key.startsWith('=')) {
+            newKey = key.substring(1);
+          } else if (key === 'one') {
+            newKey = '1';
+          } else if (key === 'two') {
+            newKey = '2';
+          } else if (key === 'few') {
+            newKey = '<=3';
+          } else if (key === 'many') {
+            newKey = '>=4';
+          } else if (key === 'other') {
+            newKey = 'fallback';
+          }
+          // Handle # replacement
+          const replacedVal = val.map((v) => {
+            if (typeof v === 'string') {
+              // In ICU plural, # is replaced by the number
+              // In i18next, if using ICU plugin, it behaves same.
+              // We map it to {{varName}} in Intlayer
+              return v.replace(/#/g, `{{${node.name}}}`);
+            }
+            return v;
+          });
 
-      return enu(options);
+          options[newKey] = i18nextNodesToIntlayer(replacedVal);
+        }
+
+        // Preserve variable name
+        options.__intlayer_icu_var = node.name;
+
+        return enu(options);
+      } else {
+        for (const [key, val] of Object.entries(node.options)) {
+          // Handle # replacement
+          const replacedVal = val.map((v) => {
+            if (typeof v === 'string') {
+              return v.replace(/#/g, `{{${node.name}}}`);
+            }
+            return v;
+          });
+
+          options[key] = i18nextNodesToIntlayer(replacedVal);
+        }
+
+        return plural(options as any);
+      }
     }
 
     if (node.type === 'select') {
@@ -283,7 +322,10 @@ const i18nextNodesToIntlayer = (nodes: I18NextNode[]): any => {
 
 const i18nextToIntlayerPlugin = {
   canHandle: (node: any) =>
-    typeof node === 'string' && (node.includes('{') || node.includes('}')),
+    typeof node === 'string' &&
+    (node.includes('{') ||
+      node.includes('}') ||
+      /<[a-zA-Z0-9-]+[^>]*>/.test(node)),
   transform: (node: any) => {
     try {
       const ast = parseI18Next(node);
@@ -295,37 +337,111 @@ const i18nextToIntlayerPlugin = {
 };
 
 const intlayerToI18nextPlugin = {
-  canHandle: (node: any) =>
-    typeof node === 'string' ||
-    (node &&
+  canHandle: (node: any) => {
+    if (typeof node === 'string') return true;
+
+    if (
+      node &&
       typeof node === 'object' &&
-      (node.nodeType === NodeType.Insertion ||
-        node.nodeType === NodeType.Enumeration ||
-        node.nodeType === NodeType.Gender ||
-        node.nodeType === 'composite')) ||
-    Array.isArray(node),
+      (node.nodeType === NodeTypes.INSERTION ||
+        node.nodeType === NodeTypes.HTML ||
+        node.nodeType === NodeTypes.ENUMERATION ||
+        node.nodeType === NodeTypes.PLURAL ||
+        node.nodeType === NodeTypes.GENDER ||
+        node.nodeType === 'composite')
+    ) {
+      return true;
+    }
+
+    if (Array.isArray(node)) {
+      if (node.length === 0) return false;
+
+      let hasNode = false;
+      let hasPlainObjectOrArray = false;
+
+      for (const item of node) {
+        if (typeof item === 'string') {
+        } else if (
+          item &&
+          typeof item === 'object' &&
+          (item.nodeType === NodeTypes.INSERTION ||
+            item.nodeType === NodeTypes.HTML ||
+            item.nodeType === NodeTypes.ENUMERATION ||
+            item.nodeType === NodeTypes.GENDER ||
+            item.nodeType === 'composite')
+        ) {
+          hasNode = true;
+        } else {
+          hasPlainObjectOrArray = true;
+        }
+      }
+
+      // If it contains plain objects or nested arrays, it's a structural array
+      if (hasPlainObjectOrArray) return false;
+      // If it contains ONLY strings, it's a structural array, not a composite string
+      if (!hasNode) return false;
+
+      return true;
+    }
+
+    return false;
+  },
   transform: (node: any, props: any, next: any) => {
     if (typeof node === 'string') {
       return node;
     }
 
-    if (node.nodeType === NodeType.Insertion) {
-      // If it contains ICU format syntax (curly braces but not double curly), keep it as is
-      // But standard insert creates {{var}}.
-      // Check if the original string was formatted (e.g. {val, number})
-      if (node.insertion.match(/\{[^}]*,[^}]*\}/)) {
-        // It's likely an ICU format string like {val, number}
-        // We might need to ensure variables inside are not double-braced if they are part of the format
-        // But wait, our parser outputs {val, number} as string for insertion.
-        return node.insertion;
+    if (node.nodeType === NodeTypes.INSERTION) {
+      if (node[NodeTypes.INSERTION].match(/\{[^}]*,[^}]*\}/)) {
+        return node[NodeTypes.INSERTION];
       }
-
-      // Otherwise keep {{name}} for i18next
-      return node.insertion;
+      return node[NodeTypes.INSERTION];
     }
 
-    if (node.nodeType === NodeType.Enumeration) {
-      const options = node.enumeration;
+    if (node.nodeType === NodeTypes.HTML) {
+      return node[NodeTypes.HTML];
+    }
+
+    if (node.nodeType === NodeTypes.PLURAL) {
+      const options = node[NodeTypes.PLURAL];
+
+      const transformedOptions: Record<string, string> = {};
+      for (const [key, val] of Object.entries(options)) {
+        const childVal = next(val, props);
+        transformedOptions[key] =
+          typeof childVal === 'string' ? childVal : JSON.stringify(childVal);
+      }
+
+      let varName = 'count';
+
+      const fallbackVal =
+        transformedOptions.other || Object.values(transformedOptions)[0];
+
+      if (fallbackVal) {
+        const match =
+          fallbackVal.match(/\{\{([a-zA-Z0-9_]+)\}\}/) ||
+          fallbackVal.match(/\{([a-zA-Z0-9_]+)\}(?!,)/);
+        if (match) {
+          varName = match[1];
+        }
+      }
+
+      const parts = [];
+
+      for (const [key, val] of Object.entries(transformedOptions)) {
+        const icuKey = key;
+        let strVal = val;
+
+        strVal = strVal.replace(/\{\{([^}]+)\}\}/g, '{$1}');
+        strVal = strVal.replace(new RegExp(`\\{${varName}\\}`, 'g'), '#');
+
+        parts.push(`${icuKey} {${strVal}}`);
+      }
+      return `{${varName}, plural, ${parts.join(' ')}}`;
+    }
+
+    if (node.nodeType === NodeTypes.ENUMERATION) {
+      const options = node[NodeTypes.ENUMERATION];
 
       const transformedOptions: Record<string, string> = {};
       for (const [key, val] of Object.entries(options)) {
@@ -335,7 +451,6 @@ const intlayerToI18nextPlugin = {
           typeof childVal === 'string' ? childVal : JSON.stringify(childVal);
       }
 
-      // Infer variable name
       let varName = options.__intlayer_icu_var || 'count';
 
       if (!options.__intlayer_icu_var) {
@@ -344,8 +459,6 @@ const intlayerToI18nextPlugin = {
           transformedOptions.other ||
           Object.values(transformedOptions)[0];
 
-        // Search for {{var}} or {var}
-        // Match {variable} but avoid {variable, ...} (which are nested ICUs)
         const match =
           fallbackVal.match(/\{\{([a-zA-Z0-9_]+)\}\}/) ||
           fallbackVal.match(/\{([a-zA-Z0-9_]+)\}(?!,)/);
@@ -368,7 +481,6 @@ const intlayerToI18nextPlugin = {
         'few',
         'many',
       ];
-      // Check if it is a plural
       const isPlural = keys.every(
         (k) => pluralKeys.includes(k) || /^[<>=]?\d+(\.\d+)?$/.test(k)
       );
@@ -385,8 +497,6 @@ const intlayerToI18nextPlugin = {
 
           let strVal = val;
 
-          // Convert {{var}} to {var} inside ICU string
-          // Also replace {varName} with # if it matches
           strVal = strVal.replace(/\{\{([^}]+)\}\}/g, '{$1}');
           strVal = strVal.replace(new RegExp(`\\{${varName}\\}`, 'g'), '#');
 
@@ -394,7 +504,6 @@ const intlayerToI18nextPlugin = {
         }
         return `{${varName}, plural, ${parts.join(' ')}}`;
       } else {
-        // Select
         const entries = Object.entries(transformedOptions).sort(
           ([keyA], [keyB]) => {
             if (keyA === 'fallback' || keyA === 'other') return 1;
@@ -416,8 +525,8 @@ const intlayerToI18nextPlugin = {
       }
     }
 
-    if (node.nodeType === NodeType.Gender) {
-      const options = node.gender;
+    if (node.nodeType === NodeTypes.GENDER) {
+      const options = node[NodeTypes.GENDER];
       const varName = 'gender';
       const parts = [];
 

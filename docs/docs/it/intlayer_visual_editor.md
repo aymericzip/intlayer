@@ -19,12 +19,12 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Cronologia iniziale
+    changes: "Cronologia iniziale"
 ---
 
 # Documentazione dell'Editor Visivo di Intlayer
 
-<iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 L'Editor Visivo di Intlayer è uno strumento che avvolge il tuo sito web per interagire con i tuoi file di dichiarazione dei contenuti utilizzando un editor visivo.
 
@@ -80,11 +80,15 @@ yarn add intlayer-editor --save-dev
 pnpm add intlayer-editor --save-dev
 ```
 
+```bash packageManager="bun"
+bun add intlayer-editor --dev
+```
+
 ## Configurazione
 
 Nel file di configurazione di Intlayer, puoi personalizzare le impostazioni dell'editor:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -119,77 +123,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... altre impostazioni di configurazione
-  editor: {
-    /**
-     * Obbligatorio
-     * L'URL dell'applicazione.
-     * Questo è l'URL mirato dall'editor visivo.
-     * Esempio: 'http://localhost:3000'
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * Opzionale
-     * Di default è `true`. Se `false`, l'editor è inattivo e non può essere accessibile.
-     * Può essere utilizzato per disabilitare l'editor in ambienti specifici per motivi di sicurezza, come la produzione.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-    /**
-     * Opzionale
-     * Di default è `8000`.
-     * La porta utilizzata dal server dell'editor visivo.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * Opzionale
-     * Di default è "http://localhost:8000"
-     * L'URL del server dell'editor da raggiungere dall'applicazione. Utilizzato per limitare le origini che possono interagire con l'applicazione per motivi di sicurezza. Se impostato su `'*'`, l'editor è accessibile da qualsiasi origine. Dovrebbe essere impostato se la porta viene modificata o se l'editor è ospitato su un dominio diverso.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... altre impostazioni di configurazione
-  editor: {
-    /**
-     * Obbligatorio
-     * L'URL dell'applicazione.
-     * Questo è l'URL mirato dall'editor visivo.
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * Opzionale
-     * Di default è `8000`.
-     * La porta del server dell'editor.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * Opzionale
-     * Di default è "http://localhost:8000"
-     * L'URL del server dell'editor.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * Opzionale
-     * Di default è `true`. Se `false`, l'editor è inattivo e non può essere accessibile.
-     * Può essere utilizzato per disabilitare l'editor in ambienti specifici per motivi di sicurezza, come la produzione.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-  },
-};
-
-module.exports = config;
 ```
 
 > Per vedere tutti i parametri disponibili, consulta la [documentazione di configurazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md).

@@ -4,5 +4,5 @@
   "compilerOptions": {
     "types": ["react/canary"]
   },
-  "include": ["**/*"]
+  "include": ["src/**/*"]
 }

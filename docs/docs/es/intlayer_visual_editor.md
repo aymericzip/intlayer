@@ -19,12 +19,12 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historial inicial
+    changes: "Historial inicial"
 ---
 
 # Documentación del Editor Visual de Intlayer
 
-<iframe title="Editor Visual + CMS para tu aplicación web: Intlayer explicado" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Editor Visual + CMS para tu aplicación web: Intlayer explicado" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 El Editor Visual de Intlayer es una herramienta que envolverá tu sitio web para interactuar con tus archivos de declaración de contenido utilizando un editor visual.
 
@@ -80,11 +80,15 @@ yarn add intlayer-editor --save-dev
 pnpm add intlayer-editor --save-dev
 ```
 
+```bash packageManager="bun"
+bun add intlayer-editor --dev
+```
+
 ## Configuración
 
 En tu archivo de configuración de Intlayer, puedes personalizar los ajustes del editor:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -119,77 +123,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... otras configuraciones
-  editor: {
-    /**
-     * Requerido
-     * La URL de la aplicación.
-     * Esta es la URL que apunta el editor visual.
-     * Ejemplo: 'http://localhost:3000'
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * Opcional
-     * Por defecto es `true`. Si es `false`, el editor está inactivo y no se puede acceder.
-     * Puede ser usado para deshabilitar el editor en entornos específicos por razones de seguridad, como producción.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-    /**
-     * Opcional
-     * Por defecto es `8000`.
-     * El puerto usado por el servidor del editor visual.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * Opcional
-     * Por defecto es "http://localhost:8000"
-     * La URL del servidor del editor para acceder desde la aplicación. Usado para restringir los orígenes que pueden interactuar con la aplicación por razones de seguridad. Si se establece como `'*'`, el editor es accesible desde cualquier origen. Debe configurarse si el puerto cambia o si el editor se aloja en un dominio diferente.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... otras configuraciones
-  editor: {
-    /**
-     * Requerido
-     * La URL de la aplicación.
-     * Esta es la URL que apunta el editor visual.
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * Opcional
-     * Por defecto es `8000`.
-     * El puerto del servidor del editor.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * Opcional
-     * Por defecto es "http://localhost:8000"
-     * La URL del servidor del editor.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * Opcional
-     * Por defecto es `true`. Si es `false`, el editor está inactivo y no se puede acceder.
-     * Puede usarse para deshabilitar el editor en entornos específicos por razones de seguridad, como producción.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-  },
-};
-
-module.exports = config;
 ```
 
 > Para ver todos los parámetros disponibles, consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).

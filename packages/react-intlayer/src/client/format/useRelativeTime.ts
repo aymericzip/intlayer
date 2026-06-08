@@ -1,6 +1,6 @@
 'use client';
 
-import { relativeTime } from '@intlayer/core';
+import { relativeTime } from '@intlayer/core/formatters';
 import { useCallback, useContext } from 'react';
 import { IntlayerClientContext } from '../IntlayerProvider';
 
@@ -23,7 +23,7 @@ import { IntlayerClientContext } from '../IntlayerProvider';
  *          bound to the current client locale.
  */
 export const useRelativeTime = () => {
-  const { locale } = useContext(IntlayerClientContext);
+  const { locale } = useContext(IntlayerClientContext) ?? {};
 
   return useCallback(
     (...args: Parameters<typeof relativeTime>) =>

@@ -1,0 +1,9 @@
+{
+  "title": "Acerca de",
+  "description": "Descripción de la página Acerca de",
+  "counter": {
+    "label": "Contador",
+    "increment": "Incrementar",
+    "description": "(Rendido en el servidor)"
+  }
+}

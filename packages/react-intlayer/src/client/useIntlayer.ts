@@ -4,26 +4,39 @@ import type {
   DeclaredLocales,
   DictionaryKeys,
   LocalesValues,
-} from '@intlayer/types';
+} from '@intlayer/types/module_augmentation';
 import { useContext, useMemo } from 'react';
 import { getIntlayer } from '../getIntlayer';
 import { IntlayerClientContext } from './IntlayerProvider';
 
 /**
- * On the client side, Hook that picking one dictionary by its key and return the content
+ * Client-side hook that picks one dictionary by its key and returns its content.
  *
- * If the locale is not provided, it will use the locale from the client context
+ * If the locale is not provided, it will use the locale from the client context.
  *
- * When you need the raw string for attributes like `aria-label`, access the `.value` property of the returned content
+ * @param key - The unique key of the dictionary to retrieve.
+ * @param locale - Optional locale to override the current context locale.
+ * @returns The dictionary content for the specified locale.
+ *
+ * @example
+ * ```tsx
+ * import { useIntlayer } from 'react-intlayer';
+ *
+ * const MyComponent = () => {
+ *   const content = useIntlayer('my-dictionary-key');
+ *
+ *   return <div>{content.myField.value}</div>;
+ * };
+ * ```
  */
 export const useIntlayer = <
-  T extends DictionaryKeys,
-  L extends LocalesValues = DeclaredLocales,
+  const T extends DictionaryKeys,
+  const L extends LocalesValues = DeclaredLocales,
 >(
   key: T,
   locale?: L
 ) => {
-  const { locale: currentLocale } = useContext(IntlayerClientContext);
+  const { locale: currentLocale } = useContext(IntlayerClientContext) ?? {};
 
   return useMemo(() => {
     const localeTarget = locale ?? (currentLocale as L);

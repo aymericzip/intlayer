@@ -1,44 +1,33 @@
+import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { HTMLAttributes } from 'react';
-import { cn } from '../../utils/cn';
 
 /**
  * Badge color variants enum
  * @description Defines the available color themes for the badge component
  */
-export enum BadgeColor {
-  PRIMARY = 'primary',
-  SECONDARY = 'secondary',
-  DESTRUCTIVE = 'destructive',
-  SUCCESS = 'success',
-  ERROR = 'error',
-  NEUTRAL = 'neutral',
-  LIGHT = 'light',
-  DARK = 'dark',
-  TEXT = 'text',
-  CUSTOM = 'custom',
-}
+export type BadgeColor =
+  | 'primary'
+  | 'secondary'
+  | 'success'
+  | 'error'
+  | 'neutral'
+  | 'light'
+  | 'dark'
+  | 'text'
+  | 'custom';
 
 /**
  * Badge visual variants enum
  * @description Defines the available visual styles for the badge component
  */
-export enum BadgeVariant {
-  DEFAULT = 'default',
-  NONE = 'none',
-  OUTLINE = 'outline',
-  HOVERABLE = 'hoverable',
-}
+export type BadgeVariant = 'default' | 'none' | 'outline' | 'hoverable';
 
 /**
  * Badge size variants enum
  * @description Defines the available sizes for the badge component
  */
-export enum BadgeSize {
-  SMALL = 'sm',
-  MEDIUM = 'md',
-  LARGE = 'lg',
-}
+export type BadgeSize = 'sm' | 'md' | 'lg';
 
 /**
  * Badge component variants using class-variance-authority
@@ -49,44 +38,34 @@ export const badgeVariants = cva(
   {
     variants: {
       color: {
-        [BadgeColor.PRIMARY]:
-          'border-primary bg-primary text-primary hover:bg-primary-500',
-        [BadgeColor.SECONDARY]:
+        primary: 'border-primary bg-primary text-primary hover:bg-primary-500',
+        secondary:
           'border-secondary bg-secondary text-secondary hover:bg-secondary-300',
-        [BadgeColor.DESTRUCTIVE]:
-          'border-destructive bg-destructive text-destructive hover:bg-destructive-500',
-        [BadgeColor.SUCCESS]:
-          'border-success bg-success text-success hover:bg-success-500',
-        [BadgeColor.ERROR]:
-          'border-error bg-error text-error hover:bg-error-500',
-        [BadgeColor.NEUTRAL]:
-          'border-neutral bg-neutral text-neutral hover:bg-neutral-600',
-        [BadgeColor.LIGHT]:
-          'border-white bg-white text-white hover:bg-neutral-500',
-        [BadgeColor.DARK]:
-          'border-neutral-800 bg-neutral-800 text-neutral-800 hover:bg-neutral-900',
-        [BadgeColor.TEXT]: 'border-text bg-text text-text hover:opacity-80',
-        [BadgeColor.CUSTOM]: '',
+        success: 'border-success bg-success text-success hover:bg-success-500',
+        error: 'border-error bg-error text-error hover:bg-error-500',
+        neutral: 'border-neutral bg-neutral text-neutral hover:bg-neutral-600',
+        light: 'border-white bg-white text-white hover:bg-neutral-500',
+        dark: 'border-neutral-800 bg-neutral-800 text-neutral-800 hover:bg-neutral-900',
+        text: 'border-text bg-text text-text hover:opacity-80',
+        custom: '',
       },
       variant: {
-        [BadgeVariant.DEFAULT]: 'rounded-lg text-text-opposite',
-        [BadgeVariant.NONE]:
-          'border-none bg-opacity-0 text-inherit hover:bg-opacity-0',
-        [BadgeVariant.OUTLINE]:
-          'rounded-lg border-[1.3px] bg-opacity-0 hover:bg-opacity-30',
-        [BadgeVariant.HOVERABLE]:
+        default: 'rounded-lg text-text-opposite',
+        none: 'border-none bg-opacity-0 text-inherit hover:bg-opacity-0',
+        outline: 'rounded-lg border-[1.3px] bg-opacity-0 hover:bg-opacity-30',
+        hoverable:
           'rounded-lg border-none bg-opacity-0 transition hover:bg-opacity-10',
       },
       size: {
-        [BadgeSize.SMALL]: 'px-2 py-0.5 text-xs',
-        [BadgeSize.MEDIUM]: 'px-2.5 py-0.5 text-xs',
-        [BadgeSize.LARGE]: 'px-3 py-1 text-sm',
+        sm: 'px-2 py-0.5 text-xs',
+        md: 'px-2.5 py-0.5 text-xs',
+        lg: 'px-3 py-1 text-sm',
       },
     },
     defaultVariants: {
-      variant: BadgeVariant.DEFAULT,
-      color: BadgeColor.PRIMARY,
-      size: BadgeSize.MEDIUM,
+      variant: 'default',
+      color: 'primary',
+      size: 'md',
     },
   }
 );
@@ -95,15 +74,15 @@ export const badgeVariants = cva(
  * Badge component props interface
  * @description Comprehensive props for the Badge component with accessibility and interactive features
  */
-export interface BadgeProps extends HTMLAttributes<HTMLElement> {
+export type BadgeProps = HTMLAttributes<HTMLElement> & {
   /** The content to display inside the badge */
   children?: React.ReactNode;
   /** Color theme variant */
-  color?: BadgeColor;
+  color?: BadgeColor | `${BadgeColor}`;
   /** Visual style variant */
-  variant?: BadgeVariant;
+  variant?: BadgeVariant | `${BadgeVariant}`;
   /** Size of the badge */
-  size?: BadgeSize;
+  size?: BadgeSize | `${BadgeSize}`;
   /** Whether the badge is clickable */
   clickable?: boolean;
   /** Whether the badge is dismissible (shows close button) */
@@ -118,7 +97,7 @@ export interface BadgeProps extends HTMLAttributes<HTMLElement> {
   role?: 'status' | 'button' | 'generic';
   /** Whether badge should be focusable */
   tabIndex?: number;
-}
+};
 
 /**
  * Utility type for badge variant props
@@ -137,7 +116,7 @@ export type BadgeVariantProps = VariantProps<typeof badgeVariants>;
  * <Badge>New</Badge>
  *
  * // Colored badge
- * <Badge color={BadgeColor.DESTRUCTIVE}>Error</Badge>
+ * <Badge color="error">Error</Badge>
  *
  * // Clickable badge
  * <Badge clickable onClick={() => console.log('clicked')}>
@@ -152,9 +131,9 @@ export type BadgeVariantProps = VariantProps<typeof badgeVariants>;
  */
 export const Badge: React.FC<BadgeProps> = ({
   className,
-  variant = BadgeVariant.DEFAULT,
-  color = BadgeColor.PRIMARY,
-  size = BadgeSize.MEDIUM,
+  variant = 'default',
+  color = 'primary',
+  size = 'md',
   children,
   clickable = false,
   dismissible = false,

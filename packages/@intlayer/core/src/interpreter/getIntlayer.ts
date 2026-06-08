@@ -1,5 +1,5 @@
-import configuration from '@intlayer/config/built';
-import { getAppLogger } from '@intlayer/config/client';
+import { log } from '@intlayer/config/built';
+import { colorizeKey, getAppLogger } from '@intlayer/config/logger';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type {
   DeclaredLocales,
@@ -7,7 +7,7 @@ import type {
   DictionaryRegistryContent,
   DictionaryRegistryElement,
   LocalesValues,
-} from '@intlayer/types';
+} from '@intlayer/types/module_augmentation';
 import type {
   DeepTransformContent,
   IInterpreterPluginState,
@@ -15,9 +15,43 @@ import type {
 } from './getContent';
 import { getDictionary } from './getDictionary';
 
+/**
+ * Creates a Recursive Proxy that returns the path of the accessed key
+ * stringified. This prevents the app from crashing on undefined access.
+ */
+const createSafeFallback = (path = ''): any => {
+  return new Proxy({} as Record<string | symbol, unknown>, {
+    get: (_target, prop) => {
+      if (
+        prop === 'toJSON' ||
+        prop === Symbol.toPrimitive ||
+        prop === 'toString' ||
+        prop === 'valueOf'
+      ) {
+        return () => path;
+      }
+      if (prop === 'then') {
+        return undefined; // Prevent it from being treated as a Promise
+      }
+      if (prop === Symbol.iterator) {
+        return function* () {
+          yield path;
+        };
+      }
+
+      // Recursively build the path (e.g., "myDictionary.home.title")
+      const nextPath = path ? `${path}.${String(prop)}` : String(prop);
+      return createSafeFallback(nextPath);
+    },
+  });
+};
+
+const dictionaryCache = new Map<string, any>();
+const warnedMissingDictionaries = new Set<string>();
+
 export const getIntlayer = <
-  T extends DictionaryKeys,
-  L extends LocalesValues = DeclaredLocales,
+  const T extends DictionaryKeys,
+  const L extends LocalesValues = DeclaredLocales,
 >(
   key: T,
   locale?: L,
@@ -30,32 +64,37 @@ export const getIntlayer = <
   const dictionaries = getDictionaries();
   const dictionary = dictionaries[key as T] as DictionaryRegistryElement<T>;
 
-  if (!dictionary) {
-    if (
-      configuration.build.optimize === true ||
-      (configuration.build.optimize === undefined &&
-        process.env.NODE_ENV === 'production')
-    ) {
-      const logger = getAppLogger(configuration);
-
+  if (!dictionary && process.env.NODE_ENV === 'development') {
+    if (!warnedMissingDictionaries.has(key as string)) {
+      // Log a warning instead of throwing (so developers know it's missing)
+      const logger = getAppLogger({ log });
       logger(
-        'Build optimization is enabled, the dictionary may have been purged. You can disable build optimization, or configure the traversePattern to include the current component.',
+        typeof window === 'undefined'
+          ? `Dictionary ${colorizeKey(key)} was not found. Using fallback proxy.`
+          : `Dictionary ${key} was not found. Using fallback proxy.`,
         {
-          level: 'error',
-          isVerbose: true,
+          level: 'warn',
         }
       );
-      throw new Error(
-        `Dictionary ${key as string} not found - Build optimization is enabled, the dictionary may have been purged. You can disable build optimization, or configure the 'traversePattern' to include the current component.`,
-        dictionaries
-      );
+      warnedMissingDictionaries.add(key as string);
     }
-    throw new Error(`Dictionary ${key as string} not found`, dictionaries);
+
+    return createSafeFallback(key as string);
   }
 
-  return getDictionary<DictionaryRegistryElement<T>, L>(
+  const cacheKey = `${key}_${locale ?? 'default'}_${plugins ? 'custom_plugins' : 'default_plugins'}`;
+
+  if (dictionaryCache.has(cacheKey)) {
+    return dictionaryCache.get(cacheKey);
+  }
+
+  const result = getDictionary<DictionaryRegistryElement<T>, L>(
     dictionary,
     locale,
     plugins
   );
+
+  dictionaryCache.set(cacheKey, result);
+
+  return result;
 };

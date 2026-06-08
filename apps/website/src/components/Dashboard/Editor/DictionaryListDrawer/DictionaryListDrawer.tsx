@@ -1,19 +1,20 @@
 'use client';
 
-import {
-  Button,
-  RightDrawer,
-  SearchInput,
-  Tag,
-  useRightDrawerStore,
-} from '@intlayer/design-system';
+import {} from '@intlayer/design-system/api';
+import { Button } from '@intlayer/design-system/button';
 import { useSearch } from '@intlayer/design-system/hooks';
+import { SearchInput } from '@intlayer/design-system/input';
+import {
+  RightDrawer,
+  useRightDrawer,
+} from '@intlayer/design-system/right-drawer';
+import { Tag } from '@intlayer/design-system/tag';
 import {
   useDictionariesRecord,
   useEditedContent,
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import Fuse from 'fuse.js';
 import { ChevronRight, Pencil } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
@@ -24,7 +25,7 @@ import { dictionaryListDrawerIdentifier } from './dictionaryListDrawerIdentifier
 export const DictionaryListDrawer: FC = () => {
   const { drawerTitle, buttonLabel } = useIntlayer('dictionary-list-drawer');
 
-  const { close: closeDrawer, open: openDrawer } = useRightDrawerStore();
+  const { set: setDrawers } = useRightDrawer();
 
   const { localeDictionaries } = useDictionariesRecord();
   const { editedContent } = useEditedContent();
@@ -32,14 +33,12 @@ export const DictionaryListDrawer: FC = () => {
   const { setSearch, search } = useSearch();
 
   // Create Fuse instance for searching dictionaries
-  const fuse = useMemo(() => {
-    const dictionariesArray = Object.values(localeDictionaries);
-    return new Fuse(dictionariesArray, {
-      keys: ['key', 'title', 'filePath', 'description', 'tags'],
-      threshold: 0.3,
-      includeScore: true,
-    });
-  }, [localeDictionaries]);
+  const dictionariesArray = Object.values(localeDictionaries);
+  const fuse = new Fuse(dictionariesArray, {
+    keys: ['key', 'title', 'filePath', 'description', 'tags'],
+    threshold: 0.3,
+    includeScore: true,
+  });
 
   // Filter dictionaries based on search
   const filteredDictionaries = useMemo(() => {
@@ -50,15 +49,16 @@ export const DictionaryListDrawer: FC = () => {
   }, [search, fuse, localeDictionaries]);
 
   const handleClickDictionary = (dictionary: Dictionary) => {
-    closeDrawer(dictionaryListDrawerIdentifier);
-
     setFocusedContent({
       dictionaryKey: dictionary.key!,
       dictionaryLocalId: dictionary.localId!,
       keyPath: [],
     });
 
-    openDrawer(getDrawerIdentifier(dictionary.key!));
+    setDrawers({
+      [dictionaryListDrawerIdentifier]: false,
+      [getDrawerIdentifier(dictionary.key!)]: true,
+    });
   };
 
   const isDictionaryEdited = (dictionaryKey: string) =>
@@ -68,14 +68,16 @@ export const DictionaryListDrawer: FC = () => {
     <RightDrawer
       title={drawerTitle.label.value}
       identifier={dictionaryListDrawerIdentifier}
+      header={
+        <div className="p-3 pb-4">
+          <SearchInput
+            placeholder="Search dictionaries"
+            onChange={(e) => setSearch(e.target.value)}
+            type="search"
+          />
+        </div>
+      }
     >
-      <div className="p-3 pb-4">
-        <SearchInput
-          placeholder="Search dictionaries"
-          onChange={(e) => setSearch(e.target.value)}
-          type="search"
-        />
-      </div>
       <ul className="flex flex-col gap-1">
         {filteredDictionaries.map((dictionary) => (
           <li key={dictionary.localId!} className="w-full">

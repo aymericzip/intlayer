@@ -18,13 +18,13 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-09-20
-    changes: إضافة التهيئة العامة
+    changes: "إضافة التهيئة العامة"
   - version: 6.0.0
     date: 2025-09-17
-    changes: إضافة متغير `{{fileName}}`
+    changes: "إضافة متغير `{{fileName}}`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: بداية السجل
+    changes: "بداية السجل"
 ---
 
 # ترجمات ملف إعلان محتوى التعبئة التلقائية
@@ -52,8 +52,20 @@ export default exampleContent;
 
 ثم، عند تشغيل الأمر التالي:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
 سيقوم Intlayer تلقائيًا بإنشاء ملف الإعلان المشتق في `src/components/example/example.content.json`، مع ملء جميع اللغات التي لم تُعلن بعد في الملف الرئيسي.

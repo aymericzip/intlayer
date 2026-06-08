@@ -1,6 +1,6 @@
 'use client';
 
-import { percentage } from '@intlayer/core';
+import { percentage } from '@intlayer/core/formatters';
 import { useCallback, useContext } from 'react';
 import { IntlayerClientContext } from '../IntlayerProvider';
 
@@ -23,7 +23,7 @@ import { IntlayerClientContext } from '../IntlayerProvider';
  * A function that formats numbers or numeric strings into localized percentages.
  */
 export const usePercentage = () => {
-  const { locale } = useContext(IntlayerClientContext);
+  const { locale } = useContext(IntlayerClientContext) ?? {};
 
   return useCallback(
     (...args: Parameters<typeof percentage>) =>

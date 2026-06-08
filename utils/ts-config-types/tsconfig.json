@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@utils/ts-config",
-  "include": ["src/**/*"],
+  "include": ["**/*"],
   "exclude": [
     "node_modules",
     "dist",
@@ -21,6 +21,9 @@
     "declaration": true,
     "skipLibCheck": true,
     "outDir": "dist/types",
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "noUncheckedIndexedAccess": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowUnreachableCode": false
   }
 }

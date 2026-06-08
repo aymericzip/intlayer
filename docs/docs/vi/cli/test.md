@@ -17,8 +17,20 @@ slugs:
 
 # Kiểm tra bản dịch thiếu
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 ## Bí danh:
@@ -69,8 +81,20 @@ Total missing required locales: 0
 
 ## Ví dụ:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 Kết quả đầu ra giúp bạn nhanh chóng xác định các bản dịch cần được hoàn thành để đảm bảo ứng dụng của bạn hoạt động đúng trên tất cả các locale đã cấu hình.

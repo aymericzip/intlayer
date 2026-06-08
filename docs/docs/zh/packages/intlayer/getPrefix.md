@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 7.1.0
     date: 2025-11-16
-    changes: 初始文档
+    changes: "初始文档"
 ---
 
 # 文档：`intlayer` 中的 `getPrefix` 函数
@@ -100,7 +100,7 @@ type GetPrefixResult = {
 
 ### 基本用法
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm"]}
 import { getPrefix, Locales } from "intlayer";
 
 // 检查英语语言的前缀
@@ -116,17 +116,6 @@ getPrefix(Locales.FRENCH, {
   mode: "prefix-no-default",
 });
 // 返回: { prefix: 'fr/', localePrefix: 'fr' }
-```
-
-```javascript codeFormat="esm"
-import { getPrefix, Locales } from "intlayer";
-
-getPrefix(Locales.ENGLISH, { mode: "prefix-all" });
-javascript codeFormat="commonjs"
-const { getPrefix, Locales } = require("intlayer");
-
-getPrefix(Locales.ENGLISH, { mode: "prefix-all" });
-// 返回: { prefix: '', localePrefix: undefined }
 ```
 
 ### 不同的路由模式

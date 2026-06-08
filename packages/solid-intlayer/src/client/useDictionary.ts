@@ -1,9 +1,9 @@
+import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
-  Dictionary,
   LocalesValues,
-} from '@intlayer/types';
-import { type Accessor, createMemo, useContext } from 'solid-js';
+} from '@intlayer/types/module_augmentation';
+import { createMemo, useContext } from 'solid-js';
 import { getDictionary } from '../getDictionary';
 import type { DeepTransformContent } from '../plugins';
 import { IntlayerClientContext } from './IntlayerProvider';
@@ -14,17 +14,26 @@ import { IntlayerClientContext } from './IntlayerProvider';
  * If the locale is not provided, it will use the locale from the client context
  */
 export const useDictionary = <
-  T extends Dictionary,
-  L extends LocalesValues = DeclaredLocales,
+  const T extends Dictionary,
+  const L extends LocalesValues = DeclaredLocales,
 >(
   dictionary: T,
   locale?: L
-): Accessor<DeepTransformContent<T['content'], L>> => {
-  const context = useContext(IntlayerClientContext);
+): DeepTransformContent<T['content'], L> => {
+  const context = useContext(IntlayerClientContext) ?? {};
 
-  return createMemo(() => {
+  const accessor = createMemo(() => {
     const localeTarget = locale ?? context?.locale?.();
-
     return getDictionary<T, L>(dictionary, localeTarget as L);
   });
+
+  return new Proxy(accessor, {
+    get(target, prop) {
+      const content = target();
+      return content?.[prop as keyof typeof content];
+    },
+    apply(target, thisArg, args) {
+      return Reflect.apply(target, thisArg, args);
+    },
+  }) as DeepTransformContent<T['content'], L>;
 };

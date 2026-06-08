@@ -1,0 +1,661 @@
+---
+createdAt: 2026-01-20
+updatedAt: 2026-03-24
+title: Contenido HTML
+description: Aprende a declarar y utilizar contenido HTML con componentes personalizados en Intlayer. Sigue esta documentación para incrustar contenido enriquecido tipo HTML con reemplazo dinámico de componentes en tu proyecto internacionalizado.
+keywords:
+  - HTML
+  - Componentes Personalizados
+  - Contenido Enriquecido
+  - Intlayer
+  - Next.js
+  - JavaScript
+  - React
+  - Vue
+  - Svelte
+slugs:
+  - doc
+  - concept
+  - content
+  - html
+history:
+  - version: 8.5.0
+    date: 2026-03-24
+    changes: "Add `intlayerHTML` plugin object; use `app.use(intlayerHTML)` instead of `app.use(installIntlayerHTML)`"
+  - version: 8.5.0
+    date: 2026-03-24
+    changes: "mover la importación de {{framework}}-intlayer a {{framework}}-intlayer/html"
+  - version: 8.0.0
+    date: 2026-01-22
+    changes: "Agregar HTMLRenderer / useHTMLRenderer / utilidad renderHTML"
+  - version: 8.0.0
+    date: 2026-01-20
+    changes: "Agregar soporte para parsing HTML"
+---
+
+# Contenido HTML / HTML en Intlayer
+
+Intlayer admite contenido HTML, lo que permite incrustar contenido enriquecido y estructurado dentro de los diccionarios. Este contenido se puede renderizar con etiquetas HTML estándar o reemplazarse por componentes personalizados en runtime.
+
+## Declarar contenido HTML
+
+Puedes declarar contenido HTML mediante la función `html` o simplemente como una cadena de texto.
+
+<Tabs>
+  <Tab label="Envoltura Manual" value="manual-wrapping">
+    Utiliza la función `html` para declarar explícitamente contenido HTML. Esto garantiza que las etiquetas estándar se mapeen correctamente incluso si la detección automática está desactivada.
+
+    ```typescript fileName="htmlDictionary.content.ts"
+    import { html, type Dictionary } from "intlayer";
+
+    const htmlDictionary = {
+      key: "app",
+      contentAutoTransformation: true, // puede configurarse en el archivo de configuración
+      content: {
+        myHtmlContent:  html("<p>Hello <strong>World</strong></p>"),
+      },
+    } satisfies Dictionary;
+
+    export default htmlDictionary;
+    ```
+
+  </Tab>
+  <Tab label="Detección Automática" value="automatic-detection">
+    Si la cadena contiene etiquetas HTML comunes (por ejemplo, `<p>`, `<div>`, `<strong>`, etc.), Intlayer la transformará automáticamente.
+
+    ```typescript fileName="htmlDictionary.content.ts"
+    export default {
+      key: "app",
+      contentAutoTransformation: true, // puede configurarse en el archivo de configuración
+      content: {
+        myHtmlContent:  "<p>Hello <strong>World</strong></p>",
+      },
+    };
+    ```
+
+  </Tab>
+  <Tab label="Archivos Externos" value="external-files">
+    Importa contenido HTML desde archivos. Ten en cuenta que actualmente la función `file()` devuelve una cadena, que se detectará automáticamente como HTML si contiene etiquetas.
+
+    ```typescript fileName="htmlDictionary.content.ts"
+    import { html, file, t } from "intlayer";
+
+    export default {
+      key: "app",
+      content: {
+        content: t({
+          en: html(file("./content.en.html")),
+          fr: html(file("./content.fr.html")),
+        }),
+      },
+    };
+    ```
+
+  </Tab>
+</Tabs>
+
+### El nodo `html()`
+
+La función `html()` es una nueva característica en Intlayer v8 que le permite definir explícitamente contenido HTML en sus diccionarios. Aunque Intlayer a menudo puede detectar automáticamente el contenido HTML, el uso de la función `html()` ofrece varias ventajas:
+
+- **Seguridad de Tipos**: La función `html()` le permite definir las props esperadas para los componentes personalizados, lo que proporciona un mejor autocompletado y comprobación de tipos en su editor.
+- **Declaración Explícita**: Garantiza que una cadena siempre se trate como HTML, incluso si no contiene etiquetas HTML estándar que activarían la detección automática.
+- **Definición de Componentes Personalizados**: Puede pasar un segundo argumento a `html()` para definir los componentes personalizados y sus tipos de props esperados.
+
+```typescript
+import { html } from "intlayer";
+
+const myContent = html(
+  "<MyCustomComponent title='Hola'>Mundo</MyCustomComponent>",
+  {
+    MyCustomComponent: {
+      title: "string",
+      children: "node",
+    },
+  }
+);
+```
+
+Al utilizar el método `.use()` en un nodo HTML, los componentes que proporcione se cotejarán con la definición proporcionada en la función `html()` (si está disponible).
+
+---
+
+## Renderizado de HTML
+
+El renderizado puede ser gestionado automáticamente por el sistema de contenido de Intlayer o manualmente mediante herramientas especializadas.
+
+### Renderizado Automático (usando `useIntlayer`)
+
+Cuando accedes al contenido a través de `useIntlayer`, los nodos HTML ya están preparados para el renderizado.
+
+<Tabs group="framework">
+  <Tab label="React / Next.js" value="react">
+    Los nodos HTML se pueden renderizar directamente como JSX. Las etiquetas estándar funcionan automáticamente.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "react-intlayer";
+
+    const AppContent = () => {
+      const { myHtmlContent } = useIntlayer("app");
+      return <div>{myHtmlContent}</div>;
+    };
+    ```
+
+    Utiliza el método `.use()` para proporcionar componentes personalizados o sobrescribir etiquetas:
+
+    ```tsx
+    {myHtmlContent.use({
+      p: (props) => <p className="prose" {...props} />,
+      CustomLink: ({ children }) => <a href="/details">{children}</a>,
+    })}
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+    En Vue, el contenido HTML se puede renderizar mediante el componente integrado `component`.
+
+    ```vue fileName="App.vue"
+    <script setup>
+    import { useIntlayer } from "vue-intlayer";
+    const { myHtmlContent } = useIntlayer("app");
+    </script>
+
+    <template>
+      <component :is="myHtmlContent" />
+    </template>
+    ```
+
+    Utiliza `.use()` para sobrescribir:
+    ```vue
+    <component :is="myHtmlContent.use({ h1: 'h2' })" />
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+    Svelte renderiza los nodos HTML como cadenas de texto. Utiliza `{@html}` para renderizarlo.
+
+    ```svelte
+    <script lang="ts">
+    import { useIntlayer } from "svelte-intlayer";
+    const content = useIntlayer("app");
+    </script>
+
+    {@html $content.myHtmlContent}
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+    Preact admite nodos HTML directamente en el JSX.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "preact-intlayer";
+
+    const AppContent = () => {
+      const { myHtmlContent } = useIntlayer("app");
+      return <div>{myHtmlContent}</div>;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+    Solid admite nodos HTML directamente en el JSX.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "solid-intlayer";
+
+    const AppContent = () => {
+      const { myHtmlContent } = useIntlayer("app");
+      return <div>{myHtmlContent}</div>;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+    Angular utiliza la directiva `[innerHTML]` para renderizar contenido HTML.
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { useIntlayer } from "angular-intlayer";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="content().myHtmlContent"></div>`,
+    })
+    export class AppComponent {
+      content = useIntlayer("app");
+    }
+    ```
+
+    Utiliza el método `.use()` para proporcionar componentes personalizados o sobrescribir etiquetas:
+
+    ```typescript
+    content().myHtmlContent.use({
+      p: { class: "prose" },
+      CustomLink: { href: "/details" },
+    })
+    ```
+
+  </Tab>
+</Tabs>
+
+## Configuración Global con `HTMLProvider`
+
+Puedes configurar el renderizado de HTML de forma global para toda tu aplicación. Esto es ideal para definir componentes personalizados que deben estar disponibles en todo el contenido HTML.
+
+<Tabs group="framework">
+  <Tab label="React / Next.js" value="react">
+  
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "react-intlayer/html";
+
+    export const AppProvider = ({ children }) => (
+      <HTMLProvider
+        components={{
+          p: (props) => <p className="prose" {...props} />,
+          CustomLink: ({ children }) => <a href="/details">{children}</a>,
+        }}
+      >
+        {children}
+      </HTMLProvider>
+    );
+    ```
+
+    También puede utilizar su propio motor de renderizado HTML:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "react-intlayer/html";
+
+    export const AppProvider = ({ children }) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('react-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {children}
+      </HTMLProvider>
+    );
+    ```
+
+    > Importar dinámicamente su renderizador de HTML es una buena manera de reducir el tamaño del bundle de su aplicación.
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+  
+    ```typescript fileName="main.ts"
+    import { createApp, h } from "vue";
+    import { intlayer } from "vue-intlayer";
+    import { intlayerHTML } from "vue-intlayer/html";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(intlayer);
+    app.use(intlayerHTML, {
+      components: {
+        p: (props, { slots }) => h("p", { class: "prose", ...props }, slots.default?.()),
+        CustomLink: (props, { slots }) => h("a", { href: "/details", ...props }, slots.default?.()),
+      },
+    });
+
+    app.mount("#app");
+    ```
+
+    También puede utilizar su propio motor de renderizado HTML:
+
+    ```typescript fileName="main.ts"
+    import { createApp, h } from "vue";
+    import { intlayer } from "vue-intlayer";
+    import { intlayerHTML } from "vue-intlayer/html";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(intlayer);
+    app.use(intlayerHTML, {
+      renderHTML: async (html) => {
+        const { renderHTML } = await import('vue-intlayer/html');
+        return renderHTML(html);
+      },
+    });
+
+    app.mount("#app");
+    ```
+
+    > Importar dinámicamente su renderizador de HTML es una buena manera de reducir el tamaño del bundle de su aplicación.
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+   
+    ```svelte fileName="App.svelte"
+    <script lang="ts">
+      import { HTMLProvider } from "svelte-intlayer/html";
+      import MyCustomP from "./MyCustomP.svelte";
+    </script>
+
+    <HTMLProvider
+      components={{
+        p: MyCustomP,
+      }}
+    >
+      <slot />
+    </HTMLProvider>
+    ```
+
+    También puede utilizar su propio motor de renderizado HTML:
+
+    ```svelte fileName="App.svelte"
+    <script lang="ts">
+      import { HTMLProvider } from "svelte-intlayer/html";
+    </script>
+
+    <HTMLProvider
+      renderHTML={async (html) => {
+        const { renderHTML } = await import('svelte-intlayer/html');
+        return renderHTML(html);
+      }}
+    >
+      <slot />
+    </HTMLProvider>
+    ```
+
+    > Importar dinámicamente su renderizador de HTML es una buena manera de reducir el tamaño del bundle de su aplicación.
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+   
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "preact-intlayer/html";
+
+    export const AppProvider = ({ children }) => (
+      <HTMLProvider
+        components={{
+          p: (props) => <p className="prose" {...props} />,
+        }}
+      >
+        {children}
+      </HTMLProvider>
+    );
+    ```
+
+    También puede utilizar su propio motor de renderizado HTML:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "preact-intlayer/html";
+
+    export const AppProvider = ({ children }) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('preact-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {children}
+      </HTMLProvider>
+    );
+    ```
+
+    > Importar dinámicamente su renderizador de HTML es una buena manera de reducir el tamaño del bundle de su aplicación.
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+   
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "solid-intlayer/html";
+
+    export const AppProvider = (props) => (
+      <HTMLProvider
+        components={{
+          p: (props) => <p className="prose" {...props} />,
+        }}
+      >
+        {props.children}
+      </HTMLProvider>
+    );
+    ```
+
+    También puede utilizar su propio motor de renderizado HTML:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { HTMLProvider } from "solid-intlayer/html";
+
+    export const AppProvider = (props) => (
+      <HTMLProvider
+        renderHTML={async (html) => {
+          const { renderHTML } = await import('solid-intlayer/html');
+          return renderHTML(html);
+        }}
+      >
+        {props.children}
+      </HTMLProvider>
+    );
+    ```
+
+    > Importar dinámicamente su renderizador de HTML es una buena manera de reducir el tamaño del bundle de su aplicación.
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerHTMLProvider } from "angular-intlayer/html";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerHTMLProvider({
+          components: {
+            p: { class: "prose" },
+            CustomLink: { href: "/details" },
+          },
+        }),
+      ],
+    };
+    ```
+
+    También puede utilizar su propio motor de renderizado HTML:
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerHTMLProvider } from "angular-intlayer/html";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerHTMLProvider({
+          renderMarkdown: async (html) => {
+            const { renderMarkdown } = await import('angular-intlayer/html');
+            return renderMarkdown(html);
+          },
+        }),
+      ],
+    };
+    ```
+
+    > Importar dinámicamente su renderizador de HTML es una buena manera de reducir el tamaño del bundle de su aplicación.
+
+  </Tab>
+</Tabs>
+
+---
+
+### Renderizado Manual y Herramientas Avanzadas
+
+Si necesitas renderizar cadenas de HTML sin procesar o tener más control sobre el mapeo de componentes, utiliza las siguientes herramientas.
+
+<Tabs group="framework">
+  <Tab label="React / Next.js" value="react">
+    #### Componente `<HTMLRenderer />`
+    Renderiza una cadena HTML con componentes específicos.
+
+    ```tsx
+    import { HTMLRenderer } from "react-intlayer/html";
+
+    <HTMLRenderer components={{ p: MyCustomP }}>
+      {"<p>Hello World</p>"}
+    </HTMLRenderer>
+    ```
+
+    #### Hook `useHTMLRenderer()`
+
+    Obtén una función de renderizado preconfigurada.
+
+    ```tsx
+    import { useHTMLRenderer } from "react-intlayer/html";
+
+    const renderHTML = useHTMLRenderer({
+      components: { strong: (props) => <strong {...props} className="text-red-500" /> }
+    });
+
+    return renderHTML("<p>Hello <strong>World</strong></p>");
+    ```
+
+    #### Utilidad `renderHTML()`
+
+    Utilidad independiente para renderizar fuera de los componentes.
+
+    ```tsx
+    import { renderHTML } from "react-intlayer/html";
+
+    const jsx = renderHTML("<p>Hello</p>", { components: { p: 'div' } });
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+   
+    #### Componente `<HTMLRenderer />`
+   
+    ```vue
+    <script setup>
+    import { HTMLRenderer } from "vue-intlayer/html";
+    </script>
+
+    <template>
+      <HTMLRenderer content="<p>Hello World</p>" />
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+  
+    #### Componente `<HTMLRenderer />`
+   
+    ```svelte
+    <script lang="ts">
+    import { HTMLRenderer } from "svelte-intlayer/html";
+    </script>
+
+    <HTMLRenderer value="<p>Hello World</p>" />
+    ```
+
+    #### Hook `useHTMLRenderer()`
+
+    ```svelte
+    <script lang="ts">
+    import { useHTMLRenderer } from "svelte-intlayer/html";
+    const render = useHTMLRenderer();
+    </script>
+
+    {@html render("<p>Hello World</p>")}
+    ```
+
+    #### Utilidad `renderHTML()`
+
+    ```svelte
+    <script lang="ts">
+    import { renderHTML } from "svelte-intlayer/html";
+    </script>
+
+    {@html renderHTML("<p>Hello World</p>")}
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+   
+    #### Componente `<HTMLRenderer />`
+   
+    ```tsx
+    import { HTMLRenderer } from "preact-intlayer/html";
+
+    <HTMLRenderer>
+      {"<p>Hello World</p>"}
+    </HTMLRenderer>
+    ```
+
+    #### Hook `useHTMLRenderer()`
+
+    ```tsx
+    import { useHTMLRenderer } from "preact-intlayer/html";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Hello World</p>")}</div>;
+    ```
+
+    #### Utilidad `renderHTML()`
+
+    ```tsx
+    import { renderHTML } from "preact-intlayer/html";
+
+    return <div>{renderHTML("<p>Hello World</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+   
+    #### Componente `<HTMLRenderer />`
+   
+    ```tsx
+    import { HTMLRenderer } from "solid-intlayer/html";
+
+    <HTMLRenderer>
+      {"<p>Hello World</p>"}
+    </HTMLRenderer>
+    ```
+
+    #### Hook `useHTMLRenderer()`
+
+    ```tsx
+    import { useHTMLRenderer } from "solid-intlayer/html";
+
+    const render = useHTMLRenderer();
+
+    return <div>{render("<p>Hello World</p>")}</div>;
+    ```
+
+    #### Utilidad `renderHTML()`
+
+    ```tsx
+    import { renderHTML } from "solid-intlayer/html";
+
+    return <div>{renderHTML("<p>Hello World</p>")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+    #### Servicio `IntlayerHTMLService`
+    Renderiza una cadena HTML utilizando el servicio.
+
+    ```typescript
+    import { IntlayerHTMLService } from "angular-intlayer/html";
+
+    export class MyComponent {
+      constructor(private markdownService: IntlayerHTMLService) {}
+
+      renderHTML(html: string) {
+        return this.markdownService.renderHTML(html);
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+---
+
+## Referencia de Opciones
+
+Estas opciones se pueden pasar a `HTMLProvider`, `HTMLRenderer`, `useHTMLRenderer` y `renderHTML`.
+
+| Opción       | Tipo                  | Por Defecto | Descripción                                                                                                                                 |
+| :----------- | :-------------------- | :---------- | :------------------------------------------------------------------------------------------------------------------------------------------ |
+| `components` | `Record<string, any>` | `{}`        | Un mapa de etiquetas HTML o nombres de componentes personalizados a componentes.                                                            |
+| `renderHTML` | `Function`            | `null`      | Una función de renderizado personalizada para reemplazar completamente el parser HTML predeterminado (Solo para proveedores de Vue/Svelte). |
+
+> Nota: Para React y Preact, las etiquetas HTML estándar se proporcionan automáticamente. Solo necesitas pasar la prop `components` si deseas sobrescribirlas o agregar componentes personalizados.

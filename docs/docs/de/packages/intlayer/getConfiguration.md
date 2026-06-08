@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Initiale Historie
+    changes: "Initiale Historie"
 ---
 
 # Dokumentation: `getConfiguration` Funktion in `intlayer`
@@ -40,7 +40,6 @@ Die Funktion nimmt keine Parameter entgegen. Stattdessen verwendet sie Umgebungs
 
 - **Typ**: `IntlayerConfig`
 - **Beschreibung**: Ein Objekt, das die vollständige Konfiguration für `intlayer` enthält. Die Konfiguration umfasst die folgenden Abschnitte:
-
   - `internationalization`: Einstellungen im Zusammenhang mit Sprachversionen und dem strikten Modus.
   - `middleware`: Einstellungen im Zusammenhang mit URL- und Cookie-Verwaltung.
   - `content`: Einstellungen im Zusammenhang mit Inhaltsdateien, Verzeichnissen und Mustern.
@@ -54,36 +53,8 @@ Siehe [Intlayer Konfigurationsdokumentation](https://github.com/aymericzip/intla
 
 ### Abrufen der vollständigen Konfiguration
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getConfiguration } from "intlayer";
-
-const config = getConfiguration();
-console.log(config);
-// Ausgabe:
-// {
-//   internationalization: { ... },
-//   middleware: { ... },
-//   content: { ... },
-//   editor: { ... }
-// }
-```
-
-```javascript codeFormat="esm"
-import { getConfiguration } from "intlayer";
-
-const config = getConfiguration();
-console.log(config);
-// Ausgabe:
-// {
-//   internationalization: { ... },
-//   middleware: { ... },
-//   content: { ... },
-//   editor: { ... }
-// }
-```
-
-```javascript codeFormat="commonjs"
-const { getConfiguration } = require("intlayer");
 
 const config = getConfiguration();
 console.log(config);
@@ -100,32 +71,8 @@ console.log(config);
 
 Der Abschnitt `internationalization` der Konfiguration stellt sprachbezogene Einstellungen bereit, wie z.B. `locales` (verfügbare Sprachen) und `defaultLocale` (Fallback-Sprache).
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getConfiguration } from "intlayer";
-
-const { internationalization, middleware } = getConfiguration();
-const { locales: availableLocales, defaultLocale } = internationalization;
-const { cookieName } = middleware;
-
-console.log(availableLocales); // Ausgabe Beispiel: ["en", "fr", "es"]
-console.log(defaultLocale); // Ausgabe Beispiel: "en"
-console.log(cookieName); // Ausgabe: "INTLAYER_LOCALE"
-```
-
-```javascript codeFormat="esm"
-import { getConfiguration } from "intlayer";
-
-const { internationalization, middleware } = getConfiguration();
-const { locales: availableLocales, defaultLocale } = internationalization;
-const { cookieName } = middleware;
-
-console.log(availableLocales); // Ausgabe Beispiel: ["en", "fr", "es"]
-console.log(defaultLocale); // Ausgabe Beispiel: "en"
-console.log(cookieName); // Ausgabe: "INTLAYER_LOCALE"
-```
-
-```javascript codeFormat="commonjs"
-const { getConfiguration } = require("intlayer");
 
 const { internationalization, middleware } = getConfiguration();
 const { locales: availableLocales, defaultLocale } = internationalization;

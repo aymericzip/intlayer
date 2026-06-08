@@ -1,4 +1,5 @@
 import { logger } from '@logger';
+import { PromoCodeModel } from '@schemas/promoCode.schema';
 import { GenericError } from '@utils/errors';
 import { retrievePlanInformation } from '@utils/plan';
 import Stripe from 'stripe';
@@ -35,7 +36,6 @@ export const addOrUpdateSubscription = async (
   const subscriptions = await stripe.subscriptions.list({
     customer: customerId,
     status: 'active',
-    limit: 1,
   });
 
   if (subscriptions.data.length >= 1) {
@@ -49,14 +49,16 @@ export const addOrUpdateSubscription = async (
     }
   }
 
+  const isCanceled = status === 'canceled';
+
   const updatedOrganization = await updatePlan(organization, {
     creatorId: user.id,
-    priceId,
+    priceId: isCanceled ? undefined : priceId,
     customerId,
-    subscriptionId,
-    type: planInfo.type,
-    period: planInfo.period,
-    status,
+    subscriptionId: isCanceled ? undefined : subscriptionId,
+    type: isCanceled ? 'FREE' : planInfo.type,
+    period: isCanceled ? undefined : planInfo.period,
+    status: isCanceled ? 'active' : status,
   });
 
   if (!updatedOrganization) {
@@ -73,30 +75,32 @@ export const addOrUpdateSubscription = async (
 };
 
 export const cancelSubscription = async (
-  subscriptionId: string | Organization['id'],
+  subscriptionId: string | undefined, // Changed to optional
   organizationId: Organization['id'] | string
 ): Promise<Plan | null> => {
   const organization = await getOrganizationById(organizationId);
 
   if (!organization) {
     throw new GenericError('ORGANIZATION_NOT_FOUND', {
-      subscriptionId,
+      organizationId,
     });
   }
 
-  if (!subscriptionId) {
-    throw new GenericError('NO_SUBSCRIPTION_ID_PROVIDED');
-  }
-
+  // If there is no plan, we consider it already "canceled" or free.
+  // We can return a default free plan or just null.
   if (!organization.plan) {
-    throw new GenericError('ORGANIZATION_PLAN_NOT_FOUND', {
-      subscriptionId,
-      organizationId: organization.id,
-    });
+    return {
+      type: 'FREE',
+      status: 'active',
+    } as Plan;
   }
 
   const updatedOrganization = await updatePlan(organization, {
-    status: 'canceled',
+    status: 'active',
+    type: 'FREE',
+    period: undefined,
+    subscriptionId: undefined,
+    priceId: undefined,
   });
 
   if (!updatedOrganization) {
@@ -106,7 +110,7 @@ export const cancelSubscription = async (
   }
 
   logger.info(
-    `Cancelled plan for organization ${updatedOrganization.id} - ${updatedOrganization.plan?.type} - ${updatedOrganization.plan?.period}`
+    `Cancelled plan for organization ${updatedOrganization.id} - ${updatedOrganization.plan?.type} - ${updatedOrganization.plan?.period}${subscriptionId ? ` (Subscription ID: ${subscriptionId})` : ''}`
   );
 
   return updatedOrganization.plan ?? null;
@@ -135,10 +139,23 @@ export const changeSubscriptionStatus = async (
     });
   }
 
-  const updatedOrganization = await updatePlan(organization, {
-    status,
-    subscriptionId,
-  });
+  const isCanceled = status === 'canceled';
+
+  const updatedOrganization = await updatePlan(
+    organization,
+    isCanceled
+      ? {
+          status: 'active',
+          type: 'FREE',
+          period: undefined,
+          subscriptionId: undefined,
+          priceId: undefined,
+        }
+      : {
+          status,
+          subscriptionId,
+        }
+  );
 
   if (!updatedOrganization) {
     throw new GenericError('ORGANIZATION_UPDATE_FAILED', {
@@ -163,9 +180,11 @@ export const changeSubscriptionStatus = async (
     to: user.email,
     username: user.name,
     email: user.email,
-    planName: organization.plan.type,
+    planName:
+      updatedOrganization?.plan?.type ?? organization.plan?.type ?? 'Unknown',
     date: new Date().toLocaleDateString(),
-    link: `${process.env.CLIENT_URL}/dashboard`,
+    link: `${process.env.APP_URL}/dashboard`,
+    billingLink: `${process.env.APP_URL}/organization`,
   };
 
   switch (status) {
@@ -176,6 +195,7 @@ export const changeSubscriptionStatus = async (
         organizationName: organization.name,
         subscriptionStartDate: emailData.date,
         manageSubscriptionLink: emailData.link,
+        billingLink: emailData.billingLink,
       });
       break;
     case 'canceled':
@@ -185,6 +205,7 @@ export const changeSubscriptionStatus = async (
         organizationName: organization.name,
         cancellationDate: emailData.date,
         reactivateLink: emailData.link,
+        billingLink: emailData.billingLink,
       });
       break;
     case 'incomplete':
@@ -194,6 +215,7 @@ export const changeSubscriptionStatus = async (
         organizationName: organization.name,
         errorDate: emailData.date,
         retryPaymentLink: emailData.link,
+        billingLink: emailData.billingLink,
       });
       break;
     default:
@@ -205,20 +227,32 @@ export const changeSubscriptionStatus = async (
 
 export const getCouponId = async (
   promoCode: string
-): Promise<string | null> => {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+): Promise<{ couponId: string | null; affiliateId?: string }> => {
+  if (!promoCode) return { couponId: null };
 
   try {
-    // Retrieve the coupon details by name
-    const coupons = await stripe.coupons.list();
-    const matchingCoupon = coupons.data.find(
-      (coupon) => coupon.name === promoCode
-    );
+    // 1. Check our DB first
+    const dbCode = await PromoCodeModel.findOne({
+      code: promoCode.toUpperCase(),
+      active: true,
+    });
+    if (dbCode) {
+      return {
+        couponId: dbCode.stripeCouponId,
+        affiliateId: dbCode.affiliateId
+          ? String(dbCode.affiliateId)
+          : undefined,
+      };
+    }
 
-    return matchingCoupon ? matchingCoupon.id : null;
+    // 2. Fall back to direct Stripe lookup (backwards compat)
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+    const coupons = await stripe.coupons.list();
+    const match = coupons.data.find((c) => c.name === promoCode);
+    return { couponId: match ? match.id : null };
   } catch (error) {
-    console.error('Error retrieving coupon:', error);
-    return null;
+    logger.error('Error retrieving coupon:', error);
+    return { couponId: null };
   }
 };
 
@@ -230,59 +264,84 @@ export type PricingResult = Record<
     discountType: 'amount' | 'percentage' | null;
     finalTotal: number;
     currency: string;
+    planType: 'premium' | 'enterprise' | 'one_time' | 'unknown';
+    period: 'monthly' | 'yearly' | 'one_time' | 'unknown';
   }
 >;
 
 export const getPricing = async (
-  priceIds: string[],
+  priceIds?: string[],
   promoCode?: string
 ): Promise<PricingResult> => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
   try {
-    // 1. Fetch all price objects
-    const pricePromises = priceIds.map((priceId) =>
-      stripe.prices.retrieve(priceId)
+    const idsToFetch =
+      priceIds && priceIds.length > 0
+        ? priceIds
+        : ([
+            process.env.STRIPE_PREMIUM_YEARLY_PRICE_ID,
+            process.env.STRIPE_PREMIUM_MONTHLY_PRICE_ID,
+            process.env.STRIPE_ENTERPRISE_YEARLY_PRICE_ID,
+            process.env.STRIPE_ENTERPRISE_MONTHLY_PRICE_ID,
+            process.env.STRIPE_ONE_TIME_PAYMENT_PRICE_ID,
+          ].filter(Boolean) as string[]);
+
+    // Fetch all price objects, skipping any that fail (e.g. unset / invalid
+    // env IDs). One bad ID should not break pricing for the entire page.
+    const priceResults = await Promise.allSettled(
+      idsToFetch.map((priceId) => stripe.prices.retrieve(priceId))
     );
-    const prices = await Promise.all(pricePromises);
+
+    const prices = priceResults
+      .map((result, index) => {
+        if (result.status === 'fulfilled') return result.value;
+        logger.warn(
+          `Skipping price ${idsToFetch[index]} — retrieval failed: ${
+            (result.reason as Error)?.message ?? 'unknown error'
+          }`
+        );
+        return null;
+      })
+      .filter((price): price is NonNullable<typeof price> => price !== null);
 
     // Calculate the total amount before discount (to help with proportional distribution if needed)
     const totalAmount = prices.reduce(
-      (sum, price) => sum + (price.unit_amount ?? 0),
+      (sum, price) => sum + (price?.unit_amount ?? 0),
       0
     );
 
-    // 2. Retrieve the discount (if promo code is provided)
+    // Retrieve the discount (if promo code is provided)
     let discountAmount = 0;
     let discountType: 'amount' | 'percentage' | null = null;
 
     if (promoCode) {
-      const coupons = await stripe.coupons.list();
-      const matchingCoupons = coupons.data.find(
-        (coupon) => coupon.name === promoCode
-      );
-      if (matchingCoupons) {
-        if (matchingCoupons.amount_off) {
-          discountAmount = matchingCoupons.amount_off;
-          discountType = 'amount';
-        } else if (matchingCoupons.percent_off) {
-          // For a percentage discount, we won't store discountAmount as a raw number
-          // because each price line is discounted individually by the same percentage.
-          discountAmount = matchingCoupons.percent_off;
-          discountType = 'percentage';
+      const { couponId } = await getCouponId(promoCode);
+      if (couponId) {
+        try {
+          const coupon = await stripe.coupons.retrieve(couponId);
+          if (coupon.amount_off) {
+            discountAmount = coupon.amount_off;
+            discountType = 'amount';
+          } else if (coupon.percent_off) {
+            discountAmount = coupon.percent_off;
+            discountType = 'percentage';
+          }
+        } catch (err) {
+          logger.warn(`Failed to retrieve coupon ${couponId}: ${err}`);
         }
       }
     }
 
-    // 3. Build the result for each priceId
+    // Build the result for each priceId
     const results: PricingResult = {};
 
     for (const price of prices) {
-      if (!price.id || !price.unit_amount) {
+      if (!price?.id || !price?.unit_amount) {
         continue; // Skip any invalid price
       }
 
-      const originalTotal = price.unit_amount;
+      const originalTotal = price?.unit_amount;
       let appliedDiscount = 0;
       let finalTotal = originalTotal;
 
@@ -305,18 +364,41 @@ export const getPricing = async (
       // Prevent final total from going negative due to rounding
       finalTotal = Math.max(finalTotal, 0);
 
+      let planType: 'premium' | 'enterprise' | 'one_time' | 'unknown' =
+        'unknown';
+      let period: 'monthly' | 'yearly' | 'one_time' | 'unknown' = 'unknown';
+
+      if (price.id === process.env.STRIPE_PREMIUM_YEARLY_PRICE_ID) {
+        planType = 'premium';
+        period = 'yearly';
+      } else if (price.id === process.env.STRIPE_PREMIUM_MONTHLY_PRICE_ID) {
+        planType = 'premium';
+        period = 'monthly';
+      } else if (price.id === process.env.STRIPE_ENTERPRISE_YEARLY_PRICE_ID) {
+        planType = 'enterprise';
+        period = 'yearly';
+      } else if (price.id === process.env.STRIPE_ENTERPRISE_MONTHLY_PRICE_ID) {
+        planType = 'enterprise';
+        period = 'monthly';
+      } else if (price.id === process.env.STRIPE_ONE_TIME_PAYMENT_PRICE_ID) {
+        planType = 'one_time';
+        period = 'one_time';
+      }
+
       results[price.id] = {
         originalTotal: originalTotal,
         discountApplied: appliedDiscount,
         discountType,
         finalTotal: finalTotal,
         currency: price.currency,
+        planType,
+        period,
       };
     }
 
     return results;
   } catch (error) {
-    console.error('Error calculating pricing per priceId:', error);
+    logger.error('Error calculating pricing per priceId:', error);
     throw new Error('Failed to calculate pricing breakdown.');
   }
 };

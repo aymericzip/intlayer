@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Histórico inicial
+    changes: "Histórico inicial"
 ---
 
 # Como Intlayer funciona
@@ -78,7 +78,7 @@ const MyComponent = () => {
 
 Esse hook gerenciará a detecção de localidade para você e retornará o conteúdo para a localidade atual. Usando esse hook, você também poderá interpretar markdown, gerenciar pluralização e muito mais.
 
-> Para ver todos os recursos do Intlayer, você pode ler a [documentação de dicionário](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/get_started.md).
+> Para ver todos os recursos do Intlayer, você pode ler a [documentação de dicionário](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md).
 
 ## Conteúdo remoto
 
@@ -101,8 +101,8 @@ O Intlayer também fornece um editor visual para permitir que você edite seu co
 
 ## Otimização da construção do aplicativo
 
-Para otimizar o tamanho do pacote da sua aplicação, o Intlayer fornece dois plugins para otimizar a construção da sua aplicação: os plugins `@intlayer/babel` e `@intlayer/swc`.
-Os plugins Babel e SWC funcionam analisando a Árvore de Sintaxe Abstrata (AST) da sua aplicação para substituir chamadas das funções do Intlayer por código otimizado. Esse processo torna o pacote final mais leve em produção, garantindo que apenas os dicionários realmente usados sejam importados, otimizando o particionamento e reduzindo o tamanho do pacote.
+Para otimizar o tamanho do bundle da sua aplicação, o Intlayer fornece dois plugins para otimizar a construção da sua aplicação: os plugins `@intlayer/babel` e `@intlayer/swc`.
+Os plugins Babel e SWC funcionam analisando a Árvore de Sintaxe Abstrata (AST) da sua aplicação para substituir chamadas das funções do Intlayer por código otimizado. Esse processo torna o pacote final mais leve em produção, garantindo que apenas os dicionários realmente usados sejam importados, otimizando o particionamento e reduzindo o tamanho do bundle.
 
 No modo de desenvolvimento, o Intlayer usa uma importação estática centralizada para os dicionários, simplificando a experiência de desenvolvimento.
 

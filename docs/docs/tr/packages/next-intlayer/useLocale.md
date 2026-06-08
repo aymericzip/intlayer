@@ -1,15 +1,11 @@
 ---
-createdAt: 2025-09-07
-updatedAt: 2025-09-07
-title: useLocale Hook Dokümantasyonu | next-intlayer
-description: next-intlayer paketi için useLocale hook'unun nasıl kullanılacağını görün
 keywords:
   - useLocale
   - dictionary
   - key
   - Intlayer
-  - Uluslararasılaştırma
-  - Dokümantasyon
+  - Internationalization
+  - Documentation
   - Next.js
   - JavaScript
   - React
@@ -18,10 +14,17 @@ slugs:
   - packages
   - next-intlayer
   - useLocale
+description: Documentation for the useLocale hook in the next-intlayer package
+createdAt: 2025-09-07
+updatedAt: 2026-01-26
+title: useLocale Hook Dokümantasyonu | next-intlayer
 history:
+  - version: 8.0.0
+    date: 2026-01-26
+    changes: "`onLocaleChange` varsayılan olarak `replace` olarak ayarlandı"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Geçmiş başlatıldı
+    changes: "Geçmiş başlatıldı"
 ---
 
 # Next.js Entegrasyonu: `useLocale` Hook Dokümantasyonu `next-intlayer` için
@@ -40,7 +43,7 @@ import { useLocale } from "next-intlayer"; // Next.js'te yerel ayarları ve yön
 
 İşte `useLocale` hook'unu bir Next.js bileşeninde nasıl uygulayabileceğiniz:
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
 import type { FC } from "react";
@@ -66,59 +69,39 @@ const LocaleSwitcher: FC = () => {
 };
 ```
 
-```jsx fileName="src/components/LocaleSwitcher.mjx" codeFormat="esm"
-"use client";
+## Parametreler
 
-import { Locales } from "intlayer";
-import { useLocale } from "next-intlayer";
+`useLocale` hook'u aşağıdaki parametreleri kabul eder:
 
-const LocaleSwitcher = () => {
-  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
+- **`onLocaleChange`**: Yerel ayar değiştiğinde URL'nin nasıl güncelleneceğini belirleyen bir dize. `"replace"`, `"push"` veya `"none"` olabilir.
 
-  return (
-    <div>
-      <h1>Mevcut Yerel Ayar: {locale}</h1>
-      <p>Varsayılan Yerel Ayar: {defaultLocale}</p>
-      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
-        {availableLocales.map((loc) => (
-          <option key={loc} value={loc}>
-            {loc}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-};
-```
+  > Bir örnek verelim:
+  >
+  > 1. `/fr/home` sayfasındasınız
+  > 2. `/fr/about` sayfasına gidiyorsunuz
+  > 3. Yerel ayarı `/es/about` olarak değiştiriyorsunuz
+  > 4. Tarayıcının "geri" düğmesine tıklıyorsunuz
+  >
+  > Davranış, `onLocaleChange` değerine bağlı olarak farklılık gösterecektir:
+  >
+  > - `"replace"` (varsayılan): Mevcut URL'yi yeni yerelleştirilmiş URL ile değiştirir ve çerezi ayarlar.
+  >   -> "Geri" düğmesi `/es/home` sayfasına gidecektir
+  > - `"push"`: Yeni yerelleştirilmiş URL'yi tarayıcı geçmişine ekler ve çerezi ayarlar.
+  >   -> "Geri" düğmesi `/fr/about` sayfasına gidecektir
+  > - `"none"`: URL'yi değiştirmeden yalnızca istemci bağlamındaki yerel ayarı günceller ve çerezi ayarlar.
+  >   -> "Geri" düğmesi `/fr/home` sayfasına gidecektir
+  > - `(locale) => void`: Çerezi ayarlar ve yerel ayar değiştiğinde çağrılacak özel bir işlevi tetikler.
+  >
+  >   `undefined` seçeneği varsayılan davranıştır; yeni yerel ayara gitmek için `Link` bileşenini kullanmanızı öneririz.
+  >   Örnek:
+  >
+  >   ```tsx
+  >   <Link href="/es/about" replace>
+  >     Hakkımızda
+  >   </Link>
+  >   ```
 
-```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-"use client";
-
-const { Locales } = require("intlayer");
-const { useLocale } = require("next-intlayer");
-
-const LocaleSwitcher = () => {
-  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
-
-  return (
-    <div>
-      <h1>Mevcut Yerel Ayar: {locale}</h1>
-      <p>Varsayılan Yerel Ayar: {defaultLocale}</p>
-      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
-        {availableLocales.map((loc) => (
-          <option key={loc} value={loc}>
-            {loc}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-};
-```
-
-## Parametreler ve Dönüş Değerleri
-
-`useLocale` hook'unu çağırdığınızda, aşağıdaki özellikleri içeren bir nesne döndürür:
+## Dönüş Değerleri
 
 - **`locale`**: React bağlamında ayarlanan mevcut yerel ayar.
 - **`defaultLocale`**: Yapılandırmada tanımlanan birincil yerel ayar.

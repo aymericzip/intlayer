@@ -1,0 +1,12 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+"Language: es\n"
+
+msgid "test_key"
+msgstr "Este es un mensaje de prueba desde el archivo PO"
+
+msgid "welcome_message"
+msgstr "¡Bienvenido a la prueba de PO!"

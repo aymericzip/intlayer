@@ -20,17 +20,66 @@ slugs:
 
 # Fill / audit / translate dictionaries
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill
 ```
 
+```bash packageManager="yarn"
+yarn intlayer fill
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill
+```
+
+```bash packageManager="bun"
+bun x intlayer fill
+```
+
 This command analyzes your content declaration files for potential issues such as missing translations, structural inconsistencies, or type mismatches. If it finds any problems, **intlayer fill** will propose or apply updates to keep your dictionaries consistent and complete.
+
+## Key Points:
+
+- Splits large JSON files into chunks to stay within the AI model's context window limits.
+- Retries translation if the output format is incorrect.
+- Incorporates application and file-specific context for improved translation accuracy.
+- Preserves existing translations by not overwriting them.
+- Processes files, chunks, and locales in parallel using a queue system to increase speed.
 
 ## Aliases:
 
 - `npx intlayer dictionaries fill`
 - `npx intlayer dictionary fill`
 - `npx intlayer dic fill`
+
+## Examples of output:
+
+```bash
+npx intlayer fill
+
+Preparing Intlayer (v7.5.14)
+Done 76ms
+@intlayer/ai found - Run process locally
+Provider: (default) - Model: (default) - API Key: ✓
+Affected dictionary keys for processing: app, comp-test, hello-world, lang-switcher
+ - [comp-test]      No locales to fill, Skipping comp-test.content.json
+ - [app]            Processing app.content.tsx
+ - [app]            Filling missing metadata for app.content.tsx
+ - [hello-world]    Processing test.content.ts
+ - [hello-world]   [French (fr)]      Preparing test.content.ts
+ - [hello-world]   [Spanish (es)]     Preparing test.content.ts
+ - [lang-switcher]  Processing langSwitcher.content.ts
+ - [lang-switcher]  Filling missing metadata for langSwitcher.content.ts
+ - [hello-world]    Translation completed successfully for test.content.ts
+ - [lang-switcher] [Spanish (es)]     Preparing langSwitcher.content.ts
+ - [app]           [French (fr)]      Preparing app.content.tsx
+ - [app]           [Spanish (es)]     Preparing app.content.tsx
+ - [hello-world]    Content declaration written to test.content.ts
+ - [app]            Translation completed successfully for app.content.tsx
+ - [app]            Content declaration written to app.content.tsx
+ - [lang-switcher]  Translation completed successfully for langSwitcher.content.ts
+ - [lang-switcher]  Content declaration written to langSwitcher.content.ts
+```
 
 ## Arguments:
 
@@ -89,6 +138,7 @@ This command analyzes your content declaration files for potential issues such a
 - **`--api-key [apiKey]`**: Provide your own API key for the AI service.
 - **`--custom-prompt [prompt]`**: Provide a custom prompt for your translation instructions.
 - **`--application-context [applicationContext]`**: Provide additional context for the AI translation.
+- **`--data-serialization [dataSerialization]`**: The data serialization format to use for the AI features of Intlayer. Options: `json` (standard, reliable), `toon` (fewer tokens, less consistent).
 
   > Example: `npx intlayer fill --model gpt-3.5-turbo --provider openai --temperature 0.5 --api-key sk-1234567890 --application-context "My application is a cat store"`
 
@@ -123,8 +173,20 @@ This command analyzes your content declaration files for potential issues such a
 
 ## Example:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
 ```
 
 This command will translate content from English to French and Spanish for all content declaration files in the `src/home/` directory using the GPT-3.5 Turbo model.

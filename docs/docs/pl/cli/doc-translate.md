@@ -21,8 +21,28 @@ slugs:
 
 Polecenie `doc translate` automatycznie tłumaczy pliki dokumentacji z bazowego języka na docelowe lokalizacje, wykorzystując usługi tłumaczenia AI.
 
-```bash
+## Kluczowe punkty:
+
+- Dzieli duże pliki markdown na fragmenty, aby pozostać w granicach okna kontekstowego modelu AI.
+- Ponawia tłumaczenie, jeśli format wyjściowy jest nieprawidłowy.
+- Włącza kontekst specyficzny dla aplikacji i pliku, aby poprawić dokładność tłumaczenia.
+- Zachowuje istniejące tłumaczenia, nie nadpisując ich.
+- Przetwarza pliki, fragmenty i lokalizacje równolegle przy użyciu systemu kolejkowego, aby zwiększyć prędkość.
+
+```bash packageManager="npm"
 npx intlayer doc translate
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc translate
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc translate
+```
+
+```bash packageManager="bun"
+bun x intlayer doc translate
 ```
 
 ## Argumenty:
@@ -78,6 +98,7 @@ npx intlayer doc translate
 - **`--temperature [temperature]`**: Ustawienie temperatury dla modelu AI.
 - **`--api-key [apiKey]`**: Podaj własny klucz API dla usługi AI.
 - **`--application-context [applicationContext]`**: Podaj dodatkowy kontekst dla tłumaczenia AI.
+- **`--data-serialization [dataSerialization]`**: Format serializacji danych dla funkcji AI w Intlayer. Opcje: `json` (standardowy, niezawodny), `toon` (mniej tokenów, mniej spójny).
 - **`--custom-prompt [prompt]`**: Dostosuj podstawowy prompt używany do tłumaczenia. (Uwaga: W większości przypadków zaleca się użycie opcji `--custom-instructions`, ponieważ zapewnia lepszą kontrolę nad zachowaniem tłumaczenia.)
 
   > Przykład: `npx intlayer doc translate --model deepseek-chat --provider deepseek --temperature 0.5 --api-key sk-1234567890 --application-context "Moja aplikacja to sklep z kotami"`

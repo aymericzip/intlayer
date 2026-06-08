@@ -18,16 +18,16 @@ slugs:
 history:
   - version: 6.1.5
     date: 2025-09-30
-    changes: Menambahkan gif demo
+    changes: "Menambahkan gif demo"
   - version: 6.1.0
     date: 2025-09-24
-    changes: Menambahkan bagian pemilihan lingkungan
+    changes: "Menambahkan bagian pemilihan lingkungan"
   - version: 6.0.0
     date: 2025-09-22
-    changes: Tab Intlayer / Perintah Isi & Uji
+    changes: "Tab Intlayer / Perintah Isi & Uji"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inisialisasi riwayat
+    changes: "Inisialisasi riwayat"
 ---
 
 # Ekstensi VS Code Resmi
@@ -120,7 +120,7 @@ Ekstensi dapat memuat variabel lingkungan dari workspace Anda untuk menjalankan 
 
 #### Memilih environment aktif
 
-- **Command Palette**: buka palette dan jalankan `Intlayer: Select Environment`, lalu pilih environment (misalnya, `development`, `staging`, `production`). Ekstensi akan mencoba memuat file pertama yang tersedia dalam daftar prioritas di atas dan menampilkan notifikasi seperti “Loaded env from .env.<env>.local”.
+- **Command Palette**: buka palette dan jalankan `Intlayer: Select Environment`, lalu pilih environment (misalnya, `development`, `staging`, `production`). Ekstensi akan mencoba memuat file pertama yang tersedia dalam daftar prioritas di atas dan menampilkan notifikasi seperti “Loaded env from `.env.<env>.local`”.
 - **Settings**: buka `Settings → Extensions → Intlayer`, dan atur:
   - **Environment**: nama environment yang digunakan untuk menyelesaikan file `.env.<env>*`.
   - (Opsional) **Env File**: jalur eksplisit ke file `.env`. Jika disediakan, ini akan memiliki prioritas lebih tinggi daripada daftar yang diinferensikan.

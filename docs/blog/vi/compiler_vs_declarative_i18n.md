@@ -20,7 +20,7 @@ slugs:
 
 # Lập Luận Ủng Hộ và Phản Đối i18n Dựa trên Trình Biên Dịch
 
-Nếu bạn đã xây dựng các ứng dụng web hơn một thập kỷ, bạn biết rằng Quốc tế hóa (i18n) luôn là một điểm gây khó khăn. Đây thường là công việc không ai muốn làm — trích xuất chuỗi, quản lý các tập tin JSON, và lo lắng về các quy tắc số nhiều.
+Nếu bạn đã xây dựng các ứng dụng web hơn một thập kỷ, bạn biết rằng Quốc tế hóa (i18n) luôn là một điểm gây khó khăn. Đây thường là công việc không ai muốn làm, trích xuất chuỗi, quản lý các tập tin JSON, và lo lắng về các quy tắc số nhiều.
 
 Gần đây, một làn sóng mới của các công cụ i18n **"dựa trên trình biên dịch"** đã xuất hiện, hứa hẹn sẽ làm biến mất nỗi đau này. Lời chào hàng rất hấp dẫn: **Chỉ cần viết văn bản trong các component của bạn, và để công cụ build lo phần còn lại.** Không cần key, không cần import, chỉ có phép thuật.
 

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
-title: Comment traduire votre Vite and Vue – guide i18n 2025
-description: Découvrez comment rendre votre site Vite et Vue multilingue. Suivez la documentation pour internationaliser (i18n) et traduire votre site.
+updatedAt: 2026-05-31
+title: "Vite + Vue i18n - Guide complet pour traduire votre application"
+description: "Oubliez i18next. Le guide 2026 pour créer une application Vite + Vue multilingue (i18n). Traduisez avec des agents IA et optimisez la taille du bundle, le SEO et les performances."
 keywords:
   - Internationalisation
   - Documentation
@@ -15,73 +15,140 @@ slugs:
   - environment
   - vite-and-vue
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-vue-template
+applicationShowcase: https://intlayer-vite-vue-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=IE3XWkZ6a5U
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Mettre à jour l'utilisation de l'API useIntlayer de Solid pour un accès direct aux propriétés"
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: "Ajouter la commande init"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historique initial
+    changes: "Historique initial"
 ---
 
-# Traduire votre Vite and Vue avec Intlayer | Internationalisation (i18n)
+# Traduire votre Vite et Vue avec Intlayer | Internationalisation (i18n)
 
-## Qu'est-ce que Intlayer ?
+## Pourquoi Intlayer plutôt que des alternatives ?
 
-**Intlayer** est une bibliothèque d'internationalisation (i18n) innovante et open-source conçue pour simplifier la prise en charge multilingue dans les applications web modernes.
+Par rapport aux solutions principales telles que `vue-i18n` ou `i18next`, Intlayer est une solution qui vient avec des optimisations intégrées telles que :
 
-Avec Intlayer, vous pouvez :
+<AccordionGroup>
 
-- **Gérer facilement les traductions** en utilisant des dictionnaires déclaratifs au niveau des composants.
-- **Localiser dynamiquement les métadonnées**, les routes et le contenu.
-- **Assurer la prise en charge de TypeScript** avec des types générés automatiquement, améliorant l'autocomplétion et la détection des erreurs.
-- **Bénéficier de fonctionnalités avancées**, comme la détection et le changement dynamiques de la langue.
+<Accordion header="Support complet de Vue">
+
+Intlayer est optimisé pour fonctionner parfaitement avec Vue en offrant une **portée du contenu au niveau des composants**, des **traductions réactives** et toutes les fonctionnalités nécessaires pour mettre à l'échelle votre internationalisation (i18n).
+
+</Accordion>
+
+<Accordion header="Taille du bundle">
+
+Au lieu de charger de lourds fichiers JSON dans vos pages, ne chargez que le contenu strictement nécessaire. Intlayer vous aide à **réduire la taille de votre bundle et de vos pages jusqu'à 50 %**.
+
+</Accordion>
+
+<Accordion header="Maintenabilité">
+
+Déclarer le contenu directement au plus près de vos composants **facilite la maintenance** des applications de grande envergure. Vous pouvez dupliquer ou supprimer le dossier d'une fonctionnalité sans le fardeau mental de devoir passer en revue toute votre base de code de contenu. De plus, Intlayer est **entièrement typé** pour garantir l'exactitude de vos traductions.
+
+</Accordion>
+
+<Accordion header="Prêt pour les agents IA">
+
+La colocalisation du contenu **réduit le contexte nécessaire** aux grands modèles de langage (LLM). Intlayer est également livré avec une suite d'outils, tels qu'une **CLI** pour vérifier les traductions manquantes, un **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/lsp.md)**, un **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/mcp_server.md)** et des **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/agent_skills.md)**, afin de rendre l'expérience développeur (DX) encore plus fluide pour les agents IA.
+
+</Accordion>
+
+<Accordion header="Automatisation">
+
+Automatisez les traductions dans votre pipeline CI/CD en utilisant le LLM de votre choix au coût de votre propre fournisseur d'IA. Intlayer propose également un **compilateur** pour automatiser l'extraction de contenu, ainsi qu'une [plateforme web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md) pour vous aider à **traduire en arrière-plan**.
+
+</Accordion>
+
+<Accordion header="Performances">
+
+Associer de gros fichiers JSON à vos composants peut ralentir les performances et impacter la réactivité. Intlayer optimise le chargement du contenu directement au moment du **build**.
+
+</Accordion>
+
+<Accordion header="Collaboration avec les non-développeurs">
+
+Bien plus qu'une simple solution i18n, Intlayer propose un **[éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md)** auto-hébergé et un **[CMS complet](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)** pour gérer votre contenu multilingue en **temps réel**. Cela rend la collaboration avec les traducteurs, concepteurs-rédacteurs et autres membres de l'équipe extrêmement simple. Le contenu peut être stocké localement et/ou à distance.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
 ## Guide étape par étape pour configurer Intlayer dans une application Vite et Vue
 
-<Tab defaultTab="video">
-  <TabItem label="Vidéo" value="video">
+<Tabs defaultTab="video">
+  <Tab label="Vidéo" value="video">
   
-<iframe title="The best i18n solution for Vite and Vue? Discover Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/IE3XWkZ6a5U?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="The best i18n solution for Vite et Vue? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/IE3XWkZ6a5U?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-  </TabItem>
-  <TabItem label="Code" value="code">
+  </Tab>
+  <Tab label="Code" value="code">
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-vite-vue-template?embed=1&ctl=1&file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-vite-vue-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  title="Démo CodeSandbox - Comment internationaliser votre application avec Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+  <Tab label="Démo" value="demo">
+
+<iframe
+  src="https://intlayer-vite-vue-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Démo - intlayer-vite-vue-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
 
 Voir le [Modèle d'application](https://github.com/aymericzip/intlayer-vite-vue-template) sur GitHub.
 
-### Étape 1 : Installer les dépendances
+<Steps>
+
+<Step number={1} title="Installer les dépendances">
 
 Installez les paquets nécessaires avec npm :
 
 ```bash packageManager="npm"
 npm install intlayer vue-intlayer
 npm install vite-intlayer --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer vue-intlayer
 pnpm add vite-intlayer --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer vue-intlayer
 yarn add vite-intlayer --save-dev
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer vue-intlayer
+bun add vite-intlayer --dev
+bun x intlayer init
 ```
 
 - **intlayer**
 
-  Le package principal qui fournit des outils d'internationalisation pour la gestion de la configuration, la traduction, la [déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/get_started.md), la transpilation, et les [commandes CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_cli.md).
+  Le package principal qui fournit des outils d'internationalisation pour la gestion de la configuration, la traduction, la [déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md), la transpilation, et les [commandes CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md).
 
 - **vue-intlayer**
   Le package qui intègre Intlayer avec l'application Vue. Il fournit des fournisseurs de contexte et des composables pour l'internationalisation Vue.
@@ -89,11 +156,13 @@ yarn add vite-intlayer --save-dev
 - **vite-intlayer**
   Inclut le plugin Vite pour intégrer Intlayer avec le [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), ainsi que le middleware pour détecter la locale préférée de l'utilisateur, gérer les cookies et gérer la redirection des URL.
 
-### Étape 2 : Configuration de votre projet
+</Step>
+
+<Step number={2} title="Configuration de votre projet">
 
 Créez un fichier de configuration pour configurer les langues de votre application :
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -111,92 +180,34 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-// Configuration de l'internationalisation
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Vos autres locales
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-// Configuration de l'internationalisation
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Vos autres locales
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 > Grâce à ce fichier de configuration, vous pouvez configurer des URL localisées, la redirection via middleware, les noms des cookies, l'emplacement et l'extension de vos déclarations de contenu, désactiver les logs Intlayer dans la console, et bien plus encore. Pour une liste complète des paramètres disponibles, consultez la [documentation de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).
 
-### Étape 3 : Intégrer Intlayer dans votre configuration Vite
+</Step>
+
+<Step number={3} title="Intégrer Intlayer dans votre configuration Vite">
 
 Ajoutez le plugin intlayer dans votre configuration.
 
-```typescript fileName="vite.config.ts" codeFormat="typescript"
+```typescript fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), intlayer()],
-});
-```
-
-```javascript fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
-import { intlayer } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [vue(), intlayer()],
-});
-```
-
-```javascript fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const vue = require("@vitejs/plugin-vue");
-const { intlayer } = require("vite-intlayer");
-
-// https://vitejs.dev/config/
-module.exports = defineConfig({
   plugins: [vue(), intlayer()],
 });
 ```
 
 > Le plugin Vite `intlayer()` est utilisé pour intégrer Intlayer avec Vite. Il assure la génération des fichiers de déclaration de contenu et les surveille en mode développement. Il définit les variables d'environnement Intlayer dans l'application Vite. De plus, il fournit des alias pour optimiser les performances.
 
-### Étape 4 : Déclarez Votre Contenu
+</Step>
+
+<Step number={4} title="Déclarez Votre Contenu">
 
 Créez et gérez vos déclarations de contenu pour stocker les traductions :
 
-```tsx fileName="src/helloWorld.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/helloWorld.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -225,7 +236,7 @@ const helloWorldContent = {
       es: "Vue Docs Scaling up Guide",
     }),
     readTheDocs: t({
-      en: "Click on the Vite and Vue logos to learn more",
+      en: "Click on the Vite et Vue logos to learn more",
       fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
       es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
     }),
@@ -233,87 +244,6 @@ const helloWorldContent = {
 } satisfies Dictionary;
 
 export default helloWorldContent;
-```
-
-```javascript fileName="src/helloWorld.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const helloWorldContent = {
-  key: "helloworld",
-  content: {
-    count: t({ en: "count is ", fr: "le compte est ", es: "el recuento es " }),
-    edit: t({
-      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
-    }),
-    checkOut: t({ en: "Check out ", fr: "Vérifiez ", es: "Compruebe " }),
-    officialStarter: t({
-      en: "the official Vue + Vite starter",
-      fr: "le starter officiel Vue + Vite",
-      es: "el starter oficial Vue + Vite",
-    }),
-    learnMore: t({
-      en: "Learn more about IDE Support for Vue in the ",
-      fr: "En savoir plus sur le support IDE pour Vue dans le ",
-      es: "Aprenda más sobre el soporte IDE para Vue en el ",
-    }),
-    vueDocs: t({
-      en: "Vue Docs Scaling up Guide",
-      fr: "Guide de montée en puissance des docs Vue",
-      es: "Vue Docs Scaling up Guide",
-    }),
-    readTheDocs: t({
-      en: "Click on the Vite and Vue logos to learn more",
-      fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
-      fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
-      es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
-    }),
-  },
-};
-
-export default helloWorldContent;
-```
-
-```javascript fileName="src/helloWorld.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "helloworld",
-  content: {
-    count: t({ en: "count is ", fr: "le compte est ", es: "el recuento es " }),
-    edit: t({
-      en: "Edit <code>components/HelloWorld.vue</code> and save to test HMR",
-      fr: "Éditez <code>components/HelloWorld.vue</code> et enregistrez pour tester HMR",
-      es: "Edita <code>components/HelloWorld.vue</code> y guarda para probar HMR",
-    }),
-    checkOut: t({ en: "Check out ", fr: "Découvrez ", es: "Compruebe " }),
-    officialStarter: t({
-      en: "the official Vue + Vite starter",
-      fr: "le starter officiel Vue + Vite",
-      es: "el starter oficial Vue + Vite",
-    }),
-    learnMore: t({
-      en: "Learn more about IDE Support for Vue in the ",
-      fr: "En savoir plus sur le support IDE pour Vue dans le ",
-      es: "Aprenda más sobre el soporte IDE para Vue en el ",
-    }),
-    vueDocs: t({
-      en: "Vue Docs Scaling up Guide",
-      fr: "Guide de montée en puissance des docs Vue",
-      es: "Vue Docs Scaling up Guide",
-    }),
-    readTheDocs: t({
-      en: "Click on the Vite and Vue logos to learn more",
-      fr: "Cliquez sur les logos Vite et Vue pour en savoir plus",
-      es: "Haga clic en los logotipos de Vite y Vue para obtener más información",
-    }),
-  },
-};
-
-module.exports = appContent;
 ```
 
 ```json fileName="src/helloWorld.content.json" contentDeclarationFormat="json"
@@ -372,7 +302,7 @@ module.exports = appContent;
     "readTheDocs": {
       "nodeType": "translation",
       "translation": {
-        "en": "Click on the Vite and Vue logos to learn more",
+        "en": "Click on the Vite et Vue logos to learn more",
         "fr": "Cliquez sur les logos Vite et Vue pour en savoir plus",
         "es": "Haga clic en los logotipos de Vite y Vue para obtener más información"
       }
@@ -381,24 +311,26 @@ module.exports = appContent;
 }
 ```
 
-> Vos déclarations de contenu peuvent être définies n'importe où dans votre application dès qu'elles sont incluses dans le répertoire `contentDir` (par défaut, `./src`). Et correspondent à l'extension de fichier de déclaration de contenu (par défaut, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> Vos déclarations de contenu peuvent être définies n'importe où dans votre application dès qu'elles sont incluses dans le répertoire `contentDir` (par défaut, `./src`). Et correspondent à l'extension de fichier de déclaration de contenu (par défaut, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
-> Pour plus de détails, référez-vous à la [documentation sur la déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/get_started.md).
+> Pour plus de détails, référez-vous à la [documentation sur la déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md).
 
-### Étape 5 : Utiliser Intlayer dans votre code
+</Step>
+
+<Step number={5} title="Utiliser Intlayer dans votre code">
 
 Pour utiliser les fonctionnalités d'internationalisation d'Intlayer dans toute votre application Vue, vous devez d'abord enregistrer l'instance singleton d'Intlayer dans votre fichier principal. Cette étape est cruciale car elle fournit le contexte d'internationalisation à tous les composants de votre application, rendant les traductions accessibles partout dans votre arbre de composants.
 
 ```javascript fileName=main.js
 import { createApp } from "vue";
-import { installIntlayer } from "vue-intlayer";
+import { intlayer } from "vue-intlayer";
 import App from "./App.vue";
 import "./style.css";
 
 const app = createApp(App);
 
 // Injecter le fournisseur au niveau supérieur
-installIntlayer(app);
+app.use(intlayer);
 
 // Monter l'application
 app.mount("#app");
@@ -473,9 +405,13 @@ Intlayer propose différentes API pour accéder à votre contenu :
 - **Syntaxe de déstructuration** :
   Le composable `useIntlayer` retourne un Proxy avec le contenu. Ce proxy peut être déstructuré pour accéder au contenu tout en conservant la réactivité.
   - Utilisez `const content = useIntlayer("myContent");` et `{{ content.myContent }}` / `<content.myContent />`.
-  - Ou utilisez `const { myContent } = useIntlayer("myContent");` et `{{ myContent }}` / `<myContent/>` pour déstructurer le contenu.
+  - Ou utilisez `const { myContent } = useIntlayer(\"myContent\");` et `{{ myContent }}` / `<myContent/>` pour déstructurer le contenu.
 
-### (Optionnel) Étape 6 : Changer la langue de votre contenu
+> Si votre application existe déjà, vous pouvez utiliser le [Compilateur Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md), ainsi que la [commande d'extraction](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/extract.md), pour transformer des milliers de composants en une seconde.
+
+</Step>
+
+<Step number={6} title="Changer la langue de votre contenu" isOptional={true}>
 
 Pour changer la langue de votre contenu, vous pouvez utiliser la fonction `setLocale` fournie par le composable `useLocale`. Cette fonction vous permet de définir la locale de l'application et de mettre à jour le contenu en conséquence.
 
@@ -542,7 +478,9 @@ const content = useIntlayer("app"); // Créez le fichier de déclaration intlaye
 </template>
 ```
 
-### (Optionnel) Étape 7 : Ajouter un routage localisé à votre application
+</Step>
+
+<Step number={7} title="Ajouter un routage localisé à votre application" isOptional={true}>
 
 Ajouter un routage localisé dans une application Vue implique généralement d'utiliser Vue Router avec des préfixes de locale. Cela crée des routes uniques pour chaque langue, ce qui est utile pour le SEO et des URLs optimisées pour le référencement.
 
@@ -558,10 +496,12 @@ Tout d'abord, installez Vue Router :
 
 ```bash packageManager="npm"
 npm install vue-router
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add vue-router
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
@@ -575,7 +515,7 @@ import {
   localeFlatMap,
   type Locale,
 } from 'intlayer';
-import { createIntlayerClient } from 'vue-intlayer';
+import { createIntlayerClient } from "vue-intlayer";
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from './views/home/HomeView.vue';
 import RootView from './views/root/Root.vue';
@@ -656,48 +596,24 @@ import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 
 Parallèlement, vous pouvez également utiliser le `intlayerProxy` pour ajouter un routage côté serveur à votre application. Ce plugin détectera automatiquement la locale actuelle en fonction de l'URL et définira le cookie de locale approprié. Si aucune locale n'est spécifiée, le plugin déterminera la locale la plus appropriée en fonction des préférences linguistiques du navigateur de l'utilisateur. Si aucune locale n'est détectée, il redirigera vers la locale par défaut.
 
-```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
+```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { intlayer, intlayerProxy } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), intlayer(), intlayerProxy()],
+  plugins: [
+    intlayerProxy(), // should be placed first
+    vue(),
+    intlayer(),
+  ],
 });
 ```
 
-```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+</Step>
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [vue(), intlayer(), intlayerProxy()],
-});
-```
-
-```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const vue = require("@vitejs/plugin-vue");
-const { intlayer, intlayerProxy } = require("vite-intlayer");
-
-// https://vitejs.dev/config/
-module.exports = defineConfig({
-  plugins: [vue(), intlayer(), intlayerProxy()],
-});
-const { defineConfig } = require("vite");
-const vue = require("@vitejs/plugin-vue");
-const { intlayer, intlayerProxy } = require("vite-intlayer");
-
-// https://vitejs.dev/config/
-module.exports = defineConfig({
-  plugins: [vue(), intlayer(), intlayerProxy()],
-});
-```
-
-### (Optionnel) Étape 8 : Modifier l'URL lors du changement de langue
+<Step number={8} title="Modifier l'URL lors du changement de langue" isOptional={true}>
 
 Pour mettre à jour automatiquement l'URL lorsque l'utilisateur change de langue, vous pouvez modifier le composant `LocaleSwitcher` pour utiliser Vue Router :
 
@@ -787,7 +703,9 @@ Astuce : Pour un meilleur SEO et une meilleure accessibilité, utilisez des bali
 </ol>
 ```
 
-### (Optionnel) Étape 9 : Modifier les attributs Lang et Dir du HTML
+</Step>
+
+<Step number={9} title="Modifier les attributs Lang et Dir du HTML" isOptional={true}>
 
 Lorsque votre application prend en charge plusieurs langues, il est crucial de mettre à jour les attributs `lang` et `dir` de la balise `<html>` pour qu'ils correspondent à la locale actuelle. Cela garantit :
 
@@ -847,7 +765,9 @@ useI18nHTMLAttributes();
 </template>
 ```
 
-### (Optionnel) Étape 10 : Création d’un composant de lien localisé
+</Step>
+
+<Step number={10} title="Création d’un composant de lien localisé" isOptional={true}>
 
 Pour garantir que la navigation de votre application respecte la locale actuelle, vous pouvez créer un composant personnalisé `Link`. Ce composant préfixe automatiquement les URL internes avec la langue courante. Par exemple, lorsqu'un utilisateur francophone clique sur un lien vers la page "À propos", il est redirigé vers `/fr/about` au lieu de `/about`.
 
@@ -946,7 +866,9 @@ import RouterLink from "@components/RouterLink.vue";
 </script>
 ```
 
-### (Optionnel) Étape 11 : Rendre du Markdown
+</Step>
+
+<Step number={11} title="Rendre du Markdown" isOptional={true}>
 
 Intlayer prend en charge le rendu du contenu Markdown directement dans votre application Vue. Par défaut, le Markdown est traité comme du texte brut. Pour convertir le Markdown en HTML enrichi, vous pouvez intégrer [markdown-it](https://github.com/markdown-it/markdown-it), un parseur Markdown.
 
@@ -963,7 +885,7 @@ import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
 
 const app = createApp(App);
 
-installIntlayer(app);
+app.use(intlayer);
 
 const md = new MarkdownIt({
   html: true, // autoriser les balises HTML
@@ -994,6 +916,181 @@ const { myMarkdownContent } = useIntlayer("my-component");
 </script>
 ```
 
+</Step>
+
+<Step number={12} title="Extraire le contenu de vos composants" isOptional={true}>
+
+Si vous avez une base de code existante, transformer des milliers de fichiers peut prendre beaucoup de temps.
+
+Pour faciliter ce processus, Intlayer propose un [compilateur](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md) / [extracteur](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/extract.md) pour transformer vos composants et extraire le contenu.
+
+Pour le configurer, vous pouvez ajouter une section `compiler` dans votre fichier `intlayer.config.ts` :
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... Reste de votre configuration
+  compiler: {
+    /**
+     * Indique si le compilateur doit être activé.
+     */
+    enabled: true,
+
+    /**
+     * Définit le chemin des fichiers de sortie
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Indique si les composants doivent être sauvegardés après avoir été transformés. De cette façon, le compilateur peut être exécuté une seule fois pour transformer l'application, puis il peut être supprimé.
+     */
+    saveComponents: false,
+
+    /**
+     * Préfixe de clé de dictionnaire
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='Commande d'extraction'>
+
+Exécutez l'extracteur pour transformer vos composants et extraire le contenu
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Compilateur Babel'>
+
+Mettez à jour votre fichier `vite.config.ts` pour inclure le plugin `intlayerCompiler` :
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // Ajoute le plugin du compilateur
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # Ou npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # Ou pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Ou yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
+</Step>
+
+</Steps>
+
+### (Facultatif) Sitemap et robots.txt (génération au build)
+
+Intlayer fournit des utilitaires - `generateSitemap` et `getMultilingualUrls` - pour produire un `sitemap.xml` multilingue et un `robots.txt` prêts pour les crawlers, que vous pouvez écrire automatiquement dans `public/`. En pratique, exécutez un petit script Node **avant** Vite (par exemple les hooks npm `predev` / `prebuild`) afin que ces fichiers soient présents au build ou au serveur de développement.
+
+#### Sitemap
+
+Le générateur de sitemap Intlayer tient compte de vos locales et ajoute les métadonnées attendues par les moteurs.
+
+> Le sitemap généré prend en charge l’espace de noms `xhtml:link` (extensions hreflang). Contrairement aux générateurs qui ne listent que des URL brutes, Intlayer relie de façon bidirectionnelle toutes les versions linguistiques d’une même page (par ex. `/about`, `/fr/about` ou `/about?lang=fr` selon votre mode de routage), ce qui aide les crawlers.
+
+#### Robots.txt
+
+Utilisez `getMultilingualUrls` pour que les règles `Disallow` couvrent toutes les variantes localisées des chemins sensibles.
+
+#### 1. Créer `generate-seo.mjs` à la racine du projet
+
+```javascript fileName="generate-seo.mjs"
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import { generateSitemap, getMultilingualUrls } from "intlayer";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const SITE_URL = (process.env.SITE_URL || "http://localhost:5173").replace(
+  /\/$/,
+  ""
+);
+
+const pathList = [
+  { path: "/", changefreq: "daily", priority: 1.0 },
+  { path: "/about", changefreq: "monthly", priority: 0.7 },
+];
+
+const sitemapXml = generateSitemap(pathList, { siteUrl: SITE_URL });
+fs.writeFileSync(path.join(__dirname, "public", "sitemap.xml"), sitemapXml);
+
+const getAllMultilingualUrls = (urls) =>
+  urls.flatMap((url) => Object.values(getMultilingualUrls(url)));
+
+const disallowedPaths = getAllMultilingualUrls(["/admin", "/private"]);
+
+const robotsTxt = [
+  "User-agent: *",
+  "Allow: /",
+  ...disallowedPaths.map((path) => `Disallow: ${path}`),
+  "",
+  `Sitemap: ${SITE_URL}/sitemap.xml`,
+].join("\n");
+
+fs.writeFileSync(path.join(__dirname, "public", "robots.txt"), robotsTxt);
+
+console.log("SEO files generated successfully.");
+```
+
+Le paquet `intlayer` doit être installé pour que le script puisse l’importer. Définissez `SITE_URL` dans l’environnement pour la production (par ex. en CI).
+
+> Préférez `generate-seo.mjs` pour l’ESM Node. Avec `generate-seo.js`, assurez-vous que `"type": "module"` est présent dans `package.json`, ou activez l’ESM côté Node.
+
+#### 2. Lancer le script avant Vite
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "dev": "vite",
+    "prebuild": "node generate-seo.mjs",
+    "build": "vite build",
+    "preview": "vite preview"
+  }
+}
+```
+
+Adaptez les commandes si vous utilisez pnpm ou yarn. Vous pouvez aussi appeler ce script depuis la CI ou une autre étape de votre pipeline.
+
 ### Configurer TypeScript
 
 Intlayer utilise l'augmentation de module pour tirer parti de TypeScript et renforcer votre base de code.
@@ -1020,8 +1117,8 @@ Il est recommandé d'ignorer les fichiers générés par Intlayer. Cela vous per
 
 Pour ce faire, vous pouvez ajouter les instructions suivantes à votre fichier `.gitignore` :
 
-```plaintext
-# Ignorer les fichiers générés par Intlayer
+```bash
+#  Ignorer les fichiers générés par Intlayer
 .intlayer
 ```
 
@@ -1042,8 +1139,8 @@ Il est recommandé d’ignorer les fichiers générés par Intlayer. Cela vous p
 
 Pour ce faire, vous pouvez ajouter les instructions suivantes à votre fichier `.gitignore` :
 
-```plaintext
-# Ignorer les fichiers générés par Intlayer
+```bash
+#  Ignorer les fichiers générés par Intlayer
 .intlayer
 ```
 

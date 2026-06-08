@@ -16,10 +16,10 @@ slugs:
 history:
   - version: 6.0.1
     date: 2025-10-05
-    changes: Membuat pengujian asinkron dan menambahkan opsi build
+    changes: "Membuat pengujian asinkron dan menambahkan opsi build"
   - version: 6.0.0
     date: 2025-09-20
-    changes: Pengenalan pengujian
+    changes: "Pengenalan pengujian"
 ---
 
 # Menguji konten Anda
@@ -40,8 +40,20 @@ Panduan ini menunjukkan cara memverifikasi secara otomatis bahwa kamus Anda leng
 
 Jalankan audit dari root proyek Anda:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 Flag yang berguna:
@@ -187,8 +199,20 @@ jobs:
 
 Opsional: jalankan audit CLI untuk ringkasan yang mudah dibaca manusia bersamaan dengan pengujian:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 ---

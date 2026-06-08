@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-10-05
-updatedAt: 2025-10-05
-title: Wie Sie Ihre Next.js 15 mit next-intl übersetzen – i18n Anleitung 2025
-description: Entdecken Sie, wie Sie Ihre Next.js 15 App Router Website mehrsprachig machen. Folgen Sie der Dokumentation zur Internationalisierung (i18n) und Übersetzung.
+updatedAt: 2026-05-31
+title: "next-intl i18n - Vollständiger Leitfaden zur Übersetzung Ihrer App"
+description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) next-intl-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
 keywords:
   - Internationalisierung
   - Dokumentation
@@ -52,6 +52,10 @@ pnpm add next-intl
 yarn add next-intl
 ```
 
+```bash packageManager="bun"
+bun add next-intl
+```
+
 ```bash
 .
 ├── locales
@@ -99,7 +103,7 @@ async function loadMessages(locale: string) {
 }
 
 export default getRequestConfig(async ({ locale }) => {
-  if (!locales.includes(locale as any)) notFound();
+  if (!locales.includes(locale)) notFound();
 
   return {
     messages: await loadMessages(locale),
@@ -391,15 +395,20 @@ export const config = {
 Installieren Sie die Intlayer-Abhängigkeiten:
 
 ```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin  -D
+npm install intlayer @intlayer/sync-json-plugin --save-dev
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin  -D
+yarn add intlayer @intlayer/sync-json-plugin --dev
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin  -D
+pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+```
+
+```bash packageManager="bun"
+bun add intlayer @intlayer/sync-json-plugin --dev
+bun x intlayer init
 ```
 
 Erstellen Sie die Intlayer-Konfigurationsdatei:
@@ -444,9 +453,9 @@ Hinweise:
 - `intlayer fill`: Verwendet Ihren AI-Anbieter, um fehlende Übersetzungen basierend auf Ihren konfigurierten Sprachen zu ergänzen.
 - `intlayer test`: Überprüft fehlende oder ungültige Übersetzungen (ideal für den Einsatz in CI).
 
-Sie können Argumente und Anbieter konfigurieren; siehe [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md).
+Sie können Argumente und Anbieter konfigurieren; siehe [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md).
 
 - `intlayer fill`: verwendet Ihren KI-Anbieter, um fehlende Übersetzungen basierend auf Ihren konfigurierten Sprachversionen zu ergänzen.
 - `intlayer test`: überprüft fehlende/ungültige Übersetzungen (verwenden Sie es im CI).
 
-Sie können Argumente und Anbieter konfigurieren; siehe [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md).
+Sie können Argumente und Anbieter konfigurieren; siehe [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md).

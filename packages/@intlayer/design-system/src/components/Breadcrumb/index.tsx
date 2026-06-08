@@ -1,14 +1,14 @@
 'use client';
 
-import { getIntlayer } from '@intlayer/core';
-import type { LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
+import { getIntlayer } from 'intlayer';
 import { ChevronRightIcon } from 'lucide-react';
 import { type FC, Fragment, type HTMLAttributes, type ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { cn } from '../../utils/cn';
-import { Button, type ButtonProps, ButtonVariant } from '../Button';
-import { Link, LinkColor } from '../Link';
+import { Button, type ButtonProps } from '../Button';
+import { Link, type LinkColor } from '../Link';
 
 /**
  * Props for LinkLink sub-component that renders breadcrumb items as links
@@ -46,6 +46,28 @@ type LinkLinkProps = {
   HTMLAttributes<HTMLAnchorElement>,
   'href' | 'onClick' | 'color' | 'children' | 'className'
 >;
+
+/**
+ * Maps LinkColor to corresponding Tailwind text color classes
+ */
+const getColorClass = (color?: LinkColor | `${LinkColor}`): string => {
+  if (!color) return '';
+
+  const colorMap: Record<LinkColor, string> = {
+    primary: 'text-primary',
+    secondary: 'text-secondary',
+    neutral: 'text-neutral',
+    light: 'text-white',
+    dark: 'text-neutral-800',
+    text: 'text-text',
+    'text-inverse': 'text-text-opposite',
+    error: 'text-error',
+    success: 'text-success',
+    custom: '',
+  };
+
+  return colorMap[color as LinkColor] || '';
+};
 
 /**
  * Breadcrumb variant styles using class-variance-authority
@@ -140,7 +162,7 @@ const ButtonLink: FC<ButtonButtonProps> = ({
     <>
       <Button
         onClick={onClick}
-        variant={ButtonVariant.LINK}
+        variant="link"
         label={`${linkLabel} ${text}`}
         color={color}
         itemProp="item"
@@ -219,7 +241,7 @@ export type BreadcrumbProps = {
   links: BreadcrumbLink[];
   /**
    * Color scheme for breadcrumb links
-   * @default LinkColor.TEXT
+   * @default "text"
    */
   color?: LinkColor | `${LinkColor}`;
   /**
@@ -282,7 +304,7 @@ export type BreadcrumbProps = {
 export const Breadcrumb: FC<BreadcrumbProps> = ({
   links,
   className,
-  color = LinkColor.TEXT,
+  color = 'text',
   locale,
   elementType = 'page',
   separator = <ChevronRightIcon size={10} />,
@@ -320,6 +342,8 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
 
           const text = (link as DetailedBreadcrumbLink).text ?? link;
 
+          const separatorColorClass = getColorClass(color);
+
           if (isTruncated) {
             return (
               <Fragment key={`truncated-${text}`}>
@@ -328,7 +352,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
                 </li>
                 {!isLastLink && (
                   <li aria-hidden="true" className="flex items-center">
-                    {separator}
+                    <span className={cn(separatorColorClass)}>{separator}</span>
                   </li>
                 )}
               </Fragment>
@@ -400,7 +424,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
             <Fragment key={text}>
               {listElement}
               <li aria-hidden="true" className="flex items-center">
-                {separator}
+                <span className={cn(separatorColorClass)}>{separator}</span>
               </li>
             </Fragment>
           );

@@ -1,4 +1,6 @@
-import type { Dictionary, KeyPath, NodeType, TypedNode } from '@intlayer/types';
+import type { Dictionary, TypedNode } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import type { NodeType } from '@intlayer/types/nodeType';
 import {
   deepTransformNode,
   type NodeProps,

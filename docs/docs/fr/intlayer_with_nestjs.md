@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-09-09
-title: Comment traduire votre Nest backend – guide i18n 2025
-description: Découvrez comment rendre votre backend NestJS multilingue. Suivez la documentation pour internationaliser (i18n) et traduire.
+updatedAt: 2026-05-31
+title: "NestJS i18n - Guide complet pour traduire votre application"
+description: "Oubliez i18next. Le guide 2026 pour créer une application NestJS multilingue (i18n). Traduisez avec des agents IA et optimisez la taille du bundle, le SEO et les performances."
 keywords:
   - Internationalisation
   - Documentation
@@ -14,12 +14,17 @@ slugs:
   - doc
   - environment
   - nest
-applicationTemplate: https://github.com/AydinTheFirst/nestjs-intlayer
 author: AydinTheFirst
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Mettre à jour l'utilisation de l'API useIntlayer de Solid pour un accès direct aux propriétés"
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: "Ajouter la commande init"
   - version: 5.8.0
     date: 2025-09-09
-    changes: Documentation initiale
+    changes: "Documentation initiale"
 ---
 
 # Traduire votre Nest backend avec Intlayer | Internationalisation (i18n)
@@ -59,14 +64,22 @@ Pour commencer à utiliser `express-intlayer`, installez le package avec npm :
 
 ```bash packageManager="npm"
 npm install intlayer express-intlayer
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer express-intlayer
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer express-intlayer
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer express-intlayer
+bun x intlayer init
 ```
 
 ### Configurer tsconfig.json
@@ -87,7 +100,7 @@ Pour utiliser Intlayer avec TypeScript, assurez-vous que votre `tsconfig.json` e
 
 Configurez les paramètres d'internationalisation en créant un fichier `intlayer.config.ts` à la racine de votre projet :
 
-```typescript fileName="intlayer.config.ts"  codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -100,39 +113,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 ### Déclarez Votre Contenu
 
 Créez et gérez vos déclarations de contenu pour stocker les traductions :
 
-```typescript fileName="src/app.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/app.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, type Dictionary } from "intlayer";
 
 const appContent: Dictionary = {
@@ -149,7 +134,7 @@ const appContent: Dictionary = {
 export default appContent;
 ```
 
-> Vos déclarations de contenu peuvent être définies n'importe où dans votre application dès lors qu'elles sont incluses dans le répertoire `contentDir` (par défaut, `./src`). Et correspondent à l'extension des fichiers de déclaration de contenu (par défaut, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> Vos déclarations de contenu peuvent être définies n'importe où dans votre application dès lors qu'elles sont incluses dans le répertoire `contentDir` (par défaut, `./src`). Et correspondent à l'extension des fichiers de déclaration de contenu (par défaut, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Pour plus de détails, référez-vous à la [documentation sur la déclaration de contenu](/doc/concept/content).
 

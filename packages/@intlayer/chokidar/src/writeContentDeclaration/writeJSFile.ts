@@ -1,15 +1,16 @@
 import { execSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
-import { readFile, writeFile } from 'node:fs/promises';
-import { extname } from 'node:path';
-import { getAppLogger, logger } from '@intlayer/config';
-import type { Dictionary, IntlayerConfig } from '@intlayer/types';
+import { mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises';
+import { basename, extname, join } from 'node:path';
+import { getAppLogger, logger } from '@intlayer/config/logger';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import { detectFormatCommand } from '../detectFormatCommand';
 import { getContentDeclarationFileTemplate } from '../getContentDeclarationFileTemplate/getContentDeclarationFileTemplate';
 import {
   type Extension,
   getFormatFromExtension,
 } from '../utils/getFormatFromExtension';
-import { detectFormatCommand } from './detectFormatCommand';
 import { transformJSFile } from './transformJSFile';
 
 /**
@@ -21,7 +22,8 @@ import { transformJSFile } from './transformJSFile';
 export const writeJSFile = async (
   filePath: string,
   dictionary: Dictionary,
-  configuration: IntlayerConfig
+  configuration: IntlayerConfig,
+  noMetadata?: boolean
 ): Promise<void> => {
   const mergedDictionary = {
     ...configuration.dictionary,
@@ -45,35 +47,86 @@ export const writeJSFile = async (
       // Filter out undefined values
       Object.fromEntries(
         Object.entries({
-          id: mergedDictionary.id,
-          locale: mergedDictionary.locale,
-          filled: mergedDictionary.filled,
-          fill: mergedDictionary.fill,
-          description: mergedDictionary.description,
-          title: mergedDictionary.title,
-          tags: mergedDictionary.tags,
-          version: mergedDictionary.version,
-          priority: mergedDictionary.priority,
-          live: mergedDictionary.live,
+          id: noMetadata ? undefined : mergedDictionary.id,
+          locale: noMetadata ? undefined : mergedDictionary.locale,
+          filled: noMetadata ? undefined : mergedDictionary.filled,
+          fill: noMetadata ? undefined : mergedDictionary.fill,
+          description: noMetadata ? undefined : mergedDictionary.description,
+          title: noMetadata ? undefined : mergedDictionary.title,
+          tags: noMetadata ? undefined : mergedDictionary.tags,
+          version: noMetadata ? undefined : mergedDictionary.version,
+          priority: noMetadata ? undefined : mergedDictionary.priority,
+          importMode: noMetadata ? undefined : mergedDictionary.importMode,
         }).filter(([, value]) => value !== undefined)
-      )
+      ),
+      noMetadata
     );
 
-    await writeFile(filePath, template, 'utf-8');
+    const tempDir = configuration.system?.tempDir;
+    if (tempDir) {
+      await mkdir(tempDir, { recursive: true });
+    }
+
+    const tempFileName = `${basename(filePath)}.${Date.now()}-${Math.random().toString(36).slice(2)}.tmp`;
+    const tempPath = tempDir
+      ? join(tempDir, tempFileName)
+      : `${filePath}.${tempFileName}`;
+    try {
+      await writeFile(tempPath, template, 'utf-8');
+      await rename(tempPath, filePath);
+    } catch (error) {
+      try {
+        await rm(tempPath, { force: true });
+      } catch {
+        // Ignore
+      }
+      throw error;
+    }
   }
 
-  const fileContent = await readFile(filePath, 'utf-8');
+  let fileContent = await readFile(filePath, 'utf-8');
 
-  const finalCode = await transformJSFile(fileContent, dictionary);
+  if (fileContent === '') {
+    const format = getFormatFromExtension(extname(filePath) as Extension);
+
+    fileContent = await getContentDeclarationFileTemplate(
+      mergedDictionary.key,
+      format,
+      {},
+      noMetadata
+    );
+  }
+
+  const finalCode = await transformJSFile(
+    fileContent,
+    dictionary,
+    dictionary.locale as any,
+    noMetadata
+  );
 
   // Write the modified code back to the file
+  const tempDir = configuration.system?.tempDir;
+  if (tempDir) {
+    await mkdir(tempDir, { recursive: true });
+  }
+
+  const tempFileName = `${basename(filePath)}.${Date.now()}-${Math.random().toString(36).slice(2)}.tmp`;
+  const tempPath = tempDir
+    ? join(tempDir, tempFileName)
+    : `${filePath}.${tempFileName}`;
   try {
-    await writeFile(filePath, finalCode, 'utf-8');
+    await writeFile(tempPath, finalCode, 'utf-8');
+    await rename(tempPath, filePath);
     logger(`Successfully updated ${filePath}`, {
       level: 'info',
       isVerbose: true,
     });
   } catch (error) {
+    try {
+      await rm(tempPath, { force: true });
+    } catch {
+      // Ignore
+    }
     const err = error as Error;
     logger(`Failed to write updated file: ${filePath}`, {
       level: 'error',
@@ -87,7 +140,7 @@ export const writeJSFile = async (
     try {
       execSync(formatCommand.replace('{{file}}', filePath), {
         stdio: 'inherit',
-        cwd: configuration.content.baseDir,
+        cwd: configuration.system.baseDir,
       });
     } catch (error) {
       console.error(error);

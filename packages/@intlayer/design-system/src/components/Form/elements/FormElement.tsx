@@ -18,6 +18,7 @@ export type FormElementProps<T extends ElementType> = {
   info?: string;
   showErrorMessage?: boolean;
   focus?: boolean;
+  layoutClassName?: string;
 } & Omit<FormItemLayoutProps, 'children'>;
 
 type FormFieldElementProps<T extends ElementType> = FormElementProps<T> &
@@ -34,6 +35,7 @@ const FormFieldElement = <T extends ElementType>({
   info,
   description,
   showErrorMessage = true,
+  layoutClassName,
   ...props
 }: FormFieldElementProps<T>) => {
   const { error } = useFormField();
@@ -71,6 +73,7 @@ const FormFieldElement = <T extends ElementType>({
       info={info}
       showErrorMessage={showErrorMessage}
       aria-invalid={!!error}
+      className={layoutClassName}
     >
       <Element
         data-testid="element"

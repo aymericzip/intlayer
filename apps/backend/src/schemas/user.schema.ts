@@ -2,9 +2,9 @@ import {
   NAMES_MAX_LENGTH,
   NAMES_MIN_LENGTH,
 } from '@utils/validation/validateUser';
-import { Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
 import validator from 'validator';
-import type { UserSchema } from '@/types/user.types';
+import type { UserModelType, UserSchema } from '@/types/user.types';
 
 export const userSchema = new Schema<UserSchema>(
   {
@@ -20,6 +20,10 @@ export const userSchema = new Schema<UserSchema>(
       type: String,
       maxlength: NAMES_MAX_LENGTH,
       minlength: NAMES_MIN_LENGTH,
+    },
+    image: {
+      type: String,
+      required: false,
     },
     phone: {
       type: String,
@@ -40,6 +44,11 @@ export const userSchema = new Schema<UserSchema>(
       },
       required: false,
     },
+    emailVerified: {
+      type: Boolean,
+      default: false,
+      required: false,
+    },
     role: {
       type: String,
       enum: ['admin', 'user'],
@@ -48,7 +57,7 @@ export const userSchema = new Schema<UserSchema>(
     },
     lastLoginMethod: {
       type: String,
-      enum: ['email', 'google', 'github'],
+      enum: ['email', 'google', 'github', 'passkey'],
       required: false,
     },
     lang: {
@@ -57,6 +66,14 @@ export const userSchema = new Schema<UserSchema>(
     },
     dateOfBirth: {
       type: Date,
+      required: false,
+    },
+    lastActiveOrganizationId: {
+      type: String,
+      required: false,
+    },
+    lastActiveProjectId: {
+      type: String,
       required: false,
     },
   },
@@ -86,3 +103,5 @@ export const userSchema = new Schema<UserSchema>(
     },
   }
 );
+
+export const UserModel = model<UserSchema, UserModelType>('user', userSchema);

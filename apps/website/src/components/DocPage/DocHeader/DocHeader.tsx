@@ -1,7 +1,12 @@
-import { Container } from '@intlayer/design-system';
+'use client';
+
+import {} from '@intlayer/design-system/api';
+import { Container } from '@intlayer/design-system/container';
+import { useDevice } from '@intlayer/design-system/hooks';
 import type { DocMetadata } from '@intlayer/docs';
 import { useIntlayer, useLocale } from 'next-intlayer/server';
 import type { FC } from 'react';
+import { ApplicationShowcaseMessage } from '../ApplicationShowcaseMessage';
 import { ApplicationTemplateMessage } from '../ApplicationTemplateMessage';
 import { ContributionMessage } from '../ContributionMessage';
 import { CopyMarkdownMessage } from '../CopyMarkdownMessage';
@@ -32,9 +37,11 @@ export const DocHeader: FC<DocHeaderProps> = ({
   githubUrl,
   youtubeVideo,
   applicationTemplate,
+  applicationShowcase,
   baseUpdatedAt,
   history,
 }) => {
+  const { isMobile } = useDevice();
   const { locale } = useLocale();
   const { authorLabel, creationLabel, lastUpdateLabel } =
     useIntlayer('doc-header');
@@ -62,10 +69,10 @@ export const DocHeader: FC<DocHeaderProps> = ({
           )}
         </div>
       </header>
-      <Container className="sticky top-10 z-5 mx-auto mt-5 flex max-w-3xl flex-col gap-2 px-4 py-2">
+      <Container className="sticky top-10 z-10 mx-auto mt-5 flex max-w-3xl flex-col gap-2 px-4 py-2 max-md:overflow-x-auto">
         <div className="flex w-full flex-row justify-between gap-4">
           <div className="flex w-full shrink flex-row items-center justify-start gap-4">
-            {applicationTemplate && (
+            {!isMobile && applicationTemplate && (
               <ApplicationTemplateMessage
                 applicationTemplateUrl={applicationTemplate.replace(
                   'github.com',
@@ -74,28 +81,38 @@ export const DocHeader: FC<DocHeaderProps> = ({
               />
             )}
 
+            {!isMobile && applicationShowcase && (
+              <ApplicationShowcaseMessage
+                applicationShowcaseUrl={applicationShowcase}
+              />
+            )}
+
             {youtubeVideo && (
               <YoutubeVideoMessage youtubeVideoUrl={youtubeVideo} />
             )}
 
-            <SummarizeAI url={url} />
+            {!isMobile && <SummarizeAI url={url} />}
 
-            <MCPMessage />
+            {!isMobile && <MCPMessage />}
 
             <ScrollWellAndTitle />
           </div>
           <div className="flex shrink-0 flex-row items-center justify-end gap-4">
-            <History
-              pageUrl={relativeUrl}
-              updatedAt={updatedAt as string}
-              baseUpdatedAt={baseUpdatedAt as string}
-              history={history}
-            />
-            <TranslatedContentMessage pageUrl={relativeUrl} />
+            {!isMobile && (
+              <History
+                pageUrl={relativeUrl}
+                updatedAt={updatedAt as string}
+                baseUpdatedAt={baseUpdatedAt as string}
+                history={history}
+              />
+            )}
+            {!isMobile && <TranslatedContentMessage pageUrl={relativeUrl} />}
 
-            <ContributionMessage
-              githubUrl={githubUrl.replace('/en/', `/${locale}/`)}
-            />
+            {!isMobile && (
+              <ContributionMessage
+                githubUrl={githubUrl.replace('/en/', `/${locale}/`)}
+              />
+            )}
 
             <CopyMarkdownMessage markdownContent={markdownContent} />
           </div>

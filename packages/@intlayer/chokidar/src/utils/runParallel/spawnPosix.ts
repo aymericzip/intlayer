@@ -4,14 +4,15 @@
 
 import type { SpawnOptions } from 'node:child_process';
 import { type ChildProcess, spawn as nodeSpawn } from 'node:child_process';
-import { list } from './pidTree';
 
 //------------------------------------------------------------------------------
 // Helpers
 //------------------------------------------------------------------------------
 
 /**
- * Kills the new process and its sub processes.
+ * Kills the new process and its sub processes synchronously using
+ * process group kill (negative PID). This ensures all descendants
+ * are terminated before the parent calls process.exit().
  */
 const createKillHandler = (
   child: ChildProcess
@@ -19,44 +20,22 @@ const createKillHandler = (
   return (signal?: NodeJS.Signals | number): boolean => {
     if (!child.pid) return false;
 
-    // Try using list if available
+    const killSignal = signal ?? 'SIGTERM';
+
+    // Use synchronous process group kill (negative PID) as primary strategy.
+    // This kills the entire process group (shell + all descendants) immediately.
     try {
-      list(child.pid, { root: true }, (err: Error | null, pids?: number[]) => {
-        if (err) {
-          // Fallback to process group kill
-          try {
-            process.kill(-child.pid!, signal ?? 'SIGTERM');
-          } catch {
-            // ignore
-          }
-          return;
-        }
-
-        if (!pids) {
-          // Fallback to process group kill if no pids returned
-          try {
-            process.kill(-child.pid!, signal ?? 'SIGTERM');
-          } catch {
-            // ignore
-          }
-          return;
-        }
-
-        for (const pid of pids) {
-          try {
-            process.kill(pid, signal ?? 'SIGTERM');
-          } catch (_err) {
-            // ignore.
-          }
-        }
-      });
+      process.kill(-child.pid, killSignal);
+      return true;
     } catch {
-      // pidtree not available, use process group kill
-      try {
-        process.kill(-child.pid, signal ?? 'SIGTERM');
-      } catch {
-        // ignore
-      }
+      // Process group kill failed (e.g., process not a group leader).
+    }
+
+    // Fallback: kill the child process directly.
+    try {
+      process.kill(child.pid, killSignal);
+    } catch {
+      // ignore — process may have already exited.
     }
 
     return true;
@@ -85,7 +64,9 @@ export const spawnPosix = (
   args: string[],
   options: SpawnOptions
 ): ChildProcess => {
-  const child = nodeSpawn(command, args, options);
+  // Spawn detached so the child becomes its own process group leader.
+  // This allows killing the entire tree via process.kill(-pid, signal).
+  const child = nodeSpawn(command, args, { ...options, detached: true });
   child.kill = createKillHandler(child);
 
   return child;

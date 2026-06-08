@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-01-06
 title: Liệt kê các tệp khai báo nội dung
 description: Tìm hiểu cách liệt kê tất cả các tệp khai báo nội dung trong dự án của bạn.
 keywords:
@@ -13,12 +13,31 @@ slugs:
   - concept
   - cli
   - list
+history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: "Thêm tùy chọn đầu ra tuyệt đối cho lệnh list"
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: "Thêm tùy chọn đầu ra JSON cho lệnh list"
 ---
 
 # Liệt kê các tệp khai báo nội dung
 
-```bash
+```bash packageManager="npm"
 npx intlayer content list
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list
+```
+
+```bash packageManager="bun"
+bun x intlayer content list
 ```
 
 ## Bí danh:
@@ -27,13 +46,71 @@ npx intlayer content list
 
 Lệnh này hiển thị tất cả các tệp khai báo nội dung trong dự án của bạn, cho thấy các khóa từ điển và đường dẫn tệp của chúng. Nó hữu ích để có cái nhìn tổng quan về tất cả các tệp nội dung của bạn và xác minh rằng chúng được Intlayer phát hiện đúng cách.
 
+## Đối số:
+
+- **`--json`**: Xuất kết quả dưới dạng JSON thay vì văn bản được định dạng. Hữu ích cho việc viết script và truy cập lập trình.
+
+  > Ví dụ: `npx intlayer content list --json`
+
 ## Ví dụ:
 
-```bash
+### Liệt kê các tệp khai báo nội dung:
+
+```bash packageManager="npm"
 npx intlayer content list
 ```
 
+```bash packageManager="yarn"
+yarn intlayer content list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list
+```
+
+```bash packageManager="bun"
+bun x intlayer content list
+```
+
+### Đầu ra dưới dạng JSON:
+
+```bash packageManager="npm"
+npx intlayer content list --json
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list --json
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list --json
+```
+
+```bash packageManager="bun"
+bun x intlayer content list --json
+```
+
+### Đầu ra dưới dạng đường dẫn tuyệt đối:
+
+```bash packageManager="npm"
+npx intlayer content list --absolute
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list --absolute
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list --absolute
+```
+
+```bash packageManager="bun"
+bun x intlayer content list --absolute
+```
+
 ## Ví dụ đầu ra:
+
+### Đầu ra được định dạng:
 
 ```bash
 npx intlayer content list
@@ -43,6 +120,14 @@ Content declaration files:
  - client-component - src/components/ClientComponent/clientComponent.content.ts
 
 Tổng số tệp khai báo nội dung: 3
+```
+
+### Đầu ra JSON:
+
+```bash
+$ npx intlayer content list --json
+
+[{"key":"home-page","path":"src/components/HomePage/homePage.content.ts"},{"key":"server-component","path":"src/components/ServerComponent/serverComponent.content.ts"},{"key":"client-component","path":"src/components/ClientComponent/clientComponent.content.ts"}]
 ```
 
 Lệnh này sẽ xuất ra:

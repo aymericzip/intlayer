@@ -1,4 +1,4 @@
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { describe, expect, it } from 'vitest';
 import { t } from '../transpiler';
 import { getMultilingualDictionary } from './getMultilingualDictionary';

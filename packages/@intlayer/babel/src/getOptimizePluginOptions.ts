@@ -1,10 +1,11 @@
-import { isAbsolute, join } from 'node:path';
+import { join } from 'node:path';
+import { buildComponentFilesList } from '@intlayer/chokidar/utils';
 import {
   type GetConfigurationOptions,
   getConfiguration,
-} from '@intlayer/config';
-import type { Dictionary, IntlayerConfig } from '@intlayer/types';
-import fg from 'fast-glob';
+} from '@intlayer/config/node';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import type { OptimizePluginOptions } from './babel-plugin-intlayer-optimize';
 
 type GetOptimizePluginOptionsParams = {
@@ -30,10 +31,8 @@ const loadDictionaries = (config: IntlayerConfig): Dictionary[] => {
     // Dynamic require to avoid build-time dependency issues
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { getDictionaries } = require('@intlayer/dictionaries-entry');
-    const dictionariesRecord = getDictionaries(config) as Record<
-      string,
-      Dictionary
-    >;
+    const dictionariesRecord = getDictionaries(config);
+
     return Object.values(dictionariesRecord);
   } catch {
     // If dictionaries-entry is not available, return empty array
@@ -58,25 +57,12 @@ export const getOptimizePluginOptions = (
   const config = getConfiguration(configOptions);
   const {
     mainDir,
-    baseDir,
     dictionariesDir,
     unmergedDictionariesDir,
     dynamicDictionariesDir,
     fetchDictionariesDir,
-  } = config.content;
-  const { importMode, traversePattern, optimize } = config.build;
-
-  // Build files list from traverse pattern
-  const filesListPattern = fg
-    .sync(traversePattern, {
-      cwd: baseDir,
-    })
-    .map((file) => {
-      if (isAbsolute(file)) {
-        return file;
-      }
-      return join(baseDir, file);
-    });
+  } = config.system;
+  const { importMode, optimize } = config.build;
 
   const dictionariesEntryPath = join(mainDir, 'dictionaries.mjs');
   const unmergedDictionariesEntryPath = join(
@@ -89,6 +75,8 @@ export const getOptimizePluginOptions = (
   );
   const fetchDictionariesEntryPath = join(mainDir, 'fetch_dictionaries.mjs');
 
+  const filesListPattern = buildComponentFilesList(config);
+
   const filesList = [
     ...filesListPattern,
     dictionariesEntryPath, // should add dictionariesEntryPath to replace it by an empty object if import made dynamic
@@ -98,9 +86,14 @@ export const getOptimizePluginOptions = (
   // Load dictionaries if not provided
   const dictionaries = providedDictionaries ?? loadDictionaries(config);
 
-  const liveSyncKeys = dictionaries
-    .filter((dictionary) => dictionary.live)
-    .map((dictionary) => dictionary.key);
+  const dictionaryModeMap: Record<
+    string,
+    'static' | 'dynamic' | 'fetch' | undefined
+  > = {};
+
+  dictionaries.forEach((dictionary) => {
+    dictionaryModeMap[dictionary.key] = dictionary.importMode ?? importMode;
+  });
 
   return {
     optimize,
@@ -114,7 +107,7 @@ export const getOptimizePluginOptions = (
     fetchDictionariesEntryPath,
     replaceDictionaryEntry: true,
     importMode,
-    liveSyncKeys,
+    dictionaryModeMap,
     filesList,
     ...overrides,
   };

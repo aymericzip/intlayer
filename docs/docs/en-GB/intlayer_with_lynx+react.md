@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-03-09
-updatedAt: 2025-06-29
-title: How to translate your Lynx mobile app – i18n guide 2025
-description: Discover how to make your Lynx and React mobile app multilingual. Follow the documentation to internationalise (i18n) and translate it.
+updatedAt: 2026-05-31
+title: "Lynx + React i18n - Complete guide to translate your app"
+description: "No more i18next. The 2026 guide to building a multilingual (i18n) Lynx + React app. Translate with AI agents and optimise bundle size, SEO and performances."
 keywords:
   - Internationalisation
   - Documentation
@@ -17,16 +17,95 @@ slugs:
   - lynx-and-react
 applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Update Solid useIntlayer API usage to direct property access"
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: "Add init command"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Initial history"
 ---
 
 # Getting Started Internationalising (i18n) with Intlayer and Lynx and React
 
 See [Application Template](https://github.com/aymericzip/intlayer-lynx-template) on GitHub.
 
-## What is Intlayer?
+## Why Intlayer over alternatives?
+
+Compared to main solutions like `react-native-localize` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
+
+<AccordionGroup>
+
+<Accordion header="Full Lynx coverage">
+
+Intlayer is optimized to work perfectly with Lynx and React by offering **component-level content scoping**, **TypeScript support**, and all the features needed for scaling internationalization (i18n).
+
+</Accordion>
+
+<Accordion header="Bundle size">
+
+Instead of loading massive JSON files into your pages, load only the necessary content. Intlayer helps **reduce your bundle and page sizes by up to 50%**.
+
+</Accordion>
+
+<Accordion header="Maintainability">
+
+Scoping your application's content **facilitates maintenance** for large-scale applications. You can duplicate or delete a single feature folder without the mental burden of reviewing your entire content codebase. Additionally, Intlayer is **fully typed** to ensure your content's accuracy.
+
+</Accordion>
+
+<Accordion header="AI Agent">
+
+Co-locating content **reduces the context needed** by Large Language Models (LLMs). Intlayer also comes with a suite of tools, such as a **CLI** to test for missing translations,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, and **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, to make the developer experience (DX) even smoother for AI agents.
+
+</Accordion>
+
+<Accordion header="Automation">
+
+Use automation to translate in your CI/CD pipeline using the LLM of your choice at the cost of your AI provider. Intlayer also offers a **compiler** to automate content extraction, as well as a [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) to help **translate in the background**.
+
+</Accordion>
+
+<Accordion header="Performance">
+
+Connecting massive JSON files to components can lead to performance and reactivity issues. Intlayer optimizes your content loading at build time.
+
+</Accordion>
+
+<Accordion header="Scaling with none-dev">
+
+More than just an i18n solution, Intlayer provides an **self-hosted [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** and a **[full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** to help you manage your multilingual content in **real-time**, making collaboration with translators, copywriters, and other team members seamless. Content can be stored locally and/or remotely.
+
+</Accordion>
+</AccordionGroup>
+
+---
+
+## Step 1: Install Dependencies
+
+From your Lynx project, install the following packages:
+
+```bash packageManager="npm"
+npm install intlayer react-intlayer lynx-intlayer
+npx intlayer init
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer react-intlayer lynx-intlayer
+pnpm intlayer init
+```
+
+```bash packageManager="yarn"
+yarn add intlayer react-intlayer lynx-intlayer
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer lynx-intlayer
+bun x intlayer init
+```
 
 **Intlayer** is an **innovative, open-source internationalisation (i18n) library** that simplifies multilingual support in modern applications. It works in many JavaScript/TypeScript environments, **including Lynx** (via the `react-intlayer` package).
 
@@ -45,41 +124,22 @@ From your Lynx project, install the following packages:
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer lynx-intlayer
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer lynx-intlayer
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer react-intlayer lynx-intlayer
+yarn intlayer init
 ```
 
-**Intlayer** is an **innovative, open-source internationalisation (i18n) library** that simplifies multilingual support in modern applications. It works in many JavaScript/TypeScript environments, **including Lynx** (via the `react-intlayer` package).
-
-With Intlayer, you can:
-
-- **Easily manage translations** using declarative dictionaries at the component level.
-- **Ensure TypeScript support** with autogenerated types.
-- **Dynamically localise** content, including **UI strings** (and in React for web, it can also localise HTML metadata, etc.).
-- **Benefit from advanced features**, like dynamic locale detection and switching.
-
----
-
-## Step 1: Install Dependencies
-
-From your Lynx project, install the following packages:
-
-```bash packageManager="npm"
-npm install intlayer react-intlayer lynx-intlayer
-```
-
-```bash packageManager="pnpm"
-pnpm add intlayer react-intlayer lynx-intlayer
-```
-
-```bash packageManager="yarn"
-yarn add intlayer react-intlayer lynx-intlayer
+```bash packageManager="bun"
+bun add intlayer react-intlayer lynx-intlayer
+bun x intlayer init
 ```
 
 ### Packages
@@ -99,7 +159,7 @@ yarn add intlayer react-intlayer lynx-intlayer
 
 In your project root (or anywhere convenient), create an **Intlayer config** file. It might look like this:
 
-```ts fileName="intlayer.config.ts" codeFormat="typescript"
+```ts fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -115,39 +175,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```js fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // ... Add any other locales you need
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```js fileName="intlayer.config.js" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 Within this config, you can:
@@ -216,7 +243,7 @@ Create **content declaration** files anywhere in your project (commonly within `
 
 Example:
 
-```tsx fileName="src/app.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -255,87 +282,6 @@ const appContent = {
 } satisfies Dictionary;
 
 export default appContent;
-```
-
-```jsx fileName="src/app.content.mjx" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-const appContent = {
-  key: "app",
-  content: {
-    title: "React",
-    subtitle: t({
-      "en-GB": "on Lynx",
-      en: "on Lynx",
-      fr: "sur Lynx",
-      es: "en Lynx",
-    }),
-    description: t({
-      "en-GB": "Tap the logo and have fun!",
-      en: "Tap the logo and have fun!",
-      fr: "Appuyez sur le logo et amusez-vous!",
-      es: "¡Toca el logo y diviértete!",
-    }),
-    hint: [
-      t({
-        "en-GB": "Edit",
-        en: "Edit",
-        fr: "Modifier",
-        es: "Editar",
-      }),
-      " src/App.tsx ",
-      t({
-        "en-GB": "to see updates!",
-        en: "to see updates!",
-        fr: "pour voir les mises à jour!",
-        es: "para ver actualizaciones!",
-      }),
-    ],
-  },
-};
-
-export default appContent;
-```
-
-```jsx fileName="src/app.content.csx" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    title: "React",
-    subtitle: t({
-      "en-GB": "on Lynx",
-      en: "on Lynx",
-      fr: "sur Lynx",
-      es: "en Lynx",
-    }),
-    description: t({
-      "en-GB": "Tap the logo and have fun!",
-      en: "Tap the logo and have fun!",
-      fr: "Appuyez sur le logo et amusez-vous!",
-      es: "¡Toca el logo y diviértete!",
-    }),
-    hint: [
-      t({
-        "en-GB": "Edit",
-        en: "Edit",
-        fr: "Modifier",
-        es: "Editar",
-      }),
-      " src/App.tsx ",
-      t({
-        "en-GB": "to see updates!",
-        en: "to see updates!",
-        fr: "pour voir les mises à jour!",
-        es: "para ver actualizaciones!",
-      }),
-    ],
-  },
-};
-
-module.exports = appContent;
 ```
 
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"
@@ -387,7 +333,7 @@ module.exports = appContent;
 }
 ```
 
-> For details on content declarations, see [Intlayer’s content docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/get_started.md).
+> For details on content declarations, see [Intlayer’s content docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md).
 
 ---
 
@@ -519,7 +465,7 @@ This is what enables features like:
 
 To avoid committing auto-generated files by Intlayer, add the following to your `.gitignore`:
 
-```plaintext
+```bash
 # Ignore the files generated by Intlayer
 .intlayer
 ```
@@ -547,6 +493,6 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 
 - **Visual Editor**: Use the [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) to manage translations visually.
 - **CMS Integration**: You can also externalise and fetch your dictionary content from a [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md).
-- **CLI Commands**: Explore the [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_cli.md) for tasks like **extracting translations** or **checking missing keys**.
+- **CLI Commands**: Explore the [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/index.md) for tasks like **extracting translations** or **checking missing keys**.
 
 ---

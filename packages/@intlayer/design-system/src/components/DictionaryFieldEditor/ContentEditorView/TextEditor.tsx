@@ -1,59 +1,86 @@
 'use client';
 
-import {
-  type ConditionContent,
-  type EnumerationContent,
-  type FileContent,
-  type GenderContent,
-  getEmptyNode,
-  getLocaleName,
-  getNodeType,
-  type InsertionContent,
-  type MarkdownContent,
-  type TranslationContent,
-} from '@intlayer/core';
-import { useConfiguration, useEditedContent } from '@intlayer/editor-react';
-import {
-  type ContentNode,
-  type Dictionary,
-  type KeyPath,
-  type Locale,
-  type LocalesValues,
-  NodeType,
-} from '@intlayer/types';
-import { Plus, Trash, WandSparkles } from 'lucide-react';
-import { type FC, Fragment, type ReactNode, useState } from 'react';
-import { useIntlayer, useLocale } from 'react-intlayer';
-import { useAuditContentDeclarationField } from '../../../hooks';
-import { renameKey } from '../../../utils/object';
-import {
-  Button,
-  ButtonColor,
-  ButtonSize,
-  ButtonTextAlign,
-  ButtonVariant,
-} from '../../Button';
-import { Container } from '../../Container';
+import { useAuditContentDeclarationField } from '@api/index';
+import { Accordion } from '@components/Accordion';
+import { Button } from '@components/Button';
+import { Container } from '@components/Container';
 import {
   ContentEditorInput as ContentEditorInputBase,
   type ContentEditorInputProps as ContentEditorInputPropsBase,
-} from '../../ContentEditor/ContentEditorInput';
+} from '@components/ContentEditor/ContentEditorInput';
 import {
   ContentEditorTextArea as ContentEditorTextAreaBase,
   type ContentEditorTextAreaProps as ContentEditorTextAreaPropsBase,
-} from '../../ContentEditor/ContentEditorTextArea';
-import { InputVariant } from '../../Input';
-import { Label } from '../../Label';
-import { useLocaleSwitcherContent } from '../../LocaleSwitcherContentDropDown';
-import { MarkdownRenderer } from '../../MarkDownRender';
+} from '@components/ContentEditor/ContentEditorTextArea';
+import { renameKey } from '@components/DictionaryFieldEditor/ContentEditorView/object';
+import { Label } from '@components/Label';
+import { Loader } from '@components/Loader';
+import { useLocaleSwitcherContent } from '@components/LocaleSwitcherContentDropDown';
 import {
   SwitchSelector,
   type SwitchSelectorChoices,
-  SwitchSelectorColor,
   type SwitchSelectorProps,
-  SwitchSelectorSize,
-} from '../../SwitchSelector';
+} from '@components/SwitchSelector';
+import { camelCaseToSentence } from '@intlayer/config/client';
+import {
+  getEmptyNode,
+  getNodeType,
+} from '@intlayer/core/dictionaryManipulator';
+import { getLocaleName } from '@intlayer/core/localization';
+import type {
+  ConditionContent,
+  EnumerationContent,
+  FileContent,
+  GenderContent,
+  HTMLContent,
+  InsertionContent,
+  MarkdownContent,
+  PluralContent,
+  TranslationContent,
+} from '@intlayer/core/transpiler';
+import { useConfiguration, useEditedContent } from '@intlayer/editor-react';
+import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import * as NodeTypes from '@intlayer/types/nodeType';
+import { Plus, Trash, WandSparkles } from 'lucide-react';
+import {
+  type FC,
+  Fragment,
+  lazy,
+  memo,
+  type ReactNode,
+  Suspense,
+  useState,
+} from 'react';
+import { useIntlayer, useLocale } from 'react-intlayer';
 import { EnumKeyInput } from '../EnumKeyInput';
+import { SafeHtmlRenderer } from './SafeHtmlRenderer';
+
+const LazyMarkdownRenderer = lazy(() =>
+  import('@components/MarkDownRender').then((m) => ({
+    default: m.MarkdownRenderer,
+  }))
+);
+
+// Renders children only after the accordion is first opened (mount-once pattern).
+// Prevents deeply nested sub-trees from mounting on initial render.
+type CollapsibleEditorProps = TextEditorProps & { label: string };
+const CollapsibleEditor = memo<CollapsibleEditorProps>(
+  function CollapsibleEditor({ label, ...editorProps }) {
+    const [hasOpened, setHasOpened] = useState(false);
+    return (
+      <Accordion
+        header={label}
+        label={label}
+        onToggle={(isOpen) => {
+          if (isOpen && !hasOpened) setHasOpened(true);
+        }}
+      >
+        {hasOpened ? <TextEditor {...editorProps} /> : null}
+      </Accordion>
+    );
+  }
+);
 
 export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
 
@@ -77,7 +104,7 @@ const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
 
   return (
     <ContentEditorTextAreaBase
-      variant={InputVariant.DEFAULT}
+      variant="default"
       onContentChange={(newValue) =>
         addEditedContent(dictionary.localId!, newValue, keyPath)
       }
@@ -85,9 +112,9 @@ const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
         <Button
           Icon={WandSparkles}
           label="Audit"
-          variant={ButtonVariant.HOVERABLE}
-          size={ButtonSize.ICON_SM}
-          color={ButtonColor.TEXT}
+          variant="hoverable"
+          size="icon-sm"
+          color="text"
           className="cursor-pointer hover:scale-110"
           isLoading={isAuditing}
           onClick={() => {
@@ -98,11 +125,11 @@ const ContentEditorTextArea: FC<ContentEditorTextAreaProps> = ({
                   ...(editedContent?.[dictionary.localId!] ?? {}),
                 }),
                 keyPath,
-                locales: configuration.internationalization.locales ?? [],
+                locales: configuration?.internationalization.locales ?? [],
                 aiOptions: {
-                  apiKey: configuration.ai?.apiKey,
-                  model: configuration.ai?.model,
-                  temperature: configuration.ai?.temperature,
+                  apiKey: configuration?.ai?.apiKey,
+                  model: configuration?.ai?.model,
+                  temperature: configuration?.ai?.temperature,
                 },
               },
               {
@@ -148,7 +175,7 @@ const ContentEditorInput: FC<ContentEditorInputProps> = ({
 
   return (
     <ContentEditorInputBase
-      variant={InputVariant.DEFAULT}
+      variant="default"
       onContentChange={(newValue) =>
         addEditedContent(dictionary.localId!, newValue, keyPath)
       }
@@ -187,8 +214,8 @@ const ContentEditorToggle: FC<ContentEditorToggleProps> = ({
       onChange={(value) =>
         addEditedContent(dictionary.localId!, value, keyPath)
       }
-      color={SwitchSelectorColor.TEXT}
-      size={SwitchSelectorSize.SM}
+      color="text"
+      size="sm"
       {...props}
     />
   );
@@ -210,53 +237,43 @@ const TranslationTextEditor: FC<TextEditorProps> = ({
   renderSection,
 }: TextEditorProps) => {
   const { locale, defaultLocale } = useLocale();
-  const { selectedLocales, availableLocales } = useLocaleSwitcherContent();
-
-  const sectionContent = (section as TranslationContent<string>)[
-    NodeType.Translation
-  ] as Record<Locale, string>;
-
-  const sectionContentKeys = Object.keys(sectionContent) as LocalesValues[];
-
-  const isFiltered = availableLocales.length > selectedLocales.length;
-
-  const localesList = isFiltered
-    ? selectedLocales
-    : // If the translation include content in other locales, we display all of them
-      [...new Set([...availableLocales, ...sectionContentKeys])];
+  const { selectedLocales } = useLocaleSwitcherContent();
 
   const content: any = (section as TranslationContent<string>)[
-    NodeType.Translation
+    NodeTypes.TRANSLATION
   ];
 
   return (
     <table className="w-full">
       <tbody className="flex w-full flex-col gap-2">
-        {localesList.map((translationKey) => (
-          <Fragment key={translationKey}>
-            <tr className="mt-2 w-full p-2 text-xs">
-              <td className="w-full">
-                {getLocaleName(translationKey, locale)}
-              </td>
-            </tr>
-            <tr className="flex">
-              <td className="w-full">
-                <TextEditorContainer
-                  section={
-                    content[translationKey] ??
-                    getEmptyNode(content[defaultLocale])
-                  }
-                  keyPath={[
-                    ...keyPath,
-                    { type: NodeType.Translation, key: translationKey },
-                  ]}
-                  dictionary={dictionary}
-                  renderSection={renderSection}
-                />
-              </td>
-            </tr>
-          </Fragment>
-        ))}
+        {selectedLocales.map((translationKey) => {
+          const uniqueKey = `${JSON.stringify(keyPath)}-translation-${translationKey}`;
+          return (
+            <Fragment key={uniqueKey}>
+              <tr className="mt-2 w-full p-2 text-xs">
+                <td className="flex w-full">
+                  {getLocaleName(translationKey, locale)}
+                </td>
+              </tr>
+              <tr className="flex">
+                <td className="flex w-full">
+                  <TextEditorContainer
+                    section={
+                      content[translationKey] ??
+                      getEmptyNode(content[defaultLocale])
+                    }
+                    keyPath={[
+                      ...keyPath,
+                      { type: NodeTypes.TRANSLATION, key: translationKey },
+                    ]}
+                    dictionary={dictionary}
+                    renderSection={renderSection}
+                  />
+                </td>
+              </tr>
+            </Fragment>
+          );
+        })}
       </tbody>
     </table>
   );
@@ -272,7 +289,9 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
   const { addNewEnumeration, removeEnumeration } =
     useIntlayer('navigation-view');
 
-  const content = (section as EnumerationContent<string>)[NodeType.Enumeration];
+  const content = (section as EnumerationContent<string>)[
+    NodeTypes.ENUMERATION
+  ];
   const firstKey = Object.keys(content)[0] as keyof typeof content;
 
   return (
@@ -280,65 +299,81 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
       <table className="w-full">
         <tbody className="flex w-full flex-col gap-2">
           {Object.keys(
-            (section as EnumerationContent<ContentNode>)[NodeType.Enumeration]
+            (section as EnumerationContent<ContentNode>)[NodeTypes.ENUMERATION]
           ).map((enumKey) => {
             const childrenKeyPath = [
               ...keyPath,
-              { type: NodeType.Enumeration },
+              { type: NodeTypes.ENUMERATION, key: enumKey },
             ] as KeyPath[];
+            const uniqueKey = `${JSON.stringify(keyPath)}-enumeration-${enumKey}`;
+
             return (
-              <Fragment key={enumKey}>
+              <Fragment key={uniqueKey}>
                 <tr className="mt-2 w-full">
-                  <div className="flex flex-1">
-                    <Button
-                      label={removeEnumeration.label.value}
-                      variant={ButtonVariant.HOVERABLE}
-                      color={ButtonColor.TEXT}
-                      Icon={Trash}
-                      className="ml-auto"
-                      onClick={() =>
-                        addEditedContent(
-                          dictionary.localId!,
-                          undefined,
-                          childrenKeyPath
-                        )
-                      }
-                    >
-                      {removeEnumeration.text}
-                    </Button>
-                  </div>
+                  <td className="flex w-full">
+                    <div className="flex flex-1">
+                      <Button
+                        label={removeEnumeration.label.value}
+                        variant="hoverable"
+                        size="sm"
+                        color="error"
+                        className="ml-auto text-neutral hover:text-error"
+                        Icon={Trash}
+                        onClick={() =>
+                          addEditedContent(
+                            dictionary.localId!,
+                            undefined,
+                            childrenKeyPath
+                          )
+                        }
+                      >
+                        {removeEnumeration.text}
+                      </Button>
+                    </div>
+                  </td>
                 </tr>
                 <tr className="w-full p-2">
-                  <EnumKeyInput
-                    value={enumKey}
-                    onChange={(value) => {
-                      const preValueContent = (
-                        section as EnumerationContent<string>
-                      )[NodeType.Enumeration];
-                      const newValueContent = renameKey(
-                        preValueContent,
-                        enumKey as keyof typeof preValueContent,
-                        value
-                      );
-                      const newValue = {
-                        ...(section as EnumerationContent<string>),
-                        [NodeType.Enumeration]: newValueContent,
-                      };
+                  <td className="flex w-full">
+                    <EnumKeyInput
+                      value={enumKey}
+                      onChange={(value) => {
+                        const preValueContent = (
+                          section as EnumerationContent<string>
+                        )[NodeTypes.ENUMERATION];
 
-                      addEditedContent(dictionary.localId!, newValue, keyPath);
-                    }}
-                  />
+                        const newValueContent = renameKey(
+                          preValueContent,
+                          enumKey as keyof typeof preValueContent,
+                          value
+                        );
+                        const newValue = {
+                          ...(section as EnumerationContent<string>),
+                          [NodeTypes.ENUMERATION]: newValueContent,
+                        };
+
+                        console.log('newValue', newValue);
+
+                        addEditedContent(
+                          dictionary.localId!,
+                          newValue,
+                          keyPath
+                        );
+                      }}
+                    />
+                  </td>
                 </tr>
                 <tr className="block w-full">
-                  <TextEditor
-                    section={
-                      content[enumKey as keyof typeof content] ??
-                      getEmptyNode(content[firstKey])
-                    }
-                    keyPath={childrenKeyPath}
-                    dictionary={dictionary}
-                    renderSection={renderSection}
-                  />
+                  <td className="flex w-full">
+                    <TextEditor
+                      section={
+                        content[enumKey as keyof typeof content] ??
+                        getEmptyNode(content[firstKey])
+                      }
+                      keyPath={childrenKeyPath}
+                      dictionary={dictionary}
+                      renderSection={renderSection}
+                    />
+                  </td>
                 </tr>
               </Fragment>
             );
@@ -348,15 +383,15 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
 
       <Button
         label={addNewEnumeration.label.value}
-        variant={ButtonVariant.HOVERABLE}
-        color={ButtonColor.NEUTRAL}
-        textAlign={ButtonTextAlign.LEFT}
+        variant="hoverable"
+        color="neutral"
+        textAlign="left"
         isFullWidth
         onClick={() =>
           addEditedContent(
             dictionary.localId!,
             getEmptyNode(content[firstKey]) ?? '',
-            [...keyPath, { type: NodeType.Enumeration, key: 'unknown' }]
+            [...keyPath, { type: NodeTypes.ENUMERATION, key: 'unknown' }]
           )
         }
         Icon={Plus}
@@ -374,35 +409,40 @@ const ConditionTextEditor: FC<TextEditorProps> = ({
   dictionary,
   renderSection,
 }) => {
-  const content = (section as ConditionContent<string>)[NodeType.Condition];
+  const content = (section as ConditionContent<string>)[NodeTypes.CONDITION];
 
   return (
     <table className="w-full">
       <tbody className="flex w-full flex-col gap-2">
-        {['true', 'false', 'fallback'].map((condKey) => (
-          <Fragment key={condKey}>
-            <tr key={condKey} className="mt-2 block w-full p-2 text-xs">
-              <td className="w-full">{String(condKey)}</td>
-            </tr>
-            <tr key={condKey} className="block w-full">
-              <TextEditorContainer
-                section={
-                  content[condKey as keyof typeof content] ??
-                  getEmptyNode(content.true)
-                }
-                keyPath={[
-                  ...keyPath,
-                  {
-                    type: NodeType.Condition,
-                    key: condKey,
-                  } as KeyPath,
-                ]}
-                dictionary={dictionary}
-                renderSection={renderSection}
-              />
-            </tr>
-          </Fragment>
-        ))}
+        {['true', 'false', 'fallback'].map((condKey) => {
+          const uniqueKey = `${JSON.stringify(keyPath)}-condition-${condKey}`;
+          return (
+            <Fragment key={uniqueKey}>
+              <tr className="mt-2 block w-full p-2 text-xs">
+                <td className="flex w-full">{String(condKey)}</td>
+              </tr>
+              <tr className="block w-full">
+                <td className="flex w-full">
+                  <TextEditorContainer
+                    section={
+                      content[condKey as keyof typeof content] ??
+                      getEmptyNode(content.true)
+                    }
+                    keyPath={[
+                      ...keyPath,
+                      {
+                        type: NodeTypes.CONDITION,
+                        key: condKey,
+                      } as KeyPath,
+                    ]}
+                    dictionary={dictionary}
+                    renderSection={renderSection}
+                  />
+                </td>
+              </tr>
+            </Fragment>
+          );
+        })}
       </tbody>
     </table>
   );
@@ -414,35 +454,87 @@ const GenderTextEditor: FC<TextEditorProps> = ({
   dictionary,
   renderSection,
 }) => {
-  const content = (section as GenderContent<string>)[NodeType.Gender];
+  const content = (section as GenderContent<string>)[NodeTypes.GENDER];
 
   return (
     <table className="w-full">
       <tbody className="flex w-full flex-col gap-2">
-        {['male', 'female', 'fallback'].map((condKey) => (
-          <Fragment key={condKey}>
-            <tr key={condKey} className="mt-2 block w-full p-2 text-xs">
-              <td className="w-full">{String(condKey)}</td>
-            </tr>
-            <tr key={condKey} className="block w-full">
-              <TextEditorContainer
-                section={
-                  content[condKey as keyof typeof content] ??
-                  getEmptyNode(content.male)
-                }
-                keyPath={[
-                  ...keyPath,
-                  {
-                    type: NodeType.Gender,
-                    key: condKey,
-                  } as KeyPath,
-                ]}
-                dictionary={dictionary}
-                renderSection={renderSection}
-              />
-            </tr>
-          </Fragment>
-        ))}
+        {['male', 'female', 'fallback'].map((condKey) => {
+          const uniqueKey = `${JSON.stringify(keyPath)}-gender-${condKey}`;
+          return (
+            <Fragment key={uniqueKey}>
+              <tr className="mt-2 block w-full p-2 text-xs">
+                <td className="flex w-full">{String(condKey)}</td>
+              </tr>
+              <tr className="block w-full">
+                <td className="flex w-full">
+                  <TextEditorContainer
+                    section={
+                      content[condKey as keyof typeof content] ??
+                      getEmptyNode(content.male)
+                    }
+                    keyPath={[
+                      ...keyPath,
+                      {
+                        type: NodeTypes.GENDER,
+                        key: condKey,
+                      } as KeyPath,
+                    ]}
+                    dictionary={dictionary}
+                    renderSection={renderSection}
+                  />
+                </td>
+              </tr>
+            </Fragment>
+          );
+        })}
+      </tbody>
+    </table>
+  );
+};
+
+const PLURAL_CATEGORIES = ['zero', 'one', 'two', 'few', 'many', 'other'];
+
+const PluralTextEditor: FC<TextEditorProps> = ({
+  section,
+  keyPath,
+  dictionary,
+  renderSection,
+}) => {
+  const content = (section as PluralContent<string>)[NodeTypes.PLURAL];
+
+  return (
+    <table className="w-full">
+      <tbody className="flex w-full flex-col gap-2">
+        {PLURAL_CATEGORIES.map((pluralKey) => {
+          const uniqueKey = `${JSON.stringify(keyPath)}-plural-${pluralKey}`;
+          return (
+            <Fragment key={uniqueKey}>
+              <tr className="mt-2 block w-full p-2 text-xs">
+                <td className="flex w-full">{pluralKey}</td>
+              </tr>
+              <tr className="block w-full">
+                <td className="flex w-full">
+                  <TextEditorContainer
+                    section={
+                      content[pluralKey as keyof typeof content] ??
+                      getEmptyNode(content.other)
+                    }
+                    keyPath={[
+                      ...keyPath,
+                      {
+                        type: NodeTypes.PLURAL,
+                        key: pluralKey,
+                      } as KeyPath,
+                    ]}
+                    dictionary={dictionary}
+                    renderSection={renderSection}
+                  />
+                </td>
+              </tr>
+            </Fragment>
+          );
+        })}
       </tbody>
     </table>
   );
@@ -461,69 +553,78 @@ const ArrayTextEditor: FC<TextEditorProps> = ({
     <div className="flex flex-col gap-2">
       <table className="w-full">
         <tbody className="flex w-full flex-col gap-2">
-          {(section as unknown as ContentNode[]).map((subSection, index) => (
-            <Fragment key={JSON.stringify(subSection)}>
-              <tr className="mt-2 flex w-full items-center justify-between gap-2 p-2">
-                <span className="text-xs">{String(index)}</span>
-                <Button
-                  label={removeElement.label.value}
-                  variant={ButtonVariant.HOVERABLE}
-                  color={ButtonColor.NEUTRAL}
-                  className="ml-auto"
-                  textAlign={ButtonTextAlign.LEFT}
-                  onClick={() => {
-                    const newKeyPath: KeyPath[] = [
-                      ...keyPath,
-                      {
-                        type: NodeType.Array,
-                        key: (section as unknown as ContentNode[]).length,
-                      },
-                    ];
-                    addEditedContent(
-                      dictionary.localId!,
-                      undefined,
-                      newKeyPath
-                    );
-                  }}
-                  Icon={Trash}
-                >
-                  {removeElement.text}
-                </Button>
-              </tr>
+          {(section as unknown as ContentNode[]).map((subSection, index) => {
+            const uniqueKey = `${JSON.stringify(keyPath)}-array-${index}`;
+            return (
+              <Fragment key={uniqueKey}>
+                <tr className="mt-2 w-full p-2">
+                  <td className="flex w-full">
+                    <div className="flex w-full items-center justify-between gap-2">
+                      <span className="text-xs">{String(index)}</span>
+                      <Button
+                        label={removeElement.label.value}
+                        variant="hoverable"
+                        size="sm"
+                        color="error"
+                        className="ml-auto text-neutral hover:text-error"
+                        onClick={() => {
+                          const newKeyPath: KeyPath[] = [
+                            ...keyPath,
+                            {
+                              type: NodeTypes.ARRAY,
+                              key: index, // Fixed: Use index instead of length
+                            },
+                          ];
+                          addEditedContent(
+                            dictionary.localId!,
+                            undefined,
+                            newKeyPath
+                          );
+                        }}
+                        Icon={Trash}
+                      >
+                        {removeElement.text}
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
 
-              <tr className="block w-full">
-                <TextEditorContainer
-                  section={
-                    subSection ??
-                    getEmptyNode((section as unknown as ContentNode[])[0])
-                  }
-                  keyPath={[
-                    ...keyPath,
-                    {
-                      type: NodeType.Array,
-                      key: index,
-                    },
-                  ]}
-                  dictionary={dictionary}
-                  renderSection={renderSection}
-                />
-              </tr>
-            </Fragment>
-          ))}
+                <tr className="block w-full">
+                  <td className="flex w-full">
+                    <TextEditorContainer
+                      section={
+                        subSection ??
+                        getEmptyNode((section as unknown as ContentNode[])[0])
+                      }
+                      keyPath={[
+                        ...keyPath,
+                        {
+                          type: NodeTypes.ARRAY,
+                          key: index,
+                        },
+                      ]}
+                      dictionary={dictionary}
+                      renderSection={renderSection}
+                    />
+                  </td>
+                </tr>
+              </Fragment>
+            );
+          })}
         </tbody>
       </table>
       <Button
         label={addNewElement.label.value}
-        variant={ButtonVariant.HOVERABLE}
-        color={ButtonColor.NEUTRAL}
-        textAlign={ButtonTextAlign.LEFT}
+        variant="hoverable"
+        color="neutral"
+        textAlign="left"
         isFullWidth
         onClick={() => {
           const newKeyPath: KeyPath[] = [
             ...keyPath,
             {
-              type: NodeType.Array,
-              key: (section as unknown as ContentNode[]).length,
+              type: NodeTypes.ARRAY,
+              key: (section as unknown as ContentNode[]).length, // Keeps length for adding new items
             },
           ];
           addEditedContent(
@@ -546,56 +647,126 @@ const ObjectTextEditor: FC<TextEditorProps> = ({
   keyPath,
   dictionary,
   renderSection,
-}) => (
-  <>
+}) => {
+  const typedSection = section as unknown as Record<string, ContentNode>;
+  const firstKey = Object.keys(typedSection)[0] as keyof typeof section;
+
+  return (
     <table className="w-full">
       <tbody className="flex flex-col gap-2">
-        {Object.keys(section as unknown as Record<string, ContentNode>).map(
-          (key) => {
-            const childKeyPath: KeyPath[] = [
-              ...keyPath,
-              { type: NodeType.Object, key },
-            ];
-            const typedSection = section as unknown as Record<
-              string,
-              ContentNode
-            >;
-            const firstKey = Object.keys(
-              typedSection
-            )[0] as keyof typeof section;
-            const subSection =
-              typedSection[key as keyof typeof section] ??
-              getEmptyNode(typedSection[firstKey]);
+        {Object.keys(typedSection).map((key) => {
+          const childKeyPath: KeyPath[] = [
+            ...keyPath,
+            { type: NodeTypes.OBJECT, key },
+          ];
+          const subSection =
+            typedSection[key as keyof typeof section] ??
+            getEmptyNode(typedSection[firstKey]);
+          const uniqueKey = `${JSON.stringify(keyPath)}-object-${key}`;
+          // Collapse any object/array (typed or plain) — only true primitives render inline.
+          // getIsEditableSection can't be used here: it inspects getNodeChildren(), which for
+          // translation nodes returns the first locale value (a string), causing translation
+          // subtrees to be mistakenly treated as leaves and mounted all at once.
+          const isLeaf = subSection === null || typeof subSection !== 'object';
 
+          if (isLeaf) {
             return (
-              <Fragment key={key}>
-                <tr
-                  key={JSON.stringify(subSection)}
-                  className="mt-2 p-2 text-xs"
-                >
-                  <td className="w-full">{String(key)}</td>
+              <Fragment key={uniqueKey}>
+                <tr className="mt-2 p-2 text-xs">
+                  <td className="flex w-full">{String(key)}</td>
                 </tr>
-                <tr key={JSON.stringify(subSection)} className="block w-full">
-                  <TextEditor
-                    section={subSection}
-                    keyPath={childKeyPath}
-                    dictionary={dictionary}
-                    renderSection={renderSection}
-                  />
+                <tr className="block w-full">
+                  <td className="flex w-full">
+                    <TextEditor
+                      section={subSection}
+                      keyPath={childKeyPath}
+                      dictionary={dictionary}
+                      renderSection={renderSection}
+                    />
+                  </td>
                 </tr>
               </Fragment>
             );
           }
-        )}
+
+          return (
+            <tr
+              key={uniqueKey}
+              className="block w-full border-neutral/10 border-t py-1"
+            >
+              <td className="flex w-full">
+                <CollapsibleEditor
+                  label={camelCaseToSentence(key)}
+                  section={subSection}
+                  keyPath={childKeyPath}
+                  dictionary={dictionary}
+                  renderSection={renderSection}
+                />
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
-  </>
-);
+  );
+};
 
 enum MarkdownViewMode {
   Edit,
   Preview,
 }
+
+enum HtmlViewMode {
+  Edit,
+  Preview,
+}
+
+const HtmlTextEditor: FC<TextEditorProps> = ({
+  section,
+  keyPath,
+  dictionary,
+}) => {
+  const [mode, setMode] = useState(HtmlViewMode.Edit);
+  const toggleContent = [
+    {
+      content: 'Edit',
+      value: HtmlViewMode.Edit,
+    },
+    {
+      content: 'Preview',
+      value: HtmlViewMode.Preview,
+    },
+  ] as SwitchSelectorChoices<HtmlViewMode>;
+  const childKeyPath: KeyPath[] = [...keyPath, { type: NodeTypes.HTML }];
+
+  const content = (section as HTMLContent<ContentNode>)[
+    NodeTypes.HTML
+  ] as ContentNode;
+
+  return (
+    <div className="flex w-full flex-col justify-center gap-6 p-2">
+      <SwitchSelector
+        choices={toggleContent}
+        value={mode}
+        onChange={setMode}
+        color="text"
+        size="sm"
+        className="ml-auto"
+      />
+
+      <TextEditorContainer
+        section={content}
+        keyPath={childKeyPath}
+        dictionary={dictionary}
+        renderSection={
+          mode === HtmlViewMode.Preview
+            ? (rawContent) => <SafeHtmlRenderer rawContent={rawContent} />
+            : undefined
+        }
+      />
+    </div>
+  );
+};
 
 const MarkdownTextEditor: FC<TextEditorProps> = ({
   section,
@@ -614,11 +785,11 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
       value: MarkdownViewMode.Preview,
     },
   ] as SwitchSelectorChoices<MarkdownViewMode>;
-  const childKeyPath: KeyPath[] = [...keyPath, { type: NodeType.Markdown }];
+  const childKeyPath: KeyPath[] = [...keyPath, { type: NodeTypes.MARKDOWN }];
 
-  const content = (section as MarkdownContent<ContentNode>)[
-    NodeType.Markdown
-  ] as ContentNode;
+  const content = ((section as MarkdownContent<ContentNode>)[
+    NodeTypes.MARKDOWN
+  ] ?? '') as ContentNode;
 
   return (
     <div className="flex w-full flex-col justify-center gap-6 p-2">
@@ -626,8 +797,8 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
         choices={toggleContent}
         value={mode}
         onChange={setMode}
-        color={SwitchSelectorColor.TEXT}
-        size={SwitchSelectorSize.SM}
+        color="text"
+        size="sm"
         className="ml-auto"
       />
 
@@ -638,9 +809,11 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
         renderSection={
           mode === MarkdownViewMode.Preview
             ? (content) => (
-                <MarkdownRenderer isDarkMode={isDarkMode}>
-                  {content}
-                </MarkdownRenderer>
+                <Suspense fallback={<Loader />}>
+                  <LazyMarkdownRenderer isDarkMode={isDarkMode}>
+                    {content}
+                  </LazyMarkdownRenderer>
+                </Suspense>
               )
             : undefined
         }
@@ -654,10 +827,10 @@ const InsertionTextEditor: FC<TextEditorProps> = ({
   keyPath,
   ...props
 }) => {
-  const childKeyPath: KeyPath[] = [...keyPath, { type: NodeType.Insertion }];
+  const childKeyPath: KeyPath[] = [...keyPath, { type: NodeTypes.INSERTION }];
 
   const content = (section as InsertionContent<ContentNode>)[
-    NodeType.Insertion
+    NodeTypes.INSERTION
   ];
 
   return (
@@ -676,9 +849,9 @@ const FileTextEditor: FC<TextEditorProps> = ({
   keyPath,
   ...props
 }) => {
-  const childKeyPath: KeyPath[] = [...keyPath, { type: NodeType.File }];
+  const childKeyPath: KeyPath[] = [...keyPath, { type: NodeTypes.FILE }];
 
-  const fileUrl = (section as FileContent)[NodeType.File];
+  const fileUrl = (section as FileContent)[NodeTypes.FILE];
   const { content } = section as FileContent;
 
   return (
@@ -702,8 +875,8 @@ const NestedTextEditor: FC<TextEditorProps> = ({
 }) => {
   const { addEditedContent } = useEditedContent();
 
-  const content = (section as any)[NodeType.Nested];
-  const childrenKeyPath = [...keyPath, { type: NodeType.Nested }] as KeyPath[];
+  const content = (section as any)[NodeTypes.NESTED];
+  const childrenKeyPath = [...keyPath, { type: NodeTypes.NESTED }] as KeyPath[];
 
   return (
     <div className="flex w-full flex-col gap-4 p-2">
@@ -711,7 +884,7 @@ const NestedTextEditor: FC<TextEditorProps> = ({
       <ContentEditorInputBase
         aria-label="Edit field"
         type="text"
-        variant={InputVariant.DEFAULT}
+        variant="default"
         {...props}
         onContentChange={(newValue) => {
           addEditedContent(
@@ -731,7 +904,7 @@ const NestedTextEditor: FC<TextEditorProps> = ({
       <ContentEditorInputBase
         aria-label="Edit field"
         type="text"
-        variant={InputVariant.DEFAULT}
+        variant="default"
         {...props}
         onContentChange={(newValue) => {
           addEditedContent(
@@ -750,26 +923,26 @@ const NestedTextEditor: FC<TextEditorProps> = ({
   );
 };
 
-export const TextEditor: FC<TextEditorProps> = ({
+export const TextEditor = memo<TextEditorProps>(function TextEditor({
   section,
   keyPath,
   dictionary,
   renderSection,
   isDarkMode,
-}) => {
+}) {
   const { tsxNotEditable } = useIntlayer('navigation-view');
   const nodeType = getNodeType(section);
 
-  if (nodeType === NodeType.ReactNode) {
+  if (nodeType === NodeTypes.REACT_NODE) {
     return (
-      <>
-        <span>[React Node]</span>
-        <span className="text-neutral text-xs">{tsxNotEditable}</span>
-      </>
+      <div className="flex w-full flex-col gap-2">
+        <span>(React Node)</span>
+        <span className="flex text-neutral text-xs">{tsxNotEditable}</span>
+      </div>
     );
   }
 
-  if (nodeType === NodeType.Nested) {
+  if (nodeType === NodeTypes.NESTED) {
     return (
       <NestedTextEditor
         dictionary={dictionary}
@@ -780,7 +953,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  if (nodeType === NodeType.Translation) {
+  if (nodeType === NodeTypes.TRANSLATION) {
     return (
       <TranslationTextEditor
         dictionary={dictionary}
@@ -791,7 +964,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  if (nodeType === NodeType.Enumeration) {
+  if (nodeType === NodeTypes.ENUMERATION) {
     return (
       <EnumerationTextEditor
         dictionary={dictionary}
@@ -802,7 +975,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  if (nodeType === NodeType.Condition) {
+  if (nodeType === NodeTypes.CONDITION) {
     return (
       <ConditionTextEditor
         dictionary={dictionary}
@@ -813,7 +986,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  if (nodeType === NodeType.Gender) {
+  if (nodeType === NodeTypes.GENDER) {
     return (
       <GenderTextEditor
         dictionary={dictionary}
@@ -824,7 +997,18 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  if (nodeType === NodeType.Insertion) {
+  if (nodeType === NodeTypes.PLURAL) {
+    return (
+      <PluralTextEditor
+        dictionary={dictionary}
+        renderSection={renderSection}
+        keyPath={keyPath}
+        section={section}
+      />
+    );
+  }
+
+  if (nodeType === NodeTypes.INSERTION) {
     return (
       <InsertionTextEditor
         dictionary={dictionary}
@@ -835,7 +1019,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  if (nodeType === NodeType.Markdown) {
+  if (nodeType === NodeTypes.MARKDOWN) {
     return (
       <MarkdownTextEditor
         dictionary={dictionary}
@@ -846,7 +1030,17 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  if (nodeType === NodeType.File) {
+  if (nodeType === NodeTypes.HTML) {
+    return (
+      <HtmlTextEditor
+        dictionary={dictionary}
+        keyPath={keyPath}
+        section={section}
+      />
+    );
+  }
+
+  if (nodeType === NodeTypes.FILE) {
     return (
       <FileTextEditor
         dictionary={dictionary}
@@ -857,7 +1051,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  if (nodeType === NodeType.Array) {
+  if (nodeType === NodeTypes.ARRAY) {
     return (
       <ArrayTextEditor
         dictionary={dictionary}
@@ -868,7 +1062,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  if (nodeType === NodeType.Object) {
+  if (nodeType === NodeTypes.OBJECT) {
     return (
       <ObjectTextEditor
         dictionary={dictionary}
@@ -879,7 +1073,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  if (nodeType === NodeType.Number) {
+  if (nodeType === NodeTypes.NUMBER) {
     return (
       <div className="w-full p-2">
         <ContentEditorInput
@@ -894,14 +1088,14 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  if (nodeType === NodeType.Text) {
+  if (nodeType === NodeTypes.TEXT) {
     return (
       <div className="w-full p-2">
         {typeof renderSection === 'function' ? (
           renderSection(section as string)
         ) : (
           <ContentEditorTextArea
-            variant={InputVariant.DEFAULT}
+            variant="default"
             aria-label="Edit field"
             keyPath={keyPath}
             dictionary={dictionary}
@@ -913,7 +1107,7 @@ export const TextEditor: FC<TextEditorProps> = ({
     );
   }
 
-  if (nodeType === NodeType.Boolean) {
+  if (nodeType === NodeTypes.BOOLEAN) {
     return (
       <div className="w-full p-2">
         <ContentEditorToggle
@@ -933,15 +1127,19 @@ export const TextEditor: FC<TextEditorProps> = ({
       NodeType : {nodeType}
     </div>
   );
-};
+});
 
-export const TextEditorContainer: FC<TextEditorProps> = (props) => (
-  <Container
-    border
-    background="none"
-    className="top-6 flex h-full flex-1 flex-col gap-6 overflow-hidden p-2 md:sticky"
-    roundedSize="xl"
-  >
-    <TextEditor {...props} />
-  </Container>
+export const TextEditorContainer = memo<TextEditorProps>(
+  function TextEditorContainer(props) {
+    return (
+      <Container
+        border
+        background="none"
+        className="top-6 flex h-full flex-1 flex-col gap-6 overflow-hidden p-2 md:sticky"
+        roundedSize="2xl"
+      >
+        <TextEditor {...props} />
+      </Container>
+    );
+  }
 );

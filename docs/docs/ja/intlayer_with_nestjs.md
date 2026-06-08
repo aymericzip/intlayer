@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-09-09
-title: Nest backendアプリを翻訳する方法 – i18nガイド 2025
-description: NestJSバックエンドを多言語対応にする方法を紹介します。国際化（i18n）と翻訳のためのドキュメントに従ってください。
+updatedAt: 2026-05-31
+title: "NestJS i18n - あなたのアプリを翻訳する完全ガイド"
+description: "i18nextはもう不要。2026年に多言語（i18n）NestJSアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
   - 国際化
   - ドキュメント
@@ -14,12 +14,17 @@ slugs:
   - doc
   - environment
   - nest
-applicationTemplate: https://github.com/AydinTheFirst/nestjs-intlayer
 author: AydinTheFirst
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid の useIntlayer API の使用法を直接プロパティアクセスに更新"
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: "initコマンドを追加"
   - version: 5.8.0
     date: 2025-09-09
-    changes: 初版ドキュメント
+    changes: "初版ドキュメント"
 ---
 
 # IntlayerでNest backendを翻訳する | 国際化（i18n）
@@ -59,14 +64,22 @@ nest new my-nest-app
 
 ```bash packageManager="npm"
 npm install intlayer express-intlayer
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer express-intlayer
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer express-intlayer
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer express-intlayer
+bun x intlayer init
 ```
 
 ### tsconfig.json の設定
@@ -87,7 +100,7 @@ TypeScriptでIntlayerを使用するには、`tsconfig.json`がESモジュール
 
 プロジェクトのルートに`intlayer.config.ts`を作成して、国際化設定を構成します。
 
-```typescript fileName="intlayer.config.ts"  codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -100,39 +113,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 ### コンテンツの宣言
 
 翻訳を格納するためのコンテンツ宣言を作成および管理します:
 
-```typescript fileName="src/app.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/app.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, type Dictionary } from "intlayer";
 
 const appContent: Dictionary = {
@@ -149,7 +134,7 @@ const appContent: Dictionary = {
 export default appContent;
 ```
 
-> コンテンツ宣言は、`contentDir` ディレクトリ（デフォルトは `./src`）に含まれている限り、アプリケーションのどこにでも定義できます。また、コンテンツ宣言ファイルの拡張子（デフォルトは `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）に一致している必要があります。
+> コンテンツ宣言は、`contentDir` ディレクトリ（デフォルトは `./src`）に含まれている限り、アプリケーションのどこにでも定義できます。また、コンテンツ宣言ファイルの拡張子（デフォルトは `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`）に一致している必要があります。
 
 > 詳細については、[コンテンツ宣言のドキュメント](/doc/concept/content)を参照してください。
 

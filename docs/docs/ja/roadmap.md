@@ -16,10 +16,10 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-30
-    changes: PreactおよびNuxtサポートの追加、MCPサーバー、CLIの更新
+    changes: "PreactおよびNuxtサポートの追加、MCPサーバー、CLIの更新"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴の初期化
+    changes: "履歴の初期化"
 ---
 
 # Intlayer: 機能概要とロードマップ
@@ -39,7 +39,7 @@ Intlayerは、アプリケーション全体でコンテンツを宣言、管理
 
 > リソース:
 >
-> - [コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)
+> - [コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)
 
 ### 2. 国際化
 
@@ -277,7 +277,7 @@ Intlayer はコンテンツ宣言に **TypeScript**（および JavaScript）と
 
 > リソース:
 >
-> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)
+> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)
 
 ---
 

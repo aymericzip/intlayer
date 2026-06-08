@@ -1,13 +1,19 @@
+import * as ANSIColors from '@intlayer/config/colors';
 import {
-  ANSIColors,
   colorize,
-  getConfiguration,
+  colorizeNumber,
   spinnerFrames,
-} from '@intlayer/config';
+} from '@intlayer/config/logger';
 
 export type PushStatus = {
   dictionaryKey: string;
-  status: 'pending' | 'pushing' | 'pushed' | 'modified' | 'error';
+  status:
+    | 'pending'
+    | 'pushing'
+    | 'pushed'
+    | 'modified'
+    | 'up-to-date'
+    | 'error';
   errorMessage?: string;
 };
 
@@ -18,13 +24,7 @@ export class PushLogger {
   private renderedLines = 0;
   private readonly spinnerFrames = spinnerFrames;
   private isFinished = false;
-  private readonly prefix: string;
   private lastRenderedState: string = '';
-
-  constructor() {
-    const configuration = getConfiguration();
-    this.prefix = configuration.log.prefix;
-  }
 
   update(newStatuses: PushStatus[]) {
     if (this.isFinished) return;
@@ -64,28 +64,36 @@ export class PushLogger {
   }
 
   private render() {
-    const { total, done, pushed, modified, errors } = this.computeProgress();
+    const { total, done, pushed, modified, upToDate, errors } =
+      this.computeProgress();
 
     const frame = this.spinnerFrames[this.spinnerIndex];
     const lines: string[] = [];
 
     const isDone = done === total;
 
-    const progressLabel = `dictionaries: ${done}/${total}`;
+    const progressLabel = `dictionaries: ${colorizeNumber(done)}/${colorizeNumber(total)}`;
     const details: string[] = [];
-    if (pushed > 0) details.push(`new: ${pushed}`);
-    if (modified > 0) details.push(`modified: ${modified}`);
-    if (errors > 0) details.push(colorize(`errors: ${errors}`, ANSIColors.RED));
+    if (pushed > 0) details.push(`new: ${colorizeNumber(pushed)}`);
+    if (modified > 0) details.push(`modified: ${colorizeNumber(modified)}`);
+    if (upToDate > 0)
+      details.push(
+        colorize(`up-to-date: ${colorizeNumber(upToDate)}`, ANSIColors.GREY)
+      );
+    if (errors > 0)
+      details.push(
+        colorize(`errors: ${colorizeNumber(errors)}`, ANSIColors.RED)
+      );
 
     const suffix = details.length > 0 ? ` (${details.join(', ')})` : '';
 
     if (isDone) {
       lines.push(
-        `${this.prefix} ${colorize('✔', ANSIColors.GREEN)} pushed ${progressLabel}${suffix}`
+        `${colorize('✔', ANSIColors.GREEN)} pushed ${progressLabel}${suffix}`
       );
     } else {
       lines.push(
-        `${this.prefix} ${colorize(frame, ANSIColors.BLUE)} pushing ${progressLabel}${suffix}`
+        `${colorize(frame, ANSIColors.BLUE)} pushing ${progressLabel}${suffix}`
       );
     }
 
@@ -119,14 +127,18 @@ export class PushLogger {
     const modified = this.statuses.filter(
       (s) => s.status === 'modified'
     ).length;
+    const upToDate = this.statuses.filter(
+      (s) => s.status === 'up-to-date'
+    ).length;
     const errors = this.statuses.filter((s) => s.status === 'error').length;
-    const done = pushed + modified + errors;
+    const done = pushed + modified + upToDate + errors;
 
     return {
       total: keys.size,
       done,
       pushed,
       modified,
+      upToDate,
       errors,
     } as const;
   }

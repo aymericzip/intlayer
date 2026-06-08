@@ -27,7 +27,7 @@ history:
 
 # next-i18next と Intlayer を使った Next.js の国際化 (i18n)
 
-<iframe title="Intlayerを使ってnext-i18nextのJSON翻訳を自動化する方法" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Intlayerを使ってnext-i18nextのJSON翻訳を自動化する方法" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## 目次
 
@@ -71,19 +71,23 @@ Intlayerは優れた単独のi18nソリューションを提供します（[Next
 お好みのパッケージマネージャーを使って必要なパッケージをインストールします:
 
 ```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin
+npm install intlayer @intlayer/sync-json-plugin --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin
+pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin
+yarn add intlayer @intlayer/sync-json-plugin --dev
+yarn intlayer init
 ```
 
 ```bash packageManager="bun"
-bun add intlayer @intlayer/sync-json-plugin
+bun add intlayer @intlayer/sync-json-plugin --dev
+bun x intlayer init
 ```
 
 **パッケージの説明:**
@@ -126,52 +130,6 @@ export default config;
 CLIを使用してJSONの翻訳を変更した場合やCMSを使用した場合、Intlayerは新しい翻訳でJSONファイルを更新します。
 
 `syncJSON`プラグインの詳細については、[syncJSONプラグインのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)をご参照ください。
-
----
-
-### （オプション）ステップ3：コンポーネントごとのJSON翻訳の実装
-
-デフォルトでは、IntlayerはJSONファイルとコンテンツ宣言ファイルの両方を読み込み、マージし、同期します。詳細は[コンテンツ宣言のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)をご覧ください。しかし、必要に応じてIntlayerプラグインを使用し、コードベースの任意の場所でローカライズされたJSONをコンポーネント単位で管理することも可能です。
-
-そのためには、`loadJSON` プラグインを使用できます。
-
-```ts fileName="intlayer.config.ts"
-import { Locales, type IntlayerConfig } from "intlayer";
-import { loadJSON, syncJSON } from "@intlayer/sync-json-plugin";
-
-const config: IntlayerConfig = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-
-  // 現在のJSONファイルをIntlayerの辞書と同期させる
-  plugins: [
-    /**
-     * src内のパターン {key}.i18n.json に一致するすべてのJSONファイルを読み込みます
-     */
-    loadJSON({
-      source: ({ key }) => `./src/**/${key}.i18n.json`,
-      locale: Locales.ENGLISH,
-      priority: 1, // これらのJSONファイルが `./public/locales/en/${key}.json` のファイルより優先されることを保証します
-    }),
-    /**
-     * ローカルディレクトリ内のJSONファイルに出力と翻訳を書き戻します
-     */
-    syncJSON({
-      format: "i18next",
-      source: ({ key, locale }) => `./public/locales/${locale}/${key}.json`,
-      priority: 0,
-    }),
-  ],
-};
-
-export default config;
-```
-
-これは、`src`ディレクトリ内のパターン`{key}.i18n.json`に一致するすべてのJSONファイルを読み込み、Intlayerの辞書としてロードします。
-
----
 
 ## Git設定
 

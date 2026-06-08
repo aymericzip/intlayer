@@ -1,15 +1,13 @@
-# syntax=docker/dockerfile:1.20.0
+# syntax=docker/dockerfile:1.23.0
 
 
 # FROM oven/bun:1.3.2-alpine AS builder
 # Use node because of bun issue blocking at `Creating an optimized production build ...`
 # https://github.com/oven-sh/bun/issues/17136
 # https://github.com/oven-sh/bun/issues/4795
-FROM node:22-alpine AS builder
+FROM node:26-alpine AS builder
 
-RUN npm install -g bun@1.3.4
-
-RUN apk add --no-cache curl
+RUN npm install -g bun@1.3.14
 
 ARG INTLAYER_CLIENT_ID
 ARG INTLAYER_CLIENT_SECRET
@@ -19,17 +17,8 @@ ARG NEXT_PUBLIC_EDITOR_URL
 ARG NEXT_PUBLIC_CMS_URL
 ARG NEXT_PUBLIC_BACKEND_DOMAIN
 ARG NEXT_PUBLIC_BACKEND_URL
-ARG NEXT_PUBLIC_GITHUB_URL
 ARG ENABLE_SERVICE_WORKER
-ARG NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID
 ARG INTLAYER_BACKEND_URL
-ARG NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-ARG NEXT_PUBLIC_STRIPE_PREMIUM_YEARLY_PRICE_ID
-ARG NEXT_PUBLIC_STRIPE_PREMIUM_MONTHLY_PRICE_ID
-ARG NEXT_PUBLIC_STRIPE_ENTERPRISE_YEARLY_PRICE_ID
-ARG NEXT_PUBLIC_STRIPE_ENTERPRISE_MONTHLY_PRICE_ID
-ARG NEXT_PUBLIC_PRODUCTHUNT_TOKEN
-ARG NEXT_PUBLIC_SCANNER_API_URL
 
 ENV INTLAYER_CLIENT_ID=${INTLAYER_CLIENT_ID}
 ENV INTLAYER_CLIENT_SECRET=${INTLAYER_CLIENT_SECRET}
@@ -39,17 +28,8 @@ ENV NEXT_PUBLIC_EDITOR_URL=${NEXT_PUBLIC_EDITOR_URL}
 ENV NEXT_PUBLIC_CMS_URL=${NEXT_PUBLIC_CMS_URL}
 ENV NEXT_PUBLIC_BACKEND_DOMAIN=${NEXT_PUBLIC_BACKEND_DOMAIN}
 ENV NEXT_PUBLIC_BACKEND_URL=${NEXT_PUBLIC_BACKEND_URL}
-ENV NEXT_PUBLIC_GITHUB_URL=${NEXT_PUBLIC_GITHUB_URL}
 ENV ENABLE_SERVICE_WORKER=${ENABLE_SERVICE_WORKER}
-ENV NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID=${NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}
 ENV INTLAYER_BACKEND_URL=${INTLAYER_BACKEND_URL}
-ENV NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=${NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}
-ENV NEXT_PUBLIC_STRIPE_PREMIUM_YEARLY_PRICE_ID=${NEXT_PUBLIC_STRIPE_PREMIUM_YEARLY_PRICE_ID}
-ENV NEXT_PUBLIC_STRIPE_PREMIUM_MONTHLY_PRICE_ID=${NEXT_PUBLIC_STRIPE_PREMIUM_MONTHLY_PRICE_ID}
-ENV NEXT_PUBLIC_STRIPE_ENTERPRISE_YEARLY_PRICE_ID=${NEXT_PUBLIC_STRIPE_ENTERPRISE_YEARLY_PRICE_ID}
-ENV NEXT_PUBLIC_STRIPE_ENTERPRISE_MONTHLY_PRICE_ID=${NEXT_PUBLIC_STRIPE_ENTERPRISE_MONTHLY_PRICE_ID}
-ENV NEXT_PUBLIC_PRODUCTHUNT_TOKEN=${NEXT_PUBLIC_PRODUCTHUNT_TOKEN}
-ENV NEXT_PUBLIC_SCANNER_API_URL=${NEXT_PUBLIC_SCANNER_API_URL}
 ENV CI=true
 
 # Create app directory
@@ -58,9 +38,9 @@ WORKDIR /workspace
 # Copy the rest of the source code
 # Remove directories to keep the image slim
 COPY \
-    --exclude=packages/@intlayer/mcp \
     --exclude=packages/@intlayer/vue-compiler \
     --exclude=packages/@intlayer/svelte-compiler \
+    --exclude=packages/@intlayer/lsp \
     --exclude=packages/intlayer-cli \
     --exclude=packages/react-scripts-intlayer \
     --exclude=packages/vue-intlayer \
@@ -73,7 +53,16 @@ COPY \
     --exclude=packages/astro-intlayer \
     --exclude=packages/react-native-intlayer \
     --exclude=packages/lynx-intlayer \
+    --exclude=packages/lit-intlayer \
+    --exclude=packages/vanilla-intlayer \
+    --exclude=packages/express-intlayer \
+    --exclude=packages/hono-intlayer \
+    --exclude=packages/adonis-intlayer \
+    --exclude=apps/app \
+    --exclude=apps/showcase \
+    --exclude=apps/website-tanstack \
     --exclude=plugins \
+    --exclude=compat \
     --exclude=docs/assets \
     --exclude=examples \
     --exclude=plugins \
@@ -93,28 +82,49 @@ WORKDIR /workspace/apps/website
 ENV NODE_ENV=production
 
 # Build the Next.js website
-RUN bun x next build && bun scripts/generate-sw.ts
+RUN bun run --bun next build && bun scripts/generate-sw.ts && bun scripts/baidu-push.ts && bun run preserve
 
-WORKDIR /workspace
+# Runner
+FROM oven/bun:1.3.14-alpine AS runner
 
-# Remove .ts, .tsx and .map files only within src/** directories, ignoring node_modules, so configuration files like intlayer.config.ts are kept
-RUN find . -path "*/src/*" -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.map" \) -not -path "*/node_modules/*" -delete
+WORKDIR /app
 
-WORKDIR /workspace/apps/website
+ENV NODE_ENV=production
+ENV HOSTNAME=0.0.0.0
 
-# Create and use a non-root user for security
-RUN addgroup -S app && adduser -S app -G app && chown -R app:app ./.next
+# Create non-root user
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
-USER app
+# Turbopack SSR resolves module paths with a /ROOT/ prefix that maps to the
+# standalone root. Symlinking /ROOT -> /app lets find-up locate package.json
+# when searching up from /ROOT/docs/dist/esm/generated.
+RUN ln -s /app /ROOT
 
-# Expose the API port (defaults to 3100 via .env, can be overridden)
+# Copy only the standalone output and necessary static files from builder.
+# In a monorepo standalone build, static/public files live under apps/website/
+# to match where server.js (running from __dirname) expects them.
+COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/.next/standalone ./
+COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/public ./apps/website/public
+COPY --from=builder --chown=appuser:appgroup /workspace/apps/website/.next/static ./apps/website/.next/static
+
+# The Turbopack SSR runtime resolves /ROOT/ to the standalone root (/app/).
+# @intlayer/docs is a serverExternalPackage loaded at /ROOT/docs/... at runtime,
+# so its dist, package.json, and markdown content must live at /app/docs/.
+COPY --from=builder --chown=appuser:appgroup /workspace/docs/dist ./docs/dist
+COPY --from=builder --chown=appuser:appgroup /workspace/docs/package.json ./docs/package.json
+COPY --from=builder --chown=appuser:appgroup /workspace/docs/blog ./docs/blog
+COPY --from=builder --chown=appuser:appgroup /workspace/docs/docs ./docs/docs
+COPY --from=builder --chown=appuser:appgroup /workspace/docs/frequent_questions ./docs/frequent_questions
+COPY --from=builder --chown=appuser:appgroup /workspace/docs/legal ./docs/legal
+
+
+USER appuser
+
 EXPOSE 3000
 
+# Use bun (always present) to make the HTTP request — avoids BusyBox wget edge cases.
+HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \
+  CMD bun -e "const r = await fetch('http://localhost:3000/api/health'); process.exit(r.ok ? 0 : 1)"
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
-  CMD \
-    curl -f http://localhost:3000/ || exit 1 && \
-    curl -f http://localhost:3000/doc/environment/nextjs || exit 1
-
-
-CMD ["bun", "x", "next", "start"] 
+# Execute the standalone server
+CMD ["bun", "apps/website/server.js"]

@@ -1,7 +1,16 @@
 import { dirname } from 'node:path';
-import { cond, enu, gender, insert, md, nest, t } from '@intlayer/core';
 import { type FileContent, fileContent } from '@intlayer/core/file';
-import type { Dictionary } from '@intlayer/types';
+import {
+  cond,
+  enu,
+  gender,
+  insert,
+  md,
+  nest,
+  plural,
+  t,
+} from '@intlayer/core/transpiler';
+import type { Dictionary } from '@intlayer/types/dictionary';
 
 export const file = (path: string): FileContent => {
   const INTLAYER_FILE_PATH = '/User/file.md';
@@ -146,6 +155,18 @@ const content: Dictionary = {
         en: 'Show less',
         fr: 'Afficher moins',
         es: 'Mostrar menos',
+      }),
+    }),
+    pluralExample: plural({
+      one: t({
+        en: '{{count}} item',
+        fr: '{{count}} article',
+        es: '{{count}} artículo',
+      }),
+      other: t({
+        en: '{{count}} items',
+        fr: '{{count}} articles',
+        es: '{{count}} artículos',
       }),
     }),
   },

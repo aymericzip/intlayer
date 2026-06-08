@@ -22,6 +22,7 @@ const pageContent = {
       pl: 'Szukaj na blogu',
       id: 'Cari di blog',
       vi: 'Tìm kiếm trong blog',
+      uk: 'Пошук у блозі',
     }),
   },
   title: 'Undefined content declaration',

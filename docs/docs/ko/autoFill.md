@@ -18,13 +18,13 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-09-20
-    changes: 전역 구성 추가
+    changes: "전역 구성 추가"
   - version: 6.0.0
     date: 2025-09-17
-    changes: `{{fileName}}` 변수 추가
+    changes: "`{{fileName}}` 변수 추가"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 이력 초기화
+    changes: "이력 초기화"
 ---
 
 # 자동 채우기 콘텐츠 선언 파일 번역
@@ -52,8 +52,20 @@ export default exampleContent;
 
 그런 다음, 다음 명령어를 실행하면:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
 Intlayer는 메인 파일에 아직 선언되지 않은 모든 로케일을 채워 `src/components/example/example.content.json`에 파생 선언 파일을 자동으로 생성합니다.

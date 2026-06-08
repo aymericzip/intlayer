@@ -19,11 +19,23 @@ slugs:
 
 # Pousser les dictionnaires
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary push
 ```
 
-Si [l'éditeur intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) est installé, vous pouvez également pousser les dictionnaires vers l'éditeur. Cette commande permettra de rendre les dictionnaires disponibles dans [l'éditeur](https://intlayer.org/dashboard). De cette manière, vous pouvez partager vos dictionnaires avec votre équipe et éditer votre contenu sans modifier le code de votre application.
+```bash packageManager="yarn"
+yarn intlayer dictionary push
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary push
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary push
+```
+
+Si [l'éditeur intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) est installé, vous pouvez également pousser les dictionnaires vers l'éditeur. Cette commande permettra de rendre les dictionnaires disponibles dans [l'éditeur](https://app.intlayer.org/). De cette manière, vous pouvez partager vos dictionnaires avec votre équipe et éditer votre contenu sans modifier le code de votre application.
 
 ## Alias :
 

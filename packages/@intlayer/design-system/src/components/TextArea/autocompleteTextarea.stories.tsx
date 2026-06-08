@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState } from 'react';
-import { InputVariant } from '../Input';
 import { AutoCompleteTextarea } from '.';
 
 const mockQueryClient = new QueryClient({
@@ -126,7 +125,7 @@ const meta: Meta<typeof AutoCompleteTextarea> = {
     variant: {
       description: 'Visual variant for different contexts',
       control: { type: 'select' },
-      options: Object.values(InputVariant),
+      options: ['default', 'invisible'],
       table: {
         type: { summary: 'InputVariant' },
       },
@@ -164,7 +163,7 @@ export const Default: Story = {
             {...args}
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            className="min-h-[120px] w-full"
+            className="min-h-30 w-full"
           />
 
           <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
@@ -424,7 +423,7 @@ export const ContentCreation: Story = {
                 autoSize={true}
                 maxRows={20}
                 className="min-h-[400px] w-full resize-none border-0 font-serif text-base leading-relaxed focus:outline-none focus:ring-0"
-                variant={InputVariant.INVISIBLE}
+                variant="invisible"
               />
             </div>
           </div>
@@ -687,8 +686,8 @@ export const EmailAssistant: Story = {
                 placeholder="Compose your email..."
                 autoSize={true}
                 maxRows={15}
-                className="min-h-[300px] w-full resize-none border-0 text-base leading-relaxed focus:outline-none focus:ring-0"
-                variant={InputVariant.INVISIBLE}
+                className="min-h-75 w-full resize-none border-0 text-base leading-relaxed focus:outline-none focus:ring-0"
+                variant="invisible"
               />
             </div>
 

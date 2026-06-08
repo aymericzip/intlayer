@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-03-09
-updatedAt: 2025-06-29
-title: كيفية ترجمة تطبيق Lynx and React mobile app – دليل i18n 2025
-description: اكتشف كيفية جعل موقعك الذي يستخدم Lynx و React مع Page Router متعدد اللغات. اتبع الوثائق لتدويله (i18n) وترجمته.
+updatedAt: 2026-05-31
+title: "تدويل Lynx + React - الدليل الكامل لترجمة تطبيقك"
+description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Lynx + React متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
   - التدويل
   - ت Documentation
@@ -17,25 +17,52 @@ slugs:
   - lynx-and-react
 applicationTemplate: https://github.com/aymericzip/intlayer-lynx-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "تحديث استخدام واجهة برمجة تطبيقات useIntlayer في Solid للوصول المباشر إلى الخصائص"
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: "إضافة أمر init"
   - version: 5.5.10
     date: 2025-06-29
-    changes: بدء السجل
+    changes: "بدء السجل"
 ---
 
 # ترجم Lynx and React mobile app باستخدام Intlayer | التدويل (i18n)
 
 انظر [قالب التطبيق](https://github.com/aymericzip/intlayer-lynx-template) على GitHub.
 
-## ما هو Intlayer؟
+## لماذا Intlayer على البدائل؟
 
-**Intlayer** هي **مكتبة تدويل (i18n) مبتكرة ومفتوحة المصدر** تُبسط دعم اللغات المتعددة في التطبيقات الحديثة. تعمل في العديد من بيئات JavaScript/TypeScript، **بما في ذلك Lynx** (عبر حزمة `react-intlayer`).
+بالمقارنة مع الحلول الرئيسية مثل `react-native-localize` أو `i18next`، يعد Intlayer حلاً يأتي مزودًا بتحسينات متكاملة مثل:
 
-مع Intlayer، يمكنك:
+** تغطية الوشق الكاملة **
 
-- **إدارة الترجمات بسهولة** باستخدام القواميس التصريحية على مستوى المكونات.
-- **ضمان دعم TypeScript** مع الأنواع التي يتم إنشاؤها تلقائيًا.
-- **تخصيص المحتوى ديناميكيًا**، بما في ذلك **سلاسل واجهة المستخدم** (وفي React للويب، يمكنه أيضًا تخصيص بيانات HTML الوصفية، إلخ).
-- **الاستفادة من الميزات المتقدمة**، مثل اكتشاف اللغة الديناميكي والتبديل.
+تم تحسين Intlayer للعمل بشكل مثالي مع Lynx وReact من خلال تقديم **نطاق المحتوى على مستوى المكونات**، و**دعم TypeScript**، وجميع الميزات اللازمة لتوسيع نطاق التدويل (i18n).
+
+**حجم البندل**
+
+بدلاً من تحميل ملفات JSON ضخمة إلى صفحاتك، قم بتحميل المحتوى الضروري فقط. يساعد Intlayer **في تقليل أحجام البندل وصفحاتك بنسبة تصل إلى 50%**.
+
+** الصيانة **
+
+يؤدي تحديد نطاق محتوى تطبيقك ** إلى تسهيل الصيانة ** للتطبيقات واسعة النطاق. يمكنك تكرار أو حذف مجلد ميزات واحد دون العبء العقلي لمراجعة قاعدة بيانات المحتوى بالكامل. بالإضافة إلى ذلك، تتم كتابة Intlayer **بالكامل** لضمان دقة المحتوى الخاص بك.
+
+** وكيل الذكاء الاصطناعي **
+
+يؤدي تحديد موقع المحتوى المشترك ** إلى تقليل السياق المطلوب ** بواسطة نماذج اللغات الكبيرة (LLMs). يأتي Intlayer أيضًا مزودًا بمجموعة من الأدوات، مثل **CLI** لاختبار الترجمات المفقودة،**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**، **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** و**[مهارات الوكيل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة للذكاء الاصطناعي وكلاء.
+
+**الأتمتة**
+
+استخدم الأتمتة للترجمة في مسار CI/CD الخاص بك باستخدام LLM من اختيارك على حساب مزود الذكاء الاصطناعي الخاص بك. يقدم Intlayer أيضًا **مترجمًا** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) للمساعدة في **الترجمة في الخلفية**.
+
+**أداء**
+
+يمكن أن يؤدي ربط ملفات JSON الضخمة بالمكونات إلى حدوث مشكلات في الأداء والتفاعل. يعمل Intlayer على تحسين تحميل المحتوى الخاص بك في وقت الإنشاء.
+
+**التحجيم مع عدم وجود مطور**
+
+أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا] مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** و**[كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** لمساعدتك في إدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين ومؤلفي النصوص وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بعد.
 
 ---
 
@@ -45,14 +72,22 @@ history:
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer lynx-intlayer
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer lynx-intlayer
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer react-intlayer lynx-intlayer
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer lynx-intlayer
+bun x intlayer init
 ```
 
 ### الحزم
@@ -72,7 +107,7 @@ yarn add intlayer react-intlayer lynx-intlayer
 
 في جذر مشروعك (أو في أي مكان مناسب)، قم بإنشاء ملف **تكوين Intlayer**. قد يبدو كالتالي:
 
-```ts fileName="intlayer.config.ts" codeFormat="typescript"
+```ts fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -88,39 +123,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```js fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // ... أضف أي لغات أخرى تحتاجها
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```js fileName="intlayer.config.js" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 داخل هذا التكوين، يمكنك:
@@ -189,7 +191,7 @@ if (import.meta.webpackHot) {
 
 مثال:
 
-```tsx fileName="src/app.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -226,87 +228,6 @@ const appContent = {
 } satisfies Dictionary;
 
 export default appContent;
-```
-
-```jsx fileName="src/app.content.mjx" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-const appContent = {
-  key: "app",
-  content: {
-    title: "React",
-    subtitle: t({
-      ar: "على Lynx",
-      en: "on Lynx",
-      fr: "sur Lynx",
-      es: "en Lynx",
-    }),
-    description: t({
-      ar: "اضغط على الشعار واستمتع!",
-      en: "Tap the logo and have fun!",
-      fr: "Appuyez sur le logo et amusez-vous!",
-      es: "¡Toca el logo y diviértete!",
-    }),
-    hint: [
-      t({
-        ar: "تعديل",
-        en: "Edit",
-        fr: "Modifier",
-        es: "Editar",
-      }),
-      " src/App.tsx ",
-      t({
-        ar: "لرؤية التحديثات!",
-        en: "to see updates!",
-        fr: "pour voir les mises à jour!",
-        es: "para ver actualizaciones!",
-      }),
-    ],
-  },
-};
-
-export default appContent;
-```
-
-```jsx fileName="src/app.content.csx" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    title: "React",
-    subtitle: t({
-      ar: "على Lynx",
-      en: "on Lynx",
-      fr: "sur Lynx",
-      es: "en Lynx",
-    }),
-    description: t({
-      ar: "اضغط على الشعار واستمتع!",
-      en: "Tap the logo and have fun!",
-      fr: "Appuyez sur le logo et amusez-vous!",
-      es: "¡Toca el logo y diviértete!",
-    }),
-    hint: [
-      t({
-        ar: "تعديل",
-        en: "Edit",
-        fr: "Modifier",
-        es: "Editar",
-      }),
-      " src/App.tsx ",
-      t({
-        ar: "لرؤية التحديثات!",
-        en: "to see updates!",
-        fr: "pour voir les mises à jour!",
-        es: "para ver actualizaciones!",
-      }),
-    ],
-  },
-};
-
-module.exports = appContent;
 ```
 
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"
@@ -358,7 +279,7 @@ module.exports = appContent;
 }
 ```
 
-> لمزيد من التفاصيل حول إعلانات المحتوى، راجع [وثائق محتوى Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md).
+> لمزيد من التفاصيل حول إعلانات المحتوى، راجع [وثائق محتوى Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
 ---
 
@@ -490,8 +411,8 @@ export const LocaleSwitcher: FC = () => {
 
 لتجنب الالتزام بالملفات التي يتم إنشاؤها تلقائيًا بواسطة Intlayer، أضف التالي إلى ملف `.gitignore` الخاص بك:
 
-```plaintext
-# تجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer
+```bash
+#  تجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer
 .intlayer
 ```
 
@@ -517,6 +438,6 @@ export const LocaleSwitcher: FC = () => {
 
 - **المحرر المرئي**: استخدم [المحرر المرئي لـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) لإدارة الترجمات بشكل مرئي.
 - **تكامل CMS**: يمكنك أيضًا استخراج محتوى قاموسك وجلبه من [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
-- **أوامر CLI**: استكشف [CLI الخاص بـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md) للمهام مثل **استخراج الترجمات** أو **التحقق من المفاتيح المفقودة**.
+- **أوامر CLI**: استكشف [CLI الخاص بـ Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) للمهام مثل **استخراج الترجمات** أو **التحقق من المفاتيح المفقودة**.
 
 ---

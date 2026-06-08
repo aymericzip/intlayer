@@ -1,7 +1,8 @@
 import { getIntlayerAPIProxy } from '@intlayer/api';
 // @ts-ignore @intlayer/backend is not build yet
 import type { DictionaryAPI } from '@intlayer/backend';
-import { getAppLogger, getConfiguration, x } from '@intlayer/config';
+import { getAppLogger, x } from '@intlayer/config/logger';
+import { getConfiguration } from '@intlayer/config/node';
 import type { DictionariesStatus } from './loadDictionaries';
 import { parallelize } from './utils/parallelize';
 

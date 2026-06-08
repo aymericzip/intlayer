@@ -21,22 +21,22 @@ slugs:
 history:
   - version: 5.8.0
     date: 2025-08-20
-    changes: vue फॉर्मैटर्स जोड़े
+    changes: "vue फॉर्मैटर्स जोड़े"
   - version: 5.8.0
     date: 2025-08-18
-    changes: फॉर्मैटर्स दस्तावेज़ जोड़े
+    changes: "फॉर्मैटर्स दस्तावेज़ जोड़े"
   - version: 5.8.0
     date: 2025-08-20
-    changes: सूची स्वरूपक प्रलेखन जोड़ें
+    changes: "सूची स्वरूपक प्रलेखन जोड़ें"
   - version: 5.8.0
     date: 2025-08-20
-    changes: अतिरिक्त Intl उपयोगिताएँ जोड़ें (DisplayNames, Collator, PluralRules)
+    changes: "अतिरिक्त Intl उपयोगिताएँ जोड़ें (DisplayNames, Collator, PluralRules)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: लोकल उपयोगिताएँ जोड़ें (getLocaleName, getLocaleLang, getLocaleFromPath, आदि)
+    changes: "लोकल उपयोगिताएँ जोड़ें (getLocaleName, getLocaleLang, getLocaleFromPath, आदि)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: सामग्री प्रबंधन उपयोगिताएँ जोड़ें (getContent, getTranslation, getIntlayer, आदि)
+    changes: "सामग्री प्रबंधन उपयोगिताएँ जोड़ें (getContent, getTranslation, getIntlayer, आदि)"
 ---
 
 # Intlayer फॉर्मेटर्स

@@ -581,7 +581,8 @@ export const DocumentationPage: Story = {
         <H3 isClickable>Basic Usage</H3>
         <p>Import and use components in your React application:</p>
         <pre className="overflow-x-auto rounded-lg bg-gray-900 p-4 text-gray-100">
-          <code>{`import { Button, Label } from '@intlayer/design-system';
+          <code>{`import { Button } from '@intlayer/design-system/button';
+import { Label } from '@intlayer/design-system/label';
 
 function App() {
   return (

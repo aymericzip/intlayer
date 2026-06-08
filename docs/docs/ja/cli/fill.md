@@ -20,17 +20,66 @@ slugs:
 
 # 辞書の補完 / 監査 / 翻訳
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill
 ```
 
+```bash packageManager="yarn"
+yarn intlayer fill
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill
+```
+
+```bash packageManager="bun"
+bun x intlayer fill
+```
+
 このコマンドは、翻訳の欠落、構造の不整合、型の不一致などの潜在的な問題を検出するために、コンテンツ宣言ファイルを解析します。問題が見つかった場合、**intlayer fill** は辞書を一貫性があり完全な状態に保つために、更新を提案または適用します。
+
+重要なポイント：
+
+- AIモデルのコンテキストウィンドウの制限内に収まるように、大きなJSONファイルをチャンクに分割します。
+- 出力形式が正しくない場合、翻訳を再試行します。
+- 翻訳の精度を向上させるために、アプリケーション固有およびファイル固有のコンテキストを組み込みます。
+- 既存の翻訳を上書きしないことで、既存の翻訳を保持します。
+- キューシステムを使用してファイル、チャンク、ロケールを並列処理し、速度を向上させます。
 
 ## エイリアス:
 
 - `npx intlayer dictionaries fill`
 - `npx intlayer dictionary fill`
 - `npx intlayer dic fill`
+
+## 出力例:
+
+```bash
+npx intlayer fill
+
+Preparing Intlayer (v7.5.14)
+Done 76ms
+@intlayer/ai found - Run process locally
+Provider: (default) - Model: (default) - API Key: ✓
+Affected dictionary keys for processing: app, comp-test, hello-world, lang-switcher
+ - [comp-test]      No locales to fill, Skipping comp-test.content.json
+ - [app]            Processing app.content.tsx
+ - [app]            Filling missing metadata for app.content.tsx
+ - [hello-world]    Processing test.content.ts
+ - [hello-world]   [French (fr)]      Preparing test.content.ts
+ - [hello-world]   [Spanish (es)]     Preparing test.content.ts
+ - [lang-switcher]  Processing langSwitcher.content.ts
+ - [lang-switcher]  Filling missing metadata for langSwitcher.content.ts
+ - [hello-world]    Translation completed successfully for test.content.ts
+ - [lang-switcher] [Spanish (es)]     Preparing langSwitcher.content.ts
+ - [app]           [French (fr)]      Preparing app.content.tsx
+ - [app]           [Spanish (es)]     Preparing app.content.tsx
+ - [hello-world]    Content declaration written to test.content.ts
+ - [app]            Translation completed successfully for app.content.tsx
+ - [app]            Content declaration written to app.content.tsx
+ - [lang-switcher]  Translation completed successfully for langSwitcher.content.ts
+ - [lang-switcher]  Content declaration written to langSwitcher.content.ts
+```
 
 ## 引数:
 
@@ -89,6 +138,7 @@ npx intlayer fill
 - **`--api-key [apiKey]`**: AIサービス用の独自APIキーを提供。
 - **`--custom-prompt [prompt]`**: 翻訳指示用のカスタムプロンプトを提供。
 - **`--application-context [applicationContext]`**: AI翻訳に追加のコンテキストを提供。
+- **`--data-serialization [dataSerialization]`**: IntlayerのAI機能に使用するデータシリアライズ形式。オプション: `json` (標準的で信頼性が高い), `toon` (トークン消費が少ないが、一貫性が低い)。
 
   > 例: `npx intlayer fill --model gpt-3.5-turbo --provider openai --temperature 0.5 --api-key sk-1234567890 --application-context "My application is a cat store"`
 
@@ -123,8 +173,20 @@ npx intlayer fill
 
 ## 例:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
 ```
 
 このコマンドは、`src/home/` ディレクトリ内のすべてのコンテンツ宣言ファイルに対して、GPT-3.5 Turboモデルを使用して英語からフランス語およびスペイン語にコンテンツを翻訳します。

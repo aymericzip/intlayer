@@ -1,5 +1,5 @@
 import { randomBytes } from 'node:crypto';
-import { ProjectModel } from '@models/project.model';
+import { ProjectModel } from '@schemas/project.schema';
 import { GenericError } from '@utils/errors';
 import type { Types } from 'mongoose';
 import type {
@@ -50,6 +50,8 @@ export const addNewAccessKey = async (
     userId: user.id,
     accessToken: [],
     grants: accessKeyData.grants,
+    allowedEnvironmentIds: accessKeyData.allowedEnvironmentIds ?? null,
+    allowedLocales: accessKeyData.allowedLocales ?? null,
   };
 
   const result = await ProjectModel.updateOne(
@@ -101,10 +103,10 @@ export const deleteAccessKey = async (
 
   const result = await ProjectModel.updateOne(
     {
-      'oAuth2Access.clientId': clientId,
+      'oAuth2Access.clientId': String(clientId),
       'oAuth2Access.userId': String(userId),
     },
-    { $pull: { oAuth2Access: { clientId } } }
+    { $pull: { oAuth2Access: { clientId: String(clientId) } } }
   );
 
   if (result.modifiedCount === 0) {
@@ -124,7 +126,7 @@ export const refreshAccessKey = async (
 ): Promise<OAuth2Access> => {
   const project = await ProjectModel.findOne({
     _id: projectId,
-    'oAuth2Access.clientId': clientId,
+    'oAuth2Access.clientId': String(clientId),
     'oAuth2Access.userId': String(userId),
   });
 
@@ -151,7 +153,7 @@ export const refreshAccessKey = async (
 
   const result = await ProjectModel.updateOne(
     {
-      'oAuth2Access.clientId': clientId,
+      'oAuth2Access.clientId': String(clientId),
       'oAuth2Access.userId': String(userId),
     },
     {

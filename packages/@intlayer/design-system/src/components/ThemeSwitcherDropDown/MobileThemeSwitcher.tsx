@@ -1,9 +1,9 @@
 'use client';
 
+import { cn } from '@utils/cn';
 import { CircleDashed, Moon, Sun } from 'lucide-react';
 import { type FC, useState } from 'react';
-import { cn } from '../../utils/cn';
-import { Modes } from './types';
+import type { Modes } from './types';
 
 type MobileThemeSwitcherProps = {
   theme: Modes;
@@ -31,30 +31,30 @@ export const MobileThemeSwitcher: FC<MobileThemeSwitcherProps> = ({
   setTheme,
 }) => {
   const isThemeSystemTheme = systemTheme === theme;
-  const defaultMode = isThemeSystemTheme ? Modes.system : theme;
+  const defaultMode = isThemeSystemTheme ? 'system' : theme;
 
   const [mode, setMode] = useState<Modes>(defaultMode);
 
   const nextMode =
     // Start loop
     // If mode is system, toggle the theme inverse of the system theme
-    mode === Modes.system
-      ? theme === Modes.dark
-        ? Modes.light
-        : Modes.dark
+    mode === 'system'
+      ? theme === 'dark'
+        ? 'light'
+        : 'dark'
       : // Close loop
         // If current theme same as system theme, reset by toggle the system theme
         isThemeSystemTheme
-        ? Modes.system
+        ? 'system'
         : // Go to next step
           // Otherwise, toggle the remaining theme
-          mode === Modes.light
-          ? Modes.dark
-          : Modes.light;
+          mode === 'light'
+          ? 'dark'
+          : 'light';
 
   const toggleMode = () => {
-    if (nextMode === Modes.system) {
-      setTheme(systemTheme ?? Modes.light);
+    if (nextMode === 'system') {
+      setTheme(systemTheme ?? 'light');
     } else {
       setTheme(nextMode);
     }
@@ -65,8 +65,8 @@ export const MobileThemeSwitcher: FC<MobileThemeSwitcherProps> = ({
     <button className="group relative size-10" aria-label="Theme selector">
       <CircleDashed
         className={getIconStyle({
-          isCurrentMode: mode === Modes.system,
-          isNextMode: nextMode === Modes.system,
+          isCurrentMode: mode === 'system',
+          isNextMode: nextMode === 'system',
         })}
         onClick={toggleMode}
         data-mode="system"
@@ -74,8 +74,8 @@ export const MobileThemeSwitcher: FC<MobileThemeSwitcherProps> = ({
 
       <Moon
         className={getIconStyle({
-          isCurrentMode: mode === Modes.light,
-          isNextMode: nextMode === Modes.light,
+          isCurrentMode: mode === 'light',
+          isNextMode: nextMode === 'light',
         })}
         onClick={toggleMode}
         data-mode="light"
@@ -83,8 +83,8 @@ export const MobileThemeSwitcher: FC<MobileThemeSwitcherProps> = ({
 
       <Sun
         className={getIconStyle({
-          isCurrentMode: mode === Modes.dark,
-          isNextMode: nextMode === Modes.dark,
+          isCurrentMode: mode === 'dark',
+          isNextMode: nextMode === 'dark',
         })}
         onClick={toggleMode}
         data-mode="dark"

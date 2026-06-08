@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-12-13
+updatedAt: 2026-05-12
 title: Berkas Konten
 description: Pelajari cara menyesuaikan ekstensi untuk berkas deklarasi konten Anda. Ikuti dokumentasi ini untuk mengimplementasikan kondisi secara efisien dalam proyek Anda.
 keywords:
@@ -12,23 +12,38 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.10.0
+    date: 2026-05-19
+    changes: "Tambahkan dukungan format file YAML dan Markdown"
+  - version: 8.9.0
+    date: 2026-05-12
+    changes: "Add `plural` content node type"
+  - version: 8.0.0
+    date: 2026-01-28
+    changes: "Tambahkan tipe node konten `html`"
+  - version: 8.0.0
+    date: 2026-01-24
+    changes: "Rename `live` import mode to `fetch` to better describe the underlying mechanism."
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: "Tambahkan opsi kamus `location` dan `schema`"
   - version: 7.5.0
     date: 2025-12-13
-    changes: Menambahkan dukungan format ICU dan i18next
+    changes: "Menambahkan dukungan format ICU dan i18next"
   - version: 7.0.0
     date: 2025-10-23
-    changes: Mengganti nama `autoFill` menjadi `fill`
+    changes: "Mengganti nama `autoFill` menjadi `fill`"
   - version: 6.0.0
     date: 2025-09-20
-    changes: Menambahkan dokumentasi fields
+    changes: "Menambahkan dokumentasi fields"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Memulai riwayat
+    changes: "Memulai riwayat"
 ---
 
 # Berkas Konten
 
-<iframe title="i18n, Markdown, JSON… satu solusi untuk mengelola semuanya | Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/1VHgSY_j9_I?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="i18n, Markdown, JSON… satu solusi untuk mengelola semuanya | Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/1VHgSY_j9_I?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## Apa itu Berkas Konten?
 
@@ -52,11 +67,12 @@ Sebuah kamus adalah kumpulan konten yang terstruktur dan diorganisir berdasarkan
 
 Contoh berkas konten:
 
-```tsx fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { type ReactNode } from "react";
 import {
   t,
   enu,
+  plural,
   cond,
   nest,
   md,
@@ -76,8 +92,10 @@ interface Content {
   };
   multilingualContent: string;
   quantityContent: string;
+  pluralContent: string;
   conditionalContent: string;
   markdownContent: never;
+  htmlContent: never;
   externalContent: string;
   insertionContent: string;
   nestedContent: string;
@@ -110,6 +128,10 @@ export default {
       ">5": "Beberapa mobil",
       ">19": "Banyak mobil",
     }),
+    pluralContent: plural({
+      one: "One car",
+      other: "{{count}} cars",
+    }),
     conditionalContent: cond({
       true: "Validasi diaktifkan",
       false: "Validasi dinonaktifkan",
@@ -122,6 +144,7 @@ export default {
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json()),
     markdownContent: md("# Contoh Markdown"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
 
     /*
      * Hanya tersedia menggunakan `react-intlayer` atau `next-intlayer`
@@ -129,104 +152,6 @@ export default {
     jsxContent: <h1>Judul saya</h1>,
   },
 } satisfies Dictionary<Content>; // [opsional] Dictionary adalah generic dan memungkinkan Anda memperkuat format kamus Anda
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md, insert, file } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "Halo Dunia",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`, // Lingkungan Node.js saat ini
-      },
-      imbricatedArray: [1, 2, 3],
-    },
-    multilingualContent: t({
-      en: "English content",
-      "en-GB": "English content (UK)",
-      fr: "French content",
-      es: "Spanish content",
-    }),
-    quantityContent: enu({
-      "<-1": "Kurang dari minus satu mobil",
-      "-1": "Minus satu mobil",
-      "0": "Tidak ada mobil",
-      "1": "Satu mobil",
-      ">5": "Beberapa mobil",
-      ">19": "Banyak mobil",
-    }),
-    conditionalContent: cond({
-      true: "Validasi diaktifkan",
-      false: "Validasi dinonaktifkan",
-    }),
-    insertionContent: insert("Halo {{name}}!"),
-    nestedContent: nest(
-      "navbar", // Kunci dari kamus yang akan disisipkan
-      "login.button" // [Opsional] Jalur ke konten yang akan disisipkan
-    ),
-    markdownContent: md("# Contoh Markdown"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // Hanya tersedia menggunakan `react-intlayer` atau `next-intlayer`
-    jsxContent: <h1>Judul saya</h1>,
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md, insert, file } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "Halo Dunia",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`, // Konten JavaScript dari variabel lingkungan
-      },
-      imbricatedArray: [1, 2, 3],
-    },
-    multilingualContent: t({
-      en: "English content",
-      "en-GB": "English content (UK)",
-      fr: "French content",
-      es: "Spanish content",
-    }),
-    quantityContent: enu({
-      "<-1": "Kurang dari minus satu mobil",
-      "-1": "Minus satu mobil",
-      "0": "Tidak ada mobil",
-      "1": "Satu mobil",
-      ">5": "Beberapa mobil",
-      ">19": "Banyak mobil",
-    }),
-    conditionalContent: cond({
-      true: "Validasi diaktifkan",
-      false: "Validasi dinonaktifkan",
-    }),
-    insertionContent: insert("Halo {{name}}!"),
-    nestedContent: nest(
-      "navbar", // Kunci dari kamus yang akan disisipkan
-      "login.button" // [Opsional] Jalur ke konten yang akan disisipkan
-    ),
-    markdownContent: md("# Contoh Markdown"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // Hanya tersedia menggunakan `react-intlayer` atau `next-intlayer`
-    jsxContent: <h1>Judul Saya</h1>,
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"
@@ -261,6 +186,13 @@ module.exports = {
         ">5": "Beberapa mobil",
         ">19": "Banyak mobil",
       },
+      "pluralContent": {
+        "nodeType": "plural",
+        "plural": {
+          "one": "One car",
+          "other": "{{count}} cars",
+        },
+      },
     },
     "conditionalContent": {
       "nodeType": "condition",
@@ -280,6 +212,10 @@ module.exports = {
     "markdownContent": {
       "nodeType": "markdown",
       "markdown": "# Contoh Markdown",
+    },
+    "htmlContent": {
+      "nodeType": "html",
+      "html": "<p>Hello <strong>World</strong></p>",
     },
     "fileContent": {
       "nodeType": "file",
@@ -304,6 +240,7 @@ Content nodes adalah blok bangunan dari konten kamus. Mereka dapat berupa:
 - **Nilai primitif**: string, angka, boolean, null, undefined
 - **Node bertipe**: Jenis konten khusus seperti terjemahan, kondisi, markdown, dll.
 - **Fungsi**: Konten dinamis yang dapat dievaluasi saat runtime [lihat Pengambilan Fungsi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/function_fetching.md)
+- **Plural Content**: See Plural Content [See Plural Content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/plural.md)
 - **Konten bersarang**: Referensi ke kamus lain
 
 #### Jenis Konten
@@ -315,6 +252,7 @@ Intlayer mendukung berbagai jenis konten melalui node bertipe:
 - **Konten Enumerasi**: Konten yang bervariasi berdasarkan nilai enumerasi [lihat Konten Enumerasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/enumeration_content.md)
 - **Konten Penyisipan**: Konten yang dapat disisipkan ke dalam konten lain [lihat Konten Penyisipan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/insertion_content.md)
 - **Konten Markdown**: Konten teks kaya dalam format Markdown [lihat Konten Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/markdown_content.md)
+- **Konten HTML**: Konten HTML kaya dengan komponen kustom opsional [lihat Konten HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/html.md)
 - **Konten Bersarang**: Referensi ke kamus lain [lihat Konten Bersarang](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/nested_content.md)
 - **Konten Gender**: Konten yang bervariasi berdasarkan gender [lihat Konten Gender](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/gender_content.md)
 - **Konten File**: Referensi ke file eksternal [lihat Konten File](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/file_content.md)
@@ -435,6 +373,61 @@ Mengubah kamus menjadi kamus per-locale di mana setiap field yang dideklarasikan
 }
 ```
 
+#### `schema` (SchemaKeys)
+
+Skema konten kamus. Jika diatur, konten akan divalidasi terhadap skema ini. Ini memungkinkan Anda untuk memaksakan struktur tertentu untuk konten kamus Anda menggunakan skema validasi khusus yang ditentukan dalam konfigurasi Intlayer Anda.
+
+**Contoh:**
+
+```typescript fileName="intlayer.config.ts"
+import { z } from "zod";
+
+export default {
+  schemas: {
+    "seo-metadata": z.object({
+      title: z.string().min(50).max(60),
+      description: z.string().min(150).max(160),
+    }),
+  },
+};
+```
+
+```typescript fileName="src/example.content.ts"
+import { type Dictionary } from "intlayer";
+
+const aboutPageMetaContent = {
+  key: "about-page-meta",
+  schema: "seo-metadata",
+  content: {
+    title: "About Our Company - Learn More About Us",
+    description: "Discover our company's mission, values, and team.",
+  },
+} satisfies Dictionary;
+
+export default aboutPageMetaContent;
+```
+
+#### `location` ('local' | 'remote' | 'hybrid' | string)
+
+Menunjukkan lokasi kamus dan mengontrol cara sinkronisasinya dengan CMS:
+
+- `'local'`: Kamus dikelola hanya secara lokal. Tidak akan didorong ke CMS jarak jauh. Gunakan ini untuk konten yang harus tetap berada di codebase Anda.
+- `'remote'`: Kamus dikelola hanya secara jarak jauh. Setelah didorong ke CMS, kamus akan terlepas dari file lokal. Saat memuat konten, kamus jarak jauh akan diambil dari CMS. File `.content` dengan lokasi `remote` akan diabaikan setelah push awal.
+- `'hybrid'`: Kamus dikelola baik secara lokal maupun jarak jauh. Setelah didorong ke CMS, kamus akan tetap tersinkronisasi, perubahan dari file lokal didorong ke CMS, dan perubahan jarak jauh dapat ditarik kembali ke file lokal.
+- `string` (mis. `'plugin'`): Kamus dikelola oleh plugin atau sumber kustom. Saat Anda mencoba mendorongnya, sistem akan menanyakan apa yang harus dilakukan.
+
+**Contoh:**
+
+```typescript
+{
+  key: "about-page",
+  location: "local", // Konten tetap hanya di codebase Anda
+  content: {
+    title: "About Us"
+  }
+}
+```
+
 #### `fill` (Fill)
 
 Instruksi untuk mengisi konten kamus secara otomatis dari sumber eksternal. Ini dapat dikonfigurasi secara global di `intlayer.config.ts` atau per kamus. Mendukung beberapa format:
@@ -506,15 +499,15 @@ Menunjukkan prioritas kamus untuk penyelesaian konflik. Ketika beberapa kamus me
 
 Pengidentifikasi versi untuk kamus jarak jauh. Membantu melacak versi kamus yang sedang digunakan, sangat berguna saat bekerja dengan sistem manajemen konten jarak jauh.
 
-##### `live` (boolean)
+##### `importMode` ('static' | 'dynamic' | 'fetch')
 
-Untuk kamus jarak jauh, menunjukkan apakah kamus harus diambil secara langsung saat runtime. Ketika diaktifkan:
+Mode impor menentukan bagaimana kamus Anda diimpor ke aplikasi Anda.
 
-- Membutuhkan `importMode` disetel ke "live" di `intlayer.config.ts`
-- Membutuhkan server live yang berjalan
-- Kamus akan diambil saat runtime menggunakan API sinkronisasi langsung
-- Jika live tetapi pengambilan gagal, akan kembali ke nilai dinamis
-- Jika tidak live, kamus diubah pada saat build untuk performa optimal
+- `'static'`: Kamus diimpor secara statis pada waktu build. Ini adalah mode default.
+- `'dynamic'`: Kamus diimpor secara dinamis pada runtime menggunakan API suspense.
+- `'fetch'`: Kamus diimpor secara dinamis menggunakan API sinkronisasi langsung.
+
+Jika disetel, properti ini akan menggantikan `importMode` global yang didefinisikan di `intlayer.config.ts`.
 
 ### Properti Sistem (Otomatis Dibuat)
 
@@ -578,6 +571,8 @@ multilingualContent: t({
 });
 ```
 
+> See [Konten Terjemahan (`t`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/translation.md) for more information.
+
 ### Konten Kondisi (`cond`)
 
 Konten yang berubah berdasarkan kondisi boolean:
@@ -590,6 +585,8 @@ conditionalContent: cond({
   false: "Silakan masuk untuk melanjutkan",
 });
 ```
+
+> See [Konten Kondisi (`cond`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/condition.md) for more information.
 
 ### Konten Enumerasi (`enu`)
 
@@ -605,6 +602,23 @@ statusContent: enu({
 });
 ```
 
+> See [Konten Enumerasi (`enu`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/enumeration.md) for more information.
+
+### Plural Content (`plural`)
+
+Content that varies based on plural rules:
+
+```typescript
+import { plural } from "intlayer";
+
+pluralContent: plural({
+  one: "One car",
+  other: "{{count}} cars",
+});
+```
+
+> See [Plural Content Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/plural.md) for more information.
+
 ### Konten Penyisipan (`insert`)
 
 Konten yang dapat disisipkan ke dalam konten lain:
@@ -615,6 +629,8 @@ import { insert } from "intlayer";
 insertionContent: insert("Teks ini dapat disisipkan di mana saja");
 ```
 
+> See [Konten Penyisipan (`insert`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/insertion.md) for more information.
+
 ### Konten Bersarang (`nest`)
 
 Referensi ke kamus lain:
@@ -624,6 +640,8 @@ import { nest } from "intlayer";
 
 nestedContent: nest("about-page");
 ```
+
+> See [Konten Bersarang (`nest`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/nesting.md) for more information.
 
 ### Konten Markdown (`md`)
 
@@ -636,6 +654,27 @@ markdownContent: md(
   "# Selamat Datang\n\nIni adalah teks **tebal** dengan [tautan](https://example.com)"
 );
 ```
+
+> See [Konten Markdown (`md`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/markdown.md) for more information.
+
+### Konten HTML (`html`)
+
+Konten HTML kaya yang dapat menggunakan tag standar atau komponen kustom:
+
+```typescript
+import { html, file, t } from "intlayer";
+
+// HTML inline
+htmlContent: html("<p>Hello <strong>World</strong></p>");
+
+// HTML per lokal dari file eksternal
+localizedHtmlContent: t({
+  en: html(file("./content.en.html")),
+  id: html(file("./content.id.html")),
+});
+```
+
+> See [Konten HTML (`html`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/html.md) for more information.
 
 ### Konten Gender (`gender`)
 
@@ -651,6 +690,8 @@ genderContent: gender({
 });
 ```
 
+> See [Konten Gender (`gender`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/gender.md) for more information.
+
 ### Konten File (`file`)
 
 Referensi ke file eksternal:
@@ -660,6 +701,8 @@ import { file } from "intlayer";
 
 fileContent: file("./path/to/content.txt");
 ```
+
+> See [Konten File (`file`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/file.md) for more information.
 
 ## Membuat File Konten
 
@@ -753,6 +796,40 @@ Anda juga dapat membuat file konten dalam format JSON:
 }
 ```
 
+### File Konten Markdown
+
+```markdown
+---
+key: welcome-page
+locale: en
+title: Welcome Page Content
+description: Content for the main welcome page
+tags:
+  - page
+  - welcome
+---
+
+# Welcome to Our Platform
+
+## Build amazing applications with ease
+```
+
+### File Konten YAML
+
+```yaml
+key: welcome-page
+title: Welcome Page Content
+description: Content for the main welcome page
+locale: "en"
+tags:
+  - page
+  - welcome
+content:
+  hero:
+    title: Welcome to Our Platform
+    subtitle: Build amazing applications with ease
+```
+
 Anda juga dapat membuat file konten dalam format JSON:
 
 ```json
@@ -824,6 +901,8 @@ Intlayer memungkinkan Anda untuk menyesuaikan ekstensi untuk file deklarasi kont
 Secara default, Intlayer memantau semua file dengan ekstensi berikut untuk deklarasi konten:
 
 - `.content.json`
+- `.content.json5`
+- `.content.jsonc`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
@@ -832,6 +911,10 @@ Secara default, Intlayer memantau semua file dengan ekstensi berikut untuk dekla
 - `.content.mjx`
 - `.content.cjs`
 - `.content.cjx`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
 
 Ekstensi default ini cocok untuk sebagian besar aplikasi. Namun, ketika Anda memiliki kebutuhan khusus, Anda dapat menentukan ekstensi kustom untuk menyederhanakan proses build dan mengurangi risiko konflik dengan komponen lain.
 
@@ -885,7 +968,7 @@ Anda dapat dengan mudah mengimbrikasikan fungsi ke dalam fungsi lain.
 
 Contoh:
 
-```javascript fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```javascript fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 const getName = async () => "John Doe";
@@ -931,104 +1014,6 @@ export default {
     }),
   },
 } satisfies Dictionary;
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md } from "intlayer";
-
-const getName = async () => "John Doe";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    // `getIntlayer('page','en').hiMessage` mengembalikan `['Hi', ' ', 'John Doe']`
-    hiMessage: [
-      t({
-        en: "Hi",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // Konten komposit yang menggabungkan kondisi, enumerasi, dan konten multibahasa
-    // `getIntlayer('page','en').advancedContent(true)(10)` mengembalikan 'Multiple items found'
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "Tidak ada item yang ditemukan",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Satu item ditemukan",
-        }),
-        ">1": t({
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Beberapa item ditemukan",
-        }),
-      }),
-      false: t({
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "Tidak ada data valid yang tersedia",
-      }),
-    }),
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md } = require("intlayer");
-
-const getName = async () => "John Doe";
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    // `getIntlayer('page','en').hiMessage` mengembalikan `['Hi', ' ', 'John Doe']`
-    hiMessage: [
-      t({
-        en: "Hi",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // Konten komposit yang menggabungkan kondisi, enumerasi, dan konten multibahasa
-    // `getIntlayer('page','en').advancedContent(true)(10)` mengembalikan 'Multiple items found'
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Beberapa item ditemukan",
-        }),
-      }),
-      false: t({
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "Tidak ada data valid yang tersedia",
-      }),
-    }),
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"

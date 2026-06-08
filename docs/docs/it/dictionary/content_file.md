@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-12-13
+updatedAt: 2026-05-12
 title: File di Contenuto
 description: Scopri come personalizzare le estensioni per i tuoi file di dichiarazione dei contenuti. Segui questa documentazione per implementare condizioni in modo efficiente nel tuo progetto.
 keywords:
@@ -12,20 +12,35 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.10.0
+    date: 2026-05-19
+    changes: "Aggiunto supporto per i formati di file YAML e Markdown"
+  - version: 8.9.0
+    date: 2026-05-12
+    changes: "Aggiungi il tipo di nodo di contenuto `plural`"
+  - version: 8.0.0
+    date: 2026-01-28
+    changes: "Aggiunto tipo di nodo contenuto `html`"
+  - version: 8.0.0
+    date: 2026-01-24
+    changes: "Rename `live` import mode to `fetch` to better describe the underlying mechanism."
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: "Aggiunte opzioni dizionario `location` e `schema`"
   - version: 7.5.0
     date: 2025-12-13
-    changes: Aggiunto supporto per i formati ICU e i18next
+    changes: "Aggiunto supporto per i formati ICU e i18next"
   - version: 6.0.0
     date: 2025-09-20
-    changes: Aggiunta documentazione dei campi
+    changes: "Aggiunta documentazione dei campi"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inizio cronologia
+    changes: "Inizio cronologia"
 ---
 
 # File di Contenuto
 
-<iframe title="i18n, Markdown, JSON… una soluzione unica per gestire tutto | Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/1VHgSY_j9_I?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="i18n, Markdown, JSON… una soluzione unica per gestire tutto | Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/1VHgSY_j9_I?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## Cos'è un File di Contenuto?
 
@@ -49,11 +64,12 @@ Un dizionario è una raccolta strutturata di contenuti organizzati per chiavi. O
 
 Esempio di file di contenuto:
 
-```tsx fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { type ReactNode } from "react";
 import {
   t,
   enu,
+  plural,
   cond,
   nest,
   md,
@@ -73,8 +89,10 @@ interface Content {
   };
   multilingualContent: string;
   quantityContent: string;
+  pluralContent: string;
   conditionalContent: string;
   markdownContent: never;
+  htmlContent: never;
   externalContent: string;
   insertionContent: string;
   nestedContent: string;
@@ -108,6 +126,10 @@ export default {
       ">5": "Alcune macchine",
       ">19": "Molte macchine",
     }),
+    pluralContent: plural({
+      one: "One car",
+      other: "{{count}} cars",
+    }),
     conditionalContent: cond({
       true: "La validazione è abilitata",
       false: "La validazione è disabilitata",
@@ -120,6 +142,7 @@ export default {
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json()),
     markdownContent: md("# Esempio di Markdown"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
 
     /*
      * Disponibile solo usando `react-intlayer` o `next-intlayer`
@@ -127,105 +150,6 @@ export default {
     jsxContent: <h1>Il mio titolo</h1>,
   },
 } satisfies Dictionary<Content>; // [opzionale] Dictionary è generico e ti permette di rafforzare il formato del tuo dizionario
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md, insert, file } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "Hello World",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
-      },
-      imbricatedArray: [1, 2, 3],
-    },
-    multilingualContent: t({
-      it: "Contenuto in inglese",
-      "en-GB": "Contenuto in inglese (UK)",
-      fr: "Contenuto in francese",
-      es: "Contenuto in spagnolo",
-    }),
-    quantityContent: enu({
-      "<-1": "Meno di meno uno auto",
-      "-1": "Meno uno auto",
-      "0": "Nessuna auto",
-      "1": "Una auto",
-      ">5": "Alcune auto",
-      ">19": "Molte auto",
-    }),
-    conditionalContent: cond({
-      true: "La validazione è abilitata",
-      false: "La validazione è disabilitata",
-    }),
-    insertionContent: insert("Ciao {{name}}!"),
-    nestedContent: nest(
-      "navbar", // La chiave del dizionario da annidare
-      "login.button" // [Opzionale] Il percorso al contenuto da annidare
-    ),
-    markdownContent: md("# Esempio Markdown"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // Disponibile solo usando `react-intlayer` o `next-intlayer`
-    jsxContent: <h1>Il mio titolo</h1>,
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md, insert, file } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "Hello World",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
-      },
-      imbricatedArray: [1, 2, 3],
-    },
-    multilingualContent: t({
-      it: "Contenuto in inglese",
-      en: "English content",
-      "en-GB": "English content (UK)",
-      fr: "French content",
-      es: "Spanish content",
-    }),
-    quantityContent: enu({
-      "<-1": "Meno di meno una macchina",
-      "-1": "Meno una macchina",
-      "0": "Nessuna macchina",
-      "1": "Una macchina",
-      ">5": "Alcune macchine",
-      ">19": "Molte macchine",
-    }),
-    conditionalContent: cond({
-      true: "La validazione è abilitata",
-      false: "La validazione è disabilitata",
-    }),
-    insertionContent: insert("Ciao {{name}}!"),
-    nestedContent: nest(
-      "navbar", // La chiave del dizionario da annidare
-      "login.button" // [Opzionale] Il percorso del contenuto da annidare
-    ),
-    markdownContent: md("# Esempio Markdown"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // Disponibile solo usando `react-intlayer` o `next-intlayer`
-    jsxContent: <h1>Il mio titolo</h1>,
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"
@@ -260,6 +184,13 @@ module.exports = {
         ">5": "Alcune auto",
         ">19": "Molte auto",
       },
+      "pluralContent": {
+        "nodeType": "plural",
+        "plural": {
+          "one": "One car",
+          "other": "{{count}} cars",
+        },
+      },
     },
     "conditionalContent": {
       "nodeType": "condizione",
@@ -279,6 +210,10 @@ module.exports = {
     "markdownContent": {
       "nodeType": "markdown",
       "markdown": "# Esempio Markdown",
+    },
+    "htmlContent": {
+      "nodeType": "html",
+      "html": "<p>Hello <strong>World</strong></p>",
     },
     "fileContent": {
       "nodeType": "file",
@@ -303,6 +238,7 @@ I nodi di contenuto sono i mattoni fondamentali del contenuto del dizionario. Po
 - **Valori primitivi**: stringhe, numeri, booleani, null, undefined
 - **Nodi tipizzati**: Tipi di contenuto speciali come traduzioni, condizioni, markdown, ecc.
 - **Funzioni**: Contenuto dinamico che può essere valutato a runtime [vedi Recupero Funzioni](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/function_fetching.md)
+- **Contenuto Plurale**: Vedere Contenuto Plurale [Vedere Contenuto Plurale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/plural.md)
 - **Contenuto annidato**: Riferimenti ad altri dizionari
 
 #### Tipi di Contenuto
@@ -314,6 +250,7 @@ Intlayer supporta vari tipi di contenuto tramite nodi tipizzati:
 - **Contenuto di Enumerazione**: Contenuto che varia in base a valori enumerati [vedi Contenuto di Enumerazione](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/enumeration_content.md)
 - **Contenuto di Inserimento**: Contenuto che può essere inserito in altri contenuti [vedi Contenuto di Inserimento](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/insertion_content.md)
 - **Contenuto Markdown**: Contenuto di testo arricchito in formato Markdown [vedi Contenuto Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/markdown_content.md)
+- **Contenuto HTML**: Contenuto HTML ricco con componenti personalizzati opzionali [vedi Contenuto HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/html.md)
 - **Contenuto Annidato**: Riferimenti ad altri dizionari [vedi Contenuto Annidato](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/nested_content.md)
 - **Contenuto di Genere**: Contenuto che varia in base al genere [vedi Contenuto di Genere](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/gender_content.md)
 - **Contenuto File**: Riferimenti a file esterni [vedi Contenuto File](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/file_content.md)
@@ -434,6 +371,61 @@ Trasforma il dizionario in un dizionario per locale in cui ogni campo dichiarato
 }
 ```
 
+#### `schema` (SchemaKeys)
+
+Lo schema del contenuto del dizionario. Se impostato, il contenuto sarà convalidato rispetto a questo schema. Questo ti consente di imporre una struttura specifica per il contenuto del tuo dizionario utilizzando schemi di convalida personalizzati definiti nella tua configurazione Intlayer.
+
+**Esempio:**
+
+```typescript fileName="intlayer.config.ts"
+import { z } from "zod";
+
+export default {
+  schemas: {
+    "seo-metadata": z.object({
+      title: z.string().min(50).max(60),
+      description: z.string().min(150).max(160),
+    }),
+  },
+};
+```
+
+```typescript fileName="src/example.content.ts"
+import { type Dictionary } from "intlayer";
+
+const aboutPageMetaContent = {
+  key: "about-page-meta",
+  schema: "seo-metadata",
+  content: {
+    title: "About Our Company - Learn More About Us",
+    description: "Discover our company's mission, values, and team.",
+  },
+} satisfies Dictionary;
+
+export default aboutPageMetaContent;
+```
+
+#### `location` ('local' | 'remote' | 'hybrid' | string)
+
+Indica la posizione del dizionario e controlla come si sincronizza con il CMS:
+
+- `'local'`: Il dizionario è gestito solo localmente. Non verrà inviato al CMS remoto. Usa questo per contenuti che devono rimanere nella tua codebase.
+- `'remote'`: Il dizionario è gestito solo remotamente. Una volta inviato al CMS, verrà scollegato dal file locale. Al momento del caricamento del contenuto, il dizionario remoto verrà recuperato dal CMS. Un file `.content` con posizione `remote` verrà ignorato dopo l'invio iniziale.
+- `'hybrid'`: Il dizionario è gestito sia localmente che remotamente. Una volta inviato al CMS, rimarrà sincronizzato, le modifiche dal file locale vengono inviate al CMS, e le modifiche remote possono essere recuperate nel file locale.
+- `string` (es. `'plugin'`): Il dizionario è gestito da un plugin o da una fonte personalizzata. Quando provi a inviarlo, il sistema ti chiederà cosa fare.
+
+**Esempio:**
+
+```typescript
+{
+  key: "about-page",
+  location: "local", // Il contenuto rimane solo nella tua codebase
+  content: {
+    title: "About Us"
+  }
+}
+```
+
 #### `autoFill` (AutoFill)
 
 Istruzioni per il riempimento automatico del contenuto del dizionario da fonti esterne. Questo può essere configurato globalmente in `intlayer.config.ts` o per singolo dizionario. Supporta più formati:
@@ -504,15 +496,15 @@ Indica la priorità del dizionario per la risoluzione dei conflitti. Quando più
 
 Identificatore di versione per dizionari remoti. Aiuta a tracciare quale versione del dizionario è attualmente in uso, particolarmente utile quando si lavora con sistemi di gestione contenuti remoti.
 
-##### `live` (booleano)
+##### `importMode` ('static' | 'dynamic' | 'fetch')
 
-Per dizionari remoti, indica se il dizionario deve essere recuperato in tempo reale durante l'esecuzione. Quando abilitato:
+La modalità di importazione determina come il tuo dizionario viene importato nella tua applicazione.
 
-- Richiede che `importMode` sia impostato su "live" in `intlayer.config.ts`
-- Richiede che un server live sia in esecuzione
-- Il dizionario sarà recuperato a runtime usando l'API di sincronizzazione live
-- Se è live ma il recupero fallisce, si ricorre al valore dinamico
-- Se non è live, il dizionario viene trasformato in fase di build per prestazioni ottimali
+- `'static'`: Il dizionario viene importato staticamente in fase di build. Questa è la modalità predefinita.
+- `'dynamic'`: Il dizionario viene importato dinamicamente a runtime utilizzando l'API di suspense.
+- `'fetch'`: Il dizionario viene importato dinamicamente utilizzando l'API di sincronizzazione live.
+
+Se impostato, questa proprietà sovrascrive il `importMode` globale definito in `the `dictionary`property of`intlayer.config.ts``.
 
 ### Proprietà di Sistema (Generato automaticamente)
 
@@ -572,6 +564,8 @@ multilingualContent: t({
 });
 ```
 
+> Vedere [Contenuto di Traduzione (`t`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/translation.md) per ulteriori informazioni.
+
 ### Contenuto Condizionale (`cond`)
 
 Contenuto che cambia in base a condizioni booleane:
@@ -584,6 +578,8 @@ conditionalContent: cond({
   false: "Please log in to continue",
 });
 ```
+
+> Vedere [Contenuto Condizionale (`cond`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/condition.md) per ulteriori informazioni.
 
 ### Contenuto Enumerato (`enu`)
 
@@ -599,6 +595,23 @@ statusContent: enu({
 });
 ```
 
+> Vedere [Contenuto Enumerato (`enu`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/enumeration.md) per ulteriori informazioni.
+
+### Contenuto Plurale (`plural`)
+
+Contenuto che varia in base alle regole del plurale:
+
+```typescript
+import { plural } from "intlayer";
+
+pluralContent: plural({
+  one: "One car",
+  other: "{{count}} cars",
+});
+```
+
+> Vedere [Contenuto Plurale Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/plural.md) per ulteriori informazioni.
+
 ### Contenuto di Inserimento (`insert`)
 
 Contenuto che può essere inserito in altri contenuti:
@@ -609,6 +622,8 @@ import { insert } from "intlayer";
 insertionContent: insert("Questo testo può essere inserito ovunque");
 ```
 
+> Vedere [Contenuto di Inserimento (`insert`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/insertion.md) per ulteriori informazioni.
+
 ### Contenuto Nidificato (`nest`)
 
 Riferimenti ad altri dizionari:
@@ -618,6 +633,8 @@ import { nest } from "intlayer";
 
 nestedContent: nest("about-page");
 ```
+
+> Vedere [Contenuto Nidificato (`nest`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/nesting.md) per ulteriori informazioni.
 
 ### Contenuto Markdown (`md`)
 
@@ -630,6 +647,27 @@ markdownContent: md(
   "# Benvenuto\n\nQuesto è un testo in **grassetto** con [link](https://example.com)"
 );
 ```
+
+> Vedere [Contenuto Markdown (`md`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/markdown.md) per ulteriori informazioni.
+
+### Contenuto HTML (`html`)
+
+Contenuto HTML ricco che può usare tag standard o componenti personalizzati:
+
+```typescript
+import { html, file, t } from "intlayer";
+
+// HTML inline
+htmlContent: html("<p>Hello <strong>World</strong></p>");
+
+// HTML per locale da file esterni
+localizedHtmlContent: t({
+  en: html(file("./content.en.html")),
+  it: html(file("./content.it.html")),
+});
+```
+
+> Vedere [Contenuto HTML (`html`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/html.md) per ulteriori informazioni.
 
 ### Contenuto per Genere (`gender`)
 
@@ -645,6 +683,8 @@ genderContent: gender({
 });
 ```
 
+> Vedere [Contenuto per Genere (`gender`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/gender.md) per ulteriori informazioni.
+
 ### Contenuto da File (`file`)
 
 Riferimenti a file esterni:
@@ -654,6 +694,8 @@ import { file } from "intlayer";
 
 fileContent: file("./path/to/content.txt");
 ```
+
+> Vedere [Contenuto da File (`file`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/file.md) per ulteriori informazioni.
 
 ## Creazione di File di Contenuto
 
@@ -749,6 +791,40 @@ Puoi anche creare file di contenuto in formato JSON:
 }
 ```
 
+### File di Contenuto Markdown
+
+```markdown
+---
+key: welcome-page
+locale: en
+title: Welcome Page Content
+description: Content for the main welcome page
+tags:
+  - page
+  - welcome
+---
+
+# Welcome to Our Platform
+
+## Build amazing applications with ease
+```
+
+### File di Contenuto YAML
+
+```yaml
+key: welcome-page
+title: Welcome Page Content
+description: Content for the main welcome page
+locale: "en"
+tags:
+  - page
+  - welcome
+content:
+  hero:
+    title: Welcome to Our Platform
+    subtitle: Build amazing applications with ease
+```
+
 ### File di Contenuto per Locale
 
 Per dizionari per locale, specifica la proprietà `locale`:
@@ -790,6 +866,8 @@ Intlayer consente di personalizzare le estensioni per i file di dichiarazione de
 Per impostazione predefinita, Intlayer monitora tutti i file con le seguenti estensioni per le dichiarazioni di contenuto:
 
 - `.content.json`
+- `.content.json5`
+- `.content.jsonc`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
@@ -798,6 +876,10 @@ Per impostazione predefinita, Intlayer monitora tutti i file con le seguenti est
 - `.content.mjx`
 - `.content.cjs`
 - `.content.cjx`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
 
 Queste estensioni predefinite sono adatte alla maggior parte delle applicazioni. Tuttavia, quando si hanno esigenze specifiche, è possibile definire estensioni personalizzate per semplificare il processo di build e ridurre il rischio di conflitti con altri componenti.
 
@@ -851,7 +933,7 @@ Puoi senza problemi imbricare funzioni dentro altre funzioni.
 
 Esempio :
 
-```javascript fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```javascript fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 const getName = async () => "John Doe";
@@ -897,104 +979,6 @@ export default {
     }),
   },
 } satisfies Dictionary;
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md } from "intlayer";
-
-const getName = async () => "John Doe";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    // `getIntlayer('page','en').hiMessage` restituisce `['Hi', ' ', 'John Doe']`
-    hiMessage: [
-      t({
-        en: "Hi",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // Contenuto composito che combina condizione, enumerazione e contenuto multilingue
-    // `getIntlayer('page','en').advancedContent(true)(10)` restituisce 'Multiple items found'
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-        }),
-      }),
-      false: t({
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-      }),
-    }),
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md } = require("intlayer");
-
-const getName = async () => "John Doe";
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    // `getIntlayer('page','en').hiMessage` restituisce `['Ciao', ' ', 'John Doe']`
-    hiMessage: [
-      t({
-        en: "Hi",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // Contenuto composito che combina condizione, enumerazione e contenuto multilingue
-    // `getIntlayer('page','en').advancedContent(true)(10) restituisce 'Multiple items found'`
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-        }),
-      }),
-      false: t({
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-      }),
-    }),
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"

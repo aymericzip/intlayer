@@ -1,22 +1,26 @@
 'use client';
 
-import { GithubLogo } from '@components/GithubLogo';
 import { Link } from '@components/Link/Link';
 import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
-import { ProfileDropDown } from '@components/ProfileDropdown/ProfileDropdown';
+import { useUser } from '@intlayer/design-system/api';
+import { Avatar } from '@intlayer/design-system/avatar';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { DropDown } from '@intlayer/design-system/drop-down';
+import { useDevice, usePersistedStore } from '@intlayer/design-system/hooks';
+import { LogoWithText } from '@intlayer/design-system/logo';
+import { Navbar as UINavBar } from '@intlayer/design-system/navbar';
 import {
-  Avatar,
-  Button,
-  DiscordLogo,
-  LogoWithText,
-  Navbar as UINavBar,
-} from '@intlayer/design-system';
-import { useUser } from '@intlayer/design-system/hooks';
-import { StarIcon } from 'lucide-react';
+  App_Auth_Demo_Path,
+  App_Dashboard,
+} from '@intlayer/design-system/routes';
+import { DiscordLogo } from '@intlayer/design-system/social-networks';
+import { TechLogos } from '@intlayer/design-system/tech-logo';
+import { Image, StarIcon, VectorSquare } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { useIntlayer, useLocale } from 'next-intlayer';
-import type { FC } from 'react';
+import type { FC, MouseEvent } from 'react';
 
 const SwitchThemeSwitcher = dynamic(
   () =>
@@ -28,7 +32,16 @@ const SwitchThemeSwitcher = dynamic(
 
 const getCleanChoice = (path?: string): string => {
   if (!path) return '';
-  const components = path.split('/');
+  if (path.startsWith('http')) {
+    return path;
+  }
+  let pathname = path;
+  try {
+    pathname = new URL(path).pathname;
+  } catch {
+    // already a relative path, use as-is
+  }
+  const components = pathname.split('/');
   return components.slice(0, 2).join('/');
 };
 
@@ -48,6 +61,21 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
   const { isAuthenticated, logout, user } = useUser();
   const { pathWithoutLocale } = useLocale();
   const router = useRouter();
+  const { isMobile } = useDevice();
+  const [hasVisitedApp, setHasVisitedApp] = usePersistedStore<boolean>(
+    'hasVisitedApp',
+    false
+  );
+
+  const handleAppLinkClick = (e: MouseEvent) => {
+    if (!hasVisitedApp) {
+      setHasVisitedApp(true);
+      if (!isAuthenticated) {
+        e.preventDefault();
+        window.location.href = `${App_Dashboard}${App_Auth_Demo_Path}`;
+      }
+    }
+  };
 
   const handleLogOut = () => {
     logout()
@@ -57,12 +85,130 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
 
   const selectedChoice = getCleanChoice(pathWithoutLocale);
 
+  const downloadFile = async (url: string, filename: string) => {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    const blobUrl = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = blobUrl;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(blobUrl);
+  };
+
+  const copySvg = async () => {
+    const response = await fetch('/logo.svg');
+    const text = await response.text();
+    await navigator.clipboard.writeText(text);
+  };
+
+  const copyImage = async () => {
+    const response = await fetch('/android-chrome-512x512.png');
+    const blob = await response.blob();
+    await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+  };
+
   return (
     <UINavBar
       logo={
-        <Link href={logo.url.value} label={logo.label.value} color="text">
-          <LogoWithText className="max-h-6 w-auto flex-auto sm:max-h-6" />
-        </Link>
+        <DropDown identifier="navbar-logo" className="flex items-center">
+          <Link
+            href={logo.url.value}
+            label={logo.label.value}
+            color="neutral"
+            id="dropdown-trigger-navbar-logo"
+            aria-haspopup="true"
+            aria-controls="dropdown-panel-navbar-logo"
+          >
+            <LogoWithText className="max-h-6 w-auto flex-auto text-text" />
+          </Link>
+
+          {!isMobile && (
+            <DropDown.Panel
+              align="start"
+              identifier="navbar-logo"
+              isOverable
+              isFocusable={false}
+              smootherClassName="delay-0 group-hover/dropdown:delay-600"
+            >
+              <Container
+                background="with"
+                transparency="md"
+                roundedSize="2xl"
+                padding="sm"
+                className="gap-3 border border-text/5"
+              >
+                <Button
+                  variant="hoverable"
+                  color="neutral"
+                  size="md"
+                  label={logo.downloadSvg.label.value}
+                  Icon={VectorSquare}
+                  onClick={(e: MouseEvent) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    downloadFile('/logo.svg', 'intlayer-logo.svg');
+                  }}
+                >
+                  <span className="ml-2 flex w-full text-text">
+                    {logo.downloadSvg.label}
+                  </span>
+                </Button>
+                <Button
+                  variant="hoverable"
+                  color="neutral"
+                  size="md"
+                  label={logo.downloadPng.label.value}
+                  Icon={Image}
+                  onClick={(e: MouseEvent) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    downloadFile(
+                      '/android-chrome-512x512.png',
+                      'intlayer-logo.png'
+                    );
+                  }}
+                >
+                  <span className="ml-2 flex w-full text-text">
+                    {logo.downloadPng.label}
+                  </span>
+                </Button>
+                <Button
+                  variant="hoverable"
+                  size="md"
+                  color="neutral"
+                  label={logo.copyAsSvg.label.value}
+                  Icon={VectorSquare}
+                  onClick={(e: MouseEvent) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    copySvg();
+                  }}
+                >
+                  <span className="ml-2 flex w-full text-text">
+                    {logo.copyAsSvg.label}
+                  </span>
+                </Button>
+                <Button
+                  variant="hoverable"
+                  size="md"
+                  color="neutral"
+                  label={logo.copyAsImage.label.value}
+                  Icon={Image}
+                  onClick={(e: MouseEvent) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    copyImage();
+                  }}
+                >
+                  <span className="ml-2 flex w-full text-text">
+                    {logo.copyAsImage.label}
+                  </span>
+                </Button>
+              </Container>
+            </DropDown.Panel>
+          )}
+        </DropDown>
       }
       selectedChoice={selectedChoice}
       mobileRollable={mobileRollable}
@@ -73,12 +219,12 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             key={getCleanChoice(url.value)}
             href={url.value}
             label={label.value}
-            aria-current={
-              selectedChoice === getCleanChoice(url.value) ? 'page' : undefined
-            }
+            isExternalLink={false}
+            isActive={selectedChoice === getCleanChoice(url.value)}
             color="text"
             variant="invisible-link"
-            className="flex text-nowrap px-4 py-0.5 text-sm"
+            className="flex text-nowrap px-4 py-0.5 text-sm aria-[current]:bg-current/0"
+            onClick={id?.value === 'dashboard' ? handleAppLinkClick : undefined}
           >
             {title}
           </Link>
@@ -90,13 +236,13 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             id={id?.value}
             key={getCleanChoice(url.value)}
             href={url.value}
-            aria-current={
-              selectedChoice === getCleanChoice(url.value) ? 'page' : undefined
-            }
+            isExternalLink={false}
+            isActive={selectedChoice === getCleanChoice(url.value)}
             label={label.value}
             color="text"
             variant="invisible-link"
             className="w-full text-nowrap p-3 text-center leading-10 transition hover:font-bold aria-selected:font-bold"
+            onClick={id?.value === 'dashboard' ? handleAppLinkClick : undefined}
           >
             {title}
           </Link>
@@ -111,7 +257,7 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             color="text"
             className="group/github rounded-2xl! leading-6"
           >
-            <GithubLogo width={25} />
+            <TechLogos.GITHUB width={25} />
             GitHub
             <StarIcon
               width={18}
@@ -136,7 +282,6 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
               href={login.url.value}
               variant="button"
               color="text"
-              className="rounded-2xl! text-center font-medium leading-6"
             >
               {login.title}
             </Link>
@@ -180,15 +325,12 @@ export const Navbar: FC<NavbarProps> = ({ mobileRollable = true }) => {
             roundedSize="full"
             className="group/github flex cursor-pointer items-center gap-1 p-0.5"
           >
-            <GithubLogo width={25} />
+            <TechLogos.GITHUB width={25} />
             <StarIcon
               width={18}
               className="mr-1 group-hover/github:fill-text-opposite"
             />
           </Link>
-          <div className="-m-1.5">
-            <ProfileDropDown />
-          </div>
         </>
       }
     />

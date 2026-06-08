@@ -1,11 +1,21 @@
 'use client';
 
+import {
+  useAuth,
+  useDeleteDictionary,
+  usePushDictionaries,
+  useSession,
+  useWriteDictionary,
+} from '@api/index';
+import { Form } from '@components/Form';
+import { Modal } from '@components/Modal';
 import type { Dictionary as DistantDictionary } from '@intlayer/backend';
 import {
   useDictionariesRecordActions,
   useEditedContent,
 } from '@intlayer/editor-react';
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import { cn } from '@utils/cn';
 import {
   ArrowUpFromLine,
   Download,
@@ -20,16 +30,6 @@ import {
   useState,
 } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { Modal, ModalSize } from '../../../components/Modal';
-import {
-  useAuth,
-  useDeleteDictionary,
-  usePushDictionaries,
-  useWriteDictionary,
-} from '../../../hooks';
-import { cn } from '../../../utils/cn';
-import { ButtonColor, ButtonVariant } from '../../Button';
-import { Form } from '../../Form';
 
 type DictionaryDetailsProps = {
   dictionary: Dictionary;
@@ -66,6 +66,14 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
     confirmation,
   } = useIntlayer('save-dictionary-details');
   const { isAuthenticated } = useAuth();
+  const { session } = useSession();
+
+  const hasDictionaryWritePermission =
+    (session?.permissions?.includes('dictionary:admin') ||
+      session?.permissions?.includes('dictionary:write')) ??
+    false;
+
+  const hasDictionaryDeletePermission = hasDictionaryWritePermission;
 
   const editedDictionary = editedContent?.[dictionary.localId!];
 
@@ -92,6 +100,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
         onSuccess: () => {
           setLocaleDictionary(editedContent?.[dictionary.localId!]);
           restoreEditedContent(dictionary.localId!);
+          setIsFormatAlertModalOpen(false);
           onSave?.();
         },
       }
@@ -140,27 +149,29 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
       <Modal
         isOpen={isFormatAlertModalOpen}
         title={confirmation.title.value}
-        size={ModalSize.MD}
+        size="md"
+        onClose={() => setIsFormatAlertModalOpen(false)}
+        padding="md"
       >
-        <form className="size-full px-3">
+        <form className="size-full">
           <p className="py-4 text-neutral text-sm">{confirmation.message}</p>
 
           <div className="mt-12 flex justify-end gap-2 max-md:flex-col">
             <Form.Button
               label={confirmation.cancelButton.label.value}
               disabled={!isEdited || isLoading}
-              color={ButtonColor.TEXT}
+              color="text"
               className="max-md:w-full"
-              variant={ButtonVariant.OUTLINE}
+              variant="outline"
               onClick={() => setIsFormatAlertModalOpen(false)}
             >
               {confirmation.cancelButton.text}
             </Form.Button>
             <Form.Button
               label={confirmation.confirmButton.label.value}
-              disabled={!isEdited || isLoading}
+              disabled={!isEdited || isLoading || !hasDictionaryWritePermission}
               Icon={Save}
-              color={ButtonColor.TEXT}
+              color="text"
               className="max-md:w-full"
               isLoading={isPushing}
               onClick={handleSaveDictionaryConfirmation}
@@ -170,10 +181,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
           </div>
         </form>
       </Modal>
-      <form
-        className={cn('flex justify-end gap-2 max-md:flex-col', className)}
-        {...props}
-      >
+      <form className={cn('flex justify-end gap-2', className)} {...props}>
         {mode.includes('remote') &&
           isDistantDictionary &&
           onDelete &&
@@ -181,11 +189,12 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
             <Form.Button
               label={deleteButton.label.value}
               Icon={Trash}
-              color={ButtonColor.ERROR}
-              variant={ButtonVariant.OUTLINE}
+              color="error"
+              variant="outline"
               className="max-md:w-full"
               isLoading={isDeleting}
               onClick={handleDeleteDictionary}
+              disabled={!hasDictionaryDeletePermission}
             >
               {deleteButton.text}
             </Form.Button>
@@ -195,8 +204,8 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
             label={resetButton.label.value}
             disabled={!isEdited}
             Icon={RotateCcw}
-            variant={ButtonVariant.OUTLINE}
-            color={ButtonColor.TEXT}
+            variant="outline"
+            color="text"
             className="max-md:w-full"
             onClick={() => restoreEditedContent(dictionary.localId!)}
           >
@@ -208,10 +217,8 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
             label={downloadButton.label.value}
             disabled={!isEdited || isLoading}
             Icon={Download}
-            color={ButtonColor.TEXT}
-            variant={
-              isAuthenticated ? ButtonVariant.OUTLINE : ButtonVariant.DEFAULT
-            }
+            color="text"
+            variant={isAuthenticated ? 'outline' : 'default'}
             className="max-md:w-full"
             isLoading={isWriting}
             onClick={() => setIsFormatAlertModalOpen(true)}
@@ -222,9 +229,9 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
         {mode.includes('remote') && isAuthenticated && !isDistantDictionary && (
           <Form.Button
             label={publishButton.label.value}
-            disabled={isLoading}
+            disabled={isLoading || !hasDictionaryWritePermission}
             Icon={ArrowUpFromLine}
-            color={ButtonColor.TEXT}
+            color="text"
             className="max-md:w-full"
             isLoading={isPushing}
             onClick={handlePushDictionary}
@@ -238,7 +245,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
           isEdited && (
             <Form.Button
               label={saveButton.label.value}
-              disabled={!isEdited || isLoading}
+              disabled={!isEdited || isLoading || !hasDictionaryWritePermission}
               Icon={Save}
               color="text"
               className="max-md:w-full"

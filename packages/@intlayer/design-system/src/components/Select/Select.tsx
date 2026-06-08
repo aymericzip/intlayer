@@ -1,6 +1,7 @@
 'use client';
 
 import * as SelectPrimitive from '@radix-ui/react-select';
+import { cn } from '@utils/cn';
 import {
   CheckIcon,
   ChevronDownIcon,
@@ -8,19 +9,15 @@ import {
   ChevronUpIcon,
 } from 'lucide-react';
 import type { ComponentProps, FC } from 'react';
-import { cn } from '../../utils/cn';
 
 /**
  * Enum for Select content positioning strategies
  *
  * @enum SelectContentPosition
  */
-export enum SelectContentPosition {
-  /** Position relative to the trigger with automatic placement */
-  POPPER = 'popper',
-  /** Align content with the selected item */
-  ITEM_ALIGNED = 'item-aligned',
-}
+export type SelectContentPosition = 
+  | 'popper' |
+  'item-aligned';
 
 const SelectRoot = SelectPrimitive.Root;
 const SelectGroup = SelectPrimitive.Group;
@@ -59,6 +56,7 @@ const SelectTrigger: FC<
   }
 > = ({ validationStyleEnabled = false, className, children, ...props }) => (
   <SelectPrimitive.Trigger
+    suppressHydrationWarning
     className={cn(
       // Base layout and typography
       'flex w-full cursor-pointer items-center justify-between whitespace-nowrap',
@@ -162,7 +160,7 @@ const SelectScrollDownButton: FC<
  *
  * @example
  * ```tsx
- * <Select.Content position={SelectContentPosition.POPPER}>
+ * <Select.Content position="popper">
  *   <Select.Item value="option1">Option 1</Select.Item>
  *   <Select.Item value="option2">Option 2</Select.Item>
  * </Select.Content>
@@ -173,7 +171,7 @@ export const SelectContent: FC<
 > = ({
   className,
   children,
-  position = SelectContentPosition.POPPER,
+  position = 'popper',
   ...props
 }) => (
   <SelectPrimitive.Portal>
@@ -201,7 +199,7 @@ export const SelectContent: FC<
 
         // Positioning adjustments
         position === 'popper' &&
-          'data-[side=left]:-translate-x-1 data-[side=top]:-translate-y-1 data-[side=right]:translate-x-1 data-[side=bottom]:translate-y-1',
+          'data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=bottom]:translate-y-1 data-[side=top]:-translate-y-1',
 
         className
       )}
@@ -424,7 +422,7 @@ type SelectType = typeof SelectRoot & {
  *     <Select.Trigger validationStyleEnabled aria-invalid={hasError}>
  *       <Select.Value placeholder="Select country..." />
  *     </Select.Trigger>
- *     <Select.Content position={SelectContentPosition.ITEM_ALIGNED}>
+ *     <Select.Content position="item-aligned">
  *       <Select.Item value="us">United States</Select.Item>
  *       <Select.Item value="ca">Canada</Select.Item>
  *       <Select.Item value="uk">United Kingdom</Select.Item>

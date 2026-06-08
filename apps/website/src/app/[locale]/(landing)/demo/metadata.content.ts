@@ -22,6 +22,7 @@ const metadataContent = {
       pl: 'Demo | Intlayer',
       id: 'Demo | Intlayer',
       vi: 'Demo | Intlayer',
+      uk: 'Демо | Intlayer',
     }),
     description: t({
       ar: 'جرب محرر Intlayer الإلكتروني الجديد. مكن فرقك من السيطرة على المحتوى الخاص بك وتحويل تطبيقك إلى نظام إدارة محتوى.',
@@ -42,6 +43,7 @@ const metadataContent = {
       pl: 'Wypróbuj nowy edytor online Intlayer. Umożliw swoim zespołom przejęcie kontroli nad zawartością i przekształcenie aplikacji w CMS.',
       id: 'Coba online editor Intlayer yang baru. Berdayakan tim Anda untuk mengambil kendali atas konten Anda dan ubah aplikasi Anda menjadi CMS.',
       vi: 'Hãy thử trình chỉnh sửa trực tuyến mới của Intlayer. Trao quyền cho các nhóm của bạn quản lý nội dung và biến ứng dụng của bạn thành một CMS.',
+      uk: 'Спробуйте новий онлайн-редактор Intlayer. Надайте вашим командам контроль над контентом і перетворіть ваш застосунок на CMS.',
     }),
 
     keywords: t({
@@ -210,6 +212,16 @@ const metadataContent = {
         'Minh họa',
         'Trình chỉnh sửa trực tuyến',
         'Dùng thử',
+        'CMS',
+        'Intlayer',
+        'React',
+        'JavaScript',
+      ],
+      uk: [
+        'Демо',
+        'Демонстрація',
+        'онлайн-редактор',
+        'Спробувати',
         'CMS',
         'Intlayer',
         'React',

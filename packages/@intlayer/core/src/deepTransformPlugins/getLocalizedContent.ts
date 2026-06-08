@@ -1,9 +1,8 @@
+import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
 import type {
-  ContentNode,
   DeclaredLocales,
-  Dictionary,
   LocalesValues,
-} from '@intlayer/types';
+} from '@intlayer/types/module_augmentation';
 import {
   type DeepTransformContent,
   type NodeProps,

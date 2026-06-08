@@ -22,6 +22,7 @@ const metadataContent = {
       pl: 'Wyszukiwanie w dokumentacji | Intlayer',
       id: 'Cari di dokumentasi | Intlayer',
       vi: 'Tìm kiếm trong tài liệu | Intlayer',
+      uk: 'Пошук у документації | Intlayer',
     }),
     description: t({
       ar: 'البحث في الوثائق',
@@ -29,8 +30,8 @@ const metadataContent = {
       en: 'Search documentation',
       'en-GB': 'Search documentation',
       es: 'Buscar documentación',
-      fr: 'Rechercher la documentation',
-      hi: 'दस्तावेज़ खोजें',
+      fr: 'Rechercher dans la documentation',
+      hi: 'दस्तावेज़ीकरण में खोजें',
       it: 'Cerca nella documentazione',
       ja: 'ドキュメントを検索',
       ko: '문서 검색',
@@ -41,6 +42,7 @@ const metadataContent = {
       pl: 'Przeszukaj dokumentację',
       id: 'Cari dokumentasi',
       vi: 'Tìm kiếm tài liệu',
+      uk: 'Пошук у документації',
     }),
 
     keywords: t({
@@ -61,6 +63,7 @@ const metadataContent = {
       pl: ['wyszukiwanie', 'dokumentacja', 'intlayer'],
       id: ['pencarian', 'dokumentasi', 'intlayer'],
       vi: ['tìm kiếm', 'tài liệu', 'Intlayer'],
+      uk: ['пошук', 'документація', 'intlayer'],
     }),
   },
   title: 'Documentation search metadata',

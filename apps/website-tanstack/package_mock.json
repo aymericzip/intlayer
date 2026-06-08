@@ -1,0 +1,4 @@
+{
+  "version": "8.12.2",
+  "name": "This json is a mock package.json to avoid importing a full package.json while importing it"
+}

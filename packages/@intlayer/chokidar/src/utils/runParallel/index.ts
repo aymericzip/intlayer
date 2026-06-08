@@ -83,16 +83,20 @@ export const runParallel = (proc?: string | string[]): ParallelHandle => {
           `[runParallel] Failed to start: ${err?.message ?? String(err)}`
         );
       } catch {}
-      cleanupHandlers();
       reject(err);
     });
 
     child.on('exit', (code, signal) => {
-      cleanupHandlers();
-
       // Treat common termination signals as graceful exits, not failures
       const gracefulSignals = ['SIGINT', 'SIGTERM', 'SIGQUIT', 'SIGHUP'];
-      if (code === 0 || (signal && gracefulSignals.includes(signal))) {
+      // Also treat shell-convention exit codes (128 + signal number) as graceful:
+      // 129 = SIGHUP, 130 = SIGINT, 131 = SIGQUIT, 143 = SIGTERM
+      const gracefulSignalCodes = new Set([129, 130, 131, 143]);
+      if (
+        code === 0 ||
+        gracefulSignalCodes.has(code ?? -1) ||
+        (signal && gracefulSignals.includes(signal))
+      ) {
         resolve();
       } else {
         reject(
@@ -102,33 +106,6 @@ export const runParallel = (proc?: string | string[]): ParallelHandle => {
     });
   });
 
-  const cleanup = () => {
-    try {
-      child.kill('SIGTERM');
-    } catch {
-      // Best effort
-    }
-  };
-
-  const signalHandlers: { event: string; handler: (...args: any[]) => void }[] =
-    [
-      { event: 'SIGINT', handler: cleanup },
-      { event: 'SIGTERM', handler: cleanup },
-      { event: 'SIGQUIT', handler: cleanup },
-      { event: 'SIGHUP', handler: cleanup },
-    ];
-
-  // Register signal handlers
-  signalHandlers.forEach(({ event, handler }) => {
-    process.on(event as any, handler as any);
-  });
-
-  const cleanupHandlers = () => {
-    signalHandlers.forEach(({ event, handler }) => {
-      process.off(event as any, handler as any);
-    });
-  };
-
   const kill = () => {
     try {
       child.kill('SIGTERM');
@@ -136,6 +113,30 @@ export const runParallel = (proc?: string | string[]): ParallelHandle => {
       // Best effort
     }
   };
+
+  const handleExit = () => kill();
+
+  const handleSigInt = () => {
+    kill();
+    process.off('SIGINT', handleSigInt);
+    process.kill(process.pid, 'SIGINT'); // Propagate to allow natural shutdown
+  };
+
+  const handleSigTerm = () => {
+    kill();
+    process.off('SIGTERM', handleSigTerm);
+    process.kill(process.pid, 'SIGTERM'); // Propagate to allow natural shutdown
+  };
+
+  process.on('exit', handleExit);
+  process.on('SIGINT', handleSigInt);
+  process.on('SIGTERM', handleSigTerm);
+
+  child.on('exit', () => {
+    process.off('exit', handleExit);
+    process.off('SIGINT', handleSigInt);
+    process.off('SIGTERM', handleSigTerm);
+  });
 
   return { kill, result, commandText };
 };

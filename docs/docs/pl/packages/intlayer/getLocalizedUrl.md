@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inicjalizacja historii
+    changes: "Inicjalizacja historii"
 ---
 
 # Dokumentacja: funkcja `getLocalizedUrl` w `intlayer`
@@ -100,7 +100,7 @@ getLocalizedUrl(
 
 Gdy skonfigurujesz swój projekt z ustawieniami internacjonalizacji, możesz użyć funkcji tylko z wymaganymi parametrami:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getLocalizedUrl, Locales } from "intlayer";
 
 // Używa konfiguracji Twojego projektu dla locales, defaultLocale i prefixDefault
@@ -109,35 +109,6 @@ getLocalizedUrl("/about", Locales.FRENCH);
 
 getLocalizedUrl("/about", Locales.ENGLISH);
 // Wynik: "/about" lub "/en/about" (w zależności od ustawienia prefixDefault)
-```
-
-```javascript codeFormat="esm"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-// Używa konfiguracji Twojego projektu
-getLocalizedUrl("/about", Locales.FRENCH);
-// Wynik: "/fr/about"
-```
-
-```javascript codeFormat="commonjs"
-const { getLocalizedUrl, Locales } = require("intlayer");
-
-// Używa konfiguracji Twojego projektu
-getLocalizedUrl("/about", Locales.FRENCH);
-typescript codeFormat="typescript"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-// Jawne podanie wszystkich opcjonalnych parametrów
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH], // locales
-  Locales.ENGLISH, // defaultLocale
-  false // prefixDefault
-);
-
-// Wynik: "/fr/about" dla lokalizacji francuskiej
-// Wynik: "/about" dla domyślnej lokalizacji (angielskiej)
 ```
 
 ```javascript codeFormat="esm"
@@ -245,7 +216,7 @@ getLocalizedUrl(
 
 W aplikacji wielojęzycznej, skonfigurowanie ustawień internacjonalizacji za pomocą `locales` i `defaultLocale` jest kluczowe dla zapewnienia wyświetlania właściwego języka. Poniżej znajduje się przykład, jak `getLocalizedUrl` może być użyte w konfiguracji aplikacji:
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // Konfiguracja obsługiwanych lokalizacji oraz lokalizacji domyślnej
@@ -257,34 +228,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 Powyższa konfiguracja zapewnia, że aplikacja rozpoznaje `ENGLISH`, `FRENCH` oraz `SPANISH` jako obsługiwane języki i używa `ENGLISH` jako języka domyślnego.

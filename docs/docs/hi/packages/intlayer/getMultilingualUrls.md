@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: प्रारंभिक इतिहास
+    changes: "प्रारंभिक इतिहास"
 ---
 
 # दस्तावेज़ीकरण: `intlayer` में `getMultilingualUrls` फ़ंक्शन
@@ -35,18 +35,15 @@ history:
 ## पैरामीटर
 
 - `url: string`
-
   - **विवरण**: मूल URL स्ट्रिंग जिसे भाषा-स्थान के साथ उपसर्गित किया जाना है।
   - **प्रकार**: `string`
 
 - `locales: Locales[]`
-
   - **विवरण**: समर्थित भाषा-स्थान की वैकल्पिक सूची। डिफ़ॉल्ट रूप से परियोजना में कॉन्फ़िगर किए गए भाषा-स्थान होते हैं।
   - **प्रकार**: `Locales[]`
   - **डिफ़ॉल्ट**: `localesDefault`
 
 - `defaultLocale: Locales`
-
   - **विवरण**: एप्लिकेशन के लिए डिफ़ॉल्ट भाषा-स्थान। डिफ़ॉल्ट रूप से परियोजना में कॉन्फ़िगर किए गए डिफ़ॉल्ट भाषा-स्थान होते हैं।
   - **प्रकार**: `Locales`
   - **डिफ़ॉल्ट**: `defaultLocaleDefault`
@@ -67,38 +64,8 @@ history:
 
 ### सापेक्ष URL
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls(
-  "/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-// आउटपुट: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="esm"
-import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls(
-  "/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-// आउटपुट: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="commonjs"
-const { getMultilingualUrls, Locales } = require("intlayer");
 
 getMultilingualUrls(
   "/dashboard",
@@ -132,11 +99,9 @@ getMultilingualUrls(
 ## किनारे के मामले
 
 - **कोई भाषा-स्थान खंड नहीं:**
-
   - फ़ंक्शन बहुभाषी मैपिंग बनाने से पहले URL से किसी भी मौजूदा लोकेल सेगमेंट को हटा देता है।
 
 - **डिफ़ॉल्ट लोकेल:**
-
   - जब `prefixDefault` `false` होता है, तो फ़ंक्शन डिफ़ॉल्ट लोकेल के लिए URL को प्रीफ़िक्स नहीं करता है।
 
 - **असमर्थित लोकेल:**
@@ -148,7 +113,7 @@ getMultilingualUrls(
 
 एक बहुभाषी अनुप्रयोग में, सही भाषा प्रदर्शित करने के लिए `locales` और `defaultLocale` के साथ अंतरराष्ट्रीयकरण सेटिंग्स को कॉन्फ़िगर करना महत्वपूर्ण है। नीचे एक उदाहरण दिया गया है कि कैसे `getMultilingualUrls` को अनुप्रयोग सेटअप में उपयोग किया जा सकता है:
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // समर्थित लोकेल और डिफ़ॉल्ट लोकेल के लिए कॉन्फ़िगरेशन
@@ -160,36 +125,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-
-module.exports = config;
 ```
 
 उपरोक्त कॉन्फ़िगरेशन सुनिश्चित करता है कि एप्लिकेशन `ENGLISH`, `FRENCH`, और `SPANISH` को समर्थित भाषाओं के रूप में पहचानता है और `ENGLISH` को फॉलबैक भाषा के रूप में उपयोग करता है।

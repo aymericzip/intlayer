@@ -1,5 +1,10 @@
-import type { DetailedHTMLProps, FC, HTMLAttributes } from 'react';
-import { cn } from '../../utils/cn';
+import { cn } from '@utils/cn';
+import type {
+  ComponentProps,
+  DetailedHTMLProps,
+  FC,
+  HTMLAttributes,
+} from 'react';
 import { Container } from '../Container';
 
 /**
@@ -25,22 +30,12 @@ export type PopoverType = FC<PopoverProps> & {
 /**
  * Horizontal alignment options for popover positioning
  */
-export enum PopoverXAlign {
-  /** Align popover to start (left) of trigger */
-  START = 'start',
-  /** Align popover to end (right) of trigger */
-  END = 'end',
-}
+export type PopoverXAlign = 'start' | 'center' | 'end';
 
 /**
  * Vertical alignment options for popover positioning
  */
-export enum PopoverYAlign {
-  /** Position popover below the trigger */
-  BELOW = 'bellow',
-  /** Position popover above the trigger */
-  ABOVE = 'above',
-}
+export type PopoverYAlign = 'below' | 'above';
 
 /**
  * Popover Component
@@ -51,7 +46,7 @@ export enum PopoverYAlign {
  *
  * Features:
  * - Hover and focus-based triggering
- * - Multiple positioning options (above/below, start/end)
+ * - Multiple positioning options (above/below, start/center/end)
  * - Accessibility compliant with ARIA attributes
  * - Smooth animations with configurable delays
  * - Optional directional arrows
@@ -100,8 +95,8 @@ export enum PopoverYAlign {
  *
  *   <Popover.Detail
  *     identifier="positioned"
- *     xAlign={PopoverXAlign.END}
- *     yAlign={PopoverYAlign.ABOVE}
+ *     xAlign="end"
+ *     yAlign="above"
  *     displayArrow={false}
  *   >
  *     <div>Above and right-aligned</div>
@@ -130,7 +125,7 @@ export const PopoverStatic: PopoverType = ({
   ...props
 }) => (
   <div
-    className={cn('group/popover relative flex cursor-pointer', className)}
+    className={cn(`group/popover relative flex cursor-pointer`, className)}
     id={`unrollable-panel-button-${identifier}`}
     aria-haspopup
     {...props}
@@ -143,7 +138,7 @@ export const PopoverStatic: PopoverType = ({
  * Props for the Popover.Detail component
  * Extends HTMLDivElement attributes for styling flexibility
  */
-export type DetailProps = HTMLAttributes<HTMLDivElement> & {
+export type DetailProps = ComponentProps<typeof Container> & {
   /** Whether the popover responds to focus events on the trigger */
   isFocusable?: boolean;
   /** Controls visibility state - undefined allows automatic hover/focus control */
@@ -176,7 +171,7 @@ export type DetailProps = HTMLAttributes<HTMLDivElement> & {
  * - Automatic visibility management
  *
  * Positioning System:
- * - X-axis: START (left-aligned) or END (right-aligned)
+ * - X-axis: START (left-aligned), CENTER (centered), or END (right-aligned)
  * - Y-axis: BELOW (underneath) or ABOVE (on top)
  * - Automatic spacing with 1rem gap from trigger
  * - Responsive minimum width matching trigger
@@ -209,14 +204,14 @@ export type DetailProps = HTMLAttributes<HTMLDivElement> & {
  * Menu-style popover:
  * ```jsx
  * <Popover.Detail
- *   identifier="context-menu"
- *   displayArrow={false}
- *   xAlign={PopoverXAlign.END}
+ * identifier="context-menu"
+ * displayArrow={false}
+ * xAlign="end"
  * >
- *   <ul className="py-2">
- *     <li><button className="w-full px-4 py-2">Edit</button></li>
- *     <li><button className="w-full px-4 py-2">Delete</button></li>
- *   </ul>
+ * <ul className="py-2">
+ * <li><button className="w-full px-4 py-2">Edit</button></li>
+ * <li><button className="w-full px-4 py-2">Delete</button></li>
+ * </ul>
  * </Popover.Detail>
  * ```
  *
@@ -228,26 +223,27 @@ const Detail: FC<DetailProps> = ({
   isHidden = undefined,
   isOverable = true,
   isFocusable = false,
-  xAlign = PopoverXAlign.START,
-  yAlign = PopoverYAlign.BELOW,
+  xAlign = 'start',
+  yAlign = 'below',
   identifier,
   className,
   displayArrow = true,
   ...props
 }) => (
   <Container
-    transparency="sm"
+    transparency="xs"
     role="group"
     aria-hidden={isHidden}
     aria-labelledby={`unrollable-panel-button-${identifier}`}
     id={`unrollable-panel-${identifier}`}
     className={cn(
-      'absolute z-50 min-w-full rounded-md ring-1 ring-neutral',
+      'absolute z-60 min-w-full rounded-md ring-1 ring-neutral',
 
       /* Positioning */
       xAlign === 'start' && 'left-0',
+      xAlign === 'center' && 'left-1/2 -translate-x-1/2',
       xAlign === 'end' && 'right-0',
-      yAlign === 'bellow' && 'top-[calc(100%+1rem)]',
+      yAlign === 'below' && 'top-[calc(100%+1rem)]',
       yAlign === 'above' && 'bottom-[calc(100%+1rem)]',
 
       /* Arrow indicator */
@@ -256,11 +252,14 @@ const Detail: FC<DetailProps> = ({
 
       /* Horizontal positioning */
       displayArrow && xAlign === 'start' && 'before:left-2',
+      displayArrow &&
+        xAlign === 'center' &&
+        'before:left-1/2 before:-translate-x-1/2',
       displayArrow && xAlign === 'end' && 'before:right-2',
 
       /* Arrow pointing up (when popover is below trigger) */
       displayArrow &&
-        yAlign === 'bellow' &&
+        yAlign === 'below' &&
         'before:-top-[10px] before:border-r-[10px] before:border-r-transparent before:border-b-[10px] before:border-b-neutral before:border-l-[10px] before:border-l-transparent',
 
       /* Arrow pointing down (when popover is above trigger) */
@@ -272,9 +271,9 @@ const Detail: FC<DetailProps> = ({
       'overflow-x-visible opacity-0 transition-all duration-400 ease-in-out',
       isHidden !== false ? 'invisible' : 'visible opacity-100 delay-800',
       isOverable &&
-        'group-hover/popover:visible group-hover/popover:opacity-100 group-hover/popover:delay-800',
+        `group-hover/popover:visible group-hover/popover:opacity-100 group-hover/popover:delay-800`,
       isFocusable &&
-        'group-focus-within/popover:visible group-focus-within/popover:opacity-100 group-focus-within/popover:delay-800',
+        `group-focus-within/popover:visible group-focus-within/popover:opacity-100 group-focus-within/popover:delay-800`,
       className
     )}
     {...props}

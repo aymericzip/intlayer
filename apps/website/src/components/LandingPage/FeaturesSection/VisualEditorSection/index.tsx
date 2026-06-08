@@ -1,13 +1,16 @@
-import { Link } from '@intlayer/design-system';
+import { Link } from '@intlayer/design-system/link';
+import { Website_Playground_Path } from '@intlayer/design-system/routes';
+import { getLocalizedUrl } from 'intlayer';
 import { CircleArrowRight } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
+import { useLocale } from 'next-intlayer/server';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 
 export const VisualEditorSection: FC = () => {
   const { description, gotToPlaygroundButton } = useIntlayer(
     'visual-editor-section'
   );
+  const { locale } = useLocale();
   return (
     <div className="flex flex-col items-center justify-center gap-10 p-10">
       <video
@@ -25,7 +28,7 @@ export const VisualEditorSection: FC = () => {
         <source src="/assets/visual_editor.mp4" type="video/mp4" />
         <source src="/assets/visual_editor.webm" type="video/webm" />
         <track
-          src="/assets/captions.vtt"
+          src="/assets/visual_editor.vtt"
           srcLang="en"
           kind="captions"
           label="English"
@@ -35,7 +38,7 @@ export const VisualEditorSection: FC = () => {
       <div className="flex w-full flex-col gap-4">
         <span className="text-neutral text-sm">{description}</span>
         <Link
-          href={PagesRoutes.Playground}
+          href={getLocalizedUrl(Website_Playground_Path, locale)}
           target="_blank"
           variant="button"
           color="text"

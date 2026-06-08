@@ -21,8 +21,26 @@ slugs:
 
 Perintah `doc review` menganalisis file dokumentasi untuk kualitas, konsistensi, dan kelengkapan di berbagai lokal.
 
-```bash
+## Poin-poin penting:
+
+- Membagi file markdown besar menjadi potongan-potongan untuk tetap berada dalam batas jendela konteks model AI.
+- Mengoptimalkan potongan untuk ditinjau dan melewatkan bagian yang sudah diterjemahkan dan tidak berubah.
+- Memproses file, potongan, dan locale secara paralel menggunakan sistem antrian untuk meningkatkan kecepatan.
+
+```bash packageManager="npm"
 npx intlayer doc review
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc review
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc review
+```
+
+```bash packageManager="bun"
+bun x intlayer doc review
 ```
 
 Perintah ini dapat digunakan untuk meninjau file yang sudah diterjemahkan, dan untuk memeriksa apakah terjemahannya sudah benar.

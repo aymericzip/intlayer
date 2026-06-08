@@ -3,6 +3,12 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   test: {
     environment: 'jsdom',
+    environmentOptions: {
+      jsdom: {
+        runScripts: 'outside-only',
+      },
+    },
+    setupFiles: ['./test/setup.ts'],
     globals: true,
     clearMocks: true,
     mockReset: true,

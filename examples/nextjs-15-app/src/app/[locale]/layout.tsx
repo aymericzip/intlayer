@@ -1,4 +1,5 @@
 import { LocaleSwitcher } from '@components/LocaleSwitcher/LocaleSwitcher';
+import { RewriteURLHandler } from '@components/RewriteURLHandler';
 import { IntlayerProvider } from '@providers/IntlayerProvider';
 import { getHTMLTextDir, getIntlayer } from 'intlayer';
 import type { Metadata } from 'next';
@@ -39,6 +40,7 @@ const LocaleLayout: NextLayoutIntlayer = async ({ children, params }) => {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <IntlayerProvider locale={locale}>
+          <RewriteURLHandler />
           <header className="fixed top-5 flex w-full justify-end px-10">
             <LocaleSwitcher />
           </header>

@@ -1,6 +1,7 @@
 import { resolve as pathResolve } from 'node:path';
-import { prepareIntlayer } from '@intlayer/chokidar';
-import { getAlias, getConfiguration } from '@intlayer/config';
+import { prepareIntlayer } from '@intlayer/chokidar/build';
+import { getConfiguration } from '@intlayer/config/node';
+import { getAlias } from '@intlayer/config/utils';
 import type { getDefaultConfig } from 'expo/metro-config';
 import { exclusionList } from './exclusionList';
 
@@ -17,7 +18,7 @@ type MetroConfig = ReturnType<typeof getDefaultConfig>;
  * return configMetroIntlayerSync(defaultConfig);
  * ```
  *
- * > Note: `configMetroIntlayerSync` allow to build intlayer dictionaries on server start
+ * > Note: `configMetroIntlayerSync` does not build intlayer dictionaries on server start. Use `configMetroIntlayer` for that.
  */
 export const configMetroIntlayerSync = (
   baseConfig?: MetroConfig
@@ -28,6 +29,14 @@ export const configMetroIntlayerSync = (
     configuration,
     formatter: pathResolve, // get absolute path
   });
+
+  const existingBlockList = baseConfig?.resolver?.blockList;
+  const existingPatterns: RegExp[] =
+    existingBlockList instanceof RegExp
+      ? [existingBlockList]
+      : (existingBlockList ?? []);
+
+  const existingResolveRequest = baseConfig?.resolver?.resolveRequest;
 
   const config = {
     ...baseConfig,
@@ -50,7 +59,7 @@ export const configMetroIntlayerSync = (
           };
         }
 
-        // Because metro does not resolve subodules, we need to resolve the path manually
+        // Because metro does not resolve submodules, we need to resolve the path manually
         if (moduleName === '@intlayer/core/file') {
           // Force React Native to use the correct transpiled version
           return {
@@ -66,13 +75,13 @@ export const configMetroIntlayerSync = (
         throw new Error('Metro resolver context is missing resolveRequest');
       },
       blockList: exclusionList([
-        ...[baseConfig?.resolver?.blockList ?? []].flat(),
-        // the following instruction should be replaced configuration.content.watchedFilesPattern
-        // but using watchedFilesPattern does not exclude the files properly for now
+        ...existingPatterns,
+        // the following instruction should be replaced by a pattern derived from configuration.content.fileExtensions
+        // but generating the pattern from fileExtensions does not exclude the files properly for now
         /.*\.content\.(?:ts|tsx|js|jsx|cjs|cjx|mjs|mjx|json)$/,
       ]),
     },
-  } satisfies MetroConfig;
+  } as MetroConfig;
 
   return config;
 };
@@ -89,8 +98,7 @@ export const configMetroIntlayerSync = (
  * })();
  * ```
  *
- * > Note: `configMetroIntlayer` is a promise function. Use `configMetroIntlayerSync` instead if you want to use it synchronously.
- * > Note: `configMetroIntlayerSync` do not allow to build intlayer dictionaries on server start
+ * > Note: `configMetroIntlayer` builds intlayer dictionaries on server start. Use `configMetroIntlayerSync` instead if you want to skip that.
  */
 export const configMetroIntlayer = async (
   baseConfig?: MetroConfig

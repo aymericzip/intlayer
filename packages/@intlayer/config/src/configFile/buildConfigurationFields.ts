@@ -1,601 +1,262 @@
-import { isAbsolute, join } from 'node:path';
+import { statSync } from 'node:fs';
+import { dirname, isAbsolute, join } from 'node:path';
 import type {
   AiConfig,
-  BaseContentConfig,
-  BaseDerivedConfig,
   BuildConfig,
   CompilerConfig,
   ContentConfig,
   CustomIntlayerConfig,
   DictionaryConfig,
-  EditorConfig,
-  InternationalizationConfig,
   IntlayerConfig,
-  LogConfig,
   LogFunctions,
-  PatternsContentConfig,
-  RoutingConfig,
-} from '@intlayer/types';
-import packageJson from '@intlayer/types/package.json' with { type: 'json' };
+  SystemConfig,
+} from '@intlayer/types/config';
 import {
+  BUILD_MODE,
   CACHE,
-  IMPORT_MODE,
+  MINIFY,
   OUTPUT_FORMAT,
+  PURGE,
   TRAVERSE_PATTERN,
+  TYPE_CHECKING,
 } from '../defaultValues/build';
 import {
+  COMPILER_DICTIONARY_KEY_PREFIX,
   COMPILER_ENABLED,
-  COMPILER_EXCLUDE_PATTERN,
-  COMPILER_OUTPUT_DIR,
-  COMPILER_TRANSFORM_PATTERN,
+  COMPILER_NO_METADATA,
+  COMPILER_SAVE_COMPONENTS,
 } from '../defaultValues/compiler';
+import {
+  CODE_DIR,
+  CONTENT_DIR,
+  EXCLUDED_PATHS,
+  FILE_EXTENSIONS,
+  WATCH,
+} from '../defaultValues/content';
+import {
+  CONTENT_AUTO_TRANSFORMATION,
+  FILL,
+  IMPORT_MODE,
+  LOCATION,
+} from '../defaultValues/dictionary';
 import {
   CACHE_DIR,
   CONFIG_DIR,
-  CONTENT_DIR,
   DICTIONARIES_DIR,
   DYNAMIC_DICTIONARIES_DIR,
-  EXCLUDED_PATHS,
   FETCH_DICTIONARIES_DIR,
-  FILE_EXTENSIONS,
   MAIN_DIR,
   MODULE_AUGMENTATION_DIR,
   REMOTE_DICTIONARIES_DIR,
+  TEMP_DIR,
   TYPES_DIR,
   UNMERGED_DICTIONARIES_DIR,
-  WATCH,
-} from '../defaultValues/content';
-import { FILL } from '../defaultValues/dictionary';
+} from '../defaultValues/system';
+import { getProjectRequire } from '../utils';
 import {
-  APPLICATION_URL,
-  BACKEND_URL,
-  CMS_URL,
-  DICTIONARY_PRIORITY_STRATEGY,
-  EDITOR_URL,
-  IS_ENABLED,
-  LIVE_SYNC,
-  LIVE_SYNC_PORT,
-  PORT,
-} from '../defaultValues/editor';
-import {
-  DEFAULT_LOCALE,
-  LOCALES,
-  REQUIRED_LOCALES,
-  STRICT_MODE,
-} from '../defaultValues/internationalization';
-import { MODE, PREFIX } from '../defaultValues/log';
-import { BASE_PATH, ROUTING_MODE, STORAGE } from '../defaultValues/routing';
-import { normalizePath } from '../utils/normalizePath';
+  buildBrowserConfiguration,
+  buildEditorFields,
+  buildInternationalizationFields,
+  buildLogFields,
+} from './buildBrowserConfiguration';
+import { intlayerConfigSchema } from './configurationSchema';
+
+export {
+  type BrowserIntlayerConfig,
+  buildBrowserConfiguration,
+  buildEditorFields,
+  buildInternationalizationFields,
+  buildLogFields,
+  buildRoutingFields,
+  extractBrowserConfiguration,
+} from './buildBrowserConfiguration';
 
 let storedConfiguration: IntlayerConfig;
 
-const buildInternationalizationFields = (
-  customConfiguration?: Partial<InternationalizationConfig>
-): InternationalizationConfig => ({
-  /**
-   * Locales available in the application
-   *
-   * Default: ['en']
-   *
-   */
-  locales: customConfiguration?.locales ?? LOCALES,
+// ---------------------------------------------------------------------------
+// Server-only field builders (Node.js — not browser-safe)
+// ---------------------------------------------------------------------------
 
-  /**
-   * Locales required by TypeScript to ensure strong implementations of internationalized content using typescript.
-   *
-   * Default: []
-   *
-   * If empty, all locales are required in `strict` mode.
-   *
-   * Ensure required locales are also defined in the `locales` field.
-   */
-  requiredLocales:
-    customConfiguration?.requiredLocales ??
-    customConfiguration?.locales ??
-    REQUIRED_LOCALES,
+/**
+ * Build the `system` section of the Intlayer configuration.
+ *
+ * Resolves all directory paths (dictionaries, types, cache, …) relative to
+ * the project base directory, using Node.js `require.resolve` where available
+ * and falling back to `path.join` otherwise.
+ *
+ * @param baseDir - Project root directory. Defaults to `process.cwd()`.
+ * @param customConfiguration - Partial user-supplied system config.
+ * @returns A fully-resolved {@link SystemConfig}.
+ */
+const buildSystemFields = (
+  baseDir?: string,
+  customConfiguration?: Partial<SystemConfig>
+): SystemConfig => {
+  const projectBaseDir = baseDir ?? process.cwd();
 
-  /**
-   * Ensure strong implementations of internationalized content using typescript.
-   * - If set to "strict", the translation `t` function will require each declared locales to be defined. If one locale is missing, or if a locale is not declared in your config, it will throw an error.
-   * - If set to "inclusive", the translation `t` function will require each declared locales to be defined. If one locale is missing, it will throw a warning. But will accept if a locale is not declared in your config, but exist.
-   * - If set to "loose", the translation `t` function will accept any existing locale.
-   *
-   * Default: "inclusive"
-   */
-  strictMode: customConfiguration?.strictMode ?? STRICT_MODE,
+  const optionalJoinBaseDir = (pathInput: string) => {
+    let absolutePath: string;
 
-  /**
-   * Default locale of the application for fallback
-   *
-   * Default: 'en'
-   */
-  defaultLocale: customConfiguration?.defaultLocale ?? DEFAULT_LOCALE,
-});
+    try {
+      const requireFunction = getProjectRequire(projectBaseDir);
+      try {
+        absolutePath = requireFunction.resolve(pathInput, {
+          paths: [projectBaseDir],
+        });
+      } catch (err) {
+        if (!pathInput.startsWith('.') && !isAbsolute(pathInput)) {
+          absolutePath = requireFunction.resolve(`${pathInput}/package.json`, {
+            paths: [projectBaseDir],
+          });
+        } else {
+          throw err;
+        }
+      }
+    } catch {
+      absolutePath = isAbsolute(pathInput)
+        ? pathInput
+        : join(projectBaseDir, pathInput);
+    }
 
-const buildRoutingFields = (
-  customConfiguration?: Partial<RoutingConfig>
-): RoutingConfig => ({
-  /**
-   * URL routing mode for locale handling
-   *
-   * Controls how locales are represented in application URLs:
-   * - 'prefix-no-default': Prefix all locales except the default locale (default)
-   *    - en → /dashboard
-   *    - fr → /fr/dashboard
-   *
-   * - 'prefix-all': Prefix all locales including the default locale
-   *    - en → /en/dashboard
-   *    - fr → /fr/dashboard
-   *
-   * - 'search-params': Use search parameters for locale handling
-   *    - en → /dashboard?locale=en
-   *    - fr → /fr/dashboard?locale=fr
-   *
-   * - 'no-prefix': No locale prefixing in URLs
-   *    - en → /dashboard
-   *    - fr → /dashboard
-   *
-   * Default: 'prefix-no-default'
-   */
-  mode: customConfiguration?.mode ?? ROUTING_MODE,
+    try {
+      const stats = statSync(absolutePath);
+      if (stats.isFile()) {
+        return dirname(absolutePath);
+      }
+    } catch {
+      if (/\.[a-z0-9]+$/i.test(absolutePath)) {
+        return dirname(absolutePath);
+      }
+    }
 
-  /**
-   * Configuration for storing the locale in the client (localStorage or sessionStorage)
-   *
-   * If false, the locale will not be stored by the middleware.
-   * If true, the locale storage will consider all default values. (cookie and header)
-   *
-   * Default: ['cookie', 'header']
-   *
-   */
-  storage: customConfiguration?.storage ?? STORAGE,
-
-  /**
-   * Base path of the application URL
-   *
-   * Default: ''
-   *
-   * Example:
-   * - If the application is hosted at https://example.com/my-app
-   * - The base path is '/my-app'
-   * - The URL will be https://example.com/my-app/en
-   * - If the base path is not set, the URL will be https://example.com/en
-   */
-  basePath: customConfiguration?.basePath ?? BASE_PATH,
-});
-
-const buildContentFields = (
-  customConfiguration?: Partial<ContentConfig>,
-  baseDir?: string
-): ContentConfig => {
-  const notDerivedContentConfig: BaseContentConfig = {
-    /**
-     * File extensions of content to look for to build the dictionaries
-     *
-     * - Default: ['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.tsx', '.content.jsx']
-     *
-     * - Example: ['.data.ts', '.data.js', '.data.json']
-     *
-     * Note:
-     * - Can exclude unused file extensions to improve performance
-     * - Avoid using common file extensions like '.ts', '.js', '.json' to avoid conflicts
-     */
-    fileExtensions: customConfiguration?.fileExtensions ?? FILE_EXTENSIONS,
-
-    /**
-     * Absolute path of the directory of the project
-     * - Default: process.cwd()
-     * - Example: '
-     *
-     * Will be used to resolve all intlayer directories
-     *
-     * Note:
-     * - The base directory should be the root of the project
-     * - Can be changed to a custom directory to externalize either the content used in the project, or the intlayer application from the project
-     */
-    baseDir: customConfiguration?.baseDir ?? baseDir ?? process.cwd(),
-
-    /**
-     * Should exclude some directories from the content search
-     *
-     * Default: ['**\/node_modules/**', '**\/dist/**', '**\/build/**', '**\/.intlayer/**', '**\/.next/**', '**\/.nuxt/**', '**\/.expo/**', '**\/.vercel/**', '**\/.turbo/**', '**\/.tanstack/**']
-     */
-    excludedPath: customConfiguration?.excludedPath ?? EXCLUDED_PATHS,
-
-    /**
-     * Indicates if Intlayer should watch for changes in the content declaration files in the app to rebuild the related dictionaries.
-     *
-     * Default: process.env.NODE_ENV === 'development'
-     */
-    watch: customConfiguration?.watch ?? WATCH,
-
-    /**
-     * Command to format the content. When intlayer write your .content files locally, this command will be used to format the content.
-     * Intlayer will replace the {{file}} with the path of the file to format.
-     *
-     * If not set, Intlayer will try to detect the format command automatically. By trying to resolve the following commands: prettier, biome, eslint.
-     *
-     * Example:
-     *
-     * ```bash
-     * npx prettier --write {{file}}
-     * ```
-     *
-     * ```bash
-     * bunx biome format {{file}}
-     * ```
-     *
-     * ```bash
-     * bun format {{file}}
-     * ```
-     *
-     * ```bash
-     * npx eslint --fix {{file}}
-     * ```
-     *
-     * Default: undefined
-     */
-    formatCommand: customConfiguration?.formatCommand,
+    return absolutePath;
   };
 
-  const optionalJoinBaseDir = (path: string) => {
-    if (isAbsolute(path)) return path;
+  const dictionariesDir = optionalJoinBaseDir(
+    customConfiguration?.dictionariesDir ?? DICTIONARIES_DIR
+  );
 
-    return join(notDerivedContentConfig.baseDir, path);
-  };
-
-  const baseDirDerivedConfiguration: BaseDerivedConfig = {
-    /**
-     * Directory where the content is stored
-     *
-     * Relative to the base directory of the project
-     *
-     * Default: ./src
-     *
-     * Example: 'src'
-     *
-     * Note:
-     * - Can be changed to a custom directory to externalize the content used in the project
-     * - If the content is not at the base directory level, update the contentDirName field instead
-     */
-    contentDir: (customConfiguration?.contentDir ?? CONTENT_DIR).map(
-      optionalJoinBaseDir
-    ),
-
-    /**
-     * Directory where the module augmentation will be stored
-     *
-     * Module augmentation allow better IDE suggestions and type checking
-     *
-     * Relative to the base directory of the project
-     *
-     * Default: .intlayer/types
-     *
-     * Example: 'types'
-     *
-     * Note:
-     * - If this path changed, be sure to include it from the tsconfig.json file
-     * - If the module augmentation is not at the base directory level, update the moduleAugmentationDirName field instead
-     *
-     */
+  return {
+    baseDir: projectBaseDir,
     moduleAugmentationDir: optionalJoinBaseDir(
       customConfiguration?.moduleAugmentationDir ?? MODULE_AUGMENTATION_DIR
     ),
-
-    /**
-     * Directory where the unmerged dictionaries will be stored
-     *
-     * Relative to the result directory
-     *
-     * Default: '.intlayer/unmerged_dictionary'
-     *
-     */
     unmergedDictionariesDir: optionalJoinBaseDir(
       customConfiguration?.unmergedDictionariesDir ?? UNMERGED_DICTIONARIES_DIR
     ),
-
-    /**
-     * Directory where the remote dictionaries will be stored
-     *
-     * Relative to the result directory
-     *
-     * Default: '.intlayer/remote_dictionary'
-     */
     remoteDictionariesDir: optionalJoinBaseDir(
       customConfiguration?.remoteDictionariesDir ?? REMOTE_DICTIONARIES_DIR
     ),
-
-    /**
-     * Directory where the final dictionaries will be stored
-     *
-     * Relative to the result directory
-     *
-     * Default: .intlayer/dictionary
-     *
-     * Example: '.intlayer/dictionary'
-     *
-     * Note:
-     * - If the types are not at the result directory level, update the dictionariesDirName field instead
-     * - The dictionaries are stored in JSON format
-     * - The dictionaries are used to translate the content
-     * - The dictionaries are built from the content files
-     */
-    dictionariesDir: optionalJoinBaseDir(
-      customConfiguration?.dictionariesDir ?? DICTIONARIES_DIR
-    ),
-
-    /**
-     * Directory where the dynamic dictionaries will be stored
-     *
-     * Relative to the result directory
-     *
-     * Default: .intlayer/dynamic_dictionary
-     */
+    dictionariesDir,
     dynamicDictionariesDir: optionalJoinBaseDir(
       customConfiguration?.dynamicDictionariesDir ?? DYNAMIC_DICTIONARIES_DIR
     ),
-
-    /**
-     * Directory where the fetch dictionaries will be stored
-     *
-     * Relative to the result directory
-     *
-     * Default: .intlayer/fetch_dictionary
-     */
     fetchDictionariesDir: optionalJoinBaseDir(
       customConfiguration?.fetchDictionariesDir ?? FETCH_DICTIONARIES_DIR
     ),
-
-    /**
-     * Directory where the dictionaries types will be stored
-     *
-     * Relative to the result directory
-     *
-     * Default: .intlayer/types
-     *
-     * Example: 'types'
-     *
-     * Note:
-     * - If the types are not at the result directory level, update the typesDirName field instead
-     */
     typesDir: optionalJoinBaseDir(customConfiguration?.typesDir ?? TYPES_DIR),
-
-    /**
-     * Directory where the main files will be stored
-     *
-     * Relative to the result directory
-     *
-     * Default: .intlayer/main
-     *
-     * Example: '.intlayer/main'
-     *
-     * Note:
-     *
-     * - If the main files are not at the result directory level, update the mainDirName field instead
-     */
     mainDir: optionalJoinBaseDir(customConfiguration?.mainDir ?? MAIN_DIR),
-
-    /**
-     * Directory where the configuration files are stored
-     *
-     * Relative to the result directory
-     *
-     * Default: .intlayer/config
-     *
-     * Example: '.intlayer/config'
-     *
-     * Note:
-     *
-     * - If the configuration files are not at the result directory level, update the configDirName field instead
-     */
     configDir: optionalJoinBaseDir(
       customConfiguration?.configDir ?? CONFIG_DIR
     ),
-
-    /**
-     * Directory where the cache files are stored, relative to the result directory
-     *
-     * Default: .intlayer/cache
-     */
     cacheDir: optionalJoinBaseDir(customConfiguration?.cacheDir ?? CACHE_DIR),
-  };
-
-  const patternsConfiguration: PatternsContentConfig = {
-    /**
-     * Pattern of files to watch
-     *
-     * Default: ['/**\/*.content.ts', '/**\/*.content.js', '/**\/*.content.json', '/**\/*.content.cjs', '/**\/*.content.mjs', '/**\/*.content.tsx', '/**\/*.content.jsx']
-     */
-    watchedFilesPattern: notDerivedContentConfig.fileExtensions.map(
-      (ext) => `/**/*${ext}`
-    ),
-
-    /**
-     * Pattern of files to watch including the relative path
-     *
-     * Default: ['src/**\/*.content.ts', 'src/**\/*.content.js', 'src/**\/*.content.json', 'src/**\/*.content.cjs', 'src/**\/*.content.mjs', 'src/**\/*.content.tsx', 'src/**\/*.content.jsx']
-     */
-    watchedFilesPatternWithPath: notDerivedContentConfig.fileExtensions.flatMap(
-      (ext) =>
-        baseDirDerivedConfiguration.contentDir.map(
-          (contentDir) => `${normalizePath(contentDir)}/**/*${ext}`
-        )
-    ),
-
-    /**
-     * Pattern of dictionary to interpret
-     *
-     * Default: '.intlayer/dictionary/**\/*.json'
-     */
-    outputFilesPatternWithPath: `${normalizePath(
-      baseDirDerivedConfiguration.dictionariesDir
-    )}/**/*.json`,
-  };
-
-  return {
-    ...notDerivedContentConfig,
-    ...baseDirDerivedConfiguration,
-    ...patternsConfiguration,
+    tempDir: optionalJoinBaseDir(customConfiguration?.tempDir ?? TEMP_DIR),
   };
 };
 
-const buildEditorFields = (
-  customConfiguration?: Partial<EditorConfig>
-): EditorConfig => ({
-  /**
-   * URL of the application. Used to restrict the origin of the editor for security reasons.
-   *
-   * > '*' means that the editor is accessible from any origin
-   *
-   * Default: '*'
-   */
-  applicationURL: customConfiguration?.applicationURL ?? APPLICATION_URL,
+/**
+ * Build the `content` section of the Intlayer configuration.
+ *
+ * Resolves content and code directories relative to the project base using
+ * `require.resolve`, falling back to `path.join`.
+ *
+ * @param systemConfig - Already-built system configuration (provides `baseDir`).
+ * @param customConfiguration - Partial user-supplied content config.
+ * @returns A fully-resolved {@link ContentConfig}.
+ */
+const buildContentFields = (
+  systemConfig: SystemConfig,
+  customConfiguration?: Partial<ContentConfig>
+): ContentConfig => {
+  const fileExtensions = customConfiguration?.fileExtensions ?? FILE_EXTENSIONS;
 
-  /**
-   * URL of the editor server. Used to restrict the origin of the editor for security reasons.
-   *
-   * > '*' means that the editor is accessible from any origin
-   *
-   * Default: '*'
-   */
-  editorURL: customConfiguration?.editorURL ?? EDITOR_URL,
+  const optionalJoinBaseDir = (pathInput: string) => {
+    let absolutePath: string;
 
-  /**
-   * URL of the CMS server. Used to restrict the origin of the editor for security reasons.
-   */
-  cmsURL: customConfiguration?.cmsURL ?? CMS_URL,
+    try {
+      const requireFunction = getProjectRequire(systemConfig.baseDir);
+      try {
+        absolutePath = requireFunction.resolve(pathInput, {
+          paths: [systemConfig.baseDir],
+        });
+      } catch (err) {
+        if (!pathInput.startsWith('.') && !isAbsolute(pathInput)) {
+          absolutePath = requireFunction.resolve(`${pathInput}/package.json`, {
+            paths: [systemConfig.baseDir],
+          });
+        } else {
+          throw err;
+        }
+      }
+    } catch {
+      try {
+        try {
+          absolutePath = require.resolve(pathInput, {
+            paths: [systemConfig.baseDir],
+          });
+        } catch (err) {
+          if (!pathInput.startsWith('.') && !isAbsolute(pathInput)) {
+            absolutePath = require.resolve(`${pathInput}/package.json`, {
+              paths: [systemConfig.baseDir],
+            });
+          } else {
+            throw err;
+          }
+        }
+      } catch {
+        absolutePath = isAbsolute(pathInput)
+          ? pathInput
+          : join(systemConfig.baseDir, pathInput);
+      }
+    }
 
-  /**
-   * URL of the editor server
-   *
-   * Default: 'https://back.intlayer.org'
-   */
-  backendURL: customConfiguration?.backendURL ?? BACKEND_URL,
+    try {
+      const stats = statSync(absolutePath);
+      if (stats.isFile()) {
+        return dirname(absolutePath);
+      }
+    } catch {
+      if (/\.[a-z0-9]+$/i.test(absolutePath)) {
+        return dirname(absolutePath);
+      }
+    }
 
-  /** Port of the editor server
-   *
-   * Default: 8000
-   */
-  port: customConfiguration?.port ?? PORT,
+    return absolutePath;
+  };
 
-  /**
-   * Indicates if the application interact with the visual editor
-   *
-   * Default: true;
-   *
-   * If true, the editor will be able to interact with the application.
-   * If false, the editor will not be able to interact with the application.
-   * In any case, the editor can only be enabled by the visual editor.
-   * Disabling the editor for specific environments is a way to enforce the security.
-   *
-   * Usage:
-   * ```js
-   * {
-   *  // Other configurations
-   *  editor: {
-   *   enabled: process.env.NODE_ENV !== 'production',
-   *  }
-   * };
-   * ```
-   */
-  enabled: customConfiguration?.enabled ?? IS_ENABLED,
+  const contentDir = (customConfiguration?.contentDir ?? CONTENT_DIR).map(
+    optionalJoinBaseDir
+  );
+  const codeDir = (customConfiguration?.codeDir ?? CODE_DIR).map(
+    optionalJoinBaseDir
+  );
 
-  /**
-   * clientId and clientSecret allow the intlayer packages to authenticate with the backend using oAuth2 authentication.
-   * An access token is use to authenticate the user related to the project.
-   * To get an access token, go to https://intlayer.org/dashboard/project and create an account.
-   *
-   * Default: undefined
-   *
-   * > Important: The clientId and clientSecret should be kept secret and not shared publicly. Please ensure to keep them in a secure location, such as environment variables.
-   */
-  clientId: customConfiguration?.clientId ?? undefined,
+  return {
+    fileExtensions,
+    contentDir,
+    codeDir,
+    excludedPath: customConfiguration?.excludedPath ?? EXCLUDED_PATHS,
+    watch: customConfiguration?.watch ?? WATCH,
+    formatCommand: customConfiguration?.formatCommand,
+  };
+};
 
-  /**
-   * clientId and clientSecret allow the intlayer packages to authenticate with the backend using oAuth2 authentication.
-   * An access token is use to authenticate the user related to the project.
-   * To get an access token, go to https://intlayer.org/dashboard/project and create an account.
-   *
-   * Default: undefined
-   *
-   * > Important: The clientId and clientSecret should be kept secret and not shared publicly. Please ensure to keep them in a secure location, such as environment variables.
-   */
-  clientSecret: customConfiguration?.clientSecret ?? undefined,
-
-  /**
-   * Strategy for prioritizing dictionaries. If a dictionary is both present online and locally, the content will be merge.
-   * However, is a field is defined in both dictionary, this setting determines which fields takes the priority over the other.
-   *
-   * Default: 'local_first'
-   *
-   * The strategy for prioritizing dictionaries. It can be either 'local_first' or 'distant_first'.
-   * - 'local_first': The first dictionary found in the locale is used.
-   * - 'distant_first': The first dictionary found in the distant locales is used.
-   */
-  dictionaryPriorityStrategy:
-    customConfiguration?.dictionaryPriorityStrategy ??
-    DICTIONARY_PRIORITY_STRATEGY,
-
-  /**
-   * Indicates if the application should hot reload the locale configurations when a change is detected.
-   * For example, when a new dictionary is added or updated, the application will update the content tu display in the page.
-   *
-   * The hot reload is only available for clients of the `enterprise` plan.
-   *
-   * Default: false
-   */
-  liveSync: customConfiguration?.liveSync ?? LIVE_SYNC,
-
-  /**
-   * Port of the live sync server
-   *
-   * Default: 4000
-   */
-  liveSyncPort: customConfiguration?.liveSyncPort ?? LIVE_SYNC_PORT,
-
-  /**
-   * URL of the live sync server in case of remote live sync server
-   *
-   * Default: `http://localhost:${LIVE_SYNC_PORT}`
-   */
-  liveSyncURL:
-    customConfiguration?.liveSyncURL ??
-    `http://localhost:${customConfiguration?.liveSyncPort ?? LIVE_SYNC_PORT}`,
-});
-
-const buildLogFields = (
-  customConfiguration?: Partial<LogConfig>,
-  logFunctions?: LogFunctions
-): LogConfig => ({
-  /**
-   * Indicates if the logger is enabled
-   *
-   * Default: 'prefix-no-default'
-   *
-   * If 'default', the logger is enabled and can be used.
-   * If 'verbose', the logger will be enabled and can be used, but will log more information.
-   * If 'disabled', the logger is disabled and cannot be used.
-   */
-  mode: customConfiguration?.mode ?? MODE,
-
-  /**
-   * Prefix of the logger
-   *
-   * Default: '[intlayer]'
-   *
-   * The prefix of the logger.
-   */
-  prefix: customConfiguration?.prefix ?? PREFIX,
-
-  /**
-   * Functions to log
-   */
-  error: logFunctions?.error,
-  log: logFunctions?.log,
-  info: logFunctions?.info,
-  warn: logFunctions?.warn,
-});
-
+/**
+ * Build the `ai` section of the Intlayer configuration.
+ *
+ * @param customConfiguration - Partial user-supplied AI config.
+ * @returns A fully-defaulted {@link AiConfig}.
+ */
 const buildAiFields = (customConfiguration?: Partial<AiConfig>): AiConfig => ({
   /**
    * AI configuration
@@ -619,13 +280,63 @@ const buildAiFields = (customConfiguration?: Partial<AiConfig>): AiConfig => ({
 
   /**
    * Application context
+   *
+   * Default: undefined
+   *
+   * The application context.
+   *
+   * Example: `'My application context'`
+   *
+   * Note: Can be used to provide additional context about the application to the AI model. You can add more rules (e.g. "You should not transform urls").
    */
   applicationContext: customConfiguration?.applicationContext,
+
+  /**
+   * Base URL for the AI API
+   *
+   * Default: undefined
+   *
+   * The base URL for the AI API.
+   *
+   * Example: `'http://localhost:5000'`
+   *
+   * Note: Can be used to point to a local, or custom AI API endpoint.
+   */
+  baseURL: customConfiguration?.baseURL,
+
+  /**
+   * Data serialization
+   *
+   * Options:
+   * - "json": The industry standard. Highly reliable and structured, but consumes more tokens.
+   * - "toon": An optimized format designed to reduce token consumption (cost-effective). However, it may slightly increase the risk of output inconsistency compared to standard JSON
+   *
+   * Default: `"json"`
+   */
+  dataSerialization: customConfiguration?.dataSerialization,
 });
 
+/**
+ * Build the `build` section of the Intlayer configuration.
+ *
+ * @param customConfiguration - Partial user-supplied build config.
+ * @returns A fully-defaulted {@link BuildConfig}.
+ */
 const buildBuildFields = (
   customConfiguration?: Partial<BuildConfig>
 ): BuildConfig => ({
+  /**
+   * Indicates the mode of the build
+   *
+   * Default: 'auto'
+   *
+   * If 'auto', the build will be enabled automatically when the application is built.
+   * If 'manual', the build will be set only when the build command is executed.
+   *
+   * Can be used to disable dictionaries build, for instance when execution on Node.js environment should be avoided.
+   */
+  mode: customConfiguration?.mode ?? BUILD_MODE,
+
   /**
    * Indicates if the build should be optimized
    *
@@ -670,8 +381,33 @@ const buildBuildFields = (
    * - This option will be ignored if `optimize` is disabled.
    * - This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions. You can still use them to refine you code on manual optimization.
    * - The "live" allows to sync the dictionaries to the live sync server.
+   *
+   * @deprecated Use `dictionary.importMode` instead.
    */
-  importMode: customConfiguration?.importMode ?? IMPORT_MODE,
+  importMode: customConfiguration?.importMode,
+
+  /**
+   * Minify the dictionaries to reduce the bundle size.
+   *
+   * Default: false
+   *
+   * Note:
+   * - This option will be ignored if `optimize` is disabled.
+   * - This option will be ignore if `editor.enabled` is true.
+   * - If there is edge cases where the minification is not working properly, the dictionary will be not minified.
+   */
+  minify: customConfiguration?.minify ?? MINIFY,
+
+  /**
+   * Purge the unused keys in a dictionaries
+   *
+   * Default: false
+   *
+   * Note:
+   * - This option will be ignored if `optimize` is disabled.
+   * - This option will be ignored if `editor.enabled` is true.
+   */
+  purge: customConfiguration?.purge ?? PURGE,
 
   /**
    * Pattern to traverse the code to optimize.
@@ -679,7 +415,7 @@ const buildBuildFields = (
    * Allows to avoid to traverse the code that is not relevant to the optimization.
    * Improve build performance.
    *
-   * Default: ['**\/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**\/node_modules/**']
+   * Default: ['**\/*.{js,ts,mjs,cjs,jsx,tsx}', '!**\/node_modules/**']
    *
    * Example: `['src/**\/*.{ts,tsx}', '../ui-library/**\/*.{ts,tsx}']`
    *
@@ -711,8 +447,24 @@ const buildBuildFields = (
    * Require function
    */
   require: customConfiguration?.require,
+
+  /**
+   * Indicates if the build should check TypeScript types
+   *
+   * Default: `false`
+   *
+   * If true, the build will check TypeScript types and log errors.
+   * Note: This can slow down the build.
+   */
+  checkTypes: customConfiguration?.checkTypes ?? TYPE_CHECKING,
 });
 
+/**
+ * Build the `compiler` section of the Intlayer configuration.
+ *
+ * @param customConfiguration - Partial user-supplied compiler config.
+ * @returns A fully-defaulted {@link CompilerConfig}.
+ */
 const buildCompilerFields = (
   customConfiguration?: Partial<CompilerConfig>
 ): CompilerConfig => ({
@@ -722,120 +474,322 @@ const buildCompilerFields = (
   enabled: customConfiguration?.enabled ?? COMPILER_ENABLED,
 
   /**
-   * Pattern to traverse the code to optimize.
+   * Prefix for the extracted dictionary keys
    */
-  transformPattern:
-    customConfiguration?.transformPattern ?? COMPILER_TRANSFORM_PATTERN,
+  dictionaryKeyPrefix:
+    customConfiguration?.dictionaryKeyPrefix ?? COMPILER_DICTIONARY_KEY_PREFIX,
+
+  /**
+   * Pattern to traverse the code to optimize.
+   *
+   * @deprecated use `build.traversePattern` instead
+   */
+  transformPattern: customConfiguration?.transformPattern,
 
   /**
    * Pattern to exclude from the optimization.
-   */
-  excludePattern:
-    customConfiguration?.excludePattern ?? COMPILER_EXCLUDE_PATTERN,
-
-  /**
-   * Output directory for the optimized dictionaries.
-   */
-  outputDir: customConfiguration?.outputDir ?? COMPILER_OUTPUT_DIR,
-});
-
-const buildDictionaryFields = (
-  customConfiguration?: Partial<DictionaryConfig>
-): DictionaryConfig => ({
-  /**
-   * Indicate how the dictionary should be filled using AI.
    *
-   * Default: true
+   * @deprecated use `build.traversePattern` instead
    */
-  fill: customConfiguration?.fill ?? FILL,
+  excludePattern: customConfiguration?.excludePattern,
 
   /**
-   * Transform the dictionary in a per-locale dictionary.
-   * Each field declared in a per-locale dictionary will be transformed in a translation node.
-   * If missing, the dictionary will be treated as a multilingual dictionary.
+   * Defines the output files path. Replaces `outputDir`.
+   *
+   * - `./` paths are resolved relative to the component directory.
+   * - `/` paths are resolved relative to the project root (`baseDir`).
+   *
+   * - Including the `{{locale}}` variable in the path will trigger the generation of separate dictionaries per locale.
+   *
+   * @example:
+   * ```ts
+   * {
+   *   // Create Multilingual .content.ts files close to the component
+   *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
+   *
+   *   // output: './{{fileName}}{{extension}}', // Equivalent using template string
+   * }
+   * ```
+   *
+   * ```ts
+   * {
+   *   // Create centralize per-locale JSON at the root of the project
+   *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+   *
+   *   // output: '/locales/{{locale}}/{{key}}.content.json', // Equivalent using template string
+   * }
+   * ```
+   *
+   * ```ts
+   * {
+   *   // Create per-locale JSON files with locale-specific output paths
+   *   output: {
+   *     en: ({ fileName, locale }) => `${fileName}.${locale}.content.json`,
+   *     fr: '{{fileName}}.{{locale}}.content.json',
+   *     es: false, // skip this locale
+   *   },
+   * }
+   * ```
+   *
+   * Variable list:
+   *   - `fileName`: The name of the file.
+   *   - `key`: The key of the content.
+   *   - `locale`: The locale of the content.
+   *   - `extension`: The extension of the file.
+   *   - `componentFileName`: The name of the component file.
+   *   - `componentExtension`: The extension of the component file.
+   *   - `format`: The format of the dictionary.
+   *   - `componentFormat`: The format of the component dictionary.
+   *   - `componentDirPath`: The directory path of the component.
    */
-  locale: customConfiguration?.locale,
+  output: customConfiguration?.output,
 
   /**
-   * The title of the dictionary.
+   * Indicates if the metadata should be saved in the file.
+   *
+   * If true, the compiler will not save the metadata of the dictionaries.
+   *
+   * If `true`:
+   *
+   * ```json
+   * {
+   *   "key": "value"
+   * }
+   * ```
+   *
+   * If `false`:
+   *
+   * ```json
+   * {
+   *   "key": "value",
+   *   "content": {
+   *      "key": "value"
+   *   }
+   * }
+   * ```
+   *
+   * Default: `false`
+   *
+   * Note: Useful if used with loadJSON plugin
    */
-  title: customConfiguration?.title,
+  noMetadata: customConfiguration?.noMetadata ?? COMPILER_NO_METADATA,
 
   /**
-   * The description of the dictionary.
+   * Indicates if the components should be saved after being transformed.
    */
-  description: customConfiguration?.description,
-
-  /**
-   * Tags to categorize the dictionaries.
-   */
-  tags: customConfiguration?.tags,
-
-  /**
-   * The priority of the dictionary.
-   */
-  priority: customConfiguration?.priority,
-
-  /**
-   * Indicates if the dictionary should be live synced.
-   */
-  live: customConfiguration?.live,
-
-  /**
-   * The version of the dictionary.
-   */
-  version: customConfiguration?.version,
+  saveComponents:
+    customConfiguration?.saveComponents ?? COMPILER_SAVE_COMPONENTS,
 });
 
 /**
- * Build the configuration fields by merging the default values with the custom configuration
+ * Build the `dictionary` section of the Intlayer configuration.
+ *
+ * @param customConfiguration - Partial user-supplied dictionary config.
+ * @returns A fully-defaulted {@link DictionaryConfig}.
+ */
+const buildDictionaryFields = (
+  customConfiguration?: Partial<DictionaryConfig>
+): DictionaryConfig => {
+  const contentAutoTransformation =
+    customConfiguration?.contentAutoTransformation ??
+    CONTENT_AUTO_TRANSFORMATION;
+
+  return {
+    /**
+     * Indicate how the dictionary should be filled using AI.
+     *
+     * Default: `true`
+     *
+     * - If `true`, will consider the `compiler.output` field.
+     * - If `false`, will skip the fill process.
+     *
+     * - `./` paths are resolved relative to the component directory.
+     * - `/` paths are resolved relative to the project root (`baseDir`).
+     *
+     * - If includes `{{locale}}` variable in the path, will trigger the generation of separate dictionaries per locale.
+     *
+     * Example:
+     * ```ts
+     * {
+     *   // Create Multilingual .content.ts files close to the component
+     *   fill: ({ fileName, extension }) => `./${fileName}${extension}`,
+     *
+     *   // fill: './{{fileName}}{{extension}}', // Equivalent using template string
+     * }
+     * ```
+     *
+     * ```ts
+     * {
+     *   // Create centralize per-locale JSON at the root of the project
+     *   fill: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+     *
+     *   // fill: '/locales/{{locale}}/{{key}}.content.json', // Equivalent using template string
+     * }
+     * ```
+     *
+     * ```ts
+     * {
+     *   // Create custom output based on the locale
+     *   fill: {
+     *     en: ({ key }) => `/locales/en/${key}.content.json`,
+     *     fr: '/locales/fr/{{key}}.content.json',
+     *     es: false,
+     *     de: true,
+     *   },
+     * }
+     * ```
+     *
+     *
+     * Variable list:
+     *   - `fileName`: The name of the file.
+     *   - `key`: The key of the content.
+     *   - `locale`: The locale of the content.
+     *   - `extension`: The extension of the file.
+     *   - `componentFileName`: The name of the component file.
+     *   - `componentExtension`: The extension of the component file.
+     *   - `format`: The format of the dictionary.
+     *   - `componentFormat`: The format of the component dictionary.
+     *   - `componentDirPath`: The directory path of the component.
+     */
+    fill: customConfiguration?.fill ?? FILL,
+
+    /**
+     * Indicates if the content of the dictionary should be automatically transformed.
+     *
+     * Default: `false`
+     */
+    contentAutoTransformation:
+      typeof contentAutoTransformation === 'object'
+        ? {
+            markdown: contentAutoTransformation.markdown ?? false,
+            html: contentAutoTransformation.html ?? false,
+            insertion: contentAutoTransformation.insertion ?? false,
+          }
+        : contentAutoTransformation,
+
+    /**
+     * The location of the dictionary.
+     *
+     * Default: `"local"`
+     */
+    location: customConfiguration?.location ?? LOCATION,
+
+    /**
+     * Transform the dictionary in a per-locale dictionary.
+     * Each field declared in a per-locale dictionary will be transformed in a translation node.
+     * If missing, the dictionary will be treated as a multilingual dictionary.
+     */
+    locale: customConfiguration?.locale,
+
+    /**
+     * The title of the dictionary.
+     */
+    title: customConfiguration?.title,
+
+    /**
+     * The description of the dictionary.
+     */
+    description: customConfiguration?.description,
+
+    /**
+     * Tags to categorize the dictionaries.
+     */
+    tags: customConfiguration?.tags,
+
+    /**
+     * The priority of the dictionary.
+     */
+    priority: customConfiguration?.priority,
+
+    /**
+     * Indicates the mode of import to use for the dictionary.
+     *
+     * Available modes:
+     * - "static": The dictionaries are imported statically.
+     * - "dynamic": The dictionaries are imported dynamically in a synchronous component using the suspense API.
+     * - "live": The dictionaries are imported dynamically using the live sync API.
+     *
+     * Default: `"static"`
+     */
+    importMode: customConfiguration?.importMode ?? IMPORT_MODE,
+  };
+};
+
+// ---------------------------------------------------------------------------
+// Main export
+// ---------------------------------------------------------------------------
+
+/**
+ * Build the complete Intlayer configuration by merging user-supplied values
+ * with defaults.
+ *
+ * Internally this function:
+ * 1. Calls {@link buildBrowserConfiguration} to produce the browser-safe
+ *    subset (internationalization, routing, editor public fields, log, metadata).
+ * 2. Extends the result with full server-side fields:
+ *    - `internationalization` — adds `requiredLocales` and `strictMode`.
+ *    - `editor` — adds `clientId` and `clientSecret`.
+ *    - `log` — adds custom log functions.
+ *    - `system`, `content`, `ai`, `build`, `compiler`, `dictionary`.
+ *
+ * @param customConfiguration - Optional user-supplied configuration object.
+ * @param baseDir - Project root directory. Defaults to `process.cwd()`.
+ * @param logFunctions - Optional custom logging functions.
+ * @returns A fully-built {@link IntlayerConfig}.
  */
 export const buildConfigurationFields = (
   customConfiguration?: CustomIntlayerConfig,
   baseDir?: string,
   logFunctions?: LogFunctions
 ): IntlayerConfig => {
+  if (customConfiguration) {
+    const result = intlayerConfigSchema.safeParse(customConfiguration);
+
+    if (!result.success) {
+      const logError = logFunctions?.error ?? console.error;
+
+      for (const issue of result.error.issues) {
+        logError(`${issue.path.join('.')}: ${issue.message}`);
+      }
+    }
+  }
+
+  // build browser-safe config (shared defaults, no Node.js deps)
+  const browserConfig = buildBrowserConfiguration(customConfiguration);
+
+  // extend shared fields with server-only additions
   const internationalizationConfig = buildInternationalizationFields(
     customConfiguration?.internationalization
-  );
-
-  const routingConfig = buildRoutingFields(customConfiguration?.routing);
-
-  const contentConfig = buildContentFields(
-    customConfiguration?.content,
-    baseDir
   );
 
   const editorConfig = buildEditorFields(customConfiguration?.editor);
 
   const logConfig = buildLogFields(customConfiguration?.log, logFunctions);
 
-  const aiConfig = buildAiFields(customConfiguration?.ai);
+  // build server-only fields
+  const systemConfig = buildSystemFields(baseDir, customConfiguration?.system);
 
-  const buildConfig = buildBuildFields(customConfiguration?.build);
-
-  const compilerConfig = buildCompilerFields(customConfiguration?.compiler);
-
-  const dictionaryConfig = buildDictionaryFields(
-    customConfiguration?.dictionary
+  const contentConfig = buildContentFields(
+    systemConfig,
+    customConfiguration?.content
   );
 
   storedConfiguration = {
+    // Shared browser fields
+    routing: browserConfig.routing,
+    // Full (extended) shared fields
     internationalization: internationalizationConfig,
-    routing: routingConfig,
-    content: contentConfig,
     editor: editorConfig,
     log: logConfig,
-    ai: aiConfig,
-    build: buildConfig,
-    compiler: compilerConfig,
-    dictionary: dictionaryConfig,
+    // Server-only fields
+    system: systemConfig,
+    content: contentConfig,
+    ai: buildAiFields(customConfiguration?.ai),
+    build: buildBuildFields(customConfiguration?.build),
+    compiler: buildCompilerFields(customConfiguration?.compiler),
+    dictionary: buildDictionaryFields(customConfiguration?.dictionary),
     plugins: customConfiguration?.plugins,
-    metadata: {
-      name: 'Intlayer',
-      version: packageJson.version,
-      doc: `https://intlayer.org/docs`,
-    },
+    schemas: customConfiguration?.schemas,
   } as IntlayerConfig;
 
   return storedConfiguration;

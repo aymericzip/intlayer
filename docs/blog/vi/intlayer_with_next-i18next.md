@@ -27,7 +27,7 @@ history:
 
 # Quốc tế hóa Next.js (i18n) với next-i18next và Intlayer
 
-<iframe title="Cách tự động hóa bản dịch JSON next-i18next của bạn bằng Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Cách tự động hóa bản dịch JSON next-i18next của bạn bằng Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## Mục lục
 
@@ -71,19 +71,23 @@ Hướng dẫn này sẽ chỉ cho bạn cách tận dụng hệ thống khai b�
 Cài đặt các gói cần thiết bằng trình quản lý gói bạn ưa thích:
 
 ```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin
+npm install intlayer @intlayer/sync-json-plugin --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin
+pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin
+yarn add intlayer @intlayer/sync-json-plugin --dev
+yarn intlayer init
 ```
 
 ```bash packageManager="bun"
-bun add intlayer @intlayer/sync-json-plugin
+bun add intlayer @intlayer/sync-json-plugin --dev
+bun x intlayer init
 ```
 
 **Giải thích các gói:**
@@ -108,7 +112,6 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "i18next",
       source: ({ key, locale }) => `./public/locales/${locale}/${key}.json`,
     }),
   ],
@@ -160,7 +163,6 @@ const config: IntlayerConfig = {
      * Sẽ tải và ghi lại đầu ra cùng các bản dịch trở lại các file JSON trong thư mục locales
      */
     syncJSON({
-      format: "i18next",
       source: ({ key, locale }) => `./public/locales/${locale}/${key}.json`,
       priority: 0,
     }),

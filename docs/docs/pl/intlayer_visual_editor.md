@@ -19,21 +19,21 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
   - version: 6.1.0
     date: 2025-09-23
-    changes: Dodano opcję with w CLI
+    changes: "Dodano opcję with w CLI"
   - version: 6.0.1
     date: 2025-09-22
-    changes: Zmieniono zachowanie edytora, gdy rozszerzenie pliku nie jest `.json`
+    changes: "Zmieniono zachowanie edytora, gdy rozszerzenie pliku nie jest `.json`"
   - version: 6.0.0
     date: 2025-09-21
-    changes: Dodano polecenie reexported
+    changes: "Dodano polecenie reexported"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inicjalizacja historii
+    changes: "Inicjalizacja historii"
 ---
 
 # Dokumentacja Intlayer Visual Editor
 
-<iframe title="Edytor wizualny + CMS dla Twojej aplikacji internetowej: wyjaśnienie Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Edytor wizualny + CMS dla Twojej aplikacji internetowej: wyjaśnienie Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Intlayer Visual Editor to narzędzie, które otacza Twoją stronę internetową, aby umożliwić interakcję z plikami deklaracji zawartości za pomocą edytora wizualnego.
 
@@ -89,6 +89,10 @@ yarn add intlayer-editor --save-dev
 pnpm add intlayer-editor --save-dev
 ```
 
+```bash packageManager="bun"
+bun add intlayer-editor --dev
+```
+
 Dzięki flagowi `--with` możesz uruchomić edytor równolegle z innym poleceniem:
 
 ```json5 fileName="package.json"
@@ -103,7 +107,7 @@ Dzięki flagowi `--with` możesz uruchomić edytor równolegle z innym polecenie
 
 W pliku konfiguracyjnym Intlayer możesz dostosować ustawienia edytora:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -138,77 +142,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... inne ustawienia konfiguracyjne
-  editor: {
-    /**
-     * Wymagane
-     * URL aplikacji.
-     * To jest URL, na który skierowany jest wizualny edytor.
-     * Przykład: 'http://localhost:3000'
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * Opcjonalne
-     * Domyślnie `true`. Jeśli `false`, edytor jest nieaktywny i nie można uzyskać do niego dostępu.
-     * Może być używane do wyłączenia edytora w określonych środowiskach ze względów bezpieczeństwa, takich jak produkcja.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-    /**
-     * Opcjonalne
-     * Domyślnie `8000`.
-     * Port używany przez serwer wizualnego edytora.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * Opcjonalne
-     * Domyślnie "http://localhost:8000"
-     * URL serwera edytora, do którego można dotrzeć z aplikacji. Używany do ograniczenia źródeł, które mogą wchodzić w interakcję z aplikacją ze względów bezpieczeństwa. Jeśli ustawione na `'*'`, edytor jest dostępny z dowolnego źródła. Powinno być ustawione, jeśli zmieniono port lub jeśli edytor jest hostowany na innej domenie.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... inne ustawienia konfiguracyjne
-  editor: {
-    /**
-     * Wymagane
-     * URL aplikacji.
-     * To jest URL, na który skierowany jest wizualny edytor.
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * Opcjonalne
-     * Domyślnie `8000`.
-     * Port serwera edytora.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * Opcjonalne
-     * Domyślnie "http://localhost:8000"
-     * URL serwera edytora.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * Opcjonalne
-     * Domyślnie `true`. Jeśli `false`, edytor jest nieaktywny i nie można go używać.
-     * Może być używane do wyłączenia edytora w określonych środowiskach ze względów bezpieczeństwa, takich jak produkcja.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-  },
-};
-
-module.exports = config;
 ```
 
 > Aby zobaczyć wszystkie dostępne parametry, zapoznaj się z [dokumentacją konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).

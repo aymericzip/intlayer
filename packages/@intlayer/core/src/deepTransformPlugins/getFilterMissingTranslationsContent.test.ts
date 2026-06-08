@@ -1,20 +1,22 @@
-import {
-  type ContentNode,
-  type CustomIntlayerConfig,
-  Locales,
-} from '@intlayer/types';
+import type { CustomIntlayerConfig } from '@intlayer/types/config';
+import type { ContentNode } from '@intlayer/types/dictionary';
+import * as Locales from '@intlayer/types/locales';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { t } from '../transpiler';
 import { getFilterMissingTranslationsContent } from './getFilterMissingTranslationsContent';
 
 // Mock dependencies
-vi.mock('@intlayer/config/built', () => ({
-  default: {
+vi.mock('@intlayer/config/built', () => {
+  const config = {
     internationalization: {
       defaultLocale: Locales.ENGLISH,
     } as CustomIntlayerConfig,
-  },
-}));
+  };
+  return {
+    ...config,
+    default: config,
+  };
+});
 
 describe('getFilterMissingTranslationsContent', () => {
   const nodeProps = {

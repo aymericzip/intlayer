@@ -17,8 +17,20 @@ slugs:
 
 # 사전 감시
 
-```bash
+```bash packageManager="npm"
 npx intlayer watch
+```
+
+```bash packageManager="yarn"
+yarn intlayer watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer watch
+```
+
+```bash packageManager="bun"
+bun x intlayer watch
 ```
 
 이 명령어는 콘텐츠 선언 파일의 변경 사항을 감시하고 `.intlayer` 디렉토리에 사전을 빌드합니다.

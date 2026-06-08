@@ -1,7 +1,8 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import type { HTMLAttributes } from 'react';
+import { cn } from '@utils/cn';
+import type { HTMLAttributes, KeyboardEvent } from 'react';
 import {
   FormProvider,
   type FormProviderProps,
@@ -10,7 +11,6 @@ import {
   useFormState,
 } from 'react-hook-form';
 import type { ZodObject, z } from 'zod/v4';
-import { cn } from '../../utils/cn';
 
 type FormProps<T extends ZodObject> = HTMLAttributes<HTMLFormElement> &
   FormProviderProps<z.infer<T>> & {
@@ -40,8 +40,9 @@ export const Form = <T extends ZodObject>({
   className,
   children,
   autoComplete,
+  method,
   ...props
-}: FormProps<T>) => {
+}: FormProps<T> & { method?: string }) => {
   const onSubmit = async (values: z.infer<T>) => {
     const parsedValues = schema?.safeParse(values) ?? {
       success: true,
@@ -64,13 +65,32 @@ export const Form = <T extends ZodObject>({
     }
   };
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLFormElement>) => {
+    if (e.key !== 'Enter') return;
+    const target = e.target as HTMLElement;
+    if (target.tagName !== 'INPUT') return;
+    e.preventDefault();
+    const formEl = e.currentTarget;
+    const focusable = Array.from(
+      formEl.querySelectorAll<HTMLElement>(
+        'input:not([disabled]):not([type="hidden"]), textarea:not([disabled])'
+      )
+    );
+    const idx = focusable.indexOf(target);
+    if (idx >= 0 && idx < focusable.length - 1) {
+      focusable[idx + 1]?.focus();
+    }
+  };
+
   return (
     <FormProvider {...props}>
       <form
-        className={cn('flex size-full flex-col gap-y-6', className)}
+        className={cn('flex flex-col gap-y-6', className)}
         onSubmit={props.handleSubmit(onSubmit)}
+        onKeyDown={handleKeyDown}
         autoComplete={autoComplete ? 'on' : 'off'}
         noValidate
+        method={method}
       >
         {children}
       </form>

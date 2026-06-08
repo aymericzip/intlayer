@@ -1,0 +1,543 @@
+---
+createdAt: 2026-03-20
+updatedAt: 2026-05-31
+title: "Storybook i18n - Vollständiger Leitfaden zur Übersetzung Ihrer App"
+description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) Storybook-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
+keywords:
+  - Internationalisierung
+  - Dokumentation
+  - Intlayer
+  - Storybook
+  - React
+  - i18n
+  - TypeScript
+  - Vite
+  - Webpack
+slugs:
+  - doc
+  - storybook
+history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Aktualisieren der Solid useIntlayer API-Nutzung auf direkten Eigenschaftszugriff"
+  - version: 8.4.5
+    date: 2026-03-20
+    changes: "Init doc"
+---
+
+# Intlayer mit Storybook
+
+## Inhaltsverzeichnis
+
+<TOC/>
+
+## Warum Intlayer gegenüber Alternativen?
+
+Im Vergleich zu Hauptlösungen wie „storybook-react-i18next“ oder „i18next“ ist Intlayer eine Lösung, die über integrierte Optimierungen verfügt wie:
+
+<AccordionGroup>
+
+<Accordion header="Vollständige Storybook-Abdeckung">
+
+Intlayer ist für die perfekte Zusammenarbeit mit Storybook optimiert, indem es **mehrsprachige Story-Dekoratoren**, **Gebietsschemaumschaltung** und alle Funktionen bietet, die für die Skalierung der Internationalisierung (i18n) in Ihrem gesamten Designsystem erforderlich sind.
+
+</Accordion>
+
+<Accordion header="Bundle-Größe">
+
+Anstatt riesige JSON-Dateien in Ihre Seiten zu laden, laden Sie nur den erforderlichen Inhalt. Intlayer hilft **Ihre Bundle- und Seitengröße um bis zu 50 % zu reduzieren**.
+
+</Accordion>
+
+<Accordion header="Wartbarkeit">
+
+Durch die Festlegung des Inhaltsbereichs Ihrer Anwendung wird die Wartung für umfangreiche Anwendungen erleichtert. Sie können einen einzelnen Feature-Ordner duplizieren oder löschen, ohne die mentale Belastung durch die Überprüfung Ihrer gesamten Inhaltscodebasis auf sich nehmen zu müssen. Darüber hinaus ist Intlayer **vollständig typisiert (fully typed)**, um die Genauigkeit Ihrer Inhalte sicherzustellen.
+
+</Accordion>
+
+<Accordion header="KI-Agent">
+
+Durch die gemeinsame Platzierung von Inhalten **reduziert sich der von Large Language Models (LLMs) benötigte Kontext**. Intlayer verfügt außerdem über eine Reihe von Tools, wie zum Beispiel eine **CLI** zum Testen auf fehlende Übersetzungen,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** und **[agent Fähigkeiten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, um die Entwicklererfahrung (DX) für KI-Agenten noch reibungsloser zu gestalten.
+
+</Accordion>
+
+<Accordion header="Automatisierung">
+
+Nutzen Sie die Automatisierung, um Ihre CI/CD-Pipeline mit dem LLM Ihrer Wahl auf Kosten Ihres KI-Anbieters zu übersetzen. Intlayer bietet außerdem einen **Compiler** zur Automatisierung der Inhaltsextraktion sowie eine [Webplattform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) zur Unterstützung der **Übersetzung im Hintergrund**.
+
+</Accordion>
+
+<Accordion header="Leistung">
+
+Das Verbinden großer JSON-Dateien mit Komponenten kann zu Leistungs- und Reaktivitätsproblemen führen. Intlayer optimiert das Laden Ihrer Inhalte zur Erstellungszeit.
+
+</Accordion>
+
+<Accordion header="Skalierung mit Nicht-Entwickler">
+
+Intlayer ist mehr als nur eine i18n-Lösung. Es bietet einen **selbstgehosteten [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** und ein **[vollständiges CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, um Ihnen zu helfen Verwalten Sie Ihre mehrsprachigen Inhalte in **Echtzeit** und gestalten Sie die Zusammenarbeit mit Übersetzern, Textern und anderen Teammitgliedern reibungslos. Inhalte können lokal und/oder remote gespeichert werden.
+
+</Accordion>
+</AccordionGroup>
+
+---
+
+## Warum Intlayer mit Storybook verwenden?
+
+Storybook ist das Standardwerkzeug der Branche für die isolierte Entwicklung und Dokumentation von UI-Komponenten. Die Kombination mit Intlayer ermöglicht es Ihnen:
+
+- **Jede Sprache direkt in der Storybook-Vorschau anzuzeigen**, indem Sie einen Umschalter in der Toolbar verwenden.
+- **Fehlende Übersetzungen zu finden**, bevor sie in die Produktion gelangen.
+- **Mehrsprachige Komponenten zu dokumentieren** mit echten, typsicheren Inhalten anstelle von fest kodierten Zeichenfolgen.
+
+---
+
+## Schritt-für-Schritt-Einrichtung
+
+<Tabs>
+<Tab value="Vite Setup">
+
+<Steps>
+
+<Step number={1} title="Abhängigkeiten installieren">
+
+```bash packageManager="npm"
+npm install intlayer react-intlayer
+npm install vite-intlayer --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer react-intlayer
+pnpm add vite-intlayer --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add intlayer react-intlayer
+yarn add vite-intlayer --save-dev
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer
+bun add vite-intlayer --dev
+```
+
+| Paket            | Rolle                                                       |
+| ---------------- | ----------------------------------------------------------- |
+| `intlayer`       | Kern - Konfiguration, Inhaltskompilierung, CLI              |
+| `react-intlayer` | React-Bindings - `IntlayerProvider`, `useIntlayer`-Hook     |
+| `vite-intlayer`  | Vite-Plugin - überwacht und kompiliert Inhaltsdeklarationen |
+
+---
+
+</Step>
+
+<Step number={2} title="Eine Intlayer-Konfiguration erstellen">
+
+Erstellen Sie eine `intlayer.config.ts` im Stammverzeichnis Ihres Projekts (oder innerhalb Ihres Design-System-Pakets):
+
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH,
+      // weitere Sprachen nach Bedarf hinzufügen
+    ],
+    defaultLocale: Locales.ENGLISH,
+  },
+  content: {
+    contentDir: ["./src"], // Verzeichnis, in dem Ihre *.content.ts Dateien liegen
+  },
+};
+
+export default config;
+```
+
+> Eine vollständige Liste der Optionen finden Sie in der [Konfigurationsreferenz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md).
+
+---
+
+</Step>
+
+<Step number={3} title="Das Vite-Plugin zu Storybook hinzufügen">
+
+Mit dem `viteFinal`-Hook von Storybook können Sie die interne Vite-Konfiguration erweitern. Importieren und fügen Sie dort das `intlayer()`-Plugin hinzu:
+
+```typescript fileName=".storybook/main.ts" codeFormat="typescript"
+import type { StorybookConfig } from "@storybook/react-vite";
+import { defineConfig, mergeConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+
+const config: StorybookConfig = {
+  stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
+  addons: [
+    "@storybook/addon-essentials",
+    // …weitere Addons
+  ],
+  framework: {
+    name: "@storybook/react-vite",
+    options: {},
+  },
+
+  async viteFinal(baseConfig, { configType }) {
+    const env = {
+      command: configType === "DEVELOPMENT" ? "serve" : "build",
+      mode: configType === "DEVELOPMENT" ? "development" : "production",
+    } as const;
+
+    const viteConfig = defineConfig(() => ({
+      plugins: [intlayer()],
+    }));
+
+    return mergeConfig(baseConfig, viteConfig(env));
+  },
+};
+
+export default config;
+```
+
+Das `intlayer()`-Plugin überwacht Ihre `*.content.ts`-Dateien und baut die Wörterbücher automatisch neu auf, sobald sich während der Storybook-Entwicklung etwas ändert.
+
+---
+
+</Step>
+
+<Step number={4} title="Den `IntlayerProvider`-Decorator und eine Sprach-Toolbar hinzufügen">
+
+Die `preview`-Datei von Storybook ist der richtige Ort, um jede Story in den `IntlayerProvider` einzubinden und einen Sprachumschalter in der Toolbar bereitzustellen:
+
+```tsx fileName=".storybook/preview.tsx" codeFormat="typescript"
+import type { Preview, StoryContext } from "@storybook/react";
+import { IntlayerProvider } from "react-intlayer";
+
+const preview: Preview = {
+  // Jede Story in den IntlayerProvider einbinden
+  decorators: [
+    (Story, context: StoryContext) => {
+      const locale = context.globals.locale ?? "en";
+      return (
+        <IntlayerProvider locale={locale}>
+          <Story />
+        </IntlayerProvider>
+      );
+    },
+  ],
+
+  // Einen Sprachumschalter in der Storybook-Toolbar bereitstellen
+  globalTypes: {
+    locale: {
+      description: "Aktive Sprache",
+      defaultValue: "en",
+      toolbar: {
+        title: "Sprache",
+        icon: "globe",
+        items: [
+          { value: "en", title: "English" },
+          { value: "fr", title: "Français" },
+          { value: "es", title: "Español" },
+        ],
+        dynamicTitle: true,
+      },
+    },
+  },
+
+  parameters: {
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/i,
+      },
+    },
+  },
+};
+
+export default preview;
+```
+
+> Die `locale`-Werte müssen mit den in Ihrer `intlayer.config.ts` deklarierten Sprachen übereinstimmen.
+
+</Tab>
+<Tab value="Webpack Setup">
+
+</Step>
+
+<Step number={1} title="Abhängigkeiten installieren">
+
+```bash packageManager="npm"
+npm install intlayer react-intlayer
+npm install @intlayer/webpack --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer react-intlayer
+pnpm add @intlayer/webpack --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add intlayer react-intlayer
+yarn add @intlayer/webpack --save-dev
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer
+bun add @intlayer/webpack --dev
+```
+
+---
+
+</Step>
+
+<Step number={2} title="Eine Intlayer-Konfiguration erstellen">
+
+Erstellen Sie eine `intlayer.config.ts` im Stammverzeichnis Ihres Projekts:
+
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+  content: {
+    contentDir: ["./src"],
+  },
+};
+
+export default config;
+```
+
+---
+
+</Step>
+
+<Step number={3} title="Storybook-Webpack konfigurieren">
+
+Für Webpack-basierte Storybook-Setups (z. B. `@storybook/react-webpack5`) erweitern Sie die Webpack-Konfiguration über `webpackFinal`, um die Intlayer-Aliase und den Loader hinzuzufügen:
+
+```typescript fileName=".storybook/main.ts" codeFormat="typescript"
+import type { StorybookConfig } from "@storybook/react-webpack5";
+import { IntlayerPlugin } from "@intlayer/webpack";
+
+const config: StorybookConfig = {
+  stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
+  addons: ["@storybook/addon-essentials"],
+  framework: {
+    name: "@storybook/react-webpack5",
+    options: {},
+  },
+
+  webpackFinal: async (baseConfig) => {
+    baseConfig.plugins = [...(baseConfig.plugins ?? []), new IntlayerPlugin()];
+    return baseConfig;
+  },
+};
+
+export default config;
+```
+
+---
+
+</Step>
+
+<Step number={4} title="Den `IntlayerProvider`-Decorator und eine Sprach-Toolbar hinzufügen">
+
+Genauso wie beim Vite-Setup - fügen Sie den Decorator und den globalen Sprachtyp in `.storybook/preview.tsx` hinzu:
+
+```tsx fileName=".storybook/preview.tsx" codeFormat="typescript"
+import type { Preview, StoryContext } from "@storybook/react";
+import { IntlayerProvider } from "react-intlayer";
+
+const preview: Preview = {
+  decorators: [
+    (Story, context: StoryContext) => {
+      const locale = context.globals.locale ?? "en";
+      return (
+        <IntlayerProvider locale={locale}>
+          <Story />
+        </IntlayerProvider>
+      );
+    },
+  ],
+
+  globalTypes: {
+    locale: {
+      description: "Aktive Sprache",
+      defaultValue: "en",
+      toolbar: {
+        title: "Sprache",
+        icon: "globe",
+        items: [
+          { value: "en", title: "English" },
+          { value: "fr", title: "Français" },
+          { value: "es", title: "Español" },
+        ],
+        dynamicTitle: true,
+      },
+    },
+  },
+};
+
+export default preview;
+```
+
+</Tab>
+</Tabs>
+
+---
+
+</Step>
+
+</Steps>
+
+## Inhalte deklarieren
+
+Erstellen Sie eine `*.content.ts`-Datei neben jeder Komponente. Intlayer erkennt diese während der Kompilierung automatisch.
+
+```typescript fileName="src/components/CopyButton/CopyButton.content.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type Dictionary, t } from "intlayer";
+
+const copyButtonContent = {
+  key: "copy-button",
+  content: {
+    label: t({
+      en: "Copy content",
+      fr: "Copier le contenu",
+      es: "Copiar contenido",
+    }),
+  },
+} satisfies Dictionary;
+
+export default copyButtonContent;
+```
+
+> Weitere Formate und Funktionen zur Inhaltsdeklaration finden Sie in der [Dokumentation zur Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md).
+
+---
+
+## Verwendung von `useIntlayer` in einer Komponente
+
+```tsx fileName="src/components/CopyButton/index.tsx" codeFormat="typescript"
+"use client";
+
+import { type FC } from "react";
+import { useIntlayer } from "react-intlayer";
+
+type CopyButtonProps = {
+  content: string;
+};
+
+export const CopyButton: FC<CopyButtonProps> = ({ content }) => {
+  const { label } = useIntlayer("copy-button");
+
+  return (
+    <button
+      onClick={() => navigator.clipboard.writeText(content)}
+      aria-label={label.value}
+      title={label.value}
+    >
+      Kopieren
+    </button>
+  );
+};
+```
+
+`useIntlayer` gibt das kompilierte Wörterbuch für die aktuelle Sprache zurück, die vom nächsten `IntlayerProvider` bereitgestellt wird. Ein Wechsel der Sprache in der Storybook-Toolbar rendert die Story automatisch mit den aktualisierten Übersetzungen neu.
+
+---
+
+## Schreiben von Stories für internationalisierte Komponenten
+
+Mit dem eingerichteten `IntlayerProvider`-Decorator funktionieren Ihre Stories genau wie zuvor. Die Sprach-Toolbar steuert die aktive Sprache für die gesamte Vorschau:
+
+```tsx fileName="src/components/CopyButton/CopyButton.stories.tsx" codeFormat="typescript"
+import type { Meta, StoryObj } from "@storybook/react";
+import { CopyButton } from ".";
+
+const meta: Meta<typeof CopyButton> = {
+  title: "Components/CopyButton",
+  component: CopyButton,
+  tags: ["autodocs"],
+  argTypes: {
+    content: { control: "text" },
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof CopyButton>;
+
+/** Standard-Story - wechseln Sie die Sprache in der Toolbar, um die Übersetzungen anzuzeigen. */
+export const Default: Story = {
+  args: {
+    content: "npm install intlayer react-intlayer",
+  },
+};
+
+/** Rendert den Button innerhalb eines Codeblocks, ein häufiger Anwendungsfall in der Praxis. */
+export const InsideCodeBlock: Story = {
+  render: (args) => (
+    <div style={{ position: "relative", display: "inline-block" }}>
+      <pre style={{ background: "#1e1e1e", color: "#fff", padding: "1rem" }}>
+        <code>{args.content}</code>
+      </pre>
+      <CopyButton
+        content={args.content}
+        style={{ position: "absolute", top: 8, right: 8 }}
+      />
+    </div>
+  ),
+  args: {
+    content: "npx intlayer init",
+  },
+};
+```
+
+> Jede Story erbt die globale `locale`-Variable von der Toolbar, sodass Sie jede Sprache überprüfen können, ohne den Story-Code ändern zu müssen.
+
+---
+
+## Übersetzungen in Stories testen
+
+Verwenden Sie die `play`-Funktionen von Storybook, um sicherzustellen, dass der korrekte übersetzte Text für eine bestimmte Sprache gerendert wird:
+
+```tsx fileName="src/components/CopyButton/CopyButton.stories.tsx" codeFormat="typescript"
+import type { Meta, StoryObj } from "@storybook/react";
+import { expect, within } from "@storybook/test";
+import { CopyButton } from ".";
+
+const meta: Meta<typeof CopyButton> = {
+  title: "Components/CopyButton",
+  component: CopyButton,
+  tags: ["autodocs"],
+};
+
+export default meta;
+type Story = StoryObj<typeof CopyButton>;
+
+export const AccessibleLabel: Story = {
+  args: { content: "Hello World" },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole("button");
+
+    // Überprüfen, ob der Button einen nicht leeren zugänglichen Namen hat
+    await expect(button).toHaveAccessibleName();
+    // Überprüfen, ob der Button nicht deaktiviert ist
+    await expect(button).not.toBeDisabled();
+    // Tastaturzugänglichkeit überprüfen
+    await expect(button).toHaveAttribute("tabindex", "0");
+  },
+};
+```
+
+---
+
+## Zusätzliche Ressourcen
+
+- [Intlayer Konfigurationsreferenz](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md)
+- [Dokumentation zur Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md)
+- [Intlayer CLI-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md)
+- [Storybook-Dokumentation](https://storybook.js.org/docs)

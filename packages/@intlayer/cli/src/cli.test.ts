@@ -31,44 +31,44 @@ let liveSyncMock: ReturnType<typeof vi.fn>;
 
 // Hoisted mocks – evaluated before the tested module is imported
 vi.mock('./build', () => ({
-  build: (...args: any[]) => buildMock(...args),
+  build: (...args: any[]) => new buildMock(...args),
 }));
 
 vi.mock('./push/push', () => ({
-  push: (...args: any[]) => pushMock(...args),
+  push: (...args: any[]) => new pushMock(...args),
 }));
 
 vi.mock('./pull', () => ({
-  pull: (...args: any[]) => pullMock(...args),
+  pull: (...args: any[]) => new pullMock(...args),
 }));
 
 vi.mock('./fill/fill', () => ({
-  fill: (...args: any[]) => fillMock(...args),
+  fill: (...args: any[]) => new fillMock(...args)(),
 }));
 
 vi.mock('./config', () => ({
-  getConfig: (...args: any[]) => getConfigMock(...args),
+  getConfig: (...args: any[]) => new getConfigMock(...args),
 }));
 
 vi.mock('./pushConfig', () => ({
-  pushConfig: (...args: any[]) => pushConfigMock(...args),
+  pushConfig: (...args: any[]) => new pushConfigMock(...args),
 }));
 
 vi.mock('./listContentDeclaration', () => ({
   listContentDeclaration: (...args: any[]) =>
-    listContentDeclarationMock(...args),
+    new listContentDeclarationMock(...args),
 }));
 
 vi.mock('./translateDoc', () => ({
-  translateDoc: (...args: any[]) => translateDocMock(...args),
+  translateDoc: (...args: any[]) => new translateDocMock(...args),
 }));
 
 vi.mock('./reviewDoc', () => ({
-  reviewDoc: (...args: any[]) => reviewDocMock(...args),
+  reviewDoc: (...args: any[]) => new reviewDocMock(...args),
 }));
 
 vi.mock('./liveSync', () => ({
-  liveSync: (...args: any[]) => liveSyncMock(...args),
+  liveSync: (...args: any[]) => new liveSyncMock(...args),
 }));
 
 // Mock getParentPackageJSON utility
@@ -104,31 +104,7 @@ vi.mock('@intlayer/config/built', () => ({
   default: {},
 }));
 
-vi.mock('@intlayer/config', () => ({
-  __esModule: true,
-  isESModule: false,
-  // Minimal constants used by downstream packages
-  spinnerFrames: ['-', '\\', '|', '/'],
-  ANSIColors: {
-    RESET: '',
-    GREY: '',
-    GREY_DARK: '',
-    BLUE: '',
-    RED: '',
-    GREEN: '',
-    YELLOW: '',
-    MAGENTA: '',
-    BEIGE: '',
-    ORANGE: '',
-    CYAN: '',
-    WHITE: '',
-  },
-  v: '✓',
-  x: '✗',
-  colorize: (s: string) => String(s),
-  getExtension: vi.fn(() => 'cjs'),
-  ESMxCJSRequire: require,
-  // Minimal configuration getter
+vi.mock('@intlayer/config/node', () => ({
   getConfiguration: vi.fn(() => ({
     content: {
       mainDir: process.cwd(),
@@ -137,6 +113,13 @@ vi.mock('@intlayer/config', () => ({
     ai: {},
     log: { mode: 'disabled', prefix: '' },
   })),
+  getConfigurationMeta: vi.fn(() => ({})),
+}));
+
+vi.mock('@intlayer/config/logger', () => ({
+  setPrefix: vi.fn(),
+  colorize: (s: string) => String(s),
+  getAppLogger: () => vi.fn(),
 }));
 
 describe.skip('Intlayer CLI', () => {

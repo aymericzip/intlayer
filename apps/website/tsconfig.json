@@ -2,7 +2,6 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@utils/ts-config",
   "compilerOptions": {
-    "types": ["@serwist/next/typings"],
     "lib": ["dom", "dom.iterable", "esnext", "webworker"],
     "allowJs": true,
     "skipLibCheck": false,
@@ -26,10 +25,16 @@
       "@components/*": ["./src/components/*"],
       "@structuredData/*": ["./src/structuredData/*"],
       "@utils/*": ["./src/utils/*"],
+      "@hooks/*": ["./src/hooks/*"],
       "@assets/*": ["./src/assets/*"],
       "@/*": ["./src/*"]
     }
   },
-  "include": ["**/*", ".next/types/**/*.ts", ".intlayer/**/*.ts"],
+  "include": [
+    "**/*",
+    ".intlayer/**/*.ts",
+    ".intlayer/types/**/*.ts",
+    "../../packages/@intlayer/design-system/src/components/LanguageSection"
+  ],
   "exclude": ["node_modules", ".next", "public/sw.js"]
 }

@@ -21,8 +21,28 @@ slugs:
 
 `doc translate` komutu, dokümantasyon dosyalarını temel bir yerelden hedef yerellere AI çeviri servislerini kullanarak otomatik olarak çevirir.
 
-```bash
+## Önemli noktalar:
+
+- Büyük markdown dosyalarını AI modelinin bağlam penceresi sınırları içinde kalmak için parçalara böler.
+- Çıktı formatı yanlışsa çeviriyi yeniden dener.
+- Çeviri doğruluğunu artırmak için uygulama ve dosya özel bağlamını dahil eder.
+- Mevcut çevirileri üzerine yazmayarak korur.
+- Hızı artırmak için bir kuyruk sistemi kullanarak dosyaları, parçaları ve yerel ayarları paralel olarak işler.
+
+```bash packageManager="npm"
 npx intlayer doc translate
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc translate
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc translate
+```
+
+```bash packageManager="bun"
+bun x intlayer doc translate
 ```
 
 ## Argümanlar:
@@ -78,6 +98,7 @@ npx intlayer doc translate
 - **`--temperature [temperature]`**: Yapay zeka modeli için sıcaklık ayarı.
 - **`--api-key [apiKey]`**: Yapay zeka servisi için kendi API anahtarınızı sağlayın.
 - **`--application-context [applicationContext]`**: Yapay zeka çevirisi için ek bağlam sağlayın.
+- **`--data-serialization [dataSerialization]`**: Intlayer'ın AI özellikleri için kullanılacak veri serileştirme formatı. Seçenekler: `json` (standart, güvenilir), `toon` (daha az jeton, daha az tutarlı).
 - **`--custom-prompt [prompt]`**: Çeviri için kullanılan temel promptu özelleştirin. (Not: Çoğu kullanım durumu için, çeviri davranışı üzerinde daha iyi kontrol sağladığı için `--custom-instructions` seçeneği önerilir.)
 
   > Örnek: `npx intlayer doc translate --model deepseek-chat --provider deepseek --temperature 0.5 --api-key sk-1234567890 --application-context "My application is a cat store"`

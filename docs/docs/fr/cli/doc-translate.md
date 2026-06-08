@@ -21,8 +21,28 @@ slugs:
 
 La commande `doc translate` traduit automatiquement les fichiers de documentation d'une locale de base vers des locales cibles en utilisant des services de traduction IA.
 
-```bash
+## Points clés :
+
+- Divise les grands fichiers markdown en morceaux pour rester dans les limites de la fenêtre de contexte du modèle d'IA.
+- Réessaie la traduction si le format de sortie est incorrect.
+- Intègre le contexte spécifique à l'application et au fichier pour améliorer la précision de la traduction.
+- Préserve les traductions existantes en ne les écrasant pas.
+- Traite les fichiers, les morceaux et les locales en parallèle à l'aide d'un système de file d'attente pour augmenter la vitesse.
+
+```bash packageManager="npm"
 npx intlayer doc translate
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc translate
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc translate
+```
+
+```bash packageManager="bun"
+bun x intlayer doc translate
 ```
 
 ## Arguments :
@@ -78,6 +98,7 @@ npx intlayer doc translate
 - **`--temperature [temperature]`** : Paramètre de température pour le modèle d'IA.
 - **`--api-key [apiKey]`** : Fournir votre propre clé API pour le service d'IA.
 - **`--application-context [applicationContext]`** : Fournir un contexte supplémentaire pour la traduction par IA.
+- **`--data-serialization [dataSerialization]`** : Le format de sérialisation des données à utiliser pour les fonctionnalités d'IA d'Intlayer. Options : `json` (standard, fiable), `toon` (moins de tokens, moins cohérent).
 - **`--custom-prompt [prompt]`** : Personnalisez le prompt de base utilisé pour la traduction. (Remarque : Pour la plupart des cas d'utilisation, l'option `--custom-instructions` est recommandée car elle offre un meilleur contrôle sur le comportement de la traduction.)
 
   > Exemple : `npx intlayer doc translate --model deepseek-chat --provider deepseek --temperature 0.5 --api-key sk-1234567890 --application-context "Mon application est une boutique de chats"`

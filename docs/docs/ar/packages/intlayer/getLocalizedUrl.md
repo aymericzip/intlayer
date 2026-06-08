@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: بدء التاريخ
+    changes: "بدء التاريخ"
 ---
 
 # التوثيق: دالة `getLocalizedUrl` في `intlayer`
@@ -35,23 +35,19 @@ history:
 ## المعاملات
 
 - `url: string`
-
   - **الوصف**: سلسلة عنوان URL الأصلية التي سيتم إضافة بادئة اللغة إليها.
   - **النوع**: `string`
 
 - `currentLocale: Locales`
-
   - **الوصف**: اللغة الحالية التي يتم تعريب العنوان لها.
   - **النوع**: `Locales`
 
 - `locales: Locales[]`
-
   - **الوصف**: مصفوفة اختيارية من اللغات المدعومة. بشكل افتراضي، يتم توفير اللغات المكونة في المشروع.
   - **النوع**: `Locales[]`
   - **الافتراضي**: [`تكوين المشروع`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md#middleware)
 
 - `defaultLocale: Locales`
-
   - **الوصف**: اللغة الافتراضية للتطبيق. بشكل افتراضي، يتم توفير اللغة الافتراضية المكونة في المشروع.
   - **النوع**: `Locales`
   - **الافتراضي**: [`تكوين المشروع`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md#middleware)
@@ -72,22 +68,7 @@ history:
 
 ### عناوين URL النسبية
 
-```typescript codeFormat="typescript"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-
-// الناتج: "/fr/about" للغة الفرنسية
-// الناتج: "/about" للغة الافتراضية (الإنجليزية)
-```
-
-```javascript codeFormat="esm"
+```typescript codeFormat={["typescript", "esm"]}
 import { getLocalizedUrl, Locales } from "intlayer";
 
 getLocalizedUrl(
@@ -176,11 +157,9 @@ getLocalizedUrl(
 ## الحالات الخاصة
 
 - **عدم وجود جزء اللغة:**
-
   - إذا لم يحتوي عنوان URL على جزء اللغة، تقوم الدالة بإضافة بادئة اللغة المناسبة بأمان.
 
 - **اللغة الافتراضية:**
-
   - عندما تكون قيمة `prefixDefault` هي `false`، لا تضيف الدالة بادئة للغة الافتراضية في عنوان URL.
 
 - **اللغات غير المدعومة:**
@@ -192,7 +171,7 @@ getLocalizedUrl(
 
 في تطبيق متعدد اللغات، يعد تكوين إعدادات التدويل باستخدام `locales` و `defaultLocale` أمرًا حيويًا لضمان عرض اللغة الصحيحة. فيما يلي مثال على كيفية استخدام `getLocalizedUrl` في إعداد التطبيق:
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // تكوين اللغات المدعومة واللغة الافتراضية
@@ -204,34 +183,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 يضمن التكوين أعلاه أن يتعرف التطبيق على اللغات `ENGLISH` و `FRENCH` و `SPANISH` كلغات مدعومة ويستخدم `ENGLISH` كلغة احتياطية.

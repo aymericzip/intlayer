@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { useState } from 'react';
-import { SwitchSelector, SwitchSelectorColor, SwitchSelectorSize } from '.';
+import { SwitchSelector } from '.';
 
 /**
  * SwitchSelector Component Stories
@@ -92,12 +92,12 @@ A versatile toggle component for elegant multi-option selection interfaces.
     color: {
       description: 'Color theme variant',
       control: { type: 'select' },
-      options: Object.values(SwitchSelectorColor),
+      options: ['primary', 'secondary', 'neutral', 'light', 'dark', 'text'],
     },
     size: {
       description: 'Size variant (affects padding and text size)',
       control: { type: 'select' },
-      options: Object.values(SwitchSelectorSize),
+      options: ['xs', 'sm', 'md', 'lg'],
     },
     className: {
       description: 'Additional CSS classes for custom styling',
@@ -166,8 +166,8 @@ export const ThemeSelector: Story = {
             ]}
             value={theme}
             onChange={setTheme}
-            color={SwitchSelectorColor.SECONDARY}
-            size={SwitchSelectorSize.MD}
+            color="secondary"
+            size="md"
           />
         </div>
 
@@ -221,8 +221,8 @@ export const SizeComparison: Story = {
             { content: 'Card', value: 'card' },
           ]}
           defaultValue="grid"
-          size={SwitchSelectorSize.SM}
-          color={SwitchSelectorColor.PRIMARY}
+          size="sm"
+          color="primary"
         />
       </div>
 
@@ -235,8 +235,8 @@ export const SizeComparison: Story = {
             { content: 'Card', value: 'card' },
           ]}
           defaultValue="grid"
-          size={SwitchSelectorSize.MD}
-          color={SwitchSelectorColor.SECONDARY}
+          size="md"
+          color="secondary"
         />
       </div>
 
@@ -249,8 +249,8 @@ export const SizeComparison: Story = {
             { content: 'Card', value: 'card' },
           ]}
           defaultValue="grid"
-          size={SwitchSelectorSize.LG}
-          color={SwitchSelectorColor.NEUTRAL}
+          size="lg"
+          color="neutral"
         />
       </div>
     </div>
@@ -272,21 +272,23 @@ export const SizeComparison: Story = {
 export const ColorThemes: Story = {
   render: () => (
     <div className="space-y-4">
-      {Object.values(SwitchSelectorColor).map((color) => (
-        <div key={color} className="flex items-center gap-4">
-          <div className="w-20 font-medium text-sm capitalize">{color}</div>
-          <SwitchSelector
-            choices={[
-              { content: 'Draft', value: 'draft' },
-              { content: 'Review', value: 'review' },
-              { content: 'Published', value: 'published' },
-            ]}
-            defaultValue="review"
-            color={color}
-            size={SwitchSelectorSize.SM}
-          />
-        </div>
-      ))}
+      {['primary', 'secondary', 'neutral', 'light', 'dark', 'text'].map(
+        (color) => (
+          <div key={color} className="flex items-center gap-4">
+            <div className="w-20 font-medium text-sm capitalize">{color}</div>
+            <SwitchSelector
+              choices={[
+                { content: 'Draft', value: 'draft' },
+                { content: 'Review', value: 'review' },
+                { content: 'Published', value: 'published' },
+              ]}
+              defaultValue="review"
+              color={color}
+              size="sm"
+            />
+          </div>
+        )
+      )}
     </div>
   ),
   play: async ({ canvasElement }) => {
@@ -295,7 +297,7 @@ export const ColorThemes: Story = {
 
     // Verify all color variants are present
     await expect(switches).toHaveLength(
-      Object.values(SwitchSelectorColor).length
+      ['primary', 'secondary', 'neutral', 'light', 'dark', 'text'].length
     );
   },
 };
@@ -377,8 +379,8 @@ export const StatusManagement: Story = {
             ]}
             value={status}
             onChange={handleStatusChange}
-            color={SwitchSelectorColor.PRIMARY}
-            size={SwitchSelectorSize.SM}
+            color="primary"
+            size="sm"
           />
         </div>
 
@@ -462,8 +464,8 @@ export const ViewModeController: Story = {
           ]}
           value={viewMode}
           onChange={setViewMode}
-          color={SwitchSelectorColor.NEUTRAL}
-          size={SwitchSelectorSize.MD}
+          color="neutral"
+          size="md"
         />
 
         <div className="rounded-lg bg-gray-50 p-4">

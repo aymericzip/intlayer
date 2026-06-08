@@ -1,16 +1,16 @@
 import {
-  getLocaleFromStorage,
-  LocaleStorage,
+  getLocaleFromStorageClient,
+  LocaleStorageClient,
   localeStorageOptions,
-  setLocaleInStorage as setLocaleInStorageCore,
-} from '@intlayer/core';
-import type { LocalesValues } from '@intlayer/types';
+  setLocaleInStorageClient as setLocaleInStorageCore,
+} from '@intlayer/core/utils';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { useMemo } from 'preact/hooks';
 
 /**
  * Get the locale cookie
  */
-export const localeInStorage = getLocaleFromStorage(localeStorageOptions);
+export const localeInStorage = getLocaleFromStorageClient(localeStorageOptions);
 /**
  * @deprecated Use localeInStorage instead
  *
@@ -43,7 +43,7 @@ export const setLocaleCookie = setLocaleInStorage;
 export const useLocaleStorage = (isCookieEnabled?: boolean) =>
   useMemo(
     () =>
-      LocaleStorage({
+      LocaleStorageClient({
         ...localeStorageOptions,
         isCookieEnabled,
       }),
@@ -57,10 +57,4 @@ export const useLocaleStorage = (isCookieEnabled?: boolean) =>
  *
  * Hook that provides the locale cookie and a function to set it
  */
-export const useLocaleCookie = (isCookieEnabled?: boolean) => {
-  const storage = useLocaleStorage(isCookieEnabled);
-  return {
-    localeCookie: storage.getLocale(),
-    setLocaleCookie: storage.setLocale,
-  };
-};
+export const useLocaleCookie = useLocaleStorage;

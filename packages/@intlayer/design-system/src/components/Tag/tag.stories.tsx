@@ -1,14 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { useState } from 'react';
-import {
-  Tag,
-  TagBackground,
-  TagBorder,
-  TagColor,
-  TagRoundedSize,
-  TagSize,
-} from '.';
+import { Tag } from '.';
 
 /**
  * ## Tag Component
@@ -61,46 +54,64 @@ const meta: Meta<typeof Tag> = {
     color: {
       description: 'Color theme variant of the tag',
       control: { type: 'select' },
-      options: Object.values(TagColor),
+      options: [
+        'primary',
+        'success',
+        'error',
+        'warning',
+        'neutral',
+        'text',
+        'blue',
+        'yellow',
+        'green',
+        'red',
+        'orange',
+        'purple',
+        'pink',
+        'brown',
+        'gray',
+        'black',
+        'white',
+      ],
       table: {
         type: { summary: 'TagColor' },
-        defaultValue: { summary: 'TagColor.TEXT' },
+        defaultValue: { summary: 'text' },
       },
     },
     roundedSize: {
       description: 'Border radius size of the tag',
       control: { type: 'select' },
-      options: Object.values(TagRoundedSize),
+      options: ['none', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', 'full'],
       table: {
         type: { summary: 'TagRoundedSize' },
-        defaultValue: { summary: 'TagRoundedSize.FULL' },
+        defaultValue: { summary: 'full' },
       },
     },
     size: {
       description: 'Size variant affecting padding and font size',
       control: { type: 'select' },
-      options: Object.values(TagSize),
+      options: ['xs', 'sm', 'md', 'lg', 'xl'],
       table: {
         type: { summary: 'TagSize' },
-        defaultValue: { summary: 'TagSize.MD' },
+        defaultValue: { summary: 'md' },
       },
     },
     border: {
       description: 'Whether to show a border around the tag',
       control: { type: 'select' },
-      options: Object.values(TagBorder),
+      options: ['none', 'with'],
       table: {
         type: { summary: 'TagBorder' },
-        defaultValue: { summary: 'TagBorder.NONE' },
+        defaultValue: { summary: 'none' },
       },
     },
     background: {
       description: 'Background visibility option',
       control: { type: 'select' },
-      options: Object.values(TagBackground),
+      options: ['none', 'with'],
       table: {
         type: { summary: 'TagBackground' },
-        defaultValue: { summary: 'TagBackground.NONE' },
+        defaultValue: { summary: 'none' },
       },
     },
     className: {
@@ -156,30 +167,30 @@ export const SemanticColors: Story = {
       <div>
         <h4 className="mb-3 font-medium text-sm">Status Indicators</h4>
         <div className="flex flex-wrap gap-3">
-          <Tag color={TagColor.SUCCESS}>Completed</Tag>
-          <Tag color={TagColor.ERROR}>Failed</Tag>
-          <Tag color={TagColor.WARNING}>In Progress</Tag>
-          <Tag color={TagColor.NEUTRAL}>Pending</Tag>
-          <Tag color={TagColor.TEXT}>Draft</Tag>
+          <Tag color="success">Completed</Tag>
+          <Tag color="error">Failed</Tag>
+          <Tag color="warning">In Progress</Tag>
+          <Tag color="neutral">Pending</Tag>
+          <Tag color="text">Draft</Tag>
         </div>
       </div>
 
       <div>
         <h4 className="mb-3 font-medium text-sm">With Borders</h4>
         <div className="flex flex-wrap gap-3">
-          <Tag color={TagColor.SUCCESS} border={TagBorder.WITH}>
+          <Tag color="success" border="with">
             Success
           </Tag>
-          <Tag color={TagColor.ERROR} border={TagBorder.WITH}>
+          <Tag color="error" border="with">
             Error
           </Tag>
-          <Tag color={TagColor.WARNING} border={TagBorder.WITH}>
+          <Tag color="warning" border="with">
             Warning
           </Tag>
-          <Tag color={TagColor.NEUTRAL} border={TagBorder.WITH}>
+          <Tag color="neutral" border="with">
             Neutral
           </Tag>
-          <Tag color={TagColor.TEXT} border={TagBorder.WITH}>
+          <Tag color="text" border="with">
             Text
           </Tag>
         </div>
@@ -222,19 +233,19 @@ export const SizeComparison: Story = {
       <div>
         <h4 className="mb-4 font-medium text-sm">Size Hierarchy</h4>
         <div className="flex flex-wrap items-center gap-4">
-          <Tag size={TagSize.XS} color={TagColor.NEUTRAL}>
+          <Tag size="xs" color="neutral">
             Extra Small
           </Tag>
-          <Tag size={TagSize.SM} color={TagColor.TEXT}>
+          <Tag size="sm" color="text">
             Small
           </Tag>
-          <Tag size={TagSize.MD} color={TagColor.SUCCESS}>
+          <Tag size="md" color="success">
             Medium
           </Tag>
-          <Tag size={TagSize.LG} color={TagColor.WARNING}>
+          <Tag size="lg" color="warning">
             Large
           </Tag>
-          <Tag size={TagSize.XL} color={TagColor.ERROR}>
+          <Tag size="xl" color="error">
             Extra Large
           </Tag>
         </div>
@@ -245,10 +256,10 @@ export const SizeComparison: Story = {
           Same Size, Different Content
         </h4>
         <div className="flex flex-wrap gap-3">
-          <Tag size={TagSize.SM}>UI</Tag>
-          <Tag size={TagSize.SM}>Design System</Tag>
-          <Tag size={TagSize.SM}>Components</Tag>
-          <Tag size={TagSize.SM}>Accessibility</Tag>
+          <Tag size="sm">UI</Tag>
+          <Tag size="sm">Design System</Tag>
+          <Tag size="sm">Components</Tag>
+          <Tag size="sm">Accessibility</Tag>
         </div>
       </div>
 
@@ -281,30 +292,30 @@ export const BorderRadiusVariations: Story = {
         <h4 className="mb-4 font-medium text-sm">Rounding Options</h4>
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Tag roundedSize={TagRoundedSize.NONE} color={TagColor.NEUTRAL}>
+            <Tag roundedSize="none" color="neutral">
               Sharp
             </Tag>
-            <Tag roundedSize={TagRoundedSize.SM} color={TagColor.NEUTRAL}>
+            <Tag roundedSize="sm" color="neutral">
               Small Round
             </Tag>
-            <Tag roundedSize={TagRoundedSize.MD} color={TagColor.NEUTRAL}>
+            <Tag roundedSize="md" color="neutral">
               Medium Round
             </Tag>
-            <Tag roundedSize={TagRoundedSize.LG} color={TagColor.NEUTRAL}>
+            <Tag roundedSize="lg" color="neutral">
               Large Round
             </Tag>
           </div>
           <div className="space-y-2">
-            <Tag roundedSize={TagRoundedSize.XL} color={TagColor.TEXT}>
+            <Tag roundedSize="xl" color="text">
               XL Round
             </Tag>
-            <Tag roundedSize={TagRoundedSize.XXL} color={TagColor.TEXT}>
+            <Tag roundedSize="xxl" color="text">
               2XL Round
             </Tag>
-            <Tag roundedSize={TagRoundedSize.XXXL} color={TagColor.TEXT}>
+            <Tag roundedSize="xxxl" color="text">
               3XL Round
             </Tag>
-            <Tag roundedSize={TagRoundedSize.FULL} color={TagColor.SUCCESS}>
+            <Tag roundedSize="full" color="success">
               Pill Shape
             </Tag>
           </div>
@@ -346,20 +357,20 @@ export const ContentCategorization: Story = {
     ]);
 
     const categories = [
-      { name: 'react', color: TagColor.SUCCESS, label: 'React' },
-      { name: 'typescript', color: TagColor.TEXT, label: 'TypeScript' },
+      { name: 'react', color: 'success', label: 'React' },
+      { name: 'typescript', color: 'text', label: 'TypeScript' },
       {
         name: 'design-system',
-        color: TagColor.WARNING,
+        color: 'warning',
         label: 'Design System',
       },
       {
         name: 'accessibility',
-        color: TagColor.NEUTRAL,
+        color: 'neutral',
         label: 'Accessibility',
       },
-      { name: 'testing', color: TagColor.ERROR, label: 'Testing' },
-      { name: 'storybook', color: TagColor.SUCCESS, label: 'Storybook' },
+      { name: 'testing', color: 'error', label: 'Testing' },
+      { name: 'storybook', color: 'success', label: 'Storybook' },
     ];
 
     const toggleTag = (tagName: string) => {
@@ -385,8 +396,8 @@ export const ContentCategorization: Story = {
                 <Tag
                   key={category.name}
                   color={category.color}
-                  border={isSelected ? TagBorder.WITH : TagBorder.NONE}
-                  size={TagSize.SM}
+                  border={isSelected ? 'with' : 'none'}
+                  size="sm"
                   className={`cursor-pointer transition-all duration-200 ${
                     isSelected
                       ? 'scale-105 ring-2 ring-blue-300'
@@ -411,8 +422,8 @@ export const ContentCategorization: Story = {
                     <Tag
                       key={tagName}
                       color={category.color}
-                      size={TagSize.XS}
-                      border={TagBorder.WITH}
+                      size="xs"
+                      border="with"
                     >
                       {category.label}
                     </Tag>
@@ -464,13 +475,13 @@ export const StatusDashboard: Story = {
     const getStatusConfig = (status: string) => {
       switch (status) {
         case 'healthy':
-          return { color: TagColor.SUCCESS, label: 'Healthy', icon: '✅' };
+          return { color: 'success', label: 'Healthy', icon: '✅' };
         case 'warning':
-          return { color: TagColor.WARNING, label: 'Warning', icon: '⚠️' };
+          return { color: 'warning', label: 'Warning', icon: '⚠️' };
         case 'error':
-          return { color: TagColor.ERROR, label: 'Error', icon: '❌' };
+          return { color: 'error', label: 'Error', icon: '❌' };
         default:
-          return { color: TagColor.NEUTRAL, label: 'Unknown', icon: '❓' };
+          return { color: 'neutral', label: 'Unknown', icon: '❓' };
       }
     };
 
@@ -483,13 +494,13 @@ export const StatusDashboard: Story = {
         <div className="flex items-center justify-between">
           <h4 className="font-semibold text-lg">System Status Dashboard</h4>
           <div className="flex gap-3">
-            <Tag color={TagColor.SUCCESS} size={TagSize.SM}>
+            <Tag color="success" size="sm">
               {healthyCount} Healthy
             </Tag>
-            <Tag color={TagColor.WARNING} size={TagSize.SM}>
+            <Tag color="warning" size="sm">
               {warningCount} Warning
             </Tag>
-            <Tag color={TagColor.ERROR} size={TagSize.SM}>
+            <Tag color="error" size="sm">
               {errorCount} Error
             </Tag>
           </div>
@@ -507,8 +518,8 @@ export const StatusDashboard: Story = {
                   <h5 className="font-medium text-gray-900">{service.name}</h5>
                   <Tag
                     color={statusConfig.color}
-                    size={TagSize.XS}
-                    roundedSize={TagRoundedSize.MD}
+                    size="xs"
+                    roundedSize="md"
                     data-testid={`${service.name}-status`}
                   >
                     {statusConfig.icon} {statusConfig.label}
@@ -543,7 +554,7 @@ export const StatusDashboard: Story = {
 
         <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
           <div className="mb-2 flex items-center gap-2">
-            <Tag color={TagColor.SUCCESS} size={TagSize.XS}>
+            <Tag color="success" size="xs">
               ℹ️ Info
             </Tag>
             <span className="font-medium text-blue-900">System Overview</span>
@@ -616,13 +627,13 @@ export const UserProfileTags: Story = {
     const getLevelColor = (level: string) => {
       switch (level) {
         case 'expert':
-          return TagColor.SUCCESS;
+          return 'success';
         case 'advanced':
-          return TagColor.WARNING;
+          return 'warning';
         case 'intermediate':
-          return TagColor.NEUTRAL;
+          return 'neutral';
         default:
-          return TagColor.TEXT;
+          return 'text';
       }
     };
 
@@ -643,7 +654,7 @@ export const UserProfileTags: Story = {
             <div>
               <h4 className="mb-3 flex items-center gap-2 font-semibold text-gray-700 text-sm">
                 💼 Technical Skills
-                <Tag size={TagSize.XS} color={TagColor.NEUTRAL}>
+                <Tag size="xs" color="neutral">
                   {userSkills.length} skills
                 </Tag>
               </h4>
@@ -652,9 +663,9 @@ export const UserProfileTags: Story = {
                   <Tag
                     key={skill.name}
                     color={getLevelColor(skill.level)}
-                    size={TagSize.SM}
-                    roundedSize={TagRoundedSize.MD}
-                    border={TagBorder.WITH}
+                    size="sm"
+                    roundedSize="md"
+                    border="with"
                     className="group relative"
                   >
                     {skill.name}
@@ -673,19 +684,19 @@ export const UserProfileTags: Story = {
 
               <div className="mt-3 flex gap-4 text-gray-500 text-xs">
                 <div className="flex items-center gap-1">
-                  <Tag size={TagSize.XS} color={TagColor.SUCCESS}>
+                  <Tag size="xs" color="success">
                     ⭐
                   </Tag>
                   <span>Expert</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <Tag size={TagSize.XS} color={TagColor.WARNING}>
+                  <Tag size="xs" color="warning">
                     🔥
                   </Tag>
                   <span>Advanced</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <Tag size={TagSize.XS} color={TagColor.NEUTRAL}>
+                  <Tag size="xs" color="neutral">
                     📈
                   </Tag>
                   <span>Intermediate</span>
@@ -701,9 +712,9 @@ export const UserProfileTags: Story = {
                 {interests.map((interest) => (
                   <Tag
                     key={interest}
-                    color={TagColor.TEXT}
-                    size={TagSize.SM}
-                    roundedSize={TagRoundedSize.FULL}
+                    color="text"
+                    size="sm"
+                    roundedSize="full"
                     className="cursor-pointer transition-transform hover:scale-105"
                   >
                     {interest}
@@ -714,7 +725,7 @@ export const UserProfileTags: Story = {
 
             <div className="rounded-lg border-blue-500 border-l-4 bg-gray-50 p-4">
               <div className="mb-2 flex items-center gap-2">
-                <Tag size={TagSize.XS} color={TagColor.SUCCESS}>
+                <Tag size="xs" color="success">
                   📊
                 </Tag>
                 <span className="font-medium text-sm">Profile Strength</span>

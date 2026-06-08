@@ -19,11 +19,23 @@ slugs:
 
 # Отправка словарей
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary push
 ```
 
-Если установлен [редактор intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md), вы также можете отправлять словари в редактор. Эта команда позволит сделать словари доступными в [редакторе](https://intlayer.org/dashboard). Таким образом, вы можете делиться своими словарями с командой и редактировать контент без изменения кода вашего приложения.
+```bash packageManager="yarn"
+yarn intlayer dictionary push
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary push
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary push
+```
+
+Если установлен [редактор intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md), вы также можете отправлять словари в редактор. Эта команда позволит сделать словари доступными в [редакторе](https://app.intlayer.org/). Таким образом, вы можете делиться своими словарями с командой и редактировать контент без изменения кода вашего приложения.
 
 ## Псевдонимы:
 

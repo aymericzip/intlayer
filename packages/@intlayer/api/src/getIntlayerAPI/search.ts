@@ -1,20 +1,16 @@
-import configuration from '@intlayer/config/built';
-import type { IntlayerConfig } from '@intlayer/types';
+import type {
+  SearchDocUtilParams,
+  SearchDocUtilResult,
+} from '@intlayer/backend';
+import { editor } from '@intlayer/config/built';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { type FetcherOptions, fetcher } from '../fetcher';
-import type { SearchDocUtilParams, SearchDocUtilResult } from '../types';
 
 export const getSearchAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL =
-    intlayerConfig?.editor?.backendURL ?? configuration?.editor?.backendURL;
-
-  if (!backendURL) {
-    throw new Error(
-      'Backend URL is not defined in the Intlayer configuration.'
-    );
-  }
+  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
 
   const AI_API_ROUTE = `${backendURL}/api/search`;
 

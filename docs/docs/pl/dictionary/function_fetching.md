@@ -19,12 +19,12 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inicjalizacja historii
+    changes: "Inicjalizacja historii"
 ---
 
 # Pobieranie funkcji
 
-Intlayer pozwala na deklarowanie funkcji zawartości w Twoich modułach zawartości, które mogą być zarówno synchroniczne, jak i asynchroniczne. Podczas budowania aplikacji Intlayer wykonuje te funkcje, aby uzyskać wynik funkcji. Wartość zwracana musi być obiektem JSON lub prostą wartością, taką jak string lub liczba.
+Intlayer pozwala na deklarowanie funkcji zawartości w Twoich modułach zawartości, które mogą być zarówno synchroniczne, jak i asynchroniczne. Podczas budowania (build time) aplikacji Intlayer wykonuje te funkcje, aby uzyskać wynik funkcji. Wartość zwracana musi być obiektem JSON lub prostą wartością, taką jak string lub liczba.
 
 > Uwaga: pobieranie funkcji jest obecnie niedostępne w deklaracjach zawartości JSON oraz w plikach zdalnych deklaracji zawartości.
 
@@ -32,7 +32,7 @@ Intlayer pozwala na deklarowanie funkcji zawartości w Twoich modułach zawarto�
 
 Oto przykład prostej synchronicznej funkcji pobierającej zawartość:
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import type { Dictionary } from "intlayer";
 
 const functionContent = {
@@ -43,30 +43,6 @@ const functionContent = {
 } satisfies Dictionary;
 
 export default functionContent;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-/** @type {import('intlayer').Dictionary} */
-const functionContent = {
-  key: "function_content",
-  content: {
-    text: () => "To jest zawartość renderowana przez funkcję",
-  },
-};
-
-export default functionContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-/** @type {import('intlayer').Dictionary} */
-const functionContent = {
-  key: "function_content",
-  content: {
-    text: () => "To jest zawartość renderowana przez funkcję",
-  },
-};
-
-module.exports = functionContent;
 ```
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -87,7 +63,7 @@ Oprócz funkcji synchronicznych, Intlayer obsługuje funkcje asynchroniczne, co 
 
 Poniżej znajduje się przykład funkcji asynchronicznej, która symuluje pobieranie z serwera:
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { setTimeout } from "node:timers/promises";
 import type { Dictionary } from "intlayer";
 
@@ -106,42 +82,6 @@ const asyncFunctionContent = {
 export default asyncFunctionContent;
 ```
 
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { setTimeout } from "node:timers/promises";
-
-/** @type {import('intlayer').Dictionary} */
-const fakeFetch = async () => {
-  // Poczekaj 200ms, aby zasymulować pobieranie z serwera
-  await setTimeout(200);
-  return "To jest zawartość pobrana z serwera";
-};
-
-const asyncFunctionContent = {
-  key: "async_function",
-  content: { text: fakeFetch },
-};
-
-export default asyncFunctionContent;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { setTimeout } = require("node:timers/promises");
-
-/** @type {import('intlayer').Dictionary} */
-const fakeFetch = async () => {
-  // Poczekaj 200ms, aby zasymulować pobieranie z serwera
-  await setTimeout(200);
-  return "To jest zawartość pobrana z serwera";
-};
-
-const asyncFunctionContent = {
-  key: "async_function",
-  content: { text: fakeFetch },
-};
-
-module.exports = asyncFunctionContent;
-```
-
 ```plaintext fileName="**/*.content.json" contentDeclarationFormat="json"
 Brak możliwości pobrania zawartości z pliku JSON, użyj zamiast tego pliku .ts lub .js
 ```
@@ -152,7 +92,7 @@ W tym przypadku funkcja `fakeFetch` naśladuje opóźnienie, aby zasymulować cz
 
 Aby użyć zawartości opartej na funkcjach w komponencie React, musisz zaimportować `useIntlayer` z `react-intlayer` i wywołać ją z identyfikatorem zawartości, aby pobrać zawartość. Oto przykład:
 
-```typescript fileName="**/*.jsx" codeFormat="typescript"
+```typescript fileName="**/*.jsx" codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -171,44 +111,4 @@ const MyComponent: FC = () => {
 };
 
 export default MyComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const MyComponent = () => {
-  const functionContent = useIntlayer("function_content");
-  const asyncFunctionContent = useIntlayer("async_function_content");
-
-  return (
-    <div>
-      <p>{functionContent.text}</p>
-      {/* Wyjście: To jest zawartość renderowana przez funkcję */}
-      <p>{asyncFunctionContent.text}</p>
-      {/* Wyjście: To jest zawartość pobrana z serwera */}
-    </div>
-  );
-};
-
-export default MyComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const MyComponent = () => {
-  const functionContent = useIntlayer("function_content");
-  const asyncFunctionContent = useIntlayer("async_function_content");
-
-  return (
-    <div>
-      <p>{functionContent.text}</p>
-      {/* Wyjście: To jest zawartość renderowana przez funkcję */}
-      <p>{asyncFunctionContent.text}</p>
-      {/* Wyjście: To jest zawartość pobrana z serwera */}
-    </div>
-  );
-};
-
-module.exports = MyComponent;
 ```

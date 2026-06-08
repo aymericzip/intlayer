@@ -1,7 +1,10 @@
 import { readAsset } from 'utils:asset';
-import { getLocaleName } from '@intlayer/core';
-import { type Locale, Locales } from '@intlayer/types';
-import { generateText } from 'ai';
+import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
+import { getLocaleName } from '@intlayer/core/localization';
+import type { Locale } from '@intlayer/types/allLocales';
+import { decode, encode } from '@toon-format/toon';
+import { generateText, Output } from 'ai';
+import { z } from 'zod';
 import { type AIConfig, type AIOptions, AIProvider } from '../aiSdk';
 import { extractJson } from '../utils/extractJSON';
 
@@ -10,9 +13,9 @@ type Tag = {
   description?: string;
 };
 
-export type TranslateJSONOptions = {
-  entryFileContent: JSON;
-  presetOutputContent: JSON;
+export type TranslateJSONOptions<T = JSON> = {
+  entryFileContent: T;
+  presetOutputContent: Partial<T>;
   dictionaryDescription?: string;
   entryLocale: Locale;
   outputLocale: Locale;
@@ -22,8 +25,8 @@ export type TranslateJSONOptions = {
   applicationContext?: string;
 };
 
-export type TranslateJSONResultData = {
-  fileContent: string;
+export type TranslateJSONResultData<T = JSON> = {
+  fileContent: T;
   tokenUsed: number;
 };
 
@@ -39,7 +42,7 @@ export const aiDefaultOptions: AIOptions = {
  * @returns A string in the format "locale: name", e.g. "en: English".
  */
 const formatLocaleWithName = (locale: Locale): string =>
-  `${locale}: ${getLocaleName(locale, Locales.ENGLISH)}`;
+  `${locale}: ${getLocaleName(locale, DEFAULT_LOCALE)}`;
 
 /**
  * Formats tag instructions for the AI prompt.
@@ -67,12 +70,58 @@ const getModeInstructions = (mode: 'complete' | 'review'): string => {
   return 'Mode: "Review" - Fill missing content and review existing keys from the preset content. If a key from the entry is missing in the output, it must be translated to the target language and added. If you detect misspelled content, or content that should be reformulated, correct it. If a translation is not coherent with the desired language, translate it.';
 };
 
+const jsonToZod = (content: any): z.ZodTypeAny => {
+  // Base case: content is a string (the translation target)
+  if (typeof content === 'string') {
+    return z.string();
+  }
+
+  // Base cases: primitives often preserved in i18n files (e.g. strict numbers/booleans)
+  if (typeof content === 'number') {
+    return z.number();
+  }
+  if (typeof content === 'boolean') {
+    return z.boolean();
+  }
+
+  // Recursive case: Array
+  if (Array.isArray(content)) {
+    // If array is empty, we assume array of strings as default for i18n
+    if (content.length === 0) {
+      return z.array(z.string());
+    }
+    // We assume all items in the array share the structure of the first item
+    return z.array(jsonToZod(content[0]));
+  }
+
+  // Recursive case: Object
+  if (typeof content === 'object' && content !== null) {
+    const shape: Record<string, z.ZodTypeAny> = {};
+    for (const key in content) {
+      shape[key] = jsonToZod(content[key]);
+    }
+    return z.object(shape);
+  }
+
+  // Fallback
+  return z.string();
+};
+
+const countKeys = (obj: any): number => {
+  if (typeof obj !== 'object' || obj === null) return 0;
+  let count = 0;
+  for (const key in obj) {
+    count += 1 + countKeys(obj[key]);
+  }
+  return count;
+};
+
 /**
  * TranslateJSONs a content declaration file by constructing a prompt for AI models.
  * The prompt includes details about the project's locales, file paths of content declarations,
  * and requests for identifying issues or inconsistencies.
  */
-export const translateJSON = async ({
+export const translateJSON = async <T>({
   entryFileContent,
   presetOutputContent,
   dictionaryDescription,
@@ -82,36 +131,113 @@ export const translateJSON = async ({
   tags,
   mode,
   applicationContext,
-}: TranslateJSONOptions): Promise<TranslateJSONResultData | undefined> => {
-  const promptFile = readAsset('./PROMPT.md');
+}: TranslateJSONOptions<T>): Promise<
+  TranslateJSONResultData<T> | undefined
+> => {
+  const { dataSerialization, ...restAiConfig } = aiConfig;
+  const { output: _unusedOutput, ...validAiConfig } = restAiConfig;
+
+  const formattedEntryLocale = formatLocaleWithName(entryLocale);
+  const formattedOutputLocale = formatLocaleWithName(outputLocale);
+
+  const isToon = dataSerialization === 'toon';
+  const promptFile = readAsset(
+    isToon ? './PROMPT_TOON.md' : './PROMPT_JSON.md'
+  );
+  const entryContentStr = isToon
+    ? encode(entryFileContent)
+    : JSON.stringify(entryFileContent);
+  const presetContentStr = isToon
+    ? encode(presetOutputContent)
+    : JSON.stringify(presetOutputContent);
+
+  const schema = jsonToZod(entryFileContent);
+
   // Prepare the prompt for AI by replacing placeholders with actual values.
   const prompt = promptFile
-    .replace('{{entryLocale}}', formatLocaleWithName(entryLocale))
-    .replace('{{outputLocale}}', formatLocaleWithName(outputLocale))
-    .replace('{{presetOutputContent}}', JSON.stringify(presetOutputContent))
+    .replace('{{entryLocale}}', formattedEntryLocale)
+    .replace('{{outputLocale}}', formattedOutputLocale)
+    .replace('{{presetOutputContent}}', presetContentStr)
     .replace('{{dictionaryDescription}}', dictionaryDescription ?? '')
     .replace('{{applicationContext}}', applicationContext ?? '')
     .replace('{{tagsInstructions}}', formatTagInstructions(tags ?? []))
     .replace('{{modeInstructions}}', getModeInstructions(mode));
 
+  if (isToon) {
+    const { text, usage } = await generateText({
+      ...aiConfig,
+      system: prompt,
+      messages: [
+        {
+          role: 'user',
+          content: [
+            `# Translation Request`,
+            `Please translate the following TOON content.`,
+            `- **From:** ${formattedEntryLocale}`,
+            `- **To:** ${formattedOutputLocale}`,
+            ``,
+            `## Entry Content:`,
+            entryContentStr,
+          ].join('\n'),
+        },
+      ],
+    });
+
+    // Strip markdown code blocks if present
+    const cleanedText = text
+      .replace(/^```(?:toon)?\n([\s\S]*?)\n```$/gm, '$1')
+      .trim();
+
+    const decodedJson = decode(cleanedText) as T;
+
+    // schema.parse(decodedJson);
+
+    return {
+      fileContent: decodedJson,
+      tokenUsed: usage?.totalTokens ?? 0,
+    };
+  }
+
+  const totalKeys = countKeys(entryFileContent);
+
+  const MAX_SAFE_KEYS = 70; // You will need to tune this threshold based on testing
+
+  const useStrictOutput = totalKeys <= MAX_SAFE_KEYS;
+
   // Use the AI SDK to generate the completion
-  const { text: newContent, usage } = await generateText({
-    ...aiConfig,
+  const { text, usage } = await generateText({
+    ...validAiConfig,
+
+    // Disable schema if Schema is too complex (Block with Anthropic)
+    output: useStrictOutput ? Output.object({ schema }) : undefined,
+    system: prompt,
     messages: [
-      { role: 'system', content: prompt },
       {
         role: 'user',
         content: [
-          '**Entry Content to Translate:**',
-          '- Given Language: {{entryLocale}}',
-          JSON.stringify(entryFileContent),
+          `# Translation Request`,
+          `Please translate the following JSON content.`,
+          `- **From:** ${formattedEntryLocale}`,
+          `- **To:** ${formattedOutputLocale}`,
+          ``,
+          `CRITICAL INSTRUCTIONS:`,
+          `- You MUST return ONLY raw, valid JSON.`,
+          `- DO NOT wrap the response in Markdown code blocks (e.g., no \`\`\`json).`,
+          `- DO NOT include any conversational text before or after the JSON object.`,
+          ``,
+          `## Entry Content:`,
+          entryContentStr,
         ].join('\n'),
       },
     ],
   });
 
+  // Extract and re-validate deeply
+  const extractedJSON = extractJson(text);
+  const validatedContent = schema.parse(extractedJSON) as T;
+
   return {
-    fileContent: extractJson(newContent),
+    fileContent: validatedContent,
     tokenUsed: usage?.totalTokens ?? 0,
   };
 };

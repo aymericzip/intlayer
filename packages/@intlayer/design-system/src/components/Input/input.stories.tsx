@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Input, InputSize, InputVariant } from './Input';
+import { Input } from './Input';
 
 const meta: Meta<typeof Input> = {
   title: 'Components/Input',
@@ -14,14 +14,14 @@ const meta: Meta<typeof Input> = {
     variant: {
       description: 'Visual style of the input',
       control: { type: 'select' },
-      options: Object.values(InputVariant),
-      defaultValue: InputVariant.DEFAULT,
+      options: ['default', 'invisible'],
+      defaultValue: 'default',
     },
     size: {
       description: 'Input size',
       control: { type: 'select' },
-      options: Object.values(InputSize),
-      defaultValue: InputSize.MD,
+      options: ['md', 'lg'],
+      defaultValue: 'md',
     },
     validationStyleEnabled: {
       description: 'Enable native valid/invalid outline styles',
@@ -64,8 +64,8 @@ type Story = StoryObj<typeof Input>;
 const Template: Story = {
   args: {
     placeholder: 'Type here…',
-    variant: InputVariant.DEFAULT,
-    size: InputSize.MD,
+    variant: 'default',
+    size: 'md',
     validationStyleEnabled: false,
     type: 'text',
     disabled: false,
@@ -78,7 +78,7 @@ export const Invisible: Story = {
   ...Template,
   args: {
     ...Template.args,
-    variant: InputVariant.INVISIBLE,
+    variant: 'invisible',
   },
 };
 
@@ -86,7 +86,7 @@ export const Large: Story = {
   ...Template,
   args: {
     ...Template.args,
-    size: InputSize.LG,
+    size: 'lg',
   },
 };
 

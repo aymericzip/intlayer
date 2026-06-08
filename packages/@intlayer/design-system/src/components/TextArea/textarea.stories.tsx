@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { useState } from 'react';
-import { InputVariant } from '../Input';
 import { TextArea } from '.';
 
 /**
@@ -99,10 +98,10 @@ const meta: Meta<typeof TextArea> = {
     variant: {
       description: 'Visual variant affecting appearance and styling',
       control: { type: 'select' },
-      options: Object.values(InputVariant),
+      options: ['default', 'invisible'],
       table: {
         type: { summary: 'InputVariant' },
-        defaultValue: { summary: 'InputVariant.DEFAULT' },
+        defaultValue: { summary: 'default' },
       },
     },
     validationStyleEnabled: {
@@ -156,7 +155,7 @@ export const Default: Story = {
   args: {
     placeholder: 'Type your message here...',
     rows: 4,
-    variant: InputVariant.DEFAULT,
+    variant: 'default',
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -265,7 +264,7 @@ export const StyleVariants: Story = {
           <label className="mb-2 block font-medium text-sm">Default</label>
           <TextArea
             placeholder="Default styling with borders..."
-            variant={InputVariant.DEFAULT}
+            variant="default"
             rows={3}
           />
         </div>
@@ -274,7 +273,7 @@ export const StyleVariants: Story = {
           <label className="mb-2 block font-medium text-sm">Invisible</label>
           <TextArea
             placeholder="Minimal styling, no borders..."
-            variant={InputVariant.INVISIBLE}
+            variant="invisible"
             rows={3}
             className="bg-gray-50"
           />
@@ -470,9 +469,7 @@ export const InteractiveFormField: Story = {
 
             <span
               className={`text-sm ${
-                remainingChars < 20
-                  ? 'font-medium text-red-500'
-                  : 'text-gray-400'
+                remainingChars < 20 ? 'font-medium text-error' : 'text-gray-400'
               }`}
             >
               {remainingChars} remaining

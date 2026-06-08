@@ -2,11 +2,11 @@
 
 import { Link } from '@components/Link/Link';
 import { AnalyzerForm } from '@components/ScannerPage/Analyzer/Form/AnalyzerForm';
-import { getLocalizedUrl } from '@intlayer/core';
+import { getLocalizedUrl } from '@intlayer/core/localization';
+import { Website_Scanner_Path } from '@intlayer/design-system/routes';
 import { useRouter } from 'next/navigation';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 
 export const AuditSection: FC = () => {
   const { title, description, goToScanner } = useIntlayer('audit-page');
@@ -15,7 +15,7 @@ export const AuditSection: FC = () => {
 
   const handleAnalyze = (url: string) => {
     router.push(
-      `${getLocalizedUrl(PagesRoutes.Scanner, locale)}?url=${encodeURIComponent(url)}&auto_start=true`
+      `${getLocalizedUrl(Website_Scanner_Path, locale)}?url=${encodeURIComponent(url)}&auto_start=true`
     );
   };
 
@@ -24,15 +24,15 @@ export const AuditSection: FC = () => {
       <h2 className="mx-auto max-w-3xl text-center font-bold text-3xl text-text leading-tight sm:text-5xl md:text-5xl lg:text-5xl">
         {title}
       </h2>
-      <p className="m-auto max-w-2xl text-center text-lg text-neutral leading-relaxed sm:text-xl md:text-xl">
+      <p className="m-auto max-w-2xl text-center text-lg text-neutral leading-relaxed">
         {description}
       </p>
       <div className="m-auto flex w-full max-w-lg flex-col justify-end gap-2">
         <AnalyzerForm onAnalyze={handleAnalyze} className="m-auto mt-10" />
         <Link
-          href={PagesRoutes.Scanner}
+          href={Website_Scanner_Path}
           className="flex w-full items-center justify-end gap-2 px-2 text-sm"
-          label={goToScanner.text}
+          label={goToScanner.text.value}
           color="neutral"
         >
           {goToScanner.text}

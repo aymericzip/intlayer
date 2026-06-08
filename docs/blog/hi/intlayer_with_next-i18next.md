@@ -27,7 +27,7 @@ history:
 
 # next-i18next और Intlayer के साथ Next.js अंतरराष्ट्रीयकरण (i18n)
 
-<iframe title="Intlayer का उपयोग करके अपने next-i18next JSON अनुवादों को स्वचालित कैसे करें" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Intlayer का उपयोग करके अपने next-i18next JSON अनुवादों को स्वचालित कैसे करें" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## सामग्री सूची
 
@@ -71,19 +71,23 @@ history:
 अपने पसंदीदा पैकेज मैनेजर का उपयोग करके आवश्यक पैकेज इंस्टॉल करें:
 
 ```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin
+npm install intlayer @intlayer/sync-json-plugin --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin
+pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin
+yarn add intlayer @intlayer/sync-json-plugin --dev
+yarn intlayer init
 ```
 
 ```bash packageManager="bun"
-bun add intlayer @intlayer/sync-json-plugin
+bun add intlayer @intlayer/sync-json-plugin --dev
+bun x intlayer init
 ```
 
 **पैकेज व्याख्याएँ:**
@@ -108,7 +112,6 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "i18next",
       source: ({ key, locale }) => `./public/locales/${locale}/${key}.json`,
     }),
   ],
@@ -160,7 +163,6 @@ const config: IntlayerConfig = {
      * स्थानीय निर्देशिका में JSON फ़ाइलों में आउटपुट और अनुवाद वापस लिखेगा और लोड करेगा
      */
     syncJSON({
-      format: "i18next",
       source: ({ key, locale }) => `./public/locales/${locale}/${key}.json`,
       priority: 0,
     }),

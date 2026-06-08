@@ -1,8 +1,9 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import { Container, Popover } from '@intlayer/design-system';
-import { cn } from '@utils/cn';
+import { Container } from '@intlayer/design-system/container';
+import { Popover } from '@intlayer/design-system/popover';
+import { cn } from '@intlayer/design-system/utils';
 import { getLocalizedUrl } from 'intlayer';
 import { Clock } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
@@ -27,10 +28,8 @@ export const History: FC<HistoryProps> = ({
   history = [],
 }) => {
   const formatDate = useDate();
-  const { locale, defaultLocale, setLocale } = useLocale();
+  const { defaultLocale, setLocale } = useLocale();
   const { message, link, versionHistory } = useIntlayer('doc-history');
-
-  if (locale === defaultLocale) return <></>;
 
   const localizedUrl = getLocalizedUrl(pageUrl, defaultLocale);
 
@@ -39,6 +38,8 @@ export const History: FC<HistoryProps> = ({
       updatedAt &&
       new Date(baseUpdatedAt).getTime() > new Date(updatedAt).getTime()
   );
+
+  if (history.length === 0 && !isOutdated) return <></>;
 
   return (
     <Popover identifier="outdated-translation">
@@ -75,33 +76,31 @@ export const History: FC<HistoryProps> = ({
           </>
         )}
 
-        {history.length > 0 && (
-          <Container
-            className="mt-3 max-h-[60vh] min-w-64"
-            separator="y"
-            role="list"
-            transparency="sm"
-            aria-label="Document history"
-          >
-            <h4 className="mb-2 pb-4 font-medium text-sm text-text">
-              {versionHistory.title}
-            </h4>
-            <ol className="divide-y divide-dashed divide-text/20 overflow-y-auto p-1">
-              {history.map(({ version, date, changes }) => (
-                <li
-                  className="flex flex-row items-center justify-between gap-3 px-2 py-1 pr-1.5"
-                  key={`${version}-${date}`}
-                >
-                  <span className="mt-1 text-text text-xs">{changes}</span>
-                  <div className="flex flex-col items-end justify-between gap-1 px-2 py-1 text-neutral text-sm">
-                    <span className="text-nowrap">v{version}</span>
-                    <span className="text-nowrap">{formatDate(date)}</span>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </Container>
-        )}
+        <Container
+          className="mt-3 max-h-[60vh] min-w-64"
+          separator="y"
+          role="list"
+          transparency="xs"
+          aria-label="Document history"
+        >
+          <h4 className="mb-2 pb-4 font-medium text-sm text-text">
+            {versionHistory.title}
+          </h4>
+          <ol className="divide-y divide-dashed divide-text/20 overflow-y-auto p-1">
+            {history.map(({ version, date, changes }, index) => (
+              <li
+                className="flex flex-row items-center justify-between gap-3 px-2 py-1 pr-1.5"
+                key={`${index}-${version}-${date}`}
+              >
+                <span className="mt-1 text-text text-xs">{changes}</span>
+                <div className="flex flex-col items-end justify-between gap-1 px-2 py-1 text-neutral text-sm">
+                  <span className="text-nowrap">v{version}</span>
+                  <span className="text-nowrap">{formatDate(date)}</span>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </Container>
       </Popover.Detail>
     </Popover>
   );

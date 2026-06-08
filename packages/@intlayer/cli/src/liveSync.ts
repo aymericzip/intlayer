@@ -1,17 +1,18 @@
 import { createServer } from 'node:http';
 // @ts-ignore: @intlayer/backend is not built yet
 import type { DictionaryAPI } from '@intlayer/backend';
+import { buildDictionary } from '@intlayer/chokidar/build';
+import { type ParallelHandle, runParallel } from '@intlayer/chokidar/utils';
+import * as ANSIColors from '@intlayer/config/colors';
+import { colorize, getAppLogger } from '@intlayer/config/logger';
 import {
-  buildDictionary,
-  type ParallelHandle,
-  runParallel,
-} from '@intlayer/chokidar';
-import type { GetConfigurationOptions } from '@intlayer/config';
-import { getAppLogger, getConfiguration } from '@intlayer/config';
-import packageJson from '@intlayer/config/package.json';
-import { getLocalizedContent } from '@intlayer/core';
+  type GetConfigurationOptions,
+  getConfiguration,
+} from '@intlayer/config/node';
+import packageJson from '@intlayer/config/package.json' with { type: 'json' };
+import { getLocalizedContent } from '@intlayer/core/plugins';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { IntlayerEventListener } from './IntlayerEventListener';
 
@@ -117,7 +118,7 @@ export const liveSync = async (options?: LiveSyncOptions) => {
     }
   } else if (!configuration.editor.liveSync) {
     appLogger(
-      'Hot reload is disabled. Please enable it in the configuration (editor.liveSync).'
+      `Hot reload is ${colorize('disabled', ANSIColors.RED)}. Please enable it in the configuration (editor.liveSync).`
     );
   } else if (
     !configuration.editor.clientId ||
@@ -157,7 +158,19 @@ export const liveSync = async (options?: LiveSyncOptions) => {
           .slice(prefix.length)
           .split('/');
 
+        if (!key) {
+          res.writeHead(404);
+          res.end('Not Found');
+          return;
+        }
+
         const dictionary = dictionaries[key] ?? null;
+
+        if (!dictionary) {
+          res.writeHead(404);
+          res.end('Not Found');
+          return;
+        }
 
         if (locale) {
           // @ts-ignore Type instantiation is excessively deep and possibly infinite

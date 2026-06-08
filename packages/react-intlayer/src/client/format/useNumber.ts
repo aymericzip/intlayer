@@ -1,6 +1,6 @@
 'use client';
 
-import { number } from '@intlayer/core';
+import { number } from '@intlayer/core/formatters';
 import { useCallback, useContext } from 'react';
 import { IntlayerClientContext } from '../IntlayerProvider';
 
@@ -27,7 +27,7 @@ import { IntlayerClientContext } from '../IntlayerProvider';
  * A number formatting function bound to the active locale.
  */
 export const useNumber = () => {
-  const { locale } = useContext(IntlayerClientContext);
+  const { locale } = useContext(IntlayerClientContext) ?? {};
 
   return useCallback(
     (...args: Parameters<typeof number>) =>

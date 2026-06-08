@@ -1,9 +1,17 @@
-import { type Dictionary, insert, md, t } from 'intlayer';
+import { type Dictionary, insert, t } from 'intlayer';
 
 const appContent = {
   key: 'app',
   content: {
-    viteAndVue: 'Vite + Vue',
+    title: 'Vite + Solid',
+    countIs: insert(
+      t({
+        en: 'Count is {{count}}',
+        fr: 'Le compte est {{count}}',
+        es: 'El recuento es {{count}}',
+      })
+    ),
+
     viteLogoLabel: t({
       en: 'Vite Logo',
       fr: 'Logo Vite',
@@ -14,24 +22,10 @@ const appContent = {
       fr: 'Logo Solid',
       es: 'Logo Solid',
     }),
-    countIs: insert(
-      t({
-        en: 'count is {count}',
-        fr: 'le compte est de {count}',
-        es: 'el conteo es de {count}',
-      })
-    ),
-    editSrcAppTsx: md(
-      t({
-        en: 'Edit `src/App.tsx` and save to test HMR',
-        fr: 'Modifiez `src/App.tsx` et enregistrez pour tester HMR',
-        es: 'Edite `src/App.tsx` y guarde para probar HMR',
-      })
-    ),
     readTheDocs: t({
       en: 'Click on the Vite and Solid logos to learn more',
-      fr: 'Cliquez sur les logos Vite et Solid pour en savoir plus',
-      es: 'Haga clic en los logos de Vite y Solid para obtener más información',
+      fr: 'Cliquez sur les logos Vite and Solid pour en savoir plus',
+      es: 'Haga clic en los logos de Vite and Solid para obtener más información',
     }),
   },
 } satisfies Dictionary;

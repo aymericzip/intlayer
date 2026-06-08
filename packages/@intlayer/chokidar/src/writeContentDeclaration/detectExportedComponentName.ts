@@ -15,7 +15,7 @@ export const detectExportedComponentName = (
   const cjsDefaultVarRegex = /exports\.default\s*=\s*(\w+)/;
   const namedExportRegex = /export\s+(?:const|function)\s+(\w+)/g;
 
-  // 1) Check for default ESM function or variable
+  // Check for default ESM function or variable
   const defaultEsmFnMatch = fileText.match(defaultEsmFnRegex);
   if (defaultEsmFnMatch) {
     return defaultEsmFnMatch[1];
@@ -26,13 +26,13 @@ export const detectExportedComponentName = (
     return defaultEsmVarMatch[1];
   }
 
-  // 2) Check for default CJS
+  // Check for default CJS
   const cjsDefaultMatch =
     fileText.match(cjsDefaultRegex) || fileText.match(cjsDefaultVarRegex);
 
   if (cjsDefaultMatch) return cjsDefaultMatch[1];
 
-  // 3) Otherwise, look for capitalized named exports
+  // Otherwise, look for capitalized named exports
   for (const match of fileText.matchAll(namedExportRegex)) {
     if (/^[A-Z]/.test(match[1])) return match[1];
   }

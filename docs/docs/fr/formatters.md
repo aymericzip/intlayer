@@ -21,28 +21,28 @@ slugs:
 history:
   - version: 5.8.0
     date: 2025-08-20
-    changes: Ajout des formateurs vue
+    changes: "Ajout des formateurs vue"
   - version: 5.8.0
     date: 2025-08-18
-    changes: Ajout de la documentation des formateurs
+    changes: "Ajout de la documentation des formateurs"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Ajout des formateurs vue
+    changes: "Ajout des formateurs vue"
   - version: 5.8.0
     date: 2025-08-18
-    changes: Ajout de la documentation des formateurs
+    changes: "Ajout de la documentation des formateurs"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Ajout de la documentation du formateur de liste
+    changes: "Ajout de la documentation du formateur de liste"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Ajout d'utilitaires Intl supplémentaires (DisplayNames, Collator, PluralRules)
+    changes: "Ajout d'utilitaires Intl supplémentaires (DisplayNames, Collator, PluralRules)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Ajout d'utilitaires de locale (getLocaleName, getLocaleLang, getLocaleFromPath, etc.)
+    changes: "Ajout d'utilitaires de locale (getLocaleName, getLocaleLang, getLocaleFromPath, etc.)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Ajout d'utilitaires de gestion de contenu (getContent, getTranslation, getIntlayer, etc.)
+    changes: "Ajout d'utilitaires de gestion de contenu (getContent, getTranslation, getIntlayer, etc.)"
 ---
 
 # Formatteurs Intlayer

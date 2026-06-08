@@ -1,19 +1,29 @@
-import { type FC, type HTMLAttributes, lazy, Suspense } from 'react';
+import { cn } from '@utils/cn';
+import {
+  type FC,
+  type HTMLAttributes,
+  lazy,
+  type ReactNode,
+  Suspense,
+} from 'react';
 import type { BundledLanguage } from 'shiki/bundle/web';
-import { cn } from '../../utils/cn';
 
-export const CodeDefault: FC<{ children: string }> = ({ children }) => (
+export type { BundledLanguage as CodeLanguage } from 'shiki/bundle/web';
+
+export const CodeDefault: FC<{ children: ReactNode }> = ({ children }) => (
   <div className="min-w-0 max-w-full overflow-x-auto">
     <pre className="min-w-0 max-w-full overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       <code>
-        {children.split('\n').map((line, index) => (
-          <span
-            className="line block w-full"
-            key={`line-${index}-${line.slice(0, 10)}`}
-          >
-            {line}
-          </span>
-        ))}
+        {typeof children === 'string'
+          ? children.split('\n').map((line, index) => (
+              <span
+                className="line block w-full"
+                key={`line-${index}-${line.slice(0, 10)}`}
+              >
+                {line}
+              </span>
+            ))
+          : children}
       </code>
     </pre>
   </div>
@@ -27,7 +37,7 @@ const CodeBlockShiki = lazy(() =>
 );
 
 export type CodeBlockProps = {
-  children: string;
+  children: React.ReactNode;
   lang: BundledLanguage;
   isDarkMode?: boolean;
   isEditable?: boolean;

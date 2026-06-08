@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴初期化
+    changes: "履歴初期化"
 ---
 
 # React 統合: `useIntlayer` フック ドキュメント
@@ -69,13 +69,13 @@ history:
 
 ## 辞書
 
-すべての辞書キーは型安全性を高め、エラーを防ぐためにコンテンツ宣言ファイル内で宣言されている必要があります。セットアップ手順は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)で確認できます。
+すべての辞書キーは型安全性を高め、エラーを防ぐためにコンテンツ宣言ファイル内で宣言されている必要があります。セットアップ手順は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)で確認できます。
 
 ## Reactでの使用例
 
 Reactコンポーネント内での`useIntlayer`フックの使用例：
 
-```tsx fileName="src/app.tsx" codeFormat="typescript"
+```tsx fileName="src/app.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { ClientComponentExample, ServerComponentExample } from "@components";
 import { IntlayerProvider } from "react-intlayer";
@@ -99,104 +99,11 @@ const App: FC<{ locale: Locales }> = ({ locale }) => {
 };
 ```
 
-```jsx fileName="src/app.mjx" codeFormat="esm"
-import { ClientComponentExample, ServerComponentExample } from "@components";
-import { IntlayerProvider } from "react-intlayer";
-import { IntlayerServerProvider, useIntlayer } from "react-intlayer/server";
-
-const App = ({ locale }) => {
-  const content = useIntlayer("homepage", locale);
-
-  return (
-    <>
-      <p>{content.introduction}</p>
-      <IntlayerProvider locale={locale}>
-        <ClientComponentExample />
-      </IntlayerProvider>
-      <IntlayerServerProvider locale={locale}>
-        <ServerComponentExample />
-      </IntlayerServerProvider>
-    </>
-  );
-};
-```
-
-```jsx fileName="src/app.csx" codeFormat="commonjs"
-const { IntlayerProvider } = require("react-intlayer");
-const {
-  IntlayerServerProvider,
-  useIntlayer,
-} = require("react-intlayer/server");
-
-const App = ({ locale }) => {
-  const content = useIntlayer("homepage", locale);
-
-  return (
-    <>
-      <p>{content.introduction}</p>
-      <IntlayerProvider locale={locale}>
-        <ClientComponentExample />
-      </IntlayerProvider>
-      <IntlayerServerProvider locale={locale}>
-        <ServerComponentExample />
-      </IntlayerServerProvider>
-    </>
-  );
-};
-} = require("react-intlayer/server");
-
-const App = ({ locale }) => {
-  const content = useIntlayer("homepage", locale);
-
-  return (
-    <>
-      <p>{content.introduction}</p>
-      <IntlayerProvider locale={locale}>
-        <ClientComponentExample />
-      </IntlayerProvider>
-      <IntlayerServerProvider locale={locale}>
-        <ServerComponentExample />
-      </IntlayerServerProvider>
-    </>
-  );
-};
-```
-
-```tsx fileName="src/components/ComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="src/components/ComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
 const ComponentExample: FC = () => {
-  const content = useIntlayer("component-example");
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ComponentExample.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const ComponentExample = () => {
-  const content = useIntlayer("component-example");
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ComponentExample.csx" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const ComponentExample = () => {
   const content = useIntlayer("component-example");
 
   return (

@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: प्रारंभिक इतिहास
+    changes: "प्रारंभिक इतिहास"
 ---
 
 # रिएक्ट एकीकरण: `useIntlayer` हुक दस्तावेज़ीकरण
@@ -69,13 +69,13 @@ history:
 
 ## शब्दकोश
 
-सभी शब्दकोश कुंजियाँ सामग्री घोषणा फ़ाइलों में घोषित होनी चाहिए ताकि टाइप सुरक्षा बढ़े और त्रुटियों से बचा जा सके। आप [सेटअप निर्देश यहाँ पा सकते हैं](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/get_started.md)।
+सभी शब्दकोश कुंजियाँ सामग्री घोषणा फ़ाइलों में घोषित होनी चाहिए ताकि टाइप सुरक्षा बढ़े और त्रुटियों से बचा जा सके। आप [सेटअप निर्देश यहाँ पा सकते हैं](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md)।
 
 ## React में उदाहरण उपयोग
 
 React कंपोनेंट के भीतर `useIntlayer` हुक का प्रदर्शन:
 
-```tsx fileName="src/app.tsx" codeFormat="typescript"
+```tsx fileName="src/app.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { ClientComponentExample, ServerComponentExample } from "@components";
 import { IntlayerProvider } from "react-intlayer";
@@ -99,57 +99,7 @@ const App: FC<{ locale: Locales }> = ({ locale }) => {
 };
 ```
 
-```jsx fileName="src/app.mjx" codeFormat="esm"
-import { ClientComponentExample, ServerComponentExample } from "@components";
-import { IntlayerProvider } from "react-intlayer";
-import { IntlayerServerProvider, useIntlayer } from "react-intlayer/server";
-
-const App = ({ locale }) => {
-  const content = useIntlayer("homepage", locale);
-
-  return (
-    <>
-      <p>{content.introduction}</p>
-      <IntlayerProvider locale={locale}>
-        <ClientComponentExample />
-      </IntlayerProvider>
-      <IntlayerServerProvider locale={locale}>
-        <ServerComponentExample />
-      </IntlayerServerProvider>
-    </>
-  );
-};
-```
-
-```jsx fileName="src/app.csx" codeFormat="commonjs"
-const { IntlayerProvider } = require("react-intlayer");
-const {
-  IntlayerServerProvider,
-  useIntlayer,
-jsx fileName="src/app.csx" codeFormat="commonjs"
-const {
-  IntlayerServerProvider,
-  useIntlayer,
-} = require("react-intlayer/server");
-
-const App = ({ locale }) => {
-  const content = useIntlayer("homepage", locale);
-
-  return (
-    <>
-      <p>{content.introduction}</p>
-      <IntlayerProvider locale={locale}>
-        <ClientComponentExample />
-      </IntlayerProvider>
-      <IntlayerServerProvider locale={locale}>
-        <ServerComponentExample />
-      </IntlayerServerProvider>
-    </>
-  );
-};
-```
-
-```tsx fileName="src/components/ComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="src/components/ComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -165,68 +115,8 @@ const ComponentExample: FC = () => {
 };
 ```
 
-```jsx fileName="src/components/ComponentExample.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const ComponentExample = () => {
-  const content = useIntlayer("component-example");
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ComponentExample.csx" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const ComponentExample = () => {
-  const content = useIntlayer("component-example");
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
-    </div>
-  );
-};
-```
-
-```tsx fileName="src/components/ServerComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import { useIntlayer } from "react-intlayer/server";
-
-const ServerComponentExample = () => {
-  const content = useIntlayer("server-component");
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ServerComponentExample.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer/server";
-
-const ServerComponentExample = () => {
-  const content = useIntlayer("server-component");
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ServerComponentExample.csx" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer/server");
 
 const ServerComponentExample = () => {
   const content = useIntlayer("server-component");

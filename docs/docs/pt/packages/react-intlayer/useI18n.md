@@ -22,7 +22,7 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-06-29
-    changes: Escrita inicial da documentação do hook `useI18n`
+    changes: "Escrita inicial da documentação do hook `useI18n`"
 ---
 
 # Integração com React: Documentação do Hook `useI18n`
@@ -70,13 +70,13 @@ Este hook aceita dois parâmetros:
 
 ## Dicionário
 
-Todas as chaves do dicionário devem ser declaradas dentro dos arquivos de declaração de conteúdo para aumentar a segurança de tipos e evitar erros. [Instruções de configuração podem ser encontradas aqui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/get_started.md).
+Todas as chaves do dicionário devem ser declaradas dentro dos arquivos de declaração de conteúdo para aumentar a segurança de tipos e evitar erros. [Instruções de configuração podem ser encontradas aqui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md).
 
 ## Exemplos de Uso em React
 
 Exemplos de uso do hook `useI18n` dentro de componentes React:
 
-```tsx fileName="src/App.tsx" codeFormat="typescript"
+```tsx fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { ClientComponentExample, ServerComponentExample } from "@components";
 import { IntlayerProvider } from "react-intlayer";
@@ -100,50 +100,7 @@ const App: FC<{ locale: Locales }> = ({ locale }) => {
 };
 ```
 
-```jsx fileName="src/app.jsx" codeFormat="esm"
-import { ClientComponentExample, ServerComponentExample } from "@components";
-import { IntlayerProvider } from "react-intlayer";
-import { IntlayerServerProvider, useI18n } from "react-intlayer/server";
-
-const App = ({ locale }) => {
-  const t = useI18n("home-page", locale);
-
-  return (
-    <>
-      <p>{t("introduction")}</p>
-      <IntlayerProvider locale={locale}>
-        <ClientComponentExample />
-      </IntlayerProvider>
-      <IntlayerServerProvider locale={locale}>
-        <ServerComponentExample />
-      </IntlayerServerProvider>
-    </>
-  );
-};
-```
-
-```jsx fileName="src/app.cjs" codeFormat="commonjs"
-const { IntlayerProvider } = require("react-intlayer");
-const { IntlayerServerProvider, useI18n } = require("react-intlayer/server");
-
-const App = ({ locale }) => {
-  const t = useI18n("home-page", locale);
-
-  return (
-    <>
-      <p>{t("introduction")}</p>
-      <IntlayerProvider locale={locale}>
-        <ClientComponentExample />
-      </IntlayerProvider>
-      <IntlayerServerProvider locale={locale}>
-        <ServerComponentExample />
-      </IntlayerServerProvider>
-    </>
-  );
-};
-```
-
-```tsx fileName="src/components/ComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="src/components/ComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useI18n } from "react-intlayer";
 
@@ -159,37 +116,7 @@ const ComponentExample: FC = () => {
 };
 ```
 
-```jsx fileName="src/components/ComponentExample.jsx" codeFormat="esm"
-import { useI18n } from "react-intlayer";
-
-const ComponentExample = () => {
-  const t = useI18n("component-example");
-
-  return (
-    <div>
-      <h1>{t("title")}</h1> {/* Exibe o título */}
-      <p>{t("description")}</p> {/* Exibe a descrição */}
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ComponentExample.cjs" codeFormat="commonjs"
-const { useI18n } = require("react-intlayer");
-
-const ComponentExample = () => {
-  const t = useI18n("component-example");
-
-  return (
-    <div>
-      <h1>{t("title")}</h1> {/* Exibe o título */}
-      <p>{t("description")}</p> {/* Exibe a descrição */}
-    </div>
-  );
-};
-```
-
-```tsx fileName="src/components/ServerComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import { useI18n } from "react-intlayer/server";
 
 const ServerComponentExample = () => {
@@ -199,36 +126,6 @@ const ServerComponentExample = () => {
     <div>
       <h1>{t("title")}</h1> {/* Exibe o título */}
       <p>{t("description")}</p> {/* Exibe a descrição */}
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ServerComponentExample.jsx" codeFormat="esm"
-import { useI18n } from "react-intlayer/server";
-
-const ServerComponentExample = () => {
-  const t = useI18n("server-component");
-
-  return (
-    <div>
-      <h1>{t("title")}</h1> {/* Exibe o título */}
-      <p>{t("description")}</p> {/* Exibe a descrição */}
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ServerComponentExample.cjs" codeFormat="commonjs"
-const { useI18n } = require("react-intlayer/server");
-
-const ServerComponentExample = () => {
-  const t = useI18n("server-component");
-
-  return (
-    <div>
-      <h1>{t("title")}</h1>
-      <p>{t("description")}</p>
     </div>
   );
 };
@@ -238,7 +135,7 @@ const ServerComponentExample = () => {
 
 Ao localizar atributos, acesse os valores de tradução de forma apropriada:
 
-```jsx
+```html
 <!-- Para atributos de acessibilidade (ex.: aria-label), use .value pois são necessárias strings puras -->
 <button aria-label={t("button.ariaLabel").value}>{t("button.text")}</button>
 ```

@@ -1,0 +1,48 @@
+{
+  "name": "angular-app-19",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "ng build",
+    "ng": "ng",
+    "serve:ssr:angular-app-19": "node dist/angular-app-19/server/server.mjs",
+    "start": "ng serve",
+    "start:editor": "bun intlayer-editor start --with 'ng serve'",
+    "test": "ng test",
+    "watch": "ng build --watch --configuration development"
+  },
+  "dependencies": {
+    "@angular/common": "19.2.22",
+    "@angular/compiler": "19.2.22",
+    "@angular/core": "19.2.22",
+    "@angular/forms": "19.2.22",
+    "@angular/platform-browser": "19.2.22",
+    "@angular/platform-browser-dynamic": "19.2.22",
+    "@angular/platform-server": "19.2.22",
+    "@angular/router": "19.2.22",
+    "@angular/ssr": "19.2.26",
+    "angular-intlayer": "workspace:*",
+    "express": "5.2.1",
+    "intlayer": "workspace:*",
+    "rxjs": "7.8.2",
+    "tslib": "2.8.1",
+    "zone.js": "0.15.1"
+  },
+  "devDependencies": {
+    "@angular-builders/custom-webpack": "19.0.1",
+    "@angular-devkit/build-angular": "19.2.15",
+    "@angular/cli": "19.2.26",
+    "@angular/compiler-cli": "19.1.8",
+    "@types/express": "5.0.6",
+    "@types/jasmine": "5.1.0",
+    "@types/node": "25.9.2",
+    "intlayer-editor": "workspace:*",
+    "jasmine-core": "5.6.0",
+    "karma": "6.4.0",
+    "karma-chrome-launcher": "3.2.0",
+    "karma-coverage": "2.2.1",
+    "karma-jasmine": "5.1.0",
+    "karma-jasmine-html-reporter": "2.2.0",
+    "typescript": "5.9.3"
+  }
+}

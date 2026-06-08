@@ -16,10 +16,10 @@ slugs:
 history:
   - version: 6.0.1
     date: 2025-10-05
-    changes: Make test async and add build option
+    changes: "Make test async and add build option"
   - version: 6.0.0
     date: 2025-09-20
-    changes: Introduction of testing
+    changes: "Introduction of testing"
 ---
 
 # Testing your content
@@ -40,8 +40,20 @@ This guide shows how to automatically verify your dictionaries are complete, cat
 
 Run the audit from your project root:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 Useful flags:
@@ -187,8 +199,20 @@ jobs:
 
 Optional: run the CLI audit for a human-readable summary alongside tests:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 ---

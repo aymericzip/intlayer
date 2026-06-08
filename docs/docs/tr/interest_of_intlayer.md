@@ -1,37 +1,98 @@
 ---
-createdAt: 2025-09-07
-updatedAt: 2025-09-07
-title: Intlayer'ın Faydaları
-description: Projelerinizde Intlayer kullanmanın faydalarını ve avantajlarını keşfedin. Intlayer'ın diğer çerçeveler arasında neden öne çıktığını anlayın.
+createdAt: 2024-08-14
+updatedAt: 2026-05-31
+title: Intlayer'ın Önemi
+description: Projelerinizde Intlayer kullanmanın yararlarını ve avantajlarını keşfedin. Intlayer'ın diğer framework'ler arasında neden öne çıktığını anlayın.
 keywords:
-  - Faydalar
+  - Yararlar
   - Avantajlar
   - Intlayer
-  - Çerçeve
+  - Framework
   - Karşılaştırma
 slugs:
   - doc
   - why
 history:
+  - version: 8.11.2
+    date: 2026-05-31
+    changes: "Alternatifler yerine neden Intlayer bölümü eklendi"
+  - version: 7.3.1
+    date: 2025-11-27
+    changes: "Derleyici Sürümü"
   - version: 5.8.0
     date: 2025-08-19
-    changes: Karşılaştırma tablosunu güncelle
+    changes: "Karşılaştırma tablosu güncellendi"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Geçmiş başlatıldı
+    changes: "Geçmiş başlatıldı"
 ---
 
-# Neden Intlayer'ı düşünmelisiniz?
+# Neden Intlayer'ı Düşünmelisiniz?
 
-## Intlayer nedir?
+## Intlayer Nedir?
 
-**Intlayer**, özellikle JavaScript geliştiricileri için tasarlanmış bir uluslararasılaştırma kütüphanesidir. Kodunuzun her yerinde içeriğinizi bildirmenize izin verir. Çok dilli içerik bildirimlerini kodunuzda kolayca entegre etmek için yapılandırılmış sözlüklere dönüştürür. TypeScript kullanarak **Intlayer**, geliştirmenizi daha güçlü ve verimli hale getirir.
+**Intlayer**, JavaScript geliştiricileri için özel olarak tasarlanmış bir uluslararasılaştırma (i18n) kütüphanesidir. İçeriğinizi kodunuzun her yerinde bildirmenize olanak tanır. Çok dilli içerik bildirimlerini yapılandırılmış sözlüklere dönüştürerek kodunuza kolayca entegre edilmesini sağlar. TypeScript kullanan **Intlayer**, geliştirme sürecinizi daha güçlü ve verimli hale getirir.
 
-## Intlayer neden oluşturuldu?
+## Neden Alternatifler Yerine Intlayer?
 
-Intlayer, `next-intl`, `react-i18next`, `react-intl`, `next-i18next`, `react-intl` ve `vue-i18n` gibi tüm yaygın i18n kütüphanelerini etkileyen yaygın bir sorunu çözmek için oluşturuldu.
+`next-intl` veya `i18next` gibi ana çözümlerle karşılaştırıldığında, Intlayer entegre optimizasyonlarla gelen bir çözümdür:
 
-Bu çözümlerin tümü, içeriğinizi listelemek ve yönetmek için merkezi bir yaklaşım benimser. Örneğin:
+<AccordionGroup>
+
+<Accordion header="Paket Boyutu (Bundle size)">
+
+Sayfalarınıza devasa JSON dosyaları yüklemek yerine, yalnızca kesinlikle gerekli olan içeriği yükleyin. Intlayer, **paket ve sayfa boyutlarınızı %50'ye kadar azaltmaya** yardımcı olur.
+
+</Accordion>
+
+<Accordion header="Bakım Kolaylığı">
+
+Uygulamanızın içeriğini bileşen düzeyinde sınırlandırmak, büyük ölçekli uygulamalar için **bakımı kolaylaştırır**. Tüm içerik kod tabanınızı gözden geçirme zihinsel yükü olmadan tek bir özellik klasörünü kopyalayabilir veya silebilirsiniz. Ek olarak Intlayer, içeriğinizin doğruluğunu sağlamak için **tamamen tiplenmiştir (fully typed)**.
+
+</Accordion>
+
+<Accordion header="AI Ajanı">
+
+İçeriği bileşenle aynı yerde konumlandırmak (Co-location), Büyük Dil Modellerinin (LLM'ler) ihtiyaç duyduğu **bağlamı azaltır**. Intlayer ayrıca, AI ajanları için geliştirici deneyimini (DX) daha da sorunsuz hale getirmek için eksik çevirileri test eden bir **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/mcp_server.md)** ve **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/agent_skills.md)** gibi bir araç paketiyle birlikte gelir.
+
+</Accordion>
+
+<Accordion header="Özellik">
+
+Intlayer, diğer i18n çözümlerinin sahip olmadığı [Markdown desteği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/markdown.md), [harici içerik çekme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/function_fetching.md), [dosya içeriği yükleme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/file.md), [canlı içerik güncelleme](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/live.md), [görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) ve daha fazlası gibi bir dizi ek özellik sunar.
+
+</Accordion>
+
+<Accordion header="Otomasyon">
+
+AI sağlayıcınızın maliyeti üzerinden seçtiğiniz LLM'yi kullanarak CI/CD hattınızda otomatik çeviri yapın. Intlayer ayrıca içerik çıkarmayı otomatikleştirmek için bir **derleyici** ve **arka planda çeviri yapmanıza** yardımcı olacak bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) sunar.
+
+</Accordion>
+
+<Accordion header="Performans">
+
+Büyük JSON dosyalarını bileşenlere bağlamak performans ve tepkisellik sorunlarına yol açabilir. Intlayer, derleme zamanında (build time) içerik yüklemenizi optimize eder.
+
+</Accordion>
+
+<Accordion header="Geliştirici Olmayanlarla Ölçeklenme">
+
+Bir i18n çözümünden daha fazlası olan Intlayer, çevirmenler, metin yazarları ve diğer ekip üyeleriyle işbirliğini sorunsuz hale getirmek için **kendi kendine barındırılabilen bir [görsel editör](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md)** ve **[tam bir CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md)** sağlar. İçerikler yerel ve/veya uzaktan saklanabilir.
+
+</Accordion>
+
+<Accordion header="Çapraz Framework Tasarımı">
+
+Uygulamanızın farklı bölümleri için farklı framework'ler kullanıyorsanız (örn. React, React-native, Vue, Angular, Svelte vb.), Intlayer **tüm ana frontend framework'lerinde ortak bir sözdizimi ve uygulama kullanmanın** bir yolunu sunar. Ayrıca içerik bildiriminizi tasarım sisteminiz, uygulamalarınız, backend'iniz vb. arasında paylaşabileceksiniz.
+
+</Accordion>
+</AccordionGroup>
+
+## Intlayer Neden Oluşturuldu?
+
+Intlayer, `next-intl`, `react-i18next`, `react-intl`, `next-i18next`, `react-intl` ve `vue-i18n` gibi tüm yaygın i18n kütüphanelerini etkileyen ortak bir sorunu çözmek için oluşturuldu.
+
+Tüm bu çözümler, içeriğinizi listelemek ve yönetmek için merkezi bir yaklaşım benimser. Örneğin:
 
 ```bash
 .
@@ -46,7 +107,7 @@ Bu çözümlerin tümü, içeriğinizi listelemek ve yönetmek için merkezi bir
             └── index.tsx
 ```
 
-Veya burada isim alanları kullanarak:
+Veya burada namespace kullanarak:
 
 ```bash
 .
@@ -67,23 +128,23 @@ Veya burada isim alanları kullanarak:
             └── index.tsx
 ```
 
-Bu tür bir mimari, geliştirme sürecini yavaşlatır ve kod tabanını bakım için daha karmaşık hale getirir, birkaç nedenden dolayı:
+Bu tür bir mimari, geliştirme sürecini yavaşlatır ve kod tabanının bakımını birkaç nedenden dolayı daha karmaşık hale getirir:
 
-1. **Oluşturulan herhangi bir yeni bileşen için şunları yapmalısınız:**
-   - `locales` klasöründe yeni kaynak/isim alanını oluşturun
-   - Yeni isim alanını sayfanızda içe aktarmayı unutmayın
-   - İçeriğinizi çevirin (genellikle AI sağlayıcılarından kopyala/yapıştır ile manuel olarak yapılır)
+1. **Oluşturulan her yeni bileşen için şunları yapmalısınız:**
+   - `locales` klasöründe yeni kaynağı/namespace'i oluşturun
+   - Sayfanıza yeni namespace'i import etmeyi unutmayın
+   - İçeriğinizi çevirin (genellikle AI sağlayıcılarından manuel olarak kopyala/yapıştır yapılarak yapılır)
 
 2. **Bileşenlerinizde yapılan herhangi bir değişiklik için şunları yapmalısınız:**
-   - İlgili kaynak/isim alanını arayın (bileşenden uzak)
+   - İlgili kaynağı/namespace'i arayın (bileşenden uzakta)
    - İçeriğinizi çevirin
-   - İçeriğinizin herhangi bir yerel ayar için güncel olduğundan emin olun
-   - İsim alanınızın kullanılmayan anahtarlar/değerler içermediğinden emin olun
-   - JSON dosyalarınızın yapısının tüm yerel ayarlar için aynı olduğundan emin olun
+   - İçeriğinizin her dil için güncel olduğundan emin olun
+   - Namespace'inizin kullanılmayan anahtarlar/değerler içermediğini doğrulayın
+   - JSON dosyalarınızın yapısının tüm diller için aynı olduğundan emin olun
 
-Bu çözümleri kullanan profesyonel projelerde, içeriğin çevirisini yönetmeye yardımcı olmak için yerelleştirme platformları sıklıkla kullanılır. Ancak, bu büyük projeler için hızla maliyetli hale gelebilir.
+Bu çözümleri kullanan profesyonel projelerde, içeriğinizin çevirisini yönetmeye yardımcı olmak için genellikle yerelleştirme platformları kullanılır. Ancak bu, büyük projeler için hızla maliyetli hale gelebilir.
 
-Bu sorunu çözmek için, Intlayer CSS (`styled-components`), türler, dokümantasyon (`storybook`) veya birim testleri (`jest`) ile sıklıkla yaptığımız gibi içeriğinizi bileşen başına kapsamlandıran ve içeriğinizi bileşeninizle yakın tutan bir yaklaşım benimser.
+Bu sorunu çözmek için Intlayer, içeriğinizi bileşen başına sınırlandıran ve CSS (`styled-components`), tipler, dokümantasyon (`storybook`) veya birim testlerinde (`jest`) sıkça yaptığımız gibi içeriğinizi bileşeninize yakın tutan bir yaklaşım benimser.
 
 ```bash codeFormat="typescript"
 .
@@ -101,7 +162,7 @@ Bu sorunu çözmek için, Intlayer CSS (`styled-components`), türler, dokümant
     └── MyComponent
         ├── index.content.cjs
         ├── index.test.mjs
-        ├── index.stories.tsx
+        ├── index.stories.mjs
         └── index.tsx
 ```
 
@@ -111,11 +172,11 @@ Bu sorunu çözmek için, Intlayer CSS (`styled-components`), türler, dokümant
     └── MyComponent
         ├── index.content.mjs
         ├── index.test.mjs
-        ├── index.stories.tsx
+        ├── index.stories.mjs
         └── index.tsx
 ```
 
-```tsx fileName="./components/MyComponent/index.content.ts" codeFormat="typescript"
+```tsx fileName="./components/MyComponent/index.content.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const componentExampleContent = {
@@ -132,43 +193,7 @@ const componentExampleContent = {
 export default componentExampleContent;
 ```
 
-```jsx fileName="./components/MyComponent/index.mjx" codeFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const componentExampleContent = {
-  key: "component-example",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
-
-export default componentExampleContent;
-```
-
-```jsx fileName="./components/MyComponent/index.csx" codeFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const componentExampleContent = {
-  key: "component-example",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
-
-module.exports = componentExampleContent;
-```
-
-```tsx fileName="./components/MyComponent/index.tsx" codeFormat="typescript"
+```tsx fileName="./components/MyComponent/index.tsx" codeFormat={["typescript", "esm"]}
 import { useIntlayer } from "react-intlayer";
 
 export const ComponentExample = () => {
@@ -178,111 +203,89 @@ export const ComponentExample = () => {
 };
 ```
 
-```jsx fileName="./components/MyComponent/index.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const ComponentExample = () => {
-  const { myTranslatedContent } = useIntlayer("component-example");
-
-  return <span>{myTranslatedContent}</span>;
-};
-```
-
-```jsx fileName="./components/MyComponent/index.csx" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const ComponentExample = () => {
-  const { myTranslatedContent } = useIntlayer("component-example");
-
-  return <span>{myTranslatedContent}</span>;
-};
-```
-
-Bu yaklaşım şunları yapmanıza izin verir:
+Bu yaklaşım şunları yapmanızı sağlar:
 
 1. **Geliştirme hızını artırın**
-   - `.content.{{ts|mjs|cjs|json}}` dosyaları bir VSCode uzantısı kullanarak oluşturulabilir
-   - IDE'nizdeki otomatik tamamlama AI araçları (GitHub Copilot gibi) içeriğinizi bildirmenize yardımcı olabilir, kopyala/yapıştırı azaltır
+   - `.content.{{ts|mjs|cjs|json}}` dosyaları bir VSCode eklentisi kullanılarak oluşturulabilir
+   - IDE'nizdeki AI otomatik tamamlama araçları (GitHub Copilot gibi) içeriğinizi bildirmenize yardımcı olarak kopyala/yapıştır işlemlerini azaltabilir
 
 2. **Kod tabanınızı temizleyin**
    - Karmaşıklığı azaltın
    - Bakım kolaylığını artırın
 
-3. **Bileşenlerinizi ve ilgili içeriklerini daha kolay çoğaltın (Örnek: giriş/kayıt bileşenleri vb.)**
+3. **Bileşenlerinizi ve bunlarla ilgili içeriği daha kolay kopyalayın (Örnek: giriş/kayıt bileşenleri vb.)**
    - Diğer bileşenlerin içeriğini etkileme riskini sınırlayarak
-   - Harici bağımlılıklar olmadan içeriğinizi bir uygulamadan diğerine kopyala/yapıştırarak
+   - İçeriğinizi harici bağımlılıklar olmadan bir uygulamadan diğerine kopyalayıp yapıştırarak
 
-4. **Kod tabanınızı kullanılmayan bileşenler için kullanılmayan anahtarlar/değerlerle kirletmekten kaçının**
-   - Bir bileşeni kullanmazsanız, Intlayer ilgili içeriğini içe aktarmaz
-   - Bir bileşeni silerseniz, aynı klasörde bulunduğu için ilgili içeriğini kaldırmayı daha kolay hatırlarsınız
+4. **Kullanılmayan bileşenler için kod tabanınızı kullanılmayan anahtarlarla/değerlerle kirletmekten kaçının**
+   - Bir bileşeni kullanmazsanız, Intlayer onunla ilgili içeriği import etmez
+   - Bir bileşeni silerseniz, aynı klasörde bulunacağı için ilgili içeriği silmeyi daha kolay hatırlarsınız
 
-5. **Çok dilli içeriğinizi bildirmek için AI ajanları için akıl yürütme maliyetini azaltın**
-   - AI ajanı içeriğinizi nerede uygulayacağını bilmek için tüm kod tabanınızı taramak zorunda kalmaz
-   - Çeviriler IDE'nizdeki otomatik tamamlama AI araçları (GitHub Copilot gibi) tarafından kolayca yapılabilir
+5. **AI ajanlarının çok dilli içeriğinizi bildirmesi için muhakeme maliyetini azaltın**
+   - AI ajanı, içeriğinizi nerede uygulayacağını bilmek için tüm kod tabanınızı taramak zorunda kalmayacak
+   - Çeviriler, IDE'nizdeki AI otomatik tamamlama araçları (GitHub Copilot gibi) tarafından kolayca yapılabilir
 
 6. **Yükleme performansını optimize edin**
-   - Bir bileşen tembel yüklenirse, ilgili içeriği aynı zamanda yüklenir
+   - Bir bileşen lazy-load yüklenirse, ilgili içeriği de aynı anda yüklenecektir
 
-## Intlayer'ın ek özellikleri
+## Intlayer'ın Ek Özellikleri
 
-| Özellik                                                                                                                   | Açıklama                                                                                                                                                                                                                                                                                                                                                                                           |
-| ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ![Özellik](https://github.com/aymericzip/intlayer/blob/main/docs/assets/frameworks.png?raw=true)                          | **Çapraz-Çerçeve Desteği**<br><br>Intlayer Next.js, React, Vite, Vue.js, Nuxt, Preact, Express ve daha fazlası dahil olmak üzere tüm büyük çerçeveler ve kütüphanelerle uyumludur.                                                                                                                                                                                                                 |
-| ![Özellik](https://github.com/aymericzip/intlayer/blob/main/docs/assets/javascript_content_management.png?raw=true)       | **JavaScript Güçlü İçerik Yönetimi**<br><br>İçeriğinizi verimli bir şekilde tanımlamak ve yönetmek için JavaScript'in esnekliğinden yararlanın. <br><br> - [İçerik bildirimi](https://intlayer.org/doc/concept/content)                                                                                                                                                                            |
-| ![Özellik](https://github.com/aymericzip/intlayer/blob/main/docs/assets/per_locale_content_declaration_file.png?raw=true) | **Yerel Ayar Başına İçerik Bildirim Dosyası**<br><br>İçeriğinizi bir kez bildirerek geliştirmenizi hızlandırın, ardından otomatik oluşturma.<br><br> - [Yerel Ayar Başına İçerik Bildirim Dosyası](https://intlayer.org/doc/concept/per-locale-file)                                                                                                                                               |
-| ![Özellik](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)                      | **Tür Güvenli Ortam**<br><br>İçerik tanımlarınızın ve kodunuzun hatasız olduğundan emin olmak için TypeScript'ten yararlanın, aynı zamanda IDE otomatik tamamlamasından faydalanın.<br><br> - [TypeScript konfigürasyonu](https://intlayer.org/doc/environment/vite-and-react#configure-typescript)                                                                                                |
-| ![Özellik](https://github.com/aymericzip/intlayer/blob/main/docs/assets/config_file.png?raw=true)                         | **Basitleştirilmiş Kurulum**<br><br>Minimum konfigürasyonla hızlıca çalışmaya başlayın. Uluslararasılaştırma, yönlendirme, AI, inşa ve içerik işleme için ayarları kolayca ayarlayın. <br><br> - [Next.js entegrasyonunu keşfedin](https://intlayer.org/doc/environment/nextjs)                                                                                                                    |
-| ![Özellik](https://github.com/aymericzip/intlayer/blob/main/docs/assets/content_retrieval.png?raw=true)                   | **Basitleştirilmiş İçerik Alma**<br><br>Her içerik parçası için `t` fonksiyonunuzu çağırmaya gerek yok. Tek bir kanca kullanarak tüm içeriğinizi doğrudan alın.<br><br> - [React entegrasyonu](https://intlayer.org/doc/environment/create-react-app)                                                                                                                                              |
-| ![Özellik](https://github.com/aymericzip/intlayer/blob/main/docs/assets/server_component.png?raw=true)                    | **Tutarlı Sunucu Bileşeni Uygulaması**<br><br>Next.js sunucu bileşenleri için mükemmel şekilde uygundur, istemci ve sunucu bileşenleri için aynı uygulamayı kullanın, her sunucu bileşeninde `t` fonksiyonunuzu geçirmeye gerek yok. <br><br> - [Sunucu Bileşenleri](https://intlayer.org/doc/environment/nextjs#step-7-utilize-content-in-your-code)                                              |
-| ![Özellik](https://github.com/aymericzip/intlayer/blob/main/docs/assets/file_tree.png?raw=true)                           | **Düzenlenmiş Kod Tabanı**<br><br>Kod tabanınızı daha düzenlenmiş tutun: 1 bileşen = aynı klasörde 1 sözlük. Çeviriler ilgili bileşenlerine yakın, bakım kolaylığını ve netliği artırır. <br><br> - [Intlayer nasıl çalışır](https://intlayer.org/doc/concept/how-works-intlayer)                                                                                                                  |
-| ![Özellik](https://github.com/aymericzip/intlayer/blob/main/docs/assets/url_routing.png?raw=true)                         | **Gelişmiş Yönlendirme**<br><br>Uygulama yönlendirmesi için tam destek, Next.js, React, Vite, Vue.js vb. için karmaşık uygulama yapılarına sorunsuz uyum sağlar.<br><br> - [Next.js entegrasyonunu keşfedin](https://intlayer.org/doc/environment/nextjs)                                                                                                                                          |
-| ![Özellik](https://github.com/aymericzip/intlayer/blob/main/docs/assets/markdown.png?raw=true)                            | **Markdown Desteği**<br><br>Gizlilik politikaları, dokümantasyon vb. gibi çok dilli içerik için yerel ayar dosyalarını ve uzak Markdown'ı içe aktarın ve yorumlayın. Markdown meta verilerini kodunuzda erişilebilir hale getirin.<br><br> - [İçerik dosyaları](https://intlayer.org/doc/concept/content/file)                                                                                     |
-| ![Özellik](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.png?raw=true)                       | **Ücretsiz Görsel Düzenleyici & CMS**<br><br>İçerik yazarları için ücretsiz bir görsel düzenleyici ve CMS mevcuttur, yerelleştirme platformuna ihtiyaç duymadan. Git kullanarak içeriğinizi senkronize tutun veya CMS ile tamamen veya kısmen dışa aktarın.<br><br> - [Intlayer Düzenleyici](https://intlayer.org/doc/concept/editor) <br> - [Intlayer CMS](https://intlayer.org/doc/concept/cms)  |
-| ![Özellik](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true)                              | **Ağaç Sallanabilir İçerik**<br><br>Ağaç sallanabilir içerik, son paketin boyutunu azaltır. İçeriği bileşen başına yükler, paketinize kullanılmayan herhangi bir içeriği hariç tutar. Uygulama yükleme verimliliğini artırmak için tembel yüklemeyi destekler. <br><br> - [Uygulama inşa optimizasyonu](https://intlayer.org/doc/concept/how-works-intlayer#app-build-optimization)                |
-| ![Özellik](https://github.com/aymericzip/intlayer/blob/main/docs/assets/static_rendering.png?raw=true)                    | **Statik Oluşturma**<br><br>Statik Oluşturmayı engellemez. <br><br> - [Next.js entegrasyonu](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                                                                                                                          |
-| ![Özellik](https://github.com/aymericzip/intlayer/blob/main/docs/assets/AI_translation.png?raw=true)                      | **AI Güçlü Çeviri**<br><br>Intlayer'ın gelişmiş AI güçlü çeviri araçlarını kullanarak kendi AI sağlayıcınız/API anahtarınızı kullanarak web sitenizi tek tıkla 231 dile dönüştürün. <br><br> - [CI/CD entegrasyonu](https://intlayer.org/doc/concept/ci-cd) <br> - [Intlayer CLI](https://intlayer.org/doc/concept/cli) <br> - [Otomatik doldurma](https://intlayer.org/doc/concept/auto-fill)     |
-| ![Özellik](https://github.com/aymericzip/intlayer/blob/main/docs/assets/mcp.png?raw=true)                                 | **MCP Sunucu Entegrasyonu**<br><br>IDE otomasyonu için bir MCP (Model Context Protocol) sunucusu sağlar, geliştirme ortamınızda doğrudan sorunsuz içerik yönetimi ve i18n iş akışlarını etkinleştirir. <br><br> - [MCP Sunucusu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)                                                                                      |
-| ![Özellik](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extension.png?raw=true)                    | **VSCode Uzantısı**<br><br>Intlayer, içeriğinizi ve çevirilerinizi yönetmenize yardımcı olmak için bir VSCode uzantısı sağlar, sözlüklerinizi oluşturur, içeriğinizi çevirir ve daha fazlası. <br><br> - [VSCode Uzantısı](https://intlayer.org/doc/vs-code-extension)                                                                                                                             |
-| ![Özellik](https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png?raw=true)                    | **Birlikte Çalışabilirlik**<br><br>react-i18next, next-i18next, next-intl ve react-intl ile birlikte çalışabilirliğe izin verir. <br><br> - [Intlayer ve react-intl](https://intlayer.org/blog/intlayer-with-react-intl) <br> - [Intlayer ve next-intl](https://intlayer.org/blog/intlayer-with-next-intl) <br> - [Intlayer ve next-i18next](https://intlayer.org/blog/intlayer-with-next-i18next) |
+| Özellik                                                                                                                   | Açıklama                                                                                                                                                                                                                                                                                                                                                                                                       |
+| ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/frameworks.png?raw=true)                          | **Çoklu Framework Desteği**<br><br>Intlayer; Next.js, React, Vite, Vue.js, Nuxt, Preact, Express ve daha fazlası dahil olmak üzere tüm büyük framework'ler ve kütüphanelerle uyumludur.                                                                                                                                                                                                                        |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/javascript_content_management.jpg?raw=true)       | **JavaScript Destekli İçerik Yönetimi**<br><br>İçeriğinizi verimli bir şekilde tanımlamak ve yönetmek için JavaScript'in esnekliğinden yararlanın. <br><br> - [İçerik bildirimi](https://intlayer.org/doc/concept/content)                                                                                                                                                                                     |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.jpg?raw=true" alt="Feature" width="700">  | **Derleyici**<br><br>Intlayer Derleyicisi, bileşenlerden içeriği otomatik olarak çıkarır ve sözlük dosyalarını oluşturur.<br><br> - [Derleyici](https://intlayer.org/doc/compiler)                                                                                                                                                                                                                             |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/per_locale_content_declaration_file.png?raw=true) | **Dil Başına İçerik Bildirim Dosyası**<br><br>Otomatik üretimden önce içeriğinizi bir kez bildirerek geliştirmenizi hızlandırın.<br><br> - [Dil Başına İçerik Bildirim Dosyası](https://intlayer.org/doc/concept/per-locale-file)                                                                                                                                                                              |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)                      | **Tip Güvenlikli Ortam**<br><br>İçerik tanımlarınızın ve kodunuzun hatasız olmasını sağlamak için TypeScript'ten yararlanın ve aynı zamanda IDE otomatik tamamlamasından yararlanın.<br><br> - [TypeScript yapılandırması](https://intlayer.org/doc/environment/vite-and-react#configure-typescript)                                                                                                           |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/config_file.png?raw=true)                         | **Basitleştirilmiş Kurulum**<br><br>Minimum yapılandırma ile hızla kurun ve çalıştırın. Uluslararasılaştırma, yönlendirme, AI, derleme ve içerik işleme ayarlarını kolaylıkla yapın. <br><br> - [Next.js entegrasyonunu keşfedin](https://intlayer.org/doc/environment/nextjs)                                                                                                                                 |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/content_retrieval.png?raw=true)                   | **Basitleştirilmiş İçerik Çekme**<br><br>Her içerik parçası için `t` fonksiyonunuzu çağırmanıza gerek yok. Tek bir hook kullanarak tüm içeriğinizi doğrudan çekin.<br><br> - [React entegrasyonu](https://intlayer.org/doc/environment/create-react-app)                                                                                                                                                       |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/server_component.png?raw=true)                    | **Tutarlı Server Component Uygulaması**<br><br>Next.js server component'leri için mükemmel şekilde uygundur; hem client hem de server component'leri için aynı uygulamayı kullanın, `t` fonksiyonunuzu her server component'e aktarmanıza gerek kalmaz. <br><br> - [Server Component'leri](https://intlayer.org/doc/environment/nextjs#step-7-utilize-content-in-your-code)                                    |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/file_tree.png?raw=true)                           | **Düzenli Kod Tabanı**<br><br>Kod tabanınızı daha düzenli tutun: Aynı klasörde 1 bileşen = 1 sözlük. İlgili bileşenlerine yakın çeviriler, bakım kolaylığını ve netliği artırır. <br><br> - [Intlayer nasıl çalışır](https://intlayer.org/doc/concept/how-works-intlayer)                                                                                                                                      |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/url_routing.png?raw=true)                         | **Gelişmiş Yönlendirme**<br><br>Next.js, React, Vite, Vue.js vb. için karmaşık uygulama yapılarına sorunsuz bir şekilde uyum sağlayan tam uygulama yönlendirme desteği.<br><br> - [Next.js entegrasyonunu keşfedin](https://intlayer.org/doc/environment/nextjs)                                                                                                                                               |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/markdown.png?raw=true)                            | **Markdown Desteği**<br><br>Gizlilik politikaları, dokümantasyon vb. gibi çok dilli içerikler için yerel dosyaları ve uzak Markdown'ı içe aktarın ve yorumlayın. Kodunuzda Markdown meta verilerini yorumlayın ve erişilebilir hale getirin.<br><br> - [İçerik dosyaları](https://intlayer.org/doc/concept/content/file)                                                                                       |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.png?raw=true)                       | **Ücretsiz Görsel Editör ve CMS**<br><br>İçerik yazarları için ücretsiz bir görsel editör ve CMS mevcuttur, bu da bir yerelleştirme platformuna olan ihtiyacı ortadan kaldırır. Git kullanarak içeriğinizi senkronize tutun veya CMS ile tamamen veya kısmen dışsallaştırın.<br><br> - [Intlayer Editörü](https://intlayer.org/doc/concept/editor) <br> - [Intlayer CMS](https://intlayer.org/doc/concept/cms) |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true)                              | **Tree-shakable İçerik**<br><br>Nihai paket boyutunu azaltan tree-shakable içerik. İçeriği bileşen başına yükler, kullanılmayan içerikleri paketinizden hariç tutar. Uygulama yükleme verimliliğini artırmak için lazy loading desteği sunar. <br><br> - [Uygulama derleme optimizasyonu](https://intlayer.org/doc/concept/how-works-intlayer#app-build-optimization)                                          |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/static_rendering.png?raw=true)                    | **Statik Oluşturma (Static Rendering)**<br><br>Statik Oluşturmayı engellemez. <br><br> - [Next.js entegrasyonu](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                                                                                                                   |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/AI_translation.png?raw=true)                      | **AI Destekli Çeviri**<br><br>Kendi AI sağlayıcınızı/API anahtarınızı kullanarak Intlayer'ın gelişmiş AI destekli çeviri araçlarıyla web sitenizi tek bir tıklamayla 231 dile dönüştürün. <br><br> - [CI/CD entegrasyonu](https://intlayer.org/doc/concept/ci-cd) <br> - [Intlayer CLI](https://intlayer.org/doc/concept/cli) <br> - [Otomatik Doldurma](https://intlayer.org/doc/concept/auto-fill)           |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/mcp.png?raw=true)                                 | **MCP Sunucu Entegrasyonu**<br><br>IDE otomasyonu için bir MCP (Model Context Protocol) sunucusu sağlayarak, doğrudan geliştirme ortamınızda sorunsuz içerik yönetimi ve i18n iş akışları sağlar. <br><br> - [MCP Sunucusu](https://github.com/aymericzip/intlayer/blob/main/docs/tr/mcp_server.md)                                                                                                            |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extension.png?raw=true)                    | **VSCode Eklentisi**<br><br>Intlayer, içeriğinizi ve çevirilerinizi yönetmenize, sözlüklerinizi derlemenize, içeriğinizi çevirmenize ve daha fazlasına yardımcı olacak bir VSCode eklentisi sağlar. <br><br> - [VSCode Eklentisi](https://intlayer.org/doc/vs-code-extension)                                                                                                                                  |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png?raw=true)                    | **Birlikte Çalışabilirlik**<br><br>react-i18next, next-i18next, next-intl ve react-intl ile birlikte çalışabilirliğe izin verir. <br><br> - [Intlayer ve react-intl](https://intlayer.org/blog/intlayer-with-react-intl) <br> - [Intlayer ve next-intl](https://intlayer.org/blog/intlayer-with-next-intl) <br> - [Intlayer ve next-i18next](https://intlayer.org/blog/intlayer-with-next-i18next)             |
+| Eksik Çevirileri Test Etme (CLI/CI)                                                                                       | ✅ CLI: npx intlayer content test (CI dostu denetim)                                                                                                                                                                                                                                                                                                                                                           |
 
-## Intlayer'ın diğer çözümlerle karşılaştırması
+## Intlayer'ın Diğer Çözümlerle Karşılaştırılması
 
-| Özellik                                               | `intlayer`                                                                                                                                                      | `react-i18next`                                                                                                      | `react-intl` (FormatJS)                                                                                                            | `lingui`                                                                | `next-intl`                                                                                                          | `next-i18next`                                                                                                       | `vue-i18n`                                                                        |
-| ----------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| **Bileşenlere Yakın Çeviriler**                       | ✅ Evet, içerik her bileşenle birlikte konumlandırılır                                                                                                          | ❌ Hayır                                                                                                             | ❌ Hayır                                                                                                                           | ❌ Hayır                                                                | ❌ Hayır                                                                                                             | ❌ Hayır                                                                                                             | ✅ Evet - `Single File Components` (SFC'ler) kullanarak                           |
-| **TypeScript Entegrasyonu**                           | ✅ Gelişmiş, otomatik oluşturulan katı türler                                                                                                                   | ⚠️ Temel; güvenlik için ekstra konfigürasyon                                                                         | ✅ İyi, ancak daha az katı                                                                                                         | ⚠️ Türler, konfigürasyon gerektirir                                     | ✅ İyi                                                                                                               | ⚠️ Temel                                                                                                             | ✅ İyi (türler mevcut; anahtar güvenliği kurulum gerektirir)                      |
-| **Eksik Çeviri Algılama**                             | ✅ TypeScript hatası vurgulaması ve inşa zamanı hatası/uyarısı                                                                                                  | ⚠️ Çoğunlukla çalışma zamanında geri dönüş dizeleri                                                                  | ⚠️ Geri dönüş dizeleri                                                                                                             | ⚠️ Ekstra konfigürasyon gerektirir                                      | ⚠️ Çalışma zamanı geri dönüşü                                                                                        | ⚠️ Çalışma zamanı geri dönüşü                                                                                        | ⚠️ Çalışma zamanı geri dönüşü/uyarıları (yapılandırılabilir)                      |
-| **Zengin İçerik (JSX/Markdown/bileşenler)**           | ✅ Doğrudan destek                                                                                                                                              | ⚠️ Sınırlı / sadece enterpolasyon                                                                                    | ⚠️ ICU sözdizimi, gerçek JSX değil                                                                                                 | ⚠️ Sınırlı                                                              | ❌ Zengin düğümler için tasarlanmamış                                                                                | ⚠️ Sınırlı                                                                                                           | ⚠️ Sınırlı (bileşenler `<i18n-t>` aracılığıyla, Markdown eklentiler aracılığıyla) |
-| **AI Güçlü Çeviri**                                   | ✅ Evet, birden fazla AI sağlayıcısını destekler. Kendi API anahtarlarınızı kullanarak kullanılabilir. Uygulamanızın bağlamını ve içerik kapsamını dikkate alır | ❌ Hayır                                                                                                             | ❌ Hayır                                                                                                                           | ❌ Hayır                                                                | ❌ Hayır                                                                                                             | ❌ Hayır                                                                                                             | ❌ Hayır                                                                          |
-| **Görsel Düzenleyici**                                | ✅ Evet, yerel Görsel Düzenleyici + isteğe bağlı CMS; kod tabanı içeriğini dışa aktarabilir; gömülebilir                                                        | ❌ Hayır / harici yerelleştirme platformları aracılığıyla mevcut                                                     | ❌ Hayır / harici yerelleştirme platformları aracılığıyla mevcut                                                                   | ❌ Hayır / harici yerelleştirme platformları aracılığıyla mevcut        | ❌ Hayır / harici yerelleştirme platformları aracılığıyla mevcut                                                     | ❌ Hayır / harici yerelleştirme platformları aracılığıyla mevcut                                                     | ❌ Hayır / harici yerelleştirme platformları aracılığıyla mevcut                  |
-| **Yerelleştirilmiş Yönlendirme**                      | ✅ Evet, yerelleştirilmiş yolları kutudan çıkarır (Next.js & Vite ile çalışır)                                                                                  | ⚠️ Yerleşik yok, eklentiler gerektirir (ör. `next-i18next`) veya özel yönlendirici konfigürasyonu                    | ❌ Hayır, sadece mesaj biçimlendirme, yönlendirme manuel olmalı                                                                    | ⚠️ Yerleşik yok, eklentiler veya manuel konfigürasyon gerektirir        | ✅ Yerleşik, App Router `[locale]` segmentini destekler                                                              | ✅ Yerleşik                                                                                                          | ✅ Yerleşik                                                                       |
-| **Dinamik Yol Oluşturma**                             | ✅ Evet                                                                                                                                                         | ⚠️ Eklenti/ekosistem veya manuel kurulum                                                                             | ❌ Sağlanmadı                                                                                                                      | ⚠️ Eklenti/manuel                                                       | ✅ Evet                                                                                                              | ✅ Evet                                                                                                              | ❌ Sağlanmadı (Nuxt i18n sağlar)                                                  |
-| **Çoğullaştırma**                                     | ✅ Numaralandırma tabanlı desenler                                                                                                                              | ✅ Yapılandırılabilir (i18next-icu gibi eklentiler)                                                                  | ✅ (ICU)                                                                                                                           | ✅ (ICU/messageformat)                                                  | ✅ İyi                                                                                                               | ✅ İyi                                                                                                               | ✅ Yerleşik çoğul kuralları                                                       |
-| **Biçimlendirme (tarihler, sayılar, para birimleri)** | ✅ Optimize edilmiş biçimlendiriciler (Intl altında)                                                                                                            | ⚠️ Eklentiler veya özel Intl kullanımı aracılığıyla                                                                  | ✅ ICU biçimlendiricileri                                                                                                          | ✅ ICU/CLI yardımcıları                                                 | ✅ İyi (Intl yardımcıları)                                                                                           | ✅ İyi (Intl yardımcıları)                                                                                           | ✅ Yerleşik tarih/sayı biçimlendiricileri (Intl)                                  |
-| **İçerik Formatı**                                    | ✅ .tsx, .ts, .js, .json, .md, .txt, (.yaml WIP)                                                                                                                | ⚠️ .json                                                                                                             | ✅ .json, .js                                                                                                                      | ⚠️ .po, .json                                                           | ✅ .json, .js, .ts                                                                                                   | ⚠️ .json                                                                                                             | ✅ .json, .js                                                                     |
-| **ICU desteği**                                       | ⚠️ WIP                                                                                                                                                          | ⚠️ Eklenti aracılığıyla (i18next-icu)                                                                                | ✅ Evet                                                                                                                            | ✅ Evet                                                                 | ✅ Evet                                                                                                              | ⚠️ Eklenti aracılığıyla (`i18next-icu`)                                                                              | ⚠️ Özel biçimlendirici/derleyici aracılığıyla                                     |
-| **SEO Yardımcıları (hreflang, site haritası)**        | ✅ Yerleşik araçlar: site haritası, robots.txt, meta veri için yardımcılar                                                                                      | ⚠️ Topluluk eklentileri/manuel                                                                                       | ❌ Çekirdek değil                                                                                                                  | ❌ Çekirdek değil                                                       | ✅ İyi                                                                                                               | ✅ İyi                                                                                                               | ❌ Çekirdek değil (Nuxt i18n yardımcılar sağlar)                                  |
-| **Ekosistem / Topluluk**                              | ⚠️ Daha küçük ama hızlı büyüyen ve reaktif                                                                                                                      | ✅ En büyük ve olgun                                                                                                 | ✅ Büyük                                                                                                                           | ⚠️ Daha küçük                                                           | ✅ Orta boyutlu, Next.js odaklı                                                                                      | ✅ Orta boyutlu, Next.js odaklı                                                                                      | ✅ Vue ekosisteminde büyük                                                        |
-| **Sunucu Tarafı Oluşturma & Sunucu Bileşenleri**      | ✅ Evet, SSR / React Sunucu Bileşenleri için kolaylaştırılmış                                                                                                   | ⚠️ Sayfa seviyesinde desteklenir ancak alt sunucu bileşenleri için t-fonksiyonlarını bileşen ağacında geçmek gerekir | ⚠️ Sayfa seviyesinde ek kurulumla desteklenir, ancak alt sunucu bileşenleri için t-fonksiyonlarını bileşen ağacında geçmek gerekir | ✅ Desteklenir, kurulum gerektirir                                      | ⚠️ Sayfa seviyesinde desteklenir ancak alt sunucu bileşenleri için t-fonksiyonlarını bileşen ağacında geçmek gerekir | ⚠️ Sayfa seviyesinde desteklenir ancak alt sunucu bileşenleri için t-fonksiyonlarını bileşen ağacında geçmek gerekir | ✅ SSR via Nuxt/Vue SSR (RSC yok)                                                 |
-| **Ağaç Sallama (sadece kullanılan içeriği yükle)**    | ✅ Evet, Babel/SWC eklentileri aracılığıyla inşa zamanında bileşen başına                                                                                       | ⚠️ Genellikle tümünü yükler (isim alanları/kod bölümlendirme ile iyileştirilebilir)                                  | ⚠️ Genellikle tümünü yükler                                                                                                        | ❌ Varsayılan değil                                                     | ⚠️ Kısmi                                                                                                             | ⚠️ Kısmi                                                                                                             | ⚠️ Kısmi (kod bölümlendirme/manuel kurulum ile)                                   |
-| **Tembel yükleme**                                    | ✅ Evet, yerel ayar başına / sözlük başına                                                                                                                      | ✅ Evet (ör. isteğe bağlı arka uçlar/isim alanları)                                                                  | ✅ Evet (bölünmüş yerel ayar paketleri)                                                                                            | ✅ Evet (dinamik katalog içe aktarmaları)                               | ✅ Evet (yol başına/yerel ayar başına), isim alanı yönetimi gerektir                                                 | ✅ Evet (yol başına/yerel ayar başına), isim alanı yönetimi gerektir                                                 | ✅ Evet (eşzamansız yerel ayar mesajları)                                         |
-| **Kullanılmayan içeriği temizle**                     | ✅ Evet, inşa zamanında sözlük başına                                                                                                                           | ❌ Hayır, sadece manuel isim alanı segmentasyonu aracılığıyla                                                        | ❌ Hayır, bildirilen tüm mesajlar paketlenir                                                                                       | ✅ Evet, kullanılmayan anahtarlar algılanır ve inşa zamanında bırakılır | ❌ Hayır, isim alanı yönetimi ile manuel olarak yönetilebilir                                                        | ❌ Hayır, isim alanı yönetimi ile manuel olarak yönetilebilir                                                        | ❌ Hayır, sadece manuel tembel yükleme aracılığıyla mümkün                        |
-| **Büyük Projelerin Yönetimi**                         | ✅ Tasarım sistemi için modüler, uygun teşvik eder                                                                                                              | ⚠️ İyi dosya disiplini gerektirir                                                                                    | ⚠️ Merkezi kataloglar büyük olabilir                                                                                               | ⚠️ Karmaşık hale gelebilir                                              | ✅ Kurulum ile modüler                                                                                               | ✅ Kurulum ile modüler                                                                                               | ✅ Vue Router/Nuxt i18n kurulum ile modüler                                       |
+| Özellik                                                | `intlayer`                                                                                                                                                      | `react-i18next`                                                                                                        | `react-intl` (FormatJS)                                                                                                             | `lingui`                                                                 | `next-intl`                                                                                                            | `next-i18next`                                                                                                         | `vue-i18n`                                                                        |
+| ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| **Bileşenlerin Yakınındaki Çeviriler**                 | ✅ Evet, içerik her bileşenle birlikte konumlandırılmıştır                                                                                                      | ❌ Hayır                                                                                                               | ❌ Hayır                                                                                                                            | ❌ Hayır                                                                 | ❌ Hayır                                                                                                               | ❌ Hayır                                                                                                               | ✅ Evet - `Single File Components` (SFCs) kullanarak                              |
+| **TypeScript Entegrasyonu**                            | ✅ Gelişmiş, otomatik olarak oluşturulan katı tipler                                                                                                            | ⚠️ Temel; güvenlik için ekstra yapılandırma                                                                            | ✅ İyi, ancak daha az katı                                                                                                          | ⚠️ Tip tanımları, yapılandırma gerektirir                                | ✅ İyi                                                                                                                 | ⚠️ Temel                                                                                                               | ✅ İyi (tipler mevcuttur; anahtar güvenliği kurulum gerektirir)                   |
+| **Eksik Çeviri Algılama**                              | ✅ TypeScript hatası vurgulama ve derleme zamanı hatası/uyarısı                                                                                                 | ⚠️ Çoğunlukla çalışma zamanında yedek dizeler                                                                          | ⚠️ Yedek dizeler                                                                                                                    | ⚠️ Ekstra yapılandırma gerektirir                                        | ⚠️ Çalışma zamanı yedeği                                                                                               | ⚠️ Çalışma zamanı yedeği                                                                                               | ⚠️ Çalışma zamanı yedeği/uyarıları (yapılandırılabilir)                           |
+| **Zengin İçerik (JSX/Markdown/bileşenler)**            | ✅ Doğrudan destek                                                                                                                                              | ⚠️ Sınırlı / yalnızca enterpolasyon                                                                                    | ⚠️ ICU sözdizimi, gerçek JSX değil                                                                                                  | ⚠️ Sınırlı                                                               | ❌ Zengin düğümler için tasarlanmamıştır                                                                               | ⚠️ Sınırlı                                                                                                             | ⚠️ Sınırlı (`<i18n-t>` aracılığıyla bileşenler, eklentiler aracılığıyla Markdown) |
+| **AI Destekli Çeviri**                                 | ✅ Evet, birden fazla AI sağlayıcısını destekler. Kendi API anahtarlarınızı kullanarak kullanılabilir. Uygulamanızın bağlamını ve içerik kapsamını dikkate alır | ❌ Hayır                                                                                                               | ❌ Hayır                                                                                                                            | ❌ Hayır                                                                 | ❌ Hayır                                                                                                               | ❌ Hayır                                                                                                               | ❌ Hayır                                                                          |
+| **Görsel Editör**                                      | ✅ Evet, yerel Görsel Editör + isteğe bağlı CMS; kod tabanı içeriğini dışsallaştırabilir; gömülebilir                                                           | ❌ Hayır / harici yerelleştirme platformları aracılığıyla kullanılabilir                                               | ❌ Hayır / harici yerelleştirme platformları aracılığıyla kullanılabilir                                                            | ❌ Hayır / harici yerelleştirme platformları aracılığıyla kullanılabilir | ❌ No / harici yerelleştirme platformları aracılığıyla kullanılabilir                                                  | ❌ Hayır / harici yerelleştirme platformları aracılığıyla kullanılabilir                                               | ❌ Hayır / harici yerelleştirme platformları aracılığıyla kullanılabilir          |
+| **Yerelleştirilmiş Yönlendirme**                       | ✅ Evet, yerelleştirilmiş yolları kutudan çıktığı gibi destekler (Next.js ve Vite ile çalışır)                                                                  | ⚠️ Yerleşik değil, eklentiler (örn. `next-i18next`) veya özel yönlendirici yapılandırması gerektirir                   | ❌ Hayır, yalnızca mesaj biçimlendirme, yönlendirme manuel olmalıdır                                                                | ⚠️ Yerleşik değil, eklentiler veya manuel yapılandırma gerektirir        | ✅ Yerleşik, App Router `[locale]` segmentini destekler                                                                | ✅ Yerleşik                                                                                                            | ✅ Yerleşik                                                                       |
+| **Dinamik Rota Oluşturma**                             | ✅ Evet                                                                                                                                                         | ⚠️ Eklenti/ekosistem veya manuel kurulum                                                                               | ❌ Sağlanmadı                                                                                                                       | ⚠️ Eklenti/manuel                                                        | ✅ Evet                                                                                                                | ✅ Evet                                                                                                                | ❌ Sağlanmadı (Nuxt i18n sağlar)                                                  |
+| **Çoğullaştırma**                                      | ✅ Numaralandırma tabanlı kalıplar                                                                                                                              | ✅ Yapılandırılabilir (i18next-icu gibi eklentiler)                                                                    | ✅ (ICU)                                                                                                                            | ✅ (ICU/messageformat)                                                   | ✅ İyi                                                                                                                 | ✅ İyi                                                                                                                 | ✅ Yerleşik çoğul kuralları                                                       |
+| **Biçimlendirme (tarihler, sayılar, para birimleri)**  | ✅ Optimize edilmiş biçimlendiriciler (arka planda Intl)                                                                                                        | ⚠️ Eklentiler veya özel Intl kullanımı yoluyla                                                                         | ✅ ICU biçimlendiricileri                                                                                                           | ✅ ICU/CLI yardımcıları                                                  | ✅ İyi (Intl yardımcıları)                                                                                             | ✅ İyi (Intl yardımcıları)                                                                                             | ✅ Yerleşik tarih/sayı biçimlendiricileri (Intl)                                  |
+| **İçerik Biçimi**                                      | ✅ .tsx, .ts, .js, .json, .md, .txt, (.yaml WIP)                                                                                                                | ⚠️ .json                                                                                                               | ✅ .json, .js                                                                                                                       | ⚠️ .po, .json                                                            | ✅ .json, .js, .ts                                                                                                     | ⚠️ .json                                                                                                               | ✅ .json, .js                                                                     |
+| **ICU desteği**                                        | ⚠️ WIP                                                                                                                                                          | ⚠️ Eklenti aracılığıyla (i18next-icu)                                                                                  | ✅ Evet                                                                                                                             | ✅ Evet                                                                  | ✅ Evet                                                                                                                | ⚠️ Eklenti aracılığıyla (`i18next-icu`)                                                                                | ⚠️ Özel biçimlendirici/derleyici aracılığıyla                                     |
+| **SEO Yardımcıları (hreflang, sitemap)**               | ✅ Yerleşik araçlar: sitemap, robots.txt, meta veriler için yardımcılar                                                                                         | ⚠️ Topluluk eklentileri/manuel                                                                                         | ❌ Çekirdek değil                                                                                                                   | ❌ Çekirdek değil                                                        | ✅ İyi                                                                                                                 | ✅ İyi                                                                                                                 | ❌ Çekirdek değil (Nuxt i18n yardımcılar sağlar)                                  |
+| **Ekosistem / Topluluk**                               | ⚠️ Daha küçük ama hızlı büyüyor ve duyarlı                                                                                                                      | ✅ En büyük ve olgun                                                                                                   | ✅ Büyük                                                                                                                            | ⚠️ Daha küçük                                                            | ✅ Orta boy, Next.js odaklı                                                                                            | ✅ Orta boy, Next.js odaklı                                                                                            | ✅ Vue ekosisteminde büyük                                                        |
+| **Sunucu Tarafı İşleme & Sunucu Bileşenleri**          | ✅ Evet, SSR / React Server Component'leri için kolaylaştırılmış                                                                                                | ⚠️ Sayfa düzeyinde desteklenir ancak alt sunucu bileşenleri için bileşen ağacında t-fonksiyonlarını aktarmanız gerekir | ⚠️ Ek kurulumla sayfa düzeyinde desteklenir ancak alt sunucu bileşenleri için bileşen ağacında t-fonksiyonlarını aktarmanız gerekir | ✅ Desteklenir, kurulum gereklidir                                       | ⚠️ Sayfa düzeyinde desteklenir ancak alt sunucu bileşenleri için bileşen ağacında t-fonksiyonlarını aktarmanız gerekir | ⚠️ Sayfa düzeyinde desteklenir ancak alt sunucu bileşenleri için bileşen ağacında t-fonksiyonlarını aktarmanız gerekir | ✅ Nuxt/Vue SSR aracılığıyla SSR (RSC yok)                                        |
+| **Tree-shaking (yalnızca kullanılan içeriği yükleme)** | ✅ Evet, Babel/SWC eklentileri aracılığıyla derleme zamanında bileşen başına                                                                                    | ⚠️ Genellikle hepsini yükler (namespace'ler/kod ayırma ile iyileştirilebilir)                                          | ⚠️ Genellikle hepsini yükler                                                                                                        | ❌ Varsayılan değil                                                      | ⚠️ Kısmi                                                                                                               | ⚠️ Kısmi                                                                                                               | ⚠️ Kısmi (kod ayırma/manuel kurulum ile)                                          |
+| **Lazy loading**                                       | ✅ Evet, dil başına / sözlük başına                                                                                                                             | ✅ Evet (örn. talep üzerine backend'ler/namespace'ler)                                                                 | ✅ Evet (bölünmüş dil paketleri)                                                                                                    | ✅ Evet (dinamik katalog içe aktarmaları)                                | ✅ Evet (rota başına/dil başına), namespace yönetimi gerekir                                                           | ✅ Evet (rota başına/dil başına), namespace yönetimi gerekir                                                           | ✅ Evet (eşzamansız dil mesajları)                                                |
+| **Kullanılmayan içeriği temizleme**                    | ✅ Evet, derleme zamanında sözlük başına                                                                                                                        | ❌ Hayır, yalnızca manuel namespace bölümlemesi yoluyla                                                                | ❌ Hayır, beyan edilen tüm mesajlar paketlenir                                                                                      | ✅ Evet, kullanılmayan anahtarlar derlemede algılanır ve bırakılır       | ❌ Hayır, namespace yönetimi ile manuel olarak yönetilebilir                                                           | ❌ Hayır, namespace yönetimi ile manuel olarak yönetilebilir                                                           | ❌ Hayır, yalnızca manuel lazy loading yoluyla mümkündür                          |
+| **Büyük Projelerin Yönetimi**                          | ✅ Modülerliği teşvik eder, tasarım sistemine uygundur                                                                                                          | ⚠️ İyi dosya disiplini gerektirir                                                                                      | ⚠️ Merkezi kataloglar büyüyebilir                                                                                                   | ⚠️ Karmaşıklaşabilir                                                     | ✅ Kurulum ile modüler                                                                                                 | ✅ Kurulum ile modüler                                                                                                 | ✅ Vue Router/Nuxt i18n kurulumu ile modüler                                      |
 
----
+## GitHub Yıldızları
 
-## GitHub YILDIZLARI
+GitHub yıldızları, bir projenin popülerliğinin, topluluk güveninin ve uzun vadeli alakasının güçlü bir göstergesidir. Teknik kalitenin doğrudan bir ölçüsü olmasa da, kaç geliştiricinin projeyi yararlı bulduğunu, ilerlemesini takip ettiğini ve onu benimseme olasılığının yüksek olduğunu yansıtır. Bir projenin değerini tahmin etmek için yıldızlar, alternatifler arasındaki çekiciliği karşılaştırmaya yardımcı olur ve ekosistem büyümesi hakkında bilgiler sağlar.
 
-GitHub yıldızları, bir projenin popülaritesinin, topluluk güveninin ve uzun vadeli öneminin güçlü bir göstergesidir. Teknik kalitenin doğrudan bir ölçüsü olmasa da, kaç geliştiricinin projeyi yararlı bulduğunu, ilerlemesini takip ettiğini ve muhtemelen benimsediğini yansıtır. Bir projenin değerini tahmin etmek için yıldızlar, alternatifler arasındaki çekişmeyi karşılaştırmaya ve ekosistem büyümesine ilişkin içgörüler sağlamaya yardımcı olur.
-
-[![Yıldız Geçmişi Grafiği](https://api.star-history.com/svg?repos=formatjs/formatjs&repos=i18next/react-i18next&repos=i18next/i18next&repos=i18next/next-i18next&repos=lingui/js-lingui&repos=amannn/next-intl&repos=intlify/vue-i18n&repo=opral/monorepo&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&opral/monorepo&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=aymericzip/intlayer%2Cformatjs/formatjs%2Ci18next/react-i18next%2Ci18next/i18next%2Ci18next/next-i18next%2Clingui/js-lingui%2Camannn/next-intl%2Cintlify/vue-i18n%2Ccodingcommons/typesafe-i18n%2Copral/paraglide-js&type=date&legend=top-left)](https://www.star-history.com/#aymericzip/intlayer&formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&codingcommons/typesafe-i18n&opral/paraglide-js)
 
 ---
 
 ## Birlikte Çalışabilirlik
 
-`intlayer` ayrıca `react-intl`, `react-i18next`, `next-intl`, `next-i18next` ve `vue-i18n` isim alanlarınızı yönetmenize yardımcı olabilir.
+`intlayer` ayrıca `react-intl`, `react-i18next`, `next-intl`, `next-i18next` ve `vue-i18n` namespace'lerinizi yönetmenize yardımcı olabilir.
 
-`intlayer` kullanarak, içeriğinizi favori i18n kütüphanenizin formatında bildirebilirsiniz ve intlayer isim alanlarınızı seçtiğiniz konumda oluşturacaktır (örnek: `/messages/{{locale}}/{{namespace}}.json`).
-
-Daha fazla ayrıntı için [`dictionaryOutput` ve `i18nextResourcesDir` seçeneklerine](https://intlayer.org/doc/concept/configuration#content-configuration) bakın.
+`intlayer` kullanarak içeriğinizi en sevdiğiniz i18n kütüphanesinin biçiminde bildirebilirsiniz ve intlayer, namespace'lerinizi istediğiniz konumda oluşturur (örnek: `/messages/{{locale}}/{{namespace}}.json`).

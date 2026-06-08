@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { useState } from 'react';
-import { InputVariant } from '../Input';
 import { AutoSizedTextArea } from '.';
 
 /**
@@ -89,10 +88,10 @@ const meta: Meta<typeof AutoSizedTextArea> = {
     variant: {
       description: 'Visual variant for different contexts',
       control: { type: 'select' },
-      options: Object.values(InputVariant),
+      options: ['default', 'invisible'],
       table: {
         type: { summary: 'InputVariant' },
-        defaultValue: { summary: 'InputVariant.DEFAULT' },
+        defaultValue: { summary: 'default' },
       },
     },
     validationStyleEnabled: {
@@ -338,7 +337,7 @@ export const ChatInterface: Story = {
                 autoSize={true}
                 maxRows={4}
                 className="w-full resize-none rounded-lg border border-gray-300 px-3 py-2 text-sm"
-                variant={InputVariant.INVISIBLE}
+                variant="invisible"
               />
             </div>
 
@@ -459,8 +458,8 @@ export const NoteTaking: Story = {
             placeholder="Start writing your notes..."
             autoSize={true}
             maxRows={25}
-            className="min-h-[300px] w-full resize-none border-0 font-mono text-sm leading-relaxed focus:outline-none focus:ring-0"
-            variant={InputVariant.INVISIBLE}
+            className="min-h-75 w-full resize-none border-0 font-mono text-sm leading-relaxed focus:outline-none focus:ring-0"
+            variant="invisible"
           />
         </div>
 

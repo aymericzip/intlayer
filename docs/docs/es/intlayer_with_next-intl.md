@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-10-05
-updatedAt: 2025-10-05
-title: Cómo traducir tu Next.js 15 usando next-intl – guía i18n 2025
-description: Descubre cómo hacer tu sitio web Next.js 15 App Router multilingüe. Sigue la documentación para internacionalizar (i18n) y traducirlo.
+updatedAt: 2026-05-31
+title: "next-intl i18n - Guía completa para traducir tu aplicación"
+description: "Sin más i18next. La guía 2026 para crear una aplicación next-intl multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
 keywords:
   - Internacionalización
   - Documentación
@@ -52,6 +52,10 @@ pnpm add next-intl
 yarn add next-intl
 ```
 
+```bash packageManager="bun"
+bun add next-intl
+```
+
 ```bash
 .
 ├── locales
@@ -99,7 +103,7 @@ async function loadMessages(locale: string) {
 }
 
 export default getRequestConfig(async ({ locale }) => {
-  if (!locales.includes(locale as any)) notFound();
+  if (!locales.includes(locale)) notFound();
 
   return {
     messages: await loadMessages(locale),
@@ -358,9 +362,9 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-### Middleware para el enrutamiento de locales
+### Middleware para el enrutamiento por locales
 
-Agrega un middleware para manejar la detección y el enrutamiento de locales:
+Agrega un middleware para manejar la detección y el enrutamiento por locales:
 
 ```ts fileName="src/middleware.ts"
 import createMiddleware from "next-intl/middleware";
@@ -391,15 +395,20 @@ export const config = {
 Instala las dependencias de intlayer:
 
 ```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin  -D
+npm install intlayer @intlayer/sync-json-plugin --save-dev
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin  -D
+yarn add intlayer @intlayer/sync-json-plugin --dev
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin  -D
+pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+```
+
+```bash packageManager="bun"
+bun add intlayer @intlayer/sync-json-plugin --dev
+bun x intlayer init
 ```
 
 Crea el archivo de configuración de intlayer:
@@ -444,4 +453,4 @@ Notas:
 - `intlayer fill`: utiliza tu proveedor de IA para completar las traducciones faltantes basándose en los locales configurados.
 - `intlayer test`: verifica traducciones faltantes o inválidas (úsalo en CI).
 
-Puedes configurar argumentos y proveedores; consulta [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_cli.md).
+Puedes configurar argumentos y proveedores; consulta [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/index.md).

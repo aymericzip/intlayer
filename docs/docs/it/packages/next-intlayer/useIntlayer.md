@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-05-06
 title: Documentazione Hook useIntlayer | next-intlayer
 description: Scopri come utilizzare l'hook useIntlayer per il pacchetto next-intlayer
 keywords:
@@ -19,9 +19,12 @@ slugs:
   - next-intlayer
   - useIntlayer
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Aggiornare l'uso dell'API useIntlayer di Solid all'accesso diretto alle proprietà"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Storia iniziale
+    changes: "Storia iniziale"
 ---
 
 # Integrazione Next.js: Documentazione Hook `useIntlayer`
@@ -69,13 +72,13 @@ A seconda che tu stia lavorando su componenti client-side o server-side in un'ap
 
 È fondamentale che tutte le chiavi di contenuto siano definite all'interno dei file di dichiarazione del contenuto per evitare errori di runtime e garantire la sicurezza dei tipi. Questo approccio facilita anche l'integrazione con TypeScript per la validazione a tempo di compilazione.
 
-Le istruzioni per configurare i file di dichiarazione del contenuto sono disponibili [qui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/get_started.md).
+Le istruzioni per configurare i file di dichiarazione del contenuto sono disponibili [qui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_file.md).
 
 ## Esempio di utilizzo in Next.js
 
 Ecco come implementare il hook `useIntlayer` all'interno di una pagina Next.js per caricare dinamicamente contenuti localizzati in base alla locale corrente dell'applicazione:
 
-```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
+```tsx fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
 import { ClientComponentExample } from "@components/ClientComponentExample";
 import { ServerComponentExample } from "@components/ServerComponentExample";
 import { type NextPageIntlayer, IntlayerClientProvider } from "next-intlayer";
@@ -100,57 +103,7 @@ const HomePage: NextPageIntlayer = async ({ params }) => {
 };
 ```
 
-```jsx fileName="src/pages/[locale]/index.csx" codeFormat="esm"
-import { ClientComponentExample } from "@components/ClientComponentExample";
-import { ServerComponentExample } from "@components/ServerComponentExample";
-import { IntlayerClientProvider } from "next-intlayer";
-import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
-
-const HomePage = ({ locale }) => {
-  const content = useIntlayer("homepage", locale);
-
-  return (
-    <>
-      <p>{content.introduzione}</p>
-      <IntlayerClientProvider locale={locale}>
-        <ClientComponentExample />
-      </IntlayerClientProvider>
-      <IntlayerServerProvider locale={locale}>
-        <ServerComponentExample />
-      </IntlayerServerProvider>
-    </>
-  );
-};
-```
-
-```jsx fileName="src/components/ClientComponentExample.csx" codeFormat="commonjs"
-const {
-  ClientComponentExample,
-} = require("@components/ClientComponentExample");
-const {
-  ServerComponentExample,
-} = require("@components/ServerComponentExample");
-const { IntlayerClientProvider } = require("next-intlayer");
-const { useIntlayer } = require("next-intlayer/server");
-
-const HomePage = ({ locale }) => {
-  const content = useIntlayer("homepage", locale);
-
-  return (
-    <>
-      <p>{content.introduzione}</p>
-      <IntlayerClientProvider locale={locale}>
-        <ClientComponentExample />
-      </IntlayerClientProvider>
-      <IntlayerServerProvider locale={locale}>
-        <ServerComponentExample />
-      </IntlayerServerProvider>
-    </>
-  );
-};
-```
-
-```tsx fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="src/components/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use-client";
 
 import type { FC } from "react";
@@ -168,75 +121,11 @@ const ClientComponentExample: FC = () => {
 };
 ```
 
-```jsx fileName="src/components/ClientComponentExample.msx" codeFormat="esm"
-"use-client";
-
-import { useIntlayer } from "next-intlayer";
-
-const ServerComponentExample = () => {
-  const content = useIntlayer("component-content");
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ClientComponentExample.csx" codeFormat="commonjs"
-"use-client";
-
-const { useIntlayer } = require("next-intlayer");
-
-const ServerComponentExample = () => {
-  const content = useIntlayer("component-content");
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
-    </div>
-  );
-};
-```
-
-```tsx fileName="src/components/ServerComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer/server";
 
 const ServerComponentExample: FC = () => {
-  const content = useIntlayer("component-content");
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ServerComponentExample.mjx" codeFormat="esm"
-import { useIntlayer } from "next-intlayer/server";
-
-const ServerComponentExample = () => {
-  const content = useIntlayer("component-content");
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ServerComponentExample.csx" codeFormat="commonjs"
-const { useIntlayer } = require("next-intlayer/server");
-
-const ServerComponentExample = () => {
   const content = useIntlayer("component-content");
 
   return (
@@ -254,6 +143,8 @@ Per localizzare attributi come `alt`, `title`, `href`, `aria-label`, ecc., assic
 
 ```tsx
 <img src={content.image.src.value} alt={content.image.alt.value} />
+<img src={content.image.src.toString()} alt={content.image.alt.toString()} />
+<img src={String(content.image.src)} alt={String(content.image.alt)} />
 ```
 
 ## Ulteriori Informazioni

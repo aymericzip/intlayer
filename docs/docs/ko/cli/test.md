@@ -17,8 +17,20 @@ slugs:
 
 # 누락된 번역 테스트
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 ## 별칭:
@@ -69,8 +81,20 @@ Total missing required locales: 0
 
 ## 예시:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 출력 결과는 모든 구성된 로케일에서 애플리케이션이 제대로 작동하도록 완료해야 할 번역을 빠르게 식별하는 데 도움이 됩니다.

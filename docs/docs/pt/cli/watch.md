@@ -17,8 +17,20 @@ slugs:
 
 # Monitorar Dicionários
 
-```bash
+```bash packageManager="npm"
 npx intlayer watch
+```
+
+```bash packageManager="yarn"
+yarn intlayer watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer watch
+```
+
+```bash packageManager="bun"
+bun x intlayer watch
 ```
 
 Este comando irá monitorar alterações nos seus arquivos de declaração de conteúdo e construir os dicionários no diretório `.intlayer`.

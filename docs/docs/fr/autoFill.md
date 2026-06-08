@@ -18,13 +18,13 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-09-20
-    changes: Ajout de la configuration globale
+    changes: "Ajout de la configuration globale"
   - version: 6.0.0
     date: 2025-09-17
-    changes: Ajout de la variable `{{fileName}}`
+    changes: "Ajout de la variable `{{fileName}}`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historique initial
+    changes: "Historique initial"
 ---
 
 # Traductions des fichiers de déclaration de contenu avec remplissage automatique
@@ -52,8 +52,20 @@ Voici un [fichier de déclaration de contenu par langue](https://github.com/ayme
 
 Ensuite, lorsque vous exécutez la commande suivante :
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
 Intlayer générera automatiquement le fichier de déclaration dérivé à `src/components/example/example.content.json`, en remplissant toutes les locales non déjà déclarées dans le fichier principal.
@@ -164,7 +176,7 @@ Cela ne générera que le fichier de traduction français.
 
 ## Variables de chemin
 
- Vous pouvez utiliser des variables dans le chemin `autoFill` pour résoudre dynamiquement les chemins cibles des fichiers générés.
+Vous pouvez utiliser des variables dans le chemin `autoFill` pour résoudre dynamiquement les chemins cibles des fichiers générés.
 
 **Variables disponibles :**
 

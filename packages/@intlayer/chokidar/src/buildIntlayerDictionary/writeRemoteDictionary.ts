@@ -1,8 +1,9 @@
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { colorizePath, getConfiguration, x } from '@intlayer/config';
-import { orderDictionaries } from '@intlayer/core';
-import type { Dictionary } from '@intlayer/types';
+import { colorizePath, x } from '@intlayer/config/logger';
+import { orderDictionaries } from '@intlayer/core/dictionaryManipulator';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { formatDistantDictionaries } from '../loadDictionaries';
 import { parallelize } from '../utils/parallelize';
@@ -37,9 +38,9 @@ export type RemoteDictionaryOutput = Record<string, RemoteDictionaryResult>;
  */
 export const writeRemoteDictionary = async (
   remoteDictionaries: Dictionary[],
-  configuration = getConfiguration()
+  configuration: IntlayerConfig
 ): Promise<RemoteDictionaryOutput> => {
-  const { remoteDictionariesDir } = configuration.content;
+  const { remoteDictionariesDir } = configuration.system;
 
   // Create the dictionaries folder if it doesn't exist
   await mkdir(resolve(remoteDictionariesDir), { recursive: true });
@@ -65,10 +66,7 @@ export const writeRemoteDictionary = async (
 
       const formattedDictionaries = formatDistantDictionaries(dictionaries);
 
-      const orderedDictionaries = orderDictionaries(
-        formattedDictionaries,
-        configuration
-      );
+      const orderedDictionaries = orderDictionaries(formattedDictionaries);
 
       const outputFileName = `${key}.json`;
       const unmergedFilePath = resolve(remoteDictionariesDir, outputFileName);

@@ -1,7 +1,6 @@
-import configuration from '@intlayer/config/built';
-import { DefaultValues } from '@intlayer/config/client';
-import type { LocalesValues, StrictModeLocaleMap } from '@intlayer/types';
+import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import { getLocalizedUrl } from './getLocalizedUrl';
+import { type RoutingOptions, resolveRoutingConfig } from './getPrefix';
 
 /**
  * Generates multilingual URLs by prefixing the given URL with each supported locale
@@ -39,40 +38,14 @@ import { getLocalizedUrl } from './getLocalizedUrl';
  */
 export const getMultilingualUrls = (
   url: string,
-  options: {
-    locales?: LocalesValues[];
-    defaultLocale?: LocalesValues;
-    mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
-  } = {}
+  options: RoutingOptions = {}
 ): StrictModeLocaleMap<string> => {
-  const { defaultLocale, mode, locales } = {
-    defaultLocale:
-      configuration?.internationalization?.defaultLocale ??
-      DefaultValues.Internationalization.DEFAULT_LOCALE,
-    mode: configuration?.routing?.mode ?? DefaultValues.Routing.ROUTING_MODE,
-    locales:
-      configuration?.internationalization?.locales ??
-      DefaultValues.Internationalization.LOCALES,
-    ...options,
-  };
+  const resolved = resolveRoutingConfig(options);
 
-  // Generate multilingual URLs by iterating over each locale and calling getLocalizedUrl
-  const multilingualUrls = (locales ?? []).reduce<StrictModeLocaleMap<string>>(
-    (acc, locale) => {
-      // Get the localized URL for this locale
-      const localizedUrl = getLocalizedUrl(url, locale, {
-        locales,
-        defaultLocale,
-        mode,
-      });
-
-      // Assign the constructed URL to the corresponding locale key
-      acc[locale as unknown as keyof typeof acc] = localizedUrl;
-
-      return acc;
-    },
-    {} as StrictModeLocaleMap<string>
-  );
-
-  return multilingualUrls;
+  return Object.fromEntries(
+    (resolved.locales ?? []).map((locale) => [
+      locale,
+      getLocalizedUrl(url, locale, resolved),
+    ])
+  ) as StrictModeLocaleMap<string>;
 };

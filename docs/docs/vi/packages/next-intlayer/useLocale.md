@@ -1,15 +1,11 @@
 ---
-createdAt: 2025-08-23
-updatedAt: 2025-10-09
-title: Tài liệu Hook useLocale | next-intlayer
-description: Xem cách sử dụng hook useLocale cho gói next-intlayer
 keywords:
   - useLocale
   - dictionary
   - key
   - Intlayer
-  - Quốc tế hóa
-  - Tài liệu
+  - Internationalization
+  - Documentation
   - Next.js
   - JavaScript
   - React
@@ -18,13 +14,20 @@ slugs:
   - packages
   - next-intlayer
   - useLocale
+description: Documentation for the useLocale hook in the next-intlayer package
+createdAt: 2025-08-23
+updatedAt: 2026-01-26
+title: Tài liệu Hook useLocale | next-intlayer
 history:
+  - version: 8.0.0
+    date: 2026-01-26
+    changes: "Mặc định `onLocaleChange` thành `replace`"
   - version: 6.2.0
     date: 2025-10-09
-    changes: Thêm tài liệu cho hook `useLocale` với tùy chọn `onLocaleChange`
+    changes: "Thêm tài liệu cho hook `useLocale` với tùy chọn `onLocaleChange`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Khởi tạo lịch sử
+    changes: "Khởi tạo lịch sử"
 ---
 
 # Tích hợp Next.js: Tài liệu Hook `useLocale` cho `next-intlayer`
@@ -43,7 +46,7 @@ import { useLocale } from "next-intlayer"; // Dùng để quản lý ngôn ngữ
 
 Dưới đây là cách triển khai hook `useLocale` trong một component Next.js:
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
 import type { FC } from "react";
@@ -51,56 +54,6 @@ import { Locales } from "intlayer";
 import { useLocale } from "next-intlayer";
 
 const LocaleSwitcher: FC = () => {
-  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
-
-  return (
-    <div>
-      <h1>Ngôn ngữ hiện tại: {locale}</h1>
-      <p>Ngôn ngữ mặc định: {defaultLocale}</p>
-      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
-        {availableLocales.map((loc) => (
-          <option key={loc} value={loc}>
-            {loc}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.mjx" codeFormat="esm"
-"use client";
-
-import { Locales } from "intlayer";
-import { useLocale } from "next-intlayer";
-
-const LocaleSwitcher = () => {
-  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
-
-  return (
-    <div>
-      <h1>Ngôn ngữ hiện tại: {locale}</h1>
-      <p>Ngôn ngữ mặc định: {defaultLocale}</p>
-      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
-        {availableLocales.map((loc) => (
-          <option key={loc} value={loc}>
-            {loc}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-"use client";
-
-const { Locales } = require("intlayer");
-const { useLocale } = require("next-intlayer");
-
-const LocaleSwitcher = () => {
   const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
 
   return (
@@ -134,12 +87,12 @@ Hook `useLocale` chấp nhận các tham số sau:
   >
   > Hành vi sẽ khác nhau dựa trên giá trị của `onLocaleChange`:
   >
-  > - `undefined`: (mặc định) Chỉ cập nhật ngôn ngữ trong ngữ cảnh client, và đặt cookie, mà không thay đổi URL.
-  >   -> Nút "quay lại" sẽ dẫn đến `/fr/home`
-  > - `"replace"`: Thay thế URL hiện tại bằng URL đã được địa phương hóa mới, và đặt cookie.
+  > - `"replace"` (mặc định): Thay thế URL hiện tại bằng URL đã được địa phương hóa mới, và đặt cookie.
   >   -> Nút "quay lại" sẽ dẫn đến `/es/home`
   > - `"push"`: Thêm URL đã được địa phương hóa mới vào lịch sử trình duyệt, và đặt cookie.
   >   -> Nút "quay lại" sẽ dẫn đến `/fr/about`
+  > - `"none"`: Chỉ cập nhật ngôn ngữ trong ngữ cảnh client, và đặt cookie, mà không thay đổi URL.
+  >   -> Nút "quay lại" sẽ dẫn đến `/fr/home`
   > - `(locale) => void`: Đặt cookie và kích hoạt một hàm tùy chỉnh sẽ được gọi khi ngôn ngữ thay đổi.
   >
   >   Tùy chọn `undefined` là hành vi mặc định vì chúng tôi khuyến nghị sử dụng component `Link` để điều hướng đến ngôn ngữ mới.

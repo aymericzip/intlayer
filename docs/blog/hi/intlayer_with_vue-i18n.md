@@ -27,7 +27,7 @@ history:
 
 # vue-i18n और Intlayer के साथ Vue.js अंतरराष्ट्रीयकरण (i18n)
 
-<iframe title="Intlayer का उपयोग करके अपने vue-i18n JSON अनुवादों को स्वचालित कैसे करें" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Intlayer का उपयोग करके अपने vue-i18n JSON अनुवादों को स्वचालित कैसे करें" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## सामग्री सूची
 
@@ -61,19 +61,23 @@ history:
 अपनी पसंदीदा पैकेज प्रबंधक का उपयोग करके आवश्यक पैकेज इंस्टॉल करें:
 
 ```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin
+npm install intlayer @intlayer/sync-json-plugin --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin
+pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin
+yarn add intlayer @intlayer/sync-json-plugin --dev
+yarn intlayer init
 ```
 
 ```bash packageManager="bun"
-bun add intlayer @intlayer/sync-json-plugin
+bun add intlayer @intlayer/sync-json-plugin --dev
+bun x intlayer init
 ```
 
 **पैकेज व्याख्याएँ:**

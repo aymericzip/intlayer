@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2025-06-29
-title: Migliori strumenti di internazionalizzazione (i18n) per Svelte
-description: Scopri i migliori strumenti di internazionalizzazione (i18n) per Svelte per affrontare i sfide di traduzione, migliorare la ricerca sul web e fornire un'esperienza web globale senza problemi.
+updatedAt: 2026-05-31
+title: Migliori strumenti di internazionalizzazione (i18n) per Svelte - Guida completa per tradurre Best Svelte i18n Libraries 2026 — Compared by DX & Bundle
+description: La migliore soluzione per dimensione del bundle, SEO, prestazioni & manutenibilità. Rendi il tuo Svelte applicazione multilingue nel 2026, traduzione LLM, Agent Skills & MCP.
 keywords:
   - Svelte
   - i18n
@@ -48,7 +48,29 @@ Tradurre un'applicazione Svelte può presentare diversi ostacoli:
 
 Svelte non fornisce una soluzione i18n integrata nativa (come fa Angular), ma la comunità ha creato una varietà di librerie e modelli robusti. Di seguito sono riportati diversi approcci popolari.
 
-### 1. svelte-i18n
+### 1. Intlayer
+
+> Sito web: [https://intlayer.org/](https://intlayer.org/)
+
+**Panoramica**  
+**Intlayer** è una libreria innovativa e open-source di internazionalizzazione (i18n) progettata per semplificare il supporto multilingue nelle moderne applicazioni web Svelte (e altre). Offre un approccio dichiarativo, consentendoti di definire dizionari di traduzione direttamente all'interno dei tuoi componenti.
+
+**Caratteristiche principali**
+
+- **Dichiarazione di traduzione**: Consente la dichiarazione di tutte le traduzioni in un unico file, posizionato a livello di componente, rendendo più facile il mantenimento e la scalabilità.
+- **TypeScript & Autocompletamento**: Offre definizioni di tipo autogenerate per le chiavi di traduzione, fornendo un robusto autocompletamento e rilevamento degli errori.
+- **Componenti server e SSR**: Costruito tenendo a mente sia la renderizzazione lato server (SSR) che i componenti server, garantendo che il contenuto localizzato venga reso in modo efficiente sia sul client che sul server.
+- **Metadati localizzati & URL per SEO**: Gestisci facilmente percorsi dinamici basati sulla lingua, sitemap e voci robots.txt per migliorare la scoperta e il SEO.
+- **Integrazione senza soluzione di continuità**: Compatibile con SvelteKit e altri strumenti, rendendo la configurazione semplice.
+- **Caricamento asincrono**: Carica dinamicamente i dizionari di traduzione, riducendo le dimensioni del bundle iniziale e migliorando le prestazioni.
+
+**Considerazioni**
+
+- **Comunità ed Ecosistema**: Anche se in crescita, l'ecosistema è più recente, quindi i plugin e gli strumenti guidati dalla comunità potrebbero essere più limitati rispetto a soluzioni più consolidate.
+
+---
+
+### 2. svelte-i18n
 
 Repository: [https://github.com/kaisermann/svelte-i18n](https://github.com/kaisermann/svelte-i18n)
 
@@ -70,7 +92,7 @@ Repository: [https://github.com/kaisermann/svelte-i18n](https://github.com/kaise
 
 ---
 
-### 2. svelte-intl-precompile
+### 3. svelte-intl-precompile
 
 Repository: [https://github.com/cibernox/svelte-intl-precompile](https://github.com/cibernox/svelte-intl-precompile)
 
@@ -92,7 +114,7 @@ Repository: [https://github.com/cibernox/svelte-intl-precompile](https://github.
 
 ---
 
-### 3. i18next con Svelte / SvelteKit
+### 4. i18next con Svelte / SvelteKit
 
 Sito web: [https://www.i18next.com/](https://www.i18next.com/)
 

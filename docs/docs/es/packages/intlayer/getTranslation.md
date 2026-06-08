@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inicio del historial
+    changes: "Inicio del historial"
 ---
 
 # Documentación: Función `getTranslationContent` en `intlayer`
@@ -33,13 +33,11 @@ La función `getTranslationContent` recupera el contenido correspondiente a una 
 ## Parámetros
 
 - `languageContent: CustomizableLanguageContent<Content>`
-
   - **Descripción**: Un objeto que contiene traducciones para varias localidades. Cada clave representa una localidad y su valor es el contenido correspondiente.
   - **Tipo**: `CustomizableLanguageContent<Content>`
     - `Content` puede ser de cualquier tipo, por defecto `string`.
 
 - `locale: Locales`
-
   - **Descripción**: La localidad para la cual se desea obtener el contenido.
   - **Tipo**: `Locales`
 
@@ -52,36 +50,8 @@ La función `getTranslationContent` recupera el contenido correspondiente a una 
 
 ### Uso básico
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getTranslationContent, Locales } from "intlayer";
-
-const content = getTranslationContent(
-  {
-    en: "Hello",
-    fr: "Bonjour",
-  },
-  Locales.ENGLISH
-);
-
-console.log(content); // Salida: "Bonjour"
-```
-
-```javascript codeFormat="esm"
-import { getTranslationContent, Locales } from "intlayer";
-
-const content = getTranslationContent(
-  {
-    en: "Hello",
-    fr: "Bonjour",
-  },
-  Locales.ENGLISH
-);
-
-console.log(content); // Salida: "Bonjour"
-```
-
-```javascript codeFormat="commonjs"
-const { getTranslationContent, Locales } = require("intlayer");
 
 const content = getTranslationContent(
   {
@@ -96,36 +66,8 @@ console.log(content); // Salida: "Bonjour"
 
 ### Localidad faltante:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getTranslationContent, Locales } from "intlayer";
-
-const content = getTranslationContent(
-  {
-    en: "Hello",
-    fr: "Bonjour",
-  },
-  Locales.SPANISH
-);
-
-console.log(content); // Salida: "Hello" (contenido de la localidad predeterminada)
-```
-
-```javascript codeFormat="esm"
-import { getTranslationContent, Locales } from "intlayer";
-
-const content = getTranslationContent(
-  {
-    en: "Hello",
-    fr: "Bonjour",
-  },
-  Locales.SPANISH
-);
-
-console.log(content); // Salida: "Hello" (contenido de la localidad predeterminada)
-```
-
-```javascript codeFormat="commonjs"
-const { getTranslationContent, Locales } = require("intlayer");
 
 const content = getTranslationContent(
   {
@@ -140,36 +82,8 @@ console.log(content); // Salida: "Hello" (contenido de la localidad predetermina
 
 ### Uso de Tipos de Contenido Personalizados:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getTranslationContent, Locales } from "intlayer";
-
-const customContent = getTranslationContent<Record<string, string>>(
-  {
-    en: { greeting: "Hello" },
-    fr: { greeting: "Bonjour" },
-  },
-  Locales.FRENCH
-);
-
-console.log(customContent.greeting); // Salida: "Bonjour"
-```
-
-```javascript codeFormat="esm"
-import { getTranslationContent, Locales } from "intlayer";
-
-const customContent = getTranslationContent<Record<string, string>>(
-  {
-    en: { greeting: "Hello" },
-    fr: { greeting: "Bonjour" },
-  },
-  Locales.FRENCH
-);
-
-console.log(customContent.greeting); // Salida: "Bonjour"
-```
-
-```javascript codeFormat="commonjs"
-const { getTranslationContent, Locales } = require("intlayer");
 
 const customContent = getTranslationContent<Record<string, string>>(
   {

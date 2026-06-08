@@ -20,17 +20,66 @@ slugs:
 
 # Rellenar / auditar / traducir diccionarios
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill
 ```
 
+```bash packageManager="yarn"
+yarn intlayer fill
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill
+```
+
+```bash packageManager="bun"
+bun x intlayer fill
+```
+
 Este comando analiza tus archivos de declaración de contenido en busca de posibles problemas como traducciones faltantes, inconsistencias estructurales o incompatibilidades de tipo. Si encuentra algún problema, **intlayer fill** propondrá o aplicará actualizaciones para mantener tus diccionarios consistentes y completos.
+
+Puntos clave:
+
+- Divide archivos JSON grandes en fragmentos para mantenerse dentro de los límites de la ventana de contexto del modelo de IA.
+- Reintenta la traducción si el formato de salida es incorrecto.
+- Incorpora contexto específico de la aplicación y del archivo para mejorar la precisión de la traducción.
+- Preserva las traducciones existentes al no sobrescribirlas.
+- Procesa archivos, fragmentos y locales en paralelo usando un sistema de cola para aumentar la velocidad.
 
 ## Alias:
 
 - `npx intlayer dictionaries fill`
 - `npx intlayer dictionary fill`
 - `npx intlayer dic fill`
+
+## Ejemplos de salida:
+
+```bash
+npx intlayer fill
+
+Preparing Intlayer (v7.5.14)
+Done 76ms
+@intlayer/ai found - Run process locally
+Provider: (default) - Model: (default) - API Key: ✓
+Affected dictionary keys for processing: app, comp-test, hello-world, lang-switcher
+ - [comp-test]      No locales to fill, Skipping comp-test.content.json
+ - [app]            Processing app.content.tsx
+ - [app]            Filling missing metadata for app.content.tsx
+ - [hello-world]    Processing test.content.ts
+ - [hello-world]   [French (fr)]      Preparing test.content.ts
+ - [hello-world]   [Spanish (es)]     Preparing test.content.ts
+ - [lang-switcher]  Processing langSwitcher.content.ts
+ - [lang-switcher]  Filling missing metadata for langSwitcher.content.ts
+ - [hello-world]    Translation completed successfully for test.content.ts
+ - [lang-switcher] [Spanish (es)]     Preparing langSwitcher.content.ts
+ - [app]           [French (fr)]      Preparing app.content.tsx
+ - [app]           [Spanish (es)]     Preparing app.content.tsx
+ - [hello-world]    Content declaration written to test.content.ts
+ - [app]            Translation completed successfully for app.content.tsx
+ - [app]            Content declaration written to app.content.tsx
+ - [lang-switcher]  Translation completed successfully for langSwitcher.content.ts
+ - [lang-switcher]  Content declaration written to langSwitcher.content.ts
+```
 
 ## Argumentos:
 
@@ -89,6 +138,7 @@ Este comando analiza tus archivos de declaración de contenido en busca de posib
 - **`--api-key [apiKey]`**: Proporciona tu propia clave API para el servicio de IA.
 - **`--custom-prompt [prompt]`**: Proporciona un prompt personalizado para tus instrucciones de traducción.
 - **`--application-context [applicationContext]`**: Proporciona contexto adicional para la traducción por IA.
+- **`--data-serialization [dataSerialization]`**: El formato de serialización de datos a utilizar para las funciones de IA de Intlayer. Opciones: `json` (estándar, confiable), `toon` (menos tokens, menos consistente).
 
   > Ejemplo: `npx intlayer fill --model gpt-3.5-turbo --provider openai --temperature 0.5 --api-key sk-1234567890 --application-context "Mi aplicación es una tienda de gatos"`
 
@@ -123,8 +173,20 @@ Este comando analiza tus archivos de declaración de contenido en busca de posib
 
 ## Ejemplo:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
 ```
 
 Este comando traducirá el contenido del inglés al francés y español para todos los archivos de declaración de contenido en el directorio `src/home/` usando el modelo GPT-3.5 Turbo.

@@ -1,8 +1,8 @@
 'use client';
 
-import { Loader } from '@intlayer/design-system';
 import { useDevice } from '@intlayer/design-system/hooks';
-import { cn } from '@utils/cn';
+import { Loader } from '@intlayer/design-system/loader';
+import { cn } from '@intlayer/design-system/utils';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { type IntlayerNode, useIntlayer } from 'next-intlayer';
@@ -15,6 +15,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import { FrameworkProvider } from './FrameworkContext';
 
 /* -------------------------------------------------------------------------- */
 /*                               Subcomponents                                */
@@ -29,7 +30,7 @@ const SectionItem: FC<PropsWithChildren<SectionItemProps>> = ({
   isActive,
 }) => (
   <motion.div
-    className="flex size-full items-center justify-center p-10"
+    className="m-auto flex size-full max-w-5xl items-center justify-center p-10"
     initial={{ x: '100%', opacity: 0 }}
     animate={{ x: isActive ? '0%' : '100%', opacity: isActive ? 1 : 0 }}
     transition={{ duration: 0.5, ease: 'easeInOut' }}
@@ -275,13 +276,6 @@ const DynamicIDESection = dynamic(
   }
 );
 
-const DynamicMarkdownSection = dynamic(
-  () => import('./MarkdownSection').then((mod) => mod.MarkdownSection),
-  {
-    loading: () => <Loader />,
-  }
-);
-
 const DynamicMultilingualSection = dynamic(
   () => import('./MultilingualSection').then((mod) => mod.MultilingualSection),
   {
@@ -345,11 +339,6 @@ export const FeaturesSection: FC = () => {
             ...sectionData,
             children: <DynamicMultilingualSection scrollProgress={progress} />,
           };
-        case 'markdown':
-          return {
-            ...sectionData,
-            children: <DynamicMarkdownSection scrollProgress={progress} />,
-          };
         case 'test':
           return {
             ...sectionData,
@@ -376,10 +365,12 @@ export const FeaturesSection: FC = () => {
     });
 
   return (
-    <FeaturesCarousel
-      sections={sections}
-      progress={progress}
-      setProgress={setProgress}
-    />
+    <FrameworkProvider>
+      <FeaturesCarousel
+        sections={sections}
+        progress={progress}
+        setProgress={setProgress}
+      />
+    </FrameworkProvider>
   );
 };

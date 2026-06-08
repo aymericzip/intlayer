@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-10-05
-updatedAt: 2025-10-05
-title: Как перевести ваше приложение Next.js 15 с помощью next-i18next – руководство по i18n 2025
-description: Практическое руководство, готовое к использованию в продакшене, по интернационализации приложения Next.js 15 с App Router с использованием i18next/next-i18next и улучшению с помощью Intlayer.
+updatedAt: 2026-05-31
+title: "next-i18next i18n - Полное руководство по переводу вашего приложения"
+description: "Больше никакого i18next. Руководство 2026 по созданию многоязычного (i18n) приложения next-i18next. Переводите с помощью ИИ-агентов и оптимизируйте размер бандла, SEO и производительность."
 keywords:
   - Интернационализация
   - Документация
@@ -37,7 +37,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-i18next-templat
 - Интеграция Intlayer для автоматизации рабочих процессов перевода (тесты, заполнение AI, синхронизация JSON)
 
 > Примечание: next-i18next построен на основе i18next. В этом руководстве используются примитивы i18next, совместимые с next-i18next в App Router, при этом архитектура остаётся простой и готовой к продакшену.
-> Для более широкого сравнения смотрите [next-i18next vs next-i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-i18next_vs_intlayer.md).
+> Для более широкого сравнения смотрите [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md).
 
 ---
 
@@ -55,6 +55,10 @@ pnpm add next-i18next i18next react-i18next i18next-resources-to-backend
 
 ```bash packageManager="yarn"
 yarn add next-i18next i18next react-i18next i18next-resources-to-backend
+```
+
+```bash packageManager="bun"
+bun add next-i18next i18next react-i18next i18next-resources-to-backend
 ```
 
 Начните с чёткой структуры. Держите сообщения разделёнными по локалям и namespace.
@@ -253,7 +257,7 @@ export default function LocaleLayout({
   params: { locale: string };
 }) {
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   const dir = isRtl(locale) ? "rtl" : "ltr";
@@ -387,7 +391,7 @@ export default ServerComponent;
 
 ## 8) SEO: Метаданные, Hreflang, Sitemap, Robots
 
-Перевод контента — это способ расширить охват. Тщательно настройте многоязычное SEO.
+Перевод контента, это способ расширить охват. Тщательно настройте многоязычное SEO.
 
 Лучшие практики:
 
@@ -554,15 +558,23 @@ Intlayer помогает поддерживать JSON-переводы в си
 Установите зависимости intlayer:
 
 ```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin  -D
+npm install intlayer @intlayer/sync-json-plugin --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin  -D
+pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin  -D
+yarn add intlayer @intlayer/sync-json-plugin --dev
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer @intlayer/sync-json-plugin --dev
+bun x intlayer init
 ```
 
 ```ts fileName="intlayer.config.ts"
@@ -582,7 +594,6 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "i18next",
       source: ({ locale }) => `./locales/${locale}.json`,
     }),
   ],
@@ -607,7 +618,7 @@ export default config;
 - `pnpm i18n:test` в CI для прерывания сборки при отсутствии ключей
 - `pnpm i18n:fill` локально для предложения AI-переводов для недавно добавленных ключей
 
-> Вы можете передавать аргументы CLI; смотрите [документацию Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_cli.md).
+> Вы можете передавать аргументы CLI; смотрите [документацию Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md).
 
 ---
 

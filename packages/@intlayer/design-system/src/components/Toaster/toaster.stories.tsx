@@ -288,7 +288,7 @@ export const RealWorldScenarios: Story = {
       'idle'
     );
 
-    const handleFormSubmit = (e: React.FormEvent) => {
+    const handleFormSubmit = (e: React.SubmitEvent) => {
       e.preventDefault();
 
       if (!formData.name || !formData.email) {

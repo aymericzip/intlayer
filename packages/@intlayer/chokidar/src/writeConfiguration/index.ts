@@ -1,47 +1,35 @@
 import { mkdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { isDeepStrictEqual } from 'node:util';
-import type { IntlayerConfig } from '@intlayer/types';
-import { writeJsonIfChanged } from '../writeJsonIfChanged';
-
-const getCachedConfiguration = async (configuration: IntlayerConfig) => {
-  const configFilePath = join(
-    configuration.content.configDir,
-    'configuration.json'
-  );
-
-  const configurationContent = await readFile(configFilePath, 'utf8');
-  return JSON.parse(configurationContent);
-};
+import type { IntlayerConfig } from '@intlayer/types/config';
+import { writeFileIfChanged } from '../writeFileIfChanged';
+import { generateConfigurationContent } from './generateConfigurationContent';
 
 export const isCachedConfigurationUpToDate = async (
   configuration: IntlayerConfig
 ): Promise<boolean | null> => {
   try {
-    const cachedConfiguration = await getCachedConfiguration(configuration);
-
-    const parsedConfiguration = JSON.parse(JSON.stringify(configuration));
-
-    const isSimilar = isDeepStrictEqual(
-      cachedConfiguration,
-      parsedConfiguration
-    );
-
-    return isSimilar;
+    const mjsPath = join(configuration.system.configDir, 'configuration.mjs');
+    const existingContent = await readFile(mjsPath, 'utf8');
+    const expectedContent = generateConfigurationContent(configuration, 'esm');
+    return existingContent === expectedContent;
   } catch {
-    return null;
+    return null; // Can crash if file doesn't exist yet or config is not defined
   }
 };
 
 export const writeConfiguration = async (configuration: IntlayerConfig) => {
-  const { content } = configuration;
-  const { configDir } = content;
+  const { configDir } = configuration.system;
 
-  // Ensure target directory exists
-  // configDir is expected to be the directory where configuration.json will live
   await mkdir(configDir, { recursive: true });
 
-  const configFilePath = join(configDir, 'configuration.json');
-
-  await writeJsonIfChanged(configFilePath, configuration);
+  await Promise.all([
+    writeFileIfChanged(
+      join(configDir, 'configuration.mjs'),
+      generateConfigurationContent(configuration, 'esm')
+    ),
+    writeFileIfChanged(
+      join(configDir, 'configuration.cjs'),
+      generateConfigurationContent(configuration, 'cjs')
+    ),
+  ]);
 };

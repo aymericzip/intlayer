@@ -1,0 +1,1000 @@
+---
+createdAt: 2025-03-25
+updatedAt: 2026-05-31
+title: "TanStack Start + Solid i18n - Guia completo para traduzir seu aplicativo"
+description: "Sem mais i18next. O guia 2026 para criar uma aplicação TanStack Start + Solid multilíngue (i18n). Traduza com agentes de IA e otimize o tamanho do bundle, SEO e desempenho."
+keywords:
+  - Internacionalização
+  - Documentação
+  - Intlayer
+  - Tanstack Start
+  - Solid
+  - i18n
+  - TypeScript
+  - Roteamento de Localidade
+  - Sitemap
+slugs:
+  - doc
+  - environment
+  - tanstack-start
+  - solid
+applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-solid-template
+applicationShowcase: https://intlayer-tanstack-start-solid.vercel.app
+youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
+history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Atualizar o uso da API useIntlayer do Solid para acesso direto a propriedades"
+  - version: 8.5.1
+    date: 2026-03-25
+    changes: "Adicionado para Tanstack Start Solid.js"
+---
+
+# Traduza seu site Tanstack Start com Solid.js usando Intlayer | Internacionalização (i18n)
+
+## Índice
+
+<TOC/>
+
+Este guia demonstra como integrar o **Intlayer** para uma internacionalização perfeita em projetos Tanstack Start com Solid.js, roteamento ciente de localidade, suporte a TypeScript e práticas de desenvolvimento modernas.
+
+## Por que Intlayer em vez de alternativas?
+
+Comparado com soluções principais como `react-i18next` ou `i18next`, Intlayer é uma solução que vem com otimizações integradas como:
+
+<AccordionGroup>
+
+<Accordion header="Cobertura total do TanStack Start">
+
+O Intlayer é otimizado para funcionar perfeitamente com TanStack Start e Solid, oferecendo **roteamento multilíngue**, **mapa do site** e todos os recursos necessários para dimensionar a internacionalização (i18n).
+
+</Accordion>
+
+<Accordion header="Tamanho do bundle">
+
+Em vez de carregar arquivos JSON enormes em suas páginas, carregue apenas o conteúdo necessário. O Intlayer ajuda a **reduzir o tamanho do bundle e das páginas em até 50%**.
+
+</Accordion>
+
+<Accordion header="Manutenção">
+
+Definir o escopo do conteúdo do seu aplicativo **facilita a manutenção** de aplicativos de grande escala. Você pode duplicar ou excluir uma única pasta de recursos sem o fardo mental de revisar toda a base de código de seu conteúdo. Além disso, o Intlayer é **totalmente tipado (fully typed)** para garantir a precisão do seu conteúdo.
+
+</Accordion>
+
+<Accordion header="Agente de IA">
+
+A co-localização de conteúdo **reduz o contexto necessário** pelos Large Language Models (LLMs). O Intlayer também vem com um conjunto de ferramentas, como uma **CLI** para testar traduções ausentes,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, e **[habilidades do agente](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, para tornar a experiência do desenvolvedor (DX) ainda mais tranquila para os agentes de IA.
+
+</Accordion>
+
+<Accordion header="Automação">
+
+Use a automação para traduzir seu pipeline de CI/CD usando o LLM de sua escolha às custas de seu provedor de IA. O Intlayer também oferece um **compilador** para automatizar a extração de conteúdo, bem como uma [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) para ajudar a **traduzir em segundo plano**.
+
+</Accordion>
+
+<Accordion header="Desempenho">
+
+Conectar arquivos JSON enormes a componentes pode levar a problemas de desempenho e reatividade. O Intlayer otimiza o carregamento do seu conteúdo no momento da construção.
+
+</Accordion>
+
+<Accordion header="Escalonamento sem nenhum desenvolvedor">
+
+Mais do que apenas uma solução i18n, o Intlayer fornece um **[editor visual] auto-hospedado(https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** e um **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** para ajudá-lo a gerenciar seu conteúdo multilíngue em **tempo real**, facilitando a colaboração com tradutores, redatores e outros membros da equipe. O conteúdo pode ser armazenado local e/ou remotamente.
+
+</Accordion>
+</AccordionGroup>
+
+---
+
+## Guia Passo a Passo para Configurar o Intlayer numa Aplicação Tanstack Start
+
+<Tabs defaultTab="video">
+  <Tab label="Vídeo" value="video">
+  
+<iframe title="A melhor solução i18n para Tanstack Start? Descubra o Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/_XTdKVWaeqg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
+
+  </Tab>
+  <Tab label="Código" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-tanstack-start-solid-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Como Internacionalizar sua aplicação usando o Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-tanstack-start-solid.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo - intlayer-tanstack-start-solid-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
+Veja o [Modelo de Aplicação](https://github.com/aymericzip/intlayer-tanstack-start-solid-template) no GitHub.
+
+<Steps>
+
+<Step number={1} title="Criar o Projeto">
+
+Comece criando um novo projeto TanStack Start seguindo o guia [Iniciar novo projeto](https://tanstack.com/start/latest/docs/framework/solid/quick-start) no site do TanStack Start.
+
+</Step>
+
+<Step number={2} title="Instalar os Pacotes Intlayer">
+
+Instale os pacotes necessários usando o seu gerenciador de pacotes preferido:
+
+```bash packageManager="npm"
+npm install intlayer solid-intlayer
+npm install vite-intlayer --save-dev
+npx intlayer init
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer solid-intlayer
+pnpm add vite-intlayer --save-dev
+pnpm intlayer init
+```
+
+```bash packageManager="yarn"
+yarn add intlayer solid-intlayer
+yarn add vite-intlayer --save-dev
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer solid-intlayer
+bun add vite-intlayer --dev
+bun x intlayer init
+```
+
+- **intlayer**
+
+  O pacote principal que fornece ferramentas de internacionalização para gerenciamento de configuração, tradução, [declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md), transpilação e [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md).
+
+- **solid-intlayer**
+  O pacote que integra o Intlayer com a aplicação Solid. Ele fornece provedores de contexto e hooks para a internacionalização em Solid.
+
+- **vite-intlayer**
+  Inclui o plugin Vite para integrar o Intlayer com o [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), bem como o middleware para detectar a localidade preferida do usuário, gerenciar cookies e lidar com redirecionamento de URL.
+
+</Step>
+
+<Step number={3} title="Configuração do seu projeto">
+
+Crie um arquivo de configuração para configurar as línguas da sua aplicação:
+
+```typescript fileName="intlayer.config.ts"
+import type { IntlayerConfig } from "intlayer";
+
+import { Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    defaultLocale: Locales.ENGLISH,
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  },
+};
+
+export default config;
+```
+
+> Através deste arquivo de configuração, você pode configurar URLs localizadas, redirecionamento de middleware, nomes de cookies, a localização e extensão das suas declarações de conteúdo, desativar logs do Intlayer no console e muito mais. Para uma lista completa de parâmetros disponíveis, consulte a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md).
+
+</Step>
+
+<Step number={4} title="Integrar o Intlayer na sua Configuração Vite">
+
+Adicione o plugin intlayer na sua configuração:
+
+```typescript fileName="vite.config.ts"
+import { intlayer } from "vite-intlayer";
+import { defineConfig } from "vite";
+import { devtools } from "@tanstack/devtools-vite";
+import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
+import solidPlugin from "vite-plugin-solid";
+
+export default defineConfig({
+  plugins: [
+    devtools(),
+    tanstackStart({
+      router: {
+        routeFileIgnorePattern:
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$",
+      },
+    }),
+    solidPlugin({ ssr: true }),
+    intlayer(),
+  ],
+});
+```
+
+> O plugin Vite `intlayer()` é usado para integrar o Intlayer com o Vite. Ele garante a construção dos arquivos de declaração de conteúdo e os monitora no modo de desenvolvimento. Ele define as variáveis de ambiente do Intlayer dentro da aplicação Vite. Adicionalmente, ele fornece aliases para otimizar a performance.
+
+</Step>
+
+<Step number={5} title="Criar o Layout Raiz">
+
+Configure o seu layout raiz para suportar internacionalização usando `useParams` para detectar a localidade atual e definindo os atributos `lang` e `dir` na tag `html`.
+
+```tsx fileName="src/routes/__root.tsx"
+import {
+  HeadContent,
+  Scripts,
+  createRootRouteWithContext,
+} from "@tanstack/solid-router";
+import { HydrationScript } from "solid-js/web";
+import { Suspense, type ParentComponent } from "solid-js";
+import { IntlayerProvider } from "solid-intlayer";
+import { defaultLocale, getHTMLTextDir } from "intlayer";
+import { Route as LocaleRoute } from "./{-$locale}/route";
+
+export const Route = createRootRouteWithContext()({
+  shellComponent: RootComponent,
+});
+
+const RootComponent: ParentComponent = (props) => {
+  const params = LocaleRoute.useParams();
+  const locale = params()?.locale ?? defaultLocale;
+
+  return (
+    <html dir={getHTMLTextDir(locale)} lang={locale}>
+      <head>
+        <HydrationScript />
+        <HeadContent />
+      </head>
+      <body>
+        <IntlayerProvider locale={locale}>
+          <Suspense>{props.children}</Suspense>
+        </IntlayerProvider>
+        <Scripts />
+      </body>
+    </html>
+  );
+};
+```
+
+</Step>
+
+<Step number={6} title="Criar o Layout de Localidade">
+
+Crie um layout que lide com o prefixo de localidade e realize a validação. Este layout garantirá que apenas localidades válidas sejam processadas.
+
+> Este passo é opcional se você não precisar validar o prefixo de localidade ao nível da rota.
+
+```tsx fileName="src/routes/{-$locale}/route.tsx"
+import { createFileRoute, Outlet, redirect } from "@tanstack/solid-router";
+import { validatePrefix } from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}")({
+  beforeLoad: ({ params }) => {
+    const localeParam = params.locale;
+
+    // Validar o prefixo de localidade
+    const { isValid, localePrefix } = validatePrefix(localeParam);
+
+    if (!isValid) {
+      throw redirect({
+        to: "/{-$locale}/404",
+        params: { locale: localePrefix },
+        replace: true,
+      });
+    }
+  },
+  component: Outlet,
+});
+```
+
+> Aqui, `{-$locale}` é um parâmetro de rota dinâmico que é substituído pela localidade atual. Esta notação torna o slot opcional, permitindo que funcione com modos de roteamento como `'prefix-no-default'` etc.
+
+> Esteja ciente de que este slot pode causar problemas se você usar múltiplos segmentos dinâmicos na mesma rota (ex: `/{-$locale}/outro-caminho/$outroCaminhoDinamico/...`).
+> Para o modo `'prefix-all'`, você pode preferir mudar o slot para `$locale`.
+> Para o modo `'no-prefix'` ou `'search-params'`, você pode remover o slot inteiramente.
+
+</Step>
+
+<Step number={7} title="Declarar o Seu Conteúdo">
+
+Crie e gerencie as suas declarações de conteúdo para armazenar traduções:
+
+```tsx fileName="src/contents/page.content.ts"
+import type { Dictionary } from "intlayer";
+
+import { t } from "intlayer";
+
+const appContent = {
+  content: {
+    links: {
+      about: t({
+        en: "About",
+        es: "Acerca de",
+        fr: "À propos",
+      }),
+      home: t({
+        en: "Home",
+        es: "Inicio",
+        fr: "Accueil",
+      }),
+    },
+    meta: {
+      title: t({
+        en: "Welcome to Intlayer + TanStack Router",
+        es: "Bienvenido a Intlayer + TanStack Router",
+        fr: "Bienvenue à Intlayer + TanStack Router",
+      }),
+      description: t({
+        en: "This is an example of using Intlayer with TanStack Router",
+        es: "Este es un ejemplo de uso de Intlayer con TanStack Router",
+        fr: "Ceci est un exemple d'utilisation d'Intlayer avec TanStack Router",
+      }),
+    },
+  },
+  key: "app",
+} satisfies Dictionary;
+
+export default appContent;
+```
+
+> As suas declarações de conteúdo podem ser definidas em qualquer lugar da sua aplicação, desde que sejam incluídas no diretório `contentDir` (por padrão, `./app`). E correspondam à extensão do arquivo de declaração de conteúdo (por padrão, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
+
+> Para mais detalhes, consulte a [documentação de declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md).
+
+</Step>
+
+<Step number={8} title="Utilizar Componentes e Hooks Cientes de Localidade">
+
+Crie um componente `LocalizedLink` para navegação ciente de localidade:
+
+```tsx fileName="src/components/LocalizedLink.tsx"
+import { Link, type LinkProps } from "@tanstack/solid-router";
+import { getPrefix } from "intlayer";
+import { useLocale } from "solid-intlayer";
+import type { JSX } from "solid-js";
+
+export const LOCALE_ROUTE = "{-$locale}" as const;
+
+export type RemoveLocaleParam<TVal> = TVal extends string
+  ? RemoveLocaleFromString<TVal>
+  : TVal;
+
+export type To = RemoveLocaleParam<LinkProps["to"]>;
+
+type CollapseDoubleSlashes<TString extends string> =
+  TString extends `${infer THead}//${infer TTail}`
+    ? CollapseDoubleSlashes<`${THead}/${TTail}`>
+    : TString;
+
+export type LocalizedLinkProps = Omit<LinkProps, "to"> & {
+  to?: To;
+} & JSX.AnchorHTMLAttributes<HTMLAnchorElement>;
+
+type RemoveAll<
+  TString extends string,
+  TSub extends string,
+> = TString extends `${infer THead}${TSub}${infer TTail}`
+  ? RemoveAll<`${THead}${TTail}`, TSub>
+  : TString;
+
+type RemoveLocaleFromString<TString extends string> = CollapseDoubleSlashes<
+  RemoveAll<TString, typeof LOCALE_ROUTE>
+>;
+
+export const LocalizedLink = (props: LocalizedLinkProps) => {
+  const { locale } = useLocale();
+
+  return (
+    <Link
+      {...props}
+      params={{
+        locale: getPrefix(locale()).localePrefix,
+        ...(typeof props.params === "object" ? props.params : {}),
+      }}
+      to={`/${LOCALE_ROUTE}${props.to ?? ""}` as LinkProps["to"]}
+    />
+  );
+};
+```
+
+Este componente tem dois objetivos:
+
+- Remover o prefixo desnecessário `{-$locale}` da URL.
+- Injetar o parâmetro de localidade na URL para garantir que o usuário seja diretamente redirecionado para a rota localizada.
+
+Depois, podemos criar um hook `useLocalizedNavigate` para navegação programática:
+
+```tsx fileName="src/hooks/useLocalizedNavigate.tsx"
+import { useNavigate } from "@tanstack/solid-router";
+import { getLocalizedUrl } from "intlayer";
+import { useLocale } from "solid-intlayer";
+
+export const useLocalizedNavigate = () => {
+  const navigate = useNavigate();
+  const { locale } = useLocale();
+
+  const localizedNavigate = (to: string) => {
+    const localizedTo = getLocalizedUrl(to, locale());
+    return navigate({ to: localizedTo });
+  };
+
+  return localizedNavigate;
+};
+```
+
+</Step>
+
+<Step number={9} title="Utilizar o Intlayer em Suas Páginas">
+
+Acesse seus dicionários de conteúdo através da sua aplicação:
+
+#### Página Inicial Localizada
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/solid-router";
+import { useIntlayer } from "solid-intlayer";
+import { LocalizedLink } from "@/components/LocalizedLink";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+});
+
+function RouteComponent() {
+  const content = useIntlayer("index-page");
+
+  return (
+    <main>
+      <h1>{content.heroTitle}</h1>
+      <p>{content.heroDesc}</p>
+      <div>
+        <LocalizedLink to="/">{content.navHome}</LocalizedLink>
+        <LocalizedLink to="/about">{content.navAbout}</LocalizedLink>
+      </div>
+    </main>
+  );
+}
+```
+
+> Se você quiser usar seu conteúdo em um atributo do tipo `string`, como `alt`, `title`, `href`, `aria-label`, etc., você deve chamar o valor da função, assim:
+
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
+
+> No Solid, `useIntlayer` retorna conteúdo reativo (por exemplo, `content`). Você pode acessar suas propriedades diretamente.
+>
+> Para aprender mais sobre o hook `useIntlayer`, consulte a [documentação](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/solid-intlayer/useIntlayer.md).
+
+</Step>
+
+<Step number={10} title="Criar um Componente Seletor de Localidade">
+
+Crie um componente para permitir que os usuários mudem de língua:
+
+```tsx fileName="src/components/LocaleSwitcher.tsx"
+import { useLocation } from "@tanstack/solid-router";
+import { getLocaleName, getPathWithoutLocale, getPrefix } from "intlayer";
+import { For } from "solid-js";
+import { useIntlayer, useLocale } from "solid-intlayer";
+import { LocalizedLink, type To } from "./LocalizedLink";
+
+export const LocaleSwitcher = () => {
+  const content = useIntlayer("locale-switcher");
+  const location = useLocation();
+
+  const { availableLocales, locale, setLocale } = useLocale();
+
+  const pathWithoutLocale = () => getPathWithoutLocale(location().pathname);
+
+  return (
+    <div class="flex flex-row gap-2">
+      <For each={availableLocales}>
+        {(localeEl) => (
+          <LocalizedLink
+            aria-current={localeEl === locale() ? "page" : undefined}
+            onClick={() => setLocale(localeEl)}
+            params={{ locale: getPrefix(localeEl).localePrefix }}
+            to={pathWithoutLocale() as To}
+          >
+            {getLocaleName(localeEl)}
+          </LocalizedLink>
+        )}
+      </For>
+    </div>
+  );
+};
+
+export default LocaleSwitcher;
+```
+
+> No Solid, `locale` de `useLocale` é um **signal accessor**. Use `locale()` (com parênteses) para ler o seu valor atual de forma reativa.
+>
+> Para aprender mais sobre o hook `useLocale`, consulte la [documentação](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/solid-intlayer/useLocale.md).
+
+</Step>
+
+<Step number={11} title="Gerenciamento de Atributos HTML">
+
+Como visto no Passo 5, você pode gerenciar os atributos `lang` e `dir` da tag `html` usando `useParams` no seu componente raiz. Isso garante que os atributos corretos sejam definidos no servidor e no cliente.
+
+```tsx fileName="src/routes/__root.tsx"
+const RootComponent: ParentComponent = (props) => {
+  const params = LocaleRoute.useParams();
+  const locale = params()?.locale ?? defaultLocale;
+
+  return (
+    <html dir={getHTMLTextDir(locale)} lang={locale}>
+      {/* ... */}
+    </html>
+  );
+};
+```
+
+---
+
+</Step>
+
+<Step number={12} title="Adicionar Middleware">
+
+Você também pode usar o `intlayerProxy` para adicionar roteamento do lado do servidor à sua aplicação. Este plugin detectará automaticamente a localidade atual baseada na URL e definirá o cookie de localidade apropriado. Se nenhuma localidade for especificada, o plugin determinará a localidade mais apropriada baseada nas preferências de língua do navegador do usuário. Se nenhuma localidade for detectada, ele redirecionará para a localidade padrão.
+
+> Note que para usar o `intlayerProxy` em produção, você precisa trocar o pacote `vite-intlayer` de `devDependencies` para `dependencies`.
+
+```typescript {7,14-17} fileName="vite.config.ts"
+import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
+import solid from "vite-plugin-solid";
+import { nitro } from "nitro/vite";
+import { defineConfig } from "vite";
+import { intlayer, intlayerProxy } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayerProxy(), // O proxy deve ser colocado antes do servidor se você usar o Nitro
+    nitro(),
+    intlayer(),
+    tanstackStart({
+      router: {
+        routeFileIgnorePattern:
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$",
+      },
+    }),
+    solid(),
+  ],
+});
+```
+
+---
+
+</Step>
+
+<Step number={13} title="Internacionalizar Seus Metadados">
+
+Você também pode usar a função `getIntlayer` para acessar seus dicionários de conteúdo dentro do loader `head` para metadados cientes de localidade:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createFileRoute } from "@tanstack/solid-router";
+import { getIntlayer } from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}/")({
+  component: RouteComponent,
+  head: ({ params }) => {
+    const { locale } = params;
+    const path = "/"; // The path for this route
+
+    const metaContent = getIntlayer("app", locale);
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: metaContent.title },
+        { name: "description", content: metaContent.meta.description },
+      ],
+    };
+  },
+});
+```
+
+---
+
+</Step>
+
+<Step number={14} title="Recuperar a localidade nas suas server actions">
+
+Você pode querer acessar a localidade atual de dentro das suas server actions ou endpoints de API.
+Você pode fazer isso usando o helper `getLocale` do `intlayer`.
+
+Aqui está um exemplo usando as server functions do TanStack Start:
+
+```tsx fileName="src/routes/{-$locale}/index.tsx"
+import { createServerFn } from "@tanstack/solid-start";
+import {
+  getRequestHeader,
+  getRequestHeaders,
+} from "@tanstack/solid-start/server";
+import { getCookie, getIntlayer, getLocale } from "intlayer";
+
+export const getLocaleServer = createServerFn().handler(async () => {
+  const locale = await getLocale({
+    // Obter o cookie da requisição (padrão: 'INTLAYER_LOCALE')
+    getCookie: (name) => {
+      const cookieString = getRequestHeader("cookie");
+
+      return getCookie(name, cookieString);
+    },
+    // Obter o header da requisição (padrão: 'x-intlayer-locale')
+    // Fallback usando negociação Accept-Language
+    getHeader: (name) => getRequestHeader(name),
+  });
+
+  // Recuperar algum conteúdo usando getIntlayer()
+  const content = getIntlayer("app", locale);
+
+  return { locale, content };
+});
+```
+
+---
+
+</Step>
+
+<Step number={15} title="Gerenciar páginas não encontradas">
+
+Quando um usuário visita uma página inexistente, você pode exibir uma página personalizada de não encontrado e o prefixo de localidade pode impactar a maneira como a página de não encontrado é disparada.
+
+#### Entendendo o Processamento de 404 do TanStack Router com Prefixos de Localidade
+
+No TanStack Router, processar páginas 404 com rotas localizadas requer uma abordagem multicamada:
+
+1. **Rota de 404 dedicada**: Uma rota específica para exibir a UI do 404
+2. **Validação ao nível da rota**: Valida os prefixos de localidade e redireciona os inválidos para o 404
+3. **Rota catch-all**: Captura quaisquer caminhos não correspondentes dentro do segmento de localidade
+
+```tsx fileName="src/routes/{-$locale}/404.tsx"
+import { createFileRoute } from "@tanstack/solid-router";
+
+// Isso cria uma rota /[locale]/404 dedicada
+// Ela é usada tanto como uma rota direta quanto importada como um componente em outros arquivos
+export const Route = createFileRoute("/{-$locale}/404")({
+  component: NotFoundComponent,
+});
+
+// Exportado separadamente para que possa ser reutilizado em notFoundComponent e rotas catch-all
+export function NotFoundComponent() {
+  return (
+    <div>
+      <h1>404</h1>
+    </div>
+  );
+}
+```
+
+```tsx fileName="src/routes/{-$locale}/route.tsx"
+import { createFileRoute, Outlet, redirect } from "@tanstack/solid-router";
+import { validatePrefix } from "intlayer";
+import { NotFoundComponent } from "./404";
+
+export const Route = createFileRoute("/{-$locale}")({
+  // beforeLoad executa antes da rota renderizar (tanto no servidor quanto no cliente)
+  // É o lugar ideal para validar o prefixo de localidade
+  beforeLoad: ({ params }) => {
+    const localeParam = params.locale;
+
+    // validatePrefix verifica se a localidade é válida de acordo com a sua configuração do intlayer
+    const { isValid, localePrefix } = validatePrefix(localeParam);
+
+    if (!isValid) {
+      // Prefixo de localidade inválido - redireciona para a página 404 com um prefixo de localidade válido
+      throw redirect({
+        to: "/{-$locale}/404",
+        params: { locale: localePrefix },
+      });
+    }
+  },
+  component: Outlet,
+  // notFoundComponent é chamado quando uma rota filha não existe
+  // ex: /en/pagina-nao-existente dispara isso dentro do layout /en
+  notFoundComponent: NotFoundComponent,
+});
+```
+
+```tsx fileName="src/routes/{-$locale}/$.tsx"
+import { createFileRoute } from "@tanstack/solid-router";
+
+import { NotFoundComponent } from "./404";
+
+// A rota $ (splat/catch-all) corresponde a qualquer caminho que não corresponda a outras rotas
+// ex: /en/algum/caminho/profundamente/aninhado/invalido
+// Isso garante que TODOS os caminhos não correspondentes dentro de uma localidade mostrem a página 404
+// Sem isso, caminhos profundos não correspondentes poderiam mostrar uma página em branco ou erro
+export const Route = createFileRoute("/{-$locale}/$")({
+  component: NotFoundComponent,
+});
+```
+
+</Step>
+
+<Step number={15} title="Extrair o conteúdo dos seus componentes" isOptional={true}>
+
+Se você tem uma base de código existente, transformar milhares de arquivos pode ser demorado.
+
+Para facilitar este processo, o Intlayer propõe um [compilador](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md) / [extrator](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/extract.md) para transformar os seus componentes e extrair o conteúdo.
+
+Para configurá-lo, você pode adicionar uma seção `compiler` no seu arquivo `intlayer.config.ts`:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... Resto da sua configuração
+  compiler: {
+    /**
+     * Indica se o compilador deve ser habilitado.
+     */
+    enabled: true,
+
+    /**
+     * Define o caminho dos arquivos de saída
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Indica se os componentes devem ser salvos após serem transformados.
+     *
+     * - Se `true`, o compilador reescreverá o arquivo do componente no disco. Assim, a transformação será permanente, e o compilador pulará a transformação para o próximo processo. Dessa forma, o compilador pode transformar a aplicação e depois pode ser removido.
+     *
+     * - Se `false`, o compilador injetará a chamada de função `useIntlayer()` no código apenas no output da build, mantendo a base de código intacta. A transformação será feita apenas em memória.
+     */
+    saveComponents: false,
+
+    /**
+     * Prefixo da chave do dicionário
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='Comando extract'>
+
+Rode o extrator para transformar os seus componentes e extrair o conteúdo
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Compilador Babel'>
+
+Atualize o seu `vite.config.ts` para incluir o plugin `intlayerCompiler`:
+
+```ts fileName="vite.config.ts"
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+import { defineConfig } from "vite";
+import { devtools } from "@tanstack/devtools-vite";
+import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
+import solidPlugin from "vite-plugin-solid";
+
+export default defineConfig({
+  plugins: [
+    devtools(),
+    tanstackStart({
+      router: {
+        routeFileIgnorePattern:
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$",
+      },
+    }),
+    solidPlugin({ ssr: true }),
+    intlayer(),
+    intlayerCompiler(),
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # Ou rpm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # Ou pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Ou yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Ou bun run dev
+```
+
+ </Tab>
+</Tabs>
+
+---
+
+</Step>
+
+<Step number={16} title="Gerar um Sitemap">
+
+O Intlayer vem com um gerador de sitemap integrado para ajudá-lo a criar facilmente um sitemap para sua aplicação. Ele cuida das rotas localizadas e adiciona os metadados necessários para os mecanismos de busca.
+
+> O sitemap gerado pelo Intlayer suporta o namespace `xhtml:link` (Hreflang XML Extensions). Ao contrário dos geradores de sitemap padrão que apenas listam URLs brutos, o Intlayer cria automaticamente os links bidirecionais necessários entre todas as versões de idioma de uma página (por exemplo, `/about`, `/about?lang=fr` e `/about?lang=es`). Isso garante que os mecanismos de busca indexem e sirvam corretamente a versão de idioma certa para o público certo.
+
+Para usá-lo, você primeiro precisa configurar o seu `vite.config.ts` para habilitar a pré-renderização de suas rotas localizadas e desabilitar a geração de sitemap padrão do TanStack Start.
+
+```typescript fileName="vite.config.ts"
+import { localeMap, localeFlatMap } from "intlayer";
+// ... outras importações
+
+export const pathList = ["", "/about", "/404"];
+
+const localizedPages = localeFlatMap(({ urlPrefix }) =>
+  pathList.map((path) => ({
+    path: `${urlPrefix}${path}`,
+    prerender: {
+      enabled: true,
+    },
+  }))
+);
+
+export default defineConfig({
+  plugins: [
+    // ... outros plugins
+    tanstackStart({
+      // ... outras configurações
+      sitemap: {
+        enabled: false,
+      },
+      prerender: {
+        enabled: true,
+        crawlLinks: false,
+        concurrency: 10,
+      },
+      pages: localizedPages,
+    }),
+  ],
+});
+```
+
+Em seguida, crie uma rota `src/routes/sitemap[.]xml.ts` que use a função `generateSitemap`:
+
+```typescript fileName="src/routes/sitemap[.]xml.ts"
+import { createFileRoute } from "@tanstack/solid-router";
+import { generateSitemap } from "intlayer";
+
+const SITE_URL = "http://localhost:3000";
+
+export const Route = createFileRoute("/sitemap.xml")({
+  server: {
+    handlers: {
+      GET: async () => {
+        const sitemap = generateSitemap(
+          [
+            { path: "/", changefreq: "daily", priority: 1.0 },
+            { path: "/about", changefreq: "monthly", priority: 0.8 },
+          ],
+          { siteUrl: SITE_URL }
+        );
+
+        return new Response(sitemap, {
+          headers: { "Content-Type": "application/xml" },
+        });
+      },
+    },
+  },
+});
+```
+
+---
+
+</Step>
+
+<Step number={17} title="Configurar TypeScript">
+
+O Intlayer usa a ampliação de módulo para obter os benefícios do TypeScript e tornar a sua base de código mais forte.
+
+Certifique-se de que a sua configuração do TypeScript inclua os tipos autogerados:
+
+```json5 fileName="tsconfig.json"
+{
+  // ... as suas configurações existentes
+  include: [
+    // ... os seus includes existentes
+    ".intlayer/**/*.ts", // Incluir os tipos autogerados
+  ],
+}
+```
+
+---
+
+</Step>
+
+</Steps>
+
+### Configuração Git
+
+É recomendado ignorar os arquivos gerados pelo Intlayer. Isso permite que você evite committá-los no seu repositório Git.
+
+Para fazer isso, você pode adicionar as seguintes instruções ao seu arquivo `.gitignore`:
+
+```plaintext fileName=".gitignore"
+# Ignorar os arquivos gerados pelo Intlayer
+.intlayer
+```
+
+---
+
+## Extensão VS Code
+
+Para melhorar a sua experiência de desenvolvimento com o Intlayer, você pode instalar a **Extensão oficial do Intlayer VS Code**.
+
+[Instalar a partir do VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Esta extensão oferece:
+
+- **Autocompletar** para chaves de tradução.
+- **Detecção de erros em tempo real** para traduções ausentes.
+- **Previsões inline** de conteúdo traduzido.
+- **Ações rápidas** para criar e atualizar traduções facilmente.
+
+Para mais detalhes sobre como usar a extensão, consulte a [documentação da Extensão Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
+
+---
+
+## Ir Além
+
+Para ir mais além, você pode implementar o [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) ou externalizar o seu conteúdo usando o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).
+
+---
+
+## Referências de Documentação
+
+- [Documentação do Intlayer](https://intlayer.org)
+- [Documentação do Tanstack Start](https://tanstack.com/start/latest)
+- [hook useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/solid-intlayer/useIntlayer.md)
+- [hook useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/solid-intlayer/useLocale.md)
+- [Declaração de Conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md)
+- [Configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md)

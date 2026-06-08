@@ -21,8 +21,26 @@ slugs:
 
 Lệnh `doc review` phân tích các tệp tài liệu về chất lượng, tính nhất quán và độ đầy đủ trên các ngôn ngữ khác nhau.
 
-```bash
+## Điểm chính:
+
+- Chia các tệp markdown lớn thành các phần nhỏ để nằm trong giới hạn cửa sổ ngữ cảnh của mô hình AI.
+- Tối ưu hóa các phần cần đánh giá và bỏ qua các phần đã được dịch và không thay đổi.
+- Xử lý tệp, phần và ngôn ngữ song song bằng hệ thống hàng đợi để tăng tốc độ.
+
+```bash packageManager="npm"
 npx intlayer doc review
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc review
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc review
+```
+
+```bash packageManager="bun"
+bun x intlayer doc review
 ```
 
 Lệnh này có thể được sử dụng để đánh giá các tệp đã được dịch, và kiểm tra xem bản dịch có chính xác hay không.

@@ -27,7 +27,7 @@ history:
 
 # Internationalisation Next.js (i18n) avec next-i18next et Intlayer
 
-<iframe title="Comment automatiser vos traductions JSON next-i18next avec Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Comment automatiser vos traductions JSON next-i18next avec Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## Table des matières
 
@@ -71,19 +71,23 @@ Ce guide vous montre comment tirer parti du système supérieur de déclaration 
 Installez les paquets nécessaires en utilisant votre gestionnaire de paquets préféré :
 
 ```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin
+npm install intlayer @intlayer/sync-json-plugin --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin
+pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin
+yarn add intlayer @intlayer/sync-json-plugin --dev
+yarn intlayer init
 ```
 
 ```bash packageManager="bun"
-bun add intlayer @intlayer/sync-json-plugin
+bun add intlayer @intlayer/sync-json-plugin --dev
+bun x intlayer init
 ```
 
 **Explications des paquets :**
@@ -108,7 +112,6 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "i18next",
       source: ({ key, locale }) => `./public/locales/${locale}/${key}.json`,
     }),
   ],
@@ -127,52 +130,6 @@ Si vous souhaitez faire coexister ce JSON avec les fichiers de déclaration de c
 Si des modifications sont effectuées via la CLI pour traduire le JSON, ou en utilisant le CMS, Intlayer mettra à jour le fichier JSON avec les nouvelles traductions.
 
 Pour plus de détails sur le plugin `syncJSON`, veuillez consulter la [documentation du plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/plugins/sync-json.md).
-
----
-
-### (Optionnel) Étape 3 : Implémenter des traductions JSON par composant
-
-Par défaut, Intlayer chargera, fusionnera et synchronisera à la fois les fichiers JSON et les fichiers de déclaration de contenu. Voir [la documentation sur la déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md) pour plus de détails. Mais si vous préférez, en utilisant un plugin Intlayer, vous pouvez également implémenter une gestion par composant des JSON localisés n'importe où dans votre base de code.
-
-Pour cela, vous pouvez utiliser le plugin `loadJSON`.
-
-```ts fileName="intlayer.config.ts"
-import { Locales, type IntlayerConfig } from "intlayer";
-import { loadJSON, syncJSON } from "@intlayer/sync-json-plugin";
-
-const config: IntlayerConfig = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-
-  // Gardez vos fichiers JSON actuels synchronisés avec les dictionnaires Intlayer
-  plugins: [
-    /**
-     * Chargera tous les fichiers JSON dans src qui correspondent au motif {key}.i18n.json
-     */
-    loadJSON({
-      source: ({ key }) => `./src/**/${key}.i18n.json`,
-      locale: Locales.ENGLISH,
-      priority: 1, // Assure que ces fichiers JSON ont la priorité sur les fichiers dans `./public/locales/en/${key}.json`
-    }),
-    /**
-     * Chargera et écrira la sortie ainsi que les traductions dans les fichiers JSON du répertoire des locales
-     */
-    syncJSON({
-      format: "i18next",
-      source: ({ key, locale }) => `./public/locales/${locale}/${key}.json`,
-      priority: 0,
-    }),
-  ],
-};
-
-export default config;
-```
-
-Cela chargera tous les fichiers JSON dans le répertoire `src` qui correspondent au modèle `{key}.i18n.json` et les chargera comme dictionnaires Intlayer.
-
----
 
 ## Configuration Git
 

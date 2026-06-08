@@ -1,36 +1,42 @@
 import { basename } from 'node:path';
 import type { AIConfig } from '@intlayer/ai';
-import { type AIOptions, getIntlayerAPIProxy } from '@intlayer/api';
+import type { AIOptions } from '@intlayer/api';
 import {
   chunkJSON,
+  excludeObjectFormat,
   formatLocale,
   type JsonChunk,
+  mergeChunks,
   reconstructFromSingleChunk,
-  reduceObjectFormat,
   verifyIdenticObjectFormat,
-} from '@intlayer/chokidar';
+} from '@intlayer/chokidar/utils';
+import * as ANSIColors from '@intlayer/config/colors';
 import {
-  ANSIColors,
   colon,
   colorize,
   colorizeNumber,
   colorizePath,
   getAppLogger,
-  retryManager,
-} from '@intlayer/config';
+} from '@intlayer/config/logger';
+import { retryManager } from '@intlayer/config/utils';
 import {
   getFilterMissingTranslationsDictionary,
   getMultilingualDictionary,
   getPerLocaleDictionary,
   insertContentInDictionary,
-} from '@intlayer/core';
-import type { Dictionary, IntlayerConfig, Locale } from '@intlayer/types';
+} from '@intlayer/core/plugins';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
+import { getAuthenticatedAPI } from '../utils/checkAccess';
 import type { AIClient } from '../utils/setupAI';
 import { deepMergeContent } from './deepMergeContent';
-import { getFilterMissingContentPerLocale } from './getFilterMissingContentPerLocale';
+import {
+  extractTranslatableContent,
+  reinsertTranslatedContent,
+} from './extractTranslatableContent';
 import type { TranslationTask } from './listTranslationsTasks';
-import { mergeChunks } from './mergeChunks';
 
 type TranslateDictionaryResult = TranslationTask & {
   dictionaryOutput: Dictionary | null;
@@ -40,7 +46,9 @@ type TranslateDictionaryOptions = {
   mode: 'complete' | 'review';
   aiOptions?: AIOptions;
   fillMetadata?: boolean;
-  onHandle?: ReturnType<typeof import('@intlayer/chokidar').getGlobalLimiter>;
+  onHandle?: ReturnType<
+    typeof import('@intlayer/chokidar/utils').getGlobalLimiter
+  >;
   onSuccess?: () => void;
   onError?: (error: unknown) => void;
   getAbortError?: () => Error | null;
@@ -48,10 +56,37 @@ type TranslateDictionaryOptions = {
   aiConfig?: AIConfig;
 };
 
+const createChunkPreset = (chunkIndex: number, totalChunks: number) => {
+  if (totalChunks <= 1) return '';
+  return colon(
+    [
+      colorize('[', ANSIColors.GREY_DARK),
+      colorizeNumber(chunkIndex + 1),
+      colorize(`/${totalChunks}`, ANSIColors.GREY_DARK),
+      colorize(']', ANSIColors.GREY_DARK),
+    ].join(''),
+    { colSize: 5 }
+  );
+};
+
 const hasMissingMetadata = (dictionary: Dictionary) =>
   !dictionary.description || !dictionary.title || !dictionary.tags;
 
-const CHUNK_SIZE = 7000; // GPT-5 Mini safe input size
+const serializeError = (error: unknown): string => {
+  if (error instanceof Error) {
+    return error.cause
+      ? `${error.message} (cause: ${String(error.cause)})`
+      : error.message;
+  }
+  if (typeof error === 'string') return error;
+  try {
+    return JSON.stringify(error);
+  } catch {
+    return String(error);
+  }
+};
+
+const CHUNK_SIZE = 4000;
 const GROUP_MAX_RETRY = 2;
 const MAX_RETRY = 3;
 const RETRY_DELAY = 1000 * 10; // 10 seconds
@@ -65,7 +100,7 @@ export const translateDictionary = async (
   options?: TranslateDictionaryOptions
 ): Promise<TranslateDictionaryResult> => {
   const appLogger = getAppLogger(configuration);
-  const intlayerAPI = getIntlayerAPIProxy(undefined, configuration);
+  const intlayerAPI = await getAuthenticatedAPI(configuration);
 
   const { mode, aiOptions, fillMetadata, aiClient, aiConfig } = {
     mode: 'complete',
@@ -162,36 +197,41 @@ export const translateDictionary = async (
             // For per-locale files, the content is already in simple JSON format (not translation nodes)
             // The base dictionary is already the source locale content
 
-            // Load the existing target locale dictionary
-            const targetLocaleFilePath =
-              baseUnmergedDictionary.filePath?.replace(
-                new RegExp(`/${task.sourceLocale}/`, 'g'),
-                `/${targetLocale}/`
-              );
+            // Look up the target locale dictionary by its locale property.
+            // This handles both directory-based paths (/en/file.json → /es/file.json)
+            // AND filename-based paths (messages_ICU/en.json → messages_ICU/es.json).
+            // Plugins like syncJSON set `dict.locale` correctly, so matching by locale
+            // is the only reliable strategy — path string-replacement fails when the
+            // locale appears in the filename rather than a directory segment.
+            const targetUnmergedDictionary = unmergedDictionariesRecord[
+              task.dictionaryKey
+            ]?.find(
+              (dict) =>
+                dict.locale === targetLocale &&
+                dict.filePath !== baseUnmergedDictionary.filePath
+            );
 
-            // Find the target locale dictionary in unmerged dictionaries
-            const targetUnmergedDictionary = targetLocaleFilePath
-              ? unmergedDictionariesRecord[task.dictionaryKey]?.find(
-                  (dict) =>
-                    dict.filePath === targetLocaleFilePath &&
-                    dict.locale === targetLocale
+            // Derive the target file path for the fallback (when the file doesn't exist yet).
+            // Try directory-style first (/en/ → /es/), then filename-style (en.json → es.json).
+            const sourceFilePath = baseUnmergedDictionary.filePath ?? '';
+            const derivedTargetFilePath = sourceFilePath.includes(
+              `/${task.sourceLocale}/`
+            )
+              ? sourceFilePath.replace(
+                  new RegExp(`/${task.sourceLocale}/`, 'g'),
+                  `/${targetLocale}/`
                 )
-              : undefined;
+              : sourceFilePath.replace(
+                  new RegExp(`(^|/)${task.sourceLocale}(\\.[^/]+)$`),
+                  `$1${targetLocale}$2`
+                );
 
             targetLocaleDictionary = targetUnmergedDictionary ?? {
               key: baseUnmergedDictionary.key,
               content: {},
-              filePath: targetLocaleFilePath,
+              filePath: derivedTargetFilePath || undefined,
               locale: targetLocale,
             };
-
-            // In complete mode, filter out already translated content
-            if (mode === 'complete') {
-              dictionaryToProcess = getFilterMissingContentPerLocale(
-                dictionaryToProcess,
-                targetUnmergedDictionary
-              );
-            }
           } else {
             // For multilingual dictionaries
             if (mode === 'complete') {
@@ -213,6 +253,20 @@ export const translateDictionary = async (
             );
           }
 
+          // Filter to only untranslated fields, preserving explicit null values as
+          // default-locale fallback markers. Applied after both paths converge so
+          // the same logic covers per-locale and multilingual dictionaries.
+          if (mode === 'complete') {
+            dictionaryToProcess = {
+              ...dictionaryToProcess,
+              content:
+                excludeObjectFormat(
+                  dictionaryToProcess.content,
+                  targetLocaleDictionary.content
+                ) ?? {},
+            };
+          }
+
           const localePreset = colon(
             [
               colorize('[', ANSIColors.GREY_DARK),
@@ -222,22 +276,6 @@ export const translateDictionary = async (
             { colSize: 18 }
           );
 
-          const createChunkPreset = (
-            chunkIndex: number,
-            totalChunks: number
-          ) => {
-            if (totalChunks <= 1) return '';
-            return colon(
-              [
-                colorize('[', ANSIColors.GREY_DARK),
-                colorizeNumber(chunkIndex + 1),
-                colorize(`/${totalChunks}`, ANSIColors.GREY_DARK),
-                colorize(']', ANSIColors.GREY_DARK),
-              ].join(''),
-              { colSize: 5 }
-            );
-          };
-
           appLogger(
             `${task.dictionaryPreset}${localePreset} Preparing ${colorizePath(basename(targetLocaleDictionary.filePath!))}`,
             {
@@ -245,20 +283,8 @@ export const translateDictionary = async (
             }
           );
 
-          const isContentStructured =
-            (typeof dictionaryToProcess.content === 'object' &&
-              dictionaryToProcess.content !== null) ||
-            Array.isArray(dictionaryToProcess.content);
-
-          const contentToProcess = isContentStructured
-            ? dictionaryToProcess.content
-            : {
-                __INTLAYER_ROOT_PRIMITIVE_CONTENT__:
-                  dictionaryToProcess.content,
-              };
-
           const chunkedJsonContent: JsonChunk[] = chunkJSON(
-            contentToProcess as unknown as Record<string, any>,
+            dictionaryToProcess.content as unknown as Record<string, any>,
             CHUNK_SIZE
           );
 
@@ -276,7 +302,7 @@ export const translateDictionary = async (
           const chunkResult: JsonChunk[] = [];
 
           // Process chunks in parallel (globally throttled) to allow concurrent translation
-          const chunkPromises = chunkedJsonContent.map((chunk) => {
+          const chunkPromises = chunkedJsonContent.map(async (chunk) => {
             const chunkPreset = createChunkPreset(chunk.index, chunk.total);
 
             if (nbOfChunks > 1) {
@@ -288,17 +314,11 @@ export const translateDictionary = async (
               );
             }
 
-            // Reconstruct partial JSON content from this chunk's patches
-            const chunkContent = reconstructFromSingleChunk(chunk);
-            const presetOutputContent = reduceObjectFormat(
-              isContentStructured
-                ? targetLocaleDictionary.content
-                : {
-                    __INTLAYER_ROOT_PRIMITIVE_CONTENT__:
-                      targetLocaleDictionary.content,
-                  },
-              chunkContent
-            ) as unknown as JSON;
+            const reconstructedChunk = reconstructFromSingleChunk(chunk);
+            const {
+              extractedContent: chunkExtractedContent,
+              translatableDictionary: chunkTranslatableDictionary,
+            } = extractTranslatableContent(reconstructedChunk);
 
             const executeTranslation = async () => {
               return await retryManager(
@@ -307,8 +327,9 @@ export const translateDictionary = async (
 
                   if (aiClient && aiConfig) {
                     translationResult = await aiClient.translateJSON({
-                      entryFileContent: chunkContent as unknown as JSON,
-                      presetOutputContent,
+                      entryFileContent:
+                        chunkTranslatableDictionary as unknown as JSON,
+                      presetOutputContent: chunkTranslatableDictionary,
                       dictionaryDescription:
                         dictionaryToProcess.description ??
                         metadata?.description ??
@@ -321,8 +342,9 @@ export const translateDictionary = async (
                   } else {
                     translationResult = await intlayerAPI.ai
                       .translateJSON({
-                        entryFileContent: chunkContent as unknown as JSON,
-                        presetOutputContent,
+                        entryFileContent:
+                          chunkTranslatableDictionary as unknown as JSON,
+                        presetOutputContent: chunkTranslatableDictionary,
                         dictionaryDescription:
                           dictionaryToProcess.description ??
                           metadata?.description ??
@@ -339,18 +361,23 @@ export const translateDictionary = async (
                     throw new Error('No content result');
                   }
 
-                  const { isIdentic } = verifyIdenticObjectFormat(
+                  const { isIdentic, error } = verifyIdenticObjectFormat(
                     translationResult.fileContent,
-                    chunkContent
+                    chunkTranslatableDictionary
                   );
+
                   if (!isIdentic) {
                     throw new Error(
-                      'Translation result does not match expected format'
+                      `Translation result does not match expected format: ${error}`
                     );
                   }
 
                   notifySuccess();
-                  return translationResult.fileContent;
+                  return reinsertTranslatedContent(
+                    reconstructedChunk,
+                    chunkExtractedContent,
+                    translationResult.fileContent as Record<number, string>
+                  );
                 },
                 {
                   maxRetry: MAX_RETRY,
@@ -361,7 +388,7 @@ export const translateDictionary = async (
                       chunk.total
                     );
                     appLogger(
-                      `${task.dictionaryPreset}${localePreset}${chunkPreset} ${colorize('Error filling:', ANSIColors.RED)} ${colorize(typeof error === 'string' ? error : JSON.stringify(error), ANSIColors.GREY_DARK)} - Attempt ${colorizeNumber(attempt + 1)} of ${colorizeNumber(maxRetry)}`,
+                      `${task.dictionaryPreset}${localePreset}${chunkPreset} ${colorize('Error filling:', ANSIColors.RED)} ${colorize(serializeError(error), ANSIColors.GREY_DARK)} - Attempt ${colorizeNumber(attempt + 1)} of ${colorizeNumber(maxRetry)}`,
                       {
                         level: 'error',
                       }
@@ -397,29 +424,22 @@ export const translateDictionary = async (
               chunkResult.push(result);
             });
 
-          // Merge partial JSON objects produced from each chunk into a single object
-          const mergedContent = mergeChunks(chunkResult);
+          // Merge translated chunk contents back into a single content object
+          const reinsertedContent = mergeChunks(chunkResult);
 
           const merged = {
             ...dictionaryToProcess,
-            content: mergedContent,
+            content: reinsertedContent,
           };
 
-          // For per-locale files, merge the newly translated content with existing target content
-          let finalContent = merged.content;
-
-          if (!isContentStructured) {
-            finalContent = (finalContent as any)
-              ?.__INTLAYER_ROOT_PRIMITIVE_CONTENT__;
-          }
-
-          if (typeof baseUnmergedDictionary.locale === 'string') {
-            // Deep merge: existing content + newly translated content
-            finalContent = deepMergeContent(
-              targetLocaleDictionary.content ?? {},
-              finalContent
-            );
-          }
+          // Merge newly translated content (including explicit null fallbacks) back
+          // into the existing target locale content. Applies to both per-locale and
+          // multilingual paths so the target always retains previously translated
+          // fields and receives null markers where the source has no translation.
+          const finalContent = deepMergeContent(
+            targetLocaleDictionary.content ?? {},
+            merged.content
+          );
 
           return [targetLocale, finalContent] as const;
         })
@@ -459,10 +479,16 @@ export const translateDictionary = async (
         }
       );
 
+      // The dict-level `fill` value may have been lost during JSON serialisation
+      // (functions can't be serialised to JSON). Fall back to the config-level
+      // fill so that an explicit fill in intlayer.config.ts is honoured.
+      const effectiveFillForCheck =
+        baseUnmergedDictionary.fill ?? configuration.dictionary?.fill;
+
       if (
         baseUnmergedDictionary.locale &&
-        (baseUnmergedDictionary.fill === true ||
-          baseUnmergedDictionary.fill === undefined) &&
+        (effectiveFillForCheck === true ||
+          effectiveFillForCheck === undefined) &&
         baseUnmergedDictionary.location === 'local'
       ) {
         const dictionaryFilePath = baseUnmergedDictionary
@@ -496,14 +522,14 @@ export const translateDictionary = async (
       delay: RETRY_DELAY,
       onError: ({ error, attempt, maxRetry }) =>
         appLogger(
-          `${task.dictionaryPreset} ${colorize('Error fill command:', ANSIColors.RED)} ${colorize(typeof error === 'string' ? error : JSON.stringify(error), ANSIColors.GREY_DARK)} - Attempt ${colorizeNumber(attempt + 1)} of ${colorizeNumber(maxRetry)}`,
+          `${task.dictionaryPreset} ${colorize('Error:', ANSIColors.RED)} ${colorize(serializeError(error), ANSIColors.GREY_DARK)} - Attempt ${colorizeNumber(attempt + 1)} of ${colorizeNumber(maxRetry)}`,
           {
             level: 'error',
           }
         ),
       onMaxTryReached: ({ error }) =>
         appLogger(
-          `${task.dictionaryPreset} ${colorize('Maximum number of retries reached:', ANSIColors.RED)} ${colorize(typeof error === 'string' ? error : JSON.stringify(error), ANSIColors.GREY_DARK)}`,
+          `${task.dictionaryPreset} ${colorize('Maximum number of retries reached:', ANSIColors.RED)} ${colorize(serializeError(error), ANSIColors.GREY_DARK)}`,
           {
             level: 'error',
           }

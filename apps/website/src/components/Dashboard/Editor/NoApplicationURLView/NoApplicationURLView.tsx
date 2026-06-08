@@ -1,8 +1,8 @@
 import { Link } from '@components/Link/Link';
-import { Container, H3 } from '@intlayer/design-system';
+import { H3 } from '@intlayer/design-system/headers';
+import { Website_Doc_IntlayerCMS_Path } from '@intlayer/design-system/routes';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 
 export const NoApplicationURLView: FC = () => {
   const { title, description, documentationLink } = useIntlayer(
@@ -10,19 +10,19 @@ export const NoApplicationURLView: FC = () => {
   );
 
   return (
-    <div className="flex flex-1 items-center justify-center">
-      <Container className="flex max-w-xl flex-col gap-2 rounded-2xl px-8 pt-2 pb-4 text-sm">
-        <H3 className="mb-4 text-lg">{title}</H3>
-        <p className="block text-neutral">{description}</p>
-        <Link
-          label={documentationLink.label.value}
-          href={`${PagesRoutes.Doc_IntlayerCMS}#configuration`}
-          color="text"
-          className="ml-auto underline"
-        >
-          {documentationLink.text}
-        </Link>
-      </Container>
+    <div className="flex flex-1 flex-col items-center justify-center p-4">
+      <H3 className="mb-4 text-lg">{title}</H3>
+      <p className="block text-neutral">{description}</p>
+      <Link
+        label={documentationLink.label.value}
+        href={`${Website_Doc_IntlayerCMS_Path}#configuration`}
+        color="text"
+        className="ml-auto"
+        variant="button"
+        isExternalLink
+      >
+        {documentationLink.text}
+      </Link>
     </div>
   );
 };

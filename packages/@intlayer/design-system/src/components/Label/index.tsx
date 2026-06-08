@@ -1,5 +1,5 @@
+import { cn } from '@utils/cn';
 import type { FC, LabelHTMLAttributes } from 'react';
-import { cn } from '../../utils/cn';
 
 /**
  * Props for the Label component
@@ -85,13 +85,14 @@ export const Label: FC<LabelProps> = ({
       className
     )}
     htmlFor={htmlFor}
+    suppressHydrationWarning
     {...props}
   >
     {children}
     {required && (
       <span
-        className="ml-1 text-destructive"
-        aria-label="required"
+        className="ml-1 text-error"
+        aria-hidden="true"
         title="This field is required"
       >
         *

@@ -1,11 +1,11 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
-title: CLI
-description: Temukan cara menggunakan Intlayer CLI untuk mengelola situs web multibahasa Anda. Ikuti langkah-langkah dalam dokumentasi daring ini untuk mengatur proyek Anda dalam beberapa menit.
+updatedAt: 2026-03-31
+title: CLI - Semua perintah Intlayer CLI untuk situs web multibahasa Anda
+description: Pelajari cara menggunakan Intlayer CLI untuk mengelola situs web multibahasa Anda. Ikuti langkah-langkah dalam dokumentasi online ini untuk menyiapkan proyek Anda dalam hitungan menit.
 keywords:
   - CLI
-  - Command Line Interface
+  - Antarmuka Baris Perintah
   - Internasionalisasi
   - Dokumentasi
   - Intlayer
@@ -17,42 +17,54 @@ slugs:
   - concept
   - cli
 history:
+  - version: 8.6.4
+    date: 2026-03-31
+    changes: "Menambahkan konten perintah standalone"
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: "Menambahkan konten perintah CI"
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: "Menambahkan konten perintah list projects"
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: "Menambahkan konten perintah init"
   - version: 7.2.3
     date: 2025-11-22
-    changes: Menambahkan perintah transform
+    changes: "Menambahkan konten perintah extract"
   - version: 7.1.0
     date: 2025-11-05
-    changes: Menambahkan opsi skipIfExists pada perintah translate
+    changes: "Menambahkan opsi skipIfExists pada perintah translate"
   - version: 6.1.4
     date: 2025-01-27
-    changes: Menambahkan alias untuk argumen dan perintah CLI
+    changes: "Menambahkan alias untuk argumen dan perintah CLI"
   - version: 6.1.3
     date: 2025-10-05
-    changes: Menambahkan opsi build pada perintah
+    changes: "Menambahkan opsi build pada perintah"
   - version: 6.1.2
     date: 2025-09-26
-    changes: Menambahkan perintah version
+    changes: "Menambahkan konten perintah version"
   - version: 6.1.0
     date: 2025-09-26
-    changes: Mengatur opsi verbose menjadi default true menggunakan CLI
+    changes: "Menyetel opsi verbose ke true secara default melalui CLI"
   - version: 6.1.0
     date: 2025-09-23
-    changes: Menambahkan perintah watch dan opsi with
+    changes: "Menambahkan perintah watch dan opsi with"
   - version: 6.0.1
     date: 2025-09-23
-    changes: Menambahkan perintah editor
+    changes: "Menambahkan konten perintah editor"
   - version: 6.0.0
     date: 2025-09-17
-    changes: Menambahkan perintah content test dan list
+    changes: "Menambahkan perintah content test dan list"
   - version: 5.5.11
     date: 2025-07-11
-    changes: Memperbarui dokumentasi parameter perintah CLI
+    changes: "Memperbarui dokumentasi parameter perintah CLI"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inisialisasi riwayat
+    changes: "Inisialisasi riwayat"
 ---
 
-# Intlayer CLI
+# Intlayer CLI - Semua perintah Intlayer CLI untuk situs web multibahasa Anda
 
 ---
 
@@ -64,7 +76,7 @@ history:
 
 ## Instal Paket
 
-Instal paket yang diperlukan menggunakan npm:
+Instal paket-paket yang diperlukan menggunakan npm:
 
 ```bash packageManager="npm"
 npm install intlayer-cli -g
@@ -78,19 +90,23 @@ yarn add intlayer-cli -g
 pnpm add intlayer-cli -g
 ```
 
-> Jika paket `intlayer` sudah terpasang, CLI akan terpasang secara otomatis. Anda dapat melewati langkah ini.
+```bash packageManager="bun"
+bun add intlayer-cli -g
+```
+
+> Jika paket `intlayer` sudah terinstal, CLI akan terinstal secara otomatis. Anda dapat melewatkan langkah ini.
 
 ## Paket intlayer-cli
 
-Paket `intlayer-cli` bertujuan untuk mentranspilasi [deklarasi intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md) Anda menjadi kamus.
+Paket `intlayer-cli` dirancang untuk mentranspilasi [deklarasi intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md) Anda ke dalam kamus.
 
-Paket ini akan mentranspilasi semua file intlayer, seperti `src/**/*.content.{ts|js|mjs|cjs|json}`. [Lihat cara mendeklarasikan file deklarasi Intlayer Anda](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
+Paket ini mentranspilasi semua file intlayer, seperti `src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. [Lihat cara mendeklarasikan file deklarasi Intlayer Anda](https://github.com/aymericzip/intlayer/blob/main/packages/intlayer/README.md).
 
-Untuk menginterpretasikan kamus intlayer, Anda dapat menggunakan interpreter, seperti [react-intlayer](https://www.npmjs.com/package/react-intlayer), atau [next-intlayer](https://www.npmjs.com/package/next-intlayer).
+Untuk menginterpretasikan kamus intlayer, Anda dapat menggunakan interpreter, seperti [react-intlayer](https://www.npmjs.com/package/react-intlayer) atau [next-intlayer](https://www.npmjs.com/package/next-intlayer).
 
 ## Dukungan File Konfigurasi
 
-Intlayer menerima berbagai format file konfigurasi:
+Intlayer menerima beberapa format file konfigurasi:
 
 - `intlayer.config.ts`
 - `intlayer.config.js`
@@ -99,70 +115,81 @@ Intlayer menerima berbagai format file konfigurasi:
 - `intlayer.config.mjs`
 - `.intlayerrc`
 
-Untuk melihat cara mengonfigurasi locale yang tersedia, atau parameter lainnya, lihat [dokumentasi konfigurasi di sini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
+Untuk mempelajari cara mengonfigurasi bahasa yang tersedia atau parameter lainnya, lihat [dokumentasi konfigurasi di sini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
 
-## Menjalankan perintah intlayer
+## Menjalankan Perintah Intlayer
 
 ### Autentikasi
 
-- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/login.md)** - Autentikasi dengan Intlayer CMS dan dapatkan kredensial akses
+- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/login.md)** - Autentikasi dengan Intlayer CMS dan dapatkan kredensial akses
 
-### Perintah Inti
+### Perintah Utama
 
-- **[Bangun Kamus](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/build.md)** - Bangun kamus Anda dari file deklarasi konten
-- **[Pantau Kamus](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/watch.md)** - Pantau perubahan dan bangun kamus secara otomatis
-- **[Periksa Versi CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/version.md)** - Periksa versi Intlayer CLI yang terpasang
+- **[Build Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/build.md)** - Bangun kamus Anda dari file deklarasi konten
+- **[Watch Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/watch.md)** - Pantau perubahan dan bangun kembali kamus secara otomatis
+- **[Create Standalone Bundle](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/standalone.md)** - Buat bundel JavaScript mandiri yang berisi Intlayer dan paket yang ditentukan
+- **[Check CLI Version](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/version.md)** - Periksa versi Intlayer CLI yang terinstal
+- **[List Projects](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/list_projects.md)** - Daftar semua proyek Intlayer dalam direktori atau repositori git
 
 ### Manajemen Kamus
 
-- **[Dorong Kamus](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/push.md)** - Dorong kamus ke editor dan CMS Intlayer
-- **[Tarik Kamus](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/pull.md)** - Tarik kamus dari editor dan CMS Intlayer
-- **[Isi Kamus](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/fill.md)** - Isi, audit, dan terjemahkan kamus menggunakan AI
-- **[Uji Terjemahan yang Hilang](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/test.md)** - Uji dan identifikasi terjemahan yang hilang
-- **[Daftar File Deklarasi Konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/list.md)** - Daftar semua file deklarasi konten dalam proyek Anda
+- **[Push Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/push.md)** - Kirim kamus ke Editor Intlayer dan CMS
+- **[Pull Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/pull.md)** - Ambil kamus dari Editor Intlayer dan CMS
+- **[Fill Dictionaries](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/fill.md)** - Isi, audit, dan terjemahkan kamus menggunakan AI
+- **[Test Missing Translations](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/test.md)** - Uji dan identifikasi terjemahan yang hilang
+- **[List Content Declaration Files](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/list.md)** - Daftar semua file deklarasi konten dalam proyek Anda
 
 ### Manajemen Komponen
 
-- **[Transformasi Komponen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/transform.md)** - Transformasi komponen yang ada untuk menggunakan Intlayer
+- **[Extract Strings](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md)** - Ekstrak string dari komponen ke file .content di dekat komponen
 
 ### Konfigurasi
 
-- **[Kelola Konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/configuration.md)** - Dapatkan dan dorong konfigurasi Intlayer Anda ke CMS
+- **[Initialize Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/init.md)** - Siapkan Intlayer di proyek Anda dengan konfigurasi otomatis
+- **[Manage Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/configuration.md)** - Dapatkan konfigurasi Intlayer Anda dan kirimkan ke CMS
 
-### Manajemen Dokumentasi
+### Manajemen Dokumen
 
-- **[Terjemahkan Dokumen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/doc-translate.md)** - Terjemahkan file dokumentasi secara otomatis menggunakan AI
-- **[Tinjau Dokumen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/doc-review.md)** - Tinjau file dokumentasi untuk kualitas dan konsistensi
+- **[Translate Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/doc-translate.md)** - Terjemahkan file dokumen secara otomatis menggunakan AI
+- **[Review Document](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/doc-review.md)** - Tinjau file dokumen untuk kualitas dan konsistensi
 
-### Editor & Sinkronisasi Langsung
+### Editor dan Live Sync
 
-- **[Perintah Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/editor.md)** - Gunakan perintah editor Intlayer
-- **[Perintah Live Sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/live.md)** - Gunakan Live Sync untuk mencerminkan perubahan konten CMS saat runtime
+- **[Editor Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/editor.md)** - Gunakan perintah editor Intlayer
+- **[Live Sync Commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/live.md)** - Gunakan Live Sync untuk menerapkan perubahan konten dari CMS saat runtime
 
-### Alat Pengembangan
+### CI/CD dan Otomatisasi
 
-- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/sdk.md)** - Gunakan Intlayer CLI SDK dalam kode Anda sendiri
-- **[Perintah Debug Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/debug.md)** - Debug dan selesaikan masalah Intlayer CLI
+- **[CI Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/ci.md)** - Jalankan perintah Intlayer dengan kredensial yang disuntikkan secara otomatis untuk alur kerja CI/CD
 
-## Gunakan perintah intlayer dalam `package.json` Anda
+### Alat Pengembang
+
+- **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/sdk.md)** - Gunakan Intlayer CLI SDK di kode Anda sendiri
+- **[Debug Intlayer Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/debug.md)** - Debug dan selesaikan masalah dengan Intlayer CLI
+
+## Gunakan perintah intlayer di `package.json` Anda
 
 ```json fileName="package.json"
 "scripts": {
+  "intlayer:init": "npx intlayer init",
   "intlayer:login": "npx intlayer login",
   "intlayer:build": "npx intlayer build",
   "intlayer:watch": "npx intlayer build --watch",
+  "intlayer:standalone": "npx intlayer standalone --packages intlayer vanilla-intlayer",
   "intlayer:push": "npx intlayer push",
   "intlayer:pull": "npx intlayer pull",
   "intlayer:fill": "npx intlayer fill",
   "intlayer:list": "npx intlayer content list",
   "intlayer:test": "npx intlayer content test",
-  "intlayer:transform": "npx intlayer transform",
+  "intlayer:extract": "npx intlayer extract",
+  "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
   "intlayer:doc:review": "npx intlayer doc review"
 }
 ```
 
-> **Catatan**: Anda juga dapat menggunakan alias yang lebih singkat:
+> **Catatan**: Anda juga dapat menggunakan alias yang lebih pendek:
 >
-> - `npx intlayer list` sebagai pengganti `npx intlayer content list`
-> - `npx intlayer test` sebagai pengganti `npx intlayer content test`
+> - `npx intlayer list`: menggantikan `npx intlayer content list`
+> - `npx intlayer test`: menggantikan `npx intlayer content test`
+> - `npx intlayer projects-list` atau `npx intlayer pl`: menggantikan `npx intlayer projects list`

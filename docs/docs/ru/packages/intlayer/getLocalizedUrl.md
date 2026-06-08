@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Инициализация истории
+    changes: "Инициализация истории"
 ---
 
 # Документация: функция `getLocalizedUrl` в `intlayer`
@@ -35,23 +35,19 @@ history:
 ## Параметры
 
 - `url: string`
-
   - **Описание**: Исходная строка URL, к которой будет добавлен префикс локали.
   - **Тип**: `string`
 
 - `currentLocale: Locales`
-
   - **Описание**: Текущая локаль, для которой локализуется URL.
   - **Тип**: `Locales`
 
 - `locales: Locales[]`
-
   - **Описание**: Необязательный массив поддерживаемых локалей. По умолчанию используются локали, настроенные в проекте.
   - **Тип**: `Locales[]`
   - **По умолчанию**: [`Конфигурация проекта`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md#middleware)
 
 - `defaultLocale: Locales`
-
   - **Описание**: Локаль по умолчанию для приложения. По умолчанию используется локаль по умолчанию, настроенная в проекте.
   - **Тип**: `Locales`
   - **По умолчанию**: [`Конфигурация проекта`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md#middleware)
@@ -72,22 +68,7 @@ history:
 
 ### Относительные URL
 
-```typescript codeFormat="typescript"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-
-// Вывод: "/fr/about" для французской локали
-// Вывод: "/about" для локали по умолчанию (английский)
-```
-
-```javascript codeFormat="esm"
+```typescript codeFormat={["typescript", "esm"]}
 import { getLocalizedUrl, Locales } from "intlayer";
 
 getLocalizedUrl(
@@ -176,11 +157,9 @@ getLocalizedUrl(
 ## Особые случаи
 
 - **Отсутствие сегмента локали:**
-
   - Если URL не содержит сегмента локали, функция безопасно добавляет соответствующую локаль в префикс.
 
 - **Локаль по умолчанию:**
-
   - Когда `prefixDefault` равно `false`, функция не добавляет префикс для URL локали по умолчанию.
 
 - **Неподдерживаемые локали:**
@@ -192,7 +171,7 @@ getLocalizedUrl(
 
 В многоязычном приложении настройка параметров интернационализации с помощью `locales` и `defaultLocale` имеет решающее значение для обеспечения отображения правильного языка. Ниже приведён пример того, как функция `getLocalizedUrl` может использоваться в настройках приложения:
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // Конфигурация поддерживаемых локалей и локали по умолчанию
@@ -204,34 +183,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 Данная конфигурация гарантирует, что приложение распознаёт `ENGLISH`, `FRENCH` и `SPANISH` как поддерживаемые языки и использует `ENGLISH` в качестве языка по умолчанию.

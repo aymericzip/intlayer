@@ -1,19 +1,19 @@
 'use client';
 
-import {
-  Button,
-  RightDrawer,
-  SearchInput,
-  Tag,
-  useRightDrawerStore,
-} from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
 import { useSearch } from '@intlayer/design-system/hooks';
+import { SearchInput } from '@intlayer/design-system/input';
+import {
+  RightDrawer,
+  useRightDrawer,
+} from '@intlayer/design-system/right-drawer';
+import { Tag } from '@intlayer/design-system/tag';
 import {
   useDictionariesRecord,
   useEditedContent,
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import Fuse from 'fuse.js';
 import { ChevronRight, Pencil } from 'lucide-react';
 import { type FC, useMemo } from 'react';
@@ -23,7 +23,7 @@ import { dictionaryListDrawerIdentifier } from './dictionaryListDrawerIdentifier
 
 export const DictionaryListDrawer: FC = () => {
   const { drawerTitle, buttonLabel } = useIntlayer('dictionary-list-drawer');
-  const { close: closeDrawer, open: openDrawer } = useRightDrawerStore();
+  const { set: setDrawers } = useRightDrawer();
 
   const { localeDictionaries } = useDictionariesRecord();
   const { editedContent } = useEditedContent();
@@ -49,15 +49,16 @@ export const DictionaryListDrawer: FC = () => {
   }, [search, fuse, localeDictionaries]);
 
   const handleClickDictionary = (dictionary: Dictionary) => {
-    closeDrawer(dictionaryListDrawerIdentifier);
-
     setFocusedContent({
       dictionaryKey: dictionary.key!,
       dictionaryLocalId: dictionary.localId!,
       keyPath: [],
     });
 
-    openDrawer(getDrawerIdentifier(dictionary.key!));
+    setDrawers({
+      [dictionaryListDrawerIdentifier]: false,
+      [getDrawerIdentifier(dictionary.key!)]: true,
+    });
   };
 
   const isDictionaryEdited = (dictionaryKey: string) =>

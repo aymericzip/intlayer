@@ -26,15 +26,15 @@ youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
   - version: 7.5.0
     date: 2025-12-13
-    changes: إضافة دعم تنسيقات ICU و i18next
+    changes: "إضافة دعم تنسيقات ICU و i18next"
   - version: 6.1.6
     date: 2025-10-05
-    changes: الوثائق الأولية لمكون مزامنة JSON
+    changes: "الوثائق الأولية لمكون مزامنة JSON"
 ---
 
 # مزامنة JSON (جسور التدويل) - مزامنة JSON مع دعم ICU / i18next
 
-<iframe title="كيفية الحفاظ على مزامنة ترجمات JSON الخاصة بك مع Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="كيفية الحفاظ على مزامنة ترجمات JSON الخاصة بك مع Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 استخدم Intlayer كمكون إضافي إلى نظام التدويل (i18n) الحالي لديك. يحافظ هذا المكون على مزامنة رسائل JSON الخاصة بك مع قواميس Intlayer بحيث يمكنك:
 
@@ -66,10 +66,10 @@ npm i -D @intlayer/sync-json-plugin
 أضف المكون الإضافي إلى ملف `intlayer.config.ts` وأشر إلى هيكل JSON الحالي الخاص بك.
 
 ```ts fileName="intlayer.config.ts"
-import { defineConfig, Locales } from "intlayer";
+import { Locales, type IntlayerConfig } from "intlayer";
 import { syncJSON } from "@intlayer/sync-json-plugin";
 
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
@@ -82,7 +82,9 @@ export default defineConfig({
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],
-});
+};
+
+export default config;
 ```
 
 البديل: ملف واحد لكل لغة (شائع مع إعدادات i18next/react-intl):
@@ -108,17 +110,21 @@ syncJSON({
   source: ({ key, locale }) => string, // مطلوب
   location?: string, // تسمية اختيارية، الافتراضي: "plugin"
   priority?: number, // أولوية اختيارية لحل التعارضات، الافتراضي: 0
-  format?: 'intlayer' | 'icu' | 'i18next', // مُنسق اختياري، الافتراضي: 'intlayer'
+  format?: 'intlayer' | 'icu' | 'i18next', // مُنسق اختياري، يُستخدم للتوافق مع وقت تشغيل Intlayer
 });
 ```
 
 #### `format` ('intlayer' | 'icu' | 'i18next')
 
-يحدد المُنسق الذي سيتم استخدامه لمحتوى القاموس عند مزامنة ملفات JSON. يسمح هذا باستخدام صيغ تنسيق رسائل مختلفة متوافقة مع مكتبات i18n مختلفة.
+يحدد المُنسق الذي سيتم استخدامه لمحتوى القاموس عند مزامنة ملفات JSON. يسمح هذا باستخدام صيغ تنسيق رسائل مختلفة متوافقة مع وقت تشغيل Intlayer.
 
+- `undefined`: لن يتم استخدام أي مُنسق، سيتم استخدام محتوى JSON كما هو.
 - `'intlayer'`: مُنسق Intlayer الافتراضي (الافتراضي).
 - `'icu'`: يستخدم تنسيق رسائل ICU (متوافق مع مكتبات مثل react-intl، vue-i18n).
 - `'i18next'`: يستخدم تنسيق رسائل i18next (متوافق مع i18next، next-i18next، Solid-i18next).
+
+> لاحظ أن استخدام مُنسق سيحول محتوى JSON الخاص بك في المدخلات والمخرجات. بالنسبة لقواعد JSON المعقدة مثل صيغ الجمع ICU، قد لا يضمن التحليل تطابقاً 1 إلى 1 بين المدخلات والمخرجات.
+> إذا كنت لا تستخدم وقت تشغيل Intlayer، قد تفضل عدم تعيين مُنسق.
 
 **مثال:**
 
@@ -143,10 +149,10 @@ syncJSON({
 - تتم معالجة المكونات الإضافية التي لها نفس الأولوية بالترتيب الذي تظهر به في التكوين
 
 ```ts fileName="intlayer.config.ts"
-import { defineConfig, Locales } from "intlayer";
+import { Locales, type IntlayerConfig } from "intlayer";
 import { syncJSON } from "@intlayer/sync-json-plugin";
 
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH],
     defaultLocale: Locales.ENGLISH,
@@ -177,7 +183,9 @@ export default defineConfig({
       priority: 1,
     }),
   ],
-});
+};
+
+export default config;
 ```
 
 ### حل النزاعات
@@ -257,7 +265,7 @@ plugins: [
 - `intlayer content push` لدفع ملفات JSON المتزامنة
 - `intlayer content pull` لسحب ملفات JSON المتزامنة
 
-راجع [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md) لمزيد من التفاصيل.
+راجع [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) لمزيد من التفاصيل.
 
 ## القيود (الحالية)
 

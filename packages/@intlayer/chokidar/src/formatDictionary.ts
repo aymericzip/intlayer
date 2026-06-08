@@ -3,10 +3,12 @@ import {
   icuToIntlayerFormatter,
   intlayerToI18nextFormatter,
   intlayerToICUFormatter,
+  intlayerToPortableObjectFormatter,
   intlayerToVueI18nFormatter,
+  portableObjectToIntlayerFormatter,
   vueI18nToIntlayerFormatter,
 } from '@intlayer/core/messageFormat';
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
 
 export const formatDictionary = (dictionary: Dictionary): Dictionary => {
   if (dictionary.format === 'icu') {
@@ -33,14 +35,26 @@ export const formatDictionary = (dictionary: Dictionary): Dictionary => {
     };
   }
 
+  if (dictionary.format === 'po') {
+    return {
+      ...dictionary,
+      format: 'intlayer',
+      content: portableObjectToIntlayerFormatter(dictionary.content),
+    };
+  }
+
   return dictionary;
 };
 
-export const formatDictionaries = (dictionaries: Dictionary[]): Dictionary[] =>
-  dictionaries.map(formatDictionary);
+export const formatDictionaries = async (
+  dictionaries: Dictionary[]
+): Promise<Dictionary[]> => Promise.all(dictionaries.map(formatDictionary));
 
-export const formatDictionaryOutput = (dictionary: Dictionary) => {
-  if (dictionary.format === 'icu') {
+export const formatDictionaryOutput = (
+  dictionary: Dictionary,
+  format: Dictionary['format']
+) => {
+  if (format === 'icu') {
     return {
       ...dictionary,
       format: 'icu',
@@ -48,7 +62,7 @@ export const formatDictionaryOutput = (dictionary: Dictionary) => {
     };
   }
 
-  if (dictionary.format === 'i18next') {
+  if (format === 'i18next') {
     return {
       ...dictionary,
       format: 'i18next',
@@ -56,7 +70,7 @@ export const formatDictionaryOutput = (dictionary: Dictionary) => {
     };
   }
 
-  if (dictionary.format === 'vue-i18n') {
+  if (format === 'vue-i18n') {
     return {
       ...dictionary,
       format: 'vue-i18n',
@@ -64,8 +78,19 @@ export const formatDictionaryOutput = (dictionary: Dictionary) => {
     };
   }
 
+  if (dictionary.format === 'po') {
+    return {
+      ...dictionary,
+      format: 'po',
+      content: intlayerToPortableObjectFormatter(dictionary.content),
+    };
+  }
+
   return dictionary;
 };
 
-export const formatDictionariesOutput = (dictionaries: Dictionary[]) =>
-  dictionaries.map(formatDictionaryOutput);
+export const formatDictionariesOutput = (
+  dictionaries: Dictionary[],
+  format: Dictionary['format']
+) =>
+  dictionaries.map((dictionary) => formatDictionaryOutput(dictionary, format));

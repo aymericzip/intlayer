@@ -7,29 +7,26 @@ type RouteContext = {
   };
 };
 
-export const dynamic = 'force-dynamic';
+async function findBlogMetadata(slugs: string | string[], locale: string) {
+  const normalizedSlugs = ['blog', ...(Array.isArray(slugs) ? slugs : [slugs])];
+  return await getBlogMetadataBySlug(normalizedSlugs, locale, true);
+}
+
+async function getCachedBlog(docKey: string, locale: string) {
+  return await getBlog(docKey as any, locale);
+}
 
 export async function GET(request: Request, context: RouteContext) {
   try {
     const { locale, slugs } = context.params;
 
-    // Blog metadata slugs start with 'blog', while the route omits it.
-    const normalizedSlugs = [
-      'blog',
-      ...(Array.isArray(slugs) ? slugs : [slugs]),
-    ];
-
-    const matches = await getBlogMetadataBySlug(
-      normalizedSlugs,
-      locale as any,
-      true
-    );
+    const matches = await findBlogMetadata(slugs, locale);
 
     if (!matches || matches.length === 0) {
       return new Response('Not found', { status: 404 });
     }
 
-    const file = await getBlog(matches[0].docKey as any, locale as any);
+    const file = await getCachedBlog(matches[0].docKey as string, locale);
 
     const url = new URL(request.url);
     const format = (url.searchParams.get('format') || '').toLowerCase();
@@ -98,16 +95,7 @@ export async function HEAD(request: Request, context: RouteContext) {
   try {
     const { locale, slugs } = context.params;
 
-    const normalizedSlugs = [
-      'blog',
-      ...(Array.isArray(slugs) ? slugs : [slugs]),
-    ];
-
-    const matches = await getBlogMetadataBySlug(
-      normalizedSlugs,
-      locale as any,
-      true
-    );
+    const matches = await findBlogMetadata(slugs, locale);
 
     if (!matches || matches.length === 0) {
       return new Response(null, { status: 404 });

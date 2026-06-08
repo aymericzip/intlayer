@@ -1,27 +1,18 @@
 'use client';
 
-import { getHTMLTextDir, getLocaleName } from '@intlayer/core';
-import { Locales, type LocalesValues } from '@intlayer/types';
+import { usePersistedStore } from '@hooks/usePersistedStore';
+import { getHTMLTextDir, getLocaleName } from '@intlayer/core/localization';
+import { ENGLISH } from '@intlayer/types/locales';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import { Check, Globe, MoveVertical } from 'lucide-react';
-import { type FC, useCallback, useMemo, useRef, useState } from 'react';
+import { type FC, useMemo, useRef, useState } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
-import { usePersistedStore } from '../../hooks';
-import {
-  Button,
-  ButtonColor,
-  ButtonSize,
-  ButtonTextAlign,
-  ButtonVariant,
-} from '../Button';
+import { Button } from '../Button';
 import { Container } from '../Container';
 import { DropDown, type PanelProps } from '../DropDown';
 import { Input } from '../Input';
-import {
-  SwitchSelector,
-  SwitchSelectorColor,
-  SwitchSelectorSize,
-} from '../SwitchSelector';
+import { SwitchSelector } from '../SwitchSelector';
 import { useLocaleSwitcherContent } from './LocaleSwitcherContentContext';
 
 export type LocaleSwitcherContentProps = {
@@ -54,10 +45,11 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
   const { availableLocales, selectedLocales, setSelectedLocales } =
     useLocaleSwitcherContent();
 
+  // 1. Memoize the list construction so it doesn't rebuild every render
   const multilingualAvailableLocales: MultilingualAvailableLocales[] = useMemo(
     () =>
       availableLocales.map((localeEl) => {
-        const englishName = getLocaleName(localeEl, Locales.ENGLISH);
+        const englishName = getLocaleName(localeEl, ENGLISH);
         const currentLocaleName = getLocaleName(localeEl, locale);
         const ownLocaleName = getLocaleName(localeEl);
         return {
@@ -70,15 +62,15 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
     [availableLocales, locale]
   );
 
-  const [results, setResults] = useState<MultilingualAvailableLocales[]>(
-    multilingualAvailableLocales
-  );
+  // 2. State for Search Query only (Source of Truth)
+  const [searchQuery, setSearchQuery] = useState('');
+
   const [seeAllLocales, setSeeAllLocales] = usePersistedStore(
     'locale-content-selector-see-all-locales',
     false
   );
 
-  // Create a new Fuse instance with the options and documentation data
+  // 3. Memoize Fuse instance
   const fuse = useMemo(() => {
     const fuseOptions: IFuseOptions<MultilingualAvailableLocales> = {
       keys: [
@@ -87,26 +79,18 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
         { name: 'currentLocaleName', weight: 0.2 },
         { name: 'locale', weight: 0.2 },
       ],
-      threshold: 0.02, // Defines how fuzzy the matching should be (lower is more strict)
+      threshold: 0.02,
     };
-
     return new Fuse(multilingualAvailableLocales, fuseOptions);
   }, [multilingualAvailableLocales]);
 
-  const handleSearch = useCallback(
-    (searchQuery: string) => {
-      if (searchQuery) {
-        // Perform search on every input change
-        const searchResults = fuse
-          .search(searchQuery)
-          .map((result) => result.item);
-        setResults(searchResults);
-      } else {
-        setResults(multilingualAvailableLocales);
-      }
-    },
-    [fuse, multilingualAvailableLocales]
-  );
+  // 4. Derive results from Search Query
+  const results = useMemo(() => {
+    if (!searchQuery) {
+      return multilingualAvailableLocales;
+    }
+    return fuse.search(searchQuery).map((result) => result.item);
+  }, [searchQuery, multilingualAvailableLocales, fuse]);
 
   const handleClickLocale = (localeItem: LocalesValues) => {
     if (isMultilingual) {
@@ -124,6 +108,7 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
 
   const handleSeeAllLocales = (value: boolean) => {
     setSeeAllLocales(value);
+
     if (value) {
       setSelectedLocales(availableLocales);
     } else {
@@ -132,17 +117,21 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
   };
 
   return (
-    <div
-      className="rounded-xl border border-text text-text transition-colors"
-      aria-label={localeSwitcherLabel.value}
-    >
+    <div className="rounded-xl border border-text text-text transition-colors">
       <DropDown identifier={DROPDOWN_IDENTIFIER}>
-        <DropDown.Trigger identifier={DROPDOWN_IDENTIFIER}>
-          <div className="flex w-full items-center justify-between">
+        <DropDown.Trigger
+          identifier={DROPDOWN_IDENTIFIER}
+          label={localeSwitcherLabel.value}
+          className="p-0!"
+          roundedSize="3xl"
+          color="text"
+          variant="hoverable"
+        >
+          <div className="flex w-full items-center justify-between text-text">
             <div className="px-2 py-1">
-              <Globe size={18} />
+              <Globe size={16} />
             </div>
-            <MoveVertical className="self-center" size={18} />
+            <MoveVertical className="self-center" size={16} />
           </div>
         </DropDown.Trigger>
 
@@ -150,26 +139,26 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
           identifier={DROPDOWN_IDENTIFIER}
           isOverable
           isFocusable
-          className="right-0 left-auto"
+          align="end"
           {...panelProps}
         >
           <Container
-            className="max-h-[80vh] min-w-28"
+            className="max-h-[60vh] min-w-28"
             separator="y"
             role="listbox"
-            transparency="sm"
+            transparency="xs"
             border
-            roundedSize="2xl"
+            roundedSize="3xl"
             borderColor="text"
             aria-label={languageListLabel.value}
           >
             {isMultilingual && (
               <div className="m-auto p-2">
                 <SwitchSelector
-                  defaultValue={false}
+                  defaultValue={seeAllLocales} // Ensure this uses the persisted state
                   onChange={handleSeeAllLocales}
-                  color={SwitchSelectorColor.TEXT}
-                  size={SwitchSelectorSize.SM}
+                  color="text"
+                  size="sm"
                   className="!w-60"
                   choices={[
                     {
@@ -192,7 +181,8 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
                     type="search"
                     aria-label={searchInput.ariaLabel.value}
                     placeholder={searchInput.placeholder.value}
-                    onChange={(e) => handleSearch(e.target.value)}
+                    // Update search query state directly
+                    onChange={(e) => setSearchQuery(e.target.value)}
                     ref={inputRef}
                   />
                 </div>
@@ -213,11 +203,11 @@ export const LocaleSwitcherContent: FC<LocaleSwitcherContentProps> = ({
                             )
                           }
                           isActive={selectedLocales.includes(localeItem)}
-                          variant={ButtonVariant.HOVERABLE}
-                          color={ButtonColor.TEXT}
+                          variant="hoverable"
+                          color="text"
                           isFullWidth
-                          textAlign={ButtonTextAlign.LEFT}
-                          size={ButtonSize.SM}
+                          textAlign="left"
+                          size="sm"
                         >
                           <div className="flex flex-row items-center justify-between gap-3 px-2 py-1">
                             {isMultilingual && (

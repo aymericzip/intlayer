@@ -1,10 +1,16 @@
-import { readAsset } from 'utils:asset';
-import type { AIConfig, AIOptions } from '@intlayer/ai';
-import { generateText } from '@intlayer/ai';
-import { getLocaleName } from '@intlayer/core';
-import { type Locale, Locales } from '@intlayer/types';
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import {
+  type AIConfig,
+  type AIOptions,
+  extractJson,
+  generateText,
+} from '@intlayer/ai';
+import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
+import { getLocaleName } from '@intlayer/core/localization';
+import type { Locale } from '@intlayer/types/allLocales';
 import { logger } from '@logger';
-import { extractJson } from '@utils/extractJSON';
 import type { Tag } from '@/types/tag.types';
 
 export type AuditOptions = {
@@ -26,8 +32,11 @@ export type AuditFileResultData = {
   tokenUsed: number;
 };
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 // The prompt template to send to the AI model
-const CHAT_GPT_PROMPT = readAsset('./PROMPT.md');
+const CHAT_GPT_PROMPT = readFileSync(join(__dirname, './PROMPT.md'), 'utf-8');
 
 export const aiDefaultOptions: AIOptions = {
   // Keep default options
@@ -40,7 +49,7 @@ export const aiDefaultOptions: AIOptions = {
  * @returns A string in the format "locale: name", e.g. "en: English".
  */
 const formatLocaleWithName = (locale: Locale): string => {
-  return `${locale}: ${getLocaleName(locale, Locales.ENGLISH)}`;
+  return `${locale}: ${getLocaleName(locale, DEFAULT_LOCALE)}`;
 };
 
 /**
@@ -92,8 +101,8 @@ export const auditDictionary = async ({
   // Use the AI SDK to generate the completion
   const { text: newContent, usage } = await generateText({
     ...aiConfig,
+    system: prompt,
     messages: [
-      { role: 'system', content: prompt },
       {
         role: 'user',
         content: ['**File to Audit:**', fileContent].join('\n'),

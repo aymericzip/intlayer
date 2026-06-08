@@ -1,7 +1,9 @@
-import Script from 'next/script';
+/** biome-ignore-all lint/security/noDangerouslySetInnerHtml: No choice */
+
+import { External_Github, Website_Home } from '@intlayer/design-system/routes';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
-import packageJson from '../../../../package.json' with { type: 'json' };
+import packageJson from '../../package_mock.json' with { type: 'json' };
 
 export const SoftwareApplicationHeader: FC = () => {
   const { description, keywords, audienceType } = useIntlayer(
@@ -12,7 +14,7 @@ export const SoftwareApplicationHeader: FC = () => {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
     name: 'Intlayer',
-    url: 'https://intlayer.org',
+    url: Website_Home,
     description: description.value,
     softwareVersion: packageJson.version,
     license:
@@ -20,15 +22,15 @@ export const SoftwareApplicationHeader: FC = () => {
     author: {
       '@type': 'Organization',
       name: 'Intlayer',
-      url: 'https://intlayer.org',
-      logo: 'https://intlayer.org/assets/logo.png',
-      sameAs: ['https://github.com/aymericzip'],
+      url: Website_Home,
+      logo: `${Website_Home}/assets/logo.png`,
+      sameAs: [External_Github],
     },
     publisher: {
       '@type': 'Organization',
       name: 'Intlayer',
-      url: 'https://intlayer.org',
-      logo: 'https://intlayer.org/assets/logo.png',
+      url: Website_Home,
+      logo: `${Website_Home}/assets/logo.png`,
     },
     keywords: keywords.map((keyword) => keyword.value),
     creator: {
@@ -36,23 +38,21 @@ export const SoftwareApplicationHeader: FC = () => {
       name: 'Aymeric PINEAU',
       url: 'https://github.com/aymericzip',
     },
-    applicationCategory: 'BusinessApplication',
+    applicationCategory: 'DeveloperApplication',
     applicationSubCategory: 'Developer Tools',
-    image: 'https://intlayer.org/cover.png',
+    image: `${Website_Home}/cover.png`,
     operatingSystem: 'Web, iOS, Android',
-    platform: 'Web, React, nextjs, Vite',
     datePublished: '2024-08-26',
     audience: {
       '@type': 'Audience',
       audienceType: audienceType.value,
     },
-    mainEntityOfPage: 'https://intlayer.org',
+    mainEntityOfPage: Website_Home,
   };
 
   return (
-    <Script
+    <script
       type="application/ld+json"
-      strategy="afterInteractive"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(softwareApplication),
       }}

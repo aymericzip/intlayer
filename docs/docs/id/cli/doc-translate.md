@@ -21,8 +21,28 @@ slugs:
 
 Perintah `doc translate` secara otomatis menerjemahkan file dokumentasi dari locale dasar ke locale target menggunakan layanan terjemahan AI.
 
-```bash
+## Poin-poin penting:
+
+- Membagi file markdown besar menjadi potongan-potongan untuk tetap berada dalam batas jendela konteks model AI.
+- Mencoba ulang terjemahan jika format output tidak benar.
+- Menggabungkan konteks spesifik aplikasi dan file untuk meningkatkan akurasi terjemahan.
+- Mempertahankan terjemahan yang ada dengan tidak menimpa mereka.
+- Memproses file, potongan, dan locale secara paralel menggunakan sistem antrian untuk meningkatkan kecepatan.
+
+```bash packageManager="npm"
 npx intlayer doc translate
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc translate
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc translate
+```
+
+```bash packageManager="bun"
+bun x intlayer doc translate
 ```
 
 ## Argumen:
@@ -78,6 +98,7 @@ npx intlayer doc translate
 - **`--temperature [temperature]`**: Pengaturan temperature untuk model AI.
 - **`--api-key [apiKey]`**: Berikan API key Anda sendiri untuk layanan AI.
 - **`--application-context [applicationContext]`**: Berikan konteks tambahan untuk penerjemahan AI.
+- **`--data-serialization [dataSerialization]`**: Format serialisasi data yang digunakan untuk fitur AI Intlayer. Opsi: `json` (standar, andal), `toon` (lebih sedikit token, kurang konsisten).
 - **`--custom-prompt [prompt]`**: Sesuaikan prompt dasar yang digunakan untuk penerjemahan. (Catatan: Untuk sebagian besar kasus penggunaan, opsi `--custom-instructions` lebih disarankan karena memberikan kontrol yang lebih baik atas perilaku penerjemahan.)
 
   > Contoh: `npx intlayer doc translate --model deepseek-chat --provider deepseek --temperature 0.5 --api-key sk-1234567890 --application-context "My application is a cat store"`

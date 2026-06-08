@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-09-29
-title: next-i18next vs next-intl vs Intlayer
-description: Compare next-i18next with next-intl and Intlayer for the internationalisation (i18n) of a Next.js app
+updatedAt: 2026-05-31
+title: "next-i18next vs next-intl vs Intlayer - Complete guide to translate next-i18next vs next-intl vs Intlayer: 2026 Comparison"
+description: Best solution for bundle size, SEO, performances & maintainability. Make your Next.js website multilingual in 2026, LLM translation, Agent Skills & MCP.
 keywords:
   - next-intl
   - next-i18next
@@ -39,7 +39,7 @@ We focus on **Next.js 13+ App Router** (with **React Server Components**) and ev
 
 > **tl;dr**: All three can localise a Next.js app. If you want **component-scoped content**, **strict TypeScript types**, **build-time missing-key checks**, **tree-shaken dictionaries**, and **first-class App Router + SEO helpers**, **Intlayer** is the most complete, modern choice.
 
-> One confusion often made by developers is to think that `next-intl` is the Next.js version of `react-intl`. It's not—`next-intl` is maintained by [Amann](https://github.com/amannn), while `react-intl` is maintained by [FormatJS](https://github.com/formatjs/formatjs).
+> One confusion often made by developers is to think that `next-intl` is the Next.js version of `react-intl`. It's not, `next-intl` is maintained by [Amann](https://github.com/amannn), while `react-intl` is maintained by [FormatJS](https://github.com/formatjs/formatjs).
 
 ---
 
@@ -123,13 +123,11 @@ Here is a comparison of the JavaScript bundle size loaded by the browser for a m
 
 If we do not require any formatter in the application, the list of exported functions after tree-shaking will be:
 
-- **next-intlayer**: `useIntlayer`, `useLocale`, `NextIntlClientProvider`, (Bundle size is 180.6 kB -> 78.6 kB (gzip))
+- **next-intlayer**: `useIntlayer`, `useLocale`, `NextIntlClientProvider`, (Bundle size is 180.6 kB -> 15.24 kB (gzip))
 - **next-intl**: `useTranslations`, `useLocale`, `NextIntlClientProvider`, (Bundle size is 101.3 kB -> 31.4 kB (gzip))
 - **next-i18next**: `useTranslation`, `useI18n`, `I18nextProvider`, (Bundle size is 80.7 kB -> 25.5 kB (gzip))
 
 These functions are merely wrappers around React context/state, so the overall impact of the i18n library on bundle size is minimal.
-
-> Intlayer is slightly larger than `next-intl` and `next-i18next` because it incorporates more logic in the `useIntlayer` function. This is related to markdown and `intlayer-editor` integration.
 
 ## Content and Translations
 
@@ -214,35 +212,6 @@ Here is an example of the impact of bundle size optimisation using `intlayer` in
 **next-i18next**
 
 - Relies on **runtime fallbacks** (e.g., show the key or default locale). Build doesn’t fail.
-
-**intlayer**
-
-- **Build-time detection** with **warnings/errors** for missing locales or keys.
-
-**Why it matters:** Catching gaps during build prevents “mystery strings” in production and aligns with strict release gates.
-
----
-
-## Routing, middleware & URL strategy
-
-- **Generates strict types** from your content. **IDE autocompletion** and **compile-time errors** catch typos and missing keys before deployment.
-
-  </Column>
-</Columns>
-
-**Why it matters:** Strong typing shifts failures **left** (CI/build) instead of **right** (runtime).
-
----
-
-## Missing translation handling
-
-**next-intl**
-
-- Relies on **runtime fallbacks** (e.g., show the key or default locale). Build does not fail.
-
-**next-i18next**
-
-- Relies on **runtime fallbacks** (e.g., show the key or default locale). Build does not fail.
 
 **intlayer**
 
@@ -367,9 +336,9 @@ This section provides a detailed comparison between the three solutions. Rather 
 
 The app structure is important to ensure good maintainability of your codebase.
 
-<Tab defaultTab="next-intl" group='techno'>
+<Tabs defaultTab="next-intl" group='techno'>
 
-  <TabItem label="next-i18next" value="next-i18next">
+  <Tab label="next-i18next" value="next-i18next">
 
 ```bash
 .
@@ -394,8 +363,8 @@ The app structure is important to ensure good maintainability of your codebase.
         └── ServerComponent.tsx
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```bash
 .
@@ -422,8 +391,8 @@ The app structure is important to ensure good maintainability of your codebase.
             └── index.tsx
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```bash
 .
@@ -442,8 +411,8 @@ The app structure is important to ensure good maintainability of your codebase.
             └── index.content.ts
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### Comparison
 
@@ -455,8 +424,8 @@ The app structure is important to ensure good maintainability of your codebase.
 As mentioned previously, you must optimise how each JSON file is imported into your code.
 How the library handles content loading is important.
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 ```tsx fileName="next-i18next.config.js"
 module.exports = {
@@ -520,8 +489,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 };
 ```
 
-  </TabItem>
-   <TabItem label="next-intl" value="next-intl">
+  </Tab>
+   <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="i18n.ts"
 import { getRequestConfig } from "next-intl/server";
@@ -532,7 +501,7 @@ const locales = ["en", "fr", "es"];
 
 export default getRequestConfig(async ({ locale }) => {
   // Validate that the incoming `locale` parameter is valid
-  if (!locales.includes(locale as any)) notFound();
+  if (!locales.includes(locale)) notFound();
 
   return {
     messages: (await import(`../messages/${locale}.json`)).default,
@@ -599,8 +568,8 @@ export default async function LandingPage({
 }
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```tsx fileName="intlayer.config.ts"
 export default {
@@ -660,8 +629,8 @@ const LandingPage: NextPageIntlayer = async ({ params }) => {
 export default LandingPage;
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### Comparison
 
@@ -677,8 +646,8 @@ Choose between explicit control and automation based on team preference.
 
 Let's take an example of a client component rendering a counter.
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 **Translations (must be real JSON in `public/locales/...`)**
 
@@ -732,8 +701,8 @@ const ClientComponentExample = () => {
 > Don't forget to add the "about" namespace on the page serverSideTranslations  
 > We are using React version 19.x.x here, but for earlier versions, you will need to use useMemo to store the instance of the formatter as it is a heavy function
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 **Translations (shape reused; load them into next-intl messages as you prefer)**
 
@@ -785,8 +754,8 @@ const ClientComponentExample = () => {
 
 > Don't forget to add the "about" message to the page client message
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 **Content**
 
@@ -828,8 +797,8 @@ const ClientComponentExample = () => {
 };
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### Comparison
 
@@ -852,8 +821,8 @@ const ClientComponentExample = () => {
 
 We will take the case of a UI component. This component is a server component, and should be able to be inserted as a child of a client component. (page (server component) -> client component -> server component). As this component can be inserted as a child of a client component, it cannot be async.
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 ```tsx fileName="src/pages/about.tsx"
 import type { GetStaticProps } from "next";
@@ -876,8 +845,8 @@ const ServerComponent = ({ count }: ServerComponentProps) => {
 };
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 type ServerComponentProps = {
@@ -903,8 +872,8 @@ const ServerComponent = ({ t, count, formatter }: ServerComponentProps) => {
 > - `const t = await getTranslations("about.counter");`
 > - `const formatter = await getFormatter().then((formatter) => formatter.number());`
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 import { useIntlayer, useNumber } from "next-intlayer/server";
@@ -924,8 +893,8 @@ const ServerComponent = ({ count }: { count: number }) => {
 };
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 > Intlayer exposes **server-safe** hooks via `next-intlayer/server`. To function, `useIntlayer` and `useNumber` use hook-like syntax, similar to the client hooks, but rely under the hood on the server context (`IntlayerServerProvider`).
 
@@ -946,9 +915,9 @@ Here is a list of best practices regarding multilingual SEO.
 
 Developers often forget to properly reference their pages across locales.
 
-<Tab defaultTab="next-intl" group='techno'>
+<Tabs defaultTab="next-intl" group='techno'>
  
-  <TabItem label="next-i18next" value="next-i18next">
+  <Tab label="next-i18next" value="next-i18next">
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -1047,8 +1016,8 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/app/[locale]/about/layout.tsx"
 import type { Metadata } from "next";
@@ -1137,8 +1106,8 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```typescript fileName="src/app/[locale]/about/layout.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";
@@ -1200,12 +1169,10 @@ const robots = (): MetadataRoute.Robots => ({
 export default robots;
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 > Intlayer provides a `getMultilingualUrls` function to generate multilingual URLs for your sitemap.
-
----
 
 ---
 
@@ -1247,7 +1214,7 @@ If you prefer minimal setup and accept some manual wiring, next-intl is a good c
 
 GitHub stars are a strong indicator of a project's popularity, community trust, and long-term relevance. While not a direct measure of technical quality, they reflect how many developers find the project useful, follow its progress, and are likely to adopt it. For estimating the value of a project, stars help compare traction across alternatives and provide insights into ecosystem growth.
 
-[![Star History Chart](https://api.star-history.com/svg?repos=i18next/next-i18next&repos=amannn/next-intl&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
 ---
 

@@ -1,4 +1,6 @@
-import { type ContentNode, NodeType, type TypedNode } from '@intlayer/types';
+import type { ContentNode, TypedNode } from '@intlayer/types/dictionary';
+
+import * as NodeTypes from '@intlayer/types/nodeType';
 
 export const getNodeChildren = (section: ContentNode): ContentNode => {
   if (typeof section === 'string') {
@@ -16,19 +18,26 @@ export const getNodeChildren = (section: ContentNode): ContentNode => {
       typedNode[typedNode.nodeType as unknown as keyof typeof typedNode];
 
     if (
-      typedNode.nodeType === NodeType.Translation ||
-      typedNode.nodeType === NodeType.Enumeration ||
-      typedNode.nodeType === NodeType.Condition ||
-      typedNode.nodeType === NodeType.Insertion ||
-      typedNode.nodeType === NodeType.Gender ||
-      typedNode.nodeType === NodeType.File ||
-      typedNode.nodeType === NodeType.Markdown
+      typedNode.nodeType === NodeTypes.MARKDOWN ||
+      typedNode.nodeType === NodeTypes.HTML
+    ) {
+      return content as ContentNode;
+    }
+
+    if (
+      typedNode.nodeType === NodeTypes.TRANSLATION ||
+      typedNode.nodeType === NodeTypes.ENUMERATION ||
+      typedNode.nodeType === NodeTypes.PLURAL ||
+      typedNode.nodeType === NodeTypes.CONDITION ||
+      typedNode.nodeType === NodeTypes.INSERTION ||
+      typedNode.nodeType === NodeTypes.GENDER ||
+      typedNode.nodeType === NodeTypes.FILE
     ) {
       const firstKey = Object.keys(content)[0] as keyof typeof content;
       return content[firstKey] as ContentNode;
     }
 
-    if (typedNode.nodeType === NodeType.Nested) {
+    if (typedNode.nodeType === NodeTypes.NESTED) {
       return undefined;
     }
 

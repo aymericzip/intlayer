@@ -17,8 +17,20 @@ slugs:
 
 # Testar traduções ausentes
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 ## Apelidos:
@@ -69,8 +81,20 @@ Total de locais obrigatórios ausentes: 0
 
 ## Exemplo:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 A saída ajuda você a identificar rapidamente quais traduções precisam ser concluídas para garantir que sua aplicação funcione corretamente em todos os locais configurados.

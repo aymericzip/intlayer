@@ -1,0 +1,45 @@
+import type { GetTagsResult, TagAPI } from '@intlayer/backend';
+import { useGetTags, useSession } from '@intlayer/design-system/api';
+import { Container } from '@intlayer/design-system/container';
+import { Loader } from '@intlayer/design-system/loader';
+import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { TagEditionForm } from './TagEditionForm';
+
+type TagFormContentProps = {
+  tagKey: TagAPI['key'];
+};
+
+export const TagForm: FC<TagFormContentProps> = ({ tagKey }) => {
+  const { noAdminMessage } = useIntlayer('tag-form');
+  const { data: tagResponse, isFetching } = useGetTags({
+    keys: tagKey,
+  });
+
+  const { session } = useSession();
+  const isTagAdmin = session?.permissions?.includes('project:write') ?? false;
+
+  const tag = (tagResponse as GetTagsResult).data?.[0];
+
+  return (
+    <Loader isLoading={isFetching}>
+      <div className="flex size-full max-w-md flex-col items-center justify-center gap-4">
+        {!isTagAdmin && (
+          <Container
+            roundedSize="xl"
+            className="flex size-full justify-center p-6"
+          >
+            <p className="text-neutral text-sm">{noAdminMessage}</p>
+          </Container>
+        )}
+
+        <Container
+          roundedSize="xl"
+          className="flex size-full justify-center p-6"
+        >
+          {tag && <TagEditionForm tag={tag} />}
+        </Container>
+      </div>
+    </Loader>
+  );
+};

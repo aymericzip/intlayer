@@ -1,19 +1,35 @@
 import { type IntlayerConfig, Locales } from 'intlayer';
-
-/** @type {import('intlayer').IntlayerConfig} */
+import { solidRouterRewrite } from 'intlayer/routing';
 
 const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
   },
+  routing: {
+    mode: 'prefix-no-default',
+    rewrite: solidRouterRewrite({
+      '/:locale/tests': {
+        fr: '/:locale/essais',
+        es: '/:locale/pruebas',
+      },
+    }),
+  },
+  dictionary: {
+    importMode: 'static',
+  },
+  build: {
+    optimize: true,
+    minify: true,
+    purge: true,
+  },
   editor: {
-    enabled: true,
+    enabled: false,
     applicationURL: 'http://localhost:5173',
-    cmsURL: 'http://localhost:3000',
     editorURL: 'http://localhost:8000',
-    backendURL: 'http://localhost:3100',
-    clientId: process.env.INTLAYER_CLIENT_ID,
-    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+    // cmsURL: 'http://localhost:3000',
+    // backendURL: 'http://localhost:3100',
+    // clientId: process.env.INTLAYER_CLIENT_ID,
+    // clientSecret: process.env.INTLAYER_CLIENT_SECRET,
   },
 };
 

@@ -1,31 +1,27 @@
 'use client';
 
+import { Button } from '@components/Button';
+import { Container } from '@components/Container';
+import { EditableFieldInput } from '@components/EditableField';
 import { camelCaseToSentence } from '@intlayer/config/client';
 import {
   getDefaultNode,
   getNodeChildren,
   getNodeType,
-  isSameKeyPath,
-} from '@intlayer/core';
+} from '@intlayer/core/dictionaryManipulator';
+import { isSameKeyPath } from '@intlayer/core/utils';
 import {
   useConfiguration,
   useEditedContentActions,
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
-import {
-  type KeyPath,
-  type LocalDictionaryId,
-  NodeType,
-  type TypedNode,
-} from '@intlayer/types';
+import type { LocalDictionaryId, TypedNode } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import type { ContentNode } from 'intlayer';
 import { Plus, Trash } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../../Button';
-import { Container } from '../../Container';
-import { EditableFieldInput } from '../../EditableField';
-import { InputVariant } from '../../Input';
 import { NodeTypeSelector } from '../NodeTypeSelector';
 
 type NodeTypeViewProps = {
@@ -41,7 +37,7 @@ const NodeTypeView: FC<NodeTypeViewProps> = ({
   keyPath,
   onNodeTypeChange: onNodeTypeChangeProp,
 }) => {
-  const locales = useConfiguration()?.internationalization.locales ?? [];
+  const locales = useConfiguration()?.internationalization?.locales ?? [];
   const nodeType = getNodeType(section);
   const children = getNodeChildren(section);
 
@@ -56,10 +52,11 @@ const NodeTypeView: FC<NodeTypeViewProps> = ({
   };
 
   if (
-    nodeType === NodeType.Translation ||
-    nodeType === NodeType.Condition ||
-    nodeType === NodeType.Gender ||
-    nodeType === NodeType.Enumeration
+    nodeType === NodeTypes.TRANSLATION ||
+    nodeType === NodeTypes.CONDITION ||
+    nodeType === NodeTypes.GENDER ||
+    nodeType === NodeTypes.ENUMERATION ||
+    nodeType === NodeTypes.PLURAL
   ) {
     const firstKey = Object.keys(
       (section as unknown as TypedNode)[nodeType as keyof typeof section]
@@ -90,7 +87,7 @@ const NodeTypeView: FC<NodeTypeViewProps> = ({
     );
   }
 
-  if (nodeType === NodeType.Array) {
+  if (nodeType === NodeTypes.ARRAY) {
     const childrenKeyPath = [...keyPath, { type: nodeType, key: 0 } as KeyPath];
     return (
       <div className="flex w-full flex-col gap-1">
@@ -113,7 +110,7 @@ const NodeTypeView: FC<NodeTypeViewProps> = ({
     );
   }
 
-  if (nodeType === NodeType.Object) {
+  if (nodeType === NodeTypes.OBJECT) {
     return (
       <>
         <NodeTypeSelector
@@ -196,13 +193,13 @@ export const NodeView: FC<NodeWrapperProps> = ({
                 placeholder={titleInput.placeholder.value}
                 defaultValue={sectionKey}
                 onSave={(value) => handleRenameNodeKey(value)}
-                variant={InputVariant.INVISIBLE}
+                variant="invisible"
               />
               <Button
                 label={deleteButton.label.value}
-                variant={ButtonVariant.HOVERABLE}
-                size={ButtonSize.ICON_SM}
-                color={ButtonColor.TEXT}
+                variant="hoverable"
+                size="icon-sm"
+                color="text"
                 className="translate-x-2"
                 Icon={Trash}
                 onClick={() => {
@@ -255,11 +252,14 @@ export const ObjectView: FC<ObjectViewProps> = ({
     <div className="flex flex-col gap-2 overflow-y-auto">
       <ul className="mr-auto flex flex-col gap-4">
         {Object.keys(section).map((key) => (
-          <li key={key} className="flex w-full">
+          <li
+            key={`${JSON.stringify(keyPath)}-object-${key}`}
+            className="flex w-full"
+          >
             <NodeView
               sectionKey={key}
               section={section?.[key as keyof typeof section]}
-              keyPath={[...keyPath, { type: NodeType.Object, key }]}
+              keyPath={[...keyPath, { type: NodeTypes.OBJECT, key }]}
               dictionaryLocalId={dictionaryLocalId}
             />
           </li>
@@ -267,16 +267,16 @@ export const ObjectView: FC<ObjectViewProps> = ({
       </ul>
       <Button
         label={addNodeButton.label.value}
-        variant={ButtonVariant.HOVERABLE}
-        size={ButtonSize.MD}
-        color={ButtonColor.TEXT}
+        variant="hoverable"
+        size="md"
+        color="text"
         Icon={Plus}
         className="flex-1"
         onClick={() => {
           const newKey = 'newKey';
           const newKeyPath = [
             ...keyPath,
-            { type: NodeType.Object, key: newKey },
+            { type: NodeTypes.OBJECT, key: newKey },
           ] as KeyPath[];
           addEditedContent(dictionaryLocalId, '', newKeyPath);
           setFocusedContentKeyPath(newKeyPath);
@@ -306,7 +306,7 @@ export const StructureView: FC<StructureViewProps> = ({
   ) {
     return (
       <NodeView
-        sectionKey={'content'}
+        sectionKey="content"
         section={section}
         keyPath={keyPath}
         dictionaryLocalId={dictionaryLocalId}

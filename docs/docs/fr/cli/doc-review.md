@@ -21,8 +21,26 @@ slugs:
 
 La commande `doc review` analyse les fichiers de documentation pour la qualité, la cohérence et l'exhaustivité à travers différentes locales.
 
-```bash
+## Points clés :
+
+- Divise les grands fichiers markdown en morceaux pour rester dans les limites de la fenêtre de contexte du modèle d'IA.
+- Optimise les morceaux à revoir, et saute les parties qui sont déjà traduites et non modifiées.
+- Traite les fichiers, les morceaux et les locales en parallèle à l'aide d'un système de file d'attente pour augmenter la vitesse.
+
+```bash packageManager="npm"
 npx intlayer doc review
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc review
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc review
+```
+
+```bash packageManager="bun"
+bun x intlayer doc review
 ```
 
 Elle peut être utilisée pour revoir les fichiers déjà traduits, et pour vérifier si la traduction est correcte.

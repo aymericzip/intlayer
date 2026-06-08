@@ -95,7 +95,7 @@ This trade-off (chunk size vs overlap) is key for RAG efficiency:
 
 ## Step 3: Generating Embeddings
 
-Once the docs are chunked, we generate **embeddings** — high-dimensional vectors representing each chunk.
+Once the docs are chunked, we generate **embeddings**, high-dimensional vectors representing each chunk.
 
 I used OpenAI’s text-embedding-3-large model, but you could use any modern embedding model.
 

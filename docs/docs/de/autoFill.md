@@ -18,13 +18,13 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-09-20
-    changes: Globale Konfiguration hinzugefügt
+    changes: "Globale Konfiguration hinzugefügt"
   - version: 6.0.0
     date: 2025-09-17
-    changes: Variable `{{fileName}}` hinzugefügt
+    changes: "Variable `{{fileName}}` hinzugefügt"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historie initialisiert
+    changes: "Historie initialisiert"
 ---
 
 # Übersetzungen der Deklarationsdatei für automatisches Ausfüllen von Inhalten
@@ -52,8 +52,20 @@ Hier ist eine [pro-Locale Inhaltsdeklarationsdatei](https://github.com/aymericzi
 
 Dann, wenn Sie den folgenden Befehl ausführen:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
 Intlayer generiert automatisch die abgeleitete Deklarationsdatei unter `src/components/example/example.content.json` und füllt alle Lokalisierungen aus, die in der Hauptdatei noch nicht deklariert sind.

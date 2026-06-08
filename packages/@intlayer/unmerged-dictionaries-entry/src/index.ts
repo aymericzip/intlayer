@@ -4,36 +4,42 @@
  * The alias allow hot reload the app (such as nextjs) on any dictionary change.
  */
 
-import { existsSync } from 'node:fs';
-import { join } from 'node:path';
-import { clearModuleCache, configESMxCJSRequire } from '@intlayer/config';
-import config from '@intlayer/config/built';
-import type {
-  Dictionary,
-  DictionaryKeys,
-  IntlayerConfig,
-} from '@intlayer/types';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { basename, extname, join } from 'node:path';
+import { build, system } from '@intlayer/config/built';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import type { DictionaryKeys } from '@intlayer/types/module_augmentation';
 
 export type UnmergedDictionaries = Record<DictionaryKeys, Dictionary[]>;
 
 type GetUnmergedDictionaries = (
-  configuration?: IntlayerConfig
+  configuration?: Pick<IntlayerConfig, 'system' | 'build'>
 ) => UnmergedDictionaries;
 
 export const getUnmergedDictionaries: GetUnmergedDictionaries = (
-  configuration: IntlayerConfig = config
+  configuration: Pick<IntlayerConfig, 'system' | 'build'> = { system, build }
 ) => {
-  const { content, build } = configuration;
+  const { system } = configuration;
+  const { unmergedDictionariesDir } = system;
 
-  // Always use cjs for dictionaries entry as it uses require
-  const dictionariesPath = join(content.mainDir, `unmerged_dictionaries.cjs`);
-  let dictionaries: Record<DictionaryKeys, Dictionary[]> = {};
+  const dictionaries: Record<string, any> = {};
 
-  if (existsSync(dictionariesPath)) {
-    // Clear cache for unmerged_dictionaries.cjs and all its dependencies (JSON files)
-    clearModuleCache(dictionariesPath);
-    dictionaries = (build.require ?? configESMxCJSRequire)(dictionariesPath);
+  if (existsSync(unmergedDictionariesDir)) {
+    // Read JSON files directly to avoid require.cache memory leak
+    const files = readdirSync(unmergedDictionariesDir).filter((file) =>
+      file.endsWith('.json')
+    );
+
+    for (const file of files) {
+      const key = basename(file, extname(file));
+      const content = readFileSync(
+        join(unmergedDictionariesDir, file),
+        'utf-8'
+      );
+      dictionaries[key] = JSON.parse(content);
+    }
   }
 
-  return dictionaries;
+  return dictionaries as UnmergedDictionaries;
 };

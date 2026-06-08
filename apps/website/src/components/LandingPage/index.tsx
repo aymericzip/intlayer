@@ -1,100 +1,144 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
 import { CommonQuestionsSection } from '@components/LandingPage/CommonQuestionsSection/CommonQuestions';
-import { Loader } from '@intlayer/design-system';
-import dynamic from 'next/dynamic';
-import type { FC } from 'react';
+import { Loader } from '@intlayer/design-system/loader';
+import { useIntlayer } from 'next-intlayer/server';
+import { type FC, lazy, Suspense } from 'react';
 import { LandingSection } from './LandingSection';
 
-const DynamicAvailableTechnoSection = dynamic(
-  () =>
-    import('./AvailableTechnoSection').then(
-      (mod) => mod.AvailableTechnoSection
-    ),
-  {
-    loading: () => <Loader />,
-  }
+const AvailableTechnoSection = lazy(() =>
+  import('./AvailableTechnoSection').then((mod) => ({
+    default: mod.AvailableTechnoSection,
+  }))
 );
 
-const DynamicLanguageSection = dynamic(
-  () => import('./LanguageSection').then((mod) => mod.LanguageSection),
-  {
-    loading: () => <Loader />,
-  }
+const LanguageSection = lazy(() =>
+  import('@intlayer/design-system/language-background').then((mod) => ({
+    default: mod.LanguageSection,
+  }))
 );
 
-const DynamicWhyToChoseIntlayerSection = dynamic(
-  () =>
-    import('./WhyToChoseIntlayerSection').then(
-      (mod) => mod.WhyToChoseIntlayerSection
-    ),
-  {
-    loading: () => <Loader />,
-  }
+const WhyToChoseIntlayerSection = lazy(() =>
+  import('./WhyToChoseIntlayerSection').then((mod) => ({
+    default: mod.WhyToChoseIntlayerSection,
+  }))
 );
 
-const DynamicFeaturesSection = dynamic(
-  () => import('./FeaturesSection').then((mod) => mod.FeaturesSection),
-  {
-    loading: () => <Loader />,
-  }
+const FeaturesSection = lazy(() =>
+  import('./FeaturesSection').then((mod) => ({ default: mod.FeaturesSection }))
 );
 
-const DynamicAuditSection = dynamic(
-  () => import('./AuditSection').then((mod) => mod.AuditSection),
-  {
-    loading: () => <Loader />,
-  }
+const I18nBenchmarkSection = lazy(() =>
+  import('./I18nBenchmarkSection').then((mod) => ({
+    default: mod.I18nBenchmarkSection,
+  }))
 );
 
-const DynamicDemoSection = dynamic(
-  () => import('./DemoSection').then((mod) => mod.DemoSection),
-  {
-    loading: () => <Loader />,
-  }
+const AuditSection = lazy(() =>
+  import('./AuditSection').then((mod) => ({ default: mod.AuditSection }))
 );
 
-const DynamicChatBotModal = dynamic(
-  () => import('./ChatBotModal').then((mod) => mod.ChatBotModal),
-  {
-    loading: () => <Loader />,
-  }
+const DemoSection = lazy(() =>
+  import('./DemoSection').then((mod) => ({ default: mod.DemoSection }))
 );
 
-const DynamicAIABTestingSection = dynamic(
-  () => import('./AIABTestingSection').then((mod) => mod.AIABTestingSection),
-  {
-    loading: () => <Loader />,
-  }
+const ChatBotModal = lazy(() =>
+  import('./ChatBotModal').then((mod) => ({ default: mod.ChatBotModal }))
 );
 
-const DynamicContributorSection = dynamic(
-  () => import('./ContributorSection').then((mod) => mod.ContributorSection),
-  {
-    loading: () => <Loader />,
-  }
+const ContributorSection = lazy(() =>
+  import('./ContributorSection').then((mod) => ({
+    default: mod.ContributorSection,
+  }))
 );
 
-export const LandingPage: FC = () => (
-  <>
-    <div className="flex flex-col gap-10">
-      <BackgroundLayout>
-        <LandingSection />
-        <DynamicWhyToChoseIntlayerSection />
-      </BackgroundLayout>
-      <DynamicFeaturesSection />
-      <div className="relative w-full overflow-hidden bg-neutral/5 py-16 dark:bg-neutral-900/10">
-        <DynamicAuditSection />
-        <DynamicLanguageSection />
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-4 bg-background [clip-path:polygon(0_0,100%_0,0_100%)]" />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-4 bg-background [clip-path:polygon(100%_0,100%_100%,0_100%)]" />
-      </div>
-      <DynamicAIABTestingSection />
-      <DynamicAvailableTechnoSection />
-      <DynamicDemoSection />
-      <DynamicContributorSection />
-      <CommonQuestionsSection />
-    </div>
-
-    <DynamicChatBotModal />
-  </>
+const ProductsSection = lazy(() =>
+  import('./ProductsSection/index').then((mod) => ({
+    default: mod.ProductsSection,
+  }))
 );
+
+export const LandingPage: FC = () => {
+  const content = useIntlayer('landing-page');
+
+  return (
+    <>
+      <main
+        aria-label={content.landingMainTitle.value}
+        className="flex flex-col gap-10"
+      >
+        <BackgroundLayout>
+          <section aria-label={content.heroSection.value}>
+            <LandingSection />
+          </section>
+          <section aria-label={content.keyFeaturesSection.value}>
+            <Suspense fallback={<Loader />}>
+              <FeaturesSection />
+            </Suspense>
+          </section>
+        </BackgroundLayout>
+
+        <section aria-label={content.whyChooseIntlayerSection.value}>
+          <Suspense fallback={<Loader />}>
+            <WhyToChoseIntlayerSection />
+          </Suspense>
+        </section>
+
+        <div className="relative flex w-full flex-col gap-24 overflow-hidden bg-neutral/5 py-16 dark:bg-neutral-900/10">
+          <section aria-label={content.benchmarkSection.value}>
+            <Suspense fallback={<Loader />}>
+              <I18nBenchmarkSection />
+            </Suspense>
+          </section>
+
+          <section aria-label={content.supportedLanguagesSection.value}>
+            <Suspense fallback={<Loader />}>
+              <LanguageSection />
+            </Suspense>
+          </section>
+
+          <section aria-label={content.codeAuditSection.value}>
+            <Suspense fallback={<Loader />}>
+              <AuditSection />
+            </Suspense>
+          </section>
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 top-0 h-4 bg-background [clip-path:polygon(0_0,100%_0,0_100%)]"
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-4 bg-background [clip-path:polygon(100%_0,100%_100%,0_100%)]"
+          />
+        </div>
+
+        <section aria-label={content.productsSection.value}>
+          <Suspense fallback={<Loader />}>
+            <ProductsSection />
+          </Suspense>
+        </section>
+        <section aria-label={content.technologiesSection.value}>
+          <Suspense fallback={<Loader />}>
+            <AvailableTechnoSection />
+          </Suspense>
+        </section>
+        <section aria-label={content.liveDemoSection.value}>
+          <Suspense fallback={<Loader />}>
+            <DemoSection />
+          </Suspense>
+        </section>
+        <section aria-label={content.contributorsSection.value}>
+          <Suspense fallback={<Loader />}>
+            <ContributorSection />
+          </Suspense>
+        </section>
+        <section aria-label={content.faqSection.value}>
+          <CommonQuestionsSection />
+        </section>
+      </main>
+
+      <Suspense fallback={<Loader />}>
+        <ChatBotModal />
+      </Suspense>
+    </>
+  );
+};

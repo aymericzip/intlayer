@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-12-11
-title: Jak przetłumaczyć swoją aplikację Tanstack Start – przewodnik i18n 2025
-description: Dowiedz się, jak dodać internacjonalizację (i18n) do swojej aplikacji Tanstack Start za pomocą Intlayer. Postępuj zgodnie z tym kompleksowym przewodnikiem, aby uczynić swoją aplikację wielojęzyczną z routingiem uwzględniającym lokalizację.
+updatedAt: 2026-05-31
+title: "TanStack Start i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
+description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji TanStack Start. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
 keywords:
   - Internacjonalizacja
   - Dokumentacja
@@ -17,20 +17,33 @@ slugs:
   - environment
   - tanstack-start
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
+applicationShowcase: https://intlayer-tanstack-start-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Aktualizacja użycia API useIntlayer w Solid do bezpośredniego dostępu do właściwości"
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: "Dodaj polecenie init"
   - version: 7.4.0
     date: 2025-12-11
-    changes: Wprowadzenie validatePrefix oraz dodanie kroku 14: Obsługa stron 404 z lokalizowanymi trasami.
+    changes: "Wprowadzenie validatePrefix oraz dodanie kroku 14: Obsługa stron 404 z lokalizowanymi trasami."
   - version: 7.3.9
     date: 2025-12-05
-    changes: Dodany krok 13: Pobieranie lokalizacji w akcjach serwerowych (Opcjonalnie)
+    changes: "Dodany krok 13: Pobieranie lokalizacji w akcjach serwerowych (Opcjonalnie)"
+  - version: 7.2.3
+    date: 2025-11-18
+    changes: "Dodaj krok 13: Adaptacja Nitro"
+  - version: 7.1.0
+    date: 2025-11-17
+    changes: "Naprawienie domyślnego prefiksu poprzez dodanie funkcji getPrefix useLocalizedNavigate, LocaleSwitcher i LocalizedLink."
   - version: 6.5.2
     date: 2025-10-03
-    changes: Aktualizacja dokumentacji
+    changes: "Aktualizacja dokumentacji"
   - version: 5.8.1
     date: 2025-09-09
-    changes: Dodano dla Tanstack Start
+    changes: "Dodano dla Tanstack Start"
 ---
 
 # Przetłumacz swoją stronę Tanstack Start za pomocą Intlayer | Internacjonalizacja (i18n)
@@ -41,66 +54,113 @@ history:
 
 Ten przewodnik pokazuje, jak zintegrować **Intlayer** dla płynnej internacjonalizacji w projektach Tanstack Start z routingiem uwzględniającym lokalizację, wsparciem TypeScript oraz nowoczesnymi praktykami programistycznymi.
 
-## Czym jest Intlayer?
+## Dlaczego Interlayer zamiast alternatyw?
 
-**Intlayer** to innowacyjna, open-source'owa biblioteka do internacjonalizacji (i18n), zaprojektowana, aby uprościć wsparcie wielojęzyczne w nowoczesnych aplikacjach webowych.
+W porównaniu do głównych rozwiązań, takich jak „react-i18next”, „use-intl” lub „paraglide”, Intlayer jest rozwiązaniem wyposażonym w zintegrowane optymalizacje, takie jak:
 
-Dzięki Intlayer możesz:
+**Pełne pokrycie TanStack Start**
 
-- **Łatwo zarządzać tłumaczeniami** za pomocą deklaratywnych słowników na poziomie komponentów.
-- **Dynamicznie lokalizować metadane**, trasy i zawartość.
-- **Zapewnić wsparcie TypeScript** dzięki automatycznie generowanym typom, co poprawia autouzupełnianie i wykrywanie błędów.
-- **Korzystaj z zaawansowanych funkcji**, takich jak dynamiczne wykrywanie i przełączanie lokalizacji.
-- **Włącz routing uwzględniający lokalizację** za pomocą systemu routingu opartego na plikach Tanstack Start.
+Intlayer jest w pełni zoptymalizowany pod kątem TanStack Start, zapewniając **wielojęzyczny routing**, **zarządzanie plikami cookie**, **generowanie mapy witryny**, **dynamiczne ładowanie treści** i wszystkie funkcje potrzebne do skalowania wysiłków związanych z internacjonalizacją (i18n).
+
+**Rozmiar bundle'a**
+
+Zamiast ładować ogromne pliki JSON na swoje strony, ładuj tylko niezbędną treść. Intlayer pomaga **zmniejszyć rozmiary bundle'a i stron nawet o 50%**.
+
+**Łatwość konserwacji**
+
+Określanie zakresu zawartości aplikacji **ułatwia konserwację** aplikacji na dużą skalę. Możesz powielić lub usunąć pojedynczy folder funkcji bez obciążania psychicznego koniecznością przeglądania całej bazy kodu zawartości. Dodatkowo Inlayer jest **w pełni napisany**, aby zapewnić dokładność treści.
+
+**Agent AI**
+
+Wspólna lokalizacja treści **zmniejsza potrzebny kontekst** dzięki modelom dużego języka (LLM). Intlayer zawiera także zestaw narzędzi, taki jak **CLI** do sprawdzania brakujących tłumaczeń**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** i **[umiejętności agenta](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, aby praca programisty (DX) była jeszcze płynniejsza dla agentów AI.
+
+**Automatyzacja**
+
+Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wybranego LLM na koszt dostawcy sztucznej inteligencji. Intlayer oferuje także **kompilator** do automatyzacji ekstrakcji treści, a także [platformę internetową] (https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), która pomaga **tłumaczyć w tle**.
+
+**Wydajność**
+
+Łączenie ogromnych plików JSON z komponentami może prowadzić do problemów z wydajnością i reaktywnością. Inlayer optymalizuje ładowanie treści w czasie kompilacji.
+
+**Skalowanie bez użycia dewelopera**
+
+Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** i **[pełny CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, który pomoże Ci zarządzać wielojęzyczną treścią w **w czasie rzeczywistym**, dzięki czemu współpraca z tłumaczami, copywriterami i innymi członkami zespołu będzie płynna. Treść może być przechowywana lokalnie i/lub zdalnie.
 
 ---
 
 ## Przewodnik krok po kroku, jak skonfigurować Intlayer w aplikacji Tanstack Start
 
-<Tab defaultTab="video">
-  <TabItem label="Video" value="video">
+<Tabs defaultTab="video">
+  <Tab label="Wideo" value="video">
   
-<iframe title="Najlepsze rozwiązanie i18n dla Tanstack Start? Odkryj Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/_XTdKVWaeqg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Najlepsze rozwiązanie i18n dla Tanstack Start? Odkryj Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/_XTdKVWaeqg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-  </TabItem>
-  <TabItem label="Code" value="code">
+  </Tab>
+  <Tab label="Kod" value="code">
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-tanstack-start-template?embed=1&ctl=1&file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-tanstack-start-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Jak internacjonalizować swoją aplikację za pomocą Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-tanstack-start-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo - intlayer-tanstack-start-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
 
 Zobacz [Szablon aplikacji](https://github.com/aymericzip/intlayer-tanstack-start-template) na GitHub.
 
-### Krok 1: Utwórz projekt
+<Steps>
+
+<Step number={1} title="Utwórz projekt">
 
 Rozpocznij od utworzenia nowego projektu TanStack Start, postępując zgodnie z przewodnikiem [Start new project](https://tanstack.com/start/latest/docs/framework/react/quick-start) na stronie TanStack Start.
 
-### Krok 2: Zainstaluj pakiety Intlayer
+</Step>
+
+<Step number={2} title="Zainstaluj pakiety Intlayer">
 
 Zainstaluj niezbędne pakiety, używając preferowanego menedżera pakietów:
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
 npm install vite-intlayer --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer
 pnpm add vite-intlayer --save-dev
+pnpm intlayer init
+```
+
+```bash packageManager="yarn"
+yarn add intlayer react-intlayer
+yarn add vite-intlayer --save-dev
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer
+bun add vite-intlayer --dev
+bun x intlayer init
 ```
 
 - **intlayer**
 
-- **intlayer**
-
-  Podstawowy pakiet, który dostarcza narzędzia do internacjonalizacji dla zarządzania konfiguracją, tłumaczeń, [deklaracji treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md), transpilecji oraz [poleceń CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_cli.md).
+  Podstawowy pakiet, który dostarcza narzędzia do internacjonalizacji dla zarządzania konfiguracją, tłumaczeń, [deklaracji treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md), transpiliacji oraz [poleceń CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md).
 
 - **react-intlayer**
   Pakiet integrujący Intlayer z aplikacją React. Zapewnia dostawców kontekstu oraz hooki do internacjonalizacji w React.
@@ -108,7 +168,9 @@ pnpm add vite-intlayer --save-dev
 - **vite-intlayer**
   Zawiera wtyczkę Vite do integracji Intlayer z [bundlerem Vite](https://vite.dev/guide/why.html#why-bundle-for-production), a także middleware do wykrywania preferowanego języka użytkownika, zarządzania ciasteczkami oraz obsługi przekierowań URL.
 
-### Krok 3: Konfiguracja projektu
+</Step>
+
+<Step number={3} title="Konfiguracja projektu">
 
 Utwórz plik konfiguracyjny, aby skonfigurować języki swojej aplikacji:
 
@@ -129,7 +191,9 @@ export default config;
 
 > Za pomocą tego pliku konfiguracyjnego możesz ustawić lokalizowane adresy URL, przekierowania w middleware, nazwy ciasteczek, lokalizację i rozszerzenie deklaracji treści, wyłączyć logi Intlayer w konsoli i wiele więcej. Pełną listę dostępnych parametrów znajdziesz w [dokumentacji konfiguracji](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md).
 
-### Krok 4: Integracja Intlayer w konfiguracji Vite
+</Step>
+
+<Step number={4} title="Integracja Intlayer w konfiguracji Vite">
 
 Dodaj wtyczkę intlayer do swojej konfiguracji:
 
@@ -139,17 +203,18 @@ import viteReact from "@vitejs/plugin-react";
 import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
 import { intlayer } from "vite-intlayer";
-import viteTsConfigPaths from "vite-tsconfig-paths";
 
 const config = defineConfig({
   plugins: [
     nitro(),
-    viteTsConfigPaths({
-      projects: ["./tsconfig.json"],
+    intlayer(),
+    tanstackStart({
+      router: {
+        routeFileIgnorePattern:
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$",
+      },
     }),
-    tanstackStart(),
     viteReact(),
-    intlayer(), // To add
   ],
 });
 
@@ -158,35 +223,105 @@ export default config;
 
 > Wtyczka `intlayer()` dla Vite służy do integracji Intlayer z Vite. Zapewnia budowanie plików deklaracji treści oraz monitorowanie ich w trybie deweloperskim. Definiuje zmienne środowiskowe Intlayer w aplikacji Vite. Dodatkowo dostarcza aliasy optymalizujące wydajność.
 
-### Krok 5: Utwórz komponenty layoutu
+</Step>
 
-Skonfiguruj swój główny layout oraz layouty specyficzne dla lokalizacji:
+<Step number={5} title="Utwórz układ główny">
 
-#### Główny Layout
+Skonfiguruj swój główny układ, aby wspierać internacjonalizację, używając `useParams` do wykrywania aktualnej lokalizacji i ustawiając atrybuty `lang` i `dir` w tagu `html`.
 
-```tsx fileName="src/routes/{-$locale}/route.tsx"
-import { createFileRoute, Outlet } from "@tanstack/react-router";
-import { IntlayerProvider, useLocale } from "react-intlayer";
+```tsx fileName="src/routes/__root.tsx"
+import {
+  createRootRouteWithContext,
+  HeadContent,
+  Scripts,
+} from "@tanstack/react-router";
+import { defaultLocale, getHTMLTextDir } from "intlayer";
+import { type ReactNode } from "react";
+import { IntlayerProvider } from "react-intlayer";
+import { Route as LocaleRoute } from "./{-$locale}/route";
 
-import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes";
+export const Route = createRootRouteWithContext<{}>()({
+  head: () => ({
+    meta: [
+      {
+        charSet: "utf-8",
+      },
+      {
+        content: "width=device-width, initial-scale=1",
+        name: "viewport",
+      },
+      {
+        title: "TanStack Start Starter",
+      },
+    ],
+  }),
 
-export const Route = createFileRoute("/{-$locale}")({
-  component: LayoutComponent,
+  shellComponent: RootDocument,
 });
 
-function LayoutComponent() {
-  const { defaultLocale } = useLocale();
-  const { locale } = Route.useParams();
+function RootDocument({ children }: { children: ReactNode }) {
+  const params = LocaleRoute.useParams();
+  const locale = params?.locale ?? defaultLocale;
 
   return (
-    <IntlayerProvider locale={locale ?? defaultLocale}>
-      <Outlet />
-    </IntlayerProvider>
+    <html dir={getHTMLTextDir(locale)} lang={locale}>
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+        <Scripts />
+      </body>
+    </html>
   );
 }
 ```
 
-### Krok 6: Zadeklaruj swoją treść
+> Jeśli chcesz użyć swojej zawartości w atrybucie typu `string`, takim jak `alt`, `title`, `href`, `aria-label` itp., musisz wywołać wartość funkcji, na przykład:
+
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
+
+</Step>
+
+<Step number={6} title="Utwórz układ lokalizacji">
+
+Utwórz układ, który obsługuje prefiks lokalizacji i wykonuje walidację.
+
+```tsx fileName="src/routes/{-$locale}/route.tsx"
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { validatePrefix } from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}")({
+  beforeLoad: ({ params }) => {
+    const localeParam = params.locale;
+
+    // Walidacja prefiksu lokalizacji
+    const { isValid, localePrefix } = validatePrefix(localeParam);
+
+    if (!isValid) {
+      throw redirect({
+        to: "/{-$locale}/404",
+        params: { locale: localePrefix },
+      });
+    }
+  },
+  component: Outlet,
+});
+```
+
+> Tutaj `{-$locale}` jest dynamicznym parametrem trasy, który zostaje zastąpiony aktualną lokalizacją. Ta notacja sprawia, że slot jest opcjonalny, co pozwala na współpracę z trybami routingu takimi jak `'prefix-no-default'` itp.
+
+> Pamiętaj, że ten slot może powodować problemy, jeśli używasz wielu dynamicznych segmentów w tej samej trasie (np. `/{-$locale}/other-path/$anotherDynamicPath/...`).
+> W trybie `'prefix-all'` możesz woleć zmienić slot na `$locale`.
+> W trybach `'no-prefix'` lub `'search-params'` możesz całkowicie usunąć ten slot.
+
+</Step>
+
+<Step number={7} title="Zadeklaruj swoją treść">
 
 Twórz i zarządzaj deklaracjami treści, aby przechowywać tłumaczenia:
 
@@ -210,17 +345,17 @@ const appContent = {
       }),
     },
     meta: {
+      title: t({
+        en: "Welcome to Intlayer + TanStack Router",
+        es: "Bienvenido a Intlayer + TanStack Router",
+        fr: "Bienvenue à Intlayer + TanStack Router",
+      }),
       description: t({
         en: "This is an example of using Intlayer with TanStack Router",
         es: "Este es un ejemplo de uso de Intlayer con TanStack Router",
         fr: "Ceci est un exemple d'utilisation d'Intlayer avec TanStack Router",
       }),
     },
-    title: t({
-      en: "Welcome to Intlayer + TanStack Router",
-      es: "Bienvenido a Intlayer + TanStack Router",
-      fr: "Bienvenue à Intlayer + TanStack Router",
-    }),
   },
   key: "app",
 } satisfies Dictionary;
@@ -228,11 +363,13 @@ const appContent = {
 export default appContent;
 ```
 
-> Twoje deklaracje zawartości mogą być definiowane w dowolnym miejscu w Twojej aplikacji, pod warunkiem, że zostaną umieszczone w katalogu `contentDir` (domyślnie `./app`). I będą miały rozszerzenie pliku deklaracji zawartości (domyślnie `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> Twoje deklaracje zawartości mogą być definiowane w dowolnym miejscu w Twojej aplikacji, pod warunkiem, że zostaną umieszczone w katalogu `contentDir` (domyślnie `./app`). I będą miały rozszerzenie pliku deklaracji zawartości (domyślnie `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Po więcej szczegółów odsyłamy do [dokumentacji deklaracji zawartości](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md).
 
-### Krok 7: Tworzenie komponentów i hooków uwzględniających lokalizację
+</Step>
+
+<Step number={8} title="Tworzenie komponentów i hooków uwzględniających lokalizację">
 
 Utwórz komponent `LocalizedLink` do nawigacji uwzględniającej lokalizację:
 
@@ -240,33 +377,24 @@ Utwórz komponent `LocalizedLink` do nawigacji uwzględniającej lokalizację:
 import type { FC } from "react";
 
 import { Link, type LinkComponentProps } from "@tanstack/react-router";
-import { useLocale } from "react.intlayer";
+import { useLocale } from "react-intlayer";
+import { getPrefix } from "intlayer";
 
 export const LOCALE_ROUTE = "{-$locale}" as const;
 
-// Główne narzędzie
-export type RemoveLocaleParam<T> = T extends string
-  ? RemoveLocaleFromString<T>
-  : T;
+export type To = StripLocalePrefix<LinkComponentProps["to"]>;
 
-export type To = RemoveLocaleParam<LinkComponentProps["to"]>;
-
-type CollapseDoubleSlashes<S extends string> =
-  S extends `${infer H}//${infer T}` ? CollapseDoubleSlashes<`${H}/${T}`> : S;
+export type StripLocalePrefix<T extends string | undefined> = T extends
+  | `/${typeof LOCALE_ROUTE}/`
+  | `/${typeof LOCALE_ROUTE}`
+  ? "/"
+  : T extends `/${typeof LOCALE_ROUTE}/${infer Rest}`
+    ? `/${Rest}`
+    : T;
 
 type LocalizedLinkProps = {
   to?: To;
 } & Omit<LinkComponentProps, "to">;
-
-// Pomocnicze typy
-type RemoveAll<
-  S extends string,
-  Sub extends string,
-> = S extends `${infer H}${Sub}${infer T}` ? RemoveAll<`${H}${T}`, Sub> : S;
-
-type RemoveLocaleFromString<S extends string> = CollapseDoubleSlashes<
-  RemoveAll<S, typeof LOCALE_ROUTE>
->;
 
 export const LocalizedLink: FC<LocalizedLinkProps> = (props) => {
   const { locale } = useLocale();
@@ -293,50 +421,61 @@ Ten komponent ma dwa cele:
 Następnie możemy stworzyć hook `useLocalizedNavigate` do nawigacji programowej:
 
 ```tsx fileName="src/hooks/useLocalizedNavigate.tsx"
-import { useLocale } from "react.intlayer";
 import { useNavigate } from "@tanstack/react-router";
-import { LOCALE_ROUTE } from "@/components/localized-link";
+import { getPrefix } from "intlayer";
+import { useLocale } from "react-intlayer";
+import type { StripLocalePrefix } from "@/components/localized-link";
 import type { FileRouteTypes } from "@/routeTree.gen";
+
+type NavigateFn = ReturnType<typeof useNavigate>;
+type BaseNavigateOptions = Parameters<NavigateFn>[0];
+
+type LocalizedTo = StripLocalePrefix<FileRouteTypes["to"]>;
+
+export type LocalizedNavigateOptions = Omit<
+  BaseNavigateOptions,
+  "to" | "params"
+> & {
+  to: LocalizedTo;
+  params?: Omit<NonNullable<BaseNavigateOptions["params"]>, "locale">;
+};
+
+type LocalizedNavigate = (
+  options: LocalizedNavigateOptions
+) => ReturnType<NavigateFn>;
 
 export const useLocalizedNavigate = () => {
   const navigate = useNavigate();
 
   const { locale } = useLocale();
 
-  type StripLocalePrefix<T extends string> = T extends
-    | `/${typeof LOCALE_ROUTE}`
-    | `/${typeof LOCALE_ROUTE}/`
-    ? "/"
-    : T extends `/${typeof LOCALE_ROUTE}/${infer Rest}`
-      ? `/${Rest}`
-      : never;
-
-  type LocalizedTo = StripLocalePrefix<FileRouteTypes["to"]>;
-
-  interface LocalizedNavigate {
-    (to: LocalizedTo): ReturnType<typeof navigate>;
-    (
-      opts: { to: LocalizedTo } & Record<string, unknown>
-    ): ReturnType<typeof navigate>;
-  }
-
   const localizedNavigate: LocalizedNavigate = (args: any) => {
+    const { localePrefix } = getPrefix(locale);
+
     if (typeof args === "string") {
-      return navigate({ to: `/${LOCALE_ROUTE}${args}`, params: { locale } });
+      return navigate({
+        to: `/${LOCALE_ROUTE}${args}`,
+        params: { locale: localePrefix },
+      });
     }
 
     const { to, ...rest } = args;
 
-    const localedTo = `/${LOCALE_ROUTE}${to}` as any;
+    const localizedTo = `/${LOCALE_ROUTE}${to}` as any;
 
-    return navigate({ to: localedTo, params: { locale, ...rest } as any });
+    return navigate({
+      to: localizedTo,
+      params: { locale: localePrefix, ...rest } as any,
+    });
   };
 
   return localizedNavigate;
 };
 ```
 
-### Krok 8: Wykorzystaj Intlayer na swoich stronach
+</Step>
+
+<Step number={9} title="Wykorzystaj Intlayer na swoich stronach">
 
 Uzyskaj dostęp do swoich słowników treści w całej aplikacji:
 
@@ -353,17 +492,6 @@ import { useLocalizedNavigate } from "@/hooks/useLocalizedNavigate";
 
 export const Route = createFileRoute("/{-$locale}/")({
   component: RouteComponent,
-  head: ({ params }) => {
-    const { locale } = params;
-    const metaContent = getIntlayer("app", locale);
-
-    return {
-      meta: [
-        { title: metaContent.title },
-        { content: metaContent.meta.description, name: "description" },
-      ],
-    };
-  },
 });
 
 function RouteComponent() {
@@ -395,13 +523,13 @@ function RouteComponent() {
 
 > Aby dowiedzieć się więcej o hooku `useIntlayer`, zapoznaj się z [dokumentacją](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/useIntlayer.md).
 
-### Krok 9: Utwórz komponent przełącznika języka (Locale Switcher)
+</Step>
+
+<Step number={10} title="Utwórz komponent przełącznika języka">
 
 Utwórz komponent, który pozwoli użytkownikom zmieniać języki:
 
 ```tsx fileName="src/components/locale-switcher.tsx"
-import type { FC } from "react";
-
 import { useLocation } from "@tanstack/react-router";
 import {
   getHTMLTextDir,
@@ -410,9 +538,10 @@ import {
   getPrefix,
   Locales,
 } from "intlayer";
+import type { FC } from "react";
 import { useLocale } from "react-intlayer";
 
-import { LocalizedLink, To } from "./localized-link";
+import { LocalizedLink, type To } from "./localized-link";
 
 export const LocaleSwitcher: FC = () => {
   const { pathname } = useLocation();
@@ -429,6 +558,7 @@ export const LocaleSwitcher: FC = () => {
             aria-current={localeEl === locale ? "page" : undefined}
             onClick={() => setLocale(localeEl)}
             params={{ locale: getPrefix(localeEl).localePrefix }}
+            to={pathWithoutLocale as To}
           >
             <span>
               {/* Lokalizacja - np. FR */}
@@ -456,81 +586,63 @@ export const LocaleSwitcher: FC = () => {
 
 > Aby dowiedzieć się więcej o hooku `useLocale`, zapoznaj się z [dokumentacją](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/useLocale.md).
 
-### Krok 10: Dodaj zarządzanie atrybutami HTML (opcjonalnie)
+</Step>
 
-Utwórz hook do zarządzania atrybutami lang i dir w HTML:
+<Step number={11} title="Zarządzanie atrybutami HTML">
 
-```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx"
-// src/hooks/useI18nHTMLAttributes.tsx
-import { getHTMLTextDir } from "intlayer";
-import { useEffect } from "react";
-import { useLocale } from "react-intlayer";
+Jak pokazano w Kroku 5, możesz zarządzać atrybutami `lang` i `dir` tagu `html` za pomocą `useParams` w swoim komponencie głównym. Zapewnia to, że poprawne atrybuty są ustawione zarówno na serwerze, jak i kliencie.
 
-export const useI18nHTMLAttributes = () => {
-  const { locale } = useLocale();
-
-  useEffect(() => {
-    document.documentElement.lang = locale;
-    document.documentElement.dir = getHTMLTextDir(locale);
-  }, [locale]);
-};
-```
-
-Następnie użyj go w swoim komponencie root:
-
-```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute, Outlet } from "@tanstack/react-router";
-import { IntlayerProvider, useLocale } from "react-intlayer";
-
-import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes"; // importuj hook
-
-export const Route = createFileRoute("/{-$locale}")({
-  component: LayoutComponent,
-});
-
-function LayoutComponent() {
-  useI18nHTMLAttributes(); // dodaj tę linię
-
-  const { defaultLocale } = useLocale();
-  const { locale } = Route.useParams();
+```tsx fileName="src/routes/__root.tsx"
+function RootDocument({ children }: { children: ReactNode }) {
+  const params = LocaleRoute.useParams();
+  const locale = params?.locale ?? defaultLocale;
 
   return (
-    <IntlayerProvider locale={locale ?? defaultLocale}>
-      <Outlet />
-    </IntlayerProvider>
+    <html dir={getHTMLTextDir(locale)} lang={locale}>
+      {/* ... */}
+    </html>
   );
 }
 ```
 
 ---
 
-### Krok 11: Dodaj middleware (opcjonalnie)
+</Step>
 
-Możesz również użyć `intlayerProxy`, aby dodać routing po stronie serwera do swojej aplikacji. Ten plugin automatycznie wykryje aktualny locale na podstawie URL i ustawi odpowiedni cookie locale. Jeśli nie zostanie określony żaden locale, plugin wybierze najbardziej odpowiedni locale na podstawie preferencji językowych przeglądarki użytkownika. Jeśli nie zostanie wykryty żaden locale, nastąpi przekierowanie do domyślnego locale.
+<Step number={12} title="Dodaj middleware">
+
+Możesz również użyć `intlayerProxy`, aby dodać routing po stronie serwera do swojej aplikacji. Ten plugin automatycznie wykryje aktualną lokalizację na podstawie URL i ustawi odpowiednie ciasteczko lokalizacji. Jeśli nie zostanie określona żadna lokalizacja, plugin wybierze najbardziej odpowiednią na podstawie preferencji językowych przeglądarki użytkownika. Jeśli nie zostanie wykryta żadna lokalizacja, nastąpi przekierowanie do domyślnej.
 
 > Uwaga: aby używać `intlayerProxy` w produkcji, musisz przenieść pakiet `vite-intlayer` z `devDependencies` do `dependencies`.
 
-```typescript {3,7} fileName="vite.config.ts"
-import { reactRouter } from "@react-router/dev/vite";
-import tailwindcss from "@tailwindcss/vite";
+```typescript {7,14-17} fileName="vite.config.ts"
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
+import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
 import { intlayer, intlayerProxy } from "vite-intlayer";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   plugins: [
     intlayerProxy(), // Proxy powinno być umieszczone przed serwerem, jeśli używasz Nitro
-    tailwindcss(),
-    reactRouter(),
-    tsconfigPaths(),
+    nitro(),
     intlayer(),
+    tanstackStart({
+      router: {
+        routeFileIgnorePattern:
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$",
+      },
+    }),
+    viteReact(),
   ],
 });
 ```
 
 ---
 
-### Krok 12: Internacjonalizacja metadanych (opcjonalnie)
+</Step>
+
+<Step number={13} title="Internacjonalizacja metadanych">
 
 Możesz również użyć hooka `getIntlayer`, aby uzyskać dostęp do słowników treści w całej aplikacji:
 
@@ -542,12 +654,33 @@ export const Route = createFileRoute("/{-$locale}/")({
   component: RouteComponent,
   head: ({ params }) => {
     const { locale } = params;
-    const metaContent = getIntlayer("page-metadata", locale);
+    const path = "/"; // The path for this route
+
+    const metaContent = getIntlayer("app", locale);
 
     return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
       meta: [
         { title: metaContent.title },
-        { content: metaContent.description, name: "description" },
+        { name: "description", content: metaContent.meta.description },
       ],
     };
   },
@@ -556,12 +689,14 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 ---
 
-### Step 13: Retrieve the locale in your server actions (Optional)
+</Step>
 
-You may want to access the current locale from inside your server actions or API endpoints.
-You can do this using the `getLocale` helper from `intlayer`.
+<Step number={14} title="Pobieranie lokalizacji w akcjach serwerowych">
 
-Here's an example using TanStack Start's server functions:
+Możesz chcieć uzyskać dostęp do aktualnej lokalizacji wewnątrz swoich akcji serwerowych lub punktów końcowych API.
+Możesz to zrobić za pomocą pomocnika `getLocale` z `intlayer`.
+
+Oto przykład użycia funkcji serwerowych TanStack Start:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createServerFn } from "@tanstack/react-start";
@@ -573,18 +708,18 @@ import { getCookie, getIntlayer, getLocale } from "intlayer";
 
 export const getLocaleServer = createServerFn().handler(async () => {
   const locale = await getLocale({
-    // Get the cookie from the request (default: 'INTLAYER_LOCALE')
+    // Pobierz ciasteczko z żądania (domyślnie: 'INTLAYER_LOCALE')
     getCookie: (name) => {
       const cookieString = getRequestHeader("cookie");
 
       return getCookie(name, cookieString);
     },
-    // Get the header from the request (default: 'x-intlayer-locale')
-    // Fallback using Accept-Language negotiation
+    // Pobierz nagłówek z żądania (domyślnie: 'x-intlayer-locale')
+    // Rezerwowe rozwiązanie przy użyciu negocjacji Accept-Language
     getHeader: (name) => getRequestHeader(name),
   });
 
-  // Retrieve some content using getIntlayer()
+  // Pobierz treść za pomocą getIntlayer()
   const content = getIntlayer("app", locale);
 
   return { locale, content };
@@ -593,17 +728,19 @@ export const getLocaleServer = createServerFn().handler(async () => {
 
 ---
 
-### Krok 14: Zarządzanie stronami nie znalezionymi (opcjonalnie)
+</Step>
 
-Gdy użytkownik odwiedza nieistniejącą stronę, możesz wyświetlić niestandardową stronę "nie znaleziono", a prefiks locale może wpływać na sposób wyzwalania strony "nie znaleziono".
+<Step number={15} title="Zarządzanie stronami &quot;nie znaleziono&quot;">
 
-#### Zrozumienie obsługi 404 w TanStack Router z prefiksami locale
+Gdy użytkownik odwiedza nieistniejącą stronę, możesz wyświetlić niestandardową stronę "nie znaleziono", a prefiks lokalizacji może wpływać na sposób wyzwalania strony "nie znaleziono".
+
+#### Zrozumienie obsługi 404 w TanStack Router z prefiksami lokalizacji
 
 W TanStack Router obsługa stron 404 z zlokalizowanymi trasami wymaga podejścia wielowarstwowego:
 
 1. **Dedykowana trasa 404**: Konkretna trasa do wyświetlenia interfejsu 404
-2. **Walidacja na poziomie trasy**: Weryfikuje prefiksy locale i przekierowuje nieprawidłowe do 404
-3. **Trasa catch-all**: Przechwytuje wszystkie niedopasowane ścieżki w segmencie locale
+2. **Walidacja na poziomie trasy**: Weryfikuje prefiksy lokalizacji i przekierowuje nieprawidłowe do 404
+3. **Trasa catch-all**: Przechwytuje wszystkie niedopasowane ścieżki w segmencie lokalizacji
 
 ```tsx fileName="src/routes/{-$locale}/404.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -627,70 +764,30 @@ export function NotFoundComponent() {
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { validatePrefix } from "intlayer";
-import { IntlayerProvider, useLocale } from "react-intlayer";
-
-import { LocaleSwitcher } from "@/components/locale-switcher";
 import { NotFoundComponent } from "./404";
 
 export const Route = createFileRoute("/{-$locale}")({
   // beforeLoad uruchamia się przed renderowaniem trasy (zarówno na serwerze, jak i kliencie)
-  // To idealne miejsce do walidacji prefiksu locale
+  // To idealne miejsce do walidacji prefiksu lokalizacji
   beforeLoad: ({ params }) => {
-    // Pobierz locale z parametrów trasy (nie z nagłówków serwera, ponieważ beforeLoad działa zarówno na kliencie, jak i serwerze)
     const localeParam = params.locale;
 
-    // validatePrefix sprawdza, czy locale jest prawidłowe zgodnie z konfiguracją intlayer
-    // Zwraca: { isValid: boolean, localePrefix: string }
-    // - isValid: true, jeśli prefiks pasuje do skonfigurowanego locale (lub jest pusty, gdy prefiks jest opcjonalny)
-    // - localePrefix: zwalidowany prefiks lub domyślny prefiks locale do przekierowań
+    // validatePrefix sprawdza, czy lokalizacja jest prawidłowa zgodnie z konfiguracją intlayer
     const { isValid, localePrefix } = validatePrefix(localeParam);
 
-    if (isValid) {
-      // Locale jest prawidłowe, pozwól trasie renderować się normalnie
-      return;
+    if (!isValid) {
+      // Nieprawidłowy prefiks lokalizacji - przekieruj do strony 404 z prawidłowym prefiksem lokalizacji
+      throw redirect({
+        to: "/{-$locale}/404",
+        params: { locale: localePrefix },
+      });
     }
-
-    // Nieprawidłowy prefiks locale (np. /xyz/about, gdzie "xyz" nie jest prawidłowym locale)
-    // Przekieruj do strony 404 z prawidłowym prefiksem locale
-    // To zapewnia, że strona 404 jest nadal prawidłowo zlokalizowana
-    throw redirect({
-      to: "/{-$locale}/404",
-      params: { locale: localePrefix },
-    });
   },
-  component: RouteComponent,
+  component: Outlet,
   // notFoundComponent jest wywoływane, gdy trasa potomna nie istnieje
   // np. /en/nieistniejaca-strona wyzwala to w układzie /en
-  notFoundComponent: NotFoundLayout,
+  notFoundComponent: NotFoundComponent,
 });
-
-function RouteComponent() {
-  const { defaultLocale } = useLocale();
-  const { locale } = Route.useParams();
-
-  return (
-    // Owiń cały segment locale w IntlayerProvider
-    // Powraca do defaultLocale, gdy parametr locale jest undefined (tryb opcjonalnego prefiksu)
-    <IntlayerProvider locale={locale ?? defaultLocale}>
-      <Outlet />
-    </IntlayerProvider>
-  );
-}
-
-// NotFoundLayout owija komponent 404 w IntlayerProvider
-// To zapewnia, że tłumaczenia nadal działają na stronie 404
-function NotFoundLayout() {
-  const { defaultLocale } = useLocale();
-  const { locale } = Route.useParams();
-
-  return (
-    <IntlayerProvider locale={locale ?? defaultLocale}>
-      <NotFoundComponent />
-      {/* Dołącz LocaleSwitcher, aby użytkownicy mogli zmieniać język nawet na 404 */}
-      <LocaleSwitcher />
-    </IntlayerProvider>
-  );
-}
 ```
 
 ```tsx fileName="src/routes/{-$locale}/$.tsx"
@@ -700,7 +797,7 @@ import { NotFoundComponent } from "./404";
 
 // Trasa $ (splat/catch-all) pasuje do każdej ścieżki, która nie pasuje do innych tras
 // np. /en/jakas/gleboko/zagniezdzona/niewazna/sciezka
-// To zapewnia, że WSZYSTKIE niedopasowane ścieżki w locale wyświetlają stronę 404
+// To zapewnia, że WSZYSTKIE niedopasowane ścieżki w lokalizacji wyświetlają stronę 404
 // Bez tego niedopasowane głębokie ścieżki mogą wyświetlać pustą stronę lub błąd
 export const Route = createFileRoute("/{-$locale}/$")({
   component: NotFoundComponent,
@@ -709,7 +806,9 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 ---
 
-### Krok 15: Konfiguracja TypeScript (opcjonalnie)
+</Step>
+
+<Step number={16} title="Konfiguracja TypeScript">
 
 Intlayer używa rozszerzenia modułów (module augmentation), aby wykorzystać zalety TypeScript i wzmocnić Twoją bazę kodu.
 
@@ -726,6 +825,110 @@ Upewnij się, że Twoja konfiguracja TypeScript zawiera automatycznie generowane
 ```
 
 ---
+
+</Step>
+
+<Step number={17} title="Wyodrębnij zawartość swoich komponentów" isOptional={true}>
+
+Jeśli masz istniejącą bazę kodu, transformacja tysięcy plików może być czasochłonna.
+
+Aby ułatwić ten proces, Intlayer proponuje [kompilator](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) / [ekstraktor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md), aby przetransformować komponenty i wyodrębnić zawartość.
+
+Aby go skonfigurować, możesz dodać sekcję `compiler` w pliku `intlayer.config.ts`:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... Reszta Twojej konfiguracji
+  compiler: {
+    /**
+     * Wskazuje, czy kompilator powinien być włączony.
+     */
+    enabled: true,
+
+    /**
+     * Definiuje ścieżkę plików wyjściowych
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Wskazuje, czy komponenty powinny zostać zapisane po transformacji. W ten sposób kompilator można uruchomić tylko raz, aby przetransformować aplikację, a następnie go usunąć.
+     */
+    saveComponents: false,
+
+    /**
+     * Prefiks klucza słownika
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='Polecenie wyodrębniania'>
+
+Uruchom ekstraktor, aby przetransformować komponenty i wyodrębnić zawartość
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Kompilator Babel'>
+
+Zaktualizuj `vite.config.ts`, aby dołączyć wtyczkę `intlayerCompiler`:
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // Dodaje wtyczkę kompilatora
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # Lub npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # Or pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Or yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
+
+---
+
+</Step>
+
+</Steps>
 
 ### Konfiguracja Git
 
@@ -771,5 +974,3 @@ Aby pójść dalej, możesz zaimplementować [edytor wizualny](https://github.co
 - [useLocale hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/useLocale.md)
 - [Deklaracja treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md)
 - [Konfiguracja](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md)
-
-Ten kompleksowy przewodnik zawiera wszystko, co potrzebne do integracji Intlayer z Tanstack Start, aby uzyskać w pełni zinternacjonalizowaną aplikację z obsługą trasowania uwzględniającego lokalizację oraz wsparciem dla TypeScript.

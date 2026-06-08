@@ -1,4 +1,5 @@
-import { type KeyPath, NodeType } from '@intlayer/types';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import type { NodeProps } from './plugins';
 
 /**
@@ -22,6 +23,18 @@ export const deepTransformNode = (node: any, props: NodeProps): any => {
     return node;
   }
 
+  // If it's a framework-specific virtual node or already a transformed Proxy,
+  // return it directly to avoid re-transforming its internal properties.
+  if (
+    (node as any).$$typeof !== undefined ||
+    (node as any).__v_isVNode !== undefined ||
+    (node as any)._isVNode !== undefined ||
+    (node as any).isJSX !== undefined ||
+    typeof node === 'function' // Proxies for html/markdown are functions
+  ) {
+    return node;
+  }
+
   // If it's an array, transform each element:
   if (Array.isArray(node)) {
     return node.map((child, index) => {
@@ -30,7 +43,7 @@ export const deepTransformNode = (node: any, props: NodeProps): any => {
         children: child,
         keyPath: [
           ...props.keyPath,
-          { type: NodeType.Array, key: index } as KeyPath,
+          { type: NodeTypes.ARRAY, key: index } as KeyPath,
         ],
       };
       return deepTransformNode(child, childProps);
@@ -43,9 +56,32 @@ export const deepTransformNode = (node: any, props: NodeProps): any => {
     const childProps = {
       ...props,
       children: node[key],
-      keyPath: [...props.keyPath, { type: NodeType.Object, key } as KeyPath],
+      keyPath: [...props.keyPath, { type: NodeTypes.OBJECT, key } as KeyPath],
     };
-    result[key] = deepTransformNode(node[key], childProps);
+
+    if (props.eager) {
+      // Eager mode: recurse immediately so plugins fire on every node, even
+      // when the caller discards the returned tree (e.g. side-effect-only
+      // plugins like missing-locale detection).
+      result[key] = deepTransformNode(node[key], childProps);
+      continue;
+    }
+
+    Object.defineProperty(result, key, {
+      enumerable: true,
+      configurable: true,
+      get: function () {
+        const transformed = deepTransformNode(node[key], childProps);
+
+        // Memoize the result onto the property to avoid re-calculating on next read
+        Object.defineProperty(this, key, {
+          value: transformed,
+          enumerable: true,
+          configurable: true,
+        });
+        return transformed;
+      },
+    });
   }
 
   return result;

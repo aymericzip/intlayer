@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import { LocalizedLink } from './localized-link';
 
 export default function Header() {
@@ -8,17 +9,17 @@ export default function Header() {
     <>
       <header className="flex items-center bg-gray-800 p-4 text-white shadow-lg">
         <button
-          onClick={() => setIsOpen(true)}
-          className="rounded-lg p-2 transition-colors hover:bg-gray-700"
           aria-label="Open menu"
+          className="rounded-lg p-2 transition-colors hover:bg-gray-700"
+          onClick={() => setIsOpen(true)}
           type="button"
         ></button>
         <h1 className="ml-4 font-semibold text-xl">
           <LocalizedLink to="/">
             <img
-              src="/tanstack-word-logo-white.svg"
               alt="TanStack Logo"
               className="h-10"
+              src="/tanstack-word-logo-white.svg"
             />
           </LocalizedLink>
         </h1>
@@ -32,9 +33,9 @@ export default function Header() {
         <div className="flex items-center justify-between border-gray-700 border-b p-4">
           <h2 className="font-bold text-xl">Navigation</h2>
           <button
-            onClick={() => setIsOpen(false)}
-            className="rounded-lg p-2 transition-colors hover:bg-gray-800"
             aria-label="Close menu"
+            className="rounded-lg p-2 transition-colors hover:bg-gray-800"
+            onClick={() => setIsOpen(false)}
             type="button"
           >
             <span className="sr-only">Close menu</span>
@@ -43,25 +44,25 @@ export default function Header() {
 
         <nav className="flex-1 overflow-y-auto p-4">
           <LocalizedLink
-            to="/"
-            onClick={() => setIsOpen(false)}
-            className="mb-2 flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-gray-800"
             activeProps={{
               className:
                 'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
             }}
+            className="mb-2 flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-gray-800"
+            onClick={() => setIsOpen(false)}
+            to="/"
           >
             <span className="font-medium">Home</span>
           </LocalizedLink>
 
           <LocalizedLink
-            to="/about"
-            onClick={() => setIsOpen(false)}
-            className="mb-2 flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-gray-800"
             activeProps={{
               className:
                 'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
             }}
+            className="mb-2 flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-gray-800"
+            onClick={() => setIsOpen(false)}
+            to="/about"
           >
             <span className="font-medium">About</span>
           </LocalizedLink>

@@ -27,7 +27,7 @@ history:
 
 # Интернационализация Next.js (i18n) с next-i18next и Intlayer
 
-<iframe title="Как автоматизировать ваши JSON-переводы next-i18next с помощью Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Как автоматизировать ваши JSON-переводы next-i18next с помощью Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## Содержание
 
@@ -35,7 +35,7 @@ history:
 
 ## Что такое next-i18next?
 
-**next-i18next** — это один из самых популярных фреймворков для интернационализации (i18n) в приложениях Next.js. Построенный на мощной экосистеме **i18next**, он предоставляет комплексное решение для управления переводами, локализацией и переключением языков в проектах Next.js.
+**next-i18next**, это один из самых популярных фреймворков для интернационализации (i18n) в приложениях Next.js. Построенный на мощной экосистеме **i18next**, он предоставляет комплексное решение для управления переводами, локализацией и переключением языков в проектах Next.js.
 
 Однако next-i18next имеет некоторые сложности:
 
@@ -46,7 +46,7 @@ history:
 
 ## Что такое Intlayer?
 
-**Intlayer** — это инновационная, открытая библиотека интернационализации, разработанная для устранения недостатков традиционных решений i18n. Она предлагает современный подход к управлению контентом в приложениях Next.js.
+**Intlayer**, это инновационная, открытая библиотека интернационализации, разработанная для устранения недостатков традиционных решений i18n. Она предлагает современный подход к управлению контентом в приложениях Next.js.
 
 Смотрите конкретное сравнение с next-intl в нашем блоге [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md).
 
@@ -71,19 +71,23 @@ history:
 Установите необходимые пакеты с помощью предпочитаемого менеджера пакетов:
 
 ```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin
+npm install intlayer @intlayer/sync-json-plugin --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin
+pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin
+yarn add intlayer @intlayer/sync-json-plugin --dev
+yarn intlayer init
 ```
 
 ```bash packageManager="bun"
-bun add intlayer @intlayer/sync-json-plugin
+bun add intlayer @intlayer/sync-json-plugin --dev
+bun x intlayer init
 ```
 
 **Объяснение пакетов:**
@@ -108,7 +112,6 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "i18next",
       source: ({ key, locale }) => `./public/locales/${locale}/${key}.json`,
     }),
   ],
@@ -127,52 +130,6 @@ export default config;
 Если изменения внесены с помощью CLI для перевода JSON или с использованием CMS, Intlayer обновит JSON-файл с новыми переводами.
 
 Для получения дополнительной информации о плагине `syncJSON` обратитесь к [документации плагина syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-json.md).
-
----
-
-### (Необязательно) Шаг 3: Реализация перевода JSON по компонентам
-
-По умолчанию Intlayer загрузит, объединит и синхронизирует как JSON, так и файлы декларации контента. Подробнее смотрите в [документации по декларации контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md). Но если вы предпочитаете, используя плагин Intlayer, вы также можете реализовать управление локализованным JSON по компонентам в любом месте вашей кодовой базы.
-
-Для этого вы можете использовать плагин `loadJSON`.
-
-```ts fileName="intlayer.config.ts"
-import { Locales, type IntlayerConfig } from "intlayer";
-import { loadJSON, syncJSON } from "@intlayer/sync-json-plugin";
-
-const config: IntlayerConfig = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-
-  // Поддерживайте синхронизацию ваших текущих JSON-файлов с словарями Intlayer
-  plugins: [
-    /**
-     * Загрузит все JSON-файлы в src, которые соответствуют шаблону {key}.i18n.json
-     */
-    loadJSON({
-      source: ({ key }) => `./src/**/${key}.i18n.json`,
-      locale: Locales.ENGLISH,
-      priority: 1, // Обеспечивает приоритет этих JSON-файлов над файлами в `./public/locales/en/${key}.json`
-    }),
-    /**
-     * Загрузит, а также запишет результаты и переводы обратно в JSON-файлы в директории локалей
-     */
-    syncJSON({
-      format: "i18next",
-      source: ({ key, locale }) => `./public/locales/${locale}/${key}.json`,
-      priority: 0,
-    }),
-  ],
-};
-
-export default config;
-```
-
-Это загрузит все JSON-файлы в директории `src`, которые соответствуют шаблону `{key}.i18n.json`, и загрузит их как словари Intlayer.
-
----
 
 ## Конфигурация Git
 

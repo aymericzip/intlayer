@@ -1,14 +1,14 @@
 import { randomBytes } from 'node:crypto';
-import { OAuth2AccessTokenModel } from '@models/oAuth2.model';
-import { ProjectModel } from '@models/project.model';
+import type { Client } from '@node-oauth/oauth2-server';
+import { OAuth2AccessTokenModel } from '@schemas/oAuth2.schema';
+import { ProjectModel } from '@schemas/project.schema';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { GenericError } from '@utils/errors';
 import { mapOrganizationToAPI } from '@utils/mapper/organization';
 import { mapProjectToAPI } from '@utils/mapper/project';
 import { mapUserToAPI } from '@utils/mapper/user';
-import { getTokenExpireAt } from '@utils/oAuth2';
+import { getTokenExpireAt, shouldExtendOAuth2Token } from '@utils/oAuth2';
 import type { Types } from 'mongoose';
-import type { Callback, Client } from 'oauth2-server';
 import type { OAuth2Token } from '@/types/oAuth2.types';
 import type { Organization } from '@/types/organization.types';
 import type {
@@ -56,7 +56,7 @@ export const getClientAndProjectByClientId = async (
   | false
 > => {
   const project = await ProjectModel.findOne({
-    'oAuth2Access.clientId': clientId,
+    'oAuth2Access.clientId': String(clientId),
   });
 
   if (!project) {
@@ -131,7 +131,6 @@ export const formatOAuth2Token = (
   organization: Organization,
   grants: Token['grants']
 ): OAuth2Token => {
-  // biome-ignore lint/correctness/noUnusedVariables: Just filter out clientId
   const { clientId, userId, ...restToken } = token;
 
   if (String(userId) !== String(user.id)) {
@@ -223,6 +222,21 @@ export const saveToken = async (
 };
 
 /**
+ * Sliding-refresh: push the token's expiry forward when it has been used
+ * within the refresh threshold. Idempotent and cheap when no extension is due.
+ */
+export const extendOAuth2AccessToken = async (
+  accessToken: string
+): Promise<Date> => {
+  const nextExpiresAt = getTokenExpireAt();
+  await OAuth2AccessTokenModel.updateOne(
+    { accessToken: String(accessToken) },
+    { $set: { accessTokenExpiresAt: nextExpiresAt, expiresIn: nextExpiresAt } }
+  );
+  return nextExpiresAt;
+};
+
+/**
  * Method to get the access token
  *
  * @param accessToken - The access token
@@ -232,11 +246,20 @@ export const getAccessToken = async (
   accessToken: string
 ): Promise<OAuth2Token | false> => {
   const token = await OAuth2AccessTokenModel.findOne({
-    accessToken,
+    accessToken: String(accessToken),
   });
 
   if (!token) {
     return false;
+  }
+
+  // Slide the expiry forward when this active token is approaching its
+  // deadline so a long-lived integration doesn't have to re-authenticate.
+  const currentExpiresAt = token.accessTokenExpiresAt ?? token.expiresIn;
+  if (currentExpiresAt && shouldExtendOAuth2Token(currentExpiresAt)) {
+    const nextExpiresAt = await extendOAuth2AccessToken(accessToken);
+    token.accessTokenExpiresAt = nextExpiresAt;
+    token.expiresIn = nextExpiresAt;
   }
 
   const { userId, clientId } = token;
@@ -264,7 +287,7 @@ export const getAccessToken = async (
   const formattedAccessToken = formatOAuth2Token(
     token,
     client,
-    user,
+    mapUserToAPI(user),
     project,
     organization,
     grants
@@ -308,8 +331,7 @@ export const getUserFromClient = async (
  */
 export const verifyScope = async (
   _token: OAuth2Token,
-  _scope: string,
-  _callback?: Callback<boolean> | undefined
+  _scope: string[]
 ): Promise<boolean> => {
   // Implement the verification of scopes if necessary
   return true;
@@ -357,7 +379,7 @@ export const getOAuth2AccessTokenContext = async (
     throw new GenericError('INVALID_ACCESS_TOKEN');
   }
 
-  const { project, grants } = result;
+  const { project, grants, oAuth2Access } = result;
 
   const organization = await getOrganizationById(project.organizationId);
 
@@ -367,5 +389,8 @@ export const getOAuth2AccessTokenContext = async (
     project: project ? mapProjectToAPI(project) : undefined,
     organization: organization ? mapOrganizationToAPI(organization) : undefined,
     grants,
+    allowedEnvironmentIds:
+      (oAuth2Access as OAuth2Access).allowedEnvironmentIds ?? null,
+    allowedLocales: (oAuth2Access as OAuth2Access).allowedLocales ?? null,
   };
 };

@@ -26,7 +26,7 @@ history:
 
 # Cómo automatizar tus traducciones JSON de next-intl usando Intlayer
 
-<iframe title="Cómo automatizar tus traducciones JSON de next-intl usando Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Cómo automatizar tus traducciones JSON de next-intl usando Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## ¿Qué es Intlayer?
 
@@ -57,19 +57,23 @@ Esta guía te muestra cómo aprovechar el sistema superior de declaración de co
 Instala los paquetes necesarios:
 
 ```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin
+npm install intlayer @intlayer/sync-json-plugin --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin
+pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin
+yarn add intlayer @intlayer/sync-json-plugin --dev
+yarn intlayer init
 ```
 
 ```bash packageManager="bun"
-bun add intlayer @intlayer/sync-json-plugin
+bun add intlayer @intlayer/sync-json-plugin --dev
+bun x intlayer init
 ```
 
 **Descripción de los paquetes:**
@@ -114,48 +118,6 @@ Si deseas hacer coexistir ese JSON con los archivos de declaración de contenido
 Si se realizan cambios usando la CLI para traducir el JSON, o usando el CMS, Intlayer actualizará el archivo JSON con las nuevas traducciones.
 
 Para ver más detalles sobre el plugin `syncJSON`, por favor consulte la [documentación del plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-json.md).
-
-### (Opcional) Paso 3: Implementar traducciones JSON por componente
-
-Por defecto, Intlayer cargará, fusionará y sincronizará tanto los archivos JSON como los archivos de declaración de contenido. Consulte [la documentación de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md) para más detalles. Pero si lo prefiere, utilizando un plugin de Intlayer, también puede implementar la gestión por componente de JSON localizado en cualquier parte de su base de código.
-
-Para ello, puede usar el plugin `loadJSON`.
-
-```ts fileName="intlayer.config.ts"
-import { Locales, type IntlayerConfig } from "intlayer";
-import { loadJSON, syncJSON } from "@intlayer/sync-json-plugin";
-
-const config: IntlayerConfig = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-
-  // Mantenga sus archivos JSON actuales sincronizados con los diccionarios de Intlayer
-  plugins: [
-    /**
-     * Cargará todos los archivos JSON en src que coincidan con el patrón {key}.i18n.json
-     */
-    loadJSON({
-      source: ({ key }) => `./src/**/${key}.i18n.json`,
-      locale: Locales.ENGLISH,
-      priority: 1, // Asegura que estos archivos JSON tengan prioridad sobre los archivos en `./locales/en/${key}.json`
-    }),
-    /**
-     * Cargará y escribirá la salida y las traducciones de vuelta en los archivos JSON en el directorio locales
-     */
-    syncJSON({
-      format: "icu",
-      source: ({ key, locale }) => `./messages/${locale}/${key}.json`,
-      priority: 0,
-    }),
-  ],
-};
-
-export default config;
-```
-
-Esto cargará todos los archivos JSON en el directorio `src` que coincidan con el patrón `{key}.i18n.json` y los cargará como diccionarios de Intlayer.
 
 ## Configuración de Git
 

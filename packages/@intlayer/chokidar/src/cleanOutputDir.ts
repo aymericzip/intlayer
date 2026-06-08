@@ -1,7 +1,7 @@
 import { existsSync } from 'node:fs';
 import { rm } from 'node:fs/promises';
-import { getAppLogger } from '@intlayer/config/client';
-import type { IntlayerConfig } from '@intlayer/types';
+import { getAppLogger } from '@intlayer/config/logger';
+import type { IntlayerConfig } from '@intlayer/types/config';
 
 export const cleanOutputDir = async (configuration: IntlayerConfig) => {
   const {
@@ -14,7 +14,7 @@ export const cleanOutputDir = async (configuration: IntlayerConfig) => {
     typesDir,
     configDir,
     cacheDir,
-  } = configuration.content;
+  } = configuration.system;
 
   const appLogger = getAppLogger(configuration);
 

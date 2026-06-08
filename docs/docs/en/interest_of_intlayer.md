@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-14
-updatedAt: 2025-09-27
+updatedAt: 2026-05-31
 title: Interest of Intlayer
 description: Discover the benefits and advantages of using Intlayer in your projects. Understand why Intlayer stands out among other frameworks.
 keywords:
@@ -13,15 +13,18 @@ slugs:
   - doc
   - why
 history:
+  - version: 8.11.2
+    date: 2026-05-31
+    changes: "Add Why Intlayer over alternatives section"
   - version: 7.3.1
     date: 2025-11-27
-    changes: Release Compiler
+    changes: "Release Compiler"
   - version: 5.8.0
     date: 2025-08-19
-    changes: Update comparative table
+    changes: "Update comparative table"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Init history"
 ---
 
 # Why you should consider Intlayer?
@@ -29,6 +32,61 @@ history:
 ## What is Intlayer?
 
 **Intlayer** is an internationalization library designed specifically for JavaScript developers. It allows the declaration of your content everywhere in your code. It converts declarations of multilingual content into structured dictionaries to integrate easily in your code. Using TypeScript, **Intlayer** makes your development stronger and more efficient.
+
+## Why Intlayer over alternatives?
+
+Compared to main solutions like `next-intl` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
+
+<AccordionGroup>
+
+<Accordion header="Bundle size">
+
+Instead of loading massive JSON files into your pages, load only the necessary content. Intlayer helps **reduce your bundle and page sizes by up to 50%**.
+
+</Accordion>
+
+<Accordion header="Maintainability">
+
+Scoping your application's content **facilitates maintenance** for large-scale applications. You can duplicate or delete a single feature folder without the mental burden of reviewing your entire content codebase. Additionally, Intlayer is **fully typed** to ensure your content's accuracy.
+
+</Accordion>
+
+<Accordion header="AI Agent">
+
+Co-locating content **reduces the context needed** by Large Language Models (LLMs). Intlayer also comes with a suite of tools, such as a **CLI** to test for missing translations,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, and **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, to make the developer experience (DX) even smoother for AI agents.
+
+</Accordion>
+
+<Accordion header="Feature">
+
+Intlayer offers a bench of additional features that other i18n solutions do not have, such as [Markdown support](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md), [fetching external content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md), [file content loading](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md), [live content update](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/live.md), [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) and more.
+
+</Accordion>
+
+<Accordion header="Automation">
+
+Use automation to translate in your CI/CD pipeline using the LLM of your choice at the cost of your AI provider. Intlayer also offers a **compiler** to automate content extraction, as well as a [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) to help **translate in the background**.
+
+</Accordion>
+
+<Accordion header="Performance">
+
+Connecting massive JSON files to components can lead to performance and reactivity issues. Intlayer optimizes your content loading at build time.
+
+</Accordion>
+
+<Accordion header="Scaling with none-dev">
+
+More than just an i18n solution, Intlayer provides an **self-hosted [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** and a **[full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** to help you manage your multilingual content in **real-time**, making collaboration with translators, copywriters, and other team members seamless. Content can be stored locally and/or remotely.
+
+</Accordion>
+
+<Accordion header="Cross framework design">
+
+If you use different frameworks for different part of your application (e.g., React, React-native, Vue, Angular, Svelte, etc.), Intlayer provides a way to **use a common synatax and implementation across all main frontend frameworks**. You will also be able to share your content declaration across your design-system, apps, backend etc.
+
+</Accordion>
+</AccordionGroup>
 
 ## Why was Intlayer created?
 
@@ -118,7 +176,7 @@ To solve this problem, Intlayer adopts an approach that scopes your content per-
         └── index.tsx
 ```
 
-```tsx fileName="./components/MyComponent/index.content.ts" codeFormat="typescript"
+```tsx fileName="./components/MyComponent/index.content.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const componentExampleContent = {
@@ -135,66 +193,10 @@ const componentExampleContent = {
 export default componentExampleContent;
 ```
 
-```jsx fileName="./components/MyComponent/index.mjx" codeFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const componentExampleContent = {
-  key: "component-example",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
-
-export default componentExampleContent;
-```
-
-```jsx fileName="./components/MyComponent/index.csx" codeFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const componentExampleContent = {
-  key: "component-example",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
-
-module.exports = componentExampleContent;
-```
-
-```tsx fileName="./components/MyComponent/index.tsx" codeFormat="typescript"
+```tsx fileName="./components/MyComponent/index.tsx" codeFormat={["typescript", "esm"]}
 import { useIntlayer } from "react-intlayer";
 
 export const ComponentExample = () => {
-  const { myTranslatedContent } = useIntlayer("component-example");
-
-  return <span>{myTranslatedContent}</span>;
-};
-```
-
-```jsx fileName="./components/MyComponent/index.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const ComponentExample = () => {
-  const { myTranslatedContent } = useIntlayer("component-example");
-
-  return <span>{myTranslatedContent}</span>;
-};
-```
-
-```jsx fileName="./components/MyComponent/index.csx" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const ComponentExample = () => {
   const { myTranslatedContent } = useIntlayer("component-example");
 
   return <span>{myTranslatedContent}</span>;
@@ -231,7 +233,7 @@ This approach allows you to:
 | Feature                                                                                                                   | Description                                                                                                                                                                                                                                                                                                                                                                                  |
 | ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/frameworks.png?raw=true)                          | **Cross-Frameworks Support**<br><br>Intlayer is compatible with all major frameworks and libraries, including Next.js, React, Vite, Vue.js, Nuxt, Preact, Express, and more.                                                                                                                                                                                                                 |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/javascript_content_management.png?raw=true)       | **JavaScript-Powered Content Management**<br><br>Harness the flexibility of JavaScript to define and manage your content efficiently. <br><br> - [Content declaration](https://intlayer.org/doc/concept/content)                                                                                                                                                                             |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/javascript_content_management.jpg?raw=true)       | **JavaScript-Powered Content Management**<br><br>Harness the flexibility of JavaScript to define and manage your content efficiently. <br><br> - [Content declaration](https://intlayer.org/doc/concept/content)                                                                                                                                                                             |
 | <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.jpg?raw=true" alt="Feature" width="700">  | **Compiler**<br><br>The Intlayer Compiler extract automatically the content from the components and generate the dictionary files.<br><br> - [Compiler](https://intlayer.org/doc/compiler)                                                                                                                                                                                                   |
 | ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/per_locale_content_declaration_file.png?raw=true) | **Per-Locale Content Declaration File**<br><br>Speed up your development by declaring your content once, before auto generation.<br><br> - [Per-Locale Content Declaration File](https://intlayer.org/doc/concept/per-locale-file)                                                                                                                                                           |
 | ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)                      | **Type-Safe Environment**<br><br>Leverage TypeScript to ensure your content definitions and code are error-free, while also benefiting from IDE autocompletion.<br><br> - [TypeScript configuration](https://intlayer.org/doc/environment/vite-and-react#configure-typescript)                                                                                                               |
@@ -274,13 +276,11 @@ This approach allows you to:
 | **Purge unused content**                      | ✅ Yes, per-dictionary at build time                                                                                                | ❌ No, only via manual namespace segmentation                                                            | ❌ No, all declared messages are bundled                                                                                         | ✅ Yes, unused keys detected & dropped at build       | ❌ No, can be managed manually with namespace management                                                 | ❌ No, can be managed manually with namespace management                                                 | ❌ No, only possible via manual lazy-loading                 |
 | **Management of Large Projects**              | ✅ Encourages modular, suited for design-system                                                                                     | ⚠️ Needs good file discipline                                                                            | ⚠️ Central catalogs can get large                                                                                                | ⚠️ May get complex                                    | ✅ Modular with setup                                                                                    | ✅ Modular with setup                                                                                    | ✅ Modular with Vue Router/Nuxt i18n setup                   |
 
----
-
 ## GitHub STARs
 
 GitHub stars are a strong indicator of a project's popularity, community trust, and long-term relevance. While not a direct measure of technical quality, they reflect how many developers find the project useful, follow its progress, and are likely to adopt it. For estimating the value of a project, stars help compare traction across alternatives and provide insights into ecosystem growth.
 
-[![Star History Chart](https://api.star-history.com/svg?repos=formatjs/formatjs&repos=i18next/react-i18next&repos=i18next/i18next&repos=i18next/next-i18next&repos=lingui/js-lingui&repos=amannn/next-intl&repos=intlify/vue-i18n&repo=opral/monorepo&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&opral/monorepo&aymericzip/intlayer)
+[![Star History Chart](https://api.star-history.com/chart?repos=aymericzip/intlayer%2Cformatjs/formatjs%2Ci18next/react-i18next%2Ci18next/i18next%2Ci18next/next-i18next%2Clingui/js-lingui%2Camannn/next-intl%2Cintlify/vue-i18n%2Ccodingcommons/typesafe-i18n%2Copral/paraglide-js&type=date&legend=top-left)](https://www.star-history.com/#aymericzip/intlayer&formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&codingcommons/typesafe-i18n&opral/paraglide-js)
 
 ---
 
@@ -289,5 +289,3 @@ GitHub stars are a strong indicator of a project's popularity, community trust, 
 `intlayer` can also help to manage your `react-intl`, `react-i18next`, `next-intl`, `next-i18next`, and `vue-i18n` namespaces.
 
 Using `intlayer`, you can declare your content in the format of your favorite i18n library, and intlayer will generate your namespaces in the location of your choice (example: `/messages/{{locale}}/{{namespace}}.json`).
-
-Refer to [`dictionaryOutput` and `i18nextResourcesDir` options](https://intlayer.org/doc/concept/configuration#content-configuration) for more details.

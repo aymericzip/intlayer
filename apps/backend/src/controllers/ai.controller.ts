@@ -4,8 +4,10 @@ import {
   type ChatCompletionRequestMessage,
   getAIConfig,
 } from '@intlayer/ai';
-import type { KeyPath, Locale } from '@intlayer/types';
-import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import { logger } from '@logger';
+import { DiscussionModel } from '@schemas/discussion.schema';
 import { getDictionariesByTags } from '@services/dictionary.service';
 import * as tagService from '@services/tag.service';
 import { getTagsByKeys } from '@services/tag.service';
@@ -15,7 +17,10 @@ import * as auditContentDeclarationFieldUtil from '@utils/AI/auditDictionaryFiel
 import * as auditContentDeclarationMetadataUtil from '@utils/AI/auditDictionaryMetadata';
 import * as auditTagUtil from '@utils/AI/auditTag';
 import * as autocompleteUtil from '@utils/AI/autocomplete';
+import * as chatUtil from '@utils/AI/chat';
+import { createSessionTools } from '@utils/AI/chat/sessionTools';
 import * as customQueryUtil from '@utils/AI/customQuery';
+import { getProjectAIOptions } from '@utils/AI/getProjectAIOptions';
 import * as translateJSONUtil from '@utils/AI/translateJSON';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import {
@@ -28,11 +33,17 @@ import {
   type PaginatedResponse,
   type ResponseData,
 } from '@utils/responseData';
-import type { NextFunction, Request } from 'express';
-import { DiscussionModel } from '@/models/discussion.model';
+import type { FastifyReply, FastifyRequest } from 'fastify';
 import type { Dictionary } from '@/types/dictionary.types';
 import type { DiscussionAPI } from '@/types/discussion.types';
 import type { Tag, TagAPI } from '@/types/tag.types';
+
+export type {
+  AIConfig,
+  AIOptions,
+  AIProvider,
+  ChatCompletionRequestMessage,
+} from '@intlayer/ai';
 
 type ReplaceAIConfigByOptions<T> = Omit<T, 'aiConfig'> & {
   aiOptions?: AIOptions;
@@ -47,82 +58,81 @@ export type CustomQueryResult =
   ResponseData<customQueryUtil.CustomQueryResultData>;
 
 export const customQuery = async (
-  req: Request<CustomQueryBody>,
-  res: ResponseWithSession<CustomQueryResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: CustomQueryBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  // biome-ignore lint/correctness/noUnusedVariables: Just filter out tagsKeys
-  const { aiOptions, tagsKeys, ...rest } = req.body;
+  const { aiOptions, tagsKeys, ...rest } = request.body;
+  const { user, project } = request.session || {};
+
+  const projectAIOptions = await getProjectAIOptions(project);
 
   let aiConfig: AIConfig;
   try {
     aiConfig = await getAIConfig(
       {
         userOptions: aiOptions,
+        projectOptions: projectAIOptions,
         defaultOptions: customQueryUtil.aiDefaultOptions,
         accessType: ['registered_user', 'apiKey'],
       },
-      !!res.locals.user
+      !!user
     );
   } catch (_error) {
-    ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
   }
 
   try {
     const auditResponse = await customQueryUtil.customQuery({
       ...rest,
       aiConfig,
-      applicationContext: aiOptions?.applicationContext,
     });
 
     if (!auditResponse) {
-      ErrorHandler.handleGenericErrorResponse(res, 'QUERY_FAILED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(reply, 'QUERY_FAILED');
     }
 
     const responseData = formatResponse<customQueryUtil.CustomQueryResultData>({
       data: auditResponse,
     });
 
-    res.json(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
 export type TranslateJSONBody = Omit<
-  ReplaceAIConfigByOptions<translateJSONUtil.TranslateJSONOptions>,
+  ReplaceAIConfigByOptions<translateJSONUtil.TranslateJSONOptions<JSON>>,
   'tags'
 > & {
   tagsKeys?: string[];
 };
-export type TranslateJSONResult =
-  ResponseData<translateJSONUtil.TranslateJSONResultData>;
+export type TranslateJSONResult = ResponseData<
+  translateJSONUtil.TranslateJSONResultData<JSON>
+>;
 
 export const translateJSON = async (
-  req: Request<TranslateJSONBody>,
-  res: ResponseWithSession<TranslateJSONResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: TranslateJSONBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { project } = res.locals;
-  const { aiOptions, tagsKeys, ...rest } = req.body;
+  const { project, user } = request.session || {};
+  const { aiOptions, tagsKeys, ...rest } = request.body;
+
+  const projectAIOptions = await getProjectAIOptions(project);
 
   let aiConfig: AIConfig;
   try {
     aiConfig = await getAIConfig(
       {
         userOptions: aiOptions,
+        projectOptions: projectAIOptions,
         defaultOptions: translateJSONUtil.aiDefaultOptions,
         accessType: ['registered_user', 'apiKey'],
       },
-      !!res.locals.user
+      !!user
     );
   } catch (_error) {
-    ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
   }
 
   try {
@@ -132,7 +142,7 @@ export const translateJSON = async (
       tags = await getTagsByKeys(tagsKeys, project.organizationId);
     }
 
-    const auditResponse = await translateJSONUtil.translateJSON({
+    const auditResponse = await translateJSONUtil.translateJSON<any>({
       ...rest,
       aiConfig,
       applicationContext: aiOptions?.applicationContext,
@@ -140,20 +150,18 @@ export const translateJSON = async (
     });
 
     if (!auditResponse) {
-      ErrorHandler.handleGenericErrorResponse(res, 'AUDIT_FAILED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
     }
 
-    const responseData =
-      formatResponse<translateJSONUtil.TranslateJSONResultData>({
-        data: auditResponse,
-      });
+    const responseData = formatResponse<
+      translateJSONUtil.TranslateJSONResultData<any>
+    >({
+      data: auditResponse,
+    });
 
-    res.json(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -172,34 +180,35 @@ export type AuditContentDeclarationResult =
  * Retrieves a list of dictionaries based on filters and pagination.
  */
 export const auditContentDeclaration = async (
-  req: Request<AuditContentDeclarationBody>,
-  res: ResponseWithSession<AuditContentDeclarationResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: AuditContentDeclarationBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { project } = res.locals;
+  const { project, user } = request.session || {};
   const { fileContent, filePath, aiOptions, locales, defaultLocale, tagsKeys } =
-    req.body;
+    request.body;
+
+  const projectAIOptions = await getProjectAIOptions(project);
 
   let aiConfig: AIConfig;
   try {
     aiConfig = await getAIConfig(
       {
         userOptions: aiOptions,
+        projectOptions: projectAIOptions,
         defaultOptions: auditContentDeclarationUtil.aiDefaultOptions,
         accessType: ['registered_user', 'apiKey'],
       },
-      !!res.locals.user
+      !!user
     );
   } catch (_error) {
-    ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
   }
 
   try {
     let tags: Tag[] = [];
 
     if (project?.organizationId) {
-      tags = await getTagsByKeys(tagsKeys, project.organizationId);
+      tags = await getTagsByKeys(tagsKeys ?? [], project.organizationId);
     }
 
     const auditResponse = await auditContentDeclarationUtil.auditDictionary({
@@ -213,8 +222,7 @@ export const auditContentDeclaration = async (
     });
 
     if (!auditResponse) {
-      ErrorHandler.handleGenericErrorResponse(res, 'AUDIT_FAILED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
     }
 
     const responseData =
@@ -222,11 +230,9 @@ export const auditContentDeclaration = async (
         data: auditResponse,
       });
 
-    res.json(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -245,33 +251,34 @@ export type AuditContentDeclarationFieldResult =
  * Retrieves a list of dictionaries based on filters and pagination.
  */
 export const auditContentDeclarationField = async (
-  req: Request<AuditContentDeclarationFieldBody>,
-  res: ResponseWithSession<AuditContentDeclarationFieldResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: AuditContentDeclarationFieldBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { project } = res.locals;
-  const { fileContent, aiOptions, locales, tagsKeys, keyPath } = req.body;
+  const { project, user } = request.session || {};
+  const { fileContent, aiOptions, locales, tagsKeys, keyPath } = request.body;
+
+  const projectAIOptions = await getProjectAIOptions(project);
 
   let aiConfig: AIConfig;
   try {
     aiConfig = await getAIConfig(
       {
         userOptions: aiOptions,
+        projectOptions: projectAIOptions,
         defaultOptions: auditContentDeclarationFieldUtil.aiDefaultOptions,
         accessType: ['registered_user', 'apiKey'],
       },
-      !!res.locals.user
+      !!user
     );
   } catch (_error) {
-    ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
   }
 
   try {
     let tags: Tag[] = [];
 
     if (project?.organizationId) {
-      tags = await getTagsByKeys(tagsKeys, project.organizationId);
+      tags = await getTagsByKeys(tagsKeys ?? [], project.organizationId);
     }
 
     const auditResponse =
@@ -285,8 +292,7 @@ export const auditContentDeclarationField = async (
       });
 
     if (!auditResponse) {
-      ErrorHandler.handleGenericErrorResponse(res, 'AUDIT_FAILED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
     }
 
     const responseData =
@@ -296,11 +302,9 @@ export const auditContentDeclarationField = async (
         }
       );
 
-    res.json(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -316,12 +320,11 @@ export type AuditContentDeclarationMetadataResult =
  * Retrieves a list of dictionaries based on filters and pagination.
  */
 export const auditContentDeclarationMetadata = async (
-  req: Request<AuditContentDeclarationMetadataBody>,
-  res: ResponseWithSession<AuditContentDeclarationMetadataResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: AuditContentDeclarationMetadataBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { organization } = res.locals;
-  const { fileContent, aiOptions } = req.body;
+  const { organization, user } = request.session || {};
+  const { fileContent, aiOptions } = request.body;
 
   let aiConfig: AIConfig;
   try {
@@ -331,11 +334,10 @@ export const auditContentDeclarationMetadata = async (
         defaultOptions: auditContentDeclarationMetadataUtil.aiDefaultOptions,
         accessType: ['registered_user', 'apiKey'],
       },
-      !!res.locals.user
+      !!user
     );
   } catch (_error) {
-    ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
   }
 
   try {
@@ -356,8 +358,7 @@ export const auditContentDeclarationMetadata = async (
       });
 
     if (!auditResponse) {
-      ErrorHandler.handleGenericErrorResponse(res, 'AUDIT_FAILED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
     }
 
     const responseData =
@@ -365,11 +366,9 @@ export const auditContentDeclarationMetadata = async (
         data: auditResponse,
       });
 
-    res.json(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -383,26 +382,27 @@ export type AuditTagResult = ResponseData<auditTagUtil.TranslateJSONResultData>;
  * Retrieves a list of dictionaries based on filters and pagination.
  */
 export const auditTag = async (
-  req: Request<undefined, undefined, AuditTagBody>,
-  res: ResponseWithSession<AuditTagResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: AuditTagBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { project } = res.locals;
-  const { aiOptions, tag } = req.body;
+  const { project, user } = request.session || {};
+  const { aiOptions, tag } = request.body;
+
+  const projectAIOptions = await getProjectAIOptions(project);
 
   let aiConfig: AIConfig;
   try {
     aiConfig = await getAIConfig(
       {
         userOptions: aiOptions,
+        projectOptions: projectAIOptions,
         defaultOptions: auditTagUtil.aiDefaultOptions,
         accessType: ['registered_user', 'apiKey'],
       },
-      !!res.locals.user
+      !!user
     );
   } catch (_error) {
-    ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
   }
 
   try {
@@ -419,19 +419,16 @@ export const auditTag = async (
     });
 
     if (!auditResponse) {
-      ErrorHandler.handleGenericErrorResponse(res, 'AUDIT_FAILED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(reply, 'AUDIT_FAILED');
     }
 
     const responseData = formatResponse<auditTagUtil.TranslateJSONResultData>({
       data: auditResponse,
     });
 
-    res.json(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -443,96 +440,320 @@ export type AskDocQuestionResult =
   ResponseData<askDocQuestionUtil.AskDocQuestionResult>;
 
 export const askDocQuestion = async (
-  req: Request<undefined, undefined, AskDocQuestionBody>,
-  res: ResponseWithSession<AskDocQuestionResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: AskDocQuestionBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { messages = [], discussionId } = req.body;
-  const { user, project, organization } = res.locals;
+  const { messages = [], discussionId } = request.body;
+  const { user, project, organization } = request.session || {};
+
+  // Hijack response
+  reply.hijack();
+
+  // Copy all Fastify-managed headers (including CORS) to the raw response
+  // immediately after hijacking, before any early returns.
+  const headers = reply.getHeaders();
+  for (const [key, value] of Object.entries(headers)) {
+    if (value !== undefined) {
+      reply.raw.setHeader(key, value);
+    }
+  }
+
+  const projectAIOptions = await getProjectAIOptions(project);
 
   let aiConfig: AIConfig;
+
+  // Wrap EVERYTHING in a main try/catch block
+  // Auth Check
   try {
     aiConfig = await getAIConfig(
       {
-        userOptions: {},
+        userOptions: {
+          temperature: 0.2,
+        },
+        projectOptions: projectAIOptions,
         accessType: ['public'],
       },
-      !!res.locals.user
+      !!user
     );
-  } catch (_error) {
-    ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
+  } catch (error) {
+    console.error(error);
+
+    // Manually handle this specific error case
+    const errorPayload = {
+      code: 'AI_ACCESS_DENIED',
+      title: 'Access Denied',
+      message: 'Unable to configure AI access.',
+    };
+    reply.raw.write(`event: error\ndata: ${JSON.stringify(errorPayload)}\n\n`);
+
+    reply.raw.end();
     return;
   }
 
-  // 1. Prepare SSE headers and flush them NOW
-  res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
-  res.setHeader('Cache-Control', 'no-cache, no-transform');
-  res.setHeader('Connection', 'keep-alive');
-  res.setHeader('X-Accel-Buffering', 'no'); // disable nginx buffering
-  res.flushHeaders?.();
-  res.write(': connected\n\n'); // initial comment keeps some browsers happy
-  res.flush?.();
+  console.log({ projectAIOptions, aiConfig });
 
-  // 2. Kick off the upstream stream WITHOUT awaiting it
-  askDocQuestionUtil
-    .askDocQuestion(messages, aiConfig, {
-      onMessage: (chunk) => {
-        res.write(`data: ${JSON.stringify({ chunk })}\n\n`);
-        res.flush?.();
-      },
-    })
-    .then(async (fullResponse) => {
-      const lastUserMessageContent = messages.findLast(
-        (message) => message.role === 'user'
-      )?.content;
-      const lastUserMessageNbWords = lastUserMessageContent
+  try {
+    // Set Stream Headers & Flush
+    reply.raw.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
+    reply.raw.setHeader('Cache-Control', 'no-cache, no-transform');
+    reply.raw.setHeader('Connection', 'keep-alive');
+    reply.raw.setHeader('X-Accel-Buffering', 'no');
+
+    if (reply.raw.flushHeaders) {
+      reply.raw.flushHeaders();
+    }
+
+    reply.raw.write(': connected\n\n');
+
+    // Execute AI Logic (Awaited properly)
+    // This is where 'generateEmbedding' or 'streamText' will throw
+    const fullResponse = await askDocQuestionUtil.askDocQuestion(
+      messages,
+      aiConfig,
+      {
+        onMessage: (chunk) => {
+          if (!reply.raw.writableEnded) {
+            reply.raw.write(`data: ${JSON.stringify({ chunk })}\n\n`);
+          }
+        },
+      }
+    );
+
+    // Persist Discussion (Only on success)
+    const reversedMessages = [...messages].reverse();
+    const lastUserMessageContent = reversedMessages.find(
+      (message) => message.role === 'user'
+    )?.content;
+    const lastUserMessageNbWords =
+      typeof lastUserMessageContent === 'string'
         ? lastUserMessageContent.split(' ').length
         : 0;
-      if (lastUserMessageNbWords > 2) {
-        // If the last user message is less than 3 words, don't persist the discussion
-        // Example: "Hello", "Hi", "Hey", "test", etc.
 
-        // 3. Persist discussion while the client already has all chunks
-        await DiscussionModel.findOneAndUpdate(
-          { discussionId },
+    if (lastUserMessageNbWords >= 2 || messages.length >= 2) {
+      const updatePayload: any = {
+        discussionId,
+        type: 'doc',
+        messages: [
+          ...messages.map((msg) => ({
+            role: msg.role,
+            content: msg.content,
+            timestamp: msg.timestamp ?? new Date(),
+          })),
           {
-            $set: {
-              discussionId,
-              userId: user?.id,
-              projectId: project?.id,
-              organizationId: organization?.id,
-              messages: [
-                ...messages.map((msg) => ({
-                  role: msg.role,
-                  content: msg.content,
-                  timestamp: msg.timestamp,
-                })),
-                {
-                  role: 'assistant',
-                  content: fullResponse.response,
-                  relatedFiles: fullResponse.relatedFiles,
-                  timestamp: new Date(),
-                },
-              ],
-            },
+            role: 'assistant',
+            content: fullResponse.response,
+            relatedFiles: fullResponse.relatedFiles,
+            timestamp: new Date(),
           },
-          { upsert: true, new: true }
-        );
-      }
+        ],
+      };
 
-      // 4. Tell the client we're done and close the stream
-      res.write(
+      if (user?.id) updatePayload.userId = user.id;
+      if (project?.id) updatePayload.projectId = project.id;
+      if (organization?.id) updatePayload.organizationId = organization.id;
+
+      await DiscussionModel.findOneAndUpdate(
+        { discussionId: String(discussionId) },
+        { $set: updatePayload },
+        { upsert: true, returnDocument: 'after' }
+      );
+    }
+
+    // Send Completion Event
+    if (!reply.raw.writableEnded) {
+      reply.raw.write(
         `data: ${JSON.stringify({ done: true, response: fullResponse })}\n\n`
       );
-      res.end();
-    })
-    .catch((err) => {
-      // propagate error as an SSE event so the client knows why it closed
-      res.write(
-        `event: error\ndata: ${JSON.stringify({ message: err.message })}\n\n`
-      );
-      res.end();
+      reply.raw.end();
+    }
+  } catch (err) {
+    // -------------------------------------------------------------------------
+    // CENTRALIZED ERROR CATCHER
+    // -------------------------------------------------------------------------
+    const errorMessage = err instanceof Error ? err.message : String(err);
+    const errorStack = err instanceof Error ? err.stack : undefined;
+
+    // Log the full error to your backend console
+    logger.error('AI Stream Error Caught:', {
+      message: errorMessage,
+      stack: errorStack,
     });
+
+    // Determine if it's an Auth error (common with OpenAI 401)
+    const isAuthError =
+      errorMessage.includes('401') ||
+      errorMessage.includes('Incorrect API key');
+
+    // Format error for Frontend
+    const errorPayload = {
+      code: isAuthError ? 'AI_AUTH_ERROR' : 'AI_STREAM_ERROR',
+      title: isAuthError ? 'AI Configuration Error' : 'Generation Failed',
+      message: errorMessage,
+    };
+
+    // Send error event to client
+    if (!reply.raw.writableEnded) {
+      reply.raw.write(
+        `event: error\ndata: ${JSON.stringify(errorPayload)}\n\n`
+      );
+      reply.raw.end();
+    }
+  }
+};
+
+export type ChatBody = {
+  messages: ChatCompletionRequestMessage[];
+  discussionId: string;
+};
+export type ChatResult = ResponseData<chatUtil.ChatResultData>;
+
+export const chat = async (
+  request: FastifyRequest<{ Body: ChatBody }>,
+  reply: FastifyReply
+): Promise<void> => {
+  const { messages = [], discussionId } = request.body;
+  const { user, project, organization, roles } = request.session || {};
+
+  reply.hijack();
+
+  const headers = reply.getHeaders();
+  for (const [key, value] of Object.entries(headers)) {
+    if (value !== undefined) {
+      reply.raw.setHeader(key, value);
+    }
+  }
+
+  const projectAIOptions = await getProjectAIOptions(project);
+
+  try {
+    let aiConfig: AIConfig;
+    try {
+      aiConfig = await getAIConfig(
+        {
+          userOptions: {},
+          projectOptions: projectAIOptions,
+          accessType: ['registered_user'],
+        },
+        !!user
+      );
+    } catch (error) {
+      console.error(error);
+
+      const errorPayload = {
+        code: 'AI_ACCESS_DENIED',
+        title: 'Access Denied',
+        message: 'Unable to configure AI access.',
+      };
+      reply.raw.write(
+        `event: error\ndata: ${JSON.stringify(errorPayload)}\n\n`
+      );
+      reply.raw.end();
+      return;
+    }
+
+    reply.raw.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
+    reply.raw.setHeader('Cache-Control', 'no-cache, no-transform');
+    reply.raw.setHeader('Connection', 'keep-alive');
+    reply.raw.setHeader('X-Accel-Buffering', 'no');
+
+    if (reply.raw.flushHeaders) {
+      reply.raw.flushHeaders();
+    }
+
+    reply.raw.write(': connected\n\n');
+
+    const sessionTools = createSessionTools({
+      projectId: project?.id ? String(project.id) : undefined,
+      organizationId: organization?.id ? String(organization.id) : undefined,
+      userId: user?.id ? String(user.id) : undefined,
+      roles: roles || [],
+      session: request.session,
+      onAction: (action) => {
+        if (!reply.raw.writableEnded) {
+          reply.raw.write(`data: ${JSON.stringify({ action })}\n\n`);
+        }
+      },
+    });
+
+    const fullResponse = await chatUtil.chat(messages, aiConfig, {
+      tools: sessionTools,
+      onMessage: (chunk) => {
+        if (!reply.raw.writableEnded) {
+          reply.raw.write(`data: ${JSON.stringify({ chunk })}\n\n`);
+        }
+      },
+    });
+
+    const reversedMessages = [...messages].reverse();
+    const lastUserMessageContent = reversedMessages.find(
+      (message) => message.role === 'user'
+    )?.content;
+    const lastUserMessageNbWords =
+      typeof lastUserMessageContent === 'string'
+        ? lastUserMessageContent.split(' ').length
+        : 0;
+
+    if (lastUserMessageNbWords >= 2 || messages.length >= 2) {
+      const updatePayload: any = {
+        discussionId,
+        type: 'dashboard',
+        messages: [
+          ...messages.map((msg) => ({
+            role: msg.role,
+            content: msg.content,
+            timestamp: msg.timestamp ?? new Date(),
+          })),
+          {
+            role: 'assistant',
+            content: fullResponse.response,
+            timestamp: new Date(),
+          },
+        ],
+      };
+
+      if (user?.id) updatePayload.userId = user.id;
+      if (project?.id) updatePayload.projectId = project.id;
+      if (organization?.id) updatePayload.organizationId = organization.id;
+
+      await DiscussionModel.findOneAndUpdate(
+        { discussionId: String(discussionId) },
+        { $set: updatePayload },
+        { upsert: true, returnDocument: 'after' }
+      );
+    }
+
+    if (!reply.raw.writableEnded) {
+      reply.raw.write(
+        `data: ${JSON.stringify({ done: true, response: fullResponse })}\n\n`
+      );
+      reply.raw.end();
+    }
+  } catch (err) {
+    const errorMessage = err instanceof Error ? err.message : String(err);
+    const errorStack = err instanceof Error ? err.stack : undefined;
+
+    logger.error('AI Chat Stream Error:', {
+      message: errorMessage,
+      stack: errorStack,
+    });
+
+    const isAuthError =
+      errorMessage.includes('401') ||
+      errorMessage.includes('Incorrect API key');
+
+    const errorPayload = {
+      code: isAuthError ? 'AI_AUTH_ERROR' : 'AI_STREAM_ERROR',
+      title: isAuthError ? 'AI Configuration Error' : 'Generation Failed',
+      message: errorMessage,
+    };
+
+    if (!reply.raw.writableEnded) {
+      reply.raw.write(
+        `event: error\ndata: ${JSON.stringify(errorPayload)}\n\n`
+      );
+      reply.raw.end();
+    }
+  }
 };
 
 export type AutocompleteBody = {
@@ -548,27 +769,30 @@ export type AutocompleteResponse = ResponseData<{
 }>;
 
 export const autocomplete = async (
-  req: Request<AutocompleteBody>,
-  res: ResponseWithSession<AutocompleteResponse>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: AutocompleteBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
+  const { user, project } = request.session || {};
+
+  const projectAIOptions = await getProjectAIOptions(project);
+
   try {
     const { text, aiOptions, contextBefore, currentLine, contextAfter } =
-      req.body;
+      request.body;
 
     let aiConfig: AIConfig;
     try {
       aiConfig = await getAIConfig(
         {
           userOptions: aiOptions,
+          projectOptions: projectAIOptions,
           defaultOptions: autocompleteUtil.aiDefaultOptions,
           accessType: ['public'],
         },
-        !!res.locals.user
+        !!user
       );
     } catch (_error) {
-      ErrorHandler.handleGenericErrorResponse(res, 'AI_ACCESS_DENIED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(reply, 'AI_ACCESS_DENIED');
     }
 
     const response = (await autocompleteUtil.autocomplete({
@@ -588,10 +812,9 @@ export const autocomplete = async (
         data: response,
       });
 
-    res.json(responseData);
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -610,22 +833,20 @@ export type GetDiscussionsResult = PaginatedResponse<DiscussionAPI>;
  * Only the owner or admins can access. By default, users only see their own.
  */
 export const getDiscussions = async (
-  req: Request<GetDiscussionsParams>,
-  res: ResponseWithSession<GetDiscussionsResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Querystring: GetDiscussionsParams }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { user, roles } = res.locals;
+  const { user, roles } = request.session || {};
   const { filters, sortOptions, pageSize, skip, page, getNumberOfPages } =
-    getDiscussionFiltersAndPagination(req, res);
-  const includeMessagesParam = (req.query as any)?.includeMessages as
+    getDiscussionFiltersAndPagination(request);
+  const includeMessagesParam = (request.query as any)?.includeMessages as
     | 'true'
     | 'false'
     | undefined;
   const includeMessages = includeMessagesParam !== 'false';
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   try {
@@ -657,11 +878,13 @@ export const getDiscussions = async (
     const allOwnedByUser = discussions.every(
       (d) => String(d.userId) === String(user.id)
     );
-    const isAllowed = roles.includes('admin') || allOwnedByUser;
+    const isAllowed = roles?.includes('admin') || allOwnedByUser;
 
     if (!isAllowed) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
     }
 
     const totalItems = await DiscussionModel.countDocuments(filters);
@@ -682,10 +905,8 @@ export const getDiscussions = async (
       totalItems,
     });
 
-    res.json(responseData as any);
-    return;
+    return reply.send(responseData as any);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };

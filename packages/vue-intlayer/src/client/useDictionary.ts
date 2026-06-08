@@ -1,13 +1,14 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
-  Dictionary,
   LocalesValues,
-} from '@intlayer/types';
+} from '@intlayer/types/module_augmentation';
 import {
   type ComputedRef,
   computed,
   defineComponent,
+  getCurrentInstance,
   h,
   inject,
   isRef,
@@ -33,7 +34,7 @@ export const isComponentLike = (v: any) =>
 /** Check if value is an IntlayerNode */
 export const isIntlayerNode = (v: any): boolean =>
   v != null &&
-  typeof v === 'object' &&
+  (typeof v === 'object' || typeof v === 'function') &&
   '__update' in v &&
   'render' in v &&
   'raw' in v;
@@ -72,7 +73,7 @@ export const createIntlayerLeafProxy = (leafRef: ComputedRef<any>) => {
 
       // .value returns the IntlayerNode for Vue's ref unwrapping (component :is="..." usage)
       if (prop === 'value') {
-        return node;
+        return node ?? '';
       }
 
       // $raw returns the underlying computed ref
@@ -89,7 +90,12 @@ export const createIntlayerLeafProxy = (leafRef: ComputedRef<any>) => {
       }
 
       // Pass through to IntlayerNode (including .raw for primitive access)
-      if (node == null) return undefined;
+      if (node == null) {
+        if (prop === Symbol.toPrimitive || prop === 'toString') {
+          return () => '';
+        }
+        return undefined;
+      }
       const val = node[prop];
       return typeof val === 'function' ? val.bind(node) : val;
     },
@@ -110,18 +116,20 @@ export const createIntlayerLeafProxy = (leafRef: ComputedRef<any>) => {
 };
 
 export const useDictionary = <
-  T extends Dictionary,
-  L extends LocalesValues = DeclaredLocales,
+  const T extends Dictionary,
+  const L extends LocalesValues = DeclaredLocales,
 >(
   dictionary: MaybeRefOrGetter<T>,
   locale?: MaybeRefOrGetter<L>
 ) => {
-  const intlayer = inject<IntlayerProvider>(INTLAYER_SYMBOL);
+  const intlayer = getCurrentInstance()
+    ? inject<IntlayerProvider>(INTLAYER_SYMBOL)
+    : undefined;
 
   // normalize provider locale
   const providerLocale = isRef(intlayer?.locale)
     ? intlayer.locale
-    : ref(intlayer?.locale ?? configuration.internationalization.defaultLocale);
+    : ref(intlayer?.locale ?? internationalization.defaultLocale);
 
   // which locale to use (reactive)
   const localeTarget = computed<LocalesValues>(() => {
@@ -142,15 +150,16 @@ export const useDictionary = <
 
   // create a deep, read-only reactive proxy
   const makeProxy = (path: (string | number)[]) => {
-    const leafRef: ComputedRef<any> = computed(() =>
-      atPath(source.value, path)
-    );
-
     const handler: ProxyHandler<any> = {
       get(_t, prop: any, _r) {
         // Make the proxy "ref-like" so templates unwrap {{proxy}} to its current value.
         if (prop === '__v_isRef') return true;
-        if (prop === 'value') return leafRef.value;
+
+        const leafRef: ComputedRef<any> = computed(() =>
+          atPath(source.value, path)
+        );
+
+        if (prop === 'value') return leafRef.value ?? '';
 
         // Avoid Promise-like traps
         if (prop === 'then') return undefined;
@@ -171,7 +180,10 @@ export const useDictionary = <
         const nextPath = path.concat(prop as any);
         const snapshot = atPath(source.value, nextPath);
 
-        if (isObjectLike(snapshot) && !isComponentLike(snapshot)) {
+        if (
+          snapshot === undefined ||
+          (isObjectLike(snapshot) && !isComponentLike(snapshot))
+        ) {
           return makeProxy(nextPath); // nested proxy
         }
 
@@ -183,12 +195,21 @@ export const useDictionary = <
         }
 
         // For other component-like things or primitives, return computed ref
-        return computed(() => atPath(source.value, nextPath));
+        const subLeafRef = computed(() => atPath(source.value, nextPath));
+
+        return new Proxy(subLeafRef, {
+          get(target, subProp, receiver) {
+            if (subProp === 'value') {
+              return target.value ?? '';
+            }
+            return Reflect.get(target, subProp, receiver);
+          },
+        });
       },
 
       // Make Object.keys(), for...in, v-for on object keys work
       ownKeys() {
-        const v = leafRef.value;
+        const v = atPath(source.value, path);
         return isObjectLike(v) ? Reflect.ownKeys(v) : [];
       },
       getOwnPropertyDescriptor() {

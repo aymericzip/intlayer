@@ -4,8 +4,8 @@ import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { join, dirname as pathDirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { getPackageJsonPath, getProjectRequire } from '@intlayer/config';
-import type { LocalesValues } from '@intlayer/types';
+import { getPackageJsonPath, getProjectRequire } from '@intlayer/config/utils';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 
 // Robustly resolve the base directory of the @intlayer/docs package in both
 // bundled environments (Next.js) and standalone CLIs (MCP via npx).
@@ -71,6 +71,7 @@ export const legalEntry = {
     pl: readLocale('privacy_notice.md', 'pl'),
     id: readLocale('privacy_notice.md', 'id'),
     vi: readLocale('privacy_notice.md', 'vi'),
+    uk: readLocale('privacy_notice.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
   './legal/en/terms_of_service.md': {
     en: readLocale('terms_of_service.md', 'en'),
@@ -90,5 +91,6 @@ export const legalEntry = {
     pl: readLocale('terms_of_service.md', 'pl'),
     id: readLocale('terms_of_service.md', 'id'),
     vi: readLocale('terms_of_service.md', 'vi'),
+    uk: readLocale('terms_of_service.md', 'uk'),
   } as unknown as Record<LocalesValues, Promise<string>>,
 } as const;

@@ -1,6 +1,6 @@
-import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/types';
-import { Intl as CachedIntl } from '../utils/intl';
+import { internationalization } from '@intlayer/config/built';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import { getCachedIntl } from '../utils/intl';
 
 type RelativeTimeUnit = Intl.RelativeTimeFormatUnit;
 
@@ -31,6 +31,16 @@ const diffInUnit = (from: Date, to: Date, unit: RelativeTimeUnit): number => {
   }
 };
 
+/**
+ * Formats the difference between two dates as a localized relative time string.
+ *
+ * @example
+ * relativeTime(new Date(Date.now() - 30000)); // "30 seconds ago"
+ *
+ * @example
+ * relativeTime("2025-01-01", new Date(), { locale: Locales.FRENCH, unit: "day" });
+ * // "il y a 443 jours"
+ */
 export const relativeTime = (
   from: Date | string | number,
   to: Date | string | number = new Date(),
@@ -45,8 +55,10 @@ export const relativeTime = (
 
   const value = diffInUnit(fromDate, toDate, unit);
 
-  return new CachedIntl.RelativeTimeFormat(
-    options?.locale ?? configuration?.internationalization?.defaultLocale,
+  return getCachedIntl(
+    Intl.RelativeTimeFormat,
+    options?.locale ?? internationalization?.defaultLocale,
+
     options
   ).format(Math.round(value), unit);
 };

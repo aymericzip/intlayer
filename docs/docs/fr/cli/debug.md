@@ -21,18 +21,48 @@ slugs:
 
 Exécutez :
 
-```bash
+```bash packageManager="npm"
 npx intlayer --version                  # version locale actuelle d'intlayer
 npx intlayer@latest --version           # dernière version disponible d'intlayer
+```
+
+```bash packageManager="yarn"
+yarn intlayer --version                  # version locale actuelle d'intlayer
+yarn intlayer@latest --version           # dernière version disponible d'intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer --version                  # version locale actuelle d'intlayer
+pnpm intlayer@latest --version           # dernière version disponible d'intlayer
+```
+
+```bash packageManager="bun"
+bun x intlayer --version                  # version locale actuelle d'intlayer
+bun x intlayer@latest --version           # dernière version disponible d'intlayer
 ```
 
 ## 2. **Vérifiez si la commande est enregistrée**
 
 Vous pouvez vérifier avec :
 
-```bash
+```bash packageManager="npm"
 npx intlayer --help                     # Affiche la liste des commandes disponibles et les informations d'utilisation
 npx intlayer dictionary build --help    # Affiche la liste des options disponibles pour une commande
+```
+
+```bash packageManager="yarn"
+yarn intlayer --help                     # Affiche la liste des commandes disponibles et les informations d'utilisation
+yarn intlayer dictionary build --help    # Affiche la liste des options disponibles pour une commande
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer --help                     # Affiche la liste des commandes disponibles et les informations d'utilisation
+pnpm intlayer dictionary build --help    # Affiche la liste des options disponibles pour une commande
+```
+
+```bash packageManager="bun"
+bun x intlayer --help                     # Affiche la liste des commandes disponibles et les informations d'utilisation
+bun x intlayer dictionary build --help    # Affiche la liste des options disponibles pour une commande
 ```
 
 ## 3. **Redémarrez votre terminal**

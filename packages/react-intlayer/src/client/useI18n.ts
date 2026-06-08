@@ -1,13 +1,14 @@
 'use client';
 
-import { getIntlayer, type ValidDotPathsFor } from '@intlayer/core';
+import { getIntlayer } from '@intlayer/core/interpreter';
+import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
+import type { GetSubPath } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
   DictionaryKeys,
   DictionaryRegistryContent,
-  GetSubPath,
   LocalesValues,
-} from '@intlayer/types';
+} from '@intlayer/types/module_augmentation';
 import { useContext, useMemo } from 'react';
 import type { DeepTransformContent } from '../plugins';
 import { IntlayerClientContext } from './IntlayerProvider';
@@ -36,7 +37,7 @@ export const useI18n = <
   namespace: T,
   locale?: L
 ) => {
-  const { locale: currentLocale } = useContext(IntlayerClientContext);
+  const { locale: currentLocale } = useContext(IntlayerClientContext) ?? {};
   const localeTarget = useMemo(
     () => locale ?? currentLocale,
     [currentLocale, locale]

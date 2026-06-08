@@ -15,7 +15,9 @@ export const mapDictionaryToAPI = (
 ): DictionaryAPI => {
   const dictionaryObject = ensureMongoDocumentToObject<Dictionary>(dictionary);
 
-  const versionList = [...(dictionaryObject.content.keys() ?? [])];
+  const versionList = dictionaryObject.content
+    ? [...(dictionaryObject.content.keys() ?? [])]
+    : [];
   let returnedVersion = version;
 
   if (!returnedVersion) {
@@ -23,9 +25,10 @@ export const mapDictionaryToAPI = (
     returnedVersion = lastVersion;
   }
 
-  const content =
-    (dictionaryObject.content.get(returnedVersion)
-      ?.content as DictionaryAPI['content']) ?? null;
+  const content = dictionaryObject.content
+    ? ((dictionaryObject.content.get(returnedVersion as string)
+        ?.content as DictionaryAPI['content']) ?? null)
+    : null;
 
   return {
     ...dictionaryObject,

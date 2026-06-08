@@ -1,17 +1,11 @@
 'use client';
 
-import { Link, Popover } from '@intlayer/design-system';
 import { usePersistedStore } from '@intlayer/design-system/hooks';
+import { Link } from '@intlayer/design-system/link';
+import { Popover } from '@intlayer/design-system/popover';
+import { TechLogo } from '@intlayer/design-system/tech-logo';
 import { useIntlayer } from 'next-intlayer';
 import type { FC, ReactNode } from 'react';
-import { AntropicLogo } from './AntropicLogo';
-import { ChatGPTLogo } from './ChatGPTLogo';
-import { DeepSeekLogo } from './DeepSeekLogo';
-import { GeminiLogo } from './GeminiLogo';
-import { GoogleAILogo } from './GoogleAILogo';
-import { GrokLogo } from './GrokLogo';
-import { MistralLogo } from './MistralLogo';
-import { PerplexityLogo } from './PerplexityLogo';
 
 type SummarizeAIProps = {
   url: string;
@@ -27,44 +21,44 @@ const getProviders = (message: string): Provider[] => [
   {
     name: 'ChatGPT',
     url: `https://chatgpt.com/?q=${message}`,
-    icon: <ChatGPTLogo className="size-4" />,
+    icon: <TechLogo name="chatgpt" className="size-4" />,
   },
   {
     name: 'Claude',
     url: `https://claude.ai/new?q=${message}`,
-    icon: <AntropicLogo className="size-4" />,
+    icon: <TechLogo name="anthropic" className="size-4" />,
   },
   {
     name: 'DeepSeek',
     // Dont works for now as DeepSeek does not support direct search
     url: `https://chat.deepseek.com/?q=${message}`,
-    icon: <DeepSeekLogo className="size-4" />,
+    icon: <TechLogo name="deepseek" className="size-4" />,
   },
   {
     name: 'Google AI mode',
     url: `https://www.google.com/search?udm=50&aep=11&q=${message}`,
-    icon: <GoogleAILogo className="size-4" />,
+    icon: <TechLogo name="googleai" className="size-4" />,
   },
   {
     name: 'Gemini',
     // Dont works for now as Gemini does not support direct search
     url: `https://gemini.google.com/?q=${message}`,
-    icon: <GeminiLogo className="size-4" />,
+    icon: <TechLogo name="gemini" className="size-4" />,
   },
   {
     name: 'Perplexity',
     url: `https://www.perplexity.ai/search/new?q=${message}`,
-    icon: <PerplexityLogo className="size-4" />,
+    icon: <TechLogo name="perplexity" className="size-4" />,
   },
   {
     name: 'Mistral',
     url: `https://chat.mistral.ai/chat/?q=${message}`,
-    icon: <MistralLogo className="size-4" />,
+    icon: <TechLogo name="mistral" className="size-4" />,
   },
   {
     name: 'Grok',
     url: ` https://x.com/i/grok?text=${message}`,
-    icon: <GrokLogo className="size-4" />,
+    icon: <TechLogo name="grok" className="size-4" />,
   },
 ];
 

@@ -1,11 +1,11 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2025-10-03
-title: Cómo traducir tu Astro – guía i18n 2025
-description: Aprende cómo agregar internacionalización (i18n) a tu sitio web Astro usando Intlayer. Sigue esta guía para hacer tu sitio multilingüe.
+updatedAt: 2026-05-31
+title: "Astro i18n - Guía completa para traducir tu aplicación"
+description: "Sin más i18next. La guía 2026 para crear una aplicación Astro multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
 keywords:
-  - Internacionalización
-  - Documentación
+  - internacionalización
+  - documentación
   - Intlayer
   - Vite
   - React
@@ -16,62 +16,140 @@ slugs:
   - environment
   - astro
 applicationTemplate: https://github.com/aymericzip/intlayer-astro-template
+applicationShowcase: https://intlayer-astro-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Actualizar el uso de la API useIntlayer de Solid para el acceso directo a las propiedades"
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: "Añadir comando init"
   - version: 6.2.0
     date: 2025-10-03
-    changes: Actualización para integración con Astro, configuración, uso
+    changes: "Actualización de la integración, configuración y uso de Astro"
 ---
 
-# Traduce tu Astro con Intlayer | Internacionalización (i18n)
+# Traducir tu sitio Astro con Intlayer | Internacionalización (i18n)
 
-Consulta el [Plantilla de Aplicación](https://github.com/aymericzip/intlayer-astro-template) en GitHub.
+<Tabs defaultTab="code">
+  <Tab label="Código" value="code">
 
-## ¿Qué es Intlayer?
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-astro-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Cómo internacionalizar tu aplicación con Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
 
-**Intlayer** es una biblioteca innovadora y de código abierto para internacionalización (i18n) diseñada para simplificar el soporte multilingüe en aplicaciones web modernas.
+  </Tab>
+  <Tab label="Demo" value="demo">
 
-Con Intlayer, puedes:
+<iframe
+  src="https://intlayer-astro-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo - intlayer-astro-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
 
-- **Gestionar traducciones fácilmente** usando diccionarios declarativos a nivel de componente.
-- **Localizar dinámicamente metadatos**, rutas y contenido.
-- **Garantizar soporte para TypeScript** con tipos autogenerados, mejorando la autocompletación y la detección de errores.
-- **Beneficiarte de funciones avanzadas**, como la detección y el cambio dinámico de locales.
+  </Tab>
+</Tabs>
+
+## Tabla de Contenidos
+
+<TOC/>
+
+## ¿Por qué Intlayer en lugar de alternativas?
+
+En comparación con soluciones principales como `astro-i18n` o `i18next`, Intlayer es una solución que viene con optimizaciones integradas como:
+
+<AccordionGroup>
+
+<Accordion header="Soporte completo de Astro">
+
+Intlayer está optimizado para funcionar perfectamente con Astro al ofrecer **enrutamiento multilingüe**, **mapa del sitio** y todas las funciones necesarias para escalar la internacionalización (i18n).
+
+</Accordion>
+
+<Accordion header="Tamaño del bundle">
+
+En lugar de cargar archivos JSON masivos en sus páginas, cargue solo el contenido necesario. Intlayer ayuda a **reducir el tamaño de su bundle y de sus páginas hasta en un 50%**.
+
+</Accordion>
+
+<Accordion header="Mantenibilidad">
+
+Determinar el alcance del contenido de su aplicación **facilita el mantenimiento** para aplicaciones a gran escala. Puede duplicar o eliminar una sola carpeta de funciones sin la carga mental de revisar todo el código base de contenido. Además, Intlayer está **completamente escrito** para garantizar la precisión de su contenido.
+
+</Accordion>
+
+<Accordion header="Agente de IA">
+
+La ubicación conjunta de contenido **reduce el contexto necesario** para los modelos de lenguajes grandes (LLM). Intlayer también viene con un conjunto de herramientas, como una **CLI** para comprobar si faltan traducciones,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** y **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, para que la experiencia del desarrollador (DX) sea aún más fluida para los agentes de IA.
+
+</Accordion>
+
+<Accordion header="Automatización">
+
+Utilice la automatización para traducir su canal de CI/CD utilizando el LLM de su elección al costo de su proveedor de IA. Intlayer también ofrece un **compilador** para automatizar la extracción de contenido, así como una [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) para ayudar a **traducir en segundo plano**.
+
+</Accordion>
+
+<Accordion header="Actuación">
+
+La conexión de archivos JSON masivos a componentes puede provocar problemas de rendimiento y reactividad. Intlayer optimiza la carga de su contenido en el momento de la compilación.
+
+</Accordion>
+
+<Accordion header="Escalando sin ningún desarrollador">
+
+Más que una simple solución i18n, Intlayer proporciona un **[editor visual] autohospedado(https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** y un **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** para ayudarle a administrar su contenido multilingüe en **tiempo real**, lo que facilita la colaboración con traductores, redactores y otros miembros del equipo. El contenido se puede almacenar de forma local y/o remota.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
 ## Guía paso a paso para configurar Intlayer en Astro
 
-### Paso 1: Instalar dependencias
+Consulta la [plantilla de aplicación](https://github.com/aymericzip/intlayer-astro-template) en GitHub.
 
-Instala los paquetes necesarios usando tu gestor de paquetes:
+<Steps>
+
+<Step number={1} title="Instalar dependencias">
+
+Instala los paquetes necesarios utilizando tu gestor de paquetes preferido:
 
 ```bash packageManager="npm"
 npm install intlayer astro-intlayer
-# Opcional: agregar soporte para React island
+# Opcional: si añades soporte para islas de React
 npm install react react-dom react-intlayer @astrojs/react
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer astro-intlayer
-# Opcional: añadir soporte para islas React
+# Opcional: si añades soporte para islas de React
 pnpm add react react-dom react-intlayer @astrojs/react
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer astro-intlayer
-# Opcional: añadir soporte para islas React
+# Opcional: si añades soporte para islas de React
 yarn add react react-dom react-intlayer @astrojs/react
 ```
 
 - **intlayer**
-  El paquete principal que proporciona herramientas de internacionalización para la gestión de configuración, traducción, [declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/get_started.md), transpilación y [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_cli.md).
+  El paquete core que proporciona herramientas de i18n para la gestión de la configuración, traducciones, [declaración de contenidos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md), transpilación y [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/index.md).
 
 - **astro-intlayer**
-  Incluye el plugin de integración de Astro para integrar Intlayer con el [empaquetador Vite](https://vite.dev/guide/why.html#why-bundle-for-production), así como middleware para detectar la configuración regional preferida del usuario, gestionar cookies y manejar la redirección de URL.
+  Incluye el plugin de integración de Astro para conectar Intlayer con el [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), así como el middleware para detectar el idioma preferido del usuario, gestionar cookies y manejar redirecciones de URL.
 
-### Paso 2: Configuración de tu proyecto
+</Step>
 
-Crea un archivo de configuración para configurar los idiomas de tu aplicación:
+<Step number={2} title="Configurar tu proyecto">
+
+Crea un archivo de configuración para definir los idiomas de tu aplicación:
 
 ```typescript fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -82,7 +160,7 @@ const config: IntlayerConfig = {
       Locales.ENGLISH,
       Locales.FRENCH,
       Locales.SPANISH,
-      // Tus otros locales
+      // Tus otros idiomas
     ],
     defaultLocale: Locales.ENGLISH,
   },
@@ -91,11 +169,13 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> A través de este archivo de configuración, puedes configurar URLs localizadas, redirección mediante middleware, nombres de cookies, la ubicación y extensión de tus declaraciones de contenido, desactivar los registros de Intlayer en la consola y más. Para una lista completa de los parámetros disponibles, consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
+> A través de este archivo de configuración, puedes configurar URLs localizadas, redirecciones de middleware, nombres de cookies, ubicación y extensiones de las declaraciones de contenido, desactivar los logs de Intlayer en la consola, y más. Para una lista completa de los parámetros disponibles, consulta la [documentación de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
 
-### Paso 3: Integra Intlayer en tu configuración de Astro
+</Step>
 
-Agrega el plugin intlayer en tu configuración.
+<Step number={3} title="Integrar Intlayer en tu configuración de Astro">
+
+Añade el plugin `intlayer` a tu configuración de Astro.
 
 ```typescript fileName="astro.config.ts"
 // @ts-check
@@ -109,11 +189,13 @@ export default defineConfig({
 });
 ```
 
-> El plugin de integración `intlayer()` para Astro se utiliza para integrar Intlayer con Astro. Asegura la construcción de archivos de declaración de contenido y los supervisa en modo de desarrollo. Define variables de entorno de Intlayer dentro de la aplicación Astro. Además, proporciona alias para optimizar el rendimiento.
+> El plugin de integración `intlayer()` se utiliza para integrar Intlayer con Astro. Asegura la generación de los archivos de declaración de contenido y los vigila en modo desarrollo. Define las variables de entorno de Intlayer dentro de la aplicación Astro y proporciona alias para optimizar el rendimiento.
 
-### Paso 4: Declara tu contenido
+</Step>
 
-Crea y administra tus declaraciones de contenido para almacenar traducciones:
+<Step number={4} title="Declarar tu contenido">
+
+Crea y gestiona tus declaraciones de contenido para almacenar traducciones:
 
 ```tsx fileName="src/app.content.tsx"
 import { t, type Dictionary } from "intlayer";
@@ -133,38 +215,90 @@ const appContent = {
 export default appContent;
 ```
 
-> Tus declaraciones de contenido pueden definirse en cualquier parte de tu aplicación siempre que se incluyan en el directorio `contentDir` (por defecto, `./src`). Y coincidan con la extensión de archivo de declaración de contenido (por defecto, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> Las declaraciones de contenido pueden definirse en cualquier lugar de tu aplicación, siempre que estén incluidas en el `contentDir` (por defecto `./src`) y coincidan con la extensión de los archivos de declaración de contenido (por defecto `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
-> Para más detalles, consulta la [documentación de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/get_started.md).
+> Para más información, consulta la [documentación de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md).
 
-### Paso 5: Usa tu contenido en Astro
+</Step>
 
-Puedes consumir diccionarios directamente en archivos `.astro` usando los helpers principales exportados por `intlayer`.
+<Step number={5} title="Usar el contenido en Astro">
+
+Puedes consumir los diccionarios directamente en tus archivos `.astro` utilizando los helpers core exportados por `intlayer`.
 
 ```astro fileName="src/pages/index.astro"
-<!-- astro -->
 ---
-import { getIntlayer } from "intlayer";
-import appContent from "../app.content";
+import {
+  getIntlayer,
+  getLocaleFromPath,
+  getLocalizedUrl,
+  defaultLocale,
+  localeMap,
+  getHTMLTextDir,
+  type LocalesValues,
+} from "intlayer";
+import LocaleSwitcher from "../components/LocaleSwitcher.astro";
 
-const { title } = getIntlayer('app');
+// Get the current locale from the URL (e.g. /es/about -> 'es')
+const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+
+// Get the content for the 'app' dictionary
+const { title } = getIntlayer("app", locale);
 ---
 
-<html lang="en">
+<!doctype html>
+<html lang={locale} dir={getHTMLTextDir(locale)}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+
+    <!-- Canonical link: Tells search engines which is the primary version of this page -->
+    <link
+      rel="canonical"
+      href={new URL(getLocalizedUrl(Astro.url.pathname, locale), Astro.site)}
+    />
+
+    <!-- Hreflang: Tell Google about all localized versions -->
+    {
+      localeMap(({ locale: mapLocale }) => (
+        <link
+          rel="alternate"
+          hreflang={mapLocale}
+          href={new URL(
+            getLocalizedUrl(Astro.url.pathname, mapLocale),
+            Astro.site
+          )}
+        />
+      ))
+    }
+
+    <!-- x-default: Fallback for users in unmatched languages -->
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={new URL(
+        getLocalizedUrl(Astro.url.pathname, defaultLocale),
+        Astro.site
+      )}
+    />
   </head>
   <body>
-    <h1>{title}</h1>
+    <header>
+      <LocaleSwitcher />
+    </header>
+    <main>
+      <h1>{title}</h1>
+    </main>
   </body>
 </html>
 ```
 
-### Paso 6: Enrutamiento localizado
+</Step>
 
-Crea un segmento de ruta dinámica para servir páginas localizadas, por ejemplo `src/pages/[locale]/index.astro`:
+<Step number={6} title="Enrutamiento localizado">
+
+Crea segmentos de ruta dinámicos para servir páginas localizadas (ej: `src/pages/[locale]/index.astro`):
 
 ```astro fileName="src/pages/[locale]/index.astro"
 <!-- astro -->
@@ -177,68 +311,171 @@ const { title } = getIntlayer('app');
 <h1>{title}</h1>
 ```
 
-La integración de Astro añade un middleware de Vite durante el desarrollo que ayuda con el enrutamiento consciente del locale y las definiciones de entorno. Aún puedes enlazar entre locales usando tu propia lógica o funciones utilitarias como `getLocalizedUrl` de `intlayer`.
+La integración de Astro añade un middleware de Vite que ayuda con el enrutamiento sensible al idioma y las definiciones de entorno durante el desarrollo. También puedes crear enlaces entre idiomas utilizando tu propia lógica o herramientas de `intlayer` como `getLocalizedUrl`.
 
-### Paso 7: Continúa usando tu framework favorito
+</Step>
 
-Continúa usando tu framework favorito para construir tu aplicación.
+<Step number={7} title="Continúa usando tus frameworks favoritos">
+
+Sigue construyendo tu aplicación con el framework que prefieras.
 
 - Intlayer + React: [Intlayer con React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+react.md)
 - Intlayer + Vue: [Intlayer con Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+vue.md)
 - Intlayer + Svelte: [Intlayer con Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+svelte.md)
 - Intlayer + Solid: [Intlayer con Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+solid.md)
 - Intlayer + Preact: [Intlayer con Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_vite+preact.md)
+  </Step>
 
-### Configurar TypeScript
+<Step number={15} title="Extraer el contenido de tus componentes" isOptional={true}>
 
-Intlayer utiliza la ampliación de módulos para aprovechar los beneficios de TypeScript y fortalecer tu base de código.
+Si tienes una base de código existente, transformar miles de archivos puede llevar mucho tiempo.
 
-![texto alternativo](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+Para facilitar este proceso, Intlayer propone un [compilador](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/compiler.md) / [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/extract.md) para transformar tus componentes y extraer el contenido.
 
-![texto alternativo](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+Para configurarlo, puedes agregar una sección `compiler` en tu archivo `intlayer.config.ts` :
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... Resto de tu configuración
+  compiler: {
+    /**
+     * Indica si el compilador debe estar habilitado.
+     */
+    enabled: true,
+
+    /**
+     * Define la ruta de los archivos de salida
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Indica si los componentes deben guardarse después de ser transformados. De esa manera, el compilador se puede ejecutar solo una vez para transformar la aplicación y luego se puede eliminar.
+     */
+    saveComponents: false,
+
+    /**
+     * Prefijo de clave de diccionario
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='Comando de extracción'>
+
+Ejecuta el extractor para transformar tus componentes y extraer el contenido
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Compilador Babel'>
+
+Actualiza tu archivo `vite.config.ts` para incluir el plugin `intlayerCompiler` :
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // Agrega el plugin del compilador
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # O npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # O pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # O yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
+
+---
+
+</Step>
+
+</Steps>
+
+### Configuración de TypeScript
+
+Intlayer utiliza el aumento de módulos (module augmentation) para aprovechar TypeScript, haciendo que tu código sea más robusto.
+
+![Autocompletado](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Error de traducción](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
 Asegúrate de que tu configuración de TypeScript incluya los tipos autogenerados.
 
 ```json5 fileName="tsconfig.json"
 {
-  // ... Tus configuraciones existentes de TypeScript
+  // ... tu configuración de TypeScript existente
   "include": [
-    // ... Tus configuraciones existentes de TypeScript
-    ".intlayer/**/*.ts", // Incluir los tipos autogenerados
+    // ... tu configuración de TypeScript existente
+    ".intlayer/**/*.ts", // Incluir tipos autogenerados
   ],
 }
 ```
 
 ### Configuración de Git
 
-Se recomienda ignorar los archivos generados por Intlayer. Esto te permite evitar comprometerlos en tu repositorio Git.
+Se recomienda ignorar los archivos generados por Intlayer. Esto evita incluirlos en tu repositorio de Git.
 
-Para hacer esto, puedes agregar las siguientes instrucciones a tu archivo `.gitignore`:
+Para hacerlo, añade las siguientes instrucciones a tu archivo `.gitignore`:
 
-```plaintext
-# Ignorar los archivos generados por Intlayer
+```bash
+# Ignorar archivos generados por Intlayer
 .intlayer
 ```
 
 ### Extensión de VS Code
 
-Para mejorar tu experiencia de desarrollo con Intlayer, puedes instalar la **Extensión oficial de Intlayer para VS Code**.
+Para mejorar tu experiencia de desarrollo con Intlayer, puedes instalar la **extensión oficial de Intlayer para VS Code**.
 
-[Instalar desde el Marketplace de VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+[Instalar desde el VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Esta extensión proporciona:
 
 - **Autocompletado** para las claves de traducción.
 - **Detección de errores en tiempo real** para traducciones faltantes.
-- **Vistas previas en línea** del contenido traducido.
+- **Previsualización en línea** del contenido traducido.
 - **Acciones rápidas** para crear y actualizar traducciones fácilmente.
 
-Para más detalles sobre cómo usar la extensión, consulta la [documentación de la Extensión de Intlayer para VS Code](https://intlayer.org/doc/vs-code-extension).
+Para más información sobre el uso de la extensión, consulta la [documentación de la extensión para VS Code](https://intlayer.org/doc/vs-code-extension).
 
 ---
 
-### Ir Más Allá
+### Profundiza más
 
-Para ir más allá, puedes implementar el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o externalizar tu contenido usando el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).
-
----
+Si quieres saber más, también puedes implementar el [Editor Visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o usar el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md) para externalizar tus contenidos.

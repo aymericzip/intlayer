@@ -18,13 +18,13 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-09-20
-    changes: Add global configuration
+    changes: "Add global configuration"
   - version: 6.0.0
     date: 2025-09-17
-    changes: Add `{{fileName}}` variable
+    changes: "Add `{{fileName}}` variable"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Initialise history
+    changes: "Initialise history"
 ---
 
 # Autofill Content Declaration File Translations
@@ -52,8 +52,20 @@ Here is a [per-locale content declaration file](https://github.com/aymericzip/in
 
 Then, when you run the following command:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
 Intlayer will automatically generate the derived declaration file at `src/components/example/example.content.json`, filling in all locales not already declared in the main file.

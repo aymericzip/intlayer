@@ -1,12 +1,11 @@
-import { relative } from 'node:path';
 import type {
   CustomIntlayerConfig,
   IntlayerConfig,
   LogFunctions,
-} from '@intlayer/types';
+} from '@intlayer/types/config';
 import { defu } from 'defu';
+import type { LoadExternalFileOptions } from '../loadExternalFile/loadExternalFile';
 import type { SandBoxContextOptions } from '../loadExternalFile/parseFileContent';
-import { logger } from '../logger';
 import { cacheMemory } from '../utils/cacheMemory';
 import { getPackageJsonPath } from '../utils/getPackageJsonPath';
 import { buildConfigurationFields } from './buildConfigurationFields';
@@ -25,10 +24,14 @@ export type GetConfigurationOptions = {
   require?: NodeJS.Require;
   // cache
   cache?: boolean;
+  // Build options for TypeScript transpilation (e.g. custom esbuild instance)
+  buildOptions?: LoadExternalFileOptions['buildOptions'];
 } & Omit<SandBoxContextOptions, 'projectRequire'>;
 
 export type GetConfigurationAndFilePathResult = {
   configuration: IntlayerConfig;
+  customConfiguration: CustomIntlayerConfig | undefined;
+  numCustomConfiguration: number;
   configurationFilePath: string | undefined;
 };
 
@@ -51,6 +54,8 @@ export const getConfigurationAndFilePath = (
         options?.baseDir,
         options?.logFunctions
       ),
+      customConfiguration: undefined,
+      numCustomConfiguration: 0,
       configurationFilePath: undefined,
     };
   }
@@ -64,26 +69,24 @@ export const getConfigurationAndFilePath = (
   const { configurationFilePath, numCustomConfiguration } =
     searchConfigurationFile(baseDir);
 
-  if (options?.override?.log?.mode === 'verbose') {
-    logConfigFileResult(baseDir, numCustomConfiguration, configurationFilePath);
-  }
-
   let storedConfiguration: IntlayerConfig;
+  let customConfiguration: CustomIntlayerConfig | undefined;
 
   if (configurationFilePath) {
     // Load the custom configuration
-    const customConfiguration: CustomIntlayerConfig | undefined =
-      loadConfigurationFile(configurationFilePath, {
-        projectRequire: options?.require,
-        // Dotenv options
-        envVarOptions: {
-          env: options?.env,
-          envFile: options?.envFile,
-        },
-        // Sandbox context additional variables
-        additionalEnvVars: options?.additionalEnvVars,
-        aliases: options?.aliases,
-      });
+    customConfiguration = loadConfigurationFile(configurationFilePath, {
+      projectRequire: options?.require,
+      // Dotenv options
+      envVarOptions: {
+        env: options?.env,
+        envFile: options?.envFile,
+      },
+      // Sandbox context additional variables
+      additionalEnvVars: options?.additionalEnvVars,
+      aliases: options?.aliases,
+      // Build options for TypeScript transpilation (e.g. custom esbuild instance)
+      buildOptions: options?.buildOptions,
+    });
 
     // Save the configuration to avoid reading the file again
     storedConfiguration = buildConfigurationFields(
@@ -101,7 +104,6 @@ export const getConfigurationAndFilePath = (
   }
 
   // Log warning if multiple configuration files are found
-
   const projectRequireConfig: CustomIntlayerConfig = options?.require
     ? {
         build: {
@@ -123,11 +125,15 @@ export const getConfigurationAndFilePath = (
 
   cacheMemory.set(options, {
     configuration,
+    customConfiguration,
+    numCustomConfiguration,
     configurationFilePath,
   });
 
   return {
     configuration,
+    customConfiguration,
+    numCustomConfiguration,
     configurationFilePath,
   };
 };
@@ -138,30 +144,3 @@ export const getConfigurationAndFilePath = (
 export const getConfiguration = (
   options?: GetConfigurationOptions
 ): IntlayerConfig => getConfigurationAndFilePath(options).configuration;
-
-const logConfigFileResult = (
-  baseDir: string,
-  numCustomConfiguration?: number,
-  configurationFilePath?: string
-) => {
-  if (numCustomConfiguration === 0) {
-    logger('Configuration file not found, using default configuration.', {
-      isVerbose: true,
-    });
-  } else {
-    const relativeOutputPath = relative(baseDir, configurationFilePath!);
-
-    if (numCustomConfiguration === 1) {
-      logger(`Configuration file found: ${relativeOutputPath}.`, {
-        isVerbose: true,
-      });
-    } else {
-      logger(
-        `Multiple configuration files found, using ${relativeOutputPath}.`,
-        {
-          isVerbose: true,
-        }
-      );
-    }
-  }
-};

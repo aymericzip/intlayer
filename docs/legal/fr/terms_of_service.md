@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
-title: Conditions d'utilisation d'Intlayer
+title: Conditions de Service d'Intlayer
 description: Découvrez comment Intlayer gère les informations collectées via notre site web et CMS. Suivez la documentation pour comprendre les différents formats et cas d'utilisation.
 keywords:
   - Internationalisation
@@ -20,7 +20,7 @@ slugs:
   - terms-of-service
 ---
 
-# Conditions d'utilisation d'Intlayer
+# Conditions d'Utilisation d'Intlayer
 
 ## 1. Acceptation des conditions
 

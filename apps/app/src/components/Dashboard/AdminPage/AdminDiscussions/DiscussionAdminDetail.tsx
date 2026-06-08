@@ -1,0 +1,62 @@
+import { useGetDiscussions } from '@intlayer/design-system/api';
+import type { FC } from 'react';
+import { useEffect } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { MessagesList } from '#components/ChatBot/MessagesList';
+
+type DiscussionAdminDetailProps = {
+  discussionId?: string;
+};
+
+export const DiscussionAdminDetail: FC<DiscussionAdminDetailProps> = ({
+  discussionId,
+}) => {
+  const { noDiscussionFound } = useIntlayer('discussion-admin-detail');
+
+  const { data, isPending, refetch } = useGetDiscussions(
+    {
+      ids: discussionId ? [discussionId] : undefined,
+      fetchAll: 'true',
+      pageSize: '1',
+      includeMessages: 'true',
+    },
+    {
+      enabled: !!discussionId,
+    }
+  );
+
+  useEffect(() => {
+    if (discussionId) {
+      void refetch();
+    }
+  }, [discussionId, refetch]);
+
+  const discussion = (data as any)?.data?.[0];
+  const msgs = (discussion?.messages ?? []) as Array<{
+    role: 'user' | 'assistant' | 'system';
+    content: string;
+    timestamp?: string | Date;
+  }>;
+  const messages = msgs.map((messages) => ({
+    role: messages.role,
+    content: messages.content,
+    timestamp: messages.timestamp
+      ? new Date(messages.timestamp as any)
+      : undefined,
+  }));
+
+  return (
+    <div className="flex h-[700px] w-full flex-col">
+      {messages.length === 0 && !isPending ? (
+        <div className="p-6 text-neutral-500 dark:text-neutral-400">
+          {noDiscussionFound}
+        </div>
+      ) : (
+        <MessagesList
+          storedPrompt={messages}
+          isLoading={isPending || discussion?.id !== discussionId}
+        />
+      )}
+    </div>
+  );
+};

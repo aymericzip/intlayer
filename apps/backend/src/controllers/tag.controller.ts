@@ -1,5 +1,4 @@
 import { logger } from '@logger';
-import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import * as tagService from '@services/tag.service';
 import { type AppError, ErrorHandler } from '@utils/errors';
 import type { FiltersAndPagination } from '@utils/filtersAndPagination/getFiltersAndPaginationFromBody';
@@ -15,8 +14,8 @@ import {
   type PaginatedResponse,
   type ResponseData,
 } from '@utils/responseData';
-import type { NextFunction, Request } from 'express';
-import { t } from 'express-intlayer';
+import type { FastifyReply, FastifyRequest } from 'fastify';
+import { t } from 'fastify-intlayer';
 import type {
   Tag,
   TagAPI,
@@ -32,22 +31,22 @@ export type GetTagsResult = PaginatedResponse<TagAPI>;
  * Retrieves a list of tags based on filters and pagination.
  */
 export const getTags = async (
-  req: Request<GetTagsParams>,
-  res: ResponseWithSession<GetTagsResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Querystring: GetTagsParams }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { user, organization, roles } = res.locals;
+  const { user, organization, roles } = request.session || {};
   const { filters, sortOptions, pageSize, skip, page, getNumberOfPages } =
-    getTagFiltersAndPagination(req, res);
+    getTagFiltersAndPagination(request);
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
   }
 
   try {
@@ -60,15 +59,17 @@ export const getTags = async (
 
     if (
       !hasPermission(
-        roles,
+        roles || [],
         'tag:read'
       )({
-        ...res.locals,
+        ...request.session,
         targetTags: tags,
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
     }
 
     const totalItems = await tagService.countTags(filters);
@@ -83,11 +84,9 @@ export const getTags = async (
       totalItems,
     });
 
-    res.json(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -98,30 +97,35 @@ export type AddTagResult = ResponseData<TagAPI>;
  * Adds a new tag to the database.
  */
 export const addTag = async (
-  req: Request<any, any, AddTagBody>,
-  res: ResponseWithSession<AddTagResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: AddTagBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { organization, project, user, roles } = res.locals;
-  const tagData = req.body;
+  const { organization, project, user, roles } = request.session || {};
+  const tagData = request.body;
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
   }
 
   if (!project) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_DEFINED'
+    );
   }
 
   if (!tagData) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECT_DATA_NOT_FOUND');
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_DATA_NOT_FOUND'
+    );
   }
 
   const tag: TagData = {
@@ -133,15 +137,14 @@ export const addTag = async (
 
   if (
     !hasPermission(
-      roles,
+      roles || [],
       'tag:admin'
     )({
-      ...res.locals,
+      ...request.session,
       targetTags: [tag as Tag],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   try {
@@ -152,22 +155,50 @@ export const addTag = async (
     const responseData = formatResponse<TagAPI>({
       message: t({
         en: 'Tag created successfully',
+        'en-GB': 'Tag created successfully',
         fr: 'Tag créé avec succès',
         es: 'Tag creado con éxito',
+        ru: 'Тег успешно создан',
+        ja: 'タグが正常に作成されました',
+        ko: '태그가 성공적으로 생성되었습니다',
+        zh: '标签已成功创建',
+        de: 'Tag erfolgreich erstellt',
+        ar: 'تم إنشاء العلامة بنجاح',
+        it: 'Tag creato con successo',
+        pt: 'Tag criada com sucesso',
+        hi: 'टैग सफलतापूर्वक बनाया गया',
+        tr: 'Etiket başarıyla oluşturuldu',
+        pl: 'Tag został pomyślnie utworzony',
+        id: 'Tag berhasil dibuat',
+        vi: 'Thẻ đã được tạo thành công',
+        uk: 'Тег успішно створено',
       }),
       description: t({
         en: 'Your tag has been created successfully',
+        'en-GB': 'Your tag has been created successfully',
         fr: 'Votre tag a été créé avec succès',
         es: 'Su tag ha sido creado con éxito',
+        ru: 'Ваш тег был успешно создан',
+        ja: 'タグは正常に作成されました',
+        ko: '태그가 성공적으로 생성되었습니다',
+        zh: '您的标签已成功创建',
+        de: 'Ihr Tag wurde erfolgreich erstellt',
+        ar: 'لقد تم إنشاء علامتك بنجاح',
+        it: 'Il tuo tag è stato creato con successo',
+        pt: 'Sua tag foi criada com sucesso',
+        hi: 'आपका टैग सफलतापूर्वक बना लिया गया है',
+        tr: 'Etiketiniz başarıyla oluşturuldu',
+        pl: 'Twój tag został pomyślnie utworzony',
+        id: 'Tag Anda telah berhasil dibuat',
+        vi: 'Thẻ của bạn đã được tạo thành công',
+        uk: 'Ваш тег успішно створено',
       }),
       data: formattedTag,
     });
 
-    res.json(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -179,50 +210,54 @@ export type UpdateTagResult = ResponseData<TagAPI>;
  * Updates an existing tag in the database.
  */
 export const updateTag = async (
-  req: Request<UpdateTagParams, any, UpdateTagBody>,
-  res: ResponseWithSession<UpdateTagResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Params: UpdateTagParams; Body: UpdateTagBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { tagId } = req.params;
-  const { organization, user, roles } = res.locals;
+  const { tagId } = request.params;
+  const { organization, user, roles } = request.session || {};
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
   }
 
   try {
     const tag = {
       _id: tagId,
-      name: req.body.name,
-      key: req.body.key,
-      description: req.body.description,
-      instructions: req.body.instructions,
+      name: request.body.name,
+      key: request.body.key,
+      description: request.body.description,
+      instructions: request.body.instructions,
     } as Partial<TagSchema> & { _id: Tag['id'] };
 
     const tagToDelete = await tagService.getTagById(tagId);
 
     if (
       !hasPermission(
-        roles,
+        roles || [],
         'tag:write'
       )({
-        ...res.locals,
+        ...request.session,
         targetTags: [tagToDelete],
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
     }
 
     if (String(tagToDelete.organizationId) !== String(organization.id)) {
-      ErrorHandler.handleGenericErrorResponse(res, 'TAG_NOT_IN_ORGANIZATION');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'TAG_NOT_IN_ORGANIZATION'
+      );
     }
 
     const updatedTag = await tagService.updateTagById(tag._id, tag);
@@ -232,22 +267,50 @@ export const updateTag = async (
     const responseData = formatResponse<TagAPI>({
       message: t({
         en: 'Tag updated successfully',
+        'en-GB': 'Tag updated successfully',
         fr: 'Tag mis à jour avec succès',
         es: 'Tag actualizado con éxito',
+        ru: 'Тег успешно обновлен',
+        ja: 'タグが正常に更新されました',
+        ko: '태그가 성공적으로 업데이트되었습니다',
+        zh: '标签已成功更新',
+        de: 'Tag erfolgreich aktualisiert',
+        ar: 'تم تحديث العلامة بنجاح',
+        it: 'Tag aggiornato con successo',
+        pt: 'Tag atualizada com sucesso',
+        hi: 'टैग सफलतापूर्वक अपडेट किया गया',
+        tr: 'Etiket başarıyla güncellendi',
+        pl: 'Tag został pomyślnie zaktualizowany',
+        id: 'Tag berhasil diperbarui',
+        vi: 'Thẻ đã được cập nhật thành công',
+        uk: 'Тег успішно оновлено',
       }),
       description: t({
         en: 'Your tag has been updated successfully',
+        'en-GB': 'Your tag has been updated successfully',
         fr: 'Votre tag a été mis à jour avec succès',
         es: 'Su tag ha sido actualizado con éxito',
+        ru: 'Ваш тег был успешно обновлен',
+        ja: 'タグは正常に更新されました',
+        ko: '태그가 성공적으로 업데이트되었습니다',
+        zh: '您的标签已成功更新',
+        de: 'Ihr Tag wurde erfolgreich aktualisiert',
+        ar: 'لقد تم تحديث علامتك بنجاح',
+        it: 'Il tuo tag è stato aggiornato con successo',
+        pt: 'Sua tag foi atualizada com sucesso',
+        hi: 'आपका टैग सफलतापूर्वक अपडेट कर दिया गया है',
+        tr: 'Etiketiniz başarıyla güncellendi',
+        pl: 'Twój tag został pomyślnie zaktualizowany',
+        id: 'Tag Anda telah berhasil diperbarui',
+        vi: 'Thẻ của bạn đã được cập nhật thành công',
+        uk: 'Ваш тег успішно оновлено',
       }),
       data: formattedTag,
     });
 
-    res.json(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -256,31 +319,27 @@ export type DeleteTagResult = ResponseData<TagAPI>;
 
 /**
  * Deletes a tag from the database by its ID.
- * @param req - Express request object.
- * @param  res - Express response object.
- * @returns Response confirming the deletion.
  */
 export const deleteTag = async (
-  req: Request<DeleteTagParams>,
-  res: ResponseWithSession<DeleteTagResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Params: DeleteTagParams }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { user, organization, roles } = res.locals;
-  const { tagId } = req.params;
+  const { user, organization, roles } = request.session || {};
+  const { tagId } = request.params;
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
   }
 
   if (!tagId) {
-    ErrorHandler.handleGenericErrorResponse(res, 'TAG_ID_NOT_FOUND');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'TAG_ID_NOT_FOUND');
   }
 
   try {
@@ -288,30 +347,32 @@ export const deleteTag = async (
 
     if (
       !hasPermission(
-        roles,
+        roles || [],
         'tag:admin'
       )({
-        ...res.locals,
+        ...request.session,
         targetTags: [tagToDelete],
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
     }
 
     if (String(tagToDelete.organizationId) !== String(organization.id)) {
-      ErrorHandler.handleGenericErrorResponse(res, 'TAG_NOT_IN_ORGANIZATION');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'TAG_NOT_IN_ORGANIZATION'
+      );
     }
 
     const deletedTag = await tagService.deleteTagById(tagId);
 
     if (!deletedTag) {
-      ErrorHandler.handleGenericErrorResponse(res, 'TAG_NOT_FOUND', {
+      return ErrorHandler.handleGenericErrorResponse(reply, 'TAG_NOT_FOUND', {
         tagId,
       });
-
-      return;
     }
 
     logger.info(`Tag deleted: ${String(deletedTag.id)}`);
@@ -321,21 +382,49 @@ export const deleteTag = async (
     const responseData = formatResponse<TagAPI>({
       message: t({
         en: 'Tag deleted successfully',
+        'en-GB': 'Tag deleted successfully',
         fr: 'Tag supprimé avec succès',
         es: 'Tag eliminado con éxito',
+        ru: 'Тег успешно удален',
+        ja: 'タグが正常に削除されました',
+        ko: '태그가 성공적으로 삭제되었습니다',
+        zh: '标签已成功删除',
+        de: 'Tag erfolgreich gelöscht',
+        ar: 'تم حذف العلامة بنجاح',
+        it: 'Tag eliminato con successo',
+        pt: 'Tag excluída com sucesso',
+        hi: 'टैग सफलतापूर्वक हटा दिया गया',
+        tr: 'Etiket başarıyla silindi',
+        pl: 'Tag został pomyślnie usunięty',
+        id: 'Tag berhasil dihapus',
+        vi: 'Thẻ đã được xóa thành công',
+        uk: 'Тег успішно видалено',
       }),
       description: t({
         en: 'Your tag has been deleted successfully',
+        'en-GB': 'Your tag has been deleted successfully',
         fr: 'Votre tag a été supprimé avec succès',
         es: 'Su tag ha sido eliminado con éxito',
+        ru: 'Ваш тег был успешно удален',
+        ja: 'タグは正常に削除されました',
+        ko: '태그가 성공적으로 삭제되었습니다',
+        zh: '您的标签已成功删除',
+        de: 'Ihr Tag wurde erfolgreich gelöscht',
+        ar: 'لقد تم حذف علامتك بنجاح',
+        it: 'Il tuo tag è stato eliminato con successo',
+        pt: 'Sua tag foi excluída com sucesso',
+        hi: 'आपका टैग सफलतापूर्वक हटा दिया गया है',
+        tr: 'Etiketiniz başarıyla silindi',
+        pl: 'Twój tag został pomyślnie usunięty',
+        id: 'Tag Anda telah berhasil dihapus',
+        vi: 'Thẻ của bạn đã được xóa thành công',
+        uk: 'Ваш тег успішно видалено',
       }),
       data: formattedTag,
     });
 
-    res.json(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };

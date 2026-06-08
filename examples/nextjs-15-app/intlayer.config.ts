@@ -1,16 +1,28 @@
 import { type IntlayerConfig, Locales } from 'intlayer';
+import { nextjsRewrite } from 'intlayer/routing';
 
 export const locales = [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH];
 
-/** @type {import('intlayer').IntlayerConfig} */
 const config: IntlayerConfig = {
   internationalization: {
     locales,
     defaultLocale: Locales.ENGLISH,
     strictMode: 'strict',
   },
+  routing: {
+    mode: 'prefix-all',
+    rewrite: nextjsRewrite({
+      '/[locale]/tests': {
+        fr: '/[locale]/essais',
+        es: '/[locale]/pruebas',
+      },
+    }),
+  },
   content: {
     // contentDir: ['./', '../../apps'],
+  },
+  dictionary: {
+    contentAutoTransformation: true,
   },
   editor: {
     liveSync: false,
@@ -19,9 +31,9 @@ const config: IntlayerConfig = {
   ai: {
     apiKey: process.env.OPENAI_API_KEY,
   },
-  build: {
-    optimize: true,
-    importMode: 'live',
+
+  compiler: {
+    output: ({ fileName }) => `./${fileName}.content.ts`,
   },
 };
 

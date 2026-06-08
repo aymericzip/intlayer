@@ -1,17 +1,20 @@
 'use client';
 
-import configuration from '@intlayer/config/built';
-import type { DeclaredLocales, LocalesValues } from '@intlayer/types';
+import { internationalization } from '@intlayer/config/built';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import { useCallback, useContext } from 'react';
 import { IntlayerClientContext } from './IntlayerProvider';
 import { setLocaleInStorage } from './useLocaleStorage';
 
-type UseLocaleProps = {
+export type UseLocaleProps = {
   isCookieEnabled?: boolean;
-  onLocaleChange?: (locale: LocalesValues) => void;
+  onLocaleChange?: (locale: DeclaredLocales) => void;
 };
 
-type UseLocaleResult = {
+export type UseLocaleResult = {
   locale: DeclaredLocales;
   defaultLocale: DeclaredLocales;
   availableLocales: DeclaredLocales[];
@@ -19,20 +22,40 @@ type UseLocaleResult = {
 };
 
 /**
- * On the client side, hook to get the current locale and all related fields
+ * Client-side hook to get the current locale and related locale management functions.
+ *
+ * @param props - Optional properties for the hook.
+ * @returns An object containing the current locale, default locale, available locales, and a function to update the locale.
+ *
+ * @example
+ * ```tsx
+ * import { useLocale } from 'react-intlayer';
+ *
+ * const LocaleSwitcher = () => {
+ *   const { locale, setLocale, availableLocales } = useLocale();
+ *
+ *   return (
+ *     <select value={locale} onChange={(e) => setLocale(e.target.value)}>
+ *       {availableLocales.map((loc) => (
+ *         <option key={loc} value={loc}>{loc}</option>
+ *       ))}
+ *     </select>
+ *   );
+ * };
+ * ```
  */
 export const useLocale = ({
   isCookieEnabled,
   onLocaleChange,
 }: UseLocaleProps = {}): UseLocaleResult => {
   const { defaultLocale, locales: availableLocales } =
-    configuration?.internationalization ?? {};
+    internationalization ?? {};
 
   const {
     locale,
     setLocale: setLocaleState,
     isCookieEnabled: isCookieEnabledContext,
-  } = useContext(IntlayerClientContext);
+  } = useContext(IntlayerClientContext) ?? {};
 
   const setLocale = useCallback(
     (locale: LocalesValues) => {
@@ -46,9 +69,9 @@ export const useLocale = ({
         locale,
         isCookieEnabled ?? isCookieEnabledContext ?? true
       );
-      onLocaleChange?.(locale);
+      onLocaleChange?.(locale as DeclaredLocales);
     },
-    [availableLocales, onLocaleChange, setLocaleState]
+    [availableLocales, onLocaleChange, setLocaleState, isCookieEnabled]
   );
 
   return {

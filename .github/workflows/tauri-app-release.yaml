@@ -1,0 +1,60 @@
+name: 💻 Tauri Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-publish:
+    strategy:
+      matrix:
+        platform: [macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install libvips (macOS)
+        if: matrix.platform == 'macos-latest'
+        run: brew install vips
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Build packages
+        run: bun run build:ci
+
+      - name: Get app version
+        id: get_version
+        shell: bash
+        run: |
+          VERSION=$(bun -e "console.log(JSON.parse(require('fs').readFileSync('apps/app/package.json', 'utf-8')).version)")
+          echo "version=v$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Build Vite app
+        working-directory: apps/app
+        run: bun --bun vite build --config tory.vite.config.ts
+
+      - name: Build and publish Tauri app
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          projectPath: apps/app
+          tauriScript: bunx tauri
+          tagName: ${{ steps.get_version.outputs.version }}
+          releaseName: '${{ steps.get_version.outputs.version }}'
+          releaseBody: 'See the assets to download this version and install.'
+          releaseDraft: false
+          prerelease: false

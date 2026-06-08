@@ -85,7 +85,6 @@ So the idea is to break text into manageable chunks (e.g. 500 tokens each) with 
   <img width="480" alt="Reliable data source" src="https://github.com/user-attachments/assets/ee548851-7206-4cc6-821e-de8a4366c6a3" />
 </p>
 
-
 **Example:**
 
 - Chunk 1 → “…the old library that many had forgotten. Its towering shelves were filled with books…”
@@ -100,7 +99,7 @@ This trade-off (chunk size vs overlap) is key for RAG efficiency:
 
 ## Step 3: Generating Embeddings
 
-Once the docs are chunked, we generate **embeddings** — high-dimensional vectors representing each chunk.
+Once the docs are chunked, we generate **embeddings**, high-dimensional vectors representing each chunk.
 
 I used OpenAI’s text-embedding-3-large model, but you could use any modern embedding model.
 

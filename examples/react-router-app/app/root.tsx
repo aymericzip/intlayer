@@ -1,12 +1,15 @@
+import { getLocaleFromPath } from 'intlayer';
+import { IntlayerProvider } from 'react-intlayer';
 import {
+  data,
   isRouteErrorResponse,
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from 'react-router';
-
 import type { Route } from './+types/root';
 
 import './app.css';
@@ -57,9 +60,24 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   );
 }
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export async function loader({ request }: Route.LoaderArgs) {
+  const locale = getLocaleFromPath(request.url);
+
+  if (!locale) {
+    throw data('Language not supported', { status: 404 });
+  }
+
+  return { locale };
+}
+
+export function Layout({
+  children,
+}: { children: React.ReactNode } & Route.ComponentProps) {
+  const data = useLoaderData<typeof loader>();
+  const { locale } = data ?? {};
+
   return (
-    <html>
+    <html lang={locale}>
       <head>
         <meta charSet="utf-8" />
         <meta content="width=device-width, initial-scale=1" name="viewport" />
@@ -67,7 +85,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

@@ -2,7 +2,7 @@
 
 /**
  * This script watches for changes in JavaScript, TypeScript, and related files
- * (such as .jsx, .tsx) in the current directory and its subdirectories.
+ * (such as .jsx, .tsx) in the current directory and its subdirectaries.
  * When a file is changed or added, it triggers a specified npm command (default is 'build')
  * in each relevant package based on the file path.
  *
@@ -10,20 +10,31 @@
  * listed in the `packageBuildOrder`, a predefined array of package paths.
  * The script continues to run even if one of the commands fails, and logs all activity.
  *
- * It uses `chokidar` for file system watching, `spawnSync` for executing npm commands,
- * and `minimist` for parsing command-line arguments.
+ * It uses `@parcel/watcher` for native file system watching and `minimist` for parsing
+ * command-line arguments.
  *
  * @module FileWatcher
  */
 
 import { spawnSync } from 'node:child_process';
-import chokidar from 'chokidar';
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
+import process from 'node:process';
 import minimist from 'minimist';
-import process from 'process';
 import { packageBuildOrder } from './package-build-order.mjs';
 
 const args = minimist(process.argv.slice(2));
 const chosenCommand = args.command ?? 'build';
+
+// Absolute monorepo root — needed to resolve relative packageBuildOrder entries
+// so that startsWith comparisons work against absolute event.path values from
+// @parcel/watcher (which always emits absolute paths).
+const ROOT_DIR = process.cwd().replace(/\\/g, '/');
+
+// Pre-resolve every package path once, keeping index parity with packageBuildOrder.
+const absPkgPaths = packageBuildOrder.map((pkg) =>
+  resolve(ROOT_DIR, pkg).replace(/\\/g, '/')
+);
 
 // Queue system for handling multiple changes
 let buildTimeout = null;
@@ -38,10 +49,9 @@ const DEBOUNCE_DELAY = 1000; // 1 second delay
 const normalizePath = (filePath) => filePath.replace(/\\/g, '/');
 
 /**
- * Runs the chosen npm command in each relevant package, based on the file path.
+ * Runs the chosen command in each relevant package, based on the changed file paths.
  *
- * @param {string} path - The path to the file that triggered the event (change or add)
- * @throws {Error} Will throw an error if running the npm command fails
+ * @param {Set<string>} paths - The set of changed file paths (absolute)
  */
 const runBuild = (paths) => {
   try {
@@ -49,26 +59,23 @@ const runBuild = (paths) => {
       `\nDetected changes in ${paths.size} files. Running "${chosenCommand}"...\n`
     );
 
-    // Get unique packages that need to be rebuilt
+    // Get unique packages that need to be rebuilt using pre-resolved absolute paths.
     const packagesToRebuild = new Set();
     for (const path of paths) {
       const normalizedPath = normalizePath(path);
-      const filteredPackages = packageBuildOrder.filter((pkg) => {
-        const normalizedPkg = normalizePath(pkg);
-        const pkgPath = normalizedPkg.endsWith('/')
-          ? normalizedPkg
-          : `${normalizedPkg}/`;
-        return normalizedPath.startsWith(pkgPath);
-      });
-      filteredPackages.forEach((pkg) => {
-        packagesToRebuild.add(pkg);
-      });
+      for (let i = 0; i < absPkgPaths.length; i++) {
+        const absPath = absPkgPaths[i];
+        const pkgPath = absPath.endsWith('/') ? absPath : `${absPath}/`;
+        if (normalizedPath.startsWith(pkgPath)) {
+          packagesToRebuild.add(packageBuildOrder[i]);
+        }
+      }
     }
 
     for (const pkg of packagesToRebuild) {
       console.info(`\n--- Running "${chosenCommand}" in ${pkg} ---\n`);
-      const result = spawnSync('npm', ['run', chosenCommand], {
-        cwd: pkg,
+      const result = spawnSync('bun', ['run', chosenCommand], {
+        cwd: resolve(ROOT_DIR, pkg),
         stdio: 'inherit',
         shell: true,
       });
@@ -103,54 +110,95 @@ const queueChange = (path) => {
   }, DEBOUNCE_DELAY);
 };
 
-let watcher;
+const IGNORED_GLOBS = [
+  '**/node_modules/**',
+  '**/dist/**',
+  '**/build/**',
+  '**/.next/**',
+  '**/.svelte-kit/**',
+  '**/.intlayer/**',
+  '**/*.test.*',
+  '**/tsup.config.bundled_*',
+];
+
+const FILE_EXT_RE = /\.(js|cjs|mjs|ts|jsx|tsx|vue|json|svelte)$/;
+
+let subscriptions = [];
+let restartTimeout = null;
 
 /**
- * Starts the file watcher to monitor changes in the relevant files and directories.
- * It listens for changes, additions, or errors, and triggers the build process when
- * necessary. This function also manages restarting the watcher if needed.
+ * Schedules a watcher restart after FSEvents drops events.
+ * Debounced to avoid rapid restart loops.
  */
-const startWatcher = () => {
-  if (watcher) {
+const scheduleRestart = () => {
+  if (restartTimeout) clearTimeout(restartTimeout);
+  restartTimeout = setTimeout(() => {
+    restartTimeout = null;
+    console.info('[INFO] Restarting watcher after FSEvents drop...');
+    startWatcher();
+  }, 2000);
+};
+
+/**
+ * Returns the unique top-level workspace directory segments from packageBuildOrder
+ * (e.g. 'packages', 'apps', 'plugins') so we subscribe to a small number of roots
+ * instead of one subscription per package. Fewer FSEvents streams = no queue overflow.
+ *
+ * @returns {string[]} Existing workspace root directories (relative to CWD)
+ */
+const getWatchRoots = () => {
+  const roots = new Set();
+  for (const pkg of packageBuildOrder) {
+    const segment = normalizePath(pkg).split('/')[0];
+    if (segment) roots.add(segment);
+  }
+  return [...roots].filter(existsSync);
+};
+
+/**
+ * Starts the file watcher to monitor changes in the relevant packages.
+ * Uses @parcel/watcher for native, high-performance file system watching —
+ * one subscription per workspace root directory, filtered by extension in the callback.
+ */
+const startWatcher = async () => {
+  if (subscriptions.length > 0) {
     console.info('[INFO] Restarting watcher...');
-    watcher.close(); // Close existing watcher before starting a new one
+    await Promise.all(subscriptions.map((sub) => sub.unsubscribe()));
+    subscriptions = [];
   }
 
-  watcher = chokidar.watch(
-    '**/*.{js,cjs,mjs,ts,jsx,tsx,vue,json,md,yml,yaml,svelte}',
-    {
-      ignoreInitial: true,
-      ignored: [
-        'examples/**',
-        '**/node_modules/**',
-        '**/dist/**',
-        '**/build/**',
-        '**/.next/**',
-        '**/*.svelte-kit/**',
-        '**/.intlayer/**',
-        '**/tsup.config.bundled_*.mjs',
-        '**/*.test.*',
-      ],
-    }
+  const { subscribe } = await import('@parcel/watcher');
+
+  const watchRoots = getWatchRoots();
+  console.info(
+    `[INFO] Watching ${watchRoots.length} workspace roots (${watchRoots.join(', ')})...`
   );
 
-  watcher.on('change', (path) => {
-    console.info(`[File changed] ${path}`);
-    queueChange(path);
-  });
+  subscriptions = await Promise.all(
+    watchRoots.map((root) =>
+      subscribe(
+        root,
+        (err, events) => {
+          if (err) {
+            console.error('Watcher error:', err);
+            scheduleRestart();
+            return;
+          }
+          for (const event of events) {
+            if (event.type !== 'create' && event.type !== 'update') continue;
+            const p = normalizePath(event.path);
+            if (!FILE_EXT_RE.test(p)) continue;
+            const label = event.type === 'create' ? 'added' : 'changed';
+            console.info(`[File ${label}] ${event.path}`);
+            queueChange(event.path);
+          }
+        },
+        { ignore: IGNORED_GLOBS }
+      )
+    )
+  );
 
-  watcher.on('add', (path) => {
-    console.info(`[File added] ${path}`);
-    queueChange(path);
-  });
-
-  watcher.on('error', (error) => {
-    console.error('Watcher error:', error);
-  });
-
-  watcher.on('ready', () => {
-    console.info('Initial scan complete. Watching for changes...');
-  });
+  console.info('Watching for changes...');
 };
 
 // Start the watcher initially

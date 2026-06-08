@@ -9,9 +9,9 @@ import packageJson from './package.json' with { type: 'json' };
 
 const entry: Record<string, string> = Object.fromEntries(
   fg
-    .sync('src/**/*.{ts,tsx,js,jsx,mjs,mjx,cjs,cjx,vue}', {
+    .sync('src/**/*.{ts,tsx,js,jsx,mjs,cjs,vue}', {
       ignore: [
-        'src/**/*.{stories,test,specs}.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx,vue}',
+        'src/**/*.{stories,test,specs}.{json,ts,tsx,js,jsx,mjs,cjs,vue}',
       ],
     })
     .map((file) => [
@@ -28,8 +28,6 @@ const external: string[] = [
   ...Object.keys(packageJson.dependencies),
   ...Object.keys(packageJson.peerDependencies),
   ...Object.keys(packageJson.devDependencies),
-  '@intlayer/config/built',
-  '@intlayer/config/client',
   'solid-js',
 ];
 
@@ -58,9 +56,9 @@ export default defineConfig({
     dts({
       entryRoot: 'src',
       exclude: ['**/*.stories.*', '**/*.test.*'],
-      outDir: 'dist/types',
+      outDirs: 'dist/types',
       beforeWriteFile: (filePath, content) => ({
-        filePath: filePath.replace(`${packageJson.name}/src/`, ''),
+        filePath: filePath.replace('/dist/types/src/', '/dist/types/'),
         content,
       }),
     }),
@@ -75,10 +73,13 @@ export default defineConfig({
       entry,
       name: 'SolidIntlayer',
     },
-    rollupOptions: {
+    rolldownOptions: {
       // external,
       external: (id) => {
-        return external.includes(id) || /^vue/.test(id);
+        return (
+          external.some((pkg) => id === pkg || id.startsWith(`${pkg}/`)) ||
+          /^vue/.test(id)
+        );
       },
       output: [
         {

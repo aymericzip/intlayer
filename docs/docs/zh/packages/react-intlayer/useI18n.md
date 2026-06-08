@@ -22,7 +22,7 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-06-29
-    changes: `useI18n` 钩子文档的初始编写
+    changes: "`useI18n` 钩子文档的初始编写"
 ---
 
 # React 集成：`useI18n` Hook 文档
@@ -70,13 +70,13 @@ history:
 
 ## 字典
 
-所有字典键必须在内容声明文件中声明，以增强类型安全并防止错误。[配置说明请参见此处](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)。
+所有字典键必须在内容声明文件中声明，以增强类型安全并防止错误。[配置说明请参见此处](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
 
 ## React 中的使用示例
 
 以下是在 React 组件中使用 `useI18n` 钩子的示例：
 
-```tsx fileName="src/App.tsx" codeFormat="typescript"
+```tsx fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { ClientComponentExample, ServerComponentExample } from "@components";
 import { IntlayerProvider } from "react-intlayer";
@@ -100,50 +100,7 @@ const App: FC<{ locale: Locales }> = ({ locale }) => {
 };
 ```
 
-```jsx fileName="src/app.jsx" codeFormat="esm"
-import { ClientComponentExample, ServerComponentExample } from "@components";
-import { IntlayerProvider } from "react-intlayer";
-import { IntlayerServerProvider, useI18n } from "react-intlayer/server";
-
-const App = ({ locale }) => {
-  const t = useI18n("home-page", locale);
-
-  return (
-    <>
-      <p>{t("introduction")}</p>
-      <IntlayerProvider locale={locale}>
-        <ClientComponentExample />
-      </IntlayerProvider>
-      <IntlayerServerProvider locale={locale}>
-        <ServerComponentExample />
-      </IntlayerServerProvider>
-    </>
-  );
-};
-```
-
-```jsx fileName="src/app.cjs" codeFormat="commonjs"
-const { IntlayerProvider } = require("react-intlayer");
-const { IntlayerServerProvider, useI18n } = require("react-intlayer/server");
-
-const App = ({ locale }) => {
-  const t = useI18n("home-page", locale);
-
-  return (
-    <>
-      <p>{t("introduction")}</p>
-      <IntlayerProvider locale={locale}>
-        <ClientComponentExample />
-      </IntlayerProvider>
-      <IntlayerServerProvider locale={locale}>
-        <ServerComponentExample />
-      </IntlayerServerProvider>
-    </>
-  );
-};
-```
-
-```tsx fileName="src/components/ComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="src/components/ComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useI18n } from "react-intlayer";
 
@@ -159,37 +116,7 @@ const ComponentExample: FC = () => {
 };
 ```
 
-```jsx fileName="src/components/ComponentExample.jsx" codeFormat="esm"
-import { useI18n } from "react-intlayer";
-
-const ComponentExample = () => {
-  const t = useI18n("component-example");
-
-  return (
-    <div>
-      <h1>{t("title")}</h1> {/* 显示标题 */}
-      <p>{t("description")}</p> {/* 显示描述 */}
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ComponentExample.cjs" codeFormat="commonjs"
-const { useI18n } = require("react-intlayer");
-
-const ComponentExample = () => {
-  const t = useI18n("component-example");
-
-  return (
-    <div>
-      <h1>{t("title")}</h1> {/* 显示标题 */}
-      <p>{t("description")}</p> {/* 显示描述 */}
-    </div>
-  );
-};
-```
-
-```tsx fileName="src/components/ServerComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import { useI18n } from "react-intlayer/server";
 
 const ServerComponentExample = () => {
@@ -199,36 +126,6 @@ const ServerComponentExample = () => {
     <div>
       <h1>{t("title")}</h1> {/* 显示标题 */}
       <p>{t("description")}</p> {/* 显示描述 */}
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ServerComponentExample.jsx" codeFormat="esm"
-import { useI18n } from "react-intlayer/server";
-
-const ServerComponentExample = () => {
-  const t = useI18n("server-component");
-
-  return (
-    <div>
-      <h1>{t("title")}</h1> {/* 显示标题 */}
-      <p>{t("description")}</p> {/* 显示描述 */}
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ServerComponentExample.cjs" codeFormat="commonjs"
-const { useI18n } = require("react-intlayer/server");
-
-const ServerComponentExample = () => {
-  const t = useI18n("server-component");
-
-  return (
-    <div>
-      <h1>{t("title")}</h1>
-      <p>{t("description")}</p>
     </div>
   );
 };
@@ -238,7 +135,7 @@ const ServerComponentExample = () => {
 
 在本地化属性时，请适当地访问翻译值：
 
-```jsx
+```html
 <!-- 对于无障碍属性（例如 aria-label），请使用 .value，因为需要纯字符串 -->
 <button aria-label={t("button.ariaLabel").value}>{t("button.text")}</button>
 ```

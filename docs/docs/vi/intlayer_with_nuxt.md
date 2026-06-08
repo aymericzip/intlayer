@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2025-12-07
-title: Cách dịch ứng dụng Nuxt và Vue của bạn – Hướng dẫn i18n 2025
-description: Khám phá cách làm cho trang web Nuxt và Vue của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó.
+updatedAt: 2026-05-31
+title: "Nuxt i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
+description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Nuxt đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
 keywords:
   - Quốc tế hóa
   - Tài liệu
@@ -15,14 +15,18 @@ slugs:
   - environment
   - nuxt-and-vue
 applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-4-template
+applicationShowcase: https://intlayer-nuxt-4-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=nhUcUAVQ6eQ
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Cập nhật cách sử dụng API useIntlayer của Solid sang truy cập thuộc tính trực tiếp"
   - version: 7.3.11
     date: 2025-12-07
-    changes: Cập nhật LocaleSwitcher, SEO, metadata
+    changes: "Cập nhật LocaleSwitcher, SEO, metadata"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Khởi tạo lịch sử
+    changes: "Khởi tạo lịch sử"
 ---
 
 # Dịch trang web Nuxt và Vue của bạn bằng Intlayer | Quốc tế hóa (i18n)
@@ -31,59 +35,119 @@ history:
 
 <TOC/>
 
-## Intlayer là gì?
+## Tại sao Intlayer thay thế các lựa chọn thay thế?
 
-**Intlayer** là một thư viện quốc tế hóa (i18n) mã nguồn mở sáng tạo, được thiết kế để đơn giản hóa việc hỗ trợ đa ngôn ngữ trong các ứng dụng web hiện đại.
+So với các giải pháp chính như `@nuxtjs/i18n` hay `i18next`, Intlayer là giải pháp đi kèm với các tính năng tối ưu hóa tích hợp như:
 
-Với Intlayer, bạn có thể:
+<AccordionGroup>
 
-- **Quản lý bản dịch dễ dàng** bằng cách sử dụng từ điển khai báo ở cấp độ component.
-- **Địa phương hóa động metadata**, các route và nội dung.
-- **Đảm bảo hỗ trợ TypeScript** với các kiểu tự động tạo, cải thiện việc tự động hoàn thành và phát hiện lỗi.
-- **Tận hưởng các tính năng nâng cao**, như phát hiện và chuyển đổi locale động.
+<Accordion header="Bảo hiểm đầy đủ của Nuxt">
+
+Intlayer được tối ưu hóa để hoạt động hoàn hảo với Nuxt bằng cách cung cấp **định tuyến đa ngôn ngữ**, **phần mềm trung gian để phát hiện ngôn ngữ**, **sơ đồ trang web** và tất cả các tính năng cần thiết để mở rộng quy mô quốc tế hóa (i18n).
+
+</Accordion>
+
+<Accordion header="Kích thước bundle">
+
+Thay vì tải các tệp JSON lớn vào trang của bạn, hãy chỉ tải nội dung cần thiết. Intlayer giúp **giảm tới 50% kích thước bundle và kích thước trang**.
+
+</Accordion>
+
+<Accordion header="Khả năng bảo trì">
+
+Xác định phạm vi nội dung ứng dụng của bạn **tạo điều kiện bảo trì** cho các ứng dụng quy mô lớn. Bạn có thể sao chép hoặc xóa một thư mục tính năng mà không phải lo lắng về việc xem lại toàn bộ cơ sở mã nội dung của mình. Ngoài ra, Intlayer **được nhập đầy đủ** để đảm bảo tính chính xác cho nội dung của bạn.
+
+</Accordion>
+
+<Accordion header="Đại lý AI">
+
+Nội dung cùng định vị **giảm ngữ cảnh cần thiết** của Mô hình ngôn ngữ lớn (LLM). Intlayer cũng đi kèm một bộ công cụ, chẳng hạn như **CLI** để kiểm tra các bản dịch bị thiếu,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** và **[agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, để giúp trải nghiệm của nhà phát triển (DX) trở nên mượt mà hơn nữa đối với các tác nhân AI.
+
+</Accordion>
+
+<Accordion header="Tự động hóa">
+
+Sử dụng tính năng tự động hóa để dịch trong quy trình CI/CD của bạn bằng cách sử dụng LLM mà bạn chọn với chi phí do nhà cung cấp AI của bạn chi trả. Intlayer cũng cung cấp **trình biên dịch** để tự động trích xuất nội dung cũng như [nền tảng web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) để giúp **dịch ở chế độ nền**.
+
+</Accordion>
+
+<Accordion header="Hiệu suất">
+
+Việc kết nối các tệp JSON lớn với các thành phần có thể dẫn đến các vấn đề về hiệu suất và khả năng phản hồi. Intlayer tối ưu hóa việc tải nội dung của bạn tại thời điểm build.
+
+</Accordion>
+
+<Accordion header="Mở rộng quy mô không có nhà phát triển">
+
+Không chỉ là giải pháp i18n, Intlayer còn cung cấp **[trình chỉnh sửa trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** và **[CMS đầy đủ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** để giúp bạn quản lý nội dung đa ngôn ngữ của mình trong **thời gian thực**, giúp việc cộng tác với người dịch, người viết quảng cáo và các thành viên khác trong nhóm trở nên liền mạch. Nội dung có thể được lưu trữ cục bộ và/hoặc từ xa.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
 ## Hướng dẫn từng bước để thiết lập Intlayer trong ứng dụng Nuxt
 
-<Tab defaultTab="video">
-  <TabItem label="Video" value="video">
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
   
-<iframe title="Cách dịch ứng dụng Nuxt và Vue của bạn bằng Intlayer? Khám phá Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/nhUcUAVQ6eQ?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Cách dịch ứng dụng Nuxt và Vue của bạn bằng Intlayer? Khám phá Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/nhUcUAVQ6eQ?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-  </TabItem>
-  <TabItem label="Mã nguồn" value="code">
+  </Tab>
+  <Tab label="Mã nguồn" value="code">
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-nuxt-4-template?embed=1&ctl=1&file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-nuxt-4-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Cách quốc tế hóa ứng dụng của bạn bằng Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+  <Tab label="Bản demo" value="demo">
+
+<iframe
+  src="https://intlayer-nuxt-4-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Bản demo - intlayer-nuxt-4-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
 
 Xem [Application Template](https://github.com/aymericzip/intlayer-nuxt-4-template) trên GitHub.
 
-### Bước 1: Cài đặt các phụ thuộc
+<Steps>
+
+<Step number={1} title="Cài đặt các phụ thuộc">
 
 Cài đặt các gói cần thiết bằng npm:
 
 ```bash packageManager="npm"
 npm install intlayer vue-intlayer
 npm install --save-dev nuxt-intlayer
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer vue-intlayer
 pnpm add --save-dev nuxt-intlayer
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer vue-intlayer
 yarn add --save-dev nuxt-intlayer
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer vue-intlayer
+bun add --dev nuxt-intlayer
+bun x intlayer init
 ```
 
 - **intlayer**
@@ -96,11 +160,13 @@ yarn add --save-dev nuxt-intlayer
 - **nuxt-intlayer**
   Mô-đun Nuxt tích hợp Intlayer với các ứng dụng Nuxt. Nó cung cấp thiết lập tự động, middleware để phát hiện locale, quản lý cookie, và chuyển hướng URL.
 
-### Bước 2: Cấu hình dự án của bạn
+</Step>
+
+<Step number={2} title="Cấu hình dự án của bạn">
 
 Tạo một file cấu hình để cấu hình các ngôn ngữ của ứng dụng của bạn:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -118,47 +184,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Các locale khác của bạn
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Các locale khác của bạn
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 > Thông qua tệp cấu hình này, bạn có thể thiết lập các URL địa phương hóa, chuyển hướng middleware, tên cookie, vị trí và phần mở rộng của các khai báo nội dung của bạn, tắt các log của Intlayer trên console, và nhiều hơn nữa. Để xem danh sách đầy đủ các tham số có sẵn, hãy tham khảo [tài liệu cấu hình](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
 
-### Bước 3: Tích hợp Intlayer vào cấu hình Nuxt của bạn
+</Step>
+
+<Step number={3} title="Tích hợp Intlayer vào cấu hình Nuxt của bạn">
 
 Thêm module intlayer vào cấu hình Nuxt của bạn:
 
@@ -173,11 +203,13 @@ export default defineNuxtConfig({
 
 > Module `nuxt-intlayer` tự động xử lý việc tích hợp Intlayer với Nuxt. Nó thiết lập việc xây dựng khai báo nội dung, giám sát các tệp trong chế độ phát triển, cung cấp middleware để phát hiện locale, và quản lý định tuyến theo locale.
 
-### Bước 4: Khai báo Nội dung của Bạn
+</Step>
+
+<Step number={4} title="Khai báo Nội dung của Bạn">
 
 Tạo và quản lý các khai báo nội dung để lưu trữ bản dịch:
 
-```tsx fileName="content/home-page.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="content/home-page.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { type Dictionary, t } from "intlayer";
 
 const content = {
@@ -204,11 +236,13 @@ const content = {
 export default content;
 ```
 
-> Các khai báo nội dung của bạn có thể được định nghĩa ở bất kỳ đâu trong ứng dụng của bạn miễn là chúng được bao gồm trong thư mục `contentDir` (mặc định là `./src`). Và phù hợp với phần mở rộng tệp khai báo nội dung (mặc định là `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> Các khai báo nội dung của bạn có thể được định nghĩa ở bất kỳ đâu trong ứng dụng của bạn miễn là chúng được bao gồm trong thư mục `contentDir` (mặc định là `./src`). Và phù hợp với phần mở rộng tệp khai báo nội dung (mặc định là `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Để biết thêm chi tiết, hãy tham khảo [tài liệu khai báo nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md).
 
-### Bước 5: Sử dụng Intlayer trong Mã của Bạn
+</Step>
+
+<Step number={5} title="Sử dụng Intlayer trong Mã của Bạn">
 
 Truy cập các từ điển nội dung của bạn trong toàn bộ ứng dụng Nuxt bằng cách sử dụng composable `useIntlayer`:
 
@@ -277,7 +311,9 @@ Intlayer cung cấp các API khác nhau để truy cập nội dung của bạn:
   - Sử dụng `const content = useIntlayer("myContent");` và `{{ content.myContent }}` / `<content.myContent />`.
   - Hoặc sử dụng `const { myContent } = useIntlayer("myContent");` và `{{ myContent}}` / `<myContent/>` để phân rã nội dung.
 
-### (Tùy chọn) Bước 6: Thay đổi ngôn ngữ của nội dung
+</Step>
+
+<Step number={6} title="Thay đổi ngôn ngữ của nội dung" isOptional={true}>
 
 Để thay đổi ngôn ngữ của nội dung, bạn có thể sử dụng hàm `setLocale` được cung cấp bởi composable `useLocale`. Hàm này cho phép bạn thiết lập locale của ứng dụng và cập nhật nội dung tương ứng.
 
@@ -321,34 +357,9 @@ Sau đó, thiết lập `app.vue` của bạn để sử dụng layouts:
 </template>
 ```
 
-### (Tùy chọn) Bước 6b: Tạo một Layout với Điều hướng
+</Step>
 
-Layouts của Nuxt cho phép bạn định nghĩa một cấu trúc chung cho các trang của bạn. Tạo một layout mặc định bao gồm bộ chuyển đổi ngôn ngữ và điều hướng:
-
-```vue fileName="layouts/default.vue"
-<script setup lang="ts">
-import Links from "~/components/Links.vue";
-import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
-</script>
-
-<template>
-  <div>
-    <header>
-      <LocaleSwitcher />
-    </header>
-    <main>
-      <slot />
-    </main>
-
-    <Links href="/">Trang chủ</Links>
-    <Links href="/about">Giới thiệu</Links>
-  </div>
-</template>
-```
-
-Thành phần `Links` (được hiển thị bên dưới) đảm bảo rằng các liên kết điều hướng nội bộ được tự động địa phương hóa.
-
-### (Tùy chọn) Bước 7: Thêm định tuyến địa phương hóa vào ứng dụng của bạn
+<Step number={7} title="Thêm định tuyến địa phương hóa vào ứng dụng của bạn" isOptional={true}>
 
 Nuxt tự động xử lý định tuyến địa phương hóa khi sử dụng module `nuxt-intlayer`. Điều này tạo các tuyến đường cho mỗi ngôn ngữ tự động dựa trên cấu trúc thư mục trang của bạn.
 
@@ -373,11 +384,11 @@ import { useIntlayer } from "vue-intlayer";
 const content = useIntlayer("home-page");
 
 useHead({
-  title: content.metaTitle.value,
+  title: content.metaTitle.raw,
   meta: [
     {
       name: "description",
-      content: content.metaDescription.value,
+      content: content.metaDescription.raw,
     },
   ],
 });
@@ -422,7 +433,9 @@ Module `nuxt-intlayer` sẽ tự động:
 - Quản lý cookie ngôn ngữ
 - Chuyển hướng người dùng đến URL địa phương hóa phù hợp
 
-### (Tùy chọn) Bước 8: Tạo một Component Liên kết Địa phương hóa
+</Step>
+
+<Step number={8} title="Tạo một Component Liên kết Địa phương hóa" isOptional={true}>
 
 Để đảm bảo điều hướng trong ứng dụng của bạn tuân thủ ngôn ngữ hiện tại, bạn có thể tạo một component `Links` tùy chỉnh. Component này tự động thêm tiền tố ngôn ngữ hiện tại vào các URL nội bộ, điều này rất quan trọng cho **SEO và khả năng tìm thấy trang**.
 
@@ -490,7 +503,9 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 > - Người dùng có thể chia sẻ trực tiếp các URL đã được địa phương hóa
 > - Lịch sử trình duyệt hoạt động chính xác với các URL có tiền tố ngôn ngữ
 
-### (Tùy chọn) Bước 9: Xử lý Metadata và SEO
+</Step>
+
+<Step number={9} title="Xử lý Metadata và SEO" isOptional={true}>
 
 Nuxt cung cấp khả năng SEO tuyệt vời thông qua composable `useHead` (tự động import). Bạn có thể sử dụng Intlayer để xử lý metadata đã được địa phương hóa bằng cách sử dụng accessor `.raw` hoặc `.value` để lấy giá trị chuỗi nguyên thủy:
 
@@ -527,7 +542,7 @@ useHead({
 
 Tạo khai báo nội dung tương ứng:
 
-```ts fileName="pages/about-page.content.ts" contentDeclarationFormat="typescript"
+```ts fileName="pages/about-page.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const aboutPageContent = {
@@ -552,62 +567,6 @@ const aboutPageContent = {
 } satisfies Dictionary;
 
 export default aboutPageContent;
-```
-
-```javascript fileName="pages/about-page.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const aboutPageContent = {
-  key: "about-page",
-  content: {
-    metaTitle: t({
-      en: "Về Chúng Tôi - Công Ty Tôi",
-      fr: "À Propos - Ma Société",
-      es: "Acerca de Nosotros - Mi Empresa",
-    }),
-    metaDescription: t({
-      en: "Tìm hiểu thêm về công ty và sứ mệnh của chúng tôi",
-      fr: "En savoir plus sur notre société et notre mission",
-      es: "Conozca más sobre nuestra empresa y nuestra misión",
-    }),
-    title: t({
-      en: "Về Chúng Tôi",
-      fr: "À Propos",
-      es: "Acerca de Nosotros",
-    }),
-  },
-};
-
-export default aboutPageContent;
-```
-
-```javascript fileName="pages/about-page.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const aboutPageContent = {
-  key: "about-page",
-  content: {
-    metaTitle: t({
-      en: "Về Chúng Tôi - Công Ty Tôi",
-      fr: "À Propos - Ma Société",
-      es: "Acerca de Nosotros - Mi Empresa",
-    }),
-    metaDescription: t({
-      en: "Tìm hiểu thêm về công ty và sứ mệnh của chúng tôi",
-      fr: "En savoir plus sur notre société et notre mission",
-      es: "Conozca más sobre nuestra empresa y nuestra misión",
-    }),
-    title: t({
-      en: "Về Chúng Tôi",
-      fr: "À Propos",
-      es: "Acerca de Nosotros",
-    }),
-  },
-};
-
-module.exports = aboutPageContent;
 ```
 
 ```json fileName="pages/about-page.content.json" contentDeclarationFormat="json"
@@ -642,6 +601,37 @@ module.exports = aboutPageContent;
   }
 }
 ```
+
+</Step>
+
+</Steps>
+
+### (Tùy chọn) Bước 6b: Tạo một Layout với Điều hướng
+
+Layouts của Nuxt cho phép bạn định nghĩa một cấu trúc chung cho các trang của bạn. Tạo một layout mặc định bao gồm bộ chuyển đổi ngôn ngữ và điều hướng:
+
+```vue fileName="layouts/default.vue"
+<script setup lang="ts">
+import Links from "~/components/Links.vue";
+import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
+</script>
+
+<template>
+  <div>
+    <header>
+      <LocaleSwitcher />
+    </header>
+    <main>
+      <slot />
+    </main>
+
+    <Links href="/">Trang chủ</Links>
+    <Links href="/about">Giới thiệu</Links>
+  </div>
+</template>
+```
+
+Thành phần `Links` (được hiển thị bên dưới) đảm bảo rằng các liên kết điều hướng nội bộ được tự động địa phương hóa.
 
 ### Cấu hình Git
 

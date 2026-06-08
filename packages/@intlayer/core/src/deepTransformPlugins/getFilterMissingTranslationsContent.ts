@@ -1,10 +1,11 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
+import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
 import type {
   DeclaredLocales,
-  Dictionary,
   LocalesValues,
-} from '@intlayer/types';
-import { type ContentNode, type KeyPath, NodeType } from '@intlayer/types';
+} from '@intlayer/types/module_augmentation';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import {
   type DeepTransformContent,
   getTranslation,
@@ -22,7 +23,7 @@ const hasTranslationNodes = (node: any): boolean => {
     return false;
   }
 
-  if (node?.nodeType === NodeType.Translation) {
+  if (node?.nodeType === NodeTypes.TRANSLATION) {
     return true;
   }
 
@@ -202,9 +203,9 @@ export const filterMissingTranslationsOnlyPlugin = (
     return typeof node === 'object' && node !== null;
   },
   transform: (node: ContentNode, props, deepTransformNode) => {
-    if (typeof node === 'object' && node?.nodeType === NodeType.Translation) {
+    if (typeof node === 'object' && node?.nodeType === NodeTypes.TRANSLATION) {
       const result = structuredClone(
-        (node as TranslationContent)[NodeType.Translation]
+        (node as TranslationContent)[NodeTypes.TRANSLATION]
       );
 
       const hasLocaleTranslation = Object.keys(result).includes(localeToCheck);
@@ -229,7 +230,7 @@ export const filterMissingTranslationsOnlyPlugin = (
           children: result[key as unknown as keyof typeof result],
           keyPath: [
             ...props.keyPath,
-            { type: NodeType.Translation, key } as KeyPath,
+            { type: NodeTypes.TRANSLATION, key } as KeyPath,
           ],
         };
         result[key as unknown as keyof typeof result] = deepTransformNode(
@@ -248,7 +249,8 @@ export const filterMissingTranslationsOnlyPlugin = (
 
       // Return the base locale content as a translation node
       // If base locale is missing, use any available locale as fallback
-      const baseLocale = configuration?.internationalization?.defaultLocale;
+      const baseLocale = internationalization?.defaultLocale;
+
       const availableLocales = Object.keys(result);
 
       if (availableLocales.length === 0) {
@@ -286,7 +288,7 @@ export const filterMissingTranslationsOnlyPlugin = (
           children: originalChild,
           keyPath: [
             ...props.keyPath,
-            { type: NodeType.Object, key } as KeyPath,
+            { type: NodeTypes.OBJECT, key } as KeyPath,
           ],
         };
         const transformedChild = deepTransformNode(originalChild, childProps);
@@ -347,7 +349,7 @@ export const filterMissingTranslationsOnlyPlugin = (
             children: child,
             keyPath: [
               ...props.keyPath,
-              { type: NodeType.Array, key: index } as KeyPath,
+              { type: NodeTypes.ARRAY, key: index } as KeyPath,
             ],
           };
           return deepTransformNode(child, childProps);

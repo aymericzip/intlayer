@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: بداية التاريخ
+    changes: "بداية التاريخ"
 ---
 
 # التوثيق: دالة `getEnumeration` في `intlayer`
@@ -33,13 +33,11 @@ history:
 ## المعاملات
 
 - `enumerationContent: QuantityContent<Content>`
-
   - **الوصف**: كائن حيث تمثل المفاتيح الشروط (مثل `<=`، `<`، `>=`، `=`) وتمثل القيم المحتوى المقابل. يحدد ترتيب المفاتيح أولوية المطابقة.
   - **النوع**: `QuantityContent<Content>`
     - يمكن أن يكون `Content` من أي نوع.
 
 - `quantity: number`
-
   - **الوصف**: القيمة الرقمية المستخدمة للمطابقة مع الشروط في `enumerationContent`.
   - **النوع**: `number`
 
@@ -52,7 +50,7 @@ history:
 
 ### الاستخدام الأساسي
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getEnumeration } from "intlayer";
 
 const content = getEnumeration(
@@ -68,68 +66,10 @@ const content = getEnumeration(
 console.log(content); // الناتج: "لديك اثنان"
 ```
 
-```javascript codeFormat="esm"
-import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<1": "لديك أقل من واحد",
-    "2": "لديك اثنان",
-    ">=3": "لديك ثلاثة أو أكثر",
-  },
-  2
-);
-
-console.log(content); // الناتج: "لديك اثنان"
-```
-
-```javascript codeFormat="commonjs"
-const { getEnumeration } = require("intlayer");
-
-const content = getEnumeration(
-  {
-    "<1": "لديك أقل من واحد",
-    "2": "لديك اثنان",
-    ">=3": "لديك ثلاثة أو أكثر",
-  },
-  2
-);
-
-console.log(content); // الناتج: "لديك اثنان"
-```
-
 ### أولوية الشروط
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<4": "لديك أقل من أربعة",
-    "2": "لديك اثنان",
-  },
-  2
-);
-
-console.log(content); // الناتج: "لديك أقل من أربعة"
-```
-
-```javascript codeFormat="esm"
-import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<4": "لديك أقل من أربعة",
-    "2": "لديك اثنان",
-  },
-  2
-);
-
-console.log(content); // الناتج: "لديك أقل من أربعة"
-```
-
-```javascript codeFormat="commonjs"
-const { getEnumeration } = require("intlayer");
 
 const content = getEnumeration(
   {
@@ -145,15 +85,12 @@ console.log(content); // الناتج: "لديك أقل من أربعة"
 ## الحالات الخاصة
 
 - **عدم وجود شرط مطابق:**
-
   - إذا لم يتطابق أي شرط مع الكمية المقدمة، فإن الدالة ستُرجع إما `undefined` أو تتعامل مع السيناريو الافتراضي/الاحتياطي بشكل صريح.
 
 - **الشروط الغامضة:**
-
   - إذا تداخلت الشروط، فإن أول شرط مطابق (بناءً على ترتيب الكائن) يأخذ الأولوية.
 
 - **المفاتيح غير الصالحة:**
-
   - تفترض الدالة أن جميع المفاتيح في `enumerationContent` صالحة وقابلة للتحليل كالشروط. قد تؤدي المفاتيح غير الصالحة أو ذات التنسيق غير الصحيح إلى سلوك غير متوقع.
 
 - **تطبيق TypeScript:**

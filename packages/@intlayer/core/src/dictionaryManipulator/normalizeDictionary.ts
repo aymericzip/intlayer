@@ -1,4 +1,6 @@
-import type { Dictionary, IntlayerConfig, Locale } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { getPerLocaleDictionary } from '../deepTransformPlugins';
 import { t } from '../transpiler/translation';
 import { orderDictionaries } from './orderDictionaries';

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-09-29
-title: next-i18next vs next-intl vs Intlayer
-description: Comparar next-i18next con next-intl e Intlayer para la internacionalización (i18n) de una aplicación Next.js
+updatedAt: 2026-05-31
+title: "next-i18next vs next-intl vs Intlayer - Guía completa para traducir next-i18next vs next-intl vs Intlayer: 2026 Comparison"
+description: La mejor solución para el tamaño del bundle, SEO, rendimiento & mantenibilidad. Haga multilingüe su Next.js sitio web en 2026, traducción LLM, Agent Skills & MCP.
 keywords:
   - next-intl
   - next-i18next
@@ -123,13 +123,11 @@ Aquí hay una comparación del tamaño del bundle de JavaScript cargado por el n
 
 Si no necesitamos ningún formateador en la aplicación, la lista de funciones exportadas después del tree-shaking será:
 
-- **next-intlayer**: `useIntlayer`, `useLocale`, `NextIntlClientProvider`, (El tamaño del paquete es 180.6 kB -> 78.6 kB (gzip))
+- **next-intlayer**: `useIntlayer`, `useLocale`, `NextIntlClientProvider`, (El tamaño del paquete es 180.6 kB -> 15.24 kB (gzip))
 - **next-intl**: `useTranslations`, `useLocale`, `NextIntlClientProvider`, (El tamaño del paquete es 101.3 kB -> 31.4 kB (gzip))
 - **next-i18next**: `useTranslation`, `useI18n`, `I18nextProvider`, (El tamaño del paquete es 80.7 kB -> 25.5 kB (gzip))
 
 Estas funciones son solo envoltorios alrededor del contexto/estado de React, por lo que el impacto total de la biblioteca i18n en el tamaño del paquete es mínimo.
-
-> Intlayer es ligeramente más grande que `next-intl` y `next-i18next` porque incluye más lógica en la función `useIntlayer`. Esto está relacionado con la integración de markdown y `intlayer-editor`.
 
 ## Contenido y Traducciones
 
@@ -338,9 +336,9 @@ Esta parte realiza una comparación profunda entre las tres soluciones. En lugar
 
 La estructura de la aplicación es importante para asegurar un buen mantenimiento de tu base de código.
 
-<Tab defaultTab="next-intl" group='techno'>
+<Tabs defaultTab="next-intl" group='techno'>
 
-  <TabItem label="next-i18next" value="next-i18next">
+  <Tab label="next-i18next" value="next-i18next">
 
 ```bash
 .
@@ -365,8 +363,8 @@ La estructura de la aplicación es importante para asegurar un buen mantenimient
         └── ServerComponent.tsx
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```bash
 .
@@ -393,8 +391,8 @@ La estructura de la aplicación es importante para asegurar un buen mantenimient
             └── index.tsx
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```bash
 .
@@ -413,8 +411,8 @@ La estructura de la aplicación es importante para asegurar un buen mantenimient
             └── index.content.ts
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### Comparación
 
@@ -426,8 +424,8 @@ La estructura de la aplicación es importante para asegurar un buen mantenimient
 Como se mencionó anteriormente, debe optimizar cómo se importa cada archivo JSON en su código.
 Cómo la biblioteca maneja la carga de contenido es importante.
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -549,7 +547,7 @@ export default function LocaleLayout({
   params: { locale: string };
 }) {
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   const dir = isRtl(locale) ? "rtl" : "ltr";
@@ -595,8 +593,8 @@ export default async function AboutPage({
 }
 ```
 
-  </TabItem>
-   <TabItem label="next-intl" value="next-intl">
+  </Tab>
+   <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="i18n.ts"
 import { getRequestConfig } from "next-intl/server";
@@ -607,7 +605,7 @@ const locales = ["en", "fr", "es"];
 
 export default getRequestConfig(async ({ locale }) => {
   // Validar que el parámetro `locale` entrante sea válido
-  if (!locales.includes(locale as any)) notFound();
+  if (!locales.includes(locale)) notFound();
 
   return {
     messages: (await import(`../messages/${locale}.json`)).default,
@@ -674,8 +672,8 @@ export default async function LandingPage({
 }
 ```
 
-  </TabItem>
-<TabItem label="intlayer" value="intlayer">
+  </Tab>
+<Tab label="intlayer" value="intlayer">
 
 ```tsx fileName="intlayer.config.ts"
 export default {
@@ -735,8 +733,8 @@ const LandingPage: NextPageIntlayer = async ({ params }) => {
 export default LandingPage;
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### Comparación
 
@@ -752,8 +750,8 @@ Elige entre control explícito y automatización según la preferencia del equip
 
 Tomemos un ejemplo de un componente cliente que renderiza un contador.
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 **Traducciones (deben ser JSON reales en `public/locales/...`)**
 
@@ -807,8 +805,8 @@ const ClientComponentExample = () => {
 > No olvides agregar el espacio de nombres "about" en las serverSideTranslations de la página
 > Aquí tomamos la versión de react 19.x.x, pero para versiones inferiores, necesitarás usar useMemo para almacenar la instancia del formateador ya que es una función pesada
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 **Traducciones (misma estructura; cárgalas en los mensajes de next-intl como prefieras)**
 
@@ -860,8 +858,8 @@ const ClientComponentExample = () => {
 
 > No olvides añadir el mensaje "about" en el mensaje cliente de la página
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 **Contenido**
 
@@ -903,8 +901,8 @@ const ClientComponentExample = () => {
 };
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### Comparación
 
@@ -927,8 +925,8 @@ const ClientComponentExample = () => {
 
 Tomaremos el caso de un componente de interfaz de usuario (UI). Este componente es un componente del servidor y debe poder insertarse como hijo de un componente cliente. (página (componente servidor) -> componente cliente -> componente servidor). Como este componente puede insertarse como hijo de un componente cliente, no puede ser asíncrono.
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 ```tsx fileName="src/pages/about.tsx"
 import type { GetStaticProps } from "next";
@@ -951,8 +949,8 @@ const ServerComponent = ({ count }: ServerComponentProps) => {
 };
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 type ServerComponentProps = {
@@ -978,8 +976,8 @@ const ServerComponent = ({ t, count, formatter }: ServerComponentProps) => {
 > - `const t = await getTranslations("about.counter");`
 > - `const formatter = await getFormatter().then((formatter) => formatter.number());`
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 import { useIntlayer, useNumber } from "next-intlayer/server";
@@ -997,8 +995,8 @@ const ServerComponent = ({ count }: { count: number }) => {
 };
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 > Intlayer expone hooks **seguros para el servidor** a través de `next-intlayer/server`. Para funcionar, `useIntlayer` y `useNumber` utilizan una sintaxis similar a los hooks del cliente, pero dependen internamente del contexto del servidor (`IntlayerServerProvider`).
 
@@ -1019,9 +1017,9 @@ Aquí tienes una lista de buenas prácticas relacionadas con el SEO multilingüe
 
 Los desarrolladores a menudo olvidan referenciar correctamente sus páginas entre los distintos locales.
 
-<Tab defaultTab="next-intl" group='techno'>
+<Tabs defaultTab="next-intl" group='techno'>
  
-  <TabItem label="next-i18next" value="next-i18next">
+  <Tab label="next-i18next" value="next-i18next">
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -1120,8 +1118,8 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/app/[locale]/about/layout.tsx"
 import type { Metadata } from "next";
@@ -1210,8 +1208,8 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```typescript fileName="src/app/[locale]/about/layout.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";
@@ -1275,12 +1273,10 @@ const robots = (): MetadataRoute.Robots => ({
 export default robots;
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 > Intlayer proporciona una función `getMultilingualUrls` para generar URLs multilingües para tu sitemap.
-
----
 
 ---
 
@@ -1322,7 +1318,7 @@ Si prefieres una configuración mínima y aceptas algo de cableado manual, next-
 
 Las estrellas de GitHub son un indicador fuerte de la popularidad de un proyecto, la confianza de la comunidad y la relevancia a largo plazo. Aunque no son una medida directa de la calidad técnica, reflejan cuántos desarrolladores encuentran útil el proyecto, siguen su progreso y probablemente lo adopten. Para estimar el valor de un proyecto, las estrellas ayudan a comparar la tracción entre alternativas y proporcionan información sobre el crecimiento del ecosistema.
 
-[![Gráfico de Historial de Estrellas](https://api.star-history.com/svg?repos=i18next/next-i18next&repos=amannn/next-intl&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
+[![Gráfico de Historial de Estrellas](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
 ---
 

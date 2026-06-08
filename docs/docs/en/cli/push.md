@@ -19,11 +19,23 @@ slugs:
 
 # Push Dictionaries
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary push
 ```
 
-If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) is installed, you can also push dictionaries to the editor. This command will allow to make the dictionaries available to [the editor](https://intlayer.org/dashboard). By this way, you can share your dictionaries with your team and edit your content without editing the code of your application.
+```bash packageManager="yarn"
+yarn intlayer dictionary push
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary push
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary push
+```
+
+If [intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) is installed, you can also push dictionaries to the editor. This command will allow to make the dictionaries available to [the editor](https://app.intlayer.org/). By this way, you can share your dictionaries with your team and edit your content without editing the code of your application.
 
 ## Aliases:
 

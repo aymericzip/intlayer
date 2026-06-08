@@ -1,13 +1,13 @@
 'use client';
 
+import { cn } from '@utils/cn';
 import {
   type ChangeEventHandler,
   type FC,
-  useEffect,
   useImperativeHandle,
+  useLayoutEffect,
   useRef,
 } from 'react';
-import { cn } from '../../utils/cn';
 import { TextArea, type TextAreaProps } from './TextArea';
 
 /**
@@ -30,7 +30,7 @@ import { TextArea, type TextAreaProps } from './TextArea';
  *   onChange={handleChange}
  *   autoSize={true}
  *   maxRows={5}
- *   className="max-h-[120px]"
+ *   className="max-h-30"
  * />
  *
  * // Disable auto-sizing for fixed height
@@ -105,7 +105,7 @@ const LINE_PADDING = 12; // px
  *   placeholder="Write your notes here..."
  *   autoSize={true}
  *   maxRows={20}
- *   variant={InputVariant.DEFAULT}
+ *   variant="default"
  * />
  * ```
  */
@@ -138,7 +138,7 @@ export const AutoSizedTextArea: FC<AutoSizedTextAreaProps> = ({
     textAreaStyle.height = `${Math.max(Math.min(scrollHeight, maxHeight), minHeight)}px`;
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     adjustHeight();
   }, [props.value, props.defaultValue, adjustHeight]);
 

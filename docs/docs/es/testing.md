@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-09-20
-    changes: Introducción de pruebas
+    changes: "Introducción de pruebas"
 ---
 
 # Probando tu contenido
@@ -29,7 +29,7 @@ Esta guía muestra cómo verificar automáticamente que tus diccionarios estén 
 
 - **Traducciones faltantes**: falla en CI si faltan locales requeridos en cualquier diccionario.
 - **Renderizado de UI localizada**: renderiza componentes con un proveedor de locales específico y verifica el texto/atributos visibles.
-- **Auditorías en tiempo de compilación**: ejecuta una auditoría rápida localmente vía CLI.
+- **Auditorías en tiempo de compilación (build time)**: ejecuta una auditoría rápida localmente vía CLI.
 
 ---
 
@@ -37,8 +37,20 @@ Esta guía muestra cómo verificar automáticamente que tus diccionarios estén 
 
 Ejecuta la auditoría desde la raíz de tu proyecto:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 Flags útiles:
@@ -182,8 +194,20 @@ jobs:
 
 Opcional: ejecuta la auditoría CLI para un resumen legible por humanos junto con las pruebas:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 ---

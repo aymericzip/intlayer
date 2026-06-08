@@ -15,7 +15,7 @@ slugs:
 history:
   - version: 5.7.2
     date: 2025-07-27
-    changes: Dodano dokumentację mapera lokalizacji
+    changes: "Dodano dokumentację mapera lokalizacji"
 ---
 
 # Maper Lokalizacji

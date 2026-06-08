@@ -1,24 +1,32 @@
-import { prepareIntlayer } from '@intlayer/chokidar';
-import { getConfiguration } from '@intlayer/config';
+import { prepareIntlayer } from '@intlayer/chokidar/build';
+import { getConfiguration } from '@intlayer/config/node';
 import {
   getDictionary as getDictionaryFunction,
   getIntlayer as getIntlayerFunction,
-  getLocaleFromStorage,
   getTranslation,
-  localeDetector,
-} from '@intlayer/core';
-import type { Locale, StrictModeLocaleMap } from '@intlayer/types';
+} from '@intlayer/core/interpreter';
+import { localeDetector } from '@intlayer/core/localization';
+import { getLocaleFromStorageServer } from '@intlayer/core/utils';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import { createNamespace } from 'cls-hooked';
 import type { NextFunction, Request, RequestHandler, Response } from 'express';
 
+// Zero-cost fallback, will be updated with console logger in dev mode
+let debug: (message: string) => void = () => {};
+
 const configuration = getConfiguration();
 const { internationalization } = configuration;
+
+if (process.env['NODE_ENV'] === 'development') {
+  debug = (msg: string) => console.debug(msg);
+}
 
 /**
  * Retrieves the locale from storage (cookies, localStorage, sessionStorage).
  */
 const getStorageLocale = (req: Request): Locale | undefined =>
-  getLocaleFromStorage({
+  getLocaleFromStorageServer({
     getCookie: (name: string) => req.cookies?.[name],
     getHeader: (name: string) => req.headers?.[name] as string | undefined,
   });
@@ -68,9 +76,23 @@ export const translateFunction =
   };
 
 /**
- * Detect locale used by the user and load it into res locale storage
+ * Express middleware that detects the user's locale and populates `res.locals` with Intlayer data.
  *
- * @returns
+ * It performs:
+ * 1. Locale detection from cookies, headers, or default settings.
+ * 2. Injects `t`, `getIntlayer`, and `getDictionary` functions into `res.locals`.
+ * 3. Sets up a `cls-hooked` namespace for accessing these functions anywhere in the request lifecycle.
+ *
+ * @returns An Express middleware function.
+ *
+ * @example
+ * ```ts
+ * import express from 'express';
+ * import { intlayer } from 'express-intlayer';
+ *
+ * const app = express();
+ * app.use(intlayer());
+ * ```
  */
 export const intlayer = (): RequestHandler => async (req, res, next) => {
   // Detect if locale is set by intlayer frontend lib in the headers
@@ -127,6 +149,28 @@ export const intlayer = (): RequestHandler => async (req, res, next) => {
   });
 };
 
+/**
+ * Translation function to retrieve content for the current locale.
+ *
+ * This function works within the request lifecycle managed by the `intlayer` middleware.
+ *
+ * @param content - A map of locales to content.
+ * @param locale - Optional locale override.
+ * @returns The translated content.
+ *
+ * @example
+ * ```ts
+ * import { t } from 'express-intlayer';
+ *
+ * app.get('/', (req, res) => {
+ *   const greeting = t({
+ *     en: 'Hello',
+ *     fr: 'Bonjour',
+ *   });
+ *   res.send(greeting);
+ * });
+ * ```
+ */
 export const t = <Content = string>(
   content: StrictModeLocaleMap<Content>,
   locale?: Locale
@@ -146,9 +190,7 @@ export const t = <Content = string>(
 
     return appNamespace.get('t')(content, locale);
   } catch (error) {
-    if (process.env.NODE_ENV === 'development') {
-      console.error((error as Error).message);
-    }
+    debug((error as Error).message);
 
     return getTranslation(
       content,
@@ -173,9 +215,8 @@ export const getIntlayer: typeof getIntlayerFunction = (...args) => {
 
     return appNamespace.get('getIntlayer')(...args);
   } catch (error) {
-    if (process.env.NODE_ENV === 'development') {
-      console.error((error as Error).message);
-    }
+    debug((error as Error).message);
+
     return getIntlayerFunction(...args);
   }
 };
@@ -196,9 +237,8 @@ export const getDictionary: typeof getDictionaryFunction = (...args) => {
 
     return appNamespace.get('getDictionary')(...args);
   } catch (error) {
-    if (process.env.NODE_ENV === 'development') {
-      console.error((error as Error).message);
-    }
+    debug((error as Error).message);
+
     return getDictionaryFunction(...args);
   }
 };

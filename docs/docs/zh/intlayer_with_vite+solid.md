@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
-title: 如何翻译您的Vite and Solid应用 – i18n指南 2025
-description: 了解如何使您的 Vite 和 Solid 网站支持多语言。按照文档进行国际化（i18n）和翻译。
+updatedAt: 2026-05-31
+title: "Vite + Solid i18n - 翻译你的应用的完整指南"
+description: "告别 i18next。2026 年构建多语言 (i18n) Vite + Solid 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
 keywords:
   - 国际化
   - 文档
@@ -14,33 +14,87 @@ slugs:
   - doc
   - environment
   - vite-and-solid
-# applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
+applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "更新 Solid useIntlayer API 用法以直接访问属性"
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: "添加 init 命令"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 初始化历史
+    changes: "初始化历史"
 ---
 
 # 使用Intlayer翻译您的Vite and Solid | 国际化(i18n)
+
+<Tabs defaultTab="video">
+  <Tab label="视频" value="video">
+  
+<iframe title="The best i18n solution for Vite and Solid? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
+
+  </Tab>
+  <Tab label="Code" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-vite-solid-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - 如何使用 Intlayer 实现应用国际化"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
+## 目录
+
+<TOC/>
 
 > 该包正在开发中。更多信息请参见[issue](https://github.com/aymericzip/intlayer/issues/117)。通过点赞该 issue 来表达您对 Solid 版 Intlayer 的兴趣。
 
 <!-- 请参见 GitHub 上的[应用模板](https://github.com/aymericzip/intlayer-solid-template)。 -->
 
-## 什么是 Intlayer？
+## 为什么选择 Inlayer 而不是替代品？
 
-**Intlayer** 是一个创新的开源国际化（i18n）库，旨在简化现代 Web 应用中的多语言支持。
+与“@solid-primitives/i18n”或“i18next”等主要解决方案相比，Intlayer是一个具有集成优化的解决方案，例如：
 
-使用 Intlayer，您可以：
+**完全固体覆盖**
 
-- **通过组件级声明式字典轻松管理翻译**。
-- **动态本地化元数据、路由和内容**。
-- **通过自动生成类型确保 TypeScript 支持，提升自动补全和错误检测能力**。
-- **受益于高级功能**，如动态语言环境检测和切换。
+Intlayer 经过优化，可与 Solid 完美配合，提供**组件级内容范围**、**反应式翻译**以及​​扩展国际化 (i18n) 所需的所有功能。
+
+**捆绑尺寸**
+
+不要将大量 JSON 文件加载到页面中，而只需加载必要的内容。 Intlayer 有助于**将捆绑包和页面大小减少多达 50%**。
+
+**可维护性**
+
+确定应用程序内容的范围**有利于大型应用程序的维护**。您可以复制或删除单个功能文件夹，而无需承担检查整个内容代码库的精神负担。此外，Intlayer 具有**完全类型化 (fully typed)**，以确保您的内容的准确性。
+
+**人工智能代理**
+
+共置内容**减少大型语言模型 (LLM) 所需的上下文**。 Intlayer 还附带了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** 和 **[agent技能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**，使 AI 代理的开发者体验 (DX) 更加流畅。
+
+**自动化**
+
+使用您选择的法学硕士，通过自动化在 CI/CD 管道中进行翻译，而费用由您的 AI 提供商承担。 Intlayer 还提供了一个**编译器**来自动提取内容，以及一个[网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)来帮助**在后台翻译**。
+
+**表现**
+
+将大量 JSON 文件连接到组件可能会导致性能和反应性问题。 Intlayer 可在构建时 (build time)优化您的内容加载。
+
+**无需开发即可扩展**
+
+Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)**和一个**[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** 来帮助您管理多语言内容**实时**，与译员、文案人员和其他团队成员无缝协作。内容可以本地和/或远程存储。
 
 ---
 
 ## 在 Vite 和 Solid 应用中设置 Intlayer 的分步指南
+
+## 目录
+
+<TOC/>
 
 ### 第一步：安装依赖
 
@@ -49,22 +103,29 @@ history:
 ```bash packageManager="npm"
 npm install intlayer solid-intlayer
 npm install vite-intlayer --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer solid-intlayer
 pnpm add vite-intlayer --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer solid-intlayer
 yarn add vite-intlayer --save-dev
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer solid-intlayer
+bun add vite-intlayer --dev
+bun x intlayer init
 ```
 
 - **intlayer**
-
-- **intlayer**
-  提供国际化工具的核心包，用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)、转译以及[命令行工具](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)。
+  提供国际化工具的核心包，用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、转译以及[命令行工具](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。
 
 - **solid-intlayer**
   将 Intlayer 集成到 Solid 应用中的包。它提供了 Solid 国际化的上下文提供者和钩子。
@@ -76,7 +137,7 @@ yarn add vite-intlayer --save-dev
 
 创建一个配置文件来配置您的应用程序语言：
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -94,79 +155,19 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // 您的其他语言
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // 你的其他语言
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 > 通过此配置文件，你可以设置本地化的 URL、中间件重定向、cookie 名称、内容声明的位置和扩展名，禁用控制台中的 Intlayer 日志等。有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
 ### 第3步：在你的 Vite 配置中集成 Intlayer
 
 将 intlayer 插件添加到你的配置中。
 
-```typescript fileName="vite.config.ts" codeFormat="typescript"
+```typescript fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intlayer()],
-});
-```
-
-```javascript fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import { intlayer } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react(), intlayer()],
-});
-```
-
-```javascript fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const react = require("@vitejs/plugin-react-swc");
-const { intlayer } = require("vite-intlayer");
-
-// https://vitejs.dev/config/
-module.exports = defineConfig({
   plugins: [react(), intlayer()],
 });
 ```
@@ -177,7 +178,7 @@ module.exports = defineConfig({
 
 创建并管理您的内容声明以存储翻译：
 
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -188,32 +189,6 @@ const appContent = {
 export default appContent;
 ```
 
-```javascript fileName="src/app.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-// 定义应用内容字典
-const appContent = {
-  key: "app",
-  content: {},
-};
-
-export default appContent;
-```
-
-```javascript fileName="src/app.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-// 定义应用内容字典
-const appContent = {
-  key: "app",
-  content: {},
-};
-
-module.exports = appContent;
-```
-
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
@@ -222,33 +197,400 @@ module.exports = appContent;
 }
 ```
 
-> 您的内容声明可以在应用程序中的任何位置定义，只要它们被包含在 `contentDir` 目录中（默认是 `./src`）。并且文件扩展名需匹配内容声明文件扩展名（默认是 `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）。
+> 您的内容声明可以在应用程序中的任何位置定义，只要它们被包含在 `contentDir` 目录中（默认是 `./src`）。并且文件扩展名需匹配内容声明文件扩展名（默认是 `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`）。
 
-> 更多详情，请参考[内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/get_started.md)。
+> 更多详情，请参考[内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
 
 ### 第5步：在代码中使用 Intlayer
 
-[待完成]
+在整个应用程序中访问您的内容字典：
+
+```tsx {1,11} fileName="src/App.tsx" codeFormat="typescript"
+import { createSignal, type Component } from "solid-js";
+import solidLogo from "./assets/solid.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import { IntlayerProvider, useIntlayer } from "solid-intlayer";
+
+const AppContent: Component = () => {
+  const [count, setCount] = createSignal(0);
+  const content = useIntlayer("app");
+
+  return (
+    <>
+      <div>
+        <a href="https://vitejs.dev" target="_blank">
+          <img src={viteLogo} class="logo" alt={content.viteLogo.value} />
+        </a>
+        <a href="https://www.solidjs.com/" target="_blank">
+          <img
+            src={solidLogo}
+            class="logo solid"
+            alt={content.solidLogo.value}
+          />
+        </a>
+      </div>
+      <h1>{content.title}</h1>
+      <div class="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          {content.count({ count: count() })}
+        </button>
+        <p>{content.edit}</p>
+      </div>
+      <p class="read-the-docs">{content.readTheDocs}</p>
+    </>
+  );
+};
+
+const App: Component = () => (
+  <IntlayerProvider>
+    <AppContent />
+  </IntlayerProvider>
+);
+
+export default App;
+```
+
+> 在 Solid 中，`useIntlayer` 返回一个 **accessor** 函数（例如，`content.）。您必须调用此函数才能访问响应式内容。
+
+> 如果您想在 `string` 属性（如 `alt`、`title`、`href`、`aria-label` 等）中使用您的内容，可以使用函数的值，例如：
+>
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
 
 ### （可选）第6步：更改内容语言
 
-[待完成]
+要更改内容语言，您可以使用 `useLocale` 钩子提供的 `setLocale` 函数。此函数允许您设置应用程序的语言环境并相应地更新内容。
+
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+import { type Component, For } from "solid-js";
+import { Locales } from "intlayer";
+import { useLocale } from "solid-intlayer";
+
+const LocaleSwitcher: Component = () => {
+  const { locale, setLocale, availableLocales } = useLocale();
+
+  return (
+    <select
+      value={locale()}
+      onChange={(e) => setLocale(e.currentTarget.value as Locales)}
+    >
+      <For each={availableLocales}>
+        {(loc) => (
+          <option value={loc} selected={loc === locale()}>
+            {loc}
+          </option>
+        )}
+      </For>
+    </select>
+  );
+};
+```
 
 ### （可选）第7步：为应用添加本地化路由
 
-[待完成]
+此步骤的目的是为每种语言创建唯一的路由。这对 SEO 和 SEO 友好的 URL 很有用。
+示例：
+
+```plaintext
+- https://example.com/about
+- https://example.com/es/about
+- https://example.com/fr/about
+```
+
+要为您的应用程序添加本地化路由，您可以使用 `@solidjs/router`。
+
+首先，安装必要的依赖项：
+
+```bash packageManager="npm"
+npm install @solidjs/router
+```
+
+然后，用 `Router` 包装您的应用程序，并使用 `localeMap` 定义您的路由：
+
+```tsx fileName="src/index.tsx"  codeFormat="typescript"
+import { render } from "solid-js/web";
+import { Router } from "@solidjs/router";
+import App from "./App";
+
+const root = document.getElementById("root");
+
+render(
+  () => (
+    <Router>
+      <App />
+    </Router>
+  ),
+  root!
+);
+```
+
+```tsx fileName="src/App.tsx" codeFormat="typescript"
+import { type Component } from "solid-js";
+import { Route } from "@solidjs/router";
+import { localeMap } from "intlayer";
+import { IntlayerProvider } from "solid-intlayer";
+import Home from "./pages/Home";
+import About from "./pages/About";
+
+const App: Component = () => (
+  <IntlayerProvider>
+    {localeMap(({ locale, urlPrefix }) => (
+      <Route
+        path={urlPrefix || "/"}
+        component={(props: any) => (
+          <IntlayerProvider locale={locale}>{props.children}</IntlayerProvider>
+        )}
+      >
+        <Route path="/" component={Home} />
+        <Route path="/about" component={About} />
+      </Route>
+    ))}
+  </IntlayerProvider>
+);
+
+export default App;
+```
 
 ### （可选）第8步：当语言环境变化时更改 URL
 
-[待完成]
+要在语言环境更改时更改 URL，您可以使用 `useLocale` 钩子提供的 `onLocaleChange` 属性。您可以使用 `@solidjs/router` 的 `useNavigate` 和 `useLocation` 钩子来更新 URL 路径。
+
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+import { type Component, For } from "solid-js";
+import { useLocation, useNavigate } from "@solidjs/router";
+import { getLocalizedUrl } from "intlayer";
+import { useLocale } from "solid-intlayer";
+
+const LocaleSwitcher: Component = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { locale, setLocale, availableLocales } = useLocale({
+    onLocaleChange: (loc) => {
+      const pathWithLocale = getLocalizedUrl(location.pathname, loc);
+      navigate(pathWithLocale);
+    },
+  });
+
+  return (
+    <select
+      value={locale()}
+      onChange={(e) => setLocale(e.currentTarget.value as any)}
+    >
+      <For each={availableLocales}>
+        {(loc) => (
+          <option value={loc} selected={loc === locale()}>
+            {loc}
+          </option>
+        )}
+      </For>
+    </select>
+  );
+};
+```
 
 ### （可选）第9步：切换 HTML 的语言和方向属性
 
-[to complete]
+更新 `<html>` 标签的 `lang` 和 `dir` 属性以匹配当前语言环境，以便于可访问性和 SEO。
 
-### （可选）步骤 10：创建本地化链接组件
+```tsx fileName="src/App.tsx" codeFormat="typescript"
+import { createEffect, type Component } from "solid-js";
+import { useLocale } from "solid-intlayer";
+import { getHTMLTextDir } from "intlayer";
 
-[to complete]
+const AppContent: Component = () => {
+  const { locale } = useLocale();
+
+  createEffect(() => {
+    document.documentElement.lang = locale();
+    document.documentElement.dir = getHTMLTextDir(locale());
+  });
+
+  return (
+    // ... 您的应用程序内容
+  );
+};
+```
+
+<Steps>
+
+<Step number={10} title="创建本地化链接组件">
+
+创建一个自定义 `Link` 组件，自动为内部 URL 添加当前语言的前缀。
+
+```tsx fileName="src/components/Link.tsx" codeFormat="typescript"
+import { type ParentComponent } from "solid-js";
+import { A, type AnchorProps } from "@solidjs/router";
+import { getLocalizedUrl } from "intlayer";
+import { useLocale } from "solid-intlayer";
+
+export const Link: ParentComponent<AnchorProps> = (props) => {
+  const { locale } = useLocale();
+
+  const isExternal = () => props.href.startsWith("http");
+  const localizedHref = () =>
+    isExternal() ? props.href : getLocalizedUrl(props.href, locale());
+
+  return <A {...props} href={localizedHref()} />;
+};
+```
+
+</Step>
+
+<Step number={11} title="渲染 Markdown">
+
+Intlayer 支持使用其自己的内部解析器直接在您的 Solid 应用程序中渲染 Markdown 内容。默认情况下，Markdown 被视为纯文本。要将其渲染为富 HTML，请用 `MarkdownProvider` 包装您的应用程序。
+
+```tsx fileName="src/index.tsx"
+import { render } from "solid-js/web";
+import { MarkdownProvider } from "solid-intlayer/markdown";
+import App from "./App";
+
+const root = document.getElementById("root");
+
+render(
+  () => (
+    <MarkdownProvider>
+      <App />
+    </MarkdownProvider>
+  ),
+  root!
+);
+```
+
+然后您可以在组件中使用它：
+
+```tsx
+import { useIntlayer } from "solid-intlayer";
+
+const MyComponent = () => {
+  const content = useIntlayer("my-content");
+
+  return (
+    <div>
+      {/* 通过 MarkdownProvider 渲染为 HTML */}
+      {content.markdownContent}
+    </div>
+  );
+};
+```
+
+</Step>
+
+<Step number={1} title="提取组件内容" isOptional={true}>
+
+如果您有现有的代码库，转换数千个文件可能会非常耗时。
+
+为了简化此过程，Intlayer 提出了 [编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) / [提取器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 来转换您的组件并提取内容。
+
+要进行设置，您可以在 `intlayer.config.ts` 文件中添加 `compiler` 部分：
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... 您的其他配置
+  compiler: {
+    /**
+     * 指示是否应启用编译器。
+     */
+    enabled: true,
+
+    /**
+     * 定义输出文件路径
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * 指示在转换后是否应保存组件。这样，编译器只需运行一次即可转换应用程序，然后即可将其删除。
+     */
+    saveComponents: false,
+
+    /**
+     * 字典键前缀
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='提取命令'>
+
+运行提取器以转换组件并提取内容
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Babel 编译器'>
+
+更新您的 `vite.config.ts` 以包含 `intlayerCompiler` 插件：
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // 添加编译器插件
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # 或 npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # 或 pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # 或 yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
+</Step>
+
+</Steps>
+
+### 配置 TypeScript
+
+确保您的 TypeScript 配置包含自动生成的类型。
+
+```json5 fileName="tsconfig.json"
+{
+  "compilerOptions": {
+    // ...
+  },
+  "include": ["src", ".intlayer/**/*.ts"],
+}
+```
 
 ### Git 配置
 
@@ -256,8 +598,8 @@ module.exports = appContent;
 
 为此，您可以将以下指令添加到您的 `.gitignore` 文件中：
 
-```plaintext
-# 忽略 Intlayer 生成的文件
+```bash
+#  忽略 Intlayer 生成的文件
 .intlayer
 ```
 
@@ -277,6 +619,80 @@ module.exports = appContent;
 有关如何使用该扩展的更多详细信息，请参阅[Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
 
 ---
+
+### （可选）站点地图与 robots.txt（构建时生成）
+
+Intlayer 提供 `generateSitemap` 与 `getMultilingualUrls`，可将面向爬虫的多语言 `sitemap.xml` 和 `robots.txt` 格式化并自动写入 `public/`。实践中在 Vite **之前**运行小型 Node 脚本（例如 npm 的 `predev` / `prebuild`）即可在构建或开发时生成这些文件。
+
+#### 站点地图
+
+Intlayer 的站点地图生成会尊重你的语言配置，并包含爬虫所需的元数据。
+
+> 生成的站点地图支持 `xhtml:link`（hreflang）。与只列出扁平 URL 不同，Intlayer 会在各语言版本之间建立双向关联（例如 `/about`、`/fr/about` 或 `/about?lang=fr`，取决于路由模式）。
+
+#### Robots.txt
+
+使用 `getMultilingualUrls`，使 `Disallow` 覆盖敏感路径的每一种本地化写法。
+
+#### 1. 在项目根目录添加 `generate-seo.mjs`
+
+```javascript fileName="generate-seo.mjs"
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import { generateSitemap, getMultilingualUrls } from "intlayer";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const SITE_URL = (process.env.SITE_URL || "http://localhost:5173").replace(
+  /\/$/,
+  ""
+);
+
+const pathList = [
+  { path: "/", changefreq: "daily", priority: 1.0 },
+  { path: "/about", changefreq: "monthly", priority: 0.7 },
+];
+
+const sitemapXml = generateSitemap(pathList, { siteUrl: SITE_URL });
+fs.writeFileSync(path.join(__dirname, "public", "sitemap.xml"), sitemapXml);
+
+const getAllMultilingualUrls = (urls) =>
+  urls.flatMap((url) => Object.values(getMultilingualUrls(url)));
+
+const disallowedPaths = getAllMultilingualUrls(["/admin", "/private"]);
+
+const robotsTxt = [
+  "User-agent: *",
+  "Allow: /",
+  ...disallowedPaths.map((path) => `Disallow: ${path}`),
+  "",
+  `Sitemap: ${SITE_URL}/sitemap.xml`,
+].join("\n");
+
+fs.writeFileSync(path.join(__dirname, "public", "robots.txt"), robotsTxt);
+
+console.log("SEO files generated successfully.");
+```
+
+需已安装 `intlayer` 以便脚本导入。生产环境请设置环境变量 `SITE_URL`（例如在 CI 中）。
+
+> 建议在 Node 中使用 `generate-seo.mjs`（ESM）。若使用 `generate-seo.js`，请在 `package.json` 中设置 `"type": "module"` 或以其他方式启用 ESM。
+
+#### 2. 在运行 Vite 之前执行脚本
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "dev": "vite",
+    "prebuild": "node generate-seo.mjs",
+    "build": "vite build",
+    "preview": "vite preview"
+  }
+}
+```
+
+若使用 pnpm 或 yarn，请相应调整命令；也可在 CI 或其他步骤中调用该脚本。
 
 ### 深入了解
 

@@ -22,6 +22,7 @@ const metadataContent = {
       pl: 'Skaner audytu SEO i18n | Intlayer',
       id: 'Pemindai Audit SEO i18n | Intlayer',
       vi: 'Trình quét kiểm tra SEO i18n | Intlayer',
+      uk: 'SEO-сканер i18n-аудиту | Intlayer',
     }),
     description: t({
       en: 'Run a multilingual-focused audit to assess i18n and SEO readiness: locales, hreflang, language tags, alternate links, and missing translations.',
@@ -42,6 +43,7 @@ const metadataContent = {
       pl: 'Przeprowadź audyt skoncentrowany na wielojęzyczności, aby ocenić gotowość i18n i SEO: locale, hreflang, tagi językowe, linki alternatywne i brakujące tłumaczenia.',
       id: 'Jalankan audit yang berfokus pada multibahasa untuk menilai kesiapan i18n dan SEO: locale, hreflang, tag bahasa, tautan alternatif, dan terjemahan yang hilang.',
       vi: 'Chạy kiểm tra tập trung vào đa ngôn ngữ để đánh giá mức độ sẵn sàng của i18n và SEO: các locale, hreflang, thẻ ngôn ngữ, liên kết thay thế và bản dịch còn thiếu.',
+      uk: 'Запустіть аудит, орієнтований на багатомовність, щоб оцінити готовність до i18n та SEO: локалі, hreflang, мовні теги, альтернативні посилання та відсутні переклади.',
     }),
     keywords: t<string[]>({
       en: [
@@ -215,6 +217,17 @@ const metadataContent = {
         'thẻ ngôn ngữ',
         'liên kết thay thế',
         'đa ngôn ngữ',
+      ],
+      uk: [
+        'i18n-аудит',
+        'інтернаціоналізація',
+        'локалізація',
+        'SEO',
+        'hreflang',
+        'мовні теги',
+        'альтернативні посилання',
+        'багатомовність',
+        'доступність',
       ],
     }),
   },

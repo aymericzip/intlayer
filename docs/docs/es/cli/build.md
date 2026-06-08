@@ -13,23 +13,51 @@ slugs:
   - concept
   - cli
   - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: "Añadir opción checkTypes"
 ---
 
 # Construir Diccionarios
 
 Para construir tus diccionarios, puedes ejecutar los comandos:
 
-```bash
+```bash packageManager="npm"
 npx intlayer build
+```
+
+```bash packageManager="yarn"
+yarn intlayer build
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build
+```
+
+```bash packageManager="bun"
+bun x intlayer build
 ```
 
 o en modo watch
 
-```bash
+```bash packageManager="npm"
 npx intlayer build --watch
 ```
 
-Este comando encontrará tus archivos de declaración de contenido por defecto en `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`. Y construirá los diccionarios en el directorio `.intlayer`.
+```bash packageManager="yarn"
+yarn intlayer build --watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build --watch
+```
+
+```bash packageManager="bun"
+bun x intlayer build --watch
+```
+
+Este comando encontrará tus archivos de declaración de contenido por defecto en `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. Y construirá los diccionarios en el directorio `.intlayer`.
 
 ## Alias:
 
@@ -62,3 +90,7 @@ Este comando encontrará tus archivos de declaración de contenido por defecto e
 - **`--no-cache`**: Deshabilitar la caché.
 
   > Ejemplo: `npx intlayer build --no-cache`
+
+- **`--check-types`**: Comprueba los tipos de los archivos de declaración de contenido.
+
+  > Ejemplo: `npx intlayer build --check-types`

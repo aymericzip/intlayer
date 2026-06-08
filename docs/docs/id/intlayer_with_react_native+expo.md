@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2025-10-02
-title: Cara menerjemahkan aplikasi React Native dan Expo Anda – panduan i18n 2025
-description: Temukan cara membuat situs web React Native dan Expo Anda menjadi multibahasa. Ikuti dokumentasi untuk melakukan internasionalisasi (i18n) dan menerjemahkannya.
+updatedAt: 2026-05-31
+title: "Expo + React Native i18n - Panduan lengkap menerjemahkan aplikasi Anda"
+description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Expo + React Native multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
   - Internasionalisasi
   - Dokumentasi
@@ -15,43 +15,146 @@ slugs:
   - environment
   - react-native-and-expo
 applicationTemplate: https://github.com/aymericzip/intlayer-react-native-template
+applicationShowcase: https://intlayer-react-native.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Perbarui penggunaan API useIntlayer Solid ke akses properti langsung"
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: "Tambahkan perintah init"
   - version: 6.1.6
     date: 2025-10-02
-    changes: Menambahkan bagian debug
+    changes: "Menambahkan bagian debug"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inisialisasi riwayat
+    changes: "Inisialisasi riwayat"
 ---
 
-# Terjemahkan situs web React Native dan Expo Anda menggunakan Intlayer | Internasionalisasi (i18n)
+# Terjemahkan aplikasi Expo dan React Native Anda | Internasionalisasi (i18n)
 
-## Daftar Isi
-
-<TOC/>
-
-## Apa itu Intlayer?
-
-**Intlayer** adalah **perpustakaan internasionalisasi (i18n) open-source yang inovatif** yang mempermudah dukungan multibahasa dalam aplikasi modern. Ini bekerja di banyak lingkungan JavaScript/TypeScript, **termasuk React Native** (melalui paket `react-intlayer`).
-
-Dengan Intlayer, Anda dapat:
-
-- **Mengelola terjemahan dengan mudah** menggunakan kamus deklaratif di tingkat komponen.
-- **Memastikan dukungan TypeScript** dengan tipe yang dihasilkan secara otomatis.
-- **Melokalkan konten secara dinamis**, termasuk **string UI** (dan di React untuk web, juga dapat melokalkan metadata HTML, dll.).
-- **Memanfaatkan fitur canggih**, seperti deteksi dan pengalihan locale secara dinamis.
-
----
-
-## Langkah 1: Instalasi Dependensi
+<Tabs defaultTab="code">
+  <Tab label="Kode" value="code">
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-react-native-template?embed=1&ctl=1&file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-react-native-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Cara Menginternasionalisasi aplikasi Anda menggunakan Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
+
+  </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-react-native.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo - intlayer-react-native-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
+## Daftar Isi
+
+<TOC/>
+
+## Mengapa Intlayer dibandingkan alternatif?
+
+Dibandingkan dengan solusi utama seperti `react-native-localize` atau `i18next`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
+
+<AccordionGroup>
+
+<Accordion header="Cakupan React Native Penuh">
+
+Intlayer dioptimalkan agar berfungsi sempurna dengan React Native dan Expo dengan menawarkan **pelingkupan konten tingkat komponen**, **dukungan TypeScript**, dan semua fitur yang diperlukan untuk penskalaan internasionalisasi (i18n) di aplikasi seluler.
+
+</Accordion>
+
+<Accordion header="Kemampuan Pemeliharaan">
+
+Mencakup konten aplikasi Anda **memfasilitasi pemeliharaan** untuk aplikasi berskala besar. Anda dapat menduplikasi atau menghapus satu folder fitur tanpa beban mental untuk meninjau seluruh basis kode konten Anda. Selain itu, Intlayer **diketik sepenuhnya** untuk memastikan keakuratan konten Anda.
+
+</Accordion>
+
+<Accordion header="Agen AI">
+
+Menempatkan konten bersama **mengurangi konteks yang diperlukan** dengan Model Bahasa Besar (LLM). Intlayer juga dilengkapi dengan serangkaian alat, seperti **CLI** untuk menguji terjemahan yang hilang,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, dan **[agent skill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, untuk menjadikan pengalaman pengembang (DX) lebih lancar bagi agen AI.
+
+</Accordion>
+
+<Accordion header="Otomatisasi">
+
+Gunakan otomatisasi untuk menerjemahkan dalam saluran CI/CD Anda menggunakan LLM pilihan Anda dengan biaya penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomatiskan ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
+
+</Accordion>
+
+<Accordion header="Pertunjukan">
+
+Menghubungkan file JSON berukuran besar ke komponen dapat menyebabkan masalah kinerja dan reaktivitas. Intlayer mengoptimalkan pemuatan konten Anda pada waktu pembuatan.
+
+</Accordion>
+
+<Accordion header="Menskalakan tanpa pengembang">
+
+Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** yang dihosting sendiri dan **[CMS lengkap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** untuk membantu Anda mengelola konten multibahasa secara **real-time**, membuat kolaborasi dengan penerjemah, copywriter, dan anggota tim lainnya menjadi lancar. Konten dapat disimpan secara lokal dan/atau jarak jauh.
+
+</Accordion>
+
+<Accordion header="Ukuran bundle">
+
+Daripada memuat file JSON berukuran besar ke halaman Anda, muat saja konten yang diperlukan. Intlayer membantu **mengurangi paket dan ukuran tampilan hingga 50%**.
+
+</Accordion>
+</AccordionGroup>
+
+## Langkah 1: Instal Dependensi
+
+Lihat [Template Aplikasi](https://github.com/aymericzip/intlayer-react-native-template) di GitHub.
+
+Dari proyek React Native Anda, instal paket berikut:
+
+```bash packageManager = "npm"
+npm instal intlayer reaksi-intlayer
+npm install --save-dev reaksi-asli-intlayer
+npx lapisan dalam init
+```
+
+```bash packageManager = "pnpm"
+pnpm menambahkan lapisan dalam reaksi-lapisan
+pnpm tambahkan --save-dev react-native-intlayer
+pnpm dalam lapisan init
+```
+
+```bash packageManager = "benang"
+benang tambahkan lapisan dalam reaksi-lapisan
+benang tambahkan --save-dev react-native-intlayer
+benang dalam lapisan init
+```
+
+```bash packageManager = "bun"
+bun tambahkan intlayer react-intlayer
+sanggul tambahkan --dev react-native-intlayer
+bun x lapisan init
+```
+
+### Paket
+
+- **pemain**  
+  Toolkit inti i18n untuk konfigurasi, konten kamus, pembuatan tipe, dan perintah CLI.
+
+- **pemain reaksi**  
+  Integrasi React yang menyediakan penyedia konteks dan React hooks yang akan Anda gunakan di React Native untuk memperoleh dan berpindah lokal.
+
+- **reaksi-asli-intlayer**  
+  Integrasi React Native yang menyediakan plugin Metro untuk mengintegrasikan Intlayer dengan bundler React Native.
+
+---
+
+## Langkah 1: Instalasi Dependensi
 
 Lihat [Template Aplikasi](https://github.com/aymericzip/intlayer-react-native-template) di GitHub.
 
@@ -60,16 +163,25 @@ Dari proyek React Native Anda, instal paket-paket berikut:
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
 npm install --save-dev react-native-intlayer
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer
 pnpm add --save-dev react-native-intlayer
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer react-intlayer
 yarn add --save-dev react-native-intlayer
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer
+bun add --dev react-native-intlayer
+bun x intlayer init
 ```
 
 ### Paket
@@ -89,7 +201,7 @@ yarn add --save-dev react-native-intlayer
 
 Di root proyek Anda (atau di mana saja yang nyaman), buat file **konfigurasi Intlayer**. File tersebut mungkin terlihat seperti ini:
 
-```ts fileName="intlayer.config.ts" codeFormat="typescript"
+```ts fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 /**
  * Jika tipe Locales tidak tersedia, coba atur moduleResolution ke "bundler" di tsconfig.json Anda
  */
@@ -108,39 +220,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```js fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // ... Tambahkan locale lain yang Anda butuhkan
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```js fileName="intlayer.config.js" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 Dalam konfigurasi ini, Anda dapat:
@@ -176,7 +255,7 @@ Untuk menjaga sinkronisasi bahasa pengguna di seluruh aplikasi Anda, Anda perlu 
 
 Selain itu, Anda perlu menambahkan fungsi `intlayerPolyfill` ke file `index.js` Anda untuk memastikan Intlayer dapat bekerja dengan baik.
 
-```tsx fileName="app/_layout.tsx" codeFormat="typescript"
+```tsx fileName="app/_layout.tsx" codeFormat={["typescript", "esm"]}
 import { Stack } from "expo-router";
 import { getLocales } from "expo-localization";
 import { IntlayerProvider } from "react-native-intlayer";
@@ -197,46 +276,6 @@ const RootLayout: FC = () => {
 export default RootLayout;
 ```
 
-```jsx fileName="app/_layout.mjx" codeFormat="esm"
-import { Stack } from "expo-router";
-import { getLocales } from "expo-localization";
-import { IntlayerProvider } from "react-native-intlayer";
-
-const getDeviceLocale = () => getLocales()[0]?.languageTag;
-
-const RootLayout = () => {
-  return (
-    <IntlayerProvider defaultLocale={getDeviceLocale()}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
-    </IntlayerProvider>
-  );
-};
-
-export default RootLayout;
-```
-
-```jsx fileName="app/_layout.cjx" codeFormat="commonjs"
-const { Stack } = require("expo-router");
-const { getLocales } = require("expo-localization");
-const { IntlayerProvider } = require("react-native-intlayer");
-
-const getDeviceLocale = () => getLocales()[0]?.languageTag;
-
-const RootLayout = () => {
-  return (
-    <IntlayerProvider defaultLocale={getDeviceLocale()}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
-    </IntlayerProvider>
-  );
-};
-
-module.exports = RootLayout;
-```
-
 ## Langkah 5: Deklarasikan Konten Anda
 
 Buat file **deklarasi konten** di mana saja dalam proyek Anda (biasanya di dalam `src/`), menggunakan salah satu format ekstensi yang didukung Intlayer:
@@ -254,7 +293,7 @@ Buat file **deklarasi konten** di mana saja dalam proyek Anda (biasanya di dalam
 
 Contoh (TypeScript dengan node TSX untuk React Native):
 
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 import type { ReactNode } from "react";
 
@@ -275,43 +314,6 @@ const homeScreenContent = {
 } satisfies Dictionary;
 
 export default homeScreenContent;
-```
-
-```jsx fileName="src/app.content.mjx" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-import { ReactNode } from "react";
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "home-screen",
-  content: {
-    title: t({
-      en: "Welcome!",
-      fr: "Bienvenue!",
-      es: "¡Bienvenido!",
-    }),
-  },
-};
-
-export default appContent;
-```
-
-```jsx fileName="src/app.content.csx" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "home-screen",
-  content: {
-    title: t({
-      en: "Welcome!",
-      fr: "Bienvenue!",
-      es: "¡Bienvenido!",
-    }),
-  },
-};
-
-module.exports = appContent;
 ```
 
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"
@@ -341,7 +343,7 @@ Gunakan hook `useIntlayer` di komponen anak untuk mendapatkan konten yang sudah 
 
 ### Contoh
 
-```tsx fileName="app/(tabs)/index.tsx" codeFormat="typescript"
+```tsx fileName="app/(tabs)/index.tsx" codeFormat={["typescript", "esm"]}
 import { Image, StyleSheet, Platform } from "react-native";
 import { useIntlayer } from "react-intlayer";
 import { HelloWave } from "@/components/HelloWave";
@@ -382,87 +384,9 @@ const styles = StyleSheet.create({
 export default HomeScreen;
 ```
 
-```jsx fileName="app/(tabs)/index.content.msx" codeFormat="esm"
-import { Image, StyleSheet, Platform } from "react-native";
-import { useIntlayer } from "react-intlayer";
-import { HelloWave } from "@/components/HelloWave";
-import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
-
-const HomeScreen = () => {
-  const { title, steps } = useIntlayer("home-screen");
-
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
-      headerImage={
-        <Image
-          source={require("@/assets/images/partial-react-logo.png")}
-          style={styles.reactLogo}
-        />
-      }
-    >
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">{title}</ThemedText>
-        <HelloWave />
-      </ThemedView>
-    </ParallaxScrollView>
-  );
-};
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-});
-
-export default HomeScreen;
-```
-
-```jsx fileName="app/(tabs)/index.content.csx" codeFormat="commonjs"
-const { Image, StyleSheet, Platform } = require("react-native");
-const { useIntlayer } = require("react-intlayer");
-const { HelloWave } = require("@/components/HelloWave");
-const ParallaxScrollView = require("@/components/ParallaxScrollView");
-const { ThemedText } = require("@/components/ThemedText");
-const { ThemedView } = require("@/components/ThemedView");
-
-const HomeScreen = () => {
-  const { title, steps } = useIntlayer("home-screen");
-
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
-      headerImage={
-        <Image
-          source={require("@/assets/images/partial-react-logo.png")}
-          style={styles.reactLogo}
-        />
-      }
-    >
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">{title}</ThemedText>
-        <HelloWave />
-      </ThemedView>
-    </ParallaxScrollView>
-  );
-};
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-});
-
-module.exports = HomeScreen;
-```
-
 > Saat menggunakan `content.someKey` dalam properti berbasis string (misalnya, `title` pada tombol atau `children` pada komponen `Text`), **panggil `content.someKey.value`** untuk mendapatkan string yang sebenarnya.
+
+> Jika aplikasi Anda sudah ada, Anda dapat menggunakan [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) secara kombinasi dengan [perintah extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md) untuk mengonversi ribuan komponen dalam satu detik.
 
 ---
 
@@ -470,101 +394,13 @@ module.exports = HomeScreen;
 
 Untuk mengganti locale dari dalam komponen Anda, Anda dapat menggunakan metode `setLocale` dari hook `useLocale`:
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 import { type FC } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { getLocaleName } from "intlayer";
 import { useLocale } from "react-intlayer";
 
 export const LocaleSwitcher: FC = () => {
-  const { setLocale, availableLocales } = useLocale();
-
-  return (
-    <View style={styles.container}>
-      {availableLocales.map((locale) => (
-        <TouchableOpacity
-          key={locale}
-          style={styles.button}
-          onPress={() => setLocale(locale)}
-        >
-          <Text style={styles.text}>{getLocaleName(locale)}</Text>
-        </TouchableOpacity>
-      ))}
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 8,
-  },
-  button: {
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 6,
-    backgroundColor: "#ddd",
-  },
-  text: {
-    fontSize: 14,
-    fontWeight: "500",
-    color: "#333",
-  },
-});
-```
-
-```jsx fileName="src/components/LocaleSwitcher.msx" codeFormat="esm"
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { getLocaleName } from "intlayer";
-import { useLocale } from "react-intlayer";
-
-export const LocaleSwitcher = () => {
-  const { setLocale, availableLocales } = useLocale();
-
-  return (
-    <View style={styles.container}>
-      {availableLocales.map((locale) => (
-        <TouchableOpacity
-          key={locale}
-          style={styles.button}
-          onPress={() => setLocale(locale)}
-        >
-          <Text style={styles.text}>{getLocaleName(locale)}</Text>
-        </TouchableOpacity>
-      ))}
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 8,
-  },
-  button: {
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 6,
-    backgroundColor: "#ddd",
-  },
-  text: {
-    fontSize: 14,
-    fontWeight: "500",
-    color: "#333",
-  },
-});
-```
-
-```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-const { View, Text, TouchableOpacity, StyleSheet } = require("react-native");
-const { getLocaleName } = require("intlayer");
-const { useLocale } = require("react-intlayer");
-
-const LocaleSwitcher = () => {
   const { setLocale, availableLocales } = useLocale();
 
   return (
@@ -634,8 +470,8 @@ Ini yang mengaktifkan fitur seperti:
 
 Untuk menghindari commit file yang dihasilkan otomatis oleh Intlayer, tambahkan berikut ini ke `.gitignore` Anda:
 
-```plaintext
-# Abaikan file yang dihasilkan oleh Intlayer
+```bash
+#  Abaikan file yang dihasilkan oleh Intlayer
 .intlayer
 ```
 
@@ -662,7 +498,7 @@ Untuk detail lebih lanjut tentang cara menggunakan ekstensi ini, lihat [dokument
 
 - **Visual Editor**: Gunakan [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) untuk mengelola terjemahan secara visual.
 - **Integrasi CMS**: Anda juga dapat mengeksternalisasi dan mengambil konten kamus Anda dari sebuah [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
-- **Perintah CLI**: Jelajahi [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_cli.md) untuk tugas seperti **mengekstrak terjemahan** atau **memeriksa kunci yang hilang**.
+- **Perintah CLI**: Jelajahi [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md) untuk tugas seperti **mengekstrak terjemahan** atau **memeriksa kunci yang hilang**.
 
 Nikmati membangun aplikasi **React Native** Anda dengan i18n yang sepenuhnya didukung melalui **Intlayer**!
 
@@ -693,7 +529,5 @@ import "@formatjs/intl-datetimeformat/polyfill";
 ```
 
 - Periksa konfigurasi Metro Anda (alias resolver, plugin aset, jalur `tsconfig`) jika modul gagal di-resolve.
-
----
 
 ---

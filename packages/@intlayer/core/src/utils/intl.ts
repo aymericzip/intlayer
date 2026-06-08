@@ -1,32 +1,35 @@
-// Cached Intl helper – drop‑in replacement for the global `Intl` object.
-// ‑‑‑
-// • Uses a `Proxy` to lazily wrap every *constructor* hanging off `Intl` (NumberFormat, DateTimeFormat, …).
-// • Each wrapped constructor keeps an in‑memory cache keyed by `[locales, options]` so that identical requests
-// reuse the same heavy instance instead of reparsing CLDR data every time.
-// • A polyfill warning for `Intl.DisplayNames` is emitted only once and only in dev.
-// • The public API is fully type‑safe and mirrors the native `Intl` surface exactly –
-// you can treat `CachedIntl` just like the built‑in `Intl`.
-//
-// Usage examples:
-// ---------------
-// import { CachedIntl } from "./cached-intl";
-//
-// const nf = CachedIntl.NumberFormat("en-US", { style: "currency", currency: "USD" });
-// console.log(nf.format(1234));
-//
-// const dn = CachedIntl.DisplayNames(["fr"], { type: "language" });
-// console.log(dn.of("en")); // → "anglais"
-//
-// You can also spin up an isolated instance with its own caches (handy in test suites):
-// const TestIntl = createCachedIntl();
-//
-// ---------------------------------------------------------------------
+/**
+ * Cached Intl helper – drop‑in replacement for the global `Intl` object.
+ * ‑‑‑
+ * • Uses a `Proxy` to lazily wrap every *constructor* hanging off `Intl` (NumberFormat, DateTimeFormat, …).
+ * • Each wrapped constructor keeps an in‑memory cache keyed by `[locales, options]` so that identical requests
+ * reuse the same heavy instance instead of reparsing CLDR data every time.
+ * • A polyfill warning for `Intl.DisplayNames` is emitted only once and only in dev.
+ * • The public API is fully type‑safe and mirrors the native `Intl` surface exactly –
+ * you can treat `CachedIntl` just like the built‑in `Intl`.
+ *
+ * Usage @example:
+ * ---------------
+ * ```ts
+ * import { CachedIntl } from "./cached-intl";
+ *
+ * const nf = CachedIntl.NumberFormat("en-US", { style: "currency", currency: "USD" });
+ * console.log(nf.format(1234));
+ *
+ * const dn = CachedIntl.DisplayNames(["fr"], { type: "language" });
+ * console.log(dn.of("en")); * → "anglais"
+ *
+ * You can also spin up an isolated instance with its own caches (handy in test suites):
+ * const TestIntl = createCachedIntl();
+ * ```
+ */
 
-import { Locales, type LocalesValues } from '@intlayer/types';
+import { internationalization } from '@intlayer/config/built';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 
-// Helper type that picks just the constructor members off `typeof Intl`.
-// The "capital‑letter" heuristic is 100 % accurate today and keeps the
-// mapping short‑lived, so we don't have to manually list every constructor.
+const MAX_CACHE_SIZE = 50;
+const cache = new Map<any, Map<string, any>>();
+
 type IntlConstructors = {
   [K in keyof typeof Intl as (typeof Intl)[K] extends new (
     ...args: any
@@ -35,122 +38,127 @@ type IntlConstructors = {
     : never]: (typeof Intl)[K];
 };
 
-// Type wrapper to replace locale arguments with LocalesValues
 type ReplaceLocaleWithLocalesValues<T> = T extends new (
   locales: any,
   options?: infer Options
 ) => infer Instance
-  ? new (
-      locales?: LocalesValues,
-      options?: Options
-    ) => Instance
+  ? {
+      new (locales?: LocalesValues, options?: Options): Instance;
+      new (options?: Options & { locale?: LocalesValues }): Instance;
+      (locales?: LocalesValues, options?: Options): Instance;
+      (options?: Options & { locale?: LocalesValues }): Instance;
+    }
   : T extends new (
         locales: any
       ) => infer Instance
-    ? new (
-        locales?: LocalesValues
-      ) => Instance
+    ? {
+        new (locales?: LocalesValues): Instance;
+        new (options?: { locale?: LocalesValues }): Instance;
+        (locales?: LocalesValues): Instance;
+        (options?: { locale?: LocalesValues }): Instance;
+      }
     : T;
 
-// Wrapped Intl type with LocalesValues
-type WrappedIntl = {
+export type WrappedIntl = {
   [K in keyof typeof Intl]: K extends keyof IntlConstructors
     ? ReplaceLocaleWithLocalesValues<(typeof Intl)[K]>
     : (typeof Intl)[K];
 };
 
-// Generic cache key – JSON.stringify is fine because locale strings are short
-// and option objects are small and deterministic.
-const cacheKey = (locales: LocalesValues, options: unknown) =>
-  JSON.stringify([locales, options]);
+/**
+ * Generic caching instantiator for Intl constructors.
+ */
+export const getCachedIntl = <T extends new (...args: any[]) => any>(
+  Ctor: T,
+  locale?: LocalesValues | string,
+  options?: any
+): InstanceType<T> => {
+  const resLoc = locale ?? internationalization?.defaultLocale;
 
-// Generic wrapper for any `new Intl.*()` constructor.
-// Returns a constructable function (usable with or without `new`) that
-// pulls instances from a Map cache when possible.
-const createCachedConstructor = <T extends new (...args: any[]) => any>(
-  Ctor: T
-) => {
-  const cache = new Map<string, InstanceType<T>>();
+  const optKey = options ? JSON.stringify(options) : '';
+  const key = `${resLoc}|${optKey}`;
 
-  function Wrapped(locales?: LocalesValues, options?: any) {
-    // Special case – guard older runtimes missing DisplayNames.
-    if (
-      Ctor.name === 'DisplayNames' &&
-      typeof (Intl as any)?.DisplayNames !== 'function'
-    ) {
-      if (process.env.NODE_ENV === 'development') {
-        console.warn(
-          [
-            `// Intl.DisplayNames is not supported; falling back to raw locale (${locales}). `,
-            `// Consider adding a polyfill as https://formatjs.io/docs/polyfills/intl-displaynames/`,
-            ``,
-            `import 'intl';`,
-            `import '@formatjs/intl-getcanonicallocales/polyfill';`,
-            `import '@formatjs/intl-locale/polyfill';`,
-            `import '@formatjs/intl-pluralrules/polyfill';`,
-            `import '@formatjs/intl-displaynames/polyfill';`,
-            `import '@formatjs/intl-listformat/polyfill';`,
-            `import '@formatjs/intl-numberformat/polyfill';`,
-            `import '@formatjs/intl-relativetimeformat/polyfill';`,
-            `import '@formatjs/intl-datetimeformat/polyfill';`,
-            ``,
-            `// Optionally add locale data`,
-            `import '@formatjs/intl-pluralrules/locale-data/fr';`,
-            `import '@formatjs/intl-numberformat/locale-data/fr';`,
-            `import '@formatjs/intl-datetimeformat/locale-data/fr';`,
-          ].join('\n')
-        );
-      }
-      return locales as any;
-    }
+  let ctorCache = cache.get(Ctor);
 
-    const key = cacheKey(locales ?? Locales.ENGLISH, options);
-    let instance: InstanceType<T> | undefined = cache.get(key);
-
-    if (!instance) {
-      instance = new Ctor(locales as never, options as never);
-      cache.set(key, instance as InstanceType<T>);
-    }
-
-    return instance as InstanceType<T>;
+  if (!ctorCache) {
+    ctorCache = new Map();
+    cache.set(Ctor, ctorCache);
   }
 
-  // Ensure it behaves like a constructor when used with `new`.
-  (Wrapped as any).prototype = (Ctor as any).prototype;
+  let instance = ctorCache.get(key);
 
-  return Wrapped as unknown as ReplaceLocaleWithLocalesValues<T>;
+  if (!instance) {
+    if (ctorCache.size > MAX_CACHE_SIZE) ctorCache.clear();
+    instance = new Ctor(resLoc, options);
+    ctorCache.set(key, instance);
+  }
+  return instance;
 };
 
-// Factory that turns the global `Intl` into a cached clone.
-export const createCachedIntl = (): WrappedIntl =>
-  new Proxy(Intl as IntlConstructors, {
-    get: (target, prop, receiver) => {
-      const value = Reflect.get(target, prop, receiver);
+/**
+ * Optional: Keep bindIntl if your library exports it publicly.
+ * It now uses the much smaller getCachedIntl under the hood.
+ */
+export const bindIntl = (boundLocale: LocalesValues): WrappedIntl => {
+  const bindWrap = (Ctor: any) =>
+    // function is used as a constructor, do not change in arrow function
+    function intlConstructor(locales?: any, options?: any) {
+      const isOptsFirst =
+        locales !== null &&
+        typeof locales === 'object' &&
+        !Array.isArray(locales);
+      const resOpts = isOptsFirst ? locales : options;
+      const resLoc = isOptsFirst
+        ? (resOpts as any).locale || boundLocale
+        : locales || boundLocale;
 
-      // Wrap *only* constructor functions (safest heuristic: they start with a capital letter).
-      return typeof value === 'function' && /^[A-Z]/.test(String(prop))
-        ? createCachedConstructor(value)
-        : value;
-    },
-  }) as unknown as WrappedIntl;
+      return getCachedIntl(Ctor, resLoc, resOpts);
+    };
 
-// Singleton – import this in application code if you just want shared caches.
-export const CachedIntl = createCachedIntl();
+  return {
+    ...Intl,
+    Collator: bindWrap(Intl.Collator),
+    DateTimeFormat: bindWrap(Intl.DateTimeFormat),
+    DisplayNames: bindWrap(Intl.DisplayNames),
+    ListFormat: bindWrap(Intl.ListFormat),
+    NumberFormat: bindWrap(Intl.NumberFormat),
+    PluralRules: bindWrap(Intl.PluralRules),
+    RelativeTimeFormat: bindWrap(Intl.RelativeTimeFormat),
+    Locale: bindWrap(Intl.Locale),
+    Segmenter: bindWrap((Intl as any).Segmenter),
+  } as unknown as WrappedIntl;
+};
 
-// new CachedIntl.DisplayNames(Locales.FRENCH, { type: 'language' });
-// new CachedIntl.DisplayNames('fr', { type: 'language' });
-// new CachedIntl.DateTimeFormat('fr', {
-// year: 'numeric',
-// month: 'long',
-// day: 'numeric',
-// });
-// new CachedIntl.NumberFormat('fr', {
-// style: 'currency',
-// currency: 'EUR',
-// });
-// new CachedIntl.Collator('fr', { sensitivity: 'base' });
-// new CachedIntl.PluralRules('fr');
-// new CachedIntl.RelativeTimeFormat('fr', { numeric: 'auto' });
-// new CachedIntl.ListFormat('fr', { type: 'conjunction' });
+// Add this to the bottom of utils/intl.ts ONLY if required for public API compatibility.
+export const CachedIntl = {
+  // function is used as a constructor, do not change in arrow function
+  Collator: function Collator(locales?: any, options?: any) {
+    return getCachedIntl(Intl.Collator, locales, options);
+  },
+  DateTimeFormat: function DateTimeFormat(locales?: any, options?: any) {
+    return getCachedIntl(Intl.DateTimeFormat, locales, options);
+  },
+  DisplayNames: function DisplayNames(locales?: any, options?: any) {
+    return getCachedIntl(Intl.DisplayNames, locales, options);
+  },
+  ListFormat: function ListFormat(locales?: any, options?: any) {
+    return getCachedIntl(Intl.ListFormat as any, locales, options);
+  },
+  NumberFormat: function NumberFormat(locales?: any, options?: any) {
+    return getCachedIntl(Intl.NumberFormat, locales, options);
+  },
+  PluralRules: function PluralRules(locales?: any, options?: any) {
+    return getCachedIntl(Intl.PluralRules, locales, options);
+  },
+  RelativeTimeFormat: function RelativeTimeFormat(
+    locales?: any,
+    options?: any
+  ) {
+    return getCachedIntl(Intl.RelativeTimeFormat, locales, options);
+  },
+  Segmenter: function Segmenter(locales?: any, options?: any) {
+    return getCachedIntl((Intl as any).Segmenter, locales, options);
+  },
+} as any; // Cast to 'any' internally to avoid TS readonly errors
 
 export { CachedIntl as Intl };

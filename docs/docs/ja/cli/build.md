@@ -13,23 +13,51 @@ slugs:
   - concept
   - cli
   - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: "checkTypesオプションを追加"
 ---
 
 # 辞書のビルド
 
 辞書をビルドするには、以下のコマンドを実行します。
 
-```bash
+```bash packageManager="npm"
 npx intlayer build
+```
+
+```bash packageManager="yarn"
+yarn intlayer build
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build
+```
+
+```bash packageManager="bun"
+bun x intlayer build
 ```
 
 またはウォッチモードで
 
-```bash
+```bash packageManager="npm"
 npx intlayer build --watch
 ```
 
-このコマンドはデフォルトで `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` にある宣言コンテンツファイルを検出し、`.intlayer` ディレクトリに辞書をビルドします。
+```bash packageManager="yarn"
+yarn intlayer build --watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build --watch
+```
+
+```bash packageManager="bun"
+bun x intlayer build --watch
+```
+
+このコマンドはデフォルトで `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` にある宣言コンテンツファイルを検出し、`.intlayer` ディレクトリに辞書をビルドします。
 
 ## エイリアス:
 
@@ -76,3 +104,7 @@ npx intlayer build --watch
 - **`--no-cache`**: キャッシュを無効にします。
 
   > 例: `npx intlayer build --no-cache`
+
+- **`--check-types`**: コンテンツ宣言ファイルの型をチェックします。
+
+  > 例: `npx intlayer build --check-types`

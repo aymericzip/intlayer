@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: प्रारंभिक इतिहास
+    changes: "प्रारंभिक इतिहास"
 ---
 
 # दस्तावेज़ीकरण: `getPathWithoutLocale` फ़ंक्शन `intlayer` में
@@ -33,7 +33,6 @@ history:
 ## पैरामीटर
 
 - `inputUrl: string`
-
   - **विवरण**: संसाधित करने के लिए पूर्ण URL स्ट्रिंग या पाथनेम।
   - **प्रकार**: `string`
 
@@ -48,26 +47,8 @@ history:
 
 ## उदाहरण उपयोग
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getPathWithoutLocale } from "intlayer";
-
-console.log(getPathWithoutLocale("/dashboard")); // आउटपुट: "/dashboard"
-console.log(getPathWithoutLocale("/en/dashboard")); // आउटपुट: "/dashboard"
-console.log(getPathWithoutLocale("/fr/dashboard")); // आउटपुट: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // आउटपुट: "https://example.com/dashboard"
-```
-
-```javascript codeFormat="esm"
-import { getPathWithoutLocale } from "intlayer";
-
-console.log(getPathWithoutLocale("/dashboard")); // आउटपुट: "/dashboard"
-console.log(getPathWithoutLocale("/en/dashboard")); // आउटपुट: "/dashboard"
-console.log(getPathWithoutLocale("/fr/dashboard")); // आउटपुट: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // आउटपुट: "https://example.com/dashboard"
-```
-
-```javascript codeFormat="commonjs"
-const { getPathWithoutLocale } = require("intlayer");
 
 console.log(getPathWithoutLocale("/dashboard")); // आउटपुट: "/dashboard"
 console.log(getPathWithoutLocale("/en/dashboard")); // आउटपुट: "/dashboard"

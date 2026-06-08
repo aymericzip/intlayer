@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: بدء التاريخ
+    changes: "بدء التاريخ"
 ---
 
 # إعلان محتوى "لكل لغة" في Intlayer
@@ -42,7 +42,7 @@ history:
 
 هذه هي الطريقة الموصى بها لمعظم حالات الاستخدام. فهو يركز الترجمات في مكان واحد، مما يسهل التكرار والتكامل مع نظام إدارة المحتوى.
 
-```tsx fileName="hello-world.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="hello-world.content.ts" contentDeclarationFormat={["typescript", "esm"]}
 import { t, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -54,24 +54,6 @@ const helloWorldContent = {
     }),
   },
 } satisfies Dictionary;
-
-export default helloWorldContent;
-```
-
-```js fileName="hello-world.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-// محتوى مرحب بالعالم
-const helloWorldContent = {
-  key: "hello-world",
-  content: {
-    multilingualContent: t({
-      en: "Title of my component",
-      es: "Título de mi componente",
-    }),
-  },
-};
 
 export default helloWorldContent;
 ```
@@ -112,6 +94,24 @@ module.exports = helloWorldContent;
 
 > موصى به: هذا التنسيق هو الأفضل عند استخدام محرر Intlayer المرئي أو إدارة الترجمات مباشرة في الكود.
 
+### التكوين العام لملفات كل لغة
+
+يمكنك ضبط التكوين العام لملفات كل لغة عن طريق إضافة ما يلي إلى ملف `intlayer.config.ts` الخاص بك:
+
+```ts
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  dictionary: {
+    locale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+باستخدام هذا التكوين، سيتم إنشاء جميع ملفات كل لغة مع تعيين اللغة الافتراضية إلى الإنجليزية. يتضمن ذلك أيضاً إنشاء ملفات `.content` باستخدام أمر `extract` والمترجم (compiler). (انظر [Compiler](https://intlayer.org/doc/compiler) أو [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en/cli/extract.md) لمزيد من المعلومات.)
+
 ## تنسيق حسب اللغة
 
 هذا التنسيق مفيد عندما:
@@ -121,7 +121,7 @@ module.exports = helloWorldContent;
 
 يمكنك أيضًا تقسيم الترجمات إلى ملفات لغة فردية عن طريق تحديد حقل اللغة:
 
-```tsx fileName="hello-world.en.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="hello-world.en.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, Locales, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -133,7 +133,7 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
-```tsx fileName="hello-world.es.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="hello-world.es.content.ts" contentDeclarationFormat={["typescript", "esm"]}
 import { t, Locales, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -143,66 +143,6 @@ const helloWorldContent = {
 } satisfies Dictionary;
 
 export default helloWorldContent;
-```
-
-```js fileName="hello-world.en.content.mjs" contentDeclarationFormat="esm"
-import { t, Locales } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-// محتوى "مرحبا بالعالم" للغة الإنجليزية
-const helloWorldContent = {
-  key: "hello-world",
-  locale: Locales.ENGLISH, // مهم
-  content: { multilingualContent: "عنوان المكون الخاص بي" },
-};
-
-export default helloWorldContent;
-```
-
-```tsx fileName="hello-world.es.content.mjs" contentDeclarationFormat="esm"
-import { t, Locales } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-// محتوى "مرحبا بالعالم" للغة الإسبانية
-const helloWorldContent = {
-  key: "hello-world",
-  locale: Locales.SPANISH, // مهم
-  content: { multilingualContent: "Título de mi componente" },
-};
-
-export default helloWorldContent;
-```
-
-```js fileName="hello-world.en.content.cjs" contentDeclarationFormat="commonjs"
-const { t, Locales } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-// محتوى "مرحبا بالعالم" للغة الإنجليزية
-const helloWorldContent = {
-  key: "hello-world",
-  locale: Locales.ENGLISH, // مهم
-  content: {
-    multilingualContent: "عنوان المكون الخاص بي",
-  },
-};
-
-module.exports = helloWorldContent;
-```
-
-```tsx fileName="hello-world.es.content.cjs" contentDeclarationFormat="commonjs"
-const { t, Locales } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-// محتوى "مرحبا بالعالم" للغة الإسبانية
-const helloWorldContent = {
-  key: "hello-world",
-  locale: Locales.SPANISH, // مهم
-  content: {
-    multilingualContent: "Título de mi componente",
-  },
-};
-
-module.exports = helloWorldContent;
 ```
 
 ```json5 fileName="hello-world.en.content.json" contentDeclarationFormat="json"
@@ -322,4 +262,4 @@ console.log(JSON.stringify(intlayer, null, 2));
 
 ### التوليد التلقائي للترجمة
 
-استخدم [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md) لملء الترجمات المفقودة تلقائيًا بناءً على الخدمات المفضلة لديك.
+استخدم [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md) لملء الترجمات المفقودة تلقائيًا بناءً على الخدمات المفضلة لديك.

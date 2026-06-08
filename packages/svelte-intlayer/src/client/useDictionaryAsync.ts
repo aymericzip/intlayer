@@ -1,8 +1,8 @@
+import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
-  Dictionary,
   LocalesValues,
   StrictModeLocaleMap,
-} from '@intlayer/types';
+} from '@intlayer/types/module_augmentation';
 import { derived, type Readable, writable } from 'svelte/store';
 import { getIntlayerContext } from './intlayerContext';
 import { intlayerStore } from './intlayerStore';
@@ -14,7 +14,7 @@ import { intlayerStore } from './intlayerStore';
  * @param locale Target locale (optional)
  * @returns Reactive store with loaded dictionary content
  */
-export const useDictionaryAsync = async <T extends Dictionary>(
+export const useDictionaryAsync = async <const T extends Dictionary>(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   locale?: LocalesValues
 ): Promise<Readable<T | null>> => {

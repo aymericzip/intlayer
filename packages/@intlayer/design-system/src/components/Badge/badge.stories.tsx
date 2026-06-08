@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
-import { Badge, BadgeColor, BadgeSize, BadgeVariant } from '.';
+import { Badge } from '.';
 
 /**
  * Badge component displays status indicators, labels, and notifications.
@@ -8,7 +8,7 @@ import { Badge, BadgeColor, BadgeSize, BadgeVariant } from '.';
  *
  * ## Features
  * - **Multiple variants**: Default, outline, hoverable, and none
- * - **Color themes**: Primary, secondary, destructive, neutral, light, dark, text, and custom
+ * - **Color themes**: Primary, secondary, ERROR, neutral, light, dark, text, and custom
  * - **Size options**: Small, medium, and large
  * - **Interactive features**: Clickable and dismissible badges
  * - **Accessibility**: Proper ARIA labels, keyboard navigation, and focus management
@@ -25,7 +25,7 @@ The Badge component is a versatile status indicator that can be used for labels,
 It follows accessibility best practices and provides comprehensive customization options.
 
 ### Usage Guidelines
-- Use appropriate colors to convey meaning (destructive for errors, neutral for info)
+- Use appropriate colors to convey meaning (ERROR for errors, neutral for info)
 - Provide meaningful content and aria-labels for screen readers
 - Consider interactive states for clickable badges
 - Use dismissible badges sparingly to avoid overwhelming users
@@ -53,29 +53,39 @@ It follows accessibility best practices and provides comprehensive customization
     },
     color: {
       control: { type: 'select' },
-      options: Object.values(BadgeColor),
+      options: [
+        'primary',
+        'secondary',
+        'success',
+        'error',
+        'neutral',
+        'light',
+        'dark',
+        'text',
+        'custom',
+      ],
       description: 'Color theme of the badge',
       table: {
         type: { summary: 'BadgeColor' },
-        defaultValue: { summary: 'BadgeColor.PRIMARY' },
+        defaultValue: { summary: 'primary' },
       },
     },
     variant: {
       control: { type: 'select' },
-      options: Object.values(BadgeVariant),
+      options: ['default', 'none', 'outline', 'hoverable'],
       description: 'Visual variant of the badge',
       table: {
         type: { summary: 'BadgeVariant' },
-        defaultValue: { summary: 'BadgeVariant.DEFAULT' },
+        defaultValue: { summary: 'default' },
       },
     },
     size: {
       control: { type: 'select' },
-      options: Object.values(BadgeSize),
+      options: ['sm', 'md', 'lg'],
       description: 'Size of the badge',
       table: {
         type: { summary: 'BadgeSize' },
-        defaultValue: { summary: 'BadgeSize.MEDIUM' },
+        defaultValue: { summary: 'medium' },
       },
     },
     clickable: {
@@ -134,9 +144,9 @@ It follows accessibility best practices and provides comprehensive customization
   },
   args: {
     children: 'Badge',
-    color: BadgeColor.PRIMARY,
-    variant: BadgeVariant.DEFAULT,
-    size: BadgeSize.MEDIUM,
+    color: 'primary',
+    variant: 'default',
+    size: 'medium',
     clickable: false,
     dismissible: false,
   },
@@ -168,8 +178,18 @@ export const Default: Story = {
 export const ColorVariations: Story = {
   render: () => (
     <div className="flex flex-wrap gap-2">
-      {Object.values(BadgeColor)
-        .filter((color) => color !== BadgeColor.CUSTOM)
+      {[
+        'primary',
+        'secondary',
+        'success',
+        'error',
+        'neutral',
+        'light',
+        'dark',
+        'text',
+        'custom',
+      ]
+        .filter((color) => color !== 'custom')
         .map((color) => (
           <Badge key={color} color={color}>
             {color.charAt(0).toUpperCase() + color.slice(1)}
@@ -193,13 +213,23 @@ export const ColorVariations: Story = {
 export const VariantShowcase: Story = {
   render: () => (
     <div className="space-y-4">
-      {Object.values(BadgeVariant).map((variant) => (
+      {['default', 'none', 'outline', 'hoverable'].map((variant) => (
         <div key={variant} className="flex flex-wrap gap-2">
           <span className="w-20 font-medium text-sm capitalize">
             {variant}:
           </span>
-          {Object.values(BadgeColor)
-            .filter((color) => color !== BadgeColor.CUSTOM)
+          {[
+            'primary',
+            'secondary',
+            'success',
+            'error',
+            'neutral',
+            'light',
+            'dark',
+            'text',
+            'custom',
+          ]
+            .filter((color) => color !== 'custom')
             .slice(0, 4)
             .map((color) => (
               <Badge
@@ -230,9 +260,9 @@ export const VariantShowcase: Story = {
 export const SizeVariations: Story = {
   render: () => (
     <div className="flex items-center gap-4">
-      {Object.values(BadgeSize).map((size) => (
+      {['sm', 'md', 'lg'].map((size) => (
         <div key={size} className="flex flex-col items-center gap-2">
-          <Badge size={size} color={BadgeColor.PRIMARY}>
+          <Badge size={size} color="primary">
             {size.charAt(0).toUpperCase() + size.slice(1)}
           </Badge>
           <span className="text-gray-600 text-xs capitalize">{size}</span>
@@ -257,7 +287,7 @@ export const ClickableBadge: Story = {
   args: {
     children: 'Click me',
     clickable: true,
-    color: BadgeColor.SECONDARY,
+    color: 'secondary',
     onClick: () => console.log('Badge clicked!'),
   },
   parameters: {
@@ -295,7 +325,7 @@ export const DismissibleBadge: Story = {
   args: {
     children: 'Dismissible',
     dismissible: true,
-    color: BadgeColor.NEUTRAL,
+    color: 'neutral',
     onDismiss: () => console.log('Badge dismissed!'),
   },
   parameters: {
@@ -333,15 +363,12 @@ export const CustomStyling: Story = {
         Custom Color
       </Badge>
       <Badge
-        variant={BadgeVariant.OUTLINE}
-        className="border-blue-400 border-dashed text-blue-600"
+        variant="outline"
+        className="border-blue-400 border-dotted text-blue-600"
       >
         Dashed Border
       </Badge>
-      <Badge
-        size={BadgeSize.LARGE}
-        className="font-bold uppercase tracking-wider"
-      >
+      <Badge size="large" className="font-bold uppercase tracking-wider">
         Bold Large
       </Badge>
     </div>
@@ -365,13 +392,13 @@ export const AccessibilityExample: Story = {
       <div>
         <h4 className="mb-2 font-medium">Status Badges</h4>
         <div className="flex gap-2">
-          <Badge color={BadgeColor.PRIMARY} aria-label="Online status">
+          <Badge color="primary" aria-label="Online status">
             Online
           </Badge>
-          <Badge color={BadgeColor.DESTRUCTIVE} aria-label="Error status">
+          <Badge color="error" aria-label="Error status">
             Error
           </Badge>
-          <Badge color={BadgeColor.NEUTRAL} aria-label="Pending status">
+          <Badge color="neutral" aria-label="Pending status">
             Pending
           </Badge>
         </div>
@@ -382,7 +409,7 @@ export const AccessibilityExample: Story = {
         <div className="flex gap-2">
           <Badge
             clickable
-            color={BadgeColor.SECONDARY}
+            color="secondary"
             aria-label="Filter by category"
             onClick={() => console.log('Category filter clicked')}
           >
@@ -390,7 +417,7 @@ export const AccessibilityExample: Story = {
           </Badge>
           <Badge
             dismissible
-            color={BadgeColor.LIGHT}
+            color="light"
             aria-label="Remove tag"
             onDismiss={() => console.log('Tag removed')}
           >
@@ -450,7 +477,7 @@ export const UsageExamples: Story = {
         <h4 className="mb-2 font-medium">Notification Count</h4>
         <div className="flex items-center gap-2">
           <span>Messages</span>
-          <Badge color={BadgeColor.DESTRUCTIVE} size={BadgeSize.SMALL}>
+          <Badge color="error" size="small">
             3
           </Badge>
         </div>
@@ -459,9 +486,9 @@ export const UsageExamples: Story = {
       <div>
         <h4 className="mb-2 font-medium">Status Indicators</h4>
         <div className="flex gap-2">
-          <Badge color={BadgeColor.PRIMARY}>Active</Badge>
-          <Badge color={BadgeColor.NEUTRAL}>Inactive</Badge>
-          <Badge color={BadgeColor.DESTRUCTIVE}>Suspended</Badge>
+          <Badge color="primary">Active</Badge>
+          <Badge color="neutral">Inactive</Badge>
+          <Badge color="error">Suspended</Badge>
         </div>
       </div>
 
@@ -471,9 +498,9 @@ export const UsageExamples: Story = {
           {['React', 'TypeScript', 'Storybook', 'Design System'].map((tag) => (
             <Badge
               key={tag}
-              variant={BadgeVariant.OUTLINE}
-              color={BadgeColor.SECONDARY}
-              size={BadgeSize.SMALL}
+              variant="outline"
+              color="secondary"
+              size="small"
               dismissible
               onDismiss={() => console.log(`Removed ${tag}`)}
             >
@@ -486,13 +513,13 @@ export const UsageExamples: Story = {
       <div>
         <h4 className="mb-2 font-medium">Priority Levels</h4>
         <div className="flex gap-2">
-          <Badge color={BadgeColor.DESTRUCTIVE} size={BadgeSize.SMALL}>
+          <Badge color="error" size="small">
             High
           </Badge>
-          <Badge color={BadgeColor.NEUTRAL} size={BadgeSize.SMALL}>
+          <Badge color="neutral" size="small">
             Medium
           </Badge>
-          <Badge color={BadgeColor.LIGHT} size={BadgeSize.SMALL}>
+          <Badge color="light" size="small">
             Low
           </Badge>
         </div>
@@ -516,7 +543,7 @@ export const TestScenario: Story = {
   args: {
     children: 'Test Badge',
     clickable: true,
-    color: BadgeColor.PRIMARY,
+    color: 'primary',
     onClick: () => console.log('Test badge clicked'),
   },
   parameters: {

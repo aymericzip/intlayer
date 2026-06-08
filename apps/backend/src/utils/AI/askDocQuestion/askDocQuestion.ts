@@ -1,14 +1,32 @@
-import { readAsset } from 'utils:asset';
-import type { AIConfig, ChatCompletionRequestMessage } from '@intlayer/ai';
-import { streamText } from '@intlayer/ai';
-import { getMarkdownMetadata } from '@intlayer/core';
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import {
+  type AIConfig,
+  type ChatCompletionRequestMessage,
+  streamText,
+} from '@intlayer/ai';
+import { getMarkdownMetadata } from '@intlayer/core/markdown';
 import { getBlogs, getDocs, getFrequentQuestions } from '@intlayer/docs';
+import { logger } from '@logger';
 import { OpenAI } from 'openai';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const readEmbeddingsForFile = (fileKey: string): Record<string, number[]> => {
   try {
-    return JSON.parse(
-      readAsset(`./embeddings/${fileKey.replace('.md', '.json')}`, 'utf-8')
+    const raw = JSON.parse(
+      readFileSync(
+        join(__dirname, `./embeddings/${fileKey.replace('.md', '.json')}`),
+        'utf-8'
+      )
+    ) as Record<string, unknown>;
+    // Strip hash entries (keys ending in _hash) — only return actual embedding vectors
+    return Object.fromEntries(
+      Object.entries(raw).filter(
+        ([key, value]) => !key.endsWith('_hash') && Array.isArray(value)
+      )
     ) as Record<string, number[]>;
   } catch {
     return {};
@@ -20,8 +38,8 @@ type VectorStoreEl = {
   chunkNumber: number;
   content: string;
   embedding?: number[];
-  docUrl: string;
-  docName: string;
+  docUrl?: string;
+  docName?: string;
 };
 
 /**
@@ -37,7 +55,7 @@ const vectorStore: VectorStoreEl[] = [];
 /*
  * Ask question AI configuration
  */
-const MAX_RELEVANT_CHUNKS_NB: number = 20; // Maximum number of relevant chunks to attach to chatGPT context
+const MAX_RELEVANT_CHUNKS_NB: number = 15; // Maximum number of relevant chunks to attach to chatGPT context
 const MIN_RELEVANT_CHUNKS_SIMILARITY: number = 0.42; // Minimum similarity required for a chunk to be considered relevant
 
 /*
@@ -89,25 +107,20 @@ const chunkText = (text: string): string[] => {
 
 /**
  * Generates an embedding for a given text using OpenAI's embedding API.
- * Trims the text if it exceeds the maximum allowed characters.
  *
  * @param text - The input text to generate an embedding for
  * @returns The embedding vector as a number array
  */
 const generateEmbedding = async (text: string): Promise<number[]> => {
-  try {
-    const openaiClient = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  // No try/catch here. If this fails, the controller should handle it.
+  const openaiClient = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-    const response = await openaiClient.embeddings.create({
-      model: EMBEDDING_MODEL,
-      input: text,
-    });
+  const response = await openaiClient.embeddings.create({
+    model: EMBEDDING_MODEL,
+    input: text,
+  });
 
-    return response.data[0].embedding;
-  } catch (error) {
-    console.error('Error generating embedding:', error);
-    return [];
-  }
+  return response.data[0].embedding;
 };
 
 /**
@@ -147,9 +160,19 @@ export const loadMarkdownFiles = async (): Promise<void> => {
   // Iterate over each file key (identifier) in the combined files
   for await (const fileKey of Object.keys(files)) {
     // Get the metadata of the file
-    const fileMetadata = getMarkdownMetadata(
-      files[fileKey as keyof typeof files] as string
-    );
+    const fileMetadata = getMarkdownMetadata<{
+      url?: string;
+      title?: string;
+      slugs?: (string | number)[];
+      description?: string;
+    }>(files[fileKey as keyof typeof files] as string);
+
+    const slugs = (fileMetadata.slugs ?? []).map(String);
+    const docUrl =
+      fileMetadata.url ??
+      (slugs.length > 0
+        ? `${process.env.WEBSITE_URL}/${slugs.join('/')}`
+        : undefined);
 
     // Split the document into chunks based on headings
     const fileChunks = chunkText(
@@ -168,7 +191,7 @@ export const loadMarkdownFiles = async (): Promise<void> => {
 
     // If chunk count differs, we need to regenerate embeddings for this file
     if (currentChunkCount !== previousChunkCount) {
-      console.info(
+      logger.info(
         `File "${fileKey}" chunk count changed: ${previousChunkCount} -> ${currentChunkCount}. Regenerating embeddings.`
       );
 
@@ -205,11 +228,11 @@ export const loadMarkdownFiles = async (): Promise<void> => {
         chunkNumber,
         embedding,
         content: fileChunk,
-        docUrl: fileMetadata.url,
+        docUrl,
         docName: fileMetadata.title,
       });
 
-      console.info(`- Loaded: ${fileKey}/${chunkKeyName}/${chunksNumber}`);
+      logger.info(`- Loaded: ${fileKey}/${chunkKeyName}/${chunksNumber}`);
     }
   }
 };
@@ -259,7 +282,7 @@ export const searchChunkReference = async (
   return results;
 };
 
-const CHAT_GPT_PROMPT = readAsset('./PROMPT.md');
+const CHAT_GPT_PROMPT = readFileSync(join(__dirname, './PROMPT.md'), 'utf-8');
 
 // Initial prompt configuration for the chatbot
 export const initPrompt: ChatCompletionRequestMessage = {
@@ -294,10 +317,10 @@ export const askDocQuestion = async (
     .map((message) => `- ${message.content}`)
     .join('\n');
 
-  // 1) Find relevant documents based on the user's question
+  // Find relevant documents based on the user's question
   const relevantFilesReferences = await searchChunkReference(query);
 
-  // 2) Integrate the relevant documents into the initial system prompt
+  // Integrate the relevant documents into the initial system prompt
   const systemPrompt = initPrompt.content.replace(
     '{{relevantFilesReferences}}',
     relevantFilesReferences.length === 0
@@ -319,24 +342,33 @@ export const askDocQuestion = async (
           .join('\n\n') // Insert relevant docs into the prompt
   );
 
-  // Format messages for AI SDK
-  const aiMessages = [
-    {
-      role: 'system' as const,
-      content: systemPrompt,
-    },
-    ...messages.slice(-8),
-  ];
+  let processedMessages: ChatCompletionRequestMessage[] = messages;
+
+  if (messages.length > 8) {
+    const truncatedCount = messages.length - 8;
+    const placeholderMessage = {
+      role: 'system',
+      content: `(truncated discussion, ${truncatedCount} more messages)`,
+    } as const;
+
+    processedMessages = [
+      ...messages.slice(0, 3),
+      placeholderMessage,
+      ...messages.slice(-5),
+    ];
+  }
 
   if (!aiConfig) {
     throw new Error('Failed to initialize AI configuration');
   }
 
-  // 3) Use the AI SDK to stream the response
+  // Use the AI SDK to stream the response
   let fullResponse = '';
   const stream = streamText({
     ...aiConfig,
-    messages: aiMessages,
+    system: systemPrompt,
+    messages: processedMessages,
+    maxOutputTokens: 500,
   });
 
   // Process the stream
@@ -345,12 +377,12 @@ export const askDocQuestion = async (
     options?.onMessage?.(chunk);
   }
 
-  // 4) Extract unique related files
+  // Extract unique related files
   const relatedFiles = [
     ...new Set(relevantFilesReferences.map((doc) => doc.fileKey)),
   ];
 
-  // 5) Return the assistant's response to the user
+  // Return the assistant's response to the user
   return {
     response: fullResponse ?? 'Error: No result found',
     relatedFiles,

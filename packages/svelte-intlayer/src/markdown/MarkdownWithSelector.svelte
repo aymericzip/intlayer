@@ -1,15 +1,19 @@
 <script lang="ts">
-import type { KeyPath } from '@intlayer/types';
-import ContentSelectorWrapper from '../editor/ContentSelectorWrapper.svelte';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import ContentSelector from '../editor/ContentSelector.svelte';
 import MarkdownRenderer from './MarkdownRenderer.svelte';
+
+import type { ParsedMarkdown } from './compiler';
 
 export let dictionaryKey: string;
 export let keyPath: KeyPath[];
-export let value: string;
+export let value: string | ParsedMarkdown;
+
+$: overrides = { ...$$restProps };
 </script>
 
-<ContentSelectorWrapper {dictionaryKey} {keyPath}>
-  <MarkdownRenderer {dictionaryKey} {keyPath} {value} />
-</ContentSelectorWrapper>
+<ContentSelector {dictionaryKey} {keyPath}>
+  <MarkdownRenderer {value} {overrides} />
+</ContentSelector>
 
 

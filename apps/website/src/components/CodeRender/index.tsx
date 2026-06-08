@@ -1,6 +1,7 @@
 'use client';
 
-import { Container, MarkdownRenderer } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
+import { MarkdownRenderer } from '@intlayer/design-system/mark-down-render';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 

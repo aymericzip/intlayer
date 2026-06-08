@@ -184,7 +184,7 @@ Ini sering memperlambat pengembangan seiring pertumbuhan aplikasi:
 
 **Deklarasi konten** (per komponen):
 
-```ts fileName="./components/MyComponent/MyComponent.content.ts"
+```ts fileName="./components/MyComponent/myComponent.content.ts"
 import { t, type Dictionary } from "intlayer";
 
 const componentExampleContent = {
@@ -246,7 +246,7 @@ Pendekatan ini:
 ## Kapan memilih yang mana?
 
 - **Pilih vue-i18n** jika Anda menginginkan **pendekatan Vue standar**, nyaman mengelola katalog/namespace sendiri, dan aplikasi Anda berukuran **kecil hingga menengah** (atau Anda sudah menggunakan Nuxt i18n).
-- **Pilih Intlayer** jika Anda menghargai **konten yang dibatasi pada komponen**, **TypeScript yang ketat**, **jaminan waktu build**, **tree-shaking**, dan alat routing/SEO/editor yang **lengkap** — terutama untuk **codebase Vue/Nuxt yang besar dan modular**, sistem desain, dll.
+- **Pilih Intlayer** jika Anda menghargai **konten yang dibatasi pada komponen**, **TypeScript yang ketat**, **jaminan waktu build**, **tree-shaking**, dan alat routing/SEO/editor yang **lengkap**, terutama untuk **codebase Vue/Nuxt yang besar dan modular**, sistem desain, dll.
 
 ---
 
@@ -255,8 +255,6 @@ Pendekatan ini:
 `intlayer` juga dapat membantu mengelola namespace `vue-i18n` Anda.
 
 Dengan menggunakan `intlayer`, Anda dapat mendeklarasikan konten Anda dalam format perpustakaan i18n favorit Anda, dan intlayer akan menghasilkan namespace Anda di lokasi pilihan Anda (contoh: `/messages/{{locale}}/{{namespace}}.json`).
-
-Lihat opsi [`dictionaryOutput` dan `i18nextResourcesDir`](https://intlayer.org/doc/concept/configuration#content-configuration) untuk detail lebih lanjut.
 
 ---
 

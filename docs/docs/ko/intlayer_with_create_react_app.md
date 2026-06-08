@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
-title: Create React App 앱 번역하는 방법 – i18n 가이드 2025
-description: Create React App (CRA) 웹사이트를 다국어로 만드는 방법을 알아보세요. 국제화(i18n)하고 번역하려면 문서를 따르세요.
+updatedAt: 2026-05-31
+title: "Create React App i18n - 앱을 번역하는 완전 가이드"
+description: "i18next는 이제 그만. 2026년 다국어 (i18n) Create React App 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
 keywords:
   - 국제화
   - 문서
@@ -17,9 +17,15 @@ slugs:
   - create-react-app
 applicationTemplate: https://github.com/aymericzip/intlayer-react-cra-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid useIntlayer API 사용법을 직접 속성 액세스로 업데이트"
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: "init 명령어 추가"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 초기 이력
+    changes: "초기 이력"
 ---
 
 # Intlayer로 Create React App 번역하기 | 국제화(i18n)
@@ -45,19 +51,27 @@ npm을 사용하여 필요한 패키지를 설치합니다:
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer react-scripts-intlayer
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer react-scripts-intlayer
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer react-intlayer react-scripts-intlayer
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer react-scripts-intlayer
+bun x intlayer init
 ```
 
 - **intlayer**
 
-  구성 관리, 번역, [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/get_started.md), 트랜스파일링 및 [CLI 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_cli.md)을 위한 국제화 도구를 제공하는 핵심 패키지입니다.
+  구성 관리, 번역, [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md), 트랜스파일링 및 [CLI 명령](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)을 위한 국제화 도구를 제공하는 핵심 패키지입니다.
 
 - **react-intlayer**
 
@@ -71,7 +85,7 @@ Create React App 기반 애플리케이션과 Intlayer를 통합하기 위한 `r
 
 애플리케이션의 언어를 구성하기 위한 설정 파일을 생성합니다:
 
-```typescript fileName="intlayer.config.ts"  codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -87,44 +101,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // 다른 로케일 추가
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // 다른 로케일 추가
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 > 이 구성 파일을 통해 로컬라이즈된 URL, 미들웨어 리디렉션, 쿠키 이름, 콘텐츠 선언의 위치 및 확장자, 콘솔에서 Intlayer 로그 비활성화 등을 설정할 수 있습니다. 사용 가능한 매개변수의 전체 목록은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
@@ -147,7 +123,7 @@ module.exports = config;
 
 번역을 저장하기 위해 콘텐츠 선언을 생성하고 관리합니다:
 
-```tsx fileName="src/app.content.tsx" codeFormat="typescript"
+```tsx fileName="src/app.content.tsx" codeFormat={["typescript", "esm"]}
 import { t, type Dictionary } from "intlayer";
 import React, { type ReactNode } from "react";
 
@@ -186,65 +162,9 @@ const appContent = {
 export default appContent;
 ```
 
-```jsx fileName="src/app.content.mjx" codeFormat="esm"
-import { t } from "intlayer";
+> 콘텐츠 선언은 애플리케이션 어디에서나 정의할 수 있으며, `contentDir` 디렉토리(기본값: `./src`)에 포함되고 콘텐츠 선언 파일 확장자(기본값: `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`)와 일치해야 합니다.
 
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    getStarted: t({
-      ko: "편집을 시작하세요",
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    reactLink: {
-      href: "https://reactjs.org",
-      content: t({
-        ko: "React 배우기",
-        en: "Learn React",
-        fr: "Apprendre React",
-        es: "Aprender React",
-      }),
-    },
-  },
-};
-
-export default appContent;
-```
-
-```jsx fileName="src/app.content.csx" codeFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "app",
-  content: {
-    getStarted: t({
-      ko: "편집을 시작하세요",
-      en: "Get started by editing",
-      fr: "Commencez par éditer",
-      es: "Comience por editar",
-    }),
-    reactLink: {
-      href: "https://reactjs.org",
-      content: t({
-        ko: "React 배우기",
-        en: "Learn React",
-        fr: "Apprendre React",
-        es: "Aprender React",
-      }),
-    },
-  },
-};
-
-module.exports = appContent;
-```
-
-> 콘텐츠 선언은 애플리케이션 어디에서나 정의할 수 있으며, `contentDir` 디렉토리(기본값: `./src`)에 포함되고 콘텐츠 선언 파일 확장자(기본값: `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`)와 일치해야 합니다.
-
-> 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/get_started.md)를 참조하세요.
+> 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
 
 > 콘텐츠 파일에 TSX 코드가 포함된 경우, 콘텐츠 파일에 `import React from "react";`를 가져오는 것을 고려해야 합니다.
 
@@ -252,7 +172,7 @@ module.exports = appContent;
 
 애플리케이션 전반에서 콘텐츠 사전을 액세스합니다:
 
-```tsx {4,7} fileName="src/App.tsx"  codeFormat="typescript"
+```tsx {4,7} fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
 import logo from "./logo.svg";
 import "./App.css";
 import type { FC } from "react";
@@ -287,115 +207,25 @@ const App: FC = () => (
 export default App;
 ```
 
-```jsx {3,6} fileName="src/App.mjx" codeFormat="esm"
-import "./App.css";
-import logo from "./logo.svg";
-import { IntlayerProvider, useIntlayer } from "react-intlayer";
-
-const AppContent = () => {
-  const content = useIntlayer("app");
-
-  return (
-    <div className="App">
-      <img src={logo} className="App-logo" alt="logo" />
-
-      {content.getStarted}
-      <a
-        className="App-link"
-        href={content.reactLink.href.value}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {content.reactLink.content}
-      </a>
-    </div>
-  );
-};
-
-const App = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-```
-
-```jsx {3,6} fileName="src/App.csx" codeFormat="commonjs"
-require("./App.css");
-const logo = require("./logo.svg");
-const { IntlayerProvider, useIntlayer } = require("react-intlayer");
-
-const AppContent = () => {
-  const content = useIntlayer("app");
-
-  return (
-    <div className="App">
-      <img src={logo} className="App-logo" alt="로고" />
-
-      {content.getStarted}
-      <a
-        className="App-link"
-        href={content.reactLink.href.value}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {content.reactLink.content}
-      </a>
-    </div>
-  );
-};
-
-const App = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-```
-
 > 참고: `alt`, `title`, `href`, `aria-label` 등과 같은 `string` 속성에서 콘텐츠를 사용하려면, 함수의 값을 호출해야 합니다. 예를 들어:
 
-> ```jsx
-> <img src={content.image.src.value} alt={content.image.value} />
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 >
 > `useIntlayer` 훅에 대해 더 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useIntlayer.md)를 참조하세요.
 
-### (선택 사항) 단계 6: 콘텐츠 언어 변경
+<Steps>
+
+<Step number={6} title="콘텐츠 언어 변경" isOptional={true}>
 
 콘텐츠의 언어를 변경하려면 `useLocale` 훅에서 제공하는 `setLocale` 함수를 사용할 수 있습니다. 이 함수는 애플리케이션의 로케일을 설정하고 콘텐츠를 업데이트합니다.
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 import { Locales } from "intlayer";
 import { useLocale } from "react-intlayer";
-
-const LocaleSwitcher = () => {
-  const { setLocale } = useLocale();
-
-  return (
-    <button onClick={() => setLocale(Locales.English)}>
-      언어를 영어로 변경
-    </button>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.mjx" codeFormat="esm"
-import { Locales } from "intlayer";
-import { useLocale } from "react-intlayer";
-
-const LocaleSwitcher = () => {
-  const { setLocale } = useLocale();
-
-  return (
-    <button onClick={() => setLocale(Locales.English)}>
-      언어를 영어로 변경
-    </button>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-const { useLocale } = require("react-intlayer");
 
 const LocaleSwitcher = () => {
   const { setLocale } = useLocale();
@@ -410,7 +240,9 @@ const LocaleSwitcher = () => {
 
 > `useLocale` 훅에 대해 더 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useLocale.md)를 참조하세요.
 
-### (선택 사항) 단계 7: 애플리케이션에 로컬화된 라우팅 추가
+</Step>
+
+<Step number={7} title="애플리케이션에 로컬화된 라우팅 추가" isOptional={true}>
 
 이 단계의 목적은 각 언어에 대해 고유한 경로를 만드는 것입니다. 이는 SEO 및 SEO 친화적인 URL에 유용합니다.
 예시:
@@ -425,7 +257,7 @@ const LocaleSwitcher = () => {
 
 애플리케이션에 로컬화된 라우팅을 추가하려면, 애플리케이션의 경로를 감싸고 로케일 기반 라우팅을 처리하는 `LocaleRouter` 컴포넌트를 생성할 수 있습니다. 다음은 [React Router](https://reactrouter.com/home)를 사용하는 예제입니다:
 
-```tsx fileName="src/components/LocaleRouter.tsx"  codeFormat="typescript"
+```tsx fileName="src/components/LocaleRouter.tsx" codeFormat={["typescript", "esm"]}
 // 필요한 종속성과 함수 가져오기
 import { type Locales, configuration, getPathWithoutLocale } from "intlayer"; // 'intlayer'에서 유틸리티 함수 및 타입 가져오기
 import type { FC, PropsWithChildren } from "react"; // React의 함수형 컴포넌트 및 props 타입
@@ -539,229 +371,9 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 );
 ```
 
-```jsx fileName="src/components/LocaleRouter.mjx" codeFormat="esm"
-// 필요한 종속성과 함수 가져오기
-import { configuration, getPathWithoutLocale } from "intlayer"; // 'intlayer'에서 유틸리티 함수 및 타입 가져오기
-import { IntlayerProvider } from "react-intlayer"; // 국제화 컨텍스트를 위한 제공자
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} from "react-router-dom"; // 탐색 관리를 위한 라우터 컴포넌트
-
-// Intlayer에서 구성 설정 가져오기
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-/**
- * 로컬라이제이션을 처리하고 자식 요소를 적절한 로케일 컨텍스트로 감싸는 컴포넌트입니다.
- * URL 기반 로케일 감지 및 유효성을 관리합니다.
- */
-const AppLocalized = ({ children, locale }) => {
-  const { pathname, search } = useLocation(); // 현재 URL 경로 가져오기
-
-  // 현재 로케일을 결정하고, 제공되지 않은 경우 기본 로케일로 대체
-  const currentLocale = locale ?? defaultLocale;
-
-  // 로케일 접두사를 제거하여 기본 경로를 구성
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // 현재 URL 경로
-  );
-
-  /**
-   * middleware.prefixDefault가 true인 경우, 기본 로케일은 항상 접두사가 있어야 합니다.
-   */
-  if (middleware.prefixDefault) {
-    // 로케일 유효성 검사
-    if (!locale || !locales.includes(locale)) {
-      // 기본 로케일로 업데이트된 경로로 리디렉션
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // 현재 히스토리 항목을 새 항목으로 대체
-        />
-      );
-    }
-
-    // 자식 요소를 IntlayerProvider로 감싸고 현재 로케일 설정
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * middleware.prefixDefault가 false인 경우, 기본 로케일은 접두사가 없습니다.
-     * 현재 로케일이 유효하고 기본 로케일이 아닌지 확인합니다.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // 기본 로케일 제외
-        )
-        .includes(currentLocale) // 현재 로케일이 유효한 로케일 목록에 있는지 확인
-    ) {
-      // 로케일 접두사가 없는 경로로 리디렉션
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // 자식 요소를 IntlayerProvider로 감싸고 현재 로케일 설정
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
-
-/**
- * 로케일별 경로를 설정하는 라우터 컴포넌트입니다.
- * React Router를 사용하여 탐색을 관리하고 로컬라이즈된 컴포넌트를 렌더링합니다.
- */
-export const LocaleRouter = ({ children }) => (
-  <BrowserRouter>
-    <Routes>
-      {locales
-        .filter(
-          (locale) => middleware.prefixDefault || locale !== defaultLocale
-        )
-        .map((locale) => (
-          <Route
-            // 로케일을 캡처하는 경로 패턴 (예: /en/, /fr/) 및 이후 모든 경로와 일치
-            path={`/${locale}/*`}
-            key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // 로케일 관리로 자식 요소 감싸기
-          />
-        ))}
-
-      {
-        // 기본 로케일 접두사를 비활성화한 경우, 루트 경로에서 자식을 직접 렌더링
-        !middleware.prefixDefault && (
-          <Route
-            path="*"
-            element={
-              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // 로케일 관리로 자식 요소 감싸기
-          />
-        )
-      }
-    </Routes>
-  </BrowserRouter>
-);
-```
-
-```jsx fileName="src/components/LocaleRouter.cjx" codeFormat="commonjs"
-// 필요한 종속성과 함수 가져오기
-const { configuration, getPathWithoutLocale } = require("intlayer"); // 'intlayer'에서 유틸리티 함수 및 타입 가져오기
-const { IntlayerProvider, useLocale } = require("react-intlayer"); // 국제화 컨텍스트를 위한 Provider
-const {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useLocation,
-} = require("react-router-dom"); // 탐색 관리를 위한 라우터 컴포넌트
-
-// Intlayer에서 구성 설정 가져오기
-const { internationalization, middleware } = configuration;
-const { locales, defaultLocale } = internationalization;
-
-/**
- * 로컬라이제이션을 처리하고 자식 요소를 적절한 로케일 컨텍스트로 감싸는 컴포넌트입니다.
- * URL 기반 로케일 감지 및 유효성을 관리합니다.
- */
-const AppLocalized = ({ children, locale }) => {
-  const { pathname, search } = useLocation(); // 현재 URL 경로 가져오기
-
-  // 현재 로케일을 결정하고, 제공되지 않은 경우 기본 로케일로 대체
-  const currentLocale = locale ?? defaultLocale;
-
-  // 로케일 접두사를 제거하여 기본 경로를 구성
-  const pathWithoutLocale = getPathWithoutLocale(
-    pathname // 현재 URL 경로
-  );
-
-  /**
-   * middleware.prefixDefault가 true인 경우, 기본 로케일은 항상 접두사가 있어야 합니다.
-   */
-  if (middleware.prefixDefault) {
-    // 로케일 유효성 검사
-    if (!locale || !locales.includes(locale)) {
-      // 기본 로케일로 업데이트된 경로로 리디렉션
-      return (
-        <Navigate
-          to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // 현재 히스토리 항목을 새 항목으로 대체
-        />
-      );
-    }
-
-    // 자식 요소를 IntlayerProvider로 감싸고 현재 로케일 설정
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  } else {
-    /**
-     * middleware.prefixDefault가 false인 경우, 기본 로케일은 접두사가 없습니다.
-     * 현재 로케일이 유효하고 기본 로케일이 아닌지 확인합니다.
-     */
-    if (
-      currentLocale.toString() !== defaultLocale.toString() &&
-      !locales
-        .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // 기본 로케일 제외
-        )
-        .includes(currentLocale) // 현재 로케일이 유효한 로케일 목록에 있는지 확인
-    ) {
-      // 로케일 접두사가 없는 경로로 리디렉션
-      return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
-    }
-
-    // 자식 요소를 IntlayerProvider로 감싸고 현재 로케일 설정
-    return (
-      <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
-    );
-  }
-};
-
-/**
- * 로케일별 경로를 설정하는 라우터 컴포넌트입니다.
- * React Router를 사용하여 탐색을 관리하고 로컬라이즈된 컴포넌트를 렌더링합니다.
- */
-const LocaleRouter = ({ children }) => (
-  <BrowserRouter>
-    <Routes>
-      {locales
-        .filter(
-          (locale) => middleware.prefixDefault || locale !== defaultLocale
-        )
-        .map((locale) => (
-          <Route
-            // 로케일을 캡처하는 경로 패턴 (예: /en/, /fr/) 및 이후 모든 경로와 일치
-            path={`/${locale}/*`}
-            key={locale}
-            element={<AppLocalized locale={locale}>{children}</AppLocalized>} // 로케일 관리로 자식 요소 감싸기
-          />
-        ))}
-
-      {
-        // 기본 로케일 접두사 사용이 비활성화된 경우, 루트 경로에서 자식을 직접 렌더링
-        !middleware.prefixDefault && (
-          <Route
-            path="*"
-            element={
-              <AppLocalized locale={defaultLocale}>{children}</AppLocalized>
-            } // 로케일 관리로 자식 요소 감싸기
-          />
-        )
-      }
-    </Routes>
-  </BrowserRouter>
-);
-```
-
 그런 다음, 애플리케이션에서 `LocaleRouter` 컴포넌트를 사용할 수 있습니다:
 
-```tsx fileName="src/App.tsx" codeFormat="typescript"
+```tsx fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
 import { LocaleRouter } from "./components/LocaleRouter";
 import type { FC } from "react";
 
@@ -774,35 +386,13 @@ const App: FC = () => (
 );
 ```
 
-```jsx fileName="src/App.mjx" codeFormat="esm"
-import { LocaleRouter } from "./components/LocaleRouter";
+</Step>
 
-// ... AppContent 컴포넌트
-
-const App = () => (
-  <LocaleRouter>
-    <AppContent />
-  </LocaleRouter>
-);
-```
-
-```jsx fileName="src/App.cjx" codeFormat="commonjs"
-const { LocaleRouter } = require("./components/LocaleRouter");
-
-// ... AppContent 컴포넌트
-
-const App = () => (
-  <LocaleRouter>
-    <AppContent />
-  </LocaleRouter>
-);
-```
-
-### (선택 사항) 단계 8: 로케일 변경 시 URL 변경
+<Step number={8} title="로케일 변경 시 URL 변경" isOptional={true}>
 
 로케일이 변경될 때 URL을 변경하려면 `useLocale` 훅에서 제공하는 `onLocaleChange` 속성을 사용할 수 있습니다. 동시에, `react-router-dom`의 `useLocation` 및 `useNavigate` 훅을 사용하여 URL 경로를 업데이트할 수 있습니다.
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Locales,
@@ -867,134 +457,6 @@ const LocaleSwitcher: FC = () => {
 };
 ```
 
-```jsx fileName="src/components/LocaleSwitcher.msx" codeFormat="esm"
-import { useLocation, useNavigate } from "react-router-dom";
-import {
-  Locales,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-} from "intlayer";
-import { useLocale } from "react-intlayer";
-
-const LocaleSwitcher = () => {
-  const { pathname, search } = useLocation(); // 현재 URL 경로를 가져옵니다. 예: /fr/about?foo=bar
-  const navigate = useNavigate();
-
-  const { locale, availableLocales, setLocale } = useLocale({
-    onLocaleChange: (locale) => {
-      // 업데이트된 로케일로 URL을 구성합니다.
-      // 예: /es/about?foo=bar
-      const pathWithLocale = getLocalizedUrl(`${pathname}${search}`, locale);
-
-      // URL 경로를 업데이트합니다.
-      navigate(pathWithLocale);
-    },
-  });
-
-  return (
-    <div>
-      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover="auto">
-        {availableLocales.map((localeItem) => (
-          <a
-            href={getLocalizedUrl(location.pathname, localeItem)}
-            hrefLang={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={(e) => {
-              e.preventDefault();
-              setLocale(localeItem);
-            }}
-            key={localeItem}
-          >
-            <span>
-              {/* 로케일 - 예: FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* 해당 로케일의 언어 - 예: Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* 현재 로케일의 언어 - 예: Francés (현재 로케일이 Locales.SPANISH로 설정된 경우) */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* 영어로 된 언어 - 예: French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </a>
-        ))}
-      </div>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-const { useLocation, useNavigate } = require("react-router-dom");
-const {
-  Locales,
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-} = require("intlayer");
-const { useLocale } = require("react-intlayer");
-
-const LocaleSwitcher = () => {
-  const { pathname, search } = useLocation(); // 현재 URL 경로를 가져옵니다. 예: /fr/about?foo=bar
-  const navigate = useNavigate();
-
-  const { locale, availableLocales, setLocale } = useLocale({
-    onLocaleChange: (locale) => {
-      // 업데이트된 로케일로 URL을 구성합니다.
-      // 예: /es/about?foo=bar
-      const pathWithLocale = getLocalizedUrl(`${pathname}${search}`, locale);
-
-      // URL 경로를 업데이트합니다.
-      navigate(pathWithLocale);
-    },
-  });
-
-  return (
-    <div>
-      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
-      <div id="localePopover" popover="auto">
-        {availableLocales.map((localeItem) => (
-          <a
-            href={getLocalizedUrl(location.pathname, localeItem)}
-            hrefLang={localeItem}
-            aria-current={locale === localeItem ? "page" : undefined}
-            onClick={(e) => {
-              e.preventDefault();
-              setLocale(localeItem);
-            }}
-            key={localeItem}
-          >
-            <span>
-              {/* 로케일 - 예: FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* 해당 로케일의 언어 - 예: Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* 현재 로케일의 언어 - 예: Francés (현재 로케일이 Locales.SPANISH로 설정된 경우) */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* 영어로 된 언어 - 예: French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </a>
-        ))}
-      </div>
-    </div>
-  );
-};
-```
-
 > 문서 참조:
 >
 > - [`useLocale` 훅](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useLocale.md)
@@ -1006,7 +468,9 @@ const LocaleSwitcher = () => {
 > - [`dir` 속성](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` 속성](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### (선택 사항) 단계 9: HTML 언어 및 방향 속성 전환
+</Step>
+
+<Step number={9} title="HTML 언어 및 방향 속성 전환" isOptional={true}>
 
 애플리케이션이 여러 언어를 지원할 때, `<html>` 태그의 `lang` 및 `dir` 속성을 현재 로케일에 맞게 업데이트하는 것이 중요합니다. 이를 통해 다음을 보장할 수 있습니다:
 
@@ -1020,7 +484,7 @@ const LocaleSwitcher = () => {
 
 HTML 속성을 관리하기 위한 커스텀 훅을 생성합니다. 이 훅은 로케일 변경을 감지하고 속성을 적절히 업데이트합니다:
 
-```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx" codeFormat="typescript"
+```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx" codeFormat={["typescript", "esm"]}
 import { useEffect } from "react";
 import { useLocale } from "react-intlayer";
 import { getHTMLTextDir } from "intlayer";
@@ -1043,65 +507,13 @@ export const useI18nHTMLAttributes = () => {
     document.documentElement.dir = getHTMLTextDir(locale);
   }, [locale]);
 };
-```
-
-```jsx fileName="src/hooks/useI18nHTMLAttributes.msx" codeFormat="esm"
-import { useEffect } from "react";
-import { useLocale } from "react-intlayer";
-import { getHTMLTextDir } from "intlayer";
-
-/**
- * 현재 로케일에 따라 HTML <html> 요소의 `lang` 및 `dir` 속성을 업데이트합니다.
- * - `lang`: 브라우저와 검색 엔진에 페이지의 언어를 알립니다.
- * - `dir`: 올바른 읽기 방향을 보장합니다 (예: 영어의 경우 'ltr', 아랍어의 경우 'rtl').
- *
- * 이 동적 업데이트는 올바른 텍스트 렌더링, 접근성 및 SEO를 위해 필수적입니다.
- */
-export const useI18nHTMLAttributes = () => {
-  const { locale } = useLocale();
-
-  useEffect(() => {
-    // 현재 로케일로 언어 속성을 업데이트합니다.
-    document.documentElement.lang = locale;
-
-    // 현재 로케일에 따라 텍스트 방향을 설정합니다.
-    document.documentElement.dir = getHTMLTextDir(locale);
-  }, [locale]);
-};
-```
-
-```jsx fileName="src/hooks/useI18nHTMLAttributes.csx" codeFormat="commonjs"
-const { useEffect } = require("react");
-const { useLocale } = require("react-intlayer");
-const { getHTMLTextDir } = require("intlayer");
-
-/**
- * 현재 로케일에 따라 HTML <html> 요소의 `lang` 및 `dir` 속성을 업데이트합니다.
- * - `lang`: 브라우저와 검색 엔진에 페이지의 언어를 알립니다.
- * - `dir`: 올바른 읽기 순서를 보장합니다 (예: 영어는 'ltr', 아랍어는 'rtl').
- *
- * 이 동적 업데이트는 올바른 텍스트 렌더링, 접근성 및 SEO에 필수적입니다.
- */
-const useI18nHTMLAttributes = () => {
-  const { locale } = useLocale();
-
-  useEffect(() => {
-    // 현재 로케일로 언어 속성을 업데이트합니다.
-    document.documentElement.lang = locale;
-
-    // 현재 로케일에 따라 텍스트 방향을 설정합니다.
-    document.documentElement.dir = getHTMLTextDir(locale);
-  }, [locale]);
-};
-
-module.exports = { useI18nHTMLAttributes };
 ```
 
 #### 애플리케이션에서 Hook 사용하기
 
 로케일이 변경될 때마다 HTML 속성이 업데이트되도록 훅을 메인 컴포넌트에 통합하세요:
 
-```tsx fileName="src/App.tsx" codeFormat="typescript"
+```tsx fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { IntlayerProvider, useIntlayer } from "react-intlayer";
 import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
@@ -1123,54 +535,14 @@ const App: FC = () => (
 export default App;
 ```
 
-```jsx fileName="src/App.msx" codeFormat="esm"
-import { IntlayerProvider, useIntlayer } from "react-intlayer";
-import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
-import "./App.css";
-
-const AppContent = () => {
-  // 로케일에 따라 <html> 태그의 lang 및 dir 속성을 업데이트하는 훅을 적용합니다.
-  useI18nHTMLAttributes();
-
-  // ... 나머지 컴포넌트
-};
-
-const App = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-
-export default App;
-```
-
-```jsx fileName="src/App.csx" codeFormat="commonjs"
-const { FC } = require("react");
-const { IntlayerProvider, useIntlayer } = require("react-intlayer");
-const { useI18nHTMLAttributes } = require("./hooks/useI18nHTMLAttributes");
-require("./App.css");
-
-const AppContent = () => {
-  // 로케일에 따라 <html> 태그의 lang 및 dir 속성을 업데이트하는 훅을 적용합니다.
-  useI18nHTMLAttributes();
-
-  // ... 나머지 컴포넌트
-};
-
-const App = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-
-module.exports = App;
-```
-
 이러한 변경 사항을 적용하면 애플리케이션은 다음을 보장합니다:
 
 - **언어**(`lang`) 속성이 현재 로케일을 정확히 반영하여 SEO 및 브라우저 동작에 중요합니다.
 - 로케일에 따라 **텍스트 방향**(`dir`)을 조정하여 다른 읽기 순서를 가진 언어의 가독성과 사용성을 향상시킵니다.
 - **접근성**을 개선하여 보조 기술이 이러한 속성에 의존해 최적의 기능을 수행할 수 있도록 합니다.
+  </Step>
+
+</Steps>
 
 ### TypeScript 구성
 

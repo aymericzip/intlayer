@@ -1,10 +1,8 @@
 import { dirname, join, relative } from 'node:path';
 import type { NodePath, PluginObj, PluginPass } from '@babel/core';
 import type * as BabelTypes from '@babel/types';
-import { getFileHash } from '@intlayer/chokidar';
-import { normalizePath } from '@intlayer/config';
-
-/* ────────────────────────────────────────── constants ───────────────────── */
+import { getPathHash } from '@intlayer/chokidar/utils';
+import { normalizePath } from '@intlayer/config/utils';
 
 const PACKAGE_LIST = [
   'intlayer',
@@ -20,6 +18,8 @@ const PACKAGE_LIST = [
   'angular-intlayer',
   'preact-intlayer',
   'solid-intlayer',
+  'lit-intlayer',
+  'vanilla-intlayer',
 ];
 
 const CALLER_LIST = ['useIntlayer', 'getIntlayer'] as const;
@@ -39,6 +39,8 @@ const PACKAGE_LIST_DYNAMIC = [
   'solid-intlayer',
   'svelte-intlayer',
   'angular-intlayer',
+  'lit-intlayer',
+  'vanilla-intlayer',
 ] as const;
 
 const STATIC_IMPORT_FUNCTION = {
@@ -49,8 +51,6 @@ const STATIC_IMPORT_FUNCTION = {
 const DYNAMIC_IMPORT_FUNCTION = {
   useIntlayer: 'useDictionaryDynamic',
 } as const;
-
-/* ────────────────────────────────────────── types ───────────────────────── */
 
 /**
  * Options for the optimization Babel plugin
@@ -99,12 +99,14 @@ export type OptimizePluginOptions = {
   /**
    * If true, the plugin will activate the dynamic import of the dictionaries. It will rely on Suspense to load the dictionaries.
    */
-  importMode: 'static' | 'dynamic' | 'live';
+  importMode: 'static' | 'dynamic' | 'fetch' | undefined;
   /**
-   * Activate the live sync of the dictionaries.
-   * If `importMode` is `live`, the plugin will activate the live sync of the dictionaries.
+   * Map of dictionary keys to their specific import mode.
    */
-  liveSyncKeys: string[];
+  dictionaryModeMap?: Record<
+    string,
+    'static' | 'dynamic' | 'fetch' | undefined
+  >;
   /**
    * Files list to traverse.
    */
@@ -119,6 +121,8 @@ type State = PluginPass & {
   _newDynamicImports?: Map<string, BabelTypes.Identifier>;
   /** whether the current file imported *any* intlayer package */
   _hasValidImport?: boolean;
+  /** map from local identifier name to the imported intlayer func name ('useIntlayer' | 'getIntlayer') */
+  _callerMap?: Map<string, (typeof CALLER_LIST)[number]>;
   /** whether the current file *is* the dictionaries entry file */
   _isDictEntry?: boolean;
   /** whether dynamic helpers are active for this file */
@@ -126,8 +130,6 @@ type State = PluginPass & {
   /** whether the current file is included in the filesList */
   _isIncluded?: boolean;
 };
-
-/* ────────────────────────────────────────── helpers ─────────────────────── */
 
 /**
  * Replicates the xxHash64 → Base-62 algorithm used by the SWC version
@@ -138,7 +140,7 @@ const makeIdent = (
   key: string,
   t: typeof BabelTypes
 ): BabelTypes.Identifier => {
-  const hash = getFileHash(key);
+  const hash = getPathHash(key);
   return t.identifier(`_${hash}`);
 };
 
@@ -148,11 +150,11 @@ const computeImport = (
   dynamicDictionariesDir: string,
   fetchDictionariesDir: string,
   key: string,
-  importMode: 'static' | 'dynamic' | 'live'
+  importMode: 'static' | 'dynamic' | 'fetch'
 ): string => {
   let relativePath = join(dictionariesDir, `${key}.json`);
 
-  if (importMode === 'live') {
+  if (importMode === 'fetch') {
     relativePath = join(fetchDictionariesDir, `${key}.mjs`);
   }
 
@@ -172,8 +174,6 @@ const computeImport = (
 
   return rel;
 };
-
-/* ────────────────────────────────────────── plugin ──────────────────────── */
 
 /**
  * Babel plugin that transforms Intlayer function calls and auto-imports dictionaries.
@@ -234,7 +234,7 @@ const computeImport = (
  *
  * Uses live-based dictionary loading for remote dictionaries:
  *
- * **Output if `liveSyncKeys` includes the key:**
+ * **Output if `dictionaryModeMap` includes the key with "live" value:**
  * ```ts
  * import _dicHash from '../../.intlayer/dictionaries/app.json' with { type: 'json' };
  * import _dicHash_fetch from '../../.intlayer/fetch_dictionaries/app.mjs';
@@ -245,7 +245,7 @@ const computeImport = (
  * const content2 = getIntlayer(_dicHash);
  * ```
  *
- * > If `liveSyncKeys` does not include the key, the plugin will fallback to the dynamic impor
+ * > If `dictionaryModeMap` does not include the key with "live" value, the plugin will fallback to the dynamic impor
  *
  * ```ts
  * import _dicHash from '../../.intlayer/dictionaries/app.json' with { type: 'json' };
@@ -268,6 +268,7 @@ export const intlayerOptimizeBabelPlugin = (babel: {
     pre() {
       this._newStaticImports = new Map();
       this._newDynamicImports = new Map();
+      this._callerMap = new Map();
       this._isIncluded = true;
       this._hasValidImport = false;
       this._isDictEntry = false;
@@ -300,6 +301,7 @@ export const intlayerOptimizeBabelPlugin = (babel: {
           const filename = state.file.opts.filename;
 
           // Check if this is the correct file to transform
+
           if (
             state.opts.replaceDictionaryEntry &&
             filename === state.opts.dictionariesEntryPath
@@ -316,6 +318,7 @@ export const intlayerOptimizeBabelPlugin = (babel: {
               // Find the variable definition and empty the object
               VariableDeclarator(path) {
                 // We look for: const x = { ... }
+
                 if (t.isObjectExpression(path.node.init)) {
                   // Set the object properties to an empty array: {}
                   path.node.init.properties = [];
@@ -338,14 +341,53 @@ export const intlayerOptimizeBabelPlugin = (babel: {
          */
         exit(programPath, state) {
           if (state._isDictEntry) return; // nothing else to do – already replaced
+
           if (!state._isIncluded) return; // early-out if file is not included
 
           // Manual traversal to process imports and call expressions
           // This runs AFTER all other plugins' visitors have completed
+
+          // Pre-pass to determine if we should use dynamic helpers
+          let fileHasDynamicCall = false;
+          programPath.traverse({
+            CallExpression(path) {
+              const callee = path.node.callee;
+
+              if (!t.isIdentifier(callee)) return;
+
+              const originalImportedName = state._callerMap?.get(callee.name);
+              if (originalImportedName !== 'useIntlayer') return;
+
+              const arg = path.node.arguments[0];
+              let key: string | undefined;
+              if (arg && t.isStringLiteral(arg)) {
+                key = arg.value;
+              } else if (
+                arg &&
+                t.isTemplateLiteral(arg) &&
+                arg.expressions.length === 0 &&
+                arg.quasis.length === 1
+              ) {
+                key = arg.quasis[0]?.value.cooked ?? arg.quasis[0]?.value.raw;
+              }
+              if (!key) return;
+              const dictionaryOverrideMode =
+                state.opts.dictionaryModeMap?.[key];
+
+              if (
+                dictionaryOverrideMode === 'dynamic' ||
+                dictionaryOverrideMode === 'fetch'
+              ) {
+                fileHasDynamicCall = true;
+              }
+            },
+          });
+
           programPath.traverse({
             /* Inspect every intlayer import */
             ImportDeclaration(path) {
               const src = path.node.source.value;
+
               if (!PACKAGE_LIST.includes(src)) return;
 
               // Mark that we do import from an intlayer package in this file
@@ -354,18 +396,27 @@ export const intlayerOptimizeBabelPlugin = (babel: {
               for (const spec of path.node.specifiers) {
                 if (!t.isImportSpecifier(spec)) continue;
 
-                // ⚠️  We now key off *imported* name, *not* local name.
                 const importedName = t.isIdentifier(spec.imported)
                   ? spec.imported.name
                   : (spec.imported as BabelTypes.StringLiteral).value;
 
+                if (CALLER_LIST.includes(importedName as any)) {
+                  state._callerMap?.set(
+                    spec.local.name,
+                    importedName as (typeof CALLER_LIST)[number]
+                  );
+                }
+
                 const importMode = state.opts.importMode;
                 // Determine whether this import should use the dynamic helpers.
                 const shouldUseDynamicHelpers =
-                  (importMode === 'dynamic' || importMode === 'live') &&
+                  (importMode === 'dynamic' ||
+                    importMode === 'fetch' ||
+                    fileHasDynamicCall) &&
                   PACKAGE_LIST_DYNAMIC.includes(src as any);
 
                 // Remember for later (CallExpression) whether we are using the dynamic helpers
+
                 if (shouldUseDynamicHelpers) {
                   state._useDynamicHelpers = true;
                 }
@@ -387,6 +438,7 @@ export const intlayerOptimizeBabelPlugin = (babel: {
 
                 // Only rewrite when we actually have a mapping for the imported
                 // specifier (ignore unrelated named imports).
+
                 if (newIdentifier) {
                   // Keep the local alias intact (so calls remain `useIntlayer` /
                   // `getIntlayer`), but rewrite the imported identifier so it
@@ -399,8 +451,11 @@ export const intlayerOptimizeBabelPlugin = (babel: {
             /* Replace calls: useIntlayer("foo") → useDictionary(_hash) or useDictionaryDynamic(_hash, "foo") */
             CallExpression(path) {
               const callee = path.node.callee;
+
               if (!t.isIdentifier(callee)) return;
-              if (!CALLER_LIST.includes(callee.name as any)) return;
+
+              const originalImportedName = state._callerMap?.get(callee.name);
+              if (!originalImportedName) return;
 
               // Ensure we ultimately emit helper imports for files that *invoke*
               // the hooks, even if they didn't import them directly (edge cases with
@@ -408,31 +463,57 @@ export const intlayerOptimizeBabelPlugin = (babel: {
               state._hasValidImport = true;
 
               const arg = path.node.arguments[0];
-              if (!arg || !t.isStringLiteral(arg)) return; // must be literal
+              let key: string | undefined;
+              if (arg && t.isStringLiteral(arg)) {
+                key = arg.value;
+              } else if (
+                arg &&
+                t.isTemplateLiteral(arg) &&
+                arg.expressions.length === 0 &&
+                arg.quasis.length === 1
+              ) {
+                key = arg.quasis[0]?.value.cooked ?? arg.quasis[0]?.value.raw;
+              }
+              if (!key) return;
 
-              const key = arg.value;
               const importMode = state.opts.importMode;
-              const isUseIntlayer = callee.name === 'useIntlayer';
+              const isUseIntlayer = originalImportedName === 'useIntlayer';
               const useDynamicHelpers = Boolean(state._useDynamicHelpers);
 
-              // Decide per-call mode: 'static' | 'dynamic' | 'live'
-              let perCallMode: 'static' | 'dynamic' | 'live' = 'static';
+              // Decide per-call mode: 'static' | 'dynamic' | 'fetch'
+              let perCallMode: 'static' | 'dynamic' | 'fetch' = 'static';
+
+              const dictionaryOverrideMode =
+                state.opts.dictionaryModeMap?.[key];
+
               if (isUseIntlayer && useDynamicHelpers) {
-                if (importMode === 'dynamic') {
+                if (dictionaryOverrideMode) {
+                  perCallMode = dictionaryOverrideMode;
+                } else if (importMode === 'dynamic') {
                   perCallMode = 'dynamic';
-                } else if (importMode === 'live') {
-                  const liveKeys = state.opts.liveSyncKeys ?? [];
-                  perCallMode = liveKeys.includes(key) ? 'live' : 'dynamic';
+                } else if (importMode === 'fetch') {
+                  perCallMode = 'fetch';
+                }
+              } else if (isUseIntlayer && !useDynamicHelpers) {
+                // If dynamic helpers are NOT active (global mode is static),
+                // we STILL might want to force dynamic/live for this specific call
+
+                if (
+                  dictionaryOverrideMode === 'dynamic' ||
+                  dictionaryOverrideMode === 'fetch'
+                ) {
+                  perCallMode = dictionaryOverrideMode;
                 }
               }
 
               let ident: BabelTypes.Identifier;
 
-              if (perCallMode === 'live') {
+              if (perCallMode === 'fetch') {
                 // Use fetch dictionaries entry (live mode for selected keys)
                 let dynamicIdent = state._newDynamicImports?.get(key);
+
                 if (!dynamicIdent) {
-                  const hash = getFileHash(key);
+                  const hash = getPathHash(key);
                   dynamicIdent = t.identifier(`_${hash}_fetch`);
                   state._newDynamicImports?.set(key, dynamicIdent);
                 }
@@ -446,9 +527,10 @@ export const intlayerOptimizeBabelPlugin = (babel: {
               } else if (perCallMode === 'dynamic') {
                 // Use dynamic dictionaries entry
                 let dynamicIdent = state._newDynamicImports?.get(key);
+
                 if (!dynamicIdent) {
                   // Create a unique identifier for dynamic imports by appending a suffix
-                  const hash = getFileHash(key);
+                  const hash = getPathHash(key);
                   dynamicIdent = t.identifier(`_${hash}_dyn`);
                   state._newDynamicImports?.set(key, dynamicIdent);
                 }
@@ -462,19 +544,22 @@ export const intlayerOptimizeBabelPlugin = (babel: {
               } else {
                 // Use static imports for getIntlayer or useIntlayer when not using dynamic helpers
                 let staticIdent = state._newStaticImports?.get(key);
+
                 if (!staticIdent) {
                   staticIdent = makeIdent(key, t);
                   state._newStaticImports?.set(key, staticIdent);
                 }
                 ident = staticIdent;
 
-                // Static helper (useDictionary / getDictionary): replace key with iden
+                // Static helper (useDictionary / getDictionary): replace key with ident.
+                // After the splice above the key is always at index 0.
                 path.node.arguments[0] = t.identifier(ident.name);
               }
             },
           });
 
           // Early-out if we touched nothing
+
           if (!state._hasValidImport) return;
 
           const file = state.file.opts.filename!;
@@ -509,10 +594,10 @@ export const intlayerOptimizeBabelPlugin = (babel: {
 
           // Generate dynamic/fetch imports (for useIntlayer when using dynamic/live helpers)
           for (const [key, ident] of state._newDynamicImports!) {
-            const modeForThisIdent: 'dynamic' | 'live' = ident.name.endsWith(
+            const modeForThisIdent: 'dynamic' | 'fetch' = ident.name.endsWith(
               '_fetch'
             )
-              ? 'live'
+              ? 'fetch'
               : 'dynamic';
 
             const rel = computeImport(
@@ -540,6 +625,7 @@ export const intlayerOptimizeBabelPlugin = (babel: {
           let insertPos = 0;
           for (const stmtPath of bodyPaths) {
             const stmt = stmtPath.node;
+
             if (
               t.isExpressionStatement(stmt) &&
               t.isStringLiteral(stmt.expression) &&

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2025-06-29
-title: Beste Internationalisierung (i18n)-Tools für Vue
-description: Entdecken Sie die besten Vue-i18n-Lösungen, um Übersetzungsaufgaben zu lösen, SEO zu erhöhen und eine nahtlose globale Weberfahrung zu bieten.
+updatedAt: 2026-05-31
+title: Beste Internationalisierung (i18n)-Tools für Vue - Vollständiger Leitfaden zur Übersetzung Best Vue i18n Libraries 2026 — Compared by DX & Bundle
+description: Beste Lösung für Bundle-Größe, SEO, Performance & Wartbarkeit. Machen Sie Ihre Vue App 2026 mehrsprachig, LLM-Übersetzung, Agent Skills & MCP.
 keywords:
   - Vue
   - i18n
@@ -52,7 +52,21 @@ Im Folgenden sind mehrere beliebte Bibliotheken und Ansätze aufgeführt, die Si
 
 ---
 
-### 1. Vue I18n
+### 1. Intlayer
+
+> Webseite: [https://intlayer.org/](https://intlayer.org/)
+
+**Überblick**  
+**Intlayer** ist eine Open-Source-i18n-Lösung, die darauf abzielt, die Unterstützung mehrerer Sprachen über verschiedene Frameworks hinweg zu vereinfachen, einschließlich **Vue**. Sie legt Wert auf einen deklarativen Ansatz, starke Typisierung und SSR-Unterstützung in anderen Ökosystemen, obwohl SSR in Standard-Vue nicht üblich ist.
+
+**Hauptmerkmale**
+
+- **Deklarative Übersetzung**: Definieren Sie Übersetzungs-Wörterbücher entweder auf Widget-Ebene oder in einer zentralen Datei für eine sauberere Architektur.
+- **TypeScript & Autovervollständigung (Web)**: Während diese Funktion hauptsächlich Web-Frameworks zugutekommt, kann der typisierte Übersetzungsansatz dennoch strukturierten Code in Vue leiten.
+- **Asynchrones Laden**: Laden Sie Übersetzungs-Ressourcen dynamisch, was potenziell die ursprüngliche Bundle-Größe für mehrsprachige Apps reduziert.
+- **Integration mit Vue**: Eine grundlegende Integration kann eingerichtet werden, um den Intlayer-Ansatz für strukturierte Übersetzungen zu nutzen.
+
+### 2. Vue I18n
 
 > Website: [https://vue-i18n.intlify.dev/](https://vue-i18n.intlify.dev/)
 
@@ -83,7 +97,7 @@ Im Folgenden sind mehrere beliebte Bibliotheken und Ansätze aufgeführt, die Si
 
 ---
 
-### 2. LinguiJS (Vue-Integration)
+### 3. LinguiJS (Vue-Integration)
 
 > Website: [https://lingui.js.org/](https://lingui.js.org/)
 

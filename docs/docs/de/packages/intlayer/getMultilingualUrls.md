@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historie initialisiert
+    changes: "Historie initialisiert"
 ---
 
 # Dokumentation: `getMultilingualUrls` Funktion in `intlayer`
@@ -35,18 +35,15 @@ Die Funktion `getMultilingualUrls` erzeugt eine Zuordnung mehrsprachiger URLs, i
 ## Parameter
 
 - `url: string`
-
   - **Beschreibung**: Der ursprüngliche URL-String, der mit Gebietsschemata vorangestellt werden soll.
   - **Typ**: `string`
 
 - `locales: Locales[]`
-
   - **Beschreibung**: Optionale Liste der unterstützten Gebietsschemata. Standardmäßig die im Projekt konfigurierten Gebietsschemata.
   - **Typ**: `Locales[]`
   - **Standard**: `localesDefault`
 
 - `defaultLocale: Locales`
-
   - **Beschreibung**: Das Standardgebietsschema für die Anwendung. Standardmäßig das im Projekt konfigurierte Standardgebietsschema.
   - **Typ**: `Locales`
   - **Standard**: `defaultLocaleDefault`
@@ -67,38 +64,8 @@ Die Funktion `getMultilingualUrls` erzeugt eine Zuordnung mehrsprachiger URLs, i
 
 ### Relative URLs
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls(
-  "/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-// Ausgabe: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="esm"
-import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls(
-  "/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-// Ausgabe: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="commonjs"
-const { getMultilingualUrls, Locales } = require("intlayer");
 
 getMultilingualUrls(
   "/dashboard",
@@ -132,11 +99,9 @@ getMultilingualUrls(
 ## Randfälle
 
 - **Kein Gebietsschema-Segment:**
-
   - Die Funktion entfernt jeglichen vorhandenen Sprachabschnitt aus der URL, bevor die mehrsprachigen Zuordnungen generiert werden.
 
 - **Standard-Sprache:**
-
   - Wenn `prefixDefault` auf `false` gesetzt ist, wird die URL für die Standardsprache nicht mit einem Präfix versehen.
 
 - **Nicht unterstützte Sprachen:**
@@ -148,7 +113,7 @@ getMultilingualUrls(
 
 In einer mehrsprachigen Anwendung ist die Konfiguration der Internationalisierungseinstellungen mit `locales` und `defaultLocale` entscheidend, um sicherzustellen, dass die richtige Sprache angezeigt wird. Nachfolgend ein Beispiel, wie `getMultilingualUrls` in einer Anwendungs-Konfiguration verwendet werden kann:
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // Konfiguration für unterstützte Sprachen und Standardsprache
@@ -160,34 +125,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 Die obige Konfiguration stellt sicher, dass die Anwendung `ENGLISCH`, `FRANZÖSISCH` und `SPANISCH` als unterstützte Sprachen erkennt und `ENGLISCH` als Fallback-Sprache verwendet.

@@ -182,7 +182,7 @@ Isso frequentemente desacelera o desenvolvimento conforme os apps crescem:
 
 **Declaração de conteúdo** (por componente):
 
-```ts fileName="./components/MyComponent/MyComponent.content.ts"
+```ts fileName="./components/MyComponent/myComponent.content.ts"
 import { t, type Dictionary } from "intlayer";
 
 const componentExampleContent = {

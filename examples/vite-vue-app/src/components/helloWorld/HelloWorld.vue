@@ -4,7 +4,7 @@ import { useIntlayer } from 'vue-intlayer';
 import Test from '../test/Test.vue';
 
 defineProps({
-  msg: Object,
+  msg: [Object, Function],
 });
 
 const {
@@ -17,6 +17,8 @@ const {
   readTheDocs,
   vueDocs,
 } = useIntlayer('hello-world');
+
+const content = useIntlayer('hello-world');
 const countRef = ref(0);
 </script>
 
@@ -25,8 +27,10 @@ const countRef = ref(0);
     <button type="button" @click="countRef++">
       <count />
       {{ countRef }}
+      <content.officialStarter />
     </button>
     <p v-html="edit"></p>
+    <edit/>
   </div>
 
   <Test />

@@ -1,57 +1,20 @@
-import { type Dictionary, file, gender, insert, md, t } from 'intlayer';
-import type { ReactNode } from 'react';
+import { type Dictionary, t } from 'intlayer';
 
 const appContent = {
   key: 'app',
-  live: true,
   content: {
-    markdown: md('## Hello world'),
-    file: md(file('./test.md')),
+    title: 'Vite + React',
 
-    test: gender({
-      male: 'male',
-      female: 'female',
-      fallback: 'fallback',
-    }),
-
-    insertion: insert('test {{ count }}'),
-    viteLogo: t({
+    viteLogoLabel: t({
       en: 'Vite logo',
       fr: 'Logo Vite',
-      es: 'Logo Vite',
+      es: 'Logotipo de Vite',
     }),
-    reactLogo: t({
+    reactLogoLabel: t({
       en: 'React logo',
       fr: 'Logo React',
       es: 'Logo React',
     }),
-
-    title: 'Vite + React',
-
-    count: t({
-      en: 'count is ',
-      fr: 'le compte est ',
-      es: 'el recuento es ',
-    }),
-
-    edit: t<ReactNode>({
-      en: (
-        <>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </>
-      ),
-      fr: (
-        <>
-          Éditez <code>src/App.tsx</code> et enregistrez pour tester HMR
-        </>
-      ),
-      es: (
-        <>
-          Edita <code>src/App.tsx</code> y guarda para probar HMR
-        </>
-      ),
-    }),
-
     readTheDocs: t({
       en: 'Click on the Vite and React logos to learn more',
       fr: 'Cliquez sur les logos Vite et React pour en savoir plus',

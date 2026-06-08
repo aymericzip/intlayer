@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 초기 이력
+    changes: "초기 이력"
 ---
 
 # 문서: `intlayer`의 `getLocaleLang` 함수
@@ -33,7 +33,6 @@ history:
 ## 매개변수
 
 - `locale?: Locales`
-
   - **설명**: 언어 코드가 추출될 로케일 문자열 (예: `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`)
   - **타입**: `Locales` (선택 사항)
 
@@ -46,26 +45,8 @@ history:
 
 ### 언어 코드 추출:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getLocaleLang, Locales } from "intlayer";
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // 출력: "en"
-getLocaleLang(Locales.ENGLISH); // 출력: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // 출력: "fr"
-getLocaleLang(Locales.FRENCH); // 출력: "fr"
-```
-
-```javascript codeFormat="esm"
-import { getLocaleLang } from "intlayer";
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // 출력: "en"
-getLocaleLang(Locales.ENGLISH); // 출력: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // 출력: "fr"
-getLocaleLang(Locales.FRENCH); // 출력: "fr"
-```
-
-```javascript codeFormat="commonjs"
-const { getLocaleLang } = require("intlayer");
 
 getLocaleLang(Locales.ENGLISH_UNITED_STATES); // 출력: "en"
 getLocaleLang(Locales.ENGLISH); // 출력: "en"

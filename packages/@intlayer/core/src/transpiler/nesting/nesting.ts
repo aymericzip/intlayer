@@ -1,10 +1,10 @@
-import type { DictionaryRegistryContent } from '@intlayer/types';
-import {
-  type DictionaryKeys,
-  formatNodeType,
-  NodeType,
-  type TypedNodeModel,
-} from '@intlayer/types';
+import type {
+  DictionaryKeys,
+  DictionaryRegistryContent,
+} from '@intlayer/types/module_augmentation';
+import type { TypedNodeModel } from '@intlayer/types/nodeType';
+import { formatNodeType, NESTED } from '@intlayer/types/nodeType';
+
 import type { DeepTransformContent } from '../../interpreter';
 
 /**
@@ -54,7 +54,7 @@ export type NestedContentState<K extends DictionaryKeys> = {
 };
 
 export type NestedContent<K extends DictionaryKeys = never> = TypedNodeModel<
-  NodeType.Nested,
+  typeof NESTED,
   NestedContentState<K>
 >;
 
@@ -77,7 +77,7 @@ const nesting = <K extends DictionaryKeys>(
   dictionaryKey: K,
   path?: ValidDotPathsFor<K>
 ): NestedContent<K> =>
-  formatNodeType(NodeType.Nested, {
+  formatNodeType(NESTED, {
     dictionaryKey,
     path,
   });

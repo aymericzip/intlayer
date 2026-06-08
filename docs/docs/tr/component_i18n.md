@@ -78,7 +78,7 @@ Yapılandırma dosyalarını tercih ediyorsanız JSON da desteklenmektedir.
 
 ## 2) İçeriğinizi alın
 
-### Durum A — React uygulaması (Vite/SPA)
+### Durum A. React uygulaması (Vite/SPA)
 
 Varsayılan yaklaşım: Anahtarla almak için `useIntlayer` kullanın. Bu, bileşenleri hafif ve tipli tutar.
 
@@ -129,7 +129,7 @@ export function ComponentWithDictionary() {
 }
 ```
 
-### Durum B — Next.js (App Router)
+### Durum B. Next.js (App Router)
 
 Veri güvenliği ve performans için sunucu bileşenlerini tercih edin. Sunucu dosyalarında `next-intlayer/server` içinden `useIntlayer` kullanın, istemci bileşenlerinde ise `next-intlayer` içinden `useIntlayer` kullanın.
 
@@ -168,7 +168,7 @@ export function ClientComponent() {
 ## Neden Intlayer’ın bileşen yaklaşımı en iyisidir
 
 - **Birlikte konumlandırma**: İçerik beyanları bileşenlerin yakınında bulunur, sürüklenmeyi azaltır ve tasarım sistemleri arasında yeniden kullanımı artırır.
-- **Tip güvenliği**: Anahtarlar ve yapılar güçlü şekilde tiplenmiştir; eksik çeviriler çalışma zamanında değil, derleme zamanında ortaya çıkar.
+- **Tip güvenliği**: Anahtarlar ve yapılar güçlü şekilde tiplenmiştir; eksik çeviriler çalışma zamanında değil, build zamanında ortaya çıkar.
 - **Sunucu-öncelikli**: Daha iyi güvenlik ve performans için sunucu bileşenlerinde doğal olarak çalışır; istemci kancaları ergonomik kalır.
 - **Ağaç sarsma (Tree-shaking)**: Sadece bileşen tarafından kullanılan içerik paketlenir, böylece büyük uygulamalarda yükler küçük tutulur.
 - **Geliştirici Deneyimi (DX) ve araçlar**: Dahili ara katman yazılımı, SEO yardımcıları ve isteğe bağlı Görsel Editör/Yapay Zeka çevirileri günlük işleri kolaylaştırır.

@@ -17,8 +17,20 @@ slugs:
 
 # Наблюдение за словарями
 
-```bash
+```bash packageManager="npm"
 npx intlayer watch
+```
+
+```bash packageManager="yarn"
+yarn intlayer watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer watch
+```
+
+```bash packageManager="bun"
+bun x intlayer watch
 ```
 
 Эта команда будет отслеживать изменения в ваших файлах деклараций контента и создавать словари в директории `.intlayer`.

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-10-05
-updatedAt: 2025-10-05
-title: Как перевести ваше приложение Next.js 15 с помощью next-intl – руководство по i18n 2025
-description: Узнайте, как сделать ваш сайт на Next.js 15 App Router многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
+updatedAt: 2026-05-31
+title: "next-intl i18n - Полное руководство по переводу вашего приложения"
+description: "Больше никакого i18next. Руководство 2026 по созданию многоязычного (i18n) приложения next-intl. Переводите с помощью ИИ-агентов и оптимизируйте размер бандла, SEO и производительность."
 keywords:
   - Интернационализация
   - Документация
@@ -52,6 +52,10 @@ pnpm add next-intl
 yarn add next-intl
 ```
 
+```bash packageManager="bun"
+bun add next-intl
+```
+
 ```bash
 .
 ├── locales
@@ -99,7 +103,7 @@ async function loadMessages(locale: string) {
 }
 
 export default getRequestConfig(async ({ locale }) => {
-  if (!locales.includes(locale as any)) notFound();
+  if (!locales.includes(locale)) notFound();
 
   return {
     messages: await loadMessages(locale),
@@ -393,15 +397,20 @@ export const config = {
 Установите зависимости intlayer:
 
 ```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin  -D
+npm install intlayer @intlayer/sync-json-plugin --save-dev
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin  -D
+yarn add intlayer @intlayer/sync-json-plugin --dev
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin  -D
+pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+```
+
+```bash packageManager="bun"
+bun add intlayer @intlayer/sync-json-plugin --dev
+bun x intlayer init
 ```
 
 Создайте файл конфигурации intlayer:
@@ -446,4 +455,4 @@ export default config;
 - `intlayer fill`: использует вашего AI-провайдера для заполнения отсутствующих переводов на основе настроенных локалей.
 - `intlayer test`: проверяет отсутствующие/недействительные переводы (используйте в CI).
 
-Вы можете настроить аргументы и провайдеров; смотрите [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_cli.md).
+Вы можете настроить аргументы и провайдеров; смотрите [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md).

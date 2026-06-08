@@ -16,7 +16,7 @@ keywords:
   - noPrefix
 slugs:
   - frequent-questions
-  - ssr-next-no-[locale]
+  - next-no-locale-path
 ---
 
 # Next.js ile `[locale]` olmadan Intlayer kullanmak mümkün mü?

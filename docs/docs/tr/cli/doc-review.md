@@ -21,8 +21,26 @@ slugs:
 
 `doc review` komutu, dokümantasyon dosyalarını farklı yerellerde kalite, tutarlılık ve tamlık açısından analiz eder.
 
-```bash
+## Önemli noktalar:
+
+- Büyük markdown dosyalarını AI modelinin bağlam penceresi sınırları içinde kalmak için parçalara böler.
+- İncelenecek parçaları optimize eder ve zaten çevrilmiş ve değiştirilmemiş kısımları atlar.
+- Hızı artırmak için bir kuyruk sistemi kullanarak dosyaları, parçaları ve yerel ayarları paralel olarak işler.
+
+```bash packageManager="npm"
 npx intlayer doc review
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc review
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc review
+```
+
+```bash packageManager="bun"
+bun x intlayer doc review
 ```
 
 Zaten çevrilmiş dosyaları incelemek ve çevirinin doğru olup olmadığını kontrol etmek için kullanılabilir.

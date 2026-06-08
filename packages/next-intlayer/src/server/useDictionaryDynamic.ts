@@ -1,0 +1,30 @@
+import type { Dictionary } from '@intlayer/types/dictionary';
+import type {
+  DeclaredLocales,
+  StrictModeLocaleMap,
+} from '@intlayer/types/module_augmentation';
+import { useDictionaryDynamic as useDictionaryDynamicBase } from 'react-intlayer/server';
+import { safeUseLocale } from './useIntlayer';
+
+/**
+ * On the server side, Hook that transform a dictionary and return the content
+ *
+ * If the locale is not provided, it will use the locale from the server context
+ */
+export const useDictionaryDynamic = <
+  const T extends Dictionary,
+  const L extends DeclaredLocales = DeclaredLocales,
+>(
+  dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
+  key: string,
+  locale?: L
+): ReturnType<typeof useDictionaryDynamicBase<T, L>> => {
+  const storedLocale = safeUseLocale();
+
+  return useDictionaryDynamicBase<T, L>(
+    dictionaryPromise,
+    key,
+    locale,
+    storedLocale
+  );
+};

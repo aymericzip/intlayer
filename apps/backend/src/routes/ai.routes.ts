@@ -5,15 +5,15 @@ import {
   auditContentDeclarationMetadata,
   auditTag,
   autocomplete,
+  chat,
   customQuery,
   getDiscussions,
   translateJSON,
 } from '@controllers/ai.controller';
+import fastifyRateLimit from '@fastify/rate-limit';
 import { unauthenticatedChatBotLimiter } from '@utils/rateLimiter';
-import { Router } from 'express';
+import type { FastifyInstance } from 'fastify';
 import type { Routes } from '@/types/Routes';
-
-export const aiRouter: Router = Router();
 
 export const aiRoute = '/api/ai';
 
@@ -56,6 +56,11 @@ export const getAiRoutes = () =>
       url: `${baseURL()}/ask`,
       method: 'POST',
     },
+    chat: {
+      urlModel: '/chat',
+      url: `${baseURL()}/chat`,
+      method: 'POST',
+    },
     autocomplete: {
       urlModel: '/autocomplete',
       url: `${baseURL()}/autocomplete`,
@@ -68,31 +73,31 @@ export const getAiRoutes = () =>
     },
   }) satisfies Routes;
 
-aiRouter.post(getAiRoutes().customQuery.urlModel, customQuery);
+export const aiRouter = async (fastify: FastifyInstance) => {
+  fastify.post(getAiRoutes().customQuery.urlModel, customQuery);
+  fastify.post(getAiRoutes().translateJSON.urlModel, translateJSON);
+  fastify.post(
+    getAiRoutes().auditContentDeclaration.urlModel,
+    auditContentDeclaration
+  );
+  fastify.post(
+    getAiRoutes().auditContentDeclarationField.urlModel,
+    auditContentDeclarationField
+  );
+  fastify.post(
+    getAiRoutes().auditContentDeclarationMetadata.urlModel,
+    auditContentDeclarationMetadata
+  );
+  fastify.post(getAiRoutes().auditTag.urlModel, auditTag);
+  fastify.post(getAiRoutes().autocomplete.urlModel, autocomplete);
+  fastify.get(getAiRoutes().getDiscussions.urlModel, getDiscussions);
 
-aiRouter.post(getAiRoutes().translateJSON.urlModel, translateJSON);
-
-aiRouter.post(
-  getAiRoutes().auditContentDeclaration.urlModel,
-  auditContentDeclaration
-);
-aiRouter.post(
-  getAiRoutes().auditContentDeclarationField.urlModel,
-  auditContentDeclarationField
-);
-aiRouter.post(
-  getAiRoutes().auditContentDeclarationMetadata.urlModel,
-  auditContentDeclarationMetadata
-);
-
-aiRouter.post(getAiRoutes().auditTag.urlModel, auditTag);
-
-aiRouter.post(getAiRoutes().autocomplete.urlModel, autocomplete);
-
-aiRouter.get(getAiRoutes().getDiscussions.urlModel, getDiscussions);
-
-/**
- * This route number of requests is limited for unauthenticated users
- */
-aiRouter.use(/(.*)/, unauthenticatedChatBotLimiter);
-aiRouter.post(getAiRoutes().ask.urlModel, askDocQuestion);
+  /**
+   * This route number of requests is limited for unauthenticated users
+   */
+  await fastify.register(fastifyRateLimit, {
+    ...unauthenticatedChatBotLimiter,
+  });
+  fastify.post(getAiRoutes().ask.urlModel, askDocQuestion);
+  fastify.post(getAiRoutes().chat.urlModel, chat);
+};

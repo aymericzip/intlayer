@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-10-05
-updatedAt: 2025-10-05
-title: 如何使用 next-intl 翻译你的 Next.js 15 – 2025 年国际化 (i18n) 指南
-description: 了解如何使你的 Next.js 15 App Router 网站实现多语言。按照文档进行国际化 (i18n) 和翻译。
+updatedAt: 2026-05-31
+title: "next-intl i18n - 翻译你的应用的完整指南"
+description: "告别 i18next。2026 年构建多语言 (i18n) next-intl 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
 keywords:
   - 国际化
   - 文档
@@ -52,6 +52,10 @@ pnpm add next-intl
 yarn add next-intl
 ```
 
+```bash packageManager="bun"
+bun add next-intl
+```
+
 ```bash
 .
 ├── locales
@@ -99,7 +103,7 @@ async function loadMessages(locale: string) {
 }
 
 export default getRequestConfig(async ({ locale }) => {
-  if (!locales.includes(locale as any)) notFound();
+  if (!locales.includes(locale)) notFound();
 
   return {
     messages: await loadMessages(locale),
@@ -393,15 +397,20 @@ export const config = {
 安装 intlayer 依赖：
 
 ```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin  -D
+npm install intlayer @intlayer/sync-json-plugin --save-dev
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin  -D
+yarn add intlayer @intlayer/sync-json-plugin --dev
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin  -D
+pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+```
+
+```bash packageManager="bun"
+bun add intlayer @intlayer/sync-json-plugin --dev
+bun x intlayer init
 ```
 
 创建 intlayer 配置文件：
@@ -446,4 +455,4 @@ export default config;
 - `intlayer fill`：使用您的 AI 提供者根据配置的语言环境填充缺失的翻译。
 - `intlayer test`：检查缺失或无效的翻译（在持续集成中使用）。
 
-您可以配置参数和提供者；详情请参见 [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)。
+您可以配置参数和提供者；详情请参见 [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。

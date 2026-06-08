@@ -1,8 +1,8 @@
 'use client';
 
+import { cn } from '@utils/cn';
 import { ChevronRight } from 'lucide-react';
 import { type FC, useState } from 'react';
-import { cn } from '../../utils/cn';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 import { createFileTree, type FilePath } from './createFileTree';
 
@@ -63,7 +63,7 @@ const FileItem: FC<FileItemProps> = ({
         className={cn(
           'flex w-full items-start justify-start whitespace-pre text-nowrap px-2 py-1 text-xs transition',
           isActive
-            ? 'bg-neutral-200 dark:bg-neutral-700'
+            ? 'bg-neutral-200 dark:bg-neutral-800'
             : 'cursor-pointer hover:bg-neutral-300 dark:hover:bg-neutral-900'
         )}
         key={path}

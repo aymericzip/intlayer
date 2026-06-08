@@ -54,7 +54,7 @@ Aqui está uma lista de verificação que todo app multilíngue deve implementar
 - **Use links localizados**  
   Exemplo: `<a href="/fr/about">À propos</a>` em vez de linkar para o padrão `/about`.
 
-Estes são passos simples — mas ignorá-los pode custar sua visibilidade.
+Estes são passos simples, mas ignorá-los pode custar sua visibilidade.
 
 ---
 
@@ -65,7 +65,7 @@ Os desenvolvedores frequentemente esquecem de referenciar corretamente suas pág
 ### **next-intl**
 
 <Tabs>
-  <TabItem label="next-intl">
+  <Tab label="next-intl">
 
 ```tsx fileName="src/app/[locale]/about/layout.tsx"
 import type { Metadata } from "next";
@@ -155,8 +155,8 @@ export default function robots(): MetadataRoute.Robots {
 
 ### **next-i18next**
 
-  </TabItem>
-  <TabItem label="next-i18next">
+  </Tab>
+  <Tab label="next-i18next">
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -258,8 +258,8 @@ export default function robots(): MetadataRoute.Robots {
 
 ### **Intlayer**
 
-  </TabItem>
-  <TabItem label="intlayer">
+  </Tab>
+  <Tab label="intlayer">
 
 ````typescript fileName="src/app/[locale]/about/layout.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";
@@ -339,7 +339,7 @@ export default robots;
 
 > Intlayer fornece uma função `getMultilingualUrls` para gerar URLs multilíngues para o seu sitemap.
 
-  </TabItem>
+  </Tab>
 </Tabs>
 
 ---

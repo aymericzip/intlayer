@@ -1,3 +1,4 @@
+import { resolve } from 'node:path';
 import type { StorybookConfig } from '@storybook/react-vite';
 import { defineConfig, mergeConfig } from 'vite';
 import { intlayer } from 'vite-intlayer';
@@ -33,6 +34,16 @@ const config: StorybookConfig = {
 
     const viteConfig = defineConfig(() => ({
       plugins: [intlayer(), tailwindcss()],
+      resolve: {
+        alias: {
+          '@components': resolve(__dirname, '../src/components'),
+          '@utils': resolve(__dirname, '../src/utils'),
+          '@libs': resolve(__dirname, '../src/libs'),
+          '@hooks': resolve(__dirname, '../src/hooks'),
+          '@providers': resolve(__dirname, '../src/providers'),
+          '@': resolve(__dirname, '../src'),
+        },
+      },
       build: {
         // Optional: avoid the sourcemap location spam
         sourcemap: false,
@@ -40,7 +51,7 @@ const config: StorybookConfig = {
         // Optional: silence the “chunks > 500kB” warning
         chunkSizeWarningLimit: 1500,
 
-        rollupOptions: {
+        rolldownOptions: {
           onwarn(warning, defaultHandler) {
             // Hide `"use client"` warnings
             if (warning.code === 'MODULE_LEVEL_DIRECTIVE') return;

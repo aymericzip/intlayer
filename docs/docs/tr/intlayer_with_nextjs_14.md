@@ -1,8 +1,8 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2025-09-22
-title: Next.js 14 and App Router uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
-description: Next.js 14 ile Intlayer entegrasyonu. Next.js 14 uygulamanızda çok dilli içerik yönetimi için Intlayer'ı nasıl kuracağınızı ve kullanacağınızı öğrenin.
+updatedAt: 2026-05-31
+title: "Next.js 14 i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
+description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Next.js 14 uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
   - nextjs
   - intlayer
@@ -17,12 +17,18 @@ slugs:
   - nextjs
   - 14
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid useIntlayer API kullanımını doğrudan özellik erişimine güncelle"
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: "init komutu ekle"
   - version: 5.6.0
     date: 2025-07-06
-    changes: `withIntlayer()` fonksiyonunu promise tabanlı fonksiyona dönüştür
+    changes: "`withIntlayer()` fonksiyonunu promise tabanlı fonksiyona dönüştür"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Geçmişi başlat
+    changes: "Geçmişi başlat"
 ---
 
 # Intlayer ile Next.js 14 and App Router çevirin | Uluslararasılaştırma (i18n)
@@ -43,21 +49,57 @@ Bu kılavuzu takip etmek için aşağıdaki araçlara ihtiyacınız olacak:
 
 ```bash packageManager="npm"
 npm install next-intlayer intlayer --save
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add next-intlayer intlayer
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add next-intlayer intlayer
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add next-intlayer intlayer --save
+bun x intlayer init
 ```
 
 ## Adım 2: Intlayer Yapılandırma Dosyası Oluşturma
 
+Here is the final structure that we will make:
+
+```bash
+.
+├── src
+│   ├── app
+│   │   ├── [locale]
+│   │   │   ├── layout.tsx            # Locale layout for the Intlayer provider
+│   │   │   ├── page.content.ts
+│   │   │   └── page.tsx
+│   │   └── layout.tsx                # Root layout for style and global providers
+│   ├── components
+│   │   ├── client-component-example.content.ts
+│   │   ├── ClientComponentExample.tsx
+│   │   ├── LocaleSwitcher
+│   │   │   ├── localeSwitcher.content.ts
+│   │   │   └── LocaleSwitcher.tsx
+│   │   ├── server-component-example.content.ts
+│   │   └── ServerComponentExample.tsx
+│   └── middleware.ts
+├── intlayer.config.ts
+├── next.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+> If you don't want locale routing, intlayer can be used as a simple provider / hook. See [this guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_no_locale_path.md) for more details.
+
 Proje kök dizininizde `intlayer.config.ts` dosyasını oluşturun:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales } from "intlayer";
 import { type IntlayerConfig } from "intlayer";
 
@@ -85,64 +127,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.js" codeFormat="esm"
-import { Locales } from "intlayer";
-
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      Locales.TURKISH,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-  content: {
-    // İçerik dosyalarınızın bulunduğu dizin
-    fileExtensions: [".content.ts", ".content.js", ".content.json"],
-    baseDir: "./src",
-    contentDirName: "content",
-    // İçerik dosyalarınızın türlerini belirtin
-    types: {
-      filePath: "./types/intlayer.d.ts",
-      moduleAugmentation: true,
-    },
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      Locales.TURKISH,
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-  content: {
-    // İçerik dosyalarınızın bulunduğu dizin
-    fileExtensions: [".content.ts", ".content.js", ".content.json"],
-    baseDir: "./src",
-    contentDirName: "content",
-    // İçerik dosyalarınızın türlerini belirtin
-    types: {
-      filePath: "./types/intlayer.d.ts",
-      moduleAugmentation: true,
-    },
-  },
-};
-
-module.exports = default = config;
 ```
 
 ## Adım 3: Next.js Yapılandırmasını Güncelleme
@@ -183,7 +167,7 @@ module.exports = withIntlayer(config);
 
 İçerik dosyalarınızı oluşturun. Bu dosyalar, uygulamanızdaki çok dilli içeriği tanımlar.
 
-```typescript fileName="src/content/home.content.ts" codeFormat="typescript"
+```typescript fileName="src/content/home.content.ts" codeFormat={["typescript", "esm"]}
 import { t } from "intlayer";
 import { type ILocaleContent } from "intlayer";
 
@@ -201,27 +185,6 @@ const homeContent = {
     tr: "Bu, Intlayer ile örnek bir Next.js uygulamasıdır",
   }),
 } satisfies ILocaleContent;
-
-export default homeContent;
-```
-
-```javascript fileName="src/content/home.content.js" codeFormat="esm"
-import { t } from "intlayer";
-
-const homeContent = {
-  title: t({
-    en: "Welcome to My App",
-    fr: "Bienvenue dans mon application",
-    es: "Bienvenido a mi aplicación",
-    tr: "Uygulamama Hoş Geldiniz",
-  }),
-  description: t({
-    en: "This is a sample Next.js application with Intlayer",
-    fr: "Ceci est un exemple d'application Next.js avec Intlayer",
-    es: "Esta es una aplicación de ejemplo de Next.js con Intlayer",
-    tr: "Bu, Intlayer ile örnek bir Next.js uygulamasıdır",
-  }),
-};
 
 export default homeContent;
 ```
@@ -247,24 +210,9 @@ export default homeContent;
 
 İçeriğinizi bileşenlerinizde kullanın:
 
-```tsx fileName="src/app/page.tsx" codeFormat="typescript"
+```tsx fileName="src/app/page.tsx" codeFormat={["typescript", "esm"]}
 import { useIntlayer } from "next-intlayer";
 import { Locales } from "intlayer";
-
-export default function HomePage() {
-  const content = useIntlayer("home");
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
-    </div>
-  );
-}
-```
-
-```jsx fileName="src/app/page.jsx" codeFormat="esm"
-import { useIntlayer } from "next-intlayer";
 
 export default function HomePage() {
   const content = useIntlayer("home");
@@ -282,7 +230,7 @@ export default function HomePage() {
 
 Next.js 14'te çok dilli yönlendirme için middleware kurun:
 
-```typescript fileName="src/middleware.ts" codeFormat="typescript"
+```typescript fileName="src/middleware.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { createMiddleware } from "next-intlayer/middleware";
 import { type NextRequest } from "next/server";
 
@@ -297,39 +245,12 @@ export const config = {
 };
 ```
 
-```javascript fileName="src/middleware.js" codeFormat="esm"
-import { createMiddleware } from "next-intlayer/middleware";
-
-export default createMiddleware({
-  // Alternatif olarak, middleware seçeneklerini özelleştirebilirsiniz
-  // locales: ['en', 'fr', 'es'],
-  // defaultLocale: 'en',
-});
-
-export const config = {
-  matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
-};
-```
-
-```javascript fileName="src/middleware.cjs" codeFormat="commonjs"
-const { createMiddleware } = require("next-intlayer/middleware");
-
-module.exports = createMiddleware({
-  // Alternatif olarak, middleware seçeneklerini özelleştirebilirsiniz
-  // locales: ['en', 'fr', 'es'],
-  // defaultLocale: 'en',
-});
-
-module.exports.config = {
-  matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
-};
-```
-
 ## Adım 7: Düzen Dosyası (Layout)
 
 Kök düzen dosyanızı çok dilli hale getirin:
 
-```tsx fileName="src/app/layout.tsx" codeFormat="typescript"
+```tsx fileName="src/app/layout.tsx" codeFormat={["typescript", "esm"]}
+import {} from "next-intlayer";
 import { getHTMLTextDir } from "intlayer";
 import { getLocaleName } from "intlayer";
 import { Inter } from "next/font/google";
@@ -385,74 +306,13 @@ export default function RootLayout({
 }
 ```
 
-```jsx fileName="src/app/layout.jsx" codeFormat="esm"
-import { getHTMLTextDir } from "intlayer";
-import { getLocaleName } from "intlayer";
-import { Inter } from "next/font/google";
-import { getIntlayer } from "next-intlayer/server";
-
-const inter = Inter({ subsets: ["latin"] });
-
-export const generateMetadata = (params) => {
-  const { locale } = params.params;
-  const t = getIntlayer(locale);
-
-  return {
-    title: t({
-      en: "My App",
-      fr: "Mon Application",
-      es: "Mi Aplicación",
-      tr: "Uygulamam",
-    }),
-    description: t({
-      en: "This is my Next.js app with Intlayer",
-      fr: "Ceci est mon application Next.js avec Intlayer",
-      es: "Esta es mi aplicación Next.js con Intlayer",
-      tr: "Bu, Intlayer ile Next.js uygulamamdır",
-    }),
-  };
-};
-
-export default function RootLayout({ children, params }) {
-  const { locale } = params;
-  const localeName = getLocaleName(locale);
-  const textDirection = getHTMLTextDir(locale);
-
-  return (
-    <html lang={locale} dir={textDirection}>
-      <body className={inter.className}>
-        <header>
-          <h1>{localeName}</h1>
-        </header>
-        {children}
-      </body>
-    </html>
-  );
-}
-```
-
 ## Adım 8: Sayfa Yönlendirme
 
 Sayfa yönlendirmelerini çok dilli hale getirin:
 
-```tsx fileName="src/app/[locale]/page.tsx" codeFormat="typescript"
+```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
 import { useIntlayer } from "next-intlayer";
 import { Locales } from "intlayer";
-
-export default function HomePage() {
-  const content = useIntlayer("home");
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
-    </div>
-  );
-}
-```
-
-```jsx fileName="src/app/[locale]/page.jsx" codeFormat="esm"
-import { useIntlayer } from "next-intlayer";
 
 export default function HomePage() {
   const content = useIntlayer("home");
@@ -470,7 +330,7 @@ export default function HomePage() {
 
 Sayfa meta verilerini uluslararasılaştırın:
 
-```tsx fileName="src/app/[locale]/page.tsx" codeFormat="typescript"
+```tsx fileName="src/app/[locale]/page.tsx" codeFormat={["typescript", "esm"]}
 import { getIntlayer } from "next-intlayer/server";
 import { type Locales } from "intlayer";
 import { type Metadata } from "next/types";
@@ -509,46 +369,11 @@ export default function HomePage() {
 }
 ```
 
-```jsx fileName="src/app/[locale]/page.jsx" codeFormat="esm"
-import { getIntlayer } from "next-intlayer/server";
-
-export const generateMetadata = (params) => {
-  const { locale } = params.params;
-  const t = getIntlayer(locale);
-
-  return {
-    title: t({
-      en: "Home Page",
-      fr: "Page d'accueil",
-      es: "Página de inicio",
-      tr: "Ana Sayfa",
-    }),
-    description: t({
-      en: "Welcome to the home page",
-      fr: "Bienvenue sur la page d'accueil",
-      es: "Bienvenido a la página de inicio",
-      tr: "Ana sayfaya hoş geldiniz",
-    }),
-  };
-};
-
-export default function HomePage() {
-  const content = getIntlayer("home");
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
-    </div>
-  );
-}
-```
-
 ## Adım 10: Site Haritası ve Robots.txt Kurulumu
 
 Site haritanızı ve robots.txt dosyanızı çok dilli hale getirin:
 
-```typescript fileName="src/app/[locale]/sitemap.ts" codeFormat="typescript"
+```typescript fileName="src/app/[locale]/sitemap.ts" codeFormat={["typescript", "esm"]}
 import { getLocalizedUrl } from "intlayer";
 import { Locales } from "intlayer";
 import { type MetadataRoute } from "next";
@@ -581,60 +406,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
 }
 ```
 
-```javascript fileName="src/app/[locale]/sitemap.js" codeFormat="esm"
-import { getLocalizedUrl } from "intlayer";
-import { Locales } from "intlayer";
-
-export default function sitemap() {
-  const locales = [
-    Locales.ENGLISH,
-    Locales.FRENCH,
-    Locales.SPANISH,
-    Locales.TURKISH,
-  ];
-
-  return [
-    {
-      url: getLocalizedUrl("/", Locales.ENGLISH),
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 1,
-      alternates: {
-        languages: locales.reduce(
-          (acc, locale) => ({
-            ...acc,
-            [locale]: getLocalizedUrl("/", locale),
-          }),
-          {}
-        ),
-      },
-    },
-  ];
-}
-```
-
-```typescript fileName="src/app/[locale]/robots.ts" codeFormat="typescript"
+```typescript fileName="src/app/[locale]/robots.ts" codeFormat={["typescript", "esm"]}
 import { getLocalizedUrl } from "intlayer";
 import { Locales } from "intlayer";
 import { type MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
-  return {
-    rules: {
-      userAgent: "*",
-      allow: "/",
-      disallow: "/private/",
-    },
-    sitemap: getLocalizedUrl("/sitemap.xml", Locales.ENGLISH),
-  };
-}
-```
-
-```javascript fileName="src/app/[locale]/robots.js" codeFormat="esm"
-import { getLocalizedUrl } from "intlayer";
-import { Locales } from "intlayer";
-
-export default function robots() {
   return {
     rules: {
       userAgent: "*",
@@ -658,7 +435,7 @@ Bu davranış birkaç nedenden dolayı kullanışlıdır:
 
 Aşağıda, TypeScript'te yerelleştirilmiş bir `Link` bileşeninin uygulanması bulunmaktadır:
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -699,88 +476,6 @@ const LocaleSwitcher = () => {
 export default LocaleSwitcher;
 ```
 
-```jsx fileName="src/components/LocaleSwitcher.jsx" codeFormat="esm"
-"use client";
-
-import { useRouter } from "next/navigation";
-import { useLocale } from "next-intlayer";
-import { getLocalizedUrl } from "intlayer";
-import { Locales } from "intlayer";
-
-const LocaleSwitcher = () => {
-  const router = useRouter();
-  const { locale } = useLocale();
-
-  const handleLocaleChange = (newLocale) => {
-    const pathWithoutLocale = window.location.pathname.replace(
-      /^\/[a-z]{2}/,
-      ""
-    );
-    router.push(getLocalizedUrl(pathWithoutLocale, newLocale));
-  };
-
-  return (
-    <div>
-      <h2>Dil Seçin</h2>
-      <div>
-        {Object.values(Locales).map((localeItem) => (
-          <button
-            key={localeItem}
-            onClick={() => handleLocaleChange(localeItem)}
-            disabled={locale === localeItem}
-          >
-            {localeItem.toUpperCase()}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-export default LocaleSwitcher;
-```
-
-```jsx fileName="src/components/LocaleSwitcher.cjs" codeFormat="commonjs"
-"use client";
-
-const { useRouter } = require("next/navigation");
-const { useLocale } = require("next-intlayer");
-const { getLocalizedUrl } = require("intlayer");
-const { Locales } = require("intlayer");
-
-const LocaleSwitcher = () => {
-  const router = useRouter();
-  const { locale } = useLocale();
-
-  const handleLocaleChange = (newLocale) => {
-    const pathWithoutLocale = window.location.pathname.replace(
-      /^\/[a-z]{2}/,
-      ""
-    );
-    router.push(getLocalizedUrl(pathWithoutLocale, newLocale));
-  };
-
-  return (
-    <div>
-      <h2>Dil Seçin</h2>
-      <div>
-        {Object.values(Locales).map((localeItem) => (
-          <button
-            key={localeItem}
-            onClick={() => handleLocaleChange(localeItem)}
-            disabled={locale === localeItem}
-          >
-            {localeItem.toUpperCase()}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-module.exports = LocaleSwitcher;
-```
-
 > Alternatif bir yol, `useLocale` kancası tarafından sağlanan `setLocale` fonksiyonunu kullanmaktır. Bu fonksiyon, sayfa ön yüklemesine izin vermez ve sayfayı yeniden yükler.
 
 > Bu durumda, `router.push` kullanarak yönlendirme olmadan, sadece sunucu tarafı kodunuz içeriğin yerel ayarını değiştirecektir.
@@ -817,7 +512,9 @@ return (
 > - [`dir` özelliği](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` özelliği](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### (İsteğe Bağlı) Adım 12: Yerelleştirilmiş Bağlantı Bileşeni Oluşturma
+<Steps>
+
+<Step number={12} title="Yerelleştirilmiş Bağlantı Bileşeni Oluşturma" isOptional={true}>
 
 Uygulamanızın navigasyonunun mevcut yerel ayarı saygı göstermesini sağlamak için, özel bir `Link` bileşeni oluşturabilirsiniz. Bu bileşen, dahili URL'leri otomatik olarak mevcut dille önekler, böylece örneğin Fransızca konuşan bir kullanıcı "Hakkında" sayfasına bir bağlantıya tıkladığında, `/fr/hakkinda` yerine `/hakkinda`ya yönlendirilir.
 
@@ -829,7 +526,7 @@ Bu davranış birkaç nedenden dolayı kullanışlıdır:
 
 Aşağıda, TypeScript'te yerelleştirilmiş bir `Link` bileşeninin uygulanması bulunmaktadır:
 
-```tsx fileName="src/components/Link.tsx" codeFormat="typescript"
+```tsx fileName="src/components/Link.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
 import { getLocalizedUrl } from "intlayer";
@@ -870,78 +567,6 @@ export const Link = forwardRef<
 Link.displayName = "Link";
 ```
 
-```jsx fileName="src/components/Link.mjx" codeFormat="esm"
-'use client';
-
-import { getLocalizedUrl } from 'intlayer';
-import NextLink, { type LinkProps as NextLinkProps } from 'next/link';
-import { useLocale } from 'next-intlayer';
-import { forwardRef, PropsWithChildren, type ForwardedRef } from 'react';
-
-/**
- * Verilen bir URL'nin harici olup olmadığını kontrol eden yardımcı fonksiyon.
- * URL http:// veya https:// ile başlıyorsa, harici olarak kabul edilir.
- */
-export const checkIsExternalLink = (href) =>
-  /^https?:\/\//.test(href ?? '');
-
-/**
- * Href özelliğini mevcut yerel ayar temelinde uyarlayan özel bir Link bileşeni.
- * Dahili bağlantılar için, `getLocalizedUrl` kullanarak URL'yi yerel ayar ile önekler (örneğin, /fr/hakkinda).
- * Bu, navigasyonun aynı yerel ayar bağlamında kalmasını sağlar.
- */
-export const Link = forwardRef(({ href, children, ...props }, ref) => {
-  const { locale } = useLocale();
-  const isExternalLink = checkIsExternalLink(href.toString());
-
-  // Bağlantı dahili ise ve geçerli bir href sağlanmışsa, yerelleştirilmiş URL'yi alın.
-  const hrefI18n =
-    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
-
-  return (
-    <NextLink href={hrefI18n} ref={ref} {...props}>
-      {children}
-    </NextLink>
-  );
-});
-
-Link.displayName = 'Link';
-```
-
-```jsx fileName="src/components/Link.csx" codeFormat="commonjs"
-'use client';
-
-const { getLocalizedUrl } = require("intlayer");
-const NextLink = require("next/link");
-const { useLocale } = require("next-intlayer");
-const { forwardRef } = require("react");
-
-/**
- * Verilen bir URL'nin harici olup olmadığını kontrol eden yardımcı fonksiyon.
- * URL http:// veya https:// ile başlıyorsa, harici olarak kabul edilir.
- */
-const checkIsExternalLink = (href) =>
-  /^https?:\/\//.test(href ?? '');
-
-
-const Link = forwardRef(({ href, children, ...props }, ref) => {
-  const { locale } = useLocale();
-  const isExternalLink = checkIsExternalLink(href.toString());
-
-  // Bağlantı dahili ise ve geçerli bir href sağlanmışsa, yerelleştirilmiş URL'yi alın.
-  const hrefI18n: NextLinkProps['href'] =
-    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
-
-  return (
-    <NextLink href={hrefI18n} ref={ref} {...props}>
-      {children}
-    </NextLink>
-  );
-});
-
-Link.displayName = 'Link';
-```
-
 #### Nasıl Çalışır
 
 - **Harici Bağlantıları Algılama**:  
@@ -958,9 +583,11 @@ Link.displayName = 'Link';
 
 Bu `Link` bileşenini uygulamanız boyunca entegre ederek, tutarlı ve dil bilincine sahip bir kullanıcı deneyimi sürdürürsünüzken aynı zamanda gelişmiş SEO ve kullanılabilirlikten de yararlanırsınız.
 
-### (İsteğe Bağlı) Adım 13: Paket Boyutunuzu Optimize Edin
+</Step>
 
-`next-intlayer` kullanırken, sözlükler varsayılan olarak her sayfa için pakete dahil edilir. Paket boyutunu optimize etmek için, Intlayer isteğe bağlı bir SWC eklentisi sağlar ki bu, `useIntlayer` çağrılarını akıllıca makrolar kullanarak değiştirir. Bu, sözlüklerin sadece onları gerçekten kullanan sayfalar için paketlere dahil edilmesini sağlar.
+<Step number={13} title="bundle boyutunuzu Optimize Edin" isOptional={true}>
+
+`next-intlayer` kullanırken, sözlükler varsayılan olarak her sayfa için pakete dahil edilir. bundle boyutunu optimize etmek için, Intlayer isteğe bağlı bir SWC eklentisi sağlar ki bu, `useIntlayer` çağrılarını akıllıca makrolar kullanarak değiştirir. Bu, sözlüklerin sadece onları gerçekten kullanan sayfalar için paketlere dahil edilmesini sağlar.
 
 Bu optimizasyonu etkinleştirmek için, `@intlayer/swc` paketini kurun. Kurulduktan sonra, `next-intlayer` eklentiyi otomatik olarak algılayacak ve kullanacaktır:
 
@@ -976,9 +603,16 @@ pnpm add @intlayer/swc --save-dev
 yarn add @intlayer/swc --save-dev
 ```
 
+```bash packageManager="bun"
+bun add @intlayer/swc --dev
+```
+
 > Not: Bu optimizasyon sadece Next.js 13 ve üzeri için kullanılabilir.
 
 > Not: Bu paket varsayılan olarak kurulmaz çünkü SWC eklentileri Next.js'te hala deneyseldir. Gelecekte değişebilir.
+> </Step>
+
+</Steps>
 
 ### TypeScript Yapılandırma
 

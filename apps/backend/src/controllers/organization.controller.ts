@@ -1,6 +1,5 @@
 import { logger } from '@logger';
-import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
-import { SessionModel } from '@models/session.model';
+import { SessionModel } from '@schemas/session.schema';
 import { sendEmail } from '@services/email.service';
 import * as organizationService from '@services/organization.service';
 import * as projectService from '@services/project.service';
@@ -23,10 +22,10 @@ import {
   type PaginatedResponse,
   type ResponseData,
 } from '@utils/responseData';
-import type { NextFunction, Request } from 'express';
-import { t } from 'express-intlayer';
+import type { FastifyReply, FastifyRequest } from 'fastify';
+import { t } from 'fastify-intlayer';
 import type { Types } from 'mongoose';
-import { Stripe } from 'stripe';
+import Stripe from 'stripe';
 import type {
   Organization,
   OrganizationAPI,
@@ -42,17 +41,15 @@ export type GetOrganizationsResult = PaginatedResponse<OrganizationAPI>;
  * Retrieves a list of organizations based on filters and pagination.
  */
 export const getOrganizations = async (
-  req: Request<GetOrganizationsParams>,
-  res: ResponseWithSession<GetOrganizationsResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Querystring: GetOrganizationsParams }>,
+  reply: FastifyReply
 ) => {
-  const { user, roles } = res.locals;
+  const { user, roles } = request.session || {};
   const { filters, sortOptions, pageSize, skip, page, getNumberOfPages } =
-    getOrganizationFiltersAndPagination(req, res);
+    getOrganizationFiltersAndPagination(request);
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   try {
@@ -65,15 +62,17 @@ export const getOrganizations = async (
 
     if (
       !hasPermission(
-        roles,
+        roles || [],
         'organization:read'
       )({
-        ...res.locals,
+        ...request.session,
         targetOrganizations: organizations,
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
     }
 
     const totalItems = await organizationService.countOrganizations(filters);
@@ -86,11 +85,9 @@ export const getOrganizations = async (
       totalItems,
     });
 
-    res.status(200).json(responseData);
-    return;
+    return reply.code(200).send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -101,16 +98,17 @@ export type GetOrganizationResult = ResponseData<OrganizationAPI>;
  * Retrieves an organization by its ID.
  */
 export const getOrganization = async (
-  req: Request<GetOrganizationParam, any, any>,
-  res: ResponseWithSession<GetOrganizationResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Params: GetOrganizationParam }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { roles } = res.locals;
-  const { organizationId } = req.params as Partial<GetOrganizationParam>;
+  const { roles } = request.session || {};
+  const { organizationId } = request.params;
 
   if (!organizationId) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_ID_NOT_FOUND');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_ID_NOT_FOUND'
+    );
   }
 
   try {
@@ -119,26 +117,26 @@ export const getOrganization = async (
 
     if (
       !hasPermission(
-        roles,
+        roles || [],
         'organization:read'
       )({
-        ...res.locals,
+        ...request.session,
         targetOrganizations: [organization],
       })
     ) {
-      ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
     }
 
     const responseData = formatResponse<OrganizationAPI>({
       data: mapOrganizationToAPI(organization),
     });
 
-    res.json(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -149,21 +147,21 @@ export type AddOrganizationResult = ResponseData<OrganizationAPI>;
  * Adds a new organization to the database.
  */
 export const addOrganization = async (
-  req: Request<any, any, AddOrganizationBody>,
-  res: ResponseWithSession<AddOrganizationResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: AddOrganizationBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { user } = res.locals;
-  const organization = req.body;
+  const { user } = request.session || {};
+  const organization = request.body;
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_DATA_NOT_FOUND');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_DATA_NOT_FOUND'
+    );
   }
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   try {
@@ -175,22 +173,50 @@ export const addOrganization = async (
     const responseData = formatResponse<OrganizationAPI>({
       message: t({
         en: 'Organization created successfully',
+        'en-GB': 'Organization created successfully',
         fr: 'Organisation créée avec succès',
         es: 'Organización creada con éxito',
+        ru: 'Организация успешно создана',
+        ja: '組織が正常に作成されました',
+        ko: '조직이 성공적으로 생성되었습니다',
+        zh: '组织已成功创建',
+        de: 'Organisation erfolgreich erstellt',
+        ar: 'تم إنشاء المنظمة بنجاح',
+        it: 'Organizzazione creata con successo',
+        pt: 'Organização criada com sucesso',
+        hi: 'संगठन सफलतापूर्वक बनाया गया',
+        tr: 'Organizasyon başarıyla oluşturuldu',
+        pl: 'Organizacja została pomyślnie utworzona',
+        id: 'Organisasi berhasil dibuat',
+        vi: 'Tổ chức đã được tạo thành công',
+        uk: 'Організацію успішно створено',
       }),
       description: t({
         en: 'Your organization has been created successfully',
+        'en-GB': 'Your organization has been created successfully',
         fr: 'Votre organisation a été créée avec succès',
         es: 'Su organización ha sido creada con éxito',
+        ru: 'Ваша организация была успешно создана',
+        ja: '組織は正常に作成されました',
+        ko: '조직이 성공적으로 생성되었습니다',
+        zh: '您的组织已成功创建',
+        de: 'Ihre Organisation wurde erfolgreich erstellt',
+        ar: 'لقد تم إنشاء منظمتك بنجاح',
+        it: 'La tua organizzazione è stata creata con successo',
+        pt: 'Sua organização foi criada com sucesso',
+        hi: 'आपका संगठन सफलतापूर्वक बना लिया गया है',
+        tr: 'Organizasyonunuz başarıyla oluşturuldu',
+        pl: 'Twoja organizacja została pomyślnie utworzona',
+        id: 'Organisasi Anda telah berhasil dibuat',
+        vi: 'Tổ chức của bạn đã được tạo thành công',
+        uk: 'Вашу організацію успішно створено',
       }),
       data: mapOrganizationToAPI(newOrganization),
     });
 
-    res.json(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -201,34 +227,36 @@ export type UpdateOrganizationResult = ResponseData<OrganizationAPI>;
  * Updates an existing organization in the database.
  */
 export const updateOrganization = async (
-  req: Request<undefined, undefined, UpdateOrganizationBody>,
-  res: ResponseWithSession<UpdateOrganizationResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: UpdateOrganizationBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { organization, roles } = res.locals;
-  const organizationFields = req.body;
+  const { organization, roles } = request.session || {};
+  const organizationFields = request.body;
 
   if (!organizationFields) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_DATA_NOT_FOUND');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_DATA_NOT_FOUND'
+    );
   }
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
   }
 
   if (
     !hasPermission(
-      roles,
+      roles || [],
       'organization:write'
     )({
-      ...res.locals,
+      ...request.session,
       targetOrganizations: [organization],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   try {
@@ -241,22 +269,50 @@ export const updateOrganization = async (
     const responseData = formatResponse<OrganizationAPI>({
       message: t({
         en: 'Organization updated successfully',
+        'en-GB': 'Organization updated successfully',
         fr: 'Organisation mise à jour avec succès',
         es: 'Organización actualizada con éxito',
+        ru: 'Организация успешно обновлена',
+        ja: '組織が正常に更新されました',
+        ko: '조직이 성공적으로 업데이트되었습니다',
+        zh: '组织已成功更新',
+        de: 'Organisation erfolgreich aktualisiert',
+        ar: 'تم تحديث المنظمة بنجاح',
+        it: 'Organizzazione aggiornata con successo',
+        pt: 'Organização atualizada com sucesso',
+        hi: 'संगठन सफलतापूर्वक अपडेट किया गया',
+        tr: 'Organizasyon başarıyla güncellendi',
+        pl: 'Organizacja została pomyślnie zaktualizowana',
+        id: 'Organisasi berhasil diperbarui',
+        vi: 'Tổ chức đã được cập nhật thành công',
+        uk: 'Організацію успішно оновлено',
       }),
       description: t({
         en: 'Your organization has been updated successfully',
+        'en-GB': 'Your organization has been updated successfully',
         fr: 'Votre organisation a été mise à jour avec succès',
         es: 'Su organización ha sido actualizada con éxito',
+        ru: 'Ваша организация была успешно обновлена',
+        ja: '組織は正常に更新されました',
+        ko: '조직이 성공적으로 업데이트되었습니다',
+        zh: '您的组织已成功更新',
+        de: 'Ihre Organisation wurde erfolgreich aktualisiert',
+        ar: 'لقد تم تحديث منظمتك بنجاح',
+        it: 'La tua organizzazione è stata aggiornata con successo',
+        pt: 'Sua organização foi atualizada com sucesso',
+        hi: 'आपका संगठन सफलतापूर्वक अपडेट कर दिया गया है',
+        tr: 'Organizasyonunuz başarıyla güncellendi',
+        pl: 'Twoja organizacja została pomyślnie zaktualizowana',
+        id: 'Organisasi Anda telah berhasil diperbarui',
+        vi: 'Tổ chức của bạn đã được cập nhật thành công',
+        uk: 'Вашу організацію успішно оновлено',
       }),
       data: mapOrganizationToAPI(updatedOrganization),
     });
 
-    res.json(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -269,34 +325,33 @@ export type AddOrganizationMemberResult = ResponseData<OrganizationAPI>;
  * Add member to the organization in the database.
  */
 export const addOrganizationMember = async (
-  req: Request<any, any, AddOrganizationMemberBody>,
-  res: ResponseWithSession<AddOrganizationMemberResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: AddOrganizationMemberBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { organization, user, roles } = res.locals;
-  const { userEmail } = req.body;
+  const { organization, user, roles } = request.session || {};
+  const { userEmail } = request.body;
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
   }
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   if (
     !hasPermission(
-      roles,
+      roles || [],
       'organization:admin'
     )({
-      ...res.locals,
+      ...request.session,
       targetOrganizations: [organization],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   const planType = getPlanDetails(organization.plan);
@@ -305,10 +360,13 @@ export const addOrganizationMember = async (
     planType.numberOfOrganizationUsers &&
     organization.membersIds.length >= planType.numberOfOrganizationUsers
   ) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PLAN_USER_LIMIT_REACHED', {
-      organizationId: organization.id,
-    });
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PLAN_USER_LIMIT_REACHED',
+      {
+        organizationId: organization.id,
+      }
+    );
   }
 
   try {
@@ -318,10 +376,13 @@ export const addOrganizationMember = async (
       // Create user if not found
       const newUser = await userService.createUser({ email: userEmail });
       if (!newUser) {
-        ErrorHandler.handleGenericErrorResponse(res, 'USER_CREATION_FAILED', {
-          email: userEmail,
-        });
-        return;
+        return ErrorHandler.handleGenericErrorResponse(
+          reply,
+          'USER_CREATION_FAILED',
+          {
+            email: userEmail,
+          }
+        );
       }
 
       newMember = newUser;
@@ -329,25 +390,8 @@ export const addOrganizationMember = async (
 
     const updatedOrganization =
       await organizationService.updateOrganizationById(organization.id, {
-        ...organization,
         membersIds: [...organization.membersIds, newMember.id],
       });
-
-    const responseData = formatResponse<OrganizationAPI>({
-      message: t({
-        en: 'Organization updated successfully',
-        fr: 'Organisation mise à jour avec succès',
-        es: 'Organización actualizada con éxito',
-      }),
-      description: t({
-        en: 'Your organization has been updated successfully',
-        fr: 'Votre organisation a été mise à jour avec succès',
-        es: 'Su organización ha sido actualizada con éxito',
-      }),
-      data: mapOrganizationToAPI(updatedOrganization),
-    });
-
-    res.json(responseData);
 
     await sendEmail({
       type: 'invite',
@@ -356,15 +400,58 @@ export const addOrganizationMember = async (
       invitedByUsername: user.name,
       invitedByEmail: user.email,
       organizationName: organization.name,
-      inviteLink: `${process.env.CLIENT_URL}/auth/login?email=${newMember.email}`,
-      inviteFromIp: req.ip ?? '',
-      inviteFromLocation: req.hostname,
+      inviteLink: `${process.env.APP_URL}/auth/login?email=${newMember.email}`,
+      inviteFromIp: request.ip ?? '',
+      inviteFromLocation: request.hostname,
     });
 
-    return;
+    const responseData = formatResponse<OrganizationAPI>({
+      message: t({
+        en: 'Invitation sent',
+        'en-GB': 'Invitation sent',
+        fr: 'Invitation envoyée',
+        es: 'Invitación enviada',
+        ru: 'Приглашение отправлено',
+        ja: '招待を送信しました',
+        ko: '초대장을 보냈습니다',
+        zh: '邀请已发送',
+        de: 'Einladung gesendet',
+        ar: 'تم إرسال الدعوة',
+        it: 'Invito inviato',
+        pt: 'Convite enviado',
+        hi: 'आमंत्रण भेजा गया',
+        tr: 'Davet gönderildi',
+        pl: 'Zaproszenie wysłane',
+        id: 'Undangan terkirim',
+        vi: 'Đã gửi lời mời',
+        uk: 'Запрошення надіслано',
+      }),
+      description: t({
+        en: `An invitation email has been sent to ${userEmail}`,
+        'en-GB': `An invitation email has been sent to ${userEmail}`,
+        fr: `Un e-mail d'invitation a été envoyé à ${userEmail}`,
+        es: `Se ha enviado un correo de invitación a ${userEmail}`,
+        ru: `Письмо с приглашением отправлено на адрес ${userEmail}`,
+        ja: `招待メールが送信されました: ${userEmail}`,
+        ko: `초대 이메일이 발송되었습니다: ${userEmail}`,
+        zh: `邀请邮件已发送至 ${userEmail}`,
+        de: `Eine Einladungs-E-Mail wurde gesendet an ${userEmail}`,
+        ar: `تم إرسال بريد إلكتروني بالدعوة إلى ${userEmail}`,
+        it: `Un'email di invito è stata inviata a ${userEmail}`,
+        pt: `Um e-mail de convite foi enviado para ${userEmail}`,
+        hi: `एक आमंत्रण ईमेल भेजा गया है: ${userEmail}`,
+        tr: `Davet e-postası şu adrese gönderildi: ${userEmail}`,
+        pl: `E-mail z zaproszeniem został wysłany do ${userEmail}`,
+        id: `Email undangan telah dikirim ke ${userEmail}`,
+        vi: `Một email mời đã được gửi đến ${userEmail}`,
+        uk: `Запрошення надіслано на адресу ${userEmail}`,
+      }),
+      data: mapOrganizationToAPI(updatedOrganization),
+    });
+
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -378,65 +465,63 @@ export type UpdateOrganizationMembersResult = ResponseData<OrganizationAPI>;
  * Update members to the organization in the database.
  */
 export const updateOrganizationMembers = async (
-  req: Request<any, any, UpdateOrganizationMembersBody>,
-  res: ResponseWithSession<UpdateOrganizationMembersResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Body: UpdateOrganizationMembersBody }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { organization, roles } = res.locals;
-  const { membersIds, adminsIds } = req.body;
+  const { organization, roles } = request.session || {};
+  const { membersIds, adminsIds } = request.body;
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
   }
 
   if (
     !hasPermission(
-      roles,
+      roles || [],
       'organization:admin'
     )({
-      ...res.locals,
+      ...request.session,
       targetOrganizations: [organization],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   if (!membersIds) {
-    ErrorHandler.handleGenericErrorResponse(res, 'INVALID_REQUEST_BODY');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'INVALID_REQUEST_BODY'
+    );
   }
 
   if (membersIds?.length === 0) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
       'ORGANIZATION_MUST_HAVE_MEMBER'
     );
-    return;
   }
 
   if (adminsIds?.filter((id) => membersIds?.includes(id)).length === 0) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
       'ORGANIZATION_MUST_HAVE_ADMIN'
     );
-    return;
   }
 
   try {
     const existingUsers = await userService.getUsersByIds(membersIds);
 
     if (!existingUsers) {
-      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
     }
 
     const existingAdmins = await userService.getUsersByIds(adminsIds!);
 
     if (!existingAdmins) {
-      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
     }
 
     const updatedOrganization =
@@ -448,22 +533,50 @@ export const updateOrganizationMembers = async (
     const responseData = formatResponse<OrganizationAPI>({
       message: t({
         en: 'Organization updated successfully',
+        'en-GB': 'Organization updated successfully',
         fr: 'Organisation mise à jour avec succès',
         es: 'Organización actualizada con éxito',
+        ru: 'Организация успешно обновлена',
+        ja: '組織が正常に更新されました',
+        ko: '조직이 성공적으로 업데이트되었습니다',
+        zh: '组织已成功更新',
+        de: 'Organisation успешно обновлена',
+        ar: 'تم تحديث المنظمة بنجاح',
+        it: 'Organizzazione aggiornata con successo',
+        pt: 'Organização atualizada con sucesso',
+        hi: 'संगठन सफलतापूर्वक अपडेट किया गया',
+        tr: 'Organizasyon başarıyla güncellendi',
+        pl: 'Organizacja została pomyślnie zaktualizowana',
+        id: 'Organisasi berhasil diperbarui',
+        vi: 'Tổ chức đã được cập nhật thành công',
+        uk: 'Організацію успішно оновлено',
       }),
       description: t({
         en: 'Your organization has been updated successfully',
+        'en-GB': 'Your organization has been updated successfully',
         fr: 'Votre organisation a été mise à jour avec succès',
         es: 'Su organización ha sido actualizada con éxito',
+        ru: 'Ваша организация была успешно обновлена',
+        ja: '組織は正常に更新されました',
+        ko: '조직이 성공적으로 업데이트되었습니다',
+        zh: '您的组织已成功更新',
+        de: 'Ihre Organisation wurde erfolgreich aktualisiert',
+        ar: 'لقد تم تحديث منظمتك بنجاح',
+        it: 'La tua organizzazione è stata aggiornata con successo',
+        pt: 'Sua organização foi atualizada com sucesso',
+        hi: 'आपका संगठन सफलतापूर्वक अपडेट कर दिया गया है',
+        tr: 'Organizasyonunuz başarıyla güncellendi',
+        pl: 'Twoja organizacja została pomyślnie zaktualizowana',
+        id: 'Organisasi Anda telah berhasil diperbarui',
+        vi: 'Tổ chức của bạn đã được cập nhật thành công',
+        uk: 'Вашу організацію успішно оновлено',
       }),
       data: mapOrganizationToAPI(updatedOrganization),
     });
 
-    res.json(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -478,39 +591,36 @@ export type UpdateOrganizationMembersByIdResult = ResponseData<OrganizationAPI>;
  * Admin-only: Update members of any organization by ID
  */
 export const updateOrganizationMembersById = async (
-  req: Request<
-    UpdateOrganizationMembersByIdParams,
-    any,
-    UpdateOrganizationMembersByIdBody
-  >,
-  res: ResponseWithSession<UpdateOrganizationMembersByIdResult>,
-  _next: NextFunction
+  request: FastifyRequest<{
+    Params: UpdateOrganizationMembersByIdParams;
+    Body: UpdateOrganizationMembersByIdBody;
+  }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { user } = res.locals;
-  const { organizationId } = req.params;
-  const { membersIds, adminsIds } = req.body;
+  const { user } = request.session || {};
+  const { organizationId } = request.params;
+  const { membersIds, adminsIds } = request.body;
 
   if (!user) {
-    ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
   }
 
   if (user.role !== 'admin') {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   if (!membersIds) {
-    ErrorHandler.handleGenericErrorResponse(res, 'INVALID_REQUEST_BODY');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'INVALID_REQUEST_BODY'
+    );
   }
 
   if (membersIds?.length === 0) {
-    ErrorHandler.handleGenericErrorResponse(
-      res,
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
       'ORGANIZATION_MUST_HAVE_MEMBER'
     );
-    return;
   }
 
   try {
@@ -518,15 +628,16 @@ export const updateOrganizationMembersById = async (
       await organizationService.getOrganizationById(organizationId);
 
     if (!targetOrganization) {
-      ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'ORGANIZATION_NOT_FOUND'
+      );
     }
 
     const existingUsers = await userService.getUsersByIds(membersIds);
 
     if (!existingUsers) {
-      ErrorHandler.handleGenericErrorResponse(res, 'USER_NOT_FOUND');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
     }
 
     const finalAdminsIds =
@@ -538,11 +649,10 @@ export const updateOrganizationMembersById = async (
       : [];
 
     if (!existingAdmins || existingAdmins.length === 0) {
-      ErrorHandler.handleGenericErrorResponse(
-        res,
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
         'ORGANIZATION_MUST_HAVE_ADMIN'
       );
-      return;
     }
 
     const updatedOrganization =
@@ -554,22 +664,50 @@ export const updateOrganizationMembersById = async (
     const responseData = formatResponse<OrganizationAPI>({
       message: t({
         en: 'Organization members updated successfully',
+        'en-GB': 'Organization members updated successfully',
         fr: "Membres de l'organisation mis à jour avec succès",
         es: 'Miembros de la organización actualizados con éxito',
+        ru: 'Члены организации успешно обновлены',
+        ja: '組織メンバーが正常に更新されました',
+        ko: '조직 구성원이 성공적으로 업데이트되었습니다',
+        zh: '组织成员已成功更新',
+        de: 'Organisationsmitglieder erfolgreich aktualisiert',
+        ar: 'تم تحديث أعضاء المنظمة بنجاح',
+        it: "Membri dell'organizzazione aggiornati con successo",
+        pt: 'Membros da organização atualizados com sucesso',
+        hi: 'संगठन के सदस्य सफलतापूर्वक अपडेट किए गए',
+        tr: 'Organizasyon üyeleri başarıyla güncellendi',
+        pl: 'Członkowie organizacji zostali pomyślnie zaktualizowani',
+        id: 'Anggota organisasi berhasil diperbarui',
+        vi: 'Thành viên tổ chức đã được cập nhật thành công',
+        uk: 'Члени організації успішно оновлені',
       }),
       description: t({
         en: 'Organization members have been updated successfully',
+        'en-GB': 'Organization members have been updated successfully',
         fr: "Les membres de l'organisation ont été mis à jour avec succès",
         es: 'Los miembros de la organización han sido actualizados con éxito',
+        ru: 'Члены организации были успешно обновлены',
+        ja: '組織メンバーは正常に更新されました',
+        ko: '조직 구성원이 성공적으로 업데이트되었습니다',
+        zh: '组织成员已成功更新',
+        de: 'Organisationsmitglieder wurden erfolgreich aktualisiert',
+        ar: 'لقد تم تحديث أعضاء المنظمة بنجاح',
+        it: "I membri dell'organizzazione sono stati aggiornati con successo",
+        pt: 'Os membros da organização foram atualizados com sucesso',
+        hi: 'संगठन के सदस्यों को सफलतापूर्वक अपडेट किया गया है',
+        tr: 'Organizasyon üyeleri başarıyla güncellendi',
+        pl: 'Członkowie organizacji zostali pomyślnie zaktualizowani',
+        id: 'Anggota organisasi telah berhasil diperbarui',
+        vi: 'Thành viên tổ chức đã được cập nhật thành công',
+        uk: 'Члени організації успішно оновлені',
       }),
       data: mapOrganizationToAPI(updatedOrganization),
     });
 
-    res.json(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -579,16 +717,17 @@ export type DeleteOrganizationResult = ResponseData<OrganizationAPI>;
  * Deletes an organization from the database by its ID.
  */
 export const deleteOrganization = async (
-  _req: Request,
-  res: ResponseWithSession,
-  _next: NextFunction
+  _request: FastifyRequest,
+  reply: FastifyReply
 ): Promise<void> => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-  const { organization, roles } = res.locals;
+  const { organization, session, roles, user } = _request.session || {};
 
   if (!organization) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
   }
 
   const projects = await projectService.findProjects({
@@ -596,23 +735,28 @@ export const deleteOrganization = async (
   });
 
   if (projects.length > 0) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PROJECTS_EXIST', {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PROJECTS_EXIST', {
       organizationId: organization.id,
     });
-    return;
   }
 
   if (
     !hasPermission(
-      roles,
+      roles || [],
       'organization:admin'
     )({
-      ...res.locals,
+      ..._request.session,
       targetOrganizations: [organization],
     })
   ) {
-    ErrorHandler.handleGenericErrorResponse(res, 'PERMISSION_DENIED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
+  }
+
+  if (typeof session === 'undefined') {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'SESSION_NOT_DEFINED'
+    );
   }
 
   try {
@@ -625,10 +769,31 @@ export const deleteOrganization = async (
       await organizationService.deleteOrganizationById(organization.id);
 
     if (!deletedOrganization) {
-      ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_NOT_FOUND', {
-        organizationId: organization.id,
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'ORGANIZATION_NOT_FOUND',
+        {
+          organizationId: organization.id,
+        }
+      );
+    }
+
+    // Update session to set activeOrganizationId
+    await SessionModel.updateOne(
+      { _id: session.id },
+      {
+        $set: {
+          activeOrganizationId: null,
+          activeProjectId: null,
+        },
+      }
+    );
+
+    if (user) {
+      await userService.updateUserById(user.id, {
+        lastActiveOrganizationId: null,
+        lastActiveProjectId: null,
       });
-      return;
     }
 
     logger.info(`Organization deleted: ${String(deletedOrganization.id)}`);
@@ -636,23 +801,131 @@ export const deleteOrganization = async (
     const responseData = formatResponse<OrganizationAPI>({
       message: t({
         en: 'Organization deleted successfully',
+        'en-GB': 'Organization deleted successfully',
         fr: 'Organisation supprimée avec succès',
         es: 'Organización eliminada con éxito',
+        ru: 'Организация успешно удалена',
+        ja: '組織が正常に削除されました',
+        ko: '조직이 성공적으로 삭제되었습니다',
+        zh: '组织已成功删除',
+        de: 'Organisation erfolgreich gelöscht',
+        ar: 'تم حذف المنظمة بنجاح',
+        it: 'Organizzazione eliminata con successo',
+        pt: 'Organização excluída com sucesso',
+        hi: 'संगठन सफलतापूर्वक हटा दिया गया',
+        tr: 'Organizasyon başarıyla silindi',
+        pl: 'Organizacja została pomyślnie usunięta',
+        id: 'Organisasi berhasil dihapus',
+        vi: 'Tổ chức đã được xóa thành công',
+        uk: 'Організацію успішно видалено',
       }),
       description: t({
         en: 'Your organization has been deleted successfully',
+        'en-GB': 'Your organization has been deleted successfully',
         fr: 'Votre organisation a été supprimée avec succès',
         es: 'Su organización ha sido eliminada con éxito',
+        ru: 'Ваша организация была успешно удалена',
+        ja: '組織は正常に削除されました',
+        ko: '조직이 성공적으로 삭제되었습니다',
+        zh: '您的组织已成功删除',
+        de: 'Ihre Organisation wurde erfolgreich gelöscht',
+        ar: 'لقد تم حذف منظمتك بنجاح',
+        it: 'La tua organizzazione è stata eliminata con successo',
+        pt: 'Sua organização foi excluída com sucesso',
+        hi: 'आपका संगठन सफलतापूर्वक हटा दिया गया है',
+        tr: 'Organizasyonunuz başarıyla silindi',
+        pl: 'Twoja organizacja została pomyślnie usunięta',
+        id: 'Organisasi Anda telah berhasil dihapus',
+        vi: 'Tổ chức của bạn đã được xóa thành công',
+        uk: 'Вашу організацію успішно видалено',
       }),
       data: mapOrganizationToAPI(deletedOrganization),
     });
 
     // No need to update session here, as it's a delete operation
-    res.json(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type DeleteOrganizationByIdAdminParams = { organizationId: string };
+export type DeleteOrganizationByIdAdminResult = ResponseData<OrganizationAPI>;
+
+/**
+ * Admin-only: Deletes any organization from the database by its ID.
+ */
+export const deleteOrganizationByIdAdmin = async (
+  request: FastifyRequest<{ Params: DeleteOrganizationByIdAdminParams }>,
+  reply: FastifyReply
+): Promise<void> => {
+  const { organizationId } = request.params;
+  const { roles } = request.session || {};
+
+  try {
+    const organization =
+      await organizationService.getOrganizationById(organizationId);
+
+    if (!organization) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'ORGANIZATION_NOT_FOUND'
+      );
+    }
+
+    if (
+      !hasPermission(
+        roles || [],
+        'organization:admin'
+      )({
+        ...request.session,
+        targetOrganizations: [organization],
+      })
+    ) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
+    }
+
+    const deletedOrganization =
+      await organizationService.deleteOrganizationById(organization.id);
+
+    if (!deletedOrganization) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'ORGANIZATION_NOT_FOUND'
+      );
+    }
+
+    const formattedOrganization = mapOrganizationToAPI(deletedOrganization);
+    const responseData = formatResponse<OrganizationAPI>({
+      message: t({
+        en: 'Organization deleted',
+        fr: 'Organisation supprimée',
+        es: 'Organización eliminada',
+        'en-GB': 'Organisation deleted',
+        de: 'Organisation gelöscht',
+        ja: '組織が削除されました',
+        ko: '조직이 삭제되었습니다',
+        zh: '组织已删除',
+        it: 'Organizzazione eliminata',
+        pt: 'Organização excluída',
+        hi: 'संगठन हटा दिया गया',
+        ar: 'تم حذف المنظمة',
+        ru: 'Организация удалена',
+        tr: 'Organizasyon silindi',
+        pl: 'Organizacja usunięta',
+        id: 'Organisasi dihapus',
+        vi: 'Tổ chức đã bị xóa',
+        uk: 'Організацію видалено',
+      }),
+      data: formattedOrganization,
+    });
+
+    return reply.send(responseData);
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -665,26 +938,44 @@ export type SelectOrganizationResult = ResponseData<OrganizationAPI>;
  * Select an organization.
  */
 export const selectOrganization = async (
-  req: Request<SelectOrganizationParam>,
-  res: ResponseWithSession<SelectOrganizationResult>,
-  _next: NextFunction
+  request: FastifyRequest<{ Params: SelectOrganizationParam }>,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { organizationId } = req.params as Partial<SelectOrganizationParam>;
-  const { session } = res.locals;
+  const { organizationId } = request.params;
+  const { session, roles, user } = request.session || {};
 
   if (!organizationId) {
-    ErrorHandler.handleGenericErrorResponse(res, 'ORGANIZATION_ID_NOT_FOUND');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_ID_NOT_FOUND'
+    );
   }
 
   if (typeof session === 'undefined') {
-    ErrorHandler.handleGenericErrorResponse(res, 'SESSION_NOT_DEFINED');
-    return;
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'SESSION_NOT_DEFINED'
+    );
   }
 
   try {
     const organization =
       await organizationService.getOrganizationById(organizationId);
+
+    if (
+      !hasPermission(
+        roles || [],
+        'organization:read'
+      )({
+        ...request.session,
+        targetOrganizations: [organization],
+      })
+    ) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
+    }
 
     // Update session to set activeOrganizationId
     await SessionModel.updateOne(
@@ -697,26 +988,61 @@ export const selectOrganization = async (
       }
     );
 
+    if (user) {
+      await userService.updateUserById(user.id, {
+        lastActiveOrganizationId: String(organization.id),
+        lastActiveProjectId: null,
+      });
+    }
+
     // No need to update session here, as it's a select operation
     const responseData = formatResponse<OrganizationAPI>({
       message: t({
         en: 'Organization retrieved successfully',
+        'en-GB': 'Organization retrieved successfully',
         fr: 'Organisation récupérée avec succès',
         es: 'Organización recuperada con éxito',
+        ru: 'Организация успешно получена',
+        ja: '組織が正常に取得されました',
+        ko: '조직이 성공적으로 검색되었습니다',
+        zh: '组织已成功检索',
+        de: 'Organisation erfolgreich abgerufen',
+        ar: 'تم استرداد المنظمة بنجاح',
+        it: 'Organizzazione recuperata con successo',
+        pt: 'Organização recuperada com sucesso',
+        hi: 'संगठन सफलतापूर्वक प्राप्त किया गया',
+        tr: 'Organizasyon başarıyla alındı',
+        pl: 'Organizacja została pomyślnie pobrana',
+        id: 'Organisasi berhasil diambil',
+        vi: 'Tổ chức đã được truy xuất thành công',
+        uk: 'Організацію успішно отримано',
       }),
       description: t({
         en: 'Your organization has been retrieved successfully',
+        'en-GB': 'Your organization has been retrieved successfully',
         fr: 'Votre organisation a été récupérée avec succès',
         es: 'Su organización ha sido recuperada con éxito',
+        ru: 'Ваша организация была успешно получена',
+        ja: '組織は正常に取得されました',
+        ko: '조직이 성공적으로 검색되었습니다',
+        zh: '您的组织已成功检索',
+        de: 'Ihre Organisation wurde erfolgreich abgerufen',
+        ar: 'لقد تم استرداد منظمتك بنجاح',
+        it: 'La tua organizzazione è stata recuperata con successo',
+        pt: 'Sua organização foi recuperada com sucesso',
+        hi: 'आपका संगठन सफलतापूर्वक प्राप्त कर लिया गया है',
+        tr: 'Organizasyonunuz başarıyla alındı',
+        pl: 'Twoja organizacja została pomyślnie pobrana',
+        id: 'Organisasi Anda telah berhasil diambil',
+        vi: 'Tổ chức của bạn đã được truy xuất thành công',
+        uk: 'Вашу організацію успішно отримано',
       }),
       data: mapOrganizationToAPI(organization),
     });
 
-    res.json(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };
 
@@ -726,17 +1052,18 @@ export type UnselectOrganizationResult = ResponseData<null>;
  * Unselect an organization.
  */
 export const unselectOrganization = async (
-  _req: Request,
-  res: ResponseWithSession<UnselectOrganizationResult>,
-  _next: NextFunction
+  _request: FastifyRequest,
+  reply: FastifyReply
 ): Promise<void> => {
-  const { session } = res.locals;
+  const { session, user } = _request.session || {};
   try {
     // Update session to clear activeOrganizationId and activeProjectId
 
     if (typeof session === 'undefined') {
-      ErrorHandler.handleGenericErrorResponse(res, 'SESSION_NOT_DEFINED');
-      return;
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'SESSION_NOT_DEFINED'
+      );
     }
 
     await SessionModel.updateOne(
@@ -749,24 +1076,59 @@ export const unselectOrganization = async (
       }
     );
 
+    if (user) {
+      await userService.updateUserById(user.id, {
+        lastActiveOrganizationId: null,
+        lastActiveProjectId: null,
+      });
+    }
+
     const responseData = formatResponse<null>({
       message: t({
         en: 'Organization unselected successfully',
+        'en-GB': 'Organization unselected successfully',
         fr: 'Organisation désélectionnée avec succès',
         es: 'Organización deseleccionada con éxito',
+        ru: 'Организация успешно снята с выбора',
+        ja: '組織の選択が正常に解除されました',
+        ko: '조직 선택이 성공적으로 해제되었습니다',
+        zh: '组织已成功取消选择',
+        de: 'Organisation erfolgreich abgewählt',
+        ar: 'تم إلغاء تحديد المنظمة بنجاح',
+        it: 'Organizzazione deselezionata con successo',
+        pt: 'Organização desmarcada com sucesso',
+        hi: 'संगठन सफलतापूर्वक अनसेलेक्ट किया गया',
+        tr: 'Organizasyon seçimi başarıyla kaldırıldı',
+        pl: 'Wybór organizacji został pomyślnie cofnięty',
+        id: 'Organisasi berhasil batal dipilih',
+        vi: 'Tổ chức đã được bỏ chọn thành công',
+        uk: 'Вибір організації успішно скасовано',
       }),
       description: t({
         en: 'Your organization has been unselected successfully',
+        'en-GB': 'Your organization has been unselected successfully',
         fr: 'Votre organisation a été désélectionnée avec succès',
         es: 'Su organización ha sido deseleccionada con éxito',
+        ru: 'Выбор вашей организации был успешно снят',
+        ja: '組織の選択は正常に解除されました',
+        ko: '조직 선택이 성공적으로 해제되었습니다',
+        zh: '您的组织已成功取消选择',
+        de: 'Ihre Organisation wurde erfolgreich abgewählt',
+        ar: 'لقد تم إلغاء تحديد منظمتك بنجاح',
+        it: 'La tua organizzazione è stata deselezionata con successo',
+        pt: 'Sua organização foi desmarcada com sucesso',
+        hi: 'आपका संगठन सफलतापूर्वक अनसेलेक्ट कर दिया गया है',
+        tr: 'Organizasyonunuzun seçimi başarıyla kaldırıldı',
+        pl: 'Wybór Twojej organizacji został pomyślnie cofnięty',
+        id: 'Organisasi Anda telah berhasil batal dipilih',
+        vi: 'Tổ chức của bạn đã được bỏ chọn thành công',
+        uk: 'Вибір вашої організації успішно скасовано',
       }),
       data: null,
     });
 
-    res.json(responseData);
-    return;
+    return reply.send(responseData);
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
-    return;
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }
 };

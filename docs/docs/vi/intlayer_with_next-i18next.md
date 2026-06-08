@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-10-05
-updatedAt: 2025-10-05
-title: Cách dịch ứng dụng Next.js 15 của bạn sử dụng next-i18next – hướng dẫn i18n 2025
-description: Hướng dẫn thực tiễn, sẵn sàng cho sản xuất để quốc tế hóa ứng dụng Next.js 15 App Router với i18next/next-i18next và nâng cao với Intlayer.
+updatedAt: 2026-05-31
+title: "next-i18next i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
+description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng next-i18next đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
 keywords:
   - Quốc tế hóa
   - Tài liệu
@@ -37,7 +37,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-i18next-templat
 - Tích hợp Intlayer để tự động hóa quy trình dịch thuật (kiểm thử, điền AI, đồng bộ JSON)
 
 > Lưu ý: next-i18next được xây dựng dựa trên i18next. Hướng dẫn này sử dụng các primitive của i18next tương thích với next-i18next trong App Router, đồng thời giữ cho kiến trúc đơn giản và sẵn sàng cho môi trường production.
-> Để so sánh rộng hơn, xem [next-i18next vs next-i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-i18next_vs_intlayer.md).
+> Để so sánh rộng hơn, xem [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/vi/next-i18next_vs_next-intl_vs_intlayer.md).
 
 ---
 
@@ -55,6 +55,10 @@ pnpm add next-i18next i18next react-i18next i18next-resources-to-backend
 
 ```bash packageManager="yarn"
 yarn add next-i18next i18next react-i18next i18next-resources-to-backend
+```
+
+```bash packageManager="bun"
+bun add next-i18next i18next react-i18next i18next-resources-to-backend
 ```
 
 Bắt đầu với một cấu trúc rõ ràng. Giữ các thông điệp được tách theo locale và namespace.
@@ -253,7 +257,7 @@ export default function LocaleLayout({
   params: { locale: string };
 }) {
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   const dir = isRtl(locale) ? "rtl" : "ltr";
@@ -553,15 +557,23 @@ Intlayer giúp bạn giữ đồng bộ các bản dịch JSON, kiểm tra các 
 Cài đặt các dependencies của intlayer:
 
 ```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin  -D
+npm install intlayer @intlayer/sync-json-plugin --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin  -D
+pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin  -D
+yarn add intlayer @intlayer/sync-json-plugin --dev
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer @intlayer/sync-json-plugin --dev
+bun x intlayer init
 ```
 
 ```ts fileName="intlayer.config.ts"
@@ -581,7 +593,6 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "i18next",
       source: ({ locale }) => `./locales/${locale}.json`,
     }),
   ],
@@ -606,7 +617,7 @@ Các luồng phổ biến:
 - `pnpm i18n:test` trong CI để làm cho build thất bại khi thiếu key
 - `pnpm i18n:fill` chạy cục bộ để đề xuất bản dịch AI cho các key mới được thêm vào
 
-> Bạn có thể cung cấp các đối số CLI; xem thêm tại [Tài liệu CLI của Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_cli.md).
+> Bạn có thể cung cấp các đối số CLI; xem thêm tại [Tài liệu CLI của Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md).
 
 ---
 

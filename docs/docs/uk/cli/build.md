@@ -1,0 +1,96 @@
+---
+createdAt: 2024-08-11
+updatedAt: 2025-11-22
+title: Побудова словників
+description: Дізнайтеся, як побудувати словники Intlayer зі файлів декларації контенту.
+keywords:
+  - Build
+  - Dictionaries
+  - CLI
+  - Intlayer
+slugs:
+  - doc
+  - concept
+  - cli
+  - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: "Додати опцію checkTypes"
+---
+
+# Побудова словників
+
+Щоб побудувати ваші словники, ви можете виконати команди:
+
+```bash packageManager="npm"
+npx intlayer build
+```
+
+```bash packageManager="yarn"
+yarn intlayer build
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build
+```
+
+```bash packageManager="bun"
+bun x intlayer build
+```
+
+або в режимі відстеження
+
+```bash packageManager="npm"
+npx intlayer build --watch
+```
+
+```bash packageManager="yarn"
+yarn intlayer build --watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build --watch
+```
+
+```bash packageManager="bun"
+bun x intlayer build --watch
+```
+
+Ця команда за замовчуванням знайде ваші файли декларації контенту за шляхом `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` і побудує словники в директорії `.intlayer`.
+
+## Аліаси:
+
+- `npx intlayer dictionaries build`
+- `npx intlayer dictionary build`
+- `npx intlayer dic build`
+
+## Аргументи:
+
+- **`--base-dir`**: Вказати базовий каталог проєкту. Щоб знайти конфігурацію intlayer, команда шукатиме файл `intlayer.config.{ts,js,json,cjs,mjs}` у базовому каталозі.
+
+  > Приклад: `npx intlayer build --base-dir ./src`
+
+- **`--env`**: Вказати середовище (наприклад, `development`, `production`). Корисно, якщо ви використовуєте змінні середовища в файлі конфігурації intlayer.
+
+  > Приклад: `npx intlayer build --env production`
+
+- **`--env-file`**: Вказати кастомний файл середовища, звідки завантажувати змінні. Корисно, якщо ви використовуєте змінні середовища в файлі конфігурації intlayer.
+
+  > Приклад: `npx intlayer build --env-file .env.production.local`
+
+- **`--with`**: Запустити команду паралельно зі збіркою.
+
+  > Приклад: `npx intlayer build --with "next dev --turbopack"`
+
+- **`--skip-prepare`**: Пропустити крок підготовки.
+
+  > Приклад: `npx intlayer build --skip-prepare`
+
+- **`--no-cache`**: Вимкнути кеш.
+
+  > Приклад: `npx intlayer build --no-cache`
+
+- **`--check-types`**: Перевіряє типи файлів оголошення контенту.
+
+  > Приклад: `npx intlayer build --check-types`

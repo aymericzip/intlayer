@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-10-05
-updatedAt: 2025-10-05
-title: Cara menerjemahkan Next.js 15 Anda menggunakan next-i18next – panduan i18n 2025
-description: Panduan praktis dan siap produksi untuk menginternasionalisasi aplikasi Next.js 15 App Router dengan i18next/next-i18next dan meningkatkan dengan Intlayer.
+updatedAt: 2026-05-31
+title: "next-i18next i18n - Panduan lengkap menerjemahkan aplikasi Anda"
+description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi next-i18next multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
   - Internasionalisasi
   - Dokumentasi
@@ -37,7 +37,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-i18next-templat
 - Integrasi Intlayer untuk mengotomatisasi alur kerja terjemahan (tes, pengisian AI, sinkronisasi JSON)
 
 > Catatan: next-i18next dibangun di atas i18next. Panduan ini menggunakan primitif i18next yang kompatibel dengan next-i18next dalam App Router, sambil menjaga arsitektur tetap sederhana dan siap produksi.
-> Untuk perbandingan yang lebih luas, lihat [next-i18next vs next-i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-i18next_vs_intlayer.md).
+> Untuk perbandingan yang lebih luas, lihat [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/id/next-i18next_vs_next-intl_vs_intlayer.md).
 
 ---
 
@@ -55,6 +55,10 @@ pnpm add next-i18next i18next react-i18next i18next-resources-to-backend
 
 ```bash packageManager="yarn"
 yarn add next-i18next i18next react-i18next i18next-resources-to-backend
+```
+
+```bash packageManager="bun"
+bun add next-i18next i18next react-i18next i18next-resources-to-backend
 ```
 
 Mulailah dengan struktur yang jelas. Simpan pesan yang dipisahkan berdasarkan locale dan namespace.
@@ -253,7 +257,7 @@ export default function LocaleLayout({
   params: { locale: string };
 }) {
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   const dir = isRtl(locale) ? "rtl" : "ltr";
@@ -553,15 +557,23 @@ Intlayer membantu Anda menjaga sinkronisasi terjemahan JSON, menguji kunci yang 
 Pasang dependensi intlayer:
 
 ```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin  -D
+npm install intlayer @intlayer/sync-json-plugin --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin  -D
+pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin  -D
+yarn add intlayer @intlayer/sync-json-plugin --dev
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer @intlayer/sync-json-plugin --dev
+bun x intlayer init
 ```
 
 ```ts fileName="intlayer.config.ts"
@@ -581,7 +593,6 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "i18next",
       source: ({ locale }) => `./locales/${locale}.json`,
     }),
   ],
@@ -606,7 +617,7 @@ Alur umum:
 - `pnpm i18n:test` di CI untuk gagal membangun jika ada kunci yang hilang
 - `pnpm i18n:fill` secara lokal untuk mengusulkan terjemahan AI untuk kunci yang baru ditambahkan
 
-> Anda dapat memberikan argumen CLI; lihat [dokumentasi Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_cli.md).
+> Anda dapat memberikan argumen CLI; lihat [dokumentasi Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md).
 
 ---
 

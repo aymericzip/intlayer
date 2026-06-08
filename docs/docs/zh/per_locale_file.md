@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 初始化历史
+    changes: "初始化历史"
 ---
 
 # Intlayer 中的“每语言”内容声明
@@ -42,7 +42,7 @@ Intlayer 支持两种声明多语言内容的方式：
 
 这是大多数使用场景推荐的方法。它将翻译集中管理，便于迭代和与 CMS 集成。
 
-```tsx fileName="hello-world.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="hello-world.content.ts" contentDeclarationFormat={["typescript", "esm"]}
 import { t, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -54,24 +54,6 @@ const helloWorldContent = {
     }),
   },
 } satisfies Dictionary;
-
-export default helloWorldContent;
-```
-
-```js fileName="hello-world.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-// 定义包含多语言内容的字典对象
-const helloWorldContent = {
-  key: "hello-world",
-  content: {
-    multilingualContent: t({
-      en: "Title of my component",
-      es: "Título de mi componente",
-    }),
-  },
-};
 
 export default helloWorldContent;
 ```
@@ -112,6 +94,24 @@ module.exports = helloWorldContent;
 
 > 推荐：当使用 Intlayer 的可视化编辑器或直接在代码中管理翻译时，此格式最佳。
 
+### 每个语言区域文件的全局配置
+
+您可以通过在 `intlayer.config.ts` 文件中添加以下内容来配置每个语言区域文件的全局配置：
+
+```ts
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  dictionary: {
+    locale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+使用此配置，所有按语言区域的文件都将以默认语言区域设置为英语的方式生成。它还包括使用 `extract` 命令和编译器生成的 `.content` 文件。（有关更多信息，请参阅 [编译器 (Compiler)](https://intlayer.org/doc/compiler) 或 [提取 (Extract)](https://intlayer.org/doc/concept/cli/extract)。）
+
 ## 按语言区域格式
 
 此格式适用于：
@@ -121,7 +121,7 @@ module.exports = helloWorldContent;
 
 您还可以通过指定 locale 字段，将翻译拆分到单独的语言区域文件中：
 
-```tsx fileName="hello-world.en.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="hello-world.en.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, Locales, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -133,7 +133,7 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
-```tsx fileName="hello-world.es.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="hello-world.es.content.ts" contentDeclarationFormat={["typescript", "esm"]}
 import { t, Locales, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -143,64 +143,6 @@ const helloWorldContent = {
 } satisfies Dictionary;
 
 export default helloWorldContent;
-```
-
-```js fileName="hello-world.en.content.mjs" contentDeclarationFormat="esm"
-import { t, Locales } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-// 定义一个字典类型的内容对象
-const helloWorldContent = {
-  key: "hello-world",
-  locale: Locales.ENGLISH, // 重要
-  content: { multilingualContent: "我的组件标题" },
-};
-
-export default helloWorldContent;
-```
-
-```tsx fileName="hello-world.es.content.mjs" contentDeclarationFormat="esm"
-import { t, Locales } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-// 定义一个字典类型的内容对象
-const helloWorldContent = {
-  key: "hello-world",
-  locale: Locales.SPANISH, // 重要
-  content: { multilingualContent: "Título de mi componente" },
-};
-
-export default helloWorldContent;
-```
-
-```js fileName="hello-world.en.content.cjs" contentDeclarationFormat="commonjs"
-const { t, Locales } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const helloWorldContent = {
-  key: "hello-world",
-  locale: Locales.ENGLISH, // 重要
-  content: {
-    multilingualContent: "我的组件标题",
-  },
-};
-
-module.exports = helloWorldContent;
-```
-
-```tsx fileName="hello-world.es.content.cjs" contentDeclarationFormat="commonjs"
-const { t, Locales } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const helloWorldContent = {
-  key: "hello-world",
-  locale: Locales.SPANISH, // 重要
-  content: {
-    multilingualContent: "我的组件标题",
-  },
-};
-
-module.exports = helloWorldContent;
 ```
 
 ```json5 fileName="hello-world.en.content.json" contentDeclarationFormat="json"
@@ -320,4 +262,4 @@ console.log(JSON.stringify(intlayer, null, 2));
 
 ### 自动翻译生成
 
-使用 [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md) 根据您偏好的服务自动填充缺失的翻译。
+使用 [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md) 根据您偏好的服务自动填充缺失的翻译。

@@ -1,0 +1,203 @@
+import type { AddOrganizationMemberBody, UserAPI } from '@intlayer/backend';
+import {
+  useAddOrganizationMember,
+  useGetUsers,
+  useSession,
+  useUpdateOrganizationMembers,
+} from '@intlayer/design-system/api';
+import { Container } from '@intlayer/design-system/container';
+import { Form, useForm } from '@intlayer/design-system/form';
+import { H3 } from '@intlayer/design-system/headers';
+import { Loader } from '@intlayer/design-system/loader';
+import { MultiSelect } from '@intlayer/design-system/select';
+import { Plus, Users, X } from 'lucide-react';
+import { type FC, useEffect, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { RemoveMemberModal } from './RemoveMemberModal';
+import { useOrganizationMembersSchema } from './useMembersFormSchema';
+import { useOrganizationNewMembersSchema } from './useNewMembersFormSchema';
+
+export const MembersForm: FC = () => {
+  const { session } = useSession();
+  const { organization } = session ?? {};
+  const MembersFormSchema = useOrganizationMembersSchema();
+  const NewMembersFormSchema = useOrganizationNewMembersSchema();
+  const { form, isSubmitting } = useForm(MembersFormSchema, {
+    defaultValues: {
+      membersIds: organization?.membersIds ?? [],
+      adminsIds: organization?.adminsIds ?? [],
+    },
+  });
+
+  const { form: newUserForm, isSubmitting: IsSubmittingNewUser } =
+    useForm(NewMembersFormSchema);
+  const {
+    title,
+    description,
+    addMembersButton,
+    newMemberEmailInput,
+    adminsSelect,
+    deleteMemberButton,
+    newMemberSubmitButton,
+    noMembers,
+  } = useIntlayer('organization-members-form');
+  const { mutate: updateOrganizationMembers } = useUpdateOrganizationMembers();
+  const { mutate: addOrganizationMember } = useAddOrganizationMember();
+  const { data: usersResponse, isPending: isLoadingUsers } = useGetUsers({
+    ids: organization?.membersIds ?? [],
+  });
+  const [memberIdToRemove, setMemberIdToRemove] = useState<string>();
+  const isOrganizationAdmin = session?.roles.includes('org_admin');
+
+  const onSubmitSuccessAddMember = () => {
+    const userEmail = newUserForm.getValues('userEmail');
+    const formattedData: AddOrganizationMemberBody = {
+      userEmail,
+    };
+
+    addOrganizationMember(formattedData);
+  };
+
+  useEffect(() => {
+    form.reset({
+      membersIds: organization?.membersIds ?? [],
+      adminsIds: organization?.adminsIds ?? [],
+    });
+  }, [organization, form]);
+
+  const getUserName = (memberId: UserAPI['id'] | string) => {
+    const user = usersResponse?.data?.find(
+      (user: any) => String(user.id) === String(memberId)
+    );
+    return user?.name ?? user?.email ?? String(memberId);
+  };
+
+  return (
+    <>
+      <RemoveMemberModal
+        organization={organization}
+        memberId={memberIdToRemove}
+        isOpen={Boolean(memberIdToRemove)}
+        onClose={() => setMemberIdToRemove(undefined)}
+        onRemove={() => setMemberIdToRemove(undefined)}
+      />
+      <div className="mb-8 flex items-center gap-2">
+        <Users className="size-4" />
+        <H3 className="mb-0">{title}</H3>
+      </div>
+
+      <div className="flex flex-col gap-3">
+        {isOrganizationAdmin && (
+          <Form
+            schema={NewMembersFormSchema}
+            onSubmitSuccess={onSubmitSuccessAddMember}
+            className="flex flex-row items-end gap-3 align-bottom"
+            autoComplete={false}
+            {...newUserForm}
+          >
+            <Form.Input
+              name="userEmail"
+              type="email"
+              label={newMemberEmailInput.label.value}
+              placeholder={newMemberEmailInput.placeholder.value}
+            />
+            <Form.Button
+              className="mb-2"
+              type="submit"
+              color="text"
+              size="icon-lg"
+              isLoading={IsSubmittingNewUser}
+              label={newMemberSubmitButton.label.value}
+              Icon={Plus}
+            />
+          </Form>
+        )}
+
+        <Form
+          className="w-full"
+          schema={MembersFormSchema}
+          onSubmitSuccess={updateOrganizationMembers}
+          {...form}
+        >
+          <div className="flex flex-col gap-2 px-3">
+            <Form.Label>{title}</Form.Label>
+            <Form.Description>{description}</Form.Description>
+            <Loader isLoading={isLoadingUsers}>
+              {!organization?.membersIds.length && (
+                <span className="flex size-full justify-center text-neutral text-sm">
+                  {noMembers}
+                </span>
+              )}
+
+              <Container
+                roundedSize="2xl"
+                border={true}
+                borderColor="text"
+                className="max-h-48 flex-col gap-2 overflow-auto p-2"
+              >
+                {organization?.membersIds.map((memberId) => (
+                  <div
+                    key={String(memberId)}
+                    className="flex items-center justify-between rounded-lg bg-text/10 px-2 py-1"
+                  >
+                    <span>{getUserName(memberId)}</span>
+                    {isOrganizationAdmin && (
+                      <Form.Button
+                        color="text"
+                        label={deleteMemberButton.label.value}
+                        variant="hoverable"
+                        size="icon-md"
+                        onClick={() => setMemberIdToRemove(memberId)}
+                      >
+                        <X size={16} />
+                      </Form.Button>
+                    )}
+                  </div>
+                ))}
+              </Container>
+            </Loader>
+          </div>
+
+          <Form.MultiSelect
+            name="adminsIds"
+            label={adminsSelect.label.value}
+            placeholder={adminsSelect.placeholder.value}
+            description={adminsSelect.description.value}
+          >
+            <MultiSelect.Trigger getBadgeValue={(value) => getUserName(value)}>
+              <MultiSelect.Input placeholder={adminsSelect.placeholder.value} />
+            </MultiSelect.Trigger>
+            <Loader isLoading={isLoadingUsers}>
+              <MultiSelect.Content>
+                <MultiSelect.List>
+                  {organization?.membersIds.map((memberId) => (
+                    <MultiSelect.Item
+                      value={String(memberId)}
+                      key={String(memberId)}
+                    >
+                      {getUserName(memberId)}
+                    </MultiSelect.Item>
+                  ))}
+                </MultiSelect.List>
+              </MultiSelect.Content>
+            </Loader>
+          </Form.MultiSelect>
+
+          {isOrganizationAdmin && (
+            <Form.Button
+              className="w-full"
+              type="submit"
+              color="text"
+              disabled={isLoadingUsers || isSubmitting}
+              isLoading={isSubmitting}
+              label={addMembersButton.label.value}
+              onClick={() => null}
+            >
+              {addMembersButton.text}
+            </Form.Button>
+          )}
+        </Form>
+      </div>
+    </>
+  );
+};

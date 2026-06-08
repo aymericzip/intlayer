@@ -18,13 +18,13 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-09-20
-    changes: Añadir configuración global
+    changes: "Añadir configuración global"
   - version: 6.0.0
     date: 2025-09-17
-    changes: Añadir variable `{{fileName}}`
+    changes: "Añadir variable `{{fileName}}`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historial inicial
+    changes: "Historial inicial"
 ---
 
 # Traducciones de Archivos de Declaración de Contenido con Relleno Automático
@@ -52,8 +52,20 @@ Aquí hay un [archivo de declaración de contenido por idioma](https://github.co
 
 Luego, cuando ejecutes el siguiente comando:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
 Intlayer generará automáticamente el archivo de declaración derivado en `src/components/example/example.content.json`, completando todos los locales que no estén ya declarados en el archivo principal.

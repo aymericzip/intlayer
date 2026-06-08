@@ -1,6 +1,6 @@
 [package]
 name = "intlayer-swc-plugin"
-version = "5.5.2"
+version = "7.5.6"
 edition = "2021"
 
 [lib]
@@ -18,7 +18,7 @@ regex = "1.10.6"
 once_cell = "1.19.0"
 parking_lot = "0.12.3"
 pathdiff = "0.2"
-swc_core = { version = "26.2.2", features = [
+swc_core = { version = "52.0.0", features = [
   "ecma_codegen",
   "ecma_plugin_transform",
   "ecma_utils",
@@ -31,5 +31,7 @@ twox-hash = "2.1.0"
 base62 = "2.2.1"
 
 # .cargo/config.toml defines few alias to build plugin.
-# cargo build-wasip1 generates wasm32-wasip1 binary
-# cargo build-wasm32 generates wasm32-unknown-unknown binary.
+
+[dev-dependencies]
+swc_core = { version = "52.0.0", features = ["testing_transform"] }
+

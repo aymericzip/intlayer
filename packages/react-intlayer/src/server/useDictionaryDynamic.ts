@@ -1,10 +1,10 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
-  Dictionary,
   LocalesValues,
   StrictModeLocaleMap,
-} from '@intlayer/types';
+} from '@intlayer/types/module_augmentation';
 import { IntlayerServerContext } from './IntlayerServerProvider';
 import { getServerContext } from './serverContext';
 import { useDictionary } from './useDictionary';
@@ -16,17 +16,19 @@ import { useLoadDynamic } from './useLoadDynamic';
  * If the locale is not provided, it will use the locale from the server context
  */
 export const useDictionaryDynamic = <
-  T extends Dictionary,
-  L extends LocalesValues = DeclaredLocales,
+  const T extends Dictionary,
+  const L extends LocalesValues = DeclaredLocales,
 >(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   key: string,
-  locale?: L
+  locale?: L,
+  fallbackLocale?: DeclaredLocales
 ) => {
   const localeTarget =
     locale ??
     getServerContext<LocalesValues>(IntlayerServerContext) ??
-    configuration?.internationalization.defaultLocale;
+    fallbackLocale ??
+    internationalization.defaultLocale;
 
   const dictionary = useLoadDynamic<T>(
     `${String(key)}.${localeTarget}`,

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2025-06-29
-title: Vue용 최상의 국제화 도구
-description: 번역 문제를 해결하기 위해 최상의 Vue i18n 솔루션을 발견하고 SEO를 향상시키고 전세계 웹 경험을 제공합니다.
+updatedAt: 2026-05-31
+title: "Vue용 최상의 국제화 도구 - 완전한 번역 가이드: Best Vue i18n Libraries 2026 — Compared by DX & Bundle"
+description: 번들 크기, SEO, 성능 및 유지보수성을 위한 최고의 솔루션. 2026년에 Vue 앱를 다국어로 만드세요, LLM 번역, Agent Skills & MCP.
 keywords:
   - Vue
   - i18n
@@ -52,7 +52,27 @@ Vue.js 애플리케이션을 번역하는 것은 자체적인 몇 가지 도전 
 
 ---
 
-### 1. Vue I18n
+### 1. Intlayer
+
+> 웹사이트: [https://intlayer.org/](https://intlayer.org/)
+
+**개요**  
+**Intlayer**는 **Vue**를 포함한 여러 프레임워크에서 다국어 지원을 단순화하도록 설계된 혁신적 오픈 소스 i18n 솔루션입니다. 구성 요소 수준에서 직접 번역 사전을 정의할 수 있는 선언적 접근 방식을 강조합니다.
+
+**주요 기능**
+
+- **선언적 번역**: 보수가 쉽고 확장 가능한 구조를 위해 구성 요소 수준에서 직접 번역을 선언할 수 있습니다.
+- **TypeScript 및 자동 완성**: 번역 키에 대한 자동 생성된 타입 정의를 제공하여 강력한 자동 완성과 오류 감지를 지원합니다.
+- **비동기 로딩**: 번역 자산을 동적으로 로드하여 다국어 앱의 초기 번들 크기를 잠재적으로 줄입니다.
+- **매끄러운 통합**: 주요 번들러 및 Vue 생태계와 호환되어 설정이 간단합니다.
+
+**고려 사항**
+
+- **커뮤니티**: 생태계는 성장 중이지만, 더 오래된 솔루션에 비해 커뮤니티 플러그인은 아직 적을 수 있습니다.
+
+---
+
+### 2. Vue I18n
 
 > 웹사이트: [https://vue-i18n.intlify.dev/](https://vue-i18n.intlify.dev/)
 
@@ -83,7 +103,7 @@ Vue.js 애플리케이션을 번역하는 것은 자체적인 몇 가지 도전 
 
 ---
 
-### 2. LinguiJS (Vue 통합)
+### 3. LinguiJS (Vue 통합)
 
 > 웹사이트: [https://lingui.js.org/](https://lingui.js.org/)
 

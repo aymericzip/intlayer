@@ -1,12 +1,11 @@
-import { relative } from 'node:path';
-import {
-  formatLocale,
-  formatPath,
-  writeContentDeclaration,
-} from '@intlayer/chokidar';
-import { colorizeKey, getAppLogger } from '@intlayer/config';
+import { resolve } from 'node:path';
+import { writeContentDeclaration } from '@intlayer/chokidar/build';
+import { formatLocale, formatPath } from '@intlayer/chokidar/utils';
+import { colorizeKey, getAppLogger } from '@intlayer/config/logger';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import type { Dictionary, Fill, IntlayerConfig, Locale } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary, Fill } from '@intlayer/types/dictionary';
 import { type FillData, formatFillData } from './formatFillData';
 import { getAvailableLocalesInDictionary } from './getAvailableLocalesInDictionary';
 
@@ -67,7 +66,7 @@ export const writeFill = async (
     return;
   }
 
-  const fillData: FillData[] = formatFillData(
+  const fillData: FillData[] = await formatFillData(
     fillOptions as Fill,
     localeList,
     filePath,
@@ -86,44 +85,36 @@ export const writeFill = async (
       continue;
     }
 
-    // biome-ignore lint/correctness/noUnusedVariables: Just filtering out the fill property
     const { fill, ...rest } = contentDeclarationFile;
 
-    const relativeFilePath = relative(
-      configuration.content.baseDir,
-      output.filePath
-    );
-
-    // write file
     await writeContentDeclaration(
       {
         ...rest,
         filled: true,
         locale: output.isPerLocale ? output.localeList[0] : undefined,
-        localId: `${contentDeclarationFile.key}::local::${relativeFilePath}`,
-        filePath: relativeFilePath,
+        localId: `${contentDeclarationFile.key}::local::${output.filePath}`,
+        filePath: resolve(configuration.system.baseDir, output.filePath), // Use absolute path for vscode extension
       },
       configuration,
       {
-        localeList: output.localeList,
+        // Per-locale files: write only the specific locale.
+        // Multilingual files (string/function fill, single output): include all
+        // output locales (including source) so the file is complete.
+        localeList: output.isPerLocale
+          ? output.localeList
+          : (outputLocales ?? configuration.internationalization.locales),
       }
     );
 
     if (output.isPerLocale) {
-      const sourceLocale = output.localeList[0];
-
       appLogger(
-        `Auto filled per-locale content declaration for '${colorizeKey(fullDictionary.key)}' written to ${formatPath(output.filePath)} for locale ${formatLocale(sourceLocale)}`,
-        {
-          level: 'info',
-        }
+        `Auto filled per-locale content declaration for '${colorizeKey(fullDictionary.key)}' written to ${formatPath(output.filePath)} for locale ${formatLocale(output.localeList[0])}`,
+        { level: 'info' }
       );
     } else {
       appLogger(
         `Auto filled content declaration for '${colorizeKey(fullDictionary.key)}' written to ${formatPath(output.filePath)}`,
-        {
-          level: 'info',
-        }
+        { level: 'info' }
       );
     }
   }

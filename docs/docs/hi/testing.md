@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-09-20
-    changes: परीक्षण का परिचय
+    changes: "परीक्षण का परिचय"
 ---
 
 # आपकी सामग्री का परीक्षण
@@ -37,8 +37,20 @@ history:
 
 अपने प्रोजेक्ट रूट से ऑडिट चलाएं:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 उपयोगी फ्लैग्स:
@@ -182,8 +194,20 @@ jobs:
 
 वैकल्पिक: परीक्षणों के साथ-साथ एक मानव-पठनीय सारांश के लिए CLI ऑडिट चलाएं:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 ---

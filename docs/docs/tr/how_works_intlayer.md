@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Geçmiş başlatıldı
+    changes: "Geçmiş başlatıldı"
 ---
 
 # Intlayer Nasıl Çalışır
@@ -102,9 +102,9 @@ Düzenleyici tarafında, düzenleyici bu mesajları dinler ve içeriğinizle ger
 
 ## Uygulama inşası optimizasyonu
 
-Uygulamanızın paket boyutunu optimize etmek için, Intlayer uygulama inşanızı optimize etmek için iki eklenti sağlar: `@intlayer/babel` ve `@intlayer/swc` eklentileri.
+Uygulamanızın bundle boyutunu optimize etmek için, Intlayer uygulama inşanızı optimize etmek için iki eklenti sağlar: `@intlayer/babel` ve `@intlayer/swc` eklentileri.
 
-Babel ve SWC eklentileri, uygulamanızın Soyut Sözdizimi Ağacını (AST) analiz ederek Intlayer fonksiyon çağrılarını optimize edilmiş kodla değiştirerek çalışır. Bu süreç, üretimde son paketi daha hafif hale getirir, çünkü sadece gerçekten kullanılan sözlüklerin içe aktarıldığından emin olur, parçalama işlemini optimize eder ve paket boyutunu azaltır.
+Babel ve SWC eklentileri, uygulamanızın Soyut Sözdizimi Ağacını (AST) analiz ederek Intlayer fonksiyon çağrılarını optimize edilmiş kodla değiştirerek çalışır. Bu süreç, üretimde son paketi daha hafif hale getirir, çünkü sadece gerçekten kullanılan sözlüklerin içe aktarıldığından emin olur, parçalama işlemini optimize eder ve bundle boyutunu azaltır.
 
 Geliştirme modunda, Intlayer geliştirme deneyimini basitleştirmek için sözlükler için merkezi bir statik içe aktarma kullanır.
 

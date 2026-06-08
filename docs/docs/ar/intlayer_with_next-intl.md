@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-10-05
-updatedAt: 2025-10-05
-title: كيفية ترجمة تطبيق Next.js 15 باستخدام next-intl – دليل i18n 2025
-description: اكتشف كيفية جعل موقع Next.js 15 App Router متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته.
+updatedAt: 2026-05-31
+title: "تدويل next-intl - الدليل الكامل لترجمة تطبيقك"
+description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق next-intl متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
   - التدويل
   - الوثائق
@@ -21,7 +21,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-intl-template
 
 يرشدك هذا الدليل خلال أفضل الممارسات لاستخدام next-intl في تطبيق Next.js 15 (App Router)، ويُظهر كيفية إضافة Intlayer فوقه لإدارة الترجمة بشكل قوي وأتمتة العمليات.
 
-اطلع على المقارنة في [next-i18next مقابل next-intl مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-intl_vs_intlayer.md).
+اطلع على المقارنة في [next-i18next مقابل next-intl مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md).
 
 - للمبتدئين: اتبع الأقسام خطوة بخطوة للحصول على تطبيق متعدد اللغات يعمل.
 - للمطورين المتوسطين: انتبه إلى تحسين الحمولة وفصل الخادم/العميل.
@@ -50,6 +50,10 @@ pnpm add next-intl
 
 ```bash packageManager="yarn"
 yarn add next-intl
+```
+
+```bash packageManager="bun"
+bun add next-intl
 ```
 
 ```bash
@@ -99,7 +103,7 @@ async function loadMessages(locale: string) {
 }
 
 export default getRequestConfig(async ({ locale }) => {
-  if (!locales.includes(locale as any)) notFound();
+  if (!locales.includes(locale)) notFound();
 
   return {
     messages: await loadMessages(locale),
@@ -391,15 +395,20 @@ export const config = {
 قم بتثبيت تبعيات intlayer:
 
 ```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin  -D
+npm install intlayer @intlayer/sync-json-plugin --save-dev
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin  -D
+yarn add intlayer @intlayer/sync-json-plugin --dev
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin  -D
+pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+```
+
+```bash packageManager="bun"
+bun add intlayer @intlayer/sync-json-plugin --dev
+bun x intlayer init
 ```
 
 أنشئ ملف تكوين intlayer:
@@ -444,4 +453,4 @@ export default config;
 - `intlayer fill`: يستخدم مزود الذكاء الاصطناعي الخاص بك لملء الترجمات المفقودة بناءً على اللغات التي قمت بتكوينها.
 - `intlayer test`: يتحقق من الترجمات المفقودة أو غير الصالحة (استخدمه في بيئة التكامل المستمر CI).
 
-يمكنك تكوين الوسائط والمزودين؛ راجع [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md).
+يمكنك تكوين الوسائط والمزودين؛ راجع [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md).

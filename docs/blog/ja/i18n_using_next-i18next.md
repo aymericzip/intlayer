@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2025-11-01
-title: next-i18nextを使ったNext.jsアプリケーションの国際化方法
-description: next-i18nextでi18nを設定する方法：多言語対応のNext.jsアプリ向けのベストプラクティスとSEOのヒント、国際化、コンテンツの整理、技術的なセットアップをカバー。
+updatedAt: 2026-05-31
+title: next-i18nextを使ったNext.jsアプリケーションの国際化方法 - 完全な翻訳ガイド： Translate Next.js 16 with next-i18next — App Router Setup
+description: バンドルサイズ、SEO、パフォーマンス、保守性のための最良のソリューション。2026年にNext.js 16 ウェブサイトを多言語化しましょう。LLM翻訳、Agent Skills & MCP。
 keywords:
   - next-i18next
   - i18next
@@ -75,11 +75,12 @@ history:
 ## Next.jsアプリケーションでi18nextをセットアップするステップバイステップガイド
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/next-i18next-template?embed=1&ctl=1&file=src/app/i18n.ts"
+  src="https://ide.intlayer.org/aymericzip/next-i18next-template?file=src/app/i18n.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="デモ CodeSandbox - Intlayerを使ったアプリケーションの国際化方法"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
+/>
 
 > GitHubの[Application Template](https://github.com/aymericzip/next-i18next-template)をご覧ください。
 
@@ -116,7 +117,9 @@ history:
         └── ServerComponent.tsx
 ```
 
-### ステップ 1: 依存関係のインストール
+<Steps>
+
+<Step number={1} title="依存関係のインストール">
 
 必要なパッケージをnpmを使ってインストールします：
 
@@ -136,7 +139,9 @@ yarn add i18next react-i18next i18next-resources-to-backend
 - **react-i18next**: i18nextのReactバインディングで、クライアントコンポーネント向けに`useTranslation`のようなフックを提供します。
 - **i18next-resources-to-backend**: 翻訳ファイルの動的読み込みを可能にするプラグインで、必要な名前空間だけをロードできます。
 
-### ステップ 2: プロジェクトの設定
+</Step>
+
+<Step number={2} title="プロジェクトの設定">
 
 サポートするロケール、デフォルトロケール、およびURLのローカライズ用ヘルパー関数を定義する設定ファイルを作成します。このファイルはi18n設定の単一の真実の情報源として機能し、アプリケーション全体で型安全性を保証します。
 
@@ -189,7 +194,9 @@ export function getCookie(locale: Locale) {
 }
 ```
 
-### ステップ3: 翻訳ネームスペースの集中管理
+</Step>
+
+<Step number={3} title="翻訳ネームスペースの集中管理">
 
 アプリケーションが公開するすべてのnamespaceの単一の真実のソースを作成します。このリストを再利用することで、サーバー、クライアント、およびツールのコードが同期され、翻訳ヘルパーの強力な型付けが可能になります。
 
@@ -199,7 +206,9 @@ export const namespaces = ["common", "about"] as const;
 export type Namespace = (typeof namespaces)[number];
 ```
 
-### ステップ4: TypeScriptで翻訳キーを強く型付けする
+</Step>
+
+<Step number={4} title="TypeScriptで翻訳キーを強く型付けする">
 
 `i18next`を拡張して、標準の言語ファイル（通常は英語）を指すようにします。これによりTypeScriptはnamespaceごとの有効なキーを推論し、`t()`の呼び出しがエンドツーエンドで検証されます。
 
@@ -237,7 +246,9 @@ const { t } = useTranslation("about");
 export type AboutTranslator = TFunction<"about">;
 ```
 
-### ステップ 5: サーバーサイドの i18n 初期化を設定する
+</Step>
+
+<Step number={5} title="サーバーサイドの i18n 初期化を設定する">
 
 サーバーコンポーネントのために翻訳を読み込むサーバーサイド初期化関数を作成します。この関数はサーバーサイドレンダリング用に別のi18nextインスタンスを作成し、レンダリング前に翻訳が読み込まれていることを保証します。
 
@@ -292,7 +303,9 @@ export async function initI18next(
 }
 ```
 
-### ステップ6: クライアントサイドのi18nプロバイダーを作成する
+</Step>
+
+<Step number={6} title="クライアントサイドのi18nプロバイダーを作成する">
 
 i18nextコンテキストでアプリケーションをラップするクライアントコンポーネントプロバイダーを作成します。このプロバイダーはサーバーから事前に読み込まれた翻訳を受け取り、未翻訳コンテンツのフラッシュ（FOUC）を防ぎ、重複フェッチを回避します。
 
@@ -375,7 +388,9 @@ export default function I18nProvider({
 }
 ```
 
-### ステップ7: 動的ロケールルートの定義
+</Step>
+
+<Step number={7} title="動的ロケールルートの定義">
 
 アプリフォルダ内に `[locale]` ディレクトリを作成して、ロケールの動的ルーティングを設定します。これにより、Next.jsは各ロケールをURLのセグメントとして扱うことができるようになります（例：`/en/about`、`/fr/about`）。
 
@@ -412,7 +427,7 @@ export default function LocaleLayout({
   // URLパラメータからロケールを検証
   // 無効なロケールが提供された場合はデフォルトロケールにフォールバック
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   // ロケールに基づいてテキストの方向を決定
@@ -427,7 +442,9 @@ export default function LocaleLayout({
 }
 ```
 
-### ステップ8: 翻訳ファイルを作成する
+</Step>
+
+<Step number={8} title="翻訳ファイルを作成する">
 
 各ロケールと名前空間ごとにJSONファイルを作成します。この構造により、翻訳を論理的に整理し、各ページで必要なものだけを読み込むことができます。
 
@@ -493,7 +510,9 @@ export default function LocaleLayout({
 }
 ```
 
-### ステップ9: ページで翻訳を利用する
+</Step>
+
+<Step number={9} title="ページで翻訳を利用する">
 
 i18nextをサーバー上で初期化し、翻訳をサーバーコンポーネントとクライアントコンポーネントの両方に渡すページコンポーネントを作成します。これにより、レンダリング前に翻訳が読み込まれ、コンテンツのフラッシュを防止できます。
 
@@ -553,7 +572,9 @@ export default async function AboutPage({
 }
 ```
 
-### ステップ10: クライアントコンポーネントでの翻訳の使用
+</Step>
+
+<Step number={10} title="クライアントコンポーネントでの翻訳の使用">
 
 クライアントコンポーネントでは、`useTranslation` フックを使用して翻訳にアクセスできます。このフックは翻訳関数とi18nインスタンスへのアクセスを提供し、コンテンツの翻訳やロケール情報の取得を可能にします。
 
@@ -604,7 +625,9 @@ const ClientComponent = () => {
 export default ClientComponent;
 ```
 
-### ステップ11: サーバーコンポーネントでの翻訳の使用
+</Step>
+
+<Step number={11} title="サーバーコンポーネントでの翻訳の使用">
 
 サーバーコンポーネントはReactのフックを使用できないため、親コンポーネントからprops経由で翻訳を受け取ります。この方法により、サーバーコンポーネントは同期的に保たれ、クライアントコンポーネント内にネストすることが可能になります。
 
@@ -650,9 +673,9 @@ const ServerComponent = ({ t, locale, count }: ServerComponentProps) => {
 export default ServerComponent;
 ```
 
----
+</Step>
 
-### （オプション）ステップ12：コンテンツの言語を変更する
+<Step number={12} title="コンテンツの言語を変更する" isOptional={true}>
 
 Next.jsでコンテンツの言語を変更する推奨方法は、ロケール接頭辞付きのURLとNext.jsのリンクを使用することです。以下の例では、現在のロケールをルートから読み取り、パス名からそれを取り除き、利用可能な各ロケールごとにリンクをレンダリングします。
 
@@ -724,7 +747,9 @@ export default function LocaleSwitcher() {
 }
 ```
 
-### （オプション）ステップ13：ローカライズされたLinkコンポーネントの作成
+</Step>
+
+<Step number={13} title="ローカライズされたLinkコンポーネントの作成" isOptional={true}>
 
 アプリ全体でローカライズされたURLを再利用することで、ナビゲーションの一貫性を保ち、SEOにも効果的です。`next/link`をラップし、内部ルートにはアクティブなロケールをプレフィックスとして付け、外部URLはそのままにする小さなヘルパーを作成しましょう。
 
@@ -775,7 +800,9 @@ export default function LocalizedLink({
 
 > ヒント: `LocalizedLink` はドロップイン置換なので、インポートを差し替えてコンポーネントにロケール固有のURL処理を任せる形で段階的に移行できます。
 
-### （オプション）ステップ14: サーバーアクション内でアクティブなロケールにアクセスする
+</Step>
+
+<Step number={14} title="サーバーアクション内でアクティブなロケールにアクセスする" isOptional={true}>
 
 サーバーアクションでは、メール送信やログ記録、サードパーティ連携のために現在のロケールが必要になることが多いです。プロキシで設定されたロケールクッキーと、フォールバックとしての `Accept-Language` ヘッダーを組み合わせて使用します。
 
@@ -813,7 +840,9 @@ export async function stuffFromServer(formData: FormData) {
 
 > このヘルパーは Next.js のクッキーとヘッダーに依存しているため、Route Handlers、Server Actions、その他のサーバー専用コンテキストで動作します。
 
-### （オプション）ステップ15：メタデータの国際化
+</Step>
+
+<Step number={15} title="メタデータの国際化" isOptional={true}>
 
 コンテンツの翻訳は重要ですが、国際化の主な目的はあなたのウェブサイトを世界により見えるようにすることです。I18n は適切な SEO を通じてウェブサイトの可視性を向上させるための強力な手段です。
 
@@ -880,7 +909,9 @@ export default async function AboutPage() {
 }
 ```
 
-### （オプション）ステップ16：サイトマップの多言語対応
+</Step>
+
+<Step number={16} title="サイトマップの多言語対応" isOptional={true}>
 
 すべてのロケールバージョンのページを含むサイトマップを生成します。これにより、検索エンジンがすべての言語バージョンのコンテンツを検出し、インデックス化しやすくなります。
 
@@ -934,7 +965,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 }
 ```
 
-### （オプション）ステップ17: robots.txtの多言語対応
+</Step>
+
+<Step number={17} title="robots.txtの多言語対応" isOptional={true}>
 
 保護されたルートのすべてのロケールバージョンを適切に処理するrobots.txtファイルを作成します。これにより、検索エンジンが管理者ページやダッシュボードページをどの言語でもインデックスしないようにします。
 
@@ -965,7 +998,9 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-### （オプション）ステップ18：ロケールルーティングのためのミドルウェア設定
+</Step>
+
+<Step number={18} title="ロケールルーティングのためのミドルウェア設定" isOptional={true}>
 
 ユーザーの好みのロケールを自動的に検出し、適切なロケール接頭辞付きURLにリダイレクトするプロキシを作成します。これにより、ユーザーは自分の好みの言語でコンテンツを閲覧でき、ユーザー体験が向上します。
 
@@ -1054,7 +1089,9 @@ export const config = {
 };
 ```
 
-### （オプション）ステップ19: Intlayerを使った翻訳の自動化
+</Step>
+
+<Step number={19} title="Intlayerを使った翻訳の自動化" isOptional={true}>
 
 Intlayerは、アプリケーションのローカリゼーションプロセスを支援するために設計された**無料**かつ**オープンソース**のライブラリです。i18nextが翻訳の読み込みと管理を担当する一方で、Intlayerは翻訳ワークフローの自動化を支援します。
 
@@ -1069,12 +1106,12 @@ Intlayerが可能にすること：
   Intlayerは、CI/CDパイプラインやユニットテストに統合可能なテスト機能を提供します。詳細は[翻訳のテスト](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/testing.md)をご覧ください。
 
 - **翻訳の自動化**  
-  Intlayerは翻訳を自動化するためのCLIとVSCode拡張機能を提供します。これらはCI/CDパイプラインに統合可能です。詳細は[翻訳の自動化について](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)をご覧ください。  
+  Intlayerは翻訳を自動化するためのCLIとVSCode拡張機能を提供します。これらはCI/CDパイプラインに統合可能です。詳細は[翻訳の自動化について](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)をご覧ください。  
   ご自身の**APIキーやお好みのAIプロバイダーを使用**できます。また、コンテキストに応じた翻訳も提供しています。詳細は[コンテンツの自動補完](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/autoFill.md)をご覧ください。
 
 - **外部コンテンツの接続**
 - **翻訳の自動化**  
-  Intlayerは翻訳を自動化するためのCLIとVSCode拡張機能を提供しています。これらはCI/CDパイプラインに統合可能です。詳細は[翻訳の自動化について](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)をご覧ください。  
+  Intlayerは翻訳を自動化するためのCLIとVSCode拡張機能を提供しています。これらはCI/CDパイプラインに統合可能です。詳細は[翻訳の自動化について](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md)をご覧ください。  
   ご自身の**APIキーやお好みのAIプロバイダー**を使用することもできます。また、コンテキストに応じた翻訳も提供しています。詳しくは[コンテンツの自動補完](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/autoFill.md)をご覧ください。
 
 - **外部コンテンツの接続**  
@@ -1084,3 +1121,7 @@ Intlayerが可能にすること：
   Intlayerは無料のビジュアルエディターを提供しており、視覚的にコンテンツを編集できます。詳細は[翻訳のビジュアル編集](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)をご覧ください。
 
 その他にも多数の機能があります。Intlayerが提供するすべての機能については、[Intlayerの利点に関するドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/interest_of_intlayer.md)をご参照ください。
+
+</Step>
+
+</Steps>

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-01-06
 title: Daftar File Deklarasi Konten
 description: Pelajari cara mendaftar semua file deklarasi konten dalam proyek Anda.
 keywords:
@@ -13,12 +13,31 @@ slugs:
   - concept
   - cli
   - list
+history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: "Menambahkan opsi output absolut ke perintah list"
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: "Menambahkan opsi output JSON ke perintah list"
 ---
 
 # Daftar file deklarasi konten
 
-```bash
+```bash packageManager="npm"
 npx intlayer content list
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list
+```
+
+```bash packageManager="bun"
+bun x intlayer content list
 ```
 
 ## Alias:
@@ -27,13 +46,71 @@ npx intlayer content list
 
 Perintah ini menampilkan semua file deklarasi konten dalam proyek Anda, menunjukkan kunci kamus dan jalur file mereka. Ini berguna untuk mendapatkan gambaran semua file konten Anda dan memverifikasi bahwa mereka ditemukan dengan benar oleh Intlayer.
 
+## Argumen:
+
+- **`--json`**: Menampilkan hasil sebagai JSON alih-alih teks yang diformat. Berguna untuk scripting dan akses programatik.
+
+  > Contoh: `npx intlayer content list --json`
+
 ## Contoh:
 
-```bash
+### Daftar file deklarasi konten:
+
+```bash packageManager="npm"
 npx intlayer content list
 ```
 
+```bash packageManager="yarn"
+yarn intlayer content list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list
+```
+
+```bash packageManager="bun"
+bun x intlayer content list
+```
+
+### Output sebagai JSON:
+
+```bash packageManager="npm"
+npx intlayer content list --json
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list --json
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list --json
+```
+
+```bash packageManager="bun"
+bun x intlayer content list --json
+```
+
+### Output sebagai jalur absolut:
+
+```bash packageManager="npm"
+npx intlayer content list --absolute
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list --absolute
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list --absolute
+```
+
+```bash packageManager="bun"
+bun x intlayer content list --absolute
+```
+
 ## Contoh output:
+
+### Output yang diformat:
 
 ```bash
 npx intlayer content list
@@ -43,6 +120,14 @@ Content declaration files:
  - client-component - src/components/ClientComponent/clientComponent.content.ts
 
 Total file deklarasi konten: 3
+```
+
+### Output JSON:
+
+```bash
+$ npx intlayer content list --json
+
+[{"key":"home-page","path":"src/components/HomePage/homePage.content.ts"},{"key":"server-component","path":"src/components/ServerComponent/serverComponent.content.ts"},{"key":"client-component","path":"src/components/ClientComponent/clientComponent.content.ts"}]
 ```
 
 Perintah ini akan menampilkan:

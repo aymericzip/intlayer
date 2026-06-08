@@ -1,6 +1,6 @@
 'use client';
 
-import { compact } from '@intlayer/core';
+import { compact } from '@intlayer/core/formatters';
 import { useCallback, useContext } from 'react';
 import { IntlayerClientContext } from '../IntlayerProvider';
 
@@ -15,7 +15,7 @@ import { IntlayerClientContext } from '../IntlayerProvider';
  * ```
  */
 export const useCompact = () => {
-  const { locale } = useContext(IntlayerClientContext);
+  const { locale } = useContext(IntlayerClientContext) ?? {};
 
   return useCallback(
     (...args: Parameters<typeof compact>) =>

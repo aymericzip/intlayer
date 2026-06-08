@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 const scrollToHash = (id: string) => {
   const element = document.getElementById(id);
@@ -12,24 +12,23 @@ const scrollToHash = (id: string) => {
 };
 
 export const SectionScroller = () => {
-  const [hash, setHash] = useState<string>();
-
-  const onHashChange = () => {
-    setHash(window.location.hash.slice(1));
-  };
-
   useEffect(() => {
-    setHash(window.location.hash.slice(1));
+    // Scroll on mount if hash exists
+    const currentHash = window.location.hash.slice(1);
+    if (currentHash) {
+      scrollToHash(currentHash);
+    }
+
+    const onHashChange = () => {
+      const newHash = window.location.hash.slice(1);
+      if (newHash) {
+        scrollToHash(newHash);
+      }
+    };
 
     window.addEventListener('hashchange', onHashChange, { passive: true });
     return () => window.removeEventListener('hashchange', onHashChange);
   }, []);
-
-  useEffect(() => {
-    if (hash) {
-      scrollToHash(hash);
-    }
-  }, [hash]);
 
   return null;
 };

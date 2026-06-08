@@ -1,11 +1,12 @@
 'use client';
 
-import { DictionaryFieldEditor, Loader } from '@intlayer/design-system';
-import { useGetDictionary } from '@intlayer/design-system/hooks';
+import { useGetDictionary } from '@intlayer/design-system/api';
+import { DictionaryFieldEditor } from '@intlayer/design-system/dictionary-field-editor';
+import { Loader } from '@intlayer/design-system/loader';
+import { App_Dashboard_Dictionaries_Path } from '@intlayer/design-system/routes';
 import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { type FC, Suspense } from 'react';
-import { PagesRoutes } from '@/Routes';
 import { EditorConfigurationProvider } from './ConfigurationProvider';
 
 type ContentDashboardContentProps = {
@@ -29,12 +30,12 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
             <DictionaryFieldEditor
               dictionary={dictionary}
               onClickDictionaryList={() =>
-                router.push(PagesRoutes.Dashboard_Content)
+                router.push(App_Dashboard_Dictionaries_Path)
               }
               isDarkMode={resolvedTheme === 'dark'}
               mode={['remote']}
               onDelete={() => {
-                router.push(PagesRoutes.Dashboard_Content);
+                router.push(App_Dashboard_Dictionaries_Path);
               }}
             />
           )}

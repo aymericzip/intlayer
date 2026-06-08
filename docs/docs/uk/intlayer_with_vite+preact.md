@@ -1,0 +1,988 @@
+---
+createdAt: 2025-04-18
+updatedAt: 2026-05-31
+title: "Vite + Preact i18n - Повний посібник з перекладу вашого застосунку"
+description: "Більше ніякого i18next. Посібник 2026 зі створення багатомовного (i18n) застосунку Vite + Preact. Перекладайте за допомогою ШІ-агентів та оптимізуйте розмір бандлу, SEO та продуктивність."
+keywords:
+  - Інтернаціоналізація
+  - Документація
+  - Intlayer
+  - Vite
+  - Preact
+  - JavaScript
+slugs:
+  - doc
+  - environment
+  - vite-and-preact
+applicationTemplate: https://github.com/aymericzip/intlayer-vite-preact-template
+applicationShowcase: https://intlayer-vite-preact-template.vercel.app
+history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Оновлення використання API useIntlayer у Solid для прямого доступу до властивостей"
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: "Додано команду init"
+  - version: 7.0.0
+    date: 2025-10-28
+    changes: "Оновлено компонент LocaleRouter для використання нової конфігурації маршрутів"
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: "Ініціалізація історії"
+---
+
+# Перекладіть свій вебсайт на Vite і Preact за допомогою Intlayer | Інтернаціоналізація (i18n)
+
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
+  
+<iframe title="The best i18n solution for Vite and Preact? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
+
+  </Tab>
+  <Tab label="Code" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-vite-preact-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Демо" value="demo">
+
+<iframe
+  src="https://intlayer-vite-preact-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Демо - intlayer-vite-preact-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
+## Зміст
+
+<TOC/>
+
+## Чому варто обрати Intlayer, а не альтернативи?
+
+Порівняно з основними рішеннями, такими як `preact-i18n` або `i18next`, Intlayer — це рішення, яке має такі інтегровані оптимізації, як:
+
+<AccordionGroup>
+
+<Accordion header="Повна підтримка Preact">
+
+Intlayer оптимізовано для ідеальної роботи з Preact, пропонуючи **визначення вмісту на рівні компонентів**, **ліниво завантажені переклади** та всі функції, необхідні для масштабування інтернаціоналізації (i18n).
+
+</Accordion>
+
+<Accordion header="Розмір бандлу">
+
+Замість того, щоб завантажувати великі файли JSON на свої сторінки, завантажуйте лише необхідний вміст. Intlayer допомагає **зменшити розмір бандлу і сторінок до 50%**.
+
+</Accordion>
+
+<Accordion header="Підтримуваність">
+
+Організація вмісту за окремими областями (scoping) **полегшує технічне обслуговування** великомасштабних програм. Ви можете скопіювати або видалити окрему папку функцій без розумового навантаження перегляду всієї кодової бази вмісту. Крім того, Intlayer **повністю типізований (fully typed)**, щоб забезпечити точність вашого вмісту.
+
+</Accordion>
+
+<Accordion header="Агент AI">
+
+Спільне розміщення вмісту **зменшує контекст, необхідний** для великих мовних моделей (LLM). Intlayer також постачається з набором інструментів, наприклад **CLI** для перевірки відсутніх перекладів,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** і **[навички агента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, щоб зробити роботу розробника (DX) ще зручнішою для агентів ШІ.
+
+</Accordion>
+
+<Accordion header="Автоматизація">
+
+Використовуйте автоматизацію для перекладу в конвеєрі CI/CD за допомогою LLM за вашим вибором за рахунок вашого постачальника штучного інтелекту. Intlayer також пропонує **компілятор** для автоматизації екстракція вмісту, а також [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), щоб допомогти **перекладати у фоновому режимі**.
+
+</Accordion>
+
+<Accordion header="Продуктивність">
+
+Підключення великих файлів JSON до компонентів може призвести до проблем з продуктивністю та реакцією. Intlayer оптимізує завантаження вмісту під час збірки (build time).
+
+</Accordion>
+
+<Accordion header="Співпраця з не-розробниками">
+
+Більше ніж просто рішення i18n, Intlayer пропонує **власний [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** і **[повний CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, щоб допомогти вам керувати своїм багатомовним вмістом у **реальному часі**, спрощуючи співпрацю з перекладачами, копірайтерами та іншими членами команди. Контент можна зберігати локально та/або віддалено.
+
+</Accordion>
+</AccordionGroup>
+
+---
+
+## Покроковий посібник із налаштування Intlayer у застосунку на Vite і Preact
+
+Перегляньте [шаблон застосунку](https://github.com/aymericzip/intlayer-vite-preact-template) на GitHub.
+
+<Steps>
+
+<Step number={1} title="Встановіть залежності">
+
+Встановіть необхідні пакети за допомогою npm:
+
+```bash packageManager="npm"
+npm install intlayer preact-intlayer
+npm install vite-intlayer --save-dev
+npx intlayer init
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer preact-intlayer
+pnpm add vite-intlayer --save-dev
+pnpm intlayer init
+```
+
+```bash packageManager="yarn"
+yarn add intlayer preact-intlayer
+yarn add vite-intlayer --save-dev
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer preact-intlayer
+bun add vite-intlayer --dev
+bun x intlayer init
+```
+
+- **intlayer**
+
+  Основний пакет, що надає інструменти інтернаціоналізації для керування конфігурацією, перекладу, [декларації контенту](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md), компіляції та [CLI-команд](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md).
+
+- **preact-intlayer**
+
+  Пакет, який інтегрує Intlayer у Preact-застосунок. Надає провайдери контексту та хуки для інтернаціоналізації в Preact.
+
+- **vite-intlayer**
+
+  Містить плагін для Vite для інтеграції Intlayer з [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), а також middleware для визначення пріоритетної локалі користувача, керування cookie та обробки перенаправлень URL.
+
+</Step>
+
+<Step number={2} title="Налаштування вашого проєкту">
+
+Створіть файл конфігурації для налаштування мов вашого застосунку:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH,
+      // Ваші інші локалі
+    ],
+    defaultLocale: Locales.ENGLISH,
+  },
+  routing: {
+    mode: "prefix-no-default", // За замовчуванням: префіксувати всі локалі, крім локалі за замовчуванням
+    storage: ["cookie", "header"], // За замовчуванням: зберігати локаль у cookie та визначати з заголовка
+  },
+};
+
+export default config;
+```
+
+> Через цей файл конфігурації ви можете налаштувати локалізовані URL-адреси, режими маршрутизації, опції збереження, імена cookie, місце розташування та розширення файлів з описом контенту, відключити логи Intlayer у консолі та інше. Для повного переліку доступних параметрів див. [документацію з конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
+
+</Step>
+
+<Step number={3} title="Інтегруйте Intlayer у вашу конфігурацію Vite">
+
+Додайте плагін intlayer у конфігурацію.
+
+```typescript fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { defineConfig } from "vite";
+import preact from "@preact/preset-vite";
+import { intlayer } from "vite-intlayer";
+
+// https://vitejs.dev/config/, документація Vite
+export default defineConfig({
+  plugins: [preact(), intlayer()],
+});
+```
+
+> Плагін Vite `intlayer()` використовується для інтеграції Intlayer з Vite. Він забезпечує побудову файлів декларацій контенту та відстежує їх у режимі розробки. Він визначає змінні середовища Intlayer у застосунку Vite. Додатково, він надає aliases для оптимізації продуктивності.
+
+</Step>
+
+<Step number={4} title="Оголосіть свій контент">
+
+Створіть і керуйте деклараціями контенту для зберігання перекладів:
+
+```tsx fileName="src/app.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+import type { ComponentChildren } from "preact";
+
+const appContent = {
+  key: "app",
+  content: {
+    viteLogo: t({
+      en: "Vite logo",
+      fr: "Logo Vite",
+      es: "Logo Vite",
+    }),
+    preactLogo: t({
+      en: "Preact logo",
+      fr: "Logo Preact",
+      es: "Logo Preact",
+    }),
+
+    title: "Vite + Preact",
+
+    count: t({
+      en: "count is ",
+      fr: "le compte est ",
+      es: "el recuento es ",
+    }),
+
+    edit: t<ComponentChildren>({
+      en: (
+        <>
+          Edit <code>src/app.tsx</code> and save to test HMR
+        </>
+      ),
+      fr: (
+        <>
+          Éditez <code>src/app.tsx</code> et enregistrez pour tester HMR
+        </>
+      ),
+      es: (
+        <>
+          Edita <code>src/app.tsx</code> y guarda para probar HMR
+        </>
+      ),
+    }),
+
+    readTheDocs: t({
+      en: "Click on the Vite and Preact logos to learn more",
+      fr: "Cliquez sur les logos Vite et Preact pour en savoir plus",
+      es: "Haga clic en los logotipos de Vite y Preact para obtener más información",
+    }),
+  },
+} satisfies Dictionary;
+
+export default appContent;
+```
+
+```json fileName="src/app.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "app",
+  "content": {
+    "viteLogo": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Vite logo",
+        "fr": "Logo Vite",
+        "es": "Logo Vite"
+      }
+    },
+    "preactLogo": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Preact logo",
+        "fr": "Logo Preact",
+        "es": "Logo Preact"
+      }
+    },
+    "title": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Vite + Preact",
+        "fr": "Vite + Preact",
+        "es": "Vite + Preact"
+      }
+    },
+    "count": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "count is ",
+        "fr": "le compte est ",
+        "es": "el recuento es "
+      }
+    },
+    "edit": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Edit src/app.tsx and save to test HMR",
+        "fr": "Éditez src/app.tsx et enregistrez pour tester HMR",
+        "es": "Edita src/app.tsx y guarda para probar HMR"
+      }
+    },
+    "readTheDocs": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Click on the Vite and Preact logos to learn more",
+        "fr": "Cliquez sur les logos Vite et Preact pour en savoir plus",
+        "es": "Haga clic en los logotipos de Vite y Preact para obtener más información"
+      }
+    }
+  }
+}
+```
+
+> Ваші декларації контенту можна розміщувати в будь-якій частині вашого застосунку, за умови, що вони включені в директорію `contentDir` (за замовчуванням `./src`). І вони повинні відповідати розширенню файлу декларації контенту (за замовчуванням `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
+
+> Для детальнішої інформації див. [документацію з оголошень контенту](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md).
+
+> Якщо ваш файл контенту містить TSX-код, можливо, потрібно імпортувати `import { h } from "preact";` або переконатися, що JSX pragma правильно налаштований для Preact.
+
+</Step>
+
+<Step number={5} title="Використання Intlayer у вашому коді">
+
+Отримуйте доступ до ваших словників контенту у всьому застосунку:
+
+```tsx {6,10} fileName="src/app.tsx" codeFormat={["typescript", "esm"]}
+import { useState } from "preact/hooks";
+import type { FunctionalComponent } from "preact";
+import preactLogo from "./assets/preact.svg"; // Припускаємо, що у вас є preact.svg
+import viteLogo from "/vite.svg";
+import "./app.css"; // Припускаємо, що ваш файл CSS називається app.css
+import { IntlayerProvider, useIntlayer } from "preact-intlayer";
+
+const AppContent: FunctionalComponent = () => {
+  const [count, setCount] = useState(0);
+  const content = useIntlayer("app");
+
+  return (
+    <>
+      <div>
+        <a href="https://vitejs.dev" target="_blank">
+          <img src={viteLogo} class="logo" alt={content.viteLogo.value} />
+        </a>
+        <a href="https://preactjs.com" target="_blank">
+          <img
+            src={preactLogo}
+            class="logo preact"
+            alt={content.preactLogo.value}
+          />
+        </a>
+      </div>
+      <h1>{content.title}</h1>
+      <div class="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          {content.count}
+          {count}
+        </button>
+        <p>{content.edit}</p>
+      </div>
+      {/* Markdown контент */}
+      <div>{content.myMarkdownContent}</div>
+
+      {/* HTML контент */}
+      <div>{content.myHtmlContent}</div>
+
+      <p class="read-the-docs">{content.readTheDocs}</p>
+    </>
+  );
+};
+
+const App: FunctionalComponent = () => (
+  <IntlayerProvider>
+    <AppContent />
+  </IntlayerProvider>
+);
+
+export default App;
+```
+
+> Якщо ви хочете використати ваш вміст у атрибуті типу `string`, наприклад `alt`, `title`, `href`, `aria-label` тощо, ви повинні викликати значення функції, наприклад:
+
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
+
+> Примітка: у Preact `className` зазвичай пишеться як `class`.
+
+> Щоб дізнатися більше про хук `useIntlayer`, зверніться до [документації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/useIntlayer.md) (API схожий для `preact-intlayer`).
+
+> Якщо ваш застосунок уже існує, ви можете скористатися [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) у поєднанні з [командой extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md), щоб перетворити тисячі компонентів за одну секунду.
+
+</Step>
+
+<Step number={6} title="Змініть мову вашого контенту" isOptional={true}>
+
+Щоб змінити мову вашого контенту, ви можете використовувати функцію `setLocale`, надану хуком `useLocale`. Ця функція дозволяє встановити локаль застосунку та відповідно оновити контент.
+
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
+import type { FunctionalComponent } from "preact";
+import { Locales } from "intlayer";
+import { useLocale } from "preact-intlayer";
+
+const LocaleSwitcher: FunctionalComponent = () => {
+  const { setLocale } = useLocale();
+
+  return (
+    <button onClick={() => setLocale(Locales.ENGLISH)}>
+      Change Language to English
+    </button>
+  );
+};
+
+export default LocaleSwitcher;
+```
+
+> Щоб дізнатися більше про хук `useLocale`, зверніться до [документації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/useLocale.md) (API схоже для `preact-intlayer`).
+
+</Step>
+
+<Step number={7} title="Додайте локалізовану маршрутизацію до вашого додатка" isOptional={true}>
+
+Мета цього кроку, створити унікальні маршрути для кожної мови. Це корисно для SEO та SEO-дружніх URL-адрес.
+Приклад:
+
+```plaintext
+- https://example.com/about
+- https://example.com/es/about
+- https://example.com/fr/about
+```
+
+> За замовчуванням маршрути не мають префікса для мови за замовчуванням. Якщо ви хочете додати префікс і для мови за замовчуванням, ви можете встановити опцію `routing.mode` в `"prefix-all"` у вашій конфігурації. Див. [документацію з конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md) для додаткової інформації.
+
+Щоб додати локалізовану маршрутизацію до вашого додатка, ви можете створити компонент `LocaleRouter`, який обгортає маршрути вашого додатка та обробляє маршрутизацію на основі локалі. Ось приклад із використанням [preact-iso](https://github.com/preactjs/preact-iso):
+
+```tsx fileName="src/components/LocaleRouter.tsx" codeFormat={["typescript", "esm"]}
+import { localeMap } from "intlayer";
+import { IntlayerProvider } from "preact-intlayer";
+import { LocationProvider, Router, Route } from "preact-iso";
+import type { ComponentChildren, FunctionalComponent } from "preact";
+
+/**
+ * Компонент роутера, що налаштовує маршрути з урахуванням локалі.
+ * Використовує preact-iso для керування навігацією та рендерингу локалізованих компонентів.
+ */
+export const LocaleRouter: FunctionalComponent<{
+  children: ComponentChildren;
+}> = ({ children }) => (
+  <LocationProvider>
+    <Router>
+      {localeMap(({ locale, urlPrefix }) => ({ locale, urlPrefix }))
+        .sort((a, b) => b.urlPrefix.length - a.urlPrefix.length)
+        .map(({ locale, urlPrefix }) => (
+          <Route
+            key={locale}
+            path={`${urlPrefix}/:rest*`}
+            component={() => (
+              <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+            )}
+          />
+        ))}
+    </Router>
+  </LocationProvider>
+);
+```
+
+Потім ви можете використовувати компонент `LocaleRouter` у вашому додатку:
+
+```tsx fileName="src/app.tsx" codeFormat={["typescript", "esm"]}
+import { LocaleRouter } from "./components/LocaleRouter";
+import type { FunctionalComponent } from "preact";
+
+// ... Ваш компонент AppContent
+
+const App: FunctionalComponent = () => (
+  <LocaleRouter>
+    <AppContent />
+  </LocaleRouter>
+);
+
+export default App;
+```
+
+</Step>
+
+<Step number={8} title="Змінюйте URL при зміні локалі" isOptional={true}>
+
+Щоб змінювати URL при зміні локалі, ви можете використовувати пропс `onLocaleChange`, який надає хук `useLocale`. Паралельно можна використовувати метод `route` з `useLocation` бібліотеки `preact-iso` для оновлення шляху URL.
+
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
+import { useLocation } from "preact-iso";
+import {
+  Locales,
+  getHTMLTextDir,
+  getLocaleName,
+  getLocalizedUrl,
+} from "intlayer";
+import { useLocale } from "preact-intlayer";
+import type { FunctionalComponent } from "preact";
+
+const LocaleSwitcher: FunctionalComponent = () => {
+  const { url, route } = useLocation();
+  const { locale, availableLocales, setLocale } = useLocale({
+    onLocaleChange: (newLocale) => {
+      // Сформувати URL з оновленою локаллю
+      // Приклад: /es/about?foo=bar
+      const pathWithLocale = getLocalizedUrl(url, newLocale);
+
+      // Оновити шлях URL
+      route(pathWithLocale, true); // true для заміни (replace)
+    },
+  });
+
+  return (
+    <div>
+      <button popovertarget="localePopover">{getLocaleName(locale)}</button>
+      <div id="localePopover" popover="auto">
+        {availableLocales.map((localeItem) => (
+          <a
+            href={getLocalizedUrl(url, localeItem)}
+            hreflang={localeItem}
+            aria-current={locale === localeItem ? "page" : undefined}
+            onClick={(e) => {
+              e.preventDefault();
+              setLocale(localeItem);
+              // Програмна навігація після зміни локалі обробляється onLocaleChange
+            }}
+            key={localeItem}
+          >
+            <span>
+              {/* Локаль, наприклад FR */}
+              {localeItem}
+            </span>
+            <span>
+              {/* Мова у своїй локалі, наприклад Français */}
+              {getLocaleName(localeItem, localeItem)}
+            </span>
+            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
+              {/* Мова у поточній локалі, наприклад Francés коли поточна локаль встановлена на Locales.SPANISH */}
+              {getLocaleName(localeItem, locale)}
+            </span>
+            <span dir="ltr" lang={Locales.ENGLISH}>
+              {/* Мова англійською, наприклад French */}
+              {getLocaleName(localeItem, Locales.ENGLISH)}
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default LocaleSwitcher;
+```
+
+> Посилання на документацію:
+>
+> > - [Хук `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/useLocale.md) (API схоже для `preact-intlayer`)> - [Хук `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getLocaleName.md)> - [Хук `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getLocalizedUrl.md)> - [Хук `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getHTMLTextDir.md)> - [Атрибут `hreflang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=uk)> - [Атрибут `lang`](https://developer.mozilla.org/uk/docs/Web/HTML/Global_attributes/lang)> - [Атрибут `dir`](https://developer.mozilla.org/uk/docs/Web/HTML/Global_attributes/dir)> - [Атрибут `aria-current`](https://developer.mozilla.org/uk/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [Popover API](https://developer.mozilla.org/uk/docs/Web/API/Popover_API)
+
+</Step>
+
+<Step number={9} title="Перемикайте атрибути мови та напрямку в HTML" isOptional={true}>
+
+Коли ваш додаток підтримує кілька мов, важливо оновлювати атрибути `lang` та `dir` тегу `<html>`, щоб вони відповідали поточній локалі. Це гарантує:
+
+- **Доступність**: Скрінрідери та допоміжні технології покладаються на правильний атрибут `lang` для коректного промовляння та інтерпретації вмісту.
+- **Відображення тексту**: Атрибут `dir` (direction) забезпечує правильний порядок відображення тексту (наприклад, зліва направо для англійської, справа наліво для арабської чи івриту), що є необхідним для читабельності.
+- **SEO**: Пошукові системи використовують атрибут `lang`, щоб визначити мову вашої сторінки, що допомагає показувати відповідний локалізований контент у результатах пошуку.
+
+Оновлюючи ці атрибути динамічно при зміні локалі, ви забезпечуєте послідовний та доступний досвід для користувачів усіх підтримуваних мов.
+
+#### Реалізація хука
+
+Створіть власний хук для керування HTML-атрибутами. Хук відслідковує зміни локалі й відповідно оновлює атрибути:
+
+```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx" codeFormat={["typescript", "esm"]}
+import { useEffect } from "preact/hooks";
+import { useLocale } from "preact-intlayer";
+import { getHTMLTextDir } from "intlayer";
+
+/**
+ * Оновлює атрибути `lang` та `dir` елемента <html> на основі поточної локалі.
+ * - `lang`: Повідомляє браузерам та пошуковим системам мову сторінки.
+ * - `dir`: Забезпечує правильний порядок читання (наприклад, 'ltr' для англійської, 'rtl' для арабської).
+ *
+ * Це динамічне оновлення має вирішальне значення для правильного відтворення тексту, доступності та SEO.
+ */
+export const useI18nHTMLAttributes = () => {
+  const { locale } = useLocale();
+
+  useEffect(() => {
+    // Оновлює атрибут lang елемента відповідно до поточної локалі.
+    document.documentElement.lang = locale;
+
+    // Встановлює напрямок тексту залежно від поточної локалі.
+    document.documentElement.dir = getHTMLTextDir(locale);
+  }, [locale]);
+};
+```
+
+#### Використання хука у вашому застосунку
+
+Інтегруйте хук у ваш головний компонент, щоб атрибути HTML оновлювалися щоразу при зміні локалі:
+
+```tsx fileName="src/app.tsx" codeFormat={["typescript", "esm"]}
+import type { FunctionalComponent } from "preact";
+import { IntlayerProvider } from "preact-intlayer"; // useIntlayer вже імпортовано, якщо AppContent його потребує
+import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
+import "./app.css";
+// Визначення AppContent з Кроку 5
+
+const AppWithHooks: FunctionalComponent = () => {
+  // Застосовуємо хук, щоб оновити атрибути lang і dir елемента <html> відповідно до локалі.
+  useI18nHTMLAttributes();
+
+  // Припускаючи, що AppContent, ваш основний компонент для відображення вмісту з Кроку 5
+  return <AppContent />;
+};
+
+const App: FunctionalComponent = () => (
+  <IntlayerProvider>
+    <AppWithHooks />
+  </IntlayerProvider>
+);
+
+export default App;
+```
+
+</Step>
+
+<Step number={10} title="Створення локалізованого компонента `Link`" isOptional={true}>
+
+Щоб переконатися, що навігація вашого додатка дотримується поточної локалі, ви можете створити власний компонент `Link`. Цей компонент автоматично додає префікс мови до внутрішніх URL.
+
+Ця поведінка корисна з кількох причин:
+
+- **SEO та User Experience**: локалізовані URL допомагають пошуковим системам правильно індексувати сторінки за мовами та надають користувачам контент їхньою бажаною мовою.
+- **Consistency**: використовуючи локалізоване посилання по всьому додатку, ви гарантуєте, що навігація залишатиметься в поточній локалі, запобігаючи несподіваним перемиканням мови.
+- **Підтримуваність**: Централізація логіки локалізації в одному компоненті спрощує керування URL-адресами.
+
+Нижче наведено реалізацію локалізованого компонента `Link` у Preact:
+
+```tsx fileName="src/components/Link.tsx" codeFormat={["typescript", "esm"]}
+import { getLocalizedUrl } from "intlayer";
+import { useLocale } from "preact-intlayer";
+import { forwardRef } from "preact/compat";
+import type { JSX } from "preact";
+
+export interface LinkProps extends JSX.HTMLAttributes<HTMLAnchorElement> {
+  href: string;
+}
+
+/**
+ * Утиліта для перевірки, чи є вказаний URL зовнішнім.
+ * Якщо URL починається з http:// або https://, він вважається зовнішнім.
+ */
+export const checkIsExternalLink = (href?: string): boolean =>
+  /^https?:\/\//.test(href ?? "");
+
+/**
+ * Кастомний компонент Link, який адаптує атрибут href відповідно до поточної локалі.
+ * Для внутрішніх посилань використовується `getLocalizedUrl` для додавання префіксу локалі до URL (наприклад, /fr/about).
+ * Це гарантує, що навігація залишатиметься в межах контексту тієї самої локалі.
+ */
+export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
+  ({ href, children, ...props }, ref) => {
+    const { locale } = useLocale();
+    const isExternalLink = checkIsExternalLink(href);
+
+    // Якщо посилання внутрішнє та надано валідний href, отримуємо локалізований URL.
+    const hrefI18n =
+      href && !isExternalLink ? getLocalizedUrl(href, locale) : href;
+
+    return (
+      <a href={hrefI18n} ref={ref} {...props}>
+        {children}
+      </a>
+    );
+  }
+);
+
+Link.displayName = "Link";
+```
+
+#### Як це працює
+
+- **Виявлення зовнішніх посилань**:  
+  Допоміжна функція `checkIsExternalLink` визначає, чи є URL зовнішнім. Зовнішні посилання залишаються без змін, оскільки вони не потребують локалізації.
+- **Отримання поточної локалі**:  
+  Хук `useLocale` повертає поточну локаль (наприклад, `fr` для французької).
+- **Локалізація URL**:  
+  Для внутрішніх посилань (тобто не зовнішніх) використовується `getLocalizedUrl` для автоматичного додавання префіксу поточної локалі до URL. Це означає, що якщо ваш користувач перебуває у французькій локалі, передача `/about` як `href` перетворить його на `/fr/about`.
+- **Повернення посилання**:  
+  Компонент повертає елемент `<a>` з локалізованою URL-адресою, гарантуючи, що навігація відповідає локалі.
+
+</Step>
+
+<Step number={11} title="Відображення Markdown та HTML" isOptional={true}>
+
+Intlayer підтримує відображення вмісту Markdown та HTML у Preact.
+
+Ви можете налаштувати відображення вмісту Markdown та HTML за допомогою методу `.use()`. Цей метод дозволяє вам перевизначати стандартне відображення певних тегів.
+
+```tsx
+import { useIntlayer } from "preact-intlayer";
+
+const { myMarkdownContent, myHtmlContent } = useIntlayer("my-component");
+
+// ...
+
+return (
+  <div>
+    {/* Базове відображення */}
+    {myMarkdownContent}
+
+    {/* Спеціальне відображення для Markdown */}
+    {myMarkdownContent.use({
+      h1: (props) => <h1 style={{ color: "red" }} {...props} />,
+    })}
+
+    {/* Базове відображення для HTML */}
+    {myHtmlContent}
+
+    {/* Спеціальне відображення для HTML */}
+    {myHtmlContent.use({
+      b: (props) => <strong style={{ color: "blue" }} {...props} />,
+    })}
+  </div>
+);
+```
+
+</Step>
+
+<Step number={1} title="Витягніть вміст ваших компонентів" isOptional={true}>
+
+Якщо у вас є існуюча кодова база, перетворення тисяч файлів може зайняти багато часу.
+
+Щоб спростити цей процес, Intlayer пропонує [компілятор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) / [екстрактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md) для перетворення ваших компонентів і витягування вмісту.
+
+Щоб налаштувати його, ви можете додати розділ `compiler` у свій файл `intlayer.config.ts`:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... Інша частина вашої конфігурації
+  compiler: {
+    /**
+     * Вказує, чи повинен бути включений компілятор.
+     */
+    enabled: true,
+
+    /**
+     * Визначає шлях до вихідних файлів
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Вказує, чи повинні компоненти зберігатися після перетворення. Таким чином, компілятор можна запустити лише один раз для перетворення програми, а потім видалити.
+     */
+    saveComponents: false,
+
+    /**
+     * Префікс ключа словника
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='Команда витягування'>
+
+Запустіть екстрактор для перетворення компонентів і витягування вмісту
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Компілятор Babel'>
+
+Оновіть свій `vite.config.ts`, щоб включити плагін `intlayerCompiler`:
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // Додає плагін компілятора
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # Або npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # Or pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Or yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
+</Step>
+
+</Steps>
+
+### Налаштування TypeScript
+
+Intlayer використовує розширення модулів (module augmentation), щоб отримати переваги від TypeScript та зробити вашу кодову базу надійнішою.
+
+![Автодоповнення](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Помилка перекладу](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+Переконайтеся, що ваша конфігурація TypeScript включає автогенеровані типи.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Ваші існуючі налаштування TypeScript
+  "compilerOptions": {
+    // ...
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact", // Рекомендовано для Preact 10+
+    // ...
+  },
+  "include": [
+    // ... Ваші існуючі налаштування TypeScript
+    ".intlayer/**/*.ts", // Включіть автогенеровані типи
+  ],
+}
+```
+
+> Переконайтеся, що ваш `tsconfig.json` налаштований для Preact, особливо параметри `jsx` та `jsxImportSource`, або `jsxFactory`/`jsxFragmentFactory` для старіших версій Preact, якщо ви не використовуєте значення за замовчуванням від `preset-vite`.
+
+### Конфігурація Git
+
+Рекомендується ігнорувати файли, згенеровані Intlayer. Це дозволяє уникнути їх коміту в ваш репозиторій Git.
+
+Для цього ви можете додати такі інструкції до файлу `.gitignore`:
+
+```bash
+#  Ігнорувати файли, згенеровані Intlayer
+.intlayer
+```
+
+### Розширення для VS Code
+
+Щоб покращити досвід розробки з Intlayer, ви можете встановити офіційне розширення **Intlayer VS Code Extension**.
+
+[Встановити з Marketplace для VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Розширення надає:
+
+- **Автодоповнення** для ключів перекладу.
+- **Виявлення помилок у режимі реального часу** для відсутніх перекладів.
+- **Вбудований перегляд** перекладеного вмісту.
+- **Швидкі дії** для легкого створення та оновлення перекладів.
+
+Для детальнішої інформації щодо використання розширення зверніться до [документації Intlayer VS Code Extension](https://intlayer.org/doc/vs-code-extension).
+
+---
+
+### (Опційно) Sitemap і robots.txt (генерація під час збірки)
+
+Intlayer надає `generateSitemap` і `getMultilingualUrls` - утиліти для формування багатомовних `sitemap.xml` і `robots.txt` для краулерів та автоматичного запису в `public/`. Зазвичай запускають невеликий Node-скрипт **перед** Vite (наприклад, npm-хуки `predev` / `prebuild`).
+
+#### Sitemap
+
+Генератор sitemap враховує локалі й додає метадані для краулерів.
+
+> Підтримується простір імен `xhtml:link` (hreflang). Замість плоского списку URL Intlayer пов’язує всі мовні версії сторінки в обидва боки (наприклад `/about`, `/fr/about` або `/about?lang=fr` залежно від режиму маршрутизації).
+
+#### Robots.txt
+
+Використовуйте `getMultilingualUrls`, щоб правила `Disallow` покривали всі локалізовані варіанти шляхів.
+
+#### 1. Файл `generate-seo.mjs` у корені проєкту
+
+```javascript fileName="generate-seo.mjs"
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import { generateSitemap, getMultilingualUrls } from "intlayer";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const SITE_URL = (process.env.SITE_URL || "http://localhost:5173").replace(
+  /\/$/,
+  ""
+);
+
+const pathList = [
+  { path: "/", changefreq: "daily", priority: 1.0 },
+  { path: "/about", changefreq: "monthly", priority: 0.7 },
+];
+
+const sitemapXml = generateSitemap(pathList, { siteUrl: SITE_URL });
+fs.writeFileSync(path.join(__dirname, "public", "sitemap.xml"), sitemapXml);
+
+const getAllMultilingualUrls = (urls) =>
+  urls.flatMap((url) => Object.values(getMultilingualUrls(url)));
+
+const disallowedPaths = getAllMultilingualUrls(["/admin", "/private"]);
+
+const robotsTxt = [
+  "User-agent: *",
+  "Allow: /",
+  ...disallowedPaths.map((path) => `Disallow: ${path}`),
+  "",
+  `Sitemap: ${SITE_URL}/sitemap.xml`,
+].join("\n");
+
+fs.writeFileSync(path.join(__dirname, "public", "robots.txt"), robotsTxt);
+
+console.log("SEO files generated successfully.");
+```
+
+Пакет `intlayer` має бути встановлений. У продакшені задайте `SITE_URL` у середовищі (наприклад у CI).
+
+> Для Node ESM краще `generate-seo.mjs`. Для `generate-seo.js` додайте `"type": "module"` у `package.json` або ввімкніть ESM інакше.
+
+#### 2. Запуск скрипта перед Vite
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "dev": "vite",
+    "prebuild": "node generate-seo.mjs",
+    "build": "vite build",
+    "preview": "vite preview"
+  }
+}
+```
+
+Підлаштуйте команди для pnpm або yarn. Можна викликати скрипт із CI.
+
+### Далі
+
+Щоб просунутися далі, ви можете реалізувати [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) або винести ваш контент, використовуючи [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).
+
+---

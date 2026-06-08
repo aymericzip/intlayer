@@ -21,6 +21,7 @@ const localeSwitcherContent = {
       pl: 'Przełącznik języka',
       id: 'Pengalih bahasa',
       vi: 'Chuyển đổi ngôn ngữ',
+      uk: 'Перемикач мови',
     }),
     languageListLabel: t({
       en: 'Language list',
@@ -40,6 +41,7 @@ const localeSwitcherContent = {
       pl: 'Lista języków',
       id: 'Daftar bahasa',
       vi: 'Danh sách ngôn ngữ',
+      uk: 'Список мов',
     }),
     switchTo: t({
       en: 'Switch to',
@@ -59,6 +61,7 @@ const localeSwitcherContent = {
       pl: 'Przełącz na',
       id: 'Beralih ke',
       vi: 'Chuyển sang',
+      uk: 'Перейти на',
     }),
     searchInput: {
       text: t({
@@ -79,6 +82,7 @@ const localeSwitcherContent = {
         pl: 'Wyszukaj lokalizację',
         id: 'Cari locale',
         vi: 'Tìm Locale',
+        uk: 'Пошук локалі',
       }),
       placeholder: t({
         en: 'Search a locale',
@@ -98,6 +102,7 @@ const localeSwitcherContent = {
         pl: 'Wyszukaj lokalizację',
         id: 'Cari locale',
         vi: 'Tìm một Locale',
+        uk: 'Пошук локалі',
       }),
       ariaLabel: t({
         en: 'Language search',
@@ -117,6 +122,7 @@ const localeSwitcherContent = {
         pl: 'Wyszukiwanie lokalizacji',
         id: 'Pencarian locale',
         vi: 'Tìm kiếm Locale',
+        uk: 'Пошук локалі',
       }),
     },
     seeAllLocalesSwitch: {
@@ -138,6 +144,7 @@ const localeSwitcherContent = {
         pl: 'Pokaż wszystkie lokalizacje',
         id: 'Tampilkan semua locale',
         vi: 'Xem tất cả các Locale',
+        uk: 'Показати всі локалі',
       }),
       false: t({
         en: 'See only selected locales',
@@ -157,6 +164,7 @@ const localeSwitcherContent = {
         pl: 'Pokaż tylko wybrane lokalizacje',
         id: 'Tampilkan hanya locale yang dipilih',
         vi: 'Chỉ xem các Locale đã chọn',
+        uk: 'Показати лише вибрані локалі',
       }),
     },
   },

@@ -1,5 +1,10 @@
 'use client';
 
+import {
+  type ItemSelectorOrientation,
+  useItemSelector,
+} from '@hooks/useItemSelector';
+import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import {
   cloneElement,
@@ -9,30 +14,24 @@ import {
   useEffect,
   useRef,
 } from 'react';
-import {
-  type ItemSelectorOrientation,
-  useItemSelector,
-} from '../../hooks/useItemSelector';
-import { cn } from '../../utils/cn';
 
-export enum TabSelectorColor {
-  PRIMARY = 'primary',
-  SECONDARY = 'secondary',
-  DESTRUCTIVE = 'destructive',
-  NEUTRAL = 'neutral',
-  LIGHT = 'light',
-  DARK = 'dark',
-  TEXT = 'text',
-}
+export type TabSelectorColor = 
+  | 'primary' |
+  'secondary' |
+  'error' |
+  'neutral' |
+  'light' |
+  'dark' |
+  'text';
 
 const tabSelectorVariant = cva(
-  'relative flex size-full flex-row items-center gap-2',
+  'relative z-0 flex size-full flex-row items-center gap-2',
   {
     variants: {
       color: {
         primary: 'border-primary text-primary',
         secondary: 'border-secondary text-secondary',
-        destructive: 'border-destructive bg-destructive text-destructive',
+        error: 'border-error bg-error text-error',
         neutral: 'border-neutral text-neutral',
         light: 'border-white text-white',
         dark: 'border-neutral-800 text-neutral-800',
@@ -46,13 +45,13 @@ const tabSelectorVariant = cva(
 );
 
 const indicatorVariant = cva(
-  'absolute z-[-1] rounded-lg duration-300 ease-in-out motion-reduce:transition-none',
+  'absolute -z-1 rounded-lg duration-300 ease-in-out motion-reduce:transition-none',
   {
     variants: {
       color: {
         primary: 'bg-primary/10 aria-selected:text-text',
         secondary: 'bg-secondary/10 aria-selected:text-text',
-        destructive: 'bg-destructive/10 aria-selected:text-text',
+        error: 'bg-error/10 aria-selected:text-text',
         neutral: 'bg-neutral/10 aria-selected:text-white/10',
         light: 'bg-white/10 aria-selected:text-black',
         dark: 'bg-neutral-800/10 aria-selected:text-white',
@@ -105,7 +104,7 @@ export const TabSelector = <T extends TabSelectorItemProps>({
   tabs,
   selectedChoice,
   onTabClick,
-  color = TabSelectorColor.PRIMARY,
+  color = 'primary',
   hoverable = false,
   orientation = 'horizontal',
   className,
@@ -119,7 +118,8 @@ export const TabSelector = <T extends TabSelectorItemProps>({
 
   useEffect(() => {
     calculatePosition();
-  }, [selectedChoice, tabs]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedChoice]);
 
   return (
     <div

@@ -13,23 +13,51 @@ slugs:
   - concept
   - cli
   - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: "checkTypes seçeneği eklendi"
 ---
 
 # Sözlükleri Oluşturma
 
 Sözlüklerinizi oluşturmak için aşağıdaki komutları çalıştırabilirsiniz:
 
-```bash
+```bash packageManager="npm"
 npx intlayer build
+```
+
+```bash packageManager="yarn"
+yarn intlayer build
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build
+```
+
+```bash packageManager="bun"
+bun x intlayer build
 ```
 
 veya izleme modunda
 
-```bash
+```bash packageManager="npm"
 npx intlayer build --watch
 ```
 
-Bu komut, varsayılan olarak `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` dosyalarınızı bulur ve `.intlayer` dizininde sözlükleri oluşturur.
+```bash packageManager="yarn"
+yarn intlayer build --watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build --watch
+```
+
+```bash packageManager="bun"
+bun x intlayer build --watch
+```
+
+Bu komut, varsayılan olarak `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` dosyalarınızı bulur ve `.intlayer` dizininde sözlükleri oluşturur.
 
 ## Kısaltmalar:
 
@@ -62,3 +90,7 @@ Bu komut, varsayılan olarak `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` d
 - **`--no-cache`**: Önbelleği devre dışı bırakın.
 
   > Örnek: `npx intlayer build --no-cache`
+
+- **`--check-types`**: İçerik bildirim dosyalarının türlerini kontrol eder.
+
+  > Örnek: `npx intlayer build --check-types`

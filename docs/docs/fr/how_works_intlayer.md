@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historique initial
+    changes: "Historique initial"
 ---
 
 # Comment Intlayer fonctionne
@@ -79,7 +79,7 @@ const MyComponent = () => {
 
 Ce hook gérera pour vous la détection de la locale et renverra le contenu pour la locale actuelle. En utilisant ce hook, vous pourrez également interpréter le markdown, gérer la pluralisation, et bien plus encore.
 
-> Pour voir toutes les fonctionnalités d'Intlayer, vous pouvez lire la [documentation des dictionnaires](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/get_started.md).
+> Pour voir toutes les fonctionnalités d'Intlayer, vous pouvez lire la [documentation des dictionnaires](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md).
 
 ## Contenu distant
 
@@ -107,7 +107,7 @@ Les plugins Babel et SWC fonctionnent en analysant l'arbre de syntaxe abstraite 
 
 En mode développement, Intlayer utilise une importation statique centralisée pour les dictionnaires afin de simplifier l'expérience de développement.
 
-En activant l'option `importMode = "dynamic"` dans la [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md), Intlayer utilisera l'importation dynamique pour charger les dictionnaires. Cette option est désactivée par défaut pour éviter le traitement asynchrone lors du rendu de l'application.
+En activant l'option `importMode = "dynamic"` dans la configuration `dictionary` de la [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md), Intlayer utilisera l'importation dynamique pour charger les dictionnaires. Cette option est désactivée par défaut pour éviter le traitement asynchrone lors du rendu de l'application.
 
 > `@intlayer/babel` est disponible par défaut dans le package `vite-intlayer`,
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-14
-updatedAt: 2025-08-20
+updatedAt: 2026-05-31
 title: Interest of Intlayer
 description: Discover the benefits and advantages of using Intlayer in your projects. Understand why Intlayer stands out among other frameworks.
 keywords:
@@ -13,32 +13,93 @@ slugs:
   - doc
   - why
 history:
+  - version: 8.11.2
+    date: 2026-05-31
+    changes: "Add Why Intlayer over alternatives section"
+  - version: 7.3.1
+    date: 2025-11-27
+    changes: "Release Compiler"
   - version: 5.8.0
     date: 2025-08-19
-    changes: Updated comparative table
+    changes: "Update comparative table"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Initial history
+    changes: "Init history"
 ---
 
 # Why you should consider Intlayer?
 
 ## What is Intlayer?
 
-**Intlayer** is an internationalisation library designed specifically for JavaScript developers. It allows the declaration of your content everywhere in your code. It converts declarations of multilingual content into structured dictionaries to integrate easily in your code. Using TypeScript, **Intlayer** makes your development stronger and more efficient.
+**Intlayer** is an internationalization library designed specifically for JavaScript developers. It allows the declaration of your content everywhere in your code. It converts declarations of multilingual content into structured dictionaries to integrate easily in your code. Using TypeScript, **Intlayer** makes your development stronger and more efficient.
+
+## Why Intlayer over alternatives?
+
+Compared to main solutions like `next-intl` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
+
+<AccordionGroup>
+
+<Accordion header="Bundle size">
+
+Instead of loading massive JSON files into your pages, load only the necessary content. Intlayer helps **reduce your bundle and page sizes by up to 50%**.
+
+</Accordion>
+
+<Accordion header="Maintainability">
+
+Scoping your application's content **facilitates maintenance** for large-scale applications. You can duplicate or delete a single feature folder without the mental burden of reviewing your entire content codebase. Additionally, Intlayer is **fully typed** to ensure your content's accuracy.
+
+</Accordion>
+
+<Accordion header="AI Agent">
+
+Co-locating content **reduces the context needed** by Large Language Models (LLMs). Intlayer also comes with a suite of tools, such as a **CLI** to test for missing translations,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, and **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, to make the developer experience (DX) even smoother for AI agents.
+
+</Accordion>
+
+<Accordion header="Feature">
+
+Intlayer offers a bench of additional features that other i18n solutions do not have, such as [Markdown support](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md), [fetching external content](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/function_fetching.md), [file content loading](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md), [live content update](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/live.md), [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) and more.
+
+</Accordion>
+
+<Accordion header="Automation">
+
+Use automation to translate in your CI/CD pipeline using the LLM of your choice at the cost of your AI provider. Intlayer also offers a **compiler** to automate content extraction, as well as a [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) to help **translate in the background**.
+
+</Accordion>
+
+<Accordion header="Performance">
+
+Connecting massive JSON files to components can lead to performance and reactivity issues. Intlayer optimizes your content loading at build time.
+
+</Accordion>
+
+<Accordion header="Scaling with none-dev">
+
+More than just an i18n solution, Intlayer provides an **self-hosted [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** and a **[full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** to help you manage your multilingual content in **real-time**, making collaboration with translators, copywriters, and other team members seamless. Content can be stored locally and/or remotely.
+
+</Accordion>
+
+<Accordion header="Cross framework design">
+
+If you use different frameworks for different part of your application (e.g., React, React-native, Vue, Angular, Svelte, etc.), Intlayer provides a way to **use a common synatax and implementation across all main frontend frameworks**. You will also be able to share your content declaration across your design-system, apps, backend etc.
+
+</Accordion>
+</AccordionGroup>
 
 ## Why was Intlayer created?
 
 Intlayer was created to solve a common problem that affects all common i18n libraries such as `next-intl`, `react-i18next`, `react-intl`, `next-i18next`, `react-intl`, and `vue-i18n`.
 
-All these solutions adopt a centralised approach to list and manage your content. For example:
+All these solutions adopt a centralized approach to list and manage your content. For example:
 
 ```bash
 .
 ├── locales
 │   ├── en.json
-│   ├── fr.json
-│   └── es.json
+│   ├── es.json
+│   └── fr.json
 ├── i18n.ts
 └── src
     └── components
@@ -81,7 +142,7 @@ This type of architecture slows down the development process and makes the codeb
    - Verify your namespace doesn't include unused keys/values
    - Ensure the structure of your JSON files is the same for all locales
 
-On professional projects using these solutions, localisation platforms are often used to help manage the translation of your content. However, this can quickly become costly for large projects.
+On professional projects using these solutions, localization platforms are often used to help manage the translation of your content. However, this can quickly become costly for large projects.
 
 To solve this problem, Intlayer adopts an approach that scopes your content per-component and keeps your content close to your component, as we often do with CSS (`styled-components`), types, documentation (`storybook`), or unit tests (`jest`).
 
@@ -115,7 +176,7 @@ To solve this problem, Intlayer adopts an approach that scopes your content per-
         └── index.tsx
 ```
 
-```tsx fileName="./components/MyComponent/index.content.ts" codeFormat="typescript"
+```tsx fileName="./components/MyComponent/index.content.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const componentExampleContent = {
@@ -132,66 +193,10 @@ const componentExampleContent = {
 export default componentExampleContent;
 ```
 
-```jsx fileName="./components/MyComponent/index.mjx" codeFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const componentExampleContent = {
-  key: "component-example",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
-
-export default componentExampleContent;
-```
-
-```jsx fileName="./components/MyComponent/index.csx" codeFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const componentExampleContent = {
-  key: "component-example",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
-
-module.exports = componentExampleContent;
-```
-
-```tsx fileName="./components/MyComponent/index.tsx" codeFormat="typescript"
+```tsx fileName="./components/MyComponent/index.tsx" codeFormat={["typescript", "esm"]}
 import { useIntlayer } from "react-intlayer";
 
 export const ComponentExample = () => {
-  const { myTranslatedContent } = useIntlayer("component-example");
-
-  return <span>{myTranslatedContent}</span>;
-};
-```
-
-```jsx fileName="./components/MyComponent/index.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const ComponentExample = () => {
-  const { myTranslatedContent } = useIntlayer("component-example");
-
-  return <span>{myTranslatedContent}</span>;
-};
-```
-
-```jsx fileName="./components/MyComponent/index.csx" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const ComponentExample = () => {
   const { myTranslatedContent } = useIntlayer("component-example");
 
   return <span>{myTranslatedContent}</span>;
@@ -220,48 +225,67 @@ This approach allows you to:
    - The AI agent won't have to scan your entire codebase to know where to implement your content
    - Translations can easily be done by autocompletion AI tools in your IDE (such as GitHub Copilot)
 
+6. **Optimize loading performance**
+   - If a component is lazy-loaded, its related content will be loaded at the same time
+
 ## Additional features of Intlayer
 
 | Feature                                                                                                                   | Description                                                                                                                                                                                                                                                                                                                                                                                  |
 | ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/frameworks.png?raw=true)                          | **Cross-Framework Support**<br><br>Intlayer is compatible with all major frameworks and libraries, including Next.js, React, Vite, Vue.js, Nuxt, Preact, Express, and more.                                                                                                                                                                                                                  |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/javascript_content_management.png?raw=true)       | **JavaScript-Powered Content Management**<br><br>Harness the flexibility of JavaScript to define and manage your content efficiently. <br><br> - [Content declaration](https://intlayer.org/doc/concept/content)                                                                                                                                                                             |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/per_locale_content_declaration_file.png?raw=true) | **Per-Locale Content Declaration File**<br><br>Accelerate your development by declaring your content once, prior to auto-generation.<br><br> - [Per-Locale Content Declaration File](https://intlayer.org/doc/concept/per-locale-file)                                                                                                                                                       |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/frameworks.png?raw=true)                          | **Cross-Frameworks Support**<br><br>Intlayer is compatible with all major frameworks and libraries, including Next.js, React, Vite, Vue.js, Nuxt, Preact, Express, and more.                                                                                                                                                                                                                 |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/javascript_content_management.jpg?raw=true)       | **JavaScript-Powered Content Management**<br><br>Harness the flexibility of JavaScript to define and manage your content efficiently. <br><br> - [Content declaration](https://intlayer.org/doc/concept/content)                                                                                                                                                                             |
+| <img src="https://github.com/aymericzip/intlayer/blob/main/docs/assets/compiler.jpg?raw=true" alt="Feature" width="700">  | **Compiler**<br><br>The Intlayer Compiler extract automatically the content from the components and generate the dictionary files.<br><br> - [Compiler](https://intlayer.org/doc/compiler)                                                                                                                                                                                                   |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/per_locale_content_declaration_file.png?raw=true) | **Per-Locale Content Declaration File**<br><br>Speed up your development by declaring your content once, before auto generation.<br><br> - [Per-Locale Content Declaration File](https://intlayer.org/doc/concept/per-locale-file)                                                                                                                                                           |
 | ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)                      | **Type-Safe Environment**<br><br>Leverage TypeScript to ensure your content definitions and code are error-free, while also benefiting from IDE autocompletion.<br><br> - [TypeScript configuration](https://intlayer.org/doc/environment/vite-and-react#configure-typescript)                                                                                                               |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/config_file.png?raw=true)                         | **Simplified Setup**<br><br>Get up and running quickly with minimal configuration. Adjust settings for internationalisation, routing, AI, build, and content handling with ease. <br><br> - [Explore Next.js integration](https://intlayer.org/doc/environment/nextjs)                                                                                                                       |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/config_file.png?raw=true)                         | **Simplified Setup**<br><br>Get up and running quickly with minimal configuration. Adjust settings for internationalization, routing, AI, build, and content handling with ease. <br><br> - [Explore Next.js integration](https://intlayer.org/doc/environment/nextjs)                                                                                                                       |
 | ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/content_retrieval.png?raw=true)                   | **Simplified Content Retrieval**<br><br>No need to call your `t` function for each piece of content. Retrieve all your content directly using a single hook.<br><br> - [React integration](https://intlayer.org/doc/environment/create-react-app)                                                                                                                                            |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/server_component.png?raw=true)                    | **Consistent Server Component Implementation**<br><br>Perfectly suited for Next.js server components, use the same implementation for both client and server components, no need to pass your `t` function across each server component. <br><br> - [Server Components](https://intlayer.org/doc/environment/nextjs#step-7-utilise-content-in-your-code)                                     |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/file_tree.png?raw=true)                           | **Organised Codebase**<br><br>Keep your codebase more organised: 1 component = 1 dictionary in the same folder. Translations close to their respective components enhance maintainability and clarity. <br><br> - [How Intlayer works](https://intlayer.org/doc/concept/how-works-intlayer)                                                                                                  |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/url_routing.png?raw=true)                         | **Enhanced Routing**<br><br>Full support for app routing, adapting seamlessly to complex application structures, for Next.js, React, Vite, Vue.js, etc.<br><br> - [Explore Next.js integration](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                 |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/markdown.png?raw=true)                            | **Markdown Support**<br><br>Import and interpret locale files and remote Markdown for multilingual content such as privacy policies, documentation, etc. Interpret and make Markdown metadata accessible in your code.<br><br> - [Content files](https://intlayer.org/doc/concept/content/file)                                                                                              |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.png?raw=true)                       | **Free Visual Editor & CMS**<br><br>A free visual editor and CMS are available for content writers, removing the need for a localisation platform. Keep your content synchronised using Git, or externalise it totally or partially with the CMS.<br><br> - [Intlayer Editor](https://intlayer.org/doc/concept/editor) <br> - [Intlayer CMS](https://intlayer.org/doc/concept/cms)           |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true)                              | **Tree-shakable Content**<br><br>Tree-shakable content, reducing the size of the final bundle. Loads content per component, excluding any unused content from your bundle. Supports lazy loading to enhance app loading efficiency. <br><br> - [App build optimisation](https://intlayer.org/doc/concept/how-works-intlayer#app-build-optimization)                                          |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/static_rendering.png?raw=true)                    | **Static Rendering**<br><br>Does not block Static Rendering. <br><br> - [Next.js integration](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                                                                                                                   |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/AI_translation.png?raw=true)                      | **AI-Powered Translation**<br><br>Transform your website into 231 languages with just one click using Intlayer's advanced AI-powered translation tools with your own AI provider/API key. <br><br> - [CI/CD integration](https://intlayer.org/doc/concept/ci-cd) <br> - [Intlayer CLI](https://intlayer.org/doc/concept/cli) <br> - [Auto fill](https://intlayer.org/doc/concept/auto-fill)  |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/mcp.png?raw=true)                                 | **MCP Server Integration**<br><br>Provides an MCP (Model Context Protocol) server for IDE automation, enabling seamless content management and i18n workflows directly within your development environment. <br><br> - [MCP Server](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/mcp_server.md)                                                                          |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extension.png?raw=true)                    | **VSCode Extension**<br><br>Intlayer provides a VSCode extension to help you manage your content and translations, build your dictionaries, translate your content, and more. <br><br> - [VSCode Extension](https://intlayer.org/doc/vs-code-extension)                                                                                                                                      |
-| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png?raw=true)                    | **Interoperability**<br><br>Enables interoperability with react-i18next, next-i18next, next-intl, and react-intl. <br><br> - [Intlayer and react-intl](https://intlayer.org/blog/intlayer-with-react-intl) <br> - [Intlayer and next-intl](https://intlayer.org/blog/intlayer-with-next-intl) <br> - [Intlayer and next-i18next](https://intlayer.org/blog/intlayer-with-next-i18next)       |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/server_component.png?raw=true)                    | **Consistent Server Component Implementation**<br><br>Perfectly suited for Next.js server components, use the same implementation for both client and server components, no need to pass your `t` function across each server component. <br><br> - [Server Components](https://intlayer.org/doc/environment/nextjs#step-7-utilize-content-in-your-code)                                     |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/file_tree.png?raw=true)                           | **Organized Codebase**<br><br>Keep your codebase more organized: 1 component = 1 dictionary in the same folder. Translations close to their respective components enhance maintainability and clarity. <br><br> - [How Intlayer works](https://intlayer.org/doc/concept/how-works-intlayer)                                                                                                  |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/url_routing.png?raw=true)                         | **Enhanced Routing**<br><br>Full support of app routing, adapting seamlessly to complex application structures, for Next.js, React, Vite, Vue.js, etc.<br><br> - [Explore Next.js integration](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                  |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/markdown.png?raw=true)                            | **Markdown Support**<br><br>Import and interpret locale files and remote Markdown for multilingual content like privacy policies, documentation, etc. Interpret and make Markdown metadata accessible in your code.<br><br> - [Content files](https://intlayer.org/doc/concept/content/file)                                                                                                 |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/visual_editor.png?raw=true)                       | **Free Visual Editor & CMS**<br><br>A free visual editor and CMS are available for content writers, removing the need for a localization platform. Keep your content synchronized using Git, or externalize it totally or partially with the CMS.<br><br> - [Intlayer Editor](https://intlayer.org/doc/concept/editor) <br> - [Intlayer CMS](https://intlayer.org/doc/concept/cms)           |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/bundle.png?raw=true)                              | **Tree-shakable Content**<br><br>Tree-shakable content, reducing the size of the final bundle. Loads content per component, excluding any unused content from your bundle. Supports lazy loading to enhance app loading efficiency. <br><br> - [App build optimization](https://intlayer.org/doc/concept/how-works-intlayer#app-build-optimization)                                          |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/static_rendering.png?raw=true)                    | **Static Rendering**<br><br>Doesn't block Static Rendering. <br><br> - [Next.js integration](https://intlayer.org/doc/environment/nextjs)                                                                                                                                                                                                                                                    |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/AI_translation.png?raw=true)                      | **AI-Powered Translation**<br><br>Transform your website into 231 languages with just one click using Intlayer's advanced AI-powered translation tools using your own AI provider/API key. <br><br> - [CI/CD integration](https://intlayer.org/doc/concept/ci-cd) <br> - [Intlayer CLI](https://intlayer.org/doc/concept/cli) <br> - [Auto fill](https://intlayer.org/doc/concept/auto-fill) |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/mcp.png?raw=true)                                 | **MCP Server Integration**<br><br>Provides an MCP (Model Context Protocol) server for IDE automation, enabling seamless content management and i18n workflows directly within your development environment. <br><br> - [MCP Server](https://github.com/aymericzip/intlayer/blob/main/docs/en/mcp_server.md)                                                                                  |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vscode_extension.png?raw=true)                    | **VSCode Extension**<br><br>Intlayer provides a VSCode extension to help you manage your content and translations, building your dictionaries, translating your content, and more. <br><br> - [VSCode Extension](https://intlayer.org/doc/vs-code-extension)                                                                                                                                 |
+| ![Feature](https://github.com/aymericzip/intlayer/blob/main/docs/assets/interoperability.png?raw=true)                    | **Interoperability**<br><br>Allows interoperability with react-i18next, next-i18next, next-intl, and react-intl. <br><br> - [Intlayer and react-intl](https://intlayer.org/blog/intlayer-with-react-intl) <br> - [Intlayer and next-intl](https://intlayer.org/blog/intlayer-with-next-intl) <br> - [Intlayer and next-i18next](https://intlayer.org/blog/intlayer-with-next-i18next)        |
+| Testing Missing Translations (CLI/CI)                                                                                     | ✅ CLI: npx intlayer content test (CI-friendly audit)                                                                                                                                                                                                                                                                                                                                        |
 
 ## Comparison of Intlayer with other solutions
 
-| Feature                                       | Intlayer                                                                                                                         | React-i18next / i18next                                            | React-Intl (FormatJS)                              | LinguiJS                                           | next-intl                                          | next-i18next                                       | vue-i18n                                                  |
-| --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ | -------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------- | --------------------------------------------------------- |
-| **Translations Near Components**              | Yes, content collocated with each component                                                                                      | No                                                                 | No                                                 | No                                                 | No                                                 | No                                                 | Yes - using `Single File Components` (SFCs)               |
-| **TypeScript Integration**                    | Advanced, auto-generated strict types                                                                                            | Basic; extra config for safety                                     | Good, but less strict                              | Typings, needs config                              | Good                                               | Basic                                              | Good (types available; key-safety needs setup)            |
-| **Missing Translation Detection**             | Build-time error/warning                                                                                                         | Mostly fallback strings at runtime                                 | Fallback strings                                   | Needs extra config                                 | Runtime fallback                                   | Runtime fallback                                   | Runtime fallback/warnings (configurable)                  |
-| **Rich Content (JSX/Markdown/components)**    | Direct support, even React nodes                                                                                                 | Limited / interpolation only                                       | ICU syntax, not real JSX                           | Limited                                            | Not designed for rich nodes                        | Limited                                            | Limited (components via `<i18n-t>`, Markdown via plugins) |
-| **AI-powered Translation**                    | Yes, supports multiple AI providers. Usable using your own API keys. Considers the context of your application and content scope | No                                                                 | No                                                 | No                                                 | No                                                 | No                                                 | No                                                        |
-| **Visual Editor**                             | Yes, local Visual Editor + optional CMS; can externalise codebase content; embeddable                                            | No / available via external localisation platforms                 | No / available via external localisation platforms | No / available via external localisation platforms | No / available via external localisation platforms | No / available via external localisation platforms | No / available via external localisation platforms        |
-| **Localised Routing**                         | Built-in, middleware support                                                                                                     | Plugins or manual config                                           | Not built-in                                       | Plugin/manual config                               | Built-in                                           | Built-in                                           | Manual via Vue Router (Nuxt i18n handles it)              |
-| **Dynamic Route Generation**                  | Yes                                                                                                                              | Plugin/ecosystem or manual setup                                   | Not provided                                       | Plugin/manual                                      | Yes                                                | Yes                                                | Not provided (Nuxt i18n provides)                         |
-| **Pluralisation**                             | Enumeration-based patterns; see docs                                                                                             | Configurable (plugins like i18next-icu)                            | Advanced (ICU)                                     | Advanced (ICU/messageformat)                       | Good                                               | Good                                               | Advanced (built-in plural rules)                          |
-| **Formatting (dates, numbers, currencies)**   | Optimised formatters (Intl under the hood)                                                                                       | Via plugins or custom Intl usage                                   | Advanced ICU formatters                            | ICU/CLI helpers                                    | Good (Intl helpers)                                | Good (Intl helpers)                                | Built-in date/number formatters (Intl)                    |
-| **Content Format**                            | .tsx, .ts, .js, .json, .md, .txt                                                                                                 | .json                                                              | .json, .js                                         | .po, .json                                         | .json, .js, .ts                                    | .json                                              | .json, .js                                                |
-| **ICU support**                               | WIP (native ICU)                                                                                                                 | Via plugin (i18next-icu)                                           | Yes                                                | Yes                                                | Yes                                                | Via plugin (i18next-icu)                           | Via custom formatter/compiler                             |
-| **SEO Helpers (hreflang, sitemap)**           | Built-in tools: helpers for sitemap, **robots.txt**, metadata                                                                    | Community plugins/manual                                           | Not core                                           | Not core                                           | Good                                               | Good                                               | Not core (Nuxt i18n provides helpers)                     |
-| **Ecosystem / Community**                     | Smaller but growing fast and reactive                                                                                            | Largest and most mature                                            | Large, enterprise                                  | Growing, smaller                                   | Mid-size, Next.js-focused                          | Mid-size, Next.js-focused                          | Large in Vue ecosystem                                    |
-| **Server-side Rendering & Server Components** | Yes, streamlined for SSR / React Server Components                                                                               | Supported, some configuration needed                               | Supported in Next.js                               | Supported                                          | Full support                                       | Full support                                       | SSR via Nuxt/Vue SSR (no RSC)                             |
-| **Tree-shaking (load only used content)**     | Yes, per-component at build time via Babel/SWC plugins                                                                           | Usually loads all (can be improved with namespaces/code-splitting) | Usually loads all                                  | Not default                                        | Partial                                            | Partial                                            | Partial (with code-splitting/manual setup)                |
-| **Lazy loading**                              | Yes, per-locale/per-component                                                                                                    | Yes (e.g., backends/namespaces on demand)                          | Yes (split locale bundles)                         | Yes (dynamic catalogue imports)                    | Yes (per-route/per-locale)                         | Yes (per-route/per-locale)                         | Yes (async locale messages)                               |
-| **Management of Large Projects**              | Encourages modularity, suited for design systems                                                                                 | Requires good file discipline                                      | Central catalogues can become large                | Can become complex                                 | Modular with setup                                 | Modular with setup                                 | Modular with Vue Router/Nuxt i18n setup                   |
+| Feature                                       | `intlayer`                                                                                                                          | `react-i18next`                                                                                          | `react-intl` (FormatJS)                                                                                                          | `lingui`                                              | `next-intl`                                                                                              | `next-i18next`                                                                                           | `vue-i18n`                                                   |
+| --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| **Translations Near Components**              | ✅ Yes, content collocated with each component                                                                                      | ❌ No                                                                                                    | ❌ No                                                                                                                            | ❌ No                                                 | ❌ No                                                                                                    | ❌ No                                                                                                    | ✅ Yes - using `Single File Components` (SFCs)               |
+| **TypeScript Integration**                    | ✅ Advanced, auto-generated strict types                                                                                            | ⚠️ Basic; extra config for safety                                                                        | ✅ Good, but less strict                                                                                                         | ⚠️ Typings, needs config                              | ✅ Good                                                                                                  | ⚠️ Basic                                                                                                 | ✅ Good (types available; key-safety needs setup)            |
+| **Missing Translation Detection**             | ✅ TypeScript error hightlight and build-time error/warning                                                                         | ⚠️ Mostly fallback strings at runtime                                                                    | ⚠️ Fallback strings                                                                                                              | ⚠️ Needs extra config                                 | ⚠️ Runtime fallback                                                                                      | ⚠️ Runtime fallback                                                                                      | ⚠️ Runtime fallback/warnings (configurable)                  |
+| **Rich Content (JSX/Markdown/components)**    | ✅ Direct support                                                                                                                   | ⚠️ Limited / interpolation only                                                                          | ⚠️ ICU syntax, not real JSX                                                                                                      | ⚠️ Limited                                            | ❌ Not designed for rich nodes                                                                           | ⚠️ Limited                                                                                               | ⚠️ Limited (components via `<i18n-t>`, Markdown via plugins) |
+| **AI-powered Translation**                    | ✅ Yes, supports multiple AI providers. Usable using your own API keys. Considers the context of your application and content scope | ❌ No                                                                                                    | ❌ No                                                                                                                            | ❌ No                                                 | ❌ No                                                                                                    | ❌ No                                                                                                    | ❌ No                                                        |
+| **Visual Editor**                             | ✅ Yes, local Visual Editor + optional CMS; can externalize codebase content; embeddable                                            | ❌ No / available via external localization platforms                                                    | ❌ No / available via external localization platforms                                                                            | ❌ No / available via external localization platforms | ❌ No / available via external localization platforms                                                    | ❌ No / available via external localization platforms                                                    | ❌ No / available via external localization platforms        |
+| **Localized Routing**                         | ✅ Yes, supports localized paths out of the box (works with Next.js & Vite)                                                         | ⚠️ No built-in, requires plugins (e.g. `next-i18next`) or custom router config                           | ❌ No, only message formatting, routing must be manual                                                                           | ⚠️ No built-in, requires plugins or manual config     | ✅ Built-in, App Router supports `[locale]` segment                                                      | ✅ Built-in                                                                                              | ✅ Built-in                                                  |
+| **Dynamic Route Generation**                  | ✅ Yes                                                                                                                              | ⚠️ Plugin/ecosystem or manual setup                                                                      | ❌ Not provided                                                                                                                  | ⚠️ Plugin/manual                                      | ✅ Yes                                                                                                   | ✅ Yes                                                                                                   | ❌ Not provided (Nuxt i18n provides)                         |
+| **Pluralization**                             | ✅ Enumeration-based patterns                                                                                                       | ✅ Configurable (plugins like i18next-icu)                                                               | ✅ (ICU)                                                                                                                         | ✅ (ICU/messageformat)                                | ✅ Good                                                                                                  | ✅ Good                                                                                                  | ✅ Built-in plural rules                                     |
+| **Formatting (dates, numbers, currencies)**   | ✅ Optimized formatters (Intl under the hood)                                                                                       | ⚠️ Via plugins or custom Intl usage                                                                      | ✅ ICU formatters                                                                                                                | ✅ ICU/CLI helpers                                    | ✅ Good (Intl helpers)                                                                                   | ✅ Good (Intl helpers)                                                                                   | ✅ Built-in date/number formatters (Intl)                    |
+| **Content Format**                            | ✅ .tsx, .ts, .js, .json, .md, .txt, (.yaml WIP)                                                                                    | ⚠️ .json                                                                                                 | ✅ .json, .js                                                                                                                    | ⚠️ .po, .json                                         | ✅ .json, .js, .ts                                                                                       | ⚠️ .json                                                                                                 | ✅ .json, .js                                                |
+| **ICU support**                               | ⚠️ WIP                                                                                                                              | ⚠️ Via plugin (i18next-icu)                                                                              | ✅ Yes                                                                                                                           | ✅ Yes                                                | ✅ Yes                                                                                                   | ⚠️ Via plugin (`i18next-icu`)                                                                            | ⚠️ Via custom formatter/compiler                             |
+| **SEO Helpers (hreflang, sitemap)**           | ✅ Built-in tools: helpers for sitemap, robots.txt, metadata                                                                        | ⚠️ Community plugins/manual                                                                              | ❌ Not core                                                                                                                      | ❌ Not core                                           | ✅ Good                                                                                                  | ✅ Good                                                                                                  | ❌ Not core (Nuxt i18n provides helpers)                     |
+| **Ecosystem / Community**                     | ⚠️ Smaller but growing fast and reactive                                                                                            | ✅ Largest and mature                                                                                    | ✅ Large                                                                                                                         | ⚠️ Smaller                                            | ✅ Mid-size, Next.js-focused                                                                             | ✅ Mid-size, Next.js-focused                                                                             | ✅ Large in Vue ecosystem                                    |
+| **Server-side Rendering & Server Components** | ✅ Yes, streamlined for SSR / React Server Components                                                                               | ⚠️ Supported at page level but need to pass t-functions on component tree for children server components | ⚠️ Supported at page level with additional set up, but need to pass t-functions on component tree for children server components | ✅ Supported, set up needed                           | ⚠️ Supported at page level but need to pass t-functions on component tree for children server components | ⚠️ Supported at page level but need to pass t-functions on component tree for children server components | ✅ SSR via Nuxt/Vue SSR (no RSC)                             |
+| **Tree-shaking (load only used content)**     | ✅ Yes, per-component at build time via Babel/SWC plugins                                                                           | ⚠️ Usually loads all (can be improved with namespaces/code-splitting)                                    | ⚠️ Usually loads all                                                                                                             | ❌ Not default                                        | ⚠️ Partial                                                                                               | ⚠️ Partial                                                                                               | ⚠️ Partial (with code-splitting/manual setup)                |
+| **Lazy loading**                              | ✅ Yes, per-locale / per-dictionary                                                                                                 | ✅ Yes (e.g., backends/namespaces on demand)                                                             | ✅ Yes (split locale bundles)                                                                                                    | ✅ Yes (dynamic catalog imports)                      | ✅ Yes (per-route/per-locale), need mamespace management                                                 | ✅ Yes (per-route/per-locale), need mamespace management                                                 | ✅ Yes (async locale messages)                               |
+| **Purge unused content**                      | ✅ Yes, per-dictionary at build time                                                                                                | ❌ No, only via manual namespace segmentation                                                            | ❌ No, all declared messages are bundled                                                                                         | ✅ Yes, unused keys detected & dropped at build       | ❌ No, can be managed manually with namespace management                                                 | ❌ No, can be managed manually with namespace management                                                 | ❌ No, only possible via manual lazy-loading                 |
+| **Management of Large Projects**              | ✅ Encourages modular, suited for design-system                                                                                     | ⚠️ Needs good file discipline                                                                            | ⚠️ Central catalogs can get large                                                                                                | ⚠️ May get complex                                    | ✅ Modular with setup                                                                                    | ✅ Modular with setup                                                                                    | ✅ Modular with Vue Router/Nuxt i18n setup                   |
+
+## GitHub STARs
+
+GitHub stars are a strong indicator of a project's popularity, community trust, and long-term relevance. While not a direct measure of technical quality, they reflect how many developers find the project useful, follow its progress, and are likely to adopt it. For estimating the value of a project, stars help compare traction across alternatives and provide insights into ecosystem growth.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=aymericzip/intlayer%2Cformatjs/formatjs%2Ci18next/react-i18next%2Ci18next/i18next%2Ci18next/next-i18next%2Clingui/js-lingui%2Camannn/next-intl%2Cintlify/vue-i18n%2Ccodingcommons/typesafe-i18n%2Copral/paraglide-js&type=date&legend=top-left)](https://www.star-history.com/#aymericzip/intlayer&formatjs/formatjs&i18next/react-i18next&i18next/i18next&i18next/next-i18next&lingui/js-lingui&amannn/next-intl&intlify/vue-i18n&codingcommons/typesafe-i18n&opral/paraglide-js)
+
+---
+
+## Interoperability
+
+`intlayer` can also help to manage your `react-intl`, `react-i18next`, `next-intl`, `next-i18next`, and `vue-i18n` namespaces.
+
+Using `intlayer`, you can declare your content in the format of your favorite i18n library, and intlayer will generate your namespaces in the location of your choice (example: `/messages/{{locale}}/{{namespace}}.json`).

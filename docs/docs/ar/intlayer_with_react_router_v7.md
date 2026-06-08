@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2025-10-03
-title: كيفية ترجمة تطبيق React Router v7 – دليل i18n 2025
-description: تعلّم كيفية إضافة التدويل (i18n) إلى تطبيق React Router v7 الخاص بك باستخدام Intlayer. اتبع هذا الدليل الشامل لجعل تطبيقك متعدد اللغات مع توجيه يدعم اللغة المحلية.
+updatedAt: 2026-05-31
+title: "تدويل React Router v7 - الدليل الكامل لترجمة تطبيقك"
+description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق React Router v7 متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
   - التدويل
   - التوثيق
@@ -18,14 +18,24 @@ slugs:
   - vite-and-react
   - react-router-v7
 applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-template
+applicationShowcase: https://intlayer-react-router-v7.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "تحديث استخدام واجهة برمجة تطبيقات useIntlayer في Solid للوصول المباشر إلى الخصائص"
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: "إضافة أمر init"
+  - version: 7.5.6
+    date: 2025-12-27
+    changes: "تحديث التخطيط ومعالجة 404"
   - version: 6.1.5
     date: 2025-10-03
-    changes: تحديث الوثيقة
+    changes: "تحديث الوثيقة"
   - version: 5.8.2
     date: 2025-09-04
-    changes: أضيف دعم React Router v7
+    changes: "أضيف دعم React Router v7"
 ---
 
 # ترجم React Router v7 باستخدام Intlayer | التدويل (i18n)
@@ -36,39 +46,75 @@ history:
 
 <TOC/>
 
-## ما هو Intlayer؟
+## لماذا Intlayer على البدائل؟
 
-**Intlayer** هو مكتبة تدويل (i18n) مبتكرة ومفتوحة المصدر مصممة لتبسيط دعم تعدد اللغات في تطبيقات الويب الحديثة.
+بالمقارنة مع الحلول الرئيسية مثل `react-i18next` أو `i18next`، يعد Intlayer حلاً يأتي مزودًا بتحسينات متكاملة مثل:
 
-مع Intlayer، يمكنك:
+** تغطية كاملة لجهاز التوجيه React **
 
-- **إدارة الترجمات بسهولة** باستخدام قواميس تعبيرية على مستوى المكونات.
-- **توطين البيانات الوصفية، والمسارات، والمحتوى بشكل ديناميكي**.
-- **ضمان دعم TypeScript** مع أنواع مولدة تلقائيًا، مما يحسن الإكمال التلقائي واكتشاف الأخطاء.
-- **الاستفادة من الميزات المتقدمة**، مثل الكشف الديناميكي عن اللغة المحلية والتبديل بينها.
-- **تمكين التوجيه المدرك للغة المحلية** باستخدام نظام التوجيه القائم على التكوين في React Router v7.
+تم تحسين Intlayer للعمل بشكل مثالي مع React Router من خلال تقديم **توجيه مدرك للإعدادات المحلية**، **برامج وسيطة للكشف عن الإعدادات المحلية**، وجميع الميزات اللازمة لتوسيع نطاق التدويل (i18n).
+
+**حجم البندل**
+
+بدلاً من تحميل ملفات JSON ضخمة إلى صفحاتك، قم بتحميل المحتوى الضروري فقط. يساعد Intlayer **في تقليل أحجام البندل وصفحاتك بنسبة تصل إلى 50%**.
+
+** الصيانة **
+
+يؤدي تحديد نطاق محتوى تطبيقك ** إلى تسهيل الصيانة ** للتطبيقات واسعة النطاق. يمكنك تكرار أو حذف مجلد ميزات واحد دون العبء العقلي لمراجعة قاعدة بيانات المحتوى بالكامل. بالإضافة إلى ذلك، تتم كتابة Intlayer **بالكامل** لضمان دقة المحتوى الخاص بك.
+
+** وكيل الذكاء الاصطناعي **
+
+يؤدي تحديد موقع المحتوى المشترك ** إلى تقليل السياق المطلوب ** بواسطة نماذج اللغات الكبيرة (LLMs). يأتي Intlayer أيضًا مزودًا بمجموعة من الأدوات، مثل **CLI** لاختبار الترجمات المفقودة،**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**، **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** و**[مهارات الوكيل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة للذكاء الاصطناعي وكلاء.
+
+**الأتمتة**
+
+استخدم الأتمتة للترجمة في مسار CI/CD الخاص بك باستخدام LLM من اختيارك على حساب مزود الذكاء الاصطناعي الخاص بك. يقدم Intlayer أيضًا **مترجمًا** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) للمساعدة في **الترجمة في الخلفية**.
+
+**أداء**
+
+يمكن أن يؤدي ربط ملفات JSON الضخمة بالمكونات إلى حدوث مشكلات في الأداء والتفاعل. يعمل Intlayer على تحسين تحميل المحتوى الخاص بك في وقت الإنشاء.
+
+**التحجيم مع عدم وجود مطور**
+
+أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا] مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** و**[كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** لمساعدتك في إدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين ومؤلفي النصوص وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بعد.
 
 ---
 
 ## دليل خطوة بخطوة لإعداد Intlayer في تطبيق React Router v7
 
-### الخطوة 1: تثبيت التبعيات
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 قم بتثبيت الحزم اللازمة باستخدام مدير الحزم المفضل لديك:
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
 npm install vite-intlayer --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer
 pnpm add vite-intlayer --save-dev
+pnpm intlayer init
+```
+
+```bash packageManager="yarn"
+yarn add intlayer react-intlayer
+yarn add vite-intlayer --save-dev
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer
+bun add vite-intlayer --dev
+bun x intlayer init
 ```
 
 - **intlayer**
 
-الحزمة الأساسية التي توفر أدوات التدويل لإدارة التكوين، والترجمة، و[إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md)، والترجمة البرمجية، و[أوامر CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md).
+الحزمة الأساسية التي توفر أدوات التدويل لإدارة التكوين، والترجمة، و[إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md)، والترجمة البرمجية، و[أوامر CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md).
 
 - **react-intlayer**
   الحزمة التي تدمج Intlayer مع تطبيق React. توفر موفري السياق وخطافات للتدويل في React.
@@ -76,34 +122,51 @@ pnpm add vite-intlayer --save-dev
 - **vite-intlayer**
   تتضمن إضافة Vite لدمج Intlayer مع [مجمّع Vite](https://vite.dev/guide/why.html#why-bundle-for-production)، بالإضافة إلى وسيط للكشف عن اللغة المفضلة للمستخدم، وإدارة الكوكيز، والتعامل مع إعادة توجيه URL.
 
-### الخطوة 2: تكوين مشروعك
+</Step>
+
+<Step number={2} title="تكوين مشروعك">
+
+</Step>
+
+</Steps>
 
 ## دليل خطوة بخطوة لإعداد Intlayer في تطبيق React Router v7 مع مسارات قائمة على نظام الملفات
 
-<Tab defaultTab="video">
-  <TabItem label="Video" value="video">
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
   
-<iframe title="How to translate your React Router v7 app using Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="How to translate an React Router v7 app using Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-  </TabItem>
-  <TabItem label="Code" value="code">
+  </Tab>
+  <Tab label="Code" value="code">
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-react-router-v7-template?embed=1&ctl=1&file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-react-router-v7-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+  <Tab label="تجربة" value="demo">
+
+<iframe
+  src="https://intlayer-react-router-v7.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="تجربة - intlayer-react-router-v7-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
 
 See [Application Template](https://github.com/aymericzip/intlayer-react-router-v7-template) on GitHub.
 
 قم بإنشاء ملف تكوين لتكوين لغات تطبيقك:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig, Locales } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -116,37 +179,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    defaultLocale: Locales.ENGLISH, // اللغة الافتراضية
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH], // اللغات المدعومة
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    defaultLocale: Locales.ENGLISH, // اللغة الافتراضية
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH], // اللغات المدعومة
-  },
-};
-
-module.exports = config;
-```
-
 > من خلال ملف التكوين هذا، يمكنك إعداد عناوين URL محلية، إعادة توجيه الوسيط، أسماء ملفات تعريف الارتباط، موقع وامتداد إعلانات المحتوى الخاصة بك، تعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [توثيق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
-### الخطوة 3: دمج Intlayer في تكوين Vite الخاص بك
+<Steps>
+
+<Step number={3} title="دمج Intlayer في تكوين Vite الخاص بك">
 
 أضف مكون intlayer الإضافي إلى تكوينك:
 
@@ -154,55 +191,88 @@ module.exports = config;
 import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
 import { intlayer } from "vite-intlayer";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  plugins: [reactRouter(), tsconfigPaths(), intlayer()],
+  plugins: [reactRouter(), intlayer()],
 });
 ```
 
 > يتم استخدام مكون Vite الإضافي `intlayer()` لدمج Intlayer مع Vite. يضمن بناء ملفات إعلان المحتوى ويراقبها في وضع التطوير. كما يحدد متغيرات بيئة Intlayer داخل تطبيق Vite. بالإضافة إلى ذلك، يوفر أسماء مستعارة لتحسين الأداء.
 
-### الخطوة 4: تكوين مسارات React Router v7
+</Step>
+
+<Step number={4} title="تكوين مسارات React Router v7">
 
 قم بإعداد تكوين التوجيه الخاص بك مع مسارات مدركة للغة:
 
 ```typescript fileName="app/routes.ts"
-typescript fileName="app/routes.ts"
 import { layout, route, type RouteConfig } from "@react-router/dev/routes";
 
 export default [
-  layout("routes/layout.tsx", [
-    route("/:lang?", "routes/page.tsx"), // الصفحة الرئيسية المحلية
-    route("/:lang?/about", "routes/about/page.tsx"), // صفحة حول المحلية
-  ]),
+  route("/:lang?", "routes/page.tsx"), // الصفحة الرئيسية المحلية
+  route("/:lang?/about", "routes/about/page.tsx"), // صفحة حول المحلية
 ] satisfies RouteConfig;
 ```
 
-### الخطوة 5: إنشاء مكونات التخطيط
+</Step>
+
+<Step number={5} title="إنشاء مكونات التخطيط">
 
 قم بإعداد التخطيط الجذري والتخطيطات الخاصة باللغة:
 
 #### التخطيط الجذري
 
-```tsx fileName="app/routes/layout.tsx"
+```tsx fileName="app/root.tsx"
+import { getLocaleFromPath } from "intlayer";
 import { IntlayerProvider } from "react-intlayer";
-import { Outlet } from "react-router";
+import {
+  data,
+  Meta,
+  Scripts,
+  ScrollRestoration,
+  useLoaderData,
+} from "react-router";
+import type { Route } from "./+types/root";
 
-import type { Route } from "./+types/layout";
+// ... Unchanged App, links and ErrorBoundary code
 
-export default function RootLayout({ params }: Route.ComponentProps) {
-  const { locale } = params;
+export async function loader({ request }: Route.LoaderArgs) {
+  const locale = getLocaleFromPath(request.url);
+
+  if (!locale) {
+    throw data("Language not supported", { status: 404 });
+  }
+
+  return { locale };
+}
+
+export function Layout({
+  children,
+}: { children: React.ReactNode } & Route.ComponentProps) {
+  const data = useLoaderData<typeof loader>();
+  const { locale } = data ?? {};
 
   return (
-    <IntlayerProvider locale={locale}>
-      <Outlet />
-    </IntlayerProvider>
+    <html lang={locale}>
+      <head>
+        <meta charSet="utf-8" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+    </html>
   );
 }
 ```
 
-### الخطوة 6: إعلان المحتوى الخاص بك
+</Step>
+
+<Step number={6} title="إعلان المحتوى الخاص بك">
 
 قم بإنشاء وإدارة إعلانات المحتوى الخاصة بك لتخزين الترجمات:
 
@@ -238,11 +308,13 @@ const pageContent = {
 export default pageContent;
 ```
 
-> يمكن تعريف إعلانات المحتوى الخاصة بك في أي مكان في تطبيقك بمجرد تضمينها في دليل `contentDir` (افتراضيًا، `./app`). ويجب أن تتطابق مع امتداد ملف إعلان المحتوى (افتراضيًا، `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> يمكن تعريف إعلانات المحتوى الخاصة بك في أي مكان في تطبيقك بمجرد تضمينها في دليل `contentDir` (افتراضيًا، `./app`). ويجب أن تتطابق مع امتداد ملف إعلان المحتوى (افتراضيًا، `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
-> لمزيد من التفاصيل، راجع [توثيق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md).
+> لمزيد من التفاصيل، راجع [توثيق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
-### الخطوة 7: إنشاء مكونات تدرك اللغة
+</Step>
+
+<Step number={7} title="إنشاء مكونات تدرك اللغة">
 
 قم بإنشاء مكون `LocalizedLink` للتنقل المدرك للغة:
 
@@ -305,15 +377,42 @@ export const useLocalizedNavigate = () => {
 };
 ```
 
-### الخطوة 8: استخدام Intlayer في صفحاتك
+</Step>
+
+<Step number={8} title="استخدام Intlayer في صفحاتك">
 
 قم بالوصول إلى قواميس المحتوى الخاصة بك في جميع أنحاء تطبيقك:
 
 #### الصفحة الرئيسية المترجمة
 
-```tsx fileName="app/routes/[lang]/page.tsx"
+```tsx fileName="app/routes/page.tsx"
+import { getIntlayer, validatePrefix } from "intlayer";
 import { useIntlayer } from "react-intlayer";
-import { LocalizedLink } from "~/components/localized-link";
+import { data } from "react-router";
+
+import { LocaleSwitcher } from "~/components/locale-switcher";
+
+import { Navbar } from "~/components/navbar";
+import type { Route } from "./+types/page";
+
+export const loader = ({ params }: Route.LoaderArgs) => {
+  const { locale } = params;
+
+  const { isValid } = validatePrefix(locale);
+
+  if (!isValid) {
+    throw data("Locale not supported", { status: 404 });
+  }
+};
+
+export const meta: Route.MetaFunction = ({ params }) => {
+  const content = getIntlayer("page", params.locale);
+
+  return [
+    { title: content.title },
+    { content: content.description, name: "description" },
+  ];
+};
 
 export default function Page() {
   const { title, description, aboutLink } = useIntlayer("page");
@@ -332,7 +431,11 @@ export default function Page() {
 
 > لمعرفة المزيد عن الخطاف `useIntlayer`، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useIntlayer.md).
 
-### الخطوة 9: إنشاء مكون لتبديل اللغة
+> إذا كان تطبيقك موجودًا بالفعل، يمكنك استخدام [مترجم Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md)، بالإضافة إلى [أمر الاستخراج](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md)، لتحويل آلاف المكونات في ثانية واحدة.
+
+</Step>
+
+<Step number={9} title="إنشاء مكون لتبديل اللغة">
 
 قم بإنشاء مكون يسمح للمستخدمين بتغيير اللغات:
 
@@ -393,7 +496,9 @@ export const LocaleSwitcher: FC = () => {
 
 > لمعرفة المزيد عن الخطاف `useLocale`، راجع [التوثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useLocale.md).
 
-### الخطوة 10: إضافة إدارة سمات HTML (اختياري)
+</Step>
+
+<Step number={10} title="إضافة إدارة سمات HTML">
 
 أنشئ خطافًا لإدارة سمات lang و dir في HTML:
 
@@ -431,7 +536,178 @@ export default function RootLayout() {
 }
 ```
 
-### الخطوة 11: إضافة الوسيط (اختياري)
+</Step>
+
+<Step number={1} title="استخراج محتوى مكوناتك" isOptional={true}>
+
+إذا كان لديك قاعدة بيانات كود موجودة، فقد يكون تحويل آلاف الملفات مستهلكًا للوقت.
+
+لتسهيل هذه العملية، يقترح Intlayer [مترجمًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) / [مستخرجًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md) لتحويل مكوناتك واستخراج المحتوى.
+
+لإعداده، يمكنك إضافة قسم `compiler` في ملف `intlayer.config.ts` الخاص بك:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... بقية التكوين الخاص بك
+  compiler: {
+    /**
+     * يشير إلى ما إذا كان يجب تمكين المترجم.
+     */
+    enabled: true,
+
+    /**
+     * يحدد مسار ملفات المخرجات
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * يشير إلى ما إذا كان يجب حفظ المكونات بعد تحويلها. بهذه الطريقة، يمكن تشغيل المترجم مرة واحدة فقط لتحويل التطبيق، ثم يمكن إزالته.
+     */
+    saveComponents: false,
+
+    /**
+     * بادئة مفتاح القاموس
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='أمر الاستخراج'>
+
+قم بتشغيل المستخرج لتحويل مكوناتك واستخراج المحتوى
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='مترجم Babel'>
+
+قم بتحديث `vite.config.ts` لتضمين مكون `intlayerCompiler` الإضافي:
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // يضيف المكون الإضافي للمترجم
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # أو npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # Or pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Or yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
+
+---
+
+</Step>
+
+</Steps>
+
+## Configure TypeScript
+
+Intlayer uses module augmentation to get benefits of TypeScript and make your codebase stronger.
+
+Ensure your TypeScript configuration includes the autogenerated types:
+
+```json5 fileName="tsconfig.json"
+{
+  // ... your existing configurations
+  include: [
+    // ... your existing includes
+    ".intlayer/**/*.ts", // Include the auto-generated types
+  ],
+}
+```
+
+---
+
+## Git Configuration
+
+It is recommended to ignore the files generated by Intlayer. This allows you to avoid committing them to your Git repository.
+
+To do this, you can add the following instructions to your `.gitignore` file:
+
+```plaintext fileName=".gitignore"
+# Ignore the files generated by Intlayer
+.intlayer
+```
+
+---
+
+## VS Code Extension
+
+To improve your development experience with Intlayer, you can install the official **Intlayer VS Code Extension**.
+
+[Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+This extension provides:
+
+- **Autocompletion** for translation keys.
+- **Real-time error detection** for missing translations.
+- **Inline previews** of translated content.
+- **Quick actions** to easily create and update translations.
+
+For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://intlayer.org/doc/vs-code-extension).
+
+---
+
+## Go Further
+
+To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+
+---
+
+## Documentation References
+
+- [Intlayer Documentation](https://intlayer.org)
+- [React Router v7 Documentation](https://reactrouter.com/)
+- [useIntlayer hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md)
+- [useLocale hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md)
+- [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
+- [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
+
+This comprehensive guide provides everything you need to integrate Intlayer with React Router v7 for a fully internationalized application with locale-aware routing and TypeScript support.
+
+<Steps>
+
+<Step number={11} title="إضافة الوسيط">
 
 يمكنك أيضًا استخدام `intlayerProxy` لإضافة التوجيه من جانب الخادم إلى تطبيقك. سيقوم هذا المكون الإضافي بالكشف تلقائيًا عن اللغة الحالية بناءً على عنوان URL وتعيين ملف تعريف الارتباط المناسب للغة. إذا لم يتم تحديد لغة، فسيحدد المكون الإضافي اللغة الأنسب بناءً على تفضيلات لغة متصفح المستخدم. إذا لم يتم الكشف عن أي لغة، فسيتم إعادة التوجيه إلى اللغة الافتراضية.
 
@@ -441,14 +717,22 @@ export default function RootLayout() {
 import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
 import { intlayer, intlayerProxy } from "vite-intlayer";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  plugins: [reactRouter(), tsconfigPaths(), intlayer(), intlayerProxy()],
+  plugins: [
+    intlayerProxy(), // should be placed first
+    reactRouter(),
+
+    intlayer(),
+  ],
 });
 ```
 
 ---
+
+</Step>
+
+</Steps>
 
 ## تكوين TypeScript
 
@@ -510,7 +794,7 @@ export default defineConfig({
 - [توثيق React Router v7](https://reactrouter.com/)
 - [هوك useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useIntlayer.md)
 - [هوك useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useLocale.md)
-- [إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md)
+- [إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md)
 - [التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md)
 
 يوفر هذا الدليل الشامل كل ما تحتاجه لدمج Intlayer مع React Router v7 لتطبيق دولي بالكامل مع توجيه مدرك للغة ودعم TypeScript.

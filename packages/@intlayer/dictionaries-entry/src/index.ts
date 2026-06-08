@@ -6,25 +6,23 @@
 
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { clearModuleCache, configESMxCJSRequire } from '@intlayer/config';
-import config from '@intlayer/config/built';
-import type { DictionaryRegistry, IntlayerConfig } from '@intlayer/types';
+import { build, system } from '@intlayer/config/built';
+import { configESMxCJSRequire } from '@intlayer/config/utils';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { DictionaryRegistry } from '@intlayer/types/module_augmentation';
 
 type GetDictionaries = (configuration?: IntlayerConfig) => DictionaryRegistry;
 
 export const getDictionaries: GetDictionaries = (
-  configuration: IntlayerConfig = config
+  configuration: Pick<IntlayerConfig, 'system' | 'build'> = { system, build }
 ) => {
-  const { content, build } = configuration;
+  const { system, build } = configuration;
 
   // Always use cjs for dictionaries entry as it uses require
-  const dictionariesPath = join(content.mainDir, `dictionaries.cjs`);
+  const dictionariesPath = join(system.mainDir, `dictionaries.cjs`);
 
   let dictionaries = {};
   if (existsSync(dictionariesPath)) {
-    // Clear cache for dictionaries.cjs and all its dependencies (JSON files)
-    clearModuleCache(dictionariesPath);
-
     dictionaries = (build.require ?? configESMxCJSRequire)(dictionariesPath);
   }
 

@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inicjalizacja historii
+    changes: "Inicjalizacja historii"
 ---
 
 # Dokumentacja: funkcja `getLocaleLang` w `intlayer`
@@ -45,26 +45,8 @@ Funkcja `getLocaleLang` wyodrębnia kod języka z ciągu lokalizacji (locale). O
 
 ### Wyodrębnianie kodów języków:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getLocaleLang, Locales } from "intlayer";
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Wynik: "en"
-getLocaleLang(Locales.ENGLISH); // Wynik: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // Wynik: "fr"
-getLocaleLang(Locales.FRENCH); // Wynik: "fr"
-```
-
-```javascript codeFormat="esm"
-import { getLocaleLang } from "intlayer";
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Wynik: "en"
-getLocaleLang(Locales.ENGLISH); // Wynik: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // Wynik: "fr"
-getLocaleLang(Locales.FRENCH); // Wynik: "fr"
-```
-
-```javascript codeFormat="commonjs"
-const { getLocaleLang } = require("intlayer");
 
 getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Wynik: "en"
 getLocaleLang(Locales.ENGLISH); // Wynik: "en"

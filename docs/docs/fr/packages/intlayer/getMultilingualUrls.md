@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historique initial
+    changes: "Historique initial"
 ---
 
 # Documentation : Fonction `getMultilingualUrls` dans `intlayer`
@@ -35,18 +35,15 @@ La fonction `getMultilingualUrls` génère une correspondance d'URLs multilingue
 ## Paramètres
 
 - `url: string`
-
   - **Description** : La chaîne URL originale à préfixer avec les locales.
   - **Type** : `string`
 
 - `locales: Locales[]`
-
   - **Description** : Tableau optionnel des locales supportées. Par défaut, les locales configurées dans le projet.
   - **Type** : `Locales[]`
   - **Défaut** : `localesDefault`
 
 - `defaultLocale: Locales`
-
   - **Description** : La locale par défaut pour l'application. Par défaut, la locale par défaut configurée dans le projet.
   - **Type** : `Locales`
   - **Défaut** : `defaultLocaleDefault`
@@ -67,38 +64,8 @@ La fonction `getMultilingualUrls` génère une correspondance d'URLs multilingue
 
 ### URLs relatives
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls(
-  "/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-// Résultat : {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="esm"
-import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls(
-  "/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-// Résultat : {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="commonjs"
-const { getMultilingualUrls, Locales } = require("intlayer");
 
 getMultilingualUrls(
   "/dashboard",
@@ -132,11 +99,9 @@ getMultilingualUrls(
 ## Cas particuliers
 
 - **Pas de segment de locale :**
-
   - La fonction supprime tout segment de langue existant dans l'URL avant de générer les correspondances multilingues.
 
 - **Langue par défaut :**
-
   - Lorsque `prefixDefault` est `false`, la fonction ne préfixe pas l'URL pour la langue par défaut.
 
 - **Langues non prises en charge :**
@@ -148,7 +113,7 @@ getMultilingualUrls(
 
 Dans une application multilingue, configurer les paramètres d'internationalisation avec `locales` et `defaultLocale` est essentiel pour garantir l'affichage de la langue correcte. Voici un exemple de la façon dont `getMultilingualUrls` peut être utilisé dans la configuration d'une application :
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // Configuration des langues supportées et de la langue par défaut
@@ -160,34 +125,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 La configuration ci-dessus garantit que l'application reconnaît `ENGLISH`, `FRENCH` et `SPANISH` comme langues prises en charge et utilise `ENGLISH` comme langue de secours.

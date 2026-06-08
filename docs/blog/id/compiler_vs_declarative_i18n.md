@@ -20,7 +20,7 @@ slugs:
 
 # Argumen Mendukung dan Menentang i18n Berbasis Compiler
 
-Jika Anda telah membangun aplikasi web selama lebih dari satu dekade, Anda tahu bahwa Internasionalisasi (i18n) selalu menjadi titik gesekan. Ini sering menjadi tugas yang tidak ingin dilakukan siapa pun—mengekstrak string, mengelola file JSON, dan khawatir tentang aturan pluralisasi.
+Jika Anda telah membangun aplikasi web selama lebih dari satu dekade, Anda tahu bahwa Internasionalisasi (i18n) selalu menjadi titik gesekan. Ini sering menjadi tugas yang tidak ingin dilakukan siapa pun, mengekstrak string, mengelola file JSON, dan khawatir tentang aturan pluralisasi.
 
 Baru-baru ini, gelombang baru alat i18n **"Berbasis Compiler"** telah muncul, menjanjikan untuk menghilangkan rasa sakit ini. Janjinya menggoda: **Cukup tulis teks di komponen Anda, dan biarkan alat build yang mengurus sisanya.** Tidak perlu kunci, tidak perlu impor, hanya keajaiban.
 
@@ -205,7 +205,7 @@ Jadi, mana yang harus Anda pilih?
 Pendekatan berbasis compiler adalah pilihan yang valid. Ini memungkinkan Anda bergerak sangat cepat. Anda tidak perlu khawatir tentang struktur file atau kunci. Anda hanya membangun. Hutang teknis adalah masalah untuk "Anda di Masa Depan."
 
 **Jika Anda seorang Junior Developer, atau tidak peduli dengan optimasi:**  
-Jika Anda menginginkan manajemen manual yang paling sedikit, pendekatan berbasis compiler kemungkinan adalah yang terbaik. Anda tidak perlu menangani kunci atau file terjemahan sendiri—cukup tulis teks, dan compiler akan mengotomatisasi sisanya. Ini mengurangi usaha setup dan kesalahan i18n umum yang terkait dengan langkah manual.
+Jika Anda menginginkan manajemen manual yang paling sedikit, pendekatan berbasis compiler kemungkinan adalah yang terbaik. Anda tidak perlu menangani kunci atau file terjemahan sendiri, cukup tulis teks, dan compiler akan mengotomatisasi sisanya. Ini mengurangi usaha setup dan kesalahan i18n umum yang terkait dengan langkah manual.
 
 **Jika Anda sedang menginternasionalkan proyek yang sudah ada yang sudah mencakup ribuan komponen untuk direfaktor:**  
 Pendekatan berbasis compiler bisa menjadi pilihan pragmatis di sini. Tahap ekstraksi awal dapat menghemat minggu atau bahkan bulan kerja manual. Namun, pertimbangkan untuk menggunakan alat seperti perintah `transform` dari Intlayer, yang dapat mengekstrak string dan mengubahnya menjadi deklarasi konten deklaratif yang eksplisit. Ini memberi Anda kecepatan otomatisasi sambil mempertahankan keamanan dan portabilitas pendekatan deklaratif. Anda mendapatkan yang terbaik dari kedua dunia: migrasi awal yang cepat tanpa utang arsitektur jangka panjang.

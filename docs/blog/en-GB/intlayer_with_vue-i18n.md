@@ -27,7 +27,7 @@ history:
 
 # Vue.js Internationalisation (i18n) with vue-i18n and Intlayer
 
-<iframe title="How to automate your vue-i18n JSON translations using Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="How to automate your vue-i18n JSON translations using Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## Table of Contents
 
@@ -52,7 +52,7 @@ Intlayer offers a rich set of **advanced features** that go beyond traditional i
 
 However, **vue-i18n** remains an excellent and widely adopted i18n solution thanks to its **mature ecosystem**, **broad community support**, and **extensive plugin compatibility**.
 
-By combining **Intlayer** with **vue-i18n**, you get the best of both worlds — vue-i18n’s stability and ecosystem maturity, with Intlayer’s modern content management, automation, and developer experience improvements.
+By combining **Intlayer** with **vue-i18n**, you get the best of both worlds, vue-i18n’s stability and ecosystem maturity, with Intlayer’s modern content management, automation, and developer experience improvements.
 
 This guide explains how to leverage Intlayer as an **adapter for vue-i18n**, allowing you to:
 
@@ -70,19 +70,23 @@ This guide explains how to leverage Intlayer as an **adapter for vue-i18n**, all
 Install the necessary packages using your preferred package manager:
 
 ```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin
+npm install intlayer @intlayer/sync-json-plugin --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin
+pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin
+yarn add intlayer @intlayer/sync-json-plugin --dev
+yarn intlayer init
 ```
 
 ```bash packageManager="bun"
-bun add intlayer @intlayer/sync-json-plugin
+bun add intlayer @intlayer/sync-json-plugin --dev
+bun x intlayer init
 ```
 
 **Package explanations:**
@@ -126,52 +130,6 @@ If you want to make that JSON coexist with Intlayer content declaration files (`
 If changes are made using the CLI to translate the JSON, or using the CMS, Intlayer will update the JSON file with the new translations.
 
 To see more details about the `syncJSON` plugin, please refer to the [syncJSON plugin documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/plugins/sync-json.md).
-
----
-
-### (Optional) Step 3: Implement per-component JSON translations
-
-By default, Intlayer will load, merge and synchronise both JSON and content declaration files. See [the content declaration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md) for more details. But if you prefer, using an Intlayer plugin, you can also implement per-component management of JSON localised anywhere in your codebase.
-
-For that, you can use the `loadJSON` plugin.
-
-```ts fileName="intlayer.config.ts"
-import { Locales, type IntlayerConfig } from "intlayer";
-import { loadJSON, syncJSON } from "@intlayer/sync-json-plugin";
-
-const config: IntlayerConfig = {
-  internationalisation: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-
-  // Keep your current JSON files in sync with Intlayer dictionaries
-  plugins: [
-    /**
-     * Will load all the JSON files in the src that match the pattern {key}.i18n json
-     */
-    loadJSON({
-      source: ({ key }) => `./src/**/${key}.i18n.json`,
-      locale: Locales.ENGLISH,
-      priority: 1, // Ensures these JSON files take precedence over files at `./locales/en/${key}.json`
-    }),
-    /**
-     * Will load, and write the output and translations back to the JSON files in the locales directory
-     */
-    syncJSON({
-      format: "vue-i18n",
-      source: ({ key, locale }) => `./src/locales/${locale}/${key}.json`,
-      priority: 0,
-    }),
-  ],
-};
-
-export default config;
-```
-
-This will load all the JSON files in the `src` directory that match the pattern `{key}.i18n.json` and load them as Intlayer dictionaries.
-
----
 
 ## Git Configuration
 

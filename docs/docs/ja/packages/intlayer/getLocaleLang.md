@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴初期化
+    changes: "履歴初期化"
 ---
 
 # ドキュメント: `intlayer` の `getLocaleLang` 関数
@@ -33,7 +33,6 @@ history:
 ## パラメーター
 
 - `locale?: Locales`
-
   - **説明**: 言語コードを抽出するためのロケール文字列（例：`Locales.ENGLISH_UNITED_STATES`、`Locales.FRENCH_CANADA`）。
   - **型**: `Locales`（オプション）
 
@@ -46,26 +45,8 @@ history:
 
 ### 言語コードの抽出:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getLocaleLang, Locales } from "intlayer";
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // 出力: "en"
-getLocaleLang(Locales.ENGLISH); // 出力: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // 出力: "fr"
-getLocaleLang(Locales.FRENCH); // 出力: "fr"
-```
-
-```javascript codeFormat="esm"
-import { getLocaleLang } from "intlayer";
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // 出力: "en"
-getLocaleLang(Locales.ENGLISH); // 出力: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // 出力: "fr"
-getLocaleLang(Locales.FRENCH); // 出力: "fr"
-```
-
-```javascript codeFormat="commonjs"
-const { getLocaleLang } = require("intlayer");
 
 getLocaleLang(Locales.ENGLISH_UNITED_STATES); // 出力: "en"
 getLocaleLang(Locales.ENGLISH); // 出力: "en"
@@ -76,7 +57,6 @@ getLocaleLang(Locales.FRENCH); // 出力: "fr"
 ## エッジケース
 
 - **ロケールが提供されていない場合:**
-
   - `locale` が `undefined` の場合、関数は空文字列を返します。
 
 - **不正なロケール文字列:**

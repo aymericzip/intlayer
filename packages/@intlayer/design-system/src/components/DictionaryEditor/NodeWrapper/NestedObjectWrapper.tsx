@@ -1,6 +1,9 @@
 import { camelCaseToSentence } from '@intlayer/config/client';
-import { isSameKeyPath } from '@intlayer/core';
-import { type ContentNode, type KeyPath, NodeType } from '@intlayer/types';
+import { isSameKeyPath } from '@intlayer/core/utils';
+import type { ContentNode } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
+
+import * as NodeTypes from '@intlayer/types/nodeType';
 import { type FC, memo, useMemo } from 'react';
 import { ItemLayout } from '../ItemLayout';
 import { NodeWrapper, type NodeWrapperProps, traceKeys } from './index';
@@ -20,7 +23,7 @@ export const NestedObjectWrapper: FC<NestedObjectWrapperProps> = memo(
     );
 
     return sectionKeys.map((key) => {
-      const newKeyPathEl: KeyPath = { key, type: NodeType.Object };
+      const newKeyPathEl: KeyPath = { key, type: NodeTypes.OBJECT };
       const newKeyPath: KeyPath[] = [...keyPath, newKeyPathEl];
 
       const isSelected = isSameKeyPath(newKeyPath, focusedKeyPath);

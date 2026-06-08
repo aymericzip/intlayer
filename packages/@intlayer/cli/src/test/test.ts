@@ -1,14 +1,17 @@
-import { formatLocale, formatPath, prepareIntlayer } from '@intlayer/chokidar';
+import { prepareIntlayer } from '@intlayer/chokidar/build';
+import { formatLocale, formatPath } from '@intlayer/chokidar/utils';
+import * as ANSIColors from '@intlayer/config/colors';
 import {
-  ANSIColors,
   colon,
   colorize,
   colorizeKey,
   colorizeNumber,
-  type GetConfigurationOptions,
   getAppLogger,
+} from '@intlayer/config/logger';
+import {
+  type GetConfigurationOptions,
   getConfiguration,
-} from '@intlayer/config';
+} from '@intlayer/config/node';
 import { listMissingTranslations } from './listMissingTranslations';
 
 type ListMissingTranslationsOptions = {
@@ -22,11 +25,7 @@ export const testMissingTranslations = async (
   const config = getConfiguration(options?.configOptions);
   const { locales, requiredLocales } = config.internationalization;
 
-  const appLogger = getAppLogger(config, {
-    config: {
-      prefix: '',
-    },
-  });
+  const appLogger = getAppLogger(config);
 
   if (options?.build === true) {
     await prepareIntlayer(config, { forceRun: true });
@@ -97,4 +96,8 @@ export const testMissingTranslations = async (
       }
     )}`
   );
+
+  if (result.missingRequiredLocales.length > 0) {
+    process.exit(1);
+  }
 };

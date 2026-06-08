@@ -1,0 +1,60 @@
+import {
+  type FileContent,
+  useEditedContentActions,
+  useFocusUnmergedDictionary,
+} from '@intlayer/editor-react';
+import type {
+  ContentNode,
+  Dictionary,
+  LocalDictionaryId,
+} from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import { useEffect } from 'react';
+import { useDashboardRightPanel } from '#hooks/useDashboardRightPanel';
+
+export const getDrawerIdentifier = (dictionaryKey: string) =>
+  `dictionary_edition_${dictionaryKey}`;
+
+type DictionaryEditionDrawer = {
+  focusedContent: FileContent | null;
+  isOpen: boolean;
+  close: () => void;
+  getEditedContentValue: (
+    localDictionaryIdOrKey: LocalDictionaryId | Dictionary['key'] | string,
+    keyPath: KeyPath[]
+  ) => ContentNode | undefined;
+};
+
+export const useDictionaryEditionDrawer = (
+  dictionaryKey: string
+): DictionaryEditionDrawer => {
+  const id = getDrawerIdentifier(dictionaryKey);
+  const {
+    isOpen: isOpenDrawer,
+    open: openDrawer,
+    close: closeDrawer,
+  } = useDashboardRightPanel();
+  const { getEditedContentValue } = useEditedContentActions();
+  const { focusedContent, setFocusedContent } = useFocusUnmergedDictionary();
+
+  useEffect(() => {
+    if (focusedContent?.dictionaryKey) {
+      openDrawer(id);
+    }
+  }, [focusedContent?.dictionaryKey, openDrawer, id]);
+
+  return {
+    isOpen: isOpenDrawer(id),
+    focusedContent,
+    getEditedContentValue,
+    close: () => {
+      closeDrawer();
+
+      setFocusedContent(
+        focusedContent?.dictionaryKey
+          ? { ...(focusedContent as FileContent), keyPath: [] }
+          : focusedContent
+      );
+    },
+  };
+};

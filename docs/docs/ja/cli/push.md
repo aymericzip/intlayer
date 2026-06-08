@@ -19,11 +19,23 @@ slugs:
 
 # 辞書のプッシュ
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary push
 ```
 
-[intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)がインストールされている場合、辞書をエディターにプッシュすることもできます。このコマンドにより、辞書を[エディター](https://intlayer.org/dashboard)で利用可能にします。これにより、チームと辞書を共有し、アプリケーションのコードを編集せずにコンテンツを編集できます。
+```bash packageManager="yarn"
+yarn intlayer dictionary push
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary push
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary push
+```
+
+[intlayer editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)がインストールされている場合、辞書をエディターにプッシュすることもできます。このコマンドにより、辞書を[エディター](https://app.intlayer.org/)で利用可能にします。これにより、チームと辞書を共有し、アプリケーションのコードを編集せずにコンテンツを編集できます。
 
 ## エイリアス:
 

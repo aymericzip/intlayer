@@ -21,18 +21,48 @@ slugs:
 
 Ejecuta:
 
-```bash
+```bash packageManager="npm"
 npx intlayer --version                  # versión actual de intlayer en la localidad
 npx intlayer@latest --version           # versión más reciente actual de intlayer
+```
+
+```bash packageManager="yarn"
+yarn intlayer --version                  # versión actual de intlayer en la localidad
+yarn intlayer@latest --version           # versión más reciente actual de intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer --version                  # versión actual de intlayer en la localidad
+pnpm intlayer@latest --version           # versión más reciente actual de intlayer
+```
+
+```bash packageManager="bun"
+bun x intlayer --version                  # versión actual de intlayer en la localidad
+bun x intlayer@latest --version           # versión más reciente actual de intlayer
 ```
 
 ## 2. **Verifica si el comando está registrado**
 
 Puedes verificar con:
 
-```bash
+```bash packageManager="npm"
 npx intlayer --help                     # Muestra la lista de comandos disponibles e información de uso
 npx intlayer dictionary build --help    # Muestra la lista de opciones disponibles para un comando
+```
+
+```bash packageManager="yarn"
+yarn intlayer --help                     # Muestra la lista de comandos disponibles e información de uso
+yarn intlayer dictionary build --help    # Muestra la lista de opciones disponibles para un comando
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer --help                     # Muestra la lista de comandos disponibles e información de uso
+pnpm intlayer dictionary build --help    # Muestra la lista de opciones disponibles para un comando
+```
+
+```bash packageManager="bun"
+bun x intlayer --help                     # Muestra la lista de comandos disponibles e información de uso
+bun x intlayer dictionary build --help    # Muestra la lista de opciones disponibles para un comando
 ```
 
 ## 3. **Reinicia tu terminal**

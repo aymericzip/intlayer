@@ -1,22 +1,17 @@
 'use client';
 
-import { useSession } from '@intlayer/design-system/hooks';
+import { useSession } from '@intlayer/design-system/api';
 import { EditorProvider as EditorProviderComponent } from '@intlayer/editor-react';
-import type { IntlayerConfig } from '@intlayer/types';
-import {
-  type FC,
-  type PropsWithChildren,
-  type RefObject,
-  useEffect,
-  useState,
-} from 'react';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import { useQuery } from '@tanstack/react-query';
+import type { FC, PropsWithChildren, RefObject } from 'react';
 import { ApplicationNotRunningView } from './ApplicationNotRunningView/ApplicationNotRunningView';
-import { CheckingApplicationStatusView } from './ChekingApplicationStatutView/ChekingApplicationStatutView';
+import { CheckingApplicationStatusView } from './CheckingApplicationStatusView/CheckingApplicationStatusView';
 import { NoApplicationURLView } from './NoApplicationURLView/NoApplicationURLView';
 
 type EditorProviderProps = {
   iframeRef: RefObject<HTMLIFrameElement | null>;
-  configuration?: IntlayerConfig;
+  configuration?: Pick<IntlayerConfig, 'editor' | 'internationalization'>;
 };
 
 /**
@@ -30,50 +25,79 @@ export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
   const { session } = useSession();
   const intlayerConfig =
     configuration ?? (session?.project?.configuration as IntlayerConfig);
-  const applicationURL = intlayerConfig?.editor.applicationURL;
-  const [isApplicationRunning, setIsApplicationRunning] = useState<
-    boolean | null
-  >(null);
+  const applicationURL = intlayerConfig?.editor?.applicationURL;
 
-  // Health check for the application URL
-  useEffect(() => {
-    if (!intlayerConfig) {
-      setIsApplicationRunning(false);
-      return;
-    }
-
-    const checkApplicationHealth = async () => {
+  // Health check for the application URL using react-query
+  const { data, isPending } = useQuery({
+    queryKey: ['application-health', applicationURL],
+    queryFn: async () => {
+      if (!applicationURL) {
+        return {
+          isRunning: false,
+          error: {
+            type: 'connect' as const,
+            message: 'No application URL configured',
+          },
+        };
+      }
       try {
         const response = await fetch(applicationURL, {
           method: 'HEAD', // Use HEAD to avoid downloading the full page
         });
-
-        setIsApplicationRunning(response.ok);
+        if (!response.ok) {
+          return {
+            isRunning: false,
+            error: {
+              type: 'fetch' as const,
+              status: response.status,
+              statusText: response.statusText,
+            },
+          };
+        }
+        return { isRunning: true, error: undefined };
       } catch (error) {
         console.warn(
           'Application URL is not responding:',
           applicationURL,
           error
         );
-        setIsApplicationRunning(false);
+        const errorMessage =
+          error instanceof Error ? error.message : String(error);
+        return {
+          isRunning: false,
+          error: {
+            type: 'connect' as const,
+            message: errorMessage,
+          },
+        };
       }
-    };
+    },
+    enabled: Boolean(intlayerConfig && applicationURL),
+    staleTime: 30 * 1000, // Cache for 30 seconds
+    retry: 1,
+  });
 
-    checkApplicationHealth();
-  }, [applicationURL, intlayerConfig]);
+  const isApplicationRunning = data?.isRunning;
+  const connectionError = data?.error;
 
-  if (!intlayerConfig) {
+  if (!intlayerConfig || !applicationURL) {
     return <NoApplicationURLView />;
   }
 
   // Show loading state while checking application health
-  if (isApplicationRunning === null) {
+  if (isPending) {
     return <CheckingApplicationStatusView />;
   }
 
   // Show application not running view if the application is not responding
   if (!isApplicationRunning) {
-    return <ApplicationNotRunningView />;
+    return (
+      <ApplicationNotRunningView
+        applicationUrl={applicationURL}
+        editorUrl={intlayerConfig.editor?.cmsURL}
+        errors={connectionError ? [connectionError] : undefined}
+      />
+    );
   }
 
   return (
@@ -83,11 +107,10 @@ export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
           data,
           // Use to restrict the origin of the editor for security reasons.
           // Correspond to the current editor URL.
-          applicationURL
+          applicationURL!
         );
       }}
-      allowedOrigins={[applicationURL]}
-      mode="editor"
+      allowedOrigins={[applicationURL!]}
       configuration={intlayerConfig}
     >
       {children}

@@ -17,8 +17,20 @@ slugs:
 
 # Obserwuj słowniki
 
-```bash
+```bash packageManager="npm"
 npx intlayer watch
+```
+
+```bash packageManager="yarn"
+yarn intlayer watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer watch
+```
+
+```bash packageManager="bun"
+bun x intlayer watch
 ```
 
 Ta komenda będzie obserwować zmiany w Twoich plikach deklaracji treści i budować słowniki w katalogu `.intlayer`.

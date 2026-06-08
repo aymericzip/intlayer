@@ -21,22 +21,22 @@ slugs:
 history:
   - version: 5.8.0
     date: 2025-08-20
-    changes: Vue 포매터 추가
+    changes: "Vue 포매터 추가"
   - version: 5.8.0
     date: 2025-08-18
-    changes: 포매터 문서 추가
+    changes: "포매터 문서 추가"
   - version: 5.8.0
     date: 2025-08-20
-    changes: 리스트 포매터 문서 추가
+    changes: "리스트 포매터 문서 추가"
   - version: 5.8.0
     date: 2025-08-20
-    changes: 추가 Intl 유틸리티 추가 (DisplayNames, Collator, PluralRules)
+    changes: "추가 Intl 유틸리티 추가 (DisplayNames, Collator, PluralRules)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: 로케일 유틸리티 추가 (getLocaleName, getLocaleLang, getLocaleFromPath 등)
+    changes: "로케일 유틸리티 추가 (getLocaleName, getLocaleLang, getLocaleFromPath 등)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: 콘텐츠 처리 유틸리티 추가 (getContent, getTranslation, getIntlayer 등)
+    changes: "콘텐츠 처리 유틸리티 추가 (getContent, getTranslation, getIntlayer 등)"
 ---
 
 # Intlayer 포매터

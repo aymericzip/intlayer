@@ -5,40 +5,80 @@ async function buildSW() {
   console.log('🏗️  Generating Service Worker...');
 
   const { count, size } = await generateSW({
-    // 1. Where to output the file
+    // Output
     swDest: path.join(process.cwd(), 'public/sw.js'),
 
-    // 2. Where to look for files to cache
+    // Precache (Static Assets)
     globDirectory: '.next',
-    globPatterns: ['static/**/*.*', 'server/pages/manifest.json'],
-    globIgnores: ['**/node_modules/**/*', '**/*.map', 'server/middleware*'],
+    // Precache CSS, JS, and Workers.
+    // We do NOT precache HTML here as Next.js pages are dynamic or ISR.
+    globPatterns: [
+      'static/chunks/**/*.js',
+      'static/css/**/*.css',
+      'static/media/**/*.*',
+      'server/pages/manifest.json',
+    ],
+    globIgnores: [
+      '**/node_modules/**/*',
+      '**/*.map',
+      'server/middleware*',
+      'server/pages/api/**/*', // Never cache API routes
+    ],
 
-    // 3. Modifying URLS to match Next.js structure
+    // Normalize Next.js paths
     modifyURLPrefix: {
       'static/': '/_next/static/',
     },
 
-    // 4. Cache Config (The important part!)
-    // This tells Workbox to cache the Google Fonts, Images, etc.
-    // automatically without you writing a template.
+    // Runtime Caching (The Fix)
     runtimeCaching: [
+      // Cache Google Fonts & External Fonts (StaleWhileRevalidate)
       {
-        urlPattern: /^https?.*/,
+        urlPattern: /^https:\/\/fonts\.(?:googleapis|gstatic)\.com\/.*/i,
+        handler: 'StaleWhileRevalidate',
+        options: {
+          cacheName: 'google-fonts',
+          expiration: { maxEntries: 4, maxAgeSeconds: 365 * 24 * 60 * 60 },
+        },
+      },
+      // Cache Images (CacheFirst)
+      {
+        urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|ico)$/i,
+        handler: 'CacheFirst',
+        options: {
+          cacheName: 'images',
+          expiration: { maxEntries: 50, maxAgeSeconds: 30 * 24 * 60 * 60 },
+        },
+      },
+      // Cache JS/CSS not in precache (StaleWhileRevalidate)
+      {
+        urlPattern: /\.(?:js|css)$/i,
+        handler: 'StaleWhileRevalidate',
+        options: {
+          cacheName: 'static-resources',
+          expiration: { maxEntries: 32, maxAgeSeconds: 24 * 60 * 60 },
+        },
+      },
+      // OPTIONAL: Cache Navigation (HTML)
+      // Only enable this if you really need offline navigation.
+      // It is often the cause of "stale" updates.
+      // If used, use NetworkFirst with a short timeout.
+      {
+        urlPattern: ({ request }) => request.mode === 'navigate',
         handler: 'NetworkFirst',
         options: {
-          cacheName: 'offlineCache',
-          expiration: {
-            maxEntries: 200,
-          },
+          cacheName: 'pages',
+          networkTimeoutSeconds: 3, // Fallback to cache quickly if offline
+          expiration: { maxEntries: 20 },
         },
       },
     ],
 
-    // 5. PWA Essentials
-    skipWaiting: true, // Update SW immediately
-    clientsClaim: true, // Take control immediately
+    // Cleanup
+    skipWaiting: true,
+    clientsClaim: true,
     cleanupOutdatedCaches: true,
-    maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // 5MB limit per file
+    maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
   });
 
   console.log(

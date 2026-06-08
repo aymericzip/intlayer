@@ -262,6 +262,1243 @@ export const OAuthTokenCreatedEmailES = ({
   );
 };
 
+export const OAuthTokenCreatedEmailRU = ({
+  username,
+  applicationName,
+  scopes,
+  tokenDetailsUrl,
+  securityLogUrl,
+  supportUrl,
+}: OAuthTokenCreatedEmailProps) => {
+  const previewText = `К вашему аккаунту Intlayer был добавлен сторонний ключ доступа OAuth`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              К вашему аккаунту был добавлен сторонний ключ доступа OAuth
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Привет, {username}!
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Сторонний ключ доступа OAuth (<strong>{applicationName}</strong>)
+              со следующими разрешениями был недавно авторизован для доступа к
+              вашему аккаунту:
+              <ul>
+                {scopes.map((scope) => (
+                  <li key={scope}>{scope}</li>
+                ))}
+              </ul>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={tokenDetailsUrl}
+              >
+                Просмотреть сведения о приложении
+              </Button>
+            </Section>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Чтобы просмотреть это и другие события безопасности для вашего
+              аккаунта, посетите{' '}
+              <Link
+                href={securityLogUrl}
+                className="text-[#000000] no-underline"
+              >
+                ваш журнал безопасности
+              </Link>
+              .
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Если у вас возникнут проблемы, обратитесь в службу поддержки,
+              посетив{' '}
+              <Link href={supportUrl} className="text-[#000000] no-underline">
+                нашу страницу поддержки
+              </Link>
+              .
+            </Text>
+            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-[12px] leading-[24px]">
+              Это письмо предназначалось для{' '}
+              <span className="text-black">{username}</span>. Если вы не ожидали
+              этого письма, вы можете его проигнорировать. Если вы обеспокоены
+              безопасностью своего аккаунта, пожалуйста, ответьте на это письмо,
+              чтобы связаться с нами.
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const OAuthTokenCreatedEmailJA = ({
+  username,
+  applicationName,
+  scopes,
+  tokenDetailsUrl,
+  securityLogUrl,
+  supportUrl,
+}: OAuthTokenCreatedEmailProps) => {
+  const previewText = `IntlayerアカウントにサードパーティのOAuthアクセスキーが追加されました`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              アカウントにサードパーティのOAuthアクセスキーが追加されました
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              {username}様、こんにちは。
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              最近、以下の権限を持つサードパーティのOAuthアクセスキー（
+              <strong>{applicationName}</strong>
+              ）があなたのアカウントへのアクセスを許可されました：
+              <ul>
+                {scopes.map((scope) => (
+                  <li key={scope}>{scope}</li>
+                ))}
+              </ul>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={tokenDetailsUrl}
+              >
+                アプリケーションの詳細を表示
+              </Button>
+            </Section>
+            <Text className="text-[14px] text-black leading-[24px]">
+              このイベントやその他のセキュリティイベントを確認するには、
+              <Link
+                href={securityLogUrl}
+                className="text-[#000000] no-underline"
+              >
+                セキュリティログ
+              </Link>
+              をご覧ください。
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              問題が発生した場合は、
+              <Link href={supportUrl} className="text-[#000000] no-underline">
+                サポートページ
+              </Link>
+              からお問い合わせください。
+            </Text>
+            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-[12px] leading-[24px]">
+              このメールは<span className="text-black">{username}</span>
+              様に送信されました。もしこのメールに心当たりがない場合は、無視していただいて構いません。アカウントの安全性が気になる場合は、このメールに返信してご連絡ください。
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const OAuthTokenCreatedEmailKO = ({
+  username,
+  applicationName,
+  scopes,
+  tokenDetailsUrl,
+  securityLogUrl,
+  supportUrl,
+}: OAuthTokenCreatedEmailProps) => {
+  const previewText = `Intlayer 계정에 타사 OAuth 액세스 키가 추가되었습니다`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              계정에 타사 OAuth 액세스 키가 추가되었습니다
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              안녕하세요, {username}님!
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              최근 다음 권한을 가진 타사 OAuth 액세스 키(
+              <strong>{applicationName}</strong>)가 귀하의 계정에 액세스하도록
+              허용되었습니다:
+              <ul>
+                {scopes.map((scope) => (
+                  <li key={scope}>{scope}</li>
+                ))}
+              </ul>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={tokenDetailsUrl}
+              >
+                애플리케이션 상세 정보 보기
+              </Button>
+            </Section>
+            <Text className="text-[14px] text-black leading-[24px]">
+              이 이벤트와 기타 보안 이벤트를 확인하려면{' '}
+              <Link
+                href={securityLogUrl}
+                className="text-[#000000] no-underline"
+              >
+                보안 로그
+              </Link>
+              를 방문하세요.
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              문제가 발생하면{' '}
+              <Link href={supportUrl} className="text-[#000000] no-underline">
+                지원 페이지
+              </Link>
+              를 방문하여 문의해 주세요.
+            </Text>
+            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-[12px] leading-[24px]">
+              이 이메일은 <span className="text-black">{username}</span>님을
+              위해 발송되었습니다. 만약 이 이메일을 기다리지 않으셨다면
+              무시하셔도 됩니다. 계정 보안이 걱정되신다면 이 이메일에 답장을
+              보내 저희에게 문의해 주세요.
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const OAuthTokenCreatedEmailZH = ({
+  username,
+  applicationName,
+  scopes,
+  tokenDetailsUrl,
+  securityLogUrl,
+  supportUrl,
+}: OAuthTokenCreatedEmailProps) => {
+  const previewText = `您的 Intlayer 账户已添加第三方 OAuth 访问密钥`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              您的账户已添加第三方 OAuth 访问密钥
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              {username}，您好！
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              最近，一个具有以下权限的第三方 OAuth 访问密钥（
+              <strong>{applicationName}</strong>）被授权访问您的账户：
+              <ul>
+                {scopes.map((scope) => (
+                  <li key={scope}>{scope}</li>
+                ))}
+              </ul>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={tokenDetailsUrl}
+              >
+                查看应用详情
+              </Button>
+            </Section>
+            <Text className="text-[14px] text-black leading-[24px]">
+              要查看此事件及账户的其他安全事件，请访问您的{' '}
+              <Link
+                href={securityLogUrl}
+                className="text-[#000000] no-underline"
+              >
+                安全日志
+              </Link>
+              。
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              如果您遇到问题，请访问{' '}
+              <Link href={supportUrl} className="text-[#000000] no-underline">
+                我们的支持页面
+              </Link>{' '}
+              联系支持团队。
+            </Text>
+            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-[12px] leading-[24px]">
+              此邮件旨在发送给 <span className="text-black">{username}</span>
+              。如果您未请求此邮件，可以忽略它。如果您担心账户安全，请回复此邮件与我们联系。
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const OAuthTokenCreatedEmailDE = ({
+  username,
+  applicationName,
+  scopes,
+  tokenDetailsUrl,
+  securityLogUrl,
+  supportUrl,
+}: OAuthTokenCreatedEmailProps) => {
+  const previewText = `Ein OAuth-Zugriffsschlüssel eines Drittanbieters wurde Ihrem Intlayer-Konto hinzugefügt`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              Ein OAuth-Zugriffsschlüssel eines Drittanbieters wurde Ihrem Konto
+              hinzugefügt
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Hallo {username}!
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Ein OAuth-Zugriffsschlüssel eines Drittanbieters (
+              <strong>{applicationName}</strong>) mit den folgenden
+              Berechtigungen wurde kürzlich für den Zugriff auf Ihr Konto
+              autorisiert:
+              <ul>
+                {scopes.map((scope) => (
+                  <li key={scope}>{scope}</li>
+                ))}
+              </ul>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={tokenDetailsUrl}
+              >
+                Anwendungsdetails anzeigen
+              </Button>
+            </Section>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Um dieses und andere Sicherheitsereignisse für Ihr Konto
+              anzusehen, besuchen Sie{' '}
+              <Link
+                href={securityLogUrl}
+                className="text-[#000000] no-underline"
+              >
+                Ihr Sicherheitsprotokoll
+              </Link>
+              .
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Wenn Sie auf Probleme stoßen, kontaktieren Sie bitte den Support,
+              indem Sie{' '}
+              <Link href={supportUrl} className="text-[#000000] no-underline">
+                unsere Support-Seite
+              </Link>{' '}
+              besuchen.
+            </Text>
+            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-[12px] leading-[24px]">
+              Diese E-Mail war für{' '}
+              <span className="text-black">{username}</span> gedacht. Wenn Sie
+              diese E-Mail nicht erwartet haben, können Sie sie ignorieren. Wenn
+              Sie Bedenken hinsichtlich der Sicherheit Ihres Kontos haben,
+              antworten Sie bitte auf diese E-Mail, um mit uns in Kontakt zu
+              treten.
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const OAuthTokenCreatedEmailAR = ({
+  username,
+  applicationName,
+  scopes,
+  tokenDetailsUrl,
+  securityLogUrl,
+  supportUrl,
+}: OAuthTokenCreatedEmailProps) => {
+  const previewText = `تمت إضافة مفتاح وصول OAuth خارجي إلى حساب Intlayer الخاص بك`;
+
+  return (
+    <Html dir="rtl">
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              تمت إضافة مفتاح وصول OAuth خارجي إلى حسابك
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              أهلاً {username}!
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              تم مؤخراً تفويض مفتاح وصول OAuth خارجي (
+              <strong>{applicationName}</strong>) بالصلاحيات التالية للوصول إلى
+              حسابك:
+              <ul>
+                {scopes.map((scope) => (
+                  <li key={scope}>{scope}</li>
+                ))}
+              </ul>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={tokenDetailsUrl}
+              >
+                عرض تفاصيل التطبيق
+              </Button>
+            </Section>
+            <Text className="text-[14px] text-black leading-[24px]">
+              لمشاهدة هذا الحدث وأحداث الأمان الأخرى لحسابك، قم بزيارة{' '}
+              <Link
+                href={securityLogUrl}
+                className="text-[#000000] no-underline"
+              >
+                سجل الأمان الخاص بك
+              </Link>
+              .
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              إذا واجهت أي مشاكل، يرجى الاتصال بالدعم من خلال زيارة{' '}
+              <Link href={supportUrl} className="text-[#000000] no-underline">
+                صفحة الدعم الخاصة بنا
+              </Link>
+              .
+            </Text>
+            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-[12px] leading-[24px]">
+              هذا البريد الإلكتروني مخصص لـ{' '}
+              <span className="text-black">{username}</span>. إذا لم تكن تتوقع
+              هذا البريد، يمكنك تجاهله. إذا كنت قلقاً بشأن أمان حسابك، فيرجى الرد
+              على هذا البريد الإلكتروني للتواصل معنا.
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const OAuthTokenCreatedEmailIT = ({
+  username,
+  applicationName,
+  scopes,
+  tokenDetailsUrl,
+  securityLogUrl,
+  supportUrl,
+}: OAuthTokenCreatedEmailProps) => {
+  const previewText = `È stata aggiunta una chiave di accesso OAuth di terze parti al tuo account Intlayer`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              È stata aggiunta una chiave di accesso OAuth di terze parti al tuo
+              account
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Ehi {username}!
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Una chiave di accesso OAuth di terze parti (
+              <strong>{applicationName}</strong>) con i seguenti permessi è
+              stata recentemente autorizzata ad accedere al tuo account:
+              <ul>
+                {scopes.map((scope) => (
+                  <li key={scope}>{scope}</li>
+                ))}
+              </ul>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={tokenDetailsUrl}
+              >
+                Visualizza dettagli applicazione
+              </Button>
+            </Section>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Per vedere questo e altri eventi di sicurezza per il tuo account,
+              visita il{' '}
+              <Link
+                href={securityLogUrl}
+                className="text-[#000000] no-underline"
+              >
+                tuo registro di sicurezza
+              </Link>
+              .
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Se riscontri problemi, contatta il supporto visitando la{' '}
+              <Link href={supportUrl} className="text-[#000000] no-underline">
+                nostra pagina di supporto
+              </Link>
+              .
+            </Text>
+            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-[12px] leading-[24px]">
+              Questa e-mail era destinata a{' '}
+              <span className="text-black">{username}</span>. Se non ti
+              aspettavi questa e-mail, puoi ignorarla. Se sei preoccupato per la
+              sicurezza del tuo account, rispondi a questa e-mail per metterti
+              in contatto con noi.
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const OAuthTokenCreatedEmailEN_GB = ({
+  username,
+  applicationName,
+  scopes,
+  tokenDetailsUrl,
+  securityLogUrl,
+  supportUrl,
+}: OAuthTokenCreatedEmailProps) => {
+  const previewText = `A third-party OAuth access key has been added to your Intlayer account`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              A third-party OAuth access key has been added to your account
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Hey {username}!
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              A third-party OAuth access key (<strong>{applicationName}</strong>
+              ) with the following permissions was recently authorised to access
+              your account:
+              <ul>
+                {scopes.map((scope) => (
+                  <li key={scope}>{scope}</li>
+                ))}
+              </ul>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={tokenDetailsUrl}
+              >
+                View Application Details
+              </Button>
+            </Section>
+            <Text className="text-[14px] text-black leading-[24px]">
+              To see this and other security events for your account, visit{' '}
+              <Link
+                href={securityLogUrl}
+                className="text-[#000000] no-underline"
+              >
+                your security log
+              </Link>
+              .
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              If you run into problems, please contact support by visiting{' '}
+              <Link href={supportUrl} className="text-[#000000] no-underline">
+                our support page
+              </Link>
+              .
+            </Text>
+            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-[12px] leading-[24px]">
+              This email was intended for{' '}
+              <span className="text-black">{username}</span>. If you were not
+              expecting this email, you can ignore it. If you are concerned
+              about your account's safety, please reply to this email to get in
+              touch with us.
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const OAuthTokenCreatedEmailPT = ({
+  username,
+  applicationName,
+  scopes,
+  tokenDetailsUrl,
+  securityLogUrl,
+  supportUrl,
+}: OAuthTokenCreatedEmailProps) => {
+  const previewText = `Uma chave de acesso OAuth de terceiros foi adicionada à sua conta Intlayer`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              Uma chave de acesso OAuth de terceiros foi adicionada à sua conta
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Olá {username}!
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Uma chave de acesso OAuth de terceiros (
+              <strong>{applicationName}</strong>) com as seguintes permissões
+              foi recentemente autorizada a aceder à sua conta:
+              <ul>
+                {scopes.map((scope) => (
+                  <li key={scope}>{scope}</li>
+                ))}
+              </ul>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={tokenDetailsUrl}
+              >
+                Ver detalhes da aplicação
+              </Button>
+            </Section>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Para ver este e outros eventos de segurança da sua conta, visite{' '}
+              <Link
+                href={securityLogUrl}
+                className="text-[#000000] no-underline"
+              >
+                o seu registo de segurança
+              </Link>
+              .
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Se encontrar problemas, contacte o suporte visitando{' '}
+              <Link href={supportUrl} className="text-[#000000] no-underline">
+                a nossa página de suporte
+              </Link>
+              .
+            </Text>
+            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-[12px] leading-[24px]">
+              Este e-mail foi destinado a{' '}
+              <span className="text-black">{username}</span>. Se não esperava
+              este e-mail, pode ignorá-lo. Se estiver preocupado com a segurança
+              da sua conta, responda a este e-mail para entrar em contacto
+              connosco.
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const OAuthTokenCreatedEmailHI = ({
+  username,
+  applicationName,
+  scopes,
+  tokenDetailsUrl,
+  securityLogUrl,
+  supportUrl,
+}: OAuthTokenCreatedEmailProps) => {
+  const previewText = `आपके Intlayer खाते में एक तृतीय-पक्ष OAuth एक्सेस कुंजी जोड़ी गई है`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              आपके खाते में एक तृतीय-पक्ष OAuth एक्सेस कुंजी जोड़ी गई है
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              नमस्ते {username}!
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              हाल ही में आपके खाते तक पहुँचने के लिए निम्नलिखित अनुमतियों के साथ एक तृतीय-पक्ष
+              OAuth एक्सेस कुंजी (<strong>{applicationName}</strong>) को अधिकृत किया
+              गया था:
+              <ul>
+                {scopes.map((scope) => (
+                  <li key={scope}>{scope}</li>
+                ))}
+              </ul>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={tokenDetailsUrl}
+              >
+                एप्लिकेशन विवरण देखें
+              </Button>
+            </Section>
+            <Text className="text-[14px] text-black leading-[24px]">
+              अपने खाते के लिए इस और अन्य सुरक्षा घटनाओं को देखने के लिए,{' '}
+              <Link
+                href={securityLogUrl}
+                className="text-[#000000] no-underline"
+              >
+                अपने सुरक्षा लॉग
+              </Link>{' '}
+              पर जाएँ।
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              यदि आपको कोई समस्या आती है, तो कृपया{' '}
+              <Link href={supportUrl} className="text-[#000000] no-underline">
+                हमारे सहायता पृष्ठ
+              </Link>{' '}
+              पर जाकर सहायता से संपर्क करें।
+            </Text>
+            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-[12px] leading-[24px]">
+              यह ईमेल <span className="text-black">{username}</span> के लिए था।
+              यदि आप इस ईमेल की अपेक्षा नहीं कर रहे थे, तो आप इसे नज़रअंदाज़ कर सकते हैं। यदि
+              आप अपने खाते की सुरक्षा को लेकर चिंतित हैं, तो कृपया हमसे संपर्क करने के लिए इस
+              ईमेल का उत्तर दें।
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const OAuthTokenCreatedEmailTR = ({
+  username,
+  applicationName,
+  scopes,
+  tokenDetailsUrl,
+  securityLogUrl,
+  supportUrl,
+}: OAuthTokenCreatedEmailProps) => {
+  const previewText = `Intlayer hesabınıza üçüncü taraf bir OAuth erişim anahtarı eklendi`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              Hesabınıza üçüncü taraf bir OAuth erişim anahtarı eklendi
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Merhaba {username}!
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Yakın zamanda, aşağıdaki izinlere sahip üçüncü taraf bir OAuth
+              erişim anahtarının (<strong>{applicationName}</strong>) hesabınıza
+              erişmesine yetki verildi:
+              <ul>
+                {scopes.map((scope) => (
+                  <li key={scope}>{scope}</li>
+                ))}
+              </ul>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={tokenDetailsUrl}
+              >
+                Uygulama Detaylarını Görüntüle
+              </Button>
+            </Section>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Hesabınızla ilgili bu ve diğer güvenlik olaylarını görmek için{' '}
+              <Link
+                href={securityLogUrl}
+                className="text-[#000000] no-underline"
+              >
+                güvenlik günlüğünüzü
+              </Link>{' '}
+              ziyaret edin.
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Bir sorunla karşılaşırsanız, lütfen{' '}
+              <Link href={supportUrl} className="text-[#000000] no-underline">
+                destek sayfamızı
+              </Link>{' '}
+              ziyaret ederek destekle iletişime geçin.
+            </Text>
+            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-[12px] leading-[24px]">
+              Bu e-posta <span className="text-black">{username}</span> için
+              gönderilmiştir. Eğer bu e-postayı beklemiyorsanız, dikkate
+              almayabilirsiniz. Hesabınızın güvenliği konusunda endişeleriniz
+              varsa, bizimle iletişime geçmek için lütfen bu e-postayı
+              yanıtlayın.
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const OAuthTokenCreatedEmailPL = ({
+  username,
+  applicationName,
+  scopes,
+  tokenDetailsUrl,
+  securityLogUrl,
+  supportUrl,
+}: OAuthTokenCreatedEmailProps) => {
+  const previewText = `Do Twojego konta Intlayer dodano klucz dostępu OAuth strony trzeciej`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              Do Twojego konta dodano klucz dostępu OAuth strony trzeciej
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Cześć {username}!
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Klucz dostępu OAuth strony trzeciej (
+              <strong>{applicationName}</strong>) z następującymi uprawnieniami
+              został niedawno autoryzowany do dostępu do Twojego konta:
+              <ul>
+                {scopes.map((scope) => (
+                  <li key={scope}>{scope}</li>
+                ))}
+              </ul>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={tokenDetailsUrl}
+              >
+                Zobacz szczegóły aplikacji
+              </Button>
+            </Section>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Aby zobaczyć to i inne zdarzenia bezpieczeństwa dla Twojego konta,
+              odwiedź{' '}
+              <Link
+                href={securityLogUrl}
+                className="text-[#000000] no-underline"
+              >
+                swój dziennik bezpieczeństwa
+              </Link>
+              .
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Jeśli napotkasz problemy, skontaktuj się z pomocą techniczną,
+              odwiedzając{' '}
+              <Link href={supportUrl} className="text-[#000000] no-underline">
+                naszą stronę pomocy
+              </Link>
+              .
+            </Text>
+            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-[12px] leading-[24px]">
+              Ta wiadomość e-mail była przeznaczona dla{' '}
+              <span className="text-black">{username}</span>. Jeśli nie
+              spodziewałeś się tej wiadomości, możesz ją zignorować. Jeśli
+              martwisz się o bezpieczeństwo swojego konta, odpowiedz na ten
+              e-mail, aby się с nami skontaktować.
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const OAuthTokenCreatedEmailID = ({
+  username,
+  applicationName,
+  scopes,
+  tokenDetailsUrl,
+  securityLogUrl,
+  supportUrl,
+}: OAuthTokenCreatedEmailProps) => {
+  const previewText = `Kunci akses OAuth pihak ketiga telah ditambahkan ke akun Intlayer Anda`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              Kunci akses OAuth pihak ketiga telah ditambahkan ke akun Anda
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Halo {username}!
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Kunci akses OAuth pihak ketiga (<strong>{applicationName}</strong>
+              ) dengan izin berikut baru saja diotorisasi untuk mengakses akun
+              Anda:
+              <ul>
+                {scopes.map((scope) => (
+                  <li key={scope}>{scope}</li>
+                ))}
+              </ul>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={tokenDetailsUrl}
+              >
+                Lihat Detail Aplikasi
+              </Button>
+            </Section>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Untuk melihat ini dan peristiwa keamanan lainnya untuk akun Anda,
+              kunjungi{' '}
+              <Link
+                href={securityLogUrl}
+                className="text-[#000000] no-underline"
+              >
+                log keamanan Anda
+              </Link>
+              .
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Jika Anda mengalami masalah, silakan hubungi dukungan dengan
+              mengunjungi{' '}
+              <Link href={supportUrl} className="text-[#000000] no-underline">
+                halaman dukungan kami
+              </Link>
+              .
+            </Text>
+            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-[12px] leading-[24px]">
+              Email ini ditujukan untuk{' '}
+              <span className="text-black">{username}</span>. Jika Anda tidak
+              mengharapkan email ini, Anda dapat mengabaikannya. Jika Anda
+              khawatir tentang keamanan akun Anda, silakan balas email ini untuk
+              menghubungi kami.
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const OAuthTokenCreatedEmailVI = ({
+  username,
+  applicationName,
+  scopes,
+  tokenDetailsUrl,
+  securityLogUrl,
+  supportUrl,
+}: OAuthTokenCreatedEmailProps) => {
+  const previewText = `Một khóa truy cập OAuth của bên thứ ba đã được thêm vào tài khoản Intlayer của bạn`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              Một khóa truy cập OAuth của bên thứ ba đã được thêm vào tài khoản
+              của bạn
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Chào {username}!
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Một khóa truy cập OAuth của bên thứ ba (
+              <strong>{applicationName}</strong>) với các quyền sau gần đây đã
+              được ủy quyền để truy cập vào tài khoản của bạn:
+              <ul>
+                {scopes.map((scope) => (
+                  <li key={scope}>{scope}</li>
+                ))}
+              </ul>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={tokenDetailsUrl}
+              >
+                Xem chi tiết ứng dụng
+              </Button>
+            </Section>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Để xem sự kiện này và các sự kiện bảo mật khác cho tài khoản của
+              bạn, hãy truy cập{' '}
+              <Link
+                href={securityLogUrl}
+                className="text-[#000000] no-underline"
+              >
+                nhật ký bảo mật của bạn
+              </Link>
+              .
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Nếu bạn gặp sự cố, vui lòng liên hệ với bộ phận hỗ trợ bằng cách
+              truy cập{' '}
+              <Link href={supportUrl} className="text-[#000000] no-underline">
+                trang hỗ trợ của chúng tôi
+              </Link>
+              .
+            </Text>
+            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-[12px] leading-[24px]">
+              Email này dành cho <span className="text-black">{username}</span>.
+              Nếu bạn không mong đợi email này, bạn có thể bỏ qua nó. Nếu bạn lo
+              lắng về tính bảo mật của tài khoản, vui lòng phản hồi email này để
+              liên hệ với chúng tôi.
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const OAuthTokenCreatedEmailUK = ({
+  username,
+  applicationName,
+  scopes,
+  tokenDetailsUrl,
+  securityLogUrl,
+  supportUrl,
+}: OAuthTokenCreatedEmailProps) => {
+  const previewText = `До вашого облікового запису Intlayer додано сторонній ключ доступу OAuth`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              До вашого облікового запису додано сторонній ключ доступу OAuth
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Привіт, {username}!
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Сторонній ключ доступу OAuth (<strong>{applicationName}</strong>)
+              із наступними дозволами нещодавно отримав доступ до вашого
+              облікового запису:
+              <ul>
+                {scopes.map((scope) => (
+                  <li key={scope}>{scope}</li>
+                ))}
+              </ul>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={tokenDetailsUrl}
+              >
+                Переглянути деталі програми
+              </Button>
+            </Section>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Щоб переглянути цю та інші події безпеки для вашого облікового
+              запису, відвідайте{' '}
+              <Link
+                href={securityLogUrl}
+                className="text-[#000000] no-underline"
+              >
+                ваш журнал безпеки
+              </Link>
+              .
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Якщо у вас виникнуть проблеми, будь ласка, зверніться до служби
+              підтримки, відвідавши{' '}
+              <Link href={supportUrl} className="text-[#000000] no-underline">
+                нашу сторінку підтримки
+              </Link>
+              .
+            </Text>
+            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-[12px] leading-[24px]">
+              Цей електронний лист був призначений для{' '}
+              <span className="text-black">{username}</span>. Якщо ви не
+              очікували цього листа, ви можете його ігнорувати. Якщо ви
+              стурбовані безпекою свого облікового запису, будь ласка, дайте
+              відповідь на цей лист, щоб зв'язатися з нами.
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
 const previewProps: OAuthTokenCreatedEmailProps = {
   username: 'aymericzip',
   applicationName: 'Postman',
@@ -275,3 +1512,18 @@ const previewProps: OAuthTokenCreatedEmailProps = {
 OAuthTokenCreatedEmailEN.PreviewProps = previewProps;
 OAuthTokenCreatedEmailFR.PreviewProps = previewProps;
 OAuthTokenCreatedEmailES.PreviewProps = previewProps;
+OAuthTokenCreatedEmailRU.PreviewProps = previewProps;
+OAuthTokenCreatedEmailJA.PreviewProps = previewProps;
+OAuthTokenCreatedEmailKO.PreviewProps = previewProps;
+OAuthTokenCreatedEmailZH.PreviewProps = previewProps;
+OAuthTokenCreatedEmailDE.PreviewProps = previewProps;
+OAuthTokenCreatedEmailAR.PreviewProps = previewProps;
+OAuthTokenCreatedEmailIT.PreviewProps = previewProps;
+OAuthTokenCreatedEmailEN_GB.PreviewProps = previewProps;
+OAuthTokenCreatedEmailPT.PreviewProps = previewProps;
+OAuthTokenCreatedEmailHI.PreviewProps = previewProps;
+OAuthTokenCreatedEmailTR.PreviewProps = previewProps;
+OAuthTokenCreatedEmailPL.PreviewProps = previewProps;
+OAuthTokenCreatedEmailID.PreviewProps = previewProps;
+OAuthTokenCreatedEmailVI.PreviewProps = previewProps;
+OAuthTokenCreatedEmailUK.PreviewProps = previewProps;

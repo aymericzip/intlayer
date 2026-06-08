@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-09-09
-title: Как перевести ваше Nest backend – руководство i18n 2025
-description: Узнайте, как сделать ваш NestJS бэкенд многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
+updatedAt: 2026-05-31
+title: "NestJS i18n - Полное руководство по переводу вашего приложения"
+description: "Больше никакого i18next. Руководство 2026 по созданию многоязычного (i18n) приложения NestJS. Переводите с помощью ИИ-агентов и оптимизируйте размер бандла, SEO и производительность."
 keywords:
   - Интернационализация
   - Документация
@@ -14,17 +14,22 @@ slugs:
   - doc
   - environment
   - nest
-applicationTemplate: https://github.com/AydinTheFirst/nestjs-intlayer
 author: AydinTheFirst
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Обновление использования API useIntlayer в Solid для прямого доступа к свойствам"
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: "Добавить команду init"
   - version: 5.8.0
     date: 2025-09-09
-    changes: Начальная версия документа
+    changes: "Начальная версия документа"
 ---
 
 # Переведите ваш Nest backend с Intlayer | Интернационализация (i18n)
 
-`express-intlayer` — это мощный middleware для интернационализации (i18n) в приложениях на Express, разработанный для того, чтобы сделать ваши бэкенд-сервисы доступными по всему миру, предоставляя локализованные ответы в зависимости от предпочтений клиента. Поскольку NestJS построен поверх Express, вы можете без проблем интегрировать `express-intlayer` в ваши приложения на NestJS для эффективной работы с многоязычным контентом.
+`express-intlayer`, это мощный middleware для интернационализации (i18n) в приложениях на Express, разработанный для того, чтобы сделать ваши бэкенд-сервисы доступными по всему миру, предоставляя локализованные ответы в зависимости от предпочтений клиента. Поскольку NestJS построен поверх Express, вы можете без проблем интегрировать `express-intlayer` в ваши приложения на NestJS для эффективной работы с многоязычным контентом.
 
 ## Зачем интернационализировать ваш бэкенд?
 
@@ -59,14 +64,22 @@ nest new my-nest-app
 
 ```bash packageManager="npm"
 npm install intlayer express-intlayer
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer express-intlayer
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer express-intlayer
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer express-intlayer
+bun x intlayer init
 ```
 
 ### Настройка tsconfig.json
@@ -87,7 +100,7 @@ yarn add intlayer express-intlayer
 
 Настройте параметры интернационализации, создав файл `intlayer.config.ts` в корне вашего проекта:
 
-```typescript fileName="intlayer.config.ts"  codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -100,41 +113,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-// Конфигурация интернационализации
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH], // Поддерживаемые локали
-    defaultLocale: Locales.ENGLISH, // Локаль по умолчанию
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-// Конфигурация интернационализации
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH], // Поддерживаемые локали
-    defaultLocale: Locales.ENGLISH, // Локаль по умолчанию
-  },
-};
-
-module.exports = config;
-```
-
 ### Объявление вашего контента
 
 Создайте и управляйте объявлениями контента для хранения переводов:
 
-```typescript fileName="src/app.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="src/app.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, type Dictionary } from "intlayer";
 
 const appContent: Dictionary = {
@@ -151,7 +134,7 @@ const appContent: Dictionary = {
 export default appContent;
 ```
 
-> Ваши объявления контента могут быть определены в любом месте вашего приложения, при условии, что они включены в директорию `contentDir` (по умолчанию, `./src`). И соответствуют расширению файла объявления контента (по умолчанию, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> Ваши объявления контента могут быть определены в любом месте вашего приложения, при условии, что они включены в директорию `contentDir` (по умолчанию, `./src`). И соответствуют расширению файла объявления контента (по умолчанию, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Для получения дополнительной информации обратитесь к [документации по объявлениям контента](/doc/concept/content).
 

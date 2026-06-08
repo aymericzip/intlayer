@@ -1,0 +1,482 @@
+---
+createdAt: 2026-03-31
+updatedAt: 2026-05-31
+title: "Vanilla JS i18n - Повний посібник з перекладу вашого застосунку"
+description: "Більше ніякого i18next. Посібник 2026 зі створення багатомовного (i18n) застосунку Vanilla JS. Перекладайте за допомогою ШІ-агентів та оптимізуйте розмір бандлу, SEO та продуктивність."
+keywords:
+  - Інтернаціоналізація
+  - Документація
+  - Intlayer
+  - Vanilla JS
+  - JavaScript
+  - TypeScript
+  - HTML
+slugs:
+  - doc
+  - environment
+  - vanilla
+applicationTemplate: https://github.com/aymericzip/intlayer-vanilla-template
+applicationShowcase: https://intlayer-vanilla-template.vercel.app
+history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Оновлення використання API useIntlayer у Solid для прямого доступу до властивостей"
+  - version: 8.4.10
+    date: 2026-03-31
+    changes: "Ініціалізація історії"
+---
+
+# Перекладіть свій вебсайт на Vanilla JS за допомогою Intlayer | Інтернаціоналізація (i18n)
+
+<Tabs defaultTab="code">
+  <Tab label="Код" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-vanilla-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Демо" value="demo">
+
+<iframe
+  src="https://intlayer-vanilla-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Демо - intlayer-vanilla-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
+## Зміст
+
+<TOC/>
+
+## Чому варто обрати Intlayer, а не альтернативи?
+
+Порівняно з основними рішеннями, такими як `i18next` або `i18n.js`, Intlayer — це рішення, яке поставляється з інтегрованою оптимізацією, як-от:
+
+<AccordionGroup>
+
+<Accordion header="Повна підтримка Vanilla JS">
+
+Intlayer оптимізовано для ідеальної роботи з Vanilla JavaScript, пропонуючи **незалежне від фреймворку керування вмістом**, **підтримку TypeScript** і всі функції, необхідні для масштабування інтернаціоналізації (i18n).
+
+</Accordion>
+
+<Accordion header="Розмір бандлу">
+
+Замість того, щоб завантажувати великі файли JSON на свої сторінки, завантажуйте лише необхідний вміст. Intlayer допомагає **зменшити розмір бандлу і сторінок до 50%**.
+
+</Accordion>
+
+<Accordion header="Підтримуваність">
+
+Організація вмісту за окремими областями (scoping) **полегшує технічне обслуговування** великомасштабних програм. Ви можете скопіювати або видалити окрему папку функцій без розумового навантаження перегляду всієї кодової бази вмісту. Крім того, Intlayer **повністю типізований (fully typed)**, щоб забезпечити точність вашого вмісту.
+
+</Accordion>
+
+<Accordion header="Агент AI">
+
+Спільне розміщення вмісту **зменшує контекст, необхідний** для великих мовних моделей (LLM). Intlayer також постачається з набором інструментів, наприклад **CLI** для перевірки відсутніх перекладів,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** і **[навички агента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, щоб зробити роботу розробника (DX) ще зручнішою для агентів ШІ.
+
+</Accordion>
+
+<Accordion header="Автоматизація">
+
+Використовуйте автоматизацію для перекладу в конвеєрі CI/CD за допомогою LLM за вашим вибором за рахунок вашого постачальника штучного інтелекту. Intlayer також пропонує **компілятор** для автоматизації екстракція вмісту, а також [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), щоб допомогти **перекладати у фоновому режимі**.
+
+</Accordion>
+
+<Accordion header="Продуктивність">
+
+Підключення великих файлів JSON до компонентів може призвести до проблем з продуктивністю та реакцією. Intlayer оптимізує завантаження вмісту під час збірки (build time).
+
+</Accordion>
+
+<Accordion header="Співпраця з не-розробниками">
+
+Більше ніж просто рішення i18n, Intlayer пропонує **власний [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** і **[повний CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, щоб допомогти вам керувати своїм багатомовним вмістом у **реальному часі**, спрощуючи співпрацю з перекладачами, копірайтерами та іншими членами команди. Контент можна зберігати локально та/або віддалено.
+
+</Accordion>
+</AccordionGroup>
+
+---
+
+## Покроковий посібник із налаштування Intlayer у застосунку на Vanilla JS
+
+<Steps>
+
+<Step number={1} title="Встановлення залежностей">
+
+Встановіть необхідні пакети за допомогою npm:
+
+```bash packageManager="npm"
+# Створення автономної збірки intlayer та vanilla-intlayer
+# Цей файл буде імпортовано у ваш HTML-файл
+npx intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+
+# Ініціалізація intlayer з файлом конфігурації
+npx intlayer init --no-gitignore
+
+# Збірка словників
+npx intlayer build
+```
+
+```bash packageManager="pnpm"
+# Створення автономної збірки intlayer та vanilla-intlayer
+# Цей файл буде імпортовано у ваш HTML-файл
+pnpm intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+
+# Ініціалізація intlayer з файлом конфігурації
+pnpm intlayer init --no-gitignore
+
+# Збірка словників
+pnpm intlayer build
+```
+
+```bash packageManager="yarn"
+# Створення автономної збірки intlayer та vanilla-intlayer
+# Цей файл буде імпортовано у ваш HTML-файл
+yarn intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+
+# Ініціалізація файлу конфігурації intlayer, TypeScript (якщо налаштовано), змінних оточення
+yarn intlayer init --no-gitignore
+
+# Збірка словників
+yarn intlayer build
+```
+
+```bash packageManager="bun"
+# Створення автономної збірки intlayer та vanilla-intlayer
+# Цей файл буде імпортовано у ваш HTML-файл
+bun x intlayer standalone --packages intlayer vanilla-intlayer --outfile intlayer.js
+
+# Ініціалізація intlayer з файлом конфігурації
+bun x intlayer init --no-gitignore
+
+# Збірка словників
+bun x intlayer build
+```
+
+- **intlayer**
+  Основний пакет, що надає інструменти інтернаціоналізації для керування конфігурацією, перекладу, [оголошення контенту](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md), транспіляції та [команд CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md).
+
+- **vanilla-intlayer**
+  Пакет, що інтегрує Intlayer з чистими застосунками на JavaScript / TypeScript. Він надає синглтон pub/sub (`IntlayerClient`) та допоміжні функції на основі зворотних викликів (`useIntlayer`, `useLocale` тощо), щоб будь-яка частина вашого застосунку могла реагувати на зміну мови без залежності від UI-фреймворку.
+
+> Експорт збірки (bundling) через CLI `intlayer standalone` створює оптимізований білд шляхом деревотрусу (tree-shaking) для невикористаних пакетів, локалей та другорядної логіки (наприклад, перенаправлень або префіксів), специфічної для вашої конфігурації.
+
+</Step>
+
+<Step number={2} title="Конфігурація вашого проєкту">
+
+Створіть файл конфігурації для налаштування мов вашого застосунку:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH,
+      // Ваші інші мови
+    ],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+> Через цей файл конфігурації ви можете налаштувати локалізовані URL, перенаправлення через middleware, імена кукі, розташування та розширення ваших оголошень контенту, вимкнути логи Intlayer у консолі та багато іншого. Повний список доступних параметрів див. у [документації з конфігурації](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md).
+
+</Step>
+
+<Step number={3} title="Імпорт збірки у ваш HTML">
+
+Після того, як ви згенерували збірку `intlayer.js`, ви можете імпортувати її у свій HTML-файл:
+
+```html fileName="index.html"
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+
+    <!-- Імпорт збірки -->
+    <script src="./intlayer.js" defer></script>
+    <!-- Імпорт вашого основного скрипту -->
+    <script src="./src/main.js" defer></script>
+  </head>
+  <body>
+    <h1 id="title"></h1>
+    <p class="read-the-docs"></p>
+  </body>
+</html>
+```
+
+Збірка надає `Intlayer` та `VanillaIntlayer` як глобальні об'єкти на `window`.
+
+</Step>
+
+<Step number={4} title="Ініціалізація Intlayer у точці входу">
+
+У вашому `src/main.js` викличте `installIntlayer()` **до** того, як будь-який контент буде відмальовано, щоб глобальний синглтон мови був готовий.
+
+```javascript fileName="src/main.js"
+const { installIntlayer } = window.VanillaIntlayer;
+
+// Має бути викликано перед відмальовуванням будь-якого i18n-контенту.
+installIntlayer();
+```
+
+Якщо ви також хочете використовувати рендерер markdown, викличте `installIntlayerMarkdown()`:
+
+```javascript fileName="src/main.js"
+const { installIntlayer, installIntlayerMarkdown } = window.VanillaIntlayer;
+
+installIntlayer();
+installIntlayerMarkdown();
+```
+
+</Step>
+
+<Step number={5} title="Оголошення вашого контенту">
+
+Створюйте та керуйте оголошеннями контенту для зберігання перекладів:
+
+```typescript fileName="src/app.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { insert, t, type Dictionary } from "intlayer";
+
+const appContent = {
+  key: "app",
+  content: {
+    title: "Vite + Vanilla",
+
+    viteLogoLabel: t({
+      en: "Vite Logo",
+      fr: "Logo Vite",
+      es: "Logo Vite",
+    }),
+
+    count: insert(
+      t({
+        en: "count is {{count}}",
+        fr: "le compte est {{count}}",
+        es: "el recuento es {{count}}",
+      })
+    ),
+
+    readTheDocs: t({
+      en: "Click on the Vite logo to learn more",
+      fr: "Cliquez sur le logo Vite pour en savoir plus",
+      es: "Натисніть на логотип Vite, щоб дізнатися більше",
+    }),
+  },
+} satisfies Dictionary;
+
+export default appContent;
+```
+
+```json fileName="src/app.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "app",
+  "content": {
+    "title": "Vite + Vanilla",
+    "viteLogoLabel": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Vite Logo",
+        "fr": "Logo Vite",
+        "es": "Logo Vite"
+      }
+    },
+    "count": {
+      "nodeType": "insertion",
+      "insertion": {
+        "nodeType": "translation",
+        "translation": {
+          "en": "count is {{count}}",
+          "fr": "le compte est {{count}}",
+          "es": "el recuento es {{count}}"
+        }
+      }
+    },
+    "readTheDocs": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Click on the Vite logo to learn more",
+        "fr": "Cliquez sur le logo Vite pour en savoir plus",
+        "es": "Haga clic en el logotipo de Vite para obtener más información"
+      }
+    }
+  }
+}
+```
+
+> Ваші оголошення контенту можуть бути визначені будь-де у вашому застосунку, якщо вони включені в директорію `contentDir` (за замовчуванням `./src`) та відповідають розширенню файлу оголошення контенту (за замовчуванням `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
+>
+> Для отримання детальнішої інформації див. [документацію з оголошення контенту](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md).
+
+</Step>
+
+<Step number={6} title="Використання Intlayer у вашому JavaScript">
+
+Об'єкт `window.VanillaIntlayer` надає допоміжні функції API: `useIntlayer(key, locale?)` повертає перекладений контент для заданого ключа.
+
+```javascript fileName="src/main.js"
+const { installIntlayer, useIntlayer } = window.VanillaIntlayer;
+
+installIntlayer();
+
+// Отримання початкового контенту для поточної мови.
+// Додайте .onChange(), щоб отримувати сповіщення при зміні мови.
+const content = useIntlayer("app").onChange((newContent) => {
+  // Перемальовуємо або оновлюємо тільки зачеплені DOM-вузли
+  document.querySelector("h1").textContent = String(newContent.title);
+  document.querySelector(".read-the-docs").textContent = String(
+    newContent.readTheDocs
+  );
+});
+
+// Початкове відмальовування
+document.querySelector("h1").textContent = String(content.title);
+document.querySelector(".read-the-docs").textContent = String(
+  content.readTheDocs
+);
+```
+
+> Отримуйте кінцеві значення у вигляді рядків, огортаючи їх у `String()`, що викликає метод `toString()` вузла та повертає перекладений текст.
+>
+> Якщо вам потрібне значення для нативного HTML-атрибута (наприклад, `alt`, `aria-label`), використовуйте `.value` напряму:
+>
+> ```javascript
+> img.alt = content.viteLogoLabel.value;
+> ```
+
+</Step>
+
+<Step number={7} title="Зміна мови вашого контенту" isOptional={true}>
+
+Щоб змінити мову вашого контенту, використовуйте функцію `setLocale`, що надається `useLocale`.
+
+```javascript fileName="src/locale-switcher.js"
+const { getLocaleName } = window.Intlayer;
+const { useLocale } = window.VanillaIntlayer;
+
+export function setupLocaleSwitcher(container) {
+  const { locale, availableLocales, setLocale, subscribe } = useLocale();
+
+  const select = document.createElement("select");
+  select.setAttribute("aria-label", "Мова");
+
+  const render = (currentLocale) => {
+    select.innerHTML = availableLocales
+      .map(
+        (loc) =>
+          `<option value="${loc}"${loc === currentLocale ? " selected" : ""}>
+            ${getLocaleName(loc)}
+          </option>`
+      )
+      .join("");
+  };
+
+  render(locale);
+  container.appendChild(select);
+
+  select.addEventListener("change", () => setLocale(select.value));
+
+  // Підтримуємо список у актуальному стані, якщо мову було змінено в іншому місці
+  return subscribe((newLocale) => render(newLocale));
+}
+```
+
+</Step>
+
+<Step number={8} title="Перемикання атрибутів мови та напрямку тексту HTML" isOptional={true}>
+
+Оновлюйте атрибути `lang` та `dir` тегу `<html>` відповідно до поточної мови для забезпечення доступності та SEO.
+
+```javascript fileName="src/main.js"
+const { getHTMLTextDir } = window.Intlayer;
+const { installIntlayer, useLocale } = window.VanillaIntlayer;
+
+installIntlayer();
+
+useLocale({
+  onLocaleChange: (locale) => {
+    document.documentElement.lang = locale;
+    document.documentElement.dir = getHTMLTextDir(locale);
+  },
+});
+```
+
+</Step>
+
+<Step number={9} title="Ледаче завантаження словників за мовами" isOptional={true}>
+
+Якщо ви хочете завантажувати словники ледаче для кожної мови, ви можете використовувати `useDictionaryDynamic`. Це корисно, якщо ви не хочете включати всі переклади в початковий файл `intlayer.js`.
+
+```javascript fileName="src/app.js"
+const { installIntlayer, useDictionaryDynamic } = window.VanillaIntlayer;
+
+installIntlayer();
+
+const unsubscribe = useDictionaryDynamic(
+  {
+    en: () => import("../.intlayer/dictionaries/en/app.mjs"),
+    fr: () => import("../.intlayer/dictionaries/fr/app.mjs"),
+    es: () => import("../.intlayer/dictionaries/es/app.mjs"),
+  },
+  "app"
+).onChange((content) => {
+  document.querySelector("h1").textContent = String(content.title);
+});
+```
+
+> Примітка: `useDictionaryDynamic` вимагає, щоб словники були доступні у вигляді окремих файлів ESM. Цей підхід зазвичай використовується, якщо у вас є вебсервер, що роздає словники.
+> </Step>
+
+</Steps>
+
+### Налаштування TypeScript
+
+Переконайтеся, що ваша конфігурація TypeScript включає типи, що генеруються автоматично.
+
+```json5 fileName="tsconfig.json"
+{
+  "compilerOptions": {
+    // ...
+  },
+  "include": ["src", ".intlayer/**/*.ts"],
+}
+```
+
+### Розширення для VS Code
+
+Щоб покращити процес розробки з Intlayer, ви можете встановити офіційне **розширення Intlayer для VS Code**.
+
+[Встановити з VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Це розширення надає:
+
+- **Автодоповнення** для ключів перекладів.
+- **Виявлення помилок у реальному часі** для відсутніх перекладів.
+- **Вбудований передпрогляд** перекладеного контенту.
+- **Швидкі дії** для легкого створення та оновлення перекладів.
+
+Для отримання детальнішої інформації про використання розширення див. [документацію розширення Intlayer для VS Code](https://intlayer.org/doc/vs-code-extension).
+
+---
+
+### Йдіть далі
+
+Щоб піти далі, ви можете впровадити [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) або винести ваш контент у зовнішнє середовище за допомогою [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).

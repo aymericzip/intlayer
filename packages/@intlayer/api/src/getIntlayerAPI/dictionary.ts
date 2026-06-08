@@ -1,6 +1,3 @@
-import configuration from '@intlayer/config/built';
-import type { IntlayerConfig } from '@intlayer/types';
-import { type FetcherOptions, fetcher } from '../fetcher';
 import type {
   AddDictionaryBody,
   AddDictionaryResult,
@@ -17,20 +14,16 @@ import type {
   PushDictionariesResult,
   UpdateDictionaryBody,
   UpdateDictionaryResult,
-} from '../types';
+} from '@intlayer/backend';
+import { editor } from '@intlayer/config/built';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import { type FetcherOptions, fetcher } from '../fetcher';
 
 export const getDictionaryAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL =
-    intlayerConfig?.editor?.backendURL ?? configuration?.editor?.backendURL;
-
-  if (!backendURL) {
-    throw new Error(
-      'Backend URL is not defined in the Intlayer configuration.'
-    );
-  }
+  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
 
   const PROJECT_API_ROUTE = `${backendURL}/api/dictionary`;
 

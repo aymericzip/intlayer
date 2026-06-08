@@ -1,4 +1,4 @@
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { deepTransformNode, type Plugins } from '../interpreter';
 
 const passTypedNodePlugin: Plugins = {

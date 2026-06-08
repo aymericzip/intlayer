@@ -19,9 +19,12 @@ slugs:
   - intlayer
   - getLocaleName
 history:
+  - version: 7.5.0
+    date: 2025-12-18
+    changes: "React Native 및 구형 환경용 polyfills 추가"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 초기 이력
+    changes: "초기 이력"
 ---
 
 # 문서: `intlayer`의 `getLocaleName` 함수
@@ -33,7 +36,6 @@ history:
 ## 매개변수
 
 - `displayLocale: Locales`
-
   - **설명**: 대상 로케일의 이름이 표시될 로케일입니다.
   - **타입**: 유효한 로케일을 나타내는 열거형 또는 문자열입니다.
 
@@ -48,7 +50,7 @@ history:
 
 ## 사용 예시
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, getLocaleName } from "intlayer";
 
 getLocaleName(Locales.ENGLISH); // 출력: "English"
@@ -69,51 +71,23 @@ getLocaleName(Locales.CHINESE, Locales.ENGLISH); // 출력: "Chinese"
 getLocaleName("unknown-locale"); // 출력: "알 수 없는 로케일"
 ```
 
-```javascript codeFormat="esm"
-import { Locales, getLocaleName } from "intlayer";
-
-getLocaleName(Locales.ENGLISH); // 출력: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // 출력: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // 출력: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // 출력: "English"
-
-getLocaleName(Locales.FRENCH); // 출력: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // 출력: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // 출력: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // 출력: "French"
-
-getLocaleName(Locales.CHINESE); // 출력: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // 출력: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // 출력: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // 출력: "Chinese"
-
-getLocaleName("unknown-locale"); // 출력: "Unknown locale"
-```
-
-```javascript codeFormat="commonjs"
-const { Locales, getLocaleName } = require("intlayer");
-
-getLocaleName(Locales.ENGLISH); // 출력: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // 출력: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // 출력: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // 출력: "English"
-
-getLocaleName(Locales.FRENCH); // 출력: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // 출력: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // 출력: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // 출력: "French"
-
-getLocaleName(Locales.CHINESE); // 출력: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // 출력: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // 출력: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // 출력: "Chinese"
-
-getLocaleName("unknown-locale"); // 출력: "Unknown locale"
-```
-
 ## 예외 상황
 
 - **`targetLocale`가 제공되지 않은 경우:**
 - 함수는 기본적으로 `displayLocale` 자신의 이름을 반환합니다.
 - **번역 누락:**
   - `localeNameTranslations`에 `targetLocale` 또는 특정 `displayLocale`에 대한 항목이 없으면, 함수는 `ownLocalesName`을 사용하거나 `"Unknown locale"`을 반환합니다.
+
+## React Native 및 구형 환경용 Polyfills
+
+`getLocaleName` 함수는 `Intl.DisplayNames` API에 의존하며, 이 API는 React Native나 구형 JavaScript 환경에서는 사용할 수 없습니다. 이러한 환경에서 `getLocaleName`을 사용하는 경우 polyfills를 추가해야 합니다.
+
+애플리케이션 초기에 polyfills를 가져오세요. 가능하면 진입점 파일(예: `index.js`, `App.tsx`, 또는 `main.tsx`)에서 수행하세요:
+
+```typescript
+import "intl";
+import "@formatjs/intl-locale/polyfill";
+import "@formatjs/intl-displaynames/polyfill";
+```
+
+자세한 내용은 [FormatJS polyfills 문서](https://formatjs.io/docs/polyfills/intl-displaynames/)를 참조하세요.

@@ -21,18 +21,48 @@ slugs:
 
 Uruchom:
 
-```bash
+```bash packageManager="npm"
 npx intlayer --version                  # aktualna wersja intlayer dla lokalnej konfiguracji
 npx intlayer@latest --version           # najnowsza dostępna wersja intlayer
+```
+
+```bash packageManager="yarn"
+yarn intlayer --version                  # aktualna wersja intlayer dla lokalnej konfiguracji
+yarn intlayer@latest --version           # najnowsza dostępna wersja intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer --version                  # aktualna wersja intlayer dla lokalnej konfiguracji
+pnpm intlayer@latest --version           # najnowsza dostępna wersja intlayer
+```
+
+```bash packageManager="bun"
+bun x intlayer --version                  # aktualna wersja intlayer dla lokalnej konfiguracji
+bun x intlayer@latest --version           # najnowsza dostępna wersja intlayer
 ```
 
 ## 2. **Sprawdź, czy polecenie jest zarejestrowane**
 
 Możesz to sprawdzić za pomocą:
 
-```bash
+```bash packageManager="npm"
 npx intlayer --help                     # Wyświetla listę dostępnych poleceń i informacje o ich użyciu
 npx intlayer dictionary build --help    # Wyświetla listę dostępnych opcji dla polecenia
+```
+
+```bash packageManager="yarn"
+yarn intlayer --help                     # Wyświetla listę dostępnych poleceń i informacje o ich użyciu
+yarn intlayer dictionary build --help    # Wyświetla listę dostępnych opcji dla polecenia
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer --help                     # Wyświetla listę dostępnych poleceń i informacje o ich użyciu
+pnpm intlayer dictionary build --help    # Wyświetla listę dostępnych opcji dla polecenia
+```
+
+```bash packageManager="bun"
+bun x intlayer --help                     # Wyświetla listę dostępnych poleceń i informacje o ich użyciu
+bun x intlayer dictionary build --help    # Wyświetla listę dostępnych opcji dla polecenia
 ```
 
 ## 3. **Uruchom ponownie terminal**

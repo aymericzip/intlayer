@@ -1,30 +1,102 @@
-import configuration from '@intlayer/config/built';
-import { DefaultValues } from '@intlayer/config/client';
-import type { Locale, LocalesValues } from '@intlayer/types';
+import { internationalization, routing } from '@intlayer/config/built';
+import {
+  DEFAULT_LOCALE,
+  LOCALES,
+  ROUTING_MODE,
+} from '@intlayer/config/defaultValues';
+
+// ── Tree-shake constants ──────────────────────────────────────────────────────
+// When these env vars are injected at build time, bundlers eliminate the
+// branches guarded by these constants.
+
+import type { Locale } from '@intlayer/types/allLocales';
+import type { RoutingConfig } from '@intlayer/types/config';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+  ResolvedDefaultLocale,
+  ResolvedRoutingMode,
+} from '@intlayer/types/module_augmentation';
+
+/**
+ * Shared routing options used across all URL localization functions.
+ */
+export type RoutingOptions = {
+  locales?: LocalesValues[];
+  defaultLocale?: LocalesValues;
+  mode?: RoutingConfig['mode'];
+  rewrite?: RoutingConfig['rewrite'];
+  domains?: RoutingConfig['domains'];
+  /**
+   * The hostname of the page currently being rendered (e.g. `'intlayer.org'`).
+   * When provided, `getLocalizedUrl` returns a relative URL for locales whose
+   * configured domain matches `currentDomain`, and an absolute URL only when
+   * the target locale lives on a different domain.
+   *
+   * When omitted the function tries to infer it from:
+   *   1. The domain of an absolute input URL.
+   *   2. `window.location.hostname` in browser environments.
+   * Falls back to always generating absolute URLs when neither is available.
+   */
+  currentDomain?: string;
+};
+
+/**
+ * Resolves routing configuration by merging provided options with configuration defaults.
+ * Single source of truth for default routing config resolution across all localization functions.
+ */
+export const resolveRoutingConfig = (options: RoutingOptions = {}) => ({
+  defaultLocale: internationalization?.defaultLocale ?? DEFAULT_LOCALE,
+  mode: routing?.mode ?? ROUTING_MODE,
+  locales: internationalization?.locales ?? LOCALES,
+  rewrite: routing?.rewrite,
+  domains: routing?.domains,
+  ...options,
+});
 
 export type GetPrefixOptions = {
   defaultLocale?: LocalesValues;
-  mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
+  mode?: RoutingConfig['mode'];
 };
 
 export type GetPrefixResult = {
   /**
-   * The complete base URL path with leading and trailing slashes.
-   *
-   * @example
-   * // https://example.com/fr/about -> '/fr'
-   * // https://example.com/about -> ''
+   * The locale path segment appended to `/`, with a trailing slash (e.g. `'fr/'`).
+   * Empty string when no prefix is needed.
    */
   prefix: string;
   /**
-   * The locale identifier without slashes.
-   *
-   * @example
-   * // https://example.com/fr/about -> 'fr'
-   * // https://example.com/about -> undefined
+   * The bare locale identifier (e.g. `'fr'`), or `undefined` when no prefix is applied.
    */
   localePrefix: Locale | undefined;
 };
+
+/**
+ * Narrowed return type for {@link getPrefix} that carries the locale literal through.
+ *
+ * Distributes over union locales — calling `getPrefix('fr')` in `prefix-no-default`
+ * mode with `defaultLocale = 'en'` resolves to `{ prefix: 'fr/'; localePrefix: 'fr' }`.
+ *
+ * Note: domain-based routing and "locale not in locales" edge cases may return an
+ * empty result at runtime regardless of what this type reports.
+ */
+export type GetPrefixResultNarrowed<
+  L extends LocalesValues | undefined,
+  Mode extends string = ResolvedRoutingMode,
+  Default extends LocalesValues = ResolvedDefaultLocale,
+> = L extends string
+  ? [string] extends [L] // L is wide (string / LocalesValues) → distribute over declared locales
+    ? GetPrefixResultNarrowed<DeclaredLocales, Mode, Default>
+    : [string] extends [Mode]
+      ? GetPrefixResult // mode is wide → fall back to generic result
+      : Mode extends 'prefix-all'
+        ? { prefix: `${L}/`; localePrefix: L }
+        : Mode extends 'prefix-no-default'
+          ? L extends Default
+            ? { prefix: ''; localePrefix: undefined }
+            : { prefix: `${L}/`; localePrefix: L }
+          : { prefix: ''; localePrefix: undefined } // no-prefix / search-params
+  : { prefix: ''; localePrefix: undefined }; // locale is undefined
 
 /**
  * Determines the URL prefix for a given locale based on the routing mode configuration.
@@ -59,30 +131,43 @@ export type GetPrefixResult = {
  * @param options.mode - URL routing mode for locale handling. Defaults to configured mode.
  * @returns An object containing pathPrefix, prefix, and localePrefix for the given locale.
  */
-export const getPrefix = (
-  locale: LocalesValues | undefined,
-  options: {
-    defaultLocale?: LocalesValues;
-    locales?: LocalesValues[];
-    mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
-  } = {}
-): GetPrefixResult => {
-  const { defaultLocale, mode, locales } = {
-    defaultLocale:
-      configuration?.internationalization?.defaultLocale ??
-      DefaultValues.Internationalization.DEFAULT_LOCALE,
-    mode: configuration?.routing?.mode ?? DefaultValues.Routing.ROUTING_MODE,
-    locales:
-      configuration?.internationalization?.locales ??
-      DefaultValues.Internationalization.LOCALES,
-    ...options,
-  };
+export const getPrefix = <const L extends LocalesValues | undefined>(
+  locale: L,
+  options: RoutingOptions = {}
+): GetPrefixResultNarrowed<L> => {
+  const { defaultLocale, mode, locales, domains } =
+    resolveRoutingConfig(options);
 
-  if (!locale || !locales.includes(locale)) {
+  if (
+    (process.env['INTLAYER_ROUTING_MODE'] &&
+      process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-all' &&
+      process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-no-default') ||
+    !locale ||
+    !locales.includes(locale)
+  ) {
     return {
       prefix: '',
       localePrefix: undefined,
-    };
+    } as GetPrefixResultNarrowed<L>;
+  }
+
+  // If this locale is the only one assigned to its domain, no URL prefix is needed
+  // (the domain itself identifies the locale). Shared domains use normal prefix logic.
+  if (process.env['INTLAYER_ROUTING_DOMAINS'] !== 'false' && domains) {
+    const localeDomain = domains[locale as LocalesValues];
+
+    if (localeDomain) {
+      const localesOnSameDomain = Object.values(domains).filter(
+        (domain) => domain === localeDomain
+      ).length;
+
+      if (localesOnSameDomain === 1) {
+        return {
+          prefix: '',
+          localePrefix: undefined,
+        } as GetPrefixResultNarrowed<L>;
+      }
+    }
   }
 
   // Handle prefix-based modes (prefix-all or prefix-no-default)
@@ -94,11 +179,11 @@ export const getPrefix = (
     return {
       prefix: `${locale}/`,
       localePrefix: locale as Locale,
-    };
+    } as GetPrefixResultNarrowed<L>;
   }
 
   return {
     prefix: '',
     localePrefix: undefined,
-  };
+  } as GetPrefixResultNarrowed<L>;
 };

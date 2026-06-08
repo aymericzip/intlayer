@@ -1,15 +1,25 @@
 import { findProjects } from '@services/project.service';
+import { z } from 'zod';
 import type { Dictionary } from '@/types/dictionary.types';
-import { validateArray } from './validateArray';
 
 export type DictionaryFields = (keyof Dictionary)[];
 
 const defaultFieldsToCheck: DictionaryFields = ['projectIds'];
 
-type FieldsToCheck = (typeof defaultFieldsToCheck)[number];
+export type FieldsToCheck = (typeof defaultFieldsToCheck)[number];
 type ValidationErrors = Partial<
   Record<(typeof defaultFieldsToCheck)[number], string[]>
 >;
+
+const dictionaryZodSchema = z.object({
+  projectIds: z
+    .array(
+      z.string({
+        message: 'Project id must be a string',
+      })
+    )
+    .min(1, 'Project id is required'),
+});
 
 /**
  * Validates an dictionary object.
@@ -20,52 +30,38 @@ export const validateDictionary = async (
   dictionary: Partial<Dictionary>,
   fieldsToCheck = defaultFieldsToCheck
 ): Promise<ValidationErrors> => {
-  const errors: ValidationErrors = {};
+  const mask = fieldsToCheck.reduce(
+    (acc, curr) => {
+      acc[curr as string] = true;
+      return acc;
+    },
+    {} as Record<string, true>
+  );
 
-  // Define the fields to validate
-  const fieldsToValidate = new Set<FieldsToCheck>(fieldsToCheck);
+  const schema = dictionaryZodSchema.pick(mask as any);
+  const parsed = schema.safeParse(dictionary);
 
-  const dictionaryJSON = JSON.parse(JSON.stringify(dictionary));
+  const errors: ValidationErrors = parsed.success
+    ? {}
+    : (parsed.error.flatten().fieldErrors as ValidationErrors);
 
-  const projects = await findProjects({
-    _id: dictionary.projectIds as unknown as string[],
-  });
+  if (
+    fieldsToCheck.includes('projectIds') &&
+    dictionary.projectIds &&
+    !errors.projectIds
+  ) {
+    try {
+      const projects = await findProjects({
+        _id: dictionary.projectIds as unknown as string[],
+      });
 
-  // Validate each field
-  for (const field of fieldsToValidate) {
-    const value = dictionaryJSON[field];
-
-    // Initialize error array for the field
-    errors[field] = [];
-
-    if (field === 'projectIds') {
-      const projectsErrors: string[] = validateArray<string>(
-        value as unknown as string[],
-        'Project',
-        'string',
-        (value) => {
-          const projectErrors: string[] = [];
-
-          if (typeof value !== 'string') {
-            projectErrors.push('Project id must be a string');
-          }
-
-          if (!value) {
-            projectErrors.push('Project id is required');
-          }
-
-          if (!projects) {
-            projectErrors.push('Project not found');
-          }
-
-          return projectsErrors;
-        }
-      );
-    }
-
-    // Remove the error field if there are no errors
-    if (errors[field].length === 0) {
-      delete errors[field];
+      if (!projects || projects.length !== dictionary.projectIds.length) {
+        errors.projectIds = errors.projectIds || [];
+        errors.projectIds.push('Project not found'); // Some or all projects were not found
+      }
+    } catch (e) {
+      errors.projectIds = errors.projectIds || [];
+      errors.projectIds.push('Project not found');
     }
   }
 

@@ -19,9 +19,12 @@ slugs:
   - intlayer
   - getLocaleName
 history:
+  - version: 7.5.0
+    date: 2025-12-18
+    changes: "React Native と古い環境用の polyfills を追加"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴の初期化
+    changes: "履歴の初期化"
 ---
 
 # ドキュメント: `intlayer` の `getLocaleName` 関数
@@ -33,7 +36,6 @@ history:
 ## パラメーター
 
 - `displayLocale: Locales`
-
   - **説明**: 対象ロケールの名前が表示されるロケール。
   - **型**: 有効なロケールを表す列挙型または文字列。
 
@@ -48,50 +50,8 @@ history:
 
 ## 使用例
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, getLocaleName } from "intlayer";
-
-getLocaleName(Locales.ENGLISH); // 出力: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // 出力: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // 出力: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // 出力: "English"
-
-getLocaleName(Locales.FRENCH); // 出力: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // 出力: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // 出力: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // 出力: "French"
-
-getLocaleName(Locales.CHINESE); // 出力: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // 出力: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // 出力: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // 出力: "Chinese"
-
-getLocaleName("unknown-locale"); // 出力: "Unknown locale"
-```
-
-```javascript codeFormat="esm"
-import { Locales, getLocaleName } from "intlayer";
-
-getLocaleName(Locales.ENGLISH); // 出力: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // 出力: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // 出力: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // 出力: "English"
-
-getLocaleName(Locales.FRENCH); // 出力: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // 出力: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // 出力: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // 出力: "French"
-
-getLocaleName(Locales.CHINESE); // 出力: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // 出力: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // 出力: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // 出力: "Chinese"
-
-getLocaleName("unknown-locale"); // 出力: "Unknown locale"
-```
-
-```javascript codeFormat="commonjs"
-const { Locales, getLocaleName } = require("intlayer");
 
 getLocaleName(Locales.ENGLISH); // 出力: "English"
 getLocaleName(Locales.ENGLISH, Locales.FRENCH); // 出力: "Anglais"
@@ -117,3 +77,17 @@ getLocaleName("unknown-locale"); // 出力: "Unknown locale"
   - 関数はデフォルトで `displayLocale` 自身の名前を返します。
 - **翻訳が見つからない場合:**
   - `localeNameTranslations` に `targetLocale` または特定の `displayLocale` のエントリが存在しない場合、関数は `ownLocalesName` にフォールバックするか、 `"Unknown locale"` を返します。
+
+## React Native と古い環境用の Polyfills
+
+`getLocaleName` 関数は `Intl.DisplayNames` API に依存しており、この API は React Native や古い JavaScript 環境では利用できません。これらの環境で `getLocaleName` を使用する場合は、polyfills を追加する必要があります。
+
+アプリケーションの早期に polyfills をインポートしてください。理想的には、エントリポイントファイル（例：`index.js`、`App.tsx`、または `main.tsx`）で行います：
+
+```typescript
+import "intl";
+import "@formatjs/intl-locale/polyfill";
+import "@formatjs/intl-displaynames/polyfill";
+```
+
+詳細については、[FormatJS polyfills ドキュメント](https://formatjs.io/docs/polyfills/intl-displaynames/)を参照してください。

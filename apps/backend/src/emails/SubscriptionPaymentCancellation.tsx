@@ -6,6 +6,7 @@ import {
   Heading,
   Html,
   Img,
+  Link,
   Preview,
   Section,
   Tailwind,
@@ -19,6 +20,7 @@ export type SubscriptionPaymentCancellationProps = {
   organizationName: string; // The name of the organization
   cancellationDate: string; // The date when the subscription will end
   reactivateLink: string; // A link for the user to reactivate their subscription
+  billingLink?: string; // A link for the user to see their billing
 };
 
 export const SubscriptionPaymentCancellationEN = ({
@@ -27,6 +29,7 @@ export const SubscriptionPaymentCancellationEN = ({
   organizationName,
   cancellationDate,
   reactivateLink,
+  billingLink,
 }: SubscriptionPaymentCancellationProps) => {
   const previewText = `Your ${planName} subscription has been canceled`;
 
@@ -68,6 +71,15 @@ export const SubscriptionPaymentCancellationEN = ({
                 Reactivate Your Subscription
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -81,6 +93,7 @@ export const SubscriptionPaymentCancellationFR = ({
   organizationName,
   cancellationDate,
   reactivateLink,
+  billingLink,
 }: SubscriptionPaymentCancellationProps) => {
   const previewText = `Votre abonnement ${planName} a été annulé`;
 
@@ -122,6 +135,15 @@ export const SubscriptionPaymentCancellationFR = ({
                 Réactiver votre abonnement
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -135,6 +157,7 @@ export const SubscriptionPaymentCancellationES = ({
   organizationName,
   cancellationDate,
   reactivateLink,
+  billingLink,
 }: SubscriptionPaymentCancellationProps) => {
   const previewText = `Tu suscripción ${planName} ha sido cancelada`;
 
@@ -176,6 +199,977 @@ export const SubscriptionPaymentCancellationES = ({
                 Reactivar tu suscripción
               </Button>
             </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const SubscriptionPaymentCancellationRU = ({
+  username,
+  planName,
+  organizationName,
+  cancellationDate,
+  reactivateLink,
+  billingLink,
+}: SubscriptionPaymentCancellationProps) => {
+  const previewText = `Ваша подписка на ${planName} была отменена`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              Подписка отменена
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Здравствуйте, {username},
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Нам жаль, что вы уходите! Ваша подписка на тарифный план{' '}
+              <strong>{planName}</strong> была отменена. У вас по-прежнему будет
+              доступ до <strong>{cancellationDate}</strong>.
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Организация: <strong>{organizationName}</strong>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={reactivateLink}
+              >
+                Возобновить подписку
+              </Button>
+            </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const SubscriptionPaymentCancellationJA = ({
+  username,
+  planName,
+  organizationName,
+  cancellationDate,
+  reactivateLink,
+  billingLink,
+}: SubscriptionPaymentCancellationProps) => {
+  const previewText = `${planName}のサブスクリプションがキャンセルされました`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              サブスクリプションがキャンセルされました
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              {username}様、こんにちは。
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              ご利用ありがとうございました。あなたの<strong>{planName}</strong>
+              プランのサブスクリプションがキャンセルされました。
+              <strong>{cancellationDate}</strong>
+              まで引き続きご利用いただけます。
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              組織: <strong>{organizationName}</strong>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={reactivateLink}
+              >
+                サブスクリプションを再開する
+              </Button>
+            </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const SubscriptionPaymentCancellationKO = ({
+  username,
+  planName,
+  organizationName,
+  cancellationDate,
+  reactivateLink,
+  billingLink,
+}: SubscriptionPaymentCancellationProps) => {
+  const previewText = `${planName} 구독이 취소되었습니다`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              구독이 취소되었습니다
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              안녕하세요 {username}님,
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              함께해주셔서 감사했습니다! 귀하의 <strong>{planName}</strong> 플랜
+              구독이 취소되었습니다. <strong>{cancellationDate}</strong>까지는
+              계속 이용하실 수 있습니다.
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              조직: <strong>{organizationName}</strong>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={reactivateLink}
+              >
+                구독 재활성화하기
+              </Button>
+            </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const SubscriptionPaymentCancellationZH = ({
+  username,
+  planName,
+  organizationName,
+  cancellationDate,
+  reactivateLink,
+  billingLink,
+}: SubscriptionPaymentCancellationProps) => {
+  const previewText = `您的 ${planName} 订阅已取消`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              订阅已取消
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              {username}，您好！
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              很遗憾看到您离开！您的 <strong>{planName}</strong>{' '}
+              计划订阅已取消。在 <strong>{cancellationDate}</strong>{' '}
+              之前，您仍可访问相关服务。
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              组织：<strong>{organizationName}</strong>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={reactivateLink}
+              >
+                重新激活您的订阅
+              </Button>
+            </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const SubscriptionPaymentCancellationDE = ({
+  username,
+  planName,
+  organizationName,
+  cancellationDate,
+  reactivateLink,
+  billingLink,
+}: SubscriptionPaymentCancellationProps) => {
+  const previewText = `Ihr ${planName}-Abonnement wurde gekündigt`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              Abonnement gekündigt
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Hallo {username},
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              wir bedauern, dass Sie uns verlassen! Ihr Abonnement für den{' '}
+              <strong>{planName}</strong>-Plan wurde gekündigt. Sie haben noch
+              bis zum <strong>{cancellationDate}</strong> Zugriff.
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Organisation: <strong>{organizationName}</strong>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={reactivateLink}
+              >
+                Ihr Abonnement reaktivieren
+              </Button>
+            </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const SubscriptionPaymentCancellationAR = ({
+  username,
+  planName,
+  organizationName,
+  cancellationDate,
+  reactivateLink,
+  billingLink,
+}: SubscriptionPaymentCancellationProps) => {
+  const previewText = `تم إلغاء اشتراكك في ${planName}`;
+
+  return (
+    <Html dir="rtl">
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              تم إلغاء الاشتراك
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              أهلاً {username}،
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              نحن ناسف لرحيلك! لقد تم إلغاء اشتراكك في خطة{' '}
+              <strong>{planName}</strong>. سيظل بإمكانك الوصول حتى تاريخ{' '}
+              <strong>{cancellationDate}</strong>.
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              المنظمة: <strong>{organizationName}</strong>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={reactivateLink}
+              >
+                إعادة تفعيل اشتراكك
+              </Button>
+            </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const SubscriptionPaymentCancellationIT = ({
+  username,
+  planName,
+  organizationName,
+  cancellationDate,
+  reactivateLink,
+  billingLink,
+}: SubscriptionPaymentCancellationProps) => {
+  const previewText = `Il tuo abbonamento ${planName} è stato annullato`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              Abbonamento Annullato
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Ciao {username},
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Ci dispiace vederti andare via! Il tuo abbonamento al piano{' '}
+              <strong>{planName}</strong> è stato annullato. Avrai ancora
+              accesso fino al <strong>{cancellationDate}</strong>.
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Organizzazione: <strong>{organizationName}</strong>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={reactivateLink}
+              >
+                Riattiva il tuo abbonamento
+              </Button>
+            </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const SubscriptionPaymentCancellationEN_GB = ({
+  username,
+  planName,
+  organizationName,
+  cancellationDate,
+  reactivateLink,
+  billingLink,
+}: SubscriptionPaymentCancellationProps) => {
+  const previewText = `Your ${planName} subscription has been cancelled`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              Subscription Cancelled
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Hello {username},
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              We’re sorry to see you go! Your subscription to the{' '}
+              <strong>{planName}</strong> plan has been cancelled. You will
+              still have access until <strong>{cancellationDate}</strong>.
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Organisation: <strong>{organizationName}</strong>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={reactivateLink}
+              >
+                Reactivate Your Subscription
+              </Button>
+            </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const SubscriptionPaymentCancellationPT = ({
+  username,
+  planName,
+  organizationName,
+  cancellationDate,
+  reactivateLink,
+  billingLink,
+}: SubscriptionPaymentCancellationProps) => {
+  const previewText = `Sua assinatura ${planName} foi cancelada`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              Assinatura Cancelada
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Olá {username},
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Lamentamos ver você partir! Sua assinatura do plano{' '}
+              <strong>{planName}</strong> foi cancelada. Você ainda terá acesso
+              até <strong>{cancellationDate}</strong>.
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Organização: <strong>{organizationName}</strong>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={reactivateLink}
+              >
+                Reativar sua assinatura
+              </Button>
+            </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const SubscriptionPaymentCancellationHI = ({
+  username,
+  planName,
+  organizationName,
+  cancellationDate,
+  reactivateLink,
+  billingLink,
+}: SubscriptionPaymentCancellationProps) => {
+  const previewText = `आपकी ${planName} सदस्यता रद्द कर दी गई है`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              सदस्यता रद्द कर दी गई
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              नमस्ते {username},
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              हमें आपको जाते हुए देखकर दुख हो रहा है! आपकी <strong>{planName}</strong>{' '}
+              योजना की सदस्यता रद्द कर दी गई है। आपके पास अभी भी{' '}
+              <strong>{cancellationDate}</strong> तक पहुँच होगी।
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              संगठन: <strong>{organizationName}</strong>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={reactivateLink}
+              >
+                अपनी सदस्यता को फिर से सक्रिय करें
+              </Button>
+            </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const SubscriptionPaymentCancellationTR = ({
+  username,
+  planName,
+  organizationName,
+  cancellationDate,
+  reactivateLink,
+  billingLink,
+}: SubscriptionPaymentCancellationProps) => {
+  const previewText = `${planName} aboneliğiniz iptal edildi`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              Abonelik İptal Edildi
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Merhaba {username},
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Ayrıldığınız için üzgünüz! <strong>{planName}</strong> planına
+              olan aboneliğiniz iptal edildi.{' '}
+              <strong>{cancellationDate}</strong> tarihine kadar erişiminiz
+              devam edecektir.
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Kuruluş: <strong>{organizationName}</strong>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={reactivateLink}
+              >
+                Aboneliğinizi Yeniden Etkinleştirin
+              </Button>
+            </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const SubscriptionPaymentCancellationPL = ({
+  username,
+  planName,
+  organizationName,
+  cancellationDate,
+  reactivateLink,
+  billingLink,
+}: SubscriptionPaymentCancellationProps) => {
+  const previewText = `Twoja subskrypcja ${planName} została anulowana`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              Subskrypcja Anulowana
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Witaj {username},
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Przykro nam, że odchodzisz! Twoja subskrypcja planu{' '}
+              <strong>{planName}</strong> została anulowana. Nadal będziesz mieć
+              dostęp do <strong>{cancellationDate}</strong>.
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Organizacja: <strong>{organizationName}</strong>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={reactivateLink}
+              >
+                Reaktywuj swoją subskrypcję
+              </Button>
+            </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const SubscriptionPaymentCancellationID = ({
+  username,
+  planName,
+  organizationName,
+  cancellationDate,
+  reactivateLink,
+  billingLink,
+}: SubscriptionPaymentCancellationProps) => {
+  const previewText = `Langganan ${planName} Anda telah dibatalkan`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              Langganan Dibatalkan
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Halo {username},
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Kami sedih melihat Anda pergi! Langganan Anda ke paket{' '}
+              <strong>{planName}</strong> telah dibatalkan. Anda masih akan
+              memiliki akses hingga <strong>{cancellationDate}</strong>.
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Organisasi: <strong>{organizationName}</strong>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={reactivateLink}
+              >
+                Aktifkan Kembali Langganan Anda
+              </Button>
+            </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const SubscriptionPaymentCancellationVI = ({
+  username,
+  planName,
+  organizationName,
+  cancellationDate,
+  reactivateLink,
+  billingLink,
+}: SubscriptionPaymentCancellationProps) => {
+  const previewText = `Gói thuê bao ${planName} của bạn đã bị hủy`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              Thuê Bao Đã Bị Hủy
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Xin chào {username},
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Chúng tôi rất tiếc khi thấy bạn rời đi! Gói thuê bao{' '}
+              <strong>{planName}</strong> của bạn đã bị hủy. Bạn vẫn sẽ có quyền
+              truy cập cho đến ngày <strong>{cancellationDate}</strong>.
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Tổ chức: <strong>{organizationName}</strong>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={reactivateLink}
+              >
+                Kích hoạt lại gói thuê bao của bạn
+              </Button>
+            </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
+  );
+};
+
+export const SubscriptionPaymentCancellationUK = ({
+  username,
+  planName,
+  organizationName,
+  cancellationDate,
+  reactivateLink,
+  billingLink,
+}: SubscriptionPaymentCancellationProps) => {
+  const previewText = `Вашу підписку на ${planName} скасовано`;
+
+  return (
+    <Html>
+      <Head />
+      <Preview>{previewText}</Preview>
+      <Tailwind>
+        <Body className="m-auto px-2 font-sans">
+          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
+            <Section className="mt-[32px]">
+              <Img
+                src="https://intlayer.org/apple-touch-icon.png"
+                width="40"
+                height="37"
+                alt="Intlayer"
+                className="mx-auto my-0"
+              />
+            </Section>
+            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+              Підписку скасовано
+            </Heading>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Вітаємо, {username},
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Нам шкода, що ви йдете! Вашу підписку на тарифний план{' '}
+              <strong>{planName}</strong> скасовано. У вас все ще буде доступ до{' '}
+              <strong>{cancellationDate}</strong>.
+            </Text>
+            <Text className="text-[14px] text-black leading-[24px]">
+              Організація: <strong>{organizationName}</strong>
+            </Text>
+            <Section className="my-[32px] text-center">
+              <Button
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                href={reactivateLink}
+              >
+                Відновити підписку
+              </Button>
+            </Section>
+            {billingLink && (
+              <Section className="mt-[32px] text-center">
+                <Text className="text-[#666666] text-[12px] leading-[24px]">
+                  <Link href={billingLink} className="text-black underline">
+                    See your billing
+                  </Link>
+                </Text>
+              </Section>
+            )}
           </Container>
         </Body>
       </Tailwind>
@@ -195,3 +1189,18 @@ const PreviewProps: SubscriptionPaymentCancellationProps = {
 SubscriptionPaymentCancellationEN.PreviewProps = PreviewProps;
 SubscriptionPaymentCancellationFR.PreviewProps = PreviewProps;
 SubscriptionPaymentCancellationES.PreviewProps = PreviewProps;
+SubscriptionPaymentCancellationRU.PreviewProps = PreviewProps;
+SubscriptionPaymentCancellationJA.PreviewProps = PreviewProps;
+SubscriptionPaymentCancellationKO.PreviewProps = PreviewProps;
+SubscriptionPaymentCancellationZH.PreviewProps = PreviewProps;
+SubscriptionPaymentCancellationDE.PreviewProps = PreviewProps;
+SubscriptionPaymentCancellationAR.PreviewProps = PreviewProps;
+SubscriptionPaymentCancellationIT.PreviewProps = PreviewProps;
+SubscriptionPaymentCancellationEN_GB.PreviewProps = PreviewProps;
+SubscriptionPaymentCancellationPT.PreviewProps = PreviewProps;
+SubscriptionPaymentCancellationHI.PreviewProps = PreviewProps;
+SubscriptionPaymentCancellationTR.PreviewProps = PreviewProps;
+SubscriptionPaymentCancellationPL.PreviewProps = PreviewProps;
+SubscriptionPaymentCancellationID.PreviewProps = PreviewProps;
+SubscriptionPaymentCancellationVI.PreviewProps = PreviewProps;
+SubscriptionPaymentCancellationUK.PreviewProps = PreviewProps;

@@ -1,7 +1,7 @@
 import { readAsset } from 'utils:asset';
-import { generateText } from 'ai';
+import { generateText, Output } from 'ai';
+import { z } from 'zod';
 import type { AIConfig, AIOptions } from '../aiSdk';
-import { extractJson } from '../utils/extractJSON';
 
 type Tag = {
   key: string;
@@ -42,6 +42,8 @@ export const auditDictionaryMetadata = async ({
   AuditFileResultData | undefined
 > => {
   const CHAT_GPT_PROMPT = readAsset('./PROMPT.md');
+  const EXAMPLE_REQUEST = readAsset('./EXAMPLE_REQUEST.md');
+  const EXAMPLE_RESPONSE = readAsset('./EXAMPLE_RESPONSE.md');
 
   // Prepare the prompt for AI by replacing placeholders with actual values.
   const prompt = CHAT_GPT_PROMPT.replace(
@@ -60,24 +62,32 @@ export const auditDictionaryMetadata = async ({
       : ''
   );
 
+  const { dataSerialization, ...restAiConfig } = aiConfig;
+  const { output: _unusedOutput, ...validAiConfig } = restAiConfig;
+
   // Use the AI SDK to generate the completion
-  const { text: newContent, usage } = await generateText({
-    ...aiConfig,
+  const { output, usage } = await generateText({
+    ...validAiConfig,
+    output: Output.object({
+      schema: z.object({
+        title: z.string(),
+        description: z.string(),
+        tags: z.array(z.string()),
+      }),
+    }),
+    system: prompt,
     messages: [
-      { role: 'system', content: prompt },
+      { role: 'user', content: EXAMPLE_REQUEST },
+      { role: 'assistant', content: EXAMPLE_RESPONSE },
       {
         role: 'user',
-        content: [
-          '**Content declaration to describe:**',
-          'This is the content declaration that you should consider to describe:',
-          fileContent,
-        ].join('\n'),
+        content: fileContent,
       },
     ],
   });
 
   return {
-    fileContent: extractJson(newContent),
+    fileContent: output,
     tokenUsed: usage?.totalTokens ?? 0,
   };
 };

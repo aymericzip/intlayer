@@ -1,71 +1,97 @@
 import { logger } from '@logger';
+import OAuth2Server, {
+  Request as OAuthRequest,
+  Response as OAuthResponse,
+} from '@node-oauth/oauth2-server';
+import {
+  getCliSessionTokenContext,
+  isCliSessionToken,
+} from '@services/cliSessionToken.service';
 import {
   getOAuth2AccessTokenContext,
   validateOAuth2AccessToken,
 } from '@services/oAuth2.service';
 import { formatSession } from '@utils/auth/getAuth';
 import { type AppError, ErrorHandler } from '@utils/errors';
-import { authenticateOptions, getAuthModel } from '@utils/oAuth2';
-import type { NextFunction, Request, Response } from 'express';
-import OAuth2Server, {
-  Request as OAuthRequest,
-  Response as OAuthResponse,
-} from 'oauth2-server';
+import {
+  ACCESS_TOKEN_EXPIRES_IN,
+  authenticateOptions,
+  getAuthModel,
+} from '@utils/oAuth2';
+import type { FastifyReply, FastifyRequest } from 'fastify';
 
 // Configuration of the OAuth server
 const oauth = new OAuth2Server({
   model: getAuthModel(),
-  accessTokenLifetime: 60 * 60, // 1 hour
+  accessTokenLifetime: ACCESS_TOKEN_EXPIRES_IN,
   allowBearerTokensInQueryString: true,
 });
 
-export type RequestWithOAuth2Information<
-  P = any,
-  ResBody = any,
-  ReqBody = any,
-  ReqQuery = qs.ParsedQs,
-> = Request<P, ResBody, ReqBody, ReqQuery> & {
+// Extend FastifyRequest to include oauth
+declare module 'fastify' {
+  interface FastifyRequest {
+    oauth?: OAuth2Server;
+  }
+}
+
+export type RequestWithOAuth2Information = FastifyRequest & {
   oauth: OAuth2Server;
 };
 
 export const attachOAuthInstance = async (
-  req: Request,
-  _res: Response,
-  next: NextFunction
+  request: FastifyRequest,
+  _reply: FastifyReply
 ) => {
   // Attach the instance OAuth to the requests
-  (req as RequestWithOAuth2Information).oauth = oauth;
-
-  next();
+  (request as RequestWithOAuth2Information).oauth = oauth;
 };
 
 // Middleware to authenticate requests
 export const oAuth2Middleware = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
+  request: FastifyRequest,
+  reply: FastifyReply
 ): Promise<void> => {
-  if (typeof res.locals.authType !== 'undefined') {
+  if (request.session?.authType) {
     // Skip if user is already authenticated (ex: session)
-    return next();
+    return;
   }
 
   try {
-    const hasToken = Boolean(req.headers.authorization);
+    const hasToken = Boolean(request.headers.authorization);
 
     if (!hasToken) {
       // If the request does not have a token, skip the oAuth2 authentication
       // Necessary because the oAuth2 library will throw an error if the token is not present
-      return next();
+      return;
+    }
+
+    const bearerToken = request.headers.authorization
+      ?.match(/^Bearer\s+(.+)$/i)?.[1]
+      ?.trim();
+
+    // Handle CLI session tokens (prefixed with "clisession_")
+    if (bearerToken && isCliSessionToken(bearerToken)) {
+      const sessionContext = await getCliSessionTokenContext(bearerToken);
+      const formattedSession = formatSession(sessionContext);
+      request.session = { ...formattedSession, authType: 'oauth2' };
+      logger.info(
+        'CLI session token authenticated',
+        sessionContext.user?.email
+      );
+      return;
     }
 
     // Authenticate the request using OAuth2
-    const oauthRequest = new OAuthRequest(req);
-
-    const oauthResponse = new OAuthResponse(res);
+    const oauthRequest = new OAuthRequest({
+      headers: request.headers as Record<string, string>,
+      method: request.method,
+      query: request.query as Record<string, string>,
+      body: request.body as any,
+    });
+    const oauthResponse = new OAuthResponse(reply.raw);
 
     const oAuthToken = await (
-      req as RequestWithOAuth2Information
+      request as RequestWithOAuth2Information
     ).oauth.authenticate(oauthRequest, oauthResponse, authenticateOptions);
 
     const validatedToken = await validateOAuth2AccessToken(
@@ -75,22 +101,17 @@ export const oAuth2Middleware = async (
     const result = await getOAuth2AccessTokenContext(validatedToken);
 
     const formattedSession = formatSession(result);
-    res.locals.authType = 'session';
-
-    // Attach the session to the response locals
-    Object.entries(formattedSession).forEach(([key, value]) => {
-      (res.locals as any)[key] = value;
-    });
+    request.session = {
+      ...formattedSession,
+      authType: 'oauth2',
+    };
 
     logger.info(
       'OAuth2 bearer token authenticated',
       formattedSession.user.email
     );
   } catch (error) {
-    ErrorHandler.handleAppErrorResponse(res, error as AppError);
-
+    ErrorHandler.handleAppErrorResponse(reply as any, error as AppError);
     return;
   }
-
-  next();
 };

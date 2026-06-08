@@ -1,7 +1,8 @@
-import { getAppLogger } from '@intlayer/config';
-import type { IntlayerConfig } from '@intlayer/types';
+import { normalize } from 'node:path';
+import { getAppLogger } from '@intlayer/config/logger';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { buildDictionary } from './buildIntlayerDictionary/buildIntlayerDictionary';
-import { createDictionaryEntryPoint } from './createDictionaryEntryPoint/createDictionaryEntryPoint';
+import { cleanRemovedContentDeclaration } from './cleanRemovedContentDeclaration';
 import { createTypes } from './createType';
 import { createModuleAugmentation } from './createType/createModuleAugmentation';
 import { listDictionaries } from './listDictionariesPath';
@@ -21,17 +22,21 @@ export const handleUnlinkedContentDeclarationFile = async (
 
   const files: string[] = await listDictionaries(config);
 
-  const localeDictionaries = await loadLocalDictionaries(files, config);
+  const existingFiles = files.filter(
+    (file) => normalize(file) !== normalize(filePath)
+  );
+
+  const localeDictionaries = await loadLocalDictionaries(existingFiles, config);
+
+  await cleanRemovedContentDeclaration(filePath, [], config);
 
   const dictionariesOutput = await buildDictionary(localeDictionaries, config);
 
-  const dictionariesPaths = Object.values(
+  const dictionariesToBuild = Object.values(
     dictionariesOutput?.mergedDictionaries ?? {}
-  ).map((dictionary) => dictionary.dictionaryPath);
+  ).map((dictionary) => dictionary.dictionary);
 
-  await createTypes(dictionariesPaths, config);
-
-  await createDictionaryEntryPoint();
+  await createTypes(dictionariesToBuild, config);
 
   appLogger('Dictionaries rebuilt', {
     isVerbose: true,

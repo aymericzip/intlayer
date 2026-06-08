@@ -1,5 +1,5 @@
-import { getTranslation } from '@intlayer/core';
-import type { StrictModeLocaleMap } from '@intlayer/types';
+import { getTranslation } from '@intlayer/core/interpreter';
+import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import { useContext, useMemo } from 'preact/hooks';
 import { IntlayerClientContext } from './IntlayerProvider';
 
@@ -27,7 +27,7 @@ import { IntlayerClientContext } from './IntlayerProvider';
 export const useTranslation = <Content = string>(
   languageContent: StrictModeLocaleMap<Content>
 ): Content => {
-  const { locale } = useContext(IntlayerClientContext);
+  const { locale } = useContext(IntlayerClientContext) ?? {};
 
   return useMemo(
     () => getTranslation(languageContent, locale),

@@ -1,4 +1,4 @@
-import type { Request } from 'express';
+import type { FastifyRequest } from 'fastify';
 import type { ObjectId } from 'mongoose';
 
 const DEFAULT_PAGE_SIZE = 1000;
@@ -23,11 +23,11 @@ export type FiltersAndPaginationResult<T extends Filters> = {
 
 /**
  * Extracts filters and pagination information from the request body.
- * @param req - Express request object.
+ * @param req - Fastify request object.
  * @returns Object containing filters, page, pageSize, and getNumberOfPages functions.
  */
 export const getFiltersAndPaginationFromBody = <T extends Filters>(
-  req: Request<FiltersAndPagination<T>>
+  req: FastifyRequest<{ Querystring: FiltersAndPagination<T> }>
 ): FiltersAndPaginationResult<T> => {
   let filters = {} as T;
   let pageSize = DEFAULT_PAGE_SIZE;

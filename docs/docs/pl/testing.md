@@ -16,10 +16,10 @@ slugs:
 history:
   - version: 6.0.1
     date: 2025-10-05
-    changes: Uczynienie testu asynchronicznym i dodanie opcji build
+    changes: "Uczynienie testu asynchronicznym i dodanie opcji build"
   - version: 6.0.0
     date: 2025-09-20
-    changes: Wprowadzenie testowania
+    changes: "Wprowadzenie testowania"
 ---
 
 # Testowanie Twoich treści
@@ -40,8 +40,20 @@ Ten przewodnik pokazuje, jak automatycznie weryfikować kompletność słownikó
 
 Uruchom audyt z katalogu głównego projektu:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 Przydatne flagi:
@@ -187,8 +199,20 @@ jobs:
 
 Opcjonalnie: uruchom audyt CLI, aby uzyskać czytelne podsumowanie wraz z testami:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 ---

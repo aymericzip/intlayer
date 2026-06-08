@@ -16,7 +16,7 @@ keywords:
   - noPrefix
 slugs:
   - frequent-questions
-  - ssr-next-no-[locale]
+  - next-no-locale-path
 ---
 
 # ページパスに `[locale]` を含めずに Next.js で Intlayer を使用することは可能ですか？

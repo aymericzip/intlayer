@@ -1,50 +1,61 @@
 import { BackgroundLayout } from '@components/BackgroundLayout';
-import { Editor } from '@components/Dashboard/Editor';
+import { DashboardContentLayout } from '@components/Dashboard/DashboardContentLayout';
 import { DictionaryLoaderPlayground } from '@components/Dashboard/Editor/DictionaryLoaderPlayground';
-import baseConfiguration from '@intlayer/config/built';
-import { ConfigurationProvider } from '@intlayer/editor-react';
+import {
+  editor,
+  internationalization,
+  log,
+  routing,
+} from '@intlayer/config/built';
+import { Loader } from '@intlayer/design-system/loader';
+import { Website_Demo_Path } from '@intlayer/design-system/routes';
+import { OrganizationHeader } from '@structuredData/OrganizationHeader';
+import { SoftwareApplicationHeader } from '@structuredData/SoftwareApplication';
+import { WebsiteHeader } from '@structuredData/WebsiteHeader';
+import dynamic from 'next/dynamic';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 
 export { generateMetadata } from './metadata';
+
+const Editor = dynamic(
+  () => import('@components/Dashboard/Editor').then((mod) => mod.Editor),
+  {
+    loading: () => <Loader />,
+  }
+);
 
 const PlaygroundContent: FC = () => {
   const { title, description } = useIntlayer('playground-page');
 
-  const applicationURL = `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Demo}`;
+  const applicationURL = `${process.env.NEXT_PUBLIC_URL}${Website_Demo_Path}`;
 
   const configuration = {
-    ...baseConfiguration,
+    internationalization,
+    routing,
+    log,
     ...{
       editor: {
-        ...(baseConfiguration.editor ?? {}),
+        ...editor,
         applicationURL,
       },
     },
   };
 
   return (
-    <>
-      <h1 className="border-neutral border-b-[0.5px] p-6 pl-10 text-3xl">
-        {title}
-      </h1>
-      <div className="relative flex size-full flex-1 flex-col">
-        <BackgroundLayout />
-        <p className="m-auto my-3 max-w-3xl px-10 text-neutral text-sm">
-          {description}
-        </p>
-        <div className="relative flex flex-1 flex-col items-center px-10 pb-5">
-          <ConfigurationProvider configuration={configuration}>
-            <Editor
-              configuration={configuration}
-              DictionariesLoader={DictionaryLoaderPlayground}
-            />
-          </ConfigurationProvider>
-        </div>
+    <DashboardContentLayout title={title}>
+      <BackgroundLayout />
+      <p className="m-auto my-3 max-w-3xl px-10 text-neutral text-sm">
+        {description}
+      </p>
+      <div className="relative flex flex-1 flex-col items-center px-10 pb-5">
+        <Editor
+          configuration={configuration}
+          DictionariesLoader={DictionaryLoaderPlayground}
+        />
       </div>
-    </>
+    </DashboardContentLayout>
   );
 };
 
@@ -53,6 +64,9 @@ const Playground: NextPageIntlayer = async ({ params }) => {
 
   return (
     <IntlayerServerProvider locale={locale}>
+      <WebsiteHeader key={locale} />
+      <OrganizationHeader />
+      <SoftwareApplicationHeader />
       <PlaygroundContent />
     </IntlayerServerProvider>
   );

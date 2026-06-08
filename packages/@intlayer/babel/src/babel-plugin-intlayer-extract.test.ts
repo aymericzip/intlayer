@@ -1,0 +1,604 @@
+import { transformSync } from '@babel/core';
+import { getConfiguration } from '@intlayer/config/node';
+import { describe, expect, it } from 'vitest';
+import {
+  type ExtractPluginOptions,
+  intlayerExtractBabelPlugin,
+} from './babel-plugin-intlayer-extract';
+
+const transform = (
+  code: string,
+  options: Partial<ExtractPluginOptions> = {},
+  filename = '/app/src/components/MyComponent.tsx'
+) => {
+  const result = transformSync(code, {
+    filename,
+    plugins: [
+      '@babel/plugin-syntax-jsx',
+      [
+        intlayerExtractBabelPlugin,
+        {
+          packageName: 'react-intlayer',
+          defaultLocale: 'en',
+          onExtract: () => {},
+          configuration: getConfiguration(),
+          ...options,
+        },
+      ],
+    ],
+    babelrc: false,
+    configFile: false,
+  });
+
+  return result?.code;
+};
+
+describe('babel-plugin-intlayer-extract', () => {
+  it('should ignore object keys and member expression properties (React compiler compatibility)', () => {
+    const code = `
+      function MyComponent() {
+        const obj = {
+          "Compiler Generated String": () => <div>Hello World</div>
+        };
+        const cached = obj["Compiler Generated String"];
+        return cached();
+      }
+    `;
+
+    const output = transform(code);
+    expect(output).toContain('"Compiler Generated String":');
+    expect(output).toContain('obj["Compiler Generated String"]');
+    // Ensure "Hello World" is extracted instead
+    expect(output).toContain('content.helloWorld');
+  });
+
+  it('should extract JSX text and inject useIntlayer properly', () => {
+    const code = `
+      function MyComponent() {
+        return <div>Hello World</div>;
+      }
+    `;
+    const output = transform(code);
+    expect(output).toContain('content.helloWorld');
+    expect(output).toContain("const content = useIntlayer('my-component');");
+    expect(output).toContain("import { useIntlayer } from 'react-intlayer';");
+  });
+
+  it('should extract text from function and inject getIntlayer properly', () => {
+    const code = `
+      function myUtility() {
+        return "Utility text";
+      }
+    `;
+    const output = transform(code);
+    expect(output).toContain('content.utilityText');
+    expect(output).toContain("const content = getIntlayer('my-component');");
+    expect(output).toContain("import { getIntlayer } from 'intlayer';");
+  });
+
+  it('should leave user-defined imports completely untouched', () => {
+    const code = `
+      import { useIntlayer, IntlayerClientProvider } from "react-intlayer";
+
+      export function MyServerComponent() {
+        const content = useIntlayer("some-dict");
+        return <IntlayerClientProvider>{content.hello}</IntlayerClientProvider>;
+      }
+    `;
+    // We mock "server component" state by making sure "use client" is missing
+    const output = transform(code, { packageName: 'react-intlayer' });
+
+    // Existing imports shouldn't be split or re-written
+    expect(output).toContain(
+      'import { useIntlayer, IntlayerClientProvider } from "react-intlayer";'
+    );
+    expect(output).not.toContain('react-intlayer/server');
+  });
+
+  it('should inject from /server for next-intlayer if no "use client" directive is present', () => {
+    const code = `
+      export function MyComponent() {
+        return <div>Hello Server</div>;
+      }
+    `;
+    const output = transform(code, { packageName: 'next-intlayer' });
+
+    expect(output).toContain(
+      "import { useIntlayer } from 'next-intlayer/server';"
+    );
+  });
+
+  it('should NOT inject from /server for next-intlayer if "use client" directive is present', () => {
+    const code = `
+      "use client"
+      export function MyComponent() {
+        return <div>Hello Client</div>;
+      }
+    `;
+    const output = transform(code, { packageName: 'next-intlayer' });
+
+    expect(output).toContain("import { useIntlayer } from 'next-intlayer';");
+    expect(output).not.toContain('next-intlayer/server');
+  });
+
+  it('should NOT inject from /server for preact-intlayer ever', () => {
+    const code = `
+      export function MyComponent() {
+        return <div>Hello Preact</div>;
+      }
+    `;
+    const output = transform(code, { packageName: 'preact-intlayer' });
+
+    expect(output).toContain("import { useIntlayer } from 'preact-intlayer';");
+    expect(output).not.toContain('preact-intlayer/server');
+  });
+
+  it('should inject getIntlayer from "intlayer" in Next.js project functions', () => {
+    const code = `
+      export function myNextUtility() {
+        return "Next utility";
+      }
+    `;
+    const output = transform(code, { packageName: 'next-intlayer' });
+    expect(output).toContain("import { getIntlayer } from 'intlayer';");
+    expect(output).not.toContain(
+      "import { getIntlayer } from 'next-intlayer';"
+    );
+  });
+
+  it('should extract multiple strings and handle attributes', () => {
+    const code = `
+      export function MyComponent() {
+        return (
+          <div title="Component Title">
+            <img src="logo.png" alt="Company Logo" />
+            <p>Welcome back!</p>
+          </div>
+        );
+      }
+    `;
+    const output = transform(code);
+    expect(output).toContain('content.componentTitle');
+    expect(output).toContain('content.companyLogo');
+    expect(output).toContain('content.welcomeBack');
+    expect(output).toContain('title={content.componentTitle.value}');
+    expect(output).toContain('alt={content.companyLogo.value}');
+    expect(output).toContain('>{content.welcomeBack}<');
+  });
+
+  it('should handle object-property arrow function with parenthesized JSX body', () => {
+    const code = `
+      export const routes = {
+        'custom-component': (props) => (
+          <h1 style={{ color: 'red' }} {...props}>
+            Custom 1
+          </h1>
+        ),
+      };
+    `;
+    const output = transform(code);
+    // ASI must not split `return` from the JSX expression
+    expect(output).not.toContain('return;');
+    expect(output).toContain('content.custom1');
+    // return must be followed by `(` or closely followed by JSX to prevent ASI
+    expect(output).toMatch(/return\s*(?:\(|<)/);
+  });
+
+  it('should extract JSX text with solid-intlayer and use content.key direct access', () => {
+    const code = `
+      export function MyComponent() {
+        return <div>Hello World</div>;
+      }
+    `;
+    const output = transform(code, { packageName: 'solid-intlayer' });
+    // solid-intlayer returns a Proxy — content is accessed directly without calling it
+    expect(output).toContain('content.helloWorld');
+    expect(output).not.toContain('content().helloWorld');
+    expect(output).toContain("const content = useIntlayer('my-component');");
+    expect(output).toContain("import { useIntlayer } from 'solid-intlayer';");
+  });
+
+  it('should extract with angular-intlayer and use content().key signal access pattern', () => {
+    const code = `
+      export function MyComponent() {
+        return <div>Hello World</div>;
+      }
+    `;
+    const output = transform(code, { packageName: 'angular-intlayer' });
+    // Angular useIntlayer returns a Signal — content is invoked to read its value
+    expect(output).toContain('content().helloWorld');
+    expect(output).not.toContain('content.helloWorld');
+    expect(output).toContain("import { useIntlayer } from 'angular-intlayer';");
+  });
+
+  it('should extract JSX text with preact-intlayer using standard content.key access', () => {
+    const code = `
+      export function MyComponent() {
+        return <div>Hello Preact World</div>;
+      }
+    `;
+    const output = transform(code, { packageName: 'preact-intlayer' });
+    expect(output).toContain('content.helloPreactWorld');
+    expect(output).toContain("import { useIntlayer } from 'preact-intlayer';");
+    // Preact has no server sub-path
+    expect(output).not.toContain('preact-intlayer/server');
+  });
+
+  it('should extract string literals from TypeScript files with lit-intlayer', () => {
+    const code = `
+      export function setupGreeting() {
+        const message = "Hello Lit World";
+        return message;
+      }
+    `;
+    const output = transform(
+      code,
+      { packageName: 'lit-intlayer' },
+      '/app/src/components/my-element.ts'
+    );
+    expect(output).toContain('content.helloLitWorld');
+    expect(output).toContain("import { getIntlayer } from 'intlayer';");
+    expect(output).toContain("const content = getIntlayer('my-element');");
+  });
+
+  it.todo(
+    'should handle variable name collisions (not yet implemented: always uses "content")'
+  );
+
+  it('should not inject anything if no translatable strings are found', () => {
+    const code = `
+      import { someHelper } from "./helpers";
+      export function MyComponent({ data }) {
+        return <div className={someHelper(data)}>{data.id}</div>;
+      }
+    `;
+    const output = transform(code);
+    expect(output).not.toContain('useIntlayer');
+    expect(output).not.toContain('import { useIntlayer }');
+  });
+
+  it('should handle strings in nested functions', () => {
+    const code = `
+      export function MyComponent() {
+        const getLabel = () => "Label Text";
+        return <div>{getLabel()}</div>;
+      }
+    `;
+    const output = transform(code);
+    // Component gets useIntlayer
+    expect(output).toContain("const content = useIntlayer('my-component');");
+    // Nested function should NOT get its own injection
+    expect(output).not.toContain(
+      "const content = getIntlayer('my-component');"
+    );
+    expect(output).toContain('() => content.labelText.value');
+    // Check import is present
+    expect(output).toContain("import { useIntlayer } from 'react-intlayer';");
+    expect(output).not.toContain("import { getIntlayer } from 'intlayer';");
+  });
+
+  it('should not duplicate imports if they are already present', () => {
+    const code = `
+      import { useIntlayer } from "react-intlayer";
+      export function MyComponent() {
+        return <div>Hello World</div>;
+      }
+    `;
+    const output = transform(code);
+    expect(output).toBeDefined();
+    // Should not add another import declaration
+    const matches = output!.match(
+      /import \{ useIntlayer \} from ["']react-intlayer["']/g
+    );
+    expect(matches?.length).toBe(1);
+  });
+
+  it('should deduplicate identical strings', () => {
+    const code = `
+      export function MyComponent() {
+        const str1 = "Identical string";
+        const str2 = "Identical string";
+        return <div title="Identical string">{str1} {str2}</div>;
+      }
+    `;
+    const output = transform(code);
+
+    // It should extract the key "identicalString"
+    expect(output).toContain('content.identicalString');
+
+    // It should not extract "identicalString1", "identicalString2", etc.
+    expect(output).not.toContain('identicalString1');
+    expect(output).not.toContain('identicalString2');
+
+    // The usages should all point to the same key (str1, str2, title)
+    const matches = output!.match(/content\.identicalString/g);
+    expect(matches?.length).toBe(3);
+  });
+
+  it('should not append .value for attributes when getIntlayer is used', () => {
+    const code = `
+      export function myComponent() {
+        const _jsx = <div title="Component Title">Hello</div>;
+        return _jsx;
+      }
+    `;
+    const output = transform(code);
+    expect(output).toContain('title={content.componentTitle}');
+    expect(output).toContain('const content = getIntlayer');
+    expect(output).not.toContain('.value');
+  });
+
+  it('should use custom prefix for the dictionary key if provided', () => {
+    const code = `
+      export function MyComponent() {
+        return <div>Hello World</div>;
+      }
+    `;
+    const conf = getConfiguration();
+    const originalPrefix = conf.compiler.dictionaryKeyPrefix;
+    conf.compiler.dictionaryKeyPrefix = 'my-custom-';
+    const output = transform(code, { configuration: conf });
+    // Restore shared config state so subsequent tests are not affected
+    conf.compiler.dictionaryKeyPrefix = originalPrefix;
+    expect(output).toContain('content.helloWorld');
+    expect(output).toContain(
+      "const content = useIntlayer('my-custom-my-component');"
+    );
+  });
+});
+
+// ─── Full transformation snapshots ───────────────────────────────────────────
+// These tests document the exact before → after output for a realistic component
+// across every supported framework. Run `vitest --update-snapshots` to refresh.
+
+describe('transformation snapshot – React (react-intlayer)', () => {
+  it('transforms a component with JSX text, attributes and a string literal', () => {
+    const code = `
+export function MyComponent() {
+  return (
+    <section title="Main section">
+      <h1>Welcome Back</h1>
+      <p>Discover all the features below.</p>
+      <input placeholder="Enter your email" />
+      <button>Get Started Now</button>
+    </section>
+  );
+}
+`;
+    expect(transform(code)).toMatchInlineSnapshot(`
+      "import { useIntlayer } from 'react-intlayer';
+      export function MyComponent() {
+        const content = useIntlayer('my-component');
+        return <section title={content.mainSection.value}>
+            <h1>{content.welcomeBack}</h1>
+            <p>{content.discoverAllTheFeaturesBelow}</p>
+            <input placeholder={content.enterYourEmail.value} />
+            <button>{content.getStartedNow}</button>
+          </section>;
+      }"
+    `);
+  });
+});
+
+describe('transformation snapshot – Next.js server component (next-intlayer, no "use client")', () => {
+  it('uses /server sub-path and injects useIntlayer', () => {
+    const code = `
+export function MyComponent() {
+  return (
+    <main>
+      <h1>Welcome Back</h1>
+      <input placeholder="Enter your email" />
+    </main>
+  );
+}
+`;
+    expect(
+      transform(code, { packageName: 'next-intlayer' })
+    ).toMatchInlineSnapshot(`
+      "import { useIntlayer } from 'next-intlayer/server';
+      export function MyComponent() {
+        const content = useIntlayer('my-component');
+        return <main>
+            <h1>{content.welcomeBack}</h1>
+            <input placeholder={content.enterYourEmail.value} />
+          </main>;
+      }"
+    `);
+  });
+});
+
+describe('transformation snapshot – Next.js client component (next-intlayer, "use client")', () => {
+  it('uses the base package path (no /server) and injects useIntlayer', () => {
+    const code = `
+"use client";
+export function MyComponent() {
+  return (
+    <main>
+      <h1>Welcome Back</h1>
+      <input placeholder="Enter your email" />
+    </main>
+  );
+}
+`;
+    expect(
+      transform(code, { packageName: 'next-intlayer' })
+    ).toMatchInlineSnapshot(`
+      ""use client";
+
+      import { useIntlayer } from 'next-intlayer';
+      export function MyComponent() {
+        const content = useIntlayer('my-component');
+        return <main>
+            <h1>{content.welcomeBack}</h1>
+            <input placeholder={content.enterYourEmail.value} />
+          </main>;
+      }"
+    `);
+  });
+});
+
+describe('transformation snapshot – Preact (preact-intlayer)', () => {
+  it('transforms a Preact JSX component identically to React (no /server path)', () => {
+    const code = `
+export function MyComponent() {
+  return (
+    <section>
+      <h1>Welcome Back</h1>
+      <input placeholder="Enter your email" />
+    </section>
+  );
+}
+`;
+    expect(
+      transform(code, { packageName: 'preact-intlayer' })
+    ).toMatchInlineSnapshot(`
+      "import { useIntlayer } from 'preact-intlayer';
+      export function MyComponent() {
+        const content = useIntlayer('my-component');
+        return <section>
+            <h1>{content.welcomeBack}</h1>
+            <input placeholder={content.enterYourEmail.value} />
+          </section>;
+      }"
+    `);
+  });
+});
+
+describe('transformation snapshot – Solid (solid-intlayer)', () => {
+  it('uses content.key direct proxy access for JSX text and attributes', () => {
+    const code = `
+export function MyComponent() {
+  return (
+    <section title="Main section">
+      <h1>Welcome Back</h1>
+      <input placeholder="Enter your email" />
+    </section>
+  );
+}
+`;
+    expect(
+      transform(code, { packageName: 'solid-intlayer' })
+    ).toMatchInlineSnapshot(`
+      "import { useIntlayer } from 'solid-intlayer';
+      export function MyComponent() {
+        const content = useIntlayer('my-component');
+        return <section title={content.mainSection.value}>
+            <h1>{content.welcomeBack}</h1>
+            <input placeholder={content.enterYourEmail.value} />
+          </section>;
+      }"
+    `);
+  });
+});
+
+describe('transformation snapshot – Angular (angular-intlayer)', () => {
+  it('uses content().key signal access just like Solid', () => {
+    const code = `
+export function MyComponent() {
+  return (
+    <section title="Main section">
+      <h1>Welcome Back</h1>
+      <input placeholder="Enter your email" />
+    </section>
+  );
+}
+`;
+    expect(
+      transform(code, { packageName: 'angular-intlayer' })
+    ).toMatchInlineSnapshot(`
+      "import { useIntlayer } from 'angular-intlayer';
+      export function MyComponent() {
+        const content = useIntlayer('my-component');
+        return <section title={content().mainSection.value}>
+            <h1>{content().welcomeBack}</h1>
+            <input placeholder={content().enterYourEmail.value} />
+          </section>;
+      }"
+    `);
+  });
+});
+
+describe('transformation snapshot – Lit (lit-intlayer)', () => {
+  it('extracts TypeScript string literals with getIntlayer (no JSX)', () => {
+    const code = `
+export function renderGreeting() {
+  const heading = "Welcome Back";
+  const subtext = "Discover all the features below.";
+  return heading + " - " + subtext;
+}
+`;
+    expect(
+      transform(
+        code,
+        { packageName: 'lit-intlayer' },
+        '/app/src/components/MyComponent.ts'
+      )
+    ).toMatchInlineSnapshot(`
+      "import { getIntlayer } from 'intlayer';
+      export function renderGreeting() {
+        const content = getIntlayer('my-component');
+        const heading = content.welcomeBack;
+        const subtext = content.discoverAllTheFeaturesBelow;
+        return heading + " - " + subtext;
+      }"
+    `);
+  });
+});
+
+describe('transformation snapshot – existing destructured hook (adds missing keys)', () => {
+  it('appends new keys to the destructuring and accesses them by name', () => {
+    const code = `
+import { useIntlayer } from 'react-intlayer';
+export function MyComponent() {
+  const { title } = useIntlayer('my-component');
+  return (
+    <div>
+      <h1>{title}</h1>
+      <p>New paragraph text</p>
+      <input placeholder="Enter your email" />
+    </div>
+  );
+}
+`;
+    expect(transform(code)).toMatchInlineSnapshot(`
+      "import { useIntlayer } from 'react-intlayer';
+      export function MyComponent() {
+        const {
+          title,
+          newParagraphText,
+          enterYourEmail
+        } = useIntlayer('my-component');
+        return <div>
+            <h1>{title}</h1>
+            <p>{newParagraphText}</p>
+            <input placeholder={enterYourEmail.value} />
+          </div>;
+      }"
+    `);
+  });
+});
+
+describe('transformation snapshot – non-component (utility) function uses getIntlayer', () => {
+  it('uses getIntlayer for lowercase-named functions and omits .value on JSX text', () => {
+    const code = `
+export function renderBanner() {
+  const label = "Click Here Now";
+  return (
+    <div title="Banner section">
+      <span>{label}</span>
+    </div>
+  );
+}
+`;
+    expect(transform(code)).toMatchInlineSnapshot(`
+      "import { getIntlayer } from 'intlayer';
+      export function renderBanner() {
+        const content = getIntlayer('my-component');
+        const label = content.clickHereNow;
+        return <div title={content.bannerSection}>
+            <span>{label}</span>
+          </div>;
+      }"
+    `);
+  });
+});

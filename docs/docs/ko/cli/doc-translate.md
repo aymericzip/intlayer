@@ -21,8 +21,28 @@ slugs:
 
 `doc translate` 명령어는 AI 번역 서비스를 사용하여 기본 로케일에서 대상 로케일로 문서 파일을 자동으로 번역합니다.
 
-```bash
+## 주요 사항:
+
+- AI 모델의 컨텍스트 창 제한 내에서 유지하기 위해 큰 마크다운 파일을 청크로 분할합니다.
+- 출력 형식이 잘못된 경우 번역을 재시도합니다.
+- 번역 정확도를 향상시키기 위해 애플리케이션 및 파일별 컨텍스트를 통합합니다.
+- 기존 번역을 덮어쓰지 않아 기존 번역을 보존합니다.
+- 큐 시스템을 사용하여 파일, 청크 및 로케일을 병렬로 처리하여 속도를 높입니다.
+
+```bash packageManager="npm"
 npx intlayer doc translate
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc translate
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc translate
+```
+
+```bash packageManager="bun"
+bun x intlayer doc translate
 ```
 
 ## 인수:
@@ -78,6 +98,7 @@ npx intlayer doc translate
 - **`--temperature [temperature]`**: AI 모델의 온도 설정.
 - **`--api-key [apiKey]`**: AI 서비스에 사용할 API 키를 제공합니다.
 - **`--application-context [applicationContext]`**: AI 번역에 추가 컨텍스트를 제공합니다.
+- **`--data-serialization [dataSerialization]`**: Intlayer의 AI 기능에 사용할 데이터 직렬화 형식. 옵션: `json` (표준, 신뢰할 수 있음), `toon` (토큰 적음, 일관성 낮음).
 - **`--custom-prompt [prompt]`**: 번역에 사용되는 기본 프롬프트를 사용자 정의합니다. (참고: 대부분의 사용 사례에서는 번역 동작을 더 잘 제어할 수 있는 `--custom-instructions` 옵션을 사용하는 것이 권장됩니다.)
 
   > 예시: `npx intlayer doc translate --model deepseek-chat --provider deepseek --temperature 0.5 --api-key sk-1234567890 --application-context "My application is a cat store"`

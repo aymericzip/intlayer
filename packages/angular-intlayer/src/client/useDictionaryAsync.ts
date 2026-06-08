@@ -1,12 +1,12 @@
 'use client';
 
 import { computed, inject } from '@angular/core';
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
-  Dictionary,
   LocalesValues,
   StrictModeLocaleMap,
-} from '@intlayer/types';
+} from '@intlayer/types/module_augmentation';
 import { INTLAYER_TOKEN, type IntlayerProvider } from './installIntlayer';
 import { useDictionary } from './useDictionary';
 
@@ -15,20 +15,17 @@ import { useDictionary } from './useDictionary';
  *
  * If the locale is not provided, it will use the locale from the client context
  */
-export const useDictionaryAsync = async <T extends Dictionary>(
+export const useDictionaryAsync = async <const T extends Dictionary>(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   locale?: LocalesValues
 ) => {
   const intlayer = inject<IntlayerProvider>(INTLAYER_TOKEN);
 
   const localeTarget = computed(
-    () =>
-      locale ??
-      intlayer?.locale() ??
-      configuration?.internationalization.defaultLocale
+    () => locale ?? intlayer?.locale() ?? internationalization.defaultLocale
   );
 
-  const dictionary = await dictionaryPromise[localeTarget()]?.();
+  const dictionary = await (dictionaryPromise as any)[localeTarget()]?.();
 
   return useDictionary(dictionary, localeTarget() as any);
 };

@@ -1,0 +1,75 @@
+import { useGetOtherShowcaseProjects } from '@intlayer/design-system/api';
+import { Carousel } from '@intlayer/design-system/carousel';
+import { Container } from '@intlayer/design-system/container';
+import { H2 } from '@intlayer/design-system/headers';
+import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { ProjectCard } from '#/components/ProjectCard';
+import { ProjectCardSkeleton } from '#/components/ProjectCardSkeleton';
+import type { ShowcaseProject } from '#/utils/projectActions/types';
+
+interface MoreProjectsProps {
+  excludeId: string;
+}
+
+export const MoreProjects: FC<MoreProjectsProps> = ({ excludeId }) => {
+  const content = useIntlayer('project-more-projects');
+
+  const { data: response, isPending } = useGetOtherShowcaseProjects({
+    excludeId,
+    limit: 8,
+  });
+
+  const otherProjects = response?.data ?? [];
+
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-col gap-1">
+        <H2 className="font-bold text-text text-xl">{content.moreProjects}</H2>
+        <p className="text-neutral text-xs">
+          {content.moreProjectsDescription}
+        </p>
+      </div>
+      <Container
+        className="relative w-full"
+        roundedSize="3xl"
+        background="none"
+        border
+        borderColor="text"
+      >
+        {isPending ? (
+          <div className="flex flex-col gap-6">
+            <Carousel>
+              {Array.from({ length: 4 }, (_, i) => (
+                <Carousel.Item key={`skeleton-${i}`} className="shadow-lg">
+                  <ProjectCardSkeleton />
+                </Carousel.Item>
+              ))}
+            </Carousel>
+          </div>
+        ) : otherProjects.length === 0 ? (
+          <Container
+            roundedSize="3xl"
+            transparency="lg"
+            className="size-full min-h-36 flex-col items-center justify-center"
+          >
+            <p className="text-neutral text-sm italic">
+              {content.noProjectsFound}
+            </p>
+          </Container>
+        ) : (
+          <div className="flex flex-col gap-6">
+            <Carousel>
+              {otherProjects.map((project: ShowcaseProject) => (
+                <Carousel.Item key={project.id} className="shadow-lg">
+                  <ProjectCard project={project} transparency="sm" />
+                </Carousel.Item>
+              ))}
+              <Carousel.Indicators />
+            </Carousel>
+          </div>
+        )}
+      </Container>
+    </div>
+  );
+};

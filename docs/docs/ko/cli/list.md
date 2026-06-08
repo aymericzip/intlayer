@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-01-06
 title: 콘텐츠 선언 파일 목록
 description: 프로젝트 내 모든 콘텐츠 선언 파일을 나열하는 방법을 알아보세요.
 keywords:
@@ -13,12 +13,31 @@ slugs:
   - concept
   - cli
   - list
+history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: "list 명령에 절대 경로 출력 옵션 추가"
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: "list 명령에 JSON 출력 옵션 추가"
 ---
 
 # 콘텐츠 선언 파일 목록
 
-```bash
+```bash packageManager="npm"
 npx intlayer content list
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list
+```
+
+```bash packageManager="bun"
+bun x intlayer content list
 ```
 
 ## 별칭:
@@ -27,13 +46,71 @@ npx intlayer content list
 
 이 명령어는 프로젝트 내 모든 콘텐츠 선언 파일을 표시하며, 해당 파일들의 딕셔너리 키와 파일 경로를 보여줍니다. 모든 콘텐츠 파일을 한눈에 파악하고 Intlayer가 제대로 인식하는지 확인하는 데 유용합니다.
 
+## 인수:
+
+- **`--json`**: 결과를 포맷된 텍스트 대신 JSON으로 출력합니다. 스크립팅 및 프로그래밍 방식 접근에 유용합니다.
+
+  > 예시: `npx intlayer content list --json`
+
 ## 예시:
 
-```bash
+### 콘텐츠 선언 파일 목록:
+
+```bash packageManager="npm"
 npx intlayer content list
 ```
 
+```bash packageManager="yarn"
+yarn intlayer content list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list
+```
+
+```bash packageManager="bun"
+bun x intlayer content list
+```
+
+### JSON으로 출력:
+
+```bash packageManager="npm"
+npx intlayer content list --json
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list --json
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list --json
+```
+
+```bash packageManager="bun"
+bun x intlayer content list --json
+```
+
+### 절대 경로로 출력:
+
+```bash packageManager="npm"
+npx intlayer content list --absolute
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list --absolute
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list --absolute
+```
+
+```bash packageManager="bun"
+bun x intlayer content list --absolute
+```
+
 ## 예시 출력:
+
+### 포맷된 출력:
 
 ```bash
 npx intlayer content list
@@ -43,6 +120,14 @@ Content declaration files:
  - client-component - src/components/ClientComponent/clientComponent.content.ts
 
 총 콘텐츠 선언 파일 수: 3
+```
+
+### JSON 출력:
+
+```bash
+$ npx intlayer content list --json
+
+[{"key":"home-page","path":"src/components/HomePage/homePage.content.ts"},{"key":"server-component","path":"src/components/ServerComponent/serverComponent.content.ts"},{"key":"client-component","path":"src/components/ClientComponent/clientComponent.content.ts"}]
 ```
 
 이 명령어는 다음을 출력합니다:

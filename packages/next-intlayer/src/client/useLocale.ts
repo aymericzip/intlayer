@@ -1,13 +1,33 @@
 'use client';
 
-import { getLocalizedUrl, getPathWithoutLocale } from '@intlayer/core';
-import type { LocalesValues } from '@intlayer/types';
+import {
+  getLocalizedUrl,
+  getPathWithoutLocale,
+} from '@intlayer/core/localization';
+import { checkIsURLAbsolute } from '@intlayer/core/utils';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import { usePathname, useRouter } from 'next/navigation.js';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useLocale as useLocaleReact } from 'react-intlayer';
+import {
+  type UseLocaleResult as UseLocaleResultReact,
+  useLocale as useLocaleReact,
+} from 'react-intlayer';
 
-type UseLocaleProps = {
-  onChange?: 'replace' | 'push' | ((locale: LocalesValues) => void);
+export type UseLocaleProps = {
+  isCookieEnabled?: boolean;
+  onLocaleChange?: (locale: DeclaredLocales) => void;
+  onChange?:
+    | 'replace'
+    | 'push'
+    | 'none'
+    | ((params: { locale: LocalesValues; path: string }) => void);
+};
+
+export type UseLocaleResult = UseLocaleResultReact & {
+  pathWithoutLocale: string;
 };
 
 const usePathWithoutLocale = () => {
@@ -24,7 +44,35 @@ const usePathWithoutLocale = () => {
   return useMemo(() => getPathWithoutLocale(fullPath), [fullPath]);
 };
 
-export const useLocale = ({ onChange }: UseLocaleProps = {}) => {
+/**
+ * Hook to manage the current locale in Next.js App Router.
+ *
+ * This hook extends the base `useLocale` from `react-intlayer` by adding
+ * Next.js-specific navigation logic for locale changes.
+ *
+ * @param props - Optional properties to configure locale change behavior.
+ * @returns An object containing the current locale, path without locale, and functions to update the locale.
+ *
+ * @example
+ * ```tsx
+ * 'use client';
+ *
+ * import { useLocale } from 'next-intlayer';
+ *
+ * const LocaleSwitcher = () => {
+ *   const { setLocale } = useLocale({ onChange: 'push' });
+ *
+ *   return (
+ *     <button onClick={() => setLocale('fr')}>Switch to French</button>
+ *   );
+ * };
+ * ```
+ */
+export const useLocale = ({
+  onChange = 'replace',
+  onLocaleChange,
+  isCookieEnabled,
+}: UseLocaleProps = {}): UseLocaleResult => {
   const { replace, push } = useRouter();
   const pathWithoutLocale = usePathWithoutLocale();
 
@@ -32,12 +80,37 @@ export const useLocale = ({ onChange }: UseLocaleProps = {}) => {
     (locale: LocalesValues) => {
       if (!onChange) return;
 
+      const currentDomain =
+        process.env['INTLAYER_ROUTING_DOMAINS'] !== 'false' &&
+        typeof window !== 'undefined'
+          ? window.location.hostname
+          : undefined;
+
+      const pathWithLocale = getLocalizedUrl(pathWithoutLocale, locale, {
+        currentDomain,
+      });
+
       if (typeof onChange === 'function') {
-        onChange(locale);
+        onChange({ locale, path: pathWithLocale });
         return;
       }
 
-      const pathWithLocale = getLocalizedUrl(pathWithoutLocale, locale);
+      // Cross-domain navigation: the Next.js router cannot navigate to a
+      // different origin, so fall back to a full page load.
+      if (
+        process.env['INTLAYER_ROUTING_DOMAINS'] !== 'false' &&
+        checkIsURLAbsolute(pathWithLocale)
+      ) {
+        try {
+          const parsed = new URL(pathWithLocale);
+          if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
+            window.location.href = pathWithLocale;
+          }
+        } catch {
+          // Malformed URL — skip redirect
+        }
+        return;
+      }
 
       if (onChange === 'replace') {
         replace(pathWithLocale);
@@ -45,16 +118,19 @@ export const useLocale = ({ onChange }: UseLocaleProps = {}) => {
       if (onChange === 'push') {
         push(pathWithLocale);
       }
+
+      onLocaleChange?.(locale as DeclaredLocales);
     },
-    [replace, push, pathWithoutLocale, onChange]
+    [replace, push, pathWithoutLocale, onChange, onLocaleChange]
   );
 
   const reactLocaleHook = useLocaleReact({
     onLocaleChange: redirectionFunction,
+    isCookieEnabled,
   });
 
   return {
     ...reactLocaleHook,
     pathWithoutLocale,
-  };
+  } as UseLocaleResult;
 };

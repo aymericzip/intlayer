@@ -3,20 +3,24 @@ import { resolve } from 'node:path';
 import { logger } from '../logger';
 import { getPackageJsonPath } from '../utils/getPackageJsonPath';
 
-const EXTENSION = ['ts', 'js', 'json', 'cjs', 'mjs', ''];
-const CONFIGURATION_FILE_NAME_1 = 'intlayer.config';
-const CONFIGURATION_FILE_NAME_2 = '.intlayerrc';
-
-const intLayerConfigFiles = EXTENSION.filter(
-  (extension) => extension !== ''
-).map((ext) => `${CONFIGURATION_FILE_NAME_1}.${ext}`);
-
-const configurationFiles = [...intLayerConfigFiles, CONFIGURATION_FILE_NAME_2];
+export const configurationFilesCandidates = [
+  'intlayer.config.ts',
+  'intlayer.config.js',
+  'intlayer.config.json',
+  'intlayer.config.json5',
+  'intlayer.config.jsonc',
+  'intlayer.config.cjs',
+  'intlayer.config.mjs',
+  '.intlayerrc',
+] as const;
 
 type SearchConfigurationFileResult = {
   configurationFilePath?: string;
   numCustomConfiguration: number;
 };
+
+// CACHE: Store results to avoid re-walking the file system for the same path
+const rootPathCache = new Map<string, SearchConfigurationFileResult>();
 
 /**
  * Search for the configuration file in the given path
@@ -35,9 +39,14 @@ export const searchConfigurationFile = (
   let configurationFilePath: string | undefined;
   let numCustomConfiguration = 0;
 
+  // OPTIMIZATION: Return cached result immediately
+  if (rootPathCache.has(startDir)) {
+    return rootPathCache.get(startDir) as SearchConfigurationFileResult;
+  }
+
   const { baseDir } = getPackageJsonPath(startDir);
 
-  for (const fileName of configurationFiles) {
+  for (const fileName of configurationFilesCandidates) {
     try {
       const filePath = resolve(baseDir, fileName);
 

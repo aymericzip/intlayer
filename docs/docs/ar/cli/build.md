@@ -13,23 +13,51 @@ slugs:
   - concept
   - cli
   - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: "إضافة خيار checkTypes"
 ---
 
 # بناء القواميس
 
 لبناء قواميسك، يمكنك تشغيل الأوامر التالية:
 
-```bash
+```bash packageManager="npm"
 npx intlayer build
+```
+
+```bash packageManager="yarn"
+yarn intlayer build
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build
+```
+
+```bash packageManager="bun"
+bun x intlayer build
 ```
 
 أو في وضع المراقبة
 
-```bash
+```bash packageManager="npm"
 npx intlayer build --watch
 ```
 
-سيقوم هذا الأمر بالعثور على ملفات إعلان المحتوى الخاصة بك بشكل افتراضي في المسار `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`. وسيبني القواميس في مجلد `.intlayer`.
+```bash packageManager="yarn"
+yarn intlayer build --watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build --watch
+```
+
+```bash packageManager="bun"
+bun x intlayer build --watch
+```
+
+سيقوم هذا الأمر بالعثور على ملفات إعلان المحتوى الخاصة بك بشكل افتراضي في المسار `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. وسيبني القواميس في مجلد `.intlayer`.
 
 ## الأسماء المستعارة:
 
@@ -62,3 +90,7 @@ npx intlayer build --watch
 - **`--no-cache`**: تعطيل التخزين المؤقت.
 
   > مثال: `npx intlayer build --no-cache`
+
+- **`--check-types`**: التحقق من أنواع ملفات إعلان المحتوى.
+
+  > مثال: `npx intlayer build --check-types`

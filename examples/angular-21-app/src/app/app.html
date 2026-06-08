@@ -1,0 +1,165 @@
+<style>
+  :host {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif;
+    display: block;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #374151;
+    margin: 0 0 0.5rem 0;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 0.25rem;
+  }
+
+  section {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  p { margin: 0.2rem 0; }
+
+  pre {
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+    padding: 0.5rem;
+    font-size: 0.85rem;
+    margin: 0.25rem 0 0;
+    white-space: pre-wrap;
+  }
+
+  .header { margin-bottom: 1.5rem; }
+  .subtitle { color: #6b7280; margin-top: 0.25rem; }
+
+  .formatters-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.25rem 1rem;
+  }
+</style>
+
+<app-locale-switcher></app-locale-switcher>
+
+<div class="header">
+  <h1>{{ content().title }}, Angular 21!</h1>
+  <p class="subtitle">{{ content().congratulations }}</p>
+</div>
+
+<section>
+  <h2>Translation (t)</h2>
+  <p>{{ content().title }}</p>
+</section>
+
+<section>
+  <h2>Markdown (md)</h2>
+  <!--
+    Markdown compiles to an HTML string via toString().
+    Note: may briefly show raw markdown until the async markdown parser loads
+    because Angular has no Suspense equivalent for dynamic imports.
+  -->
+  <div [innerHTML]="content().markdownContent"></div>
+</section>
+
+<section>
+  <h2>Enumeration (enu)</h2>
+  <p>0 cars: {{ content().cars(0) }}</p>
+  <p>1 car: {{ content().cars(1) }}</p>
+  <p>5 cars: {{ content().cars(5) }}</p>
+</section>
+
+<section>
+  <h2>HTML (html)</h2>
+  <!-- Warning: Using innerHTML can be risky (XSS). Ensure content is trusted. -->
+  <div [innerHTML]="content().htmlContent"></div>
+</section>
+
+<section>
+  <h2>Nested Object</h2>
+  <p>{{ content().nested.deep.text }}</p>
+</section>
+
+<section>
+  <h2>Condition (cond)</h2>
+  <p>True: {{ content().conditionalContent(true) }}</p>
+  <p>False: {{ content().conditionalContent(false) }}</p>
+</section>
+
+<section>
+  <h2>Gender (gender)</h2>
+  <p>Male: {{ content().genderContent('male') }}</p>
+  <p>Female: {{ content().genderContent('female') }}</p>
+</section>
+
+<section>
+  <h2>Function Fetching</h2>
+  <p>Sync: {{ content().functionContent }}</p>
+  <p>Async: {{ content().asyncFunctionContent }}</p>
+</section>
+
+<section>
+  <h2>Insertion (insert)</h2>
+  <p>{{ content().insertionContent({ name: 'User', city: 'Paris' }) }}</p>
+</section>
+
+<section>
+  <h2>File (file)</h2>
+  <pre>{{ content().fileContent }}</pre>
+</section>
+
+<section>
+  <h2>Plural (plural)</h2>
+  <p>1: {{ content().pluralContent(1) }}</p>
+  <p>5: {{ content().pluralContent(5) }}</p>
+</section>
+
+<section>
+  <h2>Array of Strings</h2>
+  @for (item of content().arrayStrings; track item) {
+    <p>{{ item }}</p>
+  }
+</section>
+
+<section>
+  <h2>Array of Translations</h2>
+  @for (item of content().arrayTranslations; track $index) {
+    <p>{{ item }}</p>
+  }
+</section>
+
+<section>
+  <h2>Array of Objects</h2>
+  @for (item of content().arrayObjects; track $index) {
+    <p>{{ item.name.value }} ({{ item.role.value }})</p>
+  }
+</section>
+
+<section>
+  <h2>Formatters</h2>
+  <div class="formatters-grid">
+    <p>Number:</p>        <p>{{ number()(123456.789) }}</p>
+    <p>Percentage:</p>    <p>{{ percentage()(0.25) }}</p>
+    <p>Currency:</p>      <p>{{ currency()(1234.5, { currency: 'EUR' }) }}</p>
+    <p>Date:</p>          <p>{{ date()(now, 'short') }}</p>
+    <p>Relative Time:</p> <p>{{ relativeTime()(now, in3Days, { unit: 'day' }) }}</p>
+    <p>Unit:</p>          <p>{{ unit()(5, { unit: 'kilometer', unitDisplay: 'long' }) }}</p>
+    <p>Compact:</p>       <p>{{ compact()(1200) }}</p>
+    <p>List:</p>          <p>{{ list()(['apple', 'banana', 'orange']) }}</p>
+  </div>
+</section>
+
+<router-outlet />

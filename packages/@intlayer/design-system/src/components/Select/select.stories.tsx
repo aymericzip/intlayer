@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
 import { useState } from 'react';
 import { Select } from '.';
-import { SelectContentPosition } from './Select';
 
 /**
  * Select Component Stories
@@ -279,7 +278,7 @@ export const ValidationStates: Story = {
                 aria-invalid={isInvalid}
                 className={
                   isInvalid
-                    ? 'border-red-500'
+                    ? 'border-error'
                     : isValid && showValidation
                       ? 'border-green-500'
                       : ''
@@ -287,7 +286,7 @@ export const ValidationStates: Story = {
               >
                 <Select.Value placeholder="Select your country" />
               </Select.Trigger>
-              <Select.Content position={SelectContentPosition.ITEM_ALIGNED}>
+              <Select.Content position="item-aligned">
                 <Select.Item value="us">🇺🇸 United States</Select.Item>
                 <Select.Item value="ca">🇨🇦 Canada</Select.Item>
                 <Select.Item value="uk">🇬🇧 United Kingdom</Select.Item>
@@ -299,9 +298,7 @@ export const ValidationStates: Story = {
             </Select>
 
             {isInvalid && (
-              <p className="mt-1 text-red-500 text-xs">
-                Please select a country
-              </p>
+              <p className="mt-1 text-error text-xs">Please select a country</p>
             )}
             {isValid && showValidation && (
               <p className="mt-1 text-green-500 text-xs">Valid selection ✓</p>

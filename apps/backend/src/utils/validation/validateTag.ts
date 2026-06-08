@@ -1,12 +1,12 @@
 import { getOrganizationById } from '@services/organization.service';
+import { z } from 'zod';
 import type { Tag } from '@/types/tag.types';
-import { validateString } from './validateString';
 
 export type TagFields = (keyof Tag)[];
 
 const defaultFieldsToCheck: TagFields = ['name'];
 
-type FieldsToCheck = (typeof defaultFieldsToCheck)[number];
+export type FieldsToCheck = (typeof defaultFieldsToCheck)[number];
 type ValidationErrors = Partial<
   Record<(typeof defaultFieldsToCheck)[number], string[]>
 >;
@@ -17,8 +17,38 @@ export const KEY_MAX_LENGTH = 20;
 export const NAME_MIN_LENGTH = 4;
 export const NAME_MAX_LENGTH = 50;
 
+const tagZodSchema = z.object({
+  key: z
+    .string({
+      message: 'Key must be a string.',
+    })
+    .min(
+      KEY_MIN_LENGTH,
+      `Key must be at least ${KEY_MIN_LENGTH} characters long.`
+    )
+    .max(
+      KEY_MAX_LENGTH,
+      `Key must be at most ${KEY_MAX_LENGTH} characters long.`
+    ),
+  name: z
+    .string({
+      message: 'Name must be a string.',
+    })
+    .min(
+      NAME_MIN_LENGTH,
+      `Name must be at least ${NAME_MIN_LENGTH} characters long.`
+    )
+    .max(
+      NAME_MAX_LENGTH,
+      `Name must be at most ${NAME_MAX_LENGTH} characters long.`
+    ),
+  organizationId: z.string({
+    message: 'Organization id must be a string',
+  }),
+});
+
 /**
- * Validates an tag object.
+ * Validates a tag object.
  * @param tag The tag object to validate.
  * @returns An object containing the validation errors for each field.
  */
@@ -26,70 +56,35 @@ export const validateTag = async (
   tag: Partial<Tag>,
   fieldsToCheck = defaultFieldsToCheck
 ): Promise<ValidationErrors> => {
-  const errors: ValidationErrors = {};
+  const mask = fieldsToCheck.reduce(
+    (acc, curr) => {
+      acc[curr as string] = true;
+      return acc;
+    },
+    {} as Record<string, true>
+  );
 
-  // Define the fields to validate
-  const fieldsToValidate = new Set<FieldsToCheck>(fieldsToCheck);
+  const schema = tagZodSchema.pick(mask as any);
+  const parsed = schema.safeParse(tag);
 
-  // Validate each field
-  for (const field of fieldsToValidate) {
-    const value = tag[field];
+  const errors: ValidationErrors = parsed.success
+    ? {}
+    : (parsed.error.flatten().fieldErrors as ValidationErrors);
 
-    // Initialize error array for the field
-    errors[field] = [];
-
-    // Check for name validity
-    if (field === 'key') {
-      const nameErrors = validateString(
-        value,
-        'Key',
-        KEY_MIN_LENGTH,
-        KEY_MAX_LENGTH
+  if (
+    fieldsToCheck.includes('organizationId') &&
+    tag.organizationId &&
+    !errors.organizationId
+  ) {
+    try {
+      const organization = await getOrganizationById(
+        tag.organizationId.toString()
       );
-
-      if (nameErrors.length > 0) {
-        errors[field] = nameErrors;
-      }
-    }
-
-    // Check for name validity
-    if (field === 'name') {
-      const nameErrors = validateString(
-        value,
-        'Name',
-        NAME_MIN_LENGTH,
-        NAME_MAX_LENGTH
-      );
-
-      if (nameErrors.length > 0) {
-        errors[field] = nameErrors;
-      }
-    }
-
-    if (field === 'organizationId') {
-      const organizationErrors: string[] = [];
-
-      if (typeof value !== 'string') {
-        organizationErrors.push('Organization id must be a string');
-      }
-
-      if (!value) {
-        organizationErrors.push('Organization id is required');
-      }
-
-      const organization = await getOrganizationById(field);
       if (!organization) {
-        organizationErrors.push('Organization not found');
+        errors.organizationId = ['Organization not found'];
       }
-
-      if (organizationErrors.length > 0) {
-        errors[field] = organizationErrors;
-      }
-    }
-
-    // Remove the error field if there are no errors
-    if (errors[field].length === 0) {
-      delete errors[field];
+    } catch (e) {
+      errors.organizationId = ['Organization not found'];
     }
   }
 

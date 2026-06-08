@@ -1,100 +1,204 @@
 /** biome-ignore-all lint/suspicious/noEmptyInterface: Intlayer module augmentation registries */
-import {
-  type Dictionary as DictionaryCore,
-  type CustomIntlayerConfig as IntlayerConfig,
-  Locales,
-} from '@intlayer/types';
 
-type Dictionary<T = undefined> = DictionaryCore<T, true>;
+import type {
+  CustomIntlayerConfig,
+  IntlayerConfig,
+} from '@intlayer/types/config';
+import type { Dictionary as DictionaryCore } from '@intlayer/types/dictionary';
+import type { SchemaKeys } from '@intlayer/types/module_augmentation';
+
 /**
+ * The dictionary type used to define the structure of a dictionary.
+ * It is used to provide type safety and autocompletion when defining a dictionary.
+ *
+ * @example
+ * ```ts
+ * import { Dictionary } from 'intlayer';
+ *
+ * const dictionary: Dictionary = { ... };
+ * ```
+ */
+type Dictionary<
+  T = undefined,
+  SchemaKey extends SchemaKeys | undefined = undefined,
+> = DictionaryCore<T, SchemaKey, true>;
+
+/**
+ * The content of a dictionary.
+ *
  * @deprecated Use `Dictionary<T>` instead.
  */
-type DeclarationContent<T = undefined> = Dictionary<T>;
+type DeclarationContent<
+  T = undefined,
+  SchemaKey extends SchemaKeys | undefined = undefined,
+> = Dictionary<T, SchemaKey>;
+
+export { ALL_LOCALES, type Locale } from '@intlayer/types/allLocales';
+export type { ContentNode } from '@intlayer/types/dictionary';
+export * as Locales from '@intlayer/types/locales';
+export type {
+  DeclaredLocales,
+  LocalesValues,
+  RequiredLocales,
+  StrictModeLocaleMap,
+} from '@intlayer/types/module_augmentation';
+
+export type {
+  CustomIntlayerConfig as IntlayerConfig,
+  DeclarationContent,
+  Dictionary,
+};
+
+import {
+  content,
+  /**
+   * The editor configuration defined in the configuration.
+   */
+  editor,
+  internationalization,
+  log,
+  routing,
+} from '@intlayer/config/built';
 
 /**
- * @deprecated
+ * The locales defined in the configuration.
+ */
+const locales = internationalization.locales;
+
+/**
+ * The required locales defined in the configuration.
+ */
+const requiredLocales = internationalization.requiredLocales;
+
+/**
+ * The default locale defined in the configuration.
+ */
+const defaultLocale = internationalization.defaultLocale;
+
+/**
+ * @deprecated Use `defaultLocale`, `locales`, `requiredLocales` or `editor` instead.
  *
- * Use Locales.All_LOCALES instead
+ * Configuration of Intlayer.
+ *
  */
-const localeList = Locales.ALL_LOCALES;
-
-export {
-  type ContentNode,
-  type Locale,
-  Locales,
-  type LocalesValues,
-  type StrictModeLocaleMap,
-} from '@intlayer/types';
-export type { DeclarationContent, Dictionary, IntlayerConfig, localeList };
+const configuration: Pick<
+  IntlayerConfig,
+  'editor' | 'internationalization' | 'log' | 'routing'
+> = {
+  editor,
+  internationalization,
+  log,
+  content,
+  routing,
+};
 
 /**
- * Rexport using named import because πof Tsup bug in CJS
- */
-import configuration from '@intlayer/config/built';
-
-/**
- * @deprecated Use `import { configuration } from 'intlayer'` instead.
+ * Returns the configuration of Intlayer.
  */
 const getConfiguration = () => configuration;
 
-// Reexport here for CJS compatibility
-// Fix ReferenceError: Cannot access 'xxx' before initialization
-export { configuration, getConfiguration };
-
+export { file } from '@intlayer/core/file'; // Include specific export for browser because of node js function that can't be used in browser
 export {
   compact,
-  cond,
   currency,
   date,
-  enu,
-  gender,
-  getBrowserLocale,
-  getCookie,
+  Intl,
+  number,
+  percentage,
+  relativeTime,
+  units,
+} from '@intlayer/core/formatters';
+export {
   getDictionary,
   getEnumeration,
   /**
    * @deprecated Use `getEnumeration` instead.
    */
   getEnumeration as getEnumerationContent,
-  getHTMLTextDir,
   getIntlayer,
-  getLocale,
-  getLocaleFromPath,
-  getLocaleFromStorage,
-  getLocaleLang,
-  getLocaleName,
-  getLocalizedUrl,
-  getMarkdownMetadata,
-  getMultilingualUrls,
   getNesting,
-  getPathWithoutLocale,
-  getPrefix,
   getTranslation,
   /**
    * @deprecated Use `getTranslation` instead.
    */
   getTranslation as getTranslationContent,
-  Intl,
-  insert,
+} from '@intlayer/core/interpreter';
+export type {
+  GenerateSitemapOptions,
+  SitemapUrlEntry,
+} from '@intlayer/core/localization';
+export {
+  generateSitemap,
+  generateSitemapUrl,
+  getBrowserLocale,
+  getCanonicalPath,
+  getHTMLTextDir,
+  getLocale,
+  getLocaleFromPath,
+  getLocaleLang,
+  getLocaleName,
+  getLocalizedPath,
+  getLocalizedUrl,
+  getMultilingualUrls,
+  getPathWithoutLocale,
+  getPrefix,
+  getRewriteRules,
   localeDetector,
   localeFlatMap,
   localeMap,
   localeRecord,
   localeResolver,
+  validatePrefix,
+} from '@intlayer/core/localization';
+export { getMarkdownMetadata } from '@intlayer/core/markdown';
+export {
+  cond,
+  enu,
+  gender,
+  html,
+  insert,
   md,
   nest,
-  number,
-  percentage,
-  relativeTime,
-  setLocaleInStorage,
+  plural,
   t,
-  units,
-  validatePrefix,
-} from '@intlayer/core';
-export { file } from '@intlayer/core/file'; // Include specific export for browser because of node js function that can't be used in browser
+} from '@intlayer/core/transpiler';
+export {
+  getCookie,
+  /**
+   * @deprecated Use `getLocaleFromStorageClient` or `getLocaleFromStorageServer` instead.
+   */
+  getLocaleFromStorage,
+  getLocaleFromStorageClient,
+  getLocaleFromStorageServer,
+  LocaleStorageClient,
+  LocaleStorageServer,
+  /**
+   * @deprecated Use `setLocaleInStorageClient` or `setLocaleInStorageServer` instead.
+   */
+  setLocaleInStorage,
+  setLocaleInStorageClient,
+  setLocaleInStorageServer,
+} from '@intlayer/core/utils';
+
+// Reexport here for CJS compatibility
+// Fix ReferenceError: Cannot access 'xxx' before initialization
+export {
+  /**
+   * @deprecated Use `defaultLocale`, `locales`, `requiredLocales` or `editor` instead.
+   */
+  configuration,
+  defaultLocale,
+  editor,
+  getConfiguration,
+  locales,
+  requiredLocales,
+};
 
 // --- Registries to be augmented by the generator ---
 export interface __DictionaryRegistry {} // id -> interfaceof ictionary
 export interface __DeclaredLocalesRegistry {} // 'fr': 1, 'en': 1, ...
 export interface __RequiredLocalesRegistry {} // 'en': 1, ...
+export interface __SchemaRegistry {} // id -> interface of schema
 export interface __StrictModeRegistry {} // one of: { strict: true } | { inclusive: true } | { loose: true }
+export interface __EditorRegistry {} // one of: { enabled: true } | { enabled: false }
+export interface __RoutingRegistry {} // { mode: 'prefix-no-default'; defaultLocale: 'en' }

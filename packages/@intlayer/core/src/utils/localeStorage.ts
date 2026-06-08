@@ -1,65 +1,56 @@
-import configuration from '@intlayer/config/built';
-import type { CookiesAttributes, Locale, LocalesValues } from '@intlayer/types';
-import { getStorageAttributes } from '../getStorageAttributes';
+import { internationalization, routing } from '@intlayer/config/built';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { CookiesAttributes } from '@intlayer/types/config';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { getCookie } from './getCookie';
 
-type CookieBuildAttributes = {
-  /**
-   * Cookie domain to store the locale information
-   *
-   * Default: undefined
-   *
-   * Define the domain where the cookie is available. Defaults to
-   * the domain of the page where the cookie was created.
-   */
-  domain?: string;
-  /**
-   * Cookie path to store the locale information
-   *
-   * Default: undefined
-   *
-   * Define the path where the cookie is available. Defaults to '/'
-   */
-  path?: string;
-  /**
-   * Cookie secure to store the locale information
-   *
-   * Default: undefined
-   *
-   * A Boolean indicating if the cookie transmission requires a
-   * secure protocol (https). Defaults to false.
-   */
-  secure?: boolean;
-  /**
-   * Cookie httpOnly to store the locale information
-   *
-   * Default: undefined
-   *
-   * The cookie httpOnly where the locale information is stored.
-   */
-  httpOnly?: boolean;
-  /**
-   * Cookie sameSite to store the locale information
-   *
-   * Default: undefined
-   *
-   * Asserts that a cookie must not be sent with cross-origin requests,
-   * providing some protection against cross-site request forgery
-   * attacks (CSRF)
-   */
-  sameSite?: 'strict' | 'lax' | 'none';
+// ── Tree-shake constants ──────────────────────────────────────────────────────
+// When these env vars are injected at build time, bundlers eliminate the
+// branches guarded by these constants.
 
-  /**
-   * Cookie expires to store the locale information
-   *
-   * Default: undefined
-   *
-   * Define when the cookie will be removed. Value can be a Number
-   * which will be interpreted as days from time of creation or a
-   * Date instance. If omitted, the cookie becomes a session cookie.
-   */
+/**
+ * True when cookie storage is explicitly disabled at build time.
+ */
+const TREE_SHAKE_STORAGE_COOKIES =
+  process.env['INTLAYER_ROUTING_STORAGE_COOKIES'] === 'false';
+
+/**
+ * True when localStorage is explicitly disabled at build time.
+ */
+const TREE_SHAKE_STORAGE_LOCAL_STORAGE =
+  process.env['INTLAYER_ROUTING_STORAGE_LOCALSTORAGE'] === 'false';
+
+/**
+ * True when sessionStorage is explicitly disabled at build time.
+ */
+const TREE_SHAKE_STORAGE_SESSION_STORAGE =
+  process.env['INTLAYER_ROUTING_STORAGE_SESSIONSTORAGE'] === 'false';
+
+/**
+ * True when header storage is explicitly disabled at build time.
+ */
+const TREE_SHAKE_STORAGE_HEADERS =
+  process.env['INTLAYER_ROUTING_STORAGE_HEADERS'] === 'false';
+
+// ============================================================================
+// Shared types
+// ============================================================================
+
+export type CookieBuildAttributes = {
+  domain?: string;
+  path?: string;
+  secure?: boolean;
+  httpOnly?: boolean;
+  sameSite?: 'strict' | 'lax' | 'none';
+  /** Expiry as milliseconds since epoch (Date.getTime()) or number of days */
   expires?: number | undefined;
+  /** Lifetime in seconds from creation. Takes precedence over `expires` */
+  maxAge?: number;
 };
+
+// ============================================================================
+// Shared helpers
+// ============================================================================
 
 const buildCookieString = (
   name: string,
@@ -71,15 +62,37 @@ const buildCookieString = (
 
   if (attributes.path) parts.push(`Path=${attributes.path}`);
   if (attributes.domain) parts.push(`Domain=${attributes.domain}`);
-  if (attributes.expires instanceof Date)
+  if (typeof attributes.maxAge === 'number')
+    parts.push(`Max-Age=${Math.floor(attributes.maxAge)}`);
+  else if (attributes.expires instanceof Date)
     parts.push(`Expires=${attributes.expires.toUTCString()}`);
-
   if (attributes.secure) parts.push('Secure');
   if (attributes.sameSite) parts.push(`SameSite=${attributes.sameSite}`);
   return parts.join('; ');
 };
 
-export type LocaleStorageOptions = {
+/**
+ * Resolves the cookie expiry for the Cookie Store API (epoch milliseconds).
+ * `maxAge` takes precedence and is converted to an absolute timestamp, as the
+ * native `maxAge` option of `cookieStore.set()` is not yet supported in all
+ * browsers that support `cookieStore` itself.
+ */
+const getCookieStoreExpires = (
+  attributes: Omit<CookiesAttributes, 'name' | 'type'>
+): number | undefined => {
+  if (typeof attributes.maxAge === 'number')
+    return Date.now() + attributes.maxAge * 1000;
+  return attributes.expires instanceof Date
+    ? attributes.expires.getTime()
+    : attributes.expires;
+};
+
+// ============================================================================
+// Client-specific types and functions
+// (cookies via browser APIs, localStorage, sessionStorage — no headers)
+// ============================================================================
+
+export type LocaleStorageClientOptions = {
   overwrite?: boolean;
   isCookieEnabled?: boolean;
   setCookieStore?: (
@@ -93,15 +106,309 @@ export type LocaleStorageOptions = {
   getSessionStorage?: (name: string) => string | undefined | null;
   setLocaleStorage?: (name: string, value: string) => void;
   getLocaleStorage?: (name: string) => string | undefined | null;
+};
+
+// cookieStore is part of the experimental Cookie Store API
+declare const cookieStore: any;
+
+export const localeStorageOptions: LocaleStorageClientOptions = {
+  getCookie: (name: string) =>
+    document.cookie
+      .split(';')
+      .find((c) => c.trim().startsWith(`${name}=`))
+      ?.split('=')[1],
+  getLocaleStorage: (name: string) => localStorage.getItem(name),
+  getSessionStorage: (name: string) => sessionStorage.getItem(name),
+  isCookieEnabled: true,
+  setCookieStore: (name, value, attributes) =>
+    cookieStore.set({
+      name,
+      value,
+      path: attributes.path,
+      domain: attributes.domain,
+      expires: attributes.expires,
+      sameSite: attributes.sameSite,
+    }),
+  setCookieString: (_name, cookie) => {
+    // biome-ignore lint/suspicious/noDocumentCookie: set cookie fallback
+    document.cookie = cookie;
+  },
+  setSessionStorage: (name, value) => sessionStorage.setItem(name, value),
+  setLocaleStorage: (name, value) => localStorage.setItem(name, value),
+};
+
+/**
+ * Retrieves the locale from browser storage mechanisms
+ * (cookies, localStorage, sessionStorage).
+ * Does not read from headers — use `getLocaleFromStorageServer` for that.
+ */
+export const getLocaleFromStorageClient = (
+  options: LocaleStorageClientOptions = localeStorageOptions
+): Locale | undefined => {
+  const { locales } = internationalization;
+
+  if (options?.isCookieEnabled === false) return undefined;
+
+  const isValidLocale = (value: string | null | undefined): value is Locale =>
+    !!value && locales.includes(value as Locale);
+
+  if (!TREE_SHAKE_STORAGE_COOKIES) {
+    for (let i = 0; i < (routing.storage.cookies ?? []).length; i++) {
+      try {
+        const value = options?.getCookie?.(routing.storage.cookies![i].name);
+        if (isValidLocale(value)) return value;
+      } catch {}
+    }
+  }
+
+  if (!TREE_SHAKE_STORAGE_LOCAL_STORAGE) {
+    for (let i = 0; i < (routing.storage.localStorage ?? []).length; i++) {
+      try {
+        const value = options?.getLocaleStorage?.(
+          routing.storage.localStorage![i].name
+        );
+        if (isValidLocale(value)) return value;
+      } catch {}
+    }
+  }
+
+  if (!TREE_SHAKE_STORAGE_SESSION_STORAGE && routing.storage.sessionStorage) {
+    for (let i = 0; i < routing.storage.sessionStorage.length; i++) {
+      try {
+        const value = options?.getSessionStorage?.(
+          routing.storage.sessionStorage[i].name
+        );
+        if (isValidLocale(value)) return value;
+      } catch {}
+    }
+  }
+};
+
+/**
+ * Stores the locale in browser storage mechanisms
+ * (cookies, localStorage, sessionStorage).
+ * Does not write to headers — use `setLocaleInStorageServer` for that.
+ */
+export const setLocaleInStorageClient = (
+  locale: LocalesValues,
+  options?: LocaleStorageClientOptions
+): void => {
+  if (options?.isCookieEnabled === false) return;
+
+  if (!TREE_SHAKE_STORAGE_COOKIES && routing.storage.cookies) {
+    for (let i = 0; i < routing.storage.cookies.length; i++) {
+      const { name, attributes } = routing.storage.cookies[i];
+      try {
+        if (options?.setCookieStore) {
+          options.setCookieStore(name, locale, {
+            ...attributes,
+            expires: getCookieStoreExpires(attributes),
+          });
+        }
+      } catch {
+        try {
+          if (options?.setCookieString) {
+            options.setCookieString(
+              name,
+              buildCookieString(name, locale, attributes)
+            );
+          }
+        } catch {}
+      }
+    }
+  }
+
+  if (
+    !TREE_SHAKE_STORAGE_LOCAL_STORAGE &&
+    routing.storage.localStorage &&
+    options?.setLocaleStorage
+  ) {
+    for (let i = 0; i < routing.storage.localStorage.length; i++) {
+      const { name } = routing.storage.localStorage[i];
+      try {
+        if (!(options?.overwrite ?? true) && options?.getLocaleStorage) {
+          if (options.getLocaleStorage(name)) continue;
+        }
+        options.setLocaleStorage(name, locale);
+      } catch {}
+    }
+  }
+
+  if (
+    !TREE_SHAKE_STORAGE_SESSION_STORAGE &&
+    routing.storage.sessionStorage &&
+    options?.setSessionStorage
+  ) {
+    for (let i = 0; i < routing.storage.sessionStorage.length; i++) {
+      const { name } = routing.storage.sessionStorage[i];
+      try {
+        if (!(options?.overwrite ?? true) && options?.getSessionStorage) {
+          if (options.getSessionStorage(name)) continue;
+        }
+        options.setSessionStorage(name, locale);
+      } catch {}
+    }
+  }
+};
+
+/**
+ * Client-side locale storage utility.
+ * Handles cookies (browser), localStorage and sessionStorage.
+ * Does not access headers.
+ *
+ * @example
+ * ```ts
+ * const storage = LocaleStorageClient(localeStorageOptions);
+ * const locale = storage.getLocale();
+ * storage.setLocale('fr');
+ * ```
+ */
+export const LocaleStorageClient = (options: LocaleStorageClientOptions) => ({
+  getLocale: () => getLocaleFromStorageClient(options),
+  setLocale: (locale: LocalesValues) =>
+    setLocaleInStorageClient(locale, options),
+});
+
+// ============================================================================
+// Server-specific types and functions
+// (cookies via injected getter/setter, headers — no localStorage/sessionStorage)
+// ============================================================================
+
+export type LocaleStorageServerOptions = {
+  overwrite?: boolean;
+  isCookieEnabled?: boolean;
+  setCookieStore?: (
+    name: string,
+    value: string,
+    cookie: CookieBuildAttributes
+  ) => void;
+  setCookieString?: (name: string, cookie: string) => void;
+  getCookie?: (name: string) => string | undefined | null;
   getHeader?: (name: string) => string | undefined | null;
   setHeader?: (name: string, value: string) => void;
 };
 
 /**
- * Retrieves the locale from various storage mechanisms (cookies, localStorage, sessionStorage, headers).
- * The function checks storage locations in order of priority as defined in the configuration.
+ * Retrieves the locale from server-side storage mechanisms (cookies, headers).
+ * Does not access localStorage or sessionStorage.
+ * No browser cookie fallback — the caller must provide `getCookie`.
+ */
+export const getLocaleFromStorageServer = (
+  options: LocaleStorageServerOptions
+): Locale | undefined => {
+  const { locales } = internationalization;
+
+  if (options?.isCookieEnabled === false) return undefined;
+
+  const isValidLocale = (value: string | null | undefined): value is Locale =>
+    !!value && locales.includes(value as Locale);
+
+  if (!TREE_SHAKE_STORAGE_COOKIES && routing.storage.cookies) {
+    for (let i = 0; i < routing.storage.cookies.length; i++) {
+      try {
+        const value = options?.getCookie?.(routing.storage.cookies[i].name);
+        if (isValidLocale(value)) return value;
+      } catch {}
+    }
+  }
+
+  if (!TREE_SHAKE_STORAGE_HEADERS && routing.storage.headers) {
+    for (let i = 0; i < routing.storage.headers.length; i++) {
+      try {
+        const value = options?.getHeader?.(routing.storage.headers[i].name);
+        if (isValidLocale(value)) return value;
+      } catch {}
+    }
+  }
+};
+
+/**
+ * Stores the locale in server-side storage mechanisms (cookies, headers).
+ * Does not write to localStorage or sessionStorage.
+ */
+export const setLocaleInStorageServer = (
+  locale: LocalesValues,
+  options?: LocaleStorageServerOptions
+): void => {
+  if (options?.isCookieEnabled === false) return;
+
+  if (!TREE_SHAKE_STORAGE_COOKIES && routing.storage.cookies) {
+    for (let i = 0; i < routing.storage.cookies.length; i++) {
+      const { name, attributes } = routing.storage.cookies[i];
+
+      try {
+        if (options?.setCookieStore) {
+          options.setCookieStore(name, locale, {
+            ...attributes,
+            expires: getCookieStoreExpires(attributes),
+          });
+        }
+      } catch {
+        try {
+          if (options?.setCookieString) {
+            options.setCookieString(
+              name,
+              buildCookieString(name, locale, attributes)
+            );
+          }
+        } catch {}
+      }
+    }
+  }
+
+  if (
+    !TREE_SHAKE_STORAGE_HEADERS &&
+    routing.storage.headers &&
+    options?.setHeader
+  ) {
+    for (let i = 0; i < routing.storage.headers.length; i++) {
+      try {
+        options.setHeader(routing.storage.headers[i].name, locale);
+      } catch {}
+    }
+  }
+};
+
+/**
+ * Server-side locale storage utility.
+ * Handles cookies (via injected getter/setter) and headers.
+ * Does not access localStorage or sessionStorage.
  *
- * @returns The locale if found in any storage, or undefined if not found
+ * @example
+ * ```ts
+ * const storage = LocaleStorageServer({
+ *   getCookie: (name) => req.cookies[name],
+ *   setCookieStore: (name, value, attrs) => res.cookie(name, value, attrs),
+ *   getHeader: (name) => req.headers[name],
+ *   setHeader: (name, value) => res.setHeader(name, value),
+ * });
+ * const locale = storage.getLocale();
+ * storage.setLocale('fr');
+ * ```
+ */
+export const LocaleStorageServer = (options: LocaleStorageServerOptions) => ({
+  getLocale: () => getLocaleFromStorageServer(options),
+  setLocale: (locale: LocalesValues) =>
+    setLocaleInStorageServer(locale, options),
+});
+
+// ============================================================================
+// Deprecated: combined LocaleStorage
+// Use LocaleStorageClient or LocaleStorageServer instead
+// ============================================================================
+
+/**
+ * @deprecated Use {@link LocaleStorageClientOptions} or {@link LocaleStorageServerOptions} instead.
+ */
+export type LocaleStorageOptions = LocaleStorageClientOptions &
+  LocaleStorageServerOptions;
+
+/**
+ * Retrieves the locale from all storage mechanisms
+ * (cookies, localStorage, sessionStorage, headers).
+ *
+ * @deprecated Use {@link getLocaleFromStorageClient} (browser) or
+ * {@link getLocaleFromStorageServer} (server) instead.
  */
 export const getLocaleFromStorage = (
   options: Pick<
@@ -113,180 +420,147 @@ export const getLocaleFromStorage = (
     | 'isCookieEnabled'
   >
 ): Locale | undefined => {
-  const { routing, internationalization } = configuration;
   const { locales } = internationalization;
-  const { storage } = routing;
 
-  // If storage is disabled, return undefined
-  if (storage === false || options?.isCookieEnabled === false) return undefined;
+  if (options?.isCookieEnabled === false) return undefined;
 
-  const storageAttributes = getStorageAttributes(storage);
-
-  const isValidLocale = (value: string | null | undefined): value is Locale => {
-    if (!value) return false;
-
-    return locales.includes(value as Locale);
-  };
+  const isValidLocale = (value: string | null | undefined): value is Locale =>
+    !!value && locales.includes(value as Locale);
 
   const readCookie = (name: string): string | undefined => {
-    // Prefer provided getter (server or custom environment)
     try {
       const fromOption = options?.getCookie?.(name);
-
       if (fromOption !== null && fromOption !== undefined) return fromOption;
     } catch {}
-
-    // Fallback to browser cookie parsing
+    // Browser fallback kept for backward compatibility
     return getCookie(name);
   };
 
-  // 1) Check cookies first
-  for (let i = 0; i < storageAttributes.cookies.length; i++) {
-    const { name } = storageAttributes.cookies[i];
-
-    const value = readCookie(name);
-
-    if (isValidLocale(value)) return value;
+  if (!TREE_SHAKE_STORAGE_COOKIES && routing.storage.cookies) {
+    for (let i = 0; i < routing.storage.cookies.length; i++) {
+      const value = readCookie(routing.storage.cookies[i].name);
+      if (isValidLocale(value)) return value;
+    }
   }
 
-  // 2) Then check localStorage candidates (browser only)
-  for (let i = 0; i < storageAttributes.localStorage.length; i++) {
-    const { name } = storageAttributes.localStorage[i];
-
-    try {
-      const value = options?.getLocaleStorage?.(name);
-
-      if (isValidLocale(value)) return value;
-    } catch {}
+  if (!TREE_SHAKE_STORAGE_LOCAL_STORAGE && routing.storage.localStorage) {
+    for (let i = 0; i < routing.storage.localStorage.length; i++) {
+      try {
+        const value = options?.getLocaleStorage?.(
+          routing.storage.localStorage[i].name
+        );
+        if (isValidLocale(value)) return value;
+      } catch {}
+    }
   }
 
-  // 3) Check sessionStorage candidates (browser only)
-  for (let i = 0; i < storageAttributes.sessionStorage.length; i++) {
-    const { name } = storageAttributes.sessionStorage[i];
-
-    try {
-      const value = options?.getSessionStorage?.(name);
-
-      if (isValidLocale(value)) return value;
-    } catch {}
+  if (!TREE_SHAKE_STORAGE_SESSION_STORAGE && routing.storage.sessionStorage) {
+    for (let i = 0; i < routing.storage.sessionStorage.length; i++) {
+      try {
+        const value = options?.getSessionStorage?.(
+          routing.storage.sessionStorage[i].name
+        );
+        if (isValidLocale(value)) return value;
+      } catch {}
+    }
   }
 
-  // 4) Finally check header candidates (server only)
-  for (let i = 0; i < storageAttributes.headers.length; i++) {
-    const { name } = storageAttributes.headers[i];
-
-    try {
-      const value = options?.getHeader?.(name);
-
-      if (isValidLocale(value)) return value;
-    } catch {}
+  if (!TREE_SHAKE_STORAGE_HEADERS && routing.storage.headers) {
+    for (let i = 0; i < routing.storage.headers.length; i++) {
+      try {
+        const value = options?.getHeader?.(routing.storage.headers[i].name);
+        if (isValidLocale(value)) return value;
+      } catch {}
+    }
   }
 };
 
 /**
- * Stores the locale in various storage mechanisms (cookies, localStorage, sessionStorage, headers).
- * The function writes to all configured storage locations according to their attributes.
- * Respects overwrite flags for localStorage and sessionStorage.
+ * Stores the locale in all configured storage mechanisms
+ * (cookies, localStorage, sessionStorage, headers).
  *
- * @param locale - The locale to store
+ * @deprecated Use {@link setLocaleInStorageClient} (browser) or
+ * {@link setLocaleInStorageServer} (server) instead.
  */
 export const setLocaleInStorage = (
   locale: LocalesValues,
   options?: LocaleStorageOptions
 ): void => {
-  // If storage is disabled, do nothing
-  if (
-    configuration.routing.storage === false ||
-    options?.isCookieEnabled === false
-  )
-    return;
+  if (options?.isCookieEnabled === false) return;
 
-  const storageAttributes = getStorageAttributes(configuration.routing.storage);
-
-  // Write to cookies (server via setCookie, client via cookieStore/document)
-  for (let i = 0; i < storageAttributes.cookies.length; i++) {
-    const { name, attributes } = storageAttributes.cookies[i];
-
-    try {
-      if (options?.setCookieStore) {
-        options?.setCookieStore?.(name, locale, {
-          ...attributes,
-          expires:
-            attributes.expires instanceof Date
-              ? attributes.expires.getTime()
-              : attributes.expires,
-        });
+  if (!TREE_SHAKE_STORAGE_COOKIES && routing.storage.cookies) {
+    for (let i = 0; i < routing.storage.cookies.length; i++) {
+      const { name, attributes } = routing.storage.cookies[i];
+      try {
+        if (options?.setCookieStore) {
+          options.setCookieStore(name, locale, {
+            ...attributes,
+            expires: getCookieStoreExpires(attributes),
+          });
+        }
+      } catch {
+        try {
+          if (options?.setCookieString) {
+            options.setCookieString(
+              name,
+              buildCookieString(name, locale, attributes)
+            );
+          }
+        } catch {}
       }
-    } catch {
-      try {
-        if (options?.setCookieString) {
-          const cookieString = buildCookieString(name, locale, attributes);
+    }
+  }
 
-          options?.setCookieString?.(name, cookieString);
+  if (
+    !TREE_SHAKE_STORAGE_LOCAL_STORAGE &&
+    routing.storage.localStorage &&
+    options?.setLocaleStorage
+  ) {
+    for (let i = 0; i < routing.storage.localStorage.length; i++) {
+      const { name } = routing.storage.localStorage[i];
+      try {
+        if (!(options?.overwrite ?? true) && options?.getLocaleStorage) {
+          if (options.getLocaleStorage(name)) continue;
         }
+        options.setLocaleStorage(name, locale);
       } catch {}
     }
   }
 
-  // Write to localStorage (browser only)
-  if (options?.setLocaleStorage) {
-    for (let i = 0; i < storageAttributes.localStorage.length; i++) {
-      const { name } = storageAttributes.localStorage[i];
-
+  if (
+    !TREE_SHAKE_STORAGE_SESSION_STORAGE &&
+    routing.storage.sessionStorage &&
+    options?.setSessionStorage
+  ) {
+    for (let i = 0; i < routing.storage.sessionStorage.length; i++) {
+      const { name } = routing.storage.sessionStorage[i];
       try {
-        const shouldOverwrite = options?.overwrite ?? true;
-
-        if (!shouldOverwrite && options?.getLocaleStorage) {
-          const existing = options?.getLocaleStorage?.(name);
-          if (existing) continue;
+        if (!(options?.overwrite ?? true) && options?.getSessionStorage) {
+          if (options.getSessionStorage(name)) continue;
         }
-        options?.setLocaleStorage?.(name, locale);
+        options.setSessionStorage(name, locale);
       } catch {}
     }
   }
 
-  // Write to sessionStorage (browser only)
-  if (options?.setSessionStorage) {
-    for (let i = 0; i < storageAttributes.sessionStorage.length; i++) {
-      const { name } = storageAttributes.sessionStorage[i];
-
+  if (
+    !TREE_SHAKE_STORAGE_HEADERS &&
+    routing.storage.headers &&
+    options?.setHeader
+  ) {
+    for (let i = 0; i < routing.storage.headers.length; i++) {
       try {
-        const shouldOverwrite = options?.overwrite ?? true;
-
-        if (!shouldOverwrite && options?.getSessionStorage) {
-          const existing = options?.getSessionStorage?.(name);
-          if (existing) continue;
-        }
-
-        options?.setSessionStorage?.(name, locale);
-      } catch {}
-    }
-  }
-
-  // Write to headers (server only)
-  if (options?.setHeader) {
-    for (let i = 0; i < storageAttributes.headers.length; i++) {
-      const { name } = storageAttributes.headers[i];
-
-      try {
-        options?.setHeader?.(name, locale);
+        options.setHeader(routing.storage.headers[i].name, locale);
       } catch {}
     }
   }
 };
 
 /**
- * Utility object to get and set the locale in the storage by considering the configuration
+ * Utility object to get and set the locale in storage based on configuration.
  *
- * @property getLocale - Retrieves the locale from various storage mechanisms (cookies, localStorage, sessionStorage, headers).
- * Retrieves the locale from various storage mechanisms (cookies, localStorage, sessionStorage, headers).
- * The function checks storage locations in order of priority as defined in the configuration.
- *
- * @property setLocale - Stores the locale in various storage mechanisms (cookies, localStorage, sessionStorage, headers).
- * The function writes to all configured storage locations according to their attributes.
- * Respects overwrite flags for localStorage and sessionStorage.
- *
- * @returns The locale if found in any storage, or undefined if not found
+ * @deprecated Use {@link LocaleStorageClient} (browser) or
+ * {@link LocaleStorageServer} (server) instead.
  */
 export const LocaleStorage = (options: LocaleStorageOptions) => ({
   getLocale: () => getLocaleFromStorage(options),

@@ -1,0 +1,241 @@
+---
+createdAt: 2026-04-20
+updatedAt: 2026-05-18
+title: Best i18n solution for TanStack Start in 2026 - Benchmark Report
+description: Compare TanStack Start internationalization libraries like react-i18next, use-intl, and Intlayer. Detailed performance report on bundle size, leakage, and reactivity.
+keywords:
+  - benchmark
+  - i18n
+  - intl
+  - tanstack
+  - performance
+  - intlayer
+slugs:
+  - doc
+  - benchmark
+  - tanstack
+author: Aymeric PINEAU
+applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-tanstack-start-template
+history:
+  - version: 8.9.8
+    date: 2026-05-18
+    changes: "Add GitHub star comparative"
+  - version: 8.7.5
+    date: 2026-01-06
+    changes: "Init benchmark"
+---
+
+# TanStack Start i18n Libraries - 2026 Benchmark Report
+
+This page is a benchmark report for i18n solutions on TanStack Start.
+
+## Table of Contents
+
+<Toc/>
+
+## Interactive Benchmark
+
+<I18nBenchmark framework="tanstack" vertical/>
+
+## Results reference:
+
+<ClickToOpenIframe
+  src="https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md"
+  width="100%"
+  height="600px"
+  style="border:none;"
+/>
+
+> [See complete benchmark data](https://intlayer.org/markdown?url=https%3A%2F%2Fraw.githubusercontent.com%2Fintlayer-org%2Fbenchmark-i18n%2Fmain%2Freport%2Fscripts%2Fsummarize-tanstack.md)
+
+See complete benchmark repository [here](https://github.com/intlayer-org/benchmark-i18n/tree/main).
+
+## Introduction
+
+Internationalization solutions are among the heaviest dependencies in a React app. On TanStack Start, the main risk is shipping unnecessary content: translations for other pages and other locales in a single route’s bundle.
+
+As your app grows, that problem can quickly blow up the JavaScript sent to the client and slow down navigation.
+
+In practice, for the least optimized implementations, an internationalized page can end up several times heavier than the version without i18n.
+
+The other impact is on developer experience: how you declare content, types, namespace organization, dynamic loading, and reactivity when the locale changes.
+
+## TL;DR
+
+- **Intlayer**: Provides the best performance and smallest bundle size (v8.7.12) for TanStack Start.
+- **react-i18next** & **use-intl**: Mature alternatives with large ecosystems, but significantly heavier and more complex to optimize.
+- **Paraglide**: Innovative tree-shaking idea that does not work in practice. Complex DX and reactivity overhead in TanStack Start.
+- **Avoid**: **General Translation (GT)** and **Lingo.dev** due to severe performance issues, AI quota limits, and vendor lock-in.
+
+## Test your app
+
+To quickly spot i18n leakage issues, I set up a free scanner available [here](https://intlayer.org/i18n-seo-scanner).
+
+<ClickToOpenIframe src="https://intlayer.org/i18n-seo-scanner" width="100%" height="600px" style="border:none;"/>
+
+## The problem
+
+Two levers are essential to limit the cost of a multilingual app:
+
+- Split content by page / namespace so you do not load whole dictionaries when you do not need them
+- Load the right locale dynamically, only when needed
+
+Understanding the technical limitations of these approaches:
+
+**Dynamic loading**
+
+Without dynamic loading, most solutions keep messages in memory from the first render, which adds significant overhead for apps with many routes and locales.
+
+With dynamic loading, you accept a trade-off: less initial JS, but sometimes an extra request when switching language.
+
+**Content splitting**
+
+Syntaxes built around `const t = useTranslation()` + `t('a.b.c')` are very convenient but often encourage keeping large JSON objects at runtime. That model makes tree-shaking hard unless the library offers a real per-page split strategy.
+
+## Methodology
+
+For this benchmark, we compared the following libraries:
+
+- `Base App` (No i18n library)
+- `react-intlayer` (v8.7.12)
+- `react-i18next` (v17.0.2)
+- `use-intl` (v4.9.1)
+- `@lingui/core` (v5.3.0)
+- `@inlang/paraglide-js` (v2.15.1)
+- `@tolgee/react` (v7.0.0)
+- `react-intl` (v10.1.1)
+- `wuchale` (v0.22.11)
+- `gt-react` (vlatest)
+- `lingo.dev` (v0.133.9)
+
+The framework is `TanStack Start` with a multilingual app of **10 pages** and **10 languages**.
+
+We compared **four loading strategies**:
+
+| Strategy            | No namespaces (global)                       | With namespaces (scoped)                                             |
+| :------------------ | :------------------------------------------- | :------------------------------------------------------------------- |
+| **Static loading**  | **Static**: Everything in memory at startup. | **Scoped static**: Split by namespace; everything loaded at startup. |
+| **Dynamic loading** | **Dynamic**: On-demand loading per locale.   | **Scoped dynamic**: Granular loading per namespace and locale.       |
+
+## Strategy summary
+
+- **Static**: Simple; no network latency after the initial load. Downside: large bundle size.
+- **Dynamic**: Reduces initial weight (lazy-loading). Ideal when you have many locales.
+- **Scoped static**: Keeps code organized (logical separation) without complex extra network requests.
+- **Scoped dynamic**: Best approach for _code splitting_ and performance. Minimizes memory by loading only what the current view and active locale need.
+
+### What I measured:
+
+I ran the same multilingual app in a real browser for every stack, then wrote down what actually showed up on the wire and how long things took. Sizes are reported **after normal web compression**, because that is closer to what people download than raw source counts.
+
+- **Internationalization library size**: After bundling, tree-shaking and minification, the size of the i18n library is the size of the providers (e.g. `NextIntlClientProvider`) + hooks (e.g. `useTranslations`) code in an empty component. It does not include the loading of translation files. It answers how expensive the library is before your content enters the picture.
+
+- **JavaScript per page**: For each benchmark route, how much script the browser pulls in for that visit, averaged across the pages in the suite (and across locales where the report rolls them up). Heavy pages are slow pages.
+
+- **Leakage from other locales**: It's the content of the same page but in another language that would be loaded by mistake in the audited page. This content is unnecessary and should be avoided. (e.g. `/fr/about` page content in `/en/about` page bundle)
+
+- **Leakage from other routes**: The same idea for **other screens** in the app: whether their copy is riding along when you only opened one page. (e.g. `/en/about` page content in `/en/contact` page bundle). A high score hints at weak splitting or over-broad bundles.
+
+- **Average component bundle size**: Common UI pieces are measured **one at a time** instead of hiding inside one giant app number. It shows whether internationalization quietly inflates everyday components. For instance, if your component rerenders, it will load all that data from memory. Attaching a giant JSON to any component is like connecting a big store of unused data that will slow down your components’ performance.
+
+- **Language switch responsiveness**: I flip the language using the app’s own control and time how long it takes until the page has clearly switched, what a visitor would notice, not a lab micro-step.
+
+- **Rendering work after a language change**: A narrower follow-up: how much effort the interface took to repaint for the new language once the switch is in flight. Useful when the “felt” time and the framework cost diverge.
+
+- **Initial page load time**: From navigation to the browser considering the page fully loaded for the scenarios I tested. Good for comparing cold starts.
+
+- **Hydration time**: When the app exposes it, how long the client spends turning server HTML into something you can actually click. A dash in the tables means that implementation did not provide a reliable hydration figure in this benchmark.
+
+## GitHub STARs
+
+GitHub stars are a strong indicator of a project's popularity, community trust, and long-term relevance. While not a direct measure of technical quality, they reflect how many developers find the project useful, follow its progress, and are likely to adopt it. For estimating the value of a project, stars help compare traction across alternatives and provide insights into ecosystem growth.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=formatjs%2Fformatjs%2Ci18next%2Freact-i18next%2Clingui%2Fjs-lingui%2Camannn%2Fnext-intl%2Copral%2Fparaglide-js%2Ctolgee%2Ftolgee-js%2Caymericzip%2Fintlayer&type=date&legend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&lingui/js-lingui&amannn/next-intl&opral/paraglide-js&tolgee/tolgee-js&aymericzip/intlayer)
+
+## Results in detail
+
+### 1 - Solutions to avoid
+
+Some solutions, such as `gt-react` or `lingo.dev`, are clearly ones to steer clear of. They combine vendor lock-in with polluting your codebase. Worse: despite many hours trying to implement them, I never got them working properly on TanStack Start (similar to Next.js with `gt-next`).
+
+Issues encountered:
+
+**(General Translation)** (`gt-react@latest`):
+
+- For an app around 110kb, `gt-react` can add more than 440kb extra (~439.8kb, which is about 93× `react-intlayer`). There is a serious quality issue from the developer experience side.
+- `Quota Exceeded, please upgrade your plan` on the very first build with General Translation.
+- Translations are not rendered; I get the error `Error: <T> used on the client-side outside of <GTProvider>`, which seems to be a bug in the library.
+- While implementing **gt-tanstack-start-react**, I also came across an [issue](https://github.com/generaltranslation/gt/issues/1210#event-24510646961) with the library: `does not provide an export named 'printAST' - @formatjs/icu-messageformat-parser`, which was making the application break. After reporting this issue, the maintainer fixed it within 24 hours.
+- These libraries use an anti-pattern through the `initializeGT()` function, blocking the bundle from tree-shaking cleanly.
+
+**(Lingo.dev)** (`lingo.dev@0.133.9`):
+
+- AI quota exceeded (or blocking server dependency), making build / production risky without paying.
+- The compiler was missing almost 40% of the translated content. I had to rewrite all `.map` into flat component blocks to make it work.
+- Their CLI is buggy and used to reset the config file for no reason.
+- At build, it totally erased the generated JSONs when there was new content added. As a result, you could end up with only a few keys erasing hundreds of existing keys.
+- I met reactivity issues with the library on TanStack Start: on locale change I had to force rerendering of the provider to make it work.
+
+### 2 - Experimental solutions
+
+**(Wuchale)** (`wuchale@0.22.11`):
+
+The idea behind `Wuchale` is interesting but not yet a viable solution. I hit reactivity issues with the library and had to force rerendering of the provider to get the app working on TanStack Start. The documentation is also fairly unclear, which makes onboarding harder.
+
+### 3 - Acceptable solutions
+
+**(Paraglide)** (`@inlang/paraglide-js@2.15.1`):
+
+`Paraglide` offers an innovative, well-thought-out approach. Even so, in this benchmark the tree-shaking their company advertises did not work for my Next.js implementation or for TanStack Start. The workflow and DX are also more complex than other options.
+Personally I dislike having to regenerate JS files before every push, which creates constant merge conflict risk via PRs. The tool also seems more focused on Vite than on Next.js.
+Finally, in comparison with other solutions, Paraglide does not use a store (e.g. React context) to retrieve the current locale to render the content. For each node parsed, it will request the locale from the localStorage / cookie etc. It leads to execution of unnecessary logic that impacts the component reactivity.
+
+> Note on paraglide: the solution inject code in your codebase to import, as a result the metric 'lib size' in the benchmark report is almost 0. Code gen is a good think, because the function used will include only the necessary logic (prefix all vs no prefix, cookie vs storage etc). In comparison Intlayer process to this filtering using env variables injections in the build to force the bundler to tree shake the content depending of the logic. Thanks to this, paraglide and intlayer end up being solution 6-10 times lighter than i18next or next-intl.
+
+**(Tolgee)** (`@tolgee/react@7.0.0`):
+
+`Tolgee` addresses many of the issues mentioned earlier. I found it harder to get started with than other tools with similar approaches. It does not provide type safety, which also makes catching missing keys at compile time much harder. I had to wrap Tolgee’s APIs with my own to add missing-key detection.
+
+The package is fairly heavy (~11.1kb, which is more than 2× `react-intlayer`).
+
+On TanStack Start I also had reactivity problems: on locale change I had to force the provider to rerender and subscribe to locale-change events so loading in another language behaved correctly.
+
+**(use-intl)** (`use-intl@4.9.1`):
+
+`use-intl` is the most fashionable “intl” piece in the React ecosystem (same family as `next-intl`) and is often pushed by AI agents, but in my view wrongly so in a performance-first setting. Getting started is fairly simple. In practice, the process to optimize and limit leakage is quite complex. Likewise, combining dynamic loading + namespacing + TypeScript types slows development a lot. The package is also fairly heavy (~12.8kb, which is more than 2.5× `react-intlayer`).
+
+On TanStack Start you avoid Next.js-specific traps (`setRequestLocale`, static rendering), but the core issue is the same: without strict discipline, the bundle quickly carries too many messages and per-route namespace maintenance becomes painful.
+
+**(react-i18next)** (`react-i18next@17.0.2`):
+
+`react-i18next` is probably the most popular option because it was among the first to serve JavaScript app i18n needs. It also has a wide set of community plugins for specific problems.
+
+Still, it shares the same major downsides as stacks built on `t('a.b.c')`: optimizations are possible but very time-consuming, and large projects risk bad practices (namespaces + dynamic loading + types).
+
+The package is especially heavy (~17.3kb, which is about 3.5× `react-intlayer`).
+
+Message formats also diverge: `use-intl` uses ICU MessageFormat, while `i18next` uses its own format, which complicates tooling or migrations if you mix them.
+
+**(Lingui)** (`@lingui/core@5.3.0`):
+
+`Lingui` is often praised. Personally I found the workflow around `lingui extract` / `lingui compile` more complex than other approaches, without a clear upside in this TanStack Start benchmark. I also noticed inconsistent syntaxes that confuse AIs (e.g. `t()`, `t''`, `i18n.t()`, `<Trans>`).
+
+**(react-intl)** (`react-intl@10.1.1`):
+
+`react-intl` is a performant implementation from the Format.js team. The DX stays verbose: `const intl = useIntl()` + `intl.formatMessage({ id: "xx.xx" })` adds complexity, extra JavaScript work, and ties the global i18n instance to many nodes in the React tree.
+
+The package is also heavy (~14.4kb, which is about 3× `react-intlayer`).
+
+### 4 - Recommendations
+
+This TanStack Start benchmark has no direct equivalent to `next-translate` (Next.js plugin + `getStaticProps`). For teams that really want a `t()` API with a mature ecosystem, `react-i18next` and `use-intl` remain “reasonable” choices, but expect to invest a lot of time optimizing to avoid leakage.
+
+**(Intlayer)** (`react-intlayer@8.7.12`):
+
+I will not personally judge `react-intlayer` for objectivity’s sake, since it is my own solution.
+
+### Personal note
+
+This note is personal and does not affect the benchmark results. Still, in the i18n world you often see consensus around a pattern like `const t = useTranslation('xx')` + `<>{t('xx.xx')}</>` for translated content.
+
+In React apps, injecting a function as a `ReactNode` is, in my view, an anti-pattern. It also adds avoidable complexity and JavaScript execution overhead (even if it is barely noticeable).

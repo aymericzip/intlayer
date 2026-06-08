@@ -1,5 +1,5 @@
-import type { RenameId } from '@utils/mongoDB/types';
-import type { User as BetterAuthUser, OmitId } from 'better-auth';
+import type { OmitId, RenameId } from '@utils/mongoDB/types';
+import type { User as BetterAuthUser } from 'better-auth';
 import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
 
 export interface UserData {
@@ -7,6 +7,7 @@ export interface UserData {
   name: string;
   phone?: string;
   dateOfBirth?: Date;
+  image?: string;
 }
 
 export enum EmailsList {
@@ -22,6 +23,8 @@ export type User = OmitId<UserData & BetterAuthUser> & {
   role?: string;
   lastLoginMethod?: 'email' | 'google' | 'github' | 'passkey';
   lang?: string;
+  lastActiveOrganizationId?: string | null;
+  lastActiveProjectId?: string | null;
   createdAt: Date;
   updatedAt: Date;
 };

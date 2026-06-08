@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2025-12-07
-title: Как перевести ваше приложение Nuxt и Vue – руководство по i18n 2025
-description: Узнайте, как сделать ваш сайт на Nuxt и Vue многоязычным. Следуйте документации для интернационализации (i18n) и перевода.
+updatedAt: 2026-05-31
+title: "Nuxt i18n - Полное руководство по переводу вашего приложения"
+description: "Больше никакого i18next. Руководство 2026 по созданию многоязычного (i18n) приложения Nuxt. Переводите с помощью ИИ-агентов и оптимизируйте размер бандла, SEO и производительность."
 keywords:
   - Интернационализация
   - Документация
@@ -15,14 +15,18 @@ slugs:
   - environment
   - nuxt-and-vue
 applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-4-template
+applicationShowcase: https://intlayer-nuxt-4-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=nhUcUAVQ6eQ
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Обновление использования API useIntlayer в Solid для прямого доступа к свойствам"
   - version: 7.3.11
     date: 2025-12-07
-    changes: Обновление LocaleSwitcher, SEO, метаданных
+    changes: "Обновление LocaleSwitcher, SEO, метаданных"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Инициализация истории
+    changes: "Инициализация истории"
 ---
 
 # Перевод вашего сайта на Nuxt и Vue с использованием Intlayer | Интернационализация (i18n)
@@ -31,59 +35,119 @@ history:
 
 <TOC/>
 
-## Что такое Intlayer?
+## Почему Intlayer лучше альтернатив?
 
-**Intlayer** — это инновационная, открытая библиотека интернационализации (i18n), созданная для упрощения поддержки многоязычности в современных веб-приложениях.
+По сравнению с основными решениями, такими как @nuxtjs/i18n или i18next, Intlayer — это решение со встроенными оптимизациями, такими как:
 
-С помощью Intlayer вы можете:
+<AccordionGroup>
 
-- **Легко управлять переводами** с использованием декларативных словарей на уровне компонентов.
-- **Динамически локализовать метаданные**, маршруты и контент.
-- **Обеспечить поддержку TypeScript** с автогенерируемыми типами, улучшая автодополнение и обнаружение ошибок.
-- **Воспользоваться расширенными возможностями**, такими как динамическое определение и переключение локали.
+<Accordion header="Полное покрытие Nuxt">
+
+Intlayer оптимизирован для идеальной работы с Nuxt, предлагая **многоязычную маршрутизацию**, **промежуточное программное обеспечение для определения локали**, **карту сайта** и все функции, необходимые для масштабирования интернационализации (i18n).
+
+</Accordion>
+
+<Accordion header="Размер бандла">
+
+Вместо загрузки огромных файлов JSON на свои страницы загружайте только необходимый контент. Intlayer помогает **уменьшить размер бандла и страниц до 50 %**.
+
+</Accordion>
+
+<Accordion header="Удобство обслуживания">
+
+Определение области содержимого вашего приложения **облегчает обслуживание** крупномасштабных приложений. Вы можете дублировать или удалить отдельную папку функций, не утруждав себя мысленным бременем проверки всей кодовой базы контента. Кроме того, Intlayer **полностью типизирован**, что обеспечивает точность вашего контента.
+
+</Accordion>
+
+<Accordion header="Агент ИИ">
+
+Совместное размещение контента **уменьшает контекст, необходимый** для моделей большого языка (LLM). Intlayer также поставляется с набором инструментов, таких как **CLI** для проверки отсутствия переводов,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, и **[навыки агента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, чтобы сделать работу разработчика (DX) еще более удобной для агентов ИИ.
+
+</Accordion>
+
+<Accordion header="Автоматизация">
+
+Используйте автоматизацию для перевода в своем конвейере CI/CD, используя LLM по вашему выбору за счет вашего поставщика ИИ. Intlayer также предлагает **компилятор** для автоматизации извлечения контента, а также [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), которая помогает **переводить в фоновом режиме**.
+
+</Accordion>
+
+<Accordion header="Производительность">
+
+Подключение больших файлов JSON к компонентам может привести к проблемам с производительностью и реактивностью. Intlayer оптимизирует загрузку контента во время сборки (build time).
+
+</Accordion>
+
+<Accordion header="Масштабирование с помощью не-разработчиками">
+
+Intlayer — это больше, чем просто решение i18n. Он предоставляет **автономный [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** и **[полный CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, чтобы помочь вам управлять многоязычным контентом в **реальном времени**, упрощая сотрудничество с переводчиками, копирайтерами и другими членами команды. Контент может храниться локально и/или удаленно.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
 ## Пошаговое руководство по настройке Intlayer в приложении Nuxt
 
-<Tab defaultTab="video">
-  <TabItem label="Видео" value="video">
+<Tabs defaultTab="video">
+  <Tab label="Видео" value="video">
   
-<iframe title="Как перевести ваше приложение Nuxt и Vue с помощью Intlayer? Откройте для себя Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/nhUcUAVQ6eQ?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Как перевести ваше приложение Nuxt и Vue с помощью Intlayer? Откройте для себя Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/nhUcUAVQ6eQ?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-  </TabItem>
-  <TabItem label="Код" value="code">
+  </Tab>
+  <Tab label="Код" value="code">
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-nuxt-4-template?embed=1&ctl=1&file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-nuxt-4-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Демонстрация CodeSandbox - Как интернационализировать ваше приложение с помощью Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+  <Tab label="Демо" value="demo">
+
+<iframe
+  src="https://intlayer-nuxt-4-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Демо - intlayer-nuxt-4-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
 
 Смотрите [Шаблон приложения](https://github.com/aymericzip/intlayer-nuxt-4-template) на GitHub.
 
-### Шаг 1: Установка зависимостей
+<Steps>
+
+<Step number={1} title="Установка зависимостей">
 
 Установите необходимые пакеты с помощью npm:
 
 ```bash packageManager="npm"
 npm install intlayer vue-intlayer
 npm install --save-dev nuxt-intlayer
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer vue-intlayer
 pnpm add --save-dev nuxt-intlayer
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer vue-intlayer
 yarn add --save-dev nuxt-intlayer
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer vue-intlayer
+bun add --dev nuxt-intlayer
+bun x intlayer init
 ```
 
 - **intlayer**
@@ -96,11 +160,13 @@ yarn add --save-dev nuxt-intlayer
 - **nuxt-intlayer**
   Модуль Nuxt, который интегрирует Intlayer с приложениями Nuxt. Он обеспечивает автоматическую настройку, middleware для определения локали, управление cookie и перенаправление URL.
 
-### Шаг 2: Конфигурация вашего проекта
+</Step>
+
+<Step number={2} title="Конфигурация вашего проекта">
 
 Создайте файл конфигурации для настройки языков вашего приложения:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -118,47 +184,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Ваши другие локали
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Ваши другие локали
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 > Через этот конфигурационный файл вы можете настроить локализованные URL, перенаправление через middleware, имена cookie, расположение и расширение ваших деклараций контента, отключить логи Intlayer в консоли и многое другое. Для полного списка доступных параметров обратитесь к [документации по конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
 
-### Шаг 3: Интеграция Intlayer в вашу конфигурацию Nuxt
+</Step>
+
+<Step number={3} title="Интеграция Intlayer в вашу конфигурацию Nuxt">
 
 Добавьте модуль intlayer в вашу конфигурацию Nuxt:
 
@@ -173,11 +203,13 @@ export default defineNuxtConfig({
 
 > Модуль `nuxt-intlayer` автоматически обрабатывает интеграцию Intlayer с Nuxt. Он настраивает построение деклараций контента, отслеживает файлы в режиме разработки, предоставляет middleware для определения локали и управляет локализованной маршрутизацией.
 
-### Шаг 4: Объявите ваш контент
+</Step>
+
+<Step number={4} title="Объявите ваш контент">
 
 Создайте и управляйте вашими декларациями контента для хранения переводов:
 
-```tsx fileName="content/home-page.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="content/home-page.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { type Dictionary, t } from "intlayer";
 
 const content = {
@@ -204,11 +236,13 @@ const content = {
 export default content;
 ```
 
-> Ваши декларации контента могут быть определены в любом месте вашего приложения, при условии, что они включены в директорию `contentDir` (по умолчанию, `./src`). И соответствуют расширению файла декларации контента (по умолчанию, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> Ваши декларации контента могут быть определены в любом месте вашего приложения, при условии, что они включены в директорию `contentDir` (по умолчанию, `./src`). И соответствуют расширению файла декларации контента (по умолчанию, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Для получения дополнительной информации обратитесь к [документации по декларации контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md).
 
-### Шаг 5: Использование Intlayer в вашем коде
+</Step>
+
+<Step number={5} title="Использование Intlayer в вашем коде">
 
 Получайте доступ к вашим словарям контента по всему приложению Nuxt, используя композицию `useIntlayer`:
 
@@ -277,11 +311,13 @@ Intlayer предлагает различные API для доступа к в
   - Используйте `const content = useIntlayer("myContent");` и `{{ content.myContent }}` / `<content.myContent />`.
   - Или используйте `const { myContent } = useIntlayer("myContent");` и `{{ myContent}}` / `<myContent/>` для деструктуризации контента.
 
-### (Необязательно) Шаг 6: Изменение языка вашего контента
+</Step>
+
+<Step number={6} title="Изменение языка вашего контента" isOptional={true}>
 
 Чтобы изменить язык вашего контента, вы можете использовать функцию `setLocale`, предоставляемую композаблом `useLocale`. Эта функция позволяет установить локаль приложения и обновить контент соответственно.
 
-Создайте компонент для переключения между языками с помощью `NuxtLink`. **Использование ссылок вместо кнопок для переключения локали — это лучшая практика для SEO и обнаруживаемости страниц**, так как это позволяет поисковым системам сканировать и индексировать все локализованные версии ваших страниц:
+Создайте компонент для переключения между языками с помощью `NuxtLink`. **Использование ссылок вместо кнопок для переключения локали, это лучшая практика для SEO и обнаруживаемости страниц**, так как это позволяет поисковым системам сканировать и индексировать все локализованные версии ваших страниц:
 
 ```vue fileName="components/LocaleSwitcher.vue"
 <script setup lang="ts">
@@ -321,34 +357,9 @@ const { locale, availableLocales, setLocale } = useLocale();
 </template>
 ```
 
-### (Необязательно) Шаг 6b: Создайте Layout с навигацией
+</Step>
 
-Layouts в Nuxt позволяют определить общую структуру для ваших страниц. Создайте layout по умолчанию, который включает переключатель локали и навигацию:
-
-```vue fileName="layouts/default.vue"
-<script setup lang="ts">
-import Links from "~/components/Links.vue";
-import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
-</script>
-
-<template>
-  <div>
-    <header>
-      <LocaleSwitcher />
-    </header>
-    <main>
-      <slot />
-    </main>
-
-    <Links href="/">Главная</Links>
-    <Links href="/about">О нас</Links>
-  </div>
-</template>
-```
-
-Компонент `Links` (показан ниже) гарантирует, что внутренние навигационные ссылки автоматически локализуются.
-
-### (Необязательно) Шаг 7: Добавьте локализованный роутинг в ваше приложение
+<Step number={7} title="Добавьте локализованный роутинг в ваше приложение" isOptional={true}>
 
 Nuxt автоматически обрабатывает локализованный роутинг при использовании модуля `nuxt-intlayer`. Это создает маршруты для каждого языка автоматически на основе структуры вашего каталога страниц.
 
@@ -373,11 +384,11 @@ import { useIntlayer } from "vue-intlayer";
 const content = useIntlayer("home-page");
 
 useHead({
-  title: content.metaTitle.value,
+  title: content.metaTitle.raw,
   meta: [
     {
       name: "description",
-      content: content.metaDescription.value,
+      content: content.metaDescription.raw,
     },
   ],
 });
@@ -422,7 +433,9 @@ useHead({
 - Управляет куки локали
 - Перенаправляет пользователей на соответствующий локализованный URL
 
-### (Необязательно) Шаг 8: Создание локализованного компонента ссылок
+</Step>
+
+<Step number={8} title="Создание локализованного компонента ссылок" isOptional={true}>
 
 Чтобы навигация вашего приложения учитывала текущую локаль, вы можете создать пользовательский компонент `Links`. Этот компонент автоматически добавляет префикс текущего языка к внутренним URL, что важно для **SEO и обнаруживаемости страниц**.
 
@@ -490,7 +503,9 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 > - Пользователи могут напрямую делиться локализованными URL
 > - История браузера корректно работает с URL, содержащими префикс локали
 
-### (Необязательно) Шаг 9: Работа с метаданными и SEO
+</Step>
+
+<Step number={9} title="Работа с метаданными и SEO" isOptional={true}>
 
 Nuxt предоставляет отличные возможности для SEO через композицию `useHead` (автоматически импортируется). Вы можете использовать Intlayer для обработки локализованных метаданных, используя аксессоры `.raw` или `.value` для получения примитивного строкового значения:
 
@@ -527,7 +542,7 @@ useHead({
 
 Создайте соответствующее объявление контента:
 
-```ts fileName="pages/about-page.content.ts" contentDeclarationFormat="typescript"
+```ts fileName="pages/about-page.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const aboutPageContent = {
@@ -552,64 +567,6 @@ const aboutPageContent = {
 } satisfies Dictionary;
 
 export default aboutPageContent;
-```
-
-```javascript fileName="pages/about-page.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const aboutPageContent = {
-  key: "about-page",
-  content: {
-    metaTitle: t({
-      en: "О нас - Моя компания",
-      fr: "À Propos - Ma Société",
-      es: "Acerca de Nosotros - Mi Empresa",
-    }),
-    metaDescription: t({
-      en: "Узнайте больше о нашей компании и нашей миссии",
-      fr: "En savoir plus sur notre société et notre mission",
-      es: "Conozca más sobre nuestra empresa y nuestra misión",
-    }),
-    title: t({
-      en: "О нас",
-      fr: "À Propos",
-      es: "Acerca de Nosotros",
-    }),
-  },
-};
-
-export default aboutPageContent;
-```
-
-```javascript fileName="pages/about-page.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const aboutPageContent = {
-  key: "about-page",
-  content: {
-    metaTitle: t({
-      en: "О нас - Моя компания",
-      fr: "À Propos - Ma Société",
-      es: "Acerca de Nosotros - Mi Empresa",
-    }),
-    metaDescription: t({
-      en: "Learn more about our company and our mission",
-      fr: "En savoir plus sur notre société et notre mission",
-      es: "Conozca más sobre nuestra empresa y nuestra misión",
-      ru: "Узнайте больше о нашей компании и нашей миссии",
-    }),
-    title: t({
-      en: "About Us",
-      fr: "À Propos",
-      es: "Acerca de Nosotros",
-      ru: "О нас",
-    }),
-  },
-};
-
-module.exports = aboutPageContent;
 ```
 
 ```json fileName="pages/about-page.content.json" contentDeclarationFormat="json"
@@ -645,6 +602,37 @@ module.exports = aboutPageContent;
   }
 }
 ```
+
+</Step>
+
+</Steps>
+
+### (Необязательно) Шаг 6b: Создайте Layout с навигацией
+
+Layouts в Nuxt позволяют определить общую структуру для ваших страниц. Создайте layout по умолчанию, который включает переключатель локали и навигацию:
+
+```vue fileName="layouts/default.vue"
+<script setup lang="ts">
+import Links from "~/components/Links.vue";
+import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
+</script>
+
+<template>
+  <div>
+    <header>
+      <LocaleSwitcher />
+    </header>
+    <main>
+      <slot />
+    </main>
+
+    <Links href="/">Главная</Links>
+    <Links href="/about">О нас</Links>
+  </div>
+</template>
+```
+
+Компонент `Links` (показан ниже) гарантирует, что внутренние навигационные ссылки автоматически локализуются.
 
 ### Конфигурация Git
 

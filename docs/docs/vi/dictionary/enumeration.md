@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Khởi tạo lịch sử
+    changes: "Khởi tạo lịch sử"
 ---
 
 # Liệt kê / Phân số nhiều
@@ -32,7 +32,7 @@ Trong Intlayer, phép liệt kê được thực hiện thông qua hàm `enu`, h
 
 Để thiết lập phép liệt kê trong dự án Intlayer của bạn, bạn cần tạo một module nội dung bao gồm các định nghĩa liệt kê. Dưới đây là ví dụ về một phép liệt kê đơn giản cho số lượng xe hơi:
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { enu, type Dictionary } from "intlayer";
 
 const carEnumeration = {
@@ -51,50 +51,6 @@ const carEnumeration = {
 } satisfies Dictionary;
 
 export default carEnumeration;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { enu } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const carEnumeration = {
-  key: "car_count",
-  content: {
-    numberOfCar: enu({
-      "<-1": "Ít hơn âm một chiếc xe",
-      "-1": "Âm một chiếc xe",
-      "0": "Không có xe",
-      "1": "Một chiếc xe",
-      ">5": "Một vài chiếc xe",
-      ">19": "Nhiều chiếc xe",
-      "fallback": "Giá trị dự phòng", // Tùy chọn
-    }),
-  },
-};
-
-export default carEnumeration;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { enu } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const carEnumeration = {
-  key: "car_count",
-  content: {
-    numberOfCar: enu({
-      "<-1": "Ít hơn âm một chiếc xe",
-      "-1": "Âm một chiếc xe",
-      "0": "Không có xe",
-      "1": "Một chiếc xe",
-      ">5": "Một vài chiếc xe",
-      ">19": "Nhiều chiếc xe",
-      "fallback": "Giá trị dự phòng", // Tùy chọn
-    }),
-  },
-};
-
-module.exports = carEnumeration;
 ```
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -128,7 +84,7 @@ Trong ví dụ này, `enu` ánh xạ các điều kiện khác nhau tới nội 
 
 Để sử dụng phép liệt kê trong một component React, bạn có thể tận dụng hook `useIntlayer` từ package `react-intlayer`. Hook này sẽ lấy nội dung chính xác dựa trên ID được chỉ định. Dưới đây là ví dụ về cách sử dụng:
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -172,83 +128,13 @@ const CarComponent: FC = () => {
 };
 ```
 
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const CarComponent = () => {
-  const { numberOfCar } = useIntlayer("car_count");
-
-  return (
-    <div>
-      <p>
-        {
-          numberOfCar(0) // Kết quả: Không có xe
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(6) // Kết quả: Một vài chiếc xe
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(20) // Kết quả: Nhiều xe
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(0.01) // Kết quả: Giá trị dự phòng
-        }
-      </p>
-    </div>
-  );
-};
-
-export default CarComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const CarComponent = () => {
-  const { numberOfCar } = useIntlayer("car_count");
-
-  return (
-    <div>
-      <p>
-        {
-          numberOfCar(0) // Kết quả: Không có xe
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(6) // Kết quả: Một vài chiếc xe
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(20) // Kết quả: Nhiều xe
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(0.01) // Kết quả: Giá trị dự phòng
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = CarComponent;
-```
-
 Trong ví dụ này, component tự động điều chỉnh kết quả hiển thị dựa trên số lượng xe. Nội dung chính xác được chọn tự động, tùy thuộc vào phạm vi được chỉ định.
 
 ## Tài nguyên bổ sung
 
 Để biết thêm thông tin chi tiết về cấu hình và cách sử dụng, hãy tham khảo các tài nguyên sau:
 
-- [Tài liệu CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_cli.md)
+- [Tài liệu CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md)
 - [Tài liệu React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_create_react_app.md)
 - [Tài liệu Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_with_nextjs_15.md)
 

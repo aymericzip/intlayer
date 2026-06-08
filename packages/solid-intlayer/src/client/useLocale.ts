@@ -1,32 +1,55 @@
-import configuration from '@intlayer/config/built';
-import type { DeclaredLocales, LocalesValues } from '@intlayer/types';
-import { createEffect, useContext } from 'solid-js';
+import { internationalization } from '@intlayer/config/built';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
+import { type Accessor, createEffect, on, useContext } from 'solid-js';
 import { IntlayerClientContext } from './IntlayerProvider';
 import { setLocaleInStorage } from './useLocaleStorage';
 
-type useLocaleProps = {
+export type UseLocaleProps = {
   isCookieEnabled?: boolean;
-  onLocaleChange?: (locale: LocalesValues) => void;
+  onLocaleChange?: (locale: DeclaredLocales) => void;
 };
 
-type UseLocaleResult = {
-  locale: DeclaredLocales;
+export type UseLocaleResult = {
+  locale: Accessor<DeclaredLocales>;
   defaultLocale: DeclaredLocales;
   availableLocales: DeclaredLocales[];
   setLocale: (locale: LocalesValues) => void;
 };
 
 /**
- * On the client side, hook to get the current locale and all related fields
+ * Solid hook to manage the current locale and related functions.
+ *
+ * @param props - Optional configuration for locale management.
+ * @returns An object containing the current locale (accessor), default locale, available locales, and a function to update the locale.
+ *
+ * @example
+ * ```tsx
+ * import { useLocale } from 'solid-intlayer';
+ *
+ * const LocaleSwitcher = () => {
+ *   const { locale, setLocale, availableLocales } = useLocale();
+ *
+ *   return (
+ *     <select value={locale()} onChange={(e) => setLocale(e.target.value)}>
+ *       <For each={availableLocales}>
+ *         {(loc) => <option value={loc}>{loc}</option>}
+ *       </For>
+ *     </select>
+ *   );
+ * };
+ * ```
  */
 export const useLocale = ({
   isCookieEnabled,
   onLocaleChange,
-}: useLocaleProps = {}) => {
+}: UseLocaleProps = {}): UseLocaleResult => {
   const { defaultLocale, locales: availableLocales } =
-    configuration?.internationalization ?? {};
+    internationalization ?? {};
 
-  const context = useContext(IntlayerClientContext);
+  const context = useContext(IntlayerClientContext) ?? {};
 
   const setLocale = (locale: LocalesValues) => {
     if (!availableLocales?.map(String).includes(locale)) {
@@ -40,22 +63,25 @@ export const useLocale = ({
       locale,
       isCookieEnabled ?? context?.isCookieEnabled ?? true
     );
-
-    onLocaleChange?.(locale);
   };
 
-  // Create effect to trigger onLocaleChange when locale changes
-  createEffect(() => {
-    if (onLocaleChange && context?.locale) {
-      const currentLocale = context.locale();
-      onLocaleChange(currentLocale);
-    }
-  });
+  // Trigger onLocaleChange only when locale CHANGES (skip initial value)
+  createEffect(
+    on(
+      () => context?.locale?.(),
+      (currentLocale) => {
+        if (onLocaleChange && currentLocale !== undefined) {
+          onLocaleChange(currentLocale as DeclaredLocales);
+        }
+      },
+      { defer: true }
+    )
+  );
 
   return {
     locale: context?.locale, // Current locale (signal accessor)
     defaultLocale, // Principal locale defined in config
     availableLocales, // List of the available locales defined in config
     setLocale, // Function to set the locale
-  } as unknown as UseLocaleResult;
+  } as UseLocaleResult;
 };

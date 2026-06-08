@@ -1,16 +1,23 @@
 import { basename, dirname, isAbsolute, normalize, resolve } from 'node:path';
-import type { LocalesValues } from '@intlayer/types';
+import { getFormatFromExtension } from '@intlayer/chokidar/utils';
+import { GREY_DARK } from '@intlayer/config/colors';
+import { colorize, colorizePath } from '@intlayer/config/logger';
+import { parseFilePathPattern } from '@intlayer/config/utils';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { FilePathPattern } from '@intlayer/types/filePathPattern';
 
-export const formatAutoFilledFilePath = (
-  autoFillField: string,
+export const formatAutoFilledFilePath = async (
+  autoFillField: FilePathPattern,
   dictionaryKey: string,
   dictionaryFilePath: string,
   baseDir: string,
-  locale?: LocalesValues
-): string => {
+  configuration: IntlayerConfig,
+  locale?: Locale
+): Promise<string> => {
   // Validate inputs
-  if (!autoFillField || typeof autoFillField !== 'string') {
-    throw new Error('autoFillField must be a non-empty string');
+  if (!autoFillField) {
+    throw new Error('autoFillField must be provided');
   }
   if (!dictionaryKey || typeof dictionaryKey !== 'string') {
     throw new Error('dictionaryKey must be a non-empty string');
@@ -22,20 +29,35 @@ export const formatAutoFilledFilePath = (
     throw new Error('baseDir must be a non-empty string');
   }
 
-  // Extract the original filename without extensions (.content.ts -> dictionaryFieldEditor)
-  const originalFileName = basename(dictionaryFilePath)
-    .split('.')
-    .slice(0, -2) // Remove last 2 extensions (.content.tsx)
-    .join('.');
+  // Extract the original filename accurately
+  const base = basename(dictionaryFilePath);
+
+  const { fileExtensions } = configuration.content;
+  const extensionMatch = fileExtensions.find((ext) => base.endsWith(ext));
+
+  const originalFileName = extensionMatch
+    ? base.slice(0, -extensionMatch.length)
+    : base.split('.')[0];
+
+  console.log({ extensionMatch });
+
+  if (!extensionMatch) {
+    throw new Error(
+      `No extension found for file ${colorizePath(dictionaryFilePath)}. Valid extensions are: ${colorize(
+        fileExtensions.join(', '),
+        GREY_DARK
+      )}`
+    );
+  }
 
   // Replace placeholders in autoFillField
-  let result: string = autoFillField
-    .replace(/\{\{key\}\}/g, dictionaryKey) // Use original filename, not dictionaryKey
-    .replace(/\{\{fileName\}\}/g, originalFileName);
-
-  if (locale) {
-    result = result.replace(/\{\{locale\}\}/g, locale);
-  }
+  const result: string = await parseFilePathPattern(autoFillField, {
+    key: dictionaryKey,
+    fileName: originalFileName,
+    locale,
+    extension: extensionMatch,
+    format: getFormatFromExtension(extensionMatch),
+  });
 
   // Normalize the dictionary file path - if it's relative, make it absolute relative to baseDir
   const absoluteDictionaryPath = isAbsolute(dictionaryFilePath)

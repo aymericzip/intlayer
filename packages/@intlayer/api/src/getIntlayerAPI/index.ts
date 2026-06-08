@@ -1,49 +1,78 @@
-import type { IntlayerConfig } from '@intlayer/types';
+import { editor } from '@intlayer/config/built';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import { defu } from 'defu';
 import type { FetcherOptions } from '../fetcher';
 import { getAiAPI } from './ai';
 import { getAuditAPI } from './audit';
+import { getBitbucketAPI } from './bitbucket';
 import { getDictionaryAPI } from './dictionary';
 import { getEditorAPI } from './editor';
+import { getEnvironmentAPI } from './environment';
+import { getGithubAPI } from './github';
+import { getGitlabAPI } from './gitlab';
 import { getNewsletterAPI } from './newsletter';
 import { getOAuthAPI } from './oAuth';
 import { getOrganizationAPI } from './organization';
 import { getProjectAPI } from './project';
+import { getReviewerAPI } from './reviewer';
 import { getSearchAPI } from './search';
+import { getShowcaseProjectAPI } from './showcaseProject';
 import { getStripeAPI } from './stripe';
 import { getTagAPI } from './tag';
+import { getTranslateAPI } from './translate';
 import { getUserAPI } from './user';
 
 interface IntlayerAPIReturn {
   organization: ReturnType<typeof getOrganizationAPI>;
   project: ReturnType<typeof getProjectAPI>;
+  environment: ReturnType<typeof getEnvironmentAPI>;
   user: ReturnType<typeof getUserAPI>;
   oAuth: ReturnType<typeof getOAuthAPI>;
   dictionary: ReturnType<typeof getDictionaryAPI>;
   stripe: ReturnType<typeof getStripeAPI>;
   ai: ReturnType<typeof getAiAPI>;
+  audit: ReturnType<typeof getAuditAPI>;
   tag: ReturnType<typeof getTagAPI>;
   search: ReturnType<typeof getSearchAPI>;
   editor: ReturnType<typeof getEditorAPI>;
   newsletter: ReturnType<typeof getNewsletterAPI>;
-  audit: ReturnType<typeof getAuditAPI>;
+  github: ReturnType<typeof getGithubAPI>;
+  gitlab: ReturnType<typeof getGitlabAPI>;
+  bitbucket: ReturnType<typeof getBitbucketAPI>;
+  showcaseProject: ReturnType<typeof getShowcaseProjectAPI>;
+  translate: ReturnType<typeof getTranslateAPI>;
+  reviewer: ReturnType<typeof getReviewerAPI>;
 }
 
 export const getIntlayerAPI = (
   authAPIOptions: FetcherOptions = {},
-  intlayerConfig?: IntlayerConfig
-): IntlayerAPIReturn => ({
-  organization: getOrganizationAPI(authAPIOptions, intlayerConfig),
-  project: getProjectAPI(authAPIOptions, intlayerConfig),
-  user: getUserAPI(authAPIOptions, intlayerConfig),
-  oAuth: getOAuthAPI(intlayerConfig),
-  dictionary: getDictionaryAPI(authAPIOptions, intlayerConfig),
-  stripe: getStripeAPI(authAPIOptions, intlayerConfig),
-  ai: getAiAPI(authAPIOptions, intlayerConfig),
-  tag: getTagAPI(authAPIOptions, intlayerConfig),
-  search: getSearchAPI(authAPIOptions, intlayerConfig),
-  editor: getEditorAPI(authAPIOptions, intlayerConfig),
-  newsletter: getNewsletterAPI(authAPIOptions, intlayerConfig),
-  audit: getAuditAPI(authAPIOptions, intlayerConfig),
-});
+  intlayerConfig?: Pick<IntlayerConfig, 'editor'>
+): IntlayerAPIReturn => {
+  const resolvedConfig = defu(intlayerConfig ?? {}, {
+    editor,
+  }) as IntlayerConfig;
+
+  return {
+    organization: getOrganizationAPI(authAPIOptions, resolvedConfig),
+    project: getProjectAPI(authAPIOptions, resolvedConfig),
+    environment: getEnvironmentAPI(authAPIOptions, resolvedConfig),
+    user: getUserAPI(authAPIOptions, resolvedConfig),
+    oAuth: getOAuthAPI(authAPIOptions, resolvedConfig),
+    dictionary: getDictionaryAPI(authAPIOptions, resolvedConfig),
+    stripe: getStripeAPI(authAPIOptions, resolvedConfig),
+    ai: getAiAPI(authAPIOptions, resolvedConfig),
+    audit: getAuditAPI(authAPIOptions, resolvedConfig),
+    tag: getTagAPI(authAPIOptions, resolvedConfig),
+    search: getSearchAPI(authAPIOptions, resolvedConfig),
+    editor: getEditorAPI(authAPIOptions, resolvedConfig),
+    newsletter: getNewsletterAPI(authAPIOptions, resolvedConfig),
+    github: getGithubAPI(authAPIOptions, resolvedConfig),
+    gitlab: getGitlabAPI(authAPIOptions, resolvedConfig),
+    bitbucket: getBitbucketAPI(authAPIOptions, resolvedConfig),
+    showcaseProject: getShowcaseProjectAPI(authAPIOptions, resolvedConfig),
+    translate: getTranslateAPI(authAPIOptions, resolvedConfig),
+    reviewer: getReviewerAPI(authAPIOptions, resolvedConfig),
+  };
+};
 
 export type IntlayerAPI = ReturnType<typeof getIntlayerAPI>;

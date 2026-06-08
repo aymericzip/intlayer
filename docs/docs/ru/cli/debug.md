@@ -21,18 +21,48 @@ slugs:
 
 Выполните:
 
-```bash
+```bash packageManager="npm"
 npx intlayer --version                  # версия intlayer для текущей локали
 npx intlayer@latest --version           # последняя доступная версия intlayer
+```
+
+```bash packageManager="yarn"
+yarn intlayer --version                  # версия intlayer для текущей локали
+yarn intlayer@latest --version           # последняя доступная версия intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer --version                  # версия intlayer для текущей локали
+pnpm intlayer@latest --version           # последняя доступная версия intlayer
+```
+
+```bash packageManager="bun"
+bun x intlayer --version                  # версия intlayer для текущей локали
+bun x intlayer@latest --version           # последняя доступная версия intlayer
 ```
 
 ## 2. **Проверьте, зарегистрирована ли команда**
 
 Вы можете проверить с помощью:
 
-```bash
+```bash packageManager="npm"
 npx intlayer --help                     # Показывает список доступных команд и информацию по использованию
 npx intlayer dictionary build --help    # Показывает список доступных опций для команды
+```
+
+```bash packageManager="yarn"
+yarn intlayer --help                     # Показывает список доступных команд и информацию по использованию
+yarn intlayer dictionary build --help    # Показывает список доступных опций для команды
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer --help                     # Показывает список доступных команд и информацию по использованию
+pnpm intlayer dictionary build --help    # Показывает список доступных опций для команды
+```
+
+```bash packageManager="bun"
+bun x intlayer --help                     # Показывает список доступных команд и информацию по использованию
+bun x intlayer dictionary build --help    # Показывает список доступных опций для команды
 ```
 
 ## 3. **Перезапустите терминал**

@@ -26,15 +26,15 @@ youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
   - version: 7.5.0
     date: 2025-12-13
-    changes: Añadido soporte para formatos ICU e i18next
+    changes: "Añadido soporte para formatos ICU e i18next"
   - version: 6.1.6
     date: 2025-10-05
-    changes: Documentación inicial del plugin de sincronización JSON
+    changes: "Documentación inicial del plugin de sincronización JSON"
 ---
 
 # Sincronización JSON (puentes i18n) - Sincronización JSON con soporte ICU / i18next
 
-<iframe title="Cómo mantener tus traducciones JSON sincronizadas con Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Cómo mantener tus traducciones JSON sincronizadas con Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Usa Intlayer como un complemento para tu stack i18n existente. Este plugin mantiene tus mensajes JSON sincronizados con los diccionarios de Intlayer para que puedas:
 
@@ -45,7 +45,7 @@ Usa Intlayer como un complemento para tu stack i18n existente. Este plugin manti
 Notas y alcance actual:
 
 - La externalización al CMS funciona para traducciones y texto clásico.
-- Aún no hay soporte para inserciones, plurales/ICU, o funciones avanzadas en tiempo de ejecución de otras bibliotecas.
+- Aún no hay soporte para inserciones, plurales/ICU, o funciones avanzadas en runtime de otras bibliotecas.
 - El editor visual aún no es compatible con salidas i18n de terceros.
 
 ### Cuándo usar este plugin
@@ -66,10 +66,10 @@ npm i -D @intlayer/sync-json-plugin
 Agrega el plugin a tu `intlayer.config.ts` y apúntalo a tu estructura JSON existente.
 
 ```ts fileName="intlayer.config.ts"
-import { defineConfig, Locales } from "intlayer";
+import { Locales, type IntlayerConfig } from "intlayer";
 import { syncJSON } from "@intlayer/sync-json-plugin";
 
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
@@ -82,7 +82,9 @@ export default defineConfig({
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],
-});
+};
+
+export default config;
 ```
 
 Alternativa: archivo único por idioma (común en configuraciones i18next/react-intl):
@@ -108,17 +110,21 @@ syncJSON({
   source: ({ key, locale }) => string, // requerido
   location?: string, // etiqueta opcional, por defecto: "plugin"
   priority?: number, // prioridad opcional para resolución de conflictos, por defecto: 0
-  format?: 'intlayer' | 'icu' | 'i18next', // formateador opcional, por defecto: 'intlayer'
+  format?: 'intlayer' | 'icu' | 'i18next', // formateador opcional, usado para compatibilidad con el runtime de Intlayer
 });
 ```
 
 #### `format` ('intlayer' | 'icu' | 'i18next')
 
-Especifica el formateador a utilizar para el contenido del diccionario al sincronizar archivos JSON. Esto permite usar diferentes sintaxis de formateo de mensajes compatibles con varias bibliotecas i18n.
+Especifica el formateador a utilizar para el contenido del diccionario al sincronizar archivos JSON. Esto permite usar diferentes sintaxis de formateo de mensajes compatibles con el runtime de Intlayer.
 
+- `undefined`: No se usará ningún formateador, el contenido JSON se usará tal cual.
 - `'intlayer'`: El formateador Intlayer por defecto (por defecto).
 - `'icu'`: Usa el formateo de mensajes ICU (compatible con bibliotecas como react-intl, vue-i18n).
 - `'i18next'`: Usa el formateo de mensajes i18next (compatible con i18next, next-i18next, Solid-i18next).
+
+> Ten en cuenta que usar un formateador transformará tu contenido JSON en entrada y salida. Para reglas JSON complejas como plurales ICU, el parsing puede no garantizar un mapeo 1 a 1 entre entrada y salida.
+> Si no usas el runtime de Intlayer, podrías preferir no establecer un formateador.
 
 **Ejemplo:**
 
@@ -143,10 +149,10 @@ Cuando múltiples plugins apuntan a la misma clave del diccionario, el parámetr
 - Los plugins con la misma prioridad se procesan en el orden en que aparecen en la configuración
 
 ```ts fileName="intlayer.config.ts"
-import { defineConfig, Locales } from "intlayer";
+import { Locales, type IntlayerConfig } from "intlayer";
 import { syncJSON } from "@intlayer/sync-json-plugin";
 
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH],
     defaultLocale: Locales.ENGLISH,
@@ -177,7 +183,9 @@ export default defineConfig({
       priority: 1,
     }),
   ],
-});
+};
+
+export default config;
 ```
 
 ### Resolución de conflictos
@@ -257,7 +265,7 @@ Los archivos JSON sincronizados serán considerados como otros archivos `.conten
 - `intlayer content push` para enviar los archivos JSON sincronizados
 - `intlayer content pull` para descargar los archivos JSON sincronizados
 
-Vea [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_cli.md) para más detalles.
+Vea [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/index.md) para más detalles.
 
 ## Limitaciones (actuales)
 

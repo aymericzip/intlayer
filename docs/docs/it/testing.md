@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-09-20
-    changes: Introduzione dei test
+    changes: "Introduzione dei test"
 ---
 
 # Testare i tuoi contenuti
@@ -37,8 +37,20 @@ Questa guida mostra come verificare automaticamente che i tuoi dizionari siano c
 
 Esegui l'audit dalla radice del tuo progetto:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 Flag utili:
@@ -182,8 +194,20 @@ jobs:
 
 Opzionale: esegui l'audit CLI per un riepilogo leggibile dall'uomo insieme ai test:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 ---

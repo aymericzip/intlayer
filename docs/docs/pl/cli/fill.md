@@ -20,17 +20,66 @@ slugs:
 
 # Wypełnianie / audyt / tłumaczenie słowników
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill
 ```
 
+```bash packageManager="yarn"
+yarn intlayer fill
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill
+```
+
+```bash packageManager="bun"
+bun x intlayer fill
+```
+
 To polecenie analizuje Twoje pliki deklaracji treści pod kątem potencjalnych problemów, takich jak brakujące tłumaczenia, niespójności strukturalne lub niezgodności typów. Jeśli wykryje jakiekolwiek problemy, **intlayer fill** zaproponuje lub zastosuje aktualizacje, aby utrzymać Twoje słowniki spójne i kompletne.
+
+Kluczowe punkty:
+
+- Dzieli duże pliki JSON na fragmenty, aby pozostać w granicach okna kontekstowego modelu AI.
+- Ponawia tłumaczenie, jeśli format wyjściowy jest nieprawidłowy.
+- Włącza kontekst specyficzny dla aplikacji i pliku, aby poprawić dokładność tłumaczenia.
+- Zachowuje istniejące tłumaczenia, nie nadpisując ich.
+- Przetwarza pliki, fragmenty i lokalizacje równolegle przy użyciu systemu kolejkowego, aby zwiększyć prędkość.
 
 ## Alias:
 
 - `npx intlayer dictionaries fill`
 - `npx intlayer dictionary fill`
 - `npx intlayer dic fill`
+
+## Przykłady wyjścia:
+
+```bash
+npx intlayer fill
+
+Preparing Intlayer (v7.5.14)
+Done 76ms
+@intlayer/ai found - Run process locally
+Provider: (default) - Model: (default) - API Key: ✓
+Affected dictionary keys for processing: app, comp-test, hello-world, lang-switcher
+ - [comp-test]      No locales to fill, Skipping comp-test.content.json
+ - [app]            Processing app.content.tsx
+ - [app]            Filling missing metadata for app.content.tsx
+ - [hello-world]    Processing test.content.ts
+ - [hello-world]   [French (fr)]      Preparing test.content.ts
+ - [hello-world]   [Spanish (es)]     Preparing test.content.ts
+ - [lang-switcher]  Processing langSwitcher.content.ts
+ - [lang-switcher]  Filling missing metadata for langSwitcher.content.ts
+ - [hello-world]    Translation completed successfully for test.content.ts
+ - [lang-switcher] [Spanish (es)]     Preparing langSwitcher.content.ts
+ - [app]           [French (fr)]      Preparing app.content.tsx
+ - [app]           [Spanish (es)]     Preparing app.content.tsx
+ - [hello-world]    Content declaration written to test.content.ts
+ - [app]            Translation completed successfully for app.content.tsx
+ - [app]            Content declaration written to app.content.tsx
+ - [lang-switcher]  Translation completed successfully for langSwitcher.content.ts
+ - [lang-switcher]  Content declaration written to langSwitcher.content.ts
+```
 
 ## Argumenty:
 
@@ -89,6 +138,7 @@ To polecenie analizuje Twoje pliki deklaracji treści pod kątem potencjalnych p
 - **`--api-key [apiKey]`**: Podaj własny klucz API dla usługi AI.
 - **`--custom-prompt [prompt]`**: Podaj niestandardowe polecenie dla instrukcji tłumaczenia.
 - **`--application-context [applicationContext]`**: Podaj dodatkowy kontekst dla tłumaczenia AI.
+- **`--data-serialization [dataSerialization]`**: Format serializacji danych dla funkcji AI w Intlayer. Opcje: `json` (standardowy, niezawodny), `toon` (mniej tokenów, mniej spójny).
 
   > Przykład: `npx intlayer fill --model gpt-3.5-turbo --provider openai --temperature 0.5 --api-key sk-1234567890 --application-context "Moja aplikacja to sklep z kotami"`
 
@@ -123,8 +173,20 @@ To polecenie analizuje Twoje pliki deklaracji treści pod kątem potencjalnych p
 
 ## Przykład:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
 ```
 
 To polecenie przetłumaczy zawartość z angielskiego na francuski i hiszpański dla wszystkich plików deklaracji zawartości w katalogu `src/home/` używając modelu GPT-3.5 Turbo.

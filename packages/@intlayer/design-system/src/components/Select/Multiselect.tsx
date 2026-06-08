@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@utils/cn';
 import { Check, X as RemoveIcon } from 'lucide-react';
 import {
   type ComponentProps,
@@ -20,8 +21,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { cn } from '../../utils/cn';
-import { Badge, BadgeColor } from '../Badge';
+import { Badge } from '../Badge';
 import { Command, CommandRoot } from '../Command';
 
 /**
@@ -474,7 +474,7 @@ const MultiSelectTrigger: FC<
                 'flex items-center gap-1 rounded-xl px-1',
                 activeIndex === index && 'ring-2 ring-muted-foreground'
               )}
-              color={BadgeColor.TEXT}
+              color="text"
             >
               <span className="text-xs">{getBadgeValue(item)}</span>
               <button
@@ -629,9 +629,9 @@ type MultiSelectType = typeof MultiSelectRoot & {
  *   </MultiSelect.Trigger>
  *   <MultiSelect.Content>
  *     <MultiSelect.List>
- *       <MultiSelect.Item value={"React"}>React</MultiSelect.Item>
- *       <MultiSelect.Item value={"Vue"}>Vue</MultiSelect.Item>
- *       <MultiSelect.Item value={"Svelte"}>Svelte</MultiSelect.Item>
+ *       <MultiSelect.Item value="React">React</MultiSelect.Item>
+ *       <MultiSelect.Item value="Vue">Vue</MultiSelect.Item>
+ *       <MultiSelect.Item value="Svelte">Svelte</MultiSelect.Item>
  *     </MultiSelect.List>
  *   </MultiSelect.Content>
  * </MultiSelect>

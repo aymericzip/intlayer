@@ -4,76 +4,24 @@ import type { Plan } from './plan.types';
 import type { User } from './user.types';
 
 /**
- * SSO Provider Type - defines the type of SSO provider
+ * Note: SSO configuration is managed entirely by better-auth's SSO plugin.
+ * The organization only stores a reference to whether SSO is enabled
+ * and the domain for SSO provider lookup.
+ * See: https://www.better-auth.com/docs/plugins/sso
  */
-export type SSOProviderType = 'saml' | 'oidc';
-
-/**
- * SAML Configuration for SSO
- */
-export type SAMLConfig = {
-  /** The URL where the IdP receives SAML requests */
-  idpEntityId: string;
-  /** The URL where the IdP sends SAML responses (SSO URL) */
-  idpSSOUrl: string;
-  /** The IdP's public certificate for signature verification (PEM format) */
-  idpCertificate: string;
-  /** Optional: IdP Single Logout URL */
-  idpSLOUrl?: string;
-};
-
-/**
- * OIDC Configuration for SSO
- */
-export type OIDCConfig = {
-  /** The OIDC issuer URL (e.g., https://accounts.google.com) */
-  issuer: string;
-  /** OAuth2 Client ID */
-  clientId: string;
-  /** OAuth2 Client Secret */
-  clientSecret: string;
-  /** OAuth2 scopes to request */
-  scopes?: string[];
-  /** Optional: Authorization endpoint override */
-  authorizationEndpoint?: string;
-  /** Optional: Token endpoint override */
-  tokenEndpoint?: string;
-  /** Optional: User info endpoint override */
-  userinfoEndpoint?: string;
-};
-
-/**
- * SSO Configuration for an Organization
- */
-export type SSOConfig = {
-  /** Whether SSO is enabled for this organization */
-  enabled: boolean;
-  /** The type of SSO provider */
-  providerType?: SSOProviderType;
-  /** Unique provider ID for this organization's SSO */
-  providerId?: string;
-  /** Domain(s) associated with this SSO provider (e.g., 'company.com') */
-  domains?: string[];
-  /** SAML-specific configuration */
-  samlConfig?: SAMLConfig;
-  /** OIDC-specific configuration */
-  oidcConfig?: OIDCConfig;
-  /** Whether to enforce SSO for all users in this organization */
-  enforceSSO?: boolean;
-  /** Whether to allow users to bypass SSO with password login */
-  allowPasswordLogin?: boolean;
-};
 
 export type OrganizationCreationData = {
   name: Organization['name'];
-  ssoConfig?: SSOConfig;
 };
 
 export type OrganizationData = {
   name: string;
   membersIds: User['id'][];
   adminsIds: User['id'][];
-  ssoConfig?: SSOConfig;
+  /** Whether SSO is configured for this organization (managed by better-auth) */
+  ssoEnabled: boolean;
+  /** Primary domain for this organization (used for SSO provider lookup) */
+  domain: string;
 };
 
 export type Organization = OrganizationData & {

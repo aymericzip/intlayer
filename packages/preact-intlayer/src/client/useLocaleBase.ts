@@ -1,17 +1,14 @@
-'use client';
-
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import { useContext } from 'preact/hooks';
 import { IntlayerClientContext } from './IntlayerProvider';
 
-const { defaultLocale, locales: availableLocales } =
-  configuration.internationalization;
+const { defaultLocale, locales: availableLocales } = internationalization;
 
 /**
  * On the client side, hook to get the current locale and all related fields
  */
 export const useLocaleBase = () => {
-  const { locale, setLocale } = useContext(IntlayerClientContext);
+  const { locale, setLocale } = useContext(IntlayerClientContext) ?? {};
 
   return {
     locale, // Current locale

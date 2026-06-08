@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: بداية التاريخ
+    changes: "بداية التاريخ"
 ---
 
 # التعداد / الجمع
@@ -32,7 +32,7 @@ history:
 
 لإعداد التعداد في مشروع Intlayer الخاص بك، تحتاج إلى إنشاء وحدة محتوى تتضمن تعريفات التعداد. فيما يلي مثال على تعداد بسيط لعدد السيارات:
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { enu, type Dictionary } from "intlayer";
 
 const carEnumeration = {
@@ -51,50 +51,6 @@ const carEnumeration = {
 } satisfies Dictionary;
 
 export default carEnumeration;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { enu } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const carEnumeration = {
-  key: "car_count",
-  content: {
-    numberOfCar: enu({
-      "<-1": "أقل من ناقص سيارة واحدة",
-      "-1": "ناقص سيارة واحدة",
-      "0": "لا سيارات",
-      "1": "سيارة واحدة",
-      ">5": "بعض السيارات",
-      ">19": "العديد من السيارات",
-      "fallback": "قيمة بديلة", // اختياري
-    }),
-  },
-};
-
-export default carEnumeration;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { enu } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const carEnumeration = {
-  key: "car_count",
-  content: {
-    numberOfCar: enu({
-      "<-1": "أقل من ناقص سيارة واحدة",
-      "-1": "ناقص سيارة واحدة",
-      "0": "لا سيارات",
-      "1": "سيارة واحدة",
-      ">5": "بعض السيارات",
-      ">19": "العديد من السيارات",
-      "fallback": "قيمة بديلة", // اختياري
-    }),
-  },
-};
-
-module.exports = carEnumeration;
 ```
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -128,7 +84,7 @@ module.exports = carEnumeration;
 
 لاستخدام التعداد في مكون React، يمكنك الاستفادة من الخطاف `useIntlayer` من حزمة `react-intlayer`. يقوم هذا الخطاف باسترجاع المحتوى الصحيح بناءً على المعرف المحدد. إليك مثالًا على كيفية استخدامه:
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -162,83 +118,13 @@ const CarComponent: FC = () => {
 };
 ```
 
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const CarComponent = () => {
-  const { numberOfCar } = useIntlayer("car_count");
-
-  return (
-    <div>
-      <p>
-        {
-          numberOfCar(0) // الناتج: لا توجد سيارات
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(6) // الناتج: بعض السيارات
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(20) // الناتج: العديد من السيارات
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(0.01) // الناتج: قيمة بديلة
-        }
-      </p>
-    </div>
-  );
-};
-
-export default CarComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const CarComponent = () => {
-  const { numberOfCar } = useIntlayer("car_count");
-
-  return (
-    <div>
-      <p>
-        {
-          numberOfCar(0) // الناتج: لا توجد سيارات
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(6) // الناتج: بعض السيارات
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(20) // الناتج: العديد من السيارات
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(0.01) // الناتج: قيمة بديلة
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = CarComponent;
-```
-
 في هذا المثال، يقوم المكون بضبط مخرجاته ديناميكيًا بناءً على عدد السيارات. يتم اختيار المحتوى الصحيح تلقائيًا، اعتمادًا على النطاق المحدد.
 
 ## موارد إضافية
 
 لمزيد من المعلومات التفصيلية حول التكوين والاستخدام، يرجى الرجوع إلى الموارد التالية:
 
-- [توثيق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md)
+- [توثيق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)
 - [توثيق React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_create_react_app.md)
 - [توثيق Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_15.md)
 

@@ -1,15 +1,11 @@
 ---
-createdAt: 2025-08-23
-updatedAt: 2025-08-23
-title: Документация по хуку useLocale | next-intlayer
-description: Узнайте, как использовать хук useLocale в пакете next-intlayer
 keywords:
   - useLocale
-  - словарь
-  - ключ
+  - dictionary
+  - key
   - Intlayer
-  - Интернационализация
-  - Документация
+  - Internationalization
+  - Documentation
   - Next.js
   - JavaScript
   - React
@@ -18,10 +14,17 @@ slugs:
   - packages
   - next-intlayer
   - useLocale
+description: Documentation for the useLocale hook in the next-intlayer package
+createdAt: 2025-08-23
+updatedAt: 2026-01-26
+title: Документация по хуку useLocale | next-intlayer
 history:
+  - version: 8.0.0
+    date: 2026-01-26
+    changes: "Установлено значение `onLocaleChange` по умолчанию на `replace`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Инициализация истории
+    changes: "Инициализация истории"
 ---
 
 # Интеграция с Next.js: Документация по хуку `useLocale` для `next-intlayer`
@@ -40,7 +43,7 @@ import { useLocale } from "next-intlayer"; // Используется для у
 
 Вот как реализовать хук `useLocale` внутри компонента Next.js:
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
 import type { FC } from "react";
@@ -66,59 +69,39 @@ const LocaleSwitcher: FC = () => {
 };
 ```
 
-```jsx fileName="src/components/LocaleSwitcher.mjx" codeFormat="esm"
-"use client";
+## Параметры
 
-import { Locales } from "intlayer";
-import { useLocale } from "next-intlayer";
+Хук `useLocale` принимает следующие параметры:
 
-const LocaleSwitcher = () => {
-  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
+- **`onLocaleChange`**: Строка, определяющая способ обновления URL при изменении локали. Может принимать значения `"replace"`, `"push"` или `"none"`.
 
-  return (
-    <div>
-      <h1>Текущая локаль: {locale}</h1>
-      <p>Локаль по умолчанию: {defaultLocale}</p>
-      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
-        {availableLocales.map((loc) => (
-          <option key={loc} value={loc}>
-            {loc}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-};
-```
+  > Рассмотрим пример:
+  >
+  > 1. Вы находитесь на `/fr/home`
+  > 2. Вы переходите на `/fr/about`
+  > 3. Вы меняете локаль на `/es/about`
+  > 4. Вы нажимаете кнопку «назад» в браузере
+  >
+  > Поведение будет отличаться в зависимости от значения `onLocaleChange`:
+  >
+  > - `"replace"` (по умолчанию): Заменяет текущий URL новым локализованным URL и устанавливает куки.
+  >   -> Кнопка «назад» вернет вас на `/es/home`
+  > - `"push"`: Добавляет новый локализованный URL в историю браузера и устанавливает куки.
+  >   -> Кнопка «назад» вернет вас на `/fr/about`
+  > - `"none"`: Только обновляет локаль в контексте клиента и устанавливает куки без изменения URL.
+  >   -> Кнопка «назад» вернет вас на `/fr/home`
+  > - `(locale) => void`: Устанавливает куки и вызывает пользовательскую функцию при изменении локали.
+  >
+  >   Опция `undefined` является поведением по умолчанию, так как мы рекомендуем использовать компонент `Link` для перехода на новую локаль.
+  >   Пример:
+  >
+  >   ```tsx
+  >   <Link href="/es/about" replace>
+  >     О нас
+  >   </Link>
+  >   ```
 
-```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-"use client";
-
-const { Locales } = require("intlayer");
-const { useLocale } = require("next-intlayer");
-
-const LocaleSwitcher = () => {
-  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
-
-  return (
-    <div>
-      <h1>Текущая локаль: {locale}</h1>
-      <p>Локаль по умолчанию: {defaultLocale}</p>
-      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
-        {availableLocales.map((loc) => (
-          <option key={loc} value={loc}>
-            {loc}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-};
-```
-
-## Параметры и возвращаемые значения
-
-При вызове хука `useLocale` он возвращает объект, содержащий следующие свойства:
+## Возвращаемые значения
 
 - **`locale`**: Текущая локаль, установленная в контексте React.
 - **`defaultLocale`**: Основная локаль, определённая в конфигурации.

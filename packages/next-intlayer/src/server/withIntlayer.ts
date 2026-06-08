@@ -1,42 +1,58 @@
 import { join, relative, resolve } from 'node:path';
+import { prepareIntlayer } from '@intlayer/chokidar/build';
+import { logConfigDetails } from '@intlayer/chokidar/cli';
+import { buildComponentFilesList, runOnce } from '@intlayer/chokidar/utils';
+import * as ANSIColors from '@intlayer/config/colors';
+import { IMPORT_MODE } from '@intlayer/config/defaultValues';
 import {
-  getComponentTransformPatternSync,
-  prepareIntlayer,
-  runOnce,
-} from '@intlayer/chokidar';
+  formatNodeTypeToEnvVar,
+  getConfigEnvVars,
+} from '@intlayer/config/envVars';
+import { colorize, getAppLogger } from '@intlayer/config/logger';
 import {
-  ANSIColors,
-  colorize,
-  compareVersions,
   type GetConfigurationOptions,
-  getAlias,
-  getAppLogger,
   getConfiguration,
+} from '@intlayer/config/node';
+import {
+  compareVersions,
+  getAlias,
   getProjectRequire,
+  getUnusedNodeTypes,
   normalizePath,
-} from '@intlayer/config';
+} from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { IntlayerPlugin } from '@intlayer/webpack';
 import { defu } from 'defu';
 import type { NextConfig } from 'next';
 import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
 import nextPackageJSON from 'next/package.json' with { type: 'json' };
 
-const isGteNext13 = compareVersions(nextPackageJSON.version, '≥', '13.0.0');
-const isGteNext15 = compareVersions(nextPackageJSON.version, '≥', '15.0.0');
-const isGteNext16 = compareVersions(nextPackageJSON.version, '≥', '16.0.0');
-const isTurbopackStable = compareVersions(
-  nextPackageJSON.version,
-  '≥',
-  '15.3.0'
-);
+/**
+ * Resolve the Next.js version from the *user's* project at runtime.
+ * A static `import from 'next/package.json'` would resolve relative to
+ * next-intlayer's own node_modules, which may differ in a monorepo.
+ */
+const getNextVersionFlags = (intlayerConfig: IntlayerConfig) => {
+  let nextVersion = nextPackageJSON.version;
 
-const isTurbopackEnabledFromCommand = isGteNext16
-  ? // Next@16 enable turbopack by default, and offer the possibility to disable it if --webpack flag is used
-    !process.env.npm_lifecycle_script?.includes('--webpack')
-  : // Next@15 use --turbopack flag, Next@14 use --turbo flag
-    process.env.npm_lifecycle_script?.includes('--turbo');
+  try {
+    const requireFunction =
+      intlayerConfig.build?.require ?? getProjectRequire();
+    const pkg = requireFunction('next/package.json') as { version: string };
+    nextVersion = pkg.version;
+  } catch {
+    // keep default
+  }
+
+  return {
+    isGteNext13: compareVersions(nextVersion, '≥', '13.0.0'),
+    isGteNext15: compareVersions(nextVersion, '≥', '15.0.0'),
+    isGteNext16: compareVersions(nextVersion, '≥', '16.0.0'),
+    isTurbopackStable: compareVersions(nextVersion, '≥', '15.3.0'),
+  };
+};
 
 // Check if SWC plugin is available
 const getIsSwcPluginAvailable = (intlayerConfig: IntlayerConfig) => {
@@ -44,6 +60,18 @@ const getIsSwcPluginAvailable = (intlayerConfig: IntlayerConfig) => {
     const requireFunction =
       intlayerConfig.build?.require ?? getProjectRequire();
     requireFunction.resolve('@intlayer/swc');
+    return true;
+  } catch (_e) {
+    return false;
+  }
+};
+
+// Check if Babel plugin is available
+const getIsBabelExtractPluginAvailable = (intlayerConfig: IntlayerConfig) => {
+  try {
+    const requireFunction =
+      intlayerConfig.build?.require ?? getProjectRequire();
+    requireFunction.resolve('@intlayer/babel');
     return true;
   } catch (_e) {
     return false;
@@ -69,17 +97,21 @@ const resolvePluginPath = (
 const getPruneConfig = (
   intlayerConfig: IntlayerConfig,
   isBuildCommand: boolean,
-  isTurbopackEnabled: boolean
+  isTurbopackEnabled: boolean,
+  isDevCommand: boolean,
+  isGteNext13: boolean
 ): Partial<NextConfig> => {
-  const { optimize, importMode } = intlayerConfig.build;
+  const { optimize } = intlayerConfig.build;
+  const importMode =
+    intlayerConfig.build.importMode ?? intlayerConfig.dictionary?.importMode;
   const {
     dictionariesDir,
     unmergedDictionariesDir,
     dynamicDictionariesDir,
     fetchDictionariesDir,
     mainDir,
-    baseDir,
-  } = intlayerConfig.content;
+  } = intlayerConfig.system;
+  const { baseDir } = intlayerConfig.system;
   const logger = getAppLogger(intlayerConfig);
 
   if (optimize === false) {
@@ -93,29 +125,69 @@ const getPruneConfig = (
 
   const isSwcPluginAvailable = getIsSwcPluginAvailable(intlayerConfig);
 
-  if (!isSwcPluginAvailable) {
-    logger([
-      colorize('Recommended: Install', ANSIColors.GREY),
-      colorize('@intlayer/swc', ANSIColors.GREY_LIGHT),
-      colorize(
-        'package to enable build optimization. See documentation: ',
-        ANSIColors.GREY
-      ),
-      colorize(
-        'https://intlayer.org/docs/en/bundle_optimization',
-        ANSIColors.GREY_LIGHT
-      ),
-    ]);
-    return {};
-  }
-
   runOnce(
     join(baseDir, '.intlayer', 'cache', 'intlayer-prune-plugin-enabled.lock'),
-    () => logger('Build optimization enabled'),
+    () => {
+      if (isSwcPluginAvailable) {
+        logger([
+          `Build optimization ${colorize('enabled', ANSIColors.GREEN)}`,
+          colorize(`(import mode:`, ANSIColors.GREY_DARK),
+          colorize(importMode ?? IMPORT_MODE, ANSIColors.BLUE),
+          colorize(`)`, ANSIColors.GREY_DARK),
+        ]);
+      } else {
+        logger([
+          colorize('Recommended: Install', ANSIColors.GREY),
+          colorize('@intlayer/swc', ANSIColors.GREY_LIGHT),
+          colorize(
+            'package to enable build optimization. See documentation:',
+            ANSIColors.GREY
+          ),
+          colorize(
+            'https://intlayer.org/docs/bundle-optimization',
+            ANSIColors.GREY_LIGHT
+          ),
+        ]);
+      }
+    },
     {
-      cacheTimeoutMs: 1000 * 10, // 10 seconds
+      cacheTimeoutMs: 1000 * 30, // 30 seconds
     }
   );
+
+  runOnce(
+    join(
+      baseDir,
+      '.intlayer',
+      'cache',
+      'intlayer-compiler-plugin-enabled.lock'
+    ),
+    () => {
+      const isBabelExtractPluginAvailable =
+        getIsBabelExtractPluginAvailable(intlayerConfig);
+
+      if (isBabelExtractPluginAvailable) {
+        let isEnabled = intlayerConfig.compiler?.enabled ?? true;
+
+        if (isEnabled === 'build-only') {
+          isEnabled = !isDevCommand;
+        }
+
+        if (isEnabled) {
+          logger('Intlayer compiler enabled');
+        } else {
+          logger('Intlayer compiler disabled');
+        }
+      }
+    },
+    {
+      cacheTimeoutMs: 1000 * 30, // 30 seconds
+    }
+  );
+
+  if (!isSwcPluginAvailable) {
+    return {};
+  }
 
   const dictionariesEntryPath = join(mainDir, 'dictionaries.mjs');
 
@@ -131,7 +203,7 @@ const getPruneConfig = (
 
   const fetchDictionariesEntryPath = join(mainDir, 'fetch_dictionaries.mjs');
 
-  const filesListPattern = getComponentTransformPatternSync(intlayerConfig);
+  const filesListPattern = buildComponentFilesList(intlayerConfig);
 
   const filesList = [
     ...filesListPattern,
@@ -141,9 +213,12 @@ const getPruneConfig = (
 
   const dictionaries = getDictionaries(intlayerConfig);
 
-  const liveSyncKeys = Object.values(dictionaries)
-    .filter((dictionary) => dictionary.live)
-    .map((dictionary) => dictionary.key);
+  const dictionaryModeMap: Record<string, 'static' | 'dynamic' | 'fetch'> = {};
+
+  (Object.values(dictionaries) as Dictionary[]).forEach((dictionary) => {
+    dictionaryModeMap[dictionary.key] =
+      dictionary.importMode ?? importMode ?? IMPORT_MODE;
+  });
 
   return {
     experimental: {
@@ -166,8 +241,8 @@ const getPruneConfig = (
             importMode,
             filesList,
             replaceDictionaryEntry: true,
-            liveSyncKeys,
-          } as any,
+            dictionaryModeMap,
+          },
         ],
       ],
     },
@@ -175,8 +250,8 @@ const getPruneConfig = (
 };
 
 const getCommandsEvent = () => {
-  const lifecycleEvent = process.env.npm_lifecycle_event;
-  const lifecycleScript = process.env.npm_lifecycle_script ?? '';
+  const lifecycleEvent = process.env['npm_lifecycle_event'];
+  const lifecycleScript = process.env['npm_lifecycle_script'] ?? '';
 
   const isDevCommand =
     lifecycleEvent === 'dev' ||
@@ -226,13 +301,25 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
   }
 
   const intlayerConfig = getConfiguration(configOptions);
-  const logger = getAppLogger(intlayerConfig);
+
+  logConfigDetails(configOptions);
+
+  const appLogger = getAppLogger(intlayerConfig);
+
+  const { isGteNext13, isGteNext15, isGteNext16, isTurbopackStable } =
+    getNextVersionFlags(intlayerConfig);
+
+  const isTurbopackEnabledFromCommand = isGteNext16
+    ? // Next@16 enables turbopack by default; disable with --webpack
+      !process.env['npm_lifecycle_script']?.includes('--webpack')
+    : // Next@15 uses --turbopack, Next@14 uses --turbo
+      process.env['npm_lifecycle_script']?.includes('--turbo');
 
   const isTurbopackEnabled =
     configOptions?.enableTurbopack ?? isTurbopackEnabledFromCommand;
 
   if (isTurbopackEnabled && typeof nextConfig.webpack !== 'undefined') {
-    logger(
+    appLogger(
       'Turbopack is enabled but a custom webpack config is present. It will be ignored.'
     );
   }
@@ -260,10 +347,56 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
     'fs',
     'chokidar',
     'fsevents',
+    'recast',
+    '@intlayer/chokidar',
+    '@intlayer/webpack',
   ];
 
+  let env: Record<string, string> = {};
+
+  if (isBuildCommand) {
+    const dictionaries = getDictionaries(intlayerConfig);
+
+    if (Object.keys(dictionaries).length === 0) {
+      appLogger('No dictionaries found. Please check your configuration.', {
+        isVerbose: true,
+      });
+    }
+
+    const unusedNodeTypes = getUnusedNodeTypes(dictionaries);
+
+    if (unusedNodeTypes && unusedNodeTypes.length > 0) {
+      appLogger(
+        [
+          'Filtering out unused logic:',
+          unusedNodeTypes
+            .filter(
+              (key) => !['reactNode', 'solidNode', 'preactNode'].includes(key)
+            )
+            .map((key) => colorize(key, ANSIColors.BLUE))
+            .join(', '),
+        ],
+        {
+          isVerbose: true,
+        }
+      );
+    }
+
+    env = {
+      ...env,
+
+      // Tree shacking based on unused node types
+      ...formatNodeTypeToEnvVar(unusedNodeTypes),
+
+      // Tree shacking based on config
+      ...getConfigEnvVars(intlayerConfig),
+    };
+  }
+
   const getNewConfig = (): Partial<NextConfig> => {
-    let config: Partial<NextConfig> = {};
+    let config: Partial<NextConfig> = {
+      env,
+    };
 
     if (isGteNext15) {
       config = {
@@ -316,14 +449,34 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
             config.externals = [];
           }
 
-          // Mark these modules as externals
-          config.externals.push({
-            esbuild: 'esbuild',
-            module: 'module',
-            fs: 'fs',
-            chokidar: 'chokidar',
-            fsevents: 'fsevents',
-          });
+          // Mark server-only modules as externals (function form handles subpaths)
+          const externalExact = new Set([
+            'esbuild',
+            'module',
+            'fs',
+            'chokidar',
+            'fsevents',
+            'recast',
+          ]);
+          const externalPrefixes = ['@intlayer/chokidar', '@intlayer/webpack'];
+          config.externals.push(
+            (
+              { request }: { request?: string },
+              callback: (err: Error | null, result?: string) => void
+            ) => {
+              if (
+                request &&
+                (externalExact.has(request) ||
+                  externalPrefixes.some(
+                    (prefix) =>
+                      request === prefix || request.startsWith(`${prefix}/`)
+                  ))
+              ) {
+                return callback(null, `commonjs ${request}`);
+              }
+              callback(null);
+            }
+          );
 
           // Use `node-loader` for any `.node` files
           config.module.rules.push({
@@ -358,7 +511,9 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
   const pruneConfig: Partial<NextConfig> = getPruneConfig(
     intlayerConfig,
     isBuildCommand,
-    isTurbopackEnabled ?? false
+    isTurbopackEnabled ?? false,
+    isDevCommand,
+    isGteNext13
   );
 
   const intlayerNextConfig: Partial<NextConfig> = defu(
@@ -387,24 +542,29 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
  * > Using the promise allows to prepare the intlayer dictionaries before the build starts.
  *
  */
-export const withIntlayer = async <T extends Partial<NextConfig>>(
+export const withIntlayer = async <T extends NextConfig | Partial<NextConfig>>(
   nextConfig: T | Promise<T> = {} as T,
   configOptions?: WithIntlayerOptions
 ): Promise<NextConfig & T> => {
-  const { isBuildCommand, isDevCommand } = getCommandsEvent();
+  const { isBuildCommand, isDevCommand, isStartCommand } = getCommandsEvent();
+
+  process.env['INTLAYER_IS_DEV_COMMAND'] = isDevCommand ? 'true' : 'false';
+
+  const intlayerConfig = getConfiguration(configOptions);
+
+  const { mode } = intlayerConfig.build;
 
   // Only call prepareIntlayer during `dev` or `build` (not during `start`)
   // If prod: clean and rebuild once
   // If dev: rebuild only once if it's more than 1 hour since last rebuild
-  if (isDevCommand || isBuildCommand) {
-    const intlayerConfig = getConfiguration(configOptions);
-
+  if (!isStartCommand && (isDevCommand || isBuildCommand || mode === 'auto')) {
     // prepareIntlayer use runOnce to ensure to run only once because will run twice on client and server side otherwise
     await prepareIntlayer(intlayerConfig, {
       clean: isBuildCommand,
       cacheTimeoutMs: isBuildCommand
         ? 1000 * 30 // 30 seconds for build (to ensure to rebuild all dictionaries)
         : 1000 * 60 * 60, // 1 hour for dev (default cache timeout)
+      env: isBuildCommand ? 'prod' : 'dev',
     });
   }
 

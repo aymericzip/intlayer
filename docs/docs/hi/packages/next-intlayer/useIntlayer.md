@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-06-29
+updatedAt: 2026-05-06
 title: useIntlayer हुक दस्तावेज़ | next-intlayer
 description: next-intlayer पैकेज के लिए useIntlayer हुक का उपयोग कैसे करें देखें
 keywords:
@@ -19,9 +19,12 @@ slugs:
   - next-intlayer
   - useIntlayer
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "सॉलिड useIntlayer API उपयोग को सीधे प्रॉपर्टी एक्सेस में अपडेट करें"
   - version: 5.5.10
     date: 2025-06-29
-    changes: प्रारंभिक इतिहास
+    changes: "प्रारंभिक इतिहास"
 ---
 
 # Next.js एकीकरण: `useIntlayer` हुक दस्तावेज़
@@ -69,13 +72,13 @@ history:
 
 सभी सामग्री कुंजियाँ कंटेंट घोषणा फ़ाइलों के भीतर परिभाषित होना अत्यंत आवश्यक है ताकि रनटाइम त्रुटियों से बचा जा सके और टाइप सुरक्षा सुनिश्चित की जा सके। यह तरीका कंपाइल-टाइम सत्यापन के लिए TypeScript एकीकरण को भी सुगम बनाता है।
 
-कंटेंट घोषणा फ़ाइलों को सेटअप करने के निर्देश [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/get_started.md) उपलब्ध हैं।
+कंटेंट घोषणा फ़ाइलों को सेटअप करने के निर्देश [यहाँ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md) उपलब्ध हैं।
 
 ## Next.js में उदाहरण उपयोग
 
 यहाँ बताया गया है कि आप `useIntlayer` हुक को Next.js पेज के भीतर कैसे लागू कर सकते हैं ताकि एप्लिकेशन की वर्तमान स्थानीय भाषा के आधार पर स्थानीयकृत सामग्री को गतिशील रूप से लोड किया जा सके:
 
-```tsx fileName="src/pages/[locale]/index.tsx" codeFormat="typescript"
+```tsx fileName="src/pages/[locale]/index.tsx" codeFormat={["typescript", "esm"]}
 import { ClientComponentExample } from "@components/ClientComponentExample";
 import { ServerComponentExample } from "@components/ServerComponentExample";
 import { type NextPageIntlayer, IntlayerClientProvider } from "next-intlayer";
@@ -100,57 +103,7 @@ const HomePage: NextPageIntlayer = async ({ params }) => {
 };
 ```
 
-```jsx fileName="src/pages/[locale]/index.csx" codeFormat="esm"
-import { ClientComponentExample } from "@components/ClientComponentExample";
-import { ServerComponentExample } from "@components/ServerComponentExample";
-import { IntlayerClientProvider } from "next-intlayer";
-import { IntlayerServerProvider, useIntlayer } from "next-intlayer/server";
-
-const HomePage = ({ locale }) => {
-  const content = useIntlayer("homepage", locale);
-
-  return (
-    <>
-      <p>{content.introduction}</p>
-      <IntlayerClientProvider locale={locale}>
-        <ClientComponentExample />
-      </IntlayerClientProvider>
-      <IntlayerServerProvider locale={locale}>
-        <ServerComponentExample />
-      </IntlayerServerProvider>
-    </>
-  );
-};
-```
-
-```jsx fileName="src/components/ClientComponentExample.csx" codeFormat="commonjs"
-const {
-  ClientComponentExample,
-} = require("@components/ClientComponentExample");
-const {
-  ServerComponentExample,
-} = require("@components/ServerComponentExample");
-const { IntlayerClientProvider } = require("next-intlayer");
-const { useIntlayer } = require("next-intlayer/server");
-
-const HomePage = ({ locale }) => {
-  const content = useIntlayer("homepage", locale);
-
-  return (
-    <>
-      <p>{content.introduction}</p>
-      <IntlayerClientProvider locale={locale}>
-        <ClientComponentExample />
-      </IntlayerClientProvider>
-      <IntlayerServerProvider locale={locale}>
-        <ServerComponentExample />
-      </IntlayerServerProvider>
-    </>
-  );
-};
-```
-
-```tsx fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="src/components/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use-client";
 
 import type { FC } from "react";
@@ -169,43 +122,7 @@ const ClientComponentExample: FC = () => {
 };
 ```
 
-```jsx fileName="src/components/ClientComponentExample.msx" codeFormat="esm"
-"use-client";
-
-import { useIntlayer } from "next-intlayer";
-
-const ServerComponentExample = () => {
-  // सामग्री प्राप्त करने के लिए useIntlayer हुक का उपयोग करें
-  const content = useIntlayer("component-content");
-
-  return (
-    <div>
-      <h1>{content.title}</h1> {/* शीर्षक प्रदर्शित करें */}
-      <p>{content.description}</p> {/* विवरण प्रदर्शित करें */}
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ClientComponentExample.csx" codeFormat="commonjs"
-"use-client";
-
-const { useIntlayer } = require("next-intlayer");
-
-const ServerComponentExample = () => {
-  // सामग्री प्राप्त करने के लिए useIntlayer हुक का उपयोग करें
-  const content = useIntlayer("component-content");
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
-    </div>
-  );
-};
-```
-
-```tsx fileName="src/components/ServerComponentExample.tsx" codeFormat="typescript"
+```tsx fileName="src/components/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer/server";
 
@@ -222,43 +139,14 @@ const ServerComponentExample: FC = () => {
 };
 ```
 
-```jsx fileName="src/components/ServerComponentExample.mjx" codeFormat="esm"
-import { useIntlayer } from "next-intlayer/server";
-
-const ServerComponentExample = () => {
-  // सामग्री प्राप्त करने के लिए useIntlayer हुक का उपयोग करें
-  const content = useIntlayer("component-content");
-
-  return (
-    <div>
-      <h1>{content.title}</h1> {/* शीर्षक प्रदर्शित करें */}
-      <p>{content.description}</p> {/* विवरण प्रदर्शित करें */}
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/ServerComponentExample.csx" codeFormat="commonjs"
-const { useIntlayer } = require("next-intlayer/server");
-
-const ServerComponentExample = () => {
-  const content = useIntlayer("component-content");
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.description}</p>
-    </div>
-  );
-};
-```
-
 ## एट्रिब्यूट लोकलाइज़ेशन को संभालना
 
 `alt`, `title`, `href`, `aria-label` आदि जैसे एट्रिब्यूट्स को लोकलाइज़ करने के लिए, सुनिश्चित करें कि आप सामग्री को सही ढंग से संदर्भित कर रहे हैं:
 
 ```tsx
 <img src={content.image.src.value} alt={content.image.alt.value} />
+<img src={content.image.src.toString()} alt={content.image.alt.toString()} />
+<img src={String(content.image.src)} alt={String(content.image.alt)} />
 ```
 
 ## आगे की जानकारी

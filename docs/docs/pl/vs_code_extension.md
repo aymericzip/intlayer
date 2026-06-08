@@ -18,16 +18,16 @@ slugs:
 history:
   - version: 6.1.5
     date: 2025-09-30
-    changes: Dodano demo gif
+    changes: "Dodano demo gif"
   - version: 6.1.0
     date: 2025-09-24
-    changes: Dodano sekcję wyboru środowiska
+    changes: "Dodano sekcję wyboru środowiska"
   - version: 6.0.0
     date: 2025-09-22
-    changes: Karta Intlayer / Komendy Fill & Test
+    changes: "Karta Intlayer / Komendy Fill & Test"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inicjalizacja historii
+    changes: "Inicjalizacja historii"
 ---
 
 # Oficjalne rozszerzenie VS Code
@@ -120,7 +120,7 @@ Rozszerzenie może ładować zmienne środowiskowe z twojego workspace, aby uruc
 
 #### Wybór aktywnego środowiska
 
-- **Command Palette**: otwórz paletę i uruchom `Intlayer: Select Environment`, następnie wybierz środowisko (np. `development`, `staging`, `production`). Rozszerzenie spróbuje załadować pierwszy dostępny plik z powyższej listy priorytetów i wyświetli powiadomienie takie jak „Załadowano env z .env.<env>.local”.
+- **Command Palette**: otwórz paletę i uruchom `Intlayer: Select Environment`, następnie wybierz środowisko (np. `development`, `staging`, `production`). Rozszerzenie spróbuje załadować pierwszy dostępny plik z powyższej listy priorytetów i wyświetli powiadomienie takie jak „Załadowano env z `.env.<env>.local`”.
 - **Ustawienia**: przejdź do `Settings → Extensions → Intlayer` i ustaw:
   - **Environment**: nazwa środowiska używana do rozwiązywania plików `.env.<env>*`.
   - (Opcjonalnie) **Plik Env**: jawna ścieżka do pliku `.env`. Jeśli jest podana, ma pierwszeństwo przed listą domyślną.

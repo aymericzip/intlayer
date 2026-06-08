@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Khởi tạo lịch sử
+    changes: "Khởi tạo lịch sử"
 ---
 
 # Khai báo nội dung `Theo Ngôn Ngữ` trong Intlayer
@@ -42,7 +42,7 @@ Sự linh hoạt này cho phép:
 
 Đây là phương pháp được khuyến nghị cho hầu hết các trường hợp sử dụng. Nó tập trung các bản dịch, giúp dễ dàng lặp lại và tích hợp với CMS.
 
-```tsx fileName="hello-world.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="hello-world.content.ts" contentDeclarationFormat={["typescript", "esm"]}
 import { t, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -54,24 +54,6 @@ const helloWorldContent = {
     }),
   },
 } satisfies Dictionary;
-
-export default helloWorldContent;
-```
-
-```js fileName="hello-world.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-// Nội dung helloWorld với các bản dịch đa ngôn ngữ
-const helloWorldContent = {
-  key: "hello-world",
-  content: {
-    multilingualContent: t({
-      en: "Title of my component",
-      es: "Título de mi componente",
-    }),
-  },
-};
 
 export default helloWorldContent;
 ```
@@ -112,6 +94,24 @@ module.exports = helloWorldContent;
 
 > Khuyến nghị: Định dạng này là tốt nhất khi sử dụng trình chỉnh sửa trực quan của Intlayer hoặc quản lý bản dịch trực tiếp trong mã.
 
+### Cấu hình toàn cầu cho các tệp theo từng Locale
+
+Bạn có thể cấu hình cấu hình toàn cầu cho các tệp theo từng locale bằng cách thêm nội dung sau vào tệp `intlayer.config.ts` của bạn:
+
+```ts
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  dictionary: {
+    locale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+Sử dụng cấu hình này, tất cả các tệp theo từng locale sẽ được tạo với locale mặc định được đặt là tiếng Anh. Nó cũng bao gồm việc tạo các tệp `.content` bằng cách sử dụng lệnh `extract` và compiler. (Xem [Compiler](https://intlayer.org/doc/compiler) hoặc [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en/cli/extract.md) để biết thêm thông tin.)
+
 ## Định dạng theo từng locale
 
 Định dạng này hữu ích khi:
@@ -121,7 +121,7 @@ module.exports = helloWorldContent;
 
 Bạn cũng có thể tách các bản dịch thành các tệp riêng biệt theo từng locale bằng cách chỉ định trường locale:
 
-```tsx fileName="hello-world.en.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="hello-world.en.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, Locales, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -133,7 +133,7 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
-```tsx fileName="hello-world.es.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="hello-world.es.content.ts" contentDeclarationFormat={["typescript", "esm"]}
 import { t, Locales, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -143,66 +143,6 @@ const helloWorldContent = {
 } satisfies Dictionary;
 
 export default helloWorldContent;
-```
-
-```js fileName="hello-world.en.content.mjs" contentDeclarationFormat="esm"
-import { t, Locales } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-// Định nghĩa nội dung cho bản dịch "hello-world" với locale tiếng Anh
-const helloWorldContent = {
-  key: "hello-world",
-  locale: Locales.ENGLISH, // Quan trọng
-  content: { multilingualContent: "Title of my component" },
-};
-
-export default helloWorldContent;
-```
-
-```tsx fileName="hello-world.es.content.mjs" contentDeclarationFormat="esm"
-import { t, Locales } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-// Định nghĩa nội dung cho bản dịch "hello-world" với locale tiếng Tây Ban Nha
-const helloWorldContent = {
-  key: "hello-world",
-  locale: Locales.SPANISH, // Quan trọng
-  content: { multilingualContent: "Título de mi componente" },
-};
-
-export default helloWorldContent;
-```
-
-```js fileName="hello-world.en.content.cjs" contentDeclarationFormat="commonjs"
-const { t, Locales } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-// Định nghĩa nội dung cho bản dịch "hello-world" với locale tiếng Anh
-const helloWorldContent = {
-  key: "hello-world",
-  locale: Locales.ENGLISH, // Quan trọng
-  content: {
-    multilingualContent: "Title of my component",
-  },
-};
-
-module.exports = helloWorldContent;
-```
-
-```tsx fileName="hello-world.es.content.cjs" contentDeclarationFormat="commonjs"
-const { t, Locales } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-// Định nghĩa nội dung cho bản dịch "hello-world" với locale tiếng Tây Ban Nha
-const helloWorldContent = {
-  key: "hello-world",
-  locale: Locales.SPANISH, // Quan trọng
-  content: {
-    multilingualContent: "Título de mi componente",
-  },
-};
-
-module.exports = helloWorldContent;
 ```
 
 ```json5 fileName="hello-world.en.content.json" contentDeclarationFormat="json"
@@ -323,4 +263,4 @@ console.log(JSON.stringify(intlayer, null, 2));
 
 ### Tạo Dịch Tự Động
 
-Sử dụng [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_cli.md) để tự động điền các bản dịch còn thiếu dựa trên các dịch vụ bạn ưu tiên.
+Sử dụng [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md) để tự động điền các bản dịch còn thiếu dựa trên các dịch vụ bạn ưu tiên.

@@ -26,15 +26,15 @@ youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
   - version: 7.5.0
     date: 2025-12-13
-    changes: 添加 ICU 和 i18next 格式支持
+    changes: "添加 ICU 和 i18next 格式支持"
   - version: 6.1.6
     date: 2025-10-05
-    changes: 初始同步 JSON 插件文档
+    changes: "初始同步 JSON 插件文档"
 ---
 
 # 同步 JSON（i18n 桥接）- 支持 ICU / i18next 的同步 JSON
 
-<iframe title="如何保持您的 JSON 翻译与 Intlayer 同步" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="如何保持您的 JSON 翻译与 Intlayer 同步" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 将 Intlayer 作为您现有 i18n 体系的附加组件使用。此插件可使您的 JSON 消息与 Intlayer 字典保持同步，从而您可以：
 
@@ -66,10 +66,10 @@ npm i -D @intlayer/sync-json-plugin
 将插件添加到您的 `intlayer.config.ts` 中，并指向您现有的 JSON 结构。
 
 ```ts fileName="intlayer.config.ts"
-import { defineConfig, Locales } from "intlayer";
+import { Locales, type IntlayerConfig } from "intlayer";
 import { syncJSON } from "@intlayer/sync-json-plugin";
 
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
@@ -82,7 +82,9 @@ export default defineConfig({
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],
-});
+};
+
+export default config;
 ```
 
 替代方案：每个语言环境一个文件（常见于 i18next/react-intl 设置）：
@@ -108,17 +110,21 @@ syncJSON({
   source: ({ key, locale }) => string, // 必填
   location?: string, // 可选标签，默认值："plugin"
   priority?: number, // 可选优先级，用于冲突解决，默认值：0
-  format?: 'intlayer' | 'icu' | 'i18next', // 可选格式化器，默认值：'intlayer'
+  format?: 'intlayer' | 'icu' | 'i18next', // 可选格式化器，用于 Intlayer 运行时兼容性
 });
 ```
 
 #### `format` ('intlayer' | 'icu' | 'i18next')
 
-指定在同步 JSON 文件时用于字典内容的格式化器。这允许使用与各种 i18n 库兼容的不同消息格式化语法。
+指定在同步 JSON 文件时用于字典内容的格式化器。这允许使用与 Intlayer 运行时兼容的不同消息格式化语法。
 
-- `'intlayer'`: 默认的 Intlayer 格式化器（默认值）。
-- `'icu'`: 使用 ICU 消息格式化（与 react-intl、vue-i18n 等库兼容）。
-- `'i18next'`: 使用 i18next 消息格式化（与 i18next、next-i18next、Solid-i18next 兼容）。
+- `undefined`：不使用格式化器，JSON 内容将按原样使用。
+- `'intlayer'`：默认的 Intlayer 格式化器（默认值）。
+- `'icu'`：使用 ICU 消息格式化（与 react-intl、vue-i18n 等库兼容）。
+- `'i18next'`：使用 i18next 消息格式化（与 i18next、next-i18next、Solid-i18next 兼容）。
+
+> 请注意，使用格式化器会转换您的 JSON 内容的输入和输出。对于复杂的 JSON 规则（如 ICU 复数），解析可能无法确保输入和输出之间的 1 对 1 映射。
+> 如果您不使用 Intlayer 运行时，您可能更倾向于不设置格式化器。
 
 **示例：**
 
@@ -143,10 +149,10 @@ syncJSON({
 - 具有相同优先级的插件按它们在配置中出现的顺序处理
 
 ```ts fileName="intlayer.config.ts"
-import { defineConfig, Locales } from "intlayer";
+import { Locales, type IntlayerConfig } from "intlayer";
 import { syncJSON } from "@intlayer/sync-json-plugin";
 
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH],
     defaultLocale: Locales.ENGLISH,
@@ -177,7 +183,9 @@ export default defineConfig({
       priority: 1,
     }),
   ],
-});
+};
+
+export default config;
 ```
 
 ### 冲突解决
@@ -257,7 +265,7 @@ plugins: [
 - `intlayer content push` 用于推送同步的 JSON 文件
 - `intlayer content pull` 用于拉取同步的 JSON 文件
 
-请参阅[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)了解更多详情。
+请参阅[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)了解更多详情。
 
 ## 限制（当前）
 

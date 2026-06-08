@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vanilla JS + Intlayer</title>
+    <style>
+      body { font-family: system-ui, sans-serif; max-width: 640px; margin: 4rem auto; padding: 0 1rem; color: #1a1a1a; }
+      #locale-switcher { margin-bottom: 1.5rem; }
+      #locale-switcher label { font-size: 0.875rem; color: #555; }
+      #locale-switcher select { margin-left: 0.25rem; font: inherit; font-size: 0.875rem; padding: 2px 6px; border-radius: 4px; border: 1px solid #ccc; cursor: pointer; }
+    </style>
+
+    <script src="./dist/intlayer-bundle.js" defer></script>
+    <script src="./src/main.js" defer></script>
+  </head>
+  <body>
+    <div id="locale-switcher"></div>
+    <h1 id="title"></h1>
+    <p id="description"></p>
+  </body>
+</html>

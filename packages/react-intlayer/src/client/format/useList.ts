@@ -1,6 +1,6 @@
 'use client';
 
-import { list } from '@intlayer/core';
+import { list } from '@intlayer/core/formatters';
 import { useCallback, useContext } from 'react';
 import { IntlayerClientContext } from '../IntlayerProvider';
 
@@ -26,7 +26,7 @@ import { IntlayerClientContext } from '../IntlayerProvider';
  * ```
  */
 export const useList = () => {
-  const { locale } = useContext(IntlayerClientContext);
+  const { locale } = useContext(IntlayerClientContext) ?? {};
 
   return useCallback(
     (...args: Parameters<typeof list>) =>

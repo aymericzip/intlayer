@@ -17,7 +17,7 @@ slugs:
 
 # CLI SDK
 
-CLI SDK — это библиотека, которая позволяет использовать Intlayer CLI в вашем собственном коде.
+CLI SDK, это библиотека, которая позволяет использовать Intlayer CLI в вашем собственном коде.
 
 ```bash packageManager="npm"
 npm install @intlayer/cli --save-dev
@@ -29,6 +29,10 @@ yarn add @intlayer/cli --save-dev
 
 ```bash packageManager="pnpm"
 pnpm add @intlayer/cli --save-dev
+```
+
+```bash packageManager="bun"
+bun add @intlayer/cli --dev
 ```
 
 Пример использования:
@@ -43,7 +47,7 @@ import {
   testMissingTranslations,
   docTranslate,
   docReview,
-  transform,
+  extract,
 } from "@intlayer/cli";
 
 push();
@@ -62,6 +66,6 @@ docTranslate();
 // ...
 docReview();
 // ...
-transform();
+extract();
 // ...
 ```

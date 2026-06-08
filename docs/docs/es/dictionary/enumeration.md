@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historial inicial
+    changes: "Historial inicial"
 ---
 
 # Enumeración / Plurialización
@@ -32,7 +32,7 @@ En Intlayer, la enumeración se logra mediante la función `enu`, que asigna cla
 
 Para configurar la enumeración en tu proyecto Intlayer, necesitas crear un módulo de contenido que incluya definiciones de enumeración. Aquí tienes un ejemplo de una enumeración simple para el número de coches:
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { enu, type Dictionary } from "intlayer";
 
 const carEnumeration = {
@@ -51,50 +51,6 @@ const carEnumeration = {
 } satisfies Dictionary;
 
 export default carEnumeration;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { enu } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const carEnumeration = {
-  key: "car_count",
-  content: {
-    numberOfCar: enu({
-      "<-1": "Menos de menos un coche",
-      "-1": "Menos un coche",
-      "0": "Sin coches",
-      "1": "Un coche",
-      ">5": "Algunos coches",
-      ">19": "Muchos coches",
-      "fallback": "Valor de reserva", // Opcional
-    }),
-  },
-};
-
-export default carEnumeration;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { enu } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const carEnumeration = {
-  key: "car_count",
-  content: {
-    numberOfCar: enu({
-      "<-1": "Menos de menos un coche",
-      "-1": "Menos un coche",
-      "0": "Sin coches",
-      "1": "Un coche",
-      ">5": "Algunos coches",
-      ">19": "Muchos coches",
-      "fallback": "Valor de reserva", // Opcional
-    }),
-  },
-};
-
-module.exports = carEnumeration;
 ```
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -128,7 +84,7 @@ En este ejemplo, `enu` asigna varias condiciones a contenido específico. Cuando
 
 Para usar enumeraciones en un componente React, puede aprovechar el hook `useIntlayer` del paquete `react-intlayer`. Este hook recupera el contenido correcto basado en el ID especificado. Aquí hay un ejemplo de cómo usarlo:
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -162,83 +118,13 @@ const CarComponent: FC = () => {
 };
 ```
 
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const CarComponent = () => {
-  const { numberOfCar } = useIntlayer("car_count");
-
-  return (
-    <div>
-      <p>
-        {
-          numberOfCar(0) // Salida: Sin coches
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(6) // Salida: Algunos coches
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(20) // Salida: Muchos coches
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(0.01) // Salida: Valor de reserva
-        }
-      </p>
-    </div>
-  );
-};
-
-export default CarComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const CarComponent = () => {
-  const { numberOfCar } = useIntlayer("car_count");
-
-  return (
-    <div>
-      <p>
-        {
-          numberOfCar(0) // Salida: Sin coches
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(6) // Salida: Algunos coches
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(20) // Salida: Muchos coches
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(0.01) // Salida: Valor de reserva
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = CarComponent;
-```
-
 En este ejemplo, el componente ajusta dinámicamente su salida según el número de coches. El contenido correcto se elige automáticamente, dependiendo del rango especificado.
 
 ## Recursos Adicionales
 
 Para obtener información más detallada sobre la configuración y el uso, consulte los siguientes recursos:
 
-- [Documentación de Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_cli.md)
+- [Documentación de Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/cli/index.md)
 - [Documentación de React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_create_react_app.md)
 - [Documentación de Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_with_nextjs_15.md)
 

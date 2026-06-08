@@ -1,7 +1,7 @@
+import { cn } from '@utils/cn';
 import type { VariantProps } from 'class-variance-authority';
 import type { DetailedHTMLProps, FC, TextareaHTMLAttributes } from 'react';
-import { cn } from '../../utils/cn';
-import { type InputVariant, inputVariants } from '../Input';
+import { inputVariants } from '../Input';
 
 /**
  * Props for the TextArea component.
@@ -18,7 +18,7 @@ import { type InputVariant, inputVariants } from '../Input';
  * <TextArea
  *   value={message}
  *   onChange={handleChange}
- *   variant={InputVariant.ERROR}
+ *   variant="error"
  *   validationStyleEnabled={true}
  *   placeholder="Message is required"
  * />
@@ -27,8 +27,8 @@ import { type InputVariant, inputVariants } from '../Input';
  * <TextArea
  *   rows={6}
  *   cols={50}
- *   variant={InputVariant.DEFAULT}
- *   className="min-h-[120px]"
+ *   variant="default"
+ *   className="min-h-30"
  *   placeholder="Write a detailed description..."
  * />
  * ```
@@ -47,7 +47,7 @@ export type TextAreaProps = DetailedHTMLProps<
     'validationStyleEnabled' | 'variant'
   > & {
     /** Visual variant of the textarea (default, success, error, warning, etc.) */
-    variant?: InputVariant | `${InputVariant}`;
+    variant?: InputVariant;
   };
 
 /**
@@ -85,10 +85,10 @@ export type TextAreaProps = DetailedHTMLProps<
  * <TextArea
  *   value={content}
  *   onChange={(e) => setContent(e.target.value)}
- *   variant={hasError ? InputVariant.ERROR : InputVariant.SUCCESS}
+ *   variant={hasError ? 'error' : 'success'}
  *   validationStyleEnabled={true}
  *   placeholder="Minimum 10 characters required"
- *   className="min-h-[100px]"
+ *   className="min-top-25"
  * />
  * ```
  */

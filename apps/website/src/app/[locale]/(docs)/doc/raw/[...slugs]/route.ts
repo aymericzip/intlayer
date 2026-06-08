@@ -13,8 +13,6 @@ type RouteContext = {
   }>;
 };
 
-export const dynamic = 'force-dynamic';
-
 async function findDocMetadata(
   slugs: string | string[],
   locale: string
@@ -24,11 +22,7 @@ async function findDocMetadata(
   // 1. Try metadata slugs (normalized with 'doc' prefix)
   const normalizedSlugs = ['doc', ...slugsArray];
   try {
-    const matches = await getDocMetadataBySlug(
-      normalizedSlugs,
-      locale as any,
-      true
-    );
+    const matches = await getDocMetadataBySlug(normalizedSlugs, locale, true);
     if (matches && matches.length > 0) {
       return matches[0];
     }
@@ -42,7 +36,7 @@ async function findDocMetadata(
   const docsKeys = getDocsKeys();
 
   if (docsKeys.includes(potentialDocKey as any)) {
-    return await getDocMetadata(potentialDocKey as any, locale as any);
+    return await getDocMetadata(potentialDocKey as any, locale);
   }
 
   // 3. Try filename match (case-insensitive)
@@ -51,10 +45,14 @@ async function findDocMetadata(
     (key) => key.toLowerCase() === lowerPotentialKey
   );
   if (matchedKey) {
-    return await getDocMetadata(matchedKey as any, locale as any);
+    return await getDocMetadata(matchedKey as any, locale);
   }
 
   return undefined;
+}
+
+async function getCachedDoc(docKey: string, locale: string) {
+  return await getDoc(docKey as any, locale);
 }
 
 export async function GET(request: Request, context: RouteContext) {
@@ -80,7 +78,7 @@ Case-insensitive match? ${docsKeys.find((k) => k.toLowerCase() === potentialDocK
       );
     }
 
-    const file = await getDoc(fileMetadata.docKey as any, locale as any);
+    const file = await getCachedDoc(fileMetadata.docKey as string, locale);
 
     const url = new URL(request.url);
     const format = (url.searchParams.get('format') || '').toLowerCase();

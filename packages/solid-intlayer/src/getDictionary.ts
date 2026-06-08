@@ -1,34 +1,16 @@
-import {
-  getDictionary as getDictionaryCore,
-  type Plugins,
-} from '@intlayer/core';
+import { getDictionary as getDictionaryCore } from '@intlayer/core/interpreter';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
-  Dictionary,
   LocalesValues,
-} from '@intlayer/types';
-import {
-  type DeepTransformContent,
-  intlayerNodePlugins,
-  markdownPlugin,
-  solidNodePlugins,
-} from './plugins';
+} from '@intlayer/types/module_augmentation';
+import { type DeepTransformContent, getPlugins } from './plugins';
 
 export const getDictionary = <
-  T extends Dictionary,
-  L extends LocalesValues = DeclaredLocales,
+  const T extends Dictionary,
+  const L extends LocalesValues = DeclaredLocales,
 >(
   dictionary: T,
-  locale?: L,
-  additionalPlugins?: Plugins[]
-): DeepTransformContent<T['content'], L> => {
-  const plugins: Plugins[] = [
-    intlayerNodePlugins,
-    solidNodePlugins,
-    markdownPlugin,
-    ...(additionalPlugins ?? []),
-  ];
-
-  // @ts-ignore Type instantiation is excessively deep and possibly infinite
-  return getDictionaryCore<T, L>(dictionary, locale as L, plugins) as any;
-};
+  locale?: L
+): DeepTransformContent<T['content'], L> =>
+  getDictionaryCore<T, L>(dictionary, locale, getPlugins(locale)) as any;

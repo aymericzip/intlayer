@@ -19,7 +19,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inisialisasi riwayat
+    changes: "Inisialisasi riwayat"
 ---
 
 # Enumerasi / Plurialisasi
@@ -32,7 +32,7 @@ Di Intlayer, enumerasi dicapai melalui fungsi `enu`, yang memetakan kunci terten
 
 Untuk menyiapkan enumerasi dalam proyek Intlayer Anda, Anda perlu membuat modul konten yang mencakup definisi enumerasi. Berikut adalah contoh enumerasi sederhana untuk jumlah mobil:
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
+```typescript fileName="**/*.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { enu, type Dictionary } from "intlayer";
 
 const carEnumeration = {
@@ -51,50 +51,6 @@ const carEnumeration = {
 } satisfies Dictionary;
 
 export default carEnumeration;
-```
-
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { enu } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const carEnumeration = {
-  key: "car_count",
-  content: {
-    numberOfCar: enu({
-      "<-1": "Kurang dari minus satu mobil",
-      "-1": "Minus satu mobil",
-      "0": "Tidak ada mobil",
-      "1": "Satu mobil",
-      ">5": "Beberapa mobil",
-      ">19": "Banyak mobil",
-      "fallback": "Nilai cadangan", // Opsional
-    }),
-  },
-};
-
-export default carEnumeration;
-```
-
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { enu } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const carEnumeration = {
-  key: "car_count",
-  content: {
-    numberOfCar: enu({
-      "<-1": "Kurang dari minus satu mobil",
-      "-1": "Minus satu mobil",
-      "0": "Tidak ada mobil",
-      "1": "Satu mobil",
-      ">5": "Beberapa mobil",
-      ">19": "Banyak mobil",
-      "fallback": "Nilai cadangan", // Opsional
-    }),
-  },
-};
-
-module.exports = carEnumeration;
 ```
 
 ```json fileName="**/*.content.json" contentDeclarationFormat="json"
@@ -128,7 +84,7 @@ Dalam contoh ini, `enu` memetakan berbagai kondisi ke konten spesifik. Ketika di
 
 Untuk menggunakan enumerasi dalam komponen React, Anda dapat memanfaatkan hook `useIntlayer` dari paket `react-intlayer`. Hook ini mengambil konten yang tepat berdasarkan ID yang ditentukan. Berikut adalah contoh cara menggunakannya:
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -162,83 +118,13 @@ const CarComponent: FC = () => {
 };
 ```
 
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const CarComponent = () => {
-  const { numberOfCar } = useIntlayer("car_count");
-
-  return (
-    <div>
-      <p>
-        {
-          numberOfCar(0) // Output: Tidak ada mobil
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(6) // Output: Beberapa mobil
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(20) // Output: Banyak mobil
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(0.01) // Output: Nilai fallback
-        }
-      </p>
-    </div>
-  );
-};
-
-export default CarComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const CarComponent = () => {
-  const { numberOfCar } = useIntlayer("car_count");
-
-  return (
-    <div>
-      <p>
-        {
-          numberOfCar(0) // Output: Tidak ada mobil
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(6) // Output: Beberapa mobil
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(20) // Output: Banyak mobil
-        }
-      </p>
-      <p>
-        {
-          numberOfCar(0.01) // Output: Nilai cadangan
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = CarComponent;
-```
-
 Dalam contoh ini, komponen secara dinamis menyesuaikan outputnya berdasarkan jumlah mobil. Konten yang benar dipilih secara otomatis, tergantung pada rentang yang ditentukan.
 
 ## Sumber Daya Tambahan
 
 Untuk informasi lebih rinci tentang konfigurasi dan penggunaan, lihat sumber daya berikut:
 
-- [Dokumentasi Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_cli.md)
+- [Dokumentasi Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md)
 - [Dokumentasi React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_create_react_app.md)
 - [Dokumentasi Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_15.md)
 

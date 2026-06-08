@@ -1,4 +1,4 @@
-import { cn } from '@utils/cn';
+import { cn } from '@intlayer/design-system/utils';
 import type { DetailedHTMLProps, FC, HTMLAttributes, ReactNode } from 'react';
 import { Footer } from '@/components/Footer';
 import { Navbar } from '@/components/Navbar';
@@ -28,7 +28,6 @@ export const PageContentLayout: FC<PageContentLayoutProps> = ({
     >
       {children}
     </main>
-
     <div className="flex w-full flex-0 flex-col">{footer ?? <Footer />}</div>
   </>
 );

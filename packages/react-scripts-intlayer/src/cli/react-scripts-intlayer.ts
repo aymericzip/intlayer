@@ -8,7 +8,8 @@
  */
 
 import { spawnSync } from 'node:child_process';
-import { getProjectRequire, logger } from '@intlayer/config';
+import { logger } from '@intlayer/config/logger';
+import { getProjectRequire } from '@intlayer/config/utils';
 
 const args = process.argv.slice(2);
 const scriptIndex = args.findIndex(

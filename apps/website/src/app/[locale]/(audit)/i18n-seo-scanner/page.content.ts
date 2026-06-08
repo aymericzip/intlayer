@@ -21,6 +21,7 @@ const auditPageContent = {
       vi: 'Phân tích điểm số bản địa hóa toàn cầu của trang web của bạn',
       ar: 'حلّل درجة التوطين العالمية لموقعك',
       'en-GB': "Analyse Your Website's Global Localisation Score",
+      uk: 'Проаналізуйте глобальний показник локалізації вашого вебсайту',
     }),
     description: t({
       en: 'Quickly and for free, evaluate the localization quality of your website. Analyze principal multilingual elements of your website to get a comprehensive score and actionable insights for improving your reach.',
@@ -41,6 +42,7 @@ const auditPageContent = {
       ar: 'قيّم بسرعة ومجانًا جودة التوطين في موقعك الإلكتروني. حلّل العناصر المتعددة اللغات الرئيسية في موقعك للحصول على درجة شاملة ورؤى قابلة للتنفيذ لتحسين مدى الوصول.',
       'en-GB':
         'Quickly and at no cost, evaluate the localisation quality of your website. Analyse key multilingual elements of your website to obtain a comprehensive score and actionable insights to improve your reach.',
+      uk: 'Швидко й безкоштовно оцініть якість локалізації вашого вебсайту. Проаналізуйте основні багатомовні елементи сайту, щоб отримати загальний бал і практичні рекомендації для розширення охоплення.',
     }),
     goToScanner: {
       text: t({
@@ -61,6 +63,7 @@ const auditPageContent = {
         pl: 'Prześlij audyt',
         id: 'Kirim audit',
         vi: 'Gửi kiểm tra',
+        uk: 'Перейти до сканера',
       }),
       label: t({
         en: 'Go to the scanner',
@@ -80,6 +83,7 @@ const auditPageContent = {
         pl: 'Prześlij audyt',
         id: 'Kirim audit',
         vi: 'Gửi kiểm tra',
+        uk: 'Перейти до сканера',
       }),
     },
   },

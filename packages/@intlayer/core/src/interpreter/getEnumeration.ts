@@ -27,10 +27,10 @@ import type { EnterFormat, EnumerationContentState } from '../transpiler';
  *
  * If no keys match, the default key is '1'.
  */
-export const findMatchingCondition = <Content>(
+export const findMatchingCondition = <const Content>(
   enumerationContent: EnumerationContentState<Content>,
   quantity: number
-): EnterFormat => {
+): EnterFormat | undefined => {
   const numericKeys = Object.keys(enumerationContent);
 
   for (const key of numericKeys) {
@@ -62,32 +62,30 @@ export const findMatchingCondition = <Content>(
 };
 
 /**
- * Allow to pick a content based on a quantity.
+ * Picks content from an enumeration map based on a provided quantity.
  *
- * Usage:
+ * Supported keys in the enumeration map:
+ * - Specific numbers: '0', '1', '2'
+ * - Comparison operators: '<5', '>=10', '<=2'
+ * - Fallback: 'fallback'
  *
+ * The first matching key in the object's iteration order will be selected.
+ *
+ * @param enumerationContent - A map of conditions/quantities to content.
+ * @param quantity - The number to match against the conditions.
+ * @returns The matching content.
+ *
+ * @example
  * ```ts
  * const content = getEnumeration({
- *  '<=-2.3': 'You have less than -2.3',
- *  '<1': 'You have less than one',
- *  '2': 'You have two',
- *  '>=3': 'You have three or more',
- * }, 2);
- * // 'You have two'
+ *   '0': 'No items',
+ *   '1': 'One item',
+ *   '>1': 'Many items',
+ * }, 5);
+ * // 'Many items'
  * ```
- *
- * The order of the keys will define the priority of the content.
- *
- * ```ts
- * const content = getEnumeration({
- *  '<4': 'You have less than four',
- *  '2': 'You have two',
- * }, 2);
- * // 'You have less than four'
- * ```
- *
  */
-export const getEnumeration = <Content>(
+export const getEnumeration = <const Content>(
   enumerationContent: EnumerationContentState<Content>,
   quantity: number
 ): Content => {

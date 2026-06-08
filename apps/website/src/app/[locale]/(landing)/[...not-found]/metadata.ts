@@ -1,15 +1,14 @@
-import { getDictionary, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
+import { Website_NotFound } from '@intlayer/design-system/routes';
+import { getIntlayer, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalPromiseParams } from 'next-intlayer';
-import { PagesRoutes } from '@/Routes';
-import metadataContent from './metadata.content';
 
 export const generateMetadata = async ({
   params,
 }: LocalPromiseParams): Promise<Metadata> => {
   const { locale } = await params;
-  const { title, description, keywords } = getDictionary(
-    metadataContent,
+  const { title, description, keywords } = getIntlayer(
+    'not-found-metadata',
     locale
   );
 
@@ -18,19 +17,16 @@ export const generateMetadata = async ({
     description,
     keywords,
     alternates: {
-      canonical: getLocalizedUrl(PagesRoutes.NotFound, locale),
+      canonical: getLocalizedUrl(Website_NotFound, locale),
       languages: {
-        ...getMultilingualUrls(PagesRoutes.NotFound),
-        'x-default': PagesRoutes.NotFound,
+        ...getMultilingualUrls(Website_NotFound),
+        'x-default': Website_NotFound,
       },
     },
     robots: 'noindex, follow', // Avoid indexing error pages
 
     openGraph: {
-      url: getLocalizedUrl(
-        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.NotFound}`,
-        locale
-      ),
+      url: getLocalizedUrl(Website_NotFound, locale),
       title,
       description,
     },

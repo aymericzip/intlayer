@@ -1,5 +1,5 @@
 import { Link } from '@components/Link/Link';
-import { PopoverStatic } from '@intlayer/design-system';
+import { PopoverStatic } from '@intlayer/design-system/popover';
 import { Edit } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';

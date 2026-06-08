@@ -1,8 +1,8 @@
 'use client';
 
+import { cn } from '@utils/cn';
 import { Eye, EyeOff } from 'lucide-react';
 import { type FC, useEffect, useMemo, useRef, useState } from 'react';
-import { cn } from '../../utils/cn';
 
 /**
  * Props for the HideShow component

@@ -1,24 +1,30 @@
-import { existsSync, mkdirSync } from 'node:fs';
-import { normalizePath } from '@intlayer/config';
-import type { IntlayerConfig } from '@intlayer/types';
+import { existsSync } from 'node:fs';
+import { mkdir } from 'node:fs/promises';
+import { basename } from 'node:path';
+import { normalizePath } from '@intlayer/config/utils';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import fg from 'fast-glob';
 
 /**
  * This function generates a list of dictionaries in the main directory
  */
 export const getBuiltUnmergedDictionariesPath = async (
-  configuration: IntlayerConfig
+  configuration: IntlayerConfig,
+  excludeKeys: string[] = []
 ) => {
-  const { unmergedDictionariesDir, mainDir } = configuration.content;
+  const { unmergedDictionariesDir, mainDir } = configuration.system;
 
   // Create main directory if it doesn't exist
   if (!existsSync(mainDir)) {
-    mkdirSync(mainDir, { recursive: true });
+    await mkdir(mainDir, { recursive: true });
   }
 
   const dictionariesPath: string[] = await fg(
     `${normalizePath(unmergedDictionariesDir)}/**/*.json`
   );
 
-  return dictionariesPath;
+  return dictionariesPath.filter((path) => {
+    const key = basename(path, '.json');
+    return !excludeKeys.includes(key);
+  });
 };

@@ -1,14 +1,15 @@
+'use client';
+
+import { Container } from '@components/Container';
+import { Input } from '@components/Input';
+import { cn } from '@utils/cn';
 import {
   type FC,
   type HTMLAttributes,
   type KeyboardEvent,
-  useMemo,
   useState,
 } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { cn } from '../../utils/cn';
-import { Container } from '../Container';
-import { Input } from '../Input';
 
 // ANSI color code mappings to CSS colors
 const ANSI_COLORS: Record<string, { light: string; dark: string }> = {
@@ -90,7 +91,7 @@ export const Terminal: FC<TerminalProps> = ({
   ...props
 }) => {
   const content = useIntlayer('terminal');
-  const lines = useMemo(() => children.split('\n'), [children]);
+  const lines = typeof children === 'string' ? children.split('\n') : [];
   const [inputValue, setInputValue] = useState('');
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -118,7 +119,7 @@ export const Terminal: FC<TerminalProps> = ({
       {/* Tab bar */}
       <div className="flex w-full flex-row items-center justify-start gap-1 bg-neutral-200 text-neutral text-xs dark:bg-neutral-950">
         <div className="mx-2 flex items-center justify-start gap-2 p-1">
-          <div className="size-3 rounded-full bg-red-500" />
+          <div className="size-3 rounded-full bg-error" />
           <div className="size-3 rounded-full bg-yellow-500" />
           <div className="size-3 rounded-full bg-green-500" />
         </div>

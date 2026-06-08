@@ -1,4 +1,23 @@
-import type { CustomIntlayerConfig, Locale } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
+import type {
+  CustomIntlayerConfig,
+  IntlayerConfig,
+} from '@intlayer/types/config';
+import type * as ANSIColorsTypes from './colors';
+import {
+  BEIGE,
+  BLUE,
+  GREEN,
+  GREY,
+  GREY_DARK,
+  GREY_LIGHT,
+  RED,
+  RESET,
+  WHITE,
+} from './colors';
+
+export type ANSIColorsType =
+  (typeof ANSIColorsTypes)[keyof typeof ANSIColorsTypes];
 
 export type Details = {
   isVerbose?: boolean;
@@ -8,58 +27,35 @@ export type Details = {
 
 export type Logger = (content: any, details?: Details) => void;
 
-export const logger: Logger = (content, details) => {
-  const isVerbose = details?.isVerbose ?? false;
-  const mode = details?.config?.mode ?? 'default';
-  const level = details?.level ?? 'info';
-  const prefix = details?.config?.prefix ? details?.config?.prefix : undefined;
-  const log = details?.config?.log ?? console.log;
-  const info = details?.config?.info ?? console.info;
-  const warn = details?.config?.warn ?? console.warn;
-  const error = details?.config?.error ?? console.error;
-  const debug = details?.config?.debug ?? console.debug;
+let loggerPrefix: string | undefined;
 
-  if (mode === 'disabled') return;
-
-  if (isVerbose && mode !== 'verbose') return;
-
-  const flatContent = prefix ? [prefix, ...[content].flat()] : [content].flat();
-
-  if (level === 'debug') {
-    return debug(...flatContent);
-  }
-
-  if (level === 'info') {
-    return info(...flatContent);
-  }
-
-  if (level === 'warn') {
-    return warn(...flatContent);
-  }
-
-  if (level === 'error') {
-    return error(...flatContent);
-  }
-
-  log(...flatContent);
+export const setPrefix = (prefix: string | undefined) => {
+  loggerPrefix = prefix;
 };
 
-export enum ANSIColors {
-  RESET = '\x1b[0m',
-  GREY = '\x1b[90m',
-  GREY_DARK = '\x1b[38;5;239m',
-  GREY_LIGHT = '\x1b[38;5;252m',
-  BLUE = '\x1b[34m',
-  RED = '\x1b[31m',
-  GREEN = '\x1b[32m',
-  YELLOW = '\x1b[38;5;226m',
-  MAGENTA = '\x1b[35m',
-  BEIGE = '\x1b[38;5;3m',
-  ORANGE = '\x1b[38;5;208m',
-  CYAN = '\x1b[36m',
-  WHITE = '\x1b[37m',
-  BOLD = '\x1b[1m',
-}
+export const getPrefix = (configPrefix?: string): string | undefined => {
+  if (typeof loggerPrefix !== 'undefined') {
+    return loggerPrefix;
+  }
+
+  return configPrefix;
+};
+
+export const logger: Logger = (content, details) => {
+  const config = details?.config ?? {};
+  const mode = config.mode ?? 'default';
+
+  if (mode === 'disabled' || (details?.isVerbose && mode !== 'verbose')) return;
+
+  const prefix = getPrefix(config.prefix);
+  const flatContent = prefix ? [prefix, ...[content].flat()] : [content].flat();
+  const level = details?.level ?? 'info';
+
+  const logMethod =
+    config[level] ?? console[level] ?? config.log ?? console.log;
+
+  logMethod(...flatContent);
+};
 
 export const spinnerFrames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
 
@@ -69,7 +65,7 @@ export const spinnerFrames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '
  * The configuration is merged with the default configuration from the intlayer config file.
  */
 export const getAppLogger =
-  (configuration?: CustomIntlayerConfig, globalDetails?: Details) =>
+  (configuration?: Pick<IntlayerConfig, 'log'>, globalDetails?: Details) =>
   (content: any, details?: Details) =>
     logger(content, {
       ...(details ?? {}),
@@ -81,18 +77,18 @@ export const getAppLogger =
     });
 
 export const colorize = (
-  s: string,
-  color?: ANSIColors,
-  reset?: boolean | ANSIColors
+  string: string,
+  color?: ANSIColorsType,
+  reset?: boolean | ANSIColorsType
 ): string =>
   color
-    ? `${color}${s}${reset ? (typeof reset === 'boolean' ? ANSIColors.RESET : reset) : ANSIColors.RESET}`
-    : s;
+    ? `${color}${string}${reset ? (typeof reset === 'boolean' ? RESET : reset) : RESET}`
+    : string;
 
 export const colorizeLocales = (
   locales: Locale | Locale[],
-  color = ANSIColors.GREEN,
-  reset: boolean | ANSIColors = ANSIColors.RESET
+  color: ANSIColorsType = GREEN,
+  reset: boolean | ANSIColorsType = RESET
 ) =>
   [locales]
     .flat()
@@ -101,8 +97,8 @@ export const colorizeLocales = (
 
 export const colorizeKey = (
   keyPath: string | string[],
-  color = ANSIColors.BEIGE,
-  reset: boolean | ANSIColors = ANSIColors.RESET
+  color: ANSIColorsType = BEIGE,
+  reset: boolean | ANSIColorsType = RESET
 ) =>
   [keyPath]
     .flat()
@@ -111,39 +107,117 @@ export const colorizeKey = (
 
 export const colorizePath = (
   path: string | string[],
-  color = ANSIColors.GREY,
-  reset: boolean | ANSIColors = ANSIColors.RESET
+  color: ANSIColorsType = GREY,
+  reset: boolean | ANSIColorsType = RESET
 ) =>
   [path]
     .flat()
-    .map((p) => colorize(p, color, reset))
+    .map((path) => colorize(path, color, reset))
     .join(`, `);
 
-/**
- * Colorize numeric value using Intl.NumberFormat and optional ANSI colors.
- *
- * Examples:
- *   colorizeNumber(2, [{ pluralRule: 'one' , color: ANSIColors.GREEN}, { pluralRule: 'other' , color: ANSIColors.RED}]) // "'\x1b[31m2\x1b[0m"
- */
 export const colorizeNumber = (
-  number: number,
-  options: Partial<Record<Intl.LDMLPluralRule, ANSIColors>> = {
-    zero: ANSIColors.BLUE,
-    one: ANSIColors.BLUE,
-    two: ANSIColors.BLUE,
-    few: ANSIColors.BLUE,
-    many: ANSIColors.BLUE,
-    other: ANSIColors.BLUE,
+  number: number | string,
+  options: Partial<Record<Intl.LDMLPluralRule, ANSIColorsType>> = {
+    zero: BLUE,
+    one: BLUE,
+    two: BLUE,
+    few: BLUE,
+    many: BLUE,
+    other: BLUE,
   }
 ): string => {
-  if (number === 0) {
-    const color = options.zero ?? ANSIColors.GREEN;
+  if (number === 0 || number === '0') {
+    const color = options.zero ?? GREEN;
     return colorize(number.toString(), color);
   }
 
-  const rule = new Intl.PluralRules('en').select(number);
+  // Kept inside the function. Top-level instantiation of classes/APIs
+  // is treated as a side-effect and prevents tree-shaking if the function is unused.
+  const rule = new Intl.PluralRules('en').select(Number(number));
   const color = options[rule];
   return colorize(number.toString(), color);
+};
+
+export const colorizeObject = (
+  obj: any,
+  indentLevel = 0,
+  indentSize = 2,
+  key?: string
+): string => {
+  const indent = ' '.repeat(indentLevel * indentSize);
+  const nextIndent = ' '.repeat((indentLevel + 1) * indentSize);
+
+  if (obj === null) {
+    return colorize('null', BLUE);
+  }
+
+  if (typeof obj === 'boolean') {
+    return colorize(obj.toString(), BLUE);
+  }
+
+  if (typeof obj === 'number') {
+    return colorize(obj.toString(), BLUE);
+  }
+
+  if (typeof obj === 'string') {
+    const isDateString = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(obj);
+    const isUrl = obj.startsWith('http://') || obj.startsWith('https://');
+    const isGlob = obj.includes('*') || obj.includes('?') || obj.includes('{');
+    const isPath =
+      obj.startsWith('/') ||
+      obj.startsWith('./') ||
+      obj.startsWith('../') ||
+      /\.[a-zA-Z0-9]{2,5}$/.test(obj);
+    const isSecret =
+      /^[0-9a-fA-F]{24,}$/.test(obj) || (obj.length >= 40 && !/\s/.test(obj));
+    const hasSpaces = /\s/.test(obj);
+
+    if (isDateString) return colorize(`"${obj}"`, BEIGE);
+    if (isUrl) return colorize(`"${obj}"`, GREY_DARK);
+    if (isGlob) return colorize(`"${obj}"`, GREY);
+    if (isPath) return colorize(`"${obj}"`, GREY_DARK);
+    if (isSecret) return colorize(`"${obj}"`, GREY);
+    if (hasSpaces) return colorize(`"${obj}"`, WHITE);
+    return colorize(`"${obj}"`, BLUE);
+  }
+
+  if (Array.isArray(obj)) {
+    if (obj.length === 0) {
+      return '[]';
+    }
+    const items = obj
+      .map(
+        (item) =>
+          `${nextIndent}${colorizeObject(item, indentLevel + 1, indentSize, key)}`
+      )
+      .join(',\n');
+    return `[\n${items}\n${indent}]`;
+  }
+
+  if (typeof obj === 'object') {
+    const keys = Object.keys(obj);
+
+    if (keys.length === 0) {
+      return '{}';
+    }
+
+    const fields = keys
+      .map((key) => {
+        const coloredKey = colorize(`"${key}"`, GREY_LIGHT);
+        const value = obj[key];
+        const coloredValue = colorizeObject(
+          value,
+          indentLevel + 1,
+          indentSize,
+          key
+        );
+        return `${nextIndent}${coloredKey}: ${coloredValue}`;
+      })
+      .join(',\n');
+    return `{\n${fields}\n${indent}}`;
+  }
+
+  return colorize(String(obj), GREY);
 };
 
 export const removeColor = (text: string) =>
@@ -158,10 +232,16 @@ const getLength = (length: number | number[] | string | string[]): number => {
   if (typeof length === 'string') {
     value = length.length;
   }
-  if (Array.isArray(length) && length.every((l) => typeof l === 'string')) {
+  if (
+    Array.isArray(length) &&
+    length.every((locale) => typeof locale === 'string')
+  ) {
     value = Math.max(...length.map((str) => str.length));
   }
-  if (Array.isArray(length) && length.every((l) => typeof l === 'number')) {
+  if (
+    Array.isArray(length) &&
+    length.every((locale) => typeof locale === 'number')
+  ) {
     value = Math.max(...length);
   }
   return Math.max(value, 0);
@@ -194,7 +274,7 @@ export const colon = (
   [text]
     .flat()
     .map((text) => {
-      const { colSize, minSize, maxSize, pad, padChar } = {
+      const { colSize, minSize, maxSize, pad } = {
         ...defaultColonOptions,
         ...(options ?? {}),
       };
@@ -213,6 +293,6 @@ export const colon = (
     })
     .join('');
 
-export const x = colorize('✗', ANSIColors.RED);
-export const v = colorize('✓', ANSIColors.GREEN);
-export const clock = colorize('⏲', ANSIColors.BLUE);
+export const x = colorize('✗', RED);
+export const v = colorize('✓', GREEN);
+export const clock = colorize('⏲', BLUE);

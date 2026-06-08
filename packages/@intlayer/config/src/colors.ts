@@ -1,0 +1,14 @@
+export const RESET = '\x1b[0m' as const;
+export const GREY = '\x1b[90m' as const;
+export const GREY_DARK = '\x1b[38;5;239m' as const;
+export const GREY_LIGHT = '\x1b[38;5;252m' as const;
+export const BLUE = '\x1b[34m' as const;
+export const RED = '\x1b[31m' as const;
+export const GREEN = '\x1b[32m' as const;
+export const YELLOW = '\x1b[38;5;226m' as const;
+export const MAGENTA = '\x1b[35m' as const;
+export const BEIGE = '\x1b[38;5;3m' as const;
+export const ORANGE = '\x1b[38;5;208m' as const;
+export const CYAN = '\x1b[36m' as const;
+export const WHITE = '\x1b[37m' as const;
+export const BOLD = '\x1b[1m' as const;

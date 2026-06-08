@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴初期化
+    changes: "履歴初期化"
 ---
 
 # ドキュメント: `intlayer` の `getMultilingualUrls` 関数
@@ -35,18 +35,15 @@ history:
 ## パラメータ
 
 - `url: string`
-
   - **説明**: ロケールを付加する元の URL 文字列。
   - **型**: `string`
 
 - `locales: Locales[]`
-
   - **説明**: オプションのサポートされているロケールの配列。プロジェクトで設定されたロケールがデフォルト。
   - **型**: `Locales[]`
   - **デフォルト**: `localesDefault`
 
 - `defaultLocale: Locales`
-
   - **説明**: アプリケーションのデフォルトロケール。プロジェクトで設定されたデフォルトロケールがデフォルト。
   - **型**: `Locales`
   - **デフォルト**: `defaultLocaleDefault`
@@ -67,38 +64,8 @@ history:
 
 ### 相対 URL
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls(
-  "/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-// 出力: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="esm"
-import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls(
-  "/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-// 出力: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="commonjs"
-const { getMultilingualUrls, Locales } = require("intlayer");
 
 getMultilingualUrls(
   "/dashboard",
@@ -132,11 +99,9 @@ getMultilingualUrls(
 ## エッジケース
 
 - **ロケールセグメントなし:**
-
   - 関数は多言語マッピングを生成する前に、URLから既存のロケールセグメントを削除します。
 
 - **デフォルトロケール:**
-
   - `prefixDefault` が `false` の場合、デフォルトロケールのURLにはプレフィックスを付けません。
 
 - **サポートされていないロケール:**
@@ -148,7 +113,7 @@ getMultilingualUrls(
 
 多言語対応アプリケーションでは、`locales` と `defaultLocale` を使って国際化設定を行うことが、正しい言語表示を保証するために重要です。以下は、`getMultilingualUrls` をアプリケーション設定で使用する例です:
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // 対応ロケールとデフォルトロケールの設定
@@ -160,36 +125,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-// 国際化設定のためのコンフィグオブジェクト
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH], // サポートするロケール一覧
-    defaultLocale: Locales.ENGLISH, // デフォルトロケール
-  },
-};
-
-export default config;
-```
-
-```javascript codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-// 国際化設定のためのコンフィグオブジェクト
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH], // サポートするロケール一覧
-    defaultLocale: Locales.ENGLISH, // デフォルトロケール
-  },
-};
-
-module.exports = config;
 ```
 
 上記の設定により、アプリケーションは `ENGLISH`、`FRENCH`、`SPANISH` をサポート言語として認識し、`ENGLISH` をフォールバック言語として使用します。

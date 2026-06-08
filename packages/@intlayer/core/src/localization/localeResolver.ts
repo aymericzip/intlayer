@@ -1,5 +1,6 @@
-import configuration from '@intlayer/config/built';
-import type { Locale, LocalesValues } from '@intlayer/types';
+import { internationalization } from '@intlayer/config/built';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 
 /**
  * Resolves the most specific locale from a user-provided list,
@@ -7,9 +8,8 @@ import type { Locale, LocalesValues } from '@intlayer/types';
  */
 export const localeResolver = (
   selectedLocale: LocalesValues | LocalesValues[],
-  locales: LocalesValues[] = configuration?.internationalization?.locales,
-  defaultLocale: LocalesValues = configuration?.internationalization
-    ?.defaultLocale
+  locales: LocalesValues[] = internationalization?.locales,
+  defaultLocale: LocalesValues = internationalization?.defaultLocale
 ): Locale => {
   // Ensure we can handle both a single locale or an array of locales uniformly
   const requestedLocales = [selectedLocale].flat();
@@ -22,26 +22,26 @@ export const localeResolver = (
     for (const requested of requestedLocales) {
       const normalizedRequested = normalize(requested);
 
-      // 1) Attempt exact match
+      // Attempt exact match
       const exactMatch = locales.find(
-        (loc) => normalize(loc) === normalizedRequested
+        (locale) => normalize(locale) === normalizedRequested
       );
       if (exactMatch) {
         return exactMatch as Locale;
       }
 
-      // 2) Attempt partial match on language subtag
-      //    e.g. if requested is "en-US" and not found,
-      //    see if "en" is available among locales
+      // Attempt partial match on language subtag
+      // e.g. if requested is "en-US" and not found,
+      // see if "en" is available among locales
       const [requestedLang] = normalizedRequested.split('-');
       const partialMatch = locales.find(
-        (loc) => normalize(loc).split('-')[0] === requestedLang
+        (locale) => normalize(locale).split('-')[0] === requestedLang
       );
       if (partialMatch) {
         return partialMatch as Locale;
       }
     }
-  } catch (_error) {
+  } catch {
     // If anything unexpected happened, fall back to default
   }
 

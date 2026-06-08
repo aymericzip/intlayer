@@ -2,21 +2,35 @@
 
 import { useEffect } from 'react';
 
-const isActive = process.env.NODE_ENV === 'production';
-
-/**
- * Hook to register the Serwist service worker.
- * Zero-rerender: purely side-effect based, no state tracking.
- *
- * When an update is available, the SW automatically activates on next page load.
- * For manual update UI, track state in your component instead.
- */
 export const useServiceWorker = () => {
   useEffect(() => {
-    if ('serviceWorker' in navigator && isActive) {
-      navigator.serviceWorker
-        .register('/sw.js')
-        .catch((err) => console.error('SW Failed', err));
+    if (typeof window === 'undefined' || !('serviceWorker' in navigator)) {
+      return;
     }
+
+    // Aggressively unregister any existing Service Workers
+    // This solves the issue of caching being applied in dev.
+    if (process.env.ENABLE_SERVICE_WORKER !== 'true') {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (const registration of registrations) {
+          console.log('🚧 Unregistering Dev Service Worker:', registration);
+          registration.unregister();
+        }
+      });
+      return;
+    }
+
+    // Register the Service Worker
+    navigator.serviceWorker
+      .register('/sw.js')
+      .then((registration) => {
+        console.log(
+          '✅ Service Worker registered with scope:',
+          registration.scope
+        );
+      })
+      .catch((err) => {
+        console.error('❌ Service Worker registration failed:', err);
+      });
   }, []);
 };

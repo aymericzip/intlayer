@@ -1,0 +1,20 @@
+{
+  "name": "hono-app",
+  "version": "8.12.2",
+  "private": true,
+  "scripts": {
+    "build": "intlayer build",
+    "dev": "bun run --watch src/index.ts",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@hono/node-server": "1.19.13",
+    "hono": "4.12.21",
+    "hono-intlayer": "workspace:*",
+    "intlayer": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "25.9.2",
+    "typescript": "6.0.3"
+  }
+}

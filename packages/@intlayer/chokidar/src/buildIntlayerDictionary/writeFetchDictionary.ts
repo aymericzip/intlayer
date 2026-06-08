@@ -1,52 +1,49 @@
 import { mkdir } from 'node:fs/promises';
 import { relative, resolve } from 'node:path';
-import {
-  colorizePath,
-  getConfiguration,
-  normalizePath,
-} from '@intlayer/config';
+import { OUTPUT_FORMAT } from '@intlayer/config/defaultValues';
+import { colorizePath } from '@intlayer/config/logger';
+import { assertPathWithin, normalizePath } from '@intlayer/config/utils';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { parallelize } from '../utils/parallelize';
 import { writeFileIfChanged } from '../writeFileIfChanged';
-import type {
-  LocalizedDictionaryOutput,
-  LocalizedDictionaryResult,
-} from './writeDynamicDictionary';
+import type { LocalizedDictionaryOutput } from './writeDynamicDictionary';
 
-/**
- * This function generates the content of the dictionary list file
- */
 export const generateDictionaryEntryPoint = (
-  localedDictionariesPathsRecord: LocalizedDictionaryResult,
-  format: 'cjs' | 'esm' = 'esm',
-  configuration = getConfiguration()
+  key: string,
+  locales: string[],
+  relativePrefix: string,
+  format: 'cjs' | 'esm' = 'esm'
 ): string => {
-  const { fetchDictionariesDir } = configuration.content;
-  const { liveSyncURL } = configuration.editor;
+  const extension = format === 'cjs' ? 'cjs' : 'mjs';
 
-  let content = '';
-
-  const formattedDictionaryMap: string = Object.entries(
-    localedDictionariesPathsRecord
-  )
-    .map(([locale, dictionary]) => {
-      const relativePath = normalizePath(
-        relative(fetchDictionariesDir, dictionary.dictionaryPath)
-      );
-
-      if (format === 'esm') {
-        return `  '${locale}': () => (async () => { try {return await fetch('${liveSyncURL}/dictionaries/${dictionary.dictionary.key}/${locale}').then(res => res.json())} catch (_error) {return await import('./${relativePath}', { assert: { type: 'json' }}).then(mod => mod.default)}})()`;
-      }
-
-      return `  '${locale}': () => (async () => { try {return await fetch('${liveSyncURL}/dictionaries/${dictionary.dictionary.key}/${locale}').then(res => res.json())} catch (_error) {return Promise.resolve(require('./${relativePath}'))}})()`;
-    })
+  const localeEntries = locales
+    .sort((a, b) => String(a).localeCompare(String(b)))
+    .map(
+      (locale) =>
+        `  '${locale}': async () => {\n` +
+        `    try {\n` +
+        `      const res = await fetch(\`\${editor.liveSyncURL}/dictionaries/${key}/${locale}\`);\n` +
+        `      return await res.json();\n` +
+        `    } catch {\n` +
+        `      return dynContent['${locale}']();\n` +
+        `    }\n` +
+        `  }`
+    )
     .join(',\n');
 
-  content += `const content = {\n${formattedDictionaryMap}\n};\n`;
-
-  if (format === 'esm') content += `export default content;\n`;
-  if (format === 'cjs') content += `module.exports = content;\n`;
-
-  return content;
+  if (format === 'esm') {
+    return (
+      `import { editor } from 'intlayer';\n` +
+      `import dynContent from '${relativePrefix}/${key}.${extension}';\n\n` +
+      `const content = {\n${localeEntries}\n};\n\n` +
+      `export default content;\n`
+    );
+  }
+  return (
+    `const { editor } = require('intlayer');\n` +
+    `const dynContent = require('${relativePrefix}/${key}.${extension}');\n\n` +
+    `module.exports = {\n${localeEntries}\n};\n`
+  );
 };
 
 /**
@@ -61,48 +58,57 @@ export const generateDictionaryEntryPoint = (
  * const finalDictionaries = await writeFinalDictionaries(unmergedDictionaries);
  * console.log(finalDictionaries);
  *
- * // .intlayer/fetch_dictionaries/home.json
- * // { key: 'home', content: { ... } },
+ * // .intlayer/fetch_dictionary/home.mjs
+ * // .intlayer/fetch_dictionary/home.cjs
  * ```
  */
 export const writeFetchDictionary = async (
   dynamicDictionaries: LocalizedDictionaryOutput,
-  configuration = getConfiguration(),
-  formats: ('cjs' | 'esm')[] = ['cjs', 'esm']
+  configuration: IntlayerConfig,
+  formats: ('cjs' | 'esm')[] = OUTPUT_FORMAT
 ): Promise<LocalizedDictionaryOutput> => {
-  const { fetchDictionariesDir } = configuration.content;
+  const { fetchDictionariesDir, dynamicDictionariesDir } = configuration.system;
+  const { locales } = configuration.internationalization;
 
-  // Create the dictionaries folder if it doesn't exist
+  // Compute relative path from fetch dir to dynamic dir
+  let relativePrefix = normalizePath(
+    relative(fetchDictionariesDir, dynamicDictionariesDir)
+  );
+  if (!relativePrefix.startsWith('.')) {
+    relativePrefix = `./${relativePrefix}`;
+  }
+
   await mkdir(resolve(fetchDictionariesDir), { recursive: true });
 
   const resultDictionariesPaths: LocalizedDictionaryOutput = {};
 
   // Write entry points for each dictionary in parallel
-  await parallelize(
-    Object.entries(dynamicDictionaries),
-    async ([key, localedDictionariesPathsRecord]) => {
-      if (key === 'undefined') return;
+  await parallelize(Object.entries(dynamicDictionaries), async ([key]) => {
+    if (key === 'undefined') return;
 
-      await parallelize(formats, async (format) => {
-        const extension = format === 'cjs' ? 'cjs' : 'mjs';
-        const content = generateDictionaryEntryPoint(
-          localedDictionariesPathsRecord,
-          format,
-          configuration
+    await parallelize(formats, async (format) => {
+      const extension = format === 'cjs' ? 'cjs' : 'mjs';
+      const content = generateDictionaryEntryPoint(
+        key,
+        locales,
+        relativePrefix,
+        format
+      );
+
+      const fetchEntryPath = resolve(
+        fetchDictionariesDir,
+        `${key}.${extension}`
+      );
+      assertPathWithin(fetchEntryPath, fetchDictionariesDir);
+
+      await writeFileIfChanged(fetchEntryPath, content).catch((err) => {
+        console.error(
+          `Error creating fetch ${colorizePath(fetchEntryPath)}:`,
+          err
         );
-
-        await writeFileIfChanged(
-          resolve(fetchDictionariesDir, `${key}.${extension}`),
-          content
-        ).catch((err) => {
-          console.error(
-            `Error creating fetch ${colorizePath(resolve(fetchDictionariesDir, `${key}.${extension}`))}:`,
-            err
-          );
-        });
       });
-    }
-  );
+    });
+  });
 
   return resultDictionariesPaths;
 };

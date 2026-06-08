@@ -1,16 +1,16 @@
 import {
-  getLocaleFromStorage,
-  LocaleStorage,
+  getLocaleFromStorageClient,
+  LocaleStorageClient,
   localeStorageOptions,
-  setLocaleInStorage as setLocaleInStorageCore,
-} from '@intlayer/core';
-import type { LocalesValues } from '@intlayer/types';
+  setLocaleInStorageClient as setLocaleInStorageCore,
+} from '@intlayer/core/utils';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { computed } from 'vue';
 
 /**
  * Get the locale cookie
  */
-export const localeInStorage = getLocaleFromStorage(localeStorageOptions);
+export const localeInStorage = getLocaleFromStorageClient(localeStorageOptions);
 /**
  * @deprecated Use localeInStorage instead
  *
@@ -41,7 +41,7 @@ export const setLocaleCookie = setLocaleInStorage;
  * Composable that provides the locale storage and a function to set it
  */
 export const useLocaleStorage = (isCookieEnabled?: boolean) => {
-  const storage = LocaleStorage({
+  const storage = LocaleStorageClient({
     ...localeStorageOptions,
     isCookieEnabled,
   });
@@ -59,11 +59,4 @@ export const useLocaleStorage = (isCookieEnabled?: boolean) => {
  *
  * Composable that provides the locale cookie and a function to set it
  */
-export const useLocaleCookie = (isCookieEnabled?: boolean) => {
-  const storage = useLocaleStorage(isCookieEnabled);
-
-  return {
-    localeCookie: storage.localeStorage,
-    setLocaleCookie: storage.setLocaleStorage,
-  };
-};
+export const useLocaleCookie = useLocaleStorage;

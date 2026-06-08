@@ -1,5 +1,6 @@
-import { Schema } from 'mongoose';
-import type { DiscussionSchema } from '@/types/discussion.types';
+import type { RenameId } from '@utils/mongoDB/types';
+import { type Model, model, Schema } from 'mongoose';
+import type { Discussion, DiscussionSchema } from '@/types/discussion.types';
 
 export const discussionSchema = new Schema<DiscussionSchema>(
   {
@@ -31,20 +32,25 @@ export const discussionSchema = new Schema<DiscussionSchema>(
     userId: {
       type: Schema.Types.ObjectId,
       ref: 'user',
-      required: true,
+      required: false,
     },
     projectId: {
       type: Schema.Types.ObjectId,
       ref: 'project',
-      required: true,
+      required: false,
     },
     organizationId: {
       type: Schema.Types.ObjectId,
       ref: 'organization',
-      required: true,
+      required: false,
     },
     title: {
       type: String,
+      required: false,
+    },
+    type: {
+      type: String,
+      enum: ['doc', 'dashboard'],
       required: false,
     },
     isArchived: {
@@ -77,4 +83,9 @@ export const discussionSchema = new Schema<DiscussionSchema>(
       },
     },
   }
+);
+
+export const DiscussionModel = model<RenameId<Discussion>, Model<Discussion>>(
+  'discussion',
+  discussionSchema
 );

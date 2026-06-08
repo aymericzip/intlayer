@@ -1,3 +1,4 @@
+import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type {
   DetailedHTMLProps,
@@ -5,16 +6,15 @@ import type {
   InputHTMLAttributes,
   ReactNode,
 } from 'react';
-import { cn } from '../../utils/cn';
 
 export const checkboxVariants = cva(
   [
     'appearance-none',
-    'pointer relative border-2',
+    'relative cursor-pointer border-2',
     'focus:outline-0',
-    'checked:border-current checked:bg-current checked:hover:bg-current/80',
-    'ring-current/20 ring-offset-current',
-    'hover:bg-current/20',
+    'checked:hover:opacity-80',
+    'ring-offset-background',
+    'hover:bg-neutral-500/10',
     'disabled:opacity-50',
 
     // Ring + animation
@@ -27,6 +27,8 @@ export const checkboxVariants = cva(
 
     // Corner shape
     'rounded-xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl',
+
+    "after:absolute after:-inset-2 after:content-['']",
   ].join(' '),
   {
     variants: {
@@ -34,21 +36,30 @@ export const checkboxVariants = cva(
         default: '',
       },
       size: {
+        xs: 'size-3 rounded-sm',
         sm: 'size-4 rounded-md',
         md: 'size-5 rounded-lg',
         lg: 'size-6 rounded-xl',
       },
       color: {
-        primary: 'accent-primary',
-        secondary: 'accent-secondary',
-        destructive: 'accent-destructive',
-        neutral: 'accent-neutral',
-        light: 'accent-light',
-        text: 'accent-text',
-        dark: 'accent-dark',
-        error: 'accent-error',
-        success: 'accent-success',
-        custom: 'accent-custom',
+        primary:
+          'border-primary/30 text-primary ring-primary/20 checked:border-primary checked:bg-primary',
+        secondary:
+          'border-secondary/30 text-secondary ring-secondary/20 checked:border-secondary checked:bg-secondary',
+        neutral:
+          'border-neutral/30 text-neutral ring-neutral/20 checked:border-neutral checked:bg-neutral',
+        light:
+          'border-white/30 text-white ring-white/20 checked:border-white checked:bg-white',
+        text: 'border-text/30 text-text ring-text/20 checked:border-text checked:bg-text',
+        'text-inverse':
+          'border-text-inverse/30 text-text-inverse ring-text-inverse/20 checked:border-text-inverse checked:bg-text-inverse',
+        dark: 'border-neutral-800/30 text-neutral-800 ring-neutral-800/20 checked:border-neutral-800 checked:bg-neutral-800',
+        error:
+          'border-error/30 text-error ring-error/20 checked:border-error checked:bg-error',
+        success:
+          'border-success/30 text-success ring-success/20 checked:border-success checked:bg-success',
+        custom:
+          'border-custom/30 text-custom ring-custom/20 checked:border-custom checked:bg-custom',
       },
       validationStyleEnabled: {
         disabled: '',
@@ -57,31 +68,26 @@ export const checkboxVariants = cva(
     },
     defaultVariants: {
       variant: 'default',
-      color: 'primary',
+      color: 'text',
       validationStyleEnabled: 'disabled',
       size: 'md',
     },
   }
 );
 
-export enum CheckboxSize {
-  SM = 'sm',
-  MD = 'md',
-  LG = 'lg',
-}
+export type CheckboxSize = 'xs' | 'sm' | 'md' | 'lg';
 
-export enum CheckboxColor {
-  PRIMARY = 'primary',
-  SECONDARY = 'secondary',
-  DESTRUCTIVE = 'destructive',
-  NEUTRAL = 'neutral',
-  LIGHT = 'light',
-  TEXT = 'text',
-  DARK = 'dark',
-  ERROR = 'error',
-  SUCCESS = 'success',
-  CUSTOM = 'custom',
-}
+export type CheckboxColor =
+  | 'primary'
+  | 'secondary'
+  | 'neutral'
+  | 'light'
+  | 'text'
+  | 'text-inverse'
+  | 'dark'
+  | 'error'
+  | 'success'
+  | 'custom';
 
 export type CheckboxProps = Omit<
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
@@ -133,6 +139,7 @@ export const Checkbox: FC<CheckboxProps> = (props) => {
       htmlFor={id ?? name}
       className={cn(
         'flex w-full cursor-pointer items-center gap-x-4 font-medium text-sm',
+        props.size === 'xs' && 'text-xs',
         props.labelClassName
       )}
     >

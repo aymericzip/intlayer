@@ -18,13 +18,13 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-09-20
-    changes: グローバル設定の追加
+    changes: "グローバル設定の追加"
   - version: 6.0.0
     date: 2025-09-17
-    changes: `{{fileName}}` 変数の追加
+    changes: "`{{fileName}}` 変数の追加"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴の初期化
+    changes: "履歴の初期化"
 ---
 
 # 自動入力コンテンツ宣言ファイルの翻訳
@@ -52,8 +52,20 @@ export default exampleContent;
 
 次に、以下のコマンドを実行すると：
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
 Intlayer は、メインファイルにまだ宣言されていないすべてのロケールを埋めて、派生した宣言ファイルを `src/components/example/example.content.json` に自動生成します。

@@ -1,6 +1,7 @@
 import { basename, extname, relative } from 'node:path';
-import { getConfiguration, normalizePath } from '@intlayer/config';
-import { getFileHash } from '../utils/getFileHash';
+import { getConfiguration } from '@intlayer/config/node';
+import { normalizePath } from '@intlayer/config/utils';
+import { getPathHash } from '../utils/getPathHash';
 
 /**
  * This function generates the content of the dictionary list file
@@ -8,23 +9,23 @@ import { getFileHash } from '../utils/getFileHash';
 export const generateDictionaryListContent = (
   dictionaries: string[],
   functionName: string,
+  importType: 'json' | 'javascript',
   format: 'cjs' | 'esm' = 'esm',
   configuration = getConfiguration()
 ): string => {
-  const { mainDir } = configuration.content;
+  const { mainDir } = configuration.system;
 
   let content = '';
 
   const dictionariesRef = dictionaries.map((dictionaryPath) => ({
     relativePath: normalizePath(relative(mainDir, dictionaryPath)),
     id: basename(dictionaryPath, extname(dictionaryPath)), // Get the base name as the dictionary id
-    hash: `_${getFileHash(dictionaryPath)}`, // Get the hash of the dictionary to avoid conflicts
+    hash: `_${getPathHash(dictionaryPath)}`, // Get the hash of the dictionary to avoid conflicts
   }));
 
-  // Import all dictionaries
   dictionariesRef.forEach((dictionary) => {
     if (format === 'esm')
-      content += `import ${dictionary.hash} from '${dictionary.relativePath}' with { type: 'json' };\n`;
+      content += `import ${dictionary.hash} from '${dictionary.relativePath}'${importType === 'json' ? " with { type: 'json' }" : ''};\n`;
     if (format === 'cjs')
       content += `const ${dictionary.hash} = require('${dictionary.relativePath}');\n`;
   });

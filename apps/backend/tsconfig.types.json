@@ -4,11 +4,11 @@
   "include": ["src/**/*", "types/**/*"],
   "exclude": ["**/*.test.*"],
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "outDir": "dist/types",
     "baseUrl": "src",
     "paths": {
       "@controllers/*": ["./controllers/*"],
-      "@models/*": ["./models/*"],
       "@services/*": ["./services/*"],
       "@routes/*": ["./routes/*"],
       "@webhooks/*": ["./webhooks/*"],

@@ -1,73 +1,192 @@
-import { writeFile } from 'node:fs/promises';
-import { join, relative } from 'node:path';
+import { readFile, writeFile } from 'node:fs/promises';
+import { dirname, extname, join, relative } from 'node:path';
+import { loadExternalFile } from '@intlayer/config/file';
 import {
   cacheDisk,
+  getPackageJsonPath,
   getProjectRequire,
-  loadExternalFile,
-} from '@intlayer/config';
-import type { Dictionary, IntlayerConfig } from '@intlayer/types';
+} from '@intlayer/config/utils';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { processContentDeclaration } from '../buildIntlayerDictionary/processContentDeclaration';
-import {
-  filterInvalidDictionaries,
-  isInvalidDictionary,
-} from '../filterInvalidDictionaries';
+import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { parallelize } from '../utils/parallelize';
 import { getIntlayerBundle } from './getIntlayerBundle';
 import type { DictionariesStatus } from './loadDictionaries';
+import { loadMarkdownContentDeclaration } from './loadMarkdownContentDeclaration';
+import { loadYamlContentDeclaration } from './loadYamlContentDeclaration';
+import { logTypeScriptErrors } from './logTypeScriptErrors';
 
 export const formatLocalDictionaries = (
   dictionariesRecord: Record<string, Dictionary>,
   configuration: IntlayerConfig
 ): Dictionary[] =>
-  Object.entries(dictionariesRecord)
-    .filter(([_relativePath, dict]) => isInvalidDictionary(dict, configuration))
-    .map(([relativePath, dict]) => ({
-      ...dict,
-      localId: `${dict.key}::local::${relativePath}`,
-      location: 'local' as const,
-      filePath: relativePath,
-    }));
+  Object.entries(dictionariesRecord).map(([relativePath, dict]) => ({
+    ...dict,
+    location: dict.location ?? configuration.dictionary?.location ?? 'local',
+    localId: `${dict.key}::local::${relativePath}`,
+    filePath: relativePath,
+  }));
 
-export const loadContentDeclarations = async (
-  contentDeclarationFilePath: string[],
-  configuration: IntlayerConfig,
-  onStatusUpdate?: (status: DictionariesStatus[]) => void
-): Promise<Dictionary[]> => {
-  const { build, content } = configuration;
+export const ensureIntlayerBundle = async (
+  configuration: IntlayerConfig
+): Promise<string> => {
+  const { system } = configuration;
 
   const { set, isValid } = cacheDisk(configuration, ['intlayer-bundle'], {
     ttlMs: 1000 * 60 * 60 * 24 * 5, // 5 days
   });
 
-  const filePath = join(content.cacheDir, 'intlayer-bundle.cjs');
+  const filePath = join(system.cacheDir, 'intlayer-bundle.cjs');
   const hasIntlayerBundle = await isValid();
 
-  // If cache is invalid, write the intlayer bundle to the cache
   if (!hasIntlayerBundle) {
     const intlayerBundle = await getIntlayerBundle(configuration);
     await writeFile(filePath, intlayerBundle);
     await set('ok');
   }
 
+  return filePath;
+};
+
+type LoadContentDeclarationOptions = {
+  logError?: boolean;
+};
+
+// Initialize a module-level cache
+let cachedExternalDeps: string[] | null = null;
+
+// Helper to fetch and cache the dependencies
+const getExternalDeps = async (baseDir: string): Promise<string[]> => {
+  if (cachedExternalDeps) {
+    return cachedExternalDeps; // Return instantly on subsequent calls
+  }
+
+  try {
+    const packageJsonPath = getPackageJsonPath(baseDir);
+
+    const packageJSON = await readFile(
+      packageJsonPath.packageJsonPath,
+      'utf-8'
+    );
+    const parsedPackages = JSON.parse(packageJSON);
+    const allDependencies = Object.keys({
+      ...parsedPackages.dependencies,
+      ...parsedPackages.devDependencies,
+    });
+
+    // Specify the ESM packages to bundle
+    const esmPackagesToBundle: string[] = [];
+
+    const externalDeps = allDependencies.filter(
+      (dep) => !esmPackagesToBundle.includes(dep)
+    );
+
+    externalDeps.push('esbuild');
+
+    // Save to cache
+    cachedExternalDeps = externalDeps;
+  } catch (error) {
+    console.warn(
+      'Could not read package.json for externalizing dependencies, fallback to empty array',
+      error
+    );
+    cachedExternalDeps = ['esbuild'];
+  }
+
+  return cachedExternalDeps;
+};
+
+export const loadContentDeclaration = async (
+  path: string,
+  configuration: IntlayerConfig,
+  bundleFilePath?: string,
+  options?: LoadContentDeclarationOptions
+): Promise<Dictionary | undefined> => {
+  if (extname(path) === '.md' || extname(path) === '.mdx') {
+    return loadMarkdownContentDeclaration(path);
+  }
+
+  if (extname(path) === '.yaml' || extname(path) === '.yml') {
+    return loadYamlContentDeclaration(path);
+  }
+
+  const { build, system } = configuration;
+
+  // Call the cached helper
+  const externalDeps = await getExternalDeps(system.baseDir);
+
+  const resolvedBundleFilePath =
+    bundleFilePath ?? (await ensureIntlayerBundle(configuration));
+
+  try {
+    const dictionary = await loadExternalFile(path, {
+      logError: options?.logError,
+      projectRequire: build.require ?? getProjectRequire(),
+      buildOptions: {
+        packages: undefined, // It fixes the import of ESM packages in the content declaration
+        external: externalDeps,
+        banner: {
+          js: [
+            `var __filename = ${JSON.stringify(path)};`,
+            `var __dirname = ${JSON.stringify(dirname(path))};`,
+            // Also set on the VM sandbox's globalThis for VM-internal code.
+            // External modules (e.g. @intlayer/core's file()) run in the main
+            // Node.js context and are handled by preloadGlobals below.
+            `globalThis.INTLAYER_FILE_PATH = '${path}';`,
+            `globalThis.INTLAYER_BASE_DIR = '${configuration.system.baseDir}';`,
+          ].join('\n'),
+        },
+      },
+      aliases: {
+        intlayer: resolvedBundleFilePath,
+      },
+      // Temporarily expose these on the main Node.js globalThis so that external
+      // modules required inside the VM (e.g. @intlayer/core's file() helper)
+      // can resolve relative paths against the correct content declaration path.
+      preloadGlobals: {
+        INTLAYER_FILE_PATH: path,
+        INTLAYER_BASE_DIR: configuration.system.baseDir,
+      },
+    });
+
+    return dictionary;
+  } catch (error) {
+    console.error(`Error loading content declaration at ${path}:`, error);
+    return undefined;
+  }
+};
+
+export const loadContentDeclarations = async (
+  contentDeclarationFilePath: string[],
+  configuration: IntlayerConfig,
+  onStatusUpdate?: (status: DictionariesStatus[]) => void,
+  options?: LoadContentDeclarationOptions
+): Promise<Dictionary[]> => {
+  const { build, system } = configuration;
+
+  // Check for TypeScript warnings before we build
+  if (build.checkTypes) {
+    logTypeScriptErrors(contentDeclarationFilePath, configuration).catch(
+      (e) => {
+        console.error('Error during TypeScript validation:', e);
+      }
+    );
+  }
+
+  const bundleFilePath = await ensureIntlayerBundle(configuration);
+
   try {
     const dictionariesPromises = contentDeclarationFilePath.map(
       async (path) => {
-        const relativePath = relative(configuration.content.baseDir, path);
+        const relativePath = relative(system.baseDir, path);
 
-        const dictionary = await loadExternalFile(path, {
-          projectRequire: build.require ?? getProjectRequire(),
-          buildOptions: {
-            banner: {
-              js: [
-                `globalThis.INTLAYER_FILE_PATH = '${path}';`,
-                `globalThis.INTLAYER_BASE_DIR = '${configuration.content.baseDir}';`,
-              ].join('\n'),
-            },
-          },
-          aliases: {
-            intlayer: filePath,
-          },
-        });
+        const dictionary = await loadContentDeclaration(
+          path,
+          configuration,
+          bundleFilePath,
+          options
+        );
 
         return { relativePath, dictionary };
       }
@@ -76,7 +195,9 @@ export const loadContentDeclarations = async (
     const dictionariesArray = await Promise.all(dictionariesPromises);
     const dictionariesRecord = dictionariesArray.reduce(
       (acc, { relativePath, dictionary }) => {
-        acc[relativePath] = dictionary;
+        if (dictionary) {
+          acc[relativePath] = dictionary;
+        }
         return acc;
       },
       {} as Record<string, Dictionary>
@@ -85,7 +206,7 @@ export const loadContentDeclarations = async (
     const contentDeclarations: Dictionary[] = formatLocalDictionaries(
       dictionariesRecord,
       configuration
-    );
+    ).filter((dictionary) => dictionary.location !== 'remote');
 
     const listFoundDictionaries = contentDeclarations.map((declaration) => ({
       dictionaryKey: declaration.key,
@@ -111,7 +232,8 @@ export const loadContentDeclarations = async (
         ]);
 
         const processedContentDeclaration = await processContentDeclaration(
-          contentDeclaration as Dictionary
+          contentDeclaration as Dictionary,
+          configuration
         );
 
         if (!processedContentDeclaration) {
@@ -130,8 +252,12 @@ export const loadContentDeclarations = async (
       }
     );
 
-    return filterInvalidDictionaries(processedDictionaries, configuration);
-  } finally {
-    // await rm(tempFilePath, { recursive: true });
+    return filterInvalidDictionaries(processedDictionaries, configuration, {
+      checkSchema: false,
+    });
+  } catch {
+    console.error('Error loading content declarations');
   }
+
+  return [];
 };

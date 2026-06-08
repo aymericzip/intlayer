@@ -21,8 +21,26 @@ slugs:
 
 `doc review` 명령어는 다양한 로케일에서 문서 파일의 품질, 일관성 및 완전성을 분석합니다.
 
-```bash
+## 주요 사항:
+
+- AI 모델의 컨텍스트 창 제한 내에서 유지하기 위해 큰 마크다운 파일을 청크로 분할합니다.
+- 검토할 청크를 최적화하고 이미 번역되었으며 변경되지 않은 부분을 건너뜁니다.
+- 큐 시스템을 사용하여 파일, 청크 및 로케일을 병렬로 처리하여 속도를 높입니다.
+
+```bash packageManager="npm"
 npx intlayer doc review
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc review
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc review
+```
+
+```bash packageManager="bun"
+bun x intlayer doc review
 ```
 
 이미 번역된 파일을 검토하거나 번역이 올바른지 확인하는 데 사용할 수 있습니다.

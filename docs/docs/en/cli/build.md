@@ -13,23 +13,51 @@ slugs:
   - concept
   - cli
   - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: "Add checkTypes option"
 ---
 
 # Build Dictionaries
 
 To build your dictionaries, you can run the commands:
 
-```bash
+```bash packageManager="npm"
 npx intlayer build
+```
+
+```bash packageManager="yarn"
+yarn intlayer build
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build
+```
+
+```bash packageManager="bun"
+bun x intlayer build
 ```
 
 or in watch mode
 
-```bash
+```bash packageManager="npm"
 npx intlayer build --watch
 ```
 
-This command will find your declaration content files as default as `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`. And build the dictionaries in the `.intlayer` directory.
+```bash packageManager="yarn"
+yarn intlayer build --watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build --watch
+```
+
+```bash packageManager="bun"
+bun x intlayer build --watch
+```
+
+This command will find your declaration content files as default as `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. And build the dictionaries in the `.intlayer` directory.
 
 ## Aliases:
 
@@ -62,3 +90,7 @@ This command will find your declaration content files as default as `./src/**/*.
 - **`--no-cache`**: Disable the cache.
 
   > Example: `npx intlayer build --no-cache`
+
+- **`--check-types`**: Check types of the content declaration files.
+
+  > Example: `npx intlayer build --check-types`

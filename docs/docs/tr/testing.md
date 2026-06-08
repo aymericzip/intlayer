@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-09-20
-    changes: Testlerin tanıtımı
+    changes: "Testlerin tanıtımı"
 ---
 
 # İçeriğinizi test etme
@@ -37,8 +37,20 @@ Bu rehber, sözlüklerinizin eksiksiz olduğunu otomatik olarak nasıl doğrulay
 
 Denetimi proje kök dizininizden çalıştırın:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 Faydalı bayraklar:
@@ -182,8 +194,20 @@ jobs:
 
 İsteğe bağlı: testlerle birlikte insan tarafından okunabilir bir özet için CLI denetimini çalıştırın:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 ---

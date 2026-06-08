@@ -6,6 +6,10 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "dist/types",
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "paths": {
+      "@intlayer/backend": ["../../../apps/backend/src/export"],
+      "intlayer-editor": ["../../intlayer-editor/server/src/exports"]
+    }
   }
 }

@@ -1,329 +1,284 @@
-import { getLocalizedUrl } from '@intlayer/core';
-import type { LocalesValues } from '@intlayer/types';
+import { getLocalizedUrl } from '@intlayer/core/localization';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { ExternalLink, MoveRight } from 'lucide-react';
-import type { AnchorHTMLAttributes, DetailedHTMLProps, FC } from 'react';
-import { cn } from '../../utils/cn';
+import {
+  type AnchorHTMLAttributes,
+  type DetailedHTMLProps,
+  type FC,
+  isValidElement,
+  type ReactNode,
+} from 'react';
 
-/**
- * Visual style variants for Link component
- *
- * @enum {string}
- */
-export enum LinkVariant {
-  /** Default underlined link with hover effects */
-  DEFAULT = 'default',
-  /** Link without visible underline or hover effects */
-  INVISIBLE_LINK = 'invisible-link',
-  /** Button-styled link with solid background */
-  BUTTON = 'button',
-  /** Button-styled link with outlined border */
-  BUTTON_OUTLINED = 'button-outlined',
-  /** Link with subtle hover background effect */
-  HOVERABLE = 'hoverable',
-}
+export type LinkVariant =
+  | 'default'
+  | 'invisible-link'
+  | 'button'
+  | 'button-outlined'
+  | 'hoverable';
 
 /**
  * Color theme variants for Link component
- *
- * @enum {string}
  */
-export enum LinkColor {
-  /** Primary brand color */
-  PRIMARY = 'primary',
-  /** Secondary brand color */
-  SECONDARY = 'secondary',
-  /** Destructive/danger color for critical actions */
-  DESTRUCTIVE = 'destructive',
-  /** Neutral/muted color for less prominent links */
-  NEUTRAL = 'neutral',
-  /** Light color for dark backgrounds */
-  LIGHT = 'light',
-  /** Dark color for light backgrounds */
-  DARK = 'dark',
-  /** Default text color */
-  TEXT = 'text',
-  /** Inverse text color for opposite backgrounds */
-  TEXT_INVERSE = 'text-inverse',
-  /** Error/red color for error states */
-  ERROR = 'error',
-  /** Success/green color for positive actions */
-  SUCCESS = 'success',
-  /** Custom color - no default styling applied */
-  CUSTOM = 'custom',
-}
+export type LinkColor =
+  | 'primary'
+  | 'secondary'
+  | 'neutral'
+  | 'light'
+  | 'dark'
+  | 'text'
+  | 'text-inverse'
+  | 'error'
+  | 'success'
+  | 'custom';
 
-/** Available rounded corner sizes for the container */
-export enum LinkRoundedSize {
-  NONE = 'none',
-  SM = 'sm',
-  MD = 'md',
-  LG = 'lg',
-  XL = 'xl',
-  TWO_XL = '2xl',
-  THREE_XL = '3xl',
-  FULL = 'full',
-}
+export type LinkRoundedSize =
+  | 'none'
+  | 'sm'
+  | 'md'
+  | 'lg'
+  | 'xl'
+  | '2xl'
+  | '3xl'
+  | 'full';
 
-export enum LinkSize {
-  SM = 'sm',
-  MD = 'md',
-  LG = 'lg',
-  XL = 'xl',
-  CUSTOM = 'custom',
-}
+export type LinkSize = 'sm' | 'md' | 'lg' | 'xl' | 'custom';
 
-/**
- * Underline style options for Link component
- *
- * @enum {string}
- */
-export enum LinkUnderlined {
-  /** Default underline behavior based on variant */
-  DEFAULT = 'default',
-  /** Always show underline */
-  TRUE = 'true',
-  /** Never show underline */
-  FALSE = 'false',
-}
+export type LinkUnderlined = 'default' | 'true' | 'false';
 
-/**
- * Class variance authority configuration for Link component styling
- * Defines the visual appearance based on variant, color, and underline options
- */
 export const linkVariants = cva(
   'gap-3 transition-all duration-300 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
-        [`${LinkVariant.DEFAULT}`]:
-          'h-auto justify-start border-inherit bg-current/0 px-1 underline-offset-4 hover:bg-current/0 hover:underline',
-        [`${LinkVariant.INVISIBLE_LINK}`]:
-          'h-auto justify-start border-inherit bg-current/0 px-1 underline-offset-4 hover:bg-current/0',
+        default:
+          'h-auto justify-start border-inherit bg-current/0 px-1 font-medium decoration-[1.5] underline-offset-5 hover:bg-current/0 hover:text-current/80 hover:underline hover:underline-offset-6',
+        'invisible-link':
+          'h-auto justify-start border-inherit bg-current/0 px-1 underline-offset-5 hover:bg-current/0 aria-[current]:bg-current/5',
 
-        [`${LinkVariant.BUTTON}`]:
-          'relative flex cursor-pointer flex-row items-center justify-center gap-2 rounded-full bg-current text-center font-medium text-text ring-0 *:text-text-opposite hover:bg-current/90 hover:ring-5 aria-selected:ring-5',
+        button:
+          'relative inline-flex min-h-8 cursor-pointer flex-row items-center justify-center gap-2 rounded-full bg-current px-6 text-center font-medium text-sm text-text ring-0 *:text-text-opposite hover:bg-current/90 hover:ring-5 aria-selected:ring-5 aria-[current]:ring-5 max-md:py-2',
 
-        [`${LinkVariant.BUTTON_OUTLINED}`]:
-          'relative flex cursor-pointer flex-row items-center justify-center gap-2 rounded-full border-[1.3px] border-current text-center font-medium text-text ring-0 *:text-text hover:bg-current/20 hover:ring-5 aria-selected:ring-5',
+        'button-outlined':
+          'relative inline-flex min-h-8 cursor-pointer flex-row items-center justify-center gap-2 rounded-full border-[1.3px] border-current px-6 text-center font-medium text-sm text-text ring-0 *:text-text hover:bg-current/20 hover:ring-5 aria-selected:ring-5 aria-[current]:ring-5 max-md:py-2',
 
-        [`${LinkVariant.HOVERABLE}`]:
-          'block rounded-lg border-none bg-current/0 hover:bg-current/10 aria-[current]:bg-current/5',
+        hoverable:
+          'rounded-lg border-none bg-current/0 transition *:text-current! hover:bg-current/10 aria-[current]:bg-current/5',
       },
       roundedSize: {
-        [`${LinkRoundedSize.NONE}`]: 'rounded-none',
-        [`${LinkRoundedSize.SM}`]:
-          'rounded-lg [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-xl',
-        [`${LinkRoundedSize.MD}`]:
-          'rounded-xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl',
-        [`${LinkRoundedSize.LG}`]:
-          'rounded-2xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-3xl',
-        [`${LinkRoundedSize.XL}`]:
-          'rounded-3xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-4xl',
-        [`${LinkRoundedSize.TWO_XL}`]:
+        none: 'rounded-none',
+        sm: 'rounded-lg [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-xl',
+        md: 'rounded-xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl',
+        lg: 'rounded-2xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-3xl',
+        xl: 'rounded-3xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-4xl',
+        '2xl':
           'rounded-4xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-[2.5rem]',
-        [`${LinkRoundedSize.THREE_XL}`]:
+        '3xl':
           'rounded-[2.5rem] [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-[3rem]',
-        [`${LinkRoundedSize.FULL}`]: 'rounded-full',
+        full: 'rounded-full',
       },
       color: {
-        [`${LinkColor.PRIMARY}`]: 'text-primary',
-        [`${LinkColor.SECONDARY}`]: 'text-secondary',
-        [`${LinkColor.DESTRUCTIVE}`]: 'text-destructive',
-        [`${LinkColor.NEUTRAL}`]: 'text-neutral',
-        [`${LinkColor.LIGHT}`]: 'text-white',
-        [`${LinkColor.DARK}`]: 'text-neutral-800',
-        [`${LinkColor.TEXT}`]: 'text-text',
-        [`${LinkColor.TEXT_INVERSE}`]: 'text-text-opposite',
-        [`${LinkColor.ERROR}`]: 'text-error',
-        [`${LinkColor.SUCCESS}`]: 'text-success',
-        [`${LinkColor.CUSTOM}`]: '',
+        primary: 'text-primary',
+        secondary: 'text-secondary',
+        neutral: 'text-neutral',
+        light: 'text-white',
+        dark: 'text-neutral-800',
+        text: 'text-text',
+        'text-inverse': 'text-text-opposite',
+        error: 'text-error',
+        success: 'text-success',
+        custom: '',
       },
       size: {
-        [`${LinkSize.SM}`]: 'text-sm',
-        [`${LinkSize.MD}`]: 'text-base',
-        [`${LinkSize.LG}`]: 'text-lg',
-        [`${LinkSize.XL}`]: 'text-xl',
-        [`${LinkSize.CUSTOM}`]: '',
+        sm: 'text-sm',
+        md: 'text-base',
+        lg: 'text-lg',
+        xl: 'text-xl',
+        custom: '',
       },
       underlined: {
-        [LinkUnderlined.DEFAULT]: '',
-        [LinkUnderlined.TRUE]: 'underline',
-        [LinkUnderlined.FALSE]: 'no-underline',
+        default: '',
+        true: 'underline',
+        false: 'no-underline',
       },
     },
     // Compound variants handle height and padding
     compoundVariants: [
+      // ---------------------------------------------------------
+      // FIX START: Correctly Handle Contrast for TEXT_INVERSE
+      // ---------------------------------------------------------
+      {
+        // Filled Button + Inverse Color (e.g., White Button):
+        // We DO NOT override parent text color (it must remain 'text-opposite' so bg-current is white).
+        // We ONLY override children to be 'text-text' (Dark) so they show up on white.
+        variant: 'button',
+        color: 'text-inverse',
+        class: '*:text-text',
+      },
+      {
+        // Outlined Button + Inverse Color (e.g., White Border):
+        // Parent is 'text-opposite' (Border is white).
+        // Children must also be 'text-opposite' (White text) to show on dark background.
+        variant: 'button-outlined',
+        color: 'text-inverse',
+        class: 'text-text-opposite *:text-text-opposite',
+      },
+
       // Min height and padding for button variants
       {
-        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
-        size: LinkSize.SM,
-        class: 'min-h-7 px-3 max-md:py-1',
+        variant: ['button', 'button-outlined'],
+        size: 'sm',
+        class: 'min-h-7 px-3 text-xs max-md:py-1',
       },
       {
-        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
-        size: LinkSize.MD,
-        class: 'min-h-8 px-6 max-md:py-2',
+        variant: ['button', 'button-outlined'],
+        size: 'md',
+        class: 'min-h-8 px-6 text-sm max-md:py-2',
       },
       {
-        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
-        size: LinkSize.LG,
-        class: 'min-h-10 px-8 max-md:py-3',
+        variant: ['button', 'button-outlined'],
+        size: 'lg',
+        class: 'min-h-10 px-8 text-lg max-md:py-3',
       },
       {
-        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
-        size: LinkSize.XL,
-        class: 'min-h-11 px-10 max-md:py-4',
+        variant: ['button', 'button-outlined'],
+        size: 'xl',
+        class: 'min-h-11 px-10 text-xl max-md:py-4',
       },
-      // Ring color variants for button (Chrome bug fix: ring-current/20 doesn't work properly)
+      // Ring color variants
       {
-        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
-        color: LinkColor.PRIMARY,
+        variant: ['button', 'button-outlined'],
+        color: 'primary',
         class: 'ring-primary/20',
       },
       {
-        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
-        color: LinkColor.SECONDARY,
+        variant: ['button', 'button-outlined'],
+        color: 'secondary',
         class: 'ring-secondary/20',
       },
       {
-        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
-        color: LinkColor.DESTRUCTIVE,
-        class: 'ring-destructive/20',
-      },
-      {
-        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
-        color: LinkColor.NEUTRAL,
+        variant: ['button', 'button-outlined'],
+        color: 'neutral',
         class: 'ring-neutral/20',
       },
       {
-        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
-        color: LinkColor.LIGHT,
+        variant: ['button', 'button-outlined'],
+        color: 'light',
         class: 'ring-white/20',
       },
       {
-        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
-        color: LinkColor.DARK,
+        variant: ['button', 'button-outlined'],
+        color: 'dark',
         class: 'ring-neutral-800/20',
       },
       {
-        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
-        color: LinkColor.TEXT,
+        variant: ['button', 'button-outlined'],
+        color: 'text',
         class: 'ring-text/20',
       },
       {
-        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
-        color: LinkColor.TEXT_INVERSE,
+        variant: ['button', 'button-outlined'],
+        color: 'text-inverse',
         class: 'ring-text-opposite/20',
       },
       {
-        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
-        color: LinkColor.ERROR,
+        variant: ['button', 'button-outlined'],
+        color: 'error',
         class: 'ring-error/20',
       },
       {
-        variant: [LinkVariant.BUTTON, LinkVariant.BUTTON_OUTLINED],
-        color: LinkColor.SUCCESS,
+        variant: ['button', 'button-outlined'],
+        color: 'success',
         class: 'ring-success/20',
       },
     ],
 
     defaultVariants: {
-      variant: LinkVariant.DEFAULT,
-      color: LinkColor.PRIMARY,
-      roundedSize: LinkRoundedSize.MD,
-      underlined: LinkUnderlined.DEFAULT,
-      size: LinkSize.MD,
+      variant: 'default',
+      roundedSize: 'md',
+      underlined: 'default',
+      size: 'custom',
     },
   }
 );
 
-/**
- * Props interface for the Link component
- *
- * @interface LinkProps
- * @extends {DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>}
- * @extends {VariantProps<typeof linkVariants>}
- */
 export type LinkProps = DetailedHTMLProps<
   AnchorHTMLAttributes<HTMLAnchorElement>,
   HTMLAnchorElement
 > &
   VariantProps<typeof linkVariants> & {
-    /**
-     * Accessible label for screen readers (required)
-     * Provides context about what the link does or where it leads
-     * @example "Navigate to home page"
-     */
     label: string;
-
-    /**
-     * Whether this link opens in a new tab/window
-     * When true, adds target="_blank" and security attributes
-     * Auto-detected for URLs starting with http/https when undefined
-     * @default undefined (auto-detect based on href)
-     */
     isExternalLink?: boolean;
-
-    /**
-     * If a link is a page section as '#id'
-     * @default false
-     */
     isPageSection?: boolean;
-
-    /**
-     * Whether this link represents the current page/active state
-     * Adds aria-current="page" for accessibility
-     * @default false
-     */
     isActive?: boolean;
-
-    /**
-     * Locale for internationalized URLs
-     * When provided, URLs are automatically localized using Intlayer
-     * @example 'fr', 'es', 'en'
-     */
     locale?: LocalesValues;
   };
 
-/**
- * Utility function to determine if a link should be treated as external
- *
- * @param props - Link component props containing href and isExternalLink
- * @returns {boolean} True if the link should open externally
- *
- * @example
- * ```tsx
- * checkIsExternalLink({ href: '[https://example.com](https://example.com)' }) // true
- * checkIsExternalLink({ href: '/internal-page' }) // false
- * checkIsExternalLink({ href: '/page', isExternalLink: true }) // true
- * ```
- */
-export const checkIsExternalLink = ({
-  href,
-  isExternalLink: isExternalLinkProp,
-}: LinkProps): boolean => {
-  const isValidHref = typeof href === 'string' && href.trim() !== '';
-  const isExternalLink =
-    isExternalLinkProp === true ||
-    (typeof isExternalLinkProp === 'undefined' &&
-      isValidHref &&
-      /^https?:\/\//.test(href));
+export const checkIsExternalLink = (
+  {
+    href,
+    isExternalLink: isExternalLinkProp,
+  }: Pick<LinkProps, 'href' | 'isExternalLink'>,
+  url?: string
+): boolean => {
+  // Explicit prop override takes precedence
+  if (typeof isExternalLinkProp === 'boolean') {
+    return isExternalLinkProp;
+  }
 
-  return isExternalLink;
+  const isValidHref = typeof href === 'string' && href.trim() !== '';
+
+  if (!isValidHref) return false;
+
+  // Relative URLs (e.g., '/about') are always internal
+  if (!/^https?:\/\//.test(href)) {
+    return false;
+  }
+
+  // Compare base domains
+  if (url) {
+    try {
+      const hrefHost = new URL(href).hostname;
+      // Ensure the reference url has a protocol so URL() can parse it correctly
+      const currentHost = new URL(
+        url.startsWith('http') ? url : `https://${url}`
+      ).hostname;
+
+      // Extract the root domain (e.g., 'app.intlayer.org' -> 'intlayer.org')
+      const getBaseDomain = (host: string) =>
+        host.split('.').slice(-2).join('.');
+
+      return getBaseDomain(hrefHost) !== getBaseDomain(currentHost);
+    } catch {
+      // If URL parsing fails for any reason, default to treating it as external
+      return true;
+    }
+  }
+
+  // Absolute URL with no comparison URL provided
+  return true;
 };
 
-/**
- * Link Component
- *
- * A versatile link component that handles both internal and external navigation
- * with comprehensive internationalization support and multiple visual variants.
- * ...
- */
+export const isTextChildren = (children: ReactNode): boolean => {
+  if (typeof children === 'string' || typeof children === 'number') {
+    return true;
+  }
+  if (Array.isArray(children)) {
+    return children.every(isTextChildren);
+  }
+  if (isValidElement(children)) {
+    return isTextChildren(
+      (children.props as { children?: ReactNode }).children
+    );
+  }
+  return false;
+};
+
 export const Link: FC<LinkProps> = (props) => {
   const {
-    variant = LinkVariant.DEFAULT,
-    color = LinkColor.PRIMARY,
+    variant = 'default',
+    color = 'custom',
     roundedSize,
     children,
     label,
@@ -331,26 +286,31 @@ export const Link: FC<LinkProps> = (props) => {
     isActive,
     underlined,
     locale,
-    size,
+    size: sizeProp,
     isExternalLink: isExternalLinkProp,
     isPageSection: isPageSectionProp,
     href: hrefProp,
     ...otherProps
   } = props;
 
+  const isButton = variant === 'button' || variant === 'button-outlined';
+  const size = sizeProp ?? (isButton ? 'md' : 'custom');
+
   const isExternalLink = isExternalLinkProp ?? checkIsExternalLink(props);
   const isPageSection = isPageSectionProp ?? hrefProp?.startsWith('#') ?? false;
 
-  const isChildrenString = typeof children === 'string';
+  const isChildrenString = isTextChildren(children);
 
   const rel = isExternalLink ? 'noopener noreferrer nofollow' : undefined;
 
   const target = isExternalLink ? '_blank' : '_self';
 
-  const href =
+  const resolvedHref =
     locale && hrefProp && !isExternalLink && !isPageSection
       ? getLocalizedUrl(hrefProp, locale)
       : hrefProp;
+
+  const href = resolvedHref === '' ? undefined : resolvedHref;
 
   return (
     <a
@@ -359,6 +319,7 @@ export const Link: FC<LinkProps> = (props) => {
       rel={rel}
       target={target}
       aria-current={isActive ? 'page' : undefined}
+      suppressHydrationWarning
       className={cn(
         linkVariants({
           variant,
@@ -371,7 +332,7 @@ export const Link: FC<LinkProps> = (props) => {
       )}
       {...otherProps}
     >
-      {children}
+      {isButton && isChildrenString ? <span>{children}</span> : children}
 
       {isExternalLink && isChildrenString && (
         <ExternalLink className="ml-2 inline-block size-4" />

@@ -99,7 +99,7 @@ Sự đánh đổi này (kích thước đoạn so với phần chồng lấn) l
 
 ## Bước 3: Tạo Embeddings
 
-Khi tài liệu đã được chia nhỏ, chúng ta tạo ra **embeddings** — các vector đa chiều đại diện cho mỗi đoạn.
+Khi tài liệu đã được chia nhỏ, chúng ta tạo ra **embeddings**, các vector đa chiều đại diện cho mỗi đoạn.
 
 Tôi đã sử dụng mô hình text-embedding-3-large của OpenAI, nhưng bạn có thể dùng bất kỳ mô hình embedding hiện đại nào.
 

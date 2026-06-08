@@ -1,11 +1,9 @@
-'use client';
-
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
-  Dictionary,
   LocalesValues,
   StrictModeLocaleMap,
-} from '@intlayer/types';
+} from '@intlayer/types/module_augmentation';
 import { useContext, useMemo } from 'preact/hooks';
 import { IntlayerClientContext } from './IntlayerProvider';
 import { useDictionary } from './useDictionary';
@@ -15,17 +13,14 @@ import { useDictionary } from './useDictionary';
  *
  * If the locale is not provided, it will use the locale from the client context
  */
-export const useDictionaryAsync = async <T extends Dictionary>(
+export const useDictionaryAsync = async <const T extends Dictionary>(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   locale?: LocalesValues
 ): Promise<T> => {
-  const { locale: currentLocale } = useContext(IntlayerClientContext);
+  const { locale: currentLocale } = useContext(IntlayerClientContext) ?? {};
 
   const localeTarget = useMemo(
-    () =>
-      locale ??
-      currentLocale ??
-      configuration?.internationalization.defaultLocale,
+    () => locale ?? currentLocale ?? internationalization.defaultLocale,
     [currentLocale, locale]
   );
 

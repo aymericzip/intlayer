@@ -20,15 +20,19 @@ const allDependencies = {
 
 /** @type {(id: string) => boolean} */
 export const isExternal = (id) => {
-  // Externalize all dependencies like @intlayer/core, @intlayer/docs, etc.
-  if (id in allDependencies) return true;
-
   // Externalize all builtin modules like fs, path, etc.
-  if (id in builtinModules) return true;
+  if (id in builtinModules || id.startsWith('node:')) return true;
 
-  if (id.startsWith('node:')) return true;
+  if (['fsevents', 'os'].includes(id)) return true;
 
-  if (['fsevents'].includes(id)) return true;
+  if (id.includes('node_modules')) return true;
+
+  // Example: if 'next' is a dependency, 'next/link' should also be external
+  const isDep = Object.keys(allDependencies).some(
+    (dep) => id === dep || id.startsWith(`${dep}/`)
+  );
+
+  if (isDep) return true;
 
   return false;
 };
@@ -44,17 +48,20 @@ export const commonOptions = {
     '!src/**/__tests__/**',
   ],
   ignoreWatch: ['dist', 'node_modules'],
-  target: 'esnext',
   dts: false,
   clean: process.env.NODE_ENV === 'production',
   sourcemap: true,
   platform: 'browser',
   unbundle: true,
+  treeshake: true,
   minify: false,
+  target: 'es2022',
   fixedExtension: true,
   tsconfig: './tsconfig.json',
-  // Externalize ALL bare imports (i.e., all packages)
-  external: isExternal,
+  deps: {
+    // Externalize ALL bare imports (i.e., all packages)
+    neverBundle: isExternal,
+  },
   plugins: [AssetPlugin()],
 };
 

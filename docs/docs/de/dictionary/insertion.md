@@ -17,9 +17,12 @@ slugs:
   - content
   - insertion
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: "Automatische Dekoration von Insertion-Inhalten"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Initiale Historie
+    changes: "Initiale Historie"
 ---
 
 # Einfügeinhalt / Einfügung in Intlayer
@@ -32,55 +35,69 @@ Wenn Intlayer mit React Intlayer oder Next Intlayer integriert ist, können Sie 
 
 ## Einfügeinhalt einrichten
 
-Um Einfügeinhalt in Ihrem Intlayer-Projekt einzurichten, erstellen Sie ein Inhaltsmodul, das Ihre Einfügedefinitionen enthält. Nachfolgend finden Sie Beispiele in verschiedenen Formaten.
+Um Einfügeinhalt in Ihrem Intlayer-Projekt einzurichten, erstellen Sie ein Inhaltsmodul, das Ihre Einfügedefinitionen enthält.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { insert, type Dictionary } from "intlayer";
+<Tabs>
+  <Tab label="Manuelles Wrapping" value="manual-wrapping">
+    Verwenden Sie die Funktion `insert`, um Einfügeinhalt explizit zu deklarieren.
 
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert(
-      "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!"
-    ),
-  },
-} satisfies Dictionary;
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
+    import { insert, type Dictionary } from "intlayer";
 
-export default myInsertionContent;
-```
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert(
+          "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!"
+        ),
+      },
+    } satisfies Dictionary;
 
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { insert } from "intlayer";
+    export default myInsertionContent;
+    ```
 
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert(
-      "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!"
-    ),
-  },
-};
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": {
+          "nodeType": "insertion",
+          "insertion": "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!",
+        },
+      },
+    }
+    ```
 
-export default myInsertionContent;
-```
+  </Tab>
+  <Tab label="Automatische Erkennung" value="automatic-detection">
+    Wenn der String gängige Einfügeindikatoren (wie `{{name}}`) enthält, wird Intlayer ihn automatisch transformieren.
 
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { insert } = require("intlayer");
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
+    import { type Dictionary } from "intlayer";
 
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert(
-      "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!"
-    ),
-  },
-};
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!",
+      },
+    } satisfies Dictionary;
 
-module.exports = myInsertionContent;
-```
+    export default myInsertionContent;
+    ```
+
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!",
+      },
+    }
+    ```
+
+  </Tab>
+</Tabs>
 
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
 {
@@ -91,6 +108,7 @@ module.exports = myInsertionContent;
       "nodeType": "insertion",
       "insertion": "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!",
     },
+    "myInsertion2": "Hallo, mein Name ist {{name}} und ich bin {{age}} Jahre alt!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 }
 ```
@@ -103,7 +121,7 @@ markdown
 
 Um Einfügeinhalte innerhalb einer React-Komponente zu verwenden, importieren Sie den `useIntlayer`-Hook aus dem `react-intlayer`-Paket und verwenden ihn. Dieser Hook ruft den Inhalt für den angegebenen Schlüssel ab und ermöglicht es Ihnen, ein Objekt zu übergeben, das jeden Platzhalter in Ihrem Inhalt auf den Wert abbildet, den Sie anzeigen möchten.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -131,65 +149,11 @@ const InsertionComponent: FC = () => {
 export default InsertionComponent;
 ```
 
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Ausgabe: "Hallo, mein Name ist John und ich bin 30 Jahre alt!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* Sie können dieselbe Einfügung mit unterschiedlichen Werten wiederverwenden */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-export default InsertionComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Ausgabe: "Hallo, mein Name ist John und ich bin 30 Jahre alt!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* Sie können denselben Einfügeinhalt mit unterschiedlichen Werten wiederverwenden */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = InsertionComponent;
-```
-
 ## Zusätzliche Ressourcen
 
 Für detailliertere Informationen zur Konfiguration und Nutzung verweisen wir auf die folgenden Ressourcen:
 
-- [Intlayer CLI Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md)
+- [Intlayer CLI Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md)
 - [React Intlayer Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_create_react_app.md)
 - [Next Intlayer Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_with_nextjs_15.md)
 

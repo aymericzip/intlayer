@@ -18,13 +18,13 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-09-20
-    changes: Adicionada configuração global
+    changes: "Adicionada configuração global"
   - version: 6.0.0
     date: 2025-09-17
-    changes: Adicionada variável `{{fileName}}`
+    changes: "Adicionada variável `{{fileName}}`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Histórico inicial
+    changes: "Histórico inicial"
 ---
 
 # Traduções de Arquivos de Declaração de Conteúdo com Preenchimento Automático
@@ -53,8 +53,20 @@ Aqui está um [arquivo de declaração de conteúdo por localidade](https://gith
 
 Então, quando você executar o seguinte comando:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
 O Intlayer irá gerar automaticamente o arquivo de declaração derivado em `src/components/example/example.content.json`, preenchendo todos os locais que ainda não foram declarados no arquivo principal.

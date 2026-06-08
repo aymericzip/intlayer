@@ -1,11 +1,12 @@
-import {
-  type DeclaredLocales,
-  type DictionaryKeys,
-  type KeyPath,
-  type Locale,
-  type LocalesValues,
-  NodeType,
-} from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import type {
+  DeclaredLocales,
+  DictionaryKeys,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
+import type { NodeType } from '@intlayer/types/nodeType';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import type {
   ConditionContent,
   EnumerationContent,
@@ -14,6 +15,8 @@ import type {
   GenderContent,
   InsertionContent,
   NestedContent,
+  PluralContent,
+  PluralContentState,
   TranslationContent,
 } from '../../transpiler';
 import { getCondition } from '../getCondition';
@@ -21,11 +24,16 @@ import { getEnumeration } from '../getEnumeration';
 import { getGender } from '../getGender';
 import { getInsertion } from '../getInsertion';
 import { type GetNestingResult, getNesting } from '../getNesting';
+import { getPlural } from '../getPlural';
 import { getTranslation } from '../getTranslation';
 
+// ── Tree-shake constants ──────────────────────────────────────────────────────
+// When these env vars are injected at build time, bundlers eliminate the
+// branches guarded by these constants.
+
 /** ---------------------------------------------
- *  PLUGIN DEFINITION
- *  --------------------------------------------- */
+ * PLUGIN DEFINITION
+ * --------------------------------------------- */
 
 /**
  * A plugin/transformer that can optionally transform a node during a single DFS pass.
@@ -45,256 +53,418 @@ export type Plugins = {
 };
 
 /** ---------------------------------------------
- *  TRANSLATION PLUGIN
- *  --------------------------------------------- */
+ * FALLBACK PLUGIN
+ *
+ * Used to fallback a tree-shaken plugin
+ * --------------------------------------------- */
+
+export const fallbackPlugin: Plugins = {
+  id: 'fallback-plugin',
+  canHandle: () => false,
+  transform: (node) => node,
+};
+
+/** ---------------------------------------------
+ * TRANSLATION PLUGIN
+ * --------------------------------------------- */
+
+export type UnionKeys<T> = T extends unknown ? keyof T : never;
+export type ValueAtKey<T, K> = T extends unknown
+  ? K extends keyof T
+    ? T[K]
+    : never
+  : never;
 
 export type TranslationCond<T, S, L extends LocalesValues> = T extends {
   nodeType: NodeType | string;
-  [NodeType.Translation]: infer U;
+  [NodeTypes.TRANSLATION]: infer U;
 }
   ? U extends Record<PropertyKey, unknown>
-    ? L extends keyof U
-      ? DeepTransformContent<U[L], S>
-      : DeepTransformContent<U[keyof U], S>
+    ? U[keyof U] extends Record<PropertyKey, unknown>
+      ? {
+          [K in UnionKeys<U[keyof U]>]: L extends keyof U
+            ? K extends keyof U[L]
+              ? U[L][K]
+              : ValueAtKey<U[keyof U], K>
+            : ValueAtKey<U[keyof U], K>;
+        } extends infer Content
+        ? DeepTransformContent<Content, S>
+        : never
+      : (L extends keyof U ? U[L] : U[keyof U]) extends infer Content
+        ? DeepTransformContent<Content, S>
+        : never
     : never
   : never;
 
 /** Translation plugin. Replaces node with a locale string if nodeType = Translation. */
 export const translationPlugin = (
   locale: LocalesValues,
-  fallback?: LocalesValues,
-  onContentNotFound?: (
-    locale: LocalesValues,
-    fallback: LocalesValues,
-    keyPath: KeyPath[]
-  ) => void
-): Plugins => ({
-  id: 'translation-plugin',
-  canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.Translation,
-  transform: (node: TranslationContent, props, deepTransformNode) => {
-    const result = structuredClone(node[NodeType.Translation]);
+  fallback?: LocalesValues
+): Plugins =>
+  process.env['INTLAYER_NODE_TYPE_TRANSLATION'] === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'translation-plugin',
+        canHandle: (node) =>
+          typeof node === 'object' && node?.nodeType === NodeTypes.TRANSLATION,
+        transform: (node: TranslationContent, props, deepTransformNode) => {
+          const original = node[NodeTypes.TRANSLATION] ?? {};
+          const result: Record<string, any> = {};
 
-    for (const key in result) {
-      const childProps = {
-        ...props,
-        children: result[key as keyof typeof result],
-        keyPath: [
-          ...props.keyPath,
-          { type: NodeType.Translation, key } as KeyPath,
-        ],
+          for (const key in original) {
+            const childProps = {
+              ...props,
+              children: original[key as keyof typeof original],
+              keyPath: [
+                ...props.keyPath,
+                { type: NodeTypes.TRANSLATION, key } as KeyPath,
+              ],
+            };
+            result[key] = deepTransformNode(
+              original[key as keyof typeof original],
+              childProps
+            );
+          }
+
+          return getTranslation(result, locale, fallback);
+        },
       };
-      result[key as keyof typeof result] = deepTransformNode(
-        result[key as keyof typeof result],
-        childProps
-      );
-    }
-
-    return getTranslation(result, locale, fallback);
-  },
-});
 
 /** ---------------------------------------------
- *  ENUMERATION PLUGIN
- *  --------------------------------------------- */
+ * ENUMERATION PLUGIN
+ * --------------------------------------------- */
 
-export type EnumerationCond<T, S, L> = T extends {
+export type EnumerationCond<T, S, _L> = T extends {
   nodeType: NodeType | string;
-  [NodeType.Enumeration]: object;
+  [NodeTypes.ENUMERATION]: object;
 }
   ? (
       quantity: number
     ) => DeepTransformContent<
-      T[NodeType.Enumeration][keyof T[NodeType.Enumeration]],
+      T[typeof NodeTypes.ENUMERATION][keyof T[typeof NodeTypes.ENUMERATION]],
       S
     >
   : never;
 
 /** Enumeration plugin. Replaces node with a function that takes quantity => string. */
-export const enumerationPlugin: Plugins = {
-  id: 'enumeration-plugin',
-  canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.Enumeration,
-  transform: (node: EnumerationContent, props, deepTransformNode) => {
-    const result = structuredClone(node[NodeType.Enumeration]);
+export const enumerationPlugin: Plugins =
+  process.env['INTLAYER_NODE_TYPE_ENUMERATION'] === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'enumeration-plugin',
+        canHandle: (node) =>
+          typeof node === 'object' && node?.nodeType === NodeTypes.ENUMERATION,
+        transform: (node: EnumerationContent, props, deepTransformNode) => {
+          const original = node[NodeTypes.ENUMERATION];
+          const result: Record<string, any> = {};
 
-    for (const key in result) {
-      const child = result[key as unknown as keyof typeof result];
-      const childProps = {
-        ...props,
-        children: child,
-        keyPath: [
-          ...props.keyPath,
-          { type: NodeType.Enumeration, key } as KeyPath,
-        ],
+          for (const key in original) {
+            const child = original[key as unknown as keyof typeof original];
+            const childProps = {
+              ...props,
+              children: child,
+              keyPath: [
+                ...props.keyPath,
+                { type: NodeTypes.ENUMERATION, key } as KeyPath,
+              ],
+            };
+            result[key] = deepTransformNode(child, childProps);
+          }
+
+          return (arg: number | { count: number }) => {
+            const quantity = typeof arg === 'number' ? arg : arg.count;
+            const subResult = getEnumeration(result, quantity);
+
+            if (typeof subResult === 'function' && typeof arg === 'object') {
+              return subResult(arg);
+            }
+
+            return subResult;
+          };
+        },
       };
-      result[key as unknown as keyof typeof result] = deepTransformNode(
-        child,
-        childProps
-      );
-    }
-
-    return (quantity: number) => getEnumeration(result, quantity);
-  },
-};
 
 /** ---------------------------------------------
- *  CONDITION PLUGIN
- *  --------------------------------------------- */
+ * PLURAL PLUGIN
+ * --------------------------------------------- */
 
-export type ConditionCond<T, S, L> = T extends {
+export type PluralCond<T, S, _L> = T extends {
   nodeType: NodeType | string;
-  [NodeType.Condition]: object;
+  [NodeTypes.PLURAL]: object;
 }
   ? (
-      value: boolean
+      arg: number | { count: number; [key: string]: unknown }
     ) => DeepTransformContent<
-      T[NodeType.Condition][keyof T[NodeType.Condition]],
+      T[typeof NodeTypes.PLURAL][keyof T[typeof NodeTypes.PLURAL]],
+      S
+    >
+  : never;
+
+type SubResultFunction = (values: Record<string, string | number>) => string;
+
+/**
+ * Plural plugin. Replaces node with a function that takes a count (or
+ * `{ count, ...values }`) => string, picking the matching CLDR plural form
+ * for the active locale and interpolating `{{count}}` (and other values).
+ */
+export const pluralPlugin = (locale?: LocalesValues): Plugins =>
+  process.env['INTLAYER_NODE_TYPE_PLURAL'] === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'plural-plugin',
+        canHandle: (node) =>
+          typeof node === 'object' && node?.nodeType === NodeTypes.PLURAL,
+        transform: (node: PluralContent, props, deepTransformNode) => {
+          const original = node[NodeTypes.PLURAL];
+          const result: Record<string, any> = {};
+
+          /** String plugin for plural. Replaces string node with a component that renders the insertion. */
+          const pluralStringPlugin: Plugins = {
+            id: 'plural-string-plugin',
+            canHandle: (node) => typeof node === 'string',
+            transform: (node: string, subProps, deepTransformNode) => {
+              const transformedResult = deepTransformNode(node, {
+                ...subProps,
+                children: node,
+                plugins: [
+                  ...(props.plugins ?? ([] as Plugins[])).filter(
+                    (plugin) => plugin.id !== 'intlayer-node-plugin'
+                  ),
+                ],
+              });
+
+              return (values: { [k: string]: string | number }) => {
+                const children = getInsertion(transformedResult, values);
+
+                return deepTransformNode(children, {
+                  ...subProps,
+                  plugins: props.plugins,
+                  children,
+                });
+              };
+            },
+          };
+
+          for (const key in original) {
+            const child = original[key as keyof typeof original];
+            const childProps = {
+              ...props,
+              children: child,
+              keyPath: [
+                ...props.keyPath,
+                { type: NodeTypes.PLURAL, key } as KeyPath,
+              ],
+              plugins: [pluralStringPlugin, ...(props.plugins ?? [])],
+            };
+            result[key] = deepTransformNode(child, childProps);
+          }
+
+          const effectiveLocale = String(locale ?? props.locale ?? 'en');
+
+          return (arg: number | { count: number; [key: string]: unknown }) => {
+            const count = typeof arg === 'number' ? arg : arg.count;
+            const values =
+              typeof arg === 'number'
+                ? { count: arg }
+                : (arg as { count: number; [key: string]: unknown });
+
+            const subResult: string | SubResultFunction = getPlural(
+              result as PluralContent['plural'] as PluralContentState<string>,
+              count,
+              effectiveLocale
+            );
+
+            if (typeof subResult === 'function') {
+              return (subResult as SubResultFunction)(values);
+            }
+
+            return subResult;
+          };
+        },
+      };
+
+/** ---------------------------------------------
+ * CONDITION PLUGIN
+ * --------------------------------------------- */
+
+export type ConditionCond<T, S, _L> = T extends {
+  nodeType: NodeType | string;
+  [NodeTypes.CONDITION]: object;
+}
+  ? (
+      value: boolean | { value: boolean }
+    ) => DeepTransformContent<
+      T[typeof NodeTypes.CONDITION][keyof T[typeof NodeTypes.CONDITION]],
       S
     >
   : never;
 
 /** Condition plugin. Replaces node with a function that takes boolean => string. */
-export const conditionPlugin: Plugins = {
-  id: 'condition-plugin',
-  canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.Condition,
-  transform: (node: ConditionContent, props, deepTransformNode) => {
-    const result = structuredClone(node[NodeType.Condition]);
+export const conditionPlugin: Plugins =
+  process.env['INTLAYER_NODE_TYPE_CONDITION'] === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'condition-plugin',
+        canHandle: (node) =>
+          typeof node === 'object' && node?.nodeType === NodeTypes.CONDITION,
+        transform: (node: ConditionContent, props, deepTransformNode) => {
+          const original = node[NodeTypes.CONDITION];
+          const result: Record<string, any> = {};
 
-    for (const key in result) {
-      const child = result[key as keyof typeof result];
-      const childProps = {
-        ...props,
-        children: child,
-        keyPath: [
-          ...props.keyPath,
-          { type: NodeType.Condition, key } as KeyPath,
-        ],
+          for (const key in original) {
+            const child = original[key as keyof typeof original];
+            const childProps = {
+              ...props,
+              children: child,
+              keyPath: [
+                ...props.keyPath,
+                { type: NodeTypes.CONDITION, key } as KeyPath,
+              ],
+            };
+            result[key] = deepTransformNode(child, childProps);
+          }
+
+          return (arg: boolean | { value: boolean }) => {
+            const value = typeof arg === 'boolean' ? arg : arg.value;
+            const subResult = getCondition(result as any, value);
+
+            if (typeof subResult === 'function' && typeof arg === 'object') {
+              return subResult(arg);
+            }
+
+            return subResult;
+          };
+        },
       };
-      result[key as unknown as keyof typeof result] = deepTransformNode(
-        child,
-        childProps
-      );
-    }
-
-    return (value: boolean) => getCondition(result, value);
-  },
-};
-
-/** ---------------------------------------------
- *  GENDER PLUGIN
- *  --------------------------------------------- */
-
-export type GenderCond<T, S, L> = T extends {
-  nodeType: NodeType | string;
-  [NodeType.Gender]: object;
-}
-  ? (
-      value: Gender
-    ) => DeepTransformContent<T[NodeType.Gender][keyof T[NodeType.Gender]], S>
-  : never;
-
-/** Gender plugin. Replaces node with a function that takes gender => string. */
-export const genderPlugin: Plugins = {
-  id: 'gender-plugin',
-  canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.Gender,
-  transform: (node: GenderContent, props, deepTransformNode) => {
-    const result = structuredClone(node[NodeType.Gender]);
-
-    for (const key in result) {
-      const child = result[key as keyof typeof result];
-      const childProps = {
-        ...props,
-        children: child,
-        keyPath: [...props.keyPath, { type: NodeType.Gender, key } as KeyPath],
-      };
-      result[key as unknown as keyof typeof result] = deepTransformNode(
-        child,
-        childProps
-      );
-    }
-
-    return (value: Gender) => getGender(result, value);
-  },
-};
 
 /** ---------------------------------------------
  *  INSERTION PLUGIN
  *  --------------------------------------------- */
 
-export type InsertionCond<T, S, L> = T extends {
+export type InsertionCond<T, S, _L> = T extends {
   nodeType: NodeType | string;
-  [NodeType.Insertion]: infer I;
-  fields?: infer U;
+  [NodeTypes.INSERTION]: infer I;
+  fields: readonly string[];
 }
-  ? U extends readonly string[]
-    ? (data: Record<U[number], string | number>) => DeepTransformContent<I, S>
-    : (data: Record<string, string | number>) => DeepTransformContent<I, S>
+  ? (
+      values: {
+        [K in T['fields'][number]]: string | number;
+      }
+    ) => I extends string
+      ? DeepTransformContent<string, S>
+      : DeepTransformContent<I, S>
   : never;
 
-export const insertionPlugin: Plugins = {
-  id: 'insertion-plugin',
-  canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.Insertion,
-  transform: (node: InsertionContent, props, deepTransformNode) => {
-    const newKeyPath: KeyPath[] = [
-      ...props.keyPath,
-      {
-        type: NodeType.Insertion,
-      },
-    ];
+/** Insertion plugin. Replaces node with a function that takes quantity => string. */
+export const insertionPlugin: Plugins =
+  process.env['INTLAYER_NODE_TYPE_INSERTION'] === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'insertion-plugin',
+        canHandle: (node) =>
+          typeof node === 'object' && node?.nodeType === NodeTypes.INSERTION,
+        transform: (node: InsertionContent, props, deepTransformNode) => {
+          const newKeyPath: KeyPath[] = [
+            ...props.keyPath,
+            {
+              type: NodeTypes.INSERTION,
+            },
+          ];
 
-    const children = node[NodeType.Insertion];
+          const children = node[NodeTypes.INSERTION];
 
-    /** Insertion string plugin. Replaces string node with a component that render the insertion. */
-    const insertionStringPlugin: Plugins = {
-      id: 'insertion-string-plugin',
-      canHandle: (node) => typeof node === 'string',
-      transform: (node: string, subProps, deepTransformNode) => {
-        const transformedResult = deepTransformNode(node, {
-          ...subProps,
-          children: node,
-          plugins: [
-            ...(props.plugins ?? ([] as Plugins[])).filter(
-              (plugin) => plugin.id !== 'intlayer-node-plugin'
-            ),
-          ],
-        });
+          /** Insertion string plugin. Replaces string node with a component that render the insertion. */
+          const insertionStringPlugin: Plugins = {
+            id: 'insertion-string-plugin',
+            canHandle: (node) => typeof node === 'string',
+            transform: (node: string, subProps, deepTransformNode) => {
+              const transformedResult = deepTransformNode(node, {
+                ...subProps,
+                children: node,
+                plugins: [
+                  ...(props.plugins ?? ([] as Plugins[])).filter(
+                    (plugin) => plugin.id !== 'intlayer-node-plugin'
+                  ),
+                ],
+              });
 
-        return (
-          values: {
-            [K in InsertionContent['fields'][number]]: string | number;
-          }
-        ) => {
-          const children = getInsertion(transformedResult, values);
+              return (
+                values: {
+                  [K in InsertionContent['fields'][number]]: string | number;
+                }
+              ) => {
+                const children = getInsertion(transformedResult, values);
+
+                return deepTransformNode(children, {
+                  ...subProps,
+                  plugins: props.plugins,
+                  children,
+                });
+              };
+            },
+          };
 
           return deepTransformNode(children, {
-            ...subProps,
-            plugins: props.plugins,
+            ...props,
             children,
+            keyPath: newKeyPath,
+            plugins: [insertionStringPlugin, ...(props.plugins ?? [])],
           });
-        };
-      },
-    };
-
-    return deepTransformNode(children, {
-      ...props,
-      children,
-      keyPath: newKeyPath,
-      plugins: [insertionStringPlugin, ...(props.plugins ?? [])],
-    });
-  },
-};
+        },
+      };
 
 /** ---------------------------------------------
- *  NESTED PLUGIN
- *  --------------------------------------------- */
+ * GENDER PLUGIN
+ * --------------------------------------------- */
 
-export type NestedCond<T, S, L> = T extends {
+export type GenderCond<T, S, _L> = T extends {
   nodeType: NodeType | string;
-  [NodeType.Nested]: infer U;
+  [NodeTypes.GENDER]: object;
+}
+  ? (
+      value: Gender
+    ) => DeepTransformContent<
+      T[typeof NodeTypes.GENDER][keyof T[typeof NodeTypes.GENDER]],
+      S
+    >
+  : never;
+
+/** Gender plugin. Replaces node with a function that takes gender => string. */
+export const genderPlugin: Plugins =
+  process.env['INTLAYER_NODE_TYPE_GENDER'] === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'gender-plugin',
+        canHandle: (node) =>
+          typeof node === 'object' && node?.nodeType === NodeTypes.GENDER,
+        transform: (node: GenderContent, props, deepTransformNode) => {
+          const original = node[NodeTypes.GENDER];
+          const result: Record<string, any> = {};
+
+          for (const key in original) {
+            const child = original[key as keyof typeof original];
+            const childProps = {
+              ...props,
+              children: child,
+              keyPath: [
+                ...props.keyPath,
+                { type: NodeTypes.GENDER, key } as KeyPath,
+              ],
+            };
+            result[key] = deepTransformNode(child, childProps);
+          }
+
+          return (value: Gender) => getGender(result as any, value);
+        },
+      };
+
+/** ---------------------------------------------
+ * NESTED PLUGIN
+ * --------------------------------------------- */
+
+export type NestedCond<T, S, _L> = T extends {
+  nodeType: NodeType | string;
+  [NodeTypes.NESTED]: infer U;
 }
   ? U extends {
       dictionaryKey: infer K extends DictionaryKeys;
@@ -305,37 +475,51 @@ export type NestedCond<T, S, L> = T extends {
   : never;
 
 /** Nested plugin. Replaces node with the result of `getNesting`. */
-export const nestedPlugin: Plugins = {
-  id: 'nested-plugin',
-  canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.Nested,
-  transform: (node: NestedContent, props) =>
-    getNesting(node.nested.dictionaryKey, node.nested.path, props),
-};
+export const nestedPlugin = (locale?: LocalesValues): Plugins =>
+  process.env['INTLAYER_NODE_TYPE_NESTED'] === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'nested-plugin',
+        canHandle: (node) =>
+          typeof node === 'object' &&
+          (node?.nodeType === NodeTypes.NESTED || node?.nodeType === 'n'),
+        transform: (node: NestedContent, props) =>
+          getNesting(
+            node[NodeTypes.NESTED].dictionaryKey,
+            node[NodeTypes.NESTED].path,
+            {
+              ...props,
+              locale: (locale ?? props.locale) as Locale,
+            }
+          ),
+      };
 
-// /** ---------------------------------------------
-//  *  FILE PLUGIN
-//  *  --------------------------------------------- */
+/** ---------------------------------------------
+ * FILE PLUGIN
+ * --------------------------------------------- */
 
-export type FileCond<T> = T extends {
+export type FileCond<T, S, _L> = T extends {
   nodeType: NodeType | string;
-  [NodeType.File]: string;
+  [NodeTypes.FILE]: string;
   content?: string;
 }
-  ? string
+  ? DeepTransformContent<string, S>
   : never;
 
 /** File plugin. Replaces node with the result of `getNesting`. */
-export const filePlugin: Plugins = {
-  id: 'file-plugin',
-  canHandle: (node) =>
-    typeof node === 'object' && node?.nodeType === NodeType.File,
-  transform: (node: FileContent, props, deepTransform) =>
-    deepTransform(node.content, {
-      ...props,
-      children: node.content,
-    }),
-};
+export const filePlugin: Plugins =
+  process.env['INTLAYER_NODE_TYPE_FILE'] === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'file-plugin',
+        canHandle: (node) =>
+          typeof node === 'object' && node?.nodeType === NodeTypes.FILE,
+        transform: (node: FileContent, props, deepTransform) =>
+          deepTransform(node.content, {
+            ...props,
+            children: node.content,
+          }),
+      };
 
 /**
  * PLUGIN RESULT
@@ -352,6 +536,13 @@ export interface NodeProps {
   locale?: Locale;
   dictionaryPath?: string;
   children?: any;
+  /**
+   * Forces eager traversal of plain objects in `deepTransformNode`. By default
+   * traversal is lazy (property getters), so callers that discard the returned
+   * value never trigger plugins on nested nodes. Set this when running plugins
+   * for their side effects only (e.g. missing-locale detection).
+   */
+  eager?: boolean;
 }
 
 /**
@@ -360,11 +551,13 @@ export interface NodeProps {
  */
 export interface IInterpreterPlugin<T, S, L extends LocalesValues> {
   translation: TranslationCond<T, S, L>;
-  insertion: InsertionCond<T, S, L>;
   enumeration: EnumerationCond<T, S, L>;
+  plural: PluralCond<T, S, L>;
   condition: ConditionCond<T, S, L>;
+  insertion: InsertionCond<T, S, L>;
+  gender: GenderCond<T, S, L>;
   nested: NestedCond<T, S, L>;
-  // file: FileCond<T>;
+  file: FileCond<T, S, L>;
 }
 
 /**
@@ -373,10 +566,12 @@ export interface IInterpreterPlugin<T, S, L extends LocalesValues> {
 export type IInterpreterPluginState = {
   translation: true;
   enumeration: true;
+  plural: true;
   condition: true;
   insertion: true;
+  gender: true;
   nested: true;
-  // file: true;
+  file: true;
 };
 
 /**
@@ -401,15 +596,12 @@ type CheckApplyPlugin<
 /**
  * Traverse recursively through an object or array, applying each plugin as needed.
  */
-type Traverse<
-  T,
-  S,
-  L extends LocalesValues = DeclaredLocales,
-> = T extends ReadonlyArray<infer U> // Turn any read-only array into a plain mutable array
-  ? Array<DeepTransformContent<U, S, L>>
-  : T extends object
-    ? { [K in keyof T]: DeepTransformContent<T[K], S, L> }
-    : T;
+type Traverse<T, S, L extends LocalesValues = DeclaredLocales> =
+  T extends ReadonlyArray<infer U> // Turn any read-only array into a plain mutable array
+    ? Array<DeepTransformContent<U, S, L>>
+    : T extends object
+      ? { [K in keyof T]: DeepTransformContent<T[K], S, L> }
+      : T;
 
 export type IsAny<T> = 0 extends 1 & T ? true : false;
 
@@ -420,10 +612,11 @@ export type DeepTransformContent<
   T,
   S = IInterpreterPluginState,
   L extends LocalesValues = DeclaredLocales,
-> = IsAny<T> extends true
-  ? T
-  : CheckApplyPlugin<T, keyof IInterpreterPlugin<T, S, L>, S> extends never // Check if there is a plugin for T:
-    ? // No plugin was found, so try to transform T recursively:
-      Traverse<T, S, L>
-    : // A plugin was found – use the plugin’s transformation.
-      IInterpreterPlugin<T, S, L>[keyof IInterpreterPlugin<T, S, L>];
+> =
+  IsAny<T> extends true
+    ? T
+    : CheckApplyPlugin<T, keyof IInterpreterPlugin<T, S, L>, S, L> extends never // Check if there is a plugin for T:
+      ? // No plugin was found, so try to transform T recursively:
+        Traverse<T, S, L>
+      : // A plugin was found – use the plugin's transformation.
+        CheckApplyPlugin<T, keyof IInterpreterPlugin<T, S, L>, S, L>;

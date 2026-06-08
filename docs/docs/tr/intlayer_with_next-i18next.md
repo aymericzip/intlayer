@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-10-05
-updatedAt: 2025-10-05
-title: Next.js 15 uygulamanızı next-i18next kullanarak nasıl çevirirsiniz – i18n rehberi 2025
-description: next-i18next/next-i18next ile Next.js 15 App Router uygulamasını uluslararasılaştırmak için pratik, üretime hazır bir rehber ve Intlayer ile geliştirme.
+updatedAt: 2026-05-31
+title: "next-i18next i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
+description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) next-i18next uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -37,7 +37,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-i18next-templat
 - Çeviri iş akışlarını otomatikleştirmek için Intlayer entegrasyonu (testler, AI ile doldurma, JSON senkronizasyonu)
 
 > Not: next-i18next, i18next üzerine inşa edilmiştir. Bu rehber, App Router'da next-i18next ile uyumlu i18next ilkel fonksiyonlarını kullanırken mimariyi basit ve üretime hazır tutar.
-> Daha geniş bir karşılaştırma için bkz. [next-i18next vs next-i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/next-i18next_vs_next-i18next_vs_intlayer.md).
+> Daha geniş bir karşılaştırma için bkz. [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/next-i18next_vs_next-intl_vs_intlayer.md).
 
 ---
 
@@ -55,6 +55,10 @@ pnpm add next-i18next i18next react-i18next i18next-resources-to-backend
 
 ```bash packageManager="yarn"
 yarn add next-i18next i18next react-i18next i18next-resources-to-backend
+```
+
+```bash packageManager="bun"
+bun add next-i18next i18next react-i18next i18next-resources-to-backend
 ```
 
 Başlangıçta net bir yapı ile başlayın. Mesajları locale ve namespace bazında ayrı tutun.
@@ -252,7 +256,7 @@ export default function LocaleLayout({
   params: { locale: string };
 }) {
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   const dir = isRtl(locale) ? "rtl" : "ltr";
@@ -552,15 +556,23 @@ Intlayer, JSON çevirilerinizi senkronize tutmanıza, eksik anahtarları test et
 Intlayer bağımlılıklarını yükleyin:
 
 ```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin  -D
+npm install intlayer @intlayer/sync-json-plugin --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin  -D
+pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin  -D
+yarn add intlayer @intlayer/sync-json-plugin --dev
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer @intlayer/sync-json-plugin --dev
+bun x intlayer init
 ```
 
 ```ts fileName="intlayer.config.ts"
@@ -580,7 +592,6 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "i18next",
       source: ({ locale }) => `./locales/${locale}.json`,
     }),
   ],
@@ -605,7 +616,7 @@ Yaygın akışlar:
 - Eksik anahtarlar için CI'de `pnpm i18n:test` çalıştırarak derlemelerin başarısız olmasını sağlamak
 - Yeni eklenen anahtarlar için yerel olarak AI çevirileri önermek amacıyla `pnpm i18n:fill` çalıştırmak
 
-> CLI argümanları sağlayabilirsiniz; bkz. [Intlayer CLI dokümanları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_cli.md).
+> CLI argümanları sağlayabilirsiniz; bkz. [Intlayer CLI dokümanları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md).
 
 ---
 

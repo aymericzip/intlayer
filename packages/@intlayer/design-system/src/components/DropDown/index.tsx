@@ -1,5 +1,5 @@
+import { cn } from '@utils/cn';
 import type { FC, HTMLAttributes } from 'react';
-import { cn } from '../../utils/cn';
 import { Button, type ButtonProps } from '../Button';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 
@@ -145,14 +145,18 @@ const Trigger: FC<TriggerProps> = ({
 );
 
 /**
- * Alignment options for the dropdown panel relative to the trigger
+ * Horizontal alignment options for the dropdown panel relative to the trigger
  */
-export enum DropDownAlign {
-  /** Align panel to the start (left in LTR, right in RTL) of the trigger */
-  START = 'start',
-  /** Align panel to the end (right in LTR, left in RTL) of the trigger */
-  END = 'end',
-}
+export type DropDownAlign = 
+  | 'start' |
+  'end';
+
+/**
+ * Vertical alignment options for the dropdown panel relative to the trigger
+ */
+export type DropDownYAlign = 
+  | 'below' |
+  'above';
 
 /**
  * Props for the DropDown.Panel component
@@ -189,9 +193,22 @@ export interface PanelProps extends HTMLAttributes<HTMLDivElement> {
 
   /**
    * Horizontal alignment of the panel relative to the trigger
-   * @default DropDownAlign.START
+   * @default 'start'
    */
   align?: DropDownAlign | `${DropDownAlign}`;
+
+  /**
+   * Vertical alignment of the panel relative to the trigger
+   * @default 'below'
+   */
+  yAlign?: DropDownYAlign | `${DropDownYAlign}`;
+
+  /**
+   * Additional className applied directly to the MaxHeightSmoother container.
+   * Useful for adding transition delays — e.g. `"delay-0 group-hover/dropdown:delay-500"`
+   * gives an open delay while keeping the close instant.
+   */
+  smootherClassName?: string;
 }
 
 /**
@@ -218,8 +235,13 @@ export interface PanelProps extends HTMLAttributes<HTMLDivElement> {
  * </DropDown.Panel>
  *
  * // Right-aligned panel
- * <DropDown.Panel identifier="menu" align={DropDownAlign.END} isOverable>
+ * <DropDown.Panel identifier="menu" align="end" isOverable>
  *   <div>Right-aligned content</div>
+ * </DropDown.Panel>
+ *
+ * // Panel opening above the trigger
+ * <DropDown.Panel identifier="menu" yAlign="above" isOverable>
+ *   <div>Content appears above</div>
  * </DropDown.Panel>
  * ```
  *
@@ -235,16 +257,22 @@ const Panel: FC<PanelProps> = ({
   isHidden = undefined,
   isOverable = false,
   isFocusable = false,
-  align = DropDownAlign.START,
+  align = 'start',
+  yAlign = 'below',
   identifier,
   className,
+  smootherClassName,
   ...props
 }) => (
   <div
     className={cn(
-      'absolute top-[calc(100%+0.5rem)] z-100 min-w-full',
-      align === DropDownAlign.START && 'left-0',
-      align === DropDownAlign.END && 'right-0',
+      'absolute z-100 min-w-full',
+      /* Horizontal positioning */
+      align === 'start' && 'left-0',
+      align === 'end' && 'right-0',
+      /* Vertical positioning */
+      yAlign === 'below' && 'top-[calc(100%+0.5rem)]',
+      yAlign === 'above' && 'bottom-[calc(100%+0.5rem)]',
       className
     )}
     aria-hidden={isHidden}
@@ -261,7 +289,8 @@ const Panel: FC<PanelProps> = ({
         isOverable &&
           'group-hover/dropdown:visible group-hover/dropdown:grid-rows-[1fr]',
         isFocusable &&
-          'group-focus-within/dropdown:visible group-focus-within/dropdown:grid-rows-[1fr]'
+          'group-focus-within/dropdown:visible group-focus-within/dropdown:grid-rows-[1fr]',
+        smootherClassName
       )}
       {...props}
     >

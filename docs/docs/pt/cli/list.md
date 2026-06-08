@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-01-06
 title: Listar Arquivos de Declaração de Conteúdo
 description: Aprenda como listar todos os arquivos de declaração de conteúdo no seu projeto.
 keywords:
@@ -13,12 +13,31 @@ slugs:
   - concept
   - cli
   - list
+history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: "Adicionar opção de saída absoluta ao comando list"
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: "Adicionar opção de saída JSON ao comando list"
 ---
 
 # Listar arquivos de declaração de conteúdo
 
-```bash
+```bash packageManager="npm"
 npx intlayer content list
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list
+```
+
+```bash packageManager="bun"
+bun x intlayer content list
 ```
 
 ## Apelidos:
@@ -27,13 +46,71 @@ npx intlayer content list
 
 Este comando exibe todos os arquivos de declaração de conteúdo no seu projeto, mostrando suas chaves de dicionário e caminhos dos arquivos. É útil para obter uma visão geral de todos os seus arquivos de conteúdo e verificar se eles estão sendo corretamente descobertos pelo Intlayer.
 
-## Exemplo:
+## Argumentos:
 
-```bash
+- **`--json`**: Exibe os resultados como JSON em vez de texto formatado. Útil para scripts e acesso programático.
+
+  > Exemplo: `npx intlayer content list --json`
+
+## Exemplos:
+
+### Listar arquivos de declaração de conteúdo:
+
+```bash packageManager="npm"
 npx intlayer content list
 ```
 
+```bash packageManager="yarn"
+yarn intlayer content list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list
+```
+
+```bash packageManager="bun"
+bun x intlayer content list
+```
+
+### Saída como JSON:
+
+```bash packageManager="npm"
+npx intlayer content list --json
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list --json
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list --json
+```
+
+```bash packageManager="bun"
+bun x intlayer content list --json
+```
+
+### Saída como caminhos absolutos:
+
+```bash packageManager="npm"
+npx intlayer content list --absolute
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list --absolute
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list --absolute
+```
+
+```bash packageManager="bun"
+bun x intlayer content list --absolute
+```
+
 ## Exemplo de saída:
+
+### Saída formatada:
 
 ```bash
 npx intlayer content list
@@ -43,6 +120,14 @@ Content declaration files:
  - client-component - src/components/ClientComponent/clientComponent.content.ts
 
 Total de arquivos de declaração de conteúdo: 3
+```
+
+### Saída JSON:
+
+```bash
+$ npx intlayer content list --json
+
+[{"key":"home-page","path":"src/components/HomePage/homePage.content.ts"},{"key":"server-component","path":"src/components/ServerComponent/serverComponent.content.ts"},{"key":"client-component","path":"src/components/ClientComponent/clientComponent.content.ts"}]
 ```
 
 Este comando exibirá:

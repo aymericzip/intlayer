@@ -1,4 +1,13 @@
 export * from './babel-plugin-intlayer-extract';
+export * from './babel-plugin-intlayer-field-rename';
+export * from './babel-plugin-intlayer-minify';
 export * from './babel-plugin-intlayer-optimize';
+export * from './babel-plugin-intlayer-purge';
+export * from './babel-plugin-intlayer-usage-analyzer';
+export * from './extractContent';
+export * from './extractScriptBlocks';
+export type { CompilerMode } from './getExtractPluginOptions';
 export * from './getExtractPluginOptions';
 export * from './getOptimizePluginOptions';
+export * from './getPurgePluginOptions';
+export * from './transformers';

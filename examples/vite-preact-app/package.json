@@ -4,24 +4,24 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "tsc -b && vite build",
-    "dev": "vite",
-    "preview": "vite preview",
-    "start:editor": "npx intlayer-editor start --with 'vite dev'"
+    "build": "tsc -b & vite build",
+    "dev": "bun --bun vite",
+    "preview": "bun --bun vite preview",
+    "start:editor": "bun intlayer-editor start --with 'vite dev'"
   },
   "dependencies": {
     "intlayer": "workspace:*",
-    "preact": "10.26.4",
+    "preact": "10.29.0",
     "preact-intlayer": "workspace:*",
-    "preact-iso": "2.9.1"
+    "preact-iso": "2.11.1"
   },
   "devDependencies": {
-    "@preact/preset-vite": "2.10.1",
-    "@tailwindcss/vite": "4.1.18",
+    "@preact/preset-vite": "2.10.4",
+    "@tailwindcss/vite": "4.3.0",
     "intlayer-editor": "workspace:*",
-    "tailwindcss": "4.1.18",
-    "typescript": "5.9.3",
-    "vite": "7.3.0",
+    "tailwindcss": "4.3.0",
+    "typescript": "6.0.3",
+    "vite": "8.0.16",
     "vite-intlayer": "workspace:*"
   }
 }

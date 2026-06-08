@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2025-12-07
-title: Nuxt ve Vue uygulamanızı nasıl çevirirsiniz – i18n rehberi 2025
-description: Nuxt ve Vue web sitenizi çok dilli hale nasıl getireceğinizi keşfedin. Uluslararasılaştırma (i18n) ve çeviri için dokümantasyonu takip edin.
+updatedAt: 2026-05-31
+title: "Nuxt i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
+description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Nuxt uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -15,14 +15,18 @@ slugs:
   - environment
   - nuxt-and-vue
 applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-4-template
+applicationShowcase: https://intlayer-nuxt-4-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=nhUcUAVQ6eQ
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid useIntlayer API kullanımını doğrudan özellik erişimine güncelle"
   - version: 7.3.11
     date: 2025-12-07
-    changes: LocaleSwitcher, SEO, metadata güncellendi
+    changes: "LocaleSwitcher, SEO, metadata güncellendi"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Geçmiş başlatıldı
+    changes: "Geçmiş başlatıldı"
 ---
 
 # Intlayer kullanarak Nuxt ve Vue web sitenizi çevirin | Uluslararasılaştırma (i18n)
@@ -31,59 +35,119 @@ history:
 
 <TOC/>
 
-## Intlayer Nedir?
+## Neden alternatifler yerine Intlayer?
 
-**Intlayer**, modern web uygulamalarında çok dilli desteği basitleştirmek için tasarlanmış yenilikçi, açık kaynaklı bir uluslararasılaştırma (i18n) kütüphanesidir.
+'@nuxtjs/i18n' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
-Intlayer ile şunları yapabilirsiniz:
+<AccordionGroup>
 
-- **Bileşen seviyesinde deklaratif sözlükler kullanarak çevirileri kolayca yönetin.**
-- **Meta verileri, rotaları ve içeriği dinamik olarak yerelleştirin.**
-- **Otomatik oluşturulan tiplerle TypeScript desteğini sağlayarak otomatik tamamlama ve hata tespitini geliştirin.**
-- **Dinamik dil algılama ve değiştirme gibi gelişmiş özelliklerden faydalanın.**
+<Accordion header="Tam Nuxt kapsamı">
+
+Intlayer, **çok dilli yönlendirme**, **yerel algılama için ara yazılım**, **site haritası** ve uluslararasılaştırmayı ölçeklendirmek için gereken tüm özellikleri (i18n) sunarak Nuxt ile mükemmel çalışacak şekilde optimize edilmiştir.
+
+</Accordion>
+
+<Accordion header="Bundle boyutu">
+
+Sayfalarınıza çok büyük JSON dosyaları yüklemek yerine yalnızca gerekli içeriği yükleyin. Intlayer **bundle ve sayfa boyutlarınızı %50'ye kadar azaltmanıza** yardımcı olur.
+
+</Accordion>
+
+<Accordion header="Sürdürülebilirlik">
+
+Uygulamanızın içeriğinin kapsamını belirlemek, büyük ölçekli uygulamalar için **bakımı kolaylaştırır**. İçerik kod tabanınızın tamamını gözden geçirmenin zihinsel yükü olmadan, tek bir özellik klasörünü çoğaltabilir veya silebilirsiniz. Ayrıca Intlayer, içeriğinizin doğruluğunu sağlamak için **tamamen tiplendirilmiş (fully typed)tır**.
+
+</Accordion>
+
+<Accordion header="Yapay Zeka Temsilcisi">
+
+İçeriğin bir arada konumlandırılması **Büyük Dil Modellerinin (LLM'ler) ihtiyaç duyduğu bağlamı azaltır**. Intlayer ayrıca eksik çevirileri test etmek için **CLI** gibi bir araç paketiyle birlikte gelir**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** ve **[aracı becerileri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, geliştirici deneyimini (DX) yapay zeka için daha da sorunsuz hale getirmek için ajanlar.
+
+</Accordion>
+
+<Accordion header="Otomasyon">
+
+Maliyeti AI sağlayıcınıza ait olmak üzere seçtiğiniz LLM'yi kullanarak CI/CD işlem hattınızda çeviri yapmak için otomasyonu kullanın. Intlayer ayrıca içerik çıkarmayı otomatikleştirmek için bir **derleyici** ve **arka planda çeviri yapmaya** yardımcı olacak bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) sunar.
+
+</Accordion>
+
+<Accordion header="Performans">
+
+Büyük JSON dosyalarını bileşenlere bağlamak performans ve tepkime sorunlarına yol açabilir. Intlayer, içerik yüklemenizi derleme sırasında optimize eder.
+
+</Accordion>
+
+<Accordion header="Non-dev ile ölçeklendirme">
+
+Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barındırılan bir [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** ve **[tam CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** çok dilli içeriğinizi **gerçek zamanlı** olarak yönetmenize yardımcı olarak çevirmenler, metin yazarları ve diğer ekip üyeleriyle işbirliğini kusursuz hale getirir. İçerik yerel olarak ve/veya uzaktan depolanabilir.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
 ## Nuxt Uygulamasında Intlayer Kurulumu Adım Adım Rehber
 
-<Tab defaultTab="video">
-  <TabItem label="Video" value="video">
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
   
-<iframe title="Nuxt ve Vue uygulamanızı Intlayer kullanarak nasıl çevirirsiniz? Intlayer'ı keşfedin" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/nhUcUAVQ6eQ?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Nuxt ve Vue uygulamanızı Intlayer kullanarak nasıl çevirirsiniz? Intlayer'ı keşfedin" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/nhUcUAVQ6eQ?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-  </TabItem>
-  <TabItem label="Kod" value="code">
+  </Tab>
+  <Tab label="Kod" value="code">
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-nuxt-4-template?embed=1&ctl=1&file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-nuxt-4-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Intlayer kullanarak uygulamanızı nasıl uluslararasılaştırırsınız"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-nuxt-4-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo - intlayer-nuxt-4-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
 
 GitHub'da [Uygulama Şablonunu](https://github.com/aymericzip/intlayer-nuxt-4-template) inceleyin.
 
-### Adım 1: Bağımlılıkları Yükleyin
+<Steps>
+
+<Step number={1} title="Bağımlılıkları Yükleyin">
 
 Gerekli paketleri npm kullanarak yükleyin:
 
 ```bash packageManager="npm"
 npm install intlayer vue-intlayer
 npm install --save-dev nuxt-intlayer
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer vue-intlayer
 pnpm add --save-dev nuxt-intlayer
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer vue-intlayer
 yarn add --save-dev nuxt-intlayer
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer vue-intlayer
+bun add --dev nuxt-intlayer
+bun x intlayer init
 ```
 
 - **intlayer**
@@ -96,11 +160,13 @@ yarn add --save-dev nuxt-intlayer
 - **nuxt-intlayer**
   Nuxt uygulamalarıyla Intlayer'ı entegre eden Nuxt modülü. Otomatik kurulum, yerel algılama için middleware, çerez yönetimi ve URL yönlendirmesi sağlar.
 
-### Adım 2: Projenizin yapılandırması
+</Step>
+
+<Step number={2} title="Projenizin yapılandırması">
 
 Uygulamanızın dillerini yapılandırmak için bir konfigürasyon dosyası oluşturun:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -118,47 +184,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Diğer dilleriniz
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // Diğer dilleriniz
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 > Bu yapılandırma dosyası aracılığıyla, yerelleştirilmiş URL'leri, middleware yönlendirmesini, çerez isimlerini, içerik bildirimlerinizin konumunu ve uzantısını ayarlayabilir, Intlayer loglarını konsolda devre dışı bırakabilir ve daha fazlasını yapabilirsiniz. Mevcut parametrelerin tam listesi için [yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakınız.
 
-### Adım 3: Intlayer'ı Nuxt Yapılandırmanıza Entegre Edin
+</Step>
+
+<Step number={3} title="Intlayer'ı Nuxt Yapılandırmanıza Entegre Edin">
 
 Intlayer modülünü Nuxt yapılandırmanıza ekleyin:
 
@@ -173,11 +203,13 @@ export default defineNuxtConfig({
 
 > `nuxt-intlayer` modülü, Intlayer'ın Nuxt ile entegrasyonunu otomatik olarak yönetir. İçerik bildirimlerinin oluşturulmasını ayarlar, geliştirme modunda dosyaları izler, yerel tespit için middleware sağlar ve yerelleştirilmiş yönlendirmeyi yönetir.
 
-### Adım 4: İçeriğinizi Bildirin
+</Step>
+
+<Step number={4} title="İçeriğinizi Bildirin">
 
 Çevirileri depolamak için içerik bildirimlerinizi oluşturun ve yönetin:
 
-```tsx fileName="content/home-page.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="content/home-page.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { type Dictionary, t } from "intlayer";
 
 const content = {
@@ -204,11 +236,13 @@ const content = {
 export default content;
 ```
 
-> İçerik bildirimleriniz, uygulamanızın herhangi bir yerinde tanımlanabilir, yeter ki `contentDir` dizini içinde yer alsın (varsayılan olarak `./src`). Ve içerik bildirim dosya uzantısıyla eşleşsin (varsayılan olarak `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> İçerik bildirimleriniz, uygulamanızın herhangi bir yerinde tanımlanabilir, yeter ki `contentDir` dizini içinde yer alsın (varsayılan olarak `./src`). Ve içerik bildirim dosya uzantısıyla eşleşsin (varsayılan olarak `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Daha fazla detay için [içerik bildirim dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bakınız.
 
-### Adım 5: Intlayer'ı Kodunuzda Kullanın
+</Step>
+
+<Step number={5} title="Intlayer'ı Kodunuzda Kullanın">
 
 Nuxt uygulamanızın her yerinde içerik sözlüklerinize `useIntlayer` composable'ı ile erişin:
 
@@ -277,7 +311,9 @@ Intlayer, içeriğinize erişmek için farklı API'ler sunar:
   - `const content = useIntlayer("myContent");` kullanın ve `{{ content.myContent }}` / `<content.myContent />` şeklinde render edin.
   - Ya da içeriği yapı bozma ile almak için `const { myContent } = useIntlayer("myContent");` kullanın ve `{{ myContent}}` / `<myContent/>` şeklinde render edin.
 
-### (İsteğe Bağlı) Adım 6: İçeriğinizin dilini değiştirin
+</Step>
+
+<Step number={6} title="İçeriğinizin dilini değiştirin" isOptional={true}>
 
 İçeriğinizin dilini değiştirmek için `useLocale` composable tarafından sağlanan `setLocale` fonksiyonunu kullanabilirsiniz. Bu fonksiyon, uygulamanın yerel ayarını belirlemenize ve içeriği buna göre güncellemenize olanak tanır.
 
@@ -321,34 +357,9 @@ Sonra, `app.vue` dosyanızı layout kullanacak şekilde ayarlayın:
 </template>
 ```
 
-### (İsteğe Bağlı) Adım 6b: Navigasyonlu Bir Layout Oluşturun
+</Step>
 
-Nuxt layout'ları, sayfalarınız için ortak bir yapı tanımlamanıza olanak tanır. Dil değiştirici ve navigasyonu içeren varsayılan bir layout oluşturun:
-
-```vue fileName="layouts/default.vue"
-<script setup lang="ts">
-import Links from "~/components/Links.vue";
-import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
-</script>
-
-<template>
-  <div>
-    <header>
-      <LocaleSwitcher />
-    </header>
-    <main>
-      <slot />
-    </main>
-
-    <Links href="/">Ana Sayfa</Links>
-    <Links href="/about">Hakkında</Links>
-  </div>
-</template>
-```
-
-`Links` bileşeni (aşağıda gösterilmiştir), dahili navigasyon bağlantılarının otomatik olarak yerelleştirilmesini sağlar.
-
-### (İsteğe Bağlı) Adım 7: Uygulamanıza yerelleştirilmiş Yönlendirme ekleyin
+<Step number={7} title="Uygulamanıza yerelleştirilmiş Yönlendirme ekleyin" isOptional={true}>
 
 Nuxt, `nuxt-intlayer` modülünü kullandığınızda yerelleştirilmiş yönlendirmeyi otomatik olarak yönetir. Bu, sayfalar dizin yapınıza dayanarak her dil için otomatik olarak rotalar oluşturur.
 
@@ -373,11 +384,11 @@ import { useIntlayer } from "vue-intlayer";
 const content = useIntlayer("home-page");
 
 useHead({
-  title: content.metaTitle.value,
+  title: content.metaTitle.raw,
   meta: [
     {
       name: "description",
-      content: content.metaDescription.value,
+      content: content.metaDescription.raw,
     },
   ],
 });
@@ -422,7 +433,9 @@ useHead({
 - Yerel dil çerezlerini yönetir
 - Kullanıcıları uygun yerelleştirilmiş URL'ye yönlendirir
 
-### (İsteğe Bağlı) Adım 8: Yerelleştirilmiş Bir Link Bileşeni Oluşturma
+</Step>
+
+<Step number={8} title="Yerelleştirilmiş Bir Link Bileşeni Oluşturma" isOptional={true}>
 
 Uygulamanızın navigasyonunun mevcut locale'a uygun olmasını sağlamak için özel bir `Links` bileşeni oluşturabilirsiniz. Bu bileşen, dahili URL'lerin önüne otomatik olarak mevcut dili ekler; bu, **SEO ve sayfa keşfedilebilirliği** için çok önemlidir.
 
@@ -490,7 +503,9 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 > - Kullanıcılar yerelleştirilmiş URL'leri doğrudan paylaşabilir
 > - Tarayıcı geçmişi, dil önekli URL'lerle doğru şekilde çalışır
 
-### (İsteğe Bağlı) Adım 9: Meta Verileri ve SEO'yu Yönetme
+</Step>
+
+<Step number={9} title="Meta Verileri ve SEO'yu Yönetme" isOptional={true}>
 
 Nuxt, `useHead` composable (otomatik olarak içe aktarılır) aracılığıyla mükemmel SEO yetenekleri sunar. Intlayer'ı, yerelleştirilmiş meta verileri yönetmek için `.raw` veya `.value` erişicisini kullanarak temel string değerini almak için kullanabilirsiniz:
 
@@ -527,7 +542,7 @@ useHead({
 
 İlgili içerik bildirimi oluşturun:
 
-```ts fileName="pages/about-page.content.ts" contentDeclarationFormat="typescript"
+```ts fileName="pages/about-page.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const aboutPageContent = {
@@ -552,62 +567,6 @@ const aboutPageContent = {
 } satisfies Dictionary;
 
 export default aboutPageContent;
-```
-
-```javascript fileName="pages/about-page.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const aboutPageContent = {
-  key: "about-page",
-  content: {
-    metaTitle: t({
-      en: "Hakkımızda - Şirketim",
-      fr: "À Propos - Ma Société",
-      es: "Acerca de Nosotros - Mi Empresa",
-    }),
-    metaDescription: t({
-      en: "Şirketimiz ve misyonumuz hakkında daha fazla bilgi edinin",
-      fr: "En savoir plus sur notre société et notre mission",
-      es: "Conozca más sobre nuestra empresa y nuestra misión",
-    }),
-    title: t({
-      en: "Hakkımızda",
-      fr: "À Propos",
-      es: "Acerca de Nosotros",
-    }),
-  },
-};
-
-export default aboutPageContent;
-```
-
-```javascript fileName="pages/about-page.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const aboutPageContent = {
-  key: "about-page",
-  content: {
-    metaTitle: t({
-      en: "Hakkımızda - Şirketim",
-      fr: "À Propos - Ma Société",
-      es: "Acerca de Nosotros - Mi Empresa",
-    }),
-    metaDescription: t({
-      en: "Learn more about our company and our mission",
-      fr: "En savoir plus sur notre société et notre mission",
-      es: "Conozca más sobre nuestra empresa y nuestra misión",
-    }),
-    title: t({
-      en: "About Us",
-      fr: "À Propos",
-      es: "Acerca de Nosotros",
-    }),
-  },
-};
-
-module.exports = aboutPageContent;
 ```
 
 ```json fileName="pages/about-page.content.json" contentDeclarationFormat="json"
@@ -644,6 +603,37 @@ module.exports = aboutPageContent;
   }
 }
 ```
+
+</Step>
+
+</Steps>
+
+### (İsteğe Bağlı) Adım 6b: Navigasyonlu Bir Layout Oluşturun
+
+Nuxt layout'ları, sayfalarınız için ortak bir yapı tanımlamanıza olanak tanır. Dil değiştirici ve navigasyonu içeren varsayılan bir layout oluşturun:
+
+```vue fileName="layouts/default.vue"
+<script setup lang="ts">
+import Links from "~/components/Links.vue";
+import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
+</script>
+
+<template>
+  <div>
+    <header>
+      <LocaleSwitcher />
+    </header>
+    <main>
+      <slot />
+    </main>
+
+    <Links href="/">Ana Sayfa</Links>
+    <Links href="/about">Hakkında</Links>
+  </div>
+</template>
+```
+
+`Links` bileşeni (aşağıda gösterilmiştir), dahili navigasyon bağlantılarının otomatik olarak yerelleştirilmesini sağlar.
 
 ### Git Yapılandırması
 

@@ -19,8 +19,20 @@ slugs:
 
 # Tarik Kamus Jarak Jauh
 
-```bash
+```bash packageManager="npm"
 npx intlayer pull
+```
+
+```bash packageManager="yarn"
+yarn intlayer pull
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer pull
+```
+
+```bash packageManager="bun"
+bun x intlayer pull
 ```
 
 Jika [editor intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) sudah terpasang, Anda juga dapat menarik kamus dari editor. Dengan cara ini, Anda dapat menimpa isi kamus Anda sesuai kebutuhan aplikasi Anda.
@@ -73,6 +85,18 @@ Jika [editor intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/doc
 
 ## Contoh:
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
+```
+
+```bash packageManager="yarn"
+yarn intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary pull --newDictionariesPath ./my-dictionaries-dir/
 ```

@@ -21,25 +21,25 @@ slugs:
 history:
   - version: 6.2.0
     date: 2025-10-14
-    changes: Usunięto getIntlayerAsync z formatterów
+    changes: "Usunięto getIntlayerAsync z formatterów"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Dodano formatery vue
+    changes: "Dodano formatery vue"
   - version: 5.8.0
     date: 2025-08-18
-    changes: Dodano dokumentację formatterów
+    changes: "Dodano dokumentację formatterów"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Dodano dokumentację formattera listy
+    changes: "Dodano dokumentację formattera listy"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Dodano dodatkowe narzędzia Intl (DisplayNames, Collator, PluralRules)
+    changes: "Dodano dodatkowe narzędzia Intl (DisplayNames, Collator, PluralRules)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Dodano narzędzia lokalizacyjne (getLocaleName, getLocaleLang, getLocaleFromPath, itd.)
+    changes: "Dodano narzędzia lokalizacyjne (getLocaleName, getLocaleLang, getLocaleFromPath, itd.)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Dodano narzędzia do obsługi treści (getContent, getTranslation, getIntlayer, itd.)
+    changes: "Dodano narzędzia do obsługi treści (getContent, getTranslation, getIntlayer, itd.)"
 ---
 
 # Formatery Intlayer

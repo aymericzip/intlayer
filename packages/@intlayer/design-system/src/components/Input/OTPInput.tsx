@@ -4,6 +4,7 @@
  * This component is a fork of https://github.com/guilhermerodz/input-otp
  */
 
+import { cn } from '@utils/cn';
 import { cva } from 'class-variance-authority';
 import { MinusIcon } from 'lucide-react';
 import {
@@ -23,7 +24,6 @@ import {
   useRef,
   useState,
 } from 'react';
-import { cn } from '../../utils/cn';
 import { Button, type ButtonProps } from '../Button';
 
 // ---------------- Utilities ----------------
@@ -667,7 +667,7 @@ export const OTPInput: FC<OTPInputProps> = ({
       inputMode={inputMode}
       pattern={regexp?.source}
       aria-placeholder={placeholder}
-      className="-z-10 pointer-events-auto absolute inset-0 flex h-full border-0 border-transparent bg-transparent text-center font-mono text-transparent tabular-nums leading-none tracking-[-.5em] caret-transparent opacity-100 shadow-none outline-none"
+      className="pointer-events-auto absolute inset-0 -z-10 flex h-full border-0 border-transparent bg-transparent text-center font-mono text-transparent tabular-nums leading-none tracking-[-.5em] caret-transparent opacity-100 shadow-none outline-none"
       style={dynamicInputStyle}
       maxLength={maxLength}
       value={value}
@@ -871,7 +871,7 @@ export const InputOTPSlot: FC<InputOTPSlotProps> = ({
 
   return (
     <Button
-      aria-active={isActive}
+      isSelected={isActive}
       variant="input"
       color="custom"
       tabIndex={-1}
@@ -894,7 +894,7 @@ export const InputOTPSlot: FC<InputOTPSlotProps> = ({
 export const InputOTPSeparator: FC<ComponentProps<'div'>> = (props) => (
   <div
     aria-hidden
-    className="z-0 table h-0.5 w-3 rounded-full bg-border text-text/50"
+    className="z-0 table h-0.5 w-3 rounded-full text-text/50"
     {...props}
   >
     <MinusIcon />

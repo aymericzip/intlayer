@@ -1,4 +1,18 @@
 import {
+  Website_Blog_Search_Path,
+  Website_CMS_Path,
+  Website_Contributors_Path,
+  Website_Demo_Path,
+  Website_Doc_Path,
+  Website_Doc_Search_Path,
+  Website_FrequentQuestions_Path,
+  Website_Home_Path,
+  Website_NotFound_Path,
+  Website_Playground_Path,
+  Website_Scanner_Path,
+  Website_TMS_Path,
+} from '@intlayer/design-system/routes';
+import {
   getBlogMetadataBySlug,
   getDocMetadataBySlug,
   getFrequentQuestionMetadataBySlug,
@@ -6,7 +20,6 @@ import {
 } from '@intlayer/docs';
 import { getMultilingualUrls } from 'intlayer';
 import type { MetadataRoute } from 'next';
-import { PagesRoutes } from '@/Routes';
 
 const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   const docs = await getDocMetadataBySlug([]);
@@ -70,254 +83,176 @@ const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
 
   return [
     {
-      url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Home}`,
+      url: `${process.env.NEXT_PUBLIC_URL}${Website_Home_Path}`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 1,
       alternates: {
         languages: {
           ...getMultilingualUrls(
-            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Home}`
+            `${process.env.NEXT_PUBLIC_URL}${Website_Home_Path}`
           ),
-          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Home}`,
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${Website_Home_Path}`,
         },
       },
     },
     {
-      url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Contributors}`,
+      url: `${process.env.NEXT_PUBLIC_URL}/llms.txt`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.1,
+    },
+    {
+      url: `${process.env.NEXT_PUBLIC_URL}${Website_Contributors_Path}`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.2,
       alternates: {
         languages: {
           ...getMultilingualUrls(
-            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Contributors}`
+            `${process.env.NEXT_PUBLIC_URL}${Website_Contributors_Path}`
           ),
-          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Contributors}`,
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${Website_Contributors_Path}`,
         },
       },
     },
     {
-      url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Demo}`,
+      url: `${process.env.NEXT_PUBLIC_URL}${Website_CMS_Path}`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
       alternates: {
         languages: {
           ...getMultilingualUrls(
-            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Demo}`
+            `${process.env.NEXT_PUBLIC_URL}${Website_CMS_Path}`
           ),
-          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Demo}`,
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${Website_CMS_Path}`,
         },
       },
     },
     {
-      url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Playground}`,
+      url: `${process.env.NEXT_PUBLIC_URL}${Website_TMS_Path}`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
       alternates: {
         languages: {
           ...getMultilingualUrls(
-            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Playground}`
+            `${process.env.NEXT_PUBLIC_URL}${Website_TMS_Path}`
           ),
-          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Playground}`,
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${Website_TMS_Path}`,
         },
       },
     },
     {
-      url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Scanner}`,
+      url: `${process.env.NEXT_PUBLIC_URL}${Website_Demo_Path}`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
       alternates: {
         languages: {
           ...getMultilingualUrls(
-            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Scanner}`
+            `${process.env.NEXT_PUBLIC_URL}${Website_Demo_Path}`
           ),
-          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Scanner}`,
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${Website_Demo_Path}`,
         },
       },
     },
     {
-      url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Pricing}`,
+      url: `${process.env.NEXT_PUBLIC_URL}${Website_Playground_Path}`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
       alternates: {
         languages: {
           ...getMultilingualUrls(
-            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Pricing}`
+            `${process.env.NEXT_PUBLIC_URL}${Website_Playground_Path}`
           ),
-          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Pricing}`,
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${Website_Playground_Path}`,
         },
       },
     },
     {
-      url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Onboarding}`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.5,
-      alternates: {
-        languages: {
-          ...getMultilingualUrls(
-            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Onboarding}`
-          ),
-          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Onboarding}`,
-        },
-      },
-    },
-    {
-      url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Dashboard}`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.2,
-      alternates: {
-        languages: {
-          ...getMultilingualUrls(
-            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Dashboard}`
-          ),
-          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Dashboard}`,
-        },
-      },
-    },
-    {
-      url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Admin}`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.2,
-      alternates: {
-        languages: {
-          ...getMultilingualUrls(
-            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Admin}`
-          ),
-          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Admin}`,
-        },
-      },
-    },
-    {
-      url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc}`,
+      url: `${process.env.NEXT_PUBLIC_URL}${Website_Scanner_Path}`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
       alternates: {
         languages: {
           ...getMultilingualUrls(
-            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc}`
+            `${process.env.NEXT_PUBLIC_URL}${Website_Scanner_Path}`
           ),
-          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc}`,
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${Website_Scanner_Path}`,
         },
       },
     },
     {
-      url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.FrequentQuestions}`,
+      url: `${process.env.NEXT_PUBLIC_URL}${Website_Doc_Path}`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
       alternates: {
         languages: {
           ...getMultilingualUrls(
-            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.FrequentQuestions}`
+            `${process.env.NEXT_PUBLIC_URL}${Website_Doc_Path}`
           ),
-          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.FrequentQuestions}`,
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${Website_Doc_Path}`,
         },
       },
     },
     {
-      url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.NotFound}`,
+      url: `${process.env.NEXT_PUBLIC_URL}${Website_FrequentQuestions_Path}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+      alternates: {
+        languages: {
+          ...getMultilingualUrls(
+            `${process.env.NEXT_PUBLIC_URL}${Website_FrequentQuestions_Path}`
+          ),
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${Website_FrequentQuestions_Path}`,
+        },
+      },
+    },
+    {
+      url: `${process.env.NEXT_PUBLIC_URL}${Website_NotFound_Path}`,
       lastModified: new Date(),
       changeFrequency: 'never',
       priority: 0.1,
       alternates: {
         languages: {
           ...getMultilingualUrls(
-            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.NotFound}`
+            `${process.env.NEXT_PUBLIC_URL}${Website_NotFound_Path}`
           ),
-          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.NotFound}`,
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${Website_NotFound_Path}`,
         },
       },
     },
     {
-      url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_SignIn}`,
+      url: `${process.env.NEXT_PUBLIC_URL}${Website_Doc_Search_Path}`,
       lastModified: new Date(),
       changeFrequency: 'never',
       priority: 0.1,
       alternates: {
         languages: {
           ...getMultilingualUrls(
-            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_SignIn}`
+            `${process.env.NEXT_PUBLIC_URL}${Website_Doc_Search_Path}`
           ),
-          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_SignIn}`,
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${Website_Doc_Search_Path}`,
         },
       },
     },
     {
-      url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_SignUp}`,
+      url: `${process.env.NEXT_PUBLIC_URL}${Website_Blog_Search_Path}`,
       lastModified: new Date(),
       changeFrequency: 'never',
       priority: 0.1,
       alternates: {
         languages: {
           ...getMultilingualUrls(
-            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_SignUp}`
+            `${process.env.NEXT_PUBLIC_URL}${Website_Blog_Search_Path}`
           ),
-          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_SignUp}`,
-        },
-      },
-    },
-    {
-      url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_ResetPassword}`,
-      lastModified: new Date(),
-      changeFrequency: 'never',
-      priority: 0.1,
-      alternates: {
-        languages: {
-          ...getMultilingualUrls(
-            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_ResetPassword}`
-          ),
-          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_ResetPassword}`,
-        },
-      },
-    },
-    {
-      url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_ChangePassword}`,
-      lastModified: new Date(),
-      changeFrequency: 'never',
-      priority: 0.1,
-      alternates: {
-        languages: {
-          ...getMultilingualUrls(
-            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_ChangePassword}`
-          ),
-          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Auth_ChangePassword}`,
-        },
-      },
-    },
-    {
-      url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Search}`,
-      lastModified: new Date(),
-      changeFrequency: 'never',
-      priority: 0.1,
-      alternates: {
-        languages: {
-          ...getMultilingualUrls(
-            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Search}`
-          ),
-          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Search}`,
-        },
-      },
-    },
-    {
-      url: `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Blog_Search}`,
-      lastModified: new Date(),
-      changeFrequency: 'never',
-      priority: 0.1,
-      alternates: {
-        languages: {
-          ...getMultilingualUrls(
-            `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Blog_Search}`
-          ),
-          'x-default': `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Blog_Search}`,
+          'x-default': `${process.env.NEXT_PUBLIC_URL}${Website_Blog_Search_Path}`,
         },
       },
     },

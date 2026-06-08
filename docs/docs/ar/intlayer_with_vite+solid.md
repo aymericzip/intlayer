@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-06-29
-title: كيفية ترجمة تطبيق Vite and Solid – دليل i18n 2025
-description: اكتشف كيفية جعل موقعك باستخدام Vite و Solid متعدد اللغات. اتبع الوثائق لتدويل (i18n) وترجمته.
+updatedAt: 2026-05-31
+title: "تدويل Vite + Solid - الدليل الكامل لترجمة تطبيقك"
+description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Vite + Solid متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
   - التدويل
   - التوثيق
@@ -14,56 +14,121 @@ slugs:
   - doc
   - environment
   - vite-and-solid
-# applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
+applicationTemplate: https://github.com/aymericzip/intlayer-vite-solid-template
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "تحديث استخدام واجهة برمجة تطبيقات useIntlayer في Solid للوصول المباشر إلى الخصائص"
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: "إضافة أمر init"
   - version: 5.5.10
     date: 2025-06-29
-    changes: بداية التاريخ
+    changes: "بداية التاريخ"
 ---
 
 # ترجم Vite and Solid باستخدام Intlayer | التدويل (i18n)
+
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
+  
+<iframe title="The best i18n solution for Vite and Solid? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
+
+  </Tab>
+  <Tab label="Code" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-vite-solid-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
+## Table of Contents
+
+<TOC/>
 
 > هذه الحزمة قيد التطوير. راجع [المشكلة](https://github.com/aymericzip/intlayer/issues/117) لمزيد من المعلومات. أظهر اهتمامك بـ Intlayer لـ Solid من خلال الإعجاب بالمشكلة
 
 <!-- راجع [قالب التطبيق](https://github.com/aymericzip/intlayer-solid-template) على GitHub. -->
 
-## ما هو Intlayer؟
+## لماذا Intlayer على البدائل؟
 
-**Intlayer** هي مكتبة تدويل (i18n) مبتكرة ومفتوحة المصدر مصممة لتبسيط دعم اللغات المتعددة في تطبيقات الويب الحديثة.
+بالمقارنة مع الحلول الرئيسية مثل `@solid-primitives/i18n` أو `i18next`، يعد Intlayer حلاً يأتي مزودًا بتحسينات متكاملة مثل:
 
-مع Intlayer، يمكنك:
+**تغطية كاملة ثابتة**
 
-- **إدارة الترجمات بسهولة** باستخدام قواميس إعلانية على مستوى المكون.
-- **توطين البيانات الوصفية والمسارات والمحتوى بشكل ديناميكي**.
-- **ضمان دعم TypeScript** بأنواع مولدة تلقائيًا، مما يحسن الإكمال التلقائي واكتشاف الأخطاء.
-- **الاستفادة من الميزات المتقدمة**، مثل الكشف الديناميكي عن اللغة وتبديلها.
+تم تحسين Intlayer للعمل بشكل مثالي مع Solid من خلال تقديم **نطاق المحتوى على مستوى المكونات** و**الترجمات التفاعلية** وجميع الميزات اللازمة لتوسيع نطاق التدويل (i18n).
+
+**حجم البندل**
+
+بدلاً من تحميل ملفات JSON ضخمة إلى صفحاتك، قم بتحميل المحتوى الضروري فقط. يساعد Intlayer **في تقليل أحجام البندل وصفحاتك بنسبة تصل إلى 50%**.
+
+** الصيانة **
+
+يؤدي تحديد نطاق محتوى تطبيقك ** إلى تسهيل الصيانة ** للتطبيقات واسعة النطاق. يمكنك تكرار أو حذف مجلد ميزات واحد دون العبء العقلي لمراجعة قاعدة بيانات المحتوى بالكامل. بالإضافة إلى ذلك، تتم كتابة Intlayer **بالكامل** لضمان دقة المحتوى الخاص بك.
+
+** وكيل الذكاء الاصطناعي **
+
+يؤدي تحديد موقع المحتوى المشترك ** إلى تقليل السياق المطلوب ** بواسطة نماذج اللغات الكبيرة (LLMs). يأتي Intlayer أيضًا مزودًا بمجموعة من الأدوات، مثل **CLI** لاختبار الترجمات المفقودة،**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**، **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** و**[مهارات الوكيل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**، لجعل تجربة المطور (DX) أكثر سلاسة للذكاء الاصطناعي وكلاء.
+
+**الأتمتة**
+
+استخدم الأتمتة للترجمة في مسار CI/CD الخاص بك باستخدام LLM من اختيارك على حساب مزود الذكاء الاصطناعي الخاص بك. يقدم Intlayer أيضًا **مترجمًا** لأتمتة استخراج المحتوى، بالإضافة إلى [منصة ويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) للمساعدة في **الترجمة في الخلفية**.
+
+**أداء**
+
+يمكن أن يؤدي ربط ملفات JSON الضخمة بالمكونات إلى حدوث مشكلات في الأداء والتفاعل. يعمل Intlayer على تحسين تحميل المحتوى الخاص بك في وقت الإنشاء.
+
+**التحجيم مع عدم وجود مطور**
+
+أكثر من مجرد حل i18n، يوفر Intlayer **[محررًا مرئيًا] مستضافًا ذاتيًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** و**[كامل CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** لمساعدتك في إدارة المحتوى متعدد اللغات في **الوقت الفعلي**، مما يجعل التعاون مع المترجمين ومؤلفي النصوص وأعضاء الفريق الآخرين سلسًا. يمكن تخزين المحتوى محليًا و/أو عن بعد.
 
 ---
 
 ## دليل خطوة بخطوة لإعداد Intlayer في تطبيق Vite و Solid
 
-### الخطوة 1: تثبيت التبعيات
+## Table of Contents
+
+<TOC/>
+
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 قم بتثبيت الحزم اللازمة باستخدام npm:
 
 ```bash packageManager="npm"
 npm install intlayer solid-intlayer
 npm install vite-intlayer --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer solid-intlayer
 pnpm add vite-intlayer --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer solid-intlayer
 yarn add vite-intlayer --save-dev
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer solid-intlayer
+bun add vite-intlayer --dev
+bun x intlayer init
 ```
 
 - **intlayer**
 
-الحزمة الأساسية التي توفر أدوات التدويل لإدارة التكوين، والترجمة، و[إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md)، والترجمة البرمجية، و[أوامر CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md).
+الحزمة الأساسية التي توفر أدوات التدويل لإدارة التكوين، والترجمة، و[إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md)، والترجمة البرمجية، و[أوامر CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md).
 
 - **solid-intlayer**
   الحزمة التي تدمج Intlayer مع تطبيق Solid. توفر مزودي السياق وخطافات للتدويل في Solid.
@@ -71,11 +136,13 @@ yarn add vite-intlayer --save-dev
 - **vite-intlayer**
   تتضمن إضافة Vite لدمج Intlayer مع [مجمّع Vite](https://vite.dev/guide/why.html#why-bundle-for-production)، بالإضافة إلى وسيط للكشف عن اللغة المفضلة للمستخدم، وإدارة ملفات تعريف الارتباط، والتعامل مع إعادة توجيه عناوين URL.
 
-### الخطوة 2: تكوين مشروعك
+</Step>
+
+<Step number={2} title="تكوين مشروعك">
 
 قم بإنشاء ملف تكوين لتكوين لغات تطبيقك:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -93,91 +160,34 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // لغاتك الأخرى
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-// تكوين الإعدادات الخاصة بالتدويل
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // لغاتك الأخرى
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-```
-
 > من خلال ملف التكوين هذا، يمكنك إعداد عناوين URL محلية، إعادة توجيه الوسيط، أسماء ملفات تعريف الارتباط، موقع وامتداد إعلانات المحتوى الخاصة بك، تعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [توثيق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
 
-### الخطوة 3: دمج Intlayer في تكوين Vite الخاص بك
+</Step>
+
+<Step number={3} title="دمج Intlayer في تكوين Vite الخاص بك">
 
 أضف مكون intlayer الإضافي إلى تكوينك.
 
-```typescript fileName="vite.config.ts" codeFormat="typescript"
+```typescript fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intlayer()],
-});
-```
-
-```javascript fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import { intlayer } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react(), intlayer()],
-});
-```
-
-```javascript fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const react = require("@vitejs/plugin-react-swc");
-const { intlayer } = require("vite-intlayer");
-
-// https://vitejs.dev/config/
-module.exports = defineConfig({
   plugins: [react(), intlayer()],
 });
 ```
 
 > يتم استخدام مكون Vite الإضافي `intlayer()` لدمج Intlayer مع Vite. يضمن بناء ملفات إعلان المحتوى ويراقبها في وضع التطوير. كما يعرّف متغيرات بيئة Intlayer داخل تطبيق Vite. بالإضافة إلى ذلك، يوفر أسماء مستعارة لتحسين الأداء.
 
-### الخطوة 4: إعلان المحتوى الخاص بك
+</Step>
+
+<Step number={4} title="إعلان المحتوى الخاص بك">
 
 قم بإنشاء وإدارة إعلانات المحتوى الخاصة بك لتخزين الترجمات:
 
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -188,32 +198,6 @@ const appContent = {
 export default appContent;
 ```
 
-```javascript fileName="src/app.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-// تعريف محتوى التطبيق
-const appContent = {
-  key: "app",
-  content: {},
-};
-
-export default appContent;
-```
-
-```javascript fileName="src/app.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-// تعريف محتوى التطبيق
-const appContent = {
-  key: "app",
-  content: {},
-};
-
-module.exports = appContent;
-```
-
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"
 {
   "$schema": "https://intlayer.org/schema.json",
@@ -222,33 +206,427 @@ module.exports = appContent;
 }
 ```
 
-> يمكن تعريف إعلانات المحتوى الخاصة بك في أي مكان في تطبيقك بمجرد تضمينها في دليل `contentDir` (افتراضيًا، `./src`). ويجب أن تتطابق مع امتداد ملف إعلان المحتوى (افتراضيًا، `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> يمكن تعريف إعلانات المحتوى الخاصة بك في أي مكان في تطبيقك بمجرد تضمينها في دليل `contentDir` (افتراضيًا، `./src`). ويجب أن تتطابق مع امتداد ملف إعلان المحتوى (افتراضيًا، `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
-> لمزيد من التفاصيل، راجع [توثيق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/get_started.md).
+> لمزيد من التفاصيل، راجع [توثيق إعلان المحتوى](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
 
-### الخطوة 5: استخدام Intlayer في الكود الخاص بك
+</Step>
 
-[للاستكمال]
+<Step number={5} title="استخدام Intlayer في الكود الخاص بك">
 
-### (اختياري) الخطوة 6: تغيير لغة المحتوى الخاص بك
+الوصول إلى قواميس المحتوى الخاصة بك في جميع أنحاء التطبيق:
 
-[للاستكمال]
+```tsx {1,11} fileName="src/App.tsx" codeFormat="typescript"
+import { createSignal, type Component } from "solid-js";
+import solidLogo from "./assets/solid.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import { IntlayerProvider, useIntlayer } from "solid-intlayer";
 
-### (اختياري) الخطوة 7: إضافة التوجيه المحلي إلى تطبيقك
+const AppContent: Component = () => {
+  const [count, setCount] = createSignal(0);
+  const content = useIntlayer("app");
 
-[للاستكمال]
+  return (
+    <>
+      <div>
+        <a href="https://vitejs.dev" target="_blank">
+          <img src={viteLogo} class="logo" alt={content.viteLogo.value} />
+        </a>
+        <a href="https://www.solidjs.com/" target="_blank">
+          <img
+            src={solidLogo}
+            class="logo solid"
+            alt={content.solidLogo.value}
+          />
+        </a>
+      </div>
+      <h1>{content.title}</h1>
+      <div class="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          {content.count({ count: count() })}
+        </button>
+        <p>{content.edit}</p>
+      </div>
+      <p class="read-the-docs">{content.readTheDocs}</p>
+    </>
+  );
+};
 
-### (اختياري) الخطوة 8: تغيير عنوان URL عند تغيير اللغة
+const App: Component = () => (
+  <IntlayerProvider>
+    <AppContent />
+  </IntlayerProvider>
+);
 
-[للاستكمال]
+export default App;
+```
 
-### (اختياري) الخطوة 9: تبديل لغة HTML وسمات الاتجاه
+> في Solid، `useIntlayer` يُرجع دالة **accessor** (على سبيل المثال، `content.). يجب عليك استدعاء هذه الدالة للوصول إلى المحتوى التفاعلي.
 
-[للاستكمال]
+> إذا كنت تريد استخدام المحتوى الخاص بك في سمة `string`، مثل `alt`، `title`، `href`، `aria-label`، إلخ، يجب عليك استدعاء قيمة الدالة، مثل:
+>
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
 
-### (اختياري) الخطوة 10: إنشاء مكون رابط محلي
+</Step>
 
-[للاستكمال]
+<Step number={6} title="تغيير لغة المحتوى الخاص بك" isOptional={true}>
+
+لتغيير لغة المحتوى الخاص بك، يمكنك استخدام دالة `setLocale` المقدمة من hook `useLocale`. تسمح لك هذه الدالة بتعيين locale التطبيق وتحديث المحتوى وفقًا لذلك.
+
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+import { type Component, For } from "solid-js";
+import { Locales } from "intlayer";
+import { useLocale } from "solid-intlayer";
+
+const LocaleSwitcher: Component = () => {
+  const { locale, setLocale, availableLocales } = useLocale();
+
+  return (
+    <select
+      value={locale()}
+      onChange={(e) => setLocale(e.currentTarget.value as Locales)}
+    >
+      <For each={availableLocales}>
+        {(loc) => (
+          <option value={loc} selected={loc === locale()}>
+            {loc}
+          </option>
+        )}
+      </For>
+    </select>
+  );
+};
+```
+
+</Step>
+
+<Step number={7} title="إضافة التوجيه المحلي إلى تطبيقك" isOptional={true}>
+
+الغرض من هذه الخطوة هو إنشاء مسارات فريدة لكل لغة. هذا مفيد لـ SEO وعناوين URL الصديقة لـ SEO.
+مثال:
+
+```plaintext
+- https://example.com/about
+- https://example.com/es/about
+- https://example.com/fr/about
+```
+
+لإضافة التوجيه المحلي إلى تطبيقك، يمكنك استخدام `@solidjs/router`.
+
+أولاً، قم بتثبيت التبعيات اللازمة:
+
+```bash packageManager="npm"
+npm install @solidjs/router
+```
+
+ثم، لف تطبيقك بـ `Router` وحدد مساراتك باستخدام `localeMap`:
+
+```tsx fileName="src/index.tsx"  codeFormat="typescript"
+import { render } from "solid-js/web";
+import { Router } from "@solidjs/router";
+import App from "./App";
+
+const root = document.getElementById("root");
+
+render(
+  () => (
+    <Router>
+      <App />
+    </Router>
+  ),
+  root!
+);
+```
+
+```tsx fileName="src/App.tsx" codeFormat="typescript"
+import { type Component } from "solid-js";
+import { Route } from "@solidjs/router";
+import { localeMap } from "intlayer";
+import { IntlayerProvider } from "solid-intlayer";
+import Home from "./pages/Home";
+import About from "./pages/About";
+
+const App: Component = () => (
+  <IntlayerProvider>
+    {localeMap(({ locale, urlPrefix }) => (
+      <Route
+        path={urlPrefix || "/"}
+        component={(props: any) => (
+          <IntlayerProvider locale={locale}>{props.children}</IntlayerProvider>
+        )}
+      >
+        <Route path="/" component={Home} />
+        <Route path="/about" component={About} />
+      </Route>
+    ))}
+  </IntlayerProvider>
+);
+
+export default App;
+```
+
+</Step>
+
+<Step number={8} title="تغيير عنوان URL عند تغيير اللغة" isOptional={true}>
+
+لتغيير عنوان URL عند تغيير locale، يمكنك استخدام prop `onLocaleChange` المقدمة من hook `useLocale`. يمكنك استخدام hooks `useNavigate` و `useLocation` من `@solidjs/router` لتحديث مسار URL.
+
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+import { type Component, For } from "solid-js";
+import { useLocation, useNavigate } from "@solidjs/router";
+import { getLocalizedUrl } from "intlayer";
+import { useLocale } from "solid-intlayer";
+
+const LocaleSwitcher: Component = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { locale, setLocale, availableLocales } = useLocale({
+    onLocaleChange: (loc) => {
+      const pathWithLocale = getLocalizedUrl(location.pathname, loc);
+      navigate(pathWithLocale);
+    },
+  });
+
+  return (
+    <select
+      value={locale()}
+      onChange={(e) => setLocale(e.currentTarget.value as any)}
+    >
+      <For each={availableLocales}>
+        {(loc) => (
+          <option value={loc} selected={loc === locale()}>
+            {loc}
+          </option>
+        )}
+      </For>
+    </select>
+  );
+};
+```
+
+</Step>
+
+<Step number={9} title="تبديل لغة HTML وسمات الاتجاه" isOptional={true}>
+
+قم بتحديث سمات `lang` و `dir` لعلامة `<html>` لتطابق locale الحالي لإمكانية الوصول و SEO.
+
+```tsx fileName="src/App.tsx" codeFormat="typescript"
+import { createEffect, type Component } from "solid-js";
+import { useLocale } from "solid-intlayer";
+import { getHTMLTextDir } from "intlayer";
+
+const AppContent: Component = () => {
+  const { locale } = useLocale();
+
+  createEffect(() => {
+    document.documentElement.lang = locale();
+    document.documentElement.dir = getHTMLTextDir(locale());
+  });
+
+  return (
+    // ... محتوى التطبيق الخاص بك
+  );
+};
+```
+
+</Step>
+
+<Step number={10} title="إنشاء مكون رابط محلي" isOptional={true}>
+
+قم بإنشاء مكون `Link` مخصص يضيف تلقائيًا بادئة لعناوين URL الداخلية باللغة الحالية.
+
+```tsx fileName="src/components/Link.tsx" codeFormat="typescript"
+import { type ParentComponent } from "solid-js";
+import { A, type AnchorProps } from "@solidjs/router";
+import { getLocalizedUrl } from "intlayer";
+import { useLocale } from "solid-intlayer";
+
+export const Link: ParentComponent<AnchorProps> = (props) => {
+  const { locale } = useLocale();
+
+  const isExternal = () => props.href.startsWith("http");
+  const localizedHref = () =>
+    isExternal() ? props.href : getLocalizedUrl(props.href, locale());
+
+  return <A {...props} href={localizedHref()} />;
+};
+```
+
+</Step>
+
+<Step number={11} title="عرض Markdown" isOptional={true}>
+
+يدعم Intlayer عرض محتوى Markdown مباشرة في تطبيق Solid الخاص بك باستخدام محلل داخلي خاص به. افتراضيًا، يتم التعامل مع Markdown كنص عادي. لعرضه كـ HTML غني، لف تطبيقك بـ `MarkdownProvider`.
+
+```tsx fileName="src/index.tsx"
+import { render } from "solid-js/web";
+import { MarkdownProvider } from "solid-intlayer/markdown";
+import App from "./App";
+
+const root = document.getElementById("root");
+
+render(
+  () => (
+    <MarkdownProvider>
+      <App />
+    </MarkdownProvider>
+  ),
+  root!
+);
+```
+
+ثم يمكنك استخدامه في مكوناتك:
+
+```tsx
+import { useIntlayer } from "solid-intlayer";
+
+const MyComponent = () => {
+  const content = useIntlayer("my-content");
+
+  return (
+    <div>
+      {/* يتم عرضه كـ HTML عبر MarkdownProvider */}
+      {content.markdownContent}
+    </div>
+  );
+};
+```
+
+</Step>
+
+<Step number={1} title="استخراج محتوى مكوناتك" isOptional={true}>
+
+إذا كان لديك قاعدة بيانات كود موجودة، فقد يكون تحويل آلاف الملفات مستهلكًا للوقت.
+
+لتسهيل هذه العملية، يقترح Intlayer [مترجمًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/compiler.md) / [مستخرجًا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/extract.md) لتحويل مكوناتك واستخراج المحتوى.
+
+لإعداده، يمكنك إضافة قسم `compiler` في ملف `intlayer.config.ts` الخاص بك:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... بقية التكوين الخاص بك
+  compiler: {
+    /**
+     * يشير إلى ما إذا كان يجب تمكين المترجم.
+     */
+    enabled: true,
+
+    /**
+     * يحدد مسار ملفات المخرجات
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * يشير إلى ما إذا كان يجب حفظ المكونات بعد تحويلها. بهذه الطريقة، يمكن تشغيل المترجم مرة واحدة فقط لتحويل التطبيق، ثم يمكن إزالته.
+     */
+    saveComponents: false,
+
+    /**
+     * بادئة مفتاح القاموس
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='أمر الاستخراج'>
+
+قم بتشغيل المستخرج لتحويل مكوناتك واستخراج المحتوى
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='مترجم Babel'>
+
+```bash packageManager="npm"
+npm install @intlayer/babel --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/babel --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/babel --save-dev
+```
+
+```bash packageManager="bun"
+bun add @intlayer/babel --dev
+```
+
+```js fileName="babel.config.js"
+const {
+  intlayerExtractBabelPlugin,
+  getExtractPluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    // استخراج المحتوى من المكونات إلى القواميس
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+  ],
+};
+```
+
+```bash packageManager="npm"
+npm run build # أو npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # Or pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Or yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
+</Step>
+
+</Steps>
+
+### تكوين TypeScript
+
+تأكد من أن تكوين TypeScript الخاص بك يتضمن الأنواع المولدة تلقائيًا.
+
+```json5 fileName="tsconfig.json"
+{
+  "compilerOptions": {
+    // ...
+  },
+  "include": ["src", ".intlayer/**/*.ts"],
+}
+```
 
 ### تكوين Git
 
@@ -256,10 +634,84 @@ module.exports = appContent;
 
 للقيام بذلك، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
 
-```plaintext
-# تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
+```bash
+#  تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
 .intlayer
 ```
+
+### (اختياري) خريطة الموقع و robots.txt (توليد وقت البناء)
+
+يوفّر Intlayer الدالتين `generateSitemap` و`getMultilingualUrls` لتنسيق مخرجات جاهزة للزحّافات (`sitemap.xml` متعدد اللغات و`robots.txt`) وكتابتها تلقائياً إلى `public/`. عادةً تشغّل سكربت Node صغير **قبل** Vite (مثلاً خطافات npm `predev` / `prebuild`).
+
+#### خريطة الموقع
+
+يولّد مولّد خرائط المواقع إعدادات اللغات ويضيف البيانات الوصفية المناسبة.
+
+> تدعم الخريطة مساحة الاسم `xhtml:link` (hreflang). بدلاً من قائمة عناوين مسطحة، يربط Intlayer بين جميع النسخ اللغوية لكل صفحة في الاتجاهين (مثل `/about` و`/fr/about` أو `/about?lang=fr` وفقًا لوضع التوجيه).
+
+#### Robots.txt
+
+استخدم `getMultilingualUrls` لتشمل قواعد `Disallow` كل المتغيرات المحلية للمسارات الحساسة.
+
+#### 1. أضف `generate-seo.mjs` في جذر المشروع
+
+```javascript fileName="generate-seo.mjs"
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import { generateSitemap, getMultilingualUrls } from "intlayer";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const SITE_URL = (process.env.SITE_URL || "http://localhost:5173").replace(
+  /\/$/,
+  ""
+);
+
+const pathList = [
+  { path: "/", changefreq: "daily", priority: 1.0 },
+  { path: "/about", changefreq: "monthly", priority: 0.7 },
+];
+
+const sitemapXml = generateSitemap(pathList, { siteUrl: SITE_URL });
+fs.writeFileSync(path.join(__dirname, "public", "sitemap.xml"), sitemapXml);
+
+const getAllMultilingualUrls = (urls) =>
+  urls.flatMap((url) => Object.values(getMultilingualUrls(url)));
+
+const disallowedPaths = getAllMultilingualUrls(["/admin", "/private"]);
+
+const robotsTxt = [
+  "User-agent: *",
+  "Allow: /",
+  ...disallowedPaths.map((path) => `Disallow: ${path}`),
+  "",
+  `Sitemap: ${SITE_URL}/sitemap.xml`,
+].join("\n");
+
+fs.writeFileSync(path.join(__dirname, "public", "robots.txt"), robotsTxt);
+
+console.log("SEO files generated successfully.");
+```
+
+يجب تثبيت حزمة `intlayer`. عيّن `SITE_URL` في بيئة الإنتاج (مثلاً في CI).
+
+> يُفضّل `generate-seo.mjs` لـ ESM في Node. إن استخدمت `generate-seo.js` ففعّل `"type": "module"` في `package.json` أو ESM بطريقة أخرى.
+
+#### 2. شغّل السكربت قبل Vite
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "dev": "vite",
+    "prebuild": "node generate-seo.mjs",
+    "build": "vite build",
+    "preview": "vite preview"
+  }
+}
+```
+
+عدّل الأوامر إن كنت تستخدم pnpm أو yarn. يمكن استدعاء السكربت من CI أيضاً.
 
 ### امتداد VS Code
 

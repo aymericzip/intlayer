@@ -1,0 +1,83 @@
+{
+  "Index": {
+    "title": "Home",
+    "description": "This is the home page."
+  },
+  "LocaleSwitcher": {
+    "switchLocale_de": "Switch to German",
+    "switchLocale_en": "Switch to English",
+    "switchLocale": "Switch to Unknown"
+  },
+  "PageLayout": {
+    "pageTitle": "next-intl"
+  },
+  "ICUExamples": {
+    "plural": {
+      "items_zero": "No items",
+      "items_one": "One item",
+      "items_other": "{{count}} items",
+      "messages_zero": "You have no messages",
+      "messages_one": "You have one message",
+      "messages_other": "You have {{messageCount}} messages",
+      "unread_zero": "No unread messages",
+      "unread_one": "{{unreadCount}} unread message",
+      "unread_other": "{{unreadCount}} unread messages"
+    },
+    "gender": {
+      "welcome_male": "Welcome, sir!",
+      "welcome_female": "Welcome, madam!",
+      "welcome": "Welcome!",
+      "invitation_male": "He is invited",
+      "invitation_female": "She is invited",
+      "invitation": "They are invited",
+      "possession_male": "His account",
+      "possession_female": "Her account",
+      "possession": "Their account"
+    },
+    "insert": {
+      "greeting": "Hello, {{name}}!",
+      "formattedNumber": "Price: {{price, currency}}",
+      "formattedDate": "Today is {{date, long}}",
+      "formattedTime": "Current time: {{time, short}}",
+      "percentage": "Progress: {{progress, percent}}",
+      "complex": "User {{name}} has {{count}} {{itemType}}s"
+    },
+    "combined": {
+      "userMessages_male": "He has {{count}} messages",
+      "userMessages_female": "She has {{count}} messages",
+      "userMessages": "They have {{count}} messages",
+      "itemCount": "You have {{count}} items in your {{category}}",
+      "notification": "{{userName}} shared {{itemCount}} items with you on {{date}}"
+    },
+    "select": {
+      "status_active": "Active",
+      "status_inactive": "Inactive",
+      "status_pending": "Pending",
+      "status": "Unknown",
+      "role_admin": "Administrator",
+      "role_user": "User",
+      "role_guest": "Guest",
+      "role": "Unknown role",
+      "priority_high": "High priority",
+      "priority_medium": "Medium priority",
+      "priority_low": "Low priority",
+      "priority": "Normal priority"
+    },
+    "numberFormatting": {
+      "currency": "Total: {{amount, currency}}",
+      "decimal": "Value: {{value}}",
+      "percent": "Completion: {{percentage, percent}}",
+      "compact": "Views: {{views, compact}}"
+    },
+    "dateTimeFormatting": {
+      "dateShort": "{{date, short}}",
+      "dateMedium": "{{date, medium}}",
+      "dateLong": "{{date, long}}",
+      "dateFull": "{{date, full}}",
+      "timeShort": "{{time, short}}",
+      "timeMedium": "{{time, medium}}",
+      "timeLong": "{{time, long}}",
+      "dateTime": "{{datetime, medium}} at {{datetime, short}}"
+    }
+  }
+}

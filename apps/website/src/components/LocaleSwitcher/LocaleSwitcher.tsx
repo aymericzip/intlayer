@@ -1,13 +1,10 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import { getHTMLTextDir, getLocaleName } from '@intlayer/core';
-import {
-  Container,
-  DropDown,
-  Input,
-  type PanelProps,
-} from '@intlayer/design-system';
+import { getHTMLTextDir, getLocaleName } from '@intlayer/core/localization';
+import { Container } from '@intlayer/design-system/container';
+import { DropDown, type PanelProps } from '@intlayer/design-system/drop-down';
+import { Input } from '@intlayer/design-system/input';
 import { MoveVertical } from 'lucide-react';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import { type FC, useRef } from 'react';
@@ -58,14 +55,19 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
           identifier={DROPDOWN_IDENTIFIER}
           aria-label={localeSwitcherLabel.value}
           size="sm"
-          className="!px-0 p-1"
+          className="p-0!"
           variant="outline"
           color="text"
           roundedSize="5xl"
           onClick={handleFocusInput}
         >
           <div className="flex w-full items-center justify-between">
-            <div className="text-nowrap px-2 text-base">{localeName}</div>
+            <div
+              className="text-nowrap px-2 text-base"
+              suppressHydrationWarning
+            >
+              {localeName}
+            </div>
             <MoveVertical className="w-5 self-center" />
           </div>
         </DropDown.Trigger>
@@ -80,10 +82,8 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
           <Container
             className="max-h-[80vh] min-w-28 border border-text/5"
             separator="y"
-            role="listbox"
             roundedSize="xl"
-            transparency="sm"
-            aria-label={languageListLabel.value}
+            transparency="xs"
           >
             <div className="p-3">
               <Input
@@ -94,19 +94,23 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                 ref={inputRef}
               />
             </div>
-            <ol className="divide-y divide-dashed divide-text/20 overflow-y-auto p-1">
+            <ul
+              className="divide-y divide-dashed divide-text/20 overflow-y-auto p-1"
+              aria-label={languageListLabel.value}
+            >
               {searchResults.map(
                 ({ locale: localeItem, currentLocaleName, ownLocaleName }) => (
                   <li className="py-1 pr-3" key={localeItem}>
                     <Link
-                      label={`${switchTo.value} ${currentLocaleName}`}
+                      label={
+                        switchTo({ locale: getLocaleName(localeItem, locale) })
+                          .value
+                      }
                       href={pathWithoutLocale}
                       locale={localeItem}
-                      isActive={locale === localeItem}
+                      isActive={locale === localeItem} // Add aria-current="page" for accessibility
                       variant="hoverable"
                       color="text"
-                      role="option"
-                      aria-selected={locale === localeItem}
                       replace // Will ensure that the "go back" browser button will redirect to the previous page
                       onClick={() => setLocale(localeItem)}
                     >
@@ -115,10 +119,14 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                           <span
                             dir={getHTMLTextDir(localeItem)}
                             lang={localeItem}
+                            suppressHydrationWarning
                           >
                             {ownLocaleName}
                           </span>
-                          <span className="text-neutral text-xs">
+                          <span
+                            className="text-neutral text-xs"
+                            suppressHydrationWarning
+                          >
                             {currentLocaleName}
                           </span>
                         </div>
@@ -130,7 +138,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                   </li>
                 )
               )}
-            </ol>
+            </ul>
           </Container>
         </DropDown.Panel>
       </DropDown>

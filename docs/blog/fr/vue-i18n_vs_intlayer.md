@@ -182,7 +182,7 @@ Cela ralentit souvent le développement à mesure que les applications grandisse
 
 **Déclaration du contenu** (par composant) :
 
-```ts fileName="./components/MyComponent/MyComponent.content.ts"
+```ts fileName="./components/MyComponent/myComponent.content.ts"
 import { t, type Dictionary } from "intlayer";
 
 // Contenu d'exemple pour le composant

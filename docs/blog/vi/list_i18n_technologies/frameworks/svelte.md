@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-01-16
-updatedAt: 2025-06-29
-title: Công Cụ Quốc Tế Hóa (i18n) Tốt Nhất cho Svelte
-description: Khám phá các giải pháp i18n hàng đầu cho Svelte để giải quyết các thách thức về dịch thuật, tăng cường SEO và mang lại trải nghiệm web toàn cầu liền mạch.
+updatedAt: 2026-05-31
+title: Công Cụ Quốc Tế Hóa (i18n) Tốt Nhất cho Svelte - Hướng dẫn đầy đủ để dịch Best Svelte i18n Libraries 2026 — Compared by DX & Bundle
+description: Giải pháp tốt nhất cho kích thước bundle, SEO, hiệu suất & khả năng bảo trì. Làm cho Svelte ứng dụng của bạn đa ngôn ngữ vào năm 2026, dịch thuật LLM, Agent Skills & MCP.
 keywords:
   - Svelte
   - i18n
@@ -50,7 +50,29 @@ Việc dịch một ứng dụng Svelte có thể gặp phải một số khó k
 
 Svelte không cung cấp giải pháp i18n tích hợp sẵn (như Angular), nhưng cộng đồng đã tạo ra nhiều thư viện và mẫu thiết kế mạnh mẽ. Dưới đây là một số cách tiếp cận phổ biến.
 
-### 1. svelte-i18n
+### 1. Intlayer
+
+> Trang web: [https://intlayer.org/](https://intlayer.org/)
+
+**Tổng quan**  
+**Intlayer** là một thư viện quốc tế hóa (i18n) mã nguồn mở sáng tạo được thiết kế để đơn giản hóa việc hỗ trợ đa ngôn ngữ trong các ứng dụng web Svelte (và các ứng dụng khác) hiện đại. Nó cung cấp một phương pháp khai báo cho phép bạn xác định các từ điển dịch trực tiếp trong các thành phần của mình.
+
+**Các tính năng chính**
+
+- **Khai báo bản dịch**: Cho phép tất cả các bản dịch được khai báo trong một tệp duy nhất, được giữ ở cấp độ thành phần, giúp dễ dàng bảo trì và mở rộng.
+- **TypeScript và Autocomplete**: Cung cấp các định nghĩa kiểu được tạo tự động cho các khóa dịch, đảm bảo tự động hoàn thành mạnh mẽ và phát hiện lỗi.
+- **Thành phần máy chủ và SSR**: Được xây dựng với sự hỗ trợ cho hiển thị phía máy chủ (SSR) and các thành phần máy chủ, đảm bảo nội dung được bản địa hóa được hiển thị hiệu quả trên cả máy khách và máy chủ.
+- **Siêu dữ liệu và URL được bản địa hóa cho SEO**: Dễ dàng quản lý các tuyến dựa trên ngôn ngữ động, sơ đồ trang web và các mục nhập robots.txt để cải thiện khả năng khám phá và SEO.
+- **Tích hợp liền mạch**: Tương thích với SvelteKit và các công cụ khác, giúp việc thiết lập trở nên đơn giản.
+- **Tải không đồng bộ**: Tải các từ điển dịch một cách linh hoạt, giảm kích thước gói ban đầu và cải thiện hiệu suất.
+
+**Những điều cần lưu ý**
+
+- **Cộng đồng và Hệ sinh thái**: Mặc dù đang phát triển, hệ sinh thái vẫn còn mới, vì vậy các plugin và công cụ do cộng đồng thúc đẩy có thể hạn chế hơn so với các giải pháp lâu đời hơn.
+
+---
+
+### 2. svelte-i18n
 
 Kho lưu trữ: [https://github.com/kaisermann/svelte-i18n](https://github.com/kaisermann/svelte-i18n)
 
@@ -72,7 +94,7 @@ Kho lưu trữ: [https://github.com/kaisermann/svelte-i18n](https://github.com/k
 
 ---
 
-### 2. svelte-intl-precompile
+### 3. svelte-intl-precompile
 
 Kho lưu trữ: [https://github.com/cibernox/svelte-intl-precompile](https://github.com/cibernox/svelte-intl-precompile)
 
@@ -94,9 +116,7 @@ Kho lưu trữ: [https://github.com/cibernox/svelte-intl-precompile](https://git
 
 ---
 
----
-
-### 3. i18next với Svelte / SvelteKit
+### 4. i18next với Svelte / SvelteKit
 
 Website: [https://www.i18next.com/](https://www.i18next.com/)
 

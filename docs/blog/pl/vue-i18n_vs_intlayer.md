@@ -184,7 +184,7 @@ To często spowalnia rozwój w miarę rozrastania się aplikacji:
 
 **Deklaracja zawartości** (per komponent):
 
-```ts fileName="./components/MyComponent/MyComponent.content.ts"
+```ts fileName="./components/MyComponent/myComponent.content.ts"
 import { t, type Dictionary } from "intlayer";
 
 const componentExampleContent = {
@@ -246,7 +246,7 @@ To podejście:
 ## Kiedy wybrać które?
 
 - **Wybierz vue-i18n**, jeśli chcesz **standardowe podejście Vue**, czujesz się komfortowo zarządzając katalogami/przestrzeniami nazw samodzielnie, a Twoja aplikacja jest **mała lub średnia** (lub już korzystasz z Nuxt i18n).
-- **Wybierz Intlayer**, jeśli cenisz **zawartość ograniczoną do komponentu**, **ścisły TypeScript**, **gwarancje na etapie budowania**, **tree-shaking** oraz **wbudowane narzędzia do routingu/SEO/edytora** — szczególnie dla **dużych, modułowych baz kodu Vue/Nuxt**, systemów projektowych itp.
+- **Wybierz Intlayer**, jeśli cenisz **zawartość ograniczoną do komponentu**, **ścisły TypeScript**, **gwarancje na etapie budowania**, **tree-shaking** oraz **wbudowane narzędzia do routingu/SEO/edytora**, szczególnie dla **dużych, modułowych baz kodu Vue/Nuxt**, systemów projektowych itp.
 
 ---
 
@@ -255,8 +255,6 @@ To podejście:
 `intlayer` może również pomóc w zarządzaniu przestrzeniami nazw `vue-i18n`.
 
 Korzystając z `intlayer`, możesz zadeklarować swoją zawartość w formacie ulubionej biblioteki i18n, a intlayer wygeneruje Twoje przestrzenie nazw w wybranej lokalizacji (np. `/messages/{{locale}}/{{namespace}}.json`).
-
-Zapoznaj się z opcjami [`dictionaryOutput` i `i18nextResourcesDir`](https://intlayer.org/doc/concept/configuration#content-configuration), aby uzyskać więcej szczegółów.
 
 ---
 

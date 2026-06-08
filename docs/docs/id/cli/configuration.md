@@ -22,8 +22,20 @@ slugs:
 
 Perintah `configuration get` mengambil konfigurasi saat ini untuk Intlayer, khususnya pengaturan locale. Ini berguna untuk memverifikasi pengaturan Anda.
 
-```bash
+```bash packageManager="npm"
 npx intlayer configuration get
+```
+
+```bash packageManager="yarn"
+yarn intlayer configuration get
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer configuration get
+```
+
+```bash packageManager="bun"
+bun x intlayer configuration get
 ```
 
 ## Alias:
@@ -43,8 +55,20 @@ npx intlayer configuration get
 
 Perintah `configuration push` mengunggah konfigurasi Anda ke Intlayer CMS dan editor. Langkah ini diperlukan untuk mengaktifkan penggunaan kamus jarak jauh di Intlayer Visual Editor.
 
-```bash
+```bash packageManager="npm"
 npx intlayer configuration push
+```
+
+```bash packageManager="yarn"
+yarn intlayer configuration push
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer configuration push
+```
+
+```bash packageManager="bun"
+bun x intlayer configuration push
 ```
 
 ## Alias:

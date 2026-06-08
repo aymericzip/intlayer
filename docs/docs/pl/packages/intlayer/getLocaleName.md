@@ -19,9 +19,12 @@ slugs:
   - intlayer
   - getLocaleName
 history:
+  - version: 7.5.0
+    date: 2025-12-18
+    changes: "Dodaj polyfills dla React Native i starszych środowisk"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inicjalizacja historii
+    changes: "Inicjalizacja historii"
 ---
 
 # Dokumentacja: funkcja `getLocaleName` w `intlayer`
@@ -47,7 +50,7 @@ Funkcja `getLocaleName` zwraca zlokalizowaną nazwę podanego locale (`targetLoc
 
 ## Przykład użycia
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, getLocaleName } from "intlayer";
 
 getLocaleName(Locales.ENGLISH); // Output: "English"
@@ -68,51 +71,23 @@ getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Output: "Chinese"
 getLocaleName("unknown-locale"); // Output: "Unknown locale"
 ```
 
-```javascript codeFormat="esm"
-import { Locales, getLocaleName } from "intlayer";
-
-getLocaleName(Locales.ENGLISH); // Wynik: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // Wynik: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // Wynik: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // Wynik: "English"
-
-getLocaleName(Locales.FRENCH); // Wynik: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // Wynik: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // Wynik: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // Wynik: "French"
-
-getLocaleName(Locales.CHINESE); // Wynik: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // Wynik: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Wynik: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Wynik: "Chinese"
-
-getLocaleName("unknown-locale"); // Wynik: "Unknown locale"
-```
-
-```javascript codeFormat="commonjs"
-const { Locales, getLocaleName } = require("intlayer");
-
-getLocaleName(Locales.ENGLISH); // Wynik: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // Wynik: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // Wynik: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // Wynik: "English"
-
-getLocaleName(Locales.FRENCH); // Wynik: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // Wynik: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // Wynik: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // Wynik: "French"
-
-getLocaleName(Locales.CHINESE); // Wynik: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // Wynik: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Wynik: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Wynik: "Chinese"
-
-getLocaleName("unknown-locale"); // Wynik: "Unknown locale"
-```
-
 ## Przypadki brzegowe
 
 - **Brak podanego `targetLocale`:**
   - Funkcja domyślnie zwraca własną nazwę `displayLocale`.
 - **Brakujące tłumaczenia:**
   - Jeśli `localeNameTranslations` nie zawiera wpisu dla `targetLocale` lub konkretnego `displayLocale`, funkcja korzysta z `ownLocalesName` lub zwraca `"Unknown locale"`.
+
+## Polyfills dla React Native i starszych środowisk
+
+Funkcja `getLocaleName` zależy od API `Intl.DisplayNames`, które nie jest dostępne w React Native lub starszych środowiskach JavaScript. Jeśli używasz `getLocaleName` w tych środowiskach, musisz dodać polyfills.
+
+Zaimportuj polyfills wcześnie w swojej aplikacji, najlepiej w pliku punktu wejścia (np. `index.js`, `App.tsx` lub `main.tsx`):
+
+```typescript
+import "intl";
+import "@formatjs/intl-locale/polyfill";
+import "@formatjs/intl-displaynames/polyfill";
+```
+
+Aby uzyskać więcej szczegółów, zobacz [dokumentację polyfills FormatJS](https://formatjs.io/docs/polyfills/intl-displaynames/).

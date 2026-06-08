@@ -1,21 +1,33 @@
-import { logger } from '@intlayer/config/client';
-import type { Dictionary } from '@intlayer/types';
+import { logger } from '@intlayer/config/logger';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import { autoDecorateContent } from '../utils/autoDecorateContent';
 import { resolveObjectPromises } from '../utils/resolveObjectPromises';
 
 /**
  * Function to load, process the module and return the Intlayer Dictionary from the module file
  */
 export const processContentDeclaration = async (
-  contentDeclaration: Dictionary
+  contentDeclaration: Dictionary,
+  configuration: IntlayerConfig
 ): Promise<Dictionary | undefined> => {
   try {
-    const content = (await resolveObjectPromises(
+    const resolvedContent = (await resolveObjectPromises(
       contentDeclaration.content
     )) as Dictionary['content'];
 
+    const isAutoDecorateContentEnabled =
+      contentDeclaration.contentAutoTransformation ??
+      configuration.dictionary?.contentAutoTransformation ??
+      false;
+
+    const decoratedContent = isAutoDecorateContentEnabled
+      ? autoDecorateContent(resolvedContent, isAutoDecorateContentEnabled)
+      : resolvedContent;
+
     return {
       ...contentDeclaration,
-      content,
+      content: decoratedContent,
     } as Dictionary;
   } catch (error) {
     logger(error, {

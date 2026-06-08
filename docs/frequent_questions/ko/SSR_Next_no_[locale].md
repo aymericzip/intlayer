@@ -16,7 +16,7 @@ keywords:
   - noPrefix
 slugs:
   - frequent-questions
-  - ssr-next-no-[locale]
+  - next-no-locale-path
 ---
 
 # 페이지 경로에 `[locale]` 없이 Next.js에서 Intlayer를 사용할 수 있나요?

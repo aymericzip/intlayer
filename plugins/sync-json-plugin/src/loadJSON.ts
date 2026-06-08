@@ -1,64 +1,103 @@
-import { isAbsolute, join, relative, resolve } from 'node:path';
-import { getProjectRequire } from '@intlayer/config';
+import { isAbsolute, relative, resolve } from 'node:path';
+import { loadExternalFile } from '@intlayer/config/file';
+import { parseFilePathPattern } from '@intlayer/config/utils';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import type {
   Dictionary,
   DictionaryFormat,
-  IntlayerConfig,
   LocalDictionaryId,
-  Locale,
-  Plugin,
-} from '@intlayer/types';
+} from '@intlayer/types/dictionary';
+import type {
+  FilePathPattern,
+  FilePathPatternContext,
+} from '@intlayer/types/filePathPattern';
+import type { Plugin } from '@intlayer/types/plugin';
 import fg from 'fast-glob';
 import { extractKeyAndLocaleFromPath } from './syncJSON';
 
 type JSONContent = Record<string, any>;
 
-type Builder = ({
-  key,
-  locale,
-}: {
-  key: string;
-  locale?: Locale | (string & {});
-}) => string;
+type FilePath = string;
 
 type MessagesRecord = Record<Locale, Record<Dictionary['key'], FilePath>>;
 
-const listMessages = (
-  builder: Builder,
-  configuration: IntlayerConfig,
-  selectedLocale: Locale
-): MessagesRecord => {
-  const { content, internationalization } = configuration;
+const listMessages = async (
+  source: FilePathPattern,
+  configuration: IntlayerConfig
+): Promise<MessagesRecord> => {
+  const { system, internationalization } = configuration;
 
-  const baseDir = content.baseDir;
-  const locales = internationalization.locales;
-
-  const localePattern = `{${locales.map((locale) => locale).join(',')}}`;
-
-  const globPattern = builder({ key: '*', locale: localePattern });
-  const maskPattern = builder({ key: '{{__KEY__}}', locale: '{{__LOCALE__}}' });
-
-  const files = fg.sync(globPattern, {
-    cwd: baseDir,
-  });
+  const { baseDir } = system;
+  const { locales } = internationalization;
 
   const result: MessagesRecord = {} as MessagesRecord;
 
-  for (const file of files) {
-    const { key, locale } = extractKeyAndLocaleFromPath(
-      file,
-      maskPattern,
-      locales,
-      selectedLocale
-    );
+  for (const locale of locales) {
+    const globPatternLocale = await parseFilePathPattern(source, {
+      key: '**',
+      locale,
+    } as any as FilePathPatternContext);
 
-    const absolutePath = isAbsolute(file) ? file : resolve(baseDir, file);
+    const maskPatternLocale = await parseFilePathPattern(source, {
+      key: '{{__KEY__}}',
+      locale,
+    } as any as FilePathPatternContext);
 
-    if (!result[locale as Locale]) {
-      result[locale as Locale] = {};
+    if (!globPatternLocale || !maskPatternLocale) {
+      continue;
     }
 
-    result[locale as Locale][key as Dictionary['key']] = absolutePath;
+    const normalizedGlobPattern = globPatternLocale.startsWith('./')
+      ? globPatternLocale.slice(2)
+      : globPatternLocale;
+
+    const files = await fg(normalizedGlobPattern, {
+      cwd: baseDir,
+    });
+
+    for (const file of files) {
+      // extractKeyAndLocaleFromPath requires at least one named capture group
+      // ({{__LOCALE__}} or {{__KEY__}}) in the mask to return a non-null result.
+      // When the mask is fully concrete (e.g. `messages_ICU/en.json` — the source
+      // has {{locale}} but no {{key}}), no groups exist and it returns null.
+      // In that case, fall back directly to the loop locale and key = 'index'.
+      const hasLocaleInMask = maskPatternLocale.includes('{{__LOCALE__}}');
+      const hasKeyInMask = maskPatternLocale.includes('{{__KEY__}}');
+
+      let key: string;
+      let extractedLocale: Locale;
+
+      if (hasLocaleInMask || hasKeyInMask) {
+        const extraction = extractKeyAndLocaleFromPath(
+          file,
+          maskPatternLocale,
+          locales,
+          locale
+        );
+
+        if (!extraction) {
+          continue;
+        }
+
+        key = extraction.key;
+        extractedLocale = extraction.locale;
+      } else {
+        // Mask has no placeholders — the file was found via a concrete locale
+        // glob. Attribute it directly to the current loop locale.
+        key = 'index';
+        extractedLocale = locale;
+      }
+
+      const absolutePath = isAbsolute(file) ? file : resolve(baseDir, file);
+
+      const usedLocale = extractedLocale as Locale;
+      if (!result[usedLocale]) {
+        result[usedLocale] = {};
+      }
+
+      result[usedLocale][key as Dictionary['key']] = absolutePath;
+    }
   }
 
   // For the load plugin we only use actual discovered files; do not fabricate
@@ -66,40 +105,31 @@ const listMessages = (
   return result;
 };
 
-type FilePath = string;
-
 type DictionariesMap = { path: string; locale: Locale; key: string }[];
 
-const loadMessagePathMap = (
-  source: MessagesRecord | Builder,
-  configuration: IntlayerConfig,
-  selectedLocale: Locale
+const loadMessagePathMap = async (
+  source: MessagesRecord | FilePathPattern,
+  configuration: IntlayerConfig
 ) => {
-  const builder = source as Builder;
-  const messages: MessagesRecord = listMessages(
-    builder,
-    configuration,
-    selectedLocale
+  const sourcePattern = source as FilePathPattern;
+  const messages: MessagesRecord = await listMessages(
+    sourcePattern,
+    configuration
   );
 
-  const maskPattern = builder({
-    key: '{{__KEY__}}',
-    locale: '{{__LOCALE__}}',
-  });
-  const hasLocaleInMask = maskPattern.includes('{{__LOCALE__}}');
-
-  const entries = (
-    hasLocaleInMask && selectedLocale
-      ? Object.entries(messages).filter(([locale]) => locale === selectedLocale)
-      : Object.entries(messages)
-  ) as [Locale, Record<Dictionary['key'], FilePath>][];
+  // Always include all discovered locales — loadJSON is read-only and should
+  // ingest every locale file that exists, just like syncJSON does.
+  const entries = Object.entries(messages) as [
+    Locale,
+    Record<Dictionary['key'], FilePath>,
+  ][];
 
   const dictionariesPathMap: DictionariesMap = entries.flatMap(
     ([locale, keysRecord]) =>
       Object.entries(keysRecord).map(([key, path]) => {
         const absolutePath = isAbsolute(path)
           ? path
-          : resolve(configuration.content.baseDir, path);
+          : resolve(configuration.system.baseDir, path);
 
         return {
           path: absolutePath,
@@ -124,7 +154,7 @@ type LoadJSONPluginOptions = {
    * })
    * ```
    */
-  source: Builder;
+  source: FilePathPattern;
 
   /**
    * Locale
@@ -199,47 +229,34 @@ export const loadJSON = (options: LoadJSONPluginOptions): Plugin => {
     name: 'load-json',
 
     loadDictionaries: async ({ configuration }) => {
-      const usedLocale = (locale ??
-        configuration.internationalization.defaultLocale) as Locale;
-
-      const dictionariesMap: DictionariesMap = loadMessagePathMap(
+      const dictionariesMap: DictionariesMap = await loadMessagePathMap(
         options.source,
-        configuration,
-        usedLocale
+        configuration
       );
-
-      let filePath: string = options.source({
-        key: '{{key}}',
-      });
-
-      if (filePath && !isAbsolute(filePath)) {
-        filePath = join(configuration.content.baseDir, filePath);
-      }
 
       const dictionaries: Dictionary[] = [];
 
-      for (const { path, key } of dictionariesMap) {
-        const requireFunction =
-          configuration.build?.require ?? getProjectRequire();
-        let json: JSONContent = {};
-        try {
-          json = requireFunction(path as string);
-        } catch {
-          // File does not exist yet; default to empty content so it can be filled later
-          json = {};
-        }
+      for (const { path, key, locale: entryLocale } of dictionariesMap) {
+        // loadExternalFile swallows errors and returns undefined for missing files;
+        // use ?? {} to guarantee a plain object regardless.
+        const json: JSONContent =
+          (await loadExternalFile(path, { logError: false })) ?? {};
 
-        const filePath = relative(configuration.content.baseDir, path);
+        const filePath = relative(configuration.system.baseDir, path);
+
+        // Use the per-entry locale discovered from the file path. If a fixed
+        // locale override was provided, use it only as a fallback.
+        const entryUsedLocale = (locale ?? entryLocale) as Locale;
 
         const dictionary: Dictionary = {
           key,
-          locale: usedLocale,
+          locale: entryUsedLocale,
           fill: filePath,
           format,
           localId: `${key}::${location}::${filePath}` as LocalDictionaryId,
           location: location as Dictionary['location'],
           filled:
-            usedLocale !== configuration.internationalization.defaultLocale
+            entryUsedLocale !== configuration.internationalization.defaultLocale
               ? true
               : undefined,
           content: json,

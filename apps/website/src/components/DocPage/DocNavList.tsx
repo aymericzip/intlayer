@@ -2,32 +2,60 @@
 
 import { SearchTrigger } from '@components/DocPage/Search/SearchTrigger';
 import { Link } from '@components/Link/Link';
-import {
-  Accordion,
-  Button,
-  ClickOutsideDiv,
-  Container,
-  KeyboardShortcut,
-  MaxWidthSmoother,
-  PopoverStatic,
-} from '@intlayer/design-system';
+import { Accordion } from '@intlayer/design-system/accordion';
+import { Button } from '@intlayer/design-system/button';
+import { ClickOutsideDiv } from '@intlayer/design-system/click-outside-div';
+import { Container } from '@intlayer/design-system/container';
 import { useDevice } from '@intlayer/design-system/hooks';
-import { cn } from '@utils/cn';
+import { KeyboardShortcut } from '@intlayer/design-system/keyboard-shortcut';
+import { MaxWidthSmoother } from '@intlayer/design-system/max-width-smoother';
+import { PopoverStatic } from '@intlayer/design-system/popover';
+import {
+  Website_Blog_Path,
+  Website_Doc_Chat_Path,
+} from '@intlayer/design-system/routes';
+import { cn } from '@intlayer/design-system/utils';
 import { ArrowLeftToLine, Bot } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { type ComponentProps, type FC, useState } from 'react';
+import { type ComponentProps, type FC, useEffect, useState } from 'react';
 import { useScrollPositionPersistence } from '@/hooks/useScrollPositionPersistence';
-import { PagesRoutes } from '@/Routes';
-import type { Section } from './types';
+import {
+  FrameworkFilter,
+  FrameworkLogo,
+  useFrameworkFilter,
+} from './FrameworkFilter';
+import type { CategorizedDocMetadata, Section } from './types';
 
-type OptionalLinkProps = ComponentProps<typeof Link>;
+type OptionalLinkProps = ComponentProps<typeof Link> & {
+  frameworks?: string[];
+};
 
 export const OptionalLink: FC<OptionalLinkProps> = ({
   href,
   isActive,
   className,
+  frameworks,
+  children,
   ...props
 }) => {
+  const content = (
+    <span className="flex items-center gap-1.5 opacity-60">
+      {frameworks && frameworks.length > 0 && (
+        <span className="mr-1 flex items-center">
+          {frameworks.slice(0, 1).map((framework, index) => (
+            <FrameworkLogo
+              key={framework}
+              logoKey={framework as any}
+              className={cn('size-3.5')}
+              style={{ zIndex: index }}
+            />
+          ))}
+        </span>
+      )}
+      {children}
+    </span>
+  );
+
   if (!href)
     return (
       <span
@@ -36,7 +64,9 @@ export const OptionalLink: FC<OptionalLinkProps> = ({
           className
         )}
         {...props}
-      />
+      >
+        {content}
+      </span>
     );
 
   return (
@@ -52,7 +82,9 @@ export const OptionalLink: FC<OptionalLinkProps> = ({
       )}
       onClick={(e) => e.stopPropagation()}
       {...props}
-    />
+    >
+      {content}
+    </Link>
   );
 };
 
@@ -61,24 +93,139 @@ type DocNavListProps = {
   activeSlugs: string[];
 };
 
-export const DocNavListContent: FC<DocNavListProps> = ({
+type DocNavListContentProps = DocNavListProps & {
+  /** Selected framework ids (e.g. ['react', 'nextjs']), or null meaning "All". */
+  selectedFramework: string[] | null;
+};
+
+/**
+ * Recursively filters a Section map, hiding sections that don't match the
+ * active framework filter. Sub-sections are also filtered.
+ *
+ * It uses contextual inheritance:
+ * - If a section has the `frameworks` key, its visibility is determined solely by that field.
+ * - If a section LACKS the `frameworks` key, it inherits the visibility state of its parent.
+ * - If the parent is hidden, matching child sections are "promoted" to the parent's level.
+ */
+const filterSection = (
+  section: Section,
+  filter: string[] | null,
+  parentMatches = true,
+  depth = 0,
+  inheritedFrameworks?: string[]
+): Section => {
+  if (!filter) return section;
+
+  const entries = Object.entries(section).flatMap(
+    ([key, data]): [string, CategorizedDocMetadata][] => {
+      const sectionHasTags = !!data.frameworks;
+      const matchesExplicitly =
+        filter?.every((f) => data.frameworks?.includes(f)) ?? false;
+      const matches = sectionHasTags ? matchesExplicitly : parentMatches;
+
+      // Determine the framework tags to use (original or inherited)
+      const currentFrameworks = sectionHasTags
+        ? data.frameworks
+        : inheritedFrameworks;
+
+      // 1. Skip non-matching section, but promote its children that might match
+      if (!matches) {
+        return data.subSections
+          ? (Object.entries(
+              filterSection(
+                data.subSections,
+                filter,
+                false,
+                depth + 1,
+                currentFrameworks
+              )
+            ) as [string, CategorizedDocMetadata][])
+          : [];
+      }
+
+      // 2. Filter subsections
+      const filteredSubSections = data.subSections
+        ? filterSection(
+            data.subSections,
+            filter,
+            true,
+            depth + 1,
+            currentFrameworks
+          )
+        : undefined;
+
+      const hasVisibleContent =
+        Boolean(data.default) ||
+        (filteredSubSections && Object.keys(filteredSubSections).length > 0);
+
+      if (!hasVisibleContent) return [];
+
+      const dataWithFrameworks: CategorizedDocMetadata = {
+        ...data,
+        frameworks: currentFrameworks,
+        subSections: filteredSubSections,
+      };
+
+      // 3. Apply flattening and unwrapping
+      // We skip these rules for root categories (depth 0) to maintain top-level structure
+      if (depth > 0) {
+        // Rule A: Flatten categories with no content (promote matching children)
+        // We only flatten if there is exactly ONE sub-section to avoid breaking multiple-item groups (like Releases)
+        if (
+          !data.default &&
+          filteredSubSections &&
+          Object.keys(filteredSubSections).length === 1
+        ) {
+          return Object.entries(filteredSubSections) as [
+            string,
+            CategorizedDocMetadata,
+          ][];
+        }
+
+        // Rule B: If this section explicitly matches the framework, unwrap its subsections as siblings
+        // We do this to provide a flat list of pages for the selected framework context
+        if (matchesExplicitly && filteredSubSections) {
+          return [
+            [key, { ...dataWithFrameworks, subSections: undefined }],
+            ...(Object.entries(filteredSubSections) as [
+              string,
+              CategorizedDocMetadata,
+            ][]),
+          ];
+        }
+      }
+
+      // Default: Keep the section and its (already populated) sub-sections
+      return [[key, dataWithFrameworks]];
+    }
+  );
+
+  return Object.fromEntries(entries);
+};
+
+export const DocNavListContent: FC<DocNavListContentProps> = ({
   docData,
   activeSlugs,
+  selectedFramework,
 }) => {
-  const { blogButton, chatBotButton } = useIntlayer('doc-nav-list');
+  const { blogButton, chatBotButton, documentationSections } =
+    useIntlayer('doc-nav-list');
   const navRef = useScrollPositionPersistence<HTMLElement>(
     'doc-nav-scroll-position'
   );
 
+  const filteredDocData = filterSection(docData, selectedFramework);
+
   return (
     <nav
       ref={navRef}
+      aria-label={documentationSections.value}
       className="m-auto flex max-h-[calc(100vh-8.2rem)] min-w-40 max-w-xl flex-col gap-5 overflow-auto px-3 pt-8 pb-20"
     >
-      {Object.keys(docData).map((key1) => {
-        const section1Data = docData[key1];
-        const sectionDefault = section1Data.default;
-        const subSections = section1Data.subSections;
+      {Object.keys(filteredDocData).map((key1) => {
+        const section1Data = filteredDocData[key1];
+        const sectionDefault = section1Data?.default;
+        const subSections = section1Data?.subSections;
         const slugs = sectionDefault?.slugs ?? [];
 
         // Check if this section's own slugs match
@@ -113,24 +260,23 @@ export const DocNavListContent: FC<DocNavListProps> = ({
           }
         );
 
-        const isActive = isSelfActive || isSubSectionActive;
-
         return (
           <div key={key1}>
             <OptionalLink
               href={sectionDefault?.relativeUrl ?? ''}
               label={key1}
               isActive={isSelfActive && !isSubSectionActive}
+              frameworks={section1Data?.frameworks}
             >
-              {section1Data.title}
+              {section1Data?.title}
             </OptionalLink>
 
             {subSections && Object.keys(subSections).length > 0 && (
               <ul className="mt-4 flex flex-col gap-4 border-neutral border-l-[0.5px] p-1 text-base">
                 {Object.keys(subSections).map((key2) => {
                   const section2Data = subSections[key2];
-                  const sectionDefault = section2Data.default;
-                  const subSections2 = section2Data.subSections;
+                  const sectionDefault = section2Data?.default;
+                  const subSections2 = section2Data?.subSections;
                   const hasSubsections =
                     subSections2 && Object.keys(subSections2).length > 0;
                   const slugs = sectionDefault?.slugs ?? [];
@@ -167,6 +313,7 @@ export const DocNavListContent: FC<DocNavListProps> = ({
                               href={sectionDefault?.relativeUrl ?? ''}
                               isActive={isSelfActive && !isSubSectionActive}
                               className="block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors hover:text-text"
+                              frameworks={section2Data?.frameworks}
                             >
                               {section2Data?.title}
                             </OptionalLink>
@@ -183,7 +330,7 @@ export const DocNavListContent: FC<DocNavListProps> = ({
                                   {Object.keys(subSections2).map((key3) => {
                                     const section3Data = subSections2[key3];
                                     const slugs =
-                                      section3Data.default?.slugs ?? [];
+                                      section3Data?.default?.slugs ?? [];
                                     const isActive =
                                       slugs.length > 0 &&
                                       slugs.every(
@@ -196,13 +343,14 @@ export const DocNavListContent: FC<DocNavListProps> = ({
                                         key={key3}
                                         label={key3}
                                         href={
-                                          section3Data.default?.relativeUrl ??
+                                          section3Data?.default?.relativeUrl ??
                                           ''
                                         }
                                         isActive={isActive}
                                         className="block w-full flex-row items-center text-nowrap p-2 text-left text-xs transition-colors hover:text-text"
+                                        frameworks={section3Data?.frameworks}
                                       >
-                                        {section3Data.title}
+                                        {section3Data?.title}
                                       </OptionalLink>
                                     );
                                   })}
@@ -216,6 +364,7 @@ export const DocNavListContent: FC<DocNavListProps> = ({
                           className="block w-full flex-row items-center text-nowrap p-2 text-left text-sm transition-colors hover:text-text"
                           label={key2}
                           isActive={isActive}
+                          frameworks={section2Data?.frameworks}
                         >
                           {section2Data?.title}
                         </OptionalLink>
@@ -230,13 +379,13 @@ export const DocNavListContent: FC<DocNavListProps> = ({
       })}
 
       <div>
-        <OptionalLink href={PagesRoutes.Blog} label={blogButton.label.value}>
+        <OptionalLink href={Website_Blog_Path} label={blogButton.label.value}>
           {blogButton?.text}
         </OptionalLink>
       </div>
       <div>
         <OptionalLink
-          href={PagesRoutes.Doc_Chat}
+          href={Website_Doc_Chat_Path}
           label={chatBotButton.label.value}
           className="flex items-center"
         >
@@ -252,80 +401,126 @@ export const DocNavList: FC<DocNavListProps> = ({ docData, activeSlugs }) => {
   const { isMobile } = useDevice();
   const [isHidden, setIsHidden] = useState(isMobile);
   const { collapseButton } = useIntlayer('doc-nav-list');
+  const [selectedFramework, setSelectedFramework] = useFrameworkFilter();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const isFocus =
+        new URLSearchParams(window.location.search).get('focus') === 'true';
+      if (isFocus) {
+        setIsHidden(true);
+      }
+    }
+  }, []);
 
   return (
-    <ClickOutsideDiv
-      className="top-0 left-0 z-10 flex h-full justify-end max-md:fixed"
-      onClickOutSide={() => {
-        if (isMobile) {
-          setIsHidden(true);
-        }
-      }}
-    >
-      <Container
+    <>
+      <div
         className={cn(
-          isHidden ? 'h-[100px]' : 'h-full',
-          'sticky top-[60px] rounded-br-2xl'
+          'fixed top-18 left-2 z-50 flex flex-col gap-1 md:hidden',
+          !isHidden && 'hidden'
         )}
-        roundedSize="none"
-        transparency="sm"
       >
-        <div className="relative h-full max-w-80">
-          <Container
-            transparency="sm"
-            className="sticky top-[3.6rem] z-10 m-auto pt-4"
-            roundedSize="none"
-          >
-            <div
-              className={cn(
-                'relative m-auto flex w-full flex-row items-center justify-end gap-2 px-2',
-                isHidden && 'flex-col-reverse',
-                !isHidden && 'pl-6'
-              )}
+        <SearchTrigger isMini />
+        <Button
+          Icon={ArrowLeftToLine}
+          size="icon-md"
+          variant="hoverable"
+          color="text"
+          label={collapseButton.label.value}
+          aria-expanded={false}
+          aria-controls="doc-nav-content"
+          className="rotate-180"
+          onClick={() => setIsHidden(false)}
+        />
+      </div>
+      <ClickOutsideDiv
+        className={cn(
+          'top-0 left-0 z-40 flex h-full justify-end max-md:fixed',
+          'max-md:transition-transform max-md:duration-300 max-md:ease-in-out',
+          isHidden
+            ? 'max-md:pointer-events-none max-md:-translate-x-full'
+            : 'max-md:translate-x-0'
+        )}
+        onClickOutSide={() => {
+          if (isMobile) {
+            setIsHidden(true);
+          }
+        }}
+      >
+        <Container
+          className={cn(
+            isHidden ? 'top-25' : 'h-full',
+            'sticky top-15 rounded-br-2xl'
+          )}
+          roundedSize="none"
+          transparency="xs"
+        >
+          <div className="relative h-full max-w-80">
+            <Container
+              transparency="xs"
+              className="sticky top-[3.6rem] z-10 m-auto pt-4"
+              roundedSize="none"
             >
-              <SearchTrigger isMini={isHidden} />
-              <PopoverStatic identifier="doc-nav-collapse">
-                <Button
-                  Icon={ArrowLeftToLine}
-                  size="icon-md"
-                  variant="hoverable"
-                  color="text"
-                  label={collapseButton.label.value}
-                  className={cn([
-                    'transition-transform',
-                    isHidden && 'rotate-180',
-                  ])}
-                  onClick={() => setIsHidden((isHidden) => !isHidden)}
-                />
-                <PopoverStatic.Detail identifier="doc-nav-collapse">
-                  <KeyboardShortcut
-                    shortcut="Alt + ArrowLeft"
-                    onTriggered={() => setIsHidden((isHidden) => !isHidden)}
-                    size="sm"
-                  />
-                </PopoverStatic.Detail>
-              </PopoverStatic>
               <div
                 className={cn(
-                  'absolute bottom-0 left-0 h-8 w-full translate-y-full bg-linear-to-b from-card/90 backdrop-blur',
-                  isHidden && 'hidden'
+                  'relative m-auto flex w-full flex-row items-center justify-center gap-2 px-2',
+                  isHidden && 'flex-col-reverse'
                 )}
-              />
-            </div>
-          </Container>
-
-          <div className="sticky top-28 pt-0">
-            <MaxWidthSmoother isHidden={Boolean(isHidden)}>
-              <div className="relative overflow-hidden">
-                <DocNavListContent
-                  docData={docData}
-                  activeSlugs={activeSlugs}
+              >
+                {!isHidden && (
+                  <FrameworkFilter
+                    selected={selectedFramework}
+                    onSelect={setSelectedFramework}
+                  />
+                )}
+                <SearchTrigger isMini={isHidden} />
+                <PopoverStatic identifier="doc-nav-collapse">
+                  <Button
+                    Icon={ArrowLeftToLine}
+                    size="icon-md"
+                    variant="hoverable"
+                    color="text"
+                    label={collapseButton.label.value}
+                    aria-expanded={!isHidden}
+                    aria-controls="doc-nav-content"
+                    className={cn([
+                      'transition-transform',
+                      isHidden && 'rotate-180',
+                    ])}
+                    onClick={() => setIsHidden((isHidden) => !isHidden)}
+                  />
+                  <PopoverStatic.Detail identifier="doc-nav-collapse">
+                    <KeyboardShortcut
+                      shortcut="Alt + ArrowLeft"
+                      onTriggered={() => setIsHidden((isHidden) => !isHidden)}
+                      size="sm"
+                    />
+                  </PopoverStatic.Detail>
+                </PopoverStatic>
+                <div
+                  className={cn(
+                    'absolute bottom-0 left-0 h-8 w-full translate-y-full bg-linear-to-b from-card/90 backdrop-blur',
+                    isHidden && 'hidden'
+                  )}
                 />
               </div>
-            </MaxWidthSmoother>
+            </Container>
+
+            <div id="doc-nav-content" className="sticky top-28 pt-0">
+              <MaxWidthSmoother isHidden={Boolean(isHidden)}>
+                <div className="relative overflow-hidden">
+                  <DocNavListContent
+                    docData={docData}
+                    activeSlugs={activeSlugs}
+                    selectedFramework={selectedFramework}
+                  />
+                </div>
+              </MaxWidthSmoother>
+            </div>
           </div>
-        </div>
-      </Container>
-    </ClickOutsideDiv>
+        </Container>
+      </ClickOutsideDiv>
+    </>
   );
 };

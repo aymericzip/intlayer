@@ -19,12 +19,12 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historie initialisiert
+    changes: "Historie initialisiert"
 ---
 
 # Intlayer Visual Editor Dokumentation
 
-<iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Der Intlayer Visual Editor ist ein Tool, das Ihre Website einbindet, um mit Ihren Inhaltsdeklarationsdateien über einen visuellen Editor zu interagieren.
 
@@ -80,11 +80,15 @@ yarn add intlayer-editor --save-dev
 pnpm add intlayer-editor --save-dev
 ```
 
+```bash packageManager="bun"
+bun add intlayer-editor --dev
+```
+
 ## Konfiguration
 
 In Ihrer Intlayer-Konfigurationsdatei können Sie die Editor-Einstellungen anpassen:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -119,77 +123,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... andere Konfigurationseinstellungen
-  editor: {
-    /**
-     * Erforderlich
-     * Die URL der Anwendung.
-     * Dies ist die URL, die vom visuellen Editor angezielt wird.
-     * Beispiel: 'http://localhost:3000'
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * Optional
-     * Standardmäßig `true`. Wenn `false`, ist der Editor inaktiv und kann nicht aufgerufen werden.
-     * Kann verwendet werden, um den Editor aus Sicherheitsgründen für bestimmte Umgebungen wie Produktion zu deaktivieren.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-    /**
-     * Optional
-     * Standardmäßig `8000`.
-     * Der Port, der vom Server des visuellen Editors verwendet wird.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * Optional
-     * Standardmäßig "http://localhost:8000"
-     * Die URL des Editor-Servers, die von der Anwendung erreicht werden kann. Wird verwendet, um die Ursprünge einzuschränken, die mit der Anwendung interagieren können, aus Sicherheitsgründen. Wenn auf `'*'` gesetzt, ist der Editor von jedem Ursprung aus zugänglich. Sollte gesetzt werden, wenn der Port geändert wird oder wenn der Editor auf einer anderen Domain gehostet wird.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... andere Konfigurationseinstellungen
-  editor: {
-    /**
-     * Erforderlich
-     * Die URL der Anwendung.
-     * Dies ist die URL, die vom visuellen Editor angezielt wird.
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * Optional
-     * Standardmäßig `8000`.
-     * Der Port des Editor-Servers.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * Optional
-     * Standardmäßig "http://localhost:8000"
-     * Die URL des Editor-Servers.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * Optional
-     * Standardmäßig `true`. Wenn `false`, ist der Editor inaktiv und kann nicht aufgerufen werden.
-     * Kann verwendet werden, um den Editor aus Sicherheitsgründen für bestimmte Umgebungen wie Produktion zu deaktivieren.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-  },
-};
-
-module.exports = config;
 ```
 
 > Um alle verfügbaren Parameter zu sehen, siehe die [Konfigurationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/configuration.md).

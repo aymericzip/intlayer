@@ -1,4 +1,3 @@
-export { ContentSelectorWrapperComponent } from './ContentSelectorWrapper.component';
-export { EditedContentRendererComponent } from './EditedContentRenderer.component';
-export { EditorSelectorRendererComponent } from './EditorSelectorRenderer.component';
-export * from './installIntlayerEditor';
+export * from './ContentSelector.component';
+export * from './EditorProvider.component';
+export * from './useEditor';

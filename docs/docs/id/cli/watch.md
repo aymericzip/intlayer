@@ -17,8 +17,20 @@ slugs:
 
 # Pantau Kamus
 
-```bash
+```bash packageManager="npm"
 npx intlayer watch
+```
+
+```bash packageManager="yarn"
+yarn intlayer watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer watch
+```
+
+```bash packageManager="bun"
+bun x intlayer watch
 ```
 
 Perintah ini akan memantau perubahan pada file deklarasi konten Anda dan membangun kamus di direktori `.intlayer`.

@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: प्रारंभिक इतिहास
+    changes: "प्रारंभिक इतिहास"
 ---
 
 # प्रलेखन: `intlayer` में `getLocalizedUrl` फ़ंक्शन
@@ -35,23 +35,19 @@ history:
 ## पैरामीटर
 
 - `url: string`
-
   - **विवरण**: मूल URL स्ट्रिंग जिसे लोकल के साथ उपसर्गित किया जाना है।
   - **प्रकार**: `string`
 
 - `currentLocale: Locales`
-
   - **विवरण**: वर्तमान लोकल जिसके लिए URL लोकलाइज़ किया जा रहा है।
   - **प्रकार**: `Locales`
 
 - `locales: Locales[]`
-
   - **विवरण**: समर्थित लोकल की वैकल्पिक सूची। डिफ़ॉल्ट रूप से, परियोजना में कॉन्फ़िगर किए गए लोकल प्रदान किए जाते हैं।
   - **प्रकार**: `Locales[]`
   - **डिफ़ॉल्ट**: [`परियोजना कॉन्फ़िगरेशन`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md#middleware)
 
 - `defaultLocale: Locales`
-
   - **विवरण**: एप्लिकेशन के लिए डिफ़ॉल्ट लोकल। डिफ़ॉल्ट रूप से, परियोजना में कॉन्फ़िगर किया गया डिफ़ॉल्ट लोकल प्रदान किया जाता है।
   - **प्रकार**: `Locales`
   - **डिफ़ॉल्ट**: [`परियोजना कॉन्फ़िगरेशन`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md#middleware)
@@ -72,22 +68,7 @@ history:
 
 ### सापेक्ष URL
 
-```typescript codeFormat="typescript"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-
-// आउटपुट: फ्रेंच लोकल के लिए "/fr/about"
-// आउटपुट: डिफ़ॉल्ट (अंग्रेज़ी) लोकल के लिए "/about"
-```
-
-```javascript codeFormat="esm"
+```typescript codeFormat={["typescript", "esm"]}
 import { getLocalizedUrl, Locales } from "intlayer";
 
 getLocalizedUrl(
@@ -176,11 +157,9 @@ getLocalizedUrl(
 ## किनारे के मामले
 
 - **कोई लोकल सेगमेंट नहीं:**
-
   - यदि URL में कोई लोकल सेगमेंट नहीं है, तो फ़ंक्शन सुरक्षित रूप से उपयुक्त लोकल को प्रीफिक्स करता है।
 
 - **डिफ़ॉल्ट लोकल:**
-
   - जब `prefixDefault` `false` होता है, तो फ़ंक्शन डिफ़ॉल्ट लोकल के लिए URL को प्रीफिक्स नहीं करता।
 
 - **असमर्थित लोकल:**
@@ -192,7 +171,7 @@ getLocalizedUrl(
 
 एक बहुभाषी अनुप्रयोग में, सही भाषा प्रदर्शित करने के लिए `locales` और `defaultLocale` के साथ अंतरराष्ट्रीयकरण सेटिंग्स को कॉन्फ़िगर करना महत्वपूर्ण है। नीचे एक उदाहरण दिया गया है कि कैसे `getLocalizedUrl` को एक अनुप्रयोग सेटअप में उपयोग किया जा सकता है:
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // समर्थित लोकल और डिफ़ॉल्ट लोकल के लिए कॉन्फ़िगरेशन
@@ -204,34 +183,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 उपरोक्त कॉन्फ़िगरेशन यह सुनिश्चित करता है कि एप्लिकेशन `ENGLISH`, `FRENCH`, और `SPANISH` को समर्थित भाषाओं के रूप में पहचानता है और `ENGLISH` को फॉलबैक भाषा के रूप में उपयोग करता है।

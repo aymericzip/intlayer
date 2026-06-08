@@ -26,15 +26,15 @@ youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
   - version: 7.5.0
     date: 2025-12-13
-    changes: Menambahkan dukungan format ICU dan i18next
+    changes: "Menambahkan dukungan format ICU dan i18next"
   - version: 6.1.6
     date: 2025-10-05
-    changes: Dokumentasi awal plugin Sinkronisasi JSON
+    changes: "Dokumentasi awal plugin Sinkronisasi JSON"
 ---
 
 # Sinkronisasi JSON (jembatan i18n) - Sinkronisasi JSON dengan dukungan ICU / i18next
 
-<iframe title="Cara menjaga terjemahan JSON Anda tetap sinkron dengan Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Cara menjaga terjemahan JSON Anda tetap sinkron dengan Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Gunakan Intlayer sebagai tambahan pada tumpukan i18n Anda yang sudah ada. Plugin ini menjaga pesan JSON Anda tetap sinkron dengan kamus Intlayer sehingga Anda dapat:
 
@@ -66,10 +66,10 @@ npm i -D @intlayer/sync-json-plugin
 Tambahkan plugin ke `intlayer.config.ts` Anda dan arahkan ke struktur JSON yang sudah ada.
 
 ```ts fileName="intlayer.config.ts"
-import { defineConfig, Locales } from "intlayer";
+import { Locales, type IntlayerConfig } from "intlayer";
 import { syncJSON } from "@intlayer/sync-json-plugin";
 
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
@@ -82,7 +82,9 @@ export default defineConfig({
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],
-});
+};
+
+export default config;
 ```
 
 Alternatif: satu file per locale (umum dengan pengaturan i18next/react-intl):
@@ -108,17 +110,21 @@ syncJSON({
   source: ({ key, locale }) => string, // wajib
   location?: string, // label opsional, default: "plugin"
   priority?: number, // prioritas opsional untuk resolusi konflik, default: 0
-  format?: 'intlayer' | 'icu' | 'i18next', // formatter opsional, default: 'intlayer'
+  format?: 'intlayer' | 'icu' | 'i18next', // formatter opsional, digunakan untuk kompatibilitas runtime Intlayer
 });
 ```
 
 #### `format` ('intlayer' | 'icu' | 'i18next')
 
-Menentukan formatter yang akan digunakan untuk konten kamus saat menyinkronkan file JSON. Ini memungkinkan penggunaan berbagai sintaks pemformatan pesan yang kompatibel dengan berbagai pustaka i18n.
+Menentukan formatter yang akan digunakan untuk konten kamus saat menyinkronkan file JSON. Ini memungkinkan penggunaan berbagai sintaks pemformatan pesan yang kompatibel dengan runtime Intlayer.
 
+- `undefined`: Tidak ada formatter yang akan digunakan, konten JSON akan digunakan apa adanya.
 - `'intlayer'`: Formatter Intlayer default (default).
 - `'icu'`: Menggunakan pemformatan pesan ICU (kompatibel dengan pustaka seperti react-intl, vue-i18n).
 - `'i18next'`: Menggunakan pemformatan pesan i18next (kompatibel dengan i18next, next-i18next, Solid-i18next).
+
+> Perhatikan bahwa menggunakan formatter akan mengubah konten JSON Anda pada input dan output. Untuk aturan JSON yang kompleks seperti pluralisasi ICU, parsing mungkin tidak menjamin pemetaan 1 ke 1 antara input dan output.
+> Jika Anda tidak menggunakan runtime Intlayer, Anda mungkin lebih memilih untuk tidak mengatur formatter.
 
 **Contoh:**
 
@@ -143,10 +149,10 @@ Ketika beberapa plugin menargetkan kunci kamus yang sama, parameter `priority` m
 - Plugin dengan prioritas yang sama diproses sesuai urutan kemunculannya dalam konfigurasi
 
 ```ts fileName="intlayer.config.ts"
-import { defineConfig, Locales } from "intlayer";
+import { Locales, type IntlayerConfig } from "intlayer";
 import { syncJSON } from "@intlayer/sync-json-plugin";
 
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH],
     defaultLocale: Locales.ENGLISH,
@@ -177,7 +183,9 @@ export default defineConfig({
       priority: 1,
     }),
   ],
-});
+};
+
+export default config;
 ```
 
 ### Penyelesaian konflik
@@ -257,7 +265,7 @@ File JSON yang disinkronkan akan dianggap sebagai file `.content` lainnya. Artin
 - `intlayer content push` untuk mengirim file JSON yang disinkronkan
 - `intlayer content pull` untuk menarik file JSON yang disinkronkan
 
-Lihat [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_cli.md) untuk detail lebih lanjut.
+Lihat [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md) untuk detail lebih lanjut.
 
 ## Keterbatasan (saat ini)
 

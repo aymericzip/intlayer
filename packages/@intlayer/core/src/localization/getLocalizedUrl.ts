@@ -1,9 +1,38 @@
-import configuration from '@intlayer/config/built';
-import { DefaultValues } from '@intlayer/config/client';
-import type { LocalesValues } from '@intlayer/types';
+import { internationalization } from '@intlayer/config/built';
+
+// ── Tree-shake constants ──────────────────────────────────────────────────────
+// When these env vars are injected at build time, bundlers eliminate the
+// branches guarded by these constants.
+
+import type { Locale } from '@intlayer/types/allLocales';
+import type {
+  LocalesValues,
+  LocalizedUrl,
+  ResolvedDefaultLocale,
+} from '@intlayer/types/module_augmentation';
 import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
 import { getPathWithoutLocale } from './getPathWithoutLocale';
-import { getPrefix } from './getPrefix';
+import {
+  getPrefix,
+  type RoutingOptions,
+  resolveRoutingConfig,
+} from './getPrefix';
+import {
+  getCanonicalPath,
+  getLocalizedPath,
+  getRewriteRules,
+} from './rewriteUtils';
+
+export type { RoutingOptions };
+
+/** Strips the protocol and returns the bare hostname of a domain string. */
+const extractHostname = (domain: string): string => {
+  try {
+    return /^https?:\/\//.test(domain) ? new URL(domain).hostname : domain;
+  } catch {
+    return domain;
+  }
+};
 
 /**
  * Generate URL by prefixing the given URL with the referenced locale or adding search parameters
@@ -39,88 +68,140 @@ import { getPrefix } from './getPrefix';
  * @param options.locales - Optional array of supported locales. Defaults to configured locales.
  * @param options.defaultLocale - The default locale. Defaults to configured default locale.
  * @param options.mode - URL routing mode for locale handling. Defaults to configured mode.
+ * @param options.currentDomain - Hostname of the page being rendered. Used to decide
+ *   whether to emit a relative URL (same domain) or an absolute URL (cross-domain).
+ *   Auto-detected from the input URL or `window.location` when omitted.
  * @returns The localized URL for the current locale.
  */
-export const getLocalizedUrl = (
-  url: string,
-  currentLocale: LocalesValues,
-  options: {
-    locales?: LocalesValues[];
-    defaultLocale?: LocalesValues;
-    mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
-  } = {}
-): string => {
-  const { defaultLocale, mode, locales } = {
-    defaultLocale:
-      configuration?.internationalization?.defaultLocale ??
-      DefaultValues.Internationalization.DEFAULT_LOCALE,
-    mode: configuration?.routing?.mode ?? DefaultValues.Routing.ROUTING_MODE,
-    locales:
-      configuration?.internationalization?.locales ??
-      DefaultValues.Internationalization.LOCALES,
-    ...options,
-  };
+/**
+ * The return type is narrowed to a template-literal type when both `url` and
+ * `currentLocale` are string literals and the routing mode / defaultLocale are
+ * not overridden via `options`.
+ */
+export const getLocalizedUrl = <
+  const T extends string,
+  const L extends LocalesValues = ResolvedDefaultLocale,
+>(
+  url: T,
+  currentLocale: L = internationalization?.defaultLocale as L,
+  options: RoutingOptions = {}
+): LocalizedUrl<T, L> => {
+  const { defaultLocale, mode, locales, rewrite, domains, currentDomain } =
+    resolveRoutingConfig(options);
 
-  // Remove any existing locale segment from the URL
   const urlWithoutLocale = getPathWithoutLocale(url, locales);
+  const rewriteRules = getRewriteRules(rewrite, 'url');
 
-  if (mode === 'no-prefix') {
-    // No locale prefixing
-    return urlWithoutLocale;
+  if (
+    !(
+      process.env['INTLAYER_ROUTING_MODE'] &&
+      process.env['INTLAYER_ROUTING_MODE'] !== 'no-prefix'
+    ) &&
+    mode === 'no-prefix'
+  ) {
+    return getLocalizedPath(
+      getCanonicalPath(urlWithoutLocale, undefined, rewriteRules),
+      currentLocale as Locale,
+      rewriteRules
+    ).path as LocalizedUrl<T, L>;
   }
 
-  // Determine if the original URL is absolute (includes protocol)
   const isAbsoluteUrl = checkIsURLAbsolute(urlWithoutLocale);
-
-  // Initialize a URL object if the URL is absolute
-  // For relative URLs, use a dummy base to leverage the URL API
   const parsedUrl = isAbsoluteUrl
     ? new URL(urlWithoutLocale)
     : new URL(urlWithoutLocale, 'http://example.com');
 
-  // Prepare the base URL (protocol + host) if it's absolute
-  const baseUrl = isAbsoluteUrl
-    ? `${parsedUrl.protocol}//${parsedUrl.host}`
-    : '';
+  const translatedPathname = getLocalizedPath(
+    getCanonicalPath(parsedUrl.pathname, undefined, rewriteRules),
+    currentLocale as Locale,
+    rewriteRules
+  ).path;
 
-  if (mode === 'search-params') {
-    // Use search parameters for locale handling
+  // ── Domain routing ────────────────────────────────────────────────────────
+  // Resolve the "current" hostname so we can choose between a relative URL
+  // (same domain) and an absolute URL (cross-domain).
+  //
+  // Detection priority:
+  //   1. Explicit `currentDomain` option passed by the caller.
+  //   2. Hostname extracted from an absolute input URL.
+  //   3. `window.location.hostname` in browser environments.
+  // When none of these is available we fall back to always generating an
+  // absolute URL (the previous behaviour, safe for SSR/static generation).
+  const detectedCurrentHostname =
+    process.env['INTLAYER_ROUTING_DOMAINS'] !== 'false'
+      ? extractHostname(
+          currentDomain ??
+            (isAbsoluteUrl ? parsedUrl.hostname : undefined) ??
+            (typeof window !== 'undefined'
+              ? window?.location?.hostname
+              : undefined) ??
+            ''
+        ) || null
+      : null;
+
+  const localeDomain =
+    process.env['INTLAYER_ROUTING_DOMAINS'] !== 'false'
+      ? domains?.[currentLocale as LocalesValues]
+      : undefined;
+
+  const localeDomainHostname = localeDomain
+    ? extractHostname(localeDomain)
+    : null;
+
+  // Only prepend the locale's domain when it differs from the current hostname.
+  const isCrossDomain =
+    localeDomainHostname !== null &&
+    detectedCurrentHostname !== null &&
+    localeDomainHostname !== detectedCurrentHostname;
+
+  const normalizedDomain =
+    isCrossDomain && localeDomain
+      ? /^https?:\/\//.test(localeDomain)
+        ? localeDomain
+        : `https://${localeDomain}`
+      : null;
+
+  const baseUrl = normalizedDomain
+    ? normalizedDomain
+    : isAbsoluteUrl
+      ? `${parsedUrl.protocol}//${parsedUrl.host}`
+      : '';
+  // ─────────────────────────────────────────────────────────────────────────
+
+  if (
+    !(
+      process.env['INTLAYER_ROUTING_MODE'] &&
+      process.env['INTLAYER_ROUTING_MODE'] !== 'search-params'
+    ) &&
+    mode === 'search-params'
+  ) {
     const searchParams = new URLSearchParams(parsedUrl.search);
+
     searchParams.set('locale', currentLocale.toString());
 
-    const queryString = searchParams.toString();
-    const pathWithQuery = queryString
-      ? `${parsedUrl.pathname}?${queryString}`
-      : parsedUrl.pathname;
+    const queryParams = searchParams.toString();
+    const path = queryParams
+      ? `${translatedPathname}?${queryParams}`
+      : translatedPathname;
 
-    if (isAbsoluteUrl) {
-      return `${baseUrl}${pathWithQuery}${parsedUrl.hash}`;
-    }
-
-    return `${pathWithQuery}${parsedUrl.hash}`;
+    return `${baseUrl}${path}${parsedUrl.hash}` as LocalizedUrl<T, L>;
   }
 
   const { prefix } = getPrefix(currentLocale, {
     defaultLocale,
     mode,
     locales,
+    domains,
   });
 
-  // Construct the new pathname with or without the locale prefix
-  let localizedPath = `/${prefix}${parsedUrl.pathname}`;
+  let localizedPath = `/${prefix}${translatedPathname}`.replace(/\/+/g, '/');
 
-  // Remove double slashes
-  localizedPath = localizedPath.replaceAll(/\/+/g, '/');
-
-  // Remove trailing slash for non-root paths
   if (localizedPath.length > 1 && localizedPath.endsWith('/')) {
     localizedPath = localizedPath.slice(0, -1);
   }
 
-  // Combine with the base URL if the original URL was absolute
-  if (isAbsoluteUrl) {
-    return `${baseUrl}${localizedPath}${parsedUrl.search}${parsedUrl.hash}`;
-  }
-
-  return `${localizedPath}${parsedUrl.search}${parsedUrl.hash}`;
+  return `${baseUrl}${localizedPath}${parsedUrl.search}${parsedUrl.hash}` as LocalizedUrl<
+    T,
+    L
+  >;
 };

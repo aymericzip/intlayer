@@ -1,4 +1,4 @@
-import { useRightDrawerStore } from '@intlayer/design-system';
+import { useRightDrawer } from '@intlayer/design-system/right-drawer';
 import {
   useEditedContentActions,
   useFocusUnmergedDictionary,
@@ -6,9 +6,9 @@ import {
 import type {
   ContentNode,
   Dictionary,
-  KeyPath,
   LocalDictionaryId,
-} from '@intlayer/types';
+} from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
 import { useEffect } from 'react';
 
 export const getDrawerIdentifier = (dictionaryKey: string) =>
@@ -39,35 +39,29 @@ export const useDictionaryEditionDrawer = (
 ): DictionaryEditionDrawer => {
   const id = getDrawerIdentifier(dictionaryKey);
   const {
-    isOpen: isOpenDrawer,
+    isOpen: checkIsOpen,
     open: openDrawer,
     close: closeDrawer,
-  } = useRightDrawerStore();
+  } = useRightDrawer();
   const { getEditedContentValue } = useEditedContentActions();
   const { focusedContent, setFocusedContent } = useFocusUnmergedDictionary();
 
   useEffect(() => {
-    if (focusedContent && (focusedContent.keyPath?.length ?? 0) > 0) {
+    if (focusedContent?.dictionaryKey) {
       openDrawer(id);
     }
-  }, [focusedContent, openDrawer, id]);
+  }, [focusedContent?.dictionaryKey, openDrawer, id]);
 
   return {
-    isOpen: isOpenDrawer(id),
+    isOpen: checkIsOpen(id),
     focusedContent,
     getEditedContentValue,
     close: () => {
       closeDrawer(id);
 
-      setFocusedContent((prev) => {
-        if (prev?.dictionaryKey) {
-          return {
-            ...(prev as FileContent),
-            keyPath: [],
-          };
-        }
-        return prev;
-      });
+      if (focusedContent?.dictionaryKey) {
+        setFocusedContent({ ...(focusedContent as FileContent), keyPath: [] });
+      }
     },
   };
 };

@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 6.0.0
     date: 2025-09-20
-    changes: Introduction des tests
+    changes: "Introduction des tests"
 ---
 
 # Tester votre contenu
@@ -37,8 +37,20 @@ Ce guide montre comment vérifier automatiquement que vos dictionnaires sont com
 
 Lancez l’audit depuis la racine de votre projet :
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 Options utiles :
@@ -182,8 +194,20 @@ jobs:
 
 Optionnel : lancez l'audit CLI pour un résumé lisible par un humain en parallèle des tests :
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 ---

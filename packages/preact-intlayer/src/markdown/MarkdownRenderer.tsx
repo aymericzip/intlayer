@@ -1,80 +1,173 @@
-'use client';
-
+import type {
+  ComponentChildren,
+  ComponentType,
+  FunctionComponent,
+  JSX,
+} from 'preact';
+import type { HTMLComponents } from '../html/types';
 import {
-  getContent,
-  getContentNodeByKeyPath,
-  getMarkdownMetadata,
-} from '@intlayer/core';
-import type { ContentNode, KeyPath, LocalesValues } from '@intlayer/types';
-import type { FC, ReactNode } from 'preact/compat';
-import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';
-import { useMarkdownContext } from './MarkdownProvider';
+  compileMarkdown,
+  type MarkdownCompilerOptions,
+  type ParsedMarkdown,
+} from './compiler';
+import {
+  type MarkdownProviderOptions,
+  useMarkdownContext,
+} from './MarkdownProvider';
 
-type MarkdownRendererProps = {
-  dictionaryKey: string;
-  keyPath: KeyPath[];
-  locale?: LocalesValues;
-  children: string;
+export type RenderMarkdownProps = MarkdownProviderOptions & {
+  /**
+   * Component overrides for HTML tags.
+   * Only used if not wrapped in a MarkdownProvider.
+   */
+  components?: HTMLComponents<'permissive', {}>;
+  /**
+   * Wrapper element or component to be used when there are multiple children.
+   * Only used if not wrapped in a MarkdownProvider.
+   */
+  wrapper?: ComponentType<any> | keyof JSX.IntrinsicElements;
 };
 
-export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
-  dictionaryKey,
-  keyPath,
-  children,
-  locale,
-}): ReactNode => {
-  const { renderMarkdown } = useMarkdownContext();
-  const editedContentContext = useEditedContentRenderer({
-    dictionaryKey,
-    keyPath,
-    children,
-  });
+export const renderMarkdown = (
+  content: string | ParsedMarkdown,
+  {
+    components,
+    wrapper,
+    forceBlock,
+    forceInline,
+    preserveFrontmatter,
+    tagfilter,
+  }: RenderMarkdownProps = {}
+): JSX.Element => {
+  // Map public options to internal processor options
+  const internalOptions: MarkdownCompilerOptions = {
+    components,
+    forceBlock,
+    forceInline,
+    wrapper: wrapper as any,
+    forceWrapper: !!wrapper,
+    preserveFrontmatter,
+    tagfilter,
+  };
 
-  if (typeof editedContentContext !== 'string') {
-    const transformedEditedContent = getContent(
-      editedContentContext,
-      {
-        dictionaryKey,
-        keyPath,
-      },
-      locale
-    );
+  return compileMarkdown(content, internalOptions) as JSX.Element;
+};
 
-    if (typeof transformedEditedContent !== 'string') {
-      console.error(
-        `Incorrect Markdown content. Edited Markdown content type: ${typeof transformedEditedContent}. Expected string. Value ${JSON.stringify(transformedEditedContent)}`
+export const useMarkdownRenderer = ({
+  components,
+  wrapper,
+  forceBlock,
+  forceInline,
+  preserveFrontmatter,
+  tagfilter,
+}: RenderMarkdownProps = {}) => {
+  const context = useMarkdownContext();
+
+  return (content: string | ParsedMarkdown) => {
+    if (context) {
+      return context.renderMarkdown(
+        content,
+        {
+          forceBlock,
+          forceInline,
+          preserveFrontmatter,
+          tagfilter,
+        },
+        components,
+        wrapper
       );
-
-      return renderMarkdown(children);
     }
 
-    return renderMarkdown(transformedEditedContent);
+    return renderMarkdown(content, {
+      components,
+      wrapper,
+      forceBlock,
+      forceInline,
+      preserveFrontmatter,
+      tagfilter,
+    });
+  };
+};
+
+export type MarkdownRendererProps = RenderMarkdownProps & {
+  /**
+   * The markdown content to render.
+   */
+  children: string | ParsedMarkdown;
+  /**
+   * Custom render function for markdown.
+   * If provided, it will overwrite context and default rendering.
+   */
+  renderMarkdown?: (
+    markdown: string | ParsedMarkdown,
+    options?: {
+      components?: HTMLComponents<'permissive', {}>;
+      wrapper?: ComponentType<any> | keyof JSX.IntrinsicElements;
+      forceBlock?: boolean;
+      forceInline?: boolean;
+      preserveFrontmatter?: boolean;
+      tagfilter?: boolean;
+    }
+  ) => ComponentChildren | Promise<ComponentChildren>;
+};
+
+/**
+ * Preact component that renders markdown to JSX.
+ *
+ * It uses the renderMarkdown function from the MarkdownProvider context if available.
+ * Otherwise, it falls back to the default compiler with provided components and options.
+ */
+export const MarkdownRenderer: FunctionComponent<MarkdownRendererProps> = ({
+  children = '',
+  components,
+  wrapper,
+  forceBlock,
+  forceInline,
+  preserveFrontmatter,
+  tagfilter,
+  renderMarkdown: customRenderMarkdown,
+}) => {
+  const context = useMarkdownContext();
+
+  if (customRenderMarkdown) {
+    return (
+      <>
+        {customRenderMarkdown(children, {
+          components,
+          wrapper,
+          forceBlock,
+          forceInline,
+          preserveFrontmatter,
+          tagfilter,
+        })}
+      </>
+    );
   }
 
-  return renderMarkdown(editedContentContext);
-};
+  if (context) {
+    return (
+      <>
+        {context.renderMarkdown(
+          children,
+          {
+            forceBlock,
+            forceInline,
+            preserveFrontmatter,
+            tagfilter,
+          },
+          components,
+          wrapper
+        )}
+      </>
+    );
+  }
 
-type MarkdownMetadataRendererProps = MarkdownRendererProps & {
-  metadataKeyPath: KeyPath[];
-};
-
-export const MarkdownMetadataRenderer: FC<MarkdownMetadataRendererProps> = ({
-  dictionaryKey,
-  keyPath,
-  children,
-  metadataKeyPath,
-}): ReactNode => {
-  const editedContentContext = useEditedContentRenderer({
-    dictionaryKey,
-    keyPath,
-    children,
+  return renderMarkdown(children, {
+    components,
+    wrapper,
+    forceBlock,
+    forceInline,
+    preserveFrontmatter,
+    tagfilter,
   });
-  const metadata = getMarkdownMetadata(editedContentContext);
-
-  const metadataEl = getContentNodeByKeyPath(
-    metadata as ContentNode,
-    metadataKeyPath
-  );
-
-  return metadataEl as ReactNode;
 };

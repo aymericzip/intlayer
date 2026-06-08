@@ -18,16 +18,16 @@ slugs:
 history:
   - version: 7.0.0
     date: 2025-10-23
-    changes: Zmiana nazwy `autoFill` na `fill` oraz aktualizacja zachowania
+    changes: "Zmiana nazwy `autoFill` na `fill` oraz aktualizacja zachowania"
   - version: 6.0.0
     date: 2025-09-20
-    changes: Dodanie konfiguracji globalnej
+    changes: "Dodanie konfiguracji globalnej"
   - version: 6.0.0
     date: 2025-09-17
-    changes: Dodanie zmiennej `{{fileName}}`
+    changes: "Dodanie zmiennej `{{fileName}}`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inicjalizacja historii
+    changes: "Inicjalizacja historii"
 ---
 
 # Tłumaczenia plików deklaracji wypełniania zawartości
@@ -99,8 +99,20 @@ Oto [plik deklaracji zawartości dla poszczególnych lokalizacji](https://github
 
 Następnie, gdy uruchomisz następujące polecenie:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file 'src/components/example/example.content.ts'
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
 Intlayer automatycznie wygeneruje pochodny plik deklaracji w `src/components/example/example.content.json`, wypełniając wszystkie lokalizacje, które nie zostały jeszcze zadeklarowane w głównym pliku.

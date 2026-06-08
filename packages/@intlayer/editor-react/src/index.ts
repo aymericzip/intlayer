@@ -1,10 +1,11 @@
-export * from '@intlayer/editor';
+export { MessageKey } from '@intlayer/editor';
 export * from './CommunicatorContext';
 export * from './ConfigurationContext';
 export * from './DictionariesRecordContext';
 export * from './EditedContentContext';
 export * from './EditorEnabledContext';
 export * from './EditorProvider';
+export * from './EditorStateContext';
 export * from './FocusDictionaryContext';
 export * from './useCrossFrameMessageListener';
 export * from './useCrossFrameState';

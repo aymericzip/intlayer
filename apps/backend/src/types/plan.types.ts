@@ -2,7 +2,7 @@ import type { RenameId } from '@utils/mongoDB/types';
 import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
 import type { User } from './user.types';
 
-export type PlanType = 'FREE' | 'PREMIUM' | 'ENTERPRISE';
+export type PlanType = 'FREE' | 'PREMIUM' | 'ENTERPRISE' | 'LIFETIME';
 
 export type PlanData = {
   type: PlanType;
@@ -19,7 +19,7 @@ export type PlanData = {
     | 'incomplete_expired'
     | 'paused'
     | 'trialing';
-  period?: 'MONTHLY' | 'YEARLY';
+  period?: 'MONTHLY' | 'YEARLY' | 'LIFETIME';
 };
 
 export type Plan = PlanData & {

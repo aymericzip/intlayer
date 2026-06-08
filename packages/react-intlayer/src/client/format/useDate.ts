@@ -1,6 +1,6 @@
 'use client';
 
-import { date } from '@intlayer/core';
+import { date, presets } from '@intlayer/core/formatters';
 import { useContext } from 'react';
 import { IntlayerClientContext } from '../IntlayerProvider';
 
@@ -31,11 +31,14 @@ import { IntlayerClientContext } from '../IntlayerProvider';
  * @see createDate
  */
 export const useDate = () => {
-  const { locale } = useContext(IntlayerClientContext);
+  const { locale } = useContext(IntlayerClientContext) ?? {};
 
-  return (...args: Parameters<typeof date>) =>
-    date(args[0], {
-      ...args[1],
-      locale: args[1]?.locale ?? locale,
-    });
+  return (...args: Parameters<typeof date>) => {
+    const options =
+      typeof args[1] === 'string'
+        ? { ...presets[args[1]], locale: locale }
+        : { ...args[1], locale: args[1]?.locale ?? locale };
+
+    return date(args[0], options as Parameters<typeof date>[1]);
+  };
 };

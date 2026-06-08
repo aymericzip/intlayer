@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@utils/cn';
 import React, {
   type FC,
   type PropsWithChildren,
@@ -8,7 +9,8 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { cn } from '../../utils/cn';
+
+const HANDLE_DOUBLE_CLICK_ZONE_PX = 16;
 
 /**
  * Props for the WithResizer component.
@@ -50,6 +52,14 @@ type WithResizerProps = {
   minWidth?: number;
   /** Position of the resize handle (default: 'right') */
   handlePosition?: 'left' | 'right';
+  /** Apply base styles */
+  style?: boolean;
+  /** Additional className */
+  className?: string;
+  /** Controlled open/close — true expands to defaultOpenWidth (or last used), false collapses to 0 */
+  isOpen?: boolean;
+  /** Width to restore when isOpen becomes true and current width is 0 */
+  defaultOpenWidth?: number;
 };
 
 /**
@@ -167,9 +177,15 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
   minWidth = 0,
   handlePosition = 'right',
   children,
+  style = true,
+  className,
+  isOpen,
+  defaultOpenWidth,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(initialWidth);
+  const [isResizing, setIsResizing] = useState(false);
+  const lastExpandedWidthRef = useRef(initialWidth);
 
   const resizeState = useRef({
     startX: 0,
@@ -210,6 +226,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
 
   // Handler to stop resizing
   const stopResizing = useCallback(() => {
+    setIsResizing(false);
     document.body.style.cursor = '';
     document.body.style.userSelect = '';
     window.removeEventListener('mousemove', resize);
@@ -225,6 +242,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
         | React.MouseEvent<HTMLDivElement>
         | React.TouchEvent<HTMLDivElement>
     ) => {
+      if (isOpen === false) return;
       mouseDownEvent.preventDefault();
       const container = containerRef.current;
 
@@ -247,6 +265,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
         factor,
       };
 
+      setIsResizing(true);
       document.body.style.cursor = 'ew-resize';
       document.body.style.userSelect = 'none';
 
@@ -255,7 +274,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
       window.addEventListener('touchmove', resize, { passive: true });
       window.addEventListener('touchend', stopResizing);
     },
-    [resize, stopResizing]
+    [isOpen, resize, stopResizing]
   );
 
   useEffect(() => {
@@ -267,29 +286,72 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
     };
   }, [resize, stopResizing]);
 
+  useEffect(() => {
+    if (width > minWidth) {
+      lastExpandedWidthRef.current = width;
+    }
+  }, [width, minWidth]);
+
+  useEffect(() => {
+    if (isOpen === undefined) return;
+    if (!isOpen) {
+      setWidth(0);
+    } else {
+      const target =
+        lastExpandedWidthRef.current > 0
+          ? lastExpandedWidthRef.current
+          : (defaultOpenWidth ?? initialWidth);
+      setWidth(Math.max(target, minWidth));
+    }
+  }, [isOpen]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const handleDoubleClick = useCallback(
+    (event: React.MouseEvent<HTMLDivElement>) => {
+      const el = containerRef.current;
+      if (!el) return;
+
+      const { left, right } = el.getBoundingClientRect();
+      const inHandleZone =
+        handlePosition === 'right'
+          ? right - event.clientX <= HANDLE_DOUBLE_CLICK_ZONE_PX
+          : event.clientX - left <= HANDLE_DOUBLE_CLICK_ZONE_PX;
+
+      if (!inHandleZone) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (width > minWidth) {
+        setWidth(minWidth);
+        return;
+      }
+
+      const target = Math.min(
+        Math.max(lastExpandedWidthRef.current, minWidth),
+        maxWidth ?? Infinity
+      );
+      setWidth(target);
+    },
+    [handlePosition, maxWidth, minWidth, width]
+  );
+
   return (
     <div
       className={cn(
-        'relative h-full w-full max-w-[80%] shrink-0 cursor-ew-resize border-neutral-200 transition dark:border-neutral-950',
-        handlePosition === 'right'
-          ? [
-              'border-r-[2px]',
-              'after:-translate-y-1/2 after:absolute after:top-1/2 after:right-0 after:block after:h-10 after:w-2 after:translate-x-1/2 after:transform after:cursor-ew-resize after:rounded-full after:bg-neutral-200 after:transition after:content-[""] dark:after:bg-neutral-950',
-            ]
-          : [
-              'border-l-[2px]',
-              'after:-translate-y-1/2 after:-translate-x-1/2 after:absolute after:top-1/2 after:left-0 after:block after:h-10 after:w-2 after:transform after:cursor-ew-resize after:rounded-full after:bg-neutral-200 after:transition after:content-[""] dark:after:bg-neutral-950',
-            ],
-        'active:border-neutral-400 active:after:bg-neutral-400 dark:active:border-neutral-600 active:dark:after:bg-neutral-600',
+        'relative size-full max-w-[80%] shrink-0',
+        style &&
+          (handlePosition === 'right' ? 'border-r-[2px]' : 'border-l-[2px]'),
+        style &&
+          'border-neutral-200 transition active:border-neutral-400 dark:border-neutral-950 dark:active:border-neutral-600',
         minWidth && `min-w-[${minWidth}px]`,
-        maxWidth && `max-w-[${maxWidth}px]`
+        maxWidth && `max-w-[${maxWidth}px]`,
+        !style && className
       )}
       style={{
         width: `${width}px`,
+        transition: isResizing ? 'none' : 'width 200ms ease-in-out',
       }}
       ref={containerRef}
-      onMouseDown={startResizing}
-      onTouchStart={startResizing}
       aria-valuemin={minWidth}
       aria-valuemax={maxWidth}
       aria-valuenow={width}
@@ -306,6 +368,18 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
       >
         {children}
       </div>
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: Invisible handle strip — owns resize events so content stopPropagation doesn't block them */}
+      <div
+        role="presentation"
+        className={cn(
+          'absolute top-0 z-10 h-full w-3',
+          isOpen !== false ? 'cursor-ew-resize' : 'cursor-default',
+          handlePosition === 'right' ? 'right-0' : 'left-0'
+        )}
+        onMouseDown={startResizing}
+        onTouchStart={startResizing}
+        onDoubleClick={handleDoubleClick}
+      />
     </div>
   );
 };

@@ -1,6 +1,3 @@
-import configuration from '@intlayer/config/built';
-import type { IntlayerConfig } from '@intlayer/types';
-import { type FetcherOptions, fetcher } from '../fetcher';
 import type {
   AddOrganizationBody,
   AddOrganizationMemberBody,
@@ -18,20 +15,16 @@ import type {
   UpdateOrganizationMembersBody,
   UpdateOrganizationMembersResult,
   UpdateOrganizationResult,
-} from '../types';
+} from '@intlayer/backend';
+import { editor } from '@intlayer/config/built';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import { type FetcherOptions, fetcher } from '../fetcher';
 
 export const getOrganizationAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL =
-    intlayerConfig?.editor?.backendURL ?? configuration?.editor?.backendURL;
-
-  if (!backendURL) {
-    throw new Error(
-      'Backend URL is not defined in the Intlayer configuration--.'
-    );
-  }
+  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
 
   const ORGANIZATION_API_ROUTE = `${backendURL}/api/organization`;
 
@@ -175,6 +168,21 @@ export const getOrganizationAPI = (
     );
 
   /**
+   * Admin-only: Deletes any organization from the database by its ID.
+   * @param organizationId - Organization ID.
+   */
+  const deleteOrganizationByIdAdmin = async (
+    organizationId: string,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    fetcher<DeleteOrganizationResult>(
+      `${ORGANIZATION_API_ROUTE}/${organizationId}/admin`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'DELETE' }
+    );
+
+  /**
    * Select an organization from the database by its ID.
    * @param organizationId - Organization ID.
    */
@@ -214,6 +222,7 @@ export const getOrganizationAPI = (
     updateOrganizationMembers,
     updateOrganizationMembersById,
     deleteOrganization,
+    deleteOrganizationByIdAdmin,
     selectOrganization,
     unselectOrganization,
   };

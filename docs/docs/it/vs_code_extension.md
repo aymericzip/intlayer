@@ -18,16 +18,16 @@ slugs:
 history:
   - version: 6.1.5
     date: 2025-09-30
-    changes: Aggiunta gif demo
+    changes: "Aggiunta gif demo"
   - version: 6.1.0
     date: 2025-09-24
-    changes: Aggiunta sezione selezione ambiente
+    changes: "Aggiunta sezione selezione ambiente"
   - version: 6.0.0
     date: 2025-09-22
-    changes: Comandi Intlayer Tab / Fill & Test
+    changes: "Comandi Intlayer Tab / Fill & Test"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inizializzazione cronologia
+    changes: "Inizializzazione cronologia"
 ---
 
 # Estensione Ufficiale per VS Code
@@ -120,7 +120,7 @@ L'estensione può caricare le variabili d'ambiente dal tuo workspace per eseguir
 
 #### Selezione dell'ambiente attivo
 
-- **Palette dei Comandi**: apri la palette ed esegui `Intlayer: Select Environment`, quindi scegli l'ambiente (ad esempio, `development`, `staging`, `production`). L'estensione tenterà di caricare il primo file disponibile nella lista di priorità sopra indicata e mostrerà una notifica come “Caricato env da .env.<env>.local”.
+- **Palette dei Comandi**: apri la palette ed esegui `Intlayer: Select Environment`, quindi scegli l'ambiente (ad esempio, `development`, `staging`, `production`). L'estensione tenterà di caricare il primo file disponibile nella lista di priorità sopra indicata e mostrerà una notifica come “Caricato env da `.env.<env>.local`”.
 - **Impostazioni**: vai su `Impostazioni → Estensioni → Intlayer`, e imposta:
   - **Ambiente**: il nome dell'ambiente usato per risolvere i file `.env.<env>*`.
   - (Opzionale) **File Env**: un percorso esplicito a un file `.env`. Quando fornito, ha la precedenza sulla lista dedotta.

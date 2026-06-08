@@ -1,27 +1,63 @@
-import { computed, inject } from '@angular/core';
-import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/types';
+import { computed, inject, type Signal } from '@angular/core';
+import { internationalization } from '@intlayer/config/built';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import { INTLAYER_TOKEN, type IntlayerProvider } from './installIntlayer';
 import { setLocaleInStorage } from './useLocaleStorage';
 
-type useLocaleProps = {
+export type UseLocaleProps = {
   isCookieEnabled?: boolean;
-  onLocaleChange?: (locale: LocalesValues) => void;
+  onLocaleChange?: (locale: DeclaredLocales) => void;
+};
+
+export type UseLocaleResult = {
+  locale: Signal<DeclaredLocales>;
+  defaultLocale: DeclaredLocales;
+  availableLocales: DeclaredLocales[];
+  setLocale: (locale: LocalesValues) => void;
 };
 
 /**
- * On the client side, composable to get the current locale and all related fields
+ * Angular hook to manage the current locale and related functions.
+ *
+ * @param props - Optional configuration for locale management.
+ * @returns An object containing the current locale (signal), default locale, available locales, and a function to update the locale.
+ *
+ * @example
+ * ```ts
+ * import { Component } from '@angular/core';
+ * import { useLocale } from 'angular-intlayer';
+ *
+ * @Component({
+ *   standalone: true,
+ *   selector: 'app-locale-switcher',
+ *   template: `
+ *     <select [value]="locale()" (change)="setLocale($any($event.target).value)">
+ *       @for (loc of availableLocales; track loc) {
+ *         <option [value]="loc">{{ loc }}</option>
+ *       }
+ *     </select>
+ *   `,
+ * })
+ * export class LocaleSwitcher {
+ *   const { locale, setLocale, availableLocales } = useLocale();
+ * }
+ * ```
  */
 export const useLocale = ({
   isCookieEnabled,
   onLocaleChange,
-}: useLocaleProps = {}) => {
+}: UseLocaleProps = {}): UseLocaleResult => {
   const { defaultLocale, locales: availableLocales } =
-    configuration?.internationalization ?? {};
+    internationalization ?? {};
   const intlayer = inject<IntlayerProvider>(INTLAYER_TOKEN);
 
   // Create a reactive reference for the locale
-  const locale = computed(() => intlayer?.locale() ?? defaultLocale);
+  const locale = computed(
+    () => (intlayer?.locale() ?? defaultLocale) as DeclaredLocales
+  );
   const isCookieEnabledContext = computed(
     () => intlayer?.isCookieEnabled() ?? true
   );
@@ -39,7 +75,7 @@ export const useLocale = ({
       newLocale,
       isCookieEnabled ?? isCookieEnabledContext() ?? true
     );
-    onLocaleChange?.(newLocale);
+    onLocaleChange?.(newLocale as DeclaredLocales);
   };
 
   return {
@@ -47,5 +83,5 @@ export const useLocale = ({
     defaultLocale, // Principal locale defined in config
     availableLocales, // List of the available locales defined in config
     setLocale, // Function to set the locale
-  };
+  } as UseLocaleResult;
 };

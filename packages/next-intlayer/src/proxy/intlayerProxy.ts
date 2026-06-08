@@ -1,7 +1,20 @@
-import configuration from '@intlayer/config/built';
-import { DefaultValues } from '@intlayer/config/client';
-import { getLocaleFromStorage, setLocaleInStorage } from '@intlayer/core';
-import type { Locale } from '@intlayer/types';
+import { internationalization, routing } from '@intlayer/config/built';
+import { ROUTING_MODE } from '@intlayer/config/defaultValues';
+
+// ── Tree-shake constants ──────────────────────────────────────────────────────
+// When these env vars are injected at build time, bundlers eliminate the
+// branches guarded by these constants.
+
+import {
+  getCanonicalPath,
+  getLocalizedPath,
+  getRewriteRules,
+} from '@intlayer/core/localization';
+import {
+  getLocaleFromStorageServer,
+  setLocaleInStorageServer,
+} from '@intlayer/core/utils';
+import type { Locale } from '@intlayer/types/allLocales';
 import {
   type NextFetchEvent,
   type NextRequest,
@@ -40,16 +53,65 @@ import { localeDetector } from './localeDetector';
  */
 const DEFAULT_DETECT_LOCALE_ON_PREFETCH_NO_PREFIX = false;
 
-const { internationalization, routing } = configuration ?? {};
 const { locales, defaultLocale } = internationalization ?? {};
-const { basePath, mode } = routing ?? {};
+const { basePath, mode, rewrite, domains } = routing ?? {};
+
 // Note: cookie names are resolved inside LocaleStorage based on configuration
 
 // Derived flags from routing.mode
-const effectiveMode = mode ?? DefaultValues.Routing.ROUTING_MODE;
+const effectiveMode = mode ?? ROUTING_MODE;
 const noPrefix =
-  effectiveMode === 'no-prefix' || effectiveMode === 'search-params';
-const prefixDefault = effectiveMode === 'prefix-all';
+  (!(
+    process.env['INTLAYER_ROUTING_MODE'] &&
+    process.env['INTLAYER_ROUTING_MODE'] !== 'no-prefix'
+  ) &&
+    effectiveMode === 'no-prefix') ||
+  (!(
+    process.env['INTLAYER_ROUTING_MODE'] &&
+    process.env['INTLAYER_ROUTING_MODE'] !== 'search-params'
+  ) &&
+    effectiveMode === 'search-params');
+const prefixDefault =
+  !(
+    process.env['INTLAYER_ROUTING_MODE'] &&
+    process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-all' &&
+    process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-no-default'
+  ) && effectiveMode === 'prefix-all';
+
+const internalPrefix = !noPrefix;
+
+const rewriteRules =
+  process.env['INTLAYER_ROUTING_REWRITE_RULES'] !== 'false'
+    ? getRewriteRules(rewrite, 'url')
+    : undefined;
+
+/**
+ * Strips the protocol from a domain string and returns only the hostname.
+ * e.g. 'https://intlayer.zh' → 'intlayer.zh', 'intlayer.zh' → 'intlayer.zh'
+ */
+const normalizeDomainHostname = (domain: string): string => {
+  try {
+    return /^https?:\/\//.test(domain) ? new URL(domain).hostname : domain;
+  } catch {
+    return domain;
+  }
+};
+
+/**
+ * Returns the locale exclusively mapped to a given hostname via `routing.domains`,
+ * or undefined if zero or more than one locale share that hostname.
+ *
+ * Example: with domains = { zh: 'intlayer.zh', fr: 'intlayer.org' }
+ *   getLocaleFromDomain('intlayer.zh')  → 'zh'
+ *   getLocaleFromDomain('intlayer.org') → undefined  (multiple locales share it)
+ */
+const getLocaleFromDomain = (hostname: string): Locale | undefined => {
+  if (!domains) return undefined;
+  const matching = Object.entries(domains).filter(
+    ([, domain]) => normalizeDomainHostname(domain!) === hostname
+  );
+  return matching.length === 1 ? (matching[0][0] as Locale) : undefined;
+};
 
 /**
  * Detects if the request is a prefetch request from Next.js.
@@ -84,12 +146,14 @@ const appendLocaleSearchIfNeeded = (
   search: string | undefined,
   locale: Locale
 ): string | undefined => {
-  if (effectiveMode !== 'search-params') return search;
-
+  if (
+    (process.env['INTLAYER_ROUTING_MODE'] &&
+      process.env['INTLAYER_ROUTING_MODE'] !== 'search-params') ||
+    effectiveMode !== 'search-params'
+  )
+    return search;
   const params = new URLSearchParams(search ?? '');
-
   params.set('locale', locale);
-
   return `?${params.toString()}`;
 };
 
@@ -125,13 +189,58 @@ export const intlayerProxy = (
 
   const localLocale = getLocalLocale(request);
 
-  if (
-    noPrefix // If the application is configured not to use locale prefixes in URLs
-  ) {
+  if (noPrefix) {
     return handleNoPrefix(request, localLocale, pathname);
   }
 
   const pathLocale = getPathLocale(pathname);
+
+  // Domain routing: if the path locale is mapped to a different domain, redirect there.
+  // e.g. intlayer.org/zh/about → https://intlayer.zh/about
+  if (
+    process.env['INTLAYER_ROUTING_DOMAINS'] !== 'false' &&
+    pathLocale &&
+    domains
+  ) {
+    const localeDomain = domains[pathLocale];
+
+    if (localeDomain) {
+      const domainHost = normalizeDomainHostname(localeDomain);
+
+      if (domainHost !== request.nextUrl.hostname) {
+        const rawPath = pathname.slice(`/${pathLocale}`.length) || '/';
+        const targetOrigin = /^https?:\/\//.test(localeDomain)
+          ? localeDomain
+          : `https://${localeDomain}`;
+
+        return NextResponse.redirect(
+          new URL(`${rawPath}${request.nextUrl.search}`, targetOrigin)
+        );
+      }
+    }
+  }
+
+  // Domain routing: if the current hostname is exclusively mapped to one locale,
+  // treat it as that locale's domain — no URL prefix needed.
+  // e.g. intlayer.zh/about → internally rewrite to /zh/about
+  if (process.env['INTLAYER_ROUTING_DOMAINS'] !== 'false' && !pathLocale) {
+    const domainLocale = getLocaleFromDomain(request.nextUrl.hostname);
+
+    if (domainLocale) {
+      const canonicalPath = getCanonicalPath(
+        pathname,
+        domainLocale,
+        rewriteRules
+      );
+      const internalPath = `/${domainLocale}${canonicalPath}`;
+
+      return rewriteUrl(
+        request,
+        internalPath + (request.nextUrl.search ?? ''),
+        domainLocale
+      );
+    }
+  }
 
   return handlePrefix(request, localLocale, pathLocale, pathname);
 };
@@ -143,84 +252,117 @@ export const intlayerProxy = (
  * @returns - The locale found in the cookies, or undefined if not found or invalid.
  */
 const getLocalLocale = (request: NextRequest): Locale | undefined =>
-  getLocaleFromStorage({
+  getLocaleFromStorageServer({
     getCookie: (name: string) => request.cookies.get(name)?.value ?? null,
     getHeader: (name: string) => request.headers.get(name) ?? null,
   });
 
 /**
  * Handles the case where URLs do not have locale prefixes.
- *
- * @param request - The incoming Next.js request object.
- * @param localLocale - The locale from the cookie.
- * @param pathname - The pathname from the request URL.
- * @returns - The rewritten response with the locale applied.
  */
 const handleNoPrefix = (
   request: NextRequest,
   localLocale: Locale | undefined,
   pathname: string
 ): NextResponse => {
-  // Check if pathname has a locale prefix (even though we're in no-prefix mode)
   const pathLocale = getPathLocale(pathname);
 
-  // If a locale prefix is detected in the URL, redirect to remove it
   if (pathLocale) {
-    // Strip the locale prefix from the pathname
     const pathWithoutLocale = pathname.slice(`/${pathLocale}`.length) || '/';
 
-    // Build redirect URL without locale prefix but with search params if needed
+    const canonicalPath = getCanonicalPath(
+      pathWithoutLocale,
+      pathLocale,
+      rewriteRules
+    );
+
     const search = appendLocaleSearchIfNeeded(
       request.nextUrl.search,
       pathLocale
     );
-    const redirectPath = search
-      ? `${pathWithoutLocale}${search}`
-      : `${pathWithoutLocale}${request.nextUrl.search ?? ''}`;
 
-    // Redirect to the path without locale prefix (URL changes in browser)
+    const redirectPath = search
+      ? `${canonicalPath}${search}`
+      : `${canonicalPath}${request.nextUrl.search ?? ''}`;
+
     return redirectUrl(request, redirectPath);
   }
 
-  // If no locale prefix in URL, determine locale and rewrite internally
-  const locale = localLocale ?? defaultLocale;
-
-  // In search-params mode, we need to redirect to add the locale search param
-  if (effectiveMode === 'search-params') {
-    // Check if locale search param already exists and matches the detected locale
+  if (
+    !(
+      process.env['INTLAYER_ROUTING_MODE'] &&
+      process.env['INTLAYER_ROUTING_MODE'] !== 'search-params'
+    ) &&
+    effectiveMode === 'search-params'
+  ) {
     const existingSearchParams = new URLSearchParams(request.nextUrl.search);
     const existingLocale = existingSearchParams.get('locale');
 
-    // If the existing locale matches the detected locale, no redirect needed
-    if (existingLocale === locale) {
-      // For internal routing, we need to add the locale prefix so Next.js can match [locale] param
-      const internalPath = `/${locale}${pathname}`;
-      const rewritePath = `${internalPath}${request.nextUrl.search ?? ''}`;
+    const isExistingValid = locales?.includes(existingLocale as Locale);
 
-      // Rewrite internally (URL stays the same in browser, but Next.js routes to /[locale]/path)
-      return rewriteUrl(request, rewritePath, locale);
+    let locale = (localLocale ??
+      (isExistingValid ? (existingLocale as Locale) : undefined) ??
+      localLocale ??
+      localeDetector?.(request) ??
+      defaultLocale) as Locale;
+
+    if (!locales?.includes(locale as Locale)) {
+      locale = defaultLocale as Locale;
     }
 
-    const search = appendLocaleSearchIfNeeded(request.nextUrl.search, locale);
+    const canonicalPath = getCanonicalPath(
+      pathname,
+      locale as Locale,
+      rewriteRules
+    );
+
+    if (existingLocale === locale) {
+      const internalPath = internalPrefix
+        ? `/${locale}${canonicalPath}`
+        : canonicalPath;
+      const rewritePath = `${internalPath}${request.nextUrl.search ?? ''}`;
+      return rewriteUrl(request, rewritePath, locale as Locale);
+    }
+
+    const search = appendLocaleSearchIfNeeded(
+      request.nextUrl.search,
+      locale as Locale
+    );
+    // Use original pathname for redirect to preserve user's URL input, just adding params
     const redirectPath = search
       ? `${pathname}${search}`
       : `${pathname}${request.nextUrl.search ?? ''}`;
 
-    // Redirect to add/update the locale search param (URL changes in browser)
     return redirectUrl(request, redirectPath);
   }
 
-  // For internal routing, we need to add the locale prefix so Next.js can match [locale] param
-  const internalPath = `/${locale}${pathname}`;
+  // effectiveMode === 'no-prefix'
+  let locale = (localLocale ??
+    localeDetector?.(request) ??
+    defaultLocale) as Locale;
 
-  // Add search params if needed
-  const search = appendLocaleSearchIfNeeded(request.nextUrl.search, locale);
+  if (!locales?.includes(locale as Locale)) {
+    locale = defaultLocale as Locale;
+  }
+
+  const canonicalPath = getCanonicalPath(
+    pathname,
+    locale as Locale,
+    rewriteRules
+  );
+
+  const internalPath = internalPrefix
+    ? `/${locale}${canonicalPath}`
+    : canonicalPath;
+  const search = appendLocaleSearchIfNeeded(
+    request.nextUrl.search,
+    locale as Locale
+  );
   const rewritePath = search
     ? `${internalPath}${search}`
     : `${internalPath}${request.nextUrl.search ?? ''}`;
 
-  // Rewrite internally (URL stays the same in browser, but Next.js routes to /[locale]/path)
-  return rewriteUrl(request, rewritePath, locale);
+  return rewriteUrl(request, rewritePath, locale as Locale);
 };
 
 /**
@@ -230,7 +372,7 @@ const handleNoPrefix = (
  * @returns - The locale found in the pathname, or undefined if not found.
  */
 const getPathLocale = (pathname: string): Locale | undefined =>
-  locales.find(
+  (locales as Locale[]).find(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
 
@@ -250,20 +392,19 @@ const handlePrefix = (
   pathLocale: Locale | undefined,
   pathname: string
 ): NextResponse => {
-  if (
-    !pathLocale // If the URL does not contain a locale prefix
-  ) {
+  if (!pathLocale) {
     const isPrefetch = isPrefetchRequest(request);
-
     if (isPrefetch && !DEFAULT_DETECT_LOCALE_ON_PREFETCH_NO_PREFIX) {
-      return handleMissingPathLocale(request, defaultLocale, pathname);
+      return handleMissingPathLocale(
+        request,
+        defaultLocale as Locale,
+        pathname
+      );
     }
-
     return handleMissingPathLocale(request, localLocale, pathname);
   }
 
-  // If the URL contains a locale prefix
-  return handleExistingPathLocale(request, localLocale, pathLocale, pathname);
+  return handleExistingPathLocale(request, pathLocale, pathname);
 };
 
 /**
@@ -283,20 +424,41 @@ const handleMissingPathLocale = (
   let locale = (localLocale ??
     localeDetector?.(request) ??
     defaultLocale) as Locale;
-  if (!locales.includes(locale)) {
-    locale = defaultLocale;
+
+  if (!(locales as Locale[]).includes(locale)) {
+    locale = defaultLocale as Locale;
   }
+
+  // Resolve to canonical path.
+  // If user visits /a-propos (implied 'fr'), we resolve to /about
+  const canonicalPath = getCanonicalPath(pathname, locale, rewriteRules);
+
+  // Determine target localized path for redirection
+  // /about + 'fr' -> /a-propos
+  const targetLocalizedPathResult = getLocalizedPath(
+    canonicalPath,
+    locale,
+    rewriteRules
+  );
+  const targetLocalizedPath =
+    typeof targetLocalizedPathResult === 'string'
+      ? targetLocalizedPathResult
+      : targetLocalizedPathResult.path;
 
   const newPath = constructPath(
     locale,
-    pathname,
-    basePath,
+    targetLocalizedPath,
+    basePath as string,
     appendLocaleSearchIfNeeded(request.nextUrl.search, locale)
   );
 
   return prefixDefault || locale !== defaultLocale
     ? redirectUrl(request, newPath)
-    : rewriteUrl(request, newPath, locale);
+    : rewriteUrl(
+        request,
+        internalPrefix ? `/${locale}${canonicalPath}` : canonicalPath,
+        locale
+      ); // Rewrite must use Canonical
 };
 
 /**
@@ -310,27 +472,64 @@ const handleMissingPathLocale = (
  */
 const handleExistingPathLocale = (
   request: NextRequest,
-  localLocale: Locale | undefined,
   pathLocale: Locale,
   pathname: string
 ): NextResponse => {
-  if (
-    // If the cookie locale is set and differs from the locale in the URL
-    localLocale &&
-    localLocale !== pathLocale
-  ) {
-    const newPath = handleCookieLocaleMismatch(
-      request,
-      pathname,
+  const rawPath = pathname.slice(`/${pathLocale}`.length) || '/';
+
+  // 1. Identify the Canonical Path (Internal Next.js path)
+  // Ex: /a-propos (from URL) -> /about (Canonical)
+  const canonicalPath = getCanonicalPath(rawPath, pathLocale, rewriteRules);
+
+  // By skipping the forced localLocale check, we allow the explicit pathLocale
+  // to take precedence, which correctly updates the header/cookie when navigating.
+
+  // Rewrite Logic
+  // We must rewrite to the Next.js internal structure: /[locale]/[canonicalPath]
+  // Ex: Rewrite /fr/a-propos -> /fr/about
+
+  // 2. Redirect to localized path if needed (Canonical -> Localized)
+  // Ex: /fr/about -> /fr/a-propos
+  const targetLocalizedPathResult = getLocalizedPath(
+    canonicalPath,
+    pathLocale,
+    rewriteRules
+  );
+  const targetLocalizedPath =
+    typeof targetLocalizedPathResult === 'string'
+      ? targetLocalizedPathResult
+      : targetLocalizedPathResult.path;
+  const isRewritten =
+    typeof targetLocalizedPathResult === 'string'
+      ? false
+      : targetLocalizedPathResult.isRewritten;
+
+  if (isRewritten && targetLocalizedPath !== rawPath) {
+    const newPath = constructPath(
       pathLocale,
-      localLocale,
-      basePath
+      targetLocalizedPath,
+      basePath as string,
+      appendLocaleSearchIfNeeded(request.nextUrl.search, pathLocale)
     );
     return redirectUrl(request, newPath);
   }
 
-  // If the cookie locale matches the path locale, or cookie locale is not set, or serverSetCookie is 'always'
-  return handleDefaultLocaleRedirect(request, pathLocale, pathname);
+  const internalUrl = internalPrefix
+    ? `/${pathLocale}${canonicalPath}`
+    : canonicalPath;
+
+  // Only handle redirect if we are strictly managing default locale prefixing
+  // Fix: pass `canonicalPath` (the path *without* the locale prefix, e.g. /pricing)
+  // instead of `pathname` (the full path including prefix, e.g. /en/pricing).
+  // Previously this caused an infinite redirect loop in prefix-no-default mode
+  // because handleDefaultLocaleRedirect built the redirect target from its third
+  // argument, which reproduced the same URL on every response.
+  if (!prefixDefault && pathLocale === defaultLocale) {
+    return handleDefaultLocaleRedirect(request, pathLocale, canonicalPath);
+  }
+
+  const search = request.nextUrl.search;
+  return rewriteUrl(request, internalUrl + (search ?? ''), pathLocale);
 };
 
 /**
@@ -343,73 +542,65 @@ const handleExistingPathLocale = (
  * @param basePath - The base path of the application.
  * @returns - The new URL path with the correct locale.
  */
-const handleCookieLocaleMismatch = (
-  request: NextRequest,
-  pathname: string,
-  pathLocale: Locale,
-  localLocale: Locale,
-  basePath: string
-): string => {
-  // Replace the pathLocale in the pathname with the localLocale
-  const newPath = pathname.replace(`/${pathLocale}`, `/${localLocale}`);
-
-  return constructPath(
-    localLocale,
-    newPath,
-    basePath,
-    appendLocaleSearchIfNeeded(request.nextUrl.search, localLocale)
-  );
-};
+// Function handleCookieLocaleMismatch was removed because the URL locale should take precedence over the stored locale.
 
 /**
- * Handles redirection when the default locale is used and prefixing is not required.
- *
- * @param request - The incoming Next.js request object.
- * @param pathLocale - The locale extracted from the pathname.
- * @param pathname - The pathname from the request URL.
- * @returns - The rewritten response without the locale prefix.
+ * The key fix for 404s without [locale] folders
  */
 const handleDefaultLocaleRedirect = (
   request: NextRequest,
   pathLocale: Locale,
-  pathname: string
+  canonicalPath: string // Internal path (e.g. /about)
 ): NextResponse => {
-  if (
-    // If default locale should not be prefixed and the pathLocale is the defaultLocale
-    !prefixDefault &&
-    pathLocale === defaultLocale
-  ) {
-    let pathWithoutLocale = pathname.slice(`/${pathLocale}`.length) || '/';
+  if (!prefixDefault && pathLocale === defaultLocale) {
+    // Redirect to remove prefix
+    // We use canonicalPath because in no-prefix default mode, the URL is usually just the path
+    // But wait, if we are in this function, the URL *has* a prefix.
+    // We want to redirect to /about (localized for EN).
 
-    const basePathTrailingSlash = basePath.endsWith('/');
+    const targetLocalizedPathResult = getLocalizedPath(
+      canonicalPath,
+      pathLocale,
+      rewriteRules
+    );
+    const targetLocalizedPath =
+      typeof targetLocalizedPathResult === 'string'
+        ? targetLocalizedPathResult
+        : targetLocalizedPathResult.path;
 
-    if (basePathTrailingSlash) {
-      pathWithoutLocale = pathWithoutLocale.slice(1);
-    }
+    // Construct path without prefix
+    const basePathTrailingSlash = (basePath as string).endsWith('/');
+    let finalPath = targetLocalizedPath;
+    if (finalPath.startsWith('/')) finalPath = finalPath.slice(1);
+
+    const fullPath = `${basePath}${basePathTrailingSlash ? '' : '/'}${finalPath}`;
 
     const searchWithLocale = appendLocaleSearchIfNeeded(
       request.nextUrl.search,
       pathLocale
     );
-    if (searchWithLocale) {
-      pathWithoutLocale += searchWithLocale;
-    } else if (request.nextUrl.search) {
-      pathWithoutLocale += request.nextUrl.search;
-    }
 
-    return redirectUrl(request, `${basePath}${pathWithoutLocale}`);
+    return redirectUrl(
+      request,
+      fullPath + (searchWithLocale ?? request.nextUrl.search ?? '')
+    );
   }
-
-  // If prefixing default locale is required or pathLocale is not the defaultLocale
 
   const searchWithLocale = appendLocaleSearchIfNeeded(
     request.nextUrl.search,
     pathLocale
   );
-  const newPath = searchWithLocale
-    ? `${pathname}${searchWithLocale}`
-    : pathname;
-  return rewriteUrl(request, newPath, pathLocale);
+
+  // If no redirect needed, we rewrite to the internal canonical path
+  const internalPath = internalPrefix
+    ? `/${pathLocale}${canonicalPath}`
+    : canonicalPath;
+
+  const rewriteTarget = searchWithLocale
+    ? `${internalPath}${searchWithLocale}`
+    : `${internalPath}${request.nextUrl.search ?? ''}`;
+
+  return rewriteUrl(request, rewriteTarget, pathLocale);
 };
 
 /**
@@ -427,64 +618,84 @@ const constructPath = (
   basePath: string,
   search?: string
 ): string => {
-  // In 'search-params' and 'no-prefix' modes, do not prefix the path with the locale
-  // Also, strip any incoming locale prefix if present
+  // Remove existing locale prefix from path if it was passed by mistake,
+  // though we usually pass localized paths here now.
   const pathWithoutPrefix = path.startsWith(`/${locale}`)
     ? path.slice(`/${locale}`.length) || '/'
     : path;
 
-  if (effectiveMode === 'no-prefix') {
-    if (search) {
-      return `${pathWithoutPrefix}?${search}`;
-    }
-
-    return pathWithoutPrefix;
+  if (
+    (!(
+      process.env['INTLAYER_ROUTING_MODE'] &&
+      process.env['INTLAYER_ROUTING_MODE'] !== 'no-prefix'
+    ) &&
+      effectiveMode === 'no-prefix') ||
+    (!(
+      process.env['INTLAYER_ROUTING_MODE'] &&
+      process.env['INTLAYER_ROUTING_MODE'] !== 'search-params'
+    ) &&
+      effectiveMode === 'search-params')
+  ) {
+    return `${pathWithoutPrefix}${search ? `?${search}` : ''}`;
   }
 
-  if (effectiveMode === 'search-params') {
-    if (search) {
-      return `${pathWithoutPrefix}?${search}`;
-    }
-
-    return pathWithoutPrefix;
-  }
-
+  // Prefix handling
   const pathWithLocalePrefix = path.startsWith(`/${locale}`)
     ? path
-    : `${locale}${path}`;
+    : `${locale}${path.startsWith('/') ? '' : '/'}${path}`;
 
   const basePathTrailingSlash = basePath.endsWith('/');
-
   const newPath = `${basePath}${basePathTrailingSlash ? '' : '/'}${pathWithLocalePrefix}`;
 
-  return newPath;
+  // Clean double slashes
+  const cleanPath = newPath.replace(/\/+/g, '/');
+
+  return cleanPath;
 };
 
 /**
- * Rewrites the URL to the new path and sets the locale header.
- *
- * @param request - The incoming Next.js request object.
- * @param newPath - The new path to rewrite to.
- * @param locale - The locale to set in the response header.
- * @returns - The rewritten response.
+ * This handles the internal path Next.js sees.
+ * To support optional [locale] folders, we need to decide if we
+ * keep the locale prefix or strip it.
  */
 const rewriteUrl = (
   request: NextRequest,
   newPath: string,
   locale: Locale
 ): NextResponse => {
-  // Ensure we preserve the original search params if they were present and not explicitly included in newPath
   const search = request.nextUrl.search;
   const pathWithSearch =
     search && !newPath.includes('?') ? `${newPath}${search}` : newPath;
 
-  const response = NextResponse.rewrite(new URL(pathWithSearch, request.url));
-
-  setLocaleInStorage(locale, {
-    setHeader: (name: string, value: string) =>
-      response.headers.set(name, value),
+  const requestHeaders = new Headers(request.headers);
+  setLocaleInStorageServer(locale, {
+    setHeader: (name: string, value: string) => {
+      requestHeaders.set(name, value);
+    },
   });
 
+  const targetUrl = new URL(pathWithSearch, request.url);
+
+  // If the target URL is exactly the current request URL,
+  // we just want to `next()` to avoid losing headers on a redundant rewrite.
+  const response =
+    targetUrl.href === request.nextUrl.href
+      ? NextResponse.next({
+          request: {
+            headers: requestHeaders,
+          },
+        })
+      : NextResponse.rewrite(targetUrl, {
+          request: {
+            headers: requestHeaders,
+          },
+        });
+
+  setLocaleInStorageServer(locale, {
+    setHeader: (name: string, value: string) => {
+      response.headers.set(name, value);
+    },
+  });
   return response;
 };
 
@@ -496,10 +707,21 @@ const rewriteUrl = (
  * @returns - The redirect response.
  */
 const redirectUrl = (request: NextRequest, newPath: string): NextResponse => {
-  // Ensure we preserve the original search params if they were present and not explicitly included in newPath
   const search = request.nextUrl.search;
   const pathWithSearch =
     search && !newPath.includes('?') ? `${newPath}${search}` : newPath;
 
-  return NextResponse.redirect(new URL(pathWithSearch, request.url));
+  const target = new URL(pathWithSearch, request.url);
+
+  // Prevent open redirect: if the resolved origin differs from the request
+  // origin, strip it back to a same-origin URL using only the path/search/hash.
+  const safeTarget =
+    target.origin === request.nextUrl.origin
+      ? target
+      : new URL(
+          `${target.pathname}${target.search}${target.hash}`,
+          request.url
+        );
+
+  return NextResponse.redirect(safeTarget);
 };

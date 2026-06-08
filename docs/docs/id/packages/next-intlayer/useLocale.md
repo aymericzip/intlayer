@@ -1,15 +1,11 @@
 ---
-createdAt: 2025-08-23
-updatedAt: 2025-10-09
-title: Dokumentasi Hook useLocale | next-intlayer
-description: Lihat cara menggunakan hook useLocale untuk paket next-intlayer
 keywords:
   - useLocale
-  - kamus
-  - kunci
+  - dictionary
+  - key
   - Intlayer
-  - Internasionalisasi
-  - Dokumentasi
+  - Internationalization
+  - Documentation
   - Next.js
   - JavaScript
   - React
@@ -18,13 +14,20 @@ slugs:
   - packages
   - next-intlayer
   - useLocale
+description: Documentation for the useLocale hook in the next-intlayer package
+createdAt: 2025-08-23
+updatedAt: 2026-01-26
+title: Dokumentasi Hook useLocale | next-intlayer
 history:
+  - version: 8.0.0
+    date: 2026-01-26
+    changes: "Mengatur `onLocaleChange` default ke `replace`"
   - version: 6.2.0
     date: 2025-10-09
-    changes: Menambahkan dokumentasi untuk hook `useLocale` dengan opsi `onLocaleChange`
+    changes: "Menambahkan dokumentasi untuk hook `useLocale` dengan opsi `onLocaleChange`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inisialisasi riwayat
+    changes: "Inisialisasi riwayat"
 ---
 
 # Integrasi Next.js: Dokumentasi Hook `useLocale` untuk `next-intlayer`
@@ -43,7 +46,7 @@ import { useLocale } from "next-intlayer"; // Digunakan untuk mengelola locale d
 
 Berikut cara mengimplementasikan hook `useLocale` dalam komponen Next.js:
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
 import type { FC } from "react";
@@ -51,56 +54,6 @@ import { Locales } from "intlayer";
 import { useLocale } from "next-intlayer";
 
 const LocaleSwitcher: FC = () => {
-  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
-
-  return (
-    <div>
-      <h1>Locale Saat Ini: {locale}</h1>
-      <p>Locale Default: {defaultLocale}</p>
-      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
-        {availableLocales.map((loc) => (
-          <option key={loc} value={loc}>
-            {loc}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.mjx" codeFormat="esm"
-"use client";
-
-import { Locales } from "intlayer";
-import { useLocale } from "next-intlayer";
-
-const LocaleSwitcher = () => {
-  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
-
-  return (
-    <div>
-      <h1>Locale Saat Ini: {locale}</h1>
-      <p>Locale Default: {defaultLocale}</p>
-      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
-        {availableLocales.map((loc) => (
-          <option key={loc} value={loc}>
-            {loc}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-"use client";
-
-const { Locales } = require("intlayer");
-const { useLocale } = require("next-intlayer");
-
-const LocaleSwitcher = () => {
   const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
 
   return (
@@ -134,12 +87,12 @@ Hook `useLocale` menerima parameter berikut:
   >
   > Perilaku akan berbeda berdasarkan nilai `onLocaleChange`:
   >
-  > - `undefined`: (default) Hanya memperbarui locale dalam konteks klien, dan mengatur cookie, tanpa mengubah URL.
-  >   -> Tombol "kembali" akan menuju ke `/fr/home`
-  > - `"replace"`: Mengganti URL saat ini dengan URL lokal baru, dan mengatur cookie.
+  > - `"replace"` (default): Mengganti URL saat ini dengan URL lokal baru, dan mengatur cookie.
   >   -> Tombol "kembali" akan menuju ke `/es/home`
   > - `"push"`: Menambahkan URL lokal baru ke riwayat browser, dan mengatur cookie.
   >   -> Tombol "kembali" akan menuju ke `/fr/about`
+  > - `"none"`: Hanya memperbarui locale dalam konteks klien, dan mengatur cookie, tanpa mengubah URL.
+  >   -> Tombol "kembali" akan menuju ke `/fr/home`
   > - `(locale) => void`: Mengatur cookie dan memicu fungsi kustom yang akan dipanggil saat locale berubah.
   >
   >   Opsi `undefined` adalah perilaku default karena kami merekomendasikan menggunakan komponen `Link` untuk menavigasi ke locale baru.

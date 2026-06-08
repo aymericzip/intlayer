@@ -29,7 +29,7 @@ history:
 
 # Jak zautomatyzować tłumaczenia JSON react-i18next za pomocą Intlayer
 
-<iframe title="Jak zautomatyzować tłumaczenia JSON react-i18next za pomocą Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Jak zautomatyzować tłumaczenia JSON react-i18next za pomocą Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## Czym jest Intlayer?
 
@@ -61,19 +61,23 @@ Ten przewodnik pokazuje, jak wykorzystać zaawansowany system deklaracji treści
 Zainstaluj niezbędne pakiety:
 
 ```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin
+npm install intlayer @intlayer/sync-json-plugin --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin
+pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin
+yarn add intlayer @intlayer/sync-json-plugin --dev
+yarn intlayer init
 ```
 
 ```bash packageManager="bun"
-bun add intlayer @intlayer/sync-json-plugin
+bun add intlayer @intlayer/sync-json-plugin --dev
+bun x intlayer init
 ```
 
 **Opis pakietów:**
@@ -98,7 +102,6 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "i18next",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],
@@ -117,48 +120,6 @@ Jeśli chcesz, aby JSON współistniał z plikami deklaracji zawartości Intlaye
 Jeśli zmiany zostaną dokonane za pomocą CLI do tłumaczenia JSON lub przy użyciu CMS, Intlayer zaktualizuje plik JSON o nowe tłumaczenia.
 
 Aby zobaczyć więcej szczegółów dotyczących wtyczki `syncJSON`, prosimy o zapoznanie się z [dokumentacją wtyczki syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md).
-
-### (Opcjonalny) Krok 3: Implementacja tłumaczeń JSON na poziomie komponentów
-
-Domyślnie Intlayer załaduje, połączy i zsynchronizuje zarówno pliki JSON, jak i pliki deklaracji zawartości. Więcej informacji można znaleźć w [dokumentacji deklaracji zawartości](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md). Jednak jeśli wolisz, korzystając z wtyczki Intlayer, możesz również zaimplementować zarządzanie JSON na poziomie poszczególnych komponentów, zlokalizowanych w dowolnym miejscu w Twojej bazie kodu.
-
-Do tego celu możesz użyć wtyczki `loadJSON`.
-
-```ts fileName="intlayer.config.ts"
-import { Locales, type IntlayerConfig } from "intlayer";
-import { loadJSON, syncJSON } from "@intlayer/sync-json-plugin";
-
-const config: IntlayerConfig = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-
-  // Synchronizuj swoje obecne pliki JSON ze słownikami Intlayer
-  plugins: [
-    /**
-     * Załaduje wszystkie pliki JSON w katalogu src, które pasują do wzorca {key}.i18n.json
-     */
-    loadJSON({
-      source: ({ key }) => `./src/**/${key}.i18n.json`,
-      locale: Locales.ENGLISH,
-      priority: 1, // Zapewnia, że te pliki JSON mają pierwszeństwo przed plikami w `./locales/en/${key}.json`
-    }),
-    /**
-     * Załaduje i zapisze wynik oraz tłumaczenia z powrotem do plików JSON w katalogu locales
-     */
-    syncJSON({
-      format: "i18next",
-      source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
-      priority: 0,
-    }),
-  ],
-};
-
-export default config;
-```
-
-To spowoduje załadowanie wszystkich plików JSON w katalogu `src`, które pasują do wzorca `{key}.i18n.json` i załaduje je jako słowniki Intlayer.
 
 ## Konfiguracja Git
 

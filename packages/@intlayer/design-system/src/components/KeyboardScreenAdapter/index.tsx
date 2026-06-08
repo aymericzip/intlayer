@@ -1,8 +1,8 @@
 'use client';
 
+import { useKeyboardDetector } from '@hooks/useKeyboardDetector';
+import { cn } from '@utils/cn';
 import type { FC, HTMLAttributes, PropsWithChildren } from 'react';
-import { useKeyboardDetector } from '../../hooks/useKeyboardDetector';
-import { cn } from '../../utils/cn';
 
 /**
  * KeyboardScreenAdapter Component

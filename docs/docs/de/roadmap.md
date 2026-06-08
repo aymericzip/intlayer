@@ -16,10 +16,10 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-30
-    changes: Unterstützung für Preact und Nuxt hinzugefügt, MCP-Server, CLI aktualisiert
+    changes: "Unterstützung für Preact und Nuxt hinzugefügt, MCP-Server, CLI aktualisiert"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historie initialisiert
+    changes: "Historie initialisiert"
 ---
 
 # Intlayer: Funktionsübersicht & Fahrplan
@@ -39,7 +39,7 @@ Intlayer ist eine Content-Management- und Internationalisierungslösung, die dar
 
 > Ressourcen:
 >
-> - [Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/get_started.md)
+> - [Inhaltsdeklaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md)
 
 ### 2. Internationalisierung
 
@@ -277,7 +277,7 @@ Intlayer unterstützt **TypeScript** (auch JavaScript) und **JSON** zur Deklarat
 
 > Ressourcen:
 >
-> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md)
+> - [CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md)
 
 ---
 

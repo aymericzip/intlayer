@@ -1,22 +1,22 @@
-import configuration from '@intlayer/config/built';
-import type { IntlayerConfig } from '@intlayer/types';
+import type {
+  CreateCliSessionTokenResult,
+  GetCliSessionMeResult,
+  GetOAuth2TokenBody,
+  GetOAuth2TokenResult,
+} from '@intlayer/backend';
+import { editor } from '@intlayer/config/built';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { type FetcherOptions, fetcher } from '../fetcher';
-import type { GetOAuth2TokenBody, GetOAuth2TokenResult } from '../types';
 
-export const getOAuthAPI = (intlayerConfig?: IntlayerConfig) => {
-  const backendURL =
-    intlayerConfig?.editor?.backendURL ?? configuration?.editor?.backendURL;
+export const getOAuthAPI = (
+  authAPIOptions: FetcherOptions = {},
+  intlayerConfig?: Pick<IntlayerConfig, 'editor'>
+) => {
+  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
   const { clientId, clientSecret } = intlayerConfig?.editor ?? {};
 
-  if (!backendURL) {
-    throw new Error(
-      'Backend URL is not defined in the Intlayer configuration.'
-    );
-  }
-
   /**
-   * Gets an oAuth2 accessToken
-   * @return The token information
+   * Gets an oAuth2 accessToken via client_credentials grant
    */
   const getOAuth2AccessToken = async (otherOptions: FetcherOptions = {}) =>
     await fetcher<GetOAuth2TokenResult>(
@@ -36,7 +36,32 @@ export const getOAuthAPI = (intlayerConfig?: IntlayerConfig) => {
       }
     );
 
+  /**
+   * Creates a short-lived (2h) CLI session token for the authenticated user.
+   * Requires a valid browser session cookie.
+   */
+  const createCliSessionToken = async (otherOptions: FetcherOptions = {}) =>
+    await fetcher<CreateCliSessionTokenResult>(
+      `${backendURL}/api/cli-session`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'POST' }
+    );
+
+  /**
+   * Verifies a CLI session token and returns the associated project context.
+   * Useful for checking config consistency in the CLI.
+   */
+  const getCliSessionMe = async (otherOptions: FetcherOptions = {}) =>
+    await fetcher<GetCliSessionMeResult>(
+      `${backendURL}/api/cli-session/me`,
+      authAPIOptions,
+      otherOptions
+    );
+
   return {
     getOAuth2AccessToken,
+    createCliSessionToken,
+    getCliSessionMe,
   };
 };

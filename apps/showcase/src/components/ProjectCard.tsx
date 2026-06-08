@@ -1,0 +1,153 @@
+import { Badge } from '@intlayer/design-system/badge';
+import { Button } from '@intlayer/design-system/button';
+import {
+  Container,
+  type ContainerProps,
+} from '@intlayer/design-system/container';
+import { Link } from '@tanstack/react-router';
+import { ExternalLink, ThumbsDown, ThumbsUp } from 'lucide-react';
+import { useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { useShowcaseLike } from '#/hooks/useShowcaseLike';
+import { getFaviconUrl } from '#/utils/getFaviconUrl';
+import type { ShowcaseProject } from '#/utils/projectActions/types';
+
+type ProjectCardProps = {
+  project: ShowcaseProject;
+} & ContainerProps;
+
+export const ProjectCard = ({ project, ...props }: ProjectCardProps) => {
+  const content = useIntlayer('showcase-index');
+  const {
+    score,
+    isUpvoted,
+    isDownVoted,
+    isPending: isDisabled,
+    handleUpvote,
+    handleDownvote,
+  } = useShowcaseLike(project);
+
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [isFaviconLoaded, setIsFaviconLoaded] = useState(false);
+
+  const faviconUrl = getFaviconUrl(project.websiteUrl);
+
+  return (
+    <Container
+      key={project.id}
+      className="group relative h-full overflow-hidden shadow-lg transition-all [-webkit-mask-image:-webkit-radial-gradient(white,black)] hover:shadow-xl"
+      roundedSize="3xl"
+      transparency="lg"
+      {...props}
+    >
+      <Link
+        to="/{-$locale}/project/$projectId"
+        params={{
+          projectId: project.id,
+        }}
+        preload="intent"
+        className="flex flex-1 flex-col"
+      >
+        <div className="relative aspect-video overflow-hidden bg-background">
+          {/* Main Image Skeleton */}
+          {!isImageLoaded && (
+            <div className="absolute inset-0 animate-pulse bg-neutral/20" />
+          )}
+          <img
+            alt={`${project.title} screenshot`}
+            width={1280}
+            height={720}
+            className={`size-full object-cover transition-all duration-500 ease-out group-hover:scale-105 ${
+              isImageLoaded ? 'opacity-100' : 'opacity-0'
+            }`}
+            src={project.imageUrl}
+            onLoad={() => setIsImageLoaded(true)}
+          />
+
+          {faviconUrl && (
+            <Container
+              roundedSize="xl"
+              transparency="lg"
+              className="absolute bottom-3 left-3 size-5 shrink-0 overflow-hidden bg-background shadow-md"
+            >
+              {/* Favicon Skeleton */}
+              {!isFaviconLoaded && (
+                <div className="absolute inset-0 animate-pulse bg-neutral/20" />
+              )}
+              <img
+                alt={`${project.title} favicon`}
+                className={`size-full object-cover transition-opacity duration-300 ${
+                  isFaviconLoaded ? 'opacity-100' : 'opacity-0'
+                }`}
+                src={faviconUrl}
+                onLoad={() => setIsFaviconLoaded(true)}
+              />
+            </Container>
+          )}
+        </div>
+        <div className="flex-1 p-4">
+          <h3 className="font-bold text-lg text-text transition-colors group-hover:text-text/70">
+            {project.title}
+          </h3>
+          <p className="mt-1 line-clamp-2 text-neutral-500 text-sm">
+            {project.description}
+          </p>
+        </div>
+      </Link>
+
+      <div className="absolute top-3 right-3 flex gap-2">
+        <a
+          to={project.websiteUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rounded-full bg-background/90 p-2 shadow-sm transition-colors hover:bg-card"
+          title="Visit site"
+        >
+          <ExternalLink className="size-4 text-text" />
+        </a>
+      </div>
+
+      <div className="mt-auto px-4 pb-4">
+        <div className="flex items-end justify-between gap-2">
+          <div className="flex min-w-0 flex-wrap gap-1.5">
+            {(project.tags ?? []).map((tag: string) => (
+              <Badge
+                key={tag}
+                className="border-none bg-neutral/10 text-neutral/80 hover:bg-neutral/10"
+              >
+                {tag}
+              </Badge>
+            ))}
+          </div>
+          <div className="flex shrink-0 items-center gap-1">
+            <Button
+              type="button"
+              variant="hoverable"
+              label={content.showcase.upvote.label.value}
+              color="text"
+              size="icon-sm"
+              Icon={ThumbsUp}
+              onClick={handleUpvote}
+              disabled={isDisabled}
+              isActive={isUpvoted}
+            />
+            <span className="min-w-6 text-center font-medium text-sm text-text">
+              {score}
+            </span>
+            <Button
+              type="button"
+              variant="hoverable"
+              label={content.showcase.downvote.label.value}
+              color="text"
+              size="icon-sm"
+              Icon={ThumbsDown}
+              onClick={handleDownvote}
+              isActive={isDownVoted}
+              disabled={isDisabled}
+            />
+          </div>
+        </div>
+      </div>
+    </Container>
+  );
+};

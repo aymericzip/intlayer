@@ -1,5 +1,7 @@
 'use client';
 
+import { useHorizontalSwipe } from '@hooks/useHorizontalSwipe';
+import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import {
   Children,
@@ -10,9 +12,7 @@ import {
   type ReactNode,
   useState,
 } from 'react';
-import { useHorizontalSwipe } from '../../hooks';
-import { cn } from '../../utils/cn';
-import { TabSelector, TabSelectorColor } from '../TabSelector';
+import { TabSelector } from '../TabSelector';
 import { useTabContext } from './TabContext';
 
 // Context for managing tab state
@@ -24,27 +24,30 @@ type TabContextType = {
 const TabContext = createContext<TabContextType | undefined>(undefined);
 
 // Tab container variants
-const tabContainerVariant = cva(
-  'relative w-full rounded-lg border border-neutral/20 bg-background/2 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur',
-  {
-    variants: {
-      variant: {
-        default: '',
-        bordered: 'border-2',
-        ghost: 'border-0 bg-transparent shadow-none',
-      },
+const tabContainerVariant = cva('relative w-full rounded-lg', {
+  variants: {
+    background: {
+      with: 'border border-neutral/20 bg-background/2 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur',
+      without: '',
     },
-    defaultVariants: {
-      variant: 'default',
+    variant: {
+      default: '',
+      bordered: 'border-2',
+      ghost: 'border-0 bg-transparent shadow-none',
     },
-  }
-);
+  },
+  defaultVariants: {
+    variant: 'default',
+  },
+});
 
 export type TabProps = HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof tabContainerVariant> & {
     defaultTab?: string;
     group?: string;
     children: ReactNode;
+    headerClassName?: string;
+    fullHeight?: boolean;
   };
 
 export type TabItemProps = HTMLAttributes<HTMLDivElement> & {
@@ -88,6 +91,8 @@ const TabComponent = ({
   variant,
   children,
   className,
+  headerClassName,
+  fullHeight,
   ...props
 }: TabProps) => {
   // Extract TabItem children to get their props
@@ -138,11 +143,15 @@ const TabComponent = ({
   return (
     <TabContext.Provider value={contextValue}>
       <div
-        className={cn(tabContainerVariant({ variant }), className)}
+        className={cn(
+          tabContainerVariant({ variant }),
+          fullHeight && 'flex h-full flex-col overflow-hidden',
+          className
+        )}
         {...props}
       >
         {/* Tab Headers */}
-        <div className="sticky top-36 z-10 flex gap-3 bg-background/70 p-3 backdrop-blur">
+        <div className={cn('flex shrink-0 gap-3 p-3', headerClassName)}>
           <TabSelector
             selectedChoice={currentTabValue}
             tabs={tabItems.map((child) => {
@@ -153,7 +162,7 @@ const TabComponent = ({
                 <button
                   key={value}
                   className={cn(
-                    'cursor-pointer rounded-md px-4 py-1 font-medium text-sm transition-colors focus:outline-none',
+                    'cursor-pointer whitespace-nowrap rounded-md px-4 py-1 font-medium text-sm transition-colors focus:outline-none',
                     !isActive && 'text-neutral/70'
                   )}
                   data-active={isActive}
@@ -163,19 +172,23 @@ const TabComponent = ({
                   aria-selected={isActive}
                   aria-controls={`tabpanel-${value}`}
                   id={`tab-${value}`}
+                  type="button"
                 >
-                  {label}
+                  {label ?? value}
                 </button>
               );
             })}
             hoverable
-            color={TabSelectorColor.TEXT}
+            color="text"
           />
         </div>
         {/* Tab Content */}
         {/* Clipper: no overflow; uses clip-path */}
         <div
-          className="relative w-full min-w-0 overflow-x-clip [-webkit-clip-path:inset(0)] [clip-path:inset(0)]"
+          className={cn(
+            'relative w-full min-w-0 overflow-x-clip [-webkit-clip-path:inset(0)] [clip-path:inset(0)]',
+            fullHeight && 'min-h-0 flex-1'
+          )}
           {...containerProps}
         >
           {/* Track */}
@@ -184,6 +197,7 @@ const TabComponent = ({
             aria-orientation="horizontal"
             className={cn(
               'grid w-full min-w-0',
+              fullHeight && 'h-full',
               isDragging
                 ? 'transition-none'
                 : 'transition-transform duration-300 ease-in-out'
@@ -194,7 +208,7 @@ const TabComponent = ({
             }}
           >
             {tabItems.map(({ props }, index) => {
-              const { value, children } = props;
+              const { value, children, className: itemClassName } = props;
               const isActive = index === activeTabIndex;
 
               return (
@@ -207,11 +221,18 @@ const TabComponent = ({
                   tabIndex={isActive ? 0 : -1}
                   data-active={isActive}
                   className={cn(
-                    'w-full min-w-0 p-6 opacity-100 transition-opacity duration-300 ease-in-out',
-                    !isActive && 'pointer-events-none opacity-0' // prevent offscreen interaction
+                    'w-full min-w-0 p-3 opacity-100 transition-opacity duration-300 ease-in-out',
+                    fullHeight && 'h-full overflow-y-auto',
+                    !isActive && 'pointer-events-none opacity-0', // prevent offscreen interaction
+                    itemClassName
                   )}
                 >
-                  <div className="flex w-full min-w-0 flex-col items-stretch gap-6">
+                  <div
+                    className={cn(
+                      'flex w-full min-w-0 flex-col items-stretch gap-6',
+                      fullHeight && 'min-h-full'
+                    )}
+                  >
                     {children}
                   </div>
                 </div>
@@ -228,5 +249,3 @@ const TabComponent = ({
 export const Tab = Object.assign(TabComponent, {
   Item: TabItem,
 });
-
-// Add display name for better debugging

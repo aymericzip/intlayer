@@ -1,10 +1,10 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
-  Dictionary,
   LocalesValues,
   StrictModeLocaleMap,
-} from '@intlayer/types';
+} from '@intlayer/types/module_augmentation';
 import { useContext } from 'solid-js';
 import { IntlayerClientContext } from './IntlayerProvider';
 import { useDictionary } from './useDictionary';
@@ -15,14 +15,14 @@ import { useDictionary } from './useDictionary';
  * If the locale is not provided, it will use the locale from the client context
  */
 export const useDictionaryAsync = async <
-  T extends Dictionary,
-  L extends LocalesValues = DeclaredLocales,
+  const T extends Dictionary,
+  const L extends LocalesValues = DeclaredLocales,
 >(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   locale?: L
 ) => {
-  const { locale: currentLocale } = useContext(IntlayerClientContext);
-  const defaultLocale = configuration?.internationalization.defaultLocale;
+  const { locale: currentLocale } = useContext(IntlayerClientContext) ?? {};
+  const defaultLocale = internationalization.defaultLocale;
   const localeTarget = locale ?? currentLocale() ?? defaultLocale;
 
   const dictionary =

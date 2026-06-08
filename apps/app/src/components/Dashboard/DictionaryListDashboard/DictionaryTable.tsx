@@ -1,0 +1,139 @@
+import { Table } from '@intlayer/design-system/table';
+import { cn } from '@intlayer/design-system/utils';
+import {
+  flexRender,
+  type Table as ReactTableType,
+  type Row,
+} from '@tanstack/react-table';
+import { memo, type ReactNode, useEffect } from 'react';
+import { useDashboardScroll } from '../DashboardScrollContext';
+
+type DataTableProps<TData> = {
+  table: ReactTableType<TData>;
+  isPending: boolean;
+  noDataFound: string;
+  onRowClick: (row: Row<TData>) => void;
+  skeleton: ReactNode;
+};
+
+const DataTableComponent = <TData,>({
+  table,
+  isPending,
+  noDataFound,
+  onRowClick,
+  skeleton,
+}: DataTableProps<TData>) => {
+  const notifyScroll = useDashboardScroll();
+
+  useEffect(() => {
+    notifyScroll(0);
+  }, [notifyScroll]);
+
+  if (isPending) return <>{skeleton}</>;
+
+  return (
+    <div
+      className="flex w-full max-w-screen flex-1 flex-col overflow-auto"
+      onScroll={(e) => notifyScroll(e.currentTarget.scrollTop)}
+    >
+      {table.getRowModel().rows.length === 0 ? (
+        <div className="flex min-h-60 items-center justify-center">
+          <span className="text-neutral">{noDataFound}</span>
+        </div>
+      ) : (
+        <Table className="w-full border-separate border-spacing-0 px-10">
+          <thead>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr
+                key={headerGroup.id}
+                className="border-neutral-200 border-b dark:border-neutral-700"
+              >
+                {headerGroup.headers.map((header) => (
+                  <th
+                    key={header.id}
+                    className={cn(
+                      'whitespace-nowrap px-4 py-3 font-medium text-neutral',
+                      ['selection', 'actions'].includes(header.id)
+                        ? 'text-center'
+                        : 'text-left'
+                    )}
+                  >
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map((row) => {
+              const visibleCells = row.getVisibleCells();
+              return (
+                <tr
+                  key={row.id}
+                  className="cursor-pointer whitespace-nowrap rounded-xl border-card border-b transition-colors hover:bg-card/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-card"
+                  onClick={() => onRowClick(row)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      onRowClick(row);
+                    }
+
+                    if (e.key === 'ArrowDown') {
+                      e.preventDefault();
+                      const nextRow = e.currentTarget
+                        .nextElementSibling as HTMLElement | null;
+                      nextRow?.focus();
+                    }
+
+                    if (e.key === 'ArrowUp') {
+                      e.preventDefault();
+                      const prevRow = e.currentTarget
+                        .previousElementSibling as HTMLElement | null;
+                      prevRow?.focus();
+                    }
+                  }}
+                  tabIndex={0}
+                >
+                  {visibleCells.map((cell, cellIndex) => (
+                    <td
+                      key={cell.id}
+                      className={cn(
+                        'whitespace-nowrap px-4 py-3',
+                        cellIndex === 0 && 'first:rounded-l-2xl',
+                        cellIndex === visibleCells.length - 1 &&
+                          'last:rounded-r-2xl'
+                      )}
+                    >
+                      <div
+                        className={cn(
+                          'flex items-center',
+                          ['selection', 'actions'].includes(cell.column.id)
+                            ? 'justify-center'
+                            : 'justify-start'
+                        )}
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </div>
+                    </td>
+                  ))}
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      )}
+    </div>
+  );
+};
+
+export const DictionaryTable = memo(
+  DataTableComponent
+) as typeof DataTableComponent;

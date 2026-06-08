@@ -19,12 +19,12 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Инициализация истории
+    changes: "Инициализация истории"
 ---
 
 # Документация по Intlayer Visual Editor
 
-<iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Intlayer Visual Editor - это инструмент, который оборачивает ваш веб-сайт для взаимодействия с файлами декларации контента с использованием визуального редактора.
 
@@ -80,11 +80,15 @@ yarn add intlayer-editor --save-dev
 pnpm add intlayer-editor --save-dev
 ```
 
+```bash packageManager="bun"
+bun add intlayer-editor --dev
+```
+
 ## Конфигурация
 
 В вашем файле конфигурации Intlayer вы можете настроить параметры редактора:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -119,77 +123,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... другие настройки конфигурации
-  editor: {
-    /**
-     * Обязательно
-     * URL приложения.
-     * Это URL, на который нацелен визуальный редактор.
-     * Пример: 'http://localhost:3000'
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * Необязательно
-     * По умолчанию `true`. Если `false`, редактор неактивен и недоступен.
-     * Может использоваться для отключения редактора в определённых средах по соображениям безопасности, например, в продакшене.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-    /**
-     * Необязательно
-     * По умолчанию `8000`.
-     * Порт, используемый сервером визуального редактора.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * Необязательно
-     * По умолчанию "http://localhost:8000"
-     * URL сервера редактора для доступа из приложения. Используется для ограничения источников, которые могут взаимодействовать с приложением по соображениям безопасности. Если установлено значение `'*'`, редактор доступен из любого источника. Должен быть установлен, если порт изменён или если редактор размещён на другом домене.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... другие настройки конфигурации
-  editor: {
-    /**
-     * Обязательно
-     * URL приложения.
-     * Это URL, на который нацелен визуальный редактор.
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * Необязательно
-     * По умолчанию `8000`.
-     * Порт сервера редактора.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * Необязательно
-     * По умолчанию "http://localhost:8000"
-     * URL сервера редактора.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * Необязательно
-     * По умолчанию `true`. Если `false`, редактор неактивен и недоступен.
-     * Может использоваться для отключения редактора в определенных средах по соображениям безопасности, например, в продакшене.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-  },
-};
-
-module.exports = config;
 ```
 
 > Чтобы увидеть все доступные параметры, обратитесь к [документации по конфигурации](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).

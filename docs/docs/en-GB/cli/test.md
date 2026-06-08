@@ -17,8 +17,20 @@ slugs:
 
 # Test missing translations
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 ## Aliases:
@@ -69,8 +81,20 @@ Total missing required locales: 0
 
 ## Example:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 The output helps you quickly identify which translations need to be completed to ensure your application works correctly across all configured locales.
@@ -93,8 +117,20 @@ The output helps you quickly identify which translations need to be completed to
 
 ## Example:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 The output helps you quickly identify which translations need to be completed to ensure your application works properly across all configured locales.

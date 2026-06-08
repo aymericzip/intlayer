@@ -1,4 +1,4 @@
-import type { StrictModeLocaleMap } from '@intlayer/types';
+import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import { useLocaleBase } from './useLocaleBase';
 import { useTranslation } from './useTraduction';
 

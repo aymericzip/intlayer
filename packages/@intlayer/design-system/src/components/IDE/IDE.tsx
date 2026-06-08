@@ -1,7 +1,7 @@
 'use client';
 
+import { cn } from '@utils/cn';
 import { type FC, type HTMLAttributes, useEffect, useState } from 'react';
-import { cn } from '../../utils/cn';
 import { Container } from '../Container';
 import { WithResizer } from '../WithResizer';
 import { FileTree } from './FileTree';
@@ -34,7 +34,7 @@ export const IDE: FC<IDEProps> = ({
     setActiveTab(defaultActiveTab ?? firstTabIndex);
   }, [initialPages, defaultActiveTab]);
 
-  const { content, path } = pages[activeTab];
+  const { content, path } = pages[activeTab] ?? {};
   const filePaths = initialPages.map(({ path: title }) => title);
 
   const handleClickFile = (title: string) => {
@@ -69,7 +69,7 @@ export const IDE: FC<IDEProps> = ({
     >
       <div className="flex w-auto flex-row items-center justify-start gap-1 bg-neutral-200 text-neutral text-xs dark:bg-neutral-950">
         <div className="mx-2 flex items-center justify-start gap-2 p-1">
-          <div className="size-3 rounded-full bg-red-500" />
+          <div className="size-3 rounded-full bg-error" />
           <div className="size-3 rounded-full bg-yellow-500" />
           <div className="size-3 rounded-full bg-green-500" />
         </div>
@@ -82,7 +82,7 @@ export const IDE: FC<IDEProps> = ({
             return (
               <button
                 className={cn(
-                  'flex h-8 min-w-20 items-center justify-start px-3 py-1 transition',
+                  'flex h-8 min-w-20 max-w-30 items-center justify-start truncate text-nowrap px-3 py-1 transition',
                   isActive
                     ? 'bg-card'
                     : 'cursor-pointer bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-950'
@@ -100,11 +100,13 @@ export const IDE: FC<IDEProps> = ({
         <div className="absolute top-0 left-0 size-full">
           <div className="flex size-full">
             <WithResizer initialWidth={150}>
-              <FileTree
-                filesPaths={filePaths}
-                activeFile={path}
-                onClickFile={handleClickFile}
-              />
+              <div className="max-h-full flex-1 overflow-y-auto">
+                <FileTree
+                  filesPaths={filePaths}
+                  activeFile={path}
+                  onClickFile={handleClickFile}
+                />
+              </div>
             </WithResizer>
 
             <div className="size-full flex-1 overflow-auto pt-2 text-xs">

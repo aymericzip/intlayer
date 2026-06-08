@@ -1,8 +1,6 @@
-import type { GetUsersResult } from '@controllers/user.controller';
-import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
-import type { Request } from 'express';
-import type { RootFilterQuery } from 'mongoose';
+import type { FastifyRequest } from 'fastify';
+import type { QueryFilter } from 'mongoose';
 import type { User } from '@/types/user.types';
 import {
   type FiltersAndPagination,
@@ -24,20 +22,20 @@ export type UserFiltersParam = {
    */
   fetchAll?: 'true' | 'false';
 };
-export type UserFilters = RootFilterQuery<User>;
+export type UserFilters = QueryFilter<User>;
 
 /**
  * Extracts filters and pagination information from the request body.
- * @param req - Express request object.
+ * @param req - Fastify request object.
  * @returns Object containing filters, page, pageSize, and getNumberOfPages functions.
  */
 export const getUserFiltersAndPagination = (
-  req: Request<FiltersAndPagination<UserFiltersParam>>,
-  res: ResponseWithSession<GetUsersResult>
+  req: FastifyRequest<{ Querystring: FiltersAndPagination<UserFiltersParam> }>
 ) => {
   const { filters: filtersRequest, ...pagination } =
     getFiltersAndPaginationFromBody<UserFiltersParam>(req);
-  const { roles, organization } = res.locals;
+  const roles = req.session?.roles;
+  const organization = req.session?.organization;
 
   let filters = {};
   let sortOptions: Record<string, 1 | -1> = { updatedAt: -1 };
@@ -58,16 +56,27 @@ export const getUserFiltersAndPagination = (
   if (ids) {
     filters = { ...filters, _id: { $in: ensureArrayQueryFilter(ids) } };
 
-    if (!(roles.includes('admin') && fetchAll === 'true')) {
-      const secureMembersIds: string[] =
-        ensureArrayQueryFilter(ids)?.filter((id) =>
-          organization?.membersIds?.map(String).includes(id)
-        ) ?? [];
+    if (!(roles?.includes('admin') && fetchAll === 'true')) {
+      const requestedIds = ensureArrayQueryFilter(ids) ?? [];
+
+      // Build the set of IDs the requester is allowed to fetch:
+      //   1. Always allow fetching themselves.
+      //   2. Allow fetching any member of their active organization.
+      const currentUserId = req.session?.user?.id
+        ? String(req.session.user.id)
+        : null;
+      const orgMemberIds: string[] =
+        organization?.membersIds?.map(String) ?? [];
+
+      const allowedIds = requestedIds.filter(
+        (id) =>
+          (currentUserId && id === currentUserId) || orgMemberIds.includes(id)
+      );
 
       filters = {
         ...filters,
         _id: {
-          $in: secureMembersIds,
+          $in: allowedIds,
         },
       };
     }

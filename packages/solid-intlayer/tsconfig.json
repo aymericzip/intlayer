@@ -6,5 +6,5 @@
     "jsxImportSource": "solid-js",
     "types": ["node", "vite/client", "@testing-library/jest-dom"]
   },
-  "include": ["**/*"]
+  "include": ["src/**/*"]
 }

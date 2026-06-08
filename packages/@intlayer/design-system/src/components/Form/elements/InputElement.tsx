@@ -1,5 +1,5 @@
+import { Input } from '@components/Input';
 import type { ComponentProps, FC } from 'react';
-import { Input } from '../../../components/Input';
 import { FormElement, type FormElementProps } from './FormElement';
 
 type InputElementProps = Omit<FormElementProps<typeof Input>, 'Element'> &

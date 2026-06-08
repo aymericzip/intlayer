@@ -1,7 +1,12 @@
-import type { AIConfig, AIOptions } from '@intlayer/ai';
-import { getIntlayerAPIProxy, type Messages } from '@intlayer/api';
-import { retryManager } from '@intlayer/config';
-import type { IntlayerConfig } from '@intlayer/types';
+import type {
+  AIConfig,
+  AIOptions,
+  Messages,
+  SystemMessage,
+} from '@intlayer/ai';
+import { retryManager } from '@intlayer/config/utils';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import { getAuthenticatedAPI } from './checkAccess';
 import type { AIClient } from './setupAI';
 
 type ChunkInferenceResult = {
@@ -14,6 +19,7 @@ type ChunkInferenceResult = {
  * Includes retry logic if the call fails.
  */
 export const chunkInference = async (
+  system: SystemMessage,
   messages: Messages,
   aiOptions?: AIOptions,
   configuration?: IntlayerConfig,
@@ -26,6 +32,7 @@ export const chunkInference = async (
     if (aiClient && aiConfig) {
       const response = await aiClient.customQuery({
         aiConfig,
+        system,
         messages,
       });
 
@@ -43,7 +50,7 @@ export const chunkInference = async (
       return;
     }
 
-    const api = getIntlayerAPIProxy(undefined, configuration);
+    const api = await getAuthenticatedAPI(configuration);
 
     const response = await api.ai.customQuery({
       aiOptions,

@@ -20,17 +20,66 @@ slugs:
 
 # Заполнение / проверка / перевод словарей
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill
 ```
 
+```bash packageManager="yarn"
+yarn intlayer fill
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill
+```
+
+```bash packageManager="bun"
+bun x intlayer fill
+```
+
 Эта команда анализирует ваши файлы деклараций контента на предмет возможных проблем, таких как отсутствующие переводы, структурные несоответствия или несоответствия типов. Если будут обнаружены какие-либо проблемы, **intlayer fill** предложит или применит обновления для поддержания ваших словарей в согласованном и полном состоянии.
+
+Ключевые моменты:
+
+- Разделяет большие JSON-файлы на части, чтобы оставаться в пределах окна контекста модели ИИ.
+- Повторяет перевод, если формат вывода неверен.
+- Включает контекст, специфичный для приложения и файла, для повышения точности перевода.
+- Сохраняет существующие переводы, не перезаписывая их.
+- Обрабатывает файлы, части и локали параллельно с использованием системы очередей для увеличения скорости.
 
 ## Псевдонимы:
 
 - `npx intlayer dictionaries fill`
 - `npx intlayer dictionary fill`
 - `npx intlayer dic fill`
+
+## Примеры вывода:
+
+```bash
+npx intlayer fill
+
+Preparing Intlayer (v7.5.14)
+Done 76ms
+@intlayer/ai found - Run process locally
+Provider: (default) - Model: (default) - API Key: ✓
+Affected dictionary keys for processing: app, comp-test, hello-world, lang-switcher
+ - [comp-test]      No locales to fill, Skipping comp-test.content.json
+ - [app]            Processing app.content.tsx
+ - [app]            Filling missing metadata for app.content.tsx
+ - [hello-world]    Processing test.content.ts
+ - [hello-world]   [French (fr)]      Preparing test.content.ts
+ - [hello-world]   [Spanish (es)]     Preparing test.content.ts
+ - [lang-switcher]  Processing langSwitcher.content.ts
+ - [lang-switcher]  Filling missing metadata for langSwitcher.content.ts
+ - [hello-world]    Translation completed successfully for test.content.ts
+ - [lang-switcher] [Spanish (es)]     Preparing langSwitcher.content.ts
+ - [app]           [French (fr)]      Preparing app.content.tsx
+ - [app]           [Spanish (es)]     Preparing app.content.tsx
+ - [hello-world]    Content declaration written to test.content.ts
+ - [app]            Translation completed successfully for app.content.tsx
+ - [app]            Content declaration written to app.content.tsx
+ - [lang-switcher]  Translation completed successfully for langSwitcher.content.ts
+ - [lang-switcher]  Content declaration written to langSwitcher.content.ts
+```
 
 ## Аргументы:
 
@@ -89,8 +138,9 @@ npx intlayer fill
 - **`--api-key [apiKey]`**: Предоставить собственный API-ключ для сервиса ИИ.
 - **`--custom-prompt [prompt]`**: Предоставить пользовательский запрос для инструкций по переводу.
 - **`--application-context [applicationContext]`**: Предоставить дополнительный контекст для перевода ИИ.
+- **`--data-serialization [dataSerialization]`**: Формат сериализации данных для использования в функциях ИИ Intlayer. Опции: `json` (стандартный, надежный), `toon` (меньше токенов, менее стабильный).
 
-  > Пример: `npx intlayer fill --model gpt-3.5-turbo --provider openai --temperature 0.5 --api-key sk-1234567890 --application-context "Моё приложение — магазин для кошек"`
+  > Пример: `npx intlayer fill --model gpt-3.5-turbo --provider openai --temperature 0.5 --api-key sk-1234567890 --application-context "Моё приложение, магазин для кошек"`
 
   **Опции переменных окружения:**
 
@@ -123,8 +173,20 @@ npx intlayer fill
 
 ## Пример:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
 ```
 
 Эта команда переведет контент с английского на французский и испанский для всех файлов декларации контента в директории `src/home/` с использованием модели GPT-3.5 Turbo.

@@ -1,35 +1,51 @@
-import configuration from '@intlayer/config/built';
+import { Accordion, type AccordionProps } from '@components/Accordion';
+import { Button } from '@components/Button';
+import { useLocaleSwitcherContent } from '@components/LocaleSwitcherContentDropDown';
 import { camelCaseToSentence } from '@intlayer/config/client';
 import {
   getContentNodeByKeyPath,
   getEmptyNode,
   getNodeType,
-  isSameKeyPath,
-} from '@intlayer/core';
+} from '@intlayer/core/dictionaryManipulator';
+import { isSameKeyPath } from '@intlayer/core/utils';
 import {
   useEditedContentActions,
   useEditorLocale,
   useFocusUnmergedDictionary,
 } from '@intlayer/editor-react';
-import {
-  type KeyPath,
-  type LocalDictionaryId,
-  NodeType,
-} from '@intlayer/types';
+import type { LocalDictionaryId } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import type { ContentNode, Dictionary } from 'intlayer';
 import { ChevronRight, Plus } from 'lucide-react';
-import type { FC } from 'react';
+import { type FC, type ReactNode, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { Accordion } from '../../Accordion';
-import {
-  Button,
-  ButtonColor,
-  ButtonTextAlign,
-  ButtonVariant,
-} from '../../Button';
 import { getIsEditableSection } from '../getIsEditableSection';
 
 export const traceKeys: string[] = ['filePath', 'id', 'nodeType'];
+
+type GatedAccordionProps = AccordionProps & { children: ReactNode };
+
+// Renders children only after the accordion is first opened (mount-once pattern).
+// Prevents the entire recursive subtree from mounting on initial render.
+const GatedAccordion: FC<GatedAccordionProps> = ({
+  children,
+  onToggle,
+  ...props
+}) => {
+  const [hasOpened, setHasOpened] = useState(false);
+  return (
+    <Accordion
+      {...props}
+      onToggle={(isOpen) => {
+        if (isOpen && !hasOpened) setHasOpened(true);
+        onToggle?.(isOpen);
+      }}
+    >
+      {hasOpened ? children : null}
+    </Accordion>
+  );
+};
 
 export type NodeWrapperProps = {
   keyPath: KeyPath[];
@@ -42,7 +58,8 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
   keyPath,
   dictionary,
 }) => {
-  const { locales } = configuration.internationalization;
+  const { selectedLocales } = useLocaleSwitcherContent();
+
   const currentLocale = useEditorLocale();
   const section = getContentNodeByKeyPath(sectionProp, keyPath, currentLocale);
   const { addEditedContent } = useEditedContentActions();
@@ -61,29 +78,29 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
     return (
       <Button
         label={goToField.label.value}
-        variant={ButtonVariant.HOVERABLE}
-        color={ButtonColor.TEXT}
+        variant="hoverable"
+        color="text"
         className="w-full"
         onClick={() => setFocusedContentKeyPath(keyPath)}
         IconRight={ChevronRight}
       >
-        {camelCaseToSentence(keyPath[keyPath.length - 1].key as string)}
+        {camelCaseToSentence(keyPath[keyPath.length - 1]?.key as string)}
       </Button>
     );
   }
 
   if (typeof section === 'object') {
-    if (nodeType === NodeType.ReactNode) {
+    if (nodeType === NodeTypes.REACT_NODE) {
       return <>React Node</>;
     }
 
-    if (nodeType === NodeType.Translation) {
+    if (nodeType === NodeTypes.TRANSLATION) {
       return (
         <div className="flex flex-col justify-between gap-2">
-          {locales.map((translationKey) => {
+          {selectedLocales.map((translationKey) => {
             const childKeyPath: KeyPath[] = [
               ...keyPath,
-              { type: NodeType.Translation, key: translationKey },
+              { type: NodeTypes.TRANSLATION, key: translationKey },
             ];
 
             return (
@@ -99,7 +116,11 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
       );
     }
 
-    if (nodeType === NodeType.Enumeration || nodeType === NodeType.Condition) {
+    if (
+      nodeType === NodeTypes.ENUMERATION ||
+      nodeType === NodeTypes.PLURAL ||
+      nodeType === NodeTypes.CONDITION
+    ) {
       return (
         <div className="flex flex-col justify-between gap-2">
           {Object.keys(
@@ -123,35 +144,65 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
       );
     }
 
-    if (nodeType === NodeType.Array) {
+    if (nodeType === NodeTypes.ARRAY) {
       return (
         <div className="flex flex-col justify-between gap-2">
-          {(section as unknown as ContentNode[]).map((_, index) => {
+          {(section as unknown as ContentNode[]).map((subSection, index) => {
             const childKeyPath: KeyPath[] = [
               ...keyPath,
-              { type: NodeType.Array, key: index },
+              { type: NodeTypes.ARRAY, key: index },
             ];
 
+            const isEditableSubSection = getIsEditableSection(subSection);
+
+            if (isEditableSubSection) {
+              return (
+                <Button
+                  key={JSON.stringify(childKeyPath)}
+                  label={`${goToField.label.value} ${index}`}
+                  variant="hoverable"
+                  color="text"
+                  className="w-full"
+                  onClick={() => setFocusedContentKeyPath(childKeyPath)}
+                  IconRight={ChevronRight}
+                  isActive={getIsSelected(childKeyPath)}
+                >
+                  Item {index}
+                </Button>
+              );
+            }
+
             return (
-              <NavigationViewNode
+              <GatedAccordion
                 key={JSON.stringify(childKeyPath)}
-                keyPath={childKeyPath}
-                section={sectionProp}
-                dictionary={dictionary}
-              />
+                label={`${goToField.label.value} ${index}`}
+                header={`Item ${index}`}
+                isActive={getIsSelected(childKeyPath)}
+                onClick={() => setFocusedContentKeyPath(childKeyPath)}
+              >
+                <div className="mt-2 flex w-full max-w-full">
+                  <div className="flex-1 pl-10">
+                    <NavigationViewNode
+                      keyPath={childKeyPath}
+                      section={sectionProp}
+                      dictionary={dictionary}
+                    />
+                  </div>
+                </div>
+              </GatedAccordion>
             );
           })}
 
           <Button
             label={addNewElement.label.value}
-            variant={ButtonVariant.HOVERABLE}
-            color={ButtonColor.NEUTRAL}
-            textAlign={ButtonTextAlign.LEFT}
+            variant="hoverable"
+            color="neutral"
+            textAlign="left"
             onClick={() => {
               const newKeyPath: KeyPath[] = [
                 ...keyPath,
                 {
-                  type: NodeType.Array,
+                  type: NodeTypes.ARRAY,
                   key: (section as unknown as ContentNode[]).length,
                 },
               ];
@@ -199,7 +250,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
         {sectionArray.map((key) => {
           const childKeyPath: KeyPath[] = [
             ...keyPath,
-            { type: NodeType.Object, key },
+            { type: NodeTypes.OBJECT, key },
           ];
 
           const subSection = getContentNodeByKeyPath(sectionProp, childKeyPath);
@@ -211,8 +262,8 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
                 label={`${goToField.label.value} ${key}`}
                 key={key}
                 isActive={getIsSelected(childKeyPath)}
-                variant={ButtonVariant.HOVERABLE}
-                color={ButtonColor.TEXT}
+                variant="hoverable"
+                color="text"
                 className="w-full"
                 onClick={() => setFocusedContentKeyPath(childKeyPath)}
                 IconRight={ChevronRight}
@@ -223,7 +274,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
           }
 
           return (
-            <Accordion
+            <GatedAccordion
               key={key}
               label={`${goToField.label.value} ${key}`}
               isActive={getIsSelected(childKeyPath)}
@@ -239,7 +290,7 @@ export const NavigationViewNode: FC<NodeWrapperProps> = ({
                   />
                 </div>
               </div>
-            </Accordion>
+            </GatedAccordion>
           );
         })}
       </div>

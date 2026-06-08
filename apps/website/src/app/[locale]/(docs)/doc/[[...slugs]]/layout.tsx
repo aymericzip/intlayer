@@ -1,4 +1,5 @@
 import { DocPageLayout } from '@components/DocPage/DocPageLayout';
+import { getImageWithMetadata } from '@components/getImageWithMetadata';
 import { getDocMetadataBySlug } from '@intlayer/docs';
 import { getLocalizedUrl, getMultilingualUrls, Locales } from 'intlayer';
 import type { Metadata } from 'next';
@@ -40,26 +41,43 @@ export const generateMetadata = async ({
   const docData = filteredDocsData[0];
 
   const absoluteUrl = docData.url;
-  const relativeUrl = docData.relativeUrl;
+  const title = `${docData.title} | Intlayer`;
+
+  const ogImageData = getImageWithMetadata(
+    `${process.env.NEXT_PUBLIC_URL}/api/og`,
+    {
+      title,
+      description: docData.description,
+      locale,
+    }
+  );
 
   return {
-    title: `${docData.title} | Intlayer`,
+    metadataBase: new URL(process.env.NEXT_PUBLIC_URL!),
+    title,
     description: docData.description,
     keywords: docData.keywords,
     alternates: {
-      canonical: getLocalizedUrl(relativeUrl, locale),
+      canonical: getLocalizedUrl(absoluteUrl, locale),
       languages: {
-        ...getMultilingualUrls(relativeUrl),
-        'x-default': getLocalizedUrl(relativeUrl, Locales.ENGLISH),
+        ...getMultilingualUrls(absoluteUrl),
+        'x-default': getLocalizedUrl(absoluteUrl, Locales.ENGLISH),
       },
       types: {
-        'text/markdown': `${getLocalizedUrl(relativeUrl, locale)}.md`,
+        'text/markdown': `${getLocalizedUrl(absoluteUrl, locale)}.md`,
       },
     },
     openGraph: {
       url: getLocalizedUrl(absoluteUrl, locale),
-      title: `${docData.title} | Intlayer`,
+      title,
       description: docData.description,
+      images: ogImageData,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description: docData.description,
+      images: ogImageData,
     },
   };
 };

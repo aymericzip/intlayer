@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-12-13
+updatedAt: 2026-05-12
 title: コンテンツファイル
 description: コンテンツ宣言ファイルの拡張機能をカスタマイズする方法を学びます。このドキュメントに従って、プロジェクトで効率的に条件を実装しましょう。
 keywords:
@@ -12,20 +12,35 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.10.0
+    date: 2026-05-19
+    changes: "YAMLおよびMarkdownファイルフォーマットのサポートを追加"
+  - version: 8.9.0
+    date: 2026-05-12
+    changes: "コンテンツノードタイプ `plural` を追加"
+  - version: 8.0.0
+    date: 2026-01-28
+    changes: "`html` コンテンツノードタイプを追加"
+  - version: 8.0.0
+    date: 2026-01-24
+    changes: "Rename `live` import mode to `fetch` to better describe the underlying mechanism."
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: "辞書オプション `location` と `schema` を追加"
   - version: 7.5.0
     date: 2025-12-13
-    changes: ICUおよびi18next形式のサポートを追加
+    changes: "ICUおよびi18next形式のサポートを追加"
   - version: 6.0.0
     date: 2025-09-20
-    changes: フィールドのドキュメントを追加
+    changes: "フィールドのドキュメントを追加"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴を初期化
+    changes: "履歴を初期化"
 ---
 
 # コンテンツファイル
 
-<iframe title="i18n、Markdown、JSON…すべてを管理するための一つのソリューション | Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/1VHgSY_j9_I?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="i18n、Markdown、JSON…すべてを管理するための一つのソリューション | Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/1VHgSY_j9_I?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## コンテンツファイルとは何ですか？
 
@@ -49,11 +64,12 @@ Intlayerにおけるコンテンツファイルとは、辞書定義を含むフ
 
 コンテンツファイルの例：
 
-```tsx fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { type ReactNode } from "react";
 import {
   t,
   enu,
+  plural,
   cond,
   nest,
   md,
@@ -73,8 +89,10 @@ interface Content {
   };
   multilingualContent: string;
   quantityContent: string;
+  pluralContent: string;
   conditionalContent: string;
   markdownContent: never;
+  htmlContent: never;
   externalContent: string;
   insertionContent: string;
   nestedContent: string;
@@ -108,6 +126,10 @@ export default {
       ">5": "いくつかの車",
       ">19": "多くの車",
     }),
+    pluralContent: plural({
+      one: "One car",
+      other: "{{count}} cars",
+    }),
     conditionalContent: cond({
       true: "検証が有効です",
       false: "検証が無効です",
@@ -120,6 +142,7 @@ export default {
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json()),
     markdownContent: md("# マークダウンの例"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
 
     /*
      * `react-intlayer` または `next-intlayer` を使用する場合のみ利用可能
@@ -127,106 +150,6 @@ export default {
     jsxContent: <h1>私のタイトル</h1>,
   },
 } satisfies Dictionary<Content>; // [オプション] Dictionary はジェネリックで、辞書のフォーマットを強化できます
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md, insert, file } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "Hello World",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
-      },
-      imbricatedArray: [1, 2, 3],
-    },
-    multilingualContent: t({
-      ja: "日本語のコンテンツ",
-      en: "English content",
-      "en-GB": "English content (UK)",
-      fr: "French content",
-      es: "Spanish content",
-    }),
-    quantityContent: enu({
-      "<-1": "マイナス1台未満の車",
-      "-1": "マイナス1台の車",
-      "0": "車はありません",
-      "1": "1台の車",
-      ">5": "いくつかの車",
-      ">19": "多くの車",
-    }),
-    conditionalContent: cond({
-      true: "検証が有効です",
-      false: "検証が無効です",
-    }),
-    insertionContent: insert("こんにちは {{name}}!"),
-    nestedContent: nest(
-      "navbar", // ネストする辞書のキー
-      "login.button" // [オプション] ネストするコンテンツのパス
-    ),
-    markdownContent: md("# Markdownの例"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // `react-intlayer` または `next-intlayer` を使用する場合のみ利用可能
-    jsxContent: <h1>My title</h1>,
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md, insert, file } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "Hello World",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
-      },
-      imbricatedArray: [1, 2, 3],
-    },
-    multilingualContent: t({
-      ja: "日本語のコンテンツ",
-      en: "English content",
-      "en-GB": "English content (UK)",
-      fr: "French content",
-      es: "Spanish content",
-    }),
-    quantityContent: enu({
-      "<-1": "マイナス1台未満の車",
-      "-1": "マイナス1台の車",
-      "0": "車はありません",
-      "1": "1台の車",
-      ">5": "いくつかの車",
-      ">19": "多くの車",
-    }),
-    conditionalContent: cond({
-      true: "検証が有効です",
-      false: "検証が無効です",
-    }),
-    insertionContent: insert("こんにちは {{name}}!"),
-    nestedContent: nest(
-      "navbar", // ネストする辞書のキー
-      "login.button" // [オプション] ネストするコンテンツのパス
-    ),
-    markdownContent: md("# マークダウンの例"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // `react-intlayer` または `next-intlayer` を使用する場合のみ利用可能
-    jsxContent: <h1>My title</h1>,
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"
@@ -261,6 +184,13 @@ module.exports = {
         ">5": "いくつかの車",
         ">19": "多くの車",
       },
+      "pluralContent": {
+        "nodeType": "plural",
+        "plural": {
+          "one": "One car",
+          "other": "{{count}} cars",
+        },
+      },
     },
     "conditionalContent": {
       "nodeType": "condition",
@@ -280,6 +210,10 @@ module.exports = {
     "markdownContent": {
       "nodeType": "markdown",
       "markdown": "# マークダウンの例",
+    },
+    "htmlContent": {
+      "nodeType": "html",
+      "html": "<p>Hello <strong>World</strong></p>",
     },
     "fileContent": {
       "nodeType": "file",
@@ -304,6 +238,7 @@ module.exports = {
 - **プリミティブ値**：文字列、数値、真偽値、null、undefined
 - **型付きノード**：翻訳、条件、マークダウンなどの特殊なコンテンツタイプ
 - **関数**：実行時に評価可能な動的コンテンツ [関数フェッチについてはこちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/function_fetching.md)
+- **複数形コンテンツ**: 詳細については、 複数形コンテンツ [詳細については、 複数形コンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plural.md)
 - **ネストされたコンテンツ**：他の辞書への参照
 
 #### コンテンツタイプ
@@ -315,6 +250,7 @@ Intlayerは型付きノードを通じて様々なコンテンツタイプをサ
 - **列挙コンテンツ**: 列挙値に基づいて変化するコンテンツ [列挙コンテンツを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/enumeration_content.md)
 - **挿入コンテンツ**: 他のコンテンツに挿入可能なコンテンツ [挿入コンテンツを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion_content.md)
 - **Markdown Content**: Markdown形式のリッチテキストコンテンツ [Markdown Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown_content.md)
+- **HTML Content**: オプションのカスタムコンポーネントを使用したリッチHTMLコンテンツ [HTML Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/html.md)
 - **Nested Content**: 他の辞書への参照 [Nested Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/nested_content.md)
 - **Gender Content**: 性別に応じて変わるコンテンツ [Gender Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender_content.md)
 - **File Content**: 外部ファイルへの参照 [File Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/file_content.md)
@@ -435,6 +371,61 @@ Intlayerの辞書は`Dictionary`型で定義され、その動作を制御する
 }
 ```
 
+#### `schema` (SchemaKeys)
+
+辞書コンテンツのスキーマ。設定されている場合、コンテンツはこのスキーマに対して検証されます。これにより、Intlayer設定で定義されたカスタム検証スキーマを使用して、辞書コンテンツに特定の構造を強制できます。
+
+**例:**
+
+```typescript fileName="intlayer.config.ts"
+import { z } from "zod";
+
+export default {
+  schemas: {
+    "seo-metadata": z.object({
+      title: z.string().min(50).max(60),
+      description: z.string().min(150).max(160),
+    }),
+  },
+};
+```
+
+```typescript fileName="src/example.content.ts"
+import { type Dictionary } from "intlayer";
+
+const aboutPageMetaContent = {
+  key: "about-page-meta",
+  schema: "seo-metadata",
+  content: {
+    title: "About Our Company - Learn More About Us",
+    description: "Discover our company's mission, values, and team.",
+  },
+} satisfies Dictionary;
+
+export default aboutPageMetaContent;
+```
+
+#### `location` ('local' | 'remote' | 'hybrid' | string)
+
+辞書の場所を示し、CMS との同期方法を制御します：
+
+- `'local'`: 辞書はローカルのみで管理されます。リモート CMS にプッシュされません。コードベースに残すべきコンテンツに使用します。
+- `'remote'`: 辞書はリモートでのみ管理されます。CMS にプッシュされると、ローカルファイルから切り離されます。コンテンツの読み込み時に、リモート辞書が CMS から取得されます。`remote` ロケーションを持つ `.content` ファイルは、初期プッシュ後に無視されます。
+- `'hybrid'`: 辞書はローカルとリモートの両方で管理されます。CMS にプッシュされると、同期が維持されます, ローカルファイルの変更が CMS にプッシュされ、リモートの変更をローカルファイルにプルバックできます。
+- `string`（例：`'plugin'`）：辞書はプラグインまたはカスタムソースによって管理されます。プッシュしようとすると、システムが実行する操作を尋ねます。
+
+**例:**
+
+```typescript
+{
+  key: "about-page",
+  location: "local", // コンテンツはコードベースにのみ残ります
+  content: {
+    title: "About Us"
+  }
+}
+```
+
 #### `autoFill` (AutoFill)
 
 外部ソースから辞書の内容を自動的に埋めるための指示です。これは `intlayer.config.ts` でグローバルに、または辞書ごとに設定できます。複数のフォーマットをサポートしています：
@@ -505,15 +496,15 @@ Intlayerの辞書は`Dictionary`型で定義され、その動作を制御する
 
 リモート辞書のバージョン識別子。どのバージョンの辞書が現在使用されているかを追跡するのに役立ちます。特にリモートコンテンツ管理システムを使用する場合に有用です。
 
-##### `live` (boolean)
+##### `importMode` ('static' | 'dynamic' | 'fetch')
 
-リモート辞書の場合、辞書を実行時にライブで取得するかどうかを示します。有効にすると：
+インポートモードは、アプリケーションで辞書がどのようにインポートされるかを決定します。
 
-- `intlayer.config.ts`で`importMode`を"live"に設定する必要があります
-- ライブサーバーが稼働している必要があります
-- ライブ同期APIを使用して実行時に辞書が取得されます
-- ライブで取得に失敗した場合は動的値にフォールバックします
-- ライブでない場合は、最適なパフォーマンスのためにビルド時に辞書が変換されます
+- `'static'`: 辞書はビルド時に静的にインポートされます。これがデフォルトモードです。
+- `'dynamic'`: 辞書はサスペンスAPIを使用して実行時に動的にインポートされます。
+- `'fetch'`: 辞書はライブ同期APIを使用して動的にインポートされます。
+
+設定すると、このプロパティは`intlayer.config.ts`で定義されたグローバルな`importMode`を上書きします。
 
 ### システムプロパティ（自動生成）
 
@@ -573,6 +564,8 @@ multilingualContent: t({
 });
 ```
 
+> 詳細については、 [翻訳コンテンツ (`t`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/translation.md) を参照してください。
+
 ### 条件コンテンツ (`cond`)
 
 ブール条件に基づいて変化するコンテンツ：
@@ -585,6 +578,8 @@ conditionalContent: cond({
   false: "Please log in to continue",
 });
 ```
+
+> 詳細については、 [条件コンテンツ (`cond`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/condition.md) を参照してください。
 
 ### 列挙コンテンツ (`enu`)
 
@@ -600,7 +595,22 @@ statusContent: enu({
 });
 ```
 
-### 挿入コンテンツ (`insert`)
+> 詳細については、 [列挙コンテンツ (`enu`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/enumeration.md) を参照してください。
+
+### Plural Content (`plural`)
+
+Content that varies based on plural rules:
+
+```typescript
+import { plural } from "intlayer";
+
+pluralContent: plural({
+  one: "One car",
+  other: "{{count}} cars",
+});
+```
+
+> 詳細については、 [Plural Content ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plural.md) を参照してください。### 挿入コンテンツ (`insert`)
 
 他のコンテンツに挿入できるコンテンツ：
 
@@ -609,6 +619,8 @@ import { insert } from "intlayer";
 
 insertionContent: insert("This text can be inserted anywhere"); // このテキストはどこにでも挿入できます
 ```
+
+> 詳細については、 [挿入コンテンツ (`insert`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/insertion.md) を参照してください。
 
 ### ネストコンテンツ (`nest`)
 
@@ -619,6 +631,8 @@ import { nest } from "intlayer";
 
 nestedContent: nest("about-page"); // "about-page" への参照
 ```
+
+> 詳細については、 [ネストコンテンツ (`nest`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/nesting.md) を参照してください。
 
 ### マークダウンコンテンツ (`md`)
 
@@ -631,6 +645,27 @@ markdownContent: md(
   "# Welcome\n\nこれは**太字**のテキストで、[リンク](https://example.com)が含まれています"
 );
 ```
+
+> 詳細については、 [マークダウンコンテンツ (`md`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/markdown.md) を参照してください。
+
+### HTMLコンテンツ (`html`)
+
+標準タグまたはカスタムコンポーネントを使用できるリッチHTMLコンテンツ：
+
+```typescript
+import { html, file, t } from "intlayer";
+
+// インラインHTML
+htmlContent: html("<p>Hello <strong>World</strong></p>");
+
+// 外部ファイルからのロケール別HTML
+localizedHtmlContent: t({
+  en: html(file("./content.en.html")),
+  ja: html(file("./content.ja.html")),
+});
+```
+
+> 詳細については、 [HTMLコンテンツ (`html`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/html.md) を参照してください。
 
 ### ジェンダーコンテンツ (`gender`)
 
@@ -646,6 +681,8 @@ genderContent: gender({
 });
 ```
 
+> 詳細については、 [ジェンダーコンテンツ (`gender`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md) を参照してください。
+
 ### ファイルコンテンツ (`file`)
 
 外部ファイルへの参照:
@@ -655,6 +692,8 @@ import { file } from "intlayer";
 
 fileContent: file("./path/to/content.txt");
 ```
+
+> 詳細については、 [ファイルコンテンツ (`file`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/file.md) を参照してください。
 
 ## コンテンツファイルの作成
 
@@ -750,6 +789,40 @@ JSON形式でコンテンツファイルを作成することもできます：
 }
 ```
 
+### Markdown コンテンツファイル
+
+```markdown
+---
+key: welcome-page
+locale: en
+title: Welcome Page Content
+description: Content for the main welcome page
+tags:
+  - page
+  - welcome
+---
+
+# Welcome to Our Platform
+
+## Build amazing applications with ease
+```
+
+### YAML コンテンツファイル
+
+```yaml
+key: welcome-page
+title: Welcome Page Content
+description: Content for the main welcome page
+locale: "en"
+tags:
+  - page
+  - welcome
+content:
+  hero:
+    title: Welcome to Our Platform
+    subtitle: Build amazing applications with ease
+```
+
 ### ロケール別コンテンツファイル
 
 ロケール別の辞書を作成する場合は、`locale` プロパティを指定します:
@@ -791,6 +864,8 @@ Intlayerでは、コンテンツ宣言ファイルの拡張子をカスタマイ
 デフォルトでは、Intlayerは以下の拡張子を持つすべてのファイルをコンテンツ宣言用に監視します：
 
 - `.content.json`
+- `.content.json5`
+- `.content.jsonc`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
@@ -799,6 +874,10 @@ Intlayerでは、コンテンツ宣言ファイルの拡張子をカスタマイ
 - `.content.mjx`
 - `.content.cjs`
 - `.content.cjx`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
 
 これらのデフォルト拡張子はほとんどのアプリケーションに適しています。しかし、特定のニーズがある場合は、カスタム拡張子を定義してビルドプロセスを効率化し、他のコンポーネントとの競合リスクを減らすことができます。
 
@@ -852,7 +931,7 @@ export default {
 
 例：
 
-```javascript fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```javascript fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 const getName = async () => "John Doe";
@@ -898,106 +977,6 @@ export default {
     }),
   },
 } satisfies Dictionary;
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md } from "intlayer";
-
-const getName = async () => "John Doe";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    // `getIntlayer('page','en').hiMessage` は `['Hi', ' ', 'John Doe']` を返します
-    hiMessage: [
-      t({
-        en: "Hi",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // 条件、列挙、多言語コンテンツを組み合わせた複合コンテンツ
-    // `getIntlayer('page','en').advancedContent(true)(10)` は 'Multiple items found' を返します
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-          ja: "複数のアイテムが見つかりました",
-        }),
-      }),
-      false: t({
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-        ja: "有効なデータがありません",
-      }),
-    }),
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md } = require("intlayer");
-
-const getName = async () => "John Doe";
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    // `getIntlayer('page','en').hiMessage` は `['Hi', ' ', 'John Doe']` を返します
-    hiMessage: [
-      t({
-        en: "Hi",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // 条件、列挙、多言語コンテンツを組み合わせた複合コンテンツ
-    // `getIntlayer('page','en').advancedContent(true)(10)` は 'Multiple items found' を返します
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-        }),
-      }),
-      false: t({
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-      }),
-    }),
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"

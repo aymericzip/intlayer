@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Geçmiş başlatıldı
+    changes: "Geçmiş başlatıldı"
 ---
 
 # Dokümantasyon: `intlayer` Paketinde `getLocaleLang` Fonksiyonu
@@ -45,26 +45,8 @@ history:
 
 ### Dil Kodlarını Çıkarma:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getLocaleLang, Locales } from "intlayer";
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Çıktı: "en"
-getLocaleLang(Locales.ENGLISH); // Çıktı: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // Çıktı: "fr"
-getLocaleLang(Locales.FRENCH); // Çıktı: "fr"
-```
-
-```javascript codeFormat="esm"
-import { getLocaleLang } from "intlayer";
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Çıktı: "en"
-getLocaleLang(Locales.ENGLISH); // Çıktı: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // Çıktı: "fr"
-getLocaleLang(Locales.FRENCH); // Çıktı: "fr"
-```
-
-```javascript codeFormat="commonjs"
-const { getLocaleLang } = require("intlayer");
 
 getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Çıktı: "en"
 getLocaleLang(Locales.ENGLISH); // Çıktı: "en"

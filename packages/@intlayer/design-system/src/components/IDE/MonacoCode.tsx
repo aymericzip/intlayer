@@ -1,10 +1,14 @@
 'use client';
 
-import { Editor, type OnChange, type OnMount } from '@monaco-editor/react';
-import { type FC, useMemo, useRef, useState } from 'react';
-import { cn } from '../../utils/cn';
+import type { OnChange, OnMount } from '@monaco-editor/react';
+import { cn } from '@utils/cn';
+import { type FC, lazy, Suspense, useRef, useState } from 'react';
 import { CopyButton } from '../CopyButton';
 import { Loader } from '../Loader';
+
+const Editor = lazy(() =>
+  import('@monaco-editor/react').then((mod) => ({ default: mod.Editor }))
+);
 
 type CodeCompProps = {
   children: string;
@@ -32,10 +36,7 @@ export const MonacoCode: FC<CodeCompProps> = ({
     width: number;
   }>({ height: 0, width: 0 });
 
-  const theme = useMemo(
-    () => (isDarkMode ? 'vs-dark-transparent' : 'hc-light-theme'),
-    [isDarkMode]
-  );
+  const theme = isDarkMode ? 'vs-dark-transparent' : 'hc-light-theme';
 
   const handleMountIde: OnMount = (editor, monaco) => {
     // first time you set the height based on content Height
@@ -91,14 +92,13 @@ export const MonacoCode: FC<CodeCompProps> = ({
     });
   };
 
-  const isShowLineNumbers = showLineNumbers ?? children.split('\n').length > 1;
+  const isShowLineNumbers =
+    showLineNumbers ??
+    (typeof children === 'string' ? children.split('\n').length > 1 : false);
 
   return (
     <div
-      className={cn(
-        'relative h-full w-full text-sm',
-        showLineNumbers && 'ml-0'
-      )}
+      className={cn('relative size-full text-sm', showLineNumbers && 'ml-0')}
     >
       {showCopyButton && (
         <div className="sticky top-5 z-10">
@@ -113,37 +113,40 @@ export const MonacoCode: FC<CodeCompProps> = ({
         className="z-0 grid size-full grid-cols-[0px] overflow-auto"
         ref={containerRef}
       >
-        <Editor
-          {...editorSize}
-          defaultLanguage="typescript"
-          language={language}
-          loading={<Loader />}
-          defaultValue={String(children).replace(/\n$/, '')}
-          onMount={handleMountIde}
-          onChange={onChange}
-          options={{
-            readOnly: isReadOnly,
-            cursorStyle: 'line',
-            minimap: { enabled: false },
-            scrollbar: {
-              vertical: 'hidden',
-              verticalScrollbarSize: 0,
-              alwaysConsumeMouseWheel: false,
-            },
-            folding: false, // Disable code folding
-            renderValidationDecorations: 'off', // Disable error/warning decorations
-            quickSuggestions: false, // Disable IntelliSense
-            parameterHints: { enabled: false }, // Disable parameter hints
-            suggestOnTriggerCharacters: false, // Disable suggestions on typing
+        <Suspense fallback={<Loader />}>
+          <Editor
+            {...editorSize}
+            defaultLanguage="typescript"
+            language={language}
+            loading={<Loader />}
+            defaultValue={String(children).replace(/\n$/, '')}
+            onMount={handleMountIde}
+            onChange={onChange}
+            options={{
+              contextmenu: false,
+              readOnly: isReadOnly,
+              cursorStyle: 'line',
+              minimap: { enabled: false },
+              scrollbar: {
+                vertical: 'hidden',
+                verticalScrollbarSize: 0,
+                alwaysConsumeMouseWheel: false,
+              },
+              folding: false, // Disable code folding
+              renderValidationDecorations: 'off', // Disable error/warning decorations
+              quickSuggestions: false, // Disable IntelliSense
+              parameterHints: { enabled: false }, // Disable parameter hints
+              suggestOnTriggerCharacters: false, // Disable suggestions on typing
 
-            mouseWheelScrollSensitivity: 0,
-            fastScrollSensitivity: 0,
-            scrollBeyondLastLine: false,
-            lineNumbers: isShowLineNumbers ? 'on' : 'off',
-          }}
-          theme={theme}
-          className="my-2 rounded-md"
-        />
+              mouseWheelScrollSensitivity: 0,
+              fastScrollSensitivity: 0,
+              scrollBeyondLastLine: false,
+              lineNumbers: isShowLineNumbers ? 'on' : 'off',
+            }}
+            theme={theme}
+            className="my-2 rounded-md"
+          />
+        </Suspense>
       </div>
     </div>
   );

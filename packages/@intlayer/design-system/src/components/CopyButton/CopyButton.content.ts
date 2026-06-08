@@ -21,6 +21,7 @@ export const copyContentContent = {
       pl: 'Kopiuj zawartość',
       id: 'Salin konten',
       vi: 'Sao chép nội dung',
+      uk: 'Копіювати вміст',
     }),
   },
   title: 'Copy button label',

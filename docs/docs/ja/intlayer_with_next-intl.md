@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-10-05
-updatedAt: 2025-10-05
-title: next-intl を使った Next.js 15 の翻訳方法 – 2025 年版 i18n ガイド
-description: Next.js 15 の App Router ウェブサイトを多言語対応にする方法を解説します。国際化（i18n）と翻訳のためのドキュメントに従ってください。
+updatedAt: 2026-05-31
+title: "next-intl i18n - あなたのアプリを翻訳する完全ガイド"
+description: "i18nextはもう不要。2026年に多言語（i18n）next-intlアプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
   - 国際化
   - ドキュメント
@@ -52,6 +52,10 @@ pnpm add next-intl
 yarn add next-intl
 ```
 
+```bash packageManager="bun"
+bun add next-intl
+```
+
 ```bash
 .
 ├── locales
@@ -99,7 +103,7 @@ async function loadMessages(locale: string) {
 }
 
 export default getRequestConfig(async ({ locale }) => {
-  if (!locales.includes(locale as any)) notFound();
+  if (!locales.includes(locale)) notFound();
 
   return {
     messages: await loadMessages(locale),
@@ -391,15 +395,20 @@ export const config = {
 intlayer の依存関係をインストールします:
 
 ```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin  -D
+npm install intlayer @intlayer/sync-json-plugin --save-dev
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin  -D
+yarn add intlayer @intlayer/sync-json-plugin --dev
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin  -D
+pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+```
+
+```bash packageManager="bun"
+bun add intlayer @intlayer/sync-json-plugin --dev
+bun x intlayer init
 ```
 
 intlayer の設定ファイルを作成します:
@@ -444,4 +453,4 @@ export default config;
 - `intlayer fill`: 設定されたロケールに基づいて、AIプロバイダーを使用して不足している翻訳を補完します。
 - `intlayer test`: 不足している翻訳や無効な翻訳をチェックします（CIでの使用を推奨）。
 
-引数やプロバイダーの設定方法については、[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md) を参照してください。
+引数やプロバイダーの設定方法については、[Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md) を参照してください。

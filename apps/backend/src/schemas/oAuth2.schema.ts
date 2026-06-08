@@ -1,5 +1,5 @@
-import { Schema } from 'mongoose';
-import type { Client, Token as TokenType } from 'oauth2-server';
+import type { Client, Token as TokenType } from '@node-oauth/oauth2-server';
+import { type Model, model, Schema } from 'mongoose';
 import type { User } from '@/types/user.types';
 
 export type Token = Omit<TokenType, 'client' | 'user'> & {
@@ -54,9 +54,17 @@ export const accessTokenSchema = new Schema<Token>(
   }
 );
 
+// MongoDB TTL fallback: tokens are normally garbage collected by their
+// accessTokenExpiresAt, but if the sliding-refresh keeps a token alive for a
+// long time we still want a hard upper bound from creation.
 accessTokenSchema.index(
   { createdAt: 1 },
   {
-    expireAfterSeconds: 60 * 60 * 24 * 10, // 10 Days
+    expireAfterSeconds: 60 * 60 * 24 * 90, // 90 Days
   }
+);
+
+export const OAuth2AccessTokenModel = model<Token, Model<Token>>(
+  'oAuth2',
+  accessTokenSchema
 );

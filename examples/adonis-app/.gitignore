@@ -1,0 +1,13 @@
+
+# dependencies
+/node_modules
+
+# env
+.env
+.env.*
+!.env.template
+
+# build 
+build
+.vercel
+

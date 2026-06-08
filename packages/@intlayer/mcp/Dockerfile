@@ -1,21 +1,23 @@
-# syntax=docker/dockerfile:1.20.0
+# syntax=docker/dockerfile:1.23.0
 
-FROM oven/bun:1.3.2-alpine AS builder
+# FROM oven/bun:1.3.2-alpine AS builder
+# Use node because of bun issue blocking at `Creating an optimized production build ...`
+# https://github.com/oven-sh/bun/issues/17136
+# https://github.com/oven-sh/bun/issues/4795
+FROM node:26-alpine AS builder
 
-RUN apk add --no-cache curl
+RUN npm install -g bun@1.3.14
 
-# Create app directory
 WORKDIR /workspace
 
-# Copy the rest of the source code
-# Remove directories to keep the image slim
 COPY \
-    --exclude=packages/@intlayer/babel \
     --exclude=packages/@intlayer/vue-compiler \
     --exclude=packages/@intlayer/svelte-compiler \
     --exclude=packages/@intlayer/webpack \
     --exclude=packages/@intlayer/editor \
     --exclude=packages/@intlayer/editor-react \
+    --exclude=packages/@intlayer/swc \
+    --exclude=packages/@intlayer/lsp \
     --exclude=packages/intlayer-cli \
     --exclude=packages/next-intlayer \
     --exclude=packages/astro-intlayer \
@@ -31,15 +33,24 @@ COPY \
     --exclude=packages/nuxt-intlayer \
     --exclude=packages/react-native-intlayer \
     --exclude=packages/lynx-intlayer \
+    --exclude=packages/lit-intlayer \
+    --exclude=packages/vanilla-intlayer \
     --exclude=packages/@intlayer/design-system \
     --exclude=packages/intlayer-editor \
+    --exclude=packages/express-intlayer \
+    --exclude=packages/hono-intlayer \
+    --exclude=packages/adonis-intlayer \
     --exclude=docs/assets \
     --exclude=docs/blog \
     --exclude=docs/frequent_questions \
     --exclude=docs/legal \
     --exclude=examples \
     --exclude=plugins \
-    --exclude=apps/website \
+    --exclude=compat \
+    --exclude=apps/website \ 
+    --exclude=apps/website-tanstack \
+    --exclude=apps/showcase \
+    --exclude=apps/app \
     --exclude=**/*.stories.* \
     . .
 
@@ -50,24 +61,25 @@ COPY docs/legal/en/                docs/legal/en/
     
 
 # Install all dependencies (dev + prod) (frozen for reproducible builds)
-RUN bun install --ignore-scripts --filter=./packages/@intlayer/mcp
+RUN bun install
 
 # Build every package in the workspace (uses the root "build" script)
 RUN bun x turbo run build:ci --filter=./packages/@intlayer/mcp
 
-# Remove all dev dependencies
-# RUN CI=true bun pm prune --production
-
-# Remove .ts, .tsx and .map files only within src/** directories, ignoring node_modules, so configuration files like intlayer.config.ts are kept
+# Strip source files to reduce image size
 RUN find . -path "*/src/*" -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.map" \) -not -path "*/node_modules/*" -delete
 
+# Runner — use oven/bun base image to avoid npm install overhead
+FROM oven/bun:1.3.14-alpine AS runner
 
 ENV NODE_ENV=production
 
-# Create and use a non-root user for security
 RUN addgroup -S app && adduser -S app -G app
 
-RUN chown -R app:app /workspace/packages/@intlayer/mcp
+# Copy workspace structure from builder to preserve monorepo node_modules symlinks
+COPY --from=builder --chown=app:app /workspace/node_modules /workspace/node_modules
+COPY --from=builder --chown=app:app /workspace/packages/@intlayer /workspace/packages/@intlayer
+COPY --from=builder --chown=app:app /workspace/docs /workspace/docs
 
 WORKDIR /workspace/packages/@intlayer/mcp
 
@@ -76,14 +88,9 @@ USER app
 # Expose the API port 
 EXPOSE 3000
 
+HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
+  CMD bun -e "const r = await fetch('http://localhost:3000/health'); process.exit(r.ok ? 0 : 1)"
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
-  CMD \
-    curl -f http://localhost:3000/health || exit 1
-
-
-# Option 1: Use mcp-proxy (recommended - simpler)
 CMD ["bun", "run", "start:sse"]
-
 # Option 2: Use stdio transport (alternative)
 # CMD ["bun", "run", "start:stdio"]

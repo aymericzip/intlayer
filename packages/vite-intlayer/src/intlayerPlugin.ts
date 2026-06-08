@@ -1,30 +1,54 @@
 import { resolve } from 'node:path';
-import { prepareIntlayer, watch } from '@intlayer/chokidar';
+import { createPruneContext } from '@intlayer/babel';
+import { prepareIntlayer } from '@intlayer/chokidar/build';
+import { logConfigDetails } from '@intlayer/chokidar/cli';
+import { watch } from '@intlayer/chokidar/watcher';
+import { BLUE } from '@intlayer/config/colors';
+import {
+  formatNodeTypeToEnvVar,
+  getConfigEnvVars,
+} from '@intlayer/config/envVars';
+import { colorize, getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
-  getAlias,
   getConfiguration,
-} from '@intlayer/config';
-// @ts-ignore - Fix error Module '"vite"' has no exported member
+} from '@intlayer/config/node';
+import { getAlias, getUnusedNodeTypesAsync } from '@intlayer/config/utils';
+import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { PluginOption } from 'vite';
+import { intlayerMinify } from './intlayerMinifyPlugin';
+import { intlayerOptimize } from './intlayerOptimizePlugin';
 import { intlayerPrune } from './intlayerPrunePlugin';
 
 /**
- * @deprecated Rename to intlayer instead
+ * Vite plugin that integrates Intlayer into the Vite build process.
  *
- * A Vite plugin that integrates Intlayer configuration into the build process
+ * It handles:
+ * 1. Preparing Intlayer resources (dictionaries) before build.
+ * 2. Configuring Vite aliases for dictionary access.
+ * 3. Setting up dev-server watchers for content changes.
+ * 4. Applying build optimizations (tree-shaking dictionaries).
  *
+ * @param configOptions - Optional configuration to override default Intlayer settings.
+ * @returns A Vite plugin option.
+ *
+ * @example
  * ```ts
- * // Example usage of the plugin in a Vite configuration
+ * import { intlayer } from 'vite-intlayer';
+ *
  * export default defineConfig({
- *   plugins: [ intlayer() ],
+ *   plugins: [intlayer()],
  * });
+ *
  * ```
- *  */
+ * @deprecated Rename to intlayer instead
+ */
 export const intlayerPlugin = (
   configOptions?: GetConfigurationOptions
 ): PluginOption => {
   const intlayerConfig = getConfiguration(configOptions);
+  logConfigDetails(configOptions);
+  const appLogger = getAppLogger(intlayerConfig);
 
   const alias = getAlias({
     configuration: intlayerConfig,
@@ -37,72 +61,138 @@ export const intlayerPlugin = (
     {
       name: 'vite-intlayer-plugin',
 
-      config: async (config, env) => {
+      apply: (_config, env) => {
+        // Don't apply intlayer plugin during `preview` command
+        const isPreviewCommand =
+          env.command === 'serve' && env.mode === 'production';
+
+        // But if liveSync is enabled, ensure the data are fresh
+        const isLiveSyncEnabled = intlayerConfig.editor.liveSync;
+
+        return !isPreviewCommand || isLiveSyncEnabled;
+      },
+
+      config: async (_config, env) => {
+        const { mode } = intlayerConfig.build;
+
         const isDevCommand =
           env.command === 'serve' && env.mode === 'development';
         const isBuildCommand = env.command === 'build';
 
-        // Only call prepareIntlayer during `dev` or `build` (not during `start`)
+        // Only call prepareIntlayer during `dev` or `build` (not during `preview`)
         // If prod: clean and rebuild once
         // If dev: rebuild only once if it's more than 1 hour since last rebuild
-        if (isDevCommand || isBuildCommand) {
+        if (isDevCommand || isBuildCommand || mode === 'auto') {
           // prepareIntlayer use runOnce to ensure to run only once because will run twice on client and server side otherwise
           await prepareIntlayer(intlayerConfig, {
             clean: isBuildCommand,
             cacheTimeoutMs: isBuildCommand
               ? 1000 * 30 // 30 seconds for build (to ensure to rebuild all dictionaries)
               : 1000 * 60 * 60, // 1 hour for dev (default cache timeout)
+            env: isBuildCommand ? 'prod' : 'dev',
           });
         }
 
-        // Update Vite's resolve alias
-        config.resolve = {
-          ...config.resolve,
-          alias: {
-            ...config.resolve?.alias,
-            ...alias,
-          },
+        let define: Record<string, string> = {
+          // Preset an env var to avoid 'process is not defined' error
+          // Needed for some libraries that does not add process.env
+          'process.env.INTLAYER': '"true"',
         };
 
-        config.optimizeDeps = {
-          ...config.optimizeDeps,
-          exclude: [...(config.optimizeDeps?.exclude ?? []), ...aliasPackages],
-        };
+        if (isBuildCommand) {
+          const dictionaries = getDictionaries(intlayerConfig);
 
-        // Update Vite's SSR Externalization
-        // We must ensure that intlayer packages are processed by Vite (bundled)
-        // so that the aliases defined above are actually applied
-        if (config.ssr?.noExternal !== true) {
-          const currentNoExternal = Array.isArray(config.ssr?.noExternal)
-            ? config.ssr.noExternal
-            : config.ssr?.noExternal
-              ? [config.ssr.noExternal]
-              : [];
+          if (Object.keys(dictionaries).length === 0) {
+            appLogger(
+              'No dictionaries found. Please check your configuration.',
+              {
+                isVerbose: true,
+              }
+            );
+          }
 
-          config.ssr = {
-            ...config.ssr,
-            noExternal: [
-              ...(currentNoExternal as (string | RegExp)[]),
-              // Regex to bundle all intlayer related packages
-              /(^@intlayer\/|intlayer$)/,
-            ],
+          const unusedNodeTypes = await getUnusedNodeTypesAsync(dictionaries);
+
+          if (unusedNodeTypes.length > 0) {
+            appLogger(
+              [
+                'Filtering out unused logic:',
+                unusedNodeTypes
+                  .filter(
+                    (key) =>
+                      !['reactNode', 'solidNode', 'preactNode'].includes(key)
+                  )
+                  .map((key) => colorize(key, BLUE))
+                  .join(', '),
+              ],
+              {
+                isVerbose: true,
+              }
+            );
+          }
+
+          define = {
+            ...define,
+
+            // Tree shacking env var based on config
+            ...formatNodeTypeToEnvVar(
+              unusedNodeTypes,
+              (key) => `process.env.${key}`,
+              (value) => `"${value}"`
+            ),
+
+            // Tree shacking env var based on config
+            ...getConfigEnvVars(
+              intlayerConfig,
+              (key) => `process.env.${key}`,
+              (value) => `"${value}"` // Wrap by "" to ensure env var set properly
+            ),
           };
         }
 
-        return config;
+        // mergeConfig handles both array and record alias formats,
+        // and correctly appends to optimizeDeps.exclude / ssr.noExternal
+        return {
+          define,
+          resolve: {
+            alias,
+          },
+          optimizeDeps: {
+            // Exclude alias entry points since they're local files, not npm packages
+            exclude: aliasPackages,
+          },
+          ssr: {
+            // Ensure intlayer packages are bundled so aliases are applied
+            noExternal: [/(^@intlayer\/|intlayer$)/],
+          },
+        };
       },
 
-      configureServer: async (_server) => {
-        if (intlayerConfig.content.watch) {
+      configureServer: async (server) => {
+        if (server.config.mode === 'development') {
           // Start watching (assuming watch is also async)
-          watch({ configuration: intlayerConfig });
+          await watch({ configuration: intlayerConfig });
         }
       },
     },
   ];
 
-  // Add Babel transform plugin if enabled
-  plugins.push(intlayerPrune(intlayerConfig));
+  // Shared mutable state: the optimize plugin writes field-usage data during
+  // buildStart; the prune and minify plugins read it during transform.
+  const pruneContext = createPruneContext();
+
+  // Babel transform: rewrites useIntlayer/getIntlayer calls and injects
+  // JSON / dynamic-mjs imports.  Also runs the usage analyser in buildStart.
+  plugins.push(intlayerOptimize(intlayerConfig, pruneContext));
+
+  // Prune: removes unused content fields from dictionary JSON files.
+  // Runs with enforce:'pre' so it intercepts raw JSON before Vite's
+  // built-in JSON → ESM conversion.
+  plugins.push(intlayerPrune(intlayerConfig, pruneContext));
+
+  // Minify: compacts dictionary JSON files (parse + re-stringify).
+  // Registered after prune so it receives already-pruned output when both options are active.
+  plugins.push(intlayerMinify(intlayerConfig, pruneContext));
 
   return plugins;
 };

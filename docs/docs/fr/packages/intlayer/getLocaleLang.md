@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historique initial
+    changes: "Historique initial"
 ---
 
 # Documentation : Fonction `getLocaleLang` dans `intlayer`
@@ -33,7 +33,6 @@ La fonction `getLocaleLang` extrait le code de langue à partir d'une chaîne de
 ## Paramètres
 
 - `locale?: Locales`
-
   - **Description** : La chaîne de locale (par exemple, `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`) à partir de laquelle le code de langue est extrait.
   - **Type** : `Locales` (optionnel)
 
@@ -46,7 +45,7 @@ La fonction `getLocaleLang` extrait le code de langue à partir d'une chaîne de
 
 ### Extraction des codes de langue :
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getLocaleLang, Locales } from "intlayer";
 
 getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
@@ -55,28 +54,9 @@ getLocaleLang(Locales.FRENCH_CANADA); // Sortie : "fr"
 getLocaleLang(Locales.FRENCH); // Sortie : "fr"
 ```
 
-```javascript codeFormat="esm"
-import { getLocaleLang } from "intlayer";
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Sortie : "en"
-getLocaleLang(Locales.ENGLISH); // Sortie : "en"
-getLocaleLang(Locales.FRENCH_CANADA); // Sortie : "fr"
-getLocaleLang(Locales.FRENCH); // Sortie : "fr"
-```
-
-```javascript codeFormat="commonjs"
-const { getLocaleLang } = require("intlayer");
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Sortie : "en"
-getLocaleLang(Locales.ENGLISH); // Sortie : "en"
-getLocaleLang(Locales.FRENCH_CANADA); // Sortie : "fr"
-getLocaleLang(Locales.FRENCH); // Sortie : "fr"
-```
-
 ## Cas particuliers
 
 - **Aucune locale fournie :**
-
   - La fonction retourne une chaîne vide lorsque `locale` est `undefined`.
 
 - **Chaînes de locale mal formées :**

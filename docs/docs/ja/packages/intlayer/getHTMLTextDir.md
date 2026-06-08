@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴の初期化
+    changes: "履歴の初期化"
 ---
 
 # ドキュメント: `intlayer` の `getHTMLTextDir` 関数
@@ -33,7 +33,6 @@ history:
 ## パラメーター
 
 - `locale?: Locales`
-
   - **説明**: テキスト方向を決定するために使用されるロケール文字列（例：`Locales.ENGLISH`、`Locales.ARABIC`）。
   - **型**: `Locales`（オプション）
 
@@ -49,24 +48,8 @@ history:
 
 ### テキスト方向の判定
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getHTMLTextDir } from "intlayer";
-
-getHTMLTextDir(Locales.ENGLISH); // 出力: "ltr"
-getHTMLTextDir(Locales.FRENCH); // 出力: "ltr"
-getHTMLTextDir(Locales.ARABIC); // 出力: "rtl"
-```
-
-```javascript codeFormat="esm"
-import { getHTMLTextDir } from "intlayer";
-
-getHTMLTextDir(Locales.ENGLISH); // 出力: "ltr"
-getHTMLTextDir(Locales.FRENCH); // 出力: "ltr"
-getHTMLTextDir(Locales.ARABIC); // 出力: "rtl"
-```
-
-```javascript codeFormat="commonjs"
-const { getHTMLTextDir } = require("intlayer");
 
 getHTMLTextDir(Locales.ENGLISH); // 出力: "ltr"
 getHTMLTextDir(Locales.FRENCH); // 出力: "ltr"
@@ -76,7 +59,6 @@ getHTMLTextDir(Locales.ARABIC); // 出力: "rtl"
 ## エッジケース
 
 - **ロケールが指定されていない場合:**
-
   - `locale` が `undefined` の場合、関数は `'auto'` を返します。
 
 - **認識されないロケールの場合:**
@@ -86,7 +68,7 @@ getHTMLTextDir(Locales.ARABIC); // 出力: "rtl"
 
 `getHTMLTextDir` 関数は、ロケールに基づいて適切なテキストレンダリングのために HTML ドキュメントの `dir` 属性を動的に設定するために使用できます。
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import { getHTMLTextDir, type Locales } from "intlayer";
 
@@ -94,27 +76,6 @@ export const HTMLLayout: FC<PropsWithChildren<{ locale: Locales }>> = ({
   children,
   locale,
 }) => (
-  <html dir={getHTMLTextDir(locale)} locale={locale}>
-    <body>{children}</body>
-  </html>
-);
-```
-
-```jsx codeFormat="esm"
-import { getHTMLTextDir } from "intlayer";
-
-const HTMLLayout = ({ children, locale }) => (
-  <html dir={getHTMLTextDir(locale)} locale={locale}>
-    <body>{children}</body>
-  </html>
-);
-```
-
-```jsx codeFormat="commonjs"
-const { getHTMLTextDir } = require("intlayer");
-
-// localeに基づいてdir属性を動的に設定するHTMLレイアウトコンポーネント
-const HTMLLayout = ({ children, locale }) => (
   <html dir={getHTMLTextDir(locale)} locale={locale}>
     <body>{children}</body>
   </html>

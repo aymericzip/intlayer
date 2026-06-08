@@ -18,16 +18,16 @@ slugs:
 history:
   - version: 6.1.5
     date: 2025-09-30
-    changes: Demo gif eklendi
+    changes: "Demo gif eklendi"
   - version: 6.1.0
     date: 2025-09-24
-    changes: Ortam seçimi bölümü eklendi
+    changes: "Ortam seçimi bölümü eklendi"
   - version: 6.0.0
     date: 2025-09-22
-    changes: Intlayer Sekmesi / Doldur & Test komutları
+    changes: "Intlayer Sekmesi / Doldur & Test komutları"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Başlangıç geçmişi
+    changes: "Başlangıç geçmişi"
 ---
 
 # Resmi VS Code Eklentisi
@@ -120,7 +120,7 @@ Eklenti, Intlayer komutlarını doğru bağlamda çalıştırmak için çalışm
 
 #### Aktif ortamı seçme
 
-- **Komut Paleti**: paleti açın ve `Intlayer: Select Environment` komutunu çalıştırın, ardından ortamı seçin (örneğin, `development`, `staging`, `production`). Eklenti, yukarıdaki öncelik listesinde bulunan ilk uygun dosyayı yüklemeye çalışacak ve “.env.<env>.local dosyasından ortam yüklendi” gibi bir bildirim gösterecektir.
+- **Komut Paleti**: paleti açın ve `Intlayer: Select Environment` komutunu çalıştırın, ardından ortamı seçin (örneğin, `development`, `staging`, `production`). Eklenti, yukarıdaki öncelik listesinde bulunan ilk uygun dosyayı yüklemeye çalışacak ve “`.env.<env>.local` dosyasından ortam yüklendi” gibi bir bildirim gösterecektir.
 - **Ayarlar**: `Ayarlar → Eklentiler → Intlayer` yolunu izleyin ve şunları ayarlayın:
   - **Ortam**: `.env.<env>*` dosyalarını çözümlemek için kullanılan ortam adı.
   - (İsteğe bağlı) **Env Dosyası**: açıkça belirtilmiş bir `.env` dosyası yolu. Sağlandığında, çıkarılan listedeki dosyalardan öncelikli olarak kullanılır.

@@ -1,9 +1,9 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
-  Dictionary,
   LocalesValues,
   StrictModeLocaleMap,
-} from '@intlayer/types';
+} from '@intlayer/types/module_augmentation';
 import { computed, inject, type MaybeRefOrGetter, ref, watch } from 'vue';
 import { INTLAYER_SYMBOL, type IntlayerProvider } from './installIntlayer';
 import { useDictionary } from './useDictionary';
@@ -13,7 +13,7 @@ import { useDictionary } from './useDictionary';
  *
  * If the locale is not provided, it will use the locale from the client context
  */
-export const useDictionaryAsync = async <T extends Dictionary>(
+export const useDictionaryAsync = async <const T extends Dictionary>(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   locale?: MaybeRefOrGetter<LocalesValues>
 ) => {
@@ -21,9 +21,7 @@ export const useDictionaryAsync = async <T extends Dictionary>(
 
   const localeTarget = computed(
     () =>
-      locale ??
-      intlayer?.locale?.value ??
-      configuration?.internationalization.defaultLocale
+      locale ?? intlayer?.locale?.value ?? internationalization.defaultLocale
   );
 
   const dictionary = ref<T>(

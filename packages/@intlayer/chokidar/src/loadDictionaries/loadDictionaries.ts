@@ -1,11 +1,12 @@
+import * as ANSIColors from '@intlayer/config/colors';
 import {
-  ANSIColors,
   colon,
   colorize,
   colorizeKey,
   getAppLogger,
-} from '@intlayer/config/client';
-import type { Dictionary, IntlayerConfig } from '@intlayer/types';
+} from '@intlayer/config/logger';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { formatDictionaries } from '../formatDictionary';
 import { loadContentDeclarations } from './loadContentDeclaration';
@@ -173,30 +174,23 @@ export const loadDictionaries = async (
   appLogger('Dictionaries:', { isVerbose: true });
 
   // Load additional dictionaries via plugins (e.g., ICU JSON ingestion)
-  const pluginsWithLoadDictionaries = (plugins ?? []).filter(
+  const resolvedPlugins = await Promise.all(plugins ?? []);
+
+  const pluginsWithLoadDictionaries = resolvedPlugins.filter(
     (plugin) => plugin.loadDictionaries
   );
 
-  logger.setPluginTotal(pluginsWithLoadDictionaries.length);
-
-  const completedPluginIndices = new Set<number>();
-  const updatePluginProgress = () => {
-    logger.setPluginDone(completedPluginIndices.size);
-  };
-
   const loadPluginDictionariesPromise = pluginsWithLoadDictionaries.map(
-    async (plugin, index) => {
+    async (plugin) => {
       try {
         const res = await plugin.loadDictionaries?.({
           configuration,
         });
-        completedPluginIndices.add(index);
-        updatePluginProgress();
+
         return (res as Dictionary[] | undefined) ?? [];
       } catch (error) {
         logger.setPluginError(error as Error);
-        completedPluginIndices.add(index);
-        updatePluginProgress();
+
         return [];
       }
     }
@@ -210,6 +204,11 @@ export const loadDictionaries = async (
       filterInvalidDictionaries(dictionaries, configuration)
     )
     .then((dictionaries) => formatDictionaries(dictionaries));
+
+  logger.setPluginTotal(pluginDictionaries.length);
+  logger.setPluginDone(pluginDictionaries.length);
+
+  const pluginDictionariesTime = Date.now();
 
   const files = Array.isArray(contentDeclarationsPaths)
     ? contentDeclarationsPaths
@@ -267,8 +266,6 @@ export const loadDictionaries = async (
 
   const remoteDictionariesTime = Date.now();
 
-  const pluginDictionariesTime = Date.now();
-
   // Stop spinner and show final progress line(s)
   logger.finish();
 
@@ -279,9 +276,9 @@ export const loadDictionaries = async (
     remoteDictionaries,
     pluginDictionaries,
     time: {
-      localDictionaries: localDictionariesTime - loadDictionariesStartTime,
+      localDictionaries: localDictionariesTime - pluginDictionariesTime,
       remoteDictionaries: remoteDictionariesTime - localDictionariesTime,
-      pluginDictionaries: pluginDictionariesTime - remoteDictionariesTime,
+      pluginDictionaries: pluginDictionariesTime - loadDictionariesStartTime,
     },
   };
 };

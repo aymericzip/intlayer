@@ -184,7 +184,7 @@ Hoặc với các thư mục theo từng locale:
 
 **Khai báo nội dung** (theo từng component):
 
-```ts fileName="./components/MyComponent/MyComponent.content.ts"
+```ts fileName="./components/MyComponent/myComponent.content.ts"
 import { t, type Dictionary } from "intlayer";
 
 const componentExampleContent = {
@@ -255,8 +255,6 @@ Cách tiếp cận này:
 `intlayer` cũng có thể giúp quản lý các namespace của `vue-i18n` của bạn.
 
 Sử dụng `intlayer`, bạn có thể khai báo nội dung theo định dạng của thư viện i18n yêu thích của bạn, và intlayer sẽ tạo ra các namespace tại vị trí bạn chọn (ví dụ: `/messages/{{locale}}/{{namespace}}.json`).
-
-Tham khảo các tùy chọn [`dictionaryOutput` và `i18nextResourcesDir`](https://intlayer.org/doc/concept/configuration#content-configuration) để biết thêm chi tiết.
 
 ---
 

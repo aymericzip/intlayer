@@ -184,7 +184,7 @@ Bu, uygulamalar büyüdükçe geliştirmeyi yavaşlatır:
 
 **İçerik beyanı** (bileşen başına):
 
-```ts fileName="./components/MyComponent/MyComponent.content.ts"
+```ts fileName="./components/MyComponent/myComponent.content.ts"
 import { t, type Dictionary } from "intlayer";
 
 const componentExampleContent = {
@@ -255,8 +255,6 @@ Bu yaklaşım:
 `intlayer`, `vue-i18n` ad alanlarınızı yönetmenize de yardımcı olabilir.
 
 `intlayer` kullanarak, içeriğinizi favori i18n kütüphanenizin formatında beyan edebilirsiniz ve intlayer ad alanlarınızı istediğiniz konumda oluşturacaktır (örnek: `/messages/{{locale}}/{{namespace}}.json`).
-
-Daha fazla detay için [`dictionaryOutput` ve `i18nextResourcesDir` seçeneklerine](https://intlayer.org/doc/concept/configuration#content-configuration) bakın.
 
 ---
 

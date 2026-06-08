@@ -17,8 +17,20 @@ slugs:
 
 # डिक्शनरी देखें
 
-```bash
+```bash packageManager="npm"
 npx intlayer watch
+```
+
+```bash packageManager="yarn"
+yarn intlayer watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer watch
+```
+
+```bash packageManager="bun"
+bun x intlayer watch
 ```
 
 यह कमांड आपकी कंटेंट घोषणा फ़ाइलों में परिवर्तनों को देखेगा और `.intlayer` निर्देशिका में डिक्शनरी बनाएगा।

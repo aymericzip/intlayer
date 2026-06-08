@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2025-06-29
-title: Warunki korzystania z Intlayer
+title: Warunki świadczenia usług Intlayer
 description: Dowiedz się, jak Intlayer przetwarza informacje zbierane za pośrednictwem naszej strony internetowej i CMS. Postępuj zgodnie z dokumentacją, aby zrozumieć różne formaty i przypadki użycia.
 keywords:
   - Internacjonalizacja
@@ -20,7 +20,7 @@ slugs:
   - terms-of-service
 ---
 
-# Warunki korzystania z Intlayer
+# Warunki użytkowania Intlayer
 
 ## 1. Akceptacja warunków
 

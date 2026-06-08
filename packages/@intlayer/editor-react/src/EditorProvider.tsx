@@ -1,119 +1,66 @@
 'use client';
 
 import {
-  type FC,
-  type PropsWithChildren,
-  type ReactNode,
-  useEffect,
-  useState,
-} from 'react';
-import {
-  CommunicatorProvider,
-  type CommunicatorProviderProps,
-} from './CommunicatorContext';
-import {
-  ConfigurationProvider,
-  type ConfigurationProviderProps,
-} from './ConfigurationContext';
-import { DictionariesRecordProvider } from './DictionariesRecordContext';
-import {
-  EditedContentProvider,
-  useGetEditedContentState,
-} from './EditedContentContext';
-import {
-  EditorEnabledProvider,
-  useEditorEnabled,
-  useGetEditorEnabledState,
-} from './EditorEnabledContext';
-import { FocusDictionaryProvider } from './FocusDictionaryContext';
+  defineIntlayerElements,
+  EditorStateManager,
+  type MessengerConfig,
+  setGlobalEditorManager,
+} from '@intlayer/editor';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import { type FC, type PropsWithChildren, useEffect, useRef } from 'react';
+import { EditorStateProvider } from './EditorStateContext';
 
-/**
- * This component add all the providers needed by the editor.
- * It is used to wrap the application, or the editor to work together.
- */
-const EditorProvidersWrapper: FC<PropsWithChildren> = ({ children }) => {
-  const getEditedContentState = useGetEditedContentState();
-
-  useEffect(() => {
-    getEditedContentState();
-  }, []);
-
-  return (
-    <DictionariesRecordProvider>
-      <EditedContentProvider>
-        <FocusDictionaryProvider>{children}</FocusDictionaryProvider>
-      </EditedContentProvider>
-    </DictionariesRecordProvider>
-  );
-};
-
-type FallbackProps = {
-  fallback: ReactNode;
+export type EditorProviderProps = {
+  configuration: Pick<IntlayerConfig, 'editor' | 'internationalization'>;
+  postMessage: (data: any) => void;
+  allowedOrigins: string[];
 };
 
 /**
- * This component check if the editor is enabled to render the editor providers.
+ * EditorProvider creates and manages the lifecycle of an EditorStateManager,
+ * provides it to all descendants, and registers the Lit web components.
  */
-const EditorEnabledCheckRenderer: FC<PropsWithChildren<FallbackProps>> = ({
-  children,
-  fallback,
-}) => {
-  const getEditorEnabled = useGetEditorEnabledState();
-
-  const { enabled } = useEditorEnabled();
-
-  useEffect(() => {
-    if (enabled) return;
-
-    // Check if the editor is wrapping the application
-    getEditorEnabled();
-  }, [enabled]);
-
-  return enabled ? children : fallback;
-};
-
-/**
- * This component is used to check if the editor is wrapping the application.
- * It avoid to send window.postMessage to the application if the editor is not wrapping the application.
- */
-const IframeCheckRenderer: FC<PropsWithChildren<FallbackProps>> = ({
-  children,
-  fallback,
-}) => {
-  const [isInIframe, setIsInIframe] = useState(false);
-
-  useEffect(() => {
-    setIsInIframe(window.self !== window.top);
-  }, []);
-
-  return isInIframe ? children : fallback;
-};
-
-export type EditorProviderProps = CommunicatorProviderProps &
-  ConfigurationProviderProps & {
-    mode: 'editor' | 'client';
-  };
-
 export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
   children,
   configuration,
-  ...props
-}) => (
-  <EditorEnabledProvider>
-    <ConfigurationProvider configuration={configuration}>
-      {props.mode === 'editor' ? (
-        <CommunicatorProvider {...props}>
-          <EditorProvidersWrapper>{children}</EditorProvidersWrapper>
-        </CommunicatorProvider>
-      ) : (
-        <IframeCheckRenderer fallback={children}>
-          <CommunicatorProvider {...props}>
-            <EditorEnabledCheckRenderer fallback={children}>
-              <EditorProvidersWrapper>{children}</EditorProvidersWrapper>
-            </EditorEnabledCheckRenderer>
-          </CommunicatorProvider>
-        </IframeCheckRenderer>
-      )}
-    </ConfigurationProvider>
-  </EditorEnabledProvider>
-);
+  postMessage,
+  allowedOrigins,
+}) => {
+  const managerRef = useRef<EditorStateManager | null>(null);
+
+  if (!managerRef.current) {
+    const messengerConfig: MessengerConfig = {
+      allowedOrigins,
+      postMessageFn: postMessage,
+    };
+
+    managerRef.current = new EditorStateManager({
+      mode: 'editor',
+      messenger: messengerConfig,
+      configuration,
+    });
+  }
+  const manager = managerRef.current;
+
+  useEffect(() => {
+    defineIntlayerElements();
+    setGlobalEditorManager(manager);
+
+    manager.start();
+    return () => {
+      manager.stop();
+      setGlobalEditorManager(null);
+    };
+  }, [manager]);
+
+  useEffect(() => {
+    if (!manager || !configuration || Object.keys(configuration).length === 0)
+      return;
+
+    manager.configuration.set(configuration);
+  }, [manager, configuration]);
+
+  return (
+    <EditorStateProvider manager={manager}>{children}</EditorStateProvider>
+  );
+};

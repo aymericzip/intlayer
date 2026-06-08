@@ -1,15 +1,14 @@
-import { getDictionary, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
+import { Website_Doc_Chat } from '@intlayer/design-system/routes';
+import { getIntlayer, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata } from 'next';
 import type { LocalPromiseParams } from 'next-intlayer';
-import { PagesRoutes } from '@/Routes';
-import metadataContent from './metadata.content';
 
 export const generateMetadata = async ({
   params,
 }: LocalPromiseParams): Promise<Metadata> => {
   const { locale } = await params;
-  const { title, description, keywords } = getDictionary(
-    metadataContent,
+  const { title, description, keywords } = getIntlayer(
+    'doc-chat-metadata',
     locale
   );
 
@@ -19,17 +18,14 @@ export const generateMetadata = async ({
     keywords,
 
     alternates: {
-      canonical: getLocalizedUrl(PagesRoutes.Doc_Chat, locale),
+      canonical: getLocalizedUrl(Website_Doc_Chat, locale),
       languages: {
-        ...getMultilingualUrls(PagesRoutes.Doc_Chat),
-        'x-default': PagesRoutes.Doc_Chat,
+        ...getMultilingualUrls(Website_Doc_Chat),
+        'x-default': Website_Doc_Chat,
       },
     },
     openGraph: {
-      url: getLocalizedUrl(
-        `${process.env.NEXT_PUBLIC_URL}${PagesRoutes.Doc_Chat}`,
-        locale
-      ),
+      url: getLocalizedUrl(Website_Doc_Chat, locale),
       title,
       description,
     },

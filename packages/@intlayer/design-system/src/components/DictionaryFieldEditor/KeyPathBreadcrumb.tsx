@@ -1,13 +1,17 @@
 import { camelCaseToSentence } from '@intlayer/config/client';
-import type { KeyPath, Locale } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { KeyPath } from '@intlayer/types/keyPath';
 import type { FC } from 'react';
 import { Breadcrumb, type BreadcrumbLink } from '../Breadcrumb';
+import type { LinkColor } from '../Link';
 
 type KeyPathBreadcrumbProps = {
   dictionaryKey: string;
   keyPath: KeyPath[];
-  onClickKeyPath: (keyPath: KeyPath[]) => void;
+  onClickKeyPath?: (keyPath: KeyPath[]) => void;
   locale?: Locale;
+  color?: LinkColor | `${LinkColor}`;
+  showDictionaryKey?: boolean;
 };
 
 export const KeyPathBreadcrumb: FC<KeyPathBreadcrumbProps> = ({
@@ -15,22 +19,28 @@ export const KeyPathBreadcrumb: FC<KeyPathBreadcrumbProps> = ({
   dictionaryKey,
   onClickKeyPath,
   locale,
+  color,
+  showDictionaryKey = true,
 }) => {
   const formattedKeyPath: BreadcrumbLink[] = [
-    {
-      text: camelCaseToSentence(dictionaryKey),
-      onClick: () => onClickKeyPath([]),
-    },
+    ...(showDictionaryKey
+      ? [
+          {
+            text: camelCaseToSentence(dictionaryKey),
+            onClick: onClickKeyPath ? () => onClickKeyPath([]) : undefined,
+          },
+        ]
+      : []),
     ...keyPath.map((el, index) => ({
-      onClick: () =>
-        onClickKeyPath(
-          keyPath
-            // With keyPath = [{type: NodeType.Object, key: '0'}, {type: NodeType.Array, key: '0'}, {type: NodeType.Object, key: '1'}]
-            // If index is 0 -> onFocusKeyPath([{type: NodeType.Object, key: '0'}])
-            // If index is 1 -> onFocusKeyPath([{type: NodeType.Object, key: '0'}, {type: NodeType.Array, key: '0'}])
-            .slice(0, index + 1)
-        ),
-      text: el.key?.toString() ?? '',
+      onClick: onClickKeyPath
+        ? () =>
+            // With keyPath = [{type: NodeTypes.Object, key: '0'}, {type: NodeTypes.Array, key: '0'}, {type: NodeTypes.Object, key: '1'}]
+            // If index is 0 -> onFocusKeyPath([{type: NodeTypes.Object, key: '0'}])
+            // If index is 1 -> onFocusKeyPath([{type: NodeTypes.Object, key: '0'}, {type: NodeTypes.Array, key: '0'}])
+            onClickKeyPath?.(keyPath.slice(0, index + 1))
+        : undefined,
+
+      text: camelCaseToSentence(el.key?.toString() ?? ''),
     })),
   ];
 
@@ -39,6 +49,7 @@ export const KeyPathBreadcrumb: FC<KeyPathBreadcrumbProps> = ({
       links={formattedKeyPath}
       locale={locale}
       elementType="location"
+      color={color}
     />
   );
 };

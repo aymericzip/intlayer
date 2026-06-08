@@ -1,21 +1,18 @@
 import { basename } from 'node:path';
-import { formatLocale } from '@intlayer/chokidar';
+import { formatLocale } from '@intlayer/chokidar/utils';
+import * as ANSIColors from '@intlayer/config/colors';
 import {
-  ANSIColors,
   colon,
   colorize,
   colorizeKey,
   colorizePath,
   getAppLogger,
-} from '@intlayer/config';
-import { getFilterTranslationsOnlyDictionary } from '@intlayer/core';
+} from '@intlayer/config/logger';
+import { getFilterTranslationsOnlyDictionary } from '@intlayer/core/plugins';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import type {
-  Dictionary,
-  IntlayerConfig,
-  LocalDictionaryId,
-  Locale,
-} from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { listMissingTranslationsWithConfig } from '../test';
 
@@ -135,7 +132,7 @@ export const listTranslationsTasks = (
 
     if (outputLocalesList.length === 0) {
       appLogger(
-        `${dictionaryPreset} No locales to fill, Skipping ${colorizePath(basename(targetUnmergedDictionary.filePath))}`,
+        `${dictionaryPreset} ${colorize('No locales to fill, Skipping', ANSIColors.GREY_DARK)} ${colorizePath(basename(targetUnmergedDictionary.filePath))}`,
         {
           level: 'warn',
         }

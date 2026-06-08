@@ -1,27 +1,35 @@
 import { dirname as pathDirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { AIOptions as BaseAIOptions } from '@intlayer/api';
-import type { GetConfigurationOptions } from '@intlayer/config';
-import { getConfiguration } from '@intlayer/config';
+import type { DiffMode, ListGitFilesOptions } from '@intlayer/chokidar/cli';
+import { setPrefix } from '@intlayer/config/logger';
+import {
+  type GetConfigurationOptions,
+  getConfiguration,
+} from '@intlayer/config/node';
+import type { CustomIntlayerConfig } from '@intlayer/types/config';
 import { Command } from 'commander';
-import type {
-  DiffMode,
-  ListGitFilesOptions,
-} from '../../chokidar/dist/types/listGitFiles';
 import { login } from './auth/login';
 import { build } from './build';
+import { bundle } from './bundle';
+import { runCI } from './ci';
 import { getConfig } from './config';
 import { startEditor } from './editor';
+import { extract } from './extract';
 import { type FillOptions, fill } from './fill/fill';
+import { init } from './init';
+import { initMCP } from './initMCP';
+import { initSkills } from './initSkills';
 import { listContentDeclaration } from './listContentDeclaration';
+import { listProjectsCommand } from './listProjects';
 import { liveSync } from './liveSync';
 import { pull } from './pull';
 import { push } from './push/push';
 import { pushConfig } from './pushConfig';
-import { reviewDoc } from './reviewDoc';
+import { reviewDoc } from './reviewDoc/reviewDoc';
+import { searchDoc } from './searchDoc';
 import { testMissingTranslations } from './test';
-import { transform } from './transform';
-import { translateDoc } from './translateDoc';
+import { translateDoc } from './translateDoc/translateDoc';
 import { getParentPackageJSON } from './utils/getParentPackageJSON';
 import { watchContentDeclaration } from './watch';
 
@@ -58,6 +66,7 @@ const aiOptions = [
   ['--api-key [apiKey]', 'Provider API key'],
   ['--custom-prompt [prompt]', 'Custom prompt'],
   ['--application-context [applicationContext]', 'Application context'],
+  ['--data-serialization [dataSerialization]', 'Data serialization'],
 ];
 
 const gitOptions = [
@@ -70,7 +79,7 @@ const gitOptions = [
 ];
 
 const extractKeysFromOptions = (options: object, keys: string[]) =>
-  keys.filter((key) => options[key as keyof typeof options]);
+  keys.filter((key) => options[key as keyof typeof options] !== undefined);
 
 /**
  * Helper functions to apply common options to commands
@@ -100,9 +109,11 @@ const extractAiOptions = (options: AIOptions): AIOptions | undefined => {
     temperature,
     applicationContext,
     customPrompt,
+    dataSerialization,
   } = options;
 
   const configuration = getConfiguration();
+
   const { ai } = configuration;
 
   return removeUndefined({
@@ -114,6 +125,7 @@ const extractAiOptions = (options: AIOptions): AIOptions | undefined => {
     applicationContext:
       applicationContext ?? configuration.ai?.applicationContext,
     customPrompt: customPrompt ?? (configuration.ai as any)?.customPrompt,
+    dataSerialization: dataSerialization ?? configuration.ai?.dataSerialization,
   });
 };
 
@@ -140,7 +152,7 @@ const extractGitOptions = (
 ): ListGitFilesOptions | undefined => {
   const filteredOptions = extractKeysFromOptions(options, gitOptionKeys);
 
-  const isOptionEmpty = !Object.values(filteredOptions).some(Boolean);
+  const isOptionEmpty = filteredOptions.length === 0;
 
   if (isOptionEmpty) return undefined;
 
@@ -178,6 +190,7 @@ export type ConfigurationOptions = {
   env?: string;
   envFile?: string;
   noCache?: boolean;
+  checkTypes?: boolean;
 } & LogOptions;
 
 const configurationOptionKeys: (keyof ConfigurationOptions)[] = [
@@ -186,41 +199,52 @@ const configurationOptionKeys: (keyof ConfigurationOptions)[] = [
   'envFile',
   'verbose',
   'prefix',
+  'checkTypes',
 ];
 
 const extractConfigOptions = (
-  options: ConfigurationOptions
+  options: ConfigurationOptions & { with?: string }
 ): GetConfigurationOptions | undefined => {
-  const configuration = getConfiguration(options);
   const filteredOptions = extractKeysFromOptions(
     options,
     configurationOptionKeys
   );
 
-  const isOptionEmpty = !Object.values(filteredOptions).some(Boolean);
+  const isOptionEmpty = filteredOptions.length === 0;
 
   if (isOptionEmpty) {
     return undefined;
   }
 
-  const { baseDir, env, envFile, verbose, prefix, noCache } = options;
+  const { baseDir, env, envFile, verbose, noCache, checkTypes } = options;
 
-  const addPrefix: boolean = Boolean((options as any).with); // Hack to add the prefix when the command is run in parallel
-  const log = {
-    prefix: (prefix ?? addPrefix) ? configuration.log.prefix : '', // Should not consider the prefix set in the intlayer configuration file
-    verbose: verbose ?? true,
-  };
+  const log = removeUndefined({
+    mode:
+      typeof verbose !== 'undefined'
+        ? verbose
+          ? 'verbose'
+          : 'default'
+        : undefined,
+  });
 
-  const override = {
-    log,
-  };
+  const build = removeUndefined({
+    checkTypes,
+  });
+
+  const override: CustomIntlayerConfig = removeUndefined({
+    log:
+      Object.keys(log).length > 0
+        ? (log as CustomIntlayerConfig['log'])
+        : undefined,
+    build: Object.keys(build).length > 0 ? build : undefined,
+  });
 
   return removeUndefined({
     baseDir,
     env,
     envFile,
-    override,
-    cache: !noCache,
+    override: Object.keys(override).length > 0 ? override : undefined,
+    cache: typeof noCache !== 'undefined' ? !noCache : undefined,
   });
 };
 
@@ -233,6 +257,12 @@ const extractConfigOptions = (
  * npm run intlayer push --dictionaries id1 id2 id3 --deleteLocaleDir
  */
 export const setAPI = (): Command => {
+  const isWithCommand = process.argv.includes('--with');
+
+  if (!isWithCommand) {
+    setPrefix('');
+  }
+
   const program = new Command();
 
   program.version(packageJson.version!).description('Intlayer CLI');
@@ -262,7 +292,7 @@ export const setAPI = (): Command => {
       override: {
         log: {
           prefix: '',
-          verbose: true,
+          mode: 'verbose',
         },
       },
     };
@@ -272,6 +302,32 @@ export const setAPI = (): Command => {
       configOptions,
     });
   });
+
+  /**
+   * INIT
+   */
+  const initCmd = program
+    .command('init')
+    .description('Initialize Intlayer in the project')
+    .option('--project-root [projectRoot]', 'Project root directory')
+    .option('--no-gitignore', 'Do not add .intlayer to .gitignore')
+    .action((options) =>
+      init(options.projectRoot, {
+        noGitignore: options.gitignore === false,
+      })
+    );
+
+  initCmd
+    .command('skills')
+    .description('Initialize Intlayer skills in the project')
+    .option('--project-root [projectRoot]', 'Project root directory')
+    .action((options) => initSkills(options.projectRoot));
+
+  initCmd
+    .command('mcp')
+    .description('Initialize Intlayer MCP server in the project')
+    .option('--project-root [projectRoot]', 'Project root directory')
+    .action((options) => initMCP(options.projectRoot));
 
   /**
    * DICTIONARIES
@@ -290,6 +346,7 @@ export const setAPI = (): Command => {
       ['-w, --watch', 'Watch for changes'],
       ['--skip-prepare', 'Skip the prepare step'],
       ['--with [with...]', 'Start command in parallel with the build'],
+      ['--check-types', 'Check TypeScript type and log errors'],
     ],
   };
 
@@ -536,6 +593,55 @@ export const setAPI = (): Command => {
   });
 
   /**
+   * PROJECTS
+   */
+
+  const projectsProgram = program
+    .command('projects')
+    .alias('project')
+    .description('List Intlayer projects');
+
+  const projectsListCmd = projectsProgram
+    .command('list')
+    .description('List all Intlayer projects in the directory')
+    .option('--base-dir [baseDir]', 'Base directory to search from')
+    .option(
+      '--git-root',
+      'Search from the git root directory instead of the base directory'
+    )
+    .option('--json', 'Output the results as JSON');
+
+  projectsListCmd.action((options) => {
+    listProjectsCommand({
+      baseDir: options.baseDir,
+      gitRoot: options.gitRoot,
+      json: options.json,
+    });
+  });
+
+  // Add alias for projects list command at root level
+  const rootProjectsListCmd = program
+    .command('projects-list')
+    .alias('pl')
+    .description('List all Intlayer projects in the directory')
+    .option('--base-dir [baseDir]', 'Base directory to search from')
+    .option(
+      '--git-root',
+      'Search from the git root directory instead of the base directory'
+    )
+    .option('--absolute', 'Output the results as absolute paths')
+    .option('--json', 'Output the results as JSON');
+
+  rootProjectsListCmd.action((options) => {
+    listProjectsCommand({
+      baseDir: options.baseDir,
+      gitRoot: options.gitRoot,
+      json: options.json,
+      absolute: options.absolute,
+    });
+  });
+
+  /**
    * CONTENT DECLARATION
    */
 
@@ -546,13 +652,27 @@ export const setAPI = (): Command => {
   contentProgram
     .command('list')
     .description('List the content declaration files')
-    .action(listContentDeclaration);
+    .option('--json', 'Output the results as JSON')
+    .option('--absolute', 'Output the results as absolute paths')
+    .action((options) => {
+      listContentDeclaration({
+        json: options.json,
+        absolute: options.absolute,
+      });
+    });
 
   // Add alias for content list command
   program
     .command('list')
     .description('List the content declaration files')
-    .action(listContentDeclaration);
+    .option('--json', 'Output the results as JSON')
+    .option('--absolute', 'Output the results as absolute paths')
+    .action((options) => {
+      listContentDeclaration({
+        json: options.json,
+        absolute: options.absolute,
+      });
+    });
 
   const testProgram = contentProgram
     .command('test')
@@ -742,6 +862,22 @@ export const setAPI = (): Command => {
     })
   );
 
+  const searchProgram = docProgram
+    .command('search')
+    .description('Search the documentation')
+    .argument('<query>', 'Search query')
+    .option('--limit [limit]', 'Limit the number of results', '10');
+
+  applyConfigOptions(searchProgram);
+
+  searchProgram.action((query, options) =>
+    searchDoc({
+      query,
+      limit: options.limit ? parseInt(options.limit, 10) : 10,
+      configOptions: extractConfigOptions(options),
+    })
+  );
+
   /**
    * LIVE SYNC
    */
@@ -783,34 +919,78 @@ export const setAPI = (): Command => {
   });
 
   /**
-   * TRANSFORM
+   * EXTRACT
    */
-  const transformProgram = program
-    .command('transform')
-    .alias('trans')
-    .description('Transform components to use Intlayer');
+  const extractProgram = program
+    .command('extract')
+    .alias('ext')
+    .description(
+      'Extract strings from components to be placed in a .content file close to the component'
+    );
 
-  transformProgram
-    .option('-f, --file [files...]', 'List of files to transform')
-    .option(
-      '-o, --output-content-declarations [outputContentDeclarations]',
-      'Path to output content declaration files'
-    )
-    .option('--code-only', 'Only transform the component code', false)
+  extractProgram
+    .option('-f, --file [files...]', 'List of files to extract')
+    .option('--code-only', 'Only extract the component code', false)
     .option('--declaration-only', 'Only generate content declaration', false)
     .action((options) => {
-      transform({
+      extract({
         files: options.file,
-        outputContentDeclarations: options.outputContentDeclarations,
         configOptions: extractConfigOptions(options),
         codeOnly: options.codeOnly,
         declarationOnly: options.declarationOnly,
       });
     });
 
-  applyConfigOptions(transformProgram);
+  /**
+   * STANDALONE
+   */
+  const bundleCmd = program
+    .command('standalone')
+    .description('Create a standalone bundle of the application content')
+    .option(
+      '-o, --outfile [outfile]',
+      'Output file for the bundle',
+      'intlayer-bundle.js'
+    )
+    .option('--packages [packages...]', 'List of packages to bundle')
+    .option('--version [version]', 'Version of the packages to bundle')
+    .option('--minify', 'Minify the output')
+    .option('--platform [platform]', 'Target platform', 'browser')
+    .option('--format [format]', 'Output format', 'esm')
+    .action((options) => {
+      bundle({
+        outfile: options.outfile,
+        bundlePackages: options.packages,
+        version: options.version,
+        minify: options.minify,
+        platform: options.platform,
+        format: options.format,
+        configOptions: extractConfigOptions(options),
+      });
+    });
+
+  applyConfigOptions(bundleCmd);
 
   program.parse(process.argv);
+
+  /**
+   * CI / AUTOMATION
+   *
+   * Used to iterate over all projects in a monorepo, and help to parse secrets
+   */
+  program
+    .command('ci')
+    .description(
+      'Run Intlayer commands with auto-injected credentials from INTLAYER_PROJECT_CREDENTIALS. Detects current project or iterates over all projects.'
+    )
+    .argument(
+      '<command...>',
+      'The intlayer command to execute (e.g., "fill", "push")'
+    )
+    .allowUnknownOption() // Allows passing flags like --verbose to the subcommand
+    .action((args) => {
+      runCI(args);
+    });
 
   return program;
 };

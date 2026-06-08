@@ -1,5 +1,5 @@
-import { number } from '@intlayer/core';
-import type { LocalesValues } from '@intlayer/types';
+import { number } from '@intlayer/core/formatters';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { IntlayerServerContext } from '../IntlayerServerProvider';
 import { getServerContext } from '../serverContext';
 

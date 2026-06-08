@@ -19,9 +19,12 @@ slugs:
   - intlayer
   - getLocaleName
 history:
+  - version: 7.5.0
+    date: 2025-12-18
+    changes: "React Native ve eski ortamlar için polyfills ekle"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Geçmiş başlatıldı
+    changes: "Geçmiş başlatıldı"
 ---
 
 # Dokümantasyon: `intlayer` Paketinde `getLocaleName` Fonksiyonu
@@ -47,50 +50,8 @@ history:
 
 ## Kullanım Örneği
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, getLocaleName } from "intlayer";
-
-getLocaleName(Locales.ENGLISH); // Çıktı: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // Çıktı: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // Çıktı: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // Çıktı: "English"
-
-getLocaleName(Locales.FRENCH); // Çıktı: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // Çıktı: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // Çıktı: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // Çıktı: "French"
-
-getLocaleName(Locales.CHINESE); // Çıktı: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // Çıktı: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Çıktı: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Çıktı: "Chinese"
-
-getLocaleName("unknown-locale"); // Çıktı: "Unknown locale"
-```
-
-```javascript codeFormat="esm"
-import { Locales, getLocaleName } from "intlayer";
-
-getLocaleName(Locales.ENGLISH); // Çıktı: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // Çıktı: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // Çıktı: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // Çıktı: "English"
-
-getLocaleName(Locales.FRENCH); // Çıktı: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // Çıktı: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // Çıktı: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // Çıktı: "French"
-
-getLocaleName(Locales.CHINESE); // Çıktı: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // Çıktı: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Çıktı: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Çıktı: "Chinese"
-
-getLocaleName("unknown-locale"); // Çıktı: "Unknown locale"
-```
-
-```javascript codeFormat="commonjs"
-const { Locales, getLocaleName } = require("intlayer");
 
 getLocaleName(Locales.ENGLISH); // Çıktı: "English"
 getLocaleName(Locales.ENGLISH, Locales.FRENCH); // Çıktı: "Anglais"
@@ -116,3 +77,17 @@ getLocaleName("unknown-locale"); // Çıktı: "Unknown locale"
   - Fonksiyon varsayılan olarak `displayLocale`'un kendi adını döndürür.
 - **Eksik çeviriler:**
   - `localeNameTranslations` `targetLocale` veya belirli `displayLocale` için bir giriş içermezse, fonksiyon `ownLocalesName`'e geri döner veya `"Unknown locale"` döndürür.
+
+## React Native ve Eski Ortamlar için Polyfills
+
+`getLocaleName` fonksiyonu `Intl.DisplayNames` API'sine bağımlıdır ve bu API React Native veya eski JavaScript ortamlarında mevcut değildir. Bu ortamlarda `getLocaleName` kullanıyorsanız, polyfills eklemeniz gerekir.
+
+Polyfills'i uygulamanızın başında, tercihen giriş noktası dosyanızda (örneğin, `index.js`, `App.tsx` veya `main.tsx`) içe aktarın:
+
+```typescript
+import "intl";
+import "@formatjs/intl-locale/polyfill";
+import "@formatjs/intl-displaynames/polyfill";
+```
+
+Daha fazla ayrıntı için [FormatJS polyfills belgelerine](https://formatjs.io/docs/polyfills/intl-displaynames/) bakın.

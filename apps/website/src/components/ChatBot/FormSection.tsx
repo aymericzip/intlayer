@@ -1,8 +1,14 @@
-import { Form, useForm } from '@intlayer/design-system';
-import { cn } from '@utils/cn';
+import { Form, useForm } from '@intlayer/design-system/form';
+import { cn } from '@intlayer/design-system/utils';
 import { ArrowUp, Eraser } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
-import { type FC, type ReactNode, useCallback, useEffect, useRef } from 'react';
+import {
+  type FC,
+  type KeyboardEvent,
+  type ReactNode,
+  useEffect,
+  useRef,
+} from 'react';
 import {
   type FormSectionSchemaData,
   useFormSectionSchema,
@@ -10,39 +16,46 @@ import {
 
 type FormSectionProps = {
   nbMessages: number;
+  userMessages: string[];
   askNewQuestion: (newQuestion: string) => void;
   clear: () => void;
   additionalButtons?: ReactNode;
   isActive?: boolean;
+  isLoading?: boolean;
 };
 
 export const FormSection: FC<FormSectionProps> = ({
   nbMessages,
+  userMessages = [],
   askNewQuestion,
   clear,
   additionalButtons,
   isActive,
+  isLoading,
 }) => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const schema = useFormSectionSchema();
   const { form, isSubmitting } = useForm(schema);
   const { sendQuestionButton, clearButton, textArea } =
     useIntlayer('chat-form-section');
+  const historyIndexRef = useRef<number>(-1);
+  const draftRef = useRef<string>('');
 
-  const handleSubmit = useCallback(
-    (data: FormSectionSchemaData) => {
-      if (!data.question) return;
+  const handleSubmit = (data: FormSectionSchemaData) => {
+    if (!data.question) return;
 
-      askNewQuestion(data.question);
-      form.reset({ question: '' });
-    },
-    [askNewQuestion, form.reset]
-  );
+    askNewQuestion(data.question);
+    form.reset({ question: '' });
+    historyIndexRef.current = -1;
+    draftRef.current = '';
+  };
 
-  const handleClear = useCallback(() => {
+  const handleClear = () => {
     clear();
     form.reset({ question: '' });
-  }, [clear, form.reset]);
+    historyIndexRef.current = -1;
+    draftRef.current = '';
+  };
 
   const hasClearButton = nbMessages >= 1;
 
@@ -56,6 +69,67 @@ export const FormSection: FC<FormSectionProps> = ({
 
     return () => clearTimeout(timeoutId);
   }, [isActive]);
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      if (!isSubmitting && !isLoading) {
+        form.handleSubmit(handleSubmit)();
+      }
+      return;
+    }
+
+    const { value } = e.currentTarget;
+
+    if (e.key === 'ArrowUp') {
+      if (userMessages.length === 0) return;
+      e.preventDefault();
+
+      let nextIndex: number;
+      if (historyIndexRef.current === -1) {
+        draftRef.current = value;
+        nextIndex = userMessages.length - 1;
+      } else if (historyIndexRef.current > 0) {
+        nextIndex = historyIndexRef.current - 1;
+      } else {
+        return;
+      }
+
+      historyIndexRef.current = nextIndex;
+      form.setValue('question', userMessages[nextIndex]);
+      requestAnimationFrame(() => {
+        if (inputRef.current) {
+          inputRef.current.selectionStart = userMessages[nextIndex].length;
+          inputRef.current.selectionEnd = userMessages[nextIndex].length;
+        }
+      });
+    } else if (e.key === 'ArrowDown' && historyIndexRef.current !== -1) {
+      e.preventDefault();
+
+      if (historyIndexRef.current === userMessages.length - 1) {
+        historyIndexRef.current = -1;
+        const draft = draftRef.current;
+        form.setValue('question', draft);
+        requestAnimationFrame(() => {
+          if (inputRef.current) {
+            inputRef.current.selectionStart = draft.length;
+            inputRef.current.selectionEnd = draft.length;
+          }
+        });
+      } else {
+        const nextIndex = historyIndexRef.current + 1;
+        historyIndexRef.current = nextIndex;
+        const msg = userMessages[nextIndex];
+        form.setValue('question', msg);
+        requestAnimationFrame(() => {
+          if (inputRef.current) {
+            inputRef.current.selectionStart = msg.length;
+            inputRef.current.selectionEnd = msg.length;
+          }
+        });
+      }
+    }
+  };
 
   return (
     <Form
@@ -71,18 +145,10 @@ export const FormSection: FC<FormSectionProps> = ({
         maxRows={10}
         placeholder={textArea.placeholder.value}
         aria-label={textArea.label.value}
-        autoFocus={isActive}
-        onKeyDown={
-          // Submit the form when the user presses the Enter key
-          (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-              e.preventDefault();
-              handleSubmit(form.getValues());
-            }
-          }
-        }
+        onKeyDown={handleKeyDown}
+        disabled={isLoading}
       />
-      <div className="ml-auto flex items-center justify-between gap-2 max-md:w-full">
+      <div className="ml-auto flex items-center justify-end gap-2 max-md:w-full">
         {additionalButtons}
 
         <Form.Button
@@ -91,7 +157,7 @@ export const FormSection: FC<FormSectionProps> = ({
           color="text"
           variant="outline"
           size="icon-md"
-          disabled={isSubmitting || !hasClearButton}
+          disabled={isSubmitting || isLoading || !hasClearButton}
           Icon={Eraser}
           onClick={handleClear}
           className={cn(!hasClearButton && 'opacity-0')}
@@ -101,7 +167,7 @@ export const FormSection: FC<FormSectionProps> = ({
           label={sendQuestionButton.label.value}
           type="submit"
           color="text"
-          isLoading={isSubmitting}
+          isLoading={isSubmitting || isLoading}
           Icon={ArrowUp}
           size="icon-md"
         />

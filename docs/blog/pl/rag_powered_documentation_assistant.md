@@ -99,7 +99,7 @@ Ten kompromis (rozmiar fragmentu vs nakładanie) jest kluczowy dla efektywności
 
 ## Krok 3: Generowanie embeddingów
 
-Gdy dokumenty są podzielone na fragmenty, generujemy **embeddingi** — wektory o wysokim wymiarze reprezentujące każdy fragment.
+Gdy dokumenty są podzielone na fragmenty, generujemy **embeddingi**, wektory o wysokim wymiarze reprezentujące każdy fragment.
 
 Użyłem modelu OpenAI text-embedding-3-large, ale można użyć dowolnego nowoczesnego modelu embeddingowego.
 

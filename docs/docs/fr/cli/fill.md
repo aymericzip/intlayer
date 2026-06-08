@@ -20,17 +20,66 @@ slugs:
 
 # Remplir / auditer / traduire les dictionnaires
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill
 ```
 
+```bash packageManager="yarn"
+yarn intlayer fill
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill
+```
+
+```bash packageManager="bun"
+bun x intlayer fill
+```
+
 Cette commande analyse vos fichiers de déclaration de contenu pour détecter d’éventuels problèmes tels que des traductions manquantes, des incohérences structurelles ou des incompatibilités de types. Si elle trouve des problèmes, **intlayer fill** proposera ou appliquera des mises à jour pour garder vos dictionnaires cohérents et complets.
+
+Points clés :
+
+- Divise les grands fichiers JSON en morceaux pour rester dans les limites de la fenêtre de contexte du modèle d'IA.
+- Réessaie la traduction si le format de sortie est incorrect.
+- Intègre le contexte spécifique à l'application et au fichier pour améliorer la précision de la traduction.
+- Préserve les traductions existantes en ne les écrasant pas.
+- Traite les fichiers, les morceaux et les locales en parallèle à l'aide d'un système de file d'attente pour augmenter la vitesse.
 
 ## Alias :
 
 - `npx intlayer dictionaries fill`
 - `npx intlayer dictionary fill`
 - `npx intlayer dic fill`
+
+## Exemples de sortie :
+
+```bash
+npx intlayer fill
+
+Preparing Intlayer (v7.5.14)
+Done 76ms
+@intlayer/ai found - Run process locally
+Provider: (default) - Model: (default) - API Key: ✓
+Affected dictionary keys for processing: app, comp-test, hello-world, lang-switcher
+ - [comp-test]      No locales to fill, Skipping comp-test.content.json
+ - [app]            Processing app.content.tsx
+ - [app]            Filling missing metadata for app.content.tsx
+ - [hello-world]    Processing test.content.ts
+ - [hello-world]   [French (fr)]      Preparing test.content.ts
+ - [hello-world]   [Spanish (es)]     Preparing test.content.ts
+ - [lang-switcher]  Processing langSwitcher.content.ts
+ - [lang-switcher]  Filling missing metadata for langSwitcher.content.ts
+ - [hello-world]    Translation completed successfully for test.content.ts
+ - [lang-switcher] [Spanish (es)]     Preparing langSwitcher.content.ts
+ - [app]           [French (fr)]      Preparing app.content.tsx
+ - [app]           [Spanish (es)]     Preparing app.content.tsx
+ - [hello-world]    Content declaration written to test.content.ts
+ - [app]            Translation completed successfully for app.content.tsx
+ - [app]            Content declaration written to app.content.tsx
+ - [lang-switcher]  Translation completed successfully for langSwitcher.content.ts
+ - [lang-switcher]  Content declaration written to langSwitcher.content.ts
+```
 
 ## Arguments :
 
@@ -89,6 +138,7 @@ Cette commande analyse vos fichiers de déclaration de contenu pour détecter d�
 - **`--api-key [apiKey]`** : Fournir votre propre clé API pour le service d’IA.
 - **`--custom-prompt [prompt]`** : Fournir une invite personnalisée pour vos instructions de traduction.
 - **`--application-context [applicationContext]`** : Fournir un contexte supplémentaire pour la traduction par IA.
+- **`--data-serialization [dataSerialization]`** : Le format de sérialisation des données à utiliser pour les fonctionnalités d'IA d'Intlayer. Options : `json` (standard, fiable), `toon` (moins de tokens, moins cohérent).
 
   > Exemple : `npx intlayer fill --model gpt-3.5-turbo --provider openai --temperature 0.5 --api-key sk-1234567890 --application-context "Mon application est une boutique de chats"`
 
@@ -123,8 +173,20 @@ Cette commande analyse vos fichiers de déclaration de contenu pour détecter d�
 
 ## Exemple :
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
 ```
 
 Cette commande traduira le contenu de l’anglais vers le français et l’espagnol pour tous les fichiers de déclaration de contenu dans le répertoire `src/home/` en utilisant le modèle GPT-3.5 Turbo.

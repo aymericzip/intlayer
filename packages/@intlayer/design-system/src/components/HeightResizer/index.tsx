@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@utils/cn';
 import type React from 'react';
 import {
   type DetailedHTMLProps,
@@ -11,7 +12,8 @@ import {
   useRef,
   useState,
 } from 'react';
-import { cn } from '../../utils/cn';
+
+const HANDLE_DOUBLE_CLICK_ZONE_PX = 16;
 
 /**
  * Props for the HeightResizer component
@@ -40,6 +42,11 @@ type HeightResizerProps = {
    * @example 50
    */
   minHeight?: number;
+  /**
+   * Disable the resizer. When true, it behaves as a normal static container without drag handle or resizing capability.
+   * @default false
+   */
+  isDisabled?: boolean;
 } & DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
 /**
@@ -114,6 +121,7 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
   initialHeight,
   maxHeight,
   minHeight = 0,
+  isDisabled = false,
   children,
   className,
   ...props
@@ -121,6 +129,7 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(initialHeight);
   const [isResizing, setIsResizing] = useState(false);
+  const lastExpandedHeightRef = useRef(initialHeight);
 
   /**
    * Handler to initiate the resizing process
@@ -134,10 +143,11 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
         | React.MouseEvent<HTMLDivElement>
         | React.TouchEvent<HTMLDivElement>
     ) => {
+      if (isDisabled) return;
       setIsResizing(true);
       mouseDownEvent.preventDefault();
     },
-    []
+    [isDisabled]
   );
 
   /**
@@ -188,6 +198,8 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
    * Handles both mouse and touch events with proper cleanup
    */
   useEffect(() => {
+    if (isDisabled) return;
+
     window.addEventListener('mousemove', resize, { passive: true });
     window.addEventListener('mouseup', stopResizing);
     window.addEventListener('touchmove', resize, { passive: true });
@@ -199,33 +211,81 @@ export const HeightResizer: FC<PropsWithChildren<HeightResizerProps>> = ({
       window.removeEventListener('touchmove', resize);
       window.removeEventListener('touchend', stopResizing);
     };
-  }, [resize, stopResizing]);
+  }, [resize, stopResizing, isDisabled]);
+
+  useEffect(() => {
+    if (height > minHeight) {
+      lastExpandedHeightRef.current = height;
+    }
+  }, [height, minHeight]);
+
+  const handleDoubleClick = useCallback(
+    (event: React.MouseEvent<HTMLDivElement>) => {
+      const el = containerRef.current;
+      if (!el) return;
+
+      const { top } = el.getBoundingClientRect();
+      if (event.clientY - top > HANDLE_DOUBLE_CLICK_ZONE_PX) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (isDisabled) return;
+
+      if (height > minHeight) {
+        setHeight(minHeight);
+        return;
+      }
+
+      const capped =
+        maxHeight !== undefined
+          ? Math.min(lastExpandedHeightRef.current, maxHeight)
+          : lastExpandedHeightRef.current;
+      setHeight(Math.max(capped, minHeight));
+    },
+    [height, maxHeight, minHeight, isDisabled]
+  );
 
   return (
     <div
       className={cn(
-        'relative h-full max-h-[80%] w-full cursor-ns-resize border-neutral-200 border-t-[2px] transition dark:border-neutral-950',
-        'before:-translate-y-1/2 before:-translate-x-1/2 before:absolute before:top-0 before:left-1/2 before:z-10 before:block before:h-2 before:w-10 before:transform before:cursor-ns-resize before:rounded-full before:bg-neutral-200 before:transition before:content-[""] dark:before:bg-neutral-950',
-        'active:border-neutral-400 active:before:bg-neutral-400 dark:active:border-neutral-600 active:dark:before:bg-neutral-600',
+        'relative h-full w-full transition',
+        !isDisabled &&
+          'max-h-[80%] cursor-ns-resize border-neutral-200 border-t-[2px] dark:border-neutral-950',
+        !isDisabled &&
+          'before:absolute before:top-0 before:left-1/2 before:z-10 before:block before:h-2 before:w-10 before:-translate-x-1/2 before:-translate-y-1/2 before:transform before:cursor-ns-resize before:rounded-full before:bg-neutral-200 before:transition before:content-[""] dark:before:bg-neutral-950',
+        !isDisabled &&
+          'active:border-neutral-400 active:before:bg-neutral-400 dark:active:border-neutral-600 active:dark:before:bg-neutral-600',
         className
       )}
       style={{
-        height: `${height}px`,
-        maxHeight: maxHeight ? `${maxHeight}px` : undefined,
-        minHeight: `${minHeight}px`,
+        height: isDisabled ? '100%' : `${height}px`,
+        maxHeight: isDisabled
+          ? '100%'
+          : maxHeight
+            ? `${maxHeight}px`
+            : undefined,
+        minHeight: isDisabled ? undefined : `${minHeight}px`,
       }}
       ref={containerRef}
-      onMouseDown={startResizing}
-      onTouchStart={startResizing}
-      aria-valuemin={minHeight}
-      aria-valuemax={maxHeight}
-      aria-valuenow={height}
-      aria-label="Resizable component - drag the handle to adjust height"
-      role="slider"
-      tabIndex={0}
+      onMouseDown={isDisabled ? undefined : startResizing}
+      onTouchStart={isDisabled ? undefined : startResizing}
+      onDoubleClick={isDisabled ? undefined : handleDoubleClick}
+      aria-valuemin={isDisabled ? undefined : minHeight}
+      aria-valuemax={isDisabled ? undefined : maxHeight}
+      aria-valuenow={isDisabled ? undefined : height}
+      aria-label={
+        isDisabled
+          ? undefined
+          : 'Resizable component - drag the handle to adjust height'
+      }
+      role={isDisabled ? 'none' : 'slider'}
+      tabIndex={isDisabled ? undefined : 0}
       {...props}
     >
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: Stops content clicks from triggering resize on the parent slider */}
       <div
+        role="presentation"
         className="absolute top-0 left-0 size-full cursor-default overflow-hidden"
         onMouseDown={(e) => e.stopPropagation()}
         onTouchStart={(e) => e.stopPropagation()}

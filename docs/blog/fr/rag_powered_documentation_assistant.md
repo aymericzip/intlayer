@@ -95,7 +95,7 @@ Ce compromis (taille des chunks vs chevauchement) est essentiel pour l'efficacit
 
 ## Étape 3 : Génération des embeddings
 
-Une fois les documents découpés en chunks, nous générons des **embeddings** — des vecteurs de haute dimension représentant chaque chunk.
+Une fois les documents découpés en chunks, nous générons des **embeddings**, des vecteurs de haute dimension représentant chaque chunk.
 
 J'ai utilisé le modèle text-embedding-3-large d'OpenAI, mais vous pouvez utiliser n'importe quel modèle d'embedding moderne.
 

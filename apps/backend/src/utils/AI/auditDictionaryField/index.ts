@@ -1,11 +1,17 @@
-import { readAsset } from 'utils:asset';
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { AIConfig, AIOptions } from '@intlayer/ai';
 import { generateText } from '@intlayer/ai';
-import { getLocaleName } from '@intlayer/core';
-import type { KeyPath } from '@intlayer/types';
-import { type Locale, Locales } from '@intlayer/types';
+import { getLocaleName } from '@intlayer/core/localization';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import * as Locales from '@intlayer/types/locales';
 import { logger } from '@logger';
 import type { Tag } from '@/types/tag.types';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export type AuditDictionaryFieldOptions = {
   fileContent: string;
@@ -22,7 +28,7 @@ export type AuditDictionaryFieldResultData = {
 };
 
 // The prompt template to send to the AI model
-const CHAT_GPT_PROMPT = readAsset('./PROMPT.md');
+const CHAT_GPT_PROMPT = readFileSync(join(__dirname, './PROMPT.md'), 'utf-8');
 
 export const aiDefaultOptions: AIOptions = {
   // Keep default options
@@ -78,6 +84,16 @@ export const auditDictionaryField = async ({
     .replace('{{applicationContext}}', applicationContext ?? '')
     .replace('{{tagsInstructions}}', formatTagInstructions(tags));
 
+  console.log({
+    prompt,
+    fileContent,
+    applicationContext,
+    locales,
+    keyPath,
+    tags,
+    aiConfig,
+  });
+
   if (!aiConfig) {
     logger.error('Failed to configure AI model');
     return undefined;
@@ -86,8 +102,8 @@ export const auditDictionaryField = async ({
   // Use the AI SDK to generate the completion
   const { text: newContent, usage } = await generateText({
     ...aiConfig,
+    system: prompt,
     messages: [
-      { role: 'system', content: prompt },
       {
         role: 'user',
         content: ['**File to Audit:**', fileContent].join('\n'),

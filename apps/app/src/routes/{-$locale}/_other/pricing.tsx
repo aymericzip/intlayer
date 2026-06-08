@@ -1,0 +1,101 @@
+import type { GetPricingResult } from '@intlayer/backend';
+import { App_Pricing, Website_Home } from '@intlayer/design-system/routes';
+import { createFileRoute } from '@tanstack/react-router';
+import {
+  defaultLocale,
+  getIntlayer,
+  getLocalizedUrl,
+  localeMap,
+} from 'intlayer';
+import { Suspense } from 'react';
+import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
+import { ProductHeader } from '#/structuredData/ProductHeader';
+import { BackgroundLayout } from '#components/BackgroundLayout';
+import { PricingPage as PricingPageContent } from '#components/PricingPage';
+import { PricingSkeleton } from '#components/PricingPage/PricingSkeleton';
+import { getPricingData } from '#utils/stripe';
+
+type PricingSearch = {
+  ref?: string;
+  promoCode?: string;
+};
+
+export const Route = createFileRoute('/{-$locale}/_other/pricing')({
+  loader: async () => {
+    const pricingData = await getPricingData();
+    return { pricingData };
+  },
+  validateSearch: (search: Record<string, unknown>): PricingSearch => ({
+    ref:
+      typeof search.ref === 'string'
+        ? search.ref.trim().toUpperCase()
+        : undefined,
+    promoCode:
+      typeof search.promoCode === 'string' ? search.promoCode : undefined,
+  }),
+  component: PricingPage,
+  head: ({ params }) => {
+    const { locale } = params;
+    const path = App_Pricing;
+    const content = getIntlayer('pricing-page', locale);
+
+    return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: 'canonical', href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: 'alternate',
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: 'alternate',
+          hrefLang: 'x-default',
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
+      meta: [
+        { title: content.metadata.title },
+        {
+          name: 'description',
+          content: content.metadata.description,
+        },
+      ],
+    };
+  },
+});
+
+function PricingPage() {
+  const { pricingData } = Route.useLoaderData();
+  const { locale } = Route.useParams();
+
+  if (!pricingData) return null;
+
+  return (
+    <BackgroundLayout>
+      <BreadcrumbsHeader
+        breadcrumbs={[
+          {
+            name: 'Intlayer',
+            url: getLocalizedUrl(Website_Home, locale),
+          },
+          {
+            name: 'Pricing',
+            url: getLocalizedUrl(App_Pricing, locale),
+          },
+        ]}
+      />
+      <ProductHeader pricings={pricingData as GetPricingResult['data']} />
+      <Suspense fallback={<PricingSkeleton />}>
+        <PricingPageContent
+          pricings={pricingData as GetPricingResult['data']}
+        />
+      </Suspense>
+    </BackgroundLayout>
+  );
+}

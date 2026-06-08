@@ -17,8 +17,20 @@ slugs:
 
 # Тестирование отсутствующих переводов
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 ## Псевдонимы:
@@ -69,8 +81,20 @@ Missing translations:
 
 ## Пример:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 Вывод помогает быстро определить, какие переводы необходимо завершить, чтобы ваше приложение корректно работало во всех настроенных локалях.

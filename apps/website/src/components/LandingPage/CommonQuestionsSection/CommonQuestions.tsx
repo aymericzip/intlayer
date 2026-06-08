@@ -1,33 +1,32 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import { Container, MaxHeightSmoother } from '@intlayer/design-system';
-import { cn } from '@utils/cn';
+import { Container } from '@intlayer/design-system/container';
+import { MaxHeightSmoother } from '@intlayer/design-system/max-height-smoother';
+import { Website_FrequentQuestions_Path } from '@intlayer/design-system/routes';
+import { cn } from '@intlayer/design-system/utils';
 import { ArrowRight } from 'lucide-react';
 import { type IntlayerNode, useIntlayer } from 'next-intlayer';
-import { type FC, useEffect, useState } from 'react';
-import { PagesRoutes } from '@/Routes';
+import { type FC, useMemo, useSyncExternalStore } from 'react';
 
 const QuestionItem: FC<{
   question: IntlayerNode;
   answer: IntlayerNode;
-  callToAction: { label: IntlayerNode; url: IntlayerNode };
+  callToAction?: { label: IntlayerNode; url: IntlayerNode };
   numberOfColumns: number;
 }> = ({ question, answer, callToAction, numberOfColumns }) => {
-  const [minHeight, setMinHeight] = useState<number>(100);
-
-  useEffect(() => {
+  // Deterministic minHeight based on question length and column count
+  // This avoids random values and hydration mismatches
+  const minHeight = useMemo(() => {
+    const seed = question.value.length;
     if (numberOfColumns > 2) {
-      // Generate random minHeight only on the client after mount.
-      setMinHeight(Math.random() * 150 + 75);
-    } else if (numberOfColumns === 2) {
-      // Generate random minHeight only on the client after mount.
-      setMinHeight(Math.random() * 50 + 100);
-    } else {
-      // Generate random minHeight only on the client after mount.
-      setMinHeight(90);
+      return (seed % 150) + 75;
     }
-  }, [numberOfColumns]);
+    if (numberOfColumns === 2) {
+      return (seed % 50) + 100;
+    }
+    return 90;
+  }, [numberOfColumns, question.value]);
 
   return (
     <Container
@@ -102,25 +101,19 @@ const distributeItemsIntoColumns = <T,>(
 // Custom hook to determine the number of columns based on window width.
 // You can tweak the breakpoints as needed.
 const useResponsiveColumns = (): number => {
-  const [columns, setColumns] = useState(2);
-
-  useEffect(() => {
-    const updateColumns = () => {
+  return useSyncExternalStore(
+    (callback) => {
+      window.addEventListener('resize', callback);
+      return () => window.removeEventListener('resize', callback);
+    },
+    () => {
       const width = window.innerWidth;
-      if (width < 600) {
-        setColumns(1);
-      } else if (width < 1024) {
-        setColumns(2);
-      } else {
-        setColumns(3);
-      }
-    };
-    updateColumns();
-    window.addEventListener('resize', updateColumns, { passive: true });
-    return () => window.removeEventListener('resize', updateColumns);
-  }, []);
-
-  return columns;
+      if (width < 600) return 1;
+      if (width < 1024) return 2;
+      return 3;
+    },
+    () => 2
+  );
 };
 
 export const CommonQuestionsSection: FC = () => {
@@ -131,7 +124,7 @@ export const CommonQuestionsSection: FC = () => {
   const numberOfColumns = useResponsiveColumns();
 
   // Distribute the content items into columns.
-  const columns = distributeItemsIntoColumns(content, numberOfColumns);
+  const columns = distributeItemsIntoColumns(content as any[], numberOfColumns);
 
   return (
     <section className="m-auto flex w-full max-w-6xl flex-col items-center justify-center">
@@ -143,7 +136,10 @@ export const CommonQuestionsSection: FC = () => {
         className="my-3 flex w-full flex-row items-start justify-center gap-x-6"
       >
         {columns.map((column, colIndex) => (
-          <div key={colIndex} className="flex flex-col gap-6">
+          <div
+            key={column[0]?.question.value ?? `column-${colIndex}`}
+            className="flex flex-col gap-6"
+          >
             {column.map((props) => (
               <QuestionItem
                 key={props.question.value}
@@ -156,7 +152,7 @@ export const CommonQuestionsSection: FC = () => {
       </div>
 
       <Link
-        href={PagesRoutes.FrequentQuestions}
+        href={Website_FrequentQuestions_Path}
         label={allFrequentQuestionLink.label.value}
         color="text"
         variant="button"

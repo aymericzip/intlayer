@@ -36,6 +36,7 @@ const injectReactPlugin = () => ({
 const options: UserConfig[] = getOptions({
   all: {
     platform: 'neutral',
+    unbundle: true,
     plugins: [
       svgr({
         // Good defaults for a design system

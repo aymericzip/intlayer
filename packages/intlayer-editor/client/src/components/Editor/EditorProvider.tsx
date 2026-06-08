@@ -1,6 +1,6 @@
 'use client';
 
-import { Loader } from '@intlayer/design-system';
+import { Loader } from '@intlayer/design-system/loader';
 import { EditorProvider as EditorProviderComponent } from '@intlayer/editor-react';
 import type { FC, PropsWithChildren, RefObject } from 'react';
 import { useIntlayerConfig } from '../../hooks/useIntlayerConfig';
@@ -14,32 +14,21 @@ export const EditorProvider: FC<
   }>
 > = ({ children, iframeRef }) => {
   const intlayerConfig = useIntlayerConfig();
-  const applicationURL = intlayerConfig?.editor.applicationURL
-    ? intlayerConfig?.editor.applicationURL
-    : '*';
-  const editorURL = intlayerConfig?.editor.editorURL ?? '*';
+  const applicationURL = intlayerConfig?.editor.applicationURL;
 
   if (!intlayerConfig) return <Loader />;
 
   return (
     <EditorProviderComponent
       postMessage={(data) => {
-        window?.postMessage(
-          data,
-          // Use to restrict the origin of the editor for security reasons.
-          // Correspond to the current editor URL.
-          editorURL
-        );
-
         iframeRef.current?.contentWindow?.postMessage(
           data,
           // Use to restrict the origin of the editor for security reasons.
           // Correspond to the current editor URL.
-          applicationURL
+          applicationURL!
         );
       }}
-      allowedOrigins={[applicationURL, editorURL]}
-      mode="editor"
+      allowedOrigins={[applicationURL!]}
       configuration={intlayerConfig}
     >
       {children}

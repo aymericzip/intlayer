@@ -1,62 +1,82 @@
-import type { NodeProps } from '@intlayer/core';
+import type { NodeProps } from '@intlayer/core/interpreter';
+import type { ResolvedEditor } from '@intlayer/types/module_augmentation';
 import type { JSX, ParentProps } from 'solid-js';
+import { isArrayIndexProperty, PROXY_RESERVED_KEYS } from './proxyKeys';
 
 export type IntlayerNode<
   T = NodeProps['children'],
-  AdditionalProps = {},
-> = JSX.Element & {
+  AdditionalProps = Record<string, never>,
+> = ResolvedEditor<T, JSX.Element> & {
   value: T;
-} & AdditionalProps;
+} & AdditionalProps &
+  T;
 
 type RenderIntlayerNodeProps<T> = ParentProps<{
   value: T;
   children: JSX.Element;
-  additionalProps?: { [key: string]: any };
+  additionalProps?: Record<string, unknown>;
 }>;
 
-export const renderIntlayerNode = <
-  T extends number | string | boolean | undefined | null,
->({
+type IntlayerNodeTarget<T> = JSX.Element[] & {
+  value: T;
+  [key: string]: unknown;
+};
+
+export const renderIntlayerNode = <T,>({
   children,
   value,
   additionalProps,
 }: RenderIntlayerNodeProps<T>): IntlayerNode<T> => {
-  // In Solid.js, we handle JSX.Element differently than other frameworks
-  // We need to ensure we have a valid element or wrap in a fragment
-  const element = <>{children}</>;
+  // Solid renders arrays, so wrap children in one and hang metadata off it.
+  const target = [children] as IntlayerNodeTarget<T>;
 
-  // Ensure we have an object to proxy
-  // If element is a primitive, we need to wrap it in an object
-  const target =
-    typeof element === 'object' && element !== null
-      ? element
-      : { __element: element };
+  target.value = value;
 
-  // Return a Proxy that pretends to be the original element
-  // but also has a .value getter.
-  return new Proxy(target as any, {
+  if (additionalProps) {
+    for (const key in additionalProps) {
+      target[key] = additionalProps[key];
+    }
+  }
+
+  // Proxy so `.value`, coercion hooks, etc. resolve to the content while the
+  // target stays a renderable array.
+  return new Proxy(target, {
     get(target, prop, receiver) {
-      if (prop === 'value') {
+      if (prop === PROXY_RESERVED_KEYS.value) {
         return value;
       }
 
-      if (
-        additionalProps &&
-        Object.keys(additionalProps).includes(prop as string)
-      ) {
-        return additionalProps[prop as keyof typeof additionalProps];
+      if (prop === Symbol.toPrimitive)
+        return (hint: string) => {
+          if (hint === 'number') return Number(value);
+          return value ?? '';
+        };
+      if (prop === PROXY_RESERVED_KEYS.toString)
+        return () => String(value ?? '');
+      if (prop === PROXY_RESERVED_KEYS.valueOf) return () => value;
+
+      // Solid's server renderer calls Array#slice on renderable arrays. Keep
+      // that operation bound to the wrapper [children] array.
+      if (prop === PROXY_RESERVED_KEYS.slice) {
+        return Reflect.get(target, prop, receiver);
       }
 
-      // If we wrapped a primitive, return the primitive for most accesses
       if (
-        '__element' in target &&
-        prop !== 'value' &&
-        !additionalProps?.[prop as string]
+        value !== null &&
+        value !== undefined &&
+        typeof prop === 'string' &&
+        prop !== PROXY_RESERVED_KEYS.constructor &&
+        prop !== PROXY_RESERVED_KEYS.length &&
+        !isArrayIndexProperty(prop)
       ) {
-        return target.__element;
+        const valObj = Object(value);
+        if (prop in valObj) {
+          const valProp = Reflect.get(valObj, prop);
+          return typeof valProp === 'function' ? valProp.bind(value) : valProp;
+        }
       }
 
       return Reflect.get(target, prop, receiver);
     },
-  }) as IntlayerNode<T>;
+  }) as unknown as IntlayerNode<T>;
 };

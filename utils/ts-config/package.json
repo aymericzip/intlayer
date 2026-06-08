@@ -5,10 +5,11 @@
   "description": "",
   "license": "ISC",
   "author": "",
+  "sideEffects": false,
   "main": "./tsconfig.json",
   "module": "./tsconfig.json",
   "scripts": {},
   "devDependencies": {
-    "typescript": "5.9.3"
+    "typescript": "6.0.3"
   }
 }

@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historial inicial
+    changes: "Historial inicial"
 ---
 
 # next-intlayer: Paquete NPM para internacionalizar (i18n) una aplicación Next.js
@@ -53,15 +53,20 @@ yarn add next-intlayer
 pnpm add next-intlayer
 ```
 
+```bash packageManager="bun"
+bun add next-intlayer
+bun x intlayer init
+```
+
 ## Ejemplo de uso
 
 Con Intlayer, puedes declarar tu contenido de manera estructurada en cualquier parte de tu base de código.
 
-Por defecto, Intlayer busca archivos con la extensión `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`.
+Por defecto, Intlayer busca archivos con la extensión `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`.
 
 > Puedes modificar la extensión por defecto configurando la propiedad `contentDir` en el [archivo de configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
 
-```bash codeFormat="typescript"
+```bash codeFormat={["typescript", "esm", "commonjs"]}
 .
 ├── intlayer.config.ts
 └── src
@@ -72,32 +77,6 @@ Por defecto, Intlayer busca archivos con la extensión `.content.{json,ts,tsx,js
         └── ServerComponent
             ├── index.content.ts
             └── index.tsx
-```
-
-```bash codeFormat="esm"
-.
-├── intlayer.config.mjs
-└── src
-    └── components
-        ├── ClientComponent
-        │   ├── index.content.mjs
-        │   └── index.mjx
-        └── ServerComponent
-            ├── index.content.mjs
-            └── index.mjx
-```
-
-```bash codeFormat="commonjs"
-.
-├── intlayer.config.cjs
-└── src
-    └── components
-        ├── ClientComponent
-        │   ├── index.content.cjs
-        │   └── index.cjx
-        └── ServerComponent
-            ├── index.content.cjs
-            └── index.cjx
 ```
 
 ### Declara tu contenido
@@ -131,58 +110,6 @@ const clientComponentContent = {
 export default clientComponentContent;
 ```
 
-```jsx fileName="src/ClientComponent/index.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const clientComponentContent = {
-  key: "client-component",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-    numberOfCar: enu({
-      "<-1": "Menos que menos un coche",
-      "-1": "Menos un coche",
-      "0": "Sin coches",
-      "1": "Un coche",
-      ">5": "Algunos coches",
-      ">19": "Muchos coches",
-    }),
-  },
-};
-
-export default clientComponentContent;
-```
-
-```jsx fileName="src/ClientComponent/index.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const clientComponentContent = {
-  key: "client-component",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-    numberOfCar: enu({
-      "<-1": "Menos que menos un coche",
-      "-1": "Menos un coche",
-      "0": "Sin coches",
-      "1": "Un coche",
-      ">5": "Algunos coches",
-      ">19": "Muchos coches",
-    }),
-  },
-};
-
-module.exports = clientComponentContent;
-```
-
 ```json fileName="src/ClientComponent/index.content.json" codeFormat="json"
 {
   "key": "client-component",
@@ -214,45 +141,13 @@ module.exports = clientComponentContent;
 
 Una vez que hayas declarado tu contenido, puedes usarlo en tu código. Aquí tienes un ejemplo de cómo usar el contenido en un componente React:
 
-```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat="typescript"
+```tsx {4,7} fileName="src/components/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
 import type { FC } from "react";
 import { useIntlayer } from "next-intlayer";
 
 export const ClientComponentExample: FC = () => {
-  const { myTranslatedContent } = useIntlayer("client-component"); // Crear declaración de contenido relacionada
-
-  return (
-    <div>
-      <p>{myTranslatedContent}</p>
-    </div>
-  );
-};
-```
-
-```jsx {3,6} fileName="src/components/ClientComponentExample.mjx" codeFormat="esm"
-"use client";
-
-import { useIntlayer } from "next-intlayer";
-
-const ClientComponentExample = () => {
-  const { myTranslatedContent } = useIntlayer("client-component"); // Crear declaración de contenido relacionada
-
-  return (
-    <div>
-      <p>{myTranslatedContent}</p>
-    </div>
-  );
-};
-```
-
-```jsx {3,6} fileName="src/components/ClientComponentExample.csx" codeFormat="commonjs"
-"use client";
-
-const { useIntlayer } = require("next-intlayer");
-
-const ClientComponentExample = () => {
   const { myTranslatedContent } = useIntlayer("client-component"); // Crear declaración de contenido relacionada
 
   return (

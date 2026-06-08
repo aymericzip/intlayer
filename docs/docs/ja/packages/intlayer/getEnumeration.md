@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴の初期化
+    changes: "履歴の初期化"
 ---
 
 # ドキュメント: `intlayer` の `getEnumeration` 関数
@@ -33,13 +33,11 @@ history:
 ## パラメーター
 
 - `enumerationContent: QuantityContent<Content>`
-
   - **説明**: キーが条件（例: `<=`, `<`, `>=`, `=`）を表し、値が対応するコンテンツを表すオブジェクトです。キーの順序がマッチングの優先順位を定義します。
   - **型**: `QuantityContent<Content>`
     - `Content` は任意の型を取ることができます。
 
 - `quantity: number`
-
   - **説明**: `enumerationContent` の条件と照合するために使用される数値です。
   - **型**: `number`
 
@@ -52,7 +50,7 @@ history:
 
 ### 基本的な使用例
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getEnumeration } from "intlayer";
 
 const content = getEnumeration(
@@ -68,68 +66,10 @@ const content = getEnumeration(
 console.log(content); // 出力: "あなたの値は2です"
 ```
 
-```javascript codeFormat="esm"
-import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<1": "あなたの値は1未満です",
-    "2": "あなたの値は2です",
-    ">=3": "あなたの値は3以上です",
-  },
-  2
-);
-
-console.log(content); // 出力: "あなたの値は2です"
-```
-
-```javascript codeFormat="commonjs"
-const { getEnumeration } = require("intlayer");
-
-const content = getEnumeration(
-  {
-    "<1": "あなたの値は1未満です",
-    "2": "あなたの値は2です",
-    ">=3": "あなたの値は3以上です",
-  },
-  2
-);
-
-console.log(content); // 出力: "あなたの値は2です"
-```
-
 ### 条件の優先順位
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<4": "あなたの値は4未満です",
-    "2": "あなたの値は2です",
-  },
-  2
-);
-
-console.log(content); // 出力: "あなたの値は4未満です"
-```
-
-```javascript codeFormat="esm"
-import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<4": "あなたの値は4未満です",
-    "2": "あなたの値は2です",
-  },
-  2
-);
-
-console.log(content); // 出力: "あなたの値は4未満です"
-```
-
-```javascript codeFormat="commonjs"
-const { getEnumeration } = require("intlayer");
 
 const content = getEnumeration(
   {
@@ -145,15 +85,12 @@ console.log(content); // 出力: "あなたの値は4未満です"
 ## エッジケース
 
 - **一致する条件がない場合:**
-
   - 提供された数量に一致する条件がない場合、関数は `undefined` を返すか、デフォルト/フォールバックのシナリオを明示的に処理します。
 
 - **曖昧な条件:**
-
   - 条件が重複する場合、最初に一致した条件（オブジェクトの順序に基づく）が優先されます。
 
 - **無効なキー:**
-
   - 関数は、`enumerationContent` 内のすべてのキーが有効であり、条件として解析可能であると想定しています。無効または不適切にフォーマットされたキーは、予期しない動作を引き起こす可能性があります。
 
 - **TypeScriptの強制:**

@@ -1,83 +1,76 @@
+import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { LucideIcon } from 'lucide-react';
 import type { ButtonHTMLAttributes, DetailedHTMLProps, FC } from 'react';
-import { cn } from '../../utils/cn';
-import { ContainerRoundedSize as ButtonRoundedSize } from '../Container';
 import { Loader } from '../Loader';
 
 /**
  * Button size variants for different use cases
  */
-export enum ButtonSize {
-  SM = 'sm',
-  MD = 'md',
-  LG = 'lg',
-  XL = 'xl',
-  ICON_SM = 'icon-sm',
-  ICON_MD = 'icon-md',
-  ICON_LG = 'icon-lg',
-  ICON_XL = 'icon-xl',
-}
+export type ButtonSize =
+  | 'xs'
+  | 'sm'
+  | 'md'
+  | 'lg'
+  | 'xl'
+  | 'icon-sm'
+  | 'icon-md'
+  | 'icon-lg'
+  | 'icon-xl';
 
 const buttonIconVariants = cva('flex-none shrink-0', {
   variants: {
     size: {
-      [`${ButtonSize.SM}`]: 'size-3',
-      [`${ButtonSize.MD}`]: 'size-4',
-      [`${ButtonSize.LG}`]: 'size-5',
-      [`${ButtonSize.XL}`]: 'size-6',
-      [`${ButtonSize.ICON_SM}`]: 'size-3',
-      [`${ButtonSize.ICON_MD}`]: 'size-4',
-      [`${ButtonSize.ICON_LG}`]: 'size-4',
-      [`${ButtonSize.ICON_XL}`]: 'size-5',
+      xs: 'size-2',
+      sm: 'size-3',
+      md: 'size-4',
+      lg: 'size-5',
+      xl: 'size-6',
+      'icon-sm': 'size-3',
+      'icon-md': 'size-4',
+      'icon-lg': 'size-5',
+      'icon-xl': 'size-6',
     },
   },
   defaultVariants: {
-    size: ButtonSize.MD,
+    size: 'md',
   },
 });
 
 /**
  * Button visual style variants
  */
-export enum ButtonVariant {
-  DEFAULT = 'default',
-  NONE = 'none',
-  OUTLINE = 'outline',
-  LINK = 'link',
-  INVISIBLE_LINK = 'invisible-link',
-  HOVERABLE = 'hoverable',
-  FADE = 'fade',
-  INPUT = 'input',
-}
+export type ButtonVariant =
+  | 'default'
+  | 'none'
+  | 'outline'
+  | 'link'
+  | 'invisible-link'
+  | 'hoverable'
+  | 'fade'
+  | 'input';
 
 /**
  * Button color themes that work with the design system
  */
-export enum ButtonColor {
-  PRIMARY = 'primary',
-  SECONDARY = 'secondary',
-  DESTRUCTIVE = 'destructive',
-  NEUTRAL = 'neutral',
-  LIGHT = 'light',
-  DARK = 'dark',
-  TEXT = 'text',
-  CARD = 'card',
-  TEXT_INVERSE = 'text-inverse',
-  CURRENT = 'current',
-  ERROR = 'error',
-  SUCCESS = 'success',
-  CUSTOM = 'custom',
-}
+export type ButtonColor =
+  | 'primary'
+  | 'secondary'
+  | 'neutral'
+  | 'light'
+  | 'dark'
+  | 'text'
+  | 'card'
+  | 'text-inverse'
+  | 'current'
+  | 'error'
+  | 'success'
+  | 'custom';
 
 /**
  * Text alignment options for button content
  */
-export enum ButtonTextAlign {
-  LEFT = 'left',
-  CENTER = 'center',
-  RIGHT = 'right',
-}
+export type ButtonTextAlign = 'left' | 'center' | 'right';
 
 /**
  * Enhanced button variants with improved accessibility and focus states
@@ -87,92 +80,81 @@ export const buttonVariants = cva(
   {
     variants: {
       size: {
-        [`${ButtonSize.SM}`]: 'min-h-7 px-3 text-xs max-md:py-1',
-        [`${ButtonSize.MD}`]: 'min-h-8 px-6 text-sm max-md:py-2',
-        [`${ButtonSize.LG}`]: 'min-h-10 px-8 text-lg max-md:py-3',
-        [`${ButtonSize.XL}`]: 'min-h-11 px-10 text-xl max-md:py-4',
-        [`${ButtonSize.ICON_SM}`]: 'p-1.5',
-        [`${ButtonSize.ICON_MD}`]: 'p-1.5',
-        [`${ButtonSize.ICON_LG}`]: 'p-2',
-        [`${ButtonSize.ICON_XL}`]: 'p-3',
+        xs: 'min-h-7 px-3 text-xs max-md:py-1',
+        sm: 'min-h-7 px-3 text-xs max-md:py-1',
+        md: 'min-h-8 px-6 text-sm max-md:py-2',
+        lg: 'min-h-10 px-8 text-lg max-md:py-3',
+        xl: 'min-h-11 px-10 text-xl max-md:py-4',
+        'icon-sm': 'p-1.5',
+        'icon-md': 'p-1.5',
+        'icon-lg': 'p-1.5',
+        'icon-xl': 'p-3',
       },
       color: {
-        [`${ButtonColor.PRIMARY}`]:
+        primary:
           'hover-primary-500/20 text-primary ring-primary-500/20 *:text-text-light',
-        [`${ButtonColor.SECONDARY}`]:
+        secondary:
           'hover-secondary-500/20 text-secondary ring-secondary-500/20 *:text-text-light',
-        [`${ButtonColor.DESTRUCTIVE}`]:
-          'hover-destructive-500/20 text-destructive ring-destructive-500/20 *:text-text-light',
-        [`${ButtonColor.NEUTRAL}`]:
-          'text-neutral ring-neutral-500/20 *:text-text-light',
-        [`${ButtonColor.CARD}`]:
-          'hover-card-500/20 text-card ring-card-500/20 *:text-text-light',
-        [`${ButtonColor.LIGHT}`]:
-          'hover-white-500/20 text-white ring-white/20 *:text-text-light',
-        [`${ButtonColor.DARK}`]:
-          'text-neutral-800 ring-text-light/50 *:text-text-light',
-        [`${ButtonColor.TEXT}`]: 'text-text ring-text/20 *:text-text-opposite',
-        [`${ButtonColor.CURRENT}`]:
+        neutral: 'text-neutral ring-neutral-500/5 *:text-text-light',
+        card: 'hover-card-500/20 text-card ring-card-500/20 *:text-text-light',
+        light: 'hover-white-500/20 text-white ring-white/20 *:text-text-light',
+        dark: 'text-neutral-800 ring-text-light/50 *:text-text-light',
+        text: 'text-text ring-text/20 *:text-text-opposite',
+        current:
           'hover-current-500/10 text-current ring-current/10 *:text-text-light',
-        [`${ButtonColor.TEXT_INVERSE}`]:
-          'text-text-opposite ring-text-opposite/20 *:text-text',
-        [`${ButtonColor.ERROR}`]:
-          'hover-error-500/20 text-error ring-error/20 *:text-text-light',
-        [`${ButtonColor.SUCCESS}`]:
+        'text-inverse': 'text-text-opposite ring-text-opposite/20 *:text-text',
+        error: 'hover-error-500/20 text-error ring-error/20 *:text-text-light',
+        success:
           'hover-success-500/20 text-success ring-success/20 *:text-text-light',
-        [`${ButtonColor.CUSTOM}`]: '',
+        custom: '',
       },
       roundedSize: {
-        [`${ButtonRoundedSize.NONE}`]: 'rounded-none',
-        [`${ButtonRoundedSize.SM}`]:
-          'rounded-lg [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-xl',
-        [`${ButtonRoundedSize.MD}`]:
-          'rounded-xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl',
-        [`${ButtonRoundedSize.LG}`]:
-          'rounded-2xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-3xl',
-        [`${ButtonRoundedSize.XL}`]:
-          'rounded-3xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-4xl',
-        [`${ButtonRoundedSize['2xl']}`]:
+        none: 'rounded-none',
+        sm: 'rounded-lg [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-xl',
+        md: 'rounded-xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-2xl',
+        lg: 'rounded-2xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-3xl',
+        xl: 'rounded-3xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-4xl',
+        '2xl':
           'rounded-4xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-[2.5rem]',
-        [`${ButtonRoundedSize['3xl']}`]:
+        '3xl':
           'rounded-[2.5rem] [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-[3rem]',
-        [`${ButtonRoundedSize['4xl']}`]:
+        '4xl':
           'rounded-[3rem] [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-[4rem]',
-        [`${ButtonRoundedSize['5xl']}`]:
+        '5xl':
           'rounded-[4rem] [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-[5rem]',
-        [`${ButtonRoundedSize.FULL}`]: 'rounded-full',
+        full: 'rounded-full',
       },
       variant: {
-        [`${ButtonVariant.DEFAULT}`]: [
+        default: [
           'bg-current',
           'hover:bg-current/90',
           'hover:ring-5',
           'aria-selected:ring-5',
         ],
 
-        [`${ButtonVariant.OUTLINE}`]: [
+        outline: [
           'rounded-2xl border-[1.3px] border-current bg-current/0 *:text-current!',
           'hover:bg-current/20 focus-visible:bg-current/20',
           'hover:ring-5 focus-visible:ring-5',
           'aria-selected:ring-5',
         ],
 
-        [`${ButtonVariant.NONE}`]:
-          'border-none bg-current/0 text-inherit hover:bg-current/0',
+        none: 'border-none bg-current/0 text-inherit hover:bg-current/0',
 
-        [`${ButtonVariant.LINK}`]:
-          'h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 *:text-current! hover:bg-transparent hover:underline',
+        link: 'h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 *:text-current! hover:bg-transparent hover:underline',
 
-        [`${ButtonVariant.INVISIBLE_LINK}`]:
+        'invisible-link':
           'h-auto justify-start border-inherit bg-transparent px-1 underline-offset-4 *:text-current! hover:bg-transparent',
 
-        [`${ButtonVariant.HOVERABLE}`]:
-          'rounded-lg border-none bg-current/0 transition *:text-current! hover:bg-current/20 aria-[current]:bg-current/5',
+        hoverable:
+          'rounded-lg border-none bg-current/0 transition *:text-current! hover:bg-current/10 aria-[current]:bg-current/5',
 
-        [`${ButtonVariant.FADE}`]:
-          'rounded-lg border-none bg-current/20 transition *:text-current! hover:bg-current/20 aria-[current]:bg-current/5',
-
-        [`${ButtonVariant.INPUT}`]: [
+        fade: [
+          'rounded-lg border-none bg-current/10 ring-current/5 transition *:text-current! hover:bg-current/20 aria-[current]:bg-current/5',
+          'hover:ring-5 focus-visible:ring-5',
+          'aria-selected:ring-5',
+        ],
+        input: [
           // base styles
           'text-text',
           'w-full select-text resize-none rounded-2xl text-base shadow-none outline-none supports-[corner-shape:squircle]:rounded-4xl',
@@ -202,9 +184,9 @@ export const buttonVariants = cva(
       },
 
       textAlign: {
-        [`${ButtonTextAlign.LEFT}`]: 'justify-start text-left',
-        [`${ButtonTextAlign.CENTER}`]: 'justify-center text-center',
-        [`${ButtonTextAlign.RIGHT}`]: 'justify-end text-right',
+        left: 'justify-start text-left',
+        center: 'justify-center text-center',
+        right: 'justify-end text-right',
       },
 
       isFullWidth: {
@@ -213,11 +195,11 @@ export const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      variant: `${ButtonVariant.DEFAULT}`,
-      size: `${ButtonSize.MD}`,
-      color: `${ButtonColor.CUSTOM}`,
-      roundedSize: `${ButtonRoundedSize.MD}`,
-      textAlign: `${ButtonTextAlign.CENTER}`,
+      variant: 'default',
+      size: 'md',
+      color: 'text',
+      roundedSize: 'md',
+      textAlign: 'center',
       isFullWidth: false,
     },
   }
@@ -328,10 +310,10 @@ export type ButtonProps = DetailedHTMLProps<
  *   Save
  * </Button>
  *
- * // Destructive action button
+ * // Error action button
  * <Button
- *   variant={`${ButtonVariant.OUTLINE}`}
- *   color={ButtonColor.DESTRUCTIVE}
+ *   variant="outline"
+ *   color="error"
  *   label="Delete item permanently"
  *   aria-describedby="delete-warning"
  * >
@@ -363,9 +345,7 @@ export const Button: FC<ButtonProps> = ({
   'aria-pressed': ariaPressed,
   ...props
 }) => {
-  const isLink =
-    variant === `${ButtonVariant.LINK}` ||
-    variant === `${ButtonVariant.INVISIBLE_LINK}`;
+  const isLink = variant === 'link' || variant === 'invisible-link';
   const isIconOnly = !children && (Icon || IconRight);
 
   const accessibilityProps = {
@@ -382,10 +362,10 @@ export const Button: FC<ButtonProps> = ({
   };
 
   const isSquareButton =
-    size === ButtonSize.ICON_SM ||
-    size === ButtonSize.ICON_MD ||
-    size === ButtonSize.ICON_LG ||
-    size === ButtonSize.ICON_XL;
+    size === 'icon-sm' ||
+    size === 'icon-md' ||
+    size === 'icon-lg' ||
+    size === 'icon-xl';
 
   return (
     <button
@@ -398,9 +378,7 @@ export const Button: FC<ButtonProps> = ({
         color,
         isFullWidth,
         roundedSize,
-        textAlign:
-          textAlign ??
-          (IconRight ? ButtonTextAlign.LEFT : ButtonTextAlign.CENTER),
+        textAlign: textAlign ?? (IconRight ? 'left' : 'center'),
         className,
       })}
       {...accessibilityProps}
@@ -418,11 +396,11 @@ export const Button: FC<ButtonProps> = ({
 
       <div
         className={cn(
-          'flex w-0 items-center justify-center transition-[width] duration-300',
-          isLoading && size === ButtonSize.SM && 'w-3',
-          isLoading && size === ButtonSize.MD && 'w-4',
-          isLoading && size === ButtonSize.LG && 'w-5',
-          isLoading && size === ButtonSize.XL && 'w-6'
+          'flex items-center justify-center transition-[width] duration-300',
+          isLoading && size === 'sm' && 'w-3',
+          isLoading && size === 'md' && 'w-4',
+          isLoading && size === 'lg' && 'w-6',
+          isLoading && size === 'xl' && 'w-8'
         )}
       >
         <Loader

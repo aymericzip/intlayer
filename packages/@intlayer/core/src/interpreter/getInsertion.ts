@@ -17,4 +17,7 @@ export const getInsertion = (
   content: string,
   values: { [K in InsertionContent['fields'][number]]: string | number }
 ) =>
-  content.replace(/\{\{(.*?)\}\}/g, (_, key) => (values[key] ?? '').toString());
+  content.replace(/\{\{\s*(.*?)\s*\}\}/g, (_, key) => {
+    const trimmedKey = key.trim();
+    return (values[trimmedKey] ?? '').toString();
+  });

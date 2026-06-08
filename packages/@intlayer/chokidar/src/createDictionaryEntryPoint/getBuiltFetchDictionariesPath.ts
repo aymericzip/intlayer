@@ -1,6 +1,8 @@
-import { existsSync, mkdirSync } from 'node:fs';
-import { normalizePath } from '@intlayer/config';
-import type { IntlayerConfig } from '@intlayer/types';
+import { existsSync } from 'node:fs';
+import { mkdir } from 'node:fs/promises';
+import { basename } from 'node:path';
+import { normalizePath } from '@intlayer/config/utils';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import fg from 'fast-glob';
 
 /**
@@ -8,20 +10,24 @@ import fg from 'fast-glob';
  */
 export const getBuiltFetchDictionariesPath = async (
   configuration: IntlayerConfig,
-  format: 'cjs' | 'esm' = 'esm'
+  format: 'cjs' | 'esm' = 'esm',
+  excludeKeys: string[] = []
 ) => {
-  const { fetchDictionariesDir, mainDir } = configuration.content;
+  const { fetchDictionariesDir, mainDir } = configuration.system;
 
   // Create main directory if it doesn't exist
   if (!existsSync(mainDir)) {
-    mkdirSync(mainDir, { recursive: true });
+    await mkdir(mainDir, { recursive: true });
   }
 
   const extension = format === 'cjs' ? 'cjs' : 'mjs';
 
   const dictionariesPath: string[] = await fg(
-    `${normalizePath(fetchDictionariesDir)}/**/*.${extension}`
+    `${normalizePath(fetchDictionariesDir)}/*.${extension}`
   );
 
-  return dictionariesPath;
+  return dictionariesPath.filter((path) => {
+    const key = basename(path, `.${extension}`);
+    return !excludeKeys.includes(key);
+  });
 };

@@ -1,54 +1,130 @@
+import { relative } from 'node:path';
+import { listProjects } from '@intlayer/chokidar/cli';
 import {
   build,
+  extract,
   fill,
+  init,
   listContentDeclarationRows,
   listMissingTranslations,
   pull,
   push,
-  transform,
 } from '@intlayer/cli';
-import { Locales, type LogConfig } from '@intlayer/types';
-import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import z from 'zod/v3';
+import { ALL_LOCALES } from '@intlayer/types/allLocales';
+import z from 'zod';
+import type { McpServer } from './docs';
+
+const configOptionsSchema = z
+  .object({
+    baseDir: z.string().optional().describe('Base directory for the project'),
+    env: z.string().optional().describe('Environment name'),
+    envFile: z.string().optional().describe('Path to the environment file'),
+    override: z
+      .object({
+        editor: z
+          .object({
+            clientId: z.string().optional().describe('Intlayer CMS client ID'),
+            clientSecret: z
+              .string()
+              .optional()
+              .describe('Intlayer CMS client secret'),
+            backendURL: z
+              .string()
+              .optional()
+              .describe('Intlayer CMS backend URL'),
+          })
+          .optional(),
+        internationalization: z
+          .object({
+            locales: z
+              .array(z.nativeEnum(ALL_LOCALES))
+              .optional()
+              .describe('Available locales'),
+            defaultLocale: z
+              .nativeEnum(ALL_LOCALES)
+              .optional()
+              .describe('Default locale'),
+          })
+          .optional(),
+        log: z
+          .object({
+            mode: z
+              .enum(['default', 'verbose', 'disabled'])
+              .optional()
+              .describe('Log mode'),
+            prefix: z.string().optional().describe('Log prefix'),
+          })
+          .optional(),
+      })
+      .optional()
+      .describe(
+        'Config override - use when running remotely or without a local config file'
+      ),
+  })
+  .optional()
+  .describe(
+    'Configuration options. Required when running remotely or when no intlayer config file is present'
+  );
 
 type LoadCLITools = (server: McpServer) => Promise<void>;
 
 export const loadCLITools: LoadCLITools = async (server) => {
   server.registerTool(
+    'intlayer-init',
+    {
+      title: 'Initialize Intlayer',
+      description: 'Initialize Intlayer in the project',
+      inputSchema: {
+        projectRoot: z.string().describe('Project root directory'),
+      },
+      annotations: {
+        destructiveHint: true,
+      },
+    },
+    async ({ projectRoot }) => {
+      try {
+        await init(projectRoot);
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: 'Initialization successful.',
+            },
+          ],
+        };
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error ? error.message : 'An unknown error occurred';
+        return {
+          content: [
+            {
+              type: 'text',
+              text: `Initialization failed: ${errorMessage}`,
+            },
+          ],
+        };
+      }
+    }
+  );
+
+  server.registerTool(
     'intlayer-build',
     {
+      title: 'Build Dictionaries',
       description:
         'Build the dictionaries. List all content declarations files `.content.{ts,tsx,js,json,...}` to update the content callable using the `useIntlayer` hook.',
       inputSchema: {
         watch: z.boolean().optional().describe('Watch for changes'),
-        baseDir: z.string().optional().describe('Base directory'),
-        env: z.string().optional().describe('Environment'),
-        envFile: z.string().optional().describe('Environment file'),
-        verbose: z.boolean().optional().describe('Verbose output'),
-        prefix: z.string().optional().describe('Log prefix'),
+        configOptions: configOptionsSchema,
+      },
+      annotations: {
+        destructiveHint: true,
       },
     },
-    async ({ watch, baseDir, env, envFile, verbose, prefix }) => {
+    async ({ watch, configOptions }) => {
       try {
-        const log: Partial<LogConfig> = {};
-        if (verbose) {
-          log.mode = 'verbose';
-        }
-        if (prefix) {
-          log.prefix = prefix;
-        }
-
-        await build({
-          watch,
-          configOptions: {
-            baseDir,
-            env,
-            envFile,
-            override: {
-              log,
-            },
-          },
-        });
+        await build({ watch, configOptions });
 
         return {
           content: [
@@ -76,17 +152,18 @@ export const loadCLITools: LoadCLITools = async (server) => {
   server.registerTool(
     'intlayer-fill',
     {
+      title: 'Fill Translations',
       description:
         'Fill the dictionaries with missing translations / review translations using Intlayer servers',
       inputSchema: {
         sourceLocale: z
-          .nativeEnum(Locales.ALL_LOCALES)
+          .nativeEnum(ALL_LOCALES)
           .optional()
           .describe('Source locale'),
         outputLocales: z
           .union([
-            z.nativeEnum(Locales.ALL_LOCALES),
-            z.array(z.nativeEnum(Locales.ALL_LOCALES)),
+            z.nativeEnum(ALL_LOCALES),
+            z.array(z.nativeEnum(ALL_LOCALES)),
           ])
           .optional()
           .describe('Output locales'),
@@ -129,6 +206,10 @@ export const loadCLITools: LoadCLITools = async (server) => {
           })
           .optional()
           .describe('AI options'),
+        configOptions: configOptionsSchema,
+      },
+      annotations: {
+        destructiveHint: true,
       },
     },
     async (props) => {
@@ -176,6 +257,7 @@ export const loadCLITools: LoadCLITools = async (server) => {
   server.registerTool(
     'intlayer-push',
     {
+      title: 'Push Dictionaries',
       description: 'Push local dictionaries to the server',
       inputSchema: {
         deleteLocaleDictionary: z
@@ -201,6 +283,10 @@ export const loadCLITools: LoadCLITools = async (server) => {
           })
           .optional()
           .describe('Git options'),
+        configOptions: configOptionsSchema,
+      },
+      annotations: {
+        destructiveHint: true,
       },
     },
     async (props) => {
@@ -248,6 +334,7 @@ export const loadCLITools: LoadCLITools = async (server) => {
   server.registerTool(
     'intlayer-pull',
     {
+      title: 'Pull Dictionaries',
       description: 'Pull dictionaries from the CMS',
       inputSchema: {
         dictionaries: z
@@ -258,6 +345,10 @@ export const loadCLITools: LoadCLITools = async (server) => {
           .string()
           .optional()
           .describe('Path to save new dictionaries'),
+        configOptions: configOptionsSchema,
+      },
+      annotations: {
+        destructiveHint: true,
       },
     },
     async (props) => {
@@ -290,27 +381,24 @@ export const loadCLITools: LoadCLITools = async (server) => {
   server.registerTool(
     'intlayer-content-list',
     {
+      title: 'List Content Declarations',
       description:
         'List the content declaration (.content.{ts,tsx,js,json,...}) files present in the project. That files contain the multilingual content of the application and are used to build the dictionaries.',
       inputSchema: {
-        configOptions: z
-          .object({
-            baseDir: z.string().optional(),
-            env: z.string().optional(),
-            envFile: z.string().optional(),
-            override: z
-              .object({
-                log: z
-                  .object({
-                    prefix: z.string().optional(),
-                    verbose: z.boolean().optional(),
-                  })
-                  .optional(),
-              })
-              .optional(),
-          })
+        configOptions: configOptionsSchema,
+        absolute: z
+          .boolean()
           .optional()
-          .describe('Configuration options'),
+          .describe(
+            'Output the results as absolute paths instead of relative paths'
+          ),
+        json: z
+          .boolean()
+          .optional()
+          .describe('Output the results as JSON instead of formatted text'),
+      },
+      annotations: {
+        readOnlyHint: true,
       },
     },
     async (props) => {
@@ -320,7 +408,9 @@ export const loadCLITools: LoadCLITools = async (server) => {
           content: [
             {
               type: 'text',
-              text: JSON.stringify(rows, null, 2),
+              text: props.json
+                ? JSON.stringify(rows)
+                : JSON.stringify(rows, null, 2),
             },
           ],
         };
@@ -342,27 +432,14 @@ export const loadCLITools: LoadCLITools = async (server) => {
   server.registerTool(
     'intlayer-content-test',
     {
+      title: 'Test Translations',
       description:
         'Test if there are missing translations in the content declaration files. That files contain the multilingual content of the application and are used to build the dictionaries.',
       inputSchema: {
-        configOptions: z
-          .object({
-            baseDir: z.string().optional(),
-            env: z.string().optional(),
-            envFile: z.string().optional(),
-            override: z
-              .object({
-                log: z
-                  .object({
-                    prefix: z.string().optional(),
-                    verbose: z.boolean().optional(),
-                  })
-                  .optional(),
-              })
-              .optional(),
-          })
-          .optional()
-          .describe('Configuration options'),
+        configOptions: configOptionsSchema,
+      },
+      annotations: {
+        readOnlyHint: true,
       },
     },
     async (props) => {
@@ -394,48 +471,34 @@ export const loadCLITools: LoadCLITools = async (server) => {
   );
 
   server.registerTool(
-    'intlayer-transform',
+    'intlayer-extract',
     {
+      title: 'Extract strings from Component',
       description:
-        'Transform an existing component to use Intlayer. Trigger this action to transform an existing component to be multilingual. If the component does not exist, create a normal React component including text in JSX, and then trigger this tool to transform it.',
+        'Extract strings from an existing component to be placed in a .content file close to the component. Trigger this action to make an existing component multilingual. If the component does not exist, create a normal component including text in JSX, and then trigger this tool to extract it.',
       inputSchema: {
         file: z
           .union([z.string(), z.array(z.string())])
           .optional()
-          .describe('List of files to transform'),
+          .describe('List of files to extract'),
         outputContentDeclarations: z
           .string()
           .optional()
           .describe('Path to output content declaration files'),
-        configOptions: z
-          .object({
-            baseDir: z.string().optional(),
-            env: z.string().optional(),
-            envFile: z.string().optional(),
-            override: z
-              .object({
-                log: z
-                  .object({
-                    prefix: z.string().optional(),
-                    verbose: z.boolean().optional(),
-                  })
-                  .optional(),
-              })
-              .optional(),
-          })
-          .optional()
-          .describe('Configuration options'),
+        configOptions: configOptionsSchema,
+      },
+      annotations: {
+        destructiveHint: true,
       },
     },
     async (props) => {
       try {
-        await transform({
+        await extract({
           files: Array.isArray(props.file)
             ? props.file
             : props.file
               ? [props.file]
               : undefined,
-          outputContentDeclarations: props.outputContentDeclarations,
           configOptions: props.configOptions,
         });
 
@@ -443,7 +506,7 @@ export const loadCLITools: LoadCLITools = async (server) => {
           content: [
             {
               type: 'text',
-              text: 'Transform successful.',
+              text: 'Extract successful.',
             },
           ],
         };
@@ -454,7 +517,85 @@ export const loadCLITools: LoadCLITools = async (server) => {
           content: [
             {
               type: 'text',
-              text: `Transform failed: ${errorMessage}`,
+              text: `Extract failed: ${errorMessage}`,
+            },
+          ],
+        };
+      }
+    }
+  );
+
+  server.registerTool(
+    'intlayer-projects-list',
+    {
+      title: 'List Projects',
+      description:
+        'List all Intlayer projects in the directory. Search for configuration files to find all Intlayer projects.',
+      inputSchema: {
+        baseDir: z
+          .string()
+          .optional()
+          .describe('Base directory to search from'),
+        gitRoot: z
+          .boolean()
+          .optional()
+          .describe(
+            'Search from the git root directory instead of the base directory'
+          ),
+        absolute: z
+          .boolean()
+          .optional()
+          .describe(
+            'Output the results as absolute paths instead of relative paths'
+          ),
+        json: z
+          .boolean()
+          .optional()
+          .describe('Output the results as JSON instead of formatted text'),
+      },
+      annotations: {
+        readOnlyHint: true,
+      },
+    },
+    async (props) => {
+      try {
+        const { searchDir, projectsPath } = await listProjects({
+          baseDir: props.baseDir,
+          gitRoot: props.gitRoot,
+        });
+
+        const projectsRelativePath = projectsPath
+          .map((projectPath) =>
+            props.absolute ? projectPath : relative(searchDir, projectPath)
+          )
+          .map((projectPath) => (projectPath === '' ? '.' : projectPath));
+
+        const outputPaths = props.absolute
+          ? projectsPath
+          : projectsRelativePath;
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: props.json
+                ? JSON.stringify(outputPaths)
+                : JSON.stringify(
+                    { searchDir, projectsPath: outputPaths },
+                    null,
+                    2
+                  ),
+            },
+          ],
+        };
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error ? error.message : 'An unknown error occurred';
+        return {
+          content: [
+            {
+              type: 'text',
+              text: `Projects list failed: ${errorMessage}`,
             },
           ],
         };

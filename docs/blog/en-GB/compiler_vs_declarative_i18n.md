@@ -20,7 +20,7 @@ slugs:
 
 # The Case for and Against Compiler-Based i18n
 
-If you have been building web applications for more than a decade, you know that Internationalisation (i18n) has always been a friction point. It is often the task no one wants to do—extracting strings, managing JSON files, and worrying about pluralisation rules.
+If you have been building web applications for more than a decade, you know that Internationalisation (i18n) has always been a friction point. It is often the task no one wants to do, extracting strings, managing JSON files, and worrying about pluralisation rules.
 
 Recently, a new wave of **"Compiler-based" i18n tools** has emerged, promising to make this pain disappear. The pitch is seductive: **Just write text in your components, and let the build tool handle the rest.** No keys, no imports, just magic.
 
@@ -205,7 +205,7 @@ So, which should you choose?
 The compiler-based approach is a valid choice. It allows you to move incredibly fast. You don't need to worry about file structures or keys. You just build. The technical debt is a problem for "Future You."
 
 **If you are a Junior Developer, or don’t care about optimisation:**
-If you want the least manual management, a compiler-based approach is likely best. You won’t need to handle keys or translation files yourself—just write text, and the compiler automates the rest. This reduces setup effort and common i18n mistakes tied to manual steps.
+If you want the least manual management, a compiler-based approach is likely best. You won’t need to handle keys or translation files yourself, just write text, and the compiler automates the rest. This reduces setup effort and common i18n mistakes tied to manual steps.
 
 **If you are internationalising an existing project that already includes thousands of components to refactor:**
 A compiler-based approach can be a pragmatic choice here. The initial extraction phase can save weeks or months of manual work. However, consider using a tool like Intlayer's `transform` command, which can extract strings and convert them into explicit declarative content declarations. This gives you the speed of automation while maintaining the safety and portability of a declarative approach. You get the best of both worlds: rapid initial migration without long-term architectural debt.

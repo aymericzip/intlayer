@@ -6,20 +6,17 @@ import {
   DialogContent,
   type DialogProps,
 } from '@radix-ui/react-dialog';
+import { cn } from '@utils/cn';
 import { Command as CommandPrimitive } from 'cmdk';
 import { Search } from 'lucide-react';
 import type { ComponentProps, FC, HTMLAttributes } from 'react';
-import { cn } from '../../utils/cn';
 
 export const CommandRoot: FC<ComponentProps<typeof CommandPrimitive>> = ({
   className,
   ...props
 }) => (
   <CommandPrimitive
-    className={cn(
-      'flex size-full flex-col overflow-hidden rounded-md',
-      className
-    )}
+    className={cn('flex flex-col overflow-hidden rounded-md', className)}
     {...props}
   />
 );
@@ -57,7 +54,7 @@ const CommandList: FC<ComponentProps<typeof CommandPrimitive.List>> = ({
   ...props
 }) => (
   <CommandPrimitive.List
-    className={cn('max-h-[300px] overflow-y-auto overflow-x-hidden', className)}
+    className={cn('max-h-75 overflow-y-auto overflow-x-hidden', className)}
     {...props}
   />
 );

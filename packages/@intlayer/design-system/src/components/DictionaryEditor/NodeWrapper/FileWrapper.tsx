@@ -1,10 +1,9 @@
-import { type FileContent, getContentNodeByKeyPath } from '@intlayer/core';
+import { getContentNodeByKeyPath } from '@intlayer/core/dictionaryManipulator';
+import type { FileContent } from '@intlayer/core/transpiler';
 import { useEditedContent } from '@intlayer/editor-react';
-import {
-  type KeyPath,
-  type LocalDictionaryId,
-  NodeType,
-} from '@intlayer/types';
+import type { LocalDictionaryId } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import type { FC } from 'react';
 import { StringWrapper, type StringWrapperProps } from './StringWrapper';
 
@@ -20,13 +19,13 @@ export const FileWrapper: FC<FileWrapperProps> = (props) => {
     keyPath
   ) as FileContent | undefined;
 
-  const subSection = section[NodeType.File];
+  const subSection = section[NodeTypes.FILE];
   const { content } = section;
 
   const newKeyPath: KeyPath[] = [
     ...keyPath,
     {
-      type: NodeType.File,
+      type: NodeTypes.FILE,
     },
   ];
 

@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inizializzazione cronologia
+    changes: "Inizializzazione cronologia"
 ---
 
 # Documentazione: Funzioni `getPathWithoutLocale` in `intlayer`
@@ -33,7 +33,6 @@ Rimuove il segmento della localizzazione dall'URL o pathname fornito, se present
 ## Parametri
 
 - `inputUrl: string`
-
   - **Descrizione**: La stringa completa dell'URL o il pathname da elaborare.
   - **Tipo**: `string`
 
@@ -48,26 +47,8 @@ Rimuove il segmento della localizzazione dall'URL o pathname fornito, se present
 
 ## Esempio di utilizzo
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getPathWithoutLocale } from "intlayer";
-
-console.log(getPathWithoutLocale("/dashboard")); // Output: "/dashboard"
-console.log(getPathWithoutLocale("/en/dashboard")); // Output: "/dashboard"
-console.log(getPathWithoutLocale("/fr/dashboard")); // Output: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Output: "https://example.com/dashboard"
-```
-
-```javascript codeFormat="esm"
-import { getPathWithoutLocale } from "intlayer";
-
-console.log(getPathWithoutLocale("/dashboard")); // Output: "/dashboard"
-console.log(getPathWithoutLocale("/en/dashboard")); // Output: "/dashboard"
-console.log(getPathWithoutLocale("/fr/dashboard")); // Output: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Output: "https://example.com/dashboard"
-```
-
-```javascript codeFormat="commonjs"
-const { getPathWithoutLocale } = require("intlayer");
 
 console.log(getPathWithoutLocale("/dashboard")); // Output: "/dashboard"
 console.log(getPathWithoutLocale("/en/dashboard")); // Output: "/dashboard"

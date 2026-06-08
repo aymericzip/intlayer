@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Geçmiş başlatıldı
+    changes: "Geçmiş başlatıldı"
 ---
 
 # Intlayer'da `Yerel Ayar Başına` İçerik Bildirimi
@@ -42,7 +42,7 @@ Bu format şunlar için idealdir:
 
 Bu, çoğu kullanım durumu için önerilen yaklaşımdır. Çevirileri merkezileştirir, yinelemeyi ve CMS ile entegrasyonu kolaylaştırır.
 
-```tsx fileName="hello-world.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="hello-world.content.ts" contentDeclarationFormat={["typescript", "esm"]}
 import { t, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -54,23 +54,6 @@ const helloWorldContent = {
     }),
   },
 } satisfies Dictionary;
-
-export default helloWorldContent;
-```
-
-```js fileName="hello-world.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const helloWorldContent = {
-  key: "hello-world",
-  content: {
-    multilingualContent: t({
-      en: "Title of my component",
-      es: "Título de mi componente",
-    }),
-  },
-};
 
 export default helloWorldContent;
 ```
@@ -110,6 +93,24 @@ module.exports = helloWorldContent;
 
 > Önerilen: Bu format, Intlayer'ın görsel düzenleyicisini kullanırken veya çevirileri doğrudan kodda yönetirken en iyisidir.
 
+### Yerel Ayar Başına Dosyalar İçin Global Yapılandırma
+
+Aşağıdakileri `intlayer.config.ts` dosyanıza ekleyerek yerel ayar başına dosyalar için global yapılandırmayı ayarlayabilirsiniz:
+
+```ts
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  dictionary: {
+    locale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+Bu yapılandırmayı kullanarak, tüm yerel ayar başına dosyalar varsayılan yerel ayar İngilizce olarak ayarlanmış şekilde oluşturulacaktır. Ayrıca `extract` komutu kullanılarak `.content` dosyalarının oluşturulmasını ve derleyiciyi (compiler) içerir. (Daha fazla bilgi için [Compiler](https://intlayer.org/doc/compiler) veya [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en/cli/extract.md) bölümlerine bakın.)
+
 ## Yerel Ayar Başına Format
 
 Bu format şunlar için yararlıdır:
@@ -119,7 +120,7 @@ Bu format şunlar için yararlıdır:
 
 Yerel ayar alanını belirterek çevirileri ayrı yerel ayar dosyalarına bölebilirsiniz:
 
-```tsx fileName="hello-world.en.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="hello-world.en.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, Locales, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -131,7 +132,7 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
-```tsx fileName="hello-world.es.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="hello-world.es.content.ts" contentDeclarationFormat={["typescript", "esm"]}
 import { t, Locales, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -141,62 +142,6 @@ const helloWorldContent = {
 } satisfies Dictionary;
 
 export default helloWorldContent;
-```
-
-```js fileName="hello-world.en.content.mjs" contentDeclarationFormat="esm"
-import { t, Locales } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const helloWorldContent = {
-  key: "hello-world",
-  locale: Locales.ENGLISH, // Önemli
-  content: { multilingualContent: "Title of my component" },
-};
-
-export default helloWorldContent;
-```
-
-```tsx fileName="hello-world.es.content.mjs" contentDeclarationFormat="esm"
-import { t, Locales } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const helloWorldContent = {
-  key: "hello-world",
-  locale: Locales.SPANISH, // Önemli
-  content: { multilingualContent: "Título de mi componente" },
-};
-
-export default helloWorldContent;
-```
-
-```js fileName="hello-world.en.content.cjs" contentDeclarationFormat="commonjs"
-const { t, Locales } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const helloWorldContent = {
-  key: "hello-world",
-  locale: Locales.ENGLISH, // Önemli
-  content: {
-    multilingualContent: "Title of my component",
-  },
-};
-
-module.exports = helloWorldContent;
-```
-
-```tsx fileName="hello-world.es.content.cjs" contentDeclarationFormat="commonjs"
-const { t, Locales } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const helloWorldContent = {
-  key: "hello-world",
-  locale: Locales.SPANISH, // Önemli
-  content: {
-    multilingualContent: "Título de mi componente",
-  },
-};
-
-module.exports = helloWorldContent;
 ```
 
 ```json5 fileName="hello-world.en.content.json" contentDeclarationFormat="json"

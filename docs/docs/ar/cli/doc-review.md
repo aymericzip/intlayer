@@ -21,8 +21,26 @@ slugs:
 
 يقوم أمر `doc review` بتحليل ملفات التوثيق من حيث الجودة، الاتساق، والكمال عبر اللغات المختلفة.
 
-```bash
+## النقاط الرئيسية:
+
+- يقسم ملفات markdown الكبيرة إلى أجزاء للبقاء ضمن حدود نافذة سياق نموذج الذكاء الاصطناعي.
+- يحسن الأجزاء المراد مراجعتها ويتخطى الأجزاء التي تم ترجمتها بالفعل ولم تتغير.
+- يعالج الملفات والأجزاء واللغات بالتوازي باستخدام نظام قائمة انتظار لزيادة السرعة.
+
+```bash packageManager="npm"
 npx intlayer doc review
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc review
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc review
+```
+
+```bash packageManager="bun"
+bun x intlayer doc review
 ```
 
 يمكن استخدامه لمراجعة الملفات التي تم ترجمتها بالفعل، وللتحقق مما إذا كانت الترجمة صحيحة.

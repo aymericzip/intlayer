@@ -19,12 +19,12 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Init history"
 ---
 
 # Intlayer Visual Editor Documentation
 
-<iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 The Intlayer Visual Editor is a tool that will wrap your website to interact with your content declaration files using a visual editor.
 
@@ -80,11 +80,15 @@ yarn add intlayer-editor --save-dev
 pnpm add intlayer-editor --save-dev
 ```
 
+```bash packageManager="bun"
+bun add intlayer-editor --dev
+```
+
 ## Configuration
 
 In your Intlayer configuration file, you can customise the editor settings:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -119,77 +123,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... other configuration settings
-  editor: {
-    /**
-     * Required
-     * The URL of the application.
-     * This is the URL targeted by the visual editor.
-     * Example: 'http://localhost:3000'
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * Optional
-     * Default as `true`. If `false`, the editor is inactive and cannot be accessed.
-     * Can be used to disable the editor for specific environments for security reasons, such as production.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-    /**
-     * Optional
-     * Default as `8000`.
-     * The port used by the visual editor server.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * Optional
-     * Default as "http://localhost:8000"
-     * The URL of the editor server to reach from the application. Used to restrict the origins that can interact with the application for security reasons. If set to `'*'`, the editor is accessible from any origin. Should be set if the port is changed, or if the editor is hosted on a different domain.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... other configuration settings
-  editor: {
-    /**
-     * Required
-     * The URL of the application.
-     * This is the URL targeted by the visual editor.
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * Optional
-     * Default as `8000`.
-     * The port of the editor server.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * Optional
-     * Default as "http://localhost:8000"
-     * The URL of the editor server.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * Optional
-     * Default as `true`. If `false`, the editor is inactive and cannot be accessed.
-     * Can be used to disable the editor for specific environments for security reasons, such as production.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-  },
-};
-
-module.exports = config;
 ```
 
 > To see all available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).

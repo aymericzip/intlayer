@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
+updatedAt: 2026-03-03
 title: MCP Sunucu Dokümantasyonu
 description: Sunucu yönetimini ve işlemlerinizi optimize etmek için MCP Sunucusu'nun özelliklerini ve kurulumunu keşfedin.
 keywords:
@@ -17,16 +17,16 @@ slugs:
 history:
   - version: 5.5.12
     date: 2025-07-11
-    changes: ChatGPT kurulumu eklendi
+    changes: "ChatGPT kurulumu eklendi"
   - version: 5.5.12
     date: 2025-07-10
-    changes: Claude Desktop kurulumu eklendi
+    changes: "Claude Desktop kurulumu eklendi"
   - version: 5.5.12
     date: 2025-07-10
-    changes: SSE aktarımı ve uzak sunucu eklendi
+    changes: "Streamable HTTP aktarımı ve uzak sunucu eklendi"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Geçmiş başlatıldı
+    changes: "Geçmiş başlatıldı"
 ---
 
 # Intlayer MCP Sunucusu
@@ -51,12 +51,12 @@ IDE'nizde Intlayer MCP Sunucusunu etkinleştirerek şunları açığa çıkarır
 
   > Komutların ve seçeneklerin tam listesini [Intlayer CLI dokümantasyonunda](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) görüntüleyin.
 
-## Yerel sunucu (stdio) vs Uzak sunucu (SSE)
+## Yerel sunucu (stdio) vs Uzak sunucu (Streamable HTTP)
 
 MCP sunucusu iki şekilde kullanılabilir:
 
 - Yerel sunucu (stdio)
-- Uzak sunucu (SSE)
+- Uzak sunucu (Streamable HTTP)
 
 ### Yerel sunucu (stdio) (önerilen)
 
@@ -64,13 +64,51 @@ Intlayer, makinenizde yerel olarak yüklenebilen bir NPM paketi sağlar. VS Code
 
 Bu sunucu, MCP sunucusunun tüm özelliklerini entegre ettiği için önerilen yol, CLI araçları dahil.
 
-### Uzak sunucu (SSE)
+### Uzak sunucu (Streamable HTTP)
 
-MCP sunucusu ayrıca uzak olarak, SSE aktarım yöntemini kullanarak kullanılabilir. Bu sunucu Intlayer tarafından barındırılır ve https://mcp.intlayer.org adresinde kullanılabilir. Bu sunucuya herkese açık olarak, herhangi bir kimlik doğrulaması olmadan erişilebilir ve kullanımı ücretsizdir.
+MCP sunucusu ayrıca uzak olarak, Streamable HTTP aktarım yöntemini kullanarak kullanılabilir. Bu sunucu Intlayer tarafından barındırılır ve https://mcp.intlayer.org adresinde kullanılabilir. Bu sunucuya herkese açık olarak, herhangi bir kimlik doğrulaması olmadan erişilebilir ve kullanımı ücretsizdir.
 
 Uzak sunucunun CLI araçlarını, AI otomatik tamamlama vb. entegre etmediğini unutmayın. Uzak sunucu sadece AI asistanınızın Intlayer ekosistemiyle etkileşim kurması için dokümantasyon içindir.
 
 > Sunucu barındırma maliyetleri nedeniyle, uzak sunucunun kullanılabilirliği garanti edilemez. Eşzamanlı bağlantı sayısını sınırlıyoruz. En güvenilir deneyim için yerel sunucu (stdio) aktarım yöntemini kullanmanızı öneririz.
+
+---
+
+## Intlayer CLI aracılığıyla kurulum (önerilen)
+
+Intlayer, projenizde MCP sunucusunu otomatik olarak yapılandırmak için bir CLI komutu sağlar.
+
+```bash packageManager="npm"
+npx intlayer init mcp
+```
+
+```bash packageManager="yarn"
+yarn intlayer init mcp
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init mcp
+```
+
+```bash packageManager="bun"
+bun x intlayer init mcp
+```
+
+Bu komut şunları yapacaktır:
+
+1. Hangi platformu kullandığınızı soracaktır (Cursor, VS Code, Claude Desktop vb.).
+2. Hangi taşıma yöntemini kullanmak istediğinizi soracaktır (Yerel sunucu (stdio) veya Uzak sunucu (Streamable HTTP)).
+3. Yapılandırma dosyanızı otomatik olarak güncelleyecektir (örneğin, `.cursor/mcp.json`, `.vscode/mcp.json` veya genel Claude Desktop yapılandırması).
+
+---
+
+## Setup via Intlayer VS Code extension
+
+1. Komut Paletini açın (Ctrl+Shift+P veya Cmd+Shift+P).
+2. `Intlayer: Setup AI Agent Skills` yazın
+3. Kullandığınız platformu seçin (örn. `VS Code`, `Cursor`, `Windsurf`, `OpenCode`, `Claude Code`, `GitHub Copilot Workspace` vb.).
+4. Kurulacak MCP'yi seçin (stdio, Streamable HTTP)
+5. Enter'a basın.
 
 ---
 
@@ -93,16 +131,16 @@ Proje kökünüzde aşağıdaki `.cursor/mcp.json` yapılandırma dosyasını ek
 }
 ```
 
-### Uzak sunucu (SSE)
+### Uzak sunucu (Streamable HTTP)
 
-Server-Sent Events (SSE) kullanarak uzak bir Intlayer MCP sunucusuna bağlanmak için, MCP istemcinizi barındırılan servise bağlanacak şekilde yapılandırabilirsiniz.
+Server-Sent Events (Streamable HTTP) kullanarak uzak bir Intlayer MCP sunucusuna bağlanmak için, MCP istemcinizi barındırılan servise bağlanacak şekilde yapılandırabilirsiniz.
 
 ```json fileName=".cursor/mcp.json"
 {
   "mcpServers": {
-    "intlayer": {
-      "url": "https://mcp.intlayer.org",
-      "transport": "sse"
+    "intlayer-sse": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote@latest", "https://mcp.intlayer.org"]
     }
   }
 }
@@ -134,16 +172,16 @@ Proje kökünüzde bir `.vscode/mcp.json` dosyası oluşturun:
 }
 ```
 
-### Uzak sunucu (SSE)
+### Uzak sunucu (Streamable HTTP)
 
-Server-Sent Events (SSE) kullanarak uzak bir Intlayer MCP sunucusuna bağlanmak için, MCP istemcinizi barındırılan servise bağlanacak şekilde yapılandırabilirsiniz.
+Server-Sent Events (Streamable HTTP) kullanarak uzak bir Intlayer MCP sunucusuna bağlanmak için, MCP istemcinizi barındırılan servise bağlanacak şekilde yapılandırabilirsiniz.
 
 ```json fileName=".vscode/mcp.json"
 {
   "servers": {
-    "intlayer": {
-      "url": "https://mcp.intlayer.org",
-      "type": "sse"
+    "intlayer-sse": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote@latest", "https://mcp.intlayer.org"]
     }
   }
 }
@@ -153,7 +191,7 @@ Server-Sent Events (SSE) kullanarak uzak bir Intlayer MCP sunucusuna bağlanmak 
 
 ## ChatGPT'de Kurulum
 
-### Uzak sunucu (SSE)
+### Uzak sunucu (Streamable HTTP)
 
 ChatGPT'de MCP sunucusunu yapılandırmak için [resmi dokümantasyonu](https://platform.openai.com/docs/mcp#test-and-connect-your-mcp-server) takip edin.
 
@@ -189,6 +227,19 @@ Yapılandırma dosyasının yolu:
     "intlayer": {
       "command": "npx",
       "args": ["-y", "@intlayer/mcp"]
+    }
+  }
+}
+```
+
+### Uzak sunucu (Streamable HTTP)
+
+```json fileName="claude_desktop_config.json"
+{
+  "mcpServers": {
+    "intlayer-sse": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote@latest", "https://mcp.intlayer.org"]
     }
   }
 }

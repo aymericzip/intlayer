@@ -181,7 +181,7 @@ export const DarkMode: Story = {
  */
 export const CustomTitle: Story = {
   args: {
-    children: `zsh: command started at Thu Dec 4 10:30:45 PST 2025
+    children: `zsh: command started at Thu Dec 4 10:30:45 PST 2026
 > Running tests...
 > All tests passed!`,
     title: 'zsh',

@@ -78,7 +78,7 @@ JSON juga didukung jika Anda lebih suka menggunakan file konfigurasi.
 
 ## 2) Ambil konten Anda
 
-### Kasus A — Aplikasi React (Vite/SPA)
+### Kasus A. Aplikasi React (Vite/SPA)
 
 Pendekatan default: gunakan `useIntlayer` untuk mengambil berdasarkan key. Ini menjaga komponen tetap ramping dan bertipe.
 
@@ -129,7 +129,7 @@ export function ComponentWithDictionary() {
 }
 ```
 
-### Kasus B — Next.js (App Router)
+### Kasus B. Next.js (App Router)
 
 Utamakan komponen server untuk keamanan data dan performa. Gunakan `useIntlayer` dari `next-intlayer/server` di file server, dan `useIntlayer` dari `next-intlayer` di komponen klien.
 

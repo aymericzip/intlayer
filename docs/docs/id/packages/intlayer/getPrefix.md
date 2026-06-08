@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 7.1.0
     date: 2025-11-16
-    changes: Dokumentasi awal
+    changes: "Dokumentasi awal"
 ---
 
 # Dokumentasi: Fungsi `getPrefix` dalam `intlayer`
@@ -99,7 +99,7 @@ type GetPrefixResult = {
 
 ### Penggunaan Dasar
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm"]}
 import { getPrefix, Locales } from "intlayer";
 
 // Periksa prefix untuk locale Bahasa Inggris
@@ -115,17 +115,6 @@ getPrefix(Locales.FRENCH, {
   mode: "prefix-no-default",
 });
 // Mengembalikan: { prefix: 'fr/', localePrefix: 'fr' }
-```
-
-```javascript codeFormat="esm"
-import { getPrefix, Locales } from "intlayer";
-
-getPrefix(Locales.ENGLISH, { mode: "prefix-all" });
-javascript codeFormat="commonjs"
-const { getPrefix, Locales } = require("intlayer");
-
-getPrefix(Locales.ENGLISH, { mode: "prefix-all" });
-// Mengembalikan: { prefix: '', localePrefix: undefined }
 ```
 
 ### Mode Routing Berbeda

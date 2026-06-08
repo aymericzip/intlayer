@@ -1,14 +1,14 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import { Container } from '@intlayer/design-system';
-import {
-  useAskDocQuestion,
-  usePersistedStore,
-} from '@intlayer/design-system/hooks';
+import { useAskDocQuestion } from '@intlayer/design-system/api';
+import { Container } from '@intlayer/design-system/container';
+import { usePersistedStore } from '@intlayer/design-system/hooks';
+import { PopoverStatic } from '@intlayer/design-system/popover';
+import { App_Auth_SignIn } from '@intlayer/design-system/routes';
+import { InfoIcon } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, type ReactNode, useEffect, useRef, useState } from 'react';
-import { PagesRoutes } from '@/Routes';
 import { FileReference } from './FileReference';
 import { FormSection } from './FormSection';
 import {
@@ -52,7 +52,7 @@ export type StoredValue = {
 
 type ChatBotProps = {
   additionalButtons?: ReactNode;
-  displayRelatedFiles?: boolean;
+  isLarge?: boolean;
   stateReloaderTrigger?: any;
   isActive?: boolean;
 };
@@ -65,14 +65,18 @@ type DiscussionStore = {
 
 export const ChatBot: FC<ChatBotProps> = ({
   additionalButtons,
-  displayRelatedFiles = true,
+  isLarge = true,
   stateReloaderTrigger,
   isActive = false,
 }) => {
   const [hasReachedRateLimit, setHasReachedRateLimit] = useState(false);
   const { mutate: askDocQuestion, isPending } = useAskDocQuestion();
-  const { firstMessageContent, rateLimitExceededMessage, signInButton } =
-    useIntlayer('chat');
+  const {
+    firstMessageContent,
+    rateLimitExceededMessage,
+    signInButton,
+    disclaimerNote,
+  } = useIntlayer('chat');
   const isFirstRender = useRef(true);
   const [currentResponse, setCurrentResponse] = useState('');
 
@@ -87,11 +91,14 @@ export const ChatBot: FC<ChatBotProps> = ({
 
   const handleAskNewQuestion = (newQuestion: string) => {
     setCurrentResponse('');
+
+    const newDiscussionId = discussion?.discussionId ?? uuid();
+
     setDiscussion(
       (discussion) =>
         ({
           ...discussion,
-          discussionId: discussion?.discussionId ?? uuid(),
+          discussionId: newDiscussionId,
           storedPrompt: [
             ...(discussion?.storedPrompt ?? []),
             {
@@ -114,7 +121,7 @@ export const ChatBot: FC<ChatBotProps> = ({
     askDocQuestion(
       {
         messages: newMessages,
-        discussionId: discussion?.discussionId ?? '',
+        discussionId: newDiscussionId,
         onMessage: (chunk: string) =>
           setCurrentResponse((prev) => prev + chunk),
         onDone: (response: AskDocQuestionResult) => {
@@ -159,33 +166,25 @@ export const ChatBot: FC<ChatBotProps> = ({
           setHasReachedRateLimit(false);
         },
         onError: (errorMessage: any) => {
-          let error: any;
+          if (typeof errorMessage === 'undefined') return;
 
-          // If json is valid, parse it
+          let parsedErrors: any[];
+
           try {
-            if (typeof errorMessage === 'undefined') return;
-
-            if (typeof errorMessage.message === 'string') {
-              error = errorMessage.message;
-            } else {
-              error = JSON.parse(errorMessage as any);
-            }
+            const raw =
+              typeof errorMessage?.message === 'string'
+                ? JSON.parse(errorMessage.message)
+                : errorMessage;
+            parsedErrors = [raw].flat();
           } catch (_e) {
-            // If json is not valid, set error to the original errorMessage
-
-            error = errorMessage;
+            parsedErrors = [errorMessage].flat();
           }
 
-          // render toast for each error if there is more than one
-          // otherwise render the toast with the error message
-          // biome-ignore lint/complexity/noFlatMapIdentity: <Match the case if error is an array>
-          [error]
-            .flatMap((error) => error)
-            .forEach((error) => {
-              if (error.code === 'RATE_LIMIT_EXCEEDED_UNAUTHENTICATED') {
-                setHasReachedRateLimit(true);
-              }
-            });
+          parsedErrors.forEach((error) => {
+            if (error?.code === 'RATE_LIMIT_EXCEEDED_UNAUTHENTICATED') {
+              setHasReachedRateLimit(true);
+            }
+          });
         },
       }
     );
@@ -230,35 +229,58 @@ export const ChatBot: FC<ChatBotProps> = ({
         </div>
       </div>
       <div className="w-full flex-1">
-        {displayRelatedFiles && (
+        {isLarge && (
           <FileReference relatedFiles={discussion?.relatedFiles ?? []} />
         )}
+
         {hasReachedRateLimit && (
-          <Container
-            className="mx-auto mt-3 flex max-w-md flex-col gap-4 text-center text-sm"
-            borderColor="neutral"
-            border
-            roundedSize="xl"
-            padding="md"
-          >
-            <span>{rateLimitExceededMessage}</span>
-            <Link
-              href={PagesRoutes.Auth_SignIn}
-              label={signInButton.label.value}
-              color="text"
-              variant="button-outlined"
+          <div className="overflow-display relative h-0">
+            <Container
+              className="absolute bottom-0 left-0 left-1/2 mx-auto mt-3 flex max-w-md -translate-x-1/2 flex-col gap-4 text-center text-sm"
+              borderColor="neutral"
+              border
+              roundedSize="2xl"
+              padding="md"
             >
-              {signInButton.text}
-            </Link>
-          </Container>
+              <span>{rateLimitExceededMessage}</span>
+              <Link
+                href={App_Auth_SignIn}
+                label={signInButton.label.value}
+                color="text"
+                variant="button-outlined"
+              >
+                {signInButton.text}
+              </Link>
+            </Container>
+          </div>
         )}
 
         <FormSection
           askNewQuestion={handleAskNewQuestion}
           clear={handleClear}
           nbMessages={(discussion?.storedPrompt ?? []).length}
-          additionalButtons={additionalButtons}
+          userMessages={(discussion?.storedPrompt ?? [])
+            .filter((msg) => msg.role === 'user')
+            .map((msg) => msg.content as string)}
+          additionalButtons={
+            <>
+              <PopoverStatic identifier="chat-info">
+                <InfoIcon size={18} className="z-50 mr-3 text-neutral" />
+                <PopoverStatic.Detail
+                  identifier="chat-info"
+                  xAlign={isLarge ? 'end' : 'center'}
+                  yAlign="above"
+                >
+                  <p className="min-w-60 max-w-60 p-4 text-neutral text-xs">
+                    {disclaimerNote}
+                  </p>
+                </PopoverStatic.Detail>
+              </PopoverStatic>
+              {additionalButtons}
+            </>
+          }
           isActive={isActive}
+          isLoading={isPending}
         />
       </div>
     </div>

@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴の初期化
+    changes: "履歴の初期化"
 ---
 
 # ドキュメント: `intlayer` の `getConfiguration` 関数
@@ -40,7 +40,6 @@ history:
 
 - **型**: `IntlayerConfig`
 - **説明**: `intlayer` の完全な設定を含むオブジェクトです。設定には以下のセクションが含まれます:
-
   - `internationalization`: ロケールや厳格モードに関連する設定。
   - `middleware`: URLおよびクッキー管理に関連する設定。
   - `content`: コンテンツファイル、ディレクトリ、およびパターンに関連する設定。
@@ -54,36 +53,8 @@ history:
 
 ### 完全な設定の取得
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getConfiguration } from "intlayer";
-
-const config = getConfiguration();
-console.log(config);
-// 出力例:
-// {
-//   internationalization: { ... },
-//   middleware: { ... },
-//   content: { ... },
-//   editor: { ... }
-// }
-```
-
-```javascript codeFormat="esm"
-import { getConfiguration } from "intlayer";
-
-const config = getConfiguration();
-console.log(config);
-// 出力例:
-// {
-//   internationalization: { ... },
-//   middleware: { ... },
-//   content: { ... },
-//   editor: { ... }
-// }
-```
-
-```javascript codeFormat="commonjs"
-const { getConfiguration } = require("intlayer");
 
 const config = getConfiguration();
 console.log(config);
@@ -100,32 +71,8 @@ console.log(config);
 
 設定の `internationalization` セクションは、`locales`（利用可能なロケール）や `defaultLocale`（フォールバック言語）などのロケール関連の設定を提供します。
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getConfiguration } from "intlayer";
-
-const { internationalization, middleware } = getConfiguration();
-const { locales: availableLocales, defaultLocale } = internationalization;
-const { cookieName } = middleware;
-
-console.log(availableLocales); // 出力例: ["en", "fr", "es"]
-console.log(defaultLocale); // 出力例: "en"
-console.log(cookieName); // 出力: "INTLAYER_LOCALE"
-```
-
-```javascript codeFormat="esm"
-import { getConfiguration } from "intlayer";
-
-const { internationalization, middleware } = getConfiguration();
-const { locales: availableLocales, defaultLocale } = internationalization;
-const { cookieName } = middleware;
-
-console.log(availableLocales); // 出力例: ["en", "fr", "es"]
-console.log(defaultLocale); // 出力例: "en"
-console.log(cookieName); // 出力: "INTLAYER_LOCALE"
-```
-
-```javascript codeFormat="commonjs"
-const { getConfiguration } = require("intlayer");
 
 const { internationalization, middleware } = getConfiguration();
 const { locales: availableLocales, defaultLocale } = internationalization;

@@ -6,6 +6,7 @@ import {
   transformerNotationHighlight,
   transformerNotationWordHighlight,
 } from '@shikijs/transformers';
+import { cn } from '@utils/cn';
 import { type FC, type HTMLAttributes, Suspense } from 'react';
 import {
   type BundledLanguage,
@@ -13,7 +14,6 @@ import {
   type CodeToHastOptions,
   codeToHtml,
 } from 'shiki/bundle/web';
-import { cn } from '../../utils/cn';
 
 export const CodeBlockShiki = (async ({
   children,
@@ -56,11 +56,13 @@ const CodeDefault: FC<CodeBlockProps> = ({
   <div contentEditable={isEditable} {...props}>
     <pre>
       <code>
-        {children.split('\n').map((line, index) => (
-          <span className="line block w-full" key={index}>
-            {line}
-          </span>
-        ))}
+        {typeof children === 'string'
+          ? children.split('\n').map((line, index) => (
+              <span className="line block w-full" key={index}>
+                {line}
+              </span>
+            ))
+          : children}
       </code>
     </pre>
   </div>

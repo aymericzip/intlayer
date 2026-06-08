@@ -1,25 +1,26 @@
 import * as fsPromises from 'node:fs/promises';
 import { join } from 'node:path';
-import * as readline from 'node:readline';
-import { getIntlayerAPIProxy } from '@intlayer/api';
 import {
-  formatPath,
-  type ListGitFilesOptions,
-  listGitFiles,
-  parallelize,
   prepareIntlayer,
   writeContentDeclaration,
-} from '@intlayer/chokidar';
+} from '@intlayer/chokidar/build';
 import {
-  ANSIColors,
+  type ListGitFilesOptions,
+  listGitFiles,
+  logConfigDetails,
+} from '@intlayer/chokidar/cli';
+import { formatPath, parallelize } from '@intlayer/chokidar/utils';
+import * as ANSIColors from '@intlayer/config/colors';
+import { colorize, colorizeKey, getAppLogger } from '@intlayer/config/logger';
+import {
   type GetConfigurationOptions,
-  getAppLogger,
   getConfiguration,
-} from '@intlayer/config';
-import type { Dictionary } from '@intlayer/types';
+} from '@intlayer/config/node';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { PushLogger, type PushStatus } from '../pushLog';
-import { checkCMSAuth } from '../utils/checkAccess';
+import { checkCMSAuth, getAuthenticatedAPI } from '../utils/checkAccess';
+import { selectCmsEnvironment } from '../utils/selectCmsEnvironment';
 
 type PushOptions = {
   deleteLocaleDictionary?: boolean;
@@ -32,7 +33,14 @@ type PushOptions = {
 
 type DictionariesStatus = {
   dictionary: Dictionary;
-  status: 'pending' | 'pushing' | 'modified' | 'pushed' | 'unknown' | 'error';
+  status:
+    | 'pending'
+    | 'pushing'
+    | 'modified'
+    | 'pushed'
+    | 'up-to-date'
+    | 'unknown'
+    | 'error';
   error?: Error;
   errorMessage?: string;
 };
@@ -41,6 +49,7 @@ type DictionariesStatus = {
 const statusIconsAndColors = {
   pushed: { icon: '✔', color: ANSIColors.GREEN },
   modified: { icon: '✔', color: ANSIColors.GREEN },
+  'up-to-date': { icon: '=', color: ANSIColors.GREY },
   error: { icon: '✖', color: ANSIColors.RED },
   default: { icon: '⏲', color: ANSIColors.BLUE },
 };
@@ -57,11 +66,9 @@ const getIconAndColor = (status: DictionariesStatus['status']) => {
  */
 export const push = async (options?: PushOptions): Promise<void> => {
   const config = getConfiguration(options?.configOptions);
-  const appLogger = getAppLogger(config, {
-    config: {
-      prefix: '',
-    },
-  });
+  logConfigDetails(options?.configOptions);
+
+  const appLogger = getAppLogger(config);
 
   if (options?.build === true) {
     await prepareIntlayer(config, { forceRun: true });
@@ -74,12 +81,55 @@ export const push = async (options?: PushOptions): Promise<void> => {
 
     if (!hasCMSAuth) return;
 
-    const intlayerAPI = getIntlayerAPIProxy(undefined, config);
+    const intlayerAPI = await getAuthenticatedAPI(config);
+
+    await selectCmsEnvironment(
+      options?.configOptions?.env,
+      intlayerAPI,
+      config
+    );
 
     const unmergedDictionariesRecord = getUnmergedDictionaries(config);
-    let dictionaries: Dictionary[] = Object.values(
-      unmergedDictionariesRecord
-    ).flat();
+    const allDictionaries = Object.values(unmergedDictionariesRecord).flat();
+
+    const customLocations = Array.from(
+      new Set(
+        allDictionaries
+          .map((dictionary) => dictionary.location)
+          .filter(
+            (location) =>
+              location && !['remote', 'local', 'hybrid'].includes(location)
+          )
+      )
+    ) as string[];
+
+    // Include all custom locations automatically — no interactive prompt needed.
+    const selectedCustomLocations: string[] = customLocations;
+
+    let dictionaries: Dictionary[] = allDictionaries.filter((dictionary) => {
+      const location =
+        dictionary.location ?? config.dictionary?.location ?? 'local';
+
+      return (
+        location === 'remote' ||
+        location === 'hybrid' ||
+        selectedCustomLocations.includes(location)
+      );
+    });
+
+    // Check if the dictionaries list is empty after filtering by location
+    if (dictionaries.length === 0) {
+      appLogger(
+        `No dictionaries found to push. Only dictionaries with location ${colorize('remote', ANSIColors.BLUE, ANSIColors.RESET)}, ${colorize('hybrid', ANSIColors.BLUE, ANSIColors.RESET)} or selected custom locations are pushed.`,
+        { level: 'warn' }
+      );
+      appLogger(
+        `You can set the location in your dictionary file (e.g. ${colorize("{ key: 'my-key', location: 'hybrid', ... }", ANSIColors.BLUE, ANSIColors.RESET)} or globally in your intlayer.config.ts file (e.g. ${colorize("{ dictionary: { location: 'hybrid' } }", ANSIColors.BLUE, ANSIColors.RESET)}).`,
+        { level: 'info' }
+      );
+      return;
+    }
+
     const existingDictionariesKeys: string[] = Object.keys(
       unmergedDictionariesRecord
     );
@@ -112,7 +162,7 @@ export const push = async (options?: PushOptions): Promise<void> => {
 
       dictionaries = dictionaries.filter((dictionary) =>
         gitFiles.includes(
-          join(config.content.baseDir, dictionary.filePath ?? '')
+          join(config.system.baseDir, dictionary.filePath ?? '')
         )
       );
     }
@@ -161,8 +211,14 @@ export const push = async (options?: PushOptions): Promise<void> => {
 
         const updatedDictionaries = pushResult.data?.updatedDictionaries ?? [];
         const newDictionaries = pushResult.data?.newDictionaries ?? [];
+        const upToDateDictionaries =
+          pushResult.data?.upToDateDictionaries ?? [];
 
-        const allDictionaries = [...updatedDictionaries, ...newDictionaries];
+        const allDictionaries = [
+          ...updatedDictionaries,
+          ...newDictionaries,
+          ...upToDateDictionaries,
+        ];
 
         for (const remoteDictionaryData of allDictionaries) {
           const localDictionary = unmergedDictionariesRecord[
@@ -199,6 +255,15 @@ export const push = async (options?: PushOptions): Promise<void> => {
           logger.update([
             { dictionaryKey: statusObj.dictionary.key, status: 'pushed' },
           ]);
+        } else if (
+          upToDateDictionaries.some(
+            (dictionary) => dictionary.key === statusObj.dictionary.key
+          )
+        ) {
+          statusObj.status = 'up-to-date';
+          logger.update([
+            { dictionaryKey: statusObj.dictionary.key, status: 'up-to-date' },
+          ]);
         } else {
           statusObj.status = 'unknown';
         }
@@ -221,7 +286,7 @@ export const push = async (options?: PushOptions): Promise<void> => {
     for (const dictionaryStatus of dictionariesStatuses) {
       const { icon, color } = getIconAndColor(dictionaryStatus.status);
       appLogger(
-        ` - ${dictionaryStatus.dictionary.key} ${ANSIColors.GREY}[${color}${icon} ${dictionaryStatus.status}${ANSIColors.GREY}]${ANSIColors.RESET}`
+        ` - ${colorizeKey(dictionaryStatus.dictionary.key)} ${ANSIColors.GREY}[${color}${icon} ${dictionaryStatus.status}${ANSIColors.GREY}]${ANSIColors.RESET}`
       );
     }
 
@@ -251,11 +316,28 @@ export const push = async (options?: PushOptions): Promise<void> => {
       // Do nothing, keep the local dictionaries
     } else {
       // Ask the user
-      const answer = await askUser(
-        'Do you want to delete the local dictionaries that were successfully pushed? (yes/no): '
+      const remoteDictionaries = successfullyPushedDictionaries.filter(
+        (dictionary) => dictionary.location === 'remote'
       );
-      if (answer.toLowerCase() === 'yes' || answer.toLowerCase() === 'y') {
-        await deleteLocalDictionaries(successfullyPushedDictionaries, options);
+      const remoteDictionariesKeys = remoteDictionaries.map(
+        (dictionary) => dictionary.key
+      );
+
+      if (remoteDictionaries.length > 0) {
+        const { confirm, isCancel } = await import('@clack/prompts');
+
+        const shouldDelete = await confirm({
+          message: `Do you want to delete the local dictionaries that were successfully pushed? ${colorize('(Dictionaries:', ANSIColors.GREY, ANSIColors.RESET)} ${colorizeKey(remoteDictionariesKeys)}${colorize(')', ANSIColors.GREY, ANSIColors.RESET)}`,
+          initialValue: false,
+        });
+
+        if (isCancel(shouldDelete)) {
+          return;
+        }
+
+        if (shouldDelete) {
+          await deleteLocalDictionaries(remoteDictionaries, options);
+        }
       }
     }
   } catch (error) {
@@ -265,29 +347,12 @@ export const push = async (options?: PushOptions): Promise<void> => {
   }
 };
 
-const askUser = (question: string): Promise<string> => {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
-  return new Promise((resolve) => {
-    rl.question(question, (answer: string) => {
-      rl.close();
-      resolve(answer);
-    });
-  });
-};
-
 const deleteLocalDictionaries = async (
   dictionariesToDelete: Dictionary[],
   options?: PushOptions
 ): Promise<void> => {
   const config = getConfiguration(options?.configOptions);
-  const appLogger = getAppLogger(config, {
-    config: {
-      prefix: '',
-    },
-  });
+  const appLogger = getAppLogger(config);
 
   // Use a Set to collect all unique file paths
   const filePathsSet: Set<string> = new Set();
@@ -296,9 +361,12 @@ const deleteLocalDictionaries = async (
     const { filePath } = dictionary;
 
     if (!filePath) {
-      appLogger(`Dictionary ${dictionary.key} does not have a file path`, {
-        level: 'error',
-      });
+      appLogger(
+        `Dictionary ${colorizeKey(dictionary.key)} does not have a file path`,
+        {
+          level: 'error',
+        }
+      );
       continue;
     }
 

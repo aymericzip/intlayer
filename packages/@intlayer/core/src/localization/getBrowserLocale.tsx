@@ -1,9 +1,7 @@
-import configuration from '@intlayer/config/built';
-import { type Locale, Locales } from '@intlayer/types';
-import {
-  getLocaleFromStorage,
-  type LocaleStorageOptions,
-} from '../utils/localeStorage';
+import { internationalization } from '@intlayer/config/built';
+import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
+import type { Locale } from '@intlayer/types/allLocales';
+import { getLocaleFromStorageClient } from '../utils/localeStorage';
 import { localeDetector } from './localeDetector';
 
 export enum LanguageDetector {
@@ -12,32 +10,6 @@ export enum LanguageDetector {
   Navigator = 'navigator',
   HtmlTag = 'htmlTag',
 }
-
-export const localeStorageOptions: LocaleStorageOptions = {
-  getCookie: (name: string) =>
-    document.cookie
-      .split(';')
-      .find((c) => c.trim().startsWith(`${name}=`))
-      ?.split('=')[1],
-  getLocaleStorage: (name: string) => localStorage.getItem(name),
-  getSessionStorage: (name: string) => sessionStorage.getItem(name),
-  isCookieEnabled: true,
-  setCookieStore: (name, value, attributes) =>
-    cookieStore.set({
-      name,
-      value,
-      path: attributes.path,
-      domain: attributes.domain,
-      expires: attributes.expires,
-      sameSite: attributes.sameSite,
-    }),
-  setCookieString: (cookie) => {
-    // biome-ignore lint/suspicious/noDocumentCookie: set cookie fallback
-    document.cookie = cookie;
-  },
-  setSessionStorage: (name, value) => sessionStorage.setItem(name, value),
-  setLocaleStorage: (name, value) => localStorage.setItem(name, value),
-};
 
 // Default settings for the language detector
 type LanguageDetectorOptions = {
@@ -81,12 +53,16 @@ const detectLanguage = (
   const storageDetector = () => {
     if (typeof window === 'undefined') return;
 
-    const locale = getLocaleFromStorage({
+    const locale = getLocaleFromStorageClient({
       getCookie: (name: string) => {
         try {
           const cookies = document.cookie.split(';');
           const cookieName = `${name}=`;
-          const cookie = cookies.find((c) => c.trim().startsWith(cookieName));
+
+          const cookie = cookies.find((cookie) =>
+            cookie.trim().startsWith(cookieName)
+          );
+
           if (cookie) {
             return cookie.split('=')[1].trim();
           }
@@ -115,7 +91,6 @@ const detectLanguage = (
   const navigatorDetector = () => {
     if (typeof navigator === 'undefined') return;
 
-    const { internationalization } = configuration;
     const languages = navigator.languages ?? [navigator.language];
 
     // Use localeDetector to find the best matching locale
@@ -135,9 +110,8 @@ const detectLanguage = (
     if (htmlTag && typeof htmlTag.getAttribute === 'function') {
       const lang = htmlTag.getAttribute('lang');
       if (lang) {
-        const { internationalization } = configuration;
-
         // Validate and resolve the locale
+
         const locale = localeDetector(
           { 'accept-language': lang },
           internationalization.locales,
@@ -169,8 +143,6 @@ const getFirstAvailableLocale = (
   locales: Record<LanguageDetector, Locale | undefined>,
   order: LanguageDetector[]
 ): Locale => {
-  const { internationalization } = configuration;
-
   for (const detector of order) {
     const locale = locales[detector];
 
@@ -179,7 +151,7 @@ const getFirstAvailableLocale = (
     }
   }
 
-  return internationalization?.defaultLocale ?? Locales.ENGLISH;
+  return internationalization?.defaultLocale ?? DEFAULT_LOCALE;
 };
 
 /**

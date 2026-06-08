@@ -17,9 +17,12 @@ slugs:
   - content
   - insertion
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: "Dekorasi otomatis konten penyisipan"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inisialisasi riwayat
+    changes: "Inisialisasi riwayat"
 ---
 
 # Konten Penyisipan / Penyisipan di Intlayer
@@ -32,55 +35,69 @@ Saat diintegrasikan dengan React Intlayer atau Next Intlayer, Anda cukup menyedi
 
 ## Menyiapkan Konten Penyisipan
 
-Untuk menyiapkan konten penyisipan dalam proyek Intlayer Anda, buat modul konten yang mencakup definisi penyisipan Anda. Berikut adalah contoh dalam berbagai format.
+Untuk menyiapkan konten penyisipan dalam proyek Intlayer Anda, buat modul konten yang mencakup definisi penyisipan Anda.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { insert, type Dictionary } from "intlayer";
+<Tabs>
+  <Tab label="Pembungkusan Manual" value="manual-wrapping">
+    Gunakan fungsi `insert` untuk mendeklarasikan konten penyisipan secara eksplisit.
 
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert(
-      "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!"
-    ),
-  },
-} satisfies Dictionary;
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
+    import { insert, type Dictionary } from "intlayer";
 
-export default myInsertionContent;
-```
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert(
+          "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!"
+        ),
+      },
+    } satisfies Dictionary;
 
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { insert } from "intlayer";
+    export default myInsertionContent;
+    ```
 
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert(
-      "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!"
-    ),
-  },
-};
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": {
+          "nodeType": "insertion",
+          "insertion": "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!",
+        },
+      },
+    }
+    ```
 
-export default myInsertionContent;
-```
+  </Tab>
+  <Tab label="Deteksi Otomatis" value="automatic-detection">
+    Jika string mengandung indikator penyisipan umum (seperti `{{name}}`), Intlayer akan secara otomatis mengubahnya.
 
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { insert } = require("intlayer");
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
+    import { type Dictionary } from "intlayer";
 
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert(
-      "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!"
-    ),
-  },
-};
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!",
+      },
+    } satisfies Dictionary;
 
-module.exports = myInsertionContent;
-```
+    export default myInsertionContent;
+    ```
+
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!",
+      },
+    }
+    ```
+
+  </Tab>
+</Tabs>
 
 ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
 {
@@ -91,6 +108,7 @@ module.exports = myInsertionContent;
       "nodeType": "insertion",
       "insertion": "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!",
     },
+    "myInsertion2": "Halo, nama saya {{name}} dan saya berumur {{age}} tahun!", // Since intlayer v8, insertion function is not required anymore. The content will be automatically decorated.
   },
 }
 ```
@@ -99,7 +117,7 @@ module.exports = myInsertionContent;
 
 Untuk memanfaatkan konten insertion dalam sebuah komponen React, impor dan gunakan hook `useIntlayer` dari paket `react-intlayer`. Hook ini mengambil konten untuk kunci yang ditentukan dan memungkinkan Anda untuk mengirimkan sebuah objek yang memetakan setiap placeholder dalam konten Anda ke nilai yang ingin Anda tampilkan.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -127,65 +145,11 @@ const InsertionComponent: FC = () => {
 export default InsertionComponent;
 ```
 
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Output: "Halo, nama saya John dan saya berumur 30 tahun!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* Anda dapat menggunakan kembali insertion yang sama dengan nilai berbeda */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-export default InsertionComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Output: "Halo, nama saya John dan saya berumur 30 tahun!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* Anda dapat menggunakan kembali insertion yang sama dengan nilai yang berbeda */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = InsertionComponent;
-```
-
 ## Sumber Daya Tambahan
 
 Untuk informasi lebih rinci tentang konfigurasi dan penggunaan, lihat sumber daya berikut:
 
-- [Dokumentasi Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_cli.md)
+- [Dokumentasi Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md)
 - [Dokumentasi React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_create_react_app.md)
 - [Dokumentasi Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_15.md)
 

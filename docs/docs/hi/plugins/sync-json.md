@@ -26,15 +26,15 @@ youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
   - version: 7.5.0
     date: 2025-12-13
-    changes: ICU और i18next प्रारूप समर्थन जोड़ा गया
+    changes: "ICU और i18next प्रारूप समर्थन जोड़ा गया"
   - version: 6.1.6
     date: 2025-10-05
-    changes: प्रारंभिक सिंक JSON प्लगइन दस्तावेज़ीकरण
+    changes: "प्रारंभिक सिंक JSON प्लगइन दस्तावेज़ीकरण"
 ---
 
 # सिंक JSON (i18n ब्रिजेस) - ICU / i18next समर्थन के साथ सिंक JSON
 
-<iframe title="Intlayer के साथ अपने JSON अनुवादों को सिंक में कैसे रखें" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Intlayer के साथ अपने JSON अनुवादों को सिंक में कैसे रखें" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 अपने मौजूदा i18n स्टैक में एक ऐड-ऑन के रूप में Intlayer का उपयोग करें। यह प्लगइन आपके JSON संदेशों को Intlayer शब्दकोशों के साथ सिंक्रनाइज़ रखता है ताकि आप:
 
@@ -66,10 +66,10 @@ npm i -D @intlayer/sync-json-plugin
 अपने `intlayer.config.ts` में प्लगइन जोड़ें और इसे अपनी मौजूदा JSON संरचना की ओर इंगित करें।
 
 ```ts fileName="intlayer.config.ts"
-import { defineConfig, Locales } from "intlayer";
+import { Locales, type IntlayerConfig } from "intlayer";
 import { syncJSON } from "@intlayer/sync-json-plugin";
 
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
@@ -82,7 +82,9 @@ export default defineConfig({
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],
-});
+};
+
+export default config;
 ```
 
 वैकल्पिक: प्रति-लोकल एकल फ़ाइल (i18next/react-intl सेटअप में सामान्य):
@@ -108,17 +110,21 @@ syncJSON({
   source: ({ key, locale }) => string, // आवश्यक
   location?: string, // वैकल्पिक लेबल, डिफ़ॉल्ट: "plugin"
   priority?: number, // संघर्ष समाधान के लिए वैकल्पिक प्राथमिकता, डिफ़ॉल्ट: 0
-  format?: 'intlayer' | 'icu' | 'i18next', // वैकल्पिक फ़ॉर्मेटर, डिफ़ॉल्ट: 'intlayer'
+  format?: 'intlayer' | 'icu' | 'i18next', // वैकल्पिक फ़ॉर्मेटर, Intlayer रनटाइम संगतता के लिए उपयोग किया जाता है
 });
 ```
 
 #### `format` ('intlayer' | 'icu' | 'i18next')
 
-JSON फ़ाइलों को सिंक्रनाइज़ करते समय शब्दकोश सामग्री के लिए उपयोग किए जाने वाले फ़ॉर्मेटर को निर्दिष्ट करता है। यह विभिन्न i18n लाइब्रेरी के साथ संगत विभिन्न संदेश फ़ॉर्मेटिंग सिंटैक्स का उपयोग करने की अनुमति देता है।
+JSON फ़ाइलों को सिंक्रनाइज़ करते समय शब्दकोश सामग्री के लिए उपयोग किए जाने वाले फ़ॉर्मेटर को निर्दिष्ट करता है। यह Intlayer रनटाइम के साथ संगत विभिन्न संदेश फ़ॉर्मेटिंग सिंटैक्स का उपयोग करने की अनुमति देता है।
 
+- `undefined`: कोई फ़ॉर्मेटर उपयोग नहीं किया जाएगा, JSON सामग्री जैसी है वैसी ही उपयोग की जाएगी।
 - `'intlayer'`: डिफ़ॉल्ट Intlayer फ़ॉर्मेटर (डिफ़ॉल्ट)।
 - `'icu'`: ICU संदेश फ़ॉर्मेटिंग का उपयोग करता है (react-intl, vue-i18n जैसी लाइब्रेरी के साथ संगत)।
 - `'i18next'`: i18next संदेश फ़ॉर्मेटिंग का उपयोग करता है (i18next, next-i18next, Solid-i18next के साथ संगत)।
+
+> ध्यान दें कि फ़ॉर्मेटर का उपयोग करने से आपकी JSON सामग्री इनपुट और आउटपुट में रूपांतरित हो जाएगी। ICU बहुवचन जैसे जटिल JSON नियमों के लिए, पार्सिंग इनपुट और आउटपुट के बीच 1 से 1 मैपिंग की गारंटी नहीं दे सकता।
+> यदि आप Intlayer रनटाइम का उपयोग नहीं करते हैं, तो आप फ़ॉर्मेटर सेट न करना पसंद कर सकते हैं।
 
 **उदाहरण:**
 
@@ -143,10 +149,10 @@ syncJSON({
 - समान प्राथमिकता वाले प्लगइन्स को कॉन्फ़िगरेशन में उनके प्रकट होने के क्रम में संसाधित किया जाता है
 
 ```ts fileName="intlayer.config.ts"
-import { defineConfig, Locales } from "intlayer";
+import { Locales, type IntlayerConfig } from "intlayer";
 import { syncJSON } from "@intlayer/sync-json-plugin";
 
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH],
     defaultLocale: Locales.ENGLISH,
@@ -177,7 +183,9 @@ export default defineConfig({
       priority: 1,
     }),
   ],
-});
+};
+
+export default config;
 ```
 
 ### संघर्ष समाधान
@@ -257,7 +265,7 @@ plugins: [
 - `intlayer content push` सिंक किए गए JSON फ़ाइलों को पुश करने के लिए
 - `intlayer content pull` सिंक किए गए JSON फ़ाइलों को पुल करने के लिए
 
-अधिक जानकारी के लिए [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_cli.md) देखें।
+अधिक जानकारी के लिए [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md) देखें।
 
 ## सीमाएँ (वर्तमान)
 

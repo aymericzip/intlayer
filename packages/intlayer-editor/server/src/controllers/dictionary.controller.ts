@@ -1,34 +1,34 @@
+import { join } from 'node:path';
 import {
   type DictionaryStatus,
   writeContentDeclaration as writeContentDeclarationEditor,
-} from '@intlayer/chokidar';
-import { getConfiguration } from '@intlayer/config';
-import type { Dictionary } from '@intlayer/types';
+} from '@intlayer/chokidar/build';
+import { getConfiguration } from '@intlayer/config/node';
+import { clearModuleCache } from '@intlayer/config/utils';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import {
   getUnmergedDictionaries,
   type UnmergedDictionaries,
 } from '@intlayer/unmerged-dictionaries-entry';
 import { formatResponse, type ResponseData } from '@utils/responseData';
-import type { NextFunction, Request, Response } from 'express';
-import { t } from 'express-intlayer';
+import type { FastifyReply, FastifyRequest } from 'fastify';
+import { t } from 'fastify-intlayer';
 
-type GetDictionariesResult = ResponseData<UnmergedDictionaries>;
+export type GetEditorDictionariesResult = ResponseData<UnmergedDictionaries>;
 
 /**
  * Get the Intlayer configuration
  */
 export const getDictionaries = async (
-  _req: Request,
-  res: Response<GetDictionariesResult>,
-  _next: NextFunction
+  _req: FastifyRequest,
+  res: FastifyReply
 ): Promise<void> => {
   try {
     const formattedResponse = formatResponse<UnmergedDictionaries>({
       data: getUnmergedDictionaries(),
     });
 
-    res.json(formattedResponse);
-    return;
+    return res.send(formattedResponse);
   } catch (err) {
     const errorMessage = (err as { message?: string; status?: number }) ?? {
       message: 'Internal Server Error',
@@ -44,8 +44,7 @@ export const getDictionaries = async (
       status: errorMessage.status ?? 500,
     });
 
-    res.json(formattedErrorResponse);
-    return;
+    return res.send(formattedErrorResponse);
   }
 };
 
@@ -61,9 +60,8 @@ export type WriteContentDeclarationResult =
  * Adds a new dictionary to the database.
  */
 export const writeContentDeclaration = async (
-  req: Request<any, any, WriteContentDeclarationBody>,
-  res: Response<WriteContentDeclarationResult>,
-  _next: NextFunction
+  req: FastifyRequest<{ Body: WriteContentDeclarationBody }>,
+  res: FastifyReply
 ): Promise<void> => {
   try {
     const dictionaryData = req.body.dictionary;
@@ -71,6 +69,13 @@ export const writeContentDeclaration = async (
     const config = getConfiguration();
 
     const result = await writeContentDeclarationEditor(dictionaryData, config);
+
+    // Clear cache to hot reload the dictionaries
+    const dictionariesPath = join(
+      config.system.mainDir,
+      `unmerged_dictionaries.cjs`
+    );
+    clearModuleCache(dictionariesPath);
 
     let description = '';
 
@@ -130,8 +135,7 @@ export const writeContentDeclaration = async (
       }
     );
 
-    res.json(formattedResponse);
-    return;
+    return res.send(formattedResponse);
   } catch (err) {
     const errorMessage = (err as { message?: string; status?: number }) ?? {
       message: 'Internal Server Error',
@@ -150,7 +154,6 @@ export const writeContentDeclaration = async (
         status: errorMessage.status ?? 500,
       });
 
-    res.json(formattedErrorResponse);
-    return;
+    return res.send(formattedErrorResponse);
   }
 };

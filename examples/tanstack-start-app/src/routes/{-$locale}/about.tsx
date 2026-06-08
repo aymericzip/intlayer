@@ -6,7 +6,7 @@ export const Route = createFileRoute('/{-$locale}/about')({
 });
 
 function AboutPage() {
-  const { title, description } = useIntlayer('about');
+  const { description, title } = useIntlayer('about');
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-linear-to-b from-slate-900 via-slate-800 to-slate-900 text-white">

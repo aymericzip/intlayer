@@ -1,205 +1,124 @@
-import type { LocalesValues, StrictModeLocaleMap } from '@intlayer/types';
+import type {
+  LocalesValues,
+  StrictModeLocaleMap,
+} from '@intlayer/types/module_augmentation';
 
 /**
- * Check if a value is a plain object that can be safely processed.
+ * Check if a value is a plain object that can be safely merged.
  * Returns false for Promises, React elements, class instances, etc.
  */
 const isPlainObject = (value: unknown): boolean => {
-  if (value === null || typeof value !== 'object') {
+  if (value === null || typeof value !== 'object') return false;
+  if (typeof (value as any).then === 'function') return false;
+  if (
+    (value as any).$$typeof !== undefined ||
+    (value as any).__v_isVNode !== undefined ||
+    (value as any)._isVNode !== undefined ||
+    (value as any).isJSX !== undefined
+  ) {
     return false;
   }
-
-  // Don't process Promises (e.g., Next.js 15+ params)
-  if (value instanceof Promise || typeof (value as any).then === 'function') {
-    return false;
-  }
-
-  // Don't process React elements
-  if ((value as any).$$typeof !== undefined) {
-    return false;
-  }
-
-  // Only process plain objects and arrays
   const proto = Object.getPrototypeOf(value);
   return proto === Object.prototype || proto === null || Array.isArray(value);
 };
 
 /**
- * Recursively merges two objects.
- * Resembles the behavior of `defu` but respects `isPlainObject` to avoid merging React elements.
- * Arrays are replaced, not merged.
+ * Recursively merges two objects, skipping undefined source values.
+ * First argument takes precedence. Arrays replace rather than merge.
  */
-const deepMergeObjects = (target: any, source: any): any => {
+const deepMerge = (target: any, source: any): any => {
   if (target === undefined) return source;
   if (source === undefined) return target;
-
   if (Array.isArray(target)) return target;
-
   if (isPlainObject(target) && isPlainObject(source)) {
     const result = { ...target };
-    for (const key of Object.keys(source)) {
-      if (key === '__proto__' || key === 'constructor') continue;
 
-      if (Object.hasOwn(target, key)) {
-        result[key] = deepMergeObjects(target[key], source[key]);
-      } else {
-        result[key] = source[key];
-      }
+    for (const key of Object.keys(source)) {
+      if (
+        key === '__proto__' ||
+        key === 'constructor' ||
+        source[key] === undefined
+      )
+        continue;
+      result[key] =
+        target[key] !== undefined
+          ? deepMerge(target[key], source[key])
+          : source[key];
     }
     return result;
   }
-
   return target;
 };
 
 /**
- * Recursively removes undefined values from an object.
- * Handles circular references by tracking visited objects.
- */
-const removeUndefinedValues = <T>(
-  object: T,
-  visited = new WeakSet<object>()
-): T => {
-  if (typeof object !== 'object' || object === null) {
-    return object;
-  }
-
-  // Handle circular references - return original to avoid infinite recursion
-  if (visited.has(object)) {
-    return object;
-  }
-  visited.add(object);
-
-  // Don't process non-plain objects (Promises, React elements, etc.)
-  if (!isPlainObject(object)) {
-    return object;
-  }
-
-  if (Array.isArray(object)) {
-    return object.map((item) => removeUndefinedValues(item, visited)) as T;
-  }
-
-  const result: Record<string, unknown> = {};
-  for (const [key, value] of Object.entries(object)) {
-    if (value !== undefined) {
-      result[key] = removeUndefinedValues(value, visited);
-    }
-  }
-  return result as T;
-};
-
-/**
+ * Picks the appropriate content from a locale map based on the provided locale.
  *
- * Allow to pick a content based on a locale.
- * If not locale found, it will return the content related to the default locale.
+ * It handles:
+ * 1. Exact locale match (e.g., 'en-US').
+ * 2. Generic locale fallback (e.g., 'en' if 'en-US' is not found).
+ * 3. Explicit fallback locale.
+ * 4. Deep merging of objects to ensure partial translations are complemented by fallbacks.
  *
- * Return either the content editor, or the content itself depending on the configuration.
+ * @param languageContent - A map of locales to content.
+ * @param locale - The target locale to retrieve.
+ * @param fallback - Optional fallback locale if the target is not found.
+ * @returns The translated content.
  *
- * Usage:
- *
+ * @example
  * ```ts
- * const content = getTranslation<string>({
- * en: 'Hello',
- * fr: 'Bonjour',
+ * const content = getTranslation({
+ *   en: 'Hello',
+ *   fr: 'Bonjour',
  * }, 'fr');
  * // 'Bonjour'
  * ```
- *
- * Using TypeScript:
- * - this function will require each locale to be defined if defined in the project configuration.
- * - If a locale is missing, it will make each existing locale optional and raise an error if the locale is not found.
  */
-export const getTranslation = <Content = string>(
+export const getTranslation = <const Content = string>(
   languageContent: StrictModeLocaleMap<Content>,
   locale: LocalesValues,
   fallback?: LocalesValues
 ): Content => {
-  const results: Content[] = [];
-
-  const getContent = (loc: string) =>
+  const get = (loc: string): Content | undefined =>
     languageContent[loc as keyof typeof languageContent];
 
-  // 1. Get Target Content
-  const content = getContent(locale);
-  if (typeof content === 'string') {
-    return content;
-  } else if (content !== undefined) {
-    results.push(content);
-  }
-
-  // 2. Get Target Generic Content (e.g. 'en' from 'en-US')
-  if (locale.includes('-')) {
-    const genericLocale = locale.split('-')[0];
-    if (genericLocale in languageContent) {
-      const genericContent = getContent(genericLocale);
-
-      if (typeof genericContent === 'string') {
-        // If we haven't found specific content yet, return generic string
-        if (results.length === 0) return genericContent;
-      } else if (genericContent !== undefined) {
-        results.push(genericContent);
-      }
+  // Build priority-ordered locale candidates (most specific first), deduped
+  const seen = new Set<string>();
+  const locales: string[] = [];
+  const addLocale = (loc: string | undefined) => {
+    if (loc && !seen.has(loc)) {
+      seen.add(loc);
+      locales.push(loc);
     }
-  }
+  };
 
-  // 3. Get Fallback Content
-  if (fallback !== undefined && fallback !== locale) {
-    // 3a. Fallback Specific
-    if (fallback in languageContent) {
-      const fallbackContent = getContent(fallback);
+  addLocale(locale);
+  if (locale.includes('-')) addLocale(locale.split('-')[0]);
 
-      if (typeof fallbackContent === 'string') {
-        if (results.length === 0) return fallbackContent;
-      } else if (fallbackContent !== undefined) {
-        results.push(fallbackContent);
-      }
+  addLocale(fallback);
+  if (fallback?.includes('-')) addLocale(fallback.split('-')[0]);
+
+  // Collect results: strings exit early (if no higher-priority object was found),
+  // objects are accumulated for deep merging.
+  const results: Content[] = [];
+
+  for (const loc of locales) {
+    const val = get(loc);
+
+    if (val === undefined) continue;
+    if (typeof val === 'string') {
+      if (results.length === 0) return val;
+      continue; // an object at higher priority takes precedence
     }
 
-    // 3b. Fallback Generic (The missing piece: e.g. 'en' from 'en-GB' fallback)
-    if (fallback.includes('-')) {
-      const genericFallback = fallback.split('-')[0];
-      const genericLocale = locale.split('-')[0];
-
-      // Only add if it's different from the target generic (to avoid duplication)
-      // and exists in the dictionary
-      if (
-        genericFallback !== genericLocale &&
-        genericFallback in languageContent
-      ) {
-        const genericFallbackContent = getContent(genericFallback);
-
-        if (typeof genericFallbackContent === 'string') {
-          if (results.length === 0) return genericFallbackContent;
-        } else if (genericFallbackContent !== undefined) {
-          results.push(genericFallbackContent);
-        }
-      }
-    }
+    results.push(val);
   }
 
-  if (results.length === 0) {
-    return undefined as Content;
-  }
+  if (results.length === 0) return undefined as Content;
+  if (results.length === 1) return results[0];
+  if (Array.isArray(results[0])) return results[0];
 
-  // Clean undefined values so they don't overwrite fallbacks
-  // Order: [Target, Generic, Fallback, FallbackGeneric]
-  // defu first argument takes precedence, so Target wins
-  const cleanResults = results.map((item) => removeUndefinedValues(item));
-
-  // If only one result, return it directly (no merging needed)
-  if (cleanResults.length === 1) {
-    return cleanResults[0];
-  }
-
-  // If the first result is an array, return it directly (arrays replace, don't merge)
-  // defu would incorrectly convert arrays to objects with numeric keys
-  if (Array.isArray(cleanResults[0])) {
-    return cleanResults[0];
-  }
-
-  // Merge objects with custom merge - first argument takes precedence
-  // Cast to object[] since by this point we've already returned early for strings, arrays, and single results
-  return (cleanResults as object[]).reduce((acc, curr) =>
-    deepMergeObjects(acc, curr)
+  // Merge objects: first result (most specific) takes precedence
+  return (results as object[]).reduce((acc, curr) =>
+    deepMerge(acc, curr)
   ) as Content;
 };

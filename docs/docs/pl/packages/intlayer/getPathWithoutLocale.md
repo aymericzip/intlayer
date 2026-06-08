@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inicjalizacja historii
+    changes: "Inicjalizacja historii"
 ---
 
 # Dokumentacja: funkcje `getPathWithoutLocale` w `intlayer`
@@ -47,26 +47,8 @@ Usuwa segment lokalizacji z podanego URL lub ścieżki, jeśli jest obecny. Dzia
 
 ## Przykład użycia
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getPathWithoutLocale } from "intlayer";
-
-console.log(getPathWithoutLocale("/dashboard")); // Wynik: "/dashboard"
-console.log(getPathWithoutLocale("/en/dashboard")); // Wynik: "/dashboard"
-console.log(getPathWithoutLocale("/fr/dashboard")); // Wynik: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Wynik: "https://example.com/dashboard"
-```
-
-```javascript codeFormat="esm"
-import { getPathWithoutLocale } from "intlayer";
-
-console.log(getPathWithoutLocale("/dashboard")); // Wynik: "/dashboard"
-console.log(getPathWithoutLocale("/en/dashboard")); // Wynik: "/dashboard"
-console.log(getPathWithoutLocale("/fr/dashboard")); // Wynik: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Wynik: "https://example.com/dashboard"
-```
-
-```javascript codeFormat="commonjs"
-const { getPathWithoutLocale } = require("intlayer");
 
 console.log(getPathWithoutLocale("/dashboard")); // Wynik: "/dashboard"
 console.log(getPathWithoutLocale("/en/dashboard")); // Wynik: "/dashboard"

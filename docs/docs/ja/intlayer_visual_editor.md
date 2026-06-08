@@ -19,12 +19,12 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴を初期化
+    changes: "履歴を初期化"
 ---
 
 # Intlayer Visual Editor ドキュメント
 
-<iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Intlayer Visual Editor は、ビジュアルエディターを使用してコンテンツ宣言ファイルと対話するためにウェブサイトをラップするツールです。
 
@@ -82,11 +82,15 @@ yarn add intlayer-editor --save-dev
 pnpm add intlayer-editor --save-dev
 ```
 
+```bash packageManager="bun"
+bun add intlayer-editor --dev
+```
+
 ## 設定
 
 Intlayer の設定ファイルで、エディタの設定をカスタマイズできます:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -121,80 +125,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 他の設定
-  editor: {
-    /**
-     * 必須
-     * アプリケーションの URL。
-     * これはビジュアルエディタがターゲットとする URL です。
-     * 例: 'http://localhost:3000'
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * 任意
-     * デフォルトは `true`。`false` の場合、エディタは無効化されアクセスできません。
-     * 本番環境などのセキュリティ上の理由でエディタを無効化する場合に使用します。
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-    /**
-     * 任意
-     * デフォルトは `8000`。
-     * ビジュアルエディタサーバーが使用するポート。
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * 任意
-     * デフォルトは "http://localhost:8000"
-     * アプリケーションから到達可能なエディタサーバーの URL。
-     * セキュリティ上の理由でアプリケーションと対話できるオリジンを制限するために使用します。
-     * `'*'` に設定すると、エディタはすべてのオリジンからアクセス可能です。
-     * ポートが変更された場合や、エディタが異なるドメインにホストされている場合に設定する必要があります。
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... 他の設定
-  editor: {
-    /**
-     * 必須
-     * アプリケーションの URL。
-     * これはビジュアルエディタがターゲットとする URL です。
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * 任意
-     * デフォルトは `8000`。
-     * エディタサーバーのポート。
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * 任意
-     * デフォルトは "http://localhost:8000"
-     * エディタサーバーの URL。
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * 任意
-     * デフォルトは `true`。`false` の場合、エディタは無効化されアクセスできません。
-     * 本番環境などのセキュリティ上の理由で特定の環境でエディタを無効化するために使用できます。
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-  },
-};
-
-module.exports = config;
 ```
 
 > 利用可能なすべてのパラメータについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md) を参照してください。

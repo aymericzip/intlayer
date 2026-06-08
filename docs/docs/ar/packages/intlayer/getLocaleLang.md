@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: بداية التاريخ
+    changes: "بداية التاريخ"
 ---
 
 # التوثيق: دالة `getLocaleLang` في `intlayer`
@@ -33,7 +33,6 @@ history:
 ## المعاملات
 
 - `locale?: Locales`
-
   - **الوصف**: سلسلة الموقع (مثل `Locales.ENGLISH_UNITED_STATES`، `Locales.FRENCH_CANADA`) التي يتم استخراج رمز اللغة منها.
   - **النوع**: `Locales` (اختياري)
 
@@ -46,28 +45,10 @@ history:
 
 ### استخراج رموز اللغة:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getLocaleLang, Locales } from "intlayer";
 
 getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
-getLocaleLang(Locales.ENGLISH); // الناتج: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // الناتج: "fr"
-getLocaleLang(Locales.FRENCH); // الناتج: "fr"
-```
-
-```javascript codeFormat="esm"
-import { getLocaleLang } from "intlayer";
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // الناتج: "en"
-getLocaleLang(Locales.ENGLISH); // الناتج: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // الناتج: "fr"
-getLocaleLang(Locales.FRENCH); // الناتج: "fr"
-```
-
-```javascript codeFormat="commonjs"
-const { getLocaleLang } = require("intlayer");
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // الناتج: "en"
 getLocaleLang(Locales.ENGLISH); // الناتج: "en"
 getLocaleLang(Locales.FRENCH_CANADA); // الناتج: "fr"
 getLocaleLang(Locales.FRENCH); // الناتج: "fr"

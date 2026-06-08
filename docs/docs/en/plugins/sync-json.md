@@ -26,15 +26,15 @@ youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
   - version: 7.5.0
     date: 2025-12-13
-    changes: Add ICU and i18next format support
+    changes: "Add ICU and i18next format support"
   - version: 6.1.6
     date: 2025-10-05
-    changes: Initial Sync JSON plugin documentation
+    changes: "Initial Sync JSON plugin documentation"
 ---
 
 # Sync JSON (i18n bridges) - Sync JSON with ICU / i18next support
 
-<iframe title="How to keep your JSON translations in sync with Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="How to keep your JSON translations in sync with Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Use Intlayer as an add‑on to your existing i18n stack. This plugin keeps your JSON messages in sync with Intlayer dictionaries so you can:
 
@@ -180,17 +180,21 @@ syncJSON({
   source: ({ key, locale }) => string, // required
   location?: string, // optional label, default: "plugin"
   priority?: number, // optional priority for conflict resolution, default: 0
-  format?: 'intlayer' | 'icu' | 'i18next', // optional formatter, default: 'intlayer'
+  format?: 'intlayer' | 'icu' | 'i18next', // optional formatter, used for intlayer runtime compatibility
 });
 ```
 
 #### `format` ('intlayer' | 'icu' | 'i18next')
 
-Specifies the formatter to use for the dictionary content when synchronizing JSON files. This allows using different message formatting syntaxes compatible with various i18n libraries.
+Specifies the formatter to use for the dictionary content when synchronizing JSON files. This allows using different message formatting syntaxes compatible with intlayer runtime.
 
+- `undefined`: No formatter will be used, the JSON content will be used as is.
 - `'intlayer'`: The default Intlayer formatter (default).
 - `'icu'`: Uses ICU message formatting (compatible with libraries like react-intl, vue-i18n).
 - `'i18next'`: Uses i18next message formatting (compatible with i18next, next-i18next, Solid-i18next).
+
+> Note that using a formatter will transform your JSON content in input, and output. For complexe json rules as ICU plurals, the parsing may not ensure a 1 to 1 mapping between the input and output.
+> If you do not use Intlayer runtime, you my prefer to do not set a formatter.
 
 **Example:**
 

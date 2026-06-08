@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Histórico inicial
+    changes: "Histórico inicial"
 ---
 
 # Documentação: Função `getEnumeration` em `intlayer`
@@ -33,13 +33,11 @@ A função `getEnumeration` recupera o conteúdo correspondente a uma quantidade
 ## Parâmetros
 
 - `enumerationContent: QuantityContent<Content>`
-
   - **Descrição**: Um objeto onde as chaves representam condições (por exemplo, `<=`, `<`, `>=`, `=`) e os valores representam o conteúdo correspondente. A ordem das chaves define a prioridade de correspondência.
   - **Tipo**: `QuantityContent<Content>`
     - `Content` pode ser qualquer tipo.
 
 - `quantity: number`
-
   - **Descrição**: O valor numérico usado para corresponder às condições em `enumerationContent`.
   - **Tipo**: `number`
 
@@ -52,7 +50,7 @@ A função `getEnumeration` recupera o conteúdo correspondente a uma quantidade
 
 ### Uso Básico
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getEnumeration } from "intlayer";
 
 const content = getEnumeration(
@@ -68,68 +66,10 @@ const content = getEnumeration(
 console.log(content); // Saída: "Você tem dois"
 ```
 
-```javascript codeFormat="esm"
-import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<1": "Você tem menos que um",
-    "2": "Você tem dois",
-    ">=3": "Você tem três ou mais",
-  },
-  2
-);
-
-console.log(content); // Saída: "Você tem dois"
-```
-
-```javascript codeFormat="commonjs"
-const { getEnumeration } = require("intlayer");
-
-const content = getEnumeration(
-  {
-    "<1": "Você tem menos que um",
-    "2": "Você tem dois",
-    ">=3": "Você tem três ou mais",
-  },
-  2
-);
-
-console.log(content); // Saída: "Você tem dois"
-```
-
 ### Prioridade das Condições
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<4": "Você tem menos que quatro",
-    "2": "Você tem dois",
-  },
-  2
-);
-
-console.log(content); // Saída: "Você tem menos que quatro"
-```
-
-```javascript codeFormat="esm"
-import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<4": "Você tem menos que quatro",
-    "2": "Você tem dois",
-  },
-  2
-);
-
-console.log(content); // Saída: "Você tem menos que quatro"
-```
-
-```javascript codeFormat="commonjs"
-const { getEnumeration } = require("intlayer");
 
 const content = getEnumeration(
   {
@@ -145,15 +85,12 @@ console.log(content); // Saída: "Você tem menos que quatro"
 ## Casos Especiais
 
 - **Nenhuma Condição Correspondente:**
-
   - Se nenhuma condição corresponder à quantidade fornecida, a função retornará `undefined` ou tratará explicitamente o cenário padrão/fallback.
 
 - **Condições Ambíguas:**
-
   - Se as condições se sobrepuserem, a primeira condição correspondente (com base na ordem do objeto) terá precedência.
 
 - **Chaves Inválidas:**
-
   - A função assume que todas as chaves em `enumerationContent` são válidas e podem ser interpretadas como condições. Chaves inválidas ou com formato incorreto podem levar a comportamentos inesperados.
 
 - **Aplicação do TypeScript:**

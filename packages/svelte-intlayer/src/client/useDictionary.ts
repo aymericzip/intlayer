@@ -1,4 +1,5 @@
-import type { Dictionary, LocalesValues } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { derived, type Readable } from 'svelte/store';
 import { getDictionary } from '../getDictionary';
 import type { DeepTransformContent } from '../plugins';
@@ -11,7 +12,7 @@ import { intlayerStore } from './intlayerStore';
  * @param locale The target locale (optional, uses context or store locale)
  * @returns Reactive store with transformed dictionary content
  */
-export const useDictionary = <T extends Dictionary>(
+export const useDictionary = <const T extends Dictionary>(
   dictionary: T,
   locale?: LocalesValues
 ): Readable<DeepTransformContent<T['content']>> => {

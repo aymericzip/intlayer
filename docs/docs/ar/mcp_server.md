@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-07
-updatedAt: 2025-07-11
+updatedAt: 2026-03-03
 title: توثيق خادم MCP
 description: استكشف ميزات وإعداد خادم MCP لتحسين إدارة وتشغيل الخادم الخاص بك.
 keywords:
@@ -17,16 +17,16 @@ slugs:
 history:
   - version: 5.5.12
     date: 2025-07-11
-    changes: إضافة إعداد ChatGPT
+    changes: "إضافة إعداد ChatGPT"
   - version: 5.5.12
     date: 2025-07-10
-    changes: إضافة إعداد Claude Desktop
+    changes: "إضافة إعداد Claude Desktop"
   - version: 5.5.12
     date: 2025-07-10
-    changes: إضافة نقل SSE والخادم البعيد
+    changes: "إضافة نقل Streamable HTTP والخادم البعيد"
   - version: 5.5.10
     date: 2025-06-29
-    changes: بدء السجل
+    changes: "بدء السجل"
 ---
 
 # خادم Intlayer MCP
@@ -49,14 +49,14 @@ history:
 - **تكامل ذكي لأوامر CLI**
   الوصول إلى أوامر Intlayer CLI وتشغيلها مباشرة من واجهة بيئة التطوير المتكاملة الخاصة بك. باستخدام خادم MCP، يمكنك السماح لمساعد الذكاء الاصطناعي الخاص بك بتشغيل أوامر مثل `intlayer dictionaries build` لتحديث القواميس الخاصة بك، أو `intlayer dictionaries fill` لملء الترجمات المفقودة.
 
-  > عرض القائمة الكاملة للأوامر والخيارات في [توثيق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md).
+  > عرض القائمة الكاملة للأوامر والخيارات في [توثيق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md).
 
-## الخادم المحلي (stdio) مقابل الخادم البعيد (SSE)
+## الخادم المحلي (stdio) مقابل الخادم البعيد (Streamable HTTP)
 
 يمكن استخدام خادم MCP بطريقتين:
 
 - الخادم المحلي (stdio)
-- الخادم البعيد (SSE)
+- الخادم البعيد (Streamable HTTP)
 
 ### الخادم المحلي (stdio) (موصى به)
 
@@ -64,13 +64,51 @@ history:
 
 هذا الخادم هو الطريقة الموصى بها لاستخدام خادم MCP. حيث يدمج جميع ميزات خادم MCP، بما في ذلك أدوات CLI.
 
-### الخادم البعيد (SSE)
+### الخادم البعيد (Streamable HTTP)
 
 يمكن أيضًا استخدام خادم MCP عن بُعد، باستخدام طريقة النقل SSE. يستضيف هذا الخادم Intlayer، وهو متاح على https://mcp.intlayer.org. يمكن الوصول إلى هذا الخادم علنًا، بدون أي مصادقة، وهو مجاني للاستخدام.
 
 لاحظ أن الخادم البعيد لا يدمج أدوات CLI، الإكمال التلقائي بالذكاء الاصطناعي، إلخ. الخادم البعيد مخصص فقط للتفاعل مع الوثائق لمساعدة مساعد الذكاء الاصطناعي الخاص بك في نظام Intlayer البيئي.
 
 > بسبب تكاليف استضافة الخادم، لا يمكن ضمان توفر الخادم البعيد. نحن نحد من عدد الاتصالات المتزامنة. نوصي باستخدام طريقة النقل للخادم المحلي (stdio) للحصول على تجربة أكثر موثوقية.
+
+---
+
+## الإعداد عبر واجهة سطر أوامر Intlayer (موصى به)
+
+توفر Intlayer أمر CLI لتكوين خادم MCP تلقائيًا في مشروعك.
+
+```bash packageManager="npm"
+npx intlayer init mcp
+```
+
+```bash packageManager="yarn"
+yarn intlayer init mcp
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init mcp
+```
+
+```bash packageManager="bun"
+bun x intlayer init mcp
+```
+
+سيقوم هذا الأمر بما يلي:
+
+1. سؤالك عن النظام الأساسي الذي تستخدمه (Cursor، VS Code، Claude Desktop، إلخ).
+2. سؤالك عن طريقة النقل التي تريد استخدامها (خادم محلي (stdio) أو خادم بعيد (Streamable HTTP)).
+3. تحديث ملف التكوين الخاص بك تلقائيًا (على سبيل المثال، `.cursor/mcp.json` أو `.vscode/mcp.json` أو تكوين Claude Desktop العام).
+
+---
+
+## Setup via Intlayer VS Code extension
+
+1. افتح لوحة الأوامر (Ctrl+Shift+P أو Cmd+Shift+P).
+2. اكتب `Intlayer: Setup AI Agent Skills`
+3. اختر المنصة التي تستخدمها (مثل `VS Code` و `Cursor` و `Windsurf` و `OpenCode` و `Claude Code` و `GitHub Copilot Workspace` وما إلى ذلك).
+4. اختر MCP المراد تثبيته (stdio، Streamable HTTP)
+5. اضغط على Enter.
 
 ---
 
@@ -93,16 +131,16 @@ history:
 }
 ```
 
-### الخادم البعيد (SSE)
+### الخادم البعيد (Streamable HTTP)
 
-للاتصال بخادم Intlayer MCP البعيد باستخدام أحداث الخادم المرسلة (SSE)، يمكنك تكوين عميل MCP الخاص بك للاتصال بالخدمة المستضافة.
+للاتصال بخادم Intlayer MCP البعيد باستخدام أحداث الخادم المرسلة (Streamable HTTP)، يمكنك تكوين عميل MCP الخاص بك للاتصال بالخدمة المستضافة.
 
 ```json fileName=".cursor/mcp.json"
 {
   "mcpServers": {
-    "intlayer": {
-      "url": "https://mcp.intlayer.org",
-      "transport": "sse"
+    "intlayer-sse": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote@latest", "https://mcp.intlayer.org"]
     }
   }
 }
@@ -134,16 +172,16 @@ history:
 }
 ```
 
-### الخادم البعيد (SSE)
+### الخادم البعيد (Streamable HTTP)
 
-للاتصال بخادم Intlayer MCP البعيد باستخدام أحداث الخادم المرسلة (SSE)، يمكنك تكوين عميل MCP الخاص بك للاتصال بالخدمة المستضافة.
+للاتصال بخادم Intlayer MCP البعيد باستخدام أحداث الخادم المرسلة (Streamable HTTP)، يمكنك تكوين عميل MCP الخاص بك للاتصال بالخدمة المستضافة.
 
 ```json fileName=".vscode/mcp.json"
 {
   "servers": {
-    "intlayer": {
-      "url": "https://mcp.intlayer.org",
-      "type": "sse"
+    "intlayer-sse": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote@latest", "https://mcp.intlayer.org"]
     }
   }
 }
@@ -153,7 +191,7 @@ history:
 
 ## الإعداد في ChatGPT
 
-### الخادم البعيد (SSE)
+### الخادم البعيد (Streamable HTTP)
 
 اتبع [الوثائق الرسمية](https://platform.openai.com/docs/mcp#test-and-connect-your-mcp-server) لتكوين خادم MCP في ChatGPT.
 
@@ -163,7 +201,6 @@ history:
 4. حدد `خادم MCP`
 5. انقر على `إضافة جديد`
 6. املأ الحقول التالية:
-
    - الرابط: `https://mcp.intlayer.org`
    - التسمية: `خادم Intlayer MCP`
    - الاسم: `intlayer-mcp-server`
@@ -190,6 +227,19 @@ history:
     "intlayer": {
       "command": "npx",
       "args": ["-y", "@intlayer/mcp"]
+    }
+  }
+}
+```
+
+### الخادم البعيد (Streamable HTTP)
+
+```json fileName="claude_desktop_config.json"
+{
+  "mcpServers": {
+    "intlayer-sse": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote@latest", "https://mcp.intlayer.org"]
     }
   }
 }

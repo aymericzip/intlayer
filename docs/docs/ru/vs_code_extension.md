@@ -18,23 +18,23 @@ slugs:
 history:
   - version: 6.1.5
     date: 2025-09-30
-    changes: Добавлено демонстрационное gif
+    changes: "Добавлено демонстрационное gif"
   - version: 6.1.0
     date: 2025-09-24
-    changes: Добавлен раздел выбора окружения
+    changes: "Добавлен раздел выбора окружения"
   - version: 6.0.0
     date: 2025-09-22
-    changes: Вкладка Intlayer / команды Fill & Test
+    changes: "Вкладка Intlayer / команды Fill & Test"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Инициализация истории
+    changes: "Инициализация истории"
 ---
 
 # Официальное расширение VS Code
 
 ## Обзор
 
-[**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension) — официальное расширение Visual Studio Code для **Intlayer**, разработанное для улучшения опыта разработчика при работе с локализованным контентом в ваших проектах.
+[**Intlayer**](https://marketplace.visualstudio.com/items?itemName=Intlayer.intlayer-vs-code-extension), официальное расширение Visual Studio Code для **Intlayer**, разработанное для улучшения опыта разработчика при работе с локализованным контентом в ваших проектах.
 
 ![Расширение Intlayer для VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/assets/vs_code_extension_demo.gif?raw=true)
 
@@ -120,7 +120,7 @@ Intlayer рекомендует хранить ваши ключи API ИИ, а 
 
 #### Выбор активного окружения
 
-- **Палитра команд**: откройте палитру и выполните команду `Intlayer: Select Environment`, затем выберите окружение (например, `development`, `staging`, `production`). Расширение попытается загрузить первый доступный файл из приведённого выше списка приоритетов и покажет уведомление, например «Загружено окружение из .env.<env>.local».
+- **Палитра команд**: откройте палитру и выполните команду `Intlayer: Select Environment`, затем выберите окружение (например, `development`, `staging`, `production`). Расширение попытается загрузить первый доступный файл из приведённого выше списка приоритетов и покажет уведомление, например «Загружено окружение из `.env.<env>.local`».
 - **Настройки**: перейдите в `Настройки → Расширения → Intlayer` и установите:
   - **Окружение**: имя окружения, используемое для разрешения файлов `.env.<env>*`.
   - (Опционально) **Файл Env**: явный путь к файлу `.env`. При указании он имеет приоритет над списком, определённым автоматически.

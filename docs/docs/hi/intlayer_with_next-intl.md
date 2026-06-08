@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-10-05
-updatedAt: 2025-10-05
-title: अपने Next.js 15 को next-intl का उपयोग करके कैसे अनुवादित करें – i18n गाइड 2025
-description: जानें कि अपने Next.js 15 App Router वेबसाइट को बहुभाषी कैसे बनाएं। अंतरराष्ट्रीयकरण (i18n) और अनुवाद के लिए दस्तावेज़ का पालन करें।
+updatedAt: 2026-05-31
+title: "next-intl i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
+description: "अब i18next की जरूरत नहीं। 2026 में next-intl ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
 keywords:
   - अंतरराष्ट्रीयकरण
   - दस्तावेज़ीकरण
@@ -52,6 +52,10 @@ pnpm add next-intl
 yarn add next-intl
 ```
 
+```bash packageManager="bun"
+bun add next-intl
+```
+
 ```bash
 .
 ├── locales
@@ -99,7 +103,7 @@ async function loadMessages(locale: string) {
 }
 
 export default getRequestConfig(async ({ locale }) => {
-  if (!locales.includes(locale as any)) notFound();
+  if (!locales.includes(locale)) notFound();
 
   return {
     messages: await loadMessages(locale),
@@ -391,15 +395,20 @@ export const config = {
 intlayer डिपेंडेंसीज़ इंस्टॉल करें:
 
 ```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin  -D
+npm install intlayer @intlayer/sync-json-plugin --save-dev
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin  -D
+yarn add intlayer @intlayer/sync-json-plugin --dev
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin  -D
+pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+```
+
+```bash packageManager="bun"
+bun add intlayer @intlayer/sync-json-plugin --dev
+bun x intlayer init
 ```
 
 intlayer कॉन्फ़िगरेशन फ़ाइल बनाएं:
@@ -444,4 +453,4 @@ export default config;
 - `intlayer fill`: आपके कॉन्फ़िगर किए गए लोकल्स के आधार पर आपकी AI प्रदाता का उपयोग करके गायब अनुवादों को भरता है।
 - `intlayer test`: गायब/अमान्य अनुवादों की जांच करता है (इसे CI में उपयोग करें)।
 
-आप तर्क और प्रदाताओं को कॉन्फ़िगर कर सकते हैं; देखें [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_cli.md)।
+आप तर्क और प्रदाताओं को कॉन्फ़िगर कर सकते हैं; देखें [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/index.md)।

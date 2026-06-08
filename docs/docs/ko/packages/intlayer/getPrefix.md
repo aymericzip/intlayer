@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 7.1.0
     date: 2025-11-16
-    changes: 초기 문서화
+    changes: "초기 문서화"
 ---
 
 # 문서: `intlayer`의 `getPrefix` 함수
@@ -100,7 +100,7 @@ type GetPrefixResult = {
 
 ### 기본 사용법
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm"]}
 import { getPrefix, Locales } from "intlayer";
 
 // 영어 로케일에 대한 접두사 확인
@@ -116,17 +116,6 @@ getPrefix(Locales.FRENCH, {
   mode: "prefix-no-default",
 });
 // 반환: { prefix: 'fr/', localePrefix: 'fr' }
-```
-
-```javascript codeFormat="esm"
-import { getPrefix, Locales } from "intlayer";
-
-getPrefix(Locales.ENGLISH, { mode: "prefix-all" });
-javascript codeFormat="commonjs"
-const { getPrefix, Locales } = require("intlayer");
-
-getPrefix(Locales.ENGLISH, { mode: "prefix-all" });
-// 반환: { prefix: '', localePrefix: undefined }
 ```
 
 ### 다양한 라우팅 모드

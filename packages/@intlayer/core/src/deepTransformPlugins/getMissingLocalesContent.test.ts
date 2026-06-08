@@ -1,4 +1,6 @@
-import { type ContentNode, Locales, NodeType } from '@intlayer/types';
+import type { ContentNode } from '@intlayer/types/dictionary';
+import * as Locales from '@intlayer/types/locales';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import { describe, expect, it } from 'vitest';
 import { getMissingLocalesContent } from './getMissingLocalesContent';
 
@@ -6,15 +8,15 @@ describe('getMissingLocalesContent', () => {
   it('should collect locales missing in any translation node', () => {
     const data = {
       a: {
-        nodeType: NodeType.Translation,
-        [NodeType.Translation]: {
+        nodeType: NodeTypes.TRANSLATION,
+        [NodeTypes.TRANSLATION]: {
           en: 'Hello',
         },
       },
       b: {
         c: {
-          nodeType: NodeType.Translation,
-          [NodeType.Translation]: {
+          nodeType: NodeTypes.TRANSLATION,
+          [NodeTypes.TRANSLATION]: {
             en: 'World',
             fr: 'Monde',
           },
@@ -37,16 +39,16 @@ describe('getMissingLocalesContent', () => {
   it('should return an empty array when all locales are present', () => {
     const data = {
       x: {
-        nodeType: NodeType.Translation,
-        [NodeType.Translation]: {
+        nodeType: NodeTypes.TRANSLATION,
+        [NodeTypes.TRANSLATION]: {
           en: 'Hi',
           fr: 'Salut',
         },
       },
       y: [
         {
-          nodeType: NodeType.Translation,
-          [NodeType.Translation]: {
+          nodeType: NodeTypes.TRANSLATION,
+          [NodeTypes.TRANSLATION]: {
             en: 'There',
             fr: 'Là',
           },
@@ -70,16 +72,16 @@ describe('getMissingLocalesContent', () => {
     const data = {
       list: [
         {
-          nodeType: NodeType.Translation,
-          [NodeType.Translation]: {
+          nodeType: NodeTypes.TRANSLATION,
+          [NodeTypes.TRANSLATION]: {
             en: 'One',
           },
         },
         {
           group: {
             inner: {
-              nodeType: NodeType.Translation,
-              [NodeType.Translation]: {
+              nodeType: NodeTypes.TRANSLATION,
+              [NodeTypes.TRANSLATION]: {
                 en: 'Two',
                 fr: 'Deux',
               },
@@ -123,8 +125,8 @@ describe('getMissingLocalesContent', () => {
   it('should return empty when locales input is empty', () => {
     const data = {
       t: {
-        nodeType: NodeType.Translation,
-        [NodeType.Translation]: {
+        nodeType: NodeTypes.TRANSLATION,
+        [NodeTypes.TRANSLATION]: {
           en: 'Hello',
         },
       },
@@ -145,14 +147,14 @@ describe('getMissingLocalesContent', () => {
   it('should not duplicate missing locales across multiple nodes', () => {
     const data = {
       n1: {
-        nodeType: NodeType.Translation,
-        [NodeType.Translation]: {
+        nodeType: NodeTypes.TRANSLATION,
+        [NodeTypes.TRANSLATION]: {
           en: 'A',
         },
       },
       n2: {
-        nodeType: NodeType.Translation,
-        [NodeType.Translation]: {
+        nodeType: NodeTypes.TRANSLATION,
+        [NodeTypes.TRANSLATION]: {
           fr: 'B',
         },
       },
@@ -173,8 +175,8 @@ describe('getMissingLocalesContent', () => {
   it('should detect missing locale when translation values are objects', () => {
     const data = {
       index: {
-        nodeType: NodeType.Translation,
-        [NodeType.Translation]: {
+        nodeType: NodeTypes.TRANSLATION,
+        [NodeTypes.TRANSLATION]: {
           en: {
             Index: {
               title: 'Home',
@@ -205,8 +207,8 @@ describe('getMissingLocalesContent', () => {
   it('should detect missing keys when translation values are objects with different structures', () => {
     const data = {
       home: {
-        nodeType: NodeType.Translation,
-        [NodeType.Translation]: {
+        nodeType: NodeTypes.TRANSLATION,
+        [NodeTypes.TRANSLATION]: {
           en: {
             title: 'Home',
             description: 'Home page description',
@@ -239,8 +241,8 @@ describe('getMissingLocalesContent', () => {
     // have different numbers of keywords (e.g., 'en' has 12 items, 'fr' has 13)
     const data = {
       keywords: {
-        nodeType: NodeType.Translation,
-        [NodeType.Translation]: {
+        nodeType: NodeTypes.TRANSLATION,
+        [NodeTypes.TRANSLATION]: {
           en: ['translation', 'localization', 'multilingual'],
           fr: [
             'Traduction',
@@ -269,8 +271,8 @@ describe('getMissingLocalesContent', () => {
   it('should still detect missing locales when one locale has no array at all', () => {
     const data = {
       keywords: {
-        nodeType: NodeType.Translation,
-        [NodeType.Translation]: {
+        nodeType: NodeTypes.TRANSLATION,
+        [NodeTypes.TRANSLATION]: {
           en: ['translation', 'localization'],
           // fr is completely missing
         },
@@ -292,8 +294,8 @@ describe('getMissingLocalesContent', () => {
   it('should handle arrays of objects without comparing array lengths', () => {
     const data = {
       items: {
-        nodeType: NodeType.Translation,
-        [NodeType.Translation]: {
+        nodeType: NodeTypes.TRANSLATION,
+        [NodeTypes.TRANSLATION]: {
           en: [{ name: 'Item 1' }, { name: 'Item 2' }, { name: 'Item 3' }],
           fr: [{ name: 'Article 1' }, { name: 'Article 2' }],
         },

@@ -1,4 +1,4 @@
-/* eslint-disable no-global-assign */
+/** biome-ignore-all lint/suspicious/noGlobalAssign: it's a test */
 import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, test, vi } from 'vitest';

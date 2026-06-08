@@ -16,13 +16,13 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-30
-    changes: Preact ve Nuxt desteği, MCP Sunucusu, CLI güncellemesi eklendi
+    changes: "Preact ve Nuxt desteği, MCP Sunucusu, CLI güncellemesi eklendi"
   - version: 5.5.11
     date: 2025-06-29
-    changes: `docs` komutları eklendi
+    changes: "`docs` komutları eklendi"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Geçmiş başlatıldı
+    changes: "Geçmiş başlatıldı"
 ---
 
 # Intlayer: Özellik Genel Bakışı & Yol Haritası

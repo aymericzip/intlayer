@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2025-11-19
-title: Comment traduire votre application Vite et Svelte – guide i18n 2025
-description: Découvrez comment rendre votre site web Vite et Svelte multilingue. Suivez la documentation pour internationaliser (i18n) et traduire votre site.
+updatedAt: 2026-05-31
+title: "Vite + Svelte i18n - Guide complet pour traduire votre application"
+description: "Oubliez i18next. Le guide 2026 pour créer une application Vite + Svelte multilingue (i18n). Traduisez avec des agents IA et optimisez la taille du bundle, le SEO et les performances."
 keywords:
   - Internationalisation
   - Documentation
@@ -15,38 +15,108 @@ slugs:
   - environment
   - vite-and-svelte
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-svelte-template
+applicationShowcase: https://intlayer-vite-svelte-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Mettre à jour l'utilisation de l'API useIntlayer de Solid pour un accès direct aux propriétés"
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: "Ajouter la commande init"
   - version: 5.5.11
     date: 2025-11-19
-    changes: Mise à jour de la doc
+    changes: "Mise à jour de la doc"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historique initial
+    changes: "Historique initial"
 ---
 
 # Traduisez votre site Vite et Svelte avec Intlayer | Internationalisation (i18n)
+
+<Tabs defaultTab="code">
+  <Tab label="Code" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-vite-svelte-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="Démo" value="demo">
+
+<iframe
+  src="https://intlayer-vite-svelte-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Démo - intlayer-vite-svelte-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
 
 ## Table des matières
 
 <TOC/>
 
-## Qu'est-ce que Intlayer ?
+## Pourquoi Intlayer plutôt que des alternatives ?
 
-**Intlayer** est une bibliothèque d'internationalisation (i18n) innovante et open-source conçue pour simplifier la prise en charge multilingue dans les applications web modernes.
+Par rapport aux solutions principales telles que `svelte-i18n` ou `i18next`, Intlayer est une solution dotée d'optimisations intégrées telles que :
 
-Avec Intlayer, vous pouvez :
+<AccordionGroup>
 
-- **Gérer facilement les traductions** en utilisant des dictionnaires déclaratifs au niveau des composants.
-- **Localiser dynamiquement les métadonnées**, les routes et le contenu.
-- **Assurer la prise en charge de TypeScript** avec des types générés automatiquement, améliorant l'autocomplétion et la détection d'erreurs.
-- **Bénéficier de fonctionnalités avancées**, comme la détection et le changement dynamiques de la locale.
+<Accordion header="Couverture complète Svelte">
+
+Intlayer est optimisé pour fonctionner parfaitement avec Svelte en offrant une **portée du contenu au niveau des composants**, des **traductions réactives** et toutes les fonctionnalités nécessaires à la mise à l'échelle de l'internationalisation (i18n).
+
+</Accordion>
+
+<Accordion header="Taille du bundle">
+
+Au lieu de charger de lourds fichiers JSON dans vos pages, ne chargez que le contenu strictement nécessaire. Intlayer vous aide à **réduire la taille de votre bundle et de vos pages jusqu'à 50 %**.
+
+</Accordion>
+
+<Accordion header="Maintenabilité">
+
+Déclarer le contenu directement au plus près de vos composants **facilite la maintenance** des applications de grande envergure. Vous pouvez dupliquer ou supprimer le dossier d'une fonctionnalité sans le fardeau mental de devoir passer en revue toute votre base de code de contenu. De plus, Intlayer est **entièrement typé** pour garantir l'exactitude de vos traductions.
+
+</Accordion>
+
+<Accordion header="Prêt pour les agents IA">
+
+La colocalisation du contenu **réduit le contexte nécessaire** aux grands modèles de langage (LLM). Intlayer est également livré avec une suite d'outils, tels qu'une **CLI** pour vérifier les traductions manquantes, un **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/lsp.md)**, un **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/mcp_server.md)** et des **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/agent_skills.md)**, afin de rendre l'expérience développeur (DX) encore plus fluide pour les agents IA.
+
+</Accordion>
+
+<Accordion header="Automatisation">
+
+Automatisez les traductions dans votre pipeline CI/CD en utilisant le LLM de votre choix au coût de votre propre fournisseur d'IA. Intlayer propose également un **compilateur** pour automatiser l'extraction de contenu, ainsi qu'une [plateforme web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md) pour vous aider à **traduire en arrière-plan**.
+
+</Accordion>
+
+<Accordion header="Performances">
+
+Associer de gros fichiers JSON à vos composants peut ralentir les performances et impacter la réactivité. Intlayer optimise le chargement du contenu directement au moment du **build**.
+
+</Accordion>
+
+<Accordion header="Collaboration avec les non-développeurs">
+
+Bien plus qu'une simple solution i18n, Intlayer propose un **[éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md)** auto-hébergé et un **[CMS complet](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md)** pour gérer votre contenu multilingue en **temps réel**. Cela rend la collaboration avec les traducteurs, concepteurs-rédacteurs et autres membres de l'équipe extrêmement simple. Le contenu peut être stocké localement et/ou à distance.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
 ## Guide étape par étape pour configurer Intlayer dans une application Vite et Svelte
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-vite-react-template?embed=1&ctl=1&file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-vite-react-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Comment internationaliser votre application avec Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -55,33 +125,39 @@ Avec Intlayer, vous pouvez :
 
 Voir le [Modèle d'application](https://github.com/aymericzip/intlayer-vite-svelte-template) sur GitHub.
 
-### Étape 1 : Installer les dépendances
+<Steps>
+
+<Step number={1} title="Installer les dépendances">
 
 Installez les paquets nécessaires en utilisant npm :
 
 ```bash packageManager="npm"
 npm install intlayer svelte-intlayer
 npm install vite-intlayer --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer svelte-intlayer
 pnpm add vite-intlayer --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer svelte-intlayer
 yarn add vite-intlayer --save-dev
+yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer svelte-intlayer
 bun add vite-intlayer --save-dev
+bun x intlayer init
 ```
 
 - **intlayer**
 
-  Le package principal qui fournit des outils d'internationalisation pour la gestion de la configuration, la traduction, la [déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md), la transpilation, et les [commandes CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_cli.md).
+  Le package principal qui fournit des outils d'internationalisation pour la gestion de la configuration, la traduction, la [déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md), la transpilation, et les [commandes CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md).
 
 - **svelte-intlayer**
   Le package qui intègre Intlayer avec une application Svelte. Il fournit des context providers et des hooks pour l'internationalisation dans Svelte.
@@ -89,7 +165,9 @@ bun add vite-intlayer --save-dev
 - **vite-intlayer**
   Inclut le plugin Vite pour intégrer Intlayer avec le [bundler Vite](https://vite.dev/guide/why.html#why-bundle-for-production), ainsi qu'un middleware pour détecter la locale préférée de l'utilisateur, gérer les cookies, et gérer la redirection des URL.
 
-### Étape 2 : Configuration de votre projet
+</Step>
+
+<Step number={2} title="Configuration de votre projet">
 
 Créez un fichier de configuration pour configurer les langues de votre application :
 
@@ -113,7 +191,9 @@ export default config;
 
 > Grâce à ce fichier de configuration, vous pouvez configurer les URL localisées, la redirection via middleware, les noms des cookies, l'emplacement et l'extension de vos déclarations de contenu, désactiver les logs Intlayer dans la console, et plus encore. Pour une liste complète des paramètres disponibles, consultez la [documentation de configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).
 
-### Étape 3 : Intégrer Intlayer dans votre configuration Vite
+</Step>
+
+<Step number={3} title="Intégrer Intlayer dans votre configuration Vite">
 
 Ajoutez le plugin intlayer dans votre configuration.
 
@@ -130,11 +210,13 @@ export default defineConfig({
 
 > Le plugin Vite `intlayer()` est utilisé pour intégrer Intlayer avec Vite. Il assure la génération des fichiers de déclaration de contenu et les surveille en mode développement. Il définit les variables d'environnement Intlayer au sein de l'application Vite. De plus, il fournit des alias pour optimiser les performances.
 
-### Étape 4 : Déclarez votre contenu
+</Step>
+
+<Step number={4} title="Déclarez votre contenu">
 
 Créez et gérez vos déclarations de contenu pour stocker les traductions :
 
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/app.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const appContent = {
@@ -149,44 +231,6 @@ const appContent = {
 } satisfies Dictionary;
 
 export default appContent;
-```
-
-```javascript fileName="src/app.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-// Déclaration du contenu de l'application
-const appContent = {
-  key: "app",
-  content: {
-    title: t({
-      en: "Hello World",
-      fr: "Bonjour le monde",
-      es: "Hola mundo",
-    }),
-  },
-};
-
-export default appContent;
-```
-
-```javascript fileName="src/app.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-// Déclaration du contenu de l'application
-const appContent = {
-  key: "app",
-  content: {
-    title: t({
-      en: "Hello World",
-      fr: "Bonjour le monde",
-      es: "Hola mundo",
-    }),
-  },
-};
-
-module.exports = appContent;
 ```
 
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"
@@ -206,11 +250,13 @@ module.exports = appContent;
 }
 ```
 
-> Vos déclarations de contenu peuvent être définies n'importe où dans votre application dès qu'elles sont incluses dans le répertoire `contentDir` (par défaut, `./src`). Et correspondent à l'extension de fichier de déclaration de contenu (par défaut, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> Vos déclarations de contenu peuvent être définies n'importe où dans votre application dès qu'elles sont incluses dans le répertoire `contentDir` (par défaut, `./src`). Et correspondent à l'extension de fichier de déclaration de contenu (par défaut, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Pour plus de détails, consultez la [documentation sur la déclaration de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md).
 
-### Étape 5 : Utiliser Intlayer dans votre code
+</Step>
+
+<Step number={5} title="Utiliser Intlayer dans votre code">
 
 ```svelte fileName="src/App.svelte"
 <script>
@@ -225,17 +271,23 @@ module.exports = appContent;
 <!-- Afficher le contenu comme contenu simple -->
 <h1>{$content.title}</h1>
 <!-- Pour afficher le contenu éditable via l'éditeur -->
-<h1><svelte:component this={$content.title} /></h1>
+<h1>{@const Title = $content.title}<Title /></h1>
 <!-- Pour afficher le contenu en tant que chaîne de caractères -->
 <div aria-label={$content.title.value}></div>
+<div aria-label={$content.title.toString()}></div>
+<div aria-label={String($content.title)}></div>
 ```
 
-### (Optionnel) Étape 6 : Changer la langue de votre contenu
+> Si votre application existe déjà, vous pouvez utiliser le [Compilateur Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md), ainsi que la [commande d'extraction](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/extract.md), pour transformer des milliers de composants en une seconde.
+
+</Step>
+
+<Step number={6} title="Changer la langue de votre contenu" isOptional={true}>
 
 ```svelte fileName="src/App.svelte"
 <script lang="ts">
 import  { getLocaleName } from 'intlayer';
-import { useLocale } from 'svelte-intlayer';
+import { useLocale } from "svelte-intlayer";
 
 // Obtenir les informations de locale et la fonction setLocale
 const { locale, availableLocales, setLocale } = useLocale();
@@ -259,7 +311,9 @@ const changeLocale = (event: Event) => {
 </div>
 ```
 
-### (Optionnel) Étape 7 : Rendre du Markdown
+</Step>
+
+<Step number={7} title="Rendre du Markdown" isOptional={true}>
 
 Intlayer prend en charge le rendu du contenu Markdown directement dans votre application Svelte. Par défaut, le Markdown est traité comme du texte brut. Pour convertir le Markdown en HTML enrichi, vous pouvez intégrer `@humanspeak/svelte-markdown` ou un autre parseur Markdown.
 
@@ -280,21 +334,17 @@ Intlayer prend en charge le rendu du contenu Markdown directement dans votre app
 
 > Vous pouvez également accéder aux données front-matter de votre markdown en utilisant la propriété `content.markdownContent.metadata.xxx`.
 
-### (Optionnel) Étape 8 : Configurer l’éditeur / CMS intlayer
+</Step>
+
+<Step number={8} title="Configurer l’éditeur / CMS intlayer" isOptional={true}>
 
 Pour configurer l’éditeur intlayer, vous devez suivre la [documentation de l’éditeur intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md).
 
 Pour configurer le CMS intlayer, vous devez suivre la [documentation du CMS intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md).
 
-En parallèle, dans votre application Svelte, vous devez ajouter la ligne suivante dans un layout, ou à la racine de votre application :
+</Step>
 
-```svelte fileName="src/layout.svelte"
-import { useIntlayerEditor } from "svelte-intlayer";
-
-useIntlayerEditor();
-```
-
-### (Optionnel) Étape 7 : Ajouter le routage localisé à votre application
+<Step number={7} title="Ajouter le routage localisé à votre application" isOptional={true}>
 
 Pour gérer le routage localisé dans votre application Svelte, vous pouvez utiliser `svelte-spa-router` avec `localeFlatMap` d'Intlayer pour générer les routes pour chaque locale.
 
@@ -302,14 +352,17 @@ Tout d'abord, installez `svelte-spa-router` :
 
 ```bash packageManager="npm"
 npm install svelte-spa-router
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add svelte-spa-router
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add svelte-spa-router
+yarn intlayer init
 ```
 
 ```bash packageManager="bun"
@@ -361,7 +414,7 @@ Enfin, mettez à jour votre `App.svelte` pour recevoir la propriété `locale` e
 ```svelte fileName="src/App.svelte"
 <script lang="ts">
 import type { Locale } from 'intlayer';
-import { useIntlayer } from 'svelte-intlayer';
+import { useIntlayer } from "svelte-intlayer";
 import Counter from './lib/Counter.svelte';
 import LocaleSwitcher from './lib/LocaleSwitcher.svelte';
 
@@ -385,40 +438,24 @@ En parallèle, vous pouvez également utiliser le `intlayerProxy` pour ajouter u
 
 > Notez que pour utiliser le `intlayerProxy` en production, vous devez déplacer le paquet `vite-intlayer` de `devDependencies` vers `dependencies`.
 
-```typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
+```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { intlayer, intlayerProxy } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [svelte(), intlayer(), intlayerProxy()],
+  plugins: [
+    intlayerProxy(), // should be placed first
+    svelte(),
+    intlayer(),
+  ],
 });
 ```
 
-```javascript {3,7} fileName="vite.config.mjs" codeFormat="esm"
-import { defineConfig } from "vite";
-import { svelte } from "@sveltejs/vite-plugin-svelte";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+</Step>
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [svelte(), intlayer(), intlayerProxy()],
-});
-```
-
-```javascript {3,7} fileName="vite.config.cjs" codeFormat="commonjs"
-const { defineConfig } = require("vite");
-const { svelte } = require("@sveltejs/vite-plugin-svelte");
-const { intlayer, intlayerProxy } = require("vite-intlayer");
-
-// https://vitejs.dev/config/
-module.exports = defineConfig({
-  plugins: [svelte(), intlayer(), intlayerProxy()],
-});
-```
-
-### (Optionnel) Étape 8 : Modifier l'URL lorsque la locale change
+<Step number={8} title="Modifier l'URL lorsque la locale change" isOptional={true}>
 
 Pour permettre aux utilisateurs de changer de langue et de mettre à jour l'URL en conséquence, vous pouvez créer un composant `LocaleSwitcher`. Ce composant utilisera `getLocalizedUrl` de `intlayer` et `push` de `svelte-spa-router`.
 
@@ -435,11 +472,14 @@ const { locale, availableLocales } = useLocale();
 
 // Gérer le changement de locale
 const changeLocale = (event: Event) => {
-  plugins: [svelte(), intlayer(), intlayerProxy()],
+  plugins: [intlayerProxy(), // should be placed first
+ svelte(), intlayer()],
 });
 ```
 
-### (Optionnel) Étape 8 : Modifier l’URL lors du changement de langue
+</Step>
+
+<Step number={8} title="Modifier l’URL lors du changement de langue" isOptional={true}>
 
 Pour permettre aux utilisateurs de changer de langue et de mettre à jour l’URL en conséquence, vous pouvez créer un composant `LocaleSwitcher`. Ce composant utilisera `getLocalizedUrl` de `intlayer` et `push` de `svelte-spa-router`.
 
@@ -475,14 +515,189 @@ const changeLocale = (event: Event) => {
 </div>
 ```
 
+</Step>
+
+<Step number={9} title="Extraire le contenu de vos composants" isOptional={true}>
+
+Si vous avez une base de code existante, transformer des milliers de fichiers peut prendre beaucoup de temps.
+
+Pour faciliter ce processus, Intlayer propose un [compilateur](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/compiler.md) / [extracteur](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/extract.md) pour transformer vos composants et extraire le contenu.
+
+Pour le configurer, vous pouvez ajouter une section `compiler` dans votre fichier `intlayer.config.ts` :
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... Reste de votre configuration
+  compiler: {
+    /**
+     * Indique si le compilateur doit être activé.
+     */
+    enabled: true,
+
+    /**
+     * Définit le chemin des fichiers de sortie
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Indique si les composants doivent être sauvegardés après avoir été transformés. De cette façon, le compilateur peut être exécuté une seule fois pour transformer l'application, puis il peut être supprimé.
+     */
+    saveComponents: false,
+
+    /**
+     * Préfixe de clé de dictionnaire
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='Commande d'extraction'>
+
+Exécutez l'extracteur pour transformer vos composants et extraire le contenu
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Compilateur Babel'>
+
+Mettez à jour votre fichier `vite.config.ts` pour inclure le plugin `intlayerCompiler` :
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // Ajoute le plugin du compilateur
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # Ou npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # Ou pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Ou yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
+</Step>
+
+</Steps>
+
+### (Facultatif) Sitemap et robots.txt (génération au build)
+
+Intlayer fournit des utilitaires - `generateSitemap` et `getMultilingualUrls` - pour produire un `sitemap.xml` multilingue et un `robots.txt` prêts pour les crawlers, que vous pouvez écrire automatiquement dans `public/`. En pratique, exécutez un petit script Node **avant** Vite (par exemple les hooks npm `predev` / `prebuild`) afin que ces fichiers soient présents au build ou au serveur de développement.
+
+#### Sitemap
+
+Le générateur de sitemap Intlayer tient compte de vos locales et ajoute les métadonnées attendues par les moteurs.
+
+> Le sitemap généré prend en charge l’espace de noms `xhtml:link` (extensions hreflang). Contrairement aux générateurs qui ne listent que des URL brutes, Intlayer relie de façon bidirectionnelle toutes les versions linguistiques d’une même page (par ex. `/about`, `/fr/about` ou `/about?lang=fr` selon votre mode de routage), ce qui aide les crawlers.
+
+#### Robots.txt
+
+Utilisez `getMultilingualUrls` pour que les règles `Disallow` couvrent toutes les variantes localisées des chemins sensibles.
+
+#### 1. Créer `generate-seo.mjs` à la racine du projet
+
+```javascript fileName="generate-seo.mjs"
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import { generateSitemap, getMultilingualUrls } from "intlayer";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const SITE_URL = (process.env.SITE_URL || "http://localhost:5173").replace(
+  /\/$/,
+  ""
+);
+
+const pathList = [
+  { path: "/", changefreq: "daily", priority: 1.0 },
+  { path: "/about", changefreq: "monthly", priority: 0.7 },
+];
+
+const sitemapXml = generateSitemap(pathList, { siteUrl: SITE_URL });
+fs.writeFileSync(path.join(__dirname, "public", "sitemap.xml"), sitemapXml);
+
+const getAllMultilingualUrls = (urls) =>
+  urls.flatMap((url) => Object.values(getMultilingualUrls(url)));
+
+const disallowedPaths = getAllMultilingualUrls(["/admin", "/private"]);
+
+const robotsTxt = [
+  "User-agent: *",
+  "Allow: /",
+  ...disallowedPaths.map((path) => `Disallow: ${path}`),
+  "",
+  `Sitemap: ${SITE_URL}/sitemap.xml`,
+].join("\n");
+
+fs.writeFileSync(path.join(__dirname, "public", "robots.txt"), robotsTxt);
+
+console.log("SEO files generated successfully.");
+```
+
+Le paquet `intlayer` doit être installé pour que le script puisse l’importer. Définissez `SITE_URL` dans l’environnement pour la production (par ex. en CI).
+
+> Préférez `generate-seo.mjs` pour l’ESM Node. Avec `generate-seo.js`, assurez-vous que `"type": "module"` est présent dans `package.json`, ou activez l’ESM côté Node.
+
+#### 2. Lancer le script avant Vite
+
+```json fileName="package.json"
+{
+  "scripts": {
+    "dev": "vite",
+    "prebuild": "node generate-seo.mjs",
+    "build": "vite build",
+    "preview": "vite preview"
+  }
+}
+```
+
+Adaptez les commandes si vous utilisez pnpm ou yarn. Vous pouvez aussi appeler ce script depuis la CI ou une autre étape de votre pipeline.
+
 ### Configuration Git
 
 Il est recommandé d’ignorer les fichiers générés par Intlayer. Cela vous permet d’éviter de les commettre dans votre dépôt Git.
 
 Pour ce faire, vous pouvez ajouter les instructions suivantes dans votre fichier `.gitignore` :
 
-```plaintext
-# Ignorer les fichiers générés par Intlayer
+```bash
+#  Ignorer les fichiers générés par Intlayer
 .intlayer
 ```
 

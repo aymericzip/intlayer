@@ -1,4 +1,4 @@
-import { splitTextByLines } from '@intlayer/chokidar';
+import { splitTextByLines } from '@intlayer/chokidar/utils';
 import { type ChunkLineResult, chunkText } from './calculateChunks';
 
 export interface ChunkMapping {

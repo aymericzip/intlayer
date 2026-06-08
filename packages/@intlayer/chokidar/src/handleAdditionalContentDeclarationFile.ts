@@ -1,5 +1,5 @@
-import { getAppLogger } from '@intlayer/config';
-import type { IntlayerConfig } from '@intlayer/types';
+import { getAppLogger } from '@intlayer/config/logger';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { buildDictionary } from './buildIntlayerDictionary/buildIntlayerDictionary';
 import { createDictionaryEntryPoint } from './createDictionaryEntryPoint/createDictionaryEntryPoint';
 import { createModuleAugmentation, createTypes } from './createType/index';
@@ -21,11 +21,11 @@ export const handleAdditionalContentDeclarationFile = async (
 
   const dictionariesOutput = await buildDictionary(localeDictionaries, config);
 
-  const dictionariesPaths = Object.values(
+  const dictionariesToBuild = Object.values(
     dictionariesOutput?.mergedDictionaries ?? {}
-  ).map((dictionary) => dictionary.dictionaryPath);
+  ).map((dictionary) => dictionary.dictionary);
 
-  await createTypes(dictionariesPaths, config);
+  await createTypes(dictionariesToBuild, config);
 
   await createDictionaryEntryPoint(config);
 
@@ -33,7 +33,7 @@ export const handleAdditionalContentDeclarationFile = async (
     isVerbose: true,
   });
 
-  createModuleAugmentation(config);
+  await createModuleAugmentation(config);
 
   appLogger('Module augmentation built', {
     isVerbose: true,

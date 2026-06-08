@@ -18,19 +18,19 @@ slugs:
 history:
   - version: 7.3.0
     date: 2025-11-25
-    changes: Add extract content command
+    changes: "Add extract content command"
   - version: 6.1.5
     date: 2025-09-30
-    changes: Add demo gif
+    changes: "Add demo gif"
   - version: 6.1.0
     date: 2025-09-24
-    changes: Added environment selection section
+    changes: "Added environment selection section"
   - version: 6.0.0
     date: 2025-09-22
-    changes: Intlayer Tab / Fill & Test commands
+    changes: "Intlayer Tab / Fill & Test commands"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Init history"
 ---
 
 # Official VS Code Extension
@@ -123,7 +123,7 @@ The extension can load environment variables from your workspace to run Intlayer
 
 #### Selecting the active environment
 
-- **Command Palette**: open the palette and run `Intlayer: Select Environment`, then choose the environment (e.g., `development`, `staging`, `production`). The extension will attempt to load the first available file in the priority list above and show a notification like “Loaded env from .env.<env>.local”.
+- **Command Palette**: open the palette and run `Intlayer: Select Environment`, then choose the environment (e.g., `development`, `staging`, `production`). The extension will attempt to load the first available file in the priority list above and show a notification like “Loaded env from `.env.<env>.local`”.
 - **Settings**: go to `Settings → Extensions → Intlayer`, and set:
   - **Environment**: the environment name used to resolve `.env.<env>*` files.
   - (Optional) **Env File**: an explicit path to a `.env` file. When provided, it takes precedence over the inferred list.

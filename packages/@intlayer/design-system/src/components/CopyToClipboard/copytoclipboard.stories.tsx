@@ -620,7 +620,7 @@ export const ContactInformationCard: Story = {
       <div className="h-24 bg-gradient-to-r from-blue-600 to-purple-600"></div>
 
       <div className="relative px-6 pb-6">
-        <div className="-mt-12 relative mb-4">
+        <div className="relative -mt-12 mb-4">
           <div className="flex h-24 w-24 items-center justify-center rounded-full border-4 border-white bg-white shadow-sm">
             <span className="font-bold text-2xl text-gray-600">JD</span>
           </div>

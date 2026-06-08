@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2025-11-01
-title: 如何使用 next-i18next 国际化您的 Next.js 应用
-description: 使用 next-i18next 设置国际化：多语言 Next.js 应用的最佳实践和 SEO 技巧，涵盖国际化、内容组织和技术设置。
+updatedAt: 2026-05-31
+title: 如何使用 next-i18next 国际化您的 Next.js 应用 - 完整翻译指南： Translate Next.js 16 with next-i18next — App Router Setup
+description: 最佳的包体积、SEO、性能和可维护性解决方案。让您的 Next.js 16 网站在 2026 年实现多语言化，LLM 翻译，Agent Skills & MCP。
 keywords:
   - next-i18next
   - i18next
@@ -75,11 +75,12 @@ history:
 ## 在 Next.js 应用中设置 i18next 的逐步指南
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/next-i18next-template?embed=1&ctl=1&file=src/app/i18n.ts"
+  src="https://ide.intlayer.org/aymericzip/next-i18next-template?file=src/app/i18n.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="演示 CodeSandbox - 如何使用 Intlayer 国际化您的应用"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
+/>
 
 > 查看 GitHub 上的[应用模板](https://github.com/aymericzip/next-i18next-template)。
 
@@ -116,7 +117,9 @@ history:
         └── ServerComponent.tsx
 ```
 
-### 第一步：安装依赖
+<Steps>
+
+<Step number={1} title="安装依赖">
 
 使用 npm 安装必要的包：
 
@@ -136,7 +139,9 @@ yarn add i18next react-i18next i18next-resources-to-backend
 - **react-i18next**：i18next 的 React 绑定，提供如 `useTranslation` 的钩子，适用于客户端组件。
 - **i18next-resources-to-backend**：一个插件，支持动态加载翻译文件，只加载你需要的命名空间。
 
-### 第2步：配置您的项目
+</Step>
+
+<Step number={2} title="配置您的项目">
 
 创建一个配置文件来定义您支持的语言环境、默认语言环境以及用于 URL 本地化的辅助函数。该文件作为您的 i18n 设置的唯一可信来源，并确保整个应用程序中的类型安全。
 
@@ -189,7 +194,9 @@ export function getCookie(locale: Locale) {
 }
 ```
 
-### 第3步：集中管理翻译命名空间
+</Step>
+
+<Step number={3} title="集中管理翻译命名空间">
 
 为您的应用程序公开的每个命名空间创建一个单一的可信来源。重用此列表可以保持服务器、客户端和工具代码的同步，并为翻译辅助工具解锁强类型支持。
 
@@ -199,7 +206,9 @@ export const namespaces = ["common", "about"] as const;
 export type Namespace = (typeof namespaces)[number];
 ```
 
-### 第4步：使用 TypeScript 强类型化翻译键
+</Step>
+
+<Step number={4} title="使用 TypeScript 强类型化翻译键">
 
 扩展 `i18next` 指向您的规范语言文件（通常是英文）。TypeScript 会推断每个命名空间的有效键，因此对 `t()` 的调用会进行端到端的检查。
 
@@ -237,7 +246,9 @@ const { t } = useTranslation("about");
 export type AboutTranslator = TFunction<"about">;
 ```
 
-### 第五步：设置服务器端 i18n 初始化
+</Step>
+
+<Step number={5} title="设置服务器端 i18n 初始化">
 
 创建一个服务器端初始化函数，用于加载服务器组件的翻译。该函数为服务器端渲染创建一个独立的 i18next 实例，确保在渲染之前加载翻译内容。
 
@@ -292,7 +303,9 @@ export async function initI18next(
 }
 ```
 
-### 第6步：创建客户端i18n提供者
+</Step>
+
+<Step number={6} title="创建客户端i18n提供者">
 
 创建一个客户端组件提供者，将你的应用包裹在i18next上下文中。该提供者接收从服务器预加载的翻译，防止未翻译内容闪烁（FOUC）并避免重复请求。
 
@@ -375,7 +388,9 @@ export default function I18nProvider({
 }
 ```
 
-### 第7步：定义动态语言路由
+</Step>
+
+<Step number={7} title="定义动态语言路由">
 
 通过在你的 app 文件夹中创建一个 `[locale]` 目录来设置语言的动态路由。这允许 Next.js 处理基于语言的路由，其中每个语言成为 URL 的一部分（例如 `/en/about`，`/fr/about`）。
 
@@ -412,7 +427,7 @@ export default function LocaleLayout({
   // 验证来自 URL 参数的 locale
   // 如果提供了无效的 locale，则回退到默认 locale
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   // 根据 locale 确定文本方向
@@ -427,7 +442,9 @@ export default function LocaleLayout({
 }
 ```
 
-### 第8步：创建您的翻译文件
+</Step>
+
+<Step number={8} title="创建您的翻译文件">
 
 为每个 locale 和命名空间创建 JSON 文件。此结构允许您逻辑地组织翻译，并且只加载每个页面所需的内容。
 
@@ -520,7 +537,9 @@ export default function LocaleLayout({
 }
 ```
 
-### 第9步：在页面中使用翻译
+</Step>
+
+<Step number={9} title="在页面中使用翻译">
 
 创建一个页面组件，在服务器端初始化 i18next，并将翻译传递给服务器和客户端组件。这确保了在渲染前加载翻译，防止内容闪烁。
 
@@ -580,7 +599,9 @@ export default async function AboutPage({
 }
 ```
 
-### 第10步：在客户端组件中使用翻译
+</Step>
+
+<Step number={10} title="在客户端组件中使用翻译">
 
 客户端组件可以使用 `useTranslation` 钩子来访问翻译。该钩子提供对翻译函数和 i18n 实例的访问，允许你翻译内容并访问语言环境信息。
 
@@ -631,7 +652,9 @@ const ClientComponent = () => {
 export default ClientComponent;
 ```
 
-### 第11步：在服务器组件中使用翻译
+</Step>
+
+<Step number={11} title="在服务器组件中使用翻译">
 
 服务器组件不能使用 React hooks，因此它们通过 props 从父组件接收翻译内容。这种方式保持了服务器组件的同步性，并允许它们嵌套在客户端组件内部。
 
@@ -677,9 +700,9 @@ const ServerComponent = ({ t, locale, count }: ServerComponentProps) => {
 export default ServerComponent;
 ```
 
----
+</Step>
 
-### （可选）步骤12：更改内容语言
+<Step number={12} title="更改内容语言" isOptional={true}>
 
 在 Next.js 中更改内容语言，推荐的方式是使用带有区域设置前缀的 URL 和 Next.js 的链接。下面的示例从路由中读取当前区域设置，从路径名中剥离它，并为每个可用的区域设置渲染一个链接。
 
@@ -751,7 +774,9 @@ export default function LocaleSwitcher() {
 }
 ```
 
-### （可选）步骤 13：构建本地化的 Link 组件
+</Step>
+
+<Step number={13} title="构建本地化的 Link 组件" isOptional={true}>
 
 在整个应用中重用本地化的 URL 可以保持导航的一致性并有利于 SEO。将 `next/link` 包装在一个小的辅助函数中，该函数会为内部路由添加当前激活的 locale 前缀，同时保持外部 URL 不变。
 
@@ -802,7 +827,9 @@ export default function LocalizedLink({
 
 > 提示：由于 `LocalizedLink` 是一个即插即用的替代方案，可以通过交换导入并让组件处理特定语言环境的 URL 来逐步迁移。
 
-### （可选）步骤 14：在服务器操作中访问当前语言环境
+</Step>
+
+<Step number={14} title="在服务器操作中访问当前语言环境" isOptional={true}>
 
 服务器操作通常需要当前语言环境来处理邮件、日志记录或第三方集成。将代理设置的语言环境 cookie 与 `Accept-Language` 头部结合使用，作为回退方案。
 
@@ -840,7 +867,9 @@ export async function stuffFromServer(formData: FormData) {
 
 > 由于该辅助工具依赖于 Next.js 的 cookies 和 headers，因此它适用于路由处理程序、服务器操作以及其他仅限服务器的上下文。
 
-### （可选）步骤 15：国际化您的元数据
+</Step>
+
+<Step number={15} title="国际化您的元数据" isOptional={true}>
 
 翻译内容很重要，但国际化的主要目标是让您的网站在全球范围内更具可见性。I18n 是通过适当的 SEO 提升网站可见性的强大杠杆。
 
@@ -907,7 +936,9 @@ export default async function AboutPage() {
 }
 ```
 
-### （可选）步骤16：国际化您的网站地图
+</Step>
+
+<Step number={16} title="国际化您的网站地图" isOptional={true}>
 
 生成包含所有本地版本页面的网站地图。这有助于搜索引擎发现并索引您内容的所有语言版本。
 
@@ -961,7 +992,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 }
 ```
 
-### （可选）步骤17：国际化您的robots.txt
+</Step>
+
+<Step number={17} title="国际化您的robots.txt" isOptional={true}>
 
 创建一个 robots.txt 文件，正确处理所有受保护路由的所有语言版本。这确保搜索引擎不会索引任何语言的管理员或仪表盘页面。
 
@@ -992,7 +1025,9 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-### （可选）步骤18：设置用于区域路由的中间件
+</Step>
+
+<Step number={18} title="设置用于区域路由的中间件" isOptional={true}>
 
 创建一个代理，自动检测用户的首选语言环境，并将其重定向到相应的带有语言前缀的URL。这可以通过显示用户首选语言的内容来提升用户体验。
 
@@ -1081,7 +1116,9 @@ export const config = {
 };
 ```
 
-### （可选）步骤 19：使用 Intlayer 自动化您的翻译
+</Step>
+
+<Step number={19} title="使用 Intlayer 自动化您的翻译" isOptional={true}>
 
 Intlayer 是一个**免费**且**开源**的库，旨在协助您应用中的本地化流程。虽然 i18next 负责翻译的加载和管理，Intlayer 则帮助自动化翻译工作流。
 
@@ -1096,12 +1133,12 @@ Intlayer 允许您：
   Intlayer 提供测试功能，可以集成到您的 CI/CD 流水线或单元测试中。了解更多关于[测试您的翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/testing.md)。
 
 - **自动化您的翻译**  
-  Intlayer 提供了一个 CLI 和一个 VSCode 扩展来自动化您的翻译流程。它可以集成到您的 CI/CD 管道中。了解更多关于[自动化您的翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)。  
+  Intlayer 提供了一个 CLI 和一个 VSCode 扩展来自动化您的翻译流程。它可以集成到您的 CI/CD 管道中。了解更多关于[自动化您的翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。  
   您可以使用您**自己的 API 密钥和您选择的 AI 提供商**。它还提供上下文感知的翻译，详见[填充内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/autoFill.md)。
 
 - **连接外部内容**
 - **自动化您的翻译**，  
-  Intlayer 提供了一个 CLI 和一个 VSCode 扩展来自动化您的翻译。它可以集成到您的 CI/CD 流水线中。了解更多关于[自动化您的翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)。  
+  Intlayer 提供了一个 CLI 和一个 VSCode 扩展来自动化您的翻译。它可以集成到您的 CI/CD 流水线中。了解更多关于[自动化您的翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。  
   您可以使用您**自己的 API 密钥和您选择的 AI 提供商**。它还提供上下文感知的翻译，详见[填充内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/autoFill.md)。
 
 - **连接外部内容**  
@@ -1111,3 +1148,7 @@ Intlayer 允许您：
   Intlayer 提供免费的可视化编辑器，使用可视化编辑器编辑您的内容。了解更多关于[可视化编辑您的翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)。
 
 以及更多功能。要发现 Intlayer 提供的所有功能，请参阅[Intlayer 的优势文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/interest_of_intlayer.md)。
+
+</Step>
+
+</Steps>

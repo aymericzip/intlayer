@@ -3,7 +3,11 @@
 //------------------------------------------------------------------------------
 
 import type { SpawnOptions } from 'node:child_process';
-import { type ChildProcess, spawn as nodeSpawn } from 'node:child_process';
+import {
+  type ChildProcess,
+  spawn as nodeSpawn,
+  spawnSync,
+} from 'node:child_process';
 
 //------------------------------------------------------------------------------
 // Helpers
@@ -17,7 +21,8 @@ const createKillHandler = (child: ChildProcess) => {
     if (!child.pid) return false;
 
     try {
-      nodeSpawn('taskkill', ['/F', '/T', '/PID', String(child.pid)], {
+      // This MUST be synchronous. Otherwise, it dies with the parent process.
+      spawnSync('taskkill', ['/F', '/T', '/PID', String(child.pid)], {
         stdio: 'ignore',
       });
     } catch {

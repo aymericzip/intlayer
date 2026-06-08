@@ -1,0 +1,41 @@
+import { detectExportedComponentName } from '@intlayer/chokidar/cli';
+import { COMPILER_DICTIONARY_KEY_PREFIX } from '@intlayer/config/defaultValues';
+import { camelCaseToKebabCase } from '@intlayer/config/utils';
+
+/**
+ * Extracts a dictionary key from a file path.
+ *
+ * Example: "src/components/MyComponent/index.tsx" -> "comp-my-component"
+ */
+export const extractDictionaryKeyFromPath = (
+  filePath: string,
+  prefix = COMPILER_DICTIONARY_KEY_PREFIX
+): string => {
+  const pathParts = filePath.split(/[\\/]/);
+  const fileNameWithExt = pathParts.pop() || '';
+  const lastDotIndex = fileNameWithExt.lastIndexOf('.');
+  let baseName =
+    lastDotIndex !== -1
+      ? fileNameWithExt.slice(0, lastDotIndex)
+      : fileNameWithExt;
+
+  if (baseName.toLowerCase() === 'index') {
+    baseName = pathParts.pop() || baseName;
+  }
+
+  return `${prefix}${camelCaseToKebabCase(baseName)}`;
+};
+
+export const extractDictionaryKey = (
+  filePath: string,
+  fileText: string,
+  prefix = COMPILER_DICTIONARY_KEY_PREFIX
+): string => {
+  const componentName = detectExportedComponentName(fileText);
+
+  if (componentName) {
+    return `${prefix}${camelCaseToKebabCase(componentName)}`;
+  }
+
+  return extractDictionaryKeyFromPath(filePath, prefix);
+};

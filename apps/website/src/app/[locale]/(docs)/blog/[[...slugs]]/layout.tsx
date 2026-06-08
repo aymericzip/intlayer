@@ -40,20 +40,19 @@ export const generateMetadata = async ({
   const blogData = filteredBlogsData[0];
 
   const absoluteUrl = blogData.url;
-  const relativeUrl = blogData.relativeUrl;
 
   return {
     title: `${blogData.title} | Intlayer`,
     description: blogData.description,
     keywords: blogData.keywords,
     alternates: {
-      canonical: getLocalizedUrl(relativeUrl, Locales.ENGLISH),
+      canonical: getLocalizedUrl(absoluteUrl, locale),
       languages: {
-        ...getMultilingualUrls(relativeUrl),
-        'x-default': getLocalizedUrl(relativeUrl, Locales.ENGLISH),
+        ...getMultilingualUrls(absoluteUrl),
+        'x-default': getLocalizedUrl(absoluteUrl, Locales.ENGLISH),
       },
       types: {
-        'text/markdown': `${getLocalizedUrl(relativeUrl, locale)}.md`,
+        'text/markdown': `${getLocalizedUrl(absoluteUrl, locale)}.md`,
       },
     },
     openGraph: {

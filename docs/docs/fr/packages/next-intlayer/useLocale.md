@@ -1,14 +1,10 @@
 ---
-createdAt: 2024-08-11
-updatedAt: 2025-06-29
-title: Documentation du Hook useLocale | next-intlayer
-description: Découvrez comment utiliser le hook useLocale pour le package next-intlayer
 keywords:
   - useLocale
-  - dictionnaire
-  - clé
+  - dictionary
+  - key
   - Intlayer
-  - Internationalisation
+  - Internationalization
   - Documentation
   - Next.js
   - JavaScript
@@ -18,10 +14,17 @@ slugs:
   - packages
   - next-intlayer
   - useLocale
+description: Documentation for the useLocale hook in the next-intlayer package
+createdAt: 2024-08-11
+updatedAt: 2026-01-26
+title: Documentation du Hook useLocale | next-intlayer
 history:
+  - version: 8.0.0
+    date: 2026-01-26
+    changes: "Valeur par défaut de `onLocaleChange` définie sur `replace`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historique initial
+    changes: "Historique initial"
 ---
 
 # Intégration Next.js : Documentation du Hook `useLocale` pour `next-intlayer`
@@ -40,7 +43,7 @@ import { useLocale } from "next-intlayer"; // Utilisé pour gérer les langues e
 
 Voici comment implémenter le hook `useLocale` dans un composant Next.js :
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
 import type { FC } from "react";
@@ -66,59 +69,39 @@ const LocaleSwitcher: FC = () => {
 };
 ```
 
-```jsx fileName="src/components/LocaleSwitcher.mjx" codeFormat="esm"
-"use client";
+## Paramètres
 
-import { Locales } from "intlayer";
-import { useLocale } from "next-intlayer";
+Le hook `useLocale` accepte les paramètres suivants :
 
-const LocaleSwitcher = () => {
-  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
+- **`onLocaleChange`** : Une chaîne de caractères qui détermine comment l'URL doit être mise à jour lorsque la langue change. Elle peut être `"replace"`, `"push"` ou `"none"`.
 
-  return (
-    <div>
-      <h1>Langue actuelle : {locale}</h1>
-      <p>Langue par défaut : {defaultLocale}</p>
-      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
-        {availableLocales.map((loc) => (
-          <option key={loc} value={loc}>
-            {loc}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-};
-```
+  > Prenons un exemple :
+  >
+  > 1. Vous êtes sur `/fr/home`
+  > 2. Vous naviguez vers `/fr/about`
+  > 3. Vous changez la langue pour `/es/about`
+  > 4. Vous cliquez sur le bouton "retour" du navigateur
+  >
+  > Le comportement différera selon la valeur de `onLocaleChange` :
+  >
+  > - `"replace"` (par défaut) : Remplace l'URL actuelle par la nouvelle URL localisée, et définit le cookie.
+  >   -> Le bouton "retour" ira vers `/es/home`
+  > - `"push"` : Ajoute la nouvelle URL localisée à l'historique du navigateur, et définit le cookie.
+  >   -> Le bouton "retour" ira vers `/fr/about`
+  > - `"none"` : Met uniquement à jour la langue dans le contexte client, et définit le cookie, sans changer l'URL.
+  >   -> Le bouton "retour" ira vers `/fr/home`
+  > - `(locale) => void` : Définit le cookie et déclenche une fonction personnalisée qui sera appelée lorsque la langue change.
+  >
+  >   L'option `undefined` est le comportement par défaut car nous recommandons d'utiliser le composant `Link` pour naviguer vers la nouvelle langue.
+  >   Exemple :
+  >
+  >   ```tsx
+  >   <Link href="/es/about" replace>
+  >     À propos
+  >   </Link>
+  >   ```
 
-```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-"use client";
-
-const { Locales } = require("intlayer");
-const { useLocale } = require("next-intlayer");
-
-const LocaleSwitcher = () => {
-  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
-
-  return (
-    <div>
-      <h1>Langue actuelle : {locale}</h1>
-      <p>Langue par défaut : {defaultLocale}</p>
-      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
-        {availableLocales.map((loc) => (
-          <option key={loc} value={loc}>
-            {loc}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-};
-```
-
-## Paramètres et valeurs de retour
-
-Lorsque vous invoquez le hook `useLocale`, il retourne un objet contenant les propriétés suivantes :
+## Valeurs de retour
 
 - **`locale`** : La langue actuelle telle que définie dans le contexte React.
 - **`defaultLocale`** : La langue principale définie dans la configuration.

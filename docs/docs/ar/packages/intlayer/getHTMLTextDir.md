@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: بدء التاريخ
+    changes: "بدء التاريخ"
 ---
 
 # التوثيق: دالة `getHTMLTextDir` في `intlayer`
@@ -33,7 +33,6 @@ history:
 ## المعاملات
 
 - `locale?: Locales`
-
   - **الوصف**: سلسلة اللغة (مثل `Locales.ENGLISH`، `Locales.ARABIC`) المستخدمة لتحديد اتجاه النص.
   - **النوع**: `Locales` (اختياري)
 
@@ -49,24 +48,8 @@ history:
 
 ### تحديد اتجاه النص
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getHTMLTextDir } from "intlayer";
-
-getHTMLTextDir(Locales.ENGLISH); // الناتج: "ltr"
-getHTMLTextDir(Locales.FRENCH); // الناتج: "ltr"
-getHTMLTextDir(Locales.ARABIC); // الناتج: "rtl"
-```
-
-```javascript codeFormat="esm"
-import { getHTMLTextDir } from "intlayer";
-
-getHTMLTextDir(Locales.ENGLISH); // الناتج: "ltr"
-getHTMLTextDir(Locales.FRENCH); // الناتج: "ltr"
-getHTMLTextDir(Locales.ARABIC); // الناتج: "rtl"
-```
-
-```javascript codeFormat="commonjs"
-const { getHTMLTextDir } = require("intlayer");
 
 getHTMLTextDir(Locales.ENGLISH); // الناتج: "ltr"
 getHTMLTextDir(Locales.FRENCH); // الناتج: "ltr"
@@ -76,7 +59,6 @@ getHTMLTextDir(Locales.ARABIC); // الناتج: "rtl"
 ## الحالات الخاصة
 
 - **عدم توفير اللغة:**
-
   - تُعيد الدالة `'auto'` عندما تكون قيمة `locale` غير معرفة.
 
 - **اللغة غير المعروفة:**
@@ -86,7 +68,7 @@ getHTMLTextDir(Locales.ARABIC); // الناتج: "rtl"
 
 يمكن استخدام دالة `getHTMLTextDir` لتعيين خاصية `dir` بشكل ديناميكي في مستند HTML لضمان عرض النص بشكل صحيح بناءً على اللغة.
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import { getHTMLTextDir, type Locales } from "intlayer";
 
@@ -94,26 +76,6 @@ export const HTMLLayout: FC<PropsWithChildren<{ locale: Locales }>> = ({
   children,
   locale,
 }) => (
-  <html dir={getHTMLTextDir(locale)} locale={locale}>
-    <body>{children}</body>
-  </html>
-);
-```
-
-```jsx codeFormat="esm"
-import { getHTMLTextDir } from "intlayer";
-
-const HTMLLayout = ({ children, locale }) => (
-  <html dir={getHTMLTextDir(locale)} locale={locale}>
-    <body>{children}</body>
-  </html>
-);
-```
-
-```jsx codeFormat="commonjs"
-const { getHTMLTextDir } = require("intlayer");
-
-const HTMLLayout = ({ children, locale }) => (
   <html dir={getHTMLTextDir(locale)} locale={locale}>
     <body>{children}</body>
   </html>

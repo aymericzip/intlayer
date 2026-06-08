@@ -1,15 +1,11 @@
 ---
-createdAt: 2025-08-23
-updatedAt: 2025-10-09
-title: Dokumentacja hooka useLocale | next-intlayer
-description: Zobacz, jak używać hooka useLocale w pakiecie next-intlayer
 keywords:
   - useLocale
-  - słownik
-  - klucz
+  - dictionary
+  - key
   - Intlayer
-  - Internacjonalizacja
-  - Dokumentacja
+  - Internationalization
+  - Documentation
   - Next.js
   - JavaScript
   - React
@@ -18,13 +14,20 @@ slugs:
   - packages
   - next-intlayer
   - useLocale
+description: Documentation for the useLocale hook in the next-intlayer package
+createdAt: 2025-08-23
+updatedAt: 2026-01-26
+title: Dokumentacja hooka useLocale | next-intlayer
 history:
+  - version: 8.0.0
+    date: 2026-01-26
+    changes: "Ustawiono domyślną wartość `onLocaleChange` na `replace`"
   - version: 6.2.0
     date: 2025-10-09
-    changes: Dodano dokumentację hooka `useLocale` z opcją `onLocaleChange`
+    changes: "Dodano dokumentację hooka `useLocale` z opcją `onLocaleChange`"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inicjalizacja historii
+    changes: "Inicjalizacja historii"
 ---
 
 # Integracja z Next.js: Dokumentacja hooka `useLocale` dla `next-intlayer`
@@ -43,7 +46,7 @@ import { useLocale } from "next-intlayer"; // Używany do zarządzania lokalizac
 
 Oto jak zaimplementować hook `useLocale` w komponencie Next.js:
 
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat="typescript"
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 "use client";
 
 import type { FC } from "react";
@@ -51,56 +54,6 @@ import { Locales } from "intlayer";
 import { useLocale } from "next-intlayer";
 
 const LocaleSwitcher: FC = () => {
-  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
-
-  return (
-    <div>
-      <h1>Aktualna lokalizacja: {locale}</h1>
-      <p>Domyślna lokalizacja: {defaultLocale}</p>
-      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
-        {availableLocales.map((loc) => (
-          <option key={loc} value={loc}>
-            {loc}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.mjx" codeFormat="esm"
-"use client";
-
-import { Locales } from "intlayer";
-import { useLocale } from "next-intlayer";
-
-const LocaleSwitcher = () => {
-  const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
-
-  return (
-    <div>
-      <h1>Aktualna lokalizacja: {locale}</h1>
-      <p>Domyślna lokalizacja: {defaultLocale}</p>
-      <select value={locale} onChange={(e) => setLocale(e.target.value)}>
-        {availableLocales.map((loc) => (
-          <option key={loc} value={loc}>
-            {loc}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-};
-```
-
-```jsx fileName="src/components/LocaleSwitcher.csx" codeFormat="commonjs"
-"use client";
-
-const { Locales } = require("intlayer");
-const { useLocale } = require("next-intlayer");
-
-const LocaleSwitcher = () => {
   const { locale, defaultLocale, availableLocales, setLocale } = useLocale();
 
   return (
@@ -134,12 +87,12 @@ Hook `useLocale` akceptuje następujące parametry:
   >
   > Zachowanie będzie różne w zależności od wartości `onLocaleChange`:
   >
-  > - `undefined`: (domyślnie) Aktualizuje tylko lokalizację w kontekście klienta i ustawia cookie, bez zmiany adresu URL.
-  >   -> Przycisk "wstecz" przeniesie do `/fr/home`
-  > - `"replace"`: Zastępuje bieżący adres URL nowym, zlokalizowanym adresem URL, i ustawia cookie.
+  > - `"replace"` (domyślnie): Zastępuje bieżący adres URL nowym, zlokalizowanym adresem URL, i ustawia cookie.
   >   -> Przycisk "wstecz" przeniesie do `/es/home`
   > - `"push"`: Dodaje nowy, zlokalizowany adres URL do historii przeglądarki i ustawia cookie.
   >   -> Przycisk "wstecz" przeniesie do `/fr/about`
+  > - `"none"`: Aktualizuje tylko lokalizację w kontekście klienta i ustawia cookie, bez zmiany adresu URL.
+  >   -> Przycisk "wstecz" przeniesie do `/fr/home`
   > - `(locale) => void`: Ustawia cookie i wywołuje niestandardową funkcję, która zostanie wywołana po zmianie lokalizacji.
   >
   >   Opcja `undefined` jest domyślnym zachowaniem, ponieważ zalecamy używanie komponentu `Link` do nawigacji do nowej lokalizacji.

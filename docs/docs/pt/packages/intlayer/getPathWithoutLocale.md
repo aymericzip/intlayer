@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Histórico inicial
+    changes: "Histórico inicial"
 ---
 
 # Documentação: Função `getPathWithoutLocale` em `intlayer`
@@ -33,7 +33,6 @@ Remove o segmento de localidade (locale) da URL ou pathname fornecido, se presen
 ## Parâmetros
 
 - `inputUrl: string`
-
   - **Descrição**: A string completa da URL ou pathname a ser processada.
   - **Tipo**: `string`
 
@@ -48,29 +47,11 @@ Remove o segmento de localidade (locale) da URL ou pathname fornecido, se presen
 
 ## Exemplo de Uso
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getPathWithoutLocale } from "intlayer";
 
 console.log(getPathWithoutLocale("/dashboard")); // Output: "/dashboard"
 console.log(getPathWithoutLocale("/en/dashboard")); // Output: "/dashboard"
 console.log(getPathWithoutLocale("/fr/dashboard")); // Output: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Saída: "https://example.com/dashboard"
-```
-
-```javascript codeFormat="esm"
-import { getPathWithoutLocale } from "intlayer";
-
-console.log(getPathWithoutLocale("/dashboard")); // Saída: "/dashboard"
-console.log(getPathWithoutLocale("/en/dashboard")); // Saída: "/dashboard"
-console.log(getPathWithoutLocale("/fr/dashboard")); // Saída: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Saída: "https://example.com/dashboard"
-```
-
-```javascript codeFormat="commonjs"
-const { getPathWithoutLocale } = require("intlayer");
-
-console.log(getPathWithoutLocale("/dashboard")); // Saída: "/dashboard"
-console.log(getPathWithoutLocale("/en/dashboard")); // Saída: "/dashboard"
-console.log(getPathWithoutLocale("/fr/dashboard")); // Saída: "/dashboard"
 console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Saída: "https://example.com/dashboard"
 ```

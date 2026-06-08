@@ -1,0 +1,266 @@
+---
+createdAt: 2025-12-30
+updatedAt: 2026-05-31
+title: "Fastify i18n - Guía completa para traducir tu aplicación"
+description: "Sin más i18next. La guía 2026 para crear una aplicación Fastify multilingüe (i18n). Traduce con agentes de IA y optimiza el tamaño del bundle, SEO y rendimiento."
+keywords:
+  - Internacionalización
+  - Documentación
+  - Intlayer
+  - Fastify
+  - JavaScript
+  - Backend
+slugs:
+  - doc
+  - environment
+  - fastify
+applicationTemplate: https://github.com/aymericzip/intlayer-fastify-template
+history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Actualizar el uso de la API useIntlayer de Solid para el acceso directo a las propiedades"
+  - version: 7.6.0
+    date: 2025-12-31
+    changes: "Agregar comando init"
+  - version: 7.6.0
+    date: 2025-12-31
+    changes: "Historial inicial"
+---
+
+# Traduce tu backend de Fastify usando Intlayer | Internacionalización (i18n)
+
+`fastify-intlayer` es un potente plugin de internacionalización (i18n) para aplicaciones Fastify, diseñado para hacer que tus servicios backend sean accesibles globalmente proporcionando respuestas localizadas basadas en las preferencias del cliente.
+
+> Ver la implementación del paquete en GitHub: https://github.com/aymericzip/intlayer/tree/main/packages/fastify-intlayer
+
+### Casos de uso prácticos
+
+- **Mostrar errores del backend en el idioma del usuario**: Cuando ocurre un error, mostrar mensajes en la lengua nativa del usuario mejora la comprensión y reduce la frustración. Esto es especialmente útil para mensajes de error dinámicos que podrían mostrarse en componentes frontend como toasts o modales.
+- **Recuperar contenido multilingüe**: Para aplicaciones que obtienen contenido de una base de datos, la internacionalización garantiza que puedas servir ese contenido en varios idiomas. Esto es crucial para plataformas como sitios de comercio electrónico o sistemas de gestión de contenido que necesitan mostrar descripciones de productos, artículos y otros contenidos en el idioma preferido por el usuario.
+- **Enviar correos electrónicos multilingües**: Ya sean correos transaccionales, campañas de marketing o notificaciones, enviar correos en el idioma del destinatario puede aumentar significativamente el compromiso y la efectividad.
+- **Notificaciones push multilingües**: Para aplicaciones móviles, enviar notificaciones push en el idioma preferido del usuario puede mejorar la interacción y la retención. Este toque personal puede hacer que las notificaciones se sientan más relevantes y accionables.
+- **Otras comunicaciones**: Cualquier forma de comunicación desde el backend, como mensajes SMS, alertas del sistema o actualizaciones de la interfaz de usuario, se beneficia de estar en el idioma del usuario, garantizando claridad y mejorando la experiencia de usuario en general.
+
+Al internacionalizar el backend, tu aplicación no solo respeta las diferencias culturales, sino que también se alinea mejor con las necesidades del mercado global, convirtiéndolo en un paso clave para escalar tus servicios a nivel mundial.
+
+## Primeros pasos
+
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-fastify-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Cómo internacionalizar tu aplicación usando Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+Ver la [Plantilla de la Aplicación](https://github.com/aymericzip/intlayer-fastify-template) en GitHub.
+
+### Instalación
+
+Para comenzar a usar `fastify-intlayer`, instala el paquete usando npm:
+
+```bash packageManager="npm"
+npm install intlayer fastify-intlayer
+npx intlayer init
+
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer fastify-intlayer
+pnpm intlayer init
+
+```
+
+```bash packageManager="yarn"
+yarn add intlayer fastify-intlayer
+yarn intlayer init
+
+```
+
+```bash packageManager="bun"
+bun add intlayer fastify-intlayer
+bun x intlayer init
+
+```
+
+### Configuración
+
+Configura los ajustes de internacionalización creando un archivo `intlayer.config.ts` en la raíz de tu proyecto:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH_MEXICO,
+      Locales.SPANISH_SPAIN,
+    ],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+### Declara tu contenido
+
+Crea y gestiona tus declaraciones de contenido para almacenar traducciones:
+
+```typescript fileName="src/index.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+
+const indexContent = {
+  key: "index",
+  content: {
+    exampleOfContent: t({
+      en: "Example of returned content in English",
+      fr: "Exemple de contenu renvoyé en français",
+      "es-ES": "Ejemplo de contenido devuelto en español (España)",
+      "es-MX": "Ejemplo de contenido devuelto en español (México)",
+    }),
+  },
+} satisfies Dictionary;
+
+export default indexContent;
+```
+
+```json fileName="src/index.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "index",
+  "content": {
+    "exampleOfContent": {
+      "nodeType": "translation",
+      "translation": {
+        "en": "Example of returned content in English",
+        "fr": "Exemple de contenido renvoyé en français",
+        "es-ES": "Ejemplo de contenido devuelto en español (España)",
+        "es-MX": "Ejemplo de contenido devuelto en español (México)"
+      }
+    }
+  }
+}
+```
+
+> Tus declaraciones de contenido pueden definirse en cualquier parte de tu aplicación siempre que se incluyan en el directorio `contentDir` (por defecto, `./src`). Y que coincidan con la extensión de archivo de declaración de contenido (por defecto, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
+
+> Para más detalles, consulta la [documentación de declaración de contenido](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md).
+
+### Configuración de la aplicación Fastify
+
+Configura tu aplicación Fastify para usar `fastify-intlayer`:
+
+```typescript fileName="src/index.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import Fastify from "fastify";
+import { intlayer, t, getDictionary, getIntlayer } from "fastify-intlayer";
+import dictionaryExample from "./index.content";
+
+const fastify = Fastify({ logger: true });
+
+// Cargar el plugin de internacionalización
+await fastify.register(intlayer);
+
+// Rutas
+fastify.get("/t_example", async (_req, reply) => {
+  return t({
+    en: "Example of returned content in English",
+    fr: "Exemple de contenido renvoyé en français",
+    "es-ES": "Ejemplo de contenido devuelto en español (España)",
+    "es-MX": "Ejemplo de contenido devuelto en español (México)",
+  });
+});
+
+fastify.get("/getIntlayer_example", async (_req, reply) => {
+  return getIntlayer("index").exampleOfContent;
+});
+
+fastify.get("/getDictionary_example", async (_req, reply) => {
+  return getDictionary(dictionaryExample).exampleOfContent;
+});
+
+// Iniciar servidor
+const start = async () => {
+  try {
+    await fastify.listen({ port: 3000 });
+  } catch (err) {
+    fastify.log.error(err);
+    process.exit(1);
+  }
+};
+
+start();
+```
+
+### Compatibilidad
+
+`fastify-intlayer` es completamente compatible con:
+
+- [`react-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/index.md) para aplicaciones React
+- [`next-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/next-intlayer/index.md) para aplicaciones Next.js
+- [`vite-intlayer`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/vite-intlayer/index.md) para aplicaciones Vite
+
+También funciona sin problemas con cualquier solución de internacionalización en diversos entornos, incluidos navegadores y solicitudes API. Puedes personalizar el middleware para detectar la locale a través de headers o cookies:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... Otras opciones de configuración
+  middleware: {
+    headerName: "my-locale-header",
+    cookieName: "my-locale-cookie",
+  },
+};
+
+export default config;
+```
+
+Por defecto, `fastify-intlayer` interpretará la cabecera `Accept-Language` para determinar el idioma preferido del cliente.
+
+> Para más información sobre la configuración y temas avanzados, visita nuestra [documentación](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md).
+
+### Configurar TypeScript
+
+`fastify-intlayer` aprovecha las robustas capacidades de TypeScript para mejorar el proceso de internacionalización. El tipado estático de TypeScript garantiza que cada clave de traducción esté incluida, reduciendo el riesgo de traducciones faltantes y mejorando la mantenibilidad.
+
+Asegúrate de que los tipos autogenerados (por defecto en ./types/intlayer.d.ts) estén incluidos en tu archivo tsconfig.json.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Tus configuraciones existentes de TypeScript
+  "include": [
+    // ... Tus configuraciones existentes de TypeScript
+    ".intlayer/**/*.ts", // Incluir los tipos autogenerados
+  ],
+}
+```
+
+### Extensión de VS Code
+
+Para mejorar tu experiencia de desarrollo con Intlayer, puedes instalar la extensión oficial **Intlayer VS Code Extension**.
+
+[Instalar desde el Marketplace de VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Esta extensión proporciona:
+
+- **Autocompletado** para las claves de traducción.
+- **Detección de errores en tiempo real** para traducciones faltantes.
+- **Vistas previas en línea** del contenido traducido.
+- **Acciones rápidas** para crear y actualizar traducciones fácilmente.
+
+Para más detalles sobre cómo usar la extensión, consulta la [documentación de la Extensión de VS Code de Intlayer](https://intlayer.org/doc/vs-code-extension).
+
+### Configuración de Git
+
+Se recomienda ignorar los archivos generados por Intlayer. Esto te permite evitar confirmarlos en tu repositorio Git.
+
+Para ello, puedes agregar las siguientes instrucciones a tu archivo `.gitignore`:
+
+```plaintext fileName=".gitignore"
+# Ignorar los archivos generados por Intlayer
+.intlayer
+
+```

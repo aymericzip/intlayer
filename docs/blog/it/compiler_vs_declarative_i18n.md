@@ -205,7 +205,7 @@ Quindi, quale dovresti scegliere?
 L'approccio basato sul compilatore è una scelta valida. Ti permette di muoverti incredibilmente velocemente. Non devi preoccuparti della struttura dei file o delle chiavi. Devi solo costruire. Il debito tecnico sarà un problema per il "Te futuro".
 
 **Se sei uno sviluppatore junior, o non ti interessa l'ottimizzazione:**  
-Se vuoi la gestione manuale minima, un approccio basato sul compilatore è probabilmente il migliore. Non dovrai gestire tu stesso chiavi o file di traduzione—scrivi semplicemente il testo, e il compilatore automatizza il resto. Questo riduce lo sforzo di configurazione e gli errori comuni di i18n legati ai passaggi manuali.
+Se vuoi la gestione manuale minima, un approccio basato sul compilatore è probabilmente il migliore. Non dovrai gestire tu stesso chiavi o file di traduzione, scrivi semplicemente il testo, e il compilatore automatizza il resto. Questo riduce lo sforzo di configurazione e gli errori comuni di i18n legati ai passaggi manuali.
 
 **Se stai internazionalizzando un progetto esistente che include già migliaia di componenti da rifattorizzare:**  
 Un approccio basato sul compilatore può essere una scelta pragmatica in questo caso. La fase iniziale di estrazione può far risparmiare settimane o mesi di lavoro manuale. Tuttavia, considera l'uso di uno strumento come il comando `transform` di Intlayer, che può estrarre le stringhe e convertirle in dichiarazioni di contenuto dichiarativo esplicite. Questo ti offre la velocità dell'automazione mantenendo la sicurezza e la portabilità di un approccio dichiarativo. Ottieni il meglio di entrambi i mondi: una migrazione iniziale rapida senza debito architetturale a lungo termine.

@@ -1,147 +1,75 @@
-import { existsSync } from 'node:fs';
-import { readFile } from 'node:fs/promises';
-import { join, relative } from 'node:path';
-import { buildDictionary, writeContentDeclaration } from '@intlayer/chokidar';
-import { getConfiguration } from '@intlayer/config';
-import type { Dictionary } from '@intlayer/types';
-import type {
-  ExtractPluginOptions,
-  ExtractResult,
-} from './babel-plugin-intlayer-extract';
+import { buildComponentFilesList } from '@intlayer/chokidar/utils';
+import * as ANSIColors from '@intlayer/config/colors';
+import { COMPILER_ENABLED } from '@intlayer/config/defaultValues';
+import { colorize, colorizeKey, getAppLogger } from '@intlayer/config/logger';
+import { getConfiguration } from '@intlayer/config/node';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { ExtractPluginOptions } from './babel-plugin-intlayer-extract';
+import { writeContentHelper } from './extractContent/contentWriter';
 
 /**
- * Translation node structure used in dictionaries
+ * Mode of the compiler
+ * - 'dev': Development mode with HMR support
+ * - 'build': Production build mode
  */
-type TranslationNode = {
-  nodeType: 'translation';
-  translation: Record<string, string>;
-};
-
-/**
- * Dictionary content structure - map of keys to translation nodes
- */
-type DictionaryContentMap = Record<string, TranslationNode>;
+export type CompilerMode = 'dev' | 'build';
 
 /**
  * Get the options for the Intlayer Babel extraction plugin
  * This function loads the Intlayer configuration and sets up the onExtract callback
  * to write dictionaries to the filesystem.
  */
-export const getExtractPluginOptions = (): ExtractPluginOptions => {
-  const config = getConfiguration();
-  const { baseDir } = config.content;
-  const compilerDir = join(baseDir, config.compiler?.outputDir ?? 'compiler');
+export const getExtractPluginOptions = (
+  configuration: IntlayerConfig = getConfiguration(),
+  isDev: CompilerMode | string | undefined = process.env.INTLAYER_IS_DEV_COMMAND
+): ExtractPluginOptions => {
+  // Accept 'dev'/'serve' (Vite), boolean true, or the string 'true' (env var)
+  const isDevBoolean = isDev === 'dev' || isDev === 'serve' || isDev === 'true';
 
-  /**
-   * Read existing dictionary file if it exists
-   */
-  const readExistingDictionary = async (
-    dictionaryPath: string
-  ): Promise<Dictionary | null> => {
-    try {
-      if (!existsSync(dictionaryPath)) {
-        return null;
-      }
-      const content = await readFile(dictionaryPath, 'utf-8');
-      return JSON.parse(content) as Dictionary;
-    } catch {
-      return null;
+  const compilerMode: CompilerMode = isDevBoolean ? 'dev' : 'build';
+
+  const logger = getAppLogger(configuration);
+
+  if (configuration.compiler?.enabled === 'build-only' && isDevBoolean) {
+    logger(
+      `${colorize('Compiler:', ANSIColors.GREY_DARK)} i18n function is not inserted in the code in dev mode to optimize build time. (to test i18n in dev mode set compiler.enabled to true)`
+    );
+  }
+
+  let enabled = configuration.compiler?.enabled ?? COMPILER_ENABLED;
+
+  if (enabled === 'build-only') {
+    if (compilerMode) {
+      enabled = compilerMode === 'build';
+    } else {
+      // Fallback if mode isn't explicitly provided (e.g. pure babel plugin context)
+      enabled = process.env.NODE_ENV === 'production';
     }
-  };
+  }
 
-  /**
-   * Merge extracted content with existing dictionary, preserving translations.
-   * - Keys in extracted but not in existing: added with default locale only
-   * - Keys in both: preserve existing translations, update default locale value
-   * - Keys in existing but not in extracted: removed (no longer in source)
-   */
-  const mergeWithExistingDictionary = (
-    extractedContent: Record<string, string>,
-    existingDictionary: Dictionary | null,
-    defaultLocale: string
-  ): DictionaryContentMap => {
-    const mergedContent: DictionaryContentMap = {};
-    const existingContent = existingDictionary?.content as
-      | DictionaryContentMap
-      | undefined;
-
-    for (const [key, value] of Object.entries(extractedContent)) {
-      const existingEntry = existingContent?.[key];
-
-      if (
-        existingEntry &&
-        existingEntry.nodeType === 'translation' &&
-        existingEntry.translation
-      ) {
-        // Key exists in both - preserve existing translations, update default locale
-        mergedContent[key] = {
-          nodeType: 'translation',
-          translation: {
-            ...existingEntry.translation,
-            [defaultLocale]: value,
-          },
-        };
-      } else {
-        // New key - add with default locale only
-        mergedContent[key] = {
-          nodeType: 'translation',
-          translation: {
-            [defaultLocale]: value,
-          },
-        };
-      }
-    }
-
-    return mergedContent;
-  };
-
-  const handleExtractedContent = async (result: ExtractResult) => {
-    const { dictionaryKey, content, locale } = result;
-
-    try {
-      const dictionaryPath = join(compilerDir, `${dictionaryKey}.content.json`);
-
-      // Read existing dictionary to preserve translations
-      const existingDictionary = await readExistingDictionary(dictionaryPath);
-
-      // Merge extracted content with existing translations
-      const mergedContent = mergeWithExistingDictionary(
-        content,
-        existingDictionary,
-        locale
-      );
-
-      const dictionary: Dictionary = {
-        key: dictionaryKey,
-        content: mergedContent,
-        filePath: join(
-          relative(baseDir, compilerDir),
-          `${dictionaryKey}.content.json`
-        ),
-      };
-
-      const writeResult = await writeContentDeclaration(dictionary, config, {
-        newDictionariesPath: relative(baseDir, compilerDir),
-      });
-
-      // Build the dictionary immediately
-      const dictionaryToBuild: Dictionary = {
-        ...dictionary,
-        filePath: relative(baseDir, writeResult.path),
-      };
-
-      await buildDictionary([dictionaryToBuild], config);
-    } catch (error) {
-      console.error(
-        `[intlayer] Failed to process extracted content for ${dictionaryKey}:`,
-        error
-      );
-    }
-  };
+  const filesList = buildComponentFilesList(configuration);
 
   return {
-    defaultLocale: config.internationalization.defaultLocale,
-    // filesList can be passed if needed, but usually handled by include/exclude in build tool
-    onExtract: handleExtractedContent,
+    enabled,
+    configuration,
+    filesList,
+    onExtract: async ({ dictionaryKey, content, filePath }) => {
+      try {
+        await writeContentHelper(
+          content,
+          dictionaryKey,
+          filePath,
+          configuration
+        );
+      } catch (error) {
+        logger(
+          [
+            `Failed to process extracted content for ${colorizeKey(dictionaryKey)}:`,
+            error,
+          ],
+          { level: 'error' }
+        );
+      }
+    },
   };
 };

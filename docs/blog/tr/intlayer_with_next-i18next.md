@@ -27,7 +27,7 @@ history:
 
 # next-i18next ve Intlayer ile Next.js Uluslararasılaştırması (i18n)
 
-<iframe title="next-i18next JSON çevirilerinizi Intlayer kullanarak nasıl otomatikleştirirsiniz" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="next-i18next JSON çevirilerinizi Intlayer kullanarak nasıl otomatikleştirirsiniz" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## İçindekiler
 
@@ -71,19 +71,23 @@ Bu rehber, Intlayer'ın üstün içerik beyan sistemi avantajlarından yararlan�
 Tercih ettiğiniz paket yöneticisini kullanarak gerekli paketleri yükleyin:
 
 ```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin
+npm install intlayer @intlayer/sync-json-plugin --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin
+pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin
+yarn add intlayer @intlayer/sync-json-plugin --dev
+yarn intlayer init
 ```
 
 ```bash packageManager="bun"
-bun add intlayer @intlayer/sync-json-plugin
+bun add intlayer @intlayer/sync-json-plugin --dev
+bun x intlayer init
 ```
 
 **Paket açıklamaları:**
@@ -171,7 +175,6 @@ const config: IntlayerConfig = {
      * Yerel dizindeki JSON dosyalarına çıktıyı ve çevirileri geri yazacak ve yükleyecek
      */
     syncJSON({
-      format: "i18next",
       source: ({ key, locale }) => `./public/locales/${locale}/${key}.json`,
       priority: 0,
     }),

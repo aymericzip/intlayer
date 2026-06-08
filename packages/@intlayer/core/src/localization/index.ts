@@ -1,5 +1,11 @@
-export { getBrowserLocale, localeStorageOptions } from './getBrowserLocale';
+export type {
+  GenerateSitemapOptions,
+  SitemapUrlEntry,
+} from './generateSitemap';
+export { generateSitemap, generateSitemapUrl } from './generateSitemap';
+export { getBrowserLocale } from './getBrowserLocale';
 export { getHTMLTextDir } from './getHTMLTextDir';
+export { getLocale } from './getLocale';
 export { getLocaleFromPath } from './getLocaleFromPath';
 export { getLocaleLang } from './getLocaleLang';
 export { getLocaleName } from './getLocaleName';
@@ -11,4 +17,12 @@ export { getPrefix } from './getPrefix';
 export { localeDetector } from './localeDetector';
 export { localeFlatMap, localeMap, localeRecord } from './localeMapper';
 export { localeResolver } from './localeResolver';
+export type { LocalizedPathResult } from './rewriteUtils';
+export {
+  getCanonicalPath,
+  getInternalPath,
+  getLocalizedPath,
+  getRewritePath,
+  getRewriteRules,
+} from './rewriteUtils';
 export { validatePrefix } from './validatePrefix';

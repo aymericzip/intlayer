@@ -1,4 +1,4 @@
-import { OrganizationModel } from '@models/organization.model';
+import { OrganizationModel } from '@schemas/organization.schema';
 import { GenericError } from '@utils/errors';
 import type { OrganizationFilters } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
 import {

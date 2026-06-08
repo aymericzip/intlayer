@@ -1,11 +1,36 @@
 <script lang="ts">
+import type { HTMLComponents } from '../html/types';
 import { getMarkdownContext } from './context';
 
-export let value: string;
+import type { ParsedMarkdown } from './compiler';
 
-const { renderMarkdown } = getMarkdownContext();
+export let value: string | ParsedMarkdown;
+export const components: HTMLComponents<'permissive', {}> | undefined =
+  undefined;
+export const wrapper: any = undefined;
+export const forceBlock: boolean | undefined = undefined;
+export const forceInline: boolean | undefined = undefined;
+export const preserveFrontmatter: boolean | undefined = undefined;
+export const tagfilter: boolean | undefined = undefined;
 
-$: htmlContent = renderMarkdown(value);
+const context = getMarkdownContext();
+
+$: htmlContent = context.renderMarkdown(
+  value,
+  {
+    forceBlock,
+    forceInline,
+    preserveFrontmatter,
+    tagfilter,
+  },
+  {
+    ...(context.components ?? {}),
+    ...(components ?? {}),
+  },
+  wrapper
+);
 </script>
 
-{@html htmlContent}
+{#await htmlContent then resolvedHtmlContent}
+  {@html resolvedHtmlContent}
+{/await}

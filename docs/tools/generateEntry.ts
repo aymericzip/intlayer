@@ -17,7 +17,7 @@
 import { spawn } from 'node:child_process';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
-import { localeMap } from '@intlayer/core';
+import { localeMap } from '@intlayer/core/localization';
 import * as fg from 'fast-glob';
 import { locales } from '../intlayer.config';
 
@@ -138,8 +138,8 @@ const buildEntryContent = (
     `import { readFile } from 'node:fs/promises';`,
     `import { join, dirname as pathDirname } from 'node:path';`,
     `import { fileURLToPath } from 'node:url';`,
-    `import { getPackageJsonPath, getProjectRequire } from '@intlayer/config';`,
-    `import type { LocalesValues } from '@intlayer/types';`,
+    `import { getPackageJsonPath, getProjectRequire } from '@intlayer/config/utils';`,
+    `import type { LocalesValues } from '@intlayer/types/module_augmentation';`,
     ``,
     `// Robustly resolve the base directory of the @intlayer/docs package in both`,
     `// bundled environments (Next.js) and standalone CLIs (MCP via npx).`,

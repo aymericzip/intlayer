@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-04
-updatedAt: 2025-10-03
-title: React Router v7アプリを翻訳する方法 – i18nガイド 2025
-description: Intlayerを使用してReact Router v7アプリケーションに国際化（i18n）を追加する方法を学びます。ロケール対応ルーティングでアプリを多言語化するための包括的なガイドに従ってください。
+updatedAt: 2026-05-31
+title: "React Router v7 i18n - あなたのアプリを翻訳する完全ガイド"
+description: "i18nextはもう不要。2026年に多言語（i18n）React Router v7アプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
   - 国際化
   - ドキュメント
@@ -18,421 +18,170 @@ slugs:
   - vite-and-react
   - react-router-v7
 applicationTemplate: https://github.com/aymericzip/intlayer-react-router-v7-template
+applicationShowcase: https://intlayer-react-router-v7.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid の useIntlayer API の使用法を直接プロパティアクセスに更新"
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: "initコマンドを追加"
+  - version: 7.5.6
+    date: 2025-12-27
+    changes: "レイアウトの更新と404の処理"
   - version: 6.1.5
     date: 2025-10-03
-    changes: ドキュメント更新
+    changes: "ドキュメント更新"
   - version: 5.8.2
     date: 2025-09-04
-    changes: React Router v7対応追加
+    changes: "React Router v7対応追加"
 ---
 
 # IntlayerでReact Router v7を翻訳する | 国際化（i18n）
 
+<Tabs defaultTab="video">
+  <Tab label="動画" value="video">
+  
+<iframe title="Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
+
+  </Tab>
+  <Tab label="コード" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-react-router-v7-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="デモ" value="demo">
+
+<iframe
+  src="https://intlayer-react-router-v7.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="デモ - intlayer-react-router-v7-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
 このガイドでは、React Router v7プロジェクトにおいて、ロケール対応ルーティング、TypeScriptサポート、最新の開発手法を活用しながら、**Intlayer**を使ったシームレスな国際化の統合方法を説明します。
 
-## Table of Contents
+## 目次
 
 <TOC/>
 
-## Intlayerとは？
+## 代替手段ではなく Interlayer を使用する理由
 
-**Intlayer**は、現代のウェブアプリケーションにおける多言語対応を簡素化するために設計された革新的なオープンソースの国際化（i18n）ライブラリです。
+「react-i18next」や「i18next」などの主要なソリューションと比較して、Intlayer は次のような統合された最適化を備えたソリューションです。
 
-Intlayerを使うことで、以下が可能になります：
+**React Router を完全にカバー**
 
-- **コンポーネントレベルで宣言的辞書を使い、翻訳を簡単に管理**できます。
-- **メタデータ、ルート、コンテンツを動的にローカライズ**できます。
-- **自動生成される型情報によりTypeScriptサポートを確保し、オートコンプリートやエラー検出を向上**させます。
-- **動的なロケール検出や切り替えなどの高度な機能**を活用できます。
-- **React Router v7の設定ベースのルーティングシステムを使って、ロケール対応ルーティングを有効化**します。
+Intlayer は、**ロケール対応ルーティング**、**ロケール検出用のミドルウェア**、およびスケーリング国際化 (i18n) に必要なすべての機能を提供することにより、React Router と完全に連携するように最適化されています。
+
+**バンドルサイズ**
+
+大量の JSON ファイルをページにロードするのではなく、必要なコンテンツのみをロードします。 Intlayer は、**バンドルとページのサイズを最大 50% 削減**するのに役立ちます。
+
+**保守性**
+
+アプリケーションのコンテンツのスコープを設定すると、大規模なアプリケーションの **メンテナンスが容易になります**。コンテンツ コードベース全体を確認するという精神的な負担を負うことなく、単一の機能フォルダーを複製または削除できます。さらに、Intlayer は**完全に型指定**されており、コンテンツの正確性を保証します。
+
+**AI エージェント**
+
+コンテンツを同じ場所に配置すると、大規模言語モデル (LLM) によって **必要なコンテキストが削減**されます。 Intlayer には、翻訳の欠落をテストする **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** などのツール スイートも付属しています。および **[エージェント スキル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)** により、AI エージェントの開発者エクスペリエンス (DX) がさらにスムーズになります。
+
+**オートメーション**
+
+AI プロバイダーの費用で、選択した LLM を使用して CI/CD パイプラインで自動化を変換します。 Intlayer は、コンテンツ抽出を自動化する **コンパイラー** と、**バックグラウンドでの翻訳**を支援する [Web プラットフォーム](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) も提供します。
+
+**パフォーマンス**
+
+大量の JSON ファイルをコンポーネントに接続すると、パフォーマンスと反応性の問題が発生する可能性があります。 Intlayer は、ビルド時のコンテンツの読み込みを最適化します。
+
+**非開発によるスケーリング**
+
+Intlayer は単なる i18n ソリューションではなく、**自己ホスト型 [ビジュアル エディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** と **[完全な CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** を提供します。 **リアルタイム**で多言語コンテンツを管理できるようになり、翻訳者、コピーライター、その他のチーム メンバーとのコラボレーションがシームレスになります。コンテンツはローカルおよび/またはリモートに保存できます。
 
 ---
 
 ## React Router v7アプリケーションでIntlayerをセットアップするステップバイステップガイド
 
-### ステップ1: 依存パッケージのインストール
+---
 
-お好みのパッケージマネージャーを使って必要なパッケージをインストールします：
+## Configure TypeScript
 
-```bash packageManager="npm"
-npm install intlayer react-intlayer
-npm install vite-intlayer --save-dev
-```
+Intlayer uses module augmentation to get benefits of TypeScript and make your codebase stronger.
 
-```bash packageManager="pnpm"
-pnpm add intlayer react-intlayer
-pnpm add vite-intlayer --save-dev
-```
+Ensure your TypeScript configuration includes the autogenerated types:
 
-- **intlayer**
-
-- **intlayer**  
-  設定管理、翻訳、[コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)、トランスパイル、および[CLIコマンド](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md)のための国際化ツールを提供するコアパッケージ。
-
-- **react-intlayer**  
-  IntlayerをReactアプリケーションと統合するパッケージです。Reactの国際化のためのコンテキストプロバイダーとフックを提供します。
-
-- **vite-intlayer**  
-  Intlayerを[Viteバンドラー](https://vite.dev/guide/why.html#why-bundle-for-production)と統合するためのViteプラグイン、およびユーザーの優先ロケール検出、クッキー管理、URLリダイレクト処理のためのミドルウェアを含みます。
-
-### ステップ 2: プロジェクトの設定
-
-## ファイルシステムベースのルートを使用したReact Router v7アプリケーションでIntlayerを設定するためのステップバイステップガイド
-
-<Tab defaultTab="video">
-  <TabItem label="Video" value="video">
-  
-<iframe title="How to translate your React Router v7 app using Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
-
-  </TabItem>
-  <TabItem label="Code" value="code">
-
-<iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-react-router-v7-template?embed=1&ctl=1&file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-  </TabItem>
-</Tab>
-
-See [Application Template](https://github.com/aymericzip/intlayer-react-router-v7-template) on GitHub.
-
-アプリケーションの言語を設定するための設定ファイルを作成します：
-
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
-import { type IntlayerConfig, Locales } from "intlayer";
-
-const config: IntlayerConfig = {
-  internationalization: {
-    defaultLocale: Locales.ENGLISH, // デフォルトのロケールを英語に設定
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH], // 利用可能なロケールのリスト
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    defaultLocale: Locales.ENGLISH, // デフォルトのロケールを英語に設定
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH], // 利用可能なロケールのリスト
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    defaultLocale: Locales.ENGLISH,
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-  },
-};
-
-module.exports = config;
-```
-
-> この設定ファイルを通じて、ローカライズされたURL、ミドルウェアのリダイレクション、クッキー名、コンテンツ宣言の場所と拡張子、コンソールでのIntlayerログの無効化などを設定できます。利用可能なパラメータの完全なリストについては、[設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
-
-### ステップ3: Vite設定にIntlayerを統合する
-
-設定にintlayerプラグインを追加します：
-
-```typescript fileName="vite.config.ts"
-import { reactRouter } from "@react-router/dev/vite";
-import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
-import tsconfigPaths from "vite-tsconfig-paths";
-
-export default defineConfig({
-  plugins: [reactRouter(), tsconfigPaths(), intlayer()],
-});
-```
-
-> `intlayer()` Viteプラグインは、IntlayerをViteと統合するために使用されます。これにより、コンテンツ宣言ファイルのビルドが保証され、開発モードで監視されます。また、Viteアプリケーション内でIntlayerの環境変数を定義します。さらに、パフォーマンスを最適化するためのエイリアスも提供します。
-
-### ステップ4: React Router v7のルートを設定する
-
-ロケール対応のルートでルーティング設定を行います：
-
-```typescript fileName="app/routes.ts"
-import { layout, route, type RouteConfig } from "@react-router/dev/routes";
-
-export default [
-  layout("routes/layout.tsx", [
-    route("/:lang?", "routes/page.tsx"), // ローカライズされたホームページ
-    route("/:lang?/about", "routes/about/page.tsx"), // ローカライズされたアバウトページ
-  ]),
-] satisfies RouteConfig;
-```
-
-### ステップ5: レイアウトコンポーネントの作成
-
-ルートレイアウトとロケール固有のレイアウトを設定します:
-
-#### ルートレイアウト
-
-```tsx fileName="app/routes/layout.tsx"
-import { IntlayerProvider } from "react-intlayer";
-import { Outlet } from "react-router";
-
-import type { Route } from "./+types/layout";
-
-export default function RootLayout({ params }: Route.ComponentProps) {
-  const { locale } = params;
-
-  return (
-    <IntlayerProvider locale={locale}>
-      <Outlet />
-    </IntlayerProvider>
-  );
+```json5 fileName="tsconfig.json"
+{
+  // ... your existing configurations
+  include: [
+    // ... your existing includes
+    ".intlayer/**/*.ts", // Include the auto-generated types
+  ],
 }
 ```
 
-### ステップ 6: コンテンツを宣言する
+---
 
-翻訳を格納するためのコンテンツ宣言を作成および管理します：
+## Git Configuration
 
-```tsx fileName="app/routes/[lang]/page.content.ts"
-import { t, type Dictionary } from "intlayer";
+It is recommended to ignore the files generated by Intlayer. This allows you to avoid committing them to your Git repository.
 
-const pageContent = {
-  key: "page",
-  content: {
-    title: t({
-      en: "Welcome to React Router v7 + Intlayer",
-      es: "Bienvenido a React Router v7 + Intlayer",
-      fr: "Bienvenue sur React Router v7 + Intlayer",
-    }),
-    description: t({
-      en: "Build multilingual applications with ease using React Router v7 and Intlayer.",
-      es: "Cree aplicaciones multilingües fácilmente usando React Router v7 y Intlayer.",
-      fr: "Créez des applications multilingues facilement avec React Router v7 et Intlayer.",
-    }),
-    aboutLink: t({
-      en: "私たちについて学ぶ",
-      es: "Aprender Sobre Nosotros",
-      fr: "En savoir plus sur nous",
-    }),
-    homeLink: t({
-      en: "ホーム",
-      es: "Inicio",
-      fr: "Accueil",
-    }),
-  },
-} satisfies Dictionary;
+To do this, you can add the following instructions to your `.gitignore` file:
 
-export default pageContent;
+```plaintext fileName=".gitignore"
+# Intlayerによって生成されたファイルを無視する
+.intlayer
 ```
 
-> コンテンツ宣言は、`contentDir` ディレクトリ（デフォルトは `./app`）に含まれている限り、アプリケーションのどこにでも定義できます。また、コンテンツ宣言ファイルの拡張子（デフォルトは `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）に一致する必要があります。
+---
 
-> 詳細については、[コンテンツ宣言ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)を参照してください。
+## VS Code Extension
 
-### ステップ7: ロケール対応コンポーネントの作成
+To improve your development experience with Intlayer, you can install the official **Intlayer VS Code Extension**.
 
-ロケール対応のナビゲーション用に `LocalizedLink` コンポーネントを作成します：
+[Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
-```tsx fileName="app/components/localized-link.tsx"
-import type { FC } from "react";
+This extension provides:
 
-import { getLocalizedUrl, type LocalesValues } from "intlayer";
-import { useLocale } from "react-intlayer";
-import { Link, type LinkProps, type To } from "react-router";
+- **Autocompletion** for translation keys.
+- **Real-time error detection** for missing translations.
+- **Inline previews** of translated content.
+- **Quick actions** to easily create and update translations.
 
-// 外部リンクかどうかを判定する関数
-const isExternalLink = (to: string) => /^(https?:)?\/\//.test(to);
+For more details on how to use the extension, refer to the [Intlayer VS Code Extension documentation](https://intlayer.org/doc/vs-code-extension).
 
-// 指定されたURLをロケールに応じてローカライズする関数
-export const locacalizeTo = (to: To, locale: LocalesValues): To => {
-  if (typeof to === "string") {
-    if (isExternalLink(to)) {
-      return to;
-    }
+---
 
-    return getLocalizedUrl(to, locale);
-  }
+## Go Further
 
-  if (isExternalLink(to.pathname ?? "")) {
-    return to;
-  }
+To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
 
-  return {
-    ...to,
-    pathname: getLocalizedUrl(to.pathname ?? "", locale),
-  };
-};
+---
 
-// ロケール対応のリンクコンポーネント
-export const LocalizedLink: FC<LinkProps> = (props) => {
-  const { locale } = useLocale();
+## Documentation References
 
-  return <Link {...props} to={locacalizeTo(props.to, locale)} />;
-};
-```
+- [Intlayer Documentation](https://intlayer.org)
+- [React Router v7 Documentation](https://reactrouter.com/)
+- [useIntlayer hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md)
+- [useLocale hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md)
+- [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
+- [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
 
-ローカライズされたルートにナビゲートしたい場合は、`useLocalizedNavigate` フックを使用できます。
+This comprehensive guide provides everything you need to integrate Intlayer with React Router v7 for a fully internationalized application with locale-aware routing and TypeScript support.
 
-```tsx fileName="app/hooks/useLocalizedNavigate.ts"
-import { useLocale } from "react-intlayer";
-import { type NavigateOptions, type To, useNavigate } from "react-router";
+<Steps>
 
-import { locacalizeTo } from "~/components/localized-link";
-
-export const useLocalizedNavigate = () => {
-  const navigate = useNavigate();
-  const { locale } = useLocale();
-
-  const localizedNavigate = (to: To, options?: NavigateOptions) => {
-    const localedTo = locacalizeTo(to, locale);
-
-    navigate(localedTo, options);
-  };
-
-  return localizedNavigate;
-};
-```
-
-### ステップ8: ページで Intlayer を活用する
-
-アプリケーション全体でコンテンツ辞書にアクセスします：
-
-#### ローカライズされたホームページ
-
-```tsx fileName="app/routes/[lang]/page.tsx"
-import { useIntlayer } from "react-intlayer";
-import { LocalizedLink } from "~/components/localized-link";
-
-export default function Page() {
-  const { title, description, aboutLink } = useIntlayer("page");
-
-  return (
-    <div>
-      <h1>{title}</h1>
-      <p>{description}</p>
-      <nav>
-        <LocalizedLink to="/about">{aboutLink}</LocalizedLink>
-      </nav>
-    </div>
-  );
-}
-```
-
-> `useIntlayer` フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useIntlayer.md)を参照してください。
-
-### ステップ9：ロケールスイッチャーコンポーネントを作成する
-
-ユーザーが言語を変更できるコンポーネントを作成します：
-
-```tsx fileName="app/components/locale-switcher.tsx"
-import type { FC } from "react";
-
-import {
-  getHTMLTextDir,
-  getLocaleName,
-  getLocalizedUrl,
-  getPathWithoutLocale,
-  Locales,
-} from "intlayer";
-import { setLocaleInStorage, useIntlayer, useLocale } from "react-intlayer";
-import { Link, useLocation } from "react-router";
-
-export const LocaleSwitcher: FC = () => {
-  const { localeSwitcherLabel } = useIntlayer("locale-switcher"); // ロケールスイッチャーのラベルを取得
-  const { pathname } = useLocation(); // 現在のパス名を取得
-
-  const { availableLocales, locale } = useLocale(); // 利用可能なロケールと現在のロケールを取得
-
-  const pathWithoutLocale = getPathWithoutLocale(pathname); // パスからロケール部分を除去
-
-  return (
-    <ol>
-      {availableLocales.map((localeItem) => (
-        <li key={localeItem}>
-          <Link
-            aria-current={localeItem === locale ? "page" : undefined}
-            aria-label={`${localeSwitcherLabel.value} ${getLocaleName(localeItem)}`}
-            onClick={() => setLocale(localeItem)}
-            to={getLocalizedUrl(pathWithoutLocale, localeItem)}
-          >
-            <span>
-              {/* ロケール - 例: FR */}
-              {localeItem}
-            </span>
-            <span>
-              {/* 自身のロケールでの言語名 - 例: Français */}
-              {getLocaleName(localeItem, locale)}
-            </span>
-            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* 現在のロケールでの言語名 - 例: 現在のロケールがLocales.SPANISHの場合のFrancés */}
-              {getLocaleName(localeItem)}
-            </span>
-            <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* 英語での言語名 - 例: French */}
-              {getLocaleName(localeItem, Locales.ENGLISH)}
-            </span>
-          </Link>
-        </li>
-      ))}
-    </ol>
-  );
-};
-```
-
-> `useLocale` フックの詳細については、[ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useLocale.md)を参照してください。
-
-### ステップ10: HTML属性の管理を追加（オプション）
-
-HTMLのlang属性とdir属性を管理するフックを作成します：
-
-```tsx fileName="app/hooks/useI18nHTMLAttributes.tsx"
-import { getHTMLTextDir } from "intlayer";
-import { useEffect } from "react";
-import { useLocale } from "react-intlayer";
-
-export const useI18nHTMLAttributes = () => {
-  const { locale } = useLocale();
-
-  useEffect(() => {
-    document.documentElement.lang = locale;
-    document.documentElement.dir = getHTMLTextDir(locale);
-  }, [locale]);
-};
-```
-
-次に、ルートコンポーネントでこれを使用します:
-
-```tsx fileName="app/routes/layout.tsx"
-import { Outlet } from "react-router";
-import { IntlayerProvider } from "react-intlayer";
-
-import { useI18nHTMLAttributes } from "app/hooks/useI18nHTMLAttributes"; // フックをインポート
-
-export default function RootLayout() {
-  useI18nHTMLAttributes(); // フックを呼び出す
-
-  return (
-    <IntlayerProvider>
-      <Outlet />
-    </IntlayerProvider>
-  );
-}
-```
-
-### ステップ11: ミドルウェアを追加する（オプション）
+<Step number={11} title="ミドルウェアを追加する（オプション）">
 
 `intlayerProxy` を使用して、アプリケーションにサーバーサイドルーティングを追加することもできます。このプラグインは、URL に基づいて現在のロケールを自動的に検出し、適切なロケールクッキーを設定します。ロケールが指定されていない場合、プラグインはユーザーのブラウザの言語設定に基づいて最も適切なロケールを判断します。ロケールが検出されない場合は、デフォルトのロケールにリダイレクトします。
 
@@ -442,14 +191,137 @@ export default function RootLayout() {
 import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
 import { intlayer, intlayerProxy } from "vite-intlayer";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  plugins: [reactRouter(), tsconfigPaths(), intlayer(), intlayerProxy()],
+  plugins: [
+    intlayerProxy(), // should be placed first
+    reactRouter(),
+
+    intlayer(),
+  ],
 });
 ```
 
+</Step>
+
+<Step number={12} title="コンポーネントのコンテンツを抽出する" isOptional={true}>
+
+既存のコードベースがある場合、数千のファイルを変換するのは時間がかかることがあります。
+
+このプロセスを容易にするために、Intlayerは、コンポーネントを変換しコンテンツを抽出するための [コンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md) / [エクストラクタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md) を提案しています。
+
+セットアップするには、`intlayer.config.ts` ファイルに `compiler` セクションを追加します。
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... 他の構成
+  compiler: {
+    /**
+     * コンパイラを有効にするかどうかを指定します。
+     */
+    enabled: true,
+
+    /**
+     * 出力ファイルのパスを定義します。
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * 変換後にコンポーネントを保存するかどうかを指定します。これにより、コンパイラを一度だけ実行してアプリを変換し、その後削除することができます。
+     */
+    saveComponents: false,
+
+    /**
+     * 辞書キーの接頭辞
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='抽出コマンド'>
+
+コンポーネントを変換してコンテンツを抽出するためにエクストラクタを実行します
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Babelコンパイラ'>
+
+```bash packageManager="npm"
+npm install @intlayer/babel --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/babel --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/babel --save-dev
+```
+
+```bash packageManager="bun"
+bun add @intlayer/babel --dev
+```
+
+```js fileName="babel.config.js"
+const {
+  intlayerExtractBabelPlugin,
+  getExtractPluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    // コンポーネントから辞書へコンテンツを抽出する
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+  ],
+};
+```
+
+```bash packageManager="npm"
+npm run build # または npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # または pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # または yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
+
 ---
+
+</Step>
+
+</Steps>
 
 ## TypeScriptの設定
 
@@ -511,7 +383,7 @@ Intlayerでの開発体験を向上させるために、公式の **Intlayer VS 
 - [React Router v7 ドキュメント](https://reactrouter.com/)
 - [useIntlayer フック](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useIntlayer.md)
 - [useLocale フック](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useLocale.md)
-- [コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/get_started.md)
+- [コンテンツ宣言](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)
 - [設定](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)
 
 この包括的なガイドは、IntlayerをReact Router v7と統合し、ロケール対応のルーティングとTypeScriptサポートを備えた完全に国際化されたアプリケーションを構築するために必要なすべてを提供します。

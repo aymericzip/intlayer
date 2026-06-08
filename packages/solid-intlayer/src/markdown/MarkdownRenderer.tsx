@@ -1,70 +1,110 @@
+import { getContentNodeByKeyPath } from '@intlayer/core/dictionaryManipulator';
+import { getMarkdownMetadata } from '@intlayer/core/markdown';
+import type { ContentNode } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import {
-  getContent,
-  getContentNodeByKeyPath,
-  getMarkdownMetadata,
-} from '@intlayer/core';
-import type { ContentNode, KeyPath, LocalesValues } from '@intlayer/types';
-import type { Component, JSX } from 'solid-js';
-import { useEditedContentRenderer } from '../editor/useEditedContentRenderer';
-import { useMarkdown } from './MarkdownProvider';
+  type Component,
+  createMemo,
+  createResource,
+  type JSX,
+  Suspense,
+  useContext,
+  type ValidComponent,
+} from 'solid-js';
+import type { HTMLComponents } from '../html/types';
+import { compileMarkdown, type ParsedMarkdown } from './compiler';
+import { MarkdownContext, useMarkdown } from './MarkdownProvider';
 
-type MarkdownRendererProps = {
+export type RenderMarkdownOptions = {
+  components?: HTMLComponents<'permissive', {}>;
+  wrapper?: ValidComponent;
+  forceBlock?: boolean;
+  preserveFrontmatter?: boolean;
+  tagfilter?: boolean;
+};
+
+export const renderMarkdown = (
+  content: string | ParsedMarkdown,
+  options: RenderMarkdownOptions = {}
+): Promise<JSX.Element> => {
+  return compileMarkdown(content, options as any);
+};
+
+export const useMarkdownRenderer = (options: RenderMarkdownOptions = {}) => {
+  const context = useContext(MarkdownContext);
+
+  return (content: string | ParsedMarkdown): Promise<JSX.Element> => {
+    if (context) {
+      return context.renderMarkdown(
+        content,
+        {
+          forceBlock: options.forceBlock,
+          preserveFrontmatter: options.preserveFrontmatter,
+          tagfilter: options.tagfilter,
+        },
+        options.components,
+        options.wrapper
+      ) as Promise<JSX.Element>;
+    }
+    return renderMarkdown(content, options);
+  };
+};
+
+export type MarkdownRendererProps = RenderMarkdownOptions & {
   dictionaryKey: string;
   keyPath: KeyPath[];
   locale?: LocalesValues;
-  children: string;
+  children: string | ParsedMarkdown;
 };
 
-export const MarkdownRenderer: Component<MarkdownRendererProps> = (props) => {
+export const MarkdownRenderer = (props: MarkdownRendererProps): JSX.Element => {
+  const context = useContext(MarkdownContext);
   const { renderMarkdown } = useMarkdown();
-  const editedContentContext = useEditedContentRenderer({
-    dictionaryKey: props.dictionaryKey,
-    keyPath: props.keyPath,
-    children: props.children,
-  });
 
-  if (typeof editedContentContext !== 'string') {
-    const transformedEditedContent = getContent(
-      editedContentContext,
-      {
-        dictionaryKey: props.dictionaryKey,
-        keyPath: props.keyPath,
-      },
-      props.locale
-    );
+  const [rendered] = createResource(
+    () =>
+      [
+        props.children,
+        props.forceBlock,
+        props.preserveFrontmatter,
+        props.tagfilter,
+        props.components,
+        props.wrapper,
+      ] as const,
+    ([
+      content,
+      forceBlock,
+      preserveFrontmatter,
+      tagfilter,
+      components,
+      wrapper,
+    ]) =>
+      renderMarkdown(
+        content,
+        { forceBlock, preserveFrontmatter, tagfilter },
+        { ...(context?.components ?? {}), ...(components ?? {}) },
+        wrapper
+      )
+  );
 
-    if (typeof transformedEditedContent !== 'string') {
-      console.error(
-        `Incorrect Markdown content. Edited Markdown content type: ${typeof transformedEditedContent}. Expected string. Value ${JSON.stringify(transformedEditedContent)}`
-      );
-
-      return renderMarkdown(props.children);
-    }
-
-    return renderMarkdown(transformedEditedContent);
-  }
-
-  return renderMarkdown(editedContentContext);
+  return <Suspense>{rendered()}</Suspense>;
 };
 
-type MarkdownMetadataRendererProps = MarkdownRendererProps & {
+export type MarkdownMetadataRendererProps = MarkdownRendererProps & {
   metadataKeyPath: KeyPath[];
 };
 
 export const MarkdownMetadataRenderer: Component<
   MarkdownMetadataRendererProps
 > = (props) => {
-  const editedContentContext = useEditedContentRenderer({
-    dictionaryKey: props.dictionaryKey,
-    keyPath: props.keyPath,
-    children: props.children,
-  });
-  const metadata = getMarkdownMetadata(editedContentContext);
-
-  const metadataEl = getContentNodeByKeyPath(
-    metadata as ContentNode,
-    props.metadataKeyPath
+  const metadata = createMemo(() =>
+    getMarkdownMetadata(props.children as string)
   );
 
-  return metadataEl as JSX.Element;
+  const metadataEl = createMemo(() =>
+    getContentNodeByKeyPath(metadata() as ContentNode, props.metadataKeyPath)
+  );
+
+  return metadataEl() as JSX.Element;
 };

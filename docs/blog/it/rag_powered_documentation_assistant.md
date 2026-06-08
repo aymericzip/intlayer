@@ -95,7 +95,7 @@ Questo compromesso (dimensione del chunk vs sovrapposizione) è fondamentale per
 
 ## Passo 3: Generazione degli Embeddings
 
-Una volta che i documenti sono stati suddivisi in chunk, generiamo gli **embeddings** — vettori ad alta dimensione che rappresentano ogni chunk.
+Una volta che i documenti sono stati suddivisi in chunk, generiamo gli **embeddings**, vettori ad alta dimensione che rappresentano ogni chunk.
 
 Ho utilizzato il modello text-embedding-3-large di OpenAI, ma potresti usare qualsiasi modello moderno di embedding.
 

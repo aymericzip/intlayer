@@ -20,7 +20,7 @@ slugs:
 
 # Argumenty za i przeciw internacjonalizacji opartej na kompilatorze
 
-Jeśli budujesz aplikacje webowe od ponad dekady, wiesz, że internacjonalizacja (i18n) zawsze była punktem zapalnym. Często jest to zadanie, którego nikt nie chce wykonywać — wyciąganie stringów, zarządzanie plikami JSON i martwienie się o zasady pluralizacji.
+Jeśli budujesz aplikacje webowe od ponad dekady, wiesz, że internacjonalizacja (i18n) zawsze była punktem zapalnym. Często jest to zadanie, którego nikt nie chce wykonywać, wyciąganie stringów, zarządzanie plikami JSON i martwienie się o zasady pluralizacji.
 
 Niedawno pojawiła się nowa fala **narzędzi i18n opartych na kompilatorze**, obiecujących, że ta uciążliwość zniknie. Oferta jest kusząca: **Po prostu pisz tekst w swoich komponentach, a narzędzie budujące zajmie się resztą.** Bez kluczy, bez importów, po prostu magia.
 
@@ -205,7 +205,7 @@ Więc, którą opcję powinieneś wybrać?
 Podejście oparte na kompilatorze jest dobrym wyborem. Pozwala na niezwykle szybkie działanie. Nie musisz się martwić o strukturę plików czy klucze. Po prostu budujesz. Dług techniczny to problem dla „Przyszłego Ciebie”.
 
 **Jeśli jesteś Junior Developerem lub nie zależy Ci na optymalizacji:**  
-Jeśli chcesz jak najmniej ręcznego zarządzania, podejście oparte na kompilatorze jest prawdopodobnie najlepsze. Nie będziesz musiał samodzielnie obsługiwać kluczy czy plików tłumaczeń — po prostu piszesz tekst, a kompilator automatyzuje resztę. To zmniejsza nakład pracy przy konfiguracji i typowe błędy i18n związane z ręcznymi krokami.
+Jeśli chcesz jak najmniej ręcznego zarządzania, podejście oparte na kompilatorze jest prawdopodobnie najlepsze. Nie będziesz musiał samodzielnie obsługiwać kluczy czy plików tłumaczeń, po prostu piszesz tekst, a kompilator automatyzuje resztę. To zmniejsza nakład pracy przy konfiguracji i typowe błędy i18n związane z ręcznymi krokami.
 
 **Jeśli internacjonalizujesz istniejący projekt, który już zawiera tysiące komponentów do refaktoryzacji:**  
 Podejście oparte na kompilatorze może być tutaj pragmatycznym wyborem. Początkowa faza ekstrakcji może zaoszczędzić tygodnie lub miesiące ręcznej pracy. Jednak rozważ użycie narzędzia takiego jak polecenie `transform` Intlayer, które może wyodrębnić ciągi znaków i przekształcić je w jawne deklaracje treści deklaratywnej. Daje to szybkość automatyzacji przy jednoczesnym zachowaniu bezpieczeństwa i przenośności podejścia deklaratywnego. Otrzymujesz to, co najlepsze z obu światów: szybką początkową migrację bez długoterminowego długu architektonicznego.

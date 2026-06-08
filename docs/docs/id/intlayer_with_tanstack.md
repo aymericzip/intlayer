@@ -1,13 +1,13 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-12-11
-title: Cara menerjemahkan aplikasi Tanstack Start Anda – panduan i18n 2025
-description: Pelajari cara menambahkan internasionalisasi (i18n) ke aplikasi Tanstack Start Anda menggunakan Intlayer. Ikuti panduan komprehensif ini untuk membuat aplikasi Anda multibahasa dengan routing yang mendukung locale.
+updatedAt: 2026-05-31
+title: "TanStack Start i18n - Panduan lengkap menerjemahkan aplikasi Anda"
+description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi TanStack Start multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
   - Internasionalisasi
   - Dokumentasi
   - Intlayer
-  - Tanstack Start
+  - TanStack Start
   - React
   - i18n
   - TypeScript
@@ -17,98 +17,179 @@ slugs:
   - environment
   - tanstack-start
 applicationTemplate: https://github.com/aymericzip/intlayer-tanstack-start-template
+applicationShowcase: https://intlayer-tanstack-start-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=_XTdKVWaeqg
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Perbarui penggunaan API useIntlayer Solid ke akses properti langsung"
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: "Tambahkan perintah init"
   - version: 7.4.0
     date: 2025-12-11
-    changes: Memperkenalkan validatePrefix dan menambah langkah 14: Menangani halaman 404 dengan rute terlokalisasi.
+    changes: "Memperkenalkan validatePrefix dan menambah langkah 14: Menangani halaman 404 dengan rute terlokalisasi."
   - version: 7.3.9
     date: 2025-12-05
-    changes: Menambah langkah 13: Mengambil locale di server actions Anda (Opsional)
+    changes: "Menambah langkah 13: Mengambil locale di server actions Anda (Opsional)"
+  - version: 7.2.3
+    date: 2025-11-18
+    changes: "Menambah langkah 13: Adaptasi Nitro"
+  - version: 7.1.0
+    date: 2025-11-17
+    changes: "Memperbaiki default prefix dengan menambahkan fungsi getPrefix, gunakan useLocalizedNavigate, LocaleSwitcher dan LocalizedLink."
   - version: 6.5.2
     date: 2025-10-03
-    changes: Memperbarui dokumen
+    changes: "Perbarui dokumen"
   - version: 5.8.1
     date: 2025-09-09
-    changes: Ditambahkan untuk Tanstack Start
+    changes: "Ditambahkan untuk TanStack Start"
 ---
 
-# Terjemahkan situs web Tanstack Start Anda menggunakan Intlayer | Internasionalisasi (i18n)
+# Terjemahkan situs web TanStack Start Anda menggunakan Intlayer | Internasionalisasi (i18n)
 
 ## Daftar Isi
 
 <TOC/>
 
-Panduan ini menunjukkan cara mengintegrasikan **Intlayer** untuk internasionalisasi yang mulus dalam proyek Tanstack Start dengan routing yang mendukung locale, dukungan TypeScript, dan praktik pengembangan modern.
+Panduan ini mendemonstrasikan cara mengintegrasikan **Intlayer** untuk internasionalisasi yang mulus dalam proyek TanStack Start dengan routing yang mendukung locale, dukungan TypeScript, dan praktik pengembangan modern.
 
-## Apa itu Intlayer?
+## Mengapa Intlayer dibandingkan alternatif?
 
-**Intlayer** adalah perpustakaan internasionalisasi (i18n) sumber terbuka yang inovatif, dirancang untuk menyederhanakan dukungan multibahasa dalam aplikasi web modern.
+Dibandingkan dengan solusi utama seperti `react-i18next` atau `use-intl`, atau `paraglide`, Intlayer adalah solusi yang hadir dengan pengoptimalan terintegrasi seperti:
 
-Dengan Intlayer, Anda dapat:
+<AccordionGroup>
 
-- **Mengelola terjemahan dengan mudah** menggunakan kamus deklaratif di tingkat komponen.
-- **Melokalkan metadata**, rute, dan konten secara dinamis.
-- **Memastikan dukungan TypeScript** dengan tipe yang dihasilkan secara otomatis, meningkatkan autocompletion dan deteksi kesalahan.
-- **Manfaatkan fitur canggih**, seperti deteksi dan pengalihan locale secara dinamis.
-- **Aktifkan routing yang mendukung locale** dengan sistem routing berbasis file Tanstack Start.
+<Accordion header="Cakupan TanStack Start penuh">
+
+Intlayer sepenuhnya dioptimalkan untuk TanStack Start, menyediakan **perutean multibahasa**, **manajemen cookie**, **pembuatan peta situs**, **pemuatan konten dinamis**, dan semua fitur yang diperlukan untuk meningkatkan upaya internasionalisasi Anda (i18n).
+
+</Accordion>
+
+<Accordion header="Ukuran bundle">
+
+Daripada memuat file JSON berukuran besar ke halaman Anda, muat saja konten yang diperlukan. Intlayer membantu **mengurangi ukuran bundle dan halaman Anda hingga 50%**.
+
+</Accordion>
+
+<Accordion header="Kemampuan Pemeliharaan">
+
+Mencakup konten aplikasi Anda **memfasilitasi pemeliharaan** untuk aplikasi berskala besar. Anda dapat menduplikasi atau menghapus satu folder fitur tanpa beban mental untuk meninjau seluruh basis kode konten Anda. Selain itu, Intlayer **diketik sepenuhnya** untuk memastikan keakuratan konten Anda.
+
+</Accordion>
+
+<Accordion header="Agen AI">
+
+Menempatkan konten bersama **mengurangi konteks yang diperlukan** dengan Model Bahasa Besar (LLM). Intlayer juga dilengkapi dengan serangkaian alat, seperti **CLI** untuk menguji terjemahan yang hilang,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, dan **[agent skill](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, untuk menjadikan pengalaman pengembang (DX) lebih lancar bagi agen AI.
+
+</Accordion>
+
+<Accordion header="Otomatisasi">
+
+Gunakan otomatisasi untuk menerjemahkan dalam saluran CI/CD Anda menggunakan LLM pilihan Anda dengan biaya penyedia AI Anda. Intlayer juga menawarkan **compiler** untuk mengotomatiskan ekstraksi konten, serta [platform web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) untuk membantu **menerjemahkan di latar belakang**.
+
+</Accordion>
+
+<Accordion header="Pertunjukan">
+
+Menghubungkan file JSON berukuran besar ke komponen dapat menyebabkan masalah kinerja dan reaktivitas. Intlayer mengoptimalkan pemuatan konten Anda pada waktu pembuatan.
+
+</Accordion>
+
+<Accordion header="Menskalakan tanpa pengembang">
+
+Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** yang dihosting sendiri dan **[CMS lengkap](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** untuk membantu Anda mengelola konten multibahasa secara **real-time**, membuat kolaborasi dengan penerjemah, copywriter, dan anggota tim lainnya menjadi lancar. Konten dapat disimpan secara lokal dan/atau jarak jauh.
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
-## Panduan Langkah demi Langkah untuk Mengatur Intlayer dalam Aplikasi Tanstack Start
+## Panduan Langkah-demi-Langkah untuk Mengatur Intlayer dalam Aplikasi TanStack Start
 
-<Tab defaultTab="video">
-  <TabItem label="Video" value="video">
+<Tabs defaultTab="video">
+  <Tab label="Video" value="video">
   
-<iframe title="Solusi i18n terbaik untuk Tanstack Start? Temukan Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/_XTdKVWaeqg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Solusi i18n terbaik untuk TanStack Start? Temukan Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/_XTdKVWaeqg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-  </TabItem>
-  <TabItem label="Code" value="code">
+  </Tab>
+  <Tab label="Kode" value="code">
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-tanstack-start-template?embed=1&ctl=1&file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-tanstack-start-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Cara Menginternasionalisasi aplikasi Anda menggunakan Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-tanstack-start-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo - intlayer-tanstack-start-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
 
 Lihat [Template Aplikasi](https://github.com/aymericzip/intlayer-tanstack-start-template) di GitHub.
 
-### Langkah 1: Buat Proyek
+<Steps>
 
-Mulailah dengan membuat proyek TanStack Start baru dengan mengikuti panduan [Mulai proyek baru](https://tanstack.com/start/latest/docs/framework/react/quick-start) di situs web TanStack Start.
+<Step number={1} title="Buat Proyek">
 
-### Langkah 2: Pasang Paket Intlayer
+Mulailah dengan membuat proyek TanStack Start baru dengan mengikuti panduan [Memulai proyek baru](https://tanstack.com/start/latest/docs/framework/react/quick-start) di situs web TanStack Start.
+
+</Step>
+
+<Step number={2} title="Pasang Paket Intlayer">
 
 Pasang paket yang diperlukan menggunakan manajer paket pilihan Anda:
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
 npm install vite-intlayer --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer
 pnpm add vite-intlayer --save-dev
+pnpm intlayer init
+```
+
+```bash packageManager="yarn"
+yarn add intlayer react-intlayer
+yarn add vite-intlayer --save-dev
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer
+bun add vite-intlayer --dev
+bun x intlayer init
 ```
 
 - **intlayer**
 
-  Paket inti yang menyediakan alat internasionalisasi untuk manajemen konfigurasi, terjemahan, [deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md), transpile, dan [perintah CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_cli.md).
+  Paket inti yang menyediakan alat internasionalisasi untuk manajemen konfigurasi, terjemahan, [deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md), transpiler, dan [perintah CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md).
 
 - **react-intlayer**
-  Paket yang mengintegrasikan Intlayer dengan aplikasi React. Paket ini menyediakan context providers dan hooks untuk internasionalisasi React.
+  Paket yang mengintegrasikan Intlayer dengan aplikasi React. Ini menyediakan context provider dan hook untuk internasionalisasi React.
 
 - **vite-intlayer**
-  Termasuk plugin Vite untuk mengintegrasikan Intlayer dengan [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), serta middleware untuk mendeteksi locale yang dipilih pengguna, mengelola cookie, dan menangani pengalihan URL.
+  Termasuk plugin Vite untuk mengintegrasikan Intlayer dengan [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production), serta middleware untuk mendeteksi locale yang disukai pengguna, mengelola cookie, dan menangani pengalihan URL.
 
-### Langkah 3: Konfigurasi proyek Anda
+</Step>
 
-Buat file konfigurasi untuk mengatur bahasa aplikasi Anda:
+<Step number={3} title="Konfigurasi proyek Anda">
+
+Buat file konfigurasi untuk mengonfigurasi bahasa aplikasi Anda:
 
 ```typescript fileName="intlayer.config.ts"
 import type { IntlayerConfig } from "intlayer";
@@ -125,9 +206,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-> Melalui file konfigurasi ini, Anda dapat mengatur URL yang dilokalkan, pengalihan middleware, nama cookie, lokasi dan ekstensi deklarasi konten Anda, menonaktifkan log Intlayer di konsol, dan lainnya. Untuk daftar lengkap parameter yang tersedia, lihat [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
+> Melalui file konfigurasi ini, Anda dapat mengatur URL yang dilokalkan, pengalihan middleware, nama cookie, lokasi dan ekstensi deklarasi konten Anda, menonaktifkan log Intlayer di konsol, dan banyak lagi. Untuk daftar lengkap parameter yang tersedia, lihat [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).
 
-### Langkah 4: Integrasikan Intlayer dalam Konfigurasi Vite Anda
+</Step>
+
+<Step number={4} title="Integrasikan Intlayer dalam Konfigurasi Vite Anda">
 
 Tambahkan plugin intlayer ke dalam konfigurasi Anda:
 
@@ -137,54 +220,125 @@ import viteReact from "@vitejs/plugin-react";
 import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
 import { intlayer } from "vite-intlayer";
-import viteTsConfigPaths from "vite-tsconfig-paths";
 
 const config = defineConfig({
   plugins: [
     nitro(),
-    viteTsConfigPaths({
-      projects: ["./tsconfig.json"],
+    intlayer(),
+    tanstackStart({
+      router: {
+        routeFileIgnorePattern:
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$",
+      },
     }),
-    tanstackStart(),
     viteReact(),
-    intlayer(), // To add
   ],
 });
 
 export default config;
 ```
 
-> Plugin Vite `intlayer()` digunakan untuk mengintegrasikan Intlayer dengan Vite. Plugin ini memastikan pembuatan file deklarasi konten dan memantau file tersebut dalam mode pengembangan. Plugin ini juga mendefinisikan variabel lingkungan Intlayer di dalam aplikasi Vite. Selain itu, plugin ini menyediakan alias untuk mengoptimalkan performa.
+> Plugin Vite `intlayer()` digunakan untuk mengintegrasikan Intlayer dengan Vite. Ini memastikan pembuatan file deklarasi konten dan memantaunya dalam mode pengembangan. Plugin ini mendefinisikan variabel lingkungan Intlayer di dalam aplikasi Vite. Selain itu, ini menyediakan alias untuk mengoptimalkan kinerja.
 
-### Langkah 5: Buat Komponen Layout
+</Step>
 
-Atur layout root Anda dan layout khusus locale:
+<Step number={5} title="Buat Layout Root">
 
-#### Layout Root
+Konfigurasikan layout root Anda untuk mendukung internasionalisasi dengan menggunakan `useParams` untuk mendeteksi locale saat ini dan mengatur atribut `lang` dan `dir` pada tag `html`.
 
-```tsx fileName="src/routes/{-$locale}/route.tsx"
-import { createFileRoute, Outlet } from "@tanstack/react-router";
-import { IntlayerProvider, useLocale } from "react-intlayer";
+```tsx fileName="src/routes/__root.tsx"
+import {
+  createRootRouteWithContext,
+  HeadContent,
+  Scripts,
+} from "@tanstack/react-router";
+import { defaultLocale, getHTMLTextDir } from "intlayer";
+import { type ReactNode } from "react";
+import { IntlayerProvider } from "react-intlayer";
+import { Route as LocaleRoute } from "./{-$locale}/route";
 
-import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes";
+export const Route = createRootRouteWithContext<{}>()({
+  head: () => ({
+    meta: [
+      {
+        charSet: "utf-8",
+      },
+      {
+        content: "width=device-width, initial-scale=1",
+        name: "viewport",
+      },
+      {
+        title: "TanStack Start Starter",
+      },
+    ],
+  }),
 
-export const Route = createFileRoute("/{-$locale}")({
-  component: LayoutComponent,
+  shellComponent: RootDocument,
 });
 
-function LayoutComponent() {
-  const { defaultLocale } = useLocale();
-  const { locale } = Route.useParams();
+function RootDocument({ children }: { children: ReactNode }) {
+  const params = LocaleRoute.useParams();
+  const locale = params?.locale ?? defaultLocale;
 
   return (
-    <IntlayerProvider locale={locale ?? defaultLocale}>
-      <Outlet />
-    </IntlayerProvider>
+    <html dir={getHTMLTextDir(locale)} lang={locale}>
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+        <Scripts />
+      </body>
+    </html>
   );
 }
 ```
 
-### Langkah 6: Deklarasikan Konten Anda
+> Jika Anda ingin menggunakan konten Anda dalam atribut `string`, seperti `alt`, `title`, `href`, `aria-label`, dll., Anda harus memanggil nilai fungsi tersebut, seperti:
+
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
+
+</Step>
+
+<Step number={6} title="Buat Layout Locale">
+
+Buat layout yang menangani awalan locale dan melakukan validasi.
+
+```tsx fileName="src/routes/{-$locale}/route.tsx"
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { validatePrefix } from "intlayer";
+
+export const Route = createFileRoute("/{-$locale}")({
+  beforeLoad: ({ params }) => {
+    const localeParam = params.locale;
+
+    // Validasi awalan locale
+    const { isValid, localePrefix } = validatePrefix(localeParam);
+
+    if (!isValid) {
+      throw redirect({
+        to: "/{-$locale}/404",
+        params: { locale: localePrefix },
+      });
+    }
+  },
+  component: Outlet,
+});
+```
+
+> Di sini, `{-$locale}` adalah parameter rute dinamis yang digantikan dengan locale saat ini. Notasi ini membuat slot bersifat opsional, memungkinkannya bekerja dengan mode perutean seperti `'prefix-no-default'` dll.
+
+> Sadari bahwa slot ini dapat menyebabkan masalah jika Anda menggunakan beberapa segmen dinamis dalam rute yang sama (misalnya, `/{-$locale}/other-path/$anotherDynamicPath/...`).
+> Untuk mode `'prefix-all'`, Anda mungkin lebih suka mengganti slot menjadi `$locale` sebagai gantinya.
+> Untuk mode `'no-prefix'` atau `'search-params'`, Anda dapat menghapus slot sepenuhnya.
+
+</Step>
+
+<Step number={7} title="Deklarasikan Konten Anda">
 
 Buat dan kelola deklarasi konten Anda untuk menyimpan terjemahan:
 
@@ -197,32 +351,28 @@ const appContent = {
   content: {
     links: {
       about: t({
-        id: "Tentang",
         en: "About",
         es: "Acerca de",
         fr: "À propos",
       }),
       home: t({
-        id: "Beranda",
         en: "Home",
         es: "Inicio",
         fr: "Accueil",
       }),
     },
     meta: {
+      title: t({
+        en: "Welcome to Intlayer + TanStack Router",
+        es: "Bienvenido a Intlayer + TanStack Router",
+        fr: "Bienvenue à Intlayer + TanStack Router",
+      }),
       description: t({
-        id: "Ini adalah contoh penggunaan Intlayer dengan TanStack Router",
         en: "This is an example of using Intlayer with TanStack Router",
         es: "Este es un ejemplo de uso de Intlayer con TanStack Router",
-        fr: "Ceci est un exemple d'utilisation d'Intlayer avec TanStack Router",
+        fr: "Ceci est un exemple d'utilisation d'Intlayer dengan TanStack Router",
       }),
     },
-    title: t({
-      id: "Selamat datang di Intlayer + TanStack Router",
-      en: "Welcome to Intlayer + TanStack Router",
-      es: "Bienvenido a Intlayer + TanStack Router",
-      fr: "Bienvenue à Intlayer + TanStack Router",
-    }),
   },
   key: "app",
 } satisfies Dictionary;
@@ -230,45 +380,38 @@ const appContent = {
 export default appContent;
 ```
 
-> Deklarasi konten Anda dapat didefinisikan di mana saja dalam aplikasi Anda selama sudah dimasukkan ke dalam direktori `contentDir` (secara default, `./app`). Dan sesuai dengan ekstensi file deklarasi konten (secara default, `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`).
+> Deklarasi konten Anda dapat ditentukan di mana saja dalam aplikasi Anda segera setelah mereka dimasukkan ke dalam direktori `contentDir` (secara default, `./app`). Dan cocok dengan ekstensi file deklarasi konten (secara default, `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`).
 
 > Untuk detail lebih lanjut, lihat [dokumentasi deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
 
-### Langkah 7: Buat Komponen dan Hooks yang Mendukung Locale
+</Step>
 
-Buat komponen `LocalizedLink` untuk navigasi yang mendukung locale:
+<Step number={8} title="Buat Komponen dan Hook yang Menyadari Locale">
+
+Buat komponen `LocalizedLink` untuk navigasi yang menyadari locale:
 
 ```tsx fileName="src/components/localized-link.tsx"
 import type { FC } from "react";
 
 import { Link, type LinkComponentProps } from "@tanstack/react-router";
-import { useLocale } from "react.intlayer";
+import { useLocale } from "react-intlayer";
+import { getPrefix } from "intlayer";
 
 export const LOCALE_ROUTE = "{-$locale}" as const;
 
-// Utilitas utama
-export type RemoveLocaleParam<T> = T extends string
-  ? RemoveLocaleFromString<T>
-  : T;
+export type To = StripLocalePrefix<LinkComponentProps["to"]>;
 
-export type To = RemoveLocaleParam<LinkComponentProps["to"]>;
-
-type CollapseDoubleSlashes<S extends string> =
-  S extends `${infer H}//${infer T}` ? CollapseDoubleSlashes<`${H}/${T}`> : S;
+export type StripLocalePrefix<T extends string | undefined> = T extends
+  | `/${typeof LOCALE_ROUTE}/`
+  | `/${typeof LOCALE_ROUTE}`
+  ? "/"
+  : T extends `/${typeof LOCALE_ROUTE}/${infer Rest}`
+    ? `/${Rest}`
+    : T;
 
 type LocalizedLinkProps = {
   to?: To;
 } & Omit<LinkComponentProps, "to">;
-
-// Pembantu
-type RemoveAll<
-  S extends string,
-  Sub extends string,
-> = S extends `${infer H}${Sub}${infer T}` ? RemoveAll<`${H}${T}`, Sub> : S;
-
-type RemoveLocaleFromString<S extends string> = CollapseDoubleSlashes<
-  RemoveAll<S, typeof LOCALE_ROUTE>
->;
 
 export const LocalizedLink: FC<LocalizedLinkProps> = (props) => {
   const { locale } = useLocale();
@@ -289,60 +432,71 @@ export const LocalizedLink: FC<LocalizedLinkProps> = (props) => {
 
 Komponen ini memiliki dua tujuan:
 
-- Menghapus prefix `{-$locale}` yang tidak perlu dari URL.
-- Menyisipkan parameter locale ke dalam URL untuk memastikan pengguna langsung diarahkan ke rute yang sudah dilokalkan.
+- Menghapus awalan `{-$locale}` yang tidak perlu dari URL.
+- Menyuntikkan parameter locale ke dalam URL untuk memastikan pengguna langsung diarahkan ke rute yang terlokalisasi.
 
-Kemudian kita dapat membuat hook `useLocalizedNavigate` untuk navigasi secara programatik:
+Kemudian kita dapat membuat hook `useLocalizedNavigate` untuk navigasi secara terprogram:
 
 ```tsx fileName="src/hooks/useLocalizedNavigate.tsx"
-import { useLocale } from "react.intlayer";
 import { useNavigate } from "@tanstack/react-router";
-import { LOCALE_ROUTE } from "@/components/localized-link";
+import { getPrefix } from "intlayer";
+import { useLocale } from "react-intlayer";
+import type { StripLocalePrefix } from "@/components/localized-link";
 import type { FileRouteTypes } from "@/routeTree.gen";
+
+type NavigateFn = ReturnType<typeof useNavigate>;
+type BaseNavigateOptions = Parameters<NavigateFn>[0];
+
+type LocalizedTo = StripLocalePrefix<FileRouteTypes["to"]>;
+
+export type LocalizedNavigateOptions = Omit<
+  BaseNavigateOptions,
+  "to" | "params"
+> & {
+  to: LocalizedTo;
+  params?: Omit<NonNullable<BaseNavigateOptions["params"]>, "locale">;
+};
+
+type LocalizedNavigate = (
+  options: LocalizedNavigateOptions
+) => ReturnType<NavigateFn>;
 
 export const useLocalizedNavigate = () => {
   const navigate = useNavigate();
 
   const { locale } = useLocale();
 
-  type StripLocalePrefix<T extends string> = T extends
-    | `/${typeof LOCALE_ROUTE}`
-    | `/${typeof LOCALE_ROUTE}/`
-    ? "/"
-    : T extends `/${typeof LOCALE_ROUTE}/${infer Rest}`
-      ? `/${Rest}`
-      : never;
-
-  type LocalizedTo = StripLocalePrefix<FileRouteTypes["to"]>;
-
-  interface LocalizedNavigate {
-    (to: LocalizedTo): ReturnType<typeof navigate>;
-    (
-      opts: { to: LocalizedTo } & Record<string, unknown>
-    ): ReturnType<typeof navigate>;
-  }
-
   const localizedNavigate: LocalizedNavigate = (args: any) => {
+    const { localePrefix } = getPrefix(locale);
+
     if (typeof args === "string") {
-      return navigate({ to: `/${LOCALE_ROUTE}${args}`, params: { locale } });
+      return navigate({
+        to: `/${LOCALE_ROUTE}${args}`,
+        params: { locale: localePrefix },
+      });
     }
 
     const { to, ...rest } = args;
 
-    const localedTo = `/${LOCALE_ROUTE}${to}` as any;
+    const localizedTo = `/${LOCALE_ROUTE}${to}` as any;
 
-    return navigate({ to: localedTo, params: { locale, ...rest } as any });
+    return navigate({
+      to: localizedTo,
+      params: { locale: localePrefix, ...rest } as any,
+    });
   };
 
   return localizedNavigate;
 };
 ```
 
-### Langkah 8: Gunakan Intlayer di Halaman Anda
+</Step>
+
+<Step number={9} title="Manfaatkan Intlayer di Halaman Anda">
 
 Akses kamus konten Anda di seluruh aplikasi Anda:
 
-#### Halaman Beranda yang Dilokalkan
+#### Halaman Beranda yang Terlokalisasi
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -355,17 +509,6 @@ import { useLocalizedNavigate } from "@/hooks/useLocalizedNavigate";
 
 export const Route = createFileRoute("/{-$locale}/")({
   component: RouteComponent,
-  head: ({ params }) => {
-    const { locale } = params;
-    const metaContent = getIntlayer("app", locale);
-
-    return {
-      meta: [
-        { title: metaContent.title },
-        { content: metaContent.meta.description, name: "description" },
-      ],
-    };
-  },
 });
 
 function RouteComponent() {
@@ -397,13 +540,13 @@ function RouteComponent() {
 
 > Untuk mempelajari lebih lanjut tentang hook `useIntlayer`, lihat [dokumentasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useIntlayer.md).
 
-### Langkah 9: Buat Komponen Locale Switcher
+</Step>
+
+<Step number={10} title="Buat Komponen Locale Switcher">
 
 Buat komponen untuk memungkinkan pengguna mengganti bahasa:
 
 ```tsx fileName="src/components/locale-switcher.tsx"
-import type { FC } from "react";
-
 import { useLocation } from "@tanstack/react-router";
 import {
   getHTMLTextDir,
@@ -412,9 +555,10 @@ import {
   getPrefix,
   Locales,
 } from "intlayer";
+import type { FC } from "react";
 import { useLocale } from "react-intlayer";
 
-import { LocalizedLink, To } from "./localized-link";
+import { LocalizedLink, type To } from "./localized-link";
 
 export const LocaleSwitcher: FC = () => {
   const { pathname } = useLocation();
@@ -431,6 +575,7 @@ export const LocaleSwitcher: FC = () => {
             aria-current={localeEl === locale ? "page" : undefined}
             onClick={() => setLocale(localeEl)}
             params={{ locale: getPrefix(localeEl).localePrefix }}
+            to={pathWithoutLocale as To}
           >
             <span>
               {/* Locale - misalnya FR */}
@@ -441,7 +586,7 @@ export const LocaleSwitcher: FC = () => {
               {getLocaleName(localeEl, locale)}
             </span>
             <span dir={getHTMLTextDir(localeEl)} lang={localeEl}>
-              {/* Bahasa dalam Locale saat ini - misalnya Francés dengan locale saat ini disetel ke Locales.SPANISH */}
+              {/* Bahasa dalam Locale saat ini - misalnya Francés dengan locale saat ini diatur ke Locales.SPANISH */}
               {getLocaleName(localeEl)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
@@ -458,83 +603,65 @@ export const LocaleSwitcher: FC = () => {
 
 > Untuk mempelajari lebih lanjut tentang hook `useLocale`, lihat [dokumentasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useLocale.md).
 
-### Langkah 10: Tambahkan Manajemen Atribut HTML (Opsional)
+</Step>
 
-Buat hook untuk mengelola atribut lang dan dir pada HTML:
+<Step number={11} title="Manajemen Atribut HTML">
 
-```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx"
-// src/hooks/useI18nHTMLAttributes.tsx
-import { getHTMLTextDir } from "intlayer";
-import { useEffect } from "react";
-import { useLocale } from "react-intlayer";
+Seperti yang terlihat pada Langkah 5, Anda dapat mengelola atribut `lang` dan `dir` dari tag `html` menggunakan `useParams` di komponen root Anda. Ini memastikan bahwa atribut yang benar diatur pada server dan klien.
 
-export const useI18nHTMLAttributes = () => {
-  const { locale } = useLocale();
-
-  useEffect(() => {
-    document.documentElement.lang = locale;
-    document.documentElement.dir = getHTMLTextDir(locale);
-  }, [locale]);
-};
-```
-
-Kemudian gunakan di komponen root Anda:
-
-```tsx fileName="src/routes/{-$locale}/index.tsx"
-import { createFileRoute, Outlet } from "@tanstack/react-router";
-import { IntlayerProvider, useLocale } from "react-intlayer";
-
-import { useI18nHTMLAttributes } from "@/hooks/useI18nHTMLAttributes"; // impor hook
-
-export const Route = createFileRoute("/{-$locale}")({
-  component: LayoutComponent,
-});
-
-function LayoutComponent() {
-  useI18nHTMLAttributes(); // tambahkan baris ini
-
-  const { defaultLocale } = useLocale();
-  const { locale } = Route.useParams();
+```tsx fileName="src/routes/__root.tsx"
+function RootDocument({ children }: { children: ReactNode }) {
+  const params = LocaleRoute.useParams();
+  const locale = params?.locale ?? defaultLocale;
 
   return (
-    <IntlayerProvider locale={locale ?? defaultLocale}>
-      <Outlet />
-    </IntlayerProvider>
+    <html dir={getHTMLTextDir(locale)} lang={locale}>
+      {/* ... */}
+    </html>
   );
 }
 ```
 
 ---
 
-### Langkah 11: Tambahkan middleware (Opsional)
+</Step>
 
-Anda juga dapat menggunakan `intlayerProxy` untuk menambahkan routing sisi server ke aplikasi Anda. Plugin ini akan secara otomatis mendeteksi locale saat ini berdasarkan URL dan mengatur cookie locale yang sesuai. Jika tidak ada locale yang ditentukan, plugin akan menentukan locale yang paling sesuai berdasarkan preferensi bahasa browser pengguna. Jika tidak ada locale yang terdeteksi, maka akan mengarahkan ke locale default.
+<Step number={12} title="Tambahkan middleware">
 
-> Perlu diperhatikan bahwa untuk menggunakan `intlayerProxy` di produksi, Anda perlu memindahkan paket `vite-intlayer` dari `devDependencies` ke `dependencies`.
+Anda juga dapat menggunakan `intlayerProxy` untuk menambahkan routing sisi server ke aplikasi Anda. Plugin ini akan secara otomatis mendeteksi locale saat ini berdasarkan URL dan mengatur cookie locale yang sesuai. Jika tidak ada locale yang ditentukan, plugin akan menentukan locale yang paling sesuai berdasarkan preferensi bahasa browser pengguna. Jika tidak ada locale yang terdeteksi, itu akan dialihkan ke locale default.
 
-```typescript {3,7} fileName="vite.config.ts"
-import { reactRouter } from "@react-router/dev/vite";
-import tailwindcss from "@tailwindcss/vite";
+> Perhatikan bahwa untuk menggunakan `intlayerProxy` di produksi, Anda perlu mengganti paket `vite-intlayer` dari `devDependencies` ke `dependencies`.
+
+```typescript {7,14-17} fileName="vite.config.ts"
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
+import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
 import { intlayer, intlayerProxy } from "vite-intlayer";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   plugins: [
     intlayerProxy(), // Proxy harus ditempatkan sebelum server jika Anda menggunakan Nitro
-    tailwindcss(),
-    reactRouter(),
-    tsconfigPaths(),
+    nitro(),
     intlayer(),
+    tanstackStart({
+      router: {
+        routeFileIgnorePattern:
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$",
+      },
+    }),
+    viteReact(),
   ],
 });
 ```
 
 ---
 
-### Langkah 12: Internasionalisasi Metadata Anda (Opsional)
+</Step>
 
-Anda juga dapat menggunakan hook `getIntlayer` untuk mengakses kamus konten Anda di seluruh aplikasi:
+<Step number={13} title="Internasionalisasi Metadata Anda">
+
+Anda juga dapat menggunakan hook `getIntlayer` untuk mengakses kamus konten Anda di seluruh aplikasi Anda:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createFileRoute } from "@tanstack/react-router";
@@ -544,12 +671,33 @@ export const Route = createFileRoute("/{-$locale}/")({
   component: RouteComponent,
   head: ({ params }) => {
     const { locale } = params;
-    const metaContent = getIntlayer("page-metadata", locale);
+    const path = "/"; // The path for this route
+
+    const metaContent = getIntlayer("app", locale);
 
     return {
+      links: [
+        // Canonical link: Points to the current localized page
+        { rel: "canonical", href: getLocalizedUrl(path, locale) },
+
+        // Hreflang: Tell Google about all localized versions
+        ...localeMap(({ locale: mapLocale }) => ({
+          rel: "alternate",
+          hrefLang: mapLocale,
+          href: getLocalizedUrl(path, mapLocale),
+        })),
+
+        // x-default: For users in unmatched languages
+        // Define the default fallback locale (usually your primary language)
+        {
+          rel: "alternate",
+          hrefLang: "x-default",
+          href: getLocalizedUrl(path, defaultLocale),
+        },
+      ],
       meta: [
         { title: metaContent.title },
-        { content: metaContent.description, name: "description" },
+        { name: "description", content: metaContent.meta.description },
       ],
     };
   },
@@ -558,12 +706,14 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 ---
 
-### Step 13: Retrieve the locale in your server actions (Optional)
+</Step>
 
-You may want to access the current locale from inside your server actions or API endpoints.
-You can do this using the `getLocale` helper from `intlayer`.
+<Step number={14} title="Ambil locale dalam server actions Anda">
 
-Here's an example using TanStack Start's server functions:
+Anda mungkin ingin mengakses locale saat ini dari dalam server actions atau endpoint API Anda.
+Anda dapat melakukannya menggunakan pembantu `getLocale` dari `intlayer`.
+
+Berikut adalah contoh menggunakan fungsi server TanStack Start:
 
 ```tsx fileName="src/routes/{-$locale}/index.tsx"
 import { createServerFn } from "@tanstack/react-start";
@@ -575,18 +725,18 @@ import { getCookie, getIntlayer, getLocale } from "intlayer";
 
 export const getLocaleServer = createServerFn().handler(async () => {
   const locale = await getLocale({
-    // Get the cookie from the request (default: 'INTLAYER_LOCALE')
+    // Dapatkan cookie dari permintaan (default: 'INTLAYER_LOCALE')
     getCookie: (name) => {
       const cookieString = getRequestHeader("cookie");
 
       return getCookie(name, cookieString);
     },
-    // Get the header from the request (default: 'x-intlayer-locale')
-    // Fallback using Accept-Language negotiation
+    // Dapatkan header dari permintaan (default: 'x-intlayer-locale')
+    // Fallback menggunakan negosiasi Accept-Language
     getHeader: (name) => getRequestHeader(name),
   });
 
-  // Retrieve some content using getIntlayer()
+  // Ambil beberapa konten menggunakan getIntlayer()
   const content = getIntlayer("app", locale);
 
   return { locale, content };
@@ -595,28 +745,30 @@ export const getLocaleServer = createServerFn().handler(async () => {
 
 ---
 
-### Langkah 14: Mengelola halaman tidak ditemukan (Opsional)
+</Step>
 
-Ketika pengguna mengunjungi halaman yang tidak ada, Anda dapat menampilkan halaman tidak ditemukan yang disesuaikan dan awalan locale dapat mempengaruhi cara halaman tidak ditemukan dipicu.
+<Step number={15} title="Kelola halaman tidak ditemukan">
+
+Ketika seorang pengguna mengunjungi halaman yang tidak ada, Anda dapat menampilkan halaman tidak ditemukan yang disesuaikan dan awalan locale dapat mempengaruhi cara halaman tidak ditemukan dipicu.
 
 #### Memahami Penanganan 404 TanStack Router dengan Awalan Locale
 
 Di TanStack Router, menangani halaman 404 dengan rute yang dilokalisasi memerlukan pendekatan berlapis:
 
-1. **Rute 404 khusus**: Rute spesifik untuk menampilkan UI 404
-2. **Validasi tingkat rute**: Memvalidasi awalan locale dan mengarahkan ulang yang tidak valid ke 404
-3. **Rute catch-all**: Menangkap semua jalur yang tidak cocok dalam segmen locale
+1. **Rute 404 khusus**: Rute khusus untuk menampilkan UI 404
+2. **Validasi tingkat rute**: Memvalidasi awalan locale dan mengalihkan yang tidak valid ke 404
+3. **Rute catch-all**: Menangkap setiap jalur yang tidak cocok dalam segmen locale
 
 ```tsx fileName="src/routes/{-$locale}/404.tsx"
 import { createFileRoute } from "@tanstack/react-router";
 
-// Ini membuat rute khusus /[locale]/404
-// Digunakan baik sebagai rute langsung maupun diimpor sebagai komponen di file lain
+// Ini membuat rute /[locale]/404 khusus
+// Ini digunakan baik sebagai rute langsung maupun diimpor sebagai komponen di file lain
 export const Route = createFileRoute("/{-$locale}/404")({
   component: NotFoundComponent,
 });
 
-// Diekspor secara terpisah agar dapat digunakan kembali di notFoundComponent dan rute catch-all
+// Diekspor secara terpisah sehingga dapat digunakan kembali dalam notFoundComponent dan rute catch-all
 export function NotFoundComponent() {
   return (
     <div>
@@ -629,70 +781,30 @@ export function NotFoundComponent() {
 ```tsx fileName="src/routes/{-$locale}/route.tsx"
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { validatePrefix } from "intlayer";
-import { IntlayerProvider, useLocale } from "react-intlayer";
-
-import { LocaleSwitcher } from "@/components/locale-switcher";
 import { NotFoundComponent } from "./404";
 
 export const Route = createFileRoute("/{-$locale}")({
-  // beforeLoad berjalan sebelum rute dirender (baik di server maupun klien)
-  // Ini adalah tempat ideal untuk memvalidasi awalan locale
+  // beforeLoad berjalan sebelum rute merender (di server maupun klien)
+  // Ini adalah tempat yang ideal untuk memvalidasi awalan locale
   beforeLoad: ({ params }) => {
-    // Dapatkan locale dari parameter rute (bukan dari header server, karena beforeLoad berjalan di klien dan server)
     const localeParam = params.locale;
 
-    // validatePrefix memeriksa apakah locale valid menurut konfigurasi intlayer Anda
-    // Mengembalikan: { isValid: boolean, localePrefix: string }
-    // - isValid: true jika awalan cocok dengan locale yang dikonfigurasi (atau kosong ketika awalan opsional)
-    // - localePrefix: awalan yang divalidasi atau awalan locale default untuk pengalihan
+    // validatePrefix memeriksa apakah locale valid sesuai dengan konfigurasi intlayer Anda
     const { isValid, localePrefix } = validatePrefix(localeParam);
 
-    if (isValid) {
-      // Locale valid, izinkan rute untuk dirender secara normal
-      return;
+    if (!isValid) {
+      // Awalan locale tidak valid - alihkan ke halaman 404 dengan awalan locale yang valid
+      throw redirect({
+        to: "/{-$locale}/404",
+        params: { locale: localePrefix },
+      });
     }
-
-    // Awalan locale tidak valid (misalnya, /xyz/about di mana "xyz" bukan locale yang valid)
-    // Alihkan ke halaman 404 dengan awalan locale yang valid
-    // Ini memastikan halaman 404 masih dilokalkan dengan benar
-    throw redirect({
-      to: "/{-$locale}/404",
-      params: { locale: localePrefix },
-    });
   },
-  component: RouteComponent,
+  component: Outlet,
   // notFoundComponent dipanggil ketika rute anak tidak ada
-  // misalnya, /en/halaman-tidak-ada memicu ini dalam tata letak /en
-  notFoundComponent: NotFoundLayout,
+  // misal, /en/non-existent-page memicu ini dalam layout /en
+  notFoundComponent: NotFoundComponent,
 });
-
-function RouteComponent() {
-  const { defaultLocale } = useLocale();
-  const { locale } = Route.useParams();
-
-  return (
-    // Bungkus seluruh segmen locale dengan IntlayerProvider
-    // Kembali ke defaultLocale ketika parameter locale adalah undefined (mode awalan opsional)
-    <IntlayerProvider locale={locale ?? defaultLocale}>
-      <Outlet />
-    </IntlayerProvider>
-  );
-}
-
-// NotFoundLayout membungkus komponen 404 dengan IntlayerProvider
-// Ini memastikan terjemahan masih berfungsi di halaman 404
-function NotFoundLayout() {
-  const { defaultLocale } = useLocale();
-  const { locale } = Route.useParams();
-
-  return (
-    <IntlayerProvider locale={locale ?? defaultLocale}>
-      <NotFoundComponent />
-      {/* Sertakan LocaleSwitcher agar pengguna dapat mengubah bahasa bahkan di 404 */}
-      <LocaleSwitcher />
-    </IntlayerProvider>
-  );
-}
 ```
 
 ```tsx fileName="src/routes/{-$locale}/$.tsx"
@@ -700,9 +812,9 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { NotFoundComponent } from "./404";
 
-// Rute $ (splat/catch-all) cocok dengan jalur apa pun yang tidak cocok dengan rute lain
-// misalnya, /en/beberapa/jalur/bersarang/mendalam/tidak-valid
-// Ini memastikan SEMUA jalur yang tidak cocok dalam locale menampilkan halaman 404
+// Rute $ (splat/catch-all) cocok dengan jalur mana pun yang tidak cocok dengan rute lain
+// misal, /en/some/deeply/nested/invalid/path
+// Ini memastikan SEMUA jalur yang tidak cocok dalam suatu locale menampilkan halaman 404
 // Tanpa ini, jalur dalam yang tidak cocok mungkin menampilkan halaman kosong atau kesalahan
 export const Route = createFileRoute("/{-$locale}/$")({
   component: NotFoundComponent,
@@ -711,17 +823,19 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 ---
 
-### Langkah 15: Konfigurasi TypeScript (Opsional)
+</Step>
 
-Intlayer menggunakan module augmentation untuk mendapatkan manfaat dari TypeScript dan membuat codebase Anda lebih kuat.
+<Step number={16} title="Konfigurasi TypeScript">
+
+Intlayer menggunakan augmentasi modul untuk mendapatkan manfaat TypeScript dan membuat basis kode Anda lebih kuat.
 
 Pastikan konfigurasi TypeScript Anda menyertakan tipe yang dihasilkan secara otomatis:
 
 ```json5 fileName="tsconfig.json"
 {
-  // ... konfigurasi Anda yang sudah ada
+  // ... konfigurasi yang ada
   include: [
-    // ... include Anda yang sudah ada
+    // ... include yang ada
     ".intlayer/**/*.ts", // Sertakan tipe yang dihasilkan otomatis
   ],
 }
@@ -729,9 +843,113 @@ Pastikan konfigurasi TypeScript Anda menyertakan tipe yang dihasilkan secara oto
 
 ---
 
+</Step>
+
+<Step number={1} title="Ekstrak konten komponen Anda" isOptional={true}>
+
+Jika Anda memiliki basis kode yang ada, mengubah ribuan file bisa memakan waktu lama.
+
+Untuk memudahkan proses ini, Intlayer mengusulkan [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/compiler.md) / [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/extract.md) untuk mengubah komponen Anda dan mengekstrak kontennya.
+
+Untuk mengaturnya, Anda dapat menambahkan bagian `compiler` di file `intlayer.config.ts` Anda:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... Sisa konfigurasi Anda
+  compiler: {
+    /**
+     * Menunjukkan apakah compiler harus diaktifkan.
+     */
+    enabled: true,
+
+    /**
+     * Menentukan jalur file output
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Menunjukkan apakah komponen harus disimpan setelah diubah. Dengan begitu, compiler dapat dijalankan satu kali saja untuk mengubah aplikasi, lalu dapat dihapus.
+     */
+    saveComponents: false,
+
+    /**
+     * Prefiks kunci kamus
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='Perintah ekstrak'>
+
+Jalankan extractor untuk mengubah komponen Anda dan mengekstrak kontennya
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Compiler Babel'>
+
+Perbarui `vite.config.ts` Anda untuk menyertakan plugin `intlayerCompiler`:
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // Menambahkan plugin compiler
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # Atau npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # Or pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Or yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
+
+---
+
+</Step>
+
+</Steps>
+
 ### Konfigurasi Git
 
-Disarankan untuk mengabaikan file yang dihasilkan oleh Intlayer. Ini memungkinkan Anda menghindari meng-commit file tersebut ke repositori Git Anda.
+Disarankan untuk mengabaikan file yang dihasilkan oleh Intlayer. Ini memungkinkan Anda menghindari melakukan commit ke repositori Git Anda.
 
 Untuk melakukan ini, Anda dapat menambahkan instruksi berikut ke file `.gitignore` Anda:
 
@@ -746,14 +964,14 @@ Untuk melakukan ini, Anda dapat menambahkan instruksi berikut ke file `.gitignor
 
 Untuk meningkatkan pengalaman pengembangan Anda dengan Intlayer, Anda dapat menginstal **Ekstensi VS Code Intlayer** resmi.
 
-[Pasang dari VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+[Instal dari VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 Ekstensi ini menyediakan:
 
 - **Autocompletion** untuk kunci terjemahan.
 - **Deteksi kesalahan waktu nyata** untuk terjemahan yang hilang.
 - **Pratinjau inline** dari konten yang diterjemahkan.
-- **Aksi cepat** untuk dengan mudah membuat dan memperbarui terjemahan.
+- **Tindakan cepat** untuk dengan mudah membuat dan memperbarui terjemahan.
 
 Untuk detail lebih lanjut tentang cara menggunakan ekstensi, lihat [dokumentasi Ekstensi VS Code Intlayer](https://intlayer.org/doc/vs-code-extension).
 
@@ -768,10 +986,8 @@ Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https
 ## Referensi Dokumentasi
 
 - [Dokumentasi Intlayer](https://intlayer.org)
-- [Dokumentasi Tanstack Start](https://reactrouter.com/)
+- [Dokumentasi TanStack Start](https://reactrouter.com/)
 - [Hook useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useIntlayer.md)
-- [useLocale hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useLocale.md)
+- [Hook useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useLocale.md)
 - [Deklarasi Konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md)
 - [Konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md)
-
-Panduan komprehensif ini menyediakan semua yang Anda butuhkan untuk mengintegrasikan Intlayer dengan Tanstack Start guna aplikasi yang sepenuhnya diinternasionalkan dengan routing yang sadar locale dan dukungan TypeScript.

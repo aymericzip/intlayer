@@ -1,9 +1,9 @@
+import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
-  Dictionary,
   DictionaryKeys,
   LocalesValues,
   StrictModeLocaleMap,
-} from '@intlayer/types';
+} from '@intlayer/types/module_augmentation';
 import { derived, type Readable } from 'svelte/store';
 import { getDictionary } from '../getDictionary';
 import type { DeepTransformContent } from '../plugins';
@@ -35,7 +35,7 @@ const recursiveProxy: any = new Proxy(() => {}, {
  * @param locale - Optional fixed locale. If not provided, follows the global intlayerStore.
  * @returns Readable store with the loaded dictionary content
  */
-export function useDictionaryDynamic<T extends Dictionary>(
+export function useDictionaryDynamic<const T extends Dictionary>(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   _key: DictionaryKeys,
   locale?: LocalesValues

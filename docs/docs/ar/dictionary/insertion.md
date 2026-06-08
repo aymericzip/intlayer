@@ -17,9 +17,12 @@ slugs:
   - content
   - insertion
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: "التزيين التلقائي لمحتوى الإدراج"
   - version: 5.5.10
     date: 2025-06-29
-    changes: بداية التاريخ
+    changes: "بداية التاريخ"
 ---
 
 # محتوى الإدراج / الإدراج في Intlayer
@@ -32,67 +35,73 @@ history:
 
 ## إعداد محتوى الإدراج
 
-لإعداد محتوى الإدراج في مشروع Intlayer الخاص بك، أنشئ وحدة محتوى تتضمن تعريفات الإدراج الخاصة بك. فيما يلي أمثلة بصيغ مختلفة.
+لإعداد محتوى الإدراج في مشروع Intlayer الخاص بك، أنشئ وحدة محتوى تتضمن تعريفات الإدراج الخاصة بك.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { insert, type Dictionary } from "intlayer";
+<Tabs>
+  <Tab label="التغليف اليدوي" value="manual-wrapping">
+    استخدم دالة `insert` لإعلان محتوى الإدراج بشكل صريح.
 
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert("مرحبًا، اسمي {{name}} وعمري {{age}} سنة!"),
-  },
-} satisfies Dictionary;
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
+    import { insert, type Dictionary } from "intlayer";
 
-export default myInsertionContent;
-```
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert("مرحبًا، اسمي {{name}} وعمري {{age}} سنة!"),
+      },
+    } satisfies Dictionary;
 
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { insert } from "intlayer";
+    export default myInsertionContent;
+    ```
 
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert("مرحبًا، اسمي {{name}} وعمري {{age}} سنة!"),
-  },
-};
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": {
+          "nodeType": "insertion",
+          "insertion": "مرحبًا، اسمي {{name}} وعمري {{age}} سنة!",
+        },
+      },
+    }
+    ```
 
-export default myInsertionContent;
-```
+  </Tab>
+  <Tab label="الكشف التلقائي" value="automatic-detection">
+    إذا كان النص يحتوي على مؤشرات إدراج شائعة (مثل `{{name}}`)، سيقوم Intlayer بتحويله تلقائيًا.
 
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { insert } = require("intlayer");
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
+    import { type Dictionary } from "intlayer";
 
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert("مرحبًا، اسمي {{name}} وعمري {{age}} سنة!"),
-  },
-};
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "مرحبًا، اسمي {{name}} وعمري {{age}} سنة!",
+      },
+    } satisfies Dictionary;
 
-module.exports = myInsertionContent;
-```
+    export default myInsertionContent;
+    ```
 
-```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "my_key",
-  "content": {
-    "myInsertion": {
-      "nodeType": "insertion",
-      "insertion": "مرحبًا، اسمي {{name}} وعمري {{age}} سنة!",
-    },
-  },
-}
-```
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": "مرحبًا، اسمي {{name}} وعمري {{age}} سنة!",
+      },
+    }
+    ```
+
+  </Tab>
+</Tabs>
 
 ## استخدام محتوى الإدراج مع React Intlayer
 
 لاستخدام محتوى الإدراج داخل مكون React، قم باستيراد واستخدام الخطاف `useIntlayer` من حزمة `react-intlayer`. يقوم هذا الخطاف باسترجاع المحتوى للمفتاح المحدد ويسمح لك بتمرير كائن يربط كل عنصر نائب في المحتوى بالقيمة التي ترغب في عرضها.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -120,65 +129,11 @@ const InsertionComponent: FC = () => {
 export default InsertionComponent;
 ```
 
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* الإخراج: "مرحبًا، اسمي جون وعمري 30 سنة!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* يمكنك إعادة استخدام نفس الإدراج بقيم مختلفة */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-export default InsertionComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* الإخراج: "مرحبًا، اسمي جون وعمري 30 سنة!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* يمكنك إعادة استخدام نفس الإدراج بقيم مختلفة */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = InsertionComponent;
-```
-
 ## الموارد الإضافية
 
 لمزيد من المعلومات التفصيلية حول التكوين والاستخدام، يرجى الرجوع إلى الموارد التالية:
 
-- [توثيق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md)
+- [توثيق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md)
 - [توثيق React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_create_react_app.md)
 - [توثيق Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_with_nextjs_15.md)
 

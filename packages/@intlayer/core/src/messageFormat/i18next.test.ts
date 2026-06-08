@@ -3,7 +3,9 @@ import {
   type EnumerationContentState,
   enu,
   gender,
+  html,
   insert,
+  plural,
 } from '../transpiler';
 import {
   i18nextToIntlayerFormatter,
@@ -24,7 +26,32 @@ describe('i18next', () => {
       );
     });
 
-    it('should transform plural', () => {
+    it('should transform HTML content', () => {
+      expect(
+        i18nextToIntlayerFormatter('Hello <strong>World</strong>')
+      ).toEqual(html('Hello <strong>World</strong>'));
+    });
+
+    it('should transform Trans component content', () => {
+      expect(i18nextToIntlayerFormatter('Hello <1>{{name}}</1>')).toEqual(
+        html('Hello <1>{{name}}</1>')
+      );
+    });
+
+    it('should transform plural using PLURAL node', () => {
+      expect(
+        i18nextToIntlayerFormatter(
+          '{count, plural, one {one item} other {# items}}'
+        )
+      ).toEqual(
+        plural({
+          one: 'one item',
+          other: '{{count}} items',
+        })
+      );
+    });
+
+    it('should transform plural using ENUMERATION node when exact match is present', () => {
       expect(
         i18nextToIntlayerFormatter(
           '{count, plural, =0 {no items} one {one item} other {# items}}'
@@ -79,6 +106,12 @@ describe('i18next', () => {
       );
     });
 
+    it('should transform html', () => {
+      expect(
+        intlayerToI18nextFormatter(html('Hello <strong>World</strong>'))
+      ).toEqual('Hello <strong>World</strong>');
+    });
+
     it('should transform enumeration', () => {
       expect(
         intlayerToI18nextFormatter(
@@ -106,6 +139,32 @@ describe('i18next', () => {
       ).toEqual(
         '{count, plural, =0 {no items} =1 {one item} =2 {two items} few {few items} many {many items} other {# items}}'
       );
+    });
+
+    it('should transform plural (CLDR)', () => {
+      expect(
+        intlayerToI18nextFormatter(
+          plural({
+            one: 'one item',
+            other: '{{count}} items',
+          })
+        )
+      ).toEqual('{count, plural, one {one item} other {# items}}');
+    });
+
+    it('should transform plural with multiple CLDR categories', () => {
+      const result = intlayerToI18nextFormatter(
+        plural({
+          one: '{{count}} вакансия',
+          few: '{{count}} вакансии',
+          many: '{{count}} вакансий',
+          other: '{{count}} вакансий',
+        })
+      );
+      expect(result).toContain('{count, plural,');
+      expect(result).toContain('one {# вакансия}');
+      expect(result).toContain('few {# вакансии}');
+      expect(result).toContain('many {# вакансий}');
     });
   });
 
@@ -163,6 +222,36 @@ describe('i18next', () => {
       // Helper to normalize the output for comparison if needed,
       // but ideally they should be identical
       expect(backToI18next).toEqual(original);
+    });
+  });
+
+  describe('Structural Arrays Processing', () => {
+    it('should strictly preserve structural arrays of primitive strings', () => {
+      const input = { types: ['daily', 'weekly', 'monthly'] };
+      const result = intlayerToI18nextFormatter(input as any);
+      expect(result).toEqual({ types: ['daily', 'weekly', 'monthly'] });
+    });
+
+    it('should strictly preserve structural arrays of objects', () => {
+      const input = { steps: [{ id: 1 }, { id: 2 }] };
+      const result = intlayerToI18nextFormatter(input as any);
+      expect(result).toEqual({ steps: [{ id: 1 }, { id: 2 }] });
+    });
+
+    it('should map and concatenate arrays representing composite i18next strings', () => {
+      const input = { message: ['Hello ', insert('{{name}}')] };
+      const result = intlayerToI18nextFormatter(input as any);
+      expect(result).toEqual({ message: 'Hello {{name}}' });
+    });
+
+    it('should preserve arrays of already formatted i18next strings', () => {
+      const input = {
+        items: ['{count, plural, =0 {none} other {#}}', 'Hello {{name}}'],
+      };
+      const result = intlayerToI18nextFormatter(input as any);
+      expect(result).toEqual({
+        items: ['{count, plural, =0 {none} other {#}}', 'Hello {{name}}'],
+      });
     });
   });
 });

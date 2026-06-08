@@ -1,17 +1,22 @@
-import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/types';
-import { Intl as CachedIntl } from '../utils/intl';
+import { internationalization } from '@intlayer/config/built';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import { getCachedIntl } from '../utils/intl';
 
 /**
  * Formats a number as a percentage string (e.g., 0.25 → "25%").
  *
  * @example
- * percentage({ value: 0.25 }) // "25%"
- * percentage({ value: 0.25, minimumFractionDigits: 2 }) // "25.00%"
+ * percentage(0.25); // "25%"
+ *
+ * @example
+ * percentage(0.25, { minimumFractionDigits: 2 }); // "25.00%"
  */
 export const percentage = (
   value: string | number,
-  options?: Intl.NumberFormatOptions & { locale?: LocalesValues }
+  {
+    locale,
+    ...options
+  }: Intl.NumberFormatOptions & { locale?: LocalesValues } = {}
 ): string => {
   let numericValue = Number(value);
 
@@ -20,8 +25,10 @@ export const percentage = (
     numericValue /= 100;
   }
 
-  const formatter = new CachedIntl.NumberFormat(
-    options?.locale ?? configuration?.internationalization?.defaultLocale,
+  const formatter = getCachedIntl(
+    Intl.NumberFormat,
+    locale ?? internationalization?.defaultLocale,
+
     {
       style: 'percent',
       ...options,

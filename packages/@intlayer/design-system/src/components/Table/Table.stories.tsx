@@ -6,47 +6,32 @@ import { Table } from './Table';
 /**
  * ## Table Component
  *
- * The Table component provides an enhanced table experience with modal expansion
- * and collapsible content capabilities. Perfect for displaying tabular data with
- * responsive behavior and enhanced user experience.
+ * The Table component provides a basic table structure with customizable styling
+ * and interactive row support.
  *
  * ### Key Features
- * - **Modal Expansion**: Click the diagonal arrow to view tables in full-screen modal
- * - **Collapsible Content**: Use `isRollable` prop for space-saving collapsed tables
- * - **Responsive Design**: Handles large tables gracefully with proper overflow
- * - **Accessibility**: Maintains proper table semantics and keyboard navigation
+ * - **Interactive Rows**: Enable `isInteractive` for hover states and cursor changes
  * - **Flexible Styling**: Supports all HTML table attributes and custom CSS classes
- *
- * ### Accessibility Features
- * - Proper table semantics with thead, tbody structure
- * - Supports scope attributes for column headers
- * - Keyboard navigation for modal controls
- * - Screen reader compatibility with table structure
- *
- * ### Best Practices
- * - Use semantic HTML table structure (thead, tbody, tfoot)
- * - Provide clear column headers with scope attributes
- * - Consider pagination for very large datasets
- * - Use consistent styling patterns across similar tables
- * - Enable `isRollable` for tables that might need space management
+ * - **Accessibility**: maintains proper table semantics and structure
  */
 const meta: Meta<typeof Table> = {
-  title: 'Components/Table',
+  title: 'Components/Table/Table',
   component: Table,
   parameters: {
     layout: 'padded',
     docs: {
       description: {
         component:
-          'A comprehensive table component with modal expansion and collapsible content capabilities for displaying tabular data effectively.',
+          'A simple table component for displaying tabular data with customizable styling and hover effects.',
       },
     },
   },
   tags: ['autodocs'],
   argTypes: {
-    isRollable: {
+    isInteractive: {
       control: 'boolean',
-      description: 'Whether the table content can be collapsed/expanded',
+      description:
+        'Enables hover states and cursor changes for interactive rows',
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
@@ -86,7 +71,7 @@ type Story = StoryObj<typeof Table>;
 export const Default: Story = {
   render: () => (
     <div className="max-w-4xl">
-      <Table>
+      <Table isInteractive>
         <thead>
           <tr className="border-gray-200 border-b bg-gray-50">
             <th
@@ -177,8 +162,10 @@ export const Default: Story = {
     await expect(canvas.getAllByRole('columnheader')).toHaveLength(4);
     await expect(canvas.getAllByRole('row')).toHaveLength(4); // 1 header + 3 data rows
 
-    // Test modal expansion button
-    const modalButton = canvas.getByLabelText('Move');
+    // Test modal expansion button - try to find it by its sticky class or just the button role
+    const modalButton = canvas
+      .getAllByRole('button')
+      .find((el) => el.className.includes('sticky'))!;
     await expect(modalButton).toBeInTheDocument();
     await userEvent.click(modalButton);
 
@@ -429,10 +416,16 @@ export const ProductInventory: Story = {
                     </div>
                   </td>
                   <td className="space-x-2 whitespace-nowrap px-6 py-4 font-medium text-sm">
-                    <button className="text-blue-600 hover:text-blue-900">
+                    <button
+                      type="button"
+                      className="text-blue-600 hover:text-blue-900"
+                    >
                       Edit
                     </button>
-                    <button className="text-red-600 hover:text-red-900">
+                    <button
+                      type="button"
+                      className="text-red-600 hover:text-red-900"
+                    >
                       Delete
                     </button>
                   </td>
@@ -710,7 +703,7 @@ export const CollapsibleLargeTable: Story = {
           </div>
         </div>
 
-        <Table isRollable className="rounded-lg border border-gray-200">
+        <Table className="rounded-lg border border-gray-200">
           <thead className="bg-gray-50">
             <tr>
               <th
@@ -859,7 +852,10 @@ export const EmptyState: Story = {
                     <br />
                     Try adjusting your filters or adding some data.
                   </p>
-                  <button className="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 font-medium text-sm text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <button
+                    type="button"
+                    className="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 font-medium text-sm text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  >
                     Add New Item
                   </button>
                 </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { type RefObject, useEffect, useRef, useState } from 'react';
+import { type RefObject, useLayoutEffect, useRef, useState } from 'react';
 
 export type ItemSelectorOrientation = 'horizontal' | 'vertical';
 
@@ -65,27 +65,31 @@ export const useItemSelector = (
     if (!targetElement) {
       // Keep previous position but set opacity to 0
       if (orientation === 'vertical') {
-        setChoiceIndicatorPosition((prev) => {
-          const verticalPrev = prev as VerticalStyleState | null;
-          const newPosition: VerticalStyleState = {
-            top: verticalPrev?.top ?? 0,
-            height: verticalPrev?.height ?? 0,
-            opacity: 0,
-          };
+        const verticalPrev =
+          lastPositionRef.current as VerticalStyleState | null;
+        const newPosition: VerticalStyleState = {
+          top: verticalPrev?.top ?? 0,
+          height: verticalPrev?.height ?? 0,
+          opacity: 0,
+        };
+
+        if (verticalPrev?.opacity !== 0) {
+          setChoiceIndicatorPosition(newPosition);
           lastPositionRef.current = newPosition;
-          return newPosition;
-        });
+        }
       } else {
-        setChoiceIndicatorPosition((prev) => {
-          const horizontalPrev = prev as HorizontalStyleState | null;
-          const newPosition: HorizontalStyleState = {
-            left: horizontalPrev?.left ?? 0,
-            width: horizontalPrev?.width ?? 0,
-            opacity: 0,
-          };
+        const horizontalPrev =
+          lastPositionRef.current as HorizontalStyleState | null;
+        const newPosition: HorizontalStyleState = {
+          left: horizontalPrev?.left ?? 0,
+          width: horizontalPrev?.width ?? 0,
+          opacity: 0,
+        };
+
+        if (horizontalPrev?.opacity !== 0) {
+          setChoiceIndicatorPosition(newPosition);
           lastPositionRef.current = newPosition;
-          return newPosition;
-        });
+        }
       }
       return;
     }
@@ -99,8 +103,18 @@ export const useItemSelector = (
         height,
         opacity: 1,
       };
-      setChoiceIndicatorPosition(newPosition);
-      lastPositionRef.current = newPosition;
+
+      const prev = lastPositionRef.current as VerticalStyleState | null;
+
+      if (
+        !prev ||
+        prev.top !== top ||
+        prev.height !== height ||
+        prev.opacity !== 1
+      ) {
+        setChoiceIndicatorPosition(newPosition);
+        lastPositionRef.current = newPosition;
+      }
     } else {
       const left = targetElement.offsetLeft;
       const width = targetElement.offsetWidth;
@@ -110,12 +124,22 @@ export const useItemSelector = (
         width,
         opacity: 1,
       };
-      setChoiceIndicatorPosition(newPosition);
-      lastPositionRef.current = newPosition;
+
+      const prev = lastPositionRef.current as HorizontalStyleState | null;
+
+      if (
+        !prev ||
+        prev.left !== left ||
+        prev.width !== width ||
+        prev.opacity !== 1
+      ) {
+        setChoiceIndicatorPosition(newPosition);
+        lastPositionRef.current = newPosition;
+      }
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     calculatePosition();
 
     // Event listeners for window events
@@ -131,7 +155,9 @@ export const useItemSelector = (
           for (const mutation of mutations) {
             if (
               mutation.type === 'attributes' &&
-              mutation.attributeName === 'aria-selected'
+              (mutation.attributeName === 'aria-selected' ||
+                mutation.attributeName === 'data-active' ||
+                mutation.attributeName === 'data-indicator')
             ) {
               calculatePosition();
               break;
@@ -141,7 +167,7 @@ export const useItemSelector = (
 
         observer.observe(option, {
           attributes: true,
-          attributeFilter: ['aria-selected'],
+          attributeFilter: ['aria-selected', 'data-active', 'data-indicator'],
         });
 
         mutationObservers.push(observer);
@@ -232,7 +258,14 @@ export const useItemSelector = (
         option?.removeEventListener('mouseleave', handleMouseLeave);
       });
     };
-  }, [optionsRefs, selector, hoveredItem, itemsLength, orientation]);
+  }, [
+    optionsRefs,
+    selector,
+    hoveredItem,
+    itemsLength,
+    orientation,
+    isHoverable,
+  ]);
 
   return { choiceIndicatorPosition, calculatePosition, orientation };
 };

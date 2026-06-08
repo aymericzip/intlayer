@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Инициализация истории
+    changes: "Инициализация истории"
 ---
 
 # Документация: функция `getPathWithoutLocale` в `intlayer`
@@ -33,7 +33,6 @@ history:
 ## Параметры
 
 - `inputUrl: string`
-
   - **Описание**: Полная строка URL или путь для обработки.
   - **Тип**: `string`
 
@@ -48,26 +47,8 @@ history:
 
 ## Пример использования
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getPathWithoutLocale } from "intlayer";
-
-console.log(getPathWithoutLocale("/dashboard")); // Вывод: "/dashboard"
-console.log(getPathWithoutLocale("/en/dashboard")); // Вывод: "/dashboard"
-console.log(getPathWithoutLocale("/fr/dashboard")); // Вывод: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Вывод: "https://example.com/dashboard"
-```
-
-```javascript codeFormat="esm"
-import { getPathWithoutLocale } from "intlayer";
-
-console.log(getPathWithoutLocale("/dashboard")); // Вывод: "/dashboard"
-console.log(getPathWithoutLocale("/en/dashboard")); // Вывод: "/dashboard"
-console.log(getPathWithoutLocale("/fr/dashboard")); // Вывод: "/dashboard"
-console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // Вывод: "https://example.com/dashboard"
-```
-
-```javascript codeFormat="commonjs"
-const { getPathWithoutLocale } = require("intlayer");
 
 console.log(getPathWithoutLocale("/dashboard")); // Вывод: "/dashboard"
 console.log(getPathWithoutLocale("/en/dashboard")); // Вывод: "/dashboard"

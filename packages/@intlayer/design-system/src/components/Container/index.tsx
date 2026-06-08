@@ -1,3 +1,4 @@
+import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type {
   DetailedHTMLProps,
@@ -5,7 +6,6 @@ import type {
   HTMLAttributes,
   PropsWithChildren,
 } from 'react';
-import { cn } from '../../utils/cn';
 
 /**
  * Container component variants using class-variance-authority
@@ -25,11 +25,12 @@ export const containerVariants = cva('flex flex-col text-text backdrop-blur', {
         'rounded-3xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-4xl',
       '4xl':
         'rounded-4xl [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-[2.5rem]',
-      full: 'rounded-full [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-full',
+      full: 'rounded-full',
     },
     transparency: {
       none: 'bg-card',
-      sm: 'bg-card/95',
+      xs: 'bg-card/95',
+      sm: 'bg-card/90',
       md: 'bg-card/70',
       lg: 'bg-card/40',
       xl: 'bg-card/20',
@@ -37,11 +38,11 @@ export const containerVariants = cva('flex flex-col text-text backdrop-blur', {
     },
     padding: {
       none: 'p-0',
-      sm: 'px-2 py-4',
-      md: 'px-4 py-6',
-      lg: 'px-6 py-8',
-      xl: 'px-8 py-10',
-      '2xl': 'px-10 py-12',
+      sm: 'px-3 py-2',
+      md: 'px-4 py-3',
+      lg: 'px-6 py-4',
+      xl: 'px-8 py-6',
+      '2xl': 'px-10 py-8',
     },
     separator: {
       without: '',
@@ -56,14 +57,15 @@ export const containerVariants = cva('flex flex-col text-text backdrop-blur', {
     borderColor: {
       primary: 'border-primary',
       secondary: 'border-secondary',
-      neutral: 'border-neutral',
+      neutral: 'border-neutral/20',
+      card: 'border-card',
       text: 'border-text',
       error: 'border-error',
       warning: 'border-warning',
       success: 'border-success',
     },
     background: {
-      none: 'bg-inherit',
+      none: 'backdrop-blur-none',
       hoverable:
         'bg-opacity-5! backdrop-blur-0 hover:bg-opacity-10! hover:backdrop-blur focus:bg-opacity-10! focus:backdrop-blur aria-selected:bg-opacity-15! aria-selected:backdrop-blur',
       with: '',
@@ -86,76 +88,71 @@ export const containerVariants = cva('flex flex-col text-text backdrop-blur', {
     separator: 'without',
     gap: 'none',
   },
+  compoundVariants: [
+    {
+      background: 'none',
+      class: 'bg-transparent',
+    },
+  ],
 });
 
 /** Available rounded corner sizes for the container */
-export enum ContainerRoundedSize {
-  NONE = 'none',
-  SM = 'sm',
-  MD = 'md',
-  LG = 'lg',
-  XL = 'xl',
-  '2xl' = '2xl',
-  '3xl' = '3xl',
-  '4xl' = '4xl',
-  '5xl' = '5xl',
-  FULL = 'full',
-}
+export type ContainerRoundedSize = 
+  | 'none' |
+  'sm' |
+  'md' |
+  'lg' |
+  'xl' |
+  'full';
 
 /** Background transparency levels for the container */
-export enum ContainerTransparency {
-  NONE = 'none',
-  SM = 'sm',
-  MD = 'md',
-  LG = 'lg',
-  XL = 'xl',
-  FULL = 'full',
-}
+export type ContainerTransparency = 
+  | 'none' |
+  'sm' |
+  'md' |
+  'lg' |
+  'xl' |
+  'full';
 
 /** Padding sizes for container content */
-export enum ContainerPadding {
-  NONE = 'none',
-  SM = 'sm',
-  MD = 'md',
-  LG = 'lg',
-  XL = 'xl',
-}
+export type ContainerPadding = 
+  | 'none' |
+  'sm' |
+  'md' |
+  'lg' |
+  'xl';
 
 /** Separator options for dividing container children */
-export enum ContainerSeparator {
-  WITHOUT = 'without',
-  X = 'x',
-  Y = 'y',
-  BOTH = 'both',
-}
+export type ContainerSeparator = 
+  | 'without' |
+  'x' |
+  'y' |
+  'both';
 
 /** Border color options for the container */
-export enum ContainerBorderColor {
-  PRIMARY = 'primary',
-  SECONDARY = 'secondary',
-  NEUTRAL = 'neutral',
-  TEXT = 'text',
-  ERROR = 'error',
-  WARNING = 'warning',
-  SUCCESS = 'success',
-}
+export type ContainerBorderColor = 
+  | 'primary' |
+  'secondary' |
+  'neutral' |
+  'card' |
+  'text' |
+  'error' |
+  'warning' |
+  'success';
 
 /** Background interaction states for the container */
-export enum ContainerBackground {
-  NONE = 'none',
-  HOVERABLE = 'hoverable',
-  WITH = 'with',
-}
+export type ContainerBackground = 
+  | 'none' |
+  'hoverable' |
+  'with';
 
 /** Gap sizes between container children */
-export enum ContainerGap {
-  NONE = 'none',
-  SM = 'sm',
-  MD = 'md',
-  LG = 'lg',
-  XL = 'xl',
-  '2xl' = '2xl',
-}
+export type ContainerGap = 
+  | 'none' |
+  'sm' |
+  'md' |
+  'lg' |
+  'xl';
 
 /** Container component props extending HTML div attributes */
 export type ContainerProps = PropsWithChildren<

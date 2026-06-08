@@ -1,59 +1,52 @@
 'use client';
 
+import { useDevice } from '@hooks/useDevice';
+import { cn } from '@utils/cn';
 import { type FC, useEffect, useState } from 'react';
-import { useDevice } from '../../hooks/useDevice';
-import { cn } from '../../utils/cn';
 
 /**
  * Enum for available keyboard keys
  */
-export enum KeyList {
-  '⌘' = '⌘',
-  Ctrl = 'Ctrl',
-  Alt = 'Alt',
-  '⌥' = '⌥',
-  Shift = 'Shift',
-  Meta = 'Meta',
-  F = 'F',
-  K = 'K',
-  L = 'L',
-  P = 'P',
-  S = 'S',
-  A = 'A',
-  B = 'B',
-  C = 'C',
-  D = 'D',
-  E = 'E',
-  G = 'G',
-  H = 'H',
-  I = 'I',
-  J = 'J',
-  M = 'M',
-  N = 'N',
-  O = 'O',
-  Q = 'Q',
-  R = 'R',
-  T = 'T',
-  U = 'U',
-  V = 'V',
-  W = 'W',
-  X = 'X',
-  Y = 'Y',
-  Z = 'Z',
-  Enter = 'Enter',
-  Escape = 'Escape',
-  Backspace = 'Backspace',
-  Tab = 'Tab',
-  Space = 'Space',
-  ArrowUp = 'ArrowUp',
-  ArrowDown = 'ArrowDown',
-  ArrowLeft = 'ArrowLeft',
-  ArrowRight = 'ArrowRight',
-  '↑' = '↑',
-  '↓' = '↓',
-  '←' = '←',
-  '→' = '→',
-}
+export type KeyList = 
+  | 'Ctrl' |
+  'Alt' |
+  'Shift' |
+  'Meta' |
+  'F' |
+  'K' |
+  'L' |
+  'P' |
+  'S' |
+  'A' |
+  'B' |
+  'C' |
+  'D' |
+  'E' |
+  'G' |
+  'H' |
+  'I' |
+  'J' |
+  'M' |
+  'N' |
+  'O' |
+  'Q' |
+  'R' |
+  'T' |
+  'U' |
+  'V' |
+  'W' |
+  'X' |
+  'Y' |
+  'Z' |
+  'Enter' |
+  'Escape' |
+  'Backspace' |
+  'Tab' |
+  'Space' |
+  'ArrowUp' |
+  'ArrowDown' |
+  'ArrowLeft' |
+  'ArrowRight';
 
 /**
  * Type-safe keyboard shortcut combinations
@@ -69,6 +62,8 @@ export type KeyboardShortcutProps = {
   onTriggered?: () => void;
   /** Whether to display the shortcut visually (default: true) */
   display?: boolean;
+  /** Whether to disable the shortcut trigger (default: false) */
+  disabled?: boolean;
   /** Additional CSS classes */
   className?: string;
   /** Size of the keyboard shortcut display */
@@ -207,6 +202,7 @@ export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({
   shortcut,
   onTriggered,
   display = true,
+  disabled = false,
   className,
   size = 'md',
 }) => {
@@ -217,62 +213,59 @@ export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      // Don't trigger shortcuts when typing in input fields
+      // 1. Identify input fields
       const target = event.target as HTMLElement;
       const isInputField =
         target.tagName === 'INPUT' ||
         target.tagName === 'TEXTAREA' ||
         target.isContentEditable;
 
-      // Update pressed keys state for visual feedback
+      // ... (Your existing key visualization logic here) ...
+      // Note: Copied your key tracking logic for context
       const currentKey = event.key;
       const normalizedEventKeys = new Set<string>();
-
-      // Add modifier keys
       if (event.metaKey) normalizedEventKeys.add('⌘');
       if (event.ctrlKey) normalizedEventKeys.add('Ctrl');
       if (event.altKey) normalizedEventKeys.add(isMac ? '⌥' : 'Alt');
       if (event.shiftKey) normalizedEventKeys.add('Shift');
 
-      // Add the main key
       if (currentKey.startsWith('Arrow')) {
-        // For arrow keys, add both the key name and the symbol
         normalizedEventKeys.add(currentKey);
-        const arrowSymbol = getDisplayKey(currentKey);
-        normalizedEventKeys.add(arrowSymbol);
+        normalizedEventKeys.add(getDisplayKey(currentKey));
       } else {
         normalizedEventKeys.add(currentKey.toUpperCase());
       }
-
       setPressedKeys(normalizedEventKeys);
 
-      // Trigger callback if shortcut matches
-      if (onTriggered && matchesShortcut(event, keys)) {
-        // Don't trigger shortcuts when typing in input fields
-        if (isInputField) {
+      // 2. Trigger callback if shortcut matches
+      if (!disabled && onTriggered && matchesShortcut(event, keys)) {
+        // FIX: Check if the required shortcut is "Escape"
+        const isEscapeShortcut = keys.includes('Escape');
+
+        // Only block if it is an input field AND the shortcut is NOT Escape
+        if (isInputField && !isEscapeShortcut) {
           return;
         }
+
         event.preventDefault();
         onTriggered();
       }
     };
 
     const handleKeyUp = () => {
-      // Clear pressed keys when any key is released
       setPressedKeys(new Set());
     };
 
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('keyup', handleKeyUp);
-    window.addEventListener('blur', handleKeyUp); // Clear on window blur
+    window.addEventListener('blur', handleKeyUp);
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
       window.removeEventListener('blur', handleKeyUp);
     };
-  }, [keys, onTriggered]);
-
+  }, [keys, onTriggered, isMac, disabled]);
   if (!display) return null;
 
   /**
@@ -320,9 +313,10 @@ export const KeyboardShortcut: FC<KeyboardShortcutProps> = ({
             {index > 0 && <span className="text-neutral/50">+</span>}
             <span
               className={cn(
-                'min-w-4 px-0.5',
+                'min-w-4 px-0.5 text-center',
                 isKeyPressed(key) && 'scale-120 font-bold text-text'
               )}
+              suppressHydrationWarning
             >
               {displayKey}
             </span>

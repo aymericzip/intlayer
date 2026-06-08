@@ -9,12 +9,14 @@ export const HelloWorld: FC = () => {
     'This is a sentence if a state (should be extracted)'
   );
 
+  const numberToInsertInString = 10;
+
   const [isClicked, setIsClicked] = useState(false);
 
   // The values here should be extracted
   const listOfItems = [
-    "I'm a list of items (should be extracted as returned by the function)",
-    "I'm a list of items (should be extracted as returned by the function)",
+    "I'm a list of items (should be extracted as returned by the function) (1)",
+    "I'm a list of items (should be extracted as returned by the function) (2)",
   ];
 
   const secondListOfItems = [
@@ -56,6 +58,11 @@ export const HelloWorld: FC = () => {
           This is the text of the option 3 (should be extracted)
         </option>
       </select>
+      <p>{`This is a string with a number ${numberToInsertInString} (should be extracted)`}</p>
+      <p>
+        This is a string with a number {numberToInsertInString} (should be
+        extracted)
+      </p>
       <ul>
         {listOfItems.map((item) => (
           <li key={item}>{item}</li>
@@ -114,6 +121,28 @@ const randomFunction = () => {
   console.log('This console log should not be extracted');
 
   return "This is a random function return should be extracted because it's returned by the function";
+};
+
+// --- NEW RULE TESTING EXAMPLES ---
+
+export const topLevelTiers = [
+  {
+    name: 'Starter', // Single capitalized word -> should be extracted
+    price: '$0', // Not lowercase 1-2 words, but doesn't start with A-Z... wait, shouldExtract rules: starts with [A-Z], it doesn't. And wordCount <= 2. It will not be extracted!
+    period: 'forever', // 1 lowercase word -> should NOT be extracted
+    features: [
+      '5 benchmark runs/day', // will be extracted
+      'lower case longer sentence string', // >2 words -> should be extracted
+      'contact@intlayer.org', // email -> should NOT be extracted
+      'camelCaseProperty', // 1 lowercase word -> should NOT be extracted
+    ],
+  },
+];
+
+export const useMyCustomHook = () => {
+  const hookState =
+    'This string belongs to a custom hook and should be extracted using useIntlayer';
+  return { hookState };
 };
 
 export default HelloWorld;

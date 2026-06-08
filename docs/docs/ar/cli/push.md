@@ -19,11 +19,23 @@ slugs:
 
 # دفع القواميس
 
-```bash
+```bash packageManager="npm"
 npx intlayer dictionary push
 ```
 
-إذا تم تثبيت [محرر intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)، يمكنك أيضًا دفع القواميس إلى المحرر. سيسمح هذا الأمر بجعل القواميس متاحة لـ [المحرر](https://intlayer.org/dashboard). بهذه الطريقة، يمكنك مشاركة قواميسك مع فريقك وتحرير المحتوى الخاص بك دون الحاجة إلى تعديل كود التطبيق الخاص بك.
+```bash packageManager="yarn"
+yarn intlayer dictionary push
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer dictionary push
+```
+
+```bash packageManager="bun"
+bun x intlayer dictionary push
+```
+
+إذا تم تثبيت [محرر intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md)، يمكنك أيضًا دفع القواميس إلى المحرر. سيسمح هذا الأمر بجعل القواميس متاحة لـ [المحرر](https://app.intlayer.org/). بهذه الطريقة، يمكنك مشاركة قواميسك مع فريقك وتحرير المحتوى الخاص بك دون الحاجة إلى تعديل كود التطبيق الخاص بك.
 
 ## الأسماء المستعارة:
 

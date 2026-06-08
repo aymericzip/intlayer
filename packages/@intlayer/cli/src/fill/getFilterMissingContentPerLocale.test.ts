@@ -1,4 +1,4 @@
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { describe, expect, it } from 'vitest';
 import { getFilterMissingContentPerLocale } from './getFilterMissingContentPerLocale';
 
@@ -243,6 +243,56 @@ describe('getFilterMissingContentPerLocale', () => {
         title: 'New',
         subtitle: 'Brand New',
       },
+    });
+  });
+
+  it('should treat null source values as untranslatable (skip them)', () => {
+    const source: Dictionary = {
+      key: 'activity',
+      content: {
+        start: null,
+        wheelDescription: "Let the wheel decide tonight's fun!",
+      },
+    };
+
+    const target: Dictionary = {
+      key: 'activity',
+      content: {
+        start: null,
+        wheelDescription: null,
+      },
+    };
+
+    const result = getFilterMissingContentPerLocale(source, target);
+
+    // "start" is null in source - nothing to translate
+    // "wheelDescription" is null in target but has a value in source - needs translation
+    expect(result.content).toEqual({
+      wheelDescription: "Let the wheel decide tonight's fun!",
+    });
+  });
+
+  it('should detect null target as missing when source has a value', () => {
+    const source: Dictionary = {
+      key: 'activity',
+      content: {
+        start: 'Start',
+        wheelDescription: "Let the wheel decide tonight's fun!",
+      },
+    };
+
+    const target: Dictionary = {
+      key: 'activity',
+      content: {
+        start: null,
+        wheelDescription: 'Lasă roata să decidă!',
+      },
+    };
+
+    const result = getFilterMissingContentPerLocale(source, target);
+
+    expect(result.content).toEqual({
+      start: 'Start',
     });
   });
 

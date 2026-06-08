@@ -1,5 +1,5 @@
-import intlayerConfig from '@intlayer/config/built';
-import type { Dictionary } from '@intlayer/types';
+import { editor } from '@intlayer/config/built';
+import type { Dictionary } from '@intlayer/types/dictionary';
 
 /**
  * Orders dictionaries based on the dictionary priority strategy.
@@ -10,10 +10,15 @@ import type { Dictionary } from '@intlayer/types';
  */
 export const orderDictionaries = (
   dictionaries: Dictionary[],
-  configuration = intlayerConfig
+  config?: {
+    editor: {
+      dictionaryPriorityStrategy: 'local_first' | 'distant_first';
+    };
+  }
 ): Dictionary[] => {
-  const { editor } = configuration;
-  const { dictionaryPriorityStrategy } = editor;
+  const dictionaryPriorityStrategy =
+    config?.editor?.dictionaryPriorityStrategy ??
+    editor.dictionaryPriorityStrategy;
 
   if (dictionaries.length <= 1) {
     return dictionaries;

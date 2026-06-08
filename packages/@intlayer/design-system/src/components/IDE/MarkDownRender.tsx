@@ -1,6 +1,6 @@
-import type { ComponentProps, ComponentPropsWithoutRef, FC } from 'react';
+import type { FC } from 'react';
+import { MarkdownRenderer as MarkdownRendererIntlayer } from 'react-intlayer';
 import type { BundledLanguage } from 'shiki/bundle/web';
-import { MarkdownProcessor } from '../MarkDownRender/processor';
 import { Code } from './Code';
 
 type MarkdownRendererProps = {
@@ -12,26 +12,22 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
   children,
   isDarkMode,
 }) => (
-  <MarkdownProcessor
-    options={{
-      overrides: {
-        code: {
-          component: (props: ComponentProps<typeof Code>) => (
-            <Code
-              {...props}
-              isDarkMode={isDarkMode}
-              language={
-                props.className?.replace('lang-', '') as BundledLanguage
-              }
-              showHeader={false}
-              className="text-xs leading-5"
-            />
-          ),
-        },
-        pre: (props: ComponentPropsWithoutRef<'pre'>) => props.children,
-      },
+  <MarkdownRendererIntlayer
+    components={{
+      code: (props) => (
+        <Code
+          {...props}
+          isDarkMode={isDarkMode}
+          language={props.className?.replace('lang-', '') as BundledLanguage}
+          showHeader={false}
+          className="text-xs leading-5"
+        >
+          {props.children as string}
+        </Code>
+      ),
+      pre: (props) => props.children,
     }}
   >
     {children ?? ''}
-  </MarkdownProcessor>
+  </MarkdownRendererIntlayer>
 );

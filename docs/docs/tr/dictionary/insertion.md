@@ -17,9 +17,12 @@ slugs:
   - content
   - insertion
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: "Ekleme içeriğinin otomatik süslemesi"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Geçmiş başlatıldı
+    changes: "Geçmiş başlatıldı"
 ---
 
 # Ekleme İçeriği / Intlayer'da Ekleme
@@ -32,67 +35,73 @@ React Intlayer veya Next Intlayer ile entegre edildiğinde, her yer tutucu için
 
 ## Ekleme İçeriğini Ayarlama
 
-Intlayer projenizde ekleme içeriğini ayarlamak için, ekleme tanımlarınızı içeren bir içerik modülü oluşturun. Aşağıda çeşitli formatlarda örnekler verilmiştir.
+Intlayer projenizde ekleme içeriğini ayarlamak için, ekleme tanımlarınızı içeren bir içerik modülü oluşturun.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { insert, type Dictionary } from "intlayer";
+<Tabs>
+  <Tab label="Elle Sarma" value="manual-wrapping">
+    Ekleme içeriğini açıkça bildirmek için `insert` fonksiyonunu kullanın.
 
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert("Merhaba, adım {{name}} ve {{age}} yaşındayım!"),
-  },
-} satisfies Dictionary;
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
+    import { insert, type Dictionary } from "intlayer";
 
-export default myInsertionContent;
-```
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert("Merhaba, adım {{name}} ve {{age}} yaşındayım!"),
+      },
+    } satisfies Dictionary;
 
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { insert } from "intlayer";
+    export default myInsertionContent;
+    ```
 
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert("Merhaba, adım {{name}} ve {{age}} yaşındayım!"),
-  },
-};
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": {
+          "nodeType": "insertion",
+          "insertion": "Merhaba, adım {{name}} ve {{age}} yaşındayım!",
+        },
+      },
+    }
+    ```
 
-export default myInsertionContent;
-```
+  </Tab>
+  <Tab label="Otomatik Algılama" value="automatic-detection">
+    Dize yaygın ekleme göstergeleri (örneğin `{{name}}`) içeriyorsa, Intlayer bunu otomatik olarak dönüştürecektir.
 
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { insert } = require("intlayer");
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
+    import { type Dictionary } from "intlayer";
 
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert("Merhaba, adım {{name}} ve {{age}} yaşındayım!"),
-  },
-};
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "Merhaba, adım {{name}} ve {{age}} yaşındayım!",
+      },
+    } satisfies Dictionary;
 
-module.exports = myInsertionContent;
-```
+    export default myInsertionContent;
+    ```
 
-```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "my_key",
-  "content": {
-    "myInsertion": {
-      "nodeType": "insertion",
-      "insertion": "Merhaba, adım {{name}} ve {{age}} yaşındayım!",
-    },
-  },
-}
-```
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": "Merhaba, adım {{name}} ve {{age}} yaşındayım!",
+      },
+    }
+    ```
+
+  </Tab>
+</Tabs>
 
 ## React Intlayer ile Ekleme İçeriğini Kullanma
 
 Bir React bileşeninde ekleme içeriğini kullanmak için, `react-intlayer` paketinden `useIntlayer` hook'unu içe aktarın ve kullanın. Bu hook, belirtilen anahtar için içeriği alır ve içeriğinizdeki her yer tutucuyu görüntülemek istediğiniz değere eşleyen bir nesne geçmenizi sağlar.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -118,60 +127,6 @@ const InsertionComponent: FC = () => {
 };
 
 export default InsertionComponent;
-```
-
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Çıktı: "Merhaba, adım John ve 30 yaşındayım!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* Aynı eklemeyi farklı değerlerle yeniden kullanabilirsiniz */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-export default InsertionComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Çıktı: "Merhaba, adım John ve 30 yaşındayım!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* Aynı eklemeyi farklı değerlerle yeniden kullanabilirsiniz */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = InsertionComponent;
 ```
 
 ## Ek Kaynaklar

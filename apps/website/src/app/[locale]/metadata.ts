@@ -1,14 +1,14 @@
-import { getDictionary, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
+import { Website_Home } from '@intlayer/design-system/routes';
+import { getIntlayer, getLocalizedUrl, getMultilingualUrls } from 'intlayer';
 import type { Metadata, Viewport } from 'next';
 import type { LocalPromiseParams } from 'next-intlayer';
-import metadataContent from './metadata.content';
 
 export const generateMetadata = async ({
   params,
 }: LocalPromiseParams): Promise<Metadata> => {
   const { locale } = await params;
-  const { title, description, keywords, openGraph } = getDictionary(
-    metadataContent,
+  const { title, description, keywords, openGraph } = getIntlayer(
+    'locale-metadata',
     locale
   );
 
@@ -28,12 +28,18 @@ export const generateMetadata = async ({
     keywords,
     referrer: 'origin',
     creator: 'Aymeric PINEAU',
-    publisher: '/',
+    publisher: 'Intlayer',
     robots: 'index, follow',
     metadataBase: new URL(process.env.NEXT_PUBLIC_URL!),
     alternates: {
-      canonical: getLocalizedUrl('/', locale),
-      languages: { ...getMultilingualUrls('/'), 'x-default': '/' },
+      canonical: getLocalizedUrl(Website_Home, locale),
+      languages: {
+        ...getMultilingualUrls(Website_Home),
+        'x-default': Website_Home,
+      },
+      types: {
+        'application/rss+xml': '/feed.xml',
+      },
     },
     icons: {
       icon: [
@@ -88,7 +94,6 @@ export const generateMetadata = async ({
       creator: '@aymericzip',
       images: `/github-social-preview.png`,
     },
-    verification: undefined,
     appleWebApp: {
       capable: true,
       title: 'Intlayer',
@@ -108,6 +113,11 @@ export const generateMetadata = async ({
     category: 'Development Tools',
     classification: 'Developers',
     manifest: '/manifest.json',
+    verification: {
+      other: {
+        'baidu-site-verification': 'codeva-RLm6YdPzvy',
+      },
+    },
     other: undefined,
   };
 };
@@ -125,7 +135,7 @@ export const viewport: Viewport = {
   ],
   width: 'device-width',
   height: 'device-height',
-  initialScale: 0.7,
+  initialScale: 1,
   // minimumScale: 3,
   // maximumScale: 3,
   // userScalable: true,

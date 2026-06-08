@@ -1,0 +1,45 @@
+{
+  "name": "fastify-app-example",
+  "version": "1.1.12",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/types/export.d.ts",
+      "require": "./dist/cjs/export.cjs",
+      "import": "./dist/esm/export.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "dist/cjs/export.cjs",
+  "module": "dist/esm/export.mjs",
+  "types": "dist/types/export.d.ts",
+  "files": [
+    "./dist",
+    "./package.json"
+  ],
+  "scripts": {
+    "build:ci": "bun --bun tsdown --config tsdown.config.ts",
+    "dev": "bun --watch  --hot ./src/index.ts",
+    "email": "email dev --dir ./src/emails",
+    "format": "bun --bun biome format . --check",
+    "format:fix": "bun --bun biome format --write .",
+    "lint": "bun --bun biome lint .",
+    "lint:fix": "bun --bun biome lint --write .",
+    "start": "bun dist/esm/index.mjs",
+    "test": ""
+  },
+  "dependencies": {
+    "fastify": "5.6.2",
+    "fastify-intlayer": "workspace:*",
+    "intlayer": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "25.9.2",
+    "@utils/ts-config": "workspace:*",
+    "@utils/ts-config-types": "workspace:*",
+    "@utils/tsdown-config": "workspace:*",
+    "tsdown": "0.21.10",
+    "typescript": "6.0.3"
+  }
+}

@@ -1,12 +1,11 @@
 'use client';
 
+import { useAddDictionary, useGetProjects } from '@api/index';
+import { useSession } from '@api/useAuth';
+import { Form, useForm } from '@components/Form';
+import { MultiSelect } from '@components/Select';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { useAddDictionary, useGetProjects } from '../../../hooks/reactQuery';
-import { useSession } from '../../../hooks/useAuth';
-import { ButtonColor } from '../../Button';
-import { Form, useForm } from '../../Form';
-import { MultiSelect } from '../../Select';
 import {
   type DictionaryFormData,
   useDictionarySchema,
@@ -24,7 +23,11 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
   const { mutate: addDictionary, isPending } = useAddDictionary();
   const { data: projectsData } = useGetProjects();
   const DictionarySchema = useDictionarySchema(String(project?.id));
-  const { form, isSubmitting } = useForm(DictionarySchema);
+  const { form, isSubmitting } = useForm(DictionarySchema, {
+    defaultValues: {
+      projectIds: [project?.id],
+    },
+  });
   const { keyInput, createDictionaryButton, projectInput } =
     useIntlayer('dictionary-form');
 
@@ -79,7 +82,7 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
       <Form.Button
         className="mt-12 ml-auto"
         type="submit"
-        color={ButtonColor.TEXT}
+        color="text"
         isLoading={isSubmitting || isPending}
         label={createDictionaryButton.ariaLabel.value}
         isFullWidth

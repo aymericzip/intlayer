@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 初始化历史
+    changes: "初始化历史"
 ---
 
 # 文档：`intlayer` 中的 `getMultilingualUrls` 函数
@@ -35,18 +35,15 @@ history:
 ## 参数
 
 - `url: string`
-
   - **描述**：需要添加语言环境前缀的原始 URL 字符串。
   - **类型**：`string`
 
 - `locales: Locales[]`
-
   - **描述**：可选的支持语言环境数组。默认为项目中配置的语言环境。
   - **类型**：`Locales[]`
   - **默认值**：`localesDefault`
 
 - `defaultLocale: Locales`
-
   - **描述**：应用的默认语言环境。默认为项目中配置的默认语言环境。
   - **类型**：`Locales`
   - **默认值**：`defaultLocaleDefault`
@@ -67,38 +64,8 @@ history:
 
 ### 相对 URL
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls(
-  "/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-// 输出: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="esm"
-import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls(
-  "/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-// 输出: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="commonjs"
-const { getMultilingualUrls, Locales } = require("intlayer");
 
 getMultilingualUrls(
   "/dashboard",
@@ -132,11 +99,9 @@ getMultilingualUrls(
 ## 边界情况
 
 - **无语言段：**
-
   - 该函数在生成多语言映射之前，会移除 URL 中任何已存在的语言段。
 
 - **默认语言：**
-
   - 当 `prefixDefault` 为 `false` 时，函数不会为默认语言的 URL 添加前缀。
 
 - **不支持的语言：**
@@ -148,7 +113,7 @@ getMultilingualUrls(
 
 在多语言应用中，配置国际化设置（包括 `locales` 和 `defaultLocale`）对于确保显示正确的语言至关重要。下面是一个如何在应用设置中使用 `getMultilingualUrls` 的示例：
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // 支持的语言和默认语言的配置
@@ -160,38 +125,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-// 配置支持的语言环境和默认语言环境
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-// 配置支持的语言环境和默认语言环境
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
-
-module.exports = config;
 ```
 
 上述配置确保应用程序识别 `ENGLISH`、`FRENCH` 和 `SPANISH` 作为支持的语言，并使用 `ENGLISH` 作为回退语言。

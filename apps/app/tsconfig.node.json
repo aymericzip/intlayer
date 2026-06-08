@@ -1,0 +1,14 @@
+{
+  "include": ["electron.vite.config.*", "src/election.ts", "src/preload/**/*"],
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2022"],
+    "types": ["electron", "node"],
+    "skipLibCheck": true,
+    "strict": true,
+    "composite": true,
+    "verbatimModuleSyntax": true
+  }
+}

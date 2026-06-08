@@ -1,7 +1,27 @@
-import configuration from '@intlayer/config/built';
-import { DefaultValues } from '@intlayer/config/client';
-import type { LocalesValues } from '@intlayer/types';
-import { getPrefix } from './getPrefix';
+// ── Tree-shake constants ──────────────────────────────────────────────────────
+// When these env vars are injected at build time, bundlers eliminate the
+// branches guarded by these constants.
+
+/**
+ * True when the build-time routing mode is known and is NOT 'no-prefix'.
+ */
+const TREE_SHAKE_NO_PREFIX =
+  process.env['INTLAYER_ROUTING_MODE'] &&
+  process.env['INTLAYER_ROUTING_MODE'] !== 'no-prefix';
+
+/**
+ * True when the build-time routing mode is known and is NOT 'search-params'.
+ */
+const TREE_SHAKE_SEARCH_PARAMS =
+  process.env['INTLAYER_ROUTING_MODE'] &&
+  process.env['INTLAYER_ROUTING_MODE'] !== 'search-params';
+
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import {
+  getPrefix,
+  type RoutingOptions,
+  resolveRoutingConfig,
+} from './getPrefix';
 
 export type ValidatePrefixResult = {
   isValid: boolean;
@@ -32,25 +52,17 @@ export type ValidatePrefixResult = {
  */
 export const validatePrefix = (
   locale: LocalesValues | undefined | null,
-  options?: {
-    locales?: LocalesValues[];
-    defaultLocale?: LocalesValues;
-    mode?: typeof configuration.routing.mode;
-  }
+  options?: RoutingOptions
 ): ValidatePrefixResult => {
-  const { defaultLocale, mode, locales } = {
-    defaultLocale:
-      configuration?.internationalization?.defaultLocale ??
-      DefaultValues.Internationalization.DEFAULT_LOCALE,
-    mode: configuration?.routing?.mode ?? DefaultValues.Routing.ROUTING_MODE,
-    locales:
-      configuration?.internationalization?.locales ??
-      DefaultValues.Internationalization.LOCALES,
-    ...options,
-  };
+  const { defaultLocale, mode, locales } = resolveRoutingConfig(options);
 
-  // If no locale provided (optional param), will use default
-  // In `routing.mode = 'prefix-all'`, the locale is required to be a valid locale
+  if (
+    (!TREE_SHAKE_NO_PREFIX && mode === 'no-prefix') ||
+    (!TREE_SHAKE_SEARCH_PARAMS && mode === 'search-params')
+  ) {
+    return { isValid: true, localePrefix: undefined };
+  }
+
   const { localePrefix } = getPrefix(locale || defaultLocale, {
     mode,
     locales,
@@ -61,8 +73,13 @@ export const validatePrefix = (
     return { isValid: true, localePrefix: undefined };
   }
 
-  // Check if the provided locale is valid
-  const isValid: boolean = locales.some((localeEl) => localeEl === locale);
+  // A segment that doesn't match a locale code pattern (e.g. 'concept', 'compiler')
+  // is a content slug from a default-locale URL, not an invalid locale attempt.
+  if (locale && !/^[a-z]{2,3}(-[a-zA-Z]{2,4})?$/.test(locale)) {
+    return { isValid: true, localePrefix: undefined };
+  }
 
-  return { isValid: isValid, localePrefix };
+  const isValid = locales.some((localeEl) => localeEl === locale);
+
+  return { isValid, localePrefix };
 };

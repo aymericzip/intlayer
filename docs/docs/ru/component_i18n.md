@@ -78,7 +78,7 @@ export default componentContent;
 
 ## 2) Получение вашего контента
 
-### Случай A — React приложение (Vite/SPA)
+### Случай A. React приложение (Vite/SPA)
 
 Стандартный подход: используйте `useIntlayer` для получения по ключу. Это позволяет компонентам оставаться легкими и типизированными.
 
@@ -129,7 +129,7 @@ export function ComponentWithDictionary() {
 }
 ```
 
-### Случай B — Next.js (App Router)
+### Случай B. Next.js (App Router)
 
 Предпочитайте серверные компоненты для безопасности данных и производительности. Используйте `useIntlayer` из `next-intlayer/server` в серверных файлах и `useIntlayer` из `next-intlayer` в клиентских компонентах.
 

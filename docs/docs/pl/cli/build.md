@@ -13,23 +13,51 @@ slugs:
   - concept
   - cli
   - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: "Dodaj opcję checkTypes"
 ---
 
 # Budowanie słowników
 
 Aby zbudować swoje słowniki, możesz uruchomić polecenia:
 
-```bash
+```bash packageManager="npm"
 npx intlayer build
+```
+
+```bash packageManager="yarn"
+yarn intlayer build
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build
+```
+
+```bash packageManager="bun"
+bun x intlayer build
 ```
 
 lub w trybie obserwacji
 
-```bash
+```bash packageManager="npm"
 npx intlayer build --watch
 ```
 
-To polecenie domyślnie znajdzie Twoje pliki deklaracji treści w ścieżce `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` i zbuduje słowniki w katalogu `.intlayer`.
+```bash packageManager="yarn"
+yarn intlayer build --watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build --watch
+```
+
+```bash packageManager="bun"
+bun x intlayer build --watch
+```
+
+To polecenie domyślnie znajdzie Twoje pliki deklaracji treści w ścieżce `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` i zbuduje słowniki w katalogu `.intlayer`.
 
 ## Alias-y:
 
@@ -62,3 +90,7 @@ To polecenie domyślnie znajdzie Twoje pliki deklaracji treści w ścieżce `./s
 - **`--no-cache`**: Wyłącz pamięć podręczną.
 
   > Przykład: `npx intlayer build --no-cache`
+
+- **`--check-types`**: Sprawdza typy plików deklaracji treści.
+
+  > Przykład: `npx intlayer build --check-types`

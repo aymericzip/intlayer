@@ -21,8 +21,28 @@ slugs:
 
 The `doc translate` command automatically translates documentation files from a base locale to target locales using AI translation services.
 
-```bash
+## Key Points:
+
+- Split large markdown files into chunks to stay within the AI model's context window limits.
+- Retry translation if the output format is incorrect.
+- Incorporates application and file-specific context for improved translation accuracy.
+- Preserves existing translations by not overwriting them.
+- Processes files, chunks, and locales in parallel using a queue system to increase speed.
+
+```bash packageManager="npm"
 npx intlayer doc translate
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc translate
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc translate
+```
+
+```bash packageManager="bun"
+bun x intlayer doc translate
 ```
 
 ## Arguments:
@@ -78,6 +98,7 @@ npx intlayer doc translate
 - **`--temperature [temperature]`**: Temperature setting for the AI model.
 - **`--api-key [apiKey]`**: Provide your own API key for the AI service.
 - **`--application-context [applicationContext]`**: Provide additional context for the AI translation.
+- **`--data-serialization [dataSerialization]`**: The data serialization format to use for the AI features of Intlayer. Options: `json` (standard, reliable), `toon` (fewer tokens, less consistent).
 - **`--custom-prompt [prompt]`**: Customise the base prompt used for translation. (Note: For most use cases, the `--custom-instructions` option is recommended instead as it provides better control over translation behaviour.)
 
   > Example: `npx intlayer doc translate --model deepseek-chat --provider deepseek --temperature 0.5 --api-key sk-1234567890 --application-context "My application is a cat store"`

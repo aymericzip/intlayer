@@ -13,23 +13,51 @@ slugs:
   - concept
   - cli
   - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: "Tambahkan opsi checkTypes"
 ---
 
 # Bangun Kamus
 
 Untuk membangun kamus Anda, Anda dapat menjalankan perintah:
 
-```bash
+```bash packageManager="npm"
 npx intlayer build
+```
+
+```bash packageManager="yarn"
+yarn intlayer build
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build
+```
+
+```bash packageManager="bun"
+bun x intlayer build
 ```
 
 atau dalam mode watch
 
-```bash
+```bash packageManager="npm"
 npx intlayer build --watch
 ```
 
-Perintah ini akan mencari file deklarasi konten Anda secara default di `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`. Dan membangun kamus di direktori `.intlayer`.
+```bash packageManager="yarn"
+yarn intlayer build --watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build --watch
+```
+
+```bash packageManager="bun"
+bun x intlayer build --watch
+```
+
+Perintah ini akan mencari file deklarasi konten Anda secara default di `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`. Dan membangun kamus di direktori `.intlayer`.
 
 ## Alias:
 
@@ -62,3 +90,7 @@ Perintah ini akan mencari file deklarasi konten Anda secara default di `./src/**
 - **`--no-cache`**: Nonaktifkan cache.
 
   > Contoh: `npx intlayer build --no-cache`
+
+- **`--check-types`**: Memeriksa tipe file deklarasi konten.
+
+  > Contoh: `npx intlayer build --check-types`

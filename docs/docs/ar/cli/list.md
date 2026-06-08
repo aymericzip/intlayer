@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-01-06
 title: قائمة ملفات إعلان المحتوى
 description: تعلّم كيفية سرد جميع ملفات إعلان المحتوى في مشروعك.
 keywords:
@@ -13,12 +13,31 @@ slugs:
   - concept
   - cli
   - list
+history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: "إضافة خيار الإخراج المطلق لأمر القائمة"
+  - version: 7.5.11
+    date: 2026-01-06
+    changes: "إضافة خيار إخراج JSON لأمر القائمة"
 ---
 
 # قائمة ملفات إعلان المحتوى
 
-```bash
+```bash packageManager="npm"
 npx intlayer content list
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list
+```
+
+```bash packageManager="bun"
+bun x intlayer content list
 ```
 
 ## الأسماء المستعارة:
@@ -27,13 +46,71 @@ npx intlayer content list
 
 يعرض هذا الأمر جميع ملفات إعلان المحتوى في مشروعك، مع عرض مفاتيح القاموس الخاصة بها ومسارات الملفات. وهو مفيد للحصول على نظرة عامة على جميع ملفات المحتوى الخاصة بك والتحقق من اكتشافها بشكل صحيح بواسطة Intlayer.
 
-## مثال:
+## الوسائط:
 
-```bash
+- **`--json`**: إخراج النتائج بتنسيق JSON بدلاً من النص المنسق. مفيد للبرمجة النصية والوصول البرمجي.
+
+  > مثال: `npx intlayer content list --json`
+
+## أمثلة:
+
+### سرد ملفات إعلان المحتوى:
+
+```bash packageManager="npm"
 npx intlayer content list
 ```
 
+```bash packageManager="yarn"
+yarn intlayer content list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list
+```
+
+```bash packageManager="bun"
+bun x intlayer content list
+```
+
+### الإخراج بتنسيق JSON:
+
+```bash packageManager="npm"
+npx intlayer content list --json
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list --json
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list --json
+```
+
+```bash packageManager="bun"
+bun x intlayer content list --json
+```
+
+### الإخراج كمسارات مطلقة:
+
+```bash packageManager="npm"
+npx intlayer content list --absolute
+```
+
+```bash packageManager="yarn"
+yarn intlayer content list --absolute
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content list --absolute
+```
+
+```bash packageManager="bun"
+bun x intlayer content list --absolute
+```
+
 ## مثال على الإخراج:
+
+### الإخراج المنسق:
 
 ```bash
 npx intlayer content list
@@ -43,6 +120,14 @@ Content declaration files:
  - client-component - src/components/ClientComponent/clientComponent.content.ts
 
 إجمالي ملفات إعلان المحتوى: 3
+```
+
+### إخراج JSON:
+
+```bash
+$ npx intlayer content list --json
+
+[{"key":"home-page","path":"src/components/HomePage/homePage.content.ts"},{"key":"server-component","path":"src/components/ServerComponent/serverComponent.content.ts"},{"key":"client-component","path":"src/components/ClientComponent/clientComponent.content.ts"}]
 ```
 
 سيقوم هذا الأمر بإخراج:

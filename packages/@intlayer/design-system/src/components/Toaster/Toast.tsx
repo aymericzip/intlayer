@@ -1,17 +1,16 @@
 'use client';
 
 import * as ToastPrimitives from '@radix-ui/react-toast';
+import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { X } from 'lucide-react';
 import type { ComponentProps, FC, ReactElement } from 'react';
-import { cn } from '../../utils/cn';
 
-const ToastProvider = ToastPrimitives;
+export const ToastProvider = ToastPrimitives;
 
-const ToastViewport: FC<ComponentProps<typeof ToastPrimitives.Viewport>> = ({
-  className,
-  ...props
-}) => (
+export const ToastViewport: FC<
+  ComponentProps<typeof ToastPrimitives.Viewport>
+> = ({ className, ...props }) => (
   <ToastPrimitives.Viewport
     className={cn(
       'fixed top-0 z-100 flex max-h-screen w-full flex-col-reverse p-4 sm:top-auto sm:right-0 sm:bottom-0 sm:flex-col md:max-w-[420px]',
@@ -39,8 +38,8 @@ const ToastViewport: FC<ComponentProps<typeof ToastPrimitives.Viewport>> = ({
  * <Toast variant="default">Info message</Toast>
  * ```
  */
-const toastVariants = cva(
-  'group data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full pointer-events-auto relative flex w-full items-center justify-between space-x-2 overflow-hidden rounded-md p-4 pr-6 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[state=closed]:animate-out data-[state=open]:animate-in data-[swipe=end]:animate-out data-[swipe=move]:transition-none',
+export const toastVariants = cva(
+  'group data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full pointer-events-auto relative flex w-full items-center justify-between space-x-2 overflow-hidden rounded-xl p-4 pr-6 shadow-[0_0_10px_-15px_rgba(0,0,0,0.3)] backdrop-blur transition-all [corner-shape:squircle] data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[state=closed]:animate-out data-[state=open]:animate-in data-[swipe=end]:animate-out data-[swipe=move]:transition-none supports-[corner-shape:squircle]:rounded-3xl',
   {
     variants: {
       /** Toast visual variants for different message types */
@@ -98,7 +97,7 @@ const toastVariants = cva(
  * </Toast>
  * ```
  */
-const Toast: FC<
+export const Toast: FC<
   ComponentProps<typeof ToastPrimitives.Root> &
     VariantProps<typeof toastVariants>
 > = ({ className, variant, ...props }) => {
@@ -119,7 +118,7 @@ const Toast: FC<
  * ## Features
  * - **Accessibility**: Requires `altText` prop for screen readers
  * - **Visual States**: Hover, focus, and disabled state styling
- * - **Theme Integration**: Supports destructive and default themes
+ * - **Theme Integration**: Supports error and default themes
  * - **Keyboard Navigation**: Full keyboard accessibility support
  *
  * ## Usage Guidelines
@@ -146,26 +145,26 @@ const Toast: FC<
  * </ToastAction>
  * ```
  */
-const ToastAction: FC<ComponentProps<typeof ToastPrimitives.Action>> = ({
+export const ToastAction: FC<ComponentProps<typeof ToastPrimitives.Action>> = ({
   className,
   ...props
 }) => (
   <ToastPrimitives.Action
     className={cn(
-      'inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 font-medium text-sm transition-colors hover:bg-text focus:outline-hidden focus:ring-1 focus:ring-ring disabled:pointer-events-none disabled:opacity-50 group-[.destructive]:border-muted/40 group-[.destructive]:focus:ring-destructive group-[.destructive]:hover:border-destructive/30 group-[.destructive]:hover:bg-destructive group-[.destructive]:hover:text-destructive-foreground',
+      'inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 font-medium text-sm transition-colors hover:bg-text focus:outline-hidden focus:ring-1 focus:ring-ring disabled:pointer-events-none disabled:opacity-50 group-[.error]:border-muted/40 group-[.error]:focus:ring-error group-[.error]:hover:border-error/30 group-[.error]:hover:bg-error group-[.error]:hover:text-error-foreground',
       className
     )}
     {...props}
   />
 );
 
-const ToastClose: FC<ComponentProps<typeof ToastPrimitives.Close>> = ({
+export const ToastClose: FC<ComponentProps<typeof ToastPrimitives.Close>> = ({
   className,
   ...props
 }) => (
   <ToastPrimitives.Close
     className={cn(
-      'absolute top-1 right-1 rounded-md p-1 text-text/50 opacity-0 transition-opacity hover:text-text/80 focus:opacity-100 focus:outline-hidden focus:ring-1 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600 group-[.destructive]:hover:text-red-50',
+      'absolute top-1 right-1 rounded-md p-1 text-text/50 opacity-0 transition-opacity hover:text-text/80 focus:opacity-100 focus:outline-hidden focus:ring-1 group-hover:opacity-100 group-[.error]:text-red-300 group-[.error]:focus:ring-red-400 group-[.error]:focus:ring-offset-red-600 group-[.error]:hover:text-red-50',
       className
     )}
     toast-close=""
@@ -192,7 +191,7 @@ const ToastClose: FC<ComponentProps<typeof ToastPrimitives.Close>> = ({
  * <ToastTitle>Settings Saved</ToastTitle>
  * ```
  */
-const ToastTitle: FC<ComponentProps<typeof ToastPrimitives.Title>> = ({
+export const ToastTitle: FC<ComponentProps<typeof ToastPrimitives.Title>> = ({
   className,
   ...props
 }) => (
@@ -229,11 +228,11 @@ const ToastTitle: FC<ComponentProps<typeof ToastPrimitives.Title>> = ({
  * </ToastDescription>
  * ```
  */
-const ToastDescription: FC<
+export const ToastDescription: FC<
   ComponentProps<typeof ToastPrimitives.Description>
 > = ({ className, ...props }) => (
   <ToastPrimitives.Description
-    className={cn('text-sm opacity-90', className)}
+    className={cn('overflow-scroll text-sm opacity-90', className)}
     {...props}
   />
 );
@@ -241,22 +240,10 @@ const ToastDescription: FC<
  * Props type for Toast component including all Radix UI Toast.Root props
  * and variant styling options.
  */
-type ToastProps = ComponentProps<typeof Toast>;
+export type ToastProps = ComponentProps<typeof Toast>;
 
 /**
  * Type for ToastAction elements used in toast configurations.
  * Ensures type safety when passing action elements to toast functions.
  */
-type ToastActionElement = ReactElement<typeof ToastAction>;
-
-export {
-  Toast,
-  ToastAction,
-  ToastClose,
-  ToastDescription,
-  ToastProvider,
-  ToastTitle,
-  ToastViewport,
-  type ToastActionElement,
-  type ToastProps,
-};
+export type ToastActionElement = ReactElement<typeof ToastAction>;

@@ -31,11 +31,11 @@ history:
 
 # Как автоматизировать ваши JSON-переводы i18next с помощью Intlayer
 
-<iframe title="Как автоматизировать ваши JSON-переводы i18next с помощью Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Как автоматизировать ваши JSON-переводы i18next с помощью Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## Что такое Intlayer?
 
-**Intlayer** — это инновационная, открытая библиотека интернационализации, созданная для устранения недостатков традиционных решений i18n. Она предлагает современный подход к управлению контентом в JavaScript-приложениях.
+**Intlayer**, это инновационная, открытая библиотека интернационализации, созданная для устранения недостатков традиционных решений i18n. Она предлагает современный подход к управлению контентом в JavaScript-приложениях.
 
 Смотрите конкретное сравнение с i18next в нашем блоге [next-i18next vs. next-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ru/next-i18next_vs_next-intl_vs_intlayer.md).
 
@@ -63,19 +63,23 @@ history:
 Установите необходимые пакеты:
 
 ```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin
+npm install intlayer @intlayer/sync-json-plugin --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin
+pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin
+yarn add intlayer @intlayer/sync-json-plugin --dev
+yarn intlayer init
 ```
 
 ```bash packageManager="bun"
-bun add intlayer @intlayer/sync-json-plugin
+bun add intlayer @intlayer/sync-json-plugin --dev
+bun x intlayer init
 ```
 
 **Описание пакетов:**
@@ -100,7 +104,6 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "i18next",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],
@@ -119,50 +122,6 @@ export default config;
 Если изменения вносятся с помощью CLI для перевода JSON или с помощью CMS, Intlayer обновит JSON-файл с новыми переводами.
 
 Чтобы узнать больше подробностей о плагине `syncJSON`, пожалуйста, обратитесь к [документации плагина syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-json.md).
-
-### (Необязательно) Шаг 3: Реализация перевода JSON по компонентам
-
-По умолчанию Intlayer загрузит, объединит и синхронизирует как JSON, так и файлы деклараций контента. Подробнее смотрите в [документации по декларации контента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md). Но если вы предпочитаете, используя плагин Intlayer, вы также можете реализовать управление локализованным JSON по компонентам в любом месте вашей кодовой базы.
-
-Для этого вы можете использовать плагин `loadJSON`.
-
-```ts fileName="intlayer.config.ts"
-import { Locales, type IntlayerConfig } from "intlayer";
-import { loadJSON, syncJSON } from "@intlayer/sync-json-plugin";
-
-const config: IntlayerConfig = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-
-  // Поддерживайте актуальность ваших текущих JSON файлов в соответствии со словарями Intlayer
-  plugins: [
-    /**
-     * Загрузит все JSON файлы в папке src, которые соответствуют шаблону {key}.i18n.json
-     */
-    loadJSON({
-      source: ({ key }) => `./src/**/${key}.i18n.json`,
-      locale: Locales.ENGLISH,
-      priority: 1, // Обеспечивает приоритет этих JSON файлов над файлами в `./locales/en/${key}.json`
-    }),
-    /**
-     * Загрузит и запишет результат и переводы обратно в JSON файлы в директории locales
-     */
-    syncJSON({
-      format: "i18next",
-      source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
-      priority: 0,
-    }),
-  ],
-};
-
-export default config;
-```
-
-Это загрузит все JSON файлы в директории `src`, которые соответствуют шаблону `{key}.i18n.json`, и загрузит их как словари Intlayer.
-
----
 
 ## Конфигурация Git
 

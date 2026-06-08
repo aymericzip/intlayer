@@ -21,8 +21,28 @@ slugs:
 
 يقوم الأمر `doc translate` بترجمة ملفات التوثيق تلقائيًا من لغة أساسية إلى لغات مستهدفة باستخدام خدمات الترجمة بالذكاء الاصطناعي.
 
-```bash
+## النقاط الرئيسية:
+
+- يقسم ملفات markdown الكبيرة إلى أجزاء للبقاء ضمن حدود نافذة سياق نموذج الذكاء الاصطناعي.
+- يعيد محاولة الترجمة إذا كان تنسيق الإخراج غير صحيح.
+- يدمج سياقًا محددًا للتطبيق والملف لتحسين دقة الترجمة.
+- يحافظ على الترجمات الموجودة بعدم الكتابة فوقها.
+- يعالج الملفات والأجزاء واللغات بالتوازي باستخدام نظام قائمة انتظار لزيادة السرعة.
+
+```bash packageManager="npm"
 npx intlayer doc translate
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc translate
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc translate
+```
+
+```bash packageManager="bun"
+bun x intlayer doc translate
 ```
 
 ## الوسائط:
@@ -78,6 +98,7 @@ npx intlayer doc translate
 - **`--temperature [temperature]`**: إعداد درجة الحرارة لنموذج الذكاء الاصطناعي.
 - **`--api-key [apiKey]`**: توفير مفتاح API الخاص بك لخدمة الذكاء الاصطناعي.
 - **`--application-context [applicationContext]`**: توفير سياق إضافي لترجمة الذكاء الاصطناعي.
+- **`--data-serialization [dataSerialization]`**: تنسيق تسلسل البيانات لاستخدامه في ميزات الذكاء الاصطناعي لـ Intlayer. الخيارات: `json` (قياسي، موثوق)، `toon` (رموز أقل، أقل اتساقًا).
 - **`--custom-prompt [prompt]`**: تخصيص الموجه الأساسي المستخدم للترجمة. (ملاحظة: في معظم حالات الاستخدام، يُفضل استخدام خيار `--custom-instructions` بدلاً من ذلك لأنه يوفر تحكمًا أفضل في سلوك الترجمة.)
 
   > مثال: `npx intlayer doc translate --model deepseek-chat --provider deepseek --temperature 0.5 --api-key sk-1234567890 --application-context "تطبيقي هو متجر للقطط"`

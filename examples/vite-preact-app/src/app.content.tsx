@@ -1,40 +1,71 @@
-import { type Dictionary, md, t } from 'intlayer';
-import type { ComponentChildren } from 'preact';
+import { type Dictionary, enu, html, insert, md, t } from 'intlayer';
 
 const appContent = {
   key: 'app',
+
   content: {
-    viteLogo: t({
+    title: 'Vite + Preact',
+    countIs: insert(
+      t({
+        en: 'Count is {{count}}',
+        fr: 'Le nombre est {{count}}',
+        es: 'Contador: {{count}}',
+      })
+    ),
+    enumeration: insert(
+      enu({
+        '0': t({
+          en: 'No items',
+          fr: 'Aucun article',
+          es: 'No hay artículos',
+        }),
+        '1': t({
+          en: 'One item',
+          fr: 'Un article',
+          es: 'Un artículo',
+        }),
+        '>1': t({
+          en: '{{count}} items',
+          fr: '{{count}} articles',
+          es: '{{count}} artículos',
+        }),
+      })
+    ),
+    htmlContent: html(
+      t({
+        en: '<div>Hello <b>World</b> from Preact! <br/> <custom-component /></div>',
+        fr: '<div>Bonjour <b>Monde</b> de Preact! <br/> <custom-component /></div>',
+        es: '<div>Hola <b>Mundo</b> desde Preact! <br/> <custom-component /></div>',
+      })
+    ),
+    markdownContent: md(
+      t({
+        en: '# Hello from Preact Markdown! \n\nThis is **bold** and *italic*. \n\n<ComponentDemo />',
+        fr: '# Bonjour de Preact Markdown! \n\nCeci est en **gras** et en *italique*. \n\n<ComponentDemo />',
+        es: '# ¡Hola de Preact Markdown! \n\nEsto es **negrita** e *itálica*. \n\n<ComponentDemo />',
+      })
+    ),
+    viteLogoLabel: t({
       en: 'Vite logo',
       fr: 'Logo Vite',
       es: 'Logo Vite',
     }),
-    preactLogo: t({
+    preactLogoLabel: t({
       en: 'Preact logo',
       fr: 'Logo Preact',
       es: 'Logo Preact',
     }),
-
-    title: 'Vite + Preact',
-
-    count: t({
-      en: 'count is ',
-      fr: 'le compte est ',
-      es: 'el recuento es ',
-    }),
-
-    edit: t<ComponentChildren>({
-      en: md('Edit `src/app.tsx` and save to test HMR'),
-      fr: md('Éditez `src/app.tsx` et enregistrez pour tester HMR'),
-      es: md('Edita `src/app.tsx` y guarda para probar HMR'),
-    }),
-
     readTheDocs: t({
       en: 'Click on the Vite and Preact logos to learn more',
       fr: 'Cliquez sur les logos Vite et Preact pour en savoir plus',
-      es: 'Haga clic en los logotipos de Vite y Preact para obtener más información',
+      es: 'Haga clic en los logotipos de Vite and Preact para obtener más información',
     }),
   },
+
+  title: 'App (Vite + Preact)',
+  description:
+    'Content for the app demo using Vite + Preact. Includes localized title, count insertions and enumeration templates, HTML and Markdown content, logo labels, and a link prompt to documentation.',
+  tags: ['app', 'vite', 'preact', 'demo', 'content'],
 } satisfies Dictionary;
 
 export default appContent;

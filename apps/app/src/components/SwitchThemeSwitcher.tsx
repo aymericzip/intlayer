@@ -1,0 +1,41 @@
+import {
+  SwitchSelector,
+  type SwitchSelectorChoices,
+} from '@intlayer/design-system/switch-selector';
+import type { Modes } from '@intlayer/design-system/theme-switcher-drop-down';
+import { MoonIcon, SunIcon } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import type { FC } from 'react';
+
+export const SwitchThemeSwitcher: FC = () => {
+  const { resolvedTheme, setTheme } = useTheme();
+
+  const themeSwitcher = [
+    {
+      content: (
+        <SunIcon
+          size={13}
+          data-mode="light"
+          aria-label="Switch to light mode"
+        />
+      ),
+      value: 'light',
+    },
+    {
+      content: (
+        <MoonIcon size={13} data-mode="dark" aria-label="Switch to dark mode" />
+      ),
+      value: 'dark',
+    },
+  ] as SwitchSelectorChoices<Modes>;
+
+  return (
+    <SwitchSelector
+      choices={themeSwitcher}
+      value={resolvedTheme as Modes}
+      onChange={(m) => setTheme(m as 'light' | 'dark' | 'auto')}
+      color="text"
+      size="xs"
+    />
+  );
+};

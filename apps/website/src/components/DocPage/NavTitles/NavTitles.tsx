@@ -1,6 +1,7 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
+import {} from '@intlayer/design-system/api';
 import { useGetElementById } from '@intlayer/design-system/hooks';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import { type FC, useRef } from 'react';
@@ -17,7 +18,7 @@ const NavTitles2: FC<NavTitles2Props> = ({ title2, activeSectionsId }) => {
   const { pathWithoutLocale } = useLocale();
 
   return (
-    <ul className="my-3 flex w-full min-w-52 flex-col gap-5 border-neutral border-l-[0.5px] pl-3">
+    <ul className="my-3 flex w-full min-w-52 flex-col gap-2 border-neutral border-l-[0.5px] pl-3">
       {title2.map((h3) => {
         const { id } = h3;
         const isActive = activeSectionsId === id;
@@ -31,7 +32,7 @@ const NavTitles2: FC<NavTitles2Props> = ({ title2, activeSectionsId }) => {
               color="text"
               variant="hoverable"
               roundedSize="lg"
-              className="flex text-wrap p-2 transition-colors"
+              className="flex text-wrap p-2 text-sm text-text/80 transition-colors"
             >
               {h3.innerText}
             </Link>
@@ -64,7 +65,7 @@ export const NavTitles: FC = () => {
 
   return (
     <nav ref={navRef}>
-      <ul className="flex max-h-[calc(100vh-8rem)] flex-1 flex-col gap-3 overflow-auto pt-8 pr-3 pb-20 text-sm">
+      <ul className="flex max-h-[calc(100vh-8rem)] flex-1 flex-col gap-3 overflow-auto pt-8 pr-3 pb-20">
         {topLevelHeadings.map((h2) => {
           const id = h2.id;
           const h3List = headingMap.get(h2);
@@ -74,13 +75,13 @@ export const NavTitles: FC = () => {
           return (
             <li key={id}>
               <Link
-                label={`${linkLabel}: ${h2.innerText}`}
+                label={`${linkLabel.value}: ${h2.innerText}`}
                 href={`${pathWithoutLocale}#${id}`}
                 color="text"
                 roundedSize="lg"
                 variant="hoverable"
                 isActive={isActive}
-                className="flex text-wrap p-2 transition-colors"
+                className="flex text-wrap p-2 text-sm text-text/80 transition-colors"
               >
                 {h2.innerText}
               </Link>

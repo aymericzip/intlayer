@@ -1,8 +1,14 @@
 'use client';
 
-import { type FC, type ReactNode, useEffect, useRef, useState } from 'react';
+import { cn } from '@utils/cn';
+import {
+  type FC,
+  type ReactNode,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { cn } from '../../utils/cn';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 
 /**
@@ -86,11 +92,18 @@ export const ExpandCollapse: FC<ExpandCollapseProps> = ({
 
   const isTooBig = codeContainerHeight > minHeight;
 
-  useEffect(() => {
-    if (codeContainerRef.current) {
-      setCodeContainerHeight(codeContainerRef.current.clientHeight);
-    }
-  }, []);
+  useLayoutEffect(() => {
+    const measure = () => {
+      if (codeContainerRef.current) {
+        setCodeContainerHeight(codeContainerRef.current.clientHeight);
+      }
+    };
+
+    measure();
+
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, [children]);
 
   if (!isRollable) {
     return children;

@@ -1,8 +1,9 @@
-import { generateText } from 'ai';
+import { generateText, type SystemModelMessage } from 'ai';
 import type { AIConfig, AIOptions, Messages } from './aiSdk';
 
 export type CustomQueryOptions = {
   messages: Messages;
+  system?: string | SystemModelMessage | SystemModelMessage[];
   aiConfig: AIConfig;
 };
 
@@ -23,11 +24,13 @@ export const aiDefaultOptions: AIOptions = {
  */
 export const customQuery = async ({
   messages,
+  system,
   aiConfig,
 }: CustomQueryOptions): Promise<CustomQueryResultData | undefined> => {
   // Use the AI SDK to generate the completion
   const { text: newContent, usage } = await generateText({
     ...aiConfig,
+    system,
     messages,
   });
 

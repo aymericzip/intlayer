@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-12-13
+updatedAt: 2026-05-12
 title: ملف المحتوى
 description: تعلّم كيفية تخصيص الامتدادات لملفات إعلان المحتوى الخاصة بك. اتبع هذا التوثيق لتنفيذ الشروط بكفاءة في مشروعك.
 keywords:
@@ -12,20 +12,38 @@ slugs:
   - concept
   - content
 history:
+  - version: 8.10.0
+    date: 2026-05-19
+    changes: "إضافة دعم لتنسيقات ملفات YAML و Markdown"
+  - version: 8.9.0
+    date: 2026-05-12
+    changes: "إضافة نوع عقدة المحتوى `plural`"
+  - version: 8.0.0
+    date: 2026-01-28
+    changes: "إضافة نوع عقدة المحتوى `html`"
+  - version: 8.0.0
+    date: 2026-01-24
+    changes: "Rename `live` import mode to `fetch` to better describe the underlying mechanism."
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: "إضافة خيارات القاموس `location` و `schema`"
+  - version: 7.5.13
+    date: 2026-01-10
+    changes: "إضافة دعم لتنسيقات ملفات JSON5 و JSONC"
   - version: 7.5.0
     date: 2025-12-13
-    changes: إضافة دعم تنسيقات ICU و i18next
+    changes: "إضافة دعم تنسيقات ICU و i18next"
   - version: 6.0.0
     date: 2025-09-20
-    changes: إضافة توثيق الحقول
+    changes: "إضافة توثيق الحقول"
   - version: 5.5.10
     date: 2025-06-29
-    changes: بدء السجل
+    changes: "بدء السجل"
 ---
 
 # ملف المحتوى
 
-<iframe title="i18n، ماركداون، JSON… حل واحد لإدارة كل شيء | Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/1VHgSY_j9_I?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="i18n، ماركداون، JSON… حل واحد لإدارة كل شيء | Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/1VHgSY_j9_I?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## ما هو ملف المحتوى؟
 
@@ -49,11 +67,12 @@ history:
 
 مثال على ملف المحتوى:
 
-```tsx fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```tsx fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { type ReactNode } from "react";
 import {
   t,
   enu,
+  plural,
   cond,
   nest,
   md,
@@ -73,8 +92,10 @@ interface Content {
   };
   multilingualContent: string;
   quantityContent: string;
+  pluralContent: string;
   conditionalContent: string;
   markdownContent: never;
+  htmlContent: never;
   externalContent: string;
   insertionContent: string;
   nestedContent: string;
@@ -108,6 +129,10 @@ export default {
       ">5": "بعض السيارات",
       ">19": "الكثير من السيارات",
     }),
+    pluralContent: plural({
+      one: "One car",
+      other: "{{count}} cars",
+    }),
     conditionalContent: cond({
       true: "التحقق مفعل",
       false: "التحقق معطل",
@@ -120,6 +145,7 @@ export default {
     fileContent: file("./path/to/file.txt"),
     externalContent: fetch("https://example.com").then((res) => res.json()),
     markdownContent: md("# مثال على ماركداون"),
+    htmlContent: html("<p>Hello <strong>World</strong></p>"),
 
     /*
      * متاح فقط باستخدام `react-intlayer` أو `next-intlayer`
@@ -127,106 +153,6 @@ export default {
     jsxContent: <h1>عنواني</h1>,
   },
 } satisfies Dictionary<Content>; // [اختياري] القاموس عام ويسمح لك بتقوية تنسيق قاموسك
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md, insert, file } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "Hello World",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
-      },
-      imbricatedArray: [1, 2, 3],
-    },
-    multilingualContent: t({
-      ar: "محتوى باللغة العربية",
-      en: "English content",
-      "en-GB": "English content (UK)",
-      fr: "French content",
-      es: "Spanish content",
-    }),
-    quantityContent: enu({
-      "<-1": "أقل من ناقص سيارة واحدة",
-      "-1": "ناقص سيارة واحدة",
-      "0": "لا سيارات",
-      "1": "سيارة واحدة",
-      ">5": "بعض السيارات",
-      ">19": "العديد من السيارات",
-    }),
-    conditionalContent: cond({
-      true: "التحقق مفعّل",
-      false: "التحقق معطّل",
-    }),
-    insertionContent: insert("مرحبًا {{name}}!"),
-    nestedContent: nest(
-      "navbar", // مفتاح القاموس للتضمين
-      "login.button" // [اختياري] المسار إلى المحتوى للتضمين
-    ),
-    markdownContent: md("# مثال على ماركداون"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // متاح فقط باستخدام `react-intlayer` أو `next-intlayer`
-    jsxContent: <h1>عنواني</h1>,
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md, insert, file } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    imbricatedContent: {
-      imbricatedContent2: {
-        stringContent: "مرحبًا بالعالم",
-        numberContent: 123,
-        booleanContent: true,
-        javaScriptContent: `${process.env.NODE_ENV}`,
-      },
-      imbricatedArray: [1, 2, 3],
-    },
-    multilingualContent: t({
-      ar: "محتوى باللغة العربية",
-      en: "English content",
-      "en-GB": "English content (UK)",
-      fr: "French content",
-      es: "Spanish content",
-    }),
-    quantityContent: enu({
-      "<-1": "أقل من ناقص سيارة واحدة",
-      "-1": "ناقص سيارة واحدة",
-      "0": "لا سيارات",
-      "1": "سيارة واحدة",
-      ">5": "بعض السيارات",
-      ">19": "العديد من السيارات",
-    }),
-    conditionalContent: cond({
-      true: "تم تفعيل التحقق",
-      false: "تم تعطيل التحقق",
-    }),
-    insertionContent: insert("مرحبًا {{name}}!"),
-    nestedContent: nest(
-      "navbar", // مفتاح القاموس للتضمين
-      "login.button" // [اختياري] مسار المحتوى للتضمين
-    ),
-    markdownContent: md("# مثال على ماركداون"),
-    fileContent: file("./path/to/file.txt"),
-    externalContent: fetch("https://example.com").then((res) => res.json())
-
-    // متاح فقط باستخدام `react-intlayer` أو `next-intlayer`
-    jsxContent: <h1>عنواني</h1>,
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"
@@ -261,6 +187,13 @@ module.exports = {
         ">5": "بعض السيارات",
         ">19": "العديد من السيارات",
       },
+      "pluralContent": {
+        "nodeType": "plural",
+        "plural": {
+          "one": "One car",
+          "other": "{{count}} cars",
+        },
+      },
     },
     "conditionalContent": {
       "nodeType": "condition",
@@ -280,6 +213,10 @@ module.exports = {
     "markdownContent": {
       "nodeType": "markdown",
       "markdown": "# مثال على ماركداون",
+    },
+    "htmlContent": {
+      "nodeType": "html",
+      "html": "<p>Hello <strong>World</strong></p>",
     },
     "fileContent": {
       "nodeType": "file",
@@ -304,6 +241,7 @@ module.exports = {
 - **قيم بدائية**: سلاسل نصية، أرقام، قيم منطقية، null، undefined
 - **عقد ذات نوع**: أنواع محتوى خاصة مثل الترجمات، الشروط، الماركداون، إلخ.
 - **دوال**: محتوى ديناميكي يمكن تقييمه أثناء وقت التشغيل [انظر جلب الدوال](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/function_fetching.md)
+- **محتوى الجمع**: راجع محتوى الجمع [راجع محتوى الجمع](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plural.md)
 - **محتوى متداخل**: مراجع إلى قواميس أخرى
 
 #### أنواع المحتوى
@@ -315,6 +253,7 @@ module.exports = {
 - **محتوى التعداد**: محتوى يتغير بناءً على قيم معدودة [انظر محتوى التعداد](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/enumeration_content.md)
 - **محتوى الإدراج**: محتوى يمكن إدراجه داخل محتويات أخرى [انظر محتوى الإدراج](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion_content.md)
 - **محتوى ماركداون**: محتوى نص غني بصيغة ماركداون [انظر محتوى ماركداون](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown_content.md)
+- **محتوى HTML**: محتوى HTML غني مع مكونات مخصصة اختيارية [انظر محتوى HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/html.md)
 - **محتوى متداخل**: مراجع إلى قواميس أخرى [انظر المحتوى المتداخل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/nested_content.md)
 - **محتوى حسب الجنس**: محتوى يختلف بناءً على الجنس [انظر محتوى الجنس](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender_content.md)
 - **محتوى ملف**: مراجع إلى ملفات خارجية [انظر محتوى الملف](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/file_content.md)
@@ -435,6 +374,61 @@ module.exports = {
 }
 ```
 
+#### `schema` (SchemaKeys)
+
+مخطط محتوى القاموس. إذا تم تعيينه، سيتم التحقق من صحة المحتوى مقابل هذا المخطط. يتيح لك ذلك فرض بنية محددة لمحتوى قاموسك باستخدام مخططات التحقق المخصصة المحددة في تكوين Intlayer الخاص بك.
+
+**مثال:**
+
+```typescript fileName="intlayer.config.ts"
+import { z } from "zod";
+
+export default {
+  schemas: {
+    "seo-metadata": z.object({
+      title: z.string().min(50).max(60),
+      description: z.string().min(150).max(160),
+    }),
+  },
+};
+```
+
+```typescript fileName="src/example.content.ts"
+import { type Dictionary } from "intlayer";
+
+const aboutPageMetaContent = {
+  key: "about-page-meta",
+  schema: "seo-metadata",
+  content: {
+    title: "About Our Company - Learn More About Us",
+    description: "Discover our company's mission, values, and team.",
+  },
+} satisfies Dictionary;
+
+export default aboutPageMetaContent;
+```
+
+#### `location` ('local' | 'remote' | 'hybrid' | string)
+
+يشير إلى موقع القاموس ويسيطر على كيفية مزامنته مع CMS:
+
+- `'local'`: يتم إدارة القاموس محليًا فقط. لن يتم إرساله إلى CMS البعيد. استخدم هذا للمحتوى الذي يجب أن يبقى في قاعدة الكود الخاصة بك.
+- `'remote'`: يتم إدارة القاموس عن بُعد فقط. بعد الإرسال إلى CMS، سيتم فصله عن الملف المحلي. في وقت تحميل المحتوى، سيتم سحب القاموس البعيد من CMS. سيتم تجاهل ملف `.content` بموقع `remote` بعد الإرسال الأولي.
+- `'hybrid'`: يتم إدارة القاموس محليًا وعن بُعد. بعد الإرسال إلى CMS، سيبقى متزامنًا, يتم إرسال التغييرات من الملف المحلي إلى CMS، ويمكن سحب التغييرات البعيدة مرة أخرى إلى الملف المحلي.
+- `string` (مثلاً `'plugin'`): يتم إدارة القاموس بواسطة مكون إضافي أو مصدر مخصص. عندما تحاول إرساله، سيسألك النظام ماذا تفعل.
+
+**مثال:**
+
+```typescript
+{
+  key: "about-page",
+  location: "local", // يبقى المحتوى فقط في قاعدة الكود الخاصة بك
+  content: {
+    title: "About Us"
+  }
+}
+```
+
 #### `autoFill` (AutoFill)
 
 تعليمات لملء محتوى القاموس تلقائيًا من مصادر خارجية. يمكن تكوين هذا عالميًا في `intlayer.config.ts` أو لكل قاموس على حدة. يدعم عدة تنسيقات:
@@ -505,15 +499,15 @@ module.exports = {
 
 معرف الإصدار للقواميس البعيدة. يساعد في تتبع أي إصدار من القاموس يتم استخدامه حاليًا، وهو مفيد بشكل خاص عند العمل مع أنظمة إدارة المحتوى البعيدة.
 
-##### `live` (قيمة منطقية)
+##### `importMode` ('static' | 'dynamic' | 'fetch')
 
-بالنسبة للقواميس البعيدة، يشير إلى ما إذا كان يجب جلب القاموس مباشرة أثناء وقت التشغيل. عند التمكين:
+يحدد وضع الاستيراد كيفية استيراد قاموسك في تطبيقك.
 
-- يتطلب تعيين `importMode` إلى "live" في ملف `intlayer.config.ts`
-- يتطلب تشغيل خادم مباشر
-- سيتم جلب القاموس أثناء وقت التشغيل باستخدام واجهة برمجة تطبيقات المزامنة الحية
-- إذا كان مباشرًا ولكن فشل الجلب، يتم الرجوع إلى القيمة الديناميكية
-- إذا لم يكن مباشرًا، يتم تحويل القاموس أثناء وقت البناء لأداء مثالي
+- `'static'`: يتم استيراد القاموس بشكل ثابت في وقت البناء. هذا هو الوضع الافتراضي.
+- `'dynamic'`: يتم استيراد القاموس ديناميكيًا في وقت التشغيل باستخدام واجهة برمجة تطبيقات suspense.
+- `'fetch'`: يتم استيراد القاموس ديناميكيًا باستخدام واجهة برمجة تطبيقات المزامنة الحية.
+
+إذا تم تعيينه، فإن هذه الخاصية تتجاوز `importMode` العام المحدد في `the `dictionary`property of`intlayer.config.ts``.
 
 ### خصائص النظام (تم إنشاؤها تلقائيًا)
 
@@ -573,6 +567,8 @@ multilingualContent: t({
 });
 ```
 
+> راجع [محتوى الترجمة (`t`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/translation.md) لمزيد من المعلومات.
+
 ### محتوى الشرط (`cond`)
 
 محتوى يتغير بناءً على شروط منطقية:
@@ -585,6 +581,8 @@ conditionalContent: cond({
   false: "Please log in to continue",
 });
 ```
+
+> راجع [محتوى الشرط (`cond`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/condition.md) لمزيد من المعلومات.
 
 ### محتوى التعداد (`enu`)
 
@@ -600,6 +598,23 @@ statusContent: enu({
 });
 ```
 
+> راجع [محتوى التعداد (`enu`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/enumeration.md) لمزيد من المعلومات.
+
+### محتوى الجمع (`plural`)
+
+المحتوى الذي يختلف بناءً على قواعد الجمع:
+
+```typescript
+import { plural } from "intlayer";
+
+pluralContent: plural({
+  one: "One car",
+  other: "{{count}} cars",
+});
+```
+
+> راجع [محتوى الجمع توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/plural.md) لمزيد من المعلومات.
+
 ### محتوى الإدراج (`insert`)
 
 محتوى يمكن إدراجه داخل محتويات أخرى:
@@ -610,6 +625,8 @@ import { insert } from "intlayer";
 insertionContent: insert("يمكن إدراج هذا النص في أي مكان");
 ```
 
+> راجع [محتوى الإدراج (`insert`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/insertion.md) لمزيد من المعلومات.
+
 ### المحتوى المتداخل (`nest`)
 
 مراجع إلى قواميس أخرى:
@@ -619,6 +636,8 @@ import { nest } from "intlayer";
 
 nestedContent: nest("about-page");
 ```
+
+> راجع [المحتوى المتداخل (`nest`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/nesting.md) لمزيد من المعلومات.
 
 ### محتوى ماركداون (`md`)
 
@@ -631,6 +650,27 @@ markdownContent: md(
   "# مرحبًا\n\nهذا نص **عريض** مع [روابط](https://example.com)"
 );
 ```
+
+> راجع [محتوى ماركداون (`md`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/markdown.md) لمزيد من المعلومات.
+
+### محتوى HTML (`html`)
+
+محتوى HTML غني يمكنه استخدام وسوم قياسية أو مكونات مخصصة:
+
+```typescript
+import { html, file, t } from "intlayer";
+
+// HTML مضمن
+htmlContent: html("<p>Hello <strong>World</strong></p>");
+
+// HTML حسب اللغة من ملفات خارجية
+localizedHtmlContent: t({
+  en: html(file("./content.en.html")),
+  ar: html(file("./content.ar.html")),
+});
+```
+
+> راجع [محتوى HTML (`html`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/html.md) لمزيد من المعلومات.
 
 ### محتوى الجنس (`gender`)
 
@@ -646,6 +686,8 @@ genderContent: gender({
 });
 ```
 
+> راجع [محتوى الجنس (`gender`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender.md) لمزيد من المعلومات.
+
 ### محتوى الملف (`file`)
 
 مراجع لملفات خارجية:
@@ -655,6 +697,8 @@ import { file } from "intlayer";
 
 fileContent: file("./path/to/content.txt");
 ```
+
+> راجع [محتوى الملف (`file`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/file.md) لمزيد من المعلومات.
 
 ## إنشاء ملفات المحتوى
 
@@ -747,6 +791,40 @@ export default {
 }
 ```
 
+### ملف محتوى Markdown
+
+```markdown
+---
+key: welcome-page
+locale: en
+title: Welcome Page Content
+description: Content for the main welcome page
+tags:
+  - page
+  - welcome
+---
+
+# Welcome to Our Platform
+
+## Build amazing applications with ease
+```
+
+### ملف محتوى YAML
+
+```yaml
+key: welcome-page
+title: Welcome Page Content
+description: Content for the main welcome page
+locale: "en"
+tags:
+  - page
+  - welcome
+content:
+  hero:
+    title: Welcome to Our Platform
+    subtitle: Build amazing applications with ease
+```
+
 ### ملفات المحتوى حسب اللغة
 
 للقواميس حسب اللغة، حدد خاصية `locale`:
@@ -788,6 +866,8 @@ export default {
 بشكل افتراضي، تراقب Intlayer جميع الملفات التي تحمل الامتدادات التالية لإعلانات المحتوى:
 
 - `.content.json`
+- `.content.json5`
+- `.content.jsonc`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
@@ -796,6 +876,10 @@ export default {
 - `.content.mjx`
 - `.content.cjs`
 - `.content.cjx`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
 
 هذه الامتدادات الافتراضية مناسبة لمعظم التطبيقات. ومع ذلك، عندما تكون لديك احتياجات محددة، يمكنك تعريف امتدادات مخصصة لتبسيط عملية البناء وتقليل خطر التعارض مع المكونات الأخرى.
 
@@ -849,7 +933,7 @@ export default {
 
 مثال:
 
-```javascript fileName="src/example.content.tsx" contentDeclarationFormat="typescript"
+```javascript fileName="src/example.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, enu, cond, nest, md, type Dictionary } from "intlayer";
 
 const getName = async () => "John Doe";
@@ -895,104 +979,6 @@ export default {
     }),
   },
 } satisfies Dictionary;
-```
-
-```javascript fileName="src/example.content.mjx" contentDeclarationFormat="esm"
-import { t, enu, cond, nest, md } from "intlayer";
-
-const getName = async () => "جون دو";
-
-/** @type {import('intlayer').Dictionary} */
-export default {
-  key: "page",
-  content: {
-    // `getIntlayer('page','en').hiMessage` يعيد `['Hi', ' ', 'John Doe']`
-    hiMessage: [
-      t({
-        en: "Hi",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // محتوى مركب يدمج الشرط، التعداد، والمحتوى متعدد اللغات
-    // `getIntlayer('page','en').advancedContent(true)(10)` يعيد 'Multiple items found'
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          en: "تم العثور على عدة عناصر",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-        }),
-      }),
-      false: t({
-        en: "لا توجد بيانات صالحة متاحة",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-      }),
-    }),
-  },
-};
-```
-
-```javascript fileName="src/example.content.cjx" contentDeclarationFormat="commonjs"
-const { t, enu, cond, nest, md } = require("intlayer");
-
-const getName = async () => "جون دو";
-
-/** @type {import('intlayer').Dictionary} */
-module.exports = {
-  key: "page",
-  content: {
-    // `getIntlayer('page','en').hiMessage` returns `['Hi', ' ', 'John Doe']`
-    hiMessage: [
-      t({
-        en: "مرحبًا",
-        fr: "Salut",
-        es: "Hola",
-      }),
-      " ",
-      getName(),
-    ],
-    // محتوى مركب يدمج الشرط، التعداد، والمحتوى متعدد اللغات
-    // `getIntlayer('page','en').advancedContent(true)(10)` يعيد 'تم العثور على عناصر متعددة'
-    advancedContent: cond({
-      true: enu({
-        "0": t({
-          en: "No items found",
-          fr: "Aucun article trouvé",
-          es: "No se encontraron artículos",
-        }),
-        "1": t({
-          en: "One item found",
-          fr: "Un article trouvé",
-          es: "Se encontró un artículo",
-        }),
-        ">1": t({
-          en: "Multiple items found",
-          fr: "Plusieurs articles trouvés",
-          es: "Se encontraron múltiples artículos",
-        }),
-      }),
-      false: t({
-        en: "No valid data available",
-        fr: "Aucune donnée valide disponible",
-        es: "No hay datos válidos disponibles",
-      }),
-    }),
-  },
-};
 ```
 
 ```json5 fileName="src/example.content.json"  contentDeclarationFormat="json"

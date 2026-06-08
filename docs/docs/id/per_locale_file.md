@@ -17,7 +17,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inisialisasi riwayat
+    changes: "Inisialisasi riwayat"
 ---
 
 # Deklarasi Konten `Per-Locale` di Intlayer
@@ -42,7 +42,7 @@ Format ini ideal untuk:
 
 Ini adalah pendekatan yang direkomendasikan untuk sebagian besar kasus penggunaan. Format ini memusatkan terjemahan, sehingga memudahkan iterasi dan integrasi dengan CMS.
 
-```tsx fileName="hello-world.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="hello-world.content.ts" contentDeclarationFormat={["typescript", "esm"]}
 import { t, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -54,24 +54,6 @@ const helloWorldContent = {
     }),
   },
 } satisfies Dictionary;
-
-export default helloWorldContent;
-```
-
-```js fileName="hello-world.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-// kontenHelloWorld berisi terjemahan multibahasa untuk komponen
-const helloWorldContent = {
-  key: "hello-world",
-  content: {
-    multilingualContent: t({
-      en: "Title of my component",
-      es: "Título de mi componente",
-    }),
-  },
-};
 
 export default helloWorldContent;
 ```
@@ -112,6 +94,24 @@ module.exports = helloWorldContent;
 
 > Direkomendasikan: Format ini paling baik digunakan saat memakai editor visual Intlayer atau mengelola terjemahan langsung di dalam kode.
 
+### Konfigurasi Global untuk File Per-Locale
+
+Anda dapat mengonfigurasi konfigurasi global untuk file per-locale dengan menambahkan hal berikut ke file `intlayer.config.ts` Anda:
+
+```ts
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  dictionary: {
+    locale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+Dengan menggunakan konfigurasi ini, semua file per-locale akan dibuat dengan locale default yang diatur ke bahasa Inggris. Ini juga mencakup pembuatan file `.content` menggunakan perintah `extract`, dan compiler. (Lihat [Compiler](https://intlayer.org/doc/compiler) atau [Extract](https://github.com/aymericzip/intlayer/edit/main/docs/docs/en/cli/extract.md) untuk informasi lebih lanjut.)
+
 ## Format Per-Locale
 
 Format ini berguna ketika:
@@ -121,7 +121,7 @@ Format ini berguna ketika:
 
 Anda juga dapat memisahkan terjemahan ke dalam file locale individual dengan menentukan field locale:
 
-```tsx fileName="hello-world.en.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="hello-world.en.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, Locales, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -133,7 +133,7 @@ const helloWorldContent = {
 export default helloWorldContent;
 ```
 
-```tsx fileName="hello-world.es.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="hello-world.es.content.ts" contentDeclarationFormat={["typescript", "esm"]}
 import { t, Locales, type Dictionary } from "intlayer";
 
 const helloWorldContent = {
@@ -143,64 +143,6 @@ const helloWorldContent = {
 } satisfies Dictionary;
 
 export default helloWorldContent;
-```
-
-```js fileName="hello-world.en.content.mjs" contentDeclarationFormat="esm"
-import { t, Locales } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-// Kamus konten untuk "hello-world"
-const helloWorldContent = {
-  key: "hello-world",
-  locale: Locales.ENGLISH, // Penting
-  content: { multilingualContent: "Title of my component" },
-};
-
-export default helloWorldContent;
-```
-
-```tsx fileName="hello-world.es.content.mjs" contentDeclarationFormat="esm"
-import { t, Locales } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-// Kamus konten untuk "hello-world"
-const helloWorldContent = {
-  key: "hello-world",
-  locale: Locales.SPANISH, // Penting
-  content: { multilingualContent: "Título de mi componente" },
-};
-
-export default helloWorldContent;
-```
-
-```js fileName="hello-world.en.content.cjs" contentDeclarationFormat="commonjs"
-const { t, Locales } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const helloWorldContent = {
-  key: "hello-world",
-  locale: Locales.ENGLISH, // Penting
-  content: {
-    multilingualContent: "Title of my component",
-  },
-};
-
-module.exports = helloWorldContent;
-```
-
-```tsx fileName="hello-world.es.content.cjs" contentDeclarationFormat="commonjs"
-const { t, Locales } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const helloWorldContent = {
-  key: "hello-world",
-  locale: Locales.SPANISH, // Penting
-  content: {
-    multilingualContent: "Título de mi componente",
-  },
-};
-
-module.exports = helloWorldContent;
 ```
 
 ```json5 fileName="hello-world.en.content.json" contentDeclarationFormat="json"
@@ -320,4 +262,4 @@ console.log(JSON.stringify(intlayer, null, 2));
 
 ### Pembuatan Terjemahan Otomatis
 
-Gunakan [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_cli.md) untuk mengisi otomatis terjemahan yang hilang berdasarkan layanan yang Anda pilih.
+Gunakan [intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/index.md) untuk mengisi otomatis terjemahan yang hilang berdasarkan layanan yang Anda pilih.

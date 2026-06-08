@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
-import { InputSize, InputVariant } from '../Input';
+
 import { EditableFieldInput } from '.';
 
 /**
@@ -95,12 +95,12 @@ An inline editable input component that seamlessly transitions between display a
     variant: {
       description: 'Visual style variant of the input field',
       control: 'select',
-      options: Object.values(InputVariant),
+      options: ['default', 'invisible'],
     },
     size: {
       description: 'Size variant affecting padding and text size',
       control: 'select',
-      options: Object.values(InputSize),
+      options: ['md', 'lg'],
     },
     validationStyleEnabled: {
       description: 'Enable validation styling based on form state',
@@ -153,7 +153,7 @@ export const Default: Story = {
   args: {
     placeholder: 'Click the edit icon to modify…',
     defaultValue: 'Editable text content',
-    variant: InputVariant.DEFAULT,
+    variant: 'default',
     validationStyleEnabled: false,
     disabled: false,
   },
@@ -206,7 +206,7 @@ export const InputVariants: Story = {
         <h3 className="mb-2 font-medium text-sm">Default Variant</h3>
         <EditableFieldInput
           defaultValue="Default styled input"
-          variant={InputVariant.DEFAULT}
+          variant="default"
           onSave={(value) => console.log('Default saved:', value)}
           onCancel={() => console.log('Default cancelled')}
         />
@@ -216,7 +216,7 @@ export const InputVariants: Story = {
         <h3 className="mb-2 font-medium text-sm">Invisible Variant</h3>
         <EditableFieldInput
           defaultValue="Invisible styled input"
-          variant={InputVariant.INVISIBLE}
+          variant="invisible"
           onSave={(value) => console.log('Invisible saved:', value)}
           onCancel={() => console.log('Invisible cancelled')}
         />
@@ -226,7 +226,7 @@ export const InputVariants: Story = {
         <h3 className="mb-2 font-medium text-sm">Default Variant</h3>
         <EditableFieldInput
           defaultValue="Default styled input with borders"
-          variant={InputVariant.DEFAULT}
+          variant="default"
           onSave={(value) => console.log('Default saved:', value)}
           onCancel={() => console.log('Default cancelled')}
         />
@@ -652,21 +652,21 @@ export const ContentManagementTable: Story = {
               <td className="px-4 py-3">
                 <EditableFieldInput
                   defaultValue="Getting Started Guide"
-                  variant={InputVariant.INVISIBLE}
+                  variant="invisible"
                   onSave={(value) => console.log('Title updated:', value)}
                 />
               </td>
               <td className="px-4 py-3">
                 <EditableFieldInput
                   defaultValue="Jane Smith"
-                  variant={InputVariant.INVISIBLE}
+                  variant="invisible"
                   onSave={(value) => console.log('Author updated:', value)}
                 />
               </td>
               <td className="px-4 py-3">
                 <EditableFieldInput
                   defaultValue="Published"
-                  variant={InputVariant.INVISIBLE}
+                  variant="invisible"
                   onSave={(value) => console.log('Status updated:', value)}
                 />
               </td>
@@ -675,21 +675,21 @@ export const ContentManagementTable: Story = {
               <td className="px-4 py-3">
                 <EditableFieldInput
                   defaultValue="API Documentation"
-                  variant={InputVariant.INVISIBLE}
+                  variant="invisible"
                   onSave={(value) => console.log('Title updated:', value)}
                 />
               </td>
               <td className="px-4 py-3">
                 <EditableFieldInput
                   defaultValue="Mike Johnson"
-                  variant={InputVariant.INVISIBLE}
+                  variant="invisible"
                   onSave={(value) => console.log('Author updated:', value)}
                 />
               </td>
               <td className="px-4 py-3">
                 <EditableFieldInput
                   defaultValue="Draft"
-                  variant={InputVariant.INVISIBLE}
+                  variant="invisible"
                   onSave={(value) => console.log('Status updated:', value)}
                 />
               </td>

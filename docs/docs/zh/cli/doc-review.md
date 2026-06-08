@@ -21,8 +21,26 @@ slugs:
 
 `doc review` 命令用于分析不同语言版本的文档文件，检查其质量、一致性和完整性。
 
-```bash
+## 关键要点：
+
+- 将大型 markdown 文件拆分为块，以保持在 AI 模型的上下文窗口限制内。
+- 优化要审查的块，跳过已翻译且未更改的部分。
+- 使用队列系统并行处理文件、块和语言环境以提高速度。
+
+```bash packageManager="npm"
 npx intlayer doc review
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc review
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc review
+```
+
+```bash packageManager="bun"
+bun x intlayer doc review
 ```
 
 该命令可用于审核已翻译的文件，并检查翻译是否正确。

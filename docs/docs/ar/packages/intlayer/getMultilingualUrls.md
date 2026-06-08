@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: بداية التاريخ
+    changes: "بداية التاريخ"
 ---
 
 # التوثيق: دالة `getMultilingualUrls` في `intlayer`
@@ -35,18 +35,15 @@ history:
 ## المعاملات
 
 - `url: string`
-
   - **الوصف**: سلسلة عنوان URL الأصلية التي سيتم إضافة بادئات اللغات إليها.
   - **النوع**: `string`
 
 - `locales: Locales[]`
-
   - **الوصف**: مصفوفة اختيارية من اللغات المدعومة. القيمة الافتراضية هي اللغات المعرفة في المشروع.
   - **النوع**: `Locales[]`
   - **الافتراضي**: `localesDefault`
 
 - `defaultLocale: Locales`
-
   - **الوصف**: اللغة الافتراضية للتطبيق. القيمة الافتراضية هي اللغة الافتراضية المعرفة في المشروع.
   - **النوع**: `Locales`
   - **الافتراضي**: `defaultLocaleDefault`
@@ -67,38 +64,8 @@ history:
 
 ### عناوين URL النسبية
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls(
-  "/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-// الناتج: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="esm"
-import { getMultilingualUrls, Locales } from "intlayer";
-
-getMultilingualUrls(
-  "/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-// الناتج: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="commonjs"
-const { getMultilingualUrls, Locales } = require("intlayer");
 
 getMultilingualUrls(
   "/dashboard",
@@ -132,11 +99,9 @@ getMultilingualUrls(
 ## الحالات الخاصة
 
 - **عدم وجود جزء اللغة:**
-
   - تقوم الدالة بإزالة أي جزء لغة موجود في عنوان URL قبل إنشاء الخرائط متعددة اللغات.
 
 - **اللغة الافتراضية:**
-
   - عندما تكون قيمة `prefixDefault` هي `false`، لا تقوم الدالة بإضافة بادئة للعنوان الخاص باللغة الافتراضية.
 
 - **اللغات غير المدعومة:**
@@ -148,7 +113,7 @@ getMultilingualUrls(
 
 في تطبيق متعدد اللغات، يعد تكوين إعدادات التدويل باستخدام `locales` و `defaultLocale` أمرًا حيويًا لضمان عرض اللغة الصحيحة. فيما يلي مثال على كيفية استخدام `getMultilingualUrls` في إعداد التطبيق:
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // تكوين اللغات المدعومة واللغة الافتراضية
@@ -160,34 +125,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 تضمن التهيئة أعلاه أن يتعرف التطبيق على اللغات المدعومة وهي `ENGLISH` و `FRENCH` و `SPANISH` ويستخدم `ENGLISH` كلغة احتياطية.

@@ -19,12 +19,12 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: بدء السجل
+    changes: "بدء السجل"
 ---
 
 # وثائق محرر Intlayer البصري
 
-<iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Visual Editor + CMS for Your Web App: Intlayer Explained" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 محرر Intlayer البصري هو أداة تقوم بتغليف موقعك الإلكتروني للتفاعل مع ملفات إعلان المحتوى الخاصة بك باستخدام محرر بصري.
 
@@ -80,11 +80,15 @@ yarn add intlayer-editor --save-dev
 pnpm add intlayer-editor --save-dev
 ```
 
+```bash packageManager="bun"
+bun add intlayer-editor --dev
+```
+
 ## التكوين
 
 في ملف تكوين Intlayer الخاص بك، يمكنك تخصيص إعدادات المحرر:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -119,77 +123,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... إعدادات التكوين الأخرى
-  editor: {
-    /**
-     * مطلوب
-     * عنوان URL للتطبيق.
-     * هذا هو عنوان URL المستهدف من قبل المحرر البصري.
-     * مثال: 'http://localhost:3000'
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * اختياري
-     * الافتراضي هو `true`. إذا كان `false`، فإن المحرر غير نشط ولا يمكن الوصول إليه.
-     * يمكن استخدامه لتعطيل المحرر لبيئات محددة لأسباب أمنية، مثل الإنتاج.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-    /**
-     * اختياري
-     * الافتراضي هو `8000`.
-     * المنفذ المستخدم من قبل خادم المحرر البصري.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * اختياري
-     * الافتراضي هو "http://localhost:8000"
-     * عنوان URL لخادم المحرر الذي يمكن الوصول إليه من التطبيق. يُستخدم لتقييد المصادر التي يمكنها التفاعل مع التطبيق لأسباب أمنية. إذا تم تعيينه إلى `'*'`، يكون المحرر متاحًا من أي مصدر. يجب تعيينه إذا تم تغيير المنفذ، أو إذا كان المحرر مستضافًا على نطاق مختلف.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... إعدادات التكوين الأخرى
-  editor: {
-    /**
-     * مطلوب
-     * عنوان URL للتطبيق.
-     * هذا هو عنوان URL المستهدف من قبل المحرر البصري.
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * اختياري
-     * الافتراضي هو `8000`.
-     * منفذ خادم المحرر.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * اختياري
-     * الافتراضي هو "http://localhost:8000"
-     * عنوان URL لخادم المحرر.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * اختياري
-     * الافتراضي هو `true`. إذا كان `false`، فإن المحرر غير نشط ولا يمكن الوصول إليه.
-     * يمكن استخدامه لتعطيل المحرر لبيئات محددة لأسباب أمنية، مثل الإنتاج.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-  },
-};
-
-module.exports = config;
 ```
 
 > لمشاهدة جميع المعلمات المتاحة، راجع [وثائق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).

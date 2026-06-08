@@ -1,0 +1,1 @@
+{ "title": "Pricing page metadata", "description": "Metadata related to the pricing page, includes title, description, keywords, metadata for SEO purpose. It will help search engines understand the content of the page.", "tags": ["page metadata", "pricing page"]}

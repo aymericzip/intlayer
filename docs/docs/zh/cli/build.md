@@ -13,23 +13,51 @@ slugs:
   - concept
   - cli
   - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: "添加 checkTypes 选项"
 ---
 
 # 构建字典
 
 要构建您的字典，您可以运行以下命令：
 
-```bash
+```bash packageManager="npm"
 npx intlayer build
+```
+
+```bash packageManager="yarn"
+yarn intlayer build
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build
+```
+
+```bash packageManager="bun"
+bun x intlayer build
 ```
 
 或者使用监听模式
 
-```bash
+```bash packageManager="npm"
 npx intlayer build --watch
 ```
 
-该命令默认会查找您的声明内容文件，路径为 `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}`。并在 `.intlayer` 目录中构建字典。
+```bash packageManager="yarn"
+yarn intlayer build --watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build --watch
+```
+
+```bash packageManager="bun"
+bun x intlayer build --watch
+```
+
+该命令默认会查找您的声明内容文件，路径为 `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}`。并在 `.intlayer` 目录中构建字典。
 
 ## 别名：
 
@@ -62,3 +90,7 @@ npx intlayer build --watch
 - **`--no-cache`**：禁用缓存。
 
   > 示例：`npx intlayer build --no-cache`
+
+- **`--check-types`**: 检查内容声明文件的类型。
+
+  > 示例： `npx intlayer build --check-types`

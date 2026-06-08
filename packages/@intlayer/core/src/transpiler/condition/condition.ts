@@ -1,11 +1,12 @@
-import { formatNodeType, NodeType, type TypedNodeModel } from '@intlayer/types';
+import type { TypedNodeModel } from '@intlayer/types/nodeType';
+import { CONDITION, formatNodeType } from '@intlayer/types/nodeType';
 
 export type ConditionContentStates<Content> = Record<`${boolean}`, Content> & {
   fallback?: Content;
 };
 
 export type ConditionContent<Content = unknown> = TypedNodeModel<
-  NodeType.Condition,
+  typeof CONDITION,
   ConditionContentStates<Content>
 >;
 
@@ -26,7 +27,8 @@ export type ConditionContent<Content = unknown> = TypedNodeModel<
  * The last key provided will be used as the fallback value.
  *
  */
-const condition = <Content>(content?: ConditionContentStates<Content>) =>
-  formatNodeType(NodeType.Condition, content);
+const condition = <Content>(
+  content?: ConditionContentStates<Content>
+): ConditionContent<Content> => formatNodeType(CONDITION, content);
 
 export { condition as cond };

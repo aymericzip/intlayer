@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2025-11-20
-title: Cách dịch ứng dụng SvelteKit của bạn – hướng dẫn i18n 2025
-description: Khám phá cách làm cho trang web SvelteKit của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó bằng cách sử dụng Server-Side Rendering (SSR).
+updatedAt: 2026-05-31
+title: "SvelteKit i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
+description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng SvelteKit đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
 keywords:
   - Quốc tế hóa
   - Tài liệu
@@ -15,40 +15,102 @@ slugs:
   - environment
   - sveltekit
 applicationTemplate: https://github.com/aymericzip/intlayer-sveltekit-template
+applicationShowcase: https://intlayer-sveltekit-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Cập nhật cách sử dụng API useIntlayer của Solid sang truy cập thuộc tính trực tiếp"
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: "Thêm lệnh init"
   - version: 7.1.10
     date: 2025-11-20
-    changes: Khởi tạo lịch sử
+    changes: "Khởi tạo lịch sử"
 ---
 
 # Dịch trang web SvelteKit của bạn bằng Intlayer | Quốc tế hóa (i18n)
 
-## Mục lục
-
-<TOC/>
-
-## Intlayer là gì?
-
-**Intlayer** là một thư viện quốc tế hóa (i18n) mã nguồn mở sáng tạo, được thiết kế để đơn giản hóa việc hỗ trợ đa ngôn ngữ trong các ứng dụng web hiện đại. Nó hoạt động liền mạch với khả năng Server-Side Rendering (SSR) của **SvelteKit**.
-
-Với Intlayer, bạn có thể:
-
-- **Dễ dàng quản lý bản dịch** bằng cách sử dụng các từ điển khai báo ở cấp độ component.
-- **Định vị hóa động metadata**, các route và nội dung.
-- **Đảm bảo hỗ trợ TypeScript** với các kiểu được tạo tự động.
-- **Tận dụng SSR của SvelteKit** để quốc tế hóa thân thiện với SEO.
-
----
-
-## Hướng dẫn từng bước để thiết lập Intlayer trong ứng dụng SvelteKit
+<Tabs defaultTab="code">
+  <Tab label="Mã nguồn" value="code">
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-sveltekit-template?embed=1&ctl=1&file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-sveltekit-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Cách quốc tế hóa ứng dụng của bạn bằng Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
+
+  </Tab>
+  <Tab label="Bản demo" value="demo">
+
+<iframe
+  src="https://intlayer-sveltekit-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Bản demo - intlayer-sveltekit-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
+## Mục lục
+
+<TOC/>
+
+## Tại sao Intlayer thay thế các lựa chọn thay thế?
+
+So với các giải pháp chính như `svelte-i18n` hay `i18next`, Intlayer là giải pháp đi kèm với các tính năng tối ưu hóa tích hợp như:
+
+<AccordionGroup>
+
+<Accordion header="Phủ sóng đầy đủ của SvelteKit">
+
+Intlayer được tối ưu hóa để hoạt động hoàn hảo với SvelteKit bằng cách cung cấp **định tuyến đa ngôn ngữ**, **hỗ trợ SSR** và tất cả các tính năng cần thiết để mở rộng quy mô quốc tế hóa (i18n).
+
+</Accordion>
+
+<Accordion header="Kích thước bundle">
+
+Thay vì tải các tệp JSON lớn vào trang của bạn, hãy chỉ tải nội dung cần thiết. Intlayer giúp **giảm tới 50% kích thước bundle và kích thước trang**.
+
+</Accordion>
+
+<Accordion header="Khả năng bảo trì">
+
+Xác định phạm vi nội dung ứng dụng của bạn **tạo điều kiện bảo trì** cho các ứng dụng quy mô lớn. Bạn có thể sao chép hoặc xóa một thư mục tính năng mà không phải lo lắng về việc xem lại toàn bộ cơ sở mã nội dung của mình. Ngoài ra, Intlayer **được nhập đầy đủ** để đảm bảo tính chính xác cho nội dung của bạn.
+
+</Accordion>
+
+<Accordion header="Đại lý AI">
+
+Nội dung cùng định vị **giảm ngữ cảnh cần thiết** của Mô hình ngôn ngữ lớn (LLM). Intlayer cũng đi kèm một bộ công cụ, chẳng hạn như **CLI** để kiểm tra các bản dịch bị thiếu,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** và **[agent Skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, để giúp trải nghiệm của nhà phát triển (DX) trở nên mượt mà hơn nữa đối với các tác nhân AI.
+
+</Accordion>
+
+<Accordion header="Tự động hóa">
+
+Sử dụng tính năng tự động hóa để dịch trong quy trình CI/CD của bạn bằng cách sử dụng LLM mà bạn chọn với chi phí do nhà cung cấp AI của bạn chi trả. Intlayer cũng cung cấp **trình biên dịch** để tự động trích xuất nội dung cũng như [nền tảng web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) để giúp **dịch ở chế độ nền**.
+
+</Accordion>
+
+<Accordion header="Hiệu suất">
+
+Việc kết nối các tệp JSON lớn với các thành phần có thể dẫn đến các vấn đề về hiệu suất và khả năng phản hồi. Intlayer tối ưu hóa việc tải nội dung của bạn tại thời điểm build.
+
+</Accordion>
+
+<Accordion header="Mở rộng quy mô không có nhà phát triển">
+
+Không chỉ là giải pháp i18n, Intlayer còn cung cấp **[trình chỉnh sửa trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** và **[CMS đầy đủ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** để giúp bạn quản lý nội dung đa ngôn ngữ của mình trong **thời gian thực**, giúp việc cộng tác với người dịch, người viết quảng cáo và các thành viên khác trong nhóm trở nên liền mạch. Nội dung có thể được lưu trữ cục bộ và/hoặc từ xa.
+
+</Accordion>
+</AccordionGroup>
+
+---
+
+## Hướng dẫn từng bước để thiết lập Intlayer trong ứng dụng SvelteKit
 
 Để bắt đầu, hãy tạo một dự án SvelteKit mới. Dưới đây là cấu trúc cuối cùng mà chúng ta sẽ tạo:
 
@@ -92,35 +154,43 @@ Với Intlayer, bạn có thể:
 └── vite.config.ts
 ```
 
-### Bước 1: Cài đặt các phụ thuộc
+<Steps>
+
+<Step number={1} title="Cài đặt các phụ thuộc">
 
 Cài đặt các gói cần thiết bằng npm:
 
 ```bash packageManager="npm"
 npm install intlayer svelte-intlayer
 npm install vite-intlayer --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer svelte-intlayer
 pnpm add vite-intlayer --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer svelte-intlayer
 yarn add vite-intlayer --save-dev
+yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer svelte-intlayer
 bun add vite-intlayer --save-dev
+bun x intlayer init
 ```
 
 - **intlayer**: Gói i18n cốt lõi.
 - **svelte-intlayer**: Cung cấp các context provider và store cho Svelte/SvelteKit.
 - **vite-intlayer**: Plugin Vite để tích hợp khai báo nội dung với quá trình build.
 
-### Bước 2: Cấu hình dự án của bạn
+</Step>
+
+<Step number={2} title="Cấu hình dự án của bạn">
 
 Tạo một file cấu hình trong thư mục gốc của dự án:
 
@@ -137,7 +207,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-### Bước 3: Tích hợp Intlayer vào cấu hình Vite của bạn
+</Step>
+
+<Step number={3} title="Tích hợp Intlayer vào cấu hình Vite của bạn">
 
 Cập nhật `vite.config.ts` của bạn để bao gồm plugin Intlayer. Plugin này xử lý việc transpile các file nội dung của bạn.
 
@@ -151,11 +223,13 @@ export default defineConfig({
 });
 ```
 
-### Bước 4: Khai báo Nội dung của bạn
+</Step>
+
+<Step number={4} title="Khai báo Nội dung của bạn">
 
 Tạo các file khai báo nội dung ở bất kỳ đâu trong thư mục `src` của bạn (ví dụ: `src/lib/content` hoặc cùng thư mục với các component của bạn). Các file này định nghĩa nội dung có thể dịch cho ứng dụng của bạn bằng cách sử dụng hàm `t()` cho từng locale.
 
-```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat="typescript"
+```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, type Dictionary } from "intlayer";
 
 const heroContent = {
@@ -172,14 +246,16 @@ const heroContent = {
 export default heroContent;
 ```
 
-### Bước 5: Sử dụng Intlayer trong các Component của bạn
+</Step>
+
+<Step number={5} title="Sử dụng Intlayer trong các Component của bạn">
 
 Bây giờ bạn có thể sử dụng hàm `useIntlayer` trong bất kỳ component Svelte nào. Hàm này trả về một store phản ứng tự động cập nhật khi locale thay đổi. Hàm sẽ tự động tuân theo locale hiện tại (cả trong SSR và điều hướng phía client).
 
 > **Lưu ý:** `useIntlayer` trả về một store của Svelte, vì vậy bạn cần sử dụng tiền tố `---
 > createdAt: 2025-11-20
-> updatedAt: 2025-11-20
-> title: Cách dịch ứng dụng SvelteKit của bạn – hướng dẫn i18n 2025
+> updatedAt: 2026-05-31
+> title: Cách dịch ứng dụng SvelteKit của bạn – hướng dẫn i18n 2026
 > description: Khám phá cách làm cho trang web SvelteKit của bạn đa ngôn ngữ. Theo dõi tài liệu để quốc tế hóa (i18n) và dịch nó bằng cách sử dụng Server-Side Rendering (SSR).
 > keywords:
 
@@ -203,6 +279,10 @@ Bây giờ bạn có thể sử dụng hàm `useIntlayer` trong bất kỳ compo
 
 # Dịch trang web SvelteKit của bạn bằng Intlayer | Quốc tế hóa (i18n)
 
+</Step>
+
+</Steps>
+
 ## Mục lục
 
 <TOC/>
@@ -264,35 +344,43 @@ Với Intlayer, bạn có thể:
 └── vite.config.ts
 ```
 
-### Bước 1: Cài đặt các phụ thuộc
+<Steps>
+
+<Step number={1} title="Cài đặt các phụ thuộc">
 
 Cài đặt các gói cần thiết bằng npm:
 
 ```bash packageManager="npm"
 npm install intlayer svelte-intlayer
 npm install vite-intlayer --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer svelte-intlayer
 pnpm add vite-intlayer --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer svelte-intlayer
 yarn add vite-intlayer --save-dev
+yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer svelte-intlayer
 bun add vite-intlayer --save-dev
+bun x intlayer init
 ```
 
 - **intlayer**: Gói i18n cốt lõi.
 - **svelte-intlayer**: Cung cấp các context provider và store cho Svelte/SvelteKit.
 - **vite-intlayer**: Plugin Vite để tích hợp khai báo nội dung với quá trình build.
 
-### Bước 2: Cấu hình dự án của bạn
+</Step>
+
+<Step number={2} title="Cấu hình dự án của bạn">
 
 Tạo một file cấu hình trong thư mục gốc của dự án:
 
@@ -309,7 +397,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-### Bước 3: Tích hợp Intlayer vào cấu hình Vite của bạn
+</Step>
+
+<Step number={3} title="Tích hợp Intlayer vào cấu hình Vite của bạn">
 
 Cập nhật `vite.config.ts` của bạn để bao gồm plugin Intlayer. Plugin này xử lý việc transpile các file nội dung của bạn.
 
@@ -323,11 +413,13 @@ export default defineConfig({
 });
 ```
 
-### Bước 4: Khai báo Nội dung của bạn
+</Step>
+
+<Step number={4} title="Khai báo Nội dung của bạn">
 
 Tạo các file khai báo nội dung ở bất kỳ đâu trong thư mục `src` của bạn (ví dụ: `src/lib/content` hoặc cùng thư mục với các component của bạn). Các file này định nghĩa nội dung có thể dịch cho ứng dụng của bạn bằng cách sử dụng hàm `t()` cho từng locale.
 
-```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat="typescript"
+```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, type Dictionary } from "intlayer";
 
 const heroContent = {
@@ -344,7 +436,9 @@ const heroContent = {
 export default heroContent;
 ```
 
-### Bước 5: Sử dụng Intlayer trong các Component của bạn
+</Step>
+
+<Step number={5} title="Sử dụng Intlayer trong các Component của bạn">
 
 để truy cập giá trị phản ứng của nó (ví dụ: `$content.title`).
 
@@ -359,12 +453,16 @@ export default heroContent;
 <!-- Hiển thị nội dung dưới dạng nội dung đơn giản  -->
 <h1>{$content.title}</h1>
 <!-- Để hiển thị nội dung có thể chỉnh sửa bằng trình soạn thảo -->
-<h1><svelte:component this={$content.title} /></h1>
+<h1>{@const Title = $content.title}<Title /></h1>
 <!-- Để render nội dung dưới dạng chuỗi -->
 <div aria-label={$content.title.value}></div>
+<div aria-label={$content.title.toString()}></div>
+<div aria-label={String($content.title)}></div>
 ```
 
-### (Tùy chọn) Bước 6: Thiết lập routing
+</Step>
+
+<Step number={6} title="Thiết lập routing" isOptional={true}>
 
 Các bước sau đây hướng dẫn cách thiết lập routing dựa trên locale trong SvelteKit. Điều này cho phép URL của bạn bao gồm tiền tố locale (ví dụ: `/en/about`, `/fr/about`) để cải thiện SEO và trải nghiệm người dùng.
 
@@ -389,7 +487,9 @@ Các bước sau đây hướng dẫn cách thiết lập routing dựa trên lo
         └── +layout.svelte         # Bố cục gốc cho font chữ và kiểu toàn cục
 ```
 
-### Bước 7: Xử lý phát hiện locale phía Server (Hooks)
+</Step>
+
+<Step number={7} title="Xử lý phát hiện locale phía Server">
 
 Trong SvelteKit, server cần biết locale của người dùng để render nội dung chính xác trong SSR. Chúng ta sử dụng `hooks.server.ts` để phát hiện locale từ URL hoặc cookies.
 
@@ -483,14 +583,9 @@ export const getLocale = (event: RequestEvent): Locale => {
 
 Nếu locale chưa được cấu hình, chúng ta muốn trả về lỗi 404. Để dễ dàng hơn, ta có thể tạo một hàm `match` để kiểm tra xem locale có hợp lệ hay không:
 
-```ts fileName="/src/params/locale.ts"
-import { configuration, type Locale } from "intlayer";
-
-export const match = (
-  param: Locale = configuration.internationalization.defaultLocale
-): boolean => {
-  return configuration.internationalization.locales.includes(param);
-};
+```ts fileName="/src/params/locale.ts"import { defaultLocale, locales, type Locale } from "intlayer";
+export const match = (param: Locale = defaultLocale): boolean =>
+  locales.includes(param);
 ```
 
 > **Lưu ý:** Đảm bảo rằng file `src/app.d.ts` của bạn bao gồm định nghĩa locale:
@@ -529,15 +624,13 @@ Sau đó, tạo một trang và layout mới trong nhóm `[[locale=locale]]`:
 
 ```ts fileName="src/routes/[[locale=locale]]/+layout.ts"
 import type { Load } from "@sveltejs/kit";
-import { configuration, type Locale } from "intlayer";
+import { defaultLocale, type Locale } from "intlayer";
 
 export const prerender = true;
 
 // Sử dụng kiểu Load chung
 export const load: Load = ({ params }) => {
-  const locale: Locale =
-    (params.locale as Locale) ??
-    configuration.internationalization.defaultLocale;
+  const locale: Locale = (params.locale as Locale) ?? defaultLocale;
 
   return {
     locale,
@@ -548,7 +641,7 @@ export const load: Load = ({ params }) => {
 ```svelte fileName="src/routes/[[locale=locale]]/+layout.svelte"
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { useIntlayer, setupIntlayer } from 'svelte-intlayer';
+	import { useIntlayer, setupIntlayer } from "svelte-intlayer";
 	import Header from './Header.svelte';
 	import type { LayoutData } from './$types';
 
@@ -587,7 +680,7 @@ export const prerender = true;
 
 ```svelte fileName="src/routes/[[locale=locale]]/+page.svelte"
 <script lang="ts">
-	import { useIntlayer } from 'svelte-intlayer';
+	import { useIntlayer } from "svelte-intlayer";
 
 	// Sử dụng từ điển nội dung trang chủ
 	const homeContent = useIntlayer('home');
@@ -608,14 +701,16 @@ export const prerender = true;
 </style>
 ```
 
-### (Tùy chọn) Bước 8: Liên kết quốc tế hóa
+</Step>
+
+<Step number={8} title="Liên kết quốc tế hóa" isOptional={true}>
 
 Để tối ưu SEO, nên thêm tiền tố locale vào các route của bạn (ví dụ: `/en/about`, `/fr/about`). Thành phần này tự động thêm tiền tố locale hiện tại vào bất kỳ liên kết nào.
 
 ```svelte fileName="src/lib/components/LocalizedLink.svelte"
 <script lang="ts">
   import { getLocalizedUrl } from "intlayer";
-  import { useLocale } from 'svelte-intlayer';
+  import { useLocale } from "svelte-intlayer";
 
   let { href = "" } = $props();
   const { locale } = useLocale();
@@ -641,14 +736,16 @@ const localizedPath = getLocalizedUrl("/about", $locale);
 goto(localizedPath); // Điều hướng đến /en/about hoặc /fr/about tùy theo locale
 ```
 
-### (Tùy chọn) Bước 9: Bộ chuyển đổi ngôn ngữ
+</Step>
+
+<Step number={9} title="Bộ chuyển đổi ngôn ngữ" isOptional={true}>
 
 Để cho phép người dùng chuyển đổi ngôn ngữ, cập nhật URL.
 
 ```svelte fileName="src/lib/components/LanguageSwitcher.svelte"
 <script lang="ts">
   import { getLocalizedUrl, getLocaleName } from 'intlayer';
-  import { useLocale } from 'svelte-intlayer';
+  import { useLocale } from "svelte-intlayer";
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
 
@@ -682,7 +779,9 @@ goto(localizedPath); // Điều hướng đến /en/about hoặc /fr/about tùy 
 </style>
 ```
 
-### (Tùy chọn) Bước 10: Thêm proxy backend
+</Step>
+
+<Step number={10} title="Thêm proxy backend" isOptional={true}>
 
 Để thêm proxy backend vào ứng dụng SvelteKit của bạn, bạn có thể sử dụng hàm `intlayerProxy` được cung cấp bởi plugin `vite-intlayer`. Plugin này sẽ tự động phát hiện locale tốt nhất cho người dùng dựa trên URL, cookie và sở thích ngôn ngữ trình duyệt.
 
@@ -693,11 +792,17 @@ import { sveltekit } from "@sveltejs/kit/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [intlayer(), intlayerProxy(), sveltekit()],
+  plugins: [
+    intlayerProxy(), // should be placed first
+    intlayer(),
+    sveltekit(),
+  ],],
 });
 ```
 
-### (Tùy chọn) Bước 11: Thiết lập trình chỉnh sửa intlayer / CMS
+</Step>
+
+<Step number={11} title="Thiết lập trình chỉnh sửa intlayer / CMS" isOptional={true}>
 
 Để thiết lập trình chỉnh sửa intlayer, bạn phải làm theo [tài liệu trình chỉnh sửa intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md).
 
@@ -718,9 +823,110 @@ export default defineConfig({
   <h1>{$content.title}</h1>
 
   <!-- Hiển thị nội dung như một component (bắt buộc bởi trình chỉnh sửa) -->
-  <svelte:component this={$content.component} />
+  {@const Component = $content.component}<Component />
 </div>
 ```
+
+</Step>
+
+<Step number={1} title="Trích xuất nội dung các thành phần của bạn" isOptional={true}>
+
+Nếu bạn có một cơ sở mã hiện có, việc chuyển đổi hàng nghìn tệp có thể tốn nhiều thời gian.
+
+Để đơn giản hóa quy trình này, Intlayer đề xuất một [trình biên dịch](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) / [trình trích xuất](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md) để chuyển đổi các thành phần của bạn và trích xuất nội dung.
+
+Để thiết lập, bạn có thể thêm phần `compiler` vào tệp `intlayer.config.ts` của mình:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... Phần còn lại của cấu hình
+  compiler: {
+    /**
+     * Cho biết trình biên dịch có nên được bật hay không.
+     */
+    enabled: true,
+
+    /**
+     * Xác định đường dẫn các tệp đầu ra
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Cho biết các thành phần có nên được lưu sau khi chuyển đổi hay không. Bằng cách đó, trình biên dịch có thể được chạy chỉ một lần để chuyển đổi ứng dụng, sau đó có thể được gỡ bỏ.
+     */
+    saveComponents: false,
+
+    /**
+     * Tiền tố khóa từ điển
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='Lệnh trích xuất'>
+
+Chạy trình trích xuất để chuyển đổi các thành phần và trích xuất nội dung
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Trình biên dịch Babel'>
+
+Cập nhật `vite.config.ts` của bạn để bao gồm plugin `intlayerCompiler`:
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // Thêm plugin trình biên dịch
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # Hoặc npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # Or pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Or yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
+</Step>
+
+</Steps>
 
 ### Cấu hình Git
 

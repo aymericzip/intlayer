@@ -1,4 +1,6 @@
-import { DictionaryModel } from '@models/dictionary.model';
+import { logger } from '@logger';
+import { DictionaryModel } from '@schemas/dictionary.schema';
+import { getDemoDictionaries } from '@utils/demoDictionaries';
 import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { GenericError } from '@utils/errors';
 import type { DictionaryFilters } from '@utils/filtersAndPagination/getDictionaryFiltersAndPagination';
@@ -20,13 +22,16 @@ import type { Project } from '@/types/project.types';
  * @param filters - MongoDB filter query.
  * @param skip - Number of documents to skip.
  * @param limit - Number of documents to limit.
+ * @param sortOptions - Sorting options.
+ * @param includeContent - Whether to include the dictionary content.
  * @returns List of dictionaries matching the filters.
  */
 export const findDictionaries = async (
   filters: DictionaryFilters,
   skip = 0,
   limit = 100,
-  sortOptions?: Record<string, 1 | -1>
+  sortOptions?: Record<string, 1 | -1>,
+  includeContent = true
 ): Promise<DictionaryDocument[]> => {
   try {
     const dictionaries = await DictionaryModel.aggregate<DictionaryDocument>([
@@ -43,6 +48,9 @@ export const findDictionaries = async (
 
       // Stage 4: Limit the number of documents
       { $limit: limit },
+
+      // Stage 5: Project to include/exclude content
+      ...(!includeContent ? [{ $project: { content: 0 } }] : []),
     ]);
 
     const formattedResults = dictionaries.map(
@@ -51,7 +59,7 @@ export const findDictionaries = async (
 
     return formattedResults;
   } catch (error) {
-    console.error('Error fetching dictionaries:', error);
+    logger.error('Error fetching dictionaries:', error);
     throw error;
   }
 };
@@ -269,7 +277,7 @@ export const updateDictionaryByKey = async (
   projectId: string | Types.ObjectId
 ): Promise<DictionaryDocument> => {
   const existing = await DictionaryModel.findOne({
-    key: dictionaryKey,
+    key: String(dictionaryKey),
     projectIds: projectId,
   });
 
@@ -280,12 +288,17 @@ export const updateDictionaryByKey = async (
   const dictionaryObject = ensureMongoDocumentToObject(dictionary);
   const dictionaryToUpdate = removeObjectKeys(dictionaryObject, [
     'id',
-  ]) as Partial<Dictionary>;
+  ]) as unknown as Partial<Dictionary>;
 
   // Optional: run your validateDictionary on dictionaryToUpdate here
 
   // Apply updated fields onto the existing doc
   Object.assign(existing, dictionaryToUpdate);
+
+  // Mongoose cannot track deep Map mutations done via Object.assign, so we
+  // must explicitly mark 'content' as modified, otherwise the new versioned
+  // content is silently dropped and the document is saved unchanged.
+  existing.markModified('content');
 
   // Save – this will trigger timestamps on parent + subdocs
   await existing.save();
@@ -336,4 +349,20 @@ export const incrementVersion = (dictionary: Dictionary): string => {
   }
 
   return newVersion;
+};
+
+/**
+ * Creates demo dictionaries for a project.
+ * @param projectIds - List of project IDs.
+ * @param creatorId - The ID of the user creating the demo content.
+ */
+export const createDemoDictionaries = async (
+  projectIds: string[],
+  creatorId: Types.ObjectId | string
+): Promise<void> => {
+  const demoDictionaries = getDemoDictionaries(projectIds, creatorId);
+
+  for (const dictionary of demoDictionaries) {
+    await createDictionary(dictionary);
+  }
 };

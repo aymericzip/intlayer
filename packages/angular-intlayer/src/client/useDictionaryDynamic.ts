@@ -1,13 +1,13 @@
 'use client';
 
 import { computed, inject } from '@angular/core';
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
-  Dictionary,
   DictionaryKeys,
   LocalesValues,
   StrictModeLocaleMap,
-} from '@intlayer/types';
+} from '@intlayer/types/module_augmentation';
 import { INTLAYER_TOKEN, type IntlayerProvider } from './installIntlayer';
 import { useDictionary } from './useDictionary';
 import { useLoadDynamic } from './useLoadDynamic';
@@ -18,8 +18,8 @@ import { useLoadDynamic } from './useLoadDynamic';
  * If the locale is not provided, it will use the locale from the client context
  */
 export const useDictionaryDynamic = <
-  T extends Dictionary,
-  K extends DictionaryKeys,
+  const T extends Dictionary,
+  const K extends DictionaryKeys,
 >(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   key: K,
@@ -28,15 +28,12 @@ export const useDictionaryDynamic = <
   const intlayer = inject<IntlayerProvider>(INTLAYER_TOKEN);
 
   const localeTarget = computed(
-    () =>
-      locale ??
-      intlayer?.locale() ??
-      configuration?.internationalization.defaultLocale
+    () => locale ?? intlayer?.locale() ?? internationalization.defaultLocale
   );
 
   const dictionary = useLoadDynamic<T>(
     `${String(key)}.${localeTarget()}`,
-    dictionaryPromise[localeTarget()]?.()
+    (dictionaryPromise as any)[localeTarget()]?.()
   ) as T;
 
   return useDictionary(dictionary, localeTarget() as any);

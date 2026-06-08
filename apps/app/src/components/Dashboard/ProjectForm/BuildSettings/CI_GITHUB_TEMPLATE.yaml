@@ -1,0 +1,14 @@
+# .github/workflows/intlayer-cms.yml
+name: Intlayer CMS Update
+on:
+  repository_dispatch:
+    types: [intlayer_cms_update]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # When a change is made on the CMS,
+      # The following command will be triggered to rebuild your app(s)
+      - run: npm install
+      - run: npm run build

@@ -13,23 +13,51 @@ slugs:
   - concept
   - cli
   - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: "checkTypes 옵션 추가"
 ---
 
 # 사전 빌드하기
 
 사전을 빌드하려면 다음 명령어를 실행할 수 있습니다:
 
-```bash
+```bash packageManager="npm"
 npx intlayer build
+```
+
+```bash packageManager="yarn"
+yarn intlayer build
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build
+```
+
+```bash packageManager="bun"
+bun x intlayer build
 ```
 
 또는 감시 모드로 실행하려면
 
-```bash
+```bash packageManager="npm"
 npx intlayer build --watch
 ```
 
-이 명령어는 기본적으로 `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` 경로에서 선언된 콘텐츠 파일을 찾아 `.intlayer` 디렉토리에 사전을 빌드합니다.
+```bash packageManager="yarn"
+yarn intlayer build --watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build --watch
+```
+
+```bash packageManager="bun"
+bun x intlayer build --watch
+```
+
+이 명령어는 기본적으로 `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` 경로에서 선언된 콘텐츠 파일을 찾아 `.intlayer` 디렉토리에 사전을 빌드합니다.
 
 ## 별칭:
 
@@ -62,3 +90,7 @@ npx intlayer build --watch
 - **`--no-cache`**: 캐시를 비활성화합니다.
 
   > 예시: `npx intlayer build --no-cache`
+
+- **`--check-types`**: 콘텐츠 선언 파일의 유형을 확인합니다.
+
+  > 예: `npx intlayer build --check-types`

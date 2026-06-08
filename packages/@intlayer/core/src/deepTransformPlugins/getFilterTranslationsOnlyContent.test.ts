@@ -1,4 +1,6 @@
-import { type ContentNode, Locales, NodeType } from '@intlayer/types';
+import type { ContentNode } from '@intlayer/types/dictionary';
+import * as Locales from '@intlayer/types/locales';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import { describe, expect, it } from 'vitest';
 import { getFilterTranslationsOnlyContent } from './getFilterTranslationsOnlyContent';
 
@@ -6,8 +8,8 @@ describe('getFilterTranslationsOnlyContent', () => {
   it('should return the content of a node with only the translation plugin', () => {
     const testData = {
       test1: {
-        nodeType: NodeType.Translation,
-        [NodeType.Translation]: {
+        nodeType: NodeTypes.TRANSLATION,
+        [NodeTypes.TRANSLATION]: {
           en: 'Hello',
           fr: 'Bonjour',
         },
@@ -15,8 +17,8 @@ describe('getFilterTranslationsOnlyContent', () => {
       test2: 'Hello',
       test3: {
         test4: {
-          nodeType: NodeType.Translation,
-          [NodeType.Translation]: {
+          nodeType: NodeTypes.TRANSLATION,
+          [NodeTypes.TRANSLATION]: {
             en: 'Hello',
             fr: 'Bonjour',
           },
@@ -24,15 +26,15 @@ describe('getFilterTranslationsOnlyContent', () => {
         test5: 'Hello',
         test6: [
           {
-            nodeType: NodeType.Translation,
-            [NodeType.Translation]: {
+            nodeType: NodeTypes.TRANSLATION,
+            [NodeTypes.TRANSLATION]: {
               en: 'Hello',
               fr: 'Bonjour',
             },
           },
           {
-            nodeType: NodeType.Translation,
-            [NodeType.Translation]: {
+            nodeType: NodeTypes.TRANSLATION,
+            [NodeTypes.TRANSLATION]: {
               en: 'Hello',
               fr: 'Bonjour',
             },
@@ -41,8 +43,8 @@ describe('getFilterTranslationsOnlyContent', () => {
         ],
       },
       test7: {
-        nodeType: NodeType.Translation,
-        [NodeType.Translation]: {
+        nodeType: NodeTypes.TRANSLATION,
+        [NodeTypes.TRANSLATION]: {
           en: {
             test8: 'Hello',
           },

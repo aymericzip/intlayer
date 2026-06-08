@@ -1,12 +1,12 @@
 @import "tailwindcss";
 @import "@intlayer/design-system/css";
-@config '@intlayer/design-system/tailwind-config';
+@config "@intlayer/design-system/tailwind-config";
 
 @source "./**/*.{ts,tsx}";
 @source "../../../@intlayer/design-system/src/**/*.{ts,tsx}";
 
 html {
-  font-family: "Figtree";
+  font-family: "Inter", sans-serif;
 }
 
 #root {
@@ -17,8 +17,8 @@ html {
 }
 
 @font-face {
-  font-family: "Figtree";
+  font-family: "Inter";
   src:
-    local("Figtree-VariableFont"),
-    url("./assets/fonts/Figtree-VariableFont.ttf");
+    local("Inter-VariableFont"), url("./assets/fonts/Inter-VariableFont.ttf");
+  font-display: swap;
 }

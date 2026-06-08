@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: 履歴初期化
+    changes: "履歴初期化"
 ---
 
 # ドキュメント: `intlayer` の `getLocalizedUrl` 関数
@@ -35,23 +35,19 @@ history:
 ## パラメーター
 
 - `url: string`
-
   - **説明**: ロケールのプレフィックスを付加する元の URL 文字列。
   - **型**: `string`
 
 - `currentLocale: Locales`
-
   - **説明**: URL をローカライズする対象の現在のロケール。
   - **型**: `Locales`
 
 - `locales: Locales[]`
-
   - **説明**: サポートされているロケールのオプション配列。デフォルトでは、プロジェクトで設定されたロケールが提供されます。
   - **型**: `Locales[]`
   - **デフォルト**: [`プロジェクト設定`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md#middleware)
 
 - `defaultLocale: Locales`
-
   - **説明**: アプリケーションのデフォルトロケール。デフォルトでは、プロジェクトで設定されたデフォルトロケールが提供されます。
   - **型**: `Locales`
   - **デフォルト**: [`プロジェクト設定`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md#middleware)
@@ -72,22 +68,7 @@ history:
 
 ### 相対 URL
 
-```typescript codeFormat="typescript"
-import { getLocalizedUrl, Locales } from "intlayer";
-
-getLocalizedUrl(
-  "/about",
-  Locales.FRENCH,
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-
-// 出力: フランス語ロケールの場合 "/fr/about"
-// 出力: デフォルト（英語）ロケールの場合 "/about"
-```
-
-```javascript codeFormat="esm"
+```typescript codeFormat={["typescript", "esm"]}
 import { getLocalizedUrl, Locales } from "intlayer";
 
 getLocalizedUrl(
@@ -176,11 +157,9 @@ getLocalizedUrl(
 ## エッジケース
 
 - **ロケールセグメントがない場合:**
-
   - URLにロケールセグメントが含まれていない場合、関数は適切なロケールを安全にプレフィックスします。
 
 - **デフォルトロケール:**
-
   - `prefixDefault` が `false` の場合、関数はデフォルトロケールのURLにプレフィックスを付けません。
 
 - **サポートされていないロケール:**
@@ -192,7 +171,7 @@ getLocalizedUrl(
 
 多言語対応アプリケーションでは、`locales` と `defaultLocale` を使用して国際化設定を構成することが、正しい言語を表示するために非常に重要です。以下は、`getLocalizedUrl` をアプリケーションのセットアップでどのように使用できるかの例です。
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 // サポートされているロケールとデフォルトロケールの設定
@@ -204,34 +183,6 @@ export default {
 } satisfies IntlayerConfig;
 
 export default config;
-```
-
-```javascript codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 上記の設定により、アプリケーションは `ENGLISH`、`FRENCH`、`SPANISH` をサポート言語として認識し、フォールバック言語として `ENGLISH` を使用します。

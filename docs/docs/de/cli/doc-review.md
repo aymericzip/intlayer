@@ -21,8 +21,26 @@ slugs:
 
 Der Befehl `doc review` analysiert Dokumentationsdateien auf Qualität, Konsistenz und Vollständigkeit in verschiedenen Sprachversionen.
 
-```bash
+## Wichtige Punkte:
+
+- Teilt große Markdown-Dateien in Chunks auf, um innerhalb der Kontextfenster-Grenzen des KI-Modells zu bleiben.
+- Optimiert die zu überprüfenden Chunks und überspringt Teile, die bereits übersetzt und unverändert sind.
+- Verarbeitet Dateien, Chunks und Locales parallel mithilfe eines Warteschlangensystems, um die Geschwindigkeit zu erhöhen.
+
+```bash packageManager="npm"
 npx intlayer doc review
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc review
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc review
+```
+
+```bash packageManager="bun"
+bun x intlayer doc review
 ```
 
 Er kann verwendet werden, um bereits übersetzte Dateien zu überprüfen und zu prüfen, ob die Übersetzung korrekt ist.

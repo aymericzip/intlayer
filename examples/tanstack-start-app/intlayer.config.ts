@@ -11,6 +11,12 @@ const config: IntlayerConfig = {
       // Your other locales
     ],
   },
+  compiler: {
+    output: ({ fileName }) => `./${fileName}.content.ts`,
+  },
+  log: {
+    mode: 'verbose',
+  },
 };
 
 export default config;

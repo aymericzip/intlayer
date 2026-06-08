@@ -1,10 +1,9 @@
 'use client';
 
-import { H3, Select } from '@intlayer/design-system';
+import { Select } from '@intlayer/design-system/select';
 import { getLocaleName, Locales } from 'intlayer';
 import { useIntlayer, useLocale } from 'next-intlayer';
-import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { type FC, useState } from 'react';
 
 type VisualEditorSectionProps = {
   scrollProgress: number;
@@ -15,36 +14,37 @@ export const VisualEditorSection: FC<VisualEditorSectionProps> = ({
 }) => {
   const { availableLocales } = useLocale();
   const [isControlled, setIsControlled] = useState(false);
-  const [locale, setLocale] = useState<string>(Locales.ENGLISH);
+  const [manualLocale, setManualLocale] = useState<string>(Locales.ENGLISH);
+
+  let locale = manualLocale;
+
+  if (!isControlled) {
+    if (scrollProgress > 1) {
+      locale = Locales.RUSSIAN;
+    } else if (scrollProgress > 0.9) {
+      locale = Locales.CHINESE;
+    } else if (scrollProgress > 0.6) {
+      locale = Locales.SPANISH;
+    } else if (scrollProgress > 0.3) {
+      locale = Locales.FRENCH;
+    } else {
+      locale = Locales.ENGLISH;
+    }
+  }
+
   const { title, paragraph, selectPlaceholder, localeSelectorTrigger } =
     useIntlayer('compiler-section', locale);
 
-  useEffect(() => {
-    if (isControlled) return;
-
-    if (scrollProgress > 1) {
-      setLocale(Locales.RUSSIAN);
-    } else if (scrollProgress > 0.9) {
-      setLocale(Locales.CHINESE);
-    } else if (scrollProgress > 0.6) {
-      setLocale(Locales.SPANISH);
-    } else if (scrollProgress > 0.3) {
-      setLocale(Locales.FRENCH);
-    } else {
-      setLocale(Locales.ENGLISH);
-    }
-  }, [scrollProgress, isControlled]);
-
   return (
     <div className="relative z-0 flex size-full flex-col justify-center gap-10 overflow-hidden rounded-r-2xl bg-neutral-50 p-6 text-center dark:bg-neutral-950">
-      <H3>{title}</H3>
+      <p className="font-bold text-base">{title}</p>
       <p className="text-neutral text-sm">{paragraph}</p>
       <div className="absolute right-6 bottom-6">
         <Select
           value={locale}
           onValueChange={(value) => {
             setIsControlled(true);
-            setLocale(value);
+            setManualLocale(value);
           }}
         >
           <Select.Trigger

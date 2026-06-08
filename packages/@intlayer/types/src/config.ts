@@ -1,8 +1,45 @@
-import type { Dictionary } from './dictionary';
-import type { Locale } from './locales';
+import type { Locale } from './allLocales';
+import type {
+  ContentAutoTransformation,
+  DictionaryLocation,
+  Fill,
+} from './dictionary';
+import type { LocalesValues, StrictModeLocaleMap } from './module_augmentation';
 import type { Plugin } from './plugin';
 
+/**
+ * Structural type for schema validation, compatible with Zod and other
+ * schema libraries that implement safeParse. Avoids a hard dependency on Zod.
+ */
+export type ConfigSchema = {
+  safeParse(data: unknown): {
+    success: boolean;
+    data?: unknown;
+    error?: unknown;
+  };
+};
+
 export type StrictMode = 'strict' | 'inclusive' | 'loose';
+
+type Protocol = 'http' | 'https';
+
+type URLPath = `/${string}`;
+
+type OptionalURLPath = `/${string}` | '';
+
+// Localhost: STRICTLY requires a port
+type LocalhostURL = `${Protocol}://localhost:${number}${OptionalURLPath}`;
+// IP Address: Start with number, allows optional port
+// (Heuristic: Starts with a number, contains dots)
+type IPUrl =
+  | `${Protocol}://${number}.${string}${OptionalURLPath}`
+  | `${Protocol}://${number}.${string}:${number}${OptionalURLPath}`;
+
+// Standard Domain: Requires at least one dot to rule out plain "localhost"
+// (Heuristic: starts with non-number string, contains dot)
+type DomainURL = `${Protocol}://${string}.${string}${OptionalURLPath}`;
+
+export type URLType = LocalhostURL | IPUrl | DomainURL | (string & {});
 
 /**
  * Configuration for internationalization settings
@@ -118,6 +155,16 @@ export type CookiesAttributes = {
    * Date instance. If omitted, the cookie becomes a session cookie.
    */
   expires?: Date | number | undefined;
+  /**
+   * Cookie max-age to store the locale information
+   *
+   * Default: undefined
+   *
+   * Define the cookie lifetime in seconds from the time of creation
+   * (e.g. `60 * 60 * 24 * 365` for one year). Takes precedence over
+   * `expires` when both are set.
+   */
+  maxAge?: number;
 };
 
 export type StorageAttributes = {
@@ -140,9 +187,72 @@ export type StorageAttributes = {
 };
 
 /**
+ * Pre-computed storage attributes derived from `RoutingConfig.storage`.
+ * Computed at config-build time to avoid repeated processing at runtime.
+ */
+export type ProcessedStorageAttributes = {
+  cookies?: {
+    name: string;
+    attributes: Omit<CookiesAttributes, 'type' | 'name'>;
+  }[];
+  localStorage?: {
+    name: string;
+  }[];
+  sessionStorage?: {
+    name: string;
+  }[];
+  headers?: {
+    name: string;
+  }[];
+};
+
+export type RewriteRule<T extends string = string> = {
+  canonical: T;
+  localized: StrictModeLocaleMap<string>;
+};
+
+export type RewriteRules = {
+  rules: RewriteRule[];
+};
+
+export type RewriteObject = {
+  /**
+   * Used for client-side URL generation (e.g., getLocalizedUrl).
+   * Patterns are usually stripped of locale prefixes as the core logic handles prefixing.
+   */
+  url: RewriteRules;
+  /**
+   * Used for Next.js middleware / proxy.
+   * Patterns usually include [locale] or :locale to match incoming full URLs.
+   */
+  nextjs?: RewriteRules;
+  /**
+   * Used for Vite proxy middleware.
+   */
+  vite?: RewriteRules;
+};
+
+/**
  * Configuration for routing behaviors
  */
 export type RoutingConfig = {
+  /**
+   * Rewrite the URLs to a localized path
+   *
+   * Example:
+   * ```ts
+   *  // ...
+   *  routing: {
+   *    rewrite: nextjsRewrite({
+   *      '[locale]/about': {
+   *        fr: '[locale]/a-propos'
+   *      }
+   *    })
+   *  }
+   * ```
+   */
+  rewrite?: Record<URLPath, StrictModeLocaleMap<URLPath>> | RewriteObject;
+
   /**
    * URL routing mode for locale handling
    *
@@ -165,37 +275,11 @@ export type RoutingConfig = {
   mode: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
 
   /**
-   * Configuration for storing the locale in the client (localStorage or sessionStorage)
-   *
-   * If false, the locale will not be stored by the middleware.
-   * If true, the locale storage will consider all default values.
-   *
-   * Default: ['cookie', 'header]
-   *
-   * Note: Check out GDPR compliance for cookies. See https://gdpr.eu/cookies/
-   * Note: useLocale hook includes a prop to disable the cookie storage.
-   * Note: Even if storage is disabled, the middleware will still detect the locale from the request header (1- check for `x-intlayer-locale`, 2- fallback to the `accept-language`).
-   *
-   * Recommendation:
-   * - Config both localStorage and cookies for the storage of the locale if you want to support GDPR compliance.
-   * - Disable the cookie storage by default on the useLocale hook by waiting for the user to consent to the cookie storage.
+   * Pre-computed storage attributes derived from the raw `storage` input.
+   * Populated at config-build time by `getStorageAttributes(rawStorage)`.
+   * Use this at runtime instead of re-processing the raw storage config.
    */
-  storage:
-    | false
-    | 'cookie'
-    | 'localStorage'
-    | 'sessionStorage'
-    | 'header'
-    | CookiesAttributes
-    | StorageAttributes
-    | (
-        | 'cookie'
-        | 'localStorage'
-        | 'sessionStorage'
-        | 'header'
-        | CookiesAttributes
-        | StorageAttributes
-      )[];
+  storage: ProcessedStorageAttributes;
 
   /**
    * Base path for application URLs
@@ -204,7 +288,68 @@ export type RoutingConfig = {
    *
    * Defines the base path where the application is accessible from.
    */
-  basePath: string;
+  basePath?: string;
+
+  /**
+   * Maps locales to specific domain hostnames for domain-based routing.
+   * When a locale is mapped to a domain, URLs generated for that locale
+   * will use that domain as the base URL (absolute URL), and no locale
+   * prefix will be added to the path (the domain itself implies the locale).
+   *
+   * Default: undefined
+   *
+   * Example:
+   * ```ts
+   * domains: {
+   *   en: 'intlayer.org',
+   *   zh: 'intlayer.cn',
+   * }
+   * ```
+   */
+  domains?: Partial<Record<LocalesValues, string>>;
+};
+
+/**
+ * Raw storage input accepted in the user-facing config (`intlayer.config.ts`).
+ * Converted to {@link ProcessedStorageAttributes} during config build.
+ *
+ * Configuration for storing the locale in the client (localStorage or sessionStorage)
+ *
+ * If false, the locale will not be stored by the middleware.
+ * If true, the locale storage will consider all default values.
+ *
+ * Default: ['cookie', 'header]
+ *
+ * Note: Check out GDPR compliance for cookies. See https://gdpr.eu/cookies/
+ * Note: useLocale hook includes a prop to disable the cookie storage.
+ * Note: Even if storage is disabled, the middleware will still detect the locale from the request header (1- check for `x-intlayer-locale`, 2- fallback to the `accept-language`).
+ *
+ * Recommendation:
+ * - Config both localStorage and cookies for the storage of the locale if you want to support GDPR compliance.
+ * - Disable the cookie storage by default on the useLocale hook by waiting for the user to consent to the cookie storage.
+ */
+export type RoutingStorageInput =
+  | false
+  | 'cookie'
+  | 'localStorage'
+  | 'sessionStorage'
+  | 'header'
+  | CookiesAttributes
+  | StorageAttributes
+  | (
+      | 'cookie'
+      | 'localStorage'
+      | 'sessionStorage'
+      | 'header'
+      | CookiesAttributes
+      | StorageAttributes
+    )[];
+
+/**
+ * User-facing routing configuration (accepted in `intlayer.config.ts`).
+ */
+export type CustomRoutingConfig = Omit<RoutingConfig, 'storage'> & {
+  storage?: RoutingStorageInput;
 };
 
 /**
@@ -214,41 +359,17 @@ export type EditorConfig = {
   /**
    * URL of the application. Used to restrict the origin of the editor for security reasons.
    *
-   * > '*' means that the editor is accessible from any origin
-   *
-   * Default: '*'
+   * Default: ''
    */
-  applicationURL: string;
-
-  /**
-   * URL of the editor server. Used to restrict the origin of the editor for security reasons.
-   *
-   * > '*' means that the editor is accessible from any origin
-   *
-   * Default: 'http://localhost:8000'
-   */
-  editorURL: string;
-
-  /**
-   * URL of the CMS server. Used to restrict the origin of the editor for security reasons.
-   *
-   * Default: 'https://intlayer.org'
-   */
-  cmsURL: string;
-
-  /**
-   * URL of the backend
-   *
-   * Default: 'https://back.intlayer.org'
-   *
-   * The URL of the backend server.
-   */
-  backendURL: string;
+  applicationURL?: URLType;
+  editorURL?: URLType;
+  cmsURL?: URLType;
+  backendURL?: URLType;
 
   /**
    * Indicates if the application interact with the visual editor
    *
-   * Default: true;
+   * Default: false;
    *
    * If true, the editor will be able to interact with the application.
    * If false, the editor will not be able to interact with the application.
@@ -277,7 +398,7 @@ export type EditorConfig = {
   /**
    * clientId and clientSecret allow the intlayer packages to authenticate with the backend using oAuth2 authentication.
    * An access token is use to authenticate the user related to the project.
-   * To get an access token, go to https://intlayer.org/dashboard/project and create an account.
+   * To get an access token, go to https://app.intlayer.org/project and create an account.
    *
    * Default: undefined
    *
@@ -288,7 +409,7 @@ export type EditorConfig = {
   /**
    * clientId and clientSecret allow the intlayer packages to authenticate with the backend using oAuth2 authentication.
    * An access token is use to authenticate the user related to the project.
-   * To get an access token, go to https://intlayer.org/dashboard/project and create an account.
+   * To get an access token, go to https://app.intlayer.org/project and create an account.
    *
    * Default: undefined
    *
@@ -328,26 +449,29 @@ export type EditorConfig = {
    *
    * Default: `http://localhost:${liveSyncPort}`
    */
-  liveSyncURL: string;
+  liveSyncURL: URLType;
 };
 
-export type AiConfig = {
-  /**
-   * Provider
-   *
-   * The provider to use for the AI features of Intlayer.
-   *
-   * Available providers:
-   * - 'openai'
-   * - 'anthropic'
-   * - 'mistral'
-   * - 'deepseek'
-   * - 'gemini'
-   *
-   * Default: 'openai'
-   */
-  provider?: 'openai' | 'anthropic' | 'mistral' | 'deepseek' | 'gemini';
+export enum AiProviders {
+  OPENAI = 'openai',
+  ANTHROPIC = 'anthropic',
+  MISTRAL = 'mistral',
+  DEEPSEEK = 'deepseek',
+  GEMINI = 'gemini',
+  OLLAMA = 'ollama',
+  OPENROUTER = 'openrouter',
+  ALIBABA = 'alibaba',
+  FIREWORKS = 'fireworks',
+  GROQ = 'groq',
+  HUGGINGFACE = 'huggingface',
+  BEDROCK = 'bedrock',
+  GOOGLEVERTEX = 'googlevertex',
+  GOOGLEGENERATIVEAI = 'googlegenerativeai',
+  TOGETHERAI = 'togetherai',
+  LMSTUDIO = 'lmstudio',
+}
 
+export type CommonAiConfig = {
   /**
    * API model
    *
@@ -386,9 +510,50 @@ export type AiConfig = {
    * Example: 'This is a website for a company that sells products online.'
    */
   applicationContext?: string;
-} & Record<string, any>;
+
+  /**
+   * Base URL
+   *
+   * The base URL to use for the AI features of Intlayer.
+   *
+   * Example: 'https://api.openai.com/v1'
+   */
+  baseURL?: string;
+
+  /**
+   * Data serialization
+   *
+   * The data serialization format to use for the AI features of Intlayer.
+   *
+   * Default: 'json'
+   */
+  dataSerialization?: 'json' | 'toon';
+};
+
+export type AiProviderConfigMap = {};
+
+type AiConfigUnion = {
+  [P in keyof AiProviderConfigMap]: {
+    provider: P | `${P}`;
+  } & AiProviderConfigMap[P];
+}[keyof AiProviderConfigMap];
+
+export type AiConfig = CommonAiConfig &
+  (AiConfigUnion | { provider?: AiProviders | `${AiProviders}` });
 
 export type BuildConfig = {
+  /**
+   * Indicates the mode of the build
+   *
+   * Default: 'auto'
+   *
+   * If 'auto', the build will be enabled automatically when the application is built.
+   * If 'manual', the build will be set only when the build command is executed.
+   *
+   * Can be used to disable dictionaries build, for instance when execution on Node.js environment should be avoided.
+   */
+  mode: 'auto' | 'manual';
+
   /**
    * Indicates if the build should be optimized
    *
@@ -416,9 +581,9 @@ export type BuildConfig = {
    *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionary`.
    * - "dynamic": The dictionaries are imported dynamically in a synchronous component using the suspense API.
    *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryDynamic`.
-   * - "live": The dictionaries are imported dynamically using the live sync API.
+   * - "fetch": The dictionaries are imported dynamically using the live sync API.
    *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryDynamic`.
-   *   Live mode will use the live sync API to fetch the dictionaries. If the API call fails, the dictionaries will be imported dynamically as "dynamic" mode.
+   *   Fetch mode will use the live sync API to fetch the dictionaries. If the API call fails, the dictionaries will be imported dynamically as "dynamic" mode.
    *
    * Default: "static"
    *
@@ -431,10 +596,34 @@ export type BuildConfig = {
    * - Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
    * - This option will be ignored if `optimize` is disabled.
    * - This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions. You can still use them to refine you code on manual optimization.
-   * - The "live" allows to sync the dictionaries to the live sync server.
+   * - The "fetch" allows to sync the dictionaries to the live sync server.
    * - Require static key to work. Example of invalid code: `const navbarKey = "my-key"; useIntlayer(navbarKey)`.
+   *
+   * @deprecated Use `dictionary.importMode` instead.
    */
-  importMode: 'static' | 'dynamic' | 'live';
+  importMode?: 'static' | 'dynamic' | 'fetch';
+
+  /**
+   * Minify the dictionaries to reduce the bundle size.
+   *
+   * Default: false
+   *
+   * Note:
+   * - This option will be ignored if `optimize` is disabled.
+   * - This option will be ignore if `editor.enabled` is true.
+   * - If there is edge cases where the minification is not working properly, the dictionary will be not minified.
+   */
+  minify: boolean;
+
+  /**
+   * Purge the unused keys in a dictionaries
+   *
+   * Default: false
+   *
+   * Note:
+   * - This option will be ignored if `optimize` is disabled.
+   */
+  purge: boolean;
 
   /**
    * Pattern to traverse the code to optimize.
@@ -442,7 +631,7 @@ export type BuildConfig = {
    * Allows to avoid to traverse the code that is not relevant to the optimization.
    * Improve build performance.
    *
-   * Default: ['**\/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**\/node_modules/**']
+   * Default: ['**\/*.{js,ts,mjs,cjs,jsx,tsx}', '!**\/node_modules/**']
    *
    * Example: `['src/**\/*.{ts,tsx}', '../ui-library/**\/*.{ts,tsx}', '!**\/node_modules/**']`
    *
@@ -491,13 +680,30 @@ export type BuildConfig = {
    * ```
    */
   require?: NodeJS.Require;
+
+  /**
+   * Indicates if the build should check TypeScript types
+   *
+   * Default: false
+   *
+   * If true, the build will check TypeScript types and log errors.
+   * Note: This can slow down the build.
+   */
+  checkTypes: boolean;
 };
 
 export type CompilerConfig = {
   /**
-   * Indicates if the compiler should be enabled
+   * Indicates if the compiler should be enabled.
+   * If 'build-only', the compiler will be skipped during development mode to speed up start times.
    */
-  enabled: boolean;
+  enabled: boolean | 'build-only';
+
+  /**
+   * Prefix for the extracted dictionary keys.
+   * Default: ''
+   */
+  dictionaryKeyPrefix?: string;
 
   /**
    * Pattern to traverse the code to optimize.
@@ -505,15 +711,17 @@ export type CompilerConfig = {
    * Allows to avoid to traverse the code that is not relevant to the optimization.
    * Improve build performance.
    *
-   * Default: ['**\/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**\/node_modules/**']
+   * Default: ['**\/*.{ts,tsx,jsx,js,cjs,mjs,svelte,vue}', '!**\/node_modules/**']
    *
    * Example: `['src/**\/*.{ts,tsx}', '../ui-library/**\/*.{ts,tsx}', '!**\/node_modules/**']`
    *
    * Note:
    * - This option will be ignored if `optimize` is disabled.
    * - Use glob pattern.
+   *
+   * @deprecated use build.traversePattern instead
    */
-  transformPattern: string | string[];
+  transformPattern?: string | string[];
 
   /**
    * Pattern to exclude from the optimization.
@@ -523,17 +731,102 @@ export type CompilerConfig = {
    * Default: ['**\/node_modules/**']
    *
    * Example: `['**\/node_modules/**', '!**\/node_modules/react/**']`
+   *
+   * @deprecated use build.traversePattern instead
    */
-  excludePattern: string | string[];
+  excludePattern?: string | string[];
 
   /**
-   * Output directory for the optimized dictionaries.
+   * Defines the output files path. Replaces `outputDir`.
    *
-   * Default: 'compiler'
+   * - `./` paths are resolved relative to the component directory.
+   * - `/` paths are resolved relative to the project root (`baseDir`).
    *
-   * The directory where the optimized dictionaries will be stored.
+   * - Including the `{{locale}}` variable in the path will trigger the generation of separate dictionaries per locale.
+   *
+   * Example:
+   * ```ts
+   * {
+   *   // Create Multilingual .content.ts files close to the component
+   *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
+   *
+   *   // output: './{{fileName}}{{extension}}', // Equivalent using template string
+   * }
+   * ```
+   *
+   * ```ts
+   * {
+   *   // Create centralize per-locale JSON at the root of the project
+   *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+   *
+   *   // output: '/locales/{{locale}}/{{key}}.content.json', // Equivalent using template string
+   * }
+   * ```
+   *
+   * ```ts
+   * {
+   *   // Create per-locale JSON files with locale-specific output paths
+   *   output: {
+   *     en: ({ fileName, locale }) => `${fileName}.${locale}.content.json`,
+   *     fr: '{{fileName}}.{{locale}}.content.json',
+   *     es: false, // skip this locale
+   *   },
+   * }
+   * ```
+   *
+   * Variable list:
+   *   - `fileName`: The name of the file.
+   *   - `key`: The key of the content.
+   *   - `locale`: The locale of the content.
+   *   - `extension`: The extension of the file.
+   *   - `componentFileName`: The name of the component file.
+   *   - `componentExtension`: The extension of the component file.
+   *   - `format`: The format of the dictionary.
+   *   - `componentFormat`: The format of the component dictionary.
+   *   - `componentDirPath`: The directory path of the component.
    */
-  outputDir: string;
+  output?: Fill;
+
+  /**
+   * Indicates if the metadata should be saved in the file.
+   *
+   * If true, the compiler will not save the metadata of the dictionaries.
+   *
+   * If true:
+   *
+   * ```json
+   * {
+   *   "key": "value"
+   * }
+   * ```
+   *
+   * If false:
+   *
+   * ```json
+   * {
+   *   "key": "value",
+   *   "content": {
+   *     "key": "value"
+   *   }
+   * }
+   * ```
+   *
+   * Default: false
+   *
+   * Note: Useful if used with loadJSON plugin
+   *
+   */
+  noMetadata?: boolean;
+
+  /**
+   * Indicates if the components should be saved after being transformed.
+   *
+   * If true, the compiler will replace the original files with the transformed files.
+   * That way, the compiler can be run only once to transform the app, and then it can be removed.
+   *
+   * Default: false
+   */
+  saveComponents: boolean;
 };
 
 /**
@@ -553,7 +846,7 @@ export type CustomIntlayerConfig = {
   /**
    * Custom routing configuration
    */
-  routing?: Partial<RoutingConfig>;
+  routing?: Partial<CustomRoutingConfig>;
 
   /**
    * Custom content configuration
@@ -586,22 +879,207 @@ export type CustomIntlayerConfig = {
   compiler?: Partial<CompilerConfig>;
 
   /**
+   * Custom system configuration
+   */
+  system?: Partial<SystemConfig>;
+
+  /**
+   * Custom schemas to validate the dictionaries content.
+   *
+   * Example:
+   * ```ts
+   * {
+   *  schemas: {
+   *   'my-schema': z.object({
+   *     title: z.string(),
+   *     description: z.string(),
+   *   }),
+   *  }
+   * }
+   * ```
+   */
+  schemas?: Record<string, ConfigSchema>;
+
+  /**
    * Custom plugins configuration
    */
-  plugins?: Plugin[];
+  plugins?: (Plugin | Promise<Plugin>)[];
 };
 
-export type DictionaryConfig = Pick<
-  Dictionary,
-  | 'fill'
-  | 'description'
-  | 'locale'
-  | 'priority'
-  | 'live'
-  | 'title'
-  | 'tags'
-  | 'version'
->;
+export type DictionaryConfig = {
+  /**
+   * Indicate how the dictionary should be filled using AI.
+   *
+   * Default: `true`
+   *
+   * - If `true`, will consider the `compiler.output` field.
+   * - If `false`, will skip the fill process.
+   *
+   * - `./` paths are resolved relative to the component directory.
+   * - `/` paths are resolved relative to the project root (`baseDir`).
+   *
+   * - If includes `{{locale}}` variable in the path, will trigger the generation of separate dictionaries per locale.
+   *
+   * Example:
+   * ```ts
+   * {
+   *   // Create Multilingual .content.ts files close to the component
+   *   fill: ({ fileName, extension }) => `./${fileName}${extension}`,
+   *
+   *   // fill: './{{fileName}}{{extension}}', // Equivalent using template string
+   * }
+   * ```
+   *
+   * ```ts
+   * {
+   *   // Create centralize per-locale JSON at the root of the project
+   *   fill: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+   *
+   *   // fill: '/locales/{{locale}}/{{key}}.content.json', // Equivalent using template string
+   * }
+   * ```
+   *
+   * ```ts
+   * {
+   *   // Create custom output based on the locale
+   *   fill: {
+   *     en: ({ key }) => `/locales/en/${key}.content.json`,
+   *     fr: '/locales/fr/{{key}}.content.json',
+   *     es: false,
+   *     de: true,
+   *   },
+   * }
+   * ```
+   *
+   *
+   * Variable list:
+   *   - `fileName`: The name of the file.
+   *   - `key`: The key of the content.
+   *   - `locale`: The locale of the content.
+   *   - `extension`: The extension of the file.
+   *   - `componentFileName`: The name of the component file.
+   *   - `componentExtension`: The extension of the component file.
+   *   - `format`: The format of the dictionary.
+   *   - `componentFormat`: The format of the component dictionary.
+   *   - `componentDirPath`: The directory path of the component.
+   */
+  fill?: Fill;
+  /**
+   * The description of the dictionary. Helps to understand the purpose of the dictionary in the editor, and the CMS.
+   * The description is also used as context for translations generation.
+   *
+   * Example:
+   * ```ts
+   * {
+   *   "key": "about-page-meta",
+   *   "description":[
+   *     "This dictionary is manage the metadata of the About Page",
+   *     "Consider good practices for SEO:",
+   *     "- The title should be between 50 and 60 characters",
+   *     "- The description should be between 150 and 160 characters",
+   *   ].join('\n'),
+   *   "content": { ... }
+   * }
+   * ```
+   */
+  description?: string;
+  /**
+   * Transform the dictionary in a per-locale dictionary.
+   * Each field declared in a per-locale dictionary will be transformed in a translation node.
+   * If missing, the dictionary will be treated as a multilingual dictionary.
+   * If declared, do not use translation nodes in the content.
+   *
+   * Example:
+   * ```json
+   * {
+   *   "key": "about-page",
+   *   "locale": "en",
+   *   "content": {
+   *     "multilingualContent": "English content"
+   *   }
+   * }
+   * ```
+   */
+  locale?: LocalesValues;
+  /**
+   * Indicators if the content of the dictionary should be automatically transformed.
+   * If true, the content will be transformed to the corresponding node type.
+   * - Markdown: `### Title` -> `md('### Title')`
+   * - HTML: `<div>Title</div>` -> `html('<div>Title</div>')`
+   * - Insertion: `Hello {{name}}` -> `insert('Hello {{name}}')`
+   *
+   * If an object is provided, you can specify which transformations should be enabled.
+   *
+   * Default: false
+   */
+  contentAutoTransformation?: ContentAutoTransformation;
+  /**
+   * Indicates the priority of the dictionary.
+   * In the case of conflicts, the dictionary with the highest priority will override the other dictionaries.
+   */
+  priority?: number;
+  /**
+   * Indicates the mode of import to use for the dictionaries.
+   *
+   * Available modes:
+   * - "static": The dictionaries are imported statically.
+   *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionary`.
+   * - "dynamic": The dictionaries are imported dynamically in a synchronous component using the suspense API.
+   *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryDynamic`.
+   * - "fetch": The dictionaries are imported dynamically using the live sync API.
+   *   In that case, Intlayer will replace all calls to `useIntlayer` with `useDictionaryDynamic`.
+   *   Fetch mode will use the live sync API to fetch the dictionaries. If the API call fails, the dictionaries will be imported dynamically as "dynamic" mode.
+   *
+   * Default: "static"
+   *
+   * By default, when a dictionary is loaded, it imports content for all locales as it's imported statically.
+   *
+   * Note:
+   * - Dynamic imports rely on Suspense and may slightly impact rendering performance.
+   * - If disabled all locales will be loaded at once, even if they are not used.
+   * - This option relies on the `@intlayer/babel` and `@intlayer/swc` plugins.
+   * - Ensure all keys are declared statically in the `useIntlayer` calls. e.g. `useIntlayer('navbar')`.
+   * - This option will be ignored if `optimize` is disabled.
+   * - This option will not impact the `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` and `useDictionaryDynamic` functions. You can still use them to refine you code on manual optimization.
+   * - The "fetch" allows to sync the dictionaries to the live sync server.
+   * - Require static key to work. Example of invalid code: `const navbarKey = "my-key"; useIntlayer(navbarKey)`.
+   */
+  importMode?: 'static' | 'dynamic' | 'fetch';
+  /**
+   * The title of the dictionary. Helps to identify the dictionary in the editor, and the CMS.
+   *
+   * Example:
+   * ```json
+   * {
+   *   "key": "about-page-meta",
+   *   "title": "About Page",
+   *   "content": { ... }
+   * }
+   * ```
+   */
+  title?: string;
+  /**
+   * Helps to categorize the dictionaries. The tags can provide more context and instructions for the dictionary.
+   *
+   * Example:
+   * ```json
+   * {
+   *   "key": "about-page-meta",
+   *   "tags": ["metadata","about-page"]
+   * }
+   * ```
+   */
+  tags?: string[];
+  /**
+   * Indicates the location of the dictionary and controls how it synchronizes with the CMS.
+   *
+   * - 'hybrid': The dictionary is managed locally and remotely. Once pushed on the CMS, it will be synchronized from the local one. The local dictionary will be pulled from the CMS.
+   * - 'remote': The dictionary is managed remotely only. Once pushed on the CMS, it will be detached from the local one. At content load time, the remote dictionary will be pulled from the CMS. A '.content' file with remote location will be ignored.
+   * - 'local': The dictionary is managed locally. It will not be pushed to the remote CMS.
+   * - 'plugin' (or any custom string): The dictionary is managed by a plugin, or a custom source. When you will try to push it, the system will ask an action to the user.
+   */
+  location?: DictionaryLocation;
+};
 
 /**
  * Combined configuration for internationalization, middleware, and content
@@ -626,6 +1104,11 @@ export type IntlayerConfig = {
    * Content configuration
    */
   content: ContentConfig;
+
+  /**
+   * System configuration
+   */
+  system: SystemConfig;
 
   /**
    * Intlayer editor configuration
@@ -653,15 +1136,20 @@ export type IntlayerConfig = {
   compiler: CompilerConfig;
 
   /**
+   * Custom schemas to validate the dictionaries content.
+   */
+  schemas?: Record<string, ConfigSchema>;
+
+  /**
    * Plugins configuration
    */
   plugins?: Plugin[];
 };
 
 /**
- * Base configuration for content handling
+ * Configuration for content handling
  */
-export type BaseContentConfig = {
+export type ContentConfig = {
   /**
    * File extensions of content to look for
    *
@@ -672,13 +1160,26 @@ export type BaseContentConfig = {
   fileExtensions: string[];
 
   /**
-   * Absolute path of the project's base directory
+   * Directory where the content is stored, relative to the base directory
    *
-   * Default: process.cwd()
+   * Default: ['.']
    *
-   * The root directory of the project, typically used for resolving other paths.
+   * Derived content directory based on the base configuration.
+   *
+   * Note: This is used to watch for content files.
    */
-  baseDir: string;
+  contentDir: string[];
+
+  /**
+   * Directory where the code is stored, relative to the base directory
+   *
+   * Default: ['.']
+   *
+   * Derived code directory based on the base configuration.
+   *
+   * Note: This is used to watch for code files to transform.
+   */
+  codeDir: string[];
 
   /**
    * Directories to be excluded from content processing
@@ -724,18 +1225,15 @@ export type BaseContentConfig = {
   formatCommand: string | undefined;
 };
 
-/**
- * Configuration derived based on the base content configuration
- */
-export type BaseDerivedConfig = {
+export type SystemConfig = {
   /**
-   * Directory where the content is stored, relative to the base directory
+   * Absolute path of the project's base directory
    *
-   * Default: ['.']
+   * Default: process.cwd()
    *
-   * Derived content directory based on the base configuration.
+   * The root directory of the project, typically used for resolving other paths.
    */
-  contentDir: string[];
+  baseDir: string;
 
   /**
    * Directory for module augmentation, relative to the base directory
@@ -826,47 +1324,16 @@ export type BaseDerivedConfig = {
    * Specifies the derived path for the cache files relative to the result directory.
    */
   cacheDir: string;
+
+  /**
+   * Directory where the temp files are stored, relative to the result directory
+   *
+   * Default: .intlayer/tmp
+   *
+   * Specifies the derived path for the tmp files relative to the result directory.
+   */
+  tempDir: string;
 };
-
-/**
- * Configuration for content patterns
- */
-export type PatternsContentConfig = {
-  /**
-   * Patterns of files to watch for changes
-   *
-   * Default: ['/**\/*.content.ts', '/**\/*.content.js', '/**\/*.content.json', '/**\/*.content.cjs', '/**\/*.content.mjs', '/**\/*.content.tsx', '/**\/*.content.jsx']
-   *
-   * Defines file patterns for content to watch for changes.
-   */
-  watchedFilesPattern: string[];
-
-  /**
-   * Patterns of files to watch for changes including the relative path
-   *
-   * Default: ['src/**\/*.content.ts', 'src/**\/*.content.js', 'src/**\/*.content.json', 'src/**\/*.content.cjs', 'src/**\/*.content.mjs', 'src/**\/*.content.tsx', 'src/**\/*.content.jsx']
-   *
-   * Specifies the file patterns for content to watch, including relative paths.
-   */
-  watchedFilesPatternWithPath: string[];
-
-  /**
-   * Pattern for output files including the relative path
-   *
-   * Default: '{{dictionariesDir}}/**\/*.json'
-   *
-   * Defines the pattern for output files, including the relative path.
-   */
-  outputFilesPatternWithPath: string;
-};
-
-// @TODO: Implement exclusion of non configurable fields, to not allow them to be set in the config
-/**
- * General configuration derived from the config file
- */
-export type ContentConfig = BaseContentConfig &
-  BaseDerivedConfig &
-  PatternsContentConfig;
 
 export type LogFunctions = {
   error?: typeof console.error;

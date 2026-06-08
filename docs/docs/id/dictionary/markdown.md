@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-06-29
+updatedAt: 2026-05-19
 title: Markdown
-description: Pelajari cara mendeklarasikan dan menggunakan konten Markdown di situs web multibahasa Anda dengan Intlayer. Ikuti langkah-langkah dalam dokumentasi online ini untuk mengintegrasikan Markdown secara mulus ke dalam proyek Anda.
+description: Pelajari cara mendeklarasikan dan menggunakan konten Markdown di situs web multibahasa Anda dengan Intlayer. Ikuti langkah-langkah dalam dokumentasi online ini untuk mengintegrasikan Markdown dengan mulus ke dalam proyek Anda.
 keywords:
   - Markdown
   - Internasionalisasi
@@ -17,365 +17,1309 @@ slugs:
   - content
   - markdown
 history:
+  - version: 8.11.0
+    date: 2026-05-28
+    changes: "Mengizinkan pra-parsing AST Markdown untuk SSR / hidrasi"
+  - version: 8.10.0
+    date: 2026-05-19
+    changes: "Menambahkan dukungan untuk file `.content.md`"
+  - version: 8.5.0
+    date: 2026-03-24
+    changes: "Menambahkan objek plugin `intlayerMarkdown`; gunakan `app.use(intlayerMarkdown)` sebagai ganti `app.use(installIntlayerMarkdown)`"
+  - version: 8.5.0
+    date: 2026-03-24
+    changes: "Memindahkan impor dari `{{framework}}-intlayer` ke `{{framework}}-intlayer/markdown`"
+  - version: 8.0.0
+    date: 2026-01-22
+    changes: "Menambahkan utilitas MarkdownRenderer / useMarkdownRenderer / renderMarkdown dan opsi forceInline"
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: "Dekorasi otomatis dari konten markdown, dukungan MDX dan SSR"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inisialisasi riwayat
+    changes: "Inisialisasi riwayat"
 ---
 
 # Markdown / Konten Teks Kaya
 
-## Cara Kerja Markdown
+Intlayer mendukung konten teks kaya yang didefinisikan menggunakan sintaks Markdown. Ini memungkinkan Anda dengan mudah menulis dan memelihara konten berformat kaya seperti blog, artikel, dan lainnya.
 
-Intlayer mendukung konten teks kaya yang didefinisikan menggunakan sintaks Markdown. Hal ini dicapai melalui fungsi `md`, yang mengubah string Markdown menjadi format yang dapat dikelola oleh Intlayer. Dengan menggunakan Markdown, Anda dapat dengan mudah menulis dan memelihara konten dengan format kaya, seperti blog, artikel, dan lainnya.
+## Mendeklarasikan Konten Markdown
 
-[Editor Visual Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) dan [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md) keduanya mendukung manajemen konten Markdown.
+Anda dapat mendeklarasikan konten Markdown menggunakan fungsi `md` atau cukup sebagai string (jika mengandung sintaks Markdown).
 
-Ketika diintegrasikan dengan aplikasi React, Anda dapat menggunakan penyedia rendering Markdown (seperti [`markdown-to-jsx`](https://www.npmjs.com/package/markdown-to-jsx)) untuk merender konten Markdown menjadi HTML. Ini memungkinkan Anda menulis konten dalam Markdown sambil memastikan tampilannya benar di aplikasi Anda.
+<Tabs>
+  <Tab label=".content.md" value=".content.md">
+    Mulai dari versi `8.10.0`, Anda dapat mendeklarasikan konten Markdown langsung di dalam file `.content.md`. Intlayer akan secara otomatis mendeteksi dan mem-parsing konten Markdown.
 
-## Menyiapkan Konten Markdown
+    ```md fileName="markdown-file.en.content.md"
+    ---
+    key: my-markdown-content
+    description: Konten saya
+    locale: en
+    ---
 
-Untuk menyiapkan konten Markdown dalam proyek Intlayer Anda, definisikan sebuah kamus konten yang menggunakan fungsi `md`.
+    # Konten saya
 
-```typescript fileName="markdownDictionary.content.ts" contentDeclarationFormat="typescript"
-import { md, type Dictionary } from "intlayer";
+    Berikut adalah contoh konten markdown
+    ```
 
-const markdownDictionary = {
-  key: "app",
-  content: {
-    myMarkdownContent: md("## My title \n\nLorem Ipsum"),
-  },
-} satisfies Dictionary;
+    Bidang `locale` pada front-matter adalah bidang yang mendefinisikan bahasa konten. Ini bersifat opsional. Jika tidak diberikan, Intlayer akan menggunakan bahasa default, yang juga digunakan sebagai bahasa cadangan jika tidak ada terjemahan yang tersedia untuk bahasa tertentu.
 
-export default markdownDictionary;
-```
+    Contoh struktur file:
 
-```javascript fileName="markdownDictionary.content.mjs" contentDeclarationFormat="esm"
-import { md } from "intlayer";
+    ```text
+    content
+    ├── markdown-file.en.content.md
+    ├── markdown-file.fr.content.md
+    └── markdown-file.es.content.md
+    ```
 
-/** @type {import('intlayer').Dictionary} */
-const markdownDictionary = {
-  key: "app",
-  content: {
-    myMarkdownContent: md("## Judul Saya \n\nLorem Ipsum"),
-  },
-};
+    Anda dapat menambahkan properti apa pun yang didefinisikan dalam [Definisi Kamus](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md) ke dalam front-matter
 
-export default markdownDictionary;
-```
+  </Tab>
+  <Tab label="Pembungkusan Manual" value="manual-wrapping">
+    Gunakan fungsi `md` untuk mendeklarasikan konten Markdown secara eksplisit. Ini berguna jika Anda ingin memastikan sebuah string diperlakukan sebagai Markdown bahkan jika tidak mengandung sintaks yang jelas.
 
-```javascript fileName="markdownDictionary.content.cjs" contentDeclarationFormat="commonjs"
-const { md } = require("intlayer");
+    ```typescript fileName="markdownDictionary.content.ts"
+    import { md, type Dictionary } from "intlayer";
 
-/** @type {import('intlayer').Dictionary} */
-const markdownDictionary = {
-  key: "app",
-  content: {
-    myMarkdownContent: md("## Judul Saya \n\nLorem Ipsum"),
-  },
-};
+    const markdownDictionary = {
+      key: "app",
+      content: {
+        myMarkdownContent: md("## Judul saya \n\nLorem Ipsum"),
+      },
+    } satisfies Dictionary;
 
-module.exports = markdownDictionary;
-```
+    export default markdownDictionary;
+    ```
 
-```json fileName="markdownDictionary.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "app",
-  "content": {
-    "myMarkdownContent": {
-      "nodeType": "markdown",
-      "markdown": "## Judul Saya \n\nLorem Ipsum"
+  </Tab>
+  <Tab label="File Eksternal" value="external-files">
+    Impor file `.md` secara langsung menggunakan fungsi `file`.
+
+    ```typescript fileName="markdownDictionary.content.ts"
+    import { md, file, t } from "intlayer";
+
+    export default {
+      key: "app",
+      content: {
+        content: t({
+          en: md(file("./myMarkdown.en.md")),
+          id: md(file("./myMarkdown.id.md")),
+        }),
+      },
+    };
+    ```
+
+  </Tab>
+
+  <Tab label="Deteksi Otomatis" value="automatic-detection">
+    Jika string mengandung indikator Markdown umum (seperti judul, daftar, tautan, dll.), Intlayer akan secara otomatis mengubahnya.
+
+    ```typescript fileName="markdownDictionary.content.ts"
+    export default {
+      key: "app",
+      contentAutoTransformation: true, // Mengaktifkan deteksi otomatis dari konten Markdown - Dapat diatur secara global di intlayer.config.ts
+      content: {
+        myMarkdownContent: "## Judul saya \n\nLorem Ipsum",
+      },
+    };
+    ```
+
+  </Tab>
+</Tabs>
+
+## Merender Markdown
+
+Intlayer menyediakan dua cara independen untuk merender Markdown:
+
+1. **Melalui `useIntlayer`**
+   — Intlayer secara otomatis mengubah simpul `md` menjadi keluaran asli kerangka kerja (JSX, VNode, string HTML).
+   - Frontmatter diparsing dan diekspos sebagai `.metadata`. Anda dapat mengesampingkan rendering pada dua tingkat — secara global dengan `MarkdownProvider` (atau yang setara di kerangka kerja) dan secara lokal per simpul dengan `.use()`. Keduanya dapat digabungkan; `.use()` diutamakan daripada `MarkdownProvider`, yang pada gilirannya diutamakan daripada nilai default.
+
+2. **Utilitas Pembantu** — `<MarkdownRenderer />`, `useMarkdownRenderer()`, dan `renderMarkdown()` adalah alat mandiri yang menerima **hanya string Markdown mentah**. Alat-alat ini independen dari `useIntlayer` dan tidak bekerja dengan simpul dekoratif yang dikembalikannya.
+
+Rendering Markdown mendukung **MDX** — gunakan komponen JSX/kerangka kerja apa pun berdasarkan namanya langsung di dalam Markdown Anda.
+
+### 1. Rendering Otomatis (melalui `useIntlayer`)
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+    Simpul Markdown dapat dirender langsung sebagai JSX.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "react-intlayer";
+    import { MarkdownProvider } from "react-intlayer/markdown";
+
+    const AppContent = () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return <div>{myMarkdownContent}</div>;
+    };
+
+    const App = () => (
+      <MarkdownProvider
+        components={{
+          h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+          MyButton: (props) => <button {...props} />, // Komponen MDX
+        }}
+      >
+        <AppContent />
+      </MarkdownProvider>
+    );
+    ```
+
+    > Jika `MarkdownProvider` tidak ada, Intlayer akan merender markdown menggunakan parser default Markdown ke JSX.
+
+    Anda juga dapat memberikan pengesampingan lokal untuk simpul tertentu menggunakan metode `.use()`:
+
+    ```tsx
+    {myMarkdownContent.use({
+      h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+    })}
+    ```
+
+    Anda dapat mengambil Markdown sebagai sebuah string:
+
+    ```tsx
+    {myMarkdownContent.value}
+    {String(myMarkdownContent)}
+    {myMarkdownContent.toString()}
+    ```
+
+    Dan Anda dapat mengakses metadata markdown Anda seperti ini:
+
+    ```tsx
+    {myMarkdownContent.metadata}
+    {myMarkdownContent.metadata.title}
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+    Simpul Markdown dapat dirender langsung sebagai JSX.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "next-intlayer";
+    import { MarkdownProvider } from "next-intlayer/markdown";
+
+    const AppContent = () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return <div>{myMarkdownContent}</div>;
+    };
+
+    const App = () => (
+      <MarkdownProvider
+        components={{
+          h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+          MyButton: (props) => <button {...props} />, // Komponen MDX
+        }}
+      >
+        <AppContent />
+      </MarkdownProvider>
+    );
+    ```
+
+    > Jika `MarkdownProvider` tidak ada, Intlayer akan merender markdown menggunakan parser default Markdown ke JSX.
+
+    Anda juga dapat memberikan pengesampingan lokal untuk simpul tertentu menggunakan metode `.use()`:
+
+    ```tsx
+    {myMarkdownContent.use({
+      h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+    })}
+    ```
+
+    Anda dapat mengambil Markdown sebagai sebuah string:
+
+    ```tsx
+    {myMarkdownContent.value}
+    {String(myMarkdownContent)}
+    {myMarkdownContent.toString()}
+    ```
+
+    Dan Anda dapat mengakses metadata markdown Anda seperti ini:
+
+    ```tsx
+    {myMarkdownContent.metadata}
+    {myMarkdownContent.metadata.title}
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+    Di Vue, konten Markdown dapat dirender menggunakan tag `component` bawaan atau langsung sebagai sebuah simpul.
+
+    ```vue fileName="App.vue"
+    <script setup>
+    import { useIntlayer } from "vue-intlayer";
+    const { myMarkdownContent } = useIntlayer("app");
+    </script>
+
+    <template>
+      <component :is="myMarkdownContent" />
+    </template>
+    ```
+
+    Konfigurasikan secara global melalui plugin `intlayerMarkdown` (mendukung komponen kustom MDX):
+
+    ```ts fileName="main.ts"
+    import { intlayerMarkdown } from "vue-intlayer/markdown";
+
+    app.use(intlayerMarkdown, {
+      components: {
+        h1: (props) => h('h1', { style: { color: 'green' } }, props.children),
+        MyButton: (props) => h('button', props), // Komponen MDX
+      },
+    });
+    ```
+
+    > Jika plugin `intlayerMarkdown` tidak diinstal, Intlayer akan merender menggunakan kompilator default.
+
+    Anda juga dapat memberikan pengesampingan lokal untuk simpul tertentu menggunakan metode `.use()`:
+
+    ```vue
+    <component :is="myMarkdownContent.use({
+      h1: (props) => h('h1', { style: { color: 'red' } }, props.children),
+    })" />
+    ```
+
+    Anda dapat mengambil Markdown sebagai sebuah string:
+
+    ```vue
+    {{ myMarkdownContent.value }}
+    {{ String(myMarkdownContent) }}
+    {{ myMarkdownContent.toString() }}
+    ```
+
+    Dan Anda dapat mengakses metadata markdown Anda seperti ini:
+
+    ```vue
+    <component :is="myMarkdownContent.metadata" />
+    <component :is="myMarkdownContent.metadata.title" />
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+    Svelte merender Markdown sebagai string HTML secara default. Gunakan `{@html}` untuk merendernya.
+
+    ```svelte fileName="App.svelte"
+    <script lang="ts">
+    import { useIntlayer } from "svelte-intlayer";
+    import { MarkdownProvider } from "svelte-intlayer/markdown";
+    import MyHeading from "./MyHeading.svelte";
+
+    const content = useIntlayer("app");
+    </script>
+
+    <MarkdownProvider components={{ h1: MyHeading }}>
+      {@html $content.myMarkdownContent}
+    </MarkdownProvider>
+    ```
+
+    > Jika `MarkdownProvider` tidak ada, Intlayer akan merender markdown menggunakan kompilator default.
+
+    Anda juga dapat memberikan pengesampingan lokal untuk simpul tertentu menggunakan metode `.use()`:
+
+    ```svelte
+    {@html $content.myMarkdownContent.use({ ... })}
+    ```
+
+    Anda dapat mengambil Markdown sebagai sebuah string:
+
+    ```svelte
+    {$content.myMarkdownContent.value}
+    {String($content.myMarkdownContent)}
+    {$content.myMarkdownContent.toString()}
+    ```
+
+    Dan Anda dapat mengakses metadata markdown Anda seperti ini:
+
+    ```svelte
+    {$content.myMarkdownContent.metadata}
+    {$content.myMarkdownContent.metadata.title}
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+    Preact mendukung simpul Markdown secara langsung di JSX.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "preact-intlayer";
+    import { MarkdownProvider } from "preact-intlayer/markdown";
+
+    const AppContent = () => {
+      const { myMarkdownContent } = useIntlayer("app");
+      return <div>{myMarkdownContent}</div>;
+    };
+
+    const App = () => (
+      <MarkdownProvider
+        components={{
+          h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+          MyButton: (props) => <button {...props} />, // Komponen MDX
+        }}
+      >
+        <AppContent />
+      </MarkdownProvider>
+    );
+    ```
+
+    > Jika `MarkdownProvider` tidak ada, Intlayer akan merender markdown menggunakan parser default Markdown ke JSX.
+
+    Anda juga dapat memberikan pengesampingan lokal untuk simpul tertentu menggunakan metode `.use()`:
+
+    ```tsx
+    {myMarkdownContent.use({
+      h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+    })}
+    ```
+
+    Anda dapat mengambil Markdown sebagai sebuah string:
+
+    ```tsx
+    {myMarkdownContent.value}
+    {String(myMarkdownContent)}
+    {myMarkdownContent.toString()}
+    ```
+
+    Dan Anda dapat mengakses metadata markdown Anda seperti ini:
+
+    ```tsx
+    {myMarkdownContent.metadata}
+    {myMarkdownContent.metadata.title}
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+    Solid mendukung simpul Markdown secara langsung di JSX.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "solid-intlayer";
+    import { MarkdownProvider } from "solid-intlayer/markdown";
+
+    const AppContent = () => {
+      const { myMarkdownContent } = useIntlayer("app");
+      return <div>{myMarkdownContent}</div>;
+    };
+
+    const App = () => (
+      <MarkdownProvider
+        components={{
+          h1: (props) => <h1 style={{ color: "red" }}>{props.children}</h1>,
+          MyButton: (props) => <button {...props} />, // Komponen MDX
+        }}
+      >
+        <AppContent />
+      </MarkdownProvider>
+    );
+    ```
+
+    > Jika `MarkdownProvider` tidak ada, Intlayer akan merender markdown menggunakan parser default Markdown ke JSX.
+
+    Anda juga dapat memberikan pengesampingan lokal untuk simpul tertentu menggunakan metode `.use()`:
+
+    ```tsx
+    {myMarkdownContent.use({
+      h1: (props) => <h1 style={{ color: "red" }}>{props.children}</h1>,
+    })}
+    ```
+
+    Anda dapat mengambil Markdown sebagai sebuah string:
+
+    ```tsx
+    {myMarkdownContent.value}
+    {String(myMarkdownContent)}
+    {myMarkdownContent.toString()}
+    ```
+
+    Dan Anda dapat mengakses metadata markdown Anda seperti ini:
+
+    ```tsx
+    {myMarkdownContent.metadata}
+    {myMarkdownContent.metadata.title}
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+    Angular menggunakan direktif `[innerHTML]` untuk merender konten Markdown.
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { useIntlayer } from "angular-intlayer";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="content().myMarkdownContent"></div>`,
+    })
+    export class AppComponent {
+      content = useIntlayer("app");
     }
-  }
+    ```
+
+    > Jika penyedia IntlayerMarkdown tidak dikonfigurasi, Intlayer akan merender menggunakan kompilator default.
+
+    Anda juga dapat memberikan pengesampingan lokal untuk simpul tertentu menggunakan metode `.use()`:
+
+    ```typescript
+    content().myMarkdownContent.use({
+      h1: { class: "text-3xl font-bold" },
+    })
+    ```
+
+    Anda dapat mengambil Markdown sebagai sebuah string:
+
+    ```typescript
+    content().myMarkdownContent.value
+    String(content().myMarkdownContent)
+    content().myMarkdownContent.toString()
+    ```
+
+    Dan Anda dapat mengakses metadata markdown Anda seperti ini:
+
+    ```typescript
+    content().myMarkdownContent.metadata
+    content().myMarkdownContent.metadata.title
+    ```
+
+  </Tab>
+</Tabs>
+
+### 2. Utilitas Pembantu (Hanya String Markdown)
+
+Utilitas ini merender **hanya string Markdown mentah** dan independen dari `useIntlayer`. Gunakan utilitas ini saat Anda perlu merender Markdown dari sumber selain dari kamus Anda.
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+  
+    #### Komponen `<MarkdownRenderer />`
+
+    Merender string Markdown dengan opsi tertentu.
+
+    ```tsx
+    import { MarkdownRenderer } from "react-intlayer/markdown";
+
+    <MarkdownRenderer forceBlock={true} tagfilter={true}>
+      {"# Judul Saya"}
+    </MarkdownRenderer>
+    ```
+
+    #### Hook `useMarkdownRenderer()`
+
+    Mendapatkan fungsi perender yang sudah dikonfigurasi sebelumnya.
+
+    ```tsx
+    import { useMarkdownRenderer } from "react-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({
+      forceBlock: true,
+      components: { h1: (props) => <h1 {...props} className="custom" /> }
+    });
+
+    return renderMarkdown("# Judul Saya");
+    ```
+
+    #### Utilitas `renderMarkdown()`
+    Utilitas mandiri untuk rendering di luar komponen.
+
+    ```tsx
+    import { renderMarkdown } from "react-intlayer/markdown";
+
+    const jsx = renderMarkdown("# Judul Saya", { forceBlock: true });
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+  
+    #### Komponen `<MarkdownRenderer />`
+
+    Merender string Markdown dengan opsi tertentu.
+
+    ```tsx
+    import { MarkdownRenderer } from "next-intlayer/markdown";
+
+    <MarkdownRenderer forceBlock={true} tagfilter={true}>
+      {"# Judul Saya"}
+    </MarkdownRenderer>
+    ```
+
+    #### Hook `useMarkdownRenderer()`
+
+    Mendapatkan fungsi perender yang sudah dikonfigurasi sebelumnya.
+
+    ```tsx
+    import { useMarkdownRenderer } from "next-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({
+      forceBlock: true,
+      components: { h1: (props) => <h1 {...props} className="custom" /> }
+    });
+
+    return renderMarkdown("# Judul Saya");
+    ```
+
+    #### Utilitas `renderMarkdown()`
+    Utilitas mandiri untuk rendering di luar komponen.
+
+    ```tsx
+    import { renderMarkdown } from "next-intlayer/markdown";
+
+    const jsx = renderMarkdown("# Judul Saya", { forceBlock: true });
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    #### Komponen `<MarkdownRenderer />`
+
+    ```vue
+    <script setup>
+    import { MarkdownRenderer } from "vue-intlayer/markdown";
+    </script>
+
+    <template>
+      <MarkdownRenderer :forceBlock="true" content="# Judul Saya" />
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    #### Komponen `<MarkdownRenderer />`
+
+    ```svelte
+    <script lang="ts">
+    import { MarkdownRenderer } from "svelte-intlayer/markdown";
+    </script>
+
+    <MarkdownRenderer forceBlock={true} value="# Judul Saya" />
+    ```
+
+    #### Hook `useMarkdownRenderer()`
+
+    ```svelte
+    <script lang="ts">
+    import { useMarkdownRenderer } from "svelte-intlayer/markdown";
+    const render = useMarkdownRenderer();
+    </script>
+
+    {@html render("# Judul Saya")}
+    ```
+
+    #### Utilitas `renderMarkdown()`
+
+    ```svelte
+    <script lang="ts">
+    import { renderMarkdown } from "svelte-intlayer/markdown";
+    </script>
+
+    {@html renderMarkdown("# Judul Saya")}
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+    #### Komponen `<MarkdownRenderer />`
+
+    ```tsx
+    import { MarkdownRenderer } from "preact-intlayer/markdown";
+
+    <MarkdownRenderer forceBlock={true}>
+      {"# Judul Saya"}
+    </MarkdownRenderer>
+    ```
+
+    #### Hook `useMarkdownRenderer()`
+
+    ```tsx
+    import { useMarkdownRenderer } from "preact-intlayer/markdown";
+
+    const render = useMarkdownRenderer();
+
+    return <div>{render("# Judul Saya")}</div>;
+    ```
+
+    #### Utilitas `renderMarkdown()`
+
+    ```tsx
+    import { renderMarkdown } from "preact-intlayer/markdown";
+
+    return <div>{renderMarkdown("# Judul Saya")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+    #### Komponen `<MarkdownRenderer />`
+
+    ```tsx
+    import { MarkdownRenderer } from "solid-intlayer/markdown";
+
+    <MarkdownRenderer forceBlock={true}>
+      {"# Judul Saya"}
+    </MarkdownRenderer>
+    ```
+
+    #### Hook `useMarkdownRenderer()`
+
+    ```tsx
+    import { useMarkdownRenderer } from "solid-intlayer/markdown";
+
+    const render = useMarkdownRenderer();
+
+    return <div>{render("# Judul Saya")}</div>;
+    ```
+
+    #### Utilitas `renderMarkdown()`
+
+    ```tsx
+    import { renderMarkdown } from "solid-intlayer/markdown";
+
+    return <div>{renderMarkdown("# Judul Saya")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+    #### Layanan `IntlayerMarkdownService`
+    Merender string Markdown menggunakan layanan.
+
+    ```typescript
+    import { IntlayerMarkdownService } from "angular-intlayer/markdown";
+
+    export class MyComponent {
+      constructor(private markdownService: IntlayerMarkdownService) {}
+
+      renderMarkdown(markdown: string) {
+        return this.markdownService.renderMarkdown(markdown);
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+## Konfigurasi Global dengan `MarkdownProvider`
+
+`MarkdownProvider` (atau padanan kerangka kerjanya) mengonfigurasi jalur rendering Markdown untuk seluruh aplikasi Anda. Ini berlaku baik untuk rendering `useIntlayer` otomatis maupun utilitas pembantu. Opsi yang ditetapkan di sini adalah default — `.use()` mengesampingkannya di tingkat simpul.
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "react-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        components={{
+          h1: (props) => <h1 style={{color: 'green'}} {...props} />,
+          a: ({ href, ...props }) => <a style={{color: 'red'}} {...props} />,
+          MyCustomJSXComponent: (props) => <span style={{color: 'red'}} {...props} />,
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+
+    > MDX didukung — nama komponen apa pun yang digunakan di dalam Markdown Anda (misalnya `<MyCustomJSXComponent />`) diselesaikan terhadap peta `components`.
+
+    Anda juga dapat menggunakan perender markdown Anda sendiri:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "react-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          // Use dynamic import to reduce the bundle size of your application
+          const { renderMarkdown } = await import('react-intlayer/markdown');
+          return renderMarkdown(md);
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > Mengimpor perender Markdown Anda secara dinamis adalah cara yang bagus untuk mengurangi ukuran bundel aplikasi Anda.
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "next-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        components={{
+          h1: (props) => <h1 style={{color: 'green'}} {...props} />,
+          a: ({ href, ...props }) => <a style={{color: 'red'}} {...props} />,
+          MyCustomJSXComponent: (props) => <span style={{color: 'red'}} {...props} />,
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+
+    > MDX didukung — nama komponen apa pun yang digunakan di dalam Markdown Anda (misalnya `<MyCustomJSXComponent />`) diselesaikan terhadap peta `components`.
+
+    Anda juga dapat menggunakan perender markdown Anda sendiri:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "next-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          // Use dynamic import to reduce the bundle size of your application
+          const { renderMarkdown } = await import('next-intlayer/markdown');
+          return renderMarkdown(md);
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > Mengimpor perender Markdown Anda secara dinamis adalah cara yang bagus untuk mengurangi ukuran bundel aplikasi Anda.
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    ```typescript fileName="main.ts"
+    import { createApp } from "vue";
+    import { intlayer } from "vue-intlayer";
+    import { intlayerMarkdown } from "vue-intlayer/markdown";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(intlayer);
+    app.use(intlayerMarkdown, {
+      components: {
+        h1: (props) =>
+        h('h1', { style: { color: 'orange' }, ...props }, props.children),
+        ComponentDemo: () => h('div', { style: { background: 'grey' } }, 'DEMO'),
+        bold: (props) => h('strong', props),
+        code: (props) => h('code', props),
+      },
+    });
+
+    app.mount("#app");
+    ```
+
+
+    > MDX didukung — nama komponen apa pun yang digunakan di dalam Markdown Anda (misalnya `<MyCustomJSXComponent />`) diselesaikan terhadap peta `components`.
+
+    Anda juga dapat menggunakan perender markdown Anda sendiri:
+
+    ```typescript fileName="main.ts"
+    import { createApp } from "vue";
+    import { intlayer } from "vue-intlayer";
+    import { intlayerMarkdown } from "vue-intlayer/markdown";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(intlayer);
+    app.use(intlayerMarkdown, {
+      renderMarkdown: async (md) => {
+        const { renderMarkdown } = await import('vue-intlayer/markdown');
+        return renderMarkdown(md);
+      },
+    });
+
+    app.mount("#app");
+    ```
+
+    > Mengimpor perender Markdown Anda secara dinamis adalah cara yang bagus untuk mengurangi ukuran bundel aplikasi Anda.
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    ```svelte fileName="App.svelte"
+    <script lang="ts">
+      import { MarkdownProvider } from "svelte-intlayer/markdown";
+      import MyHeading from "./MyHeading.svelte";
+    </script>
+
+    <MarkdownProvider
+      components={{
+        h1: MyHeading,
+      }}
+    >
+      <slot />
+    </MarkdownProvider>
+    ```
+
+
+    > MDX didukung — nama komponen apa pun yang digunakan di dalam Markdown Anda (misalnya `<MyCustomJSXComponent />`) diselesaikan terhadap peta `components`.
+
+    Anda juga dapat menggunakan perender markdown Anda sendiri:
+
+    ```svelte fileName="App.svelte"
+    <script lang="ts">
+      import { MarkdownProvider } from "svelte-intlayer/markdown";
+    </script>
+
+    <MarkdownProvider
+      renderMarkdown={async (md) => {
+        const { renderMarkdown } = await import('svelte-intlayer/markdown');
+        return renderMarkdown(md);
+      }}
+    >
+      <slot />
+    </MarkdownProvider>
+    ```
+
+    > Mengimpor perender Markdown Anda secara dinamis adalah cara yang bagus untuk mengurangi ukuran bundel aplikasi Anda.
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "preact-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        components={{
+          h1: ({ children }) => <h1 className="text-2xl font-bold">{children}</h1>,
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+
+    > MDX didukung — nama komponen apa pun yang digunakan di dalam Markdown Anda (misalnya `<MyCustomJSXComponent />`) diselesaikan terhadap peta `components`.
+
+    Anda juga dapat menggunakan perender markdown Anda sendiri:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "preact-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          const { renderMarkdown } = await import('preact-intlayer/markdown');
+          return renderMarkdown(md);
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > Mengimpor perender Markdown Anda secara dinamis adalah cara yang bagus untuk mengurangi ukuran bundel aplikasi Anda.
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "solid-intlayer/markdown";
+
+    export const AppProvider = (props) => (
+      <MarkdownProvider
+        components={{
+          h1: (props) => <h1 className="text-2xl font-bold">{props.children}</h1>,
+        }}
+      >
+        {props.children}
+      </MarkdownProvider>
+    );
+    ```
+
+
+    > MDX didukung — nama komponen apa pun yang digunakan di dalam Markdown Anda (misalnya `<MyCustomJSXComponent />`) diselesaikan terhadap peta `components`.
+
+    Anda juga dapat menggunakan perender markdown Anda sendiri:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "solid-intlayer/markdown";
+
+    export const AppProvider = (props) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          const { renderMarkdown } = await import('solid-intlayer/markdown');
+          return renderMarkdown(md);
+        }}
+      >
+        {props.children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > Mengimpor perender Markdown Anda secara dinamis adalah cara yang bagus untuk mengurangi ukuran bundel aplikasi Anda.
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    ```typescript fileName="app.module.ts"
+    import { NgModule } from '@angular/core';
+    import { IntlayerMarkdownModule } from 'angular-intlayer/markdown';
+
+    @NgModule({
+      imports: [
+        IntlayerMarkdownModule.forRoot({
+          renderMarkdown: async (md) => {
+            const { renderMarkdown } = await import('angular-intlayer/markdown');
+            return renderMarkdown(md);
+          }
+        })
+      ]
+    })
+    export class AppModule {}
+    ```
+
+    > Mengimpor perender Markdown Anda secara dinamis adalah cara yang bagus untuk mengurangi ukuran bundel aplikasi Anda.
+
+  </Tab>
+</Tabs>
+
+## Suspense
+
+Perender Markdown Intlayer dimuat secara dinamis. Meskipun dioptimalkan, ukuran parser dasarnya sekitar 55kb. Memuat ini secara sinkron menunda perenderan halaman awal dan menurunkan First Contentful Paint (FCP).
+
+Untuk mencegah pemblokiran UI, Intlayer terintegrasi dengan API Suspense dari React. Ia mengambil parser di latar belakang dan melempar Promise selama pengunduhan.
+
+Bungkus komponen apa pun yang merender Markdown Intlayer di dalam batasan `<Suspense>`. Ini menampilkan status fallback yang dilokalkan saat chunk diunduh, memungkinkan sisa DOM Anda segera dirender.
+
+Peringatan: Jika Anda tidak menyediakan batasan `<Suspense>`, React akan ditangguhkan pada tingkat root atau memblokir seluruh pohon komponen dari perenderan hingga chunk 55kb dimuat sepenuhnya.
+
+<Tabs>
+  <Tab label="Next.js" value="nextjs">
+
+Di Next.js App Router, Anda dapat menggunakan `Suspense` React untuk komponen klien atau file `loading.tsx` untuk komponen server.
+
+**Komponen Klien:**
+
+```tsx fileName="components/MyComponent.tsx"
+"use client";
+import { useIntlayer } from "next-intlayer";
+import { Suspense } from "react";
+
+const MyComponent = () => {
+  const markdownContent = useIntlayer("my-markdown");
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
+};
+```
+
+**Komponen Server dengan `loading.tsx`:**
+
+```tsx fileName="app/loading.tsx"
+export default function Loading() {
+  return <div>Loading...</div>;
 }
 ```
 
-## Impor file `.md` (multibahasa)
+```tsx fileName="app/page.tsx"
+import { useIntlayer } from "next-intlayer/server";
 
-Jika file Markdown Anda adalah file `.md`, Anda dapat mengimpornya menggunakan berbagai format impor yang disediakan oleh JavaScript atau Intlayer.
-
-Disarankan untuk memprioritaskan impor melalui [`file` function](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/file.md), karena memungkinkan Intlayer mengelola jalur relatif terhadap lokasi file dengan benar dan memastikan integrasi file ini dengan Visual Editor / CMS.
-
-```typescript fileName="md.d.ts" contentDeclarationFormat="typescript"
-// Deklarasi ini memungkinkan TypeScript mengenali dan mengimpor file Markdown (.md) sebagai modul.
-
-// Tanpa ini, TypeScript akan menghasilkan error saat mencoba mengimpor file Markdown,
-// karena secara native tidak mendukung impor file non-kode.
-
-declare module "*.md";
-```
-
-```typescript fileName="markdownDictionary.content.ts" contentDeclarationFormat="typescript"
-import { md, file, t, type Dictionary } from "intlayer";
-import { readFileSync } from "fs";
-import { resolve } from "path";
-
-import markdown from "./myMarkdown.md";
-
-const markdownDictionary = {
-  key: "app",
-  content: {
-    contentMultilingualFile: t({
-      en: md(file("./myMarkdown.en.md")),
-      fr: md(file("./myMarkdown.fr.md")),
-      es: md(file("./myMarkdown.es.md")),
-    }),
-
-    contentImport: md(markdown),
-    contentRequire: md(require("./myMarkdown.md")),
-    contentAsyncImport: md(
-      import("./myMarkdown.md").then((module) => module.default)
-    ),
-    contentFetch: md(fetch("https://example.com").then((res) => res.text())),
-    contentFS: md(() => {
-      const filePath = resolve(process.cwd(), "doc/test.md");
-      return readFileSync(filePath, "utf8");
-    }),
-  },
-} satisfies Dictionary;
-
-export default markdownDictionary;
-```
-
-```javascript fileName="markdownDictionary.content.mjs" contentDeclarationFormat="esm"
-import { md, file, t } from "intlayer";
-import { readFileSync } from "fs";
-import { resolve } from "path";
-
-import markdown from "./myMarkdown.md";
-
-/** @type {import('intlayer').Dictionary} */
-const markdownDictionary = {
-  key: "app",
-  content: {
-    contentMultilingualFile: t({
-      en: md(file("./myMarkdown.en.md")),
-      fr: md(file("./myMarkdown.fr.md")),
-      es: md(file("./myMarkdown.es.md")),
-    }),
-
-    contentImport: md(markdown),
-    contentRequire: md(require("./myMarkdown.md")),
-    contentAsyncImport: md(
-      import("./myMarkdown.md").then((module) => module.default)
-    ),
-    contentFetch: md(fetch("https://example.com").then((res) => res.text())),
-    contentFS: md(() => {
-      const filePath = resolve(process.cwd(), "doc/test.md");
-      return readFileSync(filePath, "utf8");
-    }),
-  },
+const MyPage = () => {
+  const markdownContent = useIntlayer("my-markdown");
+  return <div>{markdownContent}</div>;
 };
 
-export default markdownDictionary;
+export default MyPage;
 ```
 
-```javascript fileName="markdownDictionary.content.cjs" contentDeclarationFormat="commonjs"
-const { md, file, t } = require("intlayer");
+  </Tab>
 
-const markdown_en = require("./myMarkdown.en.md");
-const markdown_fr = require("./myMarkdown.fr.md");
-const markdown_es = require("./myMarkdown.es.md");
+  <Tab label="React" value="react">
 
-/** @type {import('intlayer').Dictionary} */
-// Kamus markdown
-const markdownDictionary = {
-  key: "app",
-  content: {
-    contentMultilingualFile: t({
-      en: md(file("./myMarkdown.en.md")),
-      fr: md(file("./myMarkdown.fr.md")),
-      es: md(file("./myMarkdown.es.md")),
-    }),
+```tsx
+import { useIntlayer } from "react-intlayer";
+import { Suspense } from "react";
 
-    contentImport: md(markdown),
-    contentFetch: md(fetch("https://example.com").then((res) => res.text())),
-    contentFS: md(() => {
-      const filePath = resolve(process.cwd(), "doc/test.md");
-      return readFileSync(filePath, "utf8");
-    }),
-  },
+const MyComponent = () => {
+  const markdownContent = useIntlayer("my-markdown");
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
 };
-
-module.exports = markdownDictionary;
 ```
 
-```jsonc fileName="markdownDictionary.content.json" contentDeclarationFormat="json"
-// - Mengimpor file Markdown eksternal (.md) hanya memungkinkan menggunakan node `file`, atau file deklarasi JS atau TS.
-// - Mengambil konten Markdown eksternal hanya memungkinkan menggunakan file deklarasi JS atau TS.
+  </Tab>
+ 
+  <Tab label="Vue" value="vue">
 
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "app",
-  "content": {
-    "": {
-        "nodeType": "file",
-        "file": "./myMarkdown.md",
-      },
-    },
+Vue memiliki komponen `<Suspense>` bawaan. Bungkus komponen yang merender konten Markdown dalam batasan `<Suspense>`.
 
-    "contentMultilingualFile": {
-      "nodeType": "translation",
-      "translation": {
-        "en": {
-          "nodeType": "markdown",
-          "markdown": {
-            "nodeType": "file",
-            "file": "./myMarkdown.en.md",
-          },
-        },
-        "fr": {
-          "nodeType": "markdown",
-          "markdown": {
-            "nodeType": "file",
-            "file": "./myMarkdown.fr.md",
-          },
-        },
-        "es": {
-          "nodeType": "markdown",
-          "markdown": {
-            "nodeType": "file",
-            "file": "./myMarkdown.es.md",
-          },
-        },
-      },
-    },
-  },
+```vue fileName="MyComponent.vue"
+<script setup>
+import { useIntlayer } from "vue-intlayer";
+
+const { markdownContent } = useIntlayer("my-markdown");
+</script>
+
+<template>
+  <Suspense>
+    <component :is="markdownContent" />
+    <template #fallback>
+      <div>Loading...</div>
+    </template>
+  </Suspense>
+</template>
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+Svelte tidak memiliki API Suspense yang setara. Gunakan blok `{#await}` untuk menangani perenderan asinkron dari konten Markdown.
+
+```svelte fileName="MyComponent.svelte"
+<script lang="ts">
+import { useIntlayer } from "svelte-intlayer";
+
+const content = useIntlayer("my-markdown");
+</script>
+
+{#await $content.markdownContent}
+  <div>Loading...</div>
+{:then rendered}
+  {@html rendered}
+{/await}
+```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+Preact mendukung API Suspense React melalui `preact/compat`.
+
+```tsx fileName="MyComponent.tsx"
+import { useIntlayer } from "preact-intlayer";
+import { Suspense } from "preact/compat";
+
+const MyComponent = () => {
+  const markdownContent = useIntlayer("my-markdown");
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
+};
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+Solid memiliki komponen `<Suspense>` sendiri dari `solid-js`.
+
+```tsx fileName="MyComponent.tsx"
+import { useIntlayer } from "solid-intlayer";
+import { Suspense } from "solid-js";
+
+const MyComponent = () => {
+  const { markdownContent } = useIntlayer("my-markdown");
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
+};
+```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+Angular tidak memiliki API Suspense. Gunakan tampilan yang ditangguhkan (`@defer`) milik Angular untuk menangani konten Markdown yang dimuat secara lambat (membutuhkan Angular 17+).
+
+```typescript fileName="my.component.ts"
+import { Component } from "@angular/core";
+import { useIntlayer } from "angular-intlayer";
+
+@Component({
+  selector: "app-my",
+  template: `
+    @defer {
+      <div [innerHTML]="content().markdownContent"></div>
+    } @loading {
+      <div>Loading...</div>
+    }
+  `,
+})
+export class MyComponent {
+  content = useIntlayer("my-markdown");
 }
 ```
 
-## Menggunakan Markdown dengan React Intlayer
+  </Tab>
+</Tabs>
 
-Untuk merender konten Markdown dalam aplikasi React, Anda dapat memanfaatkan hook `useIntlayer` dari paket `react-intlayer` bersama dengan penyedia rendering Markdown. Dalam contoh ini, kami menggunakan paket [`markdown-to-jsx`](https://www.npmjs.com/package/markdown-to-jsx) untuk mengonversi Markdown menjadi HTML.
+---
 
-```tsx fileName="App.tsx" codeFormat="typescript"
-import type { FC } from "react";
-import { useIntlayer, MarkdownProvider } from "react-intlayer";
-import Markdown from "markdown-to-jsx";
+## Rendering Sisi Server (SSR) dan Hidrasi
 
-const AppContent: FC = () => {
-  const { myMarkdownContent } = useIntlayer("app");
+Dibandingkan dengan parser Markdown lainnya seperti remark / rehype, Intlayer Markdown bebas ketergantungan dan berjalan di sisi klien maupun server.
 
-  return <>{myMarkdownContent}</>;
-};
+Namun Intlayer mengoptimalkan parsing untuk framework Server-Side Rendering (SSR) (seperti Next.js App Router, React Router, Nuxt, SvelteKit, dll.).
 
-export const AppProvider: FC = () => (
-  <MarkdownProvider
-    renderMarkdown={(markdown) => <Markdown>{markdown}</Markdown>}
-  >
-    <AppContent />
-  </MarkdownProvider>
-);
-```
+Hidrasi di browser memakan waktu, sehingga Intlayer memungkinkan Anda untuk mem-parsing Markdown terlebih dahulu ke dalam Abstract Syntax Tree (AST) di server, lalu mengirimkannya sebagai objek JSON yang dapat diserialisasi ke frontend.
 
-```jsx fileName="App.jsx" codeFormat="esm"
-import { useIntlayer, MarkdownProvider } from "react-intlayer";
-import Markdown from "markdown-to-jsx";
+Anda dapat menggunakan fungsi `parseMarkdown` dari paket Intlayer framework Anda di sisi server untuk menghasilkan AST yang dapat diserialisasi (objek `ParsedMarkdown`), dan meneruskannya secara langsung ke frontend. Semua utilitas rendering Intlayer (seperti `<MarkdownRenderer>`, `useMarkdownRenderer`, dll.) secara otomatis menerima objek AST ini dan merendernya dengan lancar.
 
-const AppContent = () => {
-  const { myMarkdownContent } = useIntlayer("app");
+### Contoh dalam Arsitektur Server/Klien
 
-  return <>{myMarkdownContent}</>;
-};
+<Tabs group="framework">
+  <Tab label="React Router" value="react">
 
-export const AppProvider = () => (
-  <MarkdownProvider
-    renderMarkdown={(markdown) => <Markdown>{markdown}</Markdown>}
-  >
-    <AppContent />
-  </MarkdownProvider>
-);
-```
+    ```tsx fileName="server.ts"
+    import { parseMarkdown } from "react-intlayer/markdown";
 
-```jsx fileName="App.jsx" codeFormat="commonjs"
-const { useIntlayer, MarkdownProvider } = require("react-intlayer");
-const Markdown = require("markdown-to-jsx");
+    // 1. Di server: Parsing markdown ke dalam AST yang dapat diserialisasi
+    export const loader = async () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
 
-const AppContent = () => {
-  const { myMarkdownContent } = useIntlayer("app");
+      // Kembalikan AST sebagai JSON ke klien
+      return Response.json({ content: ast });
+    };
+    ```
 
-  return <>{myMarkdownContent}</>;
-};
+    ```tsx fileName="client.tsx"
+    import { useLoaderData } from "react-router";
+    import { MarkdownRenderer } from "react-intlayer/markdown";
 
-AppProvider = () => (
-  <MarkdownProvider
-    renderMarkdown={(markdown) => <Markdown>{markdown}</Markdown>}
-  >
-    <AppContent />
-  </MarkdownProvider>
-);
+    // 2. Di klien: Render AST secara langsung tanpa mem-parsing ulang
+    export default function Page() {
+      const { content } = useLoaderData();
 
-module.exports = {
-  AppProvider,
-};
-```
+      // Renderer menerima string mentah atau AST hasil parsing
+      return <MarkdownRenderer content={content} />;
+    }
+    ```
 
-Dalam implementasi ini:
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
 
-- `MarkdownProvider` membungkus aplikasi (atau bagian relevan darinya) dan menerima fungsi `renderMarkdown`. Fungsi ini digunakan untuk mengonversi string Markdown menjadi JSX menggunakan paket `markdown-to-jsx`.
-- Hook `useIntlayer` digunakan untuk mengambil konten Markdown (`myMarkdownContent`) dari kamus dengan kunci `"app"`.
-- Konten Markdown dirender langsung di dalam komponen, dan rendering Markdown ditangani oleh provider.
+    ```tsx fileName="app/page.tsx"
+    import { parseMarkdown } from "next-intlayer/markdown";
+    import { MarkdownRenderer } from "next-intlayer/markdown";
 
-### Menggunakan Markdown dengan Next Intlayer
+    export default async function Page() {
+      // 1. Parsing markdown ke dalam AST yang dapat diserialisasi di server
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
 
-Implementasi menggunakan paket `next-intlayer` mirip dengan yang di atas. Perbedaannya hanya pada fungsi `renderMarkdown` yang harus diteruskan ke komponen `MarkdownProvider` dalam komponen client.
+      // 2. Render AST secara langsung
+      // Dalam Server Component, ini bekerja dengan lancar dan meneruskan AST
+    // secara langsung ke komponen klien di bawahnya jika diperlukan.
+      return <MarkdownRenderer content={ast} />;
+    }
+    ```
 
-```tsx title="src/providers/IntlayerMarkdownProvider.tsx" codeFormat="typescript"
-"use client";
+  </Tab>
+  <Tab label="Vue / Nuxt" value="vue">
 
-import type { FC, PropsWithChildren } from "react";
-import { MarkdownProvider } from "next-intlayer";
+    ```vue fileName="pages/index.vue"
+    <script setup lang="ts">
+    import { parseMarkdown } from "vue-intlayer/markdown";
+    import { MarkdownRenderer } from "vue-intlayer/markdown";
 
-const renderMarkdown = (markdown: string) => (
-  <span style={{ color: "red" }}>{markdown}</span>
-);
+    // 1. Ambil dan parsing markdown ke dalam AST di server
+    const { data: ast } = await useAsyncData('markdown', () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      return parseMarkdown(markdownString);
+    });
+    </script>
 
-export const IntlayerMarkdownProvider: FC<PropsWithChildren> = ({
-  children,
-}) => (
-  <MarkdownProvider renderMarkdown={renderMarkdown}>
-    {children}
-  </MarkdownProvider>
-);
-```
+    <template>
+      <!-- 2. Di klien: Render AST secara langsung tanpa mem-parsing ulang -->
+      <MarkdownRenderer :content="ast" />
+    </template>
+    ```
 
-```jsx title="src/providers/IntlayerMarkdownProvider.msx" codeFormat="esm"
-"use client";
+  </Tab>
+  <Tab label="SvelteKit" value="svelte">
 
-import { MarkdownProvider } from "next-intlayer";
+    ```typescript fileName="+page.server.ts"
+    import { parseMarkdown } from "svelte-intlayer/markdown";
 
-const renderMarkdown = (markdown) => (
-  <span style={{ color: "red" }}>{markdown}</span>
-);
+    // 1. Di server: Parsing markdown ke dalam AST yang dapat diserialisasi
+    export const load = async () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
 
-export const IntlayerMarkdownProvider = ({ children }) => (
-  <MarkdownProvider renderMarkdown={renderMarkdown}>
-    {children}
-  </MarkdownProvider>
-);
-```
+      // Kembalikan AST ke klien
+      return { content: ast };
+    };
+    ```
 
-```jsx title="src/providers/IntlayerMarkdownProvider.csx" codeFormat="commonjs"
-"use client";
+    ```svelte fileName="+page.svelte"
+    <script lang="ts">
+      import { MarkdownRenderer } from "svelte-intlayer/markdown";
+      export let data;
+    </script>
 
-const { MarkdownProvider } = require("next-intlayer");
+    <!-- 2. Di klien: Render AST secara langsung tanpa mem-parsing ulang -->
+    <MarkdownRenderer value={data.content} />
+    ```
 
-const renderMarkdown = (markdown) => (
-  <span style={{ color: "red" }}>{markdown}</span>
-);
+  </Tab>
+  <Tab label="Angular" value="angular">
 
-const IntlayerMarkdownProvider = ({ children }) => (
-  <MarkdownProvider renderMarkdown={renderMarkdown}>
-    {children}
-  </MarkdownProvider>
-);
-```
+    Angular SSR biasanya menyelesaikan data di server selama pemuatan awal dan menghidrasi di klien. Anda dapat menggunakan resolver untuk meneruskan AST.
 
-## Sumber Daya Tambahan
+    ```typescript fileName="app.resolver.ts"
+    import { Injectable } from "@angular/core";
+    import { Resolve } from "@angular/router";
+    import { parseMarkdown, type ParsedMarkdown } from "angular-intlayer/markdown";
 
-- [Dokumentasi Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_cli.md)
-- [Dokumentasi React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_create_react_app.md)
-- [Dokumentasi Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_with_nextjs_15.md)
-- [markdown-to-jsx di npm](https://www.npmjs.com/package/markdown-to-jsx)
+    @Injectable({ providedIn: "root" })
+    export class MarkdownResolver implements Resolve<ParsedMarkdown> {
+      resolve(): ParsedMarkdown {
+        const markdownString = "## My title \n\nLorem Ipsum";
+        // 1. Di server: Parsing markdown ke dalam AST yang dapat diserialisasi
+        return parseMarkdown(markdownString);
+      }
+    }
+    ```
 
-Sumber daya ini memberikan wawasan lebih lanjut tentang pengaturan dan penggunaan Intlayer dengan berbagai jenis konten dan framework.
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { ActivatedRoute } from "@angular/router";
+    import { IntlayerMarkdownService, type ParsedMarkdown } from "angular-intlayer/markdown";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="renderedMarkdown"></div>`,
+    })
+    export class AppComponent {
+      renderedMarkdown: string = "";
+
+      constructor(
+        private route: ActivatedRoute,
+        private markdownService: IntlayerMarkdownService
+      ) {
+        // 2. Di klien: Render AST secara langsung tanpa mem-parsing ulang
+        this.route.data.subscribe((data) => {
+          this.renderedMarkdown = this.markdownService.renderMarkdown(
+            data.markdownAst
+          ) as string;
+        });
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+Pola ini memastikan bahwa logika parsing Markdown dieksekusi sepenuhnya di server, secara signifikan mengurangi waktu eksekusi di sisi klien dan meningkatkan kecepatan hidrasi awal.
+
+## Referensi Opsi
+
+Opsi ini dapat diteruskan ke `MarkdownProvider`, `MarkdownRenderer`, `useMarkdownRenderer`, dan `renderMarkdown`.
+
+| Option                | Type        | Default | Deskripsi                                                                                            |
+| :-------------------- | :---------- | :------ | :--------------------------------------------------------------------------------------------------- |
+| `forceBlock`          | `boolean`   | `false` | Memaksa output untuk dibungkus dalam elemen tingkat blok (mis., `<div>`).                            |
+| `forceInline`         | `boolean`   | `false` | Memaksa output untuk dibungkus dalam elemen sebaris (mis., `<span>`).                                |
+| `tagfilter`           | `boolean`   | `true`  | Mengaktifkan GitHub Tag Filter untuk keamanan yang ditingkatkan dengan menghapus tag HTML berbahaya. |
+| `preserveFrontmatter` | `boolean`   | `false` | Jika `true`, frontmatter di awal string Markdown tidak akan dihapus.                                 |
+| `components`          | `Overrides` | `{}`    | Peta tag HTML ke komponen kustom (mis., `{ h1: MyHeading }`).                                        |
+| `wrapper`             | `Component` | `null`  | Komponen kustom untuk membungkus Markdown yang dirender.                                             |
+| `renderMarkdown`      | `Function`  | `null`  | Fungsi perenderan kustom untuk sepenuhnya menggantikan kompilator Markdown default.                  |

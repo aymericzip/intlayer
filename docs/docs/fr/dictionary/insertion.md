@@ -17,9 +17,12 @@ slugs:
   - content
   - insertion
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: "Décoration automatique du contenu d'insertion"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historique initial
+    changes: "Historique initial"
 ---
 
 # Contenu d'Insertion / Insertion dans Intlayer
@@ -32,67 +35,73 @@ Lorsqu'elle est intégrée avec React Intlayer ou Next Intlayer, il vous suffit 
 
 ## Configuration du Contenu d'Insertion
 
-Pour configurer le contenu d'insertion dans votre projet Intlayer, créez un module de contenu qui inclut vos définitions d'insertion. Voici des exemples dans différents formats.
+Pour configurer le contenu d'insertion dans votre projet Intlayer, créez un module de contenu qui inclut vos définitions d'insertion.
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { insert, type Dictionary } from "intlayer";
+<Tabs>
+  <Tab label="Enveloppement Manuel" value="manual-wrapping">
+    Utilisez la fonction `insert` pour déclarer explicitement du contenu d'insertion.
 
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert("Bonjour, je m'appelle {{name}} et j'ai {{age}} ans !"),
-  },
-} satisfies Dictionary;
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
+    import { insert, type Dictionary } from "intlayer";
 
-export default myInsertionContent;
-```
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert("Bonjour, je m'appelle {{name}} et j'ai {{age}} ans !"),
+      },
+    } satisfies Dictionary;
 
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { insert } from "intlayer";
+    export default myInsertionContent;
+    ```
 
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert("Bonjour, je m'appelle {{name}} et j'ai {{age}} ans !"),
-  },
-};
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": {
+          "nodeType": "insertion",
+          "insertion": "Bonjour, je m'appelle {{name}} et j'ai {{age}} ans !",
+        },
+      },
+    }
+    ```
 
-export default myInsertionContent;
-```
+  </Tab>
+  <Tab label="Détection Automatique" value="automatic-detection">
+    Si la chaîne contient des indicateurs d'insertion courants (comme `{{name}}`), Intlayer la transformera automatiquement.
 
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { insert } = require("intlayer");
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
+    import { type Dictionary } from "intlayer";
 
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert("Bonjour, je m'appelle {{name}} et j'ai {{age}} ans !"),
-  },
-};
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "Bonjour, je m'appelle {{name}} et j'ai {{age}} ans !",
+      },
+    } satisfies Dictionary;
 
-module.exports = myInsertionContent;
-```
+    export default myInsertionContent;
+    ```
 
-```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "my_key",
-  "content": {
-    "myInsertion": {
-      "nodeType": "insertion",
-      "insertion": "Bonjour, je m'appelle {{name}} et j'ai {{age}} ans !",
-    },
-  },
-}
-```
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": "Bonjour, je m'appelle {{name}} et j'ai {{age}} ans !",
+      },
+    }
+    ```
+
+  </Tab>
+</Tabs>
 
 ## Utilisation du contenu d'insertion avec React Intlayer
 
 Pour utiliser un contenu d'insertion dans un composant React, importez et utilisez le hook `useIntlayer` depuis le paquet `react-intlayer`. Ce hook récupère le contenu pour la clé spécifiée et vous permet de passer un objet qui associe chaque espace réservé dans votre contenu à la valeur que vous souhaitez afficher.
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -120,65 +129,11 @@ const InsertionComponent: FC = () => {
 export default InsertionComponent;
 ```
 
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Résultat : "Hello, my name is John and I am 30 years old!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* Vous pouvez réutiliser la même insertion avec des valeurs différentes */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-export default InsertionComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* Résultat : "Hello, my name is John and I am 30 years old!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* Vous pouvez réutiliser la même insertion avec des valeurs différentes */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = InsertionComponent;
-```
-
 ## Ressources supplémentaires
 
 Pour des informations plus détaillées sur la configuration et l'utilisation, consultez les ressources suivantes :
 
-- [Documentation CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_cli.md)
+- [Documentation CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md)
 - [Documentation React Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_create_react_app.md)
 - [Documentation Next Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_nextjs_15.md)
 

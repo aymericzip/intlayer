@@ -1,0 +1,37 @@
+export type TechLogoName = 
+  | 'adonis' |
+  'angular' |
+  'astro' |
+  'express' |
+  'fastify' |
+  'hono' |
+  'lynx' |
+  'nestjs' |
+  'nextjs' |
+  'node' |
+  'nuxt' |
+  'preact' |
+  'react' |
+  'solid' |
+  'svelte' |
+  'tanstack' |
+  'vite' |
+  'vue' |
+  'lit' |
+  'vanilla' |
+  'anthropic' |
+  'claude' |
+  'chatgpt' |
+  'deepseek' |
+  'gemini' |
+  'googleai' |
+  'grok' |
+  'mistral' |
+  'ollama' |
+  'openai' |
+  'perplexity' |
+  'github' |
+  'gitlab' |
+  'bitbucket' |
+  'google' |
+  'linkedin';

@@ -1,40 +1,51 @@
 'use client';
 
-import { useEditedContent } from '@intlayer/editor-react';
-import type { Dictionary, LocalDictionaryId } from '@intlayer/types';
-import { WandSparkles } from 'lucide-react';
-import { type FC, useEffect } from 'react';
-import { useIntlayer } from 'react-intlayer';
 import {
   useAuditContentDeclarationMetadata,
   useGetProjects,
   useGetTags,
-} from '../../../hooks';
-import { useSession } from '../../../hooks/useAuth';
-import { ButtonColor, ButtonSize, ButtonVariant } from '../../Button';
-import { Container } from '../../Container';
-import { Form, useForm } from '../../Form';
-import { Loader } from '../../Loader';
-import { MultiSelect } from '../../Select';
+} from '@api/index';
+import { useSession } from '@api/useAuth';
+
+import { Form, useForm } from '@components/Form';
+import { Checkbox } from '@components/Input';
+import { Loader } from '@components/Loader';
+import { MultiSelect, Select } from '@components/Select';
+import { useEditedContent } from '@intlayer/editor-react';
+import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
+import { AnimatePresence, motion } from 'framer-motion';
+import { WandSparkles } from 'lucide-react';
+import { type FC, useEffect } from 'react';
+import { useWatch } from 'react-hook-form';
+import { useIntlayer } from 'react-intlayer';
 import { useDictionaryDetailsSchema } from './useDictionaryDetailsSchema';
 
 type DictionaryDetailsProps = {
   dictionary: Dictionary;
+  mode: ('local' | 'remote')[];
 };
 
 export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   dictionary,
+  mode,
 }) => {
   const { session } = useSession();
   const { project } = session ?? {};
-  const { data: projects, isLoading: isLoadingProjects } = useGetProjects();
-  const { data: tags } = useGetTags();
+  const { data: projectsData, isLoading: isLoadingProjects } =
+    useGetProjects() as any;
+  const { data: tagsData } = useGetTags() as any;
+
+  const projects = (projectsData?.data ?? []) as any[];
+  const allTags = (tagsData?.data ?? []) as any[];
 
   const DictionaryDetailsSchema = useDictionaryDetailsSchema(
     String(project?.id)
   );
   const { form, isSubmitting } = useForm(DictionaryDetailsSchema, {
-    defaultValues: dictionary,
+    defaultValues: {
+      ...dictionary,
+      location: dictionary.location ?? 'remote',
+    },
   });
   const { editedContent, setEditedDictionary } = useEditedContent();
   const {
@@ -43,6 +54,9 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     descriptionInput,
     projectInput,
     tagsSelect,
+    locationSelect,
+    importModeSelect,
+    filePathInput,
     auditButton,
   } = useIntlayer('dictionary-details');
   const { mutate: auditContentDeclaration, isPending: isAuditing } =
@@ -51,12 +65,20 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     editedContent?.[dictionary.localId as LocalDictionaryId];
 
   useEffect(() => {
-    form.reset(dictionary);
+    form.reset({
+      ...dictionary,
+      tags: dictionary.tags ?? [],
+      location: dictionary.location ?? 'remote',
+    });
   }, [dictionary, form?.reset]);
 
   useEffect(() => {
     if (typeof updatedDictionary === 'undefined') {
-      form.reset(dictionary);
+      form.reset({
+        ...dictionary,
+        tags: dictionary.tags ?? [],
+        location: dictionary.location ?? 'remote',
+      });
     }
   }, [updatedDictionary]);
 
@@ -74,184 +96,325 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         onSuccess: (response) => {
           if (!response?.data) return;
 
-          try {
-            const auditedDictionary = response.data.fileContent;
+          const auditedDictionary = response.data.fileContent;
 
-            setEditedDictionary((prev) => ({
-              ...prev,
-              ...dictionaryToAudit,
-              ...auditedDictionary,
-            }));
-            form.reset({
-              ...dictionaryToAudit,
-              ...auditedDictionary,
-            });
-          } catch (error) {
-            console.error(error);
-          }
+          const merged = {
+            ...dictionaryToAudit,
+            ...auditedDictionary,
+            tags: auditedDictionary.tags ?? dictionaryToAudit.tags ?? [],
+          };
+
+          setEditedDictionary(merged as Dictionary);
+          form.reset(merged);
         },
       }
     );
   };
 
+  const watchedLocation = useWatch({
+    control: form.control,
+    name: 'location',
+  });
+  const isLocalChecked =
+    watchedLocation === 'local' || watchedLocation === 'hybrid';
+
   return (
-    <Container
-      background="none"
-      border
-      roundedSize="2xl"
-      className="w-full px-5 pt-5 pb-3"
+    <Form
+      className="flex w-full flex-col gap-8"
+      {...form}
+      schema={DictionaryDetailsSchema}
     >
-      <Form
-        className="flex w-full flex-col gap-8"
-        {...form}
-        schema={DictionaryDetailsSchema}
-        onChange={(data) => {
-          setEditedDictionary((prev) => ({
-            ...prev,
-            ...data,
-          }));
-        }}
-      >
-        <div className="flex w-full flex-1 gap-8 max-md:flex-col">
-          <Form.EditableFieldInput
-            name="key"
-            label={keyInput.label}
-            placeholder={keyInput.label.value}
-            description={keyInput.description}
-            disabled={isSubmitting}
-            isRequired
-            onSave={(value) => {
-              form.setValue('key', value);
-              setEditedDictionary((prev) => ({
-                ...dictionary,
-                ...(prev ?? {}),
-                key: value,
-              }));
-            }}
-          />
-          <Form.EditableFieldInput
-            name="title"
-            label={titleInput.label}
-            placeholder={titleInput.placeholder.value}
-            description={titleInput.description}
-            disabled={isSubmitting}
-            onSave={(value) => {
-              form.setValue('title', value);
-              setEditedDictionary((prev) => ({
-                ...dictionary,
-                ...(prev ?? {}),
-                title: value,
-              }));
-            }}
-          />
-        </div>
-        <Form.EditableFieldTextArea
-          name="description"
-          label={descriptionInput.label}
-          placeholder={descriptionInput.placeholder.value}
-          description={descriptionInput.description}
+      <div className="grid grid-cols-2 gap-8 max-md:grid-cols-1">
+        <Form.EditableFieldInput
+          name="key"
+          label={keyInput.label}
+          placeholder={keyInput.label.value}
+          description={keyInput.description}
           disabled={isSubmitting}
+          isRequired
           onSave={(value) => {
-            form.setValue('description', value);
-            setEditedDictionary((prev) => ({
+            form.setValue('key', value, { shouldDirty: true });
+            setEditedDictionary({
               ...dictionary,
-              ...(prev ?? {}),
-              description: value,
-            }));
+              ...(updatedDictionary ?? {}),
+              key: value,
+            });
           }}
         />
-        <div className="flex size-full flex-1 gap-8 max-md:flex-col">
-          <Form.MultiSelect
-            name="projectIds"
-            label={projectInput.label.value}
-            description={projectInput.description.value}
-            onValueChange={(value) => {
-              const valueArray = [value].flat();
-              form.setValue('projectIds', valueArray);
-              setEditedDictionary((prev) => ({
-                ...dictionary,
-                ...(prev ?? {}),
-                projectIds: valueArray,
-              }));
-            }}
-          >
-            <MultiSelect.Trigger
-              getBadgeValue={(value) =>
-                projects?.data?.find((project) => String(project.id) === value)
-                  ?.name ?? value
-              }
-            >
-              <MultiSelect.Input placeholder={projectInput.placeholder.value} />
-            </MultiSelect.Trigger>
-            <MultiSelect.Content>
-              <Loader isLoading={isLoadingProjects}>
-                <MultiSelect.List>
-                  {projects?.data?.map((project) => (
-                    <MultiSelect.Item
-                      key={String(project.id)}
-                      value={String(project.id)}
-                    >
-                      {project.name}
-                    </MultiSelect.Item>
-                  ))}
-                </MultiSelect.List>
-              </Loader>
-            </MultiSelect.Content>
-          </Form.MultiSelect>
+        <Form.EditableFieldInput
+          name="title"
+          label={titleInput.label}
+          placeholder={titleInput.placeholder.value}
+          description={titleInput.description}
+          disabled={isSubmitting}
+          onSave={(value) => {
+            form.setValue('title', value, { shouldDirty: true });
+            setEditedDictionary({
+              ...dictionary,
+              ...(updatedDictionary ?? {}),
+              title: value,
+            });
+          }}
+        />
+      </div>
+      <Form.EditableFieldTextArea
+        name="description"
+        label={descriptionInput.label}
+        placeholder={descriptionInput.placeholder.value}
+        description={descriptionInput.description}
+        disabled={isSubmitting}
+        onSave={(value) => {
+          form.setValue('description', value, { shouldDirty: true });
+          setEditedDictionary({
+            ...dictionary,
+            ...(updatedDictionary ?? {}),
+            description: value,
+          });
+        }}
+      />
+      <div className="grid grid-cols-2 gap-8 px-1 max-md:grid-cols-1">
+        <Form.Field
+          control={form.control}
+          name="location"
+          render={({ field }) => {
+            const value = field.value;
+            const isLocal = value === 'local' || value === 'hybrid';
+            const isRemote = value === 'remote' || value === 'hybrid';
 
-          <Form.MultiSelect
-            name="tags"
-            label={tagsSelect.label.value}
-            description={tagsSelect.description.value}
-            onValueChange={(value) => {
-              form.setValue('tags', [value].flat());
-              setEditedDictionary((prev) => ({
-                ...dictionary,
-                ...(prev ?? {}),
-                tags: [value].flat(),
-              }));
-            }}
-          >
-            <MultiSelect.Trigger
-              getBadgeValue={(value) =>
-                projects?.data?.find((project) => String(project.id) === value)
-                  ?.name ?? value
-              }
-            >
-              <MultiSelect.Input placeholder={tagsSelect.placeholder.value} />
-            </MultiSelect.Trigger>
-            <MultiSelect.Content>
-              <Loader isLoading={isLoadingProjects}>
-                <MultiSelect.List>
-                  {tags?.data?.map((tag) => (
-                    <MultiSelect.Item
-                      key={String(tag.key)}
-                      value={String(tag.key)}
-                    >
-                      {tag.name ?? tag.key}
-                    </MultiSelect.Item>
-                  ))}
-                </MultiSelect.List>
-              </Loader>
-            </MultiSelect.Content>
-          </Form.MultiSelect>
-        </div>
+            const handleLocalToggle = (isChecked: boolean) => {
+              if (!isChecked && !isRemote) return;
 
-        <div className="flex flex-wrap items-center justify-end gap-2 max-md:flex-col">
-          <Form.Button
-            type="button"
-            size={ButtonSize.ICON_MD}
-            label={auditButton.label.value}
-            Icon={WandSparkles}
-            variant={ButtonVariant.OUTLINE}
-            color={ButtonColor.TEXT}
-            className="max-md:w-full"
-            onClick={handleOnAuditFile}
-            disabled={isSubmitting || isAuditing}
-            isLoading={isAuditing}
-          />
-        </div>
-      </Form>
-    </Container>
+              const newValue: Dictionary['location'] = isChecked
+                ? isRemote
+                  ? 'hybrid'
+                  : 'local'
+                : 'remote';
+
+              field.onChange(newValue);
+
+              const newFilePath = isChecked
+                ? (form.getValues('filePath') ?? dictionary.filePath)
+                : undefined;
+
+              if (!isChecked) {
+                form.setValue('filePath', undefined);
+              }
+
+              setEditedDictionary({
+                ...dictionary,
+                ...(updatedDictionary ?? {}),
+                location: newValue,
+                filePath: newFilePath,
+              });
+            };
+
+            const handleRemoteToggle = (isChecked: boolean) => {
+              if (!isChecked && !isLocal) return;
+
+              const newValue: Dictionary['location'] = isChecked
+                ? isLocal
+                  ? 'hybrid'
+                  : 'remote'
+                : 'local';
+
+              field.onChange(newValue);
+
+              setEditedDictionary({
+                ...dictionary,
+                ...(updatedDictionary ?? {}),
+                location: newValue,
+              });
+            };
+
+            return (
+              <Form.Item className="flex flex-col gap-2 px-1">
+                <Form.Label className="ml-1">{locationSelect.label}</Form.Label>
+                <div className="ml-2 flex items-center gap-4 py-2">
+                  <Checkbox
+                    id="location-local"
+                    name="location-local"
+                    label={locationSelect.local.value}
+                    color="text"
+                    checked={isLocal}
+                    disabled={
+                      !mode.includes('local') && !mode.includes('remote')
+                    }
+                    onChange={(e) => handleLocalToggle(e.target.checked)}
+                  />
+                  <Checkbox
+                    id="location-remote"
+                    name="location-remote"
+                    label={locationSelect.remote.value}
+                    color="text"
+                    checked={isRemote}
+                    disabled={
+                      !mode.includes('remote') &&
+                      dictionary.location !== 'remote' &&
+                      dictionary.location !== 'hybrid'
+                    }
+                    onChange={(e) => handleRemoteToggle(e.target.checked)}
+                  />
+                </div>
+                <Form.Description>
+                  {locationSelect.testDescription}
+                </Form.Description>
+                <Form.Message />
+              </Form.Item>
+            );
+          }}
+        />
+
+        <AnimatePresence mode="wait">
+          {isLocalChecked && (
+            <motion.div
+              key="filePath-input"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="overflow-hidden"
+            >
+              <Form.Input
+                name="filePath"
+                label={filePathInput.label.value}
+                placeholder={filePathInput.placeholder.value}
+                description={filePathInput.description.value}
+                disabled={isSubmitting || !isLocalChecked}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setEditedDictionary({
+                    ...dictionary,
+                    ...(updatedDictionary ?? {}),
+                    filePath: value,
+                  });
+                }}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+      <div className="grid grid-cols-2 gap-8 max-md:grid-cols-1">
+        <Form.Select
+          name="importMode"
+          label={importModeSelect.label.value}
+          description={importModeSelect.description.value}
+          onValueChange={(value) => {
+            form.setValue('importMode', value as any, { shouldDirty: true });
+            setEditedDictionary({
+              ...dictionary,
+              ...(updatedDictionary ?? {}),
+              importMode: value as any,
+            });
+          }}
+        >
+          <Select.Trigger>
+            <Select.Value placeholder={importModeSelect.label.value} />
+          </Select.Trigger>
+          <Select.Content>
+            <Select.Item value="static">
+              {importModeSelect.static.value}
+            </Select.Item>
+            <Select.Item value="dynamic">
+              {importModeSelect.dynamic.value}
+            </Select.Item>
+            <Select.Item value="live">
+              {importModeSelect.live.value}
+            </Select.Item>
+          </Select.Content>
+        </Form.Select>
+      </div>
+      <div className="grid grid-cols-2 gap-8 max-md:grid-cols-1">
+        <Form.MultiSelect
+          name="projectIds"
+          label={projectInput.label.value}
+          description={projectInput.description}
+          onValueChange={(value) => {
+            const valueArray = [value].flat();
+            form.setValue('projectIds', valueArray, { shouldDirty: true });
+            setEditedDictionary({
+              ...dictionary,
+              ...(updatedDictionary ?? {}),
+              projectIds: valueArray,
+            });
+          }}
+        >
+          <MultiSelect.Trigger
+            getBadgeValue={(value) =>
+              projects?.find((project: any) => String(project.id) === value)
+                ?.name ?? value
+            }
+          >
+            <MultiSelect.Input placeholder={projectInput.placeholder.value} />
+          </MultiSelect.Trigger>
+          <MultiSelect.Content>
+            <Loader isLoading={isLoadingProjects}>
+              <MultiSelect.List>
+                {projects?.map((project: any) => (
+                  <MultiSelect.Item
+                    key={String(project.id)}
+                    value={String(project.id)}
+                  >
+                    {project.name}
+                  </MultiSelect.Item>
+                ))}
+              </MultiSelect.List>
+            </Loader>
+          </MultiSelect.Content>
+        </Form.MultiSelect>
+
+        <Form.MultiSelect
+          name="tags"
+          label={tagsSelect.label.value}
+          description={tagsSelect.description}
+          onValueChange={(value) => {
+            const valueArray = [value].flat();
+            form.setValue('tags', valueArray, { shouldDirty: true });
+            setEditedDictionary({
+              ...dictionary,
+              ...(updatedDictionary ?? {}),
+              tags: valueArray,
+            });
+          }}
+        >
+          <MultiSelect.Trigger
+            getBadgeValue={(value) =>
+              allTags?.find((tag: any) => String(tag.key) === value)?.name ??
+              value
+            }
+          >
+            <MultiSelect.Input placeholder={tagsSelect.placeholder.value} />
+          </MultiSelect.Trigger>
+          <MultiSelect.Content>
+            <Loader isLoading={isLoadingProjects}>
+              <MultiSelect.List>
+                {allTags?.map((tag: any) => (
+                  <MultiSelect.Item
+                    key={String(tag.key)}
+                    value={String(tag.key)}
+                  >
+                    {tag.name ?? tag.key}
+                  </MultiSelect.Item>
+                ))}
+              </MultiSelect.List>
+            </Loader>
+          </MultiSelect.Content>
+        </Form.MultiSelect>
+      </div>
+
+      <div className="flex flex-wrap items-center justify-end gap-2 max-md:flex-col">
+        <Form.Button
+          type="button"
+          size="icon-md"
+          label={auditButton.label.value}
+          Icon={WandSparkles}
+          variant="outline"
+          color="text"
+          className="max-md:w-full"
+          onClick={handleOnAuditFile}
+          disabled={isSubmitting || isAuditing}
+          isLoading={isAuditing}
+        />
+      </div>
+    </Form>
   );
 };

@@ -1,6 +1,12 @@
-export type IntlayerNode<T = string, AdditionalProps = {}> = any & {
+import type { ResolvedEditor } from '@intlayer/types/module_augmentation';
+
+export type IntlayerNode<T = string, AdditionalProps = {}> = ResolvedEditor<
+  T,
+  any
+> & {
   value: T;
-} & AdditionalProps;
+} & AdditionalProps &
+  T;
 
 type RenderIntlayerNodeProps<T> = {
   value: T;
@@ -9,7 +15,7 @@ type RenderIntlayerNodeProps<T> = {
 };
 
 export const renderIntlayerNode = <
-  T extends number | string | boolean | undefined | null,
+  T, // Broadened to support arrays, numbers, objects, etc.
 >({
   children,
   value,
@@ -19,15 +25,31 @@ export const renderIntlayerNode = <
   if (children == null) {
     return new Proxy({} as any, {
       get(target, prop, receiver) {
-        if (prop === 'value') {
-          return value;
+        if (prop === 'value') return value;
+        if (prop === Symbol.toPrimitive) return () => value ?? '';
+        if (prop === 'toString') return () => String(value ?? '');
+        if (prop === 'valueOf') return () => value;
+
+        // Additional Props take precedence
+        if (additionalProps && prop in additionalProps) {
+          return additionalProps[prop as keyof typeof additionalProps];
         }
 
+        // Delegate native methods/properties to the underlying value
         if (
-          additionalProps &&
-          Object.keys(additionalProps).includes(prop as string)
+          value !== null &&
+          value !== undefined &&
+          typeof prop === 'string' &&
+          prop !== 'constructor' &&
+          !(prop in target)
         ) {
-          return additionalProps[prop as keyof typeof additionalProps];
+          const valObj = Object(value); // Safely boxes primitives (e.g., 50 -> Number object)
+          if (prop in valObj) {
+            const valProp = valObj[prop];
+            return typeof valProp === 'function'
+              ? valProp.bind(value)
+              : valProp;
+          }
         }
 
         return Reflect.get(target, prop, receiver);
@@ -35,19 +57,45 @@ export const renderIntlayerNode = <
     }) as IntlayerNode<T>;
   }
 
+  // Proxy target must be an object or function; wrap primitives
+  const target =
+    typeof children === 'object' || typeof children === 'function'
+      ? children
+      : ({} as any);
+
   // Return a Proxy that pretends to be the original content
   // but also has a .value getter and additional props.
-  return new Proxy(children, {
+  return new Proxy(target, {
+    apply(target, thisArg, argumentsList) {
+      if (typeof value === 'function') {
+        return Reflect.apply(value as Function, thisArg, argumentsList);
+      }
+      return Reflect.apply(target as Function, thisArg, argumentsList);
+    },
     get(target, prop, receiver) {
-      if (prop === 'value') {
-        return value;
+      if (prop === 'value') return value;
+      if (prop === Symbol.toPrimitive) return () => value ?? '';
+      if (prop === 'toString') return () => String(value ?? '');
+      if (prop === 'valueOf') return () => value;
+
+      // Additional Props take precedence
+      if (additionalProps && prop in additionalProps) {
+        return additionalProps[prop as keyof typeof additionalProps];
       }
 
+      // Delegate native methods/properties to the underlying value
       if (
-        additionalProps &&
-        Object.keys(additionalProps).includes(prop as string)
+        value !== null &&
+        value !== undefined &&
+        typeof prop === 'string' &&
+        prop !== 'constructor' &&
+        !(prop in target)
       ) {
-        return additionalProps[prop as keyof typeof additionalProps];
+        const valObj = Object(value); // Safely boxes primitives (e.g., 50 -> Number object)
+        if (prop in valObj) {
+          const valProp = valObj[prop];
+          return typeof valProp === 'function' ? valProp.bind(value) : valProp;
+        }
       }
 
       return Reflect.get(target, prop, receiver);

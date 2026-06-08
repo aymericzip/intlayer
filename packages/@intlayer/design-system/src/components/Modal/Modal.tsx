@@ -1,83 +1,63 @@
 'use client';
 
+import { useGetElementOrWindow, useScrollBlockage } from '@hooks/index';
+import { cn } from '@utils/cn';
 import { cva } from 'class-variance-authority';
 import { motion as m } from 'framer-motion';
 import { X } from 'lucide-react';
 import { type FC, type ReactNode, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { useGetElementOrWindow, useScrollBlockage } from '../../hooks/index';
-import { cn } from '../../utils/cn';
-import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
+import { Button } from '../Button';
 import { Container, type ContainerProps } from '../Container';
 import { H3 } from '../Headers';
 
 /**
  * Enumeration of available modal sizes
  */
-export enum ModalSize {
-  /** Small modal: max height 30vh, max width xl */
-  SM = 'sm',
-  /** Medium modal: max height 50vh, max width xl */
-  MD = 'md',
-  /** Large modal: max height 70vh, max width 2xl */
-  LG = 'lg',
-  /** Extra large modal: max height 95vh, max width 6xl */
-  XL = 'xl',
-  /** Unset size: max height 95vh, full width responsive */
-  UNSET = 'unset',
-}
+export type ModalSize = 
+  | 'sm' |
+  'md' |
+  'lg' |
+  'xl' |
+  'unset';
 
-/**
- * Props for the Modal component
- */
 type ModalProps = {
-  /** Content to be displayed inside the modal */
   children: ReactNode;
-  /** Controls whether the modal is visible */
   isOpen: boolean;
-  /** Callback function called when the modal should be closed */
   onClose?: () => void;
-  /** Container element to render the modal into (defaults to document.body) */
   container?: HTMLElement;
-  /** Whether to disable scrolling on the background content */
   disableScroll?: boolean;
-  /** Whether to display a close button in the modal header */
   hasCloseButton?: boolean;
-  /** Optional title displayed at the top of the modal */
-  title?: string;
-  /** Size variant for the modal */
+  title?: ReactNode;
   size?: ModalSize | `${ModalSize}`;
-} & Pick<
-  ContainerProps,
-  | 'className'
-  | 'transparency'
-  | 'border'
-  | 'background'
-  | 'roundedSize'
-  | 'borderColor'
-  | 'padding'
-  | 'separator'
-  | 'gap'
+  /**
+   * Defines if the modal content area is scrollable.
+   */
+  isScrollable?: boolean | 'x' | 'y';
+} & Partial<
+  Pick<
+    ContainerProps,
+    | 'className'
+    | 'transparency'
+    | 'border'
+    | 'background'
+    | 'roundedSize'
+    | 'borderColor'
+    | 'padding'
+    | 'separator'
+    | 'gap'
+  >
 >;
 
-/**
- * Class name variants for different modal sizes using class-variance-authority
- * Defines responsive sizing and scrollable content for modal containers
- */
 const modalVariants = cva(
-  'flex cursor-default flex-col overflow-hidden p-3 shadow-sm',
+  'flex cursor-default flex-col overflow-hidden shadow-sm',
   {
     variants: {
       size: {
-        /** Small modal: height auto, max-height 30vh, width 95vw, max-width xl */
         sm: 'h-auto max-h-[30vh] w-[95vw] max-w-xl',
-        /** Medium modal: height auto, max-height 50vh, width 95vw, max-width xl */
         md: 'h-auto max-h-[50vh] w-[95vw] max-w-xl',
-        /** Large modal: height auto, max-height 70vh, width 95vw, max-width 2xl */
-        lg: 'h-auto max-h-[70vh] w-[95vw] max-w-2xl',
-        /** Extra large modal: height auto, max-height 95vh, width 95vw, max-width 6xl */
+        lg: 'h-auto max-h-[70vh] w-[95vw] max-w-4xl',
         xl: 'h-auto max-h-[95vh] w-[95vw] max-w-6xl',
-        /** Unset modal: height auto, max-height 95vh, width 95vw, no max-width */
         unset: 'h-auto max-h-[95vh] w-[95vw]',
       },
     },
@@ -87,10 +67,16 @@ const modalVariants = cva(
   }
 );
 
-/**
- * Motion-enabled modal component with Framer Motion support
- * Extends Container component with motion capabilities for animations
- */
+// Mapped from Container/index.tsx to apply internally
+const contentPaddingVariants = {
+  none: 'p-0',
+  sm: 'px-2 py-4',
+  md: 'px-4 py-6',
+  lg: 'px-6 py-8',
+  xl: 'px-8 py-10',
+  '2xl': 'px-10 py-12',
+};
+
 const MotionModal = m.create(Container);
 
 /**
@@ -126,7 +112,7 @@ const MotionModal = m.create(Container);
  *   onClose={onClose}
  *   title="Confirm Action"
  *   hasCloseButton
- *   size={ModalSize.LG}
+ *   size="lg"
  * >
  *   <div>
  *     <p>Are you sure you want to continue?</p>
@@ -164,12 +150,14 @@ export const Modal: FC<ModalProps> = ({
   children,
   isOpen,
   container,
-  disableScroll = true,
   onClose,
   hasCloseButton = false,
   title,
-  size = ModalSize.MD,
+  size = 'md',
   className,
+  isScrollable = false, // Enable the scroll of the content
+  disableScroll = true, // Disable the scroll of the background
+  padding = 'none', // Extract padding here
   ...props
 }) => {
   const containerElement = useGetElementOrWindow(container);
@@ -182,9 +170,7 @@ export const Modal: FC<ModalProps> = ({
         onClose();
       }
     };
-
     document.addEventListener('keydown', handleEscape);
-
     return () => {
       document.removeEventListener('keydown', handleEscape);
     };
@@ -192,11 +178,17 @@ export const Modal: FC<ModalProps> = ({
 
   if (!containerElement) return <></>;
 
-  const hasTitle = typeof title === 'string';
+  const hasTitle = Boolean(title);
+
+  // Determine the class for the inner content based on the padding prop
+  const contentPaddingClass =
+    contentPaddingVariants[
+      (padding as keyof typeof contentPaddingVariants) || 'none'
+    ];
 
   return createPortal(
     <m.div
-      className="invisible fixed top-0 left-0 z-50 flex size-full cursor-pointer items-center justify-center overflow-auto bg-background/40 backdrop-blur"
+      className="invisible fixed top-0 left-0 z-50 flex size-full cursor-pointer items-center justify-center overflow-hidden bg-background/40 backdrop-blur"
       animate={isOpen ? 'visible' : 'invisible'}
       variants={{
         visible: {
@@ -221,18 +213,18 @@ export const Modal: FC<ModalProps> = ({
         initial={{ scale: isOpen ? 0.5 : 1 }}
         animate={{ scale: isOpen ? 1 : 0.5 }}
         transition={{ duration: 0.3 }}
-        className={modalVariants({
-          size,
-          className,
-        })}
+        className={modalVariants({ size, className })}
         role="dialog"
         aria-modal
-        roundedSize="2xl"
+        roundedSize="4xl"
+        // Force the outer container to have no padding so scrollbars hit the edge
+        padding="none"
         {...props}
       >
+        {/* HEADER SECTION */}
         <div
           className={cn(
-            'cursor-default',
+            'relative flex-none px-4 pt-4',
             hasCloseButton && hasTitle
               ? `flex items-start`
               : hasCloseButton
@@ -243,14 +235,14 @@ export const Modal: FC<ModalProps> = ({
           )}
         >
           {hasTitle && (
-            <H3 className="mt-2 mb-4 ml-4 flex items-center justify-center font-bold text-lg">
+            <H3 className="mb-2 ml-1 flex items-center justify-center font-bold text-lg">
               {title}
             </H3>
           )}
           {hasCloseButton && (
             <Button
-              variant={ButtonVariant.HOVERABLE}
-              color={ButtonColor.TEXT}
+              variant="hoverable"
+              color="text"
               label="Close modal"
               className="ml-auto"
               onClick={(e) => {
@@ -258,12 +250,32 @@ export const Modal: FC<ModalProps> = ({
                 onClose?.();
               }}
               Icon={X}
-              size={ButtonSize.ICON_MD}
+              size="icon-md"
             />
           )}
         </div>
-        <div className="flex w-full flex-1 flex-col overflow-hidden">
-          {children}
+
+        {/* SCROLLABLE WRAPPER - Full width, no padding */}
+        <div
+          className={cn(
+            'flex min-h-0 w-full flex-1 flex-col',
+            // Scrollbars will now appear at the very edge of this div (the modal edge)
+            isScrollable === true && 'overflow-auto',
+            isScrollable === 'y' && 'overflow-y-auto overflow-x-hidden',
+            isScrollable === 'x' && 'overflow-x-auto overflow-y-hidden',
+            !isScrollable && 'overflow-visible'
+          )}
+        >
+          {/* CONTENT PADDING WRAPPER */}
+          {/* We apply the padding class here, effectively putting content inside the scroll area */}
+          <div
+            className={cn(
+              'flex size-full flex-1 flex-col',
+              contentPaddingClass
+            )}
+          >
+            {children}
+          </div>
         </div>
       </MotionModal>
     </m.div>,

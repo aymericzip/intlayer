@@ -1,4 +1,4 @@
-import type { Dictionary } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
 
 /**
  * Recursively compares source content with target content and returns only the missing parts.
@@ -9,13 +9,18 @@ import type { Dictionary } from '@intlayer/types';
  * @returns Only the content that's missing in the target
  */
 const filterMissingContent = (sourceContent: any, targetContent: any): any => {
-  // If target doesn't exist, all source content is missing
+  // Source is null - only missing if target doesn't already have null
+  if (sourceContent === null) {
+    return targetContent === null ? undefined : null;
+  }
+
+  // If target doesn't exist or is null, all source content is missing
   if (targetContent === undefined || targetContent === null) {
     return sourceContent;
   }
 
   // Primitive values: if target exists (even if empty string), consider it translated
-  if (typeof sourceContent !== 'object' || sourceContent === null) {
+  if (typeof sourceContent !== 'object') {
     return undefined;
   }
 

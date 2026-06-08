@@ -21,22 +21,22 @@ slugs:
 history:
   - version: 5.8.0
     date: 2025-08-20
-    changes: 添加了 vue 格式化器
+    changes: "添加了 vue 格式化器"
   - version: 5.8.0
     date: 2025-08-18
-    changes: 添加了格式化器文档
+    changes: "添加了格式化器文档"
   - version: 5.8.0
     date: 2025-08-20
-    changes: 添加列表格式化器文档
+    changes: "添加列表格式化器文档"
   - version: 5.8.0
     date: 2025-08-20
-    changes: 添加额外的 Intl 工具（DisplayNames、Collator、PluralRules）
+    changes: "添加额外的 Intl 工具（DisplayNames、Collator、PluralRules）"
   - version: 5.8.0
     date: 2025-08-20
-    changes: 添加语言环境工具（getLocaleName、getLocaleLang、getLocaleFromPath 等）
+    changes: "添加语言环境工具（getLocaleName、getLocaleLang、getLocaleFromPath 等）"
   - version: 5.8.0
     date: 2025-08-20
-    changes: 添加内容处理工具（getContent、getTranslation、getIntlayer 等）
+    changes: "添加内容处理工具（getContent、getTranslation、getIntlayer 等）"
 ---
 
 # Intlayer 格式化工具

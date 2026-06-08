@@ -34,20 +34,31 @@ const writeSentinelFile = async (
   sentinelFilePath: string,
   currentTimestamp: number
 ) => {
+  // O_EXCL ensures only the *first* process can create the file
+  const data: SentinelData = {
+    version: packageJson.version,
+    timestamp: currentTimestamp,
+  };
+
   try {
     // Ensure the directory exists before writing the file
     await mkdir(dirname(sentinelFilePath), { recursive: true });
 
-    // O_EXCL ensures only the *first* process can create the file
-    const data: SentinelData = {
-      version: packageJson.version,
-      timestamp: currentTimestamp,
-    };
     await writeFile(sentinelFilePath, JSON.stringify(data), { flag: 'wx' });
   } catch (err: any) {
     if (err.code === 'EEXIST') {
       // Another process already created it → we're done
       return;
+    }
+    // Optimization: If ENOENT occurs on write despite mkdir (race condition with external deletion), retry once.
+    if (err.code === 'ENOENT') {
+      try {
+        await mkdir(dirname(sentinelFilePath), { recursive: true });
+        await writeFile(sentinelFilePath, JSON.stringify(data), { flag: 'wx' });
+        return;
+      } catch (retryErr: any) {
+        if (retryErr.code === 'EEXIST') return;
+      }
     }
     throw err; // unexpected FS error
   }
@@ -134,13 +145,15 @@ export const runOnce = async (
   }
 
   // Write sentinel file before to block parallel processes
-  writeSentinelFile(sentinelFilePath, currentTimestamp);
+  // Added await here
+  await writeSentinelFile(sentinelFilePath, currentTimestamp);
 
   try {
     await callback();
 
     // Write sentinel file after to ensure the first one has not been removed with cleanOutputDir
-    writeSentinelFile(sentinelFilePath, currentTimestamp);
+    // Added await here
+    await writeSentinelFile(sentinelFilePath, currentTimestamp);
   } catch {
     try {
       await unlink(sentinelFilePath); // Remove sentinel file if an error occurs

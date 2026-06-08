@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@utils/cn';
 import { Check, Pencil, X } from 'lucide-react';
 import {
   type FC,
@@ -10,8 +11,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { cn } from '../../utils/cn';
-import { Button, ButtonColor, ButtonSize, ButtonVariant } from '../Button';
+import { Button } from '../Button';
 
 type EditableFieldLayoutProps = {
   value?: string | null | undefined;
@@ -97,9 +97,9 @@ export const EditableFieldLayout: FC<EditableFieldLayoutProps> = ({
         {children}
         <Button
           label="Save"
-          variant={ButtonVariant.HOVERABLE}
-          size={ButtonSize.ICON_SM}
-          color={ButtonColor.TEXT}
+          variant="hoverable"
+          size="icon-sm"
+          color="text"
           Icon={Check}
           onClick={handleSave}
           disabled={isDisabled}
@@ -111,10 +111,10 @@ export const EditableFieldLayout: FC<EditableFieldLayoutProps> = ({
         />
         <Button
           label="Cancel"
-          color={ButtonColor.TEXT}
-          variant={ButtonVariant.HOVERABLE}
+          color="text"
+          variant="hoverable"
           className="!text-current"
-          size={ButtonSize.ICON_SM}
+          size="icon-sm"
           Icon={X}
           onClick={handleCancel}
           disabled={isDisabled}
@@ -134,9 +134,9 @@ export const EditableFieldLayout: FC<EditableFieldLayoutProps> = ({
         <Button
           label="Edit"
           Icon={Pencil}
-          color={ButtonColor.TEXT}
-          variant={ButtonVariant.HOVERABLE}
-          size={ButtonSize.ICON_SM}
+          color="text"
+          variant="hoverable"
+          size="icon-sm"
           className="!text-current invisible group-hover/editable-field:visible"
           disabled={isDisabled}
           onClick={(e) => {

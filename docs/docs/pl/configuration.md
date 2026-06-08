@@ -1,59 +1,110 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2025-10-25
+updatedAt: 2026-05-12
 title: Konfiguracja
 description: Dowiedz się, jak skonfigurować Intlayer dla swojej aplikacji. Zrozum różne ustawienia i opcje dostępne do dostosowania Intlayer do Twoich potrzeb.
 keywords:
-  - Konfiguracja
-  - Ustawienia
-  - Personalizacja
+  - konfiguracja
+  - ustawienia
+  - dostosowywanie
   - Intlayer
-  - Opcje
+  - opcje
 slugs:
   - doc
   - concept
   - configuration
 history:
+  - version: 8.9.4
+    date: 2026-05-12
+    changes: "Dodano obsługę dostawcy LM Studio"
+  - version: 8.7.0
+    date: 2026-04-08
+    changes: "Dodano opcje `prune` i `minify` do konfiguracji budowania"
+  - version: 8.7.0
+    date: 2026-04-03
+    changes: "Dodano opcję `currentDomain`"
+  - version: 8.4.0
+    date: 2026-03-20
+    changes: "Dodano obsługę zapisu obiektowego na poziomie lokali dla 'compiler.output' i 'dictionary.fill'"
+  - version: 8.3.0
+    date: 2026-03-11
+    changes: "Przeniesiono 'baseDir' z konfiguracji 'content' do konfiguracji 'system'"
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: "Zaktualizowano opcje kompilatora, dodano obsługę 'output' i 'noMetadata'"
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: "Zaktualizowano opcje kompilatora"
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: "Dodano opcję kompilatora 'build-only' i prefiks klucza słownika"
+  - version: 8.0.6
+    date: 2026-02-12
+    changes: "Dodano obsługę dostawców Open Router, Alibaba, Amazon, Google Vertex Bedrock, Fireworks, Groq, Hugging Face i Together AI"
+  - version: 8.0.5
+    date: 2026-02-06
+    changes: "Dodano `dataSerialization` do konfiguracji AI"
+  - version: 8.0.0
+    date: 2026-01-24
+    changes: "Zmiana nazwy trybu importu `live` na `fetch`, aby lepiej opisać mechanizm."
+  - version: 8.0.0
+    date: 2026-01-22
+    changes: "Przeniesiono konfigurację budowania `importMode` do konfiguracji `dictionary`."
+  - version: 8.0.0
+    date: 2026-01-22
+    changes: "Dodano opcję `rewrite` do konfiguracji routingu"
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: "Oddzielono konfigurację systemową od konfiguracji treści. Przeniesiono ścieżki wewnętrzne do właściwości `system`. Dodano `codeDir`, aby oddzielić pliki treści od przekształceń kodu."
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: "Dodano opcje słownika `location` i `schema`"
+  - version: 7.5.1
+    date: 2026-01-10
+    changes: "Dodano obsługę formatów plików JSON5 i JSONC"
+  - version: 7.5.0
+    date: 2025-12-17
+    changes: "Dodano opcję `buildMode`"
   - version: 7.0.0
     date: 2025-10-25
-    changes: Dodano konfigurację `dictionary`
+    changes: "Dodano konfigurację `dictionary`"
   - version: 7.0.0
     date: 2025-10-21
-    changes: Zastąpiono konfigurację `middleware` konfiguracją `routing`
+    changes: "Zastąpiono `middleware` przez konfigurację `routing`"
   - version: 7.0.0
     date: 2025-10-12
-    changes: Dodano opcję `formatCommand`
+    changes: "Dodano opcję `formatCommand`"
   - version: 6.2.0
     date: 2025-10-12
-    changes: Zaktualizowano opcję `excludedPath`
+    changes: "Zaktualizowano opcję `excludedPath`"
   - version: 6.0.2
     date: 2025-09-23
-    changes: Dodano opcję `outputFormat`
+    changes: "Dodano opcję `outputFormat`"
   - version: 6.0.0
     date: 2025-09-21
-    changes: Usunięto pole `dictionaryOutput` oraz pole `i18nextResourcesDir`
+    changes: "Usunięto pola `dictionaryOutput` i `i18nextResourcesDir`"
   - version: 6.0.0
     date: 2025-09-16
-    changes: Dodano tryb importu `live`
+    changes: "Dodano tryb importu `live`"
   - version: 6.0.0
     date: 2025-09-04
-    changes: Zastąpiono pole `hotReload` polem `liveSync` oraz dodano pola `liveSyncPort` i `liveSyncURL`
+    changes: "Zastąpiono pole `hotReload` przez `liveSync` oraz dodano pola `liveSyncPort`, `liveSyncURL`"
   - version: 5.6.1
     date: 2025-07-25
-    changes: Zastąpiono `activateDynamicImport` opcją `importMode`
+    changes: "Zastąpiono `activateDynamicImport` przez opcję `importMode`"
   - version: 5.6.0
     date: 2025-07-13
-    changes: Zmieniono domyślny contentDir z `['src']` na `['.']`
+    changes: "Zmieniono domyślny `contentDir` z `['src']` na `['.']`"
   - version: 5.5.11
     date: 2025-06-29
-    changes: Dodano komendy `docs`
+    changes: "Dodano komendy `docs`"
 ---
 
 # Dokumentacja konfiguracji Intlayer
 
 ## Przegląd
 
-Pliki konfiguracyjne Intlayer umożliwiają dostosowanie różnych aspektów wtyczki, takich jak internacjonalizacja, middleware oraz obsługa treści. Ten dokument zawiera szczegółowy opis każdej właściwości w konfiguracji.
+Pliki konfiguracyjne Intlayer pozwalają na dostosowanie różnych aspektów wtyczki, takich jak internacjonalizacja (i18n), middleware i zarządzanie treścią. Ten dokument zawiera szczegółowy opis każdej właściwości w konfiguracji.
 
 ---
 
@@ -63,13 +114,15 @@ Pliki konfiguracyjne Intlayer umożliwiają dostosowanie różnych aspektów wty
 
 ---
 
-## Obsługiwane formaty plików konfiguracyjnych
+## Obsługa plików konfiguracyjnych
 
-Intlayer obsługuje formaty plików konfiguracyjnych JSON, JS, MJS oraz TS:
+Intlayer akceptuje formaty plików konfiguracyjnych JSON, JS, MJS i TS:
 
 - `intlayer.config.ts`
 - `intlayer.config.js`
 - `intlayer.config.json`
+- `intlayer.config.json5`
+- `intlayer.config.jsonc`
 - `intlayer.config.cjs`
 - `intlayer.config.mjs`
 - `.intlayerrc`
@@ -78,316 +131,584 @@ Intlayer obsługuje formaty plików konfiguracyjnych JSON, JS, MJS oraz TS:
 
 ## Przykładowy plik konfiguracyjny
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+````typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
+import { nextjsRewrite } from "intlayer/routing";
+import { z } from "zod";
 
+/**
+ * Przykład pliku konfiguracyjnego Intlayer pokazujący wszystkie dostępne opcje.
+ */
 const config: IntlayerConfig = {
+  /**
+   * Konfiguracja ustawień internacjonalizacji.
+   */
   internationalization: {
-    locales: [Locales.ENGLISH],
+    /**
+     * Lista obsługiwanych lokali w aplikacji.
+     * Domyślnie: [Locales.ENGLISH]
+     */
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+
+    /**
+     * Lista wymaganych lokali, które muszą być zdefiniowane w każdym słowniku.
+     * Jeśli pusta, wszystkie locale są wymagane w trybie `strict`.
+     * Domyślnie: []
+     */
+    requiredLocales: [Locales.ENGLISH],
+
+    /**
+     * Poziom rygoru dla treści zinternacjonalizowanej.
+     * - "strict": Błąd, jeśli brakuje zadeklarowanych lokali lub używane są niezadeklarowane locale.
+     * - "inclusive": Ostrzeżenia, jeśli brakuje zadeklarowanych lokali.
+     * - "loose": Akceptuje każde istniejące locale.
+     * Domyślnie: "inclusive"
+     */
+    strictMode: "inclusive",
+
+    /**
+     * Domyślne locale używane jako zapasowe, gdy żądane locale nie zostanie znalezione.
+     * Domyślnie: Locales.ENGLISH
+     */
+    defaultLocale: Locales.ENGLISH,
   },
-  content: {
-    contentDir: ["src", "../ui-library"],
-  },
+
+  /**
+   * Ustawienia kontrolujące operacje na słownikach i zachowanie zapasowe.
+   */
   dictionary: {
-    fill: "./{{fileName}}.content.json",
+    /**
+     * Kontroluje sposób importowania słowników.
+     * - "static": Importowane statycznie w czasie budowania.
+     * - "dynamic": Importowane dynamicznie za pomocą Suspense.
+     * - "fetch": Pobierane dynamicznie przez API Live Sync.
+     * Domyślnie: "static"
+     */
+    importMode: "static",
+
+    /**
+     * Strategia automatycznego uzupełniania brakujących tłumaczeń za pomocą AI.
+     * Może być wartością logiczną lub wzorcem ścieżki do zapisywania uzupełnionej treści.
+     * Domyślnie: true
+     */
+    fill: true,
+
+    /**
+     * Fizyczna lokalizacja plików słowników.
+     * - "local": Przechowywane w lokalnym systemie plików.
+     * - "remote": Przechowywane w Intlayer CMS.
+     * - "hybrid": Przechowywane zarówno lokalnie, jak i w Intlayer CMS.
+     * - "plugin" (lub dowolny ciąg znaków): Dostarczane przez wtyczkę lub niestandardowe źródło.
+     * Domyślnie: "local"
+     */
+    location: "local",
+
+    /**
+     * Czy automatycznie przekształcać treść (np. Markdown do HTML).
+     * Domyślnie: false
+     */
+    contentAutoTransformation: false,
   },
+
+  /**
+   * Konfiguracja routingu i middleware.
+   */
   routing: {
+    /**
+     * Strategia routingu lokali.
+     * - "prefix-no-default": Prefiks dla wszystkich języków z wyjątkiem domyślnego (np. /dashboard, /fr/dashboard).
+     * - "prefix-all": Prefiks dla wszystkich języków (np. /en/dashboard, /fr/dashboard).
+     * - "no-prefix": Locale nie jest widoczne w adresie URL.
+     * - "search-params": Użycie ?locale=...
+     * Domyślnie: "prefix-no-default"
+     */
     mode: "prefix-no-default",
-    storage: "cookie",
+
+    /**
+     * Miejsce przechowywania locale wybranego przez użytkownika.
+     * Opcje: 'cookie', 'localStorage', 'sessionStorage', 'header' lub ich tablica.
+     * Domyślnie: ['cookie', 'header']
+     */
+    storage: ["cookie", "header"],
+
+    /**
+     * Bazowa ścieżka dla adresów URL aplikacji.
+     * Domyślnie: ""
+     */
+    basePath: "",
+
+    /**
+     * Własne reguły przepisywania URL dla określonych ścieżek zlokalizowanych.
+     */
+    rewrite: nextjsRewrite({
+      "/[locale]/about": {
+        en: "/[locale]/about",
+        fr: "/[locale]/a-propos",
+      },
+    }),
+
+    /**
+     * Mapuje locale na nazwy hostów domen dla routingu opartego na domenach.
+     * Adresy URL dla tych lokali będą absolutne (np. https://intlayer.cn/).
+     * Domena implikuje locale, więc do ścieżki nie jest dodawany żaden prefiks locale.
+     * Domyślnie: undefined
+     */
+    domains: {
+      en: "intlayer.org",
+      zh: "intlayer.cn",
+    },
   },
+
+  /**
+   * Ustawienia wyszukiwania i przetwarzania plików treści.
+   */
+  content: {
+    /**
+     * Rozszerzenia plików do skanowania w poszukiwaniu słowników.
+     * Domyślnie: ['.content.ts', '.content.js', '.content.json' itp.]
+     */
+    fileExtensions: [".content.ts", ".content.js", ".content.json"],
+
+    /**
+     * Katalogi, w których znajdują się pliki .content.
+     * Domyślnie: ["."]
+     */
+    contentDir: ["src"],
+
+    /**
+     * Katalog kodu źródłowego.
+     * Używany do optymalizacji budowania i przekształceń kodu.
+     * Domyślnie: ["."]
+     */
+    codeDir: ["src"],
+
+    /**
+     * Wzorce do wykluczenia ze skanowania.
+     * Domyślnie: ['node_modules', '.intlayer' itp.]
+     */
+    excludedPath: ["node_modules"],
+
+    /**
+     * Czy śledzić zmiany i regenerować słowniki podczas deweloperki.
+     * Domyślnie: true w trybie deweloperskim
+     */
+    watch: true,
+
+    /**
+     * Polecenie do formatowania nowo utworzonych / zaktualizowanych plików .content.
+     */
+    formatCommand: 'npx prettier --write "{{file}}"',
+  },
+
+  /**
+   * Konfiguracja edytora wizualnego.
+   */
   editor: {
-    applicationURL: "https://example.com",
+    /**
+     * Czy edytor wizualny jest włączony.
+     * Domyślnie: false
+     */
+    enabled: true,
+
+    /**
+     * URL Twojej aplikacji do walidacji źródła.
+     * Domyślnie: ""
+     */
+    applicationURL: "http://localhost:3000",
+
+    /**
+     * Port lokalnego serwera edytora.
+     * Domyślnie: 8000
+     */
+    port: 8000,
+
+    /**
+     * Publiczny URL edytora.
+     * Domyślnie: "http://localhost:8000"
+     */
+    editorURL: "http://localhost:8000",
+
+    /**
+     * URL Intlayer CMS.
+     * Domyślnie: "https://app.intlayer.org"
+     */
+    cmsURL: "https://app.intlayer.org",
+
+    /**
+     * URL serwera API backendu.
+     * Domyślnie: "https://back.intlayer.org"
+     */
+    backendURL: "https://back.intlayer.org",
+
+    /**
+     * Czy włączyć synchronizację treści w czasie rzeczywistym.
+     * Domyślnie: false
+     */
+    liveSync: true,
   },
+
+  /**
+   * Ustawienia tłumaczenia i generowania opartego na AI.
+   */
   ai: {
+    /**
+     * Wybrany dostawca AI.
+     * Opcje: 'openai', 'anthropic', 'mistral', 'deepseek', 'gemini', 'ollama', 'openrouter', 'alibaba', 'fireworks', 'groq', 'huggingface', 'bedrock', 'googlevertex', 'togetherai', 'lmstudio'
+     * Domyślnie: 'openai'
+     */
+    provider: "openai",
+
+    /**
+     * Model dostawcy do użycia.
+     */
+    model: "gpt-4o",
+
+    /**
+     * Klucz API dostawcy.
+     */
     apiKey: process.env.OPENAI_API_KEY,
-    applicationContext: "To jest aplikacja testowa",
+
+    /**
+     * Globalny kontekst ułatwiający AI generowanie tłumaczeń.
+     */
+    applicationContext: "To jest aplikacja do rezerwacji podróży.",
+
+    /**
+     * Bazowy URL dla API AI.
+     */
+    baseURL: "http://localhost:3000",
+
+    /**
+     * Serializacja danych (Data Serialization)
+     *
+     * Opcje:
+     * - "json": domyślnie, niezawodna; zużywa więcej tokenów.
+     * - "toon": szybciej, mniej tokenów, mniej spójna niż JSON.
+     *
+     * Domyślnie: "json"
+     */
+    dataSerialization: "json",
   },
+
+  /**
+   * Ustawienia budowania i optymalizacji.
+   */
   build: {
-    importMode: "dynamic",
+    /**
+     * Tryb wykonywania budowania.
+     * - "auto": Automatyczne budowanie podczas budowania (build time) aplikacji.
+     * - "manual": Wymaga jawnego polecenia budowania.
+     * Domyślnie: "auto"
+     */
+    mode: "auto",
+
+    /**
+     * Czy optymalizować wynikowy pakiet poprzez usuwanie nieużywanych słowników.
+     * Domyślnie: true w środowisku produkcyjnym
+     */
+    optimize: true,
+
+    /**
+     * Minimalizuj słowniki, aby zmniejszyć rozmiar bundle'a.
+     * Domyślnie: false
+     *
+     * Uwaga:
+     * - Ta opcja zostanie zignorowana, jeśli `optimize` jest wyłączone.
+     * - Ta opcja zostanie zignorowana, jeśli `editor.enabled` jest ustawione na true.
+     */
+    minify: true,
+
+    /**
+     * Usuń nieużywane klucze w słownikach.
+     * Domyślnie: false
+     *
+     * Uwaga:
+     * - Ta opcja zostanie zignorowana, jeśli `optimize` jest wyłączone.
+     */
+    purge: true,
+
+    /**
+     * Format wyjściowy generowanych plików słowników.
+     * Domyślnie: ['cjs', 'esm']
+     */
+    outputFormat: ["cjs", "esm"],
+
+    /**
+     * Czy przeprowadzać sprawdzanie typów TypeScript podczas budowania (build time).
+     * Domyślnie: false
+     */
+    checkTypes: false,
   },
+
+  /**
+   * Konfiguracja loggera.
+   */
+  log: {
+    /**
+     * Tryb logowania.
+     * - "default": Standardowe logowanie.
+     * - "verbose": Szczegółowe logowanie do debugowania.
+     * - "disabled": Wyłącz logowanie.
+     * Domyślnie: "default"
+     */
+    mode: "default",
+
+    /**
+     * Prefiks dla wszystkich wiadomości w logach.
+     * Domyślnie: "[intlayer]"
+     */
+    prefix: "[intlayer]",
+  },
+
+  /**
+   * Konfiguracja systemowa (do zaawansowanych zastosowań)
+   */
+  system: {
+    /**
+     * Katalog, w którym przechowywane są zlokalizowane słowniki.
+     */
+    dictionariesDir: ".intlayer/dictionary",
+
+    /**
+     * Katalog dla module augmentation.
+     */
+    moduleAugmentationDir: ".intlayer/types",
+
+    /**
+     * Katalog dla niepołączonych słowników.
+     */
+    unmergedDictionariesDir: ".intlayer/unmerged_dictionary",
+
+    /**
+     * Katalog typów słowników.
+     */
+    typesDir: ".intlayer/types",
+
+    /**
+     * Katalog głównych plików aplikacji.
+     */
+    mainDir: ".intlayer/main",
+
+    /**
+     * Katalog skompilowanych plików konfiguracyjnych.
+     */
+    configDir: ".intlayer/config",
+
+    /**
+     * Katalog plików cache.
+     */
+    cacheDir: ".intlayer/cache",
+  },
+
+  /**
+   * Konfiguracja kompilatora (do zaawansowanych zastosowań)
+   */
+  compiler: {
+    /**
+     * Czy kompilator jest włączony.
+     *
+     * - false: wyłącz kompilator.
+     * - true: włącz kompilator.
+     * - "build-only": pomiń kompilator podczas deweloperki dla szybszego startu.
+     *
+     * Domyślnie: false
+     */
+    enabled: true,
+
+    /**
+     * Definiuje ścieżkę do pliku wyjściowego. Zastępuje `outputDir`.
+     *
+     * - Ścieżki `./` są rozwiązywane względem katalogu komponentu.
+     * - Ścieżki `/` są rozwiązywane względem katalogu bazowego projektu (`baseDir`).
+     *
+     * - Obecność zmiennej `{{locale}}` w ścieżce wyzwala generowanie osobnych słowników na język.
+     *
+     * Przykłady:
+     * ```ts
+     * {
+     *   // Tworzy wielojęzyczne pliki .content.ts obok komponentu
+     *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
+     *
+     *   // output: './{{fileName}}{{extension}}', // To samo poprzez ciąg szablonowy
+     * }
+     * ```
+     *
+     * ```ts
+     * {
+     *   // Tworzy scentralizowane pliki JSON na język w korzeniu projektu
+     *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+     *
+     *   // output: '/locales/{{locale}}/{{key}}.content.json', // To samo poprzez ciąg szablonowy
+     * }
+     * ```
+     *
+     * Lista zmiennych:
+     *   - `fileName`: Nazwa pliku.
+     *   - `key`: Klucz treści.
+     *   - `locale`: Locale treści.
+     *   - `extension`: Rozszerzenie pliku.
+     *   - `componentFileName`: Nazwa pliku komponentu.
+     *   - `componentExtension`: Rozszerzenie pliku komponentu.
+     *   - `format`: Format słownika.
+     *   - `componentFormat`: Format słownika komponentu.
+     *   - `componentDirPath`: Ścieżka do katalogu komponentu.
+     */
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
+
+    /**
+     * Czy zapisać komponenty po ich przekształceniu.
+     * W ten sposób można uruchomić kompilator raz, aby przekształcić aplikację, a następnie go usunąć.
+     */
+    saveComponents: false,
+
+    /**
+     * Pozostaw tylko treść w wygenerowanym pliku. Przydatne dla formatów i18next lub ICU MessageFormat JSON na język.
+     */
+    noMetadata: false,
+
+    /**
+     * Prefiks klucza słownika
+     */
+    dictionaryKeyPrefix: "", // Dodaje opcjonalny prefiks do wyodrębnionych kluczy słownika
+  },
+
+  /**
+   * Własne schematy do walidacji struktury słowników.
+   */
+  schemas: {
+    "my-schema": z.object({
+      title: z.string(),
+    }),
+  },
+
+  /**
+   * Konfiguracja wtyczek.
+   */
+  plugins: [],
 };
 
 export default config;
-```
+````
 
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
+---
 
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [Locales.ENGLISH],
-  },
-  content: {
-    contentDir: ["src", "../ui-library"],
-  },
-  routing: {
-    mode: "prefix-no-default",
-    storage: "cookie",
-  },
-  editor: {
-    applicationURL: "https://example.com",
-  },
-  ai: {
-    apiKey: process.env.OPENAI_API_KEY,
-    applicationContext: "To jest aplikacja testowa",
-  },
-  build: {
-    importMode: "dynamic",
-  },
-};
+## Odniesienia do konfiguracji
 
-module.exports = config;
-```
+Poniższe sekcje szczegółowo opisują różne właściwości konfiguracji dostępne w Intlayer.
 
-```json5 fileName=".intlayerrc" codeFormat="json"
-{
-  "internationalization": {
-    "locales": ["en"],
-  },
-  "content": {
-    "contentDir": ["src", "../ui-library"],
-  },
-  "dictionary": {
-    "fill": "./{{fileName}}.content.json",
-  },
-  "routing": {
-    "mode": "prefix-no-default",
-    "storage": "cookie",
-  },
-  "editor": {
-    "applicationURL": "https://example.com",
-  },
-  "ai": {
-    "apiKey": "XXXX",
-    "applicationContext": "To jest aplikacja testowa",
-  },
-  "build": {
-    "importMode": "dynamic",
-  },
+---
+
+### Konfiguracja internacjonalizacji (Internationalization)
+
+Definiuje ustawienia związane z internacjonalizacją, w tym dostępne locale i domyślne locale.
+
+| Pole              | Opis                                                                              | Typ        | Domyślnie           | Przykład             | Uwagi                                                                                                                                                                                                                                                                                                                               |
+| ----------------- | --------------------------------------------------------------------------------- | ---------- | ------------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `locales`         | Lista obsługiwanych lokali w aplikacji.                                           | `string[]` | `[Locales.ENGLISH]` | `['en', 'fr', 'es']` |                                                                                                                                                                                                                                                                                                                                     |
+| `requiredLocales` | Lista wymaganych lokali w aplikacji.                                              | `string[]` | `[]`                | `[]`                 | • Jeśli pusta, wszystkie locale są wymagane w trybie `strict`.<br/>• Upewnij się, że wymagane locale są również zdefiniowane w polu `locales`.                                                                                                                                                                                      |
+| `strictMode`      | Zapewnia silną implementację zinternacjonalizowanej treści za pomocą TypeScript.  | `string`   | `'inclusive'`       |                      | • Jeśli `"strict"`: Każde zadeklarowane locale musi być zdefiniowane dla funkcji `t` - błąd w przypadku braku lub niezadeklarowanego locale.<br/>• Jeśli `"inclusive"`: Ostrzeżenie dla brakujących lokali, ale pozwala na użycie istniejących niezadeklarowanych lokali.<br/>• Jeśli `"loose"`: Akceptuje każde istniejące locale. |
+| `defaultLocale`   | Domyślne locale używane jako zapasowe, gdy żądane locale nie zostanie znalezione. | `string`   | `Locales.ENGLISH`   | `'en'`               | Używane do określenia locale, jeśli żadne nie jest określone w URL, plikach cookie lub nagłówku.                                                                                                                                                                                                                                    |
+
+---
+
+### Konfiguracja edytora (Editor)
+
+Definiuje ustawienia edytora wizualnego, w tym port serwera i status aktywacji.
+
+| Pole                         | Opis                                                                                                                                                                         | Typ                               | Domyślnie                           | Przykład                                                                                        | Uwagi                                                                                                                                                                                                                                           |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | ----------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `applicationURL`             | URL Twojej aplikacji.                                                                                                                                                        | `string`                          | `undefined`                         | `'http://localhost:3000'` <br/> `'https://example.com'` <br/> `process.env.INTLAYER_EDITOR_URL` | • Używane do ograniczania źródła edytora ze względów bezpieczeństwa.<br/>• Jeśli ustawione na `'*'`, edytor jest dostępny z dowolnego źródła.                                                                                                   |
+| `port`                       | Port serwera edytora wizualnego.                                                                                                                                             | `number`                          | `8000`                              |                                                                                                 |                                                                                                                                                                                                                                                 |
+| `editorURL`                  | URL serwera edytora.                                                                                                                                                         | `string`                          | `'http://localhost:8000'`           | `'http://localhost:3000'` <br/> `'https://example.com'` <br/> `process.env.INTLAYER_EDITOR_URL` | • Używane do ograniczania źródeł, które mogą wchodzić w interakcję z aplikacją.<br/>• Jeśli ustawione na `'*'`, dostępne z dowolnego źródła.<br/>• Należy to ustawić, jeśli port zostanie zmieniony lub edytor jest hostowany na innej domenie. |
+| `cmsURL`                     | URL Intlayer CMS.                                                                                                                                                            | `string`                          | `'https://app.intlayer.org'`        | `'https://app.intlayer.org'`                                                                    |                                                                                                                                                                                                                                                 |
+| `backendURL`                 | URL serwera backendu.                                                                                                                                                        | `string`                          | `https://back.intlayer.org`         | `http://localhost:4000`                                                                         |                                                                                                                                                                                                                                                 |
+| `enabled`                    | Czy aplikacja powinna wchodzić w interakcję z edytorem wizualnym.                                                                                                            | `boolean`                         | `false`                             | `process.env.NODE_ENV !== 'production'`                                                         | • Jeśli `false`, edytor nie będzie mógł wchodzić w interakcję z aplikacją.<br/>• Wyłączenie tego dla określonych środowisk zwiększa bezpieczeństwo.                                                                                             |
+| `clientId`                   | Pozwala pakietom intlayer na uwierzytelnianie w backendzie za pomocą oAuth2. Przejdź do [intlayer.org/project](https://app.intlayer.org/project), aby uzyskać token dostępu. | `string` &#124; <br/> `undefined` | `undefined`                         |                                                                                                 | Musi pozostać tajne; używaj zmiennych środowiskowych.                                                                                                                                                                                           |
+| `clientSecret`               | Pozwala pakietom intlayer na uwierzytelnianie w backendzie za pomocą oAuth2. Przejdź do [intlayer.org/project](https://app.intlayer.org/project), aby uzyskać token dostępu. | `string` &#124; <br/> `undefined` | `undefined`                         |                                                                                                 | Musi pozostać tajne; używaj zmiennych środowiskowych.                                                                                                                                                                                           |
+| `dictionaryPriorityStrategy` | Strategia priorytetu słowników, gdy obecne są zarówno słowniki lokalne, jak i zdalne.                                                                                        | `string`                          | `'local_first'`                     | `'distant_first'`                                                                               | • `'distant_first'`: Słowniki zdalne mają pierwszeństwo przed lokalnymi.<br/>• `'local_first'`: Słowniki lokalne mają pierwszeństwo przed zdalnymi.                                                                                             |
+| `liveSync`                   | Czy serwer aplikacji powinien natychmiast przeładowywać treść po wykryciu zmian w <br/> CMS <br/> edytorze wizualnym <br/> serwerze backendu.                                | `boolean`                         | `true`                              | `true`                                                                                          | • Aktualizuje treść strony aplikacji po dodaniu/aktualizacji słowników.<br/>• Live Sync pobiera treść z innego serwera, co może nieznacznie wpłynąć na wydajność.<br/>• Zaleca się hostowanie obu na tej samej maszynie.                        |
+| `liveSyncPort`               | Port serwera Live Sync.                                                                                                                                                      | `number`                          | `4000`                              | `4000`                                                                                          |                                                                                                                                                                                                                                                 |
+| `liveSyncURL`                | URL serwera Live Sync.                                                                                                                                                       | `string`                          | `'http://localhost:{liveSyncPort}'` | `'https://example.com'`                                                                         | Domyślnie wskazuje na localhost; można zmienić na zdalny serwer Live Sync.                                                                                                                                                                      |
+
+---
+
+### Konfiguracja routingu (Routing)
+
+Ustawienia kontrolujące zachowanie routingu, w tym strukturę URL, przechowywanie locale i obsługę middleware.
+
+| Pole       | Opis                                                                                                                                                                                                           | Typ                                                                                                                                                                                                          | Domyślnie              | Przykład                                                                                                                                                                                | Uwagi                                                                                                                                                                                                                                                                              |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mode`     | Tryb struktury URL do zarządzania locale.                                                                                                                                                                      | `'prefix-no-default'` &#124; <br/> `'prefix-all'` &#124; <br/> `'no-prefix'` &#124; <br/> `'search-params'`                                                                                                  | `'prefix-no-default'`  | `'prefix-no-default'`: `/dashboard` (en) lub `/fr/dashboard` (fr). `'prefix-all'`: `/en/dashboard`. `'no-prefix'`: locale zarządzane inaczej. `'search-params'`: `/dashboard?locale=fr` | Nie wpływa na zarządzanie plikami cookie ani pamięcią lokalną.                                                                                                                                                                                                                     |
+| `storage`  | Konfiguracja przechowywania locale u klienta.                                                                                                                                                                  | `false` &#124; <br/> `'cookie'` &#124; <br/> `'localStorage'` &#124; <br/> `'sessionStorage'` &#124; <br/> `'header'` &#124; <br/> `CookiesAttributes` &#124; <br/> `StorageAttributes` &#124; <br/> `Array` | `['cookie', 'header']` | `'localStorage'` <br/> `[{ type: 'cookie', name: 'custom-locale', secure: true }]`                                                                                                      | Zobacz tabelę opcji przechowywania poniżej.                                                                                                                                                                                                                                        |
+| `basePath` | Bazowa ścieżka dla adresów URL aplikacji.                                                                                                                                                                      | `string`                                                                                                                                                                                                     | `''`                   | `'/my-app'`                                                                                                                                                                             | Jeśli Twoja aplikacja znajduje się pod adresem `https://example.com/my-app`, basePath to `'/my-app'`, co wskazuje na URL `https://example.com/my-app/en`.                                                                                                                          |
+| `rewrite`  | Własne reguły przepisywania URL w celu zmiany domyślnego trybu routingu dla określonych ścieżek. Obsługuje parametry dynamiczne `[param]`.                                                                     | `Record<string, StrictModeLocaleMap<string>>`                                                                                                                                                                | `undefined`            | Zobacz przykład poniżej                                                                                                                                                                 | • Reguły routingu mają wyższy priorytet niż `mode`.<br/>• Działa z Next.js i Vite.<br/>• `getLocalizedUrl()` automatycznie stosuje pasujące reguły.<br/>• Zobacz [Własne przepisywanie URL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/custom_url_rewrites.md). |
+| `domains`  | Mapuje locale na nazwy hostów domen dla routingu opartego na domenach. Gdy ustawione, adresy URL dla danego locale używają tej domeny jako bazy (absolutny URL) i do ścieżki nie jest dodawany prefiks locale. | `Partial<Record<Locale, string>>`                                                                                                                                                                            | `undefined`            | `{ zh: 'intlayer.zh', fr: 'intlayer.org' }`                                                                                                                                             | • Domyślnym protokołem jest `https://`, gdy nie jest zawarty w nazwie hosta.<br/>• Sama domena identyfikuje locale, więc prefiks `/zh/` nie jest dodawany.<br/>• `getLocalizedUrl('/', 'zh')` zwraca `https://intlayer.zh/`.                                                       |
+
+**Przykład `rewrite`**:
+
+```typescript
+routing: {
+  mode: "prefix-no-default", // Strategia zapasowa
+  rewrite: nextjsRewrite({
+    "/about": {
+      en: "/about",
+      fr: "/a-propos",
+    },
+    "/product/[slug]": {
+      en: "/product/[slug]",
+      fr: "/produit/[slug]",
+    },
+    "/blog/[category]/[id]": {
+      en: "/blog/[category]/[id]",
+      fr: "/journal/[category]/[id]",
+    },
+  }),
 }
 ```
 
----
+#### Opcje przechowywania (Storage)
 
-## Odniesienie do konfiguracji
+| Wartość            | Uwagi                                                                                                                                                                                                  | Opis                                                                               |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
+| `'cookie'`         | • Zapewnij odpowiednią zgodę użytkownika zgodnie z RODO.<br/>• Można dostosować przez `CookiesAttributes` (`{ type: 'cookie', name: 'custom-locale', secure: true, httpOnly: false }`).                | Przechowuje locale w pliku cookie - dostępne zarówno u klienta, jak i na serwerze. |
+| `'localStorage'`   | • Nie wygasa, dopóki nie zostanie usunięte jawnie.<br/>• Intlayer Proxy nie ma do niego dostępu.<br/>• Można dostosować przez `StorageAttributes` (`{ type: 'localStorage', name: 'custom-locale' }`). | Przechowuje locale w przeglądarce bez daty wygaśnięcia - tylko klient.             |
+| `'sessionStorage'` | • Usuwane po zamknięciu karty/okna przeglądarki.<br/>• Intlayer Proxy nie ma do niego dostępu.<br/>• Można dostosować przez `StorageAttributes` (`{ type: 'sessionStorage', name: 'custom-locale' }`). | Przechowuje locale na czas sesji strony - tylko klient.                            |
+| `'header'`         | • Przydatne przy wywołaniach API.<br/>• Klient nie ma do niego dostępu.<br/>• Można dostosować przez `StorageAttributes` (`{ type: 'header', name: 'custom-locale' }`).                                | Przechowuje lub przekazuje locale przez nagłówki HTTP - tylko serwer.              |
 
-Poniższe sekcje opisują różne ustawienia konfiguracyjne dostępne dla Intlayer.
+#### Atrybuty Cookie (Cookies Attributes)
 
----
+Przy użyciu przechowywania w plikach cookie można skonfigurować dodatkowe atrybuty:
 
-### Konfiguracja internacjonalizacji
+| Pole       | Opis                                                                                                   | Typ                                                   |
+| ---------- | ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------- |
+| `name`     | Nazwa pliku cookie. Domyślnie: `'INTLAYER_LOCALE'`                                                     | `string`                                              |
+| `domain`   | Domena pliku cookie. Domyślnie: `undefined`                                                            | `string`                                              |
+| `path`     | Ścieżka pliku cookie. Domyślnie: `undefined`                                                           | `string`                                              |
+| `secure`   | Wymagane HTTPS. Domyślnie: `undefined`                                                                 | `boolean`                                             |
+| `httpOnly` | Flaga HTTP-only. Domyślnie: `undefined`                                                                | `boolean`                                             |
+| `sameSite` | Polityka SameSite.                                                                                     | `'strict'` &#124; <br/> `'lax'` &#124; <br/> `'none'` |
+| `expires`  | Data wygaśnięcia lub liczba dni. Domyślnie: `undefined`                                                | `Date` &#124; <br/> `number`                          |
+| `maxAge`   | Czas życia w sekundach od momentu utworzenia. Ma pierwszeństwo przed `expires`. Domyślnie: `undefined` | `number`                                              |
 
-Definiuje ustawienia związane z internacjonalizacją, w tym dostępne lokalizacje oraz domyślną lokalizację dla aplikacji.
+#### Atrybuty przechowywania (Storage Attributes)
 
-#### Właściwości
+Przy użyciu localStorage lub sessionStorage:
 
-- **locales**:
-  - _Typ_: `string[]`
-  - _Domyślnie_: `['en']`
-  - _Opis_: Lista obsługiwanych lokalizacji w aplikacji.
-  - _Przykład_: `['en', 'fr', 'es']`
-
-- **requiredLocales**:
-  - _Typ_: `string[]`
-  - _Domyślnie_: `[]`
-  - _Opis_: Lista wymaganych lokalizacji w aplikacji.
-  - _Przykład_: `[]`
-  - _Uwaga_: Jeśli pusta, wszystkie lokalizacje są wymagane w trybie `strict`.
-  - _Uwaga_: Upewnij się, że wymagane lokalizacje są również zdefiniowane w polu `locales`.
-- **strictMode**:
-  - _Typ_: `string`
-  - _Domyślnie_: `inclusive`
-  - _Opis_: Zapewnia silną implementację zinternacjonalizowanej zawartości przy użyciu TypeScript.
-  - _Uwaga_: Jeśli ustawione na "strict", funkcja tłumaczenia `t` będzie wymagać zdefiniowania każdej zadeklarowanej lokalizacji. Jeśli jakaś lokalizacja będzie brakować lub nie będzie zadeklarowana w konfiguracji, zostanie zgłoszony błąd.
-  - _Uwaga_: Jeśli ustawione na "inclusive", funkcja tłumaczenia `t` będzie wymagać zdefiniowania każdej zadeklarowanej lokalizacji. Jeśli jakaś lokalizacja będzie brakować, zostanie wyświetlone ostrzeżenie. Jednak zaakceptuje lokalizację, która nie jest zadeklarowana w konfiguracji, ale istnieje.
-  - _Uwaga_: Jeśli ustawione na "loose", funkcja tłumaczenia `t` zaakceptuje dowolną istniejącą lokalizację.
-
-- **defaultLocale**:
-  - _Typ_: `string`
-  - _Domyślnie_: `'en'`
-  - _Opis_: Domyślna lokalizacja używana jako zapasowa, jeśli żądana lokalizacja nie zostanie znaleziona.
-  - _Przykład_: `'en'`
-  - _Uwaga_: Używane do określenia lokalizacji, gdy żadna nie jest podana w URL, ciasteczku lub nagłówku.
-
----
-
-### Konfiguracja edytora
-
-Definiuje ustawienia związane z zintegrowanym edytorem, w tym port serwera i status aktywności.
-
-#### Właściwości
-
-- **applicationURL**:
-  - _Typ_: `string`
-  - _Domyślnie_: `http://localhost:3000`
-  - _Opis_: URL aplikacji. Używany do ograniczenia pochodzenia edytora ze względów bezpieczeństwa.
-  - _Przykład_:
-    - `'http://localhost:3000'`
-    - `'https://example.com'`
-    - `process.env.INTLAYER_EDITOR_URL`
-  - _Uwaga_: URL aplikacji. Używany do ograniczenia pochodzenia edytora ze względów bezpieczeństwa. Jeśli ustawiony na `'*'`, edytor jest dostępny z dowolnego pochodzenia.
-
-- **port**:
-  - _Typ_: `number`
-  - _Domyślnie_: `8000`
-  - _Opis_: Port używany przez serwer wizualnego edytora.
-
-- **editorURL**:
-  - _Typ_: `string`
-  - _Domyślnie_: `'http://localhost:8000'`
-  - _Opis_: URL serwera edytora. Używany do ograniczenia pochodzenia edytora ze względów bezpieczeństwa.
-    - `'http://localhost:3000'`
-    - `'https://example.com'`
-    - `process.env.INTLAYER_EDITOR_URL`
-  - _Uwaga_: URL serwera edytora, do którego aplikacja się łączy. Używany do ograniczenia pochodzenia, które może wchodzić w interakcję z aplikacją ze względów bezpieczeństwa. Jeśli ustawiony na `'*'`, edytor jest dostępny z dowolnego pochodzenia. Powinien być ustawiony, jeśli zmieniono port lub jeśli edytor jest hostowany na innej domenie.
-
-- **cmsURL**:
-  - _Typ_: `string`
-  - _Domyślnie_: `'https://intlayer.org'`
-  - _Opis_: URL systemu CMS Intlayer.
-  - _Przykład_: `'https://intlayer.org'`
-  - _Uwaga_: URL systemu CMS Intlayer.
-
-- **backendURL**:
-  - _Typ_: `string`
-  - _Domyślnie_: `https://back.intlayer.org`
-  - _Opis_: URL serwera backendowego.
-  - _Przykład_: `http://localhost:4000`
-
-- **enabled**:
-  - _Typ_: `boolean`
-  - _Domyślnie_: `true`
-  - _Opis_: Wskazuje, czy aplikacja wchodzi w interakcję z edytorem wizualnym.
-  - _Przykład_: `process.env.NODE_ENV !== 'production'`
-  - _Uwaga_: Jeśli wartość jest prawdziwa, edytor będzie mógł wchodzić w interakcję z aplikacją. Jeśli fałszywa, edytor nie będzie mógł wchodzić w interakcję z aplikacją. W każdym przypadku edytor może być włączony tylko przez edytor wizualny. Wyłączanie edytora dla określonych środowisk jest sposobem na zwiększenie bezpieczeństwa.
-
-- **clientId**:
-  - _Typ_: `string` | `undefined`
-  - _Domyślnie_: `undefined`
-  - _Opis_: clientId i clientSecret pozwalają pakietom intlayer na uwierzytelnianie się z backendem za pomocą uwierzytelniania oAuth2. Token dostępu jest używany do uwierzytelniania użytkownika związanego z projektem. Aby uzyskać token dostępu, przejdź do https://intlayer.org/dashboard/project i załóż konto.
-  - _Przykład_: `true`
-  - _Uwaga_: Ważne: clientId i clientSecret powinny być przechowywane w tajemnicy i nie udostępniane publicznie. Upewnij się, że są przechowywane w bezpiecznym miejscu, na przykład w zmiennych środowiskowych.
-
-- **clientSecret**:
-  - _Typ_: `string` | `undefined`
-  - _Domyślnie_: `undefined`
-  - _Opis_: clientId i clientSecret pozwalają pakietom intlayer na uwierzytelnianie się z backendem za pomocą uwierzytelniania oAuth2. Token dostępu jest używany do uwierzytelniania użytkownika związanego z projektem. Aby uzyskać token dostępu, przejdź do https://intlayer.org/dashboard/project i załóż konto.
-  - _Przykład_: `true`
-  - _Uwaga_: Ważne: clientId i clientSecret powinny być przechowywane w tajemnicy i nie udostępniane publicznie. Upewnij się, że są przechowywane w bezpiecznym miejscu, na przykład w zmiennych środowiskowych.
-
-- **dictionaryPriorityStrategy**:
-  - _Typ_: `string`
-  - _Domyślnie_: `'local_first'`
-  - _Opis_: Strategia priorytetyzacji słowników w przypadku obecności zarówno lokalnych, jak i zdalnych słowników. Jeśli ustawiona na `'distant_first'`, aplikacja będzie priorytetowo traktować słowniki zdalne nad lokalnymi. Jeśli ustawiona na `'local_first'`, aplikacja będzie priorytetowo traktować słowniki lokalne nad zdalnymi.
-  - _Przykład_: `'distant_first'`
-
-- **liveSync**:
-  - _Typ_: `boolean`
-  - _Domyślnie_: `false`
-  - _Opis_: Wskazuje, czy serwer aplikacji powinien automatycznie przeładowywać zawartość aplikacji po wykryciu zmiany w CMS / Visual Editor / Backend.
-  - _Przykład_: `true`
-  - _Uwaga_: Na przykład, gdy zostanie dodany lub zaktualizowany nowy słownik, aplikacja zaktualizuje zawartość wyświetlaną na stronie.
-  - _Uwaga_: Live sync wymaga zewnętrznego udostępnienia zawartości aplikacji na innym serwerze. Oznacza to, że może to nieznacznie wpłynąć na wydajność aplikacji. Aby to ograniczyć, zalecamy hostowanie aplikacji i serwera live sync na tej samej maszynie. Ponadto, połączenie live sync i `optimize` może generować znaczną liczbę zapytań do serwera live sync. W zależności od infrastruktury, zalecamy przetestowanie obu opcji oraz ich kombinacji.
-
-- **liveSyncPort**:
-  - _Typ_: `number`
-  - _Domyślnie_: `4000`
-  - _Opis_: Port serwera live sync.
-  - _Przykład_: `4000`
-  - _Uwaga_: Port serwera live sync.
-
-- **liveSyncURL**:
-  - _Typ_: `string`
-  - _Domyślnie_: `'http://localhost:{liveSyncPort}'`
-  - _Opis_: URL serwera live sync.
-  - _Przykład_: `'https://example.com'`
-  - _Uwaga_: Domyślnie wskazuje na localhost, ale może zostać zmieniony na dowolny URL w przypadku zdalnego serwera live sync.
-
-### Konfiguracja routingu
-
-Ustawienia kontrolujące zachowanie routingu, w tym strukturę URL, przechowywanie lokalizacji oraz obsługę middleware.
-
-#### Właściwości
-
-- **mode**:
-  - _Typ_: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
-  - _Domyślnie_: `'prefix-no-default'`
-  - _Opis_: Tryb routingu URL dla obsługi lokalizacji.
-  - _Przykłady_:
-    - `'prefix-no-default'`: `/dashboard` (en) lub `/fr/dashboard` (fr)
-    - `'prefix-all'`: `/en/dashboard` (en) lub `/fr/dashboard` (fr)
-    - `'no-prefix'`: `/dashboard` (lokalizacja obsługiwana innymi metodami)
-    - `'search-params'`: `/dashboard?locale=fr`
-  - _Uwaga_: To ustawienie nie wpływa na zarządzanie ciasteczkami ani przechowywaniem lokalizacji.
-
-- **storage**:
-  - _Typ_: `false | 'cookie' | 'localStorage' | 'sessionStorage' | 'header' | CookiesAttributes | StorageAttributes | Array`
-  - _Domyślnie_: `'localStorage'`
-  - _Opis_: Konfiguracja przechowywania lokalizacji po stronie klienta.
-
-  - **cookie**:
-    - _Opis_: Przechowuje dane w ciasteczkach, małych fragmentach danych zapisywanych w przeglądarce klienta, dostępnych zarówno po stronie klienta, jak i serwera.
-    - _Uwaga_: Aby przechowywanie było zgodne z RODO, należy zapewnić odpowiednią zgodę użytkownika przed użyciem.
-    - _Uwaga_: Parametry ciasteczek są konfigurowalne, jeśli ustawione jako CookiesAttributes (`{ type: 'cookie', name: 'custom-locale', secure: true, httpOnly: false }`).
-
-  - **localStorage**:
-    - _Opis_: Przechowuje dane w przeglądarce bez dat wygaśnięcia, co pozwala na utrzymanie danych pomiędzy sesjami, dostępne tylko po stronie klienta.
-    - _Uwaga_: Idealne do przechowywania danych długoterminowych, ale należy pamiętać o kwestiach prywatności i bezpieczeństwa ze względu na brak automatycznego wygasania, chyba że dane zostaną wyraźnie usunięte.
-    - _Uwaga_: Przechowywanie lokalizacji jest dostępne tylko po stronie klienta, proxy intlayer nie będzie miało do niego dostępu.
-    - _Uwaga_: Parametry przechowywania lokalizacji są konfigurowalne, jeśli ustawione jako StorageAttributes (`{ type: 'localStorage', name: 'custom-locale' }`).
-
-  - **sessionStorage**:
-    - _Opis_: Przechowuje dane przez czas trwania sesji strony, co oznacza, że dane są usuwane po zamknięciu zakładki lub okna, dostępne tylko po stronie klienta.
-    - _Uwaga_: Odpowiednie do tymczasowego przechowywania danych dla każdej sesji.
-    - _Uwaga_: Przechowywanie lokalne jest dostępne tylko po stronie klienta, proxy intlayer nie będzie miało do niego dostępu.
-    - _Uwaga_: Parametry przechowywania lokalnego są konfigurowalne, jeśli ustawione jako StorageAttributes (`{ type: 'sessionStorage', name: 'custom-locale' }`).
-
-  - **header**:
-    - _Opis_: Wykorzystuje nagłówki HTTP do przechowywania lub przesyłania danych lokalizacyjnych, odpowiednie do określania języka po stronie serwera.
-    - _Uwaga_: Przydatne w wywołaniach API do utrzymania spójnych ustawień językowych w żądaniach.
-    - _Uwaga_: Nagłówek jest dostępny tylko po stronie serwera, klient nie będzie miał do niego dostępu.
-    - _Uwaga_: Nazwa nagłówka jest konfigurowalna, jeśli ustawiona jako StorageAttributes (`{ type: 'header', name: 'custom-locale' }`).
-
-- **basePath**:
-  - _Typ_: `string`
-  - _Domyślnie_: `''`
-  - _Opis_: Podstawowa ścieżka dla adresów URL aplikacji.
-  - _Przykład_: `'/my-app'`
-  - _Uwaga_:
-    - Jeśli aplikacja jest hostowana pod adresem `https://example.com/my-app`
-    - Podstawowa ścieżka to `'/my-app'`
-    - Adres URL będzie `https://example.com/my-app/en`
-    - Jeśli podstawowa ścieżka nie jest ustawiona, adres URL będzie `https://example.com/en`
-
-#### Atrybuty ciasteczek
-
-Podczas korzystania z przechowywania w ciasteczkach, możesz skonfigurować dodatkowe atrybuty ciasteczek:
-
-- **name**: Nazwa ciasteczka (domyślnie: `'INTLAYER_LOCALE'`)
-- **domain**: Domeną ciasteczka (domyślnie: niezdefiniowane)
-- **path**: Ścieżka ciasteczka (domyślnie: niezdefiniowane)
-- **secure**: Wymagaj HTTPS (domyślnie: niezdefiniowane)
-- **httpOnly**: Flaga HTTP-only (domyślnie: niezdefiniowane)
-- **sameSite**: Polityka SameSite (`'strict' | 'lax' | 'none'`)
-- **expires**: Data wygaśnięcia lub liczba dni (domyślnie: niezdefiniowane)
-
-#### Atrybuty przechowywania lokalnego
-
-Podczas korzystania z localStorage lub sessionStorage:
-
-- **type**: Typ przechowywania (`'localStorage' | 'sessionStorage'`)
-- **name**: Nazwa klucza przechowywania (domyślnie: `'INTLAYER_LOCALE'`)
+| Pole   | Opis                                                   | Typ                                              |
+| ------ | ------------------------------------------------------ | ------------------------------------------------ |
+| `type` | Typ przechowywania.                                    | `'localStorage'` &#124; <br/> `'sessionStorage'` |
+| `name` | Nazwa klucza w pamięci. Domyślnie: `'INTLAYER_LOCALE'` | `string`                                         |
 
 #### Przykłady konfiguracji
 
-Oto kilka typowych przykładów konfiguracji dla nowej struktury routingu w wersji v7:
+Oto kilka typowych konfiguracji korzystających z nowej struktury routingu v7:
 
-**Podstawowa konfiguracja (domyślna)**:
+**Podstawowa konfiguracja (Standard)**:
 
 ```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: ["en", "fr", "es"],
     defaultLocale: "en",
@@ -395,17 +716,19 @@ export default defineConfig({
   routing: {
     mode: "prefix-no-default",
     storage: "localStorage",
-    headerName: "x-intlayer-locale",
     basePath: "",
   },
-});
+};
+
+export default config;
 ```
 
 **Konfiguracja zgodna z RODO**:
 
 ```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: ["en", "fr", "es"],
     defaultLocale: "en",
@@ -425,17 +748,19 @@ export default defineConfig({
         httpOnly: false,
       },
     ],
-    headerName: "x-intlayer-locale",
     basePath: "",
   },
-});
+};
+
+export default config;
 ```
 
-**Tryb parametrów wyszukiwania**:
+**Tryb parametrów wyszukiwania (Search Params)**:
 
 ```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: ["en", "fr", "es"],
     defaultLocale: "en",
@@ -443,17 +768,19 @@ export default defineConfig({
   routing: {
     mode: "search-params",
     storage: "localStorage",
-    headerName: "x-intlayer-locale",
     basePath: "",
   },
-});
+};
+
+export default config;
 ```
 
-**Tryb bez prefiksu z niestandardową pamięcią**:
+**Tryb bez prefiksu (No-Prefix) z własnym miejscem przechowywania**:
 
 ```typescript
+import { Locales, type IntlayerConfig } from "intlayer";
 // intlayer.config.ts
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: ["en", "fr", "es"],
     defaultLocale: "en",
@@ -464,247 +791,212 @@ export default defineConfig({
       type: "sessionStorage",
       name: "app-locale",
     },
-    headerName: "x-custom-locale",
     basePath: "/my-app",
   },
-});
+};
+
+export default config;
+```
+
+**Własne przepisywanie URL ze ścieżkami dynamicznymi**:
+
+```typescript
+// intlayer.config.ts
+import { nextjsRewrite } from "intlayer/routing";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: ["en", "fr"],
+    defaultLocale: "en",
+  },
+  routing: {
+    mode: "prefix-no-default", // Rezerwowa strategia dla nieprzepisanych ścieżek
+    storage: "cookie",
+    rewrite: nextjsRewrite({
+      "/about": {
+        en: "/about",
+        fr: "/a-propos",
+      },
+      "/product/[slug]": {
+        en: "/product/[slug]",
+        fr: "/produit/[slug]",
+      },
+      "/blog/[category]/[id]": {
+        en: "/blog/[category]/[id]",
+        fr: "/journal/[category]/[id]",
+      },
+    }),
+  },
+};
+
+export default config;
 ```
 
 ---
 
-### Konfiguracja treści
+### Konfiguracja treści (Content)
 
-Ustawienia związane z obsługą treści w aplikacji, w tym nazwy katalogów, rozszerzenia plików oraz pochodne konfiguracje.
+Ustawienia do zarządzania treścią w aplikacji, w tym nazwy katalogów, rozszerzenia plików i pochodne konfiguracje.
 
-#### Właściwości
-
-- **watch**:
-  - _Typ_: `boolean`
-  - _Domyślnie_: `process.env.NODE_ENV === 'development'`
-  - _Opis_: Wskazuje, czy Intlayer powinien obserwować zmiany w plikach deklaracji treści w aplikacji, aby przebudować powiązane słowniki.
-
-- **fileExtensions**:
-  - _Typ_: `string[]`
-  - _Domyślnie_: `['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.tsx', '.content.jsx']`
-  - _Opis_: Rozszerzenia plików, które mają być wyszukiwane podczas budowania słowników.
-  - _Przykład_: `['.data.ts', '.data.js', '.data.json']`
-  - _Uwaga_: Dostosowanie rozszerzeń plików może pomóc uniknąć konfliktów.
-
-- **baseDir**:
-  - _Typ_: `string`
-  - _Domyślnie_: `process.cwd()`
-  - _Opis_: Katalog bazowy projektu.
-  - _Przykład_: `'/path/to/project'`
-  - _Uwaga_: Jest używany do rozwiązywania wszystkich katalogów związanych z Intlayer.
-
-- **contentDir**:
-  - _Typ_: `string[]`
-  - _Domyślnie_: `['.']`
-  - _Przykład_: `['src', '../../ui-library', require.resolve("@my-package/content")]`
-  - _Opis_: Ścieżka katalogu, w którym przechowywana jest zawartość.
-
-- **dictionariesDir**:
-  - _Typ_: `string`
-  - _Domyślnie_: `'.intlayer/dictionaries'`
-  - _Opis_: Ścieżka katalogu do przechowywania wyników pośrednich lub wyjściowych.
-
-- **moduleAugmentationDir**:
-  - _Typ_: `string`
-  - _Domyślnie_: `'.intlayer/types'`
-  - _Opis_: Katalog do rozszerzania modułów, umożliwiający lepsze sugestie w IDE i sprawdzanie typów.
-  - _Przykład_: `'intlayer-types'`
-  - _Uwaga_: Upewnij się, że jest to uwzględnione w `tsconfig.json`.
-
-- **unmergedDictionariesDir**:
-  - _Typ_: `string`
-  - _Domyślnie_: `'.intlayer/unmerged_dictionary'`
-  - _Opis_: Katalog do przechowywania niepołączonych słowników.
-  - _Przykład_: `'translations'`
-
-- **dictionariesDir**:
-  - _Typ_: `string`
-  - _Domyślnie_: `'.intlayer/dictionary'`
-  - _Opis_: Katalog do przechowywania słowników lokalizacyjnych.
-  - _Przykład_: `'translations'`
-
-- **typesDir**:
-  - _Typ_: `string`
-  - _Domyślnie_: `'types'`
-  - _Opis_: Katalog do przechowywania typów słowników.
-  - _Przykład_: `'intlayer-types'`
-
-- **mainDir**:
-  - _Typ_: `string`
-  - _Domyślnie_: `'main'`
-  - _Opis_: Katalog, w którym przechowywane są główne pliki aplikacji.
-  - _Przykład_: `'intlayer-main'`
-
-- **excludedPath**:
-  - _Typ_: `string[]`
-  - _Domyślnie_: `['**/node_modules/**', '**/dist/**', '**/build/**', '**/.intlayer/**', '**/.next/**', '**/.nuxt/**', '**/.expo/**', '**/.vercel/**', '**/.turbo/**', '**/.tanstack/**']`
-  - _Opis_: Katalogi wykluczone z wyszukiwania treści.
-  - _Uwaga_: To ustawienie nie jest jeszcze używane, ale planowane do implementacji w przyszłości.
-
-- **formatCommand**:
-  - _Typ_: `string`
-  - _Domyślnie_: `undefined`
-  - _Opis_: Komenda do formatowania zawartości. Gdy intlayer zapisuje lokalnie twoje pliki .content, ta komenda będzie używana do formatowania zawartości.
-  - _Przykład_: `'npx prettier --write "{{file}}" --log-level silent'` Użycie Prettier
-  - _Przykład_: `'npx biome format "{{file}}" --write --log-level none'` Użycie Biome
-  - _Przykład_: `'npx eslint --fix "{{file}}"  --quiet'` Użycie ESLint
-  - _Uwaga_: Intlayer zastąpi {{file}} ścieżką do pliku, który ma zostać sformatowany.
-  - _Uwaga_: Jeśli nie zostanie ustawione, Intlayer spróbuje automatycznie wykryć polecenie formatowania. Próbując rozpoznać następujące polecenia: prettier, biome, eslint.
-
-### Konfiguracja Słownika
-
-Ustawienia kontrolujące operacje słownika, w tym zachowanie automatycznego wypełniania oraz generowanie zawartości.
-
-Ta konfiguracja słownika służy dwóm głównym celom:
-
-1. **Wartości domyślne**: Definiowanie wartości domyślnych podczas tworzenia plików deklaracji zawartości
-2. **Zachowanie zapasowe**: Zapewnienie wartości zapasowych, gdy konkretne pola nie są zdefiniowane, co pozwala na globalne określenie zachowania operacji słownika
-
-Aby uzyskać więcej informacji na temat plików deklaracji zawartości oraz sposobu stosowania wartości konfiguracyjnych, zobacz [Dokumentację pliku zawartości](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md).
-
-#### Właściwości
-
-- **fill**
-- **description**
-- **locale**
-- **priority**
-- **live**
-- **title**
-- **tags**
-- **version**
+| Pole             | Opis                                                                                                     | Typ        | Domyślnie                                                                                                                                                                 | Przykład                                                                                                                                                                              | Uwagi                                                                                                                                                     |
+| ---------------- | -------------------------------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `watch`          | Wskazuje, czy Intlayer powinien śledzić zmiany w plikach deklaracji treści w celu regeneracji słowników. | `boolean`  | `true`                                                                                                                                                                    |                                                                                                                                                                                       |                                                                                                                                                           |
+| `fileExtensions` | Rozszerzenia plików do skanowania podczas kompilacji słowników.                                          | `string[]` | `['.content.ts', '.content.js', '.content.cjs', '.content.mjs', '.content.json', '.content.json5', '.content.jsonc', '.content.tsx', '.content.jsx']`                     | `['.data.ts', '.data.js', '.data.json']`                                                                                                                                              | Może pomóc uniknąć konfliktów przy dostosowywaniu.                                                                                                        |
+| `contentDir`     | Ścieżki do katalogów, w których znajdują się pliki definicji treści (`.content.*`).                      | `string[]` | `['.']`                                                                                                                                                                   | `['src', '../../ui-library', require.resolve("@my-package/content"), '@my-package/content']`                                                                                          | Używane do śledzenia plików treści i regeneracji słowników.                                                                                               |
+| `codeDir`        | Ścieżka do katalogów, w których znajduje się kod, względem katalogu bazowego.                            | `string[]` | `['.']`                                                                                                                                                                   | `['src', '../../ui-library']`                                                                                                                                                         | • Używane do śledzenia przekształceń plików kodu (usuwanie niepotrzebnych części, optymalizacja).<br/>• Oddzielenie od `contentDir` zwiększa wydajność.   |
+| `excludedPath`   | Katalogi, które należy wykluczyć ze skanowania treści.                                                   | `string[]` | `['**/node_modules/**', '**/dist/**', '**/build/**', '**/.intlayer/**', '**/.next/**', '**/.nuxt/**', '**/.expo/**', '**/.vercel/**', '**/.turbo/**', '**/.tanstack/**']` |                                                                                                                                                                                       | Obecnie nieużywane; zaplanowane na przyszłość.                                                                                                            |
+| `formatCommand`  | Polecenie do formatowania plików treści, gdy Intlayer zapisuje je lokalnie.                              | `string`   | `undefined`                                                                                                                                                               | `'npx prettier --write "{{file}}" --log-level silent'` (Prettier), `'npx biome format "{{file}}" --write --log-level none'` (Biome), `'npx eslint --fix "{{file}}" --quiet'` (ESLint) | • `{{file}}` zostanie zastąpione ścieżką do pliku.<br/>• Jeśli niezdefiniowane, Intlayer spróbuje automatycznie wykryć (testuje prettier, biome, eslint). |
 
 ---
 
-### Konfiguracja Loggera
+### Konfiguracja słownika (Dictionary)
 
-Ustawienia kontrolujące logger, w tym prefiks do użycia.
+Opcje kontrolujące operacje na słownikach, w tym zachowanie automatycznego uzupełniania i generowanie treści.
 
-#### Właściwości
+| Pole                        | Opis                                                                                                                                                                                | Typ                                                                                                             | Domyślnie    | Przykład                                                                                    | Uwagi                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `fill`                      | Kontroluje generowanie plików wyjściowych automatycznego uzupełniania (tłumaczenia AI).                                                                                             | `boolean` &#124; <br/> `FilePathPattern` &#124; <br/> `Partial<Record<Locale, boolean &#124; FilePathPattern>>` | `true`       | `{ en: '/locales/en/{{key}}.json', fr: ({ key }) => '/locales/fr/${key}.json', es: false }` | • `true`: Domyślna ścieżka (ten sam plik co źródło).<br/>• `false`: Wyłączone.<br/>• Wzorzec ciągu/funkcji pozwala na generowanie na poziomie lokali.<br/>• Obiekt na poziomie lokali: Każde locale ma własny wzorzec; `false` wyklucza locale.<br/>• Uwzględnienie `{{locale}}` pozwala na generowanie na poziomie lokali.<br/>• Ustawienie `fill` na poziomie słownika zawsze ma priorytet nad tym globalnym ustawieniem. |
+| `description`               | Pomaga edytorowi i CMS zrozumieć przeznaczenie słownika. Używane również jako kontekst do generowania tłumaczeń przez AI.                                                           | `string`                                                                                                        | `undefined`  | `'User profile section'`                                                                    |                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `locale`                    | Przełącza słownik na format specyficzny dla danego locale. Każde zadeklarowane pole staje się węzłem tłumaczenia. Jeśli brak, słownik jest uznawany za zawierający wiele tłumaczeń. | `LocalesValues`                                                                                                 | `undefined`  | `'en'`                                                                                      | Używaj tego, jeśli słownik jest przeznaczony dla konkretnego języka, a nie zawiera wielu tłumaczeń.                                                                                                                                                                                                                                                                                                                         |
+| `contentAutoTransformation` | Czy automatycznie przekształcać ciągi znaków treści w typowane węzły (Markdown, HTML lub wstawki).                                                                                  | `boolean` &#124; <br/> `{ markdown?: boolean; html?: boolean; insertion?: boolean }`                            | `false`      | `true`                                                                                      | • Markdown : `### Title` → `md('### Title')` .<br/>• HTML : `<div>Title</div>` → `html('<div>Title</div>')` .<br/>• Wstawki : `Hello {{name}}` → `insert('Hello {{name}}')` .                                                                                                                                                                                                                                               |
+| `location`                  | Wskazuje na lokalizację przechowywania plików słowników oraz sposób ich synchronizacji z CMS.                                                                                       | `'local'` &#124; <br/> `'remote'` &#124; <br/> `'hybrid'` &#124; <br/> `'plugin'` &#124; <br/> `string`         | `'local'`    | `'hybrid'`                                                                                  | • `'local'`: Tylko lokalne zarządzanie.<br/>• `'remote'`: Tylko zdalne zarządzanie (CMS).<br/>• `'hybrid'`: Zarządzanie zarówno lokalne, jak i zdalne.<br/>• `'plugin'` lub własne ciągi: Zarządzanie przez wtyczkę lub własne źródło.                                                                                                                                                                                      |
+| `importMode`                | Kontroluje sposób importowania słowników.                                                                                                                                           | `'static'` &#124; <br/> `'dynamic'` &#124; <br/> `'fetch'`                                                      | `'static'`   | `'dynamic'`                                                                                 | • `'static'`: Statyczny import.<br/>• `'dynamic'`: Dynamiczny import przez Suspense.<br/>• `'fetch'`: Pobieranie przez API Live Sync; rezerwowa opcja `'dynamic'` w razie błędu.<br/>• Wymagane wtyczki `@intlayer/babel` i `@intlayer/swc`.<br/>• Klucze muszą być zadeklarowane statycznie.<br/>• Ignorowane, jeśli `optimize` jest wyłączone.<br/>• Nie wpływa na `getIntlayer`, `getDictionary` itp.                    |
+| `priority`                  | Priorytet słownika. Przy rozwiązywaniu konfliktów między słownikami wyższa wartość ma pierwszeństwo przed niższą.                                                                   | `number`                                                                                                        | `undefined`  | `1`                                                                                         |                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `live`                      | ZDEPRECJONOWANE - używaj `importMode: 'fetch'`. Wcześniej wskazywało, czy należy pobierać treść słownika dynamicznie przez API Live Sync.                                           | `boolean`                                                                                                       | `undefined`  |                                                                                             | Przemianowano na `importMode: 'fetch'` w v8.0.0.                                                                                                                                                                                                                                                                                                                                                                            |
+| `schema`                    | Generowane automatycznie przez Intlayer do walidacji schematu JSON.                                                                                                                 | `'https://intlayer.org/schema.json'`                                                                            | Automatyczne |                                                                                             | Nie edytuj ręcznie.                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `title`                     | Pomaga identyfikować słowniki w edytorze i CMS.                                                                                                                                     | `string`                                                                                                        | `undefined`  | `'User Profile'`                                                                            |                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `tags`                      | Klasyfikuje słowniki i dostarcza kontekst lub instrukcje dla edytora i AI.                                                                                                          | `string[]`                                                                                                      | `undefined`  | `['user', 'profile']`                                                                       |                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `version`                   | Wersja zdalnego słownika; pomaga śledzić używaną obecnie wersję.                                                                                                                    | `string`                                                                                                        | `undefined`  | `'1.0.0'`                                                                                   | • Zarządzane w CMS.<br/>• Nie edytuj lokalnie.                                                                                                                                                                                                                                                                                                                                                                              |
 
-- **mode**:
-  - _Typ_: `string`
-  - _Domyślnie_: `default`
-  - _Opis_: Określa tryb loggera.
-  - _Opcje_: `default`, `verbose`, `disabled`
-  - _Przykład_: `default`
-  - _Uwaga_: Tryb loggera. Tryb verbose będzie logował więcej informacji, ale może być używany do celów debugowania. Tryb disabled wyłączy logger.
+**Przykład `fill`**:
 
-- **prefix**:
-  - _Typ_: `string`
-  - _Domyślnie_: `'[intlayer] '`
-  - _Opis_: Prefiks loggera.
-  - _Przykład_: `'[my custom prefix] '`
-  - _Uwaga_: Prefiks loggera.
+```ts
+dictionary: {
+  fill: {
+    en: "/locales/en/{{key}}.content.json",
+    fr: ({ key }) => `/locales/fr/${key}.content.json`,
+    es: false,
+  },
+};
+```
 
-### Konfiguracja AI
+---
 
-Ustawienia kontrolujące funkcje AI w Intlayer, w tym dostawcę, model i klucz API.
+### Konfiguracja loggera (Log)
 
-Ta konfiguracja jest opcjonalna, jeśli jesteś zarejestrowany na [Intlayer Dashboard](https://intlayer.org/dashboard/project) i korzystasz z klucza dostępu. Intlayer automatycznie zarządza najbardziej efektywnym i opłacalnym rozwiązaniem AI dla Twoich potrzeb. Korzystanie z domyślnych opcji zapewnia lepszą długoterminową utrzymalność, ponieważ Intlayer stale aktualizuje się, aby korzystać z najbardziej odpowiednich modeli.
+Ustawienia dostosowywania wyjścia logów Intlayer.
 
-Jeśli wolisz używać własnego klucza API lub konkretnego modelu, możesz zdefiniować własną konfigurację AI.
-Ta konfiguracja AI będzie używana globalnie w całym środowisku Intlayer. Polecenia CLI będą korzystać z tych ustawień jako domyślnych dla poleceń (np. `fill`), a także SDK, Visual Editor i CMS. Możesz nadpisać te domyślne wartości dla konkretnych przypadków użycia, korzystając z parametrów poleceń.
+| Pole     | Opis                                        | Typ                                                            | Domyślnie       | Przykład           | Uwagi                                                                                                     |
+| -------- | ------------------------------------------- | -------------------------------------------------------------- | --------------- | ------------------ | --------------------------------------------------------------------------------------------------------- |
+| `mode`   | Wskazuje tryb loggera.                      | `'default'` &#124; <br/> `'verbose'` &#124; <br/> `'disabled'` | `'default'`     | `'verbose'`        | • `'verbose'`: Zapisuje więcej informacji do debugowania.<br/>• `'disabled'`: Całkowicie wyłącza loggera. |
+| `prefix` | Prefiks dla wszystkich wiadomości w logach. | `string`                                                       | `'[intlayer] '` | `'[mój prefiks] '` |                                                                                                           |
 
-Intlayer obsługuje wielu dostawców AI, aby zapewnić większą elastyczność i wybór. Obecnie obsługiwani dostawcy to:
+---
 
-- **OpenAI** (domyślny)
+### Konfiguracja AI (AI)
+
+Ustawienia do zarządzania funkcjami AI w Intlayer, w tym dostawca, model i klucz API.
+
+Ta konfiguracja jest opcjonalna, jeśli zarejestrujesz się za pomocą klucza dostępu w [Intlayer Dashboard](https://app.intlayer.org/project). Intlayer automatycznie wybierze najbardziej opłacalne i wydajne rozwiązanie AI dla Twoich potrzeb. Korzystanie z domyślnych ustawień zapewnia najlepsze długoterminowe wsparcie, ponieważ Intlayer stale aktualizuje się, aby korzystać z najnowszych modeli.
+
+Jeśli wolisz korzystać z własnego klucza API lub konkretnego modelu, możesz zdefiniować własną konfigurację AI.
+Ta konfiguracja AI będzie używana globalnie w Twoim środowisku Intlayer. Komendy CLI, takie jak `fill`, będą domyślnie używać tych ustawień, podobnie jak SDK, edytor wizualny i CMS. Możesz nadpisać te wartości domyślne w konkretnych przypadkach za pomocą parametrów komend.
+
+Intlayer obsługuje szeroką gamę dostawców AI, aby zapewnić maksymalną elastyczność. Obecnie obsługiwani dostawcy to:
+
+- **OpenAI** (Domyślnie)
 - **Anthropic Claude**
 - **Mistral AI**
 - **DeepSeek**
 - **Google Gemini**
+- **Google AI Studio**
+- **Google Vertex**
 - **Meta Llama**
+- **Ollama**
+- **OpenRouter**
+- **Alibaba Cloud**
+- **Fireworks**
+- **Hugging Face**
+- **Groq**
+- **Amazon Bedrock**
+- **Together.ai**
+- **LM Studio**
 
-#### Właściwości
+| Pole                 | Opis                                                                                                                                 | Typ                                                                                                                                                                                                                                                                                                                                                                                                                      | Domyślnie   | Przykład                                                      | Uwagi                                                                                                                                                                                        |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- | ------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `provider`           | Dostawca, który będzie używany do funkcji AI w Intlayer.                                                                             | `'openai'` &#124; <br/> `'anthropic'` &#124; <br/> `'mistral'` &#124; <br/> `'deepseek'` &#124; <br/> `'gemini'` &#124; <br/> `'ollama'` &#124; <br/> `'openrouter'` &#124; <br/> `'alibaba'` &#124; <br/> `'fireworks'` &#124; <br/> `'groq'` &#124; <br/> `'huggingface'` &#124; <br/> `'bedrock'` &#124; <br/> `'googleaistudio'` &#124; <br/> `'googlevertex'` &#124; <br/> `'togetherai'` &#124; <br/> `'lmstudio'` | `undefined` | `'anthropic'`                                                 | Różni dostawcy wymagają różnych kluczy API i mają różne cenniki.                                                                                                                             |
+| `model`              | Model AI do użycia w funkcjach AI.                                                                                                   | `string`                                                                                                                                                                                                                                                                                                                                                                                                                 | Brak        | `'gpt-4o-2024-11-20'`                                         | Konkretne modele zależą od dostawcy.                                                                                                                                                         |
+| `temperature`        | Kontroluje losowość odpowiedzi AI.                                                                                                   | `number`                                                                                                                                                                                                                                                                                                                                                                                                                 | Brak        | `0.1`                                                         | Wyższa temperatura = bardziej kreatywne, ale mniej niezawodne odpowiedzi.                                                                                                                    |
+| `apiKey`             | Twój klucz API dla wybranego dostawcy.                                                                                               | `string`                                                                                                                                                                                                                                                                                                                                                                                                                 | Brak        | `process.env.OPENAI_API_KEY`                                  | Musi pozostać tajny; używaj zmiennych środowiskowych.                                                                                                                                        |
+| `applicationContext` | Dodatkowy kontekst o Twojej aplikacji, aby pomóc AI generować dokładniejsze tłumaczenia (domena, grupa docelowa, ton, terminologia). | `string`                                                                                                                                                                                                                                                                                                                                                                                                                 | Brak        | `'mój własny kontekst aplikacji'`                             | Można użyć do dodania zasad (np.: `"Nie powinieneś tłumaczyć swoich URL"` ).                                                                                                                 |
+| `baseURL`            | Bazowy URL dla API AI.                                                                                                               | `string`                                                                                                                                                                                                                                                                                                                                                                                                                 | Brak        | `'https://api.openai.com/v1'` <br/> `'http://localhost:5000'` | Może wskazywać na lokalne lub własne punkty końcowe API AI.                                                                                                                                  |
+| `dataSerialization`  | Format serializacji danych dla funkcji AI.                                                                                           | `'json'` &#124; <br/> `'toon'`                                                                                                                                                                                                                                                                                                                                                                                           | `undefined` | `'toon'`                                                      | • `'json'`: domyślnie, niezawodne; zużywa więcej tokenów.<br/>• `'toon'`: mniej tokenów, mniej stabilne.<br/>• Przekazuje modelowi kontekst jako dodatkowy parametr (reasoning effort itp.). |
 
-- **provider**:
-  - _Typ_: `string`
-  - _Domyślnie_: `'openai'`
-  - _Opis_: Dostawca używany do funkcji AI w Intlayer.
-  - _Opcje_: `'openai'`, `'anthropic'`, `'mistral'`, `'deepseek'`, `'gemini'`
-  - _Przykład_: `'anthropic'`
-  - _Uwaga_: Różni dostawcy mogą wymagać różnych kluczy API i mieć różne modele cenowe.
+---
 
-- **model**:
-  - _Typ_: `string`
-  - _Domyślnie_: Brak
-  - _Opis_: Model używany do funkcji AI w Intlayer.
-  - _Przykład_: `'gpt-4o-2024-11-20'`
-  - _Uwaga_: Konkretne modele różnią się w zależności od dostawcy.
+### Konfiguracja budowania (Build)
 
-- **temperature**:
-  - _Typ_: `number`
-  - _Domyślnie_: Brak
-  - _Opis_: Temperatura kontroluje losowość odpowiedzi AI.
-  - _Przykład_: `0.1`
-  - _Uwaga_: Wyższa temperatura sprawia, że AI jest bardziej kreatywne i mniej przewidywalne.
+Ustawienia kontrolujące sposób, w jaki Intlayer optymalizuje i kompiluje internacjonalizację aplikacji.
 
-- **apiKey**:
-  - _Typ_: `string`
-  - _Domyślnie_: Brak
-  - _Opis_: Twój klucz API dla wybranego dostawcy.
-  - _Przykład_: `process.env.OPENAI_API_KEY`
-  - _Uwaga_: Ważne: Klucze API powinny być przechowywane w tajemnicy i nie udostępniane publicznie. Proszę upewnić się, że są przechowywane w bezpiecznym miejscu, takim jak zmienne środowiskowe.
+Ustawienia budowania mają zastosowanie do wtyczek `@intlayer/babel` i `@intlayer/swc`.
 
-- **applicationContext**:
-  - _Typ_: `string`
-  - _Domyślnie_: Brak
-  - _Opis_: Dostarcza dodatkowy kontekst dotyczący Twojej aplikacji dla modelu AI, pomagając mu generować dokładniejsze i kontekstowo odpowiednie tłumaczenia. Może to obejmować informacje o domenie aplikacji, docelowej grupie odbiorców, tonie lub specyficznej terminologii.
+> W trybie deweloperskim Intlayer używa statycznego importu słowników w celu ułatwienia procesu deweloperskiego.
 
-### Konfiguracja Budowania
+> Podczas optymalizacji Intlayer zastępuje wywołania słowników optymalizacją dzielenia kodu (chunking), aby wynikowy pakiet importował tylko te słowniki, które są faktycznie używane.
 
-Ustawienia kontrolujące, jak Intlayer optymalizuje i buduje internacjonalizację Twojej aplikacji.
+| Pole              | Opis                                                                       | Typ                              | Domyślnie                                                                                                                                                                         | Przykład                                                                      | Uwagi                                                                                                                                                                                                                                                                                                                                              |
+| ----------------- | -------------------------------------------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mode`            | Kontroluje tryb wykonywania budowania.                                     | `'auto'` &#124; <br/> `'manual'` | `'auto'`                                                                                                                                                                          | `'manual'`                                                                    | • `'auto'`: Budowanie jest automatycznie wyzwalane podczas budowania (build time) aplikacji.<br/>• `'manual'`: Uruchamiane tylko poprzez jawne polecenie budowania.<br/>• Może być użyte do zapobiegania budowaniu słowników (np. aby uniknąć uruchamiania w środowisku Node.js).                                                                  |
+| `optimize`        | Kontroluje, czy optymalizacja budowania jest wykonywana.                   | `boolean`                        | `undefined`                                                                                                                                                                       | `process.env.NODE_ENV === 'production'`                                       | • Jeśli niezdefiniowane, optymalizacja jest wyzwalana podczas budowania (build time) frameworka (Vite/Next.js).<br/>• `true` wymusza optymalizację nawet w trybie deweloperskim.<br/>• `false` wyłącza ją.<br/>• Jeśli włączone, zastępuje wywołania słowników optymalizacją chunking.<br/>• Wymagane wtyczki `@intlayer/babel` i `@intlayer/swc`. |
+| `minify`          | Minimalizuj słowniki, aby zmniejszyć rozmiar bundle'a.                     | `boolean`                        | `false`                                                                                                                                                                           |                                                                               | • Określa, czy pakiet ma zostać zminimalizowany.<br/>• Domyślnie: `true` w produkcji.<br/>• Ta opcja zostanie zignorowana, jeśli `optimize` jest wyłączone.<br/>• Ta opcja zostanie zignorowana, jeśli `editor.enabled` jest prawdziwe.                                                                                                            |
+| `purge`           | Usuń nieużywane klucze w słownikach.                                       | `boolean`                        | `false`                                                                                                                                                                           |                                                                               | • Określa, czy pakiet ma zostać wyczyszczony.<br/>• Domyślnie: `true` w produkcji.<br/>• Ta opcja zostanie zignorowana, jeśli `optimize` jest wyłączone.                                                                                                                                                                                           |
+| `checkTypes`      | Wskazuje, czy budowanie powinno sprawdzać typy TypeScript i logować błędy. | `boolean`                        | `false`                                                                                                                                                                           |                                                                               | Może spowolnić proces budowania.                                                                                                                                                                                                                                                                                                                   |
+| `outputFormat`    | Kontroluje format wyjściowy słowników.                                     | `('esm' &#124; 'cjs')[]`         | `['esm', 'cjs']`                                                                                                                                                                  | `['cjs']`                                                                     |                                                                                                                                                                                                                                                                                                                                                    |
+| `traversePattern` | Wzorzec dla plików, które mają być skanowane podczas optymalizacji.        | `string[]`                       | `['**/*.{tsx,ts,js,mjs,cjs,jsx,vue,svelte,svte}', '!**/node_modules/**', '!**/dist/**', '!**/.intlayer/**', '!**/*.config.*', '!**/*.test.*', '!**/*.spec.*', '!**/*.stories.*']` | `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']` | • Poprawia wydajność budowania poprzez ograniczenie optymalizacji do odpowiednich plików.<br/>• Ignorowane, jeśli `optimize` jest wyłączone.<br/>• Używa wzorców glob.                                                                                                                                                                             |
 
-Opcje budowania dotyczą wtyczek `@intlayer/babel` oraz `@intlayer/swc`.
+---
 
-> W trybie deweloperskim Intlayer używa statycznych importów słowników, aby uprościć proces tworzenia aplikacji.
+### Konfiguracja systemowa (System)
 
-> Po optymalizacji Intlayer zastąpi wywołania słowników, aby zoptymalizować podział na części (chunking), dzięki czemu finalny pakiet zaimportuje tylko te słowniki, które są faktycznie używane.
+Te ustawienia są przeznaczone dla zaawansowanych użytkowników i wewnętrznej konfiguracji Intlayer.
 
-#### Właściwości
+| Pole                      | Opis                                            | Typ      | Domyślnie                         | Przykład | Uwagi |
+| ------------------------- | ----------------------------------------------- | -------- | --------------------------------- | -------- | ----- |
+| `dictionariesDir`         | Katalog dla skompilowanych słowników.           | `string` | `'.intlayer/dictionary'`          |          |       |
+| `moduleAugmentationDir`   | Katalog dla module augmentation TypeScript.     | `string` | `'.intlayer/types'`               |          |       |
+| `unmergedDictionariesDir` | Katalog dla niepołączonych słowników.           | `string` | `'.intlayer/unmerged_dictionary'` |          |       |
+| `typesDir`                | Katalog dla wygenerowanych typów.               | `string` | `'.intlayer/types'`               |          |       |
+| `mainDir`                 | Katalog głównych plików Intlayer.               | `string` | `'.intlayer/main'`                |          |       |
+| `configDir`               | Katalog skompilowanych plików konfiguracyjnych. | `string` | `'.intlayer/config'`              |          |       |
+| `cacheDir`                | Katalog plików cache.                           | `string` | `'.intlayer/cache'`               |          |       |
 
-- **optimize**:
-  - _Typ_: `boolean`
-  - _Domyślnie_: `process.env.NODE_ENV === 'production'`
-  - _Opis_: Kontroluje, czy budowa powinna być zoptymalizowana.
-  - _Przykład_: `true`
-  - _Uwaga_: Po włączeniu Intlayer zastąpi wszystkie wywołania słowników, aby zoptymalizować podział na części. W ten sposób finalny pakiet zaimportuje tylko używane słowniki. Wszystkie importy pozostaną statyczne, aby uniknąć asynchronicznego przetwarzania podczas ładowania słowników.
-  - _Uwaga_: Intlayer zastąpi wszystkie wywołania `useIntlayer` trybem zdefiniowanym przez opcję `importMode` oraz `getIntlayer` funkcją `getDictionary`.
-  - _Uwaga_: Ta opcja wymaga wtyczek `@intlayer/babel` oraz `@intlayer/swc`.
-  - _Uwaga_: Upewnij się, że wszystkie klucze są deklarowane statycznie w wywołaniach `useIntlayer`, np. `useIntlayer('navbar')`.
+---
 
-- **importMode**:
-  - _Typ_: `'static' | 'dynamic' | 'live'`
-  - _Domyślnie_: `'static'`
-  - _Opis_: Kontroluje sposób importowania słowników.
-  - _Przykład_: `'dynamic'`
-  - _Uwaga_: Dostępne tryby:
-    - "static": Słowniki są importowane statycznie. Zastępuje `useIntlayer` funkcją `useDictionary`.
-    - "dynamic": Słowniki są importowane dynamicznie z użyciem Suspense. Zastępuje `useIntlayer` funkcją `useDictionaryDynamic`.
-- "live": Słowniki są pobierane dynamicznie za pomocą API synchronizacji na żywo. Zastępuje `useIntlayer` funkcją `useDictionaryDynamic`.
-- _Uwaga_: Importy dynamiczne opierają się na Suspense i mogą nieznacznie wpływać na wydajność renderowania.
-- _Uwaga_: Jeśli wyłączone, wszystkie lokalizacje zostaną załadowane jednocześnie, nawet jeśli nie są używane.
-- _Uwaga_: Ta opcja wymaga wtyczek `@intlayer/babel` oraz `@intlayer/swc`.
-- _Uwaga_: Upewnij się, że wszystkie klucze są zadeklarowane statycznie w wywołaniach `useIntlayer`, np. `useIntlayer('navbar')`.
-- _Uwaga_: Ta opcja zostanie zignorowana, jeśli `optimize` jest wyłączone.
-  - _Uwaga_: Jeśli ustawione na "live", tylko słowniki zawierające zdalną zawartość i oznaczone flagą "live" zostaną przekształcone w tryb live. Pozostałe zostaną zaimportowane dynamicznie w trybie "dynamic", aby zoptymalizować liczbę zapytań fetch i wydajność ładowania.
-  - _Uwaga_: Tryb live będzie korzystał z API synchronizacji na żywo do pobierania słowników. Jeśli wywołanie API się nie powiedzie, słowniki zostaną zaimportowane dynamicznie w trybie "dynamic".
-  - _Uwaga_: Ta opcja nie wpłynie na funkcje `getIntlayer`, `getDictionary`, `useDictionary`, `useDictionaryAsync` oraz `useDictionaryDynamic`.
-- **outputFormat**:
-  - _Typ_: `'esm' | 'cjs'`
-  - _Domyślnie_: `'esm'`
-  - _Opis_: Kontroluje format wyjściowy słowników.
-  - _Przykład_: `'cjs'`
-  - _Uwaga_: Format wyjściowy słowników.
+### Konfiguracja kompilatora (Compiler)
 
-- **traversePattern**:
-  - _Typ_: `string[]`
-  - _Domyślnie_: `['**\/*.{js,ts,mjs,cjs,jsx,tsx,mjx,cjx}', '!**\/node_modules/**']`
-  - _Opis_: Wzorce definiujące, które pliki powinny być przeszukiwane podczas optymalizacji.
-    - _Przykład_: `['src/**\/*.{ts,tsx}', '../ui-library/**\/*.{ts,tsx}', '!**/node_modules/**']`
-  - _Uwaga_: Użyj tego, aby ograniczyć optymalizację do istotnych plików kodu i poprawić wydajność budowania.
-  - _Uwaga_: Ta opcja zostanie zignorowana, jeśli `optimize` jest wyłączone.
-  - _Uwaga_: Używaj wzorców glob.
+Kontroluje ustawienia kompilatora Intlayer, który kolekcjonuje słowniki bezpośrednio z Twoich komponentów.
+
+| Pole                  | Opis                                                                                                                                                                                                                                                                                                                    | Typ                                                                                                             | Domyślnie   | Przykład                                                                                                                                                 | Uwagi                                                                                                                                                                                                                                         |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `enabled`             | Wskazuje, czy kompilator powinien być aktywny w celu kolekcjonowania słowników.                                                                                                                                                                                                                                         | `boolean` &#124; <br/> `'build-only'`                                                                           | `true`      | `'build-only'`                                                                                                                                           | `'build-only'` pomija kompilator podczas deweloperki dla szybszego startu; uruchamia się tylko podczas poleceń budowania.                                                                                                                     |
+| `dictionaryKeyPrefix` | Prefiks dla zebranych kluczy słowników.                                                                                                                                                                                                                                                                                 | `string`                                                                                                        | `''`        | `'my-prefix-'`                                                                                                                                           | Dodawany przed wygenerowanym kluczem (opartym na nazwie pliku), aby uniknąć konfliktów.                                                                                                                                                       |
+| `saveComponents`      | Czy zapisać komponenty po ich przekształceniu.                                                                                                                                                                                                                                                                          | `boolean`                                                                                                       | `false`     |                                                                                                                                                          | • Jeśli `true`, oryginalne pliki zostaną nadpisane przekształconymi wersjami.<br/>• Pozwala na jednorazowe uruchomienie kompilatora, a następnie jego usunięcie.                                                                              |
+| `output`              | Definiuje ścieżkę do pliku wyjściowego. Zastępuje `outputDir`. Obsługuje zmienne szablonowe: `{{fileName}}`, <br/> `{{key}}`, <br/> `{{locale}}`, <br/> `{{extension}}`, <br/> `{{componentFileName}}`, <br/> `{{componentExtension}}`, <br/> `{{format}}`, <br/> `{{componentFormat}}`, <br/> `{{componentDirPath}}` . | `boolean` &#124; <br/> `FilePathPattern` &#124; <br/> `Partial<Record<Locale, boolean &#124; FilePathPattern>>` | `undefined` | `'./{{fileName}}{{extension}}'` <br/> `'/locales/{{locale}}/{{key}}.json'` <br/> `{ en: ({ key }) => './locales/en/${key}.json', fr: '...', es: false }` | • Ścieżki `./` są obliczane względem katalogu komponentu.<br/>• Ścieżki `/` są obliczane względem korzenia projektu.<br/>• `{{locale}}` pozwala na generowanie na poziomie lokali.<br/>• Obsługuje definicję przez obiekt na poziomie lokali. |
+| `noMetadata`          | Jeśli `true`, kompilator usuwa metadane słownika (klucz, content wrapper) z wyniku.                                                                                                                                                                                                                                     | `boolean`                                                                                                       | `false`     | `false` → `{"key":"my-key","content":{"key":"value"}}` <br/> `true` → `{"key":"value"}`                                                                  | • Przydatne dla formatów i18next lub ICU MessageFormat JSON na język.<br/>• Dobrze współpracuje z wtyczką `loadJSON`.                                                                                                                         |
+| `dictionaryKeyPrefix` | Prefiks klucza słownika                                                                                                                                                                                                                                                                                                 | `string`                                                                                                        | `''`        |                                                                                                                                                          | Dodaje opcjonalny prefiks do wyodrębnionych kluczy słownika                                                                                                                                                                                   |
+
+---
+
+### Własne schematy (Custom Schemas)
+
+| Pole      | Opis                                                                     | Typ                         |
+| --------- | ------------------------------------------------------------------------ | --------------------------- |
+| `schemas` | Pozwala definiować schematy Zod do walidacji struktury Twoich słowników. | `Record<string, ZodSchema>` |
+
+---
+
+### Wtyczki (Plugins)
+
+| Pole      | Opis                                              | Typ                |
+| --------- | ------------------------------------------------- | ------------------ |
+| `plugins` | Lista wtyczek Intlayer, które mają być dołączone. | `IntlayerPlugin[]` |

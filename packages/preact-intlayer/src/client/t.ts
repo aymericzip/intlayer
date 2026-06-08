@@ -1,7 +1,6 @@
-'use client';
-
-import { getTranslation } from '@intlayer/core';
-import type { Locale, StrictModeLocaleMap } from '@intlayer/types';
+import { getTranslation } from '@intlayer/core/interpreter';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import { useContext } from 'preact/hooks';
 import { IntlayerClientContext } from './IntlayerProvider';
 
@@ -14,7 +13,7 @@ export const t = <Content = string>(
   multilangContent: StrictModeLocaleMap<Content>,
   locale?: Locale
 ) => {
-  const { locale: currentLocale } = useContext(IntlayerClientContext);
+  const { locale: currentLocale } = useContext(IntlayerClientContext) ?? {};
   const localeTarget = locale ?? currentLocale;
 
   return getTranslation<Content>(multilangContent, localeTarget);

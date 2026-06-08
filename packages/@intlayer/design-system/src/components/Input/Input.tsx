@@ -27,6 +27,7 @@ export const inputVariants = cva(
           // Focus ring
           'disabled:ring-0',
           'hover:ring-3',
+          'focus-within:ring-4',
           'focus-visible:outline-none focus-visible:ring-4',
 
           // Remove any weird box-shadow
@@ -35,9 +36,10 @@ export const inputVariants = cva(
           // aria-invalid border color
           'aria-invalid:border-error',
         ].join(' '),
-        invisible: 'border-none bg-inherit text-inherit outline-none ring-0',
+        invisible: 'border-none text-inherit outline-none ring-0',
       },
       size: {
+        sm: 'px-2 py-2 text-sm md:py-1.5 md:text-xs',
         md: 'px-2 py-3 md:py-2',
         lg: 'p-4',
       },
@@ -54,28 +56,20 @@ export const inputVariants = cva(
   }
 );
 
-export enum InputVariant {
-  DEFAULT = 'default',
-  INVISIBLE = 'invisible',
-}
+export type InputVariant = 
+  | 'default' |
+  'invisible';
 
-export enum InputSize {
-  MD = 'md',
-  LG = 'lg',
-}
+export type InputSize = 
+  | 'md' |
+  'lg';
 
-export type InputProps = DetailedHTMLProps<
-  InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
+export type InputProps = Omit<
+  DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
+  'size'
 > & {
   validationStyleEnabled?: boolean;
-} & Omit<
-    VariantProps<typeof inputVariants>,
-    'validationStyleEnabled' | 'variant' | 'size'
-  > & {
-    variant?: InputVariant | `${InputVariant}`;
-    size?: InputSize | `${InputSize}`;
-  };
+} & Omit<VariantProps<typeof inputVariants>, 'validationStyleEnabled'>;
 
 export const Input: FC<InputProps> = ({
   validationStyleEnabled = false,
@@ -93,6 +87,7 @@ export const Input: FC<InputProps> = ({
       }),
       className
     )}
+    suppressHydrationWarning
     {...props}
   />
 );

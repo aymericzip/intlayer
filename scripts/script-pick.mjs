@@ -14,11 +14,11 @@
  */
 
 import { spawn } from 'node:child_process';
+import fs from 'node:fs';
+import path from 'node:path';
 import Enquirer from 'enquirer';
 import fg from 'fast-glob';
-import fs from 'node:fs';
 import minimist from 'minimist';
-import path from 'node:path';
 
 const args = minimist(process.argv.slice(2));
 // Defaults to 'dev' if not provided
@@ -84,7 +84,7 @@ const askCheckboxPlus = (message, choices) => {
 const main = async () => {
   // Prompt user to pick from apps, packages, or examples
   const selectedPackages = await askCheckboxPlus(
-    'Select items to start in mode: ' + chosenCommand,
+    `Select items to start in mode: ${chosenCommand}`,
     [
       { name: 'all apps', value: 'all_apps', choices: apps },
       { name: 'all packages', value: 'all_packages', choices: packages },

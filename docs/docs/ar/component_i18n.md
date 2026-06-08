@@ -78,7 +78,7 @@ export default componentContent;
 
 ## 2) استرجع محتواك
 
-### الحالة أ — تطبيق React (Vite/SPA)
+### الحالة أ, تطبيق React (Vite/SPA)
 
 الطريقة الافتراضية: استخدم `useIntlayer` للاسترجاع بواسطة المفتاح. هذا يحافظ على مكونات خفيفة ومكتوبة بأنواع.
 
@@ -129,7 +129,7 @@ export function ComponentWithDictionary() {
 }
 ```
 
-### الحالة ب — Next.js (موجه التطبيق)
+### الحالة ب. Next.js (موجه التطبيق)
 
 يفضل استخدام مكونات الخادم لأمان البيانات والأداء. استخدم `useIntlayer` من `next-intlayer/server` في ملفات الخادم، و`useIntlayer` من `next-intlayer` في مكونات العميل.
 

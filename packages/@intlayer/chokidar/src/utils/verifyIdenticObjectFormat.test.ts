@@ -193,21 +193,18 @@ describe('verifyIdenticObjectFormat', () => {
         verifyIdenticObjectFormat({ name: 'John' }, { nom: 'Jean' })
       ).toEqual({
         isIdentic: false,
-        error:
-          'Object keys mismatch at root: expected key "nom" at position 0, got "name"',
+        error: 'Missing key at root: expected key "nom" not found',
       });
     });
 
-    it('should return error for objects with keys in different order', () => {
+    it('should pass for objects with keys in different order', () => {
       expect(
         verifyIdenticObjectFormat(
           { name: 'John', age: 30 },
           { age: 25, name: 'Jean' }
         )
       ).toEqual({
-        isIdentic: false,
-        error:
-          'Object keys mismatch at root: expected key "age" at position 0, got "name"',
+        isIdentic: true,
       });
     });
 
@@ -301,8 +298,7 @@ describe('verifyIdenticObjectFormat', () => {
         )
       ).toEqual({
         isIdentic: false,
-        error:
-          'Object keys mismatch at root.items[0]: expected key "label" at position 1, got "text"',
+        error: 'Missing key at root.items[0]: expected key "label" not found',
       });
     });
 

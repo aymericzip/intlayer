@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2025-12-07
-title: 如何翻译您的 Nuxt 和 Vue 应用 – 2025 年 i18n 指南
-description: 了解如何使您的 Nuxt 和 Vue 网站支持多语言。按照文档进行国际化（i18n）和翻译。
+updatedAt: 2026-05-31
+title: "Nuxt i18n - 翻译你的应用的完整指南"
+description: "告别 i18next。2026 年构建多语言 (i18n) Nuxt 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
 keywords:
   - 国际化
   - 文档
@@ -15,14 +15,18 @@ slugs:
   - environment
   - nuxt-and-vue
 applicationTemplate: https://github.com/aymericzip/intlayer-nuxt-4-template
+applicationShowcase: https://intlayer-nuxt-4-template.vercel.app
 youtubeVideo: https://www.youtube.com/watch?v=nhUcUAVQ6eQ
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "更新 Solid useIntlayer API 用法以直接访问属性"
   - version: 7.3.11
     date: 2025-12-07
-    changes: 更新 LocaleSwitcher、SEO、元数据
+    changes: "更新 LocaleSwitcher、SEO、元数据"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 初始化历史记录
+    changes: "初始化历史记录"
 ---
 
 # 使用 Intlayer 翻译您的 Nuxt 和 Vue 网站 | 国际化 (i18n)
@@ -31,39 +35,71 @@ history:
 
 <TOC/>
 
-## 什么是 Intlayer？
+## 为什么选择 Inlayer 而不是替代品？
 
-**Intlayer** 是一个创新的开源国际化（i18n）库，旨在简化现代 Web 应用中的多语言支持。
+与“@nuxtjs/i18n”或“i18next”等主要解决方案相比，Intlayer是一个具有集成优化的解决方案，例如：
 
-使用 Intlayer，您可以：
+**完整 Nuxt 覆盖**
 
-- **通过组件级声明式字典轻松管理翻译**。
-- **动态本地化元数据、路由和内容**。
-- **确保 TypeScript 支持**，通过自动生成类型，提升自动补全和错误检测能力。
-- **享受高级功能**，如动态语言环境检测和切换。
+Intlayer 经过优化，可与 Nuxt 完美配合，提供**多语言路由**、**用于区域设置检测的中间件**、**站点地图**以及扩展国际化 (i18n) 所需的所有功能。
+
+**捆绑尺寸**
+
+不要将大量 JSON 文件加载到页面中，而只需加载必要的内容。 Intlayer 有助于**将捆绑包和页面大小减少多达 50%**。
+
+**可维护性**
+
+确定应用程序内容的范围**有利于大型应用程序的维护**。您可以复制或删除单个功能文件夹，而无需承担检查整个内容代码库的精神负担。此外，Intlayer 具有**完全类型化 (fully typed)**，以确保您的内容的准确性。
+
+**人工智能代理**
+
+共置内容**减少大型语言模型 (LLM) 所需的上下文**。 Intlayer 还附带了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** 和 **[agent技能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**，使 AI 代理的开发者体验 (DX) 更加流畅。
+
+**自动化**
+
+使用您选择的法学硕士，通过自动化在 CI/CD 管道中进行翻译，而费用由您的 AI 提供商承担。 Intlayer 还提供了一个**编译器**来自动提取内容，以及一个[网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)来帮助**在后台翻译**。
+
+**表现**
+
+将大量 JSON 文件连接到组件可能会导致性能和反应性问题。 Intlayer 可在构建时 (build time)优化您的内容加载。
+
+**无需开发即可扩展**
+
+Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)**和一个**[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** 来帮助您管理多语言内容**实时**，与译员、文案人员和其他团队成员无缝协作。内容可以本地和/或远程存储。
 
 ---
 
 ## 在 Nuxt 应用中设置 Intlayer 的分步指南
 
-<Tab defaultTab="video">
-  <TabItem label="视频" value="video">
+<Tabs defaultTab="video">
+  <Tab label="视频" value="video">
   
-<iframe title="如何使用 Intlayer 翻译你的 Nuxt 和 Vue 应用？探索 Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/nhUcUAVQ6eQ?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="如何使用 Intlayer 翻译你的 Nuxt 和 Vue 应用？探索 Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/nhUcUAVQ6eQ?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
-  </TabItem>
-  <TabItem label="代码" value="code">
+  </Tab>
+  <Tab label="代码" value="code">
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-nuxt-4-template?embed=1&ctl=1&file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-nuxt-4-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="演示 CodeSandbox - 如何使用 Intlayer 实现应用国际化"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
 
-  </TabItem>
-</Tab>
+  </Tab>
+  <Tab label="演示" value="demo">
+
+<iframe
+  src="https://intlayer-nuxt-4-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="演示 - intlayer-nuxt-4-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
 
 ### 第一步：安装依赖
 
@@ -74,16 +110,25 @@ history:
 ```bash packageManager="npm"
 npm install intlayer vue-intlayer
 npm install --save-dev nuxt-intlayer
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer vue-intlayer
 pnpm add --save-dev nuxt-intlayer
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer vue-intlayer
 yarn add --save-dev nuxt-intlayer
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer vue-intlayer
+bun add --dev nuxt-intlayer
+bun x intlayer init
 ```
 
 - **intlayer**
@@ -100,7 +145,7 @@ yarn add --save-dev nuxt-intlayer
 
 创建一个配置文件来配置您应用的语言：
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -116,44 +161,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-import { Locales } from "intlayer";
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // 你的其他语言
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-const { Locales } = require("intlayer");
-
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // 你的其他语言
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-module.exports = config;
 ```
 
 > 通过此配置文件，您可以设置本地化的 URL、中间件重定向、cookie 名称、内容声明的位置和扩展名，禁用控制台中的 Intlayer 日志等。有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
@@ -177,7 +184,7 @@ export default defineNuxtConfig({
 
 创建并管理您的内容声明以存储翻译：
 
-```tsx fileName="content/home-page.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="content/home-page.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { type Dictionary, t } from "intlayer";
 
 const content = {
@@ -204,7 +211,7 @@ const content = {
 export default content;
 ```
 
-> 您的内容声明可以定义在应用程序中的任何位置，只要它们包含在 `contentDir` 目录中（默认是 `./src`），并且匹配内容声明文件扩展名（默认是 `.content.{json,ts,tsx,js,jsx,mjs,mjx,cjs,cjx}`）。
+> 您的内容声明可以定义在应用程序中的任何位置，只要它们包含在 `contentDir` 目录中（默认是 `./src`），并且匹配内容声明文件扩展名（默认是 `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`）。
 
 > 更多详情，请参阅[内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
 
@@ -277,7 +284,9 @@ Intlayer 提供了多种 API 来访问您的内容：
   - 使用 `const content = useIntlayer("myContent");` 以及 `{{ content.myContent }}` / `<content.myContent />`。
   - 或者使用 `const { myContent } = useIntlayer("myContent");` 以及 `{{ myContent}}` / `<myContent/>` 来解构内容。
 
-### （可选）步骤6：更改内容语言
+<Steps>
+
+<Step number={6} title="更改内容语言">
 
 要更改内容的语言，可以使用 `useLocale` 组合函数提供的 `setLocale` 函数。该函数允许您设置应用程序的语言环境并相应地更新内容。
 
@@ -321,34 +330,9 @@ const { locale, availableLocales, setLocale } = useLocale();
 </template>
 ```
 
-### （可选）步骤 6b：创建带导航的布局
+</Step>
 
-Nuxt 布局允许您为页面定义一个通用结构。创建一个包含语言切换器和导航的默认布局：
-
-```vue fileName="layouts/default.vue"
-<script setup lang="ts">
-import Links from "~/components/Links.vue";
-import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
-</script>
-
-<template>
-  <div>
-    <header>
-      <LocaleSwitcher />
-    </header>
-    <main>
-      <slot />
-    </main>
-
-    <Links href="/">首页</Links>
-    <Links href="/about">关于</Links>
-  </div>
-</template>
-```
-
-`Links` 组件（如下所示）确保内部导航链接会自动本地化。
-
-### （可选）步骤 7：为您的应用添加本地化路由
+<Step number={7} title="为您的应用添加本地化路由">
 
 当使用 `nuxt-intlayer` 模块时，Nuxt 会自动处理本地化路由。它会根据您的页面目录结构自动为每种语言创建路由。
 
@@ -373,11 +357,11 @@ import { useIntlayer } from "vue-intlayer";
 const content = useIntlayer("home-page");
 
 useHead({
-  title: content.metaTitle.value,
+  title: content.metaTitle.raw,
   meta: [
     {
       name: "description",
-      content: content.metaDescription.value,
+      content: content.metaDescription.raw,
     },
   ],
 });
@@ -422,7 +406,9 @@ useHead({
 - 管理语言环境 Cookie
 - 将用户重定向到相应的本地化 URL
 
-### （可选）步骤 8：创建本地化链接组件
+</Step>
+
+<Step number={8} title="创建本地化链接组件">
 
 为了确保您的应用程序导航遵循当前的语言环境，您可以创建一个自定义的 `Links` 组件。该组件会自动为内部 URL 添加当前语言前缀，这对于 **SEO 和页面可发现性** 至关重要。
 
@@ -490,7 +476,9 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 > - 用户可以直接分享本地化的 URL
 > - 浏览器历史记录能正确处理带有语言前缀的 URL
 
-### （可选）步骤 9：处理元数据和 SEO
+</Step>
+
+<Step number={9} title="处理元数据和 SEO">
 
 Nuxt 通过 `useHead` 组合式函数（自动导入）提供了出色的 SEO 功能。您可以使用 Intlayer 处理本地化的元数据，使用 `.raw` 或 `.value` 访问器获取原始字符串值：
 
@@ -527,7 +515,7 @@ useHead({
 
 创建对应的内容声明：
 
-```ts fileName="pages/about-page.content.ts" contentDeclarationFormat="typescript"
+```ts fileName="pages/about-page.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const aboutPageContent = {
@@ -552,65 +540,6 @@ const aboutPageContent = {
 } satisfies Dictionary;
 
 export default aboutPageContent;
-```
-
-```javascript fileName="pages/about-page.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const aboutPageContent = {
-  key: "about-page",
-  content: {
-    metaTitle: t({
-      en: "关于我们 - 我的公司",
-      fr: "À Propos - Ma Société",
-      es: "Acerca de Nosotros - Mi Empresa",
-    }),
-    metaDescription: t({
-      zh: "了解更多关于我们公司和我们的使命",
-      en: "Learn more about our company and our mission",
-      fr: "En savoir plus sur notre société et notre mission",
-      es: "Conozca más sobre nuestra empresa y nuestra misión",
-    }),
-    title: t({
-      zh: "关于我们",
-      en: "About Us",
-      fr: "À Propos",
-      es: "Acerca de Nosotros",
-    }),
-  },
-};
-
-export default aboutPageContent;
-```
-
-```javascript fileName="pages/about-page.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const aboutPageContent = {
-  key: "about-page",
-  content: {
-    metaTitle: t({
-      zh: "关于我们 - 我的公司",
-      en: "About Us - My Company",
-      fr: "À Propos - Ma Société",
-      es: "关于我们 - 我的公司",
-    }),
-    metaDescription: t({
-      en: "了解更多关于我们的公司和我们的使命",
-      fr: "了解更多关于我们的公司和我们的使命",
-      es: "了解更多关于我们的公司和我们的使命",
-    }),
-    title: t({
-      en: "关于我们",
-      fr: "关于我们",
-      es: "关于我们",
-    }),
-  },
-};
-
-module.exports = aboutPageContent;
 ```
 
 ```json fileName="pages/about-page.content.json" contentDeclarationFormat="json"
@@ -645,6 +574,37 @@ module.exports = aboutPageContent;
   }
 }
 ```
+
+</Step>
+
+</Steps>
+
+### （可选）步骤 6b：创建带导航的布局
+
+Nuxt 布局允许您为页面定义一个通用结构。创建一个包含语言切换器和导航的默认布局：
+
+```vue fileName="layouts/default.vue"
+<script setup lang="ts">
+import Links from "~/components/Links.vue";
+import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
+</script>
+
+<template>
+  <div>
+    <header>
+      <LocaleSwitcher />
+    </header>
+    <main>
+      <slot />
+    </main>
+
+    <Links href="/">首页</Links>
+    <Links href="/about">关于</Links>
+  </div>
+</template>
+```
+
+`Links` 组件（如下所示）确保内部导航链接会自动本地化。
 
 ### Git 配置
 

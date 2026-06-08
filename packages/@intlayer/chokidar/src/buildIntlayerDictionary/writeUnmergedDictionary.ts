@@ -1,8 +1,10 @@
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { colorizePath, x } from '@intlayer/config';
-import { orderDictionaries } from '@intlayer/core';
-import type { Dictionary, IntlayerConfig } from '@intlayer/types';
+import { colorizePath, x } from '@intlayer/config/logger';
+import { assertPathWithin } from '@intlayer/config/utils';
+import { orderDictionaries } from '@intlayer/core/dictionaryManipulator';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary, DictionaryKey } from '@intlayer/types/dictionary';
 import { filterInvalidDictionaries } from '../filterInvalidDictionaries';
 import { parallelize } from '../utils/parallelize';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';
@@ -27,7 +29,10 @@ export type UnmergedDictionaryResult = {
   dictionaries: Dictionary[];
 };
 
-export type UnmergedDictionaryOutput = Record<string, UnmergedDictionaryResult>;
+export type UnmergedDictionaryOutput = Record<
+  DictionaryKey,
+  UnmergedDictionaryResult
+>;
 
 /**
  * Write the unmerged dictionaries to the unmergedDictionariesDir
@@ -51,16 +56,18 @@ export type UnmergedDictionaryOutput = Record<string, UnmergedDictionaryResult>;
  */
 export const writeUnmergedDictionaries = async (
   dictionaries: Dictionary[],
-  configuration: IntlayerConfig
+  configuration: IntlayerConfig,
+  env: 'prod' | 'dev'
 ): Promise<UnmergedDictionaryOutput> => {
-  const { unmergedDictionariesDir } = configuration.content;
+  const { unmergedDictionariesDir } = configuration.system;
 
   // Create the dictionaries folder if it doesn't exist
   await mkdir(resolve(unmergedDictionariesDir), { recursive: true });
 
   const filteredDictionaries = filterInvalidDictionaries(
     dictionaries,
-    configuration
+    configuration,
+    { checkSchema: true }
   );
 
   //  Group dictionaries by key and write to unmergedDictionariesDir
@@ -76,23 +83,27 @@ export const writeUnmergedDictionaries = async (
         ];
       }
 
-      const orderedDictionaries = orderDictionaries(
-        dictionaries,
-        configuration
-      );
+      const orderedDictionaries = orderDictionaries(dictionaries);
 
       const outputFileName = `${key}.json`;
       const unmergedFilePath = resolve(unmergedDictionariesDir, outputFileName);
 
-      // Write the grouped dictionaries
-      await writeJsonIfChanged(unmergedFilePath, orderedDictionaries).catch(
-        (err) => {
-          console.error(
-            `${x} Error creating unmerged ${colorizePath(unmergedFilePath)}:`,
-            err
-          );
-        }
-      );
+      assertPathWithin(unmergedFilePath, unmergedDictionariesDir);
+
+      // Write the grouped dictionaries in disk if the editor is enabled
+      // To make work the visual editor on the server
+      // No need them if the editor is disabled
+      // But in local env (env: 'dev') we write them for the vscode extension
+      if (configuration.editor.enabled || env === 'dev') {
+        await writeJsonIfChanged(unmergedFilePath, orderedDictionaries).catch(
+          (err) => {
+            console.error(
+              `${x} Error creating unmerged ${colorizePath(unmergedFilePath)}:`,
+              err
+            );
+          }
+        );
+      }
 
       return [
         key,

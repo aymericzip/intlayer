@@ -1,6 +1,5 @@
+import { cn } from '@utils/cn';
 import type { FC, SVGProps } from 'react';
-
-import { cn } from '../../utils/cn';
 
 /**
  * Props for the DotPattern component
@@ -127,7 +126,7 @@ export const DotPattern: FC<DotPatternProps> = ({
   <svg
     aria-hidden="true"
     className={cn(
-      'pointer-events-none absolute inset-0 h-full w-full fill-neutral/30',
+      'pointer-events-none absolute inset-0 size-full fill-neutral/30',
       className
     )}
     {...props}
@@ -149,7 +148,7 @@ export const DotPattern: FC<DotPatternProps> = ({
       width="100%"
       height="100%"
       strokeWidth={0}
-      fill={`url(#pattern-circle)`}
+      fill="url(#pattern-circle)"
     />
   </svg>
 );

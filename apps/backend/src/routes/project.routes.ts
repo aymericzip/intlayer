@@ -1,9 +1,14 @@
 import {
   addProject,
   deleteProject,
+  deleteProjectByIdAdmin,
+  getCIConfiguration,
   getProjects,
+  pushCIConfiguration,
   pushProjectConfiguration,
   selectProject,
+  triggerBuild,
+  triggerWebhook,
   unselectProject,
   updateProject,
   updateProjectMembers,
@@ -13,10 +18,10 @@ import {
   deleteAccessKey,
   refreshAccessKey,
 } from '@controllers/projectAccessKey.controller';
-import { Router } from 'express';
+import { updateMemberAccess } from '@controllers/projectMemberAccess.controller';
+import type { FastifyInstance } from 'fastify';
 import type { Routes } from '@/types/Routes';
-
-export const projectRouter: Router = Router();
+import { projectIdParamsSchema } from './paramsSchemas';
 
 export const projectRoute = '/api/project';
 
@@ -80,40 +85,79 @@ export const getProjectRoutes = () =>
       url: `${baseURL()}/access_key`,
       method: 'DELETE',
     },
+    triggerBuild: {
+      urlModel: '/build',
+      url: `${baseURL()}/build`,
+      method: 'POST',
+    },
+    triggerWebhook: {
+      urlModel: '/webhook',
+      url: `${baseURL()}/webhook`,
+      method: 'POST',
+    },
+    getCIConfiguration: {
+      urlModel: '/ci',
+      url: `${baseURL()}/ci`,
+      method: 'GET',
+    },
+    pushCIConfiguration: {
+      urlModel: '/ci',
+      url: `${baseURL()}/ci`,
+      method: 'POST',
+    },
+    deleteProjectByIdAdmin: {
+      urlModel: '/:projectId/admin',
+      url: ({ projectId }: { projectId: string }) =>
+        `${baseURL()}/${projectId}/admin`,
+      method: 'DELETE',
+    },
+    updateMemberAccess: {
+      urlModel: '/member/:userId/access',
+      url: ({ userId }: { userId: string }) =>
+        `${baseURL()}/member/${userId}/access`,
+      method: 'PUT',
+    },
   }) satisfies Routes;
 
-projectRouter.get(getProjectRoutes().getProjects.urlModel, getProjects);
-
-projectRouter.post(getProjectRoutes().addProject.urlModel, addProject);
-projectRouter.put(getProjectRoutes().updateProject.urlModel, updateProject);
-projectRouter.put(
-  getProjectRoutes().updateProjectMembers.urlModel,
-  updateProjectMembers
-);
-projectRouter.put(
-  getProjectRoutes().pushProjectConfiguration.urlModel,
-  pushProjectConfiguration
-);
-projectRouter.delete(getProjectRoutes().deleteProject.urlModel, deleteProject);
-
-projectRouter.post(
-  getProjectRoutes().addNewAccessKey.urlModel,
-  addNewAccessKey
-);
-
-projectRouter.patch(
-  getProjectRoutes().refreshAccessKey.urlModel,
-  refreshAccessKey
-);
-
-projectRouter.delete(
-  getProjectRoutes().deleteAccessKey.urlModel,
-  deleteAccessKey
-);
-
-projectRouter.post(
-  getProjectRoutes().unselectProject.urlModel,
-  unselectProject
-);
-
-projectRouter.put(getProjectRoutes().selectProject.urlModel, selectProject);
+export const projectRouter = async (fastify: FastifyInstance) => {
+  fastify.get(getProjectRoutes().getProjects.urlModel, getProjects);
+  fastify.post(getProjectRoutes().addProject.urlModel, addProject);
+  fastify.put(getProjectRoutes().updateProject.urlModel, updateProject);
+  fastify.put(
+    getProjectRoutes().updateProjectMembers.urlModel,
+    updateProjectMembers
+  );
+  fastify.put(
+    getProjectRoutes().pushProjectConfiguration.urlModel,
+    pushProjectConfiguration
+  );
+  fastify.delete(getProjectRoutes().deleteProject.urlModel, deleteProject);
+  fastify.post(getProjectRoutes().addNewAccessKey.urlModel, addNewAccessKey);
+  fastify.patch(getProjectRoutes().refreshAccessKey.urlModel, refreshAccessKey);
+  fastify.delete(getProjectRoutes().deleteAccessKey.urlModel, deleteAccessKey);
+  fastify.post(getProjectRoutes().unselectProject.urlModel, unselectProject);
+  fastify.put(
+    getProjectRoutes().selectProject.urlModel,
+    { schema: { params: projectIdParamsSchema } },
+    selectProject
+  );
+  fastify.post(getProjectRoutes().triggerBuild.urlModel, triggerBuild);
+  fastify.post(getProjectRoutes().triggerWebhook.urlModel, triggerWebhook);
+  fastify.get(
+    getProjectRoutes().getCIConfiguration.urlModel,
+    getCIConfiguration
+  );
+  fastify.post(
+    getProjectRoutes().pushCIConfiguration.urlModel,
+    pushCIConfiguration
+  );
+  fastify.delete(
+    getProjectRoutes().deleteProjectByIdAdmin.urlModel,
+    { schema: { params: projectIdParamsSchema } },
+    deleteProjectByIdAdmin
+  );
+  fastify.put(
+    getProjectRoutes().updateMemberAccess.urlModel,
+    updateMemberAccess
+  );
+};

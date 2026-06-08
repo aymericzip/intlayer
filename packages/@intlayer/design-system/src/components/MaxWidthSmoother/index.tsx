@@ -1,12 +1,13 @@
+import { cn } from '@utils/cn';
 import type { HTMLAttributes } from 'react';
-import { cn } from '../../utils/cn';
 
 type Align = 'left' | 'right';
 
-type MaxHeightSmootherProps = HTMLAttributes<HTMLDivElement> & {
+type MaxWidthSmootherProps = HTMLAttributes<HTMLDivElement> & {
   isHidden: boolean;
   minWidth?: number;
   align?: Align;
+  isDisabled?: boolean;
 };
 
 export const MaxWidthSmoother = ({
@@ -14,26 +15,31 @@ export const MaxWidthSmoother = ({
   isHidden,
   minWidth = 0,
   align = 'left',
+  isDisabled = false,
   className,
   ...props
-}: MaxHeightSmootherProps) => (
-  <div
-    className={cn(
-      'relative grid h-full grid-cols-[0fr] overflow-x-hidden overflow-y-hidden transition-all duration-500 ease-in-out',
-      isHidden ? '' : 'grid-cols-[1fr]',
-      className
-    )}
-    aria-hidden={isHidden}
-    {...props}
-  >
+}: MaxWidthSmootherProps) => {
+  const isCurrentlyHidden = isHidden && !isDisabled;
+
+  return (
     <div
-      style={{
-        minWidth: `${minWidth}px`,
-      }}
-      tabIndex={isHidden !== false ? undefined : -1}
-      className={cn(align === 'right' && 'ml-auto')}
+      className={cn(
+        'relative grid h-full grid-cols-[0fr] overflow-x-hidden overflow-y-hidden transition-all duration-500 ease-in-out',
+        isCurrentlyHidden ? '' : 'grid-cols-[1fr]',
+        className
+      )}
+      aria-hidden={isCurrentlyHidden}
+      inert={isCurrentlyHidden ? true : undefined}
+      {...props}
     >
-      {children}
+      <div
+        style={{
+          minWidth: `${minWidth}px`,
+        }}
+        className={cn(align === 'right' && 'ml-auto')}
+      >
+        {children}
+      </div>
     </div>
-  </div>
-);
+  );
+};

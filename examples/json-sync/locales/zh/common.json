@@ -1,0 +1,47 @@
+{
+  "navigation": {
+    "home": "首页",
+    "about": "关于",
+    "contact": "联系",
+    "services": "服务",
+    "blog": "博客"
+  },
+  "buttons": {
+    "submit": "提交",
+    "cancel": "取消",
+    "save": "保存",
+    "delete": "删除",
+    "edit": "编辑",
+    "close": "关闭",
+    "back": "返回",
+    "next": "下一步",
+    "previous": "上一步"
+  },
+  "test": {
+    "test": "test"
+  },
+  "messages": {
+    "success": "操作完成成功",
+    "error": "发生错误",
+    "loading": "加载中...",
+    "noResults": "未找到结果",
+    "confirmDelete": "您确定要删除此项目吗?",
+    "saved": "更改已成功保存"
+  },
+  "footer": {
+    "copyright": "© 2024 公司名称。版权所有。",
+    "privacy": "隐私政策",
+    "terms": "服务条款",
+    "social": {
+      "follow": "关注我们",
+      "twitter": "推特",
+      "facebook": "脸书",
+      "linkedin": "领英"
+    }
+  },
+  "search": {
+    "placeholder": "搜索...",
+    "noResults": "未找到结果",
+    "results": "个结果"
+  }
+}

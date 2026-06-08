@@ -2,22 +2,20 @@
 
 import { OptionalLink } from '@components/DocPage/DocNavList';
 import { SearchTrigger } from '@components/DocPage/Search/SearchTrigger';
-import {
-  Accordion,
-  Button,
-  ClickOutsideDiv,
-  Container,
-  KeyboardShortcut,
-  MaxWidthSmoother,
-  PopoverStatic,
-} from '@intlayer/design-system';
+import { Accordion } from '@intlayer/design-system/accordion';
+import { Button } from '@intlayer/design-system/button';
+import { ClickOutsideDiv } from '@intlayer/design-system/click-outside-div';
+import { Container } from '@intlayer/design-system/container';
 import { useDevice } from '@intlayer/design-system/hooks';
-import { cn } from '@utils/cn';
+import { KeyboardShortcut } from '@intlayer/design-system/keyboard-shortcut';
+import { MaxWidthSmoother } from '@intlayer/design-system/max-width-smoother';
+import { PopoverStatic } from '@intlayer/design-system/popover';
+import { Website_Doc_Path } from '@intlayer/design-system/routes';
+import { cn } from '@intlayer/design-system/utils';
 import { ArrowLeftToLine } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useState } from 'react';
 import { useScrollPositionPersistence } from '@/hooks/useScrollPositionPersistence';
-import { PagesRoutes } from '@/Routes';
 import type { Section } from './types';
 
 type BlogNavListProps = {
@@ -41,8 +39,8 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
     >
       {Object.keys(blogData).map((key1) => {
         const section1Data = blogData[key1];
-        const sectionDefault = section1Data.default;
-        const subSections = section1Data.subSections;
+        const sectionDefault = section1Data?.default;
+        const subSections = section1Data?.subSections;
         const slugs = sectionDefault?.slugs ?? [];
 
         // Check if this section's own slugs match
@@ -76,8 +74,6 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
             return isLevel2Active || isLevel3Active;
           }
         );
-
-        const isActive = isSelfActive || isSubSectionActive;
 
         return (
           <div key={key1}>
@@ -193,7 +189,7 @@ export const BlogNavListContent: FC<BlogNavListProps> = ({
         );
       })}
       <div>
-        <OptionalLink href={PagesRoutes.Doc} label={docButton.label.value}>
+        <OptionalLink href={Website_Doc_Path} label={docButton.label.value}>
           {docButton?.text}
         </OptionalLink>
       </div>
@@ -206,12 +202,12 @@ export const BlogNavList: FC<BlogNavListProps> = ({
   activeSlugs,
 }) => {
   const { isMobile } = useDevice();
-  const [isHidden, setIsHidden] = useState(isMobile);
+  const [isHidden, setIsHidden] = useState(true);
   const { collapseButton } = useIntlayer('blog-nav-list');
 
   return (
     <ClickOutsideDiv
-      className="top-0 left-0 z-10 flex h-full justify-end max-md:fixed"
+      className="top-0 left-0 z-40 flex h-full justify-end max-md:fixed"
       onClickOutSide={() => {
         if (isMobile) {
           setIsHidden(true);
@@ -221,7 +217,7 @@ export const BlogNavList: FC<BlogNavListProps> = ({
       <Container className="h-full" roundedSize="none" transparency="sm">
         <div className="relative h-full max-w-80">
           <Container
-            transparency="sm"
+            transparency="xs"
             className="sticky top-[3.6rem] z-10 m-auto pt-4"
             roundedSize="none"
           >

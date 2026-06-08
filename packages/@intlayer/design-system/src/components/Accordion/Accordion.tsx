@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@utils/cn';
 import { ChevronDown } from 'lucide-react';
 import {
   type FC,
@@ -9,13 +10,7 @@ import {
   useId,
   useState,
 } from 'react';
-import { cn } from '../../utils/cn';
-import {
-  Button,
-  ButtonColor,
-  type ButtonProps,
-  ButtonVariant,
-} from '../Button';
+import { Button, type ButtonProps } from '../Button';
 import { MaxHeightSmoother } from '../MaxHeightSmoother';
 
 export interface AccordionProps
@@ -131,8 +126,8 @@ export const Accordion: FC<AccordionProps> = ({
   return (
     <div className="w-full">
       <Button
-        variant={ButtonVariant.HOVERABLE}
-        color={ButtonColor.TEXT}
+        variant="hoverable"
+        color="text"
         onClick={handleToggle}
         onKeyDown={handleKeyDown}
         disabled={disabled}

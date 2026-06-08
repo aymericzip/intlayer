@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-09-29
-title: next-i18next vs next-intl vs Intlayer
-description: 比较 next-i18next、next-intl 和 Intlayer 在 Next.js 应用国际化（i18n）中的表现
+updatedAt: 2026-05-31
+title: "next-i18next vs next-intl vs Intlayer - 完整翻译指南： next-i18next vs next-intl vs Intlayer: 2026 Comparison"
+description: 最佳的包体积、SEO、性能和可维护性解决方案。让您的 Next.js 网站在 2026 年实现多语言化，LLM 翻译，Agent Skills & MCP。
 keywords:
   - next-intl
   - next-i18next
@@ -39,7 +39,7 @@ slugs:
 
 > **简而言之**：这三者都能实现 Next.js 应用的本地化。如果你需要**组件范围的内容**、**严格的 TypeScript 类型**、**构建时缺失键检查**、**摇树优化的字典**，以及**一流的 App Router + SEO 辅助功能**，那么**Intlayer** 是最完整、最现代的选择。
 
-> 开发者常犯的一个误解是认为 `next-intl` 是 `react-intl` 的 Next.js 版本。事实并非如此——`next-intl` 由 [Amann](https://github.com/amannn) 维护，而 `react-intl` 由 [FormatJS](https://github.com/formatjs/formatjs) 维护。
+> 开发者常犯的一个误解是认为 `next-intl` 是 `react-intl` 的 Next.js 版本。事实并非如此, `next-intl` 由 [Amann](https://github.com/amannn) 维护，而 `react-intl` 由 [FormatJS](https://github.com/formatjs/formatjs) 维护。
 
 ---
 
@@ -131,13 +131,11 @@ Next.js 为你内置了国际化路由支持（例如区域段）。但该功能
 
 如果应用中不需要任何格式化器，tree-shaking 后导出的函数列表将是：
 
-- **next-intlayer**: `useIntlayer`，`useLocale`，`NextIntlClientProvider`，（包大小为 180.6 kB -> 78.6 kB（gzip））
+- **next-intlayer**: `useIntlayer`，`useLocale`，`NextIntlClientProvider`，（包大小为 180.6 kB -> 15.24 kB（gzip））
 - **next-intl**: `useTranslations`，`useLocale`，`NextIntlClientProvider`，（包大小为 101.3 kB -> 31.4 kB（gzip））
 - **next-i18next**: `useTranslation`，`useI18n`，`I18nextProvider`，（包大小为 80.7 kB -> 25.5 kB（gzip））
 
 这些函数只是围绕 React 上下文/状态的包装器，因此 i18n 库对包大小的总体影响很小。
-
-> Intlayer 比 `next-intl` 和 `next-i18next` 略大，因为它在 `useIntlayer` 函数中包含了更多逻辑。这与 markdown 和 `intlayer-editor` 的集成有关。
 
 ## 内容和翻译
 
@@ -346,9 +344,9 @@ Next.js 为你内置了国际化路由支持（例如区域段）。但该功能
 
 应用结构对于确保代码库的良好可维护性非常重要。
 
-<Tab defaultTab="next-intl" group='techno'>
+<Tabs defaultTab="next-intl" group='techno'>
 
-  <TabItem label="next-i18next" value="next-i18next">
+  <Tab label="next-i18next" value="next-i18next">
 
 ```bash
 .
@@ -373,8 +371,8 @@ Next.js 为你内置了国际化路由支持（例如区域段）。但该功能
         └── ServerComponent.tsx
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```bash
 .
@@ -401,8 +399,8 @@ Next.js 为你内置了国际化路由支持（例如区域段）。但该功能
             └── index.tsx
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```bash
 .
@@ -421,8 +419,8 @@ Next.js 为你内置了国际化路由支持（例如区域段）。但该功能
             └── index.content.ts
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### 比较
 
@@ -434,8 +432,8 @@ Next.js 为你内置了国际化路由支持（例如区域段）。但该功能
 正如之前提到的，您必须优化每个 JSON 文件导入到代码中的方式。
 库如何处理内容加载非常重要。
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 ```tsx fileName="next-i18next.config.js"
 module.exports = {
@@ -499,8 +497,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 };
 ```
 
-  </TabItem>
-   <TabItem label="next-intl" value="next-intl">
+  </Tab>
+   <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="i18n.ts"
 import { getRequestConfig } from "next-intl/server";
@@ -511,7 +509,7 @@ const locales = ["en", "fr", "es"];
 
 export default getRequestConfig(async ({ locale }) => {
   // 验证传入的 `locale` 参数是否有效
-  if (!locales.includes(locale as any)) notFound();
+  if (!locales.includes(locale)) notFound();
 
   return {
     messages: (await import(`../messages/${locale}.json`)).default,
@@ -578,8 +576,8 @@ export default async function LandingPage({
 }
 ```
 
-  </TabItem>
-<TabItem label="intlayer" value="intlayer">
+  </Tab>
+<Tab label="intlayer" value="intlayer">
 
 ```tsx fileName="intlayer.config.ts"
 export default {
@@ -639,8 +637,8 @@ const LandingPage: NextPageIntlayer = async ({ params }) => {
 export default LandingPage;
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### 比较
 
@@ -656,8 +654,8 @@ export default LandingPage;
 
 让我们来看一个渲染计数器的客户端组件示例。
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 **翻译（必须是真实的 JSON，位于 `public/locales/...`）**
 
@@ -711,8 +709,8 @@ const ClientComponentExample = () => {
 > 别忘了在页面的 serverSideTranslations 中添加 "about" 命名空间  
 > 这里使用的是 react 19.x.x 版本，但对于较低版本，你需要使用 useMemo 来存储格式化器的实例，因为它是一个开销较大的函数
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 **翻译（复用结构；根据需要加载到 next-intl 消息中）**
 
@@ -764,8 +762,8 @@ const ClientComponentExample = () => {
 
 > 不要忘记在页面客户端消息中添加 "about" 消息
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 **内容**
 
@@ -807,8 +805,8 @@ const ClientComponentExample = () => {
 };
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 #### 比较
 
@@ -831,8 +829,8 @@ const ClientComponentExample = () => {
 
 我们以一个 UI 组件为例。该组件是一个服务器组件，并且应该能够作为客户端组件的子组件插入。（页面（服务器组件）-> 客户端组件 -> 服务器组件）。由于该组件可以作为客户端组件的子组件插入，因此它不能是异步的。
 
-<Tab defaultTab="next-intl" group='techno'>
-  <TabItem label="next-i18next" value="next-i18next">
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
 ```tsx fileName="src/pages/about.tsx"
 import type { GetStaticProps } from "next";
@@ -855,8 +853,8 @@ const ServerComponent = ({ count }: ServerComponentProps) => {
 };
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 type ServerComponentProps = {
@@ -882,8 +880,8 @@ const ServerComponent = ({ t, count, formatter }: ServerComponentProps) => {
 > - `const t = await getTranslations("about.counter");`
 > - `const formatter = await getFormatter().then((formatter) => formatter.number());`
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```tsx fileName="src/components/ServerComponent.tsx"
 import { useIntlayer, useNumber } from "next-intlayer/server";
@@ -901,8 +899,8 @@ const ServerComponent = ({ count }: { count: number }) => {
 };
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 > Intlayer 通过 `next-intlayer/server` 提供了**服务器安全**的钩子。为了工作，`useIntlayer` 和 `useNumber` 使用类似钩子的语法，类似于客户端钩子，但在底层依赖于服务器上下文（`IntlayerServerProvider`）。
 
@@ -923,9 +921,9 @@ const ServerComponent = ({ count }: { count: number }) => {
 
 开发者经常忘记正确地在不同语言环境中引用他们的页面。
 
-<Tab defaultTab="next-intl" group='techno'>
+<Tabs defaultTab="next-intl" group='techno'>
  
-  <TabItem label="next-i18next" value="next-i18next">
+  <Tab label="next-i18next" value="next-i18next">
 
 ```ts fileName="i18n.config.ts"
 export const locales = ["en", "fr"] as const;
@@ -1024,8 +1022,8 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-  </TabItem>
-  <TabItem label="next-intl" value="next-intl">
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
 
 ```tsx fileName="src/app/[locale]/about/layout.tsx"
 import type { Metadata } from "next";
@@ -1117,8 +1115,8 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-  </TabItem>
-  <TabItem label="intlayer" value="intlayer">
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
 
 ```typescript fileName="src/app/[locale]/about/layout.tsx"
 import { getIntlayer, getMultilingualUrls } from "intlayer";
@@ -1180,12 +1178,10 @@ const robots = (): MetadataRoute.Robots => ({
 export default robots;
 ```
 
-  </TabItem>
-</Tab>
+  </Tab>
+</Tabs>
 
 > Intlayer 提供了一个 `getMultilingualUrls` 函数，用于为您的站点地图生成多语言 URL。
-
----
 
 ---
 
@@ -1212,7 +1208,7 @@ export default robots;
 
 **Intlayer**
 
-- 为现代 Next.js 构建，具有模块化内容、类型安全、工具支持和更少的样板代码。如果你重视**组件范围的内容**、**严格的 TypeScript**、**构建时保证**、**摇树优化**，以及**内置的**路由/SEO/编辑器工具——尤其是针对**Next.js 应用路由器**、设计系统和**大型模块化代码库**。
+- 为现代 Next.js 构建，具有模块化内容、类型安全、工具支持和更少的样板代码。如果你重视**组件范围的内容**、**严格的 TypeScript**、**构建时保证**、**摇树优化**，以及**内置的**路由/SEO/编辑器工具, 尤其是针对**Next.js 应用路由器**、设计系统和**大型模块化代码库**。
 
   </Column>
 </Columns>
@@ -1227,7 +1223,7 @@ export default robots;
 
 GitHub 星标是衡量项目受欢迎程度、社区信任度和长期相关性的有力指标。虽然它们不是技术质量的直接衡量标准，但反映了有多少开发者认为该项目有用、关注其进展并可能采用它。对于评估项目价值，星标有助于比较不同选项的吸引力，并提供生态系统增长的洞察。
 
-[![星标历史图表](https://api.star-history.com/svg?repos=i18next/next-i18next&repos=amannn/next-intl&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
+[![星标历史图表](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
 ---
 

@@ -1,25 +1,44 @@
-import configuration from '@intlayer/config/built';
-import { getLocaleFromStorage, localeDetector } from '@intlayer/core';
-import { type Locale, Locales } from '@intlayer/types';
+import { internationalization } from '@intlayer/config/built';
+import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
+import { localeDetector } from '@intlayer/core/localization';
+import { getLocaleFromStorageServer } from '@intlayer/core/utils';
+import type { Locale } from '@intlayer/types/allLocales';
 import { cookies, headers } from 'next/headers.js';
 
 // Helper function to extract locale from headers/cookies
+/**
+ * Helper function to extract the current locale from Next.js headers and cookies.
+ *
+ * This function is designed to be used in Server Components, Server Actions, or Route Handlers
+ * to determine the locale preferred by the user or stored in their preferences.
+ *
+ * @returns A promise that resolves to the detected `Locale`.
+ *
+ * @example
+ * ```tsx
+ * import { getLocale } from 'next-intlayer/server';
+ *
+ * export default async function MyServerComponent() {
+ *   const locale = await getLocale();
+ *   // ...
+ * }
+ * ```
+ */
 export const getLocale = async (): Promise<Locale> => {
-  const defaultLocale =
-    configuration?.internationalization?.defaultLocale ?? Locales.ENGLISH;
+  const defaultLocale = internationalization?.defaultLocale ?? DEFAULT_LOCALE;
 
-  // 1 - Try locale from header
+  // Try locale from header
   const headersList = await headers();
   const cookiesList = await cookies();
 
-  const storedLocale = getLocaleFromStorage({
+  const storedLocale = getLocaleFromStorageServer({
     getCookie: (name: string) => cookiesList.get(name)?.value ?? null,
     getHeader: (name: string) => headersList.get(name) ?? null,
   });
 
   if (storedLocale) return storedLocale as Locale;
 
-  // 3 - Fallback to Accept-Language negotiation
+  // Fallback to Accept-Language negotiation
   const negotiatorHeaders: Record<string, string> = {};
   headersList.forEach((value, key) => {
     negotiatorHeaders[key] = value;
@@ -28,6 +47,6 @@ export const getLocale = async (): Promise<Locale> => {
   const userFallbackLocale = localeDetector(negotiatorHeaders);
   if (userFallbackLocale) return userFallbackLocale as Locale;
 
-  // 4 - Default locale
+  // Default locale
   return defaultLocale;
 };

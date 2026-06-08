@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2025-11-01
-title: Comment internationaliser votre application Next.js avec next-i18next
-description: Configurez l'i18n avec next-i18next : meilleures pratiques et conseils SEO pour les applications Next.js multilingues, couvrant l'internationalisation, l'organisation du contenu et la configuration technique.
+updatedAt: 2026-05-31
+title: Comment internationaliser votre application Next.js avec next-i18next - Guide complet pour traduire Translate Next.js 16 with next-i18next — App Router Setup
+description: Meilleure solution pour la taille du bundle, le SEO, les performances & la maintenabilité. Rendez votre Next.js 16 site web multilingue en 2026, traduction LLM, Agent Skills & MCP.
 keywords:
   - next-i18next
   - i18next
@@ -21,7 +21,7 @@ history:
     changes: Version initiale
 ---
 
-# Comment internationaliser votre application Next.js avec next-i18next en 2025
+# Comment internationaliser votre application Next.js avec next-i18next en 2026
 
 ## Table des matières
 
@@ -75,11 +75,12 @@ Avant de plonger dans l'implémentation, voici quelques pratiques que vous devri
 ## Guide étape par étape pour configurer i18next dans une application Next.js
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/next-i18next-template?embed=1&ctl=1&file=src/app/i18n.ts"
+  src="https://ide.intlayer.org/aymericzip/next-i18next-template?file=src/app/i18n.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Comment internationaliser votre application avec Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
+/>
 
 > Voir [Application Template](https://github.com/aymericzip/next-i18next-template) sur GitHub.
 
@@ -116,7 +117,9 @@ Voici la structure du projet que nous allons créer :
         └── ServerComponent.tsx
 ```
 
-### Étape 1 : Installer les dépendances
+<Steps>
+
+<Step number={1} title="Installer les dépendances">
 
 Installez les paquets nécessaires en utilisant npm :
 
@@ -136,7 +139,9 @@ yarn add i18next react-i18next i18next-resources-to-backend
 - **react-i18next** : Les bindings React pour i18next qui fournissent des hooks comme `useTranslation` pour les composants clients.
 - **i18next-resources-to-backend** : Un plugin qui permet le chargement dynamique des fichiers de traduction, vous permettant de charger uniquement les namespaces dont vous avez besoin.
 
-### Étape 2 : Configurez votre projet
+</Step>
+
+<Step number={2} title="Configurez votre projet">
 
 Créez un fichier de configuration pour définir vos locales supportées, la locale par défaut, et des fonctions utilitaires pour la localisation des URLs. Ce fichier sert de source unique de vérité pour votre configuration i18n et garantit la sécurité des types dans toute votre application.
 
@@ -189,7 +194,9 @@ export function getCookie(locale: Locale) {
 }
 ```
 
-### Étape 3 : Centraliser les espaces de noms de traduction
+</Step>
+
+<Step number={3} title="Centraliser les espaces de noms de traduction">
 
 Créez une source unique de vérité pour chaque namespace que votre application expose. Réutiliser cette liste permet de garder le code serveur, client et les outils synchronisés et active une typage fort pour les helpers de traduction.
 
@@ -199,7 +206,9 @@ export const namespaces = ["common", "about"] as const;
 export type Namespace = (typeof namespaces)[number];
 ```
 
-### Étape 4 : Typage fort des clés de traduction avec TypeScript
+</Step>
+
+<Step number={4} title="Typage fort des clés de traduction avec TypeScript">
 
 Augmentez `i18next` pour pointer vers vos fichiers de langue canoniques (généralement en anglais). TypeScript en déduit alors les clés valides par namespace, ce qui permet de vérifier les appels à `t()` de bout en bout.
 
@@ -237,7 +246,9 @@ const { t } = useTranslation("about");
 export type AboutTranslator = TFunction<"about">;
 ```
 
-### Étape 5 : Configurer l'initialisation i18n côté serveur
+</Step>
+
+<Step number={5} title="Configurer l'initialisation i18n côté serveur">
 
 Créez une fonction d'initialisation côté serveur qui charge les traductions pour les composants serveur. Cette fonction crée une instance i18next distincte pour le rendu côté serveur, garantissant que les traductions sont chargées avant le rendu.
 
@@ -292,7 +303,9 @@ export async function initI18next(
 }
 ```
 
-### Étape 6 : Créer un Provider i18n côté client
+</Step>
+
+<Step number={6} title="Créer un Provider i18n côté client">
 
 Créez un provider composant client qui enveloppe votre application avec le contexte i18next. Ce provider reçoit des traductions préchargées depuis le serveur afin d'éviter un flash de contenu non traduit (FOUC) et d'éviter les requêtes en double.
 
@@ -375,7 +388,9 @@ export default function I18nProvider({
 }
 ```
 
-### Étape 7 : Définir les routes dynamiques pour les locales
+</Step>
+
+<Step number={7} title="Définir les routes dynamiques pour les locales">
 
 Configurez le routage dynamique pour les locales en créant un répertoire `[locale]` dans votre dossier app. Cela permet à Next.js de gérer le routage basé sur la locale où chaque locale devient un segment d'URL (par exemple, `/en/about`, `/fr/about`).
 
@@ -412,7 +427,7 @@ export default function LocaleLayout({
   // Valider la locale à partir des paramètres de l'URL
   // Si une locale invalide est fournie, revenir à la locale par défaut
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   // Déterminer la direction du texte en fonction de la locale
@@ -427,7 +442,9 @@ export default function LocaleLayout({
 }
 ```
 
-### Étape 8 : Créez vos fichiers de traduction
+</Step>
+
+<Step number={8} title="Créez vos fichiers de traduction">
 
 Créez des fichiers JSON pour chaque locale et namespace. Cette structure vous permet d'organiser les traductions de manière logique et de ne charger que ce dont vous avez besoin pour chaque page.
 
@@ -493,7 +510,9 @@ Organiser les traductions par namespace (par exemple, `common.json`, `about.json
 }
 ```
 
-### Étape 9 : Utiliser les traductions dans vos pages
+</Step>
+
+<Step number={9} title="Utiliser les traductions dans vos pages">
 
 Créez un composant de page qui initialise i18next côté serveur et transmet les traductions aux composants serveur et client. Cela garantit que les traductions sont chargées avant le rendu et évite les clignotements de contenu.
 
@@ -553,7 +572,9 @@ export default async function AboutPage({
 }
 ```
 
-### Étape 10 : Utiliser les traductions dans les composants client
+</Step>
+
+<Step number={10} title="Utiliser les traductions dans les composants client">
 
 Les composants client peuvent utiliser le hook `useTranslation` pour accéder aux traductions. Ce hook fournit l'accès à la fonction de traduction ainsi qu'à l'instance i18n, ce qui vous permet de traduire du contenu et d'accéder aux informations de locale.
 
@@ -604,7 +625,9 @@ const ClientComponent = () => {
 export default ClientComponent;
 ```
 
-### Étape 11 : Utiliser les traductions dans les composants serveur
+</Step>
+
+<Step number={11} title="Utiliser les traductions dans les composants serveur">
 
 Les composants serveur ne peuvent pas utiliser les hooks React, ils reçoivent donc les traductions via les props de leurs composants parents. Cette approche maintient les composants serveur synchrones et permet de les imbriquer à l'intérieur des composants client.
 
@@ -650,9 +673,9 @@ const ServerComponent = ({ t, locale, count }: ServerComponentProps) => {
 export default ServerComponent;
 ```
 
----
+</Step>
 
-### (Optionnel) Étape 12 : Changer la langue de votre contenu
+<Step number={12} title="Changer la langue de votre contenu" isOptional={true}>
 
 Pour changer la langue de votre contenu dans Next.js, la méthode recommandée est d'utiliser des URLs préfixées par la locale et les liens Next.js. L'exemple ci-dessous lit la locale actuelle depuis la route, la supprime du pathname, et affiche un lien par locale disponible.
 
@@ -724,7 +747,9 @@ export default function LocaleSwitcher() {
 }
 ```
 
-### (Optionnel) Étape 13 : Construire un composant Link localisé
+</Step>
+
+<Step number={13} title="Construire un composant Link localisé" isOptional={true}>
 
 Réutiliser les URLs localisées dans toute votre application permet de garder une navigation cohérente et optimisée pour le SEO. Enveloppez `next/link` dans un petit helper qui préfixe les routes internes avec la locale active tout en laissant les URLs externes intactes.
 
@@ -775,7 +800,9 @@ export default function LocalizedLink({
 
 > Astuce : Comme `LocalizedLink` est un remplacement direct, migrez progressivement en échangeant les imports et en laissant le composant gérer les URLs spécifiques à la locale.
 
-### (Optionnel) Étape 14 : Accéder à la locale active dans les Server Actions
+</Step>
+
+<Step number={14} title="Accéder à la locale active dans les Server Actions" isOptional={true}>
 
 Les Server Actions ont souvent besoin de la locale courante pour les emails, la journalisation ou les intégrations tierces. Combinez le cookie de locale défini par votre proxy avec l'en-tête `Accept-Language` en tant que solution de secours.
 
@@ -813,7 +840,9 @@ export async function stuffFromServer(formData: FormData) {
 
 > Parce que l'assistant s'appuie sur les cookies et les en-têtes de Next.js, il fonctionne dans les Route Handlers, les Server Actions, et d'autres contextes réservés au serveur.
 
-### (Optionnel) Étape 15 : Internationalisez vos métadonnées
+</Step>
+
+<Step number={15} title="Internationalisez vos métadonnées" isOptional={true}>
 
 Traduire le contenu est important, mais l'objectif principal de l'internationalisation est de rendre votre site web plus visible dans le monde. L'i18n est un levier incroyable pour améliorer la visibilité de votre site via un SEO approprié.
 
@@ -880,7 +909,9 @@ export default async function AboutPage() {
 }
 ```
 
-### (Optionnel) Étape 16 : Internationalisez votre sitemap
+</Step>
+
+<Step number={16} title="Internationalisez votre sitemap" isOptional={true}>
 
 Générez un sitemap qui inclut toutes les versions locales de vos pages. Cela aide les moteurs de recherche à découvrir et indexer toutes les versions linguistiques de votre contenu.
 
@@ -934,7 +965,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 }
 ```
 
-### (Optionnel) Étape 17 : Internationalisez votre fichier robots.txt
+</Step>
+
+<Step number={17} title="Internationalisez votre fichier robots.txt" isOptional={true}>
 
 Créez un fichier robots.txt qui gère correctement toutes les versions locales de vos routes protégées. Cela garantit que les moteurs de recherche n'indexent pas les pages d'administration ou de tableau de bord dans aucune langue.
 
@@ -965,7 +998,9 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-### (Optionnel) Étape 18 : Configurer un Middleware pour le Routage des Locales
+</Step>
+
+<Step number={18} title="Configurer un Middleware pour le Routage des Locales" isOptional={true}>
 
 Créez un proxy pour détecter automatiquement la locale préférée de l'utilisateur et le rediriger vers l'URL préfixée par la locale appropriée. Cela améliore l'expérience utilisateur en affichant le contenu dans sa langue préférée.
 
@@ -1054,7 +1089,9 @@ export const config = {
 };
 ```
 
-### (Optionnel) Étape 19 : Automatisez vos traductions avec Intlayer
+</Step>
+
+<Step number={19} title="Automatisez vos traductions avec Intlayer" isOptional={true}>
 
 Intlayer est une bibliothèque **gratuite** et **open-source** conçue pour assister le processus de localisation dans votre application. Alors que i18next gère le chargement et la gestion des traductions, Intlayer aide à automatiser le flux de travail des traductions.
 
@@ -1069,12 +1106,12 @@ Intlayer vous permet de :
   Intlayer fournit des fonctions de test qui peuvent être intégrées dans votre pipeline CI/CD ou dans vos tests unitaires. En savoir plus sur [tester vos traductions](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/testing.md).
 
 - **Automatisez vos traductions**,
-  Intlayer fournit une CLI et une extension VSCode pour automatiser vos traductions. Cela peut être intégré dans votre pipeline CI/CD. En savoir plus sur [l'automatisation de vos traductions](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_cli.md).
+  Intlayer fournit une CLI et une extension VSCode pour automatiser vos traductions. Cela peut être intégré dans votre pipeline CI/CD. En savoir plus sur [l'automatisation de vos traductions](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md).
   Vous pouvez utiliser votre **propre clé API, et le fournisseur d'IA de votre choix**. Il offre également des traductions contextuelles, voir [remplissage de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/autoFill.md).
 
 - **Connecter du contenu externe**
 - **Automatisez vos traductions**,  
-  Intlayer fournit une CLI et une extension VSCode pour automatiser vos traductions. Cela peut être intégré dans votre pipeline CI/CD. En savoir plus sur [l'automatisation de vos traductions](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_cli.md).  
+  Intlayer fournit une CLI et une extension VSCode pour automatiser vos traductions. Cela peut être intégré dans votre pipeline CI/CD. En savoir plus sur [l'automatisation de vos traductions](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/index.md).  
   Vous pouvez utiliser votre **propre clé API et le fournisseur d'IA de votre choix**. Il propose également des traductions contextuelles, voir [remplissage automatique de contenu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/autoFill.md).
 
 - **Connectez du contenu externe**  
@@ -1084,3 +1121,7 @@ Intlayer vous permet de :
   Intlayer propose un éditeur visuel gratuit pour éditer votre contenu via un éditeur visuel. En savoir plus sur [l'édition visuelle de vos traductions](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md).
 
 Et plus encore. Pour découvrir toutes les fonctionnalités offertes par Intlayer, veuillez consulter la [documentation sur l'intérêt d'Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/interest_of_intlayer.md).
+
+</Step>
+
+</Steps>

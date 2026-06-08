@@ -26,15 +26,15 @@ youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
   - version: 7.5.0
     date: 2025-12-13
-    changes: ICU ve i18next format desteği eklendi
+    changes: "ICU ve i18next format desteği eklendi"
   - version: 6.1.6
     date: 2025-10-05
-    changes: İlk JSON Senkronizasyon Eklentisi dokümantasyonu
+    changes: "İlk JSON Senkronizasyon Eklentisi dokümantasyonu"
 ---
 
 # JSON Senkronizasyonu (i18n köprüleri) - ICU / i18next desteği ile JSON Senkronizasyonu
 
-<iframe title="JSON çevirilerinizi Intlayer ile nasıl senkronize tutarsınız" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="JSON çevirilerinizi Intlayer ile nasıl senkronize tutarsınız" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Intlayer'ı mevcut i18n yapınıza bir eklenti olarak kullanın. Bu eklenti, JSON mesajlarınızı Intlayer sözlükleriyle senkronize tutar, böylece:
 
@@ -66,10 +66,10 @@ npm i -D @intlayer/sync-json-plugin
 Eklentiyi `intlayer.config.ts` dosyanıza ekleyin ve mevcut JSON yapınıza işaret edin.
 
 ```ts fileName="intlayer.config.ts"
-import { defineConfig, Locales } from "intlayer";
+import { Locales, type IntlayerConfig } from "intlayer";
 import { syncJSON } from "@intlayer/sync-json-plugin";
 
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
@@ -82,7 +82,9 @@ export default defineConfig({
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],
-});
+};
+
+export default config;
 ```
 
 Alternatif: her yerel için tek dosya (i18next/react-intl yapılandırmalarında yaygın):
@@ -108,17 +110,21 @@ syncJSON({
   source: ({ key, locale }) => string, // zorunlu
   location?: string, // isteğe bağlı etiket, varsayılan: "plugin"
   priority?: number, // isteğe bağlı öncelik, çakışma çözümü için, varsayılan: 0
-  format?: 'intlayer' | 'icu' | 'i18next', // isteğe bağlı formatlayıcı, varsayılan: 'intlayer'
+  format?: 'intlayer' | 'icu' | 'i18next', // isteğe bağlı formatlayıcı, Intlayer runtime uyumluluğu için kullanılır
 });
 ```
 
 #### `format` ('intlayer' | 'icu' | 'i18next')
 
-JSON dosyalarını senkronize ederken sözlük içeriği için kullanılacak formatlayıcıyı belirtir. Bu, çeşitli i18n kütüphaneleriyle uyumlu farklı mesaj formatlama sözdizimlerini kullanmanıza olanak tanır.
+JSON dosyalarını senkronize ederken sözlük içeriği için kullanılacak formatlayıcıyı belirtir. Bu, Intlayer runtime ile uyumlu farklı mesaj formatlama sözdizimlerini kullanmanıza olanak tanır.
 
+- `undefined`: Hiçbir formatlayıcı kullanılmayacak, JSON içeriği olduğu gibi kullanılacak.
 - `'intlayer'`: Varsayılan Intlayer formatlayıcısı (varsayılan).
 - `'icu'`: ICU mesaj formatlamasını kullanır (react-intl, vue-i18n gibi kütüphanelerle uyumlu).
 - `'i18next'`: i18next mesaj formatlamasını kullanır (i18next, next-i18next, Solid-i18next ile uyumlu).
+
+> Bir formatlayıcı kullanmanın JSON içeriğinizi girdi ve çıktıda dönüştüreceğini unutmayın. ICU çoğulları gibi karmaşık JSON kuralları için, ayrıştırma girdi ve çıktı arasında 1'e 1 eşleme garanti edemeyebilir.
+> Intlayer runtime kullanmıyorsanız, bir formatlayıcı ayarlamamayı tercih edebilirsiniz.
 
 **Örnek:**
 
@@ -144,10 +150,10 @@ Birden fazla eklenti aynı sözlük anahtarını hedeflediğinde, `priority` par
 - Aynı önceliğe sahip eklentiler, yapılandırmada göründükleri sırayla işlenir
 
 ```ts fileName="intlayer.config.ts"
-import { defineConfig, Locales } from "intlayer";
+import { Locales, type IntlayerConfig } from "intlayer";
 import { syncJSON } from "@intlayer/sync-json-plugin";
 
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH],
     defaultLocale: Locales.ENGLISH,
@@ -178,7 +184,9 @@ export default defineConfig({
       priority: 1,
     }),
   ],
-});
+};
+
+export default config;
 ```
 
 ### Çakışma çözümü
@@ -258,7 +266,7 @@ Eşzamanlanmış JSON dosyaları diğer `.content` dosyaları gibi kabul edilece
 - Eşzamanlanmış JSON dosyalarını göndermek için `intlayer content push`
 - Eşzamanlanmış JSON dosyalarını çekmek için `intlayer content pull`
 
-Daha fazla detay için [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_cli.md) sayfasına bakınız.
+Daha fazla detay için [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) sayfasına bakınız.
 
 ## Sınırlamalar (mevcut)
 

@@ -15,7 +15,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Init history"
 ---
 
 # Intlayer Documentation
@@ -40,7 +40,7 @@ Intlayer also provides an optional visual editor that allows you to easily edit 
         └── index.tsx
 ```
 
-```tsx fileName="src/components/MyComponent/index.content.ts" contentDeclarationFormat="typescript"
+```tsx fileName="src/components/MyComponent/index.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 
 const componentContent = {
@@ -55,42 +55,6 @@ const componentContent = {
 } satisfies Dictionary;
 
 export default componentContent;
-```
-
-```javascript fileName="src/components/MyComponent/index.content.mjs" contentDeclarationFormat="esm"
-import { t } from "intlayer";
-
-/** @type {import('intlayer').Dictionary} */
-const componentContent = {
-  key: "component-key",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
-
-export default componentContent;
-```
-
-```javascript fileName="src/components/MyComponent/index.content.cjs" contentDeclarationFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const componentContent = {
-  key: "component-key",
-  content: {
-    myTranslatedContent: t({
-      en: "Hello World",
-      es: "Hola Mundo",
-      fr: "Bonjour le monde",
-    }),
-  },
-};
-
-module.exports = componentContent;
 ```
 
 ```json fileName="src/components/MyComponent/index.content.json" contentDeclarationFormat="json"
@@ -110,7 +74,7 @@ module.exports = componentContent;
 }
 ```
 
-```tsx fileName="src/components/MyComponent/index.tsx" codeFormat="typescript"
+```tsx fileName="src/components/MyComponent/index.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -121,25 +85,48 @@ export const MyComponent: FC = () => {
 };
 ```
 
-```jsx fileName="src/components/MyComponent/index.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
+### Why Intlayer over alternatives?
 
-const MyComponent = () => {
-  const { myTranslatedContent } = useIntlayer("component-key");
+Compared to main solutions like `next-intl` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
 
-  return <span>{myTranslatedContent}</span>;
-};
-```
+<AccordionGroup>
 
-```jsx fileName="src/components/MyComponent/index.csx" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
+<Accordion header="Bundle size">
 
-const MyComponent = () => {
-  const { myTranslatedContent } = useIntlayer("component-key");
+Instead of loading massive JSON files into your pages, load only the necessary content. Intlayer helps **reduce your bundle and page sizes by up to 50%**.
 
-  return <span>{myTranslatedContent}</span>;
-};
-```
+</Accordion>
+
+<Accordion header="Maintainability">
+
+Scoping your application's content **facilitates maintenance** for large-scale applications. You can duplicate or delete a single feature folder without the mental burden of reviewing your entire content codebase. Additionally, Intlayer is **fully typed** to ensure your content's accuracy.
+
+</Accordion>
+
+<Accordion header="AI Agent">
+
+Co-locating content **reduces the context needed** by Large Language Models (LLMs). Intlayer also comes with a suite of tools, such as a **CLI** to test for missing translations,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, and **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, to make the developer experience (DX) even smoother for AI agents.
+
+</Accordion>
+
+<Accordion header="Automation">
+
+Use automation to translate in your CI/CD pipeline using the LLM of your choice at the cost of your AI provider. Intlayer also offers a **compiler** to automate content extraction, as well as a [web platform](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) to help **translate in the background**.
+
+</Accordion>
+
+<Accordion header="Performance">
+
+Connecting massive JSON files to components can lead to performance and reactivity issues. Intlayer optimizes your content loading at build time.
+
+</Accordion>
+
+<Accordion header="Scaling with none-dev">
+
+More than just an i18n solution, Intlayer provides an **self-hosted [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** and a **[full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** to help you manage your multilingual content in **real-time**, making collaboration with translators, copywriters, and other team members seamless. Content can be stored locally and/or remotely.
+
+</Accordion>
+</AccordionGroup>
 
 ## Main Features
 
@@ -165,7 +152,7 @@ Organize your multilingual content close to your code to keep everything consist
 - **[Enumeration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md)**  
   Easily manage repeated or fixed sets of data across various languages.
 
-- **[Condition](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/conditional.md)**  
+- **[Condition](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/condition.md)**  
   Learn how to use conditional logic in Intlayer to create dynamic content.
 
 - **[Insertion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/insertion.md)**
@@ -177,7 +164,7 @@ Organize your multilingual content close to your code to keep everything consist
 - **[Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/markdown.md)**  
   Learn how to use Markdown in Intlayer to create rich content.
 
-- **[File embeddings](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file_embeddings.md)**  
+- **[File embeddings](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/file.md)**  
   Discover how to embed externals files in Intlayer to use them in the content editor.
 
 - **[Nesting](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/nesting.md)**  
@@ -204,7 +191,8 @@ We’ve built Intlayer with flexibility in mind, offering seamless integration a
 - **[Intlayer with SvelteKit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_svelte_kit.md)**
 - **[Intlayer with Express](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_express.md)**
 - **[Intlayer with NestJS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nestjs.md)**
-- **[Intlayer with Angular](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_angular.md)**
+- **[Intlayer with Hono](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_hono.md)**
+- **[Intlayer with Angular](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_angular_21.md)**
 
 Each integration guide includes best practices for using Intlayer’s features, like **server-side rendering**, **dynamic routing**, or **client-side rendering**, so you can maintain a fast, SEO-friendly, and highly scalable application.
 
@@ -213,5 +201,3 @@ Each integration guide includes best practices for using Intlayer’s features, 
 We value the power of open-source and community-driven development. If you’d like to propose improvements, add a new guide, or correct any issues in our docs, feel free to submit a Pull Request or open an issue on our [GitHub repository](https://github.com/aymericzip/intlayer/blob/main/docs/docs).
 
 **Ready to translate your application faster and more efficiently?** Dive into our docs to start using Intlayer today. Experience a robust, streamlined approach to internationalization that keeps your content organized and your team more productive.
-
----

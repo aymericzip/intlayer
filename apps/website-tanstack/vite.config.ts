@@ -1,0 +1,277 @@
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import babel from '@rolldown/plugin-babel';
+import tailwindcss from '@tailwindcss/vite';
+import { tanstackStart } from '@tanstack/react-start/plugin/vite';
+import react, { reactCompilerPreset } from '@vitejs/plugin-react';
+import { localeFlatMap } from 'intlayer';
+import { nitro } from 'nitro/vite';
+import { defineConfig, loadEnv } from 'vite';
+import { intlayer, intlayerProxy } from 'vite-intlayer';
+import wasm from 'vite-plugin-wasm';
+import {
+  buildDynamicPrerenderPaths,
+  staticPrerenderPaths,
+} from './src/siteRoutes';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const rawMarkdownPlugin = {
+  name: 'raw-markdown-plugin',
+  transform(code: string, id: string) {
+    if (id.split('?')[0].endsWith('.md')) {
+      return `export default ${JSON.stringify(code)};`;
+    }
+  },
+};
+
+/**
+ * Rewrites /[locale]/doc|blog|frequent-questions/slug.md → /[locale]/section/raw/slug
+ * BEFORE the intlayerProxy middleware runs, so the locale is preserved and the
+ * existing server.handlers on /raw/ routes serve the raw content with no redirect.
+ */
+const MD_REWRITE_PATTERN =
+  /^(\/[a-z]{2}(?:-[A-Z]{2})?)?\/(doc|blog|frequent-questions)\/(.+?)\.md(\?.*)?$/;
+
+const mdRawRewritePlugin = {
+  name: 'md-raw-rewrite',
+  configureServer(server: {
+    middlewares: {
+      use: (
+        fn: (req: { url?: string }, _: unknown, next: () => void) => void
+      ) => void;
+    };
+  }) {
+    server.middlewares.use((req, _, next) => {
+      const url = req.url ?? '';
+      const match = url.match(MD_REWRITE_PATTERN);
+      if (match) {
+        const locale = match[1] ?? '';
+        const section = match[2];
+        const slug = match[3];
+        const query = match[4] ?? '';
+        req.url = `${locale}/${section}/raw/${slug}${query}`;
+      }
+      next();
+    });
+  },
+};
+
+export default defineConfig(async ({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), 'VITE_');
+
+  const dynamicPaths = await buildDynamicPrerenderPaths();
+  const allPrerenderPaths = [...staticPrerenderPaths, ...dynamicPaths];
+  const localizedPages = localeFlatMap(({ urlPrefix }) =>
+    allPrerenderPaths.map((path) => ({
+      path: `${urlPrefix}${path}`,
+      prerender: { enabled: true },
+    }))
+  );
+
+  const domain = env.VITE_PUBLIC_DOMAIN;
+  const backendUrl = env.VITE_BACKEND_URL;
+  const publicUrl = env.VITE_URL;
+
+  const cspDirectives = {
+    'default-src': ["'self'"],
+    'style-src': [
+      "'self'",
+      "'unsafe-inline'",
+      "'report-sample'",
+      domain ? `*.${domain}` : '',
+      'static.cloudflareinsights.com',
+    ].filter(Boolean),
+    'style-src-elem': [
+      "'self'",
+      "'report-sample'",
+      domain ? `*.${domain}` : '',
+      'static.cloudflareinsights.com',
+      'cdn.jsdelivr.net',
+      "'unsafe-inline'",
+    ].filter(Boolean),
+    'script-src': [
+      "'self'",
+      "'unsafe-eval'",
+      "'unsafe-inline'",
+      '*.youtube.com',
+    ],
+    'script-src-elem': [
+      "'self'",
+      'data:',
+      "'report-sample'",
+      "'unsafe-inline'",
+      domain ? `blob: *.${domain}` : '',
+      'static.cloudflareinsights.com',
+      '*.google-analytics.com',
+      '*.posthog.com',
+      'cdn.jsdelivr.net',
+      '*.youtube.com',
+    ].filter(Boolean),
+    'connect-src': [
+      "'self'",
+      'data:',
+      domain ? `*.${domain}` : '',
+      backendUrl,
+      'static.cloudflareinsights.com',
+      '*.google-analytics.com',
+      '*.posthog.com',
+      'github.com',
+      'api.github.com',
+      'cdn.jsdelivr.net',
+      '*.ahrefs.com',
+      '*.star-history.com',
+      'img.shields.io',
+      '*.googleusercontent.com',
+      '*.githubusercontent.com',
+    ].filter(Boolean),
+    'img-src': [
+      "'self'",
+      'https:',
+      'data:',
+      'static.cloudflareinsights.com',
+      '*.googleusercontent.com',
+      '*.githubusercontent.com',
+      backendUrl,
+    ].filter(Boolean),
+    'worker-src': [publicUrl, domain ? `blob: *.${domain}` : ''].filter(
+      Boolean
+    ),
+    'media-src': ["'self'"],
+    'form-action': ["'self'"],
+    'font-src': [
+      "'self'",
+      'data:',
+      'static.cloudflareinsights.com',
+      'cdn.jsdelivr.net',
+    ],
+    'object-src': ["'self'", 'data:', domain ? `blob: *.${domain}` : ''].filter(
+      Boolean
+    ),
+    'frame-src': [
+      "'self'",
+      '*.youtube.com',
+      '*.intlayer.org',
+      'github.dev',
+      'htmlpreview.github.io',
+      'github.com',
+      '*.github.com',
+      '*.vercel.app',
+      domain ? `*.${domain}` : '',
+    ].filter(Boolean),
+    'frame-ancestors': [
+      "'self'",
+      'intlayer.org',
+      'app.intlayer.org',
+      'localhost:*',
+    ],
+    'manifest-src': ["'self'"],
+    'child-src': ["'self'", '*.googletagmanager.com'],
+  };
+
+  const cspString = Object.entries(cspDirectives)
+    .map(([key, values]) => `${key} ${[...new Set(values)].join(' ')}`)
+    .join('; ');
+
+  const headers = {
+    'Content-Security-Policy': cspString,
+    'Cross-Origin-Opener-Policy': 'same-origin',
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
+    'X-Frame-Options': 'SAMEORIGIN',
+    'X-XSS-Protection': '0',
+    'Permissions-Policy': 'fullscreen=(self)',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+    'Access-Control-Allow-Headers':
+      'X-Requested-With, Content-Type, Authorization',
+    'Referrer-Policy': 'same-origin',
+    'X-Content-Type-Options': 'nosniff',
+    'Cross-Origin-Embedder-Policy': 'unsafe-none',
+  } as const;
+
+  return {
+    server: {
+      headers: mode === 'development' ? {} : headers,
+    },
+    preview: {
+      headers,
+    },
+    resolve: {
+      alias: {
+        '~': resolve(__dirname, 'src'),
+      },
+      dedupe: [
+        'react',
+        'react-dom',
+        '@tanstack/react-query',
+        '@tanstack/react-router',
+        '@tanstack/react-start',
+      ],
+    },
+    optimizeDeps: {
+      exclude: ['@tanstack/react-start'],
+      include: [
+        'react',
+        'react-dom',
+        '@tanstack/react-query',
+        '@tanstack/react-router',
+      ],
+    },
+    plugins: [
+      rawMarkdownPlugin,
+      mdRawRewritePlugin,
+      intlayerProxy(),
+      nitro({
+        preset: 'bun',
+        serverDir: resolve(__dirname, 'server'),
+        routeRules: {
+          '/**': { headers },
+          '/assets/**': {
+            headers: {
+              ...headers,
+              'Cache-Control': 'public, max-age=31536000, immutable',
+            },
+          },
+          '/i18n-seo-scanner': {
+            headers: {
+              ...headers,
+              'Content-Security-Policy': headers['Content-Security-Policy']
+                .replace(/'self' https: data:.*?(?=;)/, "'self' https: data: *")
+                .replace(/connect-src[^;]*/, 'connect-src *')
+                .replace(/img-src[^;]*/, 'img-src *'),
+            },
+          },
+        },
+        rollupConfig: {
+          onwarn(warning, warn) {
+            if (warning.code === 'MODULE_LEVEL_DIRECTIVE') return;
+            warn(warning);
+          },
+        },
+      }),
+      intlayer(),
+      tailwindcss(),
+      tanstackStart({
+        router: {
+          routeFileIgnorePattern:
+            '.content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$',
+        },
+        prerender: {
+          enabled: true,
+          crawlLinks: false,
+          concurrency: 20,
+        },
+        pages: localizedPages,
+      }),
+      react(),
+      babel({ presets: [reactCompilerPreset()] }),
+      wasm(),
+    ],
+    build: {
+      rolldownOptions: {
+        external: ['wasi_snapshot_preview1', 'env'],
+      },
+    },
+  };
+});

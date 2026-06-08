@@ -3,8 +3,13 @@ import { sso } from '@better-auth/sso';
 import { sendVerificationUpdate } from '@controllers/user.controller';
 import { logger } from '@logger';
 import { sendEmail } from '@services/email.service';
+import { resolveSessionEnvironment } from '@services/environment.service';
 import { getOrganizationById } from '@services/organization.service';
 import { getProjectById } from '@services/project.service';
+import {
+  clearZombieSessionContext,
+  restoreSessionContext,
+} from '@services/session.service';
 import { getUserById } from '@services/user.service';
 import { mapOrganizationToAPI } from '@utils/mapper/organization';
 import { mapProjectToAPI } from '@utils/mapper/project';
@@ -15,24 +20,42 @@ import {
   getSessionRoles,
   intersectPermissions,
 } from '@utils/permissions';
-import { betterAuth, type OmitId } from 'better-auth';
+import { betterAuth } from 'better-auth';
 import { mongodbAdapter } from 'better-auth/adapters/mongodb';
 import { createAuthMiddleware } from 'better-auth/api';
 import { customSession, lastLoginMethod, twoFactor } from 'better-auth/plugins';
 import { magicLink } from 'better-auth/plugins/magic-link';
 import type { MongoClient } from 'mongodb';
-import type { OrganizationAPI } from '@/types/organization.types';
-import type { ProjectAPI } from '@/types/project.types';
+import { Types } from 'mongoose';
+import type { Organization, OrganizationAPI } from '@/types/organization.types';
+import type { Project, ProjectAPI } from '@/types/project.types';
 import type {
   Session,
   SessionContext,
   SessionDataApi,
 } from '@/types/session.types';
-import type { User, UserAPI } from '@/types/user.types';
+import type { UserAPI } from '@/types/user.types';
 
 export type Auth = ReturnType<typeof betterAuth>;
 
-export const formatSession = (session: SessionContext): OmitId<Session> => {
+// Check if we are in production based on the domain or NODE_ENV
+const isProd = process.env.DOMAIN !== 'localhost';
+
+let _authSingleton: Auth | null = null;
+
+export const initializeAuth = (dbClient: MongoClient): Auth => {
+  _authSingleton = getAuth(dbClient);
+  return _authSingleton;
+};
+
+export const getAuthSingleton = (): Auth => {
+  if (!_authSingleton) {
+    throw new Error('Auth not initialized. Call initializeAuth first.');
+  }
+  return _authSingleton;
+};
+
+export const formatSession = (session: SessionContext): Session => {
   const roles = getSessionRoles(session);
   let permissions = computeEffectivePermission(roles);
 
@@ -41,15 +64,21 @@ export const formatSession = (session: SessionContext): OmitId<Session> => {
     permissions = intersectPermissions(permissions, session.permissions);
   }
 
-  const resultSession = {
-    session: session.session,
-    user: session.user,
-    organization: session.organization,
-    project: session.project,
+  const resultSession: Session = {
+    session: session.session as Session['session'],
+    user: session.user as Session['user'],
+    organization: (session.organization as Organization | null) ?? null,
+    project: (session.project as Project | null) ?? null,
+    environment: session.environment ?? null,
     authType: 'session',
     permissions,
     roles,
-  } as OmitId<Session>;
+    allowedEnvironmentIds: session.allowedEnvironmentIds ?? null,
+    allowedLocales: session.allowedLocales ?? null,
+    ...(session.session?.id && {
+      id: new Types.ObjectId(session.session.id),
+    }),
+  };
 
   return resultSession;
 };
@@ -61,6 +90,8 @@ export const getAuth = (dbClient: MongoClient): Auth => {
 
   const auth = betterAuth({
     appName: 'Intlayer',
+
+    baseURL: process.env.BACKEND_URL,
 
     database: mongodbAdapter(dbClient.db()),
 
@@ -82,7 +113,7 @@ export const getAuth = (dbClient: MongoClient): Auth => {
               type: 'welcome',
               to: user.email,
               username: user.name ?? user.email.split('@')[0],
-              loginLink: `${process.env.CLIENT_URL}/auth/login`,
+              loginLink: `${process.env.APP_URL}/auth/login`,
               locale: (user as any).lang,
             });
             logger.info('Welcome e‑mail delivered', {
@@ -103,8 +134,15 @@ export const getAuth = (dbClient: MongoClient): Auth => {
 
         if (!user) return;
 
-        if (['/verify-email'].includes(path)) {
-          sendVerificationUpdate(user as unknown as User);
+        if (path.includes('/verify-email')) {
+          // Fetch fresh user from DB so emailVerified is definitely up-to-date
+          // (the hook context user may be a stale snapshot from before the DB write).
+          const freshUser = await getUserById(user.id);
+
+          if (freshUser) {
+            sendVerificationUpdate(freshUser);
+          }
+
           logger.info('SSE verification update sent', {
             email: user.email,
             userId: user.id,
@@ -114,7 +152,7 @@ export const getAuth = (dbClient: MongoClient): Auth => {
             type: 'welcome',
             to: user.email,
             username: user.name ?? user.email.split('@')[0],
-            loginLink: `${process.env.CLIENT_URL}/auth/login`,
+            loginLink: `${process.env.APP_URL}/auth/login`,
             locale: (user as any).lang,
           });
           logger.info('Welcome e‑mail delivered', {
@@ -125,20 +163,22 @@ export const getAuth = (dbClient: MongoClient): Auth => {
     },
 
     advanced: {
-      // 1️⃣  Change or drop the global prefix
-      // cookiePrefix: "intlayer",          // =>  intlayer.session_token
-      cookiePrefix: 'intlayer', // =>  session_token  (no prefix)
-
-      // 2️⃣  Override just the session‑token cookie
+      crossSubDomainCookies: {
+        enabled: isProd,
+        domain: isProd ? process.env.DOMAIN : undefined,
+        additionalCookies: ['session_token'],
+      },
+      cookiePrefix: 'intlayer',
       cookies: {
         session_token: {
-          // name: 'intlayer_session_token', // final name depends on the prefix above
-          // attributes: { sameSite: "lax", maxAge: 60 * 60 * 24 } // optional
+          name: 'session_token',
+          attributes: {
+            httpOnly: true,
+            secure: isProd,
+            sameSite: 'lax',
+          },
         },
       },
-
-      // 3️⃣  (optional) turn off the automatic __Secure‑ prefix in non‑prod
-      // useSecureCookies: false,
     },
 
     secret: process.env.BETTER_AUTH_SECRET as string,
@@ -146,9 +186,23 @@ export const getAuth = (dbClient: MongoClient): Auth => {
       modelName: 'sessions',
       id: 'id',
 
+      // Session lives for 30 days; each access made more than 1 day after the
+      // last refresh slides the expiry forward, so an active user effectively
+      // stays signed in indefinitely.
+      expiresIn: 60 * 60 * 24 * 30,
+      updateAge: 60 * 60 * 24,
+
+      // Cache the session in a signed cookie for 5 minutes to avoid hitting
+      // Mongo on every request while still picking up updateAge refreshes.
+      cookieCache: {
+        enabled: false,
+        maxAge: 5 * 60,
+      },
+
       additionalFields: {
         activeOrganizationId: { type: 'string', nullable: true, input: false },
         activeProjectId: { type: 'string', nullable: true, input: false },
+        activeEnvironmentId: { type: 'string', nullable: true, input: false },
       },
     },
 
@@ -156,48 +210,127 @@ export const getAuth = (dbClient: MongoClient): Auth => {
       customSession(async ({ session }) => {
         const typedSession = session as unknown as SessionDataApi;
 
-        let userAPI: UserAPI | null = null;
-        let organizationAPI: OrganizationAPI | null = null;
-        let projectAPI: ProjectAPI | null = null;
-
-        if (typedSession.userId) {
-          const userData = await getUserById(typedSession.userId);
-
-          if (userData) {
-            userAPI = mapUserToAPI(userData);
+        const normalizeId = (rawId: unknown): string | null => {
+          if (typeof rawId === 'string') return rawId;
+          if (
+            rawId &&
+            typeof rawId === 'object' &&
+            'buffer' in rawId &&
+            (rawId as any).buffer instanceof Uint8Array
+          ) {
+            return Buffer.from((rawId as any).buffer).toString('hex');
           }
-        }
-
-        if (typedSession.activeOrganizationId) {
-          const orgData = await getOrganizationById(
-            typedSession.activeOrganizationId
-          );
-
-          if (orgData) {
-            organizationAPI = mapOrganizationToAPI(orgData);
-          }
-        }
-        if (typedSession.activeProjectId) {
-          const projectData = await getProjectById(
-            typedSession.activeProjectId
-          );
-
-          if (projectData) {
-            projectAPI = mapProjectToAPI(projectData);
-          }
-        }
-
-        const sessionWithNoPermission: SessionContext = {
-          session: typedSession,
-          user: userAPI!,
-          organization: organizationAPI ?? null,
-          project: projectAPI ?? null,
-          authType: 'session',
+          return null;
         };
 
-        const formattedSession = formatSession(sessionWithNoPermission);
+        const storedOrganizationId = typedSession.activeOrganizationId
+          ? normalizeId(typedSession.activeOrganizationId)
+          : null;
+        const storedProjectId = typedSession.activeProjectId
+          ? normalizeId(typedSession.activeProjectId)
+          : null;
+        // null = production (default env); ObjectId string = non-default env
+        const storedEnvironmentId = typedSession.activeEnvironmentId
+          ? normalizeId(typedSession.activeEnvironmentId)
+          : null;
 
-        return mapSessionToAPI(formattedSession);
+        const userData = typedSession.userId
+          ? await getUserById(typedSession.userId)
+          : null;
+
+        // Restore org/project context from user document when the session lacks it
+        const { organizationId, projectId } = await restoreSessionContext({
+          sessionId: typedSession.id,
+          currentOrganizationId: storedOrganizationId,
+          currentProjectId: storedProjectId,
+          lastActiveOrganizationId: userData?.lastActiveOrganizationId,
+          lastActiveProjectId: userData?.lastActiveProjectId,
+        });
+
+        typedSession.activeOrganizationId = organizationId ?? undefined;
+        typedSession.activeProjectId = projectId ?? undefined;
+
+        const [organizationData, projectData] = await Promise.all([
+          organizationId ? getOrganizationById(organizationId) : null,
+          projectId ? getProjectById(projectId) : null,
+        ]);
+
+        const userAPI: UserAPI | null = userData
+          ? mapUserToAPI(userData)
+          : null;
+        let organizationAPI: OrganizationAPI | null = organizationData
+          ? mapOrganizationToAPI(organizationData)
+          : null;
+        let projectAPI: ProjectAPI | null = projectData
+          ? mapProjectToAPI(projectData)
+          : null;
+
+        // Resolve the active environment; null resolvedEnvironmentId = production
+        const {
+          environmentAPI: resolvedEnvironmentAPI,
+          resolvedEnvironmentId,
+        } = await resolveSessionEnvironment({
+          projectData,
+          sessionId: typedSession.id,
+          sessionEnvironmentId: storedEnvironmentId,
+        });
+        let environmentAPI = resolvedEnvironmentAPI;
+
+        if (resolvedEnvironmentId !== storedEnvironmentId) {
+          typedSession.activeEnvironmentId = resolvedEnvironmentId as any;
+        }
+
+        // Clear stale session references whose documents no longer exist
+        const zombieCleanup = await clearZombieSessionContext({
+          sessionId: typedSession.id,
+          userId: userData?.id ?? null,
+          storedOrganizationId: organizationId,
+          organizationExists: Boolean(organizationData),
+          storedProjectId: projectId,
+          projectExists: Boolean(projectData),
+        });
+
+        if (zombieCleanup) {
+          if (zombieCleanup.organizationCleared) {
+            typedSession.activeOrganizationId = undefined;
+            organizationAPI = null;
+          }
+          if (zombieCleanup.projectCleared) {
+            typedSession.activeProjectId = undefined;
+            typedSession.activeEnvironmentId = undefined;
+            projectAPI = null;
+            environmentAPI = null;
+          }
+        }
+
+        // Resolve granular access constraints for this user in this project
+        const memberAccessEntry =
+          projectData?.memberAccess?.find(
+            (access) => String(access.userId) === String(userData?.id)
+          ) ?? null;
+
+        const allowedEnvironmentIds =
+          memberAccessEntry?.allowedEnvironmentIds != null
+            ? (
+                memberAccessEntry.allowedEnvironmentIds as ({
+                  toString(): string;
+                } | null)[]
+              ).map((id) => (id === null ? null : String(id)))
+            : null;
+        const allowedLocales = memberAccessEntry?.allowedLocales ?? null;
+
+        return mapSessionToAPI(
+          formatSession({
+            session: typedSession,
+            user: userAPI!,
+            organization: organizationAPI,
+            project: projectAPI,
+            environment: environmentAPI,
+            authType: 'session',
+            allowedEnvironmentIds,
+            allowedLocales,
+          })
+        );
       }),
       lastLoginMethod({
         storeInDatabase: true, // adds user.lastLoginMethod in DB and session
@@ -216,7 +349,10 @@ export const getAuth = (dbClient: MongoClient): Auth => {
           return null;
         },
       }),
-      passkey(),
+      passkey({
+        rpID: process.env.DOMAIN,
+        rpName: 'Intlayer',
+      }),
       twoFactor(),
       magicLink({
         sendMagicLink: async ({ email, url }) => {
@@ -224,12 +360,14 @@ export const getAuth = (dbClient: MongoClient): Auth => {
           await sendEmail({
             type: 'magicLink',
             to: email,
-            username: email.split('@')[0],
+            username: email.split('@')[0]!,
             magicLink: url,
           });
         },
       }),
-      sso(),
+      sso({
+        organizationProvisioning: {},
+      }),
     ],
 
     emailAndPassword: {
@@ -245,47 +383,53 @@ export const getAuth = (dbClient: MongoClient): Auth => {
           type: 'resetPassword',
           to: user.email,
           username: user.name ?? user.email.split('@')[0],
-          resetLink: `${process.env.CLIENT_URL}/auth/password/reset?token=${token}`,
+          resetLink: `${process.env.APP_URL}/auth/password/reset?token=${token}`,
         });
       },
       resetPasswordTokenExpiresIn: 3600,
     },
-    accountLinking: {
-      enabled: true, // allow linking in general
-      trustedProviders: ['google', 'github', 'linkedin'], // optional: auto‑link when Google verifies the e‑mail
-    },
+
     emailVerification: {
       autoSignInAfterVerification: true,
       sendOnSignIn: true,
       sendVerificationEmail: async ({ user, url }) => {
         logger.info('sending verification email', { email: user.email });
+        // Override callbackURL so the link redirects to the app after verification,
+        // not to the backend root which just shows the raw API response.
+        const verificationUrl = new URL(url);
+        verificationUrl.searchParams.set(
+          'callbackURL',
+          process.env.APP_URL ?? '/'
+        );
         await sendEmail({
           type: 'validate',
           to: user.email,
           username: user.name ?? user.email.split('@')[0],
-          validationLink: url,
+          validationLink: verificationUrl.toString(),
         });
       },
     },
 
-    crossSubDomainCookies: {
-      enabled: true,
-      additionalCookies: ['session_token'],
-      domain: process.env.CLIENT_URL as string,
-    },
-    cookiePrefix: 'intlayer',
-    cookies: {
-      session_token: {
-        name: 'session_token',
-        attributes: {
-          httpOnly: true,
-          secure: true,
-        },
-      },
-    },
+    trustedOrigins: [
+      process.env.WEBSITE_URL,
+      process.env.APP_URL,
+      process.env.SHOWCASE_URL,
+    ].filter(Boolean) as string[],
 
-    trustedOrigins: [process.env.CLIENT_URL as string],
-
+    accountLinking: {
+      enabled: true, // allow linking in general
+      trustedProviders: [
+        'google',
+        'github',
+        'linkedin',
+        'gitlab',
+        'atlassian',
+        'microsoft',
+        'email-password',
+        'magic-link',
+        'passkey',
+      ],
+    },
     socialProviders: {
       google: {
         clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -295,9 +439,21 @@ export const getAuth = (dbClient: MongoClient): Auth => {
         clientId: process.env.GITHUB_CLIENT_ID as string,
         clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
       },
+      atlassian: {
+        clientId: process.env.ATLASSIAN_CLIENT_ID as string,
+        clientSecret: process.env.ATLASSIAN_CLIENT_SECRET as string,
+      },
+      gitlab: {
+        clientId: process.env.GITLAB_CLIENT_ID as string,
+        clientSecret: process.env.GITLAB_CLIENT_SECRET as string,
+      },
       linkedin: {
         clientId: process.env.LINKEDIN_CLIENT_ID as string,
         clientSecret: process.env.LINKEDIN_CLIENT_SECRET as string,
+      },
+      microsoft: {
+        clientId: process.env.MICROSOFT_CLIENT_ID as string,
+        clientSecret: process.env.MICROSOFT_CLIENT_SECRET as string,
       },
       // socialProviders: {
       //   apple: {

@@ -1,7 +1,7 @@
 import type {
   ContentNode,
   Dictionary as DictionaryCore,
-} from '@intlayer/types';
+} from '@intlayer/types/dictionary';
 import type { RenameId } from '@utils/mongoDB/types';
 import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
 import type { Project } from './project.types';
@@ -14,8 +14,9 @@ export type DictionaryCreationData = {
   title?: string;
   description?: string;
   priority?: number;
-  live?: boolean;
+  importMode?: 'static' | 'dynamic' | 'fetch';
   tags?: string[];
+  environmentId?: string;
 };
 
 export type VersionedContentEl = {
@@ -35,8 +36,10 @@ export type DictionaryData = {
   title?: string;
   description?: string;
   priority?: number;
-  live?: boolean;
+  importMode?: 'static' | 'dynamic' | 'fetch';
   tags?: string[];
+  /** If set, this dictionary belongs to a specific project environment. Null means shared (visible in all envs). */
+  environmentId?: Types.ObjectId | string | null;
 };
 
 export type Dictionary = DictionaryData & {
@@ -49,6 +52,7 @@ export type DictionaryAPI = ObjectIdToString<
   DictionaryCore & {
     projectIds: (Project['id'] | string)[];
     updatedAt: number;
+    createdAt: number;
   }
 >;
 

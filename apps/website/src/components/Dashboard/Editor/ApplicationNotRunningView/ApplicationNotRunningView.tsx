@@ -1,26 +1,118 @@
 import { Link } from '@components/Link/Link';
-import { Container, H3 } from '@intlayer/design-system';
+import { Container } from '@intlayer/design-system/container';
+import { H3 } from '@intlayer/design-system/headers';
+import { Website_Doc_IntlayerCMS_Path } from '@intlayer/design-system/routes';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
-import { PagesRoutes } from '@/Routes';
 
-export const ApplicationNotRunningView: FC = () => {
-  const { title, description, tips, documentationLink } = useIntlayer(
-    'application-not-running-view'
-  );
+export type ApplicationNotRunningError =
+  | { type: 'fetch'; status: number; statusText: string }
+  | { type: 'connect'; message: string };
+
+type ApplicationNotRunningViewProps = {
+  applicationUrl: string | undefined;
+  editorUrl: string | undefined;
+  errors?: ApplicationNotRunningError[];
+};
+
+export const ApplicationNotRunningView: FC<ApplicationNotRunningViewProps> = ({
+  applicationUrl,
+  editorUrl,
+  errors,
+}) => {
+  const {
+    title,
+    description,
+    urlLabel,
+    urlLinkLabel,
+    tipsTitle,
+    tips,
+    documentationLink,
+    connectionError,
+    fetchError,
+  } = useIntlayer('application-not-running-view');
 
   return (
-    <div className="flex flex-1 items-center justify-center">
-      <Container className="flex max-w-xl flex-col gap-2 rounded-2xl px-8 pt-2 pb-4 text-sm">
+    <div className="flex flex-1 items-center justify-center p-4">
+      <Container
+        className="flex max-w-xl flex-col gap-2 text-sm"
+        padding="xl"
+        roundedSize="2xl"
+        border
+        borderColor="neutral"
+      >
         <H3 className="mb-4 text-lg">{title}</H3>
+        <span className="font-semibold text-xs">
+          {urlLabel}
+          {applicationUrl ? (
+            <Link
+              href={applicationUrl}
+              className="ml-4 font-bold"
+              label={urlLinkLabel.value}
+              color="neutral"
+            >
+              {applicationUrl}
+            </Link>
+          ) : (
+            <span className="ml-4 font-bold">-</span>
+          )}
+        </span>
         <p className="mb-4 block text-neutral">{description}</p>
 
+        {(errors?.length ?? 0) > 0 && (
+          <Container
+            border
+            borderColor="error"
+            padding="md"
+            background="none"
+            className="mb-6 flex flex-col gap-1 pb-3 font-mono text-neutral text-xs"
+          >
+            {errors.map((error, index) => {
+              if (error.type === 'connect') {
+                return (
+                  <p key={index}>
+                    {connectionError({
+                      applicationUrl: applicationUrl ?? '',
+                      error: error.message,
+                    })}
+                  </p>
+                );
+              }
+              if (error.type === 'fetch') {
+                return (
+                  <p key={index}>
+                    {fetchError({
+                      status: String(error.status),
+                      statusText: error.statusText,
+                    })}
+                  </p>
+                );
+              }
+              return null;
+            })}
+          </Container>
+        )}
+
         <div className="mb-4">
-          <h4 className="mb-2 font-semibold">Tips:</h4>
+          <h4 className="mb-2 font-semibold">{tipsTitle}</h4>
           <ul className="list-inside list-disc space-y-2 pl-3">
             {tips.map((tip, index) => (
+              // biome-ignore lint/suspicious/noArrayIndexKey: static list
               <li key={index} className="text-neutral">
-                {tip}
+                {typeof tip === 'function'
+                  ? tip({
+                      editorUrl: (
+                        <span className="font-bold">
+                          {editorUrl ?? process.env.NEXT_PUBLIC_EDITOR_URL}
+                        </span>
+                      ),
+                      applicationUrl: (
+                        <span className="font-bold">
+                          {applicationUrl ?? 'http://localhost:3000'}
+                        </span>
+                      ),
+                    })
+                  : tip}
               </li>
             ))}
           </ul>
@@ -28,7 +120,8 @@ export const ApplicationNotRunningView: FC = () => {
 
         <Link
           label={documentationLink.label.value}
-          href={`${PagesRoutes.Doc_IntlayerCMS}#configuration`}
+          href={Website_Doc_IntlayerCMS_Path as any}
+          hash="configuration"
           color="text"
           className="ml-auto underline"
         >

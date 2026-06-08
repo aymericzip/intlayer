@@ -1,13 +1,13 @@
 'use client';
 
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { type FC, useRef } from 'react';
 import { EditorLayout } from './EditorLayout';
 import { EditorProvider } from './EditorProvider';
 import { IframeController } from './IframeController';
 
 type EditorProps = {
-  configuration?: IntlayerConfig;
+  configuration?: Pick<IntlayerConfig, 'editor' | 'internationalization'>;
   DictionariesLoader: FC;
 };
 

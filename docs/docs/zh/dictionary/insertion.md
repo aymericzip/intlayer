@@ -17,9 +17,12 @@ slugs:
   - content
   - insertion
 history:
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: "自动装饰插入内容"
   - version: 5.5.10
     date: 2025-06-29
-    changes: 初始化历史
+    changes: "初始化历史"
 ---
 
 # 插入内容 / Intlayer 中的插入
@@ -32,72 +35,75 @@ history:
 
 ## 设置插入内容
 
-要在您的 Intlayer 项目中设置插入内容，请创建一个包含插入定义的内容模块。以下是各种格式的示例。
+要在您的 Intlayer 项目中设置插入内容，请创建一个包含插入定义的内容模块。
 
-```typescript fileName="**/*.content.ts" contentDeclarationFormat="typescript"
-import { insert, type Dictionary } from "intlayer";
+<Tabs>
+  <Tab label="手动包裹" value="manual-wrapping">
+    使用 `insert` 函数显式声明插入内容。
 
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert(
-      "你好，我的名字是 {{name}}，我今年 {{age}} 岁！" // 插入的字符串，包含动态占位符
-    ),
-  },
-} satisfies Dictionary;
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
+    import { insert, type Dictionary } from "intlayer";
 
-export default myInsertionContent;
-```
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: insert(
+          "你好，我的名字是 {{name}}，我今年 {{age}} 岁！"
+        ),
+      },
+    } satisfies Dictionary;
 
-```javascript fileName="**/*.content.mjs" contentDeclarationFormat="esm"
-import { insert } from "intlayer";
+    export default myInsertionContent;
+    ```
 
-/** @type {import('intlayer').Dictionary} */
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert(
-      "你好，我的名字是 {{name}}，我今年 {{age}} 岁！" // 插入的字符串，包含动态占位符
-    ),
-  },
-};
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": {
+          "nodeType": "insertion",
+          "insertion": "你好，我的名字是 {{name}}，我今年 {{age}} 岁！",
+        },
+      },
+    }
+    ```
 
-export default myInsertionContent;
-```
+  </Tab>
+  <Tab label="自动检测" value="automatic-detection">
+    如果字符串包含常见的插入指示符（如 `{{name}}`），Intlayer 将自动对其进行转换。
 
-```javascript fileName="**/*.content.cjs" contentDeclarationFormat="commonjs"
-const { insert } = require("intlayer");
+    ```typescript fileName="**/*.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
+    import { type Dictionary } from "intlayer";
 
-/** @type {import('intlayer').Dictionary} */
-// 定义插入内容的字典类型
-const myInsertionContent = {
-  key: "my_key",
-  content: {
-    myInsertion: insert("你好，我的名字是 {{name}}，我今年 {{age}} 岁！"),
-  },
-};
+    const myInsertionContent = {
+      key: "my_key",
+      content: {
+        myInsertion: "你好，我的名字是 {{name}}，我今年 {{age}} 岁！",
+      },
+    } satisfies Dictionary;
 
-module.exports = myInsertionContent;
-```
+    export default myInsertionContent;
+    ```
 
-```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "my_key",
-  "content": {
-    "myInsertion": {
-      "nodeType": "insertion",
-      "insertion": "你好，我的名字是 {{name}}，我今年 {{age}} 岁！",
-    },
-  },
-}
-```
+    ```json5 fileName="**/*.content.json" contentDeclarationFormat="json"
+    {
+      "$schema": "https://intlayer.org/schema.json",
+      "key": "my_key",
+      "content": {
+        "myInsertion": "你好，我的名字是 {{name}}，我今年 {{age}} 岁！",
+      },
+    }
+    ```
+
+  </Tab>
+</Tabs>
 
 ## 在 React Intlayer 中使用插入内容
 
 要在 React 组件中使用插入内容，请从 `react-intlayer` 包中导入并使用 `useIntlayer` 钩子。该钩子会检索指定键的内容，并允许您传入一个对象，将内容中的每个占位符映射到您希望显示的值。
 
-```tsx fileName="**/*.tsx" codeFormat="typescript"
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
 import { useIntlayer } from "react-intlayer";
 
@@ -143,65 +149,11 @@ const InsertionComponent: FC = () => {
 export default InsertionComponent;
 ```
 
-```javascript fileName="**/*.mjx" codeFormat="esm"
-import { useIntlayer } from "react-intlayer";
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* 输出: "Hello, my name is John and I am 30 years old!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* 你可以用不同的值重复使用相同的插入内容 */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-export default InsertionComponent;
-```
-
-```javascript fileName="**/*.cjs" codeFormat="commonjs"
-const { useIntlayer } = require("react-intlayer");
-
-const InsertionComponent = () => {
-  const { myInsertion } = useIntlayer("my_key");
-
-  return (
-    <div>
-      <p>
-        {
-          /* 输出: "Hello, my name is John and I am 30 years old!" */
-          myInsertion({ name: "John", age: "30" })
-        }
-      </p>
-      <p>
-        {
-          /* 你可以用不同的值重复使用相同的插入内容 */
-          myInsertion({ name: "Alice", age: "25" })
-        }
-      </p>
-    </div>
-  );
-};
-
-module.exports = InsertionComponent;
-```
-
 ## 附加资源
 
 有关配置和使用的更详细信息，请参阅以下资源：
 
-- [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)
+- [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)
   const { useIntlayer } = require("react-intlayer");
 
 const InsertionComponent = () => {
@@ -234,7 +186,7 @@ module.exports = InsertionComponent;
 
 有关配置和使用的更详细信息，请参阅以下资源：
 
-- [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)
+- [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)
 const { useIntlayer } = require("react-intlayer");
 
 const InsertionComponent = () => {
@@ -265,7 +217,7 @@ module.exports = InsertionComponent;
 
 有关配置和使用的更详细信息，请参考以下资源：
 
-- [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_cli.md)
+- [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)
 - [React Intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_create_react_app.md)
 - [Next Intlayer 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_15.md)
 

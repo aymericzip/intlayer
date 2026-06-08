@@ -1,17 +1,11 @@
 'use client';
 
+import { Button } from '@components/Button';
+import { Container } from '@components/Container';
+import { DropDown, type PanelProps } from '@components/DropDown';
 import { MoveVertical } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import {
-  Button,
-  ButtonColor,
-  ButtonSize,
-  ButtonTextAlign,
-  ButtonVariant,
-} from '../../Button';
-import { Container } from '../../Container';
-import { DropDown, type PanelProps } from '../../DropDown';
 import { useVersionSwitcher } from './VersionSwitcherContext';
 
 export type VersionSwitcherProps = {
@@ -54,7 +48,7 @@ export const VersionSwitcher: FC<VersionSwitcherProps> = ({ panelProps }) => {
             className="max-h-[80vh] min-w-28"
             separator="y"
             role="listbox"
-            transparency="sm"
+            transparency="xs"
             border
             roundedSize="2xl"
             borderColor="text"
@@ -67,11 +61,11 @@ export const VersionSwitcher: FC<VersionSwitcherProps> = ({ panelProps }) => {
                     onClick={() => setSelectedVersion(version)}
                     label={`${switchTo} v${version}`}
                     isActive={selectedVersion === version}
-                    variant={ButtonVariant.HOVERABLE}
-                    color={ButtonColor.TEXT}
+                    variant="hoverable"
+                    color="text"
                     isFullWidth
-                    textAlign={ButtonTextAlign.LEFT}
-                    size={ButtonSize.SM}
+                    textAlign="left"
+                    size="sm"
                   >
                     <div className="flex flex-1 flex-row items-center justify-between gap-3 px-2 py-1 text-neutral text-sm">
                       {version}

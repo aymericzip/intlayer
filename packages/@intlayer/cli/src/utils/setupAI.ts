@@ -1,6 +1,7 @@
 import type { AIConfig, AIOptions } from '@intlayer/ai';
-import { ANSIColors, colorize, getAppLogger } from '@intlayer/config';
-import type { IntlayerConfig } from '@intlayer/types';
+import * as ANSIColors from '@intlayer/config/colors';
+import { colorize, getAppLogger, type logger } from '@intlayer/config/logger';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { checkAIAccess } from './checkAccess';
 
 export type AIClient = typeof import('@intlayer/ai');
@@ -15,6 +16,17 @@ type SetupAIResult = {
 // Disable warnings from the AI SDK
 globalThis.AI_SDK_LOG_WARNINGS = false;
 
+const logAIConfig = (aiOptions: AIOptions, appLogger: typeof logger) => {
+  appLogger([
+    colorize('Provider:', ANSIColors.GREY_DARK),
+    colorize(aiOptions?.provider ?? '(default)', ANSIColors.BLUE),
+    colorize('- Model:', ANSIColors.GREY_DARK),
+    colorize(aiOptions?.model ?? '(default)', ANSIColors.BLUE),
+    colorize('- API Key:', ANSIColors.GREY_DARK),
+    colorize(aiOptions?.apiKey ? '✓' : '(not set)', ANSIColors.BLUE),
+  ]);
+};
+
 /**
  * Checks if the @intlayer/ai package is available and configured when an API key is provided.
  * If API key is present but package is missing, logs a warning.
@@ -26,25 +38,20 @@ export const setupAI = async (
 ): Promise<SetupAIResult | undefined> => {
   const appLogger = getAppLogger(configuration);
 
-  const hasAIAccess = await checkAIAccess(configuration, aiOptions);
+  const isLocalAI =
+    aiOptions?.apiKey ||
+    aiOptions?.provider === 'ollama' ||
+    configuration.ai?.apiKey ||
+    configuration.ai?.provider === 'ollama';
 
-  if (aiOptions?.apiKey) {
+  if (isLocalAI) {
+    // Try to import the AI package for local AI usage
+    let aiClient: AIClient | undefined;
+
     try {
-      // Dynamically import the AI package if an API key is provided
-      const aiClient = await import('@intlayer/ai');
-
-      const aiConfig = await aiClient.getAIConfig({
-        userOptions: aiOptions,
-        accessType: ['public'],
-      });
-
-      return {
-        aiClient,
-        aiConfig,
-        isCustomAI: true,
-        hasAIAccess,
-      };
+      aiClient = await import('@intlayer/ai');
     } catch {
+      // Package not installed - log warning and fall back to backend
       appLogger(
         [
           colorize('Using your API key, you can install the', ANSIColors.GREY),
@@ -58,8 +65,41 @@ export const setupAI = async (
           level: 'warn',
         }
       );
+
+      // Fall back to backend API check
+      const hasAIAccess = await checkAIAccess(configuration, aiOptions);
+      logAIConfig(aiOptions ?? {}, appLogger);
+      return {
+        isCustomAI: false,
+        hasAIAccess,
+      };
     }
+
+    // Package found - now configure it (errors here should propagate, not fall back)
+    appLogger([
+      colorize('@intlayer/ai', ANSIColors.GREY_LIGHT),
+      colorize('found - Run process locally', ANSIColors.GREY_DARK),
+    ]);
+
+    const aiConfig = await aiClient.getAIConfig({
+      userOptions: aiOptions,
+      projectOptions: configuration.ai as AIOptions,
+      accessType: ['public'],
+    });
+
+    logAIConfig(aiOptions ?? {}, appLogger);
+
+    return {
+      aiClient,
+      aiConfig,
+      isCustomAI: true,
+      hasAIAccess: true, // Local AI always has access
+    };
   }
+
+  // No local AI configured - use backend API
+  const hasAIAccess = await checkAIAccess(configuration, aiOptions);
+  logAIConfig(aiOptions ?? {}, appLogger);
 
   return {
     isCustomAI: false,

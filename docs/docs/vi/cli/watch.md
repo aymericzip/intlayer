@@ -17,8 +17,20 @@ slugs:
 
 # Theo dõi Từ điển
 
-```bash
+```bash packageManager="npm"
 npx intlayer watch
+```
+
+```bash packageManager="yarn"
+yarn intlayer watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer watch
+```
+
+```bash packageManager="bun"
+bun x intlayer watch
 ```
 
 Lệnh này sẽ theo dõi các thay đổi trong các tệp khai báo nội dung của bạn và xây dựng các từ điển trong thư mục `.intlayer`.

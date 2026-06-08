@@ -1,15 +1,40 @@
-import { getContext, setContext } from 'svelte';
+import { type ComponentType, getContext, setContext } from 'svelte';
+import type { HTMLComponents } from '../html/types';
+import { compileMarkdown, type ParsedMarkdown } from './compiler';
 
 export const MARKDOWN_CONTEXT_KEY = Symbol('INTLAYER_MARKDOWN_CONTEXT');
 
+export type MarkdownProviderOptions = {
+  forceBlock?: boolean;
+  forceInline?: boolean;
+  preserveFrontmatter?: boolean;
+  tagfilter?: boolean;
+};
+
+export type RenderMarkdownOptions = MarkdownProviderOptions & {
+  components?: HTMLComponents<'permissive', {}>;
+  wrapper?: string | ComponentType;
+};
+
 export interface MarkdownContext {
-  renderMarkdown: (markdown: string) => string;
+  components?: HTMLComponents<'permissive', {}>;
+  renderMarkdown: (
+    markdown: string | ParsedMarkdown,
+    options?: MarkdownProviderOptions,
+    components?: HTMLComponents<'permissive', {}>,
+    wrapper?: string | ComponentType
+  ) => string | Promise<string>;
 }
 
 export const getMarkdownContext = (): MarkdownContext => {
   return (
     getContext<MarkdownContext>(MARKDOWN_CONTEXT_KEY) || {
-      renderMarkdown: (md) => md,
+      renderMarkdown: (md, _options, components, wrapper) =>
+        compileMarkdown(md, {
+          components,
+          wrapper: wrapper as string,
+          forceWrapper: !!wrapper,
+        }),
     }
   );
 };

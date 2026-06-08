@@ -1,0 +1,202 @@
+---
+createdAt: 2025-12-30
+updatedAt: 2026-01-06
+title: Listar proyectos de Intlayer
+description: Aprende cómo listar todos los proyectos de Intlayer en un directorio o repositorio git.
+keywords:
+  - Lista
+  - Proyectos
+  - CLI
+  - Intlayer
+  - Git
+slugs:
+  - doc
+  - concept
+  - cli
+  - list-projects
+history:
+  - version: 7.5.12
+    date: 2026-01-06
+    changes: "Agregar opción de salida absoluta al comando list projects"
+---
+
+# Listar proyectos de Intlayer
+
+```bash packageManager="npm"
+npx intlayer projects list
+```
+
+```bash packageManager="yarn"
+yarn intlayer projects list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer projects list
+```
+
+```bash packageManager="bun"
+bun x intlayer projects list
+```
+
+Este comando busca y lista todos los proyectos de Intlayer encontrando directorios que contienen archivos de configuración de Intlayer. Es útil para descubrir todos los proyectos de Intlayer en un monorepo, workspace o repositorio git.
+
+## Alias:
+
+- `npx intlayer projects-list`
+- `npx intlayer pl`
+
+## Argumentos:
+
+- **`--base-dir [path]`**: Especifica el directorio base desde el cual buscar. Por defecto es el directorio de trabajo actual.
+
+  > Ejemplo: `npx intlayer projects list --base-dir /path/to/workspace`
+
+  > Ejemplo: `npx intlayer projects list --base-dir /path/to/workspace`
+
+- **`--git-root`**: Buscar desde el directorio raíz de git en lugar del directorio base. Esto es útil para encontrar todos los proyectos de Intlayer en un monorepo o repositorio git.
+
+  > Ejemplo: `npx intlayer projects list --git-root`
+
+- **`--json`**: Muestra los resultados como JSON en lugar de texto formateado. Útil para scripting y acceso programático.
+
+  > Ejemplo: `npx intlayer projects list --json`
+
+- **`--absolute`**: Muestra los resultados como rutas absolutas en lugar de rutas relativas.
+
+  > Ejemplo: `npx intlayer projects list --absolute`
+
+## Cómo funciona:
+
+El comando busca archivos de configuración de Intlayer en el directorio especificado (o en la raíz del git si se usa `--git-root`). Busca los siguientes patrones de archivos de configuración:
+
+- `intlayer.config.ts`
+- `intlayer.config.js`
+- `intlayer.config.json`
+- `intlayer.config.cjs`
+- `intlayer.config.mjs`
+- `.intlayerrc`
+
+Cada directorio que contenga uno de estos archivos se considera un proyecto de Intlayer y se listará en la salida.
+
+## Ejemplos:
+
+### Listar proyectos en el directorio actual:
+
+```bash packageManager="npm"
+npx intlayer projects list
+```
+
+```bash packageManager="yarn"
+yarn intlayer projects list
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer projects list
+```
+
+```bash packageManager="bun"
+bun x intlayer projects list
+```
+
+### Listar proyectos en un directorio específico:
+
+```bash packageManager="npm"
+npx intlayer projects list --base-dir ./packages
+```
+
+```bash packageManager="yarn"
+yarn intlayer projects list --base-dir ./packages
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer projects list --base-dir ./packages
+```
+
+```bash packageManager="bun"
+bun x intlayer projects list --base-dir ./packages
+```
+
+### Listar todos los proyectos en el repositorio git:
+
+```bash packageManager="npm"
+npx intlayer projects list --git-root
+```
+
+```bash packageManager="yarn"
+yarn intlayer projects list --git-root
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer projects list --git-root
+```
+
+```bash packageManager="bun"
+bun x intlayer projects list --git-root
+```
+
+### Usar el alias corto:
+
+```bash packageManager="npm"
+npx intlayer pl --git-root
+```
+
+```bash packageManager="yarn"
+yarn intlayer pl --git-root
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer pl --git-root
+```
+
+```bash packageManager="bun"
+bun x intlayer pl --git-root
+```
+
+### Salida como JSON:
+
+```bash packageManager="npm"
+npx intlayer projects list --json
+```
+
+```bash packageManager="yarn"
+yarn intlayer projects list --json
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer projects list --json
+```
+
+```bash packageManager="bun"
+bun x intlayer projects list --json
+```
+
+## Ejemplo de salida:
+
+### Salida formateada:
+
+```bash
+$ npx intlayer projects list --git-root
+
+Found 3 Intlayer project(s):
+
+  - /Users/user/workspace/packages/app
+  - /Users/user/workspace/packages/admin
+  - /Users/user/workspace/packages/shared
+```
+
+### Salida JSON:
+
+```bash
+$ npx intlayer projects list --json
+
+["/Users/user/workspace/packages/app","/Users/user/workspace/packages/admin","/Users/user/workspace/packages/shared"]
+```
+
+## Casos de uso:
+
+- **Gestión de monorepos**: Descubrir todos los proyectos Intlayer en una estructura monorepo
+- **Descubrimiento de proyectos**: Encontrar todos los proyectos habilitados con Intlayer en un workspace
+- **CI/CD**: Verificar proyectos Intlayer en flujos de trabajo automatizados
+- **Documentación**: Generar documentación que liste todos los proyectos que usan Intlayer
+
+La salida proporciona rutas absolutas a cada directorio de proyecto, lo que facilita la navegación hacia ellos o la automatización de operaciones sobre múltiples proyectos Intlayer.

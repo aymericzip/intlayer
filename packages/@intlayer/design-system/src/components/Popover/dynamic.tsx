@@ -1,14 +1,12 @@
 'use client';
 
 import type { FC } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import {
   type DetailProps,
   type PopoverProps,
   PopoverStatic,
   type PopoverType,
-  PopoverXAlign,
-  PopoverYAlign,
   Detail as StaticDetail,
 } from './static';
 
@@ -42,8 +40,8 @@ const PopoverComponent: FC<PopoverProps> = (props) => {
  * @returns Positioned popover content with animations and accessibility
  */
 const Detail: FC<DetailProps> = ({
-  xAlign = PopoverXAlign.START,
-  yAlign = PopoverYAlign.BELOW,
+  xAlign = 'start',
+  yAlign = 'below',
   ...props
 }) => {
   const popoverRef = useRef<HTMLDivElement>(null);
@@ -51,7 +49,7 @@ const Detail: FC<DetailProps> = ({
   const [computedYAlign, setComputedYAlign] = useState(yAlign);
   const [maxWidth, setMaxWidth] = useState<number | undefined>(undefined);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const adjustPosition = () => {
       if (!popoverRef.current) return;
 
@@ -99,18 +97,15 @@ const Detail: FC<DetailProps> = ({
         const spaceBelow = viewportHeight - triggerRect.bottom - gap;
         const spaceAbove = triggerRect.top - gap;
 
-        if (yAlign === PopoverYAlign.BELOW && spaceBelow < popoverRect.height) {
+        if (yAlign === 'below' && spaceBelow < popoverRect.height) {
           // Not enough space below, try above
           if (spaceAbove >= popoverRect.height) {
-            newYAlign = PopoverYAlign.ABOVE;
+            newYAlign = 'above';
           }
-        } else if (
-          yAlign === PopoverYAlign.ABOVE &&
-          spaceAbove < popoverRect.height
-        ) {
+        } else if (yAlign === 'above' && spaceAbove < popoverRect.height) {
           // Not enough space above, try below
           if (spaceBelow >= popoverRect.height) {
-            newYAlign = PopoverYAlign.BELOW;
+            newYAlign = 'below';
           }
         }
 
@@ -119,18 +114,15 @@ const Detail: FC<DetailProps> = ({
         const spaceRight = viewportWidth - triggerRect.left - padding;
         const spaceLeft = triggerRect.right - padding;
 
-        if (xAlign === PopoverXAlign.START && spaceRight < popoverRect.width) {
+        if (xAlign === 'start' && spaceRight < popoverRect.width) {
           // Not enough space on the right, try left
           if (spaceLeft >= popoverRect.width) {
-            newXAlign = PopoverXAlign.END;
+            newXAlign = 'end';
           }
-        } else if (
-          xAlign === PopoverXAlign.END &&
-          spaceLeft < popoverRect.width
-        ) {
+        } else if (xAlign === 'end' && spaceLeft < popoverRect.width) {
           // Not enough space on the left, try right
           if (spaceRight >= popoverRect.width) {
-            newXAlign = PopoverXAlign.START;
+            newXAlign = 'start';
           }
         }
 

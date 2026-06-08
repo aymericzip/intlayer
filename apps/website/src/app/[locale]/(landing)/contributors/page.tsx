@@ -3,37 +3,16 @@ import {
   type Contributor,
   ContributorsList,
 } from '@components/Contributors/ContributorsList';
+import { OrganizationHeader } from '@structuredData/OrganizationHeader';
+import { WebsiteHeader } from '@structuredData/WebsiteHeader';
 import type { LocalesValues } from 'intlayer';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
 import type { FC, PropsWithChildren } from 'react';
+import { getContributors } from './contributors.api';
 import { generateMetadata } from './metadata';
 
 export { generateMetadata };
-
-export const getContributors = async () => {
-  let contributors: Contributor[] = [];
-  try {
-    const response = await fetch(
-      'https://api.github.com/repos/aymericzip/intlayer/contributors',
-      {
-        next: { revalidate: 86400 },
-      }
-    );
-
-    if (response.ok) {
-      const data = await response.json();
-      contributors = data.filter(
-        (contributor: Contributor) =>
-          contributor.type !== 'Bot' && !contributor.login.includes('[bot]')
-      );
-    }
-  } catch (error) {
-    console.error('Error fetching contributors:', error);
-  }
-
-  return contributors;
-};
 
 const ContributorsPageContent: FC<
   PropsWithChildren<{ locale: LocalesValues }>
@@ -66,6 +45,8 @@ const ContributorsPage: NextPageIntlayer = async ({ params }) => {
 
   return (
     <IntlayerServerProvider locale={locale}>
+      <WebsiteHeader key={locale} />
+      <OrganizationHeader />
       <ContributorsPageContent locale={locale}>
         <ContributorsList contributors={contributors} />
       </ContributorsPageContent>

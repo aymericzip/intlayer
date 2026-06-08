@@ -1,9 +1,11 @@
-import { runParallel, watch } from '@intlayer/chokidar';
+import { logConfigDetails } from '@intlayer/chokidar/cli';
+import { runParallel } from '@intlayer/chokidar/utils';
+import { watch } from '@intlayer/chokidar/watcher';
+import { getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
-  getAppLogger,
   getConfiguration,
-} from '@intlayer/config';
+} from '@intlayer/config/node';
 
 type WatchOptions = {
   skipPrepare?: boolean;
@@ -17,20 +19,55 @@ type WatchOptions = {
  */
 export const watchContentDeclaration = async (options?: WatchOptions) => {
   const config = getConfiguration(options?.configOptions);
+  logConfigDetails(options?.configOptions);
+
   const appLogger = getAppLogger(config);
 
+  // Store references to the child process
+  let parallelProcess: ReturnType<typeof runParallel> | undefined;
+
   if (options?.with) {
-    const parallelProcess = runParallel(options.with);
+    parallelProcess = runParallel(options.with);
     // Handle the promise to avoid unhandled rejection
     parallelProcess.result.catch(() => {
       // Parallel process failed or was terminated
+      process.exit(1);
     });
   }
 
-  appLogger('Watching Intlayer content declarations');
-
-  watch({
+  // Capture the watcher instance
+  const watcher = await watch({
     persistent: true,
     skipPrepare: options?.skipPrepare ?? false,
   });
+
+  // Define a Graceful Shutdown function
+  let isShuttingDown = false;
+  const handleShutdown = async () => {
+    // Prevent multiple calls
+    if (isShuttingDown) return;
+    isShuttingDown = true;
+
+    appLogger('Stopping Intlayer watcher...');
+
+    try {
+      // Kill the parallel process (e.g., Next.js) before closing the watcher
+      if (parallelProcess) {
+        parallelProcess.kill();
+      }
+
+      // Close all file watchers to stop "esbuild service not running" errors
+      await Promise.all(
+        watcher?.map((watcherEl) => watcherEl.unsubscribe()) ?? []
+      );
+    } catch (error) {
+      console.error('Error during shutdown:', error);
+    } finally {
+      process.exit(0);
+    }
+  };
+
+  // Attach Signal Listeners
+  process.on('SIGINT', handleShutdown);
+  process.on('SIGTERM', handleShutdown);
 };

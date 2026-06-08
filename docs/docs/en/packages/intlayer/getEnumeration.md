@@ -21,14 +21,16 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Init history
+    changes: "Init history"
 ---
 
 # Documentation: `getEnumeration` Function in `intlayer`
 
 ## Description
 
-The `getEnumeration` function retrieves content corresponding to a specific quantity based on predefined conditions in an enumeration object. The conditions are defined as keys, and their priority is determined by their order in the object.
+The `getEnumeration` function (also aliased as `enu`) retrieves content corresponding to a specific quantity based on predefined conditions in an enumeration object. The conditions are defined as keys, and their priority is determined by their order in the object.
+
+For more details on how to declare enumerations, see the [Enumeration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/enumeration.md).
 
 ## Parameters
 
@@ -50,7 +52,7 @@ The `getEnumeration` function retrieves content corresponding to a specific quan
 
 ### Basic Usage
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getEnumeration } from "intlayer";
 
 const content = getEnumeration(
@@ -66,68 +68,10 @@ const content = getEnumeration(
 console.log(content); // Output: "You have two"
 ```
 
-```javascript codeFormat="esm"
-import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<1": "You have less than one",
-    "2": "You have two",
-    ">=3": "You have three or more",
-  },
-  2
-);
-
-console.log(content); // Output: "You have two"
-```
-
-```javascript codeFormat="commonjs"
-const { getEnumeration } = require("intlayer");
-
-const content = getEnumeration(
-  {
-    "<1": "You have less than one",
-    "2": "You have two",
-    ">=3": "You have three or more",
-  },
-  2
-);
-
-console.log(content); // Output: "You have two"
-```
-
 ### Priority of Conditions
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<4": "You have less than four",
-    "2": "You have two",
-  },
-  2
-);
-
-console.log(content); // Output: "You have less than four"
-```
-
-```javascript codeFormat="esm"
-import { getEnumeration } from "intlayer";
-
-const content = getEnumeration(
-  {
-    "<4": "You have less than four",
-    "2": "You have two",
-  },
-  2
-);
-
-console.log(content); // Output: "You have less than four"
-```
-
-```javascript codeFormat="commonjs"
-const { getEnumeration } = require("intlayer");
 
 const content = getEnumeration(
   {

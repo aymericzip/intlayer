@@ -19,21 +19,21 @@ youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
   - version: 6.1.0
     date: 2025-09-23
-    changes: Menambahkan opsi with pada CLI
+    changes: "Menambahkan opsi with pada CLI"
   - version: 6.0.1
     date: 2025-09-22
-    changes: Mengubah perilaku editor ketika ekstensi file bukan `.json`
+    changes: "Mengubah perilaku editor ketika ekstensi file bukan `.json`"
   - version: 6.0.0
     date: 2025-09-21
-    changes: Menambahkan perintah reexported
+    changes: "Menambahkan perintah reexported"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Inisialisasi riwayat
+    changes: "Inisialisasi riwayat"
 ---
 
 # Dokumentasi Intlayer Visual Editor
 
-<iframe title="Editor Visual + CMS untuk Aplikasi Web Anda: Penjelasan Intlayer" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="Editor Visual + CMS untuk Aplikasi Web Anda: Penjelasan Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/UDDTnirwi_4?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 Intlayer Visual Editor adalah alat yang akan membungkus situs web Anda untuk berinteraksi dengan file deklarasi konten Anda menggunakan editor visual.
 
@@ -89,6 +89,10 @@ yarn add intlayer-editor --save-dev
 pnpm add intlayer-editor --save-dev
 ```
 
+```bash packageManager="bun"
+bun add intlayer-editor --dev
+```
+
 Dengan flag `--with`, Anda dapat memulai editor secara paralel dengan perintah lain:
 
 ```json5 fileName="package.json"
@@ -103,7 +107,7 @@ Dengan flag `--with`, Anda dapat memulai editor secara paralel dengan perintah l
 
 Dalam file konfigurasi Intlayer Anda, Anda dapat menyesuaikan pengaturan editor:
 
-```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import type { IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
@@ -138,77 +142,6 @@ const config: IntlayerConfig = {
 };
 
 export default config;
-```
-
-```javascript fileName="intlayer.config.mjs" codeFormat="esm"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... pengaturan konfigurasi lainnya
-  editor: {
-    /**
-     * Wajib
-     * URL dari aplikasi.
-     * Ini adalah URL yang ditargetkan oleh visual editor.
-     * Contoh: 'http://localhost:3000'
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * Opsional
-     * Default sebagai `true`. Jika `false`, editor tidak aktif dan tidak dapat diakses.
-     * Dapat digunakan untuk menonaktifkan editor pada lingkungan tertentu demi alasan keamanan, seperti produksi.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-    /**
-     * Opsional
-     * Default sebagai `8000`.
-     * Port yang digunakan oleh server visual editor.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * Opsional
-     * Default sebagai "http://localhost:8000"
-     * URL dari server editor yang dapat diakses dari aplikasi. Digunakan untuk membatasi asal yang dapat berinteraksi dengan aplikasi demi alasan keamanan. Jika diatur ke `'*'`, editor dapat diakses dari asal mana pun. Harus diatur jika port diubah, atau jika editor dihosting di domain yang berbeda.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-  },
-};
-
-export default config;
-```
-
-```javascript fileName="intlayer.config.cjs" codeFormat="commonjs"
-/** @type {import('intlayer').IntlayerConfig} */
-const config = {
-  // ... pengaturan konfigurasi lainnya
-  editor: {
-    /**
-     * Wajib
-     * URL dari aplikasi.
-     * Ini adalah URL yang ditargetkan oleh visual editor.
-     */
-    applicationURL: process.env.INTLAYER_APPLICATION_URL,
-    /**
-     * Opsional
-     * Default sebagai `8000`.
-     * Port dari server editor.
-     */
-    port: process.env.INTLAYER_PORT,
-    /**
-     * Opsional
-     * Default sebagai "http://localhost:8000"
-     * URL dari server editor.
-     */
-    editorURL: process.env.INTLAYER_EDITOR_URL,
-    /**
-     * Opsional
-     * Default sebagai `true`. Jika `false`, editor tidak aktif dan tidak dapat diakses.
-     * Dapat digunakan untuk menonaktifkan editor pada lingkungan tertentu demi alasan keamanan, seperti produksi.
-     */
-    enabled: process.env.INTLAYER_ENABLED,
-  },
-};
-
-module.exports = config;
 ```
 
 > Untuk melihat semua parameter yang tersedia, lihat [dokumentasi konfigurasi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md).

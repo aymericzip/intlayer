@@ -18,16 +18,16 @@ slugs:
 history:
   - version: 6.1.5
     date: 2025-09-30
-    changes: Ajout d’un gif de démonstration
+    changes: "Ajout d’un gif de démonstration"
   - version: 6.1.0
     date: 2025-09-24
-    changes: Ajout de la section de sélection de l’environnement
+    changes: "Ajout de la section de sélection de l’environnement"
   - version: 6.0.0
     date: 2025-09-22
-    changes: Onglet Intlayer / Commandes Remplir & Tester
+    changes: "Onglet Intlayer / Commandes Remplir & Tester"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historique initial
+    changes: "Historique initial"
 ---
 
 # Extension officielle VS Code
@@ -120,7 +120,7 @@ L'extension peut charger les variables d'environnement depuis votre espace de tr
 
 #### Sélection de l'environnement actif
 
-- **Palette de commandes** : ouvrez la palette et exécutez `Intlayer : Sélectionner l’environnement`, puis choisissez l’environnement (par exemple, `development`, `staging`, `production`). L’extension tentera de charger le premier fichier disponible dans la liste de priorité ci-dessus et affichera une notification comme « Environnement chargé depuis .env.<env>.local ».
+- **Palette de commandes** : ouvrez la palette et exécutez `Intlayer : Sélectionner l’environnement`, puis choisissez l’environnement (par exemple, `development`, `staging`, `production`). L’extension tentera de charger le premier fichier disponible dans la liste de priorité ci-dessus et affichera une notification comme « Environnement chargé depuis `.env.<env>.local` ».
 - **Paramètres** : allez dans `Paramètres → Extensions → Intlayer`, et configurez :
   - **Environnement** : le nom de l’environnement utilisé pour résoudre les fichiers `.env.<env>*`.
   - (Optionnel) **Fichier Env** : un chemin explicite vers un fichier `.env`. Lorsqu’il est fourni, il prend le pas sur la liste déduite.

@@ -1,15 +1,15 @@
 'use client';
 
-import { type ComponentProps, type ReactNode, useEffect, useRef } from 'react';
-import { useFormContext } from 'react-hook-form';
-import { useItemSelector } from '../../../hooks';
 import {
   InputIndicator,
   InputOTP,
   InputOTPGroup,
   InputOTPSeparator,
   InputOTPSlot,
-} from '../../Input/OTPInput';
+} from '@components/Input/OTPInput';
+import { useItemSelector } from '@hooks/useItemSelector';
+import { type ComponentProps, type ReactNode, useEffect, useRef } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { Form } from '../Form';
 import { useFormField } from '../FormField';
 import { FormItemLayout } from '../layout/FormItemLayout';
@@ -27,7 +27,7 @@ type OTPElementsProps = Omit<FormElementProps<typeof InputOTP>, 'Element'> &
   };
 
 const selector = (option: HTMLElement) =>
-  option?.getAttribute('aria-active') === 'true';
+  option?.getAttribute('aria-selected') === 'true';
 
 const OTPFieldContent = ({
   field,

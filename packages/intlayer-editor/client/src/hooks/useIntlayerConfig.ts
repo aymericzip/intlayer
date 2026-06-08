@@ -1,4 +1,4 @@
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { useEffect, useState } from 'react';
 
 export const useIntlayerConfig = () => {

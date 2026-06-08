@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: प्रारंभिक इतिहास
+    changes: "प्रारंभिक इतिहास"
 ---
 
 # दस्तावेज़ीकरण: `intlayer` में `getConfiguration` फ़ंक्शन
@@ -40,7 +40,6 @@ history:
 
 - **प्रकार**: `IntlayerConfig`
 - **विवरण**: एक ऑब्जेक्ट जो `intlayer` के लिए पूरी कॉन्फ़िगरेशन को समाहित करता है। कॉन्फ़िगरेशन में निम्नलिखित अनुभाग शामिल हैं:
-
   - `internationalization`: लोकल और सख्त मोड से संबंधित सेटिंग्स।
   - `middleware`: URL और कुकी प्रबंधन से संबंधित सेटिंग्स।
   - `content`: सामग्री फ़ाइलों, निर्देशिकाओं, और पैटर्न से संबंधित सेटिंग्स।
@@ -54,36 +53,8 @@ history:
 
 ### पूरी कॉन्फ़िगरेशन प्राप्त करना
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getConfiguration } from "intlayer";
-
-const config = getConfiguration();
-console.log(config);
-// आउटपुट:
-// {
-//   internationalization: { ... },
-//   middleware: { ... },
-//   content: { ... },
-//   editor: { ... }
-// }
-```
-
-```javascript codeFormat="esm"
-import { getConfiguration } from "intlayer";
-
-const config = getConfiguration();
-console.log(config);
-// आउटपुट:
-// {
-//   internationalization: { ... },
-//   middleware: { ... },
-//   content: { ... },
-//   editor: { ... }
-// }
-```
-
-```javascript codeFormat="commonjs"
-const { getConfiguration } = require("intlayer");
 
 const config = getConfiguration();
 console.log(config);
@@ -100,32 +71,8 @@ console.log(config);
 
 कॉन्फ़िगरेशन का `internationalization` सेक्शन लोकल से संबंधित सेटिंग्स प्रदान करता है जैसे कि `locales` (उपलब्ध देशिकाएँ) और `defaultLocale` (डिफ़ॉल्ट भाषा)।
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getConfiguration } from "intlayer";
-
-const { internationalization, middleware } = getConfiguration();
-const { locales: availableLocales, defaultLocale } = internationalization;
-const { cookieName } = middleware;
-
-console.log(availableLocales); // आउटपुट उदाहरण: ["en", "fr", "es"]
-console.log(defaultLocale); // आउटपुट उदाहरण: "en"
-console.log(cookieName); // आउटपुट: "INTLAYER_LOCALE"
-```
-
-```javascript codeFormat="esm"
-import { getConfiguration } from "intlayer";
-
-const { internationalization, middleware } = getConfiguration();
-const { locales: availableLocales, defaultLocale } = internationalization;
-const { cookieName } = middleware;
-
-console.log(availableLocales); // आउटपुट उदाहरण: ["en", "fr", "es"]
-console.log(defaultLocale); // आउटपुट उदाहरण: "en"
-console.log(cookieName); // आउटपुट: "INTLAYER_LOCALE"
-```
-
-```javascript codeFormat="commonjs"
-const { getConfiguration } = require("intlayer");
 
 const { internationalization, middleware } = getConfiguration();
 const { locales: availableLocales, defaultLocale } = internationalization;

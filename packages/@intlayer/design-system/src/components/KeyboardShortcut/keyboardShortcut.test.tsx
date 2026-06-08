@@ -1,13 +1,18 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import { describe, expect, test, vi } from 'vitest';
 import { KeyboardShortcut } from './KeyboardShortcut';
 
+// Mock useDevice hook
+vi.mock('@hooks/useDevice', () => ({
+  useDevice: () => ({ isMac: true }),
+}));
+
 describe('KeyboardShortcut', () => {
   test('renders keyboard shortcut', () => {
-    render(<KeyboardShortcut shortcut="⌘ + F" />);
+    const { container } = render(<KeyboardShortcut shortcut="⌘ + F" />);
 
-    const kbdElement = screen.getByRole('generic');
-    expect(kbdElement).toBeDefined();
+    const kbdElement = container.querySelector('kbd');
+    expect(kbdElement).not.toBeNull();
   });
 
   test('displays correct keys', () => {

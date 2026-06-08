@@ -16,7 +16,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historial inicial
+    changes: "Historial inicial"
 ---
 
 # Cómo funciona Intlayer
@@ -78,7 +78,7 @@ const MyComponent = () => {
 
 Este hook gestionará la detección del idioma por ti y devolverá el contenido para el idioma actual. Usando este hook, también podrás interpretar markdown, gestionar pluralización y más.
 
-> Para ver todas las características de Intlayer, puedes leer la [documentación de diccionarios](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/get_started.md).
+> Para ver todas las características de Intlayer, puedes leer la [documentación de diccionarios](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md).
 
 ## Contenido remoto
 
@@ -101,12 +101,12 @@ Intlayer también proporciona un editor visual para permitirte editar tu conteni
 
 ## Optimización de la construcción de la aplicación
 
-Para optimizar el tamaño del paquete de tu aplicación, Intlayer proporciona dos plugins para optimizar la construcción de tu aplicación: los plugins `@intlayer/babel` y `@intlayer/swc`.
-Los plugins de Babel y SWC funcionan analizando el Árbol de Sintaxis Abstracta (AST) de tu aplicación para reemplazar las llamadas a las funciones de Intlayer con código optimizado. Este proceso hace que tu paquete final sea más ligero en producción al asegurar que solo se importen los diccionarios que realmente se usan, optimizando la división en fragmentos y reduciendo el tamaño del paquete.
+Para optimizar el tamaño del bundle de tu aplicación, Intlayer proporciona dos plugins para optimizar la construcción de tu aplicación: los plugins `@intlayer/babel` y `@intlayer/swc`.
+Los plugins de Babel y SWC funcionan analizando el Árbol de Sintaxis Abstracta (AST) de tu aplicación para reemplazar las llamadas a las funciones de Intlayer con código optimizado. Este proceso hace que tu paquete final sea más ligero en producción al asegurar que solo se importen los diccionarios que realmente se usan, optimizando la división en fragmentos y reduciendo el tamaño del bundle.
 
 En modo de desarrollo, Intlayer utiliza una importación estática centralizada para los diccionarios para simplificar la experiencia de desarrollo.
 
-Al activar la opción `importMode = "dynamic"` en la [configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md), Intlayer usará la importación dinámica para cargar los diccionarios. Esta opción está desactivada por defecto para evitar el procesamiento asíncrono al renderizar la aplicación.
+Al activar la opción `importMode = "dynamic"` en la configuración `dictionary` de la [configuración](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md), Intlayer usará la importación dinámica para cargar los diccionarios. Esta opción está desactivada por defecto para evitar el procesamiento asíncrono al renderizar la aplicación.
 
 > `@intlayer/babel` está disponible por defecto en el paquete `vite-intlayer`,
 

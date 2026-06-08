@@ -1,9 +1,9 @@
-import { computed, inject } from '@angular/core';
+import { computed, inject, type Signal } from '@angular/core';
 import type {
   DictionaryKeys,
   DictionaryRegistryContent,
   LocalesValues,
-} from '@intlayer/types';
+} from '@intlayer/types/module_augmentation';
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';
 import { INTLAYER_TOKEN, type IntlayerProvider } from './installIntlayer';
@@ -16,10 +16,38 @@ export const isUpdatableNode = (
   typeof val === 'object' &&
   typeof (val as any).__update === 'function';
 
-export const useIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
+/**
+ * Angular hook that picks one dictionary by its key and returns its reactive content.
+ *
+ * It utilizes Angular signals to provide deep reactivity, ensuring your components
+ * update automatically when the locale changes.
+ *
+ * @param key - The unique key of the dictionary to retrieve.
+ * @param locale - Optional locale to override the current context locale.
+ * @returns The transformed dictionary content.
+ *
+ * @example
+ * ```ts
+ * import { Component } from '@angular/core';
+ * import { useIntlayer } from 'angular-intlayer';
+ *
+ * @Component({
+ *   standalone: true,
+ *   selector: 'app-my-component',
+ *   template: `<div>{{ content().myField.value }}</div>`,
+ * })
+ * export class MyComponent {
+ *   content = useIntlayer('my-dictionary-key');
+ * }
+ * ```
+ */
+export const useIntlayer = <
+  const T extends DictionaryKeys,
+  const L extends LocalesValues,
+>(
   key: T,
   locale?: LocalesValues
-): DeepTransformContent<DictionaryRegistryContent<T>> => {
+): Signal<DeepTransformContent<DictionaryRegistryContent<T>>> => {
   const intlayer = inject<IntlayerProvider>(INTLAYER_TOKEN)!;
 
   /** which locale should we use right now? */
@@ -27,7 +55,9 @@ export const useIntlayer = <T extends DictionaryKeys, L extends LocalesValues>(
 
   /** a *stable* reactive dictionary object */
   // @ts-ignore Type instantiation is excessively deep and possibly infinite
-  const content = computed(() => getIntlayer<T, L>(key, localeTarget() as L));
+  const content = computed(
+    () => getIntlayer<T, L>(key, localeTarget() as L) as any
+  );
 
-  return content() as DeepTransformContent<DictionaryRegistryContent<T>>; // all consumers keep full reactivity
+  return content; // all consumers keep full reactivity
 };

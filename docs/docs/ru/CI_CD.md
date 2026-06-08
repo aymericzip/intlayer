@@ -18,7 +18,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Инициализация истории
+    changes: "Инициализация истории"
 ---
 
 # Автоматическая генерация переводов в CI/CD конвейере
@@ -93,7 +93,7 @@ npx intlayer build                          # Чтобы словари были
 npx intlayer fill --unpushed --mode fill    # Заполняет только отсутствующий контент, не обновляет существующий
 ```
 
-> Для получения дополнительной информации о командах Intlayer CLI и их использовании обратитесь к [документации CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_cli.md).
+> Для получения дополнительной информации о командах Intlayer CLI и их использовании обратитесь к [документации CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md).
 
 > Если у вас несколько приложений в репозитории, использующих отдельные экземпляры intlayer, вы можете использовать аргумент `--base-dir` следующим образом:
 
@@ -193,4 +193,4 @@ jobs:
 
 > По умолчанию аргумент `--git-diff` фильтрует словари, которые содержат изменения от базы (по умолчанию `origin/main`) до текущей ветки (по умолчанию: `HEAD`).
 
-> Для получения дополнительной информации о командах Intlayer CLI и их использовании обратитесь к [документации CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_cli.md).
+> Для получения дополнительной информации о командах Intlayer CLI и их использовании обратитесь к [документации CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/index.md).

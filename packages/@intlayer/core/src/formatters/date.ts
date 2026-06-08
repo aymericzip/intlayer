@@ -1,10 +1,15 @@
-import configuration from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/types';
-import { Intl as CachedIntl } from '../utils/intl';
+import { internationalization } from '@intlayer/config/built';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import { getCachedIntl } from '../utils/intl';
 
-type DateTimePreset = 'short' | 'long' | 'dateOnly' | 'timeOnly' | 'full';
+export type DateTimePreset =
+  | 'short'
+  | 'long'
+  | 'dateOnly'
+  | 'timeOnly'
+  | 'full';
 
-const presets: Record<DateTimePreset, Intl.DateTimeFormatOptions> = {
+export const presets: Record<DateTimePreset, Intl.DateTimeFormatOptions> = {
   short: {
     year: '2-digit',
     month: '2-digit',
@@ -43,26 +48,29 @@ const presets: Record<DateTimePreset, Intl.DateTimeFormatOptions> = {
  * Formats a date/time value into a localized string using Intl.DateTimeFormat.
  *
  * @example
- * date({ date: new Date(), options: "short" });
+ * date(new Date('2025-08-02T14:30:00Z'), { year: '2-digit', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
  * // "08/02/25, 14:30"
  *
  * @example
- * date({ date: "2025-08-02T14:30:00Z", locale: Locales.FRENCH, options: { month: "long", day: "numeric" } });
+ * date("2025-08-02T14:30:00Z", { locale: Locales.FRENCH, month: "long", day: "numeric" });
  * // "2 août"
  */
 export const date = (
   date: Date | string | number,
-  options?: Intl.DateTimeFormatOptions & { locale?: LocalesValues }
+  options?:
+    | (Intl.DateTimeFormatOptions & { locale?: LocalesValues })
+    | DateTimePreset
 ): string => {
   const dateTime = new Date(date);
 
   const resolvedOptions =
     typeof options === 'string' ? (presets[options] ?? {}) : options;
 
-  const formatter = new CachedIntl.DateTimeFormat(
-    options?.locale ?? configuration?.internationalization?.defaultLocale,
-    resolvedOptions
-  );
+  const locale =
+    (typeof options === 'object' ? options?.locale : undefined) ??
+    internationalization?.defaultLocale;
+
+  const formatter = getCachedIntl(Intl.DateTimeFormat, locale, resolvedOptions);
 
   return formatter.format(dateTime);
 };

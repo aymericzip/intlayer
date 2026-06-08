@@ -2,7 +2,7 @@
 createdAt: 2024-08-11
 updatedAt: 2025-11-22
 title: Comandos de Live Sync
-description: Aprende a usar Live Sync para reflejar cambios en el contenido del CMS en tiempo de ejecución.
+description: Aprende a usar Live Sync para reflejar cambios en el contenido del CMS en runtime.
 keywords:
   - Live Sync
   - CMS
@@ -18,7 +18,7 @@ slugs:
 
 # Comandos de Live Sync
 
-Live Sync permite que tu aplicación refleje los cambios en el contenido del CMS en tiempo de ejecución. No se requiere reconstrucción ni redeploy. Cuando está habilitado, las actualizaciones se transmiten a un servidor de Live Sync que actualiza los diccionarios que tu aplicación lee. Consulta [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md) para más detalles.
+Live Sync permite que tu aplicación refleje los cambios en el contenido del CMS en runtime. No se requiere reconstrucción ni redeploy. Cuando está habilitado, las actualizaciones se transmiten a un servidor de Live Sync que actualiza los diccionarios que tu aplicación lee. Consulta [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md) para más detalles.
 
 ```json fileName="package.json"
 "scripts": {

@@ -1,4 +1,7 @@
-import { getBlog, getBlogMetadataBySlug } from '@intlayer/docs';
+import {
+  getFrequentQuestion,
+  getFrequentQuestionMetadataBySlug,
+} from '@intlayer/docs';
 
 type RouteContext = {
   params: {
@@ -7,29 +10,35 @@ type RouteContext = {
   };
 };
 
-export const dynamic = 'force-dynamic';
+async function findFrequentQuestionMetadata(
+  slugs: string | string[],
+  locale: string
+) {
+  const normalizedSlugs = [
+    'frequent-questions',
+    ...(Array.isArray(slugs) ? slugs : [slugs]),
+  ];
+  return await getFrequentQuestionMetadataBySlug(normalizedSlugs, locale, true);
+}
+
+async function getCachedFrequentQuestion(docKey: string, locale: string) {
+  return await getFrequentQuestion(docKey as any, locale);
+}
 
 export async function GET(request: Request, context: RouteContext) {
   try {
     const { locale, slugs } = context.params;
 
-    // Blog metadata slugs start with 'blog', while the route omits it.
-    const normalizedSlugs = [
-      'blog',
-      ...(Array.isArray(slugs) ? slugs : [slugs]),
-    ];
-
-    const matches = await getBlogMetadataBySlug(
-      normalizedSlugs,
-      locale as any,
-      true
-    );
+    const matches = await findFrequentQuestionMetadata(slugs, locale);
 
     if (!matches || matches.length === 0) {
       return new Response('Not found', { status: 404 });
     }
 
-    const file = await getBlog(matches[0].docKey as any, locale as any);
+    const file = await getCachedFrequentQuestion(
+      matches[0].docKey as string,
+      locale
+    );
 
     const url = new URL(request.url);
     const format = (url.searchParams.get('format') || '').toLowerCase();
@@ -98,16 +107,7 @@ export async function HEAD(request: Request, context: RouteContext) {
   try {
     const { locale, slugs } = context.params;
 
-    const normalizedSlugs = [
-      'blog',
-      ...(Array.isArray(slugs) ? slugs : [slugs]),
-    ];
-
-    const matches = await getBlogMetadataBySlug(
-      normalizedSlugs,
-      locale as any,
-      true
-    );
+    const matches = await findFrequentQuestionMetadata(slugs, locale);
 
     if (!matches || matches.length === 0) {
       return new Response(null, { status: 404 });

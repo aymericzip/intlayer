@@ -1,12 +1,12 @@
 import { mkdir } from 'node:fs/promises';
-import { relative, resolve } from 'node:path';
-import {
-  colorizePath,
-  getConfiguration,
-  normalizePath,
-} from '@intlayer/config';
-import { getPerLocaleDictionary } from '@intlayer/core';
-import type { Dictionary, Locale } from '@intlayer/types';
+import { resolve } from 'node:path';
+import { OUTPUT_FORMAT } from '@intlayer/config/defaultValues';
+import { colorizePath } from '@intlayer/config/logger';
+import { assertPathWithin } from '@intlayer/config/utils';
+import { getPerLocaleDictionary } from '@intlayer/core/plugins';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import { parallelize } from '../utils/parallelize';
 import { writeFileIfChanged } from '../writeFileIfChanged';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';
@@ -26,45 +26,35 @@ export type LocalizedDictionaryOutput = Record<
   LocalizedDictionaryResult
 >;
 
+const DICTIONARIES_SUBDIR = 'json'; // Necessary to add a static first dir for Turbopack
+
 /**
- * This function generates the content of the dictionary list file
+ * Generates the content of a dictionary entry point file.
  */
 export const generateDictionaryEntryPoint = (
-  localizedDictionariesPathsRecord: LocalizedDictionaryResult,
-  format: 'cjs' | 'esm' = 'esm',
-  configuration = getConfiguration()
+  key: string,
+  locales: string[],
+  format: 'cjs' | 'esm' = 'esm'
 ): string => {
-  const { dynamicDictionariesDir } = configuration.content;
+  const sortedLocales = [...locales].sort((a, b) =>
+    String(a).localeCompare(String(b))
+  );
 
-  let content = '';
-
-  // Format Dictionary Map - map locales to functions
-  const formattedDictionaryMap: string = Object.entries(
-    localizedDictionariesPathsRecord
-  )
-    // The following filter/sort preserve determinism of the generated map
-    // when files are built in parallel or across different Node versions.
-    .filter((entry): entry is [string, DictionaryResult] => Boolean(entry[1]))
-    .sort(([a], [b]) => String(a).localeCompare(String(b)))
-    .map(([locale, dictionary]) => {
-      const relativePath = normalizePath(
-        relative(dynamicDictionariesDir, dictionary.dictionaryPath)
-      );
-
-      if (format === 'esm') {
-        return `  '${locale}': () => import('./${relativePath}', { assert: { type: 'json' }}).then(mod => mod.default)`;
-      }
-
-      return `  '${locale}': () => Promise.resolve(require('./${relativePath}'))`;
-    })
+  const localeEntries = sortedLocales
+    .map((locale) =>
+      format === 'esm'
+        ? `  '${locale}': () => import('./${DICTIONARIES_SUBDIR}/${key}/${locale}.json').then(m => m.default)`
+        : `  '${locale}': () => Promise.resolve(require('./${DICTIONARIES_SUBDIR}/${key}/${locale}.json'))`
+    )
     .join(',\n');
 
-  content += `const content = {\n${formattedDictionaryMap}\n};\n`;
-
-  if (format === 'esm') content += `export default content;\n`;
-  if (format === 'cjs') content += `module.exports = content;\n`;
-
-  return content;
+  if (format === 'esm') {
+    return (
+      `const content = {\n${localeEntries}\n};\n\n` +
+      `export default content;\n`
+    );
+  }
+  return `module.exports = {\n${localeEntries}\n};\n`;
 };
 
 /**
@@ -79,20 +69,20 @@ export const generateDictionaryEntryPoint = (
  * const finalDictionaries = await writeFinalDictionaries(unmergedDictionaries);
  * console.log(finalDictionaries);
  *
- * // .intlayer/dynamic_dictionaries/home.json
- * // { key: 'home', content: { ... } },
+ * // .intlayer/dynamic_dictionary/dictionaries/en_home.json
+ * // .intlayer/dynamic_dictionary/dictionaries/fr_home.json
  * ```
  */
 export const writeDynamicDictionary = async (
   mergedDictionaries: MergedDictionaryOutput,
-  configuration = getConfiguration(),
-  formats: ('cjs' | 'esm')[] = ['cjs', 'esm']
+  configuration: IntlayerConfig,
+  formats: ('cjs' | 'esm')[] = OUTPUT_FORMAT
 ): Promise<LocalizedDictionaryOutput> => {
   const { locales, defaultLocale } = configuration.internationalization;
-  const { dynamicDictionariesDir } = configuration.content;
+  const { dynamicDictionariesDir } = configuration.system;
 
-  // Create the dictionaries folder if it doesn't exist
-  await mkdir(resolve(dynamicDictionariesDir), { recursive: true });
+  const dictDir = resolve(dynamicDictionariesDir, DICTIONARIES_SUBDIR);
+  await mkdir(dictDir, { recursive: true });
 
   const resultDictionariesPaths: LocalizedDictionaryOutput = {};
 
@@ -106,6 +96,10 @@ export const writeDynamicDictionary = async (
 
       const localizedDictionariesPathsRecord: LocalizedDictionaryResult = {};
 
+      const keyDir = resolve(dictDir, key);
+      assertPathWithin(keyDir, dictDir);
+      await mkdir(keyDir, { recursive: true });
+
       await parallelize(locales, async (locale) => {
         const localizedDictionary = getPerLocaleDictionary(
           dictionaryEntry.dictionary,
@@ -113,13 +107,15 @@ export const writeDynamicDictionary = async (
           defaultLocale
         );
 
-        const outputFileName = `${key}.${locale}.json`;
-        const resultFilePath = resolve(dynamicDictionariesDir, outputFileName);
+        // Directory structure: json/key/locale.json
+        const resultFilePath = resolve(keyDir, `${locale}.json`);
 
-        // Write the localized dictionary
         await writeJsonIfChanged(resultFilePath, localizedDictionary).catch(
           (err) => {
-            console.error(`Error creating localized ${outputFileName}:`, err);
+            console.error(
+              `Error creating localized ${key}/${locale}.json:`,
+              err
+            );
           }
         );
 
@@ -133,18 +129,17 @@ export const writeDynamicDictionary = async (
 
       await parallelize(formats, async (format) => {
         const extension = format === 'cjs' ? 'cjs' : 'mjs';
-        const content = generateDictionaryEntryPoint(
-          localizedDictionariesPathsRecord,
-          format,
-          configuration
-        );
+        const content = generateDictionaryEntryPoint(key, locales, format);
 
-        await writeFileIfChanged(
-          resolve(dynamicDictionariesDir, `${key}.${extension}`),
-          content
-        ).catch((err) => {
+        const dynEntryPath = resolve(
+          dynamicDictionariesDir,
+          `${key}.${extension}`
+        );
+        assertPathWithin(dynEntryPath, dynamicDictionariesDir);
+
+        await writeFileIfChanged(dynEntryPath, content).catch((err) => {
           console.error(
-            `Error creating dynamic ${colorizePath(resolve(dynamicDictionariesDir, `${key}.${extension}`))}:`,
+            `Error creating dynamic ${colorizePath(dynEntryPath)}:`,
             err
           );
         });

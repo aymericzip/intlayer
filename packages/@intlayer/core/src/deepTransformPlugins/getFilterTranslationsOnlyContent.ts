@@ -1,10 +1,11 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
+import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
+import type { KeyPath } from '@intlayer/types/keyPath';
 import type {
   DeclaredLocales,
-  Dictionary,
   LocalesValues,
-} from '@intlayer/types';
-import { type ContentNode, type KeyPath, NodeType } from '@intlayer/types';
+} from '@intlayer/types/module_augmentation';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import {
   type DeepTransformContent,
   getTranslation,
@@ -22,7 +23,7 @@ const hasTranslationNodes = (node: any): boolean => {
     return false;
   }
 
-  if (node?.nodeType === NodeType.Translation) {
+  if (node?.nodeType === NodeTypes.TRANSLATION) {
     return true;
   }
 
@@ -44,9 +45,9 @@ export const filterTranslationsOnlyPlugin = (
     return typeof node === 'object' && node !== null;
   },
   transform: (node: ContentNode, props, deepTransformNode) => {
-    if (typeof node === 'object' && node?.nodeType === NodeType.Translation) {
+    if (typeof node === 'object' && node?.nodeType === NodeTypes.TRANSLATION) {
       const result = structuredClone(
-        (node as TranslationContent)[NodeType.Translation]
+        (node as TranslationContent)[NodeTypes.TRANSLATION]
       );
 
       for (const key in result) {
@@ -55,7 +56,7 @@ export const filterTranslationsOnlyPlugin = (
           children: result[key as unknown as keyof typeof result],
           keyPath: [
             ...props.keyPath,
-            { type: NodeType.Translation, key } as KeyPath,
+            { type: NodeTypes.TRANSLATION, key } as KeyPath,
           ],
         };
         result[key as unknown as keyof typeof result] = deepTransformNode(
@@ -86,7 +87,7 @@ export const filterTranslationsOnlyPlugin = (
             children: node[key as unknown as keyof typeof node],
             keyPath: [
               ...props.keyPath,
-              { type: NodeType.Object, key } as KeyPath,
+              { type: NodeTypes.OBJECT, key } as KeyPath,
             ],
           };
           result[key] = deepTransformNode(
@@ -104,7 +105,7 @@ export const filterTranslationsOnlyPlugin = (
           children: child,
           keyPath: [
             ...props.keyPath,
-            { type: NodeType.Array, key: index } as KeyPath,
+            { type: NodeTypes.ARRAY, key: index } as KeyPath,
           ],
         };
         return deepTransformNode(child, childProps);
@@ -126,7 +127,8 @@ export const getFilterTranslationsOnlyContent = <
   L extends LocalesValues = DeclaredLocales,
 >(
   node: T,
-  locale: L = configuration?.internationalization?.defaultLocale as L,
+  locale: L = internationalization?.defaultLocale as L,
+
   nodeProps: NodeProps,
   fallback?: LocalesValues
 ) => {
@@ -143,8 +145,8 @@ export const getFilterTranslationsOnlyContent = <
 
 export const getFilterTranslationsOnlyDictionary = (
   dictionary: Dictionary,
-  locale: LocalesValues = configuration?.internationalization
-    ?.defaultLocale as LocalesValues,
+  locale: LocalesValues = internationalization?.defaultLocale as LocalesValues,
+
   fallback?: LocalesValues
 ) => ({
   ...dictionary,

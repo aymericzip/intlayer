@@ -1,5 +1,11 @@
-import type { Locale } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
 import { logger } from '@logger';
+import {
+  convertReferral,
+  getAffiliateById,
+  markAffiliateActive,
+  payAffiliateCommission,
+} from '@services/affiliate.service';
 import * as emailService from '@services/email.service';
 import { getOrganizationById } from '@services/organization.service';
 import {
@@ -9,8 +15,8 @@ import {
 } from '@services/subscription.service';
 import { getUserById } from '@services/user.service';
 import { GenericError } from '@utils/errors';
-import type { Request, Response } from 'express';
-import { Stripe } from 'stripe';
+import type { FastifyReply, FastifyRequest } from 'fastify';
+import Stripe from 'stripe';
 import type { Plan } from '@/types/plan.types';
 
 type SubscriptionMetadata = {
@@ -21,31 +27,67 @@ type SubscriptionMetadata = {
 
 /**
  * Stripe webhook handler for processing subscription and invoice events.
- * @param req - Express request object.
- * @param res - Express response object.
+ * @param req - Fastify request object.
+ * @param reply - Fastify response object.
  */
-export const stripeWebhook = async (req: Request, res: Response) => {
+export const stripeWebhook = async (
+  req: FastifyRequest,
+  reply: FastifyReply
+) => {
   // Initialize the Stripe client with the secret key
+  if (!process.env.STRIPE_SECRET_KEY) {
+    logger.error('STRIPE_SECRET_KEY is missing');
+    reply.status(500).send('Configuration Error');
+    return;
+  }
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
-  const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!; // Webhook secret for verifying event signatures
-  const sig = req.headers['stripe-signature']!; // Retrieve the signature from the webhook request headers
+  const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET; // Webhook secret for verifying event signatures
+  const sig = req.headers['stripe-signature'] as string; // Retrieve the signature from the webhook request headers
+
+  if (!endpointSecret) {
+    logger.error('STRIPE_WEBHOOK_SECRET is missing');
+    reply.status(500).send('Configuration Error');
+    return;
+  }
+
+  if (!sig) {
+    logger.error('Stripe signature is missing');
+    reply.status(400).send('Webhook Error: Missing signature');
+    return;
+  }
 
   let event: Stripe.Event;
 
   // Verify the webhook signature to ensure the request is authentic
   try {
-    event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+    // Pass the raw buffer attached by the custom parser, not request.body
+    const rawBody = (req as any).rawBody;
+
+    if (!rawBody) {
+      throw new Error('Raw body is missing from request');
+    }
+
+    event = await stripe.webhooks.constructEventAsync(
+      rawBody as string | Buffer,
+      sig,
+      endpointSecret
+    );
   } catch (err) {
+    logger.error(
+      `Webhook signature verification failed: ${(err as Error).message}`
+    );
     // Respond with a 400 status code if the signature verification fails
-    res.status(400).send(`Webhook Error: ${(err as Error).message}`);
+    reply.status(400).send(`Webhook Error: ${(err as Error).message}`);
     return;
   }
 
   // Utility function to extract metadata from a Stripe customer
   const extractMetadata = async (customerId: string) => {
     const customer = await stripe.customers.retrieve(customerId); // Retrieve customer details from Stripe
-    return (customer as Stripe.Customer).metadata as SubscriptionMetadata; // Return the metadata object
+    const metadata = (customer as Stripe.Customer)
+      .metadata as SubscriptionMetadata; // Return the metadata object
+    return metadata;
   };
 
   // Handles subscription-related events (creation, update, deletion)
@@ -64,9 +106,9 @@ export const stripeWebhook = async (req: Request, res: Response) => {
     const { locale, userId, organizationId } =
       await extractMetadata(customerId); // Extract metadata from the customer
 
-    // Set localization in response locals if available
-    if (locale) {
-      res.locals.locales = locale;
+    // Set localization in request locals if available
+    if (locale && req.intlayer) {
+      req.intlayer.locale = locale;
     }
 
     const organization = await getOrganizationById(organizationId); // Fetch organization details by ID
@@ -84,7 +126,7 @@ export const stripeWebhook = async (req: Request, res: Response) => {
     const status = statusOverride ?? subscription.status; // Use the provided status override or the subscription's status
 
     // Update or create a subscription record in the database
-    await addOrUpdateSubscription(
+    const updatedPlan = await addOrUpdateSubscription(
       subscriptionId,
       priceId!,
       customerId,
@@ -99,10 +141,22 @@ export const stripeWebhook = async (req: Request, res: Response) => {
         to: user.email,
         email: user.email,
         subscriptionStartDate: new Date().toLocaleDateString(),
-        manageSubscriptionLink: `${process.env.CLIENT_URL}/dashboard/organization`,
+        manageSubscriptionLink: `${process.env.APP_URL}/organization`,
         username: user.name,
         organizationName: organization.name,
-        planName: organization.plan?.type ?? 'Unknown',
+        planName: updatedPlan?.type ?? 'Unknown',
+        billingLink: `${process.env.APP_URL}/organization`,
+      });
+      await emailService.sendEmail({
+        type: 'subscriptionPaymentSuccess',
+        to: 'contact@intlayer.org',
+        email: user.email,
+        subscriptionStartDate: new Date().toLocaleDateString(),
+        manageSubscriptionLink: `${process.env.APP_URL}/organization`,
+        username: user.name,
+        organizationName: organization.name,
+        planName: updatedPlan?.type ?? 'Unknown',
+        billingLink: `${process.env.APP_URL}/organization`,
       });
     }
     if (status === 'canceled') {
@@ -113,10 +167,11 @@ export const stripeWebhook = async (req: Request, res: Response) => {
         cancellationDate: new Date(
           (subscription as any).current_period_end * 1000
         ).toLocaleDateString(),
-        reactivateLink: `${process.env.CLIENT_URL}/pricing`,
+        reactivateLink: `${process.env.APP_URL}/pricing`,
         username: user.name,
         organizationName: organization.name,
-        planName: organization.plan?.type ?? 'Unknown',
+        planName: updatedPlan?.type ?? 'Unknown',
+        billingLink: `${process.env.APP_URL}/organization`,
       });
     }
   };
@@ -129,42 +184,184 @@ export const stripeWebhook = async (req: Request, res: Response) => {
     const subscriptionId =
       typeof (invoice as any).subscription === 'string'
         ? (invoice as any).subscription
-        : (invoice as any).subscription?.id; // Extract the subscription ID from the invoice
+        : (invoice as any).subscription?.id;
+
     if (!subscriptionId) {
       logger.warn('Subscription ID is undefined in invoice.');
       return;
     }
 
-    // Retrieve the subscription details from Stripe
-    const subscription = await stripe.subscriptions.retrieve(subscriptionId);
-    const organization = await getOrganizationById(
-      subscription.metadata.organizationId
-    );
+    const customerId = invoice.customer as string;
 
-    // Prevent duplicate subscriptions by canceling conflicting subscriptions
+    // 1. Extract metadata first to guarantee we have the correct organizationId
+    const { locale, userId, organizationId } =
+      await extractMetadata(customerId);
+
+    if (locale && req.intlayer) {
+      req.intlayer.locale = locale;
+    }
+
+    const organization = await getOrganizationById(organizationId);
+
+    if (!organization) {
+      throw new GenericError('ORGANIZATION_NOT_FOUND');
+    }
+
+    // 2. Prevent duplicate subscriptions by canceling the OLD subscription, not the new one
     if (
       organization.plan?.subscriptionId &&
       organization.plan.subscriptionId !== subscriptionId
     ) {
-      await stripe.subscriptions.cancel(subscriptionId);
+      try {
+        await stripe.subscriptions.cancel(organization.plan.subscriptionId);
+      } catch (err) {
+        // Suppress errors if the old subscription is already canceled
+        logger.info(
+          `Old subscription ${organization.plan.subscriptionId} could not be canceled or is already canceled. ${err}`
+        );
+      }
     }
 
-    const customerId = invoice.customer as string;
-    const { locale, userId, organizationId } =
-      await extractMetadata(customerId);
-
-    // Set localization in response locals if available
-    if (locale) {
-      res.locals.locales = locale;
-    }
-
-    // Update the subscription status in the database
+    // 3. Update the database to reflect the new subscription status
     await changeSubscriptionStatus(
       subscriptionId,
       status,
       userId,
       organizationId
     );
+
+    // 4. Convert affiliate referral and notify affiliate
+    if (status === 'active') {
+      const amountPaid =
+        typeof (invoice as any).amount_paid === 'number'
+          ? (invoice as any).amount_paid
+          : undefined;
+      const currency = invoice.currency ?? 'usd';
+
+      const referral = await convertReferral(
+        subscriptionId,
+        amountPaid,
+        currency,
+        organizationId
+      );
+
+      if (referral) {
+        const affiliate = await getAffiliateById(String(referral.affiliateId));
+        if (affiliate) {
+          const affiliateUser = await getUserById(String(affiliate.userId));
+          if (affiliateUser) {
+            const appUrl = process.env.APP_URL;
+            await emailService.sendEmail({
+              type: 'affiliateConversion',
+              to: affiliateUser.email,
+              commissionRate: affiliate.commissionRate,
+              commissionAmount: referral.commissionAmount ?? 0,
+              commissionCurrency: referral.commissionCurrency ?? currency,
+              organizationName: organization.name,
+              dashboardLink: `${appUrl}/affiliation`,
+            });
+          }
+        }
+        await payAffiliateCommission(referral);
+      }
+    }
+  };
+
+  // Handles charge-related events (one-time payments)
+  const handleChargeEvent = async (charge: Stripe.Charge) => {
+    const { customer, metadata, status, paid } = charge;
+
+    if (!paid || status !== 'succeeded') {
+      return;
+    }
+
+    const { organizationId, userId, priceId, purchaseType } = metadata || {};
+
+    if (purchaseType === 'lifetime' && organizationId && userId && priceId) {
+      const customerId = customer as string;
+      const { locale } = await extractMetadata(customerId);
+
+      // Set localization in request locals if available
+      if (locale && req.intlayer) {
+        req.intlayer.locale = locale;
+      }
+
+      const organization = await getOrganizationById(organizationId);
+
+      if (!organization) {
+        throw new GenericError('ORGANIZATION_NOT_FOUND');
+      }
+
+      const user = await getUserById(userId);
+
+      if (!user) {
+        throw new GenericError('USER_NOT_FOUND');
+      }
+
+      const updatedPlan = await addOrUpdateSubscription(
+        charge.id,
+        priceId,
+        customerId,
+        userId,
+        organization,
+        'active'
+      );
+
+      // Convert any pending referral — use payment_intent ID (matches what was stored in trackReferral)
+      const referralKey = (charge.payment_intent as string) ?? charge.id;
+      const referral = await convertReferral(
+        referralKey,
+        charge.amount,
+        charge.currency
+      );
+
+      const appUrl = process.env.APP_URL;
+
+      await emailService.sendEmail({
+        type: 'subscriptionPaymentSuccess',
+        to: user.email,
+        email: user.email,
+        subscriptionStartDate: new Date().toLocaleDateString(),
+        manageSubscriptionLink: `${appUrl}/organization`,
+        username: user.name,
+        organizationName: organization.name,
+        planName: updatedPlan?.type ?? 'Unknown',
+        billingLink: `${appUrl}/organization`,
+        locale,
+      });
+      await emailService.sendEmail({
+        type: 'subscriptionPaymentSuccess',
+        to: 'contact@intlayer.org',
+        email: user.email,
+        subscriptionStartDate: new Date().toLocaleDateString(),
+        manageSubscriptionLink: `${appUrl}/organization`,
+        username: user.name,
+        organizationName: organization.name,
+        planName: updatedPlan?.type ?? 'Unknown',
+        billingLink: `${appUrl}/organization`,
+        locale,
+      });
+
+      if (referral) {
+        const affiliate = await getAffiliateById(String(referral.affiliateId));
+        if (affiliate) {
+          const affiliateUser = await getUserById(String(affiliate.userId));
+          if (affiliateUser) {
+            await emailService.sendEmail({
+              type: 'affiliateConversion',
+              to: affiliateUser.email,
+              commissionRate: affiliate.commissionRate,
+              commissionAmount: referral.commissionAmount ?? 0,
+              commissionCurrency:
+                referral.commissionCurrency ?? charge.currency,
+              organizationName: organization.name,
+              dashboardLink: `${appUrl}/affiliation`,
+            });
+          }
+        }
+        await payAffiliateCommission(referral);
+      }
+    }
   };
 
   try {
@@ -192,9 +389,9 @@ export const stripeWebhook = async (req: Request, res: Response) => {
         const customerId = subscription.customer as string;
         const { locale, organizationId } = await extractMetadata(customerId);
 
-        // Set localization in response locals if available
-        if (locale) {
-          res.locals.locales = locale;
+        // Set localization in request locals if available
+        if (locale && req.intlayer) {
+          req.intlayer.locale = locale;
         }
 
         // Handle subscription deletion by canceling it in the database
@@ -203,8 +400,22 @@ export const stripeWebhook = async (req: Request, res: Response) => {
       }
       case 'invoice.payment_succeeded': {
         logger.info(`Handled event type ${event.type}`);
-        // Handle successful invoice payment
         await handleInvoiceEvent(event.data.object as Stripe.Invoice, 'active');
+        break;
+      }
+      case 'invoice_payment.paid': {
+        logger.info(`Handled event type ${event.type}`);
+        // The invoice_payment.paid object is InvoicePayment, not Invoice.
+        // Fetch the full invoice to reuse the same handler.
+        const invoicePayment = event.data.object as any;
+        const invoiceId =
+          typeof invoicePayment.invoice === 'string'
+            ? invoicePayment.invoice
+            : invoicePayment.invoice?.id;
+        if (invoiceId) {
+          const fullInvoice = await stripe.invoices.retrieve(invoiceId);
+          await handleInvoiceEvent(fullInvoice as Stripe.Invoice, 'active');
+        }
         break;
       }
       case 'invoice.payment_failed': {
@@ -216,18 +427,56 @@ export const stripeWebhook = async (req: Request, res: Response) => {
         );
         break;
       }
+      case 'charge.succeeded':
+      case 'charge.updated': {
+        logger.info(`Handled event type ${event.type}`);
+        // Handle charge events (e.g. one-time payments)
+        await handleChargeEvent(event.data.object as Stripe.Charge);
+        break;
+      }
+      case 'account.updated': {
+        logger.info(`Handled event type ${event.type}`);
+        const account = event.data.object as Stripe.Account;
+        if (
+          account.charges_enabled &&
+          account.details_submitted &&
+          account.id
+        ) {
+          const affiliate = await markAffiliateActive(account.id, {
+            chargesEnabled: account.charges_enabled,
+            payoutsEnabled: account.payouts_enabled ?? false,
+          });
+
+          if (affiliate) {
+            const user = await getUserById(String(affiliate.userId));
+            if (user) {
+              process.env.APP_URL;
+              const appUrl = process.env.APP_URL ?? 'https://app.intlayer.org';
+              const referralLink = `${appUrl}/pricing?ref=${affiliate.referralCode}`;
+              await emailService.sendEmail({
+                type: 'affiliateActivated',
+                to: user.email,
+                dashboardLink: `${appUrl}/affiliation`,
+                commissionRate: affiliate.commissionRate,
+                referralLink,
+              });
+            }
+          }
+        }
+        break;
+      }
       default:
         // Log unhandled event types for visibility
         logger.info(`Unhandled event type ${event.type}`);
     }
 
     // Respond to Stripe to confirm the event was processed successfully
-    res.send();
+    reply.send();
   } catch (error) {
     // Log errors for debugging and respond with a 500 status code
     logger.error(
-      `Error handling event ${event.type}: ${(error as Error).message}`
+      `Error handling event ${event?.type ?? 'unknown'}: ${(error as Error).message}`
     );
-    res.status(500).send('Server Error');
+    reply.status(500).send('Server Error');
   }
 };

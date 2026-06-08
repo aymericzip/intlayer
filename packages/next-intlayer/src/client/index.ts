@@ -4,3 +4,4 @@ export {
 } from './IntlayerClientProvider';
 export { useLocale } from './useLocale';
 export { useLocalePageRouter } from './useLocalePageRouter';
+export { useRewriteURL } from './useRewriteURL';

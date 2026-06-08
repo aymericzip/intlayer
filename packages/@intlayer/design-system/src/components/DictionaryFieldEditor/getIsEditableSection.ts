@@ -1,5 +1,9 @@
-import { getNodeChildren, getNodeType } from '@intlayer/core';
-import { type ContentNode, NodeType, type TypedNode } from '@intlayer/types';
+import {
+  getNodeChildren,
+  getNodeType,
+} from '@intlayer/core/dictionaryManipulator';
+import type { ContentNode, TypedNode } from '@intlayer/types/dictionary';
+import * as NodeTypes from '@intlayer/types/nodeType';
 
 export const getIsEditableSection = (section: ContentNode): boolean => {
   const children = getNodeChildren(section);
@@ -7,7 +11,7 @@ export const getIsEditableSection = (section: ContentNode): boolean => {
 
   if (
     children &&
-    (nodeType === NodeType.ReactNode || nodeType === NodeType.File)
+    (nodeType === NodeTypes.REACT_NODE || nodeType === NodeTypes.FILE)
   ) {
     return true;
   }

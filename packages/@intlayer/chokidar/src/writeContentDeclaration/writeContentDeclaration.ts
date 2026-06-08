@@ -1,24 +1,29 @@
-import { mkdir, rm, writeFile } from 'node:fs/promises';
-import { dirname, extname, join, resolve } from 'node:path';
+import { execSync } from 'node:child_process';
+import { existsSync } from 'node:fs';
+import { mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises';
+import { basename, dirname, extname, join, resolve } from 'node:path';
 import { isDeepStrictEqual } from 'node:util';
+import { COMPILER_NO_METADATA } from '@intlayer/config/defaultValues';
 import {
   getFilteredLocalesDictionary,
   getPerLocaleDictionary,
-} from '@intlayer/core';
-import type {
-  Dictionary,
-  IntlayerConfig,
-  Locale,
-  LocalesValues,
-} from '@intlayer/types';
-import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
+} from '@intlayer/core/plugins';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import { detectFormatCommand } from '../detectFormatCommand';
 import {
   type Extension,
   getFormatFromExtension,
 } from '../utils/getFormatFromExtension';
+import { readDictionariesFromDisk } from '../utils/readDictionariesFromDisk';
 import type { DictionaryStatus } from './dictionaryStatus';
 import { processContentDeclarationContent } from './processContentDeclarationContent';
+import { transformJSONFile } from './transformJSONFile';
 import { writeJSFile } from './writeJSFile';
+import { writeMarkdownFile } from './writeMarkdownFile';
+import { writeYamlFile } from './writeYamlFile';
 
 const formatContentDeclaration = async (
   dictionary: Dictionary,
@@ -76,20 +81,27 @@ const formatContentDeclaration = async (
 
   if (!isDictionaryFormat) return pluginFormatResult;
 
+  // Build result from the original dictionary so that extra user-defined fields
+  // (e.g. custom frontmatter in markdown files) are preserved.
+  // Strip internal-only fields that must never appear in persisted output.
+  const INTERNAL_FIELDS = new Set([
+    '$schema',
+    'filePath',
+    'localId',
+    'localIds',
+    'projectIds',
+  ]);
+
+  const preservedFields = Object.fromEntries(
+    Object.entries(dictionary as Record<string, unknown>).filter(
+      ([k]) => !INTERNAL_FIELDS.has(k)
+    )
+  );
+
   let result: Dictionary = {
-    key: dictionary.key,
-    id: dictionary.id,
-    title: dictionary.title,
-    description: dictionary.description,
-    tags: dictionary.tags,
-    locale: dictionary.locale,
-    fill: dictionary.fill,
-    filled: dictionary.filled,
-    priority: dictionary.priority,
-    live: dictionary.live,
-    version: dictionary.version,
+    ...preservedFields,
     content,
-  };
+  } as Dictionary;
 
   /**
    * Add $schema to JSON dictionaries
@@ -128,8 +140,10 @@ export const writeContentDeclaration = async (
   configuration: IntlayerConfig,
   options?: WriteContentDeclarationOptions
 ): Promise<{ status: DictionaryStatus; path: string }> => {
-  const { content } = configuration;
-  const { baseDir } = content;
+  const { system, compiler } = configuration;
+  const { baseDir } = system;
+
+  const noMetadata = compiler?.noMetadata ?? COMPILER_NO_METADATA;
   const { newDictionariesPath, localeList } = {
     ...defaultOptions,
     ...options,
@@ -137,7 +151,9 @@ export const writeContentDeclaration = async (
 
   const newDictionaryLocationPath = join(baseDir, newDictionariesPath);
 
-  const unmergedDictionariesRecord = getUnmergedDictionaries(configuration);
+  const unmergedDictionariesRecord = readDictionariesFromDisk<
+    Record<string, Dictionary[]>
+  >(configuration.system.unmergedDictionariesDir);
   const unmergedDictionaries = unmergedDictionariesRecord[
     dictionary.key
   ] as Dictionary[];
@@ -157,7 +173,7 @@ export const writeContentDeclaration = async (
     const isSameContent = isDeepStrictEqual(existingDictionary, dictionary);
 
     const filePath = resolve(
-      configuration.content.baseDir,
+      configuration.system.baseDir,
       existingDictionary.filePath
     );
 
@@ -172,21 +188,21 @@ export const writeContentDeclaration = async (
     await writeFileWithDirectories(
       filePath,
       formattedContentDeclaration,
-      configuration
+      configuration,
+      noMetadata
     );
 
     return { status: 'updated', path: filePath };
   }
 
   if (dictionary.filePath) {
-    const filePath = resolve(
-      configuration.content.baseDir,
-      dictionary.filePath
-    );
+    const filePath = resolve(configuration.system.baseDir, dictionary.filePath);
+
     await writeFileWithDirectories(
       filePath,
       formattedContentDeclaration,
-      configuration
+      configuration,
+      noMetadata
     );
 
     return { status: 'created', path: filePath };
@@ -201,7 +217,8 @@ export const writeContentDeclaration = async (
   await writeFileWithDirectories(
     contentDeclarationPath,
     formattedContentDeclaration,
-    configuration
+    configuration,
+    noMetadata
   );
 
   return {
@@ -213,7 +230,8 @@ export const writeContentDeclaration = async (
 const writeFileWithDirectories = async (
   absoluteFilePath: string,
   dictionary: Dictionary,
-  configuration: IntlayerConfig
+  configuration: IntlayerConfig,
+  noMetadata?: boolean
 ): Promise<void> => {
   // Extract the directory from the file path
   const dir = dirname(absoluteFilePath);
@@ -222,32 +240,95 @@ const writeFileWithDirectories = async (
   await mkdir(dir, { recursive: true });
 
   const extension = extname(absoluteFilePath);
-  const acceptedExtensions = configuration.content.fileExtensions.map(
-    (extension) => extname(extension)
-  );
 
-  if (!acceptedExtensions.includes(extension)) {
-    throw new Error(
-      `Invalid file extension: ${extension}, file: ${absoluteFilePath}`
-    );
+  if (extension === '.md' || extension === '.mdx') {
+    await writeMarkdownFile(absoluteFilePath, dictionary, configuration);
+    return;
   }
 
-  if (extension === '.json') {
-    const jsonDictionary = JSON.stringify(dictionary, null, 2);
+  if (extension === '.yaml' || extension === '.yml') {
+    await writeYamlFile(absoluteFilePath, dictionary, configuration);
+    return;
+  }
 
-    // Write the file
-    await writeFile(absoluteFilePath, `${jsonDictionary}\n`); // Add a new line at the end of the file to avoid formatting issues with VSCode
+  // Handle JSON, JSONC, and JSON5 via the AST transformer
+  if (['.json', '.jsonc', '.json5'].includes(extension)) {
+    let fileContent = '{}';
+
+    if (existsSync(absoluteFilePath)) {
+      try {
+        fileContent = await readFile(absoluteFilePath, 'utf-8');
+      } catch {
+        // ignore read errors, start with empty object
+      }
+    }
+
+    const transformedContent = transformJSONFile(
+      fileContent,
+      dictionary,
+      noMetadata
+    );
+
+    // We use standard writeFile because transformedContent is already a string
+    const tempDir = configuration.system?.tempDir;
+    if (tempDir) {
+      await mkdir(tempDir, { recursive: true });
+    }
+
+    const tempFileName = `${basename(absoluteFilePath)}.${Date.now()}-${Math.random().toString(36).slice(2)}.tmp`;
+    const tempPath = tempDir
+      ? join(tempDir, tempFileName)
+      : `${absoluteFilePath}.${tempFileName}`;
+    try {
+      await writeFile(tempPath, transformedContent, 'utf-8');
+      await rename(tempPath, absoluteFilePath);
+    } catch (error) {
+      try {
+        await rm(tempPath, { force: true });
+      } catch {
+        // Ignore
+      }
+      throw error;
+    }
+
+    const formatCommand = detectFormatCommand(configuration);
+
+    if (formatCommand) {
+      try {
+        execSync(formatCommand.replace('{{file}}', absoluteFilePath), {
+          stdio: 'inherit',
+          cwd: configuration.system.baseDir,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    }
 
     return;
   }
 
-  await writeJSFile(absoluteFilePath, dictionary, configuration);
+  const knownJsExtensions = new Set([
+    '.ts',
+    '.tsx',
+    '.js',
+    '.jsx',
+    '.mjs',
+    '.cjs',
+  ]);
+
+  if (!knownJsExtensions.has(extension)) {
+    // Unknown extension (e.g. .po managed by a plugin) — skip; the plugin
+    // owns this file format and writeJSFile / prettier would corrupt it.
+    return;
+  }
+
+  await writeJSFile(absoluteFilePath, dictionary, configuration, noMetadata);
 
   // remove the cache as content has changed
   // Will force a new preparation of the intlayer on next build
   try {
     const sentinelPath = join(
-      configuration.content.cacheDir,
+      configuration.system.cacheDir,
       'intlayer-prepared.lock'
     );
     await rm(sentinelPath, { recursive: true });

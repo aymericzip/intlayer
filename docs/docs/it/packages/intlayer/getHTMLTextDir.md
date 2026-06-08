@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Storia iniziale
+    changes: "Storia iniziale"
 ---
 
 # Documentazione: Funzione `getHTMLTextDir` in `intlayer`
@@ -33,7 +33,6 @@ La funzione `getHTMLTextDir` determina la direzione del testo (`ltr`, `rtl` o `a
 ## Parametri
 
 - `locale?: Locales`
-
   - **Descrizione**: La stringa della locale (es. `Locales.ENGLISH`, `Locales.ARABIC`) utilizzata per determinare la direzione del testo.
   - **Tipo**: `Locales` (opzionale)
 
@@ -49,24 +48,8 @@ La funzione `getHTMLTextDir` determina la direzione del testo (`ltr`, `rtl` o `a
 
 ### Determinare la direzione del testo
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getHTMLTextDir } from "intlayer";
-
-getHTMLTextDir(Locales.ENGLISH); // Output: "ltr"
-getHTMLTextDir(Locales.FRENCH); // Output: "ltr"
-getHTMLTextDir(Locales.ARABIC); // Output: "rtl"
-```
-
-```javascript codeFormat="esm"
-import { getHTMLTextDir } from "intlayer";
-
-getHTMLTextDir(Locales.ENGLISH); // Output: "ltr"
-getHTMLTextDir(Locales.FRENCH); // Output: "ltr"
-getHTMLTextDir(Locales.ARABIC); // Output: "rtl"
-```
-
-```javascript codeFormat="commonjs"
-const { getHTMLTextDir } = require("intlayer");
 
 getHTMLTextDir(Locales.ENGLISH); // Output: "ltr"
 getHTMLTextDir(Locales.FRENCH); // Output: "ltr"
@@ -76,7 +59,6 @@ getHTMLTextDir(Locales.ARABIC); // Output: "rtl"
 ## Casi limite
 
 - **Nessuna locale fornita:**
-
   - La funzione restituisce `'auto'` quando `locale` è `undefined`.
 
 - **Locale non riconosciuta:**
@@ -86,7 +68,7 @@ getHTMLTextDir(Locales.ARABIC); // Output: "rtl"
 
 La funzione `getHTMLTextDir` può essere utilizzata per impostare dinamicamente l'attributo `dir` in un documento HTML per una corretta visualizzazione del testo in base alla località.
 
-```tsx codeFormat="typescript"
+```tsx codeFormat={["typescript", "esm", "commonjs"]}
 import type { FC } from "react";
 import { getHTMLTextDir, type Locales } from "intlayer";
 
@@ -94,26 +76,6 @@ export const HTMLLayout: FC<PropsWithChildren<{ locale: Locales }>> = ({
   children,
   locale,
 }) => (
-  <html dir={getHTMLTextDir(locale)} locale={locale}>
-    <body>{children}</body>
-  </html>
-);
-```
-
-```jsx codeFormat="esm"
-import { getHTMLTextDir } from "intlayer";
-
-const HTMLLayout = ({ children, locale }) => (
-  <html dir={getHTMLTextDir(locale)} locale={locale}>
-    <body>{children}</body>
-  </html>
-);
-```
-
-```jsx codeFormat="commonjs"
-const { getHTMLTextDir } = require("intlayer");
-
-const HTMLLayout = ({ children, locale }) => (
   <html dir={getHTMLTextDir(locale)} locale={locale}>
     <body>{children}</body>
   </html>

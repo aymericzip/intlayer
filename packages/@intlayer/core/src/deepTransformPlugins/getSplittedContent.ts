@@ -1,9 +1,6 @@
-import {
-  type ContentNode,
-  type DeclaredLocales,
-  type Dictionary,
-  NodeType,
-} from '@intlayer/types';
+import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
+import type { DeclaredLocales } from '@intlayer/types/module_augmentation';
+import * as NodeTypes from '@intlayer/types/nodeType';
 
 type SplittedContentOutput<T = ContentNode> = Record<DeclaredLocales, T> & {
   common: T;
@@ -74,8 +71,8 @@ const mergeSplitResults = (
 
 const splitNode = (node: ContentNode): SplitResult => {
   // Translation node: allocate entirely to per-locale buckets
-  if (isObject(node) && (node as any)?.nodeType === NodeType.Translation) {
-    const translations = (node as any)[NodeType.Translation] as Record<
+  if (isObject(node) && (node as any)?.nodeType === NodeTypes.TRANSLATION) {
+    const translations = (node as any)[NodeTypes.TRANSLATION] as Record<
       string,
       ContentNode
     >;

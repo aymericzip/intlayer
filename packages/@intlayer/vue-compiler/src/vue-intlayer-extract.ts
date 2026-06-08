@@ -1,140 +1,124 @@
-import { basename, dirname, extname } from 'node:path';
-import { parse, types as t, traverse } from '@babel/core';
+import { readFileSync, writeFileSync } from 'node:fs';
+import { parse as babelParse, types as t, traverse } from '@babel/core';
+import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
+import type { Locale } from '@intlayer/types/allLocales';
+import vueSfc from '@vue/compiler-sfc';
+import MagicString from 'magic-string';
 
-/* ────────────────────────────────────────── constants ───────────────────── */
+type ExistingCallInfo = {
+  isDestructured: boolean;
+  existingDestructuredKeys: string[];
+  /** The variable name used to store the call result (e.g. `t` in `const t = useIntlayer(...)`) */
+  variableName: string;
+  /** Absolute position of `}` in the full file — only valid when `isDestructured` */
+  closingBraceAbsolutePos: number;
+  /** Absolute position of end of last property — only valid when `isDestructured` */
+  lastPropAbsoluteEnd: number;
+} | null;
 
 /**
- * Attributes that should be extracted for localization
+ * Detects whether the script block already contains a `useIntlayer` /
+ * `getIntlayer` call and, if so, whether its result is destructured.
+ *
+ * @param scriptText    Raw text of the script block content.
+ * @param absoluteOffset Byte offset of `scriptText[0]` in the full SFC source.
  */
-export const ATTRIBUTES_TO_EXTRACT = [
-  'title',
-  'placeholder',
-  'alt',
-  'aria-label',
-  'label',
-];
+const detectExistingIntlayerCall = (
+  scriptText: string,
+  absoluteOffset: number
+): ExistingCallInfo => {
+  let info: ExistingCallInfo = null;
 
-/* ────────────────────────────────────────── types ───────────────────────── */
+  try {
+    const ast = babelParse(scriptText, {
+      parserOpts: { sourceType: 'module', plugins: ['typescript', 'jsx'] },
+    });
+
+    if (!ast) return null;
+
+    traverse(ast, {
+      CallExpression(path: any) {
+        const callee = path.node.callee;
+
+        if (
+          !t.isIdentifier(callee) ||
+          (callee.name !== 'useIntlayer' && callee.name !== 'getIntlayer')
+        )
+          return;
+
+        const parent = path.parent;
+
+        if (t.isVariableDeclarator(parent) && t.isObjectPattern(parent.id)) {
+          const properties = parent.id.properties;
+          const existingDestructuredKeys = properties
+            .filter(
+              (property: any): property is typeof t.objectProperty =>
+                t.isObjectProperty(property) && t.isIdentifier(property.key)
+            )
+            .map((property: any) => (property.key as any).name as string);
+          const lastProp = properties[properties.length - 1];
+
+          info = {
+            isDestructured: true,
+            variableName: 'content',
+            existingDestructuredKeys,
+            closingBraceAbsolutePos: absoluteOffset + (parent.id.end! - 1),
+            lastPropAbsoluteEnd: absoluteOffset + lastProp.end!,
+          };
+        } else {
+          const variableName =
+            t.isVariableDeclarator(parent) && t.isIdentifier(parent.id)
+              ? parent.id.name
+              : 'content';
+
+          info = {
+            isDestructured: false,
+            variableName,
+            existingDestructuredKeys: [],
+            closingBraceAbsolutePos: -1,
+            lastPropAbsoluteEnd: -1,
+          };
+        }
+
+        path.stop();
+      },
+    });
+  } catch {
+    // Silently ignore parse failures — fall back to no-info
+  }
+
+  return info;
+};
 
 export type ExtractedContent = Record<string, string>;
 
-/**
- * Extracted content result from a file transformation
- */
 export type ExtractResult = {
-  /** Dictionary key derived from the file path */
   dictionaryKey: string;
-  /** File path that was processed */
   filePath: string;
-  /** Extracted content key-value pairs */
   content: ExtractedContent;
-  /** Default locale used */
-  locale: string;
+  locale: Locale;
 };
 
-/**
- * Options for extraction plugins
- */
 export type ExtractPluginOptions = {
-  /**
-   * The default locale for the extracted content
-   * @default 'en'
-   */
-  defaultLocale?: string;
-  /**
-   * The package to import useIntlayer from
-   * @default 'vue-intlayer'
-   */
+  defaultLocale?: Locale;
   packageName?: string;
-  /**
-   * Files list to traverse. If provided, only files in this list will be processed.
-   */
   filesList?: string[];
-  /**
-   * Custom function to determine if a string should be extracted
-   */
   shouldExtract?: (text: string) => boolean;
-  /**
-   * Callback function called when content is extracted from a file.
-   * This allows the compiler to capture the extracted content and write it to files.
-   * The dictionary will be updated: new keys added, unused keys removed.
-   */
   onExtract?: (result: ExtractResult) => void;
+  dictionaryKey?: string;
+  attributesToExtract?: readonly string[];
+  extractDictionaryKeyFromPath?: (path: string) => string;
+  generateKey?: (text: string, existingKeys: Set<string>) => string;
 };
 
-/* ────────────────────────────────────────── helpers ─────────────────────── */
-
-/**
- * Default function to determine if a string should be extracted
- */
-export const defaultShouldExtract = (text: string): boolean => {
-  const trimmed = text.trim();
-  if (!trimmed) return false;
-  // Must contain at least one space (likely a sentence/phrase)
-  if (!trimmed.includes(' ')) return false;
-  // Must start with a capital letter
-  if (!/^[A-Z]/.test(trimmed)) return false;
-  // Filter out template logic identifiers
-  if (trimmed.startsWith('{') || trimmed.startsWith('v-')) return false;
-  return true;
+type Replacement = {
+  start: number;
+  end: number;
+  replacement: string;
+  key: string;
+  value: string;
 };
 
-/**
- * Generate a unique key from text
- */
-export const generateKey = (
-  text: string,
-  existingKeys: Set<string>
-): string => {
-  const maxWords = 5;
-  let key = text
-    .replace(/\s+/g, ' ')
-    .replace(/_+/g, ' ')
-    .replace(/-+/g, ' ')
-    .replace(/[^a-zA-Z0-9 ]/g, '')
-    .trim()
-    .split(' ')
-    .filter(Boolean)
-    .slice(0, maxWords)
-    .map((word, index) =>
-      index === 0
-        ? word.toLowerCase()
-        : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-    )
-    .join('');
-
-  if (!key) key = 'content';
-  if (existingKeys.has(key)) {
-    let i = 1;
-    while (existingKeys.has(`${key}${i}`)) i++;
-    key = `${key}${i}`;
-  }
-  return key;
-};
-
-/**
- * Extract dictionary key from file path
- */
-export const extractDictionaryKeyFromPath = (filePath: string): string => {
-  const ext = extname(filePath);
-  let baseName = basename(filePath, ext);
-
-  if (baseName === 'index') {
-    baseName = basename(dirname(filePath));
-  }
-
-  // Convert to kebab-case
-  const key = baseName
-    .replace(/([a-z])([A-Z])/g, '$1-$2')
-    .replace(/[\s_]+/g, '-')
-    .toLowerCase();
-
-  return `comp-${key}`;
-};
-
-/**
- * Check if a file should be processed based on filesList
- */
 export const shouldProcessFile = (
   filename: string | undefined,
   filesList?: string[]
@@ -142,15 +126,12 @@ export const shouldProcessFile = (
   if (!filename) return false;
   if (!filesList || filesList.length === 0) return true;
 
-  // Normalize paths for comparison (handle potential path separator issues)
   const normalizedFilename = filename.replace(/\\/g, '/');
   return filesList.some((f) => {
     const normalizedF = f.replace(/\\/g, '/');
     return normalizedF === normalizedFilename;
   });
 };
-
-/* ────────────────────────────────────────── Vue types ───────────────────── */
 
 type VueParseResult = {
   descriptor: {
@@ -184,101 +165,39 @@ type VueAstProp = {
   loc: { start: { offset: number }; end: { offset: number } };
 };
 
-// Vue AST NodeTypes
 const NODE_TYPES = {
   TEXT: 2,
   ELEMENT: 1,
   ATTRIBUTE: 6,
+  INTERPOLATION: 5,
 };
 
-// MagicString type for dynamic import
-type MagicStringType = {
-  overwrite: (start: number, end: number, content: string) => void;
-  appendLeft: (index: number, content: string) => void;
-  prepend: (content: string) => void;
-  toString: () => string;
-  generateMap: (options: {
-    source: string;
-    includeContent: boolean;
-  }) => unknown;
-};
-
-/* ────────────────────────────────────────── plugin ──────────────────────── */
-
-/**
- * Vue extraction plugin that extracts content and transforms Vue SFC to use useIntlayer.
- *
- * This plugin:
- * 1. Scans Vue SFC files for extractable text (template text, attributes)
- * 2. Auto-injects useIntlayer import and composable call
- * 3. Reports extracted content via onExtract callback (for the compiler to write dictionaries)
- * 4. Replaces extractable strings with content references
- *
- * ## Input
- * ```vue
- * <template>
- *   <div>Hello World</div>
- * </template>
- * ```
- *
- * ## Output
- * ```vue
- * <script setup>
- * import { useIntlayer } from 'vue-intlayer';
- * const content = useIntlayer('hello-world');
- * </script>
- * <template>
- *   <div>{{ content.helloWorld }}</div>
- * </template>
- * ```
- */
-export const intlayerVueExtract = async (
+export const intlayerVueExtract = (
   code: string,
   filename: string,
   options: ExtractPluginOptions = {}
-): Promise<{ code: string; map?: unknown; extracted: boolean } | null> => {
+): { code: string; map?: unknown; extracted: boolean } | null => {
   const {
-    defaultLocale = 'en',
+    defaultLocale = DEFAULT_LOCALE,
     packageName = 'vue-intlayer',
     filesList,
-    shouldExtract = defaultShouldExtract,
+    shouldExtract,
     onExtract,
+    dictionaryKey: dictionaryKeyOption,
+    attributesToExtract = [],
+    extractDictionaryKeyFromPath,
+    generateKey,
   } = options;
 
-  // Check if file should be processed
-  if (!shouldProcessFile(filename, filesList)) {
-    return null;
-  }
+  if (!shouldProcessFile(filename, filesList)) return null;
+  if (!filename.endsWith('.vue')) return null;
 
-  // Skip non-Vue files
-  if (!filename.endsWith('.vue')) {
-    return null;
-  }
-
-  // Dynamic imports for dependencies (peer dependencies)
   let parseVue: (code: string) => VueParseResult;
-  let MagicString: new (code: string) => MagicStringType;
 
   try {
-    const vueSfc = await import('@vue/compiler-sfc');
-    // Type assertion needed because Vue's SFCParseResult uses `null` for optional properties
-    // while our VueParseResult uses `undefined` (optional). This is safe since we check
-    // for truthy values before accessing template/script properties.
     parseVue = vueSfc.parse as unknown as (code: string) => VueParseResult;
   } catch {
-    console.warn(
-      'Vue extraction: @vue/compiler-sfc not found. Install it to enable Vue content extraction.'
-    );
-    return null;
-  }
-
-  try {
-    const magicStringModule = await import('magic-string');
-    MagicString = magicStringModule.default;
-  } catch {
-    console.warn(
-      'Vue extraction: magic-string not found. Install it to enable Vue content extraction.'
-    );
+    console.warn('Vue extraction: @vue/compiler-sfc not found.');
     return null;
   }
 
@@ -287,48 +206,178 @@ export const intlayerVueExtract = async (
 
   const extractedContent: ExtractedContent = {};
   const existingKeys = new Set<string>();
-  const dictionaryKey = extractDictionaryKeyFromPath(filename);
+  const dictionaryKey =
+    dictionaryKeyOption ?? extractDictionaryKeyFromPath?.(filename) ?? '';
+  const replacements: Replacement[] = [];
 
-  // Walk the template AST
+  // Detect existing useIntlayer / getIntlayer call in the script block BEFORE
+  // walking the template, so the correct access pattern can be chosen.
+  const scriptBlock = sfc.descriptor.scriptSetup ?? sfc.descriptor.script;
+  const existingCallInfo = scriptBlock
+    ? detectExistingIntlayerCall(
+        scriptBlock.content,
+        scriptBlock.loc.start.offset
+      )
+    : null;
+
+  const isDestructured = existingCallInfo?.isDestructured ?? false;
+  const varName = existingCallInfo?.variableName ?? 'content';
+
+  // Walk Vue Template AST
   if (sfc.descriptor.template) {
     const walkVueAst = (node: VueAstNode) => {
       if (node.type === NODE_TYPES.TEXT) {
-        // Text node
         const text = node.content ?? '';
-        if (shouldExtract(text)) {
+
+        if (shouldExtract?.(text) && generateKey) {
           const key = generateKey(text, existingKeys);
           existingKeys.add(key);
-          extractedContent[key] = text.replace(/\s+/g, ' ').trim();
-          magic.overwrite(
-            node.loc.start.offset,
-            node.loc.end.offset,
-            `{{ content.${key} }}`
-          );
+          // When the existing call is destructured, access the key directly;
+          // otherwise use the `content` variable.
+          const ref = isDestructured ? key : `${varName}.${key}`;
+          replacements.push({
+            start: node.loc.start.offset,
+            end: node.loc.end.offset,
+            replacement: `{{ ${ref} }}`,
+            key,
+            value: text.replace(/\s+/g, ' ').trim(),
+          });
         }
       } else if (node.type === NODE_TYPES.ELEMENT) {
-        // Element node - check attributes
+        const children = node.children ?? [];
+
+        // Try to handle as insertion (mixed TEXT + INTERPOLATION children)
+        if (
+          children.length > 0 &&
+          children.some((c) => c.type === NODE_TYPES.INTERPOLATION)
+        ) {
+          const parts: {
+            type: 'text' | 'var';
+            value: string;
+            originalExpr: string;
+          }[] = [];
+          let hasSignificantText = false;
+          let isValid = true;
+
+          for (const child of children) {
+            if (child.type === NODE_TYPES.TEXT) {
+              const text = child.content ?? '';
+              if (text.trim().length > 0) hasSignificantText = true;
+              parts.push({ type: 'text', value: text, originalExpr: '' });
+            } else if (child.type === NODE_TYPES.INTERPOLATION) {
+              // Extract the expression source between {{ and }}
+              const exprCode = code
+                .slice(child.loc.start.offset + 2, child.loc.end.offset - 2)
+                .trim();
+              const varName = exprCode.includes('.')
+                ? exprCode
+                    .split('.')
+                    .pop()!
+                    .replace(/[^\w$]/g, '')
+                : exprCode;
+              parts.push({
+                type: 'var',
+                value: varName,
+                originalExpr: exprCode,
+              });
+            } else {
+              isValid = false;
+              break;
+            }
+          }
+
+          if (
+            isValid &&
+            hasSignificantText &&
+            parts.some((p) => p.type === 'var')
+          ) {
+            let combined = '';
+            for (const p of parts) {
+              combined += p.type === 'var' ? `{{${p.value}}}` : p.value;
+            }
+            const cleanString = combined.replace(/\s+/g, ' ').trim();
+
+            if (shouldExtract?.(cleanString) && generateKey) {
+              const key = generateKey(cleanString, existingKeys);
+              existingKeys.add(key);
+              const ref = isDestructured ? key : `${varName}.${key}`;
+
+              const uniqueVarPairs = [
+                ...new Set(
+                  parts
+                    .filter((p) => p.type === 'var')
+                    .map((p) => `${p.value}: ${p.originalExpr}`)
+                ),
+              ];
+              const varArgs = uniqueVarPairs.join(', ');
+              const replacement = `{{ ${ref}({ ${varArgs} }) }}`;
+
+              const firstChild = children[0];
+              const lastChild = children[children.length - 1];
+              replacements.push({
+                start: firstChild.loc.start.offset,
+                end: lastChild.loc.end.offset,
+                replacement,
+                key,
+                value: cleanString,
+              });
+
+              // Process props but skip children (they are replaced)
+              node.props?.forEach((prop) => {
+                if (
+                  prop.type === NODE_TYPES.ATTRIBUTE &&
+                  (attributesToExtract as readonly string[]).includes(
+                    prop.name
+                  ) &&
+                  prop.value
+                ) {
+                  const text = prop.value.content;
+                  if (shouldExtract?.(text) && generateKey) {
+                    const propKey = generateKey(text, existingKeys);
+                    existingKeys.add(propKey);
+                    const propRef = isDestructured
+                      ? propKey
+                      : `${varName}.${propKey}`;
+                    replacements.push({
+                      start: prop.loc.start.offset,
+                      end: prop.loc.end.offset,
+                      replacement: `:${prop.name}="${propRef}"`,
+                      key: propKey,
+                      value: text.trim(),
+                    });
+                  }
+                }
+              });
+              return; // don't recurse into children
+            }
+          }
+        }
+
+        // Regular element: handle props
         node.props?.forEach((prop) => {
           if (
             prop.type === NODE_TYPES.ATTRIBUTE &&
-            ATTRIBUTES_TO_EXTRACT.includes(prop.name) &&
+            (attributesToExtract as readonly string[]).includes(prop.name) &&
             prop.value
           ) {
             const text = prop.value.content;
-            if (shouldExtract(text)) {
+
+            if (shouldExtract?.(text) && generateKey) {
               const key = generateKey(text, existingKeys);
               existingKeys.add(key);
-              extractedContent[key] = text.trim();
-              magic.overwrite(
-                prop.loc.start.offset,
-                prop.loc.end.offset,
-                `:${prop.name}="content.${key}.value"`
-              );
+              const ref = isDestructured ? key : `${varName}.${key}`;
+              replacements.push({
+                start: prop.loc.start.offset,
+                end: prop.loc.end.offset,
+                replacement: `:${prop.name}="${ref}"`,
+                key,
+                value: text.trim(),
+              });
             }
           }
         });
       }
 
-      // Recurse into children
       if (node.children) {
         node.children.forEach(walkVueAst);
       }
@@ -337,67 +386,72 @@ export const intlayerVueExtract = async (
     walkVueAst(sfc.descriptor.template.ast);
   }
 
-  // Extract script content
-  const scriptBlock = sfc.descriptor.scriptSetup ?? sfc.descriptor.script;
-
+  // Extract and Walk Script using Babel
   if (scriptBlock) {
-    const scriptContent = scriptBlock.content;
+    const scriptText = scriptBlock.content;
     const offset = scriptBlock.loc.start.offset;
 
     try {
-      const ast = parse(scriptContent, {
+      const ast = babelParse(scriptText, {
         parserOpts: {
           sourceType: 'module',
           plugins: ['typescript', 'jsx'],
         },
       });
 
-      traverse(ast, {
-        StringLiteral(path) {
-          if (path.parentPath.isImportDeclaration()) return;
-          if (path.parentPath.isExportDeclaration()) return;
-          if (path.parentPath.isImportSpecifier()) return;
-          if (path.parentPath.isObjectProperty() && path.key === 'key') return;
+      if (ast) {
+        traverse(ast, {
+          StringLiteral(path: any) {
+            if (path.parentPath.isImportDeclaration()) return;
 
-          if (path.parentPath.isCallExpression()) {
-            const callee = path.parentPath.node.callee;
-            if (
-              t.isMemberExpression(callee) &&
-              t.isIdentifier(callee.object) &&
-              callee.object.name === 'console'
-            ) {
+            if (path.parentPath.isExportDeclaration()) return;
+
+            if (path.parentPath.isImportSpecifier()) return;
+
+            if (path.parentPath.isObjectProperty() && path.key === 'key')
               return;
+
+            if (path.parentPath.isCallExpression()) {
+              const callee = path.parentPath.node.callee;
+
+              if (
+                t.isMemberExpression(callee) &&
+                t.isIdentifier(callee.object) &&
+                callee.object.name === 'console'
+              )
+                return;
+
+              if (
+                t.isIdentifier(callee) &&
+                (callee.name === 'useIntlayer' || callee.name === 't')
+              )
+                return;
+
+              if (callee.type === 'Import') return;
+
+              if (t.isIdentifier(callee) && callee.name === 'require') return;
             }
-            if (
-              t.isIdentifier(callee) &&
-              (callee.name === 'useIntlayer' || callee.name === 't')
-            ) {
-              return;
+
+            const text = path.node.value;
+
+            if (shouldExtract?.(text) && generateKey) {
+              const key = generateKey(text, existingKeys);
+              existingKeys.add(key);
+
+              if (path.node.start != null && path.node.end != null) {
+                const ref = isDestructured ? key : `${varName}.${key}`;
+                replacements.push({
+                  start: offset + path.node.start,
+                  end: offset + path.node.end,
+                  replacement: ref,
+                  key,
+                  value: text.trim(),
+                });
+              }
             }
-
-            // Check for dynamic import import()
-            if (callee.type === 'Import') return;
-
-            // Check for require()
-            if (t.isIdentifier(callee) && callee.name === 'require') return;
-          }
-
-          const text = path.node.value;
-          if (shouldExtract(text)) {
-            const key = generateKey(text, existingKeys);
-            existingKeys.add(key);
-            extractedContent[key] = text.trim();
-
-            if (path.node.start != null && path.node.end != null) {
-              magic.overwrite(
-                offset + path.node.start,
-                offset + path.node.end,
-                `content.${key}`
-              );
-            }
-          }
-        },
-      });
+          },
+        });
+      }
     } catch (e) {
       console.warn(
         `Vue extraction: Failed to parse script content for ${filename}`,
@@ -406,32 +460,51 @@ export const intlayerVueExtract = async (
     }
   }
 
-  // If nothing was extracted, return null
-  if (Object.keys(extractedContent).length === 0) {
-    return null;
+  // Abort if nothing was extracted
+  if (replacements.length === 0) return null;
+
+  // Apply Replacements in Reverse Order
+  replacements.sort((a, b) => b.start - a.start);
+
+  for (const { start, end, replacement, key, value } of replacements) {
+    magic.overwrite(start, end, replacement);
+    extractedContent[key] = value;
   }
 
-  // Get script content for checking existing imports/declarations
-  const scriptContent =
-    sfc.descriptor.scriptSetup?.content ?? sfc.descriptor.script?.content ?? '';
+  // When the existing call is destructured, inject only the missing keys into
+  // the ObjectPattern — no new `content` variable is needed.
+  if (
+    existingCallInfo?.isDestructured &&
+    existingCallInfo.closingBraceAbsolutePos >= 0
+  ) {
+    const missingKeys = Object.keys(extractedContent).filter(
+      (k) => !existingCallInfo.existingDestructuredKeys.includes(k)
+    );
 
-  // Check if useIntlayer is already imported
+    if (missingKeys.length > 0) {
+      // Insert right after the last property so the space/newline before `}`
+      // is naturally preserved: `{ a }` → `{ a, b }`.
+      magic.appendLeft(
+        existingCallInfo.lastPropAbsoluteEnd,
+        `, ${missingKeys.join(', ')}`
+      );
+    }
+  }
+
+  // Inject necessary imports and setup (only when no existing call was detected)
+  const finalScriptContent = scriptBlock?.content ?? '';
+
   const hasUseIntlayerImport =
     /import\s*{[^}]*useIntlayer[^}]*}\s*from\s*['"][^'"]+['"]/.test(
-      scriptContent
-    ) || /import\s+useIntlayer\s+from\s*['"][^'"]+['"]/.test(scriptContent);
+      finalScriptContent
+    ) ||
+    /import\s+useIntlayer\s+from\s*['"][^'"]+['"]/.test(finalScriptContent);
 
-  // Check if content variable is already declared with useIntlayer
-  const hasContentDeclaration = /const\s+content\s*=\s*useIntlayer\s*\(/.test(
-    scriptContent
-  );
+  // An existing call (destructured or not) means no new declaration is needed.
+  const hasContentDeclaration =
+    existingCallInfo !== null ||
+    /const\s+content\s*=\s*useIntlayer\s*\(/.test(finalScriptContent);
 
-  // Skip injection if already using useIntlayer
-  if (hasUseIntlayerImport && hasContentDeclaration) {
-    return null;
-  }
-
-  // Prepare injection statements (only what's missing)
   const importStmt = hasUseIntlayerImport
     ? ''
     : `import { useIntlayer } from '${packageName}';`;
@@ -439,38 +512,82 @@ export const intlayerVueExtract = async (
     ? ''
     : `const content = useIntlayer('${dictionaryKey}');`;
 
-  // Build injection string
   const injectionParts = [importStmt, contentDecl].filter(Boolean);
-  if (injectionParts.length === 0) {
-    return null;
-  }
-  const injection = `\n${injectionParts.join('\n')}\n`;
 
-  if (sfc.descriptor.scriptSetup) {
-    // Insert at the beginning of script setup content
-    magic.appendLeft(sfc.descriptor.scriptSetup.loc.start.offset, injection);
-  } else if (sfc.descriptor.script) {
-    // Insert at the beginning of script content
-    magic.appendLeft(sfc.descriptor.script.loc.start.offset, injection);
-  } else {
-    // No script block, create one
-    magic.prepend(`<script setup>\n${importStmt}\n${contentDecl}\n</script>\n`);
+  if (injectionParts.length > 0) {
+    const injection = `\n${injectionParts.join('\n')}\n`;
+
+    if (sfc.descriptor.scriptSetup) {
+      magic.appendLeft(sfc.descriptor.scriptSetup.loc.start.offset, injection);
+    } else if (sfc.descriptor.script) {
+      magic.appendLeft(sfc.descriptor.script.loc.start.offset, injection);
+    } else {
+      magic.prepend(
+        `<script setup>\n${importStmt}\n${contentDecl}\n</script>\n`
+      );
+    }
   }
 
-  // Call the onExtract callback with extracted content
   if (onExtract) {
-    const result: ExtractResult = {
+    onExtract({
       dictionaryKey,
       filePath: filename,
       content: { ...extractedContent },
       locale: defaultLocale,
-    };
-    onExtract(result);
+    });
   }
 
   return {
     code: magic.toString(),
     map: magic.generateMap({ source: filename, includeContent: true }),
     extracted: true,
+  };
+};
+
+type Tools = {
+  generateKey: (text: string, existingKeys: Set<string>) => string;
+  shouldExtract: (text: string) => boolean;
+  extractDictionaryKeyFromPath: (path: string) => string;
+  attributesToExtract: readonly string[];
+  extractTsContent: any;
+};
+
+export const processVueFile = (
+  filePath: string,
+  _componentKey: string,
+  packageName: string,
+  tools: Tools,
+  save: boolean = true,
+  providedCode?: string
+): {
+  extractedContent: Record<string, string>;
+  code: string;
+  map?: any;
+} | null => {
+  const code = providedCode ?? readFileSync(filePath, 'utf-8');
+  let extractedContent: Record<string, string> = {};
+
+  const result = intlayerVueExtract(code, filePath, {
+    packageName,
+    dictionaryKey: _componentKey,
+    shouldExtract: tools.shouldExtract,
+    generateKey: tools.generateKey,
+    extractDictionaryKeyFromPath: tools.extractDictionaryKeyFromPath,
+    attributesToExtract: tools.attributesToExtract,
+    onExtract: (extractResult) => {
+      extractedContent = extractResult.content;
+    },
+  });
+
+  if (!result) return null;
+
+  if (save) {
+    writeFileSync(filePath, result.code);
+  }
+
+  return {
+    extractedContent,
+    code: result.code,
+    map: result.map,
   };
 };

@@ -1,6 +1,3 @@
-import configuration from '@intlayer/config/built';
-import type { IntlayerConfig } from '@intlayer/types';
-import { type FetcherOptions, fetcher } from '../fetcher';
 import type {
   AddNewAccessKeyBody,
   AddNewAccessKeyResponse,
@@ -15,27 +12,29 @@ import type {
   PushProjectConfigurationResult,
   RefreshAccessKeyBody,
   RefreshAccessKeyResponse,
+  ResponseData,
   SelectProjectParam,
   SelectProjectResult,
+  TriggerBuildResult,
+  TriggerWebhookBody,
+  TriggerWebhookResult,
   UnselectProjectResult,
+  UpdateMemberAccessBody,
+  UpdateMemberAccessResult,
   UpdateProjectBody,
   UpdateProjectMembersBody,
   UpdateProjectMembersResult,
   UpdateProjectResult,
-} from '../types';
+} from '@intlayer/backend';
+import { editor } from '@intlayer/config/built';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import { type FetcherOptions, fetcher } from '../fetcher';
 
 export const getProjectAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL =
-    intlayerConfig?.editor?.backendURL ?? configuration?.editor?.backendURL;
-
-  if (!backendURL) {
-    throw new Error(
-      'Backend URL is not defined in the Intlayer configuration.'
-    );
-  }
+  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
 
   const PROJECT_API_ROUTE = `${backendURL}/api/project`;
 
@@ -144,6 +143,21 @@ export const getProjectAPI = (
     );
 
   /**
+   * Admin-only: Deletes any project from the database by its ID.
+   * @param projectId - Project ID.
+   */
+  const deleteProjectByIdAdmin = async (
+    projectId: string,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    fetcher<DeleteProjectResult>(
+      `${PROJECT_API_ROUTE}/${projectId}/admin`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'DELETE' }
+    );
+
+  /**
    * Select a project from the database by its ID.
    * @param projectId - Organization ID.
    */
@@ -234,6 +248,88 @@ export const getProjectAPI = (
       }
     );
 
+  /**
+   * Triggers CI builds for a project (Git provider pipelines and webhooks).
+   * @param otherOptions - Fetcher options.
+   * @returns The trigger results.
+   */
+  const triggerBuild = async (otherOptions: FetcherOptions = {}) =>
+    await fetcher<TriggerBuildResult>(
+      `${PROJECT_API_ROUTE}/build`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'POST',
+      }
+    );
+
+  /**
+   * Triggers a single webhook by index.
+   * @param webhookIndex - The index of the webhook to trigger.
+   * @param otherOptions - Fetcher options.
+   * @returns The trigger result.
+   */
+  const triggerWebhook = async (
+    webhookIndex: TriggerWebhookBody['webhookIndex'],
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<TriggerWebhookResult>(
+      `${PROJECT_API_ROUTE}/webhook`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'POST',
+        body: { webhookIndex },
+      }
+    );
+
+  /**
+   * Get CI configuration status for the current project.
+   * @param otherOptions - Fetcher options.
+   * @returns The CI configuration status.
+   */
+  const getCIConfig = async (otherOptions: FetcherOptions = {}) =>
+    await fetcher<ResponseData<any>>(
+      `${PROJECT_API_ROUTE}/ci`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'GET',
+      }
+    );
+
+  /**
+   * Push CI configuration file to the repository.
+   * @param otherOptions - Fetcher options.
+   * @returns Success status.
+   */
+  const pushCIConfig = async (otherOptions: FetcherOptions = {}) =>
+    await fetcher<ResponseData<any>>(
+      `${PROJECT_API_ROUTE}/ci`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'POST',
+      }
+    );
+
+  /**
+   * Updates granular access constraints for a project member.
+   * @param userId - The user ID to update access for.
+   * @param body - The new access constraints.
+   */
+  const updateMemberAccess = async (
+    userId: string,
+    body: UpdateMemberAccessBody,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    await fetcher<UpdateMemberAccessResult>(
+      `${PROJECT_API_ROUTE}/member/${userId}/access`,
+      authAPIOptions,
+      otherOptions,
+      { method: 'PUT', body }
+    );
+
   return {
     getProjects,
     addProject,
@@ -241,10 +337,16 @@ export const getProjectAPI = (
     updateProjectMembers,
     pushProjectConfiguration,
     deleteProject,
+    deleteProjectByIdAdmin,
     selectProject,
     unselectProject,
     addNewAccessKey,
     deleteAccessKey,
     refreshAccessKey,
+    triggerBuild,
+    triggerWebhook,
+    getCIConfig,
+    pushCIConfig,
+    updateMemberAccess,
   };
 };

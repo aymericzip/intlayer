@@ -78,7 +78,7 @@ También se admite JSON si prefieres archivos de configuración.
 
 ## 2) Recupera tu contenido
 
-### Caso A — Aplicación React (Vite/SPA)
+### Caso A. Aplicación React (Vite/SPA)
 
 Enfoque por defecto: usa `useIntlayer` para recuperar por clave. Esto mantiene los componentes ligeros y tipados.
 
@@ -129,7 +129,7 @@ export function ComponentWithDictionary() {
 }
 ```
 
-### Caso B — Next.js (App Router)
+### Caso B. Next.js (App Router)
 
 Prefiere componentes de servidor por seguridad y rendimiento. Usa `useIntlayer` de `next-intlayer/server` en archivos de servidor, y `useIntlayer` de `next-intlayer` en componentes cliente.
 
@@ -168,7 +168,7 @@ Consejo: Para metadatos de página y SEO, también puedes obtener contenido con 
 ## Por qué el enfoque de componentes de Intlayer es el mejor
 
 - Colocación: Las declaraciones de contenido viven cerca de los componentes, reduciendo la deriva y mejorando la reutilización en los sistemas de diseño.
-- Seguridad de tipos: Las claves y estructuras están fuertemente tipadas; las traducciones faltantes aparecen en tiempo de build en lugar de en tiempo de ejecución.
+- Seguridad de tipos: Las claves y estructuras están fuertemente tipadas; las traducciones faltantes aparecen en tiempo de build en lugar de en runtime.
 - Server-first: Funciona de forma nativa en componentes de servidor para mejor seguridad y rendimiento; los hooks de cliente siguen siendo ergonómicos.
 - Tree-shaking: Solo se incluye el contenido usado por el componente, manteniendo cargas pequeñas en aplicaciones grandes.
 - DX y herramientas: Middleware incorporado, asistentes de SEO y traducciones opcionales mediante Editor Visual/IA agilizan el trabajo diario.
@@ -177,6 +177,6 @@ Consejo: Para metadatos de página y SEO, también puedes obtener contenido con 
 
 - Configuración React (Vite): https://intlayer.org/doc/environment/vite-and-react
 - React Router v7: https://intlayer.org/doc/environment/vite-and-react/react-router-v7
-- TanStack Start: https://intlayer.org/doc/environment/vite-and-react/tanstack-start
+- TanStack Start: https://intlayer.org/doc/environment/tanstack-start
 - Configuración Next.js: https://intlayer.org/doc/environment/nextjs
 - Por qué Intlayer vs. next-intl vs. next-i18next - https://intlayer.org/blog/next-i18next-vs-next-intl-vs-intlayer

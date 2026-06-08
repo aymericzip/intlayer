@@ -1,0 +1,543 @@
+---
+createdAt: 2026-03-20
+updatedAt: 2026-05-31
+title: "Storybook i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
+description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Storybook uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+keywords:
+  - Uluslararasılaştırma
+  - Dokümantasyon
+  - Intlayer
+  - Storybook
+  - React
+  - i18n
+  - TypeScript
+  - Vite
+  - Webpack
+slugs:
+  - doc
+  - storybook
+history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Solid useIntlayer API kullanımını doğrudan özellik erişimine güncelle"
+  - version: 8.4.5
+    date: 2026-03-20
+    changes: "Init doc"
+---
+
+# Storybook ile Intlayer
+
+## İçindekiler
+
+<TOC/>
+
+## Neden alternatifler yerine Intlayer?
+
+'storybook-react-i18next' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
+
+<AccordionGroup>
+
+<Accordion header="Tam Hikaye Kitabı kapsamı">
+
+Intlayer, **çok dilli hikaye dekoratörleri**, **yerel değiştirme** ve tasarım sisteminizde uluslararasılaştırmayı (i18n) ölçeklendirmek için gereken tüm özellikleri sunarak Storybook ile mükemmel çalışacak şekilde optimize edilmiştir.
+
+</Accordion>
+
+<Accordion header="Bundle boyutu">
+
+Sayfalarınıza çok büyük JSON dosyaları yüklemek yerine yalnızca gerekli içeriği yükleyin. Intlayer **bundle ve sayfa boyutlarınızı %50'ye kadar azaltmanıza** yardımcı olur.
+
+</Accordion>
+
+<Accordion header="Sürdürülebilirlik">
+
+Uygulamanızın içeriğinin kapsamını belirlemek, büyük ölçekli uygulamalar için **bakımı kolaylaştırır**. İçerik kod tabanınızın tamamını gözden geçirmenin zihinsel yükü olmadan, tek bir özellik klasörünü çoğaltabilir veya silebilirsiniz. Ayrıca Intlayer, içeriğinizin doğruluğunu sağlamak için **tamamen tiplendirilmiş (fully typed)tır**.
+
+</Accordion>
+
+<Accordion header="Yapay Zeka Temsilcisi">
+
+İçeriğin bir arada konumlandırılması **Büyük Dil Modellerinin (LLM'ler) ihtiyaç duyduğu bağlamı azaltır**. Intlayer ayrıca eksik çevirileri test etmek için **CLI** gibi bir araç paketiyle birlikte gelir**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** ve **[aracı becerileri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, geliştirici deneyimini (DX) yapay zeka için daha da sorunsuz hale getirmek için ajanlar.
+
+</Accordion>
+
+<Accordion header="Otomasyon">
+
+Maliyeti AI sağlayıcınıza ait olmak üzere seçtiğiniz LLM'yi kullanarak CI/CD işlem hattınızda çeviri yapmak için otomasyonu kullanın. Intlayer ayrıca içerik çıkarmayı otomatikleştirmek için bir **derleyici** ve **arka planda çeviri yapmaya** yardımcı olacak bir [web platformu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) sunar.
+
+</Accordion>
+
+<Accordion header="Performans">
+
+Büyük JSON dosyalarını bileşenlere bağlamak performans ve tepkime sorunlarına yol açabilir. Intlayer, içerik yüklemenizi derleme sırasında optimize eder.
+
+</Accordion>
+
+<Accordion header="Non-dev ile ölçeklendirme">
+
+Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barındırılan bir [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** ve **[tam CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** çok dilli içeriğinizi **gerçek zamanlı** olarak yönetmenize yardımcı olarak çevirmenler, metin yazarları ve diğer ekip üyeleriyle işbirliğini kusursuz hale getirir. İçerik yerel olarak ve/veya uzaktan depolanabilir.
+
+</Accordion>
+</AccordionGroup>
+
+---
+
+## Neden Storybook ile Intlayer Kullanmalısınız?
+
+Storybook, UI bileşenlerini izole bir şekilde geliştirmek ve belgelemek için endüstri standardı bir araçtır. Intlayer ile birleştirmek şunları yapmanızı sağlar:
+
+- **Her dili önizleyin** doğrudan Storybook tuvali içinde bir araç çubuğu değiştiricisi kullanarak.
+- **Eksik çevirileri yakalayın** üretime ulaşmadan önce.
+- **Çok dilli bileşenleri belgeleyin** sabit kodlanmış dizeler yerine gerçek, tür açısından güvenli (type-safe) içeriklerle.
+
+---
+
+## Adım Adım Kurulum
+
+<Tabs>
+<Tab value="Vite Setup">
+
+<Steps>
+
+<Step number={1} title="Bağımlılıkları Yükleyin">
+
+```bash packageManager="npm"
+npm install intlayer react-intlayer
+npm install vite-intlayer --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer react-intlayer
+pnpm add vite-intlayer --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add intlayer react-intlayer
+yarn add vite-intlayer --save-dev
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer
+bun add vite-intlayer --dev
+```
+
+| Paket            | Rol                                                          |
+| ---------------- | ------------------------------------------------------------ |
+| `intlayer`       | Çekirdek - yapılandırma, içerik derleme, CLI                 |
+| `react-intlayer` | React bağlamaları - `IntlayerProvider`, `useIntlayer` hook   |
+| `vite-intlayer`  | Vite eklentisi - içerik bildirim dosyalarını izler ve derler |
+
+---
+
+</Step>
+
+<Step number={2} title="Bir Intlayer Yapılandırması Oluşturun">
+
+Projenizin kök dizinine (veya tasarım sistemi paketinizin içine) `intlayer.config.ts` dosyasını oluşturun:
+
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH,
+      // gerektiğinde daha fazla dil ekleyin
+    ],
+    defaultLocale: Locales.ENGLISH,
+  },
+  content: {
+    contentDir: ["./src"], // *.content.ts dosyalarınızın bulunduğu yer
+  },
+};
+
+export default config;
+```
+
+> Seçeneklerin tam listesi için [yapılandırma referansına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md) bakın.
+
+---
+
+</Step>
+
+<Step number={3} title="Storybook'a Vite Eklentisini Ekleyin">
+
+Storybook'un `viteFinal` kancası, dahili Vite yapılandırmasını genişletmenize olanak tanır. Oraya `intlayer()` eklentisini içe aktarın ve ekleyin:
+
+```typescript fileName=".storybook/main.ts" codeFormat="typescript"
+import type { StorybookConfig } from "@storybook/react-vite";
+import { defineConfig, mergeConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+
+const config: StorybookConfig = {
+  stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
+  addons: [
+    "@storybook/addon-essentials",
+    // …diğer eklentiler
+  ],
+  framework: {
+    name: "@storybook/react-vite",
+    options: {},
+  },
+
+  async viteFinal(baseConfig, { configType }) {
+    const env = {
+      command: configType === "DEVELOPMENT" ? "serve" : "build",
+      mode: configType === "DEVELOPMENT" ? "development" : "production",
+    } as const;
+
+    const viteConfig = defineConfig(() => ({
+      plugins: [intlayer()],
+    }));
+
+    return mergeConfig(baseConfig, viteConfig(env));
+  },
+};
+
+export default config;
+```
+
+`intlayer()` eklentisi `*.content.ts` dosyalarınızı izler ve Storybook geliştirme sırasında herhangi bir değişiklik olduğunda sözlükleri otomatik olarak yeniden oluşturur.
+
+---
+
+</Step>
+
+<Step number={4} title="`IntlayerProvider` Dekoratörünü ve Bir Yerel Araç Çubuğunu Ekleyin">
+
+Storybook'un `preview` dosyası, her hikayeyi `IntlayerProvider` ile sarmalamak ve araç çubuğunda bir dil değiştirici göstermek için doğru yerdir:
+
+```tsx fileName=".storybook/preview.tsx" codeFormat="typescript"
+import type { Preview, StoryContext } from "@storybook/react";
+import { IntlayerProvider } from "react-intlayer";
+
+const preview: Preview = {
+  // Her hikayeyi IntlayerProvider içinde sarmalayın
+  decorators: [
+    (Story, context: StoryContext) => {
+      const locale = context.globals.locale ?? "en";
+      return (
+        <IntlayerProvider locale={locale}>
+          <Story />
+        </IntlayerProvider>
+      );
+    },
+  ],
+
+  // Storybook araç çubuğunda bir dil değiştirici gösterin
+  globalTypes: {
+    locale: {
+      description: "Aktif dil",
+      defaultValue: "en",
+      toolbar: {
+        title: "Dil",
+        icon: "globe",
+        items: [
+          { value: "en", title: "English" },
+          { value: "fr", title: "Français" },
+          { value: "es", title: "Español" },
+        ],
+        dynamicTitle: true,
+      },
+    },
+  },
+
+  parameters: {
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/i,
+      },
+    },
+  },
+};
+
+export default preview;
+```
+
+> `locale` değerleri, `intlayer.config.ts` dosyanızda bildirilen dillerle eşleşmelidir.
+
+</Tab>
+<Tab value="Webpack Setup">
+
+</Step>
+
+<Step number={1} title="Bağımlılıkları Yükleyin">
+
+```bash packageManager="npm"
+npm install intlayer react-intlayer
+npm install @intlayer/webpack --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer react-intlayer
+pnpm add @intlayer/webpack --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add intlayer react-intlayer
+yarn add @intlayer/webpack --save-dev
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer
+bun add @intlayer/webpack --dev
+```
+
+---
+
+</Step>
+
+<Step number={2} title="Bir Intlayer Yapılandırması Oluşturun">
+
+Projenizin kök dizinine `intlayer.config.ts` dosyasını oluşturun:
+
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+  content: {
+    contentDir: ["./src"],
+  },
+};
+
+export default config;
+```
+
+---
+
+</Step>
+
+<Step number={3} title="Storybook'un Webpack'ini Yapılandırın">
+
+Webpack tabanlı Storybook kurulumları için (örneğin `@storybook/react-webpack5`), Intlayer takma adlarını ve yükleyiciyi eklemek için `webpackFinal` aracılığıyla webpack yapılandırmasını genişletin:
+
+```typescript fileName=".storybook/main.ts" codeFormat="typescript"
+import type { StorybookConfig } from "@storybook/react-webpack5";
+import { IntlayerPlugin } from "@intlayer/webpack";
+
+const config: StorybookConfig = {
+  stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
+  addons: ["@storybook/addon-essentials"],
+  framework: {
+    name: "@storybook/react-webpack5",
+    options: {},
+  },
+
+  webpackFinal: async (baseConfig) => {
+    baseConfig.plugins = [...(baseConfig.plugins ?? []), new IntlayerPlugin()];
+    return baseConfig;
+  },
+};
+
+export default config;
+```
+
+---
+
+</Step>
+
+<Step number={4} title="`IntlayerProvider` Dekoratörünü ve Bir Yerel Araç Çubuğunu Ekleyin">
+
+Vite kurulumuyla aynıdır - dekoratörü ve genel dil türünü `.storybook/preview.tsx` dosyasına ekleyin:
+
+```tsx fileName=".storybook/preview.tsx" codeFormat="typescript"
+import type { Preview, StoryContext } from "@storybook/react";
+import { IntlayerProvider } from "react-intlayer";
+
+const preview: Preview = {
+  decorators: [
+    (Story, context: StoryContext) => {
+      const locale = context.globals.locale ?? "en";
+      return (
+        <IntlayerProvider locale={locale}>
+          <Story />
+        </IntlayerProvider>
+      );
+    },
+  ],
+
+  globalTypes: {
+    locale: {
+      description: "Aktif dil",
+      defaultValue: "en",
+      toolbar: {
+        title: "Dil",
+        icon: "globe",
+        items: [
+          { value: "en", title: "English" },
+          { value: "fr", title: "Français" },
+          { value: "es", title: "Español" },
+        ],
+        dynamicTitle: true,
+      },
+    },
+  },
+};
+
+export default preview;
+```
+
+</Tab>
+</Tabs>
+
+---
+
+</Step>
+
+</Steps>
+
+## İçerik Bildirme
+
+Her bileşenin yanına bir `*.content.ts` dosyası oluşturun. Intlayer derleme sırasında bunu otomatik olarak algılar.
+
+```typescript fileName="src/components/CopyButton/CopyButton.content.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type Dictionary, t } from "intlayer";
+
+const copyButtonContent = {
+  key: "copy-button",
+  content: {
+    label: t({
+      en: "Copy content",
+      fr: "Copier le contenu",
+      es: "Copiar contenido",
+    }),
+  },
+} satisfies Dictionary;
+
+export default copyButtonContent;
+```
+
+> Daha fazla içerik bildirimi formatı ve özelliği için [içerik bildirimi dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bakın.
+
+---
+
+## Bir Bileşende `useIntlayer` Kullanımı
+
+```tsx fileName="src/components/CopyButton/index.tsx" codeFormat="typescript"
+"use client";
+
+import { type FC } from "react";
+import { useIntlayer } from "react-intlayer";
+
+type CopyButtonProps = {
+  content: string;
+};
+
+export const CopyButton: FC<CopyButtonProps> = ({ content }) => {
+  const { label } = useIntlayer("copy-button");
+
+  return (
+    <button
+      onClick={() => navigator.clipboard.writeText(content)}
+      aria-label={label.value}
+      title={label.value}
+    >
+      Kopyala
+    </button>
+  );
+};
+```
+
+`useIntlayer`, en yakın `IntlayerProvider` tarafından sağlanan geçerli dil için derlenmiş sözlüğü döndürür. Storybook araç çubuğunda dili değiştirmek, hikayeyi güncellenmiş çevirilerle otomatik olarak yeniden oluşturur.
+
+---
+
+## Uluslararasılaştırılmış Bileşenler İçin Hikayeler Yazma
+
+`IntlayerProvider` dekoratörü devredeyken, hikayeleriniz daha önce olduğu gibi çalışır. Dil araç çubuğu tüm tuval için aktif dili kontrol eder:
+
+```tsx fileName="src/components/CopyButton/CopyButton.stories.tsx" codeFormat="typescript"
+import type { Meta, StoryObj } from "@storybook/react";
+import { CopyButton } from ".";
+
+const meta: Meta<typeof CopyButton> = {
+  title: "Components/CopyButton",
+  component: CopyButton,
+  tags: ["autodocs"],
+  argTypes: {
+    content: { control: "text" },
+  },
+};
+
+export default meta;
+type Story = StoryObj<typeof CopyButton>;
+
+/** Varsayılan hikaye - çevirileri önizlemek için araç çubuğunda dili değiştirin. */
+export const Default: Story = {
+  args: {
+    content: "npm install intlayer react-intlayer",
+  },
+};
+
+/** Butonu bir kod bloğu içinde oluşturur; yaygın bir gerçek dünya kullanım durumu. */
+export const InsideCodeBlock: Story = {
+  render: (args) => (
+    <div style={{ position: "relative", display: "inline-block" }}>
+      <pre style={{ background: "#1e1e1e", color: "#fff", padding: "1rem" }}>
+        <code>{args.content}</code>
+      </pre>
+      <CopyButton
+        content={args.content}
+        style={{ position: "absolute", top: 8, right: 8 }}
+      />
+    </div>
+  ),
+  args: {
+    content: "npx intlayer init",
+  },
+};
+```
+
+> Her hikaye araç çubuğundan `locale` küreselini devralır, böylece herhangi bir hikaye kodunu değiştirmeden her dili doğrulayabilirsiniz.
+
+---
+
+## Hikayelerde Çevirileri Test Etme
+
+Belirli bir dil için doğru çevrilmiş metnin oluşturulduğunu iddia etmek için Storybook'un `play` işlevlerini kullanın:
+
+```tsx fileName="src/components/CopyButton/CopyButton.stories.tsx" codeFormat="typescript"
+import type { Meta, StoryObj } from "@storybook/react";
+import { expect, within } from "@storybook/test";
+import { CopyButton } from ".";
+
+const meta: Meta<typeof CopyButton> = {
+  title: "Components/CopyButton",
+  component: CopyButton,
+  tags: ["autodocs"],
+};
+
+export default meta;
+type Story = StoryObj<typeof CopyButton>;
+
+export const AccessibleLabel: Story = {
+  args: { content: "Hello World" },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole("button");
+
+    // Butonun boş olmayan erişilebilir bir adı olduğunu doğrulayın
+    await expect(button).toHaveAccessibleName();
+    // Butonun devre dışı olmadığını doğrulayın
+    await expect(button).not.toBeDisabled();
+    // Klavye erişilebilirliğini doğrulayın
+    await expect(button).toHaveAttribute("tabindex", "0");
+  },
+};
+```
+
+---
+
+## Ek Kaynaklar
+
+- [Intlayer yapılandırma referansı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/configuration.md)
+- [İçerik bildirimi dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md)
+- [Intlayer CLI dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md)
+- [Storybook dokümantasyonu](https://storybook.js.org/docs)

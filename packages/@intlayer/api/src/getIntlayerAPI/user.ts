@@ -1,11 +1,6 @@
-import configuration from '@intlayer/config/built';
-import type { IntlayerConfig } from '@intlayer/types';
-import { type FetcherOptions, fetcher } from '../fetcher';
 import type {
   CreateUserBody,
   CreateUserResult,
-  GetUserByAccountParams,
-  GetUserByAccountResult,
   GetUserByEmailParams,
   GetUserByEmailResult,
   GetUserByIdParams,
@@ -14,21 +9,21 @@ import type {
   GetUsersResult,
   UpdateUserBody,
   UpdateUserResult,
+  UploadUserAvatarResult,
   UserAPI,
-} from '../types';
+} from '@intlayer/backend';
+import { editor } from '@intlayer/config/built';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import { type FetcherOptions, fetcher } from '../fetcher';
+
+type GetUserByAccountParams = { providerAccountId: string; provider: string };
+type GetUserByAccountResult = import('@intlayer/backend').ResponseData<UserAPI>;
 
 export const getUserAPI = (
   authAPIOptions: FetcherOptions = {},
   intlayerConfig?: IntlayerConfig
 ) => {
-  const backendURL =
-    intlayerConfig?.editor?.backendURL ?? configuration?.editor?.backendURL;
-
-  if (!backendURL) {
-    throw new Error(
-      'Backend URL is not defined in the Intlayer configuration.'
-    );
-  }
+  const backendURL = intlayerConfig?.editor?.backendURL ?? editor.backendURL;
 
   const USER_API_ROUTE = `${backendURL}/api/user`;
 
@@ -164,6 +159,41 @@ export const getUserAPI = (
     );
 
   /**
+   * Uploads a new avatar for the authenticated user.
+   * @param file - The image File object to upload.
+   * @returns Updated user object.
+   */
+  const uploadAvatar = async (
+    file: File,
+    otherOptions: FetcherOptions = {}
+  ) => {
+    const buffer = await file.arrayBuffer();
+
+    const baseHeaders: Record<string, string> = {
+      'Content-Type': file.type || 'image/jpeg',
+    };
+
+    // Forward auth cookies / credentials from authAPIOptions headers
+    const authHeaders =
+      (authAPIOptions.headers as Record<string, string> | undefined) ?? {};
+
+    const response = await fetch(`${USER_API_ROUTE}/avatar`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: { ...authHeaders, ...baseHeaders },
+      body: buffer,
+      signal: otherOptions.signal as AbortSignal | undefined,
+    });
+
+    if (!response.ok) {
+      const result = await response.json();
+      throw new Error(JSON.stringify(result.error) ?? 'Avatar upload failed');
+    }
+
+    return (await response.json()) as UploadUserAvatarResult;
+  };
+
+  /**
    * Gets the verify email status URL to use in the SSE.
    * @param userId - User ID.
    * @returns The verify email status URL.
@@ -179,6 +209,7 @@ export const getUserAPI = (
     getUserByEmail,
     updateUser,
     deleteUser,
+    uploadAvatar,
     getVerifyEmailStatusURL,
   };
 };

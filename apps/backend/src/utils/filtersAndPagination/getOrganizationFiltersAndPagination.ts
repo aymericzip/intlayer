@@ -1,7 +1,6 @@
-import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
-import type { Request } from 'express';
-import type { RootFilterQuery } from 'mongoose';
+import type { FastifyRequest } from 'fastify';
+import type { QueryFilter } from 'mongoose';
 import type { Organization } from '@/types/organization.types';
 import {
   type FiltersAndPagination,
@@ -28,20 +27,31 @@ export type OrganizationFiltersParams = {
    */
   fetchAll?: 'true' | 'false';
 };
-export type OrganizationFilters = RootFilterQuery<Organization>;
+export type OrganizationFilters = QueryFilter<Organization>;
 
 /**
  * Extracts filters and pagination information from the request body.
- * @param req - Express request object.
+ * @param req - Fastify request object.
  * @returns Object containing filters, page, pageSize, and getNumberOfPages functions.
  */
+export type OrganizationFiltersAndPaginationResult = {
+  filters: OrganizationFilters;
+  sortOptions: Record<string, 1 | -1>;
+  page: number;
+  skip: number;
+  pageSize: number;
+  getNumberOfPages: (totalItems: number) => number;
+};
+
 export const getOrganizationFiltersAndPagination = (
-  req: Request<FiltersAndPagination<OrganizationFiltersParams>>,
-  res: ResponseWithSession
-) => {
+  req: FastifyRequest<{
+    Querystring: FiltersAndPagination<OrganizationFiltersParams>;
+  }>
+): OrganizationFiltersAndPaginationResult => {
   const { filters: filtersRequest, ...pagination } =
     getFiltersAndPaginationFromBody<OrganizationFiltersParams>(req);
-  const { roles, user } = res.locals;
+  const roles = req.session?.roles;
+  const user = req.session?.user;
 
   let filters: OrganizationFilters = {};
   let sortOptions: Record<string, 1 | -1> = { updatedAt: -1 };
@@ -54,7 +64,7 @@ export const getOrganizationFiltersAndPagination = (
   }
 
   // Non-admins can only see organizations they are members of
-  if (!(roles.includes('admin') && fetchAll === 'true')) {
+  if (!(roles?.includes('admin') && fetchAll === 'true')) {
     filters = { ...filters, membersIds: { $in: [user?.id] } };
   }
 

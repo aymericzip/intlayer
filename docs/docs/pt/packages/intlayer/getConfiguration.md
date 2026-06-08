@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Histórico inicial
+    changes: "Histórico inicial"
 ---
 
 # Documentação: Função `getConfiguration` em `intlayer`
@@ -40,7 +40,6 @@ A função não recebe nenhum parâmetro. Em vez disso, ela utiliza variáveis d
 
 - **Tipo**: `IntlayerConfig`
 - **Descrição**: Um objeto contendo a configuração completa para o `intlayer`. A configuração inclui as seguintes seções:
-
   - `internationalization`: Configurações relacionadas a locais e modo estrito.
   - `middleware`: Configurações relacionadas ao gerenciamento de URL e cookies.
   - `content`: Configurações relacionadas a arquivos de conteúdo, diretórios e padrões.
@@ -54,36 +53,8 @@ Consulte a [documentação de configuração do Intlayer](https://github.com/aym
 
 ### Recuperando a Configuração Completa
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getConfiguration } from "intlayer";
-
-const config = getConfiguration();
-console.log(config);
-// Saída:
-// {
-//   internationalization: { ... },
-//   middleware: { ... },
-//   content: { ... },
-//   editor: { ... }
-// }
-```
-
-```javascript codeFormat="esm"
-import { getConfiguration } from "intlayer";
-
-const config = getConfiguration();
-console.log(config);
-// Saída:
-// {
-//   internationalization: { ... },
-//   middleware: { ... },
-//   content: { ... },
-//   editor: { ... }
-// }
-```
-
-```javascript codeFormat="commonjs"
-const { getConfiguration } = require("intlayer");
 
 const config = getConfiguration();
 console.log(config);
@@ -100,32 +71,8 @@ console.log(config);
 
 A seção `internationalization` da configuração fornece definições relacionadas a locais, como `locales` (locais disponíveis) e `defaultLocale` (idioma padrão).
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getConfiguration } from "intlayer";
-
-const { internationalization, middleware } = getConfiguration();
-const { locales: availableLocales, defaultLocale } = internationalization;
-const { cookieName } = middleware;
-
-console.log(availableLocales); // Exemplo de saída: ["en", "fr", "es"]
-console.log(defaultLocale); // Exemplo de saída: "en"
-console.log(cookieName); // Saída: "INTLAYER_LOCALE"
-```
-
-```javascript codeFormat="esm"
-import { getConfiguration } from "intlayer";
-
-const { internationalization, middleware } = getConfiguration();
-const { locales: availableLocales, defaultLocale } = internationalization;
-const { cookieName } = middleware;
-
-console.log(availableLocales); // Exemplo de saída: ["en", "fr", "es"]
-console.log(defaultLocale); // Exemplo de saída: "en"
-console.log(cookieName); // Saída: "INTLAYER_LOCALE"
-```
-
-```javascript codeFormat="commonjs"
-const { getConfiguration } = require("intlayer");
 
 const { internationalization, middleware } = getConfiguration();
 const { locales: availableLocales, defaultLocale } = internationalization;

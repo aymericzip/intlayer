@@ -1,11 +1,13 @@
-import type { IntlayerConfig } from '@intlayer/types';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import type { PluginOption } from 'vite';
 
 export const intlayerVueAsyncPlugin = (
   configuration: IntlayerConfig,
   filesList: string[]
 ): PluginOption => {
-  const { importMode, optimize } = configuration.build;
+  const { optimize } = configuration.build;
+  const importMode =
+    configuration.build.importMode ?? configuration.dictionary?.importMode;
 
   return {
     /**
@@ -22,7 +24,7 @@ export const intlayerVueAsyncPlugin = (
       const isBuild = env.command === 'build';
       const isEnabled =
         (optimize === undefined && isBuild) || optimize === true;
-      const isAsync = importMode === 'dynamic' || importMode === 'live';
+      const isAsync = importMode === 'dynamic' || importMode === 'fetch';
 
       return isEnabled && isAsync;
     },
@@ -47,7 +49,7 @@ export const intlayerVueAsyncPlugin = (
       // Check if the file actually uses the composable to avoid unnecessary work
       if (!code.includes('useIntlayer')) return null;
 
-      // B. Add 'await' to the function call
+      // Add 'await' to the function call
       //    Matches: useIntlayer(args) -> await useIntlayer(args)
       //    Note: Since we aliased the import above, 'useIntlayer' now refers to 'useDictionaryAsync'
       const transformedCode = code.replace(

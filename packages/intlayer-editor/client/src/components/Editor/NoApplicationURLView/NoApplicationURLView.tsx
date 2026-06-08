@@ -1,4 +1,5 @@
-import { H3, Link } from '@intlayer/design-system';
+import { H3 } from '@intlayer/design-system/headers';
+import { Link } from '@intlayer/design-system/link';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 
@@ -15,6 +16,9 @@ export const NoApplicationURLView: FC = () => {
         label={documentationLink.label.value}
         href="https://intlayer.org/doc/concept/configuration#editor-configuration"
         color="text"
+        variant="button"
+        className="ml-auto"
+        isExternalLink
       >
         {documentationLink.text}
       </Link>

@@ -1,93 +1,75 @@
 import { readFile } from 'node:fs/promises';
-import { builtinModules, createRequire } from 'node:module';
+import { builtinModules } from 'node:module';
 import { join } from 'node:path';
-import type { ESBuildPlugin } from '@intlayer/config';
-import {
-  bundleFile,
-  configESMxCJSRequire,
-  getProjectRequire,
-  isESModule,
-} from '@intlayer/config';
-import type { IntlayerConfig } from '@intlayer/types';
+import { bundleFile, type ESBuildPlugin } from '@intlayer/config/file';
+import { getProjectRequire } from '@intlayer/config/utils';
+import type { IntlayerConfig } from '@intlayer/types/config';
 
 /**
- * Rewrites selected bare specifiers (and any of their subpaths) to absolute file paths,
- * using the provided localeRequire (either createRequire(import.meta.url) or require).
- *
- * Example:
- *   rewritePathsPlugin(["@intlayer/config", "@intlayer/core"], localeRequire)
- * …will also rewrite "@intlayer/core/file" etc.
+ * Rewrites bare specifiers to absolute paths on the user's disk and externalizes them
+ * to preserve directory context (__dirname/import.meta.url).
  */
-const rewritePathsPlugin = (
-  replaceModules: Record<string, string>,
-  excludeModules?: string[]
+const localResolvePlugin = (
+  aliases: Record<string, string>,
+  rootRequire: NodeJS.Require
 ): ESBuildPlugin => {
   return {
-    name: 'rewrite-paths',
+    name: 'local-resolve',
     setup(build) {
       build.onResolve({ filter: /.*/ }, (args) => {
-        const exact = replaceModules[args.path];
-
-        if (excludeModules?.includes(args.path)) {
-          return null;
-        }
-
-        if (exact) {
+        // Direct alias match
+        if (aliases[args.path]) {
           return {
-            path: exact,
-            namespace: 'intlayer-replace-modules',
-            external: true, // ← prevents onLoad requirement
+            path: aliases[args.path],
+            external: true, // Prevents inlining and context loss
           };
         }
 
-        // Optional: support subpaths like "@intlayer/core/xyz"
-        for (const key of Object.keys(replaceModules)) {
-          if (args.path === key || args.path.startsWith(`${key}/`)) {
-            const sub = args.path.slice(key.length); // '' or '/...'
+        // Dynamic resolution via user workspace
+        if (args.path === 'defu' || args.path.startsWith('@intlayer/')) {
+          try {
+            const absolutePath = rootRequire.resolve(args.path);
             return {
-              path: replaceModules[key] + sub,
-              namespace: 'intlayer-replace-modules',
-              external: true, // ← prevents onLoad requirement
+              path: absolutePath,
+              external: true, // Injects `require('/absolute/path')`
             };
+          } catch {
+            return null;
           }
         }
+
+        return null;
       });
     },
   };
 };
 
-/**
- * Get the intlayer bundle to embed @intlayer/core and be able to mock @intlayer/config/built to mock the configuration file.
- */
 export const getIntlayerBundle = async (configuration: IntlayerConfig) => {
-  const rootRequire = getProjectRequire(configuration.content.baseDir);
-  const configPackageRequire = configESMxCJSRequire;
-  const localRequire = isESModule ? createRequire(import.meta.url) : require;
+  const rootRequire = getProjectRequire(configuration.system.baseDir);
 
   const configurationPath = join(
-    configuration.content.configDir,
-    `configuration.json`
+    configuration.system.configDir,
+    `configuration.cjs`
   );
 
-  const replaceModules = {
-    defu: configPackageRequire.resolve('defu'),
-    esbuild: configPackageRequire.resolve('esbuild'),
+  const aliases = {
     '@intlayer/config/built': configurationPath,
-    '@intlayer/config': localRequire.resolve('@intlayer/config'),
-    '@intlayer/config/client': localRequire.resolve('@intlayer/config/client'),
-    '@intlayer/core/file': localRequire.resolve('@intlayer/core/file'),
   };
 
   const filePath = rootRequire.resolve('intlayer');
   const code = await readFile(filePath, 'utf-8');
 
   const output = await bundleFile(code, filePath, {
+    bundle: true,
+    platform: 'node',
     external: [
       ...builtinModules,
       ...builtinModules.map((mod) => `node:${mod}`),
+      'vscode',
+      'esbuild',
     ],
     minify: true,
-    plugins: [rewritePathsPlugin(replaceModules)],
+    plugins: [localResolvePlugin(aliases, rootRequire)],
   });
 
   return output ?? '';

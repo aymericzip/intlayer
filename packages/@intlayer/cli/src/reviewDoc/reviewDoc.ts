@@ -1,0 +1,195 @@
+import { existsSync } from 'node:fs';
+import { join, relative } from 'node:path';
+import type { AIOptions } from '@intlayer/api';
+import {
+  type ListGitFilesOptions,
+  listGitFiles,
+  listGitLines,
+  logConfigDetails,
+} from '@intlayer/chokidar/cli';
+import {
+  formatLocale,
+  formatPath,
+  parallelize,
+} from '@intlayer/chokidar/utils';
+import * as ANSIColors from '@intlayer/config/colors';
+import {
+  colorize,
+  colorizeNumber,
+  getAppLogger,
+  x,
+} from '@intlayer/config/logger';
+import {
+  type GetConfigurationOptions,
+  getConfiguration,
+} from '@intlayer/config/node';
+import type { Locale } from '@intlayer/types/allLocales';
+import fg from 'fast-glob';
+import { checkFileModifiedRange } from '../utils/checkFileModifiedRange';
+import { getOutputFilePath } from '../utils/getOutputFilePath';
+import { setupAI } from '../utils/setupAI';
+import { reviewFileBlockAware } from './reviewDocBlockAware';
+
+type ReviewDocOptions = {
+  docPattern: string[];
+  locales: Locale[];
+  excludedGlobPattern: string[];
+  baseLocale: Locale;
+  aiOptions?: AIOptions;
+  nbSimultaneousFileProcessed?: number;
+  configOptions?: GetConfigurationOptions;
+  customInstructions?: string;
+  skipIfModifiedBefore?: number | string | Date;
+  skipIfModifiedAfter?: number | string | Date;
+  skipIfExists?: boolean;
+  gitOptions?: ListGitFilesOptions;
+};
+
+/**
+ * Main audit function: scans all .md files in "en/" (unless you specified DOC_LIST),
+ * then audits them to each locale in LOCALE_LIST.
+ */
+export const reviewDoc = async ({
+  docPattern,
+  locales,
+  excludedGlobPattern,
+  baseLocale,
+  aiOptions,
+  nbSimultaneousFileProcessed,
+  configOptions,
+  customInstructions,
+  skipIfModifiedBefore,
+  skipIfModifiedAfter,
+  skipIfExists,
+  gitOptions,
+}: ReviewDocOptions) => {
+  const configuration = getConfiguration(configOptions);
+  logConfigDetails(configOptions);
+
+  const appLogger = getAppLogger(configuration);
+
+  const aiResult = await setupAI(configuration, aiOptions);
+
+  if (!aiResult?.hasAIAccess) return;
+
+  const { aiClient, aiConfig, isCustomAI } = aiResult;
+
+  if (isCustomAI && aiClient && aiConfig) {
+    const { hasAIAccess, error } = await aiClient.checkAISDKAccess(aiConfig);
+    if (!hasAIAccess) {
+      appLogger(`${x} ${error}`);
+      return;
+    }
+  }
+
+  if (nbSimultaneousFileProcessed && nbSimultaneousFileProcessed > 10) {
+    appLogger(
+      `Warning: nbSimultaneousFileProcessed is set to ${nbSimultaneousFileProcessed}, which is greater than 10. Setting it to 10.`
+    );
+    nbSimultaneousFileProcessed = 10; // Limit the number of simultaneous file processed to 10
+  }
+
+  let docList: string[] = await fg(docPattern, {
+    ignore: excludedGlobPattern,
+  });
+
+  if (gitOptions) {
+    const gitChangedFiles = await listGitFiles(gitOptions);
+
+    if (gitChangedFiles) {
+      // Convert dictionary file paths to be relative to git root for comparison
+
+      // Filter dictionaries based on git changed files
+      docList = docList.filter((path) =>
+        gitChangedFiles.some((gitFile) => join(process.cwd(), path) === gitFile)
+      );
+    }
+  }
+
+  // OAuth handled by API proxy internally
+
+  appLogger(`Base locale is ${formatLocale(baseLocale)}`);
+  appLogger(
+    `Reviewing ${colorizeNumber(locales.length)} locales: [ ${formatLocale(locales)} ]`
+  );
+
+  appLogger(`Reviewing ${colorizeNumber(docList.length)} files:`);
+  appLogger(docList.map((path) => ` - ${formatPath(path)}\n`));
+
+  // Create all tasks to be processed
+  const allTasks = docList.flatMap((docPath) =>
+    locales.map((locale) => async () => {
+      appLogger(
+        `Reviewing file: ${formatPath(docPath)} to ${formatLocale(locale)}`
+      );
+
+      const absoluteBaseFilePath = join(configuration.system.baseDir, docPath);
+      const outputFilePath = getOutputFilePath(
+        absoluteBaseFilePath,
+        locale,
+        baseLocale
+      );
+
+      // Skip if file exists and skipIfExists option is enabled
+      if (skipIfExists && existsSync(outputFilePath)) {
+        const relativePath = relative(
+          configuration.system.baseDir,
+          outputFilePath
+        );
+        appLogger(
+          `${colorize('⊘', ANSIColors.YELLOW)} File ${formatPath(relativePath)} already exists, skipping.`
+        );
+        return;
+      }
+
+      // Check modification range only if the file exists
+      if (existsSync(outputFilePath)) {
+        const fileModificationData = checkFileModifiedRange(outputFilePath, {
+          skipIfModifiedBefore,
+          skipIfModifiedAfter,
+        });
+
+        if (fileModificationData.isSkipped) {
+          appLogger(fileModificationData.message);
+          return;
+        }
+      } else if (skipIfModifiedBefore || skipIfModifiedAfter) {
+        // Log if we intended to check modification time but couldn't because the file doesn't exist
+        appLogger(
+          `${colorize('!', ANSIColors.YELLOW)} File ${formatPath(outputFilePath)} does not exist, skipping modification date check.`
+        );
+      }
+
+      let changedLines: number[] | undefined;
+      // FIXED: Enable git optimization that was previously commented out
+      if (gitOptions) {
+        const gitChangedLines = await listGitLines(
+          absoluteBaseFilePath,
+          gitOptions
+        );
+
+        appLogger(`Git changed lines: ${gitChangedLines.join(', ')}`);
+        changedLines = gitChangedLines;
+      }
+
+      await reviewFileBlockAware(
+        absoluteBaseFilePath,
+        outputFilePath,
+        locale as Locale,
+        baseLocale,
+        aiOptions,
+        configOptions,
+        customInstructions,
+        changedLines,
+        aiClient,
+        aiConfig
+      );
+    })
+  );
+
+  await parallelize(
+    allTasks,
+    (task) => task(),
+    nbSimultaneousFileProcessed ?? 3
+  );
+};

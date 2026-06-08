@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: प्रारंभिक इतिहास
+    changes: "प्रारंभिक इतिहास"
 ---
 
 # दस्तावेज़ीकरण: `intlayer` में `getLocaleLang` फ़ंक्शन
@@ -33,7 +33,6 @@ history:
 ## पैरामीटर
 
 - `locale?: Locales`
-
   - **विवरण**: लोकल स्ट्रिंग (जैसे, `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`) जिससे भाषा कोड निकाला जाता है।
   - **प्रकार**: `Locales` (वैकल्पिक)
 
@@ -46,7 +45,7 @@ history:
 
 ### भाषा कोड निकालना:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getLocaleLang, Locales } from "intlayer";
 
 getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
@@ -55,28 +54,9 @@ getLocaleLang(Locales.FRENCH_CANADA); // आउटपुट: "fr"
 getLocaleLang(Locales.FRENCH); // आउटपुट: "fr"
 ```
 
-```javascript codeFormat="esm"
-import { getLocaleLang } from "intlayer";
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // आउटपुट: "en"
-getLocaleLang(Locales.ENGLISH); // आउटपुट: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // आउटपुट: "fr"
-getLocaleLang(Locales.FRENCH); // आउटपुट: "fr"
-```
-
-```javascript codeFormat="commonjs"
-const { getLocaleLang } = require("intlayer");
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // आउटपुट: "en"
-getLocaleLang(Locales.ENGLISH); // आउटपुट: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // आउटपुट: "fr"
-getLocaleLang(Locales.FRENCH); // आउटपुट: "fr"
-```
-
 ## किनारे के मामले
 
 - **कोई लोकल प्रदान नहीं किया गया:**
-
   - जब `locale` `undefined` होता है, तो फ़ंक्शन एक खाली स्ट्रिंग लौटाता है।
 
 - **गलत स्वरूप वाले लोकल स्ट्रिंग्स:**

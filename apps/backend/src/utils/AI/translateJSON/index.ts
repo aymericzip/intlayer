@@ -5,13 +5,13 @@ import {
   type TranslateJSONResultData,
   translateJSON as translateJSONAI,
 } from '@intlayer/ai';
-import type { Locale } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
 import { logger } from '@logger';
 import type { Tag } from '@/types/tag.types';
 
-export type TranslateJSONOptions = {
-  entryFileContent: JSON;
-  presetOutputContent: JSON;
+export type TranslateJSONOptions<T = JSON> = {
+  entryFileContent: T;
+  presetOutputContent: Partial<T>;
   dictionaryDescription?: string;
   entryLocale: Locale;
   outputLocale: Locale;
@@ -21,7 +21,7 @@ export type TranslateJSONOptions = {
   applicationContext?: string;
 };
 
-export { type TranslateJSONResultData, AIProvider };
+export { AIProvider, type TranslateJSONResultData };
 
 export const aiDefaultOptions: AIOptions = {
   provider: AIProvider.OPENAI,
@@ -33,9 +33,9 @@ export const aiDefaultOptions: AIOptions = {
  * The prompt includes details about the project's locales, file paths of content declarations,
  * and requests for identifying issues or inconsistencies.
  */
-export const translateJSON = async (
-  options: TranslateJSONOptions
-): Promise<TranslateJSONResultData | undefined> => {
+export const translateJSON = async <T = JSON>(
+  options: TranslateJSONOptions<T>
+): Promise<TranslateJSONResultData<T> | undefined> => {
   const result = await translateJSONAI(options);
 
   if (result) {

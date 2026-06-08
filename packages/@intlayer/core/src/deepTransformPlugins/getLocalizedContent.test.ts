@@ -1,5 +1,5 @@
-import type { Dictionary } from '@intlayer/types';
-import { Locales } from '@intlayer/types';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import * as Locales from '@intlayer/types/locales';
 import { describe, expect, it } from 'vitest';
 import { t } from '../transpiler';
 import { getPerLocaleDictionary } from './getLocalizedContent';

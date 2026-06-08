@@ -1,100 +1,140 @@
 'use client';
 
-import { MessageKey } from '@intlayer/editor';
-import {
-  type KeyPath,
-  type LocalDictionaryId,
-  NodeType,
-} from '@intlayer/types';
+import type { FileContent } from '@intlayer/editor';
+import type { KeyPath } from '@intlayer/types/keyPath';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import {
   createContext,
-  type Dispatch,
   type FC,
   type PropsWithChildren,
-  type SetStateAction,
+  useCallback,
   useContext,
+  useEffect,
+  useState,
 } from 'react';
-import { useCrossFrameState } from './useCrossFrameState';
+import { useEditorStateManager } from './EditorStateContext';
 
-export type FileContent = {
-  dictionaryKey: string;
-  dictionaryLocalId?: LocalDictionaryId;
-  keyPath?: KeyPath[];
-};
+export type { FileContent } from '@intlayer/editor';
 
 export type FocusDictionaryState = {
   focusedContent: FileContent | null;
 };
 
 export type FocusDictionaryActions = {
-  setFocusedContent: Dispatch<SetStateAction<FileContent | null>>;
+  setFocusedContent: (value: FileContent | null) => void;
   setFocusedContentKeyPath: (keyPath: KeyPath[]) => void;
 };
 
-const FocusDictionaryStateContext = createContext<
-  FocusDictionaryState | undefined
->(undefined);
-const FocusDictionaryActionsContext = createContext<
-  FocusDictionaryActions | undefined
+type FocusDictionaryContextType = FocusDictionaryState & FocusDictionaryActions;
+
+// Create native React context fallback
+const FocusDictionaryReactContext = createContext<
+  FocusDictionaryContextType | undefined
 >(undefined);
 
+// Create the Provider
 export const FocusDictionaryProvider: FC<PropsWithChildren> = ({
   children,
 }) => {
-  const [focusedContent, setFocusedContent] =
-    useCrossFrameState<FileContent | null>(
-      MessageKey.INTLAYER_FOCUSED_CONTENT_CHANGED,
-      null
-    );
+  const manager = useEditorStateManager();
+  const [fallbackContent, setFallbackContent] = useState<FileContent | null>(
+    null
+  );
 
-  const setFocusedContentKeyPath = (keyPath: KeyPath[]) => {
-    setFocusedContent((prev) => {
-      if (!prev) {
-        return prev; // nothing to update if there's no focused content
+  const setFocusedContent = useCallback(
+    (value: FileContent | null) => {
+      if (manager) {
+        manager.focusedContent.set(value);
+      } else {
+        setFallbackContent(value);
       }
+    },
+    [manager]
+  );
 
-      // Remove translation key path if it exists to make it more flexible with optimization client / editor
-      const filteredKeyPath = keyPath.filter(
-        (key) => key.type !== NodeType.Translation
-      );
-
-      return {
-        ...prev,
-        keyPath: filteredKeyPath,
-      };
-    });
-  };
+  const setFocusedContentKeyPath = useCallback(
+    (keyPath: KeyPath[]) => {
+      if (manager) {
+        manager.setFocusedContentKeyPath(keyPath);
+      } else {
+        setFallbackContent((prev) => {
+          if (!prev) return null;
+          const filtered = keyPath.filter(
+            (key) => key.type !== NodeTypes.TRANSLATION
+          );
+          return { ...prev, keyPath: filtered };
+        });
+      }
+    },
+    [manager]
+  );
 
   return (
-    <FocusDictionaryStateContext.Provider value={{ focusedContent }}>
-      <FocusDictionaryActionsContext.Provider
-        value={{ setFocusedContent, setFocusedContentKeyPath }}
-      >
-        {children}
-      </FocusDictionaryActionsContext.Provider>
-    </FocusDictionaryStateContext.Provider>
+    <FocusDictionaryReactContext.Provider
+      value={{
+        focusedContent: manager?.focusedContent.value ?? fallbackContent,
+        setFocusedContent,
+        setFocusedContentKeyPath,
+      }}
+    >
+      {children}
+    </FocusDictionaryReactContext.Provider>
   );
 };
 
-export const useFocusDictionaryActions = () => {
-  const context = useContext(FocusDictionaryActionsContext);
-  if (context === undefined) {
-    throw new Error(
-      'useFocusDictionaryActions must be used within a FocusDictionaryProvider'
-    );
-  }
-  return context;
+// 3. Update the hook to consume the fallback context
+export const useFocusDictionary = (): FocusDictionaryState &
+  FocusDictionaryActions => {
+  const manager = useEditorStateManager();
+  const reactContext = useContext(FocusDictionaryReactContext);
+
+  const [focusedContent, setFocusedContentState] = useState<FileContent | null>(
+    manager?.focusedContent.value ?? reactContext?.focusedContent ?? null
+  );
+
+  useEffect(() => {
+    if (!manager) {
+      setFocusedContentState(reactContext?.focusedContent ?? null);
+      return;
+    }
+
+    const handler = (e: Event) =>
+      setFocusedContentState((e as CustomEvent<FileContent | null>).detail);
+    manager.focusedContent.addEventListener('change', handler);
+
+    return () => manager.focusedContent.removeEventListener('change', handler);
+  }, [manager, reactContext?.focusedContent]);
+
+  const setFocusedContent = useCallback(
+    (value: FileContent | null) => {
+      if (reactContext) {
+        reactContext.setFocusedContent(value);
+      } else if (manager) {
+        manager.focusedContent.set(value);
+      }
+    },
+    [reactContext, manager]
+  );
+
+  const setFocusedContentKeyPath = useCallback(
+    (keyPath: KeyPath[]) => {
+      if (reactContext) {
+        reactContext.setFocusedContentKeyPath(keyPath);
+      } else if (manager) {
+        manager.setFocusedContentKeyPath(keyPath);
+      }
+    },
+    [reactContext, manager]
+  );
+
+  return {
+    focusedContent,
+    setFocusedContent,
+    setFocusedContentKeyPath,
+  };
 };
 
-export const useFocusDictionary = () => {
-  const actionContext = useFocusDictionaryActions();
-  const stateContext = useContext(FocusDictionaryStateContext);
-
-  if (stateContext === undefined) {
-    throw new Error(
-      'useFocusDictionaryState must be used within a FocusDictionaryProvider'
-    );
-  }
-
-  return { ...stateContext, ...actionContext };
+export const useFocusDictionaryActions = (): FocusDictionaryActions => {
+  const { setFocusedContent, setFocusedContentKeyPath } = useFocusDictionary();
+  return { setFocusedContent, setFocusedContentKeyPath };
 };

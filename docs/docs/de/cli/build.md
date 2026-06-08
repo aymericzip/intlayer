@@ -13,23 +13,51 @@ slugs:
   - concept
   - cli
   - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: "checkTypes-Option hinzugefügt"
 ---
 
 # Wörterbücher erstellen
 
 Um Ihre Wörterbücher zu erstellen, können Sie die folgenden Befehle ausführen:
 
-```bash
+```bash packageManager="npm"
 npx intlayer build
+```
+
+```bash packageManager="yarn"
+yarn intlayer build
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build
+```
+
+```bash packageManager="bun"
+bun x intlayer build
 ```
 
 oder im Watch-Modus
 
-```bash
+```bash packageManager="npm"
 npx intlayer build --watch
 ```
 
-Dieser Befehl findet standardmäßig Ihre Deklarations-Inhaltsdateien unter `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` und erstellt die Wörterbücher im Verzeichnis `.intlayer`.
+```bash packageManager="yarn"
+yarn intlayer build --watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build --watch
+```
+
+```bash packageManager="bun"
+bun x intlayer build --watch
+```
+
+Dieser Befehl findet standardmäßig Ihre Deklarations-Inhaltsdateien unter `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` und erstellt die Wörterbücher im Verzeichnis `.intlayer`.
 
 ## Aliase:
 
@@ -62,3 +90,7 @@ Dieser Befehl findet standardmäßig Ihre Deklarations-Inhaltsdateien unter `./s
 - **`--no-cache`**: Deaktivieren Sie den Cache.
 
   > Beispiel: `npx intlayer build --no-cache`
+
+- **`--check-types`**: Überprüft die Typen der Inhaltsdeklarationsdateien.
+
+  > Beispiel: `npx intlayer build --check-types`

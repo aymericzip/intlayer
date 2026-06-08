@@ -21,22 +21,22 @@ slugs:
 history:
   - version: 5.8.0
     date: 2025-08-20
-    changes: Добавлены форматтеры для Vue
+    changes: "Добавлены форматтеры для Vue"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Добавлены форматтеры списка
+    changes: "Добавлены форматтеры списка"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Добавлены дополнительные утилиты Intl (DisplayNames, Collator, PluralRules)
+    changes: "Добавлены дополнительные утилиты Intl (DisplayNames, Collator, PluralRules)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Добавлены утилиты локали (getLocaleName, getLocaleLang, getLocaleFromPath и др.)
+    changes: "Добавлены утилиты локали (getLocaleName, getLocaleLang, getLocaleFromPath и др.)"
   - version: 5.8.0
     date: 2025-08-20
-    changes: Добавлены утилиты для работы с контентом (getContent, getTranslation, getIntlayer и др.)
+    changes: "Добавлены утилиты для работы с контентом (getContent, getTranslation, getIntlayer и др.)"
   - version: 5.8.0
     date: 2025-08-18
-    changes: Добавлена документация по форматтерам
+    changes: "Добавлена документация по форматтерам"
 ---
 
 # Форматтеры Intlayer
@@ -75,7 +75,7 @@ import {
 
 ## Кешированный Intl
 
-Экспортируемый `Intl` — это тонкая кешированная обёртка вокруг глобального `Intl`. Он мемоизирует экземпляры `NumberFormat`, `DateTimeFormat`, `RelativeTimeFormat`, `ListFormat`, `DisplayNames`, `Collator` и `PluralRules`, что позволяет избежать повторного создания одного и того же форматтера.
+Экспортируемый `Intl`, это тонкая кешированная обёртка вокруг глобального `Intl`. Он мемоизирует экземпляры `NumberFormat`, `DateTimeFormat`, `RelativeTimeFormat`, `ListFormat`, `DisplayNames`, `Collator` и `PluralRules`, что позволяет избежать повторного создания одного и того же форматтера.
 
 Поскольку создание форматтера относительно дорогостоящее, такое кеширование улучшает производительность без изменения поведения. Обёртка предоставляет тот же API, что и нативный `Intl`, поэтому использование идентично.
 

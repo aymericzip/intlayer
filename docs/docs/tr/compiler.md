@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2025-09-09
+updatedAt: 2026-03-12
 title: Intlayer Compiler | i18n için Otomatik İçerik Çıkarımı
 description: Uluslararasılaştırma sürecinizi Intlayer Compiler ile otomatikleştirin. İçeriği bileşenlerinizden doğrudan çıkararak Vite, Next.js ve daha fazlasında daha hızlı ve verimli i18n sağlayın.
 keywords:
@@ -20,9 +20,15 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 8.2.0
+    date: 2026-03-09
+    changes: "Derleyici seçeneklerini güncelle, FilePathPattern desteği ekle"
+  - version: 8.1.7
+    date: 2026-02-25
+    changes: "Derleyici seçeneklerini güncelle"
   - version: 7.3.1
     date: 2025-11-27
-    changes: Compiler Yayınlandı
+    changes: "Compiler Yayınlandı"
 ---
 
 # Intlayer Compiler | i18n için Otomatik İçerik Çıkarımı
@@ -38,7 +44,7 @@ history:
 - **Geliştirici Deneyimi**: İçerik bildirimlerini kullanıldıkları yerde tutarak bakım kolaylığı sağlar.
 - **Canlı Güncellemeler**: Geliştirme sırasında anlık geri bildirim için Hot Module Replacement (HMR) desteği sağlar.
 
-Daha derin bir karşılaştırma için [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/compiler_vs_declarative_i18n.md) blog yazısına bakabilirsiniz.
+Daha derin bir karşılaştırma için [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md) blog yazısına bakabilirsiniz.
 
 ## Neden Intlayer Compiler Kullanmamalısınız?
 
@@ -47,11 +53,14 @@ Derleyici mükemmel bir "hemen çalışır" deneyimi sunarken, aynı zamanda far
 - **Sezgisel belirsizlik**: Derleyici, kullanıcıya yönelik içerik ile uygulama mantığı arasındaki farkı tahmin etmek zorundadır (örneğin, `className="active"`, durum kodları, ürün kimlikleri). Karmaşık kod tabanlarında, bu manuel açıklamalar ve istisnalar gerektiren yanlış pozitifler veya kaçırılan dizelerle sonuçlanabilir.
 - **Yalnızca statik çıkarım**: Derleyici tabanlı çıkarım statik analize dayanır. Yalnızca çalışma zamanında var olan dizeler (API hata kodları, CMS alanları vb.) derleyici tarafından tek başına keşfedilemez veya çevrilemez, bu nedenle hala tamamlayıcı bir çalışma zamanı i18n stratejisine ihtiyacınız vardır.
 
-Daha derin bir mimari karşılaştırma için [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/en/compiler_vs_declarative_i18n.md) blog yazısına bakın.
+Daha derin bir mimari karşılaştırma için [Compiler vs. Declarative i18n](https://github.com/aymericzip/intlayer/blob/main/docs/blog/tr/compiler_vs_declarative_i18n.md) blog yazısına bakın.
 
-Alternatif olarak, içeriğiniz üzerinde tam kontrolü korurken i18n sürecinizi otomatikleştirmek için, Intlayer ayrıca otomatik çıkarım komutu `intlayer transform` (bkz. [CLI dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/transform.md)) veya Intlayer VS Code uzantısının `Intlayer: extract content to Dictionary` komutunu (bkz. [VS Code uzantı dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md)) sağlar.
+Alternatif olarak, içeriğiniz üzerinde tam kontrolü korurken i18n sürecinizi otomatikleştirmek için, Intlayer ayrıca otomatik çıkarım komutu `intlayer extract` (bkz. [CLI dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md)) veya Intlayer VS Code uzantısının `Intlayer: extract content to Dictionary` komutunu (bkz. [VS Code uzantı dokümantasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/vs_code_extension.md)) sağlar.
 
 ## Kullanım
+
+<Tabs>
+ <Tab value='vite'>
 
 ### Vite
 
@@ -79,6 +88,8 @@ export default defineConfig({
 });
 ```
 
+See complete tutorial: [Intlayer Compiler with Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react_compiler.md)
+
 #### Framework Desteği
 
 Vite eklentisi farklı dosya türlerini otomatik olarak algılar ve işler:
@@ -96,6 +107,9 @@ npm install @intlayer/vue-compiler
 # Svelte için
 npm install @intlayer/svelte-compiler
 ```
+
+ </Tab>
+ <Tab value='nextjs'>
 
 ### Next.js (Babel)
 
@@ -122,12 +136,210 @@ const {
 module.exports = {
   presets: ["next/babel"],
   plugins: [
-    // Extract content from components into dictionaries
+    // Bileşenlerden içeriği sözlüklere çıkarın
     [intlayerExtractBabelPlugin, getExtractPluginOptions()],
-    // Optimize imports by replacing useIntlayer with direct dictionary imports
+    // useIntlayer'ı doğrudan sözlük içe aktarmalarıyla değiştirerek içe aktarmaları optimize edin
     [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
   ],
 };
 ```
 
 Bu yapılandırma, bileşenlerinizde beyan edilen içeriğin otomatik olarak çıkarılmasını ve derleme süreciniz sırasında sözlüklerin oluşturulmasında kullanılmasını sağlar.
+
+See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
+
+ </Tab>
+</Tabs>
+
+### Özel yapılandırma
+
+Derleyici davranışını özelleştirmek için projenizin kök dizinindeki `intlayer.config.ts` dosyasını güncelleyebilirsiniz.
+
+````ts fileName="intlayer.config.ts"
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  compiler: {
+    /**
+     * Derleyicinin etkinleştirilip etkinleştirilmeyeceğini belirtir.
+     * Geliştirme sırasında derleyiciyi atlamak ve başlangıç sürelerini hızlandırmak için 'build-only' olarak ayarlayın.
+     */
+    enabled: true,
+
+    /**
+     * Çıktı dosyalarının yolunu tanımlar. `outputDir` yerine geçer.
+     *
+     * - `./` ile başlayan yollar bileşen dizinine göre çözümlenir.
+     * - `/` ile başlayan yollar projenin kök dizinine (`baseDir`) göre çözümlenir.
+     *
+     * - Yola `{{locale}}` değişkenini dahil etmek, dile göre ayrılmış sözlüklerin oluşturulmasını etkinleştirir.
+     *
+     * Örnekler:
+     * ```ts
+     * {
+     *   // Bileşenin yanına çok dilli .content.ts dosyaları oluşturun
+     *   output: ({ fileName, extension }) => `./${fileName}${extension}`,
+     *
+     *   // output: './{{fileName}}{{extension}}', // Şablon dizesi kullanarak eşdeğer kullanım
+     * }
+     * ```
+     *
+     * ```ts
+     * {
+     *   // Proje kökünde dile göre merkezileştirilmiş JSON dosyaları oluşturun
+     *   output: ({ key, locale }) => `/locales/${locale}/${key}.content.json`,
+     *
+     *   // output: '/locales/{{locale}}/{{key}}.content.json', // Şablon dizesi kullanarak eşdeğer kullanım
+     * }
+     * ```
+     *
+     * Değişken listesi:
+     *   - `fileName`: Dosya adı.
+     *   - `key`: İçerik anahtarı.
+     *   - `locale`: İçerik dili.
+     *   - `extension`: Dosya uzantısı.
+     *   - `componentFileName`: Bileşen dosya adı.
+     *   - `componentExtension`: Bileşen dosya uzantısı.
+     *   - `format`: Sözlük formatı.
+     *   - `componentFormat`: Bileşen sözlük formatı.
+     *   - `componentDirPath`: Bileşen dizin yolu.
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Bileşenlerin dönüştürüldükten sonra kaydedilip kaydedilmeyeceğini belirtir.
+     * Bu şekilde, derleyici uygulamayı dönüştürmek için yalnızca bir kez çalıştırılabilir ve ardından kaldırılabilir.
+     */
+    saveComponents: false,
+
+    /**
+     * Oluşturulan dosyaya yalnızca içeriği yerleştirin. Dil başına i18next JSON çıktısı veya ICU MessageFormat için kullanışlıdır.
+     *
+     * - `output: ({ locale, key }) => `./locale/${locale}/${key}.json`,`
+     */
+    noMetadata: false,
+
+    /**
+     * Sözlük anahtar öneki
+     */
+    dictionaryKeyPrefix: "", // Ayıklanan sözlük anahtarları için isteğe bağlı bir önek ekleyin
+  },
+};
+````
+
+### Derleyici Yapılandırma Referansı
+
+Aşağıdaki özellikler `intlayer.config.ts` dosyanızın `compiler` bloğunda yapılandırılabilir:
+
+- **enabled**:
+  - _Tip_: `boolean | 'build-only'`
+  - _Varsayılan_: `true`
+  - _Açıklama_: Derleyicinin etkinleştirilip etkinleştirilmeyeceğini belirtir.
+
+- **dictionaryKeyPrefix**:
+  - _Tip_: `string`
+  - _Varsayılan_: `''`
+  - _Açıklama_: Ayıklanan sözlük anahtarları için önek.
+
+- **transformPattern**:
+  - _Tip_: `string | string[]`
+  - _Varsayılan_: `['**/*.{js,ts,mjs,cjs,jsx,tsx,vue,svelte}', '!**/node_modules/**']`
+  - _Açıklama_: (Kullanımdan kaldırıldı: bunun yerine `build.traversePattern` kullanın) Optimize edilecek kodu taramak için desenler.
+
+- **excludePattern**:
+  - _Tip_: `string | string[]`
+  - _Varsayılan_: `['**/node_modules/**']`
+  - _Açıklama_: (Kullanımdan kaldırıldı: bunun yerine `build.traversePattern` kullanın) Optimizasyondan hariç tutulacak desenler.
+
+- **output**:
+  - _Tip_: `FilePathPattern`
+  - _Varsayılan_: `({ key }) => 'compiler/${key}.content.json'`
+  - _Açıklama_: Çıktı dosyalarının yolunu tanımlar. `outputDir` yerine geçer. `{{locale}}`, `{{key}}`, `{{fileName}}`, `{{extension}}`, `{{format}}`, `{{dirPath}}`, `{{componentFileName}}`, `{{componentExtension}}`, ve `{{componentFormat}}` gibi dinamik değişkenleri işler. `'my/{{var}}/path'` formatı kullanılarak bir dize olarak veya bir fonksiyon olarak ayarlanabilir.
+  - _Not_: `./**/*` yolları bileşene göre çözümlenir. `/**/*` yolları Intlayer `baseDir`'e göre çözümlenir.
+  - _Not_: Yolda dil tanımlanmışsa, sözlükler dil başına oluşturulacaktır.
+  - _Örnek_: `output: ({ locale, key }) => 'compiler/${locale}/${key}.json'`
+
+- **noMetadata**:
+  - _Tip_: `boolean`
+  - _Varsayılan_: `false`
+  - _Açıklama_: Meta verilerin dosyaya kaydedilip kaydedilmeyeceğini belirtir. Doğruysa, derleyici sözlüklerin meta verilerini (anahtar, içerik sarmalayıcı) kaydetmez. Dil başına i18next veya ICU MessageFormat JSON çıktıları için kullanışlıdır.
+  - _Not_: `loadJSON` eklentisi ile kullanıldığında kullanışlıdır.
+  - _Örnek_:
+    Eğer `true`:
+    ```json
+    {
+      "key": "value"
+    }
+    ```
+    Eğer `false`:
+    ```json
+    {
+      "key": "value",
+      "content": {
+        "key": "value"
+      }
+    }
+    ```
+
+- **saveComponents**:
+  - _Tip_: `boolean`
+  - _Varsayılan_: `false`
+  - _Açıklama_: Bileşenlerin dönüştürüldükten sonra kaydedilip kaydedilmeyeceğini belirtir.
+
+### Eksik çevirileri doldur
+
+Intlayer, eksik çevirileri doldurmanıza yardımcı olacak bir CLI aracı sağlar. Kodunuzdaki eksik çevirileri test etmek ve doldurmak için `intlayer` komutunu kullanabilirsiniz.
+
+```bash packageManager="npm"
+npx intlayer test         # Eksik çeviri olup olmadığını test et
+```
+
+```bash packageManager="yarn"
+yarn intlayer test         # Eksik çeviri olup olmadığını test et
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # Eksik çeviri olup olmadığını test et
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # Eksik çeviri olup olmadığını test et
+```
+
+```bash packageManager="npm"
+npx intlayer fill         # Eksik çevirileri doldur
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # Eksik çevirileri doldur
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # Eksik çevirileri doldur
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # Eksik çevirileri doldur
+```
+
+### Çıkarma
+
+Intlayer, kodunuzdan içerik çıkarmak için bir CLI aracı sağlar. Kodunuzdaki içeriği çıkarmak için `intlayer extract` komutunu kullanabilirsiniz.
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+> Daha fazla ayrıntı için [CLI belgelerine](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) bakın.

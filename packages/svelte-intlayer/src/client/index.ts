@@ -8,3 +8,4 @@ export { useDictionaryAsync } from './useDictionaryAsync';
 export { useDictionaryDynamic } from './useDictionaryDynamic';
 export { useIntlayer } from './useIntlayer';
 export { useLocale } from './useLocale';
+export { useRewriteURL } from './useRewriteURL';

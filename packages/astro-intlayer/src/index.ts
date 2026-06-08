@@ -1,18 +1,36 @@
 import { resolve } from 'node:path';
-import { prepareIntlayer, watch } from '@intlayer/chokidar';
-import { getAlias, getConfiguration } from '@intlayer/config';
+import { prepareIntlayer } from '@intlayer/chokidar/build';
+import { watch } from '@intlayer/chokidar/watcher';
+import { getConfiguration } from '@intlayer/config/node';
+import { getAlias } from '@intlayer/config/utils';
 import type { AstroIntegration } from 'astro';
+import type { PluginOption } from 'vite';
 import {
-  intlayerPrune,
-  intlayerMiddleware as viteIntlayerMiddlewarePlugin,
   intlayer as viteIntlayerPlugin,
+  intlayerProxy as viteIntlayerProxyPlugin,
 } from 'vite-intlayer';
 
 /**
- * Astro integration for Intlayer
- * - Adds Vite plugins: intlayer (aliases, watchers), middleware, prune (when optimize enabled)
- * - Prepares dictionaries at build start
- * - Starts watcher in dev
+ * Astro integration for Intlayer.
+ *
+ * It handles:
+ * 1. Preparing Intlayer resources (dictionaries) at config setup.
+ * 2. Injecting Vite plugins for aliases, locale-based routing (middleware), and build optimizations (prune).
+ * 3. Configuring Vite aliases for dictionary access.
+ * 4. Starting a file watcher for dictionary changes during development.
+ *
+ * @returns An Astro integration object.
+ *
+ * @example
+ * ```ts
+ * // astro.config.mjs
+ * import { defineConfig } from 'astro/config';
+ * import { intlayer } from 'astro-intlayer';
+ *
+ * export default defineConfig({
+ *   integrations: [intlayer()],
+ * });
+ * ```
  */
 export const intlayer = (): AstroIntegration =>
   ({
@@ -20,7 +38,6 @@ export const intlayer = (): AstroIntegration =>
     hooks: {
       'astro:config:setup': async ({ updateConfig }) => {
         const configuration = getConfiguration();
-        const { optimize } = configuration.build;
 
         // Prepare once per process start to ensure generated entries exist
         await prepareIntlayer(configuration);
@@ -29,17 +46,16 @@ export const intlayer = (): AstroIntegration =>
           vite: {
             plugins: [
               // Aliases + watcher + buildStart prep
+              // (also handles optimize/prune/minify internally)
               viteIntlayerPlugin(),
               // Dev-time middleware for locale routing
-              viteIntlayerMiddlewarePlugin(),
-              // Tree-shake/prune content when enabled
-              ...(optimize ? [intlayerPrune(configuration) as any] : []),
-            ],
+              viteIntlayerProxyPlugin(),
+            ] as PluginOption[],
             resolve: {
               alias: {
                 ...getAlias({
                   configuration,
-                  formatter: (value: string) => resolve(value),
+                  formatter: (value) => resolve(value),
                 }),
               },
             },
@@ -49,8 +65,9 @@ export const intlayer = (): AstroIntegration =>
 
       'astro:server:setup': async () => {
         const configuration = getConfiguration();
+
         if (configuration.content.watch) {
-          watch({ configuration });
+          await watch({ configuration });
         }
       },
     },

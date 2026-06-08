@@ -1,8 +1,5 @@
-import type { ResponseWithSession } from '@middlewares/sessionAuth.middleware';
 import { ensureArrayQueryFilter } from '@utils/ensureArrayQueryFilter';
-import type { Request } from 'express';
-import type { RootFilterQuery } from 'mongoose';
-import type { Dictionary } from '@/types/dictionary.types';
+import type { FastifyRequest } from 'fastify';
 import {
   type FiltersAndPagination,
   getFiltersAndPaginationFromBody,
@@ -23,6 +20,8 @@ export type DictionaryFiltersParams = {
   key?: string;
   keys?: string[];
   tags?: string | string[];
+  location?: 'remote' | 'local' | 'both' | 'none';
+  priority?: string;
   version?: string;
   search?: string;
   sortBy?: string;
@@ -32,20 +31,22 @@ export type DictionaryFiltersParams = {
    */
   fetchAll?: 'true' | 'false';
 };
-export type DictionaryFilters = RootFilterQuery<Dictionary>;
+export type DictionaryFilters = any; // mongoose.QueryFilter<Dictionary>;
 
 /**
  * Extracts filters and pagination information from the request body.
- * @param req - Express request object.
+ * @param req - Fastify request object.
  * @returns Object containing filters, page, pageSize, and getNumberOfPages functions.
  */
 export const getDictionaryFiltersAndPagination = (
-  req: Request<FiltersAndPagination<DictionaryFiltersParams>>,
-  res: ResponseWithSession
+  req: FastifyRequest<{
+    Querystring: FiltersAndPagination<DictionaryFiltersParams>;
+  }>
 ) => {
   const { filters: filtersRequest, ...pagination } =
     getFiltersAndPaginationFromBody<DictionaryFiltersParams>(req);
-  const { roles, project } = res.locals;
+  const roles = req.session?.roles;
+  const project = req.session?.project;
 
   let filters: DictionaryFilters = {};
   let sortOptions: Record<string, 1 | -1> = { updatedAt: -1 };
@@ -55,6 +56,8 @@ export const getDictionaryFiltersAndPagination = (
     search,
     keys,
     tags,
+    location,
+    priority,
     ids,
     projectId,
     projectIds,
@@ -69,6 +72,11 @@ export const getDictionaryFiltersAndPagination = (
     sortOrder,
     fetchAll,
   } = filtersRequest ?? {};
+
+  // null = production (default env); an ObjectId string = a specific non-default env.
+  // The session always carries this convention (set by the selectEnvironment endpoint).
+  const sessionEnvironmentId =
+    (req.session?.session as any)?.activeEnvironmentId ?? null;
 
   if (ids) {
     filters = { ...filters, _id: { $in: ensureArrayQueryFilter(ids) } };
@@ -85,7 +93,7 @@ export const getDictionaryFiltersAndPagination = (
     };
   }
 
-  if (!(roles.includes('admin') && fetchAll === 'true')) {
+  if (!(roles?.includes('admin') && fetchAll === 'true')) {
     filters = { ...filters, projectIds: { $in: project?.id } };
   }
 
@@ -131,7 +139,7 @@ export const getDictionaryFiltersAndPagination = (
         { key: searchRegex },
         { title: searchRegex },
         { description: searchRegex },
-        { tags: { $in: [searchRegex] } },
+        { tags: searchRegex },
       ],
     };
   }
@@ -144,12 +152,57 @@ export const getDictionaryFiltersAndPagination = (
     filters = { ...filters, tags: { $in: ensureArrayQueryFilter(tags) } };
   }
 
+  if (location === 'local') {
+    filters = { ...filters, _id: null };
+  }
+
+  if (priority) {
+    filters = { ...filters, priority: Number(priority) };
+  }
+
   if (version) {
-    filters = { ...filters, content: { [version]: `$content.${version}` } };
+    filters = { ...filters, [`content.${version}`]: { $exists: true } };
   }
 
   if (sortBy && sortOrder && (sortOrder === 'asc' || sortOrder === 'desc')) {
     sortOptions = { [sortBy]: sortOrder === 'asc' ? 1 : -1 };
+  }
+
+  // Always scope by environment.
+  // Production (sessionEnvironmentId = null): match dicts with no environmentId set.
+  // { environmentId: null } in $match covers both explicit null and missing field.
+  // Other envs: match dicts with the exact environmentId.
+  if (sessionEnvironmentId) {
+    filters = { ...filters, environmentId: sessionEnvironmentId };
+  } else {
+    filters = { ...filters, environmentId: null };
+  }
+
+  // Enforce allowedEnvironmentIds constraint (from memberAccess or access key scope).
+  // Skip for admin/org_admin/project_admin who bypass granular constraints.
+  const sessionAllowedEnvironmentIds =
+    req.session?.allowedEnvironmentIds ?? null;
+  const isGlobalAdmin =
+    roles?.includes('admin') ||
+    roles?.includes('org_admin') ||
+    roles?.includes('project_admin');
+
+  if (sessionAllowedEnvironmentIds !== null && !isGlobalAdmin) {
+    // Check whether the session's active environment is in the allowed list.
+    const isSessionEnvAllowed = sessionAllowedEnvironmentIds.some(
+      (allowedEnvId) => {
+        if (sessionEnvironmentId === null) {
+          return allowedEnvId === null;
+        }
+        return String(allowedEnvId) === String(sessionEnvironmentId);
+      }
+    );
+
+    if (!isSessionEnvAllowed) {
+      // Block all dictionary access — current env is not in the allowed set.
+      filters = { ...filters, _id: null };
+    }
+    // When allowed, the session env filter applied above is already correct.
   }
 
   return { filters, sortOptions, ...pagination };

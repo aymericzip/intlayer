@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Initial history
+    changes: "Initial history"
 ---
 
 # Documentation: `getLocaleLang` Function in `intlayer`
@@ -33,7 +33,6 @@ The `getLocaleLang` function extracts the language code from a locale string. It
 ## Parameters
 
 - `locale?: Locales`
-
   - **Description**: The locale string (e.g., `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`) from which the language code is extracted.
   - **Type**: `Locales` (optional)
 
@@ -46,26 +45,8 @@ The `getLocaleLang` function extracts the language code from a locale string. It
 
 ### Extracting Language Codes:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getLocaleLang, Locales } from "intlayer";
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
-getLocaleLang(Locales.ENGLISH); // Output: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // Output: "fr"
-getLocaleLang(Locales.FRENCH); // Output: "fr"
-```
-
-```javascript codeFormat="esm"
-import { getLocaleLang } from "intlayer";
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
-getLocaleLang(Locales.ENGLISH); // Output: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // Output: "fr"
-getLocaleLang(Locales.FRENCH); // Output: "fr"
-```
-
-```javascript codeFormat="commonjs"
-const { getLocaleLang } = require("intlayer");
 
 getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
 getLocaleLang(Locales.ENGLISH); // Output: "en"
@@ -76,7 +57,6 @@ getLocaleLang(Locales.FRENCH); // Output: "fr"
 ## Edge Cases
 
 - **No Locale Provided:**
-
   - The function returns an empty string when `locale` is `undefined`.
 
 - **Malformed Locale Strings:**

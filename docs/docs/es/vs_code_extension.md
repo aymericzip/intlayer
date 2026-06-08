@@ -18,16 +18,16 @@ slugs:
 history:
   - version: 6.1.5
     date: 2025-09-30
-    changes: Añadido gif de demostración
+    changes: "Añadido gif de demostración"
   - version: 6.1.0
     date: 2025-09-24
-    changes: Añadida sección de selección de entorno
+    changes: "Añadida sección de selección de entorno"
   - version: 6.0.0
     date: 2025-09-22
-    changes: Pestaña Intlayer / Comandos Rellenar y Probar
+    changes: "Pestaña Intlayer / Comandos Rellenar y Probar"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Historial inicial
+    changes: "Historial inicial"
 ---
 
 # Extensión Oficial para VS Code
@@ -120,7 +120,7 @@ La extensión puede cargar variables de entorno desde tu espacio de trabajo para
 
 #### Selección del entorno activo
 
-- **Paleta de Comandos**: abre la paleta y ejecuta `Intlayer: Select Environment`, luego elige el entorno (por ejemplo, `development`, `staging`, `production`). La extensión intentará cargar el primer archivo disponible en la lista de prioridad mencionada y mostrará una notificación como “Entorno cargado desde .env.<env>.local”.
+- **Paleta de Comandos**: abre la paleta y ejecuta `Intlayer: Select Environment`, luego elige el entorno (por ejemplo, `development`, `staging`, `production`). La extensión intentará cargar el primer archivo disponible en la lista de prioridad mencionada y mostrará una notificación como “Entorno cargado desde `.env.<env>.local`”.
 - **Configuración**: ve a `Settings → Extensions → Intlayer`, y configura:
   - **Environment**: el nombre del entorno usado para resolver archivos `.env.<env>*`.
   - (Opcional) **Env File**: una ruta explícita a un archivo `.env`. Cuando se proporciona, tiene prioridad sobre la lista inferida.

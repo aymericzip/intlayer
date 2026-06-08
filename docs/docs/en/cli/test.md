@@ -17,20 +17,33 @@ slugs:
 
 # Test missing translations
 
-```bash
-npx intlayer content test
+```bash packageManager="npm"
+npx intlayer test
+```
+
+```bash packageManager="yarn"
+yarn intlayer test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test
+```
+
+```bash packageManager="bun"
+bun x intlayer test
 ```
 
 ## Aliases:
 
-- `npx intlayer test`
+- `npx intlayer content test`
 
 This command analyzes your content declaration files to identify missing translations across all configured locales. It provides a comprehensive report showing which translation keys are missing for which locales, helping you maintain consistency across your multilingual content.
 
 ## Example output:
 
 ```bash
-pnpm intlayer content test
+npx intlayer content test
+
 Missing translations:
  - home-page                      - tr         - src/components/HomePage/homePage.content.ts
  - server-component               - es, tr     - src/components/ServerComponent/serverComponent.content.ts
@@ -69,8 +82,20 @@ Total missing required locales: 0
 
 ## Example:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 The output helps you quickly identify which translations need to be completed to ensure your application works properly across all configured locales.

@@ -1,4 +1,4 @@
-import { Locales, type LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 
 type Dir = 'ltr' | 'rtl' | 'auto';
 
@@ -16,35 +16,37 @@ type Dir = 'ltr' | 'rtl' | 'auto';
  * @returns The text direction of the given locale.
  */
 export const getHTMLTextDir = (locale?: LocalesValues): Dir => {
-  switch (locale) {
-    case Locales.ARABIC:
-    case Locales.FARSI:
-    case Locales.URDU:
-    case Locales.PASHTO:
-    case Locales.SYRIAC:
-    case Locales.ARABIC_UNITED_ARAB_EMIRATES:
-    case Locales.ARABIC_BAHRAIN:
-    case Locales.ARABIC_ALGERIA:
-    case Locales.ARABIC_EGYPT:
-    case Locales.ARABIC_IRAQ:
-    case Locales.ARABIC_JORDAN:
-    case Locales.ARABIC_KUWAIT:
-    case Locales.ARABIC_LEBANON:
-    case Locales.ARABIC_LIBYA:
-    case Locales.ARABIC_MOROCCO:
-    case Locales.ARABIC_OMAN:
-    case Locales.ARABIC_QATAR:
-    case Locales.ARABIC_SAUDI_ARABIA:
-    case Locales.ARABIC_SYRIA:
-    case Locales.ARABIC_TUNISIA:
-    case Locales.ARABIC_YEMEN:
-    case Locales.FARSI_IRAN:
-    case Locales.URDU_ISLAMIC_REPUBLIC_OF_PAKISTAN:
-    case Locales.PASHTO_AFGHANISTAN:
-    case Locales.SYRIAC_SYRIA:
-      return 'rtl';
+  if (!locale) return 'ltr';
 
-    default:
-      return 'ltr';
+  try {
+    const localeInfo = new Intl.Locale(locale);
+
+    // Check for the 'textInfo' property (part of the Intl Enumeration API)
+    // Most modern browsers support 'direction' via 'getTextInfo()' or 'textInfo'
+    if ('getTextInfo' in localeInfo) {
+      return (localeInfo as any).getTextInfo().direction as Dir;
+    }
+
+    // Fallback for environments supporting 'textInfo' property
+    if ('textInfo' in localeInfo) {
+      return (localeInfo as any).textInfo.direction as Dir;
+    }
+
+    // Manual fallback for older environments using script detection
+    const maximized = localeInfo.maximize();
+    const rtlScripts = [
+      'Arab',
+      'Hebr',
+      'Thaa',
+      'Syrc',
+      'Mand',
+      'Adlm',
+      'Rohg',
+      'Nkoo',
+    ];
+
+    return rtlScripts.includes(maximized.script ?? '') ? 'rtl' : 'ltr';
+  } catch {
+    return 'ltr';
   }
 };

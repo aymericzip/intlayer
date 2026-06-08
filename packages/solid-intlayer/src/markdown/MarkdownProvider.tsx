@@ -4,25 +4,87 @@ import {
   type JSXElement,
   type ParentProps,
   useContext,
+  type ValidComponent,
 } from 'solid-js';
+import type { HTMLComponents } from '../html/types';
+import { compileMarkdown, type ParsedMarkdown } from './compiler';
+
+export type MarkdownProviderOptions = {
+  /** Forces the compiler to always output content with a block-level wrapper. */
+  forceBlock?: boolean;
+  /** Whether to preserve frontmatter in the markdown content. */
+  preserveFrontmatter?: boolean;
+  /** Whether to use the GitHub Tag Filter. */
+  tagfilter?: boolean;
+};
+
+type RenderMarkdownOptions = MarkdownProviderOptions & {
+  components?: HTMLComponents<'permissive', {}>;
+  wrapper?: ValidComponent;
+};
 
 type MarkdownProviderValue = {
-  renderMarkdown: (content: string) => JSXElement;
+  components?: HTMLComponents<'permissive', {}>;
+  renderMarkdown: (
+    content: string | ParsedMarkdown,
+    options?: MarkdownProviderOptions,
+    components?: HTMLComponents<'permissive', {}>,
+    wrapper?: ValidComponent
+  ) => JSXElement | Promise<JSXElement>;
 };
 
 export const MarkdownContext = createContext<MarkdownProviderValue>();
 
 export type MarkdownProviderProps = ParentProps<{
-  renderMarkdown?: (content: string) => JSXElement;
+  components?: HTMLComponents<'permissive', {}>;
+  wrapper?: ValidComponent;
+  forceBlock?: boolean;
+  preserveFrontmatter?: boolean;
+  tagfilter?: boolean;
+  renderMarkdown?: (
+    content: string | ParsedMarkdown,
+    options?: MarkdownProviderOptions,
+    components?: HTMLComponents<'permissive', {}>,
+    wrapper?: ValidComponent
+  ) => JSXElement | Promise<JSXElement>;
 }>;
 
 export const MarkdownProvider: Component<MarkdownProviderProps> = (props) => {
-  const defaultRenderMarkdown = (content: string) => content; // Default implementation
+  const defaultRenderMarkdown = (
+    content: string | ParsedMarkdown,
+    options?: MarkdownProviderOptions,
+    componentsOverride?: HTMLComponents<'permissive', {}>,
+    wrapperOverride?: ValidComponent
+  ): Promise<JSXElement> => {
+    if (props.renderMarkdown) {
+      return props.renderMarkdown(
+        content,
+        options,
+        componentsOverride,
+        wrapperOverride
+      ) as Promise<JSXElement>;
+    }
+
+    const mergedOptions: RenderMarkdownOptions = {
+      forceBlock: options?.forceBlock ?? props.forceBlock,
+      preserveFrontmatter:
+        options?.preserveFrontmatter ?? props.preserveFrontmatter,
+      tagfilter: options?.tagfilter ?? props.tagfilter,
+      wrapper: wrapperOverride || props.wrapper,
+      components: {
+        ...props.components,
+        ...(componentsOverride ?? {}),
+      },
+    };
+
+    return compileMarkdown(content, mergedOptions as any);
+  };
 
   return (
     <MarkdownContext.Provider
       value={{
-        renderMarkdown: props.renderMarkdown ?? defaultRenderMarkdown,
+        components: props.components,
+        renderMarkdown: defaultRenderMarkdown,
       }}
     >
       {props.children}

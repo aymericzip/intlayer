@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2025-09-07
-title: next-i18next vs next-intl vs Intlayer
-description: next-i18next'i next-intl ve Intlayer ile Next.js uygulamasının uluslararasılaştırması (i18n) için karşılaştırın
+updatedAt: 2026-05-31
+title: "next-i18next vs next-intl vs Intlayer - Eksiksiz çeviri rehberi: next-i18next vs next-intl vs Intlayer: 2026 Comparison"
+description: Bundle boyutu, SEO, performans ve sürdürülebilirlik için en iyi çözüm. Next.js web sitesini'ınızı 2026'da çok dilli yapın, LLM çevirisi, Agent Skills & MCP.
 keywords:
   - next-intl
   - next-i18next
@@ -152,15 +152,13 @@ Bu rehber, **Next.js** için yaygın olarak kullanılan üç i18n seçeneğini k
 
 `intlayer` kullanarak, içeriğinizi favori i18n kütüphanenizin formatında beyan edebilirsiniz ve intlayer ad alanlarınızı istediğiniz konumda oluşturacaktır (örnek: `/messages/{{locale}}/{{namespace}}.json`).
 
-Daha fazla detay için [`dictionaryOutput` ve `i18nextResourcesDir` seçeneklerine](https://intlayer.org/doc/concept/configuration#content-configuration) bakın.
-
 ---
 
 ## GitHub YILDIZLARI
 
 GitHub yıldızları, bir projenin popülaritesinin, topluluk güveninin ve uzun vadeli öneminin güçlü bir göstergesidir. Teknik kalitenin doğrudan bir ölçüsü olmasa da, kaç geliştiricinin projeyi yararlı bulduğunu, ilerlemesini takip ettiğini ve muhtemelen benimsediğini yansıtır. Bir projenin değerini tahmin etmek için yıldızlar, alternatifler arasındaki çekişmeyi karşılaştırmaya ve ekosistem büyümesine ilişkin içgörüler sağlamaya yardımcı olur.
 
-[![Yıldız Geçmişi Grafiği](https://api.star-history.com/svg?repos=i18next/next-i18next&repos=amannn/next-intl&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
+[![Yıldız Geçmişi Grafiği](https://api.star-history.com/chart?repos=i18next/next-i18next%2Camannn/next-intl%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#i18next/next-i18next&amannn/next-intl&aymericzip/intlayer)
 
 ---
 

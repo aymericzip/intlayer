@@ -1,20 +1,30 @@
+import * as ANSIColors from '@intlayer/config/colors';
 import {
+  colorize,
   colorizeKey,
   colorizePath,
   getAppLogger,
-} from '@intlayer/config/client';
-import type { Dictionary, IntlayerConfig } from '@intlayer/types';
-import { formatPath } from './utils/formatter';
+  x,
+} from '@intlayer/config/logger';
+import { getBasePlugins, getContent } from '@intlayer/core/interpreter';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import { formatLocale, formatPath } from './utils/formatter';
+
+type IsInvalidDictionaryOptions = { checkSchema: boolean };
 
 export const isInvalidDictionary = (
   dictionary: Dictionary | undefined,
-  configuration?: IntlayerConfig
+  configuration?: IntlayerConfig,
+  options?: IsInvalidDictionaryOptions
 ): boolean => {
   const appLogger = getAppLogger(configuration);
 
   if (!dictionary) return false;
 
-  const isLocal = Boolean(dictionary.location === 'local');
+  const isLocal = Boolean(
+    dictionary.location === 'local' || typeof dictionary.filePath === 'string'
+  );
   const location = isLocal ? 'Local' : 'Remote';
   const hasKey = Boolean(dictionary.key);
   const hasContent = Boolean(dictionary.content);
@@ -23,9 +33,26 @@ export const isInvalidDictionary = (
     appLogger(`${location} dictionary has no key`, {
       level: 'error',
     });
-    appLogger(JSON.stringify(dictionary, null, 2), {
-      level: 'error',
-    });
+
+    return false;
+  }
+
+  // Reject keys that contain path-unsafe characters.
+  // A key is used as a filename component ({key}.json), so slashes, backslashes,
+  // null bytes, or pure dot-segments can escape the output directory or break
+  // dictionary resolution.
+  // Allows alphanumeric characters, dashes, and underscores.
+  // Allows dots, but not as the first or last character, and no consecutive dots.
+  // Allows chinese or russian characters e.g. 你好
+  const isInsecureKey = !/^[\p{L}\p{N}]+([._-][\p{L}\p{N}]+)*$/u.test(
+    dictionary.key
+  );
+
+  if (isInsecureKey) {
+    appLogger(
+      `Insecure key ${colorizeKey(dictionary.key)} at ${dictionary.filePath ? formatPath(dictionary.filePath) : colorizePath('Remote')} - dictionary filtered out`,
+      { level: 'error' }
+    );
     return false;
   }
 
@@ -39,13 +66,68 @@ export const isInvalidDictionary = (
     return false;
   }
 
+  if (dictionary.schema && options?.checkSchema) {
+    const isAsync =
+      typeof dictionary.content === 'function' ||
+      (typeof dictionary.content === 'object' &&
+        dictionary.content !== null &&
+        typeof (dictionary.content as any).then === 'function');
+
+    if (!isAsync) {
+      const locales = configuration?.internationalization?.locales ?? [];
+      const isStrict =
+        configuration?.internationalization.strictMode === 'strict';
+
+      const schema =
+        typeof dictionary.schema === 'string'
+          ? configuration?.schemas?.[dictionary.schema]
+          : undefined;
+
+      if (schema && typeof schema.safeParse === 'function') {
+        for (const locale of locales) {
+          const resolvedContent = getContent(
+            dictionary.content,
+            {
+              dictionaryKey: dictionary.key,
+              keyPath: [],
+              locale,
+            },
+            getBasePlugins(locale, !isStrict)
+          );
+          const result = (schema as any).safeParse(resolvedContent);
+
+          if (!result.success) {
+            appLogger(
+              `${location} dictionary ${colorizeKey(dictionary.key)} has invalid content according to schema ${colorize(dictionary.schema as string, ANSIColors.ORANGE)} for locale ${formatLocale(locale)} - ${dictionary.filePath ? formatPath(dictionary.filePath) : colorizePath('Remote')}`,
+              {
+                level: 'error',
+              }
+            );
+
+            result.error.issues.forEach((issue: any) => {
+              appLogger(
+                `${x} Error: ${colorizeKey(dictionary.key)} - ${formatLocale(locale)} - ${colorize(`${issue.path.join('.')}:`, ANSIColors.BLUE)} ${colorize(issue.message, ANSIColors.GREY)}`,
+                {
+                  level: 'error',
+                }
+              );
+            });
+
+            return false;
+          }
+        }
+      }
+    }
+  }
+
   return true;
 };
 
 export const filterInvalidDictionaries = (
   dictionaries: (Dictionary | undefined)[] | undefined,
-  configuration: IntlayerConfig
+  configuration: IntlayerConfig,
+  options?: IsInvalidDictionaryOptions
 ): Dictionary[] =>
   (dictionaries ?? [])?.filter((dictionary) =>
-    isInvalidDictionary(dictionary, configuration)
+    isInvalidDictionary(dictionary, configuration, options)
   ) as Dictionary[];

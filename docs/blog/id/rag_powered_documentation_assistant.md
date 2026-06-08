@@ -99,7 +99,7 @@ Pertukaran ini (ukuran chunk vs tumpang tindih) adalah kunci untuk efisiensi RAG
 
 ## Langkah 3: Menghasilkan Embeddings
 
-Setelah dokumen dipecah menjadi chunk, kita menghasilkan **embeddings** — vektor berdimensi tinggi yang mewakili setiap chunk.
+Setelah dokumen dipecah menjadi chunk, kita menghasilkan **embeddings**, vektor berdimensi tinggi yang mewakili setiap chunk.
 
 Saya menggunakan model OpenAI text-embedding-3-large, tetapi Anda bisa menggunakan model embedding modern lainnya.
 

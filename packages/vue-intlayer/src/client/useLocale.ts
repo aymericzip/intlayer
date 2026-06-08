@@ -1,15 +1,18 @@
-import configuration from '@intlayer/config/built';
-import type { DeclaredLocales, LocalesValues } from '@intlayer/types';
+import { internationalization } from '@intlayer/config/built';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import { type ComputedRef, computed, inject } from 'vue';
 import { INTLAYER_SYMBOL, type IntlayerProvider } from './installIntlayer';
 import { setLocaleInStorage } from './useLocaleStorage';
 
-type useLocaleProps = {
+export type UseLocaleProps = {
   isCookieEnabled?: boolean;
-  onLocaleChange?: (locale: LocalesValues) => void;
+  onLocaleChange?: (locale: DeclaredLocales) => void;
 };
 
-type UseLocaleResult = {
+export type UseLocaleResult = {
   locale: ComputedRef<DeclaredLocales>;
   defaultLocale: DeclaredLocales;
   availableLocales: DeclaredLocales[];
@@ -17,14 +20,34 @@ type UseLocaleResult = {
 };
 
 /**
- * On the client side, composable to get the current locale and all related fields
+ * Vue composable to get the current locale and related locale management functions.
+ *
+ * @param props - Optional properties for the composable.
+ * @returns An object containing the current locale (reactive), default locale, available locales, and a function to update the locale.
+ *
+ * @example
+ * ```vue
+ * <script setup>
+ * import { useLocale } from 'vue-intlayer';
+ *
+ * const { locale, setLocale, availableLocales } = useLocale();
+ * </script>
+ *
+ * <template>
+ *   <select :value="locale" @change="(e) => setLocale(e.target.value)">
+ *     <option v-for="loc in availableLocales" :key="loc" :value="loc">
+ *       {{ loc }}
+ *     </option>
+ *   </select>
+ * </template>
+ * ```
  */
 export const useLocale = ({
   isCookieEnabled,
   onLocaleChange,
-}: useLocaleProps = {}): UseLocaleResult => {
+}: UseLocaleProps = {}): UseLocaleResult => {
   const { defaultLocale, locales: availableLocales } =
-    configuration?.internationalization ?? {};
+    internationalization ?? {};
   const intlayer = inject<IntlayerProvider>(INTLAYER_SYMBOL);
 
   // Create a reactive reference for the locale
@@ -47,7 +70,7 @@ export const useLocale = ({
       isCookieEnabled ?? intlayer?.isCookieEnabled ?? true
     );
 
-    onLocaleChange?.(newLocale);
+    onLocaleChange?.(newLocale as DeclaredLocales);
   };
 
   return {

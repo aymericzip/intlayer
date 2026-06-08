@@ -1,4 +1,5 @@
-import { type CustomIntlayerConfig, Locales } from '@intlayer/types';
+import type { CustomIntlayerConfig } from '@intlayer/types/config';
+import * as Locales from '@intlayer/types/locales';
 
 export const locales = [
   Locales.ENGLISH,
@@ -18,6 +19,7 @@ export const locales = [
   Locales.POLISH,
   Locales.INDONESIAN,
   Locales.VIETNAMESE,
+  Locales.UKRAINIAN,
 ];
 export const defaultLocale = Locales.ENGLISH;
 
@@ -29,10 +31,9 @@ const config: Partial<CustomIntlayerConfig> = {
   },
 
   ai: {
-    provider: 'openai',
-    model: 'gpt-5-mini',
-    temperature: 0.2,
-    apiKey: process.env.OPEN_AI_API_KEY,
+    provider: 'googlegenerativeai',
+    model: 'gemini-3-flash-preview',
+    apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
   },
 
   editor: {

@@ -5,12 +5,12 @@ import {
   getUserById,
   getUsers,
   updateUser,
+  uploadAvatar,
   verifyEmailStatusSSE,
 } from '@controllers/user.controller';
-import { Router } from 'express';
+import type { FastifyInstance } from 'fastify';
 import type { Routes } from '@/types/Routes';
-
-export const userRouter: Router = Router();
+import { emailParamsSchema, userIdParamsSchema } from './paramsSchemas';
 
 export const userRoute = '/api/user';
 
@@ -54,15 +54,43 @@ export const getUserRoutes = () =>
         `${baseURL()}/verify-email-status/${userId}`,
       method: 'GET',
     },
+    uploadAvatar: {
+      urlModel: '/avatar',
+      url: `${baseURL()}/avatar`,
+      method: 'POST',
+    },
   }) satisfies Routes;
 
-userRouter.get(getUserRoutes().getUsers.urlModel, getUsers);
-userRouter.put(getUserRoutes().updateUser.urlModel, updateUser);
-userRouter.post(getUserRoutes().createUser.urlModel, createUser);
-userRouter.get(getUserRoutes().getUserById.urlModel, getUserById);
-userRouter.get(getUserRoutes().getUserByEmail.urlModel, getUserByEmail);
-userRouter.delete(getUserRoutes().deleteUser.urlModel, deleteUser);
-userRouter.get(
-  getUserRoutes().verifyEmailStatusSSE.urlModel,
-  verifyEmailStatusSSE
-);
+export const userRouter = async (fastify: FastifyInstance) => {
+  // Accept raw image buffers for avatar upload (regex matches any image/* MIME type)
+  fastify.addContentTypeParser(
+    /^image\//,
+    { parseAs: 'buffer' },
+    (_req, body, done) => done(null, body)
+  );
+
+  fastify.get(getUserRoutes().getUsers.urlModel, getUsers);
+  fastify.put(getUserRoutes().updateUser.urlModel, updateUser);
+  fastify.post(getUserRoutes().createUser.urlModel, createUser);
+  fastify.get(
+    getUserRoutes().getUserById.urlModel,
+    { schema: { params: userIdParamsSchema } },
+    getUserById
+  );
+  fastify.get(
+    getUserRoutes().getUserByEmail.urlModel,
+    { schema: { params: emailParamsSchema } },
+    getUserByEmail
+  );
+  fastify.delete(
+    getUserRoutes().deleteUser.urlModel,
+    { schema: { params: userIdParamsSchema } },
+    deleteUser
+  );
+  fastify.get(
+    getUserRoutes().verifyEmailStatusSSE.urlModel,
+    { schema: { params: userIdParamsSchema } },
+    verifyEmailStatusSSE
+  );
+  fastify.post(getUserRoutes().uploadAvatar.urlModel, uploadAvatar);
+};

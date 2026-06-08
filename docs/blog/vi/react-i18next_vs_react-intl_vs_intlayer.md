@@ -144,15 +144,13 @@ Chúng tôi đánh giá:
 
 Sử dụng `intlayer`, bạn có thể khai báo nội dung theo định dạng của thư viện i18n yêu thích của bạn, và intlayer sẽ tạo ra các namespace tại vị trí bạn chọn (ví dụ: `/messages/{{locale}}/{{namespace}}.json`).
 
-Tham khảo các tùy chọn [`dictionaryOutput` và `i18nextResourcesDir`](https://intlayer.org/doc/concept/configuration#content-configuration) để biết thêm chi tiết.
-
 ---
 
 ## Sao trên GitHub
 
 Các ngôi sao trên GitHub là một chỉ số mạnh mẽ về độ phổ biến của dự án, sự tin tưởng của cộng đồng và tính liên quan lâu dài. Mặc dù không phải là thước đo trực tiếp về chất lượng kỹ thuật, chúng phản ánh số lượng nhà phát triển thấy dự án hữu ích, theo dõi tiến trình của nó và có khả năng áp dụng nó. Để ước tính giá trị của một dự án, các ngôi sao giúp so sánh mức độ thu hút giữa các lựa chọn thay thế và cung cấp cái nhìn sâu sắc về sự phát triển của hệ sinh thái.
 
-## [![Biểu đồ Lịch sử Ngôi sao](https://api.star-history.com/svg?repos=formatjs/formatjs&repos=i18next/react-i18next&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
+[![Biểu đồ Lịch sử Ngôi sao](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
 
 ## Kết luận
 

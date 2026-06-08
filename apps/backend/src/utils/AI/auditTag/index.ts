@@ -1,8 +1,13 @@
-import { readAsset } from 'utils:asset';
-import type { AIConfig, AIOptions } from '@intlayer/ai';
-import { generateText } from '@intlayer/ai';
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import {
+  type AIConfig,
+  type AIOptions,
+  extractJson,
+  generateText,
+} from '@intlayer/ai';
 import { logger } from '@logger';
-import { extractJson } from '@utils/extractJSON';
 import type { Dictionary } from '@/types/dictionary.types';
 import type { TagAPI } from '@/types/tag.types';
 
@@ -18,8 +23,11 @@ export type TranslateJSONResultData = {
   tokenUsed: number;
 };
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 // The prompt template to send to AI models
-const CHAT_GPT_PROMPT = readAsset('./PROMPT.md');
+const CHAT_GPT_PROMPT = readFileSync(join(__dirname, './PROMPT.md'), 'utf-8');
 
 export const aiDefaultOptions: AIOptions = {
   // Keep default options
@@ -46,8 +54,8 @@ export const auditTag = async ({
   // Use the AI SDK to generate the completion
   const { text: newContent, usage } = await generateText({
     ...aiConfig,
+    system: prompt,
     messages: [
-      { role: 'system', content: prompt },
       {
         role: 'user',
         content: [

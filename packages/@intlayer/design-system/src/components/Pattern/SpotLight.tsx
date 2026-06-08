@@ -1,5 +1,5 @@
+import { cn } from '@utils/cn';
 import type { FC, SVGProps } from 'react';
-import { cn } from '../../utils/cn';
 
 /**
  * Props for the Spotlight component

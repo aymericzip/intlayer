@@ -5,15 +5,16 @@
   "description": "",
   "license": "ISC",
   "author": "",
+  "sideEffects": false,
   "main": "./tsdown-config.mjs",
   "module": "./tsdown-config.mjs",
   "scripts": {},
   "dependencies": {
     "fast-glob": "3.3.3",
-    "tsdown": "0.18.0"
+    "tsdown": "0.21.7"
   },
   "devDependencies": {
-    "@types/node": "25.0.2",
-    "typescript": "5.9.3"
+    "@types/node": "25.9.2",
+    "typescript": "6.0.3"
   }
 }

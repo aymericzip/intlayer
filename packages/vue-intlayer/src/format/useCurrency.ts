@@ -1,4 +1,4 @@
-import { currency } from '@intlayer/core';
+import { currency } from '@intlayer/core/formatters';
 import { computed, inject } from 'vue';
 import {
   INTLAYER_SYMBOL,

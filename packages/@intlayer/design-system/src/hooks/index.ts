@@ -1,10 +1,7 @@
-export * from './reactQuery';
-export * from './useAuth';
 export * from './useDevice';
 export * from './useGetElementById';
 export * from './useGetElementOrWindow';
 export * from './useHorizontalSwipe';
-export * from './useIntlayerAPI';
 export * from './useIsDarkMode';
 export * from './useIsMounted';
 export * from './useItemSelector';
@@ -15,4 +12,3 @@ export * from './useScrollBlockage';
 export * from './useScrollDetection';
 export * from './useScrollY';
 export * from './useSearch';
-export * from './useUser';

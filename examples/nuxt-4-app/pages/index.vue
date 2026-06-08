@@ -7,11 +7,11 @@ import { useIntlayer } from 'vue-intlayer';
 const content = useIntlayer('home-page');
 
 useHead({
-  title: content.metaTitle.value,
+  title: content.metaTitle.raw,
   meta: [
     {
       name: 'description',
-      content: content.metaDescription.value,
+      content: content.metaDescription.raw,
     },
   ],
 });

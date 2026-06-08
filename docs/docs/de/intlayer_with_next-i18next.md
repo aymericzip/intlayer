@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-10-05
-updatedAt: 2025-10-05
-title: Wie Sie Ihre Next.js 15 mit next-i18next übersetzen – i18n Anleitung 2025
-description: Eine praxisorientierte, produktionsreife Anleitung zur Internationalisierung einer Next.js 15 App Router App mit i18next/next-i18next und zur Erweiterung mit Intlayer.
+updatedAt: 2026-05-31
+title: "next-i18next i18n - Vollständiger Leitfaden zur Übersetzung Ihrer App"
+description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) next-i18next-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
 keywords:
   - Internationalisierung
   - Dokumentation
@@ -37,7 +37,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-i18next-templat
 - Intlayer-Integration zur Automatisierung von Übersetzungs-Workflows (Tests, KI-Ausfüllung, JSON-Synchronisation)
 
 > Hinweis: next-i18next basiert auf i18next. Diese Anleitung verwendet die i18next-Primitiven, die mit next-i18next im App Router kompatibel sind, und hält dabei die Architektur einfach und produktionsbereit.
-> Für einen umfassenderen Vergleich siehe [next-i18next vs next-i18next vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/next-i18next_vs_next-i18next_vs_intlayer.md).
+> Für einen umfassenderen Vergleich siehe [next-i18next vs next-intl vs Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/de/next-i18next_vs_next-intl_vs_intlayer.md).
 
 ---
 
@@ -55,6 +55,10 @@ pnpm add next-i18next i18next react-i18next i18next-resources-to-backend
 
 ```bash packageManager="yarn"
 yarn add next-i18next i18next react-i18next i18next-resources-to-backend
+```
+
+```bash packageManager="bun"
+bun add next-i18next i18next react-i18next i18next-resources-to-backend
 ```
 
 Beginnen Sie mit einer klaren Struktur. Halten Sie die Nachrichten nach Locale und Namespace getrennt.
@@ -252,7 +256,7 @@ export default function LocaleLayout({
   params: { locale: string };
 }) {
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   const dir = isRtl(locale) ? "rtl" : "ltr";
@@ -552,15 +556,23 @@ Intlayer hilft Ihnen, JSON-Übersetzungen synchron zu halten, auf fehlende Schl�
 Installieren Sie die Intlayer-Abhängigkeiten:
 
 ```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin  -D
+npm install intlayer @intlayer/sync-json-plugin --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin  -D
+pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin  -D
+yarn add intlayer @intlayer/sync-json-plugin --dev
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer @intlayer/sync-json-plugin --dev
+bun x intlayer init
 ```
 
 ```ts fileName="intlayer.config.ts"
@@ -580,7 +592,6 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "i18next",
       source: ({ locale }) => `./locales/${locale}.json`,
     }),
   ],
@@ -605,7 +616,7 @@ Fügen Sie Paketskripte hinzu:
 - `pnpm i18n:test` in CI, um Builds bei fehlenden Schlüsseln fehlschlagen zu lassen
 - `pnpm i18n:fill` lokal, um KI-Übersetzungen für neu hinzugefügte Schlüssel vorzuschlagen
 
-> Sie können CLI-Argumente angeben; siehe die [Intlayer CLI-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_cli.md).
+> Sie können CLI-Argumente angeben; siehe die [Intlayer CLI-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/index.md).
 
 ---
 

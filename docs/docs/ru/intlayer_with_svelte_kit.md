@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-11-20
-updatedAt: 2025-11-20
-title: Как перевести ваше приложение SvelteKit – руководство по i18n 2025
-description: Узнайте, как сделать ваш сайт на SvelteKit многоязычным. Следуйте документации по интернационализации (i18n) и переводу с использованием серверного рендеринга (SSR).
+updatedAt: 2026-05-31
+title: "SvelteKit i18n - Полное руководство по переводу вашего приложения"
+description: "Больше никакого i18next. Руководство 2026 по созданию многоязычного (i18n) приложения SvelteKit. Переводите с помощью ИИ-агентов и оптимизируйте размер бандла, SEO и производительность."
 keywords:
   - Интернационализация
   - Документация
@@ -15,40 +15,102 @@ slugs:
   - environment
   - sveltekit
 applicationTemplate: https://github.com/aymericzip/intlayer-sveltekit-template
+applicationShowcase: https://intlayer-sveltekit-template.vercel.app
 history:
+  - version: 8.9.0
+    date: 2026-05-04
+    changes: "Обновление использования API useIntlayer в Solid для прямого доступа к свойствам"
+  - version: 7.5.9
+    date: 2025-12-30
+    changes: "Добавить команду init"
   - version: 7.1.10
     date: 2025-11-20
-    changes: Инициализация истории
+    changes: "Инициализация истории"
 ---
 
 # Перевод вашего сайта на SvelteKit с помощью Intlayer | Интернационализация (i18n)
 
-## Содержание
-
-<TOC/>
-
-## Что такое Intlayer?
-
-**Intlayer** — это инновационная, с открытым исходным кодом библиотека интернационализации (i18n), разработанная для упрощения поддержки многоязычности в современных веб-приложениях. Она отлично интегрируется с возможностями серверного рендеринга (SSR) в **SvelteKit**.
-
-С помощью Intlayer вы можете:
-
-- **Легко управлять переводами** с использованием декларативных словарей на уровне компонентов.
-- **Динамически локализовать метаданные**, маршруты и контент.
-- **Обеспечить поддержку TypeScript** с помощью автогенерируемых типов.
-- **Использовать SSR SvelteKit** для SEO-оптимизированной интернационализации.
-
----
-
-## Пошаговое руководство по настройке Intlayer в приложении SvelteKit
+<Tabs defaultTab="code">
+  <Tab label="Код" value="code">
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/intlayer-sveltekit-template?embed=1&ctl=1&file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-sveltekit-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Cách quốc tế hóa ứng dụng của bạn bằng Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
+
+  </Tab>
+  <Tab label="Демо" value="demo">
+
+<iframe
+  src="https://intlayer-sveltekit-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Демо - intlayer-sveltekit-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
+## Содержание
+
+<TOC/>
+
+## Почему Intlayer лучше альтернатив?
+
+По сравнению с основными решениями, такими как «svelte-i18n» или «i18next», Intlayer — это решение, которое включает в себя встроенные оптимизации, такие как:
+
+<AccordionGroup>
+
+<Accordion header="Полное покрытие SvelteKit">
+
+Intlayer оптимизирован для идеальной работы со SvelteKit, предлагая **многоязычную маршрутизацию**, **поддержку SSR** и все функции, необходимые для масштабирования интернационализации (i18n).
+
+</Accordion>
+
+<Accordion header="Размер бандла">
+
+Вместо загрузки огромных файлов JSON на свои страницы загружайте только необходимый контент. Intlayer помогает **уменьшить размер бандла и страниц до 50 %**.
+
+</Accordion>
+
+<Accordion header="Удобство обслуживания">
+
+Определение области содержимого вашего приложения **облегчает обслуживание** крупномасштабных приложений. Вы можете дублировать или удалить отдельную папку функций, не утруждав себя мысленным бременем проверки всей кодовой базы контента. Кроме того, Intlayer **полностью типизирован**, что обеспечивает точность вашего контента.
+
+</Accordion>
+
+<Accordion header="Агент ИИ">
+
+Совместное размещение контента **уменьшает контекст, необходимый** для моделей большого языка (LLM). Intlayer также поставляется с набором инструментов, таких как **CLI** для проверки отсутствия переводов,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, и **[навыки агента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, чтобы сделать работу разработчика (DX) еще более удобной для агентов ИИ.
+
+</Accordion>
+
+<Accordion header="Автоматизация">
+
+Используйте автоматизацию для перевода в своем конвейере CI/CD, используя LLM по вашему выбору за счет вашего поставщика ИИ. Intlayer также предлагает **компилятор** для автоматизации извлечения контента, а также [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), которая помогает **переводить в фоновом режиме**.
+
+</Accordion>
+
+<Accordion header="Производительность">
+
+Подключение больших файлов JSON к компонентам может привести к проблемам с производительностью и реактивностью. Intlayer оптимизирует загрузку контента во время сборки (build time).
+
+</Accordion>
+
+<Accordion header="Масштабирование с помощью не-разработчиками">
+
+Intlayer — это больше, чем просто решение i18n. Он предоставляет **автономный [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** и **[полный CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, чтобы помочь вам управлять многоязычным контентом в **реальном времени**, упрощая сотрудничество с переводчиками, копирайтерами и другими членами команды. Контент может храниться локально и/или удаленно.
+
+</Accordion>
+</AccordionGroup>
+
+---
+
+## Пошаговое руководство по настройке Intlayer в приложении SvelteKit
 
 Для начала создайте новый проект SvelteKit. Вот итоговая структура, которую мы создадим:
 
@@ -92,35 +154,43 @@ history:
 └── vite.config.ts
 ```
 
-### Шаг 1: Установка зависимостей
+<Steps>
+
+<Step number={1} title="Установка зависимостей">
 
 Установите необходимые пакеты с помощью npm:
 
 ```bash packageManager="npm"
 npm install intlayer svelte-intlayer
 npm install vite-intlayer --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer svelte-intlayer
 pnpm add vite-intlayer --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer svelte-intlayer
 yarn add vite-intlayer --save-dev
+yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer svelte-intlayer
 bun add vite-intlayer --save-dev
+bun x intlayer init
 ```
 
 - **intlayer**: Основной пакет для i18n.
 - **svelte-intlayer**: Предоставляет провайдеры контекста и сторы для Svelte/SvelteKit.
 - **vite-intlayer**: Плагин Vite для интеграции деклараций контента в процесс сборки.
 
-### Шаг 2: Конфигурация вашего проекта
+</Step>
+
+<Step number={2} title="Конфигурация вашего проекта">
 
 Создайте файл конфигурации в корне вашего проекта:
 
@@ -137,7 +207,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-### Шаг 3: Интеграция Intlayer в конфигурацию Vite
+</Step>
+
+<Step number={3} title="Интеграция Intlayer в конфигурацию Vite">
 
 Обновите ваш файл `vite.config.ts`, чтобы включить плагин Intlayer. Этот плагин отвечает за транспиляцию ваших файлов с контентом.
 
@@ -151,11 +223,13 @@ export default defineConfig({
 });
 ```
 
-### Шаг 4: Объявите ваш контент
+</Step>
+
+<Step number={4} title="Объявите ваш контент">
 
 Создайте файлы объявления контента в любом месте внутри папки `src` (например, `src/lib/content` или рядом с вашими компонентами). Эти файлы определяют переводимый контент для вашего приложения с использованием функции `t()` для каждой локали.
 
-```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat="typescript"
+```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, type Dictionary } from "intlayer";
 
 const heroContent = {
@@ -172,14 +246,16 @@ const heroContent = {
 export default heroContent;
 ```
 
-### Шаг 5: Используйте Intlayer в ваших компонентах
+</Step>
+
+<Step number={5} title="Используйте Intlayer в ваших компонентах">
 
 Теперь вы можете использовать функцию `useIntlayer` в любом Svelte-компоненте. Она возвращает реактивный store, который автоматически обновляется при изменении локали. Функция автоматически учитывает текущую локаль (как во время SSR, так и при навигации на клиенте).
 
 > **Примечание:** `useIntlayer` возвращает Svelte store, поэтому для доступа к его реактивному значению нужно использовать префикс `---
 > createdAt: 2025-11-20
-> updatedAt: 2025-11-20
-> title: Как перевести ваше приложение SvelteKit – руководство по i18n 2025
+> updatedAt: 2026-05-31
+> title: Как перевести ваше приложение SvelteKit – руководство по i18n 2026
 > description: Узнайте, как сделать ваш сайт на SvelteKit многоязычным. Следуйте документации по интернационализации (i18n) и переводу с использованием серверного рендеринга (SSR).
 > keywords:
 
@@ -203,13 +279,17 @@ export default heroContent;
 
 # Перевод вашего сайта на SvelteKit с помощью Intlayer | Интернационализация (i18n)
 
+</Step>
+
+</Steps>
+
 ## Содержание
 
 <TOC/>
 
 ## Что такое Intlayer?
 
-**Intlayer** — это инновационная, с открытым исходным кодом библиотека интернационализации (i18n), разработанная для упрощения поддержки многоязычности в современных веб-приложениях. Она отлично интегрируется с возможностями серверного рендеринга (SSR) в **SvelteKit**.
+**Intlayer**, это инновационная, с открытым исходным кодом библиотека интернационализации (i18n), разработанная для упрощения поддержки многоязычности в современных веб-приложениях. Она отлично интегрируется с возможностями серверного рендеринга (SSR) в **SvelteKit**.
 
 С помощью Intlayer вы можете:
 
@@ -264,35 +344,43 @@ export default heroContent;
 └── vite.config.ts
 ```
 
-### Шаг 1: Установка зависимостей
+<Steps>
+
+<Step number={1} title="Установка зависимостей">
 
 Установите необходимые пакеты с помощью npm:
 
 ```bash packageManager="npm"
 npm install intlayer svelte-intlayer
 npm install vite-intlayer --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer svelte-intlayer
 pnpm add vite-intlayer --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer svelte-intlayer
 yarn add vite-intlayer --save-dev
+yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer svelte-intlayer
 bun add vite-intlayer --save-dev
+bun x intlayer init
 ```
 
 - **intlayer**: Основной пакет для i18n.
 - **svelte-intlayer**: Предоставляет провайдеры контекста и сторы для Svelte/SvelteKit.
 - **vite-intlayer**: Плагин Vite для интеграции деклараций контента в процесс сборки.
 
-### Шаг 2: Конфигурация вашего проекта
+</Step>
+
+<Step number={2} title="Конфигурация вашего проекта">
 
 Создайте файл конфигурации в корне вашего проекта:
 
@@ -309,7 +397,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-### Шаг 3: Интеграция Intlayer в конфигурацию Vite
+</Step>
+
+<Step number={3} title="Интеграция Intlayer в конфигурацию Vite">
 
 Обновите ваш файл `vite.config.ts`, чтобы включить плагин Intlayer. Этот плагин отвечает за транспиляцию ваших файлов с контентом.
 
@@ -323,11 +413,13 @@ export default defineConfig({
 });
 ```
 
-### Шаг 4: Объявите ваш контент
+</Step>
+
+<Step number={4} title="Объявите ваш контент">
 
 Создайте файлы объявления контента в любом месте внутри папки `src` (например, `src/lib/content` или рядом с вашими компонентами). Эти файлы определяют переводимый контент для вашего приложения с использованием функции `t()` для каждой локали.
 
-```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat="typescript"
+```ts fileName="src/features/hero/hero.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
 import { t, type Dictionary } from "intlayer";
 
 const heroContent = {
@@ -344,7 +436,9 @@ const heroContent = {
 export default heroContent;
 ```
 
-### Шаг 5: Используйте Intlayer в ваших компонентах
+</Step>
+
+<Step number={5} title="Используйте Intlayer в ваших компонентах">
 
 (например, `$content.title`).
 
@@ -359,12 +453,16 @@ export default heroContent;
 <!-- Отобразить контент как простой текст -->
 <h1>{$content.title}</h1>
 <!-- Чтобы отобразить контент с возможностью редактирования через редактор -->
-<h1><svelte:component this={$content.title} /></h1>
+<h1>{@const Title = $content.title}<Title /></h1>
 <!-- Для отображения содержимого в виде строки -->
 <div aria-label={$content.title.value}></div>
+<div aria-label={$content.title.toString()}></div>
+<div aria-label={String($content.title)}></div>
 ```
 
-### (Необязательно) Шаг 6: Настройка маршрутизации
+</Step>
+
+<Step number={6} title="Настройка маршрутизации" isOptional={true}>
 
 Следующие шаги показывают, как настроить маршрутизацию на основе локали в SvelteKit. Это позволяет вашим URL включать префикс локали (например, `/en/about`, `/fr/about`) для улучшения SEO и удобства пользователей.
 
@@ -389,7 +487,9 @@ export default heroContent;
         └── +layout.svelte         # Корневой layout для шрифтов и глобальных стилей
 ```
 
-### Шаг 7: Обработка определения локали на стороне сервера (Hooks)
+</Step>
+
+<Step number={7} title="Обработка определения локали на стороне сервера">
 
 В SvelteKit сервер должен знать локаль пользователя, чтобы отобразить правильный контент во время SSR. Мы используем `hooks.server.ts` для определения локали из URL или cookies.
 
@@ -483,14 +583,9 @@ export const getLocale = (event: RequestEvent): Locale => {
 
 Если локаль не настроена, мы хотим возвращать ошибку 404. Чтобы упростить это, можно создать функцию `match` для проверки валидности локали:
 
-```ts fileName="/src/params/locale.ts"
-import { configuration, type Locale } from "intlayer";
-
-export const match = (
-  param: Locale = configuration.internationalization.defaultLocale
-): boolean => {
-  return configuration.internationalization.locales.includes(param);
-};
+```ts fileName="/src/params/locale.ts"import { defaultLocale, locales, type Locale } from "intlayer";
+export const match = (param: Locale = defaultLocale): boolean =>
+  locales.includes(param);
 ```
 
 > **Примечание:** Убедитесь, что в вашем файле `src/app.d.ts` определена локаль:
@@ -529,15 +624,13 @@ export const match = (
 
 ```ts fileName="src/routes/[[locale=locale]]/+layout.ts"
 import type { Load } from "@sveltejs/kit";
-import { configuration, type Locale } from "intlayer";
+import { defaultLocale, type Locale } from "intlayer";
 
 export const prerender = true;
 
 // Используем универсальный тип Load
 export const load: Load = ({ params }) => {
-  const locale: Locale =
-    (params.locale as Locale) ??
-    configuration.internationalization.defaultLocale;
+  const locale: Locale = (params.locale as Locale) ?? defaultLocale;
 
   return {
     locale,
@@ -548,7 +641,7 @@ export const load: Load = ({ params }) => {
 ```svelte fileName="src/routes/[[locale=locale]]/+layout.svelte"
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { useIntlayer, setupIntlayer } from 'svelte-intlayer';
+	import { useIntlayer, setupIntlayer } from "svelte-intlayer";
 	import Header from './Header.svelte';
 	import type { LayoutData } from './$types';
 
@@ -587,7 +680,7 @@ export const prerender = true;
 
 ```svelte fileName="src/routes/[[locale=locale]]/+page.svelte"
 <script lang="ts">
-	import { useIntlayer } from 'svelte-intlayer';
+	import { useIntlayer } from "svelte-intlayer";
 
 	// Использование словаря контента для домашней страницы
 	const homeContent = useIntlayer('home');
@@ -608,14 +701,16 @@ export const prerender = true;
 </style>
 ```
 
-### (Необязательно) Шаг 8: Интернационализированные ссылки
+</Step>
+
+<Step number={8} title="Интернационализированные ссылки" isOptional={true}>
 
 Для SEO рекомендуется добавлять префикс локали к вашим маршрутам (например, `/en/about`, `/fr/about`). Этот компонент автоматически добавляет префикс текущей локали ко всем ссылкам.
 
 ```svelte fileName="src/lib/components/LocalizedLink.svelte"
 <script lang="ts">
   import { getLocalizedUrl } from "intlayer";
-  import { useLocale } from 'svelte-intlayer';
+  import { useLocale } from "svelte-intlayer";
 
   let { href = "" } = $props();
   const { locale } = useLocale();
@@ -641,14 +736,16 @@ const localizedPath = getLocalizedUrl("/about", $locale);
 goto(localizedPath); // Переходит на /en/about или /fr/about в зависимости от локали
 ```
 
-### (Необязательно) Шаг 9: Переключатель языка
+</Step>
+
+<Step number={9} title="Переключатель языка" isOptional={true}>
 
 Чтобы позволить пользователям переключать языки, обновляйте URL.
 
 ```svelte fileName="src/lib/components/LanguageSwitcher.svelte"
 <script lang="ts">
   import { getLocalizedUrl, getLocaleName } from 'intlayer';
-  import { useLocale } from 'svelte-intlayer';
+  import { useLocale } from "svelte-intlayer";
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
 
@@ -682,7 +779,9 @@ goto(localizedPath); // Переходит на /en/about или /fr/about в з
 </style>
 ```
 
-### (Необязательно) Шаг 10: Добавить backend proxy
+</Step>
+
+<Step number={10} title="Добавить backend proxy" isOptional={true}>
 
 Чтобы добавить backend proxy в ваше приложение SvelteKit, вы можете использовать функцию `intlayerProxy`, предоставляемую плагином `vite-intlayer`. Этот плагин автоматически определит лучшую локаль для пользователя на основе URL, cookies и предпочтений языка браузера.
 
@@ -693,11 +792,17 @@ import { sveltekit } from "@sveltejs/kit/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [intlayer(), intlayerProxy(), sveltekit()],
+  plugins: [
+    intlayerProxy(), // should be placed first
+    intlayer(),
+    sveltekit(),
+  ],],
 });
 ```
 
-### (Необязательно) Шаг 11: Настройка редактора / CMS intlayer
+</Step>
+
+<Step number={11} title="Настройка редактора / CMS intlayer" isOptional={true}>
 
 Для настройки редактора intlayer необходимо следовать [документации редактора intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md).
 
@@ -718,9 +823,110 @@ export default defineConfig({
   <h1>{$content.title}</h1>
 
   <!-- Отобразить контент как компонент (требуется редактором) -->
-  <svelte:component this={$content.component} />
+  {@const Component = $content.component}<Component />
 </div>
 ```
+
+</Step>
+
+<Step number={1} title="Извлечение содержимого ваших компонентов" isOptional={true}>
+
+Если у вас есть существующая кодовая база, преобразование тысяч файлов может занять много времени.
+
+Чтобы упростить этот процесс, Intlayer предлагает [компилятор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/compiler.md) / [экстрактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/cli/extract.md) для преобразования ваших компонентов и извлечения содержимого.
+
+Чтобы настроить его, вы можете добавить раздел `compiler` в ваш файл `intlayer.config.ts`:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... Остальная часть вашей конфигурации
+  compiler: {
+    /**
+     * Указывает, должен ли быть включен компилятор.
+     */
+    enabled: true,
+
+    /**
+     * Определяет путь к выходным файлам
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Указывает, должны ли компоненты сохраняться после преобразования. Таким образом, компилятор можно запустить только один раз для преобразования приложения, а затем удалить.
+     */
+    saveComponents: false,
+
+    /**
+     * Префикс ключа словаря
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='Команда извлечения'>
+
+Запустите экстрактор для преобразования компонентов и извлечения содержимого
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Компилятор Babel'>
+
+Обновите ваш `vite.config.ts`, чтобы включить плагин `intlayerCompiler`:
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // Добавляет плагин компилятора
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # Или npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # Or pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Or yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
+</Step>
+
+</Steps>
 
 ### Конфигурация Git
 

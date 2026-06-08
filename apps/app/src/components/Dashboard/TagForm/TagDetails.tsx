@@ -1,0 +1,77 @@
+import { useGetTags } from '@intlayer/design-system/api';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { H2 } from '@intlayer/design-system/headers';
+import { Loader } from '@intlayer/design-system/loader';
+import { App_Dashboard_Tags_Path } from '@intlayer/design-system/routes';
+import { ArrowLeft } from 'lucide-react';
+import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
+import { TagEditionForm } from './TagEditionForm';
+import { TagsDictionariesList } from './TagsDictionariesList';
+
+type TagDetailsProps = {
+  tagKey: string;
+};
+
+export const TagDetailsContent: FC<TagDetailsProps> = ({ tagKey }) => {
+  const { detailsTitle, dictionariesListTitle } = useIntlayer('tag-details');
+  const { data: tagResponse, isLoading } = useGetTags({
+    search: tagKey,
+  });
+  const tag = tagResponse?.data?.[0];
+
+  if (isLoading) return <Loader />;
+
+  return (
+    <div className="relative flex flex-col gap-10 md:flex-row">
+      <div className="sticky top-20 self-start">
+        <Container
+          className="m-auto flex max-w-3xl justify-start gap-10"
+          roundedSize="3xl"
+          padding="md"
+          border
+          borderColor="neutral"
+        >
+          <H2>{detailsTitle}</H2>
+          {tag && <TagEditionForm tag={tag} />}
+        </Container>
+      </div>
+      <Container
+        className="m-auto flex h-full max-w-3xl flex-1 justify-start gap-10 md:w-1/3"
+        roundedSize="3xl"
+        padding="md"
+        border
+        borderColor="neutral"
+      >
+        <H2>{dictionariesListTitle}</H2>
+        {tag && <TagsDictionariesList tagKey={tag.key} />}
+      </Container>
+    </div>
+  );
+};
+
+export const TagDetails: FC<TagDetailsProps> = ({ tagKey }) => {
+  const navigate = useLocalizedNavigate();
+  const { returnToTagList } = useIntlayer('tag-details');
+
+  return (
+    <div className="flex size-full flex-1 flex-col gap-10">
+      <div className="flex items-center gap-2">
+        <Button
+          onClick={() => navigate({ to: App_Dashboard_Tags_Path })}
+          variant="hoverable"
+          className="z-10 mr-auto ml-5"
+          color="text"
+          Icon={ArrowLeft}
+          label={returnToTagList.label.value}
+        >
+          {returnToTagList.text}
+        </Button>
+      </div>
+
+      <TagDetailsContent tagKey={tagKey} />
+    </div>
+  );
+};

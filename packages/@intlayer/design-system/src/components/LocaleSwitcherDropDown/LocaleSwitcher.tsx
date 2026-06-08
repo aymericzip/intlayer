@@ -1,12 +1,13 @@
 'use client';
 
-import { getHTMLTextDir, getLocaleName } from '@intlayer/core';
-import { type Locale, Locales } from '@intlayer/types';
+import { getHTMLTextDir, getLocaleName } from '@intlayer/core/localization';
+import type { Locale } from '@intlayer/types/allLocales';
+import { ENGLISH } from '@intlayer/types/locales';
 import Fuse, { type IFuseOptions } from 'fuse.js';
 import { MoveVertical } from 'lucide-react';
 import { type FC, useCallback, useMemo, useRef, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { Button, ButtonColor, ButtonTextAlign, ButtonVariant } from '../Button';
+import { Button } from '../Button';
 import { Container } from '../Container';
 import { DropDown, type PanelProps } from '../DropDown';
 import { Input } from '../Input';
@@ -38,14 +39,14 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   panelProps,
 }) => {
   let localeName = 'Select a locale';
-  const { switchTo, searchInput, languageListLabel } =
+  const { switchTo, searchInput, languageListLabel, localeSwitcherLabel } =
     useIntlayer('locale-switcher');
   const inputRef = useRef<HTMLInputElement>(null);
 
   const multilingualAvailableLocales: MultilingualAvailableLocales[] = useMemo(
     () =>
       localeList.map((localeEl) => {
-        const englishName = getLocaleName(localeEl, Locales.ENGLISH);
+        const englishName = getLocaleName(localeEl, ENGLISH);
         const currentLocaleName = getLocaleName(localeEl, locale);
         const ownLocaleName = getLocaleName(localeEl);
         return {
@@ -97,12 +98,12 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
   }
 
   return (
-    <div
-      className="rounded-xl border border-text text-text transition-colors"
+    <nav
+      className="rounded-xl border border-text"
       aria-label={localeSwitcherLabel.value}
     >
       <DropDown identifier={DROPDOWN_IDENTIFIER}>
-        <DropDown.Trigger identifier={DROPDOWN_IDENTIFIER}>
+        <DropDown.Trigger identifier={DROPDOWN_IDENTIFIER} color="text">
           <div className="flex w-full items-center justify-between">
             <div className="text-nowrap px-2">{localeName}</div>
             <MoveVertical className="w-5 self-center" />
@@ -113,13 +114,14 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
           identifier={DROPDOWN_IDENTIFIER}
           isOverable
           isFocusable
+          align="end"
           {...panelProps}
         >
           <Container
             className="max-h-[80vh] min-w-28"
             separator="y"
             role="listbox"
-            transparency="sm"
+            transparency="xs"
             aria-label={languageListLabel.value}
           >
             <div className="p-3">
@@ -142,20 +144,24 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
                         !(availableLocales ?? localeList).includes(localeItem)
                       }
                       isActive={locale === localeItem}
-                      variant={ButtonVariant.HOVERABLE}
-                      color={ButtonColor.TEXT}
+                      variant="hoverable"
+                      color="text"
                       isFullWidth
-                      textAlign={ButtonTextAlign.LEFT}
+                      textAlign="left"
                     >
                       <div className="flex flex-row items-center justify-between gap-3 px-2 py-1">
                         <div className="flex flex-col text-nowrap">
                           <span
                             dir={getHTMLTextDir(localeItem)}
                             lang={localeItem}
+                            suppressHydrationWarning
                           >
                             {ownLocaleName}
                           </span>
-                          <span className="text-neutral text-xs">
+                          <span
+                            className="text-neutral text-xs"
+                            suppressHydrationWarning
+                          >
                             {currentLocaleName}
                           </span>
                         </div>
@@ -171,6 +177,6 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({
           </Container>
         </DropDown.Panel>
       </DropDown>
-    </div>
+    </nav>
   );
 };

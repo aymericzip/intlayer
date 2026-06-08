@@ -1,23 +1,30 @@
 import { relative } from 'node:path';
-import { formatPath } from '@intlayer/chokidar';
+import { prepareIntlayer } from '@intlayer/chokidar/cli';
+import { formatPath } from '@intlayer/chokidar/utils';
 import {
   colon,
   colorizeKey,
   colorizeNumber,
-  type GetConfigurationOptions,
   getAppLogger,
+} from '@intlayer/config/logger';
+import {
+  type GetConfigurationOptions,
   getConfiguration,
-} from '@intlayer/config';
+} from '@intlayer/config/node';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 
 type ListContentDeclarationOptions = {
   configOptions?: GetConfigurationOptions;
+  json?: boolean;
+  absolute?: boolean;
 };
 
-export const listContentDeclarationRows = (
+export const listContentDeclarationRows = async (
   options?: ListContentDeclarationOptions
 ) => {
   const config = getConfiguration(options?.configOptions);
+
+  await prepareIntlayer(config);
 
   const unmergedDictionariesRecord = getUnmergedDictionaries(config);
 
@@ -25,22 +32,25 @@ export const listContentDeclarationRows = (
     .flat()
     .map((dictionary) => ({
       key: dictionary.key ?? '',
-      path: relative(config.content.baseDir, dictionary.filePath ?? 'Remote'),
+      path: options?.absolute
+        ? (dictionary.filePath ?? 'Remote')
+        : relative(config.system.baseDir, dictionary.filePath ?? 'Remote'),
     }));
   return rows;
 };
 
-export const listContentDeclaration = (
+export const listContentDeclaration = async (
   options?: ListContentDeclarationOptions
 ) => {
-  const config = getConfiguration(options?.configOptions);
-  const appLogger = getAppLogger(config, {
-    config: {
-      prefix: '',
-    },
-  });
+  const rows = await listContentDeclarationRows(options);
 
-  const rows = listContentDeclarationRows(options);
+  if (options?.json) {
+    console.log(JSON.stringify(rows));
+    return;
+  }
+
+  const config = getConfiguration(options?.configOptions);
+  const appLogger = getAppLogger(config);
 
   const lines = rows.map((row) =>
     [

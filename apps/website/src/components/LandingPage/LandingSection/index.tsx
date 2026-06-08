@@ -1,28 +1,22 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { useCopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
+import { CodeBlock } from '@intlayer/design-system/ide';
 import {
-  Button,
-  ButtonColor,
-  ButtonSize,
-  ButtonVariant,
-  CodeBlock,
-  Container,
-  LinkColor,
-  LinkVariant,
-  Tag,
-  TagBorder,
-  TagColor,
-  TagSize,
-  useCopyToClipboard,
-} from '@intlayer/design-system';
+  External_Github,
+  Website_Doc_Path,
+  Website_ReleasesV8_Path,
+} from '@intlayer/design-system/routes';
+import { Tag } from '@intlayer/design-system/tag';
 import { motion } from 'framer-motion';
-import packageJSON from 'intlayer/package.json' with { type: 'json' };
 import { ArrowRight, Check, Copy } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';
-import { ExternalLinks, PagesRoutes } from '@/Routes';
+import packageJSON from '../../../../package_mock.json' with { type: 'json' };
 import { TechLogos } from './TechLogos';
 
 const SHOW_WHATS_NEW = true;
@@ -43,8 +37,8 @@ export const LandingSection: FC = () => {
     copyButton,
   } = useIntlayer('landing-section');
 
-  const { theme } = useTheme();
-  const isDarkMode = theme === 'dark';
+  const { resolvedTheme } = useTheme();
+  const isDarkMode = resolvedTheme === 'dark';
   const { isCopied, copy } = useCopyToClipboard('npm install intlayer');
 
   return (
@@ -61,16 +55,16 @@ export const LandingSection: FC = () => {
               className="mb-8 flex items-center justify-center gap-2"
             >
               <Tag
-                size={TagSize.SM}
-                border={TagBorder.WITH}
-                color={TagColor.NEUTRAL}
+                size="sm"
+                border="with"
+                color="neutral"
                 className="rounded-full border font-medium text-sm text-text"
               >
                 {whatsNew}
               </Tag>
               <Link
-                href={PagesRoutes.ReleasesV7}
-                color={LinkColor.NEUTRAL}
+                href={Website_ReleasesV8_Path}
+                color="neutral"
                 label={whatsNewLabel.value}
               >
                 <span className="flex items-center gap-1 font-medium text-neutral-500 text-sm sm:text-sm dark:text-neutral-400">
@@ -82,15 +76,9 @@ export const LandingSection: FC = () => {
           )}
 
           {/* Title */}
-          <motion.h1
-            initial={{ filter: 'blur(10px)', opacity: 0, y: 30 }}
-            animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mb-4 text-center font-bold text-4xl leading-tight sm:text-4xl md:text-5xl lg:mb-6 lg:text-6xl"
-          >
+          <h1 className="mb-4 text-center font-bold text-4xl leading-tight sm:text-4xl md:text-5xl lg:mb-6 lg:text-6xl">
             {title}
-          </motion.h1>
-
+          </h1>
           {/* Subtitle */}
           <motion.h2
             initial={{ filter: 'blur(10px)', opacity: 0, y: 30 }}
@@ -100,17 +88,15 @@ export const LandingSection: FC = () => {
           >
             {subheading}
           </motion.h2>
-
           {/* Description */}
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
-            className="mx-auto max-w-2xl text-center font-medium text-neutral-600 text-sm leading-relaxed sm:text-lg lg:mb-12 dark:text-neutral-200"
+            className="mx-auto max-w-2xl text-center font-medium text-neutral text-sm leading-relaxed sm:text-lg lg:mb-12"
           >
             {description}
           </motion.p>
-
           {/* Copyable code block */}
           <ContainerMotion
             initial={{ opacity: 0, y: 0 }}
@@ -123,15 +109,14 @@ export const LandingSection: FC = () => {
               npm install intlayer
             </CodeBlock>
             <Button
-              variant={ButtonVariant.HOVERABLE}
-              color={ButtonColor.NEUTRAL}
-              size={ButtonSize.ICON_XL}
+              variant="hoverable"
+              color="neutral"
+              size="icon-xl"
               onClick={copy}
               Icon={isCopied ? Check : Copy}
               label={copyButton.value}
             />
           </ContainerMotion>
-
           {/* Action Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -140,11 +125,11 @@ export const LandingSection: FC = () => {
             className="mt-10 mb-6 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4 lg:mb-10"
           >
             <Link
-              href={ExternalLinks.Github}
-              variant={LinkVariant.BUTTON_OUTLINED}
-              color={LinkColor.TEXT}
+              href={External_Github}
+              variant="button-outlined"
+              color="text"
               label={supportButton.value}
-              isExternalLink
+              isExternalLink={false}
               size="lg"
               roundedSize="full"
             >
@@ -152,9 +137,9 @@ export const LandingSection: FC = () => {
             </Link>
 
             <Link
-              href={PagesRoutes.Doc}
-              variant={LinkVariant.BUTTON}
-              color={LinkColor.TEXT}
+              href={Website_Doc_Path}
+              variant="button"
+              color="text"
               label={getStartedButton.value}
               size="xl"
               roundedSize="full"
@@ -167,13 +152,12 @@ export const LandingSection: FC = () => {
               <ArrowRight width={20} height={20} />
             </Link>
           </motion.div>
-
           {/* Available For Section - Full Viewport Width */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.0, duration: 0.6 }}
-            className="-ml-[50vw] -mr-[50vw] relative right-1/2 left-1/2 mt-8 w-screen text-center"
+            className="relative right-1/2 left-1/2 mt-8 -mr-[50vw] -ml-[50vw] w-screen text-center"
           >
             <p className="font-medium text-sm text-text tracking-wider sm:text-base">
               {availableFor}

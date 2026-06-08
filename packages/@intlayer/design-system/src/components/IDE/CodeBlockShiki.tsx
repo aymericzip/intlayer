@@ -1,10 +1,10 @@
 'use client';
 
-import { type FC, useEffect, useState } from 'react';
+import { type FC, type ReactNode, useEffect, useState } from 'react';
 import type {
   BundledLanguage,
   BundledTheme,
-  CodeToHastOptions,
+  HighlighterGeneric,
 } from 'shiki/bundle/web';
 import { CodeDefault } from './CodeBlockClient';
 
@@ -14,19 +14,27 @@ const themeCache = new Map<BundledTheme, any>();
 
 // Lazy load language modules
 const loadLanguage = async (lang: BundledLanguage): Promise<any> => {
-  if (languageCache.has(lang)) {
-    return languageCache.get(lang);
-  }
+  if (languageCache.has(lang)) return languageCache.get(lang);
 
   let languageModule: any;
-
   switch (lang) {
+    case 'angular-html':
+      languageModule = await import('shiki/langs/angular-html.mjs');
+      break;
+    case 'angular-ts':
+      languageModule = await import('shiki/langs/angular-ts.mjs');
+      break;
+    case 'astro':
+      languageModule = await import('shiki/langs/astro.mjs');
+      break;
     case 'typescript':
     case 'ts':
       languageModule = await import('shiki/langs/typescript.mjs');
       break;
     case 'javascript':
     case 'js':
+    case 'cjs':
+    case 'mjs':
       languageModule = await import('shiki/langs/javascript.mjs');
       break;
     case 'bash':
@@ -37,17 +45,39 @@ const loadLanguage = async (lang: BundledLanguage): Promise<any> => {
     case 'json':
       languageModule = await import('shiki/langs/json.mjs');
       break;
+    case 'jsonc':
+    case 'json5':
+      languageModule = await import('shiki/langs/json5.mjs');
+      break;
     case 'tsx':
+    case 'jsx':
       languageModule = await import('shiki/langs/tsx.mjs');
       break;
     case 'vue':
       languageModule = await import('shiki/langs/vue.mjs');
       break;
+    case 'svelte':
+      languageModule = await import('shiki/langs/svelte.mjs');
+      break;
+    case 'markdown':
+    case 'md':
+    case 'mdx':
+      languageModule = await import('shiki/langs/markdown.mjs');
+      break;
+    case 'css':
+      languageModule = await import('shiki/langs/css.mjs');
+      break;
     case 'html':
       languageModule = await import('shiki/langs/html.mjs');
       break;
+    case 'xml':
+      languageModule = await import('shiki/langs/xml.mjs');
+      break;
+    case 'yml':
+    case 'yaml':
+      languageModule = await import('shiki/langs/yaml.mjs');
+      break;
     default:
-      // Fallback to typescript for unknown languages
       languageModule = await import('shiki/langs/typescript.mjs');
       break;
   }
@@ -59,18 +89,12 @@ const loadLanguage = async (lang: BundledLanguage): Promise<any> => {
 
 // Lazy load theme modules
 const loadTheme = async (themeName: BundledTheme): Promise<any> => {
-  if (themeCache.has(themeName)) {
-    return themeCache.get(themeName);
-  }
+  if (themeCache.has(themeName)) return themeCache.get(themeName);
 
   let themeModule: any;
-
   switch (themeName) {
     case 'github-dark':
       themeModule = await import('shiki/themes/github-dark.mjs');
-      break;
-    case 'github-light':
-      themeModule = await import('shiki/themes/github-light.mjs');
       break;
     default:
       themeModule = await import('shiki/themes/github-light.mjs');
@@ -82,34 +106,53 @@ const loadTheme = async (themeName: BundledTheme): Promise<any> => {
   return theme;
 };
 
+// Singleton Highlighter Instance
+let highlighterPromise: Promise<HighlighterGeneric<any, any>> | null = null;
+
+const getHighlighterInstance = async () => {
+  if (!highlighterPromise) {
+    highlighterPromise = import('shiki/bundle/web').then(
+      ({ createHighlighter }) =>
+        createHighlighter({
+          langs: [],
+          themes: [],
+        })
+    );
+  }
+  return highlighterPromise;
+};
+
 // Create a promise for highlighting
 const highlightCode = async (
-  code: string,
+  code: any,
   lang: BundledLanguage,
   isDarkMode?: boolean
 ): Promise<string> => {
   const themeName: BundledTheme = isDarkMode ? 'github-dark' : 'github-light';
 
-  // Lazy load shiki, language, and theme in parallel
-  const [{ codeToHtml }, languageModule, themeModule] = await Promise.all([
-    import('shiki/bundle/web'),
+  // Load highlighter, language, and theme in parallel
+  const [highlighter, languageModule, themeModule] = await Promise.all([
+    getHighlighterInstance(),
     loadLanguage(lang),
     loadTheme(themeName),
   ]);
 
-  const shikiOptions: CodeToHastOptions<BundledLanguage, BundledTheme> = {
-    lang,
-    theme: themeModule,
-  };
+  // Load into the singleton instance if not already loaded
+  if (!highlighter.getLoadedLanguages().includes(lang)) {
+    await highlighter.loadLanguage(languageModule);
+  }
+  if (!highlighter.getLoadedThemes().includes(themeName)) {
+    await highlighter.loadTheme(themeModule);
+  }
 
-  return codeToHtml(code, {
-    ...shikiOptions,
-    langs: [languageModule],
-  } as any);
+  return highlighter.codeToHtml(String(code), {
+    lang,
+    theme: themeName,
+  });
 };
 
 export type CodeBlockShikiProps = {
-  children: string;
+  children: ReactNode;
   lang: BundledLanguage;
   isDarkMode?: boolean;
 };
@@ -124,14 +167,13 @@ export const CodeBlockShiki: FC<CodeBlockShikiProps> = ({
   useEffect(() => {
     let isCancelled = false;
 
-    setHtml(null);
-
     highlightCode(children, lang, isDarkMode)
       .then((result) => {
         if (!isCancelled) setHtml(result);
       })
-      .catch(() => {
-        if (!isCancelled) setHtml('');
+      .catch((error) => {
+        console.error('Failed to highlight code:', error);
+        if (!isCancelled && html === null) setHtml('');
       });
 
     return () => {
@@ -140,15 +182,7 @@ export const CodeBlockShiki: FC<CodeBlockShikiProps> = ({
   }, [children, lang, isDarkMode]);
 
   return (
-    <div
-      className="min-w-0 max-w-full overflow-auto bg-transparent [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [&_pre::-webkit-scrollbar]:hidden [&_pre]:[-ms-overflow-style:none] [&_pre]:[scrollbar-width:none]"
-      style={{
-        backgroundColor: 'transparent',
-        minWidth: 0,
-        maxWidth: '100%',
-        overflow: 'auto',
-      }}
-    >
+    <div className="[&_pre.shiki]:!bg-transparent min-w-0 max-w-full overflow-auto bg-transparent [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [&_pre.shiki]:max-w-full [&_pre.shiki]:overflow-x-auto [&_pre::-webkit-scrollbar]:hidden [&_pre]:[-ms-overflow-style:none] [&_pre]:[scrollbar-width:none]">
       {html ? (
         // biome-ignore lint/security/noDangerouslySetInnerHtml: Shiki generates safe HTML for code highlighting
         <div dangerouslySetInnerHTML={{ __html: html }} />

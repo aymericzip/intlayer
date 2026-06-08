@@ -1,23 +1,19 @@
-'use client';
-
-import configuration from '@intlayer/config/built';
-import { localeResolver } from '@intlayer/core';
-import { MessageKey } from '@intlayer/editor';
-import type { LocalesValues } from '@intlayer/types';
+import { internationalization } from '@intlayer/config/built';
+import { setIntlayerIdentifier } from '@intlayer/config/client';
+import { localeResolver } from '@intlayer/core/localization';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import {
   type ComponentChild,
   createContext,
   type FunctionComponent,
 } from 'preact';
-import { useContext } from 'preact/hooks';
-import { IntlayerEditorProvider } from '../editor/IntlayerEditorProvider';
-import { useCrossFrameState } from '../editor/useCrossFrameState';
+import { useContext, useEffect, useState } from 'preact/hooks';
+import { EditorProvider } from '../editor/EditorProvider';
 import { localeInStorage, setLocaleInStorage } from './useLocaleStorage';
 
 type IntlayerValue = {
   locale: LocalesValues;
   setLocale: (newLocale: LocalesValues) => void;
-  disableEditor?: boolean;
   isCookieEnabled?: boolean;
 };
 
@@ -25,22 +21,20 @@ type IntlayerValue = {
  * Context that store the current locale on the client side
  */
 export const IntlayerClientContext = createContext<IntlayerValue>({
-  locale: localeInStorage ?? configuration?.internationalization?.defaultLocale,
+  locale: localeInStorage ?? internationalization?.defaultLocale,
   setLocale: () => null,
-  disableEditor: false,
 });
 
 /**
  * Hook that provides the current locale
  */
-export const useIntlayerContext = () => useContext(IntlayerClientContext);
+export const useIntlayerContext = () => useContext(IntlayerClientContext) ?? {};
 
 export type IntlayerProviderProps = {
   children?: ComponentChild;
   locale?: LocalesValues;
   defaultLocale?: LocalesValues;
   setLocale?: (locale: LocalesValues) => void;
-  disableEditor?: boolean;
   isCookieEnabled?: boolean;
 };
 
@@ -54,20 +48,27 @@ export const IntlayerProviderContent: FunctionComponent<
   defaultLocale: defaultLocaleProp,
   children,
   setLocale: setLocaleProp,
-  disableEditor,
   isCookieEnabled,
 }) => {
-  const { internationalization } = configuration ?? {};
   const { defaultLocale: defaultLocaleConfig, locales: availableLocales } =
     internationalization ?? {};
 
   const defaultLocale =
     localeProp ?? localeInStorage ?? defaultLocaleProp ?? defaultLocaleConfig;
 
-  const [currentLocale, setCurrentLocale] = useCrossFrameState(
-    MessageKey.INTLAYER_CURRENT_LOCALE,
-    defaultLocale
+  const [currentLocale, setCurrentLocale] = useState<LocalesValues>(
+    defaultLocale as LocalesValues
   );
+
+  useEffect(() => {
+    if (localeProp && localeProp !== currentLocale) {
+      setCurrentLocale(localeProp);
+    }
+  }, [localeProp, currentLocale, setCurrentLocale]);
+
+  useEffect(() => {
+    setIntlayerIdentifier();
+  }, []);
 
   const setLocaleBase = (newLocale: LocalesValues) => {
     if (currentLocale.toString() === newLocale.toString()) return;
@@ -90,7 +91,6 @@ export const IntlayerProviderContent: FunctionComponent<
       value={{
         locale: resolvedLocale,
         setLocale,
-        disableEditor,
         isCookieEnabled,
       }}
     >
@@ -99,10 +99,32 @@ export const IntlayerProviderContent: FunctionComponent<
   );
 };
 
-export const IntlayerProvider: FunctionComponent<IntlayerProviderProps> = (
-  props
-) => (
-  <IntlayerEditorProvider>
-    <IntlayerProviderContent {...props} />
-  </IntlayerEditorProvider>
+/**
+ * Main provider for Intlayer in Preact applications.
+ *
+ * It provides the Intlayer context to your application, allowing the use
+ * of hooks like `useIntlayer` and `useLocale`.
+ *
+ * @param props - The provider props.
+ * @returns The provider component.
+ *
+ * @example
+ * ```tsx
+ * import { IntlayerProvider } from 'preact-intlayer';
+ *
+ * const App = () => (
+ *   <IntlayerProvider>
+ *     <MyComponent />
+ *   </IntlayerProvider>
+ * );
+ * ```
+ */
+export const IntlayerProvider: FunctionComponent<IntlayerProviderProps> = ({
+  children,
+  ...props
+}) => (
+  <IntlayerProviderContent {...props}>
+    <EditorProvider />
+    {children}
+  </IntlayerProviderContent>
 );

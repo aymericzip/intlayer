@@ -21,7 +21,7 @@
     "noEmit": true,
 
     /* Linting */
-    "skipLibCheck": true,
+    "skipLibCheck": false,
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -29,7 +29,7 @@
     "noUncheckedSideEffectImports": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "#/*": ["./src/*"]
     }
   }
 }

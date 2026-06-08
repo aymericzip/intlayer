@@ -1,7 +1,8 @@
 import { passkeyClient } from '@better-auth/passkey/client';
 import { ssoClient } from '@better-auth/sso/client';
-import configuration from '@intlayer/config/built';
-import type { IntlayerConfig } from '@intlayer/types';
+import { editor } from '@intlayer/config/built';
+import { BACKEND_URL } from '@intlayer/config/defaultValues';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { createAuthClient } from 'better-auth/client';
 import { magicLinkClient, twoFactorClient } from 'better-auth/client/plugins';
 
@@ -41,7 +42,7 @@ export interface AuthAPI {
   resetPassword: AuthClient['resetPassword'];
   verifyEmailSession: AuthClient['verifyEmail'];
   getSession: AuthClient['getSession'];
-  forgetPassword: AuthClient['forgetPassword'];
+  forgetPassword: AuthClient['requestPasswordReset'];
   sendVerificationEmail: AuthClient['sendVerificationEmail'];
   changeEmail: AuthClient['changeEmail'];
   deleteUser: AuthClient['deleteUser'];
@@ -67,18 +68,20 @@ export interface AuthAPI {
     // Redeclare it because of type inference issues
     input: { email: string; callbackURL: string }
   ) => any;
-  // SSO methods
-  signInSSO: AuthClient['sso']['signIn'];
+  registerSSO: AuthClient['sso']['register'];
+  listSSOProviders: () => Promise<any>;
+  deleteSSOProvider: (args: { providerId: string }) => Promise<any>;
+  signInSSO: AuthClient['signIn']['sso'];
 }
 
-export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
-  const backendURL =
-    intlayerConfig?.editor?.backendURL ?? configuration?.editor?.backendURL;
+export const getAuthAPI = (
+  intlayerConfig?: Pick<IntlayerConfig, 'editor'>
+): AuthAPI => {
+  let backendURL = intlayerConfig?.editor?.backendURL ?? editor?.backendURL;
 
   if (!backendURL) {
-    throw new Error(
-      'Backend URL is not defined in the Intlayer configuration.'
-    );
+    backendURL = BACKEND_URL;
+    console.error('Backend URL is not defined in the Intlayer configuration.');
   }
 
   const client = getAuthClient(backendURL);
@@ -241,14 +244,25 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
     });
   };
 
-  // it fix type inference issues
   const signInMagicLink: any = async (...args: any[]) => {
     return (client.signIn as any).magicLink(...args);
   };
 
-  // SSO methods
-  const signInSSO: AuthClient['sso']['signIn'] = async (...args) => {
-    return client.sso.signIn(...args);
+  const signInSSO: AuthClient['signIn']['sso'] = async (...args) => {
+    return client.signIn.sso(...args);
+  };
+
+  const registerSSO: AuthClient['sso']['register'] = async (...args) => {
+    return client.sso.register(...args);
+  };
+
+  const listSSOProviders = async () => {
+    const response = await (client.sso as any).providers();
+    return { data: response?.data?.providers ?? [] };
+  };
+
+  const deleteSSOProvider = async (args: { providerId: string }) => {
+    return (client.sso as any).deleteProvider({ providerId: args.providerId });
   };
 
   return {
@@ -287,5 +301,8 @@ export const getAuthAPI = (intlayerConfig?: IntlayerConfig): AuthAPI => {
     listPasskeys,
     signInMagicLink,
     signInSSO,
+    registerSSO,
+    listSSOProviders,
+    deleteSSOProvider,
   };
 };

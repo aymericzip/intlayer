@@ -21,8 +21,28 @@ slugs:
 
 Команда `doc translate` автоматически переводит файлы документации с базового языка на целевые языки с использованием сервисов AI-перевода.
 
-```bash
+## Ключевые моменты:
+
+- Разделяет большие markdown-файлы на части, чтобы оставаться в пределах окна контекста модели ИИ.
+- Повторяет перевод, если формат вывода неверен.
+- Включает контекст, специфичный для приложения и файла, для повышения точности перевода.
+- Сохраняет существующие переводы, не перезаписывая их.
+- Обрабатывает файлы, части и локали параллельно с использованием системы очередей для увеличения скорости.
+
+```bash packageManager="npm"
 npx intlayer doc translate
+```
+
+```bash packageManager="yarn"
+yarn intlayer doc translate
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer doc translate
+```
+
+```bash packageManager="bun"
+bun x intlayer doc translate
 ```
 
 ## Аргументы:
@@ -78,9 +98,10 @@ npx intlayer doc translate
 - **`--temperature [temperature]`**: Параметр температуры для модели ИИ.
 - **`--api-key [apiKey]`**: Предоставьте свой собственный API-ключ для сервиса ИИ.
 - **`--application-context [applicationContext]`**: Предоставьте дополнительный контекст для перевода ИИ.
+- **`--data-serialization [dataSerialization]`**: Формат сериализации данных для использования в функциях ИИ Intlayer. Опции: `json` (стандартный, надежный), `toon` (меньше токенов, менее стабильный).
 - **`--custom-prompt [prompt]`**: Настройка базового запроса, используемого для перевода. (Примечание: для большинства случаев рекомендуется использовать опцию `--custom-instructions`, так как она обеспечивает лучший контроль над поведением перевода.)
 
-  > Пример: `npx intlayer doc translate --model deepseek-chat --provider deepseek --temperature 0.5 --api-key sk-1234567890 --application-context "Мое приложение — магазин для кошек"`
+  > Пример: `npx intlayer doc translate --model deepseek-chat --provider deepseek --temperature 0.5 --api-key sk-1234567890 --application-context "Мое приложение, магазин для кошек"`
 
 **Опции переменных окружения:**
 

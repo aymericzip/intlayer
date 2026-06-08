@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-10-05
-updatedAt: 2025-10-05
-title: كيفية ترجمة تطبيق Next.js 15 باستخدام next-i18next – دليل i18n 2025
-description: دليل عملي وجاهز للإنتاج لتعريب تطبيق Next.js 15 App Router باستخدام i18next/next-i18next وتعزيزه بـ Intlayer.
+updatedAt: 2026-05-31
+title: "تدويل next-i18next - الدليل الكامل لترجمة تطبيقك"
+description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق next-i18next متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
   - التدويل
   - التوثيق
@@ -37,7 +37,7 @@ applicationTemplate: https://github.com/aymericzip/intlayer-next-i18next-templat
 - تكامل Intlayer لأتمتة سير عمل الترجمة (الاختبارات، التعبئة بالذكاء الاصطناعي، مزامنة JSON)
 
 > ملاحظة: تم بناء next-i18next على أساس i18next. يستخدم هذا الدليل بدائيات i18next المتوافقة مع next-i18next في App Router، مع الحفاظ على بنية بسيطة وجاهزة للإنتاج.
-> للمقارنة الأوسع، راجع [next-i18next مقابل next-i18next مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-i18next_vs_intlayer.md).
+> للمقارنة الأوسع، راجع [next-i18next مقابل next-intl مقابل Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/ar/next-i18next_vs_next-intl_vs_intlayer.md).
 
 ---
 
@@ -55,6 +55,10 @@ pnpm add next-i18next i18next react-i18next i18next-resources-to-backend
 
 ```bash packageManager="yarn"
 yarn add next-i18next i18next react-i18next i18next-resources-to-backend
+```
+
+```bash packageManager="bun"
+bun add next-i18next i18next react-i18next i18next-resources-to-backend
 ```
 
 ابدأ بهيكل واضح. احتفظ بالرسائل مقسمة حسب اللغة والمساحة الاسمية.
@@ -254,7 +258,7 @@ export default function LocaleLayout({
 }) {
   // تحديد اللغة بناءً على المعلمات أو استخدام اللغة الافتراضية
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   // تحديد اتجاه النص بناءً على اللغة (يمين إلى يسار أو يسار إلى يمين)
@@ -544,15 +548,23 @@ export const config = {
 قم بتثبيت تبعيات intlayer:
 
 ```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin  -D
+npm install intlayer @intlayer/sync-json-plugin --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin  -D
+pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin  -D
+yarn add intlayer @intlayer/sync-json-plugin --dev
+yarn intlayer init
+```
+
+```bash packageManager="bun"
+bun add intlayer @intlayer/sync-json-plugin --dev
+bun x intlayer init
 ```
 
 ```ts fileName="intlayer.config.ts"
@@ -572,7 +584,6 @@ const config: IntlayerConfig = {
   },
   plugins: [
     syncJSON({
-      format: "i18next",
       source: ({ locale }) => `./locales/${locale}.json`,
     }),
   ],
@@ -597,7 +608,7 @@ export default config;
 - `pnpm i18n:test` في CI لفشل البناء عند وجود مفاتيح مفقودة
 - `pnpm i18n:fill` محليًا لاقتراح ترجمات الذكاء الاصطناعي للمفاتيح المضافة حديثًا
 
-> يمكنك تقديم وسائط CLI؛ راجع [وثائق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_cli.md).
+> يمكنك تقديم وسائط CLI؛ راجع [وثائق Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/index.md).
 
 ---
 

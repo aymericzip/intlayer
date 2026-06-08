@@ -1,14 +1,7 @@
+import type { Contributor } from '@components/Contributors/ContributorsList';
 import type { FC } from 'react';
-import { getContributors } from '@/app/[locale]/(landing)/contributors/page';
+import { getContributors } from '@/app/[locale]/(landing)/contributors/contributors.api';
 import { ContributorCloud } from './ContributorCloud';
-
-type Contributor = {
-  login: string;
-  avatar_url: string;
-  html_url: string;
-  contributions?: number;
-  type?: string;
-};
 
 const shuffleArray = (array: Contributor[]): Contributor[] => {
   const shuffled = [...array];

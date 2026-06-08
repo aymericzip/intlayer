@@ -1,12 +1,12 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2025-06-29
+updatedAt: 2026-05-19
 title: Markdown
-description: Intlayer를 사용하여 다국어 웹사이트에서 Markdown 콘텐츠를 선언하고 사용하는 방법을 알아보세요. 이 온라인 문서의 단계를 따라 프로젝트에 Markdown을 손쉽게 통합하세요.
+description: Intlayer를 사용하여 다국어 웹사이트에서 Markdown 콘텐츠를 선언하고 사용하는 방법을 알아보세요. 이 온라인 문서의 단계를 따라 Markdown을 프로젝트에 원활하게 통합하세요.
 keywords:
   - Markdown
-  - 국제화
-  - 문서
+  - Internationalization
+  - Documentation
   - Intlayer
   - Next.js
   - JavaScript
@@ -16,342 +16,1310 @@ slugs:
   - concept
   - content
   - markdown
+history:
+  - version: 8.11.0
+    date: 2026-05-28
+    changes: "SSR / 하이드레이션을 위한 Markdown AST 사전 파싱 허용"
+  - version: 8.10.0
+    date: 2026-05-19
+    changes: "`.content.md` 파일 지원 추가"
+  - version: 8.5.0
+    date: 2026-03-24
+    changes: "`intlayerMarkdown` 플러그인 객체 추가; `app.use(installIntlayerMarkdown)` 대신 `app.use(intlayerMarkdown)` 사용"
+  - version: 8.5.0
+    date: 2026-03-24
+    changes: "가져오기를 `{{framework}}-intlayer`에서 `{{framework}}-intlayer/markdown`으로 이동"
+  - version: 8.0.0
+    date: 2026-01-22
+    changes: "MarkdownRenderer / useMarkdownRenderer / renderMarkdown 유틸리티 및 forceInline 옵션 추가"
+  - version: 8.0.0
+    date: 2026-01-18
+    changes: "Markdown 콘텐츠의 자동 장식, MDX 및 SSR 지원"
+  - version: 5.5.10
+    date: 2025-06-29
+    changes: "초기 기록 생성"
 ---
 
-# 마크다운 / 리치 텍스트 콘텐츠
+# Markdown / 서식 있는 텍스트 콘텐츠
 
-## 마크다운 작동 방식
+Intlayer는 Markdown 구문을 사용하여 정의된 서식 있는 텍스트 콘텐츠를 지원합니다. 이를 통해 블로그, 기사 등과 같이 서식이 풍부한 콘텐츠를 쉽게 작성하고 유지 관리할 수 있습니다.
 
-Intlayer는 마크다운 문법을 사용하여 정의된 리치 텍스트 콘텐츠를 지원합니다. 이는 `md` 함수를 통해 마크다운 문자열을 Intlayer에서 관리할 수 있는 형식으로 변환하여 이루어집니다. 마크다운을 사용하면 블로그, 기사 등과 같은 리치 포맷의 콘텐츠를 쉽게 작성하고 관리할 수 있습니다.
+## Markdown 콘텐츠 선언
 
-[Intlayer 비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)와 [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)는 모두 마크다운 콘텐츠 관리를 지원합니다.
+`md` 함수를 사용하거나 (Markdown 구문이 포함된 경우) 단순한 문자열로 Markdown 콘텐츠를 선언할 수 있습니다.
 
-React 애플리케이션과 통합할 때, [`markdown-to-jsx`](https://www.npmjs.com/package/markdown-to-jsx)와 같은 마크다운 렌더링 제공자를 사용하여 마크다운 콘텐츠를 HTML로 렌더링할 수 있습니다. 이를 통해 마크다운으로 콘텐츠를 작성하면서 애플리케이션에서 올바르게 표시되도록 할 수 있습니다.
+<Tabs>
+  <Tab label=".content.md" value=".content.md">
+    버전 `8.10.0`부터 `.content.md` 파일에서 직접 Markdown 콘텐츠를 선언할 수 있습니다. Intlayer가 Markdown 콘텐츠를 자동으로 감지하고 구문 분석합니다.
 
-## 마크다운 콘텐츠 설정
+    ```md fileName="markdown-file.en.content.md"
+    ---
+    key: my-markdown-content
+    description: 내 콘텐츠
+    locale: en
+    ---
 
-Intlayer 프로젝트에서 마크다운 콘텐츠를 설정하려면 `md` 함수를 사용하는 콘텐츠 사전을 정의하십시오.
+    # 내 콘텐츠
 
-```typescript fileName="markdownDictionary.content.ts" contentDeclarationFormat="typescript"
-import { md, type Dictionary } from "intlayer";
+    여기에 마크다운 콘텐츠 예시가 있습니다.
+    ```
 
-const markdownDictionary = {
-  key: "app",
-  content: {
-    myMarkdownContent: md("## My title \n\nLorem Ipsum"),
-  },
-} satisfies Dictionary;
+    `locale` 프런트매터 필드는 콘텐츠의 로캘을 정의하는 필드입니다. 선택 사항입니다. 제공되지 않으면 Intlayer는 기본 로캘을 사용하며, 특정 로캘에 대한 번역이 없을 때 대체 로캘로도 사용됩니다.
 
-export default markdownDictionary;
-```
+    파일 구조 예시:
 
-```javascript fileName="markdownDictionary.content.mjs" contentDeclarationFormat="esm"
-import { md } from "intlayer";
+    ```text
+    content
+    ├── markdown-file.en.content.md
+    ├── markdown-file.fr.content.md
+    └── markdown-file.es.content.md
+    ```
 
-/** @type {import('intlayer').Dictionary} */
-const markdownDictionary = {
-  key: "app",
-  content: {
-    myMarkdownContent: md("## My title \n\nLorem Ipsum"),
-  },
-};
+    [사전 정의](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)에 정의된 속성을 프런트매터에 추가할 수 있습니다.
 
-export default markdownDictionary;
-```
+  </Tab>
+  <Tab label="수동 래핑" value="manual-wrapping">
+    `md` 함수를 사용하여 Markdown 콘텐츠를 명시적으로 선언하세요. 이는 명백한 구문이 포함되어 있지 않더라도 문자열이 Markdown으로 처리되도록 하려는 경우에 유용합니다.
 
-```javascript fileName="markdownDictionary.content.cjs" contentDeclarationFormat="commonjs"
-const { md } = require("intlayer");
+    ```typescript fileName="markdownDictionary.content.ts"
+    import { md, type Dictionary } from "intlayer";
 
-/** @type {import('intlayer').Dictionary} */
-const markdownDictionary = {
-  key: "app",
-  content: {
-    myMarkdownContent: md("## My title \n\nLorem Ipsum"),
-  },
-};
-
-module.exports = markdownDictionary;
-```
-
-```json fileName="markdownDictionary.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "app",
-  "content": {
-    "myMarkdownContent": {
-      "nodeType": "markdown",
-      "markdown": "## My title \n\nLorem Ipsum"
-    }
-  }
-}
-```
-
-## (다국어) `.md` 파일 가져오기
-
-```typescript fileName="md.d.ts" contentDeclarationFormat="typescript"
-// 이 선언은 TypeScript가 마크다운(.md) 파일을 모듈로 인식하고 가져올 수 있도록 허용합니다.
-// 이 선언이 없으면 TypeScript는 마크다운 파일을 가져오려고 할 때 오류를 발생시킵니다.
-// TypeScript는 기본적으로 코드가 아닌 파일 가져오기를 지원하지 않기 때문입니다.
-
-declare module "*.md";
-```
-
-```typescript fileName="markdownDictionary.content.ts" contentDeclarationFormat="typescript"
-import { md, t, type Dictionary } from "intlayer";
-import { readFileSync } from "fs";
-import { resolve } from "path";
-
-import markdown_en from "./myMarkdown.en.md";
-import markdown_fr from "./myMarkdown.fr.md";
-import markdown_es from "./myMarkdown.es.md";
-
-const markdownDictionary = {
-  key: "app",
-  content: {
-    contentImport: t({
-      ko: md(markdown_ko),
-      en: md(markdown_en),
-      fr: md(markdown_fr),
-      es: md(markdown_es),
-    }),
-    contentRequire: md(require("./myMarkdown.md")),
-    contentAsyncImport: md(
-      import("./myMarkdown.md").then((module) => module.default)
-    ),
-    contentFetch: md(fetch("https://example.com").then((res) => res.text())),
-    contentFS: md(() => {
-      const filePath = resolve(process.cwd(), "doc/test.md");
-      return readFileSync(filePath, "utf8");
-    }),
-  },
-} satisfies Dictionary;
-
-export default markdownDictionary;
-```
-
-```javascript fileName="markdownDictionary.content.mjs" contentDeclarationFormat="esm"
-import { md, t } from "intlayer";
-import { readFileSync } from "fs";
-import { resolve } from "path";
-
-import markdown_en from "./myMarkdown.en.md";
-import markdown_fr from "./myMarkdown.fr.md";
-import markdown_es from "./myMarkdown.es.md";
-
-/** @type {import('intlayer').Dictionary} */
-const markdownDictionary = {
-  key: "app",
-  content: {
-    contentImport: t({
-      ko: md(markdown_ko),
-      en: md(markdown_en),
-      fr: md(markdown_fr),
-      es: md(markdown_es),
-    }),
-    contentRequire: md(require("./myMarkdown.md")),
-    contentAsyncImport: md(
-      import("./myMarkdown.md").then((module) => module.default)
-    ),
-    contentFetch: md(fetch("https://example.com").then((res) => res.text())),
-    contentFS: md(() => {
-      const filePath = resolve(process.cwd(), "doc/test.md");
-      return readFileSync(filePath, "utf8");
-    }),
-  },
-};
-
-export default markdownDictionary;
-```
-
-```javascript fileName="markdownDictionary.content.cjs" contentDeclarationFormat="commonjs"
-const { md, t } = require("intlayer");
-
-const markdown_en = require("./myMarkdown.en.md");
-const markdown_fr = require("./myMarkdown.fr.md");
-const markdown_es = require("./myMarkdown.es.md");
-
-/** @type {import('intlayer').Dictionary} */
-const markdownDictionary = {
-  key: "app",
-  content: {
-    contentImport: t({
-      ko: md(markdown_ko),
-      en: md(markdown_en),
-      fr: md(markdown_fr),
-      es: md(markdown_es),
-    }),
-    contentFetch: md(fetch("https://example.com").then((res) => res.text())),
-    contentFS: md(() => {
-      const filePath = resolve(process.cwd(), "doc/test.md");
-      return readFileSync(filePath, "utf8");
-    }),
-  },
-};
-
-module.exports = markdownDictionary;
-```
-
-```jsonc fileName="markdownDictionary.content.json" contentDeclarationFormat="json"
-// - 외부 마크다운 파일(.md)을 가져오는 것은 JS 또는 TS 선언 파일을 통해서만 가능합니다.
-// - 외부 마크다운 콘텐츠를 가져오는 것은 JS 또는 TS 선언 파일을 통해서만 가능합니다.
-
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "app",
-  "content": {
-    "myMarkdownContent": {
-      "nodeType": "translation",
-      "translation": {
-        "ko": {
-          "nodeType": "markdown",
-          "markdown": "# 내 마크다운\n\n이것은 마크다운 콘텐츠입니다.",
-        },
-        "en": {
-          "nodeType": "markdown",
-          "markdown": "# My Markdown\n\nThis is a Markdown content.",
-        },
-        "fr": {
-          "nodeType": "markdown",
-          "markdown": "# Mon Markdown\n\nC'est un contenu Markdown.",
-        },
-        "es": {
-          "nodeType": "markdown",
-          "markdown": "# Mi Markdown\n\nEsto es un contenido Markdown.",
-        },
+    const markdownDictionary = {
+      key: "app",
+      content: {
+        myMarkdownContent: md("## 내 제목 \n\nLorem Ipsum"),
       },
-    },
-  },
+    } satisfies Dictionary;
+
+    export default markdownDictionary;
+    ```
+
+  </Tab>
+  <Tab label="외부 파일" value="external-files">
+    `file` 함수를 사용하여 `.md` 파일을 직접 가져옵니다.
+
+    ```typescript fileName="markdownDictionary.content.ts"
+    import { md, file, t } from "intlayer";
+
+    export default {
+      key: "app",
+      content: {
+        content: t({
+          en: md(file("./myMarkdown.en.md")),
+          ko: md(file("./myMarkdown.ko.md")),
+        }),
+      },
+    };
+    ```
+
+  </Tab>
+
+  <Tab label="자동 감지" value="automatic-detection">
+    문자열에 일반적인 Markdown 표시기(예: 제목, 목록, 링크 등)가 포함된 경우 Intlayer가 자동으로 이를 변환합니다.
+
+    ```typescript fileName="markdownDictionary.content.ts"
+    export default {
+      key: "app",
+      contentAutoTransformation: true, // Markdown 콘텐츠의 자동 감지 활성화 - intlayer.config.ts에서 전역으로 설정할 수 있습니다
+      content: {
+        myMarkdownContent: "## 내 제목 \n\nLorem Ipsum",
+      },
+    };
+    ```
+
+  </Tab>
+</Tabs>
+
+## Markdown 렌더링
+
+Intlayer는 Markdown을 렌더링하는 두 가지 독립적인 방법을 제공합니다:
+
+1. **`useIntlayer`를 통한 방식**
+   — Intlayer는 프레임워크의 네이티브 출력(JSX, VNode, HTML 문자열)으로 `md` 노드를 자동으로 변환합니다.
+   - 프런트매터는 분석되어 `.metadata`로 노출됩니다. 렌더링은 두 가지 수준에서 재정의할 수 있습니다. `MarkdownProvider`(또는 프레임워크 동등 기능)를 통한 전역 설정과 `.use()`를 통한 노드별 로컬 설정입니다. 두 가지를 결합할 수 있으며, `.use()`가 `MarkdownProvider`보다 우선하고, `MarkdownProvider`가 기본값보다 우선합니다.
+
+2. **도우미 유틸리티** — `<MarkdownRenderer />`, `useMarkdownRenderer()`, 및 `renderMarkdown()`은 **순수 Markdown 문자열만** 허용하는 독립 실행형 도구입니다. 이들은 `useIntlayer`와 독립적이며 반환되는 장식된 노드와 작동하지 않습니다.
+
+Markdown 렌더링은 **MDX**를 지원합니다 — Markdown 내에서 이름으로 직접 JSX/프레임워크 컴포넌트를 사용할 수 있습니다.
+
+### 1. 자동 렌더링 (`useIntlayer`를 통한 방식)
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+    Markdown 노드는 JSX로 직접 렌더링할 수 있습니다.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "react-intlayer";
+    import { MarkdownProvider } from "react-intlayer/markdown";
+
+    const AppContent = () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return <div>{myMarkdownContent}</div>;
+    };
+
+    const App = () => (
+      <MarkdownProvider
+        components={{
+          h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+          MyButton: (props) => <button {...props} />, // MDX 컴포넌트
+        }}
+      >
+        <AppContent />
+      </MarkdownProvider>
+    );
+    ```
+
+    > `MarkdownProvider`가 없는 경우 Intlayer는 기본 Markdown to JSX 파서를 사용하여 마크다운을 렌더링합니다.
+
+    `.use()` 메서드를 사용하여 특정 노드에 대한 로컬 재정의를 제공할 수도 있습니다:
+
+    ```tsx
+    {myMarkdownContent.use({
+      h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+    })}
+    ```
+
+    문자열로 Markdown을 가져올 수 있습니다:
+
+    ```tsx
+    {myMarkdownContent.value}
+    {String(myMarkdownContent)}
+    {myMarkdownContent.toString()}
+    ```
+
+    그리고 다음과 같이 마크다운 메타데이터에 접근할 수 있습니다:
+
+    ```tsx
+    {myMarkdownContent.metadata}
+    {myMarkdownContent.metadata.title}
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+    Markdown 노드는 JSX로 직접 렌더링할 수 있습니다.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "next-intlayer";
+    import { MarkdownProvider } from "next-intlayer/markdown";
+
+    const AppContent = () => {
+      const { myMarkdownContent } = useIntlayer("app");
+
+      return <div>{myMarkdownContent}</div>;
+    };
+
+    const App = () => (
+      <MarkdownProvider
+        components={{
+          h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+          MyButton: (props) => <button {...props} />, // MDX 컴포넌트
+        }}
+      >
+        <AppContent />
+      </MarkdownProvider>
+    );
+    ```
+
+    > `MarkdownProvider`가 없는 경우 Intlayer는 기본 Markdown to JSX 파서를 사용하여 마크다운을 렌더링합니다.
+
+    `.use()` 메서드를 사용하여 특정 노드에 대한 로컬 재정의를 제공할 수도 있습니다:
+
+    ```tsx
+    {myMarkdownContent.use({
+      h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+    })}
+    ```
+
+    문자열로 Markdown을 가져올 수 있습니다:
+
+    ```tsx
+    {myMarkdownContent.value}
+    {String(myMarkdownContent)}
+    {myMarkdownContent.toString()}
+    ```
+
+    그리고 다음과 같이 마크다운 메타데이터에 접근할 수 있습니다:
+
+    ```tsx
+    {myMarkdownContent.metadata}
+    {myMarkdownContent.metadata.title}
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+    Vue에서 Markdown 콘텐츠는 내장 `component`를 사용하거나 노드로서 직접 렌더링될 수 있습니다.
+
+    ```vue fileName="App.vue"
+    <script setup>
+    import { useIntlayer } from "vue-intlayer";
+    const { myMarkdownContent } = useIntlayer("app");
+    </script>
+
+    <template>
+      <component :is="myMarkdownContent" />
+    </template>
+    ```
+
+    `intlayerMarkdown` 플러그인을 통해 전역으로 구성합니다(MDX 사용자 지정 컴포넌트 지원):
+
+    ```ts fileName="main.ts"
+    import { intlayerMarkdown } from "vue-intlayer/markdown";
+
+    app.use(intlayerMarkdown, {
+      components: {
+        h1: (props) => h('h1', { style: { color: 'green' } }, props.children),
+        MyButton: (props) => h('button', props), // MDX 컴포넌트
+      },
+    });
+    ```
+
+    > `intlayerMarkdown` 플러그인이 설치되지 않은 경우 Intlayer는 기본 컴파일러를 사용하여 렌더링합니다.
+
+    `.use()` 메서드를 사용하여 특정 노드에 대한 로컬 재정의를 제공할 수도 있습니다:
+
+    ```vue
+    <component :is="myMarkdownContent.use({
+      h1: (props) => h('h1', { style: { color: 'red' } }, props.children),
+    })" />
+    ```
+
+    문자열로 Markdown을 가져올 수 있습니다:
+
+    ```vue
+    {{ myMarkdownContent.value }}
+    {{ String(myMarkdownContent) }}
+    {{ myMarkdownContent.toString() }}
+    ```
+
+    그리고 다음과 같이 마크다운 메타데이터에 접근할 수 있습니다:
+
+    ```vue
+    <component :is="myMarkdownContent.metadata" />
+    <component :is="myMarkdownContent.metadata.title" />
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+    Svelte는 기본적으로 Markdown을 HTML 문자열로 렌더링합니다. 이를 렌더링하려면 `{@html}`을 사용하세요.
+
+    ```svelte fileName="App.svelte"
+    <script lang="ts">
+    import { useIntlayer } from "svelte-intlayer";
+    import { MarkdownProvider } from "svelte-intlayer/markdown";
+    import MyHeading from "./MyHeading.svelte";
+
+    const content = useIntlayer("app");
+    </script>
+
+    <MarkdownProvider components={{ h1: MyHeading }}>
+      {@html $content.myMarkdownContent}
+    </MarkdownProvider>
+    ```
+
+    > `MarkdownProvider`가 없는 경우 Intlayer는 기본 컴파일러를 사용하여 마크다운을 렌더링합니다.
+
+    `.use()` 메서드를 사용하여 특정 노드에 대한 로컬 재정의를 제공할 수도 있습니다:
+
+    ```svelte
+    {@html $content.myMarkdownContent.use({ ... })}
+    ```
+
+    문자열로 Markdown을 가져올 수 있습니다:
+
+    ```svelte
+    {$content.myMarkdownContent.value}
+    {String($content.myMarkdownContent)}
+    {$content.myMarkdownContent.toString()}
+    ```
+
+    그리고 다음과 같이 마크다운 메타데이터에 접근할 수 있습니다:
+
+    ```svelte
+    {$content.myMarkdownContent.metadata}
+    {$content.myMarkdownContent.metadata.title}
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+    Preact는 JSX에서 Markdown 노드를 직접 지원합니다.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "preact-intlayer";
+    import { MarkdownProvider } from "preact-intlayer/markdown";
+
+    const AppContent = () => {
+      const { myMarkdownContent } = useIntlayer("app");
+      return <div>{myMarkdownContent}</div>;
+    };
+
+    const App = () => (
+      <MarkdownProvider
+        components={{
+          h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+          MyButton: (props) => <button {...props} />, // MDX 컴포넌트
+        }}
+      >
+        <AppContent />
+      </MarkdownProvider>
+    );
+    ```
+
+    > `MarkdownProvider`가 없는 경우 Intlayer는 기본 Markdown to JSX 파서를 사용하여 마크다운을 렌더링합니다.
+
+    `.use()` 메서드를 사용하여 특정 노드에 대한 로컬 재정의를 제공할 수도 있습니다:
+
+    ```tsx
+    {myMarkdownContent.use({
+      h1: ({ children }) => <h1 style={{ color: "red" }}>{children}</h1>,
+    })}
+    ```
+
+    문자열로 Markdown을 가져올 수 있습니다:
+
+    ```tsx
+    {myMarkdownContent.value}
+    {String(myMarkdownContent)}
+    {myMarkdownContent.toString()}
+    ```
+
+    그리고 다음과 같이 마크다운 메타데이터에 접근할 수 있습니다:
+
+    ```tsx
+    {myMarkdownContent.metadata}
+    {myMarkdownContent.metadata.title}
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+    Solid는 JSX에서 Markdown 노드를 직접 지원합니다.
+
+    ```tsx fileName="App.tsx"
+    import { useIntlayer } from "solid-intlayer";
+    import { MarkdownProvider } from "solid-intlayer/markdown";
+
+    const AppContent = () => {
+      const { myMarkdownContent } = useIntlayer("app");
+      return <div>{myMarkdownContent}</div>;
+    };
+
+    const App = () => (
+      <MarkdownProvider
+        components={{
+          h1: (props) => <h1 style={{ color: "red" }}>{props.children}</h1>,
+          MyButton: (props) => <button {...props} />, // MDX 컴포넌트
+        }}
+      >
+        <AppContent />
+      </MarkdownProvider>
+    );
+    ```
+
+    > `MarkdownProvider`가 없는 경우 Intlayer는 기본 Markdown to JSX 파서를 사용하여 마크다운을 렌더링합니다.
+
+    `.use()` 메서드를 사용하여 특정 노드에 대한 로컬 재정의를 제공할 수도 있습니다:
+
+    ```tsx
+    {myMarkdownContent.use({
+      h1: (props) => <h1 style={{ color: "red" }}>{props.children}</h1>,
+    })}
+    ```
+
+    문자열로 Markdown을 가져올 수 있습니다:
+
+    ```tsx
+    {myMarkdownContent.value}
+    {String(myMarkdownContent)}
+    {myMarkdownContent.toString()}
+    ```
+
+    그리고 다음과 같이 마크다운 메타데이터에 접근할 수 있습니다:
+
+    ```tsx
+    {myMarkdownContent.metadata}
+    {myMarkdownContent.metadata.title}
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+    Angular는 `[innerHTML]` 지시문을 사용하여 Markdown 콘텐츠를 렌더링합니다.
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { useIntlayer } from "angular-intlayer";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="content().myMarkdownContent"></div>`,
+    })
+    export class AppComponent {
+      content = useIntlayer("app");
+    }
+    ```
+
+    > IntlayerMarkdown 공급자가 구성되지 않은 경우 Intlayer는 기본 컴파일러를 사용하여 렌더링합니다.
+
+    `.use()` 메서드를 사용하여 특정 노드에 대한 로컬 재정의를 제공할 수도 있습니다:
+
+    ```typescript
+    content().myMarkdownContent.use({
+      h1: { class: "text-3xl font-bold" },
+    })
+    ```
+
+    문자열로 Markdown을 가져올 수 있습니다:
+
+    ```typescript
+    content().myMarkdownContent.value
+    String(content().myMarkdownContent)
+    content().myMarkdownContent.toString()
+    ```
+
+    그리고 다음과 같이 마크다운 메타데이터에 접근할 수 있습니다:
+
+    ```typescript
+    content().myMarkdownContent.metadata
+    content().myMarkdownContent.metadata.title
+    ```
+
+  </Tab>
+</Tabs>
+
+### 2. 도우미 유틸리티 (Markdown 문자열 전용)
+
+이러한 유틸리티는 **순수 Markdown 문자열만** 렌더링하며 `useIntlayer`와 독립적입니다. 사전 외의 출처에서 Markdown을 렌더링해야 할 때 사용하세요.
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+  
+    #### `<MarkdownRenderer />` 컴포넌트
+
+    특정 옵션으로 Markdown 문자열을 렌더링합니다.
+
+    ```tsx
+    import { MarkdownRenderer } from "react-intlayer/markdown";
+
+    <MarkdownRenderer forceBlock={true} tagfilter={true}>
+      {"# 내 제목"}
+    </MarkdownRenderer>
+    ```
+
+    #### `useMarkdownRenderer()` 훅
+
+    사전 구성된 렌더러 함수를 가져옵니다.
+
+    ```tsx
+    import { useMarkdownRenderer } from "react-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({
+      forceBlock: true,
+      components: { h1: (props) => <h1 {...props} className="custom" /> }
+    });
+
+    return renderMarkdown("# 내 제목");
+    ```
+
+    #### `renderMarkdown()` 유틸리티
+    컴포넌트 외부 렌더링용 독립 실행형 유틸리티.
+
+    ```tsx
+    import { renderMarkdown } from "react-intlayer/markdown";
+
+    const jsx = renderMarkdown("# 내 제목", { forceBlock: true });
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+  
+    #### `<MarkdownRenderer />` 컴포넌트
+
+    특정 옵션으로 Markdown 문자열을 렌더링합니다.
+
+    ```tsx
+    import { MarkdownRenderer } from "next-intlayer/markdown";
+
+    <MarkdownRenderer forceBlock={true} tagfilter={true}>
+      {"# 내 제목"}
+    </MarkdownRenderer>
+    ```
+
+    #### `useMarkdownRenderer()` 훅
+
+    사전 구성된 렌더러 함수를 가져옵니다.
+
+    ```tsx
+    import { useMarkdownRenderer } from "next-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({
+      forceBlock: true,
+      components: { h1: (props) => <h1 {...props} className="custom" /> }
+    });
+
+    return renderMarkdown("# 내 제목");
+    ```
+
+    #### `renderMarkdown()` 유틸리티
+    컴포넌트 외부 렌더링용 독립 실행형 유틸리티.
+
+    ```tsx
+    import { renderMarkdown } from "next-intlayer/markdown";
+
+    const jsx = renderMarkdown("# 내 제목", { forceBlock: true });
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    #### `<MarkdownRenderer />` 컴포넌트
+
+    ```vue
+    <script setup>
+    import { MarkdownRenderer } from "vue-intlayer/markdown";
+    </script>
+
+    <template>
+      <MarkdownRenderer :forceBlock="true" content="# 내 제목" />
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    #### `<MarkdownRenderer />` 컴포넌트
+
+    ```svelte
+    <script lang="ts">
+    import { MarkdownRenderer } from "svelte-intlayer/markdown";
+    </script>
+
+    <MarkdownRenderer forceBlock={true} value="# 내 제목" />
+    ```
+
+    #### `useMarkdownRenderer()` 훅
+
+    ```svelte
+    <script lang="ts">
+    import { useMarkdownRenderer } from "svelte-intlayer/markdown";
+    const render = useMarkdownRenderer();
+    </script>
+
+    {@html render("# 내 제목")}
+    ```
+
+    #### `renderMarkdown()` 유틸리티
+
+    ```svelte
+    <script lang="ts">
+    import { renderMarkdown } from "svelte-intlayer/markdown";
+    </script>
+
+    {@html renderMarkdown("# 내 제목")}
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+    #### `<MarkdownRenderer />` 컴포넌트
+
+    ```tsx
+    import { MarkdownRenderer } from "preact-intlayer/markdown";
+
+    <MarkdownRenderer forceBlock={true}>
+      {"# 내 제목"}
+    </MarkdownRenderer>
+    ```
+
+    #### `useMarkdownRenderer()` 훅
+
+    ```tsx
+    import { useMarkdownRenderer } from "preact-intlayer/markdown";
+
+    const render = useMarkdownRenderer();
+
+    return <div>{render("# 내 제목")}</div>;
+    ```
+
+    #### `renderMarkdown()` 유틸리티
+
+    ```tsx
+    import { renderMarkdown } from "preact-intlayer/markdown";
+
+    return <div>{renderMarkdown("# 내 제목")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+    #### `<MarkdownRenderer />` 컴포넌트
+
+    ```tsx
+    import { MarkdownRenderer } from "solid-intlayer/markdown";
+
+    <MarkdownRenderer forceBlock={true}>
+      {"# 내 제목"}
+    </MarkdownRenderer>
+    ```
+
+    #### `useMarkdownRenderer()` 훅
+
+    ```tsx
+    import { useMarkdownRenderer } from "solid-intlayer/markdown";
+
+    const render = useMarkdownRenderer();
+
+    return <div>{render("# 내 제목")}</div>;
+    ```
+
+    #### `renderMarkdown()` 유틸리티
+
+    ```tsx
+    import { renderMarkdown } from "solid-intlayer/markdown";
+
+    return <div>{renderMarkdown("# 내 제목")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+    #### `IntlayerMarkdownService` 서비스
+    서비스를 사용하여 Markdown 문자열을 렌더링합니다.
+
+    ```typescript
+    import { IntlayerMarkdownService } from "angular-intlayer/markdown";
+
+    export class MyComponent {
+      constructor(private markdownService: IntlayerMarkdownService) {}
+
+      renderMarkdown(markdown: string) {
+        return this.markdownService.renderMarkdown(markdown);
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+## `MarkdownProvider`를 통한 전역 구성
+
+`MarkdownProvider`(또는 해당 프레임워크 기능)는 전체 애플리케이션의 Markdown 렌더링 파이프라인을 구성합니다. 이는 자동 `useIntlayer` 렌더링과 도우미 유틸리티 모두에 적용됩니다. 여기서 설정된 옵션이 기본값이며, `.use()`는 노드 수준에서 이를 덮어씁니다.
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "react-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        components={{
+          h1: (props) => <h1 style={{color: 'green'}} {...props} />,
+          a: ({ href, ...props }) => <a style={{color: 'red'}} {...props} />,
+          MyCustomJSXComponent: (props) => <span style={{color: 'red'}} {...props} />,
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+
+    > MDX 지원 — Markdown 내부에서 사용된 모든 컴포넌트 이름(예: `<MyCustomJSXComponent />`)은 `components` 맵에서 확인됩니다.
+
+    자체 마크다운 렌더러를 사용할 수도 있습니다:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "react-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          // Use dynamic import to reduce the bundle size of your application
+          const { renderMarkdown } = await import('react-intlayer/markdown');
+          return renderMarkdown(md);
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > Markdown 렌더러를 동적으로 가져오는 것은 애플리케이션 번들 크기를 줄이는 좋은 방법입니다.
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "next-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        components={{
+          h1: (props) => <h1 style={{color: 'green'}} {...props} />,
+          a: ({ href, ...props }) => <a style={{color: 'red'}} {...props} />,
+          MyCustomJSXComponent: (props) => <span style={{color: 'red'}} {...props} />,
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+
+    > MDX 지원 — Markdown 내부에서 사용된 모든 컴포넌트 이름(예: `<MyCustomJSXComponent />`)은 `components` 맵에서 확인됩니다.
+
+    자체 마크다운 렌더러를 사용할 수도 있습니다:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "next-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          // Use dynamic import to reduce the bundle size of your application
+          const { renderMarkdown } = await import('next-intlayer/markdown');
+          return renderMarkdown(md);
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > Markdown 렌더러를 동적으로 가져오는 것은 애플리케이션 번들 크기를 줄이는 좋은 방법입니다.
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    ```typescript fileName="main.ts"
+    import { createApp } from "vue";
+    import { intlayer } from "vue-intlayer";
+    import { intlayerMarkdown } from "vue-intlayer/markdown";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(intlayer);
+    app.use(intlayerMarkdown, {
+      components: {
+        h1: (props) =>
+        h('h1', { style: { color: 'orange' }, ...props }, props.children),
+        ComponentDemo: () => h('div', { style: { background: 'grey' } }, 'DEMO'),
+        bold: (props) => h('strong', props),
+        code: (props) => h('code', props),
+      },
+    });
+
+    app.mount("#app");
+    ```
+
+
+    > MDX 지원 — Markdown 내부에서 사용된 모든 컴포넌트 이름(예: `<MyCustomJSXComponent />`)은 `components` 맵에서 확인됩니다.
+
+    자체 마크다운 렌더러를 사용할 수도 있습니다:
+
+    ```typescript fileName="main.ts"
+    import { createApp } from "vue";
+    import { intlayer } from "vue-intlayer";
+    import { intlayerMarkdown } from "vue-intlayer/markdown";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(intlayer);
+    app.use(intlayerMarkdown, {
+      renderMarkdown: async (md) => {
+        const { renderMarkdown } = await import('vue-intlayer/markdown');
+        return renderMarkdown(md);
+      },
+    });
+
+    app.mount("#app");
+    ```
+
+    > Markdown 렌더러를 동적으로 가져오는 것은 애플리케이션 번들 크기를 줄이는 좋은 방법입니다.
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    ```svelte fileName="App.svelte"
+    <script lang="ts">
+      import { MarkdownProvider } from "svelte-intlayer/markdown";
+      import MyHeading from "./MyHeading.svelte";
+    </script>
+
+    <MarkdownProvider
+      components={{
+        h1: MyHeading,
+      }}
+    >
+      <slot />
+    </MarkdownProvider>
+    ```
+
+
+    > MDX 지원 — Markdown 내부에서 사용된 모든 컴포넌트 이름(예: `<MyCustomJSXComponent />`)은 `components` 맵에서 확인됩니다.
+
+    자체 마크다운 렌더러를 사용할 수도 있습니다:
+
+    ```svelte fileName="App.svelte"
+    <script lang="ts">
+      import { MarkdownProvider } from "svelte-intlayer/markdown";
+    </script>
+
+    <MarkdownProvider
+      renderMarkdown={async (md) => {
+        const { renderMarkdown } = await import('svelte-intlayer/markdown');
+        return renderMarkdown(md);
+      }}
+    >
+      <slot />
+    </MarkdownProvider>
+    ```
+
+    > Markdown 렌더러를 동적으로 가져오는 것은 애플리케이션 번들 크기를 줄이는 좋은 방법입니다.
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "preact-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        components={{
+          h1: ({ children }) => <h1 className="text-2xl font-bold">{children}</h1>,
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+
+    > MDX 지원 — Markdown 내부에서 사용된 모든 컴포넌트 이름(예: `<MyCustomJSXComponent />`)은 `components` 맵에서 확인됩니다.
+
+    자체 마크다운 렌더러를 사용할 수도 있습니다:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "preact-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          const { renderMarkdown } = await import('preact-intlayer/markdown');
+          return renderMarkdown(md);
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > Markdown 렌더러를 동적으로 가져오는 것은 애플리케이션 번들 크기를 줄이는 좋은 방법입니다.
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "solid-intlayer/markdown";
+
+    export const AppProvider = (props) => (
+      <MarkdownProvider
+        components={{
+          h1: (props) => <h1 className="text-2xl font-bold">{props.children}</h1>,
+        }}
+      >
+        {props.children}
+      </MarkdownProvider>
+    );
+    ```
+
+
+    > MDX 지원 — Markdown 내부에서 사용된 모든 컴포넌트 이름(예: `<MyCustomJSXComponent />`)은 `components` 맵에서 확인됩니다.
+
+    자체 마크다운 렌더러를 사용할 수도 있습니다:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "solid-intlayer/markdown";
+
+    export const AppProvider = (props) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          const { renderMarkdown } = await import('solid-intlayer/markdown');
+          return renderMarkdown(md);
+        }}
+      >
+        {props.children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > Markdown 렌더러를 동적으로 가져오는 것은 애플리케이션 번들 크기를 줄이는 좋은 방법입니다.
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    ```typescript fileName="app.module.ts"
+    import { NgModule } from '@angular/core';
+    import { IntlayerMarkdownModule } from 'angular-intlayer/markdown';
+
+    @NgModule({
+      imports: [
+        IntlayerMarkdownModule.forRoot({
+          renderMarkdown: async (md) => {
+            const { renderMarkdown } = await import('angular-intlayer/markdown');
+            return renderMarkdown(md);
+          }
+        })
+      ]
+    })
+    export class AppModule {}
+    ```
+
+    > Markdown 렌더러를 동적으로 가져오는 것은 애플리케이션 번들 크기를 줄이는 좋은 방법입니다.
+
+  </Tab>
+</Tabs>
+
+## 서스펜스 (Suspense)
+
+Intlayer Markdown 렌더러는 동적으로 로드됩니다. 최적화되어 있지만 기본 구문 분석기 청크는 약 55kb입니다. 이를 동기적으로 로드하면 초기 페이지 렌더링이 지연되고 FCP(First Contentful Paint)가 저하됩니다.
+
+UI 차단을 방지하기 위해 Intlayer는 React의 Suspense API와 통합됩니다. 백그라운드에서 구문 분석기를 가져오고 다운로드하는 동안 Promise를 던집니다.
+
+Intlayer Markdown을 렌더링하는 구성 요소를 `<Suspense>` 경계로 래핑하십시오. 이렇게 하면 청크가 다운로드되는 동안 현지화된 대체 상태가 표시되어 나머지 DOM이 즉시 렌더링될 수 있습니다.
+
+경고: `<Suspense>` 경계를 제공하지 않으면 React는 55kb 청크가 완전히 로드될 때까지 루트 수준에서 일시 중지하거나 전체 구성 요소 트리의 렌더링을 차단합니다.
+
+<Tabs>
+  <Tab label="Next.js" value="nextjs">
+
+Next.js 앱 라우터에서는 클라이언트 구성 요소에 대해 React `Suspense`를 사용하거나 서버 구성 요소에 대해 `loading.tsx` 파일을 사용할 수 있습니다.
+
+**클라이언트 컴포넌트:**
+
+```tsx fileName="components/MyComponent.tsx"
+"use client";
+import { useIntlayer } from "next-intlayer";
+import { Suspense } from "react";
+
+const MyComponent = () => {
+  const markdownContent = useIntlayer("my-markdown");
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
+};
+```
+
+**`loading.tsx`가 있는 서버 컴포넌트:**
+
+```tsx fileName="app/loading.tsx"
+export default function Loading() {
+  return <div>Loading...</div>;
 }
 ```
 
-## React Intlayer에서 마크다운 사용
+```tsx fileName="app/page.tsx"
+import { useIntlayer } from "next-intlayer/server";
 
-React 애플리케이션에서 마크다운 콘텐츠를 렌더링하려면 `react-intlayer` 패키지의 `useIntlayer` 훅과 마크다운 렌더링 제공자를 활용할 수 있습니다. 이 예제에서는 [`markdown-to-jsx`](https://www.npmjs.com/package/markdown-to-jsx) 패키지를 사용하여 마크다운을 HTML로 변환합니다.
-
-```tsx fileName="App.tsx" codeFormat="typescript"
-import type { FC } from "react";
-import { useIntlayer, MarkdownProvider } from "react-intlayer";
-import Markdown from "markdown-to-jsx";
-
-const AppContent: FC = () => {
-  const { myMarkdownContent } = useIntlayer("app");
-
-  return <>{myMarkdownContent}</>;
+const MyPage = () => {
+  const markdownContent = useIntlayer("my-markdown");
+  return <div>{markdownContent}</div>;
 };
 
-export const AppProvider: FC = () => (
-  <MarkdownProvider
-    renderMarkdown={(markdown) => <Markdown>{markdown}</Markdown>}
-  >
-    <AppContent />
-  </MarkdownProvider>
-);
+export default MyPage;
 ```
 
-```jsx fileName="App.jsx" codeFormat="esm"
-import { useIntlayer, MarkdownProvider } from "react-intlayer";
-import Markdown from "markdown-to-jsx";
+  </Tab>
 
-const AppContent = () => {
-  const { myMarkdownContent } = useIntlayer("app");
+  <Tab label="React" value="react">
 
-  return <>{myMarkdownContent}</>;
+```tsx
+import { useIntlayer } from "react-intlayer";
+import { Suspense } from "react";
+
+const MyComponent = () => {
+  const markdownContent = useIntlayer("my-markdown");
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
 };
-
-export const AppProvider = () => (
-  <MarkdownProvider
-    renderMarkdown={(markdown) => <Markdown>{markdown}</Markdown>}
-  >
-    <AppContent />
-  </MarkdownProvider>
-);
 ```
 
-```jsx fileName="App.jsx" codeFormat="commonjs"
-const { useIntlayer, MarkdownProvider } = require("react-intlayer");
-const Markdown = require("markdown-to-jsx");
+  </Tab>
+ 
+  <Tab label="Vue" value="vue">
 
-const AppContent = () => {
-  const { myMarkdownContent } = useIntlayer("app");
+Vue에는 내장 `<Suspense>` 구성 요소가 있습니다. Markdown 콘텐츠를 렌더링하는 구성 요소를 `<Suspense>` 경계로 래핑하십시오.
 
-  return <>{myMarkdownContent}</>;
+```vue fileName="MyComponent.vue"
+<script setup>
+import { useIntlayer } from "vue-intlayer";
+
+const { markdownContent } = useIntlayer("my-markdown");
+</script>
+
+<template>
+  <Suspense>
+    <component :is="markdownContent" />
+    <template #fallback>
+      <div>Loading...</div>
+    </template>
+  </Suspense>
+</template>
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+Svelte에는 Suspense API에 해당하는 기능이 없습니다. Markdown 콘텐츠의 비동기 렌더링을 처리하려면 `{#await}` 블록을 사용하십시오.
+
+```svelte fileName="MyComponent.svelte"
+<script lang="ts">
+import { useIntlayer } from "svelte-intlayer";
+
+const content = useIntlayer("my-markdown");
+</script>
+
+{#await $content.markdownContent}
+  <div>Loading...</div>
+{:then rendered}
+  {@html rendered}
+{/await}
+```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+Preact는 `preact/compat`를 통해 React의 Suspense API를 지원합니다.
+
+```tsx fileName="MyComponent.tsx"
+import { useIntlayer } from "preact-intlayer";
+import { Suspense } from "preact/compat";
+
+const MyComponent = () => {
+  const markdownContent = useIntlayer("my-markdown");
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
 };
-
-AppProvider = () => (
-  <MarkdownProvider
-    renderMarkdown={(markdown) => <Markdown>{markdown}</Markdown>}
-  >
-    <AppContent />
-  </MarkdownProvider>
-);
 ```
 
-이 구현에서:
+  </Tab>
+  <Tab label="Solid" value="solid">
 
-- `MarkdownProvider`는 애플리케이션(또는 관련 부분)을 감싸며 `renderMarkdown` 함수를 허용합니다. 이 함수는 `markdown-to-jsx` 패키지를 사용하여 Markdown 문자열을 JSX로 변환하는 데 사용됩니다.
-- `useIntlayer` 훅은 사전에서 `"app"` 키로 Markdown 콘텐츠(`myMarkdownContent`)를 검색하는 데 사용됩니다.
-- Markdown 콘텐츠는 컴포넌트에서 직접 렌더링되며, Markdown 렌더링은 제공자에 의해 처리됩니다.
+Solid는 `solid-js`의 자체 `<Suspense>` 구성 요소를 가지고 있습니다.
 
-### Next Intlayer에서 Markdown 사용
+```tsx fileName="MyComponent.tsx"
+import { useIntlayer } from "solid-intlayer";
+import { Suspense } from "solid-js";
 
-`next-intlayer` 패키지를 사용하는 구현은 위의 구현과 유사합니다. 유일한 차이점은 `renderMarkdown` 함수가 클라이언트 컴포넌트에서 `MarkdownProvider` 컴포넌트에 전달되어야 한다는 점입니다.
+const MyComponent = () => {
+  const { markdownContent } = useIntlayer("my-markdown");
 
-```tsx title="src/providers/IntlayerMarkdownProvider.tsx" codeFormat="typescript"
-"use client";
-
-import type { FC, PropsWithChildren } from "react";
-import { MarkdownProvider } from "next-intlayer";
-
-const renderMarkdown = (markdown: string) => (
-  <span style={{ color: "red" }}>{markdown}</span>
-);
-
-export const IntlayerMarkdownProvider: FC<PropsWithChildren> = ({
-  children,
-}) => (
-  <MarkdownProvider renderMarkdown={renderMarkdown}>
-    {children}
-  </MarkdownProvider>
-);
+  return (
+    <Suspense fallback={<div>Loading...</div>}>{markdownContent}</Suspense>
+  );
+};
 ```
 
-```jsx title="src/providers/IntlayerMarkdownProvider.msx" codeFormat="esm"
-"use client";
+  </Tab>
+  <Tab label="Angular" value="angular">
 
-import { MarkdownProvider } from "next-intlayer";
+Angular에는 Suspense API가 없습니다. 지연 로드된 Markdown 콘텐츠를 처리하려면 Angular의 지연된 보기(`@defer`)를 사용하십시오(Angular 17+ 필요).
 
-const renderMarkdown = (markdown) => (
-  <span style={{ color: "red" }}>{markdown}</span>
-);
+```typescript fileName="my.component.ts"
+import { Component } from "@angular/core";
+import { useIntlayer } from "angular-intlayer";
 
-export const IntlayerMarkdownProvider = ({ children }) => (
-  <MarkdownProvider renderMarkdown={renderMarkdown}>
-    {children}
-  </MarkdownProvider>
-);
+@Component({
+  selector: "app-my",
+  template: `
+    @defer {
+      <div [innerHTML]="content().markdownContent"></div>
+    } @loading {
+      <div>Loading...</div>
+    }
+  `,
+})
+export class MyComponent {
+  content = useIntlayer("my-markdown");
+}
 ```
 
-```jsx title="src/providers/IntlayerMarkdownProvider.csx" codeFormat="commonjs"
-"use client";
+  </Tab>
+</Tabs>
 
-const { MarkdownProvider } = require("next-intlayer");
+---
 
-const renderMarkdown = (markdown) => (
-  <span style={{ color: "red" }}>{markdown}</span>
-);
+## 서버 사이드 렌더링 (SSR) 및 하이드레이션
 
-const IntlayerMarkdownProvider = ({ children }) => (
-  <MarkdownProvider renderMarkdown={renderMarkdown}>
-    {children}
-  </MarkdownProvider>
-);
-```
+remark / rehype와 같은 다른 마크다운 파서와 비교할 때, Intlayer 마크다운은 의존성이 없으며 클라이언트와 서버 사이드 모두에서 실행됩니다.
 
-## 추가 자료
+그러나 Intlayer는 서버 사이드 렌더링(SSR) 프레임워크(Next.js App Router, React Router, Nuxt, SvelteKit 등)를 위해 파싱을 최적화했습니다.
 
-- [Intlayer CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_cli.md)
-- [React Intlayer 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_create_react_app.md)
-- [Next Intlayer 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_with_nextjs_15.md)
-- [markdown-to-jsx on npm](https://www.npmjs.com/package/markdown-to-jsx)
+원시 마크다운 문자열을 클라이언트에 전송하고 브라우저에서 파싱하는 방식(성능 저하를 유발함) 대신, Intlayer는 서버에서 마크다운을 추상 구문 트리(AST)로 사전 파싱할 수 있도록 지원합니다.
 
-이 자료들은 다양한 콘텐츠 유형 및 프레임워크와 함께 Intlayer를 설정하고 사용하는 방법에 대한 추가적인 통찰력을 제공합니다.
+서버 사이드에서 해당 프레임워크의 Intlayer 패키지에 있는 `parseMarkdown` 함수를 사용하여 직렬화 가능한 AST(`ParsedMarkdown` 객체)를 생성하고, 이를 프론트엔드로 직접 전달할 수 있습니다. 모든 Intlayer 렌더링 유틸리티(`<MarkdownRenderer>`, `useMarkdownRenderer` 등)는 이 AST 객체를 자동으로 수용하여 원활하게 렌더링합니다.
+
+### 서버/클라이언트 아키텍처 예시
+
+<Tabs group="framework">
+  <Tab label="React Router" value="react">
+
+    ```tsx fileName="server.ts"
+    import { parseMarkdown } from "react-intlayer/markdown";
+
+    // 1. 서버에서: 마크다운을 직렬화 가능한 AST로 파싱
+    export const loader = async () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // AST를 JSON으로 클라이언트에 반환
+      return Response.json({ content: ast });
+    };
+    ```
+
+    ```tsx fileName="client.tsx"
+    import { useLoaderData } from "react-router";
+    import { MarkdownRenderer } from "react-intlayer/markdown";
+
+    // 2. 클라이언트에서: 재파싱 없이 AST를 직접 렌더링
+    export default function Page() {
+      const { content } = useLoaderData();
+
+      // 렌더러는 원시 문자열 또는 파싱된 AST를 모두 수용합니다
+      return <MarkdownRenderer content={content} />;
+    }
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="app/page.tsx"
+    import { parseMarkdown } from "next-intlayer/markdown";
+    import { MarkdownRenderer } from "next-intlayer/markdown";
+
+    export default async function Page() {
+      // 1. 서버에서 마크다운을 직렬화 가능한 AST로 파싱
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // 2. AST를 직접 렌더링
+      // 서버 컴포넌트(Server Component) 내에서 원활하게 작동하며, 필요한 경우
+    // 하위 클라이언트 컴포넌트로 AST를 직접 전달합니다.
+      return <MarkdownRenderer content={ast} />;
+    }
+    ```
+
+  </Tab>
+  <Tab label="Vue / Nuxt" value="vue">
+
+    ```vue fileName="pages/index.vue"
+    <script setup lang="ts">
+    import { parseMarkdown } from "vue-intlayer/markdown";
+    import { MarkdownRenderer } from "vue-intlayer/markdown";
+
+    // 1. 서버에서 마크다운을 가져오고 AST로 파싱
+    const { data: ast } = await useAsyncData('markdown', () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      return parseMarkdown(markdownString);
+    });
+    </script>
+
+    <template>
+      <!-- 2. 클라이언트에서: 재파싱 없이 AST를 직접 렌더링 -->
+      <MarkdownRenderer :content="ast" />
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="SvelteKit" value="svelte">
+
+    ```typescript fileName="+page.server.ts"
+    import { parseMarkdown } from "svelte-intlayer/markdown";
+
+    // 1. 서버에서: 마크다운을 직렬화 가능한 AST로 파싱
+    export const load = async () => {
+      const markdownString = "## My title \n\nLorem Ipsum";
+      const ast = parseMarkdown(markdownString);
+
+      // AST를 클라이언트에 반환
+      return { content: ast };
+    };
+    ```
+
+    ```svelte fileName="+page.svelte"
+    <script lang="ts">
+      import { MarkdownRenderer } from "svelte-intlayer/markdown";
+      export let data;
+    </script>
+
+    <!-- 2. 클라이언트에서: 재파싱 없이 AST를 직접 렌더링 -->
+    <MarkdownRenderer value={data.content} />
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    Angular SSR은 일반적으로 초기 로드 시 서버에서 데이터를 확인하고 클라이언트에서 하이드레이션을 수행합니다. 확인자(resolvers)를 사용하여 AST를 전달할 수 있습니다.
+
+    ```typescript fileName="app.resolver.ts"
+    import { Injectable } from "@angular/core";
+    import { Resolve } from "@angular/router";
+    import { parseMarkdown, type ParsedMarkdown } from "angular-intlayer/markdown";
+
+    @Injectable({ providedIn: "root" })
+    export class MarkdownResolver implements Resolve<ParsedMarkdown> {
+      resolve(): ParsedMarkdown {
+        const markdownString = "## My title \n\nLorem Ipsum";
+        // 1. 서버에서: 마크다운을 직렬화 가능한 AST로 파싱
+        return parseMarkdown(markdownString);
+      }
+    }
+    ```
+
+    ```typescript fileName="app.component.ts"
+    import { Component } from "@angular/core";
+    import { ActivatedRoute } from "@angular/router";
+    import { IntlayerMarkdownService, type ParsedMarkdown } from "angular-intlayer/markdown";
+
+    @Component({
+      selector: "app-root",
+      template: `<div [innerHTML]="renderedMarkdown"></div>`,
+    })
+    export class AppComponent {
+      renderedMarkdown: string = "";
+
+      constructor(
+        private route: ActivatedRoute,
+        private markdownService: IntlayerMarkdownService
+      ) {
+        // 2. 클라이언트에서: 재파싱 없이 AST를 직접 렌더링
+        this.route.data.subscribe((data) => {
+          this.renderedMarkdown = this.markdownService.renderMarkdown(
+            data.markdownAst
+          ) as string;
+        });
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+이 패턴을 통해 마크다운 파싱 로직을 서버에서 완벽히 실행함으로써 클라이언트 사이드 실행 시간을 크게 단축하고 초기 하이드레이션 속도를 개선할 수 있습니다.
+
+## 옵션 참조
+
+이러한 옵션은 `MarkdownProvider`, `MarkdownRenderer`, `useMarkdownRenderer` 및 `renderMarkdown`에 전달될 수 있습니다.
+
+| Option                | Type        | Default | 설명                                                                              |
+| :-------------------- | :---------- | :------ | :-------------------------------------------------------------------------------- |
+| `forceBlock`          | `boolean`   | `false` | 출력을 블록 수준 요소(예: `<div>`)로 래핑하도록 강제합니다.                       |
+| `forceInline`         | `boolean`   | `false` | 출력을 인라인 요소(예: `<span>`)로 래핑하도록 강제합니다.                         |
+| `tagfilter`           | `boolean`   | `true`  | 위험한 HTML 태그를 제거하여 보안을 강화하기 위해 GitHub 태그 필터를 활성화합니다. |
+| `preserveFrontmatter` | `boolean`   | `false` | `true`인 경우 Markdown 문자열의 시작 부분에 있는 프런트매터가 제거되지 않습니다.  |
+| `components`          | `Overrides` | `{}`    | HTML 태그를 사용자 정의 구성 요소에 매핑(예: `{ h1: MyHeading }`).                |
+| `wrapper`             | `Component` | `null`  | 렌더링된 Markdown을 래핑하는 사용자 정의 구성 요소입니다.                         |
+| `renderMarkdown`      | `Function`  | `null`  | 기본 Markdown 컴파일러를 완전히 교체하는 사용자 정의 렌더링 기능입니다.           |

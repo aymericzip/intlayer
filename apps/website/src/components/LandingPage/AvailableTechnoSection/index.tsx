@@ -1,8 +1,20 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
+import {} from '@intlayer/design-system/api';
 import { useDevice, useScreenWidth } from '@intlayer/design-system/hooks';
-import { cn } from '@utils/cn';
+import {
+  Website_Doc_Environment_Angular_Path,
+  Website_Doc_Environment_NextJS_15_Path,
+  Website_Doc_Environment_NuxtAndVue_Path,
+  Website_Doc_Environment_ViteAndPreact_Path,
+  Website_Doc_Environment_ViteAndReact_Path,
+  Website_Doc_Environment_ViteAndSolid_Path,
+  Website_Doc_Environment_ViteAndSvelte_Path,
+  Website_Doc_Environment_ViteAndVue_Path,
+} from '@intlayer/design-system/routes';
+import { TechLogo, type TechLogoName } from '@intlayer/design-system/tech-logo';
+import { cn } from '@intlayer/design-system/utils';
 import {
   type MotionValue,
   motion,
@@ -11,23 +23,13 @@ import {
   useTransform,
 } from 'framer-motion';
 import { useIntlayer } from 'next-intlayer';
-import type { CSSProperties, FC, SVGProps } from 'react';
+import type { CSSProperties, FC } from 'react';
 import { useRef, useState } from 'react';
-import { PagesRoutes } from '@/Routes';
-import { AngularLogo } from './Angular';
-import { NextJSLogo } from './Nextjs';
-import { NuxtLogo } from './Nuxt';
-import { PreactLogo } from './Preact';
-import { ReactLogo } from './Reactjs';
-import { SolidLogo } from './Solid';
-import { SvelteLogo } from './Svelte';
-import { ViteLogo } from './Vitejs';
-import { VuejsLogo } from './Vuejs';
 
 const BASE_SCREEN_WIDTH = 1500;
 
 type LogoConfig = {
-  Logo: FC<SVGProps<SVGSVGElement>>;
+  name: TechLogoName;
   route: string;
   initialPost: {
     scale: number;
@@ -48,7 +50,7 @@ type LogoItemProps = LogoConfig & {
 };
 
 const LogoItem: FC<LogoItemProps> = ({
-  Logo,
+  name,
   route,
   initialPost,
   animationProgress,
@@ -85,7 +87,8 @@ const LogoItem: FC<LogoItemProps> = ({
       }}
     >
       <Link href={route} color="custom" label={label}>
-        <Logo
+        <TechLogo
+          name={name}
           className={cn(
             'size-14 transition-transform duration-200 hover:scale-110',
             isFloating && 'animate-float',
@@ -104,31 +107,41 @@ const LogoItem: FC<LogoItemProps> = ({
 
 const logosRow1 = [
   {
-    Logo: ReactLogo,
-    route: PagesRoutes.Doc_Environment_ViteAndReact,
+    name: 'preact',
+    route: Website_Doc_Environment_ViteAndPreact_Path,
     initialPost: {
-      scale: 1.5,
+      scale: 1.2,
       x: -200,
       y: -60,
     },
     label: 'react',
   },
   {
-    Logo: PreactLogo,
-    route: PagesRoutes.Doc_Environment_ViteAndPreact,
+    name: 'react',
+    route: Website_Doc_Environment_ViteAndReact_Path,
     initialPost: {
-      scale: 1.4,
+      scale: 1.5,
+      x: 0,
+      y: -20,
+    },
+    label: 'preact',
+  },
+  {
+    name: 'solid',
+    route: Website_Doc_Environment_ViteAndSolid_Path,
+    initialPost: {
+      scale: 1.2,
       x: 200,
       y: -60,
     },
-    label: 'preact',
+    label: 'solid',
   },
 ] as const;
 
 const logosRow2 = [
   {
-    Logo: VuejsLogo,
-    route: PagesRoutes.Doc_Environment_ViteAndVue,
+    name: 'nuxt',
+    route: Website_Doc_Environment_NuxtAndVue_Path,
     initialPost: {
       scale: 1.5,
       x: -350,
@@ -137,8 +150,8 @@ const logosRow2 = [
     label: 'vue',
   },
   {
-    Logo: NuxtLogo,
-    route: PagesRoutes.Doc_Environment_NuxtAndVue,
+    name: 'vue',
+    route: Website_Doc_Environment_ViteAndVue_Path,
     initialPost: {
       scale: 1.3,
       x: 0,
@@ -147,8 +160,8 @@ const logosRow2 = [
     label: 'nuxt',
   },
   {
-    Logo: SvelteLogo,
-    route: PagesRoutes.Doc_Environment_ViteAndSvelte,
+    name: 'svelte',
+    route: Website_Doc_Environment_ViteAndSvelte_Path,
     initialPost: {
       scale: 1.3,
       x: 350,
@@ -160,54 +173,39 @@ const logosRow2 = [
 
 const logosRow3 = [
   {
-    Logo: NextJSLogo,
-    route: PagesRoutes.Doc_Environment_NextJS_15,
+    name: 'nextjs',
+    route: Website_Doc_Environment_NextJS_15_Path,
     initialPost: {
       scale: 1.5,
-      x: -250,
-      y: 60,
+      x: -200,
+      y: 20,
     },
     label: 'nextjs',
   },
   {
-    Logo: ViteLogo,
-    route: PagesRoutes.Doc_Environment_ViteAndReact,
+    name: 'angular',
+    route: Website_Doc_Environment_Angular_Path,
+    initialPost: {
+      scale: 1.2,
+      x: 0,
+      y: 60,
+    },
+    label: 'angular',
+  },
+  {
+    name: 'vite',
+    route: Website_Doc_Environment_ViteAndReact_Path,
     initialPost: {
       scale: 1.5,
-      x: 250,
-      y: 60,
+      x: 200,
+      y: 20,
     },
     label: 'vite',
   },
 ] as const;
 
-const comingSoonData = [
-  {
-    Logo: SolidLogo,
-    route: PagesRoutes.Doc_Environment_ViteAndSolid,
-    initialPost: {
-      scale: 1.2,
-      x: -80,
-      y: 40,
-    },
-    label: 'solid',
-  },
-  {
-    Logo: AngularLogo,
-    route: PagesRoutes.Doc_Environment_Angular,
-    initialPost: {
-      scale: 1.2,
-      x: 80,
-      y: 40,
-    },
-    label: 'angular',
-  },
-] as const;
-
 export const AvailableTechnoSection: FC = () => {
-  const { comingSoon, availableOn, icons } = useIntlayer(
-    'available-techno-section'
-  );
+  const { availableOn, icons } = useIntlayer('available-techno-section');
 
   const { isMobile } = useDevice();
   const { screenWidth } = useScreenWidth();
@@ -227,12 +225,12 @@ export const AvailableTechnoSection: FC = () => {
   return (
     <section
       ref={containerRef}
-      className="z-10 flex w-full flex-col items-center justify-center"
+      className="z-10 flex w-full flex-col items-center justify-center overflow-hidden"
     >
       <h2 className="mb-3 text-lg text-neutral-500">{availableOn}</h2>
-      <div className="mt-4 flex flex-col items-center gap-6">
+      <div className="my-10 flex flex-col items-center gap-6">
         {/* Row 1 */}
-        <motion.div className="flex justify-center gap-x-12">
+        <motion.div className="flex justify-center gap-x-4 md:gap-x-12">
           {logosRow1.map((logoConfig, index) => (
             <LogoItem
               key={logoConfig.label}
@@ -247,7 +245,7 @@ export const AvailableTechnoSection: FC = () => {
           ))}
         </motion.div>
         {/* Row 2 */}
-        <motion.div className="flex justify-center gap-x-12">
+        <motion.div className="flex justify-center gap-x-4 md:gap-x-12">
           {logosRow2.map((logoConfig, index) => (
             <LogoItem
               key={logoConfig.label}
@@ -262,7 +260,7 @@ export const AvailableTechnoSection: FC = () => {
           ))}
         </motion.div>
         {/* Row 3 */}
-        <motion.div className="flex justify-center gap-x-12">
+        <motion.div className="flex justify-center gap-x-4 md:gap-x-12">
           {logosRow3.map((logoConfig, index) => (
             <LogoItem
               key={logoConfig.label}
@@ -277,23 +275,6 @@ export const AvailableTechnoSection: FC = () => {
           ))}
         </motion.div>
       </div>
-
-      <h2 className="mt-8 mb-3 text-lg text-neutral-500">{comingSoon}</h2>
-      <motion.div className="mt-4 flex justify-center gap-x-12">
-        {comingSoonData.map((logoConfig, index) => (
-          <LogoItem
-            key={logoConfig.label}
-            {...logoConfig}
-            animationProgress={animationProgress}
-            outputRange={[0.15, 0.25]}
-            animationDelay={index * 0.15}
-            label={icons[logoConfig.label].label.value}
-            logoClassName="grayscale-70"
-            getXPosition={getXPosition}
-            isMobile={isMobile}
-          />
-        ))}
-      </motion.div>
     </section>
   );
 };

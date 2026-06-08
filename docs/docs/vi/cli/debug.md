@@ -21,18 +21,48 @@ slugs:
 
 Chạy:
 
-```bash
+```bash packageManager="npm"
 npx intlayer --version                  # phiên bản intlayer hiện tại theo locale
 npx intlayer@latest --version           # phiên bản intlayer mới nhất hiện tại
+```
+
+```bash packageManager="yarn"
+yarn intlayer --version                  # phiên bản intlayer hiện tại theo locale
+yarn intlayer@latest --version           # phiên bản intlayer mới nhất hiện tại
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer --version                  # phiên bản intlayer hiện tại theo locale
+pnpm intlayer@latest --version           # phiên bản intlayer mới nhất hiện tại
+```
+
+```bash packageManager="bun"
+bun x intlayer --version                  # phiên bản intlayer hiện tại theo locale
+bun x intlayer@latest --version           # phiên bản intlayer mới nhất hiện tại
 ```
 
 ## 2. **Kiểm tra xem lệnh đã được đăng ký chưa**
 
 Bạn có thể kiểm tra bằng:
 
-```bash
+```bash packageManager="npm"
 npx intlayer --help                     # Hiển thị danh sách các lệnh có sẵn và thông tin sử dụng
 npx intlayer dictionary build --help    # Hiển thị danh sách các tùy chọn có sẵn cho một lệnh
+```
+
+```bash packageManager="yarn"
+yarn intlayer --help                     # Hiển thị danh sách các lệnh có sẵn và thông tin sử dụng
+yarn intlayer dictionary build --help    # Hiển thị danh sách các tùy chọn có sẵn cho một lệnh
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer --help                     # Hiển thị danh sách các lệnh có sẵn và thông tin sử dụng
+pnpm intlayer dictionary build --help    # Hiển thị danh sách các tùy chọn có sẵn cho một lệnh
+```
+
+```bash packageManager="bun"
+bun x intlayer --help                     # Hiển thị danh sách các lệnh có sẵn và thông tin sử dụng
+bun x intlayer dictionary build --help    # Hiển thị danh sách các tùy chọn có sẵn cho một lệnh
 ```
 
 ## 3. **Khởi động lại terminal của bạn**

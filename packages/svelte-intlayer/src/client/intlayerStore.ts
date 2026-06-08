@@ -1,13 +1,13 @@
-import configuration from '@intlayer/config/built';
-import type { Locale, LocalesValues } from '@intlayer/types';
+import { internationalization } from '@intlayer/config/built';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import { derived, type Readable, type Writable, writable } from 'svelte/store';
 
 export interface IntlayerStoreType {
   locale: Locale;
 }
 
-const defaultLocale = configuration.internationalization
-  ?.defaultLocale as Locale;
+const defaultLocale = internationalization?.defaultLocale as Locale;
 
 // Create the main intlayer store
 const createIntlayerStore = () => {

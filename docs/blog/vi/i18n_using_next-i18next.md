@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2025-11-01
-title: Cách quốc tế hóa ứng dụng Next.js của bạn bằng next-i18next
-description: Thiết lập i18n với next-i18next -  các thực hành tốt nhất và mẹo SEO cho ứng dụng Next.js đa ngôn ngữ, bao gồm quốc tế hóa, tổ chức nội dung và thiết lập kỹ thuật.
+updatedAt: 2026-05-31
+title: Cách quốc tế hóa ứng dụng Next.js của bạn bằng next-i18next - Hướng dẫn đầy đủ để dịch Translate Next.js 16 with next-i18next — App Router Setup
+description: Giải pháp tốt nhất cho kích thước bundle, SEO, hiệu suất & khả năng bảo trì. Làm cho Next.js 16 trang web của bạn đa ngôn ngữ vào năm 2026, dịch thuật LLM, Agent Skills & MCP.
 keywords:
   - next-i18next
   - i18next
@@ -21,7 +21,7 @@ history:
     changes: Phiên bản đầu tiên
 ---
 
-# Cách quốc tế hóa ứng dụng Next.js của bạn bằng next-i18next trong năm 2025
+# Cách quốc tế hóa ứng dụng Next.js của bạn bằng next-i18next trong năm 2026
 
 ## Mục lục
 
@@ -75,11 +75,12 @@ Trước khi đi vào triển khai, đây là một số thực hành bạn nên
 ## Hướng Dẫn Từng Bước Để Thiết Lập i18next Trong Ứng Dụng Next.js
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/next-i18next-template?embed=1&ctl=1&file=src/app/i18n.ts"
+  src="https://ide.intlayer.org/aymericzip/next-i18next-template?file=src/app/i18n.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Cách Quốc tế hóa ứng dụng của bạn sử dụng Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
+/>
 
 > Xem [Mẫu Ứng Dụng](https://github.com/aymericzip/next-i18next-template) trên GitHub.
 
@@ -116,7 +117,9 @@ Cấu trúc dự án mà chúng ta sẽ tạo:
         └── ServerComponent.tsx
 ```
 
-### Bước 1: Cài Đặt Các Phụ Thuộc
+<Steps>
+
+<Step number={1} title="Cài Đặt Các Phụ Thuộc">
 
 Cài đặt các gói cần thiết bằng npm:
 
@@ -136,7 +139,9 @@ yarn add i18next react-i18next i18next-resources-to-backend
 - **react-i18next**: Liên kết React cho i18next cung cấp các hook như `useTranslation` cho các component phía client.
 - **i18next-resources-to-backend**: Plugin cho phép tải động các file bản dịch, giúp bạn chỉ tải những namespace cần thiết.
 
-### Bước 2: Cấu Hình Dự Án Của Bạn
+</Step>
+
+<Step number={2} title="Cấu Hình Dự Án Của Bạn">
 
 Tạo một file cấu hình để định nghĩa các locale được hỗ trợ, locale mặc định, và các hàm trợ giúp cho việc địa phương hóa URL. File này đóng vai trò là nguồn dữ liệu duy nhất cho thiết lập i18n của bạn và đảm bảo an toàn kiểu trong toàn bộ ứng dụng.
 
@@ -189,7 +194,9 @@ export function getCookie(locale: Locale) {
 }
 ```
 
-### Bước 3: Tập trung các namespace dịch thuật
+</Step>
+
+<Step number={3} title="Tập trung các namespace dịch thuật">
 
 Tạo một nguồn dữ liệu duy nhất cho mọi namespace mà ứng dụng của bạn cung cấp. Tái sử dụng danh sách này giúp đồng bộ mã phía server, client và công cụ, đồng thời mở khóa kiểu dữ liệu mạnh cho các hàm hỗ trợ dịch thuật.
 
@@ -199,7 +206,9 @@ export const namespaces = ["common", "about"] as const;
 export type Namespace = (typeof namespaces)[number];
 ```
 
-### Bước 4: Định kiểu mạnh cho các khóa dịch với TypeScript
+</Step>
+
+<Step number={4} title="Định kiểu mạnh cho các khóa dịch với TypeScript">
 
 Mở rộng `i18next` để trỏ tới các file ngôn ngữ chuẩn của bạn (thường là tiếng Anh). TypeScript sẽ suy luận các khóa hợp lệ theo từng namespace, do đó các lời gọi tới `t()` được kiểm tra toàn diện.
 
@@ -237,7 +246,9 @@ const { t } = useTranslation("about");
 export type AboutTranslator = TFunction<"about">;
 ```
 
-### Bước 5: Thiết lập khởi tạo i18n phía server
+</Step>
+
+<Step number={5} title="Thiết lập khởi tạo i18n phía server">
 
 Tạo một hàm khởi tạo phía máy chủ để tải các bản dịch cho các thành phần server. Hàm này tạo một instance i18next riêng biệt cho việc render phía server, đảm bảo rằng các bản dịch được tải trước khi render.
 
@@ -292,7 +303,9 @@ export async function initI18next(
 }
 ```
 
-### Bước 6: Tạo Provider i18n phía Client
+</Step>
+
+<Step number={6} title="Tạo Provider i18n phía Client">
 
 Tạo một component provider phía client bao bọc ứng dụng của bạn với context i18next. Provider này nhận các bản dịch đã được tải sẵn từ server để ngăn chặn hiện tượng flash nội dung chưa dịch (FOUC) và tránh việc tải lặp lại.
 
@@ -375,7 +388,9 @@ export default function I18nProvider({
 }
 ```
 
-### Bước 7: Định nghĩa các tuyến đường động theo locale
+</Step>
+
+<Step number={7} title="Định nghĩa các tuyến đường động theo locale">
 
 Thiết lập routing động cho các locale bằng cách tạo thư mục `[locale]` trong thư mục app của bạn. Điều này cho phép Next.js xử lý routing dựa trên locale, trong đó mỗi locale trở thành một phân đoạn URL (ví dụ: `/en/about`, `/fr/about`).
 
@@ -412,7 +427,7 @@ export default function LocaleLayout({
   // Xác thực locale từ tham số URL
   // Nếu locale không hợp lệ được cung cấp, sử dụng locale mặc định
   const locale: Locale = (locales as readonly string[]).includes(params.locale)
-    ? (params.locale as any)
+    ? params.locale
     : defaultLocale;
 
   // Xác định hướng văn bản dựa trên locale
@@ -427,7 +442,9 @@ export default function LocaleLayout({
 }
 ```
 
-### Bước 8: Tạo các tệp dịch của bạn
+</Step>
+
+<Step number={8} title="Tạo các tệp dịch của bạn">
 
 Tạo các tệp JSON cho mỗi locale và namespace. Cấu trúc này cho phép bạn tổ chức các bản dịch một cách hợp lý và chỉ tải những gì bạn cần cho mỗi trang.
 
@@ -493,7 +510,9 @@ Tổ chức các bản dịch theo namespace (ví dụ: `common.json`, `about.js
 }
 ```
 
-### Bước 9: Sử dụng Bản dịch trong Trang của Bạn
+</Step>
+
+<Step number={9} title="Sử dụng Bản dịch trong Trang của Bạn">
 
 Tạo một component trang khởi tạo i18next trên server và truyền các bản dịch cho cả component server và client. Điều này đảm bảo các bản dịch được tải trước khi render và ngăn chặn hiện tượng nhấp nháy nội dung.
 
@@ -553,7 +572,9 @@ export default async function AboutPage({
 }
 ```
 
-### Bước 10: Sử dụng Dịch trong Các Component Client
+</Step>
+
+<Step number={10} title="Sử dụng Dịch trong Các Component Client">
 
 Các component client có thể sử dụng hook `useTranslation` để truy cập bản dịch. Hook này cung cấp hàm dịch và instance i18n, cho phép bạn dịch nội dung và truy cập thông tin locale.
 
@@ -604,7 +625,9 @@ const ClientComponent = () => {
 export default ClientComponent;
 ```
 
-### Bước 11: Sử dụng bản dịch trong các Server Components
+</Step>
+
+<Step number={11} title="Sử dụng bản dịch trong các Server Components">
 
 Các server component không thể sử dụng React hooks, vì vậy chúng nhận các bản dịch thông qua props từ các component cha của chúng. Cách tiếp cận này giữ cho server component đồng bộ và cho phép chúng được lồng bên trong các client component.
 
@@ -650,9 +673,9 @@ const ServerComponent = ({ t, locale, count }: ServerComponentProps) => {
 export default ServerComponent;
 ```
 
----
+</Step>
 
-### (Tùy chọn) Bước 12: Thay đổi ngôn ngữ nội dung của bạn
+<Step number={12} title="Thay đổi ngôn ngữ nội dung của bạn" isOptional={true}>
 
 Để thay đổi ngôn ngữ nội dung trong Next.js, cách được khuyến nghị là sử dụng URL có tiền tố locale và các liên kết Next.js. Ví dụ dưới đây đọc locale hiện tại từ route, loại bỏ nó khỏi pathname, và hiển thị một liên kết cho mỗi locale có sẵn.
 
@@ -724,7 +747,9 @@ export default function LocaleSwitcher() {
 }
 ```
 
-### (Tùy chọn) Bước 13: Xây dựng một component Link có hỗ trợ đa ngôn ngữ
+</Step>
+
+<Step number={13} title="Xây dựng một component Link có hỗ trợ đa ngôn ngữ" isOptional={true}>
 
 Tái sử dụng các URL đã được địa phương hóa trong toàn bộ ứng dụng giúp điều hướng nhất quán và thân thiện với SEO. Bao bọc `next/link` trong một helper nhỏ để thêm tiền tố locale đang hoạt động vào các route nội bộ trong khi giữ nguyên các URL bên ngoài.
 
@@ -775,7 +800,9 @@ export default function LocalizedLink({
 
 > Mẹo: Vì `LocalizedLink` là một thành phần thay thế trực tiếp, hãy di chuyển dần dần bằng cách thay đổi các import và để thành phần xử lý các URL theo locale cụ thể.
 
-### (Tùy chọn) Bước 14: Truy cập locale đang hoạt động bên trong Server Actions
+</Step>
+
+<Step number={14} title="Truy cập locale đang hoạt động bên trong Server Actions" isOptional={true}>
 
 Server Actions thường cần locale hiện tại để gửi email, ghi log hoặc tích hợp với bên thứ ba. Kết hợp cookie locale được proxy của bạn thiết lập với header `Accept-Language` làm phương án dự phòng.
 
@@ -813,7 +840,9 @@ export async function stuffFromServer(formData: FormData) {
 
 > Vì helper dựa vào cookies và headers của Next.js, nó hoạt động trong Route Handlers, Server Actions và các ngữ cảnh chỉ dành cho server khác.
 
-### (Tùy chọn) Bước 15: Quốc tế hóa Metadata của bạn
+</Step>
+
+<Step number={15} title="Quốc tế hóa Metadata của bạn" isOptional={true}>
 
 Dịch nội dung là quan trọng, nhưng mục tiêu chính của quốc tế hóa là làm cho trang web của bạn trở nên dễ tiếp cận hơn với thế giới. I18n là một đòn bẩy tuyệt vời để cải thiện khả năng hiển thị trang web của bạn thông qua SEO đúng cách.
 
@@ -880,7 +909,9 @@ export default async function AboutPage() {
 }
 ```
 
-### (Tùy chọn) Bước 16: Quốc tế hóa Sitemap của bạn
+</Step>
+
+<Step number={16} title="Quốc tế hóa Sitemap của bạn" isOptional={true}>
 
 Tạo một sitemap bao gồm tất cả các phiên bản locale của các trang của bạn. Điều này giúp các công cụ tìm kiếm khám phá và lập chỉ mục tất cả các phiên bản ngôn ngữ của nội dung của bạn.
 
@@ -936,7 +967,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 }
 ```
 
-### (Tùy chọn) Bước 17: Quốc tế hóa tệp robots.txt của bạn
+</Step>
+
+<Step number={17} title="Quốc tế hóa tệp robots.txt của bạn" isOptional={true}>
 
 Tạo một tệp robots.txt xử lý đúng tất cả các phiên bản ngôn ngữ của các tuyến đường được bảo vệ của bạn. Điều này đảm bảo rằng các công cụ tìm kiếm không lập chỉ mục các trang quản trị hoặc bảng điều khiển bằng bất kỳ ngôn ngữ nào.
 
@@ -967,7 +1000,9 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-### (Tùy chọn) Bước 18: Thiết lập Middleware cho Định tuyến Ngôn ngữ
+</Step>
+
+<Step number={18} title="Thiết lập Middleware cho Định tuyến Ngôn ngữ" isOptional={true}>
 
 Tạo một proxy để tự động phát hiện ngôn ngữ ưu tiên của người dùng và chuyển hướng họ đến URL có tiền tố ngôn ngữ phù hợp. Điều này cải thiện trải nghiệm người dùng bằng cách hiển thị nội dung theo ngôn ngữ họ ưu thích.
 
@@ -1056,7 +1091,9 @@ export const config = {
 };
 ```
 
-### (Tùy chọn) Bước 19: Tự động hóa bản dịch của bạn bằng Intlayer
+</Step>
+
+<Step number={19} title="Tự động hóa bản dịch của bạn bằng Intlayer" isOptional={true}>
 
 Intlayer là một thư viện **miễn phí** và **mã nguồn mở** được thiết kế để hỗ trợ quá trình bản địa hóa trong ứng dụng của bạn. Trong khi i18next xử lý việc tải và quản lý bản dịch, Intlayer giúp tự động hóa quy trình làm việc bản dịch.
 
@@ -1071,12 +1108,12 @@ Intlayer sẽ cho phép bạn:
   Intlayer cung cấp các hàm kiểm thử có thể tích hợp vào pipeline CI/CD của bạn hoặc trong các unit test. Tìm hiểu thêm về [kiểm thử bản dịch của bạn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/testing.md).
 
 - **Tự động hóa việc dịch của bạn**,
-  Intlayer cung cấp một CLI và một tiện ích mở rộng VSCode để tự động hóa việc dịch của bạn. Nó có thể được tích hợp vào pipeline CI/CD của bạn. Tìm hiểu thêm về [tự động hóa việc dịch của bạn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_cli.md).
+  Intlayer cung cấp một CLI và một tiện ích mở rộng VSCode để tự động hóa việc dịch của bạn. Nó có thể được tích hợp vào pipeline CI/CD của bạn. Tìm hiểu thêm về [tự động hóa việc dịch của bạn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md).
   Bạn có thể sử dụng **khóa API riêng của bạn và nhà cung cấp AI mà bạn chọn**. Nó cũng cung cấp các bản dịch nhận biết ngữ cảnh, xem thêm [tự động điền nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/autoFill.md).
 
 - **Kết nối nội dung bên ngoài**
 - **Tự động hóa việc dịch của bạn**,  
-  Intlayer cung cấp một CLI và một tiện ích mở rộng VSCode để tự động hóa việc dịch của bạn. Nó có thể được tích hợp vào pipeline CI/CD của bạn. Tìm hiểu thêm về [tự động hóa việc dịch của bạn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_cli.md).  
+  Intlayer cung cấp một CLI và một tiện ích mở rộng VSCode để tự động hóa việc dịch của bạn. Nó có thể được tích hợp vào pipeline CI/CD của bạn. Tìm hiểu thêm về [tự động hóa việc dịch của bạn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/index.md).  
   Bạn có thể sử dụng **khóa API riêng của bạn và nhà cung cấp AI bạn chọn**. Nó cũng cung cấp các bản dịch nhận biết ngữ cảnh, xem thêm [tự động điền nội dung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/autoFill.md).
 
 - **Kết nối nội dung bên ngoài**  
@@ -1086,3 +1123,7 @@ Intlayer sẽ cho phép bạn:
   Intlayer cung cấp một trình chỉnh sửa trực quan miễn phí để chỉnh sửa nội dung của bạn bằng trình chỉnh sửa trực quan. Tìm hiểu thêm về [chỉnh sửa trực quan bản dịch của bạn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md).
 
 Và còn nhiều hơn nữa. Để khám phá tất cả các tính năng mà Intlayer cung cấp, vui lòng tham khảo [Lợi ích của tài liệu Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/interest_of_intlayer.md).
+
+</Step>
+
+</Steps>

@@ -1,7 +1,8 @@
-import type { IntlayerConfig } from '@intlayer/types';
+import type { Locale } from '@intlayer/types/allLocales';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { Token } from '@node-oauth/oauth2-server';
 import type { RenameId } from '@utils/mongoDB/types';
 import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
-import type { Token } from 'oauth2-server';
 import type { Organization, OrganizationAPI } from './organization.types';
 import type { User, UserAPI } from './user.types';
 
@@ -9,34 +10,113 @@ export type ProjectCreationData = {
   name: Project['name'];
 };
 
-type ProjectConfigInternationalization = Pick<
-  IntlayerConfig['internationalization'],
-  'locales' | 'defaultLocale'
+export type EnvironmentData = {
+  name: string;
+  isDefault: boolean;
+  configuration?: ProjectConfiguration;
+};
+
+export type Environment = EnvironmentData & {
+  id: Types.ObjectId;
+  createdAt: number;
+  updatedAt: number;
+};
+
+export type EnvironmentAPI = ObjectIdToString<Environment>;
+
+type ProjectConfigInternationalization = Partial<
+  Pick<IntlayerConfig['internationalization'], 'locales' | 'defaultLocale'>
 >;
 
-type ProjectConfigEditor = Pick<
-  IntlayerConfig['editor'],
-  'applicationURL' | 'cmsURL'
+type ProjectConfigEditor = Partial<
+  Pick<IntlayerConfig['editor'], 'applicationURL' | 'cmsURL'>
 >;
+
+type ProjectConfigAI = Partial<IntlayerConfig['ai']> & {
+  apiKey?: string;
+  apiKeyConfigured?: boolean;
+};
+
+export type Webhook = {
+  id?: string;
+  name: string;
+  url: string;
+  enabled: boolean;
+  secret?: string;
+};
+
+export type ProjectConfigCI = {
+  autoTriggerBuilds?: boolean;
+  webhooks?: Webhook[];
+};
 
 export type ProjectConfiguration = {
-  internationalization: ProjectConfigInternationalization;
-  editor: ProjectConfigEditor;
+  internationalization?: ProjectConfigInternationalization;
+  editor?: ProjectConfigEditor;
+  ai?: ProjectConfigAI;
 };
+
+export type RepositoryProvider = 'github' | 'gitlab' | 'bitbucket';
+
+export type BaseRepository = {
+  provider: RepositoryProvider;
+  owner: string;
+  repository: string;
+  branch: string;
+  url: string;
+  configFilePath: string;
+  /** Repo-scoped OAuth token used for CI operations (write access to the repo) */
+  token?: string;
+};
+
+export type GitHubRepository = BaseRepository & {
+  provider: 'github';
+  installationId?: number;
+};
+
+export type GitLabRepository = BaseRepository & {
+  provider: 'gitlab';
+  projectId?: number;
+  /** Custom GitLab instance URL (e.g., https://gitlab.company.com) */
+  instanceUrl?: string;
+};
+
+export type BitbucketRepository = BaseRepository & {
+  provider: 'bitbucket';
+  workspace: string;
+};
+
+export type RepositoryConnection =
+  | GitHubRepository
+  | GitLabRepository
+  | BitbucketRepository;
 
 export type ProjectData = {
   organizationId: Organization['id'];
   name: string;
   membersIds: User['id'][];
   adminsIds: User['id'][];
+  viewersIds?: User['id'][];
+  /** Granular per-member access constraints, additive overlay on the role system. */
+  memberAccess?: ProjectMemberGranularAccess[];
   creatorId: User['id'];
   configuration?: ProjectConfiguration;
+  repository?: RepositoryConnection;
+  webhooks?: ProjectConfigCI;
+  autoFill?: boolean;
+  /** Screenshot of the application URL, generated automatically when applicationURL is set */
+  imageUrl?: string;
+  environments?: Environment[];
 };
 
 export type AccessKeyData = {
   name: string;
   grants: string[];
   expiresAt?: Date;
+  /** null = unrestricted (all environments). null item in array = production env. */
+  allowedEnvironmentIds?: (string | null)[] | null;
+  /** null = unrestricted (all locales). */
+  allowedLocales?: Locale[] | null;
 };
 
 export type OAuth2AccessData = AccessKeyData & {
@@ -52,7 +132,22 @@ export type OAuth2AccessContext = {
   project?: ProjectAPI;
   organization?: OrganizationAPI;
   grants: Token['grants'];
+  allowedEnvironmentIds?: (string | null)[] | null;
+  allowedLocales?: Locale[] | null;
 };
+
+/**
+ * Granular per-member access constraints, overlaid on top of the member's role.
+ * null = unrestricted; [] = no access; array = restricted to listed items.
+ */
+export type ProjectMemberGranularAccess = {
+  userId: Types.ObjectId;
+  allowedEnvironmentIds: (Types.ObjectId | null)[] | null;
+  allowedLocales: Locale[] | null;
+};
+
+export type ProjectMemberGranularAccessAPI =
+  ObjectIdToString<ProjectMemberGranularAccess>;
 
 export type OAuth2Access = OAuth2AccessData & {
   id: Types.ObjectId;

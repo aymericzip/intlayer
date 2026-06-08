@@ -1,4 +1,7 @@
+import { syncJSON } from '@intlayer/sync-json-plugin';
+import { syncPO } from '@intlayer/sync-po-plugin';
 import { type IntlayerConfig, Locales } from 'intlayer';
+import { z } from 'zod';
 
 const config: IntlayerConfig = {
   internationalization: {
@@ -8,8 +11,8 @@ const config: IntlayerConfig = {
   editor: {
     enabled: true,
     applicationURL: 'http://localhost:5173',
-    cmsURL: 'http://localhost:3000',
     editorURL: 'http://localhost:8000',
+    cmsURL: 'http://localhost:3000',
     backendURL: 'http://localhost:3100',
     // clientId: process.env.INTLAYER_CLIENT_ID,
     // clientSecret: process.env.INTLAYER_CLIENT_SECRET,
@@ -19,6 +22,7 @@ const config: IntlayerConfig = {
     model: 'gpt-5-mini',
     apiKey: process.env.OPENAI_API_KEY,
     applicationContext: 'This is a test application',
+    dataSerialization: 'json',
   },
   content: {
     contentDir: ['./src', './compiler'],
@@ -27,16 +31,41 @@ const config: IntlayerConfig = {
     mode: 'verbose',
   },
   dictionary: {
-    fill: './{{fileName}}.{{locale}}.content.json',
+    location: 'hybrid',
+    importMode: 'dynamic',
+    fill: './{{fileName}}.content.ts',
   },
   compiler: {
-    enabled: true,
-    transformPattern: ['**/*.{ts,tsx}'],
-    outputDir: './compiler',
+    enabled: false,
+    output: (ctx) => `./${ctx.fileName}.content.ts`,
+    noMetadata: false,
+    saveComponents: true,
   },
   routing: {
     storage: ['cookie', 'localStorage', 'header'],
   },
+  build: {
+    minify: true,
+    purge: true,
+  },
+
+  schemas: {
+    user: z.object({
+      name: z.string(),
+      age: z.number(),
+    }),
+  },
+  plugins: [
+    syncJSON({
+      format: 'icu',
+      source: ({ locale }) => `./locales/${locale}.json`,
+      location: 'ICU-content',
+    }),
+    syncPO({
+      source: ({ locale }) => `./locale-po/index.${locale}.po`,
+      location: 'PO-content',
+    }),
+  ],
 };
 
 export default config;

@@ -26,15 +26,15 @@ youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
   - version: 7.5.0
     date: 2025-12-13
-    changes: ICUおよびi18next形式のサポートを追加
+    changes: "ICUおよびi18next形式のサポートを追加"
   - version: 6.1.6
     date: 2025-10-05
-    changes: Sync JSONプラグインの初期ドキュメント
+    changes: "Sync JSONプラグインの初期ドキュメント"
 ---
 
 # Sync JSON（i18nブリッジ）- ICU / i18nextサポート付きSync JSON
 
-<iframe title="IntlayerでJSON翻訳を同期状態に保つ方法" class="m-auto aspect-[16/9] w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=http://intlayer.org&amp;controls=0&amp;rel=1"/>
+<iframe title="IntlayerでJSON翻訳を同期状態に保つ方法" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 既存のi18nスタックにIntlayerをアドオンとして使用します。このプラグインはJSONメッセージをIntlayerの辞書と同期させるので、以下が可能です：
 
@@ -66,10 +66,10 @@ npm i -D @intlayer/sync-json-plugin
 `intlayer.config.ts`にプラグインを追加し、既存のJSON構造を指定します。
 
 ```ts fileName="intlayer.config.ts"
-import { defineConfig, Locales } from "intlayer";
+import { Locales, type IntlayerConfig } from "intlayer";
 import { syncJSON } from "@intlayer/sync-json-plugin";
 
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
@@ -82,7 +82,9 @@ export default defineConfig({
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
     }),
   ],
-});
+};
+
+export default config;
 ```
 
 代替案：ロケールごとに単一ファイル（i18next/react-intlのセットアップで一般的）：
@@ -108,17 +110,21 @@ syncJSON({
   source: ({ key, locale }) => string, // 必須
   location?: string, // オプションのラベル、デフォルト: "plugin"
   priority?: number, // コンフリクト解決のためのオプションの優先度、デフォルト: 0
-  format?: 'intlayer' | 'icu' | 'i18next', // オプションのフォーマッター、デフォルト: 'intlayer'
+  format?: 'intlayer' | 'icu' | 'i18next', // オプションのフォーマッター、Intlayerランタイム互換性のために使用
 });
 ```
 
 #### `format` ('intlayer' | 'icu' | 'i18next')
 
-JSONファイルを同期する際に辞書コンテンツに使用するフォーマッターを指定します。これにより、さまざまなi18nライブラリと互換性のある異なるメッセージフォーマット構文を使用できます。
+JSONファイルを同期する際に辞書コンテンツに使用するフォーマッターを指定します。これにより、Intlayerランタイムと互換性のある異なるメッセージフォーマット構文を使用できます。
 
+- `undefined`: フォーマッターは使用されず、JSONコンテンツはそのまま使用されます。
 - `'intlayer'`: デフォルトのIntlayerフォーマッター（デフォルト）。
 - `'icu'`: ICUメッセージフォーマットを使用します（react-intl、vue-i18nなどのライブラリと互換性があります）。
 - `'i18next'`: i18nextメッセージフォーマットを使用します（i18next、next-i18next、Solid-i18nextと互換性があります）。
+
+> フォーマッターを使用すると、JSONコンテンツの入力と出力が変換されることに注意してください。ICU複数形などの複雑なJSONルールの場合、パースは入力と出力の1対1のマッピングを保証できない場合があります。
+> Intlayerランタイムを使用しない場合は、フォーマッターを設定しない方が良いかもしれません。
 
 **例：**
 
@@ -143,10 +149,10 @@ syncJSON({
 - 同じ優先度のプラグインは、設定に記載された順序で処理されます
 
 ```ts fileName="intlayer.config.ts"
-import { defineConfig, Locales } from "intlayer";
+import { Locales, type IntlayerConfig } from "intlayer";
 import { syncJSON } from "@intlayer/sync-json-plugin";
 
-export default defineConfig({
+const config: IntlayerConfig = {
   internationalization: {
     locales: [Locales.ENGLISH, Locales.FRENCH],
     defaultLocale: Locales.ENGLISH,
@@ -177,7 +183,9 @@ export default defineConfig({
       priority: 1,
     }),
   ],
-});
+};
+
+export default config;
 ```
 
 ### コンフリクト解決
@@ -257,7 +265,7 @@ plugins: [
 - `intlayer content push` で同期されたJSONファイルをプッシュする
 - `intlayer content pull` で同期されたJSONファイルをプルする
 
-See [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_cli.md) for more details.
+See [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/index.md) for more details.
 
 ## 制限事項（現状）
 

@@ -2,8 +2,10 @@
 
 import { Globe, Link as LinkIcon, Map as MapIcon } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
+import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 import { memo } from 'react';
+import { createCompOverwrite } from './AnalyzerPageResults';
 import { FieldItem } from './FieldItem';
 import type { MergedData } from './types';
 
@@ -14,36 +16,44 @@ type SitemapSectionProps = {
 
 export const SitemapSection: FC<SitemapSectionProps> = memo(
   ({ data, isLoading }) => {
+    const { resolvedTheme } = useTheme();
+    const compOverwrite = createCompOverwrite(resolvedTheme === 'dark');
     const { sections, sitemapLabels } = useIntlayer('analyzer-results');
 
     return (
       <>
         <h3 className="mt-6 mb-3 font-semibold text-lg text-text/80">
-          {sections.sitemap}
+          {sections?.sitemap}
         </h3>
-        <div className="mt-2 grid grid-cols-1 gap-x-8 gap-y-2 px-2 text-sm sm:grid-cols-2">
+        <div className="mt-2 grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-x-8 gap-y-2 px-2 text-sm">
           <FieldItem
             id="urlsDiscovered"
             icon={<MapIcon size={16} />}
-            label={sitemapLabels.urlsDiscovered}
+            label={sitemapLabels?.urlsDiscovered}
             event={data['sitemap_sitemapPresent']}
-            details={sitemapLabels.urlsDiscoveredDescription}
+            details={sitemapLabels?.urlsDiscoveredDescription?.use(
+              compOverwrite
+            )}
             isLoading={isLoading}
           />
           <FieldItem
             id="alternatesPresent"
             icon={<LinkIcon size={16} />}
-            label={sitemapLabels.alternatesPresent}
+            label={sitemapLabels?.alternatesPresent}
             event={data['sitemap_noLocalizedUrlsForgotten']}
-            details={sitemapLabels.alternatesPresentDescription}
+            details={sitemapLabels?.alternatesPresentDescription?.use(
+              compOverwrite
+            )}
             isLoading={isLoading}
           />
           <FieldItem
             id="xDefaultPresent"
             icon={<Globe size={16} />}
-            label={sitemapLabels.xDefaultPresent}
+            label={sitemapLabels?.xDefaultPresent}
             event={data['sitemap_hasXDefault']}
-            details={sitemapLabels.xDefaultPresentDescription}
+            details={sitemapLabels?.xDefaultPresentDescription?.use(
+              compOverwrite
+            )}
             isLoading={isLoading}
           />
         </div>

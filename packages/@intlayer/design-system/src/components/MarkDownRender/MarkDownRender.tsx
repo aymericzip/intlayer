@@ -1,389 +1,268 @@
-import type { LocalesValues } from '@intlayer/types';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import { cn } from '@utils/cn';
 import type { ComponentProps, ComponentPropsWithoutRef, FC } from 'react';
+import { memo } from 'react';
+import {
+  type MarkdownRenderer as MarkdownRendererIntlayer,
+  type ParsedMarkdown,
+  renderMarkdown,
+} from 'react-intlayer/markdown';
+
+export type { ParsedMarkdown };
+
 import type { BundledLanguage } from 'shiki/bundle/web';
-import { cn } from '../../utils/cn';
 import { H1, H2, H3, H4, H5, H6 } from '../Headers';
-import type { CodeCompAttributes } from '../IDE/Code';
 import { Code } from '../IDE/Code';
 import { CodeProvider } from '../IDE/CodeContext';
 import { Link } from '../Link';
 import { Tab } from '../Tab';
 import { TabProvider } from '../Tab/TabContext';
-import { Table } from '../Table';
-import { MarkdownProcessor, type MarkdownProcessorOptions } from './processor';
+import { Hr, SmartTable, Td, Th, Tr } from '../Table';
+import { MarkDownIframe } from './MarkDownIframe';
+
+// Extracted, stable component renderers
+const H1Renderer = (props: ComponentProps<'h1'>) => (
+  <H1 isClickable className="text-text" {...props} />
+);
+const H2Renderer = (props: ComponentProps<'h2'>) => (
+  <H2 isClickable className="mt-16 text-text" {...props} />
+);
+const H3Renderer = (props: ComponentProps<'h3'>) => (
+  <H3 isClickable className="mt-5 text-text" {...props} />
+);
+const H4Renderer = (props: ComponentProps<'h4'>) => (
+  <H4 isClickable className="mt-3 text-text" {...props} />
+);
+const H5Renderer = (props: ComponentProps<'h5'>) => (
+  <H5 isClickable className="mt-3 text-text" {...props} />
+);
+const H6Renderer = (props: ComponentProps<'h6'>) => (
+  <H6 isClickable className="mt-3 text-text" {...props} />
+);
+const StrongRenderer = (props: ComponentProps<'strong'>) => (
+  <strong className="text-text" {...props} />
+);
+
+const MemoizedCodeBlock = memo(
+  ({
+    className,
+    children,
+    isDarkMode,
+    lang, // Destructure html lang prop to prevent passing invalid BCP-47 language tag to Code component
+    ...rest
+  }: ComponentProps<'code'> & { isDarkMode?: boolean }) => {
+    const content = String(children ?? '').replace(/\n$/, '');
+    const isBlock = !!className;
+
+    if (!isBlock) {
+      const decodedContent = content.replace(
+        /&(?:amp;)?#(\d+);/g,
+        (_, code: string) => String.fromCharCode(parseInt(code, 10))
+      );
+      return (
+        <code className="rounded-md border border-neutral/30 bg-card/60 box-decoration-clone px-1.5 py-0.5 font-mono text-sm">
+          {decodedContent}
+        </code>
+      );
+    }
+
+    const language = (className?.replace(/lang(?:uage)?-/, '') ||
+      'plaintext') as BundledLanguage;
+
+    return (
+      <Code {...rest} language={language} showHeader isDarkMode={isDarkMode}>
+        {content}
+      </Code>
+    );
+  },
+  (prevProps, nextProps) =>
+    prevProps.children === nextProps.children &&
+    prevProps.className === nextProps.className &&
+    prevProps.isDarkMode === nextProps.isDarkMode
+);
+
+const createCodeRenderer = (isDarkMode?: boolean) => {
+  return function CodeWrapper(props: ComponentProps<'code'>) {
+    return <MemoizedCodeBlock {...props} isDarkMode={isDarkMode} />;
+  };
+};
+
+const BlockquoteRenderer = ({
+  className,
+  ...props
+}: ComponentProps<'blockquote'>) => (
+  <blockquote
+    className={cn(
+      'mt-5 gap-3 border-card border-l-4 pl-5 text-neutral [&_strong]:text-neutral',
+      className
+    )}
+    {...props}
+  />
+);
+
+const UlRenderer = ({ className, ...props }: ComponentProps<'ul'>) => (
+  <ul
+    className={cn(
+      'mt-5 flex list-disc flex-col gap-3 pl-5 marker:text-neutral/80',
+      className
+    )}
+    {...props}
+  />
+);
+
+const OlRenderer = ({ className, ...props }: ComponentProps<'ol'>) => (
+  <ol
+    className={cn(
+      'mt-5 flex list-decimal flex-col gap-3 pl-5 marker:text-neutral/80',
+      className
+    )}
+    {...props}
+  />
+);
+
+const ImgRenderer = ({
+  className,
+  alt,
+  src,
+  ...props
+}: ComponentProps<'img'>) => (
+  <img
+    {...props}
+    alt={alt ?? ''}
+    loading="lazy"
+    className={cn('max-h-[80vh] max-w-full rounded-md', className)}
+    src={
+      src?.includes('github.com')
+        ? src
+            ?.replace('github.com', 'raw.githubusercontent.com')
+            .replace('/blob/', '/') // GitHub raw URLs do not use /blob/
+        : src
+    }
+  />
+);
+
+const createLinkRenderer = (locale?: LocalesValues) => {
+  return (props: ComponentProps<'a'>) => (
+    <Link
+      isExternalLink={props.href?.startsWith('http')}
+      underlined
+      locale={locale}
+      label=""
+      color="text"
+      {...(props as any)}
+    />
+  );
+};
+
+const PreRenderer = (props: ComponentProps<'pre'>) => <>{props.children}</>;
+const TableRenderer = (props: ComponentProps<typeof SmartTable>) => (
+  <SmartTable isRollable displayModal {...props} />
+);
+
+const TabsRenderer = (props: ComponentProps<typeof Tab>) => (
+  <Tab
+    {...props}
+    className="rounded-xl border border-card"
+    headerClassName="sticky rounded-xl top-24 z-5 bg-background/70 backdrop-blur overflow-x-auto"
+  />
+);
+const ColumnsRenderer = ({
+  className,
+  ...props
+}: ComponentPropsWithoutRef<'div'>) => (
+  <div className={cn('flex gap-4 max-md:flex-col', className)} {...props} />
+);
+const ColumnRenderer = ({
+  className,
+  ...props
+}: ComponentPropsWithoutRef<'div'>) => (
+  <div className={cn('flex-1', className)} {...props} />
+);
+
+const Iframe = (props: ComponentProps<'iframe'>) => (
+  <MarkDownIframe {...props} />
+);
+
+// Static configuration object for static renderers
+const staticMarkdownComponents = {
+  h1: H1Renderer,
+  h2: H2Renderer,
+  h3: H3Renderer,
+  h4: H4Renderer,
+  h5: H5Renderer,
+  h6: H6Renderer,
+  strong: StrongRenderer,
+  blockquote: BlockquoteRenderer,
+  ul: UlRenderer,
+  ol: OlRenderer,
+  img: ImgRenderer,
+  pre: PreRenderer,
+  table: TableRenderer,
+  th: Th,
+  tr: Tr,
+  td: Td,
+  hr: Hr,
+  Tabs: TabsRenderer,
+  Tab: Tab.Item,
+  Columns: ColumnsRenderer,
+  Column: ColumnRenderer,
+  iframe: Iframe,
+};
+
+// Factory function to create components with dynamic props
+const createMarkdownComponents = (
+  isDarkMode?: boolean,
+  locale?: LocalesValues
+) => ({
+  ...staticMarkdownComponents,
+  code: createCodeRenderer(isDarkMode),
+  a: createLinkRenderer(locale),
+});
+
+// Export static renderers for backward compatibility
+export const baseMarkdownComponents = staticMarkdownComponents;
 
 type MarkdownRendererProps = {
-  children: string;
+  children: string | ParsedMarkdown;
   isDarkMode?: boolean;
   locale?: LocalesValues;
-  options?: MarkdownProcessorOptions;
+  forceBlock?: boolean;
+  preserveFrontmatter?: boolean;
+  tagfilter?: boolean;
+  components?: ComponentProps<typeof MarkdownRendererIntlayer>['components'];
+  wrapper?: ComponentProps<typeof MarkdownRendererIntlayer>['wrapper'];
 };
 
-/**
- * Removes frontmatter from markdown content
- * Frontmatter is the YAML metadata block at the beginning of markdown files
- * delimited by --- at the start and end
- */
-const stripFrontmatter = (markdown: string): string => {
-  const lines = markdown.split(/\r?\n/);
+export const getIntlayerMarkdownOptions = (_isDarkMode?: boolean) => ({
+  components: baseMarkdownComponents,
+});
 
-  // Check if the very first non-empty line is the metadata start delimiter
-  const firstNonEmptyLine = lines.find((line) => line.trim() !== '');
-
-  if (!firstNonEmptyLine || firstNonEmptyLine.trim() !== '---') {
-    // No frontmatter, return original content
-    return markdown;
-  }
-
-  let inMetadataBlock = false;
-  let endOfMetadataIndex = -1;
-
-  for (let i = 0; i < lines.length; i++) {
-    const trimmedLine = lines[i].trim();
-
-    // Toggle metadata block on encountering the delimiter
-    if (trimmedLine === '---') {
-      if (!inMetadataBlock) {
-        // Begin metadata block
-        inMetadataBlock = true;
-      } else {
-        // End of metadata block
-        endOfMetadataIndex = i;
-        break;
-      }
-    }
-  }
-
-  if (endOfMetadataIndex > -1) {
-    // Return content after the frontmatter
-    return lines.slice(endOfMetadataIndex + 1).join('\n');
-  }
-
-  // If we couldn't find the end delimiter, return original content
-  return markdown;
-};
-
-/**
- * MarkdownRenderer Component
- *
- * A comprehensive markdown renderer that transforms markdown text into rich,
- * interactive HTML with custom styling and Intlayer integration. Supports
- * code syntax highlighting, responsive tables, internationalized links,
- * and automatic frontmatter stripping.
- *
- * @component
- * @example
- * Basic usage:
- * ```tsx
- * const markdownContent = `
- * # Hello World
- * This is **bold** and *italic* text.
- * `;
- *
- * <MarkdownRenderer>{markdownContent}</MarkdownRenderer>
- * ```
- *
- * @example
- * With dark mode:
- * ```tsx
- * const codeExample = `
- * # API Documentation
- * \`\`\`javascript
- * const response = await fetch('/api/data');
- * const data = await response.json();
- * \`\`\`
- * `;
- *
- * <MarkdownRenderer isDarkMode={true}>
- *   {codeExample}
- * </MarkdownRenderer>
- * ```
- *
- * @example
- * With internationalized links:
- * ```tsx
- * const content = `
- * Visit our [documentation](/docs) for more information.
- * External link: [Google](https://google.com)
- * `;
- *
- * <MarkdownRenderer locale="fr">
- *   {content}
- * </MarkdownRenderer>
- * ```
- *
- * @example
- * With custom overrides:
- * ```tsx
- * const customOptions = {
- *   overrides: {
- *     h1: ({ children }) => (
- *       <h1 className="custom-title">{children}</h1>
- *     ),
- *   },
- * };
- *
- * <MarkdownRenderer options={customOptions}>
- *   {markdownContent}
- * </MarkdownRenderer>
- * ```
- *
- * @example
- * With frontmatter (automatically stripped):
- * ```tsx
- * const blogPost = `
- * ---
- * title: "My Blog Post"
- * date: "2023-12-01"
- * author: "John Doe"
- * ---
- * # My Blog Post
- * This content will be rendered without the frontmatter.
- * `;
- *
- * <MarkdownRenderer>{blogPost}</MarkdownRenderer>
- * ```
- *
- * Features:
- * - Automatic frontmatter detection and removal
- * - Syntax-highlighted code blocks with theme support
- * - Clickable headers with anchor links
- * - Internationalized link handling with locale awareness
- * - Responsive tables with hover effects
- * - Custom blockquote, list, and image styling
- * - External link detection and security attributes
- * - Inline code with distinctive styling
- * - Lazy-loaded images with GitHub raw URL support
- * - Horizontal rules with custom styling
- *
- * Supported Markdown Elements:
- * - Headers (h1-h4) with click-to-anchor functionality
- * - Code blocks with language-specific syntax highlighting
- * - Inline code with background styling
- * - Blockquotes with custom border and padding
- * - Ordered and unordered lists with custom spacing
- * - Links (internal and external) with security attributes
- * - Images with lazy loading and responsive sizing
- * - Tables with hover effects and proper styling
- * - Horizontal rules with custom appearance
- * - All standard markdown formatting (bold, italic, etc.)
- *
- * Code Block Support:
- * - Language detection from code fence info
- * - Syntax highlighting through Code component
- * - Dark/light mode theme switching
- * - Line numbers and copy functionality (via Code component)
- * - Support for popular languages (JS, TS, Python, etc.)
- *
- * Link Handling:
- * - Automatic external link detection (starts with 'http')
- * - Security attributes for external links (rel="noopener noreferrer")
- * - Locale-aware internal link routing
- * - Custom Link component integration
- * - Underlined styling for better visibility
- *
- * Image Processing:
- * - Automatic lazy loading for performance
- * - GitHub raw URL transformation for repository images
- * - Responsive sizing with max-width constraints
- * - Rounded corners for visual appeal
- *
- * Accessibility:
- * - Semantic HTML structure with proper heading hierarchy
- * - ARIA attributes through component integration
- * - Screen reader friendly link descriptions
- * - Keyboard navigation support
- * - High contrast styling options
- *
- * Performance:
- * - Lazy loading for images
- * - Efficient re-rendering with React memo patterns
- * - Code syntax highlighting with minimal bundle impact
- * - Optimized markdown parsing with markdown-to-jsx
- *
- * @param props - Component props
- * @param props.children - Raw markdown content to render
- * @param props.isDarkMode - Enable dark mode styling for code blocks
- * @param props.locale - Current locale for link internationalization
- * @param props.options - Additional markdown-to-jsx options
- * @param props.options.overrides - Custom component overrides for markdown elements
- *
- * @returns Rendered markdown content with custom styling and functionality
- */
 export const MarkdownRenderer: FC<MarkdownRendererProps> = ({
   children,
-  isDarkMode,
+  isDarkMode = false,
   locale,
-  options,
+  forceBlock,
+  preserveFrontmatter,
+  tagfilter,
+  components: componentsProp,
+  wrapper,
 }) => {
-  const { overrides, ...restOptions } = options ?? {};
+  const markdownComponents = createMarkdownComponents(isDarkMode, locale);
 
-  // Strip frontmatter from the markdown content before rendering
-  const cleanMarkdown = stripFrontmatter(children);
+  const markdownContent = renderMarkdown(children, {
+    components: {
+      ...markdownComponents,
+      ...componentsProp,
+    },
+    wrapper,
+    forceBlock,
+    preserveFrontmatter,
+    tagfilter,
+  });
 
   return (
     <CodeProvider>
-      <TabProvider>
-        <MarkdownProcessor
-          options={{
-            overrides: {
-              h1: (props: ComponentProps<typeof H1>) => (
-                <H1 isClickable={true} {...props} />
-              ),
-              h2: (props: ComponentProps<typeof H2>) => (
-                <H2 isClickable={true} className="mt-16" {...props} />
-              ),
-              h3: (props: ComponentProps<typeof H3>) => (
-                <H3 isClickable={true} className="mt-5" {...props} />
-              ),
-              h4: (props: ComponentProps<typeof H4>) => (
-                <H4 isClickable={true} className="mt-3" {...props} />
-              ),
-              h5: (props: ComponentProps<typeof H5>) => (
-                <H5 isClickable={true} className="mt-3" {...props} />
-              ),
-              h6: (props: ComponentProps<typeof H6>) => (
-                <H6 isClickable={true} className="mt-3" {...props} />
-              ),
-
-              code: (
-                props: Omit<ComponentPropsWithoutRef<'code'>, 'children'> &
-                  Partial<CodeCompAttributes> & { children: string }
-              ) =>
-                !props.className ? (
-                  <strong className="rounded bg-card/60 box-decoration-clone px-1 py-0.5">
-                    {props.children}
-                  </strong>
-                ) : (
-                  <Code
-                    {...props}
-                    isDarkMode={isDarkMode}
-                    language={
-                      (props.className?.replace('lang-', '') ||
-                        'plaintext') as BundledLanguage
-                    }
-                    fileName={props.fileName}
-                    showHeader={Boolean(props.fileName)}
-                  />
-                ),
-
-              blockquote: ({
-                className,
-                ...props
-              }: ComponentPropsWithoutRef<'blockquote'>) => (
-                <blockquote
-                  className={cn(
-                    'mt-5 gap-3 border-card border-l-4 pl-5 text-neutral',
-                    className
-                  )}
-                  {...props}
-                />
-              ),
-              ul: ({ className, ...props }: ComponentPropsWithoutRef<'ul'>) => (
-                <ul
-                  className={cn(
-                    'mt-5 flex list-disc flex-col gap-3 pl-5',
-                    className
-                  )}
-                  {...props}
-                />
-              ),
-              ol: ({ className, ...props }: ComponentPropsWithoutRef<'ol'>) => (
-                <ol
-                  className={cn(
-                    'mt-5 flex list-decimal flex-col gap-3 pl-5',
-                    className
-                  )}
-                  {...props}
-                />
-              ),
-              img: ({
-                className,
-                ...props
-              }: ComponentPropsWithoutRef<'img'>) => (
-                <img
-                  {...props}
-                  loading="lazy"
-                  className={cn(
-                    'max-h-[80vh] max-w-full rounded-md',
-                    className
-                  )}
-                  src={`${props.src}?raw=true`}
-                />
-              ),
-              a: (props: ComponentProps<typeof Link>) => (
-                <Link
-                  color="neutral"
-                  isExternalLink={props.href?.startsWith('http')}
-                  underlined={true}
-                  locale={locale}
-                  {...props}
-                />
-              ),
-              pre: (props: ComponentPropsWithoutRef<'pre'>) => props.children,
-
-              table: (props: ComponentProps<typeof Table>) => (
-                <Table isRollable={true} {...props} />
-              ),
-              th: ({ className, ...props }: ComponentPropsWithoutRef<'th'>) => (
-                <th
-                  className={cn(
-                    'border-neutral border-b bg-neutral/10 p-4',
-                    className
-                  )}
-                  {...props}
-                />
-              ),
-              tr: ({ className, ...props }: ComponentPropsWithoutRef<'tr'>) => (
-                <tr
-                  className={cn('hover:/10 hover:bg-neutral/10', className)}
-                  {...props}
-                />
-              ),
-              td: ({ className, ...props }: ComponentPropsWithoutRef<'td'>) => (
-                <td
-                  className={cn(
-                    'border-neutral-500/50 border-b p-4',
-                    className
-                  )}
-                  {...props}
-                />
-              ),
-              hr: ({ className, ...props }: ComponentPropsWithoutRef<'hr'>) => (
-                <hr
-                  className={cn('mx-6 mt-16 text-neutral', className)}
-                  {...props}
-                />
-              ),
-              // Support both <Tab> and <Tabs> in markdown
-              Tabs: (props: ComponentProps<typeof Tab>) => <Tab {...props} />,
-              Tab: (props: ComponentProps<typeof Tab>) => <Tab {...props} />,
-              TabItem: (props: ComponentProps<typeof Tab.Item>) => (
-                <Tab.Item {...props} />
-              ),
-              Columns: ({
-                className,
-                ...props
-              }: ComponentPropsWithoutRef<'div'>) => (
-                <div
-                  className={cn('flex gap-4 max-md:flex-col', className)}
-                  {...props}
-                />
-              ),
-              Column: ({
-                className,
-                ...props
-              }: ComponentPropsWithoutRef<'div'>) => (
-                <div className={cn('flex-1', className)} {...props} />
-              ),
-              ...overrides,
-            },
-            ...restOptions,
-          }}
-        >
-          {cleanMarkdown ?? ''}
-        </MarkdownProcessor>
-      </TabProvider>
+      <TabProvider>{markdownContent}</TabProvider>
     </CodeProvider>
   );
 };

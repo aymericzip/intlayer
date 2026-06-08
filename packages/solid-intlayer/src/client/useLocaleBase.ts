@@ -1,10 +1,12 @@
-import configuration from '@intlayer/config/built';
-import type { DeclaredLocales, LocalesValues } from '@intlayer/types';
+import { internationalization } from '@intlayer/config/built';
+import type {
+  DeclaredLocales,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import { useContext } from 'solid-js';
 import { IntlayerClientContext } from './IntlayerProvider';
 
-const { defaultLocale, locales: availableLocales } =
-  configuration.internationalization;
+const { defaultLocale, locales: availableLocales } = internationalization;
 
 type UseLocaleBaseResult = {
   locale: DeclaredLocales;
@@ -17,7 +19,7 @@ type UseLocaleBaseResult = {
  * On the client side, hook to get the current locale and all related fields
  */
 export const useLocaleBase = (): UseLocaleBaseResult => {
-  const { locale, setLocale } = useContext(IntlayerClientContext);
+  const { locale, setLocale } = useContext(IntlayerClientContext) ?? {};
 
   return {
     locale, // Current locale

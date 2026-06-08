@@ -25,6 +25,7 @@ build/
 .eslintcache
 *.log
 *.tmp
+*.map
 *.temp
 .cache/
 .turbo
@@ -66,7 +67,6 @@ vitest.config.ts
 **/*.test.*
 **/*.spec.*
 **/*.README.md*
-**/_*
 
 # Rust Cargo build artifacts (can be multiple hundreds of MB and are not needed in Docker)
 **/target/
@@ -81,3 +81,4 @@ vitest.config.ts
 
 # Storybook
 storybook-static/
+

@@ -20,17 +20,66 @@ slugs:
 
 # Sözlükleri doldurma / denetleme / çevirme
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill
 ```
 
+```bash packageManager="yarn"
+yarn intlayer fill
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill
+```
+
+```bash packageManager="bun"
+bun x intlayer fill
+```
+
 Bu komut, içerik bildirim dosyalarınızı eksik çeviriler, yapısal tutarsızlıklar veya tür uyuşmazlıkları gibi potansiyel sorunlar açısından analiz eder. Herhangi bir problem bulursa, **intlayer fill** sözlüklerinizi tutarlı ve eksiksiz tutmak için güncellemeler önerir veya uygular.
+
+Önemli noktalar:
+
+- Büyük JSON dosyalarını AI modelinin bağlam penceresi sınırları içinde kalmak için parçalara böler.
+- Çıktı formatı yanlışsa çeviriyi yeniden dener.
+- Çeviri doğruluğunu artırmak için uygulama ve dosya özel bağlamını dahil eder.
+- Mevcut çevirileri üzerine yazmayarak korur.
+- Hızı artırmak için bir kuyruk sistemi kullanarak dosyaları, parçaları ve yerel ayarları paralel olarak işler.
 
 ## Takma İsimler:
 
 - `npx intlayer dictionaries fill`
 - `npx intlayer dictionary fill`
 - `npx intlayer dic fill`
+
+## Çıktı örnekleri:
+
+```bash
+npx intlayer fill
+
+Preparing Intlayer (v7.5.14)
+Done 76ms
+@intlayer/ai found - Run process locally
+Provider: (default) - Model: (default) - API Key: ✓
+Affected dictionary keys for processing: app, comp-test, hello-world, lang-switcher
+ - [comp-test]      No locales to fill, Skipping comp-test.content.json
+ - [app]            Processing app.content.tsx
+ - [app]            Filling missing metadata for app.content.tsx
+ - [hello-world]    Processing test.content.ts
+ - [hello-world]   [French (fr)]      Preparing test.content.ts
+ - [hello-world]   [Spanish (es)]     Preparing test.content.ts
+ - [lang-switcher]  Processing langSwitcher.content.ts
+ - [lang-switcher]  Filling missing metadata for langSwitcher.content.ts
+ - [hello-world]    Translation completed successfully for test.content.ts
+ - [lang-switcher] [Spanish (es)]     Preparing langSwitcher.content.ts
+ - [app]           [French (fr)]      Preparing app.content.tsx
+ - [app]           [Spanish (es)]     Preparing app.content.tsx
+ - [hello-world]    Content declaration written to test.content.ts
+ - [app]            Translation completed successfully for app.content.tsx
+ - [app]            Content declaration written to app.content.tsx
+ - [lang-switcher]  Translation completed successfully for langSwitcher.content.ts
+ - [lang-switcher]  Content declaration written to langSwitcher.content.ts
+```
 
 ## Argümanlar:
 
@@ -89,6 +138,7 @@ Bu komut, içerik bildirim dosyalarınızı eksik çeviriler, yapısal tutarsız
 - **`--api-key [apiKey]`**: AI servisi için kendi API anahtarınızı sağlayın.
 - **`--custom-prompt [prompt]`**: Çeviri talimatlarınız için özel bir prompt sağlayın.
 - **`--application-context [applicationContext]`**: AI çevirisi için ek bağlam sağlayın.
+- **`--data-serialization [dataSerialization]`**: Intlayer'ın AI özellikleri için kullanılacak veri serileştirme formatı. Seçenekler: `json` (standart, güvenilir), `toon` (daha az jeton, daha az tutarlı).
 
   > Örnek: `npx intlayer fill --model gpt-3.5-turbo --provider openai --temperature 0.5 --api-key sk-1234567890 --application-context "Uygulamam bir kedi mağazasıdır"`
 
@@ -123,8 +173,20 @@ Bu komut, içerik bildirim dosyalarınızı eksik çeviriler, yapısal tutarsız
 
 ## Örnek:
 
-```bash
+```bash packageManager="npm"
 npx intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
+```
+
+```bash packageManager="bun"
+bun x intlayer fill --file src/home/*.content.ts --source-locale en --output-locales fr es --model gpt-3.5-turbo
 ```
 
 Bu komut, `src/home/` dizinindeki tüm içerik bildirim dosyaları için içeriği İngilizceden Fransızca ve İspanyolcaya GPT-3.5 Turbo modeli kullanarak çevirecektir.

@@ -1,9 +1,9 @@
-import configuration from '@intlayer/config/built';
+import { internationalization } from '@intlayer/config/built';
 import type {
   DictionaryKeys,
   DictionaryRegistryContent,
   LocalesValues,
-} from '@intlayer/types';
+} from '@intlayer/types/module_augmentation';
 import {
   type ComputedRef,
   computed,
@@ -27,7 +27,30 @@ import {
   toComponent,
 } from './useDictionary';
 
-export const useIntlayer = <T extends DictionaryKeys>(
+/**
+ * Vue composable that picks one dictionary by its key and returns its reactive content.
+ *
+ * This hook provides deep reactivity, meaning your components will automatically
+ * update when the locale changes.
+ *
+ * @param key - The unique key of the dictionary to retrieve.
+ * @param locale - Optional reactive locale or getter to override the current context locale.
+ * @returns A reactive proxy to the dictionary content.
+ *
+ * @example
+ * ```vue
+ * <script setup>
+ * import { useIntlayer } from 'vue-intlayer';
+ *
+ * const content = useIntlayer('my-dictionary-key');
+ * </script>
+ *
+ * <template>
+ *   <div>{{ content.myField.value }}</div>
+ * </template>
+ * ```
+ */
+export const useIntlayer = <const T extends DictionaryKeys>(
   key: T,
   locale?: MaybeRefOrGetter<LocalesValues | null | undefined>
 ): DeepTransformContent<DictionaryRegistryContent<T>> => {
@@ -36,7 +59,7 @@ export const useIntlayer = <T extends DictionaryKeys>(
   // normalize provider locale
   const providerLocale = isRef(intlayer?.locale)
     ? intlayer.locale
-    : ref(intlayer?.locale ?? configuration.internationalization.defaultLocale);
+    : ref(intlayer?.locale ?? internationalization.defaultLocale);
 
   // which locale to use (reactive)
   const localeTarget = computed<LocalesValues>(() => {
@@ -55,20 +78,32 @@ export const useIntlayer = <T extends DictionaryKeys>(
     { immediate: true, flush: 'sync' }
   );
 
+  // Cache proxies to avoid redundant creation and potential infinite loops
+  const proxyCache = new Map<string, any>();
+
   // create a deep, read-only reactive proxy
   const makeProxy = (path: (string | number)[]) => {
+    const pathKey = path.join('.');
+    if (proxyCache.has(pathKey)) return proxyCache.get(pathKey);
+
     const leafRef: ComputedRef<any> = computed(() =>
       atPath(source.value, path)
     );
 
     const handler: ProxyHandler<any> = {
       get(_t, prop: any, _r) {
-        // Make the proxy "ref-like" so templates unwrap {{proxy}} to its current value.
-        if (prop === '__v_isRef') return true;
-        if (prop === 'value') return leafRef.value;
+        // Filter out internal Vue/TS properties to prevent infinite loop
+        if (
+          typeof prop === 'symbol' ||
+          (typeof prop === 'string' &&
+            (prop.startsWith('__') || prop.startsWith('$')))
+        ) {
+          if (prop === '__v_isRef') return true;
+          if (prop === 'then') return undefined; // Avoid Promise-like traps
+          return Reflect.get(_t, prop, _r);
+        }
 
-        // Avoid Promise-like traps
-        if (prop === 'then') return undefined;
+        if (prop === 'value') return leafRef.value ?? '';
 
         // Coerce the node to a component when asked
         if (prop === 'c' || prop === 'asComponent')
@@ -79,14 +114,17 @@ export const useIntlayer = <T extends DictionaryKeys>(
 
         // Primitive coercion in string contexts (e.g., `${node}`)
         if (prop === Symbol.toPrimitive) {
-          return () => leafRef.value as any;
+          return () => String(leafRef.value ?? '');
         }
 
         // Dive into children reactively
         const nextPath = path.concat(prop as any);
         const snapshot = atPath(source.value, nextPath);
 
-        if (isObjectLike(snapshot) && !isComponentLike(snapshot)) {
+        if (
+          snapshot === undefined ||
+          (isObjectLike(snapshot) && !isComponentLike(snapshot))
+        ) {
           return makeProxy(nextPath); // nested proxy
         }
 
@@ -98,12 +136,22 @@ export const useIntlayer = <T extends DictionaryKeys>(
         }
 
         // For other component-like things or primitives, return computed ref
-        return computed(() => atPath(source.value, nextPath));
+        const subLeafRef = computed(() => atPath(source.value, nextPath));
+
+        return new Proxy(subLeafRef, {
+          get(target, subProp, receiver) {
+            if (subProp === 'value') {
+              return target.value ?? '';
+            }
+            if (subProp === '__v_isRef') return true;
+            return Reflect.get(target, subProp, receiver);
+          },
+        });
       },
 
       // Make Object.keys(), for...in, v-for on object keys work
       ownKeys() {
-        const v = leafRef.value;
+        const v = atPath(source.value, path);
         return isObjectLike(v) ? Reflect.ownKeys(v) : [];
       },
       getOwnPropertyDescriptor() {
@@ -111,8 +159,10 @@ export const useIntlayer = <T extends DictionaryKeys>(
       },
     };
 
-    return new Proxy({}, handler);
+    const proxy = new Proxy({}, handler);
+    proxyCache.set(pathKey, proxy);
+    return proxy;
   };
 
-  return makeProxy([]) as any;
+  return makeProxy([]);
 };

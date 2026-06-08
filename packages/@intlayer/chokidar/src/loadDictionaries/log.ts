@@ -1,12 +1,13 @@
-import configuration from '@intlayer/config/built';
+import { log } from '@intlayer/config/built';
+import * as ANSIColors from '@intlayer/config/colors';
 import {
-  ANSIColors,
   colorize,
-  extractErrorMessage,
+  getPrefix,
   spinnerFrames,
   v,
   x,
-} from '@intlayer/config/client';
+} from '@intlayer/config/logger';
+import { extractErrorMessage } from '@intlayer/config/utils';
 import type { DictionariesStatus } from './loadDictionaries';
 
 export class DictionariesLogger {
@@ -26,7 +27,7 @@ export class DictionariesLogger {
   private pluginError: string | undefined;
 
   constructor() {
-    this.prefix = configuration?.log?.prefix ?? '';
+    this.prefix = getPrefix(log?.prefix) ?? '';
   }
 
   setExpectRemote(expect: boolean) {

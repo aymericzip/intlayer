@@ -5,19 +5,22 @@
   "type": "module",
   "scripts": {
     "build": "tsc -b && vite build",
-    "dev": "vite",
-    "preview": "vite preview"
+    "dev": "bun --bun vite",
+    "preview": "bun --bun vite preview",
+    "start:editor": "bun intlayer-editor start -e development --with 'vite dev'"
   },
   "dependencies": {
+    "@solidjs/router": "0.16.1",
     "intlayer": "workspace:*",
     "solid-intlayer": "workspace:*",
-    "solid-js": "1.9.9"
+    "solid-js": "1.9.11"
   },
   "devDependencies": {
-    "solid-refresh": "0.7.5",
-    "typescript": "5.9.3",
-    "vite": "7.3.0",
+    "intlayer-editor": "workspace:*",
+    "solid-refresh": "0.7.8",
+    "typescript": "6.0.3",
+    "vite": "8.0.16",
     "vite-intlayer": "workspace:*",
-    "vite-plugin-solid": "2.11.8"
+    "vite-plugin-solid": "2.11.11"
   }
 }

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-11-01
-updatedAt: 2025-11-01
-title: Jak internacjonalizować aplikację Next.js za pomocą next-intl
-description: Konfiguracja i18n z next-intl - najlepsze praktyki i wskazówki SEO dla wielojęzycznych aplikacji Next.js, obejmujące internacjonalizację, organizację treści i konfigurację techniczną.
+updatedAt: 2026-05-31
+title: Jak internacjonalizować aplikację Next.js za pomocą next-intl - Kompletny przewodnik po tłumaczeniu Translate Next.js 16 with next-intl — App Router Setup
+description: Najlepsze rozwiązanie dla rozmiaru bundle, SEO, wydajności & utrzymania. Uczyń swój Next.js 16 stronę internetową wielojęzycznym w 2026, tłumaczenie LLM, Agent Skills & MCP.
 keywords:
   - next-intl
   - Internationalization
@@ -66,7 +66,7 @@ Zanim przejdziemy do implementacji, oto kilka praktyk, których powinieneś prze
 ## Przewodnik krok po kroku, jak skonfigurować next-intl w aplikacji Next.js
 
 <iframe
-  src="https://stackblitz.com/github/aymericzip/next-intl-template?embed=1&ctl=1&file=src/i18n.ts"
+  src="https://ide.intlayer.org/aymericzip/next-intl-template?file=src/i18n.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Jak internacjonalizować swoją aplikację za pomocą Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -107,7 +107,9 @@ Oto struktura projektu, którą będziemy tworzyć:
         └── ServerComponent.tsx
 ```
 
-### Krok 1: Instalacja zależności
+<Steps>
+
+<Step number={1} title="Instalacja zależności">
 
 Zainstaluj niezbędne pakiety za pomocą npm:
 
@@ -125,7 +127,9 @@ yarn add next-intl
 
 - **next-intl**: Podstawowa biblioteka do internacjonalizacji dla Next.js App Router, która dostarcza hooki, funkcje serwerowe oraz klienta do zarządzania tłumaczeniami.
 
-### Krok 2: Konfiguracja projektu
+</Step>
+
+<Step number={2} title="Konfiguracja projektu">
 
 Utwórz plik konfiguracyjny, który definiuje obsługiwane lokalizacje i konfiguruje ustawienia żądań next-intl. Ten plik służy jako pojedyncze źródło prawdy dla Twojej konfiguracji i18n oraz zapewnia bezpieczeństwo typów w całej aplikacji.
 
@@ -210,7 +214,9 @@ export const { Link, redirect, usePathname, useRouter, getPathname } =
 export const proxy = createMiddleware(routingOptions);
 ```
 
-### Krok 3: Definiowanie dynamicznych tras lokalizacji
+</Step>
+
+<Step number={3} title="Definiowanie dynamicznych tras lokalizacji">
 
 Skonfiguruj dynamiczne routowanie dla lokalizacji, tworząc katalog `[locale]` w folderze aplikacji. Pozwala to Next.js obsługiwać routowanie oparte na lokalizacji, gdzie każda lokalizacja staje się segmentem URL (np. `/en/about`, `/fr/about`).
 
@@ -298,7 +304,9 @@ export default async function AboutPage({
 }
 ```
 
-### Krok 4: Utwórz pliki tłumaczeń
+</Step>
+
+<Step number={4} title="Utwórz pliki tłumaczeń">
 
 Utwórz pliki JSON dla każdego locale i namespace. Ta struktura pozwala na logiczne organizowanie tłumaczeń oraz ładowanie tylko tego, co jest potrzebne na każdej stronie.
 
@@ -340,7 +348,9 @@ Organizowanie tłumaczeń według namespace (np. `common.json`, `about.json`) um
 }
 ```
 
-### Krok 5: Wykorzystaj tłumaczenia na swoich stronach
+</Step>
+
+<Step number={5} title="Wykorzystaj tłumaczenia na swoich stronach">
 
 Utwórz komponent strony, który ładuje tłumaczenia po stronie serwera i przekazuje je zarówno do komponentów serwerowych, jak i klienckich. Zapewnia to, że tłumaczenia są załadowane przed renderowaniem i zapobiega migotaniu treści.
 
@@ -391,7 +401,9 @@ export default async function AboutPage({
 }
 ```
 
-### Krok 6: Używanie tłumaczeń w komponentach klienckich
+</Step>
+
+<Step number={6} title="Używanie tłumaczeń w komponentach klienckich">
 
 Komponenty klienckie mogą używać hooków `useTranslations` i `useFormatter`, aby uzyskać dostęp do tłumaczeń i funkcji formatowania. Hooki te odczytują dane z kontekstu `NextIntlClientProvider`.
 
@@ -427,7 +439,9 @@ const ClientComponent = () => {
 };
 ```
 
-### Krok 7: Używanie tłumaczeń w komponentach serwerowych
+</Step>
+
+<Step number={7} title="Używanie tłumaczeń w komponentach serwerowych">
 
 Komponenty serwerowe nie mogą używać hooków React, dlatego otrzymują tłumaczenia i formatery przez propsy od komponentów nadrzędnych. Takie podejście utrzymuje komponenty serwerowe synchroniczne i pozwala na ich zagnieżdżanie wewnątrz komponentów klienckich.
 
@@ -459,9 +473,9 @@ const ServerComponent = ({
 
 > Na swojej stronie/układzie użyj `getTranslations` i `getFormatter` z `next-intl/server`, aby wstępnie obliczyć tłumaczenia i formatowanie, a następnie przekaż je jako propsy do komponentów serwerowych.
 
----
+</Step>
 
-### (Opcjonalny) Krok 8: Zmień język swojej zawartości
+<Step number={8} title="Zmień język swojej zawartości" isOptional={true}>
 
 Aby zmienić język swojej zawartości za pomocą next-intl, renderuj linki uwzględniające lokalizację, które wskazują na tę samą ścieżkę, zmieniając jednocześnie lokalizację. Provider automatycznie przepisuje URL-e, więc musisz tylko wskazać aktualną trasę.
 
@@ -533,7 +547,9 @@ export default function LocaleSwitcher() {
 }
 ```
 
-### (Opcjonalny) Krok 9: Użyj lokalizowanego komponentu Link
+</Step>
+
+<Step number={9} title="Użyj lokalizowanego komponentu Link" isOptional={true}>
 
 `next-intl` dostarcza podpakiet `next-intl/navigation`, który zawiera lokalizowany komponent linku automatycznie stosujący aktywną lokalizację. Już wyodrębniliśmy go dla Ciebie w pliku `@/i18n`, więc możesz go użyć w ten sposób:
 
@@ -543,7 +559,9 @@ import { Link } from "@/i18n";
 return <Link href="/about">t("about.title")</Link>;
 ```
 
-### (Opcjonalny) Krok 10: Uzyskaj dostęp do aktywnej lokalizacji w Server Actions
+</Step>
+
+<Step number={10} title="Uzyskaj dostęp do aktywnej lokalizacji w Server Actions" isOptional={true}>
 
 Server Actions mogą odczytać aktualną lokalizację używając `next-intl/server`. Jest to przydatne do wysyłania zlokalizowanych e-maili lub przechowywania preferencji językowych wraz z przesłanymi danymi.
 
@@ -566,7 +584,9 @@ export async function handleContactForm(formData: FormData) {
 
 > `getLocale` odczytuje locale ustawione przez proxy `next-intl`, więc działa wszędzie na serwerze: w Route Handlers, Server Actions i funkcjach edge.
 
-### (Opcjonalny) Krok 11: Internacjonalizacja metadanych
+</Step>
+
+<Step number={11} title="Internacjonalizacja metadanych" isOptional={true}>
 
 Tłumaczenie treści jest ważne, ale głównym celem internacjonalizacji jest uczynienie Twojej strony bardziej widoczną dla świata. I18n to niesamowita dźwignia do poprawy widoczności Twojej strony poprzez odpowiednie SEO.
 
@@ -605,7 +625,9 @@ export async function generateMetadata({
 // ... Reszta kodu strony
 ```
 
-### (Opcjonalny) Krok 12: Internacjonalizacja Twojej mapy witryny
+</Step>
+
+<Step number={12} title="Internacjonalizacja Twojej mapy witryny" isOptional={true}>
 
 Wygeneruj mapę witryny, która zawiera wszystkie wersje językowe Twoich stron. Pomaga to wyszukiwarkom odnaleźć i zaindeksować wszystkie wersje językowe Twoich treści.
 
@@ -659,7 +681,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 }
 ```
 
-### (Opcjonalny) Krok 13: Internacjonalizacja pliku robots.txt
+</Step>
+
+<Step number={13} title="Internacjonalizacja pliku robots.txt" isOptional={true}>
 
 Utwórz plik robots.txt, który prawidłowo obsługuje wszystkie wersje językowe Twoich chronionych ścieżek. Zapewnia to, że wyszukiwarki nie będą indeksować stron admina ani panelu w żadnym języku.
 
@@ -692,7 +716,9 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-### (Opcjonalny) Krok 14: Skonfiguruj Proxy dla trasowania lokalizacji
+</Step>
+
+<Step number={14} title="Skonfiguruj Proxy dla trasowania lokalizacji" isOptional={true}>
 
 Utwórz proxy, które automatycznie wykryje preferowaną lokalizację użytkownika i przekieruje go na odpowiedni adres URL z prefiksem lokalizacji. next-intl dostarcza wygodną funkcję proxy, która obsługuje to automatycznie.
 
@@ -712,7 +738,9 @@ export const config = {
 };
 ```
 
-### (Opcjonalny) Krok 15: Skonfiguruj typy TypeScript dla lokalizacji
+</Step>
+
+<Step number={15} title="Skonfiguruj typy TypeScript dla lokalizacji" isOptional={true}>
 
 Konfiguracja TypeScript pomoże Ci uzyskać autouzupełnianie i bezpieczeństwo typów dla Twoich kluczy.
 
@@ -738,7 +766,9 @@ declare module "next-intl" {
 
 Ten kod użyje Module Augmentation, aby dodać locales i messages do typu AppConfig w next-intl.
 
-### (Opcjonalny) Krok 15: Automatyzuj swoje tłumaczenia za pomocą Intlayer
+</Step>
+
+<Step number={16} title="Automatyzuj swoje tłumaczenia za pomocą Intlayer" isOptional={true}>
 
 Intlayer to **bezpłatna** i **otwartoźródłowa** biblioteka zaprojektowana, aby wspierać proces lokalizacji w Twojej aplikacji. Podczas gdy next-intl zajmuje się ładowaniem i zarządzaniem tłumaczeniami, Intlayer pomaga zautomatyzować przepływ pracy związany z tłumaczeniami.
 
@@ -753,7 +783,7 @@ Intlayer pozwala Ci na:
   Intlayer dostarcza funkcje testowe, które można zintegrować z Twoim pipeline CI/CD lub testami jednostkowymi. Dowiedz się więcej o [testowaniu tłumaczeń](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/testing.md).
 
 - **Automatyzuj swoje tłumaczenia**,
-  Intlayer oferuje CLI oraz rozszerzenie do VSCode do automatyzacji tłumaczeń. Może być zintegrowany z pipeline CI/CD. Dowiedz się więcej o [automatyzacji tłumaczeń](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_cli.md).
+  Intlayer oferuje CLI oraz rozszerzenie do VSCode do automatyzacji tłumaczeń. Może być zintegrowany z pipeline CI/CD. Dowiedz się więcej o [automatyzacji tłumaczeń](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md).
   Możesz używać **własnego klucza API oraz wybranego dostawcy AI**. Zapewnia również tłumaczenia uwzględniające kontekst, zobacz [wypełnianie treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/autoFill.md).
 
 - **Połącz zewnętrzne treści**
@@ -763,3 +793,7 @@ Intlayer pozwala Ci na:
   Intlayer oferuje darmowy edytor wizualny do edycji Twoich treści za pomocą edytora wizualnego. Dowiedz się więcej o [wizualnej edycji Twoich tłumaczeń](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md).
 
 I więcej. Aby odkryć wszystkie funkcje oferowane przez Intlayer, prosimy zapoznać się z dokumentacją [Zainteresowanie Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/interest_of_intlayer.md).
+
+</Step>
+
+</Steps>

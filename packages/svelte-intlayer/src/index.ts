@@ -1,20 +1,12 @@
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import type { IInterpreterPluginSvelte } from './plugins';
 
-declare module '@intlayer/core' {
-  // biome-ignore lint/correctness/noUnusedVariables: <All declarations of 'IInterpreterPlugin' must have identical type parameters>
-  interface IInterpreterPlugin<T, S, L> extends IInterpreterPluginSvelte<T> {}
+declare module '@intlayer/core/interpreter' {
+  interface IInterpreterPlugin<T, S, L extends LocalesValues>
+    extends IInterpreterPluginSvelte<T, S, L> {}
 }
 
 export * from './client';
 export * from './getDictionary';
 export * from './getIntlayer';
-export * from './markdown';
 export * from './plugins';
-
-import { useEditor } from './editor';
-import { setMarkdownContext } from './markdown';
-
-export {
-  useEditor as useIntlayerEditor,
-  setMarkdownContext as setIntlayerMarkdown,
-};

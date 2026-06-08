@@ -15,7 +15,11 @@ keywords:
 slugs:
   - blog
   - intlayer-with-react-intl
+youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
+  - version: 7.0.7
+    date: 2025-11-06
+    changes: AI sağlayıcı desteği dokümantasyonu eklendi
   - version: 7.0.6
     date: 2025-11-01
     changes: loadJSON eklentisi eklendi
@@ -56,19 +60,23 @@ Bu rehber, react-intl ile uyumluluğu korurken Intlayer'ın üstün içerik beya
 Gerekli paketleri yükleyin:
 
 ```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin
+npm install intlayer @intlayer/sync-json-plugin --save-dev
+npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin
+pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin
+yarn add intlayer @intlayer/sync-json-plugin --dev
+yarn intlayer init
 ```
 
 ```bash packageManager="bun"
-bun add intlayer @intlayer/sync-json-plugin
+bun add intlayer @intlayer/sync-json-plugin --dev
+bun x intlayer init
 ```
 
 **Paket açıklamaları:**

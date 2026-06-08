@@ -1,8 +1,8 @@
-import {
-  type ContentNode,
-  type LocalesValues,
-  NodeType,
-} from '@intlayer/types';
+import type { ContentNode } from '@intlayer/types/dictionary';
+import type { LocalesValues } from '@intlayer/types/module_augmentation';
+
+import type { NodeType } from '@intlayer/types/nodeType';
+import * as NodeTypes from '@intlayer/types/nodeType';
 
 export const getDefaultNode = (
   nodeType: NodeType,
@@ -11,10 +11,10 @@ export const getDefaultNode = (
 ): ContentNode => {
   const clonedContent = structuredClone(content);
   switch (nodeType) {
-    case NodeType.Translation:
+    case NodeTypes.TRANSLATION:
       return {
-        nodeType: NodeType.Translation,
-        [NodeType.Translation]: Object.assign(
+        nodeType: NodeTypes.TRANSLATION,
+        [NodeTypes.TRANSLATION]: Object.assign(
           {},
           ...locales.map((locale) => ({
             [locale]: structuredClone(clonedContent) ?? '',
@@ -22,66 +22,82 @@ export const getDefaultNode = (
         ),
       } as ContentNode;
 
-    case NodeType.Enumeration:
+    case NodeTypes.ENUMERATION:
       return {
-        nodeType: NodeType.Enumeration,
-        [NodeType.Enumeration]: {
+        nodeType: NodeTypes.ENUMERATION,
+        [NodeTypes.ENUMERATION]: {
           '1': clonedContent ?? '',
         },
       } as ContentNode;
 
-    case NodeType.Condition:
+    case NodeTypes.PLURAL:
       return {
-        nodeType: NodeType.Condition,
-        [NodeType.Condition]: {
+        nodeType: NodeTypes.PLURAL,
+        [NodeTypes.PLURAL]: {
+          one: clonedContent ?? '',
+          other: clonedContent ?? '',
+        },
+      } as ContentNode;
+
+    case NodeTypes.CONDITION:
+      return {
+        nodeType: NodeTypes.CONDITION,
+        [NodeTypes.CONDITION]: {
           true: clonedContent ?? '',
           false: clonedContent ?? '',
         },
       } as ContentNode;
 
-    case NodeType.Insertion:
+    case NodeTypes.INSERTION:
       return {
-        nodeType: NodeType.Insertion,
-        [NodeType.Insertion]: {
+        nodeType: NodeTypes.INSERTION,
+        [NodeTypes.INSERTION]: {
           insertion: clonedContent ?? '',
         },
       } as unknown as ContentNode;
 
-    case NodeType.Nested:
+    case NodeTypes.NESTED:
       return {
-        nodeType: NodeType.Nested,
-        [NodeType.Nested]: {
+        nodeType: NodeTypes.NESTED,
+        [NodeTypes.NESTED]: {
           dictionaryKey: '',
         },
       } as ContentNode;
 
-    case NodeType.Markdown:
+    case NodeTypes.MARKDOWN:
       return {
-        nodeType: NodeType.Markdown,
-        [NodeType.Markdown]: clonedContent ?? '',
+        nodeType: NodeTypes.MARKDOWN,
+        [NodeTypes.MARKDOWN]: clonedContent ?? '',
       } as ContentNode;
 
-    case NodeType.File:
+    case NodeTypes.HTML:
       return {
-        nodeType: NodeType.File,
-        [NodeType.File]: clonedContent ?? '',
+        nodeType: NodeTypes.HTML,
+        [NodeTypes.HTML]: clonedContent ?? '',
+        customComponents: [],
       } as ContentNode;
 
-    case NodeType.Object:
+    case NodeTypes.FILE:
+      return {
+        nodeType: NodeTypes.FILE,
+        [NodeTypes.FILE]: clonedContent ?? '',
+      } as ContentNode;
+
+    case NodeTypes.OBJECT:
       return {
         newKey: clonedContent ?? '',
       } as unknown as ContentNode;
 
-    case NodeType.Array:
+    case NodeTypes.ARRAY:
       return [clonedContent ?? ''] as unknown as ContentNode;
 
-    case NodeType.Text:
+    case NodeTypes.TEXT:
       return clonedContent ?? '';
 
-    case NodeType.Number:
+    case NodeTypes.NUMBER:
       return clonedContent ?? 0;
 
-    case NodeType.Boolean:
+    case NodeTypes.BOOLEAN:
       return clonedContent ?? true;
 
     default:

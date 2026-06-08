@@ -13,23 +13,51 @@ slugs:
   - concept
   - cli
   - build
+history:
+  - version: 8.1.5
+    date: 2026-02-23
+    changes: "checkTypes विकल्प जोड़ें"
 ---
 
 # शब्दकोश बनाएं
 
 अपने शब्दकोश बनाने के लिए, आप निम्नलिखित कमांड चला सकते हैं:
 
-```bash
+```bash packageManager="npm"
 npx intlayer build
+```
+
+```bash packageManager="yarn"
+yarn intlayer build
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build
+```
+
+```bash packageManager="bun"
+bun x intlayer build
 ```
 
 या वॉच मोड में
 
-```bash
+```bash packageManager="npm"
 npx intlayer build --watch
 ```
 
-यह कमांड डिफ़ॉल्ट रूप से आपकी घोषणा कंटेंट फ़ाइलों को `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx}` के रूप में खोजेगा। और `.intlayer` डायरेक्टरी में शब्दकोश बनाएगा।
+```bash packageManager="yarn"
+yarn intlayer build --watch
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer build --watch
+```
+
+```bash packageManager="bun"
+bun x intlayer build --watch
+```
+
+यह कमांड डिफ़ॉल्ट रूप से आपकी घोषणा कंटेंट फ़ाइलों को `./src/**/*.content.{ts|js|mjs|cjs|json|tsx|jsx|md|mdx|yaml|yml}` के रूप में खोजेगा। और `.intlayer` डायरेक्टरी में शब्दकोश बनाएगा।
 
 ## उपनाम:
 
@@ -62,3 +90,7 @@ npx intlayer build --watch
 - **`--no-cache`**: कैश को अक्षम करें।
 
   > उदाहरण: `npx intlayer build --no-cache`
+
+- **`--check-types`**: सामग्री घोषणा फ़ाइलों के प्रकारों की जाँच करें।
+
+  > उदाहरण: `npx intlayer build --check-types`

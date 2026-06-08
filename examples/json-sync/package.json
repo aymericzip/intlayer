@@ -1,5 +1,5 @@
 {
-  "name": "next-intl-template",
+  "name": "sync-json",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,7 +7,7 @@
     "intlayer": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "^24.10.1",
-    "typescript": "^5.9.3"
+    "@types/node": "25.9.2",
+    "typescript": "6.0.3"
   }
 }

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { enu, insert } from '../transpiler';
+import { enu, insert, plural } from '../transpiler';
 import {
   intlayerToVueI18nFormatter,
   vueI18nToIntlayerFormatter,
@@ -19,12 +19,10 @@ describe('vue-i18n', () => {
 
     it('should transform plural (2 choices)', () => {
       // Input has spaces, and our parser now trims them.
-      // So expected values should NOT have spaces.
       expect(vueI18nToIntlayerFormatter('car | cars')).toEqual(
-        enu({
-          '1': 'car',
-          fallback: 'cars',
-          __intlayer_vue_i18n_var: 'count',
+        plural({
+          one: 'car',
+          other: 'cars',
         })
       );
     });
@@ -35,13 +33,10 @@ describe('vue-i18n', () => {
       expect(
         vueI18nToIntlayerFormatter('no apples | one apple | {count} apples')
       ).toEqual(
-        enu({
-          '0': 'no apples',
-          '1': 'one apple',
-          // Note: " {count} apples" trimmed is "{count} apples".
-          // The insert helper creates an object for this.
-          fallback: insert('{{count}} apples'),
-          __intlayer_vue_i18n_var: 'count',
+        plural({
+          zero: 'no apples',
+          one: 'one apple',
+          other: insert('{{count}} apples'),
         })
       );
     });
@@ -84,6 +79,24 @@ describe('vue-i18n', () => {
       ).toEqual('no apples | one apple | {count} apples');
     });
 
+    it('should transform plural (2 CLDR choices)', () => {
+      expect(
+        intlayerToVueI18nFormatter(plural({ one: 'car', other: 'cars' }))
+      ).toEqual('car | cars');
+    });
+
+    it('should transform plural (3 CLDR choices)', () => {
+      expect(
+        intlayerToVueI18nFormatter(
+          plural({
+            zero: 'no apples',
+            one: 'one apple',
+            other: '{{count}} apples',
+          })
+        )
+      ).toEqual('no apples | one apple | {count} apples');
+    });
+
     it('should transform enumeration with gaps (0, 2, fallback)', () => {
       // 0 -> no items
       // 1 -> (empty)
@@ -117,6 +130,32 @@ describe('vue-i18n', () => {
       const backToVue = intlayerToVueI18nFormatter(toIntlayer as any);
 
       expect(backToVue).toEqual(original);
+    });
+  });
+
+  describe('Structural Arrays Processing', () => {
+    it('should strictly preserve structural arrays of primitive strings', () => {
+      const input = { types: ['daily', 'weekly', 'monthly'] };
+      const result = intlayerToVueI18nFormatter(input as any);
+      expect(result).toEqual({ types: ['daily', 'weekly', 'monthly'] });
+    });
+
+    it('should strictly preserve structural arrays of objects', () => {
+      const input = { steps: [{ id: 1 }, { id: 2 }] };
+      const result = intlayerToVueI18nFormatter(input as any);
+      expect(result).toEqual({ steps: [{ id: 1 }, { id: 2 }] });
+    });
+
+    it('should map and concatenate arrays representing composite vue-i18n strings', () => {
+      const input = { message: ['Hello ', insert('{{name}}')] };
+      const result = intlayerToVueI18nFormatter(input as any);
+      expect(result).toEqual({ message: 'Hello {name}' });
+    });
+
+    it('should preserve arrays of already formatted vue-i18n strings', () => {
+      const input = { items: ['car | cars', 'Hello {name}'] };
+      const result = intlayerToVueI18nFormatter(input as any);
+      expect(result).toEqual({ items: ['car | cars', 'Hello {name}'] });
     });
   });
 });

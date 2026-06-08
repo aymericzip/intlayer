@@ -1,4 +1,4 @@
-import { number } from '@intlayer/core';
+import { number } from '@intlayer/core/formatters';
 import { computed, inject } from 'vue';
 import {
   INTLAYER_SYMBOL,

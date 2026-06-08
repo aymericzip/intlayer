@@ -1,0 +1,238 @@
+import {
+  useListPasskeys,
+  useSession,
+  useUpdateUser,
+  useUploadUserAvatar,
+} from '@intlayer/design-system/api';
+import { Avatar } from '@intlayer/design-system/avatar';
+import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
+import { Form, useForm } from '@intlayer/design-system/form';
+import { H3 } from '@intlayer/design-system/headers';
+import { Modal } from '@intlayer/design-system/modal';
+import { Fingerprint, LockIcon, PenIcon, ShieldCheck } from 'lucide-react';
+import {
+  type ChangeEvent,
+  type FC,
+  Suspense,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { ChangePasswordModal } from '#components/Auth/ChangePassword';
+import { DeleteUser } from '#components/Auth/DeleteUser';
+import { PasskeyManagement } from '#components/Auth/PasskeyManagement';
+import { TwoFactorAuth } from '#components/Auth/TwoFactorAuth';
+import { ConnectedAccounts } from './ConnectedAccounts';
+import { ProfileSkeleton } from './ProfileSkeleton';
+import {
+  type ProfileFormData,
+  useProfileFormSchema,
+} from './useProfileFormSchema';
+
+const ProfileFormContent: FC = () => {
+  const { session } = useSession();
+  const { user } = session ?? {};
+  const ProfileFormSchema = useProfileFormSchema();
+  const { form, isSubmitting } = useForm(ProfileFormSchema);
+  const {
+    title,
+    nameInput,
+    editButton,
+    changePasswordTitle,
+    twoFactorTitle,
+    passkeyTitle,
+    changeAvatar,
+  } = useIntlayer('profile-form');
+  const { mutate: updateUser, isPending } = useUpdateUser();
+  const { mutate: uploadAvatar, isPending: isUploadingAvatar } =
+    useUploadUserAvatar();
+  const { data: passkeysData, refetch: refetchPasskeys } = useListPasskeys();
+  const passkeys = passkeysData?.data ?? [];
+  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
+  const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
+  const avatarInputRef = useRef<HTMLInputElement>(null);
+
+  const handleAvatarChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    uploadAvatar(file);
+    // Reset so selecting the same file again triggers onChange
+    e.target.value = '';
+  };
+
+  const hasPasswordColumn =
+    user?.lastLoginMethod === 'email' || user?.lastLoginMethod === 'passkey';
+
+  const onSubmitSuccess = (data: ProfileFormData) => {
+    if (!user) return;
+    updateUser(
+      { ...data, id: String(user.id) },
+      { onSuccess: () => setIsEditProfileOpen(false) }
+    );
+  };
+
+  const handleCloseEditProfile = () => {
+    setIsEditProfileOpen(false);
+    form.reset(user);
+  };
+
+  useEffect(() => {
+    if (user) {
+      form.reset(user);
+    }
+  }, [form.reset, user]);
+
+  return (
+    <div className="flex w-full max-w-6xl flex-col items-center justify-center gap-8">
+      <Container
+        roundedSize="3xl"
+        padding="lg"
+        border
+        borderColor="neutral"
+        className="w-full flex-row items-center gap-10"
+      >
+        <input
+          ref={avatarInputRef}
+          type="file"
+          accept="image/jpeg,image/png,image/webp,image/gif"
+          className="hidden"
+          onChange={handleAvatarChange}
+        />
+        <Avatar
+          size="2xl"
+          src={user?.image}
+          fullname={user?.name}
+          isLoading={isUploadingAvatar}
+          onClick={() => avatarInputRef.current?.click()}
+          hoverable
+          alt={changeAvatar.value}
+        />
+        <div className="flex flex-col justify-between gap-2">
+          <span className="text-4xl text-text">{user?.name}</span>
+          <span className="text-lg text-neutral">{user?.email}</span>
+        </div>
+        <div className="mt-auto ml-auto flex flex-row gap-2">
+          {hasPasswordColumn ? (
+            <Button
+              onClick={() => setIsChangePasswordOpen(true)}
+              color="text"
+              variant="outline"
+              Icon={LockIcon}
+              label={changePasswordTitle.value}
+            >
+              {changePasswordTitle}
+            </Button>
+          ) : (
+            <span className="h-full"></span>
+          )}
+          <Button
+            onClick={() => setIsEditProfileOpen(true)}
+            color="text"
+            Icon={PenIcon}
+            label={editButton.ariaLabel.value}
+          >
+            {editButton.text}
+          </Button>
+        </div>
+      </Container>
+
+      <div className="justify-top grid w-full grid-cols-1 gap-x-5 gap-y-4 max-md:grid-cols-1 md:grid-cols-[8fr_7fr] lg:gap-x-16">
+        <div className="flex size-full w-full flex-col gap-10 md:max-w-xl">
+          <ConnectedAccounts />
+        </div>
+
+        <div className="flex w-full flex-col gap-10 md:max-w-xl">
+          <Container
+            roundedSize="3xl"
+            padding="md"
+            border
+            borderColor="neutral"
+            className="relative w-full"
+          >
+            <div className="mb-8 flex items-center gap-2">
+              <ShieldCheck className="size-4" />
+              <H3 className="mb-0">{twoFactorTitle}</H3>
+            </div>
+            <TwoFactorAuth />
+          </Container>
+          <Container
+            roundedSize="3xl"
+            padding="md"
+            border
+            borderColor="neutral"
+            className="w-full"
+          >
+            <div className="mb-8 flex items-center gap-2">
+              <Fingerprint className="size-4" />
+              <H3 className="mb-0">{passkeyTitle}</H3>
+            </div>
+            <PasskeyManagement
+              passkeys={passkeys}
+              onPasskeyAdded={refetchPasskeys}
+              onPasskeyDeleted={refetchPasskeys}
+            />
+          </Container>
+        </div>
+      </div>
+
+      <Container
+        roundedSize="3xl"
+        padding="lg"
+        border
+        borderColor="error"
+        transparency="lg"
+        className="w-full"
+      >
+        <DeleteUser />
+      </Container>
+
+      <Modal
+        isOpen={isEditProfileOpen}
+        onClose={handleCloseEditProfile}
+        title={title.value}
+        padding="lg"
+        className="max-h-[80vh]"
+      >
+        {isEditProfileOpen && (
+          <Form
+            schema={ProfileFormSchema}
+            onSubmitSuccess={onSubmitSuccess}
+            onSubmitError={(data) => console.error(data)}
+            className="mt-4 w-full"
+            {...form}
+          >
+            <Form.Input
+              name="name"
+              id="profile-name-input"
+              label={nameInput.label}
+              placeholder={nameInput.placeholder.value}
+              isRequired
+            />
+            <Form.Button
+              className="mt-6 w-full"
+              type="submit"
+              color="text"
+              isLoading={isSubmitting || isPending}
+              label={editButton.ariaLabel.value}
+            >
+              {editButton.text}
+            </Form.Button>
+          </Form>
+        )}
+      </Modal>
+
+      <ChangePasswordModal
+        isOpen={isChangePasswordOpen}
+        onClose={() => setIsChangePasswordOpen(false)}
+      />
+    </div>
+  );
+};
+
+export const ProfileForm: FC = () => (
+  <Suspense fallback={<ProfileSkeleton />}>
+    <ProfileFormContent />
+  </Suspense>
+);

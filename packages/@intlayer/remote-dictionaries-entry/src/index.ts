@@ -7,9 +7,10 @@
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import type { DictionaryAPI } from '@intlayer/backend';
-import { clearModuleCache, configESMxCJSRequire } from '@intlayer/config';
-import config from '@intlayer/config/built';
-import type { DictionaryKey, IntlayerConfig } from '@intlayer/types';
+import { build, system } from '@intlayer/config/built';
+import { clearModuleCache, configESMxCJSRequire } from '@intlayer/config/utils';
+import type { IntlayerConfig } from '@intlayer/types/config';
+import type { DictionaryKey } from '@intlayer/types/dictionary';
 
 export type RemoteDictionaries = Record<DictionaryKey, DictionaryAPI[]>;
 
@@ -18,12 +19,12 @@ type GetRemoteDictionaries = (
 ) => RemoteDictionaries;
 
 export const getRemoteDictionaries: GetRemoteDictionaries = (
-  configuration: IntlayerConfig = config
+  configuration: Pick<IntlayerConfig, 'system' | 'build'> = { system, build }
 ) => {
-  const { content, build } = configuration;
+  const { system, build } = configuration;
 
   // Always use cjs for dictionaries entry as it uses require
-  const dictionariesPath = join(content.mainDir, `remote_dictionaries.cjs`);
+  const dictionariesPath = join(system.mainDir, `remote_dictionaries.cjs`);
   let dictionaries: Record<DictionaryKey, DictionaryAPI[]> = {};
 
   if (existsSync(dictionariesPath)) {

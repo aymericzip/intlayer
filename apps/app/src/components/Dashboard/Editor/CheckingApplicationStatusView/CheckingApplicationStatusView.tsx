@@ -1,0 +1,24 @@
+import { Container } from '@intlayer/design-system/container';
+import { Loader } from '@intlayer/design-system/loader';
+import type { FC } from 'react';
+import { useIntlayer } from 'react-intlayer';
+
+export const CheckingApplicationStatusView: FC = () => {
+  const { checkingApplicationStatus } = useIntlayer(
+    'checking-application-status-view'
+  );
+  return (
+    <div className="flex flex-1 items-center justify-center p-4">
+      <Container
+        className="flex max-w-xl flex-col items-center justify-center gap-4 rounded-2xl p-6"
+        padding="xl"
+        roundedSize="2xl"
+        border
+        borderColor="neutral"
+      >
+        <Loader />
+        <span className="ml-2">{checkingApplicationStatus}</span>
+      </Container>
+    </div>
+  );
+};

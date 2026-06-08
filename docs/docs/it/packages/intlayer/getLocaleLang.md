@@ -21,7 +21,7 @@ slugs:
 history:
   - version: 5.5.10
     date: 2025-06-29
-    changes: Storia iniziale
+    changes: "Storia iniziale"
 ---
 
 # Documentazione: Funzione `getLocaleLang` in `intlayer`
@@ -33,7 +33,6 @@ La funzione `getLocaleLang` estrae il codice della lingua da una stringa di loca
 ## Parametri
 
 - `locale?: Locales`
-
   - **Descrizione**: La stringa di localizzazione (ad esempio, `Locales.ENGLISH_UNITED_STATES`, `Locales.FRENCH_CANADA`) da cui viene estratto il codice della lingua.
   - **Tipo**: `Locales` (opzionale)
 
@@ -46,28 +45,9 @@ La funzione `getLocaleLang` estrae il codice della lingua da una stringa di loca
 
 ### Estrazione dei codici lingua:
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getLocaleLang, Locales } from "intlayer";
 
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
-getLocaleLang(Locales.ENGLISH); // Output: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // Output: "fr"
-getLocaleLang(Locales.FRENCH); // Output: "fr"
-```
-
-```javascript codeFormat="esm"
-import { getLocaleLang } from "intlayer";
-
-getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
-getLocaleLang(Locales.ENGLISH); // Output: "en"
-getLocaleLang(Locales.FRENCH_CANADA); // Output: "fr"
-getLocaleLang(Locales.FRENCH); // Output: "fr"
-```
-
-```javascript codeFormat="commonjs"
-const { getLocaleLang } = require("intlayer");
-
-// Nessuna localizzazione fornita:
 getLocaleLang(Locales.ENGLISH_UNITED_STATES); // Output: "en"
 getLocaleLang(Locales.ENGLISH); // Output: "en"
 getLocaleLang(Locales.FRENCH_CANADA); // Output: "fr"
@@ -77,7 +57,6 @@ getLocaleLang(Locales.FRENCH); // Output: "fr"
 ## Casi limite
 
 - **Nessuna localizzazione fornita:**
-
   - La funzione restituisce una stringa vuota quando `locale` è `undefined`.
 
 - **Stringhe di localizzazione malformate:**

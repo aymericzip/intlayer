@@ -5,7 +5,7 @@ import { useIntlayer } from 'react-intlayer';
 import { Select } from '../Select';
 
 export type NumberItemsSelectorProps = {
-  value: string;
+  value: string | number;
   onValueChange: (value: string) => void;
   min?: number;
   max?: number;
@@ -25,10 +25,8 @@ export const NumberItemsSelector: FC<NumberItemsSelectorProps> = ({
 
   return (
     <div className="flex items-center gap-2">
-      <span className="text-neutral-600 text-sm dark:text-neutral-400">
-        {numberItemsSelector}
-      </span>
-      <Select value={value} onValueChange={onValueChange}>
+      <span className="text-neutral text-sm">{numberItemsSelector}</span>
+      <Select value={value.toString()} onValueChange={onValueChange}>
         <Select.Trigger className="w-20">
           <Select.Value placeholder={selectPageSize} />
         </Select.Trigger>

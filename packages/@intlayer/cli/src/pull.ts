@@ -1,21 +1,23 @@
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { getIntlayerAPIProxy } from '@intlayer/api';
 import {
   type DictionaryStatus,
-  parallelize,
   writeContentDeclaration,
-} from '@intlayer/chokidar';
+} from '@intlayer/chokidar/build';
+import { logConfigDetails } from '@intlayer/chokidar/cli';
+import { parallelize } from '@intlayer/chokidar/utils';
+import * as ANSIColors from '@intlayer/config/colors';
+import { getAppLogger } from '@intlayer/config/logger';
 import {
-  ANSIColors,
   type GetConfigurationOptions,
-  getAppLogger,
   getConfiguration,
-  getProjectRequire,
-} from '@intlayer/config';
-import type { Dictionary } from '@intlayer/types';
+} from '@intlayer/config/node';
+import { getProjectRequire } from '@intlayer/config/utils';
+import type { Dictionary } from '@intlayer/types/dictionary';
+import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { PullLogger, type PullStatus } from './push/pullLog';
-import { checkCMSAuth } from './utils/checkAccess';
+import { checkCMSAuth, getAuthenticatedAPI } from './utils/checkAccess';
+import { selectCmsEnvironment } from './utils/selectCmsEnvironment';
 
 type PullOptions = {
   dictionaries?: string[];
@@ -35,16 +37,25 @@ type DictionariesStatus = {
  * with progress indicators and concurrency control.
  */
 export const pull = async (options?: PullOptions): Promise<void> => {
-  const appLogger = getAppLogger(options?.configOptions?.override);
+  const config = getConfiguration(options?.configOptions);
+  const appLogger = getAppLogger(config);
 
   try {
-    const config = getConfiguration(options?.configOptions);
+    logConfigDetails(options?.configOptions);
 
     const hasCMSAuth = await checkCMSAuth(config);
 
     if (!hasCMSAuth) return;
 
-    const intlayerAPI = getIntlayerAPIProxy(undefined, config);
+    const intlayerAPI = await getAuthenticatedAPI(config);
+
+    await selectCmsEnvironment(
+      options?.configOptions?.env,
+      intlayerAPI,
+      config
+    );
+
+    const unmergedDictionariesRecord = getUnmergedDictionaries(config);
 
     // Get remote update timestamps map
     const getDictionariesUpdateTimestampResult =
@@ -54,7 +65,7 @@ export const pull = async (options?: PullOptions): Promise<void> => {
       throw new Error('No distant dictionaries found');
     }
 
-    let distantDictionariesUpdateTimeStamp: Record<string, number> =
+    let distantDictionariesUpdateTimeStamp: Record<string, any> =
       getDictionariesUpdateTimestampResult.data;
 
     // Optional filtering by requested dictionaries
@@ -66,9 +77,22 @@ export const pull = async (options?: PullOptions): Promise<void> => {
       );
     }
 
+    // Filter by location
+    distantDictionariesUpdateTimeStamp = Object.fromEntries(
+      Object.entries(distantDictionariesUpdateTimeStamp).filter(([key]) => {
+        const localDictionaries = unmergedDictionariesRecord[key];
+        const location =
+          localDictionaries?.[0]?.location ??
+          config.dictionary?.location ??
+          'remote';
+
+        return location === 'remote' || location === 'hybrid';
+      })
+    );
+
     // Load local cached remote dictionaries (if any)
     const remoteDictionariesPath = join(
-      config.content.mainDir,
+      config.system.mainDir,
       'remote_dictionaries.cjs'
     );
     const requireFunction = config.build?.require ?? getProjectRequire();
@@ -81,8 +105,14 @@ export const pull = async (options?: PullOptions): Promise<void> => {
     // Determine which keys need fetching by comparing updatedAt with local cache
     const entries = Object.entries(distantDictionariesUpdateTimeStamp);
     const keysToFetch = entries
-      .filter(([key, remoteUpdatedAt]) => {
-        if (!remoteUpdatedAt) return true;
+      .filter(([key, remoteUpdatedAtValue]) => {
+        if (!remoteUpdatedAtValue) return true;
+
+        const remoteUpdatedAt =
+          typeof remoteUpdatedAtValue === 'object'
+            ? (remoteUpdatedAtValue as any).updatedAt
+            : remoteUpdatedAtValue;
+
         const local = (remoteDictionariesRecord as any)[key];
         if (!local) return true;
         const localUpdatedAtRaw = (local as any)?.updatedAt as
@@ -101,7 +131,12 @@ export const pull = async (options?: PullOptions): Promise<void> => {
       .map(([key]) => key);
 
     const cachedKeys = entries
-      .filter(([key, remoteUpdatedAt]) => {
+      .filter(([key, remoteUpdatedAtValue]) => {
+        const remoteUpdatedAt =
+          typeof remoteUpdatedAtValue === 'object'
+            ? (remoteUpdatedAtValue as any).updatedAt
+            : remoteUpdatedAtValue;
+
         const local = (remoteDictionariesRecord as any)[key];
         const localUpdatedAtRaw = (local as any)?.updatedAt as
           | number
@@ -188,6 +223,23 @@ export const pull = async (options?: PullOptions): Promise<void> => {
           throw new Error(
             `Dictionary ${statusObj.dictionaryKey} not found on remote`
           );
+        }
+
+        // Check if there is a local version of this dictionary that is hybrid
+        const localDictionaries =
+          unmergedDictionariesRecord[statusObj.dictionaryKey];
+        const localAndRemoteDictionary = localDictionaries?.find(
+          (d) => d.location === 'hybrid'
+        );
+
+        if (localAndRemoteDictionary) {
+          // We want to preserve the local properties but use the remote content
+          sourceDictionary = {
+            ...sourceDictionary,
+            location: 'hybrid',
+            filePath: localAndRemoteDictionary.filePath,
+            localId: localAndRemoteDictionary.localId,
+          };
         }
 
         // Now, write the dictionary to local file

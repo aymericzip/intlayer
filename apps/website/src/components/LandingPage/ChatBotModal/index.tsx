@@ -1,6 +1,8 @@
 'use client';
 
-import { Button, Loader, Modal } from '@intlayer/design-system';
+import { Button } from '@intlayer/design-system/button';
+import { Loader } from '@intlayer/design-system/loader';
+import { Modal } from '@intlayer/design-system/modal';
 import { Bot } from 'lucide-react';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, lazy, Suspense, useState } from 'react';

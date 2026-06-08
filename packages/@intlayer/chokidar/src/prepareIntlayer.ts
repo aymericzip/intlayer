@@ -1,14 +1,10 @@
 import { stat } from 'node:fs/promises';
 import { join } from 'node:path';
-import {
-  ANSIColors,
-  cacheDisk,
-  // checkVersionsConsistency,
-  colorize,
-  getAppLogger,
-} from '@intlayer/config';
+import * as ANSIColors from '@intlayer/config/colors';
+import { colorize, getAppLogger } from '@intlayer/config/logger';
 import packageJson from '@intlayer/config/package.json' with { type: 'json' };
-import type { IntlayerConfig } from '@intlayer/types';
+import { cacheDisk } from '@intlayer/config/utils';
+import type { IntlayerConfig } from '@intlayer/types/config';
 import { buildDictionary } from './buildIntlayerDictionary/buildIntlayerDictionary';
 import { writeRemoteDictionary } from './buildIntlayerDictionary/writeRemoteDictionary';
 import { cleanOutputDir } from './cleanOutputDir';
@@ -24,6 +20,7 @@ import {
 
 type PrepareIntlayerOptions = {
   clean?: boolean;
+  env?: 'prod' | 'dev';
   format?: ('cjs' | 'esm')[];
   forceRun?: boolean;
   cacheTimeoutMs?: number;
@@ -32,6 +29,7 @@ type PrepareIntlayerOptions = {
 
 const DEFAULT_PREPARE_INTLAYER_OPTIONS = {
   clean: false,
+  env: 'dev',
   format: ['cjs', 'esm'],
   cacheTimeoutMs: 1000 * 60 * 60, // 1 hour
 } satisfies PrepareIntlayerOptions;
@@ -43,7 +41,7 @@ export const prepareIntlayer = async (
   const appLogger = getAppLogger(configuration);
 
   const sentinelPath = join(
-    configuration.content.cacheDir,
+    configuration.system.cacheDir,
     'intlayer-prepared.lock'
   );
   // Clean output dir if the intlayer version has changed
@@ -67,11 +65,12 @@ export const prepareIntlayer = async (
     );
   } catch {}
 
-  const hasPluginLoadDictionaries = configuration.plugins?.some((plugin) =>
+  const resolvedPlugins = await Promise.all(configuration.plugins ?? []);
+  const hasPluginLoadDictionaries = resolvedPlugins.some((plugin) =>
     Boolean(plugin.loadDictionaries)
   ); // Disable cache if any plugin because it can have custom behavior
 
-  const { clean, format, forceRun, onIsCached, cacheTimeoutMs } = {
+  const { clean, format, forceRun, onIsCached, cacheTimeoutMs, env } = {
     ...DEFAULT_PREPARE_INTLAYER_OPTIONS,
     forceRun:
       !isCorrectVersion ||
@@ -140,13 +139,13 @@ export const prepareIntlayer = async (
                 ? [
                     `(Total: ${dictionariesLoadedTime - configurationWrittenTime}ms`,
                     dictionaries.localDictionaries.length > 0
-                      ? `- Local: ${dictionaries.time.localDictionaries}ms`
+                      ? ` - Local: ${dictionaries.time.localDictionaries}ms`
                       : '',
                     dictionaries.remoteDictionaries.length > 0
-                      ? `- Remote: ${dictionaries.time.remoteDictionaries}ms`
+                      ? ` - Remote: ${dictionaries.time.remoteDictionaries}ms`
                       : '',
                     dictionaries.pluginDictionaries.length > 0
-                      ? `- Plugin: ${dictionaries.time.pluginDictionaries}ms`
+                      ? ` - Plugin: ${dictionaries.time.pluginDictionaries}ms`
                       : '',
                     `)`,
                   ].join('')
@@ -168,8 +167,7 @@ export const prepareIntlayer = async (
           ...dictionaries.pluginDictionaries,
         ],
         configuration,
-        format,
-        false
+        { formats: format, importOtherDictionaries: false, env }
       );
 
       // Write remote dictionaries
@@ -179,13 +177,15 @@ export const prepareIntlayer = async (
         configuration
       );
 
-      const dictionariesPaths = Object.values(
+      const dictionariesToBuild = Object.values(
         dictionariesOutput?.mergedDictionaries ?? {}
-      ).map((dictionary) => dictionary.dictionaryPath);
+      ).map((dictionary) => dictionary.dictionary);
 
-      await createTypes(dictionariesPaths, configuration);
+      await createTypes(dictionariesToBuild, configuration);
 
-      await createDictionaryEntryPoint(configuration);
+      await createDictionaryEntryPoint(configuration, {
+        formats: options?.format,
+      });
 
       const dictionariesBuiltTime = Date.now();
 

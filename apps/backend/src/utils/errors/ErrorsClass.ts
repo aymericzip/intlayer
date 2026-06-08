@@ -1,6 +1,6 @@
 import { HttpStatusCodes } from '@utils/httpStatusCodes';
-// @ts-ignore express-intlayer not build yet
-import { type StrictModeLocaleMap, t } from 'express-intlayer';
+// @ts-ignore fastify-intlayer not build yet
+import { type StrictModeLocaleMap, t } from 'fastify-intlayer';
 import { type ErrorCodes, errorData } from './errorCodes';
 
 /**

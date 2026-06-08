@@ -17,8 +17,20 @@ slugs:
 
 # Uji terjemahan yang hilang
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test
+```
+
+```bash packageManager="bun"
+bun x intlayer content test
 ```
 
 ## Alias:
@@ -69,8 +81,20 @@ Total missing required locales: 0
 
 ## Contoh:
 
-```bash
+```bash packageManager="npm"
 npx intlayer content test --verbose
+```
+
+```bash packageManager="yarn"
+yarn intlayer content test --verbose
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer content test --verbose
+```
+
+```bash packageManager="bun"
+bun x intlayer content test --verbose
 ```
 
 Output membantu Anda dengan cepat mengidentifikasi terjemahan mana yang perlu diselesaikan agar aplikasi Anda berfungsi dengan baik di semua locale yang dikonfigurasi.

@@ -19,9 +19,12 @@ slugs:
   - intlayer
   - getLocaleName
 history:
+  - version: 7.5.0
+    date: 2025-12-18
+    changes: "Polyfills für React Native und ältere Umgebungen hinzufügen"
   - version: 5.5.10
     date: 2025-06-29
-    changes: Initialer Verlauf
+    changes: "Initialer Verlauf"
 ---
 
 # Dokumentation: `getLocaleName` Funktion in `intlayer`
@@ -33,7 +36,6 @@ Die Funktion `getLocaleName` gibt den lokalisierten Namen einer gegebenen Locale
 ## Parameter
 
 - `displayLocale: Locales`
-
   - **Beschreibung**: Die Locale, in der der Name der Ziel-Locale angezeigt wird.
   - **Typ**: Enum oder String, der gültige Locales repräsentiert.
 
@@ -48,50 +50,8 @@ Die Funktion `getLocaleName` gibt den lokalisierten Namen einer gegebenen Locale
 
 ## Beispielhafte Verwendung
 
-```typescript codeFormat="typescript"
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { Locales, getLocaleName } from "intlayer";
-
-getLocaleName(Locales.ENGLISH); // Ausgabe: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // Ausgabe: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // Ausgabe: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // Ausgabe: "English"
-
-getLocaleName(Locales.FRENCH); // Ausgabe: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // Ausgabe: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // Ausgabe: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // Ausgabe: "French"
-
-getLocaleName(Locales.CHINESE); // Ausgabe: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // Ausgabe: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Ausgabe: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Ausgabe: "Chinese"
-
-getLocaleName("unknown-locale"); // Ausgabe: "Unbekannte Locale"
-```
-
-```javascript codeFormat="esm"
-import { Locales, getLocaleName } from "intlayer";
-
-getLocaleName(Locales.ENGLISH); // Ausgabe: "English"
-getLocaleName(Locales.ENGLISH, Locales.FRENCH); // Ausgabe: "Anglais"
-getLocaleName(Locales.ENGLISH, Locales.ESPANOL); // Ausgabe: "Inglés"
-getLocaleName(Locales.ENGLISH, Locales.ENGLISH); // Ausgabe: "English"
-
-getLocaleName(Locales.FRENCH); // Ausgabe: "Français"
-getLocaleName(Locales.FRENCH, Locales.FRENCH); // Ausgabe: "Français"
-getLocaleName(Locales.FRENCH, Locales.ESPANOL); // Ausgabe: "Francés"
-getLocaleName(Locales.FRENCH, Locales.ENGLISH); // Ausgabe: "French"
-
-getLocaleName(Locales.CHINESE); // Ausgabe: "中文"
-getLocaleName(Locales.CHINESE, Locales.FRENCH); // Ausgabe: "Chinois"
-getLocaleName(Locales.CHINESE, Locales.ESPANOL); // Ausgabe: "Chino"
-getLocaleName(Locales.CHINESE, Locales.ENGLISH); // Ausgabe: "Chinese"
-
-getLocaleName("unknown-locale"); // Ausgabe: "Unbekannte Locale"
-```
-
-```javascript codeFormat="commonjs"
-const { Locales, getLocaleName } = require("intlayer");
 
 getLocaleName(Locales.ENGLISH); // Ausgabe: "English"
 getLocaleName(Locales.ENGLISH, Locales.FRENCH); // Ausgabe: "Anglais"
@@ -117,3 +77,17 @@ getLocaleName("unknown-locale"); // Ausgabe: "Unbekannte Locale"
   - Die Funktion gibt standardmäßig den eigenen Namen von `displayLocale` zurück.
 - **Fehlende Übersetzungen:**
   - Wenn `localeNameTranslations` keinen Eintrag für das `targetLocale` oder das spezifische `displayLocale` enthält, greift die Funktion auf den `ownLocalesName` zurück oder gibt `"Unbekannte Sprache"` zurück.
+
+## Polyfills für React Native und ältere Umgebungen
+
+Die Funktion `getLocaleName` basiert auf der `Intl.DisplayNames` API, die in React Native oder älteren JavaScript-Umgebungen nicht verfügbar ist. Wenn Sie `getLocaleName` in diesen Umgebungen verwenden, müssen Sie Polyfills hinzufügen.
+
+Importieren Sie die Polyfills früh in Ihrer Anwendung, idealerweise in Ihrer Einstiegspunktdatei (z. B. `index.js`, `App.tsx` oder `main.tsx`):
+
+```typescript
+import "intl";
+import "@formatjs/intl-locale/polyfill";
+import "@formatjs/intl-displaynames/polyfill";
+```
+
+Weitere Details finden Sie in der [FormatJS Polyfills-Dokumentation](https://formatjs.io/docs/polyfills/intl-displaynames/).

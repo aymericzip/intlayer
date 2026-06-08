@@ -1,9 +1,9 @@
+import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
-  Dictionary,
   DictionaryKeys,
   LocalesValues,
   StrictModeLocaleMap,
-} from '@intlayer/types';
+} from '@intlayer/types/module_augmentation';
 import type { MaybeRefOrGetter } from 'vue';
 import { useDictionaryAsync } from './useDictionaryAsync';
 
@@ -13,8 +13,8 @@ import { useDictionaryAsync } from './useDictionaryAsync';
  * If the locale is not provided, it will use the locale from the client context
  */
 export const useDictionaryDynamic = async <
-  T extends Dictionary,
-  K extends DictionaryKeys,
+  const T extends Dictionary,
+  const K extends DictionaryKeys,
 >(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   _key: K,

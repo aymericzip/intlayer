@@ -21,6 +21,7 @@ export const loaderContent = {
       pl: 'Animowana ikona oznaczająca, że strona przetwarza dane',
       id: 'Ikon animasi yang menunjukkan bahwa situs sedang memproses konten',
       vi: 'Biểu tượng động, biểu thị rằng trang web đang xử lý',
+      uk: 'Анімована іконка, що означає, що сайт обробляє дані',
     }),
   },
   title: 'Loader component',

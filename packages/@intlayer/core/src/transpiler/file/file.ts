@@ -1,10 +1,11 @@
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import { dirname, isAbsolute, relative, resolve } from 'node:path';
-import { colorizePath, getAppLogger } from '@intlayer/config';
-import { formatNodeType, NodeType, type TypedNodeModel } from '@intlayer/types';
+import { colorizePath, getAppLogger } from '@intlayer/config/logger';
+import type { TypedNodeModel } from '@intlayer/types/nodeType';
+import { FILE, formatNodeType } from '@intlayer/types/nodeType';
 
 export type FileContentConstructor<T extends Record<string, any> = {}> =
-  TypedNodeModel<NodeType.File, string, T>;
+  TypedNodeModel<typeof FILE, string, T>;
 
 export type FileContent = FileContentConstructor<{
   content: string;
@@ -36,25 +37,20 @@ export const fileContent = (
     try {
       const content = readFileSync(filePath, 'utf8');
 
-      return formatNodeType(NodeType.File, path, {
+      return formatNodeType(FILE, path, {
         content,
         fixedPath: relative(baseDir, filePath),
       });
     } catch {
-      appLogger(
-        `Unable to read path: ${colorizePath(relative(baseDir, filePath))}`,
-        { level: 'warn' }
+      throw new Error(
+        `Unable to read path: ${colorizePath(relative(baseDir, filePath))}`
       );
     }
   } else {
-    appLogger(`File not found: ${colorizePath(relative(baseDir, filePath))}`, {
-      level: 'warn',
-    });
+    throw new Error(
+      `File not found: ${colorizePath(relative(baseDir, filePath))}`
+    );
   }
-
-  return formatNodeType(NodeType.File, path, {
-    content: `-`,
-  });
 };
 
 type GlobalIntlayerFilePath = {
