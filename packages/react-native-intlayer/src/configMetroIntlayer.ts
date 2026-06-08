@@ -2,7 +2,6 @@ import { resolve as pathResolve } from 'node:path';
 import { prepareIntlayer } from '@intlayer/chokidar';
 import { getAlias, getConfiguration } from '@intlayer/config';
 import type { getDefaultConfig } from 'expo/metro-config';
-import { resolve } from 'metro-resolver';
 import { exclusionList } from './exclusionList';
 
 type MetroConfig = ReturnType<typeof getDefaultConfig>;
@@ -60,13 +59,11 @@ export const configMetroIntlayerSync = (
           };
         }
 
-        // Delegate to the default resolver to prevent infinite recursion
-        if (typeof (context as any).resolveRequest === 'function') {
-          return (context as any).resolveRequest(context, moduleName, ...args);
+        if (typeof context.resolveRequest === 'function') {
+          return context.resolveRequest(context, moduleName, ...args);
         }
 
-        // Fallback to metro-resolver when no default resolver is present
-        return resolve(context as any, moduleName, ...args);
+        throw new Error('Metro resolver context is missing resolveRequest');
       },
       blockList: exclusionList([
         ...[baseConfig?.resolver?.blockList ?? []].flat(),

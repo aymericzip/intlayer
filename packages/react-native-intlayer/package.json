@@ -100,7 +100,6 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "expo": "54.0.12",
-    "metro-resolver": "0.82.0",
     "react": ">=18.0.0",
     "rimraf": "6.1.2",
     "tsdown": "0.18.0",
@@ -109,7 +108,6 @@
   },
   "peerDependencies": {
     "expo": ">=52",
-    "metro-resolver": ">=0.80",
     "react": ">=18.0.0",
     "react-intlayer": "workspace:*"
   },
