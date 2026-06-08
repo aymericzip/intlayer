@@ -14,6 +14,12 @@ export function getRouter() {
     scrollRestoration: true,
     defaultPreload: 'intent',
     defaultPreloadStaleTime: 0,
+    // Pages are prerendered (SSG): their loader data is fixed at build time and
+    // embedded in the HTML. Treating it as permanently fresh stops the router
+    // from revalidating on mount during hydration — that post-hydration refetch
+    // is what surfaced the pending/loader flash. Content updates ship on the
+    // next deploy/prerender, so there is nothing to revalidate at runtime.
+    defaultStaleTime: Infinity,
     defaultNotFoundComponent: NotFoundComponent,
   });
 

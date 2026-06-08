@@ -28,5 +28,5 @@ export const SectionScroller = () => {
     return () => window.removeEventListener('hashchange', onHashChange);
   }, []);
 
-  return null;
+  return <></>;
 };

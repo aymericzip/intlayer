@@ -259,7 +259,7 @@ export default defineConfig(async ({ mode }) => {
         prerender: {
           enabled: true,
           crawlLinks: false,
-          concurrency: 10,
+          concurrency: 20,
         },
         pages: localizedPages,
       }),

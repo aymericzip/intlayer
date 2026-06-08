@@ -21,10 +21,7 @@ import type { FrameworkKey } from '~/components/I18nBenchmark';
 import { Link } from '~/components/Link/Link';
 import { TableOfContents } from '~/components/TableOfContents';
 import { ClickToOpenIframe } from './ClickToOpenIframe';
-
-const SectionScroller = lazy(() =>
-  import('./SectionScroller').then((mod) => ({ default: mod.SectionScroller }))
-);
+import { SectionScroller } from './SectionScroller';
 
 const I18nBenchmark = lazy(() =>
   import('~/components/I18nBenchmark').then((mod) => ({
@@ -112,9 +109,7 @@ export const DocumentationRender: FC<DocumentationRenderProps> = ({
         }}
         wrapper={(props) => (
           <>
-            <Suspense>
-              <SectionScroller />
-            </Suspense>
+            <SectionScroller />
             <div className="flex flex-col gap-8 py-10" {...props} />
           </>
         )}
