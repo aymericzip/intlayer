@@ -49,6 +49,16 @@
       "require": "./dist/cjs/routing.cjs",
       "import": "./dist/esm/routing.mjs"
     },
+    "./navigation": {
+      "types": "./dist/types/navigation/index.d.ts",
+      "require": "./dist/cjs/navigation/index.cjs",
+      "import": "./dist/esm/navigation/index.mjs"
+    },
+    "./middleware": {
+      "types": "./dist/types/middleware.d.ts",
+      "require": "./dist/cjs/middleware.cjs",
+      "import": "./dist/esm/middleware.mjs"
+    },
     "./plugin": {
       "types": "./dist/types/plugin/index.d.ts",
       "require": "./dist/cjs/plugin/index.cjs",
@@ -66,6 +76,12 @@
       ],
       "routing": [
         "./dist/types/routing.d.ts"
+      ],
+      "navigation": [
+        "./dist/types/navigation/index.d.ts"
+      ],
+      "middleware": [
+        "./dist/types/middleware.d.ts"
       ],
       "plugin": [
         "./dist/types/plugin/index.d.ts"

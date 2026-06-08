@@ -5,17 +5,19 @@
  * /[locale]/blog/slug.md               → 301 → /[locale]/blog/raw/slug
  * /[locale]/frequent-questions/slug.md → 301 → /[locale]/frequent-questions/raw/slug
  *
- * Uses a 301 permanent redirect so the /raw/ server.handlers serve the markdown
- * regardless of how TanStack Start resolves the rewritten path.
- * The <link rel="alternate" type="text/markdown"> head tag advertises the .md URL
- * to AI crawlers; they will follow the redirect transparently.
+ * Intentionally avoids importing from 'h3' — Nitro bundles h3 internally and
+ * provides a populated event at runtime. Using a structural type keeps this file
+ * runtime-agnostic and resolves without h3 in devDependencies.
  */
-import { defineEventHandler, sendRedirect } from 'h3';
+
+type H3EventLike = {
+  readonly path: string;
+};
 
 const MD_REWRITE_PATTERN =
   /^(\/[a-z]{2}(?:-[A-Z]{2})?)?\/(doc|blog|frequent-questions)\/(.+?)\.md(\?.*)?$/;
 
-export default defineEventHandler((event) => {
+export default (event: H3EventLike): Response | void => {
   const match = event.path.match(MD_REWRITE_PATTERN);
   if (!match) return;
 
@@ -24,5 +26,8 @@ export default defineEventHandler((event) => {
   const slug = match[3];
   const query = match[4] ?? '';
 
-  return sendRedirect(event, `${locale}/${section}/raw/${slug}${query}`, 301);
-});
+  return new Response(null, {
+    status: 301,
+    headers: { Location: `${locale}/${section}/raw/${slug}${query}` },
+  });
+};

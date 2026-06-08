@@ -7,7 +7,14 @@
  *   2. Removed blog pages → /blog
  *   3. App-domain shortcuts (/pricing, /dashboard, /admin, /auth/*)
  */
-import { defineEventHandler, sendRedirect } from 'h3';
+/**
+ * Intentionally avoids importing from 'h3' — Nitro bundles h3 internally and
+ * provides a populated event at runtime. Using a structural type keeps this file
+ * runtime-agnostic and resolves without h3 in devDependencies.
+ */
+type H3EventLike = {
+  readonly path: string;
+};
 
 const APP_DOMAIN = 'https://app.intlayer.org';
 
@@ -19,8 +26,10 @@ const LOCALE_RE = /^(\/[a-z]{2}(?:-[A-Z]{2})?)(\/.*|$)/;
  * Example: '/doc/foo'   → { locale: '',    rest: '/doc/foo' }
  */
 const parseLocale = (path: string): { locale: string; rest: string } => {
-  const m = path.match(LOCALE_RE);
-  return m ? { locale: m[1], rest: m[2] || '/' } : { locale: '', rest: path };
+  const match = path.match(LOCALE_RE);
+  return match
+    ? { locale: match[1], rest: match[2] || '/' }
+    : { locale: '', rest: path };
 };
 
 const REMOVED_BLOG_SLUGS = new Set([
@@ -30,56 +39,40 @@ const REMOVED_BLOG_SLUGS = new Set([
   '/blog/i18n-technologies/frameworks/flutter',
 ]);
 
-export default defineEventHandler((event) => {
+const redirect = (location: string): Response =>
+  new Response(null, { status: 301, headers: { Location: location } });
+
+export default (event: H3EventLike): Response | void => {
   const { locale, rest } = parseLocale(event.path);
 
   // ── 1. Doc pages that moved ────────────────────────────────────────────────
   if (rest === '/doc/environment/vite-and-react/tanstack-start') {
-    return sendRedirect(event, `${locale}/doc/environment/tanstack-start`, 301);
+    return redirect(`${locale}/doc/environment/tanstack-start`);
   }
 
   // ── 2. Removed blog pages ──────────────────────────────────────────────────
   if (REMOVED_BLOG_SLUGS.has(rest)) {
-    return sendRedirect(event, `${locale}/blog`, 301);
+    return redirect(`${locale}/blog`);
   }
 
   // ── 3. App-domain shortcuts ────────────────────────────────────────────────
-  // These send users to app.intlayer.org regardless of locale.
-  if (rest === '/pricing') {
-    return sendRedirect(event, `${APP_DOMAIN}/pricing`, 301);
-  }
-  if (rest === '/onboarding') {
-    return sendRedirect(event, `${APP_DOMAIN}/onboarding`, 301);
-  }
-  if (rest === '/auth/login') {
-    return sendRedirect(event, `${APP_DOMAIN}/auth/login`, 301);
-  }
-  if (rest === '/auth/register') {
-    return sendRedirect(event, `${APP_DOMAIN}/auth/register`, 301);
-  }
-  if (rest === '/auth/password/reset') {
-    return sendRedirect(event, `${APP_DOMAIN}/auth/password/reset`, 301);
-  }
-  if (rest === '/auth/password/change') {
-    return sendRedirect(event, `${APP_DOMAIN}/auth/password/change`, 301);
-  }
+  if (rest === '/pricing') return redirect(`${APP_DOMAIN}/pricing`);
+  if (rest === '/onboarding') return redirect(`${APP_DOMAIN}/onboarding`);
+  if (rest === '/auth/login') return redirect(`${APP_DOMAIN}/auth/login`);
+  if (rest === '/auth/register') return redirect(`${APP_DOMAIN}/auth/register`);
+  if (rest === '/auth/password/reset')
+    return redirect(`${APP_DOMAIN}/auth/password/reset`);
+  if (rest === '/auth/password/change')
+    return redirect(`${APP_DOMAIN}/auth/password/change`);
 
   // /dashboard → https://app.intlayer.org
   // /dashboard/:path* → https://app.intlayer.org/:path*
-  if (rest === '/dashboard') {
-    return sendRedirect(event, APP_DOMAIN, 301);
-  }
-  if (rest.startsWith('/dashboard/')) {
-    return sendRedirect(
-      event,
-      `${APP_DOMAIN}${rest.slice('/dashboard'.length)}`,
-      301
-    );
-  }
+  if (rest === '/dashboard') return redirect(APP_DOMAIN);
+  if (rest.startsWith('/dashboard/'))
+    return redirect(`${APP_DOMAIN}${rest.slice('/dashboard'.length)}`);
 
   // /admin → https://app.intlayer.org/admin
   // /admin/:path* → https://app.intlayer.org/admin/:path*
-  if (rest === '/admin' || rest.startsWith('/admin/')) {
-    return sendRedirect(event, `${APP_DOMAIN}${rest}`, 301);
-  }
-});
+  if (rest === '/admin' || rest.startsWith('/admin/'))
+    return redirect(`${APP_DOMAIN}${rest}`);
+};
