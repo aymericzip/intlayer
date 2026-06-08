@@ -1,5 +1,6 @@
 'use client';
 
+import { Container } from '@intlayer/design-system/container';
 import { Tag } from '@intlayer/design-system/tag';
 import { cn } from '@intlayer/design-system/utils';
 import Image from 'next/image';
@@ -19,7 +20,7 @@ import type { DomainData } from './types';
 //     </div>
 
 //     <div className="flex items-center gap-8">
-//       <div className="h-[180px] w-[300px] animate-pulse rounded-xl border-4 border-neutral bg-neutral/20" />
+//       <div className="h-45 w-75 animate-pulse rounded-xl border-4 border-neutral bg-neutral/20" />
 //       <div className="flex-1 space-y-3">
 //         <div className="h-7 w-3/4 animate-pulse rounded bg-neutral/20" />
 //         <div className="h-4 w-full animate-pulse rounded bg-neutral/20" />
@@ -93,19 +94,24 @@ export const AnalyzerSiteResults: FC<AnalyzerSiteResultsProps> = ({
 
       <div className="flex items-center gap-8">
         <Skeleton
-          className="h-[180px] w-[300px] max-w-[30vw] rounded-xl border-4"
+          className="h-45 w-75 max-w-[30vw] rounded-xl border-4"
           isLoading={isLoading && !domainData?.image}
           renderChildren={false}
         >
           {domainData?.image && (
-            <Image
-              src={domainData?.image}
-              alt={messages.websitePreview.value}
-              width={300}
-              height={180}
-              unoptimized
-              className="max-w-[30vw] rounded-xl border-4 border-neutral"
-            />
+            <Container
+              className="max-w-[30vw] bg-background"
+              border
+              borderColor="neutral"
+            >
+              <Image
+                src={domainData?.image}
+                alt={messages.websitePreview.value}
+                width={300}
+                height={180}
+                unoptimized
+              />
+            </Container>
           )}
         </Skeleton>
 

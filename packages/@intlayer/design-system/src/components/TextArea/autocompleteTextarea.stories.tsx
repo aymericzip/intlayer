@@ -686,7 +686,7 @@ export const EmailAssistant: Story = {
                 placeholder="Compose your email..."
                 autoSize={true}
                 maxRows={15}
-                className="min-h-[300px] w-full resize-none border-0 text-base leading-relaxed focus:outline-none focus:ring-0"
+                className="min-h-75 w-full resize-none border-0 text-base leading-relaxed focus:outline-none focus:ring-0"
                 variant="invisible"
               />
             </div>

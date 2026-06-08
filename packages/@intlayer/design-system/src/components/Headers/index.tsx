@@ -13,7 +13,7 @@ const styledAfter = `after:content-['#'] after:scale-75 after:px-6 after:text-ne
 const StyledH1: FC<HTMLAttributes<HTMLHeadingElement>> = ({
   className,
   ...props
-}) => <h1 className={cn('font-bold text-2xl', className)} {...props} />;
+}) => <h1 className={cn('font-bold text-3xl', className)} {...props} />;
 
 /**
  * Styled H2 Component

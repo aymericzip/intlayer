@@ -142,7 +142,7 @@ export const CustomStyling: Story = {
   args: {
     isLoading: true,
     className:
-      'min-h-[300px] bg-linear-to-br from-blue-50 to-indigo-100 rounded-lg border-2 border-blue-200',
+      'min-h-75 bg-linear-to-br from-blue-50 to-indigo-100 rounded-lg border-2 border-blue-200',
   },
   parameters: {
     docs: {
@@ -351,7 +351,7 @@ export const DataTableLoading: Story = {
       <div className="border-b bg-gray-50 px-6 py-4">
         <h3 className="font-semibold text-lg">User Management</h3>
       </div>
-      <Loader {...args} className="min-h-[300px]" isLoading={args.isLoading}>
+      <Loader {...args} className="min-h-75" isLoading={args.isLoading}>
         <div className="p-0">
           <table className="w-full">
             <thead className="bg-gray-50">

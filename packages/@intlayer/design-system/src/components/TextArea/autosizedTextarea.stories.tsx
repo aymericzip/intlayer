@@ -458,7 +458,7 @@ export const NoteTaking: Story = {
             placeholder="Start writing your notes..."
             autoSize={true}
             maxRows={25}
-            className="min-h-[300px] w-full resize-none border-0 font-mono text-sm leading-relaxed focus:outline-none focus:ring-0"
+            className="min-h-75 w-full resize-none border-0 font-mono text-sm leading-relaxed focus:outline-none focus:ring-0"
             variant="invisible"
           />
         </div>

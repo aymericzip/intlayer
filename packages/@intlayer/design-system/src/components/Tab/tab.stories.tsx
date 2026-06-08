@@ -645,7 +645,7 @@ In this guide, we'll explore how to create effective React components that are b
 4. **Performance Optimization**: Techniques for optimizing component performance
 
 Let's dive deeper into each of these concepts...`}
-                  className="min-h-[300px] w-full resize-none rounded-lg border border-gray-200 p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="min-h-75 w-full resize-none rounded-lg border border-gray-200 p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   onChange={(e) => {
                     const words = e.target.value.trim().split(/\s+/).length;
                     setWordCount(words);
