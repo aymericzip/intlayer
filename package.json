@@ -1,6 +1,6 @@
 {
   "name": "intlayer-monorepo",
-  "version": "8.12.2",
+  "version": "8.12.3",
   "private": false,
   "description": "Intlayer monorepo - Layer of abstraction between the business logic and the data access layer. Manage internationalization in a simple way, through TypeScript, JavaScript or JSON declaration file.",
   "homepage": "https://intlayer.org",
@@ -80,6 +80,9 @@
     "react": "19.2.7",
     "react-dom": "19.2.7"
   },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.2.8"
+  },
   "devDependencies": {
     "@biomejs/biome": "2.4.16",
     "@commitlint/cli": "21.0.2",
@@ -114,8 +117,5 @@
   },
   "bug": {
     "url": "https://github.com/aymericzip/intlayer/issues"
-  },
-  "dependencies": {
-    "@fontsource-variable/inter": "^5.2.8"
   }
 }
