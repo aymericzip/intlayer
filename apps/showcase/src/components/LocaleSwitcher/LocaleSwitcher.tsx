@@ -93,6 +93,7 @@ export const LocaleSwitcher: FC<LocaleSwitcherProps> = ({ panelProps }) => {
                       }
                       to={getLocalizedUrl(location.pathname, localeItem)}
                       aria-current={locale === localeItem ? 'true' : undefined}
+                      preload="viewport"
                       replace // Will ensure that the "go back" browser button will redirect to the previous page
                       onClick={() => setLocale(localeItem)}
                     >
