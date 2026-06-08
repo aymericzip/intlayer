@@ -224,6 +224,7 @@ export default defineConfig(async ({ mode }) => {
       intlayerProxy(),
       nitro({
         preset: 'bun',
+        serverDir: resolve(__dirname, 'server'),
         routeRules: {
           '/**': { headers },
           '/assets/**': {

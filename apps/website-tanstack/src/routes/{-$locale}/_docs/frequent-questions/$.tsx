@@ -59,6 +59,11 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
       ],
       links: [
         { rel: 'canonical', href: getAbsoluteUrl(url, locale) },
+        {
+          rel: 'alternate',
+          type: 'text/markdown',
+          href: `${getAbsoluteUrl(url, locale)}.md`,
+        },
         ...getHreflangLinks(url),
       ],
     };

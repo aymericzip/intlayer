@@ -83,12 +83,17 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
             ? docData.keywords.join(', ')
             : docData.keywords || '',
         },
-        { property: 'og:url', content: getAbsoluteUrl(absoluteUrl, locale) },
+        { property: 'og:url', content: getAbsoluteUrl(absoluteUrl) },
         { property: 'og:title', content: `${docData.title} | Intlayer` },
         { property: 'og:description', content: docData.description },
       ],
       links: [
-        { rel: 'canonical', href: getAbsoluteUrl(absoluteUrl, locale) },
+        { rel: 'canonical', href: getAbsoluteUrl(absoluteUrl) },
+        {
+          rel: 'alternate',
+          type: 'text/markdown',
+          href: `${getAbsoluteUrl(absoluteUrl)}.md`,
+        },
         ...getHreflangLinks(absoluteUrl),
       ],
     };

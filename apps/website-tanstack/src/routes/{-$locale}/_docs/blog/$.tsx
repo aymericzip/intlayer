@@ -95,12 +95,17 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
             ? keywords.join(', ')
             : keywords || '',
         },
-        { property: 'og:url', content: getAbsoluteUrl(absoluteUrl, locale) },
+        { property: 'og:url', content: getAbsoluteUrl(absoluteUrl) },
         { property: 'og:title', content: `${blogData.title} | Intlayer` },
         { property: 'og:description', content: blogData.description },
       ],
       links: [
-        { rel: 'canonical', href: getAbsoluteUrl(absoluteUrl, locale) },
+        { rel: 'canonical', href: getAbsoluteUrl(absoluteUrl) },
+        {
+          rel: 'alternate',
+          type: 'text/markdown',
+          href: `${getAbsoluteUrl(absoluteUrl)}.md`,
+        },
         ...getHreflangLinks(absoluteUrl),
       ],
       scripts: [
