@@ -1,4 +1,3 @@
-import { useRightDrawer } from '@intlayer/design-system/right-drawer';
 import {
   type FileContent,
   useEditedContentActions,
@@ -11,6 +10,7 @@ import type {
 } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import { useEffect } from 'react';
+import { useDashboardRightPanel } from '#hooks/useDashboardRightPanel';
 
 export const getDrawerIdentifier = (dictionaryKey: string) =>
   `dictionary_edition_${dictionaryKey}`;
@@ -33,7 +33,7 @@ export const useDictionaryEditionDrawer = (
     isOpen: isOpenDrawer,
     open: openDrawer,
     close: closeDrawer,
-  } = useRightDrawer();
+  } = useDashboardRightPanel();
   const { getEditedContentValue } = useEditedContentActions();
   const { focusedContent, setFocusedContent } = useFocusUnmergedDictionary();
 
@@ -48,7 +48,7 @@ export const useDictionaryEditionDrawer = (
     focusedContent,
     getEditedContentValue,
     close: () => {
-      closeDrawer(id);
+      closeDrawer();
 
       setFocusedContent(
         focusedContent?.dictionaryKey
