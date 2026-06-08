@@ -17,10 +17,18 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
     if (!exactMatch) {
       if (faqsData.length > 0) {
         throw redirect({
-          to: faqsData[0].relativeUrl as any,
+          to: `/{-$locale}${faqsData[0].relativeUrl}`,
+          params: {
+            locale,
+          },
         });
       }
-      throw redirect({ to: App_Home_Path as any });
+      throw redirect({
+        to: `/{-$locale}${App_Home_Path}`,
+        params: {
+          locale,
+        },
+      });
     }
 
     return {

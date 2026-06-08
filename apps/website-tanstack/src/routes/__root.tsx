@@ -23,8 +23,10 @@ interface MyRouterContext {
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   head: () => ({
-    title: 'i18n Solution & CMS for React, Next.js, Vue, Svelte | Intlayer',
     meta: [
+      {
+        title: 'i18n Solution & CMS for React, Next.js, Vue, Svelte | Intlayer',
+      },
       { charSet: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {

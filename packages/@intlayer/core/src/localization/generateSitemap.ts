@@ -100,7 +100,8 @@ export const generateSitemapUrl = (
     priority !== undefined ? `    <priority>${priority}</priority>` : null,
   ];
 
-  if (shouldIncludeAlternates(resolved.mode, xhtmlLinks)) {
+  const hasFileExtension = /\.[a-z0-9]+$/i.test(path);
+  if (shouldIncludeAlternates(resolved.mode, xhtmlLinks) && !hasFileExtension) {
     const alternates = getMultilingualUrls(
       path,
       routingOptions as RoutingOptions
@@ -108,12 +109,12 @@ export const generateSitemapUrl = (
 
     for (const [lang, localePath] of Object.entries(alternates)) {
       lines.push(
-        `    <xhtml:link rel="alternate" hrefLang="${lang}" href="${siteUrl}${localePath}"/>`
+        `    <xhtml:link rel="alternate" hreflang="${lang}" href="${siteUrl}${localePath}"/>`
       );
     }
 
     lines.push(
-      `    <xhtml:link rel="alternate" hrefLang="x-default" href="${fullUrl}"/>`
+      `    <xhtml:link rel="alternate" hreflang="x-default" href="${fullUrl}"/>`
     );
   }
 

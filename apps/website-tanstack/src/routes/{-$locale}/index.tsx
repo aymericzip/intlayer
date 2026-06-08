@@ -25,8 +25,8 @@ export const Route = createFileRoute('/{-$locale}/')({
     );
 
     return {
-      title: String(title),
       meta: [
+        { title: String(title) },
         { name: 'description', content: String(description) },
         {
           name: 'keywords',
