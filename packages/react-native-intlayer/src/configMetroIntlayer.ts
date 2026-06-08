@@ -3,7 +3,6 @@ import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { getConfiguration } from '@intlayer/config/node';
 import { getAlias } from '@intlayer/config/utils';
 import type { getDefaultConfig } from 'expo/metro-config';
-import { resolve } from 'metro-resolver';
 import { exclusionList } from './exclusionList';
 
 type MetroConfig = ReturnType<typeof getDefaultConfig>;
@@ -69,13 +68,11 @@ export const configMetroIntlayerSync = (
           };
         }
 
-        // Delegate to the user-provided resolver if present
-        if (existingResolveRequest) {
-          return existingResolveRequest(context, moduleName, ...args);
+        if (typeof context.resolveRequest === 'function') {
+          return context.resolveRequest(context, moduleName, ...args);
         }
 
-        // Fallback to metro-resolver
-        return resolve(context as any, moduleName, ...args);
+        throw new Error('Metro resolver context is missing resolveRequest');
       },
       blockList: exclusionList([
         ...existingPatterns,
