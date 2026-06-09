@@ -664,8 +664,24 @@ const rewriteUrl = (
   locale: Locale
 ): NextResponse => {
   const search = request.nextUrl.search;
+
+  // Next.js strips `basePath` from `request.nextUrl.pathname` before the
+  // middleware runs, so every path computed from it (e.g. `/en/about`) lacks
+  // the basePath prefix. When we pass that as an absolute path to `new URL`,
+  // it replaces the entire path after the origin, silently discarding the
+  // basePath (e.g. `new URL('/en/', 'http://host/weather/')` →
+  // `http://host/en/`). Prepending the configured basePath restores the
+  // correct mount-point so rewrites resolve under the app root.
+  const basePathValue = (basePath as string) || '';
+  const pathWithBase =
+    basePathValue && !newPath.startsWith(basePathValue)
+      ? `${basePathValue}${newPath}`
+      : newPath;
+
   const pathWithSearch =
-    search && !newPath.includes('?') ? `${newPath}${search}` : newPath;
+    search && !pathWithBase.includes('?')
+      ? `${pathWithBase}${search}`
+      : pathWithBase;
 
   const requestHeaders = new Headers(request.headers);
   setLocaleInStorageServer(locale, {
