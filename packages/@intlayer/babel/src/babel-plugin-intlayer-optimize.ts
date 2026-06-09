@@ -52,6 +52,17 @@ const DYNAMIC_IMPORT_FUNCTION = {
   useIntlayer: 'useDictionaryDynamic',
 } as const;
 
+type CallerName = (typeof CALLER_LIST)[number];
+type ImportMode = 'static' | 'dynamic' | 'fetch';
+
+/**
+ * Packages whose SSR dynamic helper should render synchronously with a static
+ * dictionary. Solid streaming SSR can hydrate static output reliably, while
+ * its dynamic resource path either suspends during hydration or serializes the
+ * full dictionary into HTML.
+ */
+const PACKAGE_SSR_DYNAMIC_STATIC_FALLBACK = new Set<string>(['solid-intlayer']);
+
 /**
  * Options for the optimization Babel plugin
  */
@@ -111,6 +122,10 @@ export type OptimizePluginOptions = {
    * Files list to traverse.
    */
   filesList: string[];
+  /**
+   * Whether the current transform is for an SSR bundle.
+   */
+  isServer?: boolean;
 };
 
 type State = PluginPass & {
@@ -123,6 +138,8 @@ type State = PluginPass & {
   _hasValidImport?: boolean;
   /** map from local identifier name to the imported intlayer func name ('useIntlayer' | 'getIntlayer') */
   _callerMap?: Map<string, (typeof CALLER_LIST)[number]>;
+  /** map from local identifier name to the intlayer package it was imported from */
+  _callerPackageMap?: Map<string, string>;
   /** whether the current file *is* the dictionaries entry file */
   _isDictEntry?: boolean;
   /** whether dynamic helpers are active for this file */
@@ -174,6 +191,46 @@ const computeImport = (
 
   return rel;
 };
+
+const getKeyFromArgument = (
+  arg: BabelTypes.Node | null | undefined,
+  t: typeof BabelTypes
+): string | undefined => {
+  if (arg && t.isStringLiteral(arg)) {
+    return arg.value;
+  }
+
+  if (
+    arg &&
+    t.isTemplateLiteral(arg) &&
+    arg.expressions.length === 0 &&
+    arg.quasis.length === 1
+  ) {
+    return arg.quasis[0]?.value.cooked ?? arg.quasis[0]?.value.raw;
+  }
+
+  return undefined;
+};
+
+const isCallerName = (name: string): name is CallerName =>
+  CALLER_LIST.includes(name as CallerName);
+
+const isDynamicPackage = (
+  packageName: string
+): packageName is (typeof PACKAGE_LIST_DYNAMIC)[number] =>
+  PACKAGE_LIST_DYNAMIC.includes(
+    packageName as (typeof PACKAGE_LIST_DYNAMIC)[number]
+  );
+
+const shouldUseStaticSsrDynamicFallback = (
+  callerPackage: string | undefined,
+  importMode: ImportMode | undefined,
+  opts: OptimizePluginOptions
+): boolean =>
+  opts.isServer === true &&
+  importMode === 'dynamic' &&
+  callerPackage !== undefined &&
+  PACKAGE_SSR_DYNAMIC_STATIC_FALLBACK.has(callerPackage);
 
 /**
  * Babel plugin that transforms Intlayer function calls and auto-imports dictionaries.
@@ -230,11 +287,11 @@ const computeImport = (
  * const content2 = getIntlayer(_dicHash);
  * ```
  *
- * ### Live Mode (`importMode = "live"`)
+ * ### Fetch Mode (`importMode = "fetch"`)
  *
- * Uses live-based dictionary loading for remote dictionaries:
+ * Uses fetch-based dictionary loading for remote dictionaries:
  *
- * **Output if `dictionaryModeMap` includes the key with "live" value:**
+ * **Output if `dictionaryModeMap` includes the key with "fetch" value:**
  * ```ts
  * import _dicHash from '../../.intlayer/dictionaries/app.json' with { type: 'json' };
  * import _dicHash_fetch from '../../.intlayer/fetch_dictionaries/app.mjs';
@@ -245,7 +302,7 @@ const computeImport = (
  * const content2 = getIntlayer(_dicHash);
  * ```
  *
- * > If `dictionaryModeMap` does not include the key with "live" value, the plugin will fallback to the dynamic impor
+ * > If `dictionaryModeMap` does not include the key with "fetch" value, the plugin will fallback to the dynamic import mode.
  *
  * ```ts
  * import _dicHash from '../../.intlayer/dictionaries/app.json' with { type: 'json' };
@@ -269,6 +326,7 @@ export const intlayerOptimizeBabelPlugin = (babel: {
       this._newStaticImports = new Map();
       this._newDynamicImports = new Map();
       this._callerMap = new Map();
+      this._callerPackageMap = new Map();
       this._isIncluded = true;
       this._hasValidImport = false;
       this._isDictEntry = false;
@@ -346,51 +404,13 @@ export const intlayerOptimizeBabelPlugin = (babel: {
 
           // Manual traversal to process imports and call expressions
           // This runs AFTER all other plugins' visitors have completed
-
-          // Pre-pass to determine if we should use dynamic helpers
-          let fileHasDynamicCall = false;
           programPath.traverse({
-            CallExpression(path) {
-              const callee = path.node.callee;
-
-              if (!t.isIdentifier(callee)) return;
-
-              const originalImportedName = state._callerMap?.get(callee.name);
-              if (originalImportedName !== 'useIntlayer') return;
-
-              const arg = path.node.arguments[0];
-              let key: string | undefined;
-              if (arg && t.isStringLiteral(arg)) {
-                key = arg.value;
-              } else if (
-                arg &&
-                t.isTemplateLiteral(arg) &&
-                arg.expressions.length === 0 &&
-                arg.quasis.length === 1
-              ) {
-                key = arg.quasis[0]?.value.cooked ?? arg.quasis[0]?.value.raw;
-              }
-              if (!key) return;
-              const dictionaryOverrideMode =
-                state.opts.dictionaryModeMap?.[key];
-
-              if (
-                dictionaryOverrideMode === 'dynamic' ||
-                dictionaryOverrideMode === 'fetch'
-              ) {
-                fileHasDynamicCall = true;
-              }
-            },
-          });
-
-          programPath.traverse({
-            /* Inspect every intlayer import */
+            /* Inspect every intlayer import before deciding helper rewrites. */
             ImportDeclaration(path) {
               const src = path.node.source.value;
 
               if (!PACKAGE_LIST.includes(src)) return;
 
-              // Mark that we do import from an intlayer package in this file
               state._hasValidImport = true;
 
               for (const spec of path.node.specifiers) {
@@ -400,20 +420,81 @@ export const intlayerOptimizeBabelPlugin = (babel: {
                   ? spec.imported.name
                   : (spec.imported as BabelTypes.StringLiteral).value;
 
-                if (CALLER_LIST.includes(importedName as any)) {
-                  state._callerMap?.set(
-                    spec.local.name,
-                    importedName as (typeof CALLER_LIST)[number]
-                  );
+                if (isCallerName(importedName)) {
+                  state._callerMap?.set(spec.local.name, importedName);
+                  state._callerPackageMap?.set(spec.local.name, src);
                 }
+              }
+            },
+          });
+
+          // Pre-pass to determine if dictionary-level overrides require the
+          // dynamic helper in an otherwise static file.
+          const packagesWithDynamicCall = new Set<string>();
+          const packagesWithFetchCall = new Set<string>();
+          programPath.traverse({
+            CallExpression(path) {
+              const callee = path.node.callee;
+
+              if (!t.isIdentifier(callee)) return;
+
+              const originalImportedName = state._callerMap?.get(callee.name);
+              if (originalImportedName !== 'useIntlayer') return;
+
+              const callerPackage = state._callerPackageMap?.get(callee.name);
+              if (!callerPackage) return;
+
+              const key = getKeyFromArgument(path.node.arguments[0], t);
+              if (!key) return;
+
+              const dictionaryOverrideMode =
+                state.opts.dictionaryModeMap?.[key];
+
+              if (dictionaryOverrideMode === 'dynamic') {
+                packagesWithDynamicCall.add(callerPackage);
+              } else if (dictionaryOverrideMode === 'fetch') {
+                packagesWithFetchCall.add(callerPackage);
+              }
+            },
+          });
+
+          programPath.traverse({
+            ImportDeclaration(path) {
+              const src = path.node.source.value;
+
+              if (!PACKAGE_LIST.includes(src)) return;
+
+              for (const spec of path.node.specifiers) {
+                if (!t.isImportSpecifier(spec)) continue;
+
+                const importedName = t.isIdentifier(spec.imported)
+                  ? spec.imported.name
+                  : (spec.imported as BabelTypes.StringLiteral).value;
+
+                if (!isCallerName(importedName)) continue;
 
                 const importMode = state.opts.importMode;
                 // Determine whether this import should use the dynamic helpers.
+                const packageHasDynamicCall = packagesWithDynamicCall.has(src);
+                const packageHasFetchCall = packagesWithFetchCall.has(src);
+                // A package import can be rewritten to only one helper. Fetch
+                // overrides therefore keep the dynamic helper for every
+                // useIntlayer call from that package in this file.
+                const shouldUseStaticFallback =
+                  !packageHasFetchCall &&
+                  shouldUseStaticSsrDynamicFallback(
+                    src,
+                    importMode === 'dynamic' || packageHasDynamicCall
+                      ? 'dynamic'
+                      : importMode,
+                    state.opts
+                  );
                 const shouldUseDynamicHelpers =
-                  (importMode === 'dynamic' ||
-                    importMode === 'fetch' ||
-                    fileHasDynamicCall) &&
-                  PACKAGE_LIST_DYNAMIC.includes(src as any);
+                  isDynamicPackage(src) &&
+                  (importMode === 'fetch' ||
+                    packageHasFetchCall ||
+                    ((importMode === 'dynamic' || packageHasDynamicCall) &&
+                      !shouldUseStaticFallback));
 
                 // Remember for later (CallExpression) whether we are using the dynamic helpers
 
@@ -435,9 +516,6 @@ export const intlayerOptimizeBabelPlugin = (babel: {
                 }
 
                 const newIdentifier = helperMap[importedName];
-
-                // Only rewrite when we actually have a mapping for the imported
-                // specifier (ignore unrelated named imports).
 
                 if (newIdentifier) {
                   // Keep the local alias intact (so calls remain `useIntlayer` /
@@ -462,29 +540,32 @@ export const intlayerOptimizeBabelPlugin = (babel: {
               // re-exports).
               state._hasValidImport = true;
 
-              const arg = path.node.arguments[0];
-              let key: string | undefined;
-              if (arg && t.isStringLiteral(arg)) {
-                key = arg.value;
-              } else if (
-                arg &&
-                t.isTemplateLiteral(arg) &&
-                arg.expressions.length === 0 &&
-                arg.quasis.length === 1
-              ) {
-                key = arg.quasis[0]?.value.cooked ?? arg.quasis[0]?.value.raw;
-              }
+              const key = getKeyFromArgument(path.node.arguments[0], t);
               if (!key) return;
 
+              const callerPackage = state._callerPackageMap?.get(callee.name);
               const importMode = state.opts.importMode;
               const isUseIntlayer = originalImportedName === 'useIntlayer';
-              const useDynamicHelpers = Boolean(state._useDynamicHelpers);
-
-              // Decide per-call mode: 'static' | 'dynamic' | 'fetch'
-              let perCallMode: 'static' | 'dynamic' | 'fetch' = 'static';
-
               const dictionaryOverrideMode =
                 state.opts.dictionaryModeMap?.[key];
+              const effectiveImportMode = dictionaryOverrideMode ?? importMode;
+              const packageHasFetchCall =
+                callerPackage !== undefined &&
+                packagesWithFetchCall.has(callerPackage);
+              const usesStaticSsrDynamicFallback =
+                isUseIntlayer &&
+                !packageHasFetchCall &&
+                shouldUseStaticSsrDynamicFallback(
+                  callerPackage,
+                  effectiveImportMode,
+                  state.opts
+                );
+              const useDynamicHelpers =
+                Boolean(state._useDynamicHelpers) &&
+                !usesStaticSsrDynamicFallback;
+
+              // Decide per-call mode: 'static' | 'dynamic' | 'fetch'
+              let perCallMode: ImportMode = 'static';
 
               if (isUseIntlayer && useDynamicHelpers) {
                 if (dictionaryOverrideMode) {
@@ -494,9 +575,13 @@ export const intlayerOptimizeBabelPlugin = (babel: {
                 } else if (importMode === 'fetch') {
                   perCallMode = 'fetch';
                 }
-              } else if (isUseIntlayer && !useDynamicHelpers) {
+              } else if (
+                isUseIntlayer &&
+                !useDynamicHelpers &&
+                !usesStaticSsrDynamicFallback
+              ) {
                 // If dynamic helpers are NOT active (global mode is static),
-                // we STILL might want to force dynamic/live for this specific call
+                // we STILL might want to force dynamic/fetch for this specific call
 
                 if (
                   dictionaryOverrideMode === 'dynamic' ||
@@ -509,7 +594,7 @@ export const intlayerOptimizeBabelPlugin = (babel: {
               let ident: BabelTypes.Identifier;
 
               if (perCallMode === 'fetch') {
-                // Use fetch dictionaries entry (live mode for selected keys)
+                // Use fetch dictionaries entry for selected keys
                 let dynamicIdent = state._newDynamicImports?.get(key);
 
                 if (!dynamicIdent) {
@@ -592,7 +677,7 @@ export const intlayerOptimizeBabelPlugin = (babel: {
             imports.push(importDeclarationNode);
           }
 
-          // Generate dynamic/fetch imports (for useIntlayer when using dynamic/live helpers)
+          // Generate dynamic/fetch imports (for useIntlayer when using dynamic/fetch helpers)
           for (const [key, ident] of state._newDynamicImports!) {
             const modeForThisIdent: 'dynamic' | 'fetch' = ident.name.endsWith(
               '_fetch'

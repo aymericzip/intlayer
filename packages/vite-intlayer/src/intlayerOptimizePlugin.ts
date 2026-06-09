@@ -578,7 +578,7 @@ export const intlayerOptimize = async (
           return true;
         },
 
-        transform: async (sourceCode, moduleId) => {
+        transform: async (sourceCode, moduleId, options) => {
           // Strip query parameters added by Vue/Svelte loaders
           // e.g. "HelloWorld.vue?vue&type=script&setup=true&lang.ts" → "HelloWorld.vue"
           const sourceFilePath = moduleId.split('?', 1)[0];
@@ -630,6 +630,7 @@ export const intlayerOptimize = async (
               filesList: transformableFilesList,
               replaceDictionaryEntry: true,
               dictionaryModeMap: dictionaryKeyToImportModeMap,
+              isServer: options?.ssr === true,
             }
           );
 
