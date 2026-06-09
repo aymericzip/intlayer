@@ -10,7 +10,7 @@ export const PromoCodesAdminSkeleton: FC<PromoCodesAdminSkeletonProps> = ({
   showToolBar = false,
 }) => (
   <div className="flex flex-1 flex-col items-center p-4">
-    <div className="flex size-full flex-1 flex-col gap-4 overflow-scroll">
+    <div className="flex size-full flex-1 flex-col gap-4">
       {showToolBar && (
         <div className="space-y-4">
           <div className="flex flex-col gap-4 sm:flex-row">

@@ -191,7 +191,7 @@ export const I18nBenchmark = ({
     isError,
   } = useQuery({
     queryKey: ['benchmarkData', framework, category],
-    queryFn: () => fetchBenchmarkData(framework, category),
+    queryFn: () => fetchBenchmarkData(framework, category as any),
     staleTime: 1000 * 60 * 60, // 1 hour
   });
 

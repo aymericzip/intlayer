@@ -70,7 +70,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
   },
   head: ({ loaderData }) => {
     if (!loaderData?.docData) return {};
-    const { docData, locale } = loaderData;
+    const { docData } = loaderData;
     const absoluteUrl = docData.url;
 
     return {
