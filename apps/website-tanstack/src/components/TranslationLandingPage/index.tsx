@@ -51,9 +51,7 @@ export const AiTranslationLandingCore: FC = () => {
   return (
     <div>
       {/* Hero Section with ambient effects */}
-      <Suspense>
-        <HeroSection />
-      </Suspense>
+      <HeroSection />
 
       {/* Providers Carousel */}
       <Suspense>

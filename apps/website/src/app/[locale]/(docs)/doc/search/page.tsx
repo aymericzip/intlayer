@@ -1,11 +1,10 @@
 import { SearchView } from '@components/DocPage/Search/SearchView';
 import { Container } from '@intlayer/design-system/container';
 import { H1 } from '@intlayer/design-system/headers';
-import { Loader } from '@intlayer/design-system/loader';
 import { WebsiteHeader } from '@structuredData/WebsiteHeader';
 import type { NextPageIntlayer } from 'next-intlayer';
 import { IntlayerServerProvider, useIntlayer } from 'next-intlayer/server';
-import { type FC, Suspense } from 'react';
+import type { FC } from 'react';
 
 const DocumentationSearchPageContent: FC = () => {
   const { title } = useIntlayer('doc-search-page');
@@ -15,9 +14,7 @@ const DocumentationSearchPageContent: FC = () => {
       <H1>{title}</H1>
       <div className="flex flex-1 flex-col items-baseline gap-10 p-10 md:mt-[10vh]">
         <Container className="mx-auto w-full max-w-4xl p-10" roundedSize="2xl">
-          <Suspense fallback={<Loader />}>
-            <SearchView />
-          </Suspense>
+          <SearchView />
         </Container>
       </div>
     </>

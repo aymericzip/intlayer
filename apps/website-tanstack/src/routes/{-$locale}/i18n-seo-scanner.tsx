@@ -1,7 +1,6 @@
 import { Website_Scanner } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayer } from 'intlayer';
-import { Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
 import { LocalizationAnalyzer } from '~/components/ScannerPage';
@@ -54,9 +53,7 @@ function AuditContent() {
           {title}
         </h1>
         <p className="max-w-2xl text-neutral leading-relaxed">{description}</p>
-        <Suspense>
-          <LocalizationAnalyzer />
-        </Suspense>
+        <LocalizationAnalyzer />
       </main>
     </div>
   );

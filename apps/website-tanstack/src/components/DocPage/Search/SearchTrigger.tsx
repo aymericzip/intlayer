@@ -4,14 +4,9 @@ import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { Search } from 'lucide-react';
-import { type FC, lazy, Suspense, useState } from 'react';
+import { type FC, Suspense, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
-
-// Lazily load the search view so its heavy dependencies (Fuse.js, search API,
-// doc metadata) are only fetched when the user opens the search modal.
-const SearchView = lazy(() =>
-  import('./SearchView').then((module) => ({ default: module.SearchView }))
-);
+import { SearchView } from './SearchView';
 
 type SearchTriggerProps = {
   isMini?: boolean;
@@ -71,12 +66,10 @@ export const SearchTrigger: FC<SearchTriggerProps> = ({ isMini = false }) => {
         isScrollable
       >
         {isModalOpen && (
-          <Suspense fallback={<Loader isLoading />}>
-            <SearchView
-              onClickLink={() => setIsModalOpen(false)}
-              isOpen={isModalOpen}
-            />
-          </Suspense>
+          <SearchView
+            onClickLink={() => setIsModalOpen(false)}
+            isOpen={isModalOpen}
+          />
         )}
       </Modal>
     </>

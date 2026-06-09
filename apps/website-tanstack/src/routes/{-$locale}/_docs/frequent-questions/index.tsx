@@ -119,18 +119,14 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/')({
   component: FrequentQuestionsPage,
 });
 
-function FrequentQuestionsPageTitle() {
-  const { h1 } = useIntlayer('frequent-questions-page');
-  return <h1 className="font-bold text-2xl">{h1}</h1>;
-}
-
 function FrequentQuestionsPage() {
   const { frequentQuestions } = Route.useLoaderData();
+  const { h1 } = useIntlayer('frequent-questions-page');
   const frequentQuestionsList = Object.values(frequentQuestions);
 
   return (
     <div className="m-auto flex max-w-2xl flex-col gap-10 p-10 text-center">
-      <FrequentQuestionsPageTitle />
+      <h1 className="font-bold text-2xl">{h1}</h1>
       <div className="flex flex-col gap-4 text-left">
         {frequentQuestionsList.map((frequentQuestion) => (
           <Link

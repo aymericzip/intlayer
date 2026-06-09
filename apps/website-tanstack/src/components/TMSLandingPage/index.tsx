@@ -40,9 +40,7 @@ export const TMSLandingPage: FC = () => {
     <div className="flex flex-col">
       {/* Hero Section */}
       <BackgroundLayout>
-        <Suspense>
-          <HeroSection />
-        </Suspense>
+        <HeroSection />
       </BackgroundLayout>
 
       {/* Pain Points Section */}
