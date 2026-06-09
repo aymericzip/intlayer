@@ -12,12 +12,12 @@ import { getPricing } from '~/utils/stripe';
 
 export const Route = createFileRoute('/{-$locale}/')({
   loader: async ({ params }) => {
-    const locale = params.locale ?? defaultLocale;
+    const { locale = defaultLocale } = params;
     const pricings = await getPricing();
     return { pricings, locale };
   },
   head: ({ params }) => {
-    const locale = params.locale ?? defaultLocale;
+    const { locale = defaultLocale } = params;
     const path = '/';
     const { title, description, keywords } = getIntlayer(
       'landing-metadata',

@@ -3,7 +3,7 @@ import { parseMarkdown } from 'react-intlayer/markdown';
 import { urlRenamer } from '~/utils/markdown';
 
 export const loadFaqPage = createServerFn()
-  .inputValidator((data: { locale: string; slugs: string[] }) => data)
+  .validator((data: { locale: string; slugs: string[] }) => data)
   .handler(async ({ data: { locale, slugs } }) => {
     const { getFrequentQuestion, getFrequentQuestionMetadataBySlug } =
       await import('@intlayer/docs');
@@ -28,7 +28,7 @@ export const loadFaqPage = createServerFn()
   });
 
 export const loadFaqRaw = createServerFn()
-  .inputValidator((data: { locale: string; slugs: string[] }) => data)
+  .validator((data: { locale: string; slugs: string[] }) => data)
   .handler(async ({ data: { locale, slugs } }) => {
     const { getFrequentQuestion, getFrequentQuestionMetadataBySlug } =
       await import('@intlayer/docs');
@@ -46,7 +46,7 @@ export const loadFaqRaw = createServerFn()
   });
 
 export const loadFaqIndex = createServerFn()
-  .inputValidator((data: { locale: string }) => data)
+  .validator((data: { locale: string }) => data)
   .handler(async ({ data: { locale } }) => {
     const { getFrequentQuestionMetadataRecord } = await import(
       '@intlayer/docs'

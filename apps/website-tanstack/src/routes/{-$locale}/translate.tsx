@@ -10,7 +10,7 @@ import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 
 export const Route = createFileRoute('/{-$locale}/translate')({
   head: ({ params }) => {
-    const locale = params.locale ?? defaultLocale;
+    const { locale = defaultLocale } = params;
     const path = Website_Translate;
     const { title, description, keywords } = getIntlayer(
       'translate-metadata',

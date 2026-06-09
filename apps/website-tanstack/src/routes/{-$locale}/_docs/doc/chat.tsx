@@ -5,7 +5,7 @@ import {
   Website_Doc_Search,
   Website_Home,
 } from '@intlayer/design-system/routes';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, defer } from '@tanstack/react-router';
 import { defaultLocale, getIntlayer, locales } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { ChatBot } from '~/components/ChatBot';
@@ -13,13 +13,14 @@ import { DocPageLayout } from '~/components/DocPage/DocPageLayout';
 import { loadNavData } from '~/serverFunctions/docs';
 
 export const Route = createFileRoute('/{-$locale}/_docs/doc/chat')({
-  loader: async ({ params }) => {
-    const locale = params.locale ?? defaultLocale;
-    const navData = await loadNavData({ data: { locale } });
-    return { locale, navData };
+  loader: ({ params }) => {
+    const { locale = defaultLocale } = params;
+    // The chat view is independent of the navigation tree, so stream the
+    // sidebar in via `defer` instead of blocking the route transition on it.
+    return { locale, navData: defer(loadNavData({ data: { locale } })) };
   },
   head: ({ params }) => {
-    const locale = params.locale ?? defaultLocale;
+    const { locale = defaultLocale } = params;
 
     const websiteContent = getIntlayer('website-structured-data', locale);
     const orgContent = getIntlayer('organization-structured-data', locale);

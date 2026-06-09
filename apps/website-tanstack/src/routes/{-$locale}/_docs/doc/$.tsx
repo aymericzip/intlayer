@@ -3,7 +3,7 @@ import {
   Website_Home,
   Website_Home_Path,
 } from '@intlayer/design-system/routes';
-import { createFileRoute, redirect } from '@tanstack/react-router';
+import { createFileRoute, defer, redirect } from '@tanstack/react-router';
 import { defaultLocale, getLocalizedUrl } from 'intlayer';
 import { DocHeader } from '~/components/DocPage/DocHeader/DocHeader';
 import { DocPageLayout } from '~/components/DocPage/DocPageLayout';
@@ -22,8 +22,8 @@ import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 
 export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
   loader: async ({ params }) => {
-    const locale = (params.locale as string) ?? defaultLocale;
-    const slugsStr = (params as any)['*'] || '';
+    const { locale = defaultLocale } = params;
+    const slugsStr = params['*'] || '';
     const slugs = slugsStr ? slugsStr.split('/') : [];
 
     const [result, navData] = await Promise.all([
@@ -70,6 +70,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
   },
   head: ({ loaderData }) => {
     if (!loaderData?.docData) return {};
+
     const { docData } = loaderData;
     const absoluteUrl = docData.url;
 

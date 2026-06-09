@@ -32,7 +32,7 @@ export const Route = createFileRoute('/{-$locale}/contributors')({
     return { contributors };
   },
   head: ({ params }) => {
-    const locale = params.locale ?? defaultLocale;
+    const { locale = defaultLocale } = params;
     const path = Website_Contributors;
     const { title, description, keywords } = getIntlayer(
       'contributors-metadata',

@@ -15,7 +15,7 @@ const formatDate = (dateStr: string): string =>
 
 export const Route = createFileRoute('/{-$locale}/_docs/terms-of-service')({
   loader: async ({ params }) => {
-    const locale = params.locale ?? defaultLocale;
+    const { locale = defaultLocale } = params;
     return loadLegalContent({
       data: { locale, docKey: './legal/en/terms_of_service.md' },
     });
@@ -23,7 +23,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/terms-of-service')({
   head: ({ loaderData, params }) => {
     if (!loaderData) return {};
     const { title, description, keywords, createdAt, updatedAt } = loaderData;
-    const locale = params.locale ?? defaultLocale;
+    const { locale = defaultLocale } = params;
     const path = Website_TermsOfService;
 
     const websiteContent = getIntlayer('website-structured-data', locale);

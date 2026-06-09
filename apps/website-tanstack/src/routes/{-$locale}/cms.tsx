@@ -17,7 +17,7 @@ export const Route = createFileRoute('/{-$locale}/cms')({
     return { pricings };
   },
   head: ({ params }) => {
-    const locale = params.locale ?? defaultLocale;
+    const { locale = defaultLocale } = params;
     const path = Website_CMS;
     const { title, description, keywords } = getIntlayer(
       'cms-metadata',

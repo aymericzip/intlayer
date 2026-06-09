@@ -1,7 +1,7 @@
 import { Container } from '@intlayer/design-system/container';
 import { H1 } from '@intlayer/design-system/headers';
 import { Loader } from '@intlayer/design-system/loader';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, defer } from '@tanstack/react-router';
 import { defaultLocale } from 'intlayer';
 import { Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -11,10 +11,11 @@ import { loadBlogNavData } from '~/serverFunctions/blog';
 import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 
 export const Route = createFileRoute('/{-$locale}/_docs/blog/search')({
-  loader: async ({ params }) => {
-    const locale = params.locale ?? defaultLocale;
-    const navData = await loadBlogNavData({ data: { locale } });
-    return { locale, navData };
+  loader: ({ params }) => {
+    const { locale = defaultLocale } = params;
+    // The search view is independent of the navigation tree, so stream the
+    // sidebar in via `defer` instead of blocking the route transition on it.
+    return { locale, navData: defer(loadBlogNavData({ data: { locale } })) };
   },
   head: () => ({
     title: 'Search Blog | Intlayer',

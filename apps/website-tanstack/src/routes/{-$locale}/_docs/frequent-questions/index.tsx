@@ -8,7 +8,6 @@ import {
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayer, locales } from 'intlayer';
 import { ArrowRight } from 'lucide-react';
-import { Suspense } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
 import { loadFaqIndex } from '~/serverFunctions/faq';
@@ -16,12 +15,12 @@ import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 
 export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/')({
   loader: async ({ params }) => {
-    const locale = params.locale ?? defaultLocale;
+    const { locale = defaultLocale } = params;
     const frequentQuestions = await loadFaqIndex({ data: { locale } });
     return { locale, frequentQuestions };
   },
   head: ({ params, loaderData }) => {
-    const locale = params.locale ?? defaultLocale;
+    const { locale = defaultLocale } = params;
     const path = Website_FrequentQuestions;
     const { title, description, keywords } = getIntlayer(
       'frequent-questions-page',
@@ -131,9 +130,7 @@ function FrequentQuestionsPage() {
 
   return (
     <div className="m-auto flex max-w-2xl flex-col gap-10 p-10 text-center">
-      <Suspense>
-        <FrequentQuestionsPageTitle />
-      </Suspense>
+      <FrequentQuestionsPageTitle />
       <div className="flex flex-col gap-4 text-left">
         {frequentQuestionsList.map((frequentQuestion) => (
           <Link

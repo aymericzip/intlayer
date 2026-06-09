@@ -71,7 +71,6 @@ export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
       }
     },
     enabled: Boolean(intlayerConfig && applicationURL),
-    staleTime: 30 * 1000, // Cache for 30 seconds
     retry: 1,
   });
 

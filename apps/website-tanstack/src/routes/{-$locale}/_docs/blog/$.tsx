@@ -5,7 +5,7 @@ import {
   Website_Home,
   Website_Home_Path,
 } from '@intlayer/design-system/routes';
-import { createFileRoute, redirect } from '@tanstack/react-router';
+import { createFileRoute, defer, redirect } from '@tanstack/react-router';
 import { defaultLocale, getIntlayer, getLocalizedUrl, locales } from 'intlayer';
 import { BlogPageLayout } from '~/components/BlogPage/BlogPageLayout';
 import { DocHeader } from '~/components/DocPage/DocHeader/DocHeader';
@@ -22,14 +22,15 @@ const formatDate = (dateStr: string): string =>
 
 export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
   loader: async ({ params }) => {
-    const locale = (params.locale as string) ?? defaultLocale;
+    const { locale = defaultLocale } = params;
     const slugsStr = (params as any)['*'] || '';
     const slugs = slugsStr ? slugsStr.split('/') : [];
 
-    const [result, navData] = await Promise.all([
-      loadBlogPage({ data: { locale, slugs } }),
-      loadBlogNavData({ data: { locale } }),
-    ]);
+    // Start both requests, but only block on the critical-path blog post. The
+    // navigation tree is streamed in via `defer` so it can't delay the main
+    // content paint.
+    const navDataPromise = loadBlogNavData({ data: { locale } });
+    const result = await loadBlogPage({ data: { locale, slugs } });
 
     const { exactMatch, blogsData, content } = result;
 
@@ -63,7 +64,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
       blogParsed,
       nextBlog,
       prevBlog,
-      navData,
+      navData: defer(navDataPromise),
     };
   },
   head: ({ loaderData }) => {

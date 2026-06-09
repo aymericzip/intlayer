@@ -7,7 +7,7 @@ export const Route = createFileRoute('/{-$locale}/blog/raw/$')({
     handlers: {
       GET: async ({ request, params }) => {
         try {
-          const locale = (params.locale as string) ?? defaultLocale;
+          const { locale = defaultLocale } = params;
           const slugsStr = (params as any)['*'] || '';
           const slugs = slugsStr ? slugsStr.split('/') : [];
 

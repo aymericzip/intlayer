@@ -7,7 +7,7 @@ import {
 import { urlRenamer } from '~/utils/markdown';
 
 export const loadDocPage = createServerFn()
-  .inputValidator((data: { locale: string; slugs: string[] }) => data)
+  .validator((data: { locale: string; slugs: string[] }) => data)
   .handler(async ({ data: { locale, slugs } }) => {
     const { getDoc, getDocMetadata, getDocMetadataBySlug } = await import(
       '@intlayer/docs'
@@ -49,11 +49,11 @@ export const loadDocPage = createServerFn()
   });
 
 export const loadNavData = createServerFn()
-  .inputValidator((data: { locale: string }) => data)
+  .validator((data: { locale: string }) => data)
   .handler(async ({ data: { locale } }) => getDocData(locale));
 
 export const loadDocRaw = createServerFn()
-  .inputValidator((data: { locale: string; slugs: string[] }) => data)
+  .validator((data: { locale: string; slugs: string[] }) => data)
   .handler(async ({ data: { locale, slugs } }) => {
     const { getDoc, getDocMetadata, getDocMetadataBySlug, getDocsKeys } =
       await import('@intlayer/docs');

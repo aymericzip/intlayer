@@ -24,7 +24,7 @@ const Editor = lazy(() =>
 
 export const Route = createFileRoute('/{-$locale}/_playground/playground')({
   head: ({ params }) => {
-    const locale = params.locale ?? defaultLocale;
+    const { locale = defaultLocale } = params;
     const path = Website_Playground;
     const { title, description, keywords } = getIntlayer(
       'playground-metadata',

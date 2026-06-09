@@ -2,7 +2,7 @@ import { createServerFn } from '@tanstack/react-start';
 import { parseMarkdown } from 'react-intlayer/markdown';
 
 export const loadLegalContent = createServerFn()
-  .inputValidator((data: { locale: string; docKey: string }) => data)
+  .validator((data: { locale: string; docKey: string }) => data)
   .handler(async ({ data: { locale, docKey } }) => {
     const { getLegal, getLegalMetadata } = await import('@intlayer/docs');
 

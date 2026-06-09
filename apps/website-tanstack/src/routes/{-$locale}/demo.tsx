@@ -11,7 +11,7 @@ import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 
 export const Route = createFileRoute('/{-$locale}/demo')({
   head: ({ params }) => {
-    const locale = params.locale ?? defaultLocale;
+    const { locale = defaultLocale } = params;
     const path = Website_Demo;
     const { title, description, keywords } = getIntlayer(
       'demo-metadata',

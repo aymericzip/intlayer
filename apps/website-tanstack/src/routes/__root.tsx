@@ -7,7 +7,6 @@ import {
   Scripts,
 } from '@tanstack/react-router';
 import { defaultLocale, getHTMLTextDir } from 'intlayer';
-import { Suspense } from 'react';
 import { IntlayerProvider } from 'react-intlayer';
 import { ChunkErrorListener } from '~/components/ChunkErrorListener';
 import { ServiceWorkerSubscriber } from '~/components/ServiceWorker/ServiceWorkerSubscriber';
@@ -119,9 +118,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
                   data-key={import.meta.env.VITE_AHREFS_KEY}
                 />
               )}
-              <FirstConsultationProvider>
-                <Suspense>{children}</Suspense>
-              </FirstConsultationProvider>
+              <FirstConsultationProvider>{children}</FirstConsultationProvider>
             </ReactQueryProvider>
           </AnimatePresenceProvider>
         </IntlayerProvider>

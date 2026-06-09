@@ -18,7 +18,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/privacy-notice.md')({
     handlers: {
       GET: async ({ params }) => {
         try {
-          const locale = params.locale ?? defaultLocale;
+          const { locale = defaultLocale } = params;
           const { file } = await loadLegalContent({
             data: { locale, docKey: './legal/en/privacy_notice.md' },
           });
@@ -37,7 +37,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/privacy-notice.md')({
       },
       HEAD: async ({ params }) => {
         try {
-          const locale = params.locale ?? defaultLocale;
+          const { locale = defaultLocale } = params;
           await loadLegalContent({
             data: { locale, docKey: './legal/en/privacy_notice.md' },
           });

@@ -7,7 +7,7 @@ import {
 import { urlRenamer } from '~/utils/markdown';
 
 export const loadBlogPage = createServerFn()
-  .inputValidator((data: { locale: string; slugs: string[] }) => data)
+  .validator((data: { locale: string; slugs: string[] }) => data)
   .handler(async ({ data: { locale, slugs } }) => {
     const { getBlog, getBlogMetadataBySlug } = await import('@intlayer/docs');
 
@@ -40,7 +40,7 @@ export const loadBlogPage = createServerFn()
   });
 
 export const loadBlogRaw = createServerFn()
-  .inputValidator((data: { locale: string; slugs: string[] }) => data)
+  .validator((data: { locale: string; slugs: string[] }) => data)
   .handler(async ({ data: { locale, slugs } }) => {
     const { getBlog, getBlogMetadataBySlug } = await import('@intlayer/docs');
 
@@ -61,5 +61,5 @@ export const loadBlogRaw = createServerFn()
   });
 
 export const loadBlogNavData = createServerFn()
-  .inputValidator((data: { locale: string }) => data)
+  .validator((data: { locale: string }) => data)
   .handler(async ({ data: { locale } }) => getBlogData(locale));

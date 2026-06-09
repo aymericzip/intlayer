@@ -7,7 +7,7 @@ import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 
 export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
   loader: async ({ params }) => {
-    const locale = (params.locale as string) ?? defaultLocale;
+    const { locale = defaultLocale } = params;
     const slugsStr = (params as any)['*'] || '';
     const slugs = slugsStr ? slugsStr.split('/') : [];
 

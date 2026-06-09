@@ -16,7 +16,7 @@ export const Route = createFileRoute('/{-$locale}/tms')({
     return { pricings };
   },
   head: ({ params }) => {
-    const locale = params.locale ?? defaultLocale;
+    const { locale = defaultLocale } = params;
     const path = Website_TMS;
     const { title, description, keywords } = getIntlayer(
       'tms-metadata',
