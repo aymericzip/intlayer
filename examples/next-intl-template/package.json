@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@intlayer/ai": "workspace:*",
+    "@intlayer/swc": "^8.12.3",
     "@tailwindcss/postcss": "4.3.0",
     "@types/node": "25.9.2",
     "@types/react": "19.2.17",
