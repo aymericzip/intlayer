@@ -74,8 +74,7 @@ const noPrefix =
 const prefixDefault =
   !(
     process.env['INTLAYER_ROUTING_MODE'] &&
-    process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-all' &&
-    process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-no-default'
+    process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-all'
   ) && effectiveMode === 'prefix-all';
 
 const internalPrefix = !noPrefix;
@@ -302,7 +301,6 @@ const handleNoPrefix = (
 
     let locale = (localLocale ??
       (isExistingValid ? (existingLocale as Locale) : undefined) ??
-      localLocale ??
       localeDetector?.(request) ??
       defaultLocale) as Locale;
 
@@ -372,7 +370,7 @@ const handleNoPrefix = (
  * @returns - The locale found in the pathname, or undefined if not found.
  */
 const getPathLocale = (pathname: string): Locale | undefined =>
-  (locales as Locale[]).find(
+  (locales as Locale[] | undefined)?.find(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
 
@@ -425,7 +423,7 @@ const handleMissingPathLocale = (
     localeDetector?.(request) ??
     defaultLocale) as Locale;
 
-  if (!(locales as Locale[]).includes(locale)) {
+  if (!locales?.includes(locale as Locale)) {
     locale = defaultLocale as Locale;
   }
 
@@ -552,55 +550,34 @@ const handleDefaultLocaleRedirect = (
   pathLocale: Locale,
   canonicalPath: string // Internal path (e.g. /about)
 ): NextResponse => {
-  if (!prefixDefault && pathLocale === defaultLocale) {
-    // Redirect to remove prefix
-    // We use canonicalPath because in no-prefix default mode, the URL is usually just the path
-    // But wait, if we are in this function, the URL *has* a prefix.
-    // We want to redirect to /about (localized for EN).
+  // Always called with !prefixDefault && pathLocale === defaultLocale (pre-validated by caller).
+  // Redirect to strip the default-locale prefix from the URL.
+  const targetLocalizedPathResult = getLocalizedPath(
+    canonicalPath,
+    pathLocale,
+    rewriteRules
+  );
+  const targetLocalizedPath =
+    typeof targetLocalizedPathResult === 'string'
+      ? targetLocalizedPathResult
+      : targetLocalizedPathResult.path;
 
-    const targetLocalizedPathResult = getLocalizedPath(
-      canonicalPath,
-      pathLocale,
-      rewriteRules
-    );
-    const targetLocalizedPath =
-      typeof targetLocalizedPathResult === 'string'
-        ? targetLocalizedPathResult
-        : targetLocalizedPathResult.path;
+  const basePathValue = (basePath as string) || '';
+  const basePathTrailingSlash = basePathValue.endsWith('/');
+  let finalPath = targetLocalizedPath;
+  if (finalPath.startsWith('/')) finalPath = finalPath.slice(1);
 
-    // Construct path without prefix
-    const basePathTrailingSlash = (basePath as string).endsWith('/');
-    let finalPath = targetLocalizedPath;
-    if (finalPath.startsWith('/')) finalPath = finalPath.slice(1);
-
-    const fullPath = `${basePath}${basePathTrailingSlash ? '' : '/'}${finalPath}`;
-
-    const searchWithLocale = appendLocaleSearchIfNeeded(
-      request.nextUrl.search,
-      pathLocale
-    );
-
-    return redirectUrl(
-      request,
-      fullPath + (searchWithLocale ?? request.nextUrl.search ?? '')
-    );
-  }
+  const fullPath = `${basePathValue}${basePathTrailingSlash ? '' : '/'}${finalPath}`;
 
   const searchWithLocale = appendLocaleSearchIfNeeded(
     request.nextUrl.search,
     pathLocale
   );
 
-  // If no redirect needed, we rewrite to the internal canonical path
-  const internalPath = internalPrefix
-    ? `/${pathLocale}${canonicalPath}`
-    : canonicalPath;
-
-  const rewriteTarget = searchWithLocale
-    ? `${internalPath}${searchWithLocale}`
-    : `${internalPath}${request.nextUrl.search ?? ''}`;
-
-  return rewriteUrl(request, rewriteTarget, pathLocale);
+  return redirectUrl(
+    request,
+    fullPath + (searchWithLocale ?? request.nextUrl.search ?? '')
+  );
 };
 
 /**
@@ -636,7 +613,9 @@ const constructPath = (
     ) &&
       effectiveMode === 'search-params')
   ) {
-    return `${pathWithoutPrefix}${search ? `?${search}` : ''}`;
+    // `search` is either undefined or already has a leading '?' (from
+    // appendLocaleSearchIfNeeded / request.nextUrl.search), so append as-is.
+    return `${pathWithoutPrefix}${search ?? ''}`;
   }
 
   // Prefix handling
@@ -644,8 +623,9 @@ const constructPath = (
     ? path
     : `${locale}${path.startsWith('/') ? '' : '/'}${path}`;
 
-  const basePathTrailingSlash = basePath.endsWith('/');
-  const newPath = `${basePath}${basePathTrailingSlash ? '' : '/'}${pathWithLocalePrefix}`;
+  const basePathValue = basePath || '';
+  const basePathTrailingSlash = basePathValue.endsWith('/');
+  const newPath = `${basePathValue}${basePathTrailingSlash ? '' : '/'}${pathWithLocalePrefix}`;
 
   // Clean double slashes
   const cleanPath = newPath.replace(/\/+/g, '/');

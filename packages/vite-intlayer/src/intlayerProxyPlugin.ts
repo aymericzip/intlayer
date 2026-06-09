@@ -105,8 +105,7 @@ export const createIntlayerProxyHandler = (
   const prefixDefault =
     !(
       process.env['INTLAYER_ROUTING_MODE'] &&
-      process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-all' &&
-      process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-no-default'
+      process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-all'
     ) && mode === 'prefix-all';
 
   const rewriteRules =

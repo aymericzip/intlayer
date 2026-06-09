@@ -917,4 +917,138 @@ describe('intlayerProxy', () => {
       expect(getResponseSearch(result)).toBe('?q=1');
     });
   });
+
+  // ── env-var INTLAYER_ROUTING_MODE override ──────────────────────────────────
+  // The INTLAYER_ROUTING_MODE env var should suppress the corresponding flag even
+  // when the config file says something different. The bug: the old prefixDefault
+  // guard included `!== 'prefix-no-default'` in the AND-chain, which meant
+  // INTLAYER_ROUTING_MODE=prefix-no-default incorrectly left prefixDefault=true
+  // when routing.mode=prefix-all in the config.
+
+  describe('INTLAYER_ROUTING_MODE env var overrides config mode', () => {
+    beforeAll(async () => {
+      mockConfig.internationalization = {
+        locales: ['en', 'fr', 'es'],
+        defaultLocale: 'en',
+      };
+      // Config says prefix-all, but env var says prefix-no-default.
+      mockConfig.routing = {
+        basePath: '',
+        mode: 'prefix-all',
+        rewrite: undefined,
+        domains: undefined,
+      };
+      process.env['INTLAYER_ROUTING_MODE'] = 'prefix-no-default';
+      await reimportProxy();
+    });
+
+    afterAll(() => {
+      delete process.env['INTLAYER_ROUTING_MODE'];
+    });
+
+    beforeEach(restorePathMocks);
+
+    it('redirects /en/about to /about when env var is prefix-no-default (even though config is prefix-all)', () => {
+      // Bug: prefixDefault stayed true → /en/about would pass through (next()).
+      // Fix: prefixDefault is correctly false → /en/about redirects to strip the prefix.
+      const result = intlayerProxy(makeRequest('/en/about'));
+      expect(result.__type).toBe('redirect');
+      expect(getResponsePathname(result)).toBe('/about');
+    });
+
+    it('still rewrites /about to /en/about when no stored locale (prefix-no-default semantics)', () => {
+      const result = intlayerProxy(makeRequest('/about'));
+      expect(result.__type).toBe('rewrite');
+      expect(getResponsePathname(result)).toBe('/en/about');
+    });
+  });
+
+  // ── missing / malformed config ──────────────────────────────────────────────
+  // When the built intlayer config is missing or incomplete, module-level values
+  // like `locales` can be undefined. The proxy must not crash in those cases.
+
+  describe('missing config (locales = undefined)', () => {
+    beforeAll(async () => {
+      mockConfig.internationalization = {
+        locales: undefined as unknown as string[],
+        defaultLocale: 'en',
+      };
+      mockConfig.routing = {
+        basePath: '',
+        mode: 'prefix-no-default',
+        rewrite: undefined,
+        domains: undefined,
+      };
+      await reimportProxy();
+    });
+
+    afterAll(() => {
+      mockConfig.internationalization = {
+        locales: ['en', 'fr', 'es'],
+        defaultLocale: 'en',
+      };
+    });
+
+    beforeEach(restorePathMocks);
+
+    it('does not crash on getPathLocale when locales is undefined', () => {
+      // Previously (locales as Locale[]).find() threw TypeError.
+      expect(() => intlayerProxy(makeRequest('/fr/about'))).not.toThrow();
+    });
+
+    it('does not crash on handleMissingPathLocale when locales is undefined', () => {
+      // Previously (locales as Locale[]).includes() threw TypeError.
+      expect(() => intlayerProxy(makeRequest('/about'))).not.toThrow();
+    });
+  });
+
+  // ── basePath = undefined ────────────────────────────────────────────────────
+  // When routing.basePath is not set in the config (undefined), the proxy should
+  // behave like basePath=''. Previously (basePath as string).endsWith('/') in
+  // handleDefaultLocaleRedirect would throw TypeError when basePath was undefined.
+
+  describe('basePath = undefined (prefix-no-default)', () => {
+    beforeAll(async () => {
+      mockConfig.internationalization = {
+        locales: ['en', 'fr', 'es'],
+        defaultLocale: 'en',
+      };
+      mockConfig.routing = {
+        basePath: undefined as unknown as string,
+        mode: 'prefix-no-default',
+        rewrite: undefined,
+        domains: undefined,
+      };
+      await reimportProxy();
+    });
+
+    afterAll(() => {
+      mockConfig.routing = {
+        basePath: '',
+        mode: 'prefix-no-default',
+        rewrite: undefined,
+        domains: undefined,
+      };
+    });
+
+    beforeEach(restorePathMocks);
+
+    it('does not crash when stripping default locale prefix (/en/about → /about)', () => {
+      // Previously (basePath as string).endsWith('/') threw TypeError when basePath
+      // was undefined in handleDefaultLocaleRedirect.
+      expect(() => intlayerProxy(makeRequest('/en/about'))).not.toThrow();
+    });
+
+    it('redirects /en/about to /about without basePath prefix', () => {
+      const result = intlayerProxy(makeRequest('/en/about'));
+      expect(result.__type).toBe('redirect');
+      expect(getResponsePathname(result)).toBe('/about');
+    });
+
+    it('rewrites /about to /en/about internally when no stored locale', () => {
+      const result = intlayerProxy(makeRequest('/about'));
+      expect(result.__type).toBe('rewrite');
+      expect(getResponsePathname(result)).toBe('/en/about');
+    });
+  });
 });
