@@ -1,3 +1,4 @@
+import { normalizePath } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { PluginOption } from 'vite';
 
@@ -6,6 +7,7 @@ export const intlayerVueAsyncPlugin = (
   filesList: string[]
 ): PluginOption => {
   const { optimize } = configuration.build;
+  const normalizedFilesList = filesList.map(normalizePath);
   const importMode =
     configuration.build.importMode ?? configuration.dictionary?.importMode;
 
@@ -42,9 +44,9 @@ export const intlayerVueAsyncPlugin = (
        *
        * Prevention for virtual file
        */
-      const filename = id.split('?', 1)[0];
+      const filename = normalizePath(id.split('?', 1)[0] ?? id);
 
-      if (!filesList.includes(filename)) return null;
+      if (!normalizedFilesList.includes(filename)) return null;
 
       // Check if the file actually uses the composable to avoid unnecessary work
       if (!code.includes('useIntlayer')) return null;

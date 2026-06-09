@@ -281,9 +281,12 @@ export const intlayerOptimizeBabelPlugin = (babel: {
       }
 
       // If filesList is provided, check if current file is included
-      const filename = this.file.opts.filename;
+      const filename = this.file.opts.filename
+        ? normalizePath(this.file.opts.filename)
+        : undefined;
       if (this.opts.filesList && filename) {
-        const isIncluded = this.opts.filesList.includes(filename);
+        const filesList = this.opts.filesList.map(normalizePath);
+        const isIncluded = filesList.includes(filename);
 
         if (!isIncluded) {
           // Force _isIncluded to false to skip processing
@@ -298,13 +301,18 @@ export const intlayerOptimizeBabelPlugin = (babel: {
       Program: {
         enter(programPath, state) {
           // Safe access to filename
-          const filename = state.file.opts.filename;
+          const filename = state.file.opts.filename
+            ? normalizePath(state.file.opts.filename)
+            : undefined;
+          const dictionariesEntryPath = state.opts.dictionariesEntryPath
+            ? normalizePath(state.opts.dictionariesEntryPath)
+            : undefined;
 
           // Check if this is the correct file to transform
 
           if (
             state.opts.replaceDictionaryEntry &&
-            filename === state.opts.dictionariesEntryPath
+            filename === dictionariesEntryPath
           ) {
             state._isDictEntry = true;
 

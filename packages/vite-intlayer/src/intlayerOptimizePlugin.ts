@@ -23,6 +23,7 @@ import {
   colorizeNumber,
   getAppLogger,
 } from '@intlayer/config/logger';
+import { normalizePath } from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
@@ -75,17 +76,18 @@ export const intlayerOptimize = async (
       baseDir,
     } = intlayerConfig.system;
 
-    const dictionariesEntryPath = join(mainDir, 'dictionaries.mjs');
-    const unmergedDictionariesEntryPath = join(
-      mainDir,
-      'unmerged_dictionaries.mjs'
+    const dictionariesEntryPath = normalizePath(
+      join(mainDir, 'dictionaries.mjs')
     );
-    const dynamicDictionariesEntryPath = join(
-      mainDir,
-      'dynamic_dictionaries.mjs'
+    const unmergedDictionariesEntryPath = normalizePath(
+      join(mainDir, 'unmerged_dictionaries.mjs')
+    );
+    const dynamicDictionariesEntryPath = normalizePath(
+      join(mainDir, 'dynamic_dictionaries.mjs')
     );
 
-    const componentFilesList = buildComponentFilesList(intlayerConfig);
+    const componentFilesList =
+      buildComponentFilesList(intlayerConfig).map(normalizePath);
 
     const transformableFilesList = [
       ...componentFilesList,
@@ -581,7 +583,9 @@ export const intlayerOptimize = async (
         transform: async (sourceCode, moduleId) => {
           // Strip query parameters added by Vue/Svelte loaders
           // e.g. "HelloWorld.vue?vue&type=script&setup=true&lang.ts" → "HelloWorld.vue"
-          const sourceFilePath = moduleId.split('?', 1)[0];
+          const sourceFilePath = normalizePath(
+            moduleId.split('?', 1)[0] ?? moduleId
+          );
 
           if (!SOURCE_FILE_REGEX.test(sourceFilePath)) return null;
           if (!transformableFilesList.includes(sourceFilePath)) return null;

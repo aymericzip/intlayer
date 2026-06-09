@@ -22,6 +22,7 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
+import { normalizePath } from '@intlayer/config/utils';
 import type { CompilerConfig, IntlayerConfig } from '@intlayer/types/config';
 import type { HmrContext, PluginOption } from 'vite';
 
@@ -142,7 +143,8 @@ export const intlayerCompiler = (
    * Build the list of files to transform based on configuration patterns
    */
   const buildFilesListFn = async (): Promise<void> => {
-    filesList = compilerConfig.filesList;
+    // Normalize to POSIX so comparisons match on Windows.
+    filesList = (compilerConfig.filesList ?? []).map(normalizePath);
   };
 
   /**
@@ -213,8 +215,11 @@ export const intlayerCompiler = (
     server,
     modules,
   }: HmrContext): Promise<void> => {
-    // Check if this is a file we should transform
-    const isTransformableFile = filesList.some((fileEl) => fileEl === file);
+    // Check if this is a file we should transform (compare as POSIX paths).
+    const normalizedFile = normalizePath(file);
+    const isTransformableFile = filesList.some(
+      (fileEl) => fileEl === normalizedFile
+    );
 
     if (isTransformableFile) {
       // Check if this file was recently processed to prevent infinite loops
@@ -343,7 +348,8 @@ export const intlayerCompiler = (
 
     const filename = id;
 
-    if (!filesList.includes(filename)) {
+    // Compare as POSIX paths; filename stays raw for extraction below.
+    if (!filesList.includes(normalizePath(filename))) {
       return undefined;
     }
 

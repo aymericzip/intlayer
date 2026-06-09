@@ -4,6 +4,7 @@ import { parse } from '@babel/parser';
 import type * as BabelTypes from '@babel/types';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, colorizePath, getAppLogger } from '@intlayer/config/logger';
+import { normalizePath } from '@intlayer/config/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { FilePathPattern } from '@intlayer/types/filePathPattern';
@@ -76,7 +77,13 @@ export const intlayerExtractBabelPlugin = (_babel: {
 
           if (!filename) return;
 
-          if (opts.filesList && !opts.filesList.includes(filename)) return;
+          // Compare as POSIX paths (babel filenames use OS separators on Windows).
+          if (
+            opts.filesList &&
+            !opts.filesList.map(normalizePath).includes(normalizePath(filename))
+          ) {
+            return;
+          }
 
           const fileCode: string = state.file.code ?? '';
           if (!fileCode) return;
