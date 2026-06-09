@@ -1,5 +1,6 @@
-import { isAbsolute, normalize, relative, resolve, sep } from 'node:path';
+import { isAbsolute, relative, resolve, sep } from 'node:path';
 import { TRAVERSE_PATTERN } from '@intlayer/config/defaultValues';
+import { normalizePath } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import fg from 'fast-glob';
 
@@ -82,7 +83,7 @@ export const buildComponentFilesList = (
   ]
     .filter((pattern) => typeof pattern === 'string')
     .filter((pattern) => !pattern.startsWith('!'))
-    .map((pattern) => normalize(pattern));
+    .map(normalizePath);
 
   // User-supplied negations from traversePattern
   const userExcludes = traversePattern
@@ -104,7 +105,7 @@ export const buildComponentFilesList = (
     ])
   )
     .filter((pattern): pattern is string => typeof pattern === 'string')
-    .map((pattern) => normalize(pattern));
+    .map(normalizePath);
 
   // Separate codeDir entries that live inside node_modules.
   // getDistinctRootDirs would collapse them into the project root, after which
