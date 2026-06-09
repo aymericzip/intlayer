@@ -64,6 +64,24 @@ export const configMetroIntlayerSync = (
 
   const existingResolveRequest = baseConfig?.resolver?.resolveRequest;
 
+  /**
+   * Tracks resolution contexts that are currently executing inside the
+   * metro-resolver fallback call.  When metro-resolver cannot find a module it
+   * may call back through `context.resolveRequest` (the outermost resolver in
+   * the chain, e.g. Sentry → NativeWind → ours).  That callback eventually
+   * reaches our resolver again.  Without a guard we would recurse indefinitely
+   * (see issue #457).
+   *
+   * On the second entry we break the cycle by stripping `resolveRequest` from
+   * the context so metro-resolver finishes with its built-in logic only
+   * (alias, extraNodeModules, …) rather than calling back a third time.
+   *
+   * Metro creates a fresh context object per module resolution, so using a
+   * WeakSet keyed on context is safe and causes no cross-resolution
+   * interference.
+   */
+  const inflightFallbackContexts = new WeakSet<object>();
+
   const config = {
     ...baseConfig,
 
@@ -99,13 +117,27 @@ export const configMetroIntlayerSync = (
           return existingResolveRequest(context, moduleName, ...args);
         }
 
-        // Fall back to Metro's default resolver.  We must strip
-        // `resolveRequest` from the context before delegating: leaving it in
-        // would cause metro-resolver to call our custom resolver again,
-        // creating an infinite recursion — especially when multiple
-        // metro-resolver copies are installed (see issue #457).
-        const { resolveRequest: _customResolver, ...fallbackContext } = context;
-        return getMetroResolve()(fallbackContext, moduleName, ...args);
+        // Re-entry guard: metro-resolver has already been invoked for this
+        // context and is now calling back through context.resolveRequest (the
+        // outer chain) which has bubbled back to us.  Strip resolveRequest so
+        // metro-resolver resolves the module with only its built-in rules
+        // (alias, extraNodeModules, etc.) and does not recurse again.
+        if (inflightFallbackContexts.has(context)) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const { resolveRequest: _r, ...pureContext } = context as any;
+          return getMetroResolve()(pureContext, moduleName, ...args);
+        }
+
+        // First pass: call metro-resolver while preserving context.resolveRequest
+        // so outer wrappers (NativeWind, Sentry, …) still get a chance to
+        // handle modules that metro-resolver cannot locate on its own (e.g. @/
+        // tsconfig path aliases that a wrapper resolves via its own logic).
+        inflightFallbackContexts.add(context);
+        try {
+          return getMetroResolve()(context, moduleName, ...args);
+        } finally {
+          inflightFallbackContexts.delete(context);
+        }
       },
       blockList: exclusionList([
         ...existingPatterns,
