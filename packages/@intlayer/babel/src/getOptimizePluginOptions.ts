@@ -18,6 +18,12 @@ type GetOptimizePluginOptionsParams = {
    */
   dictionaries?: Dictionary[];
   /**
+   * Whether the current transform is for an SSR bundle. When using Babel
+   * directly (e.g. in `babel.config.js`), forward the bundler's server flag
+   * here so SSR-specific transforms (such as the Solid static fallback) apply.
+   */
+  isServer?: boolean;
+  /**
    * Override specific options
    */
   overrides?: Partial<OptimizePluginOptions>;
@@ -51,6 +57,7 @@ export const getOptimizePluginOptions = (
   const {
     configOptions,
     dictionaries: providedDictionaries,
+    isServer,
     overrides,
   } = params ?? {};
 
@@ -62,7 +69,8 @@ export const getOptimizePluginOptions = (
     dynamicDictionariesDir,
     fetchDictionariesDir,
   } = config.system;
-  const { importMode, optimize } = config.build;
+  const importMode = config.build.importMode ?? config.dictionary?.importMode;
+  const optimize = config.build.optimize;
 
   const dictionariesEntryPath = join(mainDir, 'dictionaries.mjs');
   const unmergedDictionariesEntryPath = join(
@@ -109,6 +117,7 @@ export const getOptimizePluginOptions = (
     importMode,
     dictionaryModeMap,
     filesList,
+    isServer,
     ...overrides,
   };
 };
