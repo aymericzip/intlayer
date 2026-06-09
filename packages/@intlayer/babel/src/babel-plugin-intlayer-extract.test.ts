@@ -64,6 +64,48 @@ describe('babel-plugin-intlayer-extract', () => {
     expect(output).toContain("import { useIntlayer } from 'react-intlayer';");
   });
 
+  it('should match a back-slash filesList against the POSIX filename', () => {
+    const code = `
+      function MyComponent() {
+        return <div>Hello World</div>;
+      }
+    `;
+
+    // The gate must normalize separators (\ vs /). Back-slashes go on the
+    // filesList side so the raw filename stays a resolvable POSIX path for
+    // extraction under the test OS.
+    const extractedKeys: string[] = [];
+    transform(
+      code,
+      {
+        packageName: 'react-intlayer',
+        filesList: ['\\app\\src\\components\\MyComponent.tsx'],
+        onExtract: (result) => {
+          extractedKeys.push(result.dictionaryKey);
+        },
+      },
+      '/app/src/components/MyComponent.tsx'
+    );
+
+    expect(extractedKeys.length).toBeGreaterThan(0);
+
+    // Sanity check: an unrelated entry still gates the file out.
+    const skippedKeys: string[] = [];
+    transform(
+      code,
+      {
+        packageName: 'react-intlayer',
+        filesList: ['\\app\\src\\components\\Other.tsx'],
+        onExtract: (result) => {
+          skippedKeys.push(result.dictionaryKey);
+        },
+      },
+      '/app/src/components/MyComponent.tsx'
+    );
+
+    expect(skippedKeys.length).toBe(0);
+  });
+
   it('should extract text from function and inject getIntlayer properly', () => {
     const code = `
       function myUtility() {

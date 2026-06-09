@@ -583,7 +583,9 @@ export const intlayerOptimize = async (
         transform: async (sourceCode, moduleId) => {
           // Strip query parameters added by Vue/Svelte loaders
           // e.g. "HelloWorld.vue?vue&type=script&setup=true&lang.ts" → "HelloWorld.vue"
-          const sourceFilePath = normalizePath(moduleId.split('?', 1)[0]);
+          const sourceFilePath = normalizePath(
+            moduleId.split('?', 1)[0] ?? moduleId
+          );
 
           if (!SOURCE_FILE_REGEX.test(sourceFilePath)) return null;
           if (!transformableFilesList.includes(sourceFilePath)) return null;
