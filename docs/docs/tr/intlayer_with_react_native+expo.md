@@ -149,7 +149,10 @@ bun x ara katman başlatma
 
 ---
 
-## Adım 1: Bağımlılıkları Kurma
+<Steps>
+
+<Step number={1} title="Bağımlılıkları Kurma">
+
 
 React Native projenizden aşağıdaki paketleri kurun:
 
@@ -190,7 +193,9 @@ bun x intlayer init
 
 ---
 
-## Adım 2: Intlayer Yapılandırması Oluşturma
+</Step>
+
+<Step number={2} title="Intlayer Yapılandırması Oluşturma">
 
 Proje kökünüzde (veya uygun herhangi bir yerde), bir **Intlayer yapılandırma** dosyası oluşturun. Şöyle görünebilir:
 
@@ -222,7 +227,9 @@ Bu yapılandırma içinde şunları yapabilirsiniz:
 - Daha sonra, daha gelişmiş seçenekler ekleyebilirsiniz (örneğin, günlükler, özel içerik dizinleri, vb.).
 - Daha fazla bilgi için [Intlayer yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) bakın.
 
-## Adım 3: Metro Eklentisini Ekleyin
+</Step>
+
+<Step number={3} title="Metro Eklentisini Ekleyin">
 
 Metro, React Native için bir paketleyicidir. `react-native init` komutuyla oluşturulan React Native projeleri için varsayılan paketleyicidir. Metro ile Intlayer'ı kullanmak için, `metro.config.js` dosyanıza eklentiyi eklemeniz gerekir:
 
@@ -237,7 +244,9 @@ module.exports = (async () => {
 })();
 ```
 
-## Adım 4: Intlayer Sağlayıcısını Ekleyin
+</Step>
+
+<Step number={4} title="Intlayer Sağlayıcısını Ekleyin">
 
 Uygulamanız genelinde kullanıcı dilini senkronize tutmak için, kök bileşeninizi `react-intlayer-native`'den gelen `IntlayerProvider` bileşeni ile sarmanız gerekir.
 
@@ -264,7 +273,9 @@ const RootLayout: FC = () => {
 export default RootLayout;
 ```
 
-## Adım 5: İçeriğinizi Bildirin
+</Step>
+
+<Step number={5} title="İçeriğinizi Bildirin">
 
 Projenizde herhangi bir yerde **içerik bildirim** dosyaları oluşturun (genellikle `src/` içinde), Intlayer'ın desteklediği uzantı formatlarından herhangi birini kullanarak:
 
@@ -343,7 +354,9 @@ module.exports = appContent;
 
 ---
 
-## Adım 4: Bileşenlerinizde Intlayer'ı Kullanın
+</Step>
+
+<Step number={6} title="Bileşenlerinizde Intlayer'ı Kullanın">
 
 Alt bileşenlerde yerelleştirilmiş içerik almak için `useIntlayer` kancasını kullanın.
 
@@ -396,7 +409,9 @@ export default HomeScreen;
 
 ---
 
-## (İsteğe Bağlı) Adım 5: Uygulama Yerel Ayarını Değiştirin
+</Step>
+
+<Step number={7} title="Uygulama Yerel Ayarını Değiştirin">
 
 Bileşenlerinizden yerel ayarları değiştirmek için, `useLocale` kancasının `setLocale` metodunu kullanabilirsiniz:
 
@@ -448,6 +463,10 @@ const styles = StyleSheet.create({
 Bu, Intlayer içeriği kullanan tüm bileşenlerin yeniden işlenmesini tetikler, artık yeni yerel ayar için çevirileri gösterir.
 
 > Daha fazla detay için [`useLocale` dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md) bakın.
+
+</Step>
+
+</Steps>
 
 ## TypeScript Yapılandırma (TypeScript kullanıyorsanız)
 

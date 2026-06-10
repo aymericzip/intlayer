@@ -111,7 +111,9 @@ Instead of loading massive JSON files into your pages, load only the necessary c
 </Accordion>
 </AccordionGroup>
 
-## Step 1: Install Dependencies
+<Steps>
+
+<Step number={1} title="Install Dependencies">
 
 See [Application Template](https://github.com/aymericzip/intlayer-react-native-template) on GitHub.
 
@@ -154,7 +156,9 @@ bun x intlayer init
 
 ---
 
-## Step 2: Create an Intlayer Config
+</Step>
+
+<Step number={2} title="Create an Intlayer Config">
 
 In your project root (or anywhere convenient), create an **Intlayer config** file. It might look like this:
 
@@ -186,7 +190,9 @@ Within this config, you can:
 - Later, you may add more advanced options (e.g., logs, custom content directories, etc.).
 - See the [Intlayer configuration docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) for more.
 
-## Step 3: Add the Metro plugin
+</Step>
+
+<Step number={3} title="Add the Metro plugin">
 
 Metro is a bundler for React Native. It is the default bundler for React Native projects created with the `react-native init` command. To use Intlayer with Metro, you need to add the plugin to your `metro.config.js` file:
 
@@ -204,7 +210,9 @@ module.exports = (async () => {
 > Note: `configMetroIntlayer` is a promise function. Use `configMetroIntlayerSync` instead if you want to use it synchronously, or avoid IFFE (Immediately Invoked Function Expression).
 > Note: `configMetroIntlayerSync` does not allow to build intlayer dictionaries on server start
 
-## Step 4: Add the Intlayer provider
+</Step>
+
+<Step number={4} title="Add the Intlayer provider">
 
 To keep synchronized the user language across your application, you need to wrap your root component with the `IntlayerProvider` component from `react-intlayer-native`.
 
@@ -233,7 +241,9 @@ const RootLayout: FC = () => {
 export default RootLayout;
 ```
 
-## Step 5: Declare Your Content
+</Step>
+
+<Step number={5} title="Declare Your Content">
 
 Create **content declaration** files anywhere in your project (commonly within `src/`), using any of the extension formats that Intlayer supports:
 
@@ -294,7 +304,9 @@ export default homeScreenContent;
 
 ---
 
-## Step 4: Use Intlayer in Your Components
+</Step>
+
+<Step number={6} title="Use Intlayer in Your Components">
 
 Use the `useIntlayer` hook in child components to get localized content.
 
@@ -347,7 +359,9 @@ export default HomeScreen;
 
 ---
 
-## (Optional) Step 5: Change the App Locale
+</Step>
+
+<Step number={7} title="Change the App Locale" isOptional={true}>
 
 To switch locales from within your components, you can use the `useLocale` hook’s `setLocale` method:
 
@@ -399,6 +413,10 @@ const styles = StyleSheet.create({
 This triggers a re-render of all components that use Intlayer content, now showing translations for the new locale.
 
 > See [`useLocale` docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md) for more details.
+
+</Step>
+
+</Steps>
 
 ## Configure TypeScript (if you use TypeScript)
 

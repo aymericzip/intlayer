@@ -149,7 +149,9 @@ pnpm добавить --save-dev реагирование-native-intlayer
 
 ---
 
-## Шаг 1: Установка зависимостей
+<Steps>
+
+<Step number={1} title="Установка зависимостей">
 
 В вашем проекте React Native установите следующие пакеты:
 
@@ -190,7 +192,9 @@ bun x intlayer init
 
 ---
 
-## Шаг 2: Создайте конфигурацию Intlayer
+</Step>
+
+<Step number={2} title="Создайте конфигурацию Intlayer">
 
 В корне вашего проекта (или в любом удобном месте) создайте файл **конфигурации Intlayer**. Он может выглядеть так:
 
@@ -222,7 +226,9 @@ export default config;
 - Позже вы сможете добавить более продвинутые опции (например, логи, пользовательские директории контента и т.д.).
 - Подробнее смотрите в [документации по конфигурации Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md).
 
-## Шаг 3: Добавьте плагин Metro
+</Step>
+
+<Step number={3} title="Добавьте плагин Metro">
 
 Metro - это сборщик для React Native. Он является сборщиком по умолчанию для проектов React Native, созданных с помощью команды `react-native init`. Чтобы использовать Intlayer с Metro, необходимо добавить плагин в файл `metro.config.js`:
 
@@ -237,7 +243,9 @@ module.exports = (async () => {
 })();
 ```
 
-## Шаг 4: Добавьте провайдер Intlayer
+</Step>
+
+<Step number={4} title="Добавьте провайдер Intlayer">
 
 Чтобы синхронизировать язык пользователя во всем приложении, необходимо обернуть корневой компонент в компонент `IntlayerProvider` из `react-intlayer-native`.
 
@@ -264,7 +272,9 @@ const RootLayout: FC = () => {
 export default RootLayout;
 ```
 
-## Шаг 5: Объявите Ваш Контент
+</Step>
+
+<Step number={5} title="Объявите Ваш Контент">
 
 Создайте файлы **объявления контента** в любом месте вашего проекта (обычно внутри `src/`), используя любой из форматов расширений, поддерживаемых Intlayer:
 
@@ -325,7 +335,9 @@ export default homeScreenContent;
 
 ---
 
-## Шаг 4: Использование Intlayer в ваших компонентах
+</Step>
+
+<Step number={6} title="Использование Intlayer в ваших компонентах">
 
 Используйте хук `useIntlayer` в дочерних компонентах для получения локализованного контента.
 
@@ -378,7 +390,9 @@ export default HomeScreen;
 
 ---
 
-## (Необязательно) Шаг 5: Изменение локали приложения
+</Step>
+
+<Step number={7} title="Изменение локали приложения">
 
 Для переключения локалей изнутри ваших компонентов вы можете использовать метод `setLocale` хука `useLocale`:
 
@@ -430,6 +444,10 @@ const styles = StyleSheet.create({
 Это вызывает повторный рендер всех компонентов, использующих контент Intlayer, теперь отображая переводы для новой локали.
 
 > Подробнее смотрите в документации [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useLocale.md).
+
+</Step>
+
+</Steps>
 
 ## Настройка TypeScript (если вы используете TypeScript)
 

@@ -56,7 +56,9 @@ Ce guide vous montre comment tirer parti du système supérieur de déclaration 
 
 ## Guide étape par étape pour configurer Intlayer avec vue-i18n
 
-### Étape 1 : Installer les dépendances
+<Steps>
+
+<Step number={1} title="Installer les dépendances">
 
 Installez les paquets nécessaires en utilisant votre gestionnaire de paquets préféré :
 
@@ -85,7 +87,9 @@ bun x intlayer init
 - **intlayer** : Bibliothèque principale pour la déclaration et la gestion du contenu
 - **@intlayer/sync-json-plugin** : Plugin pour synchroniser les déclarations de contenu Intlayer au format JSON de vue-i18n
 
-### Étape 2 : Implémenter le plugin Intlayer pour envelopper le JSON
+</Step>
+
+<Step number={2} title="Implémenter le plugin Intlayer pour envelopper le JSON">
 
 Créez un fichier de configuration Intlayer pour définir vos locales supportées :
 
@@ -121,6 +125,10 @@ Si vous souhaitez faire coexister ce JSON avec les fichiers de déclaration de c
 Si des modifications sont effectuées via la CLI pour traduire le JSON, ou via le CMS, Intlayer mettra à jour le fichier JSON avec les nouvelles traductions.
 
 Pour plus de détails sur le plugin `syncJSON`, veuillez consulter la [documentation du plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/plugins/sync-json.md).
+
+</Step>
+
+</Steps>
 
 ## Configuration Git
 

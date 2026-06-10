@@ -52,7 +52,9 @@ history:
 
 ## Пошаговое руководство по настройке Intlayer с next-intl
 
-### Шаг 1: Установка зависимостей
+<Steps>
+
+<Step number={1} title="Установка зависимостей">
 
 Установите необходимые пакеты:
 
@@ -81,7 +83,9 @@ bun x intlayer init
 - **intlayer**: Основная библиотека для управления интернационализацией, декларации контента и сборки
 - **@intlayer/sync-json-plugin**: Плагин для экспорта деклараций контента Intlayer в JSON-формат, совместимый с next-intl
 
-### Шаг 2: Реализация плагина Intlayer для обёртки JSON
+</Step>
+
+<Step number={2} title="Реализация плагина Intlayer для обёртки JSON">
 
 Создайте файл конфигурации Intlayer для определения поддерживаемых локалей:
 
@@ -118,6 +122,10 @@ export default config;
 Если изменения вносятся с помощью CLI для перевода JSON или через CMS, Intlayer обновит JSON-файл с новыми переводами.
 
 Для получения дополнительной информации о плагине `syncJSON` обратитесь к [документации плагина syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/plugins/sync-json.md).
+
+</Step>
+
+</Steps>
 
 ## Конфигурация Git
 

@@ -56,7 +56,9 @@ Panduan ini menunjukkan cara memanfaatkan sistem deklarasi konten unggulan Intla
 
 ## Panduan Langkah demi Langkah untuk Mengatur Intlayer dengan vue-i18n
 
-### Langkah 1: Instalasi Dependensi
+<Steps>
+
+<Step number={1} title="Instalasi Dependensi">
 
 Instal paket yang diperlukan menggunakan manajer paket pilihan Anda:
 
@@ -85,7 +87,9 @@ bun x intlayer init
 - **intlayer**: Perpustakaan inti untuk deklarasi dan manajemen konten
 - **@intlayer/sync-json-plugin**: Plugin untuk menyinkronkan deklarasi konten Intlayer ke format JSON vue-i18n
 
-### Langkah 2: Terapkan plugin Intlayer untuk membungkus JSON
+</Step>
+
+<Step number={2} title="Terapkan plugin Intlayer untuk membungkus JSON">
 
 Buat file konfigurasi Intlayer untuk mendefinisikan locale yang didukung:
 
@@ -124,7 +128,9 @@ Untuk melihat lebih detail tentang plugin `syncJSON`, silakan merujuk ke [dokume
 
 ---
 
-### (Opsional) Langkah 3: Implementasikan terjemahan JSON per-komponen
+</Step>
+
+<Step number={3} title="Implementasikan terjemahan JSON per-komponen">
 
 Secara default, Intlayer akan memuat, menggabungkan, dan menyinkronkan baik file JSON maupun file deklarasi konten. Lihat [dokumentasi deklarasi konten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md) untuk detail lebih lanjut. Namun jika Anda lebih memilih, dengan menggunakan plugin Intlayer, Anda juga dapat mengimplementasikan manajemen JSON per-komponen yang dilokalkan di mana saja dalam basis kode Anda.
 
@@ -167,6 +173,10 @@ export default config;
 Ini akan memuat semua file JSON di direktori `src` yang cocok dengan pola `{key}.i18n.json` dan memuatnya sebagai kamus Intlayer.
 
 ---
+
+</Step>
+
+</Steps>
 
 ## Konfigurasi Git
 

@@ -89,7 +89,9 @@ GitHub पर [एप्लिकेशन टेम्पलेट](https://git
 
 अपने पृष्ठों में विशाल JSON फ़ाइलें लोड करने के बजाय, केवल आवश्यक सामग्री लोड करें। इंटलेयर **आपके बंडल और दृश्य आकार को 50% तक कम करने** में मदद करता है।
 
-## चरण 1: निर्भरताएँ स्थापित करें
+<Steps>
+
+<Step number={1} title="निर्भरताएँ स्थापित करें">
 
 GitHub पर [एप्लिकेशन टेम्पलेट](https://github.com/aymericzip/intlayer-react-native-template) देखें।
 
@@ -132,7 +134,9 @@ GitHub पर [एप्लिकेशन टेम्पलेट](https://git
 
 ---
 
-## चरण 1: निर्भरता स्थापित करें
+</Step>
+
+<Step number={2} title="निर्भरता स्थापित करें">
 
 अपने React Native प्रोजेक्ट से, निम्नलिखित पैकेज स्थापित करें:
 
@@ -166,7 +170,9 @@ yarn add --save-dev react-native-intlayer
 
 ---
 
-## चरण 2: Intlayer कॉन्फ़िग बनाएं
+</Step>
+
+<Step number={3} title="Intlayer कॉन्फ़िग बनाएं">
 
 अपने प्रोजेक्ट रूट (या कहीं भी सुविधाजनक) में, एक **Intlayer कॉन्फ़िग** फ़ाइल बनाएं। यह कुछ इस प्रकार दिख सकती है:
 
@@ -198,7 +204,9 @@ export default config;
 - बाद में, आप अधिक उन्नत विकल्प जोड़ सकते हैं (जैसे, लॉग्स, कस्टम कंटेंट डायरेक्टरीज़, आदि)।
 - अधिक जानकारी के लिए [Intlayer कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
 
-## चरण 3: मेट्रो प्लगइन जोड़ें
+</Step>
+
+<Step number={4} title="मेट्रो प्लगइन जोड़ें">
 
 मेट्रो React Native के लिए एक बंडलर है। यह `react-native init` कमांड से बनाए गए React Native प्रोजेक्ट्स के लिए डिफ़ॉल्ट बंडलर है। Intlayer को मेट्रो के साथ उपयोग करने के लिए, आपको अपने `metro.config.js` फ़ाइल में प्लगइन जोड़ना होगा:
 
@@ -213,7 +221,9 @@ module.exports = (async () => {
 })();
 ```
 
-## चरण 4: Intlayer प्रदाता जोड़ें
+</Step>
+
+<Step number={5} title="Intlayer प्रदाता जोड़ें">
 
 अपने एप्लिकेशन में उपयोगकर्ता की भाषा को सिंक्रनाइज़ रखने के लिए, आपको अपने रूट कंपोनेंट को `react-intlayer-native` से `IntlayerProvider` कंपोनेंट के साथ रैप करना होगा।
 
@@ -240,7 +250,9 @@ const RootLayout: FC = () => {
 export default RootLayout;
 ```
 
-## चरण 5: अपनी सामग्री घोषित करें
+</Step>
+
+<Step number={6} title="अपनी सामग्री घोषित करें">
 
 प्रोजेक्ट में कहीं भी **content declaration** फाइलें बनाएं (आमतौर पर `src/` के अंदर), Intlayer द्वारा समर्थित किसी भी एक्सटेंशन फॉर्मेट का उपयोग करते हुए:
 
@@ -301,7 +313,9 @@ export default homeScreenContent;
 
 ---
 
-## चरण 4: अपने घटकों में Intlayer का उपयोग करें
+</Step>
+
+<Step number={7} title="अपने घटकों में Intlayer का उपयोग करें">
 
 स्थानीयकृत सामग्री प्राप्त करने के लिए चाइल्ड कॉम्पोनेंट्स में `useIntlayer` हुक का उपयोग करें।
 
@@ -354,7 +368,9 @@ export default HomeScreen;
 
 ---
 
-## (वैकल्पिक) चरण 5: ऐप का लोकल बदलें
+</Step>
+
+<Step number={8} title="ऐप का लोकल बदलें">
 
 अपने कंपोनेंट्स के भीतर से लोकल बदलने के लिए, आप `useLocale` हुक के `setLocale` मेथड का उपयोग कर सकते हैं:
 
@@ -406,6 +422,10 @@ const styles = StyleSheet.create({
 यह उन सभी कंपोनेंट्स को पुनः रेंडर करता है जो Intlayer सामग्री का उपयोग करते हैं, अब नए लोकल के लिए अनुवाद दिखाते हुए।
 
 > अधिक जानकारी के लिए [`useLocale` दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/react-intlayer/useLocale.md) देखें।
+
+</Step>
+
+</Steps>
 
 ## TypeScript कॉन्फ़िगर करें (यदि आप TypeScript का उपयोग करते हैं)
 

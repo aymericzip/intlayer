@@ -69,13 +69,17 @@ A grandes rasgos, esta es la receta que usé:
 5.  **Aumento + Generación (AG en RAG)** Esos fragmentos se inyectan en el prompt para ChatGPT, de modo que el modelo responda con el contexto real de la documentación.
 6.  **Registro de consultas para retroalimentación** Cada consulta del usuario se almacena. Esto es oro para entender puntos problemáticos, documentación faltante o nuevas oportunidades.
 
-## Paso 1: Leer la documentación
+<Steps>
+
+<Step number={1} title="Leer la documentación">
 
 El primer paso fue simple: necesitaba una forma de escanear una carpeta docs/ para todos los archivos .md. Usando Node.js y glob, obtuve el contenido de cada archivo Markdown en memoria.
 
 Esto mantiene la canalización flexible: en lugar de Markdown, podrías obtener documentos de una base de datos, un CMS o incluso una API.
 
-## Paso 2: Dividir la Documentación en Fragmentos
+</Step>
+
+<Step number={2} title="Dividir la Documentación en Fragmentos">
 
 ¿Por qué dividir en fragmentos? Porque los modelos de lenguaje tienen **límites de contexto**. Alimentarlos con un libro entero de documentación no funcionará.
 
@@ -93,7 +97,9 @@ Este compromiso (tamaño del fragmento vs superposición) es clave para la efici
 - Demasiado pequeño → obtienes ruido.
 - Demasiado grande → explotas el tamaño del contexto.
 
-## Paso 3: Generación de Embeddings
+</Step>
+
+<Step number={3} title="Generación de Embeddings">
 
 Una vez que los documentos están fragmentados, generamos **embeddings**, vectores de alta dimensión que representan cada fragmento.
 
@@ -111,7 +117,9 @@ Usé el modelo text-embedding-3-large de OpenAI, pero podrías usar cualquier mo
 
 Cada vector es una huella matemática del texto, que permite la búsqueda por similitud.
 
-## Paso 4: Indexación y Almacenamiento de Embeddings
+</Step>
+
+<Step number={4} title="Indexación y Almacenamiento de Embeddings">
 
 Para evitar regenerar embeddings múltiples veces, los almacené en embeddings.json.
 
@@ -124,7 +132,9 @@ En producción, probablemente querrás una base de datos vectorial como:
 
 Las bases de datos vectoriales manejan la indexación, escalabilidad y búsqueda rápida. Pero para mi prototipo, un JSON local funcionó bien.
 
-## Paso 5: Recuperación con Similitud del Coseno
+</Step>
+
+<Step number={5} title="Recuperación con Similitud del Coseno">
 
 Cuando un usuario hace una pregunta:
 
@@ -136,7 +146,9 @@ La similitud del coseno mide el ángulo entre dos vectores. Una coincidencia per
 
 De esta manera, el sistema encuentra los pasajes del documento más cercanos a la consulta.
 
-## Paso 6: Aumento + Generación
+</Step>
+
+<Step number={6} title="Aumento + Generación">
 
 Ahora viene la magia. Tomamos los fragmentos principales y los inyectamos en el **prompt del sistema** para ChatGPT.
 
@@ -144,7 +156,9 @@ Eso significa que el modelo responde como si esos fragmentos fueran parte de la 
 
 El resultado: respuestas precisas y **basadas en la documentación**.
 
-## Paso 7: Registro de Consultas de Usuarios
+</Step>
+
+<Step number={7} title="Registro de Consultas de Usuarios">
 
 Este es el superpoder oculto.
 
@@ -157,7 +171,9 @@ Cada pregunta realizada se almacena. Con el tiempo, construyes un conjunto de da
 
 Esto convierte a tu asistente RAG en una **herramienta continua de investigación de usuarios**.
 
-## ¿Cuánto Cuesta?
+</Step>
+
+<Step number={8} title="¿Cuánto Cuesta?">
 
 Una objeción común a RAG es el costo. En la práctica, es sorprendentemente barato:
 
@@ -167,7 +183,9 @@ Una objeción común a RAG es el costo. En la práctica, es sorprendentemente ba
 
 Además de eso, puedes incluir el costo de alojamiento.
 
-## Detalles de Implementación
+</Step>
+
+<Step number={9} title="Detalles de Implementación">
 
 Stack:
 
@@ -231,7 +249,9 @@ Experimentamos con gpt-5, pero la latencia era demasiado alta (a veces hasta 15 
 
 👉 [Prueba la demo aquí](https://intlayer.org/doc/why) 👉 [Consulta la plantilla de código en GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
-## Ir más allá
+</Step>
+
+<Step number={10} title="Ir más allá">
 
 Este proyecto es una implementación mínima. Pero puedes ampliarlo de muchas maneras:
 
@@ -243,13 +263,17 @@ Este proyecto es una implementación mínima. Pero puedes ampliarlo de muchas ma
 - Recuperación multisource → obtener no solo documentos, sino entradas de bases de datos, publicaciones de blogs, tickets, etc.
 - Mejora en el prompting → reordenamiento, filtrado y búsqueda híbrida (palabra clave + semántica)
 
-## Limitaciones que hemos encontrado
+</Step>
+
+<Step number={11} title="Limitaciones que hemos encontrado">
 
 - La segmentación y el solapamiento son empíricos. El equilibrio correcto (tamaño del fragmento, porcentaje de solapamiento, número de fragmentos recuperados) requiere iteración y pruebas.
 - Los embeddings no se regeneran automáticamente cuando los documentos cambian. Nuestro sistema reinicia los embeddings para un archivo solo si el número de fragmentos difiere de lo almacenado.
 - En este prototipo, los embeddings se almacenan en JSON. Esto funciona para demostraciones pero contamina Git. En producción, es mejor usar una base de datos o un almacén vectorial dedicado.
 
-## Por qué esto importa más allá de la documentación
+</Step>
+
+<Step number={12} title="Por qué esto importa más allá de la documentación">
 
 La parte interesante no es solo el chatbot. Es el **bucle de retroalimentación**.
 
@@ -269,11 +293,15 @@ Imagina lanzar una nueva función y ver instantáneamente:
 
 Eso es **inteligencia de producto** directamente de tus usuarios.
 
-## Conclusión
+</Step>
+
+<Step number={13} title="Conclusión">
 
 - En este prototipo, los embeddings se almacenan en JSON. Esto funciona para demostraciones pero contamina Git. En producción, es mejor usar una base de datos o un almacén vectorial dedicado.
 
-## Por qué esto importa más allá de la documentación
+</Step>
+
+<Step number={14} title="Por qué esto importa más allá de la documentación">
 
 La parte interesante no es solo el chatbot. Es el **ciclo de retroalimentación**.
 
@@ -293,7 +321,9 @@ Imagina lanzar una nueva función y ver instantáneamente:
 
 Eso es **inteligencia de producto** directamente de tus usuarios.
 
-## Conclusión
+</Step>
+
+<Step number={15} title="Conclusión">
 
 RAG es una de las formas más simples y poderosas de hacer que los LLMs sean prácticos. Al combinar **recuperación + generación**, puedes convertir documentos estáticos en un **asistente inteligente** y, al mismo tiempo, obtener un flujo continuo de información sobre el producto.
 
@@ -306,3 +336,7 @@ Para mí, este proyecto mostró que RAG no es solo un truco técnico. Es una for
 👉 [Prueba la demo aquí](https://intlayer.org/doc/why) 👉 [Consulta la plantilla de código en GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
 Y si también estás experimentando con RAG, me encantaría saber cómo lo estás usando.
+
+</Step>
+
+</Steps>

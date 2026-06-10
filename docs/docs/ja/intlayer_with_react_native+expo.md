@@ -89,7 +89,9 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
 
 大量の JSON ファイルをページにロードするのではなく、必要なコンテンツのみをロードします。 Intlayer は、**バンドルとビューのサイズを最大 50% 削減**するのに役立ちます。
 
-## ステップ 1: 依存関係をインストールする
+<Steps>
+
+<Step number={1} title="依存関係をインストールする">
 
 GitHub の [アプリケーション テンプレート](https://github.com/aymericzip/intlayer-react-native-template) を参照してください。
 
@@ -132,7 +134,10 @@ bun x 内部層の初期化
 
 ---
 
-## ステップ 1: 依存パッケージのインストール
+</Step>
+
+<Step number={2} title="依存パッケージのインストール">
+
 
 React Native プロジェクトから、以下のパッケージをインストールしてください：
 
@@ -166,7 +171,9 @@ yarn add --save-dev react-native-intlayer
 
 ---
 
-## ステップ 2: Intlayer設定ファイルの作成
+</Step>
+
+<Step number={3} title="Intlayer設定ファイルの作成">
 
 プロジェクトのルート（または任意の便利な場所）に**Intlayer設定ファイル**を作成します。以下のような内容になるかもしれません：
 
@@ -198,7 +205,9 @@ export default config;
 - 後で、より高度なオプション（例：ログ、カスタムコンテンツディレクトリなど）を追加することも可能です。
 - 詳細は[Intlayerの設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)を参照してください。
 
-## ステップ3: Metroプラグインを追加する
+</Step>
+
+<Step number={4} title="Metroプラグインを追加する">
 
 MetroはReact Native用のバンドラーです。`react-native init`コマンドで作成されたReact Nativeプロジェクトのデフォルトバンドラーです。IntlayerをMetroで使用するには、`metro.config.js`ファイルにプラグインを追加する必要があります。
 
@@ -213,7 +222,9 @@ module.exports = (async () => {
 })();
 ```
 
-## ステップ4: Intlayerプロバイダーを追加する
+</Step>
+
+<Step number={5} title="Intlayerプロバイダーを追加する">
 
 アプリケーション全体でユーザーの言語を同期させるには、ルートコンポーネントを `react-intlayer-native` の `IntlayerProvider` コンポーネントでラップする必要があります。
 
@@ -254,7 +265,9 @@ const RootLayout: FC = () => {
 export default RootLayout;
 ```
 
-## ステップ5: コンテンツを宣言する
+</Step>
+
+<Step number={6} title="コンテンツを宣言する">
 
 ```jsx fileName="app/_layout.cjx" codeFormat="commonjs"
 const { Stack } = require("expo-router");
@@ -276,7 +289,9 @@ const RootLayout = () => {
 module.exports = RootLayout;
 ```
 
-## ステップ5: コンテンツを宣言する
+</Step>
+
+<Step number={7} title="コンテンツを宣言する">
 
 プロジェクト内の任意の場所（一般的には `src/` 内）に**コンテンツ宣言**ファイルを作成します。Intlayer がサポートする任意の拡張子形式を使用できます：
 
@@ -337,7 +352,9 @@ export default homeScreenContent;
 
 ---
 
-## ステップ4: コンポーネントでIntlayerを使用する
+</Step>
+
+<Step number={8} title="コンポーネントでIntlayerを使用する">
 
 子コンポーネントで`useIntlayer`フックを使用して、ローカライズされたコンテンツを取得します。
 
@@ -390,7 +407,9 @@ export default HomeScreen;
 
 ---
 
-## （オプション）ステップ5：アプリのロケールを変更する
+</Step>
+
+<Step number={9} title="アプリのロケールを変更する">
 
 コンポーネント内からロケールを切り替えるには、`useLocale` フックの `setLocale` メソッドを使用できます。
 
@@ -442,6 +461,10 @@ const styles = StyleSheet.create({
 これにより、Intlayerのコンテンツを使用しているすべてのコンポーネントが再レンダリングされ、新しいロケールの翻訳が表示されます。
 
 > 詳細は[`useLocale`のドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useLocale.md)をご覧ください。
+
+</Step>
+
+</Steps>
 
 ## TypeScriptの設定（TypeScriptを使用している場合）
 

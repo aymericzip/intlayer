@@ -91,7 +91,9 @@ Không chỉ là giải pháp i18n, Intlayer còn cung cấp **[trình chỉnh s
 
 ---
 
-## Bước 1: Cài đặt các phụ thuộc
+<Steps>
+
+<Step number={1} title="Cài đặt các phụ thuộc">
 
 Từ dự án Lynx của bạn, cài đặt các gói sau:
 
@@ -129,7 +131,9 @@ bun x intlayer init
 
 ---
 
-## Bước 2: Tạo cấu hình Intlayer
+</Step>
+
+<Step number={2} title="Tạo cấu hình Intlayer">
 
 Trong thư mục gốc dự án của bạn (hoặc bất kỳ nơi nào thuận tiện), tạo một tệp **cấu hình Intlayer**. Nó có thể trông như sau:
 
@@ -158,7 +162,9 @@ Trong cấu hình này, bạn có thể:
 - Sau này, bạn có thể thêm các tùy chọn nâng cao hơn (ví dụ: ghi log, thư mục nội dung tùy chỉnh, v.v.).
 - Xem thêm tại [tài liệu cấu hình Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/configuration.md).
 
-## Bước 3: Thêm plugin Intlayer vào trình đóng gói Lynx
+</Step>
+
+<Step number={3} title="Thêm plugin Intlayer vào trình đóng gói Lynx">
 
 Để sử dụng Intlayer với Lynx, bạn cần thêm plugin vào file `lynx.config.ts` của bạn:
 
@@ -174,7 +180,9 @@ export default defineConfig({
 });
 ```
 
-## Bước 4: Thêm provider Intlayer
+</Step>
+
+<Step number={4} title="Thêm provider Intlayer">
 
 Để giữ đồng bộ ngôn ngữ người dùng trên toàn bộ ứng dụng của bạn, bạn cần bao bọc component gốc của bạn với component `IntlayerProvider` từ `react-intlayer`.
 
@@ -200,7 +208,9 @@ if (import.meta.webpackHot) {
 }
 ```
 
-## Bước 5: Khai báo Nội dung của bạn
+</Step>
+
+<Step number={5} title="Khai báo Nội dung của bạn">
 
 Tạo các file **khai báo nội dung** ở bất kỳ đâu trong dự án của bạn (thường là trong `src/`), sử dụng bất kỳ định dạng phần mở rộng nào mà Intlayer hỗ trợ:
 
@@ -302,7 +312,9 @@ export default appContent;
 
 ---
 
-## Bước 4: Sử dụng Intlayer trong các Component của bạn
+</Step>
+
+<Step number={6} title="Sử dụng Intlayer trong các Component của bạn">
 
 Sử dụng hook `useIntlayer` trong các component con để lấy nội dung đã được địa phương hóa.
 
@@ -361,7 +373,9 @@ export const App = () => {
 
 ---
 
-## (Tùy chọn) Bước 5: Thay đổi Locale của Ứng dụng
+</Step>
+
+<Step number={7} title="Thay đổi Locale của Ứng dụng" isOptional={true}>
 
 Để chuyển đổi locale từ bên trong các component của bạn, bạn có thể sử dụng phương thức `setLocale` của hook `useLocale`:
 
@@ -403,6 +417,10 @@ export const LocaleSwitcher: FC = () => {
 Điều này kích hoạt việc render lại tất cả các component sử dụng nội dung Intlayer, giờ đây hiển thị bản dịch cho locale mới.
 
 > Xem thêm tài liệu [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/useLocale.md) để biết thêm chi tiết.
+
+</Step>
+
+</Steps>
 
 ## Cấu hình TypeScript (nếu bạn sử dụng TypeScript)
 

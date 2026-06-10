@@ -83,7 +83,9 @@ Más que una simple solución i18n, Intlayer proporciona un **[editor visual] au
 
 ---
 
-## Paso 1: Instalar dependencias
+<Steps>
+
+<Step number={1} title="Instalar dependencias">
 
 Desde tu proyecto Lynx, instala los siguientes paquetes:
 
@@ -120,7 +122,9 @@ bun x intlayer init
 
 ---
 
-## Paso 2: Crea un archivo de configuración de Intlayer
+</Step>
+
+<Step number={2} title="Crea un archivo de configuración de Intlayer">
 
 En la raíz de tu proyecto (o en algún lugar conveniente), crea un archivo de configuración **Intlayer**. Por ejemplo:
 
@@ -149,7 +153,9 @@ En esta configuración puedes:
 - Más adelante, puedes añadir opciones más avanzadas (p. ej., logs, directorios de contenido personalizados, etc.).
 - Consulta la [documentación de configuración de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/configuration.md) para más información.
 
-## Paso 3: Agrega el plugin de Intlayer al bundler de Lynx
+</Step>
+
+<Step number={3} title="Agrega el plugin de Intlayer al bundler de Lynx">
 
 Para usar Intlayer con Lynx, debes añadir el plugin en tu archivo `lynx.config.ts`:
 
@@ -165,7 +171,9 @@ export default defineConfig({
 });
 ```
 
-## Paso 4: Agrega el proveedor de Intlayer
+</Step>
+
+<Step number={4} title="Agrega el proveedor de Intlayer">
 
 Para mantener sincronizado el idioma del usuario en toda tu aplicación, debes envolver tu componente raíz con el componente `IntlayerProvider` de `react-intlayer`.
 
@@ -191,7 +199,9 @@ if (import.meta.webpackHot) {
 }
 ```
 
-## Paso 5: Declara tu contenido
+</Step>
+
+<Step number={5} title="Declara tu contenido">
 
 Crea archivos de **declaración de contenido** en cualquier lugar de tu proyecto (generalmente dentro de `src/`), usando cualquiera de las extensiones que soporta Intlayer:
 
@@ -293,7 +303,9 @@ export default appContent;
 
 ---
 
-## Paso 4: Usa Intlayer en tus componentes
+</Step>
+
+<Step number={6} title="Usa Intlayer en tus componentes">
 
 Utiliza el hook `useIntlayer` en los componentes hijos para obtener contenido localizado.
 
@@ -351,7 +363,9 @@ export const App = () => {
 
 ---
 
-## (Opcional) Paso 5: Cambiar el local de la aplicación
+</Step>
+
+<Step number={7} title="Cambiar el local de la aplicación" isOptional={true}>
 
 Para cambiar de local desde tus componentes, puedes usar el método `setLocale` del hook `useLocale`:
 
@@ -393,6 +407,10 @@ export const LocaleSwitcher: FC = () => {
 Esto provoca que se vuelvan a renderizar todos los componentes que usan contenido de Intlayer, mostrándose ahora las traducciones para el nuevo local.
 
 > Consulta la [documentación de `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/react-intlayer/useLocale.md) para más detalles.
+
+</Step>
+
+</Steps>
 
 ## Configurar TypeScript (si usas TypeScript)
 

@@ -89,7 +89,9 @@ history:
 
 بدلاً من تحميل ملفات JSON ضخمة إلى صفحاتك، قم بتحميل المحتوى الضروري فقط. يساعد Intlayer **في تقليل حجم البندل وعرض الأحجام بنسبة تصل إلى 50%**.
 
-## الخطوة 1: تثبيت التبعيات
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 راجع [قالب التطبيق](https://github.com/aymericzip/intlayer-react-native-template) على GitHub.
 
@@ -132,7 +134,9 @@ pnpm intlayer init
 
 ---
 
-## الخطوة 1: تثبيت التبعيات
+</Step>
+
+<Step number={2} title="تثبيت التبعيات">
 
 من مشروع React Native الخاص بك، قم بتثبيت الحزم التالية:
 
@@ -173,7 +177,9 @@ bun x intlayer init
 
 ---
 
-## الخطوة 2: إنشاء تكوين Intlayer
+</Step>
+
+<Step number={3} title="إنشاء تكوين Intlayer">
 
 في جذر مشروعك (أو في أي مكان مناسب)، أنشئ ملف **تكوين Intlayer**. قد يبدو كالتالي:
 
@@ -205,7 +211,9 @@ export default config;
 - لاحقًا، يمكنك إضافة خيارات أكثر تقدمًا (مثل السجلات، مجلدات المحتوى المخصصة، إلخ).
 - راجع [وثائق تكوين Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md) للمزيد.
 
-## الخطوة 3: إضافة ملحق Metro
+</Step>
+
+<Step number={4} title="إضافة ملحق Metro">
 
 Metro هو أداة تجميع (bundler) لـ React Native. وهو أداة التجميع الافتراضية لمشاريع React Native التي تم إنشاؤها باستخدام الأمر `react-native init`. لاستخدام Intlayer مع Metro، تحتاج إلى إضافة الملحق إلى ملف `metro.config.js` الخاص بك:
 
@@ -220,7 +228,9 @@ module.exports = (async () => {
 })();
 ```
 
-## الخطوة 4: إضافة موفر Intlayer
+</Step>
+
+<Step number={5} title="إضافة موفر Intlayer">
 
 للحفاظ على مزامنة لغة المستخدم في جميع أنحاء تطبيقك، تحتاج إلى تغليف المكون الجذر الخاص بك بمكون `IntlayerProvider` من `react-intlayer-native`.
 
@@ -247,7 +257,9 @@ const RootLayout: FC = () => {
 export default RootLayout;
 ```
 
-## الخطوة 5: إعلان المحتوى الخاص بك
+</Step>
+
+<Step number={6} title="إعلان المحتوى الخاص بك">
 
 قم بإنشاء ملفات **إعلان المحتوى** في أي مكان داخل مشروعك (عادةً داخل مجلد `src/`)، باستخدام أي من صيغ الامتداد التي يدعمها Intlayer:
 
@@ -308,7 +320,9 @@ export default homeScreenContent;
 
 ---
 
-## الخطوة 4: استخدام Intlayer في مكوناتك
+</Step>
+
+<Step number={7} title="استخدام Intlayer في مكوناتك">
 
 استخدم الخطاف `useIntlayer` في المكونات الفرعية للحصول على المحتوى المحلي.
 
@@ -361,7 +375,9 @@ export default HomeScreen;
 
 ---
 
-## (اختياري) الخطوة 5: تغيير لغة التطبيق
+</Step>
+
+<Step number={8} title="تغيير لغة التطبيق">
 
 لتغيير اللغة من داخل مكوناتك، يمكنك استخدام دالة `setLocale` من الخطاف `useLocale`:
 
@@ -413,6 +429,10 @@ const styles = StyleSheet.create({
 هذا يؤدي إلى إعادة عرض جميع المكونات التي تستخدم محتوى Intlayer، مما يعرض الآن الترجمات للغة الجديدة.
 
 > راجع [`useLocale` docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useLocale.md) لمزيد من التفاصيل.
+
+</Step>
+
+</Steps>
 
 ## تكوين TypeScript (إذا كنت تستخدم TypeScript)
 

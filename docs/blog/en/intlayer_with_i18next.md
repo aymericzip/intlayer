@@ -77,7 +77,9 @@ This guide explains how to leverage Intlayer as an **adapter for i18next**, allo
 
 ## Step-by-Step Guide to Set Up Intlayer with i18next
 
-### Step 1: Install Dependencies
+<Steps>
+
+<Step number={1} title="Install Dependencies">
 
 Install the necessary packages:
 
@@ -106,7 +108,9 @@ bun x intlayer init
 - **intlayer**: Core library for internationalization management, content declaration, and building
 - **@intlayer/sync-json-plugin**: Plugin to export Intlayer content declarations to i18next compatible JSON format
 
-### Step 2: Implement the Intlayer plugin to wrap the JSON
+</Step>
+
+<Step number={2} title="Implement the Intlayer plugin to wrap the JSON">
 
 Create an Intlayer configuration file to define your supported locales:
 
@@ -142,7 +146,9 @@ If changes are made using the CLI to translate the JSON, or using the CMS, Intla
 
 To see more details about the `syncJSON` plugin, please refer to the [syncJSON plugin documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/plugins/sync-json.md).
 
-### Step 4: Set up AI provider
+</Step>
+
+<Step number={3} title="Set up AI provider">
 
 Intlayer unlocks a set of advanced automation and developer-friendly features for your i18next workflow.
 
@@ -192,6 +198,10 @@ This will fill your translations with the AI provider you have configured.
 > See all the available commands in the [Intlayer CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md).
 
 ---
+
+</Step>
+
+</Steps>
 
 ## Git Configuration
 

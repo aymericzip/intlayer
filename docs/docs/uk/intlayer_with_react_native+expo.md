@@ -111,7 +111,9 @@ Intlayer оптимізовано для ідеальної роботи з Reac
 </Accordion>
 </AccordionGroup>
 
-## Крок 1: Встановіть залежності
+<Steps>
+
+<Step number={1} title="Встановіть залежності">
 
 Перегляньте [Шаблон програми](https://github.com/aymericzip/intlayer-react-native-template) на GitHub.
 
@@ -154,7 +156,9 @@ bun x intlayer init
 
 ---
 
-## Крок 1: Встановіть залежності
+</Step>
+
+<Step number={2} title="Встановіть залежності">
 
 Перегляньте [шаблон застосунку](https://github.com/aymericzip/intlayer-react-native-template) на GitHub.
 
@@ -197,7 +201,9 @@ bun x intlayer init
 
 ---
 
-## Крок 2: Створіть конфігурацію Intlayer
+</Step>
+
+<Step number={3} title="Створіть конфігурацію Intlayer">
 
 У корені вашого проєкту (або в будь-якому зручному місці) створіть файл **Intlayer config**. Він може виглядати так:
 
@@ -229,7 +235,9 @@ export default config;
 - Пізніше ви зможете додати більш просунуті опції (наприклад, логи, користувацькі директорії контенту тощо).
 - Див. [документацію конфігурації Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md) для детальнішої інформації.
 
-## Крок 3: Додайте плагін Metro
+</Step>
+
+<Step number={4} title="Додайте плагін Metro">
 
 Metro, це бандлер для React Native. Він є бандлером за замовчуванням для проєктів React Native, створених за допомогою команди `react-native init`. Щоб використовувати Intlayer з Metro, потрібно додати плагін у файл `metro.config.js`:
 
@@ -247,7 +255,9 @@ module.exports = (async () => {
 > Примітка: `configMetroIntlayer`, це функція, яка повертає проміс. Використовуйте `configMetroIntlayerSync`, якщо хочете виконувати це синхронно, або уникайте IFFE (Immediately Invoked Function Expression).
 > Примітка: `configMetroIntlayerSync` не дозволяє будувати словники intlayer під час запуску сервера
 
-## Крок 4: Додайте провайдер Intlayer
+</Step>
+
+<Step number={5} title="Додайте провайдер Intlayer">
 
 Щоб синхронізувати мову користувача по всьому застосунку, потрібно обгорнути кореневий компонент компонентом `IntlayerProvider` з `react-intlayer-native`.
 
@@ -276,7 +286,9 @@ const RootLayout: FC = () => {
 export default RootLayout;
 ```
 
-## Крок 5: Оголосіть свій контент
+</Step>
+
+<Step number={6} title="Оголосіть свій контент">
 
 Створіть файли **декларації контенту** у будь-якому місці вашого проєкту (зазвичай у `src/`), використовуючи будь-який з форматів розширень, які підтримує Intlayer:
 
@@ -339,7 +351,9 @@ export default homeScreenContent;
 
 ---
 
-## Крок 4: Використання Intlayer у ваших компонентах
+</Step>
+
+<Step number={7} title="Використання Intlayer у ваших компонентах">
 
 Використовуйте хук `useIntlayer` у дочірніх компонентах, щоб отримувати локалізований контент.
 
@@ -392,7 +406,9 @@ export default HomeScreen;
 
 ---
 
-## (Необов'язково) Крок 5: Змінити локаль додатку
+</Step>
+
+<Step number={8} title="Змінити локаль додатку">
 
 Щоб перемикати локалі зсередини ваших компонентів, ви можете використовувати метод `setLocale` хука `useLocale`:
 
@@ -444,6 +460,10 @@ const styles = StyleSheet.create({
 Це спричиняє повторний рендер (re-render) усіх компонентів, що використовують контент Intlayer, тепер вони відображають переклади для нової локалі.
 
 > Див. документацію по [`useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/useLocale.md) для докладніших відомостей.
+
+</Step>
+
+</Steps>
 
 ## Налаштування TypeScript (якщо ви використовуєте TypeScript)
 

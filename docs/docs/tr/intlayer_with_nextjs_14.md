@@ -43,7 +43,9 @@ Bu kılavuzu takip etmek için aşağıdaki araçlara ihtiyacınız olacak:
 - npm, pnpm veya yarn paket yöneticisi
 - Next.js 14 projesi
 
-## Adım 1: Intlayer Paketlerini Kurma
+<Steps>
+
+<Step number={1} title="Intlayer Paketlerini Kurma">
 
 İlk olarak, Intlayer paketlerini projenize kurun:
 
@@ -67,7 +69,9 @@ bun add next-intlayer intlayer --save
 bun x intlayer init
 ```
 
-## Adım 2: Intlayer Yapılandırma Dosyası Oluşturma
+</Step>
+
+<Step number={2} title="Intlayer Yapılandırma Dosyası Oluşturma">
 
 Here is the final structure that we will make:
 
@@ -129,7 +133,9 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-## Adım 3: Next.js Yapılandırmasını Güncelleme
+</Step>
+
+<Step number={3} title="Next.js Yapılandırmasını Güncelleme">
 
 Next.js yapılandırma dosyanızı Intlayer ile uyumlu hale getirin:
 
@@ -163,7 +169,9 @@ const config = {
 module.exports = withIntlayer(config);
 ```
 
-## Adım 4: İçerik Bildirimi
+</Step>
+
+<Step number={4} title="İçerik Bildirimi">
 
 İçerik dosyalarınızı oluşturun. Bu dosyalar, uygulamanızdaki çok dilli içeriği tanımlar.
 
@@ -206,7 +214,9 @@ export default homeContent;
 }
 ```
 
-## Adım 5: İçerik Kullanımı
+</Step>
+
+<Step number={5} title="İçerik Kullanımı">
 
 İçeriğinizi bileşenlerinizde kullanın:
 
@@ -226,7 +236,9 @@ export default function HomePage() {
 }
 ```
 
-## Adım 6: Middleware Kurulumu
+</Step>
+
+<Step number={6} title="Middleware Kurulumu">
 
 Next.js 14'te çok dilli yönlendirme için middleware kurun:
 
@@ -245,7 +257,9 @@ export const config = {
 };
 ```
 
-## Adım 7: Düzen Dosyası (Layout)
+</Step>
+
+<Step number={7} title="Düzen Dosyası (Layout)">
 
 Kök düzen dosyanızı çok dilli hale getirin:
 
@@ -306,7 +320,9 @@ export default function RootLayout({
 }
 ```
 
-## Adım 8: Sayfa Yönlendirme
+</Step>
+
+<Step number={8} title="Sayfa Yönlendirme">
 
 Sayfa yönlendirmelerini çok dilli hale getirin:
 
@@ -326,7 +342,9 @@ export default function HomePage() {
 }
 ```
 
-## Adım 9: Meta Verilerin Uluslararasılaştırılması
+</Step>
+
+<Step number={9} title="Meta Verilerin Uluslararasılaştırılması">
 
 Sayfa meta verilerini uluslararasılaştırın:
 
@@ -369,7 +387,9 @@ export default function HomePage() {
 }
 ```
 
-## Adım 10: Site Haritası ve Robots.txt Kurulumu
+</Step>
+
+<Step number={10} title="Site Haritası ve Robots.txt Kurulumu">
 
 Site haritanızı ve robots.txt dosyanızı çok dilli hale getirin:
 
@@ -423,7 +443,9 @@ export default function robots(): MetadataRoute.Robots {
 }
 ```
 
-## (İsteğe Bağlı) Adım 11: Yerel Anahtarlayıcı Bileşeni Oluşturma
+</Step>
+
+<Step number={11} title="Yerel Anahtarlayıcı Bileşeni Oluşturma">
 
 Uygulamanızın mevcut yerel ayarı saygı göstermesini sağlamak için, bir yerel anahtarlayıcı bileşeni oluşturabilirsiniz. Bu bileşen, dahili URL'leri otomatik olarak mevcut dille önekler, böylece örneğin Fransızca konuşan bir kullanıcı "Hakkında" sayfasına bir bağlantıya tıkladığında, `/fr/hakkinda` yerine `/hakkinda`ya yönlendirilir.
 
@@ -512,7 +534,7 @@ return (
 > - [`dir` özelliği](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` özelliği](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-<Steps>
+</Step>
 
 <Step number={12} title="Yerelleştirilmiş Bağlantı Bileşeni Oluşturma" isOptional={true}>
 
@@ -567,7 +589,9 @@ export const Link = forwardRef<
 Link.displayName = "Link";
 ```
 
-#### Nasıl Çalışır
+</Step>
+
+<Step number={13} title="# Nasıl Çalışır">
 
 - **Harici Bağlantıları Algılama**:  
   Yardımcı fonksiyon `checkIsExternalLink`, bir URL'nin harici olup olmadığını belirler. Harici bağlantılar değişmeden bırakılır çünkü yerelleştirmeye ihtiyaçları yoktur.
@@ -585,7 +609,7 @@ Bu `Link` bileşenini uygulamanız boyunca entegre ederek, tutarlı ve dil bilin
 
 </Step>
 
-<Step number={13} title="bundle boyutunuzu Optimize Edin" isOptional={true}>
+<Step number={14} title="bundle boyutunuzu Optimize Edin" isOptional={true}>
 
 `next-intlayer` kullanırken, sözlükler varsayılan olarak her sayfa için pakete dahil edilir. bundle boyutunu optimize etmek için, Intlayer isteğe bağlı bir SWC eklentisi sağlar ki bu, `useIntlayer` çağrılarını akıllıca makrolar kullanarak değiştirir. Bu, sözlüklerin sadece onları gerçekten kullanan sayfalar için paketlere dahil edilmesini sağlar.
 
@@ -611,6 +635,8 @@ bun add @intlayer/swc --dev
 
 > Not: Bu paket varsayılan olarak kurulmaz çünkü SWC eklentileri Next.js'te hala deneyseldir. Gelecekte değişebilir.
 > </Step>
+
+</Step>
 
 </Steps>
 

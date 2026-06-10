@@ -127,7 +127,7 @@ bun x intlayer init
 
 <Steps>
 
-<Step number={2} title="配置您的项目">
+<Step number={1} title="配置您的项目">
 
 下面是我们将创建的最终结构：
 
@@ -183,7 +183,9 @@ export default config;
 > 通过此配置文件，您可以设置本地化 URL、代理重定向、cookie 名称、内容声明的位置和扩展名、在控制台禁用 Intlayer 日志等。有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 > </Step>
 
-<Step number={5} title="声明您的内容">
+</Step>
+
+<Step number={2} title="声明您的内容">
 
 创建并管理您的内容声明以存储翻译：
 
@@ -303,7 +305,7 @@ export default pageContent;
 
 </Step>
 
-<Step number={6} title="在代码中使用内容">
+<Step number={3} title="在代码中使用内容">
 
 在应用程序中随处访问你的内容字典：
 
@@ -407,7 +409,7 @@ export const ServerComponentExample: FC = () => {
 
 </Step>
 
-<Step number={7} title="配置 Proxy 以进行 locale 检测">
+<Step number={4} title="配置 Proxy 以进行 locale 检测">
 
 设置 Proxy 以检测用户的首选 locale：
 
@@ -433,7 +435,7 @@ export const proxy = multipleProxies([intlayerProxy, customProxy]);
 
 </Step>
 
-<Step number={8} title="更改您内容的语言">
+<Step number={5} title="更改您内容的语言">
 
 要在 Next.js 中更改内容的语言，推荐的方法是使用 `Link` 组件将用户重定向到相应的本地化页面。`Link` 组件支持页面预取，这有助于避免整页重新加载。
 
@@ -494,7 +496,9 @@ export const LocaleSwitcher: FC = () => {
 > - [`dir` attribute`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` attribute`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-###（可选）步骤 9：在 Server Actions 中获取当前 locale
+</Step>
+
+<Step number={6} title="在 Server Actions 中获取当前 locale" isOptional={true}>
 
 如果你需要在 Server Action 中使用活动 locale（例如，用于本地化电子邮件或运行与 locale 相关的逻辑），请从 `next-intlayer/server` 调用 `getLocale`：
 
@@ -521,7 +525,7 @@ export const myServerAction = async () => {
 
 </Step>
 
-<Step number={10} title="优化你的 bundle 大小">
+<Step number={7} title="优化你的 bundle 大小">
 
 在使用 `next-intlayer` 时，字典默认会被包含到每个页面的 bundle 中。为了优化 bundle 大小，Intlayer 提供了一个可选的 SWC 插件，它使用宏智能替换 `useIntlayer` 调用。这样只有实际使用这些字典的页面的 bundle 才会包含相应字典。
 
@@ -550,9 +554,9 @@ bun add @intlayer/swc --dev
 > 注意：如果你将选项设置为 `importMode: 'dynamic'` 或 `importMode: 'fetch'`，它将依赖 Suspense，因此你必须在一个 `Suspense` 边界中包裹你的 `useIntlayer` 调用。这意味着你不能在页面 / 布局组件的顶层直接使用 `useIntlayer`。
 > </Step>
 
-</Steps>
+</Step>
 
-### 第 3 步：在 Next.js 配置中集成 Intlayer
+<Step number={8} title="第 3 步：在 Next.js 配置中集成 Intlayer">
 
 配置您的 Next.js 设置以使用 Intlayer：
 
@@ -595,7 +599,9 @@ export default withIntlayer(nextConfig);
 > withRspack(withIntlayer(nextConfig, { enableTurbopack: false }));
 > ```
 
-### 第4步：定义动态 locale 路由
+</Step>
+
+<Step number={9} title="第4步：定义动态 locale 路由">
 
 从 `RootLayout` 中删除所有内容，并用下面的代码替换：
 
@@ -638,7 +644,9 @@ const RootLayout = async ({
 export default RootLayout;
 ```
 
-### 在 Turbopack 上监视字典更改
+</Step>
+
+<Step number={10} title="在 Turbopack 上监视字典更改">
 
 当使用 Turbopack 作为通过 `next dev` 命令运行的开发服务器时，字典更改默认不会被自动检测。
 
@@ -655,6 +663,10 @@ export default RootLayout;
 ```
 
 > 如果你使用的是 next-intlayer@<=6.x.x，你需要保留 `--turbopack` 标志以使 Next.js 16 应用程序能与 Turbopack 正常工作。我们建议使用 next-intlayer@>=7.x.x 来避免此限制。
+
+</Step>
+
+</Steps>
 
 ### 配置 TypeScript
 

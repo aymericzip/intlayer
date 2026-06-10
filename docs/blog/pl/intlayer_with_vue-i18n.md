@@ -56,7 +56,9 @@ Ten przewodnik pokazuje, jak wykorzystać zaawansowany system deklaracji treści
 
 ## Przewodnik krok po kroku: Konfiguracja Intlayer z vue-i18n
 
-### Krok 1: Instalacja zależności
+<Steps>
+
+<Step number={1} title="Instalacja zależności">
 
 Zainstaluj niezbędne pakiety, używając preferowanego menedżera pakietów:
 
@@ -85,7 +87,9 @@ bun x intlayer init
 - **intlayer**: Główna biblioteka do deklaracji i zarządzania treścią
 - **@intlayer/sync-json-plugin**: Wtyczka do synchronizacji deklaracji treści Intlayer z formatem JSON vue-i18n
 
-### Krok 2: Implementacja wtyczki Intlayer do opakowania JSON
+</Step>
+
+<Step number={2} title="Implementacja wtyczki Intlayer do opakowania JSON">
 
 Utwórz plik konfiguracyjny Intlayer, aby zdefiniować obsługiwane lokalizacje:
 
@@ -121,6 +125,10 @@ Jeśli chcesz, aby JSON współistniał z plikami deklaracji treści Intlayer (`
 Jeśli zmiany zostaną dokonane za pomocą CLI do tłumaczenia JSON lub za pomocą CMS, Intlayer zaktualizuje plik JSON o nowe tłumaczenia.
 
 Aby zobaczyć więcej szczegółów dotyczących wtyczki `syncJSON`, proszę zapoznać się z [dokumentacją wtyczki syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/plugins/sync-json.md).
+
+</Step>
+
+</Steps>
 
 ## Konfiguracja Git
 

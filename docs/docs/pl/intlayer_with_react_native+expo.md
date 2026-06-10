@@ -94,7 +94,9 @@ Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wi
 
 Zamiast ładować ogromne pliki JSON na swoje strony, ładuj tylko niezbędną treść. Intlayer pomaga **zmniejszyć rozmiary pakietów i wyświetleń nawet o 50%**.
 
-## Krok 1: Zainstaluj zależności
+<Steps>
+
+<Step number={1} title="Zainstaluj zależności">
 
 Zobacz [Szablon aplikacji](https://github.com/aymericzip/intlayer-react-native-template) w GitHub.
 
@@ -137,7 +139,9 @@ kok x inicjacja międzywarstwy
 
 ---
 
-## Krok 1: Instalacja zależności
+</Step>
+
+<Step number={2} title="Instalacja zależności">
 
 Zobacz [Szablon aplikacji](https://github.com/aymericzip/intlayer-react-native-template) na GitHub.
 
@@ -180,7 +184,9 @@ bun x intlayer init
 
 ---
 
-## Krok 2: Utwórz konfigurację Intlayer
+</Step>
+
+<Step number={3} title="Utwórz konfigurację Intlayer">
 
 W katalogu głównym projektu (lub w dowolnym wygodnym miejscu) utwórz plik **konfiguracji Intlayer**. Może on wyglądać tak:
 
@@ -212,7 +218,9 @@ W ramach tej konfiguracji możesz:
 - Później możesz dodać bardziej zaawansowane opcje (np. logi, niestandardowe katalogi z zawartością itp.).
 - Zobacz [dokumentację konfiguracji Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/configuration.md) po więcej informacji.
 
-## Krok 3: Dodaj wtyczkę Metro
+</Step>
+
+<Step number={4} title="Dodaj wtyczkę Metro">
 
 Metro to bundler dla React Native. Jest to domyślny bundler dla projektów React Native tworzonych za pomocą polecenia `react-native init`. Aby używać Intlayer z Metro, musisz dodać wtyczkę do pliku `metro.config.js`:
 
@@ -230,7 +238,9 @@ module.exports = (async () => {
 > Uwaga: `configMetroIntlayer` to funkcja zwracająca promise. Użyj `configMetroIntlayerSync`, jeśli chcesz użyć jej synchronicznie lub uniknąć IIFE (Immediately Invoked Function Expression).
 > Uwaga: `configMetroIntlayerSync` nie pozwala na budowanie słowników intlayer podczas uruchamiania serwera
 
-## Krok 4: Dodaj dostawcę Intlayer
+</Step>
+
+<Step number={5} title="Dodaj dostawcę Intlayer">
 
 Aby utrzymać synchronizację języka użytkownika w całej aplikacji, musisz opakować swój komponent root w komponent `IntlayerProvider` z `react-native-intlayer`.
 
@@ -259,7 +269,9 @@ const RootLayout: FC = () => {
 export default RootLayout;
 ```
 
-## Krok 5: Zadeklaruj swoją zawartość
+</Step>
+
+<Step number={6} title="Zadeklaruj swoją zawartość">
 
 Utwórz pliki **deklaracji zawartości** w dowolnym miejscu w swoim projekcie (zwykle w katalogu `src/`), używając dowolnego z formatów rozszerzeń obsługiwanych przez Intlayer:
 
@@ -320,7 +332,9 @@ export default homeScreenContent;
 
 ---
 
-## Krok 4: Użyj Intlayer w swoich komponentach
+</Step>
+
+<Step number={7} title="Użyj Intlayer w swoich komponentach">
 
 Użyj hooka `useIntlayer` w komponentach potomnych, aby uzyskać zlokalizowaną zawartość.
 
@@ -373,7 +387,9 @@ export default HomeScreen;
 
 ---
 
-## (Opcjonalny) Krok 5: Zmiana lokalizacji aplikacji
+</Step>
+
+<Step number={8} title="Zmiana lokalizacji aplikacji" isOptional={true}>
 
 Aby zmienić lokalizację z poziomu komponentów, możesz użyć metody `setLocale` hooka `useLocale`:
 
@@ -425,6 +441,10 @@ const styles = StyleSheet.create({
 To powoduje ponowne renderowanie wszystkich komponentów korzystających z zawartości Intlayer, teraz wyświetlając tłumaczenia dla nowej lokalizacji.
 
 > Zobacz [`useLocale` docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/useLocale.md) po więcej szczegółów.
+
+</Step>
+
+</Steps>
 
 ## Konfiguracja TypeScript (jeśli używasz TypeScript)
 

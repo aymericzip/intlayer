@@ -54,7 +54,9 @@ Intlayerは優れた単独のi18nソリューションを提供します（[Reac
 
 ## react-intlとIntlayerをセットアップするステップバイステップガイド
 
-### ステップ1: 依存関係のインストール
+<Steps>
+
+<Step number={1} title="依存関係のインストール">
 
 必要なパッケージをインストールします:
 
@@ -83,7 +85,9 @@ bun x intlayer init
 - **intlayer**: 国際化管理、コンテンツ宣言、およびビルドのためのコアライブラリ
 - **@intlayer/sync-json-plugin**: Intlayerのコンテンツ宣言をreact-intl互換のJSON形式にエクスポートするプラグイン
 
-### ステップ2: JSONをラップするためのIntlayerプラグインの実装
+</Step>
+
+<Step number={2} title="JSONをラップするためのIntlayerプラグインの実装">
 
 サポートするロケールを定義するためのIntlayer設定ファイルを作成します。
 
@@ -119,6 +123,10 @@ const config: IntlayerConfig = {
 CLIを使ってJSONの翻訳を変更した場合やCMSを使用した場合、Intlayerは新しい翻訳でJSONファイルを更新します。
 
 `syncJSON`プラグインの詳細については、[syncJSONプラグインのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)をご参照ください。
+
+</Step>
+
+</Steps>
 
 ## Git 設定
 

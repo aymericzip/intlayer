@@ -69,13 +69,17 @@ At a high level, here’s the recipe I used:
 5.  **Augmentation + Generation (AG in RAG)** Those chunks are injected into the prompt for ChatGPT, so the model answers with actual doc context.
 6.  **Logging queries for feedback** Every user query is stored. This is invaluable for understanding pain points, missing documentation, or new opportunities.
 
-## Step 1: Reading the Docs
+<Steps>
+
+<Step number={1} title="Reading the Docs">
 
 The first step was straightforward: I needed a way to scan a docs/ folder for all .md files. Using Node.js and glob, I fetched the content of each Markdown file into memory.
 
 This keeps the pipeline flexible: instead of Markdown, you could fetch docs from a database, a CMS, or even an API.
 
-## Step 2: Chunking the Documentation
+</Step>
+
+<Step number={2} title="Chunking the Documentation">
 
 Why chunk? Because language models have **context limits**. Feeding them an entire book of docs won’t work.
 
@@ -93,7 +97,9 @@ This trade-off (chunk size vs overlap) is key for RAG efficiency:
 - Too small → you get noise.
 - Too large → you blow up context size.
 
-## Step 3: Generating Embeddings
+</Step>
+
+<Step number={3} title="Generating Embeddings">
 
 Once the docs are chunked, we generate **embeddings**, high-dimensional vectors representing each chunk.
 
@@ -111,7 +117,9 @@ I used OpenAI’s text-embedding-3-large model, but you could use any modern e
 
 Each vector is a mathematical fingerprint of the text, enabling similarity search.
 
-## Step 4: Indexing & Storing Embeddings
+</Step>
+
+<Step number={4} title="Indexing & Storing Embeddings">
 
 To avoid regenerating embeddings multiple times, I stored them in embeddings.json.
 
@@ -124,7 +132,9 @@ In production, you’d likely want a vector database such as:
 
 Vector DBs handle indexing, scalability, and fast search. But for my prototype, a local JSON worked fine.
 
-## Step 5: Retrieval with Cosine Similarity
+</Step>
+
+<Step number={5} title="Retrieval with Cosine Similarity">
 
 When a user asks a question:
 
@@ -136,7 +146,9 @@ Cosine similarity measures the angle between two vectors. A perfect match scores
 
 This way, the system finds the closest doc passages to the query.
 
-## Step 6: Augmentation + Generation
+</Step>
+
+<Step number={6} title="Augmentation + Generation">
 
 Now comes the magic. We take the top chunks and inject them into the **system prompt** for ChatGPT.
 
@@ -144,7 +156,9 @@ That means the model answers as if those chunks were part of the conversation.
 
 The result: accurate, **doc-grounded responses**.
 
-## Step 7: Logging User Queries
+</Step>
+
+<Step number={7} title="Logging User Queries">
 
 This is the hidden superpower.
 
@@ -157,7 +171,9 @@ Every question asked is stored. Over time, you build a dataset of:
 
 This turns your RAG assistant into a **continuous user research tool**.
 
-## What Does It Cost?
+</Step>
+
+<Step number={8} title="What Does It Cost?">
 
 One common objection to RAG is cost. In practice, it’s surprisingly cheap:
 
@@ -167,7 +183,9 @@ One common objection to RAG is cost. In practice, it’s surprisingly cheap:
 
 On top of that, you can include the hosting cost.
 
-## Implementation Details
+</Step>
+
+<Step number={9} title="Implementation Details">
 
 Stack:
 
@@ -231,7 +249,9 @@ We experimented with gpt-5, but latency was too high (sometimes up to 15 seconds
 
 👉 [Try the demo here](https://intlayer.org/doc/why) 👉 [Check the code template on GitHub](https://github.com/aymericzip/smart_doc_RAG)
 
-## Going Further
+</Step>
+
+<Step number={10} title="Going Further">
 
 This project is a minimal implementation. But you can extend it in many ways:
 
@@ -243,13 +263,17 @@ This project is a minimal implementation. But you can extend it in many ways:
 - Multi-source retrieval → pull not just docs, but database entries, blog posts, tickets, etc.
 - Improved prompting → reranking, filtering, and hybrid search (keyword + semantic)
 
-## Limitations We Hit
+</Step>
+
+<Step number={11} title="Limitations We Hit">
 
 - Chunking and overlap are empirical. The right balance (chunk size, overlap percentage, number of retrieved chunks) requires iteration and testing.
 - Embeddings are not auto-regenerated when docs change. Our system resets embeddings for a file only if the number of chunks differs from what’s stored.
 - In this prototype, embeddings are stored in JSON. This works for demos but pollutes Git. In production, a database or dedicated vector store is preferable.
 
-## Why This Matters Beyond Docs
+</Step>
+
+<Step number={12} title="Why This Matters Beyond Docs">
 
 The interesting part is not just the chatbot. It’s the **feedback loop**.
 
@@ -268,6 +292,10 @@ Imagine launching a new feature and instantly seeing:
 - People search for terms that reveal a new use case
 
 That’s **product intelligence** straight from your users.
+
+</Step>
+
+</Steps>
 
 ## Conclusion
 

@@ -58,7 +58,9 @@ Esta guía te muestra cómo aprovechar el sistema superior de declaración de co
 
 ## Guía Paso a Paso para Configurar Intlayer con i18next
 
-### Paso 1: Instalar Dependencias
+<Steps>
+
+<Step number={1} title="Instalar Dependencias">
 
 Instala los paquetes necesarios:
 
@@ -87,7 +89,9 @@ bun x intlayer init
 - **intlayer**: Biblioteca principal para la gestión de internacionalización, declaración de contenido y construcción
 - **@intlayer/sync-json-plugin**: Plugin para exportar las declaraciones de contenido de Intlayer a un formato JSON compatible con i18next
 
-### Paso 2: Implementar el plugin de Intlayer para envolver el JSON
+</Step>
+
+<Step number={2} title="Implementar el plugin de Intlayer para envolver el JSON">
 
 Crea un archivo de configuración de Intlayer para definir los locales soportados:
 
@@ -122,6 +126,10 @@ Si quieres hacer coexistir ese JSON con los archivos de declaración de contenid
 Si se realizan cambios usando la CLI para traducir el JSON, o usando el CMS, Intlayer actualizará el archivo JSON con las nuevas traducciones.
 
 Para ver más detalles sobre el plugin `syncJSON`, por favor consulta la [documentación del plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-json.md).
+
+</Step>
+
+</Steps>
 
 ## Configuración de Git
 

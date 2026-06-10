@@ -56,7 +56,9 @@ Bu rehber, Intlayer'ın üstün içerik beyan sistemi kullanılırken react-i18n
 
 ## Intlayer'ı react-i18next ile Kurmak İçin Adım Adım Rehber
 
-### Adım 1: Bağımlılıkları Yükleyin
+<Steps>
+
+<Step number={1} title="Bağımlılıkları Yükleyin">
 
 Gerekli paketleri yükleyin:
 
@@ -85,7 +87,9 @@ bun x intlayer init
 - **intlayer**: Uluslararasılaştırma yönetimi, içerik beyanı ve derleme için temel kütüphane
 - **@intlayer/sync-json-plugin**: Intlayer içerik beyanlarını react-i18next uyumlu JSON formatına dışa aktarmak için eklenti
 
-### Adım 2: JSON'u sarmak için Intlayer eklentisini uygulayın
+</Step>
+
+<Step number={2} title="JSON'u sarmak için Intlayer eklentisini uygulayın">
 
 Desteklenen yerel ayarları tanımlamak için bir Intlayer yapılandırma dosyası oluşturun:
 
@@ -121,7 +125,9 @@ CLI kullanılarak JSON'un çevirisi yapılırsa veya CMS kullanılırsa, Intlaye
 
 `syncJSON` eklentisi hakkında daha fazla detay görmek için lütfen [syncJSON eklenti dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/plugins/sync-json.md) bakınız.
 
-### (İsteğe Bağlı) Adım 3: Bileşen başına JSON çevirilerini uygulama
+</Step>
+
+<Step number={3} title="Bileşen başına JSON çevirilerini uygulama">
 
 Varsayılan olarak, Intlayer hem JSON hem de içerik beyan dosyalarını yükler, birleştirir ve senkronize eder. Daha fazla detay için [içerik beyan dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bakabilirsiniz. Ancak isterseniz, Intlayer eklentisi kullanarak kod tabanınızın herhangi bir yerinde yerelleştirilmiş JSON'un bileşen bazında yönetimini de uygulayabilirsiniz.
 
@@ -161,6 +167,10 @@ export default config;
 ```
 
 Bu, `src` dizinindeki `{key}.i18n.json` desenine uyan tüm JSON dosyalarını yükleyecek ve bunları Intlayer sözlükleri olarak kullanacaktır.
+
+</Step>
+
+</Steps>
 
 ## Git Yapılandırması
 

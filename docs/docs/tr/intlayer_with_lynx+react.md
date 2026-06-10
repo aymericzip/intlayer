@@ -83,7 +83,9 @@ Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barın
 
 ---
 
-## Adım 1: Bağımlılıkları Yükleyin
+<Steps>
+
+<Step number={1} title="Bağımlılıkları Yükleyin">
 
 Lynx projenizden aşağıdaki paketleri yükleyin:
 
@@ -120,7 +122,9 @@ bun x intlayer init
 
 ---
 
-## Adım 2: Intlayer Yapılandırması Oluşturun
+</Step>
+
+<Step number={2} title="Intlayer Yapılandırması Oluşturun">
 
 Proje kökünüzde (veya uygun herhangi bir yerde) bir **Intlayer yapılandırma** dosyası oluşturun. Şöyle görünebilir:
 
@@ -149,7 +153,9 @@ Bu yapılandırma içinde şunları yapabilirsiniz:
 - Daha sonra daha gelişmiş seçenekler ekleyebilirsiniz (örneğin, günlükler, özel içerik dizinleri, vb.).
 - Daha fazla bilgi için [Intlayer yapılandırma dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) bakın.
 
-## Adım 3: Lynx Paketleyiciye Intlayer Eklentisini Ekleyin
+</Step>
+
+<Step number={3} title="Lynx Paketleyiciye Intlayer Eklentisini Ekleyin">
 
 Lynx ile Intlayer kullanmak için `lynx.config.ts` dosyanıza eklentiyi eklemeniz gerekir:
 
@@ -165,7 +171,9 @@ export default defineConfig({
 });
 ```
 
-## Adım 4: Intlayer Sağlayıcısını Ekleyin
+</Step>
+
+<Step number={4} title="Intlayer Sağlayıcısını Ekleyin">
 
 Kullanıcı dilini uygulamanız genelinde senkronize tutmak için kök bileşeninizi `react-intlayer`'dan `IntlayerProvider` bileşeniyle sarmalamanız gerekir.
 
@@ -191,7 +199,9 @@ if (import.meta.webpackHot) {
 }
 ```
 
-## Adım 5: İçeriğinizi Bildirin
+</Step>
+
+<Step number={5} title="İçeriğinizi Bildirin">
 
 Projenizde herhangi bir yerde **içerik bildirim** dosyaları oluşturun (genellikle `src/` içinde), Intlayer'ın desteklediği uzantı formatlarından herhangi birini kullanarak:
 
@@ -293,7 +303,9 @@ export default appContent;
 
 ---
 
-## Adım 4: Bileşenlerinizde Intlayer'ı Kullanın
+</Step>
+
+<Step number={6} title="Bileşenlerinizde Intlayer'ı Kullanın">
 
 Yerelleştirilmiş içeriği almak için alt bileşenlerde `useIntlayer` hook'unu kullanın.
 
@@ -352,7 +364,9 @@ export const App = () => {
 
 ---
 
-## (İsteğe Bağlı) Adım 5: Uygulama Yerel Ayarını Değiştirin
+</Step>
+
+<Step number={7} title="Uygulama Yerel Ayarını Değiştirin">
 
 Bileşenleriniz içinden yerel ayarları değiştirmek için `useLocale` hook'unun `setLocale` metodunu kullanabilirsiniz:
 
@@ -394,6 +408,10 @@ export const LocaleSwitcher: FC = () => {
 Bu, Intlayer içeriği kullanan tüm bileşenlerin yeniden işlenmesini tetikler, artık yeni yerel ayar için çevirileri gösterir.
 
 > Daha fazla detay için [`useLocale` dokümantasyonuna](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md) bakın.
+
+</Step>
+
+</Steps>
 
 ## TypeScript'i Yapılandırın (TypeScript kullanıyorsanız)
 

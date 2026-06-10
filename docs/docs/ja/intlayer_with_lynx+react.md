@@ -66,7 +66,9 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
 
 ---
 
-## ステップ1: 依存関係をインストールする
+<Steps>
+
+<Step number={1} title="依存関係をインストールする">
 
 Lynxプロジェクトから、以下のパッケージをインストールします：
 
@@ -103,7 +105,9 @@ bun x intlayer init
 
 ---
 
-## ステップ2: Intlayer設定を作成する
+</Step>
+
+<Step number={2} title="Intlayer設定を作成する">
 
 プロジェクトのルート（または便利な場所）に**Intlayer設定**ファイルを作成します。以下のようになります：
 
@@ -132,7 +136,9 @@ export default config;
 - 後で、より高度なオプション（例：ログ、カスタムコンテンツディレクトリなど）を追加することができます。
 - 詳細は[Intlayer設定ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md)をご覧ください。
 
-## ステップ3: LynxバンドラーにIntlayerプラグインを追加する
+</Step>
+
+<Step number={3} title="LynxバンドラーにIntlayerプラグインを追加する">
 
 LynxでIntlayerを使用するには、`lynx.config.ts`ファイルにプラグインを追加する必要があります：
 
@@ -148,7 +154,9 @@ export default defineConfig({
 });
 ```
 
-## ステップ4: Intlayerプロバイダーを追加する
+</Step>
+
+<Step number={4} title="Intlayerプロバイダーを追加する">
 
 アプリケーション全体でユーザーの言語を同期させるには、`react-intlayer`の`IntlayerProvider`コンポーネントでルートコンポーネントをラップする必要があります。
 
@@ -174,7 +182,9 @@ if (import.meta.webpackHot) {
 }
 ```
 
-## ステップ5: コンテンツを宣言する
+</Step>
+
+<Step number={5} title="コンテンツを宣言する">
 
 プロジェクト内の任意の場所（通常は`src/`内）に**コンテンツ宣言**ファイルを作成します。Intlayerがサポートする任意の拡張形式を使用できます：
 
@@ -283,7 +293,9 @@ export default appContent;
 
 ---
 
-## ステップ4: コンポーネントでIntlayerを使用する
+</Step>
+
+<Step number={6} title="コンポーネントでIntlayerを使用する">
 
 子コンポーネントで`useIntlayer`フックを使用してローカライズされたコンテンツを取得します。
 
@@ -341,7 +353,9 @@ export const App = () => {
 
 ---
 
-## （オプション）ステップ5: アプリのロケールを変更する
+</Step>
+
+<Step number={7} title="アプリのロケールを変更する">
 
 コンポーネント内からロケールを切り替えるには、`useLocale`フックの`setLocale`メソッドを使用します。
 
@@ -383,6 +397,10 @@ export const LocaleSwitcher: FC = () => {
 これにより、Intlayerコンテンツを使用するすべてのコンポーネントが再レンダリングされ、新しいロケールの翻訳が表示されます。
 
 > 詳細については、[`useLocale`ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useLocale.md)を参照してください。
+
+</Step>
+
+</Steps>
 
 ## TypeScriptの設定（TypeScriptを使用している場合）
 

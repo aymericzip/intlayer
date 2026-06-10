@@ -54,7 +54,9 @@ Esta guía te muestra cómo aprovechar el sistema superior de declaración de co
 
 ## Guía paso a paso para configurar Intlayer con react-intl
 
-### Paso 1: Instalar dependencias
+<Steps>
+
+<Step number={1} title="Instalar dependencias">
 
 Instala los paquetes necesarios:
 
@@ -83,7 +85,9 @@ bun x intlayer init
 - **intlayer**: Biblioteca principal para la gestión de internacionalización, declaración de contenido y construcción
 - **@intlayer/sync-json-plugin**: Plugin para exportar las declaraciones de contenido de Intlayer a un formato JSON compatible con react-intl
 
-### Paso 2: Implementar el plugin de Intlayer para envolver el JSON
+</Step>
+
+<Step number={2} title="Implementar el plugin de Intlayer para envolver el JSON">
 
 Crea un archivo de configuración de Intlayer para definir tus locales soportados:
 
@@ -119,6 +123,10 @@ Si deseas hacer coexistir ese JSON con los archivos de declaración de contenido
 Si se realizan cambios usando la CLI para traducir el JSON, o usando el CMS, Intlayer actualizará el archivo JSON con las nuevas traducciones.
 
 Para ver más detalles sobre el plugin `syncJSON`, por favor consulta la [documentación del plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/plugins/sync-json.md).
+
+</Step>
+
+</Steps>
 
 ## Configuración de Git
 

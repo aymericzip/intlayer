@@ -111,7 +111,9 @@ Daripada memuat file JSON berukuran besar ke halaman Anda, muat saja konten yang
 </Accordion>
 </AccordionGroup>
 
-## Langkah 1: Instal Dependensi
+<Steps>
+
+<Step number={1} title="Instal Dependensi">
 
 Lihat [Template Aplikasi](https://github.com/aymericzip/intlayer-react-native-template) di GitHub.
 
@@ -154,7 +156,9 @@ bun x lapisan init
 
 ---
 
-## Langkah 1: Instalasi Dependensi
+</Step>
+
+<Step number={2} title="Instalasi Dependensi">
 
 Lihat [Template Aplikasi](https://github.com/aymericzip/intlayer-react-native-template) di GitHub.
 
@@ -197,7 +201,9 @@ bun x intlayer init
 
 ---
 
-## Langkah 2: Buat Konfigurasi Intlayer
+</Step>
+
+<Step number={3} title="Buat Konfigurasi Intlayer">
 
 Di root proyek Anda (atau di mana saja yang nyaman), buat file **konfigurasi Intlayer**. File tersebut mungkin terlihat seperti ini:
 
@@ -229,7 +235,9 @@ Dalam konfigurasi ini, Anda dapat:
 - Nanti, Anda dapat menambahkan opsi yang lebih canggih (misalnya, log, direktori konten khusus, dll.).
 - Lihat [dokumentasi konfigurasi Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md) untuk informasi lebih lanjut.
 
-## Langkah 3: Tambahkan plugin Metro
+</Step>
+
+<Step number={4} title="Tambahkan plugin Metro">
 
 Metro adalah bundler untuk React Native. Ini adalah bundler default untuk proyek React Native yang dibuat dengan perintah `react-native init`. Untuk menggunakan Intlayer dengan Metro, Anda perlu menambahkan plugin ke file `metro.config.js` Anda:
 
@@ -247,7 +255,9 @@ module.exports = (async () => {
 > Catatan: `configMetroIntlayer` adalah fungsi promise. Gunakan `configMetroIntlayerSync` jika Anda ingin menggunakannya secara sinkron, atau hindari IFFE (Immediately Invoked Function Expression).
 > Catatan: `configMetroIntlayerSync` tidak memungkinkan untuk membangun kamus intlayer saat server mulai
 
-## Langkah 4: Tambahkan provider Intlayer
+</Step>
+
+<Step number={5} title="Tambahkan provider Intlayer">
 
 Untuk menjaga sinkronisasi bahasa pengguna di seluruh aplikasi Anda, Anda perlu membungkus komponen root Anda dengan komponen `IntlayerProvider` dari `react-native-intlayer`.
 
@@ -276,7 +286,9 @@ const RootLayout: FC = () => {
 export default RootLayout;
 ```
 
-## Langkah 5: Deklarasikan Konten Anda
+</Step>
+
+<Step number={6} title="Deklarasikan Konten Anda">
 
 Buat file **deklarasi konten** di mana saja dalam proyek Anda (biasanya di dalam `src/`), menggunakan salah satu format ekstensi yang didukung Intlayer:
 
@@ -337,7 +349,9 @@ export default homeScreenContent;
 
 ---
 
-## Langkah 4: Gunakan Intlayer di Komponen Anda
+</Step>
+
+<Step number={7} title="Gunakan Intlayer di Komponen Anda">
 
 Gunakan hook `useIntlayer` di komponen anak untuk mendapatkan konten yang sudah dilokalisasi.
 
@@ -390,7 +404,9 @@ export default HomeScreen;
 
 ---
 
-## (Opsional) Langkah 5: Ubah Locale Aplikasi
+</Step>
+
+<Step number={8} title="Ubah Locale Aplikasi">
 
 Untuk mengganti locale dari dalam komponen Anda, Anda dapat menggunakan metode `setLocale` dari hook `useLocale`:
 
@@ -442,6 +458,10 @@ const styles = StyleSheet.create({
 Ini memicu re-render semua komponen yang menggunakan konten Intlayer, yang sekarang menampilkan terjemahan untuk locale baru.
 
 > Lihat [`useLocale` docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useLocale.md) untuk detail lebih lanjut.
+
+</Step>
+
+</Steps>
 
 ## Konfigurasi TypeScript (jika Anda menggunakan TypeScript)
 

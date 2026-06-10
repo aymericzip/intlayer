@@ -120,7 +120,9 @@ export default config;
 
 要查看更多关于 `syncJSON` 插件的详细信息，请参阅 [syncJSON 插件文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md)。
 
-### （可选）步骤 3：实现按组件的 JSON 翻译
+<Steps>
+
+<Step number={1} title="实现按组件的 JSON 翻译" isOptional={true}>
 
 默认情况下，Intlayer 会加载、合并并同步 JSON 和内容声明文件。更多详情请参阅 [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。但如果你愿意，也可以使用 Intlayer 插件，在代码库中的任意位置实现按组件管理本地化的 JSON。
 
@@ -161,6 +163,10 @@ export default config;
 ```
 
 这将加载 `src` 目录中所有匹配 `{key}.i18n.json` 模式的 JSON 文件，并将它们作为 Intlayer 字典加载。
+
+</Step>
+
+</Steps>
 
 ## Git 配置
 

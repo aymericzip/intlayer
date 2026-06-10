@@ -91,7 +91,9 @@ Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://g
 
 ---
 
-## Langkah 1: Instalasi Dependensi
+<Steps>
+
+<Step number={1} title="Instalasi Dependensi">
 
 Dari proyek Lynx Anda, instal paket-paket berikut:
 
@@ -129,7 +131,9 @@ bun x intlayer init
 
 ---
 
-## Langkah 2: Buat Konfigurasi Intlayer
+</Step>
+
+<Step number={2} title="Buat Konfigurasi Intlayer">
 
 Di root proyek Anda (atau di mana saja yang nyaman), buat file **konfigurasi Intlayer**. Contohnya bisa seperti ini:
 
@@ -158,7 +162,9 @@ Dalam konfigurasi ini, Anda dapat:
 - Nanti, Anda dapat menambahkan opsi yang lebih canggih (misalnya, log, direktori konten khusus, dll.).
 - Lihat [dokumentasi konfigurasi Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md) untuk informasi lebih lanjut.
 
-## Langkah 3: Tambahkan plugin Intlayer ke bundler Lynx
+</Step>
+
+<Step number={3} title="Tambahkan plugin Intlayer ke bundler Lynx">
 
 Untuk menggunakan Intlayer dengan Lynx, Anda perlu menambahkan plugin ke file `lynx.config.ts` Anda:
 
@@ -174,7 +180,9 @@ export default defineConfig({
 });
 ```
 
-## Langkah 4: Tambahkan provider Intlayer
+</Step>
+
+<Step number={4} title="Tambahkan provider Intlayer">
 
 Untuk menjaga sinkronisasi bahasa pengguna di seluruh aplikasi Anda, Anda perlu membungkus komponen root Anda dengan komponen `IntlayerProvider` dari `react-intlayer`.
 
@@ -200,7 +208,9 @@ if (import.meta.webpackHot) {
 }
 ```
 
-## Langkah 5: Deklarasikan Konten Anda
+</Step>
+
+<Step number={5} title="Deklarasikan Konten Anda">
 
 Buat file **deklarasi konten** di mana saja dalam proyek Anda (biasanya di dalam `src/`), menggunakan salah satu format ekstensi yang didukung oleh Intlayer:
 
@@ -302,7 +312,9 @@ export default appContent;
 
 ---
 
-## Langkah 4: Gunakan Intlayer di Komponen Anda
+</Step>
+
+<Step number={6} title="Gunakan Intlayer di Komponen Anda">
 
 Gunakan hook `useIntlayer` di komponen anak untuk mendapatkan konten yang sudah dilokalisasi.
 
@@ -361,7 +373,9 @@ export const App = () => {
 
 ---
 
-## (Opsional) Langkah 5: Ubah Locale Aplikasi
+</Step>
+
+<Step number={7} title="Ubah Locale Aplikasi">
 
 Untuk mengganti locale dari dalam komponen Anda, Anda dapat menggunakan metode `setLocale` dari hook `useLocale`:
 
@@ -403,6 +417,10 @@ export const LocaleSwitcher: FC = () => {
 Ini memicu re-render semua komponen yang menggunakan konten Intlayer, yang sekarang menampilkan terjemahan untuk locale baru.
 
 > Lihat [dokumentasi `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useLocale.md) untuk detail lebih lanjut.
+
+</Step>
+
+</Steps>
 
 ## Konfigurasi TypeScript (jika Anda menggunakan TypeScript)
 

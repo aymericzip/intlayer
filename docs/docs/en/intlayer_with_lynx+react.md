@@ -91,7 +91,9 @@ More than just an i18n solution, Intlayer provides an **self-hosted [visual edit
 
 ---
 
-## Step 1: Install Dependencies
+<Steps>
+
+<Step number={1} title="Install Dependencies">
 
 From your Lynx project, install the following packages:
 
@@ -128,7 +130,9 @@ bun x intlayer init
 
 ---
 
-## Step 2: Create an Intlayer Config
+</Step>
+
+<Step number={2} title="Create an Intlayer Config">
 
 In your project root (or anywhere convenient), create an **Intlayer config** file. It might look like this:
 
@@ -157,7 +161,9 @@ Within this config, you can:
 - Later, you may add more advanced options (e.g., logs, custom content directories, etc.).
 - See the [Intlayer configuration docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) for more.
 
-## Step 3: Add the Intlayer plugin to the Lynx bundler
+</Step>
+
+<Step number={3} title="Add the Intlayer plugin to the Lynx bundler">
 
 To use Intlayer with Lynx, you need to add the plugin to your `lynx.config.ts` file:
 
@@ -173,7 +179,9 @@ export default defineConfig({
 });
 ```
 
-## Step 4: Add the Intlayer provider
+</Step>
+
+<Step number={4} title="Add the Intlayer provider">
 
 To keep synchronized the user language across your application, you need to wrap your root component with the `IntlayerProvider` component from `react-intlayer`.
 
@@ -199,7 +207,9 @@ if (import.meta.webpackHot) {
 }
 ```
 
-## Step 5: Declare Your Content
+</Step>
+
+<Step number={5} title="Declare Your Content">
 
 Create **content declaration** files anywhere in your project (commonly within `src/`), using any of the extension formats that Intlayer supports:
 
@@ -301,7 +311,9 @@ export default appContent;
 
 ---
 
-## Step 4: Use Intlayer in Your Components
+</Step>
+
+<Step number={6} title="Use Intlayer in Your Components">
 
 Use the `useIntlayer` hook in child components to get localized content.
 
@@ -360,7 +372,9 @@ export const App = () => {
 
 ---
 
-## (Optional) Step 5: Change the App Locale
+</Step>
+
+<Step number={7} title="Change the App Locale" isOptional={true}>
 
 To switch locales from within your components, you can use the `useLocale` hook’s `setLocale` method:
 
@@ -402,6 +416,10 @@ export const LocaleSwitcher: FC = () => {
 This triggers a re-render of all components that use Intlayer content, now showing translations for the new locale.
 
 > See [`useLocale` docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md) for more details.
+
+</Step>
+
+</Steps>
 
 ## Configure TypeScript (if you use TypeScript)
 

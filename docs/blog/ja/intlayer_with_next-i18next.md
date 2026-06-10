@@ -66,7 +66,9 @@ Intlayerは優れた単独のi18nソリューションを提供します（[Next
 
 ## next-i18nextとIntlayerをセットアップするステップバイステップガイド
 
-### ステップ1: 依存関係のインストール
+<Steps>
+
+<Step number={1} title="依存関係のインストール">
 
 お好みのパッケージマネージャーを使って必要なパッケージをインストールします:
 
@@ -95,7 +97,9 @@ bun x intlayer init
 - **intlayer**: コンテンツ宣言と管理のためのコアライブラリ
 - **@intlayer/sync-json-plugin**: Intlayerのコンテンツ宣言をi18nextのJSON形式に同期するプラグイン
 
-### ステップ2: JSONをラップするためのIntlayerプラグインを実装する
+</Step>
+
+<Step number={2} title="JSONをラップするためのIntlayerプラグインを実装する">
 
 サポートするロケールを定義するためのIntlayer設定ファイルを作成します:
 
@@ -130,6 +134,10 @@ export default config;
 CLIを使用してJSONの翻訳を変更した場合やCMSを使用した場合、Intlayerは新しい翻訳でJSONファイルを更新します。
 
 `syncJSON`プラグインの詳細については、[syncJSONプラグインのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)をご参照ください。
+
+</Step>
+
+</Steps>
 
 ## Git設定
 

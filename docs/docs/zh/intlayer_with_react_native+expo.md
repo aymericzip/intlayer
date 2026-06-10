@@ -405,7 +405,9 @@ export default HomeScreen;
 
 ---
 
-## （可选）步骤 5：更改应用程序语言环境
+<Steps>
+
+<Step number={1} title="更改应用程序语言环境" isOptional={true}>
 
 要在组件内部切换语言环境，可以使用 `useLocale` 钩子的 `setLocale` 方法：
 
@@ -457,6 +459,10 @@ const styles = StyleSheet.create({
 这会触发所有使用 Intlayer 内容的组件重新渲染，现在显示新语言环境的翻译内容。
 
 > 详情请参见 [`useLocale` 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)。
+
+</Step>
+
+</Steps>
 
 ## 配置 TypeScript（如果您使用 TypeScript）
 

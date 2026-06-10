@@ -56,7 +56,9 @@ Intlayer は優れた単独の i18n ソリューションを提供します（[V
 
 ## vue-i18nとIntlayerをセットアップするステップバイステップガイド
 
-### ステップ1: 依存関係のインストール
+<Steps>
+
+<Step number={1} title="依存関係のインストール">
 
 お好みのパッケージマネージャーを使用して必要なパッケージをインストールします:
 
@@ -85,7 +87,9 @@ bun x intlayer init
 - **intlayer**: コンテンツ宣言と管理のためのコアライブラリ
 - **@intlayer/sync-json-plugin**: Intlayerのコンテンツ宣言をvue-i18nのJSON形式に同期するプラグイン
 
-### ステップ2: JSONをラップするためのIntlayerプラグインの実装
+</Step>
+
+<Step number={2} title="JSONをラップするためのIntlayerプラグインの実装">
 
 サポートするロケールを定義するためにIntlayerの設定ファイルを作成します。
 
@@ -121,6 +125,10 @@ export default config;
 CLIを使ってJSONの翻訳を変更した場合やCMSを使用した場合、Intlayerは新しい翻訳でJSONファイルを更新します。
 
 `syncJSON`プラグインの詳細については、[syncJSONプラグインのドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/plugins/sync-json.md)を参照してください。
+
+</Step>
+
+</Steps>
 
 ## Git 設定
 

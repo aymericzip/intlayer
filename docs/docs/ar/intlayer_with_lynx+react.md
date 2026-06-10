@@ -66,7 +66,9 @@ history:
 
 ---
 
-## الخطوة 1: تثبيت التبعيات
+<Steps>
+
+<Step number={1} title="تثبيت التبعيات">
 
 من مشروع Lynx الخاص بك، قم بتثبيت الحزم التالية:
 
@@ -103,7 +105,9 @@ bun x intlayer init
 
 ---
 
-## الخطوة 2: إنشاء تكوين Intlayer
+</Step>
+
+<Step number={2} title="إنشاء تكوين Intlayer">
 
 في جذر مشروعك (أو في أي مكان مناسب)، قم بإنشاء ملف **تكوين Intlayer**. قد يبدو كالتالي:
 
@@ -132,7 +136,9 @@ export default config;
 - لاحقًا، يمكنك إضافة خيارات أكثر تقدمًا (مثل السجلات، أدلة المحتوى المخصصة، إلخ).
 - راجع [وثائق تكوين Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md) للمزيد.
 
-## الخطوة 3: إضافة المكون الإضافي Intlayer إلى Lynx bundler
+</Step>
+
+<Step number={3} title="إضافة المكون الإضافي Intlayer إلى Lynx bundler">
 
 لاستخدام Intlayer مع Lynx، تحتاج إلى إضافة المكون الإضافي إلى ملف `lynx.config.ts` الخاص بك:
 
@@ -148,7 +154,9 @@ export default defineConfig({
 });
 ```
 
-## الخطوة 4: إضافة موفر Intlayer
+</Step>
+
+<Step number={4} title="إضافة موفر Intlayer">
 
 للحفاظ على تزامن لغة المستخدم عبر تطبيقك، تحتاج إلى تغليف المكون الجذري الخاص بك باستخدام المكون `IntlayerProvider` من `react-intlayer`.
 
@@ -174,7 +182,9 @@ if (import.meta.webpackHot) {
 }
 ```
 
-## الخطوة 5: إعلان المحتوى الخاص بك
+</Step>
+
+<Step number={5} title="إعلان المحتوى الخاص بك">
 
 قم بإنشاء ملفات **إعلان المحتوى** في أي مكان في مشروعك (عادةً داخل `src/`)، باستخدام أي من تنسيقات الامتداد التي يدعمها Intlayer:
 
@@ -283,7 +293,9 @@ export default appContent;
 
 ---
 
-## الخطوة 4: استخدام Intlayer في مكوناتك
+</Step>
+
+<Step number={6} title="استخدام Intlayer في مكوناتك">
 
 استخدم الخطاف `useIntlayer` في المكونات الفرعية للحصول على المحتوى المحلي.
 
@@ -341,7 +353,9 @@ export const App = () => {
 
 ---
 
-## (اختياري) الخطوة 5: تغيير لغة التطبيق
+</Step>
+
+<Step number={7} title="تغيير لغة التطبيق">
 
 لتبديل اللغات من داخل مكوناتك، يمكنك استخدام طريقة `setLocale` من الخطاف `useLocale`:
 
@@ -383,6 +397,10 @@ export const LocaleSwitcher: FC = () => {
 هذا يؤدي إلى إعادة رسم جميع المكونات التي تستخدم محتوى Intlayer، مما يعرض الآن الترجمات للغة الجديدة.
 
 > راجع [وثائق `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useLocale.md) لمزيد من التفاصيل.
+
+</Step>
+
+</Steps>
 
 ## إعداد TypeScript (إذا كنت تستخدم TypeScript)
 

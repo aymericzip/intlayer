@@ -300,7 +300,9 @@ export default appContent;
 
 ---
 
-## 단계 4: 컴포넌트에서 Intlayer 사용하기
+<Steps>
+
+<Step number={1} title="컴포넌트에서 Intlayer 사용하기">
 
 `useIntlayer` 훅을 자식 컴포넌트에서 사용하여 로컬라이즈된 콘텐츠를 가져옵니다.
 
@@ -358,7 +360,9 @@ export const App = () => {
 
 ---
 
-## (선택 사항) 단계 5: 앱 로케일 변경하기
+</Step>
+
+<Step number={2} title="앱 로케일 변경하기">
 
 컴포넌트 내에서 로케일을 전환하려면 `useLocale` 훅의 `setLocale` 메서드를 사용할 수 있습니다:
 
@@ -400,6 +404,10 @@ export const LocaleSwitcher: FC = () => {
 이 작업은 Intlayer 콘텐츠를 사용하는 모든 컴포넌트를 다시 렌더링하며, 새로운 로케일에 대한 번역을 표시합니다.
 
 > 자세한 내용은 [`useLocale` 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useLocale.md)를 참조하세요.
+
+</Step>
+
+</Steps>
 
 ## TypeScript 구성 (TypeScript를 사용하는 경우)
 
