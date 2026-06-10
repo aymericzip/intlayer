@@ -52,16 +52,19 @@ const DYNAMIC_IMPORT_FUNCTION = {
   useIntlayer: 'useDictionaryDynamic',
 } as const;
 
+/**
+ * Packages whose SSR-static `useDictionary` lives in a `/server` subpath
+ * because it differs from the root one. Solid's reserves one hydration
+ * resource slot so hydration ids stay aligned with the client's
+ * `useDictionaryDynamic`; for other frameworks the root `useDictionary` is
+ * already the correct SSR-static implementation.
+ */
+const SSR_STATIC_IMPORT_SOURCE: Partial<Record<string, string>> = {
+  'solid-intlayer': 'solid-intlayer/server',
+};
+
 type CallerName = (typeof CALLER_LIST)[number];
 type ImportMode = 'static' | 'dynamic' | 'fetch';
-
-/**
- * Packages whose SSR dynamic helper should render synchronously with a static
- * dictionary. Solid streaming SSR can hydrate static output reliably, while
- * its dynamic resource path either suspends during hydration or serializes the
- * full dictionary into HTML.
- */
-const PACKAGE_SSR_DYNAMIC_STATIC_FALLBACK = new Set<string>(['solid-intlayer']);
 
 /**
  * Options for the optimization Babel plugin
@@ -142,8 +145,6 @@ type State = PluginPass & {
   _callerPackageMap?: Map<string, string>;
   /** whether the current file *is* the dictionaries entry file */
   _isDictEntry?: boolean;
-  /** whether dynamic helpers are active for this file */
-  _useDynamicHelpers?: boolean;
   /** whether the current file is included in the filesList */
   _isIncluded?: boolean;
 };
@@ -222,15 +223,41 @@ const isDynamicPackage = (
     packageName as (typeof PACKAGE_LIST_DYNAMIC)[number]
   );
 
-const shouldUseStaticSsrDynamicFallback = (
-  callerPackage: string | undefined,
+/**
+ * Helper family every `useIntlayer`/`getIntlayer` call from one package import
+ * resolves to in the current file. `ssrStatic` is the SSR bundle of a
+ * dynamic-mode file: rewritten to the static `useDictionary` (from the
+ * package's `/server` entry when it has one — see
+ * `SSR_STATIC_IMPORT_SOURCE`) so the server renders static JSON while the
+ * client keeps the dynamic loader.
+ */
+type PackageHelperPlan = 'static' | 'dynamic' | 'ssrStatic';
+
+/**
+ * Decides, once per package import, which helper family applies to this file.
+ * The import rewrite and the per-call rewrite must both derive from this
+ * single decision, or the emitted helper and its argument shape diverge.
+ *
+ * Fetch wins over `ssrStatic`: fetch dictionaries are runtime content, so the
+ * server must keep the real fetch path instead of rendering build-time JSON.
+ */
+const resolveHelperPlan = (
+  packageName: string,
   importMode: ImportMode | undefined,
-  opts: OptimizePluginOptions
-): boolean =>
-  opts.isServer === true &&
-  importMode === 'dynamic' &&
-  callerPackage !== undefined &&
-  PACKAGE_SSR_DYNAMIC_STATIC_FALLBACK.has(callerPackage);
+  isServer: boolean | undefined,
+  packageHasDynamicCall: boolean,
+  packageHasFetchCall: boolean
+): PackageHelperPlan => {
+  if (!isDynamicPackage(packageName)) return 'static';
+
+  if (importMode === 'fetch' || packageHasFetchCall) return 'dynamic';
+
+  if (importMode === 'dynamic' || packageHasDynamicCall) {
+    return isServer === true ? 'ssrStatic' : 'dynamic';
+  }
+
+  return 'static';
+};
 
 /**
  * Babel plugin that transforms Intlayer function calls and auto-imports dictionaries.
@@ -330,7 +357,6 @@ export const intlayerOptimizeBabelPlugin = (babel: {
       this._isIncluded = true;
       this._hasValidImport = false;
       this._isDictEntry = false;
-      this._useDynamicHelpers = false;
 
       // If optimize is false, skip processing entirely
       if (this.opts.optimize === false) {
@@ -466,11 +492,36 @@ export const intlayerOptimizeBabelPlugin = (babel: {
             },
           });
 
+          const getHelperPlan = (packageName: string): PackageHelperPlan =>
+            resolveHelperPlan(
+              packageName,
+              state.opts.importMode,
+              state.opts.isServer,
+              packagesWithDynamicCall.has(packageName),
+              packagesWithFetchCall.has(packageName)
+            );
+
           programPath.traverse({
             ImportDeclaration(path) {
               const src = path.node.source.value;
 
               if (!PACKAGE_LIST.includes(src)) return;
+
+              // Per-import swap, mirrored across bundles — Solid hydration
+              // ids rely on the SSR and client helpers consuming one
+              // resource slot per call alike (see solid-intlayer/server).
+              const helperPlan = getHelperPlan(src);
+              const serverSource =
+                helperPlan === 'ssrStatic'
+                  ? SSR_STATIC_IMPORT_SOURCE[src]
+                  : undefined;
+
+              const helperMap: Record<string, string> =
+                helperPlan === 'dynamic'
+                  ? { ...STATIC_IMPORT_FUNCTION, ...DYNAMIC_IMPORT_FUNCTION }
+                  : { ...STATIC_IMPORT_FUNCTION };
+
+              const serverSpecifiers: BabelTypes.ImportSpecifier[] = [];
 
               for (const spec of path.node.specifiers) {
                 if (!t.isImportSpecifier(spec)) continue;
@@ -481,46 +532,10 @@ export const intlayerOptimizeBabelPlugin = (babel: {
 
                 if (!isCallerName(importedName)) continue;
 
-                const importMode = state.opts.importMode;
-                // Determine whether this import should use the dynamic helpers.
-                const packageHasDynamicCall = packagesWithDynamicCall.has(src);
-                const packageHasFetchCall = packagesWithFetchCall.has(src);
-                // A package import can be rewritten to only one helper. Fetch
-                // overrides therefore keep the dynamic helper for every
-                // useIntlayer call from that package in this file.
-                const shouldUseStaticFallback =
-                  !packageHasFetchCall &&
-                  shouldUseStaticSsrDynamicFallback(
-                    src,
-                    importMode === 'dynamic' || packageHasDynamicCall
-                      ? 'dynamic'
-                      : importMode,
-                    state.opts
-                  );
-                const shouldUseDynamicHelpers =
-                  isDynamicPackage(src) &&
-                  (importMode === 'fetch' ||
-                    packageHasFetchCall ||
-                    ((importMode === 'dynamic' || packageHasDynamicCall) &&
-                      !shouldUseStaticFallback));
-
-                // Remember for later (CallExpression) whether we are using the dynamic helpers
-
-                if (shouldUseDynamicHelpers) {
-                  state._useDynamicHelpers = true;
-                }
-
-                let helperMap: Record<string, string>;
-
-                if (shouldUseDynamicHelpers) {
-                  // Use dynamic helpers for useIntlayer when dynamic mode is enabled
-                  helperMap = {
-                    ...STATIC_IMPORT_FUNCTION,
-                    ...DYNAMIC_IMPORT_FUNCTION,
-                  } as Record<string, string>;
-                } else {
-                  // Use static helpers by default
-                  helperMap = STATIC_IMPORT_FUNCTION as Record<string, string>;
+                if (serverSource && importedName === 'useIntlayer') {
+                  spec.imported = t.identifier('useDictionary');
+                  serverSpecifiers.push(spec);
+                  continue;
                 }
 
                 const newIdentifier = helperMap[importedName];
@@ -530,6 +545,26 @@ export const intlayerOptimizeBabelPlugin = (babel: {
                   // `getIntlayer`), but rewrite the imported identifier so it
                   // points to our helper implementation.
                   spec.imported = t.identifier(newIdentifier);
+                }
+              }
+
+              if (serverSpecifiers.length > 0 && serverSource) {
+                // Move the helper to the /server entry, keeping any other
+                // specifiers (useLocale, …) on the original import.
+                path.insertAfter(
+                  t.importDeclaration(
+                    serverSpecifiers,
+                    t.stringLiteral(serverSource)
+                  )
+                );
+                path.node.specifiers = path.node.specifiers.filter(
+                  (spec) =>
+                    !serverSpecifiers.includes(
+                      spec as BabelTypes.ImportSpecifier
+                    )
+                );
+                if (path.node.specifiers.length === 0) {
+                  path.remove();
                 }
               }
             },
@@ -556,41 +591,23 @@ export const intlayerOptimizeBabelPlugin = (babel: {
               const isUseIntlayer = originalImportedName === 'useIntlayer';
               const dictionaryOverrideMode =
                 state.opts.dictionaryModeMap?.[key];
-              const effectiveImportMode = dictionaryOverrideMode ?? importMode;
-              const packageHasFetchCall =
-                callerPackage !== undefined &&
-                packagesWithFetchCall.has(callerPackage);
-              const usesStaticSsrDynamicFallback =
-                isUseIntlayer &&
-                !packageHasFetchCall &&
-                shouldUseStaticSsrDynamicFallback(
-                  callerPackage,
-                  effectiveImportMode,
-                  state.opts
-                );
-              const useDynamicHelpers =
-                Boolean(state._useDynamicHelpers) &&
-                !usesStaticSsrDynamicFallback;
+              const helperPlan =
+                callerPackage === undefined
+                  ? 'static'
+                  : getHelperPlan(callerPackage);
 
-              // Decide per-call mode: 'static' | 'dynamic' | 'fetch'
+              // Decide per-call mode: 'static' | 'dynamic' | 'fetch'.
               let perCallMode: ImportMode = 'static';
 
-              if (isUseIntlayer && useDynamicHelpers) {
+              if (isUseIntlayer && helperPlan === 'dynamic') {
                 if (dictionaryOverrideMode) {
                   perCallMode = dictionaryOverrideMode;
-                } else if (importMode === 'dynamic') {
-                  perCallMode = 'dynamic';
-                } else if (importMode === 'fetch') {
-                  perCallMode = 'fetch';
+                } else if (importMode === 'dynamic' || importMode === 'fetch') {
+                  perCallMode = importMode;
                 }
-              } else if (
-                isUseIntlayer &&
-                !useDynamicHelpers &&
-                !usesStaticSsrDynamicFallback
-              ) {
-                // If dynamic helpers are NOT active (global mode is static),
-                // we STILL might want to force dynamic/fetch for this specific call
-
+              } else if (isUseIntlayer && helperPlan === 'static') {
+                // The global mode is static, but a per-dictionary override can
+                // still force dynamic/fetch for this specific call.
                 if (
                   dictionaryOverrideMode === 'dynamic' ||
                   dictionaryOverrideMode === 'fetch'

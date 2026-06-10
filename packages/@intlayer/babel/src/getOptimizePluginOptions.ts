@@ -20,7 +20,7 @@ type GetOptimizePluginOptionsParams = {
   /**
    * Whether the current transform is for an SSR bundle. When using Babel
    * directly (e.g. in `babel.config.js`), forward the bundler's server flag
-   * here so SSR-specific transforms (such as the Solid static fallback) apply.
+   * here so SSR-specific static dictionary transforms apply.
    */
   isServer?: boolean;
   /**
