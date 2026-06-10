@@ -10,7 +10,7 @@
     {
       "name": "intlayer-lsp",
       "description": "Intlayer language server: Go-to-Definition for useIntlayer / getIntlayer / useDictionary / getDictionary keys across all *-intlayer packages",
-      "version": "8.12.4",
+      "version": "8.12.5-canary.0",
       "author": {
         "name": "Intlayer",
         "url": "https://intlayer.org"

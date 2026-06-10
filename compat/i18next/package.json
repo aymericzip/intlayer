@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/i18next",
-  "version": "8.12.4",
+  "version": "8.12.5-canary.0",
   "private": false,
   "description": "i18next API adapter for intlayer — drop-in compatibility layer that exposes the i18next interface while using @intlayer/core under the hood",
   "keywords": [
