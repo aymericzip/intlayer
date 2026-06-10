@@ -96,7 +96,7 @@
     "@ai-sdk/openai-compatible": "2.0.48",
     "@ai-sdk/togetherai": "2.0.53",
     "@openrouter/ai-sdk-provider": "2.9.0",
-    "@types/node": "25.9.2",
+    "@types/node": "25.9.3",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",

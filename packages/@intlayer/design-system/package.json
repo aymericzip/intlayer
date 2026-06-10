@@ -428,8 +428,8 @@
     "typecheck_": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@better-auth/passkey": "1.6.15",
-    "@better-auth/sso": "1.6.15",
+    "@better-auth/passkey": "1.6.16",
+    "@better-auth/sso": "1.6.16",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
@@ -444,7 +444,7 @@
     "@tanstack/query-async-storage-persister": "5.101.0",
     "@tanstack/react-query-persist-client": "5.101.0",
     "@tanstack/react-virtual": "3.14.2",
-    "better-auth": "1.6.15",
+    "better-auth": "1.6.16",
     "class-variance-authority": "0.7.1",
     "cmdk": "1.1.1",
     "defu": "6.1.7",
@@ -479,7 +479,7 @@
     "@testing-library/user-event": "14.6.1",
     "@types/dompurify": "3.2.0",
     "@types/espree": "11.1.0",
-    "@types/node": "25.9.2",
+    "@types/node": "25.9.3",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
     "@utils/ts-config": "workspace:*",

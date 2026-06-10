@@ -17,7 +17,7 @@
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "7.1.2",
     "@tsconfig/svelte": "5.0.8",
-    "@types/node": "25.9.2",
+    "@types/node": "25.9.3",
     "intlayer-editor": "workspace:*",
     "svelte": "5.55.8",
     "svelte-check": "4.4.8",
