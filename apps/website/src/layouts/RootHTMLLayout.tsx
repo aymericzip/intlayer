@@ -1,10 +1,10 @@
 import { cn } from '@intlayer/design-system/utils';
 import type { LocalesValues } from 'intlayer';
 import { getHTMLTextDir } from 'intlayer';
-import { Inter } from 'next/font/google';
+import { Geist } from 'next/font/google';
 import type { FC, HTMLProps } from 'react';
 
-const inter = Inter({
+const geist = Geist({
   subsets: ['latin'],
   display: 'swap',
   weight: ['300', '400', '500', '600', '700'],
@@ -31,7 +31,7 @@ export const RootHTMLLayout: FC<LocalParams> = ({
     <body
       className={cn(
         'relative flex size-full min-h-screen flex-col overflow-auto overflow-x-clip scroll-smooth bg-background leading-8 transition md:flex',
-        inter.className,
+        geist.className,
         className
       )}
       {...bodyProps}
