@@ -33,7 +33,7 @@ const QuestionItem: FC<{
       itemType="https://schema.org/Question"
       background="none"
       border
-      roundedSize="lg"
+      roundedSize="xl"
     >
       <MaxHeightSmoother
         isOverable
