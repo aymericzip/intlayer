@@ -52,7 +52,7 @@
     "posthog-js": "1.383.1",
     "react": "19.2.7",
     "react-dom": "19.2.7",
-    "react-hook-form": "7.77.0",
+    "react-hook-form": "7.78.0",
     "react-intlayer": "workspace:*",
     "server-only": "0.0.1",
     "tailwindcss": "4.3.0",

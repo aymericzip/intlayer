@@ -87,7 +87,7 @@
     "typecheck": "tsc --project ./server/tsconfig.types.json --noEmit"
   },
   "dependencies": {
-    "@fastify/compress": "8.3.1",
+    "@fastify/compress": "9.0.0",
     "@fastify/cookie": "11.0.2",
     "@fastify/cors": "11.2.0",
     "@fastify/formbody": "8.0.2",
@@ -122,7 +122,7 @@
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "react-intlayer": "workspace:*",
-    "react-router-dom": "7.15.1",
+    "react-router-dom": "7.17.0",
     "tailwindcss": "4.3.0",
     "tsdown": "0.21.10",
     "typescript": "6.0.3",
