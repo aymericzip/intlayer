@@ -1,5 +1,6 @@
 'use client';
 
+import { SearchView } from '@components/DocPage/Search/SearchView';
 import { Button } from '@intlayer/design-system/button';
 import { KeyboardShortcut } from '@intlayer/design-system/keyboard-shortcut';
 import { Modal } from '@intlayer/design-system/modal';
