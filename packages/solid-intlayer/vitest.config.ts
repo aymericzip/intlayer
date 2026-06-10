@@ -2,7 +2,8 @@ import solidPlugin from 'vite-plugin-solid';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
-  plugins: [solidPlugin()],
+  // hot: false — solid-refresh's component wrapper breaks partial 'solid-js' mocks
+  plugins: [solidPlugin({ hot: false })],
   test: {
     environment: 'jsdom',
     globals: true,

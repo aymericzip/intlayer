@@ -150,6 +150,8 @@ export const useLoadDynamic = <T, Source extends DynamicSource = string>(
   loader: DynamicLoader<T, Source>
 ): T => {
   const keyAccessor = () => (typeof key === 'function' ? key() : key);
+  // One resource slot per call — the server entry's useDictionary mirrors it
+  // so Solid hydration ids stay aligned across bundles.
   const [resource] = createResource(keyAccessor, (resolvedSource) =>
     loadDynamicValue<T, Source>(resolvedSource, loader)
   );
