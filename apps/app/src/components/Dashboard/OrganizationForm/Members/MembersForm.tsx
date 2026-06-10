@@ -82,7 +82,7 @@ export const MembersForm: FC = () => {
         onRemove={() => setMemberIdToRemove(undefined)}
       />
       <div className="mb-8 flex items-center gap-2">
-        <Users className="size-4" />
+        <Users className="size-5" />
         <H3 className="mb-0">{title}</H3>
       </div>
 

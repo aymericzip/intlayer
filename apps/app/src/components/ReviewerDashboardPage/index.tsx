@@ -91,10 +91,10 @@ export const ReviewerDashboardPage: FC = () => {
               <div className="flex items-start gap-6 px-4">
                 <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-neutral/10">
                   {profile.isHidden ? (
-                    <Eye className="h-5 w-5 text-neutral" aria-hidden="true" />
+                    <Eye className="size-5 text-neutral" aria-hidden="true" />
                   ) : (
                     <EyeOff
-                      className="h-5 w-5 text-neutral"
+                      className="size-5 text-neutral"
                       aria-hidden="true"
                     />
                   )}
@@ -177,7 +177,7 @@ export const ReviewerDashboardPage: FC = () => {
               <div className="flex items-start gap-6 px-4">
                 <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-error/10">
                   <TriangleAlert
-                    className="h-5 w-5 text-error"
+                    className="size-5 text-error"
                     aria-hidden="true"
                   />
                 </div>

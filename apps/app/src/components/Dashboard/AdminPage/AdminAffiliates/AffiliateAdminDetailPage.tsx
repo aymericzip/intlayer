@@ -304,7 +304,7 @@ export const AffiliateAdminDetailPage: FC<{ affiliateId: string }> = ({
                       updatePromoCode({ id: promo.id, affiliateId: null })
                     }
                   >
-                    <Unlink className="size-4" />
+                    <Unlink className="size-5" />
                   </Button>
                 </div>
               ))}

@@ -76,7 +76,7 @@ export const ConnectedAccounts: FC = () => {
   return (
     <Container roundedSize="3xl" padding="md" className="w-full">
       <div className="mb-8 flex items-center gap-2">
-        <Link2 className="size-4" />
+        <Link2 className="size-5" />
         <H3 className="mb-0">{connectedAccountsTitle}</H3>
       </div>
       <div className="flex flex-col gap-3">

@@ -208,7 +208,7 @@ export const BuildSettings: FC = () => {
         {...form}
       >
         <div className="mb-2 flex items-center gap-2">
-          <Zap className="size-4" />
+          <Zap className="size-5" />
           <H3 className="mb-0">{title}</H3>
         </div>
 

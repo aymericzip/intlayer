@@ -69,7 +69,7 @@ export const UserDeleteAction: FC<{ userId: string }> = ({ userId }) => {
           >
             <div className="flex items-start gap-6 px-4">
               <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-error/10">
-                <TriangleAlert className="h-5 w-5 text-error" />
+                <TriangleAlert className="size-5 text-error" />
               </div>
               <div className="flex-1">
                 <h3 className="font-medium text-base text-error">
@@ -110,7 +110,7 @@ export const UserDeleteAction: FC<{ userId: string }> = ({ userId }) => {
       >
         <div className="flex flex-col gap-8 px-3 pt-4">
           <div className="flex items-start gap-3 rounded-lg px-4">
-            <TriangleAlert className="mt-0.5 h-5 w-5 shrink-0 text-red-600 dark:text-red-400" />
+            <TriangleAlert className="mt-0.5 size-5 shrink-0 text-red-600 dark:text-red-400" />
             <div className="flex-1">
               <p className="font-medium text-red-900 text-sm dark:text-red-100">
                 {deleteSection.modalWarning}

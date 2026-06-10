@@ -152,7 +152,7 @@ const ProfileFormContent: FC = () => {
             className="relative w-full"
           >
             <div className="mb-8 flex items-center gap-2">
-              <ShieldCheck className="size-4" />
+              <ShieldCheck className="size-5" />
               <H3 className="mb-0">{twoFactorTitle}</H3>
             </div>
             <TwoFactorAuth />
@@ -165,7 +165,7 @@ const ProfileFormContent: FC = () => {
             className="w-full"
           >
             <div className="mb-8 flex items-center gap-2">
-              <Fingerprint className="size-4" />
+              <Fingerprint className="size-5" />
               <H3 className="mb-0">{passkeyTitle}</H3>
             </div>
             <PasskeyManagement

@@ -284,7 +284,7 @@ export const AccessKeyForm: FC = () => {
         {...form}
       >
         <div className="mb-2 flex items-center gap-2">
-          <Key className="size-4" />
+          <Key className="size-5" />
           <H3 className="mb-0">{title}</H3>
         </div>
         <span className="text-neutral text-sm">{description}</span>

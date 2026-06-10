@@ -30,7 +30,7 @@ export const ProjectEditionForm: FC = () => {
   return (
     <>
       <div className="mb-8 flex items-center gap-2">
-        <FolderOpen className="size-4" />
+        <FolderOpen className="size-5" />
         <H3 className="mb-0">{title}</H3>
       </div>
 

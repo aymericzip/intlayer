@@ -91,7 +91,7 @@ export const PlanDetails: FC<PlanDetailsProps> = () => {
       </Modal>
       <div className="relative flex flex-col gap-2">
         <div className="mb-5 flex items-center gap-2">
-          <CreditCard className="size-4" />
+          <CreditCard className="size-5" />
           <H3 className="mb-0">{title}</H3>
         </div>
 

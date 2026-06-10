@@ -17,7 +17,7 @@ export const StatusIcon: FC<{ status?: AuditStatus; isLoading?: boolean }> = ({
   isLoading,
 }) => {
   if (isLoading && typeof status === 'undefined') {
-    return <Loader className="size-4" />;
+    return <Loader className="size-5" />;
   }
 
   switch (status) {

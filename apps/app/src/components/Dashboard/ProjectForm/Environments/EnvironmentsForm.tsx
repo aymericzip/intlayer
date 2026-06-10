@@ -168,7 +168,7 @@ export const EnvironmentsForm: FC = () => {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-2">
-        <Layers className="size-4" />
+        <Layers className="size-5" />
         <h3 className="font-semibold text-base">{content.title}</h3>
       </div>
 

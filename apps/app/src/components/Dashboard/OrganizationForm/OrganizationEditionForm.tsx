@@ -32,7 +32,7 @@ export const OrganizationEditionForm: FC = () => {
   return (
     <>
       <div className="mb-8 flex items-center gap-2">
-        <Building2 className="size-4" />
+        <Building2 className="size-5" />
         <H3 className="mb-0">{title}</H3>
       </div>
       <Form

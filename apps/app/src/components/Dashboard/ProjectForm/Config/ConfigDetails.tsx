@@ -109,7 +109,7 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
     return (
       <div className="flex flex-col gap-4">
         <div className="mb-8 flex items-center gap-2">
-          <SlidersHorizontal className="size-4" />
+          <SlidersHorizontal className="size-5" />
           <H3 className="mb-0">{title}</H3>
         </div>
 
@@ -144,7 +144,7 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <div className="mb-2 flex items-center gap-2">
-          <SlidersHorizontal className="size-4" />
+          <SlidersHorizontal className="size-5" />
           <H3 className="mb-0">{title}</H3>
         </div>
         {isProjectAdmin && projectConfig && (

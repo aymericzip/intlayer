@@ -44,7 +44,7 @@ export const ProviderSelector: FC<ProviderSelectorProps> = ({
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center gap-2 text-neutral text-sm">
-        <GitBranch className="size-4" />
+        <GitBranch className="size-5" />
         <span>{content.selectProvider}</span>
       </div>
 

@@ -279,7 +279,7 @@ export const SSOSettings: FC = () => {
     <div className="flex flex-col gap-6">
       <div>
         <div className="mb-2 flex items-center gap-2">
-          <Shield className="size-4" />
+          <Shield className="size-5" />
           <H3 className="mb-0">{title}</H3>
         </div>
         <p className="text-neutral text-sm dark:text-neutral-dark">

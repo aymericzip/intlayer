@@ -755,7 +755,7 @@ export const TranslationStatusAside: FC = () => {
             {/* Connection error banner */}
             {hasConnectionError && (
               <div className="flex items-center gap-2 rounded-md bg-card p-3 text-sm text-warning">
-                <AlertCircle className="size-4" />
+                <AlertCircle className="size-5" />
                 {content.connectionLostReconnecting}
               </div>
             )}
@@ -800,7 +800,7 @@ export const TranslationStatusAside: FC = () => {
                   className="flex w-full items-center justify-between gap-2 rounded-lg px-2 py-2 text-neutral text-sm transition-colors hover:bg-neutral/10"
                 >
                   <span className="flex items-center gap-2">
-                    <Archive className="size-4" />
+                    <Archive className="size-5" />
                     {content.archivedJobs}
                     <span className="rounded-full bg-neutral/20 px-1.5 py-0.5 text-xs">
                       {archivedJobs.length}

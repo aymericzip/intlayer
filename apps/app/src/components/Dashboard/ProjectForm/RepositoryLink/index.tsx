@@ -89,7 +89,7 @@ export const RepositoryLink: FC = () => {
   return (
     <div className="flex flex-col gap-6">
       <div className="mb-2 flex items-center gap-2">
-        <GitBranch className="size-4" />
+        <GitBranch className="size-5" />
         <H3 className="mb-0">{content.title}</H3>
       </div>
 

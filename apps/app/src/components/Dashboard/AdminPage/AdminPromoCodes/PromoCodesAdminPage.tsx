@@ -202,7 +202,7 @@ export const PromoCodesAdminPage: FC = () => {
           className="h-auto p-2"
           label={content.deleteAction.value}
         >
-          <Trash2 className="size-4" />
+          <Trash2 className="size-5" />
         </Button>
       ),
     },

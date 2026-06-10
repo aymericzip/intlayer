@@ -43,7 +43,7 @@ export const AutoFillSettings: FC = () => {
       {...form}
     >
       <div className="mb-2 flex items-center gap-2">
-        <Sparkles className="size-4" />
+        <Sparkles className="size-5" />
         <H3 className="mb-0">{title}</H3>
       </div>
 
