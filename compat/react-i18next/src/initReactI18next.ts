@@ -10,13 +10,10 @@ import { setDefaults, setI18n } from './helpers';
  * plugin records the i18n instance via the compat `setI18n`/`setDefaults`
  * helpers; actual translation is served by Intlayer.
  */
-const _initReactI18nextImpl = {
+export const initReactI18next: typeof _initReactI18next = {
   type: '3rdParty' as const,
-  init: (instance: unknown) => {
+  init: (instance) => {
     setI18n(instance as never);
     setDefaults({});
   },
 };
-
-export const initReactI18next =
-  _initReactI18nextImpl as unknown as typeof _initReactI18next;

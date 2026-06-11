@@ -48,6 +48,7 @@ import {
 import { findUsageFieldAtOffset } from './findUsageFieldAtOffset';
 import {
   getFirstStringArg,
+  INTLAYER_GETTERS,
   isIntlayerCall,
   type OxcNode,
   parseText,
@@ -300,7 +301,7 @@ const getKeyUsageLocations = async (
   if (!config) return [];
 
   const usageRegularExpression = new RegExp(
-    `\\b(?:useIntlayer|getIntlayer)\\b\\s*(?:<[^<>()]*>)?\\s*\\(\\s*(['"\`])${escapeRegularExpression(key)}\\1`,
+    `\\b(?:${Object.values(INTLAYER_GETTERS).join('|')})\\b\\s*(?:<[^<>()]*>)?\\s*\\(\\s*(['"\`])${escapeRegularExpression(key)}\\1`,
     'g'
   );
 
@@ -354,7 +355,7 @@ const getFieldUsageLocations = async (
   const escapedKey = escapeRegularExpression(dictionaryKey);
   const escapedLeaf = escapeRegularExpression(leafFieldName);
   const useCallRegularExpression = new RegExp(
-    `\\b(?:useIntlayer|getIntlayer)\\b(?:<[^<>()]*>)?\\s*\\(\\s*['"\`]${escapedKey}['"\`]`
+    `\\b(?:useIntlayer|getIntlayer|useTranslation|useTranslations|getTranslations|getFixedT|useI18n)\\b(?:<[^<>()]*>)?\\s*\\(\\s*['"\`]${escapedKey}['"\`]`
   );
 
   const filePaths = await getSourceFiles(config.system.baseDir, config);
@@ -607,7 +608,7 @@ const getCompletionContext = (
   // Key completion
 
   if (
-    /\b(?:useIntlayer|getIntlayer)\b(?:<[^<>]*>)?\s*\(\s*['"`][^'"`\n]*$/.test(
+    /\b(?:useIntlayer|getIntlayer|useTranslation|useTranslations|getTranslations|getFixedT|useI18n)\b(?:<[^<>]*>)?\s*\(\s*['"`][^'"`\n]*$/.test(
       textBefore
     )
   ) {
@@ -632,7 +633,7 @@ const getCompletionContext = (
 
   if (/(?:const|let|var)\s*\{[^}]*$/.test(textBefore)) {
     const destructMatch =
-      /^[^}]*\}\s*=\s*(?:useIntlayer|getIntlayer)(?:<[^<>]*>)?\s*\(\s*['"`]([^'"`\n]+)['"`]/.exec(
+      /^[^}]*\}\s*=\s*(?:useIntlayer|getIntlayer|useTranslation|useTranslations|getTranslations|getFixedT|useI18n)(?:<[^<>]*>)?\s*\(\s*['"`]([^'"`\n]+)['"`]/.exec(
         textAfter
       );
 

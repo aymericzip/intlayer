@@ -3,7 +3,8 @@ import { join } from 'node:path';
 import {
   analyzeFieldUsageInFile,
   buildNestedRenameMapFromContent,
-  INTLAYER_OR_COMPAT_USAGE_REGEX,
+  buildUsageCheckRegex,
+  type CompatCallerConfig,
   INTLAYER_USAGE_REGEX,
   optimizeSourceFile,
   type PruneContext,
@@ -56,7 +57,8 @@ import { intlayerVueAsyncPlugin } from './intlayerVueAsyncPlugin';
  */
 export const intlayerOptimize = async (
   intlayerConfig: IntlayerConfig,
-  pruneContext: PruneContext | null
+  pruneContext: PruneContext | null,
+  compatCallers?: CompatCallerConfig[]
 ): Promise<PluginOption[]> => {
   try {
     const logger = getAppLogger(intlayerConfig);
@@ -133,6 +135,11 @@ export const intlayerOptimize = async (
         buildStart: async () => {
           if (!pruneContext) return;
 
+          const extraCallerNames = (compatCallers ?? []).map(
+            (caller) => caller.callerName
+          );
+          const usageCheckRegex = buildUsageCheckRegex(extraCallerNames);
+
           // Phase 1: Babel-based field-usage analysis for all component files
           await Promise.all(
             componentFilesList.map(async (sourceFilePath) => {
@@ -145,7 +152,7 @@ export const intlayerOptimize = async (
                 return; // unreadable file – skip silently
               }
 
-              if (!INTLAYER_OR_COMPAT_USAGE_REGEX.test(sourceCode)) return;
+              if (!usageCheckRegex.test(sourceCode)) return;
 
               // For Vue/Svelte SFCs, the usage analyzer expects the raw script
               // content. `analyzeFieldUsageInFile` handles block extraction
@@ -154,7 +161,8 @@ export const intlayerOptimize = async (
                 await analyzeFieldUsageInFile(
                   sourceFilePath,
                   sourceCode,
-                  pruneContext
+                  pruneContext,
+                  compatCallers
                 );
               } catch (parseError) {
                 pruneContext.hasUnparsableSourceFiles = true;

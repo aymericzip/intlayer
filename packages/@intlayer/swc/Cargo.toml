@@ -2,36 +2,49 @@
 name = "intlayer-swc-plugin"
 version = "7.5.6"
 edition = "2021"
+description = "SWC transform plugin for Intlayer. Replaces `useIntlayer` / `getIntlayer` string keys with pre-loaded dictionary imports at compile time, enabling tree-shaking and eliminating runtime registry lookups."
+keywords = ["intlayer", "i18n", "swc", "plugin", "internationalization"]
+categories = ["internationalization", "development-tools"]
+license = "Apache-2.0"
+repository = "https://github.com/aymericzip/intlayer"
+homepage = "https://intlayer.org"
+documentation = "https://docs.rs/intlayer-swc-plugin"
+readme = "README.md"
+authors = ["Aymeric Pineau <ay.pineau@gmail.com>"]
+include = [
+  "src/**",
+  "README.md",
+]
 
 [lib]
-crate-type = ["cdylib"]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+default = []
+# Enables the Wasm plugin entry point (`#[plugin_transform]`).
+# Required when compiling to wasm32-wasip1 / wasm32-unknown-unknown for use with SWC/Next.js.
+plugin = ["swc_core/ecma_plugin_transform"]
 
 [profile.release]
 lto = true
 
 [dependencies]
-data-encoding = "2.3.3"
-sha2 = "0.10.8"
-serde = "1.0.207"
+serde = { version = "1.0.207", features = ["derive"] }
 serde_json = "1.0.125"
-regex = "1.10.6"
-once_cell = "1.19.0"
-parking_lot = "0.12.3"
 pathdiff = "0.2"
 swc_core = { version = "52.0.0", features = [
-  "ecma_codegen",
-  "ecma_plugin_transform",
   "ecma_utils",
   "ecma_visit",
   "ecma_ast",
   "ecma_parser",
-  "common"
+  "ecma_codegen",
+  "common",
 ] }
 twox-hash = "2.1.0"
 base62 = "2.2.1"
 
-# .cargo/config.toml defines few alias to build plugin.
-
 [dev-dependencies]
-swc_core = { version = "52.0.0", features = ["testing_transform"] }
-
+swc_core = { version = "52.0.0", features = [
+  "testing_transform",
+  "ecma_plugin_transform",
+] }

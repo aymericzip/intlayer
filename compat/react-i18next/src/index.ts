@@ -40,6 +40,8 @@ export type {
 } from 'react-i18next';
 export { I18nextProvider } from './I18nextProvider';
 export { initReactI18next } from './initReactI18next';
+export { useDictionary } from './useDictionary';
+export { useDictionaryDynamic } from './useDictionaryDynamic';
 export { useTranslation } from './useTranslation';
 export { withTranslation } from './withTranslation';
 export { Trans };

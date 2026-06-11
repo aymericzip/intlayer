@@ -1,15 +1,23 @@
 'use client';
 
+import type { Namespace } from 'i18next';
 import type { Trans as _Trans, TransProps } from 'react-i18next';
 import { useTranslation } from './useTranslation';
 
-const _TransImpl = ({
+/**
+ * Drop-in for react-i18next's `<Trans>`.
+ * Component-based interpolation (`components` prop) is not supported.
+ */
+export const Trans: typeof _Trans = function Trans<
+  Key extends string = string,
+  Ns extends Namespace = Namespace,
+>({
   i18nKey,
   ns,
   values,
   defaults,
   children,
-}: TransProps<string>): React.ReactElement => {
+}: TransProps<Key, Ns>): React.ReactElement {
   const { t } = useTranslation(ns as string);
   const tFn = t as (key: string) => string | undefined;
   const raw =
@@ -27,10 +35,4 @@ const _TransImpl = ({
   }
 
   return <>{raw}</>;
-};
-
-/**
- * Drop-in for react-i18next's `<Trans>`.
- * Component-based interpolation (`components` prop) is not supported.
- */
-export const Trans = _TransImpl as unknown as typeof _Trans;
+} as typeof _Trans;

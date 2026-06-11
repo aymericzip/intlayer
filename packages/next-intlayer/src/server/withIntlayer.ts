@@ -99,7 +99,8 @@ const getPruneConfig = (
   isBuildCommand: boolean,
   isTurbopackEnabled: boolean,
   isDevCommand: boolean,
-  isGteNext13: boolean
+  isGteNext13: boolean,
+  swcExtraCallers?: SwcExtraCallerConfig[]
 ): Partial<NextConfig> => {
   const { optimize } = intlayerConfig.build;
   const importMode =
@@ -242,6 +243,7 @@ const getPruneConfig = (
             filesList,
             replaceDictionaryEntry: true,
             dictionaryModeMap,
+            extraCallers: swcExtraCallers ?? [],
           },
         ],
       ],
@@ -277,8 +279,17 @@ const getCommandsEvent = () => {
 
 type WebpackParams = Parameters<NextJsWebpackConfig>;
 
+type SwcExtraCallerConfig = {
+  callerName: string;
+  importSources: string[];
+  namespaceArgIndex: number;
+  staticReplacement: string;
+  dynamicReplacement: string;
+};
+
 type WithIntlayerOptions = GetConfigurationOptions & {
   enableTurbopack?: boolean;
+  swcExtraCallers?: SwcExtraCallerConfig[];
 };
 
 /**
@@ -513,7 +524,8 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
     isBuildCommand,
     isTurbopackEnabled ?? false,
     isDevCommand,
-    isGteNext13
+    isGteNext13,
+    configOptions?.swcExtraCallers
   );
 
   const intlayerNextConfig: Partial<NextConfig> = defu(

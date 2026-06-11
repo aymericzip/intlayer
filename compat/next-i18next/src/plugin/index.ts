@@ -1,5 +1,9 @@
 import { createRequire } from 'node:module';
-import { dirname, relative, resolve, sep } from 'node:path';
+import { dirname, join, relative, resolve, sep } from 'node:path';
+import { runOnce } from '@intlayer/chokidar/utils';
+import * as ANSIColors from '@intlayer/config/colors';
+import { colorize, getAppLogger } from '@intlayer/config/logger';
+import { getConfiguration } from '@intlayer/config/node';
 import type { NextConfig } from 'next';
 import { withIntlayer } from 'next-intlayer/server';
 
@@ -86,13 +90,78 @@ const resolveEsmPath = (specifier: string): string => {
 const toTurbopackAlias = (absolutePath: string): string =>
   `./${relative(process.cwd(), absolutePath).split(sep).join('/')}`;
 
+const NEXT_I18NEXT_SWC_CALLERS = [
+  {
+    callerName: 'useTranslation',
+    importSources: ['react-i18next', '@intlayer/react-i18next', 'next-i18next'],
+    namespaceArgIndex: 0,
+    staticReplacement: 'useDictionary',
+    dynamicReplacement: 'useDictionaryDynamic',
+  },
+];
+
+/**
+ * Disables the SWC `replaceDictionaryEntry` optimization on the resolved Next.js
+ * config so the runtime dictionary registry stays populated. Mutates the
+ * `@intlayer/swc` plugin options in place (both webpack and Turbopack read the
+ * same `experimental.swcPlugins` entry).
+ *
+ * @param config - The Next.js config returned by `withIntlayer`.
+ */
+const keepDictionaryRegistry = (config: NextConfig): void => {
+  const swcPlugins = (
+    config.experimental as { swcPlugins?: unknown[] } | undefined
+  )?.swcPlugins;
+  if (!Array.isArray(swcPlugins)) return;
+
+  for (const plugin of swcPlugins) {
+    if (!Array.isArray(plugin)) continue;
+    const [pluginPath, pluginOptions] = plugin as [unknown, unknown];
+    if (
+      typeof pluginPath === 'string' &&
+      pluginPath.includes('@intlayer/swc') &&
+      pluginOptions !== null &&
+      typeof pluginOptions === 'object'
+    ) {
+      (pluginOptions as Record<string, unknown>).replaceDictionaryEntry = false;
+    }
+  }
+};
+
 /**
  * A Next.js plugin for next-i18next compat that wraps next-intlayer's plugin
- * and configures resolve aliases so next-i18next, react-i18next, and i18next
- * imports are served by their `@intlayer/*` compat counterparts.
+ * and configures resolve aliases so `next-i18next` imports are served by
+ * `@intlayer/next-i18next`.
  */
-export const createNextI18nPlugin = () => {
+export const createNextI18nPlugin = (_i18nPath?: string) => {
   return async (nextConfig: NextConfig = {}): Promise<NextConfig> => {
+    const intlayerConfig = getConfiguration();
+    const appLogger = getAppLogger(intlayerConfig);
+
+    runOnce(
+      join(
+        intlayerConfig.system.baseDir,
+        '.intlayer',
+        'cache',
+        'intlayer-issues-invitation.lock'
+      ),
+      () => {
+        appLogger([
+          colorize(
+            'Please report any issues you met on GitHub:',
+            ANSIColors.GREY
+          ),
+          colorize(
+            'https://github.com/aymericzip/intlayer/issues',
+            ANSIColors.GREY_LIGHT
+          ),
+        ]);
+      },
+      {
+        cacheTimeoutMs: 1000 * 60 * 60, // 1 hour
+      }
+    );
+
     const customWebpack = nextConfig.webpack;
 
     const resolvedTargets = ALIAS_ENTRIES.map(({ request, replacement }) => ({
@@ -142,7 +211,21 @@ export const createNextI18nPlugin = () => {
       },
     };
 
-    return withIntlayer(mergedConfig);
+    const finalConfig = await withIntlayer(mergedConfig, {
+      swcExtraCallers: NEXT_I18NEXT_SWC_CALLERS,
+    });
+
+    // i18next exposes runtime namespace APIs (`i18n.getFixedT(locale, ns)`,
+    // `t('ns:key')`) that resolve dictionaries at runtime through `getIntlayer`.
+    // Unlike `useTranslation('ns')`, these are not statically analyzable, so the
+    // SWC cannot rewrite them to direct dictionary imports. The build optimization
+    // normally empties the runtime dictionary registry (`replaceDictionaryEntry`),
+    // which would make those APIs fall back to raw keys on the server. Keeping the
+    // registry populated restores them; statically analyzable call sites are still
+    // rewritten to direct imports, so client bundles stay tree-shaken.
+    keepDictionaryRegistry(finalConfig);
+
+    return finalConfig;
   };
 };
 

@@ -27,7 +27,9 @@ type RedirectTypeArg = Parameters<typeof nextRedirect>[1];
  *   createNavigation();
  * ```
  */
-const _createNavigationImpl = (_routing?: unknown) => {
+export const createNavigation: typeof _createNavigation = (
+  _routing?: unknown
+) => {
   const getPathname = ({ href, locale }: LocalizedHrefArgs): string =>
     localizeHref(href, locale);
 
@@ -42,16 +44,13 @@ const _createNavigationImpl = (_routing?: unknown) => {
   ) => nextPermanentRedirect(localizeHref(href, locale), type);
 
   return {
-    Link,
+    Link: Link as ReturnType<typeof _createNavigation>['Link'],
     usePathname,
     useRouter,
     getPathname,
     redirect,
     permanentRedirect,
-  };
+  } as ReturnType<typeof _createNavigation>;
 };
-
-export const createNavigation =
-  _createNavigationImpl as unknown as typeof _createNavigation;
 
 export default createNavigation;

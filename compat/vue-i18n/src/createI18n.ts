@@ -143,8 +143,8 @@ export const createI18n = ((options: Record<string, unknown> = {}) => {
     },
   };
 
-  return i18nInstance as unknown as I18n;
-}) as unknown as typeof _createI18n;
+  return i18nInstance as I18n;
+}) as typeof _createI18n;
 
 /**
  * Composable providing a typed `t()` function scoped to a dictionary namespace.

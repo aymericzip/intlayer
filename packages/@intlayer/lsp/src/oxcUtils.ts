@@ -3,6 +3,11 @@ import { parseSync } from 'oxc-parser';
 export const INTLAYER_GETTERS: Set<string> = new Set([
   'useIntlayer',
   'getIntlayer',
+  'useTranslation',
+  'useTranslations',
+  'getTranslations',
+  'getFixedT',
+  'useI18n',
 ]);
 
 export type OxcNode = Record<string, unknown>;

@@ -189,59 +189,16 @@ export type CompatCallerConfig = {
 };
 
 /**
- * Default registry of compat namespace callers, covering every first-party
- * `@intlayer/*` adapter package and its underlying i18n library.
+ * Default registry of compat namespace callers.
+ *
+ * Intentionally empty — compat-specific caller configurations belong in their
+ * respective adapter packages (e.g. `@intlayer/react-i18next/plugin`,
+ * `@intlayer/vue-i18n/plugin`) and are injected into `makeUsageAnalyzerBabelPlugin`
+ * via the `compatCallers` option.  Centralising them here would couple the
+ * core `@intlayer/babel` package to every compat adapter, which violates the
+ * design principle that compat logic lives in compat packages.
  */
-export const DEFAULT_COMPAT_CALLERS: CompatCallerConfig[] = [
-  // react-i18next / next-i18next → useTranslation('ns', { keyPrefix }) → { t }
-  {
-    callerName: 'useTranslation',
-    importSources: [
-      'react-i18next',
-      '@intlayer/react-i18next',
-      'next-i18next',
-      '@intlayer/next-i18next',
-    ],
-    namespace: { from: 'argument', index: 0 },
-    keyPrefix: { from: 'option', argumentIndex: 1, property: 'keyPrefix' },
-    translationFunction: 'destructured-t',
-  },
-  // next-intl (client) → useTranslations('ns') → t
-  {
-    callerName: 'useTranslations',
-    importSources: ['next-intl', '@intlayer/next-intl'],
-    namespace: { from: 'argument', index: 0 },
-    translationFunction: 'return-value',
-  },
-  // next-intl (server) → await getTranslations('ns') → t
-  {
-    callerName: 'getTranslations',
-    importSources: [
-      'next-intl/server',
-      '@intlayer/next-intl/server',
-      'next-intl',
-      '@intlayer/next-intl',
-    ],
-    namespace: { from: 'argument', index: 0 },
-    translationFunction: 'return-value',
-  },
-  // i18next → i18n.getFixedT(lng, 'ns', keyPrefix) → t
-  {
-    callerName: 'getFixedT',
-    importSources: ['i18next', '@intlayer/i18next'],
-    matchAsMethod: true,
-    namespace: { from: 'argument', index: 1 },
-    keyPrefix: { from: 'argument', index: 2 },
-    translationFunction: 'return-value',
-  },
-  // vue-i18n → useI18n({ namespace: 'ns' }) → { t }
-  {
-    callerName: 'useI18n',
-    importSources: ['vue-i18n', '@intlayer/vue-i18n'],
-    namespace: { from: 'option', argumentIndex: 0, property: 'namespace' },
-    translationFunction: 'destructured-t',
-  },
-];
+export const DEFAULT_COMPAT_CALLERS: CompatCallerConfig[] = [];
 
 /** Default namespace used by compat callers when no namespace argument is given. */
 const DEFAULT_COMPAT_NAMESPACE = 'translation';

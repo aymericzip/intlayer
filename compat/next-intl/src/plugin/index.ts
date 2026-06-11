@@ -1,5 +1,9 @@
 import { createRequire } from 'node:module';
-import { dirname, relative, resolve, sep } from 'node:path';
+import { dirname, join, relative, resolve, sep } from 'node:path';
+import { runOnce } from '@intlayer/chokidar/utils';
+import * as ANSIColors from '@intlayer/config/colors';
+import { colorize, getAppLogger } from '@intlayer/config/logger';
+import { getConfiguration } from '@intlayer/config/node';
 import type { NextConfig } from 'next';
 import { withIntlayer } from 'next-intlayer/server';
 
@@ -94,6 +98,23 @@ const resolveEsmPath = (specifier: string): string => {
 const toTurbopackAlias = (absolutePath: string): string =>
   `./${relative(process.cwd(), absolutePath).split(sep).join('/')}`;
 
+const NEXT_INTL_SWC_CALLERS = [
+  {
+    callerName: 'useTranslations',
+    importSources: ['next-intl', '@intlayer/next-intl'],
+    namespaceArgIndex: 0,
+    staticReplacement: 'useDictionary',
+    dynamicReplacement: 'useDictionaryDynamic',
+  },
+  {
+    callerName: 'getTranslations',
+    importSources: ['next-intl/server', '@intlayer/next-intl/server'],
+    namespaceArgIndex: 0,
+    staticReplacement: 'getDictionary',
+    dynamicReplacement: 'getDictionaryDynamic',
+  },
+];
+
 /**
  * A Next.js plugin for next-intl compat that wraps next-intlayer's plugin
  * and configures resolve aliases so `next-intl` imports are served by
@@ -101,6 +122,33 @@ const toTurbopackAlias = (absolutePath: string): string =>
  */
 export const createNextIntlPlugin = (_i18nPath?: string) => {
   return async (nextConfig: NextConfig = {}): Promise<NextConfig> => {
+    const intlayerConfig = getConfiguration();
+    const appLogger = getAppLogger(intlayerConfig);
+
+    runOnce(
+      join(
+        intlayerConfig?.system?.baseDir ?? process.cwd(),
+        '.intlayer',
+        'cache',
+        'intlayer-issues-invitation.lock'
+      ),
+      () => {
+        appLogger([
+          colorize(
+            'Please report any issues you met on GitHub:',
+            ANSIColors.GREY
+          ),
+          colorize(
+            'https://github.com/aymericzip/intlayer/issues',
+            ANSIColors.GREY_LIGHT
+          ),
+        ]);
+      },
+      {
+        cacheTimeoutMs: 1000 * 60 * 60, // 1 hour
+      }
+    );
+
     const customWebpack = nextConfig.webpack;
 
     const resolvedTargets = ALIAS_ENTRIES.map(({ request, replacement }) => ({
@@ -150,7 +198,36 @@ export const createNextIntlPlugin = (_i18nPath?: string) => {
       },
     };
 
-    return withIntlayer(mergedConfig);
+    // Only inject the NEXT_LOCALE cookie default when the user has not
+    // configured their own routing.storage in intlayer.config.ts.
+    // This lets users override via intlayer.config.ts while keeping
+    // next-intl compatibility (NEXT_LOCALE) as the default.
+    let hasUserDefinedStorage = false;
+    try {
+      hasUserDefinedStorage = !!(
+        intlayerConfig?.routing &&
+        'storage' in intlayerConfig.routing &&
+        intlayerConfig.routing.storage !== undefined
+      );
+    } catch {
+      // If the config file cannot be read, fall back to the NEXT_LOCALE default.
+    }
+
+    const configOptions = hasUserDefinedStorage
+      ? { swcExtraCallers: NEXT_INTL_SWC_CALLERS }
+      : {
+          override: {
+            routing: {
+              storage: [
+                { type: 'cookie' as const, name: 'NEXT_LOCALE' },
+                { type: 'header' as const, name: 'x-intlayer-locale' },
+              ],
+            },
+          },
+          swcExtraCallers: NEXT_INTL_SWC_CALLERS,
+        };
+
+    return withIntlayer(mergedConfig, configOptions);
   };
 };
 

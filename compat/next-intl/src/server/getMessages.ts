@@ -1,9 +1,7 @@
-import { getDictionary } from '@intlayer/core/interpreter';
-import { getDictionaries } from '@intlayer/dictionaries-entry';
-import type { Dictionary } from '@intlayer/types';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import { log } from '@intlayer/config/built';
+import { CYAN } from '@intlayer/config/colors';
+import { colorize, getAppLogger } from '@intlayer/config/logger';
 import type { getMessages as _getMessages } from 'next-intl/server';
-import { getLocale } from './getLocale';
 
 /**
  * Drop-in replacement for next-intl's `getMessages()` server function.
@@ -16,23 +14,17 @@ import { getLocale } from './getLocale';
  * ```ts
  * const messages = await getMessages();
  * ```
+ *
+ * @deprecated getMessages has no use case with intlayer.
+ * Messages are loaded automatically under the hood
  */
-const _getMessagesImpl = async (): Promise<Record<string, unknown>> => {
-  const locale = await getLocale();
-  const dictionaries = getDictionaries();
-
-  const result: Record<string, unknown> = {};
-  for (const [key, dictionary] of Object.entries(dictionaries)) {
-    try {
-      result[key] = getDictionary(
-        dictionary as unknown as Dictionary,
-        locale as LocalesValues
-      );
-    } catch {
-      result[key] = {};
-    }
+export const getMessages: typeof _getMessages = async () => {
+  if (process.env.NODE_ENV === 'development') {
+    const appLogger = getAppLogger({ log });
+    appLogger(
+      `${colorize('getMessages', CYAN)} has no use case with intlayer. Messages are loaded automatically under the hood for bundle optimization reason`
+    );
   }
-  return result;
-};
 
-export const getMessages = _getMessagesImpl as unknown as typeof _getMessages;
+  return {};
+};

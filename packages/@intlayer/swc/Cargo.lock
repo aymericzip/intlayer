@@ -680,14 +680,9 @@ name = "intlayer-swc-plugin"
 version = "7.5.6"
 dependencies = [
  "base62",
- "data-encoding",
- "once_cell",
- "parking_lot",
  "pathdiff",
- "regex",
  "serde",
  "serde_json",
- "sha2",
  "swc_core",
  "twox-hash",
 ]

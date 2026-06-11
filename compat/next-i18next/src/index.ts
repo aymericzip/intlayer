@@ -8,6 +8,8 @@ export {
   initReactI18next,
   Trans,
   Translation,
+  useDictionary,
+  useDictionaryDynamic,
   useTranslation,
   withTranslation,
 } from '@intlayer/react-i18next';

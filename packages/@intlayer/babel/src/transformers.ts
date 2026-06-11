@@ -45,19 +45,28 @@ export const BABEL_PARSER_OPTIONS: NonNullable<TransformOptions['parserOpts']> =
 export const INTLAYER_USAGE_REGEX = /\b(use|get)Intlayer\b/;
 
 /**
- * Fast pre-check: matches files that could contain compat-adapter namespace
- * callers (`useTranslation`, `useTranslations`, `getTranslations`, `getFixedT`,
- * `useI18n`). These are analysed for field usage (pruning) but never rewritten.
+ * Builds a fast pre-check regex that matches files potentially containing
+ * native intlayer calls and/or the given compat namespace caller names.
+ *
+ * The result is used to skip files that definitely contain none of the
+ * relevant function names, avoiding unnecessary Babel parsing.
+ *
+ * Compat caller names are NOT hardcoded here — they are provided at runtime by
+ * the compat adapter packages that configure the usage-analysis pipeline.
+ *
+ * @param extraCallerNames - Additional caller function names to match
+ *   (e.g. `['useTranslation', 'getFixedT']` from `@intlayer/react-i18next`).
+ * @returns A `RegExp` matching any of the native or provided caller names.
  */
-export const COMPAT_USAGE_REGEX =
-  /\b(useTranslation|useTranslations|getTranslations|getFixedT|useI18n)\b/;
-
-/**
- * Fast pre-check for the usage-analysis phase: matches files containing either
- * native intlayer calls or compat-adapter namespace callers.
- */
-export const INTLAYER_OR_COMPAT_USAGE_REGEX =
-  /\b(useIntlayer|getIntlayer|useTranslation|useTranslations|getTranslations|getFixedT|useI18n)\b/;
+export const buildUsageCheckRegex = (extraCallerNames?: string[]): RegExp => {
+  const callerNames = [
+    'useIntlayer',
+    'getIntlayer',
+    ...(extraCallerNames ?? []),
+  ];
+  const uniqueNames = [...new Set(callerNames)];
+  return new RegExp(`\\b(${uniqueNames.join('|')})\\b`);
+};
 
 /**
  * Matches source files that are valid targets for usage analysis and Babel
@@ -107,6 +116,10 @@ export const analyzeFieldUsageInFile = async (
   pruneContext: PruneContext,
   compatCallers?: CompatCallerConfig[]
 ): Promise<void> => {
+  const extraCallerNames = (compatCallers ?? []).map(
+    (caller) => caller.callerName
+  );
+  const usageCheckRegex = buildUsageCheckRegex(extraCallerNames);
   const scriptBlocks = extractScriptBlocks(sourceFilePath, code);
 
   // For SFC files (Vue / Svelte): scriptBlocks[0].contentStartOffset > 0
@@ -114,7 +127,7 @@ export const analyzeFieldUsageInFile = async (
   // For plain JS/TS: extractScriptBlocks returns the whole file as a single
   // block with offset 0, so we fall through to the same path.
   for (const block of scriptBlocks) {
-    if (!INTLAYER_OR_COMPAT_USAGE_REGEX.test(block.content)) continue;
+    if (!usageCheckRegex.test(block.content)) continue;
     await analyzeScriptContent(
       block.content,
       sourceFilePath,

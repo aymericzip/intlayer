@@ -5,6 +5,7 @@ import { transformSync } from '@babel/core';
 import type * as BabelTypes from '@babel/types';
 import { buildNestedRenameMapFromContent } from './babel-plugin-intlayer-field-rename';
 import {
+  type CompatCallerConfig,
   createPruneContext,
   makeUsageAnalyzerBabelPlugin,
   type NestedRenameMap,
@@ -13,7 +14,7 @@ import {
 import { extractScriptBlocks } from './extractScriptBlocks';
 import {
   BABEL_PARSER_OPTIONS,
-  INTLAYER_OR_COMPAT_USAGE_REGEX,
+  buildUsageCheckRegex,
   SOURCE_FILE_REGEX,
 } from './transformers';
 
@@ -88,6 +89,19 @@ export type PurgePluginOptions = {
     string,
     'static' | 'dynamic' | 'fetch' | undefined
   >;
+
+  /**
+   * Compat-adapter namespace caller configurations.
+   *
+   * When set, the usage analyser recognises these additional translation
+   * function patterns and maps them to dictionary field usage.  Each compat
+   * adapter package (e.g. `@intlayer/react-i18next`) provides its own caller
+   * list; they are NOT hardcoded here so that `@intlayer/babel` stays
+   * framework-agnostic.
+   *
+   * Defaults to `[]` (no compat callers) when omitted.
+   */
+  compatCallers?: CompatCallerConfig[];
 };
 
 // ── Shared module-level state ─────────────────────────────────────────────────
@@ -316,12 +330,13 @@ const applyFieldRenameToDict = (
 const analyzeCodeBlockSync = (
   code: string,
   sourceFilePath: string,
-  pruneContext: PruneContext
+  pruneContext: PruneContext,
+  compatCallers?: CompatCallerConfig[]
 ): void => {
   try {
     transformSync(code, {
       filename: sourceFilePath,
-      plugins: [makeUsageAnalyzerBabelPlugin(pruneContext)],
+      plugins: [makeUsageAnalyzerBabelPlugin(pruneContext, { compatCallers })],
       parserOpts: BABEL_PARSER_OPTIONS,
       ast: false,
       code: false,
@@ -337,7 +352,8 @@ const analyzeCodeBlockSync = (
  */
 const analyzeSourceFileSync = (
   sourceFilePath: string,
-  pruneContext: PruneContext
+  pruneContext: PruneContext,
+  compatCallers?: CompatCallerConfig[]
 ): void => {
   let code: string;
   try {
@@ -346,12 +362,22 @@ const analyzeSourceFileSync = (
     return;
   }
 
-  if (!INTLAYER_OR_COMPAT_USAGE_REGEX.test(code)) return;
+  const extraCallerNames = (compatCallers ?? []).map(
+    (caller) => caller.callerName
+  );
+  const usageCheckRegex = buildUsageCheckRegex(extraCallerNames);
+
+  if (!usageCheckRegex.test(code)) return;
 
   const scriptBlocks = extractScriptBlocks(sourceFilePath, code);
   for (const block of scriptBlocks) {
-    if (!INTLAYER_OR_COMPAT_USAGE_REGEX.test(block.content)) continue;
-    analyzeCodeBlockSync(block.content, sourceFilePath, pruneContext);
+    if (!usageCheckRegex.test(block.content)) continue;
+    analyzeCodeBlockSync(
+      block.content,
+      sourceFilePath,
+      pruneContext,
+      compatCallers
+    );
   }
 };
 
@@ -641,6 +667,7 @@ const runPurgePipeline = (options: PurgePluginOptions): PruneContext => {
     dynamicDictionariesDir,
     componentFilesList,
     dictionaryKeyToImportModeMap,
+    compatCallers,
   } = options;
 
   const cachedContext = _pruneContextCache.get(baseDir);
@@ -658,7 +685,7 @@ const runPurgePipeline = (options: PurgePluginOptions): PruneContext => {
   // Phase 1: Synchronously analyse all component source files.
   for (const sourceFilePath of componentFilesList) {
     if (!SOURCE_FILE_REGEX.test(sourceFilePath)) continue;
-    analyzeSourceFileSync(sourceFilePath, pruneContext);
+    analyzeSourceFileSync(sourceFilePath, pruneContext, compatCallers);
   }
 
   // Phase 2: Build field-rename maps (minify only).

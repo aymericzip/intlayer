@@ -1,5 +1,8 @@
 import { resolve } from 'node:path';
-import { createPruneContext } from '@intlayer/babel';
+import { type CompatCallerConfig, createPruneContext } from '@intlayer/babel';
+
+export type { CompatCallerConfig } from '@intlayer/babel';
+
 import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { logConfigDetails } from '@intlayer/chokidar/cli';
 import { watch } from '@intlayer/chokidar/watcher';
@@ -19,6 +22,26 @@ import type { PluginOption } from 'vite';
 import { intlayerMinify } from './intlayerMinifyPlugin';
 import { intlayerOptimize } from './intlayerOptimizePlugin';
 import { intlayerPrune } from './intlayerPrunePlugin';
+
+/**
+ * Extended options accepted by the intlayer Vite plugin.
+ *
+ * Extends {@link GetConfigurationOptions} with compat-adapter caller
+ * configurations.  Compat adapter packages (e.g. `@intlayer/react-i18next/plugin`,
+ * `@intlayer/vue-i18n/plugin`) inject their own caller configs here so the
+ * field-usage analyser can recognise their translation function call patterns
+ * and prune unused dictionary fields accordingly.
+ */
+export type IntlayerPluginOptions = GetConfigurationOptions & {
+  /**
+   * Compat-adapter namespace caller configurations to pass to the
+   * field-usage analyser (Vite `buildStart` phase).
+   *
+   * Defined by each compat adapter package; the core `vite-intlayer` package
+   * ships with an empty default to stay framework-agnostic.
+   */
+  compatCallers?: CompatCallerConfig[];
+};
 
 /**
  * Vite plugin that integrates Intlayer into the Vite build process.
@@ -44,10 +67,11 @@ import { intlayerPrune } from './intlayerPrunePlugin';
  * @deprecated Rename to intlayer instead
  */
 export const intlayerPlugin = (
-  configOptions?: GetConfigurationOptions
+  configOptions?: IntlayerPluginOptions
 ): PluginOption => {
-  const intlayerConfig = getConfiguration(configOptions);
-  logConfigDetails(configOptions);
+  const { compatCallers, ...getConfigOptions } = configOptions ?? {};
+  const intlayerConfig = getConfiguration(getConfigOptions);
+  logConfigDetails(getConfigOptions);
   const appLogger = getAppLogger(intlayerConfig);
 
   const alias = getAlias({
@@ -183,7 +207,7 @@ export const intlayerPlugin = (
 
   // Babel transform: rewrites useIntlayer/getIntlayer calls and injects
   // JSON / dynamic-mjs imports.  Also runs the usage analyser in buildStart.
-  plugins.push(intlayerOptimize(intlayerConfig, pruneContext));
+  plugins.push(intlayerOptimize(intlayerConfig, pruneContext, compatCallers));
 
   // Prune: removes unused content fields from dictionary JSON files.
   // Runs with enforce:'pre' so it intercepts raw JSON before Vite's

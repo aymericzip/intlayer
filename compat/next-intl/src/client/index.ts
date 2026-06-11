@@ -1,3 +1,5 @@
+export { useDictionary } from '../useDictionary';
+export { useDictionaryDynamic } from '../useDictionaryDynamic';
 export {
   IntlProvider,
   useExtracted,

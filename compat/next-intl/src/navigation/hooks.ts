@@ -52,9 +52,6 @@ export const useRouter = () => {
         options as Parameters<typeof router.replace>[1]
       ),
     prefetch: (href: NextIntlHref, options?: NavigateOptions) =>
-      router.prefetch(
-        localize(href, options?.locale),
-        options as Parameters<typeof router.prefetch>[1]
-      ),
+      router.prefetch(localize(href, options?.locale)),
   };
 };

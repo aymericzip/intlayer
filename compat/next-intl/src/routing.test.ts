@@ -14,7 +14,7 @@ import { defineRouting } from './routing';
 
 describe('next-intl defineRouting config resolver', () => {
   it('should fall back to intlayer config properties', () => {
-    const r = defineRouting();
+    const r = defineRouting({});
     expect(r.locales).toEqual(['en', 'fr']);
     expect(r.defaultLocale).toBe('en');
     expect(r.localePrefix).toBe('as-needed');

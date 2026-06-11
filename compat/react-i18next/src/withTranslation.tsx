@@ -7,8 +7,13 @@ import type {
 } from 'react-i18next';
 import { useTranslation } from './useTranslation';
 
-const _withTranslationImpl =
-  (ns?: string | string[], options?: UseTranslationOptions<string>) =>
+/**
+ * Drop-in for react-i18next's `withTranslation` HOC.
+ */
+export const withTranslation: typeof _withTranslation = ((
+  ns?: string | string[],
+  options?: UseTranslationOptions<string>
+) =>
   <P extends { t: unknown; i18n: unknown; tReady: boolean }>(
     WrappedComponent: React.ComponentType<P>
   ) => {
@@ -29,10 +34,4 @@ const _withTranslationImpl =
     return WithTranslation as unknown as React.ComponentType<
       Omit<P, 't' | 'i18n' | 'tReady'>
     >;
-  };
-
-/**
- * Drop-in for react-i18next's `withTranslation` HOC.
- */
-export const withTranslation =
-  _withTranslationImpl as unknown as typeof _withTranslation;
+  }) as typeof _withTranslation;

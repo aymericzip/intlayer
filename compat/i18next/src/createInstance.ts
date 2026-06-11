@@ -45,7 +45,7 @@ const SKIP_KEYS = new Set([
   'returnDetails',
 ]);
 
-const _createInstanceImpl = (
+export const createInstance: typeof _createInstance = (
   instanceOptions: InitOptions = {}
 ): I18nInterface => {
   const config = internationalization;
@@ -278,11 +278,11 @@ const _createInstanceImpl = (
     },
 
     createInstance(opts?: InitOptions, _cb?: unknown) {
-      return _createInstanceImpl({ ...instanceOptions, ...opts });
+      return createInstance({ ...instanceOptions, ...opts });
     },
 
     cloneInstance(opts?: Record<string, unknown>, _cb?: unknown) {
-      return _createInstanceImpl({ ...instanceOptions, ...opts });
+      return createInstance({ ...instanceOptions, ...opts });
     },
 
     dir(lng?: string): 'ltr' | 'rtl' {
@@ -357,6 +357,3 @@ export type TypedGetFixedT = <N extends DictionaryKeys>(
   ns?: N | null,
   keyPrefix?: string
 ) => <P extends ValidDotPathsFor<N>>(key: P, opts?: TOptions) => string;
-
-export const createInstance =
-  _createInstanceImpl as unknown as typeof _createInstance;

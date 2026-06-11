@@ -1,22 +1,7 @@
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import type { appWithTranslation as _appWithTranslation } from 'next-i18next';
-import type { ComponentType } from 'react';
+import type { appWithTranslation as _appWithTranslation } from 'next-i18next/pages';
+import type * as React from 'react';
 import { IntlayerProvider } from 'react-intlayer';
-
-interface PagePropsWithI18n {
-  _nextI18Next?: {
-    initialLocale?: string;
-  };
-  [key: string]: unknown;
-}
-
-interface AppPropsWithRouter {
-  pageProps: PagePropsWithI18n;
-  router?: {
-    locale?: string;
-  };
-  [key: string]: unknown;
-}
 
 /**
  * Drop-in replacement for next-i18next's `appWithTranslation` HOC.
@@ -29,17 +14,25 @@ interface AppPropsWithRouter {
  * export default appWithTranslation(MyApp);
  * ```
  */
-const _appWithTranslationImpl = <P extends { pageProps: PagePropsWithI18n }>(
-  WrappedApp: ComponentType<P>,
-  _configOverride?: Record<string, unknown>
-): ComponentType<P> => {
-  const AppWithTranslation = (props: P & AppPropsWithRouter) => {
+export const appWithTranslation: typeof _appWithTranslation = (
+  WrappedApp,
+  _configOverride?
+) => {
+  const AppWithTranslation = (
+    props: React.ComponentProps<typeof WrappedApp> & {
+      pageProps: {
+        _nextI18Next?: { initialLocale?: string };
+        [key: string]: unknown;
+      };
+      router?: { locale?: string };
+    }
+  ) => {
     const locale: string | undefined =
       props.pageProps?._nextI18Next?.initialLocale ?? props.router?.locale;
 
     return (
       <IntlayerProvider locale={locale as LocalesValues}>
-        <WrappedApp {...(props as P)} />
+        <WrappedApp {...props} />
       </IntlayerProvider>
     );
   };
@@ -48,8 +41,7 @@ const _appWithTranslationImpl = <P extends { pageProps: PagePropsWithI18n }>(
     WrappedApp.displayName ?? WrappedApp.name ?? 'App'
   })`;
 
-  return AppWithTranslation as unknown as ComponentType<P>;
+  return AppWithTranslation as unknown as ReturnType<
+    typeof _appWithTranslation
+  >;
 };
-
-export const appWithTranslation =
-  _appWithTranslationImpl as unknown as typeof _appWithTranslation;
