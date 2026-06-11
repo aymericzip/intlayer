@@ -1,5 +1,6 @@
 import { isDeepStrictEqual } from 'node:util';
 import * as eventListener from '@controllers/eventListener.controller';
+import { getEditedContent } from '@intlayer/core/plugins';
 import type { Locale } from '@intlayer/types/allLocales';
 import type {
   ContentNode,
@@ -548,6 +549,13 @@ export const pushDictionaries = async (
       [];
     const errorResult: PushDictionariesResultData['error'] = [];
 
+    // Captures previous/new content per updated dictionary so auto-fill can
+    // detect which source (default-locale) nodes were edited and re-translate them.
+    const editedSourceById = new Map<
+      string,
+      { oldContent: ContentNode | null; newContent: ContentNode }
+    >();
+
     for (const dictionaryDataEl of newDictionaries) {
       const dictionary: DictionaryData = {
         title: dictionaryDataEl.title,
@@ -639,6 +647,10 @@ export const pushDictionaries = async (
           key: updatedDictionary.key,
           localId: dictionaryDataEl.localId!,
           id: String(updatedDictionary.id),
+        });
+        editedSourceById.set(String(updatedDictionary.id), {
+          oldContent: lastContent,
+          newContent: cleanedContent as ContentNode,
         });
       } catch (error) {
         errorResult.push({
@@ -750,10 +762,29 @@ export const pushDictionaries = async (
 
             if (affectedIds.length > 0) {
               await addTranslationJob({
-                dictionaryTargets: affectedIds.map((id) => ({
-                  dictionaryId: id,
-                  locales: targetLocales as Locale[],
-                })),
+                dictionaryTargets: affectedIds.map((id) => {
+                  const captured = editedSourceById.get(id);
+
+                  // Re-translate only the nodes whose source (default-locale)
+                  // value was just edited, on top of the missing-locale fill.
+                  const editedContent =
+                    defaultLocale && captured
+                      ? getEditedContent(
+                          captured.oldContent ?? undefined,
+                          captured.newContent,
+                          defaultLocale
+                        )
+                      : undefined;
+
+                  const hasEditedContent =
+                    !!editedContent && Object.keys(editedContent).length > 0;
+
+                  return {
+                    dictionaryId: id,
+                    locales: targetLocales as Locale[],
+                    ...(hasEditedContent ? { editedContent } : {}),
+                  };
+                }),
                 projectId: String(project.id),
                 userId: String(user.id),
                 mode: 'complete',

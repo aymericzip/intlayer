@@ -100,7 +100,8 @@ function DemoPage() {
           <div className="flex flex-col gap-4">
             <Button
               onClick={switchToDemoSession}
-              color="primary"
+              color="text"
+              variant="outline"
               label={content.switchToDemoSession.value}
             >
               {content.switchToDemoSession}

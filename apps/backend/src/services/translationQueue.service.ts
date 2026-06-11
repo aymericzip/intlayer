@@ -1,5 +1,6 @@
 import type { ConnectionOptions } from 'node:tls';
 import type { Locale } from '@intlayer/types/allLocales';
+import type { ContentNode } from '@intlayer/types/dictionary';
 import { logger } from '@logger';
 import { getRedisClient } from '@utils/redis/connectRedis';
 import { Queue, QueueEvents } from 'bullmq';
@@ -56,8 +57,21 @@ export const isTranslationJobCancelled = async (
   return !!(await redis.get(translationCancelKey(jobId)));
 };
 
+/** A dictionary to translate, optionally with a partial of freshly-edited source nodes. */
+export type DictionaryTranslationTarget = {
+  dictionaryId: string;
+  locales: Locale[];
+  /**
+   * Partial dictionary content holding only the nodes whose source-locale value
+   * was just edited (reduced to the source locale). When present, the worker
+   * re-translates these nodes across all target locales and merges them back,
+   * overwriting now-stale translations — on top of the normal missing-locale fill.
+   */
+  editedContent?: ContentNode;
+};
+
 export const addTranslationJob = async (data: {
-  dictionaryTargets: { dictionaryId: string; locales: Locale[] }[];
+  dictionaryTargets: DictionaryTranslationTarget[];
   projectId: string;
   userId: string;
   mode?: 'complete' | 'review';

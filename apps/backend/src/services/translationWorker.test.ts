@@ -58,6 +58,15 @@ vi.mock('@intlayer/core/plugins', () => ({
   ),
 }));
 
+// Shallow merge preferring the first (destination) dictionary — enough to assert
+// the worker wires edited content through; real semantics live in mergeDictionaries.test.ts.
+vi.mock('@intlayer/core/dictionaryManipulator', () => ({
+  mergeDictionaries: vi.fn((dicts: any[]) => ({
+    key: dicts[0].key,
+    content: { ...(dicts[1]?.content ?? {}), ...dicts[0].content },
+  })),
+}));
+
 vi.mock('@logger', () => ({
   logger: { info: vi.fn(), warn: vi.fn(), error: vi.fn() },
 }));
@@ -72,6 +81,7 @@ vi.mock('bullmq', () => ({
 
 // ─── imports after mocks ──────────────────────────────────────────────────────
 
+import { mergeDictionaries } from '@intlayer/core/dictionaryManipulator';
 import { getPerLocaleDictionary } from '@intlayer/core/plugins';
 import * as dictionaryService from '@services/dictionary.service';
 import * as projectService from '@services/project.service';
@@ -106,6 +116,7 @@ const mockIsCancelled = isTranslationJobCancelled as ReturnType<typeof vi.fn>;
 const mockGetPerLocaleDictionary = getPerLocaleDictionary as ReturnType<
   typeof vi.fn
 >;
+const mockMergeDictionaries = mergeDictionaries as ReturnType<typeof vi.fn>;
 
 // ─── helpers ──────────────────────────────────────────────────────────────────
 
@@ -203,6 +214,63 @@ describe('processTranslationJob', () => {
     const final = job.updateProgress.mock.calls.at(-1)[0];
     expect(final.completedKeys).toContain('nav');
     expect(mockUpdateDictionaryById).not.toHaveBeenCalled();
+  });
+
+  // ── edited-source re-translation (auto-fill on default-locale edit) ────────
+
+  it('re-translates edited source nodes and merges them over the current content', async () => {
+    const dict = makeFakeDict('d1', 'common');
+    mockGetDictionaryById.mockResolvedValue(dict);
+
+    // 1st getPerLocaleDictionary call = missing-fill (nothing missing → empty)
+    // 2nd call = the edited partial source (non-empty → gets translated)
+    mockGetPerLocaleDictionary
+      .mockReturnValueOnce({ key: 'common', content: {} })
+      .mockReturnValueOnce({ key: 'common', content: { label: 'New source' } });
+
+    mockTranslateDictionaryDB.mockResolvedValue({ fr: { label: 'Nouvelle' } });
+
+    const editedContent = {
+      label: { nodeType: 'translation', translation: { en: 'New source' } },
+    };
+
+    const job = makeJob('job-1', {
+      dictionaryTargets: [
+        { dictionaryId: 'd1', locales: ['fr'], editedContent },
+      ],
+      projectId: 'proj-1',
+      userId: 'user-1',
+    });
+
+    await processTranslationJob(job);
+
+    // The edited partial was translated for the target locale...
+    expect(mockTranslateDictionaryDB).toHaveBeenCalledWith(
+      expect.objectContaining({ targetLocales: ['fr'] })
+    );
+    // ...merged over the current DB content (edited partial first / destination)...
+    expect(mockMergeDictionaries).toHaveBeenCalledTimes(1);
+    // ...and persisted, even though no locale was strictly "missing".
+    expect(mockUpdateDictionaryById).toHaveBeenCalledTimes(1);
+
+    const final = job.updateProgress.mock.calls.at(-1)[0];
+    expect(final.completedKeys).toContain('common');
+  });
+
+  it('does not merge when no editedContent is provided', async () => {
+    const dict = makeFakeDict('d1', 'common');
+    mockGetDictionaryById.mockResolvedValue(dict);
+    mockTranslateDictionaryDB.mockResolvedValue({ fr: { label: 'Bonjour' } });
+
+    const job = makeJob('job-1', {
+      dictionaryTargets: [{ dictionaryId: 'd1', locales: ['fr'] }],
+      projectId: 'proj-1',
+      userId: 'user-1',
+    });
+
+    await processTranslationJob(job);
+
+    expect(mockMergeDictionaries).not.toHaveBeenCalled();
   });
 
   // ── multiple dictionaries with DIFFERENT missing locales ──────────────

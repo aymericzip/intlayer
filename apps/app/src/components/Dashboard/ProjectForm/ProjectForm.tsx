@@ -13,6 +13,7 @@ import { ConfigDetails } from './Config/ConfigDetails';
 import { DeleteProjectModal } from './DeleteProjectModal';
 import { EnvironmentsForm } from './Environments/EnvironmentsForm';
 import { MembersForm } from './Members/MembersKeyForm';
+import { OpenRouterSettings } from './OpenRouter';
 import { ProjectDetailsSkeleton } from './ProjectDetailsSkeleton';
 import { ProjectEditionForm } from './ProjectEditionForm';
 import { ProjectList } from './ProjectList';
@@ -230,6 +231,15 @@ export const ProjectFormContent: FC = () => {
               className="flex size-full justify-center"
             >
               <AutoFillSettings />
+            </Container>
+            <Container
+              roundedSize="3xl"
+              padding="md"
+              border
+              borderColor="neutral"
+              className="flex size-full justify-center"
+            >
+              <OpenRouterSettings />
             </Container>
           </div>
         </div>

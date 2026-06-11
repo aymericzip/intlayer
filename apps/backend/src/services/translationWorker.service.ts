@@ -2,12 +2,14 @@ import type { ConnectionOptions } from 'node:tls';
 import * as eventListener from '@controllers/eventListener.controller';
 import { type AIOptions, getAIConfig } from '@intlayer/ai';
 import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
+import { mergeDictionaries } from '@intlayer/core/dictionaryManipulator';
 import {
   getFilterMissingTranslationsDictionary,
   getPerLocaleDictionary,
   insertContentInDictionary,
 } from '@intlayer/core/plugins';
 import type { Locale } from '@intlayer/types/allLocales';
+import type { ContentNode } from '@intlayer/types/dictionary';
 import { logger } from '@logger';
 import * as dictionaryService from '@services/dictionary.service';
 import * as projectService from '@services/project.service';
@@ -29,7 +31,11 @@ type TranslationJobData = {
   dictionaryIds?: string[];
   dictionaryKeys?: string[];
   targetLocales?: Locale[];
-  dictionaryTargets?: { dictionaryId: string; locales: Locale[] }[];
+  dictionaryTargets?: {
+    dictionaryId: string;
+    locales: Locale[];
+    editedContent?: ContentNode;
+  }[];
   projectId: string;
   userId: string;
   mode?: 'complete' | 'review';
@@ -64,7 +70,11 @@ export const processTranslationJob = async (job: Job<TranslationJobData>) => {
   } = job.data;
 
   // Migration / compatibility: if dictionaryTargets is missing, rebuild it from flat list
-  const targets: { dictionaryId: string; locales: Locale[] }[] =
+  const targets: {
+    dictionaryId: string;
+    locales: Locale[];
+    editedContent?: ContentNode;
+  }[] =
     dictionaryTargets ||
     (dictionaryIds as string[])?.map((id) => ({
       dictionaryId: id,
@@ -98,7 +108,7 @@ export const processTranslationJob = async (job: Job<TranslationJobData>) => {
   const failedKeys: string[] = [];
 
   for (const target of targets) {
-    const { dictionaryId, locales: taskTargetLocales } = target;
+    const { dictionaryId, locales: taskTargetLocales, editedContent } = target;
 
     // Respect pause: spin-wait until resumed or cancelled
     while (await isTranslationJobPaused(job.id!)) {
@@ -230,7 +240,70 @@ export const processTranslationJob = async (job: Job<TranslationJobData>) => {
         }
       }
 
-      if (Object.keys(translationResult).length === 0) {
+      // Re-translate freshly edited source nodes (if any) so their now-stale
+      // translations are regenerated across every target locale. The partial
+      // holds only the edited nodes reduced to the source locale, so the AI
+      // produces every target locale for them.
+      let editedTranslatedDict:
+        | { key: string; content: ContentNode }
+        | undefined;
+
+      if (editedContent && Object.keys(editedContent).length > 0) {
+        const editedSource = getPerLocaleDictionary(
+          {
+            key: dictionary.key,
+            content: editedContent as any,
+            schema: undefined,
+          },
+          sourceLocale as Locale
+        );
+
+        let editedDict: { key: string; content: any } = {
+          key: dictionary.key,
+          content: editedContent,
+        };
+
+        for (const targetLocale of taskTargetLocales) {
+          const localeResult = await translateDictionaryDB({
+            content: editedSource.content as any,
+            sourceLocale: sourceLocale as Locale,
+            targetLocales: [targetLocale],
+            aiConfig,
+            mode: 'complete',
+            dictionaryDescription: dictionary.description,
+            shouldStop,
+            onChunkStart: async ({ locale, chunkIndex, totalChunks }) => {
+              await emitProgress(job, {
+                percentage: (processedCount / totalDictionaries) * 100,
+                completedKeys,
+                failedKeys,
+                currentKey: dictionaryKey,
+                currentLocale: locale,
+                currentChunk: chunkIndex + 1,
+                totalChunks,
+              });
+            },
+          });
+
+          if (localeResult[targetLocale]) {
+            editedDict = insertContentInDictionary(
+              editedDict as any,
+              localeResult[targetLocale] as any,
+              targetLocale
+            );
+          }
+        }
+
+        editedTranslatedDict = editedDict as {
+          key: string;
+          content: ContentNode;
+        };
+      }
+
+      if (
+        Object.keys(translationResult).length === 0 &&
+        !editedTranslatedDict
+      ) {
         logger.info(
           `Dictionary ${dictionary.key}: all target locales already complete`
         );
@@ -244,12 +317,23 @@ export const processTranslationJob = async (job: Job<TranslationJobData>) => {
         await dictionaryService.getDictionaryById(dictionaryId);
       const currentContentNode = currentDictionary.content.get(lastVersion)!;
 
-      // Insert each locale's translated content into the multilingual structure.
       let updatedDict: { key: string; content: any } = {
         key: dictionary.key,
         content: currentContentNode.content,
       };
 
+      // Overwrite the freshly-edited nodes with their regenerated translations.
+      // `mergeDictionaries` prefers the first (destination) argument, so the
+      // edited partial wins over the now-stale values it overlaps; every other
+      // node falls back to the current DB content.
+      if (editedTranslatedDict) {
+        updatedDict = mergeDictionaries([
+          editedTranslatedDict as any,
+          updatedDict as any,
+        ]) as { key: string; content: any };
+      }
+
+      // Fill missing locales without touching existing translations.
       for (const [locale, localeContent] of Object.entries(translationResult)) {
         updatedDict = insertContentInDictionary(
           updatedDict as any,

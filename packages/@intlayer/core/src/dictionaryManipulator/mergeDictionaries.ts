@@ -170,6 +170,10 @@ export const mergeDictionaries = (dictionaries: Dictionary[]): Dictionary => {
     )
   );
 
+  if (!dictionaries[0] || dictionaries.length <= 1) {
+    return dictionaries[0]!;
+  }
+
   const dictionariesKeys = dictionaries.map((dict) => dict.key);
 
   // Check if all dictionaries have the same key
@@ -180,8 +184,12 @@ export const mergeDictionaries = (dictionaries: Dictionary[]): Dictionary => {
   let mergedContent: Dictionary['content'] = dictionaries[0].content;
 
   for (let i = 1; i < dictionaries.length; i++) {
+    const dict = dictionaries[i];
+
+    if (!dict) continue;
+
     // If the dictionary is a per-locale dictionary, transform it to a partial multilingual dictionary
-    const currentDictionary = getMultilingualDictionary(dictionaries[i]);
+    const currentDictionary = getMultilingualDictionary(dict);
 
     // Check types before merging
     checkTypesMatch(
