@@ -23,6 +23,9 @@ history:
   - version: 8.0.4
     date: 2026-01-26
     changes: "Initialisation de l'historique"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Traduisez votre application Analog (Angular) avec Intlayer | Internationalisation (i18n)

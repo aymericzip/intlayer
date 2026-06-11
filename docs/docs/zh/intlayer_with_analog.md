@@ -23,6 +23,9 @@ history:
   - version: 8.0.4
     date: 2026-01-26
     changes: "初始化历史记录"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 使用 Intlayer 翻译您的 Analog (Angular) 应用 | 国际化 (i18n)

@@ -25,6 +25,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "초기 이력"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Next.js 통합: `next-intlayer`용 `useLocale` 훅 문서

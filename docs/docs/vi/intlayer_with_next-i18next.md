@@ -16,6 +16,9 @@ slugs:
   - doc
   - next-i18next
 applicationTemplate: https://github.com/aymericzip/intlayer-next-i18next-template
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Dịch website Next.js 15 sử dụng next-i18next với Intlayer | Quốc tế hóa (i18n)

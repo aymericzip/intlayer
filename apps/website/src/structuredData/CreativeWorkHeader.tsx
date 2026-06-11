@@ -12,6 +12,8 @@ type DocHeaderProps = {
   datePublished?: Date;
   dateModified?: Date;
   url?: string;
+  authorName?: string;
+  authorUrl?: string;
 };
 
 // Schema.org requires ISO 8601 dates (YYYY-MM-DD).
@@ -32,6 +34,8 @@ export const CreativeWorkHeader = ({
   dateModified,
   datePublished,
   url,
+  authorName,
+  authorUrl,
 }: DocHeaderProps) => {
   const { audienceType } = useIntlayer('creative-work-structured-data');
 
@@ -41,8 +45,8 @@ export const CreativeWorkHeader = ({
 
   const author = {
     '@type': 'Person',
-    name: 'Aymeric Pineau',
-    url: Website_Home,
+    name: authorName ?? 'Aymeric Pineau',
+    url: authorUrl ?? Website_Home,
   };
 
   const creativeWork = {

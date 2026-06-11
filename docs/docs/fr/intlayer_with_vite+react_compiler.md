@@ -29,6 +29,9 @@ history:
   - version: 8.1.6
     date: 2026-02-23
     changes: "Sortie initiale"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Comment rendre multilingue (i18n) une application Vite et React existante après coup (guide i18n 2026)

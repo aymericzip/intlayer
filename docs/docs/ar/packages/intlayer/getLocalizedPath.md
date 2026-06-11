@@ -22,6 +22,9 @@ history:
   - version: 8.0.0
     date: 2026-01-22
     changes: "تنفيذ قواعد إعادة كتابة URL مخصصة"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # التوثيق: الدالة `getLocalizedPath` في `intlayer`

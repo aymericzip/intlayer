@@ -29,6 +29,9 @@ history:
   - version: 8.1.6
     date: 2026-02-23
     changes: "Phát hành lần đầu"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Cách làm cho ứng dụng Vite và React hiện có trở thành đa ngôn ngữ (i18n) sau đó (hướng dẫn i18n 2026)

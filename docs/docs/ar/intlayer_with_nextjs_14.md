@@ -21,6 +21,9 @@ history:
   - version: 8.9.0
     date: 2026-05-04
     changes: "تحديث استخدام واجهة برمجة تطبيقات useIntlayer في Solid للوصول المباشر إلى الخصائص"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # ترجم Next.js 14 and App Router باستخدام Intlayer | التدويل (i18n)

@@ -1,4 +1,4 @@
-import { type Dictionary, t } from 'intlayer';
+import { type Dictionary, insert, t } from 'intlayer';
 
 const docHeaderContent = {
   key: 'doc-header',
@@ -63,6 +63,50 @@ const docHeaderContent = {
       vi: 'Cập nhật lần cuối',
       uk: 'Останнє оновлення',
     }),
+    authorAvatarAlt: insert(
+      t({
+        ar: 'الصورة الشخصية لـ {{author}}',
+        de: 'Avatar von {{author}}',
+        en: "{{author}}'s avatar",
+        'en-GB': "{{author}}'s avatar",
+        es: 'Avatar de {{author}}',
+        fr: 'Avatar de {{author}}',
+        hi: '{{author}} का अवतार',
+        it: 'Avatar di {{author}}',
+        ja: '{{author}}のアバター',
+        ko: '{{author}}의 아바타',
+        pt: 'Avatar de {{author}}',
+        ru: 'Аватар {{author}}',
+        tr: "{{author}}'in avatarı",
+        zh: '{{author}}的头像',
+        pl: 'Awatar {{author}}',
+        id: 'Avatar {{author}}',
+        vi: 'Ảnh đại diện của {{author}}',
+        uk: 'Аватар {{author}}',
+      })
+    ),
+    authorGithubLabel: insert(
+      t({
+        ar: 'صفحة github الخاصة بـ {{author}}',
+        de: 'GitHub-Seite von {{author}}',
+        en: "{{author}}'s github page",
+        'en-GB': "{{author}}'s github page",
+        es: 'Página de github de {{author}}',
+        fr: 'Page github de {{author}}',
+        hi: '{{author}} का गिटहब पेज',
+        it: 'Pagina github di {{author}}',
+        ja: '{{author}}のgithubページ',
+        ko: '{{author}}의 github 페이지',
+        pt: 'Página github de {{author}}',
+        ru: 'Страница github {{author}}',
+        tr: "{{author}}'in github sayfası",
+        zh: '{{author}}的github页面',
+        pl: 'Strona github {{author}}',
+        id: 'Halaman github {{author}}',
+        vi: 'Trang github của {{author}}',
+        uk: 'Сторінка github {{author}}',
+      })
+    ),
   },
   title: 'Documentation header',
   description:

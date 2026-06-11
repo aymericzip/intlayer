@@ -22,6 +22,9 @@ history:
   - version: 8.0.0
     date: 2026-01-22
     changes: "实现自定义 URL 重写"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 文档：`intlayer` 中的 `getCanonicalPath` 函数

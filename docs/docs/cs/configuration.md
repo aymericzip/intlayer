@@ -98,6 +98,9 @@ history:
   - version: 5.5.11
     date: 2025-06-29
     changes: "Přidány příkazy `docs`"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Dokumentace ke konfiguraci Intlayer

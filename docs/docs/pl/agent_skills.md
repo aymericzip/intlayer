@@ -16,6 +16,9 @@ history:
   - version: 8.1.0
     date: 2026-02-09
     changes: "Historia początkowa"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Umiejętności agenta

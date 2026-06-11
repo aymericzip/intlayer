@@ -18,6 +18,9 @@ history:
   - version: 7.5.12
     date: 2026-01-06
     changes: "Thêm tùy chọn đầu ra tuyệt đối vào lệnh list projects"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Liệt kê các dự án Intlayer

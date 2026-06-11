@@ -26,6 +26,9 @@ history:
   - version: 7.1.10
     date: 2025-11-20
     changes: "Historique initial"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Traduisez votre site SvelteKit avec Intlayer | Internationalisation (i18n)

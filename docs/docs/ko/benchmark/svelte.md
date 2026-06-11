@@ -14,7 +14,9 @@ slugs:
   - doc
   - benchmark
   - svelte
-author: Aymeric PINEAU
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-svelte-template
 history:
   - version: 8.9.8

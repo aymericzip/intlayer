@@ -12,6 +12,9 @@ keywords:
 slugs:
   - frequent-questions
   - bun-set-up
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Je reçois une erreur de module introuvable lors de l'utilisation de bun

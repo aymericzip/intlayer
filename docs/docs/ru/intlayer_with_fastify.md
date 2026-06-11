@@ -25,6 +25,9 @@ history:
   - version: 7.6.0
     date: 2025-12-31
     changes: "Инициализирована история"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Переведите свой бэкенд-сайт на Fastify с помощью Intlayer | Интернационализация (i18n)

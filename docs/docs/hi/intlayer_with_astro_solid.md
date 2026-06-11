@@ -25,6 +25,9 @@ history:
   - version: 8.7.7
     date: 2026-04-24
     changes: "Astro + Solid के लिए प्रारंभिक दस्तावेज़ीकरण"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer के साथ अपनी Astro + Solid साइट का अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)

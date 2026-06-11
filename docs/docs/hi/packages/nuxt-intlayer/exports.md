@@ -17,6 +17,9 @@ history:
   - version: 8.0.0
     date: 2026-01-21
     changes: "सभी निर्यातों के लिए एकीकृत दस्तावेज़ीकरण"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # nuxt-intlayer पैकेज

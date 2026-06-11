@@ -37,6 +37,9 @@ history:
   - version: 5.8.0
     date: 2025-08-20
     changes: "Adicionar utilitários para manipulação de conteúdo (getContent, getTranslation, getIntlayer, etc.)"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Formatadores Intlayer

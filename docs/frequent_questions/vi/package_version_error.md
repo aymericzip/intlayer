@@ -10,6 +10,9 @@ keywords:
 slugs:
   - frequent-questions
   - package-version-error
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Tôi nhận được lỗi liên quan đến các gói con `@intlayer/*`

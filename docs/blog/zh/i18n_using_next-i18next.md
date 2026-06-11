@@ -19,6 +19,9 @@ history:
   - version: 7.0.6
     date: 2025-11-01
     changes: 初始版本
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 2025 年如何使用 next-i18next 国际化您的 Next.js 应用

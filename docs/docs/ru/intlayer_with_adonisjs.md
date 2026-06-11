@@ -22,6 +22,9 @@ history:
   - version: 8.0.0
     date: 2025-12-30
     changes: "Инициализация истории"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Переведите ваш бэкенд на AdonisJS с помощью Intlayer | Интернационализация (i18n)

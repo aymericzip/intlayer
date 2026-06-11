@@ -15,6 +15,9 @@ keywords:
 slugs:
   - blog
   - vue-i18n-vs-intlayer
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # vue-i18n VS Intlayer | Vue Internationalisierung (i18n)

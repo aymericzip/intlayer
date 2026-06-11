@@ -20,6 +20,9 @@ history:
   - version: 7.5.9
     date: 2025-12-30
     changes: "Menambahkan konten perintah init"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Inisialisasi Intlayer

@@ -14,6 +14,9 @@ slugs:
   - concept
   - cli
   - extract
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # स्ट्रिंग्स निकालना

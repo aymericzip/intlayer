@@ -27,6 +27,9 @@ history:
   - version: 7.0.0
     date: 2025-10-29
     changes: تغيير إلى ملحق syncJSON
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # كيفية أتمتة ترجمات JSON الخاصة بـ i18next باستخدام Intlayer

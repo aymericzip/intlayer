@@ -17,6 +17,9 @@ history:
   - version: 8.5.0
     date: 2026-04-02
     changes: "Ajout du routage par domaine via la configuration routing.domains."
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Domaines personnalisés

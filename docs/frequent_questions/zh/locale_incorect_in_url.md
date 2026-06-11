@@ -17,6 +17,9 @@ keywords:
 slugs:
   - frequent-questions
   - locale-incorect-in-url
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 从 URL 获取的语言环境不正确

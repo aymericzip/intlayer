@@ -25,6 +25,9 @@ history:
   - version: 8.4.10
     date: 2026-03-23
     changes: "التاريخ الأولي"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # ترجم موقع الويب الخاص بك باستخدام Vite و Vanilla JS باستخدام Intlayer | التدويل (i18n)

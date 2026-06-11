@@ -17,6 +17,9 @@ history:
   - version: 8.5.0
     date: 2026-04-02
     changes: "routing.domains کنفیگریشن کے ذریعے ڈومین پر مبنی لوکل راؤٹنگ شامل کی گئی۔"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # کسٹم ڈومینز

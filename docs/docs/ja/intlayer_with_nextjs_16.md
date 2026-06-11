@@ -30,6 +30,9 @@ history:
   - version: 7.0.0
     date: 2025-06-29
     changes: "履歴の初期化"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayerを使ってNext.js 16のウェブサイトを翻訳する | 国際化（i18n）

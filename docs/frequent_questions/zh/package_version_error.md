@@ -10,6 +10,9 @@ keywords:
 slugs:
   - frequent-questions
   - package-version-error
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 我遇到了与子包 `@intlayer/*` 相关的错误

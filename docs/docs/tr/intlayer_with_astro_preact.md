@@ -25,6 +25,9 @@ history:
   - version: 8.7.7
     date: 2026-04-24
     changes: "Astro + Preact için ilk dokümantasyon"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Astro + Preact Sitenizi Intlayer ile Çevirin | Uluslararasılaştırma (i18n)

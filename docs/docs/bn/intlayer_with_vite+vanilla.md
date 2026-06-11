@@ -25,6 +25,9 @@ history:
   - version: 8.4.10
     date: 2026-03-23
     changes: "প্রাথমিক ইতিহাস"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer ব্যবহার করে আপনার Vite এবং Vanilla JS ওয়েবসাইট অনুবাদ করুন | আন্তর্জাতিকীকরণ (i18n)

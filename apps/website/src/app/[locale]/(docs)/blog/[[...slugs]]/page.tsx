@@ -62,6 +62,12 @@ const BlogPage = async ({ params }: LocalPromiseParams<BlogProps>) => {
         dateModified={new Date(blogData.updatedAt)}
         datePublished={new Date(blogData.createdAt)}
         url={blogData.url}
+        authorName={blogData.author?.name}
+        authorUrl={
+          blogData.author?.github
+            ? `https://github.com/${blogData.author.github}`
+            : undefined
+        }
       />
       <DocHeader {...blogData} markdownContent={blogContent} />
 

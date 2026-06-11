@@ -15,6 +15,9 @@ history:
   - version: 7.5.0
     date: 2025-12-18
     changes: Phiên bản ban đầu
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Một giải pháp mã nguồn mở thay thế Crowdin (TMS)

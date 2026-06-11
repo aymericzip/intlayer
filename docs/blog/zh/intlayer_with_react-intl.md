@@ -23,6 +23,9 @@ history:
   - version: 7.0.0
     date: 2025-10-29
     changes: 更改为 syncJSON 插件
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 如何使用 Intlayer 自动化您的 react-intl JSON 翻译

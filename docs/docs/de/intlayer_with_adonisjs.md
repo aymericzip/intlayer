@@ -22,6 +22,9 @@ history:
   - version: 8.0.0
     date: 2025-12-30
     changes: "Verlauf initialisieren"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Übersetzen Sie Ihr AdonisJS-Backend-Website mit Intlayer | Internationalisierung (i18n)

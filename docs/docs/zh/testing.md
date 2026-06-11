@@ -17,6 +17,9 @@ history:
   - version: 6.0.0
     date: 2025-09-20
     changes: "引入测试功能"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 测试您的内容

@@ -17,6 +17,9 @@ history:
   - version: 8.5.0
     date: 2026-04-02
     changes: "Thêm điều hướng ngôn ngữ dựa trên tên miền thông qua cấu hình routing.domains."
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Tên miền tùy chỉnh

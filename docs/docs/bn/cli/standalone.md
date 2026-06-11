@@ -19,6 +19,9 @@ history:
   - version: 8.6.4
     date: 2026-03-31
     changes: "স্ট্যান্ডঅলোন কমান্ড ডকুমেন্টেশন শুরু"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # স্ট্যান্ডঅলোন বান্ডল (Standalone Bundle)

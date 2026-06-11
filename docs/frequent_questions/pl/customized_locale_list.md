@@ -17,6 +17,9 @@ keywords:
 slugs:
   - frequent-questions
   - customized-locale-list
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Czy można zablokować typ języka, na przykład angielski? Dodaję angielski do moich słowników, ale nie chcę, aby angielski był jeszcze dostępny na stronie internetowej

@@ -22,6 +22,9 @@ history:
   - version: 8.0.0
     date: 2026-01-22
     changes: "Benutzerdefinierte URL-Umschreibungen implementiert"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Dokumentation: `getCanonicalPath`-Funktion in `intlayer`

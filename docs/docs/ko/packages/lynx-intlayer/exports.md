@@ -17,6 +17,9 @@ history:
   - version: 8.0.0
     date: 2026-01-21
     changes: "모든 내보내기(exports)에 대한 문서 통합"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # lynx-intlayer 패키지

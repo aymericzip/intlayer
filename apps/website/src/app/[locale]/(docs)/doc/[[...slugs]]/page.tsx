@@ -87,6 +87,12 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
         dateModified={new Date(docData.updatedAt)}
         datePublished={new Date(docData.createdAt)}
         url={docData.url}
+        authorName={docData.author?.name}
+        authorUrl={
+          docData.author?.github
+            ? `https://github.com/${docData.author.github}`
+            : undefined
+        }
       />
       <DocHeader
         {...docData}

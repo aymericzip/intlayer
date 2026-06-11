@@ -28,6 +28,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Erster Verlauf"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Übersetzen Sie Ihre Angular 21 (Vite) Website mit Intlayer | Internationalisierung (i18n)

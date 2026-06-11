@@ -13,6 +13,9 @@ keywords:
 slugs:
   - blog
   - rag-powered-documentation-assistant
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # بناء مساعد توثيق مدعوم بـ RAG (التقسيم، التضمينات، والبحث)

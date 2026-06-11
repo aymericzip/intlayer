@@ -16,6 +16,9 @@ history:
   - version: 8.1.0
     date: 2026-02-09
     changes: "प्रारंभिक इतिहास"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # एजेंट स्किल्स

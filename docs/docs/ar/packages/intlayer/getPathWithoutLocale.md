@@ -18,6 +18,9 @@ slugs:
   - packages
   - intlayer
   - getPathWithoutLocale
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # التوثيق: دالة `getPathWithoutLocale` في `intlayer`

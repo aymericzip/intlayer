@@ -16,6 +16,9 @@ history:
   - version: 8.9.0
     date: 2026-05-07
     changes: "ドキュメントの初期化"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # IntlayerNode 型とは何ですか？

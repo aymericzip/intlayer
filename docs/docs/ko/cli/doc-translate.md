@@ -15,6 +15,9 @@ slugs:
   - concept
   - cli
   - doc-translate
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 문서 번역

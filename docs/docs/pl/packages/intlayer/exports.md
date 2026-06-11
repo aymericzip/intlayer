@@ -17,6 +17,9 @@ history:
   - version: 8.0.0
     date: 2026-01-21
     changes: "Ujednolicona dokumentacja dla wszystkich eksportów"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Pakiet intlayer

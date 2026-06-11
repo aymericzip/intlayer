@@ -17,6 +17,9 @@ history:
   - version: 8.0.0
     date: 2026-01-21
     changes: "すべてのエクスポートに関するドキュメントを統一"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # react-native-intlayer パッケージ

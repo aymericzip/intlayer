@@ -25,6 +25,9 @@ history:
   - version: 7.6.0
     date: 2025-12-31
     changes: "Khởi tạo lịch sử"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Dịch trang web backend Fastify của bạn bằng Intlayer | Quốc tế hóa (i18n)

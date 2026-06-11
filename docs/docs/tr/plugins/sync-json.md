@@ -30,6 +30,9 @@ history:
   - version: 6.1.6
     date: 2025-10-05
     changes: "İlk JSON Senkronizasyon Eklentisi dokümantasyonu"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # JSON Senkronizasyonu (i18n köprüleri) - ICU / i18next desteği ile JSON Senkronizasyonu

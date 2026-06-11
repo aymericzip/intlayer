@@ -13,6 +13,9 @@ keywords:
 slugs:
   - blog
   - rag-powered-documentation-assistant
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # RAG 기반 문서 지원 도우미 구축하기 (청킹, 임베딩, 검색)

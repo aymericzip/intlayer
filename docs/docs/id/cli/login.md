@@ -15,6 +15,9 @@ slugs:
   - concept
   - cli
   - login
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Perintah Login CLI Intlayer

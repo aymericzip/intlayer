@@ -31,6 +31,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Ініціалізовано історію"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Перекладіть свій вебсайт на Next.js із Page Router за допомогою Intlayer | Інтернаціоналізація (i18n)

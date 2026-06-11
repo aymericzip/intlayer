@@ -28,6 +28,9 @@ history:
   - version: 6.2.0
     date: 2025-10-03
     changes: "更新 Astro 注入、配置和用法"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 使用 Intlayer 翻译您的 Astro + React 网站 | 国际化 (i18n)

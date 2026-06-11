@@ -18,6 +18,9 @@ history:
   - version: 8.9.4
     date: 2026-05-10
     changes: "Sync PO eklentisi ilk dokümantasyonu"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Sync PO (i18n köprüleri) - ICU / i18next desteğiyle Sync PO

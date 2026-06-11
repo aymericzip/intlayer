@@ -26,6 +26,9 @@ history:
   - version: 8.7.7
     date: 2026-04-24
     changes: "Astro + Litの初期ドキュメント"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayerを使用したAstro + Litサイトの翻訳 | 国際化 (i18n)

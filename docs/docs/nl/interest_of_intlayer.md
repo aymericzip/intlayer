@@ -25,6 +25,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Geschiedenis geïnitialiseerd"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Waarom zou u Intlayer overwegen?

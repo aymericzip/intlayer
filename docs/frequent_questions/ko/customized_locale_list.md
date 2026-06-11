@@ -17,6 +17,9 @@ keywords:
 slugs:
   - frequent-questions
   - customized-locale-list
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 영어와 같은 특정 언어 유형을 차단할 수 있나요? 사전에 영어를 추가하고 있는데 웹사이트에서는 아직 영어를 사용 가능하게 하고 싶지 않습니다.

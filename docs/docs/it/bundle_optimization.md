@@ -22,6 +22,9 @@ history:
   - version: 8.7.0
     date: 2026-04-08
     changes: "Aggiunte le opzioni `minify` e `purge` alla configurazione di build"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Ottimizzazione delle dimensioni e delle prestazioni del bundle i18n

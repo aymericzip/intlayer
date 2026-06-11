@@ -23,6 +23,9 @@ history:
   - version: 6.0.0
     date: 2025-06-29
     changes: "Viết tài liệu ban đầu cho hook `useI18n`"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Tích hợp React: Tài liệu Hook `useI18n`

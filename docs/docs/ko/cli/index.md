@@ -65,6 +65,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "기록 초기화"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer CLI - 다국어 웹사이트를 위한 모든 Intlayer CLI 명령어

@@ -18,6 +18,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "초기 이력"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer에서 `지역별` 콘텐츠 선언 방법

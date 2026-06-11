@@ -17,6 +17,9 @@ history:
   - version: 8.5.0
     date: 2026-04-02
     changes: "Dodano routing lokalizacji oparty na domenach poprzez konfigurację routing.domains."
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Własne domeny

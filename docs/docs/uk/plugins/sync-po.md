@@ -18,6 +18,9 @@ history:
   - version: 8.9.4
     date: 2026-05-10
     changes: "Початкова документація плагіна Sync PO"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Sync PO (i18n мости) - Синхронізація PO з підтримкою ICU / i18next

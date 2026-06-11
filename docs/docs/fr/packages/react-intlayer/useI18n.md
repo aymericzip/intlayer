@@ -23,6 +23,9 @@ history:
   - version: 6.0.0
     date: 2025-06-29
     changes: "Rédaction initiale de la documentation du hook `useI18n`"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intégration React : Documentation du Hook `useI18n`

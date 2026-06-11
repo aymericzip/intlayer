@@ -12,6 +12,9 @@ keywords:
 slugs:
   - frequent-questions
   - bun-set-up
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Отримую помилку 'module not found' при використанні bun

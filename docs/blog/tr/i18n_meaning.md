@@ -14,6 +14,9 @@ keywords:
 slugs:
   - blog
   - i18n-meaning
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # i18n Anlamı: Uluslararasılaştırma Nedir ve Neden Önemlidir?

@@ -16,6 +16,9 @@ history:
   - version: 8.1.0
     date: 2026-02-09
     changes: "İlk kayıt"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Agent Becerileri

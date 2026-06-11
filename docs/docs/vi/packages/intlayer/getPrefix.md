@@ -22,6 +22,9 @@ history:
   - version: 7.1.0
     date: 2025-11-16
     changes: "Tài liệu ban đầu"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Tài liệu: Hàm `getPrefix` trong `intlayer`

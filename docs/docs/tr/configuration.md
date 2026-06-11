@@ -98,6 +98,9 @@ history:
   - version: 5.5.11
     date: 2025-06-29
     changes: "`docs` komutları eklendi"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer Yapılandırma Belgeleri

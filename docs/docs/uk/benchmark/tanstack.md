@@ -14,7 +14,9 @@ slugs:
   - doc
   - benchmark
   - tanstack
-author: Aymeric PINEAU
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n-tanstack-start-template
 history:
   - version: 8.9.8

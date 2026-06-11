@@ -19,6 +19,9 @@ history:
   - version: 8.0.0
     date: 2026-01-30
     changes: "Начальная документация"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Документация промежуточного ПО AdonisJS Intlayer

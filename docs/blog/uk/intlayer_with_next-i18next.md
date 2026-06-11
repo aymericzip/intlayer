@@ -26,6 +26,9 @@ history:
   - version: 7.0.0
     date: 2025-10-29
     changes: Заміна на плагін syncJSON та повний перепис
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Як автоматизувати JSON-переклади next-i18next за допомогою Intlayer

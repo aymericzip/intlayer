@@ -26,6 +26,9 @@ history:
   - version: 7.1.10
     date: 2025-11-20
     changes: "Başlangıç geçmişi"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer kullanarak SvelteKit web sitenizi çevirin | Uluslararasılaştırma (i18n)

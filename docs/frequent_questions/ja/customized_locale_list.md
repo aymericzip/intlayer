@@ -17,6 +17,9 @@ keywords:
 slugs:
   - frequent-questions
   - customized-locale-list
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 英語のような言語タイプをブロックすることは可能ですか？辞書には英語を追加していますが、まだウェブサイトで英語を利用可能にしたくありません

@@ -18,6 +18,9 @@ history:
   - version: 8.0.0
     date: 2026-01-29
     changes: "Vereinheitlichte Dokumentation für alle Exporte"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # hono-intlayer Paket

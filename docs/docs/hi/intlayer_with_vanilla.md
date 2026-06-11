@@ -24,6 +24,9 @@ history:
   - version: 8.4.10
     date: 2026-03-31
     changes: "इतिहास प्रारंभ"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer का उपयोग करके अपनी Vanilla JS वेबसाइट का अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)

@@ -16,6 +16,9 @@ slugs:
   - concept
   - content
   - condition
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 条件付きコンテンツ / Intlayerの条件

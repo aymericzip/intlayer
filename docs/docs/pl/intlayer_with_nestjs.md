@@ -15,7 +15,9 @@ slugs:
   - environment
   - nest
 applicationTemplate: https://github.com/AydinTheFirst/nestjs-intlayer
-author: AydinTheFirst
+author:
+  name: AydinTheFirst
+  github: AydinTheFirst
 history:
   - version: 8.9.0
     date: 2026-05-04

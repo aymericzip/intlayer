@@ -19,6 +19,9 @@ slugs:
   - packages
   - react-intlayer
   - useI18n
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # تكامل React: توثيق خطاف `useI18n`

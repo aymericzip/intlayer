@@ -17,6 +17,9 @@ history:
   - version: 8.5.0
     date: 2026-04-02
     changes: "通过 routing.domains 配置添加基于域名的语言路由。"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 自定义域名

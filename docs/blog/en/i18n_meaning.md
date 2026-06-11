@@ -14,6 +14,9 @@ keywords:
 slugs:
   - blog
   - i18n-meaning
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # i18n Meaning: What is Internationalization and Why Does it Matter?

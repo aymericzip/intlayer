@@ -27,6 +27,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Inizializzazione cronologia"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Traduci il tuo sito Nuxt e Vue usando Intlayer | Internazionalizzazione (i18n)

@@ -20,6 +20,9 @@ history:
   - version: 7.5.11
     date: 2026-01-06
     changes: "Adicionar comando CI"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Comando CI

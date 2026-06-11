@@ -30,6 +30,9 @@ history:
   - version: 6.1.6
     date: 2025-10-05
     changes: "初始同步 JSON 插件文档"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 同步 JSON（i18n 桥接）- 支持 ICU / i18next 的同步 JSON

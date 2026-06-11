@@ -16,6 +16,9 @@ keywords:
 slugs:
   - blog
   - blog-seo-i18n-nextjs
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # SEO and i18n in Next.js: Translating is not enough

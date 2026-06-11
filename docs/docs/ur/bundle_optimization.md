@@ -22,6 +22,9 @@ history:
   - version: 8.7.0
     date: 2026-04-08
     changes: "بلڈ کنفیگریشن میں `minify` اور `purge` آپشنز شامل کیے گئے"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # i18n بنڈل سائز اور کارکردگی کی آپٹیمائزیشن

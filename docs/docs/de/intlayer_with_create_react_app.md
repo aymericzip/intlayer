@@ -20,6 +20,9 @@ history:
   - version: 8.9.0
     date: 2026-05-04
     changes: "Aktualisieren der Solid useIntlayer API-Nutzung auf direkten Eigenschaftszugriff"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Übersetzen Sie Ihre Create React App mit Intlayer | Internationalisierung (i18n)

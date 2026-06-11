@@ -21,6 +21,9 @@ history:
   - version: 8.0.0
     date: 2026-01-21
     changes: "Inicialización de la documentación"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Documentación del plugin intlayerPrune para Vite

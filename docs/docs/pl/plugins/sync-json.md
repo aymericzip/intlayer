@@ -27,6 +27,9 @@ history:
   - version: 6.1.6
     date: 2025-10-05
     changes: "Pierwsza dokumentacja wtyczki Sync JSON"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Sync JSON (mosty i18n) - Sync JSON z obsługą ICU / i18next

@@ -26,6 +26,9 @@ history:
   - version: 8.7.7
     date: 2026-04-24
     changes: "Tài liệu ban đầu cho Astro + Lit"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Dịch trang web Astro + Lit của bạn với Intlayer | Đa ngôn ngữ (i18n)

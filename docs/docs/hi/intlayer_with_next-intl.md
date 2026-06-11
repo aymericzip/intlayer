@@ -15,6 +15,9 @@ slugs:
   - doc
   - next-intl
 applicationTemplate: https://github.com/aymericzip/intlayer-next-intl-template
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer का उपयोग करके अपने Next.js 15 को next-intl वेबसाइट के साथ अनुवादित करें | अंतरराष्ट्रीयकरण (i18n)

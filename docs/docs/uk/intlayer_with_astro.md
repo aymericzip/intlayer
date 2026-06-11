@@ -27,6 +27,9 @@ history:
   - version: 6.2.0
     date: 2025-10-03
     changes: "Оновлення інтеграції Astro, конфігурації та використання"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Перекладіть свій сайт Astro за допомогою Intlayer | Інтернаціоналізація (i18n)

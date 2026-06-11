@@ -15,6 +15,9 @@ slugs:
   - concept
   - cli
   - pull
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # दूरस्थ शब्दकोश खींचें

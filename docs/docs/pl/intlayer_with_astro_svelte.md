@@ -25,6 +25,9 @@ history:
   - version: 8.7.7
     date: 2026-04-24
     changes: "Początkowa dokumentacja dla Astro + Svelte"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Przetłumacz swoją witrynę Astro + Svelte za pomocą Intlayer | Międzynarodowość (i18n)

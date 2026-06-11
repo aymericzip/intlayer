@@ -25,6 +25,9 @@ history:
   - version: 8.4.10
     date: 2026-03-23
     changes: "Cronologia iniziale"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Traduci il tuo sito web Vite e Vanilla JS utilizzando Intlayer | Internazionalizzazione (i18n)

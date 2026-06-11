@@ -20,6 +20,9 @@ history:
   - version: 5.7.2
     date: 2025-07-27
     changes: "تقديم المحتوى المعتمد على الجنس"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # المحتوى القائم على النوع الاجتماعي / النوع في Intlayer

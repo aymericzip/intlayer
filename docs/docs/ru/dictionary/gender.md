@@ -20,6 +20,9 @@ history:
   - version: 5.7.2
     date: 2025-07-27
     changes: "Введение контента, основанного на поле"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Контент на основе пола / Пол в Intlayer

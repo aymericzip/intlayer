@@ -17,6 +17,9 @@ history:
   - version: 8.0.0
     date: 2026-01-21
     changes: "모든 exports에 대한 통합 문서"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # react-native-intlayer 패키지

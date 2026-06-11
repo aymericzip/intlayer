@@ -26,6 +26,9 @@ history:
   - version: 7.1.10
     date: 2025-11-20
     changes: "Inisialisasi riwayat"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Terjemahkan situs web SvelteKit Anda menggunakan Intlayer | Internasionalisasi (i18n)

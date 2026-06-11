@@ -17,6 +17,9 @@ keywords:
 slugs:
   - frequent-questions
   - get-locale-cookie
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Wie man die Locale aus Cookies / Headern ausliest

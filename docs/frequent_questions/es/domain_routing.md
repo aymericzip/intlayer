@@ -17,6 +17,9 @@ keywords:
 slugs:
   - frequent-questions
   - domain-routing
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # ¿Cómo configuro el **enrutamiento basado en dominios** con Intlayer en lugar de rutas `/[locale]/`?

@@ -28,6 +28,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "初始化历史"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 使用 Intlayer 翻译您的 Vite 和 React 网站 | 国际化 (i18n)

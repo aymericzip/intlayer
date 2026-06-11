@@ -17,6 +17,9 @@ keywords:
 slugs:
   - frequent-questions
   - static-rendering
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Next.js 中带有 i18n 的静态渲染与动态渲染

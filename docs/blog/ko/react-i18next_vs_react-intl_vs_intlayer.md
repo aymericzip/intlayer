@@ -15,6 +15,9 @@ keywords:
 slugs:
   - blog
   - react-i18next-vs-react-intl-vs-intlayer
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # react-Intl VS react-i18next VS intlayer | React 국제화 (i18n)

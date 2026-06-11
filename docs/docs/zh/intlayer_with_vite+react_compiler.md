@@ -29,6 +29,9 @@ history:
   - version: 8.1.6
     date: 2026-02-23
     changes: "首次发布"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 如何将现有的 Vite 和 React 应用程序转换为多语言 (i18n) 应用（2026年 i18n 指南）

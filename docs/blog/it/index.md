@@ -13,6 +13,9 @@ keywords:
 slugs:
   - blog
   - search
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Abbracciare l'internazionalizzazione in JavaScript: Migliorare la portata globale e il SEO

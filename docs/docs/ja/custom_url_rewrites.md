@@ -16,6 +16,9 @@ history:
   - version: 8.0.0
     date: 2026-01-25
     changes: "フレームワーク固有のフォーマッターと useRewriteURL フックの使用を伴う集中型URLリライトを実装しました。"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # カスタムURLリライトの実装

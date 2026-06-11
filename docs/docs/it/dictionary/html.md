@@ -33,6 +33,9 @@ history:
   - version: 8.0.0
     date: 2026-01-20
     changes: "Aggiunto il supporto per il parsing HTML"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Contenuto HTML / HTML in Intlayer

@@ -19,6 +19,9 @@ history:
   - version: 8.0.0
     date: 2026-01-29
     changes: "दस्तावेज़ प्रारंभ करें"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # intlayer Hono मिडलवेयर दस्तावेज़ीकरण

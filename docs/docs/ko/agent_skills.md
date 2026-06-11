@@ -16,6 +16,9 @@ history:
   - version: 8.1.0
     date: 2026-02-09
     changes: "초기 내역"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 에이전트 스킬

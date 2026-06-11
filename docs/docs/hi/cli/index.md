@@ -65,6 +65,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "इतिहास प्रारंभ"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer CLI - आपकी बहुभाषी वेबसाइट के लिए सभी Intlayer CLI कमांड

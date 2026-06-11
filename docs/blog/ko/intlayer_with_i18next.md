@@ -27,6 +27,9 @@ history:
   - version: 7.0.0
     date: 2025-10-29
     changes: syncJSON 플러그인으로 변경
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer를 사용하여 i18next JSON 번역 자동화하는 방법

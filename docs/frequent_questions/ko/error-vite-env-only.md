@@ -15,6 +15,9 @@ keywords:
 slugs:
   - frequent-questions
   - vite-env-only-node-fs-false-positive
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer에서 vite-env-only가 `node:fs`를 거부함

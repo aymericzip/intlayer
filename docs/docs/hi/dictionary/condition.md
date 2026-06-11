@@ -16,6 +16,9 @@ slugs:
   - concept
   - content
   - condition
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Conditional Content / Condition in Intlayer

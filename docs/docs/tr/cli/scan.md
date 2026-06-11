@@ -21,6 +21,9 @@ history:
   - version: 8.13.0
     date: 2026-06-11
     changes: "Scan komutu eklendi"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Web Sitesini Tara

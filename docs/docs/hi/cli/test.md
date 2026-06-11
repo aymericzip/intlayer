@@ -13,6 +13,9 @@ slugs:
   - concept
   - cli
   - test
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # गायब अनुवादों का परीक्षण करें

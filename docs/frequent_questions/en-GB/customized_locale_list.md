@@ -17,6 +17,9 @@ keywords:
 slugs:
   - frequent-questions
   - customized-locale-list
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Is it possible to block a language type, like English? I am adding English in my dictionaries but I don't want English available on the website just yet

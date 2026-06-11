@@ -14,6 +14,9 @@ slugs:
   - packages
   - solid-intlayer
   - useRewriteURL
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # useRewriteURL 钩子

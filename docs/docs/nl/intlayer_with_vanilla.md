@@ -24,6 +24,9 @@ history:
   - version: 8.4.10
     date: 2026-03-31
     changes: "Geschiedenis geïnitialiseerd"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Vertaal je Vanilla JS website met Intlayer | Internationalisering (i18n)

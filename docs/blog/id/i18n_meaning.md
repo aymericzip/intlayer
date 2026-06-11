@@ -14,6 +14,9 @@ keywords:
 slugs:
   - blog
   - i18n-meaning
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Arti i18n: Apa itu Internasionalisasi dan Mengapa Itu Penting?

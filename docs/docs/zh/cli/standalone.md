@@ -19,6 +19,9 @@ history:
   - version: 8.6.4
     date: 2026-03-31
     changes: "初始化 standalone 命令文档"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 独立 Bundle (Standalone Bundle)

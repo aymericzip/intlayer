@@ -26,6 +26,9 @@ history:
   - version: 8.7.7
     date: 2026-04-24
     changes: "Initial documentation for Astro + Lit"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Translate your Astro + Lit site with Intlayer | Internationalisation (i18n)

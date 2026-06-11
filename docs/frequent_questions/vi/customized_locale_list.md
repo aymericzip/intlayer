@@ -17,6 +17,9 @@ keywords:
 slugs:
   - frequent-questions
   - customized-locale-list
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Có thể chặn một loại ngôn ngữ, như tiếng Anh không? Tôi đang thêm tiếng Anh vào từ điển nhưng chưa muốn tiếng Anh xuất hiện trên trang web

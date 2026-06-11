@@ -27,6 +27,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "초기 기록"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer MCP 서버

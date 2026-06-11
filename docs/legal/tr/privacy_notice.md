@@ -18,6 +18,9 @@ keywords:
   - Kullanıcı Verisi
 slugs:
   - privacy-notice
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer Gizlilik Bildirimi

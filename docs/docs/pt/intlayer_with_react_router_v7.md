@@ -18,7 +18,9 @@ slugs:
   - vite-and-react
   - react-router-v7
 applicationTemplate: https://github.com/AydinTheFirst/react-router-intlayer
-author: AydinTheFirst
+author:
+  name: AydinTheFirst
+  github: AydinTheFirst
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
 history:
   - version: 8.9.0

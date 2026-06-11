@@ -28,6 +28,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "초기 이력"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer로 Vite 및 React 번역하기 | 국제화(i18n)

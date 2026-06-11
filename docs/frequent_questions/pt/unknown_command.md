@@ -17,6 +17,9 @@ keywords:
 slugs:
   - frequent-questions
   - unknown-command
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # erro: comando desconhecido fill / build / etc

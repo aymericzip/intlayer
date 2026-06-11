@@ -43,6 +43,9 @@ history:
   - version: 5.8.0
     date: 2025-08-20
     changes: "Hinzufügen von Dienstprogrammen zur Inhaltsverwaltung (getContent, getTranslation, getIntlayer, etc.)"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer Formatierer

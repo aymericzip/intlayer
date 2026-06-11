@@ -29,6 +29,9 @@ history:
   - version: 8.1.6
     date: 2026-02-23
     changes: "İlk Sürüm"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Mevcut bir Next.js uygulamasını çok dilli (i18n) hale getirme (i18n kılavuzu 2026)

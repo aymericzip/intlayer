@@ -22,6 +22,9 @@ history:
   - version: 8.0.0
     date: 2025-12-30
     changes: "Khởi tạo lịch sử"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Dịch website backend AdonisJS của bạn bằng Intlayer | Quốc tế hóa (i18n)

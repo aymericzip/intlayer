@@ -14,6 +14,9 @@ keywords:
 slugs:
   - blog
   - i18n-meaning
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # معنى i18n: ما هي التدويل ولماذا هي مهمة؟

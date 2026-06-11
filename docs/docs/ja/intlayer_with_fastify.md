@@ -25,6 +25,9 @@ history:
   - version: 7.6.0
     date: 2025-12-31
     changes: "履歴の初期化"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayerを使用したFastifyバックエンドウェブサイトの翻訳 | 国際化 (i18n)

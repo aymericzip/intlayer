@@ -17,6 +17,9 @@ keywords:
 slugs:
   - frequent-questions
   - domain-routing
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Bagaimana cara mengonfigurasi **routing berbasis domain** dengan Intlayer daripada menggunakan path `/[locale]/`?

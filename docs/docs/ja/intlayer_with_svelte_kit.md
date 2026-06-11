@@ -26,6 +26,9 @@ history:
   - version: 7.1.10
     date: 2025-11-20
     changes: "初期履歴"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayerを使ってSvelteKitのウェブサイトを翻訳する | 国際化（i18n）

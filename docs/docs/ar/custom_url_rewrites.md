@@ -16,6 +16,9 @@ history:
   - version: 8.0.0
     date: 2026-01-25
     changes: "تنفيذ إعادة كتابة URL مركزية مع مُنسقين مخصصين لكل إطار عمل واستخدام الـ hook المسمى useRewriteURL."
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # تنفيذ إعادة كتابة روابط URL مخصصة

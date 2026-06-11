@@ -18,6 +18,9 @@ history:
   - version: 8.0.0
     date: 2026-01-21
     changes: "全エクスポートのドキュメントを統合"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # vite-intlayer パッケージ

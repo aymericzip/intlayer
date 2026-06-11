@@ -16,6 +16,9 @@ slugs:
   - concept
   - content
   - condition
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Bedingter Inhalt / Bedingung in Intlayer

@@ -18,6 +18,9 @@ keywords:
   - Perubahan Ketentuan
 slugs:
   - terms-of-service
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Ketentuan Penggunaan Intlayer

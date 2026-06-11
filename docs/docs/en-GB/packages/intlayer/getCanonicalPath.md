@@ -22,6 +22,9 @@ history:
   - version: 8.0.0
     date: 2026-01-22
     changes: "Implemented custom URL rewrites"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Documentation: `getCanonicalPath` function in `intlayer`

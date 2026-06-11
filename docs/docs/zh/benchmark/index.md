@@ -17,6 +17,9 @@ history:
   - version: 8.7.5
     date: 2026-01-06
     changes: "初始化基准测试"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Benchmark - 报告

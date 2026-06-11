@@ -16,6 +16,9 @@ history:
   - version: 8.1.0
     date: 2026-02-09
     changes: "Khởi tạo lịch sử"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Kỹ năng Agent

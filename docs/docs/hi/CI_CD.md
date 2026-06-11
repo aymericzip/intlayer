@@ -19,6 +19,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "इतिहास प्रारंभ करें"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # CI/CD पाइपलाइन में स्वचालित अनुवाद उत्पन्न करें

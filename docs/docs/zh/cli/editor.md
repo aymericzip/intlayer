@@ -13,6 +13,9 @@ slugs:
   - concept
   - cli
   - editor
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 编辑器命令

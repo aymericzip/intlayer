@@ -25,6 +25,9 @@ history:
   - version: 5.8.0
     date: 2025-09-09
     changes: "Початкова документація"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Перекладіть ваш бекенд на Nest за допомогою Intlayer | Інтернаціоналізація (i18n)

@@ -12,6 +12,9 @@ keywords:
 slugs:
   - frequent-questions
   - bun-set-up
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # bun का उपयोग करते समय मुझे मॉड्यूल नहीं मिला त्रुटि मिलती है

@@ -23,6 +23,9 @@ history:
   - version: 7.0.0
     date: 2025-10-29
     changes: Change to syncJSON plugin and comprehensive rewrite
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Vue.js Internationalisation (i18n) with vue-i18n and Intlayer

@@ -17,6 +17,9 @@ keywords:
 slugs:
   - frequent-questions
   - get-locale-cookie
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # कुकीज़ / हेडर से लोकल कैसे प्राप्त करें

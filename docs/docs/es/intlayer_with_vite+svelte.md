@@ -29,6 +29,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Inicio del historial"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Traduce tu sitio web Vite y Svelte usando Intlayer | Internacionalización (i18n)

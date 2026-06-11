@@ -18,6 +18,9 @@ history:
   - version: 7.0.0
     date: 2025-11-01
     changes: İlk sürüm
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 2025'te next-intl kullanarak Next.js uygulamanızı nasıl uluslararasılaştırırsınız

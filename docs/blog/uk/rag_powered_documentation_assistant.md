@@ -13,6 +13,9 @@ keywords:
 slugs:
   - blog
   - rag-powered-documentation-assistant
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Створення помічника з документацією на основі RAG (розбиття на фрагменти, ембеддинги та пошук)

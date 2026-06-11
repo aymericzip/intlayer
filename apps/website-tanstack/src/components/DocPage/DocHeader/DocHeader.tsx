@@ -1,6 +1,7 @@
-import {} from '@intlayer/design-system/api';
+import { Avatar } from '@intlayer/design-system/avatar';
 import { Container } from '@intlayer/design-system/container';
 import { useDevice } from '@intlayer/design-system/hooks';
+import { Link } from '@intlayer/design-system/link';
 import type { DocMetadata } from '@intlayer/docs';
 import type { FC } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
@@ -41,15 +42,35 @@ export const DocHeader: FC<DocHeaderProps> = ({
 }) => {
   const { isMobile } = useDevice();
   const { locale } = useLocale();
-  const { authorLabel, creationLabel, lastUpdateLabel } =
-    useIntlayer('doc-header');
+  const {
+    authorLabel,
+    creationLabel,
+    lastUpdateLabel,
+    authorAvatarAlt,
+    authorGithubLabel,
+  } = useIntlayer('doc-header');
 
   return (
     <>
       <header className="z-10 mx-auto mt-5 flex flex-col gap-2 px-4 py-2 text-xs">
         {author && (
-          <span className="block">
-            {authorLabel}: <span className="ml-2 text-neutral">{author}</span>
+          <span className="flex items-center gap-2">
+            {authorLabel}:{' '}
+            <Link
+              label={authorGithubLabel({ author: author.name ?? author })}
+              href={`https://github.com/${author.github}`}
+              className="flex items-center gap-2 text-neutral"
+            >
+              {author.github && (
+                <Avatar
+                  src={`https://github.com/${author.github}.png`}
+                  alt={authorAvatarAlt({ author: author.name })}
+                  size="sm"
+                  className="scale-70"
+                />
+              )}
+              {author.name ?? author}
+            </Link>
           </span>
         )}
         <div className="flex w-full flex-row justify-between gap-4 py-2">

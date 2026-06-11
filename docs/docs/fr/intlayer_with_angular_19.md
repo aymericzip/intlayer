@@ -26,6 +26,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Initialiser l'historique"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Traduisez votre site web Angular 19 (Webpack) avec Intlayer | Internationalisation (i18n)

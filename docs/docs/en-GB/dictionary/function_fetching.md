@@ -16,6 +16,9 @@ slugs:
   - concept
   - content
   - function-fetching
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Function Fetching

@@ -16,6 +16,9 @@ slugs:
   - concept
   - content
   - nesting
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Imbrication / Référencement de Sous-Contenu

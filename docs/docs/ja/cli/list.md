@@ -20,6 +20,9 @@ history:
   - version: 7.5.11
     date: 2026-01-06
     changes: "listコマンドにJSON出力オプションを追加"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # コンテンツ宣言ファイルの一覧表示

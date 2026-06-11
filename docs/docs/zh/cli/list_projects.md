@@ -18,6 +18,9 @@ history:
   - version: 7.5.12
     date: 2026-01-06
     changes: "向 list projects 命令添加绝对路径输出选项"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 列出 Intlayer 项目

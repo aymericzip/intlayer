@@ -14,6 +14,9 @@ slugs:
   - concept
   - cli
   - configuration
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # कॉन्फ़िगरेशन प्रबंधित करें

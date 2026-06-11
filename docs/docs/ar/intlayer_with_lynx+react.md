@@ -26,6 +26,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "بدء السجل"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # ترجم Lynx and React mobile app باستخدام Intlayer | التدويل (i18n)

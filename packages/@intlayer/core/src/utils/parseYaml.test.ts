@@ -24,19 +24,15 @@ describe('parseYaml', () => {
       expect(parseYaml('-2.5')).toBe(-2.5);
     });
 
-    it('should parse booleans', () => {
-      expect(parseYaml('true')).toBe('true'); // Note: parseYaml treats these as strings
-      expect(parseYaml('false')).toBe('false');
-    });
-
-    it('should handle null and undefined as strings', () => {
-      expect(parseYaml('null')).toBe('null');
-      expect(parseYaml('undefined')).toBe('undefined');
-    });
-
-    it('should handle special string literals', () => {
+    it('should preserve boolean and null literals as strings', () => {
       expect(parseYaml('true')).toBe('true');
       expect(parseYaml('false')).toBe('false');
+      expect(parseYaml('null')).toBe('null');
+      expect(parseYaml('undefined')).toBe('undefined');
+      expect(parseYaml('yes')).toBe('yes');
+      expect(parseYaml('no')).toBe('no');
+      expect(parseYaml('on')).toBe('on');
+      expect(parseYaml('off')).toBe('off');
       expect(parseYaml('NaN')).toBe('NaN');
       expect(parseYaml('Infinity')).toBe('Infinity');
     });
@@ -227,25 +223,13 @@ describe('parseYaml', () => {
     });
 
     it('should handle arrays with trailing commas gracefully', () => {
-      // Note: This might fail with current implementation, but testing the behavior
       expect(() => parseYaml('[hello, world,]')).toThrow();
     });
 
     it('should handle malformed JSON and throw errors', () => {
-      expect(() => parseYaml('{key: value')).toThrow(); // Missing closing brace
-      expect(() => parseYaml('[hello, world')).toThrow(); // Missing closing bracket
-      expect(() => parseYaml('{')).toThrow(); // Invalid JSON
-    });
-
-    it('should handle special string values', () => {
-      expect(parseYaml('true')).toBe('true');
-      expect(parseYaml('false')).toBe('false');
-      expect(parseYaml('null')).toBe('null');
-      expect(parseYaml('undefined')).toBe('undefined');
-      expect(parseYaml('yes')).toBe('yes');
-      expect(parseYaml('no')).toBe('no');
-      expect(parseYaml('on')).toBe('on');
-      expect(parseYaml('off')).toBe('off');
+      expect(() => parseYaml('{key: value')).toThrow();
+      expect(() => parseYaml('[hello, world')).toThrow();
+      expect(() => parseYaml('{')).toThrow();
     });
 
     it('should handle strings with colons', () => {
@@ -270,7 +254,6 @@ describe('parseYaml', () => {
     });
 
     it('should return null for completely invalid input', () => {
-      // Testing what happens with completely invalid JSON-like input
       expect(() => parseYaml('{{{')).toThrow();
       expect(() => parseYaml(']]][')).toThrow();
     });
@@ -374,7 +357,7 @@ describe('parseYaml', () => {
     });
 
     it('should handle hexadecimal-like strings', () => {
-      expect(parseYaml('0x123')).toBe('0x123'); // Treated as string, not hex
+      expect(parseYaml('0x123')).toBe('0x123');
       expect(parseYaml('#FF0000')).toBe('#FF0000');
     });
   });
@@ -430,13 +413,10 @@ describe('parseYaml', () => {
       const largeArray = Array.from({ length: 100 }, (_, i) => `item${i}`).join(
         ', '
       );
-      const input = `[${largeArray}]`;
-      const result = parseYaml<string[]>(input);
-      expect(result).toBeTruthy();
-      expect(Array.isArray(result)).toBe(true);
-      expect(result as string[]).toHaveLength(100);
-      expect((result as string[])[0]).toBe('item0');
-      expect((result as string[])[99]).toBe('item99');
+      const result = parseYaml<string[]>(`[${largeArray}]`)!;
+      expect(result).toHaveLength(100);
+      expect(result[0]).toBe('item0');
+      expect(result[99]).toBe('item99');
     });
 
     it('should handle objects with many properties', () => {
@@ -444,13 +424,10 @@ describe('parseYaml', () => {
         { length: 50 },
         (_, i) => `prop${i}: value${i}`
       ).join(', ');
-      const input = `{${properties}}`;
-      const result = parseYaml<Record<string, string>>(input);
-      expect(result).toBeTruthy();
-      expect(typeof result).toBe('object');
-      expect(Object.keys(result as Record<string, string>)).toHaveLength(50);
-      expect((result as Record<string, string>).prop0).toBe('value0');
-      expect((result as Record<string, string>).prop49).toBe('value49');
+      const result = parseYaml<Record<string, string>>(`{${properties}}`)!;
+      expect(Object.keys(result)).toHaveLength(50);
+      expect(result.prop0).toBe('value0');
+      expect(result.prop49).toBe('value49');
     });
   });
 
@@ -694,16 +671,10 @@ history:
 
   describe('Holistic YAML Fixture Test', () => {
     it('should parse the comprehensive YAML fixture', () => {
-      // Read the YAML fixture file to ensure it exists and is accessible
       const yamlContent = readFileSync(join(__dirname, '_yaml.yaml'), 'utf8');
 
-      // Verify the fixture file is not empty
       expect(yamlContent.length).toBeGreaterThan(0);
 
-      // Since the YAML file contains multiple documents and comments,
-      // we'll test parsing individual sections that represent valid YAML structures
-
-      // Test basic key-value pairs
       expect(parseYaml('title: "Getting Started with Intlayer"')).toEqual({
         title: 'Getting Started with Intlayer',
       });
@@ -716,14 +687,12 @@ history:
         published: 'true',
       });
 
-      // Test arrays
       expect(
         parseYaml('tags: [tutorial, getting-started, i18n, react]')
       ).toEqual({
         tags: ['tutorial', 'getting-started', 'i18n', 'react'],
       });
 
-      // Test nested objects
       expect(
         parseYaml(
           '{seo: {title: "Intlayer Tutorial", description: "Learn internationalization with Intlayer"}}'
@@ -735,7 +704,6 @@ history:
         },
       });
 
-      // Test complex nested structure
       const complexConfig =
         '{config: {database: {host: localhost, port: 5432, name: myapp}, features: {enabled: [authentication, analytics], disabled: [beta-features]}}}';
       const result = parseYaml(complexConfig);
@@ -753,7 +721,6 @@ history:
         },
       });
 
-      // Test mixed data types
       expect(
         parseYaml('{count: 42, price: 29.99, featured: true, metadata: null}')
       ).toEqual({
@@ -763,7 +730,6 @@ history:
         metadata: 'null',
       });
 
-      // Test arrays with mixed types
       expect(parseYaml('[string, 123, true, null, {nested: object}]')).toEqual([
         'string',
         123,
@@ -772,7 +738,6 @@ history:
         { nested: 'object' },
       ]);
 
-      // Test internationalization structure
       const i18nConfig =
         '{i18n: {default_locale: en, supported_locales: [en, es, fr, de], translations: {en: {hello: "Hello", goodbye: "Goodbye"}, es: {hello: "Hola", goodbye: "Adiós"}}}}';
       const i18nResult = parseYaml(i18nConfig);

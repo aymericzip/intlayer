@@ -17,6 +17,9 @@ history:
   - version: 8.1.5
     date: 2026-02-23
     changes: "إضافة خيار checkTypes"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # بناء القواميس

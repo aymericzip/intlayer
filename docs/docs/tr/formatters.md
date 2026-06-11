@@ -37,6 +37,9 @@ history:
   - version: 5.8.0
     date: 2025-08-20
     changes: "İçerik işleme yardımcıları eklendi (getContent, getTranslation, getIntlayer, vb.)"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer Biçimlendiricileri

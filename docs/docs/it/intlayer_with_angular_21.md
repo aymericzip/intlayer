@@ -28,6 +28,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Storico iniziale"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Traduci il tuo sito Angular 21 (Vite) utilizzando Intlayer | Internazionalizzazione (i18n)

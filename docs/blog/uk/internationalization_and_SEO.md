@@ -14,6 +14,9 @@ keywords:
 slugs:
   - blog
   - SEO-and-i18n
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # SEO та I18n: остаточний посібник зі створення багатомовного вебсайту

@@ -29,6 +29,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Memulai riwayat"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Terjemahkan situs web Vite dan Svelte Anda menggunakan Intlayer | Internasionalisasi (i18n)

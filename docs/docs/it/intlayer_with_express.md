@@ -25,6 +25,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Inizializzazione della cronologia"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Traduci la tua Express backend con Intlayer | Internazionalizzazione (i18n)

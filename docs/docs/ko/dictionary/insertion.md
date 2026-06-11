@@ -23,6 +23,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "이력 초기화"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 삽입 콘텐츠 / Intlayer에서의 삽입

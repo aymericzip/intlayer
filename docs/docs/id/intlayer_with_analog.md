@@ -23,6 +23,9 @@ history:
   - version: 8.0.4
     date: 2026-01-26
     changes: "Riwayat awal"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Terjemahkan aplikasi Analog (Angular) Anda menggunakan Intlayer | Internasionalisasi (i18n)

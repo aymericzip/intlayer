@@ -17,6 +17,9 @@ keywords:
 slugs:
   - frequent-questions
   - domain-routing
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer에서 `/[locale]/` 경로 대신 **도메인 기반 라우팅**을 어떻게 구성하나요?

@@ -27,6 +27,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "履歴を初期化"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer コンテンツ管理システム（CMS）ドキュメント

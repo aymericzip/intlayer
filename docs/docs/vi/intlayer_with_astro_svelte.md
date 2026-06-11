@@ -25,6 +25,9 @@ history:
   - version: 8.7.7
     date: 2026-04-24
     changes: "Tài liệu ban đầu cho Astro + Svelte"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Dịch trang web Astro + Svelte của bạn với Intlayer | Đa ngôn ngữ (i18n)

@@ -20,6 +20,9 @@ history:
   - version: 5.7.2
     date: 2025-07-27
     changes: "Einführung geschlechtsspezifischer Inhalte"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Geschlechtsspezifische Inhalte / Geschlecht in Intlayer

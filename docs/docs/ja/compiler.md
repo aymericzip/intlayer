@@ -29,6 +29,9 @@ history:
   - version: 7.3.1
     date: 2025-11-27
     changes: "コンパイラーリリース"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer コンパイラー | i18n のための自動コンテンツ抽出

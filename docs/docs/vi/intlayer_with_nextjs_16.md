@@ -30,6 +30,9 @@ history:
   - version: 7.0.0
     date: 2025-06-29
     changes: "Khởi tạo lịch sử"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Dịch trang web Next.js 16 của bạn bằng Intlayer | Quốc tế hóa (i18n)

@@ -18,6 +18,9 @@ history:
   - version: 8.9.4
     date: 2026-05-10
     changes: "Sync PO प्लगइन का प्रारंभिक दस्तावेज़ीकरण"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Sync PO (i18n ब्रिज) - ICU / i18next समर्थन के साथ Sync PO

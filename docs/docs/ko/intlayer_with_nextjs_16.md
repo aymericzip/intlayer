@@ -30,6 +30,9 @@ history:
   - version: 7.0.0
     date: 2025-06-29
     changes: "초기 기록"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer를 사용하여 Next.js 16 웹사이트 번역하기 | 국제화(i18n)

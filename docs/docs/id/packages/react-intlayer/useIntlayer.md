@@ -22,6 +22,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Inisialisasi riwayat"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Integrasi React: Dokumentasi Hook `useIntlayer`

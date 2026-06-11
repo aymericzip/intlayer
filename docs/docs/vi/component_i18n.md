@@ -16,6 +16,9 @@ slugs:
   - i18n
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Cách tạo một component đa ngôn ngữ (i18n) với Intlayer

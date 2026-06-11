@@ -27,6 +27,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "इतिहास प्रारंभ करें"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer कंटेंट प्रबंधन प्रणाली (CMS) दस्तावेज़ीकरण

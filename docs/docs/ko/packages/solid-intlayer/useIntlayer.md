@@ -24,6 +24,9 @@ history:
   - version: 8.0.0
     date: 2026-01-21
     changes: "모든 export에 대한 문서 통합"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # useIntlayer 훅 문서

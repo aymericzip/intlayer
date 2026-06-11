@@ -17,6 +17,9 @@ keywords:
 slugs:
   - frequent-questions
   - unknown-command
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 错误：未知命令 fill / build / 等等

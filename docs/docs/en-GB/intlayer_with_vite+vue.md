@@ -27,6 +27,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Initial history"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Getting Started Internationalising (i18n) with Intlayer and Vite and Vue

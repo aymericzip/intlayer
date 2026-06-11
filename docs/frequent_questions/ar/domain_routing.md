@@ -17,6 +17,9 @@ keywords:
 slugs:
   - frequent-questions
   - domain-routing
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # كيف أقوم بتكوين **التوجيه بناءً على النطاق** مع Intlayer بدلاً من مسارات `/[locale]/`؟

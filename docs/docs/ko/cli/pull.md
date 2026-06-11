@@ -15,6 +15,9 @@ slugs:
   - concept
   - cli
   - pull
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 원격 사전 가져오기

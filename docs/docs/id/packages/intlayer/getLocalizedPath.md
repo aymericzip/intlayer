@@ -22,6 +22,9 @@ history:
   - version: 8.0.0
     date: 2026-01-22
     changes: "Mengimplementasikan penulisan ulang URL kustom"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Dokumentasi: Fungsi `getLocalizedPath` di `intlayer`

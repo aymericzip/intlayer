@@ -13,6 +13,9 @@ slugs:
   - concept
   - cli
   - sdk
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # SDK для CLI

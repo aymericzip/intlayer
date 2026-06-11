@@ -15,6 +15,9 @@ keywords:
 slugs:
   - blog
   - what-is-internationalization
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # ما هو التدويل (i18n)؟ التعريف والتحديات

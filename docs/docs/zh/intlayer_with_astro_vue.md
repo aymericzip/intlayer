@@ -25,6 +25,9 @@ history:
   - version: 8.7.7
     date: 2026-04-24
     changes: "Astro + Vue 的初始文档"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 使用 Intlayer 翻译您的 Astro + Vue 网站 | 国际化 (i18n)

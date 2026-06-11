@@ -17,6 +17,9 @@ keywords:
 slugs:
   - frequent-questions
   - next-no-locale-path
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # ページパスに `[locale]` を含めずに Next.js で Intlayer を使用することは可能ですか？

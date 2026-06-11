@@ -13,6 +13,9 @@ keywords:
 slugs:
   - blog
   - per-component-vs-centralized-i18n
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # コンポーネント単位 vs 集中型 i18n

@@ -17,6 +17,9 @@ keywords:
 slugs:
   - frequent-questions
   - static-rendering
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Next.js में i18n के साथ स्थैतिक बनाम गतिशील रेंडरिंग

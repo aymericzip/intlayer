@@ -22,6 +22,9 @@ history:
   - version: 8.0.0
     date: 2025-12-30
     changes: "تهيئة السجل"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # ترجمة الواجهة الخلفية لـ AdonisJS باستخدام Intlayer | التدويل (i18n)

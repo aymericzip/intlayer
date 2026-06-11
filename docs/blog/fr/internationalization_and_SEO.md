@@ -14,6 +14,9 @@ keywords:
 slugs:
   - blog
   - SEO-and-i18n
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # SEO & I18n : Le Guide Ultime pour Rendre Votre Site Web Multilingue

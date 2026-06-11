@@ -45,6 +45,9 @@ history:
   - version: 5.8.1
     date: 2025-09-09
     changes: "Добавлено для Tanstack Start"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Переведите ваш Tanstack Start с Intlayer | Интернационализация (i18n)

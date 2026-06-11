@@ -19,6 +19,9 @@ history:
   - version: 7.5.14
     date: 2026-01-21
     changes: "Dokumentation initialisiert"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Dokumentation der MarkdownRenderer-Komponente

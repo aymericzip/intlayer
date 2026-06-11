@@ -17,6 +17,9 @@ keywords:
 slugs:
   - frequent-questions
   - translated-path-url
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Có thể dịch URL không?

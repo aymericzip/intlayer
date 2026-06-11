@@ -32,6 +32,9 @@ history:
   - version: 7.3.4
     date: 2025-12-08
     changes: "Başlangıç geçmişi"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer ile React Router v7 (File-System Routes) çevirin | Uluslararasılaştırma (i18n)

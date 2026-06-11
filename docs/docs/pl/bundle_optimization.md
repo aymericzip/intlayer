@@ -22,6 +22,9 @@ history:
   - version: 8.7.0
     date: 2026-04-08
     changes: "Dodano opcje `minify` i `purge` do konfiguracji budowania"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Optymalizacja Rozmiaru Paczki i Wydajności i18n

@@ -16,6 +16,9 @@ keywords:
 slugs:
   - blog
   - blog-seo-i18n-nextjs
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # تحسين محركات البحث والتدويل في Next.js: الترجمة ليست كافية

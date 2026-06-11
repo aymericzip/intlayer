@@ -16,6 +16,9 @@ slugs:
   - i18n-technologies
   - frameworks
   - react-native
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Menjelajahi Solusi i18n untuk Menerjemahkan Aplikasi React Native Anda

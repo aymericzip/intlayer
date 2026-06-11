@@ -13,6 +13,9 @@ slugs:
   - concept
   - cli
   - debug
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Déboguer la commande intlayer

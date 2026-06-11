@@ -26,6 +26,9 @@ history:
   - version: 7.1.10
     date: 2025-11-20
     changes: "Inicjalizacja historii"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Przetłumacz swoją stronę SvelteKit za pomocą Intlayer | Internacjonalizacja (i18n)

@@ -22,6 +22,9 @@ history:
   - version: 8.8.0
     date: 2026-05-04
     changes: "Init history"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # बहुवचन सामग्री / Intlayer में बहुवचन

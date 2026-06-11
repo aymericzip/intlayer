@@ -37,6 +37,9 @@ history:
   - version: 5.8.0
     date: 2025-08-20
     changes: "添加内容处理工具（getContent、getTranslation、getIntlayer 等）"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer 格式化工具

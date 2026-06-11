@@ -19,6 +19,9 @@ history:
   - version: 8.13.0
     date: 2026-06-05
     changes: "Init history"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # i18next에서 Intlayer로 마이그레이션하기

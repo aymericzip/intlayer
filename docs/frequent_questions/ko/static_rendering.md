@@ -17,6 +17,9 @@ keywords:
 slugs:
   - frequent-questions
   - static-rendering
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Next.js에서 i18n과 함께하는 정적 렌더링과 동적 렌더링

@@ -22,6 +22,9 @@ history:
   - version: 8.7.0
     date: 2026-04-08
     changes: "Додано опції `minify` та `purge` до конфігурації збірки"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Оптимізація розміру бандлу та продуктивності i18n

@@ -28,6 +28,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "İlk sürüm geçmişi"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Angular 21 (Vite) web sitenizi Intlayer kullanarak çevirin | Uluslararasılaştırma (i18n)

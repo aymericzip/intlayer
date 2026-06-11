@@ -16,6 +16,9 @@ history:
   - version: 5.7.2
     date: 2025-07-27
     changes: "로케일 매퍼 문서 추가"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 로케일 매퍼

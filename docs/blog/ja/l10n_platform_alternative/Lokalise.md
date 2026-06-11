@@ -15,6 +15,9 @@ history:
   - version: 7.5.0
     date: 2025-12-18
     changes: 初期バージョン
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Lokalise のオープンソース L10n 代替（TMS）

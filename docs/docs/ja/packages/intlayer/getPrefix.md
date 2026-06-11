@@ -22,6 +22,9 @@ history:
   - version: 7.1.0
     date: 2025-11-16
     changes: "初回ドキュメント作成"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # ドキュメント: `intlayer` の `getPrefix` 関数

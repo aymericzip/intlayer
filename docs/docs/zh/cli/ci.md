@@ -20,6 +20,9 @@ history:
   - version: 7.5.11
     date: 2026-01-06
     changes: "添加 CI 命令"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # CI 命令

@@ -17,6 +17,9 @@ history:
   - version: 8.5.0
     date: 2026-04-02
     changes: "Domänenbasiertes Locale-Routing über die Konfiguration routing.domains hinzugefügt."
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Eigene Domains

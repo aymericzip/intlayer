@@ -20,6 +20,9 @@ history:
   - version: 5.7.2
     date: 2025-07-27
     changes: "Giới thiệu nội dung dựa trên giới tính"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Nội dung dựa trên giới tính / Giới tính trong Intlayer

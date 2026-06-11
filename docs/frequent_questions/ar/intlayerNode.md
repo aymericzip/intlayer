@@ -16,6 +16,9 @@ history:
   - version: 8.9.0
     date: 2026-05-07
     changes: "بدء التوثيق"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # ما هو نوع IntlayerNode؟

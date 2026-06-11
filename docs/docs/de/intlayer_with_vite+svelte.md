@@ -29,6 +29,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Historie initialisiert"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Übersetzen Sie Ihre Vite- und Svelte-Website mit Intlayer | Internationalisierung (i18n)

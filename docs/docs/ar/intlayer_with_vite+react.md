@@ -28,6 +28,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "بداية السجل"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # ترجمة موقعك الإلكتروني المبني بـ Vite و React باستخدام Intlayer | التدويل (i18n)

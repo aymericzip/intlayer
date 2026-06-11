@@ -17,6 +17,9 @@ history:
   - version: 8.0.0
     date: 2026-01-21
     changes: "为所有导出统一文档"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # nuxt-intlayer 包

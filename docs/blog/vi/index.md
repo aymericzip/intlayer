@@ -13,6 +13,9 @@ keywords:
 slugs:
   - blog
   - search
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Áp dụng Quốc tế hóa trong JavaScript: Nâng cao Phạm vi Toàn cầu và SEO

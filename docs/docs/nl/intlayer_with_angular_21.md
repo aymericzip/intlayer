@@ -28,6 +28,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Initiële geschiedenis"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Vertaal uw Angular 21 (Vite) website met Intlayer | Internationalisatie (i18n)

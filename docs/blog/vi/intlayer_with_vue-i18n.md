@@ -23,6 +23,9 @@ history:
   - version: 7.0.0
     date: 2025-10-29
     changes: Chuyển sang plugin syncJSON và viết lại toàn diện
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Quốc tế hóa Vue.js (i18n) với vue-i18n và Intlayer

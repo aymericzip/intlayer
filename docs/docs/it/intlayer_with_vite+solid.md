@@ -25,6 +25,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Storia iniziale"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Traduci la tua Vite and Solid con Intlayer | Internazionalizzazione (i18n)

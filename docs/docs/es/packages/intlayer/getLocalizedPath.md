@@ -22,6 +22,9 @@ history:
   - version: 8.0.0
     date: 2026-01-22
     changes: "Implementadas reescrituras de URL personalizadas"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Documentación: Función `getLocalizedPath` de `intlayer`

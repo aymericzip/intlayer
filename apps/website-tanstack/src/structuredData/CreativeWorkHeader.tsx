@@ -1,5 +1,6 @@
 /** biome-ignore-all lint/security/noDangerouslySetInnerHtml: No choice */
 
+import { Website_Home } from '@intlayer/design-system/routes';
 import { useIntlayer } from 'react-intlayer';
 
 type DocHeaderProps = {
@@ -11,6 +12,8 @@ type DocHeaderProps = {
   datePublished?: Date;
   dateModified?: Date;
   url?: string;
+  authorName?: string;
+  authorUrl?: string;
 };
 
 const formatDate = (date: Date): string => {
@@ -30,14 +33,22 @@ export const CreativeWorkHeader = ({
   dateModified,
   datePublished,
   url,
+  authorName,
+  authorUrl,
 }: DocHeaderProps) => {
   const { audienceType } = useIntlayer('creative-work-structured-data');
   const creativeWork = {
     '@context': 'https://schema.org',
     '@type': type,
+    author: {
+      '@type': 'Person',
+      name: authorName ?? 'Aymeric Pineau',
+      url: authorUrl ?? Website_Home,
+    },
     creator: {
       '@type': 'Person',
-      name: 'Aymeric Pineau',
+      name: authorName ?? 'Aymeric Pineau',
+      url: authorUrl ?? Website_Home,
     },
     name: creativeWorkName,
     text: creativeWorkContent,

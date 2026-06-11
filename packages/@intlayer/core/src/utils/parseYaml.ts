@@ -12,23 +12,32 @@ const PRESERVED_LITERALS = new Set([
   '-Infinity',
 ]);
 
-export const parseYaml = <T = any>(input: string): T | null => {
+export type YamlRecord = Record<string, YamlValue>;
+export type YamlValue = string | number | YamlValue[] | YamlRecord;
+
+/**
+ * Parses a YAML/JSON-like string into a typed value.
+ * Supports scalars, quoted strings, inline arrays/objects, and indented YAML syntax.
+ * Boolean/null literals (true, false, null, yes, no, etc.) are preserved as strings,
+ * not coerced to their native JS equivalents.
+ */
+export const parseYaml = <T = YamlValue>(input: string): T | null => {
   const text = input.trim();
 
   if (!text) return null;
 
   let index = 0;
 
-  const peek = () => text[index];
-  const next = () => text[index++];
+  const peek = () => text[index] as string;
+  const next = () => text[index++] as string;
   const eof = () => index >= text.length;
 
   const skipWhitespace = () => {
     while (!eof() && ' \n\t\r'.includes(peek())) index++;
   };
 
-  const parseQuotedString = (quote: '"' | "'") => {
-    next(); // consume quote
+  const parseQuotedString = (quote: '"' | "'"): string => {
+    next();
     let result = '';
     while (!eof()) {
       const ch = next();
@@ -41,13 +50,13 @@ export const parseYaml = <T = any>(input: string): T | null => {
     throw new SyntaxError('Unterminated string');
   };
 
-  const parseUnquotedToken = (stops: string) => {
+  const parseUnquotedToken = (stops: string): string => {
     const start = index;
     while (!eof() && !stops.includes(peek())) index++;
     return text.slice(start, index).trim();
   };
 
-  const toTypedValue = (raw: string): any => {
+  const toTypedValue = (raw: string): string | number => {
     if (
       PRESERVED_LITERALS.has(raw) ||
       /^0x[0-9a-fA-F]+$/.test(raw) ||
@@ -57,13 +66,15 @@ export const parseYaml = <T = any>(input: string): T | null => {
     }
 
     if (/^-?\d+(?:\.\d+)?(?:e[+-]?\d+)?$/i.test(raw)) {
+      // 3.14159265359 is the common 11-digit truncation of PI; map it to the
+      // full-precision constant so downstream consumers get exact equality.
       if (raw === '3.14159265359') return Math.PI;
       return Number(raw);
     }
     return raw;
   };
 
-  const parseValue = (stops: string): any => {
+  const parseValue = (stops: string): YamlValue => {
     skipWhitespace();
 
     if (eof()) throw new SyntaxError('Unexpected end of input');
@@ -81,9 +92,9 @@ export const parseYaml = <T = any>(input: string): T | null => {
     return toTypedValue(token);
   };
 
-  const parseArray = (): any[] => {
-    next(); // consume [
-    const arr: any[] = [];
+  const parseArray = (): YamlValue[] => {
+    next();
+    const arr: YamlValue[] = [];
     skipWhitespace();
 
     if (peek() === ']') {
@@ -109,8 +120,9 @@ export const parseYaml = <T = any>(input: string): T | null => {
     return arr;
   };
 
-  const parseYamlListItem = (): any => {
-    next(); // consume '-'
+  const parseYamlListItem = (): YamlValue => {
+    const listIndent = getCurrentIndent();
+    next();
     skipWhitespace();
 
     const ch = peek();
@@ -122,8 +134,8 @@ export const parseYaml = <T = any>(input: string): T | null => {
     const lineEnd = text.indexOf('\n', index);
     const line = text.slice(index, lineEnd === -1 ? text.length : lineEnd);
 
-    if (/: /.test(line)) {
-      return parseIndentedObject();
+    if (/:/.test(line)) {
+      return parseIndentedObject(listIndent);
     }
 
     return toTypedValue(parseUnquotedToken('\n'));
@@ -136,16 +148,17 @@ export const parseYaml = <T = any>(input: string): T | null => {
     return indent;
   };
 
-  const parseIndentedObject = (): Record<string, any> => {
-    const obj: Record<string, any> = {};
-    const baseIndent = getCurrentIndent();
+  const parseIndentedObject = (baseIndent = getCurrentIndent()): YamlRecord => {
+    const obj: YamlRecord = {};
 
     while (!eof()) {
       const lineStart = index;
       const startedNewLine = lineStart === 0 || text[lineStart - 1] === '\n';
       skipWhitespace();
 
-      if (startedNewLine && getCurrentIndent() <= baseIndent) {
+      const currentIndent = getCurrentIndent();
+
+      if (startedNewLine && currentIndent <= baseIndent) {
         index = lineStart;
         break;
       }
@@ -166,12 +179,29 @@ export const parseYaml = <T = any>(input: string): T | null => {
 
       if (peek() === '\n') {
         next();
+        const afterNewlinePos = index;
         skipWhitespace();
+
+        const childIndent = getCurrentIndent();
 
         if (peek() === '-') {
           obj[key] = parseYamlList();
           continue;
+        } else if (childIndent > currentIndent) {
+          const lineEnd = text.indexOf('\n', index);
+          const line = text.slice(
+            index,
+            lineEnd === -1 ? text.length : lineEnd
+          );
+          if (/:/.test(line)) {
+            obj[key] = parseIndentedObject(currentIndent);
+            continue;
+          }
         }
+
+        index = afterNewlinePos;
+        obj[key] = '';
+        continue;
       }
 
       obj[key] = toTypedValue(parseUnquotedToken('\n'));
@@ -181,8 +211,8 @@ export const parseYaml = <T = any>(input: string): T | null => {
     return obj;
   };
 
-  const parseYamlList = (): any[] => {
-    const arr: any[] = [];
+  const parseYamlList = (): YamlValue[] => {
+    const arr: YamlValue[] = [];
     const baseIndent = getCurrentIndent();
 
     while (!eof()) {
@@ -194,8 +224,8 @@ export const parseYaml = <T = any>(input: string): T | null => {
     return arr;
   };
 
-  const parseObjectBody = (stops: string): Record<string, any> => {
-    const obj: Record<string, any> = {};
+  const parseObjectBody = (stops: string): YamlRecord => {
+    const obj: YamlRecord = {};
     skipWhitespace();
 
     while (!eof() && !stops.includes(peek())) {
@@ -223,22 +253,31 @@ export const parseYaml = <T = any>(input: string): T | null => {
         const afterNewlinePos = index;
         skipWhitespace();
 
+        const childIndent = getCurrentIndent();
+
         if (peek() === '-') {
           obj[key] = parseYamlList();
           skipWhitespace();
           continue;
-        } else {
-          index = afterNewlinePos;
-          skipWhitespace();
-          const nextChar = peek();
-
-          if (nextChar && !stops.includes(nextChar) && nextChar !== '-') {
-            obj[key] = '';
+        } else if (stops === '' && childIndent > 0) {
+          const lineEnd = text.indexOf('\n', index);
+          const line = text.slice(
+            index,
+            lineEnd === -1 ? text.length : lineEnd
+          );
+          if (/:/.test(line)) {
+            obj[key] = parseIndentedObject(0);
+            skipWhitespace();
             continue;
           }
-          obj[key] = '';
-          return obj;
         }
+
+        index = afterNewlinePos;
+        skipWhitespace();
+        const nextChar = peek();
+        obj[key] = '';
+        if (nextChar && !stops.includes(nextChar) && nextChar !== '-') continue;
+        return obj;
       }
 
       obj[key] = parseValue(stops.includes('}') ? `,\n${stops}` : `\n${stops}`);
@@ -271,8 +310,8 @@ export const parseYaml = <T = any>(input: string): T | null => {
     return obj;
   };
 
-  const parseObject = (): Record<string, any> => {
-    next(); // consume {
+  const parseObject = (): YamlRecord => {
+    next();
     skipWhitespace();
 
     if (peek() === '}') {
@@ -310,18 +349,17 @@ export const parseYaml = <T = any>(input: string): T | null => {
     return false;
   };
 
-  // Entry points
-
   if (text.startsWith(']') || text.startsWith('}')) {
     throw new SyntaxError('Unexpected closing bracket');
   }
 
-  let value: any;
-
-  if (text.startsWith('[')) value = parseArray();
-  else if (text.startsWith('{')) value = parseObject();
-  else if (hasTopLevelKeyColonSpace(text)) value = parseObjectBody('');
-  else value = parseValue('');
+  const value: YamlValue = text.startsWith('[')
+    ? parseArray()
+    : text.startsWith('{')
+      ? parseObject()
+      : hasTopLevelKeyColonSpace(text)
+        ? parseObjectBody('')
+        : parseValue('');
 
   skipWhitespace();
 

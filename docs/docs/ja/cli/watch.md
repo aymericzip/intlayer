@@ -13,6 +13,9 @@ slugs:
   - concept
   - cli
   - watch
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 辞書の監視

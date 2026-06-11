@@ -25,6 +25,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Riwayat awal"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Mengapa Anda harus mempertimbangkan Intlayer?

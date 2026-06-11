@@ -23,6 +23,9 @@ history:
   - version: 7.0.0
     date: 2025-10-29
     changes: Chuyển sang plugin syncJSON
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Cách tự động hóa dịch JSON react-intl của bạn bằng Intlayer

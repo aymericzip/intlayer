@@ -16,6 +16,9 @@ history:
   - version: 8.9.0
     date: 2026-05-07
     changes: "Khởi tạo tài liệu"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Kiểu IntlayerNode là gì?

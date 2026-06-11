@@ -17,6 +17,9 @@ history:
   - version: 8.5.0
     date: 2026-04-02
     changes: "Tambahkan perutean lokal berbasis domain melalui konfigurasi routing.domains."
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Domain Kustom

@@ -22,6 +22,9 @@ history:
   - version: 8.0.0
     date: 2026-01-22
     changes: "Реализованы пользовательские правила перезаписи URL"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Документация: функция `getCanonicalPath` в `intlayer`

@@ -20,6 +20,9 @@ history:
   - version: 7.5.11
     date: 2026-01-06
     changes: "Ajouter l'option de sortie JSON à la commande list"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Lister les fichiers de déclaration de contenu

@@ -19,6 +19,9 @@ history:
   - version: 8.6.4
     date: 2026-03-31
     changes: "독립 실행형 명령어 문서 초기화"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 독립 실행형 번들 (Standalone Bundle)

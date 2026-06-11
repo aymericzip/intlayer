@@ -27,6 +27,9 @@ history:
   - version: 7.0.0
     date: 2025-10-29
     changes: syncJSON eklentisine geçildi
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # i18next JSON çevirilerinizi Intlayer kullanarak nasıl otomatikleştirirsiniz

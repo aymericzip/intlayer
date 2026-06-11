@@ -25,6 +25,9 @@ history:
   - version: 8.4.10
     date: 2026-03-23
     changes: "Lịch sử ban đầu"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Dịch website Vite và Vanilla JS của bạn bằng Intlayer | Quốc tế hóa (i18n)

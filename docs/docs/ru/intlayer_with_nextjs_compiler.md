@@ -29,6 +29,9 @@ history:
   - version: 8.1.6
     date: 2026-02-23
     changes: "Начальный выпуск"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Как сделать многоязычным (i18n) существующее приложение Next.js (руководство i18n 2026)

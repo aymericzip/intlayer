@@ -17,6 +17,9 @@ keywords:
 slugs:
   - frequent-questions
   - static-rendering
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Rendering Statico vs Dinamico con i18n in Next.js

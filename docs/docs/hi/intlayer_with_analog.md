@@ -23,6 +23,9 @@ history:
   - version: 8.0.4
     date: 2026-01-26
     changes: "प्रारंभिक इतिहास"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer का उपयोग करके अपने Analog (Angular) ऐप का अनुवाद करें | अंतरराष्ट्रीयकरण (i18n)

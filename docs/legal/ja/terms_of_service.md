@@ -18,6 +18,9 @@ keywords:
   - 規約の変更
 slugs:
   - terms-of-service
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer 利用規約

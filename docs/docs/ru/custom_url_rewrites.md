@@ -16,6 +16,9 @@ history:
   - version: 8.0.0
     date: 2026-01-25
     changes: "Реализовано централизованное управление перезаписями URL с использованием форматтеров, специфичных для фреймворка, и хука useRewriteURL."
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Реализация пользовательских перезаписей URL

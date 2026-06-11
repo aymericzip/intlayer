@@ -18,6 +18,9 @@ keywords:
   - 약관 변경
 slugs:
   - terms-of-service
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer 이용 약관

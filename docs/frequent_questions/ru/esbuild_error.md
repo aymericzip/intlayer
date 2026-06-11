@@ -16,6 +16,9 @@ keywords:
 slugs:
   - frequent-questions
   - esbuild-error
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Ошибка ESBuild

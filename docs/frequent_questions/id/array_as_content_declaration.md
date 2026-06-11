@@ -11,6 +11,9 @@ keywords:
 slugs:
   - frequent-questions
   - array-as-content-declaration
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Bisakah saya menggunakan array sebagai deklarasi konten?

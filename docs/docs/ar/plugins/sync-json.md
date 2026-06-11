@@ -30,6 +30,9 @@ history:
   - version: 6.1.6
     date: 2025-10-05
     changes: "الوثائق الأولية لمكون مزامنة JSON"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # مزامنة JSON (جسور التدويل) - مزامنة JSON مع دعم ICU / i18next

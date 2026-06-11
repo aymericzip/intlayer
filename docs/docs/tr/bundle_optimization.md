@@ -22,6 +22,9 @@ history:
   - version: 8.7.0
     date: 2026-04-08
     changes: "Derleme (build) yapılandırmasına `minify` ve `purge` seçenekleri eklendi"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # i18n Paket Boyutu ve Performans Optimizasyonu

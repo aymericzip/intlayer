@@ -18,6 +18,9 @@ history:
   - version: 7.5.12
     date: 2026-01-06
     changes: "إضافة خيار الإخراج المطلق إلى أمر list projects"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # قائمة مشاريع Intlayer

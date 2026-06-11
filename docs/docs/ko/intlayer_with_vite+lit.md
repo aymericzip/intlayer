@@ -24,6 +24,9 @@ history:
   - version: 8.4.10
     date: 2026-03-23
     changes: "초기 기록"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer를 사용하여 Vite 및 Lit 웹사이트 번역하기 | 국제화 (i18n)

@@ -38,6 +38,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "初始化历史"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Markdown / 富文本内容

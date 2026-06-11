@@ -29,6 +29,9 @@ history:
   - version: 8.1.6
     date: 2026-02-23
     changes: "Pierwsze wydanie"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Jak sprawić, by istniejąca aplikacja Next.js stała się wielojęzyczna (i18n) (przewodnik i18n 2026)

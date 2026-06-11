@@ -20,6 +20,9 @@ history:
   - version: 5.7.2
     date: 2025-07-27
     changes: "Cinsiyete dayalı içerik tanıtıldı"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Cinsiyete Dayalı İçerik / Intlayer'da Cinsiyet

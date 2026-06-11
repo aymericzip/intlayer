@@ -22,6 +22,9 @@ history:
   - version: 7.0.0
     date: 2025-10-29
     changes: syncJSONプラグインに変更
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayerを使ってnext-intlのJSON翻訳を自動化する方法

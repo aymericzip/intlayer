@@ -17,6 +17,9 @@ keywords:
 slugs:
   - frequent-questions
   - domain-routing
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Як налаштувати **маршрутизацію на основі домену** в Intlayer замість шляхів `/[locale]/`?

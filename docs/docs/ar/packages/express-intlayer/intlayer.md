@@ -20,6 +20,9 @@ history:
   - version: 8.0.0
     date: 2026-01-21
     changes: "إنشاء الوثيقة"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # توثيق Middleware الخاص بـ intlayer في Express

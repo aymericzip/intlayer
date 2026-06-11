@@ -13,6 +13,9 @@ keywords:
 slugs:
   - blog
   - search
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Mengadopsi Internasionalisasi dalam JavaScript: Meningkatkan Jangkauan Global dan SEO

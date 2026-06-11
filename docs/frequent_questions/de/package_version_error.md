@@ -10,6 +10,9 @@ keywords:
 slugs:
   - frequent-questions
   - package-version-error
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Ich erhalte einen Fehler im Zusammenhang mit Sub-Paketen `@intlayer/*`

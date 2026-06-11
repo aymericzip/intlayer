@@ -14,6 +14,9 @@ keywords:
 slugs:
   - blog
   - i18n-meaning
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Ý nghĩa i18n: Quốc tế hóa là gì và tại sao nó lại quan trọng?

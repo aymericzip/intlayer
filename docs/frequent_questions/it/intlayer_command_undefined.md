@@ -17,6 +17,9 @@ keywords:
 slugs:
   - frequent-questions
   - intlayer-command-undefined
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Comando Intlayer non definito

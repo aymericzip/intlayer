@@ -13,6 +13,9 @@ keywords:
 slugs:
   - blog
   - search
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # JavaScript'te Uluslararasılaştırmayı Kucaklamak: Küresel Erişimi ve SEO'yu Geliştirme

@@ -27,6 +27,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Початкова історія"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Перекладіть свій вебсайт на Vite і Vue за допомогою Intlayer | Інтернаціоналізація (i18n)

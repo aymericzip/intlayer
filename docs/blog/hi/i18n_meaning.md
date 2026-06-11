@@ -14,6 +14,9 @@ keywords:
 slugs:
   - blog
   - i18n-meaning
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # i18n अर्थ: अंतर्राष्ट्रीयकरण क्या है और यह क्यों महत्वपूर्ण है?

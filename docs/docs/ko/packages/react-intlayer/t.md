@@ -21,6 +21,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "초기 이력"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 문서: `react-intlayer`의 `t` 함수

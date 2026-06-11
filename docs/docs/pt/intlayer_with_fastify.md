@@ -25,6 +25,9 @@ history:
   - version: 7.6.0
     date: 2025-12-31
     changes: "Histórico inicializado"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Traduza o seu site backend Fastify usando Intlayer | Internacionalização (i18n)

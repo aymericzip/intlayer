@@ -20,6 +20,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "이력 초기화"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer: 기능 개요 및 로드맵

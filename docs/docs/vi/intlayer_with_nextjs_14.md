@@ -39,6 +39,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Khởi tạo lịch sử"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Dịch trang web Next.js 14 và App Router của bạn bằng Intlayer | Quốc tế hóa (i18n)

@@ -16,6 +16,9 @@ history:
   - version: 8.1.0
     date: 2026-02-09
     changes: "初始化历史"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 代理技能

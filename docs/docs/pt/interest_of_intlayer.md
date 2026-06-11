@@ -25,6 +25,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Inicialização do histórico"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Por que você deve considerar o Intlayer?

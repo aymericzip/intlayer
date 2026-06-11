@@ -23,6 +23,9 @@ history:
   - version: 8.0.4
     date: 2026-01-26
     changes: "Geçmişi başlat"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer kullanarak Analog (Angular) uygulamanızı tercüme edin | Uluslararasılaştırma (i18n)

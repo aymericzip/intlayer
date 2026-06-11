@@ -24,6 +24,9 @@ history:
   - version: 8.4.10
     date: 2026-03-23
     changes: "Başlangıç geçmişi"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer kullanarak Vite ve Lit web sitenizi çevirin | Uluslararasılaştırma (i18n)

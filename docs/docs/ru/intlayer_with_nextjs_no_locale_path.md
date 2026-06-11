@@ -24,6 +24,9 @@ history:
   - version: 8.0.0
     date: 2026-01-10
     changes: "Первоначальный релиз"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Переведите ваш сайт Next.js 16 (без [locale] в пути страницы) с помощью Intlayer | Интернационализация (i18n)

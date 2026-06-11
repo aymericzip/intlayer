@@ -23,6 +23,9 @@ history:
   - version: 7.0.0
     date: 2025-10-29
     changes: Zmiana na wtyczkę syncJSON i kompleksowy przepisanie
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Internacjonalizacja (i18n) w Next.js z next-i18next i Intlayer

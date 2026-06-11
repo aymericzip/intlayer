@@ -13,6 +13,9 @@ keywords:
 slugs:
   - blog
   - rag-powered-documentation-assistant
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Construyendo un Asistente de Documentación Potenciado por RAG (Fragmentación, Embeddings y Búsqueda)

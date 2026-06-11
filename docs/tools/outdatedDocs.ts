@@ -29,7 +29,8 @@ const englishPatterns: string[] = [
 const extractFrontmatter = (content: string): string | null => {
   const frontmatterPattern = /^---\s*\n([\s\S]*?)\n---\s*\n/;
   const frontmatterMatch = content.match(frontmatterPattern);
-  if (!frontmatterMatch) return null;
+  if (!frontmatterMatch?.[1]) return null;
+
   return frontmatterMatch[1];
 };
 
@@ -37,8 +38,10 @@ const extractUpdatedAt = (content: string): string | null => {
   const fm = extractFrontmatter(content);
   if (!fm) return null;
   const match = fm.match(/updatedAt:\s*([^\n]+)/);
-  if (!match) return null;
+  if (!match?.[1]) return null;
+
   const raw = match[1].trim();
+
   return raw.replace(/^['"]|['"]$/g, '') || null;
 };
 

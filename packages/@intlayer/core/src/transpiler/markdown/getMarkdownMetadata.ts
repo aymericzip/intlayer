@@ -9,7 +9,7 @@ export const getMarkdownMetadata = <T extends Record<string, any>>(
     // Check if the very first non-empty line is the metadata start delimiter.
     const firstNonEmptyLine = lines.find((line) => line.trim() !== '');
 
-    if (!firstNonEmptyLine || firstNonEmptyLine.trim() !== '---') {
+    if (firstNonEmptyLine?.trim() !== '---') {
       const result: T = {} as T;
       return result;
     }
@@ -17,7 +17,7 @@ export const getMarkdownMetadata = <T extends Record<string, any>>(
     // Find the end of the metadata block
     let metadataEndIndex = -1;
     for (let i = 1; i < lines.length; i++) {
-      if (lines[i].trim() === '---') {
+      if (lines[i]?.trim() === '---') {
         metadataEndIndex = i;
         break;
       }

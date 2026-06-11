@@ -22,6 +22,9 @@ history:
   - version: 8.0.0
     date: 2026-01-22
     changes: "تنفيذ إعادة كتابة عناوين URL المخصصة"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # الوثائق: دالة `getCanonicalPath` في `intlayer`

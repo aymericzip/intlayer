@@ -18,6 +18,9 @@ history:
   - version: 8.0.0
     date: 2026-01-30
     changes: "İlk belgeler"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # adonis-intlayer Paketi

@@ -17,6 +17,9 @@ history:
   - version: 8.7.0
     date: 2026-04-03
     changes: "Add domain-based locale routing via routing.domains configuration."
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Custom Domains

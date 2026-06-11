@@ -22,6 +22,9 @@ history:
   - version: 8.7.0
     date: 2026-04-08
     changes: "向建置設定中新增了 `minify` 和 `purge` 選項"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 最佳化 i18n 打包體積與效能

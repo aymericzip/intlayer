@@ -30,6 +30,9 @@ history:
   - version: 6.1.6
     date: 2025-10-05
     changes: "Начальная документация плагина синхронизации JSON"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Синхронизация JSON (мосты i18n) - Синхронизация JSON с поддержкой ICU / i18next

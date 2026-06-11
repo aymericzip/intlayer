@@ -22,6 +22,9 @@ history:
   - version: 7.1.0
     date: 2025-11-16
     changes: "Initial documentation"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Documentation: `getPrefix` Function in `intlayer`

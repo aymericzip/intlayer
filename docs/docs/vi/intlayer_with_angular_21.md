@@ -28,6 +28,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Lịch sử ban đầu"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Dịch trang web Angular 21 (Vite) của bạn bằng Intlayer | Quốc tế hóa (i18n)

@@ -17,6 +17,9 @@ keywords:
 slugs:
   - frequent-questions
   - domain-routing
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer ile **alan adına göre yönlendirme** nasıl yapılandırılır? `/[locale]/` yolları yerine

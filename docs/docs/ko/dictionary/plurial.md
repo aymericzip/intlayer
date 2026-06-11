@@ -22,6 +22,9 @@ history:
   - version: 8.8.0
     date: 2026-05-04
     changes: "Init history"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 복수형 콘텐츠 / Intlayer의 복수형

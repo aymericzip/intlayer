@@ -15,6 +15,9 @@ slugs:
   - packages
   - svelte-intlayer
   - useRewriteURL
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # useRewriteURL フック

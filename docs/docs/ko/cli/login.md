@@ -15,6 +15,9 @@ slugs:
   - concept
   - cli
   - login
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer CLI 로그인 명령

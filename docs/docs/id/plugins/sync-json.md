@@ -30,6 +30,9 @@ history:
   - version: 6.1.6
     date: 2025-10-05
     changes: "Dokumentasi awal plugin Sinkronisasi JSON"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Sinkronisasi JSON (jembatan i18n) - Sinkronisasi JSON dengan dukungan ICU / i18next

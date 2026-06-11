@@ -23,6 +23,9 @@ history:
   - version: 7.0.0
     date: 2025-10-29
     changes: التغيير إلى ملحق syncJSON
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # كيفية أتمتة ترجمات JSON الخاصة بـ react-intl باستخدام Intlayer

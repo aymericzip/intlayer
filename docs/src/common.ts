@@ -67,7 +67,10 @@ export type FileMetadata = {
   keywords: string[];
   updatedAt: string;
   createdAt: string;
-  author?: string;
+  author?: {
+    name: string;
+    github?: string;
+  };
   youtubeVideo?: string;
   applicationTemplate?: string;
   applicationShowcase?: string;

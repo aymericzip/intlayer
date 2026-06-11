@@ -19,6 +19,9 @@ history:
   - version: 7.0.6
     date: 2025-11-01
     changes: Versi awal
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Cara menginternasionalisasi aplikasi Next.js Anda menggunakan next-i18next pada tahun 2026

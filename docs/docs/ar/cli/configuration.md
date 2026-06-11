@@ -14,6 +14,9 @@ slugs:
   - concept
   - cli
   - configuration
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # إدارة التكوين

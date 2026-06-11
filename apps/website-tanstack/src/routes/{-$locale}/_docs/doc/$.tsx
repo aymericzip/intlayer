@@ -3,7 +3,7 @@ import {
   Website_Home,
   Website_Home_Path,
 } from '@intlayer/design-system/routes';
-import { createFileRoute, defer, redirect } from '@tanstack/react-router';
+import { createFileRoute, redirect } from '@tanstack/react-router';
 import { defaultLocale, getLocalizedUrl } from 'intlayer';
 import { DocHeader } from '~/components/DocPage/DocHeader/DocHeader';
 import { DocPageLayout } from '~/components/DocPage/DocPageLayout';
@@ -152,6 +152,12 @@ function DocumentationPage() {
         dateModified={new Date(docData.updatedAt)}
         datePublished={new Date(docData.createdAt)}
         url={docData.url}
+        authorName={docData.author?.name}
+        authorUrl={
+          docData.author?.github
+            ? `https://github.com/${docData.author.github}`
+            : undefined
+        }
       />
       <DocHeader
         {...docData}

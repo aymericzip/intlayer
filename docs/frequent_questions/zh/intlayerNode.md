@@ -16,6 +16,9 @@ history:
   - version: 8.9.0
     date: 2026-05-07
     changes: "初始化文档"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 什么是 IntlayerNode 类型？

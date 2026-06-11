@@ -18,6 +18,9 @@ keywords:
   - Modifica dei Termini
 slugs:
   - terms-of-service
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Termini di Utilizzo di Intlayer

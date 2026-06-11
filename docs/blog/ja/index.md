@@ -13,6 +13,9 @@ keywords:
 slugs:
   - blog
   - search
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 国際化をJavaScriptで取り入れる：グローバルなリーチとSEOの向上

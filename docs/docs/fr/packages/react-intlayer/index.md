@@ -19,6 +19,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Historique initial"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # react-intlayer : Package NPM pour internationaliser (i18n) une application React

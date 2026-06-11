@@ -26,6 +26,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "بداية التاريخ"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # ترجم موقعك الإلكتروني المبني بـ Vite و Preact باستخدام Intlayer | التدويل (i18n)

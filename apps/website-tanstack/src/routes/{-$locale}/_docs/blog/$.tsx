@@ -181,7 +181,20 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
           children: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'BlogPosting',
-            creator: { '@type': 'Person', name: 'Aymeric Pineau' },
+            author: {
+              '@type': 'Person',
+              name: blogData.author?.name ?? 'Aymeric Pineau',
+              url: blogData.author?.github
+                ? `https://github.com/${blogData.author.github}`
+                : undefined,
+            },
+            creator: {
+              '@type': 'Person',
+              name: blogData.author?.name ?? 'Aymeric Pineau',
+              url: blogData.author?.github
+                ? `https://github.com/${blogData.author.github}`
+                : undefined,
+            },
             name: blogData.title,
             description: blogData.description,
             url: blogData.url,

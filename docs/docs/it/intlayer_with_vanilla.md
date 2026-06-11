@@ -24,6 +24,9 @@ history:
   - version: 8.4.10
     date: 2026-03-31
     changes: "Inizializzazione cronologia"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Traduci il tuo sito web Vanilla JS usando Intlayer | Internazionalizzazione (i18n)

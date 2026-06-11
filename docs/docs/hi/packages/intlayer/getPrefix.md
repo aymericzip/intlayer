@@ -22,6 +22,9 @@ history:
   - version: 7.1.0
     date: 2025-11-16
     changes: "प्रारंभिक दस्तावेज़ीकरण"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # दस्तावेज़ीकरण: `intlayer` में `getPrefix` फ़ंक्शन

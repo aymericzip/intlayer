@@ -31,6 +31,9 @@ history:
   - version: 8.0.0
     date: 2026-01-20
     changes: "HTML पार्सिंग समर्थन जोड़ा"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # HTML सामग्री / Intlayer में HTML

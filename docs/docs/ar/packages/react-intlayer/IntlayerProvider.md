@@ -19,6 +19,9 @@ history:
   - version: 7.5.14
     date: 2026-01-21
     changes: "بدء التوثيق"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # وثائق مكوّن IntlayerProvider

@@ -14,6 +14,9 @@ slugs:
   - packages
   - next-intlayer
   - useRewriteURL
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # useRewriteURL-Hook

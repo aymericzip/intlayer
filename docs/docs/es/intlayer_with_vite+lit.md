@@ -24,6 +24,9 @@ history:
   - version: 8.4.10
     date: 2026-03-23
     changes: "Historial inicial"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Traduce tu sitio web Vite y Lit usando Intlayer | Internacionalización (i18n)

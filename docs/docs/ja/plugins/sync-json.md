@@ -30,6 +30,9 @@ history:
   - version: 6.1.6
     date: 2025-10-05
     changes: "Sync JSONプラグインの初期ドキュメント"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Sync JSON（i18nブリッジ）- ICU / i18nextサポート付きSync JSON

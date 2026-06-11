@@ -22,6 +22,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "بداية التاريخ"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # التوثيق: دالة `getEnumeration` في `intlayer`

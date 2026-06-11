@@ -17,6 +17,9 @@ history:
   - version: 8.0.0
     date: 2026-01-21
     changes: "Унифицированная документация для всех экспортов"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Пакет preact-intlayer

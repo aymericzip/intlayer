@@ -27,6 +27,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "初始化历史记录"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer 内容管理系统（CMS）文档

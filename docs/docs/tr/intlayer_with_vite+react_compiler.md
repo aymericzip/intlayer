@@ -29,6 +29,9 @@ history:
   - version: 8.1.6
     date: 2026-02-23
     changes: "İlk sürüm"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Mevcut bir Vite ve React uygulamasını sonradan nasıl çok dilli (i18n) hale getirirsiniz (i18n rehberi 2026)

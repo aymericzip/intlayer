@@ -29,6 +29,9 @@ history:
   - version: 7.3.1
     date: 2025-11-27
     changes: "إصدار المترجم"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # مترجم Intlayer | استخراج المحتوى الآلي للتدويل

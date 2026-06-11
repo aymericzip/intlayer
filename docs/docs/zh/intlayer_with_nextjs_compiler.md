@@ -29,6 +29,9 @@ history:
   - version: 8.1.6
     date: 2026-02-23
     changes: "初始版本"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 如何将现有的 Next.js 应用程序多语言化 (i18n) (i18n 指南 2026)

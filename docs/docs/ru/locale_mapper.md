@@ -16,6 +16,9 @@ history:
   - version: 5.7.2
     date: 2025-07-27
     changes: "Добавлена документация по locale mapper"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Отображатель локалей

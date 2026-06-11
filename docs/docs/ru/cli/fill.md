@@ -16,6 +16,9 @@ slugs:
   - concept
   - cli
   - fill
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Заполнение / проверка / перевод словарей

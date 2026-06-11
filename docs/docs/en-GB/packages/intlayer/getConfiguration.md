@@ -22,6 +22,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Init history"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Documentation: `getConfiguration` Function in `intlayer`

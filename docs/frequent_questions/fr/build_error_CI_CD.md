@@ -17,6 +17,9 @@ keywords:
 slugs:
   - frequent-questions
   - build-error-ci-cd
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Erreur lors du build en CI/CD

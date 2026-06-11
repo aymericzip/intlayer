@@ -21,6 +21,9 @@ history:
   - version: 8.13.0
     date: 2026-06-11
     changes: "Thêm nội dung lệnh scan"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Quét trang web

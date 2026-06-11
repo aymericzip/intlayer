@@ -30,6 +30,9 @@ history:
   - version: 6.1.6
     date: 2025-10-05
     changes: "प्रारंभिक सिंक JSON प्लगइन दस्तावेज़ीकरण"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # सिंक JSON (i18n ब्रिजेस) - ICU / i18next समर्थन के साथ सिंक JSON

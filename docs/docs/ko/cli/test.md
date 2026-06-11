@@ -13,6 +13,9 @@ slugs:
   - concept
   - cli
   - test
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 누락된 번역 테스트

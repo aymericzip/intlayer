@@ -20,6 +20,9 @@ history:
   - version: 7.5.9
     date: 2025-12-30
     changes: "Přidán obsah příkazu init"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Inicializace Intlayeru

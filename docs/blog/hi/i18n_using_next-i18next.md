@@ -19,6 +19,9 @@ history:
   - version: 7.0.6
     date: 2025-11-01
     changes: प्रारंभिक संस्करण
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # 2025 में next-i18next का उपयोग करके अपने Next.js एप्लिकेशन का अंतरराष्ट्रीयकरण कैसे करें

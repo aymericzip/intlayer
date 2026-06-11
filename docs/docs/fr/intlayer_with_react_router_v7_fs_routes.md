@@ -32,6 +32,9 @@ history:
   - version: 7.3.4
     date: 2025-12-08
     changes: "Historique initial"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Traduire votre React Router v7 (File-System Routes) avec Intlayer | Internationalisation (i18n)

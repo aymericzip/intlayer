@@ -37,6 +37,9 @@ history:
   - version: 5.8.0
     date: 2025-08-20
     changes: "सामग्री प्रबंधन उपयोगिताएँ जोड़ें (getContent, getTranslation, getIntlayer, आदि)"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer फॉर्मेटर्स

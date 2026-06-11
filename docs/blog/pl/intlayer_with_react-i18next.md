@@ -25,6 +25,9 @@ history:
   - version: 7.0.0
     date: 2025-10-29
     changes: Zmiana na wtyczkę syncJSON
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Jak zautomatyzować tłumaczenia JSON react-i18next za pomocą Intlayer

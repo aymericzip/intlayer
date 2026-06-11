@@ -19,6 +19,9 @@ history:
   - version: 8.6.4
     date: 2026-03-31
     changes: "تهيئة وثائق الأمر المستقل (standalone)"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # الحزمة المستقلة (Standalone Bundle)

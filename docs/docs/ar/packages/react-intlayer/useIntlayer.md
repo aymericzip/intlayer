@@ -18,6 +18,9 @@ slugs:
   - packages
   - react-intlayer
   - useIntlayer
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # تكامل React: توثيق هوك `useIntlayer`

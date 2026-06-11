@@ -16,6 +16,9 @@ history:
   - version: 8.0.0
     date: 2026-01-25
     changes: "फ़्रेमवर्क-विशिष्ट फॉर्मेटर्स और useRewriteURL हुक का उपयोग करके केंद्रीकृत URL रीराइट्स लागू करें।"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # कस्टम URL रीराइट्स का कार्यान्वयन

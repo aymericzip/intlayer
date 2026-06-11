@@ -29,6 +29,9 @@ history:
   - version: 8.1.6
     date: 2026-02-23
     changes: "Rilis Awal"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Cara membuat aplikasi Next.js yang sudah ada menjadi multibahasa (i18n) (Panduan i18n 2026)

@@ -17,6 +17,9 @@ history:
   - version: 8.1.5
     date: 2026-02-23
     changes: "checkTypes विकल्प जोड़ें"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # शब्दकोश बनाएं

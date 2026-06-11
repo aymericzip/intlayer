@@ -27,6 +27,9 @@ history:
   - version: 7.0.0
     date: 2025-10-29
     changes: Cambiar a plugin syncJSON
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Cómo automatizar tus traducciones JSON de i18next usando Intlayer

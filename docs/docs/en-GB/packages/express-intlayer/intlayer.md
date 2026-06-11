@@ -20,6 +20,9 @@ history:
   - version: 8.0.0
     date: 2026-01-21
     changes: "Initial documentation"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # intlayer Express Middleware Documentation

@@ -28,6 +28,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "ابتدائی تاریخ"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer کا استعمال کرتے ہوئے اپنی Angular 21 (Vite) ویب سائٹ کا ترجمہ کریں | بین الاقوامی بنانا (i18n)

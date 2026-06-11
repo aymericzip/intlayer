@@ -19,6 +19,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Inizializza la cronologia"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Generazione Automatica delle Traduzioni in una Pipeline CI/CD

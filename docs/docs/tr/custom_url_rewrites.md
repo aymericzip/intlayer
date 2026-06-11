@@ -16,6 +16,9 @@ history:
   - version: 8.0.0
     date: 2026-01-25
     changes: "Çerçeveye özgü biçimlendiriciler ve useRewriteURL kancasının kullanımıyla merkezi URL yeniden yazımlarını uygulama."
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Özel URL Yeniden Yazımları Uygulaması

@@ -17,6 +17,9 @@ history:
   - version: 8.5.0
     date: 2026-04-02
     changes: "Domeingebaseerde locale routing toegevoegd via de routing.domains-configuratie."
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Aangepaste domeinen

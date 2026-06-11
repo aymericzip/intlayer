@@ -13,6 +13,9 @@ slugs:
   - concept
   - cli
   - test
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Uji terjemahan yang hilang

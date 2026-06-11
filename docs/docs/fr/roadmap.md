@@ -20,6 +20,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Historique initial"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer : Aperçu des fonctionnalités & Feuille de route

@@ -25,6 +25,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Historial inicial"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Traducciones de Archivos de Declaración de Contenido con Relleno Automático

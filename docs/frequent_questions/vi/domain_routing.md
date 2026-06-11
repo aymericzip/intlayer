@@ -17,6 +17,9 @@ keywords:
 slugs:
   - frequent-questions
   - domain-routing
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Làm thế nào để cấu hình **định tuyến dựa trên tên miền** với Intlayer thay vì các đường dẫn `/[locale]/`?

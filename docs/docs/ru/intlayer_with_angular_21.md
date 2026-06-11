@@ -28,6 +28,9 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Первая запись"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Переведите ваш веб-сайт на Angular 21 (Vite) с помощью Intlayer | Интернационализация (i18n)

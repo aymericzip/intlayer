@@ -16,6 +16,9 @@ history:
   - version: 5.7.2
     date: 2025-07-27
     changes: "Thêm tài liệu bộ ánh xạ locale"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Bộ ánh xạ Locale

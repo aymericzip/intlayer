@@ -98,6 +98,9 @@ history:
   - version: 5.5.11
     date: 2025-06-29
     changes: "`docs` 명령 추가"
+author:
+  name: Aymeric PINEAU
+  github: aymericzip
 ---
 
 # Intlayer 구성 문서
