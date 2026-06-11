@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 8.13.0
+    date: 2026-06-11
+    changes: "Scan commando toegevoegd"
   - version: 8.6.4
     date: 2026-03-31
     changes: "Standalone commando toegevoegd"
@@ -162,6 +165,10 @@ Om te zien hoe u beschikbare talen of andere parameters configureert, raadpleegt
 
 - **[CI-commando](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/ci.md)** - Voer Intlayer-commando's uit met automatisch geïnjecteerde inloggegevens voor CI/CD-pipelines
 
+### Audit & Diagnostiek
+
+- **[Website Scannen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/scan.md)** - Meet de paginagrootte en controleer de i18n/SEO-status van elke openbare URL
+
 ### Ontwikkelingstools
 
 - **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/sdk.md)** - Gebruik de Intlayer CLI SDK in uw eigen code
@@ -184,7 +191,8 @@ Om te zien hoe u beschikbare talen of andere parameters configureert, raadpleegt
   "intlayer:extract": "npx intlayer extract",
   "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
-  "intlayer:doc:review": "npx intlayer doc review"
+  "intlayer:doc:review": "npx intlayer doc review",
+  "intlayer:scan": "npx intlayer scan https://example.com"
 }
 ```
 

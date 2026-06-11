@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 8.13.0
+    date: 2026-06-11
+    changes: "scan कमांड जोड़ा गया"
   - version: 8.6.4
     date: 2026-03-31
     changes: "standalone कमांड जोड़ा गया"
@@ -162,6 +165,10 @@ Intlayer कई कॉन्फ़िगरेशन फ़ाइल प्र�
 
 - **[CI Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/ci.md)** - CI/CD पाइपलाइनों के लिए स्वचालित रूप से इंजेक्ट किए गए क्रेडेंशियल के साथ Intlayer कमांड निष्पादित करें
 
+### ऑडिटिंग और डायग्नोस्टिक्स
+
+- **[वेबसाइट स्कैन करें](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/scan.md)** - किसी भी सार्वजनिक URL के पेज आकार को मापें और i18n/SEO स्वास्थ्य का ऑडिट करें
+
 ### विकास उपकरण (Developer Tools)
 
 - **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/cli/sdk.md)** - अपने स्वयं के कोड में Intlayer CLI SDK का उपयोग करें
@@ -184,7 +191,8 @@ Intlayer कई कॉन्फ़िगरेशन फ़ाइल प्र�
   "intlayer:extract": "npx intlayer extract",
   "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
-  "intlayer:doc:review": "npx intlayer doc review"
+  "intlayer:doc:review": "npx intlayer doc review",
+  "intlayer:scan": "npx intlayer scan https://example.com"
 }
 ```
 

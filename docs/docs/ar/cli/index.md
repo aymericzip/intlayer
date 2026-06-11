@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 8.13.0
+    date: 2026-06-11
+    changes: "إضافة أمر scan"
   - version: 8.6.4
     date: 2026-03-31
     changes: "إضافة أمر standalone"
@@ -162,6 +165,10 @@ bun add intlayer-cli -g
 
 - **[CI Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/ci.md)** - تنفيذ أوامر Intlayer ببيانات اعتماد محقونة تلقائيًا لخطوط أنابيب CI/CD
 
+### التدقيق والتشخيص
+
+- **[مسح موقع الويب](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/scan.md)** - قياس حجم الصفحة وتدقيق صحة i18n/SEO لأي عنوان URL عام
+
 ### أدوات التطوير
 
 - **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/sdk.md)** - استخدام Intlayer CLI SDK في الكود الخاص بك
@@ -184,7 +191,8 @@ bun add intlayer-cli -g
   "intlayer:extract": "npx intlayer extract",
   "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
-  "intlayer:doc:review": "npx intlayer doc review"
+  "intlayer:doc:review": "npx intlayer doc review",
+  "intlayer:scan": "npx intlayer scan https://example.com"
 }
 ```
 

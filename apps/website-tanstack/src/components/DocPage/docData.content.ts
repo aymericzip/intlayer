@@ -199,6 +199,10 @@ const docDataContent: Dictionary = {
               title: 'SDK',
               default: getDocMetadata('./docs/en/cli/sdk.md'),
             },
+            scan: {
+              title: 'Scan',
+              default: getDocMetadata('./docs/en/cli/scan.md'),
+            },
           },
         },
         editor: {

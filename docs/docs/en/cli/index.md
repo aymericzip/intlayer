@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 8.13.0
+    date: 2026-06-11
+    changes: "Add scan command"
   - version: 8.6.4
     date: 2026-03-31
     changes: "Add standalone command"
@@ -162,6 +165,10 @@ To see how to configure available locales, or other parameters, refer to the [co
 
 - **[CI Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/ci.md)** - Run Intlayer commands with auto-injected credentials for CI/CD pipelines
 
+### Auditing & Diagnostics
+
+- **[Scan Website](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/scan.md)** - Measure page size and audit i18n/SEO health of any public URL
+
 ### Development Tools
 
 - **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/sdk.md)** - Use the Intlayer CLI SDK in your own code
@@ -184,7 +191,8 @@ To see how to configure available locales, or other parameters, refer to the [co
   "intlayer:extract": "npx intlayer extract",
   "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
-  "intlayer:doc:review": "npx intlayer doc review"
+  "intlayer:doc:review": "npx intlayer doc review",
+  "intlayer:scan": "npx intlayer scan https://example.com"
 }
 ```
 

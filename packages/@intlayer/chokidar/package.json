@@ -60,6 +60,11 @@
       "require": "./dist/cjs/listDictionariesPath.cjs",
       "import": "./dist/esm/listDictionariesPath.mjs"
     },
+    "./scan": {
+      "types": "./dist/types/scan/index.d.ts",
+      "require": "./dist/cjs/scan/index.cjs",
+      "import": "./dist/esm/scan/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
@@ -81,6 +86,9 @@
       ],
       "listDictionaries": [
         "./dist/types/listDictionariesPath.d.ts"
+      ],
+      "scan": [
+        "./dist/types/scan/index.d.ts"
       ],
       "package.json": [
         "./package.json"

@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 8.13.0
+    date: 2026-06-11
+    changes: "Thêm nội dung lệnh scan"
   - version: 8.6.4
     date: 2026-03-31
     changes: "Thêm nội dung lệnh standalone"
@@ -162,6 +165,10 @@ Intlayer chấp nhận nhiều định dạng tệp cấu hình khác nhau:
 
 - **[Lệnh CI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/ci.md)** - Thực hiện các lệnh Intlayer với thông tin xác thực được tự động đưa vào cho các luồng CI/CD
 
+### Kiểm toán & Chẩn đoán
+
+- **[Quét trang web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/scan.md)** - Đo lường kích thước trang và kiểm toán sức khỏe i18n/SEO của bất kỳ URL công khai nào
+
 ### Công cụ dành cho nhà phát triển
 
 - **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/sdk.md)** - Sử dụng Intlayer CLI SDK trong mã của riêng bạn
@@ -184,7 +191,8 @@ Intlayer chấp nhận nhiều định dạng tệp cấu hình khác nhau:
   "intlayer:extract": "npx intlayer extract",
   "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
-  "intlayer:doc:review": "npx intlayer doc review"
+  "intlayer:doc:review": "npx intlayer doc review",
+  "intlayer:scan": "npx intlayer scan https://example.com"
 }
 ```
 

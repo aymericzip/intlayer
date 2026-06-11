@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 8.13.0
+    date: 2026-06-11
+    changes: "Befehl scan hinzugefügt"
   - version: 8.6.4
     date: 2026-03-31
     changes: "Standalone-Befehl hinzugefügt"
@@ -162,6 +165,10 @@ Um zu erfahren, wie Sie verfügbare Sprachen oder andere Parameter konfigurieren
 
 - **[CI-Befehl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/ci.md)** - Führen Sie Intlayer-Befehle mit automatisch eingefügten Zugangsdaten für CI/CD-Pipelines aus
 
+### Auditierung & Diagnose
+
+- **[Website scannen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/scan.md)** - Messen Sie die Seitengröße und prüfen Sie die i18n/SEO-Gesundheit einer beliebigen öffentlichen URL
+
 ### Entwicklungstools
 
 - **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/cli/sdk.md)** - Verwenden Sie das Intlayer-CLI-SDK in Ihrem eigenen Code
@@ -184,7 +191,8 @@ Um zu erfahren, wie Sie verfügbare Sprachen oder andere Parameter konfigurieren
   "intlayer:extract": "npx intlayer extract",
   "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
-  "intlayer:doc:review": "npx intlayer doc review"
+  "intlayer:doc:review": "npx intlayer doc review",
+  "intlayer:scan": "npx intlayer scan https://example.com"
 }
 ```
 

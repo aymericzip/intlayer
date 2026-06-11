@@ -1,5 +1,6 @@
 import { relative } from 'node:path';
 import { listProjects } from '@intlayer/chokidar/cli';
+import { scanWebsite } from '@intlayer/chokidar/scan';
 import {
   build,
   extract,
@@ -518,6 +519,52 @@ export const loadCLITools: LoadCLITools = async (server) => {
             {
               type: 'text',
               text: `Extract failed: ${errorMessage}`,
+            },
+          ],
+        };
+      }
+    }
+  );
+
+  server.registerTool(
+    'intlayer-scan',
+    {
+      title: 'Scan Website',
+      description:
+        'Scan a website to measure its page size and audit its i18n / SEO health (html lang/dir, canonical, hreflang, x-default, localized internal links, robots.txt, sitemap.xml, and unused bundle locale content). Returns a 0-100 score and per-check results.',
+      inputSchema: {
+        url: z.string().describe('Absolute URL of the website to scan'),
+        deep: z
+          .boolean()
+          .optional()
+          .describe(
+            'Attempt a deeper render-based scan using a locally installed puppeteer. Falls back to a basic fetch scan when puppeteer is not installed.'
+          ),
+      },
+      annotations: {
+        readOnlyHint: true,
+        openWorldHint: true,
+      },
+    },
+    async ({ url, deep }) => {
+      try {
+        const result = await scanWebsite(url, { deep });
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error ? error.message : 'An unknown error occurred';
+        return {
+          content: [
+            {
+              type: 'text',
+              text: `Scan failed: ${errorMessage}`,
             },
           ],
         };

@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 8.13.0
+    date: 2026-06-11
+    changes: "scan 명령어 추가"
   - version: 8.6.4
     date: 2026-03-31
     changes: "standalone 명령어 추가"
@@ -162,6 +165,10 @@ Intlayer는 여러 설정 파일 형식을 허용합니다:
 
 - **[CI 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/ci.md)** - CI/CD 파이프라인을 위해 자동으로 주입된 자격 증명으로 Intlayer 명령어를 실행합니다.
 
+### 감사 및 진단
+
+- **[웹사이트 스캔](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/scan.md)** - 공개 URL의 페이지 크기를 측정하고 i18n/SEO 상태를 감사하게 해줍니다.
+
 ### 개발 도구
 
 - **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/sdk.md)** - 자체 코드에서 Intlayer CLI SDK를 사용합니다.
@@ -184,7 +191,8 @@ Intlayer는 여러 설정 파일 형식을 허용합니다:
   "intlayer:extract": "npx intlayer extract",
   "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
-  "intlayer:doc:review": "npx intlayer doc review"
+  "intlayer:doc:review": "npx intlayer doc review",
+  "intlayer:scan": "npx intlayer scan https://example.com"
 }
 ```
 

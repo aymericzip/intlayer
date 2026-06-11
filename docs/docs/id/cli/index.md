@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 8.13.0
+    date: 2026-06-11
+    changes: "Menambahkan konten perintah scan"
   - version: 8.6.4
     date: 2026-03-31
     changes: "Menambahkan konten perintah standalone"
@@ -162,6 +165,10 @@ Untuk mempelajari cara mengonfigurasi bahasa yang tersedia atau parameter lainny
 
 - **[CI Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/ci.md)** - Jalankan perintah Intlayer dengan kredensial yang disuntikkan secara otomatis untuk alur kerja CI/CD
 
+### Audit & Diagnostik
+
+- **[Scan Website](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/scan.md)** - Ukur ukuran halaman dan audit kesehatan i18n/SEO dari URL publik mana pun
+
 ### Alat Pengembang
 
 - **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/sdk.md)** - Gunakan Intlayer CLI SDK di kode Anda sendiri
@@ -184,7 +191,8 @@ Untuk mempelajari cara mengonfigurasi bahasa yang tersedia atau parameter lainny
   "intlayer:extract": "npx intlayer extract",
   "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
-  "intlayer:doc:review": "npx intlayer doc review"
+  "intlayer:doc:review": "npx intlayer doc review",
+  "intlayer:scan": "npx intlayer scan https://example.com"
 }
 ```
 

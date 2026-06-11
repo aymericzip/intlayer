@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 8.13.0
+    date: 2026-06-11
+    changes: "Scan komutu eklendi"
   - version: 8.6.4
     date: 2026-03-31
     changes: "Standalone komutu eklendi"
@@ -162,6 +165,10 @@ Mevcut dillerin veya diğer parametrelerin nasıl yapılandırılacağını öğ
 
 - **[CI Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/ci.md)** - CI/CD hatları için otomatik olarak eklenen kimlik bilgileriyle Intlayer komutlarını çalıştırın
 
+### Denetim & Teşhis
+
+- **[Web Sitesini Tara](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/scan.md)** - Herhangi bir genel URL'nin sayfa boyutunu ölçün ve i18n/SEO durumunu denetleyin
+
 ### Geliştirici Araçları
 
 - **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/sdk.md)** - Kendi kodunuzda Intlayer CLI SDK'sını kullanın
@@ -184,7 +191,8 @@ Mevcut dillerin veya diğer parametrelerin nasıl yapılandırılacağını öğ
   "intlayer:extract": "npx intlayer extract",
   "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
-  "intlayer:doc:review": "npx intlayer doc review"
+  "intlayer:doc:review": "npx intlayer doc review",
+  "intlayer:scan": "npx intlayer scan https://example.com"
 }
 ```
 

@@ -27,6 +27,7 @@ import { pull } from './pull';
 import { push } from './push/push';
 import { pushConfig } from './pushConfig';
 import { reviewDoc } from './reviewDoc/reviewDoc';
+import { scan } from './scan';
 import { searchDoc } from './searchDoc';
 import { testMissingTranslations } from './test';
 import { translateDoc } from './translateDoc/translateDoc';
@@ -970,6 +971,28 @@ export const setAPI = (): Command => {
     });
 
   applyConfigOptions(bundleCmd);
+
+  /**
+   * SCAN
+   */
+  const scanCmd = program
+    .command('scan')
+    .description(
+      'Scan a website to measure its page size and audit its i18n / SEO health'
+    )
+    .argument('<url>', 'URL of the website to scan')
+    .option('--no-deep', 'Disable the deeper puppeteer-based render scan')
+    .option('--json', 'Output the results as JSON');
+
+  applyConfigOptions(scanCmd);
+
+  scanCmd.action((url, options) =>
+    scan(url, {
+      deep: options.deep,
+      json: options.json,
+      configOptions: extractConfigOptions(options),
+    })
+  );
 
   program.parse(process.argv);
 

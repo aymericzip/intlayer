@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 8.13.0
+    date: 2026-06-11
+    changes: "添加 scan 命令"
   - version: 8.6.4
     date: 2026-03-31
     changes: "添加 standalone 命令内容"
@@ -162,6 +165,10 @@ Intlayer 接受多种配置文件格式：
 
 - **[CI Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/ci.md)** - 使用自动注入的凭据执行 CI/CD 流水的 Intlayer 命令
 
+### 审计与诊断
+
+- **[扫描网站](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/scan.md)** - 测量页面大小并审计任何公开 URL 的 i18n/SEO 健康状况
+
 ### 开发工具
 
 - **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/sdk.md)** - 在您自己的代码中使用 Intlayer CLI SDK
@@ -184,7 +191,8 @@ Intlayer 接受多种配置文件格式：
   "intlayer:extract": "npx intlayer extract",
   "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
-  "intlayer:doc:review": "npx intlayer doc review"
+  "intlayer:doc:review": "npx intlayer doc review",
+  "intlayer:scan": "npx intlayer scan https://example.com"
 }
 ```
 

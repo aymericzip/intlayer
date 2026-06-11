@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 8.13.0
+    date: 2026-06-11
+    changes: "scanコマンドの追加"
   - version: 8.6.4
     date: 2026-03-31
     changes: "standaloneコマンドの追加"
@@ -162,6 +165,10 @@ Intlayerは、複数の設定ファイル形式をサポートしています：
 
 - **[CI Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/ci.md)** - CI/CDパイプライン用に自動的に資格情報を挿入してIntlayerコマンドを実行します。
 
+### 監査と診断
+
+- **[ウェブサイトのスキャン](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/scan.md)** - 任意の公開URLのページサイズを測定し、i18n/SEOの状態を監査します
+
 ### 開発ツール
 
 - **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/sdk.md)** - 独自のコード内でIntlayer CLI SDKを使用します。
@@ -184,7 +191,8 @@ Intlayerは、複数の設定ファイル形式をサポートしています：
   "intlayer:extract": "npx intlayer extract",
   "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
-  "intlayer:doc:review": "npx intlayer doc review"
+  "intlayer:doc:review": "npx intlayer doc review",
+  "intlayer:scan": "npx intlayer scan https://example.com"
 }
 ```
 

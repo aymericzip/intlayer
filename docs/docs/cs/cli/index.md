@@ -17,6 +17,9 @@ slugs:
   - concept
   - cli
 history:
+  - version: 8.13.0
+    date: 2026-06-11
+    changes: "Přidán obsah příkazu scan"
   - version: 8.6.4
     date: 2026-03-31
     changes: "Přidán obsah příkazu standalone"
@@ -162,6 +165,10 @@ Chcete-li se dozvědět, jak nakonfigurovat dostupné jazyky nebo jiné parametr
 
 - **[CI Command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/ci.md)** - Provádějte příkazy Intlayer s automaticky vloženými přihlašovacími údaji pro linky CI/CD
 
+### Audit a diagnostika
+
+- **[Scan Website](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/scan.md)** - Změřte velikost stránky a auditujte i18n/SEO zdraví jakékoli veřejné URL
+
 ### Vývojářské nástroje
 
 - **[CLI SDK](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/sdk.md)** - Používejte Intlayer CLI SDK ve svém vlastním kódu
@@ -184,7 +191,8 @@ Chcete-li se dozvědět, jak nakonfigurovat dostupné jazyky nebo jiné parametr
   "intlayer:extract": "npx intlayer extract",
   "intlayer:projects": "npx intlayer projects list",
   "intlayer:doc:translate": "npx intlayer doc translate",
-  "intlayer:doc:review": "npx intlayer doc review"
+  "intlayer:doc:review": "npx intlayer doc review",
+  "intlayer:scan": "npx intlayer scan https://example.com"
 }
 ```
 
