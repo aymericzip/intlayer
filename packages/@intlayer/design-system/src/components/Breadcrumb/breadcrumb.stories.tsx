@@ -307,7 +307,7 @@ export const SizeVariants: Story = {
         <h3 className="mb-2 font-medium text-gray-900 text-sm">Small</h3>
         <Breadcrumb
           links={['Home', 'Library', 'Documents']}
-          size="small"
+          size="xs"
           ariaLabel="Small breadcrumb navigation"
         />
       </div>
@@ -317,7 +317,7 @@ export const SizeVariants: Story = {
         </h3>
         <Breadcrumb
           links={['Home', 'Library', 'Documents']}
-          size="medium"
+          size="md"
           ariaLabel="Medium breadcrumb navigation"
         />
       </div>
@@ -325,7 +325,7 @@ export const SizeVariants: Story = {
         <h3 className="mb-2 font-medium text-gray-900 text-sm">Large</h3>
         <Breadcrumb
           links={['Home', 'Library', 'Documents']}
-          size="large"
+          size="lg"
           ariaLabel="Large breadcrumb navigation"
         />
       </div>

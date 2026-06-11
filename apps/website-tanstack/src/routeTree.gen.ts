@@ -33,6 +33,7 @@ import { Route as Char123LocaleChar125DocsPrivacyNoticeDotmdRouteImport } from '
 import { Route as Char123LocaleChar125DocsPrivacyNoticeRouteImport } from './routes/{-$locale}/_docs/privacy-notice'
 import { Route as ApiProxyAhrefsAnalyticsRouteImport } from './routes/api/proxy/ahrefs-analytics'
 import { Route as Char123LocaleChar125DocsFrequentQuestionsIndexRouteImport } from './routes/{-$locale}/_docs/frequent-questions/index'
+import { Route as Char123LocaleChar125DocsBlogIndexRouteImport } from './routes/{-$locale}/_docs/blog/index'
 import { Route as Char123LocaleChar125FrequentQuestionsRawSplatRouteImport } from './routes/{-$locale}/frequent-questions/raw/$'
 import { Route as Char123LocaleChar125DocRawSplatRouteImport } from './routes/{-$locale}/doc/raw/$'
 import { Route as Char123LocaleChar125BlogRawSplatRouteImport } from './routes/{-$locale}/blog/raw/$'
@@ -176,6 +177,12 @@ const Char123LocaleChar125DocsFrequentQuestionsIndexRoute =
     path: '/frequent-questions/',
     getParentRoute: () => Char123LocaleChar125DocsRouteRoute,
   } as any)
+const Char123LocaleChar125DocsBlogIndexRoute =
+  Char123LocaleChar125DocsBlogIndexRouteImport.update({
+    id: '/blog/',
+    path: '/blog/',
+    getParentRoute: () => Char123LocaleChar125DocsRouteRoute,
+  } as any)
 const Char123LocaleChar125FrequentQuestionsRawSplatRoute =
   Char123LocaleChar125FrequentQuestionsRawSplatRouteImport.update({
     id: '/frequent-questions/raw/$',
@@ -262,6 +269,7 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/blog/raw/$': typeof Char123LocaleChar125BlogRawSplatRoute
   '/{-$locale}/doc/raw/$': typeof Char123LocaleChar125DocRawSplatRoute
   '/{-$locale}/frequent-questions/raw/$': typeof Char123LocaleChar125FrequentQuestionsRawSplatRoute
+  '/{-$locale}/blog/': typeof Char123LocaleChar125DocsBlogIndexRoute
   '/{-$locale}/frequent-questions/': typeof Char123LocaleChar125DocsFrequentQuestionsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -294,6 +302,7 @@ export interface FileRoutesByTo {
   '/{-$locale}/blog/raw/$': typeof Char123LocaleChar125BlogRawSplatRoute
   '/{-$locale}/doc/raw/$': typeof Char123LocaleChar125DocRawSplatRoute
   '/{-$locale}/frequent-questions/raw/$': typeof Char123LocaleChar125FrequentQuestionsRawSplatRoute
+  '/{-$locale}/blog': typeof Char123LocaleChar125DocsBlogIndexRoute
   '/{-$locale}/frequent-questions': typeof Char123LocaleChar125DocsFrequentQuestionsIndexRoute
 }
 export interface FileRoutesById {
@@ -330,6 +339,7 @@ export interface FileRoutesById {
   '/{-$locale}/blog/raw/$': typeof Char123LocaleChar125BlogRawSplatRoute
   '/{-$locale}/doc/raw/$': typeof Char123LocaleChar125DocRawSplatRoute
   '/{-$locale}/frequent-questions/raw/$': typeof Char123LocaleChar125FrequentQuestionsRawSplatRoute
+  '/{-$locale}/_docs/blog/': typeof Char123LocaleChar125DocsBlogIndexRoute
   '/{-$locale}/_docs/frequent-questions/': typeof Char123LocaleChar125DocsFrequentQuestionsIndexRoute
 }
 export interface FileRouteTypes {
@@ -365,6 +375,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/blog/raw/$'
     | '/{-$locale}/doc/raw/$'
     | '/{-$locale}/frequent-questions/raw/$'
+    | '/{-$locale}/blog/'
     | '/{-$locale}/frequent-questions/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -397,6 +408,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/blog/raw/$'
     | '/{-$locale}/doc/raw/$'
     | '/{-$locale}/frequent-questions/raw/$'
+    | '/{-$locale}/blog'
     | '/{-$locale}/frequent-questions'
   id:
     | '__root__'
@@ -432,6 +444,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/blog/raw/$'
     | '/{-$locale}/doc/raw/$'
     | '/{-$locale}/frequent-questions/raw/$'
+    | '/{-$locale}/_docs/blog/'
     | '/{-$locale}/_docs/frequent-questions/'
   fileRoutesById: FileRoutesById
 }
@@ -616,6 +629,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125DocsFrequentQuestionsIndexRouteImport
       parentRoute: typeof Char123LocaleChar125DocsRouteRoute
     }
+    '/{-$locale}/_docs/blog/': {
+      id: '/{-$locale}/_docs/blog/'
+      path: '/blog'
+      fullPath: '/{-$locale}/blog/'
+      preLoaderRoute: typeof Char123LocaleChar125DocsBlogIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125DocsRouteRoute
+    }
     '/{-$locale}/frequent-questions/raw/$': {
       id: '/{-$locale}/frequent-questions/raw/$'
       path: '/frequent-questions/raw/$'
@@ -693,6 +713,7 @@ interface Char123LocaleChar125DocsRouteRouteChildren {
   Char123LocaleChar125DocsDocChatRoute: typeof Char123LocaleChar125DocsDocChatRoute
   Char123LocaleChar125DocsDocSearchRoute: typeof Char123LocaleChar125DocsDocSearchRoute
   Char123LocaleChar125DocsFrequentQuestionsSplatRoute: typeof Char123LocaleChar125DocsFrequentQuestionsSplatRoute
+  Char123LocaleChar125DocsBlogIndexRoute: typeof Char123LocaleChar125DocsBlogIndexRoute
   Char123LocaleChar125DocsFrequentQuestionsIndexRoute: typeof Char123LocaleChar125DocsFrequentQuestionsIndexRoute
 }
 
@@ -717,6 +738,8 @@ const Char123LocaleChar125DocsRouteRouteChildren: Char123LocaleChar125DocsRouteR
       Char123LocaleChar125DocsDocSearchRoute,
     Char123LocaleChar125DocsFrequentQuestionsSplatRoute:
       Char123LocaleChar125DocsFrequentQuestionsSplatRoute,
+    Char123LocaleChar125DocsBlogIndexRoute:
+      Char123LocaleChar125DocsBlogIndexRoute,
     Char123LocaleChar125DocsFrequentQuestionsIndexRoute:
       Char123LocaleChar125DocsFrequentQuestionsIndexRoute,
   }

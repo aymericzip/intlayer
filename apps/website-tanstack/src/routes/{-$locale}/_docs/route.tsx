@@ -7,7 +7,11 @@ export const Route = createFileRoute('/{-$locale}/_docs')({
 
 function DocsLayout() {
   return (
-    <PageLayout className="bg-card" mobileRollable={false} footer={<></>}>
+    <PageLayout
+      className="min-h-0 bg-card"
+      mobileRollable={false}
+      footer={<></>}
+    >
       <Outlet />
     </PageLayout>
   );

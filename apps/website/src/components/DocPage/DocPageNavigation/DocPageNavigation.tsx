@@ -22,7 +22,7 @@ export const DocPageNavigation: FC<DocPageNavigationProps> = ({
   const { goToNextSection, goToPreviousSection } = useIntlayer('doc-page');
 
   return (
-    <div className="mt-3 flex flex-row flex-wrap justify-between gap-3 px-10 text-sm">
+    <div className="my-3 flex flex-row flex-wrap justify-between gap-3 px-10 text-sm">
       {prevDoc && (
         <Container className="max-w-1/2 flex-1">
           <Link

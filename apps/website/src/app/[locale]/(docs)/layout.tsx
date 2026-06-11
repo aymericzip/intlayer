@@ -11,7 +11,7 @@ const LandingLayout: NextLayoutIntlayer<{
     <Suspense>
       <PageLayout
         locale={locale}
-        className="bg-card"
+        className="min-h-0 bg-card"
         mobileRollable={false}
         footer={<></>}
       >

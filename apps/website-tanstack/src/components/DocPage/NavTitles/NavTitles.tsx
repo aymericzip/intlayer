@@ -1,8 +1,7 @@
-import { getPathWithoutLocale } from '@intlayer/core/localization';
 import { useGetElementById } from '@intlayer/design-system/hooks';
 import { useLocation } from '@tanstack/react-router';
 import { type FC, useRef } from 'react';
-import { useIntlayer, useLocale } from 'react-intlayer';
+import { useIntlayer } from 'react-intlayer';
 import { Link } from '~/components/Link/Link';
 import { useActiveSection } from '../useActiveSection';
 import { useTitlesTree } from '../useTitlesTree';
@@ -25,13 +24,13 @@ const NavTitles2: FC<NavTitles2Props> = ({ title2, activeSectionsId }) => {
         return (
           <li key={id}>
             <Link
-              to={{ pathname: pathname as any, hash: id }}
+              to={{ pathname: pathname, hash: id } as any}
               label={`${linkLabel}: ${h3.innerText}`}
               aria-current={isActive ? 'location' : undefined}
               color="text"
-              variant="hoverable"
+              variant="invisible-link"
               roundedSize="lg"
-              className="flex text-wrap p-2 text-sm text-text/80 transition-colors"
+              className="flex text-wrap p-2 text-sm text-text/80 transition-colors aria-[current]:bg-none aria-[current]:font-semibold aria-[current]:text-text"
             >
               {h3.innerText}
             </Link>
@@ -63,8 +62,8 @@ export const NavTitles: FC = () => {
   });
 
   return (
-    <nav ref={navRef}>
-      <ul className="flex max-h-[calc(100vh-8rem)] flex-1 flex-col gap-3 overflow-auto pt-8 pr-3 pb-20">
+    <nav ref={navRef} className="flex h-full min-h-0 flex-col">
+      <ul className="flex min-h-0 flex-1 flex-col gap-3 overflow-auto pt-8 pr-3 pb-20">
         {topLevelHeadings.map((h2) => {
           const id = h2.id;
           const h3List = headingMap.get(h2);
@@ -75,12 +74,12 @@ export const NavTitles: FC = () => {
             <li key={id}>
               <Link
                 label={`${linkLabel.value}: ${h2.innerText}`}
-                to={{ pathname: pathname as any, hash: id }}
+                to={{ pathname: pathname, hash: id } as any}
                 color="text"
                 roundedSize="lg"
-                variant="hoverable"
-                isActive={isActive}
-                className="flex text-wrap p-2 text-sm text-text/80 transition-colors"
+                variant="invisible-link"
+                aria-current={isActive ? 'location' : undefined}
+                className="flex text-wrap p-2 text-sm text-text/80 transition-colors aria-[current]:bg-none aria-[current]:font-semibold aria-[current]:text-text"
               >
                 {h2.innerText}
               </Link>

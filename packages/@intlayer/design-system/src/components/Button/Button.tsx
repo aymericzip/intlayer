@@ -16,7 +16,8 @@ export type ButtonSize =
   | 'icon-sm'
   | 'icon-md'
   | 'icon-lg'
-  | 'icon-xl';
+  | 'icon-xl'
+  | 'custom';
 
 const buttonIconVariants = cva('flex-none shrink-0', {
   variants: {
@@ -30,6 +31,7 @@ const buttonIconVariants = cva('flex-none shrink-0', {
       'icon-md': 'size-4',
       'icon-lg': 'size-5',
       'icon-xl': 'size-6',
+      custom: '',
     },
   },
   defaultVariants: {
@@ -89,6 +91,7 @@ export const buttonVariants = cva(
         'icon-md': 'p-1.5',
         'icon-lg': 'p-1.5',
         'icon-xl': 'p-3',
+        custom: '',
       },
       color: {
         primary:

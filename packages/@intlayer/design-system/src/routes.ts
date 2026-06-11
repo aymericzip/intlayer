@@ -252,8 +252,8 @@ export const Website_Benchmark_Tanstack_Path =
 export const Website_Doc_MCP_Path = '/doc/mcp-server' as const;
 
 export const Website_Blog_Root_Path = '/blog' as const;
-export const Website_Blog_Path = '/blog/search' as const;
-export const Website_Blog_Search_Path = '/blog/search' as const;
+export const Website_Blog_Path = '/blog' as const;
+export const Website_Blog_Search_Path = '/blog' as const;
 export const Website_Blog_What_is_i18n_Path =
   '/blog/what-is-internationalization' as const;
 
@@ -453,8 +453,8 @@ export const Doc_CLI_Review_Path = '/concept/cli/doc-review' as const;
 export const Doc_MCP_Path = '/mcp-server' as const;
 
 export const Doc_Blog_Root_Path = '/blog' as const;
-export const Doc_Blog_Path = '/blog/search' as const;
-export const Doc_Blog_Search_Path = '/blog/search' as const;
+export const Doc_Blog_Path = '/blog' as const;
+export const Doc_Blog_Search_Path = '/blog' as const;
 export const Doc_Blog_What_is_i18n_Path =
   '/blog/what-is-internationalization' as const;
 

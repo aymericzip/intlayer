@@ -58,7 +58,6 @@ export const DocBreadCrumb: FC<DocBreadCrumbProps> = ({
   return (
     <Breadcrumb
       links={breadcrumbsLinks}
-      className="mt-12 ml-10"
       locale={locale}
       color="text"
       {...props}

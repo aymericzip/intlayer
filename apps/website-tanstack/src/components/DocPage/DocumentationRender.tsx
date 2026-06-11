@@ -32,7 +32,7 @@ const I18nBenchmark = lazy(() =>
 const Accordion = ({ children, ...props }: AccordionProps) => (
   <AccordionBase
     {...props}
-    headerClassName="text-lg! font-bold!"
+    headerClassName="text-lg!"
     contentClassName="divide-y divide-neutral"
   >
     <div className="mb-8 flex flex-col gap-6 px-4 pt-6 text-sm text-text/80">

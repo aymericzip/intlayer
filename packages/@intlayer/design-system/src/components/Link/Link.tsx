@@ -55,7 +55,7 @@ export const linkVariants = cva(
         default:
           'h-auto justify-start border-inherit bg-current/0 px-1 font-medium decoration-[1.5] underline-offset-5 hover:bg-current/0 hover:text-current/80 hover:underline hover:underline-offset-6',
         'invisible-link':
-          'h-auto justify-start border-inherit bg-current/0 px-1 underline-offset-5 hover:bg-current/0 aria-[current]:bg-current/5',
+          'h-auto justify-start border-inherit bg-current/0 px-1',
 
         button:
           'relative inline-flex min-h-8 cursor-pointer flex-row items-center justify-center gap-2 rounded-full bg-current px-6 text-center font-medium text-sm text-text ring-0 *:text-text-opposite hover:bg-current/90 hover:ring-5 aria-selected:ring-5 aria-[current]:ring-5 max-md:py-2',

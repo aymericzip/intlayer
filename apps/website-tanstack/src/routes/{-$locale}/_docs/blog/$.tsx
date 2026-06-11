@@ -26,11 +26,10 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
     const slugsStr = (params as any)['*'] || '';
     const slugs = slugsStr ? slugsStr.split('/') : [];
 
-    // Start both requests, but only block on the critical-path blog post. The
-    // navigation tree is streamed in via `defer` so it can't delay the main
-    // content paint.
-    const navDataPromise = loadBlogNavData({ data: { locale } });
-    const result = await loadBlogPage({ data: { locale, slugs } });
+    const [result, navData] = await Promise.all([
+      loadBlogPage({ data: { locale, slugs } }),
+      loadBlogNavData({ data: { locale } }),
+    ]);
 
     const { exactMatch, blogsData, content } = result;
 
@@ -64,7 +63,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
       blogParsed,
       nextBlog,
       prevBlog,
-      navData: defer(navDataPromise),
+      navData,
     };
   },
   head: ({ loaderData }) => {
@@ -236,6 +235,7 @@ function BlogPage() {
       blogData={navData}
       activeSlugs={slugs}
       locale={locale ?? defaultLocale}
+      currentBlogDocKey={blogData.docKey}
     >
       <DocHeader {...blogData} markdownContent={blogContent} />
       <DocumentationRender>{blogParsed}</DocumentationRender>

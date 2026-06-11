@@ -13,7 +13,7 @@ const styledAfter = `after:content-['#'] after:scale-75 after:px-6 after:text-ne
 const StyledH1: FC<HTMLAttributes<HTMLHeadingElement>> = ({
   className,
   ...props
-}) => <h1 className={cn('font-bold text-3xl', className)} {...props} />;
+}) => <h1 className={cn('text-3xl', className)} {...props} />;
 
 /**
  * Styled H2 Component
@@ -25,10 +25,7 @@ const StyledH2: FC<HTMLAttributes<HTMLHeadingElement>> = ({
   className,
   ...props
 }) => (
-  <h2
-    className={cn('mb-2 font-bold text-2xl', styledHeading, className)}
-    {...props}
-  />
+  <h2 className={cn('mb-2 text-2xl', styledHeading, className)} {...props} />
 );
 
 /**
@@ -41,10 +38,7 @@ const StyledH3: FC<HTMLAttributes<HTMLHeadingElement>> = ({
   className,
   ...props
 }) => (
-  <h3
-    className={cn('mb-2 font-bold text-xl', styledHeading, className)}
-    {...props}
-  />
+  <h3 className={cn('mb-2 text-xl', styledHeading, className)} {...props} />
 );
 
 /**
@@ -56,12 +50,7 @@ const StyledH3: FC<HTMLAttributes<HTMLHeadingElement>> = ({
 const StyledH4: FC<HTMLAttributes<HTMLHeadingElement>> = ({
   className,
   ...props
-}) => (
-  <h4
-    className={cn('font-bold text-lg', styledHeading, className)}
-    {...props}
-  />
-);
+}) => <h4 className={cn('text-lg', styledHeading, className)} {...props} />;
 
 /**
  * Styled H5 Component
@@ -72,21 +61,13 @@ const StyledH4: FC<HTMLAttributes<HTMLHeadingElement>> = ({
 const StyledH5: FC<HTMLAttributes<HTMLHeadingElement>> = ({
   className,
   ...props
-}) => (
-  <h5
-    className={cn('font-bold text-base', styledHeading, className)}
-    {...props}
-  />
-);
+}) => <h5 className={cn('text-base', styledHeading, className)} {...props} />;
 
 const StyledH6: FC<HTMLAttributes<HTMLHeadingElement>> = ({
   className,
   ...props
 }) => (
-  <h6
-    className={cn('ml-3 font-bold text-base', styledHeading, className)}
-    {...props}
-  />
+  <h6 className={cn('ml-3 text-base', styledHeading, className)} {...props} />
 );
 
 /**

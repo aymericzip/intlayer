@@ -60,7 +60,7 @@ export const OptionalLink: FC<OptionalLinkProps> = ({
     return (
       <span
         className={cn(
-          'flex w-full truncate text-nowrap p-2 text-left font-bold text-neutral transition-color',
+          'flex w-full truncate text-nowrap p-2 text-left font-semibold text-neutral transition-color',
           className
         )}
         {...props}
@@ -77,7 +77,7 @@ export const OptionalLink: FC<OptionalLinkProps> = ({
       roundedSize="lg"
       isActive={isActive}
       className={cn(
-        'flex w-full truncate text-nowrap p-2 text-left font-bold transition-color',
+        'flex w-full truncate text-nowrap p-2 text-left font-semibold transition-color',
         className
       )}
       onClick={(e) => e.stopPropagation()}

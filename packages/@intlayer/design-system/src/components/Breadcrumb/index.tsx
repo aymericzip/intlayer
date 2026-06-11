@@ -72,12 +72,14 @@ const getColorClass = (color?: LinkColor | `${LinkColor}`): string => {
 /**
  * Breadcrumb variant styles using class-variance-authority
  */
-const breadcrumbVariants = cva('flex flex-row flex-wrap items-center text-sm', {
+const breadcrumbVariants = cva('flex flex-row flex-wrap items-center', {
   variants: {
     size: {
-      small: 'gap-1 text-xs',
-      medium: 'gap-2 text-sm',
-      large: 'gap-3 text-base',
+      xs: 'gap-1 text-xs',
+      sm: 'gap-1.5 text-sm',
+      md: 'gap-2 text-base',
+      lg: 'gap-3 text-lg',
+      xl: 'gap-4 text-xl',
     },
     spacing: {
       compact: 'gap-1',
@@ -86,7 +88,7 @@ const breadcrumbVariants = cva('flex flex-row flex-wrap items-center text-sm', {
     },
   },
   defaultVariants: {
-    size: 'medium',
+    size: 'md',
     spacing: 'normal',
   },
 });
@@ -122,7 +124,7 @@ const LinkLink: FC<LinkLinkProps> = ({
         {...props}
         label={`${linkLabel} ${children}`}
         itemID={href}
-        size="sm"
+        size="custom"
       >
         <span itemProp="name">{children}</span>
       </Link>
@@ -166,6 +168,7 @@ const ButtonLink: FC<ButtonButtonProps> = ({
         label={`${linkLabel} ${text}`}
         color={color}
         itemProp="item"
+        size="custom"
         {...props}
       >
         <span itemProp="name">{text}</span>
@@ -296,7 +299,7 @@ export type BreadcrumbProps = {
  *     { onClick: handleCategory, text: 'Electronics' },
  *     'Smartphones'
  *   ]}
- *   size="medium"
+ *   size="md"
  *   ariaLabel="Product navigation"
  * />
  * ```

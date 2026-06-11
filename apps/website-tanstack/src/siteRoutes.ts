@@ -44,7 +44,7 @@ export const staticSitemapEntries: Omit<SitemapUrlEntry, 'lastmod'>[] = [
   },
   { path: Website_NotFound_Path, changefreq: 'never', priority: 0.1 },
   { path: Website_Doc_Search_Path, changefreq: 'never', priority: 0.1 },
-  { path: Website_Blog_Search_Path, changefreq: 'never', priority: 0.1 },
+  { path: Website_Blog_Search_Path, changefreq: 'weekly', priority: 0.7 },
 ];
 
 /**
