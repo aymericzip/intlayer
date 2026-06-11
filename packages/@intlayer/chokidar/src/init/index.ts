@@ -6,12 +6,16 @@ import { getConfiguration } from '@intlayer/config/node';
 import { getAlias } from '@intlayer/config/utils';
 import { initConfig } from '../initConfig';
 import {
+  detectMissingIntlayerPackages,
+  detectPackageManager,
   ensureDirectory,
   exists,
   findTsConfigFiles,
+  installPackages,
   parseJSONWithComments,
   readFileFromRoot,
   updateAstroConfig,
+  updateIntlayerConfigWithSyncPlugin,
   updateNextConfig,
   updateNuxtConfig,
   updateViteConfig,
@@ -194,6 +198,33 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
   // Determine the correct documentation URL based on dependencies
   const guideUrl = getDocumentationUrl(packageJson);
 
+  const allDeps: Record<string, string> = {
+    ...(packageJson.dependencies ?? {}),
+    ...(packageJson.devDependencies ?? {}),
+  };
+
+  // INSTALL MISSING INTLAYER DEPENDENCIES
+  const packageManager = detectPackageManager(rootDir);
+  const { packagesToInstall, compatSyncConfig } =
+    detectMissingIntlayerPackages(allDeps);
+
+  if (packagesToInstall.length > 0) {
+    logger(
+      colorize('Installing missing Intlayer dependencies...', ANSIColors.CYAN)
+    );
+    try {
+      installPackages(rootDir, packagesToInstall, packageManager);
+      logger(
+        `${v} Installed: ${packagesToInstall.map((pkg) => colorize(pkg, ANSIColors.MAGENTA)).join(', ')}`
+      );
+    } catch {
+      logger(
+        `${x} Failed to install packages. Please install manually: ${packagesToInstall.join(' ')}`,
+        { level: 'warn' }
+      );
+    }
+  }
+
   // CHECK .GITIGNORE
   const gitignorePath = '.gitignore';
   if (!options?.noGitignore && (await exists(rootDir, gitignorePath))) {
@@ -352,6 +383,40 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
   const format = hasTsConfig ? 'intlayer.config.ts' : 'intlayer.config.mjs';
   await initConfig(format, rootDir);
 
+  // INJECT SYNC-JSON PLUGIN FOR COMPAT LIBRARIES
+  if (compatSyncConfig) {
+    const intlayerConfigCandidates = [
+      'intlayer.config.ts',
+      'intlayer.config.mjs',
+      'intlayer.config.js',
+      'intlayer.config.cjs',
+    ];
+
+    for (const configFile of intlayerConfigCandidates) {
+      if (await exists(rootDir, configFile)) {
+        const configContent = await readFileFromRoot(rootDir, configFile);
+
+        if (!configContent.includes('@intlayer/sync-json-plugin')) {
+          const extension = configFile.split('.').pop()!;
+          const updatedConfigContent = updateIntlayerConfigWithSyncPlugin(
+            configContent,
+            extension,
+            compatSyncConfig
+          );
+          await writeFileToRoot(rootDir, configFile, updatedConfigContent);
+          logger(
+            `${v} Updated ${colorizePath(configFile)} with syncJSON compat plugin`
+          );
+        } else {
+          logger(
+            `${v} ${colorizePath(configFile)} already includes syncJSON plugin`
+          );
+        }
+        break;
+      }
+    }
+  }
+
   let hasAliasConfiguration = false;
 
   // CHECK VITE CONFIG
@@ -439,11 +504,6 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
   // UPDATE PACKAGE.JSON DEV SCRIPT
   // Next.js >= 16 uses a bun-specific wrapper; backend frameworks wrap whatever
   // the existing dev script is. Both use `intlayer watch --with`.
-  const allDeps = {
-    ...packageJson.dependencies,
-    ...packageJson.devDependencies,
-  };
-
   const isVersionGreaterOrEqual = (
     versionString: string,
     major: number

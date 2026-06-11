@@ -1,4 +1,5 @@
 import * as recast from 'recast';
+import type { CompatSyncConfig } from './packageManager';
 
 const { builders: b, namedTypes: n } = recast.types;
 
@@ -311,6 +312,91 @@ export const updateNuxtConfig = (content: string): string => {
   };
 
   genericRecastVisit(ast, updateConfigObject, ['defineNuxtConfig']);
+
+  return recast.print(ast).code;
+};
+
+/**
+ * Parses a syncJSON({ ... }) call expression from a source snippet so it can
+ * be injected into a config AST without manually constructing template-literal
+ * nodes via builders.
+ */
+const buildSyncJSONCallNode = (syncConfig: CompatSyncConfig): any => {
+  const paramDestructuring =
+    syncConfig.format === 'icu' ? '{ key, locale }' : '{ locale, key }';
+  // The sourceTemplate contains ${locale} / ${key} as literal characters;
+  // they become proper template expressions once the snippet is parsed by recast.
+  const snippet = `syncJSON({ format: '${syncConfig.format}', source: (${paramDestructuring}) => \`${syncConfig.sourceTemplate}\` })`;
+  const snippetAst = recast.parse(snippet, {
+    parser: require('recast/parsers/typescript'),
+  });
+  return (snippetAst.program.body[0] as any).expression;
+};
+
+/**
+ * Injects the syncJSON import and a configured syncJSON(...) call into the
+ * plugins array of an intlayer config file. Idempotent: skips when
+ * @intlayer/sync-json-plugin is already imported.
+ */
+export const updateIntlayerConfigWithSyncPlugin = (
+  content: string,
+  extension: string,
+  syncConfig: CompatSyncConfig
+): string => {
+  const ast = recast.parse(content, {
+    parser: require('recast/parsers/typescript'),
+  });
+
+  const isCJSFile = extension === 'cjs' || content.includes('module.exports');
+
+  injectImport(ast, isCJSFile, 'syncJSON', '@intlayer/sync-json-plugin');
+
+  const callNode = buildSyncJSONCallNode(syncConfig);
+
+  genericRecastVisit(ast, (objExpr) => {
+    if (
+      !objExpr ||
+      (objExpr.type !== 'ObjectExpression' &&
+        !n.ObjectExpression.check(objExpr))
+    )
+      return;
+
+    let pluginsProp = (objExpr.properties as any[]).find((prop: any) => {
+      if (!prop?.key) return false;
+      const keyName = prop.key.name ?? prop.key.value;
+      return keyName === 'plugins';
+    });
+
+    if (!pluginsProp) {
+      pluginsProp = b.property(
+        'init',
+        b.identifier('plugins'),
+        b.arrayExpression([])
+      );
+      (objExpr.properties as any[]).push(pluginsProp);
+    }
+
+    const arrayValue = pluginsProp.value;
+
+    if (
+      arrayValue &&
+      (arrayValue.type === 'ArrayExpression' ||
+        n.ArrayExpression.check(arrayValue))
+    ) {
+      const hasSyncJSON = (arrayValue.elements as any[]).some(
+        (element: any) => {
+          const callee = element?.callee;
+          if (!callee) return false;
+          const name: string = callee.name ?? callee.id?.name;
+          return name === 'syncJSON';
+        }
+      );
+
+      if (!hasSyncJSON) {
+        (arrayValue.elements as any[]).push(callNode);
+      }
+    }
+  });
 
   return recast.print(ast).code;
 };
