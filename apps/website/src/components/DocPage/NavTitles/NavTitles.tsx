@@ -18,7 +18,7 @@ const NavTitles2: FC<NavTitles2Props> = ({ title2, activeSectionsId }) => {
   const { pathWithoutLocale } = useLocale();
 
   return (
-    <ul className="my-3 flex w-full min-w-52 flex-col gap-2 border-neutral border-l-[0.5px] pl-3">
+    <ul className="my-3 flex w-full min-w-52 flex-col gap-2 border-neutral border-l-[0.5px] pl-3 text-text/80">
       {title2.map((h3) => {
         const { id } = h3;
         const isActive = activeSectionsId === id;
@@ -30,9 +30,9 @@ const NavTitles2: FC<NavTitles2Props> = ({ title2, activeSectionsId }) => {
               label={`${linkLabel}: ${h3.innerText}`}
               aria-current={isActive ? 'location' : undefined}
               color="text"
-              variant="hoverable"
+              variant="invisible-link"
               roundedSize="lg"
-              className="flex text-wrap p-2 text-sm text-text/80 transition-colors"
+              className="flex text-wrap p-2 text-sm text-text/80 transition-colors aria-[current]:bg-none aria-[current]:font-semibold aria-[current]:text-text"
             >
               {h3.innerText}
             </Link>
@@ -64,8 +64,8 @@ export const NavTitles: FC = () => {
   });
 
   return (
-    <nav ref={navRef}>
-      <ul className="flex max-h-[calc(100vh-8rem)] flex-1 flex-col gap-3 overflow-auto pt-8 pr-3 pb-20">
+    <nav ref={navRef} className="flex h-full min-h-0 flex-col">
+      <ul className="flex min-h-0 flex-1 flex-col gap-3 overflow-auto pt-8 pr-3 pb-20">
         {topLevelHeadings.map((h2) => {
           const id = h2.id;
           const h3List = headingMap.get(h2);
@@ -79,9 +79,9 @@ export const NavTitles: FC = () => {
                 href={`${pathWithoutLocale}#${id}`}
                 color="text"
                 roundedSize="lg"
-                variant="hoverable"
-                isActive={isActive}
-                className="flex text-wrap p-2 text-sm text-text/80 transition-colors"
+                variant="invisible-link"
+                aria-current={isActive ? 'location' : undefined}
+                className="flex text-wrap p-2 text-sm text-text/80 transition-colors aria-[current]:bg-none aria-[current]:font-semibold aria-[current]:text-text"
               >
                 {h2.innerText}
               </Link>

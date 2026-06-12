@@ -22,8 +22,8 @@ export const AsideNavigation: FC = () => {
   return (
     <>
       <div className="relative h-full w-70 px-2">
-        <div className="sticky top-26 z-10 flex w-full flex-row items-center pt-2">
-          <h2 className="ml-3 text-nowrap font-bold text-md text-neutral uppercase">
+        <div className="relative z-10 mt-10 flex w-full flex-row items-center pt-2">
+          <h2 className="ml-3 text-nowrap text-neutral/80 text-sm uppercase">
             {title}
           </h2>
 
