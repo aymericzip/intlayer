@@ -123,6 +123,8 @@ const config: IntlayerConfig = {
      * - "fetch": Fetched dynamically via the live sync API.
      */
     importMode: 'static',
+
+    format: 'vue-i18n',
   },
 
   build: {
@@ -148,7 +150,7 @@ const config: IntlayerConfig = {
 
   plugins: [
     syncJSON({
-      format: 'i18next',
+      format: 'vue-i18n',
       source: ({ locale, key }) => `./locales/${locale}/${key}.json`,
     }),
   ],

@@ -81,6 +81,7 @@
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
+    "@intlayer/i18next": "workspace:*",
     "@intlayer/types": "workspace:*",
     "react-intlayer": "workspace:*",
     "vite-intlayer": "workspace:*"

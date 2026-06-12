@@ -12,6 +12,7 @@ import type {
 } from 'next-intl';
 import { useLocale } from 'next-intlayer';
 import type * as React from 'react';
+import { createFormatter } from '../createFormatter';
 
 /**
  * Drop-in for next-intl's `useNow`.
@@ -46,45 +47,13 @@ export const useMessages: typeof _useMessages = () => {
 
 /**
  * Drop-in for next-intl's `useFormatter`.
- * Returns locale-aware formatters backed by the native `Intl.*` APIs.
- * `dateTimeRange`, `relativeTime`, `list`, and `plural` are not fully
- * implemented and return empty strings.
+ * Returns locale-aware formatters backed by the native `Intl.*` APIs:
+ * `dateTime`, `number`, `dateTimeRange`, `relativeTime`, `list`, and
+ * `displayName`.
  */
 export const useFormatter: typeof _useFormatter = () => {
   const { locale } = useLocale();
-  const localeString = (locale as string) ?? 'en';
-
-  return {
-    dateTime: (value: Date | number, options?: Intl.DateTimeFormatOptions) =>
-      new Intl.DateTimeFormat(localeString, options).format(value),
-    number: (value: number | bigint, options?: Intl.NumberFormatOptions) =>
-      new Intl.NumberFormat(localeString, options).format(value),
-    dateTimeRange: () =>
-      '' as ReturnType<ReturnType<typeof _useFormatter>['dateTimeRange']>,
-    relativeTime: () =>
-      '' as ReturnType<ReturnType<typeof _useFormatter>['relativeTime']>,
-    list: () => '' as ReturnType<ReturnType<typeof _useFormatter>['list']>,
-    displayName: (
-      value: string,
-      optionsOrFormat?: Intl.DisplayNamesOptions | string,
-      extraOptions?: Intl.DisplayNamesOptions
-    ): string => {
-      const resolvedOptions =
-        typeof optionsOrFormat === 'string' ? extraOptions : optionsOrFormat;
-      try {
-        return (
-          new Intl.DisplayNames(
-            [localeString],
-            resolvedOptions ?? {
-              type: 'language',
-            }
-          ).of(value) ?? value
-        );
-      } catch {
-        return value;
-      }
-    },
-  } as ReturnType<typeof _useFormatter>;
+  return createFormatter((locale as string) ?? 'en');
 };
 
 interface ProviderProps {

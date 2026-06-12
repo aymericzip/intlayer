@@ -15,6 +15,12 @@ import type {
 } from 'i18next';
 import { createInstance, type TypedGetFixedT } from './createInstance';
 
+export {
+  getInterpolationValues,
+  type ResolveTranslationParams,
+  resolveTranslation,
+} from './resolveTranslation';
+
 const i18next: i18n = createInstance();
 
 export { createInstance };

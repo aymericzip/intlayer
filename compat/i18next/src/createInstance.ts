@@ -2,6 +2,7 @@ import { internationalization, log } from '@intlayer/config/built';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { getIntlayer } from '@intlayer/core/interpreter';
+import { resolveMessage } from '@intlayer/core/messageFormat';
 import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
 import type {
   DictionaryKeys,
@@ -13,6 +14,10 @@ import type {
   InitOptions,
   TOptions,
 } from 'i18next';
+import {
+  getInterpolationValues,
+  resolveTranslation,
+} from './resolveTranslation';
 
 type EventHandler = (...args: unknown[]) => void;
 
@@ -31,21 +36,6 @@ const navigatePath = (obj: unknown, path: string): unknown => {
   }
   return current;
 };
-
-const interpolate = (value: string, params: Record<string, unknown>): string =>
-  value.replace(/\{\{(\w+)\}\}/g, (_, key) =>
-    params[key] != null ? String(params[key]) : `{{${key}}}`
-  );
-
-const SKIP_KEYS = new Set([
-  'defaultValue',
-  'count',
-  'context',
-  'ns',
-  'lng',
-  'returnObjects',
-  'returnDetails',
-]);
 
 const warnIgnoredResources = (location: string) => {
   const appLogger = getAppLogger({ log });
@@ -82,6 +72,18 @@ export const createInstance: typeof _createInstance = (
     });
   };
 
+  const getSeparators = () => ({
+    keySeparator:
+      (instanceOptions.keySeparator as string | false | undefined) ?? '.',
+    nsSeparator:
+      (instanceOptions.nsSeparator as string | false | undefined) ?? ':',
+  });
+
+  /**
+   * Resolves a key through the full i18next pipeline (namespace prefix,
+   * `ns` option, plural/context suffixes, `$t()` nesting, interpolation).
+   * Falls back to the interpolated `defaultValue`, then to the key itself.
+   */
   const resolveKey = (
     lang: string,
     ns: string,
@@ -90,47 +92,29 @@ export const createInstance: typeof _createInstance = (
   ): string => {
     const options =
       typeof opts === 'string' ? { defaultValue: opts } : (opts as TOptions);
-    const lngTarget =
-      ((options as Record<string, unknown> | undefined)?.lng as
-        | string
-        | undefined) ?? lang;
 
-    let namespace = ns;
-    let path = key;
-    if (key.includes(':')) {
-      const idx = key.indexOf(':');
-      namespace = key.slice(0, idx);
-      path = key.slice(idx + 1);
-    }
+    const resolved = resolveTranslation({
+      locale: lang as LocalesValues,
+      namespace: ns,
+      key,
+      options,
+      ...getSeparators(),
+    });
 
-    try {
-      const dict = getIntlayer(
-        namespace as DictionaryKeys,
-        lngTarget as LocalesValues
-      );
-      const value = navigatePath(dict, path);
-      if (value == null)
-        return (
-          ((options as Record<string, unknown> | undefined)?.defaultValue as
-            | string
-            | undefined) ?? key
-        );
+    if (resolved !== undefined) return resolved as string;
 
-      const str = String(value);
-      const params: Record<string, unknown> = {};
-      if (options && typeof options === 'object') {
-        for (const [k, v] of Object.entries(options)) {
-          if (!SKIP_KEYS.has(k)) params[k] = v;
-        }
-      }
-      return Object.keys(params).length ? interpolate(str, params) : str;
-    } catch {
-      return (
-        ((options as Record<string, unknown> | undefined)?.defaultValue as
-          | string
-          | undefined) ?? key
+    const defaultValue = (options as Record<string, unknown> | undefined)
+      ?.defaultValue;
+    if (typeof defaultValue === 'string') {
+      return resolveMessage(
+        defaultValue,
+        getInterpolationValues(options),
+        lang as LocalesValues,
+        'i18next'
       );
     }
+
+    return key;
   };
 
   const instance = {
@@ -194,14 +178,29 @@ export const createInstance: typeof _createInstance = (
       const keys: string[] = Array.isArray(key)
         ? (key as string[])
         : [String(key)];
-      for (const k of keys) {
-        const result = resolveKey(currentLanguage, defaultNS, k, options);
-        if (result !== k) return result;
+      for (const candidateKey of keys) {
+        const result = resolveTranslation({
+          locale: currentLanguage as LocalesValues,
+          namespace: defaultNS,
+          key: candidateKey,
+          options,
+          ...getSeparators(),
+        });
+        if (result !== undefined) return result;
       }
-      return (
-        (options as Record<string, unknown> | undefined)?.defaultValue ??
-        (Array.isArray(key) ? key[key.length - 1] : key)
-      );
+
+      const defaultValue = (options as Record<string, unknown> | undefined)
+        ?.defaultValue;
+      if (typeof defaultValue === 'string') {
+        return resolveMessage(
+          defaultValue,
+          getInterpolationValues(options),
+          currentLanguage as LocalesValues,
+          'i18next'
+        );
+      }
+
+      return defaultValue ?? (Array.isArray(key) ? key[key.length - 1] : key);
     },
 
     async changeLanguage(lng?: string, cb?: unknown) {
@@ -214,22 +213,15 @@ export const createInstance: typeof _createInstance = (
     },
 
     exists(key: string, options?: unknown): boolean {
-      const opts = options as Record<string, unknown> | undefined;
-      const ns = opts?.ns
-        ? Array.isArray(opts.ns)
-          ? (opts.ns[0] as string)
-          : (opts.ns as string)
-        : defaultNS;
-      try {
-        const dict = getIntlayer(
-          ns as DictionaryKeys,
-          currentLanguage as LocalesValues
-        );
-        const path = key.includes(':') ? key.slice(key.indexOf(':') + 1) : key;
-        return navigatePath(dict, path) != null;
-      } catch {
-        return false;
-      }
+      return (
+        resolveTranslation({
+          locale: currentLanguage as LocalesValues,
+          namespace: defaultNS,
+          key,
+          options: options as TOptions,
+          ...getSeparators(),
+        }) !== undefined
+      );
     },
 
     /**

@@ -1,27 +1,15 @@
-import { getIntlayer } from '@intlayer/core/interpreter';
 import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
 import type {
   DictionaryKeys,
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
+import type { ReactNode } from 'react';
+import {
+  createTranslator,
+  type MarkupChunkRenderer,
+  type RichChunkRenderer,
+} from '../createTranslator';
 import { getLocale } from './getLocale';
-
-const navigatePath = (objectValue: unknown, path: string): unknown => {
-  if (!path) return objectValue;
-  const parts = path.split('.');
-  let current: unknown = objectValue;
-  for (const part of parts) {
-    if (
-      current === null ||
-      current === undefined ||
-      typeof current !== 'object'
-    ) {
-      return undefined;
-    }
-    current = (current as Record<string, unknown>)[part];
-  }
-  return current;
-};
 
 /**
  * Options accepted by the options-object overload of {@link getTranslations}.
@@ -39,9 +27,11 @@ type GetTranslationsOptions<N extends DictionaryKeys> = {
  * Beyond the plain call signature, the function exposes:
  * - `has(key)` — returns `true` when the key exists in the namespace.
  * - `raw(key)` — returns the unprocessed message value.
+ * - `rich(key, values)` — resolves `<tag>chunks</tag>` markup to React nodes.
+ * - `markup(key, values)` — resolves `<tag>chunks</tag>` markup to a string.
  */
 type TranslateFunction<N extends DictionaryKeys> = {
-  /** Translate a key to a string, with optional interpolation params. */
+  /** Translate a key to a string, with optional ICU interpolation params. */
   <P extends ValidDotPathsFor<N>>(
     key: P,
     params?: Record<string, unknown>
@@ -50,6 +40,16 @@ type TranslateFunction<N extends DictionaryKeys> = {
   has<P extends ValidDotPathsFor<N>>(key: P): boolean;
   /** Returns the raw unprocessed message for the given key. */
   raw<P extends ValidDotPathsFor<N>>(key: P): unknown;
+  /** Resolves rich-text markup, mapping tags through React renderers. */
+  rich<P extends ValidDotPathsFor<N>>(
+    key: P,
+    values?: Record<string, RichChunkRenderer | ReactNode>
+  ): ReactNode;
+  /** Resolves rich-text markup, mapping tags through string renderers. */
+  markup<P extends ValidDotPathsFor<N>>(
+    key: P,
+    values?: Record<string, MarkupChunkRenderer | string | number>
+  ): string;
 };
 
 /** Loosely-typed function returned for nested `'dict.scope'` namespaces. */
@@ -57,6 +57,14 @@ type LooseTranslateFunction = {
   (key: string, params?: Record<string, unknown>): string;
   has(key: string): boolean;
   raw(key: string): unknown;
+  rich(
+    key: string,
+    values?: Record<string, RichChunkRenderer | ReactNode>
+  ): ReactNode;
+  markup(
+    key: string,
+    values?: Record<string, MarkupChunkRenderer | string | number>
+  ): string;
 };
 
 /**
@@ -67,21 +75,25 @@ type LooseTranslateFunction = {
  *    a known `DictionaryKeys` value.
  * 3. A nested namespace `'dictionary.sub.scope'` → `t()` accepts relative
  *    `string` paths, matching next-intl's scoped-namespace behaviour.
+ * 4. No namespace → root scope; the first segment of each key designates
+ *    the dictionary (`t('about.title')`).
  */
 type GetTranslations = {
-  <N extends DictionaryKeys>(namespace?: N): Promise<TranslateFunction<N>>;
+  <N extends DictionaryKeys>(namespace: N): Promise<TranslateFunction<N>>;
   <N extends DictionaryKeys>(
     options: GetTranslationsOptions<N>
   ): Promise<TranslateFunction<N>>;
   (namespace: `${string}.${string}`): Promise<LooseTranslateFunction>;
+  (): Promise<LooseTranslateFunction>;
 };
 
 /**
  * Drop-in for next-intl's server `getTranslations()`.
  *
- * Supports next-intl's nested namespace scoping: the namespace is split at the
- * first `.` into the intlayer dictionary key and a key prefix that is prepended
- * to every `t()` lookup.
+ * Messages support ICU MessageFormat syntax: simple arguments (`{name}`),
+ * plural (`{count, plural, one {…} other {…}}`, `#`), select, and formatted
+ * arguments (`{value, number}`). Rich text is available through `t.rich()`
+ * and `t.markup()`.
  *
  * Also accepts an options object `{ namespace, locale }` to match next-intl's
  * full server API surface.
@@ -92,16 +104,14 @@ type GetTranslations = {
  * const t = await getTranslations('about');
  * return <h1>{t('counter.label')}</h1>;
  *
+ * // ICU plural
+ * t('items', { count: 3 });
+ *
  * // Options object with locale override
  * const t = await getTranslations({ namespace: 'about', locale: 'fr' });
  *
- * // Scoped to a nested object (next-intl idiom)
- * const t = await getTranslations('about.counter');
- * return <h1>{t('label')}</h1>; // resolves about → counter.label
- *
- * // Utility methods
- * t.has('counter.label'); // boolean
- * t.raw('counter.label'); // unknown
+ * // Rich text
+ * t.rich('terms', { link: (chunks) => <a href="/terms">{chunks}</a> });
  * ```
  */
 export const getTranslations: GetTranslations = (async (
@@ -119,38 +129,5 @@ export const getTranslations: GetTranslations = (async (
 
   const locale = localeOverride ?? (await getLocale());
 
-  if (!namespace) {
-    return Object.assign((key: string): string => key, {
-      has: (_key: string): boolean => false,
-      raw: (_key: string): unknown => undefined,
-    });
-  }
-
-  const [dictionaryKey, ...prefixSegments] = namespace.split('.');
-  const keyPrefix = prefixSegments.join('.');
-
-  const dictionary = getIntlayer(
-    dictionaryKey as DictionaryKeys,
-    locale as LocalesValues
-  );
-
-  const resolveKey = (key: string): string =>
-    keyPrefix ? `${keyPrefix}.${key}` : key;
-
-  return Object.assign(
-    (key: string, params?: Record<string, unknown>): string => {
-      const rawValue = navigatePath(dictionary, resolveKey(key));
-      if (rawValue == null) return key;
-      const str = String(rawValue);
-      if (!params) return str;
-      return str.replace(/\{(\w+)\}/g, (_, k) =>
-        params[k] != null ? String(params[k]) : `{${k}}`
-      );
-    },
-    {
-      has: (key: string): boolean =>
-        navigatePath(dictionary, resolveKey(key)) != null,
-      raw: (key: string): unknown => navigatePath(dictionary, resolveKey(key)),
-    }
-  );
+  return createTranslator(locale as LocalesValues, namespace);
 }) as GetTranslations;
