@@ -1,5 +1,6 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, isAbsolute, relative, resolve } from 'node:path';
+import { colorizePath, getAppLogger } from '@intlayer/config/logger';
 import { parseFilePathPattern } from '@intlayer/config/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
@@ -127,7 +128,7 @@ export const parsePO = (fileContent: string): Record<string, string> => {
     }
 
     const msgidMatch = line.match(/^msgid\s+"((?:[^"\\]|\\.)*)"$/);
-    if (msgidMatch) {
+    if (msgidMatch?.[1]) {
       // Starting a new entry — finalize the previous one first
       finalize();
       msgid = unescapePO(msgidMatch[1]);
@@ -136,7 +137,7 @@ export const parsePO = (fileContent: string): Record<string, string> => {
     }
 
     const msgstrMatch = line.match(/^msgstr\s+"((?:[^"\\]|\\.)*)"$/);
-    if (msgstrMatch) {
+    if (msgstrMatch?.[1]) {
       msgstr = unescapePO(msgstrMatch[1]);
       currentField = 'msgstr';
       continue;
@@ -144,7 +145,7 @@ export const parsePO = (fileContent: string): Record<string, string> => {
 
     // Continuation line: `"..."` appends to the current keyword's value
     const contMatch = line.match(/^"((?:[^"\\]|\\.)*)"$/);
-    if (contMatch) {
+    if (contMatch?.[1]) {
       if (currentField === 'msgid') {
         msgid += unescapePO(contMatch[1]);
       } else if (currentField === 'msgstr') {
@@ -410,10 +411,23 @@ export const syncPO = async (options: SyncPOPluginOptions): Promise<Plugin> => {
     name: 'sync-po',
 
     loadDictionaries: async ({ configuration }) => {
+      const appLogger = getAppLogger(configuration);
       const dictionariesMap: DictionariesMap = await loadMessagePathMap(
         options.source,
         configuration
       );
+
+      if (dictionariesMap.length === 0) {
+        const pattern = await parseFilePathPattern(options.source, {
+          key: '{{key}}',
+          locale: '{{locale}}',
+        } as any as FilePathPatternContext);
+
+        appLogger(
+          `[sync-po] No dictionaries found at locations matching source pattern: ${colorizePath(pattern)}`,
+          { level: 'warn' }
+        );
+      }
 
       let fill: string = await parseFilePathPattern(options.source, {
         key: '{{key}}',

@@ -1,6 +1,7 @@
 import { mkdir, writeFile } from 'node:fs/promises';
-import { dirname, isAbsolute, join, relative, resolve } from 'node:path';
+import { dirname, isAbsolute, relative, resolve } from 'node:path';
 import { loadExternalFile } from '@intlayer/config/file';
+import { colorizePath, getAppLogger } from '@intlayer/config/logger';
 import { parseFilePathPattern } from '@intlayer/config/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
@@ -310,10 +311,23 @@ export const syncJSON = async (
     name: 'sync-json',
 
     loadDictionaries: async ({ configuration }) => {
+      const appLogger = getAppLogger(configuration);
       const dictionariesMap: DictionariesMap = await loadMessagePathMap(
         options.source,
         configuration
       );
+
+      if (dictionariesMap.length === 0) {
+        const pattern = await parseFilePathPattern(options.source, {
+          key: '{{key}}',
+          locale: '{{locale}}',
+        } as any as FilePathPatternContext);
+
+        appLogger(
+          `[sync-json] No dictionaries found at locations matching source pattern: ${colorizePath(pattern)}`,
+          { level: 'warn' }
+        );
+      }
 
       let fill: string = await parseFilePathPattern(options.source, {
         key: '{{key}}',

@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { isAbsolute, relative, resolve } from 'node:path';
+import { colorizePath, getAppLogger } from '@intlayer/config/logger';
 import { parseFilePathPattern } from '@intlayer/config/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
@@ -203,10 +204,23 @@ export const loadPO = (options: LoadPOPluginOptions): Plugin => {
     name: 'load-po',
 
     loadDictionaries: async ({ configuration }) => {
+      const appLogger = getAppLogger(configuration);
       const dictionariesMap: DictionariesMap = await loadMessagePathMap(
         options.source,
         configuration
       );
+
+      if (dictionariesMap.length === 0) {
+        const pattern = await parseFilePathPattern(options.source, {
+          key: '{{key}}',
+          locale: '{{locale}}',
+        } as any as FilePathPatternContext);
+
+        appLogger(
+          `No dictionaries found at locations matching source pattern: ${colorizePath(pattern)}`,
+          { level: 'warn' }
+        );
+      }
 
       const dictionaries: Dictionary[] = [];
 
