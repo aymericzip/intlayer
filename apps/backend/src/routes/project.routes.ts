@@ -3,6 +3,7 @@ import {
   deleteProject,
   deleteProjectByIdAdmin,
   getCIConfiguration,
+  getProjectInsights,
   getProjects,
   pushCIConfiguration,
   pushProjectConfiguration,
@@ -32,6 +33,11 @@ export const getProjectRoutes = () =>
     getProjects: {
       urlModel: '/',
       url: baseURL(),
+      method: 'GET',
+    },
+    getProjectInsights: {
+      urlModel: '/insights',
+      url: `${baseURL()}/insights`,
       method: 'GET',
     },
     addProject: {
@@ -121,6 +127,10 @@ export const getProjectRoutes = () =>
 
 export const projectRouter = async (fastify: FastifyInstance) => {
   fastify.get(getProjectRoutes().getProjects.urlModel, getProjects);
+  fastify.get(
+    getProjectRoutes().getProjectInsights.urlModel,
+    getProjectInsights
+  );
   fastify.post(getProjectRoutes().addProject.urlModel, addProject);
   fastify.put(getProjectRoutes().updateProject.urlModel, updateProject);
   fastify.put(

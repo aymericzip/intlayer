@@ -6,6 +6,7 @@ import type {
   DeleteAccessKeyBody,
   DeleteAccessKeyResponse,
   DeleteProjectResult,
+  GetProjectInsightsResult,
   GetProjectsParams,
   GetProjectsResult,
   PushProjectConfigurationBody,
@@ -54,6 +55,22 @@ export const getProjectAPI = (
         cache: 'no-store',
         // @ts-ignore Number of parameter will be stringified by the fetcher
         params: filters,
+      }
+    );
+
+  /**
+   * Retrieves aggregated localization insights for the currently selected
+   * project (locale/key counts, per-locale completion, missing translations,
+   * recent activity, team/config status).
+   */
+  const getProjectInsights = async (otherOptions: FetcherOptions = {}) =>
+    await fetcher<GetProjectInsightsResult>(
+      `${PROJECT_API_ROUTE}/insights`,
+      authAPIOptions,
+      otherOptions,
+      {
+        cache: 'no-store',
+        method: 'GET',
       }
     );
 
@@ -332,6 +349,7 @@ export const getProjectAPI = (
 
   return {
     getProjects,
+    getProjectInsights,
     addProject,
     updateProject,
     updateProjectMembers,

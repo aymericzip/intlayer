@@ -10,6 +10,48 @@ export const INTLAYER_GETTERS: Set<string> = new Set([
   'useI18n',
 ]);
 
+/**
+ * Which positional argument holds the namespace/dictionary key for each getter.
+ * -1 means no positional namespace argument (e.g. useI18n takes an options object).
+ */
+export const GETTER_NAMESPACE_ARG_INDEX: Map<string, number> = new Map([
+  ['useIntlayer', 0],
+  ['getIntlayer', 0],
+  ['useTranslation', 0],
+  ['useTranslations', 0],
+  ['getTranslations', 0],
+  ['getFixedT', 1], // signature: getFixedT(locale, namespace)
+  ['useI18n', -1], // no positional namespace arg
+]);
+
+/** Extract the string value from the Nth argument of a call expression. */
+export const getStringArgAt = (
+  callNode: OxcNode,
+  index: number
+): string | null => {
+  const args = callNode['arguments'] as OxcNode[] | undefined;
+  if (!args || args.length <= index) return null;
+  const arg = args[index]!;
+
+  if (
+    (arg['type'] === 'Literal' || arg['type'] === 'StringLiteral') &&
+    typeof arg['value'] === 'string'
+  ) {
+    return arg['value'];
+  }
+
+  if (
+    arg['type'] === 'TemplateLiteral' &&
+    (arg['expressions'] as unknown[])?.length === 0
+  ) {
+    const quasis = arg['quasis'] as OxcNode[] | undefined;
+    const val = quasis?.[0]?.['value'] as OxcNode | undefined;
+    return (val?.['cooked'] as string) ?? (val?.['raw'] as string) ?? null;
+  }
+
+  return null;
+};
+
 export type OxcNode = Record<string, unknown>;
 
 /**

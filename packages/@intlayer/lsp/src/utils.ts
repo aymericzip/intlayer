@@ -12,4 +12,5 @@ export {
   findContentFieldAtOffset,
   findKeyInContentFile,
 } from './findKeyInContentFile';
+export { findTCallAtOffset } from './findTCallAtOffset';
 export { findUsageFieldAtOffset } from './findUsageFieldAtOffset';

@@ -45,9 +45,12 @@ import {
   findContentFieldAtOffset,
   findKeyInContentFile,
 } from './findKeyInContentFile';
+import { findTCallAtOffset } from './findTCallAtOffset';
 import { findUsageFieldAtOffset } from './findUsageFieldAtOffset';
 import {
+  GETTER_NAMESPACE_ARG_INDEX,
   getFirstStringArg,
+  getStringArgAt,
   INTLAYER_GETTERS,
   isIntlayerCall,
   type OxcNode,
@@ -490,8 +493,13 @@ const computeDiagnostics = (
 
   walkAst(program, (node) => {
     if (!isIntlayerCall(node)) return;
-    const key = getFirstStringArg(node);
 
+    const callee = node['callee'] as OxcNode;
+    const funcName = callee['name'] as string;
+    const argIndex = GETTER_NAMESPACE_ARG_INDEX.get(funcName) ?? 0;
+    if (argIndex < 0) return true; // useI18n — no positional namespace to validate
+
+    const key = getStringArgAt(node, argIndex);
     if (!key) return;
 
     const known = Object.values(unmergedDictionaries)
@@ -500,14 +508,14 @@ const computeDiagnostics = (
 
     if (!known) {
       const args = node['arguments'] as OxcNode[] | undefined;
-      const firstArg = args?.[0];
+      const namespaceArg = args?.[argIndex];
 
-      if (firstArg) {
+      if (namespaceArg) {
         diagnostics.push({
           range: offsetToRange(
             text,
-            firstArg['start'] as number,
-            firstArg['end'] as number
+            namespaceArg['start'] as number,
+            namespaceArg['end'] as number
           ),
           severity: DiagnosticSeverity.Warning,
           source: 'intlayer',
@@ -515,7 +523,7 @@ const computeDiagnostics = (
         });
       }
     }
-    return true; // prune: arguments can't be useIntlayer calls
+    return true; // prune: arguments can't be getter calls
   });
 
   return diagnostics;
@@ -720,11 +728,11 @@ connection.onDefinition(async (parameters) => {
     return locations.length ? locations : null;
   }
 
-  // Cursor on a destructured property or member access property from useIntlayer
-  // e.g. const { localeSwitcherLabel } = useIntlayer("locale-switcher")
-  //                ^^^^^^^^^^^^^^^^^^  ← cursor here
-  // e.g. t.localeSwitcherLabel  where  const t = useIntlayer("locale-switcher")
-  const usageField = findUsageFieldAtOffset(text, offset);
+  // Cursor on a destructured property or member access from a getter result:
+  //   const { label } = useIntlayer("key")   ← cursor on label
+  //   t.label  where const t = useIntlayer("key")
+  const usageField =
+    findUsageFieldAtOffset(text, offset) ?? findTCallAtOffset(text, offset);
 
   if (usageField) {
     log(
@@ -812,8 +820,9 @@ connection.onReferences(async (parameters: ReferenceParams) => {
     return locations.length ? locations : null;
   }
 
-  // Source file: field property → content-file field definitions
-  const usageField = findUsageFieldAtOffset(text, offset);
+  // Source file: field property or t('field') call → content-file field definitions
+  const usageField =
+    findUsageFieldAtOffset(text, offset) ?? findTCallAtOffset(text, offset);
 
   if (usageField) {
     const locations = await getContentFieldLocations(
@@ -912,8 +921,9 @@ connection.onHover(async (parameters: HoverParams): Promise<Hover | null> => {
     return null;
   }
 
-  // Source file: cursor on a field property from useIntlayer result
-  const usageField = findUsageFieldAtOffset(text, offset);
+  // Source file: cursor on a field property or t('field') call
+  const usageField =
+    findUsageFieldAtOffset(text, offset) ?? findTCallAtOffset(text, offset);
 
   if (usageField) {
     const dicts = getDicts(usageField.dictionaryKey);

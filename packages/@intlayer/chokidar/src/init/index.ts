@@ -17,8 +17,11 @@ import {
   updateAstroConfig,
   updateIntlayerConfigWithSyncPlugin,
   updateNextConfig,
+  updateNextConfigForNextI18next,
+  updateNextConfigForNextIntl,
   updateNuxtConfig,
   updateViteConfig,
+  updateViteConfigForVueI18n,
   writeFileToRoot,
 } from './utils';
 
@@ -426,9 +429,21 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
     if (await exists(rootDir, file)) {
       hasAliasConfiguration = true;
       const content = await readFileFromRoot(rootDir, file);
+      const extension = file.split('.').pop()!;
 
-      if (!content.includes('vite-intlayer')) {
-        const extension = file.split('.').pop()!;
+      if (allDeps['vue-i18n']) {
+        if (!content.includes('@intlayer/vue-i18n')) {
+          const updatedContent = updateViteConfigForVueI18n(content, extension);
+          await writeFileToRoot(rootDir, file, updatedContent);
+          logger(
+            `${v} Updated ${colorizePath(file)} to include Intlayer vue-i18n compat plugin`
+          );
+        } else {
+          logger(
+            `${v} ${colorizePath(file)} already includes @intlayer/vue-i18n`
+          );
+        }
+      } else if (!content.includes('vite-intlayer')) {
         const updatedContent = updateViteConfig(content, extension);
         await writeFileToRoot(rootDir, file, updatedContent);
         logger(`${v} Updated ${colorizePath(file)} to include Intlayer plugin`);
@@ -446,9 +461,39 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
       isNextJsProject = true;
       hasAliasConfiguration = true;
       const content = await readFileFromRoot(rootDir, file);
+      const extension = file.split('.').pop()!;
 
-      if (!content.includes('next-intlayer')) {
-        const extension = file.split('.').pop()!;
+      if (allDeps['next-i18next']) {
+        if (!content.includes('@intlayer/next-i18next')) {
+          const updatedContent = updateNextConfigForNextI18next(
+            content,
+            extension
+          );
+          await writeFileToRoot(rootDir, file, updatedContent);
+          logger(
+            `${v} Updated ${colorizePath(file)} to include Intlayer next-i18next compat plugin`
+          );
+        } else {
+          logger(
+            `${v} ${colorizePath(file)} already includes @intlayer/next-i18next`
+          );
+        }
+      } else if (allDeps['next-intl']) {
+        if (!content.includes('@intlayer/next-intl/plugin')) {
+          const updatedContent = updateNextConfigForNextIntl(
+            content,
+            extension
+          );
+          await writeFileToRoot(rootDir, file, updatedContent);
+          logger(
+            `${v} Updated ${colorizePath(file)} to include Intlayer next-intl compat plugin`
+          );
+        } else {
+          logger(
+            `${v} ${colorizePath(file)} already includes @intlayer/next-intl/plugin`
+          );
+        }
+      } else if (!content.includes('next-intlayer')) {
         const updatedContent = updateNextConfig(content, extension);
         await writeFileToRoot(rootDir, file, updatedContent);
         logger(`${v} Updated ${colorizePath(file)} to include Intlayer plugin`);

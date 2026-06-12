@@ -36,6 +36,19 @@ export const useGetProjects = (
   });
 };
 
+export const useGetProjectInsights = (options?: Partial<UseQueryOptions>) => {
+  const projectAPI = useProjectAPI();
+
+  return useAppQuery({
+    queryKey: ['project', 'insights'],
+    queryFn: ({ signal }) => projectAPI.getProjectInsights({ signal }),
+    requireUser: true,
+    requireOrganization: true,
+    requireProject: true,
+    ...options,
+  });
+};
+
 export const useAddProject = () => {
   const projectAPI = useProjectAPI();
 

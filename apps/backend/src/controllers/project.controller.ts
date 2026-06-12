@@ -1,7 +1,10 @@
 import { logger } from '@logger';
 import { SessionModel } from '@schemas/session.schema';
 import * as ciService from '@services/ci.service';
-import { createDemoDictionaries } from '@services/dictionary.service';
+import {
+  createDemoDictionaries,
+  findDictionaries,
+} from '@services/dictionary.service';
 import { refreshProjectScreenshotIfChanged } from '@services/project/projectScreenshot.service';
 import * as projectService from '@services/project.service';
 import * as userService from '@services/user.service';
@@ -12,6 +15,11 @@ import {
   getProjectFiltersAndPagination,
   type ProjectFiltersParams,
 } from '@utils/filtersAndPagination/getProjectFiltersAndPagination';
+import {
+  computeProjectInsights,
+  type InsightDictionaryInput,
+} from '@utils/insights/computeProjectInsights';
+import { mapDictionaryToAPI } from '@utils/mapper/dictionary';
 import { mapProjectsToAPI, mapProjectToAPI } from '@utils/mapper/project';
 import { hasPermission } from '@utils/permissions';
 import { getPlanDetails } from '@utils/plan';
@@ -30,6 +38,7 @@ import type {
   ProjectCreationData,
   ProjectData,
 } from '@/types/project.types';
+import type { ProjectInsights } from '@/types/projectInsights.types';
 import type { User } from '@/types/user.types';
 
 export type GetProjectsParams = FiltersAndPagination<ProjectFiltersParams>;
@@ -91,6 +100,83 @@ export const getProjects = async (
       totalPages: getNumberOfPages(totalItems),
       totalItems,
     });
+
+    return reply.send(responseData);
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type GetProjectInsightsResult = ResponseData<ProjectInsights>;
+
+/** Upper bound on dictionaries scanned to compute insights in a single pass. */
+const INSIGHTS_DICTIONARY_LIMIT = 100_000;
+
+/**
+ * Computes and returns localization insights (locale/key counts, per-locale
+ * completion, missing translations, recent activity, team/config status) for
+ * the currently selected project. Powers the dashboard overview page.
+ */
+export const getProjectInsights = async (
+  request: FastifyRequest,
+  reply: FastifyReply
+): Promise<void> => {
+  const { project, user, roles } = request.session || {};
+
+  if (!project) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_DEFINED'
+    );
+  }
+
+  if (!user) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
+  }
+
+  try {
+    const dictionaries = await findDictionaries(
+      { projectIds: project.id },
+      0,
+      INSIGHTS_DICTIONARY_LIMIT,
+      undefined,
+      true
+    );
+
+    if (
+      !hasPermission(
+        roles || [],
+        'dictionary:read'
+      )({
+        ...request.session,
+        targetDictionaries: dictionaries,
+      })
+    ) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'PERMISSION_DENIED'
+      );
+    }
+
+    // Fetch the full project so member/environment/repository metadata is
+    // available regardless of how much the session embeds.
+    const fullProject = await projectService.getProjectById(project.id);
+    const projectAPI = mapProjectToAPI(fullProject);
+
+    const insightDictionaries: InsightDictionaryInput[] = dictionaries.map(
+      (dictionary) => {
+        const apiDictionary = mapDictionaryToAPI(dictionary);
+        return {
+          key: apiDictionary.key,
+          content: apiDictionary.content,
+          updatedAt: apiDictionary.updatedAt,
+        };
+      }
+    );
+
+    const insights = computeProjectInsights(projectAPI, insightDictionaries);
+
+    const responseData = formatResponse<ProjectInsights>({ data: insights });
 
     return reply.send(responseData);
   } catch (error) {

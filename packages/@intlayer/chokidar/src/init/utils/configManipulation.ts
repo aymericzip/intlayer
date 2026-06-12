@@ -317,6 +317,220 @@ export const updateNuxtConfig = (content: string): string => {
 };
 
 /**
+ * Updates a Vite config for vue-i18n compat: injects `vueI18nVitePlugin` from
+ * `@intlayer/vue-i18n/plugin` into the plugins array.
+ */
+export const updateViteConfigForVueI18n = (
+  content: string,
+  extension: string
+): string => {
+  const ast = recast.parse(content, {
+    parser: require('recast/parsers/typescript'),
+  });
+
+  const isCJSFile =
+    extension === 'cjs' ||
+    (content.includes('module.exports') && !content.includes('import '));
+
+  injectImport(
+    ast,
+    isCJSFile,
+    'vueI18nVitePlugin',
+    '@intlayer/vue-i18n/plugin'
+  );
+
+  genericRecastVisit(ast, (obj) =>
+    updatePluginArray(obj, 'plugins', 'vueI18nVitePlugin')
+  );
+
+  return recast.print(ast).code;
+};
+
+/**
+ * Updates a Next.js config for next-i18next compat: wraps the default export
+ * with `withI18next` from `@intlayer/next-i18next/plugin`.
+ */
+export const updateNextConfigForNextI18next = (
+  content: string,
+  extension: string
+): string => {
+  const ast = recast.parse(content, {
+    parser: require('recast/parsers/typescript'),
+  });
+
+  const isCJSFile = extension === 'cjs' || content.includes('module.exports');
+
+  injectImport(ast, isCJSFile, 'withI18next', '@intlayer/next-i18next/plugin');
+
+  recast.visit(ast, {
+    visitExportDefaultDeclaration(path) {
+      const declaration = path.node.declaration;
+      if (
+        n.Expression.check(declaration) &&
+        !(
+          n.CallExpression.check(declaration) &&
+          n.Identifier.check(declaration.callee) &&
+          declaration.callee.name === 'withI18next'
+        )
+      ) {
+        path
+          .get('declaration')
+          .replace(
+            b.callExpression(b.identifier('withI18next'), [declaration as any])
+          );
+      }
+      return false;
+    },
+    visitAssignmentExpression(path) {
+      const { left, right } = path.node;
+
+      if (
+        n.MemberExpression.check(left) &&
+        recast.print(left).code === 'module.exports' &&
+        !(
+          n.CallExpression.check(right) &&
+          n.Identifier.check(right.callee) &&
+          right.callee.name === 'withI18next'
+        )
+      ) {
+        path
+          .get('right')
+          .replace(b.callExpression(b.identifier('withI18next'), [right]));
+      }
+      return false;
+    },
+  });
+
+  return recast.print(ast).code;
+};
+
+/**
+ * Updates a Next.js config for next-intl compat: replaces any existing
+ * `next-intl/plugin` import source with `@intlayer/next-intl/plugin`, or
+ * injects `createNextIntlPlugin` with a factory-call wrapper when no such
+ * import is present.
+ */
+export const updateNextConfigForNextIntl = (
+  content: string,
+  extension: string
+): string => {
+  const ast = recast.parse(content, {
+    parser: require('recast/parsers/typescript'),
+  });
+
+  const isCJSFile = extension === 'cjs' || content.includes('module.exports');
+  let replacedExistingSource = false;
+
+  // Replace 'next-intl/plugin' import source with the compat package.
+  recast.visit(ast, {
+    visitImportDeclaration(path) {
+      if (path.node.source.value === 'next-intl/plugin') {
+        path.node.source = b.stringLiteral('@intlayer/next-intl/plugin');
+        replacedExistingSource = true;
+      }
+      return false;
+    },
+  });
+
+  if (replacedExistingSource) {
+    return recast.print(ast).code;
+  }
+
+  // No existing next-intl/plugin import: check whether createNextIntlPlugin is
+  // already present from any source before injecting the full factory pattern.
+  const hasCreatePlugin = (ast.program.body as any[]).some((stmt: any) => {
+    if (!n.ImportDeclaration.check(stmt)) return false;
+    return (stmt.specifiers ?? []).some(
+      (spec: any) =>
+        (n.ImportSpecifier.check(spec) &&
+          spec.imported.name === 'createNextIntlPlugin') ||
+        (n.ImportDefaultSpecifier.check(spec) &&
+          spec.local?.name === 'createNextIntlPlugin')
+    );
+  });
+
+  if (hasCreatePlugin) {
+    return recast.print(ast).code;
+  }
+
+  // Inject the import.
+  injectImport(
+    ast,
+    isCJSFile,
+    'createNextIntlPlugin',
+    '@intlayer/next-intl/plugin'
+  );
+
+  // Insert a factory-call variable declaration after the last import.
+  const lastImportIndex = (ast.program.body as any[]).reduce(
+    (lastIndex: number, stmt: any, index: number) => {
+      if (n.ImportDeclaration.check(stmt)) return index;
+      return lastIndex;
+    },
+    -1
+  );
+
+  const factoryCallDeclaration = b.variableDeclaration('const', [
+    b.variableDeclarator(
+      b.identifier('_withNextIntlayer'),
+      b.callExpression(b.identifier('createNextIntlPlugin'), [])
+    ),
+  ]);
+
+  (ast.program.body as any[]).splice(
+    lastImportIndex + 1,
+    0,
+    factoryCallDeclaration
+  );
+
+  // Wrap the default export with _withNextIntlayer(...).
+  recast.visit(ast, {
+    visitExportDefaultDeclaration(path) {
+      const declaration = path.node.declaration;
+      if (
+        n.Expression.check(declaration) &&
+        !(
+          n.CallExpression.check(declaration) &&
+          n.Identifier.check(declaration.callee) &&
+          declaration.callee.name === '_withNextIntlayer'
+        )
+      ) {
+        path
+          .get('declaration')
+          .replace(
+            b.callExpression(b.identifier('_withNextIntlayer'), [
+              declaration as any,
+            ])
+          );
+      }
+      return false;
+    },
+    visitAssignmentExpression(path) {
+      const { left, right } = path.node;
+
+      if (
+        n.MemberExpression.check(left) &&
+        recast.print(left).code === 'module.exports' &&
+        !(
+          n.CallExpression.check(right) &&
+          n.Identifier.check(right.callee) &&
+          right.callee.name === '_withNextIntlayer'
+        )
+      ) {
+        path
+          .get('right')
+          .replace(
+            b.callExpression(b.identifier('_withNextIntlayer'), [right])
+          );
+      }
+      return false;
+    },
+  });
+
+  return recast.print(ast).code;
+};
+
+/**
  * Parses a syncJSON({ ... }) call expression from a source snippet so it can
  * be injected into a config AST without manually constructing template-literal
  * nodes via builders.
