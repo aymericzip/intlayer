@@ -21,7 +21,7 @@ export const AsideNavigation: FC = () => {
 
   return (
     <>
-      <div className="relative h-full w-70 px-2">
+      <div className="relative flex min-h-0 w-70 flex-1 flex-col">
         <div className="relative z-10 mt-10 flex w-full flex-row items-center pt-2">
           <h2 className="ml-3 text-nowrap text-neutral/80 text-sm uppercase">
             {title}
@@ -29,7 +29,7 @@ export const AsideNavigation: FC = () => {
 
           <div className="absolute bottom-0 left-0 h-8 w-full translate-y-full bg-linear-to-b from-background/90 backdrop-blur" />
         </div>
-        <div className="flex h-screen max-h-[calc(100vh-8rem)] w-full flex-1 md:sticky md:top-60 md:pt-0">
+        <div className="relative flex min-h-0 w-full flex-1 overflow-hidden rounded-2xl md:pt-0">
           <div className="mt-4 pl-5">
             <NavTitles />
           </div>
