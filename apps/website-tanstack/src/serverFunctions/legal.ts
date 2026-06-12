@@ -1,8 +1,10 @@
 import { createServerFn } from '@tanstack/react-start';
+import { staticFunctionMiddleware } from '@tanstack/start-static-server-functions';
 import { parseMarkdown } from 'react-intlayer/markdown';
 
 export const loadLegalContent = createServerFn()
   .validator((data: { locale: string; docKey: string }) => data)
+  // .middleware([staticFunctionMiddleware])
   .handler(async ({ data: { locale, docKey } }) => {
     const { getLegal, getLegalMetadata } = await import('@intlayer/docs');
 

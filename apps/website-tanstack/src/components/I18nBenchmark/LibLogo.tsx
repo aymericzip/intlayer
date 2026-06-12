@@ -1,16 +1,11 @@
 import { Logo } from '@intlayer/design-system/logo';
-import { cn } from '@intlayer/design-system/utils';
-import { useTheme } from 'next-themes';
 import type { FC } from 'react';
-import { getLibColors, LIB_LOGOS, type StaticImport } from './constants';
+import { LIB_LOGOS, type StaticImport } from './constants';
 
 export const LibLogo: FC<{ id: string; className?: string }> = ({
   id,
   className,
 }) => {
-  const { resolvedTheme } = useTheme();
-  const isDarkMode = resolvedTheme === 'dark';
-
   if (id === 'intlayer' || id === 'react-intlayer') {
     return <Logo className={className} />;
   }
@@ -32,10 +27,5 @@ export const LibLogo: FC<{ id: string; className?: string }> = ({
       />
     );
   }
-  return (
-    <div
-      className={cn('size-4 shrink-0 rounded-full', className)}
-      style={{ backgroundColor: getLibColors(isDarkMode)[id] || '#94a3b8' }}
-    />
-  );
+  return <></>;
 };

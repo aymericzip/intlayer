@@ -1,4 +1,5 @@
 import { createServerFn } from '@tanstack/react-start';
+import { staticFunctionMiddleware } from '@tanstack/start-static-server-functions';
 import { parseMarkdown } from 'react-intlayer/markdown';
 import {
   getBlogData,
@@ -8,6 +9,7 @@ import { urlRenamer } from '~/utils/markdown';
 
 export const loadBlogPage = createServerFn()
   .validator((data: { locale: string; slugs: string[] }) => data)
+  // .middleware([staticFunctionMiddleware])
   .handler(async ({ data: { locale, slugs } }) => {
     const { getBlog, getBlogMetadataBySlug } = await import('@intlayer/docs');
 
@@ -41,6 +43,7 @@ export const loadBlogPage = createServerFn()
 
 export const loadBlogRaw = createServerFn()
   .validator((data: { locale: string; slugs: string[] }) => data)
+  // .middleware([staticFunctionMiddleware])
   .handler(async ({ data: { locale, slugs } }) => {
     const { getBlog, getBlogMetadataBySlug } = await import('@intlayer/docs');
 
@@ -62,4 +65,5 @@ export const loadBlogRaw = createServerFn()
 
 export const loadBlogNavData = createServerFn()
   .validator((data: { locale: string }) => data)
+  // .middleware([staticFunctionMiddleware])
   .handler(async ({ data: { locale } }) => getBlogData(locale));

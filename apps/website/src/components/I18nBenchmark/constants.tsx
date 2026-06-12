@@ -97,6 +97,10 @@ export const getLibColors = (isDarkMode: boolean): Record<string, string> => ({
 export const LIB_LOGOS: Record<string, StaticImport | null> = {
   intlayer: null,
   'next-intlayer': null,
+  'react-intlayer': null,
+  'vue-intlayer': null,
+  'svelte-intlayer': null,
+  'solid-intlayer': null,
   'next-intl': NextIntlLogo as StaticImport,
   'use-intl': NextIntlLogo as StaticImport,
   lingui: LinguiLogo as StaticImport,

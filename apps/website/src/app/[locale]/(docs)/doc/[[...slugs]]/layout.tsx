@@ -1,4 +1,5 @@
 import { DocPageLayout } from '@components/DocPage/DocPageLayout';
+import { getDocData } from '@components/DocPage/docData';
 import { getImageWithMetadata } from '@components/getImageWithMetadata';
 import { getDocMetadataBySlug } from '@intlayer/docs';
 import { getLocalizedUrl, getMultilingualUrls, Locales } from 'intlayer';
@@ -89,7 +90,11 @@ const DocLayout: NextLayoutIntlayer<DocProps> = async ({
   const { locale, slugs } = await params;
 
   return (
-    <DocPageLayout activeSlugs={slugs} locale={locale}>
+    <DocPageLayout
+      docData={getDocData(locale)}
+      activeSlugs={slugs}
+      locale={locale}
+    >
       {children}
     </DocPageLayout>
   );

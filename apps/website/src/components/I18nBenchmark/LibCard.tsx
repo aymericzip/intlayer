@@ -1,5 +1,4 @@
 import { Button } from '@intlayer/design-system/button';
-import { Checkbox } from '@intlayer/design-system/input';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 import type { LibInfo } from './constants';
@@ -23,37 +22,44 @@ export const LibCard: FC<{
       size="sm"
       variant="hoverable"
       onClick={onToggle}
-      isActive={isActive}
-      className="relative h-12 min-w-32 shrink-0 overflow-hidden text-left"
+      className="relative h-12 w-full overflow-hidden text-left"
     >
-      <div className="flex flex-row items-center gap-4 px-3 py-1.5">
-        <Checkbox
+      <div className="flex w-full flex-row items-center gap-2 px-2 py-1.5">
+        <input
+          type="checkbox"
           name={lib.id}
           checked={isActive}
           onChange={onToggle}
           onClick={(e) => e.stopPropagation()}
-          size="sm"
-          color="neutral"
           aria-label={lib.name}
+          hidden
         />
         {colors[lib.id] && (
-          <div
-            className="absolute top-0 left-0 h-full w-0.75 rounded-r-full"
-            style={{ backgroundColor: colors[lib.id] }}
-          />
+          <div className="justify-left flex h-5 w-5 shrink-0 items-center">
+            <span
+              className="size-2.5 rounded-full"
+              style={
+                isActive
+                  ? {
+                      backgroundColor: colors[lib.id],
+                    }
+                  : { border: 'solid 1px' }
+              }
+            />
+          </div>
         )}
 
         {/* Logo container */}
-        <div className="items-left flex h-5 w-20 min-w-20 shrink-0 justify-center">
+        <div className="flex h-5 min-w-0 max-w-12 flex-1 shrink items-center justify-center sm:max-w-16 md:max-w-20">
           <LibLogo
             id={lib.id}
-            className="h-5 w-auto max-w-30 rounded-sm object-contain"
+            className="max-h-full max-w-full object-contain"
           />
         </div>
 
         {/* Text container */}
-        <div className="flex flex-col items-start justify-center gap-2 overflow-hidden text-left">
-          <span className="truncate font-semibold text-xs leading-tight">
+        <div className="flex shrink-0 flex-col items-start justify-center gap-1 text-left">
+          <span className="font-semibold text-xs leading-tight">
             {lib.name}
           </span>
           {lib.version && (

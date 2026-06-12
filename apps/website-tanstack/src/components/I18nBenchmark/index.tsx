@@ -555,16 +555,22 @@ export const I18nBenchmark = ({
         </div>
       </div>
 
-      {/* Library selector — flex, wraps by breakpoint */}
-      <div className={cn('flex flex-wrap items-center justify-center gap-2')}>
-        {allLibs.map((lib) => (
-          <LibCard
-            key={lib.id}
-            lib={lib}
-            isActive={activeLibs[lib.id] ?? true}
-            onToggle={() => toggleLib(lib.id)}
-          />
-        ))}
+      {/* Library selector — grid layout */}
+      <div className="max-h-60 overflow-y-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 [&>div:nth-child(2n)]:border-r-0 sm:[&>div:nth-child(2n)]:border-r sm:[&>div:nth-child(3n)]:border-r-0 md:[&>div:nth-child(3n)]:border-r md:[&>div:nth-child(4n)]:border-r-0 lg:[&>div:nth-child(4n)]:border-r lg:[&>div:nth-child(5n)]:border-r-0 xl:[&>div:nth-child(5n)]:border-r xl:[&>div:nth-child(6n)]:border-r-0 [&>div:nth-last-child(-n+2)]:border-b-0 sm:[&>div:nth-last-child(-n+2)]:border-b sm:[&>div:nth-last-child(-n+3)]:border-b-0 md:[&>div:nth-last-child(-n+3)]:border-b md:[&>div:nth-last-child(-n+4)]:border-b-0 lg:[&>div:nth-last-child(-n+4)]:border-b lg:[&>div:nth-last-child(-n+5)]:border-b-0 xl:[&>div:nth-last-child(-n+5)]:border-b xl:[&>div:nth-last-child(-n+6)]:border-b-0">
+          {allLibs.map((lib) => (
+            <div
+              key={lib.id}
+              className="border-border border-r border-b border-dotted p-2"
+            >
+              <LibCard
+                lib={lib}
+                isActive={activeLibs[lib.id] ?? true}
+                onToggle={() => toggleLib(lib.id)}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );

@@ -1,8 +1,8 @@
 import type { BlogMetadata } from '@intlayer/docs';
 import type { LocalesValues } from 'intlayer';
+import { useIntlayer } from 'next-intlayer/server';
 import { type FC, useMemo } from 'react';
-import { useIntlayer } from 'react-intlayer';
-import { Link } from '~/components/Link/Link';
+import { Link } from '../Link/Link';
 
 type RelatedPostsProps = {
   allBlogs: BlogMetadata[];
@@ -18,9 +18,10 @@ type RelatedPostsProps = {
 export const RelatedPosts: FC<RelatedPostsProps> = ({
   allBlogs,
   currentDocKey,
+  locale,
   count = 4,
 }) => {
-  const content = useIntlayer('related-posts');
+  const content = useIntlayer('related-posts', locale);
 
   const relatedPosts = useMemo(() => {
     const candidates = allBlogs.filter((blog) => blog.docKey !== currentDocKey);
@@ -41,7 +42,7 @@ export const RelatedPosts: FC<RelatedPostsProps> = ({
         {relatedPosts.map((post) => (
           <div key={post.docKey} className="px-2">
             <Link
-              to={post.relativeUrl}
+              href={post.relativeUrl}
               variant="invisible-link"
               label={content.visitBlogTitle({ title: post.title })}
               className="group flex flex-col gap-2.5 py-5 no-underline sm:px-5 last:sm:pr-0 first:sm:pl-0"
@@ -80,9 +81,10 @@ type LastPostsProps = {
 export const LastPosts: FC<LastPostsProps> = ({
   allBlogs,
   currentDocKey,
+  locale,
   count = 4,
 }) => {
-  const content = useIntlayer('related-posts');
+  const content = useIntlayer('related-posts', locale);
 
   const lastPosts = useMemo(() => {
     const candidates = currentDocKey
@@ -109,7 +111,7 @@ export const LastPosts: FC<LastPostsProps> = ({
         {lastPosts.map((post) => (
           <div key={post.docKey} className="px-2">
             <Link
-              to={post.relativeUrl}
+              href={post.relativeUrl}
               variant="invisible-link"
               label={content.visitBlogTitle({ title: post.title })}
               className="group flex flex-col gap-2.5 py-5 no-underline sm:px-5 last:sm:pr-0 first:sm:pl-0"

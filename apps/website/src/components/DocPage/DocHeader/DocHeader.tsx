@@ -3,8 +3,9 @@
 import { Avatar } from '@intlayer/design-system/avatar';
 import { Container } from '@intlayer/design-system/container';
 import { useDevice } from '@intlayer/design-system/hooks';
+import { Link } from '@intlayer/design-system/link';
 import type { DocMetadata } from '@intlayer/docs';
-import { useIntlayer, useLocale } from 'next-intlayer/server';
+import { useIntlayer, useLocale } from 'next-intlayer';
 import type { FC } from 'react';
 import { ApplicationShowcaseMessage } from '../ApplicationShowcaseMessage';
 import { ApplicationTemplateMessage } from '../ApplicationTemplateMessage';
@@ -57,21 +58,23 @@ export const DocHeader: FC<DocHeaderProps> = ({
         {author && (
           <span className="flex items-center gap-2">
             {authorLabel}:{' '}
-            <Link
-              label={authorGithubLabel({ author: author.name ?? author })}
-              href={`https://github.com/${author.github}`}
-              className="flex items-center gap-2 text-neutral"
-            >
-              {author.github && (
+            {author.github ? (
+              <Link
+                label={authorGithubLabel({ author: author.name })}
+                href={`https://github.com/${author.github}`}
+                className="flex items-center gap-2 text-neutral"
+              >
                 <Avatar
                   src={`https://github.com/${author.github}.png`}
                   alt={authorAvatarAlt({ author: author.name })}
                   size="sm"
                   className="scale-70"
                 />
-              )}
-              {author.name ?? author}
-            </Link>
+                {author.name}
+              </Link>
+            ) : (
+              <span className="text-neutral">{author.name}</span>
+            )}
           </span>
         )}
         <div className="flex w-full flex-row justify-between gap-4 py-2">

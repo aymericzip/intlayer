@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from '@intlayer/design-system/button';
 import { HeightResizer } from '@intlayer/design-system/height-resizer';
 import { useDevice } from '@intlayer/design-system/hooks';

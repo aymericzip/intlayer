@@ -1,4 +1,4 @@
-import { getIntlayer, type LocalesValues } from 'intlayer';
+import { defaultLocale, type LocalesValues } from 'intlayer';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC, ReactNode } from 'react';
 import { AsideNavigation } from './AsideNavigation/AsideNavigation';
@@ -8,35 +8,36 @@ import type { Section } from './types';
 
 type DocPageLayoutProps = {
   children?: ReactNode;
+  docData: Section;
   activeSlugs?: string[];
-  locale: LocalesValues;
+  locale?: LocalesValues;
   displayAsideNavigation?: boolean;
   displayBreadCrumb?: boolean;
 };
 
 export const DocPageLayout: FC<DocPageLayoutProps> = ({
   children,
-  locale,
+  docData,
+  locale = defaultLocale,
   activeSlugs = ['get-started'],
   displayAsideNavigation = true,
   displayBreadCrumb = true,
 }) => {
-  const docData = getIntlayer('doc-data', locale) as Section;
   const content = useIntlayer('doc-page-layout', locale);
 
   return (
     <>
-      <div className="flex h-screen w-screen flex-1 overflow-hidden bg-card max-md:flex-col">
+      <div className="flex w-full bg-card max-md:flex-col md:h-[calc(100dvh-3.5rem)]">
         <aside
           aria-label={content.documentationNavigation.value}
           className="z-40 flex-none"
         >
           <DocNavList docData={docData} activeSlugs={['doc', ...activeSlugs]} />
         </aside>
-        <div className="mx-1 mb-3 flex min-h-0 min-w-0 flex-1 flex-row overflow-hidden rounded-xl bg-background md:mr-2">
+        <div className="mx-1 mb-3 flex min-h-0 min-w-0 flex-1 flex-row rounded-2xl border border-neutral/40 bg-background md:mr-2">
           <article
             aria-label={content.documentationContent.value}
-            className="relative min-h-0 flex-1 overflow-y-auto px-4 pb-24 max-md:pl-10 md:px-10"
+            className="relative mb-3 h-full max-h-[calc(100vh-4.5rem)] w-auto flex-1 grow overflow-auto px-4 pb-24 max-md:pl-10 md:px-10"
             id="content"
           >
             <div className="m-auto max-w-3xl">
@@ -53,7 +54,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
 
           <aside
             aria-label={content.onThisPage.value}
-            className="flex-none max-lg:hidden"
+            className="flex flex-none flex-col max-lg:hidden"
           >
             {displayAsideNavigation && <AsideNavigation />}
           </aside>

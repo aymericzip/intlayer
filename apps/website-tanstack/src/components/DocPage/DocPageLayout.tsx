@@ -27,7 +27,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
 
   return (
     <>
-      <div className="flex h-[calc(100dvh-3.5rem)] w-full bg-card max-md:flex-col">
+      <div className="flex w-full bg-card max-md:flex-col md:h-[calc(100dvh-3.5rem)]">
         <aside
           aria-label={content.documentationNavigation.value}
           className="z-40 flex-none"
@@ -37,7 +37,7 @@ export const DocPageLayout: FC<DocPageLayoutProps> = ({
         <div className="mx-1 mb-3 flex min-h-0 min-w-0 flex-1 flex-row rounded-2xl border border-neutral/40 bg-background md:mr-2">
           <article
             aria-label={content.documentationContent.value}
-            className="relative flex-1 overflow-y-auto px-4 pb-24 max-md:pl-10 md:px-10"
+            className="relative mb-3 h-full max-h-[calc(100vh-4.5rem)] w-auto flex-1 grow overflow-auto px-4 pb-24 max-md:pl-10 md:px-10"
             id="content"
           >
             <div className="m-auto max-w-3xl">

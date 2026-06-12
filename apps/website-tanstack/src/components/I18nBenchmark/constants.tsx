@@ -58,6 +58,7 @@ export const getLibColors = (isDarkMode: boolean): Record<string, string> => ({
   'vue-intlayer': isDarkMode ? '#c4c4c4ff' : '#1e1e1eff',
   'svelte-intlayer': isDarkMode ? '#c4c4c4ff' : '#1e1e1eff',
   'solid-intlayer': isDarkMode ? '#c4c4c4ff' : '#1e1e1eff',
+  'next-intlayer': isDarkMode ? '#c4c4c4ff' : '#1e1e1eff',
   'next-intl': '#64b5dc',
   'use-intl': '#64b5dc',
   'next-i18next': '#0b786e',
@@ -96,6 +97,10 @@ export const getLibColors = (isDarkMode: boolean): Record<string, string> => ({
 export const LIB_LOGOS: Record<string, StaticImport | null> = {
   intlayer: null,
   'react-intlayer': null,
+  'vue-intlayer': null,
+  'svelte-intlayer': null,
+  'solid-intlayer': null,
+  'next-intlayer': null,
   'next-intl': NextIntlLogo as StaticImport,
   'use-intl': NextIntlLogo as StaticImport,
   lingui: LinguiLogo as StaticImport,

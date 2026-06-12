@@ -1,4 +1,5 @@
 import { createServerFn } from '@tanstack/react-start';
+import { staticFunctionMiddleware } from '@tanstack/start-static-server-functions';
 import { parseMarkdown } from 'react-intlayer/markdown';
 import {
   getDocData,
@@ -8,6 +9,7 @@ import { urlRenamer } from '~/utils/markdown';
 
 export const loadDocPage = createServerFn()
   .validator((data: { locale: string; slugs: string[] }) => data)
+  // .middleware([staticFunctionMiddleware])
   .handler(async ({ data: { locale, slugs } }) => {
     const { getDoc, getDocMetadata, getDocMetadataBySlug } = await import(
       '@intlayer/docs'
@@ -50,10 +52,12 @@ export const loadDocPage = createServerFn()
 
 export const loadNavData = createServerFn()
   .validator((data: { locale: string }) => data)
+  // .middleware([staticFunctionMiddleware])
   .handler(async ({ data: { locale } }) => getDocData(locale));
 
 export const loadDocRaw = createServerFn()
   .validator((data: { locale: string; slugs: string[] }) => data)
+  // .middleware([staticFunctionMiddleware])
   .handler(async ({ data: { locale, slugs } }) => {
     const { getDoc, getDocMetadata, getDocMetadataBySlug, getDocsKeys } =
       await import('@intlayer/docs');

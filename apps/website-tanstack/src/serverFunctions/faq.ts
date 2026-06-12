@@ -1,9 +1,11 @@
 import { createServerFn } from '@tanstack/react-start';
+import { staticFunctionMiddleware } from '@tanstack/start-static-server-functions';
 import { parseMarkdown } from 'react-intlayer/markdown';
 import { urlRenamer } from '~/utils/markdown';
 
 export const loadFaqPage = createServerFn()
   .validator((data: { locale: string; slugs: string[] }) => data)
+  // .middleware([staticFunctionMiddleware])
   .handler(async ({ data: { locale, slugs } }) => {
     const { getFrequentQuestion, getFrequentQuestionMetadataBySlug } =
       await import('@intlayer/docs');
@@ -29,6 +31,7 @@ export const loadFaqPage = createServerFn()
 
 export const loadFaqRaw = createServerFn()
   .validator((data: { locale: string; slugs: string[] }) => data)
+  // .middleware([staticFunctionMiddleware])
   .handler(async ({ data: { locale, slugs } }) => {
     const { getFrequentQuestion, getFrequentQuestionMetadataBySlug } =
       await import('@intlayer/docs');
@@ -47,6 +50,7 @@ export const loadFaqRaw = createServerFn()
 
 export const loadFaqIndex = createServerFn()
   .validator((data: { locale: string }) => data)
+  // .middleware([staticFunctionMiddleware])
   .handler(async ({ data: { locale } }) => {
     const { getFrequentQuestionMetadataRecord } = await import(
       '@intlayer/docs'

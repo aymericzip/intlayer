@@ -1,4 +1,5 @@
 import { BlogPageLayout } from '@components/BlogPage/BlogPageLayout';
+import { getBlogData } from '@components/BlogPage/blogData';
 import { getBlogMetadataBySlug } from '@intlayer/docs';
 import { getLocalizedUrl, getMultilingualUrls, Locales } from 'intlayer';
 import type { Metadata } from 'next';
@@ -68,9 +69,27 @@ const BlogLayout: NextLayoutIntlayer<BlogProps> = async ({
   params,
 }) => {
   const { locale, slugs } = await params;
+  const blogData = getBlogData(locale);
+
+  const blogsData = await getBlogMetadataBySlug(
+    ['blog', ...(slugs ?? [])],
+    locale,
+    true
+  );
+
+  const filteredBlogsData = blogsData.filter(
+    (blog) => blog.slugs.length === slugs.length + 1
+  );
+
+  const currentBlogDocKey = filteredBlogsData[0]?.docKey;
 
   return (
-    <BlogPageLayout activeSlugs={slugs} locale={locale}>
+    <BlogPageLayout
+      blogData={blogData}
+      activeSlugs={slugs}
+      locale={locale}
+      currentBlogDocKey={currentBlogDocKey}
+    >
       {children}
     </BlogPageLayout>
   );
