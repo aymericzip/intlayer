@@ -1,3 +1,6 @@
+import { log } from '@intlayer/config/built';
+import * as ANSIColors from '@intlayer/config/colors';
+import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { getIntlayer } from '@intlayer/core/interpreter';
 import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
 import type {
@@ -84,6 +87,13 @@ const resolveKey = (
 };
 
 export const createI18n = ((options: Record<string, unknown> = {}) => {
+  if (options.messages !== undefined) {
+    const appLogger = getAppLogger({ log });
+    appLogger(
+      `${colorize('createI18n', ANSIColors.CYAN)}: the ${colorize('`messages`', ANSIColors.CYAN)} option is ignored when using ${colorize('@intlayer/vue-i18n', ANSIColors.MAGENTA)} — translations are served from the compiled intlayer dictionaries instead. Remove the locale JSON imports and the ${colorize('`messages`', ANSIColors.CYAN)} option to reduce your bundle size:\n  ${colorize('Before:', ANSIColors.GREY)} createI18n({ messages: { en, fr, … } })\n  ${colorize('After: ', ANSIColors.GREY)} createI18n({})`
+    );
+  }
+
   const locale = (options.locale as string) ?? 'en';
   const availableLocales = options.messages
     ? Object.keys(options.messages as Record<string, unknown>)

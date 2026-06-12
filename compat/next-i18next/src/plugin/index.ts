@@ -230,3 +230,15 @@ export const createNextI18nPlugin = (_i18nPath?: string) => {
 };
 
 export default createNextI18nPlugin;
+
+/**
+ * A pre-instantiated Next.js plugin for next-i18next compat.
+ * Wraps a NextConfig directly without requiring the factory call pattern.
+ *
+ * Usage:
+ * ```ts
+ * import { withI18next } from '@intlayer/next-i18next/plugin';
+ * export default withI18next(nextConfig);
+ * ```
+ */
+export const withI18next = createNextI18nPlugin();

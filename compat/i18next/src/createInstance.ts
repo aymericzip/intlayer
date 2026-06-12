@@ -1,4 +1,6 @@
-import { internationalization } from '@intlayer/config/built';
+import { internationalization, log } from '@intlayer/config/built';
+import * as ANSIColors from '@intlayer/config/colors';
+import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { getIntlayer } from '@intlayer/core/interpreter';
 import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
 import type {
@@ -45,9 +47,20 @@ const SKIP_KEYS = new Set([
   'returnDetails',
 ]);
 
+const warnIgnoredResources = (location: string) => {
+  const appLogger = getAppLogger({ log });
+  appLogger(
+    `${colorize(location, ANSIColors.CYAN)}: the ${colorize('`resources`', ANSIColors.CYAN)} option is ignored when using ${colorize('@intlayer/i18next', ANSIColors.MAGENTA)} — translations are served from the compiled intlayer dictionaries instead. Remove the resource imports and the ${colorize('`resources`', ANSIColors.CYAN)} option to reduce your bundle size.`
+  );
+};
+
 export const createInstance: typeof _createInstance = (
   instanceOptions: InitOptions = {}
 ): I18nInterface => {
+  if ((instanceOptions as Record<string, unknown>).resources !== undefined) {
+    warnIgnoredResources('createInstance');
+  }
+
   const config = internationalization;
 
   let currentLanguage: string =
@@ -149,6 +162,9 @@ export const createInstance: typeof _createInstance = (
         typeof optionsOrCb === 'function'
           ? {}
           : ((optionsOrCb ?? {}) as Record<string, unknown>);
+      if (opts.resources !== undefined) {
+        warnIgnoredResources('i18next.init');
+      }
       if (opts.lng) currentLanguage = opts.lng as string;
       if (opts.defaultNS) defaultNS = opts.defaultNS as string;
       else if (opts.ns)

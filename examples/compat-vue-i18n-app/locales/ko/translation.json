@@ -1,0 +1,353 @@
+{
+  "shared": {
+    "appName": "i18n Bench",
+    "siteName": "i18n Benchmark",
+    "contactEmail": "contact{'@'}intlayer.org",
+    "goToGithub": "GitHub로 이동"
+  },
+  "header": {
+    "home": "홈",
+    "methodology": "방법론",
+    "mockPages": "모의 페이지",
+    "products": "제품",
+    "pricing": "가격",
+    "team": "팀",
+    "blog": "블로그",
+    "careers": "채용",
+    "faq": "FAQ",
+    "contact": "문의",
+    "settings": "설정"
+  },
+  "footer": {
+    "title": "i18n Benchmark",
+    "description": "국제화 라이브러리가 번들 크기, 로딩 시간, 앱 반응성에 미치는 실제 영향을 측정하기 위한 오픈소스 테스트 애플리케이션입니다.",
+    "resources": "리소스",
+    "github": "GitHub",
+    "methodology": "방법론",
+    "contributing": "기여",
+    "contact": "문의",
+    "builtWith": "i18n Benchmark — 오픈소스 프로젝트. Vue, Vite 및 클라이언트 사이드 라우터로 제작되었습니다."
+  },
+  "themeToggle": {
+    "auto": "테마: 자동",
+    "dark": "테마: 다크",
+    "light": "테마: 라이트",
+    "labelAuto": "테마 모드: 자동(시스템). 클릭하면 라이트 모드로 전환됩니다.",
+    "labelOther": "테마 모드: {mode}. 클릭하여 모드를 전환합니다."
+  },
+  "mockBanner": "⚠️ 이 페이지는 벤치마킹 목적으로만 사용되는 모의 데이터를 포함합니다. 실제 사업이나 서비스와는 관련이 없습니다.",
+  "home": {
+    "hero": {
+      "title": "i18n Benchmark",
+      "description": "국제화 라이브러리가 번들 크기, 로딩 성능, 렌더링 반응성에 미치는 실제 영향을 측정하도록 설계된 테스트 애플리케이션입니다.",
+      "viewResults": "결과 보기",
+      "methodology": "방법론"
+    },
+    "whyItMatters": {
+      "title": "이 지표가 중요한 이유",
+      "bundleSizeTitle": "번들 크기",
+      "bundleSizeDesc": "번들은 전 세계 모든 사용자에게 전달되는 데이터입니다. 번들이 클수록 다운로드 시간이 길어집니다. 특히 많은 지역에서 흔한 느린 3G 환경에서 그렇습니다. i18n 라이브러리는 몇 킬로바이트에서 수십 킬로바이트의 런타임 코드와 번역 파일까지 무게가 크게 다릅니다.",
+      "renderingTitle": "렌더링 및 하이드레이션",
+      "renderingDesc": "큰 JSON 사전을 모든 컴포넌트에 연결하면 숨겨진 의존성이 생깁니다. 번역 컨텍스트가 바뀌면 트리 전체가 다시 그려질 수 있습니다. SSR 하이드레이션 중에는 방대한 번역 객체를 파싱하고 붙이는 데 지연이 생겨, 페이지가 인터랙티브해지기 전까지 시간이 길어지며 Time to Interactive(TTI)에 직접 영향을 줍니다.",
+      "dynamicLoadingTitle": "동적 로딩",
+      "dynamicLoadingDesc": "모든 번역을 미리 불러오면 초기 페이로드가 과부하됩니다. 동적(지연) 로딩은 번역을 라우트나 네임스페이스별로 나누어 현재 페이지에 필요한 것만 보냅니다. 다만 지연 로딩에는 워터폴 요청, 번역되지 않은 콘텐츠의 깜빡임, 캐시 복잡성 같은 트레이드오프가 따릅니다. 두 전략을 모두 측정하는 것이 중요합니다."
+    },
+    "understandingImpact": {
+      "title": "영향 이해하기",
+      "singleJsonTitle": "하나의 큰 JSON이 성능을 해치는 이유",
+      "singleJsonIntro": "많은 i18n 라이브러리는 React 컨텍스트로 제공되는 단일 JSON 객체에 번역을 저장합니다. 이 객체가 매우 크면(수천 개의 키) 번역을 쓰는 모든 컴포넌트가 전체 사전을 참조하게 됩니다. 즉:",
+      "singleJsonBullet1": "페이지를 불러올 때마다 JSON을 파싱해야 하며 메인 스레드를 막습니다.",
+      "singleJsonBullet2": "컨텍스트 기반 아키텍처에서는 로케일이 바뀔 때 특정 키가 바뀌지 않아도 모든 소비자에게 알림이 가며 연쇄 재렌더링이 일어날 수 있습니다.",
+      "singleJsonBullet3": "서버 사이드 렌더링에서는 전체 사전이 HTML 페이로드에 직렬화되어 다운로드·하이드레이션해야 할 문서 크기가 커집니다.",
+      "tradeOffsTitle": "동적 로딩의 트레이드오프",
+      "tradeOffsIntro": "번역을 라우트별 또는 네임스페이스별 청크로 나누면 초기 페이로드를 크게 줄일 수 있습니다. 하지만 새로운 과제도 생깁니다:",
+      "waterfallLabel": "워터폴 요청:",
+      "waterfallDesc": "앱이 먼저 로드되고 로케일을 결정한 뒤 올바른 청크를 가져와야 하며, 네트워크 왕복이 추가됩니다.",
+      "foucLabel": "번역되지 않은 콘텐츠의 깜빡임(FOUC):",
+      "foucDesc": "청크가 도착하기 전에 사용자가 번역 키나 대체 언어를 잠깐 볼 수 있습니다.",
+      "cacheLabel": "캐시 무효화:",
+      "cacheDesc": "번역을 갱신하려면 사용자가 바뀌지 않은 청크를 다시 받지 않고도 최신 콘텐츠를 받도록 캐시 무효화 전략이 필요합니다.",
+      "measuresTitle": "이 벤치마크가 측정하는 것",
+      "measuresDesc": "이 테스트 앱은 현실적인 콘텐츠가 있는 10개 페이지라는 통제된 환경에서, JavaScript 번들에 더해지는 무게, 번역 콘텐츠 파싱·렌더링에 쓰이는 시간, 코드 분할과 지연 로딩 전략의 효과라는 세 축으로 i18n 라이브러리를 비교합니다. 각 라이브러리는 동일한 앱에 통합되어 있어 결과를 직접 비교할 수 있습니다."
+    },
+    "resultsTable": {
+      "title": "샘플 결과",
+      "library": "라이브러리",
+      "bundleSize": "번들 크기",
+      "lookupTime": "조회 시간",
+      "lazyLoading": "지연 로딩",
+      "yes": "예",
+      "manual": "수동",
+      "builtIn": "내장"
+    }
+  },
+  "about": {
+    "header": {
+      "title": "이 벤치마크에 대해",
+      "description": "이것은 오픈소스 테스트 애플리케이션이며 제품이나 회사가 아닙니다. 목적은 서로 다른 i18n 라이브러리를 동일한 조건에서 통합·측정할 수 있도록 현실적인 다중 페이지 React 앱을 제공하는 것뿐입니다."
+    },
+    "grid": {
+      "whyExistsTitle": "존재 이유",
+      "whyExistsDesc": "i18n 라이브러리 선택은 장기적인 영향을 미치는 아키텍처 결정입니다. 대부분의 비교는 API 사용성에 초점을 맞추지만, 성능 비용을 측정하는 경우는 적습니다. 라이브러리가 번들에 얼마나 무게를 더하는가? 수천 개의 번역 키가 로드될 때 렌더링에 어떤 영향을 주는가? 지연 로딩이 실제로 도움이 되는가, 아니면 비용만 옮기는가? 이 벤치마크는 이런 질문에 실제 데이터로 답합니다.",
+      "methodologyTitle": "방법론",
+      "methodologyDesc": "동일한 10페이지 앱을 라이브러리마다 한 번씩 구축합니다. 프로덕션 번들(rollup-plugin-visualizer)을 측정하고, 로딩 지표에 대해 Lighthouse를 실행하며, 로케일 전환 시 렌더 시간을 React Profiler로 기록합니다. 모든 테스트는 재현 가능한 결과를 위해 일관된 하드웨어에서 CI로 실행됩니다."
+    },
+    "whatWeMeasure": {
+      "title": "측정 항목",
+      "bundleSizeImpact": "번들 크기 영향",
+      "bundleSizeImpactDesc": "i18n 라이브러리와 번역 파일이 포함될 때 사용자에게 전송되는 추가 JavaScript 바이트입니다. 느린 네트워크에서 다운로드 시간에 직접 영향을 줍니다.",
+      "renderingOverhead": "렌더링 오버헤드",
+      "renderingOverheadDesc": "라이브러리가 React 렌더 사이클에 더하는 추가 시간입니다. 단일 컨텍스트 프로바이더로 번역을 주입하는 라이브러리는 컴포넌트 트리 전반에 불필요한 재렌더를 유발할 수 있습니다.",
+      "hydrationCost": "하이드레이션 비용",
+      "hydrationCostDesc": "SSR 중 번역 데이터는 HTML에 직렬화됩니다. 큰 사전은 HTML 페이로드를 키우고 페이지가 인터랙티브해지는 순간인 하이드레이션을 늦춥니다.",
+      "lazyLoading": "지연 로딩 효과",
+      "lazyLoadingDesc": "라우트나 네임스페이스별로 번역을 나누는 것이 실제로 초기 부하를 줄이는지, 그리고 어떤 트레이드오프(워터폴 요청, FOUC, 캐시 복잡성)를 가져오는지입니다.",
+      "localeSwitch": "로케일 전환 속도",
+      "localeSwitchDesc": "실행 중에 한 언어에서 다른 언어로 얼마나 빨리 바꿀 수 있는지 — 새 번역 가져오기, 컴포넌트 재렌더, DOM 업데이트를 포함합니다."
+    }
+  },
+  "blog": {
+    "header": {
+      "title": "블로그",
+      "description": "i18n 커뮤니티의 인사이트, 튜토리얼, 분석."
+    },
+    "list": {
+      "readMore": "더 읽기 →",
+      "post1Title": "2026년 i18n 라이브러리 비교: 심층 분석",
+      "post1Date": "2026년 3월 15일",
+      "post1Excerpt": "성능, 번들 크기, DX를 놓고 12개 국제화 라이브러리를 테스트했습니다. 놀라운 결과를 소개합니다.",
+      "post1Category": "벤치마크",
+      "post2Title": "i18n 번들을 60% 줄이는 방법",
+      "post2Date": "2026년 3월 8일",
+      "post2Excerpt": "지연 로딩, 코드 분할, 컴파일 타임 최적화를 포함한 번역 번들 최적화 실전 전략.",
+      "post2Category": "튜토리얼",
+      "post3Title": "React에서 국제화의 현주소",
+      "post3Date": "2026년 2월 28일",
+      "post3Excerpt": "트렌드, 신흥 패턴, 커뮤니티 선호를 다루는 React i18n 생태계 개요.",
+      "post3Category": "분석",
+      "post4Title": "react-i18next에서 Lingui로 마이그레이션",
+      "post4Date": "2026년 2월 15일",
+      "post4Excerpt": "5만 개의 번역 키를 가진 프로덕션 앱을 react-i18next에서 Lingui로 옮기는 단계별 가이드.",
+      "post4Category": "튜토리얼",
+      "post5Title": "Server Components와 i18n: 무엇이 달라지나",
+      "post5Date": "2026년 2월 1일",
+      "post5Excerpt": "React Server Components가 국제화에 가져오는 새 패턴과 그 함의, 모범 사례를 살펴봅니다.",
+      "post5Category": "분석",
+      "post6Title": "벤치마크 방법론: 테스트 방식",
+      "post6Date": "2026년 1월 20일",
+      "post6Excerpt": "테스트 환경, 통계 방법, 재현성을 포함한 벤치마크 방법을 투명하게 공개합니다.",
+      "post6Category": "메타"
+    }
+  },
+  "careers": {
+    "header": {
+      "title": "채용",
+      "description": "국제화 생태계를 개선하겠다는 우리의 미션에 합류하세요. 영향력, 투명성, 지속적 학습을 중시하는 원격 우선 팀입니다."
+    },
+    "benefits": {
+      "remoteLabel": "원격 우선",
+      "remoteValue": "전 세계 어디서나 근무",
+      "payLabel": "경쟁력 있는 보상",
+      "payValue": "시장 상위 수준의 급여",
+      "ossLabel": "오픈소스 시간",
+      "ossValue": "시간의 20%를 OSS 기여에"
+    },
+    "openPositions": {
+      "title": "채용 중인 포지션",
+      "applyNow": "지원하기",
+      "remote": "원격",
+      "fullTime": "정규",
+      "partTime": "파트타임",
+      "engineering": "엔지니어링",
+      "documentation": "문서",
+      "community": "커뮤니티",
+      "sfRemote": "샌프란시스코 / 원격",
+      "frontendTitle": "시니어 프론트엔드 엔지니어",
+      "frontendDesc": "React, TypeScript, Vite로 벤치마크 대시보드와 개발자 도구를 구축·유지합니다.",
+      "backendTitle": "백엔드 엔지니어",
+      "backendDesc": "매일 수천 건의 자동 실행을 처리하는 클라우드 벤치마크 인프라를 설계·확장합니다.",
+      "writerTitle": "기술 작가",
+      "writerDesc": "벤치마크 플랫폼을 위한 가이드, API 참조, 튜토리얼을 작성합니다.",
+      "devrelTitle": "DevRel 엔지니어",
+      "devrelDesc": "강연, 워크숍, 블로그, 오픈소스 기여를 통해 i18n 커뮤니티와 소통합니다.",
+      "qaTitle": "QA 엔지니어",
+      "qaDesc": "엄격한 테스트와 검증으로 벤치마크 결과의 정확성과 신뢰성을 보장합니다."
+    }
+  },
+  "contact": {
+    "header": {
+      "title": "문의하기",
+      "description": "아이디어가 있거나 버그를 찾았거나 벤치마크에 기여하고 싶으신가요? 다음으로 연락 주세요"
+    },
+    "form": {
+      "name": "이름",
+      "yourName": "이름을 입력하세요",
+      "email": "이메일",
+      "emailPlaceholder": "you{'@'}example.com",
+      "topic": "주제",
+      "bugReport": "버그 신고",
+      "newBenchmarkIdea": "새 벤치마크 아이디어",
+      "methodologyQuestion": "방법론 질문",
+      "contribution": "기여",
+      "other": "기타",
+      "message": "메시지",
+      "messagePlaceholder": "질문이나 아이디어를 적어 주세요...",
+      "sendMessage": "메시지 보내기"
+    }
+  },
+  "faq": {
+    "header": {
+      "title": "자주 묻는 질문",
+      "description": "i18n Benchmark에 대해 알아야 할 모든 것."
+    },
+    "list": {
+      "q1": "i18n Benchmark란 무엇인가요?",
+      "a1": "i18n Benchmark는 JavaScript 및 React 애플리케이션용 국제화 라이브러리의 성능, 번들 크기, 개발자 경험을 측정·비교하는 오픈소스 벤치마크 스위트입니다.",
+      "q2": "벤치마크는 어떻게 진행되나요?",
+      "a2": "일관된 하드웨어로 격리된 환경에서 표준화된 테스트를 실행합니다. 통계적 유의성을 위해 각 벤치마크는 여러 번 반복됩니다. 모든 테스트 구성은 GitHub 저장소에 공개되어 있습니다.",
+      "q3": "현재 지원되는 라이브러리는 무엇인가요?",
+      "a3": "react-i18next, react-intl (FormatJS), Lingui, typesafe-i18n, next-intl, Paraglide, Rosetta, i18n-js, Polyglot.js, vue-i18n, {'@'}fluent/react, Tolgee를 지원합니다.",
+      "q4": "직접 벤치마크를 제출할 수 있나요?",
+      "a4": "네, 커뮤니티 벤치마크 제출을 환영합니다. 저장소를 포크하고 기여 가이드에 따라 벤치마크를 추가한 뒤 풀 리퀘스트를 보내 주세요. 팀이 검토하여 조건을 충족하면 병합합니다.",
+      "q5": "벤치마크는 얼마나 자주 갱신되나요?",
+      "a5": "각 라이브러리의 최신 안정 버전을 대상으로 매주 모든 벤치마크를 다시 실행합니다. 메이저 버전 출시 시에는 즉시 재벤치마크 사이클을 돌립니다.",
+      "q6": "데이터는 신뢰할 수 있나요?",
+      "a6": "웜업 실행, 이상치 제거, 신뢰 구간을 포함한 엄격한 통계 방법을 따릅니다. 완전한 투명성을 위해 모든 원시 데이터를 분석과 함께 공개합니다.",
+      "q7": "컨설팅 서비스를 제공하나요?",
+      "a7": "네. Enterprise 플랜에는 i18n 솔루션을 검토하는 팀을 위한 컨설팅 시간이 포함됩니다. 사용 사례, 규모, 제약에 맞춘 권장 사항을 드릴 수 있습니다.",
+      "q8": "어떻게 기여할 수 있나요?",
+      "a8": "벤치마크 제출, 문서 개선, 버그 신고, 새 지표 제안, 프로젝트 후원 등 다양한 방법이 있습니다. 자세한 내용은 GitHub 저장소를 참고하세요."
+    }
+  },
+  "pricing": {
+    "header": {
+      "title": "단순하고 투명한 가격",
+      "description": "팀에 맞는 플랜을 선택하세요. 숨겨진 요금은 없습니다."
+    },
+    "tiers": {
+      "starterName": "스타터",
+      "starterPrice": "$0",
+      "starterPeriod": "영구 무료",
+      "starterFeature1": "하루 5회 벤치마크 실행",
+      "starterFeature2": "3개 라이브러리",
+      "starterFeature3": "커뮤니티 지원",
+      "starterFeature4": "공개 결과",
+      "proName": "Pro",
+      "proPrice": "$29",
+      "proPeriod": "/월",
+      "proFeature1": "무제한 실행",
+      "proFeature2": "모든 라이브러리",
+      "proFeature3": "우선 지원",
+      "proFeature4": "비공개 결과",
+      "proFeature5": "CI 연동",
+      "proFeature6": "과거 데이터",
+      "enterpriseName": "엔터프라이즈",
+      "enterprisePrice": "맞춤",
+      "enterpriseFeature1": "Pro의 모든 것",
+      "enterpriseFeature2": "온프레미스 옵션",
+      "enterpriseFeature3": "SSO 및 SAML",
+      "enterpriseFeature4": "전담 계정 매니저",
+      "enterpriseFeature5": "맞춤 SLA",
+      "enterpriseFeature6": "감사 로그",
+      "enterpriseFeature7": "교육 세션",
+      "contactSales": "영업 문의",
+      "getStarted": "시작하기"
+    }
+  },
+  "products": {
+    "header": {
+      "title": "제품",
+      "description": "국제화 워크플로를 간소화하는 도구와 서비스."
+    },
+    "grid": {
+      "learnMore": "자세히 보기",
+      "cliName": "Benchmark CLI",
+      "cliDesc": "터미널에서 로컬로 벤치마크를 실행합니다. 사용자 정의 구성과 CI 연동을 지원합니다.",
+      "cliPrice": "무료",
+      "cloudName": "Benchmark Cloud",
+      "cloudDesc": "이력 추적, 알림, 팀 대시보드가 있는 자동화 클라우드 벤치마크.",
+      "cloudPrice": "$29/월",
+      "enterpriseName": "Benchmark Enterprise",
+      "enterpriseDesc": "SSO, 감사 로그, 맞춤 SLA, 전담 지원이 있는 온프레미스 배포.",
+      "enterprisePrice": "문의",
+      "migrationName": "마이그레이션 어시스턴트",
+      "migrationDesc": "다운타임 없이 i18n 라이브러리 간 코드베이스 이전을 돕는 AI 기반 도구.",
+      "migrationPrice": "$99 일회성",
+      "qaName": "번역 QA",
+      "qaDesc": "누락된 번역, 복수형 문제, 맥락 오류에 대한 자동 품질 검사.",
+      "qaPrice": "$19/월",
+      "optimizerName": "번들 옵티마이저",
+      "optimizerDesc": "트리 쉐이킹과 코드 분할로 프로덕션용 i18n 번들을 분석·최적화합니다.",
+      "optimizerPrice": "$49/월"
+    }
+  },
+  "settings": {
+    "header": {
+      "title": "설정",
+      "description": "계정 기본 설정과 구성을 관리합니다."
+    },
+    "profile": {
+      "title": "프로필",
+      "displayName": "표시 이름",
+      "email": "이메일"
+    },
+    "preferences": {
+      "title": "환경 설정",
+      "emailNotifications": "이메일 알림",
+      "weeklyReports": "주간 벤치마크 리포트 받기",
+      "toggleNotifications": "알림 켜기/끄기",
+      "darkMode": "다크 모드",
+      "darkColorScheme": "어두운 색 구성 사용",
+      "toggleDarkMode": "다크 모드 전환",
+      "defaultLanguage": "기본 언어",
+      "english": "영어 (en)",
+      "french": "프랑스어 (fr)",
+      "german": "독일어 (de)",
+      "spanish": "스페인어 (es)",
+      "japanese": "일본어 (ja)",
+      "chinese": "중국어 간체 (zh-CN)",
+      "arabic": "아랍어 (ar)"
+    },
+    "apiAccess": {
+      "title": "API 액세스",
+      "apiKey": "API 키",
+      "copy": "복사",
+      "description": "이 키를 사용하면 벤치마크 API를 프로그래밍 방식으로 호출할 수 있습니다."
+    },
+    "footer": {
+      "cancel": "취소",
+      "saveChanges": "변경 저장"
+    }
+  },
+  "team": {
+    "header": {
+      "title": "팀",
+      "description": "i18n Benchmark를 만드는 사람들을 소개합니다. 훌륭한 개발자 도구에 대한 열정으로 뭉친 다양한 팀입니다."
+    },
+    "grid": {
+      "member1Name": "Sarah Chen",
+      "member1Role": "창립자 · 리드 엔지니어",
+      "member1Bio": "대규모 국제화 시스템 구축 경험 10년의 전 Google 엔지니어.",
+      "member2Name": "Marcus Weber",
+      "member2Role": "성능 엔지니어",
+      "member2Bio": "JavaScript 성능 최적화와 벤치마크 방법론 전문. 이전 직장 Vercel.",
+      "member3Name": "Aisha Patel",
+      "member3Role": "Developer Advocate",
+      "member3Bio": "개발자 경험과 교육에 열정. React Conf, JSConf, i18nNext 연사.",
+      "member4Name": "Tomás Rodríguez",
+      "member4Role": "풀스택 개발자",
+      "member4Bio": "벤치마크 인프라와 CI/CD 파이프라인을 유지합니다. Lingui 오픈소스 기여자.",
+      "member5Name": "Yuki Tanaka",
+      "member5Role": "데이터 분석가",
+      "member5Bio": "모든 벤치마크 결과의 통계적 엄밀함을 담당. MIT 응용통계학 박사.",
+      "member6Name": "Elena Kowalski",
+      "member6Role": "커뮤니티 매니저",
+      "member6Bio": "커뮤니티 기여, 파트너십, 이벤트를 담당. 오픈소스 거버넌스 배경."
+    }
+  },
+  "notFound": {
+    "title": "404",
+    "description": "페이지를 찾을 수 없습니다",
+    "returnHome": "홈으로 돌아가기"
+  }
+}
