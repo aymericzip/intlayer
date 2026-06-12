@@ -32,7 +32,7 @@ export const HeroSection: FC = () => {
     primaryCta,
     secondaryCta,
     screenshotAlt,
-  } = useIntlayer('hero-section');
+  } = useIntlayer('hero-section-tms');
 
   const heroRef = useRef<HTMLElement>(null);
   const imageContainerRef = useRef<HTMLDivElement>(null);

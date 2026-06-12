@@ -3,7 +3,7 @@ import { CommonQuestionsSection } from '@components/LandingPage/CommonQuestionsS
 import { Loader } from '@intlayer/design-system/loader';
 import { useIntlayer } from 'next-intlayer/server';
 import { type FC, lazy, Suspense } from 'react';
-import { LandingSection } from './LandingSection';
+import { HeroSection } from './HeroSection';
 
 const AvailableTechnoSection = lazy(() =>
   import('./AvailableTechnoSection').then((mod) => ({
@@ -68,7 +68,7 @@ export const LandingPage: FC = () => {
       >
         <BackgroundLayout>
           <section aria-label={content.heroSection.value}>
-            <LandingSection />
+            <HeroSection />
           </section>
           <section aria-label={content.keyFeaturesSection.value}>
             <Suspense fallback={<Loader />}>

@@ -1,7 +1,7 @@
 import { type Dictionary, t } from 'intlayer';
 
 const heroSectionContent = {
-  key: 'hero-section',
+  key: 'hero-section-tms',
   title: 'TMS Landing Hero Section',
   description:
     'Hero section content for the TMS landing page, including the tagline, headline, subheadline, description, primary and secondary CTAs, and screenshot alt text.',

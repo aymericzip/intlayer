@@ -23,7 +23,7 @@ const SHOW_WHATS_NEW = true;
 
 const ContainerMotion = motion.create(Container);
 
-export const LandingSection: FC = () => {
+export const HeroSection: FC = () => {
   const {
     whatsNew,
     whatsNewLabel,
@@ -35,11 +35,11 @@ export const LandingSection: FC = () => {
     getStartedButton,
     availableFor,
     copyButton,
-  } = useIntlayer('landing-section');
+  } = useIntlayer('hero-section');
 
   const { resolvedTheme } = useTheme();
   const isDarkMode = resolvedTheme === 'dark';
-  const { isCopied, copy } = useCopyToClipboard('npm install intlayer');
+  const { isCopied, copy } = useCopyToClipboard('npx intlayer init');
 
   return (
     <section className="relative flex min-h-[calc(100vh-64px)] w-full flex-col px-4 md:px-8 lg:px-12">
@@ -106,7 +106,7 @@ export const LandingSection: FC = () => {
             className="m-auto mt-24 max-w-2xl flex-row items-center p-1 pl-6"
           >
             <CodeBlock lang="bash" isDarkMode={isDarkMode}>
-              npm install intlayer
+              npx intlayer init
             </CodeBlock>
             <Button
               variant="hoverable"

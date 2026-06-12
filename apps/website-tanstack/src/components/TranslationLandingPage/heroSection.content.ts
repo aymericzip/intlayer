@@ -1,7 +1,7 @@
 import { type Dictionary, md, t } from 'intlayer';
 
 const heroSectionContent = {
-  key: 'hero-section',
+  key: 'hero-section-translation',
   content: {
     pills: {
       freeOpenSource: t({

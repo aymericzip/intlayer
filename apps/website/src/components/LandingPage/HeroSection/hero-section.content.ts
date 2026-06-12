@@ -1,7 +1,7 @@
 import { type Dictionary, t } from 'intlayer';
 
-const landingSectionContent = {
-  key: 'landing-section',
+const heroSectionContent = {
+  key: 'hero-section',
   content: {
     whatsNew: t({
       ar: 'ما الجديد',
@@ -213,4 +213,4 @@ const landingSectionContent = {
   tags: ['landing page', 'section content'],
 } satisfies Dictionary;
 
-export default landingSectionContent;
+export default heroSectionContent;
