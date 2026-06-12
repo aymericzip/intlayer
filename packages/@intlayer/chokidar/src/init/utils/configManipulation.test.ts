@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { updateNextConfig, updateViteConfig } from './configManipulation';
+import {
+  updateIntlayerConfigWithSyncPlugin,
+  updateNextConfig,
+  updateViteConfig,
+} from './configManipulation';
 
 describe('configManipulation', () => {
   describe('updateViteConfig', () => {
@@ -198,6 +202,131 @@ export default { reactStrictMode: true };
       // Should not add another import
       const matches = updated.match(/from "next-intlayer\/server"/g);
       expect(matches?.length).toBe(1);
+    });
+  });
+
+  describe('updateIntlayerConfigWithSyncPlugin', () => {
+    const baseConfig = `
+import { type IntlayerConfig, Locales } from 'intlayer';
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+`;
+
+    it('injects syncJSON import and plugin call for i18next nested pattern', () => {
+      const updated = updateIntlayerConfigWithSyncPlugin(baseConfig, 'ts', {
+        format: 'i18next',
+        sourceTemplate: './src/locales/${locale}/${key}.json',
+      });
+
+      expect(updated).toContain(
+        'import { syncJSON } from "@intlayer/sync-json-plugin";'
+      );
+      expect(updated).toContain("format: 'i18next'");
+      expect(updated).toMatch(/source:\s*\(\{\s*locale,\s*key\s*\}\)/);
+      expect(updated).toContain('`./src/locales/${locale}/${key}.json`');
+    });
+
+    it('injects dictionary.format when format is i18next', () => {
+      const updated = updateIntlayerConfigWithSyncPlugin(baseConfig, 'ts', {
+        format: 'i18next',
+        sourceTemplate: './locales/${locale}/${key}.json',
+      });
+
+      expect(updated).toContain("format: 'i18next'");
+      // dictionary.format should appear in the config object (not just inside syncJSON)
+      expect(updated).toMatch(
+        /dictionary:\s*\{[^}]*format:\s*['"]i18next['"]/s
+      );
+    });
+
+    it('injects dictionary.format when format is vue-i18n', () => {
+      const updated = updateIntlayerConfigWithSyncPlugin(baseConfig, 'ts', {
+        format: 'vue-i18n',
+        sourceTemplate: './locales/${locale}/${key}.json',
+      });
+
+      expect(updated).toMatch(
+        /dictionary:\s*\{[^}]*format:\s*['"]vue-i18n['"]/s
+      );
+    });
+
+    it('injects dictionary.format when format is icu', () => {
+      const updated = updateIntlayerConfigWithSyncPlugin(baseConfig, 'ts', {
+        format: 'icu',
+        sourceTemplate: './locales/${locale}/${key}.json',
+      });
+
+      expect(updated).toMatch(/dictionary:\s*\{[^}]*format:\s*['"]icu['"]/s);
+    });
+
+    it('uses { locale } destructuring for flat pattern (no ${key} in template)', () => {
+      const updated = updateIntlayerConfigWithSyncPlugin(baseConfig, 'ts', {
+        format: 'vue-i18n',
+        sourceTemplate: './locales/${locale}.json',
+      });
+
+      expect(updated).toMatch(/source:\s*\(\{\s*locale\s*\}\)/);
+      expect(updated).toContain('`./locales/${locale}.json`');
+    });
+
+    it('uses { key, locale } destructuring for icu nested pattern', () => {
+      const updated = updateIntlayerConfigWithSyncPlugin(baseConfig, 'ts', {
+        format: 'icu',
+        sourceTemplate: './locales/${locale}/${key}.json',
+      });
+
+      expect(updated).toMatch(/source:\s*\(\{\s*key,\s*locale\s*\}\)/);
+    });
+
+    it('does not add dictionary.format if already present', () => {
+      const configWithDictionary = `
+import { type IntlayerConfig, Locales } from 'intlayer';
+
+const config: IntlayerConfig = {
+  internationalization: { locales: [Locales.ENGLISH], defaultLocale: Locales.ENGLISH },
+  dictionary: { format: 'i18next' },
+};
+
+export default config;
+`;
+      const updated = updateIntlayerConfigWithSyncPlugin(
+        configWithDictionary,
+        'ts',
+        { format: 'i18next', sourceTemplate: './locales/${locale}/${key}.json' }
+      );
+
+      const formatMatches = updated.match(/format:\s*['"]i18next['"]/g);
+      // One in dictionary.format, one inside syncJSON — but not duplicated in dictionary
+      expect(formatMatches).not.toBeNull();
+    });
+
+    it('does not add syncJSON plugin if already present', () => {
+      const configWithPlugin = `
+import { syncJSON } from '@intlayer/sync-json-plugin';
+import { type IntlayerConfig, Locales } from 'intlayer';
+
+const config: IntlayerConfig = {
+  internationalization: { locales: [Locales.ENGLISH], defaultLocale: Locales.ENGLISH },
+  plugins: [syncJSON({ format: 'i18next', source: ({ locale, key }) => \`./locales/\${locale}/\${key}.json\` })],
+};
+
+export default config;
+`;
+      const updated = updateIntlayerConfigWithSyncPlugin(
+        configWithPlugin,
+        'ts',
+        { format: 'i18next', sourceTemplate: './locales/${locale}/${key}.json' }
+      );
+
+      const syncMatches = updated.match(/syncJSON\(/g);
+      expect(syncMatches?.length).toBe(1);
     });
   });
 });

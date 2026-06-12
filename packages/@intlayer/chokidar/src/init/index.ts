@@ -6,6 +6,7 @@ import { getConfiguration } from '@intlayer/config/node';
 import { getAlias } from '@intlayer/config/utils';
 import { initConfig } from '../initConfig';
 import {
+  detectJsonLocalePattern,
   detectMissingIntlayerPackages,
   detectPackageManager,
   ensureDirectory,
@@ -19,9 +20,11 @@ import {
   updateNextConfig,
   updateNextConfigForNextI18next,
   updateNextConfigForNextIntl,
+  updateNextConfigForNextTranslate,
   updateNuxtConfig,
+  updateNuxtConfigForNuxtjsI18n,
   updateViteConfig,
-  updateViteConfigForVueI18n,
+  updateViteConfigForCompatPlugin,
   writeFileToRoot,
 } from './utils';
 
@@ -208,7 +211,7 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
 
   // INSTALL MISSING INTLAYER DEPENDENCIES
   const packageManager = detectPackageManager(rootDir);
-  const { packagesToInstall, compatSyncConfig } =
+  const { packagesToInstall, compatSyncConfig, compatVitePluginConfig } =
     detectMissingIntlayerPackages(allDeps);
 
   if (packagesToInstall.length > 0) {
@@ -388,6 +391,14 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
 
   // INJECT SYNC-JSON PLUGIN FOR COMPAT LIBRARIES
   if (compatSyncConfig) {
+    // Detect the locale JSON file pattern already in the project so we can
+    // produce the most accurate source template rather than relying on the
+    // hard-coded default.
+    const detectedPattern = await detectJsonLocalePattern(rootDir);
+    const resolvedSyncConfig = detectedPattern
+      ? { ...compatSyncConfig, sourceTemplate: detectedPattern.template }
+      : compatSyncConfig;
+
     const intlayerConfigCandidates = [
       'intlayer.config.ts',
       'intlayer.config.mjs',
@@ -404,7 +415,7 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
           const updatedConfigContent = updateIntlayerConfigWithSyncPlugin(
             configContent,
             extension,
-            compatSyncConfig
+            resolvedSyncConfig
           );
           await writeFileToRoot(rootDir, configFile, updatedConfigContent);
           logger(
@@ -431,16 +442,20 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
       const content = await readFileFromRoot(rootDir, file);
       const extension = file.split('.').pop()!;
 
-      if (allDeps['vue-i18n']) {
-        if (!content.includes('@intlayer/vue-i18n')) {
-          const updatedContent = updateViteConfigForVueI18n(content, extension);
+      if (compatVitePluginConfig) {
+        if (!content.includes(compatVitePluginConfig.pluginPackageSource)) {
+          const updatedContent = updateViteConfigForCompatPlugin(
+            content,
+            extension,
+            compatVitePluginConfig
+          );
           await writeFileToRoot(rootDir, file, updatedContent);
           logger(
-            `${v} Updated ${colorizePath(file)} to include Intlayer vue-i18n compat plugin`
+            `${v} Updated ${colorizePath(file)} to include ${compatVitePluginConfig.pluginFunctionName} compat plugin`
           );
         } else {
           logger(
-            `${v} ${colorizePath(file)} already includes @intlayer/vue-i18n`
+            `${v} ${colorizePath(file)} already includes ${compatVitePluginConfig.pluginPackageSource}`
           );
         }
       } else if (!content.includes('vite-intlayer')) {
@@ -493,6 +508,21 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
             `${v} ${colorizePath(file)} already includes @intlayer/next-intl/plugin`
           );
         }
+      } else if (allDeps['next-translate']) {
+        if (!content.includes('@intlayer/next-translate')) {
+          const updatedContent = updateNextConfigForNextTranslate(
+            content,
+            extension
+          );
+          await writeFileToRoot(rootDir, file, updatedContent);
+          logger(
+            `${v} Updated ${colorizePath(file)} to include Intlayer next-translate compat plugin`
+          );
+        } else {
+          logger(
+            `${v} ${colorizePath(file)} already includes @intlayer/next-translate`
+          );
+        }
       } else if (!content.includes('next-intlayer')) {
         const updatedContent = updateNextConfig(content, extension);
         await writeFileToRoot(rootDir, file, updatedContent);
@@ -537,7 +567,19 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
 
       const content = await readFileFromRoot(rootDir, file);
 
-      if (!content.includes('nuxt-intlayer')) {
+      if (allDeps['@nuxtjs/i18n']) {
+        if (!content.includes('@intlayer/nuxtjs-i18n')) {
+          const updatedContent = updateNuxtConfigForNuxtjsI18n(content);
+          await writeFileToRoot(rootDir, file, updatedContent);
+          logger(
+            `${v} Updated ${colorizePath(file)} to include @intlayer/nuxtjs-i18n module`
+          );
+        } else {
+          logger(
+            `${v} ${colorizePath(file)} already includes @intlayer/nuxtjs-i18n`
+          );
+        }
+      } else if (!content.includes('nuxt-intlayer')) {
         const updatedContent = updateNuxtConfig(content);
         await writeFileToRoot(rootDir, file, updatedContent);
         logger(`${v} Updated ${colorizePath(file)} to include Intlayer module`);

@@ -1,5 +1,8 @@
 import * as recast from 'recast';
-import type { CompatSyncConfig } from './packageManager';
+import type {
+  CompatSyncConfig,
+  CompatVitePluginConfig,
+} from './packageManager';
 
 const { builders: b, namedTypes: n } = recast.types;
 
@@ -347,12 +350,46 @@ export const updateViteConfigForVueI18n = (
 };
 
 /**
- * Updates a Next.js config for next-i18next compat: wraps the default export
- * with `withI18next` from `@intlayer/next-i18next/plugin`.
+ * Generic vite config updater for any compat plugin that uses alias injection.
+ * Injects the named import from `pluginPackageSource` and appends the plugin
+ * call to the `plugins` array.
  */
-export const updateNextConfigForNextI18next = (
+export const updateViteConfigForCompatPlugin = (
   content: string,
-  extension: string
+  extension: string,
+  pluginConfig: CompatVitePluginConfig
+): string => {
+  const ast = recast.parse(content, {
+    parser: require('recast/parsers/typescript'),
+  });
+
+  const isCJSFile =
+    extension === 'cjs' ||
+    (content.includes('module.exports') && !content.includes('import '));
+
+  injectImport(
+    ast,
+    isCJSFile,
+    pluginConfig.pluginFunctionName,
+    pluginConfig.pluginPackageSource
+  );
+
+  genericRecastVisit(ast, (obj) =>
+    updatePluginArray(obj, 'plugins', pluginConfig.pluginFunctionName)
+  );
+
+  return recast.print(ast).code;
+};
+
+/**
+ * Generic Next.js config wrapper for compat plugins. Injects the import and
+ * wraps the default export / `module.exports` with a HOC call.
+ */
+const wrapNextConfigWithHoc = (
+  content: string,
+  extension: string,
+  hocFunctionName: string,
+  pluginPackageSource: string
 ): string => {
   const ast = recast.parse(content, {
     parser: require('recast/parsers/typescript'),
@@ -360,7 +397,7 @@ export const updateNextConfigForNextI18next = (
 
   const isCJSFile = extension === 'cjs' || content.includes('module.exports');
 
-  injectImport(ast, isCJSFile, 'withI18next', '@intlayer/next-i18next/plugin');
+  injectImport(ast, isCJSFile, hocFunctionName, pluginPackageSource);
 
   recast.visit(ast, {
     visitExportDefaultDeclaration(path) {
@@ -370,13 +407,15 @@ export const updateNextConfigForNextI18next = (
         !(
           n.CallExpression.check(declaration) &&
           n.Identifier.check(declaration.callee) &&
-          declaration.callee.name === 'withI18next'
+          declaration.callee.name === hocFunctionName
         )
       ) {
         path
           .get('declaration')
           .replace(
-            b.callExpression(b.identifier('withI18next'), [declaration as any])
+            b.callExpression(b.identifier(hocFunctionName), [
+              declaration as any,
+            ])
           );
       }
       return false;
@@ -390,12 +429,12 @@ export const updateNextConfigForNextI18next = (
         !(
           n.CallExpression.check(right) &&
           n.Identifier.check(right.callee) &&
-          right.callee.name === 'withI18next'
+          right.callee.name === hocFunctionName
         )
       ) {
         path
           .get('right')
-          .replace(b.callExpression(b.identifier('withI18next'), [right]));
+          .replace(b.callExpression(b.identifier(hocFunctionName), [right]));
       }
       return false;
     },
@@ -403,6 +442,99 @@ export const updateNextConfigForNextI18next = (
 
   return recast.print(ast).code;
 };
+
+/**
+ * Updates a Next.js config for next-translate compat: wraps the default export
+ * with `withNextTranslate` from `@intlayer/next-translate/plugin`.
+ */
+export const updateNextConfigForNextTranslate = (
+  content: string,
+  extension: string
+): string =>
+  wrapNextConfigWithHoc(
+    content,
+    extension,
+    'withNextTranslate',
+    '@intlayer/next-translate/plugin'
+  );
+
+/**
+ * Updates a Nuxt config for nuxtjs-i18n compat: adds `@intlayer/nuxtjs-i18n`
+ * to the `modules` array.
+ */
+export const updateNuxtConfigForNuxtjsI18n = (content: string): string => {
+  const ast = recast.parse(content, {
+    parser: require('recast/parsers/typescript'),
+  });
+
+  const updateConfigObject = (objExpr: any) => {
+    if (
+      !objExpr ||
+      (objExpr.type !== 'ObjectExpression' &&
+        !n.ObjectExpression.check(objExpr))
+    )
+      return;
+
+    let modulesProp = (objExpr.properties as any[]).find((p: any) => {
+      if (!p?.key) return false;
+      const keyName = p.key.name || p.key.value;
+      return keyName === 'modules';
+    }) as any;
+
+    if (!modulesProp) {
+      modulesProp = b.property(
+        'init',
+        b.identifier('modules'),
+        b.arrayExpression([])
+      );
+      (objExpr.properties as any[]).push(modulesProp);
+    }
+
+    const modulesValue = modulesProp.value;
+
+    if (
+      modulesValue &&
+      (modulesValue.type === 'ArrayExpression' ||
+        n.ArrayExpression.check(modulesValue))
+    ) {
+      const hasModule = (modulesValue.elements as any[]).some((el: any) => {
+        if (
+          n.StringLiteral.check(el) ||
+          el.type === 'StringLiteral' ||
+          el.type === 'Literal'
+        ) {
+          return (el.value ?? el.extra?.rawValue) === '@intlayer/nuxtjs-i18n';
+        }
+        return false;
+      });
+
+      if (!hasModule) {
+        (modulesValue.elements as any[]).push(
+          b.stringLiteral('@intlayer/nuxtjs-i18n')
+        );
+      }
+    }
+  };
+
+  genericRecastVisit(ast, updateConfigObject, ['defineNuxtConfig']);
+
+  return recast.print(ast).code;
+};
+
+/**
+ * Updates a Next.js config for next-i18next compat: wraps the default export
+ * with `withI18next` from `@intlayer/next-i18next/plugin`.
+ */
+export const updateNextConfigForNextI18next = (
+  content: string,
+  extension: string
+): string =>
+  wrapNextConfigWithHoc(
+    content,
+    extension,
+    'withI18next',
+    '@intlayer/next-i18next/plugin'
+  );
 
 /**
  * Updates a Next.js config for next-intl compat: replaces any existing
@@ -534,10 +666,21 @@ export const updateNextConfigForNextIntl = (
  * Parses a syncJSON({ ... }) call expression from a source snippet so it can
  * be injected into a config AST without manually constructing template-literal
  * nodes via builders.
+ *
+ * The destructuring parameters adapt to whether the source template uses the
+ * `key` placeholder (nested pattern) or only `locale` (flat pattern).
  */
 const buildSyncJSONCallNode = (syncConfig: CompatSyncConfig): any => {
+  const usesKey = syncConfig.sourceTemplate.includes('${key}');
   const paramDestructuring =
-    syncConfig.format === 'icu' ? '{ key, locale }' : '{ locale, key }';
+    syncConfig.format === 'icu'
+      ? usesKey
+        ? '{ key, locale }'
+        : '{ locale }'
+      : usesKey
+        ? '{ locale, key }'
+        : '{ locale }';
+
   // The sourceTemplate contains ${locale} / ${key} as literal characters;
   // they become proper template expressions once the snippet is parsed by recast.
   const snippet = `syncJSON({ format: '${syncConfig.format}', source: (${paramDestructuring}) => \`${syncConfig.sourceTemplate}\` })`;
@@ -545,6 +688,52 @@ const buildSyncJSONCallNode = (syncConfig: CompatSyncConfig): any => {
     parser: require('recast/parsers/typescript'),
   });
   return (snippetAst.program.body[0] as any).expression;
+};
+
+/**
+ * Injects or ensures `dictionary: { format: '<value>' }` exists in an object
+ * expression.  Leaves any pre-existing `dictionary` properties untouched —
+ * only the `format` sub-property is added when absent.
+ */
+const injectDictionaryFormat = (objExpr: any, format: string): void => {
+  if (
+    !objExpr ||
+    (objExpr.type !== 'ObjectExpression' && !n.ObjectExpression.check(objExpr))
+  )
+    return;
+
+  let dictionaryProp = (objExpr.properties as any[]).find((prop: any) => {
+    if (!prop?.key) return false;
+    return (prop.key.name ?? prop.key.value) === 'dictionary';
+  });
+
+  if (!dictionaryProp) {
+    dictionaryProp = b.property(
+      'init',
+      b.identifier('dictionary'),
+      b.objectExpression([])
+    );
+    (objExpr.properties as any[]).push(dictionaryProp);
+  }
+
+  const dictionaryObj = dictionaryProp.value;
+  if (
+    !dictionaryObj ||
+    (dictionaryObj.type !== 'ObjectExpression' &&
+      !n.ObjectExpression.check(dictionaryObj))
+  )
+    return;
+
+  const hasFormat = (dictionaryObj.properties as any[]).some((prop: any) => {
+    if (!prop?.key) return false;
+    return (prop.key.name ?? prop.key.value) === 'format';
+  });
+
+  if (!hasFormat) {
+    (dictionaryObj.properties as any[]).push(
+      b.property('init', b.identifier('format'), b.stringLiteral(format))
+    );
+  }
 };
 
 /**
@@ -574,6 +763,10 @@ export const updateIntlayerConfigWithSyncPlugin = (
         !n.ObjectExpression.check(objExpr))
     )
       return;
+
+    // Inject dictionary.format alongside the plugin so intlayer knows how to
+    // interpret dictionary content at runtime.
+    injectDictionaryFormat(objExpr, syncConfig.format);
 
     let pluginsProp = (objExpr.properties as any[]).find((prop: any) => {
       if (!prop?.key) return false;

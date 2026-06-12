@@ -712,6 +712,13 @@ const buildDictionaryFields = (
      * Default: `"static"`
      */
     importMode: customConfiguration?.importMode ?? IMPORT_MODE,
+
+    /**
+     * The default message format for all dictionaries in the project.
+     *
+     * Default: 'intlayer'
+     */
+    format: customConfiguration?.format,
   };
 };
 
