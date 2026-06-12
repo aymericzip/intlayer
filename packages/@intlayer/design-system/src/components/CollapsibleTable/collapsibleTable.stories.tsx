@@ -550,7 +550,7 @@ export const CustomStyling: Story = {
     data: sampleData.slice(0, 2),
     defaultExpanded: true,
     className: 'border-2 border-purple-300 rounded-lg overflow-hidden',
-    headerClassName: 'bg-gradient-to-r from-purple-500 to-pink-500 text-white',
+    headerClassName: 'bg-linear-to-r from-purple-500 to-pink-500 text-white',
     contentClassName: 'bg-purple-50',
     tableClassName: 'border-separate border-spacing-0',
     thClassName: 'bg-purple-100 text-purple-800 font-bold',

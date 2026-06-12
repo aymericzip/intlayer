@@ -586,7 +586,7 @@ export const InlineTextEditor: Story = {
               {editingKey === 'description' ? (
                 <textarea
                   autoFocus
-                  className="min-h-[60px] w-full rounded border border-blue-300 px-2 py-1"
+                  className="min-h-15 w-full rounded border border-blue-300 px-2 py-1"
                   defaultValue={editableTexts.description}
                   onBlur={(e) => handleSave('description', e.target.value)}
                   onKeyDown={(e) => {

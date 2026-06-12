@@ -17,26 +17,27 @@ describe('vue-i18n', () => {
       );
     });
 
-    it('should transform plural (2 choices)', () => {
-      // Input has spaces, and our parser now trims them.
+    it('should transform choice messages (2 choices) positionally', () => {
+      // vue-i18n's choice rule is positional, not CLDR — an enumeration
+      // preserves `1 | other` semantics in every locale.
       expect(vueI18nToIntlayerFormatter('car | cars')).toEqual(
-        plural({
-          one: 'car',
-          other: 'cars',
+        enu({
+          '1': 'car',
+          fallback: 'cars',
         })
       );
     });
 
-    it('should transform plural (3 choices)', () => {
-      // Input has spaces, parser trims them.
+    it('should transform choice messages (3 choices) positionally', () => {
+      // 0 | 1 | other — exact-count semantics, locale-independent.
       // Fallback part has {count} which becomes insertion node.
       expect(
         vueI18nToIntlayerFormatter('no apples | one apple | {count} apples')
       ).toEqual(
-        plural({
-          zero: 'no apples',
-          one: 'one apple',
-          other: insert('{{count}} apples'),
+        enu({
+          '0': 'no apples',
+          '1': 'one apple',
+          fallback: insert('{{count}} apples'),
         })
       );
     });

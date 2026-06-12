@@ -194,7 +194,7 @@ export const IDESection: FC<IDESectionProps> = ({ scrollProgress }) => {
         isDarkMode={resolvedTheme === 'dark'}
         pages={tabs}
         activeTab={activeTab}
-        className="mx-auto max-h-[440px] flex-1 scale-90 text-xs"
+        className="mx-auto max-h-110 flex-1 scale-90 text-xs"
         key={`${mode}-${framework}`}
       />
     </div>

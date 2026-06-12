@@ -72,7 +72,7 @@ const InfoItem = ({
       {icon}
     </Container>
     <div className="flex flex-col">
-      <span className="mb-1 font-bold text-[10px] text-neutral uppercase leading-none tracking-widest">
+      <span className="mb-1 font-bold text-neutral text-xs uppercase leading-none tracking-widest">
         {label}
       </span>
       <span className="font-semibold text-sm text-text">{value}</span>
@@ -270,7 +270,7 @@ export const ProjectSidebar: FC<ProjectSidebarProps> = ({
             <Badge
               key={tag}
               color="neutral"
-              className="py-0.5 font-semibold text-[10px]"
+              className="py-0.5 font-semibold text-xs"
             >
               {tag}
             </Badge>

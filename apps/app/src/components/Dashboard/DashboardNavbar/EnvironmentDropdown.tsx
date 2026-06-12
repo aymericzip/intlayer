@@ -71,7 +71,7 @@ export const EnvironmentDropdown: FC<EnvironmentDropdownProps> = (props) => {
                 <span className="flex items-center gap-2">
                   {env.name}
                   {env.isDefault && (
-                    <span className="rounded bg-text/10 px-1 py-0.5 text-[10px]">
+                    <span className="rounded bg-text/10 px-1 py-0.5 text-xs">
                       {defaultEnv}
                     </span>
                   )}

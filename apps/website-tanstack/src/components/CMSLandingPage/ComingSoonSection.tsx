@@ -26,7 +26,7 @@ export const ComingSoonSection: FC = () => {
             (feature: (typeof comingSoonFeatures)[number]) => (
               <AnimatedDiv
                 key={feature.id.value}
-                className="flex max-w-[280px] flex-col items-center gap-4 text-center"
+                className="flex max-w-70 flex-col items-center gap-4 text-center"
               >
                 <span className="flex size-12 items-center justify-center rounded-full border-4 border-lime-300 text-2xl text-lime-800 dark:border-lime-900 dark:text-lime-600">
                   {iconMap[feature.icon.value]}

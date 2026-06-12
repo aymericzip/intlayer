@@ -8,6 +8,7 @@ import {
   Html,
   Img,
   Preview,
+  pixelBasedPreset,
   Section,
   Tailwind,
   Text,
@@ -27,10 +28,10 @@ const AffiliateInvitationEmail = ({
     <Preview>
       You've been invited to join the Intlayer Affiliate Program
     </Preview>
-    <Tailwind>
+    <Tailwind config={{ presets: [pixelBasedPreset] }}>
       <Body className="m-auto px-2 font-sans">
-        <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-          <Section className="mt-[32px]">
+        <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Section className="mt-8">
             <Img
               src="https://intlayer.org/apple-touch-icon.png"
               width="40"
@@ -39,31 +40,31 @@ const AffiliateInvitationEmail = ({
               className="mx-auto my-0"
             />
           </Section>
-          <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+          <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
             Join the <strong>Intlayer Affiliate Program</strong>
           </Heading>
-          <Text className="text-[14px] text-black leading-[24px]">
+          <Text className="text-black text-sm leading-6">
             You've been personally invited to become an Intlayer affiliate.
           </Text>
-          <Text className="text-[14px] text-black leading-[24px]">
+          <Text className="text-black text-sm leading-6">
             As an affiliate you'll earn a <strong>{commissionRate}%</strong>{' '}
             commission for every customer you refer. Simply share your unique
             referral link and get paid automatically via Stripe.
           </Text>
-          <Section className="mt-[32px] mb-[32px] text-center">
+          <Section className="mt-8 mb-8 text-center">
             <Button
-              className="rounded bg-[#000000] px-5 py-3 text-center text-[12px] text-white no-underline"
+              className="rounded bg-[#000000] px-5 py-3 text-center text-white text-xs no-underline"
               href={inviteLink}
             >
               Accept invitation &amp; set up your account
             </Button>
           </Section>
-          <Text className="text-[#666666] text-[12px] leading-[24px]">
+          <Text className="text-[#666666] text-xs leading-6">
             This invitation expires in 7 days. If you did not expect this email
             you can safely ignore it.
           </Text>
-          <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
-          <Text className="text-[#666666] text-[12px] leading-[24px]">
+          <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
+          <Text className="text-[#666666] text-xs leading-6">
             Intlayer · Developer-friendly i18n platform
           </Text>
         </Container>

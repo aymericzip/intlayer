@@ -15,7 +15,7 @@ const NoDictionaryView: FC = () => {
   const { noDictionaryView } = useIntlayer('tags-dictionaries-list');
 
   return (
-    <div className="m-auto flex max-w-[400px] flex-col justify-center gap-2 p-6">
+    <div className="m-auto flex max-w-100 flex-col justify-center gap-2 p-6">
       <strong className="font-bold text-lg">{noDictionaryView.title}</strong>
       <p className="text-neutral text-sm">{noDictionaryView.description}</p>
     </div>

@@ -360,7 +360,7 @@ export const Ghost: Story = {
           <div className="space-y-4">
             <h4 className="font-semibold text-lg">Mobile Preview</h4>
             <div className="mx-auto max-w-50 rounded-lg border-2 border-gray-300 bg-gray-100 p-2">
-              <div className="min-h-[150px] rounded bg-white p-3">
+              <div className="min-h-37.5 rounded bg-white p-3">
                 <div className="mb-2 font-medium text-xs">Mobile View</div>
                 <div className="text-gray-600 text-xs leading-relaxed">
                   Your content optimized for mobile devices. The ghost variant
@@ -404,7 +404,7 @@ export const SettingsPanel: Story = {
     const [theme, setTheme] = useState('light');
 
     return (
-      <div className="w-[500px]">
+      <div className="w-125">
         <Tab defaultTab="general" variant="default">
           <Tab.Item label="General" value="general">
             <div className="space-y-6">
@@ -610,7 +610,7 @@ export const ContentManagementSystem: Story = {
     const [lastSaved, setLastSaved] = useState('2 minutes ago');
 
     return (
-      <div className="w-[600px]">
+      <div className="w-150">
         <Tab defaultTab="content" variant="ghost">
           <Tab.Item label="📝 Content" value="content">
             <div className="space-y-4">

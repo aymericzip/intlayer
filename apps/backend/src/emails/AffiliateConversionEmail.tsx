@@ -8,6 +8,7 @@ import {
   Html,
   Img,
   Preview,
+  pixelBasedPreset,
   Section,
   Tailwind,
   Text,
@@ -45,10 +46,10 @@ const AffiliateConversionEmail = ({
     <Preview>
       You earned a commission — someone just subscribed via your link!
     </Preview>
-    <Tailwind>
+    <Tailwind config={{ presets: [pixelBasedPreset] }}>
       <Body className="m-auto px-2 font-sans">
-        <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-          <Section className="mt-[32px]">
+        <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Section className="mt-8">
             <Img
               src="https://intlayer.org/apple-touch-icon.png"
               width="40"
@@ -57,24 +58,24 @@ const AffiliateConversionEmail = ({
               className="mx-auto my-0"
             />
           </Section>
-          <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+          <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
             New referral conversion!
           </Heading>
-          <Text className="text-[14px] text-black leading-[24px]">
+          <Text className="text-black text-sm leading-6">
             Great news — <strong>{organizationName}</strong> just subscribed to
             Intlayer through your referral link.
           </Text>
-          <Text className="text-[14px] text-black leading-[24px]">
+          <Text className="text-black text-sm leading-6">
             You've earned a <strong>{commissionRate}% commission</strong>
             {commissionAmount > 0
               ? ` worth ${formatAmount(commissionAmount, commissionCurrency)}`
               : ''}
             . Commissions are accumulated and paid out on a monthly basis.
           </Text>
-          <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
-          <Section className="mt-[16px] mb-[8px] text-center">
+          <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
+          <Section className="mt-4 mb-2 text-center">
             <Button
-              className="rounded bg-[#000000] px-5 py-3 text-center text-[12px] text-white no-underline"
+              className="rounded bg-[#000000] px-5 py-3 text-center text-white text-xs no-underline"
               href={dashboardLink}
             >
               View your dashboard

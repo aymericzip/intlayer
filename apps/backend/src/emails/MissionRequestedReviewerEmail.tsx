@@ -8,6 +8,7 @@ import {
   Html,
   Img,
   Preview,
+  pixelBasedPreset,
   Section,
   Tailwind,
   Text,
@@ -33,10 +34,10 @@ export const MissionRequestedReviewerEmailEN = ({
   <Html>
     <Head />
     <Preview>{clientName} sent you a translation request</Preview>
-    <Tailwind>
+    <Tailwind config={{ presets: [pixelBasedPreset] }}>
       <Body className="m-auto px-2 font-sans">
-        <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-          <Section className="mt-[32px]">
+        <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Section className="mt-8">
             <Img
               src="https://intlayer.org/apple-touch-icon.png"
               width="40"
@@ -45,17 +46,17 @@ export const MissionRequestedReviewerEmailEN = ({
               className="mx-auto my-0"
             />
           </Section>
-          <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+          <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
             New <strong>translation request</strong>
           </Heading>
-          <Text className="text-[14px] text-black leading-[24px]">
+          <Text className="text-black text-sm leading-6">
             Hello {reviewerUsername},
           </Text>
-          <Text className="text-[14px] text-black leading-[24px]">
+          <Text className="text-black text-sm leading-6">
             <strong>{clientName}</strong> just sent you a translation request on{' '}
             <strong>Intlayer</strong>. Here are the details:
           </Text>
-          <Text className="text-[14px] text-black leading-[24px]">
+          <Text className="text-black text-sm leading-6">
             <strong>From:</strong> {sourceLocale.toUpperCase()}
             <br />
             <strong>To:</strong>{' '}
@@ -67,20 +68,20 @@ export const MissionRequestedReviewerEmailEN = ({
               </>
             )}
           </Text>
-          <Text className="text-[14px] text-black leading-[24px]">
+          <Text className="text-black text-sm leading-6">
             Review the request and make your own offer directly in your
             dashboard. The client is waiting to hear from you!
           </Text>
-          <Section className="my-[32px] text-center">
+          <Section className="my-8 text-center">
             <Button
-              className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+              className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
               href={missionLink}
             >
               View request &amp; make an offer
             </Button>
           </Section>
-          <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
-          <Text className="text-[#666666] text-[12px] leading-[24px]">
+          <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
+          <Text className="text-[#666666] text-xs leading-6">
             You are free to set your own price and terms for this mission.
             Intlayer simply connects you with clients — the deal is between you
             and {clientName}.
@@ -102,10 +103,10 @@ export const MissionRequestedReviewerEmailFR = ({
   <Html>
     <Head />
     <Preview>{clientName} vous a envoyé une demande de traduction</Preview>
-    <Tailwind>
+    <Tailwind config={{ presets: [pixelBasedPreset] }}>
       <Body className="m-auto px-2 font-sans">
-        <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-          <Section className="mt-[32px]">
+        <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Section className="mt-8">
             <Img
               src="https://intlayer.org/apple-touch-icon.png"
               width="40"
@@ -114,17 +115,17 @@ export const MissionRequestedReviewerEmailFR = ({
               className="mx-auto my-0"
             />
           </Section>
-          <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+          <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
             Nouvelle <strong>demande de traduction</strong>
           </Heading>
-          <Text className="text-[14px] text-black leading-[24px]">
+          <Text className="text-black text-sm leading-6">
             Bonjour {reviewerUsername},
           </Text>
-          <Text className="text-[14px] text-black leading-[24px]">
+          <Text className="text-black text-sm leading-6">
             <strong>{clientName}</strong> vient de vous envoyer une demande de
             traduction sur <strong>Intlayer</strong>. Voici les détails :
           </Text>
-          <Text className="text-[14px] text-black leading-[24px]">
+          <Text className="text-black text-sm leading-6">
             <strong>De :</strong> {sourceLocale.toUpperCase()}
             <br />
             <strong>Vers :</strong>{' '}
@@ -136,20 +137,20 @@ export const MissionRequestedReviewerEmailFR = ({
               </>
             )}
           </Text>
-          <Text className="text-[14px] text-black leading-[24px]">
+          <Text className="text-black text-sm leading-6">
             Examinez la demande et faites votre propre offre directement depuis
             votre tableau de bord. Le client attend votre réponse !
           </Text>
-          <Section className="my-[32px] text-center">
+          <Section className="my-8 text-center">
             <Button
-              className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+              className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
               href={missionLink}
             >
               Voir la demande et faire une offre
             </Button>
           </Section>
-          <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
-          <Text className="text-[#666666] text-[12px] leading-[24px]">
+          <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
+          <Text className="text-[#666666] text-xs leading-6">
             Vous êtes libre de fixer votre propre prix et vos propres
             conditions. Intlayer vous met simplement en relation avec des
             clients — l'accord se fait directement entre vous et {clientName}.
@@ -171,10 +172,10 @@ export const MissionRequestedReviewerEmailES = ({
   <Html>
     <Head />
     <Preview>{clientName} te envió una solicitud de traducción</Preview>
-    <Tailwind>
+    <Tailwind config={{ presets: [pixelBasedPreset] }}>
       <Body className="m-auto px-2 font-sans">
-        <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-          <Section className="mt-[32px]">
+        <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+          <Section className="mt-8">
             <Img
               src="https://intlayer.org/apple-touch-icon.png"
               width="40"
@@ -183,17 +184,17 @@ export const MissionRequestedReviewerEmailES = ({
               className="mx-auto my-0"
             />
           </Section>
-          <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+          <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
             Nueva <strong>solicitud de traducción</strong>
           </Heading>
-          <Text className="text-[14px] text-black leading-[24px]">
+          <Text className="text-black text-sm leading-6">
             Hola {reviewerUsername},
           </Text>
-          <Text className="text-[14px] text-black leading-[24px]">
+          <Text className="text-black text-sm leading-6">
             <strong>{clientName}</strong> acaba de enviarte una solicitud de
             traducción en <strong>Intlayer</strong>. Aquí están los detalles:
           </Text>
-          <Text className="text-[14px] text-black leading-[24px]">
+          <Text className="text-black text-sm leading-6">
             <strong>De:</strong> {sourceLocale.toUpperCase()}
             <br />
             <strong>A:</strong>{' '}
@@ -205,20 +206,20 @@ export const MissionRequestedReviewerEmailES = ({
               </>
             )}
           </Text>
-          <Text className="text-[14px] text-black leading-[24px]">
+          <Text className="text-black text-sm leading-6">
             Revisa la solicitud y haz tu propia oferta directamente desde tu
             panel. ¡El cliente está esperando tu respuesta!
           </Text>
-          <Section className="my-[32px] text-center">
+          <Section className="my-8 text-center">
             <Button
-              className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+              className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
               href={missionLink}
             >
               Ver solicitud y hacer oferta
             </Button>
           </Section>
-          <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
-          <Text className="text-[#666666] text-[12px] leading-[24px]">
+          <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
+          <Text className="text-[#666666] text-xs leading-6">
             Eres libre de establecer tu propio precio y condiciones. Intlayer
             simplemente te conecta con clientes — el acuerdo es entre tú y{' '}
             {clientName}.

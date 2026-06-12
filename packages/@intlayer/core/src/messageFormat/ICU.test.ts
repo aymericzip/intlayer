@@ -346,6 +346,20 @@ describe('ICU Formatter', () => {
 
       expect(backToICU).toEqual(original);
     });
+
+    it('should round-trip selectordinal messages', () => {
+      const original = {
+        ranking:
+          '{position, selectordinal, one {#st} two {#nd} few {#rd} other {#th}}',
+        exactOrdinal:
+          '{position, selectordinal, =1 {first!} two {#nd} other {#th}}',
+      };
+
+      const toIntlayer = icuToIntlayerFormatter(original as any);
+      const backToICU = intlayerToICUFormatter(toIntlayer as any);
+
+      expect(backToICU).toEqual(original);
+    });
   });
 
   describe('Structural Arrays Processing', () => {

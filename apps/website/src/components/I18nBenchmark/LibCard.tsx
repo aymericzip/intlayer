@@ -63,7 +63,7 @@ export const LibCard: FC<{
             {lib.name}
           </span>
           {lib.version && (
-            <span className="text-[9px] text-neutral leading-none">
+            <span className="text-neutral text-xs leading-none">
               v{lib.version}
             </span>
           )}

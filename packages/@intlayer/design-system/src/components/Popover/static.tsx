@@ -260,12 +260,12 @@ const Detail: FC<DetailProps> = ({
       /* Arrow pointing up (when popover is below trigger) */
       displayArrow &&
         yAlign === 'below' &&
-        'before:-top-[10px] before:border-r-[10px] before:border-r-transparent before:border-b-[10px] before:border-b-neutral before:border-l-[10px] before:border-l-transparent',
+        'before:-top-2.5 before:border-r-[10px] before:border-r-transparent before:border-b-[10px] before:border-b-neutral before:border-l-[10px] before:border-l-transparent',
 
       /* Arrow pointing down (when popover is above trigger) */
       displayArrow &&
         yAlign === 'above' &&
-        'before:-bottom-[10px] before:border-t-[10px] before:border-t-neutral before:border-r-[10px] before:border-r-transparent before:border-l-[10px] before:border-l-transparent',
+        'before:-bottom-2.5 before:border-t-[10px] before:border-t-neutral before:border-r-[10px] before:border-r-transparent before:border-l-[10px] before:border-l-transparent',
 
       /* Visibility management */
       'overflow-x-visible opacity-0 transition-all duration-400 ease-in-out',

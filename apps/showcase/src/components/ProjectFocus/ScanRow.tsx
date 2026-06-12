@@ -25,7 +25,7 @@ export const ScanRow: FC<ScanRowProps> = ({ label, status, value, info }) => (
       <span className="font-medium text-sm text-text/80">{label}</span>
       <div className="group relative">
         <Info className="size-3 cursor-help text-neutral/20" />
-        <div className="pointer-events-none absolute bottom-full left-0 z-10 mb-2 w-56 rounded-lg border border-neutral/10 bg-text p-2 text-[10px] text-text-opposite opacity-0 shadow-xl transition-all group-hover:opacity-100">
+        <div className="pointer-events-none absolute bottom-full left-0 z-10 mb-2 w-56 rounded-lg border border-neutral/10 bg-text p-2 text-text-opposite text-xs opacity-0 shadow-xl transition-all group-hover:opacity-100">
           {info}
         </div>
       </div>

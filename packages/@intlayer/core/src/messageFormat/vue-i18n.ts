@@ -1,7 +1,7 @@
 import type { Dictionary } from '@intlayer/types/dictionary';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { deepTransformNode } from '../interpreter';
-import { enu, insert, plural } from '../transpiler';
+import { enu, insert } from '../transpiler';
 import type { JsonValue } from './ICU';
 
 // Types for our AST
@@ -93,24 +93,28 @@ const vueI18nNodesToIntlayer = (parts: VueI18nNode[][]): any => {
     return vueI18nPartToIntlayer(parts[0]);
   }
 
-  // Handle pluralization (choice)
+  // Handle pluralization (choice).
+  // vue-i18n's choice rule is POSITIONAL (0 | 1 | other), not CLDR-based:
+  // an enumeration node preserves those semantics in every locale, whereas
+  // a plural node would select by CLDR category (e.g. count 0 resolves to
+  // 'one' in French, 'other' in English — never 'zero').
   const options: Record<string, any> = {};
   const varName = 'count'; // Default variable for vue-i18n choices
 
   if (parts.length === 2) {
     // 2 choices: 1 | other
-    return plural({
-      one: vueI18nPartToIntlayer(parts[0]),
-      other: vueI18nPartToIntlayer(parts[1]),
+    return enu({
+      '1': vueI18nPartToIntlayer(parts[0]),
+      fallback: vueI18nPartToIntlayer(parts[1]),
     });
   }
 
   if (parts.length === 3) {
     // 3 choices: 0 | 1 | other
-    return plural({
-      zero: vueI18nPartToIntlayer(parts[0]),
-      one: vueI18nPartToIntlayer(parts[1]),
-      other: vueI18nPartToIntlayer(parts[2]),
+    return enu({
+      '0': vueI18nPartToIntlayer(parts[0]),
+      '1': vueI18nPartToIntlayer(parts[1]),
+      fallback: vueI18nPartToIntlayer(parts[2]),
     });
   }
 
@@ -231,7 +235,12 @@ const intlayerToVueI18nPlugin = {
 
       const transformedOptions: Record<string, string> = {};
       for (const [key, val] of Object.entries(options)) {
-        if (key === '__intlayer_vue_i18n_var') continue;
+        if (
+          key === '__intlayer_vue_i18n_var' ||
+          key === '__intlayer_icu_var' ||
+          key === '__intlayer_icu_ordinal'
+        )
+          continue;
         const childVal = next(val, props);
         transformedOptions[key] =
           typeof childVal === 'string' ? childVal : JSON.stringify(childVal);

@@ -106,7 +106,7 @@ export const ReviewerChat: FC<ReviewerChatProps> = ({
                 }`}
               >
                 <p>{msg.content}</p>
-                <p className="mt-0.5 text-[10px] text-neutral">
+                <p className="mt-0.5 text-neutral text-xs">
                   {new Date(msg.createdAt).toLocaleTimeString([], {
                     hour: '2-digit',
                     minute: '2-digit',

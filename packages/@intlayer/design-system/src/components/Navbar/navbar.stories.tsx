@@ -80,11 +80,7 @@ const MockLogo = () => (
 
 const MockRightItems = () => (
   <>
-    <Button
-      size="sm"
-      variant="outline"
-      label="Sign In"
-    >
+    <Button size="sm" variant="outline" label="Sign In">
       Sign In
     </Button>
     <Button size="sm" color="primary" label="Sign Up">
@@ -379,7 +375,7 @@ export const CustomStyling: Story = {
   args: {
     logo: (
       <div className="flex items-center gap-2">
-        <div className="size-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-600"></div>
+        <div className="size-10 rounded-full bg-linear-to-r from-blue-500 to-purple-600"></div>
         <div>
           <div className="font-bold text-lg">CustomBrand</div>
           <div className="text-neutral-500 text-xs">tagline</div>
@@ -392,11 +388,7 @@ export const CustomStyling: Story = {
         <div className="rounded-full bg-yellow-100 p-2">
           <div className="h-4 w-4 rounded-full bg-yellow-500"></div>
         </div>
-        <Button
-          size="sm"
-          color="secondary"
-          label="Get Started"
-        >
+        <Button size="sm" color="secondary" label="Get Started">
           Get Started
         </Button>
       </div>

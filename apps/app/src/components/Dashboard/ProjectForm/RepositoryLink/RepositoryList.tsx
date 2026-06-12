@@ -63,7 +63,7 @@ export const RepositoryList: FC<RepositoryListProps> = ({
   });
 
   return (
-    <div className="flex max-h-[500px] flex-col">
+    <div className="flex max-h-125 flex-col">
       <div className="border-card border-b p-4">
         <SearchInput
           placeholder={repositoryList.searchPlaceholder}

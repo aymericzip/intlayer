@@ -37,7 +37,7 @@ export const ProfileDropDown: FC = () => {
         align="end"
       >
         <Container
-          className="min-w-[100px] border border-text/10 p-6"
+          className="min-w-25 border border-text/10 p-6"
           transparency="xs"
           roundedSize="xl"
         >

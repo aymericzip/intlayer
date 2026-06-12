@@ -617,7 +617,7 @@ export const DocumentationInterface: Story = {
 export const ContactInformationCard: Story = {
   render: () => (
     <div className="mx-auto max-w-md overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
-      <div className="h-24 bg-gradient-to-r from-blue-600 to-purple-600"></div>
+      <div className="h-24 bg-linear-to-r from-blue-600 to-purple-600"></div>
 
       <div className="relative px-6 pb-6">
         <div className="relative -mt-12 mb-4">

@@ -141,7 +141,7 @@ const DictionaryRow: FC<{
       <div className="flex min-w-0 flex-1 flex-col">
         <span className="truncate font-mono text-text text-xs">{keyName}</span>
         {isCurrent && currentLocale && (
-          <span className="text-[10px] text-neutral-500">
+          <span className="text-neutral-500 text-xs">
             {currentLocale}
             {currentChunk && totalChunks
               ? ` • chunk ${currentChunk}/${totalChunks}`
@@ -149,7 +149,7 @@ const DictionaryRow: FC<{
           </span>
         )}
         {isCancelled && (
-          <span className="text-[10px] text-error">{content.jobCancelled}</span>
+          <span className="text-error text-xs">{content.jobCancelled}</span>
         )}
       </div>
       <span className="shrink-0">

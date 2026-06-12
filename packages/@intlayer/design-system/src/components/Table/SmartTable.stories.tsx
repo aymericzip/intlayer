@@ -531,7 +531,7 @@ export const FinancialReport: Story = {
 
         <SmartTable className="overflow-hidden rounded-lg border border-gray-300 shadow-sm">
           <thead>
-            <tr className="bg-gradient-to-r from-gray-50 to-gray-100">
+            <tr className="bg-linear-to-r from-gray-50 to-gray-100">
               <th
                 scope="col"
                 className="px-8 py-4 text-left font-bold text-gray-700 text-sm uppercase tracking-wider"

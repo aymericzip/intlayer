@@ -157,7 +157,7 @@ export const LargerText: Story = {
 export const SmallerText: Story = {
   args: {
     children: 'Subtle hint',
-    className: 'text-[10px] text-neutral-300',
+    className: 'text-xs text-neutral-300',
   },
   parameters: {
     docs: {

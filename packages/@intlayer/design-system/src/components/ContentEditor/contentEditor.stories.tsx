@@ -741,7 +741,7 @@ export const CommentSystem: Story = {
             <ContentEditor
               onContentChange={(content) => updateComment(comment.id, content)}
               aria-label={`Edit comment by ${comment.author}`}
-              className="min-h-[60px]"
+              className="min-h-15"
             >
               {comment.content}
             </ContentEditor>

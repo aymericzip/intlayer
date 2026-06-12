@@ -58,7 +58,7 @@ type Story = StoryObj<typeof MaxHeightSmoother>;
 // ─── Shared content ──────────────────────────────────────────────────────────
 
 const sampleContent = (
-  <div className="rounded-lg bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+  <div className="rounded-lg bg-linear-to-br from-blue-50 to-indigo-100 p-4">
     <h3 className="mb-3 font-semibold text-gray-800 text-lg">
       Expandable Content
     </h3>
@@ -261,7 +261,7 @@ export const HoverAndFocus: Story = {
     isFocusable: true,
     minHeight: 80,
     children: (
-      <div className="rounded-lg border border-purple-200 bg-gradient-to-r from-purple-50 to-pink-50 p-4">
+      <div className="rounded-lg border border-purple-200 bg-linear-to-r from-purple-50 to-pink-50 p-4">
         <h3 className="mb-2 font-semibold text-lg text-purple-800">
           Interactive Card
         </h3>

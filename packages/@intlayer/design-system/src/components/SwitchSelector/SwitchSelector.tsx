@@ -43,7 +43,7 @@ export type SwitchSelectorProps<T = boolean> = SwitchSelectorBaseProps<T> &
   VariantProps<typeof choiceVariant>;
 
 export const switchSelectorVariant = cva(
-  'flex h-fit w-fit cursor-pointer flex-row gap-2 rounded-full border-[1.3px] p-[1.5px]',
+  'flex h-fit w-fit cursor-pointer flex-row gap-2 rounded-full border-[1.3px] p-0.38',
   {
     variants: {
       color: {

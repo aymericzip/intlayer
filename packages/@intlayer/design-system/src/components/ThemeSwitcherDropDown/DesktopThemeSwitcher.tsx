@@ -62,7 +62,7 @@ export const DesktopThemeSwitcher: FC<DesktopThemeSwitcherProps> = ({
       </DropDown.Trigger>
 
       <DropDown.Panel identifier={panelIdentifier} isFocusable isOverable>
-        <Container className="min-w-[100px] items-start p-1" separator="y">
+        <Container className="min-w-25 items-start p-1" separator="y">
           <ButtonItem
             Icon={CircleDashed}
             onClick={() => switchMode('system')}

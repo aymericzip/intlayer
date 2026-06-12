@@ -332,7 +332,7 @@ export const CustomStyling: Story = {
             />
             <button
               type="button"
-              className="w-full rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 py-3 font-medium text-white transition-all hover:from-purple-700 hover:to-pink-700"
+              className="w-full rounded-lg bg-linear-to-r from-purple-600 to-pink-600 py-3 font-medium text-white transition-all hover:from-purple-700 hover:to-pink-700"
             >
               Sign In
             </button>
@@ -353,7 +353,7 @@ export const CustomStyling: Story = {
 
 export const MinimalHeight: Story = {
   args: {
-    className: 'min-h-[400px] max-w-md mx-auto bg-gray-50',
+    className: 'min-h-100 max-w-md mx-auto bg-gray-50',
     children: (
       <div className="h-full p-6">
         <h3 className="mb-4 font-semibold text-lg">Compact Form</h3>

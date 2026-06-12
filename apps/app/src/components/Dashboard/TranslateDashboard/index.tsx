@@ -539,7 +539,7 @@ const TranslateDashboardList: FC = () => {
               </PopoverStatic.Detail>
             </PopoverStatic>
             {(params.location !== 'none' || !!params.tags) && (
-              <span className="absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full bg-text text-[10px] text-card">
+              <span className="absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full bg-text text-card text-xs">
                 {(params.tags ? params.tags.split(',').length : 0) +
                   (params.location === 'both'
                     ? 2

@@ -445,7 +445,8 @@ const intlayerToI18nextPlugin = {
 
       const transformedOptions: Record<string, string> = {};
       for (const [key, val] of Object.entries(options)) {
-        if (key === '__intlayer_icu_var') continue;
+        if (key === '__intlayer_icu_var' || key === '__intlayer_icu_ordinal')
+          continue;
         const childVal = next(val, props);
         transformedOptions[key] =
           typeof childVal === 'string' ? childVal : JSON.stringify(childVal);

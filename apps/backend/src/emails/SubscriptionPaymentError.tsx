@@ -8,6 +8,7 @@ import {
   Img,
   Link,
   Preview,
+  pixelBasedPreset,
   Section,
   Tailwind,
   Text,
@@ -38,10 +39,10 @@ export const SubscriptionPaymentErrorEN = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -50,32 +51,32 @@ export const SubscriptionPaymentErrorEN = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               Payment Issue Detected
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Hello {username},
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               We encountered an issue processing your payment for the{' '}
               <strong>{planName}</strong> plan on <strong>{errorDate}</strong>.
               Please update your payment information to ensure continued access
               to your subscription.
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Organization: <strong>{organizationName}</strong>
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={retryPaymentLink}
               >
                 Retry Payment
               </Button>
             </Section>
             {billingLink && (
-              <Section className="mt-[32px] text-center">
-                <Text className="text-[#666666] text-[12px] leading-[24px]">
+              <Section className="mt-8 text-center">
+                <Text className="text-[#666666] text-xs leading-6">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -104,10 +105,10 @@ export const SubscriptionPaymentErrorFR = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -116,33 +117,33 @@ export const SubscriptionPaymentErrorFR = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               Problème de Paiement
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Bonjour {username},
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Nous avons rencontré un problème lors du traitement de votre
               paiement pour le plan <strong>{planName}</strong> le{' '}
               <strong>{errorDate}</strong>. Veuillez mettre à jour vos
               informations de paiement pour garantir un accès continu à votre
               abonnement.
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Organisation : <strong>{organizationName}</strong>
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={retryPaymentLink}
               >
                 Réessayer le Paiement
               </Button>
             </Section>
             {billingLink && (
-              <Section className="mt-[32px] text-center">
-                <Text className="text-[#666666] text-[12px] leading-[24px]">
+              <Section className="mt-8 text-center">
+                <Text className="text-[#666666] text-xs leading-6">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -171,10 +172,10 @@ export const SubscriptionPaymentErrorES = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -183,32 +184,32 @@ export const SubscriptionPaymentErrorES = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               Problema de Pago
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Hola {username},
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Hubo un problema al procesar tu pago para el plan{' '}
               <strong>{planName}</strong> el <strong>{errorDate}</strong>. Por
               favor, actualiza tu información de pago para garantizar el acceso
               continuo a tu suscripción.
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Organización : <strong>{organizationName}</strong>
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={retryPaymentLink}
               >
                 Reintentar el Pago
               </Button>
             </Section>
             {billingLink && (
-              <Section className="mt-[32px] text-center">
-                <Text className="text-[#666666] text-[12px] leading-[24px]">
+              <Section className="mt-8 text-center">
+                <Text className="text-[#666666] text-xs leading-6">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -237,10 +238,10 @@ export const SubscriptionPaymentErrorRU = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -249,32 +250,32 @@ export const SubscriptionPaymentErrorRU = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               Обнаружена проблема с оплатой
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Здравствуйте, {username},
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               При обработке вашего платежа за тарифный план{' '}
               <strong>{planName}</strong> от <strong>{errorDate}</strong>{' '}
               возникла проблема. Пожалуйста, обновите свою платежную информацию,
               чтобы обеспечить непрерывный доступ к вашей подписке.
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Организация: <strong>{organizationName}</strong>
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={retryPaymentLink}
               >
                 Повторить попытку оплаты
               </Button>
             </Section>
             {billingLink && (
-              <Section className="mt-[32px] text-center">
-                <Text className="text-[#666666] text-[12px] leading-[24px]">
+              <Section className="mt-8 text-center">
+                <Text className="text-[#666666] text-xs leading-6">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -303,10 +304,10 @@ export const SubscriptionPaymentErrorJA = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -315,30 +316,30 @@ export const SubscriptionPaymentErrorJA = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               支払いの問題が検出されました
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               {username}様、こんにちは。
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               <strong>{errorDate}</strong>に行われた<strong>{planName}</strong>
               プランのお支払い処理中に問題が発生しました。サブスクリプションへのアクセスを継続するために、お支払い情報を更新してください。
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               組織: <strong>{organizationName}</strong>
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={retryPaymentLink}
               >
                 支払いを再試行する
               </Button>
             </Section>
             {billingLink && (
-              <Section className="mt-[32px] text-center">
-                <Text className="text-[#666666] text-[12px] leading-[24px]">
+              <Section className="mt-8 text-center">
+                <Text className="text-[#666666] text-xs leading-6">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -367,10 +368,10 @@ export const SubscriptionPaymentErrorKO = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -379,31 +380,31 @@ export const SubscriptionPaymentErrorKO = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               결제 문제 발생
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               안녕하세요 {username}님,
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               <strong>{errorDate}</strong>에 귀하의 <strong>{planName}</strong>{' '}
               플랜 결제를 처리하는 도중 문제가 발생했습니다. 구독을 계속
               유지하시려면 결제 정보를 업데이트해 주세요.
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               조직: <strong>{organizationName}</strong>
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={retryPaymentLink}
               >
                 결제 재시도하기
               </Button>
             </Section>
             {billingLink && (
-              <Section className="mt-[32px] text-center">
-                <Text className="text-[#666666] text-[12px] leading-[24px]">
+              <Section className="mt-8 text-center">
+                <Text className="text-[#666666] text-xs leading-6">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -432,10 +433,10 @@ export const SubscriptionPaymentErrorZH = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -444,32 +445,32 @@ export const SubscriptionPaymentErrorZH = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               检测到支付问题
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               {username}，您好！
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               我们在处理您 <strong>{errorDate}</strong> 的{' '}
               <strong>{planName}</strong>{' '}
               计划支付时遇到问题。请更新您的支付信息，
               以确保能够持续访问您的订阅。
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               组织：<strong>{organizationName}</strong>
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={retryPaymentLink}
               >
                 重试支付
               </Button>
             </Section>
             {billingLink && (
-              <Section className="mt-[32px] text-center">
-                <Text className="text-[#666666] text-[12px] leading-[24px]">
+              <Section className="mt-8 text-center">
+                <Text className="text-[#666666] text-xs leading-6">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -498,10 +499,10 @@ export const SubscriptionPaymentErrorDE = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -510,32 +511,32 @@ export const SubscriptionPaymentErrorDE = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               Zahlungsproblem erkannt
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Hallo {username},
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               beim Verarbeiten Ihrer Zahlung für den <strong>{planName}</strong>
               -Plan am <strong>{errorDate}</strong> ist ein Problem aufgetreten.
               Bitte aktualisieren Sie Ihre Zahlungsinformationen, um den
               fortlaufenden Zugriff auf Ihr Abonnement zu gewährleisten.
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Organisation: <strong>{organizationName}</strong>
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={retryPaymentLink}
               >
                 Zahlung erneut versuchen
               </Button>
             </Section>
             {billingLink && (
-              <Section className="mt-[32px] text-center">
-                <Text className="text-[#666666] text-[12px] leading-[24px]">
+              <Section className="mt-8 text-center">
+                <Text className="text-[#666666] text-xs leading-6">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -564,10 +565,10 @@ export const SubscriptionPaymentErrorAR = ({
     <Html dir="rtl">
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -576,31 +577,31 @@ export const SubscriptionPaymentErrorAR = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               تم اكتشاف مشكلة في الدفع
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               أهلاً {username}،
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               لقد واجهنا مشكلة في معالجة دفعتك لخطة <strong>{planName}</strong>{' '}
               بتاريخ <strong>{errorDate}</strong>. يرجى تحديث معلومات الدفع
               الخاصة بك لضمان استمرار الوصول إلى اشتراكك.
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               المنظمة: <strong>{organizationName}</strong>
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={retryPaymentLink}
               >
                 إعادة محاولة الدفع
               </Button>
             </Section>
             {billingLink && (
-              <Section className="mt-[32px] text-center">
-                <Text className="text-[#666666] text-[12px] leading-[24px]">
+              <Section className="mt-8 text-center">
+                <Text className="text-[#666666] text-xs leading-6">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -629,10 +630,10 @@ export const SubscriptionPaymentErrorIT = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -641,32 +642,32 @@ export const SubscriptionPaymentErrorIT = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               Problema di Pagamento Rilevato
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Ciao {username},
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Abbiamo riscontrato un problema durante l'elaborazione del tuo
               pagamento per il piano <strong>{planName}</strong> il{' '}
               <strong>{errorDate}</strong>. Aggiorna le tue informazioni di
               pagamento per garantire l'accesso continuo al tuo abbonamento.
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Organizzazione: <strong>{organizationName}</strong>
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={retryPaymentLink}
               >
                 Riprova il Pagamento
               </Button>
             </Section>
             {billingLink && (
-              <Section className="mt-[32px] text-center">
-                <Text className="text-[#666666] text-[12px] leading-[24px]">
+              <Section className="mt-8 text-center">
+                <Text className="text-[#666666] text-xs leading-6">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -695,10 +696,10 @@ export const SubscriptionPaymentErrorEN_GB = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -707,32 +708,32 @@ export const SubscriptionPaymentErrorEN_GB = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               Payment Issue Detected
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Hello {username},
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               We encountered an issue processing your payment for the{' '}
               <strong>{planName}</strong> plan on <strong>{errorDate}</strong>.
               Please update your payment information to ensure continued access
               to your subscription.
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Organisation: <strong>{organizationName}</strong>
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={retryPaymentLink}
               >
                 Retry Payment
               </Button>
             </Section>
             {billingLink && (
-              <Section className="mt-[32px] text-center">
-                <Text className="text-[#666666] text-[12px] leading-[24px]">
+              <Section className="mt-8 text-center">
+                <Text className="text-[#666666] text-xs leading-6">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -761,10 +762,10 @@ export const SubscriptionPaymentErrorPT = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -773,32 +774,32 @@ export const SubscriptionPaymentErrorPT = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               Problema de Pagamento Detetado
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Olá {username},
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Encontramos um problema ao processar o seu pagamento para o plano{' '}
               <strong>{planName}</strong> em <strong>{errorDate}</strong>. Por
               favor, atualize as suas informações de pagamento para garantir o
               acesso contínuo à sua assinatura.
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Organização: <strong>{organizationName}</strong>
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={retryPaymentLink}
               >
                 Repetir Pagamento
               </Button>
             </Section>
             {billingLink && (
-              <Section className="mt-[32px] text-center">
-                <Text className="text-[#666666] text-[12px] leading-[24px]">
+              <Section className="mt-8 text-center">
+                <Text className="text-[#666666] text-xs leading-6">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -827,10 +828,10 @@ export const SubscriptionPaymentErrorHI = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -839,31 +840,31 @@ export const SubscriptionPaymentErrorHI = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               भुगतान समस्या का पता चला
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               नमस्ते {username},
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               हमें <strong>{errorDate}</strong> को आपके <strong>{planName}</strong>{' '}
               प्लान के भुगतान को संसाधित करने में एक समस्या आई। अपनी सदस्यता तक निरंतर पहुँच
               सुनिश्चित करने के लिए कृपया अपनी भुगतान जानकारी अपडेट करें।
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               संगठन: <strong>{organizationName}</strong>
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={retryPaymentLink}
               >
                 भुगतान पुनः प्रयास करें
               </Button>
             </Section>
             {billingLink && (
-              <Section className="mt-[32px] text-center">
-                <Text className="text-[#666666] text-[12px] leading-[24px]">
+              <Section className="mt-8 text-center">
+                <Text className="text-[#666666] text-xs leading-6">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -892,10 +893,10 @@ export const SubscriptionPaymentErrorTR = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -904,32 +905,32 @@ export const SubscriptionPaymentErrorTR = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               Ödeme Sorunu Tespit Edildi
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Merhaba {username},
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               <strong>{errorDate}</strong> tarihinde <strong>{planName}</strong>{' '}
               planı için ödemenizi işleme koyarken bir sorunla karşılaştık.
               Aboneliğinize kesintisiz erişim sağlamak için lütfen ödeme
               bilgilerinizi güncelleyin.
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Kuruluş: <strong>{organizationName}</strong>
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={retryPaymentLink}
               >
                 Ödemeyi Tekrar Dene
               </Button>
             </Section>
             {billingLink && (
-              <Section className="mt-[32px] text-center">
-                <Text className="text-[#666666] text-[12px] leading-[24px]">
+              <Section className="mt-8 text-center">
+                <Text className="text-[#666666] text-xs leading-6">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -958,10 +959,10 @@ export const SubscriptionPaymentErrorPL = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -970,32 +971,32 @@ export const SubscriptionPaymentErrorPL = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               Wykryto Problem z Płatnością
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Witaj {username},
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Napotkaliśmy problem podczas przetwarzania płatności za plan{' '}
               <strong>{planName}</strong> w dniu <strong>{errorDate}</strong>.
               Zaktualizuj swoje dane płatnicze, aby zapewnić nieprzerwany dostęp
               do subskrypcji.
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Organizacja: <strong>{organizationName}</strong>
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={retryPaymentLink}
               >
                 Ponów Płatność
               </Button>
             </Section>
             {billingLink && (
-              <Section className="mt-[32px] text-center">
-                <Text className="text-[#666666] text-[12px] leading-[24px]">
+              <Section className="mt-8 text-center">
+                <Text className="text-[#666666] text-xs leading-6">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -1025,10 +1026,10 @@ export const SubscriptionPaymentErrorID = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -1037,32 +1038,32 @@ export const SubscriptionPaymentErrorID = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               Masalah Pembayaran Terdeteksi
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Halo {username},
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Kami mengalami masalah saat memproses pembayaran Anda untuk paket{' '}
               <strong>{planName}</strong> pada <strong>{errorDate}</strong>.
               Harap perbarui informasi pembayaran Anda untuk memastikan akses
               berlanjut ke langganan Anda.
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Organisasi: <strong>{organizationName}</strong>
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={retryPaymentLink}
               >
                 Coba Lagi Pembayaran
               </Button>
             </Section>
             {billingLink && (
-              <Section className="mt-[32px] text-center">
-                <Text className="text-[#666666] text-[12px] leading-[24px]">
+              <Section className="mt-8 text-center">
+                <Text className="text-[#666666] text-xs leading-6">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -1091,10 +1092,10 @@ export const SubscriptionPaymentErrorVI = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -1103,32 +1104,32 @@ export const SubscriptionPaymentErrorVI = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               Phát Hiện Vấn Đề Thanh Toán
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Xin chào {username},
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Chúng tôi đã gặp sự cố khi xử lý thanh toán của bạn cho gói{' '}
               <strong>{planName}</strong> vào ngày <strong>{errorDate}</strong>.
               Vui lòng cập nhật thông tin thanh toán của bạn để đảm bảo quyền
               truy cập liên tục vào gói thuê bao của bạn.
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Tổ chức: <strong>{organizationName}</strong>
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={retryPaymentLink}
               >
                 Thử lại Thanh toán
               </Button>
             </Section>
             {billingLink && (
-              <Section className="mt-[32px] text-center">
-                <Text className="text-[#666666] text-[12px] leading-[24px]">
+              <Section className="mt-8 text-center">
+                <Text className="text-[#666666] text-xs leading-6">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>
@@ -1157,10 +1158,10 @@ export const SubscriptionPaymentErrorUK = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -1169,32 +1170,32 @@ export const SubscriptionPaymentErrorUK = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               Виявлено проблему з оплатою
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Вітаємо, {username},
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Ми зіткнулися з проблемою під час обробки вашого платежу за
               тарифний план <strong>{planName}</strong> від{' '}
               <strong>{errorDate}</strong>. Будь ласка, оновіть свою платіжну
               інформацію, щоб забезпечити безперервний доступ до вашої підписки.
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Організація: <strong>{organizationName}</strong>
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={retryPaymentLink}
               >
                 Повторити спробу оплати
               </Button>
             </Section>
             {billingLink && (
-              <Section className="mt-[32px] text-center">
-                <Text className="text-[#666666] text-[12px] leading-[24px]">
+              <Section className="mt-8 text-center">
+                <Text className="text-[#666666] text-xs leading-6">
                   <Link href={billingLink} className="text-black underline">
                     See your billing
                   </Link>

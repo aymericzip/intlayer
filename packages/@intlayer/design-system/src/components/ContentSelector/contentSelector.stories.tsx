@@ -190,7 +190,7 @@ export const ContentTypes: Story = {
           </h3>
           <ContentSelector onSelect={() => alert('Media selected!')}>
             <div className="relative">
-              <div className="flex h-32 w-full items-center justify-center rounded-lg bg-gradient-to-r from-blue-400 to-purple-500">
+              <div className="flex h-32 w-full items-center justify-center rounded-lg bg-linear-to-r from-blue-400 to-purple-500">
                 <span className="font-medium text-white">
                   Image Placeholder
                 </span>
@@ -646,7 +646,7 @@ export const ARIALabelsAndDescriptions: Story = {
               aria-describedby="media-help"
               aria-label="Select media item"
             >
-              <div className="rounded-lg border border-gray-200 bg-gradient-to-r from-purple-100 to-pink-100 p-4">
+              <div className="rounded-lg border border-gray-200 bg-linear-to-r from-purple-100 to-pink-100 p-4">
                 <h4 className="mb-2 font-semibold">Featured Image</h4>
                 <div className="text-gray-600 text-sm">
                   High-resolution banner image for the homepage

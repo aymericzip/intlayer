@@ -422,7 +422,7 @@ export const ContentCreation: Story = {
                 placeholder="Start writing your blog post..."
                 autoSize={true}
                 maxRows={20}
-                className="min-h-[400px] w-full resize-none border-0 font-serif text-base leading-relaxed focus:outline-none focus:ring-0"
+                className="min-h-100 w-full resize-none border-0 font-serif text-base leading-relaxed focus:outline-none focus:ring-0"
                 variant="invisible"
               />
             </div>

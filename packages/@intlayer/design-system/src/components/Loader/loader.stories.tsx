@@ -172,7 +172,7 @@ export const CompactSize: Story = {
 export const FullHeight: Story = {
   args: {
     isLoading: true,
-    className: 'min-h-[500px]',
+    className: 'min-h-125',
   },
   parameters: {
     docs: {

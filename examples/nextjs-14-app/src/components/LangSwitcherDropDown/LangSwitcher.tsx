@@ -32,7 +32,7 @@ export const LocaleSwitcher: FC = () => {
       aria-label={langSwitcherLabel.value}
     >
       <MaxHeightSmoother>
-        <div className="separator min-w-[100px] items-end divide-y divide-dashed p-1">
+        <div className="separator min-w-25 items-end divide-y divide-dashed p-1">
           <h2 className={`mb-3 font-semibold text-xl`}>{title} </h2>
 
           {availableLocales.map((lang) => (

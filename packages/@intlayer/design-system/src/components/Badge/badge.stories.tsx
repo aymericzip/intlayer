@@ -356,7 +356,7 @@ export const DismissibleBadge: Story = {
 export const CustomStyling: Story = {
   render: () => (
     <div className="flex flex-wrap gap-2">
-      <Badge className="border-none bg-gradient-to-r from-purple-500 to-pink-500 text-white">
+      <Badge className="border-none bg-linear-to-r from-purple-500 to-pink-500 text-white">
         Gradient
       </Badge>
       <Badge className="border-yellow-300 bg-yellow-100 text-yellow-800">

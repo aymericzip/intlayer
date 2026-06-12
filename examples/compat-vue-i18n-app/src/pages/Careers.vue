@@ -31,7 +31,7 @@ const OpenPositions = defineAsyncComponent(
     <Suspense>
       <OpenPositions />
       <template #fallback>
-        <div class="h-[600px] animate-pulse bg-muted/20" />
+        <div class="h-150 animate-pulse bg-muted/20" />
       </template>
     </Suspense>
   </div>

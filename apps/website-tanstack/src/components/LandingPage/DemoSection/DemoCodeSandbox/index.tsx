@@ -28,7 +28,7 @@ export const DemoCodeSandbox: FC<DemoCodeSandboxProps> = ({
     >
       <iframe
         src={`https://ide.intlayer.org${repoPath}?embed=1&file=intlayer.config.ts&theme=${resolvedTheme}&framework=${framework}`}
-        className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+        className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-175 md:aspect-16/9 md:w-full"
         title={
           content.demoCodesandboxHowToInternationalize({
             framework,

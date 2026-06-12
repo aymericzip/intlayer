@@ -1,6 +1,7 @@
 import type { Locale } from './allLocales';
 import type {
   ContentAutoTransformation,
+  DictionaryFormat,
   DictionaryLocation,
   Fill,
 } from './dictionary';
@@ -1101,6 +1102,21 @@ export type DictionaryConfig = {
    * - 'plugin' (or any custom string): The dictionary is managed by a plugin, or a custom source. When you will try to push it, the system will ask an action to the user.
    */
   location?: DictionaryLocation;
+
+  /**
+   * The default message format for all dictionaries in the project.
+   *
+   * Controls how dictionary content strings are interpreted at runtime.
+   *
+   * - 'intlayer': Native intlayer format (default).
+   * - 'icu': ICU message format (used by next-intl, react-intl, etc.).
+   * - 'i18next': i18next interpolation format (used by i18next, react-i18next, next-i18next).
+   * - 'vue-i18n': Vue I18n format (used by vue-i18n).
+   * - 'po': GNU Gettext PO format.
+   *
+   * Default: 'intlayer'
+   */
+  format?: DictionaryFormat;
 };
 
 /**

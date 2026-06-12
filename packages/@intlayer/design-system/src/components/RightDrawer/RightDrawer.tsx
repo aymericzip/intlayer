@@ -197,7 +197,7 @@ export const RightDrawer: FC<RightDrawerProps> = ({
     <div className="fixed top-0 right-0 z-50 flex h-full justify-end">
       <MaxWidthSmoother isHidden={!isOpen} align="right">
         <Container
-          className="relative flex h-screen w-screen flex-col text-text md:w-[400px]"
+          className="relative flex h-screen w-screen flex-col text-text md:w-100"
           ref={panelRef}
           roundedSize="none"
         >

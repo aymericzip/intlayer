@@ -41,7 +41,12 @@ type ICUNode =
       format?: { type: string; style?: string };
     }
   | { type: 'plural'; name: string; options: Record<string, ICUNode[]> }
-  | { type: 'select'; name: string; options: Record<string, ICUNode[]> };
+  | { type: 'select'; name: string; options: Record<string, ICUNode[]> }
+  | {
+      type: 'selectordinal';
+      name: string;
+      options: Record<string, ICUNode[]>;
+    };
 
 export type JsonValue =
   | string
@@ -143,8 +148,12 @@ const parseICU = (text: string): ICUNode[] => {
       if (text[index] === ',') {
         index++;
 
-        // If plural or select, parse options
-        if (type === 'plural' || type === 'select') {
+        // If plural, select or selectordinal, parse options
+        if (
+          type === 'plural' ||
+          type === 'select' ||
+          type === 'selectordinal'
+        ) {
           // Parse options
           const options: Record<string, ICUNode[]> = {};
 
@@ -182,6 +191,8 @@ const parseICU = (text: string): ICUNode[] => {
             return { type: 'plural', name, options };
           } else if (type === 'select') {
             return { type: 'select', name, options };
+          } else if (type === 'selectordinal') {
+            return { type: 'selectordinal', name, options };
           }
         } else {
           // Parse style for number/date/time
@@ -355,6 +366,36 @@ const icuNodesToIntlayer = (nodes: ICUNode[]): any => {
 
       return enu(options);
     }
+
+    if (node.type === 'selectordinal') {
+      // Ordinal plural ({n, selectordinal, one {#st} two {#nd} other {#th}}).
+      // Stored as an enumeration with the ordinal marker: exact matches keep
+      // numeric keys, CLDR ordinal categories keep their names, and the
+      // runtime selects via `Intl.PluralRules(locale, { type: 'ordinal' })`.
+      const options: Record<string, any> = {};
+
+      for (const [key, val] of Object.entries(node.options)) {
+        const newKey = key.startsWith('=')
+          ? key.substring(1)
+          : key === 'other'
+            ? 'fallback'
+            : key;
+
+        const replacedVal = val.map((value) => {
+          if (typeof value === 'string') {
+            return value.replace(/#/g, `{{${node.name}}}`);
+          }
+          return value;
+        });
+
+        options[newKey] = icuNodesToIntlayer(replacedVal);
+      }
+
+      options.__intlayer_icu_var = node.name;
+      options.__intlayer_icu_ordinal = true;
+
+      return enu(options);
+    }
   }
 
   // If multiple nodes, return array
@@ -484,7 +525,8 @@ const intlayerToIcuPlugin = {
 
       const transformedOptions: Record<string, string> = {};
       for (const [key, val] of Object.entries(options)) {
-        if (key === '__intlayer_icu_var') continue;
+        if (key === '__intlayer_icu_var' || key === '__intlayer_icu_ordinal')
+          continue;
         const childVal = next(val, props);
         transformedOptions[key] =
           typeof childVal === 'string' ? childVal : JSON.stringify(childVal);
@@ -501,6 +543,23 @@ const intlayerToIcuPlugin = {
         if (match) {
           varName = match[1];
         }
+      }
+
+      // Ordinal enumerations round-trip back to `selectordinal`
+      if (options.__intlayer_icu_ordinal === true) {
+        const ordinalParts = [];
+
+        for (const [key, val] of Object.entries(transformedOptions)) {
+          let icuKey = key;
+          if (key === 'fallback') icuKey = 'other';
+          else if (/^\d+$/.test(key)) icuKey = `=${key}`;
+
+          let strVal = val;
+          strVal = strVal.replace(new RegExp(`\\{${varName}\\}`, 'g'), '#');
+          ordinalParts.push(`${icuKey} {${strVal}}`);
+        }
+
+        return `{${varName}, selectordinal, ${ordinalParts.join(' ')}}`;
       }
 
       const keys = Object.keys(transformedOptions);

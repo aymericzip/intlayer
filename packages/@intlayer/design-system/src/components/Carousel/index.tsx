@@ -415,7 +415,7 @@ const CarouselRoot: FC<CarouselProps> = ({
         ref={containerRef}
         className={cn(
           'relative flex w-full cursor-grab select-none items-center overflow-hidden pb-4 outline-none transition-[height] duration-300 ease-in-out focus:outline-none focus:outline-none focus:ring-0 active:cursor-grabbing',
-          'max-w-[1400px]',
+          'max-w-350',
           className
         )}
         style={{

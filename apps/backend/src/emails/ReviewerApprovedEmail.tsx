@@ -9,6 +9,7 @@ import {
   Img,
   Link,
   Preview,
+  pixelBasedPreset,
   Section,
   Tailwind,
   Text,
@@ -29,10 +30,10 @@ export const ReviewerApprovedEmailEN = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -41,36 +42,36 @@ export const ReviewerApprovedEmailEN = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               Your profile has been <strong>approved</strong>!
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Hello {username},
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Great news! Your reviewer profile on <strong>Intlayer</strong> has
               been reviewed and approved. You are now listed on the marketplace
               and can start receiving translation missions.
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={dashboardLink}
               >
                 Go to Your Dashboard
               </Button>
             </Section>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               or copy and paste this URL into your browser:
             </Text>
             <Link
               href={dashboardLink}
-              className="text-[#8a8a8a] text-[10px] no-underline"
+              className="text-[#8a8a8a] text-xs no-underline"
             >
               {dashboardLink}
             </Link>
-            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-[12px] leading-[24px]">
+            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-xs leading-6">
               If you have any questions or need help, feel free to reply to this
               email. We're here to help!
             </Text>
@@ -91,10 +92,10 @@ export const ReviewerApprovedEmailFR = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -103,37 +104,37 @@ export const ReviewerApprovedEmailFR = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               Votre profil a été <strong>approuvé</strong> !
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Bonjour {username},
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Bonne nouvelle ! Votre profil de traducteur sur{' '}
               <strong>Intlayer</strong> a été examiné et approuvé. Vous êtes
               maintenant listé sur la marketplace et pouvez commencer à recevoir
               des missions de traduction.
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={dashboardLink}
               >
                 Accéder à votre tableau de bord
               </Button>
             </Section>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               ou copiez et collez cette URL dans votre navigateur :
             </Text>
             <Link
               href={dashboardLink}
-              className="text-[#8a8a8a] text-[10px] no-underline"
+              className="text-[#8a8a8a] text-xs no-underline"
             >
               {dashboardLink}
             </Link>
-            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-[12px] leading-[24px]">
+            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-xs leading-6">
               Si vous avez des questions ou avez besoin d'aide, n'hésitez pas à
               répondre à cet e-mail. Nous sommes là pour vous aider !
             </Text>
@@ -154,10 +155,10 @@ export const ReviewerApprovedEmailES = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -166,37 +167,37 @@ export const ReviewerApprovedEmailES = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               ¡Tu perfil ha sido <strong>aprobado</strong>!
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Hola {username},
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               ¡Buenas noticias! Tu perfil de traductor en{' '}
               <strong>Intlayer</strong> ha sido revisado y aprobado. Ahora
               apareces en el marketplace y puedes empezar a recibir misiones de
               traducción.
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={dashboardLink}
               >
                 Ir a tu panel de control
               </Button>
             </Section>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               o copia y pega esta URL en tu navegador:
             </Text>
             <Link
               href={dashboardLink}
-              className="text-[#8a8a8a] text-[10px] no-underline"
+              className="text-[#8a8a8a] text-xs no-underline"
             >
               {dashboardLink}
             </Link>
-            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-[12px] leading-[24px]">
+            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-xs leading-6">
               Si tienes preguntas o necesitas ayuda, no dudes en responder a
               este correo. ¡Estamos aquí para ayudarte!
             </Text>
@@ -217,10 +218,10 @@ export const ReviewerApprovedEmailRU = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -229,37 +230,37 @@ export const ReviewerApprovedEmailRU = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               Ваш профиль <strong>одобрен</strong>!
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Здравствуйте, {username}!
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Отличная новость! Ваш профиль переводчика на{' '}
               <strong>Intlayer</strong> был проверен и одобрен. Вы теперь
               отображаетесь на маркетплейсе и можете начать получать задания на
               перевод.
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={dashboardLink}
               >
                 Перейти к панели управления
               </Button>
             </Section>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               или скопируйте и вставьте этот URL в ваш браузер:
             </Text>
             <Link
               href={dashboardLink}
-              className="text-[#8a8a8a] text-[10px] no-underline"
+              className="text-[#8a8a8a] text-xs no-underline"
             >
               {dashboardLink}
             </Link>
-            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-[12px] leading-[24px]">
+            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-xs leading-6">
               Если у вас есть вопросы или нужна помощь, не стесняйтесь отвечать
               на это письмо. Мы здесь, чтобы помочь!
             </Text>
@@ -280,10 +281,10 @@ export const ReviewerApprovedEmailJA = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -292,35 +293,35 @@ export const ReviewerApprovedEmailJA = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               プロフィールが<strong>承認</strong>されました！
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               {username}様、こんにちは
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               おめでとうございます！<strong>Intlayer</strong>
               での翻訳者プロフィールが審査され、承認されました。マーケットプレイスに掲載され、翻訳ミッションの受注を開始できます。
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={dashboardLink}
               >
                 ダッシュボードへ
               </Button>
             </Section>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               または、以下のURLをブラウザにコピー＆ペーストしてください：
             </Text>
             <Link
               href={dashboardLink}
-              className="text-[#8a8a8a] text-[10px] no-underline"
+              className="text-[#8a8a8a] text-xs no-underline"
             >
               {dashboardLink}
             </Link>
-            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-[12px] leading-[24px]">
+            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-xs leading-6">
               ご不明な点やサポートが必要な場合は、このメールに返信してください。私たちがサポートいたします！
             </Text>
           </Container>
@@ -340,10 +341,10 @@ export const ReviewerApprovedEmailKO = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -352,36 +353,36 @@ export const ReviewerApprovedEmailKO = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               프로필이 <strong>승인</strong>되었습니다!
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               안녕하세요 {username}님,
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               좋은 소식입니다! <strong>Intlayer</strong>에서 번역가 프로필이
               검토되어 승인되었습니다. 이제 마켓플레이스에 등록되어 번역 미션을
               받기 시작할 수 있습니다.
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={dashboardLink}
               >
                 대시보드로 이동
               </Button>
             </Section>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               또는 다음 URL을 브라우저에 복사하여 붙여넣으세요:
             </Text>
             <Link
               href={dashboardLink}
-              className="text-[#8a8a8a] text-[10px] no-underline"
+              className="text-[#8a8a8a] text-xs no-underline"
             >
               {dashboardLink}
             </Link>
-            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-[12px] leading-[24px]">
+            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-xs leading-6">
               궁금한 점이 있거나 도움이 필요하시면 이 이메일에 답장해 주세요.
               저희가 도와드리겠습니다!
             </Text>
@@ -402,10 +403,10 @@ export const ReviewerApprovedEmailZH = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -414,35 +415,35 @@ export const ReviewerApprovedEmailZH = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               您的档案已<strong>获批准</strong>！
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               {username}，您好！
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               好消息！您在 <strong>Intlayer</strong>{' '}
               上的译者档案已经过审核并获批准。您现在已列入市场，可以开始接受翻译任务。
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={dashboardLink}
               >
                 前往您的仪表板
               </Button>
             </Section>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               或者将此 URL 复制并粘贴到您的浏览器中：
             </Text>
             <Link
               href={dashboardLink}
-              className="text-[#8a8a8a] text-[10px] no-underline"
+              className="text-[#8a8a8a] text-xs no-underline"
             >
               {dashboardLink}
             </Link>
-            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-[12px] leading-[24px]">
+            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-xs leading-6">
               如果您有任何问题或需要帮助，请随时回复此邮件。我们随时为您提供帮助！
             </Text>
           </Container>
@@ -462,10 +463,10 @@ export const ReviewerApprovedEmailDE = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -474,37 +475,37 @@ export const ReviewerApprovedEmailDE = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               Ihr Profil wurde <strong>genehmigt</strong>!
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Hallo {username},
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Großartige Neuigkeiten! Ihr Übersetzer-Profil auf{' '}
               <strong>Intlayer</strong> wurde geprüft und genehmigt. Sie sind
               jetzt auf dem Marktplatz gelistet und können mit der Annahme von
               Übersetzungsaufträgen beginnen.
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={dashboardLink}
               >
                 Zum Dashboard
               </Button>
             </Section>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               oder kopieren Sie diese URL in Ihren Browser:
             </Text>
             <Link
               href={dashboardLink}
-              className="text-[#8a8a8a] text-[10px] no-underline"
+              className="text-[#8a8a8a] text-xs no-underline"
             >
               {dashboardLink}
             </Link>
-            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-[12px] leading-[24px]">
+            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-xs leading-6">
               Wenn Sie Fragen haben oder Hilfe benötigen, können Sie gerne auf
               diese E-Mail antworten. Wir sind für Sie da!
             </Text>
@@ -525,10 +526,10 @@ export const ReviewerApprovedEmailAR = ({
     <Html dir="rtl">
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -537,36 +538,36 @@ export const ReviewerApprovedEmailAR = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               تمت <strong>الموافقة</strong> على ملفك الشخصي!
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               أهلاً {username}،
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               أخبار رائعة! تمت مراجعة ملفك الشخصي كمترجم على{' '}
               <strong>Intlayer</strong> والموافقة عليه. أنت الآن مدرج في السوق
               ويمكنك البدء في استقبال مهام الترجمة.
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={dashboardLink}
               >
                 الذهاب إلى لوحة التحكم
               </Button>
             </Section>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               أو قم بنسخ ولصق هذا الرابط في متصفحك:
             </Text>
             <Link
               href={dashboardLink}
-              className="text-[#8a8a8a] text-[10px] no-underline"
+              className="text-[#8a8a8a] text-xs no-underline"
             >
               {dashboardLink}
             </Link>
-            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-[12px] leading-[24px]">
+            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-xs leading-6">
               إذا كان لديك أي أسئلة أو كنت بحاجة إلى مساعدة، فلا تتردد في الرد
               على هذا البريد الإلكتروني. نحن هنا للمساعدة!
             </Text>
@@ -587,10 +588,10 @@ export const ReviewerApprovedEmailIT = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -599,37 +600,37 @@ export const ReviewerApprovedEmailIT = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               Il tuo profilo è stato <strong>approvato</strong>!
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Ciao {username},
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Ottime notizie! Il tuo profilo da traduttore su{' '}
               <strong>Intlayer</strong> è stato esaminato e approvato. Sei ora
               elencato nel marketplace e puoi iniziare a ricevere missioni di
               traduzione.
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={dashboardLink}
               >
                 Vai alla tua dashboard
               </Button>
             </Section>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               o copia e incolla questo URL nel tuo browser:
             </Text>
             <Link
               href={dashboardLink}
-              className="text-[#8a8a8a] text-[10px] no-underline"
+              className="text-[#8a8a8a] text-xs no-underline"
             >
               {dashboardLink}
             </Link>
-            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-[12px] leading-[24px]">
+            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-xs leading-6">
               Se hai domande o hai bisogno di aiuto, non esitare a rispondere a
               questa e-mail. Siamo qui per aiutarti!
             </Text>
@@ -650,10 +651,10 @@ export const ReviewerApprovedEmailEN_GB = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -662,36 +663,36 @@ export const ReviewerApprovedEmailEN_GB = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               Your profile has been <strong>approved</strong>!
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Hello {username},
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Great news! Your reviewer profile on <strong>Intlayer</strong> has
               been reviewed and approved. You are now listed on the marketplace
               and can start receiving translation missions.
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={dashboardLink}
               >
                 Go to Your Dashboard
               </Button>
             </Section>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               or copy and paste this URL into your browser:
             </Text>
             <Link
               href={dashboardLink}
-              className="text-[#8a8a8a] text-[10px] no-underline"
+              className="text-[#8a8a8a] text-xs no-underline"
             >
               {dashboardLink}
             </Link>
-            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-[12px] leading-[24px]">
+            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-xs leading-6">
               If you have any questions or need help, feel free to reply to this
               email. We're here to help!
             </Text>
@@ -712,10 +713,10 @@ export const ReviewerApprovedEmailPT = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -724,37 +725,37 @@ export const ReviewerApprovedEmailPT = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               Seu perfil foi <strong>aprovado</strong>!
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Olá {username},
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Ótimas notícias! Seu perfil de tradutor no{' '}
               <strong>Intlayer</strong> foi revisado e aprovado. Você agora está
               listado no marketplace e pode começar a receber missões de
               tradução.
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={dashboardLink}
               >
                 Ir para o seu painel
               </Button>
             </Section>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               ou copie e cole esta URL no seu navegador:
             </Text>
             <Link
               href={dashboardLink}
-              className="text-[#8a8a8a] text-[10px] no-underline"
+              className="text-[#8a8a8a] text-xs no-underline"
             >
               {dashboardLink}
             </Link>
-            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-[12px] leading-[24px]">
+            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-xs leading-6">
               Se você tiver alguma dúvida ou precisar de ajuda, sinta-se à
               vontade para responder a este e-mail. Estamos aqui para ajudar!
             </Text>
@@ -775,10 +776,10 @@ export const ReviewerApprovedEmailHI = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -787,36 +788,36 @@ export const ReviewerApprovedEmailHI = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               आपकी प्रोफ़ाइल <strong>अनुमोदित</strong> हो गई!
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               नमस्ते {username},
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               बधाई हो! <strong>Intlayer</strong> पर आपकी अनुवादक प्रोफ़ाइल की
               समीक्षा की गई है और उसे अनुमोदित कर दिया गया है। आप अब मार्केटप्लेस पर
               सूचीबद्ध हैं और अनुवाद मिशन प्राप्त करना शुरू कर सकते हैं।
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={dashboardLink}
               >
                 अपने डैशबोर्ड पर जाएं
               </Button>
             </Section>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               या इस URL को कॉपी करके अपने ब्राउज़र में पेस्ट करें:
             </Text>
             <Link
               href={dashboardLink}
-              className="text-[#8a8a8a] text-[10px] no-underline"
+              className="text-[#8a8a8a] text-xs no-underline"
             >
               {dashboardLink}
             </Link>
-            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-[12px] leading-[24px]">
+            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-xs leading-6">
               यदि आपके कोई प्रश्न हैं या सहायता की आवश्यकता है, तो बेझिझक इस ईमेल का उत्तर
               दें। हम आपकी मदद के लिए यहाँ हैं!
             </Text>
@@ -837,10 +838,10 @@ export const ReviewerApprovedEmailTR = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -849,36 +850,36 @@ export const ReviewerApprovedEmailTR = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               Profiliniz <strong>onaylandı</strong>!
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Merhaba {username},
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Harika haber! <strong>Intlayer</strong>'daki çevirmen profiliniz
               incelendi ve onaylandı. Artık pazaryerinde listelendiniz ve çeviri
               görevleri almaya başlayabilirsiniz.
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={dashboardLink}
               >
                 Gösterge Paneline Git
               </Button>
             </Section>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               veya bu URL'yi tarayıcınıza kopyalayıp yapıştırın:
             </Text>
             <Link
               href={dashboardLink}
-              className="text-[#8a8a8a] text-[10px] no-underline"
+              className="text-[#8a8a8a] text-xs no-underline"
             >
               {dashboardLink}
             </Link>
-            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-[12px] leading-[24px]">
+            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-xs leading-6">
               Sorularınız veya yardıma ihtiyacınız varsa bu e-postayı
               yanıtlamaktan çekinmeyin. Yardım etmek için buradayız!
             </Text>
@@ -899,10 +900,10 @@ export const ReviewerApprovedEmailPL = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -911,37 +912,37 @@ export const ReviewerApprovedEmailPL = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               Twój profil został <strong>zatwierdzony</strong>!
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Witaj {username},
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Świetna wiadomość! Twój profil tłumacza w{' '}
               <strong>Intlayer</strong> został sprawdzony i zatwierdzony. Jesteś
               teraz widoczny na marketplace i możesz zacząć otrzymywać zlecenia
               tłumaczeniowe.
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={dashboardLink}
               >
                 Przejdź do panelu
               </Button>
             </Section>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               lub skopiuj i wklej ten URL do przeglądarki:
             </Text>
             <Link
               href={dashboardLink}
-              className="text-[#8a8a8a] text-[10px] no-underline"
+              className="text-[#8a8a8a] text-xs no-underline"
             >
               {dashboardLink}
             </Link>
-            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-[12px] leading-[24px]">
+            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-xs leading-6">
               Jeśli masz pytania lub potrzebujesz pomocy, możesz odpowiedzieć na
               tego e-maila. Jesteśmy tutaj, żeby pomóc!
             </Text>
@@ -962,10 +963,10 @@ export const ReviewerApprovedEmailID = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -974,36 +975,36 @@ export const ReviewerApprovedEmailID = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               Profil Anda telah <strong>disetujui</strong>!
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Halo {username},
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Kabar baik! Profil penerjemah Anda di <strong>Intlayer</strong>{' '}
               telah ditinjau dan disetujui. Anda sekarang terdaftar di
               marketplace dan dapat mulai menerima misi terjemahan.
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={dashboardLink}
               >
                 Buka Dasbor Anda
               </Button>
             </Section>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               atau salin dan tempel URL ini ke browser Anda:
             </Text>
             <Link
               href={dashboardLink}
-              className="text-[#8a8a8a] text-[10px] no-underline"
+              className="text-[#8a8a8a] text-xs no-underline"
             >
               {dashboardLink}
             </Link>
-            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-[12px] leading-[24px]">
+            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-xs leading-6">
               Jika Anda memiliki pertanyaan atau membutuhkan bantuan, jangan
               ragu untuk membalas email ini. Kami siap membantu!
             </Text>
@@ -1024,10 +1025,10 @@ export const ReviewerApprovedEmailVI = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -1036,37 +1037,37 @@ export const ReviewerApprovedEmailVI = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               Hồ sơ của bạn đã được <strong>phê duyệt</strong>!
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Xin chào {username},
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Tin tuyệt vời! Hồ sơ dịch giả của bạn trên{' '}
               <strong>Intlayer</strong> đã được xem xét và phê duyệt. Bạn hiện
               đã được liệt kê trên marketplace và có thể bắt đầu nhận nhiệm vụ
               dịch thuật.
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={dashboardLink}
               >
                 Đến trang tổng quan của bạn
               </Button>
             </Section>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               hoặc sao chép và dán URL này vào trình duyệt của bạn:
             </Text>
             <Link
               href={dashboardLink}
-              className="text-[#8a8a8a] text-[10px] no-underline"
+              className="text-[#8a8a8a] text-xs no-underline"
             >
               {dashboardLink}
             </Link>
-            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-[12px] leading-[24px]">
+            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-xs leading-6">
               Nếu bạn có bất kỳ câu hỏi nào hoặc cần hỗ trợ, hãy tự nhiên trả
               lời email này. Chúng tôi luôn sẵn sàng giúp đỡ!
             </Text>
@@ -1087,10 +1088,10 @@ export const ReviewerApprovedEmailUK = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
+      <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Body className="m-auto px-2 font-sans">
-          <Container className="mx-auto my-[40px] max-w-[465px] rounded-xl border border-[#eaeaea] border-solid bg-white p-[20px]">
-            <Section className="mt-[32px]">
+          <Container className="mx-auto my-10 max-w-116.25 rounded-xl border border-[#eaeaea] border-solid bg-white p-5">
+            <Section className="mt-8">
               <Img
                 src="https://intlayer.org/apple-touch-icon.png"
                 width="40"
@@ -1099,37 +1100,37 @@ export const ReviewerApprovedEmailUK = ({
                 className="mx-auto my-0"
               />
             </Section>
-            <Heading className="mx-0 my-[30px] p-0 text-center font-normal text-[24px] text-black">
+            <Heading className="mx-0 my-7.5 p-0 text-center font-normal text-2xl text-black">
               Ваш профіль було <strong>схвалено</strong>!
             </Heading>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Вітаємо, {username}!
             </Text>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               Чудові новини! Ваш профіль перекладача на{' '}
               <strong>Intlayer</strong> було перевірено та схвалено. Тепер ви
               відображаєтесь на маркетплейсі та можете починати отримувати
               завдання на переклад.
             </Text>
-            <Section className="my-[32px] text-center">
+            <Section className="my-8 text-center">
               <Button
-                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-[12px] text-white no-underline"
+                className="rounded-md bg-[#000000] px-5 py-3 text-center font-semibold text-white text-xs no-underline"
                 href={dashboardLink}
               >
                 Перейти до панелі керування
               </Button>
             </Section>
-            <Text className="text-[14px] text-black leading-[24px]">
+            <Text className="text-black text-sm leading-6">
               або скопіюйте та вставте цей URL у браузер:
             </Text>
             <Link
               href={dashboardLink}
-              className="text-[#8a8a8a] text-[10px] no-underline"
+              className="text-[#8a8a8a] text-xs no-underline"
             >
               {dashboardLink}
             </Link>
-            <Hr className="mx-0 my-[26px] w-full border border-[#eaeaea] border-solid" />
-            <Text className="text-[#666666] text-[12px] leading-[24px]">
+            <Hr className="mx-0 my-6.5 w-full border border-[#eaeaea] border-solid" />
+            <Text className="text-[#666666] text-xs leading-6">
               Якщо у вас є запитання або потрібна допомога, не соромтеся
               відповідати на цей лист. Ми тут, щоб допомогти!
             </Text>

@@ -491,7 +491,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
                         >
                           {env.name}
                           {env.isDefault && (
-                            <span className="ml-auto rounded bg-text/10 px-1 text-[10px]">
+                            <span className="ml-auto rounded bg-text/10 px-1 text-xs">
                               {defaultEnv}
                             </span>
                           )}

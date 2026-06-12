@@ -88,7 +88,7 @@ const LINE_PADDING = 12; // px
  *   placeholder="Type your message..."
  *   autoSize={true}
  *   maxRows={8}
- *   className="min-h-[40px]"
+ *   className="min-h-10"
  *   onKeyDown={(e) => {
  *     if (e.key === 'Enter' && !e.shiftKey) {
  *       e.preventDefault();

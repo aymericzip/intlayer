@@ -71,7 +71,7 @@ export const DictionaryToolbar: FC<DictionaryToolbarProps> = ({
             </PopoverStatic.Detail>
           </PopoverStatic>
           {hasAppliedFilters && (
-            <span className="absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full bg-text text-[10px] text-card">
+            <span className="absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full bg-text text-card text-xs">
               {appliedFiltersCount}
             </span>
           )}
