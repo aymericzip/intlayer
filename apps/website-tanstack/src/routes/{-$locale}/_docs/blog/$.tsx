@@ -123,6 +123,12 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
             },
             inLanguage: locales,
             keywords: websiteContent.keywords,
+            subjectOf: {
+              '@type': 'DataFeed',
+              name: 'Intlayer RSS Feed',
+              url: `${Website_Home}/feed.xml`,
+              encodingFormat: 'application/rss+xml',
+            },
           }),
         },
         {
@@ -204,6 +210,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
             dateModified: blogData.updatedAt
               ? formatDate(blogData.updatedAt)
               : undefined,
+            version: blogData.history?.[0]?.version,
             keywords: Array.isArray(keywords)
               ? keywords.join(', ')
               : keywords || '',

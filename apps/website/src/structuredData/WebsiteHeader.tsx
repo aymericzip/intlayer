@@ -22,6 +22,12 @@ export const WebsiteHeader = () => {
     },
     inLanguage: internationalization.locales,
     keywords: keywords.map((keyword) => keyword.value),
+    subjectOf: {
+      '@type': 'DataFeed',
+      name: 'Intlayer RSS Feed',
+      url: `${Website_Home}/feed.xml`,
+      encodingFormat: 'application/rss+xml',
+    },
   };
 
   return (

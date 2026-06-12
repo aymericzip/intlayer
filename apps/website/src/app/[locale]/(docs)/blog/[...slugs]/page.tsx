@@ -68,6 +68,7 @@ const BlogPage = async ({ params }: LocalPromiseParams<BlogProps>) => {
             ? `https://github.com/${blogData.author.github}`
             : undefined
         }
+        history={blogData.history}
       />
       <DocHeader {...blogData} markdownContent={blogContent} />
 

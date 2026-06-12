@@ -72,6 +72,12 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/')({
             },
             inLanguage: locales,
             keywords: websiteContent.keywords,
+            subjectOf: {
+              '@type': 'DataFeed',
+              name: 'Intlayer RSS Feed',
+              url: `${Website_Home}/feed.xml`,
+              encodingFormat: 'application/rss+xml',
+            },
           }),
         },
         {

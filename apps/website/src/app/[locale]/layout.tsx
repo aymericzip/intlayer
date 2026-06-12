@@ -5,7 +5,16 @@ export { generateStaticParams } from 'next-intlayer';
 export { generateMetadata, viewport } from './metadata';
 
 const RootLayout: FC<PropsWithChildren> = ({ children }) => (
-  <AppProviders>{children}</AppProviders>
+  <AppProviders>
+    {/* Titled feed link — Next.js alternates API omits the title attribute */}
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Intlayer RSS Feed"
+      href="/feed.xml"
+    />
+    {children}
+  </AppProviders>
 );
 
 export default RootLayout;

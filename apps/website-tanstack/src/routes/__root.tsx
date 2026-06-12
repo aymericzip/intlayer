@@ -86,7 +86,12 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         href: '/apple-touch-icon.png',
       },
       { rel: 'manifest', href: '/manifest.json' },
-      { rel: 'alternate', type: 'application/rss+xml', href: '/feed.xml' },
+      {
+        rel: 'alternate',
+        type: 'application/rss+xml',
+        title: 'Intlayer RSS Feed',
+        href: '/feed.xml',
+      },
       {
         rel: 'preconnect',
         href: import.meta.env.VITE_BACKEND_URL,

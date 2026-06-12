@@ -26,19 +26,27 @@ export async function GET() {
     copyright: `${new Date().getFullYear()} Intlayer`,
     language: 'en',
     pubDate: new Date(),
+    custom_namespaces: {
+      atom: 'http://www.w3.org/2005/Atom',
+    },
   });
 
   for (const post of allPosts) {
+    const publishedDate = post.createdAt ? new Date(post.createdAt) : undefined;
+    const updatedDate = post.updatedAt
+      ? new Date(post.updatedAt)
+      : publishedDate;
+
     feed.item({
       title: post.title,
       guid: post.url,
       url: post.url,
-      date:
-        post.createdAt || post.updatedAt
-          ? new Date(post.createdAt || post.updatedAt)
-          : new Date(),
+      date: updatedDate ?? new Date(),
       description: post.description,
-      author: post.author,
+      author: post.author?.name ?? post.author,
+      custom_elements: publishedDate
+        ? [{ 'atom:updated': (updatedDate ?? publishedDate).toISOString() }]
+        : undefined,
     });
   }
 

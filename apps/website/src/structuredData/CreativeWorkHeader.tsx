@@ -1,6 +1,7 @@
 /** biome-ignore-all lint/security/noDangerouslySetInnerHtml: No choice */
 
 import { Website_Home } from '@intlayer/design-system/routes';
+import type { BlogMetadata } from '@intlayer/docs';
 import { useIntlayer } from 'next-intlayer/server';
 
 type DocHeaderProps = {
@@ -14,6 +15,8 @@ type DocHeaderProps = {
   url?: string;
   authorName?: string;
   authorUrl?: string;
+  /** Revision history parsed from markdown frontmatter, newest entry first. */
+  history?: BlogMetadata['history'];
 };
 
 // Schema.org requires ISO 8601 dates (YYYY-MM-DD).
@@ -22,7 +25,7 @@ const formatDate = (date: Date): string => {
     throw new Error('Input must be a valid Date object');
   }
 
-  return date.toISOString().split('T')[0];
+  return date.toISOString().split('T')[0]!;
 };
 
 export const CreativeWorkHeader = ({
@@ -36,6 +39,7 @@ export const CreativeWorkHeader = ({
   url,
   authorName,
   authorUrl,
+  history,
 }: DocHeaderProps) => {
   const { audienceType } = useIntlayer('creative-work-structured-data');
 
@@ -70,6 +74,7 @@ export const CreativeWorkHeader = ({
     url,
     datePublished: datePublished ? formatDate(datePublished) : undefined,
     dateModified: dateModified ? formatDate(dateModified) : undefined,
+    version: history?.[0]?.version,
     keywords: keywords,
     license:
       'https://raw.githubusercontent.com/aymericzip/intlayer/refs/heads/main/LICENSE',

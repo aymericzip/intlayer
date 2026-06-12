@@ -1,6 +1,7 @@
 /** biome-ignore-all lint/security/noDangerouslySetInnerHtml: No choice */
 
 import { Website_Home } from '@intlayer/design-system/routes';
+import type { BlogMetadata } from '@intlayer/docs';
 import { useIntlayer } from 'react-intlayer';
 
 type DocHeaderProps = {
@@ -14,6 +15,8 @@ type DocHeaderProps = {
   url?: string;
   authorName?: string;
   authorUrl?: string;
+  /** Revision history parsed from markdown frontmatter, newest entry first. */
+  history?: BlogMetadata['history'];
 };
 
 const formatDate = (date: Date): string => {
@@ -35,6 +38,7 @@ export const CreativeWorkHeader = ({
   url,
   authorName,
   authorUrl,
+  history,
 }: DocHeaderProps) => {
   const { audienceType } = useIntlayer('creative-work-structured-data');
   const creativeWork = {
@@ -56,6 +60,7 @@ export const CreativeWorkHeader = ({
     url,
     datePublished: datePublished ? formatDate(datePublished) : undefined,
     dateModified: dateModified ? formatDate(dateModified) : undefined,
+    version: history?.[0]?.version,
     keywords: keywords,
     license:
       'https://raw.githubusercontent.com/aymericzip/intlayer/refs/heads/main/LICENSE',
