@@ -16,6 +16,7 @@ import {
   App_Dashboard_Projects_Path,
   App_Dashboard_Tags_Path,
   App_Dashboard_Translate_Path,
+  App_Home_Path,
 } from '@intlayer/design-system/routes';
 import { TabSelector } from '@intlayer/design-system/tab-selector';
 import { Tag } from '@intlayer/design-system/tag';
@@ -34,6 +35,7 @@ import {
   Globe,
   HandCoins,
   Layers,
+  LayoutDashboard,
   type LucideIcon,
   MessageSquare,
   PenTool,
@@ -51,6 +53,7 @@ import { ReviewerMarketplaceBanner } from './ReviewerMarketplaceBanner';
 
 // Map icon names to components - must be done in client component
 export const iconMap: Record<string, LucideIcon> = {
+  LayoutDashboard,
   PenTool,
   Book,
   FileText,
@@ -72,6 +75,7 @@ export const shouldHaveOrganizationRoutes = [
 ] as string[];
 
 export const shouldHaveProjectRoutes = [
+  App_Home_Path,
   App_Dashboard_Editor_Path,
   App_Dashboard_Translate_Path,
   App_Dashboard_Dictionaries_Path,

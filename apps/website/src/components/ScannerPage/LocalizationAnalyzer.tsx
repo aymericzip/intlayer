@@ -13,7 +13,6 @@ import { useRecursiveScan } from './useRecursiveScan';
 
 export const LocalizationAnalyzer: FC = () => {
   const { session } = useSession();
-  const isLoggedIn = !!session;
 
   const { globalError } = useIntlayer('localization-analyzer');
 
@@ -121,7 +120,6 @@ export const LocalizationAnalyzer: FC = () => {
         onPause={handlePauseRecursiveAudit}
         onResume={handleResumeRecursiveAudit}
         onCancel={handleCancelRecursiveAudit}
-        isLoggedIn={isLoggedIn}
       />
 
       {error && <p className="text-error">{error}</p>}

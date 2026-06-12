@@ -46,7 +46,6 @@ export const DashboardLocalizationScanner: FC = () => {
     domainData,
     mergedData,
     handleAnalyze,
-    handleCancel,
   } = useLocalizationScan(globalError?.value);
 
   const scannedUrl = useMemo(() => {
@@ -257,7 +256,6 @@ export const DashboardLocalizationScanner: FC = () => {
           onPause={handlePauseRecursiveAudit}
           onResume={handleResumeRecursiveAudit}
           onCancel={handleCancelRecursiveAudit}
-          isLoggedIn={true}
         />
 
         {error && (

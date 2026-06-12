@@ -10,6 +10,7 @@ import {
   App_Dashboard_Scanner_Path,
   App_Dashboard_Tags_Path,
   App_Dashboard_Translate_Path,
+  App_Home_Path,
 } from '@intlayer/design-system/routes';
 import { cn } from '@intlayer/design-system/utils';
 import { WithResizer } from '@intlayer/design-system/with-resizer';
@@ -111,6 +112,13 @@ function DashboardLayout() {
   };
 
   const navigationItems: SidebarNavigationItem[] = [
+    {
+      key: 'overview',
+      href: App_Home_Path,
+      icon: 'LayoutDashboard',
+      label: navigation.overview.label.value,
+      title: navigation.overview.title.value,
+    },
     {
       key: 'content-group',
       href: App_Dashboard_Editor_Path,
