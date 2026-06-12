@@ -19,7 +19,8 @@ export const DeleteOrganizationModal: FC<DeleteOrganizationModalProps> = ({
 }) => {
   const { session, revalidateSession } = useSession();
   const { roles } = session ?? {};
-  const isOrganizationAdmin = roles?.includes('org_admin');
+  const isOrganizationAdmin =
+    roles?.includes('org_admin') || roles?.includes('admin');
 
   const { mutate: deleteOrganization, isPending: isDeleting } =
     useDeleteOrganization();

@@ -34,7 +34,9 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
 }) => {
   const { locale } = useLocale();
   const { session } = useSession();
-  const isProjectAdmin = session?.roles?.includes('project_admin');
+  const isProjectAdmin =
+    session?.roles?.includes('project_admin') ||
+    session?.roles?.includes('admin');
   const { mutate: pushProjectConfiguration, isPending } =
     usePushProjectConfiguration();
   const {

@@ -18,7 +18,8 @@ import { SSOSettings } from './SSO';
 const OrganizationFormContent: FC = () => {
   const { session } = useSession();
   const { organization, roles } = session ?? {};
-  const isOrganizationAdmin = roles?.includes('org_admin');
+  const isOrganizationAdmin =
+    roles?.includes('org_admin') || roles?.includes('admin');
   const [isCreationModalOpen, setIsCreationModalOpen] = useState(false);
   const [isDeletionModalOpen, setIsDeletionModalOpen] = useState(false);
   const { data: organizations, isPending, isSuccess } = useGetOrganizations();

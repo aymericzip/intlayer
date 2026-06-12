@@ -12,7 +12,8 @@ import {
 export const OrganizationEditionForm: FC = () => {
   const { session } = useSession();
   const { organization, roles } = session ?? {};
-  const isOrganizationAdmin = roles?.includes('org_admin');
+  const isOrganizationAdmin =
+    roles?.includes('org_admin') || roles?.includes('admin');
 
   const OrganizationSchema = useOrganizationSchema();
   const { mutate: updateOrganization, isPending } = useUpdateOrganization();

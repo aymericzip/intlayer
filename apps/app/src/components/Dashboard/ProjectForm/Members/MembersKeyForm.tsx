@@ -380,7 +380,9 @@ export const MembersForm: FC = () => {
   const users = (usersData as GetUsersResult)?.data ?? [];
   const displayedUsers = users.slice(0, 5);
   const remainingCount = users.length - displayedUsers.length;
-  const isProjectAdmin = session?.roles.includes('project_admin');
+  const isProjectAdmin =
+    session?.roles.includes('project_admin') ||
+    session?.roles.includes('admin');
   const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
 
   const memberIds = project?.membersIds.map(String) ?? [];

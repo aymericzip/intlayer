@@ -47,7 +47,8 @@ export const MembersForm: FC = () => {
     ids: organization?.membersIds ?? [],
   });
   const [memberIdToRemove, setMemberIdToRemove] = useState<string>();
-  const isOrganizationAdmin = session?.roles.includes('org_admin');
+  const isOrganizationAdmin =
+    session?.roles.includes('org_admin') || session?.roles.includes('admin');
 
   const onSubmitSuccessAddMember = () => {
     const userEmail = newUserForm.getValues('userEmail');

@@ -22,8 +22,12 @@ import { RepositoryLink } from './RepositoryLink';
 export const ProjectFormContent: FC = () => {
   const { session } = useSession();
 
-  const isProjectMember = session?.roles?.includes('project_user');
-  const isProjectAdmin = session?.roles?.includes('project_admin');
+  const isProjectMember =
+    session?.roles?.includes('project_user') ||
+    session?.roles?.includes('admin');
+  const isProjectAdmin =
+    session?.roles?.includes('project_admin') ||
+    session?.roles?.includes('admin');
 
   const { project } = session ?? {};
   const [isDeletionModalOpen, setIsDeletionModalOpen] = useState(false);
@@ -201,6 +205,15 @@ export const ProjectFormContent: FC = () => {
               padding="md"
               border
               borderColor="neutral"
+              className="flex size-full justify-center"
+            >
+              <OpenRouterSettings />
+            </Container>
+            <Container
+              roundedSize="3xl"
+              padding="md"
+              border
+              borderColor="neutral"
               className="z-20 flex size-full justify-center"
             >
               <EnvironmentsForm />
@@ -231,15 +244,6 @@ export const ProjectFormContent: FC = () => {
               className="flex size-full justify-center"
             >
               <AutoFillSettings />
-            </Container>
-            <Container
-              roundedSize="3xl"
-              padding="md"
-              border
-              borderColor="neutral"
-              className="flex size-full justify-center"
-            >
-              <OpenRouterSettings />
             </Container>
           </div>
         </div>

@@ -70,7 +70,9 @@ export const EnvironmentsForm: FC = () => {
 
   const { session } = useSession();
   const { project, environment: activeEnvironment } = session ?? {};
-  const isProjectAdmin = session?.roles?.includes('project_admin');
+  const isProjectAdmin =
+    session?.roles?.includes('project_admin') ||
+    session?.roles?.includes('admin');
   const projectEnvironments: EnvironmentAPI[] = (project?.environments ??
     []) as any[];
   const environmentEntries = buildEnvironmentEntries(projectEnvironments);

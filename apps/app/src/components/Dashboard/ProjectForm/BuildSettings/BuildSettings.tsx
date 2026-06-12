@@ -101,7 +101,9 @@ type BuildSettingsFormData = z.infer<typeof buildSettingsSchema>;
 export const BuildSettings: FC = () => {
   const { session } = useSession();
   const { project } = session ?? {};
-  const isProjectAdmin = session?.roles?.includes('project_admin');
+  const isProjectAdmin =
+    session?.roles?.includes('project_admin') ||
+    session?.roles?.includes('admin');
 
   const { mutate: updateProject, isPending: isUpdating } = useUpdateProject();
   const { mutate: triggerBuild, isPending: isBuilding } = useTriggerBuild();

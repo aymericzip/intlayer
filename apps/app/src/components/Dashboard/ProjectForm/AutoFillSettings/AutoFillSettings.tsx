@@ -16,7 +16,9 @@ type AutoFillFormData = z.infer<typeof autoFillSchema>;
 export const AutoFillSettings: FC = () => {
   const { session } = useSession();
   const { project } = session ?? {};
-  const isProjectAdmin = session?.roles?.includes('project_admin');
+  const isProjectAdmin =
+    session?.roles?.includes('project_admin') ||
+    session?.roles?.includes('admin');
   const { mutate: updateProject, isPending: isUpdating } = useUpdateProject();
   const { title, autoFillOnPushToggle, saveButton } =
     useIntlayer('auto-fill-settings');

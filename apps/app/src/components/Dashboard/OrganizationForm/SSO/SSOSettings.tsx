@@ -149,7 +149,8 @@ const defaultSSOValues: Partial<SSOFormData> = {
 export const SSOSettings: FC = () => {
   const { session } = useSession();
   const { organization, roles } = session ?? {};
-  const isOrganizationAdmin = !!roles?.includes('org_admin');
+  const isOrganizationAdmin =
+    !!roles?.includes('org_admin') || !!roles?.includes('admin');
 
   const SSOConfigSchema = useSSOConfigSchema();
   const { mutate: registerSSO, isPending: isPendingRegisterSSO } =

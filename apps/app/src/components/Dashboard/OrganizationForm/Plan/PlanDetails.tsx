@@ -41,7 +41,8 @@ const getTypeTagColor = (plan?: PlanAPI) => {
 
 export const PlanDetails: FC<PlanDetailsProps> = () => {
   const { session } = useSession();
-  const isOrganizationAdmin = session?.roles?.includes('org_admin');
+  const isOrganizationAdmin =
+    session?.roles?.includes('org_admin') || session?.roles?.includes('admin');
   const {
     title,
     upgradeButton,

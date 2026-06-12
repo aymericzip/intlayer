@@ -8,7 +8,9 @@ import { type ProjectFormData, useProjectSchema } from './useProjectFormSchema';
 
 export const ProjectEditionForm: FC = () => {
   const { session } = useSession();
-  const isProjectAdmin = session?.roles?.includes('project_admin');
+  const isProjectAdmin =
+    session?.roles?.includes('project_admin') ||
+    session?.roles?.includes('admin');
   const { project } = session ?? {};
   const ProjectSchema = useProjectSchema();
   const { mutate: updateProject, isPending } = useUpdateProject();

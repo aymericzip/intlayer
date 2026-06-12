@@ -39,7 +39,9 @@ export const ConfigDetails: FC<ConfigDetailsProps> = ({ projectConfig }) => {
   const { locale } = useLocale();
   const { session } = useSession();
   const { project } = session ?? {};
-  const isProjectAdmin = session?.roles?.includes('project_admin');
+  const isProjectAdmin =
+    session?.roles?.includes('project_admin') ||
+    session?.roles?.includes('admin');
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isImportFlowOpen, setIsImportFlowOpen] = useState(false);
   const [filePreview, setFilePreview] = useState<{

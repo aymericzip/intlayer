@@ -66,7 +66,9 @@ type OpenRouterFormData = z.infer<ReturnType<typeof useOpenRouterSchema>>;
 export const OpenRouterSettings: FC = () => {
   const { session } = useSession();
   const { project } = session ?? {};
-  const isProjectAdmin = session?.roles?.includes('project_admin');
+  const isProjectAdmin =
+    session?.roles?.includes('project_admin') ||
+    session?.roles?.includes('admin');
   const { mutate: pushProjectConfiguration, isPending: isUpdating } =
     usePushProjectConfiguration();
 
