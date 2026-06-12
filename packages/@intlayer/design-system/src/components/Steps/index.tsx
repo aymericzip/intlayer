@@ -52,7 +52,7 @@ export const Step: FC<StepProps> = ({
 
       <div className="mt-10 mb-8 flex w-full min-w-0 flex-col gap-8">
         {title && (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center items-center gap-2">
             <H3
               isClickable
               id={`step-${number}-${slugify(title)}`}
@@ -62,7 +62,7 @@ export const Step: FC<StepProps> = ({
               {title}
             </H3>
             {isOptional && (
-              <span className="ml-4 rounded-full bg-neutral/15 px-3 py-1 text-text/90 text-xs">
+              <span className="mb-2 ml-4 rounded-full bg-neutral/15 px-3 py-1 text-text/90 text-xs">
                 {optionalLabel}
               </span>
             )}

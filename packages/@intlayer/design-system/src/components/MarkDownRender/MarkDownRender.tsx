@@ -22,7 +22,7 @@ import { MarkDownIframe } from './MarkDownIframe';
 
 // Extracted, stable component renderers
 const H1Renderer = (props: ComponentProps<'h1'>) => (
-  <H1 isClickable className="text-text" {...props} />
+  <H1 isClickable className="mb-16 mb-8 text-text" {...props} />
 );
 const H2Renderer = (props: ComponentProps<'h2'>) => (
   <H2 isClickable className="mt-16 text-text" {...props} />
