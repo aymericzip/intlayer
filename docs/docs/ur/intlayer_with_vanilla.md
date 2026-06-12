@@ -24,9 +24,7 @@ history:
   - version: 8.4.10
     date: 2026-03-31
     changes: "تاریخ کا آغاز"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer کا استعمال کرتے ہوئے اپنی Vanilla JS ویب سائٹ کا ترجمہ کریں | بین الاقوامی کاری (i18n)

@@ -27,9 +27,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "초기 기록"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer를 사용하여 Nuxt 및 Vue 웹사이트 번역하기 | 국제화(i18n)

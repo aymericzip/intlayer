@@ -25,9 +25,7 @@ history:
   - version: 7.6.0
     date: 2025-12-31
     changes: "初始化历史记录"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 使用 Intlayer 翻译您的 Fastify 后端网站 | 国际化 (i18n)

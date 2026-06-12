@@ -67,10 +67,7 @@ export type FileMetadata = {
   keywords: string[];
   updatedAt: string;
   createdAt: string;
-  author?: {
-    name: string;
-    github?: string;
-  };
+  author?: string;
   youtubeVideo?: string;
   applicationTemplate?: string;
   applicationShowcase?: string;
@@ -95,11 +92,23 @@ export const formatMetadata = (
 
   const slicedDocKey = docKey.slice(1);
 
+  // Normalise author: accept both a plain string handle (new format)
+  // and a legacy object `{ github: '...' }` — always reduce to a plain string.
+  const rawAuthor = metadata.author as
+    | string
+    | { name?: string; github?: string }
+    | undefined;
+  const author: string | undefined =
+    typeof rawAuthor === 'string'
+      ? rawAuthor || undefined
+      : rawAuthor?.github || undefined;
+
   return {
     ...metadata,
     docKey,
     slugs,
     keywords,
+    author,
     githubUrl: `${GITHUB_URL_PREFIX}${slicedDocKey}`.replace(
       '/en/',
       `/${locale}/`

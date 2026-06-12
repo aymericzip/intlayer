@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - domain-routing
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 如何使用 Intlayer 配置基于**域名的路由**，而不是使用 `/[locale]/` 路径？

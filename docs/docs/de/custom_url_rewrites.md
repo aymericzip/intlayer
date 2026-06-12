@@ -16,9 +16,7 @@ history:
   - version: 8.0.0
     date: 2026-01-25
     changes: "Zentrale URL-Rewrites mit framework-spezifischen Formatierern und dem useRewriteURL-Hook implementieren."
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Implementierung benutzerdefinierter URL Rewrites

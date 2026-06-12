@@ -1,6 +1,7 @@
 /** biome-ignore-all lint/security/noDangerouslySetInnerHtml: No choice */
 
 import { External_Github, Website_Home } from '@intlayer/design-system/routes';
+import { buildSoftwareApplicationJsonLd } from '@intlayer/design-system/structured-data';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 import packageJson from '../../package_mock.json' with { type: 'json' };
@@ -10,51 +11,25 @@ export const SoftwareApplicationHeader: FC = () => {
     'software-application-structured-data'
   );
 
-  const softwareApplication = {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: 'Intlayer',
-    url: Website_Home,
-    description: description.value,
-    softwareVersion: packageJson.version,
-    license:
-      'https://raw.githubusercontent.com/aymericzip/intlayer/refs/heads/main/LICENSE',
-    author: {
-      '@type': 'Organization',
-      name: 'Intlayer',
-      url: Website_Home,
-      logo: `${Website_Home}/assets/logo.png`,
-      sameAs: [External_Github],
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'Intlayer',
-      url: Website_Home,
-      logo: `${Website_Home}/assets/logo.png`,
-    },
-    keywords: keywords.map((keyword) => keyword.value),
-    creator: {
-      '@type': 'Person',
-      name: 'Aymeric PINEAU',
-      url: 'https://github.com/aymericzip',
-    },
-    applicationCategory: 'DeveloperApplication',
-    applicationSubCategory: 'Developer Tools',
-    image: `${Website_Home}/cover.png`,
-    operatingSystem: 'Web, iOS, Android',
-    datePublished: '2024-08-26',
-    audience: {
-      '@type': 'Audience',
-      audienceType: audienceType.value,
-    },
-    mainEntityOfPage: Website_Home,
-  };
-
   return (
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify(softwareApplication),
+        __html: JSON.stringify(
+          buildSoftwareApplicationJsonLd({
+            name: 'Intlayer',
+            url: Website_Home,
+            description: description.value,
+            softwareVersion: packageJson.version,
+            keywords: keywords.map((keyword) => keyword.value),
+            audienceType: audienceType.value,
+            authorUrl: Website_Home,
+            logoUrl: `${Website_Home}/assets/logo.png`,
+            githubUrl: External_Github,
+            operatingSystem: 'Web, iOS, Android',
+            mainEntityUrl: Website_Home,
+          })
+        ),
       }}
     />
   );

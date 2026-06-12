@@ -22,9 +22,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "履歴初期化"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # ドキュメント: `intlayer` の `getLocalizedUrl` 関数

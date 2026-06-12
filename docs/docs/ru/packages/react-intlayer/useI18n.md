@@ -23,9 +23,7 @@ history:
   - version: 6.0.0
     date: 2025-06-29
     changes: "Первоначальное написание документации по хуку `useI18n`"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Интеграция с React: Документация по хуку `useI18n`

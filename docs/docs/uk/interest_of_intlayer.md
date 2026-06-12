@@ -25,9 +25,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Початкова історія"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Чому варто розглянути Intlayer?

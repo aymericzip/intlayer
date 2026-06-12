@@ -4,7 +4,9 @@ import {
   App_Dashboard,
   App_Dashboard_IDE,
   App_Dashboard_IDE_Path,
+  Website_Domain,
 } from '@intlayer/design-system/routes';
+import { buildBreadcrumbsJsonLd } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -15,7 +17,6 @@ import {
 import { useEffect, useRef } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { useTheme } from '#/providers/ThemeProvider';
-import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
 import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/AuthenticationBarrier';
 import { DashboardContentLayout } from '#components/Dashboard/DashboardContentLayout';
 
@@ -28,18 +29,12 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/ide')({
 
     return {
       links: [
-        // Canonical link: Points to the current localized page
         { rel: 'canonical', href: getLocalizedUrl(path, locale) },
-
-        // Hreflang: Tell Google about all localized versions
         ...localeMap(({ locale: mapLocale }) => ({
           rel: 'alternate',
           hrefLang: mapLocale,
           href: getLocalizedUrl(path, mapLocale),
         })),
-
-        // x-default: For users in unmatched languages
-        // Define the default fallback locale (usually your primary language)
         {
           rel: 'alternate',
           hrefLang: 'x-default',
@@ -55,6 +50,26 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/ide')({
         {
           name: 'keywords',
           content: content.metadata.keywords.join(', '),
+        },
+      ],
+      scripts: [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(
+            buildBreadcrumbsJsonLd({
+              breadcrumbs: [
+                {
+                  name: 'Dashboard',
+                  url: getLocalizedUrl(App_Dashboard, locale),
+                },
+                {
+                  name: 'IDE',
+                  url: getLocalizedUrl(App_Dashboard_IDE_Path, locale),
+                },
+              ],
+              domain: Website_Domain,
+            })
+          ),
         },
       ],
     };
@@ -103,19 +118,6 @@ function IDEPage() {
   return (
     <AuthenticationBarrier accessRule="authenticated" locale={locale}>
       <DashboardContentLayout title={title}>
-        <BreadcrumbsHeader
-          breadcrumbs={[
-            {
-              name: 'Dashboard',
-              url: getLocalizedUrl(App_Dashboard, locale),
-            },
-            {
-              name: 'IDE',
-              url: getLocalizedUrl(App_Dashboard_IDE_Path, locale),
-            },
-          ]}
-        />
-
         <div className="flex w-full flex-1 flex-col items-center p-2">
           {!project ? (
             <div className="flex size-full items-center justify-center">

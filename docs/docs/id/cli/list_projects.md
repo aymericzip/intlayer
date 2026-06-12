@@ -18,9 +18,7 @@ history:
   - version: 7.5.12
     date: 2026-01-06
     changes: "Tambahkan opsi output absolut ke perintah list projects"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Daftar Proyek Intlayer

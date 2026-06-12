@@ -25,9 +25,7 @@ history:
   - version: 8.7.7
     date: 2026-04-24
     changes: "التوثيق الأولي لـ Astro + Solid"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # ترجمة موقع Astro + Solid الخاص بك باستخدام Intlayer | التدويل (i18n)

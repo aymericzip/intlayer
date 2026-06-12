@@ -13,9 +13,7 @@ keywords:
 slugs:
   - blog
   - per-component-vs-centralized-i18n
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # i18n par composant vs. i18n centralisé

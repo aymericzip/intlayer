@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - static-rendering
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip 
 ---
 
 # Next.js'de i18n ile Statik ve Dinamik Render

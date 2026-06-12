@@ -18,9 +18,7 @@ history:
   - version: 8.0.0
     date: 2026-01-21
     changes: "Hợp nhất tài liệu cho tất cả các export"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Gói fastify-intlayer

@@ -22,9 +22,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Historia inicial"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Integración con React: Documentación del Hook `useDictionary`

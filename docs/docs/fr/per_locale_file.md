@@ -18,9 +18,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Historique initial"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Déclaration de contenu `Par-Langue` dans Intlayer

@@ -20,9 +20,7 @@ history:
   - version: 5.7.2
     date: 2025-07-27
     changes: "Introdução de conteúdo baseado em gênero"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Conteúdo Baseado em Gênero / Gênero no Intlayer

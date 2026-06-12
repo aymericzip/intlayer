@@ -22,9 +22,7 @@ history:
   - version: 8.0.0
     date: 2025-12-30
     changes: "履歴の初期化"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer を使用して AdonisJS バックエンドウェブサイトを翻訳する | 国際化 (i18n)

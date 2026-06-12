@@ -16,9 +16,7 @@ keywords:
 slugs:
   - blog
   - compiler-vs-declarative-i18n
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Argumen Mendukung dan Menentang i18n Berbasis Compiler

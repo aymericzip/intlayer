@@ -22,9 +22,7 @@ history:
   - version: 8.7.0
     date: 2026-04-08
     changes: "बिल्ड कॉन्फ़िगरेशन में `minify` और `purge` विकल्प जोड़े गए"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # i18n बंडल साइज़ और परफॉरमेंस ऑप्टिमाइज़ेशन

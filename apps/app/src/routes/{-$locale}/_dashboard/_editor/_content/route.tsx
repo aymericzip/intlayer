@@ -7,15 +7,16 @@ import {
   App_Dashboard_Projects_Path,
   App_Dashboard_Tags_Path,
   App_Dashboard_Translate_Path,
+  Website_Domain,
 } from '@intlayer/design-system/routes';
+import { buildBreadcrumbsJsonLd } from '@intlayer/design-system/structured-data';
 import { TabSelector } from '@intlayer/design-system/tab-selector';
 import { cn } from '@intlayer/design-system/utils';
 import { createFileRoute, Outlet, useLocation } from '@tanstack/react-router';
-import { getLocalizedUrl, getPathWithoutLocale } from 'intlayer';
+import { getIntlayer, getLocalizedUrl, getPathWithoutLocale } from 'intlayer';
 import { Book, Globe, PenTool, Tag } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
-import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
 import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/AuthenticationBarrier';
 import { EditorConfigurationProvider } from '#components/Dashboard/ContentDashboard/ConfigurationProvider.tsx';
 import { DashboardContentLayout } from '#components/Dashboard/DashboardContentLayout';
@@ -44,6 +45,34 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/_editor/_content')(
       });
     },
     component: EditorLayout,
+    head: ({ params }) => {
+      const { locale } = params;
+      const content = getIntlayer('content-dashboard-page', locale);
+
+      return {
+        meta: [{ title: String(content.title) }],
+        scripts: [
+          {
+            type: 'application/ld+json',
+            children: JSON.stringify(
+              buildBreadcrumbsJsonLd({
+                breadcrumbs: [
+                  {
+                    name: 'Dashboard',
+                    url: getLocalizedUrl(App_Dashboard, locale),
+                  },
+                  {
+                    name: 'Editor',
+                    url: getLocalizedUrl(App_Dashboard_Editor, locale),
+                  },
+                ],
+                domain: Website_Domain,
+              })
+            ),
+          },
+        ],
+      };
+    },
   }
 );
 
@@ -151,18 +180,6 @@ function EditorLayout() {
                 isEditorActive ? 'flex' : 'hidden'
               )}
             >
-              <BreadcrumbsHeader
-                breadcrumbs={[
-                  {
-                    name: 'Dashboard',
-                    url: getLocalizedUrl(App_Dashboard, locale),
-                  },
-                  {
-                    name: 'Editor',
-                    url: getLocalizedUrl(App_Dashboard_Editor, locale),
-                  },
-                ]}
-              />
               <Editor
                 DictionariesLoader={DictionaryLoaderDashboard}
                 suppressEditionDrawer={!isEditorActive}

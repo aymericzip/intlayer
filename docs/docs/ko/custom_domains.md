@@ -17,9 +17,7 @@ history:
   - version: 8.5.0
     date: 2026-04-02
     changes: "routing.domains 구성을 통해 도메인 기반 로케일 라우팅을 추가했습니다."
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 사용자 정의 도메인

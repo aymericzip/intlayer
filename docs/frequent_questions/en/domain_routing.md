@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - domain-routing
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # How do I configure **domain‑based routing** with Intlayer instead of `/[locale]/` paths?

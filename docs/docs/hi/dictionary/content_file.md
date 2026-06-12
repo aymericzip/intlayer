@@ -36,9 +36,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "इतिहास प्रारंभ किया"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # कंटेंट फ़ाइल

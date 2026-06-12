@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - customized-locale-list
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Чи можна заблокувати певну мову, наприклад англійську? Я додаю англійську у свої словники, але поки не хочу, щоб англійська була доступна на сайті

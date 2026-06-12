@@ -20,9 +20,7 @@ history:
   - version: 7.5.11
     date: 2026-01-06
     changes: "Menambahkan opsi output JSON ke perintah list"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Daftar file deklarasi konten

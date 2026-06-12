@@ -25,9 +25,7 @@ history:
   - version: 7.6.0
     date: 2025-12-31
     changes: "Zainicjowano historię"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Przetłumacz swoją stronę backendową Fastify za pomocą Intlayer | Umiędzynarodowienie (i18n)

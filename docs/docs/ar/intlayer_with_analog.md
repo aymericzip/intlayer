@@ -23,9 +23,7 @@ history:
   - version: 8.0.4
     date: 2026-01-26
     changes: "التاريخ الأولي"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # ترجمة تطبيق Analog (Angular) الخاص بك باستخدام Intlayer | التدويل (i18n)

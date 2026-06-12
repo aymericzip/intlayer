@@ -68,9 +68,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Ініціалізація історії"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip 
 ---
 
 # Перекладіть ваш вебсайт Next.js 15 за допомогою Intlayer | Інтернаціоналізація (i18n)

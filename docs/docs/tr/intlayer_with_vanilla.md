@@ -24,9 +24,7 @@ history:
   - version: 8.4.10
     date: 2026-03-31
     changes: "Geçmişi başlat"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Vanilla JS web sitenizi Intlayer kullanarak çevirin | Uluslararasılaştırma (i18n)

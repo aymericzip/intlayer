@@ -16,9 +16,7 @@ slugs:
   - concept
   - cli
   - fill
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 填充 / 审核 / 翻译字典

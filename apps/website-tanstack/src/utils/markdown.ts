@@ -33,7 +33,7 @@ type URLMap = {
  */
 export const urlRenamer = (
   content: string,
-  pageLocale: LocalesValues
+  pageLocale?: LocalesValues
 ): string => {
   if (!content) return '';
 

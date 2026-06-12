@@ -26,9 +26,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Verlauf initialisieren"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Übersetzen Sie Ihre Angular 19 (Webpack)-Website mit Intlayer | Internationalisierung (i18n)

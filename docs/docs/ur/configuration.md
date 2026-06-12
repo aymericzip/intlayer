@@ -100,9 +100,7 @@ history:
   - version: 5.5.11
     date: 2025-06-29
     changes: "`docs` کمانڈز شامل کی گئیں۔"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer کنفیگریشن دستاویزات

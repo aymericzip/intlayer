@@ -18,9 +18,7 @@ history:
   - version: 8.0.0
     date: 2026-01-30
     changes: "प्रारंभिक दस्तावेज़ीकरण"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # adonis-intlayer पैकेज

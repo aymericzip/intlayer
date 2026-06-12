@@ -23,9 +23,7 @@ history:
   - version: 8.4.5
     date: 2026-03-20
     changes: "Iniciace dokumentace"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer se Storybookem

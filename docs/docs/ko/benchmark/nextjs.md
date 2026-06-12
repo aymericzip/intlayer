@@ -14,9 +14,7 @@ slugs:
   - doc
   - benchmark
   - nextjs
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 applicationTemplate: https://github.com/intlayer-org/benchmark-i18n
 history:
   - version: 8.9.8

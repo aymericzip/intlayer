@@ -20,9 +20,7 @@ history:
   - version: 5.7.2
     date: 2025-07-27
     changes: "Memperkenalkan konten berdasarkan gender"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Konten Berdasarkan Gender / Gender di Intlayer

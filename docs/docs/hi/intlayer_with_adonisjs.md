@@ -22,9 +22,7 @@ history:
   - version: 8.0.0
     date: 2025-12-30
     changes: "इतिहास प्रारंभ करें"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer का उपयोग करके अपनी AdonisJS बैकएंड वेबसाइट का अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)

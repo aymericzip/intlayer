@@ -20,9 +20,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "इतिहास प्रारंभ करें"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer: फीचर अवलोकन और रोडमैप

@@ -22,9 +22,7 @@ history:
   - version: 8.0.0
     date: 2026-01-22
     changes: "Реализована поддержка пользовательских правил перезаписи URL"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Документация: функция `getLocalizedPath` в `intlayer`

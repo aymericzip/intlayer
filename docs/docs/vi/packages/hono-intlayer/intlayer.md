@@ -19,9 +19,7 @@ history:
   - version: 8.0.0
     date: 2026-01-29
     changes: "Khởi tạo tài liệu"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Tài liệu Middleware intlayer cho Hono

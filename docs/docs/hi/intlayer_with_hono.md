@@ -25,9 +25,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "इतिहास प्रारंभ करें"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer का उपयोग करके अपनी Hono बैकएंड वेबसाइट का अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)

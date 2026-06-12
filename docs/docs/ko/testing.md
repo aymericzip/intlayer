@@ -17,9 +17,7 @@ history:
   - version: 6.0.0
     date: 2025-09-20
     changes: "테스트 도입"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 콘텐츠 테스트하기

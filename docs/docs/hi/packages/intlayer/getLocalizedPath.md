@@ -22,9 +22,7 @@ history:
   - version: 8.0.0
     date: 2026-01-22
     changes: "कस्टम URL रीराइट्स लागू किए गए"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # प्रलेखन: `getLocalizedPath` फ़ंक्शन `intlayer` में

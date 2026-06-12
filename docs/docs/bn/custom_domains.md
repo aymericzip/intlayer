@@ -17,9 +17,7 @@ history:
   - version: 8.5.0
     date: 2026-04-02
     changes: "routing.domains কনফিগারেশনের মাধ্যমে ডোমেইন-ভিত্তিক লোকেল রাউটিং যোগ করা হয়েছে।"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # কাস্টম ডোমেইন (Custom Domains)

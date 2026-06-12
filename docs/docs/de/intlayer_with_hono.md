@@ -25,9 +25,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Verlauf initialisiert"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Übersetzen Sie Ihre Hono-Backend-Website mit Intlayer | Internationalisierung (i18n)

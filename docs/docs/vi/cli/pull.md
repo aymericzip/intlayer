@@ -15,9 +15,7 @@ slugs:
   - concept
   - cli
   - pull
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Kéo Từ Điển Từ Xa

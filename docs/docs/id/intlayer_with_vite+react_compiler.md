@@ -29,9 +29,7 @@ history:
   - version: 8.1.6
     date: 2026-02-23
     changes: "Rilis awal"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Cara membuat multibahasa (i18n) pada aplikasi Vite dan React yang sudah ada setelahnya (panduan i18n 2026)

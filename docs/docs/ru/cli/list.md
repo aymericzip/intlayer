@@ -20,9 +20,7 @@ history:
   - version: 7.5.11
     date: 2026-01-06
     changes: "Добавлена опция вывода JSON для команды list"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Список файлов декларации контента

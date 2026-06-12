@@ -16,9 +16,7 @@ slugs:
   - concept
   - cli
   - fill
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Remplir / auditer / traduire les dictionnaires

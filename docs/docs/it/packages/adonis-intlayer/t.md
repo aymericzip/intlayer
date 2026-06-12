@@ -20,9 +20,7 @@ history:
   - version: 8.0.0
     date: 2026-01-30
     changes: "Documentazione iniziale"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Documentazione: Funzione `t` in `adonis-intlayer`

@@ -15,9 +15,7 @@ keywords:
 slugs:
   - blog
   - next-i18next-vs-next-intl-vs-intlayer
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # next-i18next مقابل next-intl مقابل intlayer | التدويل في Next.js (i18n)

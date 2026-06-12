@@ -19,9 +19,7 @@ history:
   - version: 7.5.14
     date: 2026-01-21
     changes: "문서 초기화"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # MarkdownRenderer 컴포넌트 문서

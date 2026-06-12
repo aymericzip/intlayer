@@ -13,9 +13,7 @@ keywords:
 slugs:
   - blog
   - search
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # احتضان أنظمة التدويل في JavaScript: تعزيز الوصول العالمي وتحسين محركات البحث

@@ -17,9 +17,7 @@ history:
   - version: 8.7.5
     date: 2026-01-06
     changes: "Initialisation du benchmark"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Benchmark - Rapport

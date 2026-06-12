@@ -30,9 +30,7 @@ history:
   - version: 7.0.0
     date: 2025-06-29
     changes: "Inicjalizacja historii"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Przetłumacz swoją stronę Next.js 16 za pomocą Intlayer | Internacjonalizacja (i18n)

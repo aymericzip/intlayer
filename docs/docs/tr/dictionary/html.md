@@ -33,9 +33,7 @@ history:
   - version: 8.0.0
     date: 2026-01-20
     changes: "HTML ayrıştırma desteği eklendi"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # HTML İçeriği / Intlayer içinde HTML

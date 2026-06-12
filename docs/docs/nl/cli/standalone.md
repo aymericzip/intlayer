@@ -19,9 +19,7 @@ history:
   - version: 8.6.4
     date: 2026-03-31
     changes: "Initialisatie van de documentatie voor het standalone commando"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Standalone Bundel

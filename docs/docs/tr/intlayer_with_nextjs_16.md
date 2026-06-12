@@ -30,9 +30,7 @@ history:
   - version: 7.0.0
     date: 2025-06-29
     changes: "Başlangıç geçmişi"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer kullanarak Next.js 16 web sitenizi çevirin | Uluslararasılaştırma (i18n)

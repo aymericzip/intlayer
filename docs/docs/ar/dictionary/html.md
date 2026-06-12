@@ -31,9 +31,7 @@ history:
   - version: 8.0.0
     date: 2026-01-20
     changes: "إضافة دعم تحليل HTML"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # محتوى HTML / HTML في Intlayer

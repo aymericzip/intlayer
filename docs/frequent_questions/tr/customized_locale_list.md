@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - customized-locale-list
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # İngilizce gibi bir dil tipini engellemek mümkün mü? Sözlüklerime İngilizce ekliyorum ama henüz sitede İngilizceyi aktif etmek istemiyorum

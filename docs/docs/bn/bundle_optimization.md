@@ -22,9 +22,7 @@ history:
   - version: 8.7.0
     date: 2026-04-08
     changes: "বিল্ড কনফিগারেশনে `minify` এবং `purge` অপশন যোগ করা হয়েছে"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # i18n বান্ডেল সাইজ ও পারফরম্যান্স অপ্টিমাইজেশন

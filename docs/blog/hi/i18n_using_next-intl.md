@@ -18,9 +18,7 @@ history:
   - version: 7.0.0
     date: 2025-11-01
     changes: प्रारंभिक संस्करण
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 2025 में next-intl का उपयोग करके अपने Next.js एप्लिकेशन को अंतरराष्ट्रीयकृत कैसे करें

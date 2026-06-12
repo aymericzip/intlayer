@@ -26,9 +26,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Storia iniziale"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Traduci la tua app Expo e React Native | Internazionalizzazione (i18n)

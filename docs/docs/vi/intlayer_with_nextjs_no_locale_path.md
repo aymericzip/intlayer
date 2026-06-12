@@ -24,9 +24,7 @@ history:
   - version: 8.0.0
     date: 2026-01-10
     changes: "Phát hành ban đầu"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Dịch trang web Next.js 16 của bạn (không có [locale] trong đường dẫn trang) bằng Intlayer | Quốc tế hóa (i18n)

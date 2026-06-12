@@ -33,9 +33,7 @@ history:
   - version: 5.8.2
     date: 2025-09-04
     changes: "Ditambahkan untuk React Router v7"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Terjemahkan situs web React Router v7 Anda menggunakan Intlayer | Internasionalisasi (i18n)

@@ -16,9 +16,7 @@ slugs:
   - i18n-technologies
   - frameworks
   - angular
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Menjelajahi Solusi i18n untuk Menerjemahkan Situs Web Angular Anda

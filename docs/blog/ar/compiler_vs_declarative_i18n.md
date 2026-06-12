@@ -16,9 +16,7 @@ keywords:
 slugs:
   - blog
   - compiler-vs-declarative-i18n
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # الحجج المؤيدة والمعارضة للتدويل المعتمد على المترجم

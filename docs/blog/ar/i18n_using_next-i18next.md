@@ -19,9 +19,7 @@ history:
   - version: 7.0.6
     date: 2025-11-01
     changes: النسخة الأولية
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # كيفية تعريب تطبيق Next.js الخاص بك باستخدام next-i18next في عام 2026

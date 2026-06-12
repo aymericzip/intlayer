@@ -20,9 +20,7 @@ history:
   - version: 5.7.2
     date: 2025-07-27
     changes: "引入基于性别的内容显示功能"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 基于性别的内容 / Intlayer 中的性别

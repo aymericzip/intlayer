@@ -19,9 +19,7 @@ history:
   - version: 8.0.0
     date: 2026-01-21
     changes: "Documento inicial"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Documentación de la función validatePrefix

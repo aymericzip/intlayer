@@ -38,9 +38,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "초기 기록 생성"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Markdown / 서식 있는 텍스트 콘텐츠

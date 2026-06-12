@@ -14,9 +14,7 @@ slugs:
   - concept
   - cli
   - live
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Commandes Live Sync

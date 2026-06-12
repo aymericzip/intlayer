@@ -26,9 +26,7 @@ history:
   - version: 7.1.10
     date: 2025-11-20
     changes: "Inizializzazione della cronologia"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Traduci il tuo sito SvelteKit usando Intlayer | Internazionalizzazione (i18n)

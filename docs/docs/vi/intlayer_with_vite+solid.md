@@ -25,9 +25,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Khởi tạo lịch sử"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Dịch trang web Vite và Solid của bạn bằng Intlayer | Quốc tế hóa (i18n)

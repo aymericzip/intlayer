@@ -16,9 +16,7 @@ slugs:
   - i18n-technologies
   - frameworks
   - svelte
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Khám Phá Các Giải Pháp i18n Để Dịch Trang Web Svelte Của Bạn

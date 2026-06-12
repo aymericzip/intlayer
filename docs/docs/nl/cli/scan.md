@@ -21,9 +21,7 @@ history:
   - version: 8.13.0
     date: 2026-06-11
     changes: "Scan commando toegevoegd"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Website Scannen

@@ -16,9 +16,7 @@ history:
   - version: 8.9.0
     date: 2026-05-07
     changes: "문서 초기화"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # IntlayerNode 타입은 무엇인가요?

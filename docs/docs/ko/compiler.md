@@ -29,9 +29,7 @@ history:
   - version: 7.3.1
     date: 2025-11-27
     changes: "컴파일러 출시"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer 컴파일러 | i18n을 위한 자동화된 콘텐츠 추출

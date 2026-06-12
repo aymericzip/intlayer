@@ -21,9 +21,7 @@ history:
   - version: 8.9.0
     date: 2026-05-04
     changes: "Обновление использования API useIntlayer в Solid для прямого доступа к свойствам"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Переведите ваш Next.js 14 and App Router с Intlayer | Интернационализация (i18n)

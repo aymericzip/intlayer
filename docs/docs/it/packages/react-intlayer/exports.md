@@ -17,9 +17,7 @@ history:
   - version: 7.5.14
     date: 2026-01-21
     changes: "Documentazione unificata per tutte le esportazioni"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Pacchetto react-intlayer

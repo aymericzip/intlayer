@@ -17,9 +17,7 @@ history:
   - version: 8.0.0
     date: 2026-01-21
     changes: "توحيد الوثائق لجميع الصادرات"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # حزمة preact-intlayer

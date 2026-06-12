@@ -20,9 +20,7 @@ history:
   - version: 8.9.0
     date: 2026-05-04
     changes: "सॉलिड useIntlayer API उपयोग को सीधे प्रॉपर्टी एक्सेस में अपडेट करें"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer के साथ अपना Create React App अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)

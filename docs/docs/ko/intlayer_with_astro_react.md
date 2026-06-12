@@ -28,9 +28,7 @@ history:
   - version: 6.2.0
     date: 2025-10-03
     changes: "Astro 통합, 설정 및 사용법 업데이트"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer를 사용하여 Astro + React 사이트 번역하기 | 국제화 (i18n)

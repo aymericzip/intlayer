@@ -18,9 +18,7 @@ history:
   - version: 8.9.4
     date: 2026-05-10
     changes: "Początkowa dokumentacja pluginu Sync PO"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Sync PO (mosty i18n) - Sync PO ze wsparciem ICU / i18next

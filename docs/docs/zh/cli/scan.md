@@ -21,9 +21,7 @@ history:
   - version: 8.13.0
     date: 2026-06-11
     changes: "添加 scan 命令"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 扫描网站

@@ -21,9 +21,7 @@ history:
   - version: 8.13.0
     date: 2026-06-11
     changes: "scan কমান্ড যোগ করা হয়েছে"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # ওয়েবসাইট স্ক্যান করুন

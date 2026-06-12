@@ -22,9 +22,7 @@ history:
   - version: 8.0.0
     date: 2026-01-22
     changes: "Özel URL yeniden yazma kurallarının uygulanması"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Dokümantasyon: `intlayer`'de `getCanonicalPath` Fonksiyonu

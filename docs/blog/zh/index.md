@@ -13,9 +13,7 @@ keywords:
 slugs:
   - blog
   - search
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 在 JavaScript 中拥抱国际化：提升全球范围和 SEO

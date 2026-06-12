@@ -37,9 +37,7 @@ history:
   - version: 5.8.0
     date: 2025-08-18
     changes: "Добавлена документация по форматтерам"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Форматтеры Intlayer

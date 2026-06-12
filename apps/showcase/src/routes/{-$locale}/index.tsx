@@ -8,9 +8,12 @@ import {
   ShowingResultsNumberItems,
 } from '@intlayer/design-system/pagination';
 import {
+  Showcase_Root,
   Showcase_Root_Path,
+  Website_Domain,
   Website_Home,
 } from '@intlayer/design-system/routes';
+import { buildBreadcrumbsJsonLd } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -25,7 +28,6 @@ import { ProjectCard } from '#/components/ProjectCard';
 import { ProjectCardSkeleton } from '#/components/ProjectCardSkeleton';
 import { ShowcaseHeader } from '#/components/ShowcaseHeader';
 import { useSearchParamState } from '#/hooks/useSearchParamState';
-import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
 import type { ShowcaseProject } from '#/utils/projectActions/types';
 
 type ProjectSearchParams = {
@@ -107,18 +109,12 @@ export const Route = createFileRoute('/{-$locale}/')({
 
     return {
       links: [
-        // Canonical link: Points to the current localized page
         { rel: 'canonical', href: getLocalizedUrl(path, locale) },
-
-        // Hreflang: Tell Google about all localized versions
         ...localeMap(({ locale }) => ({
           rel: 'alternate',
           hrefLang: locale,
           href: getLocalizedUrl(path, locale),
         })),
-
-        // x-default: For users in unmatched languages
-        // Define the default fallback locale (usually your primary language)
         {
           rel: 'alternate',
           hrefLang: 'x-default',
@@ -138,17 +134,24 @@ export const Route = createFileRoute('/{-$locale}/')({
         { name: 'twitter:title', content: content.metadata.title },
         { name: 'twitter:description', content: content.metadata.description },
       ],
-
       scripts: [
         {
           type: 'application/ld+json',
-          children: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'WebPage',
-            name: content.metadata.title,
-            description: content.metadata.description,
-            url: canonicalUrl,
-          }),
+          children: JSON.stringify(
+            buildBreadcrumbsJsonLd({
+              breadcrumbs: [
+                {
+                  name: 'Intlayer',
+                  url: getLocalizedUrl(Website_Home, locale),
+                },
+                {
+                  name: 'Showcase',
+                  url: getLocalizedUrl(Showcase_Root, locale),
+                },
+              ],
+              domain: Website_Domain,
+            })
+          ),
         },
       ],
     };
@@ -202,18 +205,6 @@ function App() {
 
   return (
     <div className="flex w-full flex-1 flex-col px-6">
-      <BreadcrumbsHeader
-        breadcrumbs={[
-          {
-            name: 'Intlayer',
-            url: getLocalizedUrl(Website_Home, locale),
-          },
-          {
-            name: 'Showcase',
-            url: getLocalizedUrl(Showcase_Root_Path, locale),
-          },
-        ]}
-      />
       <ShowcaseHeader />
 
       <FiltersBar

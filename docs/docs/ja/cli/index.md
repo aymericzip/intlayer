@@ -65,9 +65,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "履歴の初期化"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer CLI - 多言語サイトのためのすべてのIntlayer CLIコマンド

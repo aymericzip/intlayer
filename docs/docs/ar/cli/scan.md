@@ -21,9 +21,7 @@ history:
   - version: 8.13.0
     date: 2026-06-11
     changes: "إضافة أمر scan"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # مسح موقع الويب

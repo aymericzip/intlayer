@@ -36,9 +36,7 @@ history:
   - version: 5.8.2
     date: 2025-09-04
     changes: "添加 React Router v7 支持"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 使用Intlayer翻译您的React Router v7 | 国际化(i18n)

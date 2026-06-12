@@ -20,9 +20,7 @@ history:
   - version: 7.5.9
     date: 2025-12-30
     changes: "Commando init toegevoegd"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Initialiseer Intlayer

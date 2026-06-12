@@ -15,9 +15,7 @@ history:
   - version: 7.5.0
     date: 2025-12-18
     changes: Initial version
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # An L10n open-source alternative to Phrase (TMS)

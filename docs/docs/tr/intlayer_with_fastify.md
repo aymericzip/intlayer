@@ -25,9 +25,7 @@ history:
   - version: 7.6.0
     date: 2025-12-31
     changes: "Geçmiş başlatıldı"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer Kullanarak Fastify Backend Web Sitenizi Çevirin | Uluslararasılaştırma (i18n)

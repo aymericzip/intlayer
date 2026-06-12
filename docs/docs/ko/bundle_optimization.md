@@ -22,9 +22,7 @@ history:
   - version: 8.7.0
     date: 2026-04-08
     changes: "빌드 구성에 `minify` 및 `purge` 옵션 추가"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # i18n 번들 크기 및 성능 최적화

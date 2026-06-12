@@ -1,0 +1,19 @@
+{
+  "aymericzip": {
+    "name": "Aymeric PINEAU",
+    "title": "Founder of Intlayer, open-source multilingual CMS for Next.js and React",
+    "url": "https://github.com/aymericzip",
+    "image": "https://avatars.githubusercontent.com/u/62554073?v=4&size=124",
+    "socialMedias": [
+      "https://www.linkedin.com/in/aymericpineau/",
+      "https://x.com/aymericzip",
+      "https://github.com/aymericzip"
+    ],
+    "knowsAbout": [
+      "Expert in technical internationalization",
+      "Senior software engineer",
+      "Multilingual SEO",
+      "AI translation automation"
+    ]
+  }
+}

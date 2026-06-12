@@ -16,9 +16,7 @@ slugs:
   - i18n
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer로 컴포넌트를 다국어(i18n)로 만드는 방법

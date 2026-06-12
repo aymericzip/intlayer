@@ -24,9 +24,7 @@ history:
   - version: 8.0.0
     date: 2026-01-10
     changes: "İlk sürüm"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Next.js 16 web sitenizi (sayfa yolunda [locale] olmadan) Intlayer kullanarak çevirin | Uluslararasılaştırma (i18n)

@@ -18,9 +18,7 @@ history:
   - version: 7.0.0
     date: 2025-11-01
     changes: 初版
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 2025年版 next-intl を使った Next.js アプリケーションの国際化方法

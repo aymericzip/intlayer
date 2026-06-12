@@ -28,9 +28,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Khởi tạo lịch sử"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Tiện ích mở rộng chính thức cho VS Code

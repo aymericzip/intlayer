@@ -22,9 +22,7 @@ history:
   - version: 8.8.0
     date: 2026-05-04
     changes: "Init history"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Контент у множині / Множина в Intlayer

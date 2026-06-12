@@ -15,9 +15,7 @@ history:
   - version: 7.5.0
     date: 2025-12-18
     changes: Versi awal
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Alternatif Open-Source L10N untuk Crowdin (TMS)

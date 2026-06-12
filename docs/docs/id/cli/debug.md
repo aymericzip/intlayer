@@ -13,9 +13,7 @@ slugs:
   - concept
   - cli
   - debug
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Debug perintah intlayer

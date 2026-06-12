@@ -18,9 +18,7 @@ keywords:
   - Modification des conditions
 slugs:
   - terms-of-service
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Conditions d'Utilisation d'Intlayer

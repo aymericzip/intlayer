@@ -4,6 +4,11 @@ import {
   Website_Home,
   Website_PrivacyPolicy,
 } from '@intlayer/design-system/routes';
+import {
+  buildCreativeWorkJsonLd,
+  buildOrganizationJsonLd,
+  buildWebsiteJsonLd,
+} from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayer, locales } from 'intlayer';
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
@@ -54,71 +59,46 @@ export const Route = createFileRoute('/{-$locale}/_docs/privacy-notice')({
       scripts: [
         {
           type: 'application/ld+json',
-          children: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'WebSite',
-            url: Website_Home,
-            name: 'Intlayer',
-            potentialAction: {
-              '@type': 'SearchAction',
-              target: `${Website_Doc_Search}?search={search_term_string}`,
-              'query-input': 'required name=search_term_string',
-            },
-            inLanguage: locales,
-            keywords: websiteContent.keywords,
-            subjectOf: {
-              '@type': 'DataFeed',
-              name: 'Intlayer RSS Feed',
-              url: `${Website_Home}/feed.xml`,
-              encodingFormat: 'application/rss+xml',
-            },
-          }),
-        },
-        {
-          type: 'application/ld+json',
-          children: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Organization',
-            name: 'Intlayer',
-            url: Website_Home,
-            logo: {
-              '@type': 'ImageObject',
-              url: `${Website_Home}/assets/logo.png`,
-            },
-            foundingDate: '2024',
-            slogan: orgContent.slogan,
-            knowsAbout: orgContent.knowsAbout,
-            sameAs: [External_Github, 'https://twitter.com/intlayer'],
-            contactPoint: {
-              '@type': 'ContactPoint',
-              email: 'contact@intlayer.org',
-              contactType: 'customer support',
+          children: JSON.stringify(
+            buildWebsiteJsonLd({
               url: Website_Home,
-              availableLanguage: locales,
-            },
-          }),
+              searchUrl: Website_Doc_Search,
+              locales: locales as string[],
+              keywords: websiteContent.keywords as string[],
+              rssUrl: `${Website_Home}/feed.xml`,
+            })
+          ),
         },
         {
           type: 'application/ld+json',
-          children: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'WebPage',
-            creator: { '@type': 'Person', name: 'Aymeric Pineau' },
-            name: String(title),
-            description: String(description),
-            url: path,
-            datePublished: createdAt ? formatDate(createdAt) : undefined,
-            dateModified: updatedAt ? formatDate(updatedAt) : undefined,
-            keywords: Array.isArray(keywords)
-              ? keywords.join(', ')
-              : String(keywords || ''),
-            license:
-              'https://raw.githubusercontent.com/aymericzip/intlayer/refs/heads/main/LICENSE',
-            audience: {
-              '@type': 'Audience',
-              audienceType: creativeWorkContent.audienceType,
-            },
-          }),
+          children: JSON.stringify(
+            buildOrganizationJsonLd({
+              url: Website_Home,
+              logoUrl: `${Website_Home}/assets/logo.png`,
+              slogan: String(orgContent.slogan),
+              knowsAbout: orgContent.knowsAbout as string[],
+              sameAs: [External_Github, 'https://twitter.com/intlayer'],
+              availableLanguages: locales as string[],
+            })
+          ),
+        },
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(
+            buildCreativeWorkJsonLd({
+              type: 'WebPage',
+              name: String(title),
+              description: String(description),
+              content: '',
+              keywords: Array.isArray(keywords)
+                ? keywords.join(', ')
+                : String(keywords || ''),
+              datePublished: createdAt ? new Date(createdAt) : undefined,
+              dateModified: updatedAt ? new Date(updatedAt) : undefined,
+              url: path,
+              audienceType: String(creativeWorkContent.audienceType),
+            })
+          ),
         },
       ],
     };

@@ -25,9 +25,7 @@ history:
   - version: 8.7.7
     date: 2026-04-24
     changes: "Astro + Solid 的初始文档"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 使用 Intlayer 翻译您的 Astro + Solid 网站 | 国际化 (i18n)

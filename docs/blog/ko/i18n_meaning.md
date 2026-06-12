@@ -14,9 +14,7 @@ keywords:
 slugs:
   - blog
   - i18n-meaning
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # i18n 의미: 국제화란 무엇이며 왜 중요한가요?

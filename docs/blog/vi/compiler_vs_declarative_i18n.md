@@ -16,9 +16,7 @@ keywords:
 slugs:
   - blog
   - compiler-vs-declarative-i18n
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Lập Luận Ủng Hộ và Phản Đối i18n Dựa trên Trình Biên Dịch

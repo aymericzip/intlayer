@@ -26,9 +26,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Inizializza cronologia"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Traduci il tuo sito Angular 19 (Webpack) usando Intlayer | Internazionalizzazione (i18n)

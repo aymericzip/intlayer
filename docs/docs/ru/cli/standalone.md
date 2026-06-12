@@ -19,9 +19,7 @@ history:
   - version: 8.6.4
     date: 2026-03-31
     changes: "Инициализация документации команды standalone"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Standalone Bundle

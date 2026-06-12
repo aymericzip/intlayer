@@ -25,9 +25,7 @@ history:
   - version: 7.6.0
     date: 2025-12-31
     changes: "تهيئة السجل"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # ترجمة موقع الويب الخاص بخادم Fastify باستخدام Intlayer | التدويل (i18n)

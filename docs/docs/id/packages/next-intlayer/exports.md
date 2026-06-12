@@ -18,9 +18,7 @@ history:
   - version: 8.0.0
     date: 2026-01-21
     changes: "Dokumentasi terpadu untuk semua ekspor"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Paket next-intlayer

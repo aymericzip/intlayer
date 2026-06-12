@@ -16,9 +16,7 @@ history:
   - version: 8.1.0
     date: 2026-02-09
     changes: "Inisialisasi riwayat"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Keterampilan Agen

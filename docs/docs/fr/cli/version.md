@@ -12,9 +12,7 @@ slugs:
   - concept
   - cli
   - version
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Vérifier la version du CLI

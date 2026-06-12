@@ -13,9 +13,7 @@ keywords:
 slugs:
   - blog
   - search
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 국제화 수용하기: JavaScript로 글로벌 도달 및 SEO 향상하기

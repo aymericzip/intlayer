@@ -10,9 +10,7 @@ keywords:
 slugs:
   - frequent-questions
   - package-version-error
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip 
 ---
 
 # Saya mendapatkan error terkait sub-paket `@intlayer/*`

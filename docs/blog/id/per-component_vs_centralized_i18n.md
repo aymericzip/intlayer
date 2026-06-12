@@ -13,9 +13,7 @@ keywords:
 slugs:
   - blog
   - per-component-vs-centralized-i18n
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Per-Komponen vs. i18n Terpusat

@@ -29,9 +29,7 @@ history:
   - version: 7.3.1
     date: 2025-11-27
     changes: "Выпуск Compiler"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer Compiler | Автоматизированное извлечение контента для i18n

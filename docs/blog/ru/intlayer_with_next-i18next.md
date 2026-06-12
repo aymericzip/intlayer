@@ -23,9 +23,7 @@ history:
   - version: 7.0.0
     date: 2025-10-29
     changes: Переход на плагин syncJSON и полный переписанный код
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Интернационализация Next.js (i18n) с next-i18next и Intlayer

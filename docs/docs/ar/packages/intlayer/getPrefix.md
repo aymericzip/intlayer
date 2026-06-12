@@ -22,9 +22,7 @@ history:
   - version: 7.1.0
     date: 2025-11-16
     changes: "التوثيق الأولي"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # التوثيق: دالة `getPrefix` في `intlayer`

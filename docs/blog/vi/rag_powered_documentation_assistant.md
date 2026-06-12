@@ -13,9 +13,7 @@ keywords:
 slugs:
   - blog
   - rag-powered-documentation-assistant
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Xây dựng Trợ lý Tài liệu được hỗ trợ bởi RAG (Phân đoạn, Embeddings và Tìm kiếm)

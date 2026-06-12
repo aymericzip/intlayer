@@ -29,9 +29,7 @@ history:
   - version: 8.1.6
     date: 2026-02-23
     changes: "初期リリース"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 既存の Next.js アプリケーションを多言語化 (i18n) する方法 (i18n ガイド 2026)

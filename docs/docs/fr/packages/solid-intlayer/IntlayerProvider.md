@@ -21,9 +21,7 @@ history:
   - version: 8.0.0
     date: 2026-01-21
     changes: "Documentation unifiée pour tous les exports"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Documentation du composant IntlayerProvider

@@ -24,9 +24,7 @@ history:
   - version: 8.4.10
     date: 2026-03-23
     changes: "Initiële geschiedenis"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Vertaal je Vite- en Lit-website met Intlayer | Internationalisering (i18n)

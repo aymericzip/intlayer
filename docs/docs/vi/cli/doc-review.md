@@ -15,9 +15,7 @@ slugs:
   - concept
   - cli
   - doc-review
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Đánh Giá Tài Liệu

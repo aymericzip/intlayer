@@ -15,9 +15,7 @@ slugs:
   - concept
   - cli
   - pull
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Estrazione Dizionari Remoti

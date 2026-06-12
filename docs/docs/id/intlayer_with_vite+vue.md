@@ -27,9 +27,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Inisialisasi riwayat"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Terjemahkan situs web Vite dan Vue Anda menggunakan Intlayer | Internasionalisasi (i18n)

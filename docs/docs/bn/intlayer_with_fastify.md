@@ -25,9 +25,7 @@ history:
   - version: 7.6.0
     date: 2025-12-31
     changes: "ইতিহাস শুরু করা হয়েছে"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer ব্যবহার করে আপনার Fastify ব্যাকএন্ড ওয়েবসাইট অনুবাদ করুন | আন্তর্জাতিকীকরণ (i18n)

@@ -19,9 +19,7 @@ history:
   - version: 7.5.14
     date: 2026-01-21
     changes: "初始化文档"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # IntlayerProvider 组件文档

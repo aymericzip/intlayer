@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - next-no-locale-path
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # È possibile usare Intlayer con Next.js senza `[locale]` nel percorso della pagina?

@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - build-dictionaries
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Construire des dictionnaires

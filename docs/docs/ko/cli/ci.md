@@ -20,9 +20,7 @@ history:
   - version: 7.5.11
     date: 2026-01-06
     changes: "CI 명령어 추가"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # CI 명령어

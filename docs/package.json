@@ -40,6 +40,7 @@
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/esm/index.mjs",
   "files": [
+    "authors.json",
     "docs",
     "src",
     "dist",

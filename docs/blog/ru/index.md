@@ -13,9 +13,7 @@ keywords:
 slugs:
   - blog
   - search
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Принятие интернационализации в JavaScript: Расширение глобального охвата и SEO

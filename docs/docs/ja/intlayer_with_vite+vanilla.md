@@ -25,9 +25,7 @@ history:
   - version: 8.4.10
     date: 2026-03-23
     changes: "初期履歴"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayerを使用したViteおよびVanilla JSウェブサイトの翻訳 | 国際化 (i18n)

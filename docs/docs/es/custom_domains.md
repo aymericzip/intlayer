@@ -17,9 +17,7 @@ history:
   - version: 8.5.0
     date: 2026-04-02
     changes: "Se agregó el enrutamiento por locales basado en dominios a través de la configuración routing.domains."
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Dominios personalizados

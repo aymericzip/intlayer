@@ -23,9 +23,7 @@ history:
   - version: 7.0.0
     date: 2025-10-29
     changes: Modificato in plugin syncJSON
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Come automatizzare le traduzioni JSON di react-intl usando Intlayer

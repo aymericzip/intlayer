@@ -20,9 +20,7 @@ history:
   - version: 5.7.2
     date: 2025-07-27
     changes: "Wprowadzenie treści opartych na płci"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Treści oparte na płci / Płeć w Intlayer

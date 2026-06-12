@@ -17,9 +17,7 @@ history:
   - version: 8.1.5
     date: 2026-02-23
     changes: "Dodaj opcję checkTypes"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Budowanie słowników

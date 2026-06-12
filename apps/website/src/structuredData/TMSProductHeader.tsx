@@ -2,6 +2,7 @@
 
 import type { GetPricingResult } from '@intlayer/backend';
 import { App_Dashboard } from '@intlayer/design-system/routes';
+import { buildProductJsonLd } from '@intlayer/design-system/structured-data';
 import Script from 'next/script';
 import { useIntlayer } from 'next-intlayer/server';
 import { formatStructuredDataOffers } from '../utils/stripe';
@@ -15,26 +16,20 @@ export const TMSProductHeader = ({
 
   const offers = formatStructuredDataOffers(pricings);
 
-  const product = {
-    '@context': 'https://schema.org',
-    '@type': 'Product',
-    url: App_Dashboard,
-    name: 'Intlayer TMS',
-    description: description.value,
-    image:
-      'https://raw.githubusercontent.com/aymericzip/intlayer/main/docs/assets/CMS.png',
-    brand: {
-      '@type': 'Brand',
-      name: 'Intlayer',
-    },
-    offers,
-  };
-
   return (
     <Script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify(product),
+        __html: JSON.stringify(
+          buildProductJsonLd({
+            url: App_Dashboard,
+            name: 'Intlayer TMS',
+            description: description.value,
+            imageUrl:
+              'https://raw.githubusercontent.com/aymericzip/intlayer/main/docs/assets/CMS.png',
+            offers,
+          })
+        ),
       }}
     />
   );

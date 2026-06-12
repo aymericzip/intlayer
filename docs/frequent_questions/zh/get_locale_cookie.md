@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - get-locale-cookie
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 如何从 Cookie / 头信息中获取语言环境

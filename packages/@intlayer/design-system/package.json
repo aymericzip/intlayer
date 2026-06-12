@@ -68,6 +68,11 @@
       "import": "./dist/esm/routes.mjs",
       "default": "./dist/esm/routes.mjs"
     },
+    "./structured-data": {
+      "types": "./dist/types/structured-data/index.d.ts",
+      "import": "./dist/esm/structured-data/index.mjs",
+      "default": "./dist/esm/structured-data/index.mjs"
+    },
     "./tailwind-config": {
       "types": "./dist/types/tailwind.config.d.ts",
       "import": "./dist/esm/tailwind.config.mjs",

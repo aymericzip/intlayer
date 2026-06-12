@@ -11,9 +11,7 @@ keywords:
 slugs:
   - frequent-questions
   - array-as-content-declaration
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # क्या मैं सामग्री घोषणा के रूप में एक एरे का उपयोग कर सकता हूँ?

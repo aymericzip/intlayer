@@ -24,9 +24,7 @@ history:
   - version: 8.4.10
     date: 2026-03-31
     changes: "بدء السجل"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # ترجمة موقع Vanilla JS الخاص بك باستخدام Intlayer | التدويل (i18n)

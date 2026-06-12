@@ -21,9 +21,7 @@ history:
   - version: 8.13.0
     date: 2026-06-11
     changes: "اسکین (scan) کمانڈ شامل کی گئی"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # ویب سائٹ اسکین کریں

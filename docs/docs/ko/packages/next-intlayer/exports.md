@@ -18,9 +18,7 @@ history:
   - version: 8.0.0
     date: 2026-01-21
     changes: "모든 exports에 대한 통합 문서화"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # next-intlayer 패키지

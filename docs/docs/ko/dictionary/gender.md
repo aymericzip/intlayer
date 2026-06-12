@@ -20,9 +20,7 @@ history:
   - version: 5.7.2
     date: 2025-07-27
     changes: "성별 기반 콘텐츠 도입"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 성별 기반 콘텐츠 / Intlayer의 성별

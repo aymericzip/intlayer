@@ -20,9 +20,7 @@ history:
   - version: 7.5.11
     date: 2026-01-06
     changes: "Tambahkan perintah CI"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Perintah CI

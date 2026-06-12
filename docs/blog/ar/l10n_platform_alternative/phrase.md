@@ -15,9 +15,7 @@ history:
   - version: 7.5.0
     date: 2025-12-18
     changes: "الإصدار الأولي"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # بديل مفتوح المصدر لـ L10N لـ Phrase (TMS)

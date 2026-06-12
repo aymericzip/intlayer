@@ -20,9 +20,7 @@ history:
   - version: 8.0.0
     date: 2026-01-21
     changes: "Inizializzazione della documentazione"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Documentazione del plugin Vite intlayer

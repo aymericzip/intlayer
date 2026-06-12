@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - locale-incorect-in-url
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # URL에서 잘못된 로케일이 검색됨

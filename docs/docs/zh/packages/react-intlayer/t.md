@@ -21,9 +21,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "初始化历史记录"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 文档：`react-intlayer` 中的 `t` 函数

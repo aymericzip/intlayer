@@ -16,9 +16,7 @@ history:
   - version: 8.0.0
     date: 2026-01-25
     changes: "Implementar reescritas de URL centralizadas com formatadores específicos de framework e o hook useRewriteURL."
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Implementação de Reescritas de URL Personalizadas

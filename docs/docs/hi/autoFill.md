@@ -25,9 +25,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "इतिहास आरंभ करें"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # ऑटोफिल सामग्री घोषणा फ़ाइल अनुवाद

@@ -24,9 +24,7 @@ history:
   - version: 8.4.10
     date: 2026-03-31
     changes: "Inisialisasi riwayat"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Terjemahkan situs web Vanilla JS Anda menggunakan Intlayer | Internasionalisasi (i18n)

@@ -15,9 +15,7 @@ slugs:
   - concept
   - cli
   - doc-review
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 문서 검토

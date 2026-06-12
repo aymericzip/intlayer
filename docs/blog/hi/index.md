@@ -13,9 +13,7 @@ keywords:
 slugs:
   - blog
   - search
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # अंतरराष्ट्रीयकरण को अपनाना जावास्क्रिप्ट में: वैश्विक पहुंच और SEO को बढ़ाना

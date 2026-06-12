@@ -15,9 +15,7 @@ slugs:
   - concept
   - cli
   - push
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 사전 푸시하기

@@ -23,9 +23,7 @@ history:
   - version: 7.0.0
     date: 2025-10-29
     changes: Zmiana na wtyczkę syncJSON oraz kompleksowa przebudowa
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Internacjonalizacja (i18n) Vue.js z vue-i18n i Intlayer

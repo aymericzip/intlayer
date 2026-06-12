@@ -26,9 +26,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "履歴開始"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # IntlayerでLynx and React mobile appを翻訳する | 国際化（i18n）

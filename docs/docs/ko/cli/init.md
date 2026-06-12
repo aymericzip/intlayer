@@ -20,9 +20,7 @@ history:
   - version: 7.5.9
     date: 2025-12-30
     changes: "init 명령어 추가"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer 초기화

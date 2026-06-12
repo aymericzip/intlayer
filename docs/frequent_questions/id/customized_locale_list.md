@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - customized-locale-list
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Apakah mungkin untuk memblokir tipe bahasa, seperti Bahasa Inggris? Saya menambahkan bahasa Inggris dalam kamus saya tetapi saya belum ingin bahasa Inggris tersedia di situs web

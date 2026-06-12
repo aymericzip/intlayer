@@ -17,9 +17,7 @@ history:
   - version: 8.5.0
     date: 2026-04-02
     changes: "إضافة توجيه اللغات القائم على النطاق عبر تكوين routing.domains."
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # نطاقات مخصصة

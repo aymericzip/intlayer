@@ -65,9 +65,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Инициализация истории"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer CLI - Все команды Intlayer CLI для вашего многоязычного сайта

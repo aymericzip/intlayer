@@ -17,9 +17,7 @@ history:
   - version: 8.5.0
     date: 2026-04-02
     changes: "routing.domains कॉन्फ़िगरेशन के माध्यम से डोमेन-आधारित लोकेल रूटिंग जोड़ी गई।"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # कस्टम डोमेन (Custom Domains)

@@ -22,9 +22,7 @@ history:
   - version: 8.7.0
     date: 2026-04-08
     changes: "Добавлены параметры `minify` и `purge` в конфигурацию сборки"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Оптимизация размера сборки i18n и производительности

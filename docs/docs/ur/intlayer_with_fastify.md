@@ -25,9 +25,7 @@ history:
   - version: 7.6.0
     date: 2025-12-31
     changes: "تاریخچہ شروع کیا گیا"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer کا استعمال کرتے ہوئے اپنی Fastify بیک اینڈ ویب سائٹ کا ترجمہ کریں | بین الاقوامی کاری (i18n)

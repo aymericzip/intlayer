@@ -25,9 +25,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Geschiedenis geïnitialiseerd"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Vertaal uw Hono-backend website met Intlayer | Internationalisering (i18n)

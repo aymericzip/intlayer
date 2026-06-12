@@ -98,9 +98,7 @@ history:
   - version: 5.5.11
     date: 2025-06-29
     changes: "添加了 `docs` 命令"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer 配置文档

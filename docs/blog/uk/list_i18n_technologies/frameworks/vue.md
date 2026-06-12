@@ -16,9 +16,7 @@ slugs:
   - i18n-technologies
   - frameworks
   - vue
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Огляд рішень i18n для локалізації вашого вебсайту на Vue.js

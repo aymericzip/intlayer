@@ -24,9 +24,7 @@ history:
   - version: 8.4.10
     date: 2026-03-23
     changes: "Počáteční historie"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Přeložte svůj web ve Vite a Lit pomocí Intlayer | Internacionalizace (i18n)

@@ -23,9 +23,7 @@ history:
   - version: 8.0.4
     date: 2026-01-26
     changes: "履歴の初期化"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayerを使用したAnalog (Angular) アプリの翻訳 | 国際化 (i18n)

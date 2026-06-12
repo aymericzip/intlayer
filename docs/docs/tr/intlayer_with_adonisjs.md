@@ -22,9 +22,7 @@ history:
   - version: 8.0.0
     date: 2025-12-30
     changes: "Geçmişi başlat"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer kullanarak AdonisJS backend web sitenizi çevirin | Uluslararasılaştırma (i18n)

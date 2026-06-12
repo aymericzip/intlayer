@@ -16,9 +16,7 @@ slugs:
   - doc
   - next-i18next
 applicationTemplate: https://github.com/aymericzip/intlayer-next-i18next-template
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Перевод вашего сайта на Next.js 15 с использованием next-i18next и Intlayer | Интернационализация (i18n)

@@ -24,9 +24,7 @@ history:
   - version: 8.4.10
     date: 2026-03-31
     changes: "履歴の初期化"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayerを使用したVanilla JSウェブサイトの翻訳 | 国際化 (i18n)

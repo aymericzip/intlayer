@@ -16,9 +16,7 @@ slugs:
   - i18n-technologies
   - frameworks
   - svelte
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Erforschung von i18n-Lösungen zur Übersetzung Ihrer Svelte-Website

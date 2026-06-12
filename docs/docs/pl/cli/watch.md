@@ -13,9 +13,7 @@ slugs:
   - concept
   - cli
   - watch
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Obserwuj słowniki

@@ -31,9 +31,7 @@ history:
   - version: 8.0.0
     date: 2026-01-20
     changes: "添加 HTML 解析支持"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # HTML 内容 / Intlayer 中的 HTML

@@ -28,9 +28,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "প্রাথমিক ইতিহাস"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer ব্যবহার করে আপনার Angular 21 (Vite) ওয়েবসাইট অনুবাদ করুন | আন্তর্জাতিকীকরণ (i18n)

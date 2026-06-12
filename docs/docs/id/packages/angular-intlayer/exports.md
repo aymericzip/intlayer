@@ -17,9 +17,7 @@ history:
   - version: 8.0.0
     date: 2026-01-21
     changes: "Dokumentasi yang disatukan untuk semua ekspor"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Paket angular-intlayer

@@ -25,9 +25,7 @@ history:
   - version: 7.0.0
     date: 2025-10-29
     changes: Wechsel zum syncJSON-Plugin
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Wie Sie Ihre react-i18next JSON-Übersetzungen mit Intlayer automatisieren

@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - next-no-locale-path
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 페이지 경로에 `[locale]` 없이 Next.js에서 Intlayer를 사용할 수 있나요?

@@ -26,9 +26,7 @@ history:
   - version: 7.1.10
     date: 2025-11-20
     changes: "प्रारंभिक इतिहास"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer का उपयोग करके अपनी SvelteKit वेबसाइट का अनुवाद करें | अंतरराष्ट्रीयकरण (i18n)

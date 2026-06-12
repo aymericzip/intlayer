@@ -24,9 +24,7 @@ history:
   - version: 8.0.0
     date: 2026-01-10
     changes: "प्रारंभिक रिलीज़"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer का उपयोग करके अपने Next.js 16 वेबसाइट का अनुवाद (पृष्ठ पथ में [locale] के बिना) | अंतर्राष्ट्रीयकरण (i18n)

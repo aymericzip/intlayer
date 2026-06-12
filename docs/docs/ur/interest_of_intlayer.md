@@ -25,9 +25,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "ہسٹری کا آغاز"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # آپ کو Intlayer پر کیوں غور کرنا چاہیے؟

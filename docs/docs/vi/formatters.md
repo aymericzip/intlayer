@@ -40,9 +40,7 @@ history:
   - version: 5.8.0
     date: 2025-08-20
     changes: "Thêm các tiện ích xử lý nội dung (getContent, getTranslation, getIntlayer, v.v.)"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Bộ định dạng Intlayer

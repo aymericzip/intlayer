@@ -39,9 +39,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Inisialisasi riwayat"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Menerjemahkan situs web Next.js 14 dan App Router Anda menggunakan Intlayer | Internasionalisasi (i18n)

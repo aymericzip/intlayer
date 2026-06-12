@@ -26,9 +26,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Geçmiş başlatıldı"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer ile Create React App çevirin | Uluslararasılaştırma (i18n)

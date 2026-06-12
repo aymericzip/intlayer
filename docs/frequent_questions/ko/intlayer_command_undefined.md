@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - intlayer-command-undefined
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer 명령어 정의되지 않음

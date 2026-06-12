@@ -36,9 +36,7 @@ history:
   - version: 5.8.2
     date: 2025-09-04
     changes: "React Router v7 için eklendi"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer ile React Router v7 çevirin | Uluslararasılaştırma (i18n)

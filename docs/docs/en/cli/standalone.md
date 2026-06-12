@@ -19,9 +19,7 @@ history:
   - version: 8.6.4
     date: 2026-03-31
     changes: "Init standalone command documentation"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Standalone Bundle

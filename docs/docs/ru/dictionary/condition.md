@@ -16,9 +16,7 @@ slugs:
   - concept
   - content
   - condition
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Условный Контент / Условие в Intlayer

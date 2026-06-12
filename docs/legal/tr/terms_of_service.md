@@ -18,9 +18,7 @@ keywords:
   - Koşul Değişikliği
 slugs:
   - terms-of-service
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer Kullanım Koşulları

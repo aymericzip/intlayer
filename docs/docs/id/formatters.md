@@ -40,9 +40,7 @@ history:
   - version: 5.8.0
     date: 2025-08-20
     changes: "Menambahkan utilitas penanganan konten (getContent, getTranslation, getIntlayer, dll.)"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Formatters Intlayer

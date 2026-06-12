@@ -24,9 +24,7 @@ history:
   - version: 8.4.10
     date: 2026-03-31
     changes: "Ініціалізація історії"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Перекладіть свій вебсайт на Vanilla JS за допомогою Intlayer | Інтернаціоналізація (i18n)

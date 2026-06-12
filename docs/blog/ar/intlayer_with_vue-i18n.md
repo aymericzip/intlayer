@@ -23,9 +23,7 @@ history:
   - version: 7.0.0
     date: 2025-10-29
     changes: التغيير إلى مكون syncJSON وإعادة كتابة شاملة
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # التدويل في Vue.js (i18n) باستخدام vue-i18n و Intlayer

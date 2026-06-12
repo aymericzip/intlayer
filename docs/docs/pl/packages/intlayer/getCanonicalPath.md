@@ -22,9 +22,7 @@ history:
   - version: 8.0.0
     date: 2026-01-22
     changes: "Wdrożono niestandardowe reguły przepisywania URL"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Dokumentacja: funkcja `getCanonicalPath` w `intlayer`

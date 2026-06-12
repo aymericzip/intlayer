@@ -16,9 +16,7 @@ keywords:
 slugs:
   - blog
   - compiler-vs-declarative-i18n
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 支持与反对编译器驱动国际化的观点

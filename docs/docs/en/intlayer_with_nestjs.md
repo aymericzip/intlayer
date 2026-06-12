@@ -24,9 +24,7 @@ history:
   - version: 5.8.0
     date: 2025-09-09
     changes: "Initial doc"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Translate your Nest backend website using Intlayer | Internationalization (i18n)

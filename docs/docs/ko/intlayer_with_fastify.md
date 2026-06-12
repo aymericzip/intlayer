@@ -25,9 +25,7 @@ history:
   - version: 7.6.0
     date: 2025-12-31
     changes: "히스토리 초기화"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer를 사용하여 Fastify 백엔드 웹사이트 번역하기 | 국제화 (i18n)

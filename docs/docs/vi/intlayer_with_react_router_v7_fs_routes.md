@@ -33,9 +33,7 @@ history:
   - version: 5.8.2
     date: 2025-09-04
     changes: "Thêm cho React Router v7"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Dịch trang web React Router v7 của bạn bằng Intlayer | Quốc tế hóa (i18n)

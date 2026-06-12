@@ -27,9 +27,7 @@ history:
   - version: 8.5.1
     date: 2026-03-25
     changes: "Đã thêm cho Tanstack Start Solid.js"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Dịch website Tanstack Start + Solid.js của bạn bằng Intlayer | Đa ngôn ngữ (i18n)

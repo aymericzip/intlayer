@@ -14,9 +14,7 @@ slugs:
   - concept
   - cli
   - extract
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 문자열 추출

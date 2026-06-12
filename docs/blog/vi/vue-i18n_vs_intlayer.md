@@ -15,9 +15,7 @@ keywords:
 slugs:
   - blog
   - vue-i18n-vs-intlayer
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # vue-i18n VS Intlayer | Quốc tế hóa Vue (i18n)

@@ -1,3 +1,4 @@
+export * from './authors';
 export * from './blog';
 export * from './doc';
 export * from './frequentQuestions';

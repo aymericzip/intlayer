@@ -19,9 +19,7 @@ slugs:
   - packages
   - react-intlayer
   - useI18n
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # React एकीकरण: `useI18n` हुक दस्तावेज़

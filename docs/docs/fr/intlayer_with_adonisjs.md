@@ -22,9 +22,7 @@ history:
   - version: 8.0.0
     date: 2025-12-30
     changes: "Initialisation de l'historique"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Traduisez votre backend AdonisJS en utilisant Intlayer | Internationalisation (i18n)

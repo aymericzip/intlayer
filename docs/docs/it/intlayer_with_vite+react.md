@@ -28,9 +28,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Inizio cronologia"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Traduci il tuo sito web Vite e React usando Intlayer | Internazionalizzazione (i18n)

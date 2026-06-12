@@ -14,9 +14,7 @@ slugs:
   - packages
   - react-intlayer
   - useRewriteURL
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Hook useRewriteURL

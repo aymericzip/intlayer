@@ -24,9 +24,7 @@ history:
   - version: 8.4.10
     date: 2026-03-23
     changes: "Начальная история"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Переведите ваш веб-сайт на Vite и Lit с помощью Intlayer | Интернационализация (i18n)

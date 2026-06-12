@@ -24,9 +24,7 @@ history:
   - version: 8.0.0
     date: 2026-01-10
     changes: "初回リリース"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Next.js 16 ウェブサイトを翻訳する（ページパスに [locale] を含めない）. Intlayer を使った国際化 (i18n)

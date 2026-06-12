@@ -1,10 +1,20 @@
 import {
+  External_Github,
   Website_Doc_Path,
+  Website_Doc_Search,
   Website_Home,
   Website_Home_Path,
 } from '@intlayer/design-system/routes';
+import {
+  buildBreadcrumbsJsonLd,
+  buildCreativeWorkJsonLd,
+  buildOrganizationJsonLd,
+  buildSoftwareApplicationJsonLd,
+  buildWebsiteJsonLd,
+} from '@intlayer/design-system/structured-data';
+import { buildAuthorJsonLd, getAuthor } from '@intlayer/docs';
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { defaultLocale, getLocalizedUrl } from 'intlayer';
+import { defaultLocale, getIntlayer, getLocalizedUrl, locales } from 'intlayer';
 import { DocHeader } from '~/components/DocPage/DocHeader/DocHeader';
 import { DocPageLayout } from '~/components/DocPage/DocPageLayout';
 import {
@@ -13,12 +23,10 @@ import {
 } from '~/components/DocPage/DocPageNavigation/DocPageNavigation';
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { loadDocPage, loadNavData } from '~/serverFunctions/docs';
-import { BreadcrumbsHeader } from '~/structuredData/BreadcrumbsHeader';
-import { CreativeWorkHeader } from '~/structuredData/CreativeWorkHeader';
-import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
-import { SoftwareApplicationHeader } from '~/structuredData/SoftwareApplication';
-import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
+import packageJson from '../../../../../package_mock.json' with {
+  type: 'json',
+};
 
 export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
   loader: async ({ params }) => {
@@ -71,8 +79,20 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
   head: ({ loaderData }) => {
     if (!loaderData?.docData) return {};
 
-    const { docData } = loaderData;
+    const { docData, docContent, locale: localeFromLoader } = loaderData;
+    const locale = (localeFromLoader as string) ?? defaultLocale;
     const absoluteUrl = docData.url;
+
+    const websiteContent = getIntlayer('website-structured-data', locale);
+    const orgContent = getIntlayer('organization-structured-data', locale);
+    const softwareContent = getIntlayer(
+      'software-application-structured-data',
+      locale
+    );
+    const creativeWorkContent = getIntlayer(
+      'creative-work-structured-data',
+      locale
+    );
 
     return {
       title: `${docData.title} | Intlayer`,
@@ -96,6 +116,89 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
           href: `${getAbsoluteUrl(absoluteUrl)}.md`,
         },
         ...getHreflangLinks(absoluteUrl),
+      ],
+      scripts: [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(
+            buildWebsiteJsonLd({
+              url: Website_Home,
+              searchUrl: Website_Doc_Search,
+              locales: locales as string[],
+              keywords: websiteContent.keywords as string[],
+              rssUrl: `${Website_Home}/feed.xml`,
+            })
+          ),
+        },
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(
+            buildOrganizationJsonLd({
+              url: Website_Home,
+              logoUrl: `${Website_Home}/assets/logo.png`,
+              slogan: String(orgContent.slogan),
+              knowsAbout: orgContent.knowsAbout as string[],
+              sameAs: [External_Github, 'https://twitter.com/intlayer'],
+              availableLanguages: locales as string[],
+            })
+          ),
+        },
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(
+            buildSoftwareApplicationJsonLd({
+              name: 'Intlayer',
+              url: Website_Home,
+              description: String(softwareContent.description),
+              softwareVersion: packageJson.version,
+              keywords: softwareContent.keywords as string[],
+              audienceType: String(softwareContent.audienceType),
+              authorUrl: Website_Home,
+              logoUrl: `${Website_Home}/assets/logo.png`,
+              githubUrl: External_Github,
+              operatingSystem: 'Web, iOS, Android',
+              mainEntityUrl: Website_Home,
+            })
+          ),
+        },
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(
+            buildBreadcrumbsJsonLd({
+              breadcrumbs: [
+                { name: 'Home', url: Website_Home },
+                { name: 'Docs', url: Website_Doc_Path },
+                { name: docData.title, url: docData.url },
+              ],
+            })
+          ),
+        },
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(
+            buildCreativeWorkJsonLd({
+              type: 'TechArticle',
+              name: docData.title,
+              description: docData.description,
+              content: docContent as string,
+              keywords: Array.isArray(docData.keywords)
+                ? docData.keywords.join(', ')
+                : docData.keywords || '',
+              datePublished: docData.createdAt
+                ? new Date(docData.createdAt as string)
+                : undefined,
+              dateModified: docData.updatedAt
+                ? new Date(docData.updatedAt as string)
+                : undefined,
+              url: docData.url,
+              author: buildAuthorJsonLd(
+                docData.author ? getAuthor(docData.author as string) : undefined
+              ),
+              version: (docData.history as any)?.[0]?.version,
+              audienceType: String(creativeWorkContent.audienceType),
+            })
+          ),
+        },
       ],
     };
   },
@@ -127,38 +230,8 @@ function DocumentationPage() {
 
   if (!docData || !defaultDocData) return null;
 
-  const breadcrumbs = [
-    { name: 'Home', url: Website_Home },
-    { name: 'Docs', url: Website_Doc_Path },
-    { name: docData.title, url: docData.url },
-  ];
-
   return (
     <DocPageLayout docData={navData} activeSlugs={slugs} locale={locale}>
-      <WebsiteHeader />
-      <OrganizationHeader />
-      <SoftwareApplicationHeader />
-      <BreadcrumbsHeader breadcrumbs={breadcrumbs} />
-      <CreativeWorkHeader
-        type="TechArticle"
-        creativeWorkName={docData.title}
-        creativeWorkDescription={docData.description}
-        creativeWorkContent={docContent}
-        keywords={
-          Array.isArray(docData.keywords)
-            ? docData.keywords.join(', ')
-            : docData.keywords || ''
-        }
-        dateModified={new Date(docData.updatedAt)}
-        datePublished={new Date(docData.createdAt)}
-        url={docData.url}
-        authorName={docData.author?.name}
-        authorUrl={
-          docData.author?.github
-            ? `https://github.com/${docData.author.github}`
-            : undefined
-        }
-      />
       <DocHeader
         {...docData}
         markdownContent={docContent}

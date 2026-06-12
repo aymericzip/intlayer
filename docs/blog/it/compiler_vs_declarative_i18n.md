@@ -16,9 +16,7 @@ keywords:
 slugs:
   - blog
   - compiler-vs-declarative-i18n
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Argomenti a favore e contro l'i18n basato su Compiler

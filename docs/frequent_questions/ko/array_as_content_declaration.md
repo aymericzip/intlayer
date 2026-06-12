@@ -11,9 +11,7 @@ keywords:
 slugs:
   - frequent-questions
   - array-as-content-declaration
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 배열을 콘텐츠 선언으로 사용할 수 있나요?

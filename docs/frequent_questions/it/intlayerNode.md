@@ -16,9 +16,7 @@ history:
   - version: 8.9.0
     date: 2026-05-07
     changes: "Inizializzazione documento"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Cos'è il tipo IntlayerNode?

@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - customized-locale-list
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Ist es möglich, einen Sprachtyp wie Englisch zu blockieren? Ich füge Englisch in meine Wörterbücher ein, möchte Englisch aber noch nicht auf der Webseite verfügbar machen

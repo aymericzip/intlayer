@@ -16,9 +16,7 @@ slugs:
   - i18n
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 如何使用 Intlayer 制作多语言（i18n）组件

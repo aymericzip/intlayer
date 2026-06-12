@@ -1,8 +1,10 @@
 import { getIntlayerAPI } from '@intlayer/api';
 import {
-  Showcase_Root_Path,
+  Showcase_Root,
+  Website_Domain,
   Website_Home,
 } from '@intlayer/design-system/routes';
+import { buildBreadcrumbsJsonLd } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -13,7 +15,6 @@ import {
 import { useIntlayer } from 'react-intlayer';
 import { ProjectFocus } from '#/components/ProjectFocus/ProjectFocus';
 import { ShowcaseHeader } from '#/components/ShowcaseHeader';
-import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
 import type { ShowcaseProject } from '#/utils/projectActions/types';
 import { Link } from '#components/Link/Link';
 
@@ -46,18 +47,12 @@ export const Route = createFileRoute('/{-$locale}/project/$projectId')({
 
     return {
       links: [
-        // Canonical link: Points to the current localized page
         { rel: 'canonical', href: getLocalizedUrl(path, locale) },
-
-        // Hreflang: Tell Google about all localized versions
         ...localeMap(({ locale }) => ({
           rel: 'alternate',
           hrefLang: locale,
           href: getLocalizedUrl(path, locale),
         })),
-
-        // x-default: For users in unmatched languages
-        // Define the default fallback locale (usually your primary language)
         {
           rel: 'alternate',
           hrefLang: 'x-default',
@@ -77,18 +72,29 @@ export const Route = createFileRoute('/{-$locale}/project/$projectId')({
         { name: 'twitter:title', content: title },
         { name: 'twitter:description', content: description },
       ],
-
       scripts: project
         ? [
             {
               type: 'application/ld+json',
-              children: JSON.stringify({
-                '@context': 'https://schema.org',
-                '@type': 'WebPage',
-                name: title,
-                description: description,
-                url: canonicalUrl,
-              }),
+              children: JSON.stringify(
+                buildBreadcrumbsJsonLd({
+                  breadcrumbs: [
+                    {
+                      name: 'Intlayer',
+                      url: getLocalizedUrl(Website_Home, locale),
+                    },
+                    {
+                      name: 'Showcase',
+                      url: getLocalizedUrl(Showcase_Root, locale),
+                    },
+                    {
+                      name: project.title,
+                      url: getLocalizedUrl(`/project/${project.id}`, locale),
+                    },
+                  ],
+                  domain: Website_Domain,
+                })
+              ),
             },
           ]
         : [],
@@ -104,22 +110,6 @@ function ProjectPage() {
   if (!project) {
     return (
       <div className="flex min-h-screen flex-col px-10">
-        <BreadcrumbsHeader
-          breadcrumbs={[
-            {
-              name: 'Intlayer',
-              url: getLocalizedUrl(Website_Home, locale),
-            },
-            {
-              name: 'Showcase',
-              url: getLocalizedUrl(Showcase_Root_Path, locale),
-            },
-            {
-              name: content.projectNotFound.title.value,
-              url: getLocalizedUrl(`/project/${(project as any)?.id}`, locale),
-            },
-          ]}
-        />
         <ShowcaseHeader />
         <div className="flex flex-1 flex-col items-center justify-center p-8 text-center">
           <h2 className="mb-4 font-bold text-2xl">
@@ -143,22 +133,6 @@ function ProjectPage() {
 
   return (
     <div className="flex min-h-screen flex-col px-10">
-      <BreadcrumbsHeader
-        breadcrumbs={[
-          {
-            name: 'Intlayer',
-            url: getLocalizedUrl(Website_Home, locale),
-          },
-          {
-            name: 'Showcase',
-            url: getLocalizedUrl(Showcase_Root_Path, locale),
-          },
-          {
-            name: project.title,
-            url: getLocalizedUrl(`/project/${project.id}`, locale),
-          },
-        ]}
-      />
       <ShowcaseHeader />
       <ProjectFocus project={project} />
     </div>

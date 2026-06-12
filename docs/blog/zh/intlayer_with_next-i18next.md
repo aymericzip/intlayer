@@ -23,9 +23,7 @@ history:
   - version: 7.0.0
     date: 2025-10-29
     changes: 更改为 syncJSON 插件并全面重写
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 使用 next-i18next 和 Intlayer 实现 Next.js 国际化 (i18n)

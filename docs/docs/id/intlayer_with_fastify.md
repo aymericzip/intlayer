@@ -25,9 +25,7 @@ history:
   - version: 7.6.0
     date: 2025-12-31
     changes: "Inisialisasi riwayat"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Terjemahkan backend Fastify Anda menggunakan Intlayer | Internasionalisasi (i18n)

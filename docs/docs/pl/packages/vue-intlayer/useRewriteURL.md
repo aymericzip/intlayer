@@ -14,9 +14,7 @@ slugs:
   - packages
   - vue-intlayer
   - useRewriteURL
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Composable useRewriteURL

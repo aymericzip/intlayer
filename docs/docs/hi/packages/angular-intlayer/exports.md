@@ -17,9 +17,7 @@ history:
   - version: 8.0.0
     date: 2026-01-21
     changes: "सभी एक्सपोर्ट्स के लिए एकीकृत प्रलेखन"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # angular-intlayer पैकेज

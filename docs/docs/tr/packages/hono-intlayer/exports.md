@@ -18,9 +18,7 @@ history:
   - version: 8.0.0
     date: 2026-01-29
     changes: "Tüm dışa aktarmalar için birleştirilmiş dokümantasyon"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # hono-intlayer Paketi

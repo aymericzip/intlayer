@@ -24,9 +24,7 @@ history:
   - version: 8.0.0
     date: 2026-01-10
     changes: "Rilis awal"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Terjemahkan situs Next.js 16 Anda (tanpa [locale] di jalur halaman) menggunakan Intlayer | Internasionalisasi (i18n)

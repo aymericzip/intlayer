@@ -19,9 +19,7 @@ history:
   - version: 8.12.0
     date: 2026-06-01
     changes: "Release LSP"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer LSP サーバー

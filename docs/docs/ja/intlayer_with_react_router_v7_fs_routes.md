@@ -32,9 +32,7 @@ history:
   - version: 7.3.4
     date: 2025-12-08
     changes: "初期履歴"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # IntlayerでReact Router v7（fs-routes）を翻訳する | 国際化（i18n）

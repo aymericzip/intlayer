@@ -19,9 +19,7 @@ history:
   - version: 8.6.4
     date: 2026-03-31
     changes: "Khởi tạo tài liệu lệnh standalone"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Bản Đóng Gói Độc Lập (Standalone Bundle)

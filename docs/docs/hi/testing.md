@@ -17,9 +17,7 @@ history:
   - version: 6.0.0
     date: 2025-09-20
     changes: "परीक्षण का परिचय"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # आपकी सामग्री का परीक्षण

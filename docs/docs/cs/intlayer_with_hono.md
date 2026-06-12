@@ -25,9 +25,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Iniciace historie"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Přeložte svůj backendový web Hono pomocí Intlayer | Internacionalizace (i18n)

@@ -13,9 +13,7 @@ keywords:
 slugs:
   - blog
   - rag-powered-documentation-assistant
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # RAG Güçlendirmeli Dokümantasyon Asistanı Oluşturma (Chunking, Embeddings ve Arama)

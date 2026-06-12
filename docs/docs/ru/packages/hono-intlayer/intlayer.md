@@ -19,9 +19,7 @@ history:
   - version: 8.0.0
     date: 2026-01-29
     changes: "Инициализация док."
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Документация промежуточного ПО intlayer для Hono

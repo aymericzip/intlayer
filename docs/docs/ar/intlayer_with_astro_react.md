@@ -28,9 +28,7 @@ history:
   - version: 6.2.0
     date: 2025-10-03
     changes: "تحديث تكامل وتهيئة واستخدام Astro"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # ترجمة موقع Astro + React الخاص بك باستخدام Intlayer | التدويل (i18n)

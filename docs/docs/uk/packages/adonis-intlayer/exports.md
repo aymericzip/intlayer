@@ -18,9 +18,7 @@ history:
   - version: 8.0.0
     date: 2026-01-30
     changes: "Початкова документація"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Пакет adonis-intlayer

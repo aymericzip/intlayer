@@ -16,9 +16,7 @@ history:
   - version: 8.0.0
     date: 2026-01-25
     changes: "Triển khai việc viết lại URL tập trung với bộ định dạng dành cho từng framework và hook useRewriteURL."
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Triển khai Viết lại URL Tùy chỉnh

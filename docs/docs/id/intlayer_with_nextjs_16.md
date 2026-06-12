@@ -30,9 +30,7 @@ history:
   - version: 7.0.0
     date: 2025-06-29
     changes: "Riwayat awal"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Terjemahkan situs web Next.js 16 Anda menggunakan Intlayer | Internasionalisasi (i18n)

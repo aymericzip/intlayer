@@ -13,9 +13,7 @@ keywords:
 slugs:
   - blog
   - per-component-vs-centralized-i18n
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 컴포넌트별 i18n vs 중앙집중식 i18n

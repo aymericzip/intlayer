@@ -25,9 +25,7 @@ history:
   - version: 8.4.10
     date: 2026-03-23
     changes: "Initial history"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Translate your Vite and Vanilla JS website using Intlayer | Internationalisation (i18n)

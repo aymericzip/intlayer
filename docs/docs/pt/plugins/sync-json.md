@@ -30,9 +30,7 @@ history:
   - version: 6.1.6
     date: 2025-10-05
     changes: "Documentação inicial do plugin Sync JSON"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Sync JSON (pontes i18n) - Sync JSON com suporte ICU / i18next

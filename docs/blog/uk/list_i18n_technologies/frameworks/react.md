@@ -16,9 +16,7 @@ slugs:
   - i18n-technologies
   - frameworks
   - react
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Огляд рішень i18n для перекладу вашого React‑сайту

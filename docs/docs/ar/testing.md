@@ -16,9 +16,7 @@ history:
   - version: 6.0.0
     date: 2025-09-20
     changes: "تقديم الاختبارات"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # اختبار المحتوى الخاص بك

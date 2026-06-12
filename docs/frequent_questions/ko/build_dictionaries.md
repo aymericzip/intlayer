@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - build-dictionaries
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 사전 빌드

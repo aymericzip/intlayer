@@ -28,9 +28,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Histórico inicial"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Traduza seu Next.js 15 com Intlayer | Internacionalização (i18n)

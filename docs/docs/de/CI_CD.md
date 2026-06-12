@@ -19,9 +19,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Historie initialisieren"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Automatische Generierung von Übersetzungen in einer CI/CD-Pipeline

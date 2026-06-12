@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - domain-routing
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayerで`/[locale]/`パスの代わりに**ドメインベースのルーティング**をどのように設定しますか？

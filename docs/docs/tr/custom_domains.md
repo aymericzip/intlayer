@@ -17,9 +17,7 @@ history:
   - version: 8.5.0
     date: 2026-04-02
     changes: "routing.domains yapılandırması aracılığıyla alan adı tabanlı yerel ayar yönlendirmesi eklendi."
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Özel Alan Adları

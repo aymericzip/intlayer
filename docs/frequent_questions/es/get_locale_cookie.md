@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - get-locale-cookie
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Cómo recuperar la configuración regional desde las cookies / encabezados

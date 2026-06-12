@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - next-no-locale-path
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 是否可以在页面路径中不使用 `[locale]` 来搭配 Next.js 使用 Intlayer？

@@ -28,9 +28,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "初始版本"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 使用Intlayer翻譯您的Angular 21（Vite）網站 | 國際化 (i18n)

@@ -23,9 +23,7 @@ history:
   - version: 8.0.0
     date: 2026-01-21
     changes: "初始化文档"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # intlayerProxy (intlayerMiddleware) 文档

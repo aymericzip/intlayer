@@ -23,9 +23,7 @@ history:
   - version: 7.0.0
     date: 2025-10-29
     changes: Chuyển sang plugin syncJSON và viết lại toàn diện
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Quốc tế hóa Next.js (i18n) với next-i18next và Intlayer

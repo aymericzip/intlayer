@@ -40,9 +40,7 @@ history:
   - version: 5.8.0
     date: 2025-08-20
     changes: "Додано утиліти обробки контенту (getContent, getTranslation, getIntlayer тощо)"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Форматери Intlayer

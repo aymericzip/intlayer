@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - next-no-locale-path
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # क्या Next.js के साथ पेज पाथ में `[locale]` के बिना Intlayer का उपयोग करना संभव है?

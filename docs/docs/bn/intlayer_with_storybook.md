@@ -23,9 +23,7 @@ history:
   - version: 8.4.5
     date: 2026-03-20
     changes: "ডকুমেন্টেশন শুরু করা হয়েছে"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # স্টোরিবুকের সাথে Intlayer (Intlayer with Storybook)

@@ -23,9 +23,7 @@ history:
   - version: 6.0.0
     date: 2025-06-29
     changes: "`useI18n` 钩子文档的初始编写"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # React 集成：`useI18n` Hook 文档

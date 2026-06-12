@@ -16,9 +16,7 @@ slugs:
   - i18n
 applicationTemplate: https://github.com/aymericzip/intlayer-vite-react-template
 youtubeVideo: https://www.youtube.com/watch?v=dS9L7uJeak4
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Comment rendre un composant multilingue (i18n) avec Intlayer

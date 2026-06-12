@@ -19,9 +19,7 @@ history:
   - version: 8.6.4
     date: 2026-03-31
     changes: "स्टैंडअलोन कमांड दस्तावेज़ीकरण प्रारंभ"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # स्टैंडअलोन बंडल (Standalone Bundle)

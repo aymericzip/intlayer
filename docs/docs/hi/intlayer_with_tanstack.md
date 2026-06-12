@@ -44,9 +44,7 @@ history:
   - version: 5.8.1
     date: 2025-09-09
     changes: "TanStack Start के लिए जोड़ा गया"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer का उपयोग करके अपनी TanStack Start वेबसाइट का अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)

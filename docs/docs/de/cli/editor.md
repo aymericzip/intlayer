@@ -13,9 +13,7 @@ slugs:
   - concept
   - cli
   - editor
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Editor-Befehle

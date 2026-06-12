@@ -29,9 +29,7 @@ history:
   - version: 8.1.6
     date: 2026-02-23
     changes: "प्रारंभिक विमोचन"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # मौजूदा Next.js एप्लिकेशन को बहुभाषी (i18n) कैसे बनाएं (i18n गाइड 2026)

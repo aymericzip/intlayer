@@ -25,9 +25,7 @@ history:
   - version: 8.7.7
     date: 2026-04-24
     changes: "Documentación inicial para Astro + Vanilla JS"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Traducir tu sitio Astro + Vanilla JS con Intlayer | Internacionalización (i18n)

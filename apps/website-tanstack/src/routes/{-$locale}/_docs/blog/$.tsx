@@ -5,7 +5,14 @@ import {
   Website_Home,
   Website_Home_Path,
 } from '@intlayer/design-system/routes';
-import { createFileRoute, defer, redirect } from '@tanstack/react-router';
+import {
+  buildBreadcrumbsJsonLd,
+  buildCreativeWorkJsonLd,
+  buildOrganizationJsonLd,
+  buildWebsiteJsonLd,
+} from '@intlayer/design-system/structured-data';
+import { buildAuthorJsonLd, getAuthor } from '@intlayer/docs';
+import { createFileRoute, redirect } from '@tanstack/react-router';
 import { defaultLocale, getIntlayer, getLocalizedUrl, locales } from 'intlayer';
 import { BlogPageLayout } from '~/components/BlogPage/BlogPageLayout';
 import { DocHeader } from '~/components/DocPage/DocHeader/DocHeader';
@@ -16,9 +23,6 @@ import {
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { loadBlogNavData, loadBlogPage } from '~/serverFunctions/blog';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
-
-const formatDate = (dateStr: string): string =>
-  new Date(dateStr).toISOString().split('T')[0];
 
 export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
   loader: async ({ params }) => {
@@ -111,116 +115,66 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
       scripts: [
         {
           type: 'application/ld+json',
-          children: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'WebSite',
-            url: Website_Home,
-            name: 'Intlayer',
-            potentialAction: {
-              '@type': 'SearchAction',
-              target: `${Website_Doc_Search}?search={search_term_string}`,
-              'query-input': 'required name=search_term_string',
-            },
-            inLanguage: locales,
-            keywords: websiteContent.keywords,
-            subjectOf: {
-              '@type': 'DataFeed',
-              name: 'Intlayer RSS Feed',
-              url: `${Website_Home}/feed.xml`,
-              encodingFormat: 'application/rss+xml',
-            },
-          }),
-        },
-        {
-          type: 'application/ld+json',
-          children: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Organization',
-            name: 'Intlayer',
-            url: Website_Home,
-            logo: {
-              '@type': 'ImageObject',
-              url: `${Website_Home}/assets/logo.png`,
-            },
-            foundingDate: '2024',
-            slogan: orgContent.slogan,
-            knowsAbout: orgContent.knowsAbout,
-            sameAs: [External_Github, 'https://twitter.com/intlayer'],
-            contactPoint: {
-              '@type': 'ContactPoint',
-              email: 'contact@intlayer.org',
-              contactType: 'customer support',
+          children: JSON.stringify(
+            buildWebsiteJsonLd({
               url: Website_Home,
-              availableLanguage: locales,
-            },
-          }),
+              searchUrl: Website_Doc_Search,
+              locales: locales as string[],
+              keywords: websiteContent.keywords as string[],
+              rssUrl: `${Website_Home}/feed.xml`,
+            })
+          ),
         },
         {
           type: 'application/ld+json',
-          children: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'BreadcrumbList',
-            itemListElement: [
-              {
-                '@type': 'ListItem',
-                position: 1,
-                name: 'Home',
-                item: Website_Home,
-              },
-              {
-                '@type': 'ListItem',
-                position: 2,
-                name: 'Blog',
-                item: Website_Blog_Root,
-              },
-              {
-                '@type': 'ListItem',
-                position: 3,
-                name: blogData.title,
-                item: blogData.url,
-              },
-            ],
-          }),
+          children: JSON.stringify(
+            buildOrganizationJsonLd({
+              url: Website_Home,
+              logoUrl: `${Website_Home}/assets/logo.png`,
+              slogan: String(orgContent.slogan),
+              knowsAbout: orgContent.knowsAbout as string[],
+              sameAs: [External_Github, 'https://twitter.com/intlayer'],
+              availableLanguages: locales as string[],
+            })
+          ),
         },
         {
           type: 'application/ld+json',
-          children: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'BlogPosting',
-            author: {
-              '@type': 'Person',
-              name: blogData.author?.name ?? 'Aymeric Pineau',
-              url: blogData.author?.github
-                ? `https://github.com/${blogData.author.github}`
+          children: JSON.stringify(
+            buildBreadcrumbsJsonLd({
+              breadcrumbs: [
+                { name: 'Home', url: Website_Home },
+                { name: 'Blog', url: Website_Blog_Root },
+                { name: blogData.title, url: blogData.url },
+              ],
+            })
+          ),
+        },
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(
+            buildCreativeWorkJsonLd({
+              type: 'BlogPosting',
+              name: blogData.title,
+              description: blogData.description,
+              content: '',
+              keywords: Array.isArray(keywords)
+                ? keywords.join(', ')
+                : keywords || '',
+              datePublished: blogData.createdAt
+                ? new Date(blogData.createdAt)
                 : undefined,
-            },
-            creator: {
-              '@type': 'Person',
-              name: blogData.author?.name ?? 'Aymeric Pineau',
-              url: blogData.author?.github
-                ? `https://github.com/${blogData.author.github}`
+              dateModified: blogData.updatedAt
+                ? new Date(blogData.updatedAt)
                 : undefined,
-            },
-            name: blogData.title,
-            description: blogData.description,
-            url: blogData.url,
-            datePublished: blogData.createdAt
-              ? formatDate(blogData.createdAt)
-              : undefined,
-            dateModified: blogData.updatedAt
-              ? formatDate(blogData.updatedAt)
-              : undefined,
-            version: blogData.history?.[0]?.version,
-            keywords: Array.isArray(keywords)
-              ? keywords.join(', ')
-              : keywords || '',
-            license:
-              'https://raw.githubusercontent.com/aymericzip/intlayer/refs/heads/main/LICENSE',
-            audience: {
-              '@type': 'Audience',
-              audienceType: creativeWorkContent.audienceType,
-            },
-          }),
+              url: blogData.url,
+              author: buildAuthorJsonLd(
+                blogData.author ? getAuthor(blogData.author) : undefined
+              ),
+              version: blogData.history?.[0]?.version,
+              audienceType: String(creativeWorkContent.audienceType),
+            })
+          ),
         },
       ],
     };

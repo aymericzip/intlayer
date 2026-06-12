@@ -15,9 +15,7 @@ slugs:
   - concept
   - cli
   - pull
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 拉取远程词典

@@ -17,9 +17,7 @@ history:
   - version: 6.0.0
     date: 2025-09-20
     changes: "Introdução dos testes"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Testando seu conteúdo

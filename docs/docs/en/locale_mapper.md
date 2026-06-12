@@ -16,9 +16,7 @@ history:
   - version: 5.7.2
     date: 2025-07-27
     changes: "Add locale mapper documentation"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Locale Mapper

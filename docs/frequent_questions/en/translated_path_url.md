@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - translated-path-url
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Is it possible to translate URLs?

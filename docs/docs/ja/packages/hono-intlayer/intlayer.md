@@ -19,9 +19,7 @@ history:
   - version: 8.0.0
     date: 2026-01-29
     changes: "ドキュメントの初期化"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # intlayer Hono ミドルウェア ドキュメント

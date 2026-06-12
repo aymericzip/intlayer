@@ -13,9 +13,7 @@ keywords:
 slugs:
   - blog
   - rag-powered-documentation-assistant
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # RAG-संचालित दस्तावेज़ सहायक का निर्माण (चंकिंग, एम्बेडिंग्स, और खोज)

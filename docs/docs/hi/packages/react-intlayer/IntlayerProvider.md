@@ -19,9 +19,7 @@ history:
   - version: 7.5.14
     date: 2026-01-21
     changes: "प्रारंभिक दस्तावेज़"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # IntlayerProvider कंपोनेंट दस्तावेज़

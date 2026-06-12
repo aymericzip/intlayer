@@ -1,6 +1,15 @@
-import { Website_Contributors } from '@intlayer/design-system/routes';
+import {
+  External_Github,
+  Website_Contributors,
+  Website_Doc_Search,
+  Website_Home,
+} from '@intlayer/design-system/routes';
+import {
+  buildOrganizationJsonLd,
+  buildWebsiteJsonLd,
+} from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
-import { defaultLocale, getIntlayer } from 'intlayer';
+import { defaultLocale, getIntlayer, locales } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
 import {
@@ -8,8 +17,6 @@ import {
   ContributorsList,
 } from '~/components/Contributors/ContributorsList';
 import { PageLayout } from '~/layouts/PageLayout';
-import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
-import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
 
 export const Route = createFileRoute('/{-$locale}/contributors')({
@@ -39,6 +46,9 @@ export const Route = createFileRoute('/{-$locale}/contributors')({
       locale
     );
 
+    const websiteContent = getIntlayer('website-structured-data', locale);
+    const orgContent = getIntlayer('organization-structured-data', locale);
+
     return {
       title: String(title),
       meta: [
@@ -56,6 +66,33 @@ export const Route = createFileRoute('/{-$locale}/contributors')({
       links: [
         { rel: 'canonical', href: getAbsoluteUrl(path, locale) },
         ...getHreflangLinks(path),
+      ],
+      scripts: [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(
+            buildWebsiteJsonLd({
+              url: Website_Home,
+              searchUrl: Website_Doc_Search,
+              locales: locales as string[],
+              keywords: websiteContent.keywords as string[],
+              rssUrl: `${Website_Home}/feed.xml`,
+            })
+          ),
+        },
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(
+            buildOrganizationJsonLd({
+              url: Website_Home,
+              logoUrl: `${Website_Home}/assets/logo.png`,
+              slogan: String(orgContent.slogan),
+              knowsAbout: orgContent.knowsAbout as string[],
+              sameAs: [External_Github, 'https://twitter.com/intlayer'],
+              availableLanguages: locales as string[],
+            })
+          ),
+        },
       ],
     };
   },
@@ -89,8 +126,6 @@ function ContributorsPageRoute() {
 
   return (
     <PageLayout>
-      <WebsiteHeader />
-      <OrganizationHeader />
       <ContributorsPageContent>
         <ContributorsList contributors={contributors} />
       </ContributorsPageContent>

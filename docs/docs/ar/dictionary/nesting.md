@@ -16,9 +16,7 @@ slugs:
   - concept
   - content
   - nesting
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # التعشيش / الإشارة إلى المحتوى الفرعي

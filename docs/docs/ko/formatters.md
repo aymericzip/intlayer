@@ -37,9 +37,7 @@ history:
   - version: 5.8.0
     date: 2025-08-20
     changes: "콘텐츠 처리 유틸리티 추가 (getContent, getTranslation, getIntlayer 등)"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer 포매터

@@ -65,9 +65,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "初始化历史记录"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer CLI - 适用于多语言网站的所有 Intlayer CLI 命令

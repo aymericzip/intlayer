@@ -22,9 +22,7 @@ history:
   - version: 8.7.0
     date: 2026-04-08
     changes: "ビルド設定に `minify` と `purge` オプションを追加"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # i18nバンドルサイズとパフォーマンスの最適化

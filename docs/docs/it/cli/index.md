@@ -65,9 +65,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Inizializzazione cronologia"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # CLI di Intlayer - Tutti i comandi della CLI di Intlayer per il tuo sito web multilingue

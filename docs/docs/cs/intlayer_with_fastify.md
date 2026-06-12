@@ -25,9 +25,7 @@ history:
   - version: 7.6.0
     date: 2025-12-31
     changes: "Inicializována historie"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Přeložte svůj backendový web ve Fastify pomocí Intlayer | Internacionalizace (i18n)

@@ -24,9 +24,7 @@ history:
   - version: 8.4.10
     date: 2026-03-23
     changes: "Lịch sử ban đầu"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Dịch trang web Vite và Lit của bạn bằng Intlayer | Quốc tế hóa (i18n)

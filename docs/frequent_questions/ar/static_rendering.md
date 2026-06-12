@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - static-rendering
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # العرض الثابت مقابل العرض الديناميكي مع i18n في Next.js

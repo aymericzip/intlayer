@@ -20,9 +20,7 @@ history:
   - version: 7.5.9
     date: 2025-12-30
     changes: "init কমান্ড যোগ করা হয়েছে"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer শুরু করুন (Initialize Intlayer)

@@ -40,9 +40,7 @@ history:
   - version: 5.8.0
     date: 2025-08-20
     changes: "Dodano narzędzia do obsługi treści (getContent, getTranslation, getIntlayer, itd.)"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Formatery Intlayer

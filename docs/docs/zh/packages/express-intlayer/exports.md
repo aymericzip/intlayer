@@ -18,9 +18,7 @@ history:
   - version: 8.0.0
     date: 2026-01-21
     changes: "统一所有导出项的文档"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # express-intlayer 包

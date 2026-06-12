@@ -38,9 +38,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "प्रारंभिक इतिहास"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Markdown / रिच टेक्स्ट सामग्री

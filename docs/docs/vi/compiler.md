@@ -29,9 +29,7 @@ history:
   - version: 7.3.1
     date: 2025-11-27
     changes: "Phát hành Trình Biên Dịch"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Trình Biên Dịch Intlayer | Trích Xuất Nội Dung Tự Động cho i18n

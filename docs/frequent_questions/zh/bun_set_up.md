@@ -12,9 +12,7 @@ keywords:
 slugs:
   - frequent-questions
   - bun-set-up
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 使用 bun 时出现模块未找到错误

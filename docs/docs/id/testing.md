@@ -20,9 +20,7 @@ history:
   - version: 6.0.0
     date: 2025-09-20
     changes: "Pengenalan pengujian"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Menguji konten Anda

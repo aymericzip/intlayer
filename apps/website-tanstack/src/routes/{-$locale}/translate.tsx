@@ -1,21 +1,53 @@
-import { Website_Translate } from '@intlayer/design-system/routes';
+import {
+  App_Dashboard,
+  External_Github,
+  Website_Doc_Search,
+  Website_Home,
+  Website_Translate,
+} from '@intlayer/design-system/routes';
+import {
+  buildOrganizationJsonLd,
+  buildProductJsonLd,
+  buildSoftwareApplicationJsonLd,
+  buildWebsiteJsonLd,
+} from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
-import { defaultLocale, getIntlayer } from 'intlayer';
+import { defaultLocale, getIntlayer, locales } from 'intlayer';
 import { AiTranslationLandingCore } from '~/components/TranslationLandingPage';
 import { PageLayout } from '~/layouts/PageLayout';
-import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
-import { TranslateSoftwareApplicationHeader } from '~/structuredData/TranslateSoftwareApplicationHeader';
-import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
+import { formatStructuredDataOffers, getPricing } from '~/utils/stripe';
+import packageJson from '../../../package_mock.json' with { type: 'json' };
 
 export const Route = createFileRoute('/{-$locale}/translate')({
-  head: ({ params }) => {
+  loader: async () => {
+    const pricings = await getPricing();
+    return { pricings };
+  },
+  head: ({ params, loaderData }) => {
     const { locale = defaultLocale } = params;
     const path = Website_Translate;
     const { title, description, keywords } = getIntlayer(
       'translate-metadata',
       locale
     );
+
+    const websiteContent = getIntlayer('website-structured-data', locale);
+    const orgContent = getIntlayer('organization-structured-data', locale);
+    const translateContent = getIntlayer(
+      'translate-software-structured-data',
+      locale
+    );
+    const translateProductContent = getIntlayer(
+      'translate-product-header-structured-data',
+      locale
+    );
+    const softwareContent = getIntlayer(
+      'software-application-structured-data',
+      locale
+    );
+
+    const offers = formatStructuredDataOffers(loaderData?.pricings ?? null);
 
     return {
       title,
@@ -35,6 +67,65 @@ export const Route = createFileRoute('/{-$locale}/translate')({
         { rel: 'canonical', href: getAbsoluteUrl(path, locale) },
         ...getHreflangLinks(path),
       ],
+      scripts: [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(
+            buildWebsiteJsonLd({
+              url: Website_Home,
+              searchUrl: Website_Doc_Search,
+              locales: locales as string[],
+              keywords: websiteContent.keywords as string[],
+              rssUrl: `${Website_Home}/feed.xml`,
+            })
+          ),
+        },
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(
+            buildOrganizationJsonLd({
+              url: Website_Home,
+              logoUrl: `${Website_Home}/assets/logo.png`,
+              slogan: String(orgContent.slogan),
+              knowsAbout: orgContent.knowsAbout as string[],
+              sameAs: [External_Github, 'https://twitter.com/intlayer'],
+              availableLanguages: locales as string[],
+            })
+          ),
+        },
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(
+            buildSoftwareApplicationJsonLd({
+              name: 'Intlayer Translate CLI',
+              url: `${Website_Home}/translate`,
+              description: String(translateContent.description),
+              softwareVersion: packageJson.version,
+              keywords: softwareContent.keywords as string[],
+              audienceType: String(softwareContent.audienceType),
+              authorUrl: Website_Home,
+              logoUrl: `${Website_Home}/assets/logo.png`,
+              githubUrl: External_Github,
+              operatingSystem: 'Mac, Windows, Linux',
+              mainEntityUrl: `${Website_Home}/translate`,
+              offersPrice: '0.00',
+            })
+          ),
+        },
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(
+            buildProductJsonLd({
+              url: App_Dashboard,
+              name: 'Intlayer Translate',
+              description: String(translateProductContent.description),
+              imageUrl:
+                'https://raw.githubusercontent.com/aymericzip/intlayer/main/docs/assets/CMS.png',
+              offers,
+            })
+          ),
+        },
+      ],
     };
   },
   component: TranslatePage,
@@ -43,9 +134,6 @@ export const Route = createFileRoute('/{-$locale}/translate')({
 function TranslatePage() {
   return (
     <PageLayout>
-      <WebsiteHeader />
-      <OrganizationHeader />
-      <TranslateSoftwareApplicationHeader />
       <AiTranslationLandingCore />
     </PageLayout>
   );

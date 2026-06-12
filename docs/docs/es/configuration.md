@@ -98,9 +98,7 @@ history:
   - version: 5.5.11
     date: 2025-06-29
     changes: "Se añadieron los comandos `docs`"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Documentación de Configuración de Intlayer

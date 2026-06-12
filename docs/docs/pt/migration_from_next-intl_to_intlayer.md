@@ -20,9 +20,7 @@ history:
   - version: 8.13.0
     date: 2026-06-05
     changes: "Init history"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Migrando do next-intl para Intlayer

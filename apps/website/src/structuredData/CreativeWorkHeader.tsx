@@ -1,11 +1,19 @@
 /** biome-ignore-all lint/security/noDangerouslySetInnerHtml: No choice */
 
 import { Website_Home } from '@intlayer/design-system/routes';
-import type { BlogMetadata } from '@intlayer/docs';
+import {
+  buildCreativeWorkJsonLd,
+  type CreativeWorkType,
+} from '@intlayer/design-system/structured-data';
+import {
+  type BlogMetadata,
+  buildAuthorJsonLd,
+  getAuthor,
+} from '@intlayer/docs';
 import { useIntlayer } from 'next-intlayer/server';
 
 type DocHeaderProps = {
-  type?: 'CreativeWork' | 'TechArticle' | 'Article' | 'BlogPosting' | 'WebPage';
+  type?: CreativeWorkType;
   creativeWorkName: string;
   creativeWorkDescription: string;
   creativeWorkContent: string;
@@ -13,19 +21,10 @@ type DocHeaderProps = {
   datePublished?: Date;
   dateModified?: Date;
   url?: string;
-  authorName?: string;
-  authorUrl?: string;
+  /** GitHub handle — resolved to a full AuthorProfile via authors.json. */
+  author?: string;
   /** Revision history parsed from markdown frontmatter, newest entry first. */
   history?: BlogMetadata['history'];
-};
-
-// Schema.org requires ISO 8601 dates (YYYY-MM-DD).
-const formatDate = (date: Date): string => {
-  if (!(date instanceof Date)) {
-    throw new Error('Input must be a valid Date object');
-  }
-
-  return date.toISOString().split('T')[0]!;
 };
 
 export const CreativeWorkHeader = ({
@@ -37,8 +36,7 @@ export const CreativeWorkHeader = ({
   dateModified,
   datePublished,
   url,
-  authorName,
-  authorUrl,
+  author,
   history,
 }: DocHeaderProps) => {
   const { audienceType } = useIntlayer('creative-work-structured-data');
@@ -47,49 +45,31 @@ export const CreativeWorkHeader = ({
     creativeWorkName
   )}&description=${encodeURIComponent(creativeWorkDescription)}`;
 
-  const author = {
-    '@type': 'Person',
-    name: authorName ?? 'Aymeric Pineau',
-    url: authorUrl ?? Website_Home,
-  };
-
-  const creativeWork = {
-    '@context': 'https://schema.org',
-    '@type': type,
-    author,
-    creator: author,
-    publisher: {
-      '@type': 'Organization',
-      name: 'Intlayer',
-      logo: {
-        '@type': 'ImageObject',
-        url: `${Website_Home}/assets/logo.png`,
-      },
-    },
-    name: creativeWorkName,
-    headline: creativeWorkName,
-    image: ogImageUrl,
-    text: creativeWorkContent,
-    description: creativeWorkDescription,
-    url,
-    datePublished: datePublished ? formatDate(datePublished) : undefined,
-    dateModified: dateModified ? formatDate(dateModified) : undefined,
-    version: history?.[0]?.version,
-    keywords: keywords,
-    license:
-      'https://raw.githubusercontent.com/aymericzip/intlayer/refs/heads/main/LICENSE',
-    audience: {
-      '@type': 'Audience',
-      audienceType: audienceType.value,
-    },
-  };
+  const authorNode = buildAuthorJsonLd(author ? getAuthor(author) : undefined);
 
   return (
     <script
       type="application/ld+json"
       // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD must be inlined for crawlers
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify(creativeWork).replace(/</g, '\\u003c'),
+        __html: JSON.stringify(
+          buildCreativeWorkJsonLd({
+            type,
+            name: creativeWorkName,
+            description: creativeWorkDescription,
+            content: creativeWorkContent,
+            keywords,
+            datePublished,
+            dateModified,
+            url,
+            author: authorNode,
+            version: history?.[0]?.version,
+            audienceType: audienceType.value,
+            publisherName: 'Intlayer',
+            publisherLogoUrl: `${Website_Home}/assets/logo.png`,
+            ogImageUrl,
+          })
+        ).replace(/</g, '\\u003c'),
       }}
     />
   );

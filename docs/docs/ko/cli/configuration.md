@@ -14,9 +14,7 @@ slugs:
   - concept
   - cli
   - configuration
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 구성 관리

@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - customized-locale-list
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # क्या किसी भाषा प्रकार को ब्लॉक करना संभव है, जैसे अंग्रेज़ी? मैं अपनी शब्दकोशों में अंग्रेज़ी जोड़ रहा हूँ लेकिन मैं अभी अंग्रेज़ी को वेबसाइट पर उपलब्ध नहीं करना चाहता

@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - domain-routing
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # मैं Intlayer के साथ `/[locale]/` पथों के बजाय **डोमेन-आधारित रूटिंग** कैसे कॉन्फ़िगर करूं?

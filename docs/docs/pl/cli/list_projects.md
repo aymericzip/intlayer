@@ -18,9 +18,7 @@ history:
   - version: 7.5.12
     date: 2026-01-06
     changes: "Dodaj opcję wyjścia bezwzględnego do polecenia list projects"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Lista projektów Intlayer

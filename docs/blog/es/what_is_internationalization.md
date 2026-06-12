@@ -15,9 +15,7 @@ keywords:
 slugs:
   - blog
   - what-is-internationalization
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # ¿Qué es la Internacionalización (i18n)? Definición y desafíos

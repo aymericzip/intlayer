@@ -53,23 +53,20 @@ const BlogPage = async ({ params }: LocalPromiseParams<BlogProps>) => {
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <CreativeWorkHeader
-        type="BlogPosting"
-        creativeWorkName={blogData.title}
-        creativeWorkDescription={blogData.description}
-        creativeWorkContent={blogContent}
-        keywords={blogData.keywords.join(', ')}
-        dateModified={new Date(blogData.updatedAt)}
-        datePublished={new Date(blogData.createdAt)}
-        url={blogData.url}
-        authorName={blogData.author?.name}
-        authorUrl={
-          blogData.author?.github
-            ? `https://github.com/${blogData.author.github}`
-            : undefined
-        }
-        history={blogData.history}
-      />
+      {blogData && (
+        <CreativeWorkHeader
+          type="BlogPosting"
+          creativeWorkName={blogData.title}
+          creativeWorkDescription={blogData.description}
+          creativeWorkContent={blogContent}
+          keywords={blogData.keywords.join(', ')}
+          dateModified={new Date(blogData.updatedAt)}
+          datePublished={new Date(blogData.createdAt)}
+          url={blogData.url}
+          author={blogData.author}
+          history={blogData.history}
+        />
+      )}
       <DocHeader {...blogData} markdownContent={blogContent} />
 
       <DocumentationRender>{blogContent}</DocumentationRender>

@@ -19,9 +19,7 @@ history:
   - version: 7.0.6
     date: 2025-11-01
     changes: Phiên bản đầu tiên
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Cách quốc tế hóa ứng dụng Next.js của bạn bằng next-i18next trong năm 2026

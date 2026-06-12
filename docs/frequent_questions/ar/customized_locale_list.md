@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - customized-locale-list
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # هل من الممكن حظر نوع لغة، مثل الإنجليزية؟ أنا أضيف الإنجليزية في قواميسي لكن لا أريد أن تكون الإنجليزية متاحة على الموقع بعد

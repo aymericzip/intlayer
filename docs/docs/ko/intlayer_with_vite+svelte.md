@@ -29,9 +29,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "히스토리 초기화"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer를 사용하여 Vite 및 Svelte 웹사이트 번역하기 | 국제화(i18n)

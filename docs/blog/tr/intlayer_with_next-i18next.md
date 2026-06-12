@@ -23,9 +23,7 @@ history:
   - version: 7.0.0
     date: 2025-10-29
     changes: syncJSON eklentisine geçiş ve kapsamlı yeniden yazım
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # next-i18next ve Intlayer ile Next.js Uluslararasılaştırması (i18n)

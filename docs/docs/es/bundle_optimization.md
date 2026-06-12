@@ -22,9 +22,7 @@ history:
   - version: 8.7.0
     date: 2026-04-08
     changes: "Añadidas las opciones `minify` y `purge` a la configuración de compilación"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Optimización del tamaño y rendimiento del paquete i18n

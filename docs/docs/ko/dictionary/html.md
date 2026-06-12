@@ -31,9 +31,7 @@ history:
   - version: 8.0.0
     date: 2026-01-20
     changes: "HTML 파싱 지원 추가"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # HTML 콘텐츠 / Intlayer의 HTML

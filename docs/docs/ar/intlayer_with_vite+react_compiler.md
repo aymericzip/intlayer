@@ -29,9 +29,7 @@ history:
   - version: 8.1.6
     date: 2026-02-23
     changes: "الإصدار الأولي"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # كيفية جعل تطبيق Vite و React الحالي متعدد اللغات (i18n) لاحقًا (دليل i18n لعام 2026)

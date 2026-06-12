@@ -10,9 +10,7 @@ keywords:
 slugs:
   - frequent-questions
   - package-version-error
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip 
 ---
 
 # 서브 패키지 `@intlayer/*` 관련 오류가 발생합니다

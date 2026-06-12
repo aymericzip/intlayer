@@ -18,9 +18,7 @@ history:
   - version: 8.9.4
     date: 2026-05-10
     changes: "التوثيق الأولي لإضافة Sync PO"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Sync PO (جسور i18n) - مزامنة PO مع دعم ICU / i18next

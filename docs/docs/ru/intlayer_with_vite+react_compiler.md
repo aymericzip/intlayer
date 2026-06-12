@@ -29,9 +29,7 @@ history:
   - version: 8.1.6
     date: 2026-02-23
     changes: "Первый выпуск"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Как сделать многоязычным (i18n) существующее приложение Vite и React впоследствии (руководство по i18n 2026)

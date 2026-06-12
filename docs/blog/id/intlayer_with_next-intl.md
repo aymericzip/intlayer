@@ -22,9 +22,7 @@ history:
   - version: 7.0.0
     date: 2025-10-29
     changes: Mengubah ke plugin syncJSON
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Cara mengotomatisasi terjemahan JSON next-intl Anda menggunakan Intlayer

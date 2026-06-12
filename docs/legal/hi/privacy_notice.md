@@ -18,9 +18,7 @@ keywords:
   - उपयोगकर्ता डेटा
 slugs:
   - privacy-notice
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer गोपनीयता सूचना

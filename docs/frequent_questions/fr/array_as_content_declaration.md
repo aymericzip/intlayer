@@ -11,9 +11,7 @@ keywords:
 slugs:
   - frequent-questions
   - array-as-content-declaration
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Puis-je utiliser un tableau comme déclaration de contenu ?

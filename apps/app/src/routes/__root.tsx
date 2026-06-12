@@ -5,6 +5,11 @@ import {
   Website_Doc_Search,
   Website_Home,
 } from '@intlayer/design-system/routes';
+import {
+  buildOrganizationJsonLd,
+  buildSoftwareApplicationJsonLd,
+  buildWebsiteJsonLd,
+} from '@intlayer/design-system/structured-data';
 import { Toaster } from '@intlayer/design-system/toaster';
 import type { QueryClient } from '@tanstack/react-query';
 import {
@@ -100,85 +105,45 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       scripts: [
         {
           type: 'application/ld+json',
-          children: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'WebSite',
-            url: Website_Home,
-            name: 'Intlayer',
-            potentialAction: {
-              '@type': 'SearchAction',
-              target: `${Website_Doc_Search}?search={search_term_string}`,
-              'query-input': 'required name=search_term_string',
-            },
-            inLanguage: locales,
-            keywords: websiteContent.keywords,
-          }),
+          children: JSON.stringify(
+            buildWebsiteJsonLd({
+              url: Website_Home,
+              searchUrl: Website_Doc_Search,
+              locales: locales as string[],
+              keywords: websiteContent.keywords as string[],
+            })
+          ),
         },
         {
           type: 'application/ld+json',
-          children: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Organization',
-            name: 'Intlayer',
-            url: Website_Home,
-            logo: {
-              '@type': 'ImageObject',
-              url: `${Website_Home}/assets/logo.png`,
-            },
-            foundingDate: '2024',
-            slogan: orgContent.slogan,
-            knowsAbout: orgContent.knowsAbout,
-            sameAs: [External_Github, 'https://twitter.com/intlayer'],
-            contactPoint: {
-              '@type': 'ContactPoint',
-              email: 'contact@intlayer.org',
-              contactType: 'customer support',
+          children: JSON.stringify(
+            buildOrganizationJsonLd({
               url: Website_Home,
-              availableLanguage: locales,
-            },
-          }),
+              logoUrl: `${Website_Home}/assets/logo.png`,
+              slogan: String(orgContent.slogan),
+              knowsAbout: orgContent.knowsAbout as string[],
+              sameAs: [External_Github, 'https://twitter.com/intlayer'],
+              availableLanguages: locales as string[],
+            })
+          ),
         },
         {
           type: 'application/ld+json',
-          children: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'SoftwareApplication',
-            name: 'Intlayer',
-            url: Website_Home,
-            description: softwareContent.description,
-            softwareVersion: packageJson.version,
-            license:
-              'https://raw.githubusercontent.com/aymericzip/intlayer/refs/heads/main/LICENSE',
-            author: {
-              '@type': 'Organization',
+          children: JSON.stringify(
+            buildSoftwareApplicationJsonLd({
               name: 'Intlayer',
               url: Website_Home,
-              logo: `${Website_Home}/assets/logo.png`,
-              sameAs: [External_Github],
-            },
-            publisher: {
-              '@type': 'Organization',
-              name: 'Intlayer',
-              url: Website_Home,
-              logo: `${Website_Home}/assets/logo.png`,
-            },
-            keywords: softwareContent.keywords,
-            creator: {
-              '@type': 'Person',
-              name: 'Aymeric PINEAU',
-              url: 'https://github.com/aymericzip',
-            },
-            applicationCategory: 'DeveloperApplication',
-            applicationSubCategory: 'Developer Tools',
-            image: `${Website_Home}/cover.png`,
-            operatingSystem: 'Web, iOS, Android',
-            datePublished: '2024-08-26',
-            audience: {
-              '@type': 'Audience',
-              audienceType: softwareContent.audienceType,
-            },
-            mainEntityOfPage: Website_Home,
-          }),
+              description: String(softwareContent.description),
+              softwareVersion: packageJson.version,
+              keywords: softwareContent.keywords as string[],
+              audienceType: String(softwareContent.audienceType),
+              authorUrl: Website_Home,
+              logoUrl: `${Website_Home}/assets/logo.png`,
+              githubUrl: External_Github,
+              operatingSystem: 'Web, iOS, Android',
+              mainEntityUrl: Website_Home,
+            })
+          ),
         },
       ],
     };

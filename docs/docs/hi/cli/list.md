@@ -20,9 +20,7 @@ history:
   - version: 7.5.11
     date: 2026-01-06
     changes: "सूची कमांड में JSON आउटपुट विकल्प जोड़ा गया"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # सामग्री घोषणा फ़ाइलों की सूची बनाएं

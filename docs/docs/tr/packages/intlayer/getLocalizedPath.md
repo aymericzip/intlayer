@@ -22,9 +22,7 @@ history:
   - version: 8.0.0
     date: 2026-01-22
     changes: "Özel URL yeniden yazımları uygulandı"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Dokümantasyon: `intlayer` İçindeki `getLocalizedPath` Fonksiyonu

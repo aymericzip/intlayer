@@ -25,9 +25,7 @@ history:
   - version: 8.7.7
     date: 2026-04-24
     changes: "Dokumentasi awal untuk Astro + Svelte"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Terjemahkan Situs Astro + Svelte Anda dengan Intlayer | Internasionalisasi (i18n)

@@ -1,14 +1,22 @@
-import { Website_Scanner } from '@intlayer/design-system/routes';
+import {
+  External_Github,
+  Website_Doc_Search,
+  Website_Home,
+  Website_Scanner,
+} from '@intlayer/design-system/routes';
+import {
+  buildOrganizationJsonLd,
+  buildSoftwareApplicationJsonLd,
+  buildWebsiteJsonLd,
+} from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
-import { defaultLocale, getIntlayer } from 'intlayer';
+import { defaultLocale, getIntlayer, locales } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { BackgroundLayout } from '~/components/BackgroundLayout';
 import { LocalizationAnalyzer } from '~/components/ScannerPage';
 import { PageLayout } from '~/layouts/PageLayout';
-import { OrganizationHeader } from '~/structuredData/OrganizationHeader';
-import { ScannerSoftwareApplicationHeader } from '~/structuredData/ScannerSoftwareApplicationHeader';
-import { WebsiteHeader } from '~/structuredData/WebsiteHeader';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
+import packageJson from '../../../package_mock.json' with { type: 'json' };
 
 export const Route = createFileRoute('/{-$locale}/i18n-seo-scanner')({
   head: ({ params }) => {
@@ -16,6 +24,17 @@ export const Route = createFileRoute('/{-$locale}/i18n-seo-scanner')({
     const path = Website_Scanner;
     const { title, description, keywords } = getIntlayer(
       'i18n-SEO-scanner',
+      locale
+    );
+
+    const websiteContent = getIntlayer('website-structured-data', locale);
+    const orgContent = getIntlayer('organization-structured-data', locale);
+    const scannerContent = getIntlayer(
+      'scanner-software-structured-data',
+      locale
+    );
+    const softwareContent = getIntlayer(
+      'software-application-structured-data',
       locale
     );
 
@@ -36,6 +55,51 @@ export const Route = createFileRoute('/{-$locale}/i18n-seo-scanner')({
       links: [
         { rel: 'canonical', href: getAbsoluteUrl(path, locale) },
         ...getHreflangLinks(path),
+      ],
+      scripts: [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(
+            buildWebsiteJsonLd({
+              url: Website_Home,
+              searchUrl: Website_Doc_Search,
+              locales: locales as string[],
+              keywords: websiteContent.keywords as string[],
+              rssUrl: `${Website_Home}/feed.xml`,
+            })
+          ),
+        },
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(
+            buildOrganizationJsonLd({
+              url: Website_Home,
+              logoUrl: `${Website_Home}/assets/logo.png`,
+              slogan: String(orgContent.slogan),
+              knowsAbout: orgContent.knowsAbout as string[],
+              sameAs: [External_Github, 'https://twitter.com/intlayer'],
+              availableLanguages: locales as string[],
+            })
+          ),
+        },
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(
+            buildSoftwareApplicationJsonLd({
+              name: 'Intlayer I18n SEO Scanner',
+              url: `${Website_Home}/i18n-seo-scanner`,
+              description: String(scannerContent.description),
+              softwareVersion: packageJson.version,
+              keywords: softwareContent.keywords as string[],
+              audienceType: String(softwareContent.audienceType),
+              authorUrl: Website_Home,
+              logoUrl: `${Website_Home}/assets/logo.png`,
+              githubUrl: External_Github,
+              operatingSystem: 'Web',
+              mainEntityUrl: `${Website_Home}/i18n-seo-scanner`,
+            })
+          ),
+        },
       ],
     };
   },
@@ -62,9 +126,6 @@ function AuditContent() {
 function AuditPageRoute() {
   return (
     <PageLayout>
-      <WebsiteHeader />
-      <OrganizationHeader />
-      <ScannerSoftwareApplicationHeader />
       <AuditContent />
     </PageLayout>
   );

@@ -20,9 +20,7 @@ history:
   - version: 7.5.11
     date: 2026-01-06
     changes: "Thêm tùy chọn đầu ra JSON cho lệnh list"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Liệt kê các tệp khai báo nội dung

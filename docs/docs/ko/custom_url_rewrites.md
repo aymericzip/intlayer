@@ -16,9 +16,7 @@ history:
   - version: 8.0.0
     date: 2026-01-25
     changes: "프레임워크별 포매터와 useRewriteURL 훅을 사용하여 중앙 집중식 URL 재작성을 구현합니다."
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 맞춤형 URL 재작성 구현

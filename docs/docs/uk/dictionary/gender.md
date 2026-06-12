@@ -20,9 +20,7 @@ history:
   - version: 5.7.2
     date: 2025-07-27
     changes: "Додано підтримку гендерно-залежного контенту"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Гендерно-орієнтований контент / Гендер в Intlayer

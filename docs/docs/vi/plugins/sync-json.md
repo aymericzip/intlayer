@@ -30,9 +30,7 @@ history:
   - version: 6.1.6
     date: 2025-10-05
     changes: "Tài liệu Plugin Đồng bộ JSON ban đầu"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Đồng bộ JSON (cầu nối i18n) - Đồng bộ JSON với hỗ trợ ICU / i18next

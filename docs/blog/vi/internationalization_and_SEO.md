@@ -14,9 +14,7 @@ keywords:
 slugs:
   - blog
   - SEO-and-i18n
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # SEO & I18n: Hướng Dẫn Tối Ưu Để Biến Website Của Bạn Thành Đa Ngôn Ngữ

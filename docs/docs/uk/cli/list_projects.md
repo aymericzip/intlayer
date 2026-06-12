@@ -18,9 +18,7 @@ history:
   - version: 7.5.12
     date: 2026-01-06
     changes: "Додано опцію виведення абсолютних шляхів для команди list projects"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Перелік проєктів Intlayer

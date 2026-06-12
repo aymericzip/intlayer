@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - domain-routing
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Wie konfiguriere ich **domänenbasiertes Routing** mit Intlayer anstelle von `/[locale]/`-Pfaden?

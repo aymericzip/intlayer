@@ -22,9 +22,7 @@ history:
   - version: 8.7.0
     date: 2026-04-08
     changes: "إضافة خياري `minify` و `purge` لإعدادات البناء"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # تحسين حجم وأداء حزمة i18n

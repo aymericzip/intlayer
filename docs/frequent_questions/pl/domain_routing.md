@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - domain-routing
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Jak skonfigurować **routing oparty na domenach** w Intlayer zamiast ścieżek `/[locale]/`?

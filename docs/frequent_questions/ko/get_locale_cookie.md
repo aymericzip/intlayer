@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - get-locale-cookie
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 쿠키 / 헤더에서 로케일을 가져오는 방법

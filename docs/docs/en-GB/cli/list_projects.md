@@ -18,9 +18,7 @@ history:
   - version: 7.5.12
     date: 2026-01-06
     changes: "Add absolute output option to list projects command"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # List Intlayer Projects

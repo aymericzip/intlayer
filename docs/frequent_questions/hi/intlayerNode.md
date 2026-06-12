@@ -16,9 +16,7 @@ history:
   - version: 8.9.0
     date: 2026-05-07
     changes: "दस्तावेज़ की शुरुआत"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # IntlayerNode प्रकार क्या है?

@@ -25,9 +25,7 @@ history:
   - version: 8.4.10
     date: 2026-03-23
     changes: "प्रारंभिक इतिहास"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer का उपयोग करके अपने Vite और Vanilla JS वेबसाइट का अनुवाद करें | अंतर्राष्ट्रीयकरण (i18n)

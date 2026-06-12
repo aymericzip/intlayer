@@ -26,9 +26,7 @@ history:
   - version: 8.7.7
     date: 2026-04-24
     changes: "Astro + Lit için ilk dokümantasyon"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Astro + Lit Sitenizi Intlayer ile Çevirin | Uluslararasılaştırma (i18n)

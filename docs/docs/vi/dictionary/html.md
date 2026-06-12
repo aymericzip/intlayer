@@ -31,9 +31,7 @@ history:
   - version: 8.0.0
     date: 2026-01-20
     changes: "Thêm hỗ trợ phân tích cú pháp HTML"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Nội dung HTML / HTML trong Intlayer

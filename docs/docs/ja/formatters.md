@@ -43,9 +43,7 @@ history:
   - version: 5.8.0
     date: 2025-08-20
     changes: "コンテンツ処理ユーティリティ（getContent、getTranslation、getIntlayerなど）を追加"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayer フォーマッター

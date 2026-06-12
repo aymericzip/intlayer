@@ -21,9 +21,7 @@ history:
   - version: 8.0.0
     date: 2026-01-21
     changes: "Объединённая документация для всех экспортов"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Документация хука useLocale

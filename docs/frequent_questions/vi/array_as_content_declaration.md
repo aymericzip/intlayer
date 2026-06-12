@@ -11,9 +11,7 @@ keywords:
 slugs:
   - frequent-questions
   - array-as-content-declaration
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Tôi có thể sử dụng mảng làm khai báo nội dung không?

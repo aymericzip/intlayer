@@ -22,9 +22,7 @@ history:
   - version: 7.1.0
     date: 2025-11-16
     changes: "초기 문서화"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 문서: `intlayer`의 `getPrefix` 함수

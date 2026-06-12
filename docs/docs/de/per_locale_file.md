@@ -18,9 +18,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Historie initialisiert"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Deklaration von `Per-Locale` Inhaltsdeklaration in Intlayer

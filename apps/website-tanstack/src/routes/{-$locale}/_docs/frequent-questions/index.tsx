@@ -5,6 +5,11 @@ import {
   Website_FrequentQuestions,
   Website_Home,
 } from '@intlayer/design-system/routes';
+import {
+  buildFAQPageJsonLd,
+  buildOrganizationJsonLd,
+  buildWebsiteJsonLd,
+} from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
 import { defaultLocale, getIntlayer, locales } from 'intlayer';
 import { ArrowRight } from 'lucide-react';
@@ -60,64 +65,32 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/')({
       scripts: [
         {
           type: 'application/ld+json',
-          children: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'WebSite',
-            url: Website_Home,
-            name: 'Intlayer',
-            potentialAction: {
-              '@type': 'SearchAction',
-              target: `${Website_Doc_Search}?search={search_term_string}`,
-              'query-input': 'required name=search_term_string',
-            },
-            inLanguage: locales,
-            keywords: websiteContent.keywords,
-            subjectOf: {
-              '@type': 'DataFeed',
-              name: 'Intlayer RSS Feed',
-              url: `${Website_Home}/feed.xml`,
-              encodingFormat: 'application/rss+xml',
-            },
-          }),
-        },
-        {
-          type: 'application/ld+json',
-          children: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Organization',
-            name: 'Intlayer',
-            url: Website_Home,
-            logo: {
-              '@type': 'ImageObject',
-              url: `${Website_Home}/assets/logo.png`,
-            },
-            foundingDate: '2024',
-            slogan: orgContent.slogan,
-            knowsAbout: orgContent.knowsAbout,
-            sameAs: [External_Github, 'https://twitter.com/intlayer'],
-            contactPoint: {
-              '@type': 'ContactPoint',
-              email: 'contact@intlayer.org',
-              contactType: 'customer support',
+          children: JSON.stringify(
+            buildWebsiteJsonLd({
               url: Website_Home,
-              availableLanguage: locales,
-            },
-          }),
+              searchUrl: Website_Doc_Search,
+              locales: locales as string[],
+              keywords: websiteContent.keywords as string[],
+              rssUrl: `${Website_Home}/feed.xml`,
+            })
+          ),
         },
         {
           type: 'application/ld+json',
-          children: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: faqs.map((faq) => ({
-              '@type': 'Question',
-              name: faq.question,
-              acceptedAnswer: {
-                '@type': 'Answer',
-                text: faq.answer,
-              },
-            })),
-          }),
+          children: JSON.stringify(
+            buildOrganizationJsonLd({
+              url: Website_Home,
+              logoUrl: `${Website_Home}/assets/logo.png`,
+              slogan: String(orgContent.slogan),
+              knowsAbout: orgContent.knowsAbout as string[],
+              sameAs: [External_Github, 'https://twitter.com/intlayer'],
+              availableLanguages: locales as string[],
+            })
+          ),
+        },
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(buildFAQPageJsonLd({ faqs })),
         },
       ],
     };

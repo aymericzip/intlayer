@@ -19,9 +19,7 @@ history:
   - version: 8.0.0
     date: 2026-01-29
     changes: "Inizializzazione doc"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Documentazione del Middleware intlayer per Hono

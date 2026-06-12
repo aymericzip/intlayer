@@ -29,9 +29,7 @@ history:
   - version: 8.1.6
     date: 2026-02-23
     changes: "Phiên bản đầu tiên"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Cách biến ứng dụng Next.js hiện tại thành đa ngôn ngữ (i18n) (hướng dẫn i18n 2026)

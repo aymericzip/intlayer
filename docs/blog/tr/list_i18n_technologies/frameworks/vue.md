@@ -16,9 +16,7 @@ slugs:
   - i18n-technologies
   - frameworks
   - vue
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Vue.js Web Sitenizi Çevirmek İçin i18n Çözümlerini Keşfetmek

@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - locale-incorect-in-url
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # URL से गलत लोकल प्राप्त हुआ

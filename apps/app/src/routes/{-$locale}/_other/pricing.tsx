@@ -1,5 +1,13 @@
 import type { GetPricingResult } from '@intlayer/backend';
-import { App_Pricing, Website_Home } from '@intlayer/design-system/routes';
+import {
+  App_Pricing,
+  Website_Domain,
+  Website_Home,
+} from '@intlayer/design-system/routes';
+import {
+  buildBreadcrumbsJsonLd,
+  buildProductJsonLd,
+} from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
 import {
   defaultLocale,
@@ -8,12 +16,10 @@ import {
   localeMap,
 } from 'intlayer';
 import { Suspense } from 'react';
-import { BreadcrumbsHeader } from '#/structuredData/BreadcrumbsHeader';
-import { ProductHeader } from '#/structuredData/ProductHeader';
 import { BackgroundLayout } from '#components/BackgroundLayout';
 import { PricingPage as PricingPageContent } from '#components/PricingPage';
 import { PricingSkeleton } from '#components/PricingPage/PricingSkeleton';
-import { getPricingData } from '#utils/stripe';
+import { formatStructuredDataOffers, getPricingData } from '#utils/stripe';
 
 type PricingSearch = {
   ref?: string;
@@ -34,25 +40,27 @@ export const Route = createFileRoute('/{-$locale}/_other/pricing')({
       typeof search.promoCode === 'string' ? search.promoCode : undefined,
   }),
   component: PricingPage,
-  head: ({ params }) => {
+  head: ({ params, loaderData }) => {
     const { locale } = params;
     const path = App_Pricing;
     const content = getIntlayer('pricing-page', locale);
+    const productContent = getIntlayer(
+      'product-header-structured-data',
+      locale
+    );
+
+    const offers = formatStructuredDataOffers(
+      (loaderData?.pricingData as GetPricingResult['data']) ?? null
+    );
 
     return {
       links: [
-        // Canonical link: Points to the current localized page
         { rel: 'canonical', href: getLocalizedUrl(path, locale) },
-
-        // Hreflang: Tell Google about all localized versions
         ...localeMap(({ locale: mapLocale }) => ({
           rel: 'alternate',
           hrefLang: mapLocale,
           href: getLocalizedUrl(path, mapLocale),
         })),
-
-        // x-default: For users in unmatched languages
-        // Define the default fallback locale (usually your primary language)
         {
           rel: 'alternate',
           hrefLang: 'x-default',
@@ -66,31 +74,50 @@ export const Route = createFileRoute('/{-$locale}/_other/pricing')({
           content: content.metadata.description,
         },
       ],
+      scripts: [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(
+            buildBreadcrumbsJsonLd({
+              breadcrumbs: [
+                {
+                  name: 'Intlayer',
+                  url: getLocalizedUrl(Website_Home, locale),
+                },
+                {
+                  name: 'Pricing',
+                  url: getLocalizedUrl(App_Pricing, locale),
+                },
+              ],
+              domain: Website_Domain,
+            })
+          ),
+        },
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify(
+            buildProductJsonLd({
+              url: App_Pricing,
+              name: 'Intlayer CMS',
+              description: String(productContent.description),
+              imageUrl:
+                'https://raw.githubusercontent.com/aymericzip/intlayer/main/docs/assets/CMS.png',
+              offers,
+            })
+          ),
+        },
+      ],
     };
   },
 });
 
 function PricingPage() {
   const { pricingData } = Route.useLoaderData();
-  const { locale } = Route.useParams();
 
   if (!pricingData) return null;
 
   return (
     <BackgroundLayout>
-      <BreadcrumbsHeader
-        breadcrumbs={[
-          {
-            name: 'Intlayer',
-            url: getLocalizedUrl(Website_Home, locale),
-          },
-          {
-            name: 'Pricing',
-            url: getLocalizedUrl(App_Pricing, locale),
-          },
-        ]}
-      />
-      <ProductHeader pricings={pricingData as GetPricingResult['data']} />
       <Suspense fallback={<PricingSkeleton />}>
         <PricingPageContent
           pricings={pricingData as GetPricingResult['data']}

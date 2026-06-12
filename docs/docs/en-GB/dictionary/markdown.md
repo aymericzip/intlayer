@@ -38,9 +38,7 @@ history:
   - version: 5.5.10
     date: 2025-06-29
     changes: "Initialised history"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Markdown / Rich Text Content

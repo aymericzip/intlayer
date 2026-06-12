@@ -45,9 +45,7 @@ history:
   - version: 5.8.1
     date: 2025-09-09
     changes: "Aggiunto per TanStack Start"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Traduci il tuo sito web TanStack Start usando Intlayer | Internazionalizzazione (i18n)

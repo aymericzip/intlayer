@@ -40,23 +40,20 @@ const FrequentQuestionPage = async ({
 
   return (
     <IntlayerServerProvider locale={locale}>
-      <CreativeWorkHeader
-        type="TechArticle"
-        creativeWorkName={frequentQuestionData.title}
-        creativeWorkDescription={frequentQuestionData.description}
-        creativeWorkContent={blogContent}
-        keywords={frequentQuestionData.keywords.join(', ')}
-        datePublished={new Date(frequentQuestionData.createdAt)}
-        dateModified={new Date(frequentQuestionData.updatedAt)}
-        url={frequentQuestionData.url}
-        authorName={frequentQuestionData.author?.name}
-        authorUrl={
-          frequentQuestionData.author?.github
-            ? `https://github.com/${frequentQuestionData.author.github}`
-            : undefined
-        }
-        history={frequentQuestionData.history}
-      />
+      {frequentQuestionData && (
+        <CreativeWorkHeader
+          type="TechArticle"
+          creativeWorkName={frequentQuestionData.title}
+          creativeWorkDescription={frequentQuestionData.description}
+          creativeWorkContent={blogContent}
+          keywords={frequentQuestionData.keywords.join(', ')}
+          datePublished={new Date(frequentQuestionData.createdAt)}
+          dateModified={new Date(frequentQuestionData.updatedAt)}
+          url={frequentQuestionData.url}
+          author={frequentQuestionData.author}
+          history={frequentQuestionData.history}
+        />
+      )}
       <div className="mx-auto max-w-2xl">
         <DocumentationRender>{blogContent}</DocumentationRender>
       </div>

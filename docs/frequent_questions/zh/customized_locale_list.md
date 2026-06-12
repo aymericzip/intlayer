@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - customized-locale-list
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # 是否可以屏蔽某种语言类型，比如英语？我在词典中添加了英语，但暂时不想让网站上显示英语

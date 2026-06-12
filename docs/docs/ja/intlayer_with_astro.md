@@ -27,9 +27,7 @@ history:
   - version: 6.2.0
     date: 2025-10-03
     changes: "Astro統合、設定、使用方法の更新"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Intlayerを使用したAstroサイトの翻訳 | 国際化 (i18n)

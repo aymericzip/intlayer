@@ -17,9 +17,7 @@ history:
   - version: 8.0.0
     date: 2026-01-21
     changes: "모든 내보내기에 대한 문서 통합"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # astro-intlayer 패키지

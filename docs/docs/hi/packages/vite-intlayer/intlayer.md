@@ -20,9 +20,7 @@ history:
   - version: 8.0.0
     date: 2026-01-21
     changes: "प्रारम्भिक डॉक्यूमेंटेशन"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # intlayer Vite प्लगइन दस्तावेज़ीकरण

@@ -28,9 +28,7 @@ history:
   - version: 6.2.0
     date: 2025-10-03
     changes: "Cập nhật tích hợp Astro, cấu hình và cách sử dụng"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Dịch trang web Astro + React của bạn với Intlayer | Đa ngôn ngữ (i18n)

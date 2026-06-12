@@ -25,9 +25,7 @@ history:
   - version: 7.6.0
     date: 2025-12-31
     changes: "Geschiedenis geïnitialiseerd"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Vertaal uw Fastify backend-website met Intlayer | Internationalisering (i18n)

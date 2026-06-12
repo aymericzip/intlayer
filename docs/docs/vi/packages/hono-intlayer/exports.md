@@ -18,9 +18,7 @@ history:
   - version: 8.0.0
     date: 2026-01-29
     changes: "Tài liệu thống nhất cho tất cả các bản xuất"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Gói hono-intlayer

@@ -43,9 +43,7 @@ history:
   - version: 5.8.0
     date: 2025-08-20
     changes: "Ajout d'utilitaires de gestion de contenu (getContent, getTranslation, getIntlayer, etc.)"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Formatteurs Intlayer

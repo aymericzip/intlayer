@@ -37,9 +37,7 @@ history:
   - version: 5.8.0
     date: 2025-08-20
     changes: "إضافة أدوات التعامل مع المحتوى (getContent، getTranslation، getIntlayer، إلخ)"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # أدوات تنسيق Intlayer

@@ -5,36 +5,25 @@ import {
   Website_Doc_Search,
   Website_Home,
 } from '@intlayer/design-system/routes';
+import { buildWebsiteJsonLd } from '@intlayer/design-system/structured-data';
 import { useIntlayer } from 'next-intlayer/server';
 
 export const WebsiteHeader = () => {
   const { keywords } = useIntlayer('website-structured-data');
 
-  const website = {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    url: Website_Home,
-    name: 'Intlayer',
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: `${Website_Doc_Search}?search={search_term_string}`,
-      'query-input': 'required name=search_term_string',
-    },
-    inLanguage: internationalization.locales,
-    keywords: keywords.map((keyword) => keyword.value),
-    subjectOf: {
-      '@type': 'DataFeed',
-      name: 'Intlayer RSS Feed',
-      url: `${Website_Home}/feed.xml`,
-      encodingFormat: 'application/rss+xml',
-    },
-  };
-
   return (
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify(website),
+        __html: JSON.stringify(
+          buildWebsiteJsonLd({
+            url: Website_Home,
+            searchUrl: Website_Doc_Search,
+            locales: internationalization.locales as string[],
+            keywords: keywords.map((keyword) => keyword.value),
+            rssUrl: `${Website_Home}/feed.xml`,
+          })
+        ),
       }}
     />
   );

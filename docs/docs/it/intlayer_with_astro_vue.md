@@ -25,9 +25,7 @@ history:
   - version: 8.7.7
     date: 2026-04-24
     changes: "Documentazione iniziale per Astro + Vue"
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # Tradurre il tuo sito Astro + Vue con Intlayer | Internazionalizzazione (i18n)

@@ -17,9 +17,7 @@ keywords:
 slugs:
   - frequent-questions
   - customized-locale-list
-author:
-  name: Aymeric PINEAU
-  github: aymericzip
+author: aymericzip
 ---
 
 # É possível bloquear um tipo de idioma, como o inglês? Estou adicionando inglês nos meus dicionários, mas ainda não quero que o inglês esteja disponível no site
