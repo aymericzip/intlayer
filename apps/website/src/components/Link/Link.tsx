@@ -49,8 +49,7 @@ export const Link: FC<LinkProps> = (props) => {
     isExternalLinkProp ?? checkIsExternalLink(propsWithNormalizedHref, URL);
 
   const isChildrenString = isTextChildren(children);
-  const isButton =
-    variant === 'button' || variant === 'button-outlined';
+  const isButton = variant === 'button' || variant === 'button-outlined';
 
   const href =
     locale && normalizedHref && !isExternalLink

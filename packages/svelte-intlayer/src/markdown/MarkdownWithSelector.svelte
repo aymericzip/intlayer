@@ -1,9 +1,8 @@
 <script lang="ts">
 import type { KeyPath } from '@intlayer/types/keyPath';
 import ContentSelector from '../editor/ContentSelector.svelte';
-import MarkdownRenderer from './MarkdownRenderer.svelte';
-
 import type { ParsedMarkdown } from './compiler';
+import MarkdownRenderer from './MarkdownRenderer.svelte';
 
 export let dictionaryKey: string;
 export let keyPath: KeyPath[];

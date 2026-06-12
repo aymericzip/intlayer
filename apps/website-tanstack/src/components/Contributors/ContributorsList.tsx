@@ -1,9 +1,9 @@
-import { Link } from '~/components/Link/Link';
 import { Avatar } from '@intlayer/design-system/avatar';
 import { Container } from '@intlayer/design-system/container';
 import { ArrowUpRight } from 'lucide-react';
 import type React from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 
 export type Contributor = {
   login: string;

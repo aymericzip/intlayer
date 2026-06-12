@@ -33,7 +33,9 @@ const ContributorSection = dynamic(() =>
   )
 );
 const LanguageSection = dynamic(() =>
-  import('@intlayer/design-system/language-background').then((module) => module.LanguageSection)
+  import('@intlayer/design-system/language-background').then(
+    (module) => module.LanguageSection
+  )
 );
 
 export const AiTranslationLandingCore: FC = () => {

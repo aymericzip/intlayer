@@ -1,5 +1,5 @@
-import { queryProxy } from '~/utils/queryProxy';
 import { intlayerProxy, multipleProxies } from 'react-intlayer/proxy';
+import { queryProxy } from '~/utils/queryProxy';
 
 export const proxy = multipleProxies([intlayerProxy, queryProxy]);
 

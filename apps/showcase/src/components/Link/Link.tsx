@@ -66,8 +66,7 @@ export const Link: FC<LinkProps> = ({
     isPageSectionProp ?? normalizedHref?.startsWith('#') ?? false;
 
   const isChildrenString = isTextChildren(children);
-  const isButton =
-    variant === 'button' || variant === 'button-outlined';
+  const isButton = variant === 'button' || variant === 'button-outlined';
 
   const href =
     locale && normalizedHref && !isExternalLink && !isPageSection

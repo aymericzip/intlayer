@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from "vue";
+import { defineAsyncComponent } from 'vue';
 
-const TeamHeader = defineAsyncComponent(() => import("../components/pages/team/TeamHeader.vue"));
-const TeamGrid = defineAsyncComponent(() => import("../components/pages/team/TeamGrid.vue"));
+const TeamHeader = defineAsyncComponent(
+  () => import('../components/pages/team/TeamHeader.vue')
+);
+const TeamGrid = defineAsyncComponent(
+  () => import('../components/pages/team/TeamGrid.vue')
+);
 </script>
 
 <template>

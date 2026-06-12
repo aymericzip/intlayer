@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { useI18n } from "vue-i18n";
+import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 
 const benefits = [
   {
-    labelKey: "careers.benefits.remoteLabel",
-    valueKey: "careers.benefits.remoteValue",
+    labelKey: 'careers.benefits.remoteLabel',
+    valueKey: 'careers.benefits.remoteValue',
   },
   {
-    labelKey: "careers.benefits.payLabel",
-    valueKey: "careers.benefits.payValue",
+    labelKey: 'careers.benefits.payLabel',
+    valueKey: 'careers.benefits.payValue',
   },
   {
-    labelKey: "careers.benefits.ossLabel",
-    valueKey: "careers.benefits.ossValue",
+    labelKey: 'careers.benefits.ossLabel',
+    valueKey: 'careers.benefits.ossValue',
   },
 ];
 </script>

@@ -42,15 +42,9 @@ export const paginationVariants = cva(
   }
 );
 
-export type PaginationSize = 
-  | 'sm' |
-  'md' |
-  'lg';
+export type PaginationSize = 'sm' | 'md' | 'lg';
 
-export type PaginationVariant = 
-  | 'default' |
-  'bordered' |
-  'ghost';
+export type PaginationVariant = 'default' | 'bordered' | 'ghost';
 
 export type PaginationProps = HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof paginationVariants> & {
@@ -237,9 +231,7 @@ export const Pagination: FC<PaginationProps> = ({
             return (
               <Button
                 key={page}
-                variant={
-                  isActive ? 'default' : 'outline'
-                }
+                variant={isActive ? 'default' : 'outline'}
                 size={buttonSize}
                 color="text"
                 onClick={() => handlePageChange(page)}

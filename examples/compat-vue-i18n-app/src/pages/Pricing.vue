@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from "vue";
+import { defineAsyncComponent } from 'vue';
 
 const PricingHeader = defineAsyncComponent(
-  () => import("../components/pages/pricing/PricingHeader.vue")
+  () => import('../components/pages/pricing/PricingHeader.vue')
 );
 const PricingTiers = defineAsyncComponent(
-  () => import("../components/pages/pricing/PricingTiers.vue")
+  () => import('../components/pages/pricing/PricingTiers.vue')
 );
 </script>
 

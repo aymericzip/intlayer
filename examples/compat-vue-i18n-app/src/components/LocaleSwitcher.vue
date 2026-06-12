@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useRoute, useRouter } from "vue-router";
-import { getLocaleName, locales } from "../i18n/config";
-import { computed } from "vue";
+import { computed } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { getLocaleName, locales } from '../i18n/config';
 
 const route = useRoute();
 const router = useRouter();
 
-const currentLocale = computed(() => (route.params.locale as string) || "en");
+const currentLocale = computed(() => (route.params.locale as string) || 'en');
 
 const handleLocaleChange = (newLocale: string) => {
   const newPath = route.path.replace(/^\/[^/]+/, `/${newLocale}`);

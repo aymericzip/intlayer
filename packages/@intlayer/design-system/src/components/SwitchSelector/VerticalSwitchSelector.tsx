@@ -2,7 +2,11 @@
 
 import { cn } from '@utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { defaultChoices, type SwitchSelectorBaseProps, type SwitchSelectorChoices } from './SwitchSelector';
+import {
+  defaultChoices,
+  type SwitchSelectorBaseProps,
+  type SwitchSelectorChoices,
+} from './SwitchSelector';
 import { useSwitchSelector } from './useSwitchSelector';
 
 const verticalSwitchSelectorVariant = cva(
@@ -12,7 +16,7 @@ const verticalSwitchSelectorVariant = cva(
       color: {
         primary: 'border-primary text-primary',
         secondary: 'border-secondary text-secondary',
-        [`${"error"}`]: 'border-error bg-error text-error',
+        [`${'error'}`]: 'border-error bg-error text-error',
         neutral: 'border-neutral text-neutral',
         light: 'border-white text-white',
         dark: 'border-neutral-800 text-neutral-800',
@@ -51,20 +55,13 @@ const verticalIndicatorVariant = cva(
   {
     variants: {
       color: {
-        primary:
-          'bg-primary data-[indicator=true]:text-text',
-        secondary:
-          'bg-secondary data-[indicator=true]:text-text',
-        [`${"error"}`]:
-          'bg-error data-[indicator=true]:text-text',
-        neutral:
-          'bg-neutral data-[indicator=true]:text-white',
-        light:
-          'bg-white data-[indicator=true]:text-black',
-        dark:
-          'bg-neutral-800 data-[indicator=true]:text-white',
-        text:
-          'bg-text data-[indicator=true]:text-text-opposite',
+        primary: 'bg-primary data-[indicator=true]:text-text',
+        secondary: 'bg-secondary data-[indicator=true]:text-text',
+        [`${'error'}`]: 'bg-error data-[indicator=true]:text-text',
+        neutral: 'bg-neutral data-[indicator=true]:text-white',
+        light: 'bg-white data-[indicator=true]:text-black',
+        dark: 'bg-neutral-800 data-[indicator=true]:text-white',
+        text: 'bg-text data-[indicator=true]:text-text-opposite',
       },
     },
   }

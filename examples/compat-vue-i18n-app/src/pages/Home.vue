@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from "vue";
+import { defineAsyncComponent } from 'vue';
 
-const Hero = defineAsyncComponent(() => import("../components/pages/home/Hero.vue"));
+const Hero = defineAsyncComponent(
+  () => import('../components/pages/home/Hero.vue')
+);
 const WhyItMatters = defineAsyncComponent(
-  () => import("../components/pages/home/WhyItMatters.vue")
+  () => import('../components/pages/home/WhyItMatters.vue')
 );
 const UnderstandingImpact = defineAsyncComponent(
-  () => import("../components/pages/home/UnderstandingImpact.vue")
+  () => import('../components/pages/home/UnderstandingImpact.vue')
 );
 const ResultsTable = defineAsyncComponent(
-  () => import("../components/pages/home/ResultsTable.vue")
+  () => import('../components/pages/home/ResultsTable.vue')
 );
 </script>
 

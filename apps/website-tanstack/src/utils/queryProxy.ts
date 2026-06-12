@@ -1,5 +1,8 @@
 const headers = () => new Headers();
-const NextResponse = { json: (data: any) => new Response(JSON.stringify(data)) }; type NextRequest = Request;
+const NextResponse = {
+  json: (data: any) => new Response(JSON.stringify(data)),
+};
+type NextRequest = Request;
 
 export const queryProxy = (request: NextRequest) => {
   const headers = new Headers(request.headers);

@@ -1,8 +1,8 @@
-import { Link } from '~/components/Link/Link';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { TechLogos } from '@intlayer/design-system/tech-logo';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 
 type ApplicationTemplateMessageProps = {
   applicationTemplateUrl: string;

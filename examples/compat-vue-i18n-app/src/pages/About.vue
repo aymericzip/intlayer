@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from "vue";
+import { defineAsyncComponent } from 'vue';
 
 const AboutHeader = defineAsyncComponent(
-  () => import("../components/pages/about/AboutHeader.vue")
+  () => import('../components/pages/about/AboutHeader.vue')
 );
-const AboutGrid = defineAsyncComponent(() => import("../components/pages/about/AboutGrid.vue"));
+const AboutGrid = defineAsyncComponent(
+  () => import('../components/pages/about/AboutGrid.vue')
+);
 const WhatWeMeasure = defineAsyncComponent(
-  () => import("../components/pages/about/WhatWeMeasure.vue")
+  () => import('../components/pages/about/WhatWeMeasure.vue')
 );
 </script>
 

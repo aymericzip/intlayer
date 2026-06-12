@@ -7,46 +7,46 @@ import { type FC, useEffect, useState } from 'react';
 /**
  * Enum for available keyboard keys
  */
-export type KeyList = 
-  | 'Ctrl' |
-  'Alt' |
-  'Shift' |
-  'Meta' |
-  'F' |
-  'K' |
-  'L' |
-  'P' |
-  'S' |
-  'A' |
-  'B' |
-  'C' |
-  'D' |
-  'E' |
-  'G' |
-  'H' |
-  'I' |
-  'J' |
-  'M' |
-  'N' |
-  'O' |
-  'Q' |
-  'R' |
-  'T' |
-  'U' |
-  'V' |
-  'W' |
-  'X' |
-  'Y' |
-  'Z' |
-  'Enter' |
-  'Escape' |
-  'Backspace' |
-  'Tab' |
-  'Space' |
-  'ArrowUp' |
-  'ArrowDown' |
-  'ArrowLeft' |
-  'ArrowRight';
+export type KeyList =
+  | 'Ctrl'
+  | 'Alt'
+  | 'Shift'
+  | 'Meta'
+  | 'F'
+  | 'K'
+  | 'L'
+  | 'P'
+  | 'S'
+  | 'A'
+  | 'B'
+  | 'C'
+  | 'D'
+  | 'E'
+  | 'G'
+  | 'H'
+  | 'I'
+  | 'J'
+  | 'M'
+  | 'N'
+  | 'O'
+  | 'Q'
+  | 'R'
+  | 'T'
+  | 'U'
+  | 'V'
+  | 'W'
+  | 'X'
+  | 'Y'
+  | 'Z'
+  | 'Enter'
+  | 'Escape'
+  | 'Backspace'
+  | 'Tab'
+  | 'Space'
+  | 'ArrowUp'
+  | 'ArrowDown'
+  | 'ArrowLeft'
+  | 'ArrowRight';
 
 /**
  * Type-safe keyboard shortcut combinations

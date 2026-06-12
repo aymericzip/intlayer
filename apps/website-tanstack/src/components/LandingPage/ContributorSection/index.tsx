@@ -1,6 +1,6 @@
-import type { Contributor } from '~/components/Contributors/ContributorsList';
 import type { FC } from 'react';
 import { getContributors } from '~/api/contributors.api';
+import type { Contributor } from '~/components/Contributors/ContributorsList';
 import { ContributorCloud } from './ContributorCloud';
 
 const shuffleArray = (array: Contributor[]): Contributor[] => {

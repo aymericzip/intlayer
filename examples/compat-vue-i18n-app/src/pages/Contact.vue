@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from "vue";
+import { defineAsyncComponent } from 'vue';
 
 const ContactHeader = defineAsyncComponent(
-  () => import("../components/pages/contact/ContactHeader.vue")
+  () => import('../components/pages/contact/ContactHeader.vue')
 );
 const ContactForm = defineAsyncComponent(
-  () => import("../components/pages/contact/ContactForm.vue")
+  () => import('../components/pages/contact/ContactForm.vue')
 );
 </script>
 

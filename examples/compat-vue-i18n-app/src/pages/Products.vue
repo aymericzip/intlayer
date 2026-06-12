@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from "vue";
+import { defineAsyncComponent } from 'vue';
 
 const ProductsHeader = defineAsyncComponent(
-  () => import("../components/pages/products/ProductsHeader.vue")
+  () => import('../components/pages/products/ProductsHeader.vue')
 );
 const ProductsGrid = defineAsyncComponent(
-  () => import("../components/pages/products/ProductsGrid.vue")
+  () => import('../components/pages/products/ProductsGrid.vue')
 );
 </script>
 

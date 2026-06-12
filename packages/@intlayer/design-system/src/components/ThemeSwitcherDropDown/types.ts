@@ -1,4 +1,1 @@
-export type Modes = 
-  | 'dark' |
-  'light' |
-  'system';
+export type Modes = 'dark' | 'light' | 'system';

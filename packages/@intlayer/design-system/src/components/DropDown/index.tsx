@@ -147,16 +147,12 @@ const Trigger: FC<TriggerProps> = ({
 /**
  * Horizontal alignment options for the dropdown panel relative to the trigger
  */
-export type DropDownAlign = 
-  | 'start' |
-  'end';
+export type DropDownAlign = 'start' | 'end';
 
 /**
  * Vertical alignment options for the dropdown panel relative to the trigger
  */
-export type DropDownYAlign = 
-  | 'below' |
-  'above';
+export type DropDownYAlign = 'below' | 'above';
 
 /**
  * Props for the DropDown.Panel component

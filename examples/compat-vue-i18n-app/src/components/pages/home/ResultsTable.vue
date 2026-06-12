@@ -1,36 +1,36 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { useI18n } from "vue-i18n";
-import { usePerformanceMeasure } from "../../../hooks/usePerformanceMeasure";
+import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { usePerformanceMeasure } from '../../../hooks/usePerformanceMeasure';
 
-usePerformanceMeasure("ResultsTable");
+usePerformanceMeasure('ResultsTable');
 
 const { t } = useI18n();
 
 const results = computed(() => [
   {
-    lib: "react-i18next",
-    size: "42.3 kB",
-    time: "0.12ms",
-    lazy: t("home.resultsTable.yes"),
+    lib: 'react-i18next',
+    size: '42.3 kB',
+    time: '0.12ms',
+    lazy: t('home.resultsTable.yes'),
   },
   {
-    lib: "react-intl",
-    size: "38.1 kB",
-    time: "0.15ms",
-    lazy: t("home.resultsTable.manual"),
+    lib: 'react-intl',
+    size: '38.1 kB',
+    time: '0.15ms',
+    lazy: t('home.resultsTable.manual'),
   },
   {
-    lib: "lingui",
-    size: "12.8 kB",
-    time: "0.08ms",
-    lazy: t("home.resultsTable.yes"),
+    lib: 'lingui',
+    size: '12.8 kB',
+    time: '0.08ms',
+    lazy: t('home.resultsTable.yes'),
   },
   {
-    lib: "typesafe-i18n",
-    size: "5.2 kB",
-    time: "0.05ms",
-    lazy: t("home.resultsTable.builtIn"),
+    lib: 'typesafe-i18n',
+    size: '5.2 kB',
+    time: '0.05ms',
+    lazy: t('home.resultsTable.builtIn'),
   },
 ]);
 </script>

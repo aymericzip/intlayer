@@ -13,7 +13,9 @@ export type FrequentQuestionPageProps =
 export const generateStaticParams = async () => {
   const frequentQuestionsMetadata = await getFrequentQuestionMetadataBySlug([]);
 
-  const slugList: string[][] = frequentQuestionsMetadata.map((meta) => meta.slugs);
+  const slugList: string[][] = frequentQuestionsMetadata.map(
+    (meta) => meta.slugs
+  );
 
   return slugList;
 };

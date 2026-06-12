@@ -15,9 +15,7 @@ import type { ComponentProps, FC } from 'react';
  *
  * @enum SelectContentPosition
  */
-export type SelectContentPosition = 
-  | 'popper' |
-  'item-aligned';
+export type SelectContentPosition = 'popper' | 'item-aligned';
 
 const SelectRoot = SelectPrimitive.Root;
 const SelectGroup = SelectPrimitive.Group;
@@ -168,12 +166,7 @@ const SelectScrollDownButton: FC<
  */
 export const SelectContent: FC<
   ComponentProps<typeof SelectPrimitive.Content>
-> = ({
-  className,
-  children,
-  position = 'popper',
-  ...props
-}) => (
+> = ({ className, children, position = 'popper', ...props }) => (
   <SelectPrimitive.Portal>
     <SelectPrimitive.Content
       className={cn(

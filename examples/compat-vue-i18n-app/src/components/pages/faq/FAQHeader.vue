@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useI18n } from "vue-i18n";
-import MockBanner from "../../MockBanner.vue";
+import { useI18n } from 'vue-i18n';
+import MockBanner from '../../MockBanner.vue';
 
 const { t } = useI18n();
 </script>

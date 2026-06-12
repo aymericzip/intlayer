@@ -1,8 +1,8 @@
-import { Link } from '~/components/Link/Link';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { Globe } from 'lucide-react';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { Link } from '~/components/Link/Link';
 
 type ApplicationShowcaseMessageProps = {
   applicationShowcaseUrl: string;

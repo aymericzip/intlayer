@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from "vue";
+import { defineAsyncComponent } from 'vue';
 
 const CareersHeader = defineAsyncComponent(
-  () => import("../components/pages/careers/CareersHeader.vue")
+  () => import('../components/pages/careers/CareersHeader.vue')
 );
 const CareersBenefits = defineAsyncComponent(
-  () => import("../components/pages/careers/CareersBenefits.vue")
+  () => import('../components/pages/careers/CareersBenefits.vue')
 );
 const OpenPositions = defineAsyncComponent(
-  () => import("../components/pages/careers/OpenPositions.vue")
+  () => import('../components/pages/careers/OpenPositions.vue')
 );
 </script>
 

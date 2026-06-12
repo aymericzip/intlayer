@@ -1,34 +1,34 @@
 <script setup lang="ts">
 const products = [
   {
-    name: "Benchmark CLI",
-    desc: "Run benchmarks locally from your terminal. Supports custom configurations and CI integration.",
-    price: "Free",
+    name: 'Benchmark CLI',
+    desc: 'Run benchmarks locally from your terminal. Supports custom configurations and CI integration.',
+    price: 'Free',
   },
   {
-    name: "Benchmark Cloud",
-    desc: "Automated cloud-based benchmarking with historical tracking, alerts, and team dashboards.",
-    price: "$29/mo",
+    name: 'Benchmark Cloud',
+    desc: 'Automated cloud-based benchmarking with historical tracking, alerts, and team dashboards.',
+    price: '$29/mo',
   },
   {
-    name: "Benchmark Enterprise",
-    desc: "On-premise deployment with SSO, audit logs, custom SLAs, and dedicated support.",
-    price: "Contact Us",
+    name: 'Benchmark Enterprise',
+    desc: 'On-premise deployment with SSO, audit logs, custom SLAs, and dedicated support.',
+    price: 'Contact Us',
   },
   {
-    name: "Migration Assistant",
-    desc: "AI-powered tool that helps migrate your codebase between i18n libraries with zero downtime.",
-    price: "$99 one-time",
+    name: 'Migration Assistant',
+    desc: 'AI-powered tool that helps migrate your codebase between i18n libraries with zero downtime.',
+    price: '$99 one-time',
   },
   {
-    name: "Translation QA",
-    desc: "Automated quality checks for missing translations, pluralization issues, and context errors.",
-    price: "$19/mo",
+    name: 'Translation QA',
+    desc: 'Automated quality checks for missing translations, pluralization issues, and context errors.',
+    price: '$19/mo',
   },
   {
-    name: "Bundle Optimizer",
-    desc: "Analyzes and optimizes your i18n bundle for production with tree-shaking and code splitting.",
-    price: "$49/mo",
+    name: 'Bundle Optimizer',
+    desc: 'Analyzes and optimizes your i18n bundle for production with tree-shaking and code splitting.',
+    price: '$49/mo',
   },
 ];
 </script>

@@ -1,8 +1,7 @@
 <script lang="ts">
 import type { HTMLComponents } from '../html/types';
-import { getMarkdownContext } from './context';
-
 import type { ParsedMarkdown } from './compiler';
+import { getMarkdownContext } from './context';
 
 export let value: string | ParsedMarkdown;
 export const components: HTMLComponents<'permissive', {}> | undefined =

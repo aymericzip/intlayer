@@ -1,43 +1,43 @@
 <script setup lang="ts">
-import { useI18n } from "vue-i18n";
+import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 
 const openings = [
   {
-    titleKey: "frontendTitle",
-    descKey: "frontendDesc",
-    deptKey: "engineering",
-    locationKey: "remote",
-    typeKey: "fullTime",
+    titleKey: 'frontendTitle',
+    descKey: 'frontendDesc',
+    deptKey: 'engineering',
+    locationKey: 'remote',
+    typeKey: 'fullTime',
   },
   {
-    titleKey: "backendTitle",
-    descKey: "backendDesc",
-    deptKey: "engineering",
-    locationKey: "remote",
-    typeKey: "fullTime",
+    titleKey: 'backendTitle',
+    descKey: 'backendDesc',
+    deptKey: 'engineering',
+    locationKey: 'remote',
+    typeKey: 'fullTime',
   },
   {
-    titleKey: "writerTitle",
-    descKey: "writerDesc",
-    deptKey: "documentation",
-    locationKey: "remote",
-    typeKey: "partTime",
+    titleKey: 'writerTitle',
+    descKey: 'writerDesc',
+    deptKey: 'documentation',
+    locationKey: 'remote',
+    typeKey: 'partTime',
   },
   {
-    titleKey: "devrelTitle",
-    descKey: "devrelDesc",
-    deptKey: "community",
-    locationKey: "sfRemote",
-    typeKey: "fullTime",
+    titleKey: 'devrelTitle',
+    descKey: 'devrelDesc',
+    deptKey: 'community',
+    locationKey: 'sfRemote',
+    typeKey: 'fullTime',
   },
   {
-    titleKey: "qaTitle",
-    descKey: "qaDesc",
-    deptKey: "engineering",
-    locationKey: "remote",
-    typeKey: "fullTime",
+    titleKey: 'qaTitle',
+    descKey: 'qaDesc',
+    deptKey: 'engineering',
+    locationKey: 'remote',
+    typeKey: 'fullTime',
   },
 ] as const;
 </script>

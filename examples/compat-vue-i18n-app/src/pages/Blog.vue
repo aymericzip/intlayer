@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from "vue";
+import { defineAsyncComponent } from 'vue';
 
-const BlogHeader = defineAsyncComponent(() => import("../components/pages/blog/BlogHeader.vue"));
-const BlogList = defineAsyncComponent(() => import("../components/pages/blog/BlogList.vue"));
+const BlogHeader = defineAsyncComponent(
+  () => import('../components/pages/blog/BlogHeader.vue')
+);
+const BlogList = defineAsyncComponent(
+  () => import('../components/pages/blog/BlogList.vue')
+);
 </script>
 
 <template>

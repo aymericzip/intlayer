@@ -1,21 +1,25 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { useRoute } from "vue-router";
-import { useI18n } from "vue-i18n";
+import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { useRoute } from 'vue-router';
 
 const { t } = useI18n();
 const route = useRoute();
-const currentLocale = computed(() => (route.params.locale as string) || "en");
+const currentLocale = computed(() => (route.params.locale as string) || 'en');
 
 const footerLinks = computed(() => [
   {
-    label: t("footer.github"),
-    href: "https://github.com/intlayer-org/benchmark-i18n",
+    label: t('footer.github'),
+    href: 'https://github.com/intlayer-org/benchmark-i18n',
     isInternal: false,
   },
-  { label: t("footer.methodology"), to: `/${currentLocale.value}/about`, isInternal: true },
   {
-    label: t("footer.contributing"),
+    label: t('footer.methodology'),
+    to: `/${currentLocale.value}/about`,
+    isInternal: true,
+  },
+  {
+    label: t('footer.contributing'),
     to: `/${currentLocale.value}/contact`,
     isInternal: true,
   },

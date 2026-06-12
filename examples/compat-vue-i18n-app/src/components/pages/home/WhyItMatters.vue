@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useI18n } from "vue-i18n";
-import { usePerformanceMeasure } from "../../../hooks/usePerformanceMeasure";
+import { useI18n } from 'vue-i18n';
+import { usePerformanceMeasure } from '../../../hooks/usePerformanceMeasure';
 
-usePerformanceMeasure("WhyItMatters");
+usePerformanceMeasure('WhyItMatters');
 
 const { t } = useI18n();
 </script>

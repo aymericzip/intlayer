@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { useRoute } from "vue-router";
-import { useI18n } from "vue-i18n";
-import { isLocale } from "../i18n/config";
+import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { useRoute } from 'vue-router';
+import { isLocale } from '../i18n/config';
 
 const { t } = useI18n();
 const route = useRoute();
 
 const homePath = computed(() => {
-  const first = route.path.split("/").filter(Boolean)[0];
-  const loc = first && isLocale(first) ? first : "en";
+  const first = route.path.split('/').filter(Boolean)[0];
+  const loc = first && isLocale(first) ? first : 'en';
   return `/${loc}`;
 });
 </script>

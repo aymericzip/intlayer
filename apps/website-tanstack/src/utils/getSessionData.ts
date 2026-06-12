@@ -1,5 +1,6 @@
 import type { SessionAPI } from '@intlayer/backend';
 import { getAuthAPI } from '@intlayer/design-system/libs';
+
 const headers = () => new Headers();
 
 export const getSessionData = async (): Promise<{

@@ -1,4 +1,5 @@
 import { getIntlayerAPI, type IntlayerAPI } from '@intlayer/api';
+
 const headers = () => new Headers();
 
 /**

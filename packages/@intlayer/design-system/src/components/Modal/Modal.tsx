@@ -14,12 +14,7 @@ import { H3 } from '../Headers';
 /**
  * Enumeration of available modal sizes
  */
-export type ModalSize = 
-  | 'sm' |
-  'md' |
-  'lg' |
-  'xl' |
-  'unset';
+export type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | 'unset';
 
 type ModalProps = {
   children: ReactNode;

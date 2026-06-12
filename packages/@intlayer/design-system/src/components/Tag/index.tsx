@@ -62,15 +62,15 @@ type TagProps = PropsWithChildren<VariantProps<typeof containerVariants>> &
  * <Tag roundedSize="md">Rounded Tag</Tag>
  * ```
  */
-export type TagRoundedSize = 
-  | 'none' |
-  'sm' |
-  'md' |
-  'lg' |
-  'xl' |
-  '2xl' |
-  '3xl' |
-  'full';
+export type TagRoundedSize =
+  | 'none'
+  | 'sm'
+  | 'md'
+  | 'lg'
+  | 'xl'
+  | '2xl'
+  | '3xl'
+  | 'full';
 
 /**
  * Enumeration for tag color themes
@@ -97,24 +97,24 @@ export type TagRoundedSize =
  * <Tag color="text">General</Tag>
  * ```
  */
-export type TagColor = 
-  | 'primary' |
-  'success' |
-  'error' |
-  'warning' |
-  'neutral' |
-  'text' |
-  'blue' |
-  'yellow' |
-  'green' |
-  'red' |
-  'orange' |
-  'purple' |
-  'pink' |
-  'brown' |
-  'gray' |
-  'black' |
-  'white';
+export type TagColor =
+  | 'primary'
+  | 'success'
+  | 'error'
+  | 'warning'
+  | 'neutral'
+  | 'text'
+  | 'blue'
+  | 'yellow'
+  | 'green'
+  | 'red'
+  | 'orange'
+  | 'purple'
+  | 'pink'
+  | 'brown'
+  | 'gray'
+  | 'black'
+  | 'white';
 
 /**
  * Enumeration for tag size variants
@@ -139,12 +139,7 @@ export type TagColor =
  * <Tag size="xl">Hero tag</Tag>
  * ```
  */
-export type TagSize = 
-  | 'xs' |
-  'sm' |
-  'md' |
-  'lg' |
-  'xl';
+export type TagSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 /**
  * Enumeration for tag border visibility
@@ -161,9 +156,7 @@ export type TagSize =
  * <Tag border="with">With Border</Tag>
  * ```
  */
-export type TagBorder = 
-  | 'none' |
-  'with';
+export type TagBorder = 'none' | 'with';
 
 /**
  * Enumeration for tag background visibility
@@ -180,9 +173,7 @@ export type TagBorder =
  * <Tag background="with">With Background</Tag>
  * ```
  */
-export type TagBackground = 
-  | 'none' |
-  'with';
+export type TagBackground = 'none' | 'with';
 
 const containerVariants = cva('w-fit backdrop-blur', {
   variants: {
@@ -192,8 +183,8 @@ const containerVariants = cva('w-fit backdrop-blur', {
       md: 'rounded-md',
       lg: 'rounded-lg',
       xl: 'rounded-xl',
-      [`${"xxl"}`]: 'rounded-2xl',
-      [`${"xxxl"}`]: 'rounded-3xl',
+      [`${'xxl'}`]: 'rounded-2xl',
+      [`${'xxxl'}`]: 'rounded-3xl',
       full: 'rounded-full',
     },
     color: {
@@ -203,24 +194,20 @@ const containerVariants = cva('w-fit backdrop-blur', {
       warning: 'border-warning bg-warning/10 text-warning',
       neutral: '/10 border-neutral bg-neutral/10 text-neutral',
       text: 'border-text bg-text/10 text-text',
-      blue:
-        'border-blue-500 bg-blue-500/10 text-blue-500 dark:text-blue-300',
+      blue: 'border-blue-500 bg-blue-500/10 text-blue-500 dark:text-blue-300',
       yellow:
         'border-yellow-500 bg-yellow-500/10 text-yellow-500 dark:text-yellow-300',
       green:
         'border-green-500 bg-green-500/10 text-green-500 dark:text-green-300',
-      red:
-        'border-error bg-error/10 text-error dark:text-red-300',
+      red: 'border-error bg-error/10 text-error dark:text-red-300',
       orange:
         'border-orange-500 bg-orange-500/10 text-orange-500 dark:text-orange-300',
       purple:
         'border-purple-500 bg-purple-500/10 text-purple-500 dark:text-purple-300',
-      pink:
-        'border-pink-500 bg-pink-500/10 text-pink-500 dark:text-pink-300',
+      pink: 'border-pink-500 bg-pink-500/10 text-pink-500 dark:text-pink-300',
       brown:
         'border-brown-500 bg-brown-500/10 text-brown-500 dark:text-brown-300',
-      gray:
-        'border-gray-500 bg-gray-500/10 text-gray-500 dark:text-gray-300',
+      gray: 'border-gray-500 bg-gray-500/10 text-gray-500 dark:text-gray-300',
       black: 'border-black bg-black/10 text-black',
       white: 'border-white bg-white/10 text-white',
     },

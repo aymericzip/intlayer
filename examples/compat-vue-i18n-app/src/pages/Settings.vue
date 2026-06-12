@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from "vue";
+import { defineAsyncComponent } from 'vue';
 
 const SettingsHeader = defineAsyncComponent(
-  () => import("../components/pages/settings/SettingsHeader.vue")
+  () => import('../components/pages/settings/SettingsHeader.vue')
 );
 const ProfileSection = defineAsyncComponent(
-  () => import("../components/pages/settings/ProfileSection.vue")
+  () => import('../components/pages/settings/ProfileSection.vue')
 );
 const PreferencesSection = defineAsyncComponent(
-  () => import("../components/pages/settings/PreferencesSection.vue")
+  () => import('../components/pages/settings/PreferencesSection.vue')
 );
 const ApiAccessSection = defineAsyncComponent(
-  () => import("../components/pages/settings/ApiAccessSection.vue")
+  () => import('../components/pages/settings/ApiAccessSection.vue')
 );
 const SettingsFooter = defineAsyncComponent(
-  () => import("../components/pages/settings/SettingsFooter.vue")
+  () => import('../components/pages/settings/SettingsFooter.vue')
 );
 </script>
 

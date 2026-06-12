@@ -15,14 +15,14 @@ import {
   useRef,
 } from 'react';
 
-export type TabSelectorColor = 
-  | 'primary' |
-  'secondary' |
-  'error' |
-  'neutral' |
-  'light' |
-  'dark' |
-  'text';
+export type TabSelectorColor =
+  | 'primary'
+  | 'secondary'
+  | 'error'
+  | 'neutral'
+  | 'light'
+  | 'dark'
+  | 'text';
 
 const tabSelectorVariant = cva(
   'relative z-0 flex size-full flex-row items-center gap-2',

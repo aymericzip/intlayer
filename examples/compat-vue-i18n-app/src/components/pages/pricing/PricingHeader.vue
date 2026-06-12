@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import MockBanner from "../../MockBanner.vue";
+import MockBanner from '../../MockBanner.vue';
 </script>
 
 <template>

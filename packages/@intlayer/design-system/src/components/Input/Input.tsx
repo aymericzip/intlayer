@@ -56,13 +56,9 @@ export const inputVariants = cva(
   }
 );
 
-export type InputVariant = 
-  | 'default' |
-  'invisible';
+export type InputVariant = 'default' | 'invisible';
 
-export type InputSize = 
-  | 'md' |
-  'lg';
+export type InputSize = 'md' | 'lg';
 
 export type InputProps = Omit<
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,

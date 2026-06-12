@@ -97,62 +97,33 @@ export const containerVariants = cva('flex flex-col text-text backdrop-blur', {
 });
 
 /** Available rounded corner sizes for the container */
-export type ContainerRoundedSize = 
-  | 'none' |
-  'sm' |
-  'md' |
-  'lg' |
-  'xl' |
-  'full';
+export type ContainerRoundedSize = 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
 
 /** Background transparency levels for the container */
-export type ContainerTransparency = 
-  | 'none' |
-  'sm' |
-  'md' |
-  'lg' |
-  'xl' |
-  'full';
+export type ContainerTransparency = 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
 
 /** Padding sizes for container content */
-export type ContainerPadding = 
-  | 'none' |
-  'sm' |
-  'md' |
-  'lg' |
-  'xl';
+export type ContainerPadding = 'none' | 'sm' | 'md' | 'lg' | 'xl';
 
 /** Separator options for dividing container children */
-export type ContainerSeparator = 
-  | 'without' |
-  'x' |
-  'y' |
-  'both';
+export type ContainerSeparator = 'without' | 'x' | 'y' | 'both';
 
 /** Border color options for the container */
-export type ContainerBorderColor = 
-  | 'primary' |
-  'secondary' |
-  'neutral' |
-  'card' |
-  'text' |
-  'error' |
-  'warning' |
-  'success';
+export type ContainerBorderColor =
+  | 'primary'
+  | 'secondary'
+  | 'neutral'
+  | 'card'
+  | 'text'
+  | 'error'
+  | 'warning'
+  | 'success';
 
 /** Background interaction states for the container */
-export type ContainerBackground = 
-  | 'none' |
-  'hoverable' |
-  'with';
+export type ContainerBackground = 'none' | 'hoverable' | 'with';
 
 /** Gap sizes between container children */
-export type ContainerGap = 
-  | 'none' |
-  'sm' |
-  'md' |
-  'lg' |
-  'xl';
+export type ContainerGap = 'none' | 'sm' | 'md' | 'lg' | 'xl';
 
 /** Container component props extending HTML div attributes */
 export type ContainerProps = PropsWithChildren<

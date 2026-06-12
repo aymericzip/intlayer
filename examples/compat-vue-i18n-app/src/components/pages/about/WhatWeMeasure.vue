@@ -1,32 +1,32 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { useI18n } from "vue-i18n";
-import { usePerformanceMeasure } from "../../../hooks/usePerformanceMeasure";
+import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { usePerformanceMeasure } from '../../../hooks/usePerformanceMeasure';
 
-usePerformanceMeasure("WhatWeMeasure");
+usePerformanceMeasure('WhatWeMeasure');
 
 const { t } = useI18n();
 
 const metrics = computed(() => [
   {
-    metric: t("about.whatWeMeasure.bundleSizeImpact"),
-    desc: t("about.whatWeMeasure.bundleSizeImpactDesc"),
+    metric: t('about.whatWeMeasure.bundleSizeImpact'),
+    desc: t('about.whatWeMeasure.bundleSizeImpactDesc'),
   },
   {
-    metric: t("about.whatWeMeasure.renderingOverhead"),
-    desc: t("about.whatWeMeasure.renderingOverheadDesc"),
+    metric: t('about.whatWeMeasure.renderingOverhead'),
+    desc: t('about.whatWeMeasure.renderingOverheadDesc'),
   },
   {
-    metric: t("about.whatWeMeasure.hydrationCost"),
-    desc: t("about.whatWeMeasure.hydrationCostDesc"),
+    metric: t('about.whatWeMeasure.hydrationCost'),
+    desc: t('about.whatWeMeasure.hydrationCostDesc'),
   },
   {
-    metric: t("about.whatWeMeasure.lazyLoading"),
-    desc: t("about.whatWeMeasure.lazyLoadingDesc"),
+    metric: t('about.whatWeMeasure.lazyLoading'),
+    desc: t('about.whatWeMeasure.lazyLoadingDesc'),
   },
   {
-    metric: t("about.whatWeMeasure.localeSwitch"),
-    desc: t("about.whatWeMeasure.localeSwitchDesc"),
+    metric: t('about.whatWeMeasure.localeSwitch'),
+    desc: t('about.whatWeMeasure.localeSwitchDesc'),
   },
 ]);
 </script>
