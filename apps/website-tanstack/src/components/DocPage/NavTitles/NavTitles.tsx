@@ -30,7 +30,7 @@ const NavTitles2: FC<NavTitles2Props> = ({ title2, activeSectionsId }) => {
               color="text"
               variant="invisible-link"
               roundedSize="lg"
-              className="flex text-wrap p-2 text-sm text-text/80 transition-colors hover:font-semibold aria-[current]:bg-none aria-[current]:font-semibold aria-[current]:text-text"
+              className="flex text-wrap p-2 text-sm text-text/80 transition-[font-weight] duration-300 hover:font-semibold aria-[current]:bg-none aria-[current]:font-semibold aria-[current]:text-text"
             >
               {h3.innerText}
             </Link>
@@ -79,7 +79,7 @@ export const NavTitles: FC = () => {
                 roundedSize="lg"
                 variant="invisible-link"
                 aria-current={isActive ? 'location' : undefined}
-                className="flex text-wrap p-2 text-sm text-text/80 transition-colors hover:font-semibold aria-[current]:bg-none aria-[current]:font-semibold aria-[current]:text-text"
+                className="flex text-wrap p-2 text-sm text-text/80 transition-[font-weight] duration-300 hover:font-semibold aria-[current]:bg-none aria-[current]:font-semibold aria-[current]:text-text"
               >
                 {h2.innerText}
               </Link>
