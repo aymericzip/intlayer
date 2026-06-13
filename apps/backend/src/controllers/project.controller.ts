@@ -404,21 +404,24 @@ export const updateProject = async (
       });
     }
 
-    // Fire-and-forget screenshot generation
-    refreshProjectScreenshotIfChanged({
-      newApplicationUrl,
-      previousApplicationUrl,
-      existingImageUrl: existingProject.imageUrl,
-      projectId: project.id.toString(),
-    })
-      .then((imageUrl) => {
-        if (imageUrl !== undefined) {
-          projectService
-            .updateProjectById(project.id, { imageUrl })
-            .catch(() => {});
-        }
-      })
-      .catch(() => {});
+    if (newApplicationUrl !== previousApplicationUrl) {
+      const generatedImageUrl = await refreshProjectScreenshotIfChanged({
+        newApplicationUrl,
+        previousApplicationUrl,
+        existingImageUrl: existingProject.imageUrl,
+        projectId: project.id.toString(),
+      });
+
+      if (
+        generatedImageUrl !== undefined &&
+        generatedImageUrl !== existingProject.imageUrl
+      ) {
+        await projectService.updateProjectById(project.id, {
+          imageUrl: generatedImageUrl,
+        });
+        updatedProject.imageUrl = generatedImageUrl;
+      }
+    }
 
     const formattedProject = mapProjectToAPI(updatedProject);
 
@@ -642,7 +645,7 @@ export const pushProjectConfiguration = async (
   request: FastifyRequest<{ Body: PushProjectConfigurationBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { user, project, roles } = request.session || {};
+  const { user, project, organization, roles } = request.session || {};
   const projectConfiguration = request.body;
 
   if (!user) {
@@ -653,6 +656,20 @@ export const pushProjectConfiguration = async (
     return ErrorHandler.handleGenericErrorResponse(
       reply,
       'PROJECT_NOT_DEFINED'
+    );
+  }
+
+  if (!organization) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
+  }
+
+  if (String(project.organizationId) !== String(organization.id)) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_IN_ORGANIZATION'
     );
   }
 
@@ -684,27 +701,33 @@ export const pushProjectConfiguration = async (
       projectObject.configuration?.editor?.applicationURL;
     const newApplicationUrl = projectConfiguration.editor?.applicationURL;
 
-    projectObject.configuration = projectConfiguration;
+    const updatedProject = await projectService.updateProjectById(project.id, {
+      configuration: projectConfiguration,
+    });
 
-    await projectObject.save();
+    let finalImageUrl = projectObject.imageUrl;
 
-    // Fire-and-forget screenshot generation
-    refreshProjectScreenshotIfChanged({
-      newApplicationUrl,
-      previousApplicationUrl,
-      existingImageUrl: projectObject.imageUrl,
-      projectId: project.id.toString(),
-    })
-      .then((imageUrl) => {
-        if (imageUrl !== undefined) {
-          projectService
-            .updateProjectById(project.id, { imageUrl })
-            .catch(() => {});
-        }
-      })
-      .catch(() => {});
+    if (newApplicationUrl !== previousApplicationUrl) {
+      const generatedImageUrl = await refreshProjectScreenshotIfChanged({
+        newApplicationUrl,
+        previousApplicationUrl,
+        existingImageUrl: projectObject.imageUrl,
+        projectId: project.id.toString(),
+      });
 
-    if (!projectObject.configuration) {
+      if (
+        generatedImageUrl !== undefined &&
+        generatedImageUrl !== projectObject.imageUrl
+      ) {
+        await projectService.updateProjectById(project.id, {
+          imageUrl: generatedImageUrl,
+        });
+        finalImageUrl = generatedImageUrl;
+        updatedProject.imageUrl = generatedImageUrl;
+      }
+    }
+
+    if (!updatedProject.configuration) {
       return ErrorHandler.handleGenericErrorResponse(
         reply,
         'PROJECT_UPDATE_FAILED',
@@ -789,12 +812,26 @@ export const triggerBuild = async (
   request: FastifyRequest,
   reply: FastifyReply
 ): Promise<void> => {
-  const { project, roles } = request.session || {};
+  const { project, organization, roles } = request.session || {};
 
   if (!project) {
     return ErrorHandler.handleGenericErrorResponse(
       reply,
       'PROJECT_NOT_DEFINED'
+    );
+  }
+
+  if (!organization) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
+  }
+
+  if (String(project.organizationId) !== String(organization.id)) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_IN_ORGANIZATION'
     );
   }
 
@@ -878,12 +915,26 @@ export const triggerWebhook = async (
   request: FastifyRequest<{ Body: TriggerWebhookBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { project, roles } = request.session || {};
+  const { project, organization, roles } = request.session || {};
 
   if (!project) {
     return ErrorHandler.handleGenericErrorResponse(
       reply,
       'PROJECT_NOT_DEFINED'
+    );
+  }
+
+  if (!organization) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
+  }
+
+  if (String(project.organizationId) !== String(organization.id)) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_IN_ORGANIZATION'
     );
   }
 
@@ -997,6 +1048,13 @@ export const deleteProject = async (
     return ErrorHandler.handleGenericErrorResponse(
       reply,
       'PROJECT_NOT_DEFINED'
+    );
+  }
+
+  if (String(project.organizationId) !== String(organization.id)) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_IN_ORGANIZATION'
     );
   }
 
@@ -1237,6 +1295,7 @@ export const selectProject = async (
       {
         $set: {
           activeProjectId: String(projectId),
+          activeOrganizationId: String(project.organizationId),
           activeEnvironmentId: defaultEnvId ? String(defaultEnvId) : null,
         },
       }
@@ -1245,6 +1304,7 @@ export const selectProject = async (
     if (user) {
       await userService.updateUserById(user.id, {
         lastActiveProjectId: String(projectId),
+        lastActiveOrganizationId: String(project.organizationId),
       });
     }
 
@@ -1432,7 +1492,11 @@ export const pushCIConfiguration = async (
   request: FastifyRequest,
   reply: FastifyReply
 ): Promise<void> => {
-  const { project, user } = request.session || {};
+  const { user, project, organization, roles } = request.session || {};
+
+  if (!user) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
+  }
 
   if (!project) {
     return ErrorHandler.handleGenericErrorResponse(
@@ -1441,8 +1505,30 @@ export const pushCIConfiguration = async (
     );
   }
 
-  if (!user) {
-    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
+  if (!organization) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
+  }
+
+  if (String(project.organizationId) !== String(organization.id)) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_IN_ORGANIZATION'
+    );
+  }
+
+  if (
+    !hasPermission(
+      roles || [],
+      'project:write'
+    )({
+      ...request.session,
+      targetProjectIds: [String(project.id)],
+    })
+  ) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
   try {
