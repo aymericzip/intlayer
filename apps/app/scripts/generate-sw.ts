@@ -29,7 +29,7 @@ async function buildSW() {
 
     // Runtime Caching
     runtimeCaching: [
-      // Cache Google Fonts & External Fonts (StaleWhileRevalidate)
+      // Cache Google Fonts & External Fonts
       {
         urlPattern: /^https:\/\/fonts\.(?:googleapis|gstatic)\.com\/.*/i,
         handler: 'StaleWhileRevalidate',
@@ -38,16 +38,16 @@ async function buildSW() {
           expiration: { maxEntries: 4, maxAgeSeconds: 365 * 24 * 60 * 60 },
         },
       },
-      // Cache External/Dynamic Images (CacheFirst)
+      // Cache Static Images (in public folder)
       {
         urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|ico)$/i,
         handler: 'CacheFirst',
         options: {
-          cacheName: 'images',
+          cacheName: 'static-images',
           expiration: { maxEntries: 50, maxAgeSeconds: 30 * 24 * 60 * 60 },
         },
       },
-      // Cache JS/CSS not caught in precache (StaleWhileRevalidate)
+      // Cache JS/CSS not in precache
       {
         urlPattern: /\.(?:js|css)$/i,
         handler: 'StaleWhileRevalidate',
@@ -57,13 +57,12 @@ async function buildSW() {
         },
       },
       // Cache Navigation (HTML)
-      // TanStack Start handles initial document requests via the server, then JS takes over.
       {
         urlPattern: ({ request }) => request.mode === 'navigate',
         handler: 'NetworkFirst',
         options: {
           cacheName: 'pages',
-          networkTimeoutSeconds: 3, // Fallback to cache quickly if offline
+          networkTimeoutSeconds: 3,
           expiration: { maxEntries: 20 },
         },
       },

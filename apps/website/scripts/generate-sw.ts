@@ -16,7 +16,7 @@ async function buildSW() {
       'static/chunks/**/*.js',
       'static/css/**/*.css',
       'static/media/**/*.*',
-      'server/pages/manifest.json',
+      'server/app/**/*.*',
     ],
     globIgnores: [
       '**/node_modules/**/*',
@@ -32,7 +32,26 @@ async function buildSW() {
 
     // Runtime Caching (The Fix)
     runtimeCaching: [
-      // Cache Google Fonts & External Fonts (StaleWhileRevalidate)
+      // FIX 1: Cache Next.js Data Fetching (getStaticProps/getServerSideProps)
+      {
+        urlPattern: /\/_next\/data\/.+\.json$/i,
+        handler: 'NetworkFirst',
+        options: {
+          cacheName: 'next-data',
+          networkTimeoutSeconds: 3,
+          expiration: { maxEntries: 32 },
+        },
+      },
+      // FIX 2: Cache Next.js Optimized Images
+      {
+        urlPattern: /\/_next\/image\?url=.+/i,
+        handler: 'StaleWhileRevalidate',
+        options: {
+          cacheName: 'next-optimized-images',
+          expiration: { maxEntries: 64, maxAgeSeconds: 30 * 24 * 60 * 60 },
+        },
+      },
+      // Cache Google Fonts & External Fonts
       {
         urlPattern: /^https:\/\/fonts\.(?:googleapis|gstatic)\.com\/.*/i,
         handler: 'StaleWhileRevalidate',
@@ -41,16 +60,16 @@ async function buildSW() {
           expiration: { maxEntries: 4, maxAgeSeconds: 365 * 24 * 60 * 60 },
         },
       },
-      // Cache Images (CacheFirst)
+      // Cache Static Images (in public folder)
       {
         urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|ico)$/i,
         handler: 'CacheFirst',
         options: {
-          cacheName: 'images',
+          cacheName: 'static-images',
           expiration: { maxEntries: 50, maxAgeSeconds: 30 * 24 * 60 * 60 },
         },
       },
-      // Cache JS/CSS not in precache (StaleWhileRevalidate)
+      // Cache JS/CSS not in precache
       {
         urlPattern: /\.(?:js|css)$/i,
         handler: 'StaleWhileRevalidate',
@@ -59,16 +78,13 @@ async function buildSW() {
           expiration: { maxEntries: 32, maxAgeSeconds: 24 * 60 * 60 },
         },
       },
-      // OPTIONAL: Cache Navigation (HTML)
-      // Only enable this if you really need offline navigation.
-      // It is often the cause of "stale" updates.
-      // If used, use NetworkFirst with a short timeout.
+      // Cache Navigation (HTML)
       {
         urlPattern: ({ request }) => request.mode === 'navigate',
         handler: 'NetworkFirst',
         options: {
           cacheName: 'pages',
-          networkTimeoutSeconds: 3, // Fallback to cache quickly if offline
+          networkTimeoutSeconds: 3,
           expiration: { maxEntries: 20 },
         },
       },

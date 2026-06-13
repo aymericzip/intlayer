@@ -26,6 +26,7 @@ async function buildSW() {
     globIgnores: ['**/node_modules/**/*', '**/*.map'],
 
     runtimeCaching: [
+      // Cache Google Fonts & External Fonts
       {
         urlPattern: /^https:\/\/fonts\.(?:googleapis|gstatic)\.com\/.*/i,
         handler: 'StaleWhileRevalidate',
@@ -34,14 +35,16 @@ async function buildSW() {
           expiration: { maxEntries: 4, maxAgeSeconds: 365 * 24 * 60 * 60 },
         },
       },
+      // Cache Static Images (in public folder)
       {
         urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|ico)$/i,
         handler: 'CacheFirst',
         options: {
-          cacheName: 'images',
+          cacheName: 'static-images',
           expiration: { maxEntries: 50, maxAgeSeconds: 30 * 24 * 60 * 60 },
         },
       },
+      // Cache JS/CSS not in precache
       {
         urlPattern: /\.(?:js|css)$/i,
         handler: 'StaleWhileRevalidate',
@@ -50,6 +53,7 @@ async function buildSW() {
           expiration: { maxEntries: 32, maxAgeSeconds: 24 * 60 * 60 },
         },
       },
+      // Cache Navigation (HTML)
       {
         urlPattern: ({ request }) => request.mode === 'navigate',
         handler: 'NetworkFirst',
