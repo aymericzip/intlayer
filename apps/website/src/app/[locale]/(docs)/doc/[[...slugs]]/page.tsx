@@ -8,6 +8,7 @@ import { getPreviousNextDocMetadata } from '@components/DocPage/docData';
 import { Website_Doc_Path, Website_Home } from '@intlayer/design-system/routes';
 import {
   type DocKey,
+  getAuthor,
   getDoc,
   getDocMetadata,
   getDocMetadataBySlug,
@@ -91,6 +92,7 @@ const DocumentationPage = async ({ params }: LocalPromiseParams<DocProps>) => {
       />
       <DocHeader
         {...docData}
+        author={docData.author ? getAuthor(docData.author) : undefined}
         markdownContent={docContent}
         baseUpdatedAt={defaultDocData.updatedAt}
         history={docData.history ?? []}

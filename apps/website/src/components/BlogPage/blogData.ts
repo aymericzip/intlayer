@@ -46,12 +46,12 @@ export const getBlogSection = (
   for (const key of Object.keys(docData)) {
     const docDataValue = docData[key];
 
-    if (typeof docDataValue.default !== 'undefined') {
+    if (typeof docDataValue?.default !== 'undefined') {
       blog.push(docDataValue.default);
       paths.push([...presetKeys, key]);
       title.push(docDataValue.title);
     }
-    if (typeof docDataValue.subSections !== 'undefined') {
+    if (typeof docDataValue?.subSections !== 'undefined') {
       const {
         paths: subSectionsPaths,
         blog: subSectionsBlogs,
@@ -69,7 +69,7 @@ export const getBlogSection = (
 
 export const getPreviousNextBlogData = (
   docKey: BlogKey,
-  locale: LocalesValues
+  locale?: LocalesValues
 ) => {
   const docData = getBlogData(locale);
   const { blog, paths, title } = getBlogSection(docData);

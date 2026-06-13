@@ -1,4 +1,4 @@
-import type { BlogMetadata } from '@intlayer/docs';
+import { type BlogMetadata, getAuthor } from '@intlayer/docs';
 import type { LocalesValues } from 'intlayer';
 import { useIntlayer } from 'next-intlayer/server';
 import { type FC, useMemo } from 'react';
@@ -39,30 +39,37 @@ export const RelatedPosts: FC<RelatedPostsProps> = ({
         {content.relatedPosts}
       </h2>
       <div className="grid grid-cols-1 divide-dashed divide-border sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
-        {relatedPosts.map((post) => (
-          <div key={post.docKey} className="px-2">
-            <Link
-              href={post.relativeUrl}
-              variant="invisible-link"
-              label={content.visitBlogTitle({ title: post.title })}
-              className="group flex flex-col gap-2.5 py-5 no-underline sm:px-5 last:sm:pr-0 first:sm:pl-0"
-            >
-              <p className="line-clamp-2 font-medium text-sm text-text-primary transition-colors group-hover:text-text-secondary group-hover:underline">
-                {post.title}
-              </p>
-              {post.description && (
-                <p className="line-clamp-2 text-neutral text-xs">
-                  {post.description}
+        {relatedPosts.map((post) => {
+          const authorProfile =
+            typeof post.author === 'string'
+              ? getAuthor(post.author)
+              : post.author;
+
+          return (
+            <div key={post.docKey} className="px-2">
+              <Link
+                href={post.relativeUrl}
+                variant="invisible-link"
+                label={content.visitBlogTitle({ title: post.title })}
+                className="group flex flex-col gap-2.5 py-5 no-underline sm:px-5 last:sm:pr-0 first:sm:pl-0"
+              >
+                <p className="line-clamp-2 font-medium text-sm text-text-primary transition-colors group-hover:text-text-secondary group-hover:underline">
+                  {post.title}
                 </p>
-              )}
-              {post.author && (
-                <p className="mt-auto text-neutral text-xs">
-                  {post.author.name}
-                </p>
-              )}
-            </Link>
-          </div>
-        ))}
+                {post.description && (
+                  <p className="line-clamp-2 text-neutral text-xs">
+                    {post.description}
+                  </p>
+                )}
+                {authorProfile && (
+                  <p className="mt-auto text-neutral text-xs">
+                    {authorProfile.name}
+                  </p>
+                )}
+              </Link>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
@@ -108,30 +115,37 @@ export const LastPosts: FC<LastPostsProps> = ({
         {content.lastPosts}
       </h2>
       <div className="grid grid-cols-1 divide-dashed divide-border sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
-        {lastPosts.map((post) => (
-          <div key={post.docKey} className="px-2">
-            <Link
-              href={post.relativeUrl}
-              variant="invisible-link"
-              label={content.visitBlogTitle({ title: post.title })}
-              className="group flex flex-col gap-2.5 py-5 no-underline sm:px-5 last:sm:pr-0 first:sm:pl-0"
-            >
-              <p className="line-clamp-2 font-medium text-sm text-text-primary transition-colors group-hover:text-text-secondary group-hover:underline">
-                {post.title}
-              </p>
-              {post.description && (
-                <p className="line-clamp-2 text-neutral text-xs">
-                  {post.description}
+        {lastPosts.map((post) => {
+          const authorProfile =
+            typeof post.author === 'string'
+              ? getAuthor(post.author)
+              : post.author;
+
+          return (
+            <div key={post.docKey} className="px-2">
+              <Link
+                href={post.relativeUrl}
+                variant="invisible-link"
+                label={content.visitBlogTitle({ title: post.title })}
+                className="group flex flex-col gap-2.5 py-5 no-underline sm:px-5 last:sm:pr-0 first:sm:pl-0"
+              >
+                <p className="line-clamp-2 font-medium text-sm text-text-primary transition-colors group-hover:text-text-secondary group-hover:underline">
+                  {post.title}
                 </p>
-              )}
-              {post.author && (
-                <p className="mt-auto text-neutral text-xs">
-                  {post.author.name}
-                </p>
-              )}
-            </Link>
-          </div>
-        ))}
+                {post.description && (
+                  <p className="line-clamp-2 text-neutral text-xs">
+                    {post.description}
+                  </p>
+                )}
+                {authorProfile && (
+                  <p className="mt-auto text-neutral text-xs">
+                    {authorProfile.name}
+                  </p>
+                )}
+              </Link>
+            </div>
+          );
+        })}
       </div>
     </section>
   );

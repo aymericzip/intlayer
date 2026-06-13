@@ -135,10 +135,12 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
               author: author
                 ? {
                     '@type': 'Person',
-                    name: author.name ?? 'Aymeric Pineau',
-                    url: author.github
-                      ? `https://github.com/${author.github}`
-                      : undefined,
+                    name: author.name,
+                    url: author.url,
+                    jobTitle: author.title,
+                    image: author.image,
+                    sameAs: author.socialMedias,
+                    knowsAbout: author.knowsAbout,
                   }
                 : undefined,
               version: history?.[0]?.version,

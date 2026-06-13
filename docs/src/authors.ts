@@ -1,31 +1,4 @@
-import { join, dirname as pathDirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { getPackageJsonPath, getProjectRequire } from '@intlayer/config/utils';
-
-// ─── Resolve base dir (same pattern as entry files) ──────────────────────────
-const currentDir =
-  typeof __dirname !== 'undefined'
-    ? __dirname
-    : pathDirname(fileURLToPath(import.meta.url));
-
-let _baseDir: string | undefined;
-const getBaseDir = (): string => {
-  if (_baseDir) return _baseDir;
-  try {
-    const projectRequire = getProjectRequire(currentDir);
-    const docEntryPath = projectRequire.resolve('@intlayer/docs');
-    _baseDir = getPackageJsonPath(docEntryPath).baseDir;
-  } catch {
-    try {
-      const projectRequire = getProjectRequire();
-      const docEntryPath = projectRequire.resolve('@intlayer/docs');
-      _baseDir = getPackageJsonPath(docEntryPath).baseDir;
-    } catch {
-      _baseDir = getPackageJsonPath(currentDir).baseDir;
-    }
-  }
-  return _baseDir as string;
-};
+import authorsData from '../authors.json' with { type: 'json' };
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -44,25 +17,15 @@ export type AuthorProfile = {
   socialMedias?: string[];
   /** Areas of expertise */
   knowsAbout?: string[];
+  /** GitHub username/handle */
+  github?: string;
 };
 
 export type Authors = Record<string, AuthorProfile>;
 
 // ─── Loader (lazy singleton) ──────────────────────────────────────────────────
 
-let _authors: Authors | undefined;
-
-const loadAuthors = (): Authors => {
-  if (_authors) return _authors;
-
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    _authors = require(join(getBaseDir(), 'authors.json')) as Authors;
-  } catch {
-    _authors = {};
-  }
-  return _authors;
-};
+const loadAuthors = (): Authors => authorsData as Authors;
 
 // ─── Public API ───────────────────────────────────────────────────────────────
 
@@ -70,18 +33,14 @@ const loadAuthors = (): Authors => {
  * Resolve a full author profile by GitHub handle.
  * Returns `undefined` if the handle is not found in `authors.json`.
  */
-export const getAuthor = (github: string): AuthorProfile | undefined =>
-  loadAuthors()[github];
-
-/**
- * Returns the default (fallback) author when no github handle is provided or
- * when the handle cannot be resolved.
- */
-export const getDefaultAuthor = (): AuthorProfile => ({
-  name: 'Aymeric PINEAU',
-  url: 'https://github.com/aymericzip',
-  ...loadAuthors()['aymericzip'],
-});
+export const getAuthor = (github: string): AuthorProfile | undefined => {
+  const profile = loadAuthors()[github];
+  if (!profile) return undefined;
+  return {
+    ...profile,
+    github,
+  };
+};
 
 export { loadAuthors as getAuthors };
 

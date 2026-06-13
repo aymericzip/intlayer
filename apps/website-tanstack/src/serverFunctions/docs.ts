@@ -11,9 +11,8 @@ export const loadDocPage = createServerFn()
   .validator((data: { locale: string; slugs: string[] }) => data)
   // .middleware([staticFunctionMiddleware])
   .handler(async ({ data: { locale, slugs } }) => {
-    const { getDoc, getDocMetadata, getDocMetadataBySlug } = await import(
-      '@intlayer/docs'
-    );
+    const { getDoc, getDocMetadata, getDocMetadataBySlug, getAuthor } =
+      await import('@intlayer/docs');
 
     const docsData = await getDocMetadataBySlug(
       ['doc', ...slugs],
@@ -37,8 +36,13 @@ export const loadDocPage = createServerFn()
       locale
     );
 
+    const exactMatchWithAuthor = {
+      ...exactMatch,
+      author: exactMatch.author ? getAuthor(exactMatch.author) : undefined,
+    };
+
     return {
-      exactMatch,
+      exactMatch: exactMatchWithAuthor,
       docsData,
       content: {
         defaultDocData,

@@ -4,7 +4,7 @@ import { Avatar } from '@intlayer/design-system/avatar';
 import { Container } from '@intlayer/design-system/container';
 import { useDevice } from '@intlayer/design-system/hooks';
 import { Link } from '@intlayer/design-system/link';
-import type { DocMetadata } from '@intlayer/docs';
+import type { AuthorProfile, DocMetadata } from '@intlayer/docs';
 import { useIntlayer, useLocale } from 'next-intlayer';
 import type { FC } from 'react';
 import { ApplicationShowcaseMessage } from '../ApplicationShowcaseMessage';
@@ -18,7 +18,8 @@ import { SummarizeAI } from '../SummarizeAI/SummarizeAI';
 import { TranslatedContentMessage } from '../TranslatedContentMessage';
 import { YoutubeVideoMessage } from '../YoutubeVideoMessage';
 
-type DocHeaderProps = DocMetadata & {
+type DocHeaderProps = Omit<DocMetadata, 'author'> & {
+  author?: AuthorProfile;
   markdownContent: string;
   baseUpdatedAt?: string;
   history?: {
@@ -65,7 +66,7 @@ export const DocHeader: FC<DocHeaderProps> = ({
                 className="flex items-center gap-2 text-neutral"
               >
                 <Avatar
-                  src={`https://github.com/${author.github}.png`}
+                  src={author.image}
                   alt={authorAvatarAlt({ author: author.name })}
                   size="sm"
                   className="scale-70"

@@ -6,13 +6,13 @@ import {
   Website_Home_Path,
 } from '@intlayer/design-system/routes';
 import {
+  buildAuthorJsonLd,
   buildBreadcrumbsJsonLd,
   buildCreativeWorkJsonLd,
   buildOrganizationJsonLd,
   buildSoftwareApplicationJsonLd,
   buildWebsiteJsonLd,
 } from '@intlayer/design-system/structured-data';
-import { buildAuthorJsonLd, getAuthor } from '@intlayer/docs';
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { defaultLocale, getIntlayer, getLocalizedUrl, locales } from 'intlayer';
 import { DocHeader } from '~/components/DocPage/DocHeader/DocHeader';
@@ -191,9 +191,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
                 ? new Date(docData.updatedAt as string)
                 : undefined,
               url: docData.url,
-              author: buildAuthorJsonLd(
-                docData.author ? getAuthor(docData.author as string) : undefined
-              ),
+              author: buildAuthorJsonLd(docData.author),
               version: (docData.history as any)?.[0]?.version,
               audienceType: String(creativeWorkContent.audienceType),
             })

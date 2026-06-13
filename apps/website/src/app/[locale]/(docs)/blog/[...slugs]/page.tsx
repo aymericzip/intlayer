@@ -7,7 +7,12 @@ import {
 import { DocumentationRender } from '@components/DocPage/DocumentationRender';
 import { getLocalizedUrl } from '@intlayer/core/localization';
 import { Website_Blog_Path } from '@intlayer/design-system/routes';
-import { type BlogKey, getBlog, getBlogMetadataBySlug } from '@intlayer/docs';
+import {
+  type BlogKey,
+  getAuthor,
+  getBlog,
+  getBlogMetadataBySlug,
+} from '@intlayer/docs';
 import { CreativeWorkHeader } from '@structuredData/CreativeWorkHeader';
 import { urlRenamer } from '@utils/markdown';
 import { redirect } from 'next/navigation';
@@ -27,7 +32,7 @@ const BlogPage = async ({ params }: LocalPromiseParams<BlogProps>) => {
     return redirect(Website_Blog_Path);
   }
 
-  const blogData = filteredBlogsData[0];
+  const blogData = filteredBlogsData[0]!;
 
   const { prevBlogData, nextBlogData } = getPreviousNextBlogData(
     blogData.docKey as BlogKey,
@@ -67,7 +72,11 @@ const BlogPage = async ({ params }: LocalPromiseParams<BlogProps>) => {
           history={blogData.history}
         />
       )}
-      <DocHeader {...blogData} markdownContent={blogContent} />
+      <DocHeader
+        {...blogData}
+        author={blogData?.author ? getAuthor(blogData.author) : undefined}
+        markdownContent={blogContent}
+      />
 
       <DocumentationRender>{blogContent}</DocumentationRender>
 

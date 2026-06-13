@@ -85,7 +85,7 @@ const config: CustomIntlayerConfig = {
     output: ({ fileName }) => `./${fileName}.content.ts`,
   },
   editor: {
-    enabled: true,
+    enabled: false,
     liveSync: false,
     dictionaryPriorityStrategy: 'local_first',
     // applicationURL: import.meta.env.VITE_URL,

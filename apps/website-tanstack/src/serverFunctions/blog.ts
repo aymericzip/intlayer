@@ -11,7 +11,9 @@ export const loadBlogPage = createServerFn()
   .validator((data: { locale: string; slugs: string[] }) => data)
   // .middleware([staticFunctionMiddleware])
   .handler(async ({ data: { locale, slugs } }) => {
-    const { getBlog, getBlogMetadataBySlug } = await import('@intlayer/docs');
+    const { getBlog, getBlogMetadataBySlug, getAuthor } = await import(
+      '@intlayer/docs'
+    );
 
     const blogsData = await getBlogMetadataBySlug(
       ['blog', ...slugs],
@@ -34,8 +36,13 @@ export const loadBlogPage = createServerFn()
       locale
     );
 
+    const exactMatchWithAuthor = {
+      ...exactMatch,
+      author: exactMatch.author ? getAuthor(exactMatch.author) : undefined,
+    };
+
     return {
-      exactMatch,
+      exactMatch: exactMatchWithAuthor,
       blogsData,
       content: { blogContent, blogParsed, prevBlogData, nextBlogData },
     };
@@ -66,4 +73,31 @@ export const loadBlogRaw = createServerFn()
 export const loadBlogNavData = createServerFn()
   .validator((data: { locale: string }) => data)
   // .middleware([staticFunctionMiddleware])
-  .handler(async ({ data: { locale } }) => getBlogData(locale));
+  .handler(async ({ data: { locale } }) => {
+    const { getAuthor } = await import('@intlayer/docs');
+    const blogData = getBlogData(locale);
+
+    const resolveAuthors = (data: any): any => {
+      const resolved: any = {};
+      for (const key of Object.keys(data)) {
+        const value = data[key];
+        if (!value) continue;
+
+        resolved[key] = { ...value };
+        if (value.default) {
+          resolved[key].default = {
+            ...value.default,
+            author: value.default.author
+              ? getAuthor(value.default.author)
+              : undefined,
+          };
+        }
+        if (value.subSections) {
+          resolved[key].subSections = resolveAuthors(value.subSections);
+        }
+      }
+      return resolved;
+    };
+
+    return resolveAuthors(blogData);
+  });

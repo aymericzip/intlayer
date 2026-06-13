@@ -7,8 +7,11 @@ export const loadFaqPage = createServerFn()
   .validator((data: { locale: string; slugs: string[] }) => data)
   // .middleware([staticFunctionMiddleware])
   .handler(async ({ data: { locale, slugs } }) => {
-    const { getFrequentQuestion, getFrequentQuestionMetadataBySlug } =
-      await import('@intlayer/docs');
+    const {
+      getFrequentQuestion,
+      getFrequentQuestionMetadataBySlug,
+      getAuthor,
+    } = await import('@intlayer/docs');
 
     const fullSlugs = ['frequent-questions', ...slugs];
     const faqsData = await getFrequentQuestionMetadataBySlug(fullSlugs, locale);
@@ -22,8 +25,13 @@ export const loadFaqPage = createServerFn()
     const blogContent = urlRenamer(file, locale);
     const blogParsed = parseMarkdown(blogContent);
 
+    const exactMatchWithAuthor = {
+      ...exactMatch,
+      author: exactMatch.author ? getAuthor(exactMatch.author) : undefined,
+    };
+
     return {
-      exactMatch,
+      exactMatch: exactMatchWithAuthor,
       faqsData,
       content: { blogContent, blogParsed },
     };

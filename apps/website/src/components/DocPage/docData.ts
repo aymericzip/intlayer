@@ -43,12 +43,12 @@ export const getDocSection = (
   for (const key of Object.keys(docData)) {
     const docDataValue = docData[key];
 
-    if (typeof docDataValue.default !== 'undefined') {
+    if (typeof docDataValue?.default !== 'undefined') {
       docs.push(docDataValue.default as unknown as DocMetadata);
       paths.push([...presetKeys, key]);
       title.push(docDataValue.title);
     }
-    if (typeof docDataValue.subSections !== 'undefined') {
+    if (typeof docDataValue?.subSections !== 'undefined') {
       const {
         paths: subSectionsPaths,
         docs: subSectionsDocs,

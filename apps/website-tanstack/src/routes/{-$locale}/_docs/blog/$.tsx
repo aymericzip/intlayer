@@ -6,12 +6,12 @@ import {
   Website_Home_Path,
 } from '@intlayer/design-system/routes';
 import {
+  buildAuthorJsonLd,
   buildBreadcrumbsJsonLd,
   buildCreativeWorkJsonLd,
   buildOrganizationJsonLd,
   buildWebsiteJsonLd,
 } from '@intlayer/design-system/structured-data';
-import { buildAuthorJsonLd, getAuthor } from '@intlayer/docs';
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { defaultLocale, getIntlayer, getLocalizedUrl, locales } from 'intlayer';
 import { BlogPageLayout } from '~/components/BlogPage/BlogPageLayout';
@@ -168,9 +168,7 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
                 ? new Date(blogData.updatedAt)
                 : undefined,
               url: blogData.url,
-              author: buildAuthorJsonLd(
-                blogData.author ? getAuthor(blogData.author) : undefined
-              ),
+              author: buildAuthorJsonLd(blogData.author),
               version: blogData.history?.[0]?.version,
               audienceType: String(creativeWorkContent.audienceType),
             })
