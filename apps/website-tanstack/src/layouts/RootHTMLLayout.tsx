@@ -4,14 +4,6 @@ import { getHTMLTextDir } from 'intlayer';
 
 import type { FC, HTMLProps } from 'react';
 
-const Inter = () => ({ className: '' });
-
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  weight: ['300', '400', '500', '600', '700'],
-});
-
 export type LocalParams = HTMLProps<HTMLHtmlElement> & {
   bodyProps?: HTMLProps<HTMLBodyElement>;
   locale: LocalesValues;
@@ -31,7 +23,7 @@ export const RootHTMLLayout: FC<LocalParams> = ({
     {...props}
   >
     <>
-      {/* Preconnect and DNS Prefetch for Google Tag Manager */}
+      {/* Preconnect and DNS Prefetch for Google Analytics */}
       <link
         rel="preconnect"
         href="https://www.googletagmanager.com"
@@ -50,7 +42,6 @@ export const RootHTMLLayout: FC<LocalParams> = ({
     <body
       className={cn(
         'relative flex size-full min-h-screen flex-col overflow-auto overflow-x-clip scroll-smooth bg-background leading-8 transition md:flex',
-        inter.className,
         className
       )}
       {...bodyProps}

@@ -110,7 +110,7 @@ export default defineConfig(({ mode }) => {
       'intlayer.org',
       '*.intlayer.org',
       'static.cloudflareinsights.com',
-      '*.google-analytics.com',
+      '*.googletagmanager.com',
       '*.posthog.com',
       '*.stripe.com',
       'cdn.jsdelivr.net',

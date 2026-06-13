@@ -160,6 +160,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html dir={getHTMLTextDir(locale)} lang={locale} suppressHydrationWarning>
       <head>
+        {/* Preconnect and DNS Prefetch for Google Analytics */}
+        <link
+          rel="preconnect"
+          href="https://www.googletagmanager.com"
+          crossOrigin=""
+        />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <HeadContent />
       </head>
       <body className="relative flex min-h-screen flex-col overflow-x-clip scroll-smooth bg-background text-text leading-8 transition md:flex">

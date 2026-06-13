@@ -28,6 +28,15 @@ export const RootHTMLLayout: FC<LocalParams> = ({
     suppressHydrationWarning
     {...props}
   >
+    <head>
+      {/* Preconnect and DNS Prefetch for Google Analytics */}
+      <link
+        rel="preconnect"
+        href="https://www.googletagmanager.com"
+        crossOrigin=""
+      />
+      <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    </head>
     <body
       className={cn(
         'relative flex size-full min-h-screen flex-col overflow-auto overflow-x-clip scroll-smooth bg-background leading-8 transition md:flex',

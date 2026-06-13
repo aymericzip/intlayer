@@ -22,6 +22,13 @@ export const RootHTMLLayout: FC<LocalParams> = ({
     {...props}
   >
     <head>
+      {/* Preconnect and DNS Prefetch for Google Analytics */}
+      <link
+        rel="preconnect"
+        href="https://www.googletagmanager.com"
+        crossOrigin=""
+      />
+      <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
       {import.meta.env.VITE_BACKEND_URL && (
         <>
           <link
