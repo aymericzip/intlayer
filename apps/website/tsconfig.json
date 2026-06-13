@@ -30,11 +30,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": [
-    "**/*",
-    ".intlayer/**/*.ts",
-    ".intlayer/types/**/*.ts",
-    "../../packages/@intlayer/design-system/src/components/LanguageSection"
-  ],
+  "include": ["**/*", ".intlayer/**/*.ts", ".intlayer/types/**/*.ts"],
   "exclude": ["node_modules", ".next", "public/sw.js"]
 }

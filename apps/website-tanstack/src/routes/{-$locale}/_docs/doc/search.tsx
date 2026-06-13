@@ -56,7 +56,12 @@ function DocumentationSearchPage() {
     >
       <H1>{title}</H1>
       <div className="flex flex-1 flex-col items-baseline gap-10 p-10 md:mt-[10vh]">
-        <Container className="mx-auto w-full max-w-4xl p-10" roundedSize="2xl">
+        <Container
+          border
+          borderColor="neutral"
+          className="mx-auto w-full max-w-4xl p-10"
+          roundedSize="2xl"
+        >
           <SearchView />
         </Container>
       </div>
