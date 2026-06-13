@@ -3,6 +3,18 @@ import { logger } from '@logger';
 import type { FastifyRequest } from 'fastify';
 
 /**
+ * Origins that are allowed to send/receive session cookies.
+ * All other origins (e.g. intlayer-editor embedded in a third-party site)
+ * must authenticate via Authorization: Bearer <token> instead.
+ */
+export const credentialWhitelist = (): string[] =>
+  [
+    process.env.WEBSITE_URL,
+    process.env.APP_URL,
+    process.env.SHOWCASE_URL,
+  ].filter(Boolean) as string[];
+
+/**
  * CORS configuration with a per-request delegator.
  *
  * Using the `delegator` property (not a bare function) avoids Fastify's
@@ -18,8 +30,11 @@ export const corsOptions: FastifyCorsOptions = {
     cb: (err: Error | null, options: FastifyCorsOptions) => void
   ): void => {
     const origin = req.headers.origin as string | undefined;
+    const whitelist = credentialWhitelist();
     const isWhitelisted = Boolean(
-      origin && /^https?:\/\/(?:.*\.)?intlayer\.(?:org|cn)$/.test(origin)
+      origin &&
+        (whitelist.includes(origin) ||
+          /^https?:\/\/(?:.*\.)?intlayer\.(?:org|cn)$/.test(origin))
     );
 
     if (origin && !isWhitelisted) {
