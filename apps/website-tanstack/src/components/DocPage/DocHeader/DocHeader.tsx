@@ -2,6 +2,19 @@ import { Avatar } from '@intlayer/design-system/avatar';
 import { Container } from '@intlayer/design-system/container';
 import { useDevice } from '@intlayer/design-system/hooks';
 import { Link } from '@intlayer/design-system/link';
+import { PopoverStatic } from '@intlayer/design-system/popover';
+import {
+  DiscordLogo,
+  FacebookLogo,
+  GitHubLogo,
+  GitLabLogo,
+  InstagramLogo,
+  LinkedInLogo,
+  ProductHuntLogo,
+  TiktokLogo,
+  XLogo,
+  YoutubeLogo,
+} from '@intlayer/design-system/social-networks';
 import type { AuthorProfile, DocMetadata } from '@intlayer/docs';
 import type { FC } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
@@ -15,6 +28,26 @@ import { ScrollWellAndTitle } from '../ScrollWell';
 import { SummarizeAI } from '../SummarizeAI/SummarizeAI';
 import { TranslatedContentMessage } from '../TranslatedContentMessage';
 import { YoutubeVideoMessage } from '../YoutubeVideoMessage';
+
+const getSocialIcon = (url: string, className?: string) => {
+  if (url.includes('github.com')) return <GitHubLogo className={className} />;
+  if (url.includes('x.com') || url.includes('twitter.com'))
+    return <XLogo className={className} />;
+  if (url.includes('linkedin.com'))
+    return <LinkedInLogo className={className} />;
+  if (url.includes('discord.com') || url.includes('discord.gg'))
+    return <DiscordLogo className={className} />;
+  if (url.includes('youtube.com')) return <YoutubeLogo className={className} />;
+  if (url.includes('facebook.com'))
+    return <FacebookLogo className={className} />;
+  if (url.includes('instagram.com'))
+    return <InstagramLogo className={className} />;
+  if (url.includes('tiktok.com')) return <TiktokLogo className={className} />;
+  if (url.includes('gitlab.com')) return <GitLabLogo className={className} />;
+  if (url.includes('producthunt.com'))
+    return <ProductHuntLogo className={className} />;
+  return null;
+};
 
 type DocHeaderProps = Omit<DocMetadata, 'author'> & {
   author?: AuthorProfile;
@@ -57,7 +90,51 @@ export const DocHeader: FC<DocHeaderProps> = ({
         {author && (
           <span className="flex items-center gap-2">
             {authorLabel}:{' '}
-            {author.github ? (
+            {author.socialMedias && author.socialMedias.length > 0 ? (
+              <PopoverStatic identifier="author-social-medias">
+                {author.github ? (
+                  <Link
+                    label={authorGithubLabel({ author: author.name })}
+                    href={`https://github.com/${author.github}`}
+                    className="flex items-center gap-2 text-neutral"
+                  >
+                    <Avatar
+                      src={author.image}
+                      alt={authorAvatarAlt({ author: author.name })}
+                      size="sm"
+                      className="scale-70"
+                    />
+                    {author.name}
+                  </Link>
+                ) : (
+                  <span className="text-neutral">{author.name}</span>
+                )}
+                <PopoverStatic.Detail
+                  identifier="author-social-medias"
+                  xAlign="start"
+                  yAlign="below"
+                  className="flex w-auto min-w-0 flex-row gap-2 p-2 delay-200 group-hover/popover:delay-100"
+                >
+                  {author.socialMedias.map((url) => {
+                    const icon = getSocialIcon(
+                      url,
+                      'h-auto max-h-full max-w-full'
+                    );
+                    if (!icon) return null;
+                    return (
+                      <Link
+                        key={url}
+                        href={url}
+                        label={`Go to ${url}`}
+                        className="max-h-5 max-w-5 shrink-0 transition-colors hover:text-primary"
+                      >
+                        {icon}
+                      </Link>
+                    );
+                  })}
+                </PopoverStatic.Detail>
+              </PopoverStatic>
+            ) : author.github ? (
               <Link
                 label={authorGithubLabel({ author: author.name })}
                 href={`https://github.com/${author.github}`}
