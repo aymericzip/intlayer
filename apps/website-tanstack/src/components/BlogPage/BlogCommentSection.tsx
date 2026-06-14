@@ -194,7 +194,7 @@ export const BlogCommentSection: FC<BlogCommentSectionProps> = ({
 
       {/* Approved comments list */}
       {comments.length === 0 && submitState !== 'success' ? (
-        <p className="mb-8 text-neutral text-sm">
+        <p className="mb-8 border-dotted text-neutral text-sm">
           {content.noCommentsYetBeThe}
         </p>
       ) : (

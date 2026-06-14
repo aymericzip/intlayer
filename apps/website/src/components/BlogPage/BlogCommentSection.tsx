@@ -189,7 +189,7 @@ export const BlogCommentSection: FC<BlogCommentSectionProps> = ({
   };
 
   return (
-    <section className="mt-12 border-border border-t pt-10">
+    <section className="mt-12 border-border border-t border-dotted pt-10">
       <h3 className="mb-6 font-medium text-lg text-text">{content.comments}</h3>
 
       {/* Approved comments list */}
