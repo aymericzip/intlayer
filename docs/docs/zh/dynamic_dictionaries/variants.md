@@ -15,7 +15,7 @@ slugs:
   - concept
   - variants
 history:
-  - version: 8.13.0
+  - version: 9.0.0
     date: 2026-06-12
     changes: "发布变体字典功能"
 author: aymericzip

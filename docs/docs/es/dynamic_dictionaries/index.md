@@ -15,7 +15,7 @@ slugs:
   - concept
   - dynamic-dictionaries
 history:
-  - version: 8.13.0
+  - version: 9.0.0
     date: 2026-06-12
     changes: "Lanzamiento de la función de diccionarios dinámicos"
 author: aymericzip

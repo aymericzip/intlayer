@@ -18,7 +18,7 @@ slugs:
   - cli
   - scan
 history:
-  - version: 8.13.0
+  - version: 9.0.0
     date: 2026-06-11
     changes: "اسکین (scan) کمانڈ شامل کی گئی"
 author: aymericzip

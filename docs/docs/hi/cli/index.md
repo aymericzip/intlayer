@@ -17,7 +17,7 @@ slugs:
   - concept
   - cli
 history:
-  - version: 8.13.0
+  - version: 9.0.0
     date: 2026-06-11
     changes: "scan कमांड जोड़ा गया"
   - version: 8.6.4

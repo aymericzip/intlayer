@@ -15,7 +15,7 @@ slugs:
   - concept
   - variants
 history:
-  - version: 8.13.0
+  - version: 9.0.0
     date: 2026-06-12
     changes: "Lancement de la fonctionnalité des variantes de dictionnaires"
 author: aymericzip

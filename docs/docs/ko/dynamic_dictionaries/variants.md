@@ -15,7 +15,7 @@ slugs:
   - concept
   - variants
 history:
-  - version: 8.13.0
+  - version: 9.0.0
     date: 2026-06-12
     changes: "변형 사전 기능 출시"
 author: aymericzip

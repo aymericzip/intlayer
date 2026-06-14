@@ -14,7 +14,7 @@ slugs:
   - concept
   - collections
 history:
-  - version: 8.13.0
+  - version: 9.0.0
     date: 2026-06-12
     changes: "Lancement de la fonctionnalité des collections de dictionnaires"
 author: aymericzip
