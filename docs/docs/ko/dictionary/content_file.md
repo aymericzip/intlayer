@@ -511,6 +511,66 @@ export default aboutPageMetaContent;
 // 이것은 기본 사전을 덮어씁니다
 ```
 
+#### `item` (number)
+
+컬렉션(Collections)과 연동하여 사용되는 이 필드는 컬렉션 내 항목의 위치를 정의합니다. 실행 시 인덱스로 선택 가능한 로컬라이즈된 항목의 정렬된 컬렉션을 빌드할 수 있습니다.
+
+**예시:**
+
+```typescript
+{
+  key: "faq",
+  item: 1,
+  content: {
+    question: "What is Intlayer?",
+    answer: "An i18n toolkit."
+  }
+}
+```
+
+> 자세한 정보는 [컬렉션](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/collections.md)을 참조하세요.
+
+#### `variant` (string)
+
+변형(Variants)과 연동하여 사용되는 이 필드는 이름이 지정된 콘텐츠 대안을 정의합니다. 코드 변경 없이 실행 시 동일한 사전 키의 다양한 변형 간에 전환할 수 있습니다(예: A/B 테스트, 시즌별 배너). 제공되지 않는 경우 기본 변형으로 간주됩니다.
+
+**예시:**
+
+```typescript
+{
+  key: "hero-banner",
+  variant: "black_friday",
+  content: {
+    headline: "50 % off — today only",
+    cta: "Shop now"
+  }
+}
+```
+
+> 자세한 정보는 [변형](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/variants.md)을 참조하세요.
+
+#### `meta` (`Record<string, string | number | boolean>`)
+
+동적 레코드(Dynamic Records)와 연동하여 사용되는 이 필드는 CMS에서 관리되는 레코드나 불투명한 ID로 실행 시 가져오는 임의의 데이터를 선언할 수 있도록 합니다. 사전의 식별성은 이 `meta` 필드에 선언된 임의의 키-값 쌍 집합에 의해 정의됩니다.
+
+**예시:**
+
+```typescript
+{
+  key: "product-copy",
+  meta: {
+    id: "prod_abc",
+    userId: "user_123"
+  },
+  content: {
+    name: "Widget Pro",
+    description: "The best widget."
+  }
+}
+```
+
+> 자세한 정보는 [동적 레코드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dynamic_dictionaries/dynamic_content.md)를 참조하세요.
+
 ### CMS 속성
 
 ##### `version` (string)

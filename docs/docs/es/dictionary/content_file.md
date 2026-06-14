@@ -493,6 +493,66 @@ Indica la prioridad del diccionario para la resolución de conflictos. Cuando va
 // Esto anulará el diccionario base
 ```
 
+#### `item` (número)
+
+Utilizado en conjunto con las Colecciones, este campo define la posición del elemento en una colección. Permite construir colecciones ordenadas de elementos localizados seleccionables por índice en tiempo de ejecución.
+
+**Ejemplo:**
+
+```typescript
+{
+  key: "faq",
+  item: 1,
+  content: {
+    question: "What is Intlayer?",
+    answer: "An i18n toolkit."
+  }
+}
+```
+
+> Consulta [Colecciones](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dynamic_dictionaries/collections.md) para más información.
+
+#### `variant` (cadena)
+
+Utilizado en conjunto con las Variantes, este campo define alternativas de contenido nombradas. Permite cambiar entre diferentes variaciones de la misma clave de diccionario en tiempo de ejecución sin cambios de código (por ejemplo, para pruebas A/B, banners estacionales). Si no se proporciona, se considera como la variante predeterminada.
+
+**Ejemplo:**
+
+```typescript
+{
+  key: "hero-banner",
+  variant: "black_friday",
+  content: {
+    headline: "50 % off — today only",
+    cta: "Shop now"
+  }
+}
+```
+
+> Consulta [Variantes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dynamic_dictionaries/variants.md) para más información.
+
+#### `meta` (`Record<string, string | number | boolean>`)
+
+Utilizado en conjunto con los Registros Dinámicos, este campo permite declarar registros gestionados por CMS o datos arbitrarios recuperados en tiempo de ejecución mediante un ID opaco. La identidad del diccionario se define mediante el conjunto arbitrario de pares clave-valor declarados en este campo `meta`.
+
+**Ejemplo:**
+
+```typescript
+{
+  key: "product-copy",
+  meta: {
+    id: "prod_abc",
+    userId: "user_123"
+  },
+  content: {
+    name: "Widget Pro",
+    description: "The best widget."
+  }
+}
+```
+
+> Consulta [Registros Dinámicos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dynamic_dictionaries/dynamic_content.md) para más información.
+
 ### Propiedades del CMS
 
 ##### `version` (cadena)

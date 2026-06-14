@@ -16,6 +16,7 @@ import './App.css';
 import viteLogo from '/vite.svg';
 import reactLogo from './assets/react.svg';
 import { LocaleSwitcher } from './components/LangSwitcherDropDown';
+import { QualifiedContentDemo } from './components/QualifiedContentDemo';
 import { LocaleRouter } from './Router';
 
 const PoTestSection: FC = () => {
@@ -381,6 +382,8 @@ const AppContent: FC = () => {
       {mdContent}
 
       <BenchmarkTable />
+
+      <QualifiedContentDemo />
 
       <PoTestSection />
 

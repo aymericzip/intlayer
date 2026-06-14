@@ -494,6 +494,66 @@ export default aboutPageMetaContent;
 // هذا سيتجاوز القاموس الأساسي
 ```
 
+#### `item` (عدد)
+
+يُستخدم بالاقتران مع المجموعات (Collections)، ويحدد هذا الحقل موضع العنصر في المجموعة. يسمح لك ببناء مجموعات مرتبة من العناصر المترجمة القابلة للاختيار عن طريق الفهرس في وقت التشغيل.
+
+**مثال:**
+
+```typescript
+{
+  key: "faq",
+  item: 1,
+  content: {
+    question: "What is Intlayer?",
+    answer: "An i18n toolkit."
+  }
+}
+```
+
+> انظر [المجموعات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/collections.md) لمزيد من المعلومات.
+
+#### `variant` (سلسلة نصية)
+
+يُستخدم بالاقتران مع المتغيرات (Variants)، ويحدد هذا الحقل بدائل المحتوى المسماة. يتيح لك التبديل بين الأشكال المختلفة لنفس مفتاح القاموس في وقت التشغيل دون تغيير الكود (على سبيل المثال، لاختبارات A/B، واللافتات الموسمية). إذا لم يتم تقديمه، فسيتم اعتباره المتغير الافتراضي.
+
+**مثال:**
+
+```typescript
+{
+  key: "hero-banner",
+  variant: "black_friday",
+  content: {
+    headline: "50 % off — today only",
+    cta: "Shop now"
+  }
+}
+```
+
+> انظر [المتغيرات](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/variants.md) لمزيد من المعلومات.
+
+#### `meta` (`Record<string, string | number | boolean>`)
+
+يُستخدم بالاقتران مع السجلات الديناميكية (Dynamic Records)، ويسمح هذا الحقل بالإعلان عن السجلات التي يديرها نظام إدارة المحتوى (CMS) أو البيانات التعسفية التي يتم جلبها في وقت التشغيل بواسطة معرف غير شفاف. يتم تحديد هوية القاموس من خلال مجموعة عشوائية من أزواج المفتاح والقيمة المعلنة في حقل `meta` هذا.
+
+**مثال:**
+
+```typescript
+{
+  key: "product-copy",
+  meta: {
+    id: "prod_abc",
+    userId: "user_123"
+  },
+  content: {
+    name: "Widget Pro",
+    description: "The best widget."
+  }
+}
+```
+
+> انظر [السجلات الديناميكية](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dynamic_dictionaries/dynamic_content.md) لمزيد من المعلومات.
+
 ### خصائص نظام إدارة المحتوى
 
 ##### `version` (سلسلة نصية)

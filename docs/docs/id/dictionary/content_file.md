@@ -494,6 +494,66 @@ Menunjukkan prioritas kamus untuk penyelesaian konflik. Ketika beberapa kamus me
 // Ini akan menimpa kamus dasar
 ```
 
+#### `item` (angka)
+
+Digunakan bersama dengan Collections, bidang ini menentukan posisi item dalam koleksi. Ini memungkinkan Anda membangun koleksi terurut dari item yang dilokalkan yang dapat dipilih berdasarkan indeks saat runtime.
+
+**Contoh:**
+
+```typescript
+{
+  key: "faq",
+  item: 1,
+  content: {
+    question: "What is Intlayer?",
+    answer: "An i18n toolkit."
+  }
+}
+```
+
+> Lihat [Collections](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/collections.md) untuk informasi lebih lanjut.
+
+#### `variant` (string)
+
+Digunakan bersama dengan Variants, bidang ini menentukan alternatif konten bernama. Ini memungkinkan Anda beralih di antara variasi yang berbeda dari kunci kamus yang sama saat runtime tanpa perubahan kode (misalnya, untuk pengujian A/B, spanduk musiman). Jika tidak disediakan, ini dianggap sebagai varian default.
+
+**Contoh:**
+
+```typescript
+{
+  key: "hero-banner",
+  variant: "black_friday",
+  content: {
+    headline: "50 % off — today only",
+    cta: "Shop now"
+  }
+}
+```
+
+> Lihat [Variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/variants.md) untuk informasi lebih lanjut.
+
+#### `meta` (`Record<string, string | number | boolean>`)
+
+Digunakan bersama dengan Dynamic Records, bidang ini memungkinkan mendeklarasikan record yang dikelola CMS atau data arbitrer yang diambil saat runtime dengan ID buram. Identitas kamus ditentukan oleh kumpulan pasangan kunci-nilai arbitrer yang dideklarasikan dalam bidang `meta` ini.
+
+**Contoh:**
+
+```typescript
+{
+  key: "product-copy",
+  meta: {
+    id: "prod_abc",
+    userId: "user_123"
+  },
+  content: {
+    name: "Widget Pro",
+    description: "The best widget."
+  }
+}
+```
+
+> Lihat [Dynamic Records](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dynamic_dictionaries/dynamic_content.md) untuk informasi lebih lanjut.
+
 ### Properti CMS
 
 ##### `version` (string)

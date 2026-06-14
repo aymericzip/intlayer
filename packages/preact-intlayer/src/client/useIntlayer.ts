@@ -1,20 +1,26 @@
+import { getDictionarySelectorCacheKey } from '@intlayer/core/dictionaryManipulator';
+import type { DictionarySelector } from '@intlayer/types/dictionary';
 import type {
+  DeclaredLocales,
   DictionaryKeys,
-  DictionaryRegistryContent,
+  DictionarySelectorForKey,
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import { useContext, useMemo } from 'preact/hooks';
 import { getIntlayer } from '../getIntlayer';
-import type { DeepTransformContent } from '../plugins';
 import { IntlayerClientContext } from './IntlayerProvider';
 
 /**
  * Preact hook that picks one dictionary by its key and returns its content.
  *
- * If the locale is not provided, it will use the locale from the client context.
+ * The second argument is either a locale or a selector object:
+ * - `{ item: 2 }` — collection item (omit `item` to get every item as array)
+ * - `{ variant: 'black-friday' }` — named variant (omit for the `default` one)
+ * - `{ id: 'prod_abc', ...metaFields }` — meta record
+ * - `locale` composes with any selector and overrides the context locale
  *
  * @param key - The unique key of the dictionary to retrieve.
- * @param locale - Optional locale to override the current context locale.
+ * @param localeOrSelector - Optional locale or selector.
  * @returns The transformed dictionary content.
  *
  * @example
@@ -23,6 +29,7 @@ import { IntlayerClientContext } from './IntlayerProvider';
  *
  * const MyComponent = () => {
  *   const content = useIntlayer('my-dictionary-key');
+ *   const faq2 = useIntlayer('faq', { item: 2 });
  *
  *   return <div>{content.myField.value}</div>;
  * };
@@ -30,19 +37,31 @@ import { IntlayerClientContext } from './IntlayerProvider';
  */
 export const useIntlayer = <
   const T extends DictionaryKeys,
-  const L extends LocalesValues,
+  const A extends LocalesValues | DictionarySelectorForKey<T> = DeclaredLocales,
 >(
   key: T,
-  locale?: L
+  localeOrSelector?: A
 ) => {
   const { locale: currentLocale } = useContext(IntlayerClientContext) ?? {};
 
-  return useMemo(() => {
-    const localeTarget = locale ?? currentLocale;
+  const isSelector =
+    typeof localeOrSelector === 'object' && localeOrSelector !== null;
 
-    // @ts-ignore Type instantiation is excessively deep and possibly infinite
-    return getIntlayer<T, L>(key, localeTarget as L) as DeepTransformContent<
-      DictionaryRegistryContent<T>
-    >;
-  }, [key, currentLocale, locale]);
+  // Stable identity of the second argument for memoization
+  const localeOrSelectorIdentity = isSelector
+    ? `${localeOrSelector.locale ?? ''}|${getDictionarySelectorCacheKey(localeOrSelector)}`
+    : localeOrSelector;
+
+  return useMemo(() => {
+    if (isSelector) {
+      return getIntlayer(key, {
+        ...localeOrSelector,
+        locale: localeOrSelector.locale ?? currentLocale,
+      } as A);
+    }
+
+    const localeTarget = (localeOrSelector ?? currentLocale) as A;
+
+    return getIntlayer<T, A>(key, localeTarget);
+  }, [key, currentLocale, localeOrSelectorIdentity]);
 };

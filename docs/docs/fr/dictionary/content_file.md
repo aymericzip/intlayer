@@ -490,6 +490,66 @@ Indique la priorité du dictionnaire pour la résolution des conflits. Lorsque p
 // Ceci remplacera le dictionnaire de base
 ```
 
+#### `item` (nombre)
+
+Utilisé en conjonction avec les Collections, ce champ définit la position de l'élément dans une collection. Il vous permet de construire des collections ordonnées d'éléments localisés sélectionnables par index à l'exécution.
+
+**Exemple :**
+
+```typescript
+{
+  key: "faq",
+  item: 1,
+  content: {
+    question: "What is Intlayer?",
+    answer: "An i18n toolkit."
+  }
+}
+```
+
+> Voir [Collections](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dynamic_dictionaries/collections.md) pour plus d'informations.
+
+#### `variant` (chaîne)
+
+Utilisé en conjonction avec les Variantes, ce champ définit des alternatives de contenu nommées. Il vous permet de basculer entre différentes variations de la même clé de dictionnaire à l'exécution sans modification de code (par exemple, pour des tests A/B, des bannières saisonnières). S'il n'est pas fourni, il est considéré comme la variante par défaut.
+
+**Exemple :**
+
+```typescript
+{
+  key: "hero-banner",
+  variant: "black_friday",
+  content: {
+    headline: "50 % off — today only",
+    cta: "Shop now"
+  }
+}
+```
+
+> Voir [Variantes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dynamic_dictionaries/variants.md) pour plus d'informations.
+
+#### `meta` (`Record<string, string | number | boolean>`)
+
+Utilisé en conjonction avec les Enregistrements Dynamiques, ce champ permet de déclarer des enregistrements gérés par le CMS ou des données arbitraires récupérées à l'exécution par un identifiant opaque. L'identité du dictionnaire est définie par l'ensemble arbitraire de paires clé-valeur déclarées dans ce champ `meta`.
+
+**Exemple :**
+
+```typescript
+{
+  key: "product-copy",
+  meta: {
+    id: "prod_abc",
+    userId: "user_123"
+  },
+  content: {
+    name: "Widget Pro",
+    description: "The best widget."
+  }
+}
+```
+
+> Voir [Enregistrements Dynamiques](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dynamic_dictionaries/dynamic_content.md) pour plus d'informations.
+
 ### Propriétés CMS
 
 ##### `version` (string)

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, h } from 'vue';
+import QualifiedContentDemo from '../../components/QualifiedContentDemo/index.vue';
 import { useIntlayer } from 'vue-intlayer';
 import {
   useCompact,
@@ -350,6 +351,8 @@ const htmlRow = () =>
         </table>
       </div>
     </div>
+
+    <QualifiedContentDemo />
 
     <p class="read-the-docs">{{ readTheDocs }}</p>
   </div>

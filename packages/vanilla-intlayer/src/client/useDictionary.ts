@@ -1,6 +1,13 @@
-import type { Dictionary } from '@intlayer/types/dictionary';
+import type {
+  Dictionary,
+  DictionarySelector,
+  DictionarySelectorForGroup,
+  QualifiedDictionaryGroup,
+  ResolveQualifiedDictionaryContent,
+} from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
+  ExtractSelectorLocale,
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import { getDictionary } from '../getDictionary';
@@ -19,73 +26,62 @@ export type WithOnChange<T> = T & {
    * });
    * ```
    */
-  onChange: (
-    callback: <T extends Dictionary, L extends LocalesValues>(
-      content: DeepTransformContent<T['content'], L>
-    ) => void
-  ) => WithOnChange<T>;
+  onChange: (callback: (content: any) => void) => WithOnChange<T>;
 };
 
 /**
- * Get the translated content for a raw dictionary object and optionally
- * subscribe to locale changes via the chainable `.onChange()` method —
- * mirroring the API of `react-intlayer`.
+ * Get the content for a raw dictionary (or qualified dictionary group) and
+ * optionally subscribe to locale changes via the chainable `.onChange()`
+ * method — mirroring the API of `react-intlayer`.
  *
- * Unlike `useIntlayer` (which takes a registered key), this function accepts a
- * dictionary object directly — useful for dictionaries loaded asynchronously
- * or defined inline.
+ * The second argument is either a locale or a selector object (`{ item }`,
+ * `{ variant }`, `{ id, ...meta }`, optionally combined with `locale`).
  *
- * The function returns the current content **directly** (same shape as
- * `getDictionary(dict)`), plus the `.onChange()` helper:
- *
- * ```ts
- * // React
- * const content = useDictionary(myDict);
- *
- * // Vanilla — identical surface API, opt-in reactivity via .onChange()
- * const content = useDictionary(myDict);
- * const content = useDictionary(myDict).onChange((c) => render(c));
- * ```
- *
- * @param dictionary - The raw dictionary object.
- * @param locale     - Optional locale override.
- * @returns The current translated content with an `.onChange()` method.
- *
- * @example
- * ```ts
- * import myDict from './myDictionary.content';
- * import { installIntlayer, useDictionary } from 'vanilla-intlayer';
- *
- * installIntlayer();
- *
- * const content = useDictionary(myDict).onChange((c) => {
- *   document.querySelector('p').textContent = String(c.greeting);
- * });
- *
- * document.querySelector('p').textContent = String(content.greeting);
- * ```
+ * @param dictionary - The raw dictionary (or qualified group) object.
+ * @param localeOrSelector - Optional locale or selector.
+ * @returns The current content with an `.onChange()` method.
  */
 export const useDictionary = <
-  const T extends Dictionary,
-  const L extends LocalesValues = DeclaredLocales,
+  const T extends Dictionary | QualifiedDictionaryGroup,
+  const A extends
+    | LocalesValues
+    | DictionarySelectorForGroup<T> = DeclaredLocales,
 >(
   dictionary: T,
-  locale?: L
-): WithOnChange<DeepTransformContent<T['content'], L>> => {
+  localeOrSelector?: A
+): WithOnChange<
+  DeepTransformContent<
+    ResolveQualifiedDictionaryContent<T, A>,
+    ExtractSelectorLocale<A>
+  >
+> => {
   const client = getIntlayerClient();
-  const content = getDictionary(
-    dictionary,
-    (locale ?? client.locale) as L
-  ) as WithOnChange<DeepTransformContent<T['content'], L>>;
 
-  content.onChange = (
-    callback: (content: DeepTransformContent<T['content'], L>) => void
-  ) => {
-    client.subscribe((newLocale) => {
-      callback(getDictionary(dictionary, (locale ?? newLocale) as L));
-    });
-    return content;
-  };
+  const isSelector =
+    typeof localeOrSelector === 'object' && localeOrSelector !== null;
+  const explicitLocale = isSelector
+    ? (localeOrSelector as DictionarySelector).locale
+    : (localeOrSelector as LocalesValues | undefined);
+
+  const read = (locale: LocalesValues | undefined) =>
+    isSelector
+      ? getDictionary(dictionary, {
+          ...(localeOrSelector as DictionarySelector),
+          locale,
+        } as A)
+      : getDictionary(dictionary, locale as A);
+
+  const content = read(explicitLocale ?? client.locale) as WithOnChange<any>;
+
+  // A selector can resolve to null/array; only objects carry `.onChange`.
+  if (content != null && typeof content === 'object') {
+    content.onChange = (callback) => {
+      client.subscribe((newLocale) => {
+        callback(read(explicitLocale ?? newLocale));
+      });
+      return content;
+    };
+  }
 
   return content;
 };

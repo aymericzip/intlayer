@@ -284,6 +284,8 @@ export class MyElement extends LitElement {
           </div>
         </div>
 
+        <qualified-content-demo></qualified-content-demo>
+
         <p class="read-the-docs">${content.readTheDocs}</p>
 
         <div style="position: absolute; right: 20px; bottom: 20px;">

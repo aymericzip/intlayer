@@ -64,7 +64,7 @@ const detectLanguage = (
           );
 
           if (cookie) {
-            return cookie.split('=')[1].trim();
+            return cookie.split('=')[1]?.trim();
           }
         } catch {}
         return undefined;

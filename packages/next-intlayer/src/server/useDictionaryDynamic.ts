@@ -1,30 +1,37 @@
-import type { Dictionary } from '@intlayer/types/dictionary';
+import type { QualifiedDynamicLoaderMap } from '@intlayer/core/dictionaryManipulator';
 import type {
-  DeclaredLocales,
+  Dictionary,
+  DictionarySelector,
+} from '@intlayer/types/dictionary';
+import type {
+  LocalesValues,
   StrictModeLocaleMap,
 } from '@intlayer/types/module_augmentation';
 import { useDictionaryDynamic as useDictionaryDynamicBase } from 'react-intlayer/server';
 import { safeUseLocale } from './useIntlayer';
 
 /**
- * On the server side, Hook that transform a dictionary and return the content
+ * On the server side, hook that lazily loads a dictionary (plain or qualified)
+ * and returns the content for the given locale or selector.
  *
- * If the locale is not provided, it will use the locale from the server context
+ * If the locale is not provided, it will use the locale from the server context.
  */
 export const useDictionaryDynamic = <
   const T extends Dictionary,
-  const L extends DeclaredLocales = DeclaredLocales,
+  const A extends LocalesValues | DictionarySelector = LocalesValues,
 >(
-  dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
+  dictionaryPromise:
+    | StrictModeLocaleMap<() => Promise<T>>
+    | QualifiedDynamicLoaderMap,
   key: string,
-  locale?: L
-): ReturnType<typeof useDictionaryDynamicBase<T, L>> => {
+  localeOrSelector?: A
+): ReturnType<typeof useDictionaryDynamicBase<T, A>> => {
   const storedLocale = safeUseLocale();
 
-  return useDictionaryDynamicBase<T, L>(
+  return useDictionaryDynamicBase<T, A>(
     dictionaryPromise,
     key,
-    locale,
+    localeOrSelector,
     storedLocale
   );
 };

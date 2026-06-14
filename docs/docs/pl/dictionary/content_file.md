@@ -494,6 +494,66 @@ Wskazuje priorytet słownika do rozwiązywania konfliktów. Gdy wiele słownikó
 // To nadpisze słownik bazowy
 ```
 
+#### `item` (liczba)
+
+Używane w połączeniu z Kolekcjami (Collections), to pole definiuje pozycję elementu w kolekcji. Pozwala na budowanie uporządkowanych kolekcji zlokalizowanych elementów wybieralnych za pomocą indeksu w czasie wykonywania.
+
+**Przykład:**
+
+```typescript
+{
+  key: "faq",
+  item: 1,
+  content: {
+    question: "What is Intlayer?",
+    answer: "An i18n toolkit."
+  }
+}
+```
+
+> Zobacz [Kolekcje](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/collections.md) po więcej informacji.
+
+#### `variant` (string)
+
+Używane w połączeniu z Wariantami (Variants), to pole definiuje nazwane alternatywy treści. Pozwala na przełączanie się między różnymi wariantami tego samego klucza słownika w czasie wykonywania bez zmian w kodzie (np. w przypadku testów A/B, banerów sezonowych). Jeśli nie zostanie podane, jest traktowane jako wariant domyślny.
+
+**Przykład:**
+
+```typescript
+{
+  key: "hero-banner",
+  variant: "black_friday",
+  content: {
+    headline: "50 % off — today only",
+    cta: "Shop now"
+  }
+}
+```
+
+> Zobacz [Warianty](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/variants.md) po więcej informacji.
+
+#### `meta` (`Record<string, string | number | boolean>`)
+
+Używane w połączeniu z Dynamicznymi Rekordami (Dynamic Records), to pole pozwala na deklarowanie rekordów zarządzanych przez CMS lub dowolnych danych pobieranych w czasie wykonywania za pomocą nieprzejrzystego identyfikatora (ID). Tożsamość słownika jest definiowana przez dowolny zestaw par klucz-wartość zadeklarowanych w tym polu `meta`.
+
+**Przykład:**
+
+```typescript
+{
+  key: "product-copy",
+  meta: {
+    id: "prod_abc",
+    userId: "user_123"
+  },
+  content: {
+    name: "Widget Pro",
+    description: "The best widget."
+  }
+}
+```
+
+> Zobacz [Dynamiczne Rekordy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/dynamic_content.md) po więcej informacji.
+
 ### Właściwości CMS
 
 ##### `version` (string)

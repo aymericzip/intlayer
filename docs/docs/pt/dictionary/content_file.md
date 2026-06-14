@@ -491,6 +491,66 @@ Indica a prioridade do dicionário para resolução de conflitos. Quando múltip
 // Isto irá sobrescrever o dicionário base
 ```
 
+#### `item` (número)
+
+Usado em conjunto com as Coleções, este campo define a posição do item em uma coleção. Ele permite que você crie coleções ordenadas de itens localizados selecionáveis por índice em tempo de execução.
+
+**Exemplo:**
+
+```typescript
+{
+  key: "faq",
+  item: 1,
+  content: {
+    question: "What is Intlayer?",
+    answer: "An i18n toolkit."
+  }
+}
+```
+
+> Veja [Coleções](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dynamic_dictionaries/collections.md) para mais informações.
+
+#### `variant` (string)
+
+Usado em conjunto com as Variantes, este campo define alternativas de conteúdo nomeadas. Ele permite que você alterne entre diferentes variações da mesma chave de dicionário em tempo de execução sem alterações no código (por exemplo, para testes A/B, banners sazonais). Se não for fornecido, será considerado como a variante padrão.
+
+**Exemplo:**
+
+```typescript
+{
+  key: "hero-banner",
+  variant: "black_friday",
+  content: {
+    headline: "50 % off — today only",
+    cta: "Shop now"
+  }
+}
+```
+
+> Veja [Variantes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dynamic_dictionaries/variants.md) para mais informações.
+
+#### `meta` (`Record<string, string | number | boolean>`)
+
+Usado em conjunto com os Registros Dinâmicos, este campo permite declarar registros gerenciados pelo CMS ou dados arbitrários buscados em tempo de execução por um ID opaco. A identidade do dicionário é definida pelo conjunto arbitrário de pares chave-valor declarados neste campo `meta`.
+
+**Exemplo:**
+
+```typescript
+{
+  key: "product-copy",
+  meta: {
+    id: "prod_abc",
+    userId: "user_123"
+  },
+  content: {
+    name: "Widget Pro",
+    description: "The best widget."
+  }
+}
+```
+
+> Veja [Registros Dinâmicos](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dynamic_dictionaries/dynamic_content.md) para mais informações.
+
 ### Propriedades do CMS
 
 ##### `version` (string)

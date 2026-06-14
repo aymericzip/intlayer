@@ -510,6 +510,66 @@ Sözlük içeriğini harici kaynaklardan otomatik olarak doldurma talimatları. 
 // Bu, temel sözlüğün üzerine yazacaktır
 ```
 
+#### `item` (sayı)
+
+Koleksiyonlar (Collections) ile birlikte kullanılan bu alan, bir koleksiyondaki öğenin konumunu tanımlar. Çalışma zamanında dizine (index) göre seçilebilen yerelleştirilmiş öğelerden oluşan sıralı koleksiyonlar oluşturmanıza olanak tanır.
+
+**Örnek:**
+
+```typescript
+{
+  key: "faq",
+  item: 1,
+  content: {
+    question: "What is Intlayer?",
+    answer: "An i18n toolkit."
+  }
+}
+```
+
+> Daha fazla bilgi için [Koleksiyonlar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/collections.md) sayfasına bakın.
+
+#### `variant` (string)
+
+Varyantlar (Variants) ile birlikte kullanılan bu alan, adlandırılmış içerik alternatiflerini tanımlar. Kod değişikliği yapmadan çalışma zamanında aynı sözlük anahtarının farklı varyasyonları arasında geçiş yapmanızı sağlar (örneğin A/B testi, mevsimsel afişler için). Sağlanmazsa, varsayılan varyant olarak kabul edilir.
+
+**Örnek:**
+
+```typescript
+{
+  key: "hero-banner",
+  variant: "black_friday",
+  content: {
+    headline: "50 % off — today only",
+    cta: "Shop now"
+  }
+}
+```
+
+> Daha fazla bilgi için [Varyantlar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/variants.md) sayfasına bakın.
+
+#### `meta` (`Record<string, string | number | boolean>`)
+
+Dinamik Kayıtlar (Dynamic Records) ile birlikte kullanılan bu alan, CMS tarafından yönetilen kayıtları veya çalışma zamanında opak bir kimlik (ID) ile getirilen rastgele verileri bildirmeyi sağlar. Sözlük kimliği, bu `meta` alanında bildirilen rastgele anahtar-değer çiftleri kümesiyle tanımlanır.
+
+**Örnek:**
+
+```typescript
+{
+  key: "product-copy",
+  meta: {
+    id: "prod_abc",
+    userId: "user_123"
+  },
+  content: {
+    name: "Widget Pro",
+    description: "The best widget."
+  }
+}
+```
+
+> Daha fazla bilgi için [Dinamik Kayıtlar](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dynamic_dictionaries/dynamic_content.md) sayfasına bakın.
+
 ### CMS Özellikleri
 
 ##### `version` (string)

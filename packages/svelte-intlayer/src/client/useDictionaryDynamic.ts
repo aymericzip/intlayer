@@ -1,6 +1,15 @@
-import type { Dictionary } from '@intlayer/types/dictionary';
+import {
+  isQualifiedDynamicLoaderMap,
+  type QualifiedDynamicLoaderMap,
+  resolveQualifiedDynamicContentAsync,
+} from '@intlayer/core/dictionaryManipulator';
+import type {
+  Dictionary,
+  DictionarySelector,
+} from '@intlayer/types/dictionary';
 import type {
   DictionaryKeys,
+  DictionarySelectorForKey,
   LocalesValues,
   StrictModeLocaleMap,
 } from '@intlayer/types/module_augmentation';
@@ -27,18 +36,53 @@ const recursiveProxy: any = new Proxy(() => {}, {
   apply: () => recursiveProxy,
 });
 
+const loadingProxy = (): any =>
+  new Proxy(
+    { isLoading: true, error: null },
+    {
+      get: (_target, prop) => {
+        if (prop === 'isLoading') return true;
+        if (prop === 'error') return null;
+        // For any other property, return the recursive proxy
+        // to allow nested access without errors
+        return recursiveProxy;
+      },
+    }
+  );
+
+/** Merges the resolved content with the loading/error state. */
+const withState = (value: unknown): any => {
+  if (Array.isArray(value)) {
+    return Object.assign(value.slice(), { isLoading: false, error: null });
+  }
+  if (value && typeof value === 'object') {
+    return { ...value, isLoading: false, error: null };
+  }
+  return { isLoading: false, error: null };
+};
+
 /**
- * Svelte hook for dynamic dictionary loading
- * Loads dictionary content asynchronously and returns a reactive store.
+ * Svelte hook for dynamic dictionary loading.
  *
- * @param dictionaryPromise - Object mapping locales to import functions (e.g. { en: () => import(...) })
- * @param locale - Optional fixed locale. If not provided, follows the global intlayerStore.
- * @returns Readable store with the loaded dictionary content
+ * For a qualified loader map (collection / variant / meta record, possibly
+ * combined), only the chunk(s) the selector targets are loaded. For a plain
+ * loader map, the locale chunk is loaded.
+ *
+ * @param dictionaryPromise - Locale-keyed loader map, or a qualified loader map.
+ * @param key - The dictionary key (used for cache namespacing).
+ * @param localeOrSelector - Optional fixed locale or selector.
+ * @returns Readable store with the loaded dictionary content.
  */
-export function useDictionaryDynamic<const T extends Dictionary>(
-  dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
-  _key: DictionaryKeys,
-  locale?: LocalesValues
+export function useDictionaryDynamic<
+  const T extends Dictionary,
+  const K extends DictionaryKeys,
+  const A extends LocalesValues | DictionarySelectorForKey<K> = LocalesValues,
+>(
+  dictionaryPromise:
+    | StrictModeLocaleMap<() => Promise<T>>
+    | QualifiedDynamicLoaderMap,
+  key: K,
+  localeOrSelector?: A
 ): Readable<
   DeepTransformContent<T['content']> & {
     isLoading: boolean;
@@ -47,54 +91,53 @@ export function useDictionaryDynamic<const T extends Dictionary>(
 > {
   const context = getIntlayerContext();
 
+  const isSelector =
+    typeof localeOrSelector === 'object' && localeOrSelector !== null;
+  const selector = isSelector
+    ? (localeOrSelector as DictionarySelector)
+    : undefined;
+  const explicitLocale = isSelector
+    ? (localeOrSelector as DictionarySelector).locale
+    : (localeOrSelector as LocalesValues | undefined);
+
   const localeStore = derived(
     intlayerStore,
-    ($store) => locale ?? context?.locale ?? $store.locale
+    ($store) => explicitLocale ?? context?.locale ?? $store.locale
   );
 
   return derived(
     localeStore,
     ($locale, set) => {
       // Set loading state immediately with proxy
-      set(
-        new Proxy(
-          { isLoading: true, error: null },
-          {
-            get: (_target, prop) => {
-              if (prop === 'isLoading') return true;
-              if (prop === 'error') return null;
-              // For any other property, return the recursive proxy
-              // to allow nested access without errors
-              return recursiveProxy;
-            },
-          }
-        ) as any
-      );
+      set(loadingProxy());
 
       let isCancelled = false;
 
       const load = async () => {
         try {
-          // Access the loader for the current locale
-          // dictionaryPromise is indexed by locale
-          const loader =
-            dictionaryPromise[$locale as keyof typeof dictionaryPromise];
+          let resolved: unknown;
 
-          if (!loader) {
-            return;
+          if (isQualifiedDynamicLoaderMap(dictionaryPromise)) {
+            resolved = await resolveQualifiedDynamicContentAsync({
+              loaderMap: dictionaryPromise,
+              key: String(key),
+              locale: $locale,
+              selector,
+              transform: (dictionary) => getDictionary(dictionary, $locale),
+            });
+          } else {
+            const loader =
+              dictionaryPromise[$locale as keyof typeof dictionaryPromise];
+
+            if (!loader) return;
+
+            const dict = await loader();
+            resolved = getDictionary(dict, $locale);
           }
-
-          const dict = await loader();
 
           if (isCancelled) return;
 
-          const content = getDictionary(dict, $locale);
-
-          set({
-            ...content,
-            isLoading: false,
-            error: null,
-          } as any);
+          set(withState(resolved));
         } catch (error) {
           if (isCancelled) return;
           console.error(error);
@@ -112,15 +155,6 @@ export function useDictionaryDynamic<const T extends Dictionary>(
       };
     },
     // Initial value
-    new Proxy(
-      { isLoading: true, error: null },
-      {
-        get: (_target, prop) => {
-          if (prop === 'isLoading') return true;
-          if (prop === 'error') return null;
-          return recursiveProxy;
-        },
-      }
-    ) as any
+    loadingProxy()
   );
 }

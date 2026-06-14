@@ -397,11 +397,11 @@ export default config;
 
 ### Volby pro sestavení (Build Options)
 
-| Vlastnost      | Typ                    | Výchozí     | Popis                                                                                                                                                                                                                 |
-| :------------- | :--------------------- | :---------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`optimize`** | `boolean \| undefined` | `undefined` | Povolí průchod pro přepis importů. `undefined` = aktivní pouze v produkčním sestavení. `false` vypíná rovněž purge a minify.                                                                                          |
-| **`minify`**   | `boolean`              | `false`     | Přejmenuje klíče polí obsahu v kompilovaných JSON souborech na krátké abecední aliasy. Stejně tak přepíše odpovídající přístupy k vlastnostem ve zdrojovém kódu. Nefunguje, pokud je `optimize` nastaveno na `false`. |
-| **`purge`**    | `boolean`              | `false`     | Z kompilovaných JSON souborů odstraní obsahová pole, k nimž se ve zdrojovém kódu staticky nepřistupuje. Nefunguje, pokud je `optimize` nastaveno na `false`.                                                          |
+| Vlastnost      | Typ                   | Výchozí     | Popis                                                                                                                                                                                                                 |
+| :------------- | :-------------------- | :---------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`optimize`** | `boolean / undefined` | `undefined` | Povolí průchod pro přepis importů. `undefined` = aktivní pouze v produkčním sestavení. `false` vypíná rovněž purge a minify.                                                                                          |
+| **`minify`**   | `boolean`             | `false`     | Přejmenuje klíče polí obsahu v kompilovaných JSON souborech na krátké abecední aliasy. Stejně tak přepíše odpovídající přístupy k vlastnostem ve zdrojovém kódu. Nefunguje, pokud je `optimize` nastaveno na `false`. |
+| **`purge`**    | `boolean`             | `false`     | Z kompilovaných JSON souborů odstraní obsahová pole, k nimž se ve zdrojovém kódu staticky nepřistupuje. Nefunguje, pokud je `optimize` nastaveno na `false`.                                                          |
 
 ### Minifikace (přejmenování klíčů)
 

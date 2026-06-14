@@ -497,6 +497,66 @@ Indicates the priority of the dictionary for conflict resolution. When multiple 
 // This will override the base dictionary
 ```
 
+#### `item` (number)
+
+Used in conjunction with Collections, this field defines the item's position in a collection. It allows you to build ordered collections of localized items selectable by index at runtime.
+
+**Example:**
+
+```typescript
+{
+  key: "faq",
+  item: 1,
+  content: {
+    question: "What is Intlayer?",
+    answer: "An i18n toolkit."
+  }
+}
+```
+
+> See [Collections](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/collections.md) for more information.
+
+#### `variant` (string)
+
+Used in conjunction with Variants, this field defines named content alternatives. It allows you to switch between different variations of the same dictionary key at runtime without code changes (e.g., for A/B testing, seasonal banners). If not provided, it is considered as the default variant.
+
+**Example:**
+
+```typescript
+{
+  key: "hero-banner",
+  variant: "black_friday",
+  content: {
+    headline: "50 % off — today only",
+    cta: "Shop now"
+  }
+}
+```
+
+> See [Variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/variants.md) for more information.
+
+#### `meta` (`Record<string, string | number | boolean>`)
+
+Used in conjunction with Dynamic Records, this field allows declaring CMS-managed records or arbitrary data fetched at runtime by an opaque ID. The dictionary identity is defined by the arbitrary set of key-value pairs declared in this `meta` field.
+
+**Example:**
+
+```typescript
+{
+  key: "product-copy",
+  meta: {
+    id: "prod_abc",
+    userId: "user_123"
+  },
+  content: {
+    name: "Widget Pro",
+    description: "The best widget."
+  }
+}
+```
+
+> See [Dynamic Records](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/dynamic_content.md) for more information.
+
 ### CMS Properties
 
 ##### `version` (string)

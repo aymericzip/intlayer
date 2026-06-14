@@ -1,7 +1,11 @@
 import { computed, inject, type Signal } from '@angular/core';
+import type { DictionarySelector } from '@intlayer/types/dictionary';
 import type {
+  DeclaredLocales,
   DictionaryKeys,
-  DictionaryRegistryContent,
+  DictionaryRegistryResult,
+  DictionarySelectorForKey,
+  ExtractSelectorLocale,
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import { getIntlayer } from '../getIntlayer';
@@ -43,21 +47,32 @@ export const isUpdatableNode = (
  */
 export const useIntlayer = <
   const T extends DictionaryKeys,
-  const L extends LocalesValues,
+  const A extends LocalesValues | DictionarySelectorForKey<T> = DeclaredLocales,
 >(
   key: T,
-  locale?: LocalesValues
-): Signal<DeepTransformContent<DictionaryRegistryContent<T>>> => {
+  localeOrSelector?: A
+): Signal<
+  DeepTransformContent<DictionaryRegistryResult<T, A>, ExtractSelectorLocale<A>>
+> => {
   const intlayer = inject<IntlayerProvider>(INTLAYER_TOKEN)!;
 
-  /** which locale should we use right now? */
-  const localeTarget = computed(() => locale ?? intlayer.locale());
+  const isSelector =
+    typeof localeOrSelector === 'object' && localeOrSelector !== null;
 
   /** a *stable* reactive dictionary object */
   // @ts-ignore Type instantiation is excessively deep and possibly infinite
-  const content = computed(
-    () => getIntlayer<T, L>(key, localeTarget() as L) as any
-  );
+  const content = computed(() => {
+    const currentLocale = intlayer.locale();
+
+    if (isSelector) {
+      return getIntlayer(key, {
+        ...localeOrSelector,
+        locale: localeOrSelector.locale ?? currentLocale,
+      } as A) as any;
+    }
+
+    return getIntlayer(key, (localeOrSelector ?? currentLocale) as A) as any;
+  });
 
   return content; // all consumers keep full reactivity
 };

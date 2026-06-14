@@ -3,21 +3,39 @@ import { resolve } from 'node:path';
 import { colorizePath } from '@intlayer/config/logger';
 import { assertPathWithin } from '@intlayer/config/utils';
 import {
-  mergeDictionaries,
+  mergeQualifiedDictionaries,
   normalizeDictionaries,
 } from '@intlayer/core/dictionaryManipulator';
 import type { IntlayerConfig } from '@intlayer/types/config';
-import type { Dictionary } from '@intlayer/types/dictionary';
+import type {
+  Dictionary,
+  QualifiedDictionaryGroup,
+} from '@intlayer/types/dictionary';
 import { parallelize } from '../utils/parallelize';
 import { writeJsonIfChanged } from '../writeJsonIfChanged';
 import type { UnmergedDictionaryOutput } from './writeUnmergedDictionary';
 
 export type MergedDictionaryResult = {
   dictionaryPath: string;
-  dictionary: Dictionary;
+  dictionary: Dictionary | QualifiedDictionaryGroup;
 };
 
 export type MergedDictionaryOutput = Record<string, MergedDictionaryResult>;
+
+/**
+ * Merged output restricted to plain (unqualified) dictionaries — qualified
+ * groups (collections, variants, meta records) are static-only and filtered
+ * out before the dynamic/fetch build steps.
+ */
+export type PlainMergedDictionaryResult = {
+  dictionaryPath: string;
+  dictionary: Dictionary;
+};
+
+export type PlainMergedDictionaryOutput = Record<
+  string,
+  PlainMergedDictionaryResult
+>;
 
 /**
  * Write the merged dictionaries to the dictionariesDir
@@ -59,7 +77,9 @@ export const writeMergedDictionaries = async (
         configuration
       );
 
-      const mergedDictionary = mergeDictionaries(normalizedDictionaries);
+      const mergedDictionary = mergeQualifiedDictionaries(
+        normalizedDictionaries
+      );
 
       const outputFileName = `${key}.json`;
       const resultFilePath = resolve(dictionariesDir, outputFileName);

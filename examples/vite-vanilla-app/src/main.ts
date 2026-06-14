@@ -8,6 +8,7 @@ import {
   units,
 } from 'intlayer';
 import { useIntlayer } from 'vanilla-intlayer';
+import { setupQualifiedContentDemo } from './components/QualifiedContentDemo';
 import { setupLocaleSwitcher } from './locale-switcher';
 import './style.css';
 
@@ -252,6 +253,8 @@ const setupApp = async () => {
         </div>
 
         <p class="read-the-docs">${content.readTheDocs}</p>
+
+        <div id="qualified-content-demo"></div>
       </div>
     `;
 
@@ -261,6 +264,10 @@ const setupApp = async () => {
         count++;
         render();
       });
+
+    setupQualifiedContentDemo(
+      document.querySelector<HTMLDivElement>('#qualified-content-demo')!
+    );
   };
 
   render();

@@ -117,6 +117,308 @@ export type Fill =
 
 export type DictionaryId = string;
 export type DictionaryKey = string;
+
+/**
+ * Meta record qualifier of a dictionary.
+ *
+ * The `id` field is the designated discriminator used to resolve the record at
+ * runtime (`useIntlayer('product-copy', { id: 'prod_abc', ... })`). All other
+ * fields are typed payload that must be provided by the selector to match.
+ */
+export type DictionaryMeta = {
+  id: string | number;
+} & Record<string, string | number>;
+
+/**
+ * A dimension used to discriminate sibling dictionaries sharing the same key.
+ *
+ * - 'variant': named alternative content shapes (A/B testing, seasonal banners…)
+ * - 'meta': record-keyed content resolved by the `meta.id` discriminator
+ * - 'item': ordered collection items (blog posts, FAQs…)
+ *
+ * A key may declare SEVERAL dimensions at once (e.g. a collection whose items
+ * also have variants). They are always ordered canonically as
+ * `variant → meta → item`, with `item` as the innermost / collection axis.
+ */
+export type DictionaryQualifierType = 'variant' | 'meta' | 'item';
+
+/**
+ * Output of the merge step for a key whose dictionaries declare one or more
+ * qualifier dimensions (`item`, `variant`, `meta`).
+ *
+ * Sibling dictionaries sharing the same qualifier coordinates are merged
+ * together (locale completion / priority overrides preserved). Sibling
+ * dictionaries without any qualifier act as shared base content merged into
+ * every entry as fallback.
+ *
+ * `content` is keyed by the composite id — the per-dimension ids joined in
+ * canonical order with `/` (e.g. `"promo/2"` for a variant × item key). Each
+ * value is the resolved content node directly: the qualifier coordinates are
+ * decoded from the composite id, not duplicated on a per-entry wrapper.
+ *
+ * Example (`.intlayer/dictionaries/faq.json`):
+ * ```json
+ * {
+ *   "key": "faq",
+ *   "qualifierTypes": ["item"],
+ *   "content": {
+ *     "1": { "nodeType": "translation", "translation": { ... } },
+ *     "2": { "nodeType": "translation", "translation": { ... } }
+ *   }
+ * }
+ * ```
+ */
+export type QualifiedDictionaryGroup = {
+  $schema?: 'https://intlayer.org/schema.json';
+  key: DictionaryKey;
+  qualifierTypes: DictionaryQualifierType[];
+  /**
+   * Maps each composite id to its resolved content node. Replaces the former
+   * per-entry `Dictionary` wrapper — coordinates live in the key, not the value.
+   */
+  content: Record<string, unknown>;
+  /**
+   * Extra meta fields preserved per composite id, present only for groups that
+   * declare the `meta` dimension. The composite id only encodes `meta.id`, so
+   * the remaining declared meta fields are kept here for selector matching.
+   */
+  meta?: Record<string, DictionaryMeta>;
+  /** Import mode shared by the group (collected from its qualified entries). */
+  importMode?: ImportMode;
+  localIds?: LocalDictionaryId[];
+};
+
+/**
+ * Selector accepted as second argument of `useIntlayer` / `getIntlayer` (and
+ * forwarded by the build-time transform to `useDictionary` / `getDictionary`).
+ *
+ * - `{ item: 2 }` selects a collection item (1-based index)
+ * - `{ variant: 'black-friday' }` selects a named variant
+ * - `{ id: 'prod_abc', ...metaFields }` selects a meta record; every meta field
+ *   declared on the matching dictionary must be provided and equal
+ * - `locale` composes with any of the above and overrides the context locale
+ *
+ * The keys `locale`, `item` and `variant` are reserved and cannot be used as
+ * meta field names.
+ */
+export type DictionarySelector = {
+  locale?: LocalesValues;
+  item?: number;
+  variant?: string;
+} & Record<string, string | number | undefined>;
+
+type QualifiedEntryContent<Entry> = Entry extends { content: infer Content }
+  ? Content
+  : unknown;
+
+/** Splits a composite id literal (`"a/b/c"`) into its ordered segments. */
+type SplitCompositeId<Id extends string> =
+  Id extends `${infer Head}/${infer Tail}`
+    ? [Head, ...SplitCompositeId<Tail>]
+    : [Id];
+
+/**
+ * Zips the declared qualifier dimensions with the segments decoded from a
+ * composite id into a coordinate record (e.g. `['variant', 'item']` +
+ * `['promo', '2']` → `{ variant: 'promo'; item: '2' }`).
+ */
+type ZipQualifierCoordinates<
+  QualifierTypes extends readonly DictionaryQualifierType[],
+  Segments extends readonly string[],
+> = {
+  [Index in keyof QualifierTypes as QualifierTypes[Index] extends DictionaryQualifierType
+    ? QualifierTypes[Index]
+    : never]: Index extends keyof Segments ? Segments[Index] : never;
+};
+
+/**
+ * Rebuilds the per-entry shape (`{ variant; item; meta; content }`) from the
+ * `content` map keyed by composite id, so the coordinate-comparison helpers can
+ * be reused unchanged. Coordinates are decoded from each key.
+ */
+type ReconstructedEntries<
+  ContentMap,
+  QualifierTypes extends readonly DictionaryQualifierType[],
+> = {
+  [Key in keyof ContentMap & string]: ZipQualifierCoordinates<
+    QualifierTypes,
+    SplitCompositeId<Key>
+  > extends infer Coordinates
+    ? { content: ContentMap[Key] } & (Coordinates extends { variant: infer V }
+        ? { variant: V }
+        : unknown) &
+        (Coordinates extends { item: infer Item } ? { item: Item } : unknown) &
+        (Coordinates extends { meta: infer Id }
+          ? { meta: { id: Id } }
+          : unknown)
+    : never;
+};
+
+/** Stringifies a literal coordinate for comparison. */
+type StringifyCoordinate<Value> = Value extends string | number
+  ? `${Value}`
+  : never;
+
+/** Literal equality between two coordinate values. */
+type CoordinateEquals<Left, Right> = [StringifyCoordinate<Left>] extends [
+  StringifyCoordinate<Right>,
+]
+  ? true
+  : false;
+
+/** The coordinate a selector pins for each dimension. */
+type SelectorVariant<Selector> = Selector extends { variant: infer Variant }
+  ? Variant
+  : 'default';
+type SelectorItem<Selector> = Selector extends { item: infer Item }
+  ? Item
+  : undefined;
+type SelectorMetaId<Selector> = Selector extends { id: infer Id }
+  ? Id
+  : undefined;
+
+/**
+ * Whether a single group entry matches the selector across every declared
+ * dimension. The `item` dimension matches any value when the selector leaves it
+ * open (collection axis).
+ */
+type EntryMatchesSelector<
+  Entry,
+  QualifierTypes extends readonly DictionaryQualifierType[],
+  Selector,
+> = (
+  'variant' extends QualifierTypes[number]
+    ? Entry extends { variant: infer Variant }
+      ? CoordinateEquals<Variant, SelectorVariant<Selector>>
+      : false
+    : true
+) extends true
+  ? (
+      'meta' extends QualifierTypes[number]
+        ? Entry extends { meta: { id: infer Id } }
+          ? CoordinateEquals<Id, SelectorMetaId<Selector>>
+          : false
+        : true
+    ) extends true
+    ? 'item' extends QualifierTypes[number]
+      ? [SelectorItem<Selector>] extends [undefined]
+        ? true
+        : Entry extends { item: infer Item }
+          ? CoordinateEquals<Item, SelectorItem<Selector>>
+          : false
+      : true
+    : false
+  : false;
+
+/** Entries that match the selector. */
+type MatchingEntries<
+  Entries,
+  QualifierTypes extends readonly DictionaryQualifierType[],
+  Selector,
+> = {
+  [Key in keyof Entries as EntryMatchesSelector<
+    Entries[Key],
+    QualifierTypes,
+    Selector
+  > extends true
+    ? Key
+    : never]: Entries[Key];
+};
+
+/** Whether the collection (`item`) axis is left open (→ array result). */
+type IsItemAxisOpen<
+  QualifierTypes extends readonly DictionaryQualifierType[],
+  Selector,
+> = 'item' extends QualifierTypes[number]
+  ? [SelectorItem<Selector>] extends [undefined]
+    ? true
+    : false
+  : false;
+
+/**
+ * Computes the content type returned by `getIntlayer` / `getDictionary` for a
+ * dictionary (or qualified dictionary group) `T` given the selector argument
+ * `Selector`.
+ *
+ * The result is resolved against the **specific** entries the selector targets
+ * (matched across variant / meta / item coordinates), never the union of every
+ * entry:
+ * - `item` left open → array of the matching entries' content
+ * - all dimensions pinned → that single entry's content (or `null` if none match)
+ * - plain dictionary → its `content` (selector ignored)
+ */
+export type ResolveQualifiedDictionaryContent<
+  T,
+  Selector = undefined,
+> = T extends {
+  qualifierTypes: infer QualifierTypes extends
+    readonly DictionaryQualifierType[];
+  content: infer ContentMap extends Record<string, any>;
+}
+  ? ReconstructedEntries<ContentMap, QualifierTypes> extends infer Entries
+    ? IsItemAxisOpen<QualifierTypes, Selector> extends true
+      ? QualifiedEntryContent<
+          MatchingEntries<
+            Entries,
+            QualifierTypes,
+            Selector
+          >[keyof MatchingEntries<Entries, QualifierTypes, Selector>]
+        >[]
+      : [keyof MatchingEntries<Entries, QualifierTypes, Selector>] extends [
+            never,
+          ]
+        ? null
+        : QualifiedEntryContent<
+            MatchingEntries<
+              Entries,
+              QualifierTypes,
+              Selector
+            >[keyof MatchingEntries<Entries, QualifierTypes, Selector>]
+          >
+    : never
+  : T extends { content: infer Content }
+    ? Content
+    : never;
+
+/** Distributes over the union of a group's entries. */
+type GroupEntryUnion<T> = T extends {
+  qualifierTypes: infer QualifierTypes extends
+    readonly DictionaryQualifierType[];
+  content: infer ContentMap;
+}
+  ? ReconstructedEntries<ContentMap, QualifierTypes>[keyof ReconstructedEntries<
+      ContentMap,
+      QualifierTypes
+    >]
+  : never;
+
+type EntryVariant<Entry> = Entry extends { variant: infer Variant }
+  ? Variant
+  : never;
+type EntryItem<Entry> = Entry extends { item: infer Item } ? Item : never;
+type EntryMetaId<Entry> = Entry extends { meta: { id: infer Id } } ? Id : never;
+
+/**
+ * The selector accepted for a specific qualified dictionary group `T`: each
+ * dimension is constrained to the coordinates that actually exist, so an unknown
+ * `variant` / `item` / `id` is a compile-time error. Plain dictionaries (no
+ * `entries`) fall back to the loose {@link DictionarySelector}.
+ */
+export type DictionarySelectorForGroup<T> = [GroupEntryUnion<T>] extends [never]
+  ? DictionarySelector
+  : { locale?: LocalesValues } & ([EntryVariant<GroupEntryUnion<T>>] extends [
+      never,
+    ]
+      ? unknown
+      : { variant?: EntryVariant<GroupEntryUnion<T>> | (string & {}) }) &
+      ([EntryItem<GroupEntryUnion<T>>] extends [never]
+        ? unknown
+        : { item?: EntryItem<GroupEntryUnion<T>> | number | (string & {}) }) &
+      ([EntryMetaId<GroupEntryUnion<T>>] extends [never]
+        ? unknown
+        : {
+            id?: EntryMetaId<GroupEntryUnion<T>> | number | (string & {});
+          } & Record<string, string | number | undefined>);
 export type DictionaryLocation =
   | 'remote'
   | 'local'
@@ -300,6 +602,55 @@ type DictionaryBase = {
    * ```
    */
   tags?: string[];
+
+  /**
+   * Collection item index (1-based) of this dictionary inside the collection
+   * identified by `key`.
+   *
+   * Sibling dictionaries sharing the same key but different `item` values form
+   * an ordered collection:
+   *
+   * ```ts
+   * // faq.1.content.ts → { key: 'faq', item: 1, content: { ... } }
+   * // faq.2.content.ts → { key: 'faq', item: 2, content: { ... } }
+   *
+   * const allFaqs = useIntlayer('faq');          // → every item, ordered
+   * const faq2 = useIntlayer('faq', { item: 2 }); // → single item
+   * ```
+   *
+   * A sibling dictionary without any qualifier acts as shared base content
+   * merged into every item as fallback.
+   */
+  item?: number;
+
+  /**
+   * Variant name of this dictionary inside the variant set identified by `key`.
+   *
+   * Sibling dictionaries sharing the same key but different `variant` values
+   * form a named variant set (A/B testing, seasonal banners, feature flags…):
+   *
+   * ```ts
+   * // hero.content.ts     → { key: 'hero-banner', variant: 'default', content: { ... } }
+   * // hero.bf.content.ts  → { key: 'hero-banner', variant: 'black-friday', content: { ... } }
+   *
+   * const hero = useIntlayer('hero-banner');                            // → 'default' variant
+   * const heroBf = useIntlayer('hero-banner', { variant: 'black-friday' }); // → named variant
+   * ```
+   */
+  variant?: string;
+
+  /**
+   * Meta record qualifier of this dictionary. The `meta.id` field is the
+   * discriminator used to resolve the record at runtime; every other meta
+   * field must be provided by the selector to match:
+   *
+   * ```ts
+   * // product.abc.content.ts → { key: 'product-copy', meta: { id: 'abc', userId: '123' }, content: { ... } }
+   *
+   * const product = useIntlayer('product-copy', { id: 'abc', userId: '123' });
+   * ```
+   */
+  meta?: DictionaryMeta;
 
   /**
    * Transform the dictionary in a per-locale dictionary.

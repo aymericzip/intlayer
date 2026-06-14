@@ -397,11 +397,11 @@ export default config;
 
 ### Derleme (Build) Seçenekleri
 
-| Özellik        | Tip                    | Varsayılan  | Açıklama                                                                                                                                                                                                                               |
-| :------------- | :--------------------- | :---------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`optimize`** | `boolean \| undefined` | `undefined` | İçe aktarma (import) yeniden yazma işlemini etkinleştirir. `undefined` = yalnızca production derlemelerinde aktiftir. `false` olarak ayarlanırsa purge ve minify işlemleri de devre dışı kalır.                                        |
-| **`minify`**   | `boolean`              | `false`     | Derlenmiş JSON dosyalarındaki içerik alanlarının anahtar isimlerini kısa alfabetik adlara dönüştürür. Kaynak kodundaki eşleşen özellikleri de buna uygun şekilde yeniden adlandırır. `optimize` ayarı `false` ise hiçbir etkisi olmaz. |
-| **`purge`**    | `boolean`              | `false`     | Derlenmiş JSON dosyalarından, kaynak kodda erişilmeyen statik içerik alanlarını kaldırır. `optimize` ayarı `false` ise hiçbir etkisi olmaz.                                                                                            |
+| Özellik        | Tip                   | Varsayılan  | Açıklama                                                                                                                                                                                                                               |
+| :------------- | :-------------------- | :---------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`optimize`** | `boolean / undefined` | `undefined` | İçe aktarma (import) yeniden yazma işlemini etkinleştirir. `undefined` = yalnızca production derlemelerinde aktiftir. `false` olarak ayarlanırsa purge ve minify işlemleri de devre dışı kalır.                                        |
+| **`minify`**   | `boolean`             | `false`     | Derlenmiş JSON dosyalarındaki içerik alanlarının anahtar isimlerini kısa alfabetik adlara dönüştürür. Kaynak kodundaki eşleşen özellikleri de buna uygun şekilde yeniden adlandırır. `optimize` ayarı `false` ise hiçbir etkisi olmaz. |
+| **`purge`**    | `boolean`             | `false`     | Derlenmiş JSON dosyalarından, kaynak kodda erişilmeyen statik içerik alanlarını kaldırır. `optimize` ayarı `false` ise hiçbir etkisi olmaz.                                                                                            |
 
 ### Minification (alan anahtarını yeniden adlandırma)
 

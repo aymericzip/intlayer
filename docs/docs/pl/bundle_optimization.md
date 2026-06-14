@@ -397,11 +397,11 @@ export default config;
 
 ### Opcje Budowania
 
-| Właściwość     | Typ                    | Domyślnie   | Opis                                                                                                                                                                                                      |
-| :------------- | :--------------------- | :---------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`optimize`** | `boolean \| undefined` | `undefined` | Włącza przepisanie zajawek importowych. `undefined` = aktywne tylko w trybie produkcyjnym. Tryb `false` obali równomiernie opcje z flagi purge i minify.                                                  |
-| **`minify`**   | `boolean`              | `false`     | Ucina klucze pól w zawartych strukturach opartych o plik w formatach JSON ze zwinnym przepisywaniem kodu o te same elementy alfabetyczne. Zyskuje na znaczeniu, kiedy opcja `optimize` gra swoją rolę.    |
-| **`purge`**    | `boolean`              | `false`     | Eliminuje statyczne, niespotykane powiązania we wnętrzu w pełni poddanych analizie kodów źródłowych (eliminując fragmentację plików JSON). Zostaje odrzucone w wypadku, w którym `optimize` jest `false`. |
+| Właściwość     | Typ                   | Domyślnie   | Opis                                                                                                                                                                                                      |
+| :------------- | :-------------------- | :---------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`optimize`** | `boolean / undefined` | `undefined` | Włącza przepisanie zajawek importowych. `undefined` = aktywne tylko w trybie produkcyjnym. Tryb `false` obali równomiernie opcje z flagi purge i minify.                                                  |
+| **`minify`**   | `boolean`             | `false`     | Ucina klucze pól w zawartych strukturach opartych o plik w formatach JSON ze zwinnym przepisywaniem kodu o te same elementy alfabetyczne. Zyskuje na znaczeniu, kiedy opcja `optimize` gra swoją rolę.    |
+| **`purge`**    | `boolean`             | `false`     | Eliminuje statyczne, niespotykane powiązania we wnętrzu w pełni poddanych analizie kodów źródłowych (eliminując fragmentację plików JSON). Zostaje odrzucone w wypadku, w którym `optimize` jest `false`. |
 
 ### Minifikacja (Zmienianie Nazw Kluczy)
 

@@ -1,10 +1,15 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import type { IntlayerConfig } from '@intlayer/types/config';
-import type { Dictionary } from '@intlayer/types/dictionary';
+import type {
+  Dictionary,
+  QualifiedDictionaryGroup,
+} from '@intlayer/types/dictionary';
 import { parallelize } from '../utils/parallelize';
 
-export const generateTypeScriptType = (dictionary: Dictionary) => {
+export const generateTypeScriptType = (
+  dictionary: Dictionary | QualifiedDictionaryGroup
+) => {
   const jsonString = JSON.stringify(dictionary, null, 2);
 
   return `/* eslint-disable */\nexport default ${jsonString} as const;\n`;
@@ -13,7 +18,7 @@ export const generateTypeScriptType = (dictionary: Dictionary) => {
  * This function generates a TypeScript type definition from a JSON object
  */
 export const createTypes = async (
-  dictionaries: Dictionary[],
+  dictionaries: (Dictionary | QualifiedDictionaryGroup)[],
   configuration: IntlayerConfig
 ): Promise<string[]> => {
   const { system } = configuration;

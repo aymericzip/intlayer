@@ -397,11 +397,11 @@ export default config;
 
 ### Opsi Build
 
-| Properti       | Tipe                   | Default     | Deskripsi                                                                                                                                                                                                                |
-| :------------- | :--------------------- | :---------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`optimize`** | `boolean \| undefined` | `undefined` | Mengaktifkan tahap import rewrite (menulis ulang impor). `undefined` = hanya aktif di dalam build produksi. Setel ke `false` untuk mematikan semua opsi purge dan minify.                                                |
-| **`minify`**   | `boolean`              | `false`     | Mengganti field keys di file JSON yang sudah terkompilasi menggunakan alias pendek. Juga menulis ulang segala property access yang setara di source code Anda. Tidak akan berefek apabila `optimize` disetel ke `false`. |
-| **`purge`**    | `boolean`              | `false`     | Menghapus semua field konten di file JSON yang tidak memiliki jejak pemanggilan/akses (property access) di dalam source code Anda secara statik. Tidak akan berefek apabila `optimize` disetel ke `false`.               |
+| Properti       | Tipe                  | Default     | Deskripsi                                                                                                                                                                                                                |
+| :------------- | :-------------------- | :---------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`optimize`** | `boolean / undefined` | `undefined` | Mengaktifkan tahap import rewrite (menulis ulang impor). `undefined` = hanya aktif di dalam build produksi. Setel ke `false` untuk mematikan semua opsi purge dan minify.                                                |
+| **`minify`**   | `boolean`             | `false`     | Mengganti field keys di file JSON yang sudah terkompilasi menggunakan alias pendek. Juga menulis ulang segala property access yang setara di source code Anda. Tidak akan berefek apabila `optimize` disetel ke `false`. |
+| **`purge`**    | `boolean`             | `false`     | Menghapus semua field konten di file JSON yang tidak memiliki jejak pemanggilan/akses (property access) di dalam source code Anda secara statik. Tidak akan berefek apabila `optimize` disetel ke `false`.               |
 
 ### Minifikasi (penggantian nama kunci file/field)
 

@@ -260,10 +260,11 @@ export default preview;
 
 > `locale` değerleri, `intlayer.config.ts` dosyanızda bildirilen dillerle eşleşmelidir.
 
+</Step>
+</Steps>
 </Tab>
 <Tab value="Webpack Setup">
-
-</Step>
+<Steps>
 
 <Step number={1} title="Bağımlılıkları Yükleyin">
 
@@ -385,14 +386,10 @@ const preview: Preview = {
 export default preview;
 ```
 
+</Step>
+</Steps>
 </Tab>
 </Tabs>
-
----
-
-</Step>
-
-</Steps>
 
 ## İçerik Bildirme
 

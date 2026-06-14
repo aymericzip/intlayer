@@ -397,11 +397,11 @@ export default config;
 
 ### Build Opties
 
-| Eigenschap     | Type                   | Standaardwaarde | Beschrijving                                                                                                                                                                                                        |
-| :------------- | :--------------------- | :-------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **`optimize`** | `boolean \| undefined` | `undefined`     | Schakelt de import-herschrijvingstap in. `undefined` = alleen actief in productiebuilds. `false` schakelt purge en minify ook uit.                                                                                  |
-| **`minify`**   | `boolean`              | `false`         | Hernoemt contentveld-sleutels in gecompileerde JSON-bestanden naar korte alfabetische aliassen. Herschrijft ook de bijbehorende eigendomsaanroepen in de broncode. Heeft geen effect wanneer `optimize` `false` is. |
-| **`purge`**    | `boolean`              | `false`         | Verwijdert contentvelden die in de broncode nooit statisch worden aangesproken uit gecompileerde JSON-bestanden. Heeft geen effect wanneer `optimize` `false` is.                                                   |
+| Eigenschap     | Type                  | Standaardwaarde | Beschrijving                                                                                                                                                                                                        |
+| :------------- | :-------------------- | :-------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **`optimize`** | `boolean / undefined` | `undefined`     | Schakelt de import-herschrijvingstap in. `undefined` = alleen actief in productiebuilds. `false` schakelt purge en minify ook uit.                                                                                  |
+| **`minify`**   | `boolean`             | `false`         | Hernoemt contentveld-sleutels in gecompileerde JSON-bestanden naar korte alfabetische aliassen. Herschrijft ook de bijbehorende eigendomsaanroepen in de broncode. Heeft geen effect wanneer `optimize` `false` is. |
+| **`purge`**    | `boolean`             | `false`         | Verwijdert contentvelden die in de broncode nooit statisch worden aangesproken uit gecompileerde JSON-bestanden. Heeft geen effect wanneer `optimize` `false` is.                                                   |
 
 ### Minificatie (veld-sleutel hernoemen)
 

@@ -191,6 +191,21 @@ describe('makeUsageAnalyzerBabelPlugin', () => {
 
       expect(ctx.dictionaryKeyToFieldUsageMap.get('homepage')).toBe('all');
     });
+
+    it('records "all" when the variable escapes into an array literal', () => {
+      // Canonical meta-record / collection access pattern: the bindings are
+      // collected into an array and their fields read through iteration, which
+      // Babel cannot follow back to the dictionary. Pruning to the (empty) set
+      // of statically-visible fields would wipe the content, so we keep all.
+      const ctx = analyze(`
+        import { useIntlayer } from 'react-intlayer';
+        const appleWatch = useIntlayer('product', { id: 'apple-watch' });
+        const airpods = useIntlayer('product', { id: 'airpods-pro' });
+        [appleWatch, airpods].map((entry) => entry?.name);
+      `);
+
+      expect(ctx.dictionaryKeyToFieldUsageMap.get('product')).toBe('all');
+    });
   });
 
   describe('getIntlayer support', () => {

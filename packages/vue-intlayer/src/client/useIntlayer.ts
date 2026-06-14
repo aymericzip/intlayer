@@ -1,7 +1,11 @@
 import { internationalization } from '@intlayer/config/built';
+import type { DictionarySelector } from '@intlayer/types/dictionary';
 import type {
+  DeclaredLocales,
   DictionaryKeys,
-  DictionaryRegistryContent,
+  DictionaryRegistryResult,
+  DictionarySelectorForKey,
+  ExtractSelectorLocale,
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import {
@@ -50,10 +54,16 @@ import {
  * </template>
  * ```
  */
-export const useIntlayer = <const T extends DictionaryKeys>(
+export const useIntlayer = <
+  const T extends DictionaryKeys,
+  const A extends LocalesValues | DictionarySelectorForKey<T> = DeclaredLocales,
+>(
   key: T,
-  locale?: MaybeRefOrGetter<LocalesValues | null | undefined>
-): DeepTransformContent<DictionaryRegistryContent<T>> => {
+  localeOrSelector?: MaybeRefOrGetter<A | null | undefined>
+): DeepTransformContent<
+  DictionaryRegistryResult<T, A>,
+  ExtractSelectorLocale<A>
+> => {
   const intlayer = inject<IntlayerProvider>(INTLAYER_SYMBOL);
 
   // normalize provider locale
@@ -61,19 +71,40 @@ export const useIntlayer = <const T extends DictionaryKeys>(
     ? intlayer.locale
     : ref(intlayer?.locale ?? internationalization.defaultLocale);
 
-  // which locale to use (reactive)
-  const localeTarget = computed<LocalesValues>(() => {
-    const explicit = locale !== undefined ? toValue(locale) : undefined;
-    return (explicit ?? providerLocale.value)!;
+  // split the (possibly reactive) second argument into selector + locale
+  const resolvedArg = computed<{
+    selector: DictionarySelector | undefined;
+    locale: LocalesValues | undefined;
+  }>(() => {
+    const value =
+      localeOrSelector !== undefined ? toValue(localeOrSelector) : undefined;
+
+    if (typeof value === 'object' && value !== null) {
+      const selector = value as DictionarySelector;
+      return { selector, locale: selector.locale };
+    }
+
+    return { selector: undefined, locale: value as LocalesValues | undefined };
   });
+
+  // which locale to use (reactive)
+  const localeTarget = computed<LocalesValues>(
+    () => (resolvedArg.value.locale ?? providerLocale.value)!
+  );
 
   // single reactive source for the entire content tree
   const source = shallowRef<any>({});
 
   watch(
-    [() => toValue(key) as T, () => localeTarget.value],
-    ([k, loc]) => {
-      source.value = getIntlayer(k, loc);
+    [
+      () => toValue(key) as T,
+      () => localeTarget.value,
+      () => resolvedArg.value.selector,
+    ],
+    ([k, loc, selector]) => {
+      source.value = selector
+        ? getIntlayer(k, { ...selector, locale: loc } as A)
+        : getIntlayer(k, loc as A);
     },
     { immediate: true, flush: 'sync' }
   );

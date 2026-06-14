@@ -1,13 +1,31 @@
 import type {
   ContentNode,
   Dictionary as DictionaryCore,
+  DictionaryMeta,
 } from '@intlayer/types/dictionary';
 import type { RenameId } from '@utils/mongoDB/types';
 import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
 import type { Project } from './project.types';
 import type { User } from './user.types';
 
-export type DictionaryCreationData = {
+/**
+ * Qualifier coordinates of a dictionary (collections / variants / meta records).
+ *
+ * Pushed dictionaries are unmerged: sibling declarations sharing a `key` are
+ * distinguished by these coordinates. Persisting them lets the build re-merge
+ * remote dictionaries into a `QualifiedDictionaryGroup` on pull. A plain
+ * dictionary leaves all of them undefined.
+ */
+export type DictionaryQualifiers = {
+  /** Named alternative content shape (A/B testing, seasonal banners…). */
+  variant?: string;
+  /** Ordered collection item index. */
+  item?: number;
+  /** Record discriminator (`meta.id`) plus typed payload fields. */
+  meta?: DictionaryMeta;
+};
+
+export type DictionaryCreationData = DictionaryQualifiers & {
   projectIds: (Project['id'] | string)[];
   key: string;
   content?: ContentNode;
@@ -28,7 +46,7 @@ export type VersionedContentEl = {
 export type ContentVersion = string;
 export type VersionedContent = Map<string, VersionedContentEl>;
 
-export type DictionaryData = {
+export type DictionaryData = DictionaryQualifiers & {
   key: string;
   content: VersionedContent;
   projectIds: (Project['id'] | string)[];

@@ -61,6 +61,21 @@ const removeMetadata = <T extends Record<string, any>>(obj: T): T => {
 };
 
 /**
+ * Extracts the qualifier coordinates (`variant` / `item` / `meta`) and
+ * `importMode` from a pushed dictionary so sibling declarations sharing a `key`
+ * stay distinct and can be re-merged into a qualified group on pull. Only
+ * defined fields are returned so plain dictionaries persist nothing extra.
+ */
+const extractQualifiers = (
+  source: Pick<LocalDictionary, 'variant' | 'item' | 'meta' | 'importMode'>
+): Partial<DictionaryData> => ({
+  ...(source.variant !== undefined && { variant: source.variant }),
+  ...(source.item !== undefined && { item: source.item }),
+  ...(source.meta !== undefined && { meta: source.meta }),
+  ...(source.importMode !== undefined && { importMode: source.importMode }),
+});
+
+/**
  * Retrieves a list of dictionaries based on filters and pagination.
  */
 export const getDictionaries = async (
@@ -356,6 +371,7 @@ export const addDictionary = async (
     key: dictionaryData.key,
     title: dictionaryData.title,
     description: dictionaryData.description,
+    ...extractQualifiers(dictionaryData),
     content: new Map([
       [
         'v1',
@@ -560,6 +576,7 @@ export const pushDictionaries = async (
       const dictionary: DictionaryData = {
         title: dictionaryDataEl.title,
         description: dictionaryDataEl.description,
+        ...extractQualifiers(dictionaryDataEl),
         projectIds: [String(project.id)],
         creatorId: user.id,
         content: new Map([
@@ -638,10 +655,12 @@ export const pushDictionaries = async (
       };
 
       try {
-        const updatedDictionary = await dictionaryService.updateDictionaryByKey(
-          remoteDictionary.key,
-          dictionary,
-          project.id
+        // Update by id, not key: qualified siblings (collections / variants /
+        // meta records) share a key, so a key lookup would target the wrong
+        // document. We already resolved the exact remote doc by id above.
+        const updatedDictionary = await dictionaryService.updateDictionaryById(
+          remoteDictionary.id,
+          dictionary
         );
         updatedDictionariesResult.push({
           key: updatedDictionary.key,

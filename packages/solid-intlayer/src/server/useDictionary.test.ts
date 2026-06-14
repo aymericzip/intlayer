@@ -12,6 +12,7 @@ vi.hoisted(() => {
 const mockSolid = vi.hoisted(() => ({
   createMemo: vi.fn((fn: () => unknown) => fn),
   createResource: vi.fn(() => [vi.fn()] as const),
+  createRenderEffect: vi.fn(),
   useContext: vi.fn(() => undefined),
 }));
 
@@ -23,6 +24,7 @@ const mockConfig = vi.hoisted(() => ({
 vi.mock('solid-js', () => ({
   createMemo: mockSolid.createMemo,
   createResource: mockSolid.createResource,
+  createRenderEffect: mockSolid.createRenderEffect,
   useContext: mockSolid.useContext,
   // plugins.tsx lazy-loads the editor ContentSelector at module scope.
   lazy: () => () => null,

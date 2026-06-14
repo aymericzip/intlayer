@@ -1,7 +1,14 @@
 import { internationalization } from '@intlayer/config/built';
-import type { Dictionary } from '@intlayer/types/dictionary';
+import type {
+  Dictionary,
+  DictionarySelector,
+  DictionarySelectorForGroup,
+  QualifiedDictionaryGroup,
+  ResolveQualifiedDictionaryContent,
+} from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
+  ExtractSelectorLocale,
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import {
@@ -116,11 +123,13 @@ export const createIntlayerLeafProxy = (leafRef: ComputedRef<any>) => {
 };
 
 export const useDictionary = <
-  const T extends Dictionary,
-  const L extends LocalesValues = DeclaredLocales,
+  const T extends Dictionary | QualifiedDictionaryGroup,
+  const A extends
+    | LocalesValues
+    | DictionarySelectorForGroup<T> = DeclaredLocales,
 >(
   dictionary: MaybeRefOrGetter<T>,
-  locale?: MaybeRefOrGetter<L>
+  localeOrSelector?: MaybeRefOrGetter<A | null | undefined>
 ) => {
   const intlayer = getCurrentInstance()
     ? inject<IntlayerProvider>(INTLAYER_SYMBOL)
@@ -131,19 +140,40 @@ export const useDictionary = <
     ? intlayer.locale
     : ref(intlayer?.locale ?? internationalization.defaultLocale);
 
-  // which locale to use (reactive)
-  const localeTarget = computed<LocalesValues>(() => {
-    const explicit = locale !== undefined ? toValue(locale) : undefined;
-    return (explicit ?? providerLocale.value)!;
+  // split the (possibly reactive) second argument into selector + locale
+  const resolvedArg = computed<{
+    selector: DictionarySelector | undefined;
+    locale: LocalesValues | undefined;
+  }>(() => {
+    const value =
+      localeOrSelector !== undefined ? toValue(localeOrSelector) : undefined;
+
+    if (typeof value === 'object' && value !== null) {
+      const selector = value as DictionarySelector;
+      return { selector, locale: selector.locale };
+    }
+
+    return { selector: undefined, locale: value as LocalesValues | undefined };
   });
+
+  // which locale to use (reactive)
+  const localeTarget = computed<LocalesValues>(
+    () => (resolvedArg.value.locale ?? providerLocale.value)!
+  );
 
   // single reactive source for the entire content tree
   const source = shallowRef<any>({});
 
   watch(
-    [() => toValue(dictionary) as T, () => localeTarget.value],
-    ([newDictionary, locale]) => {
-      source.value = getDictionary(newDictionary, locale);
+    [
+      () => toValue(dictionary) as T,
+      () => localeTarget.value,
+      () => resolvedArg.value.selector,
+    ],
+    ([newDictionary, loc, selector]) => {
+      source.value = selector
+        ? getDictionary(newDictionary, { ...selector, locale: loc } as A)
+        : getDictionary(newDictionary, loc as A);
     },
     { immediate: true, flush: 'sync' }
   );
@@ -220,5 +250,8 @@ export const useDictionary = <
     return new Proxy({}, handler);
   };
 
-  return makeProxy([]) as unknown as DeepTransformContent<T['content'], L>;
+  return makeProxy([]) as unknown as DeepTransformContent<
+    ResolveQualifiedDictionaryContent<T, A>,
+    ExtractSelectorLocale<A>
+  >;
 };

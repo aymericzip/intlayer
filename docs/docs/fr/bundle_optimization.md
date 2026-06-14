@@ -397,11 +397,11 @@ export default config;
 
 ### Options de Build
 
-| Propriété      | Type                   | Par défaut  | Description                                                                                                                                                                                                                   |
-| :------------- | :--------------------- | :---------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`optimize`** | `boolean \| undefined` | `undefined` | Active la passe de réécriture des imports. `undefined` = actif uniquement dans les builds de production. `false` désactive également la purge et la minification.                                                             |
-| **`minify`**   | `boolean`              | `false`     | Renomme les clés des champs de contenu dans les fichiers JSON compilés en de courts alias alphabétiques. Réécrit également les accès aux propriétés correspondants dans le code source. Sans effet si `optimize` est `false`. |
-| **`purge`**    | `boolean`              | `false`     | Supprime les champs de contenu qui ne sont jamais accédés statiquement depuis les fichiers JSON compilés. Sans effet si `optimize` est `false`.                                                                               |
+| Propriété      | Type                  | Par défaut  | Description                                                                                                                                                                                                                   |
+| :------------- | :-------------------- | :---------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`optimize`** | `boolean / undefined` | `undefined` | Active la passe de réécriture des imports. `undefined` = actif uniquement dans les builds de production. `false` désactive également la purge et la minification.                                                             |
+| **`minify`**   | `boolean`             | `false`     | Renomme les clés des champs de contenu dans les fichiers JSON compilés en de courts alias alphabétiques. Réécrit également les accès aux propriétés correspondants dans le code source. Sans effet si `optimize` est `false`. |
+| **`purge`**    | `boolean`             | `false`     | Supprime les champs de contenu qui ne sont jamais accédés statiquement depuis les fichiers JSON compilés. Sans effet si `optimize` est `false`.                                                                               |
 
 ### Minification (renommage des clés de champs)
 

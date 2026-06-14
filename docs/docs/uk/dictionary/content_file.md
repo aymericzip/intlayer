@@ -500,6 +500,66 @@ export default aboutPageMetaContent;
 // Це перекриє базовий словник
 ```
 
+#### `item` (число)
+
+Використовується разом із Колекціями, це поле визначає позицію елемента в колекції. Воно дозволяє створювати впорядковані колекції локалізованих елементів, які можна вибирати за індексом під час виконання.
+
+**Приклад:**
+
+```typescript
+{
+  key: "faq",
+  item: 1,
+  content: {
+    question: "What is Intlayer?",
+    answer: "An i18n toolkit."
+  }
+}
+```
+
+> Див. [Колекції](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dynamic_dictionaries/collections.md) для отримання додаткової інформації.
+
+#### `variant` (рядок)
+
+Використовується разом із Варіантами, це поле визначає іменовані альтернативи вмісту. Воно дозволяє перемикатися між різними варіантами одного й того самого ключа словника під час виконання без зміни коду (наприклад, для A/B-тестування, сезонних банерів). Якщо не вказано, вважається варіантом за замовчуванням.
+
+**Приклад:**
+
+```typescript
+{
+  key: "hero-banner",
+  variant: "black_friday",
+  content: {
+    headline: "50 % off — today only",
+    cta: "Shop now"
+  }
+}
+```
+
+> Див. [Варіанти](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dynamic_dictionaries/variants.md) для отримання додаткової інформації.
+
+#### `meta` (`Record<string, string | number | boolean>`)
+
+Використовується разом із Динамічними Записами, це поле дозволяє оголошувати записи, керовані CMS, або довільні дані, отримані під час виконання за непрозорим ID. Ідентичність словника визначається довільним набором пар ключ-значення, оголошених у цьому полі `meta`.
+
+**Приклад:**
+
+```typescript
+{
+  key: "product-copy",
+  meta: {
+    id: "prod_abc",
+    userId: "user_123"
+  },
+  content: {
+    name: "Widget Pro",
+    description: "The best widget."
+  }
+}
+```
+
+> Див. [Динамічні Записи](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dynamic_dictionaries/dynamic_content.md) для отримання додаткової інформації.
+
 ### Властивості CMS
 
 ##### `version` (string)

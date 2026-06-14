@@ -1,7 +1,10 @@
 import type { Locale } from '@intlayer/types/allLocales';
+import type { DictionarySelector } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
   DictionaryKeys,
+  DictionarySelectorForKey,
+  LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import React from 'react';
 import { useIntlayer as useIntlayerBase } from 'react-intlayer/server';
@@ -28,18 +31,20 @@ export const safeUseLocale = (): Locale | undefined => {
 };
 
 /**
- * On the server side, Hook that picking one dictionary by its key and return the content
+ * On the server side, hook that picks one dictionary by its key and returns the
+ * content for the given locale or selector (`{ item }`, `{ variant }`,
+ * `{ id, ...meta }`, optionally combined with `locale`).
  *
- * If the locale is not provided, it will use the locale from the server context
+ * If the locale is not provided, it will use the locale from the server context.
  */
 export const useIntlayer = <
   const T extends DictionaryKeys,
-  const L extends DeclaredLocales = DeclaredLocales,
+  const A extends LocalesValues | DictionarySelectorForKey<T> = DeclaredLocales,
 >(
   key: T,
-  locale?: L
-): ReturnType<typeof useIntlayerBase<T, L>> => {
+  localeOrSelector?: A
+): ReturnType<typeof useIntlayerBase<T, A>> => {
   const storedLocale = safeUseLocale();
 
-  return useIntlayerBase<T, L>(key, locale, storedLocale);
+  return useIntlayerBase<T, A>(key, localeOrSelector, storedLocale);
 };

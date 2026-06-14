@@ -514,6 +514,66 @@ export default aboutPageMetaContent;
 // Это переопределит базовый словарь
 ```
 
+#### `item` (число)
+
+Используемое в сочетании с Коллекциями, это поле определяет положение элемента в коллекции. Оно позволяет создавать упорядоченные коллекции локализованных элементов, которые можно выбирать по индексу во время выполнения.
+
+**Пример:**
+
+```typescript
+{
+  key: "faq",
+  item: 1,
+  content: {
+    question: "What is Intlayer?",
+    answer: "An i18n toolkit."
+  }
+}
+```
+
+> См. [Коллекции](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/collections.md) для получения дополнительной информации.
+
+#### `variant` (строка)
+
+Используемое в сочетании с Вариантами, это поле определяет именованные альтернативы контента. Оно позволяет переключаться между различными вариантами одного и того же ключа словаря во время выполнения без изменения кода (например, для A/B-тестирования, сезонных баннеров). Если значение не указано, оно считается вариантом по умолчанию.
+
+**Пример:**
+
+```typescript
+{
+  key: "hero-banner",
+  variant: "black_friday",
+  content: {
+    headline: "50 % off — today only",
+    cta: "Shop now"
+  }
+}
+```
+
+> См. [Варианты](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/variants.md) для получения дополнительной информации.
+
+#### `meta` (`Record<string, string | number | boolean>`)
+
+Используемое в сочетании с Динамическими Записями, это поле позволяет объявлять записи, управляемые CMS, или произвольные данные, извлекаемые во время выполнения по непрозрачному ID. Идентификация словаря определяется произвольным набором пар ключ-значение, объявленных в этом поле `meta`.
+
+**Пример:**
+
+```typescript
+{
+  key: "product-copy",
+  meta: {
+    id: "prod_abc",
+    userId: "user_123"
+  },
+  content: {
+    name: "Widget Pro",
+    description: "The best widget."
+  }
+}
+```
+
+> См. [Динамические Записи](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dynamic_dictionaries/dynamic_content.md) для получения дополнительной информации.
+
 ### Свойства CMS
 
 ##### `version` (строка)

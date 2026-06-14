@@ -1,23 +1,40 @@
 import { getIntlayer as getIntlayerCore } from '@intlayer/core/interpreter';
+import type { DictionarySelector } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
   DictionaryKeys,
-  DictionaryRegistryContent,
+  DictionaryRegistryResult,
+  DictionarySelectorForKey,
+  ExtractSelectorLocale,
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import { type DeepTransformContent, getPlugins } from './plugins';
 
 /**
- * Get dictionary content by key for Svelte applications
+ * Get dictionary content by key for Svelte applications.
+ *
+ * The second argument is either a locale or a selector object (`{ item }`,
+ * `{ variant }`, `{ id, ...meta }`, optionally combined with `locale`).
+ *
  * @param key The dictionary key to retrieve
- * @param locale The target locale (optional)
+ * @param localeOrSelector The target locale or selector (optional)
  * @returns Transformed dictionary content optimized for Svelte
  */
 export const getIntlayer = <
   const T extends DictionaryKeys,
-  const L extends LocalesValues = DeclaredLocales,
+  const A extends LocalesValues | DictionarySelectorForKey<T> = DeclaredLocales,
 >(
   key: T,
-  locale?: L
-): DeepTransformContent<DictionaryRegistryContent<T>> =>
-  getIntlayerCore(key, locale, getPlugins(locale)) as any;
+  localeOrSelector?: A
+): DeepTransformContent<
+  DictionaryRegistryResult<T, A>,
+  ExtractSelectorLocale<A>
+> => {
+  const locale = (
+    typeof localeOrSelector === 'object' && localeOrSelector !== null
+      ? localeOrSelector.locale
+      : localeOrSelector
+  ) as LocalesValues | undefined;
+
+  return getIntlayerCore(key, localeOrSelector, getPlugins(locale)) as any;
+};

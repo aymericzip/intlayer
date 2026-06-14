@@ -47,6 +47,26 @@ export const dictionarySchema = new Schema<DictionarySchema>(
       type: [String],
       default: [],
     },
+    // Qualifier coordinates of collections / variants / meta records. Sibling
+    // dictionaries sharing a `key` are distinguished by these; persisting them
+    // lets the build re-merge remote dictionaries into a qualified group.
+    variant: {
+      type: String,
+      default: undefined,
+    },
+    item: {
+      type: Number,
+      default: undefined,
+    },
+    meta: {
+      type: Schema.Types.Mixed,
+      default: undefined,
+    },
+    importMode: {
+      type: String,
+      enum: ['static', 'dynamic', 'fetch'],
+      default: undefined,
+    },
     content: {
       type: Map,
       of: versionedContentElSchema,

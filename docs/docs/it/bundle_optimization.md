@@ -397,11 +397,11 @@ export default config;
 
 ### Opzioni di Build
 
-| Proprietà      | Tipo                   | Default     | Descrizione                                                                                                                                                                                                  |
-| :------------- | :--------------------- | :---------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`optimize`** | `boolean \| undefined` | `undefined` | Abilita il passaggio di riscrittura degli import. `undefined` = attivo solo nelle build di produzione. `false` disabilita anche purge e minify.                                                              |
-| **`minify`**   | `boolean`              | `false`     | Rinomina chiavi dei campi di contenuto nei file JSON compilati usando brevi alias alfabetici. Riscrive anche gli accessi a tali proprietà nel codice sorgente. Non ha alcun effetto se `optimize` è `false`. |
-| **`purge`**    | `boolean`              | `false`     | Rimuove i campi di contenuto a cui non si accede mai in modo statico dal codice sorgente all'interno dei file JSON. Non ha alcun effetto se `optimize` è `false`.                                            |
+| Proprietà      | Tipo                  | Default     | Descrizione                                                                                                                                                                                                  |
+| :------------- | :-------------------- | :---------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`optimize`** | `boolean / undefined` | `undefined` | Abilita il passaggio di riscrittura degli import. `undefined` = attivo solo nelle build di produzione. `false` disabilita anche purge e minify.                                                              |
+| **`minify`**   | `boolean`             | `false`     | Rinomina chiavi dei campi di contenuto nei file JSON compilati usando brevi alias alfabetici. Riscrive anche gli accessi a tali proprietà nel codice sorgente. Non ha alcun effetto se `optimize` è `false`. |
+| **`purge`**    | `boolean`             | `false`     | Rimuove i campi di contenuto a cui non si accede mai in modo statico dal codice sorgente all'interno dei file JSON. Non ha alcun effetto se `optimize` è `false`.                                            |
 
 ### Minificazione (ridenominazione chiave dei campi)
 

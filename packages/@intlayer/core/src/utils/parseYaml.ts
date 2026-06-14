@@ -12,7 +12,9 @@ const PRESERVED_LITERALS = new Set([
   '-Infinity',
 ]);
 
-export type YamlRecord = Record<string, YamlValue>;
+export interface YamlRecord {
+  [key: string]: YamlValue;
+}
 export type YamlValue = string | number | YamlValue[] | YamlRecord;
 
 /**

@@ -1,3 +1,4 @@
+export { buildAuthorJsonLd } from './buildAuthorJsonLd';
 export {
   type BreadcrumbItem,
   type BuildBreadcrumbsJsonLdParams,

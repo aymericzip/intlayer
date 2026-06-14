@@ -18,3 +18,4 @@ installIntlayerMarkdown({
 import './my-element.js';
 import './locale-switcher.js';
 import './custom-component.js';
+import './components/QualifiedContentDemo.js';

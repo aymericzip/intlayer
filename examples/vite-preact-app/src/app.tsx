@@ -12,6 +12,7 @@ import {
 } from 'preact-intlayer/format';
 import { HTMLProvider } from 'preact-intlayer/html';
 import { MarkdownProvider } from 'preact-intlayer/markdown';
+import { QualifiedContentDemo } from './components/QualifiedContentDemo';
 import './app.css';
 import viteLogo from '/vite.svg';
 import preactLogo from './assets/preact.svg';
@@ -376,6 +377,8 @@ const AppContent: FunctionComponent = () => {
       </div>
 
       <BenchmarkTable />
+
+      <QualifiedContentDemo />
 
       <p className="read-the-docs">{content.readTheDocs}</p>
 

@@ -397,11 +397,11 @@ export default config;
 
 ### Build-Optionen
 
-| Eigenschaft    | Typ                    | Standard    | Beschreibung                                                                                                                                                                                                                    |
-| :------------- | :--------------------- | :---------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **`optimize`** | `boolean \| undefined` | `undefined` | Aktiviert den Import-Umschreibungspass. `undefined` = nur in Produktionsbuilds aktiv. `false` deaktiviert auch Purge und Minify.                                                                                                |
-| **`minify`**   | `boolean`              | `false`     | Benennt Inhaltsfeld-Schlüssel in kompilierten JSON-Dateien in kurze alphabetische Aliase um. Schreibt auch entsprechende Eigenschaftszugriffe im Quellcode um. Hat keine Auswirkungen, wenn `optimize` auf `false` gesetzt ist. |
-| **`purge`**    | `boolean`              | `false`     | Entfernt Inhaltsfelder, auf die nie statisch im Quellcode zugegriffen wird, aus den kompilierten JSON-Dateien. Hat keine Auswirkungen, wenn `optimize` auf `false` gesetzt ist.                                                 |
+| Eigenschaft    | Typ                   | Standard    | Beschreibung                                                                                                                                                                                                                    |
+| :------------- | :-------------------- | :---------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **`optimize`** | `boolean / undefined` | `undefined` | Aktiviert den Import-Umschreibungspass. `undefined` = nur in Produktionsbuilds aktiv. `false` deaktiviert auch Purge und Minify.                                                                                                |
+| **`minify`**   | `boolean`             | `false`     | Benennt Inhaltsfeld-Schlüssel in kompilierten JSON-Dateien in kurze alphabetische Aliase um. Schreibt auch entsprechende Eigenschaftszugriffe im Quellcode um. Hat keine Auswirkungen, wenn `optimize` auf `false` gesetzt ist. |
+| **`purge`**    | `boolean`             | `false`     | Entfernt Inhaltsfelder, auf die nie statisch im Quellcode zugegriffen wird, aus den kompilierten JSON-Dateien. Hat keine Auswirkungen, wenn `optimize` auf `false` gesetzt ist.                                                 |
 
 ### Minifizierung (Feld-Schlüssel-Umbennung)
 

@@ -1,13 +1,20 @@
 import { IMPORT_MODE, OUTPUT_FORMAT } from '@intlayer/config/defaultValues';
+import { colorizeKey, getAppLogger } from '@intlayer/config/logger';
+import { isQualifiedDictionaryGroup } from '@intlayer/core/dictionaryManipulator';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { readDictionariesFromDisk } from '../utils/readDictionariesFromDisk';
 import {
   type LocalizedDictionaryOutput,
+  type QualifiedMergedDictionaryOutput,
   writeDynamicDictionary,
+  writeDynamicQualifiedDictionaries,
 } from './writeDynamicDictionary';
 import { writeFetchDictionary } from './writeFetchDictionary';
-import { writeMergedDictionaries } from './writeMergedDictionary';
+import {
+  type PlainMergedDictionaryOutput,
+  writeMergedDictionaries,
+} from './writeMergedDictionary';
 import { writeUnmergedDictionaries } from './writeUnmergedDictionary';
 
 export type BuildDictionariesOptions = Partial<{
@@ -51,17 +58,17 @@ export const buildDictionary = async (
     // Reinsert other dictionaries with the same key to avoid merging errors
     for (const dictionaryToWrite of localDictionariesEntries) {
       const allPrebuiltUnmergedDictionaries =
-        prevUnmergedDictionaries[dictionaryToWrite.key];
+        prevUnmergedDictionaries[dictionaryToWrite.key]!;
 
       if (allPrebuiltUnmergedDictionaries?.length > 0) {
         // Do not add the same dictionary again by filtering out the one with the same localId
         const otherUnmergedDictionaries =
-          allPrebuiltUnmergedDictionaries.filter(
+          allPrebuiltUnmergedDictionaries?.filter(
             (unmergedDictionary) =>
               unmergedDictionary.localId !== dictionaryToWrite.localId
           );
 
-        unmergedDictionariesToUpdate.push(...otherUnmergedDictionaries);
+        unmergedDictionariesToUpdate.push(...(otherUnmergedDictionaries ?? []));
       }
     }
   }
@@ -77,15 +84,43 @@ export const buildDictionary = async (
     configuration
   );
 
-  const dictionariesToBuildDynamic: typeof mergedDictionaries = {};
+  const dictionariesToBuildDynamic: PlainMergedDictionaryOutput = {};
+  const qualifiedDictionariesToBuildDynamic: QualifiedMergedDictionaryOutput =
+    {};
   const keysToBuildFetch = new Set<string>();
 
   for (const [key, mergedResult] of Object.entries(mergedDictionaries)) {
     const dictionary = mergedResult.dictionary;
+
+    if (isQualifiedDictionaryGroup(dictionary)) {
+      // Collections / variants / meta records resolve their qualifier at
+      // runtime from a selector. Static mode keeps every entry in one JSON;
+      // dynamic mode splits them into one chunk per (locale, qualifierId).
+      const entryMode = dictionary.importMode ?? importMode;
+
+      if (entryMode === 'dynamic') {
+        qualifiedDictionariesToBuildDynamic[key] = {
+          dictionaryPath: mergedResult.dictionaryPath,
+          dictionary,
+        };
+      } else if (entryMode === 'fetch') {
+        const appLogger = getAppLogger(configuration);
+        appLogger(
+          `Dictionary ${colorizeKey(key)} uses 'fetch' import mode with (${dictionary.qualifierTypes.join(', ')}) entries — fetch mode is not qualifier-aware yet, falling back to static import.`,
+          { level: 'warn' }
+        );
+      }
+
+      continue;
+    }
+
     const mode = dictionary.importMode ?? importMode;
 
     if (mode === 'dynamic' || mode === 'fetch') {
-      dictionariesToBuildDynamic[key] = mergedResult;
+      dictionariesToBuildDynamic[key] = {
+        dictionaryPath: mergedResult.dictionaryPath,
+        dictionary,
+      };
     }
 
     if (mode === 'fetch') {
@@ -98,6 +133,14 @@ export const buildDictionary = async (
   if (Object.keys(dictionariesToBuildDynamic).length > 0) {
     dynamicDictionaries = await writeDynamicDictionary(
       dictionariesToBuildDynamic,
+      configuration,
+      formats
+    );
+  }
+
+  if (Object.keys(qualifiedDictionariesToBuildDynamic).length > 0) {
+    await writeDynamicQualifiedDictionaries(
+      qualifiedDictionariesToBuildDynamic,
       configuration,
       formats
     );

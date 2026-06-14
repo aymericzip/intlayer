@@ -1,4 +1,8 @@
-import type { Dictionary } from '@intlayer/types/dictionary';
+import type {
+  Dictionary,
+  DictionarySelectorForGroup,
+  QualifiedDictionaryGroup,
+} from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
   LocalesValues,
@@ -8,22 +12,33 @@ import { IntlayerServerContext } from './IntlayerServerProvider';
 import { getServerContext } from './serverContext';
 
 /**
- * On the server side, Hook that transform a dictionary and return the content
+ * On the server side, Hook that transform a dictionary (or qualified
+ * dictionary group) and return the content
  *
- * If the locale is not provided, it will use the locale from the server context
+ * If the locale is not provided (directly or through the selector), it will
+ * use the locale from the server context
  */
 export const useDictionary = <
-  const T extends Dictionary,
-  const L extends LocalesValues = DeclaredLocales,
+  const T extends Dictionary | QualifiedDictionaryGroup,
+  const A extends
+    | LocalesValues
+    | DictionarySelectorForGroup<T> = DeclaredLocales,
 >(
   dictionary: T,
-  locale?: L,
+  localeOrSelector?: A,
   fallbackLocale?: DeclaredLocales
 ) => {
-  const localeTarget =
-    locale ??
-    getServerContext<LocalesValues>(IntlayerServerContext) ??
-    fallbackLocale;
+  const contextLocale =
+    getServerContext<LocalesValues>(IntlayerServerContext) ?? fallbackLocale;
 
-  return getDictionary<T, L>(dictionary, localeTarget as L);
+  if (typeof localeOrSelector === 'object' && localeOrSelector !== null) {
+    return getDictionary(dictionary, {
+      ...localeOrSelector,
+      locale: localeOrSelector.locale ?? contextLocale,
+    } as A);
+  }
+
+  const localeTarget = (localeOrSelector ?? contextLocale) as A;
+
+  return getDictionary<T, A>(dictionary, localeTarget);
 };

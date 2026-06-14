@@ -374,7 +374,7 @@ export const intlayerOptimize = async (
                   const foundFields = new Set<string>();
                   let m = fieldRe.exec(template);
                   while (m !== null) {
-                    foundFields.add(m[1]);
+                    foundFields.add(m[1]!);
                     m = fieldRe.exec(template);
                   }
                   mergeFrameworkResult(

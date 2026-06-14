@@ -1,8 +1,18 @@
-import type { Dictionary } from '@intlayer/types/dictionary';
+import type {
+  Dictionary,
+  DictionarySelector,
+  QualifiedDictionaryGroup,
+  ResolveQualifiedDictionaryContent,
+} from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
+  ExtractSelectorLocale,
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
+import {
+  parseDictionarySelector,
+  resolveQualifiedDictionary,
+} from '../dictionaryManipulator/qualifiedDictionary';
 import type {
   DeepTransformContent,
   IInterpreterPluginState,
@@ -14,25 +24,50 @@ import { getBasePlugins, getContent } from './getContent/getContent';
 /**
  * Transforms a dictionary in a single pass, applying each plugin as needed.
  *
- * @param dictionary The dictionary to transform.
- * @param locale The locale to use if your transformers need it (e.g. for translations).
- * @param additionalPlugins An array of NodeTransformer that define how to transform recognized nodes.
- *                      If omitted, we’ll use a default set of plugins.
+ * Also accepts a `QualifiedDictionaryGroup` (collections, variants, meta
+ * records) together with a selector as second argument — the group is resolved
+ * to a single entry (or an ordered array of entries for collections without an
+ * `item` selector) before transformation.
+ *
+ * @param dictionary The dictionary (or qualified dictionary group) to transform.
+ * @param localeOrSelector The locale, or a selector object (`{ item }`,
+ *                         `{ variant }`, `{ id, ...meta }`, optionally with `locale`).
+ * @param plugins An array of NodeTransformer that define how to transform recognized nodes.
+ *                If omitted, we’ll use a default set of plugins.
  */
 export const getDictionary = <
-  const T extends Dictionary,
-  const L extends LocalesValues = DeclaredLocales,
+  const T extends Dictionary | QualifiedDictionaryGroup,
+  const A extends LocalesValues | DictionarySelector = DeclaredLocales,
 >(
   dictionary: T,
-  locale?: L,
-  plugins: Plugins[] = getBasePlugins(locale)
-): DeepTransformContent<T['content'], IInterpreterPluginState, L> => {
-  const props: NodeProps = {
-    dictionaryKey: dictionary.key,
-    dictionaryPath: dictionary.filePath,
-    keyPath: [],
-    plugins,
+  localeOrSelector?: A,
+  plugins?: Plugins[]
+): DeepTransformContent<
+  ResolveQualifiedDictionaryContent<T, A>,
+  IInterpreterPluginState,
+  ExtractSelectorLocale<A>
+> => {
+  const { locale, selector } = parseDictionarySelector(localeOrSelector);
+  const appliedPlugins = plugins ?? getBasePlugins(locale);
+
+  const resolved = resolveQualifiedDictionary(dictionary, selector);
+
+  const transformDictionary = (resolvedDictionary: Dictionary) => {
+    const props: NodeProps = {
+      dictionaryKey: resolvedDictionary.key,
+      dictionaryPath: resolvedDictionary.filePath,
+      keyPath: [],
+      plugins: appliedPlugins,
+    };
+
+    return getContent(resolvedDictionary.content, props, appliedPlugins);
   };
 
-  return getContent(dictionary.content, props, plugins);
+  if (resolved === null) return null as any;
+
+  if (Array.isArray(resolved)) {
+    return resolved.map(transformDictionary) as any;
+  }
+
+  return transformDictionary(resolved) as any;
 };

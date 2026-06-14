@@ -243,10 +243,11 @@ export default preview;
 
 > `locale` मान आपके `intlayer.config.ts` में घोषित स्थानीय भाषाओं के साथ मेल खाने चाहिए।
 
+</Step>
+</Steps>
 </Tab>
 <Tab value="Webpack Setup">
-
-</Step>
+<Steps>
 
 <Step number={1} title="निर्भरताएँ स्थापित करें">
 
@@ -368,14 +369,10 @@ const preview: Preview = {
 export default preview;
 ```
 
+</Step>
+</Steps>
 </Tab>
 </Tabs>
-
----
-
-</Step>
-
-</Steps>
 
 ## सामग्री घोषित करना
 

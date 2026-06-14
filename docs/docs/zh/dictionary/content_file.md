@@ -511,6 +511,66 @@ export default aboutPageMetaContent;
 // 这将覆盖基础字典
 ```
 
+#### `item` (数字)
+
+与集合 (Collections) 配合使用，此字段定义项在集合中的位置。它允许您构建在运行时可通过索引选择的本地化项的有序集合。
+
+**示例：**
+
+```typescript
+{
+  key: "faq",
+  item: 1,
+  content: {
+    question: "What is Intlayer?",
+    answer: "An i18n toolkit."
+  }
+}
+```
+
+> 参见 [集合](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/collections.md) 了解更多信息。
+
+#### `variant` (字符串)
+
+与变体 (Variants) 配合使用，此字段定义命名的内容替代方案。它允许您在运行时切换相同字典键的不同变体，而无需修改代码（例如，用于 A/B 测试、季节性横幅）。如果未提供，则被视为默认变体。
+
+**示例：**
+
+```typescript
+{
+  key: "hero-banner",
+  variant: "black_friday",
+  content: {
+    headline: "50 % off — today only",
+    cta: "Shop now"
+  }
+}
+```
+
+> 参见 [变体](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/variants.md) 了解更多信息。
+
+#### `meta` (`Record<string, string | number | boolean>`)
+
+与动态记录 (Dynamic Records) 配合使用，此字段允许通过不透明的 ID 声明 CMS 管理的的记录或在运行时获取的任意数据。字典身份由该 `meta` 字段中声明的任意键值对集定义。
+
+**示例：**
+
+```typescript
+{
+  key: "product-copy",
+  meta: {
+    id: "prod_abc",
+    userId: "user_123"
+  },
+  content: {
+    name: "Widget Pro",
+    description: "The best widget."
+  }
+}
+```
+
+> 参见 [动态记录](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dynamic_dictionaries/dynamic_content.md) 了解更多信息。
+
 ### CMS 属性
 
 ##### `version`（字符串）

@@ -17,6 +17,7 @@ import './App.css';
 
 import viteLogo from '/vite.svg';
 import solidLogo from './assets/solid.svg';
+import { QualifiedContentDemo } from './components/QualifiedContentDemo';
 
 const LocaleSwitcher = () => {
   const location = useLocation();
@@ -440,6 +441,8 @@ const Home = () => {
       </div>
 
       <BenchmarkTable />
+
+      <QualifiedContentDemo />
 
       <p class="read-the-docs">{content.readTheDocs}</p>
     </>

@@ -1,7 +1,11 @@
 import { internationalization } from '@intlayer/config/built';
+import type { DictionarySelector } from '@intlayer/types/dictionary';
 import type {
+  DeclaredLocales,
   DictionaryKeys,
-  DictionaryRegistryContent,
+  DictionaryRegistryResult,
+  DictionarySelectorForKey,
+  ExtractSelectorLocale,
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import { getIntlayer } from '../getIntlayer';
@@ -27,16 +31,34 @@ import { getIntlayerClient } from './installIntlayer';
  * In non-optimized builds (dev without babel) the content is re-fetched from
  * `getIntlayer` on every property access, caching by locale.
  */
-export const useIntlayer = <const T extends DictionaryKeys>(
+export const useIntlayer = <
+  const T extends DictionaryKeys,
+  const A extends LocalesValues | DictionarySelectorForKey<T> = DeclaredLocales,
+>(
   key: T,
-  locale?: LocalesValues
-): IntlayerLitProxy<DeepTransformContent<DictionaryRegistryContent<T>>> => {
+  localeOrSelector?: A
+): IntlayerLitProxy<
+  DeepTransformContent<DictionaryRegistryResult<T, A>, ExtractSelectorLocale<A>>
+> => {
   const client = getIntlayerClient();
 
+  const isSelector =
+    typeof localeOrSelector === 'object' && localeOrSelector !== null;
+  const explicitLocale = isSelector
+    ? (localeOrSelector as DictionarySelector).locale
+    : (localeOrSelector as LocalesValues | undefined);
+
+  const compute = (currentLocale: string): unknown =>
+    isSelector
+      ? getIntlayer(key, {
+          ...(localeOrSelector as DictionarySelector),
+          locale: currentLocale,
+        } as A)
+      : getIntlayer(key, currentLocale as A);
+
   let cachedLocale: string | undefined;
-  let cachedDictionary: DeepTransformContent<
-    DictionaryRegistryContent<T>
-  > | null = null;
+  let cachedDictionary: unknown;
+  let hasComputed = false;
 
   const proxy = new Proxy({} as any, {
     get(_target, prop) {
@@ -57,15 +79,19 @@ export const useIntlayer = <const T extends DictionaryKeys>(
       )
         return undefined;
 
-      const currentLocale = (locale ??
+      const currentLocale = (explicitLocale ??
         client.locale ??
         internationalization.defaultLocale) as string;
 
       // Recompute dictionary only when locale changed.
-      if (cachedLocale !== currentLocale || cachedDictionary === null) {
-        cachedDictionary = getIntlayer(key, currentLocale as LocalesValues);
+      if (!hasComputed || cachedLocale !== currentLocale) {
+        cachedDictionary = compute(currentLocale);
         cachedLocale = currentLocale;
+        hasComputed = true;
       }
+
+      // A selector can resolve to null (variant/meta miss).
+      if (cachedDictionary == null) return undefined;
 
       return (cachedDictionary as Record<string, unknown>)[prop as string];
     },

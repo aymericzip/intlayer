@@ -9,7 +9,12 @@ import type {
 } from 'intlayer';
 import type { Locale } from './allLocales';
 import type { StrictMode } from './config';
-import type { Dictionary } from './dictionary';
+import type {
+  Dictionary,
+  DictionarySelector,
+  DictionarySelectorForGroup,
+  ResolveQualifiedDictionaryContent,
+} from './dictionary';
 
 export type SchemaKeys = keyof __SchemaRegistry extends never
   ? string
@@ -48,6 +53,46 @@ export type DictionaryRegistryContent<T extends PropertyKey> = [T] extends [
     ? C
     : Dictionary['content']
   : Dictionary['content'];
+
+/**
+ * Computes the content type returned by `getIntlayer` / `useIntlayer` for the
+ * dictionary key `T` given the second argument `Arg` (a locale string or a
+ * `DictionarySelector`).
+ *
+ * For plain dictionaries this is the registry content; for qualified groups
+ * (collections, variants, meta records) the selector shape drives the result
+ * (single entry, array of entries, or null).
+ */
+export type DictionaryRegistryResult<T extends PropertyKey, Arg = undefined> = [
+  T,
+] extends [keyof __DictionaryRegistry]
+  ? ResolveQualifiedDictionaryContent<__DictionaryRegistry[T], Arg>
+  : Dictionary['content'];
+
+/**
+ * Extracts the effective locale from the second argument of
+ * `getIntlayer` / `useIntlayer` (locale string or selector object).
+ */
+export type ExtractSelectorLocale<Arg> = Arg extends {
+  locale: infer L extends LocalesValues;
+}
+  ? L
+  : Arg extends LocalesValues
+    ? Arg
+    : DeclaredLocales;
+
+/**
+ * The selector accepted for a dictionary **key** `T`: its `variant` / `item` /
+ * `id` are constrained to the coordinates that exist for that key, so an unknown
+ * value is a compile-time error. Plain keys fall back to {@link DictionarySelector}.
+ */
+export type DictionarySelectorForKey<T extends PropertyKey> = [T] extends [
+  keyof __DictionaryRegistry,
+]
+  ? DictionarySelectorForGroup<__DictionaryRegistry[T]>
+  : DictionarySelector;
+
+export type { DictionarySelector, DictionarySelectorForGroup };
 
 // Derived unions from registries
 

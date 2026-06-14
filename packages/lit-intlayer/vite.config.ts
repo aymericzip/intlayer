@@ -36,7 +36,8 @@ export default defineConfig({
     dts({
       entryRoot: 'src',
       exclude: ['**/*.stories.*', '**/*.test.*'],
-      outDir: 'dist/types',
+      outDirs: ['dist/types'],
+      tsconfigPath: 'tsconfig.types.json',
       beforeWriteFile: (filePath, content) => ({
         filePath: filePath.replace('/dist/types/src/', '/dist/types/'),
         content,

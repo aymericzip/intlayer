@@ -492,6 +492,66 @@ export default aboutPageMetaContent;
 // यह मूल शब्दकोश को ओवरराइड करेगा
 ```
 
+#### `item` (संख्या)
+
+Collections के संयोजन में उपयोग किया जाने वाला, यह फ़ील्ड किसी कलेक्शन में आइटम की स्थिति को परिभाषित करता है। यह आपको स्थानीयकृत आइटमों के व्यवस्थित संग्रह बनाने की अनुमति देता है जिन्हें रनटाइम पर इंडेक्स द्वारा चुना जा सकता है।
+
+**उदाहरण:**
+
+```typescript
+{
+  key: "faq",
+  item: 1,
+  content: {
+    question: "What is Intlayer?",
+    answer: "An i18n toolkit."
+  }
+}
+```
+
+> अधिक जानकारी के लिए [Collections](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/collections.md) देखें।
+
+#### `variant` (स्ट्रिंग)
+
+Variants के संयोजन में उपयोग किया जाने वाला, यह फ़ील्ड नामांकित सामग्री विकल्पों को परिभाषित करता. यह आपको कोड में बदलाव किए बिना रनटाइम पर एक ही शब्दकोश कुंजी के विभिन्न रूपों के बीच स्विच करने की अनुमति देता है (उदाहरण के लिए, A/B परीक्षण, मौसमी बैनर के लिए)। यदि प्रदान नहीं किया जाता है, तो इसे डिफ़ॉल्ट संस्करण माना जाता है।
+
+**उदाहरण:**
+
+```typescript
+{
+  key: "hero-banner",
+  variant: "black_friday",
+  content: {
+    headline: "50 % off — today only",
+    cta: "Shop now"
+  }
+}
+```
+
+> अधिक जानकारी के लिए [Variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/variants.md) देखें।
+
+#### `meta` (`Record<string, string | number | boolean>`)
+
+Dynamic Records के संयोजन में उपयोग किया जाने वाला, यह फ़ील्ड एक अपारदर्शी आईडी द्वारा रनटाइम पर CMS-प्रबंधित रिकॉर्ड या मनमाने डेटा की घोषणा करने की अनुमति देता है। शब्दकोश की पहचान इस `meta` फ़ील्ड में घोषित कुंजी-मान जोड़े के मनमाने सेट द्वारा परिभाषित होती है।
+
+**उदाहरण:**
+
+```typescript
+{
+  key: "product-copy",
+  meta: {
+    id: "prod_abc",
+    userId: "user_123"
+  },
+  content: {
+    name: "Widget Pro",
+    description: "The best widget."
+  }
+}
+```
+
+> अधिक जानकारी के लिए [Dynamic Records](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dynamic_dictionaries/dynamic_content.md) देखें।
+
 ### CMS गुण
 
 ##### `version` (स्ट्रिंग)

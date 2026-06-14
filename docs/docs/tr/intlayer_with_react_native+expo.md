@@ -113,29 +113,29 @@ GitHub'da [Uygulama Şablonu](https://github.com/aymericzip/intlayer-react-nativ
 
 React Native projenizden aşağıdaki paketleri yükleyin:
 
-````bash packageManager = "npm"
-npm intlayer tepki-intlayer'ı kurun
-npm kurulumu --save-dev react-native-intlayer
-npx katman içi başlatma
-''''
+```bash packageManager="npm"
+npm install intlayer react-intlayer
+npm install --save-dev react-native-intlayer
+npx intlayer init
+```
 
-```bash packageManager = "pnpm"
-pnpm ara katman ekle tepki-ara katman
+```bash packageManager="pnpm"
+pnpm add intlayer react-intlayer
 pnpm add --save-dev react-native-intlayer
-pnpm katman içi başlatma
-''''
+pnpm intlayer init
+```
 
-```bash packageManager = "iplik"
-iplik ekleme ara katman reaksiyon-ara katman
-iplik ekleme --save-dev react-native-intlayer
-iplik ara katmanı başlangıcı
-''''
+```bash packageManager="yarn"
+yarn add intlayer react-intlayer
+yarn add --save-dev react-native-intlayer
+yarn intlayer init
+```
 
-```bash packageManager = "topuz"
-topuz ekle ara katman reaksiyon-ara katman
-topuz ekle --dev react-native-intlayer
-bun x ara katman başlatma
-''''
+```bash packageManager="bun"
+bun add intlayer react-intlayer
+bun add --dev react-native-intlayer
+bun x intlayer init
+```
 
 ### Paketler
 
@@ -154,14 +154,13 @@ bun x ara katman başlatma
 
 <Step number={1} title="Bağımlılıkları Kurma">
 
-
 React Native projenizden aşağıdaki paketleri kurun:
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
 npm install --save-dev react-native-intlayer
 npx intlayer init
-````
+```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer

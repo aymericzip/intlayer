@@ -491,6 +491,66 @@ export default aboutPageMetaContent;
 // これはベースの辞書を上書きします
 ```
 
+#### `item` (number)
+
+コレクション（Collections）と組み合わせて使用されるこのフィールドは、コレクション内での項目の位置を定义します。これにより、実行時にインデックスで選択可能なローカライズされた項目のソート済みコレクションを構築できます。
+
+**例:**
+
+```typescript
+{
+  key: "faq",
+  item: 1,
+  content: {
+    question: "What is Intlayer?",
+    answer: "An i18n toolkit."
+  }
+}
+```
+
+> 詳細については、[コレクション](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/collections.md)を参照してください。
+
+#### `variant` (string)
+
+バリアント（Variants）と組み合わせて使用されるこのフィールドは、名前付きの代替コンテンツを定義します。コードを変更することなく、実行時に同じ辞書キーの異なるバリエーションを切り替えることができます（例：A/Bテスト、季節限定バナーなど）。指定しない場合は、デフォルトのバリアントとみなされます。
+
+**例:**
+
+```typescript
+{
+  key: "hero-banner",
+  variant: "black_friday",
+  content: {
+    headline: "50 % off — today only",
+    cta: "Shop now"
+  }
+}
+```
+
+> 詳細については、[バリアント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/variants.md)を参照してください。
+
+#### `meta` (`Record<string, string | number | boolean>`)
+
+動的レコード（Dynamic Records）と組み合わせて使用されるこのフィールドは、CMSで管理されるレコードや、不透明なIDを使用して実行時に取得される任意のデータを宣言することを可能にします。辞書の同一性は、この`meta`フィールドで宣言されたキーと値の任意の組み合わせによって定義されます。
+
+**例:**
+
+```typescript
+{
+  key: "product-copy",
+  meta: {
+    id: "prod_abc",
+    userId: "user_123"
+  },
+  content: {
+    name: "Widget Pro",
+    description: "The best widget."
+  }
+}
+```
+
+> 詳細については、[動的レコード](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dynamic_dictionaries/dynamic_content.md)を参照してください。
+
 ### CMSプロパティ
 
 ##### `version` (string)

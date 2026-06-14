@@ -397,11 +397,11 @@ export default config;
 
 ### Build Options
 
-| Property       | Type                   | Default     | Description                                                                                                                                                                       |
-| :------------- | :--------------------- | :---------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`optimize`** | `boolean \| undefined` | `undefined` | Enables the import-rewriting pass. `undefined` = active only in production builds. `false` disables purge and minify as well.                                                     |
-| **`minify`**   | `boolean`              | `false`     | Renames content field keys in compiled JSON files to short alphabetic aliases. Also rewrites matching property accesses in source code. Has no effect when `optimize` is `false`. |
-| **`purge`**    | `boolean`              | `false`     | Removes content fields that are never statically accessed from compiled JSON files. Has no effect when `optimize` is `false`.                                                     |
+| Property       | Type                  | Default     | Description                                                                                                                                                                       |
+| :------------- | :-------------------- | :---------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`optimize`** | `boolean / undefined` | `undefined` | Enables the import-rewriting pass. `undefined` = active only in production builds. `false` disables purge and minify as well.                                                     |
+| **`minify`**   | `boolean`             | `false`     | Renames content field keys in compiled JSON files to short alphabetic aliases. Also rewrites matching property accesses in source code. Has no effect when `optimize` is `false`. |
+| **`purge`**    | `boolean`             | `false`     | Removes content fields that are never statically accessed from compiled JSON files. Has no effect when `optimize` is `false`.                                                     |
 
 ### Minification (field key renaming)
 

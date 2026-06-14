@@ -212,7 +212,7 @@ const benchmarkContent = {
     ],
 
     // === NESTING ===
-    n21_nest: nest('app', 'title'),
+    // n21_nest: nest('app', 'title'),
     n22_plural: plural({
       one: t({
         en: '{{count}} item',

@@ -1,8 +1,10 @@
 'use client';
 
+import { getDictionarySelectorCacheKey } from '@intlayer/core/dictionaryManipulator';
 import type {
   DeclaredLocales,
   DictionaryKeys,
+  DictionarySelectorForKey,
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import { useContext, useMemo } from 'react';
@@ -12,11 +14,15 @@ import { IntlayerClientContext } from './IntlayerProvider';
 /**
  * Client-side hook that picks one dictionary by its key and returns its content.
  *
- * If the locale is not provided, it will use the locale from the client context.
+ * The second argument is either a locale or a selector object:
+ * - `{ item: 2 }` — collection item (omit `item` to get every item as array)
+ * - `{ variant: 'black-friday' }` — named variant (omit for the `default` one)
+ * - `{ id: 'prod_abc', ...metaFields }` — meta record
+ * - `locale` composes with any selector and overrides the context locale
  *
  * @param key - The unique key of the dictionary to retrieve.
- * @param locale - Optional locale to override the current context locale.
- * @returns The dictionary content for the specified locale.
+ * @param localeOrSelector - Optional locale or selector.
+ * @returns The dictionary content for the resolved entry and locale.
  *
  * @example
  * ```tsx
@@ -24,6 +30,7 @@ import { IntlayerClientContext } from './IntlayerProvider';
  *
  * const MyComponent = () => {
  *   const content = useIntlayer('my-dictionary-key');
+ *   const faq2 = useIntlayer('faq', { item: 2 });
  *
  *   return <div>{content.myField.value}</div>;
  * };
@@ -31,16 +38,31 @@ import { IntlayerClientContext } from './IntlayerProvider';
  */
 export const useIntlayer = <
   const T extends DictionaryKeys,
-  const L extends LocalesValues = DeclaredLocales,
+  const A extends LocalesValues | DictionarySelectorForKey<T> = DeclaredLocales,
 >(
   key: T,
-  locale?: L
+  localeOrSelector?: A
 ) => {
   const { locale: currentLocale } = useContext(IntlayerClientContext) ?? {};
 
-  return useMemo(() => {
-    const localeTarget = locale ?? (currentLocale as L);
+  const isSelector =
+    typeof localeOrSelector === 'object' && localeOrSelector !== null;
 
-    return getIntlayer<T, L>(key, localeTarget);
-  }, [key, currentLocale, locale]);
+  // Stable identity of the second argument for memoization
+  const localeOrSelectorIdentity = isSelector
+    ? `${localeOrSelector.locale ?? ''}|${getDictionarySelectorCacheKey(localeOrSelector)}`
+    : localeOrSelector;
+
+  return useMemo(() => {
+    if (isSelector) {
+      return getIntlayer(key, {
+        ...localeOrSelector,
+        locale: localeOrSelector.locale ?? currentLocale,
+      } as A);
+    }
+
+    const localeTarget = (localeOrSelector ?? currentLocale) as A;
+
+    return getIntlayer<T, A>(key, localeTarget);
+  }, [key, currentLocale, localeOrSelectorIdentity]);
 };

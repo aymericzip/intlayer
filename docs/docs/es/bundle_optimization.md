@@ -397,11 +397,11 @@ export default config;
 
 ### Opciones de compilación (Build Options)
 
-| Propiedad      | Tipo                   | Por defecto | Descripción                                                                                                                                                                                    |
-| :------------- | :--------------------- | :---------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`optimize`** | `boolean \| undefined` | `undefined` | Habilita el paso de reescritura de importación. `undefined` = activo solo en compilaciones de producción. `false` también deshabilita purga y minificación.                                    |
-| **`minify`**   | `boolean`              | `false`     | Renombra las claves de campos en los JSON a alias alfabéticos cortos. También reescribe los accesos a propiedades que coincidan en el código fuente. No surte efecto si `optimize` es `false`. |
-| **`purge`**    | `boolean`              | `false`     | Elimina los campos a los que nunca se acceda en código estático desde los archivos JSON compilados. No surte efecto si `optimize` es `false`.                                                  |
+| Propiedad      | Tipo                  | Por defecto | Descripción                                                                                                                                                                                    |
+| :------------- | :-------------------- | :---------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`optimize`** | `boolean / undefined` | `undefined` | Habilita el paso de reescritura de importación. `undefined` = activo solo en compilaciones de producción. `false` también deshabilita purga y minificación.                                    |
+| **`minify`**   | `boolean`             | `false`     | Renombra las claves de campos en los JSON a alias alfabéticos cortos. También reescribe los accesos a propiedades que coincidan en el código fuente. No surte efecto si `optimize` es `false`. |
+| **`purge`**    | `boolean`             | `false`     | Elimina los campos a los que nunca se acceda en código estático desde los archivos JSON compilados. No surte efecto si `optimize` es `false`.                                                  |
 
 ### Minificación (renombramiento de campos)
 

@@ -93,6 +93,42 @@ const applyFieldRenameToDict = (
   };
 };
 
+/**
+ * Discriminates a compiled qualified dictionary group (collections, variants,
+ * meta records) from a plain dictionary. Mirrors `isQualifiedDictionaryGroup`
+ * from `@intlayer/core` but is inlined here to avoid a runtime dependency on
+ * core inside the build plugin.
+ */
+const isQualifiedDictionaryGroup = (
+  dict: Record<string, unknown>
+): dict is Record<string, unknown> & {
+  qualifierTypes: unknown;
+  content: Record<string, unknown>;
+  meta?: Record<string, unknown>;
+} =>
+  'qualifierTypes' in dict &&
+  Array.isArray(dict.qualifierTypes) &&
+  'content' in dict &&
+  typeof dict.content === 'object' &&
+  dict.content !== null;
+
+/**
+ * Applies the field-rename map to a single qualified-group content node (the
+ * value stored under a composite id). Coordinates are not stored on the node —
+ * they live in the key — so only the node's content fields are renamed.
+ */
+const minifyGroupEntryNode = (
+  node: unknown,
+  fieldRenameMap: NestedRenameMap | undefined
+): unknown =>
+  fieldRenameMap &&
+  fieldRenameMap.size > 0 &&
+  node &&
+  typeof node === 'object' &&
+  !Array.isArray(node)
+    ? renameContentRecursively(node, fieldRenameMap)
+    : node;
+
 // Plugin
 
 /**
@@ -244,20 +280,48 @@ export const intlayerMinify = (
         return null; // structural issue flagged during prune – leave untouched
       }
 
-      // Apply field rename (property mangling)
-      if (pruneContext && dictionaryKey) {
-        const fieldRenameMap =
-          pruneContext.dictionaryKeyToFieldRenameMap.get(dictionaryKey);
-        if (fieldRenameMap && fieldRenameMap.size > 0) {
-          parsedDict = applyFieldRenameToDict(parsedDict, fieldRenameMap);
+      const fieldRenameMap =
+        pruneContext && dictionaryKey
+          ? pruneContext.dictionaryKeyToFieldRenameMap.get(dictionaryKey)
+          : undefined;
+
+      // Qualified groups (collections / variants / meta records) carry their
+      // payload as a `content` map keyed by composite id + `qualifierTypes`.
+      // Preserve `qualifierTypes` and the per-entry nodes (the coordinates live
+      // in the keys); only the field-rename pass is applied to each node. The
+      // `meta` side-map is kept verbatim for selector matching at runtime.
+      if (isQualifiedDictionaryGroup(parsedDict)) {
+        const minifiedContent: Record<string, unknown> = {};
+        for (const [entryId, node] of Object.entries(parsedDict.content)) {
+          minifiedContent[entryId] = minifyGroupEntryNode(node, fieldRenameMap);
         }
+
+        return {
+          code: JSON.stringify({
+            key: parsedDict.key,
+            qualifierTypes: parsedDict.qualifierTypes,
+            content: minifiedContent,
+            ...(parsedDict.meta !== undefined && { meta: parsedDict.meta }),
+          }),
+          map: null,
+        };
       }
 
-      // Strip all top-level metadata – ship only key + content
+      // Apply field rename (property mangling)
+      if (fieldRenameMap && fieldRenameMap.size > 0) {
+        parsedDict = applyFieldRenameToDict(parsedDict, fieldRenameMap);
+      }
+
+      // Strip top-level metadata – ship only key + content, plus `meta` when
+      // present. A per-locale chunk of a meta record carries a `meta` object
+      // ({ id, ...fields }) that the runtime selector matcher
+      // (`metaFieldsMatch` / `chunkMatchesMeta`) needs to confirm every declared
+      // meta field matches; dropping it makes meta records resolve to null.
       return {
         code: JSON.stringify({
           key: parsedDict.key,
           content: parsedDict.content,
+          ...(parsedDict.meta !== undefined && { meta: parsedDict.meta }),
         }),
         map: null,
       };

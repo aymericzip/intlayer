@@ -18,7 +18,7 @@
     "@tanstack/solid-start": "latest",
     "intlayer": "workspace:*",
     "solid-intlayer": "workspace:*",
-    "solid-js": "1.9.12",
+    "solid-js": "1.9.13",
     "tailwindcss": "4.3.0"
   },
   "devDependencies": {
@@ -26,6 +26,6 @@
     "typescript": "6.0.3",
     "vite": "8.0.16",
     "vite-intlayer": "workspace:*",
-    "vite-plugin-solid": "2.11.11"
+    "vite-plugin-solid": "2.11.12"
   }
 }

@@ -19,6 +19,9 @@ vi.mock('solid-js', () => ({
 
     return [() => resourceValue as TValue | undefined] as const;
   },
+  // `useLoadDynamic` reads the resource in a render effect to trigger Suspense;
+  // the effect runner is a no-op here.
+  createRenderEffect: () => undefined,
 }));
 
 const importUseLoadDynamic = async () => {

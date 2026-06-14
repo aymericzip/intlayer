@@ -491,6 +491,66 @@ Indica la priorità del dizionario per la risoluzione dei conflitti. Quando più
 // Questo sovrascriverà il dizionario base
 ```
 
+#### `item` (numero)
+
+Utilizzato in combinazione con le Collezioni, questo campo definisce la posizione dell'elemento in una collezione. Consente di creare collezioni ordinate di elementi localizzati selezionabili tramite indice a runtime.
+
+**Esempio:**
+
+```typescript
+{
+  key: "faq",
+  item: 1,
+  content: {
+    question: "What is Intlayer?",
+    answer: "An i18n toolkit."
+  }
+}
+```
+
+> Vedi [Collezioni](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dynamic_dictionaries/collections.md) per ulteriori informazioni.
+
+#### `variant` (stringa)
+
+Utilizzato in combinazione con le Varianti, questo campo definisce alternative di contenuto con nome. Consente di passare da una variazione all'altra della stessa chiave di dizionario a runtime senza modifiche al codice (ad es. per test A/B, banner stagionali). Se non fornito, viene considerato come la variante predefinita.
+
+**Esempio:**
+
+```typescript
+{
+  key: "hero-banner",
+  variant: "black_friday",
+  content: {
+    headline: "50 % off — today only",
+    cta: "Shop now"
+  }
+}
+```
+
+> Vedi [Varianti](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dynamic_dictionaries/variants.md) per ulteriori informazioni.
+
+#### `meta` (`Record<string, string | number | boolean>`)
+
+Utilizzato in combinazione con i Record Dinamici, questo campo consente di dichiarare record gestiti dal CMS o dati arbitrari recuperati a runtime tramite un ID opaco. L'identità del dizionario è definita dall'insieme arbitrario di coppie chiave-valore dichiarate in questo campo `meta`.
+
+**Esempio:**
+
+```typescript
+{
+  key: "product-copy",
+  meta: {
+    id: "prod_abc",
+    userId: "user_123"
+  },
+  content: {
+    name: "Widget Pro",
+    description: "The best widget."
+  }
+}
+```
+
+> Vedi [Record Dinamici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dynamic_dictionaries/dynamic_content.md) per ulteriori informazioni.
+
 ### Proprietà CMS
 
 ##### `version` (stringa)

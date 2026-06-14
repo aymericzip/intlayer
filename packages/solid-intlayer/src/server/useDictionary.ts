@@ -1,4 +1,8 @@
-import type { Dictionary } from '@intlayer/types/dictionary';
+import type {
+  Dictionary,
+  DictionarySelectorForGroup,
+  QualifiedDictionaryGroup,
+} from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
   LocalesValues,
@@ -11,6 +15,10 @@ import { useDictionary as useDictionaryClient } from '../client/useDictionary';
  * optimizer in the server bundle so dynamic-mode dictionaries render
  * synchronously from static JSON.
  *
+ * The second argument is either a locale or a selector object
+ * (`{ item }`, `{ variant }`, `{ id, ...meta }`, optionally with `locale`),
+ * forwarded to the client `useDictionary`.
+ *
  * The discarded `createResource` is load-bearing: Solid assigns hydration
  * ids from a positional counter shared by resources and element `data-hk`
  * keys, and the client bundle consumes one resource slot per call (see
@@ -20,16 +28,18 @@ import { useDictionary as useDictionaryClient } from '../client/useDictionary';
  * payload, so it is not shipped twice in the HTML.
  */
 export const useDictionary = <
-  const T extends Dictionary,
-  const L extends LocalesValues = DeclaredLocales,
+  const T extends Dictionary | QualifiedDictionaryGroup,
+  const A extends
+    | LocalesValues
+    | DictionarySelectorForGroup<T> = DeclaredLocales,
 >(
   dictionary: T,
-  locale?: L
+  localeOrSelector?: A
 ) => {
   createResource(() => dictionary, {
     initialValue: dictionary,
     ssrLoadFrom: 'initial',
   });
 
-  return useDictionaryClient(dictionary, locale);
+  return useDictionaryClient(dictionary, localeOrSelector);
 };

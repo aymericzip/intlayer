@@ -182,7 +182,6 @@ export default config;
 ```
 
 > 通过此配置文件，您可以设置本地化 URL、代理重定向、cookie 名称、内容声明的位置和扩展名、在控制台禁用 Intlayer 日志等。有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
-> </Step>
 
 </Step>
 
@@ -553,7 +552,6 @@ bun add @intlayer/swc --dev
 > 注意：该包默认不安装，因为 SWC 插件在 Next.js 中仍然是实验性的。将来可能会发生变化。
 
 > 注意：如果你将选项设置为 `importMode: 'dynamic'` 或 `importMode: 'fetch'`，它将依赖 Suspense，因此你必须在一个 `Suspense` 边界中包裹你的 `useIntlayer` 调用。这意味着你不能在页面 / 布局组件的顶层直接使用 `useIntlayer`。
-> </Step>
 
 </Step>
 

@@ -499,7 +499,14 @@ const analyzeCallExpressionUsage = (
           break;
         }
       } else if (babelTypes.isArrayExpression(referenceParentNode)) {
-        // Ignore array literals (e.g. [content]) – uncommon but benign
+        // The binding's value escapes into an array literal
+        // (e.g. `[appleWatch, airpods].map((entry) => entry.name)`). Its fields
+        // are then accessed through iteration that Babel cannot follow back to
+        // this dictionary, so we cannot know which fields are used. This is the
+        // canonical meta-record / collection access pattern — conservatively
+        // keep every field rather than pruning the content to nothing.
+        hasUntrackedReferenceAccess = true;
+        break;
       } else if (
         // Solid / Angular: content() signal accessor → content().field
         (babelTypes.isCallExpression(referenceParentNode) ||

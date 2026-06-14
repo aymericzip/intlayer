@@ -635,7 +635,6 @@ bun add @intlayer/swc --dev
 > Not: Bu optimizasyon sadece Next.js 13 ve üzeri için kullanılabilir.
 
 > Not: Bu paket varsayılan olarak kurulmaz çünkü SWC eklentileri Next.js'te hala deneyseldir. Gelecekte değişebilir.
-> </Step>
 
 </Step>
 

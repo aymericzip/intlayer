@@ -1,4 +1,10 @@
-import type { Dictionary } from '@intlayer/types/dictionary';
+import { getDictionarySelectorCacheKey } from '@intlayer/core/dictionaryManipulator';
+import type {
+  Dictionary,
+  DictionarySelector,
+  DictionarySelectorForGroup,
+  QualifiedDictionaryGroup,
+} from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
   LocalesValues,
@@ -8,22 +14,41 @@ import { getDictionary } from '../getDictionary';
 import { IntlayerClientContext } from './IntlayerProvider';
 
 /**
- * On the server side, Hook that transform a dictionary and return the content
+ * Preact hook that transforms a dictionary (or qualified dictionary group) and
+ * returns the content.
  *
- * If the locale is not provided, it will use the locale from the client context
+ * If the locale is not provided (directly or through the selector), it will use
+ * the locale from the client context.
  */
 export const useDictionary = <
-  const T extends Dictionary,
-  const L extends LocalesValues = DeclaredLocales,
+  const T extends Dictionary | QualifiedDictionaryGroup,
+  const A extends
+    | LocalesValues
+    | DictionarySelectorForGroup<T> = DeclaredLocales,
 >(
   dictionary: T,
-  locale?: L
+  localeOrSelector?: A
 ) => {
   const { locale: currentLocale } = useContext(IntlayerClientContext) ?? {};
 
-  return useMemo(() => {
-    const localeTarget = locale ?? currentLocale;
+  const isSelector =
+    typeof localeOrSelector === 'object' && localeOrSelector !== null;
 
-    return getDictionary<T, L>(dictionary, localeTarget as L);
-  }, [dictionary.key, currentLocale, locale]);
+  // Stable identity of the second argument for memoization
+  const localeOrSelectorIdentity = isSelector
+    ? `${localeOrSelector.locale ?? ''}|${getDictionarySelectorCacheKey(localeOrSelector)}`
+    : localeOrSelector;
+
+  return useMemo(() => {
+    if (isSelector) {
+      return getDictionary(dictionary, {
+        ...localeOrSelector,
+        locale: localeOrSelector.locale ?? currentLocale,
+      } as A);
+    }
+
+    const localeTarget = (localeOrSelector ?? currentLocale) as A;
+
+    return getDictionary<T, A>(dictionary, localeTarget);
+  }, [dictionary.key, currentLocale, localeOrSelectorIdentity]);
 };

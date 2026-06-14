@@ -494,6 +494,66 @@ Gibt die Priorität des Wörterbuchs zur Konfliktlösung an. Wenn mehrere Wörte
 // Dies überschreibt das Basis-Wörterbuch
 ```
 
+#### `item` (Zahl)
+
+Dieses Feld wird in Verbindung mit Collections verwendet und definiert die Position des Elements in einer Collection. Es ermöglicht Ihnen, geordnete Sammlungen lokalisierter Elemente zu erstellen, die zur Laufzeit per Index ausgewählt werden können.
+
+**Beispiel:**
+
+```typescript
+{
+  key: "faq",
+  item: 1,
+  content: {
+    question: "What is Intlayer?",
+    answer: "An i18n toolkit."
+  }
+}
+```
+
+> Siehe [Collections](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/collections.md) für weitere Informationen.
+
+#### `variant` (String)
+
+Dieses Feld wird in Verbindung mit Varianten verwendet und definiert benannte Inhaltsalternativen. Es ermöglicht Ihnen, zur Laufzeit ohne Codeänderungen zwischen verschiedenen Variationen desselben Wörterbuchschlüssels zu wechseln (z. B. für A/B-Tests, saisonale Banner). Wenn es nicht angegeben wird, wird es als Standardvariante betrachtet.
+
+**Beispiel:**
+
+```typescript
+{
+  key: "hero-banner",
+  variant: "black_friday",
+  content: {
+    headline: "50 % off — today only",
+    cta: "Shop now"
+  }
+}
+```
+
+> Siehe [Varianten](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/variants.md) für weitere Informationen.
+
+#### `meta` (`Record<string, string | number | boolean>`)
+
+Dieses Feld wird in Verbindung mit dynamischen Datensätzen (Dynamic Records) verwendet und ermöglicht die Deklaration von CMS-verwalteten Datensätzen oder beliebigen Daten, die zur Laufzeit über eine opake ID abgerufen werden. Die Wörterbuchidentität wird durch die beliebige Menge von Schlüssel-Wert-Paaren definiert, die in diesem `meta`-Feld deklariert sind.
+
+**Beispiel:**
+
+```typescript
+{
+  key: "product-copy",
+  meta: {
+    id: "prod_abc",
+    userId: "user_123"
+  },
+  content: {
+    name: "Widget Pro",
+    description: "The best widget."
+  }
+}
+```
+
+> Siehe [Dynamische Datensätze](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dynamic_dictionaries/dynamic_content.md) für weitere Informationen.
+
 ### CMS-Eigenschaften
 
 ##### `version` (string)

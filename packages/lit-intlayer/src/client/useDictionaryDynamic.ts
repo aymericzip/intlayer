@@ -1,7 +1,17 @@
 import { internationalization } from '@intlayer/config/built';
-import type { Dictionary } from '@intlayer/types/dictionary';
+import {
+  isQualifiedDynamicLoaderMap,
+  parseDictionarySelector,
+  type QualifiedDynamicLoaderMap,
+  resolveQualifiedDynamicContentAsync,
+} from '@intlayer/core/dictionaryManipulator';
+import type {
+  Dictionary,
+  DictionarySelector,
+} from '@intlayer/types/dictionary';
 import type {
   DictionaryKeys,
+  DictionarySelectorForKey,
   LocalesValues,
   StrictModeLocaleMap,
 } from '@intlayer/types/module_augmentation';
@@ -92,19 +102,27 @@ const recursiveProxy: any = new Proxy(
 export const useDictionaryDynamic = <
   const T extends Dictionary,
   const K extends DictionaryKeys,
-  const L extends LocalesValues = LocalesValues,
+  const A extends LocalesValues | DictionarySelectorForKey<K> = LocalesValues,
 >(
-  dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
+  dictionaryPromise:
+    | StrictModeLocaleMap<() => Promise<T>>
+    | QualifiedDynamicLoaderMap,
   key: K,
-  locale?: L
-): IntlayerLitProxy<DeepTransformContent<T['content'], L>> => {
+  localeOrSelector?: A
+): IntlayerLitProxy<DeepTransformContent<T['content']>> => {
   const client = getIntlayerClient();
 
-  const getActiveLocale = (): L =>
-    (locale ?? client.locale ?? internationalization.defaultLocale) as L;
+  const isQualified = isQualifiedDynamicLoaderMap(dictionaryPromise);
+  const { locale: explicitLocale, selector } =
+    parseDictionarySelector<LocalesValues>(localeOrSelector);
+
+  const getActiveLocale = (): LocalesValues =>
+    (explicitLocale ??
+      client.locale ??
+      internationalization.defaultLocale) as LocalesValues;
 
   /** Holds the most recently loaded content so the proxy can serve real values. */
-  let loadedContent: DeepTransformContent<T['content'], L> | undefined;
+  let loadedContent: unknown;
 
   /**
    * Functions registered by `.observe(host)` calls.
@@ -112,7 +130,27 @@ export const useDictionaryDynamic = <
    */
   const updateFns = new Set<() => void>();
 
-  const loadForLocale = (currentLocale: L): void => {
+  const notify = (): void => {
+    for (const fn of updateFns) {
+      fn();
+    }
+  };
+
+  const loadForLocale = (currentLocale: LocalesValues): void => {
+    if (isQualified) {
+      resolveQualifiedDynamicContentAsync({
+        loaderMap: dictionaryPromise,
+        key: String(key),
+        locale: currentLocale,
+        selector,
+        transform: (dict) => getDictionary(dict, currentLocale),
+      }).then((resolved) => {
+        loadedContent = resolved;
+        notify();
+      });
+      return;
+    }
+
     const cacheKey = `${String(key)}.${currentLocale}`;
     const loader = (dictionaryPromise as Record<string, () => Promise<T>>)[
       currentLocale
@@ -121,14 +159,8 @@ export const useDictionaryDynamic = <
     loadDictionary<T>(cacheKey, loader).then((dict) => {
       if (!dict) return;
 
-      loadedContent = getDictionary(
-        dict,
-        currentLocale
-      ) as DeepTransformContent<T['content'], L>;
-
-      for (const fn of updateFns) {
-        fn();
-      }
+      loadedContent = getDictionary(dict, currentLocale);
+      notify();
     });
   };
 
@@ -137,12 +169,12 @@ export const useDictionaryDynamic = <
 
   // Subscribe to locale changes
   client.subscribe((newLocale) => {
-    loadForLocale((locale ?? newLocale) as L);
+    loadForLocale((explicitLocale ?? newLocale) as LocalesValues);
   });
 
   let observeFn: (
     host: ReactiveControllerHost
-  ) => IntlayerLitProxy<DeepTransformContent<T['content'], L>>;
+  ) => IntlayerLitProxy<DeepTransformContent<T['content']>>;
 
   const proxy = new Proxy({} as any, {
     get(_target, prop) {
@@ -152,11 +184,12 @@ export const useDictionaryDynamic = <
       if (prop === 'then') return undefined;
       // Once content is loaded, delegate to real content so subsequent Lit
       // renders (triggered by any reactive property change) show correct values.
-      if (loadedContent !== undefined)
+      // A qualified selector can resolve to null (variant/meta miss).
+      if (loadedContent != null)
         return (loadedContent as Record<string | symbol, unknown>)[prop];
       return recursiveProxy;
     },
-  }) as IntlayerLitProxy<DeepTransformContent<T['content'], L>>;
+  }) as IntlayerLitProxy<DeepTransformContent<T['content']>>;
 
   observeFn = (host) => {
     const update = () => host.requestUpdate();
@@ -167,7 +200,7 @@ export const useDictionaryDynamic = <
       // onConnect: if content is already cached, trigger an immediate update
       // so the element doesn't stay on the loading placeholder.
       () => {
-        if (loadedContent !== undefined) host.requestUpdate();
+        if (loadedContent != null) host.requestUpdate();
       },
       // onDisconnect: remove from the update set to prevent memory leaks.
       () => {

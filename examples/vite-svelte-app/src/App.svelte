@@ -12,6 +12,7 @@ import {
 } from 'svelte-intlayer/format';
 import { MarkdownProvider } from 'svelte-intlayer/markdown';
 import svelteLogo from './assets/svelte.svg';
+import QualifiedContentDemo from './components/QualifiedContentDemo/index.svelte';
 import LocaleSwitcher from './lib/LocaleSwitcher.svelte';
 
 let count = $state(0);
@@ -220,6 +221,8 @@ let sections = $derived(getSections());
         </table>
       </div>
     </div>
+
+    <QualifiedContentDemo />
 
     <p class="read-the-docs">{$app.readTheDocs}</p>
   </main>

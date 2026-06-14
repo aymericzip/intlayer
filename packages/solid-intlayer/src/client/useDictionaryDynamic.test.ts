@@ -16,6 +16,7 @@ const mockSolid = vi.hoisted(() => ({
 const mockHooks = vi.hoisted(() => ({
   useDictionary: vi.fn(),
   useLoadDynamic: vi.fn(),
+  getDictionary: vi.fn((dictionary: Dictionary) => dictionary.content),
 }));
 
 vi.mock('@intlayer/config/built', () => ({
@@ -38,6 +39,12 @@ vi.mock('./useLoadDynamic', () => ({
   useLoadDynamic: mockHooks.useLoadDynamic,
 }));
 
+// Mocked to keep the import graph free of `../plugins` (which pulls the Solid
+// `lazy`/`Suspense` runtime that the `solid-js` mock above does not provide).
+vi.mock('../getDictionary', () => ({
+  getDictionary: mockHooks.getDictionary,
+}));
+
 const dictionary: Dictionary = {
   key: 'dictionary',
   content: { message: 'Loaded' },
@@ -55,6 +62,10 @@ describe('useDictionaryDynamic', () => {
     mockSolid.useContext.mockClear();
     mockHooks.useDictionary.mockReset();
     mockHooks.useLoadDynamic.mockReset();
+    mockHooks.getDictionary.mockReset();
+    mockHooks.getDictionary.mockImplementation(
+      (dict: Dictionary) => dict.content
+    );
     mockHooks.useLoadDynamic.mockReturnValue(dictionary);
     mockHooks.useDictionary.mockReturnValue({ message: { value: 'Loaded' } });
   });
@@ -155,4 +166,8 @@ describe('useDictionaryDynamic', () => {
       'No dynamic dictionary loader found for key "dictionary" and locale "fr".'
     );
   });
+
+  // The qualified-loader-map path (collections / variants / meta records) uses
+  // the real Solid resource + memo and is covered end-to-end in
+  // `useDictionaryDynamic.integration.test.tsx`.
 });

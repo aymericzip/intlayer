@@ -1,13 +1,18 @@
 import { log } from '@intlayer/config/built';
 import { colorizeKey, getAppLogger } from '@intlayer/config/logger';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
+import type { DictionarySelector } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
   DictionaryKeys,
-  DictionaryRegistryContent,
-  DictionaryRegistryElement,
+  DictionaryRegistryResult,
+  ExtractSelectorLocale,
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
+import {
+  getDictionarySelectorCacheKey,
+  parseDictionarySelector,
+} from '../dictionaryManipulator/qualifiedDictionary';
 import type {
   DeepTransformContent,
   IInterpreterPluginState,
@@ -49,20 +54,30 @@ const createSafeFallback = (path = ''): any => {
 const dictionaryCache = new Map<string, any>();
 const warnedMissingDictionaries = new Set<string>();
 
+/**
+ * Picks one dictionary by its key and returns its content for the given
+ * locale or selector.
+ *
+ * The second argument is either a locale (`'fr'`) or a selector object:
+ * - `{ item: 2 }` — collection item (omit `item` to get every item as array)
+ * - `{ variant: 'black-friday' }` — named variant (omit for the `default` one)
+ * - `{ id: 'prod_abc', ...metaFields }` — meta record
+ * - `locale` can be combined with any selector: `{ item: 2, locale: 'fr' }`
+ */
 export const getIntlayer = <
   const T extends DictionaryKeys,
-  const L extends LocalesValues = DeclaredLocales,
+  const A extends LocalesValues | DictionarySelector = DeclaredLocales,
 >(
   key: T,
-  locale?: L,
+  localeOrSelector?: A,
   plugins?: Plugins[]
 ): DeepTransformContent<
-  DictionaryRegistryContent<T>,
+  DictionaryRegistryResult<T, A>,
   IInterpreterPluginState,
-  L
+  ExtractSelectorLocale<A>
 > => {
   const dictionaries = getDictionaries();
-  const dictionary = dictionaries[key as T] as DictionaryRegistryElement<T>;
+  const dictionary = dictionaries[key as T];
 
   if (!dictionary && process.env.NODE_ENV === 'development') {
     if (!warnedMissingDictionaries.has(key as string)) {
@@ -82,19 +97,18 @@ export const getIntlayer = <
     return createSafeFallback(key as string);
   }
 
-  const cacheKey = `${key}_${locale ?? 'default'}_${plugins ? 'custom_plugins' : 'default_plugins'}`;
+  const { locale, selector } = parseDictionarySelector(localeOrSelector);
+  const selectorCacheKey = getDictionarySelectorCacheKey(selector);
+
+  const cacheKey = `${key}_${locale ?? 'default'}_${selectorCacheKey}_${plugins ? 'custom_plugins' : 'default_plugins'}`;
 
   if (dictionaryCache.has(cacheKey)) {
     return dictionaryCache.get(cacheKey);
   }
 
-  const result = getDictionary<DictionaryRegistryElement<T>, L>(
-    dictionary,
-    locale,
-    plugins
-  );
+  const result = getDictionary(dictionary, localeOrSelector, plugins);
 
   dictionaryCache.set(cacheKey, result);
 
-  return result;
+  return result as any;
 };
