@@ -29,18 +29,358 @@ author: aymericzip
 
 ## Cómo funciona el plural
 
-En Intlayer, el contenido en plural se logra a través de la función `plural`, que asigna las categorías de plural de CLDR, `zero`, `one`, `two`, `few`, `many`, `other`, a su contenido correspondiente. La categoría correcta se selecciona automáticamente según la configuración regional activa y un valor de conteo, utilizando la API integrada de la plataforma [`Intl.PluralRules`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules).
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
-A diferencia de [`enu`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/enumeration.md), que selecciona contenido según rangos numéricos que tú mismo defines, `plural` delega la selección a las reglas de CLDR. Esto es lo que lo hace escalable a idiomas con reglas de pluralización complejas, como el ruso, el polaco, el árabe o el galés, sin tener que escribir manualmente lógica de módulo.
+To use plural content inside a React component, retrieve it via the `useIntlayer` hook and call it with a count. The active locale and the count are combined to pick the matching CLDR category.
 
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { useIntlayer } from "react-intlayer";
+
+const OpeningsComponent: FC<{ count: number }> = ({ count }) => {
+  const { totalOpenings } = useIntlayer("total_openings");
+
+  return (
+    <div>
+      <p>{totalOpenings(count)}</p>
+    </div>
+  );
+};
+
+export default OpeningsComponent;
+```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+To use plural content in Next.js Client Components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+"use client";
+
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+const OpeningsComponent: FC<{ count: number }> = ({ count }) => {
+  const { totalOpenings } = useIntlayer("total_openings");
+
+  return (
+    <div>
+      <p>{totalOpenings(count)}</p>
+    </div>
+  );
+};
+
+export default OpeningsComponent;
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+To use plural content in Vue components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
+
+```vue fileName="**/*.vue" codeFormat="vue"
+<script setup lang="ts">
+import { useIntlayer } from "vue-intlayer";
+
+defineProps<{ count: number }>();
+
+const { totalOpenings } = useIntlayer("total_openings");
+</script>
+
+<template>
+  <div>
+    <p>{{ totalOpenings(count) }}</p>
+  </div>
+</template>
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+To use plural content in Svelte components, retrieve it via the `useIntlayer` hook and call it with a count. The store is accessed with `$`. Here's an example:
+
+```svelte fileName="**/*.svelte" codeFormat="svelte"
+<script lang="ts">
+import { useIntlayer } from "svelte-intlayer";
+
+export let count: number;
+
+const content = useIntlayer("total_openings");
+</script>
+
+<div>
+  <p>{$content.totalOpenings(count)}</p>
+</div>
+```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+To use plural content in Preact components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "preact";
+import { useIntlayer } from "preact-intlayer";
+
+const OpeningsComponent: FC<{ count: number }> = ({ count }) => {
+  const { totalOpenings } = useIntlayer("total_openings");
+
+  return (
+    <div>
+      <p>{totalOpenings(count)}</p>
+    </div>
+  );
+};
+
+export default OpeningsComponent;
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+To use plural content in SolidJS components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+import type { Component } from "solid-js";
+import { useIntlayer } from "solid-intlayer";
+
+const OpeningsComponent: Component<{ count: number }> = (props) => {
+  const { totalOpenings } = useIntlayer("total_openings");
+
+  return (
+    <div>
+      <p>{totalOpenings(props.count)}</p>
+    </div>
+  );
+};
+
+export default OpeningsComponent;
+```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+To use plural content in Angular components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
+
+```typescript fileName="app.component.ts" codeFormat="typescript"
+import { Component, Input } from "@angular/core";
+import { useIntlayer } from "angular-intlayer";
+
+@Component({
+  selector: "app-openings",
+  template: `
+    <div>
+      <p>{{ content().totalOpenings(count) }}</p>
+    </div>
+  `,
+})
+export class OpeningsComponent {
+  @Input() count!: number;
+
+  content = useIntlayer("total_openings");
+}
+```
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+To use plural content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
+
+```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
+import { installIntlayer, useIntlayer } from "vanilla-intlayer";
+
+installIntlayer();
+
+const content = useIntlayer("total_openings").onChange((newContent) => {
+  document.getElementById("openings")!.textContent =
+    newContent.totalOpenings(5);
+});
+
+// Initial render
+document.getElementById("openings")!.textContent = content.totalOpenings(5);
+```
+
+  </Tab>
+</Tabs>
 ## Cuándo usar `plural` vs `enu`
 
-| Caso de uso                                                                                                  | Ayudante |
-| ------------------------------------------------------------------------------------------------------------ | -------- |
-| Formas plurales gramaticales adaptadas a la configuración regional (una manzana / dos manzanas / 5 manzanas) | `plural` |
-| Rangos numéricos personalizados (`<5`, `>=10`) o categorías no pertenecientes a CLDR                         | `enu`    |
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
-Si solo te diriges al inglés o español (que solo tienen `one` / `other`), cualquiera de los dos funciona. Para cualquier idioma con distinciones `few` / `many` / `two`, prefiere `plural`.
+To use plural content inside a React component, retrieve it via the `useIntlayer` hook and call it with a count. The active locale and the count are combined to pick the matching CLDR category.
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { useIntlayer } from "react-intlayer";
+
+const OpeningsComponent: FC<{ count: number }> = ({ count }) => {
+  const { totalOpenings } = useIntlayer("total_openings");
+
+  return (
+    <div>
+      <p>{totalOpenings(count)}</p>
+    </div>
+  );
+};
+
+export default OpeningsComponent;
+```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+To use plural content in Next.js Client Components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+"use client";
+
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+const OpeningsComponent: FC<{ count: number }> = ({ count }) => {
+  const { totalOpenings } = useIntlayer("total_openings");
+
+  return (
+    <div>
+      <p>{totalOpenings(count)}</p>
+    </div>
+  );
+};
+
+export default OpeningsComponent;
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+To use plural content in Vue components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
+
+```vue fileName="**/*.vue" codeFormat="vue"
+<script setup lang="ts">
+import { useIntlayer } from "vue-intlayer";
+
+defineProps<{ count: number }>();
+
+const { totalOpenings } = useIntlayer("total_openings");
+</script>
+
+<template>
+  <div>
+    <p>{{ totalOpenings(count) }}</p>
+  </div>
+</template>
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+To use plural content in Svelte components, retrieve it via the `useIntlayer` hook and call it with a count. The store is accessed with `$`. Here's an example:
+
+```svelte fileName="**/*.svelte" codeFormat="svelte"
+<script lang="ts">
+import { useIntlayer } from "svelte-intlayer";
+
+export let count: number;
+
+const content = useIntlayer("total_openings");
+</script>
+
+<div>
+  <p>{$content.totalOpenings(count)}</p>
+</div>
+```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+To use plural content in Preact components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "preact";
+import { useIntlayer } from "preact-intlayer";
+
+const OpeningsComponent: FC<{ count: number }> = ({ count }) => {
+  const { totalOpenings } = useIntlayer("total_openings");
+
+  return (
+    <div>
+      <p>{totalOpenings(count)}</p>
+    </div>
+  );
+};
+
+export default OpeningsComponent;
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+To use plural content in SolidJS components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+import type { Component } from "solid-js";
+import { useIntlayer } from "solid-intlayer";
+
+const OpeningsComponent: Component<{ count: number }> = (props) => {
+  const { totalOpenings } = useIntlayer("total_openings");
+
+  return (
+    <div>
+      <p>{totalOpenings(props.count)}</p>
+    </div>
+  );
+};
+
+export default OpeningsComponent;
+```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+To use plural content in Angular components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
+
+```typescript fileName="app.component.ts" codeFormat="typescript"
+import { Component, Input } from "@angular/core";
+import { useIntlayer } from "angular-intlayer";
+
+@Component({
+  selector: "app-openings",
+  template: `
+    <div>
+      <p>{{ content().totalOpenings(count) }}</p>
+    </div>
+  `,
+})
+export class OpeningsComponent {
+  @Input() count!: number;
+
+  content = useIntlayer("total_openings");
+}
+```
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+To use plural content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
+
+```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
+import { installIntlayer, useIntlayer } from "vanilla-intlayer";
+
+installIntlayer();
+
+const content = useIntlayer("total_openings").onChange((newContent) => {
+  document.getElementById("openings")!.textContent =
+    newContent.totalOpenings(5);
+});
+
+// Initial render
+document.getElementById("openings")!.textContent = content.totalOpenings(5);
+```
+
+  </Tab>
+</Tabs>
 
 ## Configuración del contenido en plural
 

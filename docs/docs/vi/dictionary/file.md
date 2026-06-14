@@ -29,8 +29,174 @@ Trong Intlayer, hàm `file` cho phép nhúng nội dung tệp tin bên ngoài v�
 
 ## Tại sao sử dụng `file` thay vì `import`, `require` hoặc `fs`?
 
-Khác với các phương pháp đọc tệp như `import`, `require` hoặc `fs`, việc sử dụng `file` liên kết tệp với từ điển, cho phép Intlayer theo dõi và cập nhật nội dung một cách động khi tệp được chỉnh sửa. Do đó, sử dụng `file` sẽ mang lại sự tích hợp tốt hơn với Intlayer Visual Editor và CMS.
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
+To use embedded file content in a React component, import and use the `useIntlayer` hook from the `react-intlayer` package. This retrieves the content from the specified key and allows it to be displayed dynamically.
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { useIntlayer } from "react-intlayer";
+
+const FileComponent: FC = () => {
+  const { myFile } = useIntlayer("my_key");
+
+  return (
+    <div>
+      <pre>{myFile}</pre>
+    </div>
+  );
+};
+
+export default FileComponent;
+```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+To use embedded file content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+"use client";
+
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+const FileComponent: FC = () => {
+  const { myFile } = useIntlayer("my_key");
+
+  return (
+    <div>
+      <pre>{myFile}</pre>
+    </div>
+  );
+};
+
+export default FileComponent;
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+To use embedded file content in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```vue fileName="**/*.vue" codeFormat="vue"
+<script setup lang="ts">
+import { useIntlayer } from "vue-intlayer";
+
+const { myFile } = useIntlayer("my_key");
+</script>
+
+<template>
+  <div>
+    <pre>{{ myFile }}</pre>
+  </div>
+</template>
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+To use embedded file content in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+
+```svelte fileName="**/*.svelte" codeFormat="svelte"
+<script lang="ts">
+import { useIntlayer } from "svelte-intlayer";
+
+const content = useIntlayer("my_key");
+</script>
+
+<div>
+  <pre>{$content.myFile}</pre>
+</div>
+```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+To use embedded file content in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "preact";
+import { useIntlayer } from "preact-intlayer";
+
+const FileComponent: FC = () => {
+  const { myFile } = useIntlayer("my_key");
+
+  return (
+    <div>
+      <pre>{myFile}</pre>
+    </div>
+  );
+};
+
+export default FileComponent;
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+To use embedded file content in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+import type { Component } from "solid-js";
+import { useIntlayer } from "solid-intlayer";
+
+const FileComponent: Component = () => {
+  const { myFile } = useIntlayer("my_key");
+
+  return (
+    <div>
+      <pre>{myFile}</pre>
+    </div>
+  );
+};
+
+export default FileComponent;
+```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+To use embedded file content in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```typescript fileName="app.component.ts" codeFormat="typescript"
+import { Component } from "@angular/core";
+import { useIntlayer } from "angular-intlayer";
+
+@Component({
+  selector: "app-file",
+  template: `
+    <div>
+      <pre>{{ content().myFile }}</pre>
+    </div>
+  `,
+})
+export class FileComponent {
+  content = useIntlayer("my_key");
+}
+```
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+To use embedded file content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
+import { installIntlayer, useIntlayer } from "vanilla-intlayer";
+
+installIntlayer();
+
+const content = useIntlayer("my_key").onChange((newContent) => {
+  document.getElementById("file-content")!.textContent = newContent.myFile;
+});
+
+// Initial render
+document.getElementById("file-content")!.textContent = content.myFile;
+```
+
+  </Tab>
+</Tabs>
 ## Cài đặt Nội dung Tệp tin
 
 Để nhúng nội dung tệp vào dự án Intlayer của bạn, hãy sử dụng hàm `file` trong một module nội dung. Dưới đây là các ví dụ minh họa các cách triển khai khác nhau.
@@ -63,7 +229,10 @@ export default myFileContent;
 
 ## Sử dụng Nội dung Tệp trong React Intlayer
 
-Để sử dụng nội dung tệp được nhúng trong một component React, hãy import và sử dụng hook `useIntlayer` từ package `react-intlayer`. Hook này lấy nội dung từ key được chỉ định và cho phép hiển thị nội dung đó một cách động.
+<Tabs group="framework">
+  <Tab label="React" value="react">
+
+To use embedded file content in a React component, import and use the `useIntlayer` hook from the `react-intlayer` package. This retrieves the content from the specified key and allows it to be displayed dynamically.
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -81,6 +250,153 @@ const FileComponent: FC = () => {
 
 export default FileComponent;
 ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+To use embedded file content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+"use client";
+
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+const FileComponent: FC = () => {
+  const { myFile } = useIntlayer("my_key");
+
+  return (
+    <div>
+      <pre>{myFile}</pre>
+    </div>
+  );
+};
+
+export default FileComponent;
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+To use embedded file content in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```vue fileName="**/*.vue" codeFormat="vue"
+<script setup lang="ts">
+import { useIntlayer } from "vue-intlayer";
+
+const { myFile } = useIntlayer("my_key");
+</script>
+
+<template>
+  <div>
+    <pre>{{ myFile }}</pre>
+  </div>
+</template>
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+To use embedded file content in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+
+```svelte fileName="**/*.svelte" codeFormat="svelte"
+<script lang="ts">
+import { useIntlayer } from "svelte-intlayer";
+
+const content = useIntlayer("my_key");
+</script>
+
+<div>
+  <pre>{$content.myFile}</pre>
+</div>
+```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+To use embedded file content in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "preact";
+import { useIntlayer } from "preact-intlayer";
+
+const FileComponent: FC = () => {
+  const { myFile } = useIntlayer("my_key");
+
+  return (
+    <div>
+      <pre>{myFile}</pre>
+    </div>
+  );
+};
+
+export default FileComponent;
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+To use embedded file content in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+import type { Component } from "solid-js";
+import { useIntlayer } from "solid-intlayer";
+
+const FileComponent: Component = () => {
+  const { myFile } = useIntlayer("my_key");
+
+  return (
+    <div>
+      <pre>{myFile}</pre>
+    </div>
+  );
+};
+
+export default FileComponent;
+```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+To use embedded file content in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```typescript fileName="app.component.ts" codeFormat="typescript"
+import { Component } from "@angular/core";
+import { useIntlayer } from "angular-intlayer";
+
+@Component({
+  selector: "app-file",
+  template: `
+    <div>
+      <pre>{{ content().myFile }}</pre>
+    </div>
+  `,
+})
+export class FileComponent {
+  content = useIntlayer("my_key");
+}
+```
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+To use embedded file content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
+import { installIntlayer, useIntlayer } from "vanilla-intlayer";
+
+installIntlayer();
+
+const content = useIntlayer("my_key").onChange((newContent) => {
+  document.getElementById("file-content")!.textContent = newContent.myFile;
+});
+
+// Initial render
+document.getElementById("file-content")!.textContent = content.myFile;
+```
+
+  </Tab>
+</Tabs>
 
 ## Ví dụ Markdown Đa ngôn ngữ
 

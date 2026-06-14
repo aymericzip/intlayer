@@ -67,7 +67,10 @@ export default myConditionalContent;
 
 ## React Intlayer와 조건부 콘텐츠 사용
 
-React 컴포넌트 내에서 조건부 콘텐츠를 사용하려면 `react-intlayer` 패키지에서 `useIntlayer` 훅을 가져와 사용하십시오. 이 훅은 지정된 키에 대한 콘텐츠를 가져오며, 조건을 전달하여 적절한 출력을 선택할 수 있습니다.
+<Tabs group="framework">
+  <Tab label="React" value="react">
+
+To utilize conditional content within a React component, import and use the `useIntlayer` hook from the `react-intlayer` package. This hook fetches the content for the specified key and allows you to pass in a condition to select the appropriate output.
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -80,25 +83,25 @@ const ConditionalComponent: FC = () => {
     <div>
       <p>
         {
-          /* 출력: 조건이 참일 때의 콘텐츠 */
+          /* Output: my content when it's true */
           myCondition(true)
         }
       </p>
       <p>
         {
-          /* 출력: 조건이 거짓일 때의 콘텐츠 */
+          /* Output: my content when it's false */
           myCondition(false)
         }
       </p>
       <p>
         {
-          /* 출력: 조건이 실패했을 때의 콘텐츠 */
+          /* Output: my content when the condition fails */
           myCondition("")
         }
       </p>
       <p>
         {
-          /* 출력: 조건이 실패했을 때의 콘텐츠 */
+          /* Output: my content when the condition fails */
           myCondition(undefined)
         }
       </p>
@@ -108,6 +111,165 @@ const ConditionalComponent: FC = () => {
 
 export default ConditionalComponent;
 ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+To utilize conditional content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+"use client";
+
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+const ConditionalComponent: FC = () => {
+  const { myCondition } = useIntlayer("my_key");
+
+  return (
+    <div>
+      <p>{myCondition(true)}</p>
+      <p>{myCondition(false)}</p>
+    </div>
+  );
+};
+
+export default ConditionalComponent;
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+To utilize conditional content in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```vue fileName="**/*.vue" codeFormat="vue"
+<script setup lang="ts">
+import { useIntlayer } from "vue-intlayer";
+
+const { myCondition } = useIntlayer("my_key");
+</script>
+
+<template>
+  <div>
+    <p>{{ myCondition(true) }}</p>
+    <p>{{ myCondition(false) }}</p>
+  </div>
+</template>
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+To utilize conditional content in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+
+```svelte fileName="**/*.svelte" codeFormat="svelte"
+<script lang="ts">
+import { useIntlayer } from "svelte-intlayer";
+
+const content = useIntlayer("my_key");
+</script>
+
+<div>
+  <p>{$content.myCondition(true)}</p>
+  <p>{$content.myCondition(false)}</p>
+</div>
+```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+To utilize conditional content in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "preact";
+import { useIntlayer } from "preact-intlayer";
+
+const ConditionalComponent: FC = () => {
+  const { myCondition } = useIntlayer("my_key");
+
+  return (
+    <div>
+      <p>{myCondition(true)}</p>
+      <p>{myCondition(false)}</p>
+    </div>
+  );
+};
+
+export default ConditionalComponent;
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+To utilize conditional content in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+import type { Component } from "solid-js";
+import { useIntlayer } from "solid-intlayer";
+
+const ConditionalComponent: Component = () => {
+  const { myCondition } = useIntlayer("my_key");
+
+  return (
+    <div>
+      <p>{myCondition(true)}</p>
+      <p>{myCondition(false)}</p>
+    </div>
+  );
+};
+
+export default ConditionalComponent;
+```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+To utilize conditional content in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```typescript fileName="app.component.ts" codeFormat="typescript"
+import { Component } from "@angular/core";
+import { useIntlayer } from "angular-intlayer";
+
+@Component({
+  selector: "app-conditional",
+  template: `
+    <div>
+      <p>{{ content().myCondition(true) }}</p>
+      <p>{{ content().myCondition(false) }}</p>
+    </div>
+  `,
+})
+export class ConditionalComponent {
+  content = useIntlayer("my_key");
+}
+```
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+To utilize conditional content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
+import { installIntlayer, useIntlayer } from "vanilla-intlayer";
+
+installIntlayer();
+
+const content = useIntlayer("my_key").onChange((newContent) => {
+  document.getElementById("true-content")!.textContent =
+    newContent.myCondition(true);
+  document.getElementById("false-content")!.textContent =
+    newContent.myCondition(false);
+});
+
+// Initial render
+document.getElementById("true-content")!.textContent =
+  content.myCondition(true);
+document.getElementById("false-content")!.textContent =
+  content.myCondition(false);
+```
+
+  </Tab>
+</Tabs>
 
 ## 추가 리소스
 

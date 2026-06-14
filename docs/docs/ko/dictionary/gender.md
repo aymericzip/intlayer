@@ -71,7 +71,10 @@ export default myGenderContent;
 
 ## React Intlayer에서 성별 기반 콘텐츠 사용하기
 
-React 컴포넌트 내에서 성별 기반 콘텐츠를 활용하려면, `react-intlayer` 패키지에서 `useIntlayer` 훅을 임포트하여 사용하세요. 이 훅은 지정된 키에 대한 콘텐츠를 가져오며, 적절한 출력을 선택하기 위해 성별을 전달할 수 있습니다.
+<Tabs group="framework">
+  <Tab label="React" value="react">
+
+To utilize gender-based content within a React component, import and use the `useIntlayer` hook from the `react-intlayer` package. This hook fetches the content for the specified key and allows you to pass in a gender to select the appropriate output.
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
 import type { FC } from "react";
@@ -84,37 +87,37 @@ const GenderComponent: FC = () => {
     <div>
       <p>
         {
-          /* 출력: 남성 사용자용 콘텐츠 */
+          /* Output: my content for male users */
           myGender("male")
         }
       </p>
       <p>
         {
-          /* 출력: 여성 사용자용 내 콘텐츠 */
+          /* Output: my content for female users */
           myGender("female")
         }
       </p>
       <p>
         {
-          /* 출력: 남성 사용자용 내 콘텐츠 */
+          /* Output: my content for male users */
           myGender("m")
         }
       </p>
       <p>
         {
-          /* 출력: 여성 사용자용 내 콘텐츠 */
+          /* Output: my content for female users */
           myGender("f")
         }
       </p>
       <p>
         {
-          /* 출력: 성별이 지정되지 않았을 때 내 콘텐츠 */
+          /* Output: my content when gender is not specified */
           myGender("")
         }
       </p>
       <p>
         {
-          /* 출력: 성별이 지정되지 않았을 때 내 콘텐츠 */
+          /* Output: my content when gender is not specified */
           myGender(undefined)
         }
       </p>
@@ -124,6 +127,164 @@ const GenderComponent: FC = () => {
 
 export default GenderComponent;
 ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+To utilize gender-based content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+"use client";
+
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+const GenderComponent: FC = () => {
+  const { myGender } = useIntlayer("my_key");
+
+  return (
+    <div>
+      <p>{myGender("male")}</p>
+      <p>{myGender("female")}</p>
+    </div>
+  );
+};
+
+export default GenderComponent;
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+To utilize gender-based content in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```vue fileName="**/*.vue" codeFormat="vue"
+<script setup lang="ts">
+import { useIntlayer } from "vue-intlayer";
+
+const { myGender } = useIntlayer("my_key");
+</script>
+
+<template>
+  <div>
+    <p>{{ myGender("male") }}</p>
+    <p>{{ myGender("female") }}</p>
+  </div>
+</template>
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+To utilize gender-based content in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+
+```svelte fileName="**/*.svelte" codeFormat="svelte"
+<script lang="ts">
+import { useIntlayer } from "svelte-intlayer";
+
+const content = useIntlayer("my_key");
+</script>
+
+<div>
+  <p>{$content.myGender("male")}</p>
+  <p>{$content.myGender("female")}</p>
+</div>
+```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+To utilize gender-based content in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "preact";
+import { useIntlayer } from "preact-intlayer";
+
+const GenderComponent: FC = () => {
+  const { myGender } = useIntlayer("my_key");
+
+  return (
+    <div>
+      <p>{myGender("male")}</p>
+      <p>{myGender("female")}</p>
+    </div>
+  );
+};
+
+export default GenderComponent;
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+To utilize gender-based content in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+import type { Component } from "solid-js";
+import { useIntlayer } from "solid-intlayer";
+
+const GenderComponent: Component = () => {
+  const { myGender } = useIntlayer("my_key");
+
+  return (
+    <div>
+      <p>{myGender("male")}</p>
+      <p>{myGender("female")}</p>
+    </div>
+  );
+};
+
+export default GenderComponent;
+```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+To utilize gender-based content in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```typescript fileName="app.component.ts" codeFormat="typescript"
+import { Component } from "@angular/core";
+import { useIntlayer } from "angular-intlayer";
+
+@Component({
+  selector: "app-gender",
+  template: `
+    <div>
+      <p>{{ content().myGender("male") }}</p>
+      <p>{{ content().myGender("female") }}</p>
+    </div>
+  `,
+})
+export class GenderComponent {
+  content = useIntlayer("my_key");
+}
+```
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+
+To utilize gender-based content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
+import { installIntlayer, useIntlayer } from "vanilla-intlayer";
+
+installIntlayer();
+
+const content = useIntlayer("my_key").onChange((newContent) => {
+  document.getElementById("gender-male")!.textContent =
+    newContent.myGender("male");
+  document.getElementById("gender-female")!.textContent =
+    newContent.myGender("female");
+});
+
+// Initial render
+document.getElementById("gender-male")!.textContent = content.myGender("male");
+document.getElementById("gender-female")!.textContent =
+  content.myGender("female");
+```
+
+  </Tab>
+</Tabs>
 
 ## 추가 자료
 

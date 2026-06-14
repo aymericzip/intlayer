@@ -27,89 +27,197 @@ In Intlayer wird die Verschachtelung durch die Funktion `nest` erreicht, die es 
 
 ## Einrichtung der Verschachtelung
 
-Um die Verschachtelung in Ihrem Intlayer-Projekt einzurichten, definieren Sie zunächst die Basisinhalte, die Sie wiederverwenden möchten. Anschließend verwenden Sie in einem separaten Inhaltsmodul die Funktion `nest`, um diese Inhalte zu importieren.
+<Tabs group="framework">
+  <Tab label="React" value="react">
 
-### Basis-Wörterbuch
+To use nested content in a React component, leverage the `useIntlayer` hook from the `react-intlayer` package. This hook retrieves the correct content based on the specified key. Here's an example of how to use it:
 
-Nachfolgend ein Beispiel für ein Basis-Wörterbuch, das in einem anderen Wörterbuch verschachtelt wird:
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { useIntlayer } from "react-intlayer";
 
-```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
-import { type Dictionary } from "intlayer";
+const NestComponent: FC = () => {
+  const { fullNestedContent, partialNestedContent } = useIntlayer(
+    "key_of_my_second_dictionary"
+  );
 
-const firstDictionary = {
-  key: "key_of_my_first_dictionary",
-  content: {
-    content: "content",
-    subContent: {
-      contentNumber: 0,
-      contentString: "string",
-    },
-  },
-} satisfies Dictionary;
+  return (
+    <div>
+      <p>Full Nested Content: {JSON.stringify(fullNestedContent)}</p>
+      <p>Partial Nested Value: {partialNestedContent}</p>
+    </div>
+  );
+};
 
-export default firstDictionary;
+export default NestComponent;
 ```
 
-```json fileName="firstDictionary.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "key_of_my_first_dictionary",
-  "content": {
-    "content": "content",
-    "subContent": {
-      "contentNumber": 0,
-      "contentString": "string"
-    }
-  }
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+To use nested content in Next.js Client Components, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+"use client";
+
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+const NestComponent: FC = () => {
+  const { fullNestedContent, partialNestedContent } = useIntlayer(
+    "key_of_my_second_dictionary"
+  );
+
+  return (
+    <div>
+      <p>Full Nested Content: {JSON.stringify(fullNestedContent)}</p>
+      <p>Partial Nested Value: {partialNestedContent}</p>
+    </div>
+  );
+};
+
+export default NestComponent;
+```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+To use nested content in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```vue fileName="**/*.vue" codeFormat="vue"
+<script setup lang="ts">
+import { useIntlayer } from "vue-intlayer";
+
+const { fullNestedContent, partialNestedContent } = useIntlayer(
+  "key_of_my_second_dictionary"
+);
+</script>
+
+<template>
+  <div>
+    <p>Full Nested Content: {{ JSON.stringify(fullNestedContent) }}</p>
+    <p>Partial Nested Value: {{ partialNestedContent }}</p>
+  </div>
+</template>
+```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+To use nested content in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
+
+```svelte fileName="**/*.svelte" codeFormat="svelte"
+<script lang="ts">
+import { useIntlayer } from "svelte-intlayer";
+
+const content = useIntlayer("key_of_my_second_dictionary");
+</script>
+
+<div>
+  <p>Full Nested Content: {JSON.stringify($content.fullNestedContent)}</p>
+  <p>Partial Nested Value: {$content.partialNestedContent}</p>
+</div>
+```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+To use nested content in Preact components, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "preact";
+import { useIntlayer } from "preact-intlayer";
+
+const NestComponent: FC = () => {
+  const { fullNestedContent, partialNestedContent } = useIntlayer(
+    "key_of_my_second_dictionary"
+  );
+
+  return (
+    <div>
+      <p>Full Nested Content: {JSON.stringify(fullNestedContent)}</p>
+      <p>Partial Nested Value: {partialNestedContent}</p>
+    </div>
+  );
+};
+
+export default NestComponent;
+```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+To use nested content in SolidJS components, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
+import type { Component } from "solid-js";
+import { useIntlayer } from "solid-intlayer";
+
+const NestComponent: Component = () => {
+  const { fullNestedContent, partialNestedContent } = useIntlayer(
+    "key_of_my_second_dictionary"
+  );
+
+  return (
+    <div>
+      <p>Full Nested Content: {JSON.stringify(fullNestedContent)}</p>
+      <p>Partial Nested Value: {partialNestedContent}</p>
+    </div>
+  );
+};
+
+export default NestComponent;
+```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+To use nested content in Angular components, retrieve it via the `useIntlayer` hook. Here's an example:
+
+```typescript fileName="app.component.ts" codeFormat="typescript"
+import { Component } from "@angular/core";
+import { useIntlayer } from "angular-intlayer";
+
+@Component({
+  selector: "app-nest",
+  template: `
+    <div>
+      <p>
+        Full Nested Content: {{ JSON.stringify(content().fullNestedContent) }}
+      </p>
+      <p>Partial Nested Value: {{ content().partialNestedContent }}</p>
+    </div>
+  `,
+})
+export class NestComponent {
+  content = useIntlayer("key_of_my_second_dictionary");
+  JSON = JSON;
 }
 ```
 
-### Referenzierung mit Nest
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
 
-Erstellen Sie nun ein weiteres Inhaltsmodul, das die Funktion `nest` verwendet, um auf die oben genannten Inhalte zu verweisen. Sie können auf den gesamten Inhalt oder einen spezifischen verschachtelten Wert verweisen:
+To use nested content with `vanilla-intlayer`, retrieve it via the `useIntlayer` hook. Here's an example:
 
-```typescript fileName="secondDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
-import { nest, type Dictionary } from "intlayer";
+```typescript fileName="**/*.ts" codeFormat={["typescript", "esm"]}
+import { installIntlayer, useIntlayer } from "vanilla-intlayer";
 
-const myNestingContent = {
-  key: "key_of_my_second_dictionary",
-  content: {
-    // Referenziert das gesamte Wörterbuch:
-    fullNestedContent: nest("key_of_my_first_dictionary"),
-    // Referenziert einen spezifischen verschachtelten Wert:
-    partialNestedContent: nest(
-      "key_of_my_first_dictionary",
-      "subContent.contentNumber"
-    ),
-  },
-} satisfies Dictionary;
+installIntlayer();
 
-export default myNestingContent;
-```
-
-```json fileName="secondDictionary.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "key_of_my_second_dictionary",
-  "content": {
-    "fullNestedContent": {
-      "nodeType": "nested",
-      "nested": {
-        "dictionaryKey": "key_of_my_first_dictionary"
-      }
-    },
-    "partialNestedContent": {
-      "nodeType": "nested",
-      "nested": {
-        "dictionaryKey": "key_of_my_first_dictionary",
-        "path": "subContent.contentNumber"
-      }
-    }
+const content = useIntlayer("key_of_my_second_dictionary").onChange(
+  (newContent) => {
+    document.getElementById("nested")!.textContent =
+      newContent.partialNestedContent;
   }
-}
+);
+
+// Initial render
+document.getElementById("nested")!.textContent = content.partialNestedContent;
 ```
 
-Als zweiten Parameter können Sie einen Pfad zu einem verschachtelten Wert innerhalb dieses Inhalts angeben. Wenn kein Pfad angegeben wird, wird der gesamte Inhalt des referenzierten Wörterbuchs zurückgegeben.
+  </Tab>
+</Tabs>
 
 ## Verwendung der Verschachtelung mit React Intlayer
 
