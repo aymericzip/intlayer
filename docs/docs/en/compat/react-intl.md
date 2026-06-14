@@ -11,7 +11,7 @@ keywords:
   - compat
 slugs:
   - doc
-  - compat
+  - compatibility
   - react-intl
 history:
   - version: 9.0.0

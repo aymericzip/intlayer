@@ -1503,7 +1503,7 @@ const docDataContent: Dictionary = {
         },
       },
     },
-    compat: {
+    compatibility: {
       title: t({
         en: 'Compatibility',
         'en-GB': 'Compatibility',

@@ -12,7 +12,7 @@ keywords:
   - compat
 slugs:
   - doc
-  - compat
+  - compatibility
   - nuxtjs-i18n
 history:
   - version: 9.0.0

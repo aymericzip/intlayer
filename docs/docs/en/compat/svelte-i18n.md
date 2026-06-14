@@ -11,7 +11,7 @@ keywords:
   - compat
 slugs:
   - doc
-  - compat
+  - compatibility
   - svelte-i18n
 history:
   - version: 9.0.0

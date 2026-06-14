@@ -11,7 +11,7 @@ keywords:
   - Intlayer
 slugs:
   - doc
-  - compat
+  - compatibility
 history:
   - version: 9.0.0
     date: 2026-06-13

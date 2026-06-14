@@ -10,7 +10,7 @@ keywords:
   - compat
 slugs:
   - doc
-  - compat
+  - compatibility
   - lingui
 history:
   - version: 9.0.0

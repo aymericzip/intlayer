@@ -13,7 +13,7 @@ keywords:
   - compat
 slugs:
   - doc
-  - compat
+  - compatibility
   - i18next
 history:
   - version: 9.0.0
