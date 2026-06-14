@@ -295,7 +295,8 @@ export const intlayerPrune = (
     transform: (rawJsonCode, moduleId) => {
       const absoluteFilePath = moduleId.split('?', 1)[0];
 
-      if (!isDictionaryJsonFile(absoluteFilePath)) return null;
+      if (!absoluteFilePath || !isDictionaryJsonFile(absoluteFilePath))
+        return null;
 
       // Parse JSON
       let parsedDictionary: CompiledDictionaryJson;

@@ -247,7 +247,8 @@ export const intlayerMinify = (
     transform: (rawJsonCode, moduleId) => {
       const absoluteFilePath = moduleId.split('?', 1)[0];
 
-      if (!isDictionaryJsonFile(absoluteFilePath)) return null;
+      if (!absoluteFilePath || !isDictionaryJsonFile(absoluteFilePath))
+        return null;
 
       // Parse JSON
       let parsedDict: Record<string, unknown>;
