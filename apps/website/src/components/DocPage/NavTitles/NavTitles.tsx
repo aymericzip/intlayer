@@ -1,10 +1,9 @@
 'use client';
 
 import { Link } from '@components/Link/Link';
-import {} from '@intlayer/design-system/api';
 import { useGetElementById } from '@intlayer/design-system/hooks';
 import { useIntlayer, useLocale } from 'next-intlayer';
-import { type FC, useRef } from 'react';
+import { type FC, useEffect, useRef } from 'react';
 import { useActiveSection } from '../useActiveSection';
 import { useTitlesTree } from '../useTitlesTree';
 
@@ -33,6 +32,17 @@ const NavTitles2: FC<NavTitles2Props> = ({ title2, activeSectionsId }) => {
               variant="invisible-link"
               roundedSize="lg"
               className="flex text-wrap p-2 text-sm text-text/80 transition-[font-weight] duration-300 hover:font-semibold aria-[current]:bg-none aria-[current]:font-semibold aria-[current]:text-text"
+              onClick={(e) => {
+                e.preventDefault();
+                const element = document.getElementById(id);
+                if (element) {
+                  element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                  });
+                }
+                window.history.pushState(null, '', `#${id}`);
+              }}
             >
               {h3.innerText}
             </Link>
@@ -63,6 +73,36 @@ export const NavTitles: FC = () => {
     navRef,
   });
 
+  const activeId = activeChild?.id ?? activeParent?.id ?? null;
+
+  useEffect(() => {
+    if (!activeId || !navRef.current) return;
+
+    const allActiveLinks = navRef.current.querySelectorAll<HTMLElement>(
+      '[aria-current="location"]'
+    );
+    const activeLink =
+      allActiveLinks.length > 0
+        ? allActiveLinks[allActiveLinks.length - 1]
+        : null;
+    const scrollContainer = navRef.current.querySelector<HTMLElement>('ul');
+
+    if (activeLink && scrollContainer) {
+      const activeLinkRect = activeLink.getBoundingClientRect();
+      const relativeTop = activeLinkRect.top;
+      const minTop = window.innerHeight * 0.25;
+      const maxTop = window.innerHeight * 0.5;
+
+      if (relativeTop < minTop) {
+        const diff = relativeTop - minTop;
+        scrollContainer.scrollBy({ top: diff, behavior: 'smooth' });
+      } else if (relativeTop > maxTop) {
+        const diff = relativeTop - maxTop;
+        scrollContainer.scrollBy({ top: diff, behavior: 'smooth' });
+      }
+    }
+  }, [activeId]);
+
   return (
     <nav ref={navRef} className="flex h-full min-h-0 flex-col">
       <ul className="flex min-h-0 flex-1 flex-col gap-3 overflow-auto pt-8 pr-3 pb-20">
@@ -82,6 +122,17 @@ export const NavTitles: FC = () => {
                 variant="invisible-link"
                 aria-current={isActive ? 'location' : undefined}
                 className="flex text-wrap p-2 text-sm text-text/80 transition-[font-weight] duration-300 hover:font-semibold aria-[current]:bg-none aria-[current]:font-semibold aria-[current]:text-text"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const element = document.getElementById(id);
+                  if (element) {
+                    element.scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'start',
+                    });
+                  }
+                  window.history.pushState(null, '', `#${id}`);
+                }}
               >
                 {h2.innerText}
               </Link>

@@ -1,6 +1,7 @@
 import type { LocalesValues } from 'intlayer';
 import { type FC, type ReactNode, Suspense } from 'react';
 import { AsideNavigation } from '~/components/DocPage/AsideNavigation/AsideNavigation';
+import { TOCProgressBar } from '~/components/DocPage/TOCProgressBar/TOCProgressBar';
 import { BlogBreadCrumb } from './BlogBreadCrumb';
 import { BlogCommentSection } from './BlogCommentSection';
 import { BlogNavList } from './BlogNavList';
@@ -47,7 +48,7 @@ export const BlogPageLayout: FC<BlogPageLayoutProps> = ({
       </aside>
       <div className="mx-1 mb-3 flex min-h-0 min-w-0 flex-1 flex-row rounded-2xl border border-neutral/40 bg-background md:mr-2">
         <article
-          className="relative mb-3 h-full max-h-[calc(100vh-4.5rem)] w-auto flex-1 grow overflow-auto px-4 pb-24 max-md:pl-10 md:px-10"
+          className="no-scrollbar relative mb-3 h-full max-h-[calc(100vh-4.5rem)] w-auto flex-1 grow overflow-auto px-4 pb-24 max-md:pl-10 md:px-10"
           id="content"
         >
           <div className="m-auto max-w-3xl">
@@ -84,9 +85,12 @@ export const BlogPageLayout: FC<BlogPageLayoutProps> = ({
           {trailingContent}
         </article>
 
-        <aside className="flex flex-none flex-col max-lg:hidden">
-          {displayAsideNavigation && <AsideNavigation />}
-        </aside>
+        {displayAsideNavigation && (
+          <aside className="flex flex-none flex-row max-lg:hidden">
+            <TOCProgressBar />
+            <AsideNavigation />
+          </aside>
+        )}
       </div>
     </div>
   );

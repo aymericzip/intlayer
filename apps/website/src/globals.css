@@ -51,6 +51,15 @@
   }
 }
 
+@media (min-width: 1024px) {
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 .horizontal-loop-1 {
   animation-name: infiniteScroll;
   animation-duration: 85s;

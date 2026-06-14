@@ -1,6 +1,15 @@
 @import "@intlayer/design-system/css";
 @import "tailwindcss";
 
+@media (min-width: 1024px) {
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @layer base {
   /* 1. Standard Scale (Landing Page) */
   :root {
