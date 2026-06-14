@@ -520,7 +520,7 @@ const docDataContent: Dictionary = {
             vi: 'File cho mỗi ngôn ngữ',
           }),
           default: getDocMetadata('./docs/en/dynamic_dictionaries/index.md'),
-          subsections: {
+          subSections: {
             collections: {
               title: t({
                 en: 'Collections',
@@ -1322,7 +1322,7 @@ const docDataContent: Dictionary = {
           }),
           default: getDocMetadata('./docs/en/intlayer_with_vite+vanilla.md'),
           frameworks: ['vanilla', 'vite'],
-          subsections: {
+          subSections: {
             'vanilla-js': {
               title: t({
                 en: 'Vanilla JS (no bundler)',
