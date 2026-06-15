@@ -93,8 +93,19 @@ export const mergeReviewedSegments = (
           outputParts.push('\n');
         }
       }
+    } else if (action.kind === 'delete') {
+      const reviewedContent = reviewedSegments.get(actionIndex);
+      if (reviewedContent !== undefined) {
+        // Caller explicitly resolved this block: empty string = actually delete,
+        // non-empty string = replacement content.
+        if (reviewedContent) outputParts.push(reviewedContent);
+      } else {
+        // Default: keep verbatim. A target block with no base counterpart may
+        // just be a section the aligner could not follow (reordering, split
+        // prose) — keeping it prevents accidental data loss in log/read-only mode.
+        outputParts.push(targetBlocks[action.targetIndex].content);
+      }
     }
-    // "delete" actions are simply skipped - no output
   });
 
   return outputParts.join('');

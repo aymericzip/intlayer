@@ -38,7 +38,7 @@ export const logReviewFileBlocks = async (
   changedLines?: number[]
 ): Promise<ReviewReport> => {
   const configuration = getConfiguration(configOptions);
-  const appLogger = getAppLogger(configuration);
+  const appLogger = getAppLogger({ log: { ...configuration.log, prefix: '' } });
 
   const baseText = await readFile(baseFilePath, 'utf-8');
   const targetText = existsSync(outputFilePath)
@@ -48,14 +48,14 @@ export const logReviewFileBlocks = async (
   const report = buildReviewReport({ baseText, targetText, changedLines });
 
   const formatted = formatReviewReport(report, {
-    baseLabel: formatLocale(baseLocale, false),
-    targetLabel: formatLocale(locale, false),
+    baseLabel: formatLocale(baseLocale),
+    targetLabel: formatLocale(locale),
   });
 
-  appLogger([
-    `${formatPath(baseFilePath)} → ${formatLocale(locale)}\n`,
-    formatted,
-  ]);
+  appLogger(`${formatPath(baseFilePath)} → ${formatLocale(locale)}`);
+  for (const line of formatted.split('\n')) {
+    appLogger(line);
+  }
 
   return report;
 };

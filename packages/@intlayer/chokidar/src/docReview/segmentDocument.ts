@@ -126,3 +126,57 @@ export const segmentDocument = (text: string): Block[] => {
     };
   });
 };
+
+/**
+ * Split a markdown document into coarse, heading-anchored sections.
+ *
+ * Built by grouping the fine blocks of {@link segmentDocument}: frontmatter and
+ * each heading open a new section, and the following non-heading blocks are
+ * folded into it. Because it only concatenates adjacent fine blocks, the result
+ * is still an exact partition of the document (sections concatenate back to the
+ * source unchanged).
+ *
+ * Sections are the robust alignment unit between a base document and its
+ * translation — both share the same heading structure, so they align almost
+ * perfectly and a translation that splits its prose into a different number of
+ * paragraphs never causes a section to be dropped. Fine-grained review happens
+ * within a section once it is known to have changed.
+ *
+ * @param text - The full markdown document.
+ * @returns The ordered list of sections with their 1-based line ranges.
+ */
+export const segmentSections = (text: string): Block[] => {
+  const fineBlocks = segmentDocument(text);
+  const sections: Block[] = [];
+  let currentBlocks: Block[] = [];
+
+  const flushSection = (): void => {
+    if (currentBlocks.length === 0) return;
+
+    const [firstBlock] = currentBlocks;
+    const lastBlock = currentBlocks[currentBlocks.length - 1];
+
+    sections.push({
+      type: firstBlock.type,
+      content: currentBlocks.map((block) => block.content).join(''),
+      lineStart: firstBlock.lineStart,
+      lineEnd: lastBlock.lineEnd,
+    });
+    currentBlocks = [];
+  };
+
+  for (const block of fineBlocks) {
+    // Frontmatter (a leading `unknown` block) and every heading open a section.
+    const opensSection =
+      block.type === 'heading' ||
+      (block.type === 'unknown' && sections.length === 0);
+
+    if (opensSection) flushSection();
+    currentBlocks.push(block);
+    if (block.type === 'unknown' && sections.length === 0) flushSection();
+  }
+
+  flushSection();
+
+  return sections;
+};

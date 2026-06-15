@@ -1,6 +1,5 @@
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, colorizeNumber } from '@intlayer/config/logger';
-import { formatLocale } from '../utils';
 import { buildAlignmentPlan } from './pipeline';
 
 /**
@@ -101,7 +100,7 @@ export const buildReviewReport = ({
 
   const blocks: ReviewReportBlock[] = [];
 
-  for (const action of plan.actions) {
+  for (const [actionIndex, action] of plan.actions.entries()) {
     if (action.kind === 'reuse') {
       summary.reuse += 1;
       continue;
@@ -134,9 +133,39 @@ export const buildReviewReport = ({
 
       if (!baseBlock) continue;
 
+      // Find the target line after which the new block should be inserted:
+      // scan backwards for the last action that produced a target block.
+      let insertAfterLine: number | undefined;
+      for (let prevIndex = actionIndex - 1; prevIndex >= 0; prevIndex--) {
+        const prevAction = plan.actions[prevIndex];
+        if (!prevAction) continue;
+
+        let targetIdx: number | null = null;
+        if (prevAction.kind === 'reuse') targetIdx = prevAction.targetIndex;
+        else if (
+          prevAction.kind === 'review' &&
+          prevAction.targetIndex !== null
+        )
+          targetIdx = prevAction.targetIndex;
+        else if (prevAction.kind === 'delete')
+          targetIdx = prevAction.targetIndex;
+
+        if (targetIdx !== null) {
+          const prevTargetBlock = targetBlocks[targetIdx];
+          if (prevTargetBlock) {
+            insertAfterLine = prevTargetBlock.lineEnd + 1;
+            break;
+          }
+        }
+      }
+
       blocks.push({
         action: 'insert_new',
         baseLineRange: { start: baseBlock.lineStart, end: baseBlock.lineEnd },
+        targetLineRange:
+          insertAfterLine !== undefined
+            ? { start: insertAfterLine, end: insertAfterLine }
+            : undefined,
         baseContent: baseBlock.content,
       });
       continue;
@@ -162,8 +191,32 @@ export const buildReviewReport = ({
   return { blocks, summary };
 };
 
-const formatLineRange = (range?: LineRange): string =>
-  range ? `L${range.start}-${range.end}` : '—';
+/** Render a line range as a blue colored string, or an orange dash when absent. */
+const colorizeLineRange = (range?: LineRange): string => {
+  if (!range) return colorize('—', ANSIColors.ORANGE);
+  const rangeStr =
+    range.start === range.end
+      ? `L${range.start}`
+      : `L${range.start}-${range.end}`;
+  return colorize(rangeStr, ANSIColors.BLUE);
+};
+
+/**
+ * Colorize a count with green when zero (nothing to do) and a caller-supplied
+ * non-zero color (orange for warnings, red for destructive actions).
+ */
+const colorizeCount = (
+  count: number,
+  nonZeroColor: (typeof ANSIColors)[keyof typeof ANSIColors]
+): string =>
+  colorizeNumber(count, {
+    zero: ANSIColors.GREEN,
+    one: nonZeroColor,
+    two: nonZeroColor,
+    few: nonZeroColor,
+    many: nonZeroColor,
+    other: nonZeroColor,
+  });
 
 /**
  * Render a {@link ReviewReport} as a human and agent readable log.
@@ -184,11 +237,20 @@ export const formatReviewReport = (
 
   const { summary, blocks } = report;
 
-  const header = colorize(
-    `Review report: ${colorizeNumber(blocks.length)} block(s) need attention ` +
-      `(review=${colorizeNumber(summary.review)}, new=${colorizeNumber(summary.insertNew)}, delete=${colorizeNumber(summary.delete)}, reuse=${colorizeNumber(summary.reuse)}).`,
-    ANSIColors.ORANGE
-  );
+  // Build the summary header piece-by-piece so each count uses its own color.
+  const header = [
+    colorize('Review report: ', ANSIColors.ORANGE),
+    colorizeCount(blocks.length, ANSIColors.ORANGE),
+    colorize(' block(s) need attention (review=', ANSIColors.ORANGE),
+    colorizeCount(summary.review, ANSIColors.ORANGE),
+    colorize(', new=', ANSIColors.ORANGE),
+    colorizeCount(summary.insertNew, ANSIColors.ORANGE),
+    colorize(', delete=', ANSIColors.ORANGE),
+    colorizeCount(summary.delete, ANSIColors.RED),
+    colorize(', reuse=', ANSIColors.ORANGE),
+    colorizeNumber(summary.reuse),
+    colorize(').', ANSIColors.ORANGE),
+  ].join('');
 
   if (blocks.length === 0) {
     return `${header}\n${colorize('No changes needed.', ANSIColors.GREEN)}`;
@@ -196,14 +258,25 @@ export const formatReviewReport = (
 
   const sections = blocks.map((block, index) => {
     const lines: string[] = [];
-    lines.push(
-      colorize(
-        `--- Block ${index + 1}/${blocks.length} [${block.action}] ` +
-          `${formatLocale(baseLabel)} ${colorizeNumber(formatLineRange(block.baseLineRange))} → ` +
-          `${formatLocale(targetLabel)} ${colorizeNumber(formatLineRange(block.targetLineRange))} ---`,
-        ANSIColors.ORANGE
-      )
-    );
+
+    // Block header: each token colored individually.
+    const blockHeader = [
+      colorize('--- Block ', ANSIColors.ORANGE),
+      colorizeNumber(index + 1),
+      colorize('/', ANSIColors.ORANGE),
+      colorizeNumber(blocks.length),
+      colorize(` [${block.action}] `, ANSIColors.ORANGE),
+      baseLabel,
+      colorize(' ', ANSIColors.ORANGE),
+      colorizeLineRange(block.baseLineRange),
+      colorize(' → ', ANSIColors.ORANGE),
+      targetLabel,
+      colorize(' ', ANSIColors.ORANGE),
+      colorizeLineRange(block.targetLineRange),
+      colorize(' ---', ANSIColors.ORANGE),
+    ].join('');
+
+    lines.push(blockHeader);
 
     if (block.baseContent !== undefined) {
       lines.push(colorize(`[${baseLabel}]`, ANSIColors.BEIGE));
@@ -221,5 +294,10 @@ export const formatReviewReport = (
     return lines.join('\n');
   });
 
-  return [header, '', ...sections].join('\n');
+  const editingNote = colorize(
+    'Tip: start editing from the last block — working bottom-up keeps earlier line numbers accurate.',
+    ANSIColors.GREY
+  );
+
+  return [header, '', ...sections, '', editingNote].join('\n');
 };

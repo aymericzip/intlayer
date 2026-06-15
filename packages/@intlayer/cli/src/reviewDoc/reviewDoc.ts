@@ -78,7 +78,7 @@ export const reviewDoc = async ({
   const configuration = getConfiguration(configOptions);
   logConfigDetails(configOptions);
 
-  const appLogger = getAppLogger(configuration);
+  const appLogger = getAppLogger({ log: { ...configuration.log, prefix: '' } });
 
   // Log-only mode does not call any AI, so the AI access checks are skipped.
   let aiClient: AIClient | undefined;

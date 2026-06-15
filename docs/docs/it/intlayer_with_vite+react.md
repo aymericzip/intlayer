@@ -843,54 +843,6 @@ bun run build # Or bun run dev
 
 </Steps>
 
-### Configurare TypeScript
-
-Intlayer utilizza l'augmentation dei moduli per sfruttare i vantaggi di TypeScript e rendere il tuo codice più robusto.
-
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Assicurati che la tua configurazione TypeScript includa i tipi generati automaticamente.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Le tue configurazioni TypeScript esistenti
-  "include": [
-    // ... Le tue configurazioni TypeScript esistenti
-    ".intlayer/**/*.ts", // Includi i tipi generati automaticamente
-  ],
-}
-```
-
-### Configurazione Git
-
-Si consiglia di ignorare i file generati da Intlayer. Questo ti permette di evitare di committarli nel tuo repository Git.
-
-Per farlo, puoi aggiungere le seguenti istruzioni al tuo file `.gitignore`:
-
-```bash
-#  Ignora i file generati da Intlayer
-.intlayer
-```
-
-### Estensione VS Code
-
-Per migliorare la tua esperienza di sviluppo con Intlayer, puoi installare l'estensione ufficiale **Intlayer VS Code Extension**.
-
-[Installa dal Marketplace di VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Questa estensione offre:
-
-- **Completamento automatico** per le chiavi di traduzione.
-- **Rilevamento errori in tempo reale** per le traduzioni mancanti.
-- **Anteprime inline** del contenuto tradotto.
-- **Azioni rapide** per creare e aggiornare facilmente le traduzioni.
-
-Per maggiori dettagli su come utilizzare l'estensione, consulta la [documentazione dell'estensione Intlayer per VS Code](https://intlayer.org/doc/vs-code-extension).
-
----
-
 ### (Opzionale) Sitemap e robots.txt (generazione in build)
 
 Intlayer espone utilità - `generateSitemap` e `getMultilingualUrls` - per formattare `sitemap.xml` multilingue e `robots.txt` pronti per i crawler e scriverli automaticamente in `public/`. Di solito si esegue un piccolo script Node **prima** di Vite (ad esempio hook npm `predev` / `prebuild`) così che i file siano presenti in build o in sviluppo.

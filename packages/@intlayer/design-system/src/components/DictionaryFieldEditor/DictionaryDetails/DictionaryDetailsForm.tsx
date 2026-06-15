@@ -40,6 +40,7 @@ import { WandSparkles } from 'lucide-react';
 import { type FC, useEffect, useMemo, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 import { useIntlayer } from 'react-intlayer';
+import { MonacoCode } from '../../IDE/MonacoCode';
 import { useDictionaryDetailsSchema } from './useDictionaryDetailsSchema';
 
 type DictionaryDetailsProps = {
@@ -599,7 +600,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
             <MultiSelect.List>
               {QUALIFIER_TYPES.map((qualifier) => (
                 <MultiSelect.Item key={qualifier} value={qualifier}>
-                  {typeSwitch[qualifier]}
+                  {typeSwitch[qualifier].value}
                 </MultiSelect.Item>
               ))}
             </MultiSelect.List>
@@ -692,27 +693,33 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                 >
                   {typeSwitch.metaValueLabel}
                 </label>
-                <textarea
+                <div
                   id="qualifier-meta-value"
-                  className="min-h-[100px] w-full rounded-xl border border-input bg-background px-3 py-2 font-mono text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
-                  value={metaJsonValue}
-                  placeholder={typeSwitch.metaValuePlaceholder.value}
-                  onChange={(e) => {
-                    const raw = e.target.value;
-                    setMetaJsonValue(raw);
-                    try {
-                      const parsed = JSON.parse(raw) as DictionaryMeta;
-                      setMetaJsonError(false);
-                      setEditedDictionary({
-                        ...dictionary,
-                        ...(updatedDictionary ?? {}),
-                        meta: parsed,
-                      });
-                    } catch {
-                      setMetaJsonError(true);
-                    }
-                  }}
-                />
+                  className="overflow-hidden rounded-xl border border-input bg-background"
+                >
+                  <MonacoCode
+                    language="json"
+                    showCopyButton={false}
+                    showLineNumbers={false}
+                    onChange={(value) => {
+                      const raw = value ?? '';
+                      setMetaJsonValue(raw);
+                      try {
+                        const parsed = JSON.parse(raw) as DictionaryMeta;
+                        setMetaJsonError(false);
+                        setEditedDictionary({
+                          ...dictionary,
+                          ...(updatedDictionary ?? {}),
+                          meta: parsed,
+                        });
+                      } catch {
+                        setMetaJsonError(true);
+                      }
+                    }}
+                  >
+                    {metaJsonValue}
+                  </MonacoCode>
+                </div>
                 {metaJsonError && (
                   <p className="ml-1 text-destructive text-xs">
                     {typeSwitch.metaJsonError}

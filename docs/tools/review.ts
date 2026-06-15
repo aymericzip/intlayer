@@ -10,9 +10,9 @@ import { defaultLocale, locales } from '../intlayer.config';
 // Fill the list of files to audit if you want to audit only a subset of the files
 // If empty list is provided, the audit will run on all markdown files present in the /en folder
 const DOC_PATTERN: string[] = [
-  './docs/en/**/*.md',
-  './blog/en/**/*.md',
-  './frequent_questions/en/**/*.md',
+  './docs/en/intlayer_with_vite+react.md',
+  // './blog/en/**/*.md',
+  // './frequent_questions/en/**/*.md',
 ];
 const EXCLUDED_GLOB_PATTEN: string[] = [
   '**/_*',
@@ -56,6 +56,6 @@ reviewDoc({
   customInstructions,
   skipIfModifiedBefore: SKIP_IF_MODIFIED_BEFORE,
   skipIfModifiedAfter: SKIP_IF_MODIFIED_AFTER,
-  gitOptions: GIT_OPTIONS,
+  // gitOptions: GIT_OPTIONS,
   log: LOG_ONLY,
 });

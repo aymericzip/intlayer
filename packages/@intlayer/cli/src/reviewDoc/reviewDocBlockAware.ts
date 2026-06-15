@@ -31,12 +31,14 @@ import type { AIClient } from '../utils/setupAI';
 
 /**
  * Review a file using block-aware alignment.
- * This approach:
- * 1. Segments both base and target documents into semantic blocks
- * 2. Aligns blocks using structure (special chars, numbers) and context
- * 3. Detects which blocks changed, were added, or deleted
- * 4. Only sends changed/new blocks to AI for translation
- * 5. Handles reordering automatically
+ *
+ * 1. Segments both base and target documents into semantic blocks.
+ * 2. Aligns blocks using structure (special chars, numbers) and context.
+ * 3. Detects which blocks changed, were added, or deleted.
+ * 4. Applies deletions immediately without AI.
+ * 5. Sends changed/new blocks to AI in bottom-up order (last block first), so
+ *    line numbers of earlier blocks are not shifted by edits below them.
+ * 6. Rewrites the file after each block so progress is persisted incrementally.
  */
 export const reviewFileBlockAware = async (
   baseFilePath: string,
@@ -51,7 +53,9 @@ export const reviewFileBlockAware = async (
   aiConfig?: AIConfig
 ) => {
   const configuration = getConfiguration(configOptions);
-  const applicationLogger = getAppLogger(configuration);
+  const applicationLogger = getAppLogger({
+    log: { ...configuration.log, prefix: '' },
+  });
 
   const baseText = await readFile(baseFilePath, 'utf-8');
   const targetText = await readFile(outputFilePath, 'utf-8').catch(() => '');
@@ -81,47 +85,81 @@ export const reviewFileBlockAware = async (
       changedLines,
     });
 
+  const deleteCount = plan.actions.filter((a) => a.kind === 'delete').length;
+
   applicationLogger(
     `${filePrefix}Block-aware alignment complete. Total blocks: base=${colorizeNumber(baseBlocks.length)}, target=${colorizeNumber(targetBlocks.length)}`
   );
   applicationLogger(
-    `${filePrefix}Actions: reuse=${colorizeNumber(plan.actions.filter((a) => a.kind === 'reuse').length)}, review=${colorizeNumber(plan.actions.filter((a) => a.kind === 'review').length)}, new=${colorizeNumber(plan.actions.filter((a) => a.kind === 'insert_new').length)}, delete=${colorizeNumber(plan.actions.filter((a) => a.kind === 'delete').length)}`
+    `${filePrefix}Actions: reuse=${colorizeNumber(plan.actions.filter((a) => a.kind === 'reuse').length)}, review=${colorizeNumber(plan.actions.filter((a) => a.kind === 'review').length)}, new=${colorizeNumber(plan.actions.filter((a) => a.kind === 'insert_new').length)}, delete=${colorizeNumber(deleteCount)}`
   );
 
-  if (segmentsToReview.length === 0) {
-    applicationLogger(
-      `${filePrefix}No segments need review, reusing existing translation`
+  // Map shared across the entire run: each entry overrides the default behavior
+  // of mergeReviewedSegments for that action index.
+  const reviewedSegmentsMap = new Map<number, string>();
+
+  // --- Step 1: apply deletions immediately (no AI needed) ---
+  for (const [actionIndex, action] of plan.actions.entries()) {
+    if (action.kind === 'delete') {
+      reviewedSegmentsMap.set(actionIndex, '');
+    }
+  }
+
+  const writeCurrentState = (): void => {
+    const output = mergeReviewedSegments(
+      plan,
+      targetBlocks,
+      reviewedSegmentsMap
     );
     mkdirSync(dirname(outputFilePath), { recursive: true });
-    writeFileSync(
-      outputFilePath,
-      mergeReviewedSegments(plan, targetBlocks, new Map())
-    );
+    writeFileSync(outputFilePath, output);
+  };
+
+  if (deleteCount > 0) {
+    writeCurrentState();
     applicationLogger(
-      `${colorize('✔', ANSIColors.GREEN)} File ${formatPath(outputFilePath)} updated successfully (no changes needed).`
+      `${filePrefix}${colorizeNumber(deleteCount)} block(s) deleted without AI.`
+    );
+  }
+
+  if (segmentsToReview.length === 0) {
+    if (deleteCount === 0) {
+      applicationLogger(
+        `${filePrefix}No segments need review, reusing existing translation`
+      );
+      writeCurrentState();
+    }
+    applicationLogger(
+      `${colorize('✔', ANSIColors.GREEN)} File ${formatPath(outputFilePath)} updated successfully (no AI changes needed).`
     );
     return;
   }
 
   applicationLogger(
-    `${filePrefix}Segments to review: ${colorizeNumber(segmentsToReview.length)}`
+    `${filePrefix}Segments to review: ${colorizeNumber(segmentsToReview.length)} (processing bottom-up)`
   );
 
-  // Review segments that need AI translation
-  const reviewedSegmentsMap = new Map<number, string>();
+  // --- Step 2: process AI segments in bottom-up order ---
+  // Reversing ensures edits near the end of the file don't shift line numbers
+  // that matter for blocks higher up, and each intermediate file write is valid.
+  const segmentsBottomUp = segmentsToReview
+    .map((segment, originalIndex) => ({
+      segment,
+      displayNumber: originalIndex + 1,
+    }))
+    .reverse();
 
-  for (const segment of segmentsToReview) {
-    const segmentNumber = segmentsToReview.indexOf(segment) + 1;
+  for (const { segment, displayNumber } of segmentsBottomUp) {
     const baseBlock = segment.baseBlock;
 
     const getBaseChunkContextPrompt = () =>
-      `**BLOCK ${segmentNumber} of ${segmentsToReview.length}** is the base block in ${formatLocale(baseLocale, false)} as reference.\n` +
+      `**BLOCK ${displayNumber} of ${segmentsToReview.length}** is the base block in ${formatLocale(baseLocale, false)} as reference.\n` +
       `///chunksStart///\n` +
       baseBlock.content +
       `///chunksEnd///`;
 
     const getTargetChunkPrompt = () =>
-      `**BLOCK ${segmentNumber} of ${segmentsToReview.length}** is the current block to review in ${formatLocale(locale, false)}.\n` +
+      `**BLOCK ${displayNumber} of ${segmentsToReview.length}** is the current block to review in ${formatLocale(locale, false)}.\n` +
       `///chunksStart///\n` +
       (segment.targetBlockText ?? '') +
       `///chunksEnd///`;
@@ -134,7 +172,7 @@ export const reviewFileBlockAware = async (
           { role: 'system', content: getTargetChunkPrompt() },
           {
             role: 'system',
-            content: `The next user message will be the **BLOCK ${colorizeNumber(segmentNumber)} of ${colorizeNumber(segmentsToReview.length)}** that should be translated in ${getLocaleName(locale, ENGLISH)} (${locale}).`,
+            content: `The next user message will be the **BLOCK ${colorizeNumber(displayNumber)} of ${colorizeNumber(segmentsToReview.length)}** that should be translated in ${getLocaleName(locale, ENGLISH)} (${locale}).`,
           },
         ],
         [{ role: 'user', content: baseBlock.content }],
@@ -145,19 +183,15 @@ export const reviewFileBlockAware = async (
       );
 
       applicationLogger(
-        `${prefix}${colorizeNumber(result.tokenUsed)} tokens used - Block ${colorizeNumber(segmentNumber)} of ${colorizeNumber(segmentsToReview.length)}`
+        `${prefix}${colorizeNumber(result.tokenUsed)} tokens used - Block ${colorizeNumber(displayNumber)} of ${colorizeNumber(segmentsToReview.length)}`
       );
 
-      // Sanitize artifacts (e.g. Markdown code block wrappers)
       let processedChunk = sanitizeChunk(
         result?.fileContent,
         baseBlock.content
       );
-
-      // Fix start/end characters
       processedChunk = fixChunkStartEndChars(processedChunk, baseBlock.content);
 
-      // Validate Translation (YAML, Code fences, Length ratio)
       const isValid = validateTranslation(
         baseBlock.content,
         processedChunk,
@@ -174,17 +208,10 @@ export const reviewFileBlockAware = async (
     })();
 
     reviewedSegmentsMap.set(segment.actionIndex, reviewedChunkResult);
+
+    // Rewrite the file after every block so progress is never lost.
+    writeCurrentState();
   }
-
-  // Merge reviewed segments back into final document
-  const finalTargetOutput = mergeReviewedSegments(
-    plan,
-    targetBlocks,
-    reviewedSegmentsMap
-  );
-
-  mkdirSync(dirname(outputFilePath), { recursive: true });
-  writeFileSync(outputFilePath, finalTargetOutput);
 
   applicationLogger(
     `${colorize('✔', ANSIColors.GREEN)} File ${formatPath(outputFilePath)} created/updated successfully.`

@@ -71,246 +71,6 @@ Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的
 
 ---
 
-## 在 Vite 和 React 应用中设置 Intlayer 的分步指南
-
-<Tabs defaultTab="video">
-  <Tab label="视频" value="video">
-  
-<iframe title="Vite 和 React 最佳的国际化解决方案？探索 Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
-
-  </Tab>
-  <Tab label="代码" value="code">
-
-<iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-vite-react-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="演示 CodeSandbox - 如何使用 Intlayer 国际化您的应用程序"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-  </Tab>
-  <Tab label="演示" value="demo">
-
-<iframe
-  src="https://intlayer-vite-react-template.vercel.app"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="演示 - intlayer-vite-react-template"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-  </Tab>
-</Tabs>
-
-请参阅 GitHub 上的 [Application Template](https://github.com/aymericzip/intlayer-vite-react-template)。
-
-### 第一步：安装依赖
-
-使用 npm 安装所需的包：
-
-```bash packageManager="npm"
-npm install intlayer react-intlayer
-npm install vite-intlayer --save-dev
-npx intlayer init
-```
-
-```bash packageManager="pnpm"
-pnpm add intlayer react-intlayer
-pnpm add vite-intlayer --save-dev
-pnpm intlayer init
-```
-
-```bash packageManager="yarn"
-yarn add intlayer react-intlayer
-yarn add vite-intlayer --save-dev
-yarn intlayer init
-```
-
-```bash packageManager="bun"
-bun add intlayer react-intlayer
-bun add vite-intlayer --dev
-bun x intlayer init
-```
-
-- **intlayer**
-
-核心包，提供用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、转译和[CLI命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)的国际化工具。
-
-- **react-intlayer**
-  将 Intlayer 集成到 React 应用中的包。它提供了用于 React 国际化的上下文提供者和钩子。
-
-- **vite-intlayer**
-  包含用于将 Intlayer 集成到 [Vite 打包工具](https://vite.dev/guide/why.html#why-bundle-for-production) 的 Vite 插件，以及用于检测用户首选语言环境、管理 Cookie 和处理 URL 重定向的中间件。
-
-### 第2步：配置您的项目
-
-创建一个配置文件来配置您应用程序的语言：
-
-```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import { Locales, type IntlayerConfig } from "intlayer";
-
-const config: IntlayerConfig = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // 您的其他语言
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-> 通过此配置文件，您可以设置本地化的 URL、中间件重定向、cookie 名称、内容声明的位置和扩展名，禁用控制台中的 Intlayer 日志等。有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
-
-### 第三步：在您的 Vite 配置中集成 Intlayer
-
-将 intlayer 插件添加到您的配置中。
-
-```typescript fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import { intlayer } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react(), intlayer()],
-});
-```
-
-> `intlayer()` Vite 插件用于将 Intlayer 集成到 Vite 中。它确保内容声明文件的构建，并在开发模式下监视这些文件。在 Vite 应用程序中定义了 Intlayer 环境变量。此外，它还提供别名以优化性能。
-
-### 第4步：声明您的内容
-
-创建并管理您的内容声明以存储翻译：
-
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
-import { t, type Dictionary } from "intlayer";
-import type { ReactNode } from "react";
-
-const appContent = {
-  key: "app",
-  content: {
-    viteLogo: t({
-      en: "Vite logo",
-      fr: "Logo Vite",
-      es: "Logo Vite",
-    }),
-    reactLogo: t({
-      en: "React logo",
-      fr: "Logo React",
-      es: "Logo React",
-    }),
-
-    title: "Vite + React",
-
-    count: t({
-      en: "count is ",
-      fr: "le compte est ",
-      es: "el recuento es ",
-    }),
-
-    edit: t<ReactNode>({
-      en: (
-        <>
-          编辑 <code>src/App.tsx</code> 并保存以测试 HMR
-        </>
-      ),
-      fr: (
-        <>
-          Éditez <code>src/App.tsx</code> et enregistrez pour tester HMR
-        </>
-      ),
-      es: (
-        <>
-          Edita <code>src/App.tsx</code> y guarda para probar HMR
-        </>
-      ),
-    }),
-
-    readTheDocs: t({
-      en: "点击 Vite 和 React 标志以了解更多信息",
-      fr: "Cliquez sur les logos Vite et React pour en savoir plus",
-      es: "Haga clic en los logotipos de Vite y React para obtener más información",
-    }),
-  },
-} 满足 Dictionary;
-
-export default appContent;
-```
-
-```json fileName="src/app.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "app",
-  "content": {
-    "viteLogo": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Vite logo",
-        "fr": "Logo Vite",
-        "es": "Logo Vite"
-      }
-    },
-    "reactLogo": {
-      "nodeType": "translation",
-      "translation": {
-        "zh": "React 标志",
-        "en": "React logo",
-        "fr": "Logo React",
-        "es": "Logo React"
-      }
-    },
-    "title": {
-      "nodeType": "translation",
-      "translation": {
-        "zh": "Vite + React",
-        "en": "Vite + React",
-        "fr": "Vite + React",
-        "es": "Vite + React"
-      }
-    },
-    "count": {
-      "nodeType": "translation",
-      "translation": {
-        "zh": "计数为 ",
-        "en": "count is ",
-        "fr": "le compte est ",
-        "es": "el recuento es "
-      }
-    },
-    "edit": {
-      "nodeType": "translation",
-      "translation": {
-        "zh": "编辑 src/App.tsx 并保存以测试 HMR",
-        "en": "Edit src/App.tsx and save to test HMR",
-        "fr": "Éditez src/App.tsx et enregistrez pour tester HMR",
-        "es": "Edita src/App.tsx y guarda para probar HMR"
-      }
-    },
-    "readTheDocs": {
-      "nodeType": "translation",
-      "translation": {
-        "zh": "点击 Vite 和 React 标志以了解更多信息",
-        "en": "Click on the Vite and React logos to learn more",
-        "fr": "Cliquez sur les logos Vite et React pour en savoir plus",
-        "es": "Haga clic en los logotipos de Vite y React para obtener más información"
-      }
-    }
-  }
-}
-```
-
-> 您的内容声明可以定义在应用程序中的任何位置，只要它们被包含在 `contentDir` 目录中（默认是 `./src`），并且匹配内容声明文件的扩展名（默认是 `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`）。
-
-> 更多详情，请参阅[内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
-
-> 如果您的内容文件包含 TSX 代码，您应考虑在内容文件中导入 `import React from "react";`。
-
 ### 第5步：在代码中使用 Intlayer
 
 在整个应用程序中访问您的内容字典：
@@ -812,54 +572,6 @@ bun run build # Or bun run dev
 
 </Steps>
 
-### 配置 TypeScript
-
-Intlayer 使用模块增强（module augmentation）来利用 TypeScript 的优势，使您的代码库更健壮。
-
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-确保您的 TypeScript 配置包含自动生成的类型。
-
-```json5 fileName="tsconfig.json"
-{
-  // ... 您现有的 TypeScript 配置
-  "include": [
-    // ... 您现有的 TypeScript 配置
-    ".intlayer/**/*.ts", // 包含自动生成的类型
-  ],
-}
-```
-
-### Git 配置
-
-建议忽略 Intlayer 生成的文件，这样可以避免将它们提交到您的 Git 仓库中。
-
-为此，您可以在 `.gitignore` 文件中添加以下指令：
-
-```plaintext fileName=".gitignore"
-# 忽略 Intlayer 生成的文件
-.intlayer
-```
-
-### VS Code 扩展
-
-为了提升您使用 Intlayer 的开发体验，您可以安装官方的 **Intlayer VS Code 扩展**。
-
-[从 VS Code 市场安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-该扩展提供：
-
-- **翻译键的自动补全**。
-- **实时错误检测**，用于缺失的翻译。
-- **内联预览**已翻译的内容。
-- **快速操作**，轻松创建和更新翻译。
-
-有关如何使用该扩展的更多详细信息，请参阅[Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
-
----
-
 ### （可选）站点地图与 robots.txt（构建时生成）
 
 Intlayer 提供 `generateSitemap` 与 `getMultilingualUrls`，可将面向爬虫的多语言 `sitemap.xml` 和 `robots.txt` 格式化并自动写入 `public/`。实践中在 Vite **之前**运行小型 Node 脚本（例如 npm 的 `predev` / `prebuild`）即可在构建或开发时生成这些文件。
@@ -933,6 +645,54 @@ console.log("SEO files generated successfully.");
 ```
 
 若使用 pnpm 或 yarn，请相应调整命令；也可在 CI 或其他步骤中调用该脚本。
+
+### 配置 TypeScript
+
+Intlayer 使用模块扩展 (module augmentation) 来利用 TypeScript 的优势，并使你的 codebase 更强大。
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+确保你的 TypeScript 配置包含了自动生成的类型。
+
+```json5 fileName="tsconfig.json"
+{
+  // ... 你现有的 TypeScript 配置
+  "include": [
+    // ... 你现有的 TypeScript 配置
+    ".intlayer/**/*.ts", // 包含自动生成的类型
+  ],
+}
+```
+
+### Git 配置
+
+建议忽略由 Intlayer 生成的文件。这可以让你避免将它们提交到你的 Git 仓库。
+
+为此，你可以将以下指令添加到你的 `.gitignore` 文件中：
+
+```plaintext fileName=".gitignore"
+# 忽略由 Intlayer 生成的文件
+.intlayer
+```
+
+### VS Code 扩展
+
+为了提升使用 Intlayer 的开发体验，你可以安装官方的 **Intlayer VS Code 扩展**。
+
+[从 VS Code 市场安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+该扩展提供：
+
+- 翻译键的**自动补全**。
+- 针对缺失翻译的**实时错误检测**。
+- 已翻译内容的**行内预览**。
+- 轻松创建和更新翻译的**快速操作**。
+
+有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://intlayer.org/zh/doc/vs-code-extension)。
+
+---
 
 ### 深入了解
 

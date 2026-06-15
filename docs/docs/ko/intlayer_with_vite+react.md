@@ -88,407 +88,6 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 
 ---
 
-## Vite 및 React 애플리케이션에서 Intlayer 설정 단계별 가이드
-
-<Tabs defaultTab="video">
-  <Tab label="비디오" value="video">
-  
-<iframe title="The best i18n solution for Vite and React? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
-
-  </Tab>
-  <Tab label="코드" value="code">
-
-<iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-vite-react-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - Intlayer를 사용하여 애플리케이션을 국제화하는 방법"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-  </Tab>
-  <Tab label="데모" value="demo">
-
-<iframe
-  src="https://intlayer-vite-react-template.vercel.app"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="데모 - intlayer-vite-react-template"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-  </Tab>
-</Tabs>
-
-GitHub에서 [Application Template](https://github.com/aymericzip/intlayer-vite-react-template)을 참조하세요.
-
-### 1단계: 의존성 설치
-
-npm을 사용하여 필요한 패키지를 설치하세요:
-
-```bash packageManager="npm"
-npm install intlayer react-intlayer
-npm install vite-intlayer --save-dev
-npx intlayer init
-```
-
-```bash packageManager="pnpm"
-pnpm add intlayer react-intlayer
-pnpm add vite-intlayer --save-dev
-pnpm intlayer init
-```
-
-```bash packageManager="yarn"
-yarn add intlayer react-intlayer
-yarn add vite-intlayer --save-dev
-yarn intlayer init
-```
-
-```bash packageManager="bun"
-bun add intlayer react-intlayer
-bun add vite-intlayer --dev
-bun x intlayer init
-```
-
-- **intlayer**
-
-구성 관리, 번역, [콘텐츠 선언](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md), 트랜스파일링 및 [CLI 명령어](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)를 위한 국제화 도구를 제공하는 핵심 패키지입니다.
-
-- **react-intlayer**
-  Intlayer를 React 애플리케이션과 통합하는 패키지로, React 국제화를 위한 컨텍스트 프로바이더와 훅을 제공합니다.
-
-- **vite-intlayer**
-  Intlayer를 [Vite 번들러](https://vite.dev/guide/why.html#why-bundle-for-production)와 통합하기 위한 Vite 플러그인과, 사용자의 선호 로케일 감지, 쿠키 관리, URL 리디렉션 처리를 위한 미들웨어를 포함합니다.
-
-### 2단계: 프로젝트 구성
-
-애플리케이션의 언어를 구성하기 위해 설정 파일을 만드세요:
-
-```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import { Locales, type IntlayerConfig } from "intlayer";
-
-const config: IntlayerConfig = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // 다른 로케일들
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-> 이 구성 파일을 통해 지역화된 URL, 미들웨어 리디렉션, 쿠키 이름, 콘텐츠 선언의 위치 및 확장자 설정, 콘솔에서 Intlayer 로그 비활성화 등 다양한 설정을 할 수 있습니다. 사용 가능한 모든 매개변수 목록은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
-
-### 3단계: Vite 구성에 Intlayer 통합하기
-
-intlayer 플러그인을 구성에 추가하세요.
-
-```typescript fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import { intlayer } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react(), intlayer()],
-});
-```
-
-> `intlayer()` Vite 플러그인은 Intlayer를 Vite와 통합하는 데 사용됩니다. 이 플러그인은 콘텐츠 선언 파일의 빌드를 보장하고 개발 모드에서 이를 모니터링합니다. 또한 Vite 애플리케이션 내에서 Intlayer 환경 변수를 정의합니다. 추가로, 성능 최적화를 위한 별칭(alias)도 제공합니다.
-
-### 4단계: 콘텐츠 선언하기
-
-번역을 저장하기 위해 콘텐츠 선언을 생성하고 관리하세요:
-
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
-import { t, type Dictionary } from "intlayer";
-import type { ReactNode } from "react";
-
-const appContent = {
-  key: "app",
-  content: {
-    viteLogo: t({
-      en: "Vite logo",
-      fr: "Logo Vite",
-      es: "Logo Vite",
-    }),
-    reactLogo: t({
-      en: "React logo",
-      fr: "Logo React",
-      es: "Logo React",
-    }),
-
-    title: "Vite + React",
-
-    count: t({
-      en: "count is ",
-      fr: "le compte est ",
-      es: "el recuento es ",
-    }),
-
-    edit: t<ReactNode>({
-      en: (
-        <>
-          <code>src/App.tsx</code>를 편집하고 저장하여 HMR을 테스트하세요
-        </>
-      ),
-      fr: (
-        <>
-          HMR을 테스트하려면 <code>src/App.tsx</code>를 편집하고 저장하세요
-        </>
-      ),
-      es: (
-        <>
-          HMR을 테스트하려면 <code>src/App.tsx</code>를 편집하고 저장하세요
-        </>
-      ),
-    }),
-
-    readTheDocs: t({
-      en: "Click on the Vite and React logos to learn more",
-      fr: "Cliquez sur les logos Vite et React pour en savoir plus",
-      es: "Haga clic en los logotipos de Vite y React para obtener más información",
-    }),
-  },
-} satisfies Dictionary;
-
-export default appContent;
-```
-
-```json fileName="src/app.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "app",
-  "content": {
-    "viteLogo": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Vite logo",
-        "fr": "Logo Vite",
-        "es": "Logo Vite",
-        "ko": "Vite 로고"
-      }
-    },
-    "reactLogo": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "React logo",
-        "fr": "Logo React",
-        "es": "Logo React",
-        "ko": "리액트 로고"
-      }
-    },
-    "title": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Vite + React",
-        "fr": "Vite + React",
-        "es": "Vite + React",
-        "ko": "Vite + React"
-      }
-    },
-    "count": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "count is ",
-        "fr": "le compte est ",
-        "es": "el recuento es ",
-        "ko": "카운트는 "
-      }
-    },
-    "edit": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Edit src/App.tsx and save to test HMR",
-        "fr": "Éditez src/App.tsx et enregistrez pour tester HMR",
-        "es": "Edita src/App.tsx y guarda para probar HMR",
-        "ko": "src/App.tsx를 편집하고 저장하여 HMR을 테스트하세요"
-      }
-    },
-    "readTheDocs": {
-      "nodeType": "translation",
-      "translation": {
-        "ko": "더 알아보려면 Vite 및 React 로고를 클릭하세요",
-        "en": "Click on the Vite and React logos to learn more",
-        "fr": "Cliquez sur les logos Vite et React pour en savoir plus",
-        "es": "Haga clic en los logotipos de Vite y React para obtener más información"
-      }
-    }
-  }
-}
-```
-
-> 애플리케이션 내 어디에서든 `contentDir` 디렉토리(기본값: `./src`)에 포함되면 콘텐츠 선언을 정의할 수 있습니다. 그리고 콘텐츠 선언 파일 확장자(기본값: `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`)와 일치해야 합니다.
-
-> 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
-
-> 콘텐츠 파일에 TSX 코드가 포함된 경우, 콘텐츠 파일에 `import React from "react";`를 가져오는 것을 고려해야 합니다.
-
-### 5단계: 코드에서 Intlayer 사용하기
-
-애플리케이션 전반에서 콘텐츠 사전을 접근하세요:
-
-```tsx {5,9} fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
-import { useState, type FC } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
-import { IntlayerProvider, useIntlayer } from "react-intlayer";
-
-const AppContent: FC = () => {
-  const [count, setCount] = useState(0);
-  const content = useIntlayer("app");
-
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt={content.viteLogo.value} />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img
-            src={reactLogo}
-            className="logo react"
-            alt={content.reactLogo.value}
-          />
-        </a>
-      </div>
-      <h1>{content.title}</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          {content.count}
-          {count}
-        </button>
-        <p>{content.edit}</p>
-      </div>
-      <p className="read-the-docs">{content.readTheDocs}</p>
-    </>
-  );
-};
-
-const App: FC = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-
-export default App;
-```
-
-> `alt`, `title`, `href`, `aria-label` 등과 같은 `string` 속성에서 콘텐츠를 사용하려면, 함수의 값을 호출해야 합니다. 예를 들어:
-
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
-> ```
-
-> `useIntlayer` 훅에 대해 더 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useIntlayer.md)를 참조하세요.
-
-### (선택 사항) 6단계: 콘텐츠의 언어 변경하기
-
-콘텐츠의 언어를 변경하려면 `useLocale` 훅에서 제공하는 `setLocale` 함수를 사용할 수 있습니다. 이 함수는 애플리케이션의 로케일을 설정하고 그에 따라 콘텐츠를 업데이트할 수 있게 해줍니다.
-
-```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { Locales } from "intlayer";
-import { useLocale } from "react-intlayer";
-
-const LocaleSwitcher: FC = () => {
-  const { setLocale } = useLocale();
-
-  return (
-    <button onClick={() => setLocale(Locales.English)}>영어로 언어 변경</button>
-  );
-};
-```
-
-> `useLocale` 훅에 대해 더 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useLocale.md)를 참조하세요.
-
-### (선택 사항) 7단계: 애플리케이션에 지역화된 라우팅 추가하기
-
-이 단계의 목적은 각 언어별로 고유한 라우트를 만드는 것입니다. 이는 SEO 및 SEO 친화적인 URL에 유용합니다.
-예시:
-
-```plaintext
-- https://example.com/about
-- https://example.com/es/about
-- https://example.com/fr/about
-```
-
-> 기본적으로, 기본 로케일에 대해서는 경로에 접두사가 붙지 않습니다. 기본 로케일에 접두사를 붙이고 싶다면, 구성 설정에서 `middleware.prefixDefault` 옵션을 `true`로 설정할 수 있습니다. 자세한 내용은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
-
-애플리케이션에 지역화된 라우팅을 추가하려면, 애플리케이션의 라우트를 감싸고 로케일 기반 라우팅을 처리하는 `LocaleRouter` 컴포넌트를 생성할 수 있습니다. 다음은 [React Router](https://reactrouter.com/home)를 사용한 예제입니다:
-
-```tsx fileName="src/components/LocaleRouter.tsx" codeFormat={["typescript", "esm"]}
-import { localeMap } from "intlayer"; // 'intlayer'에서 제공하는 유틸리티 함수 및 타입
-import type { FC, PropsWithChildren } from "react"; // 함수형 컴포넌트 및 props 타입
-import { IntlayerProvider } from "react-intlayer"; // 국제화 컨텍스트를 위한 프로바이더
-import { BrowserRouter, Route, Routes } from "react-router-dom"; // 네비게이션 관리를 위한 라우터 컴포넌트
-
-/**
- * 로케일별 경로를 설정하는 라우터 컴포넌트입니다.
- * React Router를 사용하여 내비게이션을 관리하고 로컬라이즈된 컴포넌트를 렌더링합니다.
- */
-export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
-  <BrowserRouter>
-    <Routes>
-      {localeMap(({ locale, urlPrefix }) => (
-        <Route
-          // 로케일을 캡처하는 경로 패턴 (예: /en/, /fr/) 및 이후 모든 경로와 매칭
-          path={`${urlPrefix}/*`}
-          key={locale}
-          element={
-            <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
-          } // 로케일 관리를 위해 children을 래핑
-        />
-      ))}
-    </Routes>
-  </BrowserRouter>
-);
-```
-
-> 참고: `routing.mode: 'no-prefix' | 'search-params'`를 사용하는 경우, 아마도 `localeMap` 함수를 사용할 필요가 없습니다.
-
-그런 다음, 애플리케이션에서 `LocaleRouter` 컴포넌트를 사용할 수 있습니다:
-
-```tsx fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
-import { LocaleRouter } from "./components/LocaleRouter";
-import type { FC } from "react";
-
-// ... 여러분의 AppContent 컴포넌트
-
-const App: FC = () => (
-  <LocaleRouter>
-    <AppContent />
-  </LocaleRouter>
-);
-```
-
-병행하여, `intlayerProxy`를 사용하여 애플리케이션에 서버 사이드 라우팅을 추가할 수도 있습니다. 이 플러그인은 URL을 기반으로 현재 로케일을 자동으로 감지하고 적절한 로케일 쿠키를 설정합니다. 로케일이 지정되지 않은 경우, 플러그인은 사용자의 브라우저 언어 설정을 기반으로 가장 적합한 로케일을 결정합니다. 로케일이 감지되지 않으면 기본 로케일로 리디렉션합니다.
-
-- 프로덕션 환경에서 `intlayerProxy`를 사용하려면 `vite-intlayer` 패키지를 `devDependencies`에서 `dependencies`로 변경해야 합니다.
-
-```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import { intlayer, intlayerProxy } from "vite-intlayer";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-    intlayerProxy(), // should be placed first
-    react(),
-    intlayer(),
-  ],
-});
-```
-
 ### (선택 사항) 8단계: 로케일이 변경될 때 URL 변경하기
 
 로케일이 변경될 때 URL을 변경하려면, `useLocale` 훅에서 제공하는 `onLocaleChange` 속성을 사용할 수 있습니다. 동시에, `react-router-dom`의 `useLocation`과 `useNavigate` 훅을 사용하여 URL 경로를 업데이트할 수 있습니다.
@@ -573,16 +172,6 @@ const LocaleSwitcher: FC = () => {
 
 ---
 
-### (선택 사항) 9단계: HTML의 언어 및 방향 속성 변경
-
-애플리케이션이 다국어를 지원할 때, 현재 로케일에 맞게 `<html>` 태그의 `lang` 및 `dir` 속성을 업데이트하는 것이 매우 중요합니다. 이렇게 하면 다음을 보장할 수 있습니다:
-
-- **접근성**: 화면 낭독기 및 보조 기술은 올바른 `lang` 속성에 의존하여 콘텐츠를 정확하게 발음하고 해석합니다.
-- **텍스트 렌더링**: `dir`(방향) 속성은 텍스트가 올바른 순서로 렌더링되도록 보장합니다(예: 영어는 왼쪽에서 오른쪽으로, 아랍어나 히브리어는 오른쪽에서 왼쪽으로), 이는 가독성에 필수적입니다.
-- **SEO**: 검색 엔진은 `lang` 속성을 사용하여 페이지의 언어를 판단하고, 검색 결과에서 적절한 현지화된 콘텐츠를 제공하는 데 도움을 줍니다.
-
-로케일이 변경될 때 이러한 속성을 동적으로 업데이트하면, 지원되는 모든 언어에서 사용자에게 일관되고 접근 가능한 경험을 보장할 수 있습니다.
-
 #### 훅 구현하기
 
 HTML 속성을 관리하는 커스텀 훅을 만듭니다. 이 훅은 로케일 변경을 감지하여 속성을 적절히 업데이트합니다:
@@ -611,38 +200,6 @@ export const useI18nHTMLAttributes = () => {
   }, [locale]);
 };
 ```
-
-#### 애플리케이션에서 훅 사용하기
-
-로케일이 변경될 때마다 HTML 속성이 업데이트되도록 훅을 메인 컴포넌트에 통합하세요:
-
-```tsx fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { IntlayerProvider, useIntlayer } from "react-intlayer";
-import { useI18nHTMLAttributes } from "./hooks/useI18nHTMLAttributes";
-import "./App.css";
-
-const AppContent: FC = () => {
-  // 로케일에 따라 <html> 태그의 lang과 dir 속성을 업데이트하기 위해 훅을 적용합니다.
-  useI18nHTMLAttributes();
-
-  // ... 컴포넌트의 나머지 부분
-};
-
-const App: FC = () => (
-  <IntlayerProvider>
-    <AppContent />
-  </IntlayerProvider>
-);
-
-export default App;
-```
-
-이 변경 사항을 적용하면 애플리케이션은 다음을 보장합니다:
-
-- 현재 로케일을 올바르게 반영하는 **언어**(`lang`) 속성으로 SEO 및 브라우저 동작에 중요합니다.
-- 로케일에 따라 **텍스트 방향**(`dir`)을 조정하여, 서로 다른 읽기 순서를 가진 언어에 대해 가독성과 사용성을 향상시킵니다.
-- 보조 기술이 이러한 속성에 의존하므로 더 **접근성 높은** 경험을 제공합니다.
 
 ### (선택 사항) 10단계: 지역화된 링크 컴포넌트 만들기
 
@@ -700,53 +257,6 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
 );
 
 Link.displayName = "Link";
-```
-
-#### 작동 원리
-
-- **외부 링크 감지**:  
-  헬퍼 함수 `checkIsExternalLink`는 URL이 외부 링크인지 여부를 판단합니다. 외부 링크는 현지화가 필요 없으므로 변경하지 않습니다.
-
-- **현재 로케일 가져오기**:  
-  `useLocale` 훅은 현재 로케일(예: 프랑스어의 경우 `fr`)을 제공합니다.
-
-- **URL 현지화**:  
-  내부 링크(즉, 외부 링크가 아닌 경우)에 대해 `getLocalizedUrl`을 사용하여 URL 앞에 현재 로케일을 자동으로 붙입니다. 예를 들어 사용자가 프랑스어 로케일에 있다면, `href`에 `/about`을 전달하면 `/fr/about`로 변환됩니다.
-
-- **링크 반환**:  
-  컴포넌트는 지역화된 URL을 가진 `<a>` 요소를 반환하여, 내비게이션이 현재 로케일과 일치하도록 보장합니다.
-
-이 `Link` 컴포넌트를 애플리케이션 전반에 통합함으로써, 일관되고 언어 인식이 가능한 사용자 경험을 유지할 수 있으며, SEO 및 사용성 향상에도 도움이 됩니다.
-
-### TypeScript 구성
-
-Intlayer는 모듈 확장을 사용하여 TypeScript의 이점을 활용하고 코드베이스를 더욱 견고하게 만듭니다.
-
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-TypeScript 구성에 자동 생성된 타입이 포함되어 있는지 확인하세요.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... 기존 TypeScript 구성
-  "include": [
-    // ... 기존 TypeScript 설정
-    ".intlayer/**/*.ts", // 자동 생성된 타입 포함
-  ],
-}
-```
-
-### Git 설정
-
-Intlayer가 생성한 파일들은 Git 저장소에 커밋하지 않도록 무시하는 것이 권장됩니다. 이렇게 하면 해당 파일들을 Git 저장소에 커밋하는 것을 방지할 수 있습니다.
-
-이를 위해 `.gitignore` 파일에 다음 지침을 추가할 수 있습니다:
-
-```plaintext fileName=".gitignore"
-# Intlayer에서 생성된 파일 무시하기
-.intlayer
 ```
 
 ### VS Code 확장 프로그램
@@ -940,6 +450,54 @@ console.log("SEO files generated successfully.");
 ```
 
 pnpm이나 yarn을 쓰면 명령을 맞게 바꾸세요. CI에서 호출해도 됩니다.
+
+### TypeScript 설정
+
+Intlayer는 TypeScript의 이점을 활용하고 codebase를 더욱 강력하게 만들기 위해 module augmentation을 사용합니다.
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+TypeScript 설정에 자동 생성된 타입이 포함되어 있는지 확인하세요.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... 기존 TypeScript 설정
+  "include": [
+    // ... 기존 TypeScript 설정
+    ".intlayer/**/*.ts", // 자동 생성된 타입 포함
+  ],
+}
+```
+
+### Git 설정
+
+Intlayer에 의해 생성된 파일들을 무시할 것을 권장합니다. 이를 통해 해당 파일들이 Git 리포지토리에 커밋되는 것을 방지할 수 있습니다.
+
+이를 위해, `.gitignore` 파일에 다음 내용을 추가할 수 있습니다:
+
+```plaintext fileName=".gitignore"
+# Intlayer에서 생성된 파일 무시
+.intlayer
+```
+
+### VS Code 확장 프로그램
+
+Intlayer와 함께하는 개발 환경을 개선하기 위해 공식 **Intlayer VS Code 확장 프로그램**을 설치할 수 있습니다.
+
+[VS Code 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+이 확장 프로그램은 다음을 제공합니다:
+
+- 번역 키에 대한 **자동 완성(Autocompletion)**.
+- 누락된 번역에 대한 **실시간 오류 감지**.
+- 번역된 콘텐츠의 **인라인 미리보기**.
+- 번역을 쉽게 생성하고 업데이트할 수 있는 **빠른 작업(Quick actions)**.
+
+확장 프로그램 사용법에 대한 자세한 내용은 [Intlayer VS Code 확장 프로그램 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
+
+---
 
 ### 더 나아가기
 
