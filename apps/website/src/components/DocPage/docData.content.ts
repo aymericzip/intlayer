@@ -1637,6 +1637,10 @@ const docDataContent: Dictionary = {
         vi: 'Phiên bản',
       }),
       subSections: {
+        v9: {
+          title: 'v9',
+          default: getDocMetadata('./docs/en/releases/v9.md'),
+        },
         v8: {
           title: 'v8',
           default: getDocMetadata('./docs/en/releases/v8.md'),
