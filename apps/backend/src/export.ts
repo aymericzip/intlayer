@@ -1,5 +1,6 @@
 // Controllers types
 export type * from '@controllers/ai.controller';
+export type * from '@controllers/asset.controller';
 export type * from '@controllers/audit.controller';
 export type {
   BitbucketAuthCallbackBody,
@@ -57,6 +58,7 @@ export type * from '@controllers/tag.controller';
 export type * from '@controllers/translation.controller';
 export type * from '@controllers/user.controller';
 export { getAiRoutes } from '@routes/ai.routes';
+export { getAssetRoutes } from '@routes/asset.routes';
 // Routes
 export { getAuditRoutes } from '@routes/audit.routes';
 export { getBitbucketRoutes } from '@routes/bitbucket.routes';
@@ -78,10 +80,11 @@ export type { AuditEvent } from '@services/audit/types';
 export * from '@utils/auth/getAuth';
 export * from '@utils/httpStatusCodes';
 export * from '@utils/responseData';
-
 // Objects types
 export type * from '@/types/affiliate.types';
 export type * from '@/types/affiliateInvitation.types';
+export type * from '@/types/aiStats.types';
+export type * from '@/types/asset.types';
 export type * from '@/types/dictionary.types';
 export type * from '@/types/discussion.types';
 export type * from '@/types/oAuth2.types';

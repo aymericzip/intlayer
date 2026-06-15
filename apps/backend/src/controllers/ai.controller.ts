@@ -34,6 +34,7 @@ import {
   type ResponseData,
 } from '@utils/responseData';
 import type { FastifyReply, FastifyRequest } from 'fastify';
+import type { AIStats } from '@/types/aiStats.types';
 import type { Dictionary } from '@/types/dictionary.types';
 import type { DiscussionAPI } from '@/types/discussion.types';
 import type { Tag, TagAPI } from '@/types/tag.types';
@@ -714,6 +715,9 @@ export const chat = async (
       if (user?.id) updatePayload.userId = user.id;
       if (project?.id) updatePayload.projectId = project.id;
       if (organization?.id) updatePayload.organizationId = organization.id;
+      if (fullResponse.tokenUsage)
+        updatePayload.tokenUsage = fullResponse.tokenUsage;
+      if (fullResponse.aiModel) updatePayload.aiModel = fullResponse.aiModel;
 
       await DiscussionModel.findOneAndUpdate(
         { discussionId: String(discussionId) },
@@ -906,6 +910,87 @@ export const getDiscussions = async (
     });
 
     return reply.send(responseData as any);
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
+export type GetAIStatsResult = ResponseData<AIStats>;
+
+/**
+ * Returns aggregated AI token-usage statistics for the currently selected
+ * project. Aggregates over all saved `dashboard` discussions that recorded
+ * token usage, broken down by model.
+ */
+export const getAIStats = async (
+  request: FastifyRequest,
+  reply: FastifyReply
+): Promise<void> => {
+  const { project } = request.session || {};
+
+  if (!project) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'PROJECT_NOT_DEFINED'
+    );
+  }
+
+  try {
+    const projectObjectId = project.id;
+
+    const [totalDiscussions, aggregation] = await Promise.all([
+      DiscussionModel.countDocuments({
+        projectId: projectObjectId,
+        type: 'dashboard',
+      }),
+      DiscussionModel.aggregate([
+        {
+          $match: {
+            projectId: projectObjectId,
+            type: 'dashboard',
+            'tokenUsage.totalTokens': { $gt: 0 },
+          },
+        },
+        {
+          $group: {
+            _id: '$aiModel',
+            discussionCount: { $sum: 1 },
+            totalInputTokens: { $sum: '$tokenUsage.inputTokens' },
+            totalOutputTokens: { $sum: '$tokenUsage.outputTokens' },
+            totalTokens: { $sum: '$tokenUsage.totalTokens' },
+          },
+        },
+        { $sort: { totalTokens: -1 } },
+      ]),
+    ]);
+
+    const modelUsage = (aggregation as any[]).map((entry) => ({
+      aiModel: entry._id ?? 'unknown',
+      discussionCount: entry.discussionCount,
+      totalInputTokens: entry.totalInputTokens,
+      totalOutputTokens: entry.totalOutputTokens,
+      totalTokens: entry.totalTokens,
+    }));
+
+    const stats: AIStats = {
+      projectId: String(projectObjectId),
+      generatedAt: Date.now(),
+      totalDiscussions,
+      totalInputTokens: modelUsage.reduce(
+        (sum, m) => sum + m.totalInputTokens,
+        0
+      ),
+      totalOutputTokens: modelUsage.reduce(
+        (sum, m) => sum + m.totalOutputTokens,
+        0
+      ),
+      totalTokens: modelUsage.reduce((sum, m) => sum + m.totalTokens, 0),
+      modelUsage,
+    };
+
+    const responseData = formatResponse<AIStats>({ data: stats });
+
+    return reply.send(responseData);
   } catch (error) {
     return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
   }

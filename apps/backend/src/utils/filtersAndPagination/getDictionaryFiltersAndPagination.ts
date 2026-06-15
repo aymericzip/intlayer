@@ -21,6 +21,17 @@ export type DictionaryFiltersParams = {
   keys?: string[];
   tags?: string | string[];
   location?: 'remote' | 'local' | 'both' | 'none';
+  /**
+   * Filter by qualifier type:
+   * - 'standard': dictionaries without any qualifier (item / variant / meta)
+   * - 'collection': dictionaries with an `item` qualifier
+   * - 'variant': dictionaries with a `variant` qualifier
+   * - 'meta': dictionaries with a `meta` qualifier
+   *
+   * Multiple values may be provided as a comma-separated string or array; the
+   * result is the union of all matching types.
+   */
+  type?: string | string[];
   priority?: string;
   version?: string;
   search?: string;
@@ -57,6 +68,7 @@ export const getDictionaryFiltersAndPagination = (
     keys,
     tags,
     location,
+    type,
     priority,
     ids,
     projectId,
@@ -150,6 +162,34 @@ export const getDictionaryFiltersAndPagination = (
 
   if (tags) {
     filters = { ...filters, tags: { $in: ensureArrayQueryFilter(tags) } };
+  }
+
+  if (type) {
+    const typeValues = ensureArrayQueryFilter(type);
+
+    const typeConditions = typeValues
+      .map((typeValue): Record<string, unknown> | null => {
+        if (typeValue === 'collection') return { item: { $exists: true } };
+        if (typeValue === 'variant') return { variant: { $exists: true } };
+        if (typeValue === 'meta') return { meta: { $exists: true } };
+        if (typeValue === 'standard')
+          return {
+            item: { $exists: false },
+            variant: { $exists: false },
+            meta: { $exists: false },
+          };
+        return null;
+      })
+      .filter(
+        (condition): condition is Record<string, unknown> => condition !== null
+      );
+
+    if (typeConditions.length === 1) {
+      filters = { ...filters, ...typeConditions[0] };
+    } else if (typeConditions.length > 1) {
+      const existingOr = (filters.$or as Record<string, unknown>[]) ?? [];
+      filters = { ...filters, $or: [...existingOr, ...typeConditions] };
+    }
   }
 
   if (location === 'local') {

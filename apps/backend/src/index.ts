@@ -21,6 +21,7 @@ import {
 import { authMiddleware } from '@middlewares/sessionAuth.middleware';
 // Routes
 import { aiRoute, aiRouter } from '@routes/ai.routes';
+import { assetRoute, assetRouter } from '@routes/asset.routes';
 import { auditRoute, auditRouter } from '@routes/audit.routes';
 import { bitbucketRoute, bitbucketRouter } from '@routes/bitbucket.routes';
 import {
@@ -308,6 +309,7 @@ const startServer = async () => {
   await app.register(auditRouter, { prefix: auditRoute });
   await app.register(demoRouter, { prefix: demoRoute });
   await app.register(blogCommentRouter, { prefix: blogCommentRoute });
+  await app.register(assetRouter, { prefix: assetRoute });
 
   // Server
   await app.listen({

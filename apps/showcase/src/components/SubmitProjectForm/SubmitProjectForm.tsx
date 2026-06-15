@@ -1,6 +1,6 @@
 import { useSession } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
-import { Form, useForm } from '@intlayer/design-system/form';
+import { Form, FormButton, useForm } from '@intlayer/design-system/form';
 import { Loader } from '@intlayer/design-system/loader';
 import { App_Auth_SignIn } from '@intlayer/design-system/routes';
 import { ArrowLeft } from 'lucide-react';
@@ -101,7 +101,7 @@ export const SubmitProjectForm: FC = () => {
 
             <div className="flex flex-col gap-3 pt-4">
               {!session?.user ? (
-                <Form.Button
+                <FormButton
                   className="w-full"
                   type="button"
                   color="text"
@@ -115,9 +115,9 @@ export const SubmitProjectForm: FC = () => {
                   }}
                 >
                   {content.signInButton.label}
-                </Form.Button>
+                </FormButton>
               ) : (
-                <Form.Button
+                <FormButton
                   className="w-full"
                   type="submit"
                   color="text"
@@ -135,7 +135,7 @@ export const SubmitProjectForm: FC = () => {
                   }
                 >
                   {content.submitButton.label}
-                </Form.Button>
+                </FormButton>
               )}
             </div>
           </Form>

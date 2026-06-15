@@ -20,6 +20,7 @@ export const App_Dashboard_Organization_Path = '/organization' as const;
 export const App_Dashboard_Profile_Path = '/profile' as const;
 export const App_Dashboard_IDE_Path = '/ide' as const;
 export const App_Dashboard_Scanner_Path = '/scanner' as const;
+export const App_Dashboard_Assets_Path = '/assets' as const;
 
 export const App_Pricing_Path = '/pricing' as const;
 export const App_Affiliation_Path = '/affiliation' as const;

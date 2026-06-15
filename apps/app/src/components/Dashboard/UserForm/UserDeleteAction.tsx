@@ -1,7 +1,7 @@
 import type { UserAPI } from '@intlayer/backend';
 import { useDeleteUser, useGetUserById } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
-import { Form } from '@intlayer/design-system/form';
+import { Form, FormButton } from '@intlayer/design-system/form';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import { App_Admin_Users_Path } from '@intlayer/design-system/routes';
@@ -78,7 +78,7 @@ export const UserDeleteAction: FC<{ userId: string }> = ({ userId }) => {
                 <p className="mt-1 text-neutral text-sm">
                   {deleteSection.description}
                 </p>
-                <Form.Button
+                <FormButton
                   label={deleteSection.button.value}
                   onClick={() => setIsDeleteModalOpen(true)}
                   disabled={deleteUserMutation.isPending}
@@ -88,7 +88,7 @@ export const UserDeleteAction: FC<{ userId: string }> = ({ userId }) => {
                   className="mt-4"
                 >
                   {deleteSection.button}
-                </Form.Button>
+                </FormButton>
               </div>
             </div>
           </Container>
@@ -121,7 +121,7 @@ export const UserDeleteAction: FC<{ userId: string }> = ({ userId }) => {
             </div>
           </div>
           <div className="flex justify-end gap-3">
-            <Form.Button
+            <FormButton
               label={deleteSection.cancelButton.value}
               onClick={() => setIsDeleteModalOpen(false)}
               disabled={deleteUserMutation.isPending}
@@ -129,8 +129,8 @@ export const UserDeleteAction: FC<{ userId: string }> = ({ userId }) => {
               color="text"
             >
               {deleteSection.cancelButton}
-            </Form.Button>
-            <Form.Button
+            </FormButton>
+            <FormButton
               label={deleteSection.confirmButton.value}
               onClick={handleDeleteUser}
               isLoading={deleteUserMutation.isPending}
@@ -139,7 +139,7 @@ export const UserDeleteAction: FC<{ userId: string }> = ({ userId }) => {
               color="error"
             >
               {deleteSection.confirmButton}
-            </Form.Button>
+            </FormButton>
           </div>
         </div>
       </Modal>

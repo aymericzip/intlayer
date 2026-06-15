@@ -1,4 +1,5 @@
 export * from './hooks/ai';
+export * from './hooks/asset';
 export * from './hooks/audit';
 export * from './hooks/auth';
 export * from './hooks/bitbucket';

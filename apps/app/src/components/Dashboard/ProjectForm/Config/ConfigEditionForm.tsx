@@ -3,7 +3,16 @@ import {
   usePushProjectConfiguration,
   useSession,
 } from '@intlayer/design-system/api';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormAutoSizedTextArea,
+  FormButton,
+  FormInput,
+  FormInputPassword,
+  FormMultiSelect,
+  FormSelect,
+  useForm,
+} from '@intlayer/design-system/form';
 import { H4 } from '@intlayer/design-system/headers';
 import { Modal } from '@intlayer/design-system/modal';
 import { MultiSelect, Select } from '@intlayer/design-system/select';
@@ -136,7 +145,7 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
         <div className="flex flex-col gap-4">
           <H4>{i18nSection.title}</H4>
 
-          <Form.MultiSelect
+          <FormMultiSelect
             name="locales"
             label={i18nSection.localesInput.label.value}
             description={i18nSection.localesInput.description.value}
@@ -176,9 +185,9 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
                 ))}
               </MultiSelect.List>
             </MultiSelect.Content>
-          </Form.MultiSelect>
+          </FormMultiSelect>
 
-          <Form.Select
+          <FormSelect
             name="defaultLocale"
             label={i18nSection.defaultLocaleInput.label.value}
             description={i18nSection.defaultLocaleInput.description.value}
@@ -201,14 +210,14 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
                 </Select.Item>
               ))}
             </Select.Content>
-          </Form.Select>
+          </FormSelect>
         </div>
 
         {/* Editor Section */}
         <div className="flex flex-col gap-4">
           <H4>{editorSection.title}</H4>
 
-          <Form.Input
+          <FormInput
             name="applicationURL"
             label={editorSection.applicationURLInput.label.value}
             placeholder={editorSection.applicationURLInput.placeholder.value}
@@ -216,7 +225,7 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
             disabled={!isProjectAdmin}
           />
 
-          <Form.Input
+          <FormInput
             name="cmsURL"
             label={editorSection.cmsURLInput.label.value}
             placeholder={editorSection.cmsURLInput.placeholder.value}
@@ -229,7 +238,7 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
         <div className="flex flex-col gap-4">
           <H4>{aiSection.title}</H4>
 
-          <Form.Select
+          <FormSelect
             name="aiProvider"
             label={aiSection.providerInput.label.value}
             description={aiSection.providerInput.description.value}
@@ -247,9 +256,9 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
                 </Select.Item>
               ))}
             </Select.Content>
-          </Form.Select>
+          </FormSelect>
 
-          <Form.Input
+          <FormInput
             name="aiModel"
             label={aiSection.modelInput.label.value}
             placeholder={aiSection.modelInput.placeholder.value}
@@ -257,7 +266,7 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
             disabled={!isProjectAdmin}
           />
 
-          <Form.InputPassword
+          <FormInputPassword
             name="aiApiKey"
             autoComplete="off"
             className="w-auto"
@@ -275,7 +284,7 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
             disabled={!isProjectAdmin}
           />
 
-          <Form.AutoSizedTextArea
+          <FormAutoSizedTextArea
             name="aiApplicationContext"
             label={aiSection.applicationContextInput.label.value}
             placeholder={aiSection.applicationContextInput.placeholder.value}
@@ -287,7 +296,7 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
         {/* Action Buttons */}
         {isProjectAdmin && (
           <div className="mt-4 flex justify-end gap-3 max-md:flex-col">
-            <Form.Button
+            <FormButton
               variant="outline"
               label={cancelButton.ariaLabel.value}
               color="text"
@@ -295,8 +304,8 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
               onClick={onClose}
             >
               {cancelButton.text}
-            </Form.Button>
-            <Form.Button
+            </FormButton>
+            <FormButton
               label={saveButton.ariaLabel.value}
               color="text"
               type="submit"
@@ -304,7 +313,7 @@ export const ConfigEditionForm: FC<ConfigEditionFormProps> = ({
               Icon={Save}
             >
               {saveButton.text}
-            </Form.Button>
+            </FormButton>
           </div>
         )}
       </Form>

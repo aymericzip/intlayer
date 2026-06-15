@@ -342,7 +342,7 @@ const dashboardNavbarContent = {
     }),
     defaultEnv: t({
       en: 'default',
-      fr: 'par défaut',
+      fr: 'défaut',
       es: 'predeterminado',
       'en-GB': 'default',
       de: 'Standard',

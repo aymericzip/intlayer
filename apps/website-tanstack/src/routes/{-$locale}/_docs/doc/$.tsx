@@ -43,9 +43,11 @@ export const Route = createFileRoute('/{-$locale}/_docs/doc/$')({
 
     if (!exactMatch) {
       if (docsData.length > 0) {
-        throw redirect({ to: docsData[0].relativeUrl as any });
+        throw redirect({
+          to: getLocalizedUrl(docsData[0].relativeUrl, locale) as any,
+        });
       }
-      throw redirect({ to: Website_Home_Path as any });
+      throw redirect({ to: getLocalizedUrl(Website_Home_Path, locale) as any });
     }
 
     const { defaultDocData, docContent, docParsed, prevDocData, nextDocData } =

@@ -1,7 +1,13 @@
 'use client';
 
 import { Container } from '@intlayer/design-system/container';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormInput,
+  FormTextArea,
+  useForm,
+} from '@intlayer/design-system/form';
 import { getIntlayer } from 'intlayer';
 import { useIntlayer } from 'next-intlayer';
 import { type FC, useEffect, useState } from 'react';
@@ -104,13 +110,13 @@ const CommentForm: FC<CommentFormProps> = ({
     >
       <Form schema={commentSchema} onSubmitSuccess={handleSubmit} {...form}>
         <div className="grid gap-4 sm:grid-cols-2">
-          <Form.Input
+          <FormInput
             name="authorName"
             label={content.name.value}
             placeholder={content.yourName.value}
             isRequired
           />
-          <Form.Input
+          <FormInput
             name="authorEmail"
             type="email"
             label={content.email.value}
@@ -119,7 +125,7 @@ const CommentForm: FC<CommentFormProps> = ({
           />
         </div>
 
-        <Form.TextArea
+        <FormTextArea
           name="content"
           label={content.comment.value}
           placeholder={content.shareYourThoughts.value}
@@ -129,7 +135,7 @@ const CommentForm: FC<CommentFormProps> = ({
         />
 
         <div className="flex items-center gap-3">
-          <Form.Button
+          <FormButton
             type="submit"
             variant="default"
             color="text"
@@ -138,8 +144,8 @@ const CommentForm: FC<CommentFormProps> = ({
             label={content.submitComment.value}
           >
             {content.submitComment}
-          </Form.Button>
-          <Form.Button
+          </FormButton>
+          <FormButton
             type="button"
             variant="hoverable"
             color="neutral"
@@ -148,7 +154,7 @@ const CommentForm: FC<CommentFormProps> = ({
             onClick={onCancel}
           >
             {content.cancel}
-          </Form.Button>
+          </FormButton>
         </div>
 
         <p className="text-neutral text-xs">
@@ -245,7 +251,7 @@ export const BlogCommentSection: FC<BlogCommentSectionProps> = ({
 
       {/* Toggle form */}
       {!showForm && submitState !== 'success' && (
-        <Form.Button
+        <FormButton
           type="button"
           variant="hoverable"
           color="text"
@@ -254,7 +260,7 @@ export const BlogCommentSection: FC<BlogCommentSectionProps> = ({
           onClick={() => setShowForm(true)}
         >
           {content.addAComment}
-        </Form.Button>
+        </FormButton>
       )}
 
       {/* Comment form */}

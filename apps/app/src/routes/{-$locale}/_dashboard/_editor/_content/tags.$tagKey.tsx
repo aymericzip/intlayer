@@ -6,7 +6,6 @@ import {
   getLocalizedUrl,
   localeMap,
 } from 'intlayer';
-
 import { TagDetails } from '#components/Dashboard/TagForm/TagDetails';
 
 export const Route = createFileRoute(
@@ -19,6 +18,7 @@ export const Route = createFileRoute(
     const content = getIntlayer('tag-dashboard-page', locale);
 
     return {
+      title: content.metadata.title,
       links: [
         // Canonical link: Points to the current localized page
         { rel: 'canonical', href: getLocalizedUrl(path, locale) },
@@ -39,7 +39,6 @@ export const Route = createFileRoute(
         },
       ],
       meta: [
-        { title: `${tagKey} | ${content.metadata.title}` },
         {
           name: 'description',
           content: content.metadata.description,

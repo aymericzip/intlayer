@@ -7,6 +7,7 @@ import {
   autocomplete,
   chat,
   customQuery,
+  getAIStats,
   getDiscussions,
   translateJSON,
 } from '@controllers/ai.controller';
@@ -71,6 +72,11 @@ export const getAiRoutes = () =>
       url: `${baseURL()}/discussions`,
       method: 'GET',
     },
+    getAIStats: {
+      urlModel: '/stats',
+      url: `${baseURL()}/stats`,
+      method: 'GET',
+    },
   }) satisfies Routes;
 
 export const aiRouter = async (fastify: FastifyInstance) => {
@@ -91,6 +97,7 @@ export const aiRouter = async (fastify: FastifyInstance) => {
   fastify.post(getAiRoutes().auditTag.urlModel, auditTag);
   fastify.post(getAiRoutes().autocomplete.urlModel, autocomplete);
   fastify.get(getAiRoutes().getDiscussions.urlModel, getDiscussions);
+  fastify.get(getAiRoutes().getAIStats.urlModel, getAIStats);
 
   /**
    * This route number of requests is limited for unauthenticated users

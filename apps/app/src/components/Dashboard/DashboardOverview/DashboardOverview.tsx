@@ -1,4 +1,8 @@
-import { useGetProjectInsights, useSession } from '@intlayer/design-system/api';
+import {
+  useGetAIStats,
+  useGetProjectInsights,
+  useSession,
+} from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
 import { Loader } from '@intlayer/design-system/loader';
 import {
@@ -11,14 +15,17 @@ import { getLocaleName } from 'intlayer';
 import {
   AlertTriangle,
   Book,
+  BrainCircuit,
   CheckCircle2,
   GitBranch,
   Globe,
   KeyRound,
   Languages,
+  MessageSquare,
   ScanLine,
   Sparkles,
   Users,
+  Zap,
 } from 'lucide-react';
 import type { FC, ReactNode } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
@@ -29,9 +36,9 @@ const formatPercent = (ratio: number): string => `${Math.round(ratio * 100)}%`;
 
 /** Bar color buckets keyed on completion ratio. */
 const getBarColor = (ratio: number): string => {
-  if (ratio >= 1) return 'bg-success';
-  if (ratio >= 0.5) return 'bg-warning';
-  return 'bg-error';
+  if (ratio >= 1) return 'bg-success/60';
+  if (ratio >= 0.5) return 'bg-warning/60';
+  return 'bg-error/60';
 };
 
 type StatCardProps = {
@@ -75,10 +82,10 @@ const ConfigChip: FC<ConfigChipProps> = ({
 }) => (
   <Container
     className="flex items-center gap-3 p-3"
-    roundedSize="xl"
+    roundedSize="2xl"
     transparency="none"
     border
-    borderColor="neutral"
+    borderColor={tone === 'success' ? 'success' : 'neutral'}
   >
     <span
       className={cn(
@@ -110,6 +117,9 @@ export const DashboardOverview: FC = () => {
 
   const { data, isLoading } = useGetProjectInsights({ enabled: hasProject });
   const insights = data?.data;
+
+  const { data: aiStatsData } = useGetAIStats({ enabled: hasProject });
+  const aiStats = aiStatsData?.data;
 
   if (!hasProject) {
     return (
@@ -224,70 +234,177 @@ export const DashboardOverview: FC = () => {
         </div>
       </Container>
 
-      {/* Completion by locale */}
-      <Container
-        className="flex flex-col gap-4 p-5"
-        roundedSize="2xl"
-        transparency="none"
-        border
-        borderColor="neutral"
-      >
-        <h2 className="font-semibold text-base text-text">
-          {content.completionByLocale}
-        </h2>
-        <ul className="flex flex-col gap-3">
-          {insights.localeInsights.map((localeInsight) => {
-            const isComplete =
-              localeInsight.totalKeys > 0 && localeInsight.completionRate >= 1;
+      <div className="flex flex-col gap-6 lg:flex-row">
+        {/* Completion by locale */}
+        <Container
+          className="flex flex-col gap-4 p-5"
+          roundedSize="2xl"
+          transparency="none"
+          border
+          borderColor="neutral"
+        >
+          <h2 className="font-semibold text-base text-text">
+            {content.completionByLocale}
+          </h2>
+          <ul className="flex flex-col gap-3">
+            {insights.localeInsights.map((localeInsight) => {
+              const isComplete =
+                localeInsight.totalKeys > 0 &&
+                localeInsight.completionRate >= 1;
 
-            return (
-              <li key={localeInsight.locale} className="flex flex-col gap-1.5">
-                <div className="flex items-center justify-between gap-2 text-sm">
-                  <span className="flex items-center gap-2">
-                    <span className="font-medium text-text">
-                      {getLocaleName(localeInsight.locale, locale)}
-                    </span>
-                    <span className="text-neutral text-xs">
-                      {localeInsight.locale}
-                    </span>
-                    {localeInsight.isDefault && (
-                      <Tag size="sm" color="text">
-                        {content.defaultTag}
-                      </Tag>
-                    )}
-                    {isComplete && (
-                      <Tag size="sm" color="success">
-                        {content.completeTag}
-                      </Tag>
-                    )}
-                  </span>
-                  <span className="flex items-center gap-3 text-xs">
-                    {localeInsight.missingKeys > 0 && (
-                      <span className="text-warning">
-                        −{localeInsight.missingKeys}
+              return (
+                <li
+                  key={localeInsight.locale}
+                  className="mt-4 flex flex-col gap-1.5"
+                >
+                  <div className="flex items-center justify-between gap-2 text-sm">
+                    <span className="flex items-center gap-6">
+                      <span className="font-medium text-text">
+                        {getLocaleName(localeInsight.locale, locale)}
                       </span>
-                    )}
-                    <span className="font-semibold text-text">
-                      {formatPercent(localeInsight.completionRate)}
+                      <span className="text-neutral text-xs">
+                        {localeInsight.locale}
+                      </span>
+                      {localeInsight.isDefault && (
+                        <Tag size="xs" color="text">
+                          {content.defaultTag}
+                        </Tag>
+                      )}
+                      {isComplete && (
+                        <Tag size="xs" color="success">
+                          {content.completeTag}
+                        </Tag>
+                      )}
                     </span>
+                    <span className="flex items-center gap-3 text-xs">
+                      {localeInsight.missingKeys > 0 && (
+                        <span className="text-warning">
+                          −{localeInsight.missingKeys}
+                        </span>
+                      )}
+                      <span className="font-semibold text-text">
+                        {formatPercent(localeInsight.completionRate)}
+                      </span>
+                    </span>
+                  </div>
+                  <div className="h-1.5 w-full overflow-hidden rounded-full bg-neutral/10">
+                    <div
+                      className={cn(
+                        'h-full min-w-1 transition-all duration-500 ease-out',
+                        getBarColor(localeInsight.completionRate)
+                      )}
+                      style={{
+                        width: `${Math.round(localeInsight.completionRate * 100)}%`,
+                      }}
+                    />
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </Container>
+
+        <Container
+          className="flex flex-1 flex-col gap-3 p-5"
+          roundedSize="2xl"
+          transparency="none"
+          border
+          borderColor="neutral"
+        >
+          <h2 className="font-semibold text-base text-text">
+            {content.aiUsage}
+          </h2>
+
+          {!aiStats || aiStats.totalTokens === 0 ? (
+            <div className="m-auto flex flex-1 items-center justify-center">
+              <p className="text-neutral text-sm">{content.aiNoData}</p>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-4">
+              {/* Summary row */}
+              <div className="flex flex-wrap gap-3">
+                <span className="flex items-center gap-2 text-sm">
+                  <MessageSquare className="size-4 text-neutral" />
+                  <span className="text-neutral">
+                    {content.aiTotalConversations}
                   </span>
-                </div>
-                <div className="h-1.5 w-full overflow-hidden rounded-full bg-neutral/10">
-                  <div
-                    className={cn(
-                      'h-full transition-all duration-500 ease-out',
-                      getBarColor(localeInsight.completionRate)
-                    )}
-                    style={{
-                      width: `${Math.round(localeInsight.completionRate * 100)}%`,
-                    }}
-                  />
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      </Container>
+                  <span className="font-semibold text-text">
+                    {aiStats.totalDiscussions}
+                  </span>
+                </span>
+                <span className="flex items-center gap-2 text-sm">
+                  <Zap className="size-4 text-neutral" />
+                  <span className="text-neutral">{content.aiTotalTokens}</span>
+                  <span className="font-semibold text-text">
+                    {aiStats.totalTokens.toLocaleString()}
+                  </span>
+                </span>
+              </div>
+
+              {/* Input / Output token split */}
+              <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs">
+                <span className="flex items-center gap-1.5">
+                  <span className="size-2 rounded-full bg-blue-400/70" />
+                  <span className="text-neutral">{content.aiInputTokens}</span>
+                  <span className="font-medium text-text">
+                    {aiStats.totalInputTokens.toLocaleString()}
+                  </span>
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <span className="size-2 rounded-full bg-purple-400/70" />
+                  <span className="text-neutral">{content.aiOutputTokens}</span>
+                  <span className="font-medium text-text">
+                    {aiStats.totalOutputTokens.toLocaleString()}
+                  </span>
+                </span>
+              </div>
+
+              {/* Per-model breakdown */}
+              {aiStats.modelUsage.length > 0 && (
+                <ul className="flex flex-col gap-2">
+                  {aiStats.modelUsage.map((modelEntry) => {
+                    const ratio =
+                      aiStats.totalTokens > 0
+                        ? modelEntry.totalTokens / aiStats.totalTokens
+                        : 0;
+
+                    return (
+                      <li
+                        key={modelEntry.aiModel}
+                        className="flex flex-col gap-1"
+                      >
+                        <div className="flex items-center justify-between gap-2 text-xs">
+                          <span className="flex items-center gap-1.5">
+                            <BrainCircuit className="size-3.5 text-neutral" />
+                            <span className="font-mono text-text">
+                              {modelEntry.aiModel}
+                            </span>
+                          </span>
+                          <span className="flex items-center gap-2 text-neutral">
+                            <span>
+                              {modelEntry.discussionCount}{' '}
+                              {content.aiConversations}
+                            </span>
+                            <span className="font-semibold text-text">
+                              {modelEntry.totalTokens.toLocaleString()}
+                            </span>
+                          </span>
+                        </div>
+                        <div className="h-1.5 w-full overflow-hidden rounded-full bg-neutral/10">
+                          <div
+                            className="h-full min-w-1 rounded-full bg-purple-400/60 transition-all duration-500 ease-out"
+                            style={{ width: `${Math.round(ratio * 100)}%` }}
+                          />
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </div>
+          )}
+        </Container>
+      </div>
 
       {/* Recent activity + team & config */}
       <div className="flex flex-col gap-6 lg:flex-row">

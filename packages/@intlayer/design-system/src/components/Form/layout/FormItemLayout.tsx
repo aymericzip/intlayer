@@ -1,6 +1,9 @@
 import { cn } from '@utils/cn';
 import type { FC, ReactNode } from 'react';
-import { Form } from '../Form';
+import { FormControl } from '../FormControl';
+import { FormDescription } from '../FormDescription';
+import { FormItem } from '../FormItem';
+import { FormMessage } from '../FormMessage';
 import { FormLabelLayout, type FormLabelLayoutProps } from './FormLabelLayout';
 
 export type FormItemLayoutProps = Omit<FormLabelLayoutProps, 'children'> & {
@@ -21,7 +24,7 @@ export const FormItemLayout: FC<FormItemLayoutProps> = ({
   htmlFor,
   className,
 }) => (
-  <Form.Item
+  <FormItem
     className={cn('flex w-full flex-col flex-wrap gap-2 px-1 py-2', className)}
   >
     {(description || label) && (
@@ -35,11 +38,11 @@ export const FormItemLayout: FC<FormItemLayoutProps> = ({
             {label}
           </FormLabelLayout>
         )}
-        {description && <Form.Description>{description}</Form.Description>}
+        {description && <FormDescription>{description}</FormDescription>}
       </div>
     )}
-    <Form.Control>{children}</Form.Control>
+    <FormControl>{children}</FormControl>
 
-    {showErrorMessage && <Form.Message data-testid="error-message" />}
-  </Form.Item>
+    {showErrorMessage && <FormMessage data-testid="error-message" />}
+  </FormItem>
 );

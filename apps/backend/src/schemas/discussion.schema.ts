@@ -57,6 +57,15 @@ export const discussionSchema = new Schema<DiscussionSchema>(
       type: Boolean,
       default: false,
     },
+    aiModel: {
+      type: String,
+      required: false,
+    },
+    tokenUsage: {
+      inputTokens: { type: Number, default: 0 },
+      outputTokens: { type: Number, default: 0 },
+      totalTokens: { type: Number, default: 0 },
+    },
   },
   {
     timestamps: true,

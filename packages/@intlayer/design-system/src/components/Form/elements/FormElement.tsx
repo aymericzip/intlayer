@@ -6,8 +6,7 @@ import {
   type FieldValues,
   useFormContext,
 } from 'react-hook-form';
-import { Form } from '../Form';
-import { useFormField } from '../FormField';
+import { FormField, useFormField } from '../FormField';
 import { FormItemLayout, type FormItemLayoutProps } from '../layout';
 
 export type FormElementProps<T extends ElementType> = {
@@ -104,7 +103,7 @@ export const FormElement = <T extends ElementType>(
   const { control } = useFormContext();
 
   return (
-    <Form.Field
+    <FormField
       control={control}
       name={props.name}
       render={({ field }) => <FormFieldElement {...props} field={field} />}

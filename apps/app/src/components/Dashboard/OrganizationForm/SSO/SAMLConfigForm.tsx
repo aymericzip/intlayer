@@ -1,5 +1,9 @@
 import { Container } from '@intlayer/design-system/container';
-import { Form } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormAutoSizedTextArea,
+  FormInput,
+} from '@intlayer/design-system/form';
 import { H4 } from '@intlayer/design-system/headers';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -17,19 +21,19 @@ export const SAMLConfigForm: FC<SAMLConfigFormProps> = ({
     <Container border borderColor="text" className="mt-6 p-4" roundedSize="2xl">
       <H4 className="mb-4">{samlConfigContent.title}</H4>
       <div className="flex flex-col gap-4">
-        <Form.Input
+        <FormInput
           name="samlConfig.issuer"
           label={samlConfigContent.idpEntityIdLabel}
           placeholder={samlConfigContent.idpEntityIdPlaceholder.value}
           disabled={!isOrganizationAdmin}
         />
-        <Form.Input
+        <FormInput
           name="samlConfig.entryPoint"
           label={samlConfigContent.idpSSOUrlLabel}
           placeholder={samlConfigContent.idpSSOUrlPlaceholder.value}
           disabled={!isOrganizationAdmin}
         />
-        <Form.AutoSizedTextArea
+        <FormAutoSizedTextArea
           name="samlConfig.cert"
           label={samlConfigContent.idpCertificateLabel}
           placeholder={samlConfigContent.idpCertificatePlaceholder.value}

@@ -4,7 +4,14 @@ import {
   useSession,
 } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormInput,
+  FormInputPassword,
+  FormSwitchSelector,
+  useForm,
+} from '@intlayer/design-system/form';
 import { H3, H4 } from '@intlayer/design-system/headers';
 import { MaxHeightSmoother } from '@intlayer/design-system/max-height-smoother';
 import { AiProviders } from '@intlayer/types/config';
@@ -172,7 +179,7 @@ export const OpenRouterSettings: FC = () => {
             </p>
           </div>
           <div className="flex-0">
-            <Form.SwitchSelector
+            <FormSwitchSelector
               name="enabled"
               disabled={!isProjectAdmin}
               color="text"
@@ -184,7 +191,7 @@ export const OpenRouterSettings: FC = () => {
         <MaxHeightSmoother isHidden={!isEnabled}>
           <div className="flex flex-col gap-4 pt-2">
             <div>
-              <Form.InputPassword
+              <FormInputPassword
                 name="apiKey"
                 label={apiKeyContent.label.value}
                 placeholder={apiKeyContent.placeholder.value}
@@ -198,14 +205,14 @@ export const OpenRouterSettings: FC = () => {
               )}
             </div>
 
-            <Form.Input
+            <FormInput
               name="model"
               label={modelContent.label.value}
               placeholder={modelContent.placeholder.value}
               disabled={!isProjectAdmin}
             />
 
-            <Form.Input
+            <FormInput
               name="baseURL"
               label={baseURLContent.label.value}
               placeholder={baseURLContent.placeholder.value}
@@ -217,7 +224,7 @@ export const OpenRouterSettings: FC = () => {
 
       {isProjectAdmin && (
         <div className="flex justify-end border-neutral/30 border-t border-dotted pt-3">
-          <Form.Button
+          <FormButton
             type="submit"
             label={saveButton.ariaLabel.value}
             color="text"
@@ -227,7 +234,7 @@ export const OpenRouterSettings: FC = () => {
             Icon={Save}
           >
             {saveButton.text}
-          </Form.Button>
+          </FormButton>
         </div>
       )}
     </Form>

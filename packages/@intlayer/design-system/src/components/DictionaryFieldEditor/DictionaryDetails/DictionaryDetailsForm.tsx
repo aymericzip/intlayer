@@ -2,20 +2,42 @@
 
 import {
   useAuditContentDeclarationMetadata,
+  useGetDictionaries,
   useGetProjects,
   useGetTags,
 } from '@api/index';
 import { useSession } from '@api/useAuth';
 
-import { Form, useForm } from '@components/Form';
-import { Checkbox } from '@components/Input';
+import { Container } from '@components/Container';
+import {
+  Form,
+  FormButton,
+  FormDescription,
+  FormEditableFieldInput,
+  FormEditableFieldTextArea,
+  FormField,
+  FormInput,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  FormMultiSelect,
+  FormSelect,
+  useForm,
+} from '@components/Form';
+import { Checkbox, Input } from '@components/Input';
 import { Loader } from '@components/Loader';
+import { Pagination } from '@components/Pagination';
 import { MultiSelect, Select } from '@components/Select';
 import { useEditedContent } from '@intlayer/editor-react';
-import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
+import type {
+  Dictionary,
+  DictionaryMeta,
+  LocalDictionaryId,
+} from '@intlayer/types/dictionary';
+import { cn } from '@utils/cn';
 import { AnimatePresence, motion } from 'framer-motion';
 import { WandSparkles } from 'lucide-react';
-import { type FC, useEffect } from 'react';
+import { type FC, useEffect, useMemo, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 import { useIntlayer } from 'react-intlayer';
 import { useDictionaryDetailsSchema } from './useDictionaryDetailsSchema';
@@ -23,11 +45,26 @@ import { useDictionaryDetailsSchema } from './useDictionaryDetailsSchema';
 type DictionaryDetailsProps = {
   dictionary: Dictionary;
   mode: ('local' | 'remote')[];
+  onSelectSibling?: (dictionary: Dictionary) => void;
+};
+
+type QualifierType = 'collection' | 'variant' | 'meta';
+
+const QUALIFIER_TYPES: QualifierType[] = ['collection', 'variant', 'meta'];
+
+/** Derive active qualifier types from dictionary qualifier fields. */
+const deriveQualifierTypes = (dict: Dictionary): QualifierType[] => {
+  const types: QualifierType[] = [];
+  if (dict.item !== undefined) types.push('collection');
+  if (dict.variant !== undefined) types.push('variant');
+  if (dict.meta !== undefined) types.push('meta');
+  return types;
 };
 
 export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   dictionary,
   mode,
+  onSelectSibling,
 }) => {
   const { session } = useSession();
   const { project } = session ?? {};
@@ -58,11 +95,70 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     importModeSelect,
     filePathInput,
     auditButton,
+    qualifierSection,
+    siblingDictionaries: siblingContent,
+    typeSwitch,
   } = useIntlayer('dictionary-details');
   const { mutate: auditContentDeclaration, isPending: isAuditing } =
     useAuditContentDeclarationMetadata();
   const updatedDictionary =
     editedContent?.[dictionary.localId as LocalDictionaryId];
+
+  const { data: siblingsData, isLoading: isLoadingSiblings } =
+    useGetDictionaries(
+      { keys: [dictionary.key] },
+      { enabled: !!dictionary.key }
+    );
+
+  const siblings = useMemo<Dictionary[]>(
+    () =>
+      ((siblingsData?.data ?? []) as unknown as Dictionary[]).filter(
+        (d: Dictionary) => d.localId !== dictionary.localId
+      ),
+    [siblingsData, dictionary.localId]
+  );
+
+  const itemSiblings = useMemo(
+    () =>
+      siblings
+        .filter((d) => d.item !== undefined)
+        .sort((a, b) => (a.item ?? 0) - (b.item ?? 0)),
+    [siblings]
+  );
+
+  const variantSiblings = useMemo(
+    () => siblings.filter((d) => d.variant !== undefined),
+    [siblings]
+  );
+
+  const metaSiblings = useMemo(
+    () => siblings.filter((d) => d.meta !== undefined),
+    [siblings]
+  );
+
+  const allItemDicts = useMemo<Dictionary[]>(() => {
+    if (dictionary.item !== undefined) {
+      const combined = [dictionary, ...itemSiblings].sort(
+        (a, b) => (a.item ?? 0) - (b.item ?? 0)
+      );
+      return combined;
+    }
+    return itemSiblings;
+  }, [dictionary, itemSiblings]);
+
+  const allVariantDicts = useMemo<Dictionary[]>(() => {
+    if (dictionary.variant !== undefined) {
+      return [dictionary, ...variantSiblings];
+    }
+    return variantSiblings;
+  }, [dictionary, variantSiblings]);
+
+  const allMetaDicts = useMemo<Dictionary[]>(() => {
+    if (dictionary.meta !== undefined) {
+      return [dictionary, ...metaSiblings];
+    }
+    return metaSiblings;
+  }, [dictionary, metaSiblings]);
 
   useEffect(() => {
     form.reset({
@@ -70,6 +166,14 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
       tags: dictionary.tags ?? [],
       location: dictionary.location ?? 'remote',
     });
+    setSelectedTypes(deriveQualifierTypes(dictionary));
+    setItemValue(dictionary.item ?? 1);
+    setVariantValue(dictionary.variant ?? '');
+    setMetaJsonValue(
+      dictionary.meta ? JSON.stringify(dictionary.meta, null, 2) : ''
+    );
+    setMetaJsonError(false);
+    setShowSiblingPicker(false);
   }, [dictionary, form?.reset]);
 
   useEffect(() => {
@@ -118,6 +222,69 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   const isLocalChecked =
     watchedLocation === 'local' || watchedLocation === 'hybrid';
 
+  const hasSiblings = siblings.length > 0;
+
+  const [selectedTypes, setSelectedTypes] = useState<QualifierType[]>(() =>
+    deriveQualifierTypes(dictionary)
+  );
+  const [itemValue, setItemValue] = useState<number>(dictionary.item ?? 1);
+  const [variantValue, setVariantValue] = useState<string>(
+    dictionary.variant ?? ''
+  );
+  const [metaJsonValue, setMetaJsonValue] = useState<string>(
+    dictionary.meta ? JSON.stringify(dictionary.meta, null, 2) : ''
+  );
+  const [metaJsonError, setMetaJsonError] = useState(false);
+  const [showSiblingPicker, setShowSiblingPicker] = useState(false);
+
+  const allQualifiedSiblings = useMemo<Dictionary[]>(
+    () => [...itemSiblings, ...variantSiblings, ...metaSiblings],
+    [itemSiblings, variantSiblings, metaSiblings]
+  );
+
+  const handleTypesChange = (newTypes: string | string[]) => {
+    const nextTypes = [newTypes].flat() as QualifierType[];
+    const added = nextTypes.filter((t) => !selectedTypes.includes(t));
+    const removed = selectedTypes.filter((t) => !nextTypes.includes(t));
+
+    let base = { ...dictionary, ...(updatedDictionary ?? {}) };
+
+    for (const qualifier of removed) {
+      if (qualifier === 'collection') base = { ...base, item: undefined };
+      if (qualifier === 'variant') base = { ...base, variant: undefined };
+      if (qualifier === 'meta') base = { ...base, meta: undefined };
+    }
+
+    for (const qualifier of added) {
+      if (qualifier === 'collection') {
+        const nextItem =
+          allItemDicts.length > 0
+            ? Math.max(...allItemDicts.map((d) => d.item ?? 0)) + 1
+            : 1;
+        setItemValue(nextItem);
+        base = { ...base, item: nextItem };
+      } else if (qualifier === 'variant') {
+        const newVariant = variantValue || 'default';
+        setVariantValue(newVariant);
+        base = { ...base, variant: newVariant };
+      } else if (qualifier === 'meta') {
+        const initialMeta: DictionaryMeta = { id: '' };
+        setMetaJsonValue(JSON.stringify(initialMeta, null, 2));
+        base = { ...base, meta: initialMeta };
+      }
+    }
+
+    setSelectedTypes(nextTypes);
+    setEditedDictionary(base);
+    setMetaJsonError(false);
+
+    if (nextTypes.length === 0 && allQualifiedSiblings.length > 0) {
+      setShowSiblingPicker(true);
+    } else {
+      setShowSiblingPicker(false);
+    }
+  };
+
   return (
     <Form
       className="flex w-full flex-col gap-8"
@@ -125,7 +292,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
       schema={DictionaryDetailsSchema}
     >
       <div className="grid grid-cols-2 gap-8 max-md:grid-cols-1">
-        <Form.EditableFieldInput
+        <FormEditableFieldInput
           name="key"
           label={keyInput.label}
           placeholder={keyInput.label.value}
@@ -141,7 +308,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
             });
           }}
         />
-        <Form.EditableFieldInput
+        <FormEditableFieldInput
           name="title"
           label={titleInput.label}
           placeholder={titleInput.placeholder.value}
@@ -157,7 +324,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
           }}
         />
       </div>
-      <Form.EditableFieldTextArea
+      <FormEditableFieldTextArea
         name="description"
         label={descriptionInput.label}
         placeholder={descriptionInput.placeholder.value}
@@ -173,7 +340,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         }}
       />
       <div className="grid grid-cols-2 gap-8 px-1 max-md:grid-cols-1">
-        <Form.Field
+        <FormField
           control={form.control}
           name="location"
           render={({ field }) => {
@@ -227,8 +394,8 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
             };
 
             return (
-              <Form.Item className="flex flex-col gap-2 px-1">
-                <Form.Label className="ml-1">{locationSelect.label}</Form.Label>
+              <FormItem className="flex flex-col gap-2 px-1">
+                <FormLabel className="ml-1">{locationSelect.label}</FormLabel>
                 <div className="ml-2 flex items-center gap-4 py-2">
                   <Checkbox
                     id="location-local"
@@ -255,11 +422,11 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                     onChange={(e) => handleRemoteToggle(e.target.checked)}
                   />
                 </div>
-                <Form.Description>
+                <FormDescription>
                   {locationSelect.testDescription}
-                </Form.Description>
-                <Form.Message />
-              </Form.Item>
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
             );
           }}
         />
@@ -272,9 +439,8 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="overflow-hidden"
             >
-              <Form.Input
+              <FormInput
                 name="filePath"
                 label={filePathInput.label.value}
                 placeholder={filePathInput.placeholder.value}
@@ -294,7 +460,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
         </AnimatePresence>
       </div>
       <div className="grid grid-cols-2 gap-8 max-md:grid-cols-1">
-        <Form.Select
+        <FormSelect
           name="importMode"
           label={importModeSelect.label.value}
           description={importModeSelect.description.value}
@@ -321,10 +487,10 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
               {importModeSelect.live.value}
             </Select.Item>
           </Select.Content>
-        </Form.Select>
+        </FormSelect>
       </div>
       <div className="grid grid-cols-2 gap-8 max-md:grid-cols-1">
-        <Form.MultiSelect
+        <FormMultiSelect
           name="projectIds"
           label={projectInput.label.value}
           description={projectInput.description}
@@ -360,9 +526,9 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
               </MultiSelect.List>
             </Loader>
           </MultiSelect.Content>
-        </Form.MultiSelect>
+        </FormMultiSelect>
 
-        <Form.MultiSelect
+        <FormMultiSelect
           name="tags"
           label={tagsSelect.label.value}
           description={tagsSelect.description}
@@ -398,11 +564,340 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
               </MultiSelect.List>
             </Loader>
           </MultiSelect.Content>
-        </Form.MultiSelect>
+        </FormMultiSelect>
       </div>
 
+      {/* Type switcher */}
+      <Container
+        className="gap-4"
+        padding="md"
+        roundedSize="2xl"
+        background="none"
+        border
+        borderColor="card"
+      >
+        <div className="flex flex-col gap-1">
+          <p className="ml-1 font-semibold text-sm">{typeSwitch.label}</p>
+          <p className="ml-1 text-muted text-xs">{typeSwitch.description}</p>
+        </div>
+        <MultiSelect
+          values={selectedTypes}
+          onValueChange={handleTypesChange}
+          className="max-w-xs"
+        >
+          <MultiSelect.Trigger
+            getBadgeValue={(val) => {
+              if (val === 'collection') return String(typeSwitch.collection);
+              if (val === 'variant') return String(typeSwitch.variant);
+              if (val === 'meta') return String(typeSwitch.meta);
+              return val;
+            }}
+          >
+            <MultiSelect.Input placeholder={typeSwitch.label.value} />
+          </MultiSelect.Trigger>
+          <MultiSelect.Content>
+            <MultiSelect.List>
+              {QUALIFIER_TYPES.map((qualifier) => (
+                <MultiSelect.Item key={qualifier} value={qualifier}>
+                  {typeSwitch[qualifier]}
+                </MultiSelect.Item>
+              ))}
+            </MultiSelect.List>
+          </MultiSelect.Content>
+        </MultiSelect>
+        <AnimatePresence>
+          {selectedTypes.includes('collection') && (
+            <motion.div
+              key="item-input"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="flex flex-col gap-2 px-1">
+                <label
+                  htmlFor="qualifier-item-value"
+                  className="ml-1 font-medium text-sm"
+                >
+                  {typeSwitch.itemValueLabel}
+                </label>
+                <Input
+                  id="qualifier-item-value"
+                  type="number"
+                  min={1}
+                  value={itemValue}
+                  placeholder={typeSwitch.itemValuePlaceholder.value}
+                  onChange={(e) => {
+                    const value = parseInt(e.target.value, 10);
+                    if (!Number.isNaN(value) && value >= 1) {
+                      setItemValue(value);
+                      setEditedDictionary({
+                        ...dictionary,
+                        ...(updatedDictionary ?? {}),
+                        item: value,
+                      });
+                    }
+                  }}
+                />
+              </div>
+            </motion.div>
+          )}
+
+          {selectedTypes.includes('variant') && (
+            <motion.div
+              key="variant-input"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="flex flex-col gap-2 px-1">
+                <label
+                  htmlFor="qualifier-variant-value"
+                  className="ml-1 font-medium text-sm"
+                >
+                  {typeSwitch.variantValueLabel}
+                </label>
+                <Input
+                  id="qualifier-variant-value"
+                  type="text"
+                  value={variantValue}
+                  placeholder={typeSwitch.variantValuePlaceholder.value}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    setVariantValue(value);
+                    setEditedDictionary({
+                      ...dictionary,
+                      ...(updatedDictionary ?? {}),
+                      variant: value,
+                    });
+                  }}
+                />
+              </div>
+            </motion.div>
+          )}
+
+          {selectedTypes.includes('meta') && (
+            <motion.div
+              key="meta-input"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="flex flex-col gap-2 px-1">
+                <label
+                  htmlFor="qualifier-meta-value"
+                  className="ml-1 font-medium text-sm"
+                >
+                  {typeSwitch.metaValueLabel}
+                </label>
+                <textarea
+                  id="qualifier-meta-value"
+                  className="min-h-[100px] w-full rounded-xl border border-input bg-background px-3 py-2 font-mono text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                  value={metaJsonValue}
+                  placeholder={typeSwitch.metaValuePlaceholder.value}
+                  onChange={(e) => {
+                    const raw = e.target.value;
+                    setMetaJsonValue(raw);
+                    try {
+                      const parsed = JSON.parse(raw) as DictionaryMeta;
+                      setMetaJsonError(false);
+                      setEditedDictionary({
+                        ...dictionary,
+                        ...(updatedDictionary ?? {}),
+                        meta: parsed,
+                      });
+                    } catch {
+                      setMetaJsonError(true);
+                    }
+                  }}
+                />
+                {metaJsonError && (
+                  <p className="ml-1 text-destructive text-xs">
+                    {typeSwitch.metaJsonError}
+                  </p>
+                )}
+              </div>
+            </motion.div>
+          )}
+
+          {selectedTypes.length === 0 && showSiblingPicker && (
+            <motion.div
+              key="sibling-picker"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Container
+                background="none"
+                border
+                borderColor="neutral"
+                roundedSize="xl"
+                padding="md"
+                className="gap-3"
+              >
+                <p className="font-medium text-sm">
+                  {typeSwitch.disablePickerTitle}
+                </p>
+                <p className="text-muted text-xs">
+                  {typeSwitch.disablePickerDescription}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {allQualifiedSiblings.map((sibling) => (
+                    <button
+                      key={sibling.localId}
+                      type="button"
+                      onClick={() => {
+                        onSelectSibling?.(sibling);
+                        setShowSiblingPicker(false);
+                      }}
+                      className="cursor-pointer rounded-lg border border-border px-3 py-1 text-xs transition-colors hover:bg-text/10"
+                    >
+                      {sibling.variant !== undefined && (
+                        <span>
+                          {qualifierSection.variant}: {sibling.variant}
+                        </span>
+                      )}
+                      {sibling.item !== undefined && (
+                        <span>
+                          {qualifierSection.item}: {sibling.item}
+                        </span>
+                      )}
+                      {sibling.meta !== undefined && (
+                        <span>
+                          {qualifierSection.meta}: {String(sibling.meta.id)}
+                        </span>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </Container>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </Container>
+
+      {/* Sibling dictionaries panel */}
+      <Container
+        className="gap-4"
+        padding="md"
+        roundedSize="2xl"
+        background="none"
+        border
+        borderColor="neutral"
+      >
+        <p className="font-semibold text-sm">{siblingContent.title}</p>
+        <Loader isLoading={isLoadingSiblings}>
+          {!hasSiblings && (
+            <p className="text-muted text-sm">{siblingContent.noSiblings}</p>
+          )}
+
+          {allItemDicts.length > 0 && (
+            <div className="flex flex-col gap-2">
+              <p className="font-medium text-muted text-xs uppercase tracking-wide">
+                {siblingContent.collectionItems}
+              </p>
+              <Pagination
+                currentPage={
+                  allItemDicts.findIndex(
+                    (dictionaryEl) =>
+                      dictionaryEl.localId === dictionary.localId
+                  ) + 1 || 1
+                }
+                totalPages={allItemDicts.length}
+                onPageChange={(page) => {
+                  const target = allItemDicts[page - 1];
+                  if (target && onSelectSibling) {
+                    onSelectSibling(target);
+                  }
+                }}
+                showPrevNext
+              />
+              <div className="mt-1 flex flex-wrap gap-2">
+                {allItemDicts.map((sibling) => {
+                  const isActive = sibling.localId === dictionary.localId;
+                  return (
+                    <button
+                      key={sibling.localId}
+                      type="button"
+                      onClick={() => !isActive && onSelectSibling?.(sibling)}
+                      className={cn(
+                        'rounded-lg px-3 py-1 text-xs transition-colors',
+                        isActive
+                          ? 'bg-text font-semibold text-text-opposite'
+                          : 'cursor-pointer border border-border hover:bg-text/10'
+                      )}
+                    >
+                      {siblingContent.itemIndex} {sibling.item}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {allVariantDicts.length > 0 && (
+            <div className="flex flex-col gap-2">
+              <p className="font-medium text-muted text-xs uppercase tracking-wide">
+                {siblingContent.variants}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {allVariantDicts.map((sibling) => {
+                  const isActive = sibling.localId === dictionary.localId;
+                  return (
+                    <button
+                      key={sibling.localId}
+                      type="button"
+                      onClick={() => !isActive && onSelectSibling?.(sibling)}
+                      className={cn(
+                        'rounded-lg px-3 py-1 text-xs transition-colors',
+                        isActive
+                          ? 'bg-text font-semibold text-text-opposite'
+                          : 'cursor-pointer border border-border hover:bg-text/10'
+                      )}
+                    >
+                      {sibling.variant}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {allMetaDicts.length > 0 && (
+            <div className="flex flex-col gap-2">
+              <p className="font-medium text-muted text-xs uppercase tracking-wide">
+                {siblingContent.metaRecords}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {allMetaDicts.map((sibling) => {
+                  const isActive = sibling.localId === dictionary.localId;
+                  return (
+                    <button
+                      key={sibling.localId}
+                      type="button"
+                      onClick={() => !isActive && onSelectSibling?.(sibling)}
+                      className={cn(
+                        'rounded-lg px-3 py-1 text-xs transition-colors',
+                        isActive
+                          ? 'bg-text font-semibold text-text-opposite'
+                          : 'cursor-pointer border border-border hover:bg-text/10'
+                      )}
+                    >
+                      {sibling.meta?.id}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </Loader>
+      </Container>
+
       <div className="flex flex-wrap items-center justify-end gap-2 max-md:flex-col">
-        <Form.Button
+        <FormButton
           type="button"
           size="icon-md"
           label={auditButton.label.value}

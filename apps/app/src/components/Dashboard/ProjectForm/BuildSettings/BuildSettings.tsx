@@ -7,7 +7,12 @@ import {
 } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormSwitchSelector,
+  useForm,
+} from '@intlayer/design-system/form';
 import { H3, H4 } from '@intlayer/design-system/headers';
 import {
   CheckCircle,
@@ -233,7 +238,7 @@ export const BuildSettings: FC = () => {
               </p>
             </div>
             <div className="flex-0">
-              <Form.SwitchSelector
+              <FormSwitchSelector
                 name="autoTriggerBuilds"
                 disabled={!isProjectAdmin || !provider}
                 color="text"
@@ -327,7 +332,7 @@ export const BuildSettings: FC = () => {
         {/* Global Save Button */}
         {isProjectAdmin && (
           <div className="flex justify-end border-neutral/30 border-t border-dotted p-3">
-            <Form.Button
+            <FormButton
               type="submit"
               label={saveButton.ariaLabel.value}
               color="text"
@@ -336,7 +341,7 @@ export const BuildSettings: FC = () => {
               isFullWidth={false}
             >
               {saveButton.text}
-            </Form.Button>
+            </FormButton>
           </div>
         )}
       </Form>

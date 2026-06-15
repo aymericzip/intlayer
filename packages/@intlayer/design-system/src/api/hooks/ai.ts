@@ -9,8 +9,9 @@ import type {
   AutocompleteBody,
   TranslateJSONBody,
 } from '@intlayer/backend';
-import { useMutation } from '@tanstack/react-query';
+import { type UseQueryOptions, useMutation } from '@tanstack/react-query';
 import { useAiAPI } from '../useIntlayerAPI';
+import { useAppQuery } from './utils';
 
 export const useTranslateJSONDeclaration = () => {
   const aiAPI = useAiAPI();
@@ -84,5 +85,18 @@ export const useAutocomplete = () => {
   return useMutation({
     mutationKey: ['ai-autocomplete'],
     mutationFn: (args?: AutocompleteBody) => aiAPI.autocomplete(args),
+  });
+};
+
+export const useGetAIStats = (options?: Partial<UseQueryOptions>) => {
+  const aiAPI = useAiAPI();
+
+  return useAppQuery({
+    queryKey: ['ai', 'stats'],
+    queryFn: ({ signal }) => aiAPI.getAIStats({ signal }),
+    requireUser: true,
+    requireOrganization: true,
+    requireProject: true,
+    ...options,
   });
 };

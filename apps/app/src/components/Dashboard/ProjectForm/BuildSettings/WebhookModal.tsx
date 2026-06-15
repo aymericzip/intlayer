@@ -1,6 +1,13 @@
 import type { Webhook } from '@intlayer/backend';
 import { Button } from '@intlayer/design-system/button';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormInput,
+  FormLabel,
+  FormSwitchSelector,
+  useForm,
+} from '@intlayer/design-system/form';
 import { Modal } from '@intlayer/design-system/modal';
 import { type FC, useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -65,11 +72,11 @@ export const WebhookModal: FC<WebhookModalProps> = ({
         <div className="flex flex-col gap-6">
           {/* Name Field */}
           <div className="flex flex-col gap-2">
-            <Form.Label>{modal.nameLabel.value}</Form.Label>
+            <FormLabel>{modal.nameLabel.value}</FormLabel>
             <p className="text-neutral text-xs">
               {modal.nameDescription.value}
             </p>
-            <Form.Input
+            <FormInput
               name="name"
               placeholder="e.g. Production Vercel"
               isRequired
@@ -78,9 +85,9 @@ export const WebhookModal: FC<WebhookModalProps> = ({
 
           {/* URL Field */}
           <div className="flex flex-col gap-2">
-            <Form.Label>{modal.urlLabel.value}</Form.Label>
+            <FormLabel>{modal.urlLabel.value}</FormLabel>
             <p className="text-neutral text-xs">{modal.urlDescription.value}</p>
-            <Form.Input
+            <FormInput
               name="url"
               placeholder="https://api.vercel.com/..."
               isRequired
@@ -89,11 +96,11 @@ export const WebhookModal: FC<WebhookModalProps> = ({
 
           {/* Secret Field */}
           <div className="flex flex-col gap-2">
-            <Form.Label>{modal.secretLabel.value}</Form.Label>
+            <FormLabel>{modal.secretLabel.value}</FormLabel>
             <p className="text-neutral text-xs">
               {modal.secretDescription.value}
             </p>
-            <Form.Input
+            <FormInput
               name="secret"
               type="password"
               placeholder="••••••••••••••••"
@@ -102,7 +109,7 @@ export const WebhookModal: FC<WebhookModalProps> = ({
           </div>
 
           {/* Enabled Switch */}
-          <Form.SwitchSelector
+          <FormSwitchSelector
             name="enabled"
             label={modal.enabledLabel.value}
             color="text"
@@ -118,14 +125,14 @@ export const WebhookModal: FC<WebhookModalProps> = ({
             >
               {modal.cancel.value}
             </Button>
-            <Form.Button
+            <FormButton
               type="submit"
               color="text"
               isLoading={isSubmitting}
               label={modal.confirm.value}
             >
               {modal.confirm.value}
-            </Form.Button>
+            </FormButton>
           </div>
         </div>
       </Form>

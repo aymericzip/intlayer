@@ -9,7 +9,9 @@ import {
   useIframeClickMerger,
   usePostEditorEnabledState,
 } from '@intlayer/editor-react';
-import { type FC, type RefObject, useState } from 'react';
+import { type FC, type RefObject, useEffect, useState } from 'react';
+import { useEditorPagesSidebar } from '#hooks/useEditorPagesSidebar';
+import { useSearchParamState } from '#hooks/useSearchParamState';
 import { NoApplicationURLView } from './NoApplicationURLView/NoApplicationURLView';
 import { useEditedContentPersistence } from './useEditedContentPersistence';
 
@@ -25,10 +27,23 @@ export const IframeController: FC<{
   useEditedContentPersistence();
   useIframeClickMerger();
 
+  const { params, setParam } = useSearchParamState({
+    path: { type: 'string', fallbackValue: undefined },
+  });
+
+  const { trackVisit } = useEditorPagesSidebar();
+
   const [iframePath] = useCrossURLPathState(undefined, {
     receive: true,
     emit: false,
   });
+
+  useEffect(() => {
+    if (iframePath) {
+      setParam('path', iframePath);
+      trackVisit(iframePath);
+    }
+  }, [iframePath, setParam, trackVisit]);
 
   const [loading, setLoading] = useState(false);
 
@@ -44,7 +59,7 @@ export const IframeController: FC<{
     <div className="contents size-full flex-1">
       <Loader isLoading={loading} />
       <Browser
-        path={iframePath}
+        path={params.path || iframePath}
         initialUrl={editor.applicationURL}
         domainRestriction={editor.applicationURL}
         className={cn(

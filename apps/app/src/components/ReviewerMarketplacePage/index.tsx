@@ -1,6 +1,9 @@
 import { useGetReviewerMarketplace } from '@intlayer/design-system/api';
 import { Loader } from '@intlayer/design-system/loader';
-import { App_ReviewerMarketplace_Reviewer_Path } from '@intlayer/design-system/routes';
+import {
+  App_Onboarding_Path,
+  App_ReviewerMarketplace_Reviewer_Path,
+} from '@intlayer/design-system/routes';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -43,6 +46,7 @@ export const ReviewerMarketplacePage: FC = () => {
     previousPageAriaLabel,
     nextPageAriaLabel,
     reviewersFound,
+    getListedButton,
   } = useIntlayer('find-reviewer-page');
   const [filters, setFilters] = useState<ReviewerFiltersValue>({});
   const [page, setPage] = useState(1);
@@ -63,9 +67,19 @@ export const ReviewerMarketplacePage: FC = () => {
 
   return (
     <div className="m-auto flex size-full flex-1 flex-col gap-8 p-8">
-      <header>
-        <h1 className="font-bold text-3xl">{title}</h1>
-        <p className="text-neutral text-sm">{description}</p>
+      <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 className="font-bold text-3xl">{title}</h1>
+          <p className="text-neutral text-sm">{description}</p>
+        </div>
+        <Link
+          to={`${App_Onboarding_Path}/registration`}
+          color="text"
+          size="md"
+          label={getListedButton.value}
+        >
+          {getListedButton}
+        </Link>
       </header>
 
       <div className="flex flex-col gap-6 md:flex-row">

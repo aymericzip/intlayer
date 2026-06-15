@@ -1,6 +1,11 @@
 'use client';
 
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormInput,
+  useForm,
+} from '@intlayer/design-system/form';
 import { cn } from '@intlayer/design-system/utils';
 import { useIntlayer } from 'next-intlayer';
 import type { FC } from 'react';
@@ -45,7 +50,7 @@ export const AnalyzerForm: FC<AnalyzerFormProps> = ({
       )}
       {...form}
     >
-      <Form.Input
+      <FormInput
         name="url"
         aria-label={input.label.value}
         type="url"
@@ -53,7 +58,7 @@ export const AnalyzerForm: FC<AnalyzerFormProps> = ({
         className="flex-1 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2"
       />
       <div className="flex items-stretch gap-2">
-        <Form.Button
+        <FormButton
           type="submit"
           label={button.analyze.value}
           disabled={loading}
@@ -64,9 +69,9 @@ export const AnalyzerForm: FC<AnalyzerFormProps> = ({
           className="w-full rounded-xl px-5 py-2 font-medium"
         >
           {loading ? button.analyzing : button.analyze}
-        </Form.Button>
+        </FormButton>
         {loading && onCancel && (
-          <Form.Button
+          <FormButton
             type="button"
             label={button.cancel.value}
             onClick={onCancel}
@@ -76,7 +81,7 @@ export const AnalyzerForm: FC<AnalyzerFormProps> = ({
             className="rounded-xl px-5 py-2 font-medium"
           >
             {button.cancel}
-          </Form.Button>
+          </FormButton>
         )}
       </div>
     </Form>

@@ -1,5 +1,5 @@
 import { useDeleteOrganization, useSession } from '@intlayer/design-system/api';
-import { Form } from '@intlayer/design-system/form';
+import { Form, FormButton } from '@intlayer/design-system/form';
 import { Modal } from '@intlayer/design-system/modal';
 import { App_Dashboard_Organization_Path } from '@intlayer/design-system/routes';
 import type { FC } from 'react';
@@ -54,7 +54,7 @@ export const DeleteOrganizationModal: FC<DeleteOrganizationModalProps> = ({
       <form className="size-full px-3">
         <p className="py-4 text-neutral text-sm">{description}</p>
         <div className="mt-12 flex justify-end gap-2 max-md:flex-col">
-          <Form.Button
+          <FormButton
             variant="outline"
             label={cancelButton.label.value}
             color="text"
@@ -64,8 +64,8 @@ export const DeleteOrganizationModal: FC<DeleteOrganizationModalProps> = ({
             onClick={onClose}
           >
             {cancelButton.text}
-          </Form.Button>
-          <Form.Button
+          </FormButton>
+          <FormButton
             variant="outline"
             label={confirmButton.label.value}
             isFullWidth={true}
@@ -76,7 +76,7 @@ export const DeleteOrganizationModal: FC<DeleteOrganizationModalProps> = ({
             onClick={handleDelete}
           >
             {confirmButton.text}
-          </Form.Button>
+          </FormButton>
         </div>
       </form>
     </Modal>

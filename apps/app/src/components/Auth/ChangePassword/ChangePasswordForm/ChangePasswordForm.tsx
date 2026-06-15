@@ -1,5 +1,11 @@
 import { useUser } from '@intlayer/design-system/api';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormInput,
+  FormInputPassword,
+  useForm,
+} from '@intlayer/design-system/form';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import {
@@ -37,7 +43,7 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
       {...form}
     >
       <div className="flex flex-col gap-y-6">
-        <Form.Input
+        <FormInput
           id="change-password-email"
           name="email"
           value={user?.email ?? ''}
@@ -46,28 +52,28 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
           hidden
           layoutClassName="hidden"
         />
-        <Form.InputPassword
+        <FormInputPassword
           name="currentPassword"
           label={currentPasswordInput.label.value}
           placeholder={currentPasswordInput.placeholder.value}
           autoComplete="current-password"
           isRequired
         />
-        <Form.InputPassword
+        <FormInputPassword
           name="newPassword"
           label={newPasswordInput.label.value}
           placeholder={newPasswordInput.placeholder.value}
           autoComplete="new-password"
           isRequired
         />
-        <Form.InputPassword
+        <FormInputPassword
           name="newPasswordConfirmation"
           label={confirmPasswordInput.label.value}
           placeholder={confirmPasswordInput.placeholder.value}
           autoComplete="new-password"
           isRequired
         />
-        <Form.Input
+        <FormInput
           type="text"
           name="email"
           id="change-password-email"
@@ -79,7 +85,7 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
         />
       </div>
 
-      <Form.Button
+      <FormButton
         className="w-full"
         type="submit"
         color="text"
@@ -88,7 +94,7 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
         label={changePasswordButton.ariaLabel.value}
       >
         {changePasswordButton.text.value}
-      </Form.Button>
+      </FormButton>
     </Form>
   );
 };

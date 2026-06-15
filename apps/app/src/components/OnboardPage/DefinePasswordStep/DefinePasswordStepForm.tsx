@@ -1,5 +1,10 @@
 import { useRegister, useUser } from '@intlayer/design-system/api';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormInput,
+  FormInputPassword,
+  useForm,
+} from '@intlayer/design-system/form';
 import { H2 } from '@intlayer/design-system/headers';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -69,7 +74,7 @@ export const DefinePasswordStepForm: FC = () => {
         onSkipStep={goNextStep}
         isSkippable={false}
       >
-        <Form.Input
+        <FormInput
           type="text"
           name="email"
           value={userEmail}
@@ -79,14 +84,14 @@ export const DefinePasswordStepForm: FC = () => {
           className="hidden"
         />
 
-        <Form.InputPassword
+        <FormInputPassword
           name="newPassword"
           label={newPasswordInput.label.value}
           placeholder={newPasswordInput.placeholder.value}
           autoComplete="new-password"
           isRequired
         />
-        <Form.InputPassword
+        <FormInputPassword
           name="newPasswordConfirmation"
           label={confirmPasswordInput.label.value}
           placeholder={confirmPasswordInput.placeholder.value}

@@ -14,7 +14,12 @@ import { Avatar } from '@intlayer/design-system/avatar';
 import { Badge } from '@intlayer/design-system/badge';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormMultiSelect,
+  useForm,
+} from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
 import { Checkbox, Radio } from '@intlayer/design-system/input';
 import { Label } from '@intlayer/design-system/label';
@@ -451,7 +456,7 @@ export const MembersForm: FC = () => {
         onSubmitSuccess={onSubmitSuccess}
         {...form}
       >
-        <Form.MultiSelect
+        <FormMultiSelect
           name="membersIds"
           label={membersSelect.label.value}
           placeholder={membersSelect.placeholder.value}
@@ -476,9 +481,9 @@ export const MembersForm: FC = () => {
               </MultiSelect.List>
             </MultiSelect.Content>
           </Loader>
-        </Form.MultiSelect>
+        </FormMultiSelect>
 
-        <Form.MultiSelect
+        <FormMultiSelect
           name="adminsIds"
           label={adminsSelect.label.value}
           placeholder={adminsSelect.placeholder.value}
@@ -503,7 +508,7 @@ export const MembersForm: FC = () => {
               </MultiSelect.List>
             </MultiSelect.Content>
           </Loader>
-        </Form.MultiSelect>
+        </FormMultiSelect>
 
         <div className="mt-4 flex flex-col gap-2">
           {isProjectAdmin && memberIds.length > 0 && (
@@ -520,7 +525,7 @@ export const MembersForm: FC = () => {
           )}
 
           {isProjectAdmin && (
-            <Form.Button
+            <FormButton
               className="w-full"
               type="submit"
               color="text"
@@ -530,7 +535,7 @@ export const MembersForm: FC = () => {
               onClick={() => null}
             >
               {addMembersButton.text}
-            </Form.Button>
+            </FormButton>
           )}
         </div>
       </Form>

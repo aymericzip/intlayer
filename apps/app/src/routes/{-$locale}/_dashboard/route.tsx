@@ -2,6 +2,7 @@ import { useSession } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import {
   App_Admin_Users_Path,
+  App_Dashboard_Assets_Path,
   App_Dashboard_Dictionaries_Path,
   App_Dashboard_Editor_Path,
   App_Dashboard_IDE_Path,
@@ -31,6 +32,9 @@ import {
   dashboardRightPanelManager,
   useDashboardRightPanel,
 } from '#hooks/useDashboardRightPanel';
+import { useDictionarySidebar } from '#hooks/useDictionarySidebar';
+import { useEditorPagesSidebar } from '#hooks/useEditorPagesSidebar';
+import { useTagSidebar } from '#hooks/useTagSidebar';
 
 export const Route = createFileRoute('/{-$locale}/_dashboard')({
   pendingComponent: DashboardSkeleton,
@@ -69,6 +73,23 @@ export const Route = createFileRoute('/{-$locale}/_dashboard')({
 function DashboardLayout() {
   const { locale } = useLocale();
   const { session } = useSession();
+  const { sidebarKeys, pinnedKeys, pin, unpin, removeRecent, trackVisit } =
+    useDictionarySidebar();
+  const {
+    sidebarKeys: tagSidebarKeys,
+    pinnedKeys: pinnedTagKeys,
+    pin: pinTag,
+    unpin: unpinTag,
+    removeRecent: removeRecentTag,
+    trackVisit: trackVisitTag,
+  } = useTagSidebar();
+  const {
+    sidebarPaths: editorPageSidebarKeys,
+    pinnedPaths: pinnedEditorPageKeys,
+    pin: pinEditorPage,
+    unpin: unpinEditorPage,
+    removeRecent: removeRecentEditorPage,
+  } = useEditorPagesSidebar();
   const {
     activePanel,
     close: closeRightPanel,
@@ -78,9 +99,21 @@ function DashboardLayout() {
   const wasVisualEditorOpenRef = useRef(false);
   const hasProject = !!session?.project;
 
+  const pathWithoutLocale = getPathWithoutLocale(pathname);
+
   const isVisualEditorPage =
-    getPathWithoutLocale(pathname).startsWith(App_Dashboard_Translate_Path) ||
-    getPathWithoutLocale(pathname).startsWith(App_Dashboard_Dictionaries_Path);
+    pathWithoutLocale.startsWith(App_Dashboard_Translate_Path) ||
+    pathWithoutLocale.startsWith(App_Dashboard_Dictionaries_Path);
+
+  const dictionaryDetailMatch = pathWithoutLocale.match(
+    new RegExp(`^${App_Dashboard_Dictionaries_Path}/(.+)$`)
+  );
+  const currentDictionaryKey = dictionaryDetailMatch?.[1] ?? null;
+
+  const tagDetailMatch = pathWithoutLocale.match(
+    new RegExp(`^${App_Dashboard_Tags_Path}/(.+)$`)
+  );
+  const currentTagKey = tagDetailMatch?.[1] ?? null;
 
   useEffect(() => {
     const currentPanel = dashboardRightPanelManager.getSnapshot().activePanel;
@@ -92,6 +125,18 @@ function DashboardLayout() {
       openRightPanel('visual-editor');
     }
   }, [isVisualEditorPage]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (currentDictionaryKey) {
+      trackVisit(currentDictionaryKey);
+    }
+  }, [currentDictionaryKey, trackVisit]);
+
+  useEffect(() => {
+    if (currentTagKey) {
+      trackVisitTag(currentTagKey);
+    }
+  }, [currentTagKey, trackVisitTag]);
 
   const { navigation } = useIntlayer('dashboard-sidebar');
   const { footerLinks } = useIntlayer('dashboard-footer-content');
@@ -132,6 +177,15 @@ function DashboardLayout() {
           icon: 'PenTool',
           label: navigation.editor.label.value,
           title: navigation.editor.title.value,
+          items:
+            editorPageSidebarKeys.length > 0
+              ? editorPageSidebarKeys.map((path) => ({
+                  key: `editor-page-${path}`,
+                  href: `${App_Dashboard_Editor_Path}?path=${encodeURIComponent(path)}`,
+                  label: path,
+                  title: path,
+                }))
+              : undefined,
         },
         {
           key: 'translate',
@@ -146,6 +200,15 @@ function DashboardLayout() {
           icon: 'Book',
           label: navigation.dictionaries.label.value,
           title: navigation.dictionaries.title.value,
+          items:
+            sidebarKeys.length > 0
+              ? sidebarKeys.map((dictionaryKey) => ({
+                  key: `dictionary-${dictionaryKey}`,
+                  href: `${App_Dashboard_Dictionaries_Path}/${dictionaryKey}`,
+                  label: dictionaryKey,
+                  title: dictionaryKey,
+                }))
+              : undefined,
         },
         {
           key: 'tags',
@@ -153,6 +216,22 @@ function DashboardLayout() {
           icon: 'Tags',
           label: navigation.tags.label.value,
           title: navigation.tags.title.value,
+          items:
+            tagSidebarKeys.length > 0
+              ? tagSidebarKeys.map((tagKey) => ({
+                  key: `tag-${tagKey}`,
+                  href: `${App_Dashboard_Tags_Path}/${tagKey}`,
+                  label: tagKey,
+                  title: tagKey,
+                }))
+              : undefined,
+        },
+        {
+          key: 'assets',
+          href: App_Dashboard_Assets_Path,
+          icon: 'Image',
+          label: navigation.assets.label.value,
+          title: navigation.assets.title.value,
         },
       ],
     },
@@ -209,7 +288,21 @@ function DashboardLayout() {
       >
         <DashboardNavbar items={navigationItems} />
         <div className="relative flex min-h-0 w-full flex-1">
-          <DashboardSidebar items={navigationItems} />
+          <DashboardSidebar
+            items={navigationItems}
+            onPinDictionary={pin}
+            onUnpinDictionary={unpin}
+            onRemoveDictionary={removeRecent}
+            pinnedDictionaryKeys={pinnedKeys}
+            onPinTag={pinTag}
+            onUnpinTag={unpinTag}
+            onRemoveTag={removeRecentTag}
+            pinnedTagKeys={pinnedTagKeys}
+            onPinEditorPage={pinEditorPage}
+            onUnpinEditorPage={unpinEditorPage}
+            onRemoveEditorPage={removeRecentEditorPage}
+            pinnedEditorPageKeys={pinnedEditorPageKeys}
+          />
           <main
             id="main-content"
             aria-label={mainContentAriaLabel.value}

@@ -9,7 +9,7 @@ import {
 } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { ArrowLeft } from 'lucide-react';
-import { type FC, useEffect, useState } from 'react';
+import { type FC, type ReactNode, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Button } from '../Button';
 import { LocaleSwitcherContentProvider } from '../LocaleSwitcherContentDropDown';
@@ -28,6 +28,7 @@ type DictionaryFieldEditorProps = {
   isDarkMode?: boolean;
   mode: ('local' | 'remote')[];
   showReturnButton?: boolean;
+  rightContent?: ReactNode;
 };
 
 export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
@@ -38,6 +39,7 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
   onDelete,
   onSave,
   showReturnButton = true,
+  rightContent,
 }) => {
   const config = useConfiguration();
   const { returnToDictionaryList } = useIntlayer('dictionary-field-editor');
@@ -122,6 +124,9 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
               hoverable
               color="text"
             />
+            <div className="flex w-full items-center justify-end">
+              {rightContent}
+            </div>
           </div>
           {/* Tab content — only active panel is mounted */}
           <div className="min-h-0 flex-1 overflow-y-auto p-6">

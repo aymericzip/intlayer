@@ -14,6 +14,7 @@ import type {
   ChatResult,
   CustomQueryBody,
   CustomQueryResult,
+  GetAIStatsResult,
   GetDiscussionsParams,
   GetDiscussionsResult,
   TranslateJSONBody,
@@ -399,6 +400,20 @@ export const getAiAPI = (
       }
     );
 
+  /**
+   * Retrieves aggregated AI token-usage statistics for the currently selected
+   * project.
+   */
+  const getAIStats = async (otherOptions: FetcherOptions = {}) =>
+    await fetcher<GetAIStatsResult>(
+      `${AI_API_ROUTE}/stats`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'GET',
+      }
+    );
+
   return {
     customQuery,
     translateJSON,
@@ -410,5 +425,6 @@ export const getAiAPI = (
     chat,
     autocomplete,
     getDiscussions,
+    getAIStats,
   };
 };

@@ -10,7 +10,7 @@ import {
   buildWebsiteJsonLd,
 } from '@intlayer/design-system/structured-data';
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { defaultLocale, getIntlayer, locales } from 'intlayer';
+import { defaultLocale, getIntlayer, getPrefix, locales } from 'intlayer';
 import { DocumentationRender } from '~/components/DocPage/DocumentationRender';
 import { loadFaqPage } from '~/serverFunctions/faq';
 import { getAbsoluteUrl, getHreflangLinks } from '~/utils/seo';
@@ -29,14 +29,14 @@ export const Route = createFileRoute('/{-$locale}/_docs/frequent-questions/$')({
         throw redirect({
           to: `/{-$locale}${faqsData[0].relativeUrl}`,
           params: {
-            locale,
+            locale: getPrefix(locale).localePrefix,
           },
         });
       }
       throw redirect({
         to: `/{-$locale}${App_Home_Path}`,
         params: {
-          locale,
+          locale: getPrefix(locale).localePrefix,
         },
       });
     }

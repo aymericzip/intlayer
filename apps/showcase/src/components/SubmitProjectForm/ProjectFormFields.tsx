@@ -1,4 +1,4 @@
-import { Form } from '@intlayer/design-system/form';
+import { Form, FormInput, FormMultiSelect } from '@intlayer/design-system/form';
 import { MultiSelect } from '@intlayer/design-system/select';
 import { useIntlayer } from 'react-intlayer';
 
@@ -20,7 +20,7 @@ export const ProjectFormFields = () => {
 
   return (
     <>
-      <Form.Input
+      <FormInput
         name="name"
         label={content.projectNameInput.label}
         placeholder={content.projectNameInput.placeholder.value}
@@ -28,7 +28,7 @@ export const ProjectFormFields = () => {
         isRequired
       />
 
-      <Form.Input
+      <FormInput
         name="url"
         label={content.projectUrlInput.label}
         placeholder={content.projectUrlInput.placeholder.value}
@@ -36,14 +36,14 @@ export const ProjectFormFields = () => {
         isRequired
       />
 
-      <Form.Input
+      <FormInput
         name="githubUrl"
         label={content.githubUrlInput.label}
         placeholder={content.githubUrlInput.placeholder.value}
         type="url"
       />
 
-      <Form.MultiSelect
+      <FormMultiSelect
         name="useCases"
         label={content.useCasesInput.label}
         description={content.useCasesInput.description}
@@ -62,7 +62,7 @@ export const ProjectFormFields = () => {
             ))}
           </MultiSelect.List>
         </MultiSelect.Content>
-      </Form.MultiSelect>
+      </FormMultiSelect>
     </>
   );
 };

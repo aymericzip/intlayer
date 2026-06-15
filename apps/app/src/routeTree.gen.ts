@@ -26,6 +26,7 @@ import { Route as Char123LocaleChar125DashboardProjectsRouteImport } from './rou
 import { Route as Char123LocaleChar125DashboardProfileRouteImport } from './routes/{-$locale}/_dashboard/profile'
 import { Route as Char123LocaleChar125DashboardOrganizationRouteImport } from './routes/{-$locale}/_dashboard/organization'
 import { Route as Char123LocaleChar125DashboardIdeRouteImport } from './routes/{-$locale}/_dashboard/ide'
+import { Route as Char123LocaleChar125DashboardAssetsRouteImport } from './routes/{-$locale}/_dashboard/assets'
 import { Route as Char123LocaleChar125DashboardAdminRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/route'
 import { Route as Char123LocaleChar125OtherFindReviewerIndexRouteImport } from './routes/{-$locale}/_other/find-reviewer/index'
 import { Route as Char123LocaleChar125OtherAffiliationIndexRouteImport } from './routes/{-$locale}/_other/affiliation/index'
@@ -166,6 +167,12 @@ const Char123LocaleChar125DashboardIdeRoute =
   Char123LocaleChar125DashboardIdeRouteImport.update({
     id: '/ide',
     path: '/ide',
+    getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardAssetsRoute =
+  Char123LocaleChar125DashboardAssetsRouteImport.update({
+    id: '/assets',
+    path: '/assets',
     getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
   } as any)
 const Char123LocaleChar125DashboardAdminRouteRoute =
@@ -466,6 +473,7 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/404': typeof Char123LocaleChar125404Route
   '/{-$locale}/demo': typeof Char123LocaleChar125DemoRoute
   '/{-$locale}/page': typeof Char123LocaleChar125PageRoute
+  '/{-$locale}/assets': typeof Char123LocaleChar125DashboardAssetsRoute
   '/{-$locale}/ide': typeof Char123LocaleChar125DashboardIdeRoute
   '/{-$locale}/organization': typeof Char123LocaleChar125DashboardOrganizationRoute
   '/{-$locale}/profile': typeof Char123LocaleChar125DashboardProfileRoute
@@ -525,6 +533,7 @@ export interface FileRoutesByTo {
   '/{-$locale}/404': typeof Char123LocaleChar125404Route
   '/{-$locale}/demo': typeof Char123LocaleChar125DemoRoute
   '/{-$locale}/page': typeof Char123LocaleChar125PageRoute
+  '/{-$locale}/assets': typeof Char123LocaleChar125DashboardAssetsRoute
   '/{-$locale}/ide': typeof Char123LocaleChar125DashboardIdeRoute
   '/{-$locale}/organization': typeof Char123LocaleChar125DashboardOrganizationRoute
   '/{-$locale}/profile': typeof Char123LocaleChar125DashboardProfileRoute
@@ -581,6 +590,7 @@ export interface FileRoutesById {
   '/{-$locale}/demo': typeof Char123LocaleChar125DemoRoute
   '/{-$locale}/page': typeof Char123LocaleChar125PageRoute
   '/{-$locale}/_dashboard/_admin': typeof Char123LocaleChar125DashboardAdminRouteRouteWithChildren
+  '/{-$locale}/_dashboard/assets': typeof Char123LocaleChar125DashboardAssetsRoute
   '/{-$locale}/_dashboard/ide': typeof Char123LocaleChar125DashboardIdeRoute
   '/{-$locale}/_dashboard/organization': typeof Char123LocaleChar125DashboardOrganizationRoute
   '/{-$locale}/_dashboard/profile': typeof Char123LocaleChar125DashboardProfileRoute
@@ -644,6 +654,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/404'
     | '/{-$locale}/demo'
     | '/{-$locale}/page'
+    | '/{-$locale}/assets'
     | '/{-$locale}/ide'
     | '/{-$locale}/organization'
     | '/{-$locale}/profile'
@@ -703,6 +714,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/404'
     | '/{-$locale}/demo'
     | '/{-$locale}/page'
+    | '/{-$locale}/assets'
     | '/{-$locale}/ide'
     | '/{-$locale}/organization'
     | '/{-$locale}/profile'
@@ -758,6 +770,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/demo'
     | '/{-$locale}/page'
     | '/{-$locale}/_dashboard/_admin'
+    | '/{-$locale}/_dashboard/assets'
     | '/{-$locale}/_dashboard/ide'
     | '/{-$locale}/_dashboard/organization'
     | '/{-$locale}/_dashboard/profile'
@@ -937,6 +950,13 @@ declare module '@tanstack/react-router' {
       path: '/ide'
       fullPath: '/{-$locale}/ide'
       preLoaderRoute: typeof Char123LocaleChar125DashboardIdeRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
+    }
+    '/{-$locale}/_dashboard/assets': {
+      id: '/{-$locale}/_dashboard/assets'
+      path: '/assets'
+      fullPath: '/{-$locale}/assets'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAssetsRouteImport
       parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
     }
     '/{-$locale}/_dashboard/_admin': {
@@ -1430,6 +1450,7 @@ const Char123LocaleChar125DashboardEditorContentRouteRouteWithChildren =
 
 interface Char123LocaleChar125DashboardRouteRouteChildren {
   Char123LocaleChar125DashboardAdminRouteRoute: typeof Char123LocaleChar125DashboardAdminRouteRouteWithChildren
+  Char123LocaleChar125DashboardAssetsRoute: typeof Char123LocaleChar125DashboardAssetsRoute
   Char123LocaleChar125DashboardIdeRoute: typeof Char123LocaleChar125DashboardIdeRoute
   Char123LocaleChar125DashboardOrganizationRoute: typeof Char123LocaleChar125DashboardOrganizationRoute
   Char123LocaleChar125DashboardProfileRoute: typeof Char123LocaleChar125DashboardProfileRoute
@@ -1443,6 +1464,8 @@ const Char123LocaleChar125DashboardRouteRouteChildren: Char123LocaleChar125Dashb
   {
     Char123LocaleChar125DashboardAdminRouteRoute:
       Char123LocaleChar125DashboardAdminRouteRouteWithChildren,
+    Char123LocaleChar125DashboardAssetsRoute:
+      Char123LocaleChar125DashboardAssetsRoute,
     Char123LocaleChar125DashboardIdeRoute:
       Char123LocaleChar125DashboardIdeRoute,
     Char123LocaleChar125DashboardOrganizationRoute:

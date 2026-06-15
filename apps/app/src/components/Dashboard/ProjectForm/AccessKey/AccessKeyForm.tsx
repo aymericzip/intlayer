@@ -6,7 +6,7 @@ import {
 } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
 import { CopyToClipboard } from '@intlayer/design-system/copy-to-clipboard';
-import { Form, useForm } from '@intlayer/design-system/form';
+import { Form, FormButton, useForm } from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
 import { HideShow } from '@intlayer/design-system/hide-show';
 import { Modal } from '@intlayer/design-system/modal';
@@ -55,7 +55,7 @@ const AccessKeyItem: FC<{
         isScrollable="y"
       >
         <p className="text-neutral text-sm">{modal.deleteMessage}</p>
-        <Form.Button
+        <FormButton
           variant="outline"
           label={modal.deleteButtonLabel.value}
           color="error"
@@ -66,7 +66,7 @@ const AccessKeyItem: FC<{
           onClick={handleDelete}
         >
           {modal.deleteConfirmText}
-        </Form.Button>
+        </FormButton>
       </Modal>
       <Modal
         isOpen={isUpdateModalOpen}
@@ -78,7 +78,7 @@ const AccessKeyItem: FC<{
         isScrollable="y"
       >
         <p className="text-neutral text-sm">{modal.updateMessage}</p>
-        <Form.Button
+        <FormButton
           variant="outline"
           label={modal.updateButtonLabel.value}
           color="text"
@@ -89,7 +89,7 @@ const AccessKeyItem: FC<{
           onClick={handleUpdate}
         >
           {modal.updateConfirmText}
-        </Form.Button>
+        </FormButton>
       </Modal>
       <Container
         key={String(accessKey.id)}
@@ -205,7 +205,7 @@ const AccessKeyItem: FC<{
           </div>
         </div>
         <div className="flex flex-wrap justify-end gap-3 max-sm:flex-col">
-          <Form.Button
+          <FormButton
             variant="outline"
             label={labels.refreshButtonLabel.value}
             color="text"
@@ -217,8 +217,8 @@ const AccessKeyItem: FC<{
             disabled={isLoading || !hasProjectWritePermission}
           >
             {labels.refreshButtonText}
-          </Form.Button>
-          <Form.Button
+          </FormButton>
+          <FormButton
             variant="outline"
             label={labels.deleteButtonLabel.value}
             color="error"
@@ -230,7 +230,7 @@ const AccessKeyItem: FC<{
             disabled={isLoading || !hasProjectWritePermission}
           >
             {labels.deleteButtonText}
-          </Form.Button>
+          </FormButton>
         </div>
       </Container>
     </>
@@ -316,7 +316,7 @@ export const AccessKeyForm: FC = () => {
           </>
         )}
 
-        <Form.Button
+        <FormButton
           className="w-full"
           type="submit"
           color="text"
@@ -326,7 +326,7 @@ export const AccessKeyForm: FC = () => {
           disabled={!hasProjectWritePermission}
         >
           {createAccessKey.text}
-        </Form.Button>
+        </FormButton>
       </Form>
     </>
   );

@@ -1,4 +1,9 @@
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormAutoSizedTextArea,
+  FormButton,
+  useForm,
+} from '@intlayer/design-system/form';
 import { cn } from '@intlayer/design-system/utils';
 import { ArrowUp, Eraser } from 'lucide-react';
 import {
@@ -138,7 +143,7 @@ export const FormSection: FC<FormSectionProps> = ({
       onSubmitSuccess={handleSubmit}
       {...form}
     >
-      <Form.AutoSizedTextArea
+      <FormAutoSizedTextArea
         name="question"
         rows={2}
         ref={inputRef}
@@ -151,7 +156,7 @@ export const FormSection: FC<FormSectionProps> = ({
       <div className="ml-auto flex items-center justify-end gap-2 max-md:w-full">
         {additionalButtons}
 
-        <Form.Button
+        <FormButton
           label={clearButton.label.value}
           type="button"
           color="text"
@@ -163,7 +168,7 @@ export const FormSection: FC<FormSectionProps> = ({
           className={cn(!hasClearButton && 'opacity-0')}
         />
 
-        <Form.Button
+        <FormButton
           label={sendQuestionButton.label.value}
           type="submit"
           color="text"

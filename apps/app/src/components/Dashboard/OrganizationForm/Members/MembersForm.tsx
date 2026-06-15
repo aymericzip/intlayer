@@ -6,7 +6,15 @@ import {
   useUpdateOrganizationMembers,
 } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormDescription,
+  FormInput,
+  FormLabel,
+  FormMultiSelect,
+  useForm,
+} from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
 import { Loader } from '@intlayer/design-system/loader';
 import { MultiSelect } from '@intlayer/design-system/select';
@@ -96,13 +104,13 @@ export const MembersForm: FC = () => {
             autoComplete={false}
             {...newUserForm}
           >
-            <Form.Input
+            <FormInput
               name="userEmail"
               type="email"
               label={newMemberEmailInput.label.value}
               placeholder={newMemberEmailInput.placeholder.value}
             />
-            <Form.Button
+            <FormButton
               className="mb-2"
               type="submit"
               color="text"
@@ -121,8 +129,8 @@ export const MembersForm: FC = () => {
           {...form}
         >
           <div className="flex flex-col gap-2 px-3">
-            <Form.Label>{title}</Form.Label>
-            <Form.Description>{description}</Form.Description>
+            <FormLabel>{title}</FormLabel>
+            <FormDescription>{description}</FormDescription>
             <Loader isLoading={isLoadingUsers}>
               {!organization?.membersIds.length && (
                 <span className="flex size-full justify-center text-neutral text-sm">
@@ -143,7 +151,7 @@ export const MembersForm: FC = () => {
                   >
                     <span>{getUserName(memberId)}</span>
                     {isOrganizationAdmin && (
-                      <Form.Button
+                      <FormButton
                         color="text"
                         label={deleteMemberButton.label.value}
                         variant="hoverable"
@@ -151,7 +159,7 @@ export const MembersForm: FC = () => {
                         onClick={() => setMemberIdToRemove(memberId)}
                       >
                         <X size={16} />
-                      </Form.Button>
+                      </FormButton>
                     )}
                   </div>
                 ))}
@@ -159,7 +167,7 @@ export const MembersForm: FC = () => {
             </Loader>
           </div>
 
-          <Form.MultiSelect
+          <FormMultiSelect
             name="adminsIds"
             label={adminsSelect.label.value}
             placeholder={adminsSelect.placeholder.value}
@@ -182,10 +190,10 @@ export const MembersForm: FC = () => {
                 </MultiSelect.List>
               </MultiSelect.Content>
             </Loader>
-          </Form.MultiSelect>
+          </FormMultiSelect>
 
           {isOrganizationAdmin && (
-            <Form.Button
+            <FormButton
               className="w-full"
               type="submit"
               color="text"
@@ -195,7 +203,7 @@ export const MembersForm: FC = () => {
               onClick={() => null}
             >
               {addMembersButton.text}
-            </Form.Button>
+            </FormButton>
           )}
         </Form>
       </div>

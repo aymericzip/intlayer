@@ -45,7 +45,13 @@ export type RoutingOptions = {
  * Resolves routing configuration by merging provided options with configuration defaults.
  * Single source of truth for default routing config resolution across all localization functions.
  */
-export const resolveRoutingConfig = (options: RoutingOptions = {}) => ({
+export const resolveRoutingConfig = (
+  options: RoutingOptions = {}
+): Omit<RoutingOptions, 'defaultLocale' | 'mode' | 'locales'> & {
+  defaultLocale: LocalesValues;
+  mode: RoutingConfig['mode'];
+  locales: LocalesValues[];
+} => ({
   defaultLocale: internationalization?.defaultLocale ?? DEFAULT_LOCALE,
   mode: routing?.mode ?? ROUTING_MODE,
   locales: internationalization?.locales ?? LOCALES,

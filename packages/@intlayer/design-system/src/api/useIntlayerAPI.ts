@@ -6,6 +6,7 @@ import {
   type IntlayerAPI,
 } from '@intlayer/api';
 import { getAiAPI } from '@intlayer/api/ai';
+import { getAssetAPI } from '@intlayer/api/asset';
 import { getAuditAPI } from '@intlayer/api/audit';
 import { getBitbucketAPI } from '@intlayer/api/bitbucket';
 import { getDictionaryAPI } from '@intlayer/api/dictionary';
@@ -160,4 +161,9 @@ export const useReviewerAPI = (props?: UseIntlayerAuthProps) => {
 export const useEnvironmentAPI = (props?: UseIntlayerAuthProps) => {
   const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
   return getEnvironmentAPI(options, resolvedConfig);
+};
+
+export const useAssetAPI = (props?: UseIntlayerAuthProps) => {
+  const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
+  return getAssetAPI(options, resolvedConfig);
 };

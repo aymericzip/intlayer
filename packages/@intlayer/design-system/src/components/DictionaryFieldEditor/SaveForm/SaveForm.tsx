@@ -7,7 +7,7 @@ import {
   useSession,
   useWriteDictionary,
 } from '@api/index';
-import { Form } from '@components/Form';
+import { Form, FormButton } from '@components/Form';
 import { Modal } from '@components/Modal';
 import type { Dictionary as DistantDictionary } from '@intlayer/backend';
 import {
@@ -157,7 +157,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
           <p className="py-4 text-neutral text-sm">{confirmation.message}</p>
 
           <div className="mt-12 flex justify-end gap-2 max-md:flex-col">
-            <Form.Button
+            <FormButton
               label={confirmation.cancelButton.label.value}
               disabled={!isEdited || isLoading}
               color="text"
@@ -166,8 +166,8 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
               onClick={() => setIsFormatAlertModalOpen(false)}
             >
               {confirmation.cancelButton.text}
-            </Form.Button>
-            <Form.Button
+            </FormButton>
+            <FormButton
               label={confirmation.confirmButton.label.value}
               disabled={!isEdited || isLoading || !hasDictionaryWritePermission}
               Icon={Save}
@@ -177,7 +177,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
               onClick={handleSaveDictionaryConfirmation}
             >
               {confirmation.confirmButton.text}
-            </Form.Button>
+            </FormButton>
           </div>
         </form>
       </Modal>
@@ -186,7 +186,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
           isDistantDictionary &&
           onDelete &&
           isAuthenticated && (
-            <Form.Button
+            <FormButton
               label={deleteButton.label.value}
               Icon={Trash}
               color="error"
@@ -197,10 +197,10 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
               disabled={!hasDictionaryDeletePermission}
             >
               {deleteButton.text}
-            </Form.Button>
+            </FormButton>
           )}
         {isEdited && (
-          <Form.Button
+          <FormButton
             label={resetButton.label.value}
             disabled={!isEdited}
             Icon={RotateCcw}
@@ -210,10 +210,10 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
             onClick={() => restoreEditedContent(dictionary.localId!)}
           >
             {resetButton.text}
-          </Form.Button>
+          </FormButton>
         )}
         {mode.includes('local') && (
-          <Form.Button
+          <FormButton
             label={downloadButton.label.value}
             disabled={!isEdited || isLoading}
             Icon={Download}
@@ -224,10 +224,10 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
             onClick={() => setIsFormatAlertModalOpen(true)}
           >
             {downloadButton.text}
-          </Form.Button>
+          </FormButton>
         )}
         {mode.includes('remote') && isAuthenticated && !isDistantDictionary && (
-          <Form.Button
+          <FormButton
             label={publishButton.label.value}
             disabled={isLoading || !hasDictionaryWritePermission}
             Icon={ArrowUpFromLine}
@@ -237,13 +237,13 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
             onClick={handlePushDictionary}
           >
             {publishButton.text}
-          </Form.Button>
+          </FormButton>
         )}
         {mode.includes('remote') &&
           isAuthenticated &&
           isDistantDictionary &&
           isEdited && (
-            <Form.Button
+            <FormButton
               label={saveButton.label.value}
               disabled={!isEdited || isLoading || !hasDictionaryWritePermission}
               Icon={Save}
@@ -253,7 +253,7 @@ export const SaveForm: FC<DictionaryDetailsProps> = ({
               onClick={handlePushDictionary}
             >
               {saveButton.text}
-            </Form.Button>
+            </FormButton>
           )}
       </form>
     </>

@@ -1,6 +1,13 @@
 import type { AddNewAccessKeyResponse } from '@intlayer/backend';
 import { useAddNewAccessKey, useSession } from '@intlayer/design-system/api';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormCheckbox,
+  FormInput,
+  FormLabel,
+  useForm,
+} from '@intlayer/design-system/form';
 import { Checkbox, Radio } from '@intlayer/design-system/input';
 import { Select } from '@intlayer/design-system/select';
 import type { Locale } from '@intlayer/types/allLocales';
@@ -168,7 +175,7 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
       autoComplete={false}
       onSubmitSuccess={onSubmitSuccess}
     >
-      <Form.Input
+      <FormInput
         name="name"
         id="access-key-name-input"
         label={nameInput.label.value}
@@ -201,7 +208,7 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
       </div>
 
       {expirationPreset === 'custom' && (
-        <Form.Input
+        <FormInput
           name="expiresAt"
           id="access-key-expires-at-input"
           placeholder={expiresAtInput.placeholder.value}
@@ -212,11 +219,11 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
 
       {/* Permissions */}
       <div className="flex flex-col justify-center p-3">
-        <Form.Label className="w-full" isRequired>
+        <FormLabel className="w-full" isRequired>
           {rights.label}
-        </Form.Label>
+        </FormLabel>
         {permissions.map((permission) => (
-          <Form.Checkbox
+          <FormCheckbox
             key={permission}
             name={`grants.${permission}`}
             inputLabel={permission.split(':').join(' : ').toUpperCase()}
@@ -229,7 +236,7 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
       {/* Environment scope */}
       {hasMultipleEnvs && (
         <div className="flex flex-col gap-3 p-3">
-          <Form.Label className="w-full">{environmentScope}</Form.Label>
+          <FormLabel className="w-full">{environmentScope}</FormLabel>
           <Radio
             id="env-scope-all"
             name="envRestrict"
@@ -275,7 +282,7 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
       {/* Locale scope */}
       {hasMultipleLocales && (
         <div className="flex flex-col gap-3 p-3">
-          <Form.Label className="w-full">{localeScope}</Form.Label>
+          <FormLabel className="w-full">{localeScope}</FormLabel>
           <Radio
             id="locale-scope-all"
             name="localeRestrict"
@@ -306,7 +313,7 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
         </div>
       )}
 
-      <Form.Button
+      <FormButton
         type="submit"
         label={createAccessKeyButton.label.value}
         color="text"
@@ -314,7 +321,7 @@ export const AccessKeyCreationForm: FC<AccessKeyCreationFormProps> = ({
         className="w-full"
       >
         {createAccessKeyButton.text.value}
-      </Form.Button>
+      </FormButton>
     </Form>
   );
 };

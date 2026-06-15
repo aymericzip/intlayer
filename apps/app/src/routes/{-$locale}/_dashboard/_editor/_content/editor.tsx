@@ -7,9 +7,16 @@ import {
   localeMap,
 } from 'intlayer';
 
+type EditorSearch = {
+  path?: string;
+};
+
 export const Route = createFileRoute(
   '/{-$locale}/_dashboard/_editor/_content/editor'
 )({
+  validateSearch: (search: Record<string, unknown>): EditorSearch => ({
+    path: typeof search.path === 'string' ? search.path : undefined,
+  }),
   component: EditorPage,
   head: ({ params }) => {
     const { locale } = params;

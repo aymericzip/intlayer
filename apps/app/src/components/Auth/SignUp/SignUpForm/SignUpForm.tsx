@@ -1,4 +1,11 @@
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormCheckbox,
+  FormInput,
+  FormInputPassword,
+  useForm,
+} from '@intlayer/design-system/form';
 import type { FC, RefObject } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { type SignUp, useSignUpSchema } from './useSignUpSchema';
@@ -44,7 +51,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
       {...form}
     >
       <div className="flex flex-col gap-y-6">
-        <Form.Input
+        <FormInput
           name="email"
           type="email"
           label={emailInput.label.value}
@@ -56,7 +63,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
           ref={emailInputRef}
         />
 
-        <Form.InputPassword
+        <FormInputPassword
           name="password"
           label={passwordInput.label.value}
           placeholder={passwordInput.placeholder.value}
@@ -64,7 +71,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
           isRequired
         />
 
-        <Form.InputPassword
+        <FormInputPassword
           name="passwordConfirmation"
           label={passwordConfirmationInput.label.value}
           placeholder={passwordConfirmationInput.placeholder.value}
@@ -72,7 +79,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
           isRequired
         />
 
-        <Form.Checkbox
+        <FormCheckbox
           name="termsAndConditions"
           size="sm"
           color="text"
@@ -80,7 +87,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({
         />
       </div>
 
-      <Form.Button
+      <FormButton
         className="mt-4 w-full"
         type="submit"
         color="text"
@@ -88,18 +95,18 @@ export const SignUpForm: FC<SignUpFormProps> = ({
         label={signUpButton.ariaLabel.value}
       >
         {signUpButton.text}
-      </Form.Button>
+      </FormButton>
 
       <span className="m-auto mt-3 flex w-full items-center justify-center text-center align-middle text-neutral text-xs">
         {loginLink.message}
-        <Form.Button
+        <FormButton
           variant="link"
           label={loginLink.ariaLabel.value}
           color="text"
           onClick={onClickBackToSignIn}
         >
           {loginLink.text}
-        </Form.Button>
+        </FormButton>
       </span>
     </Form>
   );

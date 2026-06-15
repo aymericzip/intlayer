@@ -10,10 +10,12 @@ import {
   App_Admin_Organizations_Path,
   App_Admin_Projects_Path,
   App_Admin_Users_Path,
+  App_Dashboard_Assets_Path,
   App_Dashboard_Dictionaries_Path,
   App_Dashboard_Editor_Path,
   App_Dashboard_IDE_Path,
   App_Dashboard_Projects_Path,
+  App_Dashboard_Scanner_Path,
   App_Dashboard_Tags_Path,
   App_Dashboard_Translate_Path,
   App_Home_Path,
@@ -34,18 +36,22 @@ import {
   FolderKanban,
   Globe,
   HandCoins,
+  Image,
   Layers,
   LayoutDashboard,
   type LucideIcon,
   MessageSquare,
   PenTool,
+  Pin,
+  PinOff,
   ScanLine,
   Shield,
   SquareCode,
   Tags,
   User,
+  X,
 } from 'lucide-react';
-import { type FC, useState } from 'react';
+import { type FC, forwardRef, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
 import { DashboardSidebarProfile } from './DashboardSidebarProfile';
@@ -61,6 +67,7 @@ export const iconMap: Record<string, LucideIcon> = {
   FolderKanban,
   Building2,
   HandCoins,
+  Image,
   User,
   Shield,
   Globe,
@@ -81,6 +88,8 @@ export const shouldHaveProjectRoutes = [
   App_Dashboard_Dictionaries_Path,
   App_Dashboard_Tags_Path,
   App_Dashboard_IDE_Path,
+  App_Dashboard_Scanner_Path,
+  App_Dashboard_Assets_Path,
 ] as string[];
 
 export const shouldHaveAdminRoutes = [
@@ -102,6 +111,31 @@ export type SidebarNavigationItem = {
 export type DashboardSidebarProps = {
   className?: string;
   items: SidebarNavigationItem[];
+  /** Called when the user pins a recent dictionary to the sidebar. */
+  onPinDictionary?: (dictionaryKey: string) => void;
+  /** Called when the user unpins a previously pinned dictionary. */
+  onUnpinDictionary?: (dictionaryKey: string) => void;
+  /** Called when the user removes a dictionary from the sidebar. */
+  onRemoveDictionary?: (dictionaryKey: string) => void;
+  /** Called when the user pins a recent tag to the sidebar. */
+  onPinTag?: (tagKey: string) => void;
+  /** Called when the user unpins a previously pinned tag. */
+  onUnpinTag?: (tagKey: string) => void;
+  /** Called when the user removes a tag from the sidebar. */
+  onRemoveTag?: (tagKey: string) => void;
+  /** Called when the user pins a recent editor page to the sidebar. */
+  onPinEditorPage?: (path: string) => void;
+  /** Called when the user unpins a previously pinned editor page. */
+  onUnpinEditorPage?: (path: string) => void;
+  /** Called when the user removes an editor page from the sidebar. */
+  onRemoveEditorPage?: (path: string) => void;
+  /**
+   * Keys that are currently pinned. Used to decide whether to render
+   * a Pin or PinOff button on each dictionary sidebar item.
+   */
+  pinnedDictionaryKeys?: string[];
+  pinnedTagKeys?: string[];
+  pinnedEditorPageKeys?: string[];
 };
 
 export const getCleanPath = (path: string): string => {
@@ -191,9 +225,290 @@ export const flattenItems = (
   return result;
 };
 
+type SidebarTabItemProps = {
+  item: FlatSidebarItem;
+  activeKey: string;
+  isCollapsed: boolean;
+  pinnedDictionaryKeys: string[];
+  pinnedTagKeys: string[];
+  pinnedEditorPageKeys: string[];
+  flatNavItems: FlatSidebarItem[];
+  onPinDictionary?: (dictionaryKey: string) => void;
+  onUnpinDictionary?: (dictionaryKey: string) => void;
+  onRemoveDictionary?: (dictionaryKey: string) => void;
+  onPinTag?: (tagKey: string) => void;
+  onUnpinTag?: (tagKey: string) => void;
+  onRemoveTag?: (tagKey: string) => void;
+  onPinEditorPage?: (path: string) => void;
+  onUnpinEditorPage?: (path: string) => void;
+  onRemoveEditorPage?: (path: string) => void;
+  pinDictionaryLabel: string;
+  unpinDictionaryLabel: string;
+  removeFromSidebarLabel: string;
+  shouldReduceMotion?: boolean;
+};
+
+const SidebarTabItem = forwardRef<HTMLDivElement, SidebarTabItemProps>(
+  (
+    {
+      item,
+      activeKey,
+      isCollapsed,
+      pinnedDictionaryKeys,
+      pinnedTagKeys,
+      pinnedEditorPageKeys,
+      flatNavItems,
+      onPinDictionary,
+      onUnpinDictionary,
+      onRemoveDictionary,
+      onPinTag,
+      onUnpinTag,
+      onRemoveTag,
+      onPinEditorPage,
+      onUnpinEditorPage,
+      onRemoveEditorPage,
+      pinDictionaryLabel,
+      unpinDictionaryLabel,
+      removeFromSidebarLabel,
+      shouldReduceMotion,
+      ...props
+    },
+    ref
+  ) => {
+    const IconComponent = item.icon ? (iconMap[item.icon] ?? null) : null;
+    const isChild = item.level > 0;
+
+    const isDictionaryItem = item.key.startsWith('dictionary-');
+    const dictKey = isDictionaryItem
+      ? item.key.slice('dictionary-'.length)
+      : null;
+    const isDictItemPinned =
+      dictKey !== null && pinnedDictionaryKeys.includes(dictKey);
+
+    const isTagItem = item.key.startsWith('tag-');
+    const tagKey = isTagItem ? item.key.slice('tag-'.length) : null;
+    const isTagItemPinned = tagKey !== null && pinnedTagKeys.includes(tagKey);
+
+    const isEditorPageItem = item.key.startsWith('editor-page-');
+    const editorPagePath = isEditorPageItem
+      ? item.key.slice('editor-page-'.length)
+      : null;
+    const isEditorPageItemPinned =
+      editorPagePath !== null && pinnedEditorPageKeys.includes(editorPagePath);
+
+    const isPinnableItem = isDictionaryItem || isTagItem || isEditorPageItem;
+    const isItemPinned =
+      isDictItemPinned || isTagItemPinned || isEditorPageItemPinned;
+
+    // Show pin/unpin button on all dictionary/tag sub-items when sidebar is expanded
+    const showPinButton = !isCollapsed && isPinnableItem && !isItemPinned;
+    const showUnpinButton = !isCollapsed && isPinnableItem && isItemPinned;
+
+    // Find index in flatNavItems to determine parent level-1 item and whether we need a straight line at left-4
+    const currentIndex = flatNavItems.findIndex((x) => x.key === item.key);
+    let parentLevel1: FlatSidebarItem | null = null;
+    for (let i = currentIndex - 1; i >= 0; i--) {
+      if (flatNavItems[i].level === 1) {
+        parentLevel1 = flatNavItems[i];
+        break;
+      }
+    }
+
+    return (
+      <div ref={ref} className="group relative w-full" {...props}>
+        <Link
+          to={item.href ?? '#'}
+          label={item.label}
+          color="text"
+          variant="invisible-link"
+          preload="viewport"
+          className={cn(
+            'relative flex w-full items-center justify-center rounded-lg px-2 py-2 text-text/80 aria-[current]:bg-current/0',
+            !isCollapsed && 'justify-start gap-3 px-4',
+            // Indentation by level
+            !isCollapsed && item.level === 1 && 'pl-10',
+            !isCollapsed && item.level >= 2 && 'pl-16',
+            // Leave room for pin/unpin/remove buttons
+            !isCollapsed && isPinnableItem && 'pr-16'
+          )}
+          isActive={activeKey === item.key}
+        >
+          {/* Tree Visuals */}
+          {!isCollapsed && isChild && (
+            <>
+              {/* Straight vertical line for level 1 parent if we are at level 2+ and parent level 1 is not the last child */}
+              {item.level >= 2 && parentLevel1 && !parentLevel1.isLastChild && (
+                <div className="absolute top-0 bottom-0 left-4 w-4 scale-110">
+                  <div className="pointer-events-none relative h-full w-4">
+                    <div className="absolute top-0 bottom-0 left-0 w-px bg-neutral/70" />
+                  </div>
+                </div>
+              )}
+
+              <div
+                className={cn(
+                  'absolute top-0 h-full w-4 scale-110',
+                  item.level === 1 && 'left-4',
+                  item.level >= 2 && 'left-10'
+                )}
+              >
+                <div className="pointer-events-none relative h-full w-4">
+                  <div className="absolute top-0 left-0 h-1/2 w-3 rounded-bl-lg border-neutral/70 border-b border-l" />
+                  {!item.isLastChild && (
+                    <div className="absolute top-1/2 left-0 h-1/2 w-px bg-neutral/70" />
+                  )}
+                </div>
+              </div>
+            </>
+          )}
+
+          {IconComponent && <IconComponent className="size-4 shrink-0" />}
+          <AnimatePresence initial={false}>
+            {!isCollapsed && (
+              <m.span
+                initial={shouldReduceMotion ? false : { opacity: 0, width: 0 }}
+                animate={
+                  shouldReduceMotion ? false : { opacity: 1, width: 'auto' }
+                }
+                exit={shouldReduceMotion ? undefined : { opacity: 0, width: 0 }}
+                transition={
+                  shouldReduceMotion
+                    ? undefined
+                    : { duration: 0.2, ease: 'easeInOut' }
+                }
+                className="overflow-hidden truncate whitespace-nowrap"
+              >
+                {item.title}
+              </m.span>
+            )}
+          </AnimatePresence>
+        </Link>
+
+        {/* Action buttons wrapper — shown on hover */}
+        {!isCollapsed && isPinnableItem && (
+          <div className="absolute top-1/2 right-2 z-10 flex -translate-y-1/2 items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100">
+            {isItemPinned ? (
+              <PopoverStatic identifier={`unpin-${item.key}`}>
+                <Button
+                  type="button"
+                  variant="hoverable"
+                  color="text"
+                  size="icon-sm"
+                  label={String(unpinDictionaryLabel)}
+                  aria-label={String(unpinDictionaryLabel)}
+                  title={String(unpinDictionaryLabel)}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    if (isDictionaryItem && dictKey) {
+                      onUnpinDictionary?.(dictKey);
+                    } else if (isTagItem && tagKey) {
+                      onUnpinTag?.(tagKey);
+                    } else if (isEditorPageItem && editorPagePath) {
+                      onUnpinEditorPage?.(editorPagePath);
+                    }
+                  }}
+                  Icon={PinOff}
+                />
+                <PopoverStatic.Detail
+                  identifier={`unpin-${item.key}`}
+                  xAlign="end"
+                >
+                  <Container padding="sm" roundedSize="xl">
+                    <span className="text-nowrap">{unpinDictionaryLabel}</span>
+                  </Container>
+                </PopoverStatic.Detail>
+              </PopoverStatic>
+            ) : (
+              <>
+                <PopoverStatic identifier={`remove-${item.key}`}>
+                  <Button
+                    type="button"
+                    variant="hoverable"
+                    color="text"
+                    size="icon-sm"
+                    label={removeFromSidebarLabel}
+                    aria-label={removeFromSidebarLabel}
+                    title={removeFromSidebarLabel}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      if (isDictionaryItem && dictKey) {
+                        onUnpinDictionary?.(dictKey);
+                        onRemoveDictionary?.(dictKey);
+                      } else if (isTagItem && tagKey) {
+                        onUnpinTag?.(tagKey);
+                        onRemoveTag?.(tagKey);
+                      } else if (isEditorPageItem && editorPagePath) {
+                        onUnpinEditorPage?.(editorPagePath);
+                        onRemoveEditorPage?.(editorPagePath);
+                      }
+                    }}
+                    Icon={X}
+                  />
+                  <PopoverStatic.Detail
+                    identifier={`remove-${item.key}`}
+                    xAlign="end"
+                  >
+                    <Container padding="sm" roundedSize="xl">
+                      <span className="text-nowrap">
+                        {removeFromSidebarLabel}
+                      </span>
+                    </Container>
+                  </PopoverStatic.Detail>
+                </PopoverStatic>
+                <PopoverStatic identifier={`pin-${item.key}`}>
+                  <Button
+                    type="button"
+                    variant="hoverable"
+                    color="text"
+                    size="icon-sm"
+                    label={pinDictionaryLabel}
+                    aria-label={pinDictionaryLabel}
+                    title={pinDictionaryLabel}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      if (isDictionaryItem && dictKey) {
+                        onPinDictionary?.(dictKey);
+                      } else if (isTagItem && tagKey) {
+                        onPinTag?.(tagKey);
+                      } else if (isEditorPageItem && editorPagePath) {
+                        onPinEditorPage?.(editorPagePath);
+                      }
+                    }}
+                    Icon={Pin}
+                  />
+                  <PopoverStatic.Detail
+                    identifier={`pin-${item.key}`}
+                    xAlign="end"
+                  >
+                    <Container padding="sm" roundedSize="xl">
+                      <span className="text-nowrap">{pinDictionaryLabel}</span>
+                    </Container>
+                  </PopoverStatic.Detail>
+                </PopoverStatic>
+              </>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  }
+);
+
 export const DashboardSidebar: FC<DashboardSidebarProps> = ({
   className,
   items,
+  onPinDictionary,
+  onUnpinDictionary,
+  onRemoveDictionary,
+  onPinTag,
+  onUnpinTag,
+  onRemoveTag,
+  onPinEditorPage,
+  onUnpinEditorPage,
+  onRemoveEditorPage,
+  pinnedDictionaryKeys = [],
+  pinnedTagKeys = [],
+  pinnedEditorPageKeys = [],
 }) => {
   const {
     collapseButton,
@@ -202,6 +517,9 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
     environment,
     defaultEnv,
     switchToName,
+    pinDictionary: pinDictionaryLabel,
+    unpinDictionary: unpinDictionaryLabel,
+    removeFromSidebar: removeFromSidebarLabel,
   } = useIntlayer('dashboard-sidebar');
   const [isCollapsed, setIsCollapsed] = useState(false);
   const { isMobile } = useDevice();
@@ -274,73 +592,31 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
           <TabSelector
             selectedChoice={activeKey}
             key={flatNavItems.length}
-            tabs={flatNavItems.map((item) => {
-              const IconComponent = item.icon
-                ? (iconMap[item.icon] ?? null)
-                : null;
-              const isChild = item.level > 0;
-
-              return (
-                <Link
-                  key={item.key}
-                  to={item.href ?? '#'}
-                  label={item.label}
-                  color="text"
-                  variant="invisible-link"
-                  preload="viewport"
-                  className={cn(
-                    'relative flex w-full items-center justify-center rounded-lg px-2 py-2 text-text/80 aria-[current]:bg-current/0',
-                    !isCollapsed && 'justify-start gap-3 px-4',
-                    // Indentation
-                    !isCollapsed && isChild && 'pl-10'
-                  )}
-                  isActive={activeKey === item.key}
-                >
-                  {/* Tree Visuals */}
-                  {!isCollapsed && isChild && (
-                    <div className="absolute top-0 left-4 h-full w-4 scale-110">
-                      <div className="pointer-events-none relative h-full w-4">
-                        <div className="absolute top-0 left-0 h-1/2 w-3 rounded-bl-lg border-neutral/70 border-b border-l" />
-                        {!item.isLastChild && (
-                          <div className="absolute top-1/2 left-0 h-1/2 w-px bg-neutral/70" />
-                        )}
-                      </div>
-                    </div>
-                  )}
-
-                  {IconComponent && (
-                    <IconComponent className="size-4 shrink-0" />
-                  )}
-                  <AnimatePresence initial={false}>
-                    {!isCollapsed && (
-                      <m.span
-                        initial={
-                          shouldReduceMotion ? false : { opacity: 0, width: 0 }
-                        }
-                        animate={
-                          shouldReduceMotion
-                            ? false
-                            : { opacity: 1, width: 'auto' }
-                        }
-                        exit={
-                          shouldReduceMotion
-                            ? undefined
-                            : { opacity: 0, width: 0 }
-                        }
-                        transition={
-                          shouldReduceMotion
-                            ? undefined
-                            : { duration: 0.2, ease: 'easeInOut' }
-                        }
-                        className="overflow-hidden truncate whitespace-nowrap"
-                      >
-                        {item.title}
-                      </m.span>
-                    )}
-                  </AnimatePresence>
-                </Link>
-              );
-            })}
+            tabs={flatNavItems.map((item) => (
+              <SidebarTabItem
+                key={item.key}
+                item={item}
+                activeKey={activeKey}
+                isCollapsed={isCollapsed}
+                pinnedDictionaryKeys={pinnedDictionaryKeys}
+                pinnedTagKeys={pinnedTagKeys}
+                pinnedEditorPageKeys={pinnedEditorPageKeys}
+                flatNavItems={flatNavItems}
+                onPinDictionary={onPinDictionary}
+                onUnpinDictionary={onUnpinDictionary}
+                onRemoveDictionary={onRemoveDictionary}
+                onPinTag={onPinTag}
+                onUnpinTag={onUnpinTag}
+                onRemoveTag={onRemoveTag}
+                onPinEditorPage={onPinEditorPage}
+                onUnpinEditorPage={onUnpinEditorPage}
+                onRemoveEditorPage={onRemoveEditorPage}
+                pinDictionaryLabel={String(pinDictionaryLabel)}
+                unpinDictionaryLabel={String(unpinDictionaryLabel)}
+                removeFromSidebarLabel={String(removeFromSidebarLabel)}
+                shouldReduceMotion={shouldReduceMotion}
+              />
+            ))}
             hoverable
             color="text"
             orientation="vertical"
@@ -355,7 +631,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
         {/* Environment switcher — shown when project has >1 environments */}
         {environments.length > 1 &&
           (isCollapsed ? (
-            <div className="my-4 flex w-full justify-center border-text/10 border-b border-dashed pb-4">
+            <div className="my-4 flex w-full justify-center border-text/10 border-b border-dotted pb-4">
               <DropDown identifier="environment-sidebar-collapsed">
                 <DropDown.Trigger
                   identifier="environment-sidebar-collapsed"
@@ -412,7 +688,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
                         >
                           {env.name}
                           {env.isDefault && (
-                            <Tag size="sm" color="text">
+                            <Tag size="xs" color="text">
                               {defaultEnv}
                             </Tag>
                           )}
@@ -424,7 +700,7 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
               </DropDown>
             </div>
           ) : (
-            <div className="my-4 flex w-full flex-col border-text/10 border-b border-dashed px-2 pb-4">
+            <div className="my-4 flex w-full flex-col border-text/10 border-b border-dotted px-2 pb-4">
               <DropDown
                 identifier="environment-sidebar-expanded"
                 className="w-full min-w-0"

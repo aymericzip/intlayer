@@ -20,6 +20,14 @@ type FiltersModalProps = {
   setParams: (updates: any) => void;
 };
 
+const QUALIFIER_TYPE_KEYS = [
+  'standard',
+  'collection',
+  'variant',
+  'meta',
+] as const;
+type QualifierTypeKey = (typeof QUALIFIER_TYPE_KEYS)[number];
+
 export const FiltersModal: FC<FiltersModalProps> = ({
   isOpen,
   onClose,
@@ -27,7 +35,7 @@ export const FiltersModal: FC<FiltersModalProps> = ({
   setParam,
   setParams,
 }) => {
-  const { locationOptions, tableHeaders, filterLabels } =
+  const { locationOptions, tableHeaders, filterLabels, qualifierTypes } =
     useIntlayer('dictionary-list');
   const [tagSearch, setTagSearch] = useState('');
   const { data: tagsData, isLoading: isLoadingTags } = useGetTags({
@@ -43,6 +51,7 @@ export const FiltersModal: FC<FiltersModalProps> = ({
   );
 
   const activeTags = params.tags ? (params.tags as string).split(',') : [];
+  const activeTypes = params.type ? (params.type as string).split(',') : [];
 
   const activeLocations =
     params.location === 'none'
@@ -57,6 +66,7 @@ export const FiltersModal: FC<FiltersModalProps> = ({
     setParams({
       location: 'none',
       tags: null,
+      type: null,
     });
     onClose();
   };
@@ -69,6 +79,16 @@ export const FiltersModal: FC<FiltersModalProps> = ({
       newTags = [...activeTags, tagKey];
     }
     setParam('tags', newTags.length > 0 ? newTags.join(',') : null);
+  };
+
+  const handleTypeToggle = (typeKey: QualifierTypeKey) => {
+    let newTypes: string[];
+    if (activeTypes.includes(typeKey)) {
+      newTypes = activeTypes.filter((t: string) => t !== typeKey);
+    } else {
+      newTypes = [...activeTypes, typeKey];
+    }
+    setParam('type', newTypes.length > 0 ? newTypes.join(',') : null);
   };
 
   const handleLocationToggle = (locationKey: 'remote' | 'local') => {
@@ -91,7 +111,8 @@ export const FiltersModal: FC<FiltersModalProps> = ({
     setParam('location', newLocationValue);
   };
 
-  const hasAppliedFilters = params.location !== 'none' || !!params.tags;
+  const hasAppliedFilters =
+    params.location !== 'none' || !!params.tags || !!params.type;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} padding="lg">
@@ -197,6 +218,32 @@ export const FiltersModal: FC<FiltersModalProps> = ({
               )}
             </Container>
           )}
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <div className="font-medium text-sm">{tableHeaders.type}</div>
+          <Container
+            background="none"
+            border
+            borderColor="card"
+            roundedSize="xl"
+            padding="md"
+            className="flex flex-col gap-4"
+          >
+            {QUALIFIER_TYPE_KEYS.map((typeKey) => (
+              <Checkbox
+                key={typeKey}
+                id={`filter-type-${typeKey}`}
+                name={`filter-type-${typeKey}`}
+                size="sm"
+                color="text"
+                checked={activeTypes.includes(typeKey)}
+                onChange={() => handleTypeToggle(typeKey)}
+                label={qualifierTypes[typeKey]}
+                labelClassName="font-normal px-2 py-1"
+              />
+            ))}
+          </Container>
         </div>
 
         <div className="mt-4 flex justify-end gap-4">

@@ -39,9 +39,11 @@ export const Route = createFileRoute('/{-$locale}/_docs/blog/$')({
 
     if (!exactMatch) {
       if (blogsData.length > 0) {
-        throw redirect({ to: blogsData[0].relativeUrl as any });
+        throw redirect({
+          to: getLocalizedUrl(blogsData[0].relativeUrl, locale) as any,
+        });
       }
-      throw redirect({ to: Website_Home_Path as any });
+      throw redirect({ to: getLocalizedUrl(Website_Home_Path, locale) as any });
     }
 
     const { blogContent, blogParsed, prevBlogData, nextBlogData } = content!;

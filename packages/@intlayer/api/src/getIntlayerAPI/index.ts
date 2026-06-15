@@ -3,6 +3,7 @@ import type { IntlayerConfig } from '@intlayer/types/config';
 import { defu } from 'defu';
 import type { FetcherOptions } from '../fetcher';
 import { getAiAPI } from './ai';
+import { getAssetAPI } from './asset';
 import { getAuditAPI } from './audit';
 import { getBitbucketAPI } from './bitbucket';
 import { getDictionaryAPI } from './dictionary';
@@ -23,6 +24,7 @@ import { getTranslateAPI } from './translate';
 import { getUserAPI } from './user';
 
 interface IntlayerAPIReturn {
+  asset: ReturnType<typeof getAssetAPI>;
   organization: ReturnType<typeof getOrganizationAPI>;
   project: ReturnType<typeof getProjectAPI>;
   environment: ReturnType<typeof getEnvironmentAPI>;
@@ -53,6 +55,7 @@ export const getIntlayerAPI = (
   }) as IntlayerConfig;
 
   return {
+    asset: getAssetAPI(authAPIOptions, resolvedConfig),
     organization: getOrganizationAPI(authAPIOptions, resolvedConfig),
     project: getProjectAPI(authAPIOptions, resolvedConfig),
     environment: getEnvironmentAPI(authAPIOptions, resolvedConfig),

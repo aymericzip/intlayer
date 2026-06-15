@@ -385,8 +385,23 @@ export type EditorConfig = {
    * Default: ''
    */
   applicationURL?: URLType;
+
+  /**
+   * Public URL for the editor.
+   * Default: "http://localhost:8000"
+   */
   editorURL?: URLType;
+
+  /**
+   * Intlayer CMS URL.
+   * Default: "https://app.intlayer.org"
+   */
   cmsURL?: URLType;
+
+  /**
+   * Backend API URL.
+   * Default: "https://back.intlayer.org"
+   */
   backendURL?: URLType;
 
   /**

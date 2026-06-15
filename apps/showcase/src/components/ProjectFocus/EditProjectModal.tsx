@@ -1,6 +1,6 @@
 import { useUpdateShowcaseProject } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
-import { Form, useForm } from '@intlayer/design-system/form';
+import { Form, FormButton, useForm } from '@intlayer/design-system/form';
 import { H2 } from '@intlayer/design-system/headers';
 import { Modal } from '@intlayer/design-system/modal';
 import { Check, X } from 'lucide-react';
@@ -116,7 +116,7 @@ export const EditProjectModal = ({
               >
                 {content.cancel}
               </Button>
-              <Form.Button
+              <FormButton
                 type="submit"
                 color="text"
                 isLoading={isSubmitting}
@@ -125,7 +125,7 @@ export const EditProjectModal = ({
                 className="flex-1"
               >
                 {content.saveChanges}
-              </Form.Button>
+              </FormButton>
             </div>
           </Form>
         )}

@@ -1,5 +1,5 @@
 import { Badge } from '@intlayer/design-system/badge';
-import { Form } from '@intlayer/design-system/form';
+import { Form, FormInput, FormMultiSelect } from '@intlayer/design-system/form';
 import { MultiSelect } from '@intlayer/design-system/select';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -19,7 +19,7 @@ export const UserFormFields: FC<UserFormFieldsProps> = ({
 
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-      <Form.Input
+      <FormInput
         name="name"
         id="user-edit-name-input"
         label={formLabels.name.value}
@@ -27,7 +27,7 @@ export const UserFormFields: FC<UserFormFieldsProps> = ({
         isRequired
       />
 
-      <Form.Input
+      <FormInput
         name="email"
         type="email"
         id="user-edit-email-input"
@@ -36,7 +36,7 @@ export const UserFormFields: FC<UserFormFieldsProps> = ({
         isRequired
       />
 
-      <Form.MultiSelect
+      <FormMultiSelect
         name="organizationIds"
         id="user-edit-organizations-input"
         label={formLabels.organizations.value}
@@ -73,7 +73,7 @@ export const UserFormFields: FC<UserFormFieldsProps> = ({
             })}
           </MultiSelect.List>
         </MultiSelect.Content>
-      </Form.MultiSelect>
+      </FormMultiSelect>
     </div>
   );
 };

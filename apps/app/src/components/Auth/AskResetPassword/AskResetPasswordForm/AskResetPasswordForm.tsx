@@ -1,4 +1,9 @@
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormInput,
+  useForm,
+} from '@intlayer/design-system/form';
 import {
   type FC,
   type ReactNode,
@@ -82,7 +87,7 @@ export const AskResetPasswordForm: FC<AskResetPasswordFormProps> = ({
       {...form}
     >
       <div className="flex flex-col gap-y-6">
-        <Form.Input
+        <FormInput
           name="email"
           label={emailInput.label.value}
           placeholder={emailInput.placeholder.value}
@@ -94,7 +99,7 @@ export const AskResetPasswordForm: FC<AskResetPasswordFormProps> = ({
         />
       </div>
 
-      <Form.Button
+      <FormButton
         className="mt-4 w-full"
         type="submit"
         color="text"
@@ -104,16 +109,16 @@ export const AskResetPasswordForm: FC<AskResetPasswordFormProps> = ({
         label={sendRecoveryEmailButton.ariaLabel.value}
       >
         {getSubmitButtonText()}
-      </Form.Button>
+      </FormButton>
       {isSubmitted && (
-        <Form.Button
+        <FormButton
           className="mt-4 w-full"
           color="text"
           label={backToLoginButton.text.value}
           onClick={onClickBackToLogin}
         >
           {backToLoginButton.text.value}
-        </Form.Button>
+        </FormButton>
       )}
     </Form>
   );

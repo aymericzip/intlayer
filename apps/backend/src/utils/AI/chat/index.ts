@@ -16,8 +16,18 @@ export type ChatOptions = {
   tools?: Record<string, any>;
 };
 
+export type ChatTokenUsage = {
+  inputTokens: number;
+  outputTokens: number;
+  totalTokens: number;
+};
+
 export type ChatResultData = {
   response: string;
+  /** Token consumption for the last completed step. */
+  tokenUsage?: ChatTokenUsage;
+  /** AI model identifier used for this completion. */
+  aiModel?: string;
 };
 
 const __filename = fileURLToPath(import.meta.url);
@@ -89,5 +99,19 @@ export const chat = async (
     options?.onMessage?.(chunk);
   }
 
-  return { response: fullResponse || 'Error: No result found' };
+  const usage = await stream.usage;
+
+  return {
+    response: fullResponse || 'Error: No result found',
+    tokenUsage: usage
+      ? {
+          inputTokens:
+            (usage as any).inputTokens ?? (usage as any).promptTokens ?? 0,
+          outputTokens:
+            (usage as any).outputTokens ?? (usage as any).completionTokens ?? 0,
+          totalTokens: usage.totalTokens ?? 0,
+        }
+      : undefined,
+    aiModel: aiConfig.model as string | undefined,
+  };
 };

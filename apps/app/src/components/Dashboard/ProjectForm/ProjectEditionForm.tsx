@@ -1,5 +1,10 @@
 import { useSession, useUpdateProject } from '@intlayer/design-system/api';
-import { Form, useForm } from '@intlayer/design-system/form';
+import {
+  Form,
+  FormButton,
+  FormInput,
+  useForm,
+} from '@intlayer/design-system/form';
 import { H3 } from '@intlayer/design-system/headers';
 import { FolderOpen } from 'lucide-react';
 import { type FC, useEffect } from 'react';
@@ -42,7 +47,7 @@ export const ProjectEditionForm: FC = () => {
         className="w-full"
         {...form}
       >
-        <Form.Input
+        <FormInput
           name="name"
           id="project-edit-name"
           label={nameInput.label}
@@ -52,7 +57,7 @@ export const ProjectEditionForm: FC = () => {
         />
 
         {isProjectAdmin && (
-          <Form.Button
+          <FormButton
             className="mt-4 w-full"
             type="submit"
             color="text"
@@ -60,7 +65,7 @@ export const ProjectEditionForm: FC = () => {
             label={editButton.ariaLabel.value}
           >
             {editButton.text}
-          </Form.Button>
+          </FormButton>
         )}
       </Form>
     </>

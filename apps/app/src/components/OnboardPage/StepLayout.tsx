@@ -1,5 +1,5 @@
 import type { ButtonProps } from '@intlayer/design-system/button';
-import { Form } from '@intlayer/design-system/form';
+import { Form, FormButton } from '@intlayer/design-system/form';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type { FC, ReactNode } from 'react';
 import { useIntlayer } from 'react-intlayer';
@@ -31,7 +31,7 @@ export const StepLayout: FC<StepLayoutProps> = ({
       <div className="flex w-full flex-col gap-2 pt-10 pb-3">
         <div className="flex w-full gap-4">
           {onGoToPreviousStep && (
-            <Form.Button
+            <FormButton
               label={previousStepButton.label.value}
               onClick={onGoToPreviousStep}
               color="text"
@@ -40,10 +40,10 @@ export const StepLayout: FC<StepLayoutProps> = ({
               Icon={ChevronLeft}
             >
               {previousStepButton.text}
-            </Form.Button>
+            </FormButton>
           )}
           {!hideNextButton && (
-            <Form.Button
+            <FormButton
               {...props}
               label={nextStepButton.label.value}
               onClick={onGoToNextStep}
@@ -54,11 +54,11 @@ export const StepLayout: FC<StepLayoutProps> = ({
               IconRight={ChevronRight}
             >
               {nextStepButton.text}
-            </Form.Button>
+            </FormButton>
           )}
         </div>
         {isSkippable && onSkipStep && (
-          <Form.Button
+          <FormButton
             label={skipButton.label.value}
             onClick={onSkipStep}
             color="text"
@@ -68,7 +68,7 @@ export const StepLayout: FC<StepLayoutProps> = ({
             IconRight={ChevronRight}
           >
             {skipButton.text}
-          </Form.Button>
+          </FormButton>
         )}
       </div>
     </>
