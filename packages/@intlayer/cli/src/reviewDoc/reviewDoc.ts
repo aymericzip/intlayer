@@ -1,4 +1,5 @@
 import { existsSync } from 'node:fs';
+import { readFile } from 'node:fs/promises';
 import { join, relative } from 'node:path';
 import type { AIConfig } from '@intlayer/ai';
 import type { AIOptions } from '@intlayer/api';
@@ -8,6 +9,7 @@ import {
   listGitLines,
   logConfigDetails,
 } from '@intlayer/chokidar/cli';
+import { buildReviewReport } from '@intlayer/chokidar/docReview';
 import {
   formatLocale,
   formatPath,
@@ -184,9 +186,43 @@ export const reviewDoc = async ({
           absoluteBaseFilePath,
           gitOptions
         );
-
-        appLogger(`Git changed lines: ${formatLineRanges(gitChangedLines)}`);
         changedLines = gitChangedLines;
+
+        // Report the base lines that changed, then the corresponding line span
+        // in the target document — i.e. the blocks the alignment will actually
+        // re-translate. `review` blocks are exactly the aligned base blocks the
+        // changed lines touched, so their `targetLineRange` is the matching span
+        // in the existing translation.
+        appLogger(
+          `Changed lines (${formatLocale(baseLocale)}): ${formatLineRanges(gitChangedLines)}`
+        );
+
+        const baseText = await readFile(absoluteBaseFilePath, 'utf-8').catch(
+          () => ''
+        );
+        const targetText = existsSync(outputFilePath)
+          ? await readFile(outputFilePath, 'utf-8').catch(() => '')
+          : '';
+
+        const { blocks } = buildReviewReport({
+          baseText,
+          targetText,
+          changedLines: gitChangedLines,
+        });
+
+        const correspondingTargetLines = blocks.flatMap((block) => {
+          if (block.action !== 'review' || !block.targetLineRange) return [];
+
+          const { start, end } = block.targetLineRange;
+          return Array.from(
+            { length: end - start + 1 },
+            (_unused, offset) => start + offset
+          );
+        });
+
+        appLogger(
+          `Corresponding block (${formatLocale(locale)}): ${formatLineRanges(correspondingTargetLines)}`
+        );
       }
 
       if (log) {

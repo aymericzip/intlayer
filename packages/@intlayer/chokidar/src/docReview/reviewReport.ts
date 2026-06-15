@@ -1,3 +1,6 @@
+import * as ANSIColors from '@intlayer/config/colors';
+import { colorize, colorizeNumber } from '@intlayer/config/logger';
+import { formatLocale } from '../utils';
 import { buildAlignmentPlan } from './pipeline';
 
 /**
@@ -107,6 +110,9 @@ export const buildReviewReport = ({
     if (action.kind === 'review') {
       summary.review += 1;
       const baseBlock = baseBlocks[action.baseIndex];
+
+      if (!baseBlock) continue;
+
       const targetBlock =
         action.targetIndex !== null ? targetBlocks[action.targetIndex] : null;
 
@@ -126,6 +132,8 @@ export const buildReviewReport = ({
       summary.insertNew += 1;
       const baseBlock = baseBlocks[action.baseIndex];
 
+      if (!baseBlock) continue;
+
       blocks.push({
         action: 'insert_new',
         baseLineRange: { start: baseBlock.lineStart, end: baseBlock.lineEnd },
@@ -137,6 +145,8 @@ export const buildReviewReport = ({
     if (action.kind === 'delete') {
       summary.delete += 1;
       const targetBlock = targetBlocks[action.targetIndex];
+
+      if (!targetBlock) continue;
 
       blocks.push({
         action: 'delete',
@@ -174,33 +184,38 @@ export const formatReviewReport = (
 
   const { summary, blocks } = report;
 
-  const header =
-    `Review report: ${blocks.length} block(s) need attention ` +
-    `(review=${summary.review}, new=${summary.insertNew}, delete=${summary.delete}, reuse=${summary.reuse}).`;
+  const header = colorize(
+    `Review report: ${colorizeNumber(blocks.length)} block(s) need attention ` +
+      `(review=${colorizeNumber(summary.review)}, new=${colorizeNumber(summary.insertNew)}, delete=${colorizeNumber(summary.delete)}, reuse=${colorizeNumber(summary.reuse)}).`,
+    ANSIColors.ORANGE
+  );
 
   if (blocks.length === 0) {
-    return `${header}\nNo changes needed.`;
+    return `${header}\n${colorize('No changes needed.', ANSIColors.GREEN)}`;
   }
 
   const sections = blocks.map((block, index) => {
     const lines: string[] = [];
     lines.push(
-      `--- Block ${index + 1}/${blocks.length} [${block.action}] ` +
-        `${baseLabel} ${formatLineRange(block.baseLineRange)} → ` +
-        `${targetLabel} ${formatLineRange(block.targetLineRange)} ---`
+      colorize(
+        `--- Block ${index + 1}/${blocks.length} [${block.action}] ` +
+          `${formatLocale(baseLabel)} ${colorizeNumber(formatLineRange(block.baseLineRange))} → ` +
+          `${formatLocale(targetLabel)} ${colorizeNumber(formatLineRange(block.targetLineRange))} ---`,
+        ANSIColors.ORANGE
+      )
     );
 
     if (block.baseContent !== undefined) {
-      lines.push(`[${baseLabel}]`);
-      lines.push(block.baseContent.trimEnd());
+      lines.push(colorize(`[${baseLabel}]`, ANSIColors.BEIGE));
+      lines.push(colorize(block.baseContent.trimEnd(), ANSIColors.GREY));
     }
 
     if (block.targetContent !== undefined) {
-      lines.push(`[${targetLabel}]`);
-      lines.push(block.targetContent.trimEnd());
+      lines.push(colorize(`[${targetLabel}]`, ANSIColors.BEIGE));
+      lines.push(colorize(block.targetContent.trimEnd(), ANSIColors.GREY));
     } else if (block.action === 'insert_new') {
-      lines.push(`[${targetLabel}]`);
-      lines.push('(missing — to be translated)');
+      lines.push(colorize(`[${targetLabel}]`, ANSIColors.BEIGE));
+      lines.push(colorize('(missing — to be translated)', ANSIColors.ORANGE));
     }
 
     return lines.join('\n');

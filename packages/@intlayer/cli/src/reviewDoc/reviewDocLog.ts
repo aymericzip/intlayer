@@ -52,9 +52,10 @@ export const logReviewFileBlocks = async (
     targetLabel: formatLocale(locale, false),
   });
 
-  appLogger(
-    `${formatPath(baseFilePath)} → ${formatLocale(locale)}\n${formatted}`
-  );
+  appLogger([
+    `${formatPath(baseFilePath)} → ${formatLocale(locale)}\n`,
+    formatted,
+  ]);
 
   return report;
 };
