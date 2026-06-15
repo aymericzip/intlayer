@@ -1,4 +1,8 @@
 import { getSearchAPI } from '@intlayer/api';
+import {
+  buildReviewReport,
+  formatReviewReport,
+} from '@intlayer/chokidar/docReview';
 import type { DocKey } from '@intlayer/docs';
 import {
   getDoc,
@@ -185,6 +189,80 @@ export const loadDocsTools: LoadDocsTools = async (server) => {
           content: [
             { type: 'text', text: `Fetch doc chunks failed: ${errorMessage}` },
           ],
+        };
+      }
+    }
+  );
+
+  server.registerTool(
+    'review-doc-blocks',
+    {
+      title: 'Review Doc Blocks',
+      description:
+        'Compare a base markdown document with its translation and return only the blocks that diverge (changed, missing, or stale), with their line ranges and content. Use this to translate a large document incrementally without retranslating it from scratch: it tells you exactly which blocks to (re)translate. Optionally pass the base line numbers that changed (for example from a git diff) so aligned-but-edited blocks are flagged for review.',
+      inputSchema: {
+        baseContent: z
+          .string()
+          .describe('The base (source) markdown document, used as reference'),
+        targetContent: z
+          .string()
+          .describe(
+            'The existing translated markdown document (may be empty for a brand new translation)'
+          ),
+        changedLines: z
+          .array(z.number())
+          .optional()
+          .describe(
+            '1-based line numbers that changed in the base document. When omitted, only inserted and deleted blocks are reported.'
+          ),
+        baseLabel: z
+          .string()
+          .optional()
+          .describe('Label for the base locale in the formatted output'),
+        targetLabel: z
+          .string()
+          .optional()
+          .describe('Label for the target locale in the formatted output'),
+        format: z
+          .enum(['text', 'json'])
+          .optional()
+          .describe('Output format. Defaults to "text".'),
+      },
+      annotations: {
+        readOnlyHint: true,
+      },
+    },
+    async ({
+      baseContent,
+      targetContent,
+      changedLines,
+      baseLabel,
+      targetLabel,
+      format,
+    }) => {
+      try {
+        const report = buildReviewReport({
+          baseText: baseContent,
+          targetText: targetContent,
+          changedLines,
+        });
+
+        const text =
+          format === 'json'
+            ? JSON.stringify(report, null, 2)
+            : formatReviewReport(report, { baseLabel, targetLabel });
+
+        return {
+          content: [{ type: 'text', text }],
+        };
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error ? error.message : 'An unknown error occurred';
+        return {
+          content: [
+            { type: 'text', text: `Review doc blocks failed: ${errorMessage}` },
+          ],
+          isError: true,
         };
       }
     }

@@ -839,7 +839,11 @@ export const setAPI = (): Command => {
 
   const reviewProgram = docProgram
     .command('review')
-    .description('Review the documentation');
+    .description('Review the documentation')
+    .option(
+      '--log',
+      'Log-only mode. Do not translate with AI; instead log the blocks that need attention (with line numbers and content) for the base and target locales, to help another agent generate the translations.'
+    );
 
   applyConfigOptions(reviewProgram);
   applyAIOptions(reviewProgram);
@@ -860,6 +864,7 @@ export const setAPI = (): Command => {
       skipIfModifiedBefore: options.skipIfModifiedBefore,
       skipIfModifiedAfter: options.skipIfModifiedAfter,
       skipIfExists: options.skipIfExists,
+      log: options.log,
     })
   );
 

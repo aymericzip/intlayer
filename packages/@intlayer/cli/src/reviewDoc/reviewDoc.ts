@@ -1,5 +1,6 @@
 import { existsSync } from 'node:fs';
 import { join, relative } from 'node:path';
+import type { AIConfig } from '@intlayer/ai';
 import type { AIOptions } from '@intlayer/api';
 import {
   type ListGitFilesOptions,
@@ -26,9 +27,11 @@ import {
 import type { Locale } from '@intlayer/types/allLocales';
 import fg from 'fast-glob';
 import { checkFileModifiedRange } from '../utils/checkFileModifiedRange';
+import { formatLineRanges } from '../utils/formatLineRanges';
 import { getOutputFilePath } from '../utils/getOutputFilePath';
-import { setupAI } from '../utils/setupAI';
+import { type AIClient, setupAI } from '../utils/setupAI';
 import { reviewFileBlockAware } from './reviewDocBlockAware';
+import { logReviewFileBlocks } from './reviewDocLog';
 
 type ReviewDocOptions = {
   docPattern: string[];
@@ -43,6 +46,12 @@ type ReviewDocOptions = {
   skipIfModifiedAfter?: number | string | Date;
   skipIfExists?: boolean;
   gitOptions?: ListGitFilesOptions;
+  /**
+   * Log-only mode. Instead of translating the changed blocks with AI, log the
+   * blocks that need attention (with line numbers and content) for the base and
+   * target locales, so another agent can generate the translations.
+   */
+  log?: boolean;
 };
 
 /**
@@ -62,23 +71,31 @@ export const reviewDoc = async ({
   skipIfModifiedAfter,
   skipIfExists,
   gitOptions,
+  log,
 }: ReviewDocOptions) => {
   const configuration = getConfiguration(configOptions);
   logConfigDetails(configOptions);
 
   const appLogger = getAppLogger(configuration);
 
-  const aiResult = await setupAI(configuration, aiOptions);
+  // Log-only mode does not call any AI, so the AI access checks are skipped.
+  let aiClient: AIClient | undefined;
+  let aiConfig: AIConfig | undefined;
 
-  if (!aiResult?.hasAIAccess) return;
+  if (!log) {
+    const aiResult = await setupAI(configuration, aiOptions);
 
-  const { aiClient, aiConfig, isCustomAI } = aiResult;
+    if (!aiResult?.hasAIAccess) return;
 
-  if (isCustomAI && aiClient && aiConfig) {
-    const { hasAIAccess, error } = await aiClient.checkAISDKAccess(aiConfig);
-    if (!hasAIAccess) {
-      appLogger(`${x} ${error}`);
-      return;
+    aiClient = aiResult.aiClient;
+    aiConfig = aiResult.aiConfig;
+
+    if (aiResult.isCustomAI && aiClient && aiConfig) {
+      const { hasAIAccess, error } = await aiClient.checkAISDKAccess(aiConfig);
+      if (!hasAIAccess) {
+        appLogger(`${x} ${error}`);
+        return;
+      }
     }
   }
 
@@ -168,8 +185,20 @@ export const reviewDoc = async ({
           gitOptions
         );
 
-        appLogger(`Git changed lines: ${gitChangedLines.join(', ')}`);
+        appLogger(`Git changed lines: ${formatLineRanges(gitChangedLines)}`);
         changedLines = gitChangedLines;
+      }
+
+      if (log) {
+        await logReviewFileBlocks(
+          absoluteBaseFilePath,
+          outputFilePath,
+          locale as Locale,
+          baseLocale,
+          configOptions,
+          changedLines
+        );
+        return;
       }
 
       await reviewFileBlockAware(

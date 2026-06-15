@@ -21,6 +21,8 @@ const EXCLUDED_GLOB_PATTEN: string[] = [
   '**/src/**',
 ];
 
+const LOG_ONLY = true; // If false it gonna generate translations
+
 // Number of files to process simultaneously
 const NB_SIMULTANEOUS_FILE_PROCESSED: number = 1;
 
@@ -55,4 +57,5 @@ reviewDoc({
   skipIfModifiedBefore: SKIP_IF_MODIFIED_BEFORE,
   skipIfModifiedAfter: SKIP_IF_MODIFIED_AFTER,
   gitOptions: GIT_OPTIONS,
+  log: LOG_ONLY,
 });

@@ -1,5 +1,5 @@
 // Block alignment
-export { alignEnglishAndFrenchBlocks } from './alignBlocks';
+export { alignBaseAndTargetBlocks } from './alignBlocks';
 // Similarity computation
 export {
   computeJaccardSimilarity,
@@ -16,17 +16,22 @@ export type {
   BuildAlignmentPlanInput,
   BuildAlignmentPlanOutput,
 } from './pipeline';
-export { buildAlignmentPlan } from './pipeline';
-
+export { buildAlignmentPlan, mergeReviewedSegments } from './pipeline';
 // Action planning
 export { planAlignmentActions } from './planActions';
-
 // Document reconstruction
 export type { SegmentToReview } from './rebuildDocument';
-export {
-  identifySegmentsToReview,
-  mergeReviewedSegments,
-} from './rebuildDocument';
+export { identifySegmentsToReview } from './rebuildDocument';
+// Review report (changed-blocks diff for backend / CLI --log / agents)
+export type {
+  BuildReviewReportInput,
+  LineRange,
+  ReviewBlockAction,
+  ReviewReport,
+  ReviewReportBlock,
+  ReviewReportSummary,
+} from './reviewReport';
+export { buildReviewReport, formatReviewReport } from './reviewReport';
 // Document segmentation
 export { segmentDocument } from './segmentDocument';
 // Core types

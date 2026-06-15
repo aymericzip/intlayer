@@ -22,6 +22,17 @@ const stripLettersKeepDigitsAndSymbols = (text: string): string => {
   return text.replace(/\p{L}+/gu, '');
 };
 
+/**
+ * Derive the normalized representations of a block used for matching.
+ *
+ * - `semanticText`: markdown-stripped, lower-cased text (used to detect identical
+ *   content across versions of the same language).
+ * - `anchorText`: only digits/symbols (used to align blocks across languages, as
+ *   prose differs but structure such as numbers and punctuation is preserved).
+ *
+ * @param block - The block to normalize.
+ * @returns The block enriched with its normalized texts.
+ */
 export const normalizeBlock = (block: Block): NormalizedBlock => {
   const contentWithoutMarkdown = removeMarkdownFormatting(block.content);
   const semanticLowercased = contentWithoutMarkdown.toLowerCase();

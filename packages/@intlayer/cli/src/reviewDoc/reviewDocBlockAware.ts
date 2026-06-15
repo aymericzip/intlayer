@@ -4,6 +4,10 @@ import { dirname } from 'node:path';
 import { readAsset } from 'utils:asset';
 import type { AIConfig } from '@intlayer/ai';
 import type { AIOptions } from '@intlayer/api';
+import {
+  buildAlignmentPlan,
+  mergeReviewedSegments,
+} from '@intlayer/chokidar/docReview';
 import { formatLocale, formatPath } from '@intlayer/chokidar/utils';
 import * as ANSIColors from '@intlayer/config/colors';
 import {
@@ -21,10 +25,6 @@ import { getLocaleName } from '@intlayer/core/localization';
 import type { Locale } from '@intlayer/types/allLocales';
 import { ENGLISH } from '@intlayer/types/locales';
 import { sanitizeChunk, validateTranslation } from '../translateDoc/validation';
-import {
-  buildAlignmentPlan,
-  mergeReviewedSegments,
-} from '../translation-alignment/pipeline';
 import { chunkInference } from '../utils/chunkInference';
 import { fixChunkStartEndChars } from '../utils/fixChunkStartEndChars';
 import type { AIClient } from '../utils/setupAI';
@@ -32,7 +32,7 @@ import type { AIClient } from '../utils/setupAI';
 /**
  * Review a file using block-aware alignment.
  * This approach:
- * 1. Segments both English and French documents into semantic blocks
+ * 1. Segments both base and target documents into semantic blocks
  * 2. Aligns blocks using structure (special chars, numbers) and context
  * 3. Detects which blocks changed, were added, or deleted
  * 4. Only sends changed/new blocks to AI for translation
@@ -53,8 +53,8 @@ export const reviewFileBlockAware = async (
   const configuration = getConfiguration(configOptions);
   const applicationLogger = getAppLogger(configuration);
 
-  const englishText = await readFile(baseFilePath, 'utf-8');
-  const frenchText = await readFile(outputFilePath, 'utf-8').catch(() => '');
+  const baseText = await readFile(baseFilePath, 'utf-8');
+  const targetText = await readFile(outputFilePath, 'utf-8').catch(() => '');
 
   const basePrompt = readAsset('./prompts/REVIEW_PROMPT.md', 'utf-8')
     .replaceAll('{{localeName}}', `${formatLocale(locale, false)}`)
@@ -74,15 +74,15 @@ export const reviewFileBlockAware = async (
   ].join('');
 
   // Build block-aware alignment and plan
-  const { englishBlocks, frenchBlocks, plan, segmentsToReview } =
+  const { baseBlocks, targetBlocks, plan, segmentsToReview } =
     buildAlignmentPlan({
-      englishText,
-      frenchText,
+      baseText,
+      targetText,
       changedLines,
     });
 
   applicationLogger(
-    `${filePrefix}Block-aware alignment complete. Total blocks: EN=${colorizeNumber(englishBlocks.length)}, FR=${colorizeNumber(frenchBlocks.length)}`
+    `${filePrefix}Block-aware alignment complete. Total blocks: base=${colorizeNumber(baseBlocks.length)}, target=${colorizeNumber(targetBlocks.length)}`
   );
   applicationLogger(
     `${filePrefix}Actions: reuse=${colorizeNumber(plan.actions.filter((a) => a.kind === 'reuse').length)}, review=${colorizeNumber(plan.actions.filter((a) => a.kind === 'review').length)}, new=${colorizeNumber(plan.actions.filter((a) => a.kind === 'insert_new').length)}, delete=${colorizeNumber(plan.actions.filter((a) => a.kind === 'delete').length)}`
@@ -95,7 +95,7 @@ export const reviewFileBlockAware = async (
     mkdirSync(dirname(outputFilePath), { recursive: true });
     writeFileSync(
       outputFilePath,
-      mergeReviewedSegments(plan, frenchBlocks, new Map())
+      mergeReviewedSegments(plan, targetBlocks, new Map())
     );
     applicationLogger(
       `${colorize('✔', ANSIColors.GREEN)} File ${formatPath(outputFilePath)} updated successfully (no changes needed).`
@@ -112,18 +112,18 @@ export const reviewFileBlockAware = async (
 
   for (const segment of segmentsToReview) {
     const segmentNumber = segmentsToReview.indexOf(segment) + 1;
-    const englishBlock = segment.englishBlock;
+    const baseBlock = segment.baseBlock;
 
     const getBaseChunkContextPrompt = () =>
       `**BLOCK ${segmentNumber} of ${segmentsToReview.length}** is the base block in ${formatLocale(baseLocale, false)} as reference.\n` +
       `///chunksStart///\n` +
-      englishBlock.content +
+      baseBlock.content +
       `///chunksEnd///`;
 
-    const getFrenchChunkPrompt = () =>
+    const getTargetChunkPrompt = () =>
       `**BLOCK ${segmentNumber} of ${segmentsToReview.length}** is the current block to review in ${formatLocale(locale, false)}.\n` +
       `///chunksStart///\n` +
-      (segment.frenchBlockText ?? '') +
+      (segment.targetBlockText ?? '') +
       `///chunksEnd///`;
 
     const reviewedChunkResult = await retryManager(async () => {
@@ -131,13 +131,13 @@ export const reviewFileBlockAware = async (
         [
           { role: 'system', content: basePrompt },
           { role: 'system', content: getBaseChunkContextPrompt() },
-          { role: 'system', content: getFrenchChunkPrompt() },
+          { role: 'system', content: getTargetChunkPrompt() },
           {
             role: 'system',
             content: `The next user message will be the **BLOCK ${colorizeNumber(segmentNumber)} of ${colorizeNumber(segmentsToReview.length)}** that should be translated in ${getLocaleName(locale, ENGLISH)} (${locale}).`,
           },
         ],
-        [{ role: 'user', content: englishBlock.content }],
+        [{ role: 'user', content: baseBlock.content }],
         aiOptions,
         configuration,
         aiClient,
@@ -151,18 +151,15 @@ export const reviewFileBlockAware = async (
       // Sanitize artifacts (e.g. Markdown code block wrappers)
       let processedChunk = sanitizeChunk(
         result?.fileContent,
-        englishBlock.content
+        baseBlock.content
       );
 
       // Fix start/end characters
-      processedChunk = fixChunkStartEndChars(
-        processedChunk,
-        englishBlock.content
-      );
+      processedChunk = fixChunkStartEndChars(processedChunk, baseBlock.content);
 
       // Validate Translation (YAML, Code fences, Length ratio)
       const isValid = validateTranslation(
-        englishBlock.content,
+        baseBlock.content,
         processedChunk,
         applicationLogger
       );
@@ -180,14 +177,14 @@ export const reviewFileBlockAware = async (
   }
 
   // Merge reviewed segments back into final document
-  const finalFrenchOutput = mergeReviewedSegments(
+  const finalTargetOutput = mergeReviewedSegments(
     plan,
-    frenchBlocks,
+    targetBlocks,
     reviewedSegmentsMap
   );
 
   mkdirSync(dirname(outputFilePath), { recursive: true });
-  writeFileSync(outputFilePath, finalFrenchOutput);
+  writeFileSync(outputFilePath, finalTargetOutput);
 
   applicationLogger(
     `${colorize('✔', ANSIColors.GREEN)} File ${formatPath(outputFilePath)} created/updated successfully.`

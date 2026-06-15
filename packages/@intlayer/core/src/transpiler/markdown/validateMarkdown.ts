@@ -21,17 +21,22 @@ const stripCode = (content: string): string => {
     // Allow leading whitespace and blockquote markers before the fence characters
     const fence = line.match(/^[\s>]*(`{3,}|~{3,})/);
     if (!inCodeBlock) {
-      if (fence) {
+      if (fence?.[1]) {
         inCodeBlock = true;
         openFence = fence[1];
         result.push('');
       } else {
-        // Also strip inline code spans on this line
-        result.push(line.replace(/`[^`\n]+`/g, (m) => ' '.repeat(m.length)));
+        // Also strip inline code spans on this line. Code spans may be
+        // delimited by a run of one or more backticks and end with a matching
+        // run of the same length (CommonMark), allowing shorter backtick runs
+        // inside (e.g. `` t`Hello ${name}` ``).
+        result.push(
+          line.replace(/(`+)(?:(?!\1).)+?\1/g, (m) => ' '.repeat(m.length))
+        );
       }
     } else {
       if (
-        fence &&
+        fence?.[1]?.[0] &&
         fence[1][0] === openFence![0] &&
         fence[1].length >= openFence!.length
       ) {
@@ -55,17 +60,17 @@ const validateCodeBlocks = (content: string): HTMLValidationIssue[] => {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     // Allow leading whitespace and blockquote markers before the fence characters
-    const fence = line.match(/^[\s>]*(`{3,}|~{3,})/);
+    const fence = line?.match(/^[\s>]*(`{3,}|~{3,})/);
 
     if (!inCodeBlock) {
-      if (fence) {
+      if (fence?.[1]) {
         inCodeBlock = true;
         openFence = fence[1];
         openLineNumber = i + 1;
       }
     } else {
       if (
-        fence &&
+        fence?.[1] &&
         fence[1][0] === openFence![0] &&
         fence[1].length >= openFence!.length
       ) {

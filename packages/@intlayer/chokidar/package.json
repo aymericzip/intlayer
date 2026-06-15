@@ -65,6 +65,11 @@
       "require": "./dist/cjs/scan/index.cjs",
       "import": "./dist/esm/scan/index.mjs"
     },
+    "./docReview": {
+      "types": "./dist/types/docReview/index.d.ts",
+      "require": "./dist/cjs/docReview/index.cjs",
+      "import": "./dist/esm/docReview/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
@@ -89,6 +94,9 @@
       ],
       "scan": [
         "./dist/types/scan/index.d.ts"
+      ],
+      "docReview": [
+        "./dist/types/docReview/index.d.ts"
       ],
       "package.json": [
         "./package.json"

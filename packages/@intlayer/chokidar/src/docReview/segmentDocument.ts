@@ -8,6 +8,16 @@ const isFrontmatterDelimiter = (line: string): boolean =>
 const trimTrailingNewlines = (text: string): string =>
   text.replace(/\n+$/g, '\n');
 
+/**
+ * Split a markdown document into blocks delimited by headings and frontmatter.
+ *
+ * Headings start a new block, frontmatter is kept as a single leading block, and
+ * fenced code blocks are tracked so headings inside them are not treated as
+ * section boundaries.
+ *
+ * @param text - The full markdown document.
+ * @returns The ordered list of blocks with their 1-based line ranges.
+ */
 export const segmentDocument = (text: string): Block[] => {
   const lines = text.split('\n');
   const blocks: Block[] = [];

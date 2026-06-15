@@ -156,6 +156,14 @@ describe('validateMarkdown', () => {
       expect(result.valid).toBe(true);
     });
 
+    it('should not validate HTML inside multi-backtick inline code', () => {
+      const content =
+        'Lingui utilizes macros (like `` t`Hello ${name}` `` and `<Trans>`) which compile to `i18n._(id, values)`.';
+
+      const result = validateMarkdown(content);
+      expect(result.valid).toBe(true);
+    });
+
     it('should validate HTML outside code blocks while ignoring HTML inside', () => {
       const content = [
         '<div>',

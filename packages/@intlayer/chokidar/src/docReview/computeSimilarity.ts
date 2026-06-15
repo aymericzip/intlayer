@@ -1,4 +1,11 @@
-// Character shingle Jaccard similarity (language agnostic)
+/**
+ * Generate the set of character shingles (substrings of a fixed length) for a
+ * piece of text. Whitespace is collapsed so the result is language agnostic.
+ *
+ * @param text - The text to shingle.
+ * @param shingleLength - The length of each shingle.
+ * @returns The set of unique shingles found in the text.
+ */
 export const generateCharacterShingles = (
   text: string,
   shingleLength: number
@@ -17,6 +24,14 @@ export const generateCharacterShingles = (
   return set;
 };
 
+/**
+ * Compute the Jaccard similarity between two strings using character shingles.
+ *
+ * @param a - First string.
+ * @param b - Second string.
+ * @param shingleLength - The shingle length (defaults to 3).
+ * @returns A score between 0 (disjoint) and 1 (identical).
+ */
 export const computeJaccardSimilarity = (
   a: string,
   b: string,
