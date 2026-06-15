@@ -164,7 +164,7 @@ export const NodeView: FC<NodeWrapperProps> = ({
   const handleRenameNodeKey = (keyName: string) => {
     renameEditedContent(dictionaryLocalId, keyName, keyPath);
     const prevKeyPath: KeyPath[] = keyPath.slice(0, -1);
-    const lastKeyPath: KeyPath = keyPath[keyPath.length - 1];
+    const lastKeyPath: KeyPath = keyPath[keyPath.length - 1]!;
     const newKeyPath: KeyPath[] = [
       ...prevKeyPath,
       { ...lastKeyPath, key: keyName } as KeyPath,
@@ -175,7 +175,7 @@ export const NodeView: FC<NodeWrapperProps> = ({
   return (
     <Container
       transparency="xl"
-      roundedSize="xl"
+      roundedSize="2xl"
       className="w-full min-w-80 gap-2 overflow-auto px-5 py-2"
       border
       borderColor="text"
