@@ -151,7 +151,7 @@ export default CarComponent;
 
 To use enumeration in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
 
-```vue fileName="**/*.vue" codeFormat="vue"
+```vue fileName="**/*.vue"
 <script setup lang="ts">
 import { useIntlayer } from "vue-intlayer";
 
@@ -170,7 +170,7 @@ const { numberOfCar } = useIntlayer("car_count");
 
 To use enumeration in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
 
-```svelte fileName="**/*.svelte" codeFormat="svelte"
+```svelte fileName="**/*.svelte"
 <script lang="ts">
 import { useIntlayer } from "svelte-intlayer";
 
@@ -338,7 +338,7 @@ export default RankingComponent;
 
 To use this in Vue components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
 
-```vue fileName="**/*.vue" codeFormat="vue"
+```vue fileName="**/*.vue"
 <script setup lang="ts">
 import { useIntlayer } from "vue-intlayer";
 
@@ -359,7 +359,7 @@ const { ordinal } = useIntlayer("ranking_component");
 
 To use this in Svelte components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
 
-```svelte fileName="**/*.svelte" codeFormat="svelte"
+```svelte fileName="**/*.svelte"
 <script lang="ts">
 import { useIntlayer } from "svelte-intlayer";
 
@@ -579,7 +579,7 @@ export default RankingComponent;
 
 To use this in Vue components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
 
-```vue fileName="**/*.vue" codeFormat="vue"
+```vue fileName="**/*.vue"
 <script setup lang="ts">
 import { useIntlayer } from "vue-intlayer";
 
@@ -600,7 +600,7 @@ const { ordinal } = useIntlayer("ranking_component");
 
 To use this in Svelte components, call the enumeration with the last digit of the number to get the correct suffix, then pass the full count as the insertion value:
 
-```svelte fileName="**/*.svelte" codeFormat="svelte"
+```svelte fileName="**/*.svelte"
 <script lang="ts">
 import { useIntlayer } from "svelte-intlayer";
 

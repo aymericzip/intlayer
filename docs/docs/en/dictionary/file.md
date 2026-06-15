@@ -114,7 +114,7 @@ export default FileComponent;
 
 To use embedded file content in Vue components, retrieve it via the `useIntlayer` hook. Here's an example:
 
-```vue fileName="**/*.vue" codeFormat="vue"
+```vue fileName="**/*.vue"
 <script setup lang="ts">
 import { useIntlayer } from "vue-intlayer";
 
@@ -133,7 +133,7 @@ const { myFile } = useIntlayer("my_key");
 
 To use embedded file content in Svelte components, retrieve it via the `useIntlayer` hook. The store is accessed with `$`. Here's an example:
 
-```svelte fileName="**/*.svelte" codeFormat="svelte"
+```svelte fileName="**/*.svelte"
 <script lang="ts">
 import { useIntlayer } from "svelte-intlayer";
 

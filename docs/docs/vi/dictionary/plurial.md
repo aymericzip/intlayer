@@ -86,7 +86,7 @@ export default OpeningsComponent;
 
 To use plural content in Vue components, retrieve it via the `useIntlayer` hook and call it with a count. Here's an example:
 
-```vue fileName="**/*.vue" codeFormat="vue"
+```vue fileName="**/*.vue"
 <script setup lang="ts">
 import { useIntlayer } from "vue-intlayer";
 
@@ -107,7 +107,7 @@ const { totalOpenings } = useIntlayer("total_openings");
 
 To use plural content in Svelte components, retrieve it via the `useIntlayer` hook and call it with a count. The store is accessed with `$`. Here's an example:
 
-```svelte fileName="**/*.svelte" codeFormat="svelte"
+```svelte fileName="**/*.svelte"
 <script lang="ts">
 import { useIntlayer } from "svelte-intlayer";
 

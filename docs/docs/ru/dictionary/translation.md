@@ -80,7 +80,7 @@ export default MyComponent;
 
 With `vue-intlayer`, you can use translations in Vue components. Here's an example:
 
-```vue fileName="**/*.vue" codeFormat="vue"
+```vue fileName="**/*.vue"
 <script setup lang="ts">
 import { useIntlayer } from "vue-intlayer";
 
@@ -99,7 +99,7 @@ const content = useIntlayer("multi_lang");
 
 With `svelte-intlayer`, you can use translations in Svelte components. The hook returns a Svelte store. Here's an example:
 
-```svelte fileName="**/*.svelte" codeFormat="svelte"
+```svelte fileName="**/*.svelte"
 <script lang="ts">
 import { useIntlayer } from "svelte-intlayer";
 
@@ -272,7 +272,7 @@ export default MyComponent;
 
 With `vue-intlayer`, you can use translations in Vue components. Here's an example:
 
-```vue fileName="**/*.vue" codeFormat="vue"
+```vue fileName="**/*.vue"
 <script setup lang="ts">
 import { useIntlayer } from "vue-intlayer";
 
@@ -291,7 +291,7 @@ const content = useIntlayer("multi_lang");
 
 With `svelte-intlayer`, you can use translations in Svelte components. The hook returns a Svelte store. Here's an example:
 
-```svelte fileName="**/*.svelte" codeFormat="svelte"
+```svelte fileName="**/*.svelte"
 <script lang="ts">
 import { useIntlayer } from "svelte-intlayer";
 
