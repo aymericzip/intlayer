@@ -38,6 +38,7 @@ export * from './LocaleSwitcherContentDropDown';
 export * from './LocaleSwitcherDropDown';
 export * from './Logo';
 export * from './MarkDownRender';
+export * from './MarkdownEditor';
 export * from './MaxHeightSmoother';
 export * from './MaxWidthSmoother';
 export * from './Modal';

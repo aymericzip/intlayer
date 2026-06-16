@@ -129,9 +129,11 @@ export type { FrameworkKey };
 export const I18nBenchmark = ({
   initialFramework,
   vertical = true,
+  hideControls = false,
 }: {
   initialFramework?: FrameworkKey;
   vertical?: boolean;
+  hideControls?: boolean;
 }) => {
   const {
     title,
@@ -316,40 +318,44 @@ export const I18nBenchmark = ({
             )}
 
             {/* Category toggles */}
-            <div className="mt-20 space-y-4">
-              {[
-                {
-                  id: 'dynamic',
-                  label: dynamicLoading,
-                  desc: dynamicLoadingDesc,
-                  value: dynamicEnabled,
-                  onChange: setDynamicEnabled,
-                },
-                {
-                  id: 'scoped',
-                  label: scopedNamespacing,
-                  desc: scopedNamespacingDesc,
-                  value: scopedEnabled,
-                  onChange: setScopedEnabled,
-                },
-              ].map(({ id, label, desc, value, onChange }) => (
-                <div
-                  key={id}
-                  className="flex items-start justify-between gap-4"
-                >
-                  <div>
-                    <p className="font-bold text-lg">{label}</p>
-                    <p className="text-neutral text-sm leading-snug">{desc}</p>
+            {!hideControls && (
+              <div className="mt-20 space-y-4">
+                {[
+                  {
+                    id: 'dynamic',
+                    label: dynamicLoading,
+                    desc: dynamicLoadingDesc,
+                    value: dynamicEnabled,
+                    onChange: setDynamicEnabled,
+                  },
+                  {
+                    id: 'scoped',
+                    label: scopedNamespacing,
+                    desc: scopedNamespacingDesc,
+                    value: scopedEnabled,
+                    onChange: setScopedEnabled,
+                  },
+                ].map(({ id, label, desc, value, onChange }) => (
+                  <div
+                    key={id}
+                    className="flex items-start justify-between gap-4"
+                  >
+                    <div>
+                      <p className="font-bold text-lg">{label}</p>
+                      <p className="text-neutral text-sm leading-snug">
+                        {desc}
+                      </p>
+                    </div>
+                    <SwitchSelector
+                      size="sm"
+                      value={value}
+                      onChange={onChange}
+                      color="text"
+                    />
                   </div>
-                  <SwitchSelector
-                    size="sm"
-                    value={value}
-                    onChange={onChange}
-                    color="text"
-                  />
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
           {!vertical && (
             <div className="flex flex-col gap-2">
@@ -535,21 +541,25 @@ export const I18nBenchmark = ({
                       </p>
                     </div>
                   </div>
-                  <div className="mt-6 flex flex-col gap-2 border-neutral/20 border-t pt-2 dark:border-neutral/10">
-                    <p className="font-semibold text-sm">{renderLabel.value}</p>
-                    <SwitchSelector
-                      size="sm"
-                      choices={[
-                        { content: renderGraph.value, value: 'graph' },
-                        { content: renderTable.value, value: 'table' },
-                        { content: renderJson.value, value: 'json' },
-                      ]}
-                      value={renderMode}
-                      onChange={(value) => setRenderMode(value as any)}
-                      className="w-full"
-                      color="text"
-                    />
-                  </div>
+                  {!hideControls && (
+                    <div className="mt-6 flex flex-col gap-2 border-neutral/20 border-t pt-2 dark:border-neutral/10">
+                      <p className="font-semibold text-sm">
+                        {renderLabel.value}
+                      </p>
+                      <SwitchSelector
+                        size="sm"
+                        choices={[
+                          { content: renderGraph.value, value: 'graph' },
+                          { content: renderTable.value, value: 'table' },
+                          { content: renderJson.value, value: 'json' },
+                        ]}
+                        value={renderMode}
+                        onChange={(value) => setRenderMode(value as any)}
+                        className="w-full"
+                        color="text"
+                      />
+                    </div>
+                  )}
                 </motion.div>
               </AnimatePresence>
             </div>

@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import type { FC, PropsWithChildren, RefObject } from 'react';
 import { ApplicationNotRunningView } from './ApplicationNotRunningView/ApplicationNotRunningView';
 import { CheckingApplicationStatusView } from './CheckingApplicationStatusView/CheckingApplicationStatusView';
+import { EditedContentPersistence } from './EditedContentPersistence';
 import { NoApplicationURLView } from './NoApplicationURLView/NoApplicationURLView';
 
 type EditorProviderProps = {
@@ -111,6 +112,7 @@ export const EditorProvider: FC<PropsWithChildren<EditorProviderProps>> = ({
       allowedOrigins={[applicationURL!]}
       configuration={intlayerConfig}
     >
+      <EditedContentPersistence />
       {children}
     </EditorProviderComponent>
   );

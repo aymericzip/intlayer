@@ -62,6 +62,14 @@ const LazyMarkdownRenderer = lazy(() =>
   }))
 );
 
+// Lazy-loaded so the Tiptap/Novel editor bundle is only fetched when a markdown
+// field is actually edited.
+const LazyMarkdownEditor = lazy(() =>
+  import('@components/MarkdownEditor').then((m) => ({
+    default: m.MarkdownEditor,
+  }))
+);
+
 // Renders children only after the accordion is first opened (mount-once pattern).
 // Prevents deeply nested sub-trees from mounting on initial render.
 type CollapsibleEditorProps = TextEditorProps & { label: string };
@@ -713,6 +721,7 @@ const ObjectTextEditor: FC<TextEditorProps> = ({
 
 enum MarkdownViewMode {
   Edit,
+  Raw,
   Preview,
 }
 
@@ -775,10 +784,15 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
   isDarkMode,
 }) => {
   const [mode, setMode] = useState(MarkdownViewMode.Edit);
+  const { addEditedContent } = useEditedContent();
   const toggleContent = [
     {
       content: 'Edit',
       value: MarkdownViewMode.Edit,
+    },
+    {
+      content: 'Raw',
+      value: MarkdownViewMode.Raw,
     },
     {
       content: 'Preview',
@@ -791,6 +805,11 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
     NodeTypes.MARKDOWN
   ] ?? '') as ContentNode;
 
+  // The WYSIWYG editor only handles a plain markdown string. When the markdown
+  // node wraps another node (e.g. `md(t({ ... }))`), fall back to the recursive
+  // editor so the inner translation/nested structure stays editable.
+  const isStringLeaf = typeof content === 'string';
+
   return (
     <div className="flex w-full flex-col justify-center gap-6 p-2">
       <SwitchSelector
@@ -802,22 +821,42 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
         className="ml-auto"
       />
 
-      <TextEditorContainer
-        section={content}
-        keyPath={childKeyPath}
-        dictionary={dictionary}
-        renderSection={
-          mode === MarkdownViewMode.Preview
-            ? (content) => (
-                <Suspense fallback={<Loader />}>
-                  <LazyMarkdownRenderer isDarkMode={isDarkMode}>
-                    {content}
-                  </LazyMarkdownRenderer>
-                </Suspense>
-              )
-            : undefined
-        }
-      />
+      {mode === MarkdownViewMode.Edit && isStringLeaf ? (
+        <Container
+          border
+          background="none"
+          roundedSize="2xl"
+          padding="lg"
+          className="w-full"
+        >
+          <Suspense fallback={<Loader />}>
+            <LazyMarkdownEditor
+              key={JSON.stringify(childKeyPath)}
+              defaultValue={content}
+              onChange={(markdown) =>
+                addEditedContent(dictionary.localId!, markdown, childKeyPath)
+              }
+            />
+          </Suspense>
+        </Container>
+      ) : (
+        <TextEditorContainer
+          section={content}
+          keyPath={childKeyPath}
+          dictionary={dictionary}
+          renderSection={
+            mode === MarkdownViewMode.Preview
+              ? (content) => (
+                  <Suspense fallback={<Loader />}>
+                    <LazyMarkdownRenderer isDarkMode={isDarkMode}>
+                      {content}
+                    </LazyMarkdownRenderer>
+                  </Suspense>
+                )
+              : undefined
+          }
+        />
+      )}
     </div>
   );
 };

@@ -7,6 +7,7 @@ import type {
   AuditContentDeclarationMetadataBody,
   AuditTagBody,
   AutocompleteBody,
+  CustomQueryBody,
   TranslateJSONBody,
 } from '@intlayer/backend';
 import { type UseQueryOptions, useMutation } from '@tanstack/react-query';
@@ -85,6 +86,15 @@ export const useAutocomplete = () => {
   return useMutation({
     mutationKey: ['ai-autocomplete'],
     mutationFn: (args?: AutocompleteBody) => aiAPI.autocomplete(args),
+  });
+};
+
+export const useCustomQuery = () => {
+  const aiAPI = useAiAPI();
+
+  return useMutation({
+    mutationKey: ['ai-customQuery'],
+    mutationFn: (args: CustomQueryBody) => aiAPI.customQuery(args),
   });
 };
 

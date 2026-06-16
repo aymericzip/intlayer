@@ -1,0 +1,297 @@
+/**
+ * Styles for the MarkdownEditor (Novel / Tiptap based) component.
+ *
+ * Exposed via the `@intlayer/design-system/markdown-editor.css` export and
+ * imported only by consumers that actually use the editor (currently the
+ * `apps/app` CMS dashboard), rather than from the shared `tailwind.css`
+ * entry — this keeps the ProseMirror specific rules (placeholder, task
+ * checkboxes, image placeholder, drag handle, tippy bubble) out of every
+ * other consumer's CSS bundle.
+ */
+
+:root,
+[data-theme="light"] {
+  --novel-highlight-default: #ffffff;
+  --novel-highlight-purple: #f6f3f8;
+  --novel-highlight-red: #fdebeb;
+  --novel-highlight-yellow: #fbf4a2;
+  --novel-highlight-blue: #c1ecf9;
+  --novel-highlight-green: #acf79f;
+  --novel-highlight-orange: #faebdd;
+  --novel-highlight-pink: #faf1f5;
+  --novel-highlight-gray: #f1f1ef;
+
+  --novel-black: #000000;
+  --novel-stone-100: rgba(231, 231, 231);
+  --novel-stone-200: rgba(209, 209, 209);
+  --novel-stone-800: rgba(69, 69, 69);
+}
+
+[data-theme="dark"] {
+  --novel-highlight-default: #000000;
+  --novel-highlight-purple: #3f2c4b;
+  --novel-highlight-red: #5c1a1a;
+  --novel-highlight-yellow: #5c4b1a;
+  --novel-highlight-blue: #1a3d5c;
+  --novel-highlight-green: #1a5c20;
+  --novel-highlight-orange: #5c3a1a;
+  --novel-highlight-pink: #5c1a3a;
+  --novel-highlight-gray: #3a3a3a;
+
+  --novel-black: #ffffff;
+  --novel-stone-100: rgba(69, 69, 69);
+  --novel-stone-200: rgba(79, 79, 79);
+  --novel-stone-800: rgba(231, 231, 231);
+}
+
+.ProseMirror {
+  outline: none;
+}
+
+.ProseMirror .is-editor-empty:first-child::before,
+.ProseMirror .is-empty::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: var(--muted-foreground);
+  pointer-events: none;
+  height: 0;
+}
+
+/* Content typography.
+ * This project ships no Tailwind `prose` (typography) plugin, so the editor
+ * content is styled explicitly here — scoped to `.ProseMirror` — mirroring the
+ * explicit heading components used by the markdown preview renderer. Without
+ * this, heading nodes inherit the Preflight reset and look like body text. */
+.ProseMirror h1,
+.ProseMirror h2,
+.ProseMirror h3,
+.ProseMirror h4,
+.ProseMirror h5,
+.ProseMirror h6 {
+  font-weight: 700;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.ProseMirror h1 {
+  font-size: 2rem;
+  margin: 1.5rem 0 1rem;
+}
+
+.ProseMirror h2 {
+  font-size: 1.5rem;
+  margin: 1.4rem 0 0.75rem;
+}
+
+.ProseMirror h3 {
+  font-size: 1.25rem;
+  margin: 1.2rem 0 0.5rem;
+}
+
+.ProseMirror h4 {
+  font-size: 1.125rem;
+  margin: 1rem 0 0.5rem;
+}
+
+.ProseMirror h5 {
+  font-size: 1rem;
+  margin: 1rem 0 0.5rem;
+}
+
+.ProseMirror h6 {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  margin: 1rem 0 0.5rem;
+}
+
+.ProseMirror p {
+  margin: 0.5rem 0;
+}
+
+.ProseMirror > :first-child {
+  margin-top: 0;
+}
+
+/* Images */
+.ProseMirror img {
+  transition: filter 0.1s ease-in-out;
+}
+
+.ProseMirror img:hover {
+  cursor: pointer;
+  filter: brightness(90%);
+}
+
+.ProseMirror img.ProseMirror-selectednode {
+  outline: 3px solid #5abbf7;
+  filter: brightness(90%);
+}
+
+.img-placeholder {
+  position: relative;
+}
+
+.img-placeholder::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 3px solid var(--novel-stone-200);
+  border-top-color: var(--novel-stone-800);
+  animation: novel-spinning 0.6s linear infinite;
+}
+
+@keyframes novel-spinning {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Task list checkboxes */
+ul[data-type="taskList"] {
+  list-style: none;
+  padding: 0;
+}
+
+ul[data-type="taskList"] li > label {
+  margin-right: 0.2rem;
+  user-select: none;
+}
+
+@media screen and (max-width: 768px) {
+  ul[data-type="taskList"] li > label {
+    margin-right: 0.5rem;
+  }
+}
+
+ul[data-type="taskList"] li > label input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--background);
+  margin: 0;
+  cursor: pointer;
+  width: 1.2em;
+  height: 1.2em;
+  position: relative;
+  top: 5px;
+  border: 2px solid var(--border);
+  margin-right: 0.3rem;
+  display: grid;
+  place-content: center;
+}
+
+ul[data-type="taskList"] li > label input[type="checkbox"]:hover {
+  background-color: var(--accent);
+}
+
+ul[data-type="taskList"] li > label input[type="checkbox"]:active {
+  background-color: var(--accent);
+}
+
+ul[data-type="taskList"] li > label input[type="checkbox"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em;
+  transform-origin: center;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+ul[data-type="taskList"] li > label input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+ul[data-type="taskList"] li[data-checked="true"] > div > p {
+  color: var(--muted-foreground);
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+
+/* Bubble menu (tippy) */
+.tippy-box {
+  /* biome-ignore lint/complexity/noImportantStyles: override third-party tippy.js inline max-width */
+  max-width: 400px !important;
+}
+
+.ProseMirror:not(.dragging) .ProseMirror-selectednode {
+  /* biome-ignore lint/complexity/noImportantStyles: override ProseMirror default selected-node outline */
+  outline: none !important;
+  background-color: var(--novel-highlight-blue);
+  transition: background-color 0.2s;
+  box-shadow: none;
+}
+
+/* Global drag handle */
+.drag-handle {
+  position: fixed;
+  opacity: 1;
+  transition: opacity ease-in 0.2s;
+  border-radius: 0.25rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10' style='fill: rgba(0, 0, 0, 0.5)'%3E%3Cpath d='M3,2 C2.44771525,2 2,1.55228475 2,1 C2,0.44771525 2.44771525,0 3,0 C3.55228475,0 4,0.44771525 4,1 C4,1.55228475 3.55228475,2 3,2 Z M3,6 C2.44771525,6 2,5.55228475 2,5 C2,4.44771525 2.44771525,4 3,4 C3.55228475,4 4,4.44771525 4,5 C4,5.55228475 3.55228475,6 3,6 Z M3,10 C2.44771525,10 2,9.55228475 2,9 C2,8.44771525 2.44771525,8 3,8 C3.55228475,8 4,8.44771525 4,9 C4,9.55228475 3.55228475,10 3,10 Z M7,2 C6.44771525,2 6,1.55228475 6,1 C6,0.44771525 6.44771525,0 7,0 C7.55228475,0 8,0.44771525 8,1 C8,1.55228475 7.55228475,2 7,2 Z M7,6 C6.44771525,6 6,5.55228475 6,5 C6,4.44771525 6.44771525,4 7,4 C7.55228475,4 8,4.44771525 8,5 C8,5.55228475 7.55228475,6 7,6 Z M7,10 C6.44771525,10 6,9.55228475 6,9 C6,8.44771525 6.44771525,8 7,8 C7.55228475,8 8,8.44771525 8,9 C8,9.55228475 7.55228475,10 7,10 Z'%3E%3C/path%3E%3C/svg%3E");
+  background-size: calc(0.5em + 0.375rem) calc(0.5em + 0.375rem);
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 1.2rem;
+  height: 1.5rem;
+  z-index: 50;
+  cursor: grab;
+}
+
+.drag-handle:hover {
+  background-color: var(--novel-stone-100);
+  transition: background-color 0.2s;
+}
+
+.drag-handle:active {
+  background-color: var(--novel-stone-200);
+  transition: background-color 0.2s;
+  cursor: grabbing;
+}
+
+.drag-handle.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media screen and (max-width: 600px) {
+  .drag-handle {
+    display: none;
+    pointer-events: none;
+  }
+}
+
+[data-theme="dark"] .drag-handle {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10' style='fill: rgba(255, 255, 255, 0.5)'%3E%3Cpath d='M3,2 C2.44771525,2 2,1.55228475 2,1 C2,0.44771525 2.44771525,0 3,0 C3.55228475,0 4,0.44771525 4,1 C4,1.55228475 3.55228475,2 3,2 Z M3,6 C2.44771525,6 2,5.55228475 2,5 C2,4.44771525 2.44771525,4 3,4 C3.55228475,4 4,4.44771525 4,5 C4,5.55228475 3.55228475,6 3,6 Z M3,10 C2.44771525,10 2,9.55228475 2,9 C2,8.44771525 2.44771525,8 3,8 C3.55228475,8 4,8.44771525 4,9 C4,9.55228475 3.55228475,10 3,10 Z M7,2 C6.44771525,2 6,1.55228475 6,1 C6,0.44771525 6.44771525,0 7,0 C7.55228475,0 8,0.44771525 8,1 C8,1.55228475 7.55228475,2 7,2 Z M7,6 C6.44771525,6 6,5.55228475 6,5 C6,4.44771525 6.44771525,4 7,4 C7.55228475,4 8,4.44771525 8,5 C8,5.55228475 7.55228475,6 7,6 Z M7,10 C6.44771525,10 6,9.55228475 6,9 C6,8.44771525 6.44771525,8 7,8 C7.55228475,8 8,8.44771525 8,9 C8,9.55228475 7.55228475,10 7,10 Z'%3E%3C/path%3E%3C/svg%3E");
+}
+
+/* Shiki code-block highlighting (tiptap-extension-code-block-shiki).
+ * The extension renders the light theme inline and adds a `--shiki-dark`
+ * CSS variable on every token for the dark theme. Keep the block background
+ * consistent with the rest of the editor (`bg-muted`) and swap token colors
+ * under the dark theme. */
+.ProseMirror pre.shiki {
+  /* biome-ignore lint/complexity/noImportantStyles: override shiki inline background-color on the <pre> node */
+  background-color: var(--muted) !important;
+}
+
+[data-theme="dark"] .ProseMirror pre.shiki span {
+  /* biome-ignore lint/complexity/noImportantStyles: override shiki inline token color with the dark-theme variable */
+  color: var(--shiki-dark, inherit) !important;
+}
+
+/* AI highlight */
+.ProseMirror .novel-ai-highlight {
+  background-color: var(--novel-highlight-purple);
+}
+
+/* Bold inside colored / highlighted spans should inherit color */
+span[style] > strong,
+mark[style] > strong {
+  color: inherit;
+}

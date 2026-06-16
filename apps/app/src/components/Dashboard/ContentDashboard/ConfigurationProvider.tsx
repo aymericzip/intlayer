@@ -2,6 +2,7 @@ import { useSession } from '@intlayer/design-system/api';
 import { EditorProvider } from '@intlayer/editor-react';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { FC, PropsWithChildren } from 'react';
+import { EditedContentPersistence } from '#components/Dashboard/Editor/EditedContentPersistence';
 
 /**
  * Provides a standalone EditorStateManager (no iframe) for the content
@@ -28,6 +29,7 @@ export const EditorConfigurationProvider: FC<PropsWithChildren> = ({
       postMessage={() => {}}
       allowedOrigins={[]}
     >
+      <EditedContentPersistence />
       {children}
     </EditorProvider>
   );
