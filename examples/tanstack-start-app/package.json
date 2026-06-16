@@ -16,7 +16,7 @@
     "intlayer:build": "intlayer build"
   },
   "dependencies": {
-    "@tailwindcss/vite": "4.3.0",
+    "@tailwindcss/vite": "4.3.1",
     "@tanstack/react-query": "5.101.0",
     "@tanstack/react-router": "1.170.13",
     "@tanstack/react-router-devtools": "1.167.0",
@@ -28,7 +28,7 @@
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "react-intlayer": "workspace:*",
-    "tailwindcss": "4.3.0"
+    "tailwindcss": "4.3.1"
   },
   "devDependencies": {
     "@testing-library/dom": "10.4.1",
@@ -40,7 +40,7 @@
     "typescript": "6.0.3",
     "vite": "8.0.16",
     "vite-intlayer": "workspace:*",
-    "vitest": "4.1.8",
+    "vitest": "4.1.9",
     "web-vitals": "5.3.0"
   }
 }

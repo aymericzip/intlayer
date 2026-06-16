@@ -24,11 +24,11 @@
   "devDependencies": {
     "@react-router/dev": "7.16.0",
     "@react-router/fs-routes": "7.16.0",
-    "@tailwindcss/vite": "4.3.0",
+    "@tailwindcss/vite": "4.3.1",
     "@types/node": "20",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
-    "tailwindcss": "4.3.0",
+    "tailwindcss": "4.3.1",
     "typescript": "6.0.3",
     "vite": "8.0.16",
     "vite-intlayer": "workspace:*"

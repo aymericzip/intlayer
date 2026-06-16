@@ -20,14 +20,14 @@
   "devDependencies": {
     "@intlayer/ai": "workspace:*",
     "@intlayer/swc": "workspace:*",
-    "@tailwindcss/postcss": "4.3.0",
+    "@tailwindcss/postcss": "4.3.1",
     "@types/node": "25.9.3",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
     "eslint": "10.4.1",
     "eslint-config-next": "16.2.9",
     "next-intl": "4.13.0",
-    "tailwindcss": "4.3.0",
+    "tailwindcss": "4.3.1",
     "typescript": "6.0.3"
   }
 }

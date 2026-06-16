@@ -32,7 +32,7 @@
     "@posthog/react": "1.9.1",
     "@rolldown/plugin-babel": "0.2.3",
     "@tailwindcss/aspect-ratio": "0.4.2",
-    "@tailwindcss/vite": "4.3.0",
+    "@tailwindcss/vite": "4.3.1",
     "@tanstack/match-sorter-utils": "8.19.4",
     "@tanstack/react-devtools": "0.10.5",
     "@tanstack/react-query": "5.101.0",
@@ -46,7 +46,7 @@
     "framer-motion": "12.40.0",
     "fuse.js": "7.4.2",
     "intlayer": "workspace:*",
-    "lucide-react": "1.17.0",
+    "lucide-react": "1.20.0",
     "next-themes": "0.4.6",
     "nitro": "latest",
     "posthog-js": "1.383.1",
@@ -55,7 +55,7 @@
     "react-hook-form": "7.78.0",
     "react-intlayer": "workspace:*",
     "server-only": "0.0.1",
-    "tailwindcss": "4.3.0",
+    "tailwindcss": "4.3.1",
     "zod": "4.4.3"
   },
   "devDependencies": {
@@ -73,6 +73,6 @@
     "vite": "8.0.16",
     "vite-intlayer": "workspace:*",
     "vite-plugin-wasm": "3.6.0",
-    "vitest": "4.1.8"
+    "vitest": "4.1.9"
   }
 }

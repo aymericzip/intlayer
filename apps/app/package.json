@@ -37,7 +37,7 @@
     "test": "bun --bun vitest run"
   },
   "dependencies": {
-    "@better-auth/sso": "1.6.16",
+    "@better-auth/sso": "1.6.19",
     "@electron-toolkit/utils": "4.0.0",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
@@ -55,7 +55,7 @@
     "@stripe/react-stripe-js": "6.6.0",
     "@stripe/stripe-js": "9.7.0",
     "@tailwindcss/aspect-ratio": "0.4.2",
-    "@tailwindcss/vite": "4.3.0",
+    "@tailwindcss/vite": "4.3.1",
     "@tanstack/match-sorter-utils": "8.19.4",
     "@tanstack/react-devtools": "0.10.5",
     "@tanstack/react-query": "5.101.0",
@@ -71,10 +71,10 @@
     "framer-motion": "12.40.0",
     "fuse.js": "7.4.2",
     "intlayer": "workspace:*",
-    "lucide-react": "1.17.0",
+    "lucide-react": "1.20.0",
     "next-themes": "0.4.6",
     "nitro": "latest",
-    "posthog-js": "1.386.6",
+    "posthog-js": "1.387.0",
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "react-hook-form": "7.78.0",
@@ -84,7 +84,7 @@
     "react-virtuoso": "4.18.7",
     "server-only": "0.0.1",
     "stripe": "22.2.0",
-    "tailwindcss": "4.3.0",
+    "tailwindcss": "4.3.1",
     "vinxi": "0.5.11",
     "zod": "4.4.3"
   },
@@ -108,7 +108,7 @@
     "vite": "8.0.16",
     "vite-intlayer": "workspace:*",
     "vite-plugin-wasm": "3.6.0",
-    "vitest": "4.1.8",
+    "vitest": "4.1.9",
     "workbox-build": "7.4.1"
   }
 }
