@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-05-12
+updatedAt: 2026-06-17
 title: Configuratie (Configuration)
 description: Leer hoe u Intlayer configureert voor uw applicatie. Begrijp de verschillende instellingen en opties die beschikbaar zijn om Intlayer aan uw behoeften aan te passen.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.10.0
+    date: 2026-06-17
+    changes: "Optie `format` toegevoegd aan de woordenboekconfiguratie"
   - version: 8.9.4
     date: 2026-05-12
     changes: "Ondersteuning voor LM Studio-provider toegevoegd"
@@ -135,6 +138,7 @@ Intlayer accepteert JSON-, JS-, MJS- en TS-configuratiebestandsformaten:
 ````typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
+import { syncJSON } from "@intlayer/sync-json-plugin";
 import { z } from "zod";
 
 /**
@@ -583,9 +587,37 @@ const config: IntlayerConfig = {
   },
 
   /**
-   * Configuratie van plugins.
+   * Woordenboekconfiguratie.
    */
-  plugins: [],
+  dictionary: {
+    /**
+     * Bepaalt hoe woordenboeken worden geïmporteerd.
+     * - "static": Statisch geïmporteerd tijdens de build.
+     * - "dynamic": Dynamisch geïmporteerd via Suspense.
+     * - "fetch": Dynamisch opgehaald via de live sync API.
+     */
+    importMode: "static",
+
+    /**
+     * Het standaard berichtformaat voor alle woordenboeken in het project.
+     * - 'intlayer': Native intlayer-formaat (standaard).
+     * - 'icu': ICU-berichtformaat.
+     * - 'i18next': i18next-formaat.
+     * - 'vue-i18n': Vue I18n-formaat.
+     * - 'po': GNU Gettext PO-formaat.
+     */
+    format: "icu",
+  },
+
+  /**
+   * Plugin-configuratie.
+   */
+  plugins: [
+    syncJSON({
+      format: "icu",
+      source: ({ locale }) => `./messages/${locale}.json`,
+    }),
+  ],
 };
 
 export default config;
@@ -862,6 +894,7 @@ Parameters die operaties met woordenboeken regelen, inclusief het gedrag bij aut
 | `contentAutoTransformation` | Transformeert de contentstrings automatisch naar getypeerde nodes (markdown, HTML of invoeging).                                                                                       | `boolean` &#124; <br/> `{ markdown?: boolean; html?: boolean; insertion?: boolean }`                            | `false`        | `true`                                                                                      | • Markdown : `### Title` → `md('### Title')`.<br/>• HTML : `<div>Title</div>` → `html('<div>Title</div>')`.<br/>• Invoeging : `Hello {{name}}` → `insert('Hello {{name}}')`.                                                                                                                                                                                                                                   |
 | `location`                  | Geeft aan waar de woordenboekbestanden worden bewaard en hoe ze worden gesynchroniseerd met de CMS.                                                                                    | `'local'` &#124; <br/> `'remote'` &#124; <br/> `'hybrid'` &#124; <br/> `'plugin'` &#124; <br/> `string`         | `'local'`      | `'hybrid'`                                                                                  | • `'local'`: alleen lokaal beheer.<br/>• `'remote'`: alleen extern beheer (CMS).<br/>• `'hybrid'`: zowel lokaal als extern beheer.<br/>• `'plugin'` of een aangepaste string: beheer door een plugin of aangepaste bron.                                                                                                                                                                                       |
 | `importMode`                | Beheert de manier waarop woordenboeken worden geimporteerd.                                                                                                                            | `'static'` &#124; <br/> `'dynamic'` &#124; <br/> `'fetch'`                                                      | `'static'`     | `'dynamic'`                                                                                 | • `'static'`: statische import.<br/>• `'dynamic'`: dynamische import via Suspense.<br/>• `'fetch'`: ophalen via Live Sync API; uitstel tot `'dynamic'` bij mislukking.<br/>• Vereist plug-ins `@intlayer/babel` en `@intlayer/swc`.<br/>• Sleutels moeten statisch worden gedeclareerd.<br/>• Wordt genegeerd als `optimize` is uitgeschakeld.<br/>• Heeft geen invloed op `getIntlayer`, `getDictionary` enz. |
+| `format`                    | Het standaard berichtformaat voor alle woordenboeken in het project.                                                                                                                   | `'intlayer'` &#124; <br/> `'icu'` &#124; <br/> `'i18next'` &#124; <br/> `'vue-i18n'` &#124; <br/> `'po'`        | `'intlayer'`   | `'icu'`                                                                                     | • `'intlayer'`: Native intlayer-formaat.<br/>• `'icu'`: ICU-berichtformaat.<br/>• `'i18next'`: i18next-formaat.<br/>• `'vue-i18n'`: Vue I18n-formaat.<br/>• `'po'`: GNU Gettext PO-formaat.                                                                                                                                                                                                                    |
 | `priority`                  | Prioriteit van het woordenboek. Hogere waarden winnen van lagere bij het oplossen van conflicten tussen woordenboeken.                                                                 | `number`                                                                                                        | `undefined`    | `1`                                                                                         |                                                                                                                                                                                                                                                                                                                                                                                                                |
 | `live`                      | Verouderd - gebruik `importMode: 'fetch'`. Geeft aan of de inhoud van het woordenboek dynamisch via de Live Sync API moet worden opgehaald.                                            | `boolean`                                                                                                       | `undefined`    |                                                                                             | Hernoemd naar `importMode: 'fetch'` in v8.0.0.                                                                                                                                                                                                                                                                                                                                                                 |
 | `schema`                    | Automatisch gegenereerd door Intlayer voor validatie van het JSON-schema.                                                                                                              | `'https://intlayer.org/schema.json'`                                                                            | auto-generatie |                                                                                             | Niet handmatig bewerken.                                                                                                                                                                                                                                                                                                                                                                                       |

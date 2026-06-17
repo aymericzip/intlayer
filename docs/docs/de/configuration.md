@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-05-12
+updatedAt: 2026-06-17
 title: Konfiguration (Configuration)
 description: Erfahren Sie, wie Sie Intlayer für Ihre Anwendung konfigurieren. Verstehen Sie die verschiedenen Einstellungen und Optionen, um Intlayer an Ihre Bedürfnisse anzupassen.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.10.0
+    date: 2026-06-17
+    changes: "Option `format` zur Wörterbuchkonfiguration hinzugefügt"
   - version: 8.9.4
     date: 2026-05-12
     changes: "Unterstützung für LM Studio-Anbieter hinzugefügt"
@@ -135,6 +138,7 @@ Intlayer akzeptiert die Konfigurationsdateiformate JSON, JS, MJS und TS:
 ````typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
+import { syncJSON } from "@intlayer/sync-json-plugin";
 import { z } from "zod";
 
 /**
@@ -586,9 +590,37 @@ const config: IntlayerConfig = {
   },
 
   /**
+   * Wörterbuchkonfiguration.
+   */
+  dictionary: {
+    /**
+     * Steuert, wie Wörterbücher importiert werden.
+     * - "static": Statisch zur Build-Zeit importiert.
+     * - "dynamic": Dynamisch über Suspense importiert.
+     * - "fetch": Dynamisch über die Live-Sync-API abgerufen.
+     */
+    importMode: "static",
+
+    /**
+     * Das Standard-Nachrichtenformat für alle Wörterbücher im Projekt.
+     * - 'intlayer': Natives intlayer-Format (Standard).
+     * - 'icu': ICU-Nachrichtenformat.
+     * - 'i18next': i18next-Format.
+     * - 'vue-i18n': Vue I18n-Format.
+     * - 'po': GNU Gettext PO-Format.
+     */
+    format: "icu",
+  },
+
+  /**
    * Plugin-Konfiguration.
    */
-  plugins: [],
+  plugins: [
+    syncJSON({
+      format: "icu",
+      source: ({ locale }) => `./messages/${locale}.json`,
+    }),
+  ],
 };
 
 export default config;
@@ -865,6 +897,7 @@ Einstellungen, die Wörterbuchoperationen steuern, einschließlich automatischem
 | `contentAutoTransformation` | Transformiert Inhaltsstrings automatisch in typisierte Knoten (Markdown, HTML oder Insertion).                                                                                         | `boolean` &#124; <br/> `{ markdown?: boolean; html?: boolean; insertion?: boolean }`                            | `false`               | `true`                                                                                      | • Markdown : `### Title` → `md('### Title')`.<br/>• HTML : `<div>Title</div>` → `html('<div>Title</div>')`.<br/>• Insertion : `Hallo {{name}}` → `insert('Hallo {{name}}')`.                                                                                                                                                                                                                                                    |
 | `location`                  | Gibt an, wo Wörterbuchdateien gespeichert werden und wie sie mit dem CMS synchronisiert werden.                                                                                        | `'local'` &#124; <br/> `'remote'` &#124; <br/> `'hybrid'` &#124; <br/> `'plugin'` &#124; <br/> `string`         | `'local'`             | `'hybrid'`                                                                                  | • `'local'`: Nur lokal verwaltet.<br/>• `'remote'`: Nur remote verwaltet (CMS).<br/>• `'hybrid'`: Sowohl lokal als auch remote verwaltet.<br/>• `'plugin'` oder benutzerdefinierter String: Von einem Plugin oder einer benutzerdefinierten Quelle verwaltet.                                                                                                                                                                   |
 | `importMode`                | Steuert, wie Wörterbücher importiert werden.                                                                                                                                           | `'static'` &#124; <br/> `'dynamic'` &#124; <br/> `'fetch'`                                                      | `'static'`            | `'dynamic'`                                                                                 | • `'static'`: Statisch importiert.<br/>• `'dynamic'`: Dynamisch mittels Suspense importiert.<br/>• `'fetch'`: Über Live Sync API abgerufen; Fallback auf `'dynamic'`, falls fehlgeschlagen.<br/>• Erfordert `@intlayer/babel` und `@intlayer/swc` Plugins.<br/>• Schlüssel müssen statisch deklariert sein.<br/>• Wird ignoriert, wenn `optimize` deaktiviert ist.<br/>• Beeinflusst nicht `getIntlayer`, `getDictionary`, etc. |
+| `format`                    | Das Standard-Nachrichtenformat für alle Wörterbücher im Projekt.                                                                                                                       | `'intlayer'` &#124; <br/> `'icu'` &#124; <br/> `'i18next'` &#124; <br/> `'vue-i18n'` &#124; <br/> `'po'`        | `'intlayer'`          | `'icu'`                                                                                     | • `'intlayer'`: Natives intlayer-Format.<br/>• `'icu'`: ICU-Nachrichtenformat.<br/>• `'i18next'`: i18next-Format.<br/>• `'vue-i18n'`: Vue I18n-Format.<br/>• `'po'`: GNU Gettext PO-Format.                                                                                                                                                                                                                                     |
 | `priority`                  | Priorität des Wörterbuchs. Höhere Werte gewinnen beim Lösen von Konflikten zwischen Wörterbüchern.                                                                                     | `number`                                                                                                        | `undefined`           | `1`                                                                                         |                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `live`                      | Veraltet - stattdessen `importMode: 'fetch'` verwenden. Gibt an, ob Wörterbuchinhalte dynamisch über die Live Sync API abgerufen werden sollen.                                        | `boolean`                                                                                                       | `undefined`           |                                                                                             | In v8.0.0 in `importMode: 'fetch'` umbenannt.                                                                                                                                                                                                                                                                                                                                                                                   |
 | `schema`                    | Wird automatisch von Intlayer für die JSON-Schema-Validierung generiert.                                                                                                               | `'https://intlayer.org/schema.json'`                                                                            | automatisch generiert |                                                                                             | Nicht manuell bearbeiten.                                                                                                                                                                                                                                                                                                                                                                                                       |

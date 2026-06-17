@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-05-12
+updatedAt: 2026-06-17
 title: الإعدادات (Configuration)
 description: تعرف على كيفية إعداد Intlayer لتطبيقك. افهم الإعدادات والخيارات المختلفة المتاحة لتخصيص Intlayer وفقًا لاحتياجاتك.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.10.0
+    date: 2026-06-17
+    changes: "إضافة خيار `format` إلى تكوين القاموس"
   - version: 8.9.4
     date: 2026-05-12
     changes: "إضافة دعم لمزود LM Studio"
@@ -135,6 +138,7 @@ author: aymericzip
 ````typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
+import { syncJSON } from "@intlayer/sync-json-plugin";
 import { z } from "zod";
 
 /**
@@ -576,9 +580,37 @@ const config: IntlayerConfig = {
   },
 
   /**
-   * إعدادات الإضافات.
+   * تكوين القاموس.
    */
-  plugins: [],
+  dictionary: {
+    /**
+     * يتحكم في كيفية استيراد القواميس.
+     * - "static": يتم استيرادها بشكل ثابت في وقت البناء.
+     * - "dynamic": يتم استيرادها ديناميكيًا باستخدام Suspense.
+     * - "fetch": يتم جلبها ديناميكيًا عبر واجهة برمجة تطبيقات المزامنة المباشرة.
+     */
+    importMode: "static",
+
+    /**
+     * تنسيق الرسالة الافتراضي لجميع القواميس في المشروع.
+     * - 'intlayer': تنسيق intlayer الأصلي (الافتراضي).
+     * - 'icu': تنسيق رسالة ICU.
+     * - 'i18next': تنسيق i18next.
+     * - 'vue-i18n': تنسيق Vue I18n.
+     * - 'po': تنسيق GNU Gettext PO.
+     */
+    format: "icu",
+  },
+
+  /**
+   * تكوين الإضافات.
+   */
+  plugins: [
+    syncJSON({
+      format: "icu",
+      source: ({ locale }) => `./messages/${locale}.json`,
+    }),
+  ],
 };
 
 export default config;
@@ -855,6 +887,7 @@ export default config;
 | `contentAutoTransformation` | يحول سلاسل المحتوى تلقائياً إلى عقد ذات أنواع (markdown أو HTML أو إدراج).                                         | `boolean` &#124; <br/> `{ markdown?: boolean; html?: boolean; insertion?: boolean }`                            | `false`      | `true`                                                                                      | • Markdown : `### Title` → `md('### Title')`. <br/> • HTML : `<div>Title</div>` → `html('<div>Title</div>')`. <br/> • إدراج : `Hello {{name}}` → `insert('Hello {{name}}')`.                                                                                                                                                                                            |
 | `location`                  | يشير إلى مكان تخزين ملفات القاموس وكيفية مزامنتها مع CMS.                                                          | `'local'` &#124; <br/> `'remote'` &#124; <br/> `'hybrid'` &#124; <br/> `'plugin'` &#124; <br/> `string`         | `'local'`    | `'hybrid'`                                                                                  | • `'local'`: إدارة محلية فقط. <br/> • `'remote'`: إدارة عن بعد فقط (CMS). <br/> • `'hybrid'`: إدارة محلية وعن بعد معاً. <br/> • `'plugin'` أو سلسلة مخصصة: إدارة بواسطة إضافة أو مصدر مخصص.                                                                                                                                                                             |
 | `importMode`                | يتحكم في طريقة استيراد القواميس.                                                                                   | `'static'` &#124; <br/> `'dynamic'` &#124; <br/> `'fetch'`                                                      | `'static'`   | `'dynamic'`                                                                                 | • `'static'`: استيراد ثابت. <br/> • `'dynamic'`: استيراد ديناميكي عبر Suspense. <br/> • `'fetch'`: جلب عبر Live Sync API؛ التراجع إلى `'dynamic'` عند الفشل. <br/> • يتطلب إضافات `@intlayer/babel` و `@intlayer/swc`. <br/> • يجب الإعلان عن المفاتيح بشكل ثابت. <br/> • يتم تجاهله إذا تم إيقاف `optimize`. <br/> • لا يؤثر على `getIntlayer` أو `getDictionary` إلخ. |
+| `format`                    | تنسيق الرسالة الافتراضي لجميع القواميس في المشروع.                                                                 | `'intlayer'` &#124; <br/> `'icu'` &#124; <br/> `'i18next'` &#124; <br/> `'vue-i18n'` &#124; <br/> `'po'`        | `'intlayer'` | `'icu'`                                                                                     | • `'intlayer'`: تنسيق intlayer الأصلي.<br/>• `'icu'`: تنسيق رسالة ICU.<br/>• `'i18next'`: تنسيق i18next.<br/>• `'vue-i18n'`: تنسيق Vue I18n.<br/>• `'po'`: تنسيق GNU Gettext PO.                                                                                                                                                                                        |
 | `priority`                  | أولوية القاموس. تفوز القيم الأعلى على القيم الأدنى عند حل التعارضات بين القواميس.                                  | `number`                                                                                                        | `undefined`  | `1`                                                                                         |                                                                                                                                                                                                                                                                                                                                                                         |
 | `live`                      | ملغي - استخدم `importMode: 'fetch'`. كان يشير إلى ما إذا كان ينبغي جلب محتوى القاموس ديناميكياً عبر Live Sync API. | `boolean`                                                                                                       | `undefined`  |                                                                                             | تم تغيير اسمه إلى `importMode: 'fetch'` في v8.0.0.                                                                                                                                                                                                                                                                                                                      |
 | `schema`                    | يتم توليده تلقائياً بواسطة Intlayer للتحقق من صحة JSON schema.                                                     | `'https://intlayer.org/schema.json'`                                                                            | توليد تلقائي |                                                                                             | لا تقم بتحريره يدوياً.                                                                                                                                                                                                                                                                                                                                                  |

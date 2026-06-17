@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-05-12
+updatedAt: 2026-06-17
 title: কনফিগারেশন (Configuration)
 description: আপনার অ্যাপ্লিকেশনের জন্য Intlayer কীভাবে কনফিগার করবেন তা শিখুন। আপনার প্রয়োজন অনুযায়ী Intlayer কাস্টমাইজ করতে উপলব্ধ বিভিন্ন সেটিংস এবং বিকল্পগুলি বুঝুন।
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.10.0
+    date: 2026-06-17
+    changes: "ডিকশনারি কনফিগারেশনে `format` অপশন যোগ করা হয়েছে"
   - version: 8.9.4
     date: 2026-05-12
     changes: "LM Studio প্রদানকারীর জন্য সমর্থন যোগ করুন"
@@ -135,6 +138,7 @@ Intlayer JSON, JS, MJS এবং TS কনফিগারেশন ফাইল 
 ````typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
+import { syncJSON } from "@intlayer/sync-json-plugin";
 import { z } from "zod";
 
 /**
@@ -576,9 +580,37 @@ const config: IntlayerConfig = {
   },
 
   /**
-   * প্লাগইনস কনফিগারেশন।
+   * ডিকশনারি কনফিগারেশন।
    */
-  plugins: [],
+  dictionary: {
+    /**
+     * ডিকশনারি কিভাবে ইম্পোর্ট করা হবে তা নিয়ন্ত্রণ করে。
+     * - "static": বিল্ড টাইমে স্ট্যাটিকভাবে ইম্পোর্ট করা হয়。
+     * - "dynamic": Suspense ব্যবহার করে ডাইনামিকভাবে ইম্পোর্ট করা হয়。
+     * - "fetch": লাইভ সিঙ্ক API এর মাধ্যমে ডাইনামিকভাবে ফেচ করা হয়।
+     */
+    importMode: "static",
+
+    /**
+     * প্রজেক্টের সমস্ত ডিকশনারির জন্য ডিফল্ট মেসেজ ফরম্যাট。
+     * - 'intlayer': নেটিভ intlayer ফরম্যাট (ডিফল্ট)।
+     * - 'icu': ICU মেসেজ ফরম্যাট。
+     * - 'i18next': i18next ফরম্যাট。
+     * - 'vue-i18n': Vue I18n ফরম্যাট。
+     * - 'po': GNU Gettext PO ফরম্যাট।
+     */
+    format: "icu",
+  },
+
+  /**
+   * প্লাগিন কনফিগারেশন।
+   */
+  plugins: [
+    syncJSON({
+      format: "icu",
+      source: ({ locale }) => `./messages/${locale}.json`,
+    }),
+  ],
 };
 
 export default config;
@@ -855,6 +887,7 @@ export default config;
 | `contentAutoTransformation` | কন্টেন্ট স্ট্রিংগুলোকে স্বয়ংক্রিয়ভাবে টাইপ করা নোডে রূপান্তর করে (মার্কডাউন, HTML অথবা ইনসারশন)।                                                 | `boolean` &#124; <br/> `{ markdown?: boolean; html?: boolean; insertion?: boolean }`                            | `false`      | `true`                                                                                      | • মার্কডাউন : `### Title` → `md('### Title')` ।<br/>• HTML : `<div>Title</div>` → `html('<div>Title</div>')` ।<br/>• ইনসারশন : `Hello {{name}}` → `insert('Hello {{name}}')` ।                                                                                                                                                                                                                                  |
 | `location`                  | ডিকশনারি ফাইলগুলো কোথায় সংরক্ষিত এবং সেগুলো CMS এর সাথে কীভাবে সিঙ্ক করা হয় তা নির্দেশ করে।                                                      | `'local'` &#124; <br/> `'remote'` &#124; <br/> `'hybrid'` &#124; <br/> `'plugin'` &#124; <br/> `string`         | `'local'`    | `'hybrid'`                                                                                  | • `'local'`: কেবল স্থানীয় ম্যানেজমেন্ট।<br/>• `'remote'`: কেবল দূরবর্তী ম্যানেজমেন্ট (CMS)।<br/>• `'hybrid'`: স্থানীয় এবং দূরবর্তী উভয় ম্যানেজমেন্ট।<br/>• `'plugin'` বা কাস্টম স্ট্রিং: প্লাগইন বা কাস্টম সোর্স দ্বারা ম্যানেজমেন্ট।                                                                                                                                                                        |
 | `importMode`                | ডিকশনারি কীভাবে ইম্পোর্ট করা হয় তা নিয়ন্ত্রণ করে।                                                                                                | `'static'` &#124; <br/> `'dynamic'` &#124; <br/> `'fetch'`                                                      | `'static'`   | `'dynamic'`                                                                                 | • `'static'`: স্ট্যাটিক ইম্পোর্ট।<br/>• `'dynamic'`: Suspense এর মাধ্যমে ডাইনামিক ইম্পোর্ট।<br/>• `'fetch'`: লাইভ সিঙ্ক API এর মাধ্যমে ফেচ; ব্যর্থ হলে `'dynamic'` এ ফলব্যাক।<br/>• `@intlayer/babel` এবং `@intlayer/swc` প্লাগইন প্রয়োজন।<br/>• কি (keys) গুলো স্ট্যাটিক্যালি ঘোষিত হতে হবে।<br/>• `optimize` বন্ধ থাকলে এটি উপেক্ষা করা হয়।<br/>• `getIntlayer`, `getDictionary` ইত্যাদিকে প্রভাবিত করে না। |
+| `format`                    | প্রজেক্টের সমস্ত ডিকশনারির জন্য ডিফল্ট মেসেজ ফরম্যাট।                                                                                              | `'intlayer'` &#124; <br/> `'icu'` &#124; <br/> `'i18next'` &#124; <br/> `'vue-i18n'` &#124; <br/> `'po'`        | `'intlayer'` | `'icu'`                                                                                     | • `'intlayer'`: নেটিভ intlayer ফরম্যাট।<br/>• `'icu'`: ICU মেসেজ ফরম্যাট।<br/>• `'i18next'`: i18next ফরম্যাট।<br/>• `'vue-i18n'`: Vue I18n ফরম্যাট।<br/>• `'po'`: GNU Gettext PO ফরম্যাট。                                                                                                                                                                                                                      |
 | `priority`                  | ডিকশনারি অগ্রাধিকার। ডিকশনারিগুলোর মধ্যে সংঘর্ষ সমাধানের সময় উচ্চতর মান নিম্নতর মানের ওপর বিজয়ী হয়।                                             | `number`                                                                                                        | `undefined`  | `1`                                                                                         |                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `live`                      | অপ্রচলিত - `importMode: 'fetch'` ব্যবহার করুন। ডিকশনারি কন্টেন্ট লাইভ সিঙ্ক API এর মাধ্যমে ডাইনামিকভাবে ফেচ করা হবে কি না তা নির্দেশ করা হতো।      | `boolean`                                                                                                       | `undefined`  |                                                                                             | v8.0.0-এ এর নাম পরিবর্তন করে `importMode: 'fetch'` করা হয়েছে।                                                                                                                                                                                                                                                                                                                                                  |
 | `schema`                    | JSON স্কিমা ভ্যালিডেশনের জন্য Intlayer দ্বারা স্বয়ংক্রিয়ভাবে জেনারেট করা।                                                                        | `'https://intlayer.org/schema.json'`                                                                            | অটো-জেনারেশন |                                                                                             | ম্যানুয়ালি এডিট করবেন না।                                                                                                                                                                                                                                                                                                                                                                                      |

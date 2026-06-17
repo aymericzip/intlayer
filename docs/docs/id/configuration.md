@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-05-12
+updatedAt: 2026-06-17
 title: Konfigurasi
 description: Pelajari cara mengonfigurasi Intlayer untuk aplikasi Anda. Pahami berbagai pengaturan dan opsi yang tersedia untuk menyesuaikan Intlayer sesuai kebutuhan Anda.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.10.0
+    date: 2026-06-17
+    changes: "Menambahkan opsi `format` ke konfigurasi kamus"
   - version: 8.9.4
     date: 2026-05-12
     changes: "Menambahkan dukungan untuk penyedia LM Studio"
@@ -135,6 +138,7 @@ Intlayer menerima format file konfigurasi JSON, JS, MJS, dan TS:
 ````typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
+import { syncJSON } from "@intlayer/sync-json-plugin";
 import { z } from "zod";
 
 /**
@@ -583,9 +587,37 @@ const config: IntlayerConfig = {
   },
 
   /**
+   * Konfigurasi kamus.
+   */
+  dictionary: {
+    /**
+     * Mengontrol cara kamus diimpor.
+     * - "static": Diimpor secara statis pada waktu build.
+     * - "dynamic": Diimpor secara dinamis menggunakan Suspense.
+     * - "fetch": Diambil secara dinamis melalui live sync API.
+     */
+    importMode: "static",
+
+    /**
+     * Format pesan default untuk semua kamus dalam proyek.
+     * - 'intlayer': Format intlayer asli (default).
+     * - 'icu': Format pesan ICU.
+     * - 'i18next': Format i18next.
+     * - 'vue-i18n': Format Vue I18n.
+     * - 'po': Format GNU Gettext PO.
+     */
+    format: "icu",
+  },
+
+  /**
    * Konfigurasi plugin.
    */
-  plugins: [],
+  plugins: [
+    syncJSON({
+      format: "icu",
+      source: ({ locale }) => `./messages/${locale}.json`,
+    }),
+  ],
 };
 
 export default config;
@@ -862,6 +894,7 @@ Opsi yang mengontrol operasi kamus, termasuk perilaku pengisian otomatis dan pem
 | `contentAutoTransformation` | Apakah akan secara otomatis mengubah string konten menjadi node bertipe (Markdown, HTML, atau sisipan).                                                                    | `boolean` &#124; <br/> `{ markdown?: boolean; html?: boolean; insertion?: boolean }`                            | `false`         | `true`                                                                                      | • Markdown : `### Title` → `md('### Title')` .<br/>• HTML : `<div>Title</div>` → `html('<div>Title</div>')` .<br/>• Sisipan : `Hello {{name}}` → `insert('Hello {{name}}')` .                                                                                                                                                                                                                          |
 | `location`                  | Menunjukkan lokasi penyimpanan file kamus dan bagaimana file tersebut disinkronkan dengan CMS.                                                                             | `'local'` &#124; <br/> `'remote'` &#124; <br/> `'hybrid'` &#124; <br/> `'plugin'` &#124; <br/> `string`         | `'local'`       | `'hybrid'`                                                                                  | • `'local'`: Hanya manajemen lokal.<br/>• `'remote'`: Hanya manajemen jarak jauh (CMS).<br/>• `'hybrid'`: Manajemen lokal dan jarak jauh.<br/>• `'plugin'` atau string kustom: Dikelola melalui plugin atau sumber kustom.                                                                                                                                                                             |
 | `importMode`                | Mengontrol bagaimana kamus diimpor.                                                                                                                                        | `'static'` &#124; <br/> `'dynamic'` &#124; <br/> `'fetch'`                                                      | `'static'`      | `'dynamic'`                                                                                 | • `'static'`: Impor statis.<br/>• `'dynamic'`: Impor dinamis melalui Suspense.<br/>• `'fetch'`: Pengambilan melalui API LIVE Sync; fallback ke `'dynamic'` jika gagal.<br/>• Memerlukan plugin `@intlayer/babel` dan `@intlayer/swc`.<br/>• Kunci harus dideklarasikan secara statis.<br/>• Diabaikan jika `optimize` dinonaktifkan.<br/>• Tidak berdampak pada `getIntlayer`, `getDictionary`, dll.   |
+| `format`                    | Format pesan default untuk semua kamus dalam proyek.                                                                                                                       | `'intlayer'` &#124; <br/> `'icu'` &#124; <br/> `'i18next'` &#124; <br/> `'vue-i18n'` &#124; <br/> `'po'`        | `'intlayer'`    | `'icu'`                                                                                     | • `'intlayer'`: Format intlayer asli.<br/>• `'icu'`: Format pesan ICU.<br/>• `'i18next'`: Format i18next.<br/>• `'vue-i18n'`: Format Vue I18n.<br/>• `'po'`: Format GNU Gettext PO.                                                                                                                                                                                                                    |
 | `priority`                  | Prioritas kamus. Saat menyelesaikan konflik antar kamus, nilai yang lebih tinggi akan didahulukan daripada yang lebih rendah.                                              | `number`                                                                                                        | `undefined`     | `1`                                                                                         |                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `live`                      | DEPRECATED - gunakan `importMode: 'fetch'`. Sebelumnya menunjukkan apakah akan mengambil konten kamus secara dinamis melalui API Live Sync.                                | `boolean`                                                                                                       | `undefined`     |                                                                                             | Diganti namanya menjadi `importMode: 'fetch'` di v8.0.0.                                                                                                                                                                                                                                                                                                                                               |
 | `schema`                    | Dibuat secara otomatis oleh Intlayer untuk validasi skema JSON.                                                                                                            | `'https://intlayer.org/schema.json'`                                                                            | Dibuat otomatis |                                                                                             | Jangan mengedit secara manual.                                                                                                                                                                                                                                                                                                                                                                         |

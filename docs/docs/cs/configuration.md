@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-05-12
+updatedAt: 2026-06-17
 title: Konfigurace (Configuration)
 description: Naučte se, jak nakonfigurovat Intlayer pro vaši aplikaci. Porozumějte různým nastavením a možnostem dostupným pro přizpůsobení Intlayer vašim potřebám.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.10.0
+    date: 2026-06-17
+    changes: "Přidání možnosti `format` do konfigurace slovníku"
   - version: 8.9.4
     date: 2026-05-12
     changes: "Přidána podpora pro poskytovatele LM Studio"
@@ -135,6 +138,7 @@ Intlayer přijímá formáty konfiguračních souborů JSON, JS, MJS a TS:
 ````typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
+import { syncJSON } from "@intlayer/sync-json-plugin";
 import { z } from "zod";
 
 /**
@@ -583,9 +587,37 @@ const config: IntlayerConfig = {
   },
 
   /**
+   * Konfigurace slovníku.
+   */
+  dictionary: {
+    /**
+     * Řídí, jak se slovníky importují.
+     * - "static": Staticky importováno v době sestavení.
+     * - "dynamic": Dynamicky importováno pomocí Suspense.
+     * - "fetch": Dynamicky načteno přes API pro živou synchronizaci.
+     */
+    importMode: "static",
+
+    /**
+     * Výchozí formát zpráv pro všechny slovníky v projektu.
+     * - 'intlayer': Nativní formát intlayer (výchozí).
+     * - 'icu': Formát zpráv ICU.
+     * - 'i18next': Formát i18next.
+     * - 'vue-i18n': Formát Vue I18n.
+     * - 'po': Formát GNU Gettext PO.
+     */
+    format: "icu",
+  },
+
+  /**
    * Konfigurace pluginů.
    */
-  plugins: [],
+  plugins: [
+    syncJSON({
+      format: "icu",
+      source: ({ locale }) => `./messages/${locale}.json`,
+    }),
+  ],
 };
 
 export default config;
@@ -862,6 +894,7 @@ Parametry ovládající operace se slovníky, včetně chování automatického 
 | `contentAutoTransformation` | Automaticky transformuje řetězce obsahu do typovaných uzlů (markdown, HTML nebo vložení).                                                                 | `boolean` &#124; <br/> `{ markdown?: boolean; html?: boolean; insertion?: boolean }`                            | `false`       | `true`                                                                                      | • Markdown : `### Title` → `md('### Title')`.<br/>• HTML : `<div>Title</div>` → `html('<div>Title</div>')`.<br/>• Vložení : `Hello {{name}}` → `insert('Hello {{name}}')`.                                                                                                                                                                                                                 |
 | `location`                  | Udává, kde jsou uloženy soubory slovníků a jak jsou synchronizovány s CMS.                                                                                | `'local'` &#124; <br/> `'remote'` &#124; <br/> `'hybrid'` &#124; <br/> `'plugin'` &#124; <br/> `string`         | `'local'`     | `'hybrid'`                                                                                  | • `'local'`: správa pouze lokálně.<br/>• `'remote'`: správa pouze vzdáleně (CMS).<br/>• `'hybrid'`: správa lokálně i vzdáleně.<br/>• `'plugin'` nebo vlastní řetězec: správa pluginem nebo vlastním zdrojem.                                                                                                                                                                               |
 | `importMode`                | Ovládá způsob importu slovníků.                                                                                                                           | `'static'` &#124; <br/> `'dynamic'` &#124; <br/> `'fetch'`                                                      | `'static'`    | `'dynamic'`                                                                                 | • `'static'`: statický import.<br/>• `'dynamic'`: dynamický import přes Suspense.<br/>• `'fetch'`: načtení přes Live Sync API; odklad na `'dynamic'` při neúspěchu.<br/>• Vyžaduje pluginy `@intlayer/babel` a `@intlayer/swc`.<br/>• Klíče musí být deklarovány staticky.<br/>• Ignorováno, pokud je `optimize` vypnuto.<br/>• Neovlivňuje `getIntlayer`, `getDictionary` atd.            |
+| `format`                    | Výchozí formát zpráv pro všechny slovníky v projektu.                                                                                                     | `'intlayer'` &#124; <br/> `'icu'` &#124; <br/> `'i18next'` &#124; <br/> `'vue-i18n'` &#124; <br/> `'po'`        | `'intlayer'`  | `'icu'`                                                                                     | • `'intlayer'`: Nativní formát intlayer.<br/>• `'icu'`: Formát zpráv ICU.<br/>• `'i18next'`: Formát i18next.<br/>• `'vue-i18n'`: Formát Vue I18n.<br/>• `'po'`: Formát GNU Gettext PO.                                                                                                                                                                                                     |
 | `priority`                  | Priorita slovníku. Vyšší hodnoty vítězí nad nižšími při řešení konfliktů mezi slovníky.                                                                   | `number`                                                                                                        | `undefined`   | `1`                                                                                         |                                                                                                                                                                                                                                                                                                                                                                                            |
 | `live`                      | Zastaralé - použijte `importMode: 'fetch'`. Udávalo, zda se má obsah slovníku načítat dynamicky přes Live Sync API.                                       | `boolean`                                                                                                       | `undefined`   |                                                                                             | Přejmenováno na `importMode: 'fetch'` ve v8.0.0.                                                                                                                                                                                                                                                                                                                                           |
 | `schema`                    | Generováno automaticky Intlayerem pro validaci JSON schématu.                                                                                             | `'https://intlayer.org/schema.json'`                                                                            | auto-generace |                                                                                             | Neupravujte ručně.                                                                                                                                                                                                                                                                                                                                                                         |

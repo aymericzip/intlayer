@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-05-12
+updatedAt: 2026-06-17
 title: Конфигурация (Configuration)
 description: Узнайте, как настроить Intlayer для вашего приложения. Разберитесь в различных параметрах и опциях, доступных для настройки Intlayer в соответствии с вашими потребностями.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.10.0
+    date: 2026-06-17
+    changes: "Добавлена опция `format` в конфигурацию словаря"
   - version: 8.9.4
     date: 2026-05-12
     changes: "Добавлена поддержка провайдера LM Studio"
@@ -135,6 +138,7 @@ Intlayer принимает форматы файлов конфигурации
 ````typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
+import { syncJSON } from "@intlayer/sync-json-plugin";
 import { z } from "zod";
 
 /**
@@ -583,9 +587,37 @@ const config: IntlayerConfig = {
   },
 
   /**
+   * Конфигурация словаря.
+   */
+  dictionary: {
+    /**
+     * Управляет способом импорта словарей.
+     * - "static": Статически импортируется во время сборки.
+     * - "dynamic": Динамически импортируется с помощью Suspense.
+     * - "fetch": Динамически загружается через API живой синхронизации.
+     */
+    importMode: "static",
+
+    /**
+     * Формат сообщений по умолчанию для всех словарей в проекте.
+     * - 'intlayer': Собственный формат intlayer (по умолчанию).
+     * - 'icu': Формат сообщений ICU.
+     * - 'i18next': Формат i18next.
+     * - 'vue-i18n': Формат Vue I18n.
+     * - 'po': Формат GNU Gettext PO.
+     */
+    format: "icu",
+  },
+
+  /**
    * Конфигурация плагинов.
    */
-  plugins: [],
+  plugins: [
+    syncJSON({
+      format: "icu",
+      source: ({ locale }) => `./messages/${locale}.json`,
+    }),
+  ],
 };
 
 export default config;
@@ -862,6 +894,7 @@ export default config;
 | `contentAutoTransformation` | Автоматически преобразует строки контента в типизированные узлы (markdown, HTML или вставка).                                                            | `boolean` &#124; <br/> `{ markdown?: boolean; html?: boolean; insertion?: boolean }`                            | `false`        | `true`                                                                                      | • Markdown : `### Title` → `md('### Title')`.<br/>• HTML : `<div>Title</div>` → `html('<div>Title</div>')`.<br/>• Вставка : `Hello {{name}}` → `insert('Hello {{name}}')`.                                                                                                                                                                                                                      |
 | `location`                  | Указывает, где хранятся файлы словарей и как они синхронизируются с CMS.                                                                                 | `'local'` &#124; <br/> `'remote'` &#124; <br/> `'hybrid'` &#124; <br/> `'plugin'` &#124; <br/> `string`         | `'local'`      | `'hybrid'`                                                                                  | • `'local'`: управление только локально.<br/>• `'remote'`: управление только удаленно (CMS).<br/>• `'hybrid'`: управление и локально, и удаленно.<br/>• `'plugin'` или кастомная строка: управление плагином или кастомным источником.                                                                                                                                                          |
 | `importMode`                | Управляет способом импорта словарей.                                                                                                                     | `'static'` &#124; <br/> `'dynamic'` &#124; <br/> `'fetch'`                                                      | `'static'`     | `'dynamic'`                                                                                 | • `'static'`: статический импорт.<br/>• `'dynamic'`: динамический импорт через Suspense.<br/>• `'fetch'`: получение через Live Sync API; откат к `'dynamic'` при неудаче.<br/>• Требует плагины `@intlayer/babel` и `@intlayer/swc`.<br/>• Ключи должны быть объявлены статически.<br/>• Игнорируется, если `optimize` выключен.<br/>• Не влияет на `getIntlayer`, `getDictionary` и т.д.       |
+| `format`                    | Формат сообщений по умолчанию для всех словарей в проекте.                                                                                               | `'intlayer'` &#124; <br/> `'icu'` &#124; <br/> `'i18next'` &#124; <br/> `'vue-i18n'` &#124; <br/> `'po'`        | `'intlayer'`   | `'icu'`                                                                                     | • `'intlayer'`: Собственный формат intlayer.<br/>• `'icu'`: Формат сообщений ICU.<br/>• `'i18next'`: Формат i18next.<br/>• `'vue-i18n'`: Формат Vue I18n.<br/>• `'po'`: Формат GNU Gettext PO.                                                                                                                                                                                                  |
 | `priority`                  | Приоритет словаря. Более высокие значения побеждают более низкие при разрешении конфликтов между словарями.                                              | `number`                                                                                                        | `undefined`    | `1`                                                                                         |                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `live`                      | Устарело - используйте `importMode: 'fetch'`. Указывало, должен ли контент словаря получаться динамически через Live Sync API.                           | `boolean`                                                                                                       | `undefined`    |                                                                                             | Переименовано в `importMode: 'fetch'` в v8.0.0.                                                                                                                                                                                                                                                                                                                                                 |
 | `schema`                    | Генерируется автоматически Intlayer для валидации JSON-схемы.                                                                                            | `'https://intlayer.org/schema.json'`                                                                            | авто-генерация |                                                                                             | Не редактируйте вручную.                                                                                                                                                                                                                                                                                                                                                                        |

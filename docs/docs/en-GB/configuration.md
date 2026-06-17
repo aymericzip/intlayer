@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-05-12
+updatedAt: 2026-06-17
 title: Configuration
 description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customize Intlayer to your needs.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.10.0
+    date: 2026-06-17
+    changes: "Add `format` option to the dictionary configuration"
   - version: 8.9.4
     date: 2026-05-12
     changes: "Add support for LM Studio provider"
@@ -135,6 +138,7 @@ Intlayer accepts JSON, JS, MJS, and TS configuration file formats:
 ````typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
+import { syncJSON } from "@intlayer/sync-json-plugin";
 import { z } from "zod";
 
 /**
@@ -587,9 +591,37 @@ const config: IntlayerConfig = {
   },
 
   /**
+   * Dictionary configuration.
+   */
+  dictionary: {
+    /**
+     * Controls how dictionaries are imported.
+     * - "static": Statically imported at build time.
+     * - "dynamic": Dynamically imported using Suspense.
+     * - "fetch": Fetched dynamically via the live sync API.
+     */
+    importMode: "static",
+
+    /**
+     * The default message format for all dictionaries in the project.
+     * - 'intlayer': Native intlayer format (default).
+     * - 'icu': ICU message format (used by next-intl, react-intl, etc.).
+     * - 'i18next': i18next interpolation format (used by i18next, react-i18next, next-i18next).
+     * - 'vue-i18n': Vue I18n format (used by vue-i18n).
+     * - 'po': GNU Gettext PO format.
+     */
+    format: "icu",
+  },
+
+  /**
    * Plugins configuration.
    */
-  plugins: [],
+  plugins: [
+    syncJSON({
+      format: "icu",
+      source: ({ locale }) => `./messages/${locale}.json`,
+    }),
+  ],
 };
 
 export default config;
@@ -886,6 +918,7 @@ For more information about content declaration files and how configuration value
 | `contentAutoTransformation` | Automatically transforms content strings into typed nodes (markdown, HTML, or insertion).                                                                 | `boolean` &#124; <br/> `{ markdown?: boolean; html?: boolean; insertion?: boolean }`                            | `false`        | `true`                                                                                      | • Markdown: `### Title` → `md('### Title')`.<br/>• HTML: `<div>Title</div>` → `html('<div>Title</div>')`.<br/>• Insertion: `Hello {{name}}` → `insert('Hello {{name}}')`.                                                                                                                                                                                                                                                                                                                   |
 | `location`                  | Indicates where dictionary files are stored and their CMS synchronization mode.                                                                           | `'local'` &#124; <br/> `'remote'` &#124; <br/> `'hybrid'` &#124; <br/> `'plugin'` &#124; <br/> `string`         | `'local'`      | `'hybrid'`                                                                                  | • `'local'`: managed locally only.<br/>• `'remote'`: managed remotely only (CMS).<br/>• `'hybrid'`: managed both locally and remotely.<br/>• `'plugin'` or custom string: managed by a plugin or custom source.                                                                                                                                                                                                                                                                             |
 | `importMode`                | Controls how dictionaries are imported.                                                                                                                   | `'static'` &#124; <br/> `'dynamic'` &#124; <br/> `'fetch'`                                                      | `'static'`     | `'dynamic'`                                                                                 | • `'static'`: imported statically (replaces `useIntlayer` with `useDictionary`).<br/>• `'dynamic'`: imported dynamically via Suspense (replaces with `useDictionaryDynamic`).<br/>• `'fetch'`: fetched via live sync API; falls back to `'dynamic'` on failure.<br/>• Relies on `@intlayer/babel` and `@intlayer/swc` plugins.<br/>• Keys must be declared statically.<br/>• Ignored if `optimize` is disabled.<br/>• Does not affect `getIntlayer`, `getDictionary`, `useDictionary`, etc. |
+| `format`                    | The default message format for all dictionaries in the project.                                                                                           | `'intlayer'` &#124; <br/> `'icu'` &#124; <br/> `'i18next'` &#124; <br/> `'vue-i18n'` &#124; <br/> `'po'`        | `'intlayer'`   | `'icu'`                                                                                     | • `'intlayer'`: Native intlayer format.<br/>• `'icu'`: ICU message format.<br/>• `'i18next'`: i18next interpolation format.<br/>• `'vue-i18n'`: Vue I18n format.<br/>• `'po'`: GNU Gettext PO format.                                                                                                                                                                                                                                                                                       |
 | `priority`                  | Priority of the dictionary. Higher values take precedence over lower ones when resolving conflicts between dictionaries.                                  | `number`                                                                                                        | `undefined`    | `1`                                                                                         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `live`                      | Deprecated - use `importMode: 'fetch'` instead. Indicated whether dictionary content was fetched dynamically via the live sync API.                       | `boolean`                                                                                                       | `undefined`    |                                                                                             | Renamed to `importMode: 'fetch'` in v8.0.0.                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `schema`                    | Auto-generated by Intlayer for JSON schema validation.                                                                                                    | `'https://intlayer.org/schema.json'`                                                                            | auto-generated |                                                                                             | Do not modify manually.                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |

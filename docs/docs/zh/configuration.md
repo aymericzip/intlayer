@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-05-12
+updatedAt: 2026-06-17
 title: 配置
 description: 了解如何为您的应用程序配置 Intlayer。了解可用于根据您的需求自定义 Intlayer 的各种设置和选项。
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.10.0
+    date: 2026-06-17
+    changes: "向字典配置添加 `format` 选项"
   - version: 8.9.4
     date: 2026-05-12
     changes: "添加对 LM Studio 提供者的支持"
@@ -135,6 +138,7 @@ Intlayer 接受 JSON、JS、MJS 和 TS 配置文件格式：
 ````typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
+import { syncJSON } from "@intlayer/sync-json-plugin";
 import { z } from "zod";
 
 /**
@@ -586,9 +590,37 @@ const config: IntlayerConfig = {
   },
 
   /**
+   * 字典配置。
+   */
+  dictionary: {
+    /**
+     * 控制如何导入字典。
+     * - "static": 在构建时静态导入。
+     * - "dynamic": 使用 Suspense 动态导入。
+     * - "fetch": 通过实时同步 API 动态获取。
+     */
+    importMode: "static",
+
+    /**
+     * 项目中所有字典的默认消息格式。
+     * - 'intlayer': 原生 intlayer 格式 (默认)。
+     * - 'icu': ICU 消息格式。
+     * - 'i18next': i18next 格式。
+     * - 'vue-i18n': Vue I18n 格式。
+     * - 'po': GNU Gettext PO 格式。
+     */
+    format: "icu",
+  },
+
+  /**
    * 插件配置。
    */
-  plugins: [],
+  plugins: [
+    syncJSON({
+      format: "icu",
+      source: ({ locale }) => `./messages/${locale}.json`,
+    }),
+  ],
 };
 
 export default config;
@@ -857,20 +889,21 @@ export default config;
 
 控制字典操作的参数，包括自动填充行为和内容生成。
 
-| 字段                        | 说明                                                                                         | 类型                                                                                                            | 默认值      | 示例                                                                                        | 备注                                                                                                                                                                                                                                                                                                        |
-| --------------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `fill`                      | 控制自动填充 (AI 翻译) 输出文件的生成方式。                                                  | `boolean` &#124; <br/> `FilePathPattern` &#124; <br/> `Partial<Record<Locale, boolean &#124; FilePathPattern>>` | `true`      | `{ en: '/locales/en/{{key}}.json', fr: ({ key }) => '/locales/fr/${key}.json', es: false }` | • `true`: 默认路径（与源文件相同）。<br/>• `false`: 禁用。<br/>• 模板字符串/函数启用按区域设置生成。<br/>• 按区域设置对象：每个区域设置对应其自己的模板；`false` 排除该区域设置。<br/>• 包含 `{{locale}}` 启用按区域设置生成。<br/>• 字典级别的 `fill` 始终优先于此全局设置。                               |
-| `description`               | 帮助编辑器和 CMS 理解字典的目的。也用作 AI 生成翻译的上下文。                                | `string`                                                                                                        | `undefined` | `'User profile section'`                                                                    |                                                                                                                                                                                                                                                                                                             |
-| `locale`                    | 将字典转换为特定区域设置格式。每个声明的字段变为一个翻译节点。如果缺少，则字典被视为多语言。 | `LocalesValues`                                                                                                 | `undefined` | `'en'`                                                                                      | 如果字典是针对特定区域设置而非包含多种翻译，请使用此项。                                                                                                                                                                                                                                                    |
-| `contentAutoTransformation` | 是否将内容字符串自动转换为类型化的节点（Markdown、HTML 或插入内容）。                        | `boolean` &#124; <br/> `{ markdown?: boolean; html?: boolean; insertion?: boolean }`                            | `false`     | `true`                                                                                      | • Markdown : `### Title` → `md('### Title')` 。<br/>• HTML : `<div>Title</div>` → `html('<div>Title</div>')` 。<br/>• 插入内容 : `Hello {{name}}` → `insert('Hello {{name}}')` 。                                                                                                                           |
-| `location`                  | 指出字典文件存储在哪里以及如何与 CMS 同步。                                                  | `'local'` &#124; <br/> `'remote'` &#124; <br/> `'hybrid'` &#124; <br/> `'plugin'` &#124; <br/> `string`         | `'local'`   | `'hybrid'`                                                                                  | • `'local'`: 仅本地管理。<br/>• `'remote'`: 仅远程管理 (CMS)。<br/>• `'hybrid'`: 本地和远程管理。<br/>• `'plugin'` 或自定义字符串：通过插件或自定义源管理。                                                                                                                                                 |
-| `importMode`                | 控制字典的导入方式。                                                                         | `'static'` &#124; <br/> `'dynamic'` &#124; <br/> `'fetch'`                                                      | `'static'`  | `'dynamic'`                                                                                 | • `'static'`: 静态导入。<br/>• `'dynamic'`: 通过 Suspense 动态导入。<br/>• `'fetch'`: 通过 Live Sync API 获取；失败后回退到 `'dynamic'`。<br/>• 需要 `@intlayer/babel` 和 `@intlayer/swc` 插件。<br/>• 键必须静态声明。<br/>• 如果 `optimize` 关闭则忽略。<br/>• 不影响 `getIntlayer`, `getDictionary` 等。 |
-| `priority`                  | 字典优先级。在解决字典之间的冲突时，较高的值比较低的值具有优先级。                           | `number`                                                                                                        | `undefined` | `1`                                                                                         |                                                                                                                                                                                                                                                                                                             |
-| `live`                      | 已弃用 - 请使用 `importMode: 'fetch'`。曾指示是否应通过 Live Sync API 动态获取字典内容。     | `boolean`                                                                                                       | `undefined` |                                                                                             | 在 v8.0.0 中重命名为 `importMode: 'fetch'`。                                                                                                                                                                                                                                                                |
-| `schema`                    | 由 Intlayer 自动生成，用于 JSON 架构验证。                                                   | `'https://intlayer.org/schema.json'`                                                                            | 自动生成    |                                                                                             | 请勿手动编辑。                                                                                                                                                                                                                                                                                              |
-| `title`                     | 帮助在编辑器和 CMS 中识别字典。                                                              | `string`                                                                                                        | `undefined` | `'User Profile'`                                                                            |                                                                                                                                                                                                                                                                                                             |
-| `tags`                      | 对字典进行分类并为编辑器和 AI 提供上下文或指令。                                             | `string[]`                                                                                                      | `undefined` | `['user', 'profile']`                                                                       |                                                                                                                                                                                                                                                                                                             |
-| `version`                   | 远程字典版本；帮助跟踪当前正在使用的版本。                                                   | `string`                                                                                                        | `undefined` | `'1.0.0'`                                                                                   | • 在 CMS 中管理。<br/>• 请勿本地编辑。                                                                                                                                                                                                                                                                      |
+| 字段                        | 说明                                                                                         | 类型                                                                                                            | 默认值       | 示例                                                                                        | 备注                                                                                                                                                                                                                                                                                                        |
+| --------------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `fill`                      | 控制自动填充 (AI 翻译) 输出文件的生成方式。                                                  | `boolean` &#124; <br/> `FilePathPattern` &#124; <br/> `Partial<Record<Locale, boolean &#124; FilePathPattern>>` | `true`       | `{ en: '/locales/en/{{key}}.json', fr: ({ key }) => '/locales/fr/${key}.json', es: false }` | • `true`: 默认路径（与源文件相同）。<br/>• `false`: 禁用。<br/>• 模板字符串/函数启用按区域设置生成。<br/>• 按区域设置对象：每个区域设置对应其自己的模板；`false` 排除该区域设置。<br/>• 包含 `{{locale}}` 启用按区域设置生成。<br/>• 字典级别的 `fill` 始终优先于此全局设置。                               |
+| `description`               | 帮助编辑器和 CMS 理解字典的目的。也用作 AI 生成翻译的上下文。                                | `string`                                                                                                        | `undefined`  | `'User profile section'`                                                                    |                                                                                                                                                                                                                                                                                                             |
+| `locale`                    | 将字典转换为特定区域设置格式。每个声明的字段变为一个翻译节点。如果缺少，则字典被视为多语言。 | `LocalesValues`                                                                                                 | `undefined`  | `'en'`                                                                                      | 如果字典是针对特定区域设置而非包含多种翻译，请使用此项。                                                                                                                                                                                                                                                    |
+| `contentAutoTransformation` | 是否将内容字符串自动转换为类型化的节点（Markdown、HTML 或插入内容）。                        | `boolean` &#124; <br/> `{ markdown?: boolean; html?: boolean; insertion?: boolean }`                            | `false`      | `true`                                                                                      | • Markdown : `### Title` → `md('### Title')` 。<br/>• HTML : `<div>Title</div>` → `html('<div>Title</div>')` 。<br/>• 插入内容 : `Hello {{name}}` → `insert('Hello {{name}}')` 。                                                                                                                           |
+| `location`                  | 指出字典文件存储在哪里以及如何与 CMS 同步。                                                  | `'local'` &#124; <br/> `'remote'` &#124; <br/> `'hybrid'` &#124; <br/> `'plugin'` &#124; <br/> `string`         | `'local'`    | `'hybrid'`                                                                                  | • `'local'`: 仅本地管理。<br/>• `'remote'`: 仅远程管理 (CMS)。<br/>• `'hybrid'`: 本地和远程管理。<br/>• `'plugin'` 或自定义字符串：通过插件或自定义源管理。                                                                                                                                                 |
+| `importMode`                | 控制字典的导入方式。                                                                         | `'static'` &#124; <br/> `'dynamic'` &#124; <br/> `'fetch'`                                                      | `'static'`   | `'dynamic'`                                                                                 | • `'static'`: 静态导入。<br/>• `'dynamic'`: 通过 Suspense 动态导入。<br/>• `'fetch'`: 通过 Live Sync API 获取；失败后回退到 `'dynamic'`。<br/>• 需要 `@intlayer/babel` 和 `@intlayer/swc` 插件。<br/>• 键必须静态声明。<br/>• 如果 `optimize` 关闭则忽略。<br/>• 不影响 `getIntlayer`, `getDictionary` 等。 |
+| `format`                    | 项目中所有字典的默认消息格式。                                                               | `'intlayer'` &#124; <br/> `'icu'` &#124; <br/> `'i18next'` &#124; <br/> `'vue-i18n'` &#124; <br/> `'po'`        | `'intlayer'` | `'icu'`                                                                                     | • `'intlayer'`: 原生 intlayer 格式。<br/>• `'icu'`: ICU 消息格式。<br/>• `'i18next'`: i18next 格式。<br/>• `'vue-i18n'`: Vue I18n 格式。<br/>• `'po'`: GNU Gettext PO 格式。                                                                                                                                |
+| `priority`                  | 字典优先级。在解决字典之间的冲突时，较高的值比较低的值具有优先级。                           | `number`                                                                                                        | `undefined`  | `1`                                                                                         |                                                                                                                                                                                                                                                                                                             |
+| `live`                      | 已弃用 - 请使用 `importMode: 'fetch'`。曾指示是否应通过 Live Sync API 动态获取字典内容。     | `boolean`                                                                                                       | `undefined`  |                                                                                             | 在 v8.0.0 中重命名为 `importMode: 'fetch'`。                                                                                                                                                                                                                                                                |
+| `schema`                    | 由 Intlayer 自动生成，用于 JSON 架构验证。                                                   | `'https://intlayer.org/schema.json'`                                                                            | 自动生成     |                                                                                             | 请勿手动编辑。                                                                                                                                                                                                                                                                                              |
+| `title`                     | 帮助在编辑器和 CMS 中识别字典。                                                              | `string`                                                                                                        | `undefined`  | `'User Profile'`                                                                            |                                                                                                                                                                                                                                                                                                             |
+| `tags`                      | 对字典进行分类并为编辑器和 AI 提供上下文或指令。                                             | `string[]`                                                                                                      | `undefined`  | `['user', 'profile']`                                                                       |                                                                                                                                                                                                                                                                                                             |
+| `version`                   | 远程字典版本；帮助跟踪当前正在使用的版本。                                                   | `string`                                                                                                        | `undefined`  | `'1.0.0'`                                                                                   | • 在 CMS 中管理。<br/>• 请勿本地编辑。                                                                                                                                                                                                                                                                      |
 
 **`fill` 示例**:
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-05-12
+updatedAt: 2026-06-17
 title: ترتیب (Configuration)
 description: سیکھیں کہ اپنی ایپلیکیشن کے لیے Intlayer کو کیسے ترتیب دینا ہے۔ اپنی ضروریات کے مطابق Intlayer کو اپنی مرضی کے مطابق بنانے کے لیے دستیاب مختلف ترتیبات اور اختیارات کو سمجھیں۔
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.10.0
+    date: 2026-06-17
+    changes: "ڈکشنری کی ترتیب میں `format` کا اختیار شامل کیا گیا"
   - version: 8.9.4
     date: 2026-05-12
     changes: "LM Studio فراہم کنندہ کے لیے سپورٹ شامل کریں"
@@ -137,6 +140,7 @@ Intlayer JSON، JS، MJS، اور TS کنفیگریشن فائل فارمیٹس 
 ````typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
+import { syncJSON } from "@intlayer/sync-json-plugin";
 import { z } from "zod";
 
 /**
@@ -585,9 +589,37 @@ const config: IntlayerConfig = {
   },
 
   /**
-   * پلگ ان کنفیگریشن۔
+   * ڈکشنری کی ترتیب۔
    */
-  plugins: [],
+  dictionary: {
+    /**
+     * کنٹرول کرتا ہے کہ ڈکشنریاں کیسے درآمد کی جاتی ہیں۔
+     * - "static": تعمیر کے وقت جامد طور پر درآمد کیا گیا۔
+     * - "dynamic": Suspense کا استعمال کرتے ہوئے متحرک طور پر درآمد کیا گیا۔
+     * - "fetch": لائیو سنک API کے ذریعے متحرک طور پر حاصل کیا گیا۔
+     */
+    importMode: "static",
+
+    /**
+     * پروجیکٹ میں تمام ڈکشنریوں کے لیے ڈیفالٹ پیغام کا فارمیٹ۔
+     * - 'intlayer': مقامی intlayer فارمیٹ (ڈیفالٹ)۔
+     * - 'icu': ICU پیغام کا فارمیٹ۔
+     * - 'i18next': i18next فارمیٹ۔
+     * - 'vue-i18n': Vue I18n فارمیٹ۔
+     * - 'po': GNU Gettext PO فارمیٹ۔
+     */
+    format: "icu",
+  },
+
+  /**
+   * پلگ ان کی ترتیب۔
+   */
+  plugins: [
+    syncJSON({
+      format: "icu",
+      source: ({ locale }) => `./messages/${locale}.json`,
+    }),
+  ],
 };
 
 export default config;
@@ -864,6 +896,7 @@ export default config;
 | `contentAutoTransformation` | کیا اسٹرنگ مواد کو خودکار طور پر ٹائپ شدہ نوڈز (Markdown، HTML، یا داخل کرنے والا) میں تبدیل کرنا ہے۔                                     | `boolean` &#124; <br/> `{ markdown?: boolean; html?: boolean; insertion?: boolean }`                            | `false`            | `true`                                                                                      | • Markdown : `### Title` → `md('### Title')` .<br/>• HTML : `<div>Title</div>` → `html('<div>Title</div>')` .<br/>• Insertion : `Hello {{name}}` → `insert('Hello {{name}}')` .                                                                                                                                                                                                                                |
 | `location`                  | لغت کی فائلوں کے اسٹوریج کے محل وقوع اور CMS کے ساتھ ان کی ہم آہنگی کا طریقہ بتاتا ہے۔                                                    | `'local'` &#124; <br/> `'remote'` &#124; <br/> `'hybrid'` &#124; <br/> `'plugin'` &#124; <br/> `string`         | `'local'`          | `'hybrid'`                                                                                  | • `'local'`: صرف مقامی انتظام۔<br/>• `'remote'`: صرف دور دراز کا انتظام (CMS)۔<br/>• `'hybrid'`: مقامی اور دور دراز دونوں کا انتظام۔<br/>• `'plugin'` یا کسٹم اسٹرنگ: پلگ ان یا کسٹم ذریعے سے انتظام۔                                                                                                                                                                                                          |
 | `importMode`                | کنٹرول کرتا ہے کہ لغات کیسے امپورٹ کی جاتی ہیں۔                                                                                           | `'static'` &#124; <br/> `'dynamic'` &#124; <br/> `'fetch'`                                                      | `'static'`         | `'dynamic'`                                                                                 | • `'static'`: ساکن امپورٹ۔<br/>• `'dynamic'`: Suspense کے ذریعے متحرک امپورٹ۔<br/>• `'fetch'`: LIVE سنک API کے ذریعے حاصل کرنا؛ ناکامی پر `'dynamic'` پر واپس آتا ہے۔<br/>• `@intlayer/babel` اور `@intlayer/swc` پلگ انز کی ضرورت ہے۔<br/>• کلیدیں ساکن طور پر اعلان ہونی چاہئیں۔<br/>• اگر `optimize` غیر فعال ہو تو نظر انداز کر دیا جاتا ہے۔<br/>• `getIntlayer` ، `getDictionary` وغیرہ پر کوئی اثر نہیں۔ |
+| `format`                    | پروجیکٹ میں تمام ڈکشنریوں کے لیے ڈیفالٹ پیغام کا فارمیٹ۔                                                                                  | `'intlayer'` &#124; <br/> `'icu'` &#124; <br/> `'i18next'` &#124; <br/> `'vue-i18n'` &#124; <br/> `'po'`        | `'intlayer'`       | `'icu'`                                                                                     | • `'intlayer'`: مقامی intlayer فارمیٹ۔<br/>• `'icu'`: ICU پیغام کا فارمیٹ۔<br/>• `'i18next'`: i18next فارمیٹ۔<br/>• `'vue-i18n'`: Vue I18n فارمیٹ۔<br/>• `'po'`: GNU Gettext PO فارمیٹ۔                                                                                                                                                                                                                        |
 | `priority`                  | لغت کی ترجیح۔ لغات کے درمیان تصادم کو حل کرتے وقت، زیادہ قیمت والی لغت کم قیمت والی پر غالب آئے گی۔                                       | `number`                                                                                                        | `undefined`        | `1`                                                                                         |                                                                                                                                                                                                                                                                                                                                                                                                                |
 | `live`                      | DEPRECATED - `importMode: 'fetch'` استعمال کریں۔ پہلے بتاتا تھا کہ آیا API Live Sync کے ذریعے لغت کا مواد متحرک طور پر حاصل کرنا ہے۔      | `boolean`                                                                                                       | `undefined`        |                                                                                             | v8.0.0 میں نام تبدیل کر کے `importMode: 'fetch'` کر دیا گیا۔                                                                                                                                                                                                                                                                                                                                                   |
 | `schema`                    | JSON اسکیمہ کی توثیق کے لیے Intlayer کے ذریعے خودکار طور پر تیار کیا گیا۔                                                                 | `'https://intlayer.org/schema.json'`                                                                            | خودکار طور پر تیار |                                                                                             | دستی طور پر ترمیم نہ کریں۔                                                                                                                                                                                                                                                                                                                                                                                     |

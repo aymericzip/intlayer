@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-05-12
+updatedAt: 2026-06-17
 title: Yapılandırma (Configuration)
 description: Uygulamanız için Intlayer'ı nasıl yapılandıracağınızı öğrenin. Intlayer'ı ihtiyaçlarınıza göre özelleştirmek için çeşitli ayarları ve seçenekleri anlayın.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.10.0
+    date: 2026-06-17
+    changes: "Sözlük yapılandırmasına `format` seçeneği eklendi"
   - version: 8.9.4
     date: 2026-05-12
     changes: "LM Studio sağlayıcısı için destek eklendi"
@@ -135,6 +138,7 @@ Intlayer, JSON, JS, MJS ve TS yapılandırma dosyası formatlarını kabul eder:
 ````typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
+import { syncJSON } from "@intlayer/sync-json-plugin";
 import { z } from "zod";
 
 /**
@@ -583,9 +587,37 @@ const config: IntlayerConfig = {
   },
 
   /**
+   * Sözlük yapılandırması.
+   */
+  dictionary: {
+    /**
+     * Sözlüklerin nasıl içe aktarıldığını kontrol eder.
+     * - "static": Derleme zamanında statik olarak içe aktarılır.
+     * - "dynamic": Suspense kullanılarak dinamik olarak içe aktarılır.
+     * - "fetch": Canlı senkronizasyon API'si aracılığıyla dinamik olarak alınır.
+     */
+    importMode: "static",
+
+    /**
+     * Projedeki tüm sözlükler için varsayılan mesaj biçimi.
+     * - 'intlayer': Yerel intlayer biçimi (varsayılan).
+     * - 'icu': ICU mesaj biçimi.
+     * - 'i18next': i18next biçimi.
+     * - 'vue-i18n': Vue I18n biçimi.
+     * - 'po': GNU Gettext PO biçimi.
+     */
+    format: "icu",
+  },
+
+  /**
    * Eklenti yapılandırması.
    */
-  plugins: [],
+  plugins: [
+    syncJSON({
+      format: "icu",
+      source: ({ locale }) => `./messages/${locale}.json`,
+    }),
+  ],
 };
 
 export default config;
@@ -862,6 +894,7 @@ Otomatik doldurma davranışı ve içerik oluşturma dahil olmak üzere sözlük
 | `contentAutoTransformation` | İçerik dizelerini otomatik olarak tiplendirilmiş düğümlere (markdown, HTML veya ekleme) dönüştürür.                                                                         | `boolean` &#124; <br/> `{ markdown?: boolean; html?: boolean; insertion?: boolean }`                            | `false`              | `true`                                                                                      | • Markdown : `### Title` → `md('### Title')`.<br/>• HTML : `<div>Title</div>` → `html('<div>Title</div>')`.<br/>• Ekleme : `Merhaba {{name}}` → `insert('Merhaba {{name}}')`.                                                                                                                                                                                                                                                          |
 | `location`                  | Sözlük dosyalarının nerede saklandığını ve CMS ile nasıl senkronize edildiğini belirtir.                                                                                    | `'local'` &#124; <br/> `'remote'` &#124; <br/> `'hybrid'` &#124; <br/> `'plugin'` &#124; <br/> `string`         | `'local'`            | `'hybrid'`                                                                                  | • `'local'`: sadece yerel olarak yönetilir.<br/>• `'remote'`: sadece uzaktan yönetilir (CMS).<br/>• `'hybrid'`: hem yerel hem de uzaktan yönetilir.<br/>• `'plugin'` veya özel dize: bir eklenti veya özel bir kaynak tarafından yönetilir.                                                                                                                                                                                            |
 | `importMode`                | Sözlüklerin nasıl içe aktarılacağını kontrol eder.                                                                                                                          | `'static'` &#124; <br/> `'dynamic'` &#124; <br/> `'fetch'`                                                      | `'static'`           | `'dynamic'`                                                                                 | • `'static'`: statik olarak içe aktarılır.<br/>• `'dynamic'`: Suspense kullanılarak dinamik olarak içe aktarılır.<br/>• `'fetch'`: Live Sync API aracılığıyla getirilir; başarısız olursa `'dynamic'`e geri döner.<br/>• `@intlayer/babel` ve `@intlayer/swc` eklentilerini gerektirir.<br/>• Anahtarlar statik olarak bildirilmelidir.<br/>• `optimize` kapalıysa yok sayılır.<br/>• `getIntlayer`, `getDictionary` vb.'ni etkilemez. |
+| `format`                    | Projedeki tüm sözlükler için varsayılan mesaj biçimi.                                                                                                                       | `'intlayer'` &#124; <br/> `'icu'` &#124; <br/> `'i18next'` &#124; <br/> `'vue-i18n'` &#124; <br/> `'po'`        | `'intlayer'`         | `'icu'`                                                                                     | • `'intlayer'`: Yerel intlayer biçimi.<br/>• `'icu'`: ICU mesaj biçimi.<br/>• `'i18next'`: i18next biçimi.<br/>• `'vue-i18n'`: Vue I18n biçimi.<br/>• `'po'`: GNU Gettext PO biçimi.                                                                                                                                                                                                                                                   |
 | `priority`                  | Sözlüğün önceliği. Sözlükler arasındaki çatışmaları çözerken yüksek değerler düşük değerleri yener.                                                                         | `number`                                                                                                        | `undefined`          | `1`                                                                                         |                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `live`                      | Kullanımdan kaldırıldı - bunun yerine `importMode: 'fetch'` kullanın. Sözlük içeriğinin Live Sync API aracılığıyla dinamik olarak getirilip getirilmeyeceğini belirtiyordu. | `boolean`                                                                                                       | `undefined`          |                                                                                             | v8.0.0'da `importMode: 'fetch'` olarak yeniden adlandırıldı.                                                                                                                                                                                                                                                                                                                                                                           |
 | `schema`                    | JSON şema doğrulaması için Intlayer tarafından otomatik olarak oluşturulur.                                                                                                 | `'https://intlayer.org/schema.json'`                                                                            | otomatik oluşturulur |                                                                                             | Manuel olarak düzenlemeyin.                                                                                                                                                                                                                                                                                                                                                                                                            |

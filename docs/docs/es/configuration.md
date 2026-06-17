@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-05-12
+updatedAt: 2026-06-17
 title: Configuración (Configuration)
 description: Aprenda a configure Intlayer para su aplicación. Entienda los diversos ajustes y opciones disponibles para personalizar Intlayer según sus necesidades.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 8.10.0
+    date: 2026-06-17
+    changes: "Añadida la opción `format` a la configuración del diccionario"
   - version: 8.9.4
     date: 2026-05-12
     changes: "Añadir soporte para el proveedor LM Studio"
@@ -135,6 +138,7 @@ Intlayer acepta los formatos de archivo de configuración JSON, JS, MJS y TS:
 ````typescript fileName="intlayer.config.ts" codeFormat="typescript"
 import { Locales, type IntlayerConfig } from "intlayer";
 import { nextjsRewrite } from "intlayer/routing";
+import { syncJSON } from "@intlayer/sync-json-plugin";
 import { z } from "zod";
 
 /**
@@ -586,9 +590,37 @@ const config: IntlayerConfig = {
   },
 
   /**
-   * Configuración de complementos (plugins).
+   * Configuración del diccionario.
    */
-  plugins: [],
+  dictionary: {
+    /**
+     * Controla cómo se importan los diccionarios.
+     * - "static": Importado estáticamente en el momento de compilación.
+     * - "dynamic": Importado dinámicamente usando Suspense.
+     * - "fetch": Obtenido dinámicamente a través de la API de sincronización en vivo.
+     */
+    importMode: "static",
+
+    /**
+     * El formato de mensaje predeterminado para todos los diccionarios del proyecto.
+     * - 'intlayer': Formato intlayer nativo (predeterminado).
+     * - 'icu': Formato de mensaje ICU.
+     * - 'i18next': Formato i18next.
+     * - 'vue-i18n': Formato Vue I18n.
+     * - 'po': Formato GNU Gettext PO.
+     */
+    format: "icu",
+  },
+
+  /**
+   * Configuración de plugins.
+   */
+  plugins: [
+    syncJSON({
+      format: "icu",
+      source: ({ locale }) => `./messages/${locale}.json`,
+    }),
+  ],
 };
 
 export default config;
@@ -864,6 +896,7 @@ Parámetros que controlan las operaciones de diccionarios, incluido el comportam
 | `contentAutoTransformation` | Transforma automáticamente cadenas de contenido en nodos tipados (markdown, HTML o inserción).                                                                        | `boolean` &#124; <br/> `{ markdown?: boolean; html?: boolean; insertion?: boolean }`                            | `false`        | `true`                                                                                      | • Markdown : `### Title` → `md('### Title')`.<br/>• HTML : `<div>Title</div>` → `html('<div>Title</div>')`.<br/>• Inserción : `Hello {{name}}` → `insert('Hello {{name}}')`.                                                                                                                                                                                                                                                               |
 | `location`                  | Indica dónde se almacenan los archivos de diccionario y cómo se sincronizan con el CMS.                                                                               | `'local'` &#124; <br/> `'remote'` &#124; <br/> `'hybrid'` &#124; <br/> `'plugin'` &#124; <br/> `string`         | `'local'`      | `'hybrid'`                                                                                  | • `'local'` : solo se gestiona localmente.<br/>• `'remote'` : solo se gestiona de forma remota (CMS).<br/>• `'hybrid'` : se gestiona tanto local como remotamente.<br/>• `'plugin'` o cadena personalizada: gestionado por un plugin o fuente personalizada.                                                                                                                                                                               |
 | `importMode`                | Controla cómo se importan los diccionarios.                                                                                                                           | `'static'` &#124; <br/> `'dynamic'` &#124; <br/> `'fetch'`                                                      | `'static'`     | `'dynamic'`                                                                                 | • `'static'`: importado estáticamente.<br/>• `'dynamic'`: importado dinámicamente mediante Suspense.<br/>• `'fetch'`: recuperado vía live sync API; recurre a `'dynamic'` si falla.<br/>• Depende de los plugins `@intlayer/babel` y `@intlayer/swc`.<br/>• Las claves deben declararse estáticamente.<br/>• Se ignora si `optimize` está desactivado.<br/>• No afecta a `getIntlayer`, `getDictionary`, etc.                              |
+| `format`                    | El formato de mensaje predeterminado para todos los diccionarios del proyecto.                                                                                        | `'intlayer'` &#124; <br/> `'icu'` &#124; <br/> `'i18next'` &#124; <br/> `'vue-i18n'` &#124; <br/> `'po'`        | `'intlayer'`   | `'icu'`                                                                                     | • `'intlayer'`: Formato intlayer nativo.<br/>• `'icu'`: Formato de mensaje ICU.<br/>• `'i18next'`: Formato i18next.<br/>• `'vue-i18n'`: Formato Vue I18n.<br/>• `'po'`: Formato GNU Gettext PO.                                                                                                                                                                                                                                            |
 | `priority`                  | Prioridad del diccionario. Los valores más altos ganan sobre los más bajos al resolver conflictos entre diccionarios.                                                 | `number`                                                                                                        | `undefined`    | `1`                                                                                         |                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | `live`                      | Depreciado - use `importMode: 'fetch'` en su lugar. Indicaba si el contenido del diccionario se recuperaba dinámicamente a través de la API live sync.                | `boolean`                                                                                                       | `undefined`    |                                                                                             | Renombrado a `importMode: 'fetch'` en v8.0.0.                                                                                                                                                                                                                                                                                                                                                                                              |
 | `schema`                    | Generado automáticamente por Intlayer para la validación del esquema JSON.                                                                                            | `'https://intlayer.org/schema.json'`                                                                            | auto-generado  |                                                                                             | No editar manualmente.                                                                                                                                                                                                                                                                                                                                                                                                                     |
