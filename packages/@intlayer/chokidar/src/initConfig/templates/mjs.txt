@@ -1,9 +1,9 @@
+import { Locales } from 'intlayer';
+
 /**
 * Intlayer configuration file documentation 
 * @see https://intlayer.org/doc/concept/configuration
 */
-
-import { Locales } from 'intlayer';
 
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {

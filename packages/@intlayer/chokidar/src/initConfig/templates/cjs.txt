@@ -1,9 +1,9 @@
+const { Locales } = require('intlayer');
+
 /**
 * Intlayer configuration file documentation 
 * @see https://intlayer.org/doc/concept/configuration
 */
-
-const { Locales } = require('intlayer');
 
 /** @type {import('intlayer').IntlayerConfig} */
 const config = {
