@@ -132,7 +132,11 @@ export const DictionaryFieldEditor: FC<DictionaryFieldEditorProps> = ({
           <div className="min-h-0 flex-1 overflow-y-auto p-6">
             <div className="flex w-full min-w-0 flex-col items-stretch gap-6">
               {mode.includes('remote') && activeTab === 'details' && (
-                <DictionaryDetailsForm dictionary={dictionary} mode={mode} />
+                <DictionaryDetailsForm
+                  dictionary={dictionary}
+                  mode={mode}
+                  isDarkMode={isDarkMode}
+                />
               )}
               {activeTab === 'structure' && (
                 <StructureEditor dictionary={dictionary} />

@@ -47,6 +47,7 @@ type DictionaryDetailsProps = {
   dictionary: Dictionary;
   mode: ('local' | 'remote')[];
   onSelectSibling?: (dictionary: Dictionary) => void;
+  isDarkMode?: boolean;
 };
 
 type QualifierType = 'collection' | 'variant' | 'meta';
@@ -66,6 +67,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   dictionary,
   mode,
   onSelectSibling,
+  isDarkMode,
 }) => {
   const { session } = useSession();
   const { project } = session ?? {};
@@ -701,6 +703,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                     language="json"
                     showCopyButton={false}
                     showLineNumbers={false}
+                    isDarkMode={isDarkMode}
                     onChange={(value) => {
                       const raw = value ?? '';
                       setMetaJsonValue(raw);
