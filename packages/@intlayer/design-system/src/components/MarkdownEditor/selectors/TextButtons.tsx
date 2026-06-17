@@ -9,7 +9,7 @@ import {
   StrikethroughIcon,
   UnderlineIcon,
 } from 'lucide-react';
-import { EditorBubbleItem, useEditor } from '../novel';
+import { EditorBubbleItem, useEditor } from '../novel-';
 import type { SelectorItem } from './NodeSelector';
 
 /**

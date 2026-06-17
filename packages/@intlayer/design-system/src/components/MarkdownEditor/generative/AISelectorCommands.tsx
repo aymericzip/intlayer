@@ -8,7 +8,7 @@ import {
   StepForward,
   WrapText,
 } from 'lucide-react';
-import { getPrevText, useEditor } from '../novel';
+import { getPrevText, useEditor } from '../novel-';
 import type { AICompletionOption } from './useAICompletion';
 
 const options: {

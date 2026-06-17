@@ -3,7 +3,7 @@
 import { Button } from '@components/Button';
 import { Sparkles } from 'lucide-react';
 import { Fragment, type ReactNode, useEffect } from 'react';
-import { EditorBubble, removeAIHighlight, useEditor } from '../novel';
+import { EditorBubble, removeAIHighlight, useEditor } from '../novel-';
 import { AISelector } from './AISelector';
 
 export type GenerativeMenuSwitchProps = {
@@ -29,13 +29,7 @@ export const GenerativeMenuSwitch = ({
 
   return (
     <EditorBubble
-      tippyOptions={{
-        placement: open ? 'bottom-start' : 'top',
-        onHidden: () => {
-          onOpenChange(false);
-          editor?.chain().unsetHighlight().run();
-        },
-      }}
+      options={{ placement: open ? 'bottom-start' : 'top' }}
       className="flex w-fit max-w-[90vw] overflow-hidden rounded-md border border-muted bg-background shadow-xl"
     >
       {open && <AISelector onOpenChange={onOpenChange} />}

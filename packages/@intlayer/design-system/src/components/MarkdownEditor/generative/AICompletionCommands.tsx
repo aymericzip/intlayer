@@ -2,7 +2,7 @@
 
 import { Command } from '@components/Command';
 import { Check, TextQuote, TrashIcon } from 'lucide-react';
-import { useEditor } from '../novel';
+import { useEditor } from '../novel-';
 
 export type AICompletionCommandsProps = {
   completion: string;

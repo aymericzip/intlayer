@@ -5,7 +5,7 @@ import { DropDown } from '@components/DropDown';
 import { cn } from '@utils/cn';
 import { Check, Link2, Trash } from 'lucide-react';
 import { useRef } from 'react';
-import { getUrlFromString, useEditor } from '../novel';
+import { getUrlFromString, useEditor } from '../novel-';
 
 const DROPDOWN_ID = 'markdown-editor-link-selector';
 

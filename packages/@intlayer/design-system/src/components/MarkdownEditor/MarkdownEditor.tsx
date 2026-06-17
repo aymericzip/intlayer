@@ -23,7 +23,7 @@ import {
   handleImagePaste,
   ImageResizer,
   type JSONContent,
-} from './novel';
+} from './novel-';
 import { ColorSelector } from './selectors/ColorSelector';
 import { LinkSelector } from './selectors/LinkSelector';
 import { NodeSelector } from './selectors/NodeSelector';
@@ -56,7 +56,7 @@ export type MarkdownEditorProps = {
  * Notion-style WYSIWYG markdown editor built on Novel / Tiptap.
  *
  * Features a slash command menu, a formatting bubble menu (node / link / color
- * / inline marks / math), image upload (drop / paste / slash), and an optional
+ * / inline marks), image upload (drop / paste / slash), and an optional
  * AI assistant wired to the Intlayer AI backend.
  *
  * The value contract is markdown: pass `defaultValue` as a markdown string and
@@ -172,7 +172,7 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
               </GenerativeMenuSwitch>
             ) : (
               <EditorBubble
-                tippyOptions={{ placement: 'top' }}
+                options={{ placement: 'top' }}
                 className="flex w-fit max-w-[90vw] overflow-hidden rounded-md border border-muted bg-background shadow-xl"
               >
                 {toolbar}

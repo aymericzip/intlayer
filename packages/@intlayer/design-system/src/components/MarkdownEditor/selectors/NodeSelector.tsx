@@ -14,7 +14,7 @@ import {
   TextIcon,
   TextQuote,
 } from 'lucide-react';
-import { EditorBubbleItem, type EditorInstance, useEditor } from '../novel';
+import { EditorBubbleItem, type EditorInstance, useEditor } from '../novel-';
 
 const DROPDOWN_ID = 'markdown-editor-node-selector';
 

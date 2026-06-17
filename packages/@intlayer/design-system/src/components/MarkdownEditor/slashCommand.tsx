@@ -17,7 +17,7 @@ import {
   renderItems,
   type SuggestionItem,
   type UploadFn,
-} from './novel';
+} from './novel-';
 
 /**
  * Builds the list of slash-command suggestions. The image command needs the

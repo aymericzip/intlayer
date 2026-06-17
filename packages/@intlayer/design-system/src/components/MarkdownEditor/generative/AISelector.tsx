@@ -7,7 +7,7 @@ import { MarkdownRenderer } from '@components/MarkDownRender';
 import { toast } from '@components/Toaster';
 import { ArrowUp, Sparkles } from 'lucide-react';
 import { useState } from 'react';
-import { addAIHighlight, useEditor } from '../novel';
+import { addAIHighlight, useEditor } from '../novel-';
 import { AICompletionCommands } from './AICompletionCommands';
 import { AISelectorCommands } from './AISelectorCommands';
 import { useAICompletion } from './useAICompletion';

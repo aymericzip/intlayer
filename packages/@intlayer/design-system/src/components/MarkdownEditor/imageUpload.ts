@@ -1,4 +1,4 @@
-import { createImageUpload, type UploadFn } from './novel';
+import { createImageUpload, type UploadFn } from './novel-';
 
 /**
  * Uploads an image file and resolves to the URL that should be embedded in the
