@@ -9,7 +9,8 @@ import {
   StrikethroughIcon,
   UnderlineIcon,
 } from 'lucide-react';
-import { EditorBubbleItem, useEditor } from '../novel-';
+import { useIntlayer } from 'react-intlayer';
+import { EditorBubbleItem, useEditor } from '../novel';
 import type { SelectorItem } from './NodeSelector';
 
 /**
@@ -18,6 +19,8 @@ import type { SelectorItem } from './NodeSelector';
  */
 export const TextButtons = () => {
   const { editor } = useEditor();
+  const content = useIntlayer('markdown-editor');
+
   if (!editor) return null;
 
   const items: SelectorItem[] = [
@@ -58,6 +61,23 @@ export const TextButtons = () => {
     },
   ];
 
+  const getButtonLabel = (name: string) => {
+    switch (name) {
+      case 'bold':
+        return content.bold.value;
+      case 'italic':
+        return content.italic.value;
+      case 'underline':
+        return content.underline.value;
+      case 'strike':
+        return content.strike.value;
+      case 'code':
+        return content.code.value;
+      default:
+        return name;
+    }
+  };
+
   return (
     <div className="flex">
       {items.map((item) => (
@@ -66,7 +86,7 @@ export const TextButtons = () => {
           onSelect={(selectedEditor) => item.command(selectedEditor)}
         >
           <Button
-            label={item.name}
+            label={getButtonLabel(item.name)}
             size="icon-sm"
             variant="hoverable"
             color="text"

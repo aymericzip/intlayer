@@ -1,15 +1,24 @@
 'use client';
 
-import { Button } from '@components/Button';
+import {
+  Button,
+  type ButtonColor,
+  type ButtonVariant,
+} from '@components/Button';
 import { Sparkles } from 'lucide-react';
 import { Fragment, type ReactNode, useEffect } from 'react';
-import { EditorBubble, removeAIHighlight, useEditor } from '../novel-';
+import { useIntlayer } from 'react-intlayer';
+import { EditorBubble, removeAIHighlight, useEditor } from '../novel';
 import { AISelector } from './AISelector';
 
 export type GenerativeMenuSwitchProps = {
   children: ReactNode;
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  /** Visual variant forwarded to the AI send button. @default "default" */
+  sendButtonVariant?: ButtonVariant;
+  /** Color theme forwarded to the AI send button. @default "text" */
+  sendButtonColor?: ButtonColor;
 };
 
 /**
@@ -20,8 +29,11 @@ export const GenerativeMenuSwitch = ({
   children,
   open,
   onOpenChange,
+  sendButtonVariant,
+  sendButtonColor,
 }: GenerativeMenuSwitchProps) => {
   const { editor } = useEditor();
+  const content = useIntlayer('markdown-editor');
 
   useEffect(() => {
     if (!open && editor) removeAIHighlight(editor);
@@ -30,22 +42,28 @@ export const GenerativeMenuSwitch = ({
   return (
     <EditorBubble
       options={{ placement: open ? 'bottom-start' : 'top' }}
-      className="flex w-fit max-w-[90vw] overflow-hidden rounded-md border border-muted bg-background shadow-xl"
+      className="flex w-fit max-w-[90vw] rounded-lg border-[1.3px] border-neutral/20 bg-card/95 text-text shadow-xl backdrop-blur [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-xl"
     >
-      {open && <AISelector onOpenChange={onOpenChange} />}
+      {open && (
+        <AISelector
+          onOpenChange={onOpenChange}
+          sendButtonVariant={sendButtonVariant}
+          sendButtonColor={sendButtonColor}
+        />
+      )}
       {!open && (
         <Fragment>
           <Button
-            label="Ask AI"
+            label={content.askAI.value}
             variant="hoverable"
             color="text"
             size="sm"
             roundedSize="none"
-            className="gap-1 text-purple-500"
+            className="gap-1 text-text"
             Icon={Sparkles}
             onClick={() => onOpenChange(true)}
           >
-            Ask AI
+            {content.askAI}
           </Button>
           {children}
         </Fragment>

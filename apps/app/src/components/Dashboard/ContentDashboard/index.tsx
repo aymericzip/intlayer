@@ -3,9 +3,11 @@ import {
   useGetDictionary,
 } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
+import { Container } from '@intlayer/design-system/container';
 import { DictionaryFieldEditor } from '@intlayer/design-system/dictionary-field-editor';
 import { Loader } from '@intlayer/design-system/loader';
 import { Pagination } from '@intlayer/design-system/pagination';
+import { PopoverStatic } from '@intlayer/design-system/popover';
 import { App_Dashboard_Dictionaries_Path } from '@intlayer/design-system/routes';
 import { Tag } from '@intlayer/design-system/tag';
 import { useDictionariesRecord } from '@intlayer/editor-react';
@@ -249,22 +251,43 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
               }}
               onSave={handleSave}
               rightContent={
-                <Button
-                  variant="hoverable"
-                  color="text"
-                  size="icon-md"
-                  Icon={pinned ? PinOff : Pin}
-                  onClick={() => {
-                    if (pinned) {
-                      unpin(dictionaryKey);
-                    } else {
-                      pin(dictionaryKey);
-                    }
-                  }}
-                  label={String(
-                    pinned ? unpinDictionaryLabel : pinDictionaryLabel
-                  )}
-                />
+                <PopoverStatic identifier={`pin-${dictionaryKey}`}>
+                  <Button
+                    type="button"
+                    variant="hoverable"
+                    color="text"
+                    size="icon-md"
+                    Icon={pinned ? PinOff : Pin}
+                    onClick={() => {
+                      if (pinned) {
+                        unpin(dictionaryKey);
+                      } else {
+                        pin(dictionaryKey);
+                      }
+                    }}
+                    label={String(
+                      pinned ? unpinDictionaryLabel : pinDictionaryLabel
+                    )}
+                    aria-label={String(
+                      pinned ? unpinDictionaryLabel : pinDictionaryLabel
+                    )}
+                    title={String(
+                      pinned ? unpinDictionaryLabel : pinDictionaryLabel
+                    )}
+                  />
+                  <PopoverStatic.Detail
+                    identifier={`pin-${dictionaryKey}`}
+                    xAlign="end"
+                  >
+                    <Container padding="sm" roundedSize="xl">
+                      <span className="text-nowrap">
+                        {String(
+                          pinned ? unpinDictionaryLabel : pinDictionaryLabel
+                        )}
+                      </span>
+                    </Container>
+                  </PopoverStatic.Detail>
+                </PopoverStatic>
               }
             />
           )}

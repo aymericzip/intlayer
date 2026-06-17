@@ -1,6 +1,6 @@
 'use client';
 
-import { DropDown } from '@components/DropDown';
+import { cn } from '@utils/cn';
 import {
   Check,
   CheckSquare,
@@ -14,9 +14,9 @@ import {
   TextIcon,
   TextQuote,
 } from 'lucide-react';
-import { EditorBubbleItem, type EditorInstance, useEditor } from '../novel-';
-
-const DROPDOWN_ID = 'markdown-editor-node-selector';
+import { type FC, useEffect, useRef, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
+import { type EditorInstance, useEditor } from '../novel';
 
 export type SelectorItem = {
   name: string;
@@ -95,48 +95,102 @@ const items: SelectorItem[] = [
 
 /**
  * Bubble-menu selector that converts the current block between paragraph,
- * headings, lists, quote and code. Reuses the design-system `DropDown`.
+ * headings, lists, quote and code.
+ *
+ * Uses `onMouseDown` + `preventDefault` on every interactive element so the
+ * editor's selection is never cleared while the panel is open.
  */
-export const NodeSelector = () => {
+export const NodeSelector: FC = () => {
   const { editor } = useEditor();
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const content = useIntlayer('markdown-editor');
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleOutsideMouseDown = (event: MouseEvent) => {
+      if (!containerRef.current?.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleOutsideMouseDown);
+    return () =>
+      document.removeEventListener('mousedown', handleOutsideMouseDown);
+  }, [isOpen]);
+
   if (!editor) return null;
 
   const activeItem = items.filter((item) => item.isActive(editor)).pop() ?? {
     name: 'Multiple',
   };
 
+  const getItemName = (name: string) => {
+    switch (name) {
+      case 'Text':
+        return content.text.value;
+      case 'Heading 1':
+        return content.heading1.value;
+      case 'Heading 2':
+        return content.heading2.value;
+      case 'Heading 3':
+        return content.heading3.value;
+      case 'To-do List':
+        return content.todoList.value;
+      case 'Bullet List':
+        return content.bulletList.value;
+      case 'Numbered List':
+        return content.numberedList.value;
+      case 'Quote':
+        return content.quote.value;
+      case 'Code':
+        return content.code.value;
+      case 'Multiple':
+        return content.multiple.value;
+      default:
+        return name;
+    }
+  };
+
   return (
-    <DropDown identifier={DROPDOWN_ID}>
-      <DropDown.Trigger
-        identifier={DROPDOWN_ID}
-        label={activeItem.name}
-        variant="hoverable"
-        color="text"
-        size="sm"
-        roundedSize="none"
-        IconRight={ChevronDown}
+    <div ref={containerRef} className="relative">
+      <button
+        type="button"
+        onMouseDown={(e) => {
+          e.preventDefault();
+          setIsOpen((prev) => !prev);
+        }}
+        className="flex items-center gap-1 whitespace-nowrap rounded-none px-3 py-1.5 text-sm hover:bg-accent"
       >
-        <span className="whitespace-nowrap text-sm">{activeItem.name}</span>
-      </DropDown.Trigger>
-      <DropDown.Panel identifier={DROPDOWN_ID} isFocusable align="start">
-        <div className="w-48 rounded-md border bg-popover p-1 shadow-md">
+        <span>{getItemName(activeItem.name)}</span>
+        <ChevronDown
+          className={cn('size-3 transition-transform', isOpen && 'rotate-180')}
+        />
+      </button>
+
+      {isOpen && (
+        <div className="absolute top-[calc(100%+0.5rem)] left-0 z-50 w-48 rounded-md border bg-popover p-1 shadow-md">
           {items.map((item) => (
-            <EditorBubbleItem
+            <button
+              type="button"
               key={item.name}
-              onSelect={(selectedEditor) => item.command(selectedEditor)}
-              className="flex cursor-pointer items-center justify-between rounded-sm px-2 py-1 text-sm hover:bg-accent"
+              onMouseDown={(e) => {
+                e.preventDefault();
+                item.command(editor);
+                setIsOpen(false);
+              }}
+              className="flex w-full cursor-pointer items-center justify-between rounded-sm px-2 py-1 text-sm hover:bg-accent"
             >
               <div className="flex items-center space-x-2">
                 <div className="rounded-sm border p-1">
                   <item.icon className="size-3" />
                 </div>
-                <span>{item.name}</span>
+                <span>{getItemName(item.name)}</span>
               </div>
               {activeItem.name === item.name && <Check className="size-4" />}
-            </EditorBubbleItem>
+            </button>
           ))}
         </div>
-      </DropDown.Panel>
-    </DropDown>
+      )}
+    </div>
   );
 };

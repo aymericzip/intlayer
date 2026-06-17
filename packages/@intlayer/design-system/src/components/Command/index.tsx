@@ -16,7 +16,10 @@ export const CommandRoot: FC<ComponentProps<typeof CommandPrimitive>> = ({
   ...props
 }) => (
   <CommandPrimitive
-    className={cn('flex flex-col overflow-hidden rounded-md', className)}
+    className={cn(
+      'flex flex-col overflow-hidden rounded-md px-3 py-2',
+      className
+    )}
     {...props}
   />
 );
@@ -37,13 +40,20 @@ const CommandInput: FC<ComponentProps<typeof CommandPrimitive.Input>> = ({
   className,
   ...props
 }) => (
-  <div className="flex w-full items-center" cmdk-input-wrapper="">
-    <Search className="mr-2 size-4 shrink-0 opacity-50" />
+  <div
+    className={cn(
+      'flex flex-1 items-center gap-2 px-3 py-2',
+      'rounded-2xl supports-[corner-shape:squircle]:rounded-4xl',
+      'bg-neutral-50 dark:bg-neutral-950',
+      'ring-1 ring-neutral-100 dark:ring-neutral-700',
+      'transition-shadow duration-100 focus-within:ring-3 hover:ring-3',
+      className
+    )}
+    cmdk-input-wrapper=""
+  >
+    <Search className="size-4 shrink-0 opacity-50" />
     <CommandPrimitive.Input
-      className={cn(
-        'flex w-full rounded-md bg-transparent text-sm outline-hidden placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50',
-        className
-      )}
+      className="flex-1 bg-transparent text-sm outline-hidden placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
       {...props}
     />
   </div>

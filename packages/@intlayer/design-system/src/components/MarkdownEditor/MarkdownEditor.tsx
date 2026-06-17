@@ -1,8 +1,8 @@
 'use client';
 
-import { Container } from '@components/Container';
 import { cn } from '@utils/cn';
 import { type FC, useMemo, useState } from 'react';
+import { useIntlayer } from 'react-intlayer';
 import { defaultExtensions } from './extensions';
 import { GenerativeMenuSwitch } from './generative/GenerativeMenuSwitch';
 import {
@@ -23,7 +23,7 @@ import {
   handleImagePaste,
   ImageResizer,
   type JSONContent,
-} from './novel-';
+} from './novel';
 import { ColorSelector } from './selectors/ColorSelector';
 import { LinkSelector } from './selectors/LinkSelector';
 import { NodeSelector } from './selectors/NodeSelector';
@@ -72,6 +72,7 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
   className,
 }) => {
   const [openAI, setOpenAI] = useState(false);
+  const content = useIntlayer('markdown-editor');
 
   const uploadFn = useMemo(
     () => createEditorUploadFn({ uploadImage, maxSizeMb: maxImageSizeMb }),
@@ -79,14 +80,16 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
   );
 
   const { extensions, suggestionItems } = useMemo(() => {
-    const { slashCommand, suggestionItems: items } =
-      createSlashCommand(uploadFn);
+    const { slashCommand, suggestionItems: items } = createSlashCommand(
+      uploadFn,
+      content
+    );
 
     return {
       extensions: [...defaultExtensions, slashCommand],
       suggestionItems: items,
     };
-  }, [uploadFn]);
+  }, [uploadFn, content]);
 
   const initialContent = (defaultValue ?? '') as unknown as JSONContent;
 
@@ -114,7 +117,7 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
           editable={editable}
           initialContent={initialContent}
           extensions={extensions}
-          className={cn('min-h-[200px] w-full max-w-full', className)}
+          className={cn('min-h-[350px] w-full max-w-full', className)}
           editorProps={{
             handleDOMEvents: {
               keydown: (_view, event) => handleCommandNavigation(event),
@@ -127,58 +130,50 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
               // Content typography (headings, lists, spacing) is defined in
               // `markdown-editor.css`, scoped to `.ProseMirror` — this project
               // has no Tailwind `prose` plugin.
-              class: 'max-w-full focus:outline-none',
+              class: 'max-w-full pl-6 focus:outline-none',
             },
           }}
           onUpdate={handleUpdate}
           slotAfter={<ImageResizer />}
         >
-          <Container
-            padding="xl"
-            background="none"
-            roundedSize="2xl"
-            border
-            borderColor="card"
-          >
-            <EditorCommand className="z-50 h-auto max-h-[330px] overflow-y-auto px-1 py-2 shadow-md transition-all">
-              <EditorCommandEmpty className="px-2 text-muted-foreground">
-                No results
-              </EditorCommandEmpty>
-              <EditorCommandList>
-                {suggestionItems.map((item) => (
-                  <EditorCommandItem
-                    value={item.title}
-                    onCommand={(val) => item.command?.(val)}
-                    className="flex w-full items-center space-x-2 rounded-md px-2 py-1 text-left text-sm hover:bg-accent aria-selected:bg-accent"
-                    key={item.title}
-                  >
-                    <div className="flex size-10 items-center justify-center rounded-md border border-muted bg-background">
-                      {item.icon}
-                    </div>
-                    <div>
-                      <p className="font-medium">{item.title}</p>
-                      <p className="text-muted-foreground text-xs">
-                        {item.description}
-                      </p>
-                    </div>
-                  </EditorCommandItem>
-                ))}
-              </EditorCommandList>
-            </EditorCommand>
+          <EditorCommand className="z-50 h-auto max-h-[330px] overflow-y-auto px-1 py-2 shadow-md transition-all">
+            <EditorCommandEmpty className="px-2 text-muted-foreground">
+              {content.noResults.value}
+            </EditorCommandEmpty>
+            <EditorCommandList>
+              {suggestionItems.map((item) => (
+                <EditorCommandItem
+                  value={item.title}
+                  onCommand={(val) => item.command?.(val)}
+                  className="flex w-full items-center space-x-2 rounded-md px-2 py-1 text-left text-sm hover:bg-accent aria-selected:bg-accent"
+                  key={item.title}
+                >
+                  <div className="flex size-10 items-center justify-center rounded-md border border-card bg-background">
+                    {item.icon}
+                  </div>
+                  <div>
+                    <p className="font-medium">{item.title}</p>
+                    <p className="text-muted-foreground text-xs">
+                      {item.description}
+                    </p>
+                  </div>
+                </EditorCommandItem>
+              ))}
+            </EditorCommandList>
+          </EditorCommand>
 
-            {enableAI ? (
-              <GenerativeMenuSwitch open={openAI} onOpenChange={setOpenAI}>
-                {toolbar}
-              </GenerativeMenuSwitch>
-            ) : (
-              <EditorBubble
-                options={{ placement: 'top' }}
-                className="flex w-fit max-w-[90vw] overflow-hidden rounded-md border border-muted bg-background shadow-xl"
-              >
-                {toolbar}
-              </EditorBubble>
-            )}
-          </Container>
+          {enableAI ? (
+            <GenerativeMenuSwitch open={openAI} onOpenChange={setOpenAI}>
+              {toolbar}
+            </GenerativeMenuSwitch>
+          ) : (
+            <EditorBubble
+              options={{ placement: 'top' }}
+              className="flex w-fit max-w-[90vw] rounded-lg border-[1.3px] border-neutral/20 bg-card/95 text-text shadow-xl backdrop-blur [corner-shape:squircle] supports-[corner-shape:squircle]:rounded-xl"
+            >
+              {toolbar}
+            </EditorBubble>
+          )}
         </EditorContent>
       </EditorRoot>
     </div>

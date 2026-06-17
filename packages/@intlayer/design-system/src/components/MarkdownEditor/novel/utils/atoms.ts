@@ -6,11 +6,9 @@ type Listener = () => void;
 /**
  * Minimal module-level observable store.
  *
- * Replaces the previous jotai atoms: the slash-command suggestion popup is
  * rendered by Tiptap in a separate React root (outside the editor's provider
  * tree), so the query/range state has to live in a plain module singleton that
  * both roots can read and write — no shared React context needed. This is what
- * jotai's explicit `{ store: novelStore }` was emulating, so a small
  * `useSyncExternalStore` store removes the dependency with identical behaviour.
  */
 const createExternalStore = <T>(initialValue: T) => {

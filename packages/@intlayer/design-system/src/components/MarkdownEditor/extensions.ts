@@ -20,7 +20,7 @@ import {
   UpdatedImage,
   UploadImagesPlugin,
   Youtube,
-} from './novel-';
+} from './novel';
 
 const aiHighlight = AIHighlight;
 

@@ -1,19 +1,28 @@
 'use client';
 
-import { Button } from '@components/Button';
+import {
+  Button,
+  type ButtonColor,
+  type ButtonVariant,
+} from '@components/Button';
 import { Command, CommandRoot } from '@components/Command';
 import { Loader } from '@components/Loader';
 import { MarkdownRenderer } from '@components/MarkDownRender';
 import { toast } from '@components/Toaster';
 import { ArrowUp, Sparkles } from 'lucide-react';
 import { useState } from 'react';
-import { addAIHighlight, useEditor } from '../novel-';
+import { useIntlayer } from 'react-intlayer';
+import { addAIHighlight, useEditor } from '../novel';
 import { AICompletionCommands } from './AICompletionCommands';
 import { AISelectorCommands } from './AISelectorCommands';
 import { useAICompletion } from './useAICompletion';
 
 export type AISelectorProps = {
   onOpenChange: (open: boolean) => void;
+  /** Visual variant for the send button. @default "default" */
+  sendButtonVariant?: ButtonVariant;
+  /** Color theme for the send button. @default "text" */
+  sendButtonColor?: ButtonColor;
 };
 
 /**
@@ -21,11 +30,21 @@ export type AISelectorProps = {
  * preset transformation or a free-form prompt against the current selection,
  * preview the markdown result, then replace / insert / discard it.
  */
-export const AISelector = ({ onOpenChange }: AISelectorProps) => {
+export const AISelector = ({
+  onOpenChange,
+  sendButtonVariant = 'default',
+  sendButtonColor = 'text',
+}: AISelectorProps) => {
   const { editor } = useEditor();
   const [inputValue, setInputValue] = useState('');
+  const content = useIntlayer('markdown-editor');
+
   const { completion, complete, isLoading, reset } = useAICompletion((error) =>
-    toast({ variant: 'error', title: 'AI error', description: error.message })
+    toast({
+      variant: 'error',
+      title: content.aiError.value,
+      description: error.message,
+    })
   );
 
   if (!editor) return null;
@@ -52,9 +71,9 @@ export const AISelector = ({ onOpenChange }: AISelectorProps) => {
       )}
 
       {isLoading && (
-        <div className="flex h-12 w-full items-center px-4 font-medium text-purple-500 text-sm">
+        <div className="flex h-12 w-full items-center px-4 font-medium text-sm text-text">
           <Sparkles className="mr-2 size-4 shrink-0" />
-          AI is thinking
+          {content.aiThinking}
           <div className="mt-1 ml-2">
             <Loader />
           </div>
@@ -63,24 +82,23 @@ export const AISelector = ({ onOpenChange }: AISelectorProps) => {
 
       {!isLoading && (
         <>
-          <div className="relative">
+          <div className="flex items-center gap-2 px-3 py-3">
             <Command.Input
               value={inputValue}
               onValueChange={setInputValue}
               autoFocus
               placeholder={
-                hasCompletion
-                  ? 'Tell AI what to do next'
-                  : 'Ask AI to edit or generate...'
+                hasCompletion ? content.tellAI.value : content.askAIToEdit.value
               }
               onFocus={() => addAIHighlight(editor)}
             />
             <Button
-              label="Send"
+              label={content.send.value}
               size="icon-sm"
               roundedSize="full"
-              color="custom"
-              className="absolute top-1/2 right-2 size-6 -translate-y-1/2 bg-purple-500 text-white hover:bg-purple-900"
+              variant={sendButtonVariant}
+              color={sendButtonColor}
+              className="size-7 shrink-0"
               Icon={ArrowUp}
               onClick={() => {
                 const text = completion || getSelectionMarkdown();

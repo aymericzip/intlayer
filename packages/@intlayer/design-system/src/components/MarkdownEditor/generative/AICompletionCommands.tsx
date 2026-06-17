@@ -2,7 +2,8 @@
 
 import { Command } from '@components/Command';
 import { Check, TextQuote, TrashIcon } from 'lucide-react';
-import { useEditor } from '../novel-';
+import { useIntlayer } from 'react-intlayer';
+import { useEditor } from '../novel';
 
 export type AICompletionCommandsProps = {
   completion: string;
@@ -18,6 +19,8 @@ export const AICompletionCommands = ({
   onDiscard,
 }: AICompletionCommandsProps) => {
   const { editor } = useEditor();
+  const content = useIntlayer('markdown-editor');
+
   if (!editor) return null;
 
   return (
@@ -39,7 +42,7 @@ export const AICompletionCommands = ({
           }}
         >
           <Check className="size-4 text-muted-foreground" />
-          Replace selection
+          {content.replaceSelection}
         </Command.Item>
         <Command.Item
           value="insert"
@@ -54,7 +57,7 @@ export const AICompletionCommands = ({
           }}
         >
           <TextQuote className="size-4 text-muted-foreground" />
-          Insert below
+          {content.insertBelow}
         </Command.Item>
       </Command.Group>
       <Command.Separator />
@@ -65,7 +68,7 @@ export const AICompletionCommands = ({
           onSelect={onDiscard}
         >
           <TrashIcon className="size-4 text-muted-foreground" />
-          Discard
+          {content.discard}
         </Command.Item>
       </Command.Group>
     </>

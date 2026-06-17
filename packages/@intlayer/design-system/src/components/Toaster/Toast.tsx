@@ -151,7 +151,7 @@ export const ToastAction: FC<ComponentProps<typeof ToastPrimitives.Action>> = ({
 }) => (
   <ToastPrimitives.Action
     className={cn(
-      'inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 font-medium text-sm transition-colors hover:bg-text focus:outline-hidden focus:ring-1 focus:ring-ring disabled:pointer-events-none disabled:opacity-50 group-[.error]:border-muted/40 group-[.error]:focus:ring-error group-[.error]:hover:border-error/30 group-[.error]:hover:bg-error group-[.error]:hover:text-error-foreground',
+      'inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 font-medium text-sm transition-colors hover:bg-text focus:outline-hidden focus:ring-1 focus:ring-ring disabled:pointer-events-none disabled:opacity-50 group-[.error]:border-card/40 group-[.error]:focus:ring-error group-[.error]:hover:border-error/30 group-[.error]:hover:bg-error group-[.error]:hover:text-error-foreground',
       className
     )}
     {...props}

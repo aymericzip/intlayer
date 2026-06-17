@@ -8,7 +8,8 @@ import {
   StepForward,
   WrapText,
 } from 'lucide-react';
-import { getPrevText, useEditor } from '../novel-';
+import { useIntlayer } from 'react-intlayer';
+import { getPrevText, useEditor } from '../novel';
 import type { AICompletionOption } from './useAICompletion';
 
 const options: {
@@ -32,11 +33,28 @@ export type AISelectorCommandsProps = {
  */
 export const AISelectorCommands = ({ onSelect }: AISelectorCommandsProps) => {
   const { editor } = useEditor();
+  const content = useIntlayer('markdown-editor');
+
   if (!editor) return null;
+
+  const getOptionLabel = (value: string) => {
+    switch (value) {
+      case 'improve':
+        return content.improveWriting.value;
+      case 'fix':
+        return content.fixGrammar.value;
+      case 'shorter':
+        return content.makeShorter.value;
+      case 'longer':
+        return content.makeLonger.value;
+      default:
+        return value;
+    }
+  };
 
   return (
     <>
-      <Command.Group heading="Edit or review selection">
+      <Command.Group heading={content.editHeading.value}>
         {options.map((option) => (
           <Command.Item
             key={option.value}
@@ -50,13 +68,13 @@ export const AISelectorCommands = ({ onSelect }: AISelectorCommandsProps) => {
               onSelect(text, value as AICompletionOption);
             }}
           >
-            <option.icon className="size-4 text-purple-500" />
-            {option.label}
+            <option.icon className="size-4 text-text" />
+            {getOptionLabel(option.value)}
           </Command.Item>
         ))}
       </Command.Group>
       <Command.Separator />
-      <Command.Group heading="Use AI to do more">
+      <Command.Group heading={content.moreHeading.value}>
         <Command.Item
           value="continue"
           className="gap-2 px-4"
@@ -66,8 +84,8 @@ export const AISelectorCommands = ({ onSelect }: AISelectorCommandsProps) => {
             onSelect(text, 'continue');
           }}
         >
-          <StepForward className="size-4 text-purple-500" />
-          Continue writing
+          <StepForward className="size-4 text-text" />
+          {content.continueWriting}
         </Command.Item>
       </Command.Group>
     </>
