@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/next-translate",
-  "version": "8.12.5-canary.0",
+  "version": "9.0.0-canary.1",
   "private": false,
   "description": "next-translate API adapter for intlayer — drop-in compatibility layer",
   "keywords": [
