@@ -569,7 +569,7 @@ export const I18nBenchmark = ({
           {allLibs.map((lib) => (
             <div
               key={lib.id}
-              className="border-border border-r border-b border-dotted p-2"
+              className="min-w-45 border-border border-r border-b border-dotted p-2"
             >
               <LibCard
                 lib={lib}
