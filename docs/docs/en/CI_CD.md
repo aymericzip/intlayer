@@ -93,7 +93,7 @@ export default config;
 
 ```bash fileName=".husky/pre-push"
 npx intlayer build                          # To ensure dictionaries are up to date
-npx intlayer fill --unpushed --mode fill    # Only fill missing content, does not update existing ones
+npx intlayer fill --unpushed --mode complete    # Only fill missing content, does not update existing ones
 ```
 
 > For more information about Intlayer CLI commands and their usage, refer to the [CLI documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md).
@@ -103,11 +103,11 @@ npx intlayer fill --unpushed --mode fill    # Only fill missing content, does no
 ```bash fileName=".husky/pre-push"
 # App 1
 npx intlayer build --base-dir ./app1
-npx intlayer fill --base-dir ./app1 --unpushed --mode fill
+npx intlayer fill --base-dir ./app1 --unpushed --mode complete
 
 # App 2
 npx intlayer build --base-dir ./app2
-npx intlayer fill --base-dir ./app2 --unpushed --mode fill
+npx intlayer fill --base-dir ./app2 --unpushed --mode complete
 ```
 
 ## Using GitHub Actions
@@ -135,8 +135,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # OpenAI
-      AI_MODEL: openai
-      AI_PROVIDER: gpt-5-mini
+      AI_PROVIDER: openai
+      AI_MODEL: gpt-5-mini
       AI_API_KEY: ${{ secrets.AI_API_KEY }}
 
     steps:
@@ -167,10 +167,10 @@ jobs:
 
       # Step 6: Use AI to automatically fill missing translations
       - name: 🤖 Auto-fill missing translations
-        run: npx intlayer fill --git-diff --mode fill --provider $AI_PROVIDER --model $AI_MODEL --api-key $AI_API_KEY
+        run: npx intlayer fill --git-diff --mode complete --provider $AI_PROVIDER --model $AI_MODEL --api-key $AI_API_KEY
 
       # Step 7: Check if there are changes and commit them
-      - name: � Check for changes
+      - name: 🔍 Check for changes
         id: check-changes
         run: |
           if [ -n "$(git status --porcelain)" ]; then

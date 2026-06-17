@@ -128,17 +128,71 @@ bun x intlayer ci fill --verbose --mode complete
 
 ### Use in CI/CD pipelines
 
-In your CI/CD configuration (e.g., GitHub Actions, GitLab CI), set the `INTLAYER_PROJECT_CREDENTIALS` as a secret:
+Running `intlayer init` scaffolds two ready-to-use GitHub Actions workflows for you (see [Scaffolded GitHub Actions](#scaffolded-github-actions) below). The example here shows the equivalent setup using the `ci` command for a monorepo, where credentials are injected per project from `INTLAYER_PROJECT_CREDENTIALS`.
 
-```yaml
-# GitHub Actions example
-env:
-  INTLAYER_PROJECT_CREDENTIALS: ${{ secrets.INTLAYER_PROJECT_CREDENTIALS }}
+> **AI access**: The `fill` command needs AI access to generate translations. The credentials injected by `ci` from `INTLAYER_PROJECT_CREDENTIALS` (Intlayer CMS access keys) grant AI access through the Intlayer backend, so no separate AI provider key is required. If you prefer to use your own provider key instead, pass `--provider`, `--model`, and `--api-key` to `intlayer ci fill`. The `test` command does not require AI access.
 
-steps:
-  - name: Fill dictionaries
-    run: npx intlayer ci fill
+```yaml fileName=".github/workflows/intlayer-ci.yml"
+name: Intlayer CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  intlayer:
+    runs-on: ubuntu-latest
+    env:
+      # CMS access keys per project. They also grant AI access for `fill`.
+      INTLAYER_PROJECT_CREDENTIALS: ${{ secrets.INTLAYER_PROJECT_CREDENTIALS }}
+    steps:
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🤖 Fill missing translations
+        run: npx intlayer ci fill --git-diff --mode complete
+
+      - name: 🧪 Test for missing translations
+        run: npx intlayer ci test
 ```
+
+## Scaffolded GitHub Actions
+
+When you run `intlayer init`, Intlayer detects your package manager (npm, yarn, pnpm, or bun) and scaffolds two GitHub Actions workflows under `.github/workflows/`, with commands matching that package manager:
+
+- **`intlayer-fill.yml`** — On every pull request, builds the dictionaries and runs `intlayer fill --git-diff --mode complete` to generate missing translations for the changed dictionaries, then commits the result back to the PR branch.
+- **`intlayer-test.yml`** — On every pull request, builds the dictionaries and runs `intlayer test`, failing the check when required locales are missing translations.
+
+Existing workflow files are never overwritten. To skip scaffolding entirely, run:
+
+```bash
+npx intlayer init --no-github-actions
+```
+
+### Providing AI access to the fill workflow
+
+The scaffolded `intlayer-fill.yml` requires AI access. Two options are available (configured in the workflow's `env` block):
+
+1. **Your own AI provider key** — Add an `AI_API_KEY` secret in your repository settings (Settings → Secrets and variables → Actions). The workflow forwards it via `--provider`, `--model`, and `--api-key`.
+2. **Intlayer CMS access keys** — Add `INTLAYER_CLIENT_ID` and `INTLAYER_CLIENT_SECRET` secrets and wire them into your `intlayer.config` `editor` section. CMS access keys grant AI access through the Intlayer backend.
+
+The `intlayer-test.yml` workflow does not require any AI access.
 
 ## Error Handling
 

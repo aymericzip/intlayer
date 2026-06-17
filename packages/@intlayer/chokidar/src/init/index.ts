@@ -12,6 +12,7 @@ import {
   ensureDirectory,
   exists,
   findTsConfigFiles,
+  getGithubWorkflows,
   installPackages,
   parseJSONWithComments,
   readFileFromRoot,
@@ -172,6 +173,8 @@ const getDocumentationUrl = (packageJson: any): string => {
  */
 export type InitOptions = {
   noGitignore?: boolean;
+  /** Skip scaffolding the `fill` and `test` GitHub Actions workflows. */
+  noGithubActions?: boolean;
 };
 
 /**
@@ -244,6 +247,34 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
       );
     } else {
       logger(`${v} ${colorizePath(gitignorePath)} already includes .intlayer`);
+    }
+  }
+
+  // SCAFFOLD GITHUB ACTIONS WORKFLOWS (fill + test)
+  // Generate two workflows whose commands match the detected package manager:
+  // - intlayer-fill.yml: auto-fills missing translations on pull requests
+  // - intlayer-test.yml: fails the PR when required locales are missing
+  if (!options?.noGithubActions) {
+    const workflows = getGithubWorkflows(packageManager);
+
+    for (const workflow of workflows) {
+      if (await exists(rootDir, workflow.filePath)) {
+        logger(`${v} ${colorizePath(workflow.filePath)} already exists`);
+        continue;
+      }
+
+      try {
+        await ensureDirectory(rootDir, join('.github', 'workflows'));
+        await writeFileToRoot(rootDir, workflow.filePath, workflow.content);
+        logger(
+          `${v} Added GitHub Actions workflow ${colorizePath(workflow.filePath)}`
+        );
+      } catch {
+        logger(
+          `${x} Could not create ${colorizePath(workflow.filePath)}. You may need to add it manually.`,
+          { level: 'warn' }
+        );
+      }
     }
   }
 

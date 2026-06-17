@@ -312,9 +312,14 @@ export const setAPI = (): Command => {
     .description('Initialize Intlayer in the project')
     .option('--project-root [projectRoot]', 'Project root directory')
     .option('--no-gitignore', 'Do not add .intlayer to .gitignore')
+    .option(
+      '--no-github-actions',
+      'Do not scaffold the fill and test GitHub Actions workflows'
+    )
     .action((options) =>
       init(options.projectRoot, {
         noGitignore: options.gitignore === false,
+        noGithubActions: options.githubActions === false,
       })
     );
 
