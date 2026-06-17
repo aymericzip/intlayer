@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-06-17
 title: ドキュメントのレビュー
 description: 異なるロケール間での品質、一貫性、完全性を確認するためのドキュメントファイルのレビュー方法を学びます。
 keywords:
@@ -15,6 +15,10 @@ slugs:
   - concept
   - cli
   - doc-review
+history:
+  - version: 9.0.0
+    date: 2026-06-17
+    changes: "--log オプションを追加"
 author: aymericzip
 ---
 

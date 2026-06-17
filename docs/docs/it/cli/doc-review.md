@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-06-17
 title: Revisione Documento
 description: Scopri come revisionare i file di documentazione per qualità, coerenza e completezza tra diverse localizzazioni.
 keywords:
@@ -15,6 +15,10 @@ slugs:
   - concept
   - cli
   - doc-review
+history:
+  - version: 9.0.0
+    date: 2026-06-17
+    changes: "Aggiunta opzione --log"
 author: aymericzip
 ---
 

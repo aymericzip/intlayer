@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-06-17
 title: Đánh Giá Tài Liệu
 description: Tìm hiểu cách đánh giá các tệp tài liệu về chất lượng, tính nhất quán và độ đầy đủ trên các ngôn ngữ khác nhau.
 keywords:
@@ -15,6 +15,10 @@ slugs:
   - concept
   - cli
   - doc-review
+history:
+  - version: 9.0.0
+    date: 2026-06-17
+    changes: "Thêm tùy chọn --log"
 author: aymericzip
 ---
 

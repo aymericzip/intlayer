@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-06-17
 title: 审核文档
 description: 学习如何审核不同语言版本的文档文件，以确保质量、一致性和完整性。
 keywords:
@@ -15,6 +15,10 @@ slugs:
   - concept
   - cli
   - doc-review
+history:
+  - version: 9.0.0
+    date: 2026-06-17
+    changes: "添加 --log 选项"
 author: aymericzip
 ---
 

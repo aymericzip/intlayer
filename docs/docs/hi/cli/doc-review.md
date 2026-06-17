@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-06-17
 title: दस्तावेज़ समीक्षा
 description: विभिन्न लोकलों में गुणवत्ता, संगति, और पूर्णता के लिए दस्तावेज़ फ़ाइलों की समीक्षा कैसे करें, यह जानें।
 keywords:
@@ -15,6 +15,10 @@ slugs:
   - concept
   - cli
   - doc-review
+history:
+  - version: 9.0.0
+    date: 2026-06-17
+    changes: "--log विकल्प जोड़ें"
 author: aymericzip
 ---
 

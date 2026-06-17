@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-06-17
 title: Tinjau Dokumen
 description: Pelajari cara meninjau file dokumentasi untuk kualitas, konsistensi, dan kelengkapan di berbagai lokal.
 keywords:
@@ -15,6 +15,10 @@ slugs:
   - concept
   - cli
   - doc-review
+history:
+  - version: 9.0.0
+    date: 2026-06-17
+    changes: "Tambahkan opsi --log"
 author: aymericzip
 ---
 

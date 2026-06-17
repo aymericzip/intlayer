@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-06-17
 title: 문서 검토
 description: 다양한 로케일에서 문서 파일의 품질, 일관성 및 완전성을 검토하는 방법을 알아보세요.
 keywords:
@@ -15,6 +15,10 @@ slugs:
   - concept
   - cli
   - doc-review
+history:
+  - version: 9.0.0
+    date: 2026-06-17
+    changes: "--log 옵션 추가"
 author: aymericzip
 ---
 

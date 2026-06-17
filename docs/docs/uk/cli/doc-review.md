@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-06-17
 title: Перевірка документа
 description: Дізнайтеся, як перевіряти файли документації на предмет якості, узгодженості та повноти для різних локалей.
 keywords:
@@ -15,6 +15,10 @@ slugs:
   - concept
   - cli
   - doc-review
+history:
+  - version: 9.0.0
+    date: 2026-06-17
+    changes: "Додати опцію --log"
 author: aymericzip
 ---
 

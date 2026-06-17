@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-11
-updatedAt: 2025-11-22
+updatedAt: 2026-06-17
 title: Dokument überprüfen
 description: Erfahren Sie, wie Sie Dokumentationsdateien auf Qualität, Konsistenz und Vollständigkeit in verschiedenen Sprachversionen überprüfen.
 keywords:
@@ -15,6 +15,10 @@ slugs:
   - concept
   - cli
   - doc-review
+history:
+  - version: 9.0.0
+    date: 2026-06-17
+    changes: "Option --log hinzufügen"
 author: aymericzip
 ---
 
