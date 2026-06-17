@@ -7,7 +7,7 @@ import {
   useSession,
   useWriteDictionary,
 } from '@api/index';
-import { Form, FormButton } from '@components/Form';
+import { FormButton } from '@components/Form';
 import { Modal } from '@components/Modal';
 import type { Dictionary as DistantDictionary } from '@intlayer/backend';
 import {

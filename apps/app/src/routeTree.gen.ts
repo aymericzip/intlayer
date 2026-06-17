@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as HealthzRouteImport } from './routes/healthz'
 import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route'
-import { Route as IndexRouteImport } from './routes/index'
 import { Route as Char123LocaleChar125PageRouteImport } from './routes/{-$locale}/page'
 import { Route as Char123LocaleChar125DemoRouteImport } from './routes/{-$locale}/demo'
 import { Route as Char123LocaleChar125404RouteImport } from './routes/{-$locale}/404'
@@ -89,11 +88,6 @@ const Char123LocaleChar125RouteRoute =
     path: '/{-$locale}',
     getParentRoute: () => rootRouteImport,
   } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const Char123LocaleChar125PageRoute =
   Char123LocaleChar125PageRouteImport.update({
     id: '/page',
@@ -465,7 +459,6 @@ const Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
   '/healthz': typeof HealthzRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -525,7 +518,6 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/tags/': typeof Char123LocaleChar125DashboardEditorContentTagsIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/{-$locale}': typeof Char123LocaleChar125DashboardIndexRoute
   '/healthz': typeof HealthzRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -579,7 +571,6 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
   '/healthz': typeof HealthzRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -646,7 +637,6 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/{-$locale}'
     | '/healthz'
     | '/sitemap.xml'
@@ -706,7 +696,6 @@ export interface FileRouteTypes {
     | '/{-$locale}/tags/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/{-$locale}'
     | '/healthz'
     | '/sitemap.xml'
@@ -759,7 +748,6 @@ export interface FileRouteTypes {
     | '/{-$locale}/tags'
   id:
     | '__root__'
-    | '/'
     | '/{-$locale}'
     | '/healthz'
     | '/sitemap.xml'
@@ -825,7 +813,6 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   Char123LocaleChar125RouteRoute: typeof Char123LocaleChar125RouteRouteWithChildren
   HealthzRoute: typeof HealthzRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -852,13 +839,6 @@ declare module '@tanstack/react-router' {
       path: '/{-$locale}'
       fullPath: '/{-$locale}'
       preLoaderRoute: typeof Char123LocaleChar125RouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/{-$locale}/page': {
@@ -1607,7 +1587,6 @@ const Char123LocaleChar125RouteRouteWithChildren =
   )
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   Char123LocaleChar125RouteRoute: Char123LocaleChar125RouteRouteWithChildren,
   HealthzRoute: HealthzRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,

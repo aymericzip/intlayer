@@ -628,7 +628,22 @@ export const pushDictionaries = async (
 
       const isSameContent = isDeepStrictEqual(lastContent, cleanedContent);
 
-      if (isSameContent) {
+      const isSameQualifiers = isDeepStrictEqual(
+        extractQualifiers(remoteDictionary),
+        extractQualifiers(dictionaryDataEl)
+      );
+      const isSameTitle = remoteDictionary.title === dictionaryDataEl.title;
+      const isSameDescription =
+        remoteDictionary.description === dictionaryDataEl.description;
+      const isSameTags = isDeepStrictEqual(
+        remoteDictionary.tags ?? [],
+        dictionaryDataEl.tags ?? []
+      );
+
+      const isSameMetadata =
+        isSameQualifiers && isSameTitle && isSameDescription && isSameTags;
+
+      if (isSameContent && isSameMetadata) {
         upToDateDictionariesResult.push({
           key: remoteDictionary.key,
           localId: dictionaryDataEl.localId!,
@@ -637,13 +652,16 @@ export const pushDictionaries = async (
         continue;
       }
 
+      // Only increment the content version when the content itself changed;
+      // metadata-only updates reuse the existing versioned content map.
       const newContent: VersionedContent = new Map(remoteDictionary.content);
-      const newContentVersion =
-        dictionaryService.incrementVersion(remoteDictionary);
-
-      newContent.set(newContentVersion, {
-        content: cleanedContent,
-      });
+      if (!isSameContent) {
+        const newContentVersion =
+          dictionaryService.incrementVersion(remoteDictionary);
+        newContent.set(newContentVersion, {
+          content: cleanedContent,
+        });
+      }
 
       const dictionary: DictionaryData = {
         ...ensureMongoDocumentToObject(remoteDictionary),
