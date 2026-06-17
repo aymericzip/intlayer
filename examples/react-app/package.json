@@ -40,7 +40,7 @@
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "react-intlayer": "workspace:*",
-    "react-router-dom": "7.17.0",
+    "react-router-dom": "7.18.0",
     "react-scripts": "5.0.1",
     "typescript": "6.0.3"
   },

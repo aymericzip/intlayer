@@ -101,7 +101,7 @@
     "format:fix": "bun --bun biome format --write .",
     "lint": "bun --bun biome lint .",
     "lint:fix": "bun --bun biome lint --write .",
-    "prepublish": "cp -f ../../../README.md ./README.md",
+    "prepublish": "cp -f ../../README.md ./README.md",
     "publish": "bun publish || true",
     "publish:canary": "bun publish --access public --tag canary || true",
     "publish:latest": "bun publish --access public --tag latest || true",
