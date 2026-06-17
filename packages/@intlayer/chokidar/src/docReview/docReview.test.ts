@@ -22,10 +22,10 @@ describe('docReview', () => {
       // Fine granularity: a change to one paragraph never pulls its whole
       // heading section into review.
       expect(blocks).toHaveLength(4);
-      expect(blocks[0].content).toContain('# Title');
-      expect(blocks[1].content).toContain('Intro paragraph.');
-      expect(blocks[2].content).toContain('## Section');
-      expect(blocks[3].content).toContain('Body.');
+      expect(blocks[0]?.content).toContain('# Title');
+      expect(blocks[1]?.content).toContain('Intro paragraph.');
+      expect(blocks[2]?.content).toContain('## Section');
+      expect(blocks[3]?.content).toContain('Body.');
     });
 
     it('keeps a fenced code block whole and ignores its inner headings', () => {
@@ -77,7 +77,7 @@ describe('docReview', () => {
 
       expect(
         segmentDocument(text)
-          .map((block) => block.content)
+          .map((block) => block?.content)
           .join('')
       ).toBe(text);
     });
@@ -102,11 +102,11 @@ describe('docReview', () => {
 
       // Two heading sections, each keeping all of their paragraphs.
       expect(sections).toHaveLength(2);
-      expect(sections[0].content).toContain('# Title');
-      expect(sections[0].content).toContain('Intro paragraph.');
-      expect(sections[1].content).toContain('## Section');
-      expect(sections[1].content).toContain('First body paragraph.');
-      expect(sections[1].content).toContain('Second body paragraph.');
+      expect(sections[0]?.content).toContain('# Title');
+      expect(sections[0]?.content).toContain('Intro paragraph.');
+      expect(sections[1]?.content).toContain('## Section');
+      expect(sections[1]?.content).toContain('First body paragraph.');
+      expect(sections[1]?.content).toContain('Second body paragraph.');
     });
 
     it('keeps frontmatter as its own leading section', () => {
@@ -123,9 +123,9 @@ describe('docReview', () => {
 
       const sections = segmentSections(text);
 
-      expect(sections[0].content).toContain('title: Hello');
+      expect(sections[0]?.content).toContain('title: Hello');
       expect(sections[0].lineStart).toBe(1);
-      expect(sections[1].content).toContain('# Heading');
+      expect(sections[1]?.content).toContain('# Heading');
     });
 
     it('partitions the document exactly (sections concatenate back to source)', () => {
@@ -144,7 +144,7 @@ describe('docReview', () => {
 
       expect(
         segmentSections(text)
-          .map((section) => section.content)
+          .map((section) => section?.content)
           .join('')
       ).toBe(text);
     });
