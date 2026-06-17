@@ -11,7 +11,7 @@ export const Table = forwardRef<HTMLTableElement, TableProps>(
     <table
       ref={ref}
       className={cn(
-        'w-full table-auto overflow-hidden text-left',
+        'w-full table-auto overflow-hidden text-left text-sm',
         isInteractive &&
           '[&_tbody_tr:hover]:bg-neutral/40 [&_tbody_tr:hover]:dark:bg-neutral-dark/40 [&_tbody_tr]:cursor-pointer [&_tbody_tr]:transition-colors',
         className
