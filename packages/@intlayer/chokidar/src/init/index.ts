@@ -214,8 +214,12 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
 
   // INSTALL MISSING INTLAYER DEPENDENCIES
   const packageManager = detectPackageManager(rootDir);
-  const { packagesToInstall, compatSyncConfig, compatVitePluginConfig } =
-    detectMissingIntlayerPackages(allDeps);
+  const {
+    packagesToInstall,
+    devPackagesToInstall,
+    compatSyncConfig,
+    compatVitePluginConfig,
+  } = detectMissingIntlayerPackages(allDeps);
 
   if (packagesToInstall.length > 0) {
     logger(
@@ -229,6 +233,26 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
     } catch {
       logger(
         `${x} Failed to install packages. Please install manually: ${packagesToInstall.join(' ')}`,
+        { level: 'warn' }
+      );
+    }
+  }
+
+  if (devPackagesToInstall.length > 0) {
+    logger(
+      colorize(
+        'Installing missing Intlayer dev dependencies...',
+        ANSIColors.CYAN
+      )
+    );
+    try {
+      installPackages(rootDir, devPackagesToInstall, packageManager, true);
+      logger(
+        `${v} Installed: ${devPackagesToInstall.map((pkg) => colorize(pkg, ANSIColors.MAGENTA)).join(', ')}`
+      );
+    } catch {
+      logger(
+        `${x} Failed to install dev packages. Please install manually: ${devPackagesToInstall.join(' ')}`,
         { level: 'warn' }
       );
     }
@@ -628,7 +652,9 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
   ): boolean => {
     if (!versionString || typeof versionString !== 'string') return false;
     const match = versionString.match(/^[^\d]*(\d+)/);
-    if (!match) return false;
+
+    if (!match?.[1]) return false;
+
     return parseInt(match[1], 10) >= major;
   };
 
@@ -644,7 +670,9 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
   let newDevScript: string | undefined;
 
   if (
-    ((isNextJsProject && isVersionGreaterOrEqual(allDeps.next, 16)) ||
+    ((isNextJsProject &&
+      allDeps.next &&
+      isVersionGreaterOrEqual(allDeps.next, 16)) ||
       backendIntlayerPackages.some((pkg) => allDeps[pkg])) &&
     !devScript.includes('intlayer watch')
   ) {
@@ -705,33 +733,36 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
       const tsConfigPath =
         tsConfigFiles.find((file) => file === 'tsconfig.json') ||
         tsConfigFiles[0];
-      const tsConfigContent = await readFileFromRoot(rootDir, tsConfigPath);
-      const config = parseJSONWithComments(tsConfigContent);
 
-      config.compilerOptions ??= {};
-      config.compilerOptions.paths ??= {};
+      if (tsConfigPath) {
+        const tsConfigContent = await readFileFromRoot(rootDir, tsConfigPath);
+        const config = parseJSONWithComments(tsConfigContent);
 
-      let updated = false;
+        config.compilerOptions ??= {};
+        config.compilerOptions.paths ??= {};
 
-      Object.entries(aliases).forEach(([alias, path]) => {
-        if (!config.compilerOptions.paths[alias]) {
-          config.compilerOptions.paths[alias] = [path];
-          updated = true;
+        let updated = false;
+
+        Object.entries(aliases).forEach(([alias, path]) => {
+          if (!config.compilerOptions.paths[alias]) {
+            config.compilerOptions.paths[alias] = [path];
+            updated = true;
+          }
+        });
+
+        if (updated) {
+          await writeFileToRoot(
+            rootDir,
+            tsConfigPath,
+            JSON.stringify(config, null, 2)
+          );
+
+          logger(
+            `${v} Updated ${colorizePath(
+              tsConfigPath
+            )} to include Intlayer aliases`
+          );
         }
-      });
-
-      if (updated) {
-        await writeFileToRoot(
-          rootDir,
-          tsConfigPath,
-          JSON.stringify(config, null, 2)
-        );
-
-        logger(
-          `${v} Updated ${colorizePath(
-            tsConfigPath
-          )} to include Intlayer aliases`
-        );
       }
     } else {
       const jsConfigPath = 'jsconfig.json';

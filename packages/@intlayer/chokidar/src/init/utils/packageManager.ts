@@ -35,6 +35,8 @@ export type CompatVitePluginConfig = {
 export type IntlayerPackageAnalysis = {
   /** Intlayer packages that are referenced but not yet installed. */
   packagesToInstall: string[];
+  /** Intlayer dev packages that are referenced but not yet installed. */
+  devPackagesToInstall: string[];
   /**
    * syncJSON plugin configuration to inject when a compat i18n library is
    * detected. Undefined when no compat library is present or format is not
@@ -74,18 +76,19 @@ export const detectPackageManager = (rootDir: string): PackageManager => {
  */
 const buildInstallCommand = (
   packageManager: PackageManager,
-  packages: string[]
+  packages: string[],
+  isDev: boolean = false
 ): string => {
   const packageList = packages.join(' ');
   switch (packageManager) {
     case 'bun':
-      return `bun add ${packageList}`;
+      return `bun add ${isDev ? '-d ' : ''}${packageList}`;
     case 'pnpm':
-      return `pnpm add ${packageList}`;
+      return `pnpm add ${isDev ? '-D ' : ''}${packageList}`;
     case 'yarn':
-      return `yarn add ${packageList}`;
+      return `yarn add ${isDev ? '-D ' : ''}${packageList}`;
     case 'npm':
-      return `npm install ${packageList}`;
+      return `npm install ${isDev ? '-D ' : ''}${packageList}`;
   }
 };
 
@@ -98,6 +101,7 @@ export const detectMissingIntlayerPackages = (
   allDependencies: Record<string, string>
 ): IntlayerPackageAnalysis => {
   const packagesToInstall: string[] = [];
+  const devPackagesToInstall: string[] = [];
   let compatSyncConfig: CompatSyncConfig | undefined;
   let compatVitePluginConfig: CompatVitePluginConfig | undefined;
 
@@ -107,6 +111,12 @@ export const detectMissingIntlayerPackages = (
   const addIfMissing = (packageName: string): void => {
     if (!isInstalled(packageName)) {
       packagesToInstall.push(packageName);
+    }
+  };
+
+  const addDevIfMissing = (packageName: string): void => {
+    if (!isInstalled(packageName)) {
+      devPackagesToInstall.push(packageName);
     }
   };
 
@@ -302,10 +312,15 @@ export const detectMissingIntlayerPackages = (
   }
 
   if (compatSyncConfig) {
-    addIfMissing('@intlayer/sync-json-plugin');
+    addDevIfMissing('@intlayer/sync-json-plugin');
   }
 
-  return { packagesToInstall, compatSyncConfig, compatVitePluginConfig };
+  return {
+    packagesToInstall,
+    devPackagesToInstall,
+    compatSyncConfig,
+    compatVitePluginConfig,
+  };
 };
 
 /**
@@ -315,8 +330,9 @@ export const detectMissingIntlayerPackages = (
 export const installPackages = (
   rootDir: string,
   packages: string[],
-  packageManager: PackageManager
+  packageManager: PackageManager,
+  isDev: boolean = false
 ): void => {
-  const command = buildInstallCommand(packageManager, packages);
+  const command = buildInstallCommand(packageManager, packages, isDev);
   execSync(command, { cwd: rootDir, stdio: 'inherit' });
 };
