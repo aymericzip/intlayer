@@ -162,8 +162,9 @@ export const detectMissingIntlayerPackages = (
   // -------------------------------------------------------------------------
 
   // next-intl — next.js only, ICU format
-  if (isInstalled('next-intl')) {
+  if (isInstalled('next-intl') || isInstalled('@intlayer/next-intl')) {
     addIfMissing('@intlayer/next-intl');
+    addIfMissing('next-intl');
     compatSyncConfig ??= {
       format: 'icu',
       sourceTemplate: './locales/${locale}/${key}.json',
@@ -172,8 +173,9 @@ export const detectMissingIntlayerPackages = (
   }
 
   // next-i18next — next.js only, i18next JSON format
-  if (isInstalled('next-i18next')) {
+  if (isInstalled('next-i18next') || isInstalled('@intlayer/next-i18next')) {
     addIfMissing('@intlayer/next-i18next');
+    addIfMissing('next-i18next');
     compatSyncConfig ??= {
       format: 'i18next',
       sourceTemplate: './src/locales/${locale}/${key}.json',
@@ -182,8 +184,12 @@ export const detectMissingIntlayerPackages = (
   }
 
   // next-translate — next.js only, i18next-style flat-namespace JSON
-  if (isInstalled('next-translate')) {
+  if (
+    isInstalled('next-translate') ||
+    isInstalled('@intlayer/next-translate')
+  ) {
     addIfMissing('@intlayer/next-translate');
+    addIfMissing('next-translate');
     compatSyncConfig ??= {
       format: 'i18next',
       sourceTemplate: './locales/${locale}/${key}.json',
@@ -192,8 +198,10 @@ export const detectMissingIntlayerPackages = (
   }
 
   // i18next — explicit import from @intlayer/i18next (no alias injection needed)
-  if (isInstalled('i18next')) {
+  if (isInstalled('i18next') || isInstalled('@intlayer/i18next')) {
     addIfMissing('@intlayer/i18next');
+    // Ensure the required peer dependency is installed
+    addIfMissing('i18next');
     compatSyncConfig ??= {
       format: 'i18next',
       sourceTemplate: './src/locales/${locale}/${key}.json',
@@ -201,8 +209,10 @@ export const detectMissingIntlayerPackages = (
   }
 
   // react-i18next — explicit import from @intlayer/react-i18next (no alias)
-  if (isInstalled('react-i18next')) {
+  if (isInstalled('react-i18next') || isInstalled('@intlayer/react-i18next')) {
     addIfMissing('@intlayer/react-i18next');
+    // Ensure the required peer dependency is installed
+    addIfMissing('react-i18next');
     compatSyncConfig ??= {
       format: 'i18next',
       sourceTemplate: './src/locales/${locale}/${key}.json',
@@ -210,8 +220,9 @@ export const detectMissingIntlayerPackages = (
   }
 
   // vue-i18n — vite alias injection required
-  if (isInstalled('vue-i18n')) {
+  if (isInstalled('vue-i18n') || isInstalled('@intlayer/vue-i18n')) {
     addIfMissing('@intlayer/vue-i18n');
+    addIfMissing('vue-i18n');
     compatSyncConfig ??= {
       format: 'vue-i18n',
       sourceTemplate: './locales/${locale}/${key}.json',
@@ -223,8 +234,9 @@ export const detectMissingIntlayerPackages = (
   }
 
   // react-intl — vite alias injection required, ICU format
-  if (isInstalled('react-intl')) {
+  if (isInstalled('react-intl') || isInstalled('@intlayer/react-intl')) {
     addIfMissing('@intlayer/react-intl');
+    addIfMissing('react-intl');
     compatSyncConfig ??= {
       format: 'icu',
       sourceTemplate: './src/i18n/${locale}.json',
@@ -237,8 +249,9 @@ export const detectMissingIntlayerPackages = (
 
   // @ngneat/transloco — vite alias injection required
   // @todo syncJSON format not yet implemented for transloco
-  if (isInstalled('@ngneat/transloco')) {
+  if (isInstalled('@ngneat/transloco') || isInstalled('@intlayer/transloco')) {
     addIfMissing('@intlayer/transloco');
+    addIfMissing('@ngneat/transloco');
     compatVitePluginConfig ??= {
       pluginFunctionName: 'translocoVitePlugin',
       pluginPackageSource: '@intlayer/transloco/plugin',
@@ -246,8 +259,9 @@ export const detectMissingIntlayerPackages = (
   }
 
   // svelte-i18n — vite alias injection required, flat JSON (i18next-compatible)
-  if (isInstalled('svelte-i18n')) {
+  if (isInstalled('svelte-i18n') || isInstalled('@intlayer/svelte-i18n')) {
     addIfMissing('@intlayer/svelte-i18n');
+    addIfMissing('svelte-i18n');
     compatSyncConfig ??= {
       format: 'i18next',
       sourceTemplate: './src/locales/${locale}.json',
@@ -260,8 +274,9 @@ export const detectMissingIntlayerPackages = (
 
   // node-polyglot — vite alias injection required
   // @todo syncJSON format not yet implemented for polyglot
-  if (isInstalled('node-polyglot')) {
+  if (isInstalled('node-polyglot') || isInstalled('@intlayer/polyglot')) {
     addIfMissing('@intlayer/polyglot');
+    addIfMissing('node-polyglot');
     compatVitePluginConfig ??= {
       pluginFunctionName: 'polyglotVitePlugin',
       pluginPackageSource: '@intlayer/polyglot/plugin',
@@ -269,8 +284,9 @@ export const detectMissingIntlayerPackages = (
   }
 
   // @nuxtjs/i18n — nuxt module (no vite plugin), vue-i18n JSON format
-  if (isInstalled('@nuxtjs/i18n')) {
+  if (isInstalled('@nuxtjs/i18n') || isInstalled('@intlayer/nuxtjs-i18n')) {
     addIfMissing('@intlayer/nuxtjs-i18n');
+    addIfMissing('@nuxtjs/i18n');
     compatSyncConfig ??= {
       format: 'vue-i18n',
       sourceTemplate: './locales/${locale}/${key}.json',
@@ -279,8 +295,12 @@ export const detectMissingIntlayerPackages = (
   }
 
   // @ngx-translate/core — vite alias injection required, flat JSON (i18next)
-  if (isInstalled('@ngx-translate/core')) {
+  if (
+    isInstalled('@ngx-translate/core') ||
+    isInstalled('@intlayer/ngx-translate')
+  ) {
     addIfMissing('@intlayer/ngx-translate');
+    addIfMissing('@ngx-translate/core');
     compatSyncConfig ??= {
       format: 'i18next',
       sourceTemplate: './assets/i18n/${locale}.json',
@@ -293,8 +313,13 @@ export const detectMissingIntlayerPackages = (
 
   // @lingui/core — vite alias injection required
   // @todo syncJSON format not yet implemented for lingui (uses PO files)
-  if (isInstalled('@lingui/core') || isInstalled('@lingui/react')) {
+  if (
+    isInstalled('@lingui/core') ||
+    isInstalled('@lingui/react') ||
+    isInstalled('@intlayer/lingui')
+  ) {
     addIfMissing('@intlayer/lingui');
+    addIfMissing('@lingui/core');
     compatVitePluginConfig ??= {
       pluginFunctionName: 'linguiVitePlugin',
       pluginPackageSource: '@intlayer/lingui/plugin',
@@ -303,8 +328,9 @@ export const detectMissingIntlayerPackages = (
 
   // i18n-js — vite alias injection required
   // @todo syncJSON format not yet implemented for i18n-js
-  if (isInstalled('i18n-js')) {
+  if (isInstalled('i18n-js') || isInstalled('@intlayer/i18n-js')) {
     addIfMissing('@intlayer/i18n-js');
+    addIfMissing('i18n-js');
     compatVitePluginConfig ??= {
       pluginFunctionName: 'i18nJsVitePlugin',
       pluginPackageSource: '@intlayer/i18n-js/plugin',

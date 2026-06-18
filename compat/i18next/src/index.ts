@@ -72,4 +72,3 @@ export const loadLanguages: typeof _loadLanguages =
 export const keyFromSelector = (selector: unknown): unknown => selector;
 
 export type { InitOptions, i18n, TFunction, TOptions } from 'i18next';
-export { initReactI18next } from 'react-i18next';

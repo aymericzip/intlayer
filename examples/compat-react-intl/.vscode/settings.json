@@ -1,0 +1,4 @@
+{
+  "intlayer.languageServer.command": "npx",
+  "intlayer.languageServer.args": ["@intlayer/lsp"]
+}

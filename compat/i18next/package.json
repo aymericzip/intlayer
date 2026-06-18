@@ -101,6 +101,9 @@
     "vite": ">=4.0.0"
   },
   "peerDependenciesMeta": {
+    "react-i18next": {
+      "optional": true
+    },
     "vite": {
       "optional": true
     }

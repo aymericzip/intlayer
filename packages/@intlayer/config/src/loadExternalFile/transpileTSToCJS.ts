@@ -74,29 +74,55 @@ export const transpileTSToCJSSync = (
   // Because there is no local declaration the bare `__filename` lookup falls
   // through to globalThis, so we set it there to esbuild's own CJS entry-point –
   // the exact path esbuild would use if it were loaded in a normal CJS context.
-  if (typeof (globalThis as Record<string, unknown>).__filename !== 'string') {
+  //
+  // IMPORTANT: We save/restore the globals so this temporary shim does not leak
+  // to other Vite plugins (e.g. `@vitejs/plugin-react-swc`) that check
+  // `typeof __dirname !== "undefined"` to locate their own assets.
+  const g = globalThis as Record<string, unknown>;
+  const hadFilename = typeof g.__filename === 'string';
+  const prevFilename = g.__filename;
+  const prevDirname = g.__dirname;
+
+  if (!hadFilename) {
     try {
       const _require = createRequire(import.meta.url);
       const esbuildEntry = _require.resolve('esbuild');
-      (globalThis as Record<string, unknown>).__filename = esbuildEntry;
-      (globalThis as Record<string, unknown>).__dirname = dirname(esbuildEntry);
+      g.__filename = esbuildEntry;
+      g.__dirname = dirname(esbuildEntry);
     } catch {
       // Best-effort: if esbuild can't be resolved the caller's catch handles it
     }
   }
 
-  const moduleResult: BuildResult = esbuildBuildSync({
-    stdin: {
-      contents: code,
-      loader,
-      resolveDir: dirname(filePath), // Add resolveDir to resolve imports relative to the file's location
-      sourcefile: filePath, // Add sourcefile for better error messages
-    },
-    ...getTransformationOptions(filePath),
-    ...buildOptions,
-  });
+  let moduleResult: BuildResult;
+  try {
+    moduleResult = esbuildBuildSync({
+      stdin: {
+        contents: code,
+        loader,
+        resolveDir: dirname(filePath), // Add resolveDir to resolve imports relative to the file's location
+        sourcefile: filePath, // Add sourcefile for better error messages
+      },
+      ...getTransformationOptions(filePath),
+      ...buildOptions,
+    });
+  } finally {
+    // Always restore the previous values so the globals don't linger.
+    if (!hadFilename) {
+      if (prevFilename === undefined) {
+        delete g.__filename;
+      } else {
+        g.__filename = prevFilename;
+      }
+      if (prevDirname === undefined) {
+        delete g.__dirname;
+      } else {
+        g.__dirname = prevDirname;
+      }
+    }
+  }
 
-  const moduleResultString = moduleResult.outputFiles?.[0].text;
+  const moduleResultString = moduleResult!.outputFiles?.[0]?.text;
 
   return moduleResultString;
 };
