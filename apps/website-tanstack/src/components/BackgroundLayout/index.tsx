@@ -1,4 +1,7 @@
-import { GridPattern } from '@intlayer/design-system/pattern';
+import {
+  GridDistortionPattern,
+  GridPattern,
+} from '@intlayer/design-system/pattern';
 import { cn } from '@intlayer/design-system/utils';
 import type { FC, PropsWithChildren } from 'react';
 
@@ -14,11 +17,12 @@ export const BackgroundLayout: FC<
         )}
       >
         <div className="relative size-full">
-          <GridPattern
+          <GridDistortionPattern
             width={70}
-            height={100}
-            x={-1}
-            y={-1}
+            height={70}
+            radius={360}
+            strength={0.12}
+            highlightColor={'var(--hw-primary)'}
             className={
               hasSpotlight
                 ? 'h-[200vw] [mask-image:radial-gradient(ellipse_75%_55%_at_50%_45%,white_50%,transparent_100%)]'
