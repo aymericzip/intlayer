@@ -81,7 +81,7 @@ export const colorize = (
   color?: ANSIColorsType,
   reset?: boolean | ANSIColorsType
 ): string =>
-  color
+  color && typeof window === 'undefined'
     ? `${color}${string}${reset ? (typeof reset === 'boolean' ? RESET : reset) : RESET}`
     : string;
 

@@ -1,7 +1,6 @@
 import { internationalization, log } from '@intlayer/config/built';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
-import { getIntlayer } from '@intlayer/core/interpreter';
 import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
 import type {
   DictionaryKeys,
@@ -13,7 +12,7 @@ import type {
   InjectionKey,
   WritableComputedRef,
 } from 'vue';
-import { computed } from 'vue';
+import { computed, inject } from 'vue';
 import type { createI18n as _createI18n, I18n } from 'vue-i18n';
 import { createIntlayerClient, installIntlayer, useLocale } from 'vue-intlayer';
 import {
@@ -29,8 +28,6 @@ import {
 
 export const VERSION = '9.13.1';
 export const I18nInjectionKey: InjectionKey<I18n> = Symbol('global-i18n');
-
-const DEFAULT_NAMESPACE = 'translation';
 
 const navigatePath = (objectValue: unknown, path: string): unknown => {
   if (!path) return objectValue;
@@ -57,38 +54,20 @@ const navigatePath = (objectValue: unknown, path: string): unknown => {
  * 3. The first key segment as the dictionary key (`'home.title'` →
  *    dictionary `home`, path `title`)
  */
-const lookupRaw = (locale: string, namespace: string, key: string): unknown => {
-  let targetNamespace = namespace;
-  let path = key;
+const lookupRaw = (namespace: string | undefined, key: string): unknown => {
+  let _targetNamespace = namespace;
+  let _path = key;
 
   if (key.includes(':')) {
     const separatorIndex = key.indexOf(':');
-    targetNamespace = key.slice(0, separatorIndex);
-    path = key.slice(separatorIndex + 1);
+    _targetNamespace = key.slice(0, separatorIndex);
+    _path = key.slice(separatorIndex + 1);
   }
 
-  try {
-    const dictionary = getIntlayer(
-      targetNamespace as DictionaryKeys,
-      locale as LocalesValues
-    );
-    const value = navigatePath(dictionary, path);
-    if (value !== undefined && value !== null) return value;
-  } catch {}
-
-  if (path.includes('.')) {
-    const separatorIndex = path.indexOf('.');
-    const firstSegment = path.slice(0, separatorIndex);
-    const restPath = path.slice(separatorIndex + 1);
-    try {
-      const dictionary = getIntlayer(
-        firstSegment as DictionaryKeys,
-        locale as LocalesValues
-      );
-      const value = navigatePath(dictionary, restPath);
-      if (value !== undefined && value !== null) return value;
-    } catch {}
-  }
+  // Without getDictionaries, global translation fallback to intlayer dictionaries
+  // is disabled for bundle optimization purposes.
+  // We only lookup if the namespace exists globally, but since we don't have getDictionaries
+  // we rely strictly on what vue-i18n already has in its messages.
 
   return undefined;
 };
@@ -96,15 +75,29 @@ const lookupRaw = (locale: string, namespace: string, key: string): unknown => {
 /** Translates a key with vue-i18n's polymorphic argument list. */
 const translateKey = (
   locale: string,
-  namespace: string,
+  namespace: string | undefined,
   key: string,
-  args: unknown[]
+  args: unknown[],
+  fallbackMessages?: Record<string, unknown>
 ): string => {
   const { values, count, defaultMessage } = parseTranslateArguments(args);
 
-  const rawValue = lookupRaw(locale, namespace, key);
+  const rawValue = lookupRaw(namespace, key);
 
   if (rawValue === undefined) {
+    if (fallbackMessages?.[locale]) {
+      // Defer to the user's provided messages if not found in dictionaries
+      const targetPath = namespace ? `${namespace}.${key}` : key;
+      const fallbackValue = navigatePath(fallbackMessages[locale], targetPath);
+      if (fallbackValue !== undefined) {
+        return resolveVueMessage(
+          fallbackValue,
+          values,
+          count,
+          locale as LocalesValues
+        );
+      }
+    }
     if (defaultMessage !== undefined) {
       return resolveVueMessage(
         defaultMessage,
@@ -134,11 +127,20 @@ type TranslateDirectiveValue =
   | string
   | { path: string; args?: Record<string, unknown>; choice?: number };
 
-export const createI18n = ((options: Record<string, unknown> = {}) => {
-  if (options.messages !== undefined) {
+export const createI18n: typeof _createI18n = ((
+  options: Record<string, unknown> = {}
+) => {
+  const fallbackMessages = options.messages as
+    | Record<string, unknown>
+    | undefined;
+
+  if (
+    options.messages !== undefined &&
+    process.env.NODE_ENV === 'development'
+  ) {
     const appLogger = getAppLogger({ log });
     appLogger(
-      `${colorize('createI18n', ANSIColors.CYAN)}: the ${colorize('`messages`', ANSIColors.CYAN)} option is ignored when using ${colorize('@intlayer/vue-i18n', ANSIColors.MAGENTA)} — translations are served from the compiled intlayer dictionaries instead. Remove the locale JSON imports and the ${colorize('`messages`', ANSIColors.CYAN)} option to reduce your bundle size:\n  ${colorize('Before:', ANSIColors.GREY)} createI18n({ messages: { en, fr, … } })\n  ${colorize('After: ', ANSIColors.GREY)} createI18n({})`
+      `${colorize('createI18n', ANSIColors.CYAN)}: the ${colorize('`messages`', ANSIColors.CYAN)} option is used as a fallback. For optimal bundle size, remove the locale JSON imports and use ${colorize('useDictionary', ANSIColors.CYAN)} or compile your intlayer dictionaries instead:\n  ${colorize('Before:', ANSIColors.GREY)} createI18n({ messages: { en, fr, … } })\n  ${colorize('After: ', ANSIColors.GREY)} createI18n({})`
     );
   }
 
@@ -162,7 +164,7 @@ export const createI18n = ((options: Record<string, unknown> = {}) => {
   });
 
   const globalTranslate = (key: string, ...args: unknown[]): string =>
-    translateKey(currentLocale(), DEFAULT_NAMESPACE, key, args);
+    translateKey(currentLocale(), undefined, key, args, fallbackMessages);
 
   const globalDate = (
     value: Date | number | string,
@@ -183,10 +185,8 @@ export const createI18n = ((options: Record<string, unknown> = {}) => {
       internationalization?.defaultLocale) as string,
     t: globalTranslate,
     tc: globalTranslate,
-    te: (key: string): boolean =>
-      lookupRaw(currentLocale(), DEFAULT_NAMESPACE, key) !== undefined,
-    tm: (key: string): unknown =>
-      lookupRaw(currentLocale(), DEFAULT_NAMESPACE, key) ?? {},
+    te: (key: string): boolean => lookupRaw(undefined, key) !== undefined,
+    tm: (key: string): unknown => lookupRaw(undefined, key) ?? {},
     rt: (message: unknown, ...args: unknown[]): string => {
       const { values, count } = parseTranslateArguments(args);
       return resolveVueMessage(
@@ -204,15 +204,11 @@ export const createI18n = ((options: Record<string, unknown> = {}) => {
     mergeLocaleMessage: (_locale: string, _messages: unknown) => {
       warnDeprecatedRuntimeMessages('mergeLocaleMessage');
     },
-    getLocaleMessage: (locale: string): unknown => {
-      try {
-        return getIntlayer(
-          DEFAULT_NAMESPACE as DictionaryKeys,
-          locale as LocalesValues
-        );
-      } catch {
-        return {};
-      }
+    getLocaleMessage: (_locale: string): Record<string, unknown> => {
+      warnDeprecatedRuntimeMessages('getLocaleMessage');
+      // We do not load global dictionaries anymore for bundle optimization.
+      // The user should use useDictionary or rely on manually provided messages.
+      return {};
     },
   };
 
@@ -258,6 +254,7 @@ export const createI18n = ((options: Record<string, unknown> = {}) => {
   const i18nInstance = {
     global,
     mode: options.legacy === true ? 'legacy' : 'composition',
+    __optionsMessages: fallbackMessages,
     install(app: App) {
       installIntlayer(app, {
         locale: options.locale as LocalesValues,
@@ -326,8 +323,14 @@ export const useI18n = <N extends DictionaryKeys = DictionaryKeys>(
   ) => string;
 } => {
   const { locale: currentLocale, setLocale, availableLocales } = useLocale();
+  const instance = inject(I18nInjectionKey) as
+    | Record<string, unknown>
+    | undefined;
+  const fallbackMessages = instance?.__optionsMessages as
+    | Record<string, unknown>
+    | undefined;
 
-  const namespace = ((options?.namespace as string) ?? DEFAULT_NAMESPACE) as N;
+  const namespace = options?.namespace as string | undefined as N | undefined;
 
   const datetimeFormats = options?.datetimeFormats as
     | DateTimeFormatsConfig
@@ -346,7 +349,14 @@ export const useI18n = <N extends DictionaryKeys = DictionaryKeys>(
   const translate = <P extends ValidDotPathsFor<N>>(
     key: P,
     ...args: unknown[]
-  ): string => translateKey(currentLocale.value, namespace, String(key), args);
+  ): string =>
+    translateKey(
+      currentLocale.value,
+      namespace,
+      String(key),
+      args,
+      fallbackMessages
+    );
 
   return {
     locale: localeRef,
@@ -354,9 +364,9 @@ export const useI18n = <N extends DictionaryKeys = DictionaryKeys>(
     t: translate,
     tc: translate,
     te: <P extends ValidDotPathsFor<N>>(key: P): boolean =>
-      lookupRaw(currentLocale.value, namespace, String(key)) !== undefined,
+      lookupRaw(namespace, String(key)) !== undefined,
     tm: <P extends ValidDotPathsFor<N>>(key: P): unknown =>
-      lookupRaw(currentLocale.value, namespace, String(key)) ?? {},
+      lookupRaw(namespace, String(key)) ?? {},
     rt: (message: unknown, ...args: unknown[]): string => {
       const { values, count } = parseTranslateArguments(args);
       return resolveVueMessage(

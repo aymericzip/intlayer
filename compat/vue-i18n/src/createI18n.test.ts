@@ -15,6 +15,14 @@ vi.mock('@intlayer/config/built', () => ({
   ...mockConfig,
   default: mockConfig,
   internationalization: mockConfig.internationalization,
+  system: {},
+}));
+
+vi.mock('@intlayer/dictionaries-entry', () => ({
+  getDictionaries: vi.fn(() => ({
+    translation: { key: 'translation' },
+    home: { key: 'home' },
+  })),
 }));
 
 vi.mock('vue-intlayer', () => ({

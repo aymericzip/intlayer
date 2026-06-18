@@ -25,7 +25,7 @@ const resolveNamedOptions = <FormatOptions>(
     return (
       namedFormats?.[locale]?.[formatOrOptions] ??
       // Fall back to the base language entry (`'en'` for `'en-GB'`)
-      namedFormats?.[locale.split('-')[0]]?.[formatOrOptions]
+      namedFormats?.[locale.split('-')[0] ?? '']?.[formatOrOptions]
     );
   }
   return formatOrOptions;
