@@ -40,7 +40,8 @@ const getTemplatePath = (format: ConfigFormat) => {
  */
 export const initConfig = async (
   format: (typeof configurationFilesCandidates)[number],
-  baseDir: string
+  baseDir: string,
+  locales?: string[]
 ) => {
   //   Search for configuration file
   const { configurationFilePath } = searchConfigurationFile(baseDir);
@@ -56,7 +57,17 @@ export const initConfig = async (
   const extension = format.split('.').pop() as ConfigFormat;
 
   const templatePath = getTemplatePath(extension);
-  const configContent = readAsset(templatePath);
+  let configContent = readAsset(templatePath);
+
+  if (locales && locales.length > 0) {
+    if (extension === 'json') {
+      const localesString = JSON.stringify(locales);
+      configContent = configContent.replace('["en"]', localesString);
+    } else {
+      const localesString = `[${locales.map((locale) => `'${locale}'`).join(', ')}]`;
+      configContent = configContent.replace('[Locales.ENGLISH]', localesString);
+    }
+  }
 
   await writeFileToRoot(format, configContent);
   logger(`${v} Created ${colorizePath(format)}`);

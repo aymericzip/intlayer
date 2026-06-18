@@ -62,6 +62,10 @@ export type JsonLocalePattern = {
    * Example flat:   `./locales/${locale}.json`
    */
   template: string;
+  /**
+   * Detected locales in the directory.
+   */
+  locales: string[];
 };
 
 /**
@@ -117,6 +121,8 @@ export const detectJsonLocalePattern = async (
 
   const nestedBasePaths: string[] = [];
   const flatBasePaths: string[] = [];
+  const nestedLocales = new Set<string>();
+  const flatLocales = new Set<string>();
 
   for (const file of files) {
     const parts = file.split('/');
@@ -129,6 +135,7 @@ export const detectJsonLocalePattern = async (
       const localeDir = parts[parts.length - 2] ?? '';
       if (isLocaleSegment(localeDir)) {
         nestedBasePaths.push(parts.slice(0, -2).join('/') || '.');
+        nestedLocales.add(localeDir);
       }
     }
 
@@ -137,6 +144,7 @@ export const detectJsonLocalePattern = async (
       const baseName = filename.slice(0, -5); // strip ".json"
       if (isLocaleSegment(baseName)) {
         flatBasePaths.push(parts.slice(0, -1).join('/') || '.');
+        flatLocales.add(baseName);
       }
     }
   }
@@ -165,6 +173,7 @@ export const detectJsonLocalePattern = async (
       type: 'nested',
       // Literal ${locale} and ${key} — not evaluated here, used in template literals
       template: `${prefix}/\${locale}/\${key}.json`,
+      locales: Array.from(nestedLocales),
     };
   }
 
@@ -172,5 +181,6 @@ export const detectJsonLocalePattern = async (
   return {
     type: 'flat',
     template: `${prefix}/\${locale}.json`,
+    locales: Array.from(flatLocales),
   };
 };

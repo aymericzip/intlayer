@@ -442,14 +442,16 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
 
   // INITIALIZE CONFIG FILE
   const format = hasTsConfig ? 'intlayer.config.ts' : 'intlayer.config.mjs';
-  await initConfig(format, rootDir);
+
+  // Detect the locale JSON file pattern already in the project so we can
+  // insert the matching locales into the config and produce the most
+  // accurate source template for compat libraries.
+  const detectedPattern = await detectJsonLocalePattern(rootDir);
+
+  await initConfig(format, rootDir, detectedPattern?.locales);
 
   // INJECT SYNC-JSON PLUGIN FOR COMPAT LIBRARIES
   if (compatSyncConfig) {
-    // Detect the locale JSON file pattern already in the project so we can
-    // produce the most accurate source template rather than relying on the
-    // hard-coded default.
-    const detectedPattern = await detectJsonLocalePattern(rootDir);
     const resolvedSyncConfig = detectedPattern
       ? { ...compatSyncConfig, sourceTemplate: detectedPattern.template }
       : compatSyncConfig;
