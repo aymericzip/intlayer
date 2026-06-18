@@ -9,11 +9,15 @@ import {
 } from 'react';
 
 function hexToRgb(hex: string): [number, number, number] {
-  const n = parseInt(hex.replace('#', ''), 16);
-  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+  const numericValue = parseInt(hex.replace('#', ''), 16);
+  return [
+    (numericValue >> 16) & 255,
+    (numericValue >> 8) & 255,
+    numericValue & 255,
+  ];
 }
 
-type Point = { bx: number; by: number; x: number; y: number };
+type Point = { baseX: number; baseY: number; x: number; y: number };
 
 type GridDistortionPatternProps = {
   width?: number;
@@ -41,17 +45,18 @@ export const GridDistortionPattern: FC<GridDistortionPatternProps> = ({
       d: string;
       opacity: number;
       width: number;
-      r: number;
-      g: number;
-      b: number;
+      red: number;
+      green: number;
+      blue: number;
     }[]
   >([]);
 
   const mouse = useRef({ x: -9999, y: -9999, active: false });
   const points = useRef<Point[][]>([]);
 
-  const [lr, lg, lb] = hexToRgb(lineColor);
-  const [hr, hg, hb] = hexToRgb(highlightColor);
+  const [lineColorRed, lineColorGreen, lineColorBlue] = hexToRgb(lineColor);
+  const [highlightColorRed, highlightColorGreen, highlightColorBlue] =
+    hexToRgb(highlightColor);
 
   // resize
   useEffect(() => {
@@ -60,47 +65,51 @@ export const GridDistortionPattern: FC<GridDistortionPatternProps> = ({
     const resize = () => {
       const rect = svg.getBoundingClientRect();
       setSize({ width: rect.width, height: rect.height });
-      const cols = Math.ceil(rect.width / width) + 2;
+      const columns = Math.ceil(rect.width / width) + 2;
       const rows = Math.ceil(rect.height / height) + 2;
       points.current = [];
-      for (let r = -1; r <= rows; r++) {
+      for (let rowIndex = -1; rowIndex <= rows; rowIndex++) {
         const row: Point[] = [];
-        for (let c = -1; c <= cols; c++)
+        for (let columnIndex = -1; columnIndex <= columns; columnIndex++)
           row.push({
-            bx: c * width,
-            by: r * height,
-            x: c * width,
-            y: r * height,
+            baseX: columnIndex * width,
+            baseY: rowIndex * height,
+            x: columnIndex * width,
+            y: rowIndex * height,
           });
         points.current.push(row);
       }
     };
     resize();
-    const ro = new ResizeObserver(resize);
-    ro.observe(svg);
-    return () => ro.disconnect();
+    const resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(svg);
+    return () => resizeObserver.disconnect();
   }, [width, height]);
 
   // pointer
   useEffect(() => {
     const svg = svgRef.current;
     if (!svg) return;
-    const move = (e: PointerEvent) => {
+    const handlePointerMove = (event: PointerEvent) => {
       const rect = svg.getBoundingClientRect();
       mouse.current = {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top,
         active: true,
       };
     };
-    const leave = () => {
+    const handlePointerLeave = () => {
       mouse.current.active = false;
     };
-    window.addEventListener('pointermove', move, { passive: true });
-    window.addEventListener('pointerleave', leave, { passive: true });
+    window.addEventListener('pointermove', handlePointerMove, {
+      passive: true,
+    });
+    window.addEventListener('pointerleave', handlePointerLeave, {
+      passive: true,
+    });
     return () => {
-      window.removeEventListener('pointermove', move);
-      window.removeEventListener('pointerleave', leave);
+      window.removeEventListener('pointermove', handlePointerMove);
+      window.removeEventListener('pointerleave', handlePointerLeave);
     };
   }, []);
 
@@ -114,85 +123,101 @@ export const GridDistortionPattern: FC<GridDistortionPatternProps> = ({
         return;
       }
       const rows = grid.length;
-      const cols = grid[0]!.length;
-      const m = mouse.current;
+      const columns = grid[0]!.length;
+      const currentMouse = mouse.current;
 
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-          const p = grid[r]![c]!;
-          if (!m.active) {
-            p.x += (p.bx - p.x) * 0.08;
-            p.y += (p.by - p.y) * 0.08;
+      for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
+        for (let columnIndex = 0; columnIndex < columns; columnIndex++) {
+          const point = grid[rowIndex]![columnIndex]!;
+          if (!currentMouse.active) {
+            point.x += (point.baseX - point.x) * 0.08;
+            point.y += (point.baseY - point.y) * 0.08;
             continue;
           }
-          const dx = m.x - p.bx;
-          const dy = m.y - p.by;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < radius && dist > 0) {
-            const force = (Math.cos((dist / radius) * Math.PI) + 1) / 2;
-            const disp = force * strength * radius * 0.3;
-            p.x += (p.bx + (dx / dist) * disp - p.x) * 0.12;
-            p.y += (p.by + (dy / dist) * disp - p.y) * 0.12;
+          const deltaX = currentMouse.x - point.baseX;
+          const deltaY = currentMouse.y - point.baseY;
+          const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+          if (distance < radius && distance > 0) {
+            const force = (Math.cos((distance / radius) * Math.PI) + 1) / 2;
+            const displacement = force * strength * radius * 0.3;
+            point.x +=
+              (point.baseX + (deltaX / distance) * displacement - point.x) *
+              0.12;
+            point.y +=
+              (point.baseY + (deltaY / distance) * displacement - point.y) *
+              0.12;
           } else {
-            p.x += (p.bx - p.x) * 0.08;
-            p.y += (p.by - p.y) * 0.08;
+            point.x += (point.baseX - point.x) * 0.08;
+            point.y += (point.baseY - point.y) * 0.08;
           }
         }
       }
 
       const nextPaths: typeof paths = [];
 
-      const addSeg = (x1: number, y1: number, x2: number, y2: number) => {
-        let r2;
-        let g2;
-        let b2;
-        let opacity;
-        let strokeWidth;
-        if (!m.active) {
-          r2 = lr;
-          g2 = lg;
-          b2 = lb;
+      const addSegment = (
+        startX: number,
+        startY: number,
+        endX: number,
+        endY: number
+      ) => {
+        let segmentRed: number;
+        let segmentGreen: number;
+        let segmentBlue: number;
+        let opacity: number;
+        let strokeWidth: number;
+        if (!currentMouse.active) {
+          segmentRed = lineColorRed;
+          segmentGreen = lineColorGreen;
+          segmentBlue = lineColorBlue;
           opacity = 0.14;
           strokeWidth = 0.8;
         } else {
-          const midX = (x1 + x2) / 2;
-          const midY = (y1 + y2) / 2;
-          const dx = m.x - midX;
-          const dy = m.y - midY;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          const t = Math.max(0, 1 - dist / radius);
-          const ease = t * t * t;
-          r2 = Math.round(lr + (hr - lr) * ease);
-          g2 = Math.round(lg + (hg - lg) * ease);
-          b2 = Math.round(lb + (hb - lb) * ease);
-          opacity = 0.14 + ease * 0.72;
-          strokeWidth = 0.8 + ease * 1.2;
+          const midX = (startX + endX) / 2;
+          const midY = (startY + endY) / 2;
+          const deltaX = currentMouse.x - midX;
+          const deltaY = currentMouse.y - midY;
+          const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+          const distanceRatio = Math.max(0, 1 - distance / radius);
+          const easing = distanceRatio * distanceRatio * distanceRatio;
+          segmentRed = Math.round(
+            lineColorRed + (highlightColorRed - lineColorRed) * easing
+          );
+          segmentGreen = Math.round(
+            lineColorGreen + (highlightColorGreen - lineColorGreen) * easing
+          );
+          segmentBlue = Math.round(
+            lineColorBlue + (highlightColorBlue - lineColorBlue) * easing
+          );
+          opacity = 0.14 + easing * 0.72;
+          strokeWidth = 0.8 + easing * 1.2;
         }
         nextPaths.push({
-          d: `M ${x1} ${y1} L ${x2} ${y2}`,
+          d: `M ${startX} ${startY} L ${endX} ${endY}`,
           opacity,
           width: strokeWidth,
-          r: r2,
-          g: g2,
-          b: b2,
+          red: segmentRed,
+          green: segmentGreen,
+          blue: segmentBlue,
         });
       };
 
-      for (let r = 0; r < rows; r++)
-        for (let c = 0; c < cols - 1; c++)
-          addSeg(
-            grid![r]![c]!.x,
-            grid![r]![c]!.y,
-            grid![r]![c + 1]!.x,
-            grid![r]![c + 1]!.y
+      for (let rowIndex = 0; rowIndex < rows; rowIndex++)
+        for (let columnIndex = 0; columnIndex < columns - 1; columnIndex++)
+          addSegment(
+            grid![rowIndex]![columnIndex]!.x,
+            grid![rowIndex]![columnIndex]!.y,
+            grid![rowIndex]![columnIndex + 1]!.x,
+            grid![rowIndex]![columnIndex + 1]!.y
           );
-      for (let c = 0; c < cols; c++)
-        for (let r = 0; r < rows - 1; r++)
-          addSeg(
-            grid![r]![c]!.x,
-            grid![r]![c]!.y,
-            grid![r + 1]![c]!.x,
-            grid![r + 1]![c]!.y
+      for (let columnIndex = 0; columnIndex < columns; columnIndex++)
+        for (let rowIndex = 0; rowIndex < rows - 1; rowIndex++)
+          addSegment(
+            grid![rowIndex]![columnIndex]!.x,
+            grid![rowIndex]![columnIndex]!.y,
+            grid![rowIndex + 1]![columnIndex]!.x,
+            grid![rowIndex + 1]![columnIndex]!.y
           );
 
       setPaths(nextPaths);
@@ -200,7 +225,16 @@ export const GridDistortionPattern: FC<GridDistortionPatternProps> = ({
     };
     tick();
     return () => cancelAnimationFrame(frame);
-  }, [radius, strength, lr, lg, lb, hr, hg, hb]);
+  }, [
+    radius,
+    strength,
+    lineColorRed,
+    lineColorGreen,
+    lineColorBlue,
+    highlightColorRed,
+    highlightColorGreen,
+    highlightColorBlue,
+  ]);
 
   const viewBox = useMemo(() => `0 0 ${size.width} ${size.height}`, [size]);
 
@@ -215,14 +249,14 @@ export const GridDistortionPattern: FC<GridDistortionPatternProps> = ({
       )}
       {...props}
     >
-      {paths.map((seg, i) => (
+      {paths.map((segment, index) => (
         <path
-          key={i}
-          d={seg.d}
+          key={index}
+          d={segment.d}
           fill="none"
-          stroke={`rgb(${seg.r},${seg.g},${seg.b})`}
-          strokeOpacity={seg.opacity}
-          strokeWidth={seg.width}
+          stroke={`rgb(${segment.red},${segment.green},${segment.blue})`}
+          strokeOpacity={segment.opacity}
+          strokeWidth={segment.width}
         />
       ))}
     </svg>
