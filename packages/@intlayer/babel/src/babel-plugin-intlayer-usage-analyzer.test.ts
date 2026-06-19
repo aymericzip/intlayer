@@ -836,6 +836,421 @@ describe('makeUsageAnalyzerBabelPlugin', () => {
       });
     });
 
+    describe('lingui — i18n._ / i18n.t (translationFunction: self)', () => {
+      const LINGUI_CALLERS: CompatCallerConfig[] = [
+        {
+          callerName: '_',
+          importSources: ['@lingui/core', '@intlayer/lingui'],
+          matchAsMethod: true,
+          namespace: { from: 'fixed', value: 'messages' },
+          translationFunction: 'self',
+        },
+        {
+          callerName: 't',
+          importSources: ['@lingui/core', '@intlayer/lingui'],
+          matchAsMethod: true,
+          namespace: { from: 'fixed', value: 'messages' },
+          translationFunction: 'self',
+        },
+      ];
+
+      it('records the first path segment from a string id (i18n._)', () => {
+        const ctx = analyze(
+          `
+          const result = i18n._('home.title', { name: 'Alice' });
+        `,
+          '/app/src/Component.tsx',
+          LINGUI_CALLERS
+        );
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('messages');
+        expect(usage).toBeInstanceOf(Set);
+        expect(usage as Set<string>).toContain('home');
+      });
+
+      it('records the top-level key for a flat id (i18n._)', () => {
+        const ctx = analyze(
+          `
+          const result = i18n._('greeting');
+        `,
+          '/app/src/Component.tsx',
+          LINGUI_CALLERS
+        );
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('messages');
+        expect(usage).toBeInstanceOf(Set);
+        expect(usage as Set<string>).toContain('greeting');
+      });
+
+      it('records the first path segment from a descriptor id', () => {
+        const ctx = analyze(
+          `
+          const result = i18n._({ id: 'home.title', message: 'Welcome' });
+        `,
+          '/app/src/Component.tsx',
+          LINGUI_CALLERS
+        );
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('messages');
+        expect(usage).toBeInstanceOf(Set);
+        expect(usage as Set<string>).toContain('home');
+      });
+
+      it('records "all" for a dynamic id (hashed macro output)', () => {
+        const ctx = analyze(
+          `
+          const hashId = computeId();
+          i18n._(hashId, { name: 'Bob' });
+        `,
+          '/app/src/Component.tsx',
+          LINGUI_CALLERS
+        );
+
+        expect(ctx.dictionaryKeyToFieldUsageMap.get('messages')).toBe('all');
+      });
+
+      it('records "all" for a descriptor with a dynamic id', () => {
+        const ctx = analyze(
+          `
+          i18n._({ id: computeId(), message: 'Fallback' });
+        `,
+          '/app/src/Component.tsx',
+          LINGUI_CALLERS
+        );
+
+        expect(ctx.dictionaryKeyToFieldUsageMap.get('messages')).toBe('all');
+      });
+
+      it('merges multiple static i18n._ calls into the messages field set', () => {
+        const ctx = analyze(
+          `
+          i18n._('home.title');
+          i18n._('about.description');
+        `,
+          '/app/src/Component.tsx',
+          LINGUI_CALLERS
+        );
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('messages');
+        expect(usage).toBeInstanceOf(Set);
+        expect(usage as Set<string>).toContain('home');
+        expect(usage as Set<string>).toContain('about');
+      });
+
+      it('tracks i18n.t as an alias for i18n._', () => {
+        const ctx = analyze(
+          `
+          i18n.t('home.title');
+        `,
+          '/app/src/Component.tsx',
+          LINGUI_CALLERS
+        );
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('messages');
+        expect(usage).toBeInstanceOf(Set);
+        expect(usage as Set<string>).toContain('home');
+      });
+    });
+
+    describe('translationFunction: all', () => {
+      it('marks the entire dictionary as used without tracking fields', () => {
+        const ctx = analyze(
+          `
+          import { useAllDictionary } from 'some-lib';
+          const t = useAllDictionary('catalog');
+        `,
+          '/app/src/Component.tsx',
+          [
+            {
+              callerName: 'useAllDictionary',
+              importSources: ['some-lib'],
+              namespace: { from: 'argument', index: 0 },
+              translationFunction: 'all',
+            },
+          ]
+        );
+
+        expect(ctx.dictionaryKeyToFieldUsageMap.get('catalog')).toBe('all');
+      });
+    });
+
+    describe('namespace: { from: fixed }', () => {
+      it('always resolves to the configured fixed namespace value', () => {
+        const ctx = analyze(
+          `
+          myLib.translate('greeting');
+        `,
+          '/app/src/Component.tsx',
+          [
+            {
+              callerName: 'translate',
+              importSources: ['my-lib'],
+              matchAsMethod: true,
+              namespace: { from: 'fixed', value: 'global-messages' },
+              translationFunction: 'self',
+            },
+          ]
+        );
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('global-messages');
+        expect(usage).toBeInstanceOf(Set);
+        expect(usage as Set<string>).toContain('greeting');
+      });
+    });
+
+    describe('react-intl — formatMessage (namespace: path-first-segment)', () => {
+      const REACT_INTL_CALLERS: CompatCallerConfig[] = [
+        {
+          callerName: 'formatMessage',
+          importSources: ['react-intl', '@intlayer/react-intl'],
+          matchAsMethod: true,
+          namespace: { from: 'path-first-segment' },
+          translationFunction: 'self',
+        },
+      ];
+
+      it('extracts dictionaryKey from the first segment and field from the second', () => {
+        const ctx = analyze(
+          `
+          const result = intl.formatMessage({ id: 'home.title' });
+        `,
+          '/app/src/Component.tsx',
+          REACT_INTL_CALLERS
+        );
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('home');
+        expect(usage).toBeInstanceOf(Set);
+        expect(usage as Set<string>).toContain('title');
+      });
+
+      it('records values argument does not affect field resolution', () => {
+        const ctx = analyze(
+          `
+          intl.formatMessage({ id: 'home.title' }, { name: 'Alice' });
+        `,
+          '/app/src/Component.tsx',
+          REACT_INTL_CALLERS
+        );
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('home');
+        expect(usage).toBeInstanceOf(Set);
+        expect(usage as Set<string>).toContain('title');
+      });
+
+      it('records "all" for a single-segment id (id equals dict key)', () => {
+        const ctx = analyze(
+          `
+          intl.formatMessage({ id: 'greeting' });
+        `,
+          '/app/src/Component.tsx',
+          REACT_INTL_CALLERS
+        );
+
+        expect(ctx.dictionaryKeyToFieldUsageMap.get('greeting')).toBe('all');
+      });
+
+      it('records "all" for a dynamic descriptor id', () => {
+        const ctx = analyze(
+          `
+          intl.formatMessage({ id: computeId() });
+        `,
+          '/app/src/Component.tsx',
+          REACT_INTL_CALLERS
+        );
+
+        // dictionaryKey is dynamic → cannot resolve → no entry recorded
+        expect(ctx.dictionaryKeyToFieldUsageMap.size).toBe(0);
+      });
+
+      it('records "all" for a dynamic first argument', () => {
+        const ctx = analyze(
+          `
+          const descriptor = buildDescriptor();
+          intl.formatMessage(descriptor);
+        `,
+          '/app/src/Component.tsx',
+          REACT_INTL_CALLERS
+        );
+
+        expect(ctx.dictionaryKeyToFieldUsageMap.size).toBe(0);
+      });
+
+      it('handles deep paths by recording only the second segment as the field', () => {
+        const ctx = analyze(
+          `
+          intl.formatMessage({ id: 'home.banner.cta' });
+        `,
+          '/app/src/Component.tsx',
+          REACT_INTL_CALLERS
+        );
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('home');
+        expect(usage).toBeInstanceOf(Set);
+        expect(usage as Set<string>).toContain('banner');
+        expect(usage as Set<string>).not.toContain('cta');
+      });
+
+      it('merges multiple formatMessage calls into the same dictionary', () => {
+        const ctx = analyze(
+          `
+          intl.formatMessage({ id: 'home.title' });
+          intl.formatMessage({ id: 'home.description' });
+        `,
+          '/app/src/Component.tsx',
+          REACT_INTL_CALLERS
+        );
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('home');
+        expect(usage).toBeInstanceOf(Set);
+        expect(usage as Set<string>).toContain('title');
+        expect(usage as Set<string>).toContain('description');
+      });
+
+      it('handles calls across multiple dictionaries', () => {
+        const ctx = analyze(
+          `
+          intl.formatMessage({ id: 'home.title' });
+          intl.formatMessage({ id: 'about.subtitle' });
+        `,
+          '/app/src/Component.tsx',
+          REACT_INTL_CALLERS
+        );
+
+        const homeUsage = ctx.dictionaryKeyToFieldUsageMap.get('home');
+        expect(homeUsage).toBeInstanceOf(Set);
+        expect(homeUsage as Set<string>).toContain('title');
+
+        const aboutUsage = ctx.dictionaryKeyToFieldUsageMap.get('about');
+        expect(aboutUsage).toBeInstanceOf(Set);
+        expect(aboutUsage as Set<string>).toContain('subtitle');
+      });
+
+      it('also works when formatMessage is called as a plain function via method-match', () => {
+        const ctx = analyze(
+          `
+          const myIntl = getIntlInstance();
+          myIntl.formatMessage({ id: 'nav.links' });
+        `,
+          '/app/src/Component.tsx',
+          REACT_INTL_CALLERS
+        );
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('nav');
+        expect(usage).toBeInstanceOf(Set);
+        expect(usage as Set<string>).toContain('links');
+      });
+    });
+
+    describe('react-intl — <FormattedMessage id> (jsxIdAttribute)', () => {
+      const REACT_INTL_JSX_CALLERS: CompatCallerConfig[] = [
+        {
+          callerName: 'formatMessage',
+          importSources: ['react-intl', '@intlayer/react-intl'],
+          matchAsMethod: true,
+          namespace: { from: 'path-first-segment' },
+          translationFunction: 'self',
+        },
+        {
+          callerName: 'FormattedMessage',
+          importSources: ['react-intl', '@intlayer/react-intl'],
+          jsxIdAttribute: 'id',
+          namespace: { from: 'path-first-segment' },
+          translationFunction: 'self',
+        },
+      ];
+
+      it('records the field from a string-literal id attribute', () => {
+        const ctx = analyze(
+          `
+          import { FormattedMessage } from 'react-intl';
+          const App = () => <FormattedMessage id="home.title" />;
+        `,
+          '/app/src/Component.tsx',
+          REACT_INTL_JSX_CALLERS
+        );
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('home');
+        expect(usage).toBeInstanceOf(Set);
+        expect(usage as Set<string>).toContain('title');
+      });
+
+      it('records the field from an expression-container id attribute', () => {
+        const ctx = analyze(
+          `
+          import { FormattedMessage } from 'react-intl';
+          const App = () => <FormattedMessage id={'home.subtitle'} values={{ name }} />;
+        `,
+          '/app/src/Component.tsx',
+          REACT_INTL_JSX_CALLERS
+        );
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('home');
+        expect(usage).toBeInstanceOf(Set);
+        expect(usage as Set<string>).toContain('subtitle');
+      });
+
+      it('does not track JSX callers that are not imported from a configured source', () => {
+        const ctx = analyze(
+          `
+          import { FormattedMessage } from 'some-other-lib';
+          const App = () => <FormattedMessage id="home.title" />;
+        `,
+          '/app/src/Component.tsx',
+          REACT_INTL_JSX_CALLERS
+        );
+
+        expect(ctx.dictionaryKeyToFieldUsageMap.has('home')).toBe(false);
+      });
+
+      it('skips a dynamic id attribute (leaves dictionary untracked)', () => {
+        const ctx = analyze(
+          `
+          import { FormattedMessage } from 'react-intl';
+          const App = ({ id }) => <FormattedMessage id={id} />;
+        `,
+          '/app/src/Component.tsx',
+          REACT_INTL_JSX_CALLERS
+        );
+
+        expect(ctx.dictionaryKeyToFieldUsageMap.size).toBe(0);
+      });
+
+      it('merges fields used via JSX and via formatMessage on the same dictionary', () => {
+        const ctx = analyze(
+          `
+          import { FormattedMessage, useIntl } from 'react-intl';
+          const App = () => {
+            const intl = useIntl();
+            const label = intl.formatMessage({ id: 'home.description' });
+            return <FormattedMessage id="home.title" />;
+          };
+        `,
+          '/app/src/Component.tsx',
+          REACT_INTL_JSX_CALLERS
+        );
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('home');
+        expect(usage).toBeInstanceOf(Set);
+        // Both the JSX-only field and the formatMessage field must be kept,
+        // otherwise the <FormattedMessage> lookup would break at runtime.
+        expect(usage as Set<string>).toContain('title');
+        expect(usage as Set<string>).toContain('description');
+      });
+
+      it('adds the dictionary to dictionariesSkippingFieldRename', () => {
+        const ctx = analyze(
+          `
+          import { FormattedMessage } from 'react-intl';
+          const App = () => <FormattedMessage id="home.title" />;
+        `,
+          '/app/src/Component.tsx',
+          REACT_INTL_JSX_CALLERS
+        );
+
+        expect(ctx.dictionariesSkippingFieldRename.has('home')).toBe(true);
+      });
+    });
+
     describe('disabling compat analysis', () => {
       it('ignores compat callers when compatCallers is an empty array', () => {
         const ctx = createPruneContext();

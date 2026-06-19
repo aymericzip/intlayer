@@ -153,7 +153,25 @@ export type CompatNamespaceSource =
   /** Namespace is a positional argument (string literal or `{ namespace }`). */
   | { from: 'argument'; index: number }
   /** Namespace is a property of an options object argument. */
-  | { from: 'option'; argumentIndex: number; property: string };
+  | { from: 'option'; argumentIndex: number; property: string }
+  /**
+   * Namespace is a compile-time constant — the same dictionary key is used for
+   * every call site. Used by single-catalog libraries such as lingui, where all
+   * translations live in a `messages` dictionary regardless of call location.
+   */
+  | { from: 'fixed'; value: string }
+  /**
+   * Namespace is the first dot-segment of the `id` in the first call argument.
+   *
+   * Used for libraries like react-intl where the full dotted id encodes both the
+   * dictionary key and the field path in a single string:
+   *   `formatMessage({ id: 'home.title' })` → dictionaryKey = `'home'`, field = `'title'`
+   *
+   * Works with both string form (`func('home.title')`) and descriptor form
+   * (`func({ id: 'home.title', ... })`). The paired `translationFunction` should
+   * be `'self'` so the field (second segment) is also extracted from the same call.
+   */
+  | { from: 'path-first-segment' };
 
 /**
  * Configuration entry for a single compat namespace caller.
@@ -184,8 +202,31 @@ export type CompatCallerConfig = {
    * segment of the prefix.
    */
   keyPrefix?: CompatNamespaceSource;
-  /** How the translation function is obtained from the call result. */
-  translationFunction: 'return-value' | 'destructured-t';
+  /**
+   * How the translation function is obtained from the call result.
+   *
+   * - `'return-value'`   — `const t = useTranslations('ns'); t('key')`
+   * - `'destructured-t'` — `const { t } = useTranslation('ns'); t('key')`
+   * - `'self'`           — the caller IS the translation call;
+   *                        the first argument is the message key.
+   *                        Used for lingui's `i18n._('key')` / `i18n.t('key')`.
+   * - `'all'`            — mark the entire dictionary as used without tracking
+   *                        individual fields. Use when static key analysis is
+   *                        impossible (e.g. lingui hashed IDs, Angular templates).
+   */
+  translationFunction: 'return-value' | 'destructured-t' | 'self' | 'all';
+  /**
+   * When set, the caller is *also* matched as a JSX element whose local name is
+   * `callerName` (gated by `importSources`). The named attribute is read as the
+   * message id and analysed with the same `namespace` + `translationFunction`
+   * (`'self'` / `'all'`) semantics as the call-expression form.
+   *
+   * Required for libraries with a JSX message component, e.g. react-intl's
+   * `<FormattedMessage id="home.title" />`. Without it, JSX usages are invisible
+   * to the analyser and field-level pruning of the same dictionary becomes
+   * unsafe (it could prune a field only referenced from JSX).
+   */
+  jsxIdAttribute?: string;
 };
 
 /**
@@ -676,6 +717,41 @@ const readObjectProperty = (
 };
 
 /**
+ * Reads a named JSX attribute as a static string and returns it wrapped in a
+ * `StringLiteral` node so the result can be fed to the same namespace resolver
+ * as a call argument. Handles both `id="home.title"` and `id={'home.title'}`.
+ * Returns `undefined` when the attribute is absent or dynamic (`id={expr}`).
+ */
+const readJsxAttributeString = (
+  babelTypes: typeof BabelTypes,
+  openingElement: BabelTypes.JSXOpeningElement,
+  attributeName: string
+): BabelTypes.StringLiteral | undefined => {
+  for (const attribute of openingElement.attributes) {
+    if (!babelTypes.isJSXAttribute(attribute)) continue;
+    if (
+      !babelTypes.isJSXIdentifier(attribute.name) ||
+      attribute.name.name !== attributeName
+    ) {
+      continue;
+    }
+
+    const value = attribute.value;
+    // id="home.title"
+    if (babelTypes.isStringLiteral(value)) return value;
+    // id={'home.title'} / id={`home.title`}
+    if (babelTypes.isJSXExpressionContainer(value)) {
+      const staticString = readStaticString(babelTypes, value.expression);
+      if (staticString !== undefined) {
+        return babelTypes.stringLiteral(staticString);
+      }
+    }
+    return undefined; // attribute present but dynamic
+  }
+  return undefined; // attribute absent
+};
+
+/**
  * Resolves the namespace (dictionary key) for a compat caller call-site from
  * its `CompatNamespaceSource` configuration. Returns the static key, or
  * `'__default__'` when the configured argument is absent (caller falls back to
@@ -686,6 +762,29 @@ const resolveCompatNamespace = (
   callArguments: BabelTypes.CallExpression['arguments'],
   source: CompatNamespaceSource
 ): string | '__default__' | undefined => {
+  if (source.from === 'fixed') return source.value;
+
+  if (source.from === 'path-first-segment') {
+    const firstArg = callArguments[0];
+    // No sensible default: the dictionary key is *derived* from the id, so an
+    // absent id means the call cannot be attributed to any dictionary → skip.
+    if (firstArg === undefined) return undefined;
+
+    // String form: formatMessage('home.title', values)
+    const staticString = readStaticString(babelTypes, firstArg);
+    if (staticString !== undefined) return firstPathSegment(staticString);
+
+    // Descriptor form: formatMessage({ id: 'home.title', ... }, values)
+    if (babelTypes.isObjectExpression(firstArg)) {
+      const idValue = readObjectProperty(babelTypes, firstArg, 'id');
+      if (idValue === '__default__') return '__default__'; // id absent
+      if (idValue !== undefined) return firstPathSegment(idValue); // static id
+      return undefined; // id present but dynamic
+    }
+
+    return undefined; // dynamic first argument
+  }
+
   if (source.from === 'argument') {
     const argument = callArguments[source.index];
     if (argument === undefined) return '__default__';
@@ -755,12 +854,17 @@ const unwrapAwait = (
 const analyzeNamespaceCallerUsage = (
   babelTypes: typeof BabelTypes,
   pruneContext: PruneContext,
-  callExpressionPath: NodePath<BabelTypes.CallExpression>,
+  callArguments: BabelTypes.CallExpression['arguments'],
   callerConfig: CompatCallerConfig,
-  isSfcFile: boolean
+  isSfcFile: boolean,
+  /**
+   * The call-expression path, when the caller was matched as a call. Omitted
+   * for JSX-element matches (`<FormattedMessage id>`), where only the static
+   * `'self'` / `'all'` analysis paths apply — the binding-based
+   * `'destructured-t'` / `'return-value'` paths require a call site.
+   */
+  callExpressionPath?: NodePath<BabelTypes.CallExpression>
 ): void => {
-  const callArguments = callExpressionPath.node.arguments;
-
   // 1. Resolve the dictionary key (namespace).
   const resolvedNamespace = resolveCompatNamespace(
     babelTypes,
@@ -788,6 +892,94 @@ const analyzeNamespaceCallerUsage = (
   //    invoked from the template, which Babel cannot see. Conservatively keep
   //    every field to avoid pruning a template-only access.
   if (isSfcFile) {
+    recordFieldUsage(pruneContext, dictionaryKey, 'all');
+    return;
+  }
+
+  // 3a. Mark the entire dictionary as used — static field analysis is not
+  //     applicable (e.g. lingui hashed IDs, Angular templates).
+  if (callerConfig.translationFunction === 'all') {
+    recordFieldUsage(pruneContext, dictionaryKey, 'all');
+    return;
+  }
+
+  // 3b. The caller IS the translation call (`translationFunction: 'self'`).
+  //     The first argument of the current call expression is the message key.
+  //     Used for lingui's `i18n._('key')` / `i18n.t('key')` and react-intl's
+  //     `intl.formatMessage({ id: 'key' })` patterns.
+  if (callerConfig.translationFunction === 'self') {
+    const firstArg = callArguments[0];
+    if (!firstArg) {
+      recordFieldUsage(pruneContext, dictionaryKey, 'all');
+      return;
+    }
+
+    if (callerConfig.namespace.from === 'path-first-segment') {
+      // The dictionary key is already the first segment of the descriptor id.
+      // The field to record is the SECOND segment (first level inside the dict).
+      // e.g. formatMessage({ id: 'home.title' }) → dictionaryKey='home', field='title'
+      let fullId: string | undefined;
+
+      const staticString = readStaticString(babelTypes, firstArg);
+      if (staticString !== undefined) {
+        fullId = staticString;
+      } else if (babelTypes.isObjectExpression(firstArg)) {
+        const idValue = readObjectProperty(babelTypes, firstArg, 'id');
+        if (idValue !== undefined && idValue !== '__default__') {
+          fullId = idValue;
+        }
+      }
+
+      if (fullId !== undefined) {
+        const segments = fullId.split('.');
+        const field = segments[1];
+        if (field !== undefined) {
+          recordFieldUsage(pruneContext, dictionaryKey, new Set([field]));
+        } else {
+          // Single-segment id — the whole value is the dict key; no sub-field.
+          recordFieldUsage(pruneContext, dictionaryKey, 'all');
+        }
+        return;
+      }
+
+      // Dynamic id — cannot prune.
+      recordFieldUsage(pruneContext, dictionaryKey, 'all');
+      return;
+    }
+
+    // For 'fixed' / 'argument' / 'option' namespaces: the field is the first
+    // dot-segment of the first argument (the message key itself).
+    // String form: i18n._('home.title', values)
+    const segment = readStaticFirstSegment(babelTypes, firstArg);
+    if (segment !== undefined) {
+      recordFieldUsage(pruneContext, dictionaryKey, new Set([segment]));
+      return;
+    }
+
+    // Descriptor form: i18n._({ id: 'home.title', message: '...' }, values)
+    if (babelTypes.isObjectExpression(firstArg)) {
+      const idValue = readObjectProperty(babelTypes, firstArg, 'id');
+      if (idValue !== undefined && idValue !== '__default__') {
+        recordFieldUsage(
+          pruneContext,
+          dictionaryKey,
+          new Set([firstPathSegment(idValue)])
+        );
+        return;
+      }
+    }
+
+    // Dynamic key — cannot prune.
+    recordFieldUsage(pruneContext, dictionaryKey, 'all');
+    return;
+  }
+
+  // The remaining strategies (`'destructured-t'` / `'return-value'`) resolve
+  // the `t` binding from the call site, so they require a call-expression path.
+  // JSX-element matches never reach here (they use `'self'` / `'all'`); guard
+  // defensively so a misconfigured JSX caller keeps every field instead of
+  // throwing.
+  if (!callExpressionPath) {
     recordFieldUsage(pruneContext, dictionaryKey, 'all');
     return;
   }
@@ -1050,9 +1242,10 @@ export const makeUsageAnalyzerBabelPlugin =
                   analyzeNamespaceCallerUsage(
                     babelTypes,
                     pruneContext,
-                    callExpressionPath,
+                    callExpressionPath.node.arguments,
                     importedCompatCaller,
-                    isSfcFile
+                    isSfcFile,
+                    callExpressionPath
                   );
                   return;
                 }
@@ -1066,12 +1259,38 @@ export const makeUsageAnalyzerBabelPlugin =
                     analyzeNamespaceCallerUsage(
                       babelTypes,
                       pruneContext,
-                      callExpressionPath,
+                      callExpressionPath.node.arguments,
                       methodCaller,
-                      isSfcFile
+                      isSfcFile,
+                      callExpressionPath
                     );
                   }
                 }
+              },
+              JSXOpeningElement: (jsxOpeningElementPath) => {
+                const nameNode = jsxOpeningElementPath.node.name;
+                if (!babelTypes.isJSXIdentifier(nameNode)) return;
+
+                const jsxCaller = compatCallerLocalNameMap.get(nameNode.name);
+                if (!jsxCaller?.jsxIdAttribute) return;
+
+                // Read the configured id attribute as a static string. A missing
+                // or dynamic id yields an empty argument list, which resolves the
+                // namespace to undefined and is skipped (consistent with how a
+                // dynamic `useIntlayer(key)` call is handled).
+                const idNode = readJsxAttributeString(
+                  babelTypes,
+                  jsxOpeningElementPath.node,
+                  jsxCaller.jsxIdAttribute
+                );
+
+                analyzeNamespaceCallerUsage(
+                  babelTypes,
+                  pruneContext,
+                  idNode ? [idNode] : [],
+                  jsxCaller,
+                  isSfcFile
+                );
               },
             });
           },

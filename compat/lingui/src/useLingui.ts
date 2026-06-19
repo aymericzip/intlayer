@@ -1,6 +1,5 @@
 'use client';
 
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import type { I18nContext } from '@lingui/react';
 import { useContext, useMemo } from 'react';
 import { useLocale } from 'react-intlayer';

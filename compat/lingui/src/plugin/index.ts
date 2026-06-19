@@ -9,15 +9,38 @@ import { type CompatCallerConfig, intlayer } from 'vite-intlayer';
 /**
  * Caller configurations for lingui.
  *
- * Lingui's `i18n._(id)` / `i18n.t` and `useLingui()`'s `_()` all resolve
- * translations at runtime through the intlayer `messages` dictionary. Since the
- * mapping is 1:1 (one catalog → one `messages` dict) there is no namespace
- * splitting needed at the analyser level, so the caller list is empty for now.
+ * After `@lingui/babel-plugin-lingui-macro` / `@lingui/swc-plugin` compiles
+ * macros (`` t`Hello ${name}` `` → `i18n._(id, values)`) the intlayer field
+ * usage analyser sees these method calls and records which top-level fields of
+ * the `messages` dictionary are consumed, enabling accurate pruning.
  *
- * Future: once `namespace: { from: 'self' }` is supported in the babel/swc
- * analyser, we can add callers for `useLingui()._(id)`.
+ * Two call forms are tracked:
+ *   - `i18n._('home.title', values)` — string id
+ *   - `i18n._({ id: 'home.title', message: '...' }, values)` — descriptor
+ *   - `i18n.t('home.title', values)` — alias for `_`
+ *
+ * Because lingui projects may also use hashed IDs (generated from the default
+ * message string) that cannot be statically mapped to dictionary keys, a
+ * separate `'all'`-mode caller is not needed here: when the first argument is
+ * not a static string or descriptor, the `'self'` handler falls back to `'all'`
+ * automatically.
  */
-const LINGUI_COMPAT_CALLERS: CompatCallerConfig[] = [];
+const LINGUI_COMPAT_CALLERS: CompatCallerConfig[] = [
+  {
+    callerName: '_',
+    importSources: ['@lingui/core', '@intlayer/lingui'],
+    matchAsMethod: true,
+    namespace: { from: 'fixed', value: 'messages' },
+    translationFunction: 'self',
+  },
+  {
+    callerName: 't',
+    importSources: ['@lingui/core', '@intlayer/lingui'],
+    matchAsMethod: true,
+    namespace: { from: 'fixed', value: 'messages' },
+    translationFunction: 'self',
+  },
+];
 
 /**
  * A Vite plugin for the lingui compat adapter.

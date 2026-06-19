@@ -7,15 +7,46 @@ import type { PluginOption } from 'vite';
 import { type CompatCallerConfig, intlayer } from 'vite-intlayer';
 
 /**
- * Caller configuration for react-intl's `useIntl()`.
+ * Caller configurations for react-intl's two message APIs.
  *
- * Tracks the `useIntl` call so its return value (the intl object) is marked
- * as the translation accessor for the current component. Field-level pruning
- * via `formatMessage({id})` requires `namespace: { from: 'path-first-segment' }`
- * which is not yet supported by the babel/swc analyser — it will be added in
- * a future release. For now, the alias mapping is the primary compat mechanism.
+ * react-intl encodes both the dictionary key and the field path in a single
+ * dotted id string, so the `path-first-segment` namespace source extracts the
+ * first segment as the dictionary key and `translationFunction: 'self'` records
+ * the second segment as the consumed field:
+ *
+ *   `'home.title'` → dictionaryKey='home', field='title'
+ *   `'greeting'`   → dictionaryKey='greeting', field='all' (single segment)
+ *   dynamic id     → unresolvable → skipped (all fields kept)
+ *
+ * Both call sites are tracked:
+ *   - `intl.formatMessage({ id })` — matched as a method on any object.
+ *   - `<FormattedMessage id />`    — matched as a JSX element (import-gated).
+ *
+ * The JSX form is mandatory: the prune context is shared across all files, so
+ * tracking only `formatMessage` would let a field referenced solely from
+ * `<FormattedMessage>` be pruned away whenever the same dictionary is also read
+ * through `formatMessage`.
  */
-const REACT_INTL_COMPAT_CALLERS: CompatCallerConfig[] = [];
+const REACT_INTL_COMPAT_CALLERS: CompatCallerConfig[] = [
+  {
+    callerName: 'formatMessage',
+    importSources: ['react-intl', '@intlayer/react-intl'],
+    matchAsMethod: true,
+    namespace: { from: 'path-first-segment' },
+    translationFunction: 'self',
+  },
+  // `<FormattedMessage id="home.title" />` — the dominant react-intl API. This
+  // JSX form MUST be tracked alongside `formatMessage`: the prune context is
+  // global across files, so a field referenced only from JSX would otherwise be
+  // pruned away when the same dictionary is also read via `formatMessage`.
+  {
+    callerName: 'FormattedMessage',
+    importSources: ['react-intl', '@intlayer/react-intl'],
+    jsxIdAttribute: 'id',
+    namespace: { from: 'path-first-segment' },
+    translationFunction: 'self',
+  },
+];
 
 /**
  * A Vite plugin for react-intl compat that wraps vite-intlayer
