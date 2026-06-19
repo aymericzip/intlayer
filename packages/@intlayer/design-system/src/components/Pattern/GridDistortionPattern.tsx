@@ -2,6 +2,58 @@
 
 import { cn } from '@utils/cn';
 import { type FC, type SVGProps, useEffect, useRef } from 'react';
+import { useIsDarkMode } from '../../hooks/useIsDarkMode';
+
+// ---------------------------------------------------------------------------
+// Theme configuration — tweak these to adjust the grid appearance globally
+// ---------------------------------------------------------------------------
+
+type GridTheme = {
+  /** Resting line color, used far from the pointer. */
+  lineColor: string;
+  /**
+   * Color the lines fade toward as the pointer approaches. To avoid lines
+   * appearing to "dim into the background" near the pointer, this should be
+   * brighter (higher luminance) than {@link GridTheme.lineColor} in dark mode
+   * and clearly contrasting in light mode.
+   */
+  highlightColor: string;
+  /** Stroke opacity far from the pointer — keeps the whole grid visible. */
+  baseOpacity: number;
+  /** Extra opacity added at the pointer's center on top of {@link GridTheme.baseOpacity}. */
+  highlightOpacityBoost: number;
+};
+
+/**
+ * Light mode: a visible (but subtle) gray line on white. The base opacity is
+ * raised and the highlight boost lowered so the grid no longer fades to nothing
+ * far from the pointer while spiking to a harsh accent underneath it.
+ */
+const LIGHT_THEME: GridTheme = {
+  lineColor: '#a8a8a8',
+  highlightColor: '#969696',
+  baseOpacity: 0.3,
+  highlightOpacityBoost: 0.3,
+};
+
+/**
+ * Dark mode: a mid-gray line that brightens toward a light purple near the
+ * pointer (brighter than the resting line, so the hovered segment lights up
+ * instead of darkening into the black background).
+ */
+const DARK_THEME: GridTheme = {
+  lineColor: '#4d4d4d',
+  highlightColor: '#5c5c5c',
+  baseOpacity: 0.2,
+  highlightOpacityBoost: 0.2,
+};
+
+/**
+ * Falloff exponent for the highlight. A gentler curve (2 = quadratic) spreads
+ * the highlight over a wider area than a cubic one, smoothing the transition
+ * between the resting line and the accent under the pointer.
+ */
+const HIGHLIGHT_FALLOFF_EXPONENT = 2;
 
 // ---------------------------------------------------------------------------
 // Pure helpers — defined once at module level, never recreated
@@ -14,6 +66,45 @@ const hexToRgb = (hex: string): [number, number, number] => {
     (numericValue >> 8) & 255,
     numericValue & 255,
   ];
+};
+
+/** Neutral gray used when a color string can't be parsed into RGB. */
+const FALLBACK_RGB: [number, number, number] = [136, 136, 136];
+
+/**
+ * Resolves any CSS color string — `#rrggbb`, `rgb()/hsl()`, a named color, or a
+ * `var(--token)` reference — into an `[r, g, b]` triple.
+ *
+ * 6-digit hex is parsed directly. Everything else is resolved by the browser
+ * via a throwaway probe element mounted inside `contextElement`, so custom
+ * properties resolve against the correct cascade. Falls back to a neutral gray
+ * when the value can't be parsed, so the grid never emits invalid
+ * `rgb(NaN, …)` strokes (which browsers render as solid black).
+ */
+const resolveColorToRgb = (
+  color: string,
+  contextElement: Element
+): [number, number, number] => {
+  const trimmed = color.trim();
+
+  // Fast path: 6-digit hex needs no DOM access.
+  if (/^#[0-9a-f]{6}$/i.test(trimmed)) {
+    return hexToRgb(trimmed);
+  }
+
+  const probe = document.createElement('span');
+  probe.style.color = trimmed;
+  probe.style.display = 'none';
+  contextElement.appendChild(probe);
+  const computedColor = getComputedStyle(probe).color;
+  probe.remove();
+
+  const channels = computedColor.match(/-?\d+(?:\.\d+)?/g);
+  if (channels && channels.length >= 3) {
+    return [Number(channels[0]), Number(channels[1]), Number(channels[2])];
+  }
+
+  return FALLBACK_RGB;
 };
 
 type Point = { baseX: number; baseY: number; x: number; y: number };
@@ -29,7 +120,9 @@ const buildSegmentAttrs = (
   radius: number,
   strength: number,
   lineRgb: [number, number, number],
-  highlightRgb: [number, number, number]
+  highlightRgb: [number, number, number],
+  baseOpacity: number,
+  highlightOpacityBoost: number
 ): {
   d: string;
   stroke: string;
@@ -44,7 +137,7 @@ const buildSegmentAttrs = (
 
   if (!mouseActive) {
     [red, green, blue] = lineRgb;
-    opacity = 0.14;
+    opacity = baseOpacity;
     strokeWidth = 0.8;
   } else {
     const midX = (startX + endX) / 2;
@@ -53,11 +146,11 @@ const buildSegmentAttrs = (
     const deltaY = mouseY - midY;
     const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     const distanceRatio = Math.max(0, 1 - distance / radius);
-    const easing = distanceRatio * distanceRatio * distanceRatio;
+    const easing = distanceRatio ** HIGHLIGHT_FALLOFF_EXPONENT;
     red = Math.round(lineRgb[0] + (highlightRgb[0] - lineRgb[0]) * easing);
     green = Math.round(lineRgb[1] + (highlightRgb[1] - lineRgb[1]) * easing);
     blue = Math.round(lineRgb[2] + (highlightRgb[2] - lineRgb[2]) * easing);
-    opacity = 0.14 + easing * 0.72;
+    opacity = baseOpacity + easing * highlightOpacityBoost;
     strokeWidth = 0.8 + easing * 1.2;
     void strength; // currently unused in segment coloring, kept for API compatibility
   }
@@ -126,11 +219,18 @@ export const GridDistortionPattern: FC<GridDistortionPatternProps> = ({
   height = 70,
   radius = 280,
   strength = 0.12,
-  lineColor = '#888888',
-  highlightColor = '#7f77dd',
+  lineColor,
+  highlightColor,
   className,
   ...props
 }) => {
+  const isDarkMode = useIsDarkMode();
+  const theme = isDarkMode ? DARK_THEME : LIGHT_THEME;
+
+  // Explicit props win; otherwise fall back to the active theme's defaults.
+  const resolvedLineColor = lineColor ?? theme.lineColor;
+  const resolvedHighlightColor = highlightColor ?? theme.highlightColor;
+
   const svgRef = useRef<SVGSVGElement>(null);
   const mouse = useRef({ x: -9999, y: -9999, active: false });
   const points = useRef<Point[][]>([]);
@@ -139,16 +239,27 @@ export const GridDistortionPattern: FC<GridDistortionPatternProps> = ({
   // without needing to restart itself.
   const radiusRef = useRef(radius);
   const strengthRef = useRef(strength);
-  const lineRgbRef = useRef<[number, number, number]>(hexToRgb(lineColor));
-  const highlightRgbRef = useRef<[number, number, number]>(
-    hexToRgb(highlightColor)
-  );
+  // Initialized to safe placeholders; the real (possibly CSS-variable-based)
+  // colors are resolved against the DOM in the effect below.
+  const lineRgbRef = useRef<[number, number, number]>(FALLBACK_RGB);
+  const highlightRgbRef = useRef<[number, number, number]>(FALLBACK_RGB);
+  const baseOpacityRef = useRef(theme.baseOpacity);
+  const highlightOpacityBoostRef = useRef(theme.highlightOpacityBoost);
 
-  // Keep refs in sync with props on each render (cheap assignments).
+  // Keep numeric refs in sync with props on each render (cheap assignments).
   radiusRef.current = radius;
   strengthRef.current = strength;
-  lineRgbRef.current = hexToRgb(lineColor);
-  highlightRgbRef.current = hexToRgb(highlightColor);
+  baseOpacityRef.current = theme.baseOpacity;
+  highlightOpacityBoostRef.current = theme.highlightOpacityBoost;
+
+  // Resolve colors once mounted — getComputedStyle is required so that
+  // `var(--token)` highlight/line colors resolve against the live cascade.
+  useEffect(() => {
+    const svg = svgRef.current;
+    if (!svg) return;
+    lineRgbRef.current = resolveColorToRgb(resolvedLineColor, svg);
+    highlightRgbRef.current = resolveColorToRgb(resolvedHighlightColor, svg);
+  }, [resolvedLineColor, resolvedHighlightColor]);
 
   // ---------------------------------------------------------------------------
   // Resize — rebuild the point grid and resize the SVG viewBox
@@ -257,6 +368,8 @@ export const GridDistortionPattern: FC<GridDistortionPatternProps> = ({
       const currentStrength = strengthRef.current;
       const lineRgb = lineRgbRef.current;
       const highlightRgb = highlightRgbRef.current;
+      const baseOpacity = baseOpacityRef.current;
+      const highlightOpacityBoost = highlightOpacityBoostRef.current;
 
       // Update point positions
       updateGridPoints(
@@ -295,7 +408,9 @@ export const GridDistortionPattern: FC<GridDistortionPatternProps> = ({
             currentRadius,
             currentStrength,
             lineRgb,
-            highlightRgb
+            highlightRgb,
+            baseOpacity,
+            highlightOpacityBoost
           );
           const el = pathPool[pathIndex++]!;
           el.setAttribute('d', attrs.d);
@@ -321,7 +436,9 @@ export const GridDistortionPattern: FC<GridDistortionPatternProps> = ({
             currentRadius,
             currentStrength,
             lineRgb,
-            highlightRgb
+            highlightRgb,
+            baseOpacity,
+            highlightOpacityBoost
           );
           const el = pathPool[pathIndex++]!;
           el.setAttribute('d', attrs.d);
