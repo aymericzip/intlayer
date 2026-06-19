@@ -45,7 +45,12 @@ export const useDictionaryDynamic = <
   fallbackLocale?: DeclaredLocales
 ) => {
   const { locale: selectorLocale, selector } =
-    parseDictionarySelector<LocalesValues>(localeOrSelector);
+    process.env['INTLAYER_DICTIONARY_SELECTOR'] !== 'false'
+      ? parseDictionarySelector<LocalesValues>(localeOrSelector)
+      : {
+          locale: localeOrSelector as LocalesValues | undefined,
+          selector: undefined,
+        };
 
   const localeTarget =
     selectorLocale ??
@@ -53,7 +58,10 @@ export const useDictionaryDynamic = <
     fallbackLocale ??
     internationalization.defaultLocale;
 
-  if (isQualifiedDynamicLoaderMap(dictionaryPromise)) {
+  if (
+    process.env['INTLAYER_DICTIONARY_SELECTOR'] !== 'false' &&
+    isQualifiedDynamicLoaderMap(dictionaryPromise)
+  ) {
     return resolveQualifiedDynamicContent({
       loaderMap: dictionaryPromise,
       key: String(key),

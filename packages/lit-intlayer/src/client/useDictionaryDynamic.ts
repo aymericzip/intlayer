@@ -112,9 +112,16 @@ export const useDictionaryDynamic = <
 ): IntlayerLitProxy<DeepTransformContent<T['content']>> => {
   const client = getIntlayerClient();
 
-  const isQualified = isQualifiedDynamicLoaderMap(dictionaryPromise);
+  const isQualified =
+    process.env['INTLAYER_DICTIONARY_SELECTOR'] !== 'false' &&
+    isQualifiedDynamicLoaderMap(dictionaryPromise);
   const { locale: explicitLocale, selector } =
-    parseDictionarySelector<LocalesValues>(localeOrSelector);
+    process.env['INTLAYER_DICTIONARY_SELECTOR'] !== 'false'
+      ? parseDictionarySelector<LocalesValues>(localeOrSelector)
+      : {
+          locale: localeOrSelector as LocalesValues | undefined,
+          selector: undefined,
+        };
 
   const getActiveLocale = (): LocalesValues =>
     (explicitLocale ??

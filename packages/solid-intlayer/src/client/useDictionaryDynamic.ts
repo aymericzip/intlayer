@@ -58,7 +58,10 @@ export const useDictionaryDynamic = <
   const defaultLocale = internationalization.defaultLocale;
   const dictionaryKey = String(key);
 
-  if (isQualifiedDynamicLoaderMap(dictionaryPromise)) {
+  if (
+    process.env['INTLAYER_DICTIONARY_SELECTOR'] !== 'false' &&
+    isQualifiedDynamicLoaderMap(dictionaryPromise)
+  ) {
     const { locale: selectorLocale, selector } =
       parseDictionarySelector<LocalesValues>(localeOrSelector);
     const selectorCacheKey = getDictionarySelectorCacheKey(selector);

@@ -41,7 +41,10 @@ export const useDictionaryDynamic = async <
   key: K,
   localeOrSelector?: MaybeRefOrGetter<A | null | undefined>
 ) => {
-  if (isQualifiedDynamicLoaderMap(dictionaryPromise)) {
+  if (
+    process.env['INTLAYER_DICTIONARY_SELECTOR'] !== 'false' &&
+    isQualifiedDynamicLoaderMap(dictionaryPromise)
+  ) {
     const intlayer = inject<IntlayerProvider>(INTLAYER_SYMBOL);
 
     const argValue =
@@ -63,7 +66,7 @@ export const useDictionaryDynamic = async <
   }
 
   return useDictionaryAsync(
-    dictionaryPromise,
+    dictionaryPromise as StrictModeLocaleMap<() => Promise<T>>,
     localeOrSelector as MaybeRefOrGetter<LocalesValues> | undefined
   );
 };

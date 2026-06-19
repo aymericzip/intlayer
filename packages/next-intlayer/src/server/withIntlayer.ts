@@ -5,6 +5,7 @@ import { buildComponentFilesList, runOnce } from '@intlayer/chokidar/utils';
 import * as ANSIColors from '@intlayer/config/colors';
 import { IMPORT_MODE } from '@intlayer/config/defaultValues';
 import {
+  formatDictionarySelectorEnvVar,
   formatNodeTypeToEnvVar,
   getConfigEnvVars,
 } from '@intlayer/config/envVars';
@@ -16,6 +17,7 @@ import {
 import {
   compareVersions,
   getAlias,
+  getHasDictionarySelector,
   getProjectRequire,
   getUnusedNodeTypes,
   normalizePath,
@@ -398,6 +400,10 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
 
       // Tree shacking based on unused node types
       ...formatNodeTypeToEnvVar(unusedNodeTypes),
+
+      // Tree shacking the dictionary selector logic
+      // (collections / variants / meta records)
+      ...formatDictionarySelectorEnvVar(getHasDictionarySelector(dictionaries)),
 
       // Tree shacking based on config
       ...getConfigEnvVars(intlayerConfig),

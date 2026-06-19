@@ -57,7 +57,9 @@ export const useIntlayer = <
   const intlayer = inject<IntlayerProvider>(INTLAYER_TOKEN)!;
 
   const isSelector =
-    typeof localeOrSelector === 'object' && localeOrSelector !== null;
+    process.env['INTLAYER_DICTIONARY_SELECTOR'] !== 'false' &&
+    typeof localeOrSelector === 'object' &&
+    localeOrSelector !== null;
 
   /** a *stable* reactive dictionary object */
   // @ts-ignore Type instantiation is excessively deep and possibly infinite

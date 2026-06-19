@@ -8,6 +8,7 @@ import { logConfigDetails } from '@intlayer/chokidar/cli';
 import { watch } from '@intlayer/chokidar/watcher';
 import { BLUE } from '@intlayer/config/colors';
 import {
+  formatDictionarySelectorEnvVar,
   formatNodeTypeToEnvVar,
   getConfigEnvVars,
 } from '@intlayer/config/envVars';
@@ -16,7 +17,11 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
-import { getAlias, getUnusedNodeTypesAsync } from '@intlayer/config/utils';
+import {
+  getAlias,
+  getHasDictionarySelector,
+  getUnusedNodeTypesAsync,
+} from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { PluginOption } from 'vite';
 import { intlayerMinify } from './intlayerMinifyPlugin';
@@ -161,6 +166,14 @@ export const intlayerPlugin = (
             // Tree shacking env var based on config
             ...formatNodeTypeToEnvVar(
               unusedNodeTypes,
+              (key) => `process.env.${key}`,
+              (value) => `"${value}"`
+            ),
+
+            // Tree shacking env var for the dictionary selector logic
+            // (collections / variants / meta records)
+            ...formatDictionarySelectorEnvVar(
+              getHasDictionarySelector(dictionaries),
               (key) => `process.env.${key}`,
               (value) => `"${value}"`
             ),

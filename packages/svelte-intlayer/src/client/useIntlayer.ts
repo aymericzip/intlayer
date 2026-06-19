@@ -51,7 +51,9 @@ export const useIntlayer = <
   const context = getIntlayerContext();
 
   const isSelector =
-    typeof localeOrSelector === 'object' && localeOrSelector !== null;
+    process.env['INTLAYER_DICTIONARY_SELECTOR'] !== 'false' &&
+    typeof localeOrSelector === 'object' &&
+    localeOrSelector !== null;
 
   // Create a derived store that reactively updates when locale changes
   return derived([intlayerStore], ([$store]) => {

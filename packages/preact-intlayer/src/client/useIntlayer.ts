@@ -45,7 +45,9 @@ export const useIntlayer = <
   const { locale: currentLocale } = useContext(IntlayerClientContext) ?? {};
 
   const isSelector =
-    typeof localeOrSelector === 'object' && localeOrSelector !== null;
+    process.env['INTLAYER_DICTIONARY_SELECTOR'] !== 'false' &&
+    typeof localeOrSelector === 'object' &&
+    localeOrSelector !== null;
 
   // Stable identity of the second argument for memoization
   const localeOrSelectorIdentity = isSelector

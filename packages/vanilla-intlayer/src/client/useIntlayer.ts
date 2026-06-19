@@ -52,7 +52,9 @@ export const useIntlayer = <
   const client = getIntlayerClient();
 
   const isSelector =
-    typeof localeOrSelector === 'object' && localeOrSelector !== null;
+    process.env['INTLAYER_DICTIONARY_SELECTOR'] !== 'false' &&
+    typeof localeOrSelector === 'object' &&
+    localeOrSelector !== null;
   const explicitLocale = isSelector
     ? (localeOrSelector as DictionarySelector).locale
     : (localeOrSelector as LocalesValues | undefined);

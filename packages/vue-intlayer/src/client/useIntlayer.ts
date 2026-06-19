@@ -79,7 +79,11 @@ export const useIntlayer = <
     const value =
       localeOrSelector !== undefined ? toValue(localeOrSelector) : undefined;
 
-    if (typeof value === 'object' && value !== null) {
+    if (
+      process.env['INTLAYER_DICTIONARY_SELECTOR'] !== 'false' &&
+      typeof value === 'object' &&
+      value !== null
+    ) {
       const selector = value as DictionarySelector;
       return { selector, locale: selector.locale };
     }

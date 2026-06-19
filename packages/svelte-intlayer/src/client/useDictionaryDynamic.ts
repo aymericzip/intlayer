@@ -92,7 +92,9 @@ export function useDictionaryDynamic<
   const context = getIntlayerContext();
 
   const isSelector =
-    typeof localeOrSelector === 'object' && localeOrSelector !== null;
+    process.env['INTLAYER_DICTIONARY_SELECTOR'] !== 'false' &&
+    typeof localeOrSelector === 'object' &&
+    localeOrSelector !== null;
   const selector = isSelector
     ? (localeOrSelector as DictionarySelector)
     : undefined;
@@ -117,7 +119,10 @@ export function useDictionaryDynamic<
         try {
           let resolved: unknown;
 
-          if (isQualifiedDynamicLoaderMap(dictionaryPromise)) {
+          if (
+            process.env['INTLAYER_DICTIONARY_SELECTOR'] !== 'false' &&
+            isQualifiedDynamicLoaderMap(dictionaryPromise)
+          ) {
             resolved = await resolveQualifiedDynamicContentAsync({
               loaderMap: dictionaryPromise,
               key: String(key),
@@ -126,8 +131,9 @@ export function useDictionaryDynamic<
               transform: (dictionary) => getDictionary(dictionary, $locale),
             });
           } else {
-            const loader =
-              dictionaryPromise[$locale as keyof typeof dictionaryPromise];
+            const loader = (
+              dictionaryPromise as Record<string, () => Promise<T>>
+            )[$locale];
 
             if (!loader) return;
 

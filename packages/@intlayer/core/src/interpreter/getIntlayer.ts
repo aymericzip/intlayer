@@ -97,8 +97,18 @@ export const getIntlayer = <
     return createSafeFallback(key as string);
   }
 
-  const { locale, selector } = parseDictionarySelector(localeOrSelector);
-  const selectorCacheKey = getDictionarySelectorCacheKey(selector);
+  let locale: LocalesValues | undefined;
+  let selectorCacheKey = '';
+
+  if (process.env['INTLAYER_DICTIONARY_SELECTOR'] !== 'false') {
+    const parsed = parseDictionarySelector(localeOrSelector);
+    locale = parsed.locale;
+    selectorCacheKey = getDictionarySelectorCacheKey(parsed.selector);
+  } else {
+    // Selectors are unused in this project (build-time flag): the second
+    // argument can only be a locale, so the selector parsing is dead code.
+    locale = localeOrSelector as LocalesValues | undefined;
+  }
 
   const cacheKey = `${key}_${locale ?? 'default'}_${selectorCacheKey}_${plugins ? 'custom_plugins' : 'default_plugins'}`;
 

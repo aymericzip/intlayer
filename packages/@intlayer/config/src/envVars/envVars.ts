@@ -40,6 +40,33 @@ export const formatNodeTypeToEnvVar = (
   );
 
 /**
+ * Returns the env-var definition disabling the dictionary-selector resolution
+ * path (collections, variants, meta records) when no built dictionary declares
+ * a qualifier. Set to `"false"` so bundlers can dead-code-eliminate the
+ * selector branch in `getIntlayer` / `useIntlayer`.
+ *
+ * Emits nothing when selectors are used, leaving the runtime default in place.
+ *
+ * @example
+ * formatDictionarySelectorEnvVar(false)
+ * // { INTLAYER_DICTIONARY_SELECTOR: '"false"' }
+ *
+ * formatDictionarySelectorEnvVar(true)
+ * // {}
+ *
+ * formatDictionarySelectorEnvVar(false, (k) => `process.env.${k}`, (v) => `"${v}"`)
+ * // { 'process.env.INTLAYER_DICTIONARY_SELECTOR': '"false"' }
+ */
+export const formatDictionarySelectorEnvVar = (
+  hasDictionarySelector: boolean,
+  wrapKey = (key: string) => key,
+  wrapValue = (value: string) => value
+): Record<string, string> =>
+  hasDictionarySelector
+    ? {}
+    : { [wrapKey('INTLAYER_DICTIONARY_SELECTOR')]: wrapValue('false') };
+
+/**
  * Returns env-var definitions for the full Intlayer config to be injected at
  * build time. Allows bundlers to dead-code-eliminate unused routing modes,
  * rewrite logic, storage mechanisms, and editor code.

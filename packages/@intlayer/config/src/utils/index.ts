@@ -5,6 +5,7 @@ export * from './clearModuleCache';
 export * from './compareVersions';
 export * from './ESMxCJSHelpers';
 export * from './extractErrorMessage';
+export * from './getDictionarySelectorUsage';
 export * from './getExtension';
 export * from './getPackageJsonPath';
 export * from './getStorageAttributes';

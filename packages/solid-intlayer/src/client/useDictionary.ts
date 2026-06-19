@@ -41,7 +41,11 @@ export const useDictionary = <
   const accessor = createMemo(() => {
     const currentLocale = context?.locale?.();
 
-    if (typeof localeOrSelector === 'object' && localeOrSelector !== null) {
+    if (
+      process.env['INTLAYER_DICTIONARY_SELECTOR'] !== 'false' &&
+      typeof localeOrSelector === 'object' &&
+      localeOrSelector !== null
+    ) {
       return getDictionary(dictionary, {
         ...localeOrSelector,
         locale: localeOrSelector.locale ?? currentLocale,

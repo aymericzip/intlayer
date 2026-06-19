@@ -27,7 +27,11 @@ export const useIntlayer = <
   const contextLocale =
     getServerContext<LocalesValues>(IntlayerServerContext) ?? fallbackLocale;
 
-  if (typeof localeOrSelector === 'object' && localeOrSelector !== null) {
+  if (
+    process.env['INTLAYER_DICTIONARY_SELECTOR'] !== 'false' &&
+    typeof localeOrSelector === 'object' &&
+    localeOrSelector !== null
+  ) {
     return getIntlayer(key, {
       ...localeOrSelector,
       locale: localeOrSelector.locale ?? contextLocale,

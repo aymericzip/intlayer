@@ -88,7 +88,10 @@ export const useDictionaryDynamic = <
   const defaultLocale = internationalization.defaultLocale;
 
   // --- Qualified loader map (collection / variant / meta record) ---
-  if (isQualifiedDynamicLoaderMap(dictionaryLoaders)) {
+  if (
+    process.env['INTLAYER_DICTIONARY_SELECTOR'] !== 'false' &&
+    isQualifiedDynamicLoaderMap(dictionaryLoaders)
+  ) {
     const loaderMap = dictionaryLoaders;
     const { locale: selectorLocale, selector } =
       parseDictionarySelector<LocalesValues>(localeOrSelector);
