@@ -111,7 +111,9 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 
 ## Vanilla JS 애플리케이션에 Intlayer를 설정하는 단계별 가이드
 
-### 1단계: 종속성 설치
+<Steps>
+
+<Step number={1} title="종속성 설치">
 
 npm을 사용하여 필요한 패키지를 설치합니다:
 
@@ -171,7 +173,9 @@ bun x intlayer build
 
 > `intlayer standalone` CLI의 번들링 내보내기는 설정에 특화된 미사용 패키지, 로케일 및 비필수 로직(리디렉션 또는 접두사 등)을 트리 쉐이킹(tree-shaking)하여 최적화된 빌드를 생성합니다.
 
-### 2단계: 프로젝트 구성
+</Step>
+
+<Step number={2} title="프로젝트 구성">
 
 애플리케이션의 언어를 구성하기 위한 설정 파일을 생성합니다:
 
@@ -195,7 +199,9 @@ export default config;
 
 > 이 설정 파일을 통해 로컬라이즈된 URL, 미들웨어 리디렉션, 쿠키 이름, 콘텐츠 선언 위치 및 확장자, 콘솔 내 Intlayer 로그 비활성화 등을 구성할 수 있습니다. 사용 가능한 전체 매개변수 목록은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
-### 3단계: HTML에 번들 가져오기
+</Step>
+
+<Step number={3} title="HTML에 번들 가져오기">
 
 `intlayer.js` 번들을 생성한 후, HTML 파일에서 가져올 수 있습니다:
 
@@ -219,7 +225,9 @@ export default config;
 
 번들은 `window` 객체에 `Intlayer`와 `VanillaIntlayer`를 글로벌 객체로 노출합니다.
 
-### 4단계: 진입점에서 Intlayer 부트스트랩
+</Step>
+
+<Step number={4} title="진입점에서 Intlayer 부트스트랩">
 
 `src/main.js`에서 콘텐츠가 렌더링되기 **전**에 `installIntlayer()`를 호출하여 글로벌 로케일 싱글톤이 준비되도록 합니다.
 
@@ -239,7 +247,9 @@ installIntlayer();
 installIntlayerMarkdown();
 ```
 
-### 5단계: 콘텐츠 선언하기
+</Step>
+
+<Step number={5} title="콘텐츠 선언하기">
 
 번역을 저장하기 위해 콘텐츠 선언을 생성하고 관리합니다:
 
@@ -317,7 +327,9 @@ export default appContent;
 >
 > 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
 
-### 6단계: JavaScript에서 Intlayer 사용하기
+</Step>
+
+<Step number={6} title="JavaScript에서 Intlayer 사용하기">
 
 `window.VanillaIntlayer` 객체는 API 헬퍼를 제공합니다. `useIntlayer(key, locale?)`는 주어진 키에 대한 번역된 콘텐츠를 반환합니다.
 
@@ -351,7 +363,9 @@ document.querySelector(".read-the-docs").textContent = String(
 > img.alt = content.viteLogoLabel.value;
 > ```
 
-### (선택 사항) 7단계: 콘텐츠 언어 변경하기
+</Step>
+
+<Step number={7} title="콘텐츠 언어 변경하기" isOptional={true}>
 
 콘텐츠의 언어를 변경하려면 `useLocale`에서 노출된 `setLocale` 함수를 사용하세요.
 
@@ -386,7 +400,9 @@ export function setupLocaleSwitcher(container) {
 }
 ```
 
-### (선택 사항) 8단계: HTML 언어 및 방향 속성 전환
+</Step>
+
+<Step number={8} title="HTML 언어 및 방향 속성 전환" isOptional={true}>
 
 접근성 및 SEO를 위해 `<html>` 태그의 `lang` 및 `dir` 속성을 현재 로케일에 맞게 업데이트합니다.
 
@@ -404,7 +420,9 @@ useLocale({
 });
 ```
 
-### (선택 사항) 9단계: 로케일별 딕셔너리 지연 로드 (Lazy-load)
+</Step>
+
+<Step number={9} title="로케일별 딕셔너리 지연 로드 (Lazy-load)" isOptional={true}>
 
 로케일별로 딕셔너리를 지연 로드하려면 `useDictionaryDynamic`을 사용할 수 있습니다. 이는 초기 `intlayer.js` 파일에 모든 번역을 포함하고 싶지 않을 때 유용합니다.
 
@@ -426,6 +444,10 @@ const unsubscribe = useDictionaryDynamic(
 ```
 
 > 참고: `useDictionaryDynamic`을 사용하려면 딕셔너리가 별도의 ESM 파일로 제공되어야 합니다. 이 방식은 일반적으로 딕셔너리를 제공하는 웹 서버가 있는 경우 사용됩니다.
+
+</Step>
+
+</Steps>
 
 ### TypeScript 구성
 

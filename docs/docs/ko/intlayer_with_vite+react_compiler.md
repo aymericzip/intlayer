@@ -93,7 +93,9 @@ GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlay
 
 ## Vite 및 React 애플리케이션에서 Intlayer를 설정하기 위한 단계별 가이드
 
-### 1단계: 종속성 설치
+<Steps>
+
+<Step number={1} title="종속성 설치">
 
 npm을 사용하여 필요한 패키지를 설치합니다:
 
@@ -144,7 +146,9 @@ bun add vite-intlayer --dev
 - **vite-intlayer**
   Intlayer를 [Vite 번들러](https://vite.dev/guide/why.html#why-bundle-for-production)와 통합하기 위한 Vite 플러그인과 사용자의 선호 로케일 감지, 쿠키 관리 및 URL 리디렉션 처리를 위한 미들웨어를 포함합니다.
 
-### 2단계: 프로젝트 구성
+</Step>
+
+<Step number={2} title="프로젝트 구성">
 
 애플리케이션의 언어를 구성하기 위한 설정 파일을 생성합니다:
 
@@ -192,7 +196,9 @@ export default config;
 
 > 이 구성 파일을 통해 로컬라이즈된 URL, 미들웨어 리디렉션, 쿠키 이름, 콘텐츠 선언의 위치 및 확장자 설정, 콘솔의 Intlayer 로그 비활성화 등을 설정할 수 있습니다. 사용 가능한 매개변수의 전체 목록은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
-### 3단계: Vite 구성에 Intlayer 통합
+</Step>
+
+<Step number={3} title="Vite 구성에 Intlayer 통합">
 
 구성 파일에 intlayer 플러그인을 추가합니다.
 
@@ -211,7 +217,9 @@ export default defineConfig({
 
 > `intlayerCompiler()` Vite 플러그인은 컴포넌트에서 콘텐츠를 추출하고 `.content` 파일을 작성하는 데 사용됩니다.
 
-### 4단계: 코드 컴파일
+</Step>
+
+<Step number={4} title="코드 컴파일">
 
 기본 로케일로 하드코딩된 문자열을 사용하여 컴포넌트를 작성하기만 하면 됩니다. 나머지는 컴파일러가 처리합니다.
 
@@ -350,7 +358,9 @@ export default App;
 
 - **`IntlayerProvider`**는 중첩된 컴포넌트에 로케일을 제공하는 데 사용됩니다.
 
-### (선택 사항) 6단계: 콘텐츠 언어 변경
+</Step>
+
+<Step number={6} title="콘텐츠 언어 변경" isOptional={true}>
 
 콘텐츠 언어를 변경하려면 `useLocale` 훅에서 제공하는 `setLocale` 함수를 사용할 수 있습니다. 이 함수를 사용하면 애플리케이션의 로케일을 설정하고 그에 따라 콘텐츠를 업데이트할 수 있습니다.
 
@@ -372,7 +382,9 @@ const LocaleSwitcher: FC = () => {
 
 > `useLocale` 훅에 대해 자세히 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useLocale.md)를 참조하세요.
 
-### (선택 사항) 7단계: 누락된 번역 채우기
+</Step>
+
+<Step number={7} title="누락된 번역 채우기" isOptional={true}>
 
 Intlayer는 누락된 번역을 채울 수 있도록 돕는 CLI 도구를 제공합니다. `intlayer` 명령어를 사용하여 코드에서 누락된 번역을 테스트하고 채울 수 있습니다.
 
@@ -409,6 +421,10 @@ bun x intlayer fill         # 누락된 번역 채우기
 ```
 
 > 자세한 내용은 [CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/ci.md)를 참조하세요.
+
+</Step>
+
+</Steps>
 
 ### (선택) 사이트맵과 robots.txt(빌드 시 생성)
 

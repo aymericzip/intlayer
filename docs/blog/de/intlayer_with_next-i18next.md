@@ -67,7 +67,9 @@ Dieser Leitfaden zeigt Ihnen, wie Sie das überlegene Inhaltsdeklarationssystem 
 
 ## Schritt-für-Schritt-Anleitung zur Einrichtung von Intlayer mit next-i18next
 
-### Schritt 1: Abhängigkeiten installieren
+<Steps>
+
+<Step number={1} title="Abhängigkeiten installieren">
 
 Installieren Sie die notwendigen Pakete mit Ihrem bevorzugten Paketmanager:
 
@@ -110,7 +112,9 @@ bun add intlayer @intlayer/sync-json-plugin --dev
 - **intlayer**: Kernbibliothek für Inhaltsdeklaration und -verwaltung
 - **@intlayer/sync-json-plugin**: Plugin zum Synchronisieren von Intlayer-Inhaltsdeklarationen im i18next JSON-Format
 
-### Schritt 2: Implementieren Sie das Intlayer-Plugin, um das JSON zu umschließen
+</Step>
+
+<Step number={2} title="Implementieren Sie das Intlayer-Plugin, um das JSON zu umschließen">
 
 Erstellen Sie eine Intlayer-Konfigurationsdatei, um Ihre unterstützten Sprachen zu definieren:
 
@@ -146,6 +150,10 @@ Wenn Sie möchten, dass dieses JSON zusammen mit Intlayer-Inhaltsdeklarationsdat
 Wenn Änderungen über die CLI zur Übersetzung des JSON vorgenommen werden oder das CMS verwendet wird, aktualisiert Intlayer die JSON-Datei mit den neuen Übersetzungen.
 
 Für weitere Details zum `syncJSON`-Plugin lesen Sie bitte die [syncJSON Plugin-Dokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/plugins/sync-json.md).
+
+</Step>
+
+</Steps>
 
 ## Git-Konfiguration
 

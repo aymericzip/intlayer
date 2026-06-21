@@ -98,7 +98,9 @@ Storybook은 UI 컴포넌트를 독립적으로 개발하고 문서화하기 위
 <Tabs>
 <Tab value="Vite Setup">
 
-### 1단계: 종속성 설치
+<Steps>
+
+<Step number={1} title="종속성 설치">
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
@@ -128,7 +130,9 @@ bun add vite-intlayer --dev
 
 ---
 
-### 2단계: Intlayer 구성 생성
+</Step>
+
+<Step number={2} title="Intlayer 구성 생성">
 
 프로젝트 루트(또는 디자인 시스템 패키지 내부)에 `intlayer.config.ts`를 생성합니다:
 
@@ -157,7 +161,9 @@ export default config;
 
 ---
 
-### 3단계: Storybook에 Vite 플러그인 추가
+</Step>
+
+<Step number={3} title="Storybook에 Vite 플러그인 추가">
 
 Storybook의 `viteFinal` 훅을 사용하면 내부 Vite 구성을 확장할 수 있습니다. 여기에 `intlayer()` 플러그인을 가져와서 추가합니다:
 
@@ -198,7 +204,9 @@ export default config;
 
 ---
 
-### 4단계: `IntlayerProvider` 데코레이터 및 로케일 도구 모음 추가
+</Step>
+
+<Step number={4} title="`IntlayerProvider` 데코레이터 및 로케일 도구 모음 추가">
 
 Storybook의 `preview` 파일은 모든 스토리를 `IntlayerProvider`로 감싸고 도구 모음에 로케일 스위처를 노출하기에 적합한 장소입니다:
 
@@ -255,7 +263,9 @@ export default preview;
 </Tab>
 <Tab value="Webpack Setup">
 
-### 1단계: 종속성 설치
+</Step>
+
+<Step number={1} title="종속성 설치">
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
@@ -279,7 +289,9 @@ bun add @intlayer/webpack --dev
 
 ---
 
-### 2단계: Intlayer 구성 생성
+</Step>
+
+<Step number={2} title="Intlayer 구성 생성">
 
 프로젝트 루트에 `intlayer.config.ts`를 생성합니다:
 
@@ -301,7 +313,9 @@ export default config;
 
 ---
 
-### 3단계: Storybook의 Webpack 구성
+</Step>
+
+<Step number={3} title="Storybook의 Webpack 구성">
 
 Webpack 기반 Storybook 설정(예: `@storybook/react-webpack5`)의 경우, `webpackFinal`을 통해 webpack 구성을 확장하여 Intlayer 별칭(alias) 및 로더를 추가합니다:
 
@@ -328,7 +342,9 @@ export default config;
 
 ---
 
-### 4단계: `IntlayerProvider` 데코레이터 및 로케일 도구 모음 추가
+</Step>
+
+<Step number={4} title="`IntlayerProvider` 데코레이터 및 로케일 도구 모음 추가">
 
 Vite 설정과 동일하게 `.storybook/preview.tsx`에 데코레이터와 전역 로케일 유형을 추가합니다:
 
@@ -373,6 +389,10 @@ export default preview;
 </Tabs>
 
 ---
+
+</Step>
+
+</Steps>
 
 ## 콘텐츠 선언
 

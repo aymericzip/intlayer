@@ -112,7 +112,9 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 
 ## Vite 및 Vanilla JS 애플리케이션에서 Intlayer를 설정하는 단계별 가이드
 
-### 1단계: 종속성 설치
+<Steps>
+
+<Step number={1} title="종속성 설치">
 
 npm을 사용하여 필요한 패키지를 설치합니다:
 
@@ -163,7 +165,9 @@ bun add vite-intlayer --dev
 - **vite-intlayer**
   Intlayer를 [Vite 번들러](https://vite.dev/guide/why.html#why-bundle-for-production)와 통합하기 위한 Vite 플러그인과 사용자의 선호 로케일 감지, 쿠키 관리 및 URL 리디렉션 처리를 위한 미들웨어를 포함합니다.
 
-### 2단계: 프로젝트 구성
+</Step>
+
+<Step number={2} title="프로젝트 구성">
 
 애플리케이션의 언어를 구성하기 위해 설정 파일을 생성합니다:
 
@@ -187,7 +191,9 @@ export default config;
 
 > 이 구성 파일을 통해 로컬라이즈된 URL, 미들웨어 리디렉션, 쿠키 이름, 콘텐츠 선언의 위치 및 확장자, 콘솔에서 Intlayer 로그 비활성화 등을 설정할 수 있습니다. 사용 가능한 파라미터의 전체 목록은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
-### 3단계: Vite 구성에 Intlayer 통합
+</Step>
+
+<Step number={3} title="Vite 구성에 Intlayer 통합">
 
 구성 파일에 intlayer 플러그인을 추가합니다.
 
@@ -203,7 +209,9 @@ export default defineConfig({
 
 > `intlayer()` Vite 플러그인은 Intlayer를 Vite와 통합하는 데 사용됩니다. 콘텐츠 선언 파일의 빌드를 보장하고 개발 모드에서 이를 모니터링합니다. Vite 애플리케이션 내에서 Intlayer 환경 변수를 정의합니다. 또한 성능 최적화를 위한 별칭을 제공합니다.
 
-### 4단계: 엔트리 포인트에서 Intlayer 부트스트랩
+</Step>
+
+<Step number={4} title="엔트리 포인트에서 Intlayer 부트스트랩">
 
 글로벌 로케일 싱글톤이 준비되도록 콘텐츠가 렌더링되기 **전**에 `installIntlayer()`를 호출합니다.
 
@@ -228,7 +236,9 @@ installIntlayerMarkdown();
 import "./app.js";
 ```
 
-### 5단계: 콘텐츠 선언하기
+</Step>
+
+<Step number={5} title="콘텐츠 선언하기">
 
 번역을 저장하기 위해 콘텐츠 선언을 생성하고 관리합니다:
 
@@ -306,7 +316,9 @@ export default appContent;
 >
 > 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
 
-### 6단계: JavaScript에서 Intlayer 사용하기
+</Step>
+
+<Step number={6} title="JavaScript에서 Intlayer 사용하기">
 
 `vanilla-intlayer`는 `react-intlayer` 서비스 API를 따릅니다: `useIntlayer(key, locale?)`는 번역된 콘텐츠를 직접 반환합니다. 결과에 `.onChange()`를 체이닝하여 로케일 변경을 구독할 수 있으며, 이는 React 리렌더링과 명시적으로 동일한 효과를 냅니다.
 
@@ -342,7 +354,9 @@ document.querySelector<HTMLParagraphElement>(".read-the-docs")!.textContent =
 > img.alt = content.viteLogoLabel.value;
 > ```
 
-### (선택 사항) 7단계: 콘텐츠의 언어 변경하기
+</Step>
+
+<Step number={7} title="콘텐츠의 언어 변경하기" isOptional={true}>
 
 콘텐츠의 언어를 변경하려면 `useLocale`에서 노출된 `setLocale` 함수를 사용하세요.
 
@@ -377,7 +391,9 @@ export function setupLocaleSwitcher(container: HTMLElement): () => void {
 }
 ```
 
-### (선택 사항) 8단계: 마크다운 및 HTML 콘텐츠 렌더링하기
+</Step>
+
+<Step number={8} title="마크다운 및 HTML 콘텐츠 렌더링하기" isOptional={true}>
 
 Intlayer는 `md()` 및 `html()` 콘텐츠 선언을 지원합니다. Vanilla JS에서 컴파일된 출력은 `innerHTML`을 통해 원시 HTML로 삽입됩니다.
 
@@ -436,7 +452,9 @@ document.querySelector<HTMLDivElement>(".edit-note")!.innerHTML =
 > });
 > ```
 
-### (선택 사항) 9단계: 애플리케이션에 로컬라이즈된 라우팅 추가하기
+</Step>
+
+<Step number={9} title="애플리케이션에 로컬라이즈된 라우팅 추가하기" isOptional={true}>
 
 각 언어에 대해 고유한 라우트를 만들려면(SEO에 유용함) Vite 구성에서 서버 측 로케일 감지를 위해 `intlayerProxy`를 사용할 수 있습니다.
 
@@ -456,7 +474,9 @@ export default defineConfig({
 });
 ```
 
-### (선택 사항) 10단계: 로케일 변경 시 URL 변경하기
+</Step>
+
+<Step number={10} title="로케일 변경 시 URL 변경하기" isOptional={true}>
 
 로케일이 변경될 때 브라우저 URL을 업데이트하려면 Intlayer를 설치한 후 `useRewriteURL()`을 호출하세요:
 
@@ -470,7 +490,9 @@ installIntlayer();
 const stopRewriteURL = useRewriteURL();
 ```
 
-### (선택 사항) 11단계: HTML 언어 및 방향 속성 전환하기
+</Step>
+
+<Step number={11} title="HTML 언어 및 방향 속성 전환하기" isOptional={true}>
 
 접근성 및 SEO를 위해 `<html>` 태그의 `lang` 및 `dir` 속성을 현재 로케일에 맞게 업데이트하세요.
 
@@ -488,7 +510,9 @@ useLocale({
 });
 ```
 
-### (선택 사항) 12단계: 로케일별 딕셔너리 레이지 로딩 (Lazy-load)
+</Step>
+
+<Step number={12} title="로케일별 딕셔너리 레이지 로딩 (Lazy-load)" isOptional={true}>
 
 대규모 앱의 경우 각 로케일의 딕셔너리를 자체 청크로 나누고 싶을 수 있습니다. Vite의 동적 `import()`와 함께 `useDictionaryDynamic`을 사용하세요:
 
@@ -511,7 +535,9 @@ const unsubscribe = useDictionaryDynamic(
 
 > 각 로케일의 번들은 해당 로케일이 활성화될 때만 가져오고 결과는 캐시됩니다. 동일한 로케일로의 후속 전환은 즉시 이루어집니다.
 
-### (선택 사항) 13단계: 컴포넌트의 콘텐츠 추출하기
+</Step>
+
+<Step number={13} title="컴포넌트의 콘텐츠 추출하기" isOptional={true}>
 
 기존 코드베이스가 있는 경우 수천 개의 파일을 변환하는 데 시간이 많이 걸릴 수 있습니다.
 
@@ -607,6 +633,10 @@ bun run build # 또는 bun run dev
 
  </Tab>
 </Tabs>
+
+</Step>
+
+</Steps>
 
 ### (선택) 사이트맵과 robots.txt(빌드 시 생성)
 

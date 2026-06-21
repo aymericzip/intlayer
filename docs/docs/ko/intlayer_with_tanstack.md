@@ -141,11 +141,15 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 
 GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-tanstack-start-template)을 참조하세요.
 
-### 1단계: 프로젝트 생성
+<Steps>
+
+<Step number={1} title="프로젝트 생성">
 
 먼저 TanStack Start 웹사이트의 [새 프로젝트 시작하기](https://tanstack.com/start/latest/docs/framework/react/quick-start) 가이드에 따라 새 TanStack Start 프로젝트를 생성합니다.
 
-### 2단계: Intlayer 패키지 설치
+</Step>
+
+<Step number={2} title="Intlayer 패키지 설치">
 
 선호하는 패키지 관리자를 사용하여 필요한 패키지를 설치합니다:
 
@@ -197,7 +201,9 @@ bun add vite-intlayer --dev
 - **vite-intlayer**
   Intlayer를 [Vite 번들러](https://vite.dev/guide/why.html#why-bundle-for-production)와 통합하기 위한 Vite 플러그인과 사용자의 기본 로케일 감지, 쿠키 관리 및 URL 리디렉션 처리를 위한 미들웨어를 포함합니다.
 
-### 3단계: 프로젝트 구성
+</Step>
+
+<Step number={3} title="프로젝트 구성">
 
 애플리케이션의 언어를 구성하기 위한 설정 파일을 생성합니다:
 
@@ -218,7 +224,9 @@ export default config;
 
 > 이 구성 파일을 통해 지역화된 URL, 미들웨어 리디렉션, 쿠키 이름, 콘텐츠 선언의 위치 및 확장자 설정, 콘솔에서 Intlayer 로그 비활성화 등을 수행할 수 있습니다. 사용 가능한 매개변수의 전체 목록은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
-### 4단계: Vite 구성에 Intlayer 통합
+</Step>
+
+<Step number={4} title="Vite 구성에 Intlayer 통합">
 
 구성에 intlayer 플러그인을 추가합니다:
 
@@ -248,7 +256,9 @@ export default config;
 
 > `intlayer()` Vite 플러그인은 Intlayer를 Vite와 통합하는 데 사용됩니다. 콘텐츠 선언 파일의 빌드를 보장하고 개발 모드에서 이를 감시합니다. Vite 애플리케이션 내에서 Intlayer 환경 변수를 정의합니다. 또한 성능 최적화를 위한 별칭을 제공합니다.
 
-### 5단계: 루트 레이아웃 생성
+</Step>
+
+<Step number={5} title="루트 레이아웃 생성">
 
 `useParams`를 사용하여 현재 로케일을 감지하고 `html` 태그에 `lang` 및 `dir` 속성을 설정하여 국제화를 지원하도록 루트 레이아웃을 구성합니다.
 
@@ -308,7 +318,9 @@ function RootDocument({ children }: { children: ReactNode }) {
 > <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 
-### 6단계: 로케일 레이아웃 생성
+</Step>
+
+<Step number={6} title="로케일 레이아웃 생성">
 
 로케일 접두사를 처리하고 유효성 검사를 수행하는 레이아웃을 생성합니다.
 
@@ -340,7 +352,9 @@ export const Route = createFileRoute("/{-$locale}")({
 > `'prefix-all'` 모드의 경우 슬롯을 `$locale`로 바꾸는 것이 좋습니다.
 > `'no-prefix'` 또는 `'search-params'` 모드의 경우 슬롯을 완전히 제거할 수 있습니다.
 
-### 7단계: 콘텐츠 선언
+</Step>
+
+<Step number={7} title="콘텐츠 선언">
 
 번역을 저장하기 위해 콘텐츠 선언을 생성하고 관리합니다:
 
@@ -386,7 +400,9 @@ export default appContent;
 
 > 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
 
-### 8단계: 로케일 인식 컴포넌트 및 훅 생성
+</Step>
+
+<Step number={8} title="로케일 인식 컴포넌트 및 훅 생성">
 
 로케일 인식 내비게이션을 위한 `LocalizedLink` 컴포넌트를 생성합니다:
 
@@ -490,7 +506,9 @@ export const useLocalizedNavigate = () => {
 };
 ```
 
-### 9단계: 페이지에서 Intlayer 활용하기
+</Step>
+
+<Step number={9} title="페이지에서 Intlayer 활용하기">
 
 애플리케이션 전반에서 콘텐츠 사전에 액세스합니다:
 
@@ -538,7 +556,9 @@ function RouteComponent() {
 
 > `useIntlayer` 훅에 대해 자세히 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useIntlayer.md)를 참조하세요.
 
-### 10단계: 로케일 스위처 컴포넌트 생성
+</Step>
+
+<Step number={10} title="로케일 스위처 컴포넌트 생성">
 
 사용자가 언어를 변경할 수 있는 컴포넌트를 만듭니다:
 
@@ -599,7 +619,9 @@ export const LocaleSwitcher: FC = () => {
 
 > `useLocale` 훅에 대해 자세히 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useLocale.md)를 참조하세요.
 
-### 11단계: HTML 속성 관리
+</Step>
+
+<Step number={11} title="HTML 속성 관리">
 
 5단계에서 본 것처럼, 루트 컴포넌트에서 `useParams`를 사용하여 `html` 태그의 `lang` 및 `dir` 속성을 관리할 수 있습니다. 이를 통해 서버와 클라이언트에서 올바른 속성이 설정되도록 보장합니다.
 
@@ -618,7 +640,9 @@ function RootDocument({ children }: { children: ReactNode }) {
 
 ---
 
-### 12단계: 미들웨어 추가(선택 사항)
+</Step>
+
+<Step number={12} title="미들웨어 추가(선택 사항)" isOptional={true}>
 
 `intlayerProxy`를 사용하여 애플리케이션에 서버 사이드 라우팅을 추가할 수도 있습니다. 이 플러그인은 URL을 기반으로 현재 로케일을 자동으로 감지하고 적절한 로케일 쿠키를 설정합니다. 로케일이 지정되지 않은 경우, 플러그인은 사용자의 브라우저 언어 기본 설정에 따라 가장 적합한 로케일을 결정합니다. 로케일이 감지되지 않으면 기본 로케일로 리디렉션합니다.
 
@@ -649,7 +673,9 @@ export default defineConfig({
 
 ---
 
-### 12단계: 메타데이터 국제화(선택 사항)
+</Step>
+
+<Step number={12} title="메타데이터 국제화(선택 사항)" isOptional={true}>
 
 `getIntlayer` 훅을 사용하여 애플리케이션 전반에서 콘텐츠 사전에 액세스할 수도 있습니다:
 
@@ -696,7 +722,9 @@ export const Route = createFileRoute("/{-$locale}/")({
 
 ---
 
-### 13단계: 서버 액션에서 로케일 가져오기(선택 사항)
+</Step>
+
+<Step number={13} title="서버 액션에서 로케일 가져오기(선택 사항)" isOptional={true}>
 
 서버 액션 또는 API 엔드포인트 내부에서 현재 로케일에 액세스하고 싶을 수 있습니다.
 이는 `intlayer`의 `getLocale` 도우미를 사용하여 수행할 수 있습니다.
@@ -733,7 +761,9 @@ export const getLocaleServer = createServerFn().handler(async () => {
 
 ---
 
-### 14단계: 찾을 수 없는 페이지 관리(선택 사항)
+</Step>
+
+<Step number={14} title="찾을 수 없는 페이지 관리(선택 사항)" isOptional={true}>
 
 사용자가 존재하지 않는 페이지를 방문할 때 맞춤형 찾을 수 없음 페이지를 표시할 수 있으며, 로케일 접두사가 찾을 수 없음 페이지가 트리거되는 방식에 영향을 줄 수 있습니다.
 
@@ -809,7 +839,9 @@ export const Route = createFileRoute("/{-$locale}/$")({
 
 ---
 
-### 15단계: 컴포넌트에서 콘텐츠 추출(선택 사항)
+</Step>
+
+<Step number={15} title="컴포넌트에서 콘텐츠 추출(선택 사항)" isOptional={true}>
 
 기존 코드베이스가 있는 경우 수천 개의 파일을 변환하는 데 시간이 많이 걸릴 수 있습니다.
 
@@ -891,7 +923,9 @@ export default defineConfig({
 
 ---
 
-### 16단계: 사이트맵 생성(선택 사항)
+</Step>
+
+<Step number={16} title="사이트맵 생성(선택 사항)" isOptional={true}>
 
 Intlayer는 애플리케이션의 사이트맵을 쉽게 만들 수 있는 내장 사이트맵 생성기를 제공합니다. 로컬라이즈된 경로를 처리하고 검색 엔진에 필요한 메타데이터를 추가합니다.
 
@@ -966,7 +1000,9 @@ export const Route = createFileRoute("/sitemap.xml")({
 
 ---
 
-### 17단계: TypeScript 구성(선택 사항)
+</Step>
+
+<Step number={17} title="TypeScript 구성(선택 사항)" isOptional={true}>
 
 Intlayer는 모듈 확장을 사용하여 TypeScript의 이점을 얻고 코드베이스를 더욱 견고하게 만듭니다.
 
@@ -983,6 +1019,10 @@ TypeScript 구성에 자동 생성된 유형이 포함되어 있는지 확인하
 ```
 
 ---
+
+</Step>
+
+</Steps>
 
 ### Git 구성
 

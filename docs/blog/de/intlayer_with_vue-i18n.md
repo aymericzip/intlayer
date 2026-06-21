@@ -57,7 +57,9 @@ Diese Anleitung zeigt Ihnen, wie Sie das überlegene Content-Deklarationssystem 
 
 ## Schritt-für-Schritt-Anleitung zur Einrichtung von Intlayer mit vue-i18n
 
-### Schritt 1: Abhängigkeiten installieren
+<Steps>
+
+<Step number={1} title="Abhängigkeiten installieren">
 
 Installieren Sie die erforderlichen Pakete mit Ihrem bevorzugten Paketmanager:
 
@@ -100,7 +102,9 @@ bun add intlayer @intlayer/sync-json-plugin --dev
 - **intlayer**: Kernbibliothek für Content-Deklaration und -Verwaltung
 - **@intlayer/sync-json-plugin**: Plugin zum Synchronisieren von Intlayer-Content-Deklarationen mit dem vue-i18n JSON-Format
 
-### Schritt 2: Implementieren Sie das Intlayer-Plugin, um das JSON zu umschließen
+</Step>
+
+<Step number={2} title="Implementieren Sie das Intlayer-Plugin, um das JSON zu umschließen">
 
 Erstellen Sie eine Intlayer-Konfigurationsdatei, um Ihre unterstützten Sprachen festzulegen:
 
@@ -139,7 +143,9 @@ Um weitere Details zum `syncJSON`-Plugin zu sehen, lesen Sie bitte die [syncJSON
 
 ---
 
-### (Optional) Schritt 3: Implementierung von komponentenbezogenen JSON-Übersetzungen
+</Step>
+
+<Step number={3} title="Implementierung von komponentenbezogenen JSON-Übersetzungen" isOptional={true}>
 
 Standardmäßig lädt, kombiniert und synchronisiert Intlayer sowohl JSON- als auch Content-Deklarationsdateien. Weitere Informationen finden Sie in der [Content-Deklarationsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md). Wenn Sie jedoch möchten, können Sie mit einem Intlayer-Plugin auch eine komponentenbezogene Verwaltung von JSON implementieren, das überall in Ihrem Code lokalisiert ist.
 
@@ -182,6 +188,10 @@ export default config;
 Dies lädt alle JSON-Dateien im `src`-Verzeichnis, die dem Muster `{key}.i18n.json` entsprechen, und lädt sie als Intlayer-Wörterbücher.
 
 ---
+
+</Step>
+
+</Steps>
 
 ## Git-Konfiguration
 

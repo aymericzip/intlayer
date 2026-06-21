@@ -67,7 +67,9 @@ Este guia mostra como aproveitar o sistema superior de declaração de conteúdo
 
 ## Guia Passo a Passo para Configurar o Intlayer com next-i18next
 
-### Passo 1: Instalar Dependências
+<Steps>
+
+<Step number={1} title="Instalar Dependências">
 
 Instale os pacotes necessários usando seu gerenciador de pacotes preferido:
 
@@ -110,7 +112,9 @@ bun add intlayer @intlayer/sync-json-plugin --dev
 - **intlayer**: Biblioteca principal para declaração e gerenciamento de conteúdo
 - **@intlayer/sync-json-plugin**: Plugin para sincronizar declarações de conteúdo do Intlayer para o formato JSON do i18next
 
-### Passo 2: Implemente o plugin Intlayer para encapsular o JSON
+</Step>
+
+<Step number={2} title="Implemente o plugin Intlayer para encapsular o JSON">
 
 Crie um arquivo de configuração do Intlayer para definir os locais suportados:
 
@@ -148,7 +152,9 @@ Para ver mais detalhes sobre o plugin `syncJSON`, por favor consulte a [document
 
 ---
 
-### (Opcional) Passo 3: Implementar traduções JSON por componente
+</Step>
+
+<Step number={3} title="Implementar traduções JSON por componente" isOptional={true}>
 
 Por padrão, o Intlayer irá carregar, mesclar e sincronizar tanto os arquivos JSON quanto os arquivos de declaração de conteúdo. Veja [a documentação da declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md) para mais detalhes. Mas se preferir, usando um plugin do Intlayer, você também pode implementar o gerenciamento por componente de JSON localizado em qualquer lugar da sua base de código.
 
@@ -190,6 +196,10 @@ export default config;
 Isso irá carregar todos os arquivos JSON no diretório `src` que correspondem ao padrão `{key}.i18n.json` e carregá-los como dicionários do Intlayer.
 
 ---
+
+</Step>
+
+</Steps>
 
 ## Configuração do Git
 

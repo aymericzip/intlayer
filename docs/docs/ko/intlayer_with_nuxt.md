@@ -121,7 +121,9 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 
 GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-nuxt-4-template)을 확인하세요.
 
-### 1단계: 의존성 설치
+<Steps>
+
+<Step number={1} title="의존성 설치">
 
 npm을 사용하여 필요한 패키지를 설치하세요:
 
@@ -173,7 +175,9 @@ bun add --dev nuxt-intlayer
 - **nuxt-intlayer**
   Nuxt 애플리케이션과 Intlayer를 통합하는 Nuxt 모듈입니다. 자동 설정, 로케일 감지를 위한 미들웨어, 쿠키 관리 및 URL 리디렉션을 제공합니다.
 
-### 2단계: 프로젝트 구성
+</Step>
+
+<Step number={2} title="프로젝트 구성">
 
 애플리케이션의 언어를 구성하기 위한 설정 파일을 만드세요:
 
@@ -197,7 +201,9 @@ export default config;
 
 > 이 구성 파일을 통해 지역화된 URL, 미들웨어 리디렉션, 쿠키 이름, 콘텐츠 선언의 위치 및 확장자 설정, 콘솔에서 Intlayer 로그 비활성화 등 다양한 설정을 할 수 있습니다. 사용 가능한 모든 매개변수 목록은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
-### 3단계: Nuxt 구성에 Intlayer 통합하기
+</Step>
+
+<Step number={3} title="Nuxt 구성에 Intlayer 통합하기">
 
 Nuxt 구성에 intlayer 모듈을 추가하세요:
 
@@ -212,7 +218,9 @@ export default defineNuxtConfig({
 
 > `nuxt-intlayer` 모듈은 Intlayer와 Nuxt의 통합을 자동으로 처리합니다. 콘텐츠 선언 빌드를 설정하고, 개발 모드에서 파일을 모니터링하며, 로케일 감지를 위한 미들웨어를 제공하고, 지역화된 라우팅을 관리합니다.
 
-### 4단계: 콘텐츠 선언하기
+</Step>
+
+<Step number={4} title="콘텐츠 선언하기">
 
 번역을 저장하기 위해 콘텐츠 선언을 생성하고 관리하세요:
 
@@ -247,7 +255,9 @@ export default content;
 
 > 자세한 내용은 [content 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
 
-### 5단계: 코드에서 Intlayer 사용하기
+</Step>
+
+<Step number={5} title="코드에서 Intlayer 사용하기">
 
 `useIntlayer` 컴포저블을 사용하여 Nuxt 애플리케이션 전반에서 콘텐츠 사전을 접근할 수 있습니다:
 
@@ -316,7 +326,9 @@ Intlayer는 콘텐츠에 접근할 수 있는 다양한 API를 제공합니다:
   - `const content = useIntlayer("myContent");`를 사용하고 `{{ content.myContent }}` / `<content.myContent />`를 사용하세요.
   - 또는 `const { myContent } = useIntlayer("myContent");`를 사용하고 `{{ myContent}}` / `<myContent/>`를 사용하여 콘텐츠를 구조 분해 할당하세요.
 
-### (선택 사항) 6단계: 콘텐츠의 언어 변경하기
+</Step>
+
+<Step number={6} title="콘텐츠의 언어 변경하기" isOptional={true}>
 
 콘텐츠의 언어를 변경하려면 `useLocale` 컴포저블에서 제공하는 `setLocale` 함수를 사용할 수 있습니다. 이 함수는 애플리케이션의 로케일을 설정하고 그에 따라 콘텐츠를 업데이트할 수 있게 해줍니다.
 
@@ -360,7 +372,9 @@ const { locale, availableLocales, setLocale } = useLocale();
 </template>
 ```
 
-### (선택 사항) 6b단계: 내비게이션이 포함된 레이아웃 생성
+</Step>
+
+<Step number={6b} title="내비게이션이 포함된 레이아웃 생성" isOptional={true}>
 
 Nuxt 레이아웃을 사용하면 페이지에 공통 구조를 정의할 수 있습니다. 로케일 스위처와 내비게이션을 포함하는 기본 레이아웃을 생성하세요:
 
@@ -387,7 +401,9 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 
 `Links` 컴포넌트(아래에 표시됨)는 내부 내비게이션 링크가 자동으로 현지화되도록 보장합니다.
 
-### (선택 사항) 7단계: 애플리케이션에 현지화된 라우팅 추가하기
+</Step>
+
+<Step number={7} title="애플리케이션에 현지화된 라우팅 추가하기" isOptional={true}>
 
 Nuxt는 `nuxt-intlayer` 모듈을 사용할 때 현지화된 라우팅을 자동으로 처리합니다. 이는 페이지 디렉토리 구조를 기반으로 각 언어별 경로를 자동으로 생성합니다.
 
@@ -461,7 +477,9 @@ useHead({
 - 로케일 쿠키 관리
 - 사용자를 적절한 로컬라이즈된 URL로 리디렉션
 
-### (선택 사항) 8단계: 로컬라이즈된 링크 컴포넌트 생성
+</Step>
+
+<Step number={8} title="로컬라이즈된 링크 컴포넌트 생성" isOptional={true}>
 
 애플리케이션의 내비게이션이 현재 로케일을 준수하도록 하려면, 커스텀 `Links` 컴포넌트를 생성할 수 있습니다. 이 컴포넌트는 내부 URL에 현재 언어를 자동으로 접두사로 붙여주며, 이는 **SEO 및 페이지 발견 가능성**에 필수적입니다.
 
@@ -529,7 +547,9 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 > - 사용자가 지역화된 URL을 직접 공유할 수 있습니다.
 > - 브라우저 히스토리가 로케일 접두사가 붙은 URL에서 올바르게 작동합니다.
 
-### (선택 사항) 9단계: 메타데이터 및 SEO 처리
+</Step>
+
+<Step number={9} title="메타데이터 및 SEO 처리" isOptional={true}>
 
 Nuxt는 `useHead` 컴포저블(자동 임포트)을 통해 뛰어난 SEO 기능을 제공합니다. Intlayer를 사용하여 `.raw` 또는 `.value` 접근자를 통해 원시 문자열 값을 얻어 지역화된 메타데이터를 처리할 수 있습니다:
 
@@ -629,6 +649,10 @@ export default aboutPageContent;
   }
 }
 ```
+
+</Step>
+
+</Steps>
 
 ### Git 설정
 

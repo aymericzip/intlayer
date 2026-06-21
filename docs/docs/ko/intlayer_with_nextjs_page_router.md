@@ -115,7 +115,9 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 
 ## Page Router를 사용하는 Next.js 애플리케이션에서 Intlayer 설정 단계별 가이드
 
-### 1단계: 의존성 설치
+<Steps>
+
+<Step number={1} title="의존성 설치">
 
 선호하는 패키지 관리자를 사용하여 필요한 패키지를 설치하세요:
 
@@ -161,7 +163,9 @@ bun add intlayer next-intlayer
 
   Intlayer를 Next.js와 통합하는 패키지입니다. Next.js 국제화를 위한 컨텍스트 프로바이더와 훅을 제공합니다. 또한, Intlayer를 [Webpack](https://webpack.js.org/) 또는 [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack)과 통합하기 위한 Next.js 플러그인과 사용자의 선호 로케일 감지, 쿠키 관리, URL 리디렉션 처리를 위한 미들웨어도 포함하고 있습니다.
 
-### 2단계: 프로젝트 구성
+</Step>
+
+<Step number={2} title="프로젝트 구성">
 
 애플리케이션에서 지원하는 언어를 정의하기 위해 구성 파일을 만드세요:
 
@@ -223,7 +227,9 @@ module.exports = config;
 
 > 이 구성 파일을 통해 지역화된 URL, 미들웨어 리디렉션, 쿠키 이름, 콘텐츠 선언의 위치 및 확장자 설정, 콘솔에서 Intlayer 로그 비활성화 등 다양한 설정을 할 수 있습니다. 사용 가능한 모든 매개변수 목록은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
-### 3단계: Next.js 구성에 Intlayer 통합하기
+</Step>
+
+<Step number={3} title="Next.js 구성에 Intlayer 통합하기">
 
 Next.js 구성을 수정하여 Intlayer를 통합합니다:
 
@@ -240,7 +246,9 @@ export default withIntlayer(nextConfig);
 
 > `withIntlayer()` Next.js 플러그인은 Intlayer를 Next.js와 통합하는 데 사용됩니다. 이 플러그인은 콘텐츠 선언 파일을 빌드하고 개발 모드에서 이를 모니터링하는 기능을 보장합니다. 또한 [Webpack](https://webpack.js.org/) 또는 [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) 환경 내에서 Intlayer 환경 변수를 정의합니다. 추가로, 성능 최적화를 위한 별칭(alias)을 제공하며 서버 컴포넌트와의 호환성을 보장합니다.
 
-### 4단계: 로케일 감지를 위한 미들웨어 구성
+</Step>
+
+<Step number={4} title="로케일 감지를 위한 미들웨어 구성">
 
 사용자의 선호 로케일을 자동으로 감지하고 처리하기 위해 미들웨어를 설정합니다:
 
@@ -255,7 +263,9 @@ export const config = {
 
 > `matcher` 매개변수를 애플리케이션의 경로에 맞게 조정하세요. 자세한 내용은 [Next.js의 matcher 구성 문서](https://nextjs.org/docs/app/building-your-application/routing/middleware)를 참조하세요.
 
-### 5단계: 동적 로케일 경로 정의
+</Step>
+
+<Step number={5} title="동적 로케일 경로 정의">
 
 사용자의 로케일에 따라 현지화된 콘텐츠를 제공하기 위해 동적 라우팅을 구현합니다.
 
@@ -412,7 +422,9 @@ export const config = {
 
 > `getStaticPaths`와 `getStaticProps`는 Next.js 페이지 라우터에서 모든 로케일에 필요한 페이지를 사전 빌드하도록 보장합니다. 이 접근 방식은 런타임 계산을 줄이고 향상된 사용자 경험을 제공합니다. 자세한 내용은 Next.js 문서의 [`getStaticPaths`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths) 및 [`getStaticProps`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-props)를 참조하세요.
 
-### 6단계: 콘텐츠 선언하기
+</Step>
+
+<Step number={6} title="콘텐츠 선언하기">
 
 번역을 저장하기 위해 콘텐츠 선언을 생성하고 관리하세요.
 
@@ -467,7 +479,9 @@ export default homeContent;
 
 자세한 내용은 [콘텐츠 선언 가이드](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
 
-### 7단계: 코드에서 콘텐츠 활용하기
+</Step>
+
+<Step number={7} title="코드에서 콘텐츠 활용하기">
 
 애플리케이션 전반에서 콘텐츠 사전을 접근하여 번역된 콘텐츠를 표시하세요.
 
@@ -534,7 +548,9 @@ const ComponentExample = () => {
 
 > `useIntlayer` 훅에 대해 더 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/useIntlayer.md)를 참조하세요.
 
-### (선택 사항) 8단계: 메타데이터의 국제화
+</Step>
+
+<Step number={8} title="메타데이터의 국제화" isOptional={true}>
 
 페이지 제목과 같은 메타데이터를 국제화하려는 경우, Next.js 페이지 라우터에서 제공하는 `getStaticProps` 함수를 사용할 수 있습니다. 이 함수 내에서 `getIntlayer` 함수를 통해 콘텐츠를 가져와 메타데이터를 번역할 수 있습니다.
 
@@ -755,7 +771,9 @@ export default HomePage;
 
 > 메타데이터 최적화에 대해 더 알아보려면 [공식 Next.js 문서](https://nextjs.org/docs/pages/building-your-application/optimizing/metadata)를 참고하세요.
 
-### (선택 사항) 9단계: 콘텐츠의 언어 변경하기
+</Step>
+
+<Step number={9} title="콘텐츠의 언어 변경하기" isOptional={true}>
 
 Next.js에서 콘텐츠의 언어를 변경하려면, 권장되는 방법은 `Link` 컴포넌트를 사용하여 사용자를 적절한 현지화된 페이지로 리디렉션하는 것입니다. `Link` 컴포넌트는 페이지의 사전 로딩(prefetching)을 가능하게 하여 전체 페이지 리로드를 방지하는 데 도움이 됩니다.
 
@@ -846,7 +864,9 @@ return (
 > - [`dir` 속성](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` 속성](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### (선택 사항) 10단계: 지역화된 링크 컴포넌트 만들기
+</Step>
+
+<Step number={10} title="지역화된 링크 컴포넌트 만들기" isOptional={true}>
 
 애플리케이션의 내비게이션이 현재 로케일을 준수하도록 하려면, 커스텀 `Link` 컴포넌트를 만들 수 있습니다. 이 컴포넌트는 내부 URL에 현재 언어 접두사를 자동으로 붙여줍니다. 예를 들어, 프랑스어 사용자가 "About" 페이지 링크를 클릭하면 `/about` 대신 `/fr/about`로 리디렉션됩니다.
 
@@ -915,7 +935,9 @@ Link.displayName = "Link";
 
 이 `Link` 컴포넌트를 애플리케이션 전반에 통합하면 일관되고 언어 인식이 가능한 사용자 경험을 유지할 수 있으며, SEO와 사용성 향상에도 도움이 됩니다.
 
-### (선택 사항) 11단계: 번들 크기 최적화
+</Step>
+
+<Step number={11} title="번들 크기 최적화" isOptional={true}>
 
 `next-intlayer`를 사용할 때, 기본적으로 모든 페이지 번들에 사전이 포함됩니다. 번들 크기를 최적화하기 위해 Intlayer는 매크로를 사용하여 `useIntlayer` 호출을 지능적으로 대체하는 선택적 SWC 플러그인을 제공합니다. 이를 통해 실제로 사전을 사용하는 페이지의 번들에만 사전이 포함되도록 보장합니다.
 
@@ -940,6 +962,10 @@ bun add @intlayer/swc --dev
 > 참고: 이 최적화는 Next.js 13 이상에서만 사용할 수 있습니다.
 
 > 참고: 이 패키지는 SWC 플러그인이 Next.js에서 아직 실험 단계이기 때문에 기본적으로 설치되지 않습니다. 향후 변경될 수 있습니다.
+
+</Step>
+
+</Steps>
 
 ### TypeScript 구성
 

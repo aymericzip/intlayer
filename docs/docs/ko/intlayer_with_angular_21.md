@@ -117,7 +117,9 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 
 GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-angular-21-template)을 확인하세요.
 
-### 1단계: 종속성 설치
+<Steps>
+
+<Step number={1} title="종속성 설치">
 
 npm을 사용하여 필요한 패키지를 설치합니다:
 
@@ -169,7 +171,9 @@ bun add @angular-builders/custom-esbuild --dev
 - **@angular-builders/custom-esbuild**
   Angular CLI의 esbuild 구성을 사용자 정의하는 데 필요합니다.
 
-### 2단계: 프로젝트 구성
+</Step>
+
+<Step number={2} title="프로젝트 구성">
 
 애플리케이션의 언어를 구성하기 위해 구성 파일을 만듭니다:
 
@@ -193,7 +197,9 @@ export default config;
 
 > 이 구성 파일을 통해 로컬라이즈된 URL, 미들웨어 리디렉션, 쿠키 이름, 콘텐츠 선언의 위치 및 확장자를 설정하고 콘솔에서 Intlayer 로그를 비활성화할 수 있습니다. 사용 가능한 매개변수의 전체 목록은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
-### 3단계: Angular 구성에 Intlayer 통합
+</Step>
+
+<Step number={3} title="Angular 구성에 Intlayer 통합">
 
 Intlayer를 Angular CLI와 통합하려면 사용자 지정 빌더를 사용해야 합니다. 이 가이드에서는 Vite/esbuild(Angular 21 프로젝트의 기본값)를 사용한다고 가정합니다.
 
@@ -255,7 +261,9 @@ export default [intlayerEsbuildPlugin()];
 >
 > 그런 다음 `angular.json`에서 `"./esbuild.plugins.ts"` 대신 `"./esbuild.plugins.mjs"`를 가리킵니다.
 
-### 4단계: 콘텐츠 선언
+</Step>
+
+<Step number={4} title="콘텐츠 선언">
 
 번역을 저장하기 위해 콘텐츠 선언을 만들고 관리합니다:
 
@@ -305,7 +313,9 @@ export default appContent;
 
 > 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
 
-### 5단계: 코드에서 Intlayer 활용
+</Step>
+
+<Step number={5} title="코드에서 Intlayer 활용">
 
 전체 Angular 애플리케이션에서 Intlayer의 국제화 기능을 활용하려면 애플리케이션 구성에 Intlayer를 제공해야 합니다.
 
@@ -353,7 +363,9 @@ export class AppComponent {
 
 Intlayer 콘텐츠는 `Signal`로 반환되므로 신호를 호출하여 값에 액세스합니다: `content().title`.
 
-### (선택 사항) 6단계: 콘텐츠 언어 변경
+</Step>
+
+<Step number={6} title="콘텐츠 언어 변경" isOptional={true}>
 
 콘텐츠 언어를 변경하려면 `useLocale` 함수에서 제공하는 `setLocale` 함수를 사용할 수 있습니다. 이를 통해 애플리케이션의 로캘을 설정하고 이에 따라 콘텐츠를 업데이트할 수 있습니다.
 
@@ -409,6 +421,10 @@ export class AppComponent {
   content = useIntlayer("app");
 }
 ```
+
+</Step>
+
+</Steps>
 
 ### TypeScript 구성
 

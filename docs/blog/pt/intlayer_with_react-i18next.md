@@ -57,7 +57,9 @@ Este guia mostra como aproveitar o sistema superior de declaração de conteúdo
 
 ## Guia passo a passo para configurar o Intlayer com react-i18next
 
-### Passo 1: Instalar dependências
+<Steps>
+
+<Step number={1} title="Instalar dependências">
 
 Instale os pacotes necessários:
 
@@ -100,7 +102,9 @@ bun add intlayer @intlayer/sync-json-plugin --dev
 - **intlayer**: Biblioteca principal para gerenciamento de internacionalização, declaração de conteúdo e construção
 - **@intlayer/sync-json-plugin**: Plugin para exportar declarações de conteúdo do Intlayer para o formato JSON compatível com react-i18next
 
-### Passo 2: Implemente o plugin Intlayer para envolver o JSON
+</Step>
+
+<Step number={2} title="Implemente o plugin Intlayer para envolver o JSON">
 
 Crie um arquivo de configuração do Intlayer para definir os seus locais suportados:
 
@@ -136,7 +140,9 @@ Se alterações forem feitas usando o CLI para traduzir o JSON, ou usando o CMS,
 
 Para ver mais detalhes sobre o plugin `syncJSON`, por favor consulte a [documentação do plugin syncJSON](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/plugins/sync-json.md).
 
-### (Opcional) Passo 3: Implementar traduções JSON por componente
+</Step>
+
+<Step number={3} title="Implementar traduções JSON por componente" isOptional={true}>
 
 Por padrão, o Intlayer irá carregar, mesclar e sincronizar tanto os arquivos JSON quanto os arquivos de declaração de conteúdo. Veja [a documentação da declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md) para mais detalhes. Mas se preferir, usando um plugin do Intlayer, você também pode implementar o gerenciamento por componente de JSON localizado em qualquer lugar da sua base de código.
 
@@ -176,6 +182,10 @@ export default config;
 ```
 
 Isso carregará todos os arquivos JSON no diretório `src` que correspondem ao padrão `{key}.i18n.json` e os carregará como dicionários do Intlayer.
+
+</Step>
+
+</Steps>
 
 ## Configuração do Git
 
