@@ -1,7 +1,7 @@
-import type { useFormatter as _useFormatter } from 'next-intl';
+import type { createFormatter as _createFormatter } from 'use-intl';
 
-/** The formatter object shape exposed by next-intl. */
-export type Formatter = ReturnType<typeof _useFormatter>;
+/** The formatter object shape exposed by use-intl. */
+export type Formatter = ReturnType<typeof _createFormatter>;
 
 /** Time units orderable by their duration in seconds. */
 const RELATIVE_TIME_UNITS: [Intl.RelativeTimeFormatUnit, number][] = [
@@ -18,12 +18,16 @@ const toDate = (value: Date | number | string): Date =>
   value instanceof Date ? value : new Date(value);
 
 /**
- * Builds a next-intl compatible formatter backed by the native `Intl.*`
- * APIs for the given locale.
+ * Builds a use-intl compatible formatter backed by the native `Intl.*` APIs
+ * for the given locale.
  *
- * Shared by `useFormatter` (client) and `getFormatter` (server).
+ * Shared by `useFormatter` (React hook) and `createFormatter` (non-React core).
+ *
+ * @param locale - The locale used by every `Intl.*` formatter instance.
+ * @returns A formatter exposing `dateTime`, `number`, `dateTimeRange`,
+ *   `relativeTime`, `list`, and `displayName`.
  */
-export const createFormatter = (locale: string): Formatter =>
+export const buildIntlFormatter = (locale: string): Formatter =>
   ({
     dateTime: (value: Date | number, options?: Intl.DateTimeFormatOptions) =>
       new Intl.DateTimeFormat(locale, options).format(value),

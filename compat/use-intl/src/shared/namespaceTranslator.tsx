@@ -17,6 +17,13 @@ export type RichChunkRenderer = (chunks: ReactNode) => ReactNode;
 /** Chunk renderer used by `t.markup()` — maps tag children to a string. */
 export type MarkupChunkRenderer = (chunks: string) => string;
 
+/**
+ * Reads a dotted `path` (e.g. `counter.label`) out of a nested object value.
+ *
+ * @param objectValue - The object to read from.
+ * @param path - Dot-separated path. An empty path returns `objectValue`.
+ * @returns The value found at `path`, or `undefined` when any segment is absent.
+ */
 export const navigatePath = (objectValue: unknown, path: string): unknown => {
   if (!path) return objectValue;
   const parts = path.split('.');
@@ -91,18 +98,25 @@ const renderMarkupTokens = (
     .join('');
 
 /**
- * The untyped runtime translator shared by `useTranslations` (client) and
- * `getTranslations` (server).
+ * The untyped runtime translator shared by `useTranslations` (React hook) and
+ * `createTranslator` (non-React core).
  *
- * Behaviour matches next-intl:
+ * Behaviour matches use-intl / next-intl:
  * - namespace `'about'` → keys resolved inside the `about` dictionary
  * - namespace `'about.counter'` → dictionary `about`, key prefix `counter`
  * - no namespace → the first segment of each key is the dictionary key
  * - messages support ICU syntax (plural, select, `#`, formatted arguments)
  * - `t.rich` / `t.markup` map `<tag>chunks</tag>` through the provided
  *   renderers; `t.raw` returns the raw value; `t.has` checks existence
+ *
+ * @param locale - The locale dictionaries are resolved for.
+ * @param namespace - Optional dictionary key, optionally with a nested scope.
+ * @returns A translate function augmented with `has`, `raw`, `rich`, `markup`.
  */
-export const createTranslator = (locale: LocalesValues, namespace?: string) => {
+export const createNamespaceTranslator = (
+  locale: LocalesValues,
+  namespace?: string
+) => {
   const [dictionaryKey, ...prefixSegments] = (namespace ?? '').split('.');
   const keyPrefix = prefixSegments.join('.');
 
@@ -174,4 +188,4 @@ export const createTranslator = (locale: LocalesValues, namespace?: string) => {
   });
 };
 
-export type CompatTranslator = ReturnType<typeof createTranslator>;
+export type CompatTranslator = ReturnType<typeof createNamespaceTranslator>;

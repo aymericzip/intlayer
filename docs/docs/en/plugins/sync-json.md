@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-12-13
+updatedAt: 2026-06-21
 title: Sync JSON plugin
 description: Synchronize Intlayer dictionaries with third‑party i18n JSON files (i18next, next-intl, react-intl, vue-i18n, and more). Keep your existing i18n while using Intlayer to manage, translate, and test your messages.
 keywords:
@@ -24,6 +24,9 @@ slugs:
   - sync-json
 youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
+  - version: 9.0.0
+    date: 2026-06-21
+    changes: "Add splitKeys option (one dictionary per top-level namespace key) for next-intl / react-intl single-file layouts"
   - version: 7.5.0
     date: 2025-12-13
     changes: "Add ICU and i18next format support"
@@ -182,6 +185,7 @@ syncJSON({
   location?: string, // optional label, default: "plugin"
   priority?: number, // optional priority for conflict resolution, default: 0
   format?: 'intlayer' | 'icu' | 'i18next', // optional formatter, used for intlayer runtime compatibility
+  splitKeys?: boolean, // optional, split a single file into one dictionary per top-level key (auto-detected)
 });
 ```
 
@@ -205,6 +209,38 @@ syncJSON({
   format: "i18next", // Use i18next formatting for compatibility
 }),
 ```
+
+#### `splitKeys` (boolean)
+
+Controls whether a single JSON file whose **first-level keys are namespaces** should become one dictionary per top-level key, instead of a single dictionary holding the whole file.
+
+This matches the namespace model of libraries like `next-intl` and `react-intl`, where one `messages/{locale}.json` file groups several namespaces by its first-level keys, each addressed independently (e.g. `useTranslations('Hero')` resolves to the `Hero` dictionary).
+
+- `undefined` (default): **auto-detected** — the file is split when the `source` pattern has no `{key}` segment (one file holds every namespace), and kept as a single dictionary otherwise (one file per key).
+- `true`: always split each top-level key into its own dictionary.
+- `false`: never split; the whole file becomes a single dictionary.
+
+Given a single `messages/{locale}.json` file:
+
+```json fileName="messages/en.json"
+{
+  "Hero": { "title": "Full-stack developer" },
+  "Nav": { "work": "Work", "about": "About" },
+  "About": { "lead": "I build apps end to end." }
+}
+```
+
+```ts fileName="intlayer.config.ts"
+syncJSON({
+  format: "icu",
+  source: ({ locale }) => `./messages/${locale}.json`,
+  // splitKeys: true, // implied because the pattern has no `{key}` segment
+}),
+```
+
+This produces three dictionaries — `Hero`, `Nav`, and `About` — so `useTranslations('Hero')` (next-intl) resolves correctly. On write-back, all namespaces are re-assembled into the same per-locale file.
+
+> When you keep the explicit `{key}` segment in your `source` (e.g. `./locales/${locale}/${key}.json`), each file is already one namespace, so splitting is disabled by default.
 
 ### Multiple JSON sources and priority
 
@@ -338,6 +374,9 @@ loadJSON({
 
   // Optional formatter for the JSON content
   format?: 'intlayer' | 'icu' | 'i18next', // default: 'intlayer'
+
+  // Split a single file into one dictionary per top-level key (auto-detected)
+  splitKeys?: boolean,
 });
 ```
 
@@ -359,10 +398,25 @@ loadJSON({
 }),
 ```
 
+#### `splitKeys` (boolean)
+
+Same behavior as in [`syncJSON`](#splitkeys-boolean): when a single JSON file groups several namespaces by its first-level keys, each top-level key becomes its own dictionary.
+
+- `undefined` (default): **auto-detected** — split when the `source` pattern has no `{key}` segment, single dictionary otherwise.
+- `true` / `false`: force or disable splitting.
+
+```ts
+loadJSON({
+  source: ({ locale }) => `./messages/${locale}.json`,
+  format: "icu",
+  // splitKeys auto-enabled: `Hero`, `Nav`, `About`, … each become a dictionary
+}),
+```
+
 ### Behavior and conventions
 
 - If your `source` mask includes a locale placeholder, only files for the selected `locale` are ingested.
-- If there is no `{key}` segment in your mask, the dictionary key is "index".
+- If there is no `{key}` segment in your mask, each top-level key of the file becomes its own dictionary by default (see [`splitKeys`](#splitkeys-boolean)). Set `splitKeys: false` to instead load the whole file as a single `index` dictionary.
 - Keys are derived from file paths by substituting the `{key}` placeholder in your `source` builder.
 - The plugin only uses discovered files and does not fabricate missing locales or keys.
 - The `fill` path is inferred from your `source` and used to update missing values via CLI when you opt‑in.

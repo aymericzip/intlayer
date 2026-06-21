@@ -1,5 +1,5 @@
 import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
-import { join } from 'node:path';
+import { dirname, join, relative, resolve, sep } from 'node:path';
 import { EXCLUDED_PATHS } from '@intlayer/config/defaultValues';
 import { ALL_LOCALES } from '@intlayer/types/allLocales';
 import fg from 'fast-glob';
@@ -183,4 +183,93 @@ export const detectJsonLocalePattern = async (
     template: `${prefix}/\${locale}.json`,
     locales: Array.from(flatLocales),
   };
+};
+
+/**
+ * The messages source template derived from a `next-intl` `i18n/request.ts`
+ * file, ready to be used as a `syncJSON` `source` builder.
+ */
+export type NextIntlMessagesPattern = {
+  /** `'flat'` (one file per locale) or `'nested'` (per-namespace files). */
+  type: JsonLocalePatternType;
+  /**
+   * Source path template relative to the project root, with `${locale}` (and
+   * `${key}` when nested) as literal placeholders, e.g. `./messages/${locale}.json`.
+   */
+  template: string;
+};
+
+/** Common locations of the `next-intl` request config, relative to the root. */
+const NEXT_INTL_REQUEST_FILES = [
+  'i18n/request.ts',
+  'i18n/request.tsx',
+  'i18n/request.js',
+  'i18n/request.mjs',
+  'src/i18n/request.ts',
+  'src/i18n/request.tsx',
+  'src/i18n/request.js',
+  'src/i18n/request.mjs',
+  'app/i18n/request.ts',
+  'src/app/i18n/request.ts',
+];
+
+/**
+ * Derives the messages source template from a `next-intl` `i18n/request.ts`
+ * file, which is the authoritative location of the messages path in a next-intl
+ * project (e.g. `messages: (await import(\`../messages/${locale}.json\`)).default`).
+ *
+ * Reading it removes the ambiguity of globbing the file system and yields the
+ * exact `source` template for `syncJSON`. When the resulting template has no
+ * `${key}` segment (the common single-file-per-locale layout, where top-level
+ * keys are namespaces), `syncJSON` `splitKeys` auto-detection turns each
+ * top-level key into its own dictionary.
+ *
+ * Returns `null` when no request file is found, the messages import cannot be
+ * parsed, or the path is not project-root-relative (e.g. uses a TS path alias).
+ *
+ * @param rootDir - Project root directory.
+ */
+export const detectNextIntlMessagesPattern = async (
+  rootDir: string
+): Promise<NextIntlMessagesPattern | null> => {
+  for (const requestFile of NEXT_INTL_REQUEST_FILES) {
+    if (!(await exists(rootDir, requestFile))) continue;
+
+    const content = await readFileFromRoot(rootDir, requestFile);
+
+    // Capture the template-literal path of the messages dynamic import, e.g.
+    // import(`../messages/${locale}.json`) → `../messages/${locale}.json`.
+    const importMatch = content.match(
+      /import\(\s*`([^`]*\$\{\s*locale\s*\}[^`]*\.json)`/
+    );
+
+    const importPath = importMatch?.[1];
+    if (!importPath) continue;
+
+    // Only relative imports can be resolved against the file system; path
+    // aliases (e.g. `@/messages/...`) are skipped in favour of glob detection.
+    if (!importPath.startsWith('.')) continue;
+
+    // Resolve the import (relative to the request file) back to a
+    // project-root-relative template. The `${locale}` / `${key}` placeholders
+    // are kept literal — path utilities treat them as ordinary segments.
+    const requestDir = dirname(resolve(rootDir, requestFile));
+    const absoluteTemplate = resolve(requestDir, importPath);
+    const relativeTemplate = relative(rootDir, absoluteTemplate)
+      .split(sep)
+      .join('/');
+
+    const template = relativeTemplate.startsWith('.')
+      ? relativeTemplate
+      : `./${relativeTemplate}`;
+
+    const type: JsonLocalePatternType =
+      template.includes('${key}') || template.includes('${namespace}')
+        ? 'nested'
+        : 'flat';
+
+    return { type, template };
+  }
+
+  return null;
 };

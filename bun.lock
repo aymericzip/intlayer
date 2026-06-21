@@ -476,6 +476,7 @@
         "@intlayer/core": "workspace:*",
         "@intlayer/dictionaries-entry": "workspace:*",
         "@intlayer/types": "workspace:*",
+        "@intlayer/use-intl": "workspace:*",
         "next-intlayer": "workspace:*",
         "react-intlayer": "workspace:*",
       },
@@ -568,6 +569,41 @@
       },
       "optionalPeers": [
         "react-dom",
+        "vite",
+      ],
+    },
+    "compat/use-intl": {
+      "name": "@intlayer/use-intl",
+      "version": "9.0.0-canary.2",
+      "dependencies": {
+        "@intlayer/chokidar": "workspace:*",
+        "@intlayer/config": "workspace:*",
+        "@intlayer/core": "workspace:*",
+        "@intlayer/dictionaries-entry": "workspace:*",
+        "@intlayer/types": "workspace:*",
+        "react-intlayer": "workspace:*",
+        "vite-intlayer": "workspace:*",
+      },
+      "devDependencies": {
+        "@types/node": "25.9.3",
+        "@types/react": "19.2.17",
+        "@utils/ts-config": "workspace:*",
+        "@utils/ts-config-types": "workspace:*",
+        "@utils/tsdown-config": "workspace:*",
+        "rimraf": "6.1.3",
+        "tsdown": "0.21.10",
+        "typescript": "6.0.3",
+        "use-intl": "4.13.0",
+        "vite": "8.0.16",
+        "vitest": "4.1.9",
+      },
+      "peerDependencies": {
+        "react": ">=16.0.0",
+        "react-dom": ">=16.0.0",
+        "use-intl": ">=3.0.0",
+        "vite": ">=4.0.0",
+      },
+      "optionalPeers": [
         "vite",
       ],
     },
@@ -3828,6 +3864,8 @@
     "@intlayer/types": ["@intlayer/types@workspace:packages/@intlayer/types"],
 
     "@intlayer/unmerged-dictionaries-entry": ["@intlayer/unmerged-dictionaries-entry@workspace:packages/@intlayer/unmerged-dictionaries-entry"],
+
+    "@intlayer/use-intl": ["@intlayer/use-intl@workspace:compat/use-intl"],
 
     "@intlayer/vue-compiler": ["@intlayer/vue-compiler@workspace:packages/@intlayer/vue-compiler"],
 

@@ -161,13 +161,17 @@ export const detectMissingIntlayerPackages = (
   // undefined so no syncJSON plugin is injected.
   // -------------------------------------------------------------------------
 
-  // next-intl — next.js only, ICU format
+  // next-intl — next.js only, ICU format. Default layout is a single file per
+  // locale (`messages/${locale}.json`) whose top-level keys are namespaces;
+  // syncJSON `splitKeys` auto-detection (no `${key}` segment) turns each
+  // top-level key into its own dictionary. The exact path is refined from
+  // `i18n/request.ts` in init/index.ts when present.
   if (isInstalled('next-intl') || isInstalled('@intlayer/next-intl')) {
     addIfMissing('@intlayer/next-intl');
     addIfMissing('next-intl');
     compatSyncConfig ??= {
       format: 'icu',
-      sourceTemplate: './locales/${locale}/${key}.json',
+      sourceTemplate: './messages/${locale}.json',
     };
     // next config handled via updateNextConfigForNextIntl in init/index.ts
   }
@@ -230,6 +234,23 @@ export const detectMissingIntlayerPackages = (
     compatVitePluginConfig ??= {
       pluginFunctionName: 'vueI18nVitePlugin',
       pluginPackageSource: '@intlayer/vue-i18n/plugin',
+    };
+  }
+
+  // use-intl — framework-agnostic React core of next-intl; vite alias
+  // injection required, ICU format. Commonly a single `messages/${locale}.json`
+  // file whose top-level keys are namespaces, handled by syncJSON `splitKeys`
+  // auto-detection (no `${key}` segment in the source template).
+  if (isInstalled('use-intl') || isInstalled('@intlayer/use-intl')) {
+    addIfMissing('@intlayer/use-intl');
+    addIfMissing('use-intl');
+    compatSyncConfig ??= {
+      format: 'icu',
+      sourceTemplate: './messages/${locale}.json',
+    };
+    compatVitePluginConfig ??= {
+      pluginFunctionName: 'useIntlVitePlugin',
+      pluginPackageSource: '@intlayer/use-intl/plugin',
     };
   }
 

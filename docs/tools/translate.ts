@@ -7,7 +7,7 @@ import type { Locale } from '@intlayer/types/allLocales';
 import * as Locales from '@intlayer/types/locales';
 import { defaultLocale, locales } from '../intlayer.config';
 
-const DOC_PATTERN: string[] = ['./docs/en/introduction.md'];
+const DOC_PATTERN: string[] = ['./docs/en/plugins/sync-json.md'];
 const EXCLUDED_GLOB_PATTEN: string[] = [
   '**/_*',
   '**/node_modules/**',

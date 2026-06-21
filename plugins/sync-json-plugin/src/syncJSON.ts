@@ -288,6 +288,31 @@ type SyncJSONPluginOptions = {
    * The format of the dictionaries created by the plugin.
    */
   format?: DictionaryFormat;
+
+  /**
+   * Whether each top-level key of the JSON file should become its own
+   * dictionary (keyed by that top-level key) instead of a single dictionary
+   * holding the whole file.
+   *
+   * This matches the namespace model of libraries such as `next-intl` /
+   * `react-intl`, where a single `messages/{locale}.json` file groups several
+   * namespaces by its first-level keys and each namespace is addressed
+   * independently (e.g. `useTranslations('Hero')` → dictionary `Hero`).
+   *
+   * When omitted, it is auto-detected: the file is split when the `source`
+   * pattern has no `{{key}}` segment (i.e. one file holds every namespace),
+   * and kept as a single dictionary otherwise (one file per key).
+   *
+   * @example
+   * ```ts
+   * // messages/en.json → dictionaries: Hero, Nav, About, …
+   * syncJSON({
+   *   source: ({ locale }) => `./messages/${locale}.json`,
+   *   splitKeys: true,
+   * })
+   * ```
+   */
+  splitKeys?: boolean;
 };
 
 export const syncJSON = async (
@@ -306,6 +331,13 @@ export const syncJSON = async (
     priority: 0,
     ...options,
   };
+
+  // When the source pattern has no `{{key}}` segment, a single file holds every
+  // namespace as a first-level key (the next-intl / react-intl model). In that
+  // case each top-level key becomes its own dictionary. Can be forced via the
+  // `splitKeys` option.
+  const hasKeyPlaceholder = patternMarker.includes('{{key}}');
+  const shouldSplitByKeys = options.splitKeys ?? !hasKeyPlaceholder;
 
   return {
     name: 'sync-json',
@@ -351,23 +383,44 @@ export const syncJSON = async (
 
         const filePath = relative(configuration.system.baseDir, path);
 
-        const dictionary: Dictionary = {
+        const filled =
+          locale !== configuration.internationalization.defaultLocale
+            ? true
+            : undefined;
+
+        // One file groups several namespaces by its first-level keys: emit one
+        // dictionary per top-level key (e.g. `Hero`, `Nav`, …).
+        if (shouldSplitByKeys) {
+          for (const [namespaceKey, namespaceContent] of Object.entries(json)) {
+            dictionaries.push({
+              key: namespaceKey,
+              locale,
+              fill,
+              format,
+              localId:
+                `${namespaceKey}::${location}::${filePath}` as LocalDictionaryId,
+              location: location as Dictionary['location'],
+              filled,
+              content: namespaceContent as JSONContent,
+              filePath,
+              priority,
+            });
+          }
+          continue;
+        }
+
+        dictionaries.push({
           key,
           locale,
           fill,
           format,
           localId: `${key}::${location}::${filePath}` as LocalDictionaryId,
           location: location as Dictionary['location'],
-          filled:
-            locale !== configuration.internationalization.defaultLocale
-              ? true
-              : undefined,
+          filled,
           content: json,
           filePath,
           priority,
-        };
-
-        dictionaries.push(dictionary);
+        });
       }
 
       return dictionaries;
@@ -380,6 +433,11 @@ export const syncJSON = async (
       );
 
       if (!dictionary.filePath || !dictionary.locale) return dictionary;
+
+      // In split mode several namespaces share the same file; the file is
+      // re-assembled in `afterBuild`. Skip here to avoid overwriting the whole
+      // file with a single namespace.
+      if (shouldSplitByKeys) return dictionary;
 
       const builderPath = await parseFilePathPattern(options.source, {
         key: dictionary.key,
@@ -408,6 +466,67 @@ export const syncJSON = async (
       );
 
       const { locales } = configuration.internationalization;
+
+      // Split mode: every namespace dictionary writes back into the same
+      // per-locale file. Re-assemble them under their top-level key and write
+      // each file once, instead of one file per key (which would overwrite).
+      if (shouldSplitByKeys) {
+        const mergedByLocale: Record<string, Record<string, unknown>> = {};
+        const filePathByLocale: Record<string, string> = {};
+
+        for (const [key, entry] of Object.entries(
+          dictionaries.mergedDictionaries
+        )) {
+          const dictionary = entry.dictionary as Dictionary;
+
+          // Only process dictionaries that belong to THIS plugin instance.
+          if (dictionary.location !== location) continue;
+
+          for (const locale of locales) {
+            const localizedDictionary = getPerLocaleDictionary(
+              dictionary,
+              locale
+            );
+
+            const formattedOutput = formatDictionaryOutput(
+              localizedDictionary,
+              format
+            );
+
+            const content = JSON.parse(JSON.stringify(formattedOutput.content));
+
+            if (
+              typeof content === 'undefined' ||
+              (typeof content === 'object' &&
+                content !== null &&
+                Object.keys(content as Record<string, unknown>).length === 0)
+            ) {
+              continue;
+            }
+
+            mergedByLocale[locale] ??= {};
+            mergedByLocale[locale][key] = content;
+            filePathByLocale[locale] = await parseFilePathPattern(
+              options.source,
+              { key, locale } as any as FilePathPatternContext
+            );
+          }
+        }
+
+        await parallelize(Object.keys(mergedByLocale), async (locale) => {
+          const builderPath = filePathByLocale[locale];
+
+          if (!builderPath) return;
+
+          await mkdir(dirname(builderPath), { recursive: true });
+
+          const stringContent = JSON.stringify(mergedByLocale[locale], null, 2);
+
+          await writeFile(builderPath, `${stringContent}\n`, 'utf-8');
+        });
+
+        return;
+      }
 
       type RecordList = {
         key: string;

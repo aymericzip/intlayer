@@ -4,26 +4,13 @@ import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import { useDictionaryDynamic as useDictionaryDynamicBase } from 'react-intlayer';
-
-const navigatePath = (objectValue: unknown, path: string): unknown => {
-  if (!path) return objectValue;
-  const parts = path.split('.');
-  let current: unknown = objectValue;
-  for (const part of parts) {
-    if (
-      current === null ||
-      current === undefined ||
-      typeof current !== 'object'
-    ) {
-      return undefined;
-    }
-    current = (current as Record<string, unknown>)[part];
-  }
-  return current;
-};
+import { navigatePath } from './shared/namespaceTranslator';
 
 /**
  * Dynamic dictionary-accepting variant of `useTranslations`.
+ *
+ * Counterpart to {@link useDictionary} for dictionaries imported lazily per
+ * locale. Used internally by the build-time optimization.
  */
 export const useDictionaryDynamic = <
   const T extends Dictionary,
@@ -33,30 +20,27 @@ export const useDictionaryDynamic = <
   key: K,
   namespacePrefix?: string
 ) => {
-  const content = useDictionaryDynamicBase<T, any>(
-    dictionaryPromise,
-    key as any
-  );
+  const content = useDictionaryDynamicBase<T, K>(dictionaryPromise, key);
 
   const resolveKey = (lookupKey: string): string =>
     namespacePrefix ? `${namespacePrefix}.${lookupKey}` : lookupKey;
 
   return Object.assign(
-    <P extends ValidDotPathsFor<any>>(
+    <P extends ValidDotPathsFor<string>>(
       lookup: P,
       params?: Record<string, unknown>
     ): string => {
       const rawValue = navigatePath(content, resolveKey(String(lookup)));
-      const str = String(rawValue ?? resolveKey(String(lookup)));
-      if (!params) return str;
-      return str.replace(/\{(\w+)\}/g, (_, k) =>
-        params[k] != null ? String(params[k]) : `{${k}}`
+      const text = String(rawValue ?? resolveKey(String(lookup)));
+      if (!params) return text;
+      return text.replace(/\{(\w+)\}/g, (_match, key) =>
+        params[key] != null ? String(params[key]) : `{${key}}`
       );
     },
     {
-      has: <P extends ValidDotPathsFor<any>>(lookup: P): boolean =>
+      has: <P extends ValidDotPathsFor<string>>(lookup: P): boolean =>
         navigatePath(content, resolveKey(String(lookup))) != null,
-      raw: <P extends ValidDotPathsFor<any>>(lookup: P): unknown =>
+      raw: <P extends ValidDotPathsFor<string>>(lookup: P): unknown =>
         navigatePath(content, resolveKey(String(lookup))),
     }
   );

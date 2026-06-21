@@ -50,6 +50,7 @@ export const packageBuildOrder = [
   'plugins/sync-po-plugin',
   'compat/i18next',
   'compat/react-i18next',
+  'compat/use-intl',
   'compat/next-intl',
   'compat/next-i18next',
   'compat/vue-i18n',

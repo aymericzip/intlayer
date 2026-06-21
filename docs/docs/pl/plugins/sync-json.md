@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-13
-updatedAt: 2025-12-13
+updatedAt: 2026-06-21
 title: Wtyczka Sync JSON
 description: Synchronizuj słowniki Intlayer z zewnętrznymi plikami JSON i18n (i18next, next-intl, react-intl, vue-i18n i inne). Zachowaj istniejące i18n, korzystając z Intlayer do zarządzania, tłumaczenia i testowania swoich komunikatów.
 keywords:
@@ -24,6 +24,9 @@ slugs:
   - sync-json
 youtubeVideo: https://www.youtube.com/watch?v=MpGMxniDHNg
 history:
+  - version: 9.0.0
+    date: 2026-06-21
+    changes: "Dodano opcję splitKeys (jeden słownik na klucz przestrzeni nazw najwyższego poziomu) dla układów jednoplikowych next-intl / react-intl"
   - version: 6.1.6
     date: 2025-10-05
     changes: "Pierwsza dokumentacja wtyczki Sync JSON"
@@ -59,9 +62,65 @@ pnpm add -D @intlayer/sync-json-plugin
 npm i -D @intlayer/sync-json-plugin
 ```
 
-## Szybki start
+## Plugins
 
-Dodaj wtyczkę do swojego pliku `intlayer.config.ts` i wskaż ją na istniejącą strukturę JSON.
+This package provides two plugins:
+
+- `loadJSON`: Load JSON files into Intlayer dictionaries.
+  - This plugin is used to load JSON files from a source and will be loaded into Intlayer dictionaries. It can scan all the codebase and search for specific JSON files.
+    This plugin can be used
+    - if you use an i18n library that impose a specific location for your JSON to be loaded (ex: `next-intl`, `i18next`, `react-intl`, `vue-i18n`, etc.), but you want to place your content declaration where you want in your code base.
+    - It can also be used if you want to fetch your messages from a remote source (ex: a CMS, a API, etc.) and store your messages in JSON files.
+
+  > Under the hood, this plugin will scan all the codebase and search for specific JSON files and load them into Intlayer dictionaries.
+  > Note that this plugin will not write the output and translations back to the JSON files.
+
+- `syncJSON`: Synchronize JSON files with Intlayer dictionaries.
+  - This plugin is used to synchronize JSON files with Intlayer dictionaries. It can scan the given location and load the JSON that match the pattern for specific JSON files. This plugin is useful if you want to get the benefits of Intlayer while using another i18n library.
+
+## Using both plugins
+
+```ts fileName="intlayer.config.ts"
+import { Locales, type IntlayerConfig } from "intlayer";
+import { loadJSON, syncJSON } from "@intlayer/sync-json-plugin";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+
+  // Keep your current JSON files in sync with Intlayer dictionaries
+  plugins: [
+    /**
+     * Will load all the JSON files in the src that match the pattern {key}.i18n json
+     */
+    loadJSON({
+      source: ({ key }) => `./src/**/${key}.i18n.json`,
+      locale: Locales.ENGLISH,
+      priority: 1, // Ensures these JSON files take precedence over files at `./locales/en/${key}.json`
+      format: "intlayer", // Format of the JSON content
+    }),
+    /**
+     * Will load, and write the output and translations back to the JSON files in the locales directory
+     */
+    syncJSON({
+      format: "i18next",
+      source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
+      priority: 0,
+      format: "i18next",
+    }),
+  ],
+};
+
+export default config;
+```
+
+## `syncJSON` plugin
+
+### Quick start
+
+Add the plugin to your `intlayer.config.ts` and point it at your existing JSON structure.
 
 ```ts fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -78,6 +137,7 @@ const config: IntlayerConfig = {
     syncJSON({
       // Układ per-locale, per-namespace (np. next-intl, i18next z przestrzeniami nazw)
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
+      format: "icu",
     }),
   ],
 };
@@ -88,14 +148,27 @@ export default config;
 Alternatywa: pojedynczy plik na locale (częste w konfiguracjach i18next/react-intl):
 
 ```ts fileName="intlayer.config.ts"
-plugins: [
-  syncJSON({
-    source: ({ locale }) => `./locales/${locale}.json`,
-  }),
-];
+import { Locales, type IntlayerConfig } from "intlayer";
+import { syncJSON } from "@intlayer/sync-json-plugin";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH],
+    defaultLocale: Locales.ENGLISH,
+  },
+  plugins: [
+    syncJSON({
+      format: "i18next",
+      source: ({ locale }) => `./locales/${locale}.json`,
+      format: "i18next",
+    }),
+  ],
+};
+
+export default config;
 ```
 
-### Jak to działa
+#### How it works
 
 - Odczyt: wtyczka wykrywa pliki JSON zdefiniowane przez twój builder `source` i ładuje je jako słowniki Intlayer.
 - Zapis: po budowaniu i wypełnianiu, zapisuje zlokalizowane pliki JSON z powrotem pod te same ścieżki (z końcowym znakiem nowej linii, aby uniknąć problemów z formatowaniem).
@@ -109,6 +182,7 @@ syncJSON({
   location?: string, // opcjonalna etykieta, domyślnie: "plugin"
   priority?: number, // opcjonalny priorytet do rozstrzygania konfliktów, domyślnie: 0
   format?: 'intlayer' | 'icu' | 'i18next', // opcjonalny formatator, używany dla kompatybilności z runtime Intlayer
+  splitKeys?: boolean, // opcjonalnie, dzieli pojedynczy plik na jeden słownik na klucz przestrzeni nazw najwyższego poziomu (automatycznie wykrywane)
 });
 ```
 
@@ -133,11 +207,43 @@ syncJSON({
 }),
 ```
 
-## Wiele źródeł JSON i priorytet
+#### `splitKeys` (boolean)
 
-Możesz dodać wiele wtyczek `syncJSON`, aby synchronizować różne źródła JSON. Jest to przydatne, gdy masz wiele bibliotek i18n lub różne struktury JSON w swoim projekcie.
+Kontroluje, czy pojedynczy plik JSON, którego **klucze pierwszego poziomu są przestrzeniami nazw**, powinien stać się jednym słownikiem na klucz najwyższego poziomu, zamiast pojedynczego słownika zawierającego cały plik.
 
-### System priorytetów
+Odpowiada to modelowi przestrzeni nazw bibliotek takich jak `next-intl` i `react-intl`, gdzie jeden plik `messages/{locale}.json` grupuje kilka przestrzeni nazw według kluczy pierwszego poziomu, z których każda jest adresowana niezależnie (np. `useTranslations('Hero')` rozwiązuje się do słownika `Hero`).
+
+- `undefined` (domyślnie): **automatycznie wykrywane** — plik jest dzielony, gdy wzorzec `source` nie zawiera segmentu `{key}` (jeden plik zawiera każdą przestrzeń nazw), i zachowywany jako pojedynczy słownik w przeciwnym razie (jeden plik na klucz).
+- `true`: zawsze dzieli każdy klucz najwyższego poziomu na własny słownik.
+- `false`: nigdy nie dzieli; cały plik staje się pojedynczym słownikiem.
+
+Biorąc pod uwagę pojedynczy plik `messages/{locale}.json`:
+
+```json fileName="messages/en.json"
+{
+  "Hero": { "title": "Full-stack developer" },
+  "Nav": { "work": "Work", "about": "About" },
+  "About": { "lead": "I build apps end to end." }
+}
+```
+
+```ts fileName="intlayer.config.ts"
+syncJSON({
+  format: "icu",
+  source: ({ locale }) => `./messages/${locale}.json`,
+  // splitKeys: true, // domyślne, ponieważ wzorzec nie zawiera segmentu `{key}`
+}),
+```
+
+Tworzy to trzy słowniki — `Hero`, `Nav` i `About` — dzięki czemu `useTranslations('Hero')` (next-intl) rozwiązuje się poprawnie. Podczas zapisu zwrotnego wszystkie przestrzenie nazw są ponownie składane w ten sam plik dla danej lokalizacji.
+
+> Kiedy zachowujesz jawny segment `{key}` w swoim `source` (np. `./locales/${locale}/${key}.json`), każdy plik jest już jedną przestrzenią nazw, więc dzielenie jest domyślnie wyłączone.
+
+### Multiple JSON sources and priority
+
+You can add multiple `syncJSON` plugins to synchronize different JSON sources. This is useful when you have multiple i18n libraries or different JSON structures in your project.
+
+#### System priorytetów
 
 Gdy wiele wtyczek celuje w ten sam klucz słownika, parametr `priority` decyduje, która wtyczka ma pierwszeństwo:
 
@@ -186,9 +292,135 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-### Rozwiązywanie konfliktów
+## Load JSON plugin
 
-Gdy ten sam klucz tłumaczenia występuje w wielu źródłach JSON:
+### Quick start
+
+Add the plugin to your `intlayer.config.ts` to ingest existing JSON files as Intlayer dictionaries. This plugin is read‑only (no writes to disk):
+
+```ts fileName="intlayer.config.ts"
+import { Locales, type IntlayerConfig } from "intlayer";
+import { loadJSON } from "@intlayer/sync-json-plugin";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+
+  plugins: [
+    // Ingest JSON messages located anywhere in your source tree
+    loadJSON({
+      source: ({ key }) => `./src/**/${key}.i18n.json`,
+      // Load a single locale per plugin instance (defaults to the config defaultLocale)
+      locale: Locales.ENGLISH,
+      priority: 0,
+    }),
+  ],
+};
+
+export default config;
+```
+
+Alternative: per‑locale layout, still read‑only (only the selected locale is loaded):
+
+```ts fileName="intlayer.config.ts"
+import { Locales, type IntlayerConfig } from "intlayer";
+import { loadJSON } from "@intlayer/sync-json-plugin";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH],
+    defaultLocale: Locales.ENGLISH,
+  },
+  plugins: [
+    loadJSON({
+      // Only files for Locales.FRENCH will be loaded from this pattern
+      source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
+      locale: Locales.FRENCH,
+    }),
+  ],
+};
+
+export default config;
+```
+
+### How it works
+
+- Discover: builds a glob from your `source` builder and collects matching JSON files.
+- Ingest: loads each JSON file as an Intlayer dictionary with the provided `locale`.
+- Read‑only: does not write or format output files; use `syncJSON` if you need round‑trip sync.
+- Auto‑fill ready: defines a `fill` pattern so `intlayer content fill` can populate missing keys.
+
+### API
+
+```ts
+loadJSON({
+  // Build paths to your JSON. `locale` is optional if your structure has no locale segment
+  source: ({ key, locale }) => string,
+
+  // Target locale for the dictionaries loaded by this plugin instance
+  // Defaults to configuration.internationalization.defaultLocale
+  locale?: Locale,
+
+  // Optional label to identify the source
+  location?: string, // default: "plugin"
+
+  // Priority used for conflict resolution against other sources
+  priority?: number, // default: 0
+
+  // Optional formatter for the JSON content
+  format?: 'intlayer' | 'icu' | 'i18next', // default: 'intlayer'
+
+  // Split a single file into one dictionary per top-level key (auto-detected)
+  splitKeys?: boolean,
+});
+```
+
+#### `format` ('intlayer' | 'icu' | 'i18next')
+
+Specifies the formatter to use for the dictionary content when loading JSON files. This allows using different message formatting syntaxes compatible with various i18n libraries.
+
+- `'intlayer'`: The default Intlayer formatter (default).
+- `'icu'`: Uses ICU message formatting (compatible with libraries like react-intl, vue-i18n).
+- `'i18next'`: Uses i18next message formatting (compatible with i18next, next-i18next, Solid-i18next).
+
+**Example:**
+
+```ts
+loadJSON({
+  source: ({ key }) => `./src/**/${key}.i18n.json`,
+  locale: Locales.ENGLISH,
+  format: "icu", // Use ICU formatting for compatibility
+}),
+```
+
+#### `splitKeys` (boolean)
+
+Takie samo zachowanie jak w [`syncJSON`](#splitkeys-boolean): gdy pojedynczy plik JSON grupuje kilka przestrzeni nazw według kluczy pierwszego poziomu, każdy klucz najwyższego poziomu staje się własnym słownikiem.
+
+- `undefined` (domyślnie): **automatycznie wykrywane** — dzieli, gdy wzorzec `source` nie zawiera segmentu `{key}`, w przeciwnym razie pojedynczy słownik.
+- `true` / `false`: wymusza lub wyłącza dzielenie.
+
+```ts
+loadJSON({
+  source: ({ locale }) => `./messages/${locale}.json`,
+  format: "icu",
+  // splitKeys auto-enabled: `Hero`, `Nav`, `About`, … each become a dictionary
+}),
+```
+
+### Behavior and conventions
+
+- If your `source` mask includes a locale placeholder, only files for the selected `locale` are ingested.
+- Jeśli w masce nie ma segmentu `{key}`, każdy klucz najwyższego poziomu pliku staje się domyślnie własnym słownikiem (zobacz [`splitKeys`](#splitkeys-boolean)). Ustaw `splitKeys: false`, aby zamiast tego załadować cały plik jako pojedynczy słownik indeksowy.
+- Keys are derived from file paths by substituting the `{key}` placeholder in your `source` builder.
+- The plugin only uses discovered files and does not fabricate missing locales or keys.
+- The `fill` path is inferred from your `source` and used to update missing values via CLI when you opt‑in.
+
+## Conflict resolution
+
+When the same translation key exists in multiple JSON sources:
 
 1. Wtyczka o najwyższym priorytecie decyduje o ostatecznej wartości
 2. Źródła o niższym priorytecie są używane jako zapasowe dla brakujących kluczy

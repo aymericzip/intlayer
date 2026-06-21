@@ -1,20 +1,21 @@
+import { createFormatter } from '@intlayer/use-intl';
 import type {
   getFormatter as _getFormatter,
   getNow as _getNow,
   getTimeZone as _getTimeZone,
 } from 'next-intl/server';
-import { createFormatter } from '../createFormatter';
 import { getLocale } from './getLocale';
 
 /**
  * Drop-in for next-intl's server `getFormatter()`.
- * Returns locale-aware formatters backed by the native `Intl.*` APIs.
+ * Returns locale-aware formatters backed by the native `Intl.*` APIs,
+ * built by `@intlayer/use-intl`'s `createFormatter`.
  */
 export const getFormatter: typeof _getFormatter = (async (options?: {
   locale?: string;
 }) => {
   const locale = options?.locale ?? (await getLocale());
-  return createFormatter(locale as string);
+  return createFormatter({ locale: locale as string });
 }) as typeof _getFormatter;
 
 /**

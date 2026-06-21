@@ -217,6 +217,20 @@ type LoadJSONPluginOptions = {
    * ```
    */
   format?: DictionaryFormat;
+
+  /**
+   * Whether each top-level key of the JSON file should become its own
+   * dictionary (keyed by that top-level key) instead of a single dictionary
+   * holding the whole file.
+   *
+   * This matches the namespace model of libraries such as `next-intl` /
+   * `react-intl`, where a single `messages/{locale}.json` file groups several
+   * namespaces by its first-level keys.
+   *
+   * When omitted, it is auto-detected: the file is split when the `source`
+   * pattern has no `{{key}}` segment, and kept as a single dictionary otherwise.
+   */
+  splitKeys?: boolean;
 };
 
 export const loadJSON = (options: LoadJSONPluginOptions): Plugin => {
@@ -248,6 +262,16 @@ export const loadJSON = (options: LoadJSONPluginOptions): Plugin => {
         );
       }
 
+      // When the source pattern has no `{{key}}` segment, a single file holds
+      // every namespace as a first-level key (the next-intl / react-intl model).
+      // In that case each top-level key becomes its own dictionary.
+      const patternMarker = await parseFilePathPattern(options.source, {
+        key: '{{key}}',
+        locale: '{{locale}}',
+      } as any as FilePathPatternContext);
+      const hasKeyPlaceholder = patternMarker.includes('{{key}}');
+      const shouldSplitByKeys = options.splitKeys ?? !hasKeyPlaceholder;
+
       const dictionaries: Dictionary[] = [];
 
       for (const { path, key, locale: entryLocale } of dictionariesMap) {
@@ -262,23 +286,42 @@ export const loadJSON = (options: LoadJSONPluginOptions): Plugin => {
         // locale override was provided, use it only as a fallback.
         const entryUsedLocale = (locale ?? entryLocale) as Locale;
 
-        const dictionary: Dictionary = {
+        const filled =
+          entryUsedLocale !== configuration.internationalization.defaultLocale
+            ? true
+            : undefined;
+
+        if (shouldSplitByKeys) {
+          for (const [namespaceKey, namespaceContent] of Object.entries(json)) {
+            dictionaries.push({
+              key: namespaceKey,
+              locale: entryUsedLocale,
+              fill: filePath,
+              format,
+              localId:
+                `${namespaceKey}::${location}::${filePath}` as LocalDictionaryId,
+              location: location as Dictionary['location'],
+              filled,
+              content: namespaceContent as JSONContent,
+              filePath,
+              priority,
+            });
+          }
+          continue;
+        }
+
+        dictionaries.push({
           key,
           locale: entryUsedLocale,
           fill: filePath,
           format,
           localId: `${key}::${location}::${filePath}` as LocalDictionaryId,
           location: location as Dictionary['location'],
-          filled:
-            entryUsedLocale !== configuration.internationalization.defaultLocale
-              ? true
-              : undefined,
+          filled,
           content: json,
           filePath,
           priority,
-        };
-
-        dictionaries.push(dictionary);
+        });
       }
 
       return dictionaries;
