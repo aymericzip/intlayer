@@ -128,7 +128,9 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 
 ## Next.js 애플리케이션에서 Intlayer 설정 단계별 가이드
 
-### 1단계: 의존성 설치
+<Steps>
+
+<Step number={1} title="의존성 설치">
 
 npm을 사용하여 필요한 패키지를 설치하세요:
 
@@ -147,6 +149,8 @@ yarn dlx intlayer-cli init --interactive
 ```bash packageManager="bun"
 bunx intlayer-cli init --interactive
 ```
+
+> `--interactive` 플래그는 선택 사항입니다. AI 에이전트인 경우 `intlayer-cli init`를 사용하세요.
 
 > 이 명령은 환경을 감지하고 필요한 패키지를 설치합니다. 예를 들어:
 
@@ -174,7 +178,9 @@ bun add intlayer next-intlayer
 
   Intlayer를 Next.js와 통합하는 패키지입니다. Next.js 국제화를 위한 컨텍스트 프로바이더와 훅을 제공합니다. 또한, Intlayer를 [Webpack](https://webpack.js.org/) 또는 [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack)과 통합하기 위한 Next.js 플러그인과 사용자의 선호 로케일 감지, 쿠키 관리, URL 리디렉션 처리를 위한 프록시도 포함되어 있습니다.
 
-### 2단계: 프로젝트 구성
+</Step>
+
+<Step number={2} title="프로젝트 구성">
 
 최종적으로 만들어질 구조는 다음과 같습니다:
 
@@ -226,7 +232,9 @@ export default config;
 
 > 이 구성 파일을 통해 지역화된 URL, 프록시 리디렉션, 쿠키 이름, 콘텐츠 선언의 위치 및 확장자 설정, 콘솔에서 Intlayer 로그 비활성화 등 다양한 설정을 할 수 있습니다. 사용 가능한 모든 매개변수 목록은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
-### 3단계: Next.js 구성에 Intlayer 통합하기
+</Step>
+
+<Step number={3} title="Next.js 구성에 Intlayer 통합하기">
 
 Next.js 설정을 Intlayer와 함께 사용하도록 구성합니다:
 
@@ -269,7 +277,9 @@ export default withIntlayer(nextConfig);
 > withRspack(withIntlayer(nextConfig, { enableTurbopack: false }));
 > ```
 
-### 4단계: 동적 로케일 경로 정의
+</Step>
+
+<Step number={4} title="동적 로케일 경로 정의">
 
 `RootLayout`의 모든 내용을 제거하고 다음 코드로 교체하세요:
 
@@ -332,7 +342,9 @@ export default LocaleLayout;
 
 > Intlayer는 `export const dynamic = 'force-static';`와 함께 작동하여 모든 로케일에 대해 페이지가 사전 빌드되도록 보장합니다.
 
-### 5단계: 콘텐츠 선언하기
+</Step>
+
+<Step number={5} title="콘텐츠 선언하기">
 
 번역을 저장하기 위해 콘텐츠 선언을 생성하고 관리하세요:
 
@@ -378,7 +390,9 @@ export default pageContent;
 
 > 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
 
-### 6단계: 코드에서 콘텐츠 활용하기
+</Step>
+
+<Step number={6} title="코드에서 콘텐츠 활용하기">
 
 애플리케이션 전반에서 콘텐츠 사전을 접근하세요:
 
@@ -465,7 +479,9 @@ export const ServerComponentExample: FC = () => {
 
 > `useIntlayer` 훅에 대해 더 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/useIntlayer.md)를 참조하세요.
 
-### (선택 사항) 7단계: 로케일 감지를 위한 프록시 구성
+</Step>
+
+<Step number={7} title="로케일 감지를 위한 프록시 구성" isOptional={true}>
 
 사용자의 선호 로케일을 감지하기 위해 프록시를 설정합니다:
 
@@ -489,7 +505,9 @@ import { customProxy } from "@utils/customProxy";
 export const proxy = multipleProxies([intlayerProxy, customProxy]);
 ```
 
-### (선택 사항) 8단계: 메타데이터의 국제화
+</Step>
+
+<Step number={8} title="메타데이터의 국제화" isOptional={true}>
 
 페이지 제목과 같은 메타데이터를 국제화하려는 경우, Next.js에서 제공하는 `generateMetadata` 함수를 사용할 수 있습니다. 내부에서 `getIntlayer` 함수로부터 콘텐츠를 가져와 메타데이터를 번역할 수 있습니다.
 
@@ -624,7 +642,9 @@ export const generateMetadata = async ({
 
 > 메타데이터 최적화에 대해 더 알아보기 [공식 Next.js 문서에서](https://nextjs.org/docs/app/building-your-application/optimizing/metadata).
 
-### (선택 사항) 9단계: sitemap.xml 및 robots.txt의 다국어화
+</Step>
+
+<Step number={9} title="sitemap.xml 및 robots.txt의 다국어화" isOptional={true}>
 
 `sitemap.xml` 및 `robots.txt`를 다국어화하려면 Intlayer에서 제공하는 `getMultilingualUrls` 함수를 사용할 수 있습니다. 이 함수는 사이트맵에 다국어 URL을 생성할 수 있게 해줍니다.
 
@@ -687,7 +707,9 @@ export default robots;
 
 > 사이트맵 최적화에 대해 더 알아보기 [공식 Next.js 문서에서](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap). robots.txt 최적화에 대해 더 알아보기 [공식 Next.js 문서에서](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots).
 
-### (선택 사항) 10단계: 콘텐츠의 언어 변경하기
+</Step>
+
+<Step number={10} title="콘텐츠의 언어 변경하기" isOptional={true}>
 
 Next.js에서 콘텐츠의 언어를 변경하려면, 권장되는 방법은 `Link` 컴포넌트를 사용하여 사용자를 적절한 현지화된 페이지로 리디렉션하는 것입니다. `Link` 컴포넌트는 페이지의 사전 로딩(prefetching)을 가능하게 하여 전체 페이지 새로고침을 방지하는 데 도움이 됩니다.
 
@@ -779,6 +801,10 @@ return (
 > - [`lang` attribute](https://developer.mozilla.org/ko/docs/Web/HTML/Global_attributes/lang)
 > - [`dir` attribute](https://developer.mozilla.org/ko/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` attribute](https://developer.mozilla.org/ko/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+
+</Step>
+
+</Steps>
 
 <Steps>
 
@@ -896,9 +922,7 @@ bun run build # Or bun run dev
 </Tabs>
 </Step>
 
-</Steps>
-
-### (선택 사항) 11단계: 지역화된 링크 컴포넌트 생성하기
+<Step number={11} title="지역화된 링크 컴포넌트 생성하기" isOptional={true}>
 
 애플리케이션의 내비게이션이 현재 로케일을 준수하도록 하려면, 커스텀 `Link` 컴포넌트를 만들 수 있습니다. 이 컴포넌트는 내부 URL에 현재 언어를 자동으로 접두사로 붙여줍니다. 예를 들어, 프랑스어 사용자가 "About" 페이지로 가는 링크를 클릭하면 `/about` 대신 `/fr/about`로 리디렉션됩니다.
 
@@ -965,3 +989,7 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
   컴포넌트는 현지화된 URL을 가진 `<a>` 요소를 반환하여 내비게이션이 로케일과 일치하도록 보장합니다.
 
 이 `Link` 컴포넌트를 애플리케이션 전반에 통합함으로써, 일관성 있고 언어를 인식하는 사용자 경험을 유지하는 동시에 향상된 SEO 및 사용성 이점을 누릴 수 있습니다.
+
+</Step>
+
+</Steps>

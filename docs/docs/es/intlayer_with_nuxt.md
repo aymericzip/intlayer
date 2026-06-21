@@ -143,6 +143,8 @@ yarn dlx intlayer-cli init --interactive
 bunx intlayer-cli init --interactive
 ```
 
+> la bandera `--interactive` es opcional. Usa `intlayer-cli init` si eres un agente de IA.
+
 > Este comando detectará su entorno e instalará los paquetes necesarios. Por ejemplo:
 
 ```bash packageManager="npm"
@@ -619,9 +621,7 @@ export default aboutPageContent;
 
 </Step>
 
-</Steps>
-
-### (Opcional) Paso 6b: Crear un Layout con Navegación
+<Step number="6b" title="Crear un Layout con Navegación" isOptional={true}>
 
 Los layouts de Nuxt te permiten definir una estructura común para tus páginas. Crea un layout por defecto que incluya el selector de idioma y la navegación:
 
@@ -647,6 +647,10 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 ```
 
 El componente `Links` (mostrado a continuación) asegura que los enlaces de navegación interna se localicen automáticamente.
+
+</Step>
+
+</Steps>
 
 ### Configuración de Git
 

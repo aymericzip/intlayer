@@ -111,7 +111,9 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 
 ## Next.js 애플리케이션에 Intlayer를 설정하는 단계별 가이드
 
-### 1단계: 의존성 설치
+<Steps>
+
+<Step number={1} title="의존성 설치">
 
 npm을 사용하여 필요한 패키지를 설치하세요:
 
@@ -130,6 +132,8 @@ yarn dlx intlayer-cli init --interactive
 ```bash packageManager="bun"
 bunx intlayer-cli init --interactive
 ```
+
+> `--interactive` 플래그는 선택 사항입니다. AI 에이전트인 경우 `intlayer-cli init`를 사용하세요.
 
 > 이 명령은 환경을 감지하고 필요한 패키지를 설치합니다. 예를 들어:
 
@@ -157,7 +161,9 @@ bun add intlayer next-intlayer
 
 Intlayer를 Next.js와 통합하는 패키지입니다. Next.js 국제화(i18n)를 위한 context provider와 hook을 제공합니다. 또한 Intlayer를 [Webpack](https://webpack.js.org/) 또는 [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack)과 통합하기 위한 Next.js 플러그인과, 사용자의 선호 로케일 감지, 쿠키 관리 및 URL 리디렉션 처리를 위한 프록시도 포함합니다.
 
-### 2단계: 프로젝트 구성
+</Step>
+
+<Step number={2} title="프로젝트 구성">
 
 다음은 최종적으로 만들 구조입니다:
 
@@ -212,7 +218,9 @@ export default config;
 
 > 이 구성 파일을 통해 로케일별 URL, 프록시 리디렉션, 쿠키 이름, 콘텐츠 선언의 위치 및 확장자, 콘솔에서 Intlayer 로그 비활성화 등 다양한 설정을 할 수 있습니다. 사용 가능한 모든 매개변수 목록은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
-### 3단계: Intlayer를 Next.js 구성에 통합하기
+</Step>
+
+<Step number={3} title="Intlayer를 Next.js 구성에 통합하기">
 
 다음과 같이 Next.js 설정을 Intlayer와 함께 구성하세요:
 
@@ -255,7 +263,9 @@ export default withIntlayer(nextConfig);
 > withRspack(withIntlayer(nextConfig, { enableTurbopack: false }));
 > ```
 
-### 4단계: 동적 로케일 라우트 정의
+</Step>
+
+<Step number={4} title="동적 로케일 라우트 정의">
 
 RootLayout에서 모든 내용을 제거하고 다음 코드로 교체하세요:
 
@@ -411,6 +421,10 @@ export default pageContent;
 
 > 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
 
+</Step>
+
+</Steps>
+
 <Steps>
 
 <Step number={6} title="코드에서 콘텐츠 활용">
@@ -516,9 +530,7 @@ export const ServerComponentExample: FC = () => {
 > `useIntlayer` 훅에 대해 자세히 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/useIntlayer.md)를 참조하세요.
 > </Step>
 
-</Steps>
-
-### (선택) 7단계: 로케일 감지를 위한 프록시 구성
+<Step number={7} title="로케일 감지를 위한 프록시 구성" isOptional={true}>
 
 사용자의 선호 로케일을 감지하도록 프록시를 설정하세요:
 
@@ -542,7 +554,9 @@ import { customProxy } from "@utils/customProxy";
 export const proxy = multipleProxies([intlayerProxy, customProxy]);
 ```
 
-### (선택) 8단계: 콘텐츠 언어 변경
+</Step>
+
+<Step number={8} title="콘텐츠 언어 변경" isOptional={true}>
 
 Next.js에서 콘텐츠의 언어를 변경하려면 권장되는 방법은 `Link` 컴포넌트를 사용하여 사용자를 적절한 로컬라이즈된 페이지로 리디렉션하는 것입니다. `Link` 컴포넌트는 페이지를 프리페치(prefetch)할 수 있게 하여 전체 페이지 리로드를 피하는 데 도움이 됩니다.
 
@@ -603,7 +617,9 @@ export const LocaleSwitcher: FC = () => {
 > - [`dir` 속성](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
 > - [`aria-current` 속성](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
 
-### (선택 사항) 9단계: 서버 액션에서 현재 로케일 가져오기
+</Step>
+
+<Step number={9} title="서버 액션에서 현재 로케일 가져오기" isOptional={true}>
 
 Server Action 내부에서 활성 로케일이 필요하다면(예: 이메일 현지화 또는 로케일에 민감한 로직 실행), `next-intlayer/server`에서 `getLocale`을 호출하세요:
 
@@ -628,7 +644,9 @@ export const myServerAction = async () => {
 >
 > 이를 통해 사용 가능한 컨텍스트에 따라 가장 적절한 로케일이 선택됩니다.
 
-### (선택 사항) 10단계: 번들 크기 최적화
+</Step>
+
+<Step number={10} title="번들 크기 최적화" isOptional={true}>
 
 `next-intlayer`를 사용할 때 사전(dictionaries)은 기본적으로 모든 페이지의 번들에 포함됩니다. 번들 크기를 최적화하기 위해 Intlayer는 매크로를 사용해 `useIntlayer` 호출을 지능적으로 대체하는 선택적 SWC 플러그인을 제공합니다. 이를 통해 사전은 실제로 해당 사전을 사용하는 페이지의 번들에만 포함됩니다.
 
@@ -655,6 +673,10 @@ bun add @intlayer/swc --dev
 > 참고: 이 패키지는 SWC 플러그인이 Next.js에서 아직 실험적이기 때문에 기본적으로 설치되어 있지 않습니다. 향후 변경될 수 있습니다.
 
 > 참고: 옵션을 `importMode: 'dynamic'` 또는 `importMode: 'fetch'` (in the `dictionary` configuration)로 설정하면 Suspense에 의존하게 되므로 `useIntlayer` 호출을 `Suspense` 경계로 감싸야 합니다. 즉, Page / Layout 컴포넌트의 최상위 수준에서 `useIntlayer`를 직접 사용할 수 없습니다.
+
+</Step>
+
+</Steps>
 
 ### Turbopack에서 딕셔너리 변경 사항 감시
 

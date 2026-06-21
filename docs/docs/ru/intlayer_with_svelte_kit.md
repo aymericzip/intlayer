@@ -177,6 +177,8 @@ yarn dlx intlayer-cli init --interactive
 bunx intlayer-cli init --interactive
 ```
 
+> флаг `--interactive` не является обязательным. Используйте `intlayer-cli init`, если вы являетесь ИИ-агентом.
+
 > Эта команда определит вашу среду и установит необходимые пакеты. Например:
 
 ```bash packageManager="npm"
@@ -380,6 +382,8 @@ yarn dlx intlayer-cli init --interactive
 ```bash packageManager="bun"
 bunx intlayer-cli init --interactive
 ```
+
+> флаг `--interactive` не является обязательным. Используйте `intlayer-cli init`, если вы являетесь ИИ-агентом.
 
 > Эта команда определит вашу среду и установит необходимые пакеты. Например:
 

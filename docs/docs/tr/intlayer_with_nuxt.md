@@ -143,6 +143,8 @@ yarn dlx intlayer-cli init --interactive
 bunx intlayer-cli init --interactive
 ```
 
+> `--interactive` bayrağı isteğe bağlıdır. Bir yapay zeka aracısıysanız `intlayer-cli init` kullanın.
+
 > Bu komut ortamınızı algılayacak ve gerekli paketleri yükleyecektir. Örneğin:
 
 ```bash packageManager="npm"
@@ -621,9 +623,7 @@ export default aboutPageContent;
 
 </Step>
 
-</Steps>
-
-### (İsteğe Bağlı) Adım 6b: Navigasyonlu Bir Layout Oluşturun
+<Step number="6b" title="Navigasyonlu Bir Layout Oluşturun" isOptional={true}>
 
 Nuxt layout'ları, sayfalarınız için ortak bir yapı tanımlamanıza olanak tanır. Dil değiştirici ve navigasyonu içeren varsayılan bir layout oluşturun:
 
@@ -649,6 +649,10 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 ```
 
 `Links` bileşeni (aşağıda gösterilmiştir), dahili navigasyon bağlantılarının otomatik olarak yerelleştirilmesini sağlar.
+
+</Step>
+
+</Steps>
 
 ### Git Yapılandırması
 

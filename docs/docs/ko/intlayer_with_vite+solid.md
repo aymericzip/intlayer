@@ -114,7 +114,9 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 
 <TOC/>
 
-### 1단계: 의존성 설치
+<Steps>
+
+<Step number={1} title="의존성 설치">
 
 npm을 사용하여 필요한 패키지를 설치하세요:
 
@@ -133,6 +135,8 @@ yarn dlx intlayer-cli init --interactive
 ```bash packageManager="bun"
 bunx intlayer-cli init --interactive
 ```
+
+> `--interactive` 플래그는 선택 사항입니다. AI 에이전트인 경우 `intlayer-cli init`를 사용하세요.
 
 > 이 명령은 환경을 감지하고 필요한 패키지를 설치합니다. 예를 들어:
 
@@ -166,7 +170,9 @@ bun add vite-intlayer --dev
 - **vite-intlayer**
   Intlayer를 [Vite 번들러](https://vite.dev/guide/why.html#why-bundle-for-production)와 통합하기 위한 Vite 플러그인과, 사용자의 선호 로케일 감지, 쿠키 관리, URL 리디렉션 처리를 위한 미들웨어를 포함합니다.
 
-### 2단계: 프로젝트 구성
+</Step>
+
+<Step number={2} title="프로젝트 구성">
 
 애플리케이션의 언어를 구성하기 위한 설정 파일을 만드세요:
 
@@ -190,7 +196,9 @@ export default config;
 
 > 이 구성 파일을 통해 지역화된 URL, 미들웨어 리디렉션, 쿠키 이름, 콘텐츠 선언의 위치 및 확장자 설정, 콘솔에서 Intlayer 로그 비활성화 등 다양한 설정을 할 수 있습니다. 사용 가능한 모든 매개변수 목록은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
-### 3단계: Vite 구성에 Intlayer 통합하기
+</Step>
+
+<Step number={3} title="Vite 구성에 Intlayer 통합하기">
 
 intlayer 플러그인을 구성에 추가하세요.
 
@@ -207,7 +215,9 @@ export default defineConfig({
 
 > `intlayer()` Vite 플러그인은 Intlayer를 Vite와 통합하는 데 사용됩니다. 이 플러그인은 콘텐츠 선언 파일의 빌드를 보장하고 개발 모드에서 이를 모니터링합니다. 또한 Vite 애플리케이션 내에서 Intlayer 환경 변수를 정의하며, 성능 최적화를 위한 별칭(alias)도 제공합니다.
 
-### 4단계: 콘텐츠 선언하기
+</Step>
+
+<Step number={4} title="콘텐츠 선언하기">
 
 번역을 저장하기 위해 콘텐츠 선언을 생성하고 관리하세요:
 
@@ -234,7 +244,9 @@ export default appContent;
 
 > 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
 
-### 5단계: 코드에서 Intlayer 활용하기
+</Step>
+
+<Step number={5} title="코드에서 Intlayer 활용하기">
 
 애플리케이션 전체에서 콘텐츠 사전에 액세스하세요:
 
@@ -294,7 +306,9 @@ export default App;
 > <img src="{String(content.image.src)}" alt="{String(content.image)}" />
 > ```
 
-### (선택 사항) 6단계: 콘텐츠 언어 변경하기
+</Step>
+
+<Step number={6} title="콘텐츠 언어 변경하기" isOptional={true}>
 
 콘텐츠의 언어를 변경하려면 `useLocale` 훅에서 제공하는 `setLocale` 함수를 사용할 수 있습니다. 이 함수를 사용하면 애플리케이션의 로케일을 설정하고 그에 따라 콘텐츠를 업데이트할 수 있습니다.
 
@@ -323,7 +337,9 @@ const LocaleSwitcher: Component = () => {
 };
 ```
 
-### (선택 사항) 7단계: 애플리케이션에 지역화된 라우팅 추가하기
+</Step>
+
+<Step number={7} title="애플리케이션에 지역화된 라우팅 추가하기" isOptional={true}>
 
 이 단계의 목적은 각 언어에 대해 고유한 경로를 만드는 것입니다. 이는 SEO 및 SEO 친화적인 URL에 유용합니다.
 예:
@@ -388,7 +404,9 @@ const App: Component = () => (
 export default App;
 ```
 
-### (선택 사항) 8단계: 로케일 변경 시 URL 변경하기
+</Step>
+
+<Step number={8} title="로케일 변경 시 URL 변경하기" isOptional={true}>
 
 로케일이 변경될 때 URL을 변경하려면 `useLocale` 훅에서 제공하는 `onLocaleChange` prop을 사용할 수 있습니다. `@solidjs/router`의 `useNavigate` 및 `useLocation` 훅을 사용하여 URL 경로를 업데이트할 수 있습니다.
 
@@ -425,7 +443,9 @@ const LocaleSwitcher: Component = () => {
 };
 ```
 
-### (선택 사항) 9단계: HTML 언어 및 방향 속성 전환하기
+</Step>
+
+<Step number={9} title="HTML 언어 및 방향 속성 전환하기" isOptional={true}>
 
 접근성 및 SEO를 위해 `<html>` 태그의 `lang` 및 `dir` 속성을 현재 로케일과 일치하도록 업데이트하세요.
 
@@ -448,7 +468,9 @@ const AppContent: Component = () => {
 };
 ```
 
-### (선택 사항) 10단계: 지역화된 링크 컴포넌트 생성하기
+</Step>
+
+<Step number={10} title="지역화된 링크 컴포넌트 생성하기" isOptional={true}>
 
 내부 URL을 현재 언어로 자동 접두사하는 사용자 정의 `Link` 컴포넌트를 만드세요.
 
@@ -469,7 +491,9 @@ export const Link: ParentComponent<AnchorProps> = (props) => {
 };
 ```
 
-### (선택 사항) 11단계: Markdown 렌더링
+</Step>
+
+<Step number={11} title="Markdown 렌더링" isOptional={true}>
 
 Intlayer는 자체 내부 파서를 사용하여 Solid 애플리케이션에서 Markdown 콘텐츠를 직접 렌더링하는 것을 지원합니다. 기본적으로 Markdown은 일반 텍스트로 처리됩니다. 풍부한 HTML로 렌더링하려면 애플리케이션을 `MarkdownProvider`로 감싸세요.
 
@@ -506,6 +530,10 @@ const MyComponent = () => {
   );
 };
 ```
+
+</Step>
+
+</Steps>
 
 ### TypeScript 구성
 

@@ -139,6 +139,8 @@ yarn dlx intlayer-cli init --interactive
 bunx intlayer-cli init --interactive
 ```
 
+> прапорець `--interactive` не є обов'язковим. Використовуйте `intlayer-cli init`, якщо ви є ШІ-агентом.
+
 > Ця команда виявить ваше середовище та встановить необхідні пакети. Наприклад:
 
 ```bash packageManager="npm"

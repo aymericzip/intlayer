@@ -143,6 +143,8 @@ yarn dlx intlayer-cli init --interactive
 bunx intlayer-cli init --interactive
 ```
 
+> flag `--interactive` bersifat opsional. Gunakan `intlayer-cli init` jika Anda adalah agen AI.
+
 > Perintah ini akan mendeteksi lingkungan Anda dan menginstal paket yang diperlukan. Misalnya:
 
 ```bash packageManager="npm"
@@ -621,9 +623,7 @@ export default aboutPageContent;
 
 </Step>
 
-</Steps>
-
-### (Opsional) Langkah 6b: Buat Layout dengan Navigasi
+<Step number="6b" title="Buat Layout dengan Navigasi" isOptional={true}>
 
 Layout Nuxt memungkinkan Anda mendefinisikan struktur umum untuk halaman Anda. Buat layout default yang mencakup locale switcher dan navigasi:
 
@@ -649,6 +649,10 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 ```
 
 Komponen `Links` (ditunjukkan di bawah) memastikan bahwa tautan navigasi internal secara otomatis dilokalkan.
+
+</Step>
+
+</Steps>
 
 ### Konfigurasi Git
 

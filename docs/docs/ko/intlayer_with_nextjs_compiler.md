@@ -82,7 +82,9 @@ GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlay
 
 ## Next.js 애플리케이션에서 Intlayer 설정 단계별 가이드
 
-### 1단계: 종속성 설치
+<Steps>
+
+<Step number={1} title="종속성 설치">
 
 선호하는 패키지 관리자를 사용하여 필요한 패키지를 설치합니다:
 
@@ -101,6 +103,8 @@ yarn dlx intlayer-cli init --interactive
 ```bash packageManager="bun"
 bunx intlayer-cli init --interactive
 ```
+
+> `--interactive` 플래그는 선택 사항입니다. AI 에이전트인 경우 `intlayer-cli init`를 사용하세요.
 
 > 이 명령은 환경을 감지하고 필요한 패키지를 설치합니다. 예를 들어:
 
@@ -132,7 +136,9 @@ bun add @intlayer/babel --dev
 
   Intlayer를 Next.js와 통합하는 패키지입니다. Next.js 국제화를 위한 컨텍스트 공급자와 훅을 제공합니다. 또한 Intlayer를 [Webpack](https://webpack.js.org/) 또는 [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack)과 통합하기 위한 Next.js 플러그인과 선호 로캘 감지, 쿠키 관리 및 URL 리디렉션을 처리하는 미들웨어가 포함되어 있습니다.
 
-### 2단계: 프로젝트 구성
+</Step>
+
+<Step number={2} title="프로젝트 구성">
 
 애플리케이션의 언어를 정의하기 위한 설정 파일을 생성합니다:
 
@@ -183,7 +189,9 @@ export default config;
 
 > 이 구성 파일을 통해 지역화된 URL, 프록시 리디렉션, 쿠키 매핑, 콘텐츠 선언의 위치 및 확장자를 설정하고 콘솔에서 Intlayer 로그를 비활성화하는 등 다양한 작업을 수행할 수 있습니다. 사용 가능한 모든 매개변수 목록은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
-### 3단계: Next.js 구성에 Intlayer 통합
+</Step>
+
+<Step number={3} title="Next.js 구성에 Intlayer 통합">
 
 Intlayer를 사용하도록 Next.js 설정을 구성합니다:
 
@@ -199,6 +207,10 @@ export default withIntlayer(nextConfig);
 ```
 
 > `withIntlayer()` Next.js 플러그인은 Next.js와 Intlayer를 통합하는 데 사용됩니다. 사전 파일의 빌드를 보장하고 개발 모드에서 파일를 감시합니다. [Webpack](https://webpack.js.org/) 또는 [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) 환경 내에서 Intlayer 환경 변수를 정의합니다. 또한 성능 최적화를 위한 별칭을 제공하고 서버 컴포넌트와 완벽하게 연동됩니다.
+
+</Step>
+
+</Steps>
 
 ### Babel 구성
 
@@ -221,7 +233,9 @@ module.exports = {
 };
 ```
 
-### 4단계: 페이지에서 로캘 감지
+<Steps>
+
+<Step number={4} title="페이지에서 로캘 감지">
 
 `RootLayout`의 내용을 비우고 아래 예시로 교체하세요:
 
@@ -264,7 +278,9 @@ const RootLayout = async ({
 export default RootLayout;
 ```
 
-### 5단계: 콘텐츠 선언(자동)
+</Step>
+
+<Step number={5} title="콘텐츠 선언(자동)">
 
 컴파일러를 활성화하면 콘텐츠 사전(`.content.ts` 파일 등)을 **수동으로 선언할 필요가 없습니다.**
 
@@ -360,7 +376,9 @@ export default async function Page() {
 
   > Layout and page cannot share a common server context because the server context system is based on a per-request data store (via [React's cache](https://react.dev/reference/react/cache) mechanism), causing each "context" to be re-created for different segments of the application. Placing the provider in a shared layout would break this isolation, preventing the correct propagation of the server context values to your server components.
 
-### (선택 사항) 7단계: 누락된 번역 채우기
+</Step>
+
+<Step number={7} title="누락된 번역 채우기" isOptional={true}>
 
 Intlayer는 누락된 번역을 채울 수 있도록 CLI 도구를 제공합니다. `intlayer` 명령을 사용하여 코드에서 누락된 번역을 테스트하고 채울 수 있습니다.
 
@@ -398,7 +416,9 @@ bun x intlayer fill         # 누락된 번역 채우기
 
 > 자세한 내용은 [CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/ci.md)를 참조하세요.
 
-### (선택 사항) 8단계: 지역화된 라우팅 프록시 미들웨어
+</Step>
+
+<Step number={8} title="지역화된 라우팅 프록시 미들웨어" isOptional={true}>
 
 사용자를 선호하는 로캘로 자동으로 리디렉션하려면 프록시 미들웨어를 설정하세요:
 
@@ -413,7 +433,9 @@ export const config = {
 
 > `intlayerProxy`는 사용자의 선호 로캘을 감지하고 [구성 파일 설정](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)에 지정된 적절한 URL로 리디렉션하는 데 사용됩니다. 또한 사용자의 선호 로캘을 쿠키에 저장을 가능하게 합니다.
 
-### (선택 사항) 9단계: 콘텐츠 언어 변경
+</Step>
+
+<Step number={9} title="콘텐츠 언어 변경" isOptional={true}>
 
 Next.js 내에서 콘텐츠 언어를 변경하는 가장 권장되는 방법은 `Link` 컴포넌트를 사용하여 사용자를 적절한 언어 경로로 안내하는 것입니다. 이는 Next.js의 프리패치 기능을 활용하며 전체 페이지가 하드 리프레시되는 것을 방지합니다.
 
@@ -463,7 +485,9 @@ export const LocaleSwitcher: FC = () => {
 
 > 대안으로 `useLocale` 훅에서 제공하는 `setLocale` 함수를 사용할 수 있지만, 이는 페이지 프리패치를 허용하지 않습니다. 자세한 내용은 [`useLocale` 훅 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/useLocale.md)를 참조하세요.
 
-### (선택 사항) 10단계: 번들 크기 최적화
+</Step>
+
+<Step number={10} title="번들 크기 최적화" isOptional={true}>
 
 `next-intlayer`를 사용할 때 기본적으로 모든 페이지 번들에 사전이 포함됩니다. 번들 크기를 최적화하기 위해 Intlayer는 매크로를 사용하여 `useIntlayer` 호출을 지능적으로 대체하는 선택적 SWC 플러그인을 제공합니다. 이를 통해 사전은 실제로 사용하는 페이지의 번들에만 포함됩니다.
 
@@ -490,6 +514,10 @@ bun add @intlayer/swc --dev
 > 참고: Next.js SWC 플러그인은 아직 실험 단계이므로 이 패키지는 기본적으로 설치되지 않습니다. 이는 향후 변경될 수 있습니다.
 
 > 참고: (사전 설정에서) `importMode: 'dynamic'` 또는 `importMode: 'fetch'`를 설정한 경우 Suspense에 의존하므로 `useIntlayer` 호출을 `Suspense` 경계로 감싸야 합니다. 즉, 페이지 / 레이아웃 컴포넌트의 최상위 레벨에서 직접 `useIntlayer`를 사용할 수 없게 됩니다.
+
+</Step>
+
+</Steps>
 
 ### TypeScript 설정
 

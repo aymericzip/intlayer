@@ -119,7 +119,9 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 
 GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-vite-vue-template)을 확인하세요.
 
-### 1단계: 의존성 설치
+<Steps>
+
+<Step number={1} title="의존성 설치">
 
 npm을 사용하여 필요한 패키지를 설치하세요:
 
@@ -138,6 +140,8 @@ yarn dlx intlayer-cli init --interactive
 ```bash packageManager="bun"
 bunx intlayer-cli init --interactive
 ```
+
+> `--interactive` 플래그는 선택 사항입니다. AI 에이전트인 경우 `intlayer-cli init`를 사용하세요.
 
 > 이 명령은 환경을 감지하고 필요한 패키지를 설치합니다. 예를 들어:
 
@@ -171,7 +175,9 @@ bun add vite-intlayer --dev
 - **vite-intlayer**
   Vite 번들러([Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production))와 Intlayer를 통합하기 위한 Vite 플러그인과, 사용자의 선호 로케일 감지, 쿠키 관리, URL 리디렉션 처리를 위한 미들웨어를 포함합니다.
 
-### 2단계: 프로젝트 구성
+</Step>
+
+<Step number={2} title="프로젝트 구성">
 
 애플리케이션의 언어를 구성하기 위한 설정 파일을 만듭니다:
 
@@ -195,7 +201,9 @@ export default config;
 
 > 이 구성 파일을 통해 지역화된 URL, 미들웨어 리디렉션, 쿠키 이름, 콘텐츠 선언의 위치 및 확장자 설정, 콘솔에서 Intlayer 로그 비활성화 등 다양한 설정을 할 수 있습니다. 사용 가능한 모든 매개변수 목록은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
-### 3단계: Vite 구성에 Intlayer 통합하기
+</Step>
+
+<Step number={3} title="Vite 구성에 Intlayer 통합하기">
 
 intlayer 플러그인을 구성에 추가하세요.
 
@@ -212,7 +220,9 @@ export default defineConfig({
 
 > `intlayer()` Vite 플러그인은 Intlayer를 Vite와 통합하는 데 사용됩니다. 이 플러그인은 콘텐츠 선언 파일을 빌드하고 개발 모드에서 이를 모니터링하는 역할을 합니다. 또한 Vite 애플리케이션 내에서 Intlayer 환경 변수를 정의하며, 성능 최적화를 위한 별칭(alias)도 제공합니다.
 
-### 4단계: 콘텐츠 선언하기
+</Step>
+
+<Step number={4} title="콘텐츠 선언하기">
 
 번역을 저장하기 위해 콘텐츠 선언을 생성하고 관리하세요:
 
@@ -343,7 +353,9 @@ export default helloWorldContent;
 
 > 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
 
-### 5단계: 코드에서 Intlayer 활용하기
+</Step>
+
+<Step number={5} title="코드에서 Intlayer 활용하기">
 
 Intlayer의 국제화 기능을 Vue 애플리케이션 전반에서 활용하려면, 먼저 메인 파일에서 Intlayer 싱글톤 인스턴스를 등록해야 합니다. 이 단계는 애플리케이션 내 모든 컴포넌트에 국제화 컨텍스트를 제공하여 컴포넌트 트리 어디에서나 번역을 사용할 수 있도록 하기 때문에 매우 중요합니다.
 
@@ -433,7 +445,9 @@ Intlayer는 콘텐츠에 접근할 수 있는 다양한 API를 제공합니다:
   - `const content = useIntlayer("myContent");`를 사용하고 `{{ content.myContent }}` / `<content.myContent />`를 사용합니다.
   - 또는 `const { myContent } = useIntlayer("myContent");`를 사용하고 `{{ myContent }}` / `<myContent/>`를 사용하여 콘텐츠를 구조 분해합니다.
 
-### (선택 사항) 6단계: 콘텐츠의 언어 변경
+</Step>
+
+<Step number={6} title="콘텐츠의 언어 변경" isOptional={true}>
 
 콘텐츠의 언어를 변경하려면 `useLocale` 컴포저블에서 제공하는 `setLocale` 함수를 사용할 수 있습니다. 이 함수는 애플리케이션의 로케일을 설정하고 콘텐츠를 그에 맞게 업데이트할 수 있게 해줍니다.
 
@@ -500,7 +514,9 @@ const content = useIntlayer("app"); // 관련 intlayer 선언 파일 생성
 </template>
 ```
 
-### (선택 사항) 7단계: 애플리케이션에 지역화된 라우팅 추가하기
+</Step>
+
+<Step number={7} title="애플리케이션에 지역화된 라우팅 추가하기" isOptional={true}>
 
 Vue 애플리케이션에 지역화된 라우팅을 추가하는 것은 일반적으로 locale 접두사가 붙은 Vue Router를 사용하는 것을 포함합니다. 이렇게 하면 각 언어별로 고유한 경로가 생성되어 SEO 및 SEO 친화적인 URL에 유용합니다.
 
@@ -631,7 +647,9 @@ export default defineConfig({
 });
 ```
 
-### (선택 사항) 8단계: 로케일 변경 시 URL 변경하기
+</Step>
+
+<Step number={8} title="로케일 변경 시 URL 변경하기" isOptional={true}>
 
 사용자가 언어를 변경할 때 URL을 자동으로 업데이트하려면, `LocaleSwitcher` 컴포넌트를 Vue Router를 사용하도록 수정할 수 있습니다:
 
@@ -721,7 +739,9 @@ watch(
 </ol>
 ```
 
-### (선택 사항) 9단계: HTML 언어 및 방향 속성 변경
+</Step>
+
+<Step number={9} title="HTML 언어 및 방향 속성 변경" isOptional={true}>
 
 애플리케이션이 여러 언어를 지원할 때, 현재 로케일에 맞게 `<html>` 태그의 `lang` 및 `dir` 속성을 업데이트하는 것이 매우 중요합니다. 이렇게 하면 다음을 보장합니다:
 
@@ -780,7 +800,9 @@ useI18nHTMLAttributes();
 </template>
 ```
 
-### (선택 사항) 10단계: 지역화된 링크 컴포넌트 만들기
+</Step>
+
+<Step number={10} title="지역화된 링크 컴포넌트 만들기" isOptional={true}>
 
 애플리케이션의 내비게이션이 현재 로케일을 준수하도록 하려면, 커스텀 `Link` 컴포넌트를 만들 수 있습니다. 이 컴포넌트는 내부 URL에 현재 언어 접두사를 자동으로 붙여줍니다. 예를 들어, 프랑스어 사용자가 "About" 페이지 링크를 클릭하면 `/about` 대신 `/fr/about`로 리디렉션됩니다.
 
@@ -879,7 +901,9 @@ import RouterLink from "@components/RouterLink.vue";
 </script>
 ```
 
-### (선택 사항) 11단계: 마크다운 렌더링
+</Step>
+
+<Step number={11} title="마크다운 렌더링" isOptional={true}>
 
 Intlayer는 Vue 애플리케이션에서 Markdown 콘텐츠를 직접 렌더링하는 것을 지원합니다. 기본적으로 Markdown은 일반 텍스트로 처리됩니다. Markdown을 풍부한 HTML로 변환하려면 Markdown 파서인 [markdown-it](https://github.com/markdown-it/markdown-it)을 통합할 수 있습니다.
 
@@ -926,6 +950,10 @@ import { useIntlayer } from "vue-intlayer";
 const { myMarkdownContent } = useIntlayer("my-component");
 </script>
 ```
+
+</Step>
+
+</Steps>
 
 ### TypeScript 구성
 

@@ -79,6 +79,8 @@ yarn dlx intlayer-cli init --interactive
 bunx intlayer-cli init --interactive
 ```
 
+> `--interactive` 标志是可选的。如果您是 AI 代理，请使用 `intlayer-cli init`。
+
 > 该命令将检测您的环境并安装所需的软件包。例如：
 
 ```bash packageManager="npm"

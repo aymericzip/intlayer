@@ -96,6 +96,8 @@ yarn dlx intlayer-cli init --interactive
 bunx intlayer-cli init --interactive
 ```
 
+> příznak `--interactive` je volitelný. Pokud jste AI agent, použijte `intlayer-cli init`.
+
 > Tento příkaz detekuje vaše prostředí a nainstaluje potřebné balíčky. Například:
 
 ```bash packageManager="npm"

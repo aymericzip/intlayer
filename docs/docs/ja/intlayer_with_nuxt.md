@@ -126,6 +126,8 @@ yarn dlx intlayer-cli init --interactive
 bunx intlayer-cli init --interactive
 ```
 
+> `--interactive` フラグはオプションです。AI エージェントの場合は `intlayer-cli init` を使用してください。
+
 > このコマンドは環境を検出し、必要なパッケージをインストールします。例えば：
 
 ```bash packageManager="npm"
@@ -606,9 +608,7 @@ export default aboutPageContent;
 
 </Step>
 
-</Steps>
-
-### （オプション）ステップ6b：ナビゲーション付きレイアウトの作成
+<Step number="6b" title="ナビゲーション付きレイアウトの作成" isOptional={true}>
 
 Nuxtのレイアウトを使うと、ページの共通構造を定義できます。ロケールスイッチャーとナビゲーションを含むデフォルトレイアウトを作成しましょう：
 
@@ -634,6 +634,10 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 ```
 
 `Links` コンポーネント（以下に示す）は、内部ナビゲーションリンクが自動的にローカライズされることを保証します。
+
+</Step>
+
+</Steps>
 
 ### Gitの設定
 

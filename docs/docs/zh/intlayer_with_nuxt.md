@@ -124,6 +124,8 @@ yarn dlx intlayer-cli init --interactive
 bunx intlayer-cli init --interactive
 ```
 
+> `--interactive` 标志是可选的。如果您是 AI 代理，请使用 `intlayer-cli init`。
+
 > 该命令将检测您的环境并安装所需的软件包。例如：
 
 ```bash packageManager="npm"
@@ -592,9 +594,7 @@ export default aboutPageContent;
 
 </Step>
 
-</Steps>
-
-### （可选）步骤 6b：创建带导航的布局
+<Step number="6b" title="创建带导航的布局" isOptional={true}>
 
 Nuxt 布局允许您为页面定义一个通用结构。创建一个包含语言切换器和导航的默认布局：
 
@@ -620,6 +620,10 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 ```
 
 `Links` 组件（如下所示）确保内部导航链接会自动本地化。
+
+</Step>
+
+</Steps>
 
 ### Git 配置
 

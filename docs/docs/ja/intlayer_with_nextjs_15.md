@@ -127,6 +127,8 @@ yarn dlx intlayer-cli init --interactive
 bunx intlayer-cli init --interactive
 ```
 
+> `--interactive` フラグはオプションです。AI エージェントの場合は `intlayer-cli init` を使用してください。
+
 > このコマンドは環境を検出し、必要なパッケージをインストールします。例えば：
 
 ```bash packageManager="npm"

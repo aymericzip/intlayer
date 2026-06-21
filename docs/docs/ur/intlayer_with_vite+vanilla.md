@@ -96,6 +96,8 @@ yarn dlx intlayer-cli init --interactive
 bunx intlayer-cli init --interactive
 ```
 
+> `--interactive` فلیگ اختیاری ہے۔ اگر آپ AI ایجنٹ ہیں تو `intlayer-cli init` استعمال کریں۔
+
 > یہ کمانڈ آپ کے ماحول کا پتہ لگائے گی اور مطلوبہ پیکیجز انسٹال کرے گی۔ مثال کے طور پر:
 
 ```bash packageManager="npm"

@@ -100,7 +100,9 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 
 ## React Router v7 애플리케이션에서 Intlayer 설정 단계별 가이드
 
-### 1단계: 의존성 설치
+<Steps>
+
+<Step number={1} title="의존성 설치">
 
 선호하는 패키지 관리자를 사용하여 필요한 패키지를 설치하세요:
 
@@ -119,6 +121,8 @@ yarn dlx intlayer-cli init --interactive
 ```bash packageManager="bun"
 bunx intlayer-cli init --interactive
 ```
+
+> `--interactive` 플래그는 선택 사항입니다. AI 에이전트인 경우 `intlayer-cli init`를 사용하세요.
 
 > 이 명령은 환경을 감지하고 필요한 패키지를 설치합니다. 예를 들어:
 
@@ -153,7 +157,13 @@ bun add vite-intlayer --dev
 - **vite-intlayer**  
   Intlayer를 [Vite 번들러](https://vite.dev/guide/why.html#why-bundle-for-production)와 통합하기 위한 Vite 플러그인과, 사용자의 선호 로케일 감지, 쿠키 관리, URL 리디렉션 처리를 위한 미들웨어를 포함합니다.
 
-### 2단계: 프로젝트 구성
+</Step>
+
+<Step number={2} title="프로젝트 구성">
+
+</Step>
+
+</Steps>
 
 ## 파일 시스템 기반 라우트를 사용한 React Router v7 애플리케이션에서 Intlayer 설정을 위한 단계별 가이드
 
@@ -206,7 +216,9 @@ export default config;
 
 > 이 구성 파일을 통해 지역화된 URL, 미들웨어 리디렉션, 쿠키 이름, 콘텐츠 선언의 위치 및 확장자 설정, 콘솔에서 Intlayer 로그 비활성화 등 다양한 설정을 할 수 있습니다. 사용 가능한 모든 매개변수 목록은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
-### 3단계: Vite 구성에 Intlayer 통합하기
+<Steps>
+
+<Step number={3} title="Vite 구성에 Intlayer 통합하기">
 
 구성에 intlayer 플러그인을 추가하세요:
 
@@ -221,6 +233,10 @@ export default defineConfig({
 ```
 
 > `intlayer()` Vite 플러그인은 Intlayer를 Vite와 통합하는 데 사용됩니다. 이 플러그인은 콘텐츠 선언 파일의 빌드를 보장하고 개발 모드에서 이를 모니터링합니다. 또한 Vite 애플리케이션 내에서 Intlayer 환경 변수를 정의하며, 성능 최적화를 위한 별칭(alias)도 제공합니다.
+
+</Step>
+
+</Steps>
 
 <Steps>
 
@@ -339,9 +355,7 @@ bun run build # Or bun run dev
 
 </Step>
 
-</Steps>
-
-### 5단계: 레이아웃 컴포넌트 생성
+<Step number={5} title="레이아웃 컴포넌트 생성">
 
 루트 레이아웃과 로케일별 레이아웃을 설정하세요:
 
@@ -395,7 +409,9 @@ export function Layout({
 }
 ```
 
-### 6단계: 콘텐츠 선언하기
+</Step>
+
+<Step number={6} title="콘텐츠 선언하기">
 
 번역을 저장하기 위해 콘텐츠 선언을 생성하고 관리하세요:
 
@@ -435,7 +451,9 @@ export default pageContent;
 
 > 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
 
-### 7단계: 로케일 인식 컴포넌트 생성
+</Step>
+
+<Step number={7} title="로케일 인식 컴포넌트 생성">
 
 로케일 인식 내비게이션을 위한 `LocalizedLink` 컴포넌트를 생성합니다:
 
@@ -497,7 +515,9 @@ export const useLocalizedNavigate = () => {
 };
 ```
 
-### 8단계: 페이지에서 Intlayer 활용하기
+</Step>
+
+<Step number={8} title="페이지에서 Intlayer 활용하기">
 
 애플리케이션 전반에서 콘텐츠 사전을 액세스하세요:
 
@@ -549,7 +569,9 @@ export default function Page() {
 
 > `useIntlayer` 훅에 대해 더 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useIntlayer.md)를 참조하세요.
 
-### 9단계: 로케일 스위처 컴포넌트 만들기
+</Step>
+
+<Step number={9} title="로케일 스위처 컴포넌트 만들기">
 
 사용자가 언어를 변경할 수 있도록 컴포넌트를 만드세요:
 
@@ -610,7 +632,9 @@ export const LocaleSwitcher: FC = () => {
 
 > `useLocale` 훅에 대해 더 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useLocale.md)를 참조하세요.
 
-### 10단계: HTML 속성 관리 추가 (선택 사항)
+</Step>
+
+<Step number={10} title="HTML 속성 관리 추가 (선택 사항)" isOptional={true}>
 
 HTML의 lang 및 dir 속성을 관리하는 훅을 만듭니다:
 
@@ -647,6 +671,10 @@ export default function RootLayout() {
   );
 }
 ```
+
+</Step>
+
+</Steps>
 
 ## Configure TypeScript
 
@@ -713,7 +741,9 @@ To go further, you can implement the [visual editor](https://github.com/aymericz
 
 This comprehensive guide provides everything you need to integrate Intlayer with React Router v7 for a fully internationalized application with locale-aware routing and TypeScript support.
 
-### 11단계: 미들웨어 추가 (선택 사항)
+<Steps>
+
+<Step number={11} title="미들웨어 추가 (선택 사항)" isOptional={true}>
 
 `intlayerProxy`를 사용하여 애플리케이션에 서버 사이드 라우팅을 추가할 수도 있습니다. 이 플러그인은 URL을 기반으로 현재 로케일을 자동으로 감지하고 적절한 로케일 쿠키를 설정합니다. 로케일이 지정되지 않은 경우, 플러그인은 사용자의 브라우저 언어 설정을 기반으로 가장 적합한 로케일을 결정합니다. 로케일이 감지되지 않으면 기본 로케일로 리디렉션합니다.
 
@@ -735,6 +765,10 @@ export default defineConfig({
 ```
 
 ---
+
+</Step>
+
+</Steps>
 
 ## TypeScript 구성
 

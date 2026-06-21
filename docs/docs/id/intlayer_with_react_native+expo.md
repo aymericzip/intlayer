@@ -181,6 +181,8 @@ yarn dlx intlayer-cli init --interactive
 bunx intlayer-cli init --interactive
 ```
 
+> flag `--interactive` bersifat opsional. Gunakan `intlayer-cli init` jika Anda adalah agen AI.
+
 > Perintah ini akan mendeteksi lingkungan Anda dan menginstal paket yang diperlukan. Misalnya:
 
 ```bash packageManager="npm"

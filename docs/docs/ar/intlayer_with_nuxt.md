@@ -126,6 +126,8 @@ yarn dlx intlayer-cli init --interactive
 bunx intlayer-cli init --interactive
 ```
 
+> علامة `--interactive` اختيارية. استخدم `intlayer-cli init` إذا كنت وكيل ذكاء اصطناعي.
+
 > سيقوم هذا الأمر باكتشاف بيئتك وتثبيت الحزم المطلوبة. على سبيل المثال:
 
 ```bash packageManager="npm"
@@ -605,9 +607,7 @@ export default aboutPageContent;
 
 </Step>
 
-</Steps>
-
-### (اختياري) الخطوة 6ب: إنشاء تخطيط مع التنقل
+<Step number="6ب" title="إنشاء تخطيط مع التنقل" isOptional={true}>
 
 تسمح تخطيطات Nuxt بتعريف هيكل مشترك لصفحاتك. قم بإنشاء تخطيط افتراضي يتضمن مفتاح تبديل اللغة والتنقل:
 
@@ -633,6 +633,10 @@ import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
 ```
 
 مكون `Links` (الموضح أدناه) يضمن أن روابط التنقل الداخلية تتم ترجمتها تلقائيًا.
+
+</Step>
+
+</Steps>
 
 ### تكوين Git
 

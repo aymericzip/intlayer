@@ -88,7 +88,9 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 
 ---
 
-### (선택 사항) 8단계: 로케일이 변경될 때 URL 변경하기
+<Steps>
+
+<Step number={8} title="로케일이 변경될 때 URL 변경하기" isOptional={true}>
 
 로케일이 변경될 때 URL을 변경하려면, `useLocale` 훅에서 제공하는 `onLocaleChange` 속성을 사용할 수 있습니다. 동시에, `react-router-dom`의 `useLocation`과 `useNavigate` 훅을 사용하여 URL 경로를 업데이트할 수 있습니다.
 
@@ -201,7 +203,9 @@ export const useI18nHTMLAttributes = () => {
 };
 ```
 
-### (선택 사항) 10단계: 지역화된 링크 컴포넌트 만들기
+</Step>
+
+<Step number={10} title="지역화된 링크 컴포넌트 만들기" isOptional={true}>
 
 애플리케이션의 내비게이션이 현재 로케일을 준수하도록 하려면, 커스텀 `Link` 컴포넌트를 만들 수 있습니다. 이 컴포넌트는 내부 URL에 자동으로 현재 언어 접두사를 붙여줍니다. 예를 들어, 프랑스어 사용자가 "About" 페이지로 가는 링크를 클릭하면 `/about` 대신 `/fr/about`로 리디렉션됩니다.
 
@@ -258,6 +262,10 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
 
 Link.displayName = "Link";
 ```
+
+</Step>
+
+</Steps>
 
 ### VS Code 확장 프로그램
 

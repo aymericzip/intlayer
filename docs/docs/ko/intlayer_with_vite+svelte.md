@@ -126,7 +126,9 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 
 GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-vite-svelte-template)을 확인하세요.
 
-### 1단계: 의존성 설치
+<Steps>
+
+<Step number={1} title="의존성 설치">
 
 npm을 사용하여 필요한 패키지를 설치하세요:
 
@@ -145,6 +147,8 @@ yarn dlx intlayer-cli init --interactive
 ```bash packageManager="bun"
 bunx intlayer-cli init --interactive
 ```
+
+> `--interactive` 플래그는 선택 사항입니다. AI 에이전트인 경우 `intlayer-cli init`를 사용하세요.
 
 > 이 명령은 환경을 감지하고 필요한 패키지를 설치합니다. 예를 들어:
 
@@ -178,7 +182,9 @@ bun add vite-intlayer --save-dev
 - **vite-intlayer**
   Intlayer를 [Vite 번들러](https://vite.dev/guide/why.html#why-bundle-for-production)와 통합하기 위한 Vite 플러그인과, 사용자의 선호 로케일 감지, 쿠키 관리, URL 리디렉션 처리를 위한 미들웨어를 포함합니다.
 
-### 2단계: 프로젝트 구성
+</Step>
+
+<Step number={2} title="프로젝트 구성">
 
 애플리케이션의 언어를 구성하기 위한 설정 파일을 생성합니다:
 
@@ -201,6 +207,10 @@ export default config;
 ```
 
 > 이 구성 파일을 통해 로컬라이즈된 URL, 미들웨어 리디렉션, 쿠키 이름, 콘텐츠 선언의 위치 및 확장자 설정, 콘솔에서 Intlayer 로그 비활성화 등 다양한 설정을 할 수 있습니다. 사용 가능한 모든 매개변수 목록은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
+
+</Step>
+
+</Steps>
 
 <Steps>
 
@@ -319,9 +329,7 @@ bun run build # Or bun run dev
 </Tabs>
 </Step>
 
-</Steps>
-
-### 4단계: 콘텐츠 선언하기
+<Step number={4} title="콘텐츠 선언하기">
 
 번역을 저장하기 위해 콘텐츠 선언을 생성하고 관리하세요:
 
@@ -363,7 +371,9 @@ export default appContent;
 
 > 자세한 내용은 [콘텐츠 선언 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
 
-### 5단계: 코드에서 Intlayer 사용하기
+</Step>
+
+<Step number={5} title="코드에서 Intlayer 사용하기">
 
 ```svelte fileName="src/App.svelte"
 <script>
@@ -385,7 +395,9 @@ export default appContent;
 <div aria-label={String($content.title)}></div>
 ```
 
-### (선택 사항) 6단계: 콘텐츠 언어 변경하기
+</Step>
+
+<Step number={6} title="콘텐츠 언어 변경하기" isOptional={true}>
 
 ```svelte fileName="src/App.svelte"
 <script lang="ts">
@@ -414,7 +426,9 @@ const changeLocale = (event: Event) => {
 </div>
 ```
 
-### (선택 사항) 7단계: 마크다운 렌더링
+</Step>
+
+<Step number={7} title="마크다운 렌더링" isOptional={true}>
 
 Intlayer는 Svelte 애플리케이션에서 마크다운 콘텐츠를 직접 렌더링하는 것을 지원합니다. 기본적으로 마크다운은 일반 텍스트로 처리됩니다. 마크다운을 풍부한 HTML로 변환하려면 `@humanspeak/svelte-markdown` 또는 다른 마크다운 파서를 통합할 수 있습니다.
 
@@ -435,13 +449,17 @@ Intlayer는 Svelte 애플리케이션에서 마크다운 콘텐츠를 직접 렌
 
 > `content.markdownContent.metadata.xxx` 속성을 사용하여 마크다운 프론트매터 데이터에도 접근할 수 있습니다.
 
-### (선택 사항) 8단계: intlayer 에디터 / CMS 설정하기
+</Step>
+
+<Step number={8} title="intlayer 에디터 / CMS 설정하기" isOptional={true}>
 
 intlayer 에디터를 설정하려면 [intlayer 에디터 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 따라야 합니다.
 
 intlayer CMS를 설정하려면 [intlayer CMS 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 따라야 합니다.
 
-### (선택 사항) 7단계: 애플리케이션에 지역화된 라우팅 추가하기
+</Step>
+
+<Step number={7} title="애플리케이션에 지역화된 라우팅 추가하기" isOptional={true}>
 
 Svelte 애플리케이션에서 지역화된 라우팅을 처리하려면, `svelte-spa-router`와 Intlayer의 `localeFlatMap`을 함께 사용하여 각 로케일에 대한 라우트를 생성할 수 있습니다.
 
@@ -553,7 +571,9 @@ export default defineConfig({
 });
 ```
 
-### (선택 사항) 8단계: 로케일이 변경될 때 URL 변경하기
+</Step>
+
+<Step number={8} title="로케일이 변경될 때 URL 변경하기" isOptional={true}>
 
 사용자가 언어를 전환하고 URL을 그에 맞게 업데이트할 수 있도록 `LocaleSwitcher` 컴포넌트를 만들 수 있습니다. 이 컴포넌트는 `intlayer`의 `getLocalizedUrl`과 `svelte-spa-router`의 `push`를 사용합니다.
 
@@ -588,6 +608,10 @@ const changeLocale = (event: Event) => {
   </select>
 </div>
 ```
+
+</Step>
+
+</Steps>
 
 ### Git 구성
 

@@ -46,7 +46,9 @@ Intlayer를 사용하면:
 
 ## React 애플리케이션에서 Intlayer 설정 단계별 가이드
 
-### 1단계: 종속성 설치
+<Steps>
+
+<Step number={1} title="종속성 설치">
 
 npm을 사용하여 필요한 패키지를 설치합니다:
 
@@ -65,6 +67,8 @@ yarn dlx intlayer-cli init --interactive
 ```bash packageManager="bun"
 bunx intlayer-cli init --interactive
 ```
+
+> `--interactive` 플래그는 선택 사항입니다. AI 에이전트인 경우 `intlayer-cli init`를 사용하세요.
 
 > 이 명령은 환경을 감지하고 필요한 패키지를 설치합니다. 예를 들어:
 
@@ -96,7 +100,9 @@ bun add intlayer react-intlayer react-scripts-intlayer
 
 Create React App 기반 애플리케이션과 Intlayer를 통합하기 위한 `react-scripts-intlayer` 명령 및 플러그인을 포함합니다. 이 플러그인들은 [craco](https://craco.js.org/)를 기반으로 하며, [Webpack](https://webpack.js.org/) 번들러에 대한 추가 구성을 포함합니다.
 
-### 2단계: 프로젝트 구성
+</Step>
+
+<Step number={2} title="프로젝트 구성">
 
 애플리케이션의 언어를 구성하기 위한 설정 파일을 생성합니다:
 
@@ -120,7 +126,9 @@ export default config;
 
 > 이 구성 파일을 통해 로컬라이즈된 URL, 미들웨어 리디렉션, 쿠키 이름, 콘텐츠 선언의 위치 및 확장자, 콘솔에서 Intlayer 로그 비활성화 등을 설정할 수 있습니다. 사용 가능한 매개변수의 전체 목록은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
 
-### 3단계: CRA 구성에 Intlayer 통합
+</Step>
+
+<Step number={3} title="CRA 구성에 Intlayer 통합">
 
 스크립트를 react-intlayer로 변경합니다:
 
@@ -134,7 +142,9 @@ export default config;
 
 > `react-scripts-intlayer` 스크립트는 [CRACO](https://craco.js.org/)를 기반으로 합니다. Intlayer craco 플러그인을 기반으로 자체 설정을 구현할 수도 있습니다. [예제 보기](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js).
 
-### 4단계: 콘텐츠 선언
+</Step>
+
+<Step number={4} title="콘텐츠 선언">
 
 번역을 저장하기 위해 콘텐츠 선언을 생성하고 관리합니다:
 
@@ -183,7 +193,9 @@ export default appContent;
 
 > 콘텐츠 파일에 TSX 코드가 포함된 경우, 콘텐츠 파일에 `import React from "react";`를 가져오는 것을 고려해야 합니다.
 
-### 5단계: 코드에서 Intlayer 사용
+</Step>
+
+<Step number={5} title="코드에서 Intlayer 사용">
 
 애플리케이션 전반에서 콘텐츠 사전을 액세스합니다:
 
@@ -231,6 +243,10 @@ export default App;
 > ```
 >
 > `useIntlayer` 훅에 대해 더 알아보려면 [문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useIntlayer.md)를 참조하세요.
+
+</Step>
+
+</Steps>
 
 <Steps>
 

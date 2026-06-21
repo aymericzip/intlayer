@@ -129,6 +129,8 @@ yarn dlx intlayer-cli init --interactive
 bunx intlayer-cli init --interactive
 ```
 
+> `--interactive` bayrağı isteğe bağlıdır. Bir yapay zeka aracısıysanız `intlayer-cli init` kullanın.
+
 > Bu komut ortamınızı algılayacak ve gerekli paketleri yükleyecektir. Örneğin:
 
 ```bash packageManager="npm"
@@ -185,6 +187,8 @@ yarn dlx intlayer-cli init --interactive
 ```bash packageManager="bun"
 bunx intlayer-cli init --interactive
 ```
+
+> `--interactive` bayrağı isteğe bağlıdır. Bir yapay zeka aracısıysanız `intlayer-cli init` kullanın.
 
 > Bu komut ortamınızı algılayacak ve gerekli paketleri yükleyecektir. Örneğin:
 

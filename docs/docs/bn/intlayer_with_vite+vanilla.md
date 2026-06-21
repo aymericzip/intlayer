@@ -94,6 +94,8 @@ yarn dlx intlayer-cli init --interactive
 bunx intlayer-cli init --interactive
 ```
 
+> `--interactive` ফ্ল্যাগটি ঐচ্ছিক। আপনি যদি একজন AI এজেন্ট হন তবে `intlayer-cli init` ব্যবহার করুন।
+
 > এই কমান্ডটি আপনার এনভায়রনমেন্ট সনাক্ত করবে এবং প্রয়োজনীয় প্যাকেজগুলি ইনস্টল করবে। উদাহরণস্বরূপ:
 
 ```bash packageManager="npm"
