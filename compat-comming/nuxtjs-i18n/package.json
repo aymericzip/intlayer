@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/nuxtjs-i18n",
-  "version": "9.0.0-canary.1",
+  "version": "9.0.0-canary.2",
   "private": false,
   "description": "nuxtjs-i18n API adapter for intlayer — drop-in compatibility layer",
   "keywords": [
