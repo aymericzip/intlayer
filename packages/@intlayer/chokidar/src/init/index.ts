@@ -9,6 +9,7 @@ import {
   detectJsonLocalePattern,
   detectMissingIntlayerPackages,
   detectNextIntlMessagesPattern,
+  detectOutdatedIntlayerPackages,
   detectPackageManager,
   ensureDirectory,
   exists,
@@ -27,6 +28,7 @@ import {
   updateNuxtConfigForNuxtjsI18n,
   updateViteConfig,
   updateViteConfigForCompatPlugin,
+  upgradePackages,
   writeFileToRoot,
 } from './utils';
 
@@ -176,6 +178,20 @@ export type InitOptions = {
   noGitignore?: boolean;
   /** Skip scaffolding the `fill` and `test` GitHub Actions workflows. */
   noGithubActions?: boolean;
+  /**
+   * Skip installing missing Intlayer dependencies and upgrading outdated ones.
+   */
+  noInstallPackages?: boolean;
+  /** Skip adding the Intlayer extension to `.vscode/extensions.json`. */
+  noVscodeExtension?: boolean;
+  /** Skip writing the Intlayer LSP configuration to `.vscode/settings.json`. */
+  noLsp?: boolean;
+  /**
+   * Version that outdated Intlayer packages should be upgraded to (typically the
+   * running CLI version). When omitted, installed packages are left untouched and
+   * only missing ones are installed.
+   */
+  upgradeToVersion?: string;
 };
 
 /**
@@ -222,40 +238,95 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
     compatVitePluginConfig,
   } = detectMissingIntlayerPackages(allDeps);
 
-  if (packagesToInstall.length > 0) {
-    logger(
-      colorize('Installing missing Intlayer dependencies...', ANSIColors.CYAN)
-    );
-    try {
-      installPackages(rootDir, packagesToInstall, packageManager);
+  if (!options?.noInstallPackages) {
+    if (packagesToInstall.length > 0) {
       logger(
-        `${v} Installed: ${packagesToInstall.map((pkg) => colorize(pkg, ANSIColors.MAGENTA)).join(', ')}`
+        colorize('Installing missing Intlayer dependencies...', ANSIColors.CYAN)
       );
-    } catch {
-      logger(
-        `${x} Failed to install packages. Please install manually: ${packagesToInstall.join(' ')}`,
-        { level: 'warn' }
-      );
+      try {
+        installPackages(rootDir, packagesToInstall, packageManager);
+        logger(
+          `${v} Installed: ${packagesToInstall.map((pkg) => colorize(pkg, ANSIColors.MAGENTA)).join(', ')}`
+        );
+      } catch {
+        logger(
+          `${x} Failed to install packages. Please install manually: ${packagesToInstall.join(' ')}`,
+          { level: 'warn' }
+        );
+      }
     }
-  }
 
-  if (devPackagesToInstall.length > 0) {
-    logger(
-      colorize(
-        'Installing missing Intlayer dev dependencies...',
-        ANSIColors.CYAN
-      )
-    );
-    try {
-      installPackages(rootDir, devPackagesToInstall, packageManager, true);
+    if (devPackagesToInstall.length > 0) {
       logger(
-        `${v} Installed: ${devPackagesToInstall.map((pkg) => colorize(pkg, ANSIColors.MAGENTA)).join(', ')}`
+        colorize(
+          'Installing missing Intlayer dev dependencies...',
+          ANSIColors.CYAN
+        )
       );
-    } catch {
-      logger(
-        `${x} Failed to install dev packages. Please install manually: ${devPackagesToInstall.join(' ')}`,
-        { level: 'warn' }
+      try {
+        installPackages(rootDir, devPackagesToInstall, packageManager, true);
+        logger(
+          `${v} Installed: ${devPackagesToInstall.map((pkg) => colorize(pkg, ANSIColors.MAGENTA)).join(', ')}`
+        );
+      } catch {
+        logger(
+          `${x} Failed to install dev packages. Please install manually: ${devPackagesToInstall.join(' ')}`,
+          { level: 'warn' }
+        );
+      }
+    }
+
+    // UPGRADE OUTDATED INTLAYER DEPENDENCIES
+    // Only runs when a target version is provided (typically the running CLI
+    // version). Already up-to-date packages are skipped. Prod and dev
+    // dependencies are upgraded separately so their dependency type is kept.
+    if (options?.upgradeToVersion) {
+      const outdatedDependencies = detectOutdatedIntlayerPackages(
+        rootDir,
+        packageJson.dependencies ?? {},
+        options.upgradeToVersion
       );
+      const outdatedDevDependencies = detectOutdatedIntlayerPackages(
+        rootDir,
+        packageJson.devDependencies ?? {},
+        options.upgradeToVersion
+      );
+
+      const allOutdated = [...outdatedDependencies, ...outdatedDevDependencies];
+
+      if (allOutdated.length > 0) {
+        logger(
+          colorize(
+            `Upgrading outdated Intlayer dependencies to ${options.upgradeToVersion}...`,
+            ANSIColors.CYAN
+          )
+        );
+        try {
+          upgradePackages(
+            rootDir,
+            outdatedDependencies,
+            packageManager,
+            options.upgradeToVersion
+          );
+          upgradePackages(
+            rootDir,
+            outdatedDevDependencies,
+            packageManager,
+            options.upgradeToVersion,
+            true
+          );
+          logger(
+            `${v} Upgraded: ${allOutdated.map((pkg) => colorize(pkg, ANSIColors.MAGENTA)).join(', ')}`
+          );
+        } catch {
+          logger(
+            `${x} Failed to upgrade packages. Please upgrade manually: ${allOutdated.join(' ')}`,
+            { level: 'warn' }
+          );
+        }
+      } else {
+        logger(`${v} Intlayer dependencies are up to date`);
+      }
     }
   }
 
@@ -308,88 +379,92 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
   const extensionsJsonPath = join(vscodeDir, 'extensions.json');
   const extensionId = 'intlayer.intlayer-vs-code-extension';
 
-  try {
-    let extensionsConfig: { recommendations: string[] } = {
-      recommendations: [],
-    };
+  if (!options?.noVscodeExtension) {
+    try {
+      let extensionsConfig: { recommendations: string[] } = {
+        recommendations: [],
+      };
 
-    if (await exists(rootDir, extensionsJsonPath)) {
-      const content = await readFileFromRoot(rootDir, extensionsJsonPath);
-      extensionsConfig = parseJSONWithComments(content);
-    } else {
-      await ensureDirectory(rootDir, vscodeDir);
-    }
+      if (await exists(rootDir, extensionsJsonPath)) {
+        const content = await readFileFromRoot(rootDir, extensionsJsonPath);
+        extensionsConfig = parseJSONWithComments(content);
+      } else {
+        await ensureDirectory(rootDir, vscodeDir);
+      }
 
-    if (!extensionsConfig.recommendations) {
-      extensionsConfig.recommendations = [];
-    }
+      if (!extensionsConfig.recommendations) {
+        extensionsConfig.recommendations = [];
+      }
 
-    if (!extensionsConfig.recommendations.includes(extensionId)) {
-      extensionsConfig.recommendations.push(extensionId);
-      await writeFileToRoot(
-        rootDir,
-        extensionsJsonPath,
-        JSON.stringify(extensionsConfig, null, 2)
-      );
+      if (!extensionsConfig.recommendations.includes(extensionId)) {
+        extensionsConfig.recommendations.push(extensionId);
+        await writeFileToRoot(
+          rootDir,
+          extensionsJsonPath,
+          JSON.stringify(extensionsConfig, null, 2)
+        );
+        logger(
+          `${v} Added ${colorize(extensionId, ANSIColors.MAGENTA)} to ${colorizePath(extensionsJsonPath)}`
+        );
+      } else {
+        logger(
+          `${v} ${colorizePath(extensionsJsonPath)} already includes ${colorize(extensionId, ANSIColors.MAGENTA)}`
+        );
+      }
+    } catch {
       logger(
-        `${v} Added ${colorize(extensionId, ANSIColors.MAGENTA)} to ${colorizePath(extensionsJsonPath)}`
-      );
-    } else {
-      logger(
-        `${v} ${colorizePath(extensionsJsonPath)} already includes ${colorize(extensionId, ANSIColors.MAGENTA)}`
+        `${x} Could not update ${colorizePath(extensionsJsonPath)}. You may need to add ${colorize(extensionId, ANSIColors.MAGENTA)} manually.`,
+        { level: 'warn' }
       );
     }
-  } catch {
-    logger(
-      `${x} Could not update ${colorizePath(extensionsJsonPath)}. You may need to add ${colorize(extensionId, ANSIColors.MAGENTA)} manually.`,
-      { level: 'warn' }
-    );
   }
 
   // CHECK VS CODE LSP SETTINGS
   const settingsJsonPath = join(vscodeDir, 'settings.json');
 
-  try {
-    let settingsConfig: Record<string, unknown> = {};
+  if (!options?.noLsp) {
+    try {
+      let settingsConfig: Record<string, unknown> = {};
 
-    if (await exists(rootDir, settingsJsonPath)) {
-      const content = await readFileFromRoot(rootDir, settingsJsonPath);
-      settingsConfig = parseJSONWithComments(content);
-    } else {
-      await ensureDirectory(rootDir, vscodeDir);
-    }
+      if (await exists(rootDir, settingsJsonPath)) {
+        const content = await readFileFromRoot(rootDir, settingsJsonPath);
+        settingsConfig = parseJSONWithComments(content);
+      } else {
+        await ensureDirectory(rootDir, vscodeDir);
+      }
 
-    let settingsUpdated = false;
+      let settingsUpdated = false;
 
-    if (!settingsConfig['intlayer.languageServer.command']) {
-      settingsConfig['intlayer.languageServer.command'] = 'npx';
-      settingsUpdated = true;
-    }
+      if (!settingsConfig['intlayer.languageServer.command']) {
+        settingsConfig['intlayer.languageServer.command'] = 'npx';
+        settingsUpdated = true;
+      }
 
-    if (!settingsConfig['intlayer.languageServer.args']) {
-      settingsConfig['intlayer.languageServer.args'] = ['@intlayer/lsp'];
-      settingsUpdated = true;
-    }
+      if (!settingsConfig['intlayer.languageServer.args']) {
+        settingsConfig['intlayer.languageServer.args'] = ['@intlayer/lsp'];
+        settingsUpdated = true;
+      }
 
-    if (settingsUpdated) {
-      await writeFileToRoot(
-        rootDir,
-        settingsJsonPath,
-        JSON.stringify(settingsConfig, null, 2)
-      );
+      if (settingsUpdated) {
+        await writeFileToRoot(
+          rootDir,
+          settingsJsonPath,
+          JSON.stringify(settingsConfig, null, 2)
+        );
+        logger(
+          `${v} Updated ${colorizePath(settingsJsonPath)} with LSP configuration`
+        );
+      } else {
+        logger(
+          `${v} ${colorizePath(settingsJsonPath)} already includes LSP configuration`
+        );
+      }
+    } catch {
       logger(
-        `${v} Updated ${colorizePath(settingsJsonPath)} with LSP configuration`
-      );
-    } else {
-      logger(
-        `${v} ${colorizePath(settingsJsonPath)} already includes LSP configuration`
+        `${x} Could not update ${colorizePath(settingsJsonPath)}. You may need to add the LSP settings manually.`,
+        { level: 'warn' }
       );
     }
-  } catch {
-    logger(
-      `${x} Could not update ${colorizePath(settingsJsonPath)}. You may need to add the LSP settings manually.`,
-      { level: 'warn' }
-    );
   }
 
   // CHECK TSCONFIGS

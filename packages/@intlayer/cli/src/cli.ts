@@ -316,11 +316,20 @@ export const setAPI = (): Command => {
       '--no-github-actions',
       'Do not scaffold the fill and test GitHub Actions workflows'
     )
+    .option(
+      '-i, --interactive',
+      'Interactively choose what to set up (packages, skills, MCP, VS Code extension, LSP, …)'
+    )
     .action((options) =>
-      init(options.projectRoot, {
-        noGitignore: options.gitignore === false,
-        noGithubActions: options.githubActions === false,
-      })
+      init(
+        options.projectRoot,
+        {
+          noGitignore: options.gitignore === false,
+          noGithubActions: options.githubActions === false,
+          upgradeToVersion: packageJson.version,
+        },
+        options.interactive === true
+      )
     );
 
   initCmd
