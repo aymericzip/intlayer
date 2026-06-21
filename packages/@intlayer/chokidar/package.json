@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/chokidar",
-  "version": "9.0.0-canary.2",
+  "version": "9.0.0-canary.3",
   "private": false,
   "description": "Scans and builds Intlayer declaration files into dictionaries based on Intlayer configuration.",
   "keywords": [
