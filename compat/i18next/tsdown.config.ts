@@ -1,4 +1,6 @@
 import { options } from '@utils/tsdown-config';
-import { defineConfig } from 'tsdown';
+import { defineConfig, type UserConfig } from 'tsdown';
 
-export default defineConfig(options);
+const [esm, , types] = options;
+
+export default defineConfig([esm, types] as UserConfig[]);

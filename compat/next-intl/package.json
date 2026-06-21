@@ -36,37 +36,31 @@
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
     "./server": {
       "types": "./dist/types/server/index.d.ts",
-      "require": "./dist/cjs/server/index.cjs",
       "import": "./dist/esm/server/index.mjs"
     },
     "./routing": {
       "types": "./dist/types/routing.d.ts",
-      "require": "./dist/cjs/routing.cjs",
       "import": "./dist/esm/routing.mjs"
     },
     "./navigation": {
       "types": "./dist/types/navigation/index.d.ts",
-      "require": "./dist/cjs/navigation/index.cjs",
       "import": "./dist/esm/navigation/index.mjs"
     },
     "./middleware": {
       "types": "./dist/types/middleware.d.ts",
-      "require": "./dist/cjs/middleware.cjs",
       "import": "./dist/esm/middleware.mjs"
     },
     "./plugin": {
       "types": "./dist/types/plugin/index.d.ts",
-      "require": "./dist/cjs/plugin/index.cjs",
       "import": "./dist/esm/plugin/index.mjs"
     },
     "./package.json": "./package.json"
   },
-  "main": "dist/cjs/index.cjs",
+  "main": "dist/esm/index.mjs",
   "module": "dist/esm/index.mjs",
   "types": "dist/types/index.d.ts",
   "typesVersions": {

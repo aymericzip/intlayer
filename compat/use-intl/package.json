@@ -35,27 +35,23 @@
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
     "./core": {
       "types": "./dist/types/core/index.d.ts",
-      "require": "./dist/cjs/core/index.cjs",
       "import": "./dist/esm/core/index.mjs"
     },
     "./react": {
       "types": "./dist/types/client/index.d.ts",
-      "require": "./dist/cjs/client/index.cjs",
       "import": "./dist/esm/client/index.mjs"
     },
     "./plugin": {
       "types": "./dist/types/plugin/index.d.ts",
-      "require": "./dist/cjs/plugin/index.cjs",
       "import": "./dist/esm/plugin/index.mjs"
     },
     "./package.json": "./package.json"
   },
-  "main": "dist/cjs/index.cjs",
+  "main": "dist/esm/index.mjs",
   "module": "dist/esm/index.mjs",
   "types": "dist/types/index.d.ts",
   "typesVersions": {
