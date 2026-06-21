@@ -99,23 +99,37 @@ The following steps are the minimum required to get your existing `i18next` app 
 Install the Intlayer core packages and the compat adapter:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> This command will detect your environment and install the required packages. For example:
+
+```bash packageManager="npm"
 npm install intlayer @intlayer/i18next @intlayer/sync-json-plugin
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer @intlayer/i18next @intlayer/sync-json-plugin
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer @intlayer/i18next @intlayer/sync-json-plugin
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer @intlayer/i18next @intlayer/sync-json-plugin
-bun x intlayer init
 ```
 
 > You can keep `i18next` installed — the compat adapter uses it as a `devDependency` / `peerDependency` for TypeScript types.

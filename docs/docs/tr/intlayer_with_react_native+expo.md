@@ -114,27 +114,41 @@ GitHub'da [Uygulama Şablonu](https://github.com/aymericzip/intlayer-react-nativ
 React Native projenizden aşağıdaki paketleri yükleyin:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Bu komut ortamınızı algılayacak ve gerekli paketleri yükleyecektir. Örneğin:
+
+```bash packageManager="npm"
 npm install intlayer react-intlayer
 npm install --save-dev react-native-intlayer
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer
 pnpm add --save-dev react-native-intlayer
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer react-intlayer
 yarn add --save-dev react-native-intlayer
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer react-intlayer
 bun add --dev react-native-intlayer
-bun x intlayer init
 ```
 
 ### Paketler
@@ -157,27 +171,41 @@ bun x intlayer init
 React Native projenizden aşağıdaki paketleri kurun:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Bu komut ortamınızı algılayacak ve gerekli paketleri yükleyecektir. Örneğin:
+
+```bash packageManager="npm"
 npm install intlayer react-intlayer
 npm install --save-dev react-native-intlayer
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer
 pnpm add --save-dev react-native-intlayer
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer react-intlayer
 yarn add --save-dev react-native-intlayer
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer react-intlayer
 bun add --dev react-native-intlayer
-bun x intlayer init
 ```
 
 ### Paketler

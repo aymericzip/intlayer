@@ -107,27 +107,41 @@ Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的
 使用npm安装必要的包：
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> 该命令将检测您的环境并安装所需的软件包。例如：
+
+```bash packageManager="npm"
 npm install intlayer angular-intlayer
 npm install @angular-builders/custom-esbuild --save-dev
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer angular-intlayer
 pnpm add @angular-builders/custom-esbuild --save-dev
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer angular-intlayer
 yarn add @angular-builders/custom-esbuild --save-dev
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer angular-intlayer
 bun add @angular-builders/custom-esbuild --dev
-bun x intlayer init
 ```
 
 - **intlayer**

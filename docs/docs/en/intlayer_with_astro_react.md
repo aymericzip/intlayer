@@ -124,27 +124,37 @@ See [Application Template](https://github.com/aymericzip/intlayer-astro-template
 Install the necessary packages using your package manager:
 
 ```bash packageManager="npm"
-npm install intlayer astro-intlayer react react-dom react-intlayer @astrojs/react
+npx intlayer-cli init --interactive
+```
 
-npx intlayer init
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> This command will detect your environment and install the required packages. For example:
+
+```bash packageManager="npm"
+npm install intlayer astro-intlayer react react-dom react-intlayer @astrojs/react
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer astro-intlayer react react-dom react-intlayer @astrojs/react
-
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer astro-intlayer react react-dom react-intlayer @astrojs/react
-
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer astro-intlayer react react-dom react-intlayer @astrojs/react
-
-bun x intlayer init
 ```
 
 - **intlayer**

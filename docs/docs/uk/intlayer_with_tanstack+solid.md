@@ -136,27 +136,41 @@ Intlayer оптимізовано для ідеальної роботи з TanS
 Встановіть необхідні пакети за допомогою бажаного менеджера пакетів:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Ця команда виявить ваше середовище та встановить необхідні пакети. Наприклад:
+
+```bash packageManager="npm"
 npm install intlayer solid-intlayer
 npm install vite-intlayer --save-dev
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer solid-intlayer
 pnpm add vite-intlayer --save-dev
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer solid-intlayer
 yarn add vite-intlayer --save-dev
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer solid-intlayer
 bun add vite-intlayer --dev
-bun x intlayer init
 ```
 
 - **intlayer**

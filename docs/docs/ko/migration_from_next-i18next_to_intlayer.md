@@ -102,23 +102,37 @@ Intlayer는 단순한 i18n 솔루션을 넘어, 자체 호스팅이 가능한 **
 Intlayer 핵심 패키지와 호환성 어댑터를 설치합니다:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> 이 명령은 환경을 감지하고 필요한 패키지를 설치합니다. 예를 들어:
+
+```bash packageManager="npm"
 npm install intlayer next-intlayer react-intlayer @intlayer/next-i18next @intlayer/react-i18next @intlayer/i18next @intlayer/sync-json-plugin
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer next-intlayer react-intlayer @intlayer/next-i18next @intlayer/react-i18next @intlayer/i18next @intlayer/sync-json-plugin
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer next-intlayer react-intlayer @intlayer/next-i18next @intlayer/react-i18next @intlayer/i18next @intlayer/sync-json-plugin
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer next-intlayer react-intlayer @intlayer/next-i18next @intlayer/react-i18next @intlayer/i18next @intlayer/sync-json-plugin
-bun x intlayer init
 ```
 
 > 마이그레이션 도중 별칭 설정이 완료될 때까지 `next-i18next`, `react-i18next`, `i18next`를 계속 설치해 둘 수 있습니다.

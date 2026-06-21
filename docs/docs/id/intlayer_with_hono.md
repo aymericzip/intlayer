@@ -63,23 +63,37 @@ Lihat [Application Template](https://github.com/aymericzip/intlayer-hono-templat
 Untuk mulai menggunakan `hono-intlayer`, instal paket menggunakan npm:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Perintah ini akan mendeteksi lingkungan Anda dan menginstal paket yang diperlukan. Misalnya:
+
+```bash packageManager="npm"
 npm install intlayer hono-intlayer
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer hono-intlayer
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer hono-intlayer
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer hono-intlayer
-bun x intlayer init
 ```
 
 ### Penyiapan

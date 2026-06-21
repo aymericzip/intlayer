@@ -101,23 +101,37 @@ As etapas a seguir são o mínimo necessário para executar seu aplicativo `reac
 Instale o pacote principal do Intlayer e o adaptador de compatibilidade:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Este comando detectará seu ambiente e instalará os pacotes necessários. Por exemplo:
+
+```bash packageManager="npm"
 npm install intlayer react-intlayer @intlayer/react-i18next @intlayer/i18next @intlayer/sync-json-plugin
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer @intlayer/react-i18next @intlayer/i18next @intlayer/sync-json-plugin
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer react-intlayer @intlayer/react-i18next @intlayer/i18next @intlayer/sync-json-plugin
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer react-intlayer @intlayer/react-i18next @intlayer/i18next @intlayer/sync-json-plugin
-bun x intlayer init
 ```
 
 > Mantenha em segurança os seus pacotes ligados diretamente de base instalados na aplicação vinda da estrutura original como o seu `react-i18next` acompanhado ainda paralelamente do `i18next` presentes no decorrer de tudo que fará. O novo adaptador encarregado na compatibilização com ele faz proveito exigindo tais referências com ligações que visam fins relacionados à averiguação do compilador TypeScript enquanto classificados de forma branda seja no modo das conhecidas marcações opcionais tratadas por opções designadas pelas extensões denominadas em formato de rótulos tanto pela vertente de `devDependencies` ou via preenchimento sob o arranjo de modelo atrelado por características na modelagem visual de exigência e suporte de classes associadas referidas por via das `peerDependencies`. Em sumo e no final do percurso de execução prática, em tempo nenhum por parte deste ou aquele momento, a menor que seja uma obrigatória modificação se mostrará pedida e passará exigindo ter ou haver edição prévia nas dependências originadas em base à sua antiga raiz contida sob a sua grade de pares inserida lá mesmo perante arquivos definidores de referências presentes nos módulos contidos no final com a exata terminação e nome por parte da listagem no seu base e raiz `package.json`.

@@ -74,23 +74,37 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
 Lynxプロジェクトから、以下のパッケージをインストールします：
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> このコマンドは環境を検出し、必要なパッケージをインストールします。例えば：
+
+```bash packageManager="npm"
 npm install intlayer react-intlayer lynx-intlayer
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer lynx-intlayer
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer react-intlayer lynx-intlayer
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer react-intlayer lynx-intlayer
-bun x intlayer init
 ```
 
 ### パッケージ

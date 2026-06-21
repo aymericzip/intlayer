@@ -61,27 +61,37 @@ GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlay
 `fastify-intlayer` 사용을 시작하려면 npm을 사용하여 패키지를 설치하세요.
 
 ```bash packageManager="npm"
-npm install intlayer fastify-intlayer
-npx intlayer init
+npx intlayer-cli init --interactive
+```
 
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> 이 명령은 환경을 감지하고 필요한 패키지를 설치합니다. 예를 들어:
+
+```bash packageManager="npm"
+npm install intlayer fastify-intlayer
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer fastify-intlayer
-pnpm intlayer init
-
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer fastify-intlayer
-yarn intlayer init
-
 ```
 
 ```bash packageManager="bun"
 bun add intlayer fastify-intlayer
-bun x intlayer init
-
 ```
 
 ### 설정

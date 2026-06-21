@@ -98,23 +98,37 @@ I seguenti passaggi rappresentano il minimo indispensabile per far funzionare la
 Installa i pacchetti principali di Intlayer e l'adattatore di compatibilità `@intlayer/next-intl`:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Questo comando rileverà il tuo ambiente e installerà i pacchetti richiesti. Ad esempio:
+
+```bash packageManager="npm"
 npm install intlayer next-intlayer @intlayer/next-intl @intlayer/sync-json-plugin
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer next-intlayer @intlayer/next-intl @intlayer/sync-json-plugin
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer next-intlayer @intlayer/next-intl @intlayer/sync-json-plugin
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer next-intlayer @intlayer/next-intl @intlayer/sync-json-plugin
-bun x intlayer init
 ```
 
 > Tieni installato `next-intl` — è ancora richiesto per il **routing degli URL** (`createNavigation`, `createMiddleware`, `Link`, `redirect`, `usePathname`, `useRouter`). L'adattatore di compatibilità **non** sostituisce il layer di routing.

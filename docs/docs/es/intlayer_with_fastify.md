@@ -61,27 +61,37 @@ Ver la [Plantilla de la Aplicación](https://github.com/aymericzip/intlayer-fast
 Para comenzar a usar `fastify-intlayer`, instala el paquete usando npm:
 
 ```bash packageManager="npm"
-npm install intlayer fastify-intlayer
-npx intlayer init
+npx intlayer-cli init --interactive
+```
 
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Este comando detectará su entorno e instalará los paquetes necesarios. Por ejemplo:
+
+```bash packageManager="npm"
+npm install intlayer fastify-intlayer
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer fastify-intlayer
-pnpm intlayer init
-
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer fastify-intlayer
-yarn intlayer init
-
 ```
 
 ```bash packageManager="bun"
 bun add intlayer fastify-intlayer
-bun x intlayer init
-
 ```
 
 ### Configuración

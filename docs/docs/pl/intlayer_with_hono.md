@@ -63,23 +63,37 @@ Zobacz [Application Template](https://github.com/aymericzip/intlayer-hono-templa
 Aby zacząć korzystać z `hono-intlayer`, zainstaluj pakiet za pomocą npm:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> To polecenie wykryje Twoje środowisko i zainstaluje wymagane pakiety. Na przykład:
+
+```bash packageManager="npm"
 npm install intlayer hono-intlayer
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer hono-intlayer
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer hono-intlayer
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer hono-intlayer
-bun x intlayer init
 ```
 
 ### Konfiguracja

@@ -99,23 +99,37 @@ Aşağıdaki adımlar, mevcut `next-intl` uygulamanızı herhangi bir kod deği�
 Temel Intlayer paketlerini ve `@intlayer/next-intl` uyumluluk adaptörünü kurun:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Bu komut ortamınızı algılayacak ve gerekli paketleri yükleyecektir. Örneğin:
+
+```bash packageManager="npm"
 npm install intlayer next-intlayer @intlayer/next-intl @intlayer/sync-json-plugin
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer next-intlayer @intlayer/next-intl @intlayer/sync-json-plugin
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer next-intlayer @intlayer/next-intl @intlayer/sync-json-plugin
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer next-intlayer @intlayer/next-intl @intlayer/sync-json-plugin
-bun x intlayer init
 ```
 
 > `next-intl`'i yüklü bırakın; **URL yönlendirmesi (routing)** için (`createNavigation`, `createMiddleware`, `Link`, `redirect`, `usePathname`, `useRouter`) gereklidir. Uyumluluk adaptörü yönlendirme katmanını **değiştirmez**.

@@ -60,23 +60,37 @@ author: aymericzip
 Щоб почати використовувати `adonis-intlayer`, встановіть пакет за допомогою npm:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Ця команда виявить ваше середовище та встановить необхідні пакети. Наприклад:
+
+```bash packageManager="npm"
 npm install intlayer adonis-intlayer
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer adonis-intlayer
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer adonis-intlayer
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer adonis-intlayer
-bun x intlayer init
 ```
 
 ### Налаштування

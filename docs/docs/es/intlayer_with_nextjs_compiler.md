@@ -89,27 +89,41 @@ Para mitigar este impacto durante el desarrollo, puede configurar el compilador 
 Instale los paquetes necesarios utilizando npm:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Este comando detectará su entorno e instalará los paquetes necesarios. Por ejemplo:
+
+```bash packageManager="npm"
 npm install intlayer next-intlayer
 npm install @intlayer/babel --save-dev
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer next-intlayer
 pnpm add @intlayer/babel --save-dev
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer next-intlayer
 yarn add @intlayer/babel --save-dev
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer next-intlayer
 bun add @intlayer/babel --dev
-bun x intlayer init
 ```
 
 - **intlayer**

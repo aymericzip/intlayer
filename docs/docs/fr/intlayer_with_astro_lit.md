@@ -122,27 +122,37 @@ Voir le [Modèle d'application](https://github.com/aymericzip/intlayer-astro-tem
 Installez les packages nécessaires en utilisant votre gestionnaire de packages préféré :
 
 ```bash packageManager="npm"
-npm install intlayer astro-intlayer lit lit-intlayer @astrojs/lit
+npx intlayer-cli init --interactive
+```
 
-npx intlayer init
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Cette commande détectera votre environnement et installera les packages requis. Par exemple :
+
+```bash packageManager="npm"
+npm install intlayer astro-intlayer lit lit-intlayer @astrojs/lit
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer astro-intlayer lit lit-intlayer @astrojs/lit
-
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer astro-intlayer lit lit-intlayer @astrojs/lit
-
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer astro-intlayer lit lit-intlayer @astrojs/lit
-
-bun x intlayer init
 ```
 
 - **intlayer**

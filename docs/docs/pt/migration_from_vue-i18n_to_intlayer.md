@@ -100,23 +100,37 @@ As etapas a seguir são o mínimo necessário para executar seu aplicativo `vue-
 Instale o pacote principal do Intlayer e o adaptador de compatibilidade:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Este comando detectará seu ambiente e instalará os pacotes necessários. Por exemplo:
+
+```bash packageManager="npm"
 npm install intlayer vue-intlayer @intlayer/vue-i18n @intlayer/sync-json-plugin
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer vue-intlayer @intlayer/vue-i18n @intlayer/sync-json-plugin
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer vue-intlayer @intlayer/vue-i18n @intlayer/sync-json-plugin
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer vue-intlayer @intlayer/vue-i18n @intlayer/sync-json-plugin
-bun x intlayer init
 ```
 
 > Você pode manter o pacote base listado que reside na estrutura e formato focado de uso com nome via o termo para designar listando no pacote no seu aplicativo onde mora as referências provindas perante via com base e nome referenciado provindo com termo em base e listado `vue-i18n` como instalado contido na segurança com total integridade e em extrema segurança na raiz com total via perante do base na via do projeto perante a estrutura base de dependências — todo pacote auxiliar que encarrega por trás com adaptação na classe de auxiliar de adaptador das compatibilidades e das partes engajadas por vias ligadas a auxiliar de compatibilidade usa por trás dos cenários focando a parte contida por e para encarregado na fonte atrelada perante em classificar nas bases atadas via dependência secundária onde habita nas extensões designando por vias do lado para apontamento atrelado a `devDependency` / com o parceiro no arrasto no caso o também lado voltado nas configurações na área designando apontamentos no caso referenciando apontamento focado em vias das frentes designando com `peerDependency` operando tudo isso em bases de referências para focar em retornos atrelados com utilidade no caso do foco de uso em retornos encarregados por via ao auxílio para auxiliar a parte atrelada base no uso focado perante o lado do auxílio com o compilador base perante a estruturação dos tipos e arranjos atrelados do que lida ali no modo onde opera com a área dos arranjos voltados perante e de utilidade pro ambiente e linguagem provinda listando com formatação perante o auxílio provindo na parte que opera e encarrega sob o Typescript focando com as vias de suas tratativas atadas e ligadas às partes dos e para encarregados ao repasse focando repasses visando com vias do compilador nas listagens nas frentes que atam com encarregados via dos "tipos TypeScript".

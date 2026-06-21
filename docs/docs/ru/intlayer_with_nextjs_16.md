@@ -135,23 +135,37 @@ Intlayer — это больше, чем просто решение i18n. Он 
 Установите необходимые пакеты с помощью npm:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Эта команда определит вашу среду и установит необходимые пакеты. Например:
+
+```bash packageManager="npm"
 npm install intlayer next-intlayer
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer next-intlayer
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer next-intlayer
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer next-intlayer
-bun x intlayer init
 ```
 
 - **intlayer**

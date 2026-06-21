@@ -133,27 +133,41 @@ Consulta il [Template dell'Applicazione](https://github.com/aymericzip/intlayer-
 Installa i pacchetti necessari usando npm:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Questo comando rileverà il tuo ambiente e installerà i pacchetti richiesti. Ad esempio:
+
+```bash packageManager="npm"
 npm install intlayer svelte-intlayer
 npm install vite-intlayer --save-dev
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer svelte-intlayer
 pnpm add vite-intlayer --save-dev
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer svelte-intlayer
 yarn add vite-intlayer --save-dev
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer svelte-intlayer
 bun add vite-intlayer --save-dev
-bun x intlayer init
 ```
 
 - **intlayer**

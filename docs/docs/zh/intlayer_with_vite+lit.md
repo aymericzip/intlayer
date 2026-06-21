@@ -99,27 +99,41 @@ Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的
 使用 npm 安装必要的包：
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> 该命令将检测您的环境并安装所需的软件包。例如：
+
+```bash packageManager="npm"
 npm install intlayer lit-intlayer
 npm install vite-intlayer --save-dev
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer lit-intlayer
 pnpm add vite-intlayer --save-dev
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer lit-intlayer
 yarn add vite-intlayer --save-dev
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer lit-intlayer
 bun add vite-intlayer --dev
-bun x intlayer init
 ```
 
 - **intlayer**

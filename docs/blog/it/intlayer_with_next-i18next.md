@@ -72,23 +72,37 @@ Questa guida ti mostra come sfruttare il sistema superiore di dichiarazione dei 
 Installa i pacchetti necessari usando il tuo gestore di pacchetti preferito:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Questo comando rileverà il tuo ambiente e installerà i pacchetti richiesti. Ad esempio:
+
+```bash packageManager="npm"
 npm install intlayer @intlayer/sync-json-plugin --save-dev
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer @intlayer/sync-json-plugin --save-dev
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer @intlayer/sync-json-plugin --dev
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer @intlayer/sync-json-plugin --dev
-bun x intlayer init
 ```
 
 **Spiegazioni dei pacchetti:**

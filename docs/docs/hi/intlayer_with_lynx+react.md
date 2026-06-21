@@ -74,23 +74,37 @@ author: aymericzip
 अपने लिनक्स प्रोजेक्ट से, निम्नलिखित पैकेज स्थापित करें:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> यह कमांड आपके एनवायरनमेंट को डिटेक्ट करेगी और आवश्यक पैकेज इंस्टॉल करेगी। उदाहरण के लिए:
+
+```bash packageManager="npm"
 npm install intlayer react-intlayer lynx-intlayer
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer lynx-intlayer
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer react-intlayer lynx-intlayer
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer react-intlayer lynx-intlayer
-bun x intlayer init
 ```
 
 ### पैकेज

@@ -125,27 +125,41 @@ Bien plus qu'une simple solution i18n, Intlayer propose un **[éditeur visuel](h
 Installez les paquets nécessaires avec npm :
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Cette commande détectera votre environnement et installera les packages requis. Par exemple :
+
+```bash packageManager="npm"
 npm install intlayer preact-intlayer
 npm install vite-intlayer --save-dev
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer preact-intlayer
 pnpm add vite-intlayer --save-dev
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer preact-intlayer
 yarn add vite-intlayer --save-dev
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer preact-intlayer
 bun add vite-intlayer --dev
-bun x intlayer init
 ```
 
 - **intlayer**

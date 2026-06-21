@@ -65,23 +65,37 @@ nest new my-nest-app
 لبدء استخدام `express-intlayer`، قم بتثبيت الحزمة باستخدام npm:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> سيقوم هذا الأمر باكتشاف بيئتك وتثبيت الحزم المطلوبة. على سبيل المثال:
+
+```bash packageManager="npm"
 npm install intlayer express-intlayer
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer express-intlayer
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer express-intlayer
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer express-intlayer
-bun x intlayer init
 ```
 
 ### تكوين tsconfig.json

@@ -61,27 +61,37 @@ Siehe [Anwendungsvorlage](https://github.com/aymericzip/intlayer-fastify-templat
 Um `fastify-intlayer` zu verwenden, installieren Sie das Paket mit npm:
 
 ```bash packageManager="npm"
-npm install intlayer fastify-intlayer
-npx intlayer init
+npx intlayer-cli init --interactive
+```
 
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Dieser Befehl erkennt Ihre Umgebung und installiert die erforderlichen Pakete. Zum Beispiel:
+
+```bash packageManager="npm"
+npm install intlayer fastify-intlayer
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer fastify-intlayer
-pnpm intlayer init
-
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer fastify-intlayer
-yarn intlayer init
-
 ```
 
 ```bash packageManager="bun"
 bun add intlayer fastify-intlayer
-bun x intlayer init
-
 ```
 
 ### Einrichtung

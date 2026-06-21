@@ -106,27 +106,41 @@ Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://g
 Pasang paket yang diperlukan menggunakan manajer paket pilihan Anda:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Perintah ini akan mendeteksi lingkungan Anda dan menginstal paket yang diperlukan. Misalnya:
+
+```bash packageManager="npm"
 npm install intlayer react-intlayer
 npm install vite-intlayer --save-dev
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer
 pnpm add vite-intlayer --save-dev
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer react-intlayer
 yarn add vite-intlayer --save-dev
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer react-intlayer
 bun add vite-intlayer --dev
-bun x intlayer init
 ```
 
 - **intlayer**

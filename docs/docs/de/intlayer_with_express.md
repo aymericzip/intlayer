@@ -66,23 +66,37 @@ See [Application Template](https://github.com/aymericzip/intlayer-express-templa
 Um `express-intlayer` zu verwenden, installieren Sie das Paket mit npm:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Dieser Befehl erkennt Ihre Umgebung und installiert die erforderlichen Pakete. Zum Beispiel:
+
+```bash packageManager="npm"
 npm install intlayer express-intlayer
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer express-intlayer
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer express-intlayer
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer express-intlayer
-bun x intlayer init
 ```
 
 ### Einrichtung

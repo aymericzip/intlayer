@@ -103,23 +103,37 @@ Aşağıdaki adımlar, mevcut Next.js (Pages Router) uygulamanızı hiçbir sayf
 Temel Intlayer paketlerini ve uyumluluk adaptörlerini kurun:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Bu komut ortamınızı algılayacak ve gerekli paketleri yükleyecektir. Örneğin:
+
+```bash packageManager="npm"
 npm install intlayer next-intlayer react-intlayer @intlayer/next-i18next @intlayer/react-i18next @intlayer/i18next @intlayer/sync-json-plugin
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer next-intlayer react-intlayer @intlayer/next-i18next @intlayer/react-i18next @intlayer/i18next @intlayer/sync-json-plugin
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer next-intlayer react-intlayer @intlayer/next-i18next @intlayer/react-i18next @intlayer/i18next @intlayer/sync-json-plugin
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer next-intlayer react-intlayer @intlayer/next-i18next @intlayer/react-i18next @intlayer/i18next @intlayer/sync-json-plugin
-bun x intlayer init
 ```
 
 > Geçiş sürecinde ve alias'lar çözümlenene kadar `next-i18next`, `react-i18next` ve `i18next` kurulumlarını güvenle koruyabilirsiniz.

@@ -102,23 +102,37 @@ Aşağıdaki adımlar, mevcut `react-i18next` uygulamanızı hiçbir bileşen ko
 Temel Intlayer paketlerini ve uyumluluk adaptörünü kurun:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Bu komut ortamınızı algılayacak ve gerekli paketleri yükleyecektir. Örneğin:
+
+```bash packageManager="npm"
 npm install intlayer react-intlayer @intlayer/react-i18next @intlayer/i18next @intlayer/sync-json-plugin
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer @intlayer/react-i18next @intlayer/i18next @intlayer/sync-json-plugin
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer react-intlayer @intlayer/react-i18next @intlayer/i18next @intlayer/sync-json-plugin
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer react-intlayer @intlayer/react-i18next @intlayer/i18next @intlayer/sync-json-plugin
-bun x intlayer init
 ```
 
 > `react-i18next` ve `i18next`'i güvenle yüklü bırakabilirsiniz; uyumluluk adaptörü bunları TypeScript türleri için `devDependency` / `peerDependency` olarak kullanır. `package.json` dosyanızdaki herhangi bir eş bağımlılığı (peer dependency) değiştirmeniz gerekmez.

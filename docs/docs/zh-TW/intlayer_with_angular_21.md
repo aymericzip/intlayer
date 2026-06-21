@@ -86,27 +86,41 @@ author: aymericzip
 使用npm安裝必要的套件：
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> 此命令將偵測您的環境並安裝所需的套件。例如：
+
+```bash packageManager="npm"
 npm install intlayer angular-intlayer
 npm install @angular-builders/custom-esbuild --save-dev
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer angular-intlayer
 pnpm add @angular-builders/custom-esbuild --save-dev
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer angular-intlayer
 yarn add @angular-builders/custom-esbuild --save-dev
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer angular-intlayer
 bun add @angular-builders/custom-esbuild --dev
-bun x intlayer init
 ```
 
 - **intlayer**

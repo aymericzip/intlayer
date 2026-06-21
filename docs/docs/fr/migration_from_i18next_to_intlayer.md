@@ -99,23 +99,37 @@ Les étapes suivantes sont le minimum requis pour faire fonctionner votre applic
 Installez les packages principaux d'Intlayer et l'adaptateur de compatibilité :
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Cette commande détectera votre environnement et installera les packages requis. Par exemple :
+
+```bash packageManager="npm"
 npm install intlayer @intlayer/i18next @intlayer/sync-json-plugin
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer @intlayer/i18next @intlayer/sync-json-plugin
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer @intlayer/i18next @intlayer/sync-json-plugin
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer @intlayer/i18next @intlayer/sync-json-plugin
-bun x intlayer init
 ```
 
 > Vous pouvez garder `i18next` installé — l'adaptateur de compatibilité l'utilise comme `devDependency` / `peerDependency` pour les types TypeScript.

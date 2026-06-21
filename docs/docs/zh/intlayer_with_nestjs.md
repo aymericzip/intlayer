@@ -65,23 +65,37 @@ nest new my-nest-app
 要开始使用 `express-intlayer`，请使用 npm 安装该包：
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> 该命令将检测您的环境并安装所需的软件包。例如：
+
+```bash packageManager="npm"
 npm install intlayer express-intlayer
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer express-intlayer
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer express-intlayer
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer express-intlayer
-bun x intlayer init
 ```
 
 ### 配置 tsconfig.json

@@ -86,27 +86,41 @@ GitHub پر [ایپلیکیشن ٹیمپلیٹ](https://github.com/aymericzip/in
 npm کا استعمال کرتے ہوئے ضروری پیکجز انسٹال کریں:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> یہ کمانڈ آپ کے ماحول کا پتہ لگائے گی اور مطلوبہ پیکیجز انسٹال کرے گی۔ مثال کے طور پر:
+
+```bash packageManager="npm"
 npm install intlayer angular-intlayer
 npm install @angular-builders/custom-esbuild --save-dev
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer angular-intlayer
 pnpm add @angular-builders/custom-esbuild --save-dev
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer angular-intlayer
 yarn add @angular-builders/custom-esbuild --save-dev
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer angular-intlayer
 bun add @angular-builders/custom-esbuild --dev
-bun x intlayer init
 ```
 
 - **intlayer**

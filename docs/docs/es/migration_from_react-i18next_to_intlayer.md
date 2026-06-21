@@ -101,23 +101,37 @@ Los siguientes pasos son el mínimo requerido para que tu aplicación `react-i18
 Instala los paquetes principales de Intlayer y los adaptadores de compatibilidad:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Este comando detectará su entorno e instalará los paquetes necesarios. Por ejemplo:
+
+```bash packageManager="npm"
 npm install intlayer react-intlayer @intlayer/react-i18next @intlayer/i18next @intlayer/sync-json-plugin
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer @intlayer/react-i18next @intlayer/i18next @intlayer/sync-json-plugin
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer react-intlayer @intlayer/react-i18next @intlayer/i18next @intlayer/sync-json-plugin
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer react-intlayer @intlayer/react-i18next @intlayer/i18next @intlayer/sync-json-plugin
-bun x intlayer init
 ```
 
 > Puedes mantener `react-i18next` e `i18next` instalados — los adaptadores de compatibilidad los usan como `devDependencies` / `peerDependencies` opcionales para los tipos de TypeScript. No necesitas cambiar ningún peer de tu `package.json`.

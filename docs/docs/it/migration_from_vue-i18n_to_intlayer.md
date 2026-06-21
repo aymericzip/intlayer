@@ -100,23 +100,37 @@ I seguenti passaggi rappresentano il minimo indispensabile per far funzionare la
 Installa i pacchetti principali di Intlayer e l'adattatore di compatibilità:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Questo comando rileverà il tuo ambiente e installerà i pacchetti richiesti. Ad esempio:
+
+```bash packageManager="npm"
 npm install intlayer vue-intlayer @intlayer/vue-i18n @intlayer/sync-json-plugin
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer vue-intlayer @intlayer/vue-i18n @intlayer/sync-json-plugin
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer vue-intlayer @intlayer/vue-i18n @intlayer/sync-json-plugin
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer vue-intlayer @intlayer/vue-i18n @intlayer/sync-json-plugin
-bun x intlayer init
 ```
 
 > Puoi mantenere installato in modo sicuro `vue-i18n` — l'adattatore di compatibilità lo usa come `devDependency` / `peerDependency` per i tipi TypeScript.

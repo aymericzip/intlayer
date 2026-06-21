@@ -124,27 +124,41 @@ Lihat [Templat Aplikasi](https://github.com/aymericzip/intlayer-angular-21-templ
 Instal paket yang diperlukan menggunakan npm:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Perintah ini akan mendeteksi lingkungan Anda dan menginstal paket yang diperlukan. Misalnya:
+
+```bash packageManager="npm"
 npm install intlayer angular-intlayer
 npm install @angular-builders/custom-esbuild --save-dev
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer angular-intlayer
 pnpm add @angular-builders/custom-esbuild --save-dev
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer angular-intlayer
 yarn add @angular-builders/custom-esbuild --save-dev
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer angular-intlayer
 bun add @angular-builders/custom-esbuild --dev
-bun x intlayer init
 ```
 
 - **intlayer**

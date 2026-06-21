@@ -98,23 +98,37 @@ Intlayer는 단순한 i18n 솔루션을 넘어, 자체 호스팅이 가능한 **
 Intlayer 핵심 패키지와 `@intlayer/next-intl` 호환성 어댑터를 설치합니다:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> 이 명령은 환경을 감지하고 필요한 패키지를 설치합니다. 예를 들어:
+
+```bash packageManager="npm"
 npm install intlayer next-intlayer @intlayer/next-intl @intlayer/sync-json-plugin
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer next-intlayer @intlayer/next-intl @intlayer/sync-json-plugin
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer next-intlayer @intlayer/next-intl @intlayer/sync-json-plugin
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer next-intlayer @intlayer/next-intl @intlayer/sync-json-plugin
-bun x intlayer init
 ```
 
 > `next-intl`은 계속 설치해 두세요 — **URL 라우팅**(`createNavigation`, `createMiddleware`, `Link`, `redirect`, `usePathname`, `useRouter`)을 위해 계속 필요합니다. 호환성 어댑터는 라우팅 레이어를 교체**하지 않습니다**.

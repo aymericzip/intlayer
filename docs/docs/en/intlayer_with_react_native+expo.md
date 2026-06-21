@@ -121,27 +121,41 @@ See [Application Template](https://github.com/aymericzip/intlayer-react-native-t
 From your React Native project, install the following packages:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> This command will detect your environment and install the required packages. For example:
+
+```bash packageManager="npm"
 npm install intlayer react-intlayer
 npm install --save-dev react-native-intlayer
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer
 pnpm add --save-dev react-native-intlayer
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer react-intlayer
 yarn add --save-dev react-native-intlayer
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer react-intlayer
 bun add --dev react-native-intlayer
-bun x intlayer init
 ```
 
 ### Packages

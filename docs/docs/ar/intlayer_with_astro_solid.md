@@ -104,27 +104,37 @@ author: aymericzip
 قم بتثبيت الحزم اللازمة باستخدام مدير الحزم المفضل لديك:
 
 ```bash packageManager="npm"
-npm install intlayer astro-intlayer solid-js solid-intlayer @astrojs/solid-js
+npx intlayer-cli init --interactive
+```
 
-npx intlayer init
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> سيقوم هذا الأمر باكتشاف بيئتك وتثبيت الحزم المطلوبة. على سبيل المثال:
+
+```bash packageManager="npm"
+npm install intlayer astro-intlayer solid-js solid-intlayer @astrojs/solid-js
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer astro-intlayer solid-js solid-intlayer @astrojs/solid-js
-
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer astro-intlayer solid-js solid-intlayer @astrojs/solid-js
-
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer astro-intlayer solid-js solid-intlayer @astrojs/solid-js
-
-bun x intlayer init
 ```
 
 - **intlayer**

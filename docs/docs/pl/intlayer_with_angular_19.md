@@ -105,27 +105,41 @@ Zobacz [Szablon aplikacji](https://github.com/aymericzip/intlayer-angular-19-tem
 Zainstaluj niezbędne pakiety za pomocą npm:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> To polecenie wykryje Twoje środowisko i zainstaluje wymagane pakiety. Na przykład:
+
+```bash packageManager="npm"
 npm install intlayer angular-intlayer
 npm install @angular-builders/custom-webpack --save-dev
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer angular-intlayer
 pnpm add @angular-builders/custom-webpack --save-dev
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer angular-intlayer
 yarn add @angular-builders/custom-webpack --save-dev
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer angular-intlayer
 bun add @angular-builders/custom-webpack --dev
-bun x intlayer init
 ```
 
 - **intlayer**

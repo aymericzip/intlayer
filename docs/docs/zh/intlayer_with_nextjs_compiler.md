@@ -89,27 +89,41 @@ author: aymericzip
 使用您偏好的包管理器安装必要的包：
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> 该命令将检测您的环境并安装所需的软件包。例如：
+
+```bash packageManager="npm"
 npm install intlayer next-intlayer
 npm install @intlayer/babel --save-dev
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer next-intlayer
 pnpm add @intlayer/babel --save-dev
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer next-intlayer
 yarn add @intlayer/babel --save-dev
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer next-intlayer
 bun add @intlayer/babel --dev
-bun x intlayer init
 ```
 
 - **intlayer**

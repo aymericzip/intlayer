@@ -60,23 +60,37 @@ Intlayer는 훌륭한 독립형 i18n 솔루션을 제공하지만(자세한 내�
 필요한 패키지를 설치하세요:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> 이 명령은 환경을 감지하고 필요한 패키지를 설치합니다. 예를 들어:
+
+```bash packageManager="npm"
 npm install intlayer @intlayer/sync-json-plugin --save-dev
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer @intlayer/sync-json-plugin --save-dev
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer @intlayer/sync-json-plugin --dev
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer @intlayer/sync-json-plugin --dev
-bun x intlayer init
 ```
 
 **패키지 설명:**

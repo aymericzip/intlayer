@@ -124,27 +124,37 @@ Confira o [modelo da aplicação](https://github.com/aymericzip/intlayer-astro-t
 Instale os pacotes necessários usando seu gerenciador de pacotes preferido:
 
 ```bash packageManager="npm"
-npm install intlayer astro-intlayer react react-dom react-intlayer @astrojs/react
+npx intlayer-cli init --interactive
+```
 
-npx intlayer init
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Este comando detectará seu ambiente e instalará os pacotes necessários. Por exemplo:
+
+```bash packageManager="npm"
+npm install intlayer astro-intlayer react react-dom react-intlayer @astrojs/react
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer astro-intlayer react react-dom react-intlayer @astrojs/react
-
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer astro-intlayer react react-dom react-intlayer @astrojs/react
-
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer astro-intlayer react react-dom react-intlayer @astrojs/react
-
-bun x intlayer init
 ```
 
 - **intlayer**

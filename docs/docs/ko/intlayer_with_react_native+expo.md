@@ -157,27 +157,41 @@ bun add --dev 반응 네이티브-인레이어
 React Native 프로젝트에서 다음 패키지들을 설치하세요:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> 이 명령은 환경을 감지하고 필요한 패키지를 설치합니다. 예를 들어:
+
+```bash packageManager="npm"
 npm install intlayer react-intlayer
 npm install --save-dev react-native-intlayer
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer
 pnpm add --save-dev react-native-intlayer
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer react-intlayer
 yarn add --save-dev react-native-intlayer
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer react-intlayer
 bun add --dev react-native-intlayer
-bun x intlayer init
 ```
 
 ### 패키지

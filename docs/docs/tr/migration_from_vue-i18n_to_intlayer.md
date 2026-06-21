@@ -101,23 +101,37 @@ Aşağıdaki adımlar, mevcut `vue-i18n` uygulamanızı hiçbir bileşen kodunu 
 Temel Intlayer paketlerini ve uyumluluk adaptörünü kurun:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Bu komut ortamınızı algılayacak ve gerekli paketleri yükleyecektir. Örneğin:
+
+```bash packageManager="npm"
 npm install intlayer vue-intlayer @intlayer/vue-i18n @intlayer/sync-json-plugin
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer vue-intlayer @intlayer/vue-i18n @intlayer/sync-json-plugin
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer vue-intlayer @intlayer/vue-i18n @intlayer/sync-json-plugin
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer vue-intlayer @intlayer/vue-i18n @intlayer/sync-json-plugin
-bun x intlayer init
 ```
 
 > `vue-i18n`'i güvenle yüklü bırakabilirsiniz; uyumluluk adaptörü onu TypeScript türleri için `devDependency` / `peerDependency` olarak kullanır.

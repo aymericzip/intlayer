@@ -101,23 +101,37 @@ As etapas a seguir são o mínimo necessário para executar seu aplicativo Nuxt 
 Instale o pacote principal do Intlayer e o adaptador de compatibilidade:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Este comando detectará seu ambiente e instalará os pacotes necessários. Por exemplo:
+
+```bash packageManager="npm"
 npm install intlayer vue-intlayer nuxt-intlayer @intlayer/vue-i18n @intlayer/sync-json-plugin
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer vue-intlayer nuxt-intlayer @intlayer/vue-i18n @intlayer/sync-json-plugin
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer vue-intlayer nuxt-intlayer @intlayer/vue-i18n @intlayer/sync-json-plugin
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer vue-intlayer nuxt-intlayer @intlayer/vue-i18n @intlayer/sync-json-plugin
-bun x intlayer init
 ```
 
 > Fique a vontade para manter o `@nuxtjs/i18n` instalado e ativo seguramente ao longo de sua etapa de migração do código (estaremos desabilitando e varrendo o tal serviço brevemente na definição/configuração principal do Nuxt ali no passo adiante).

@@ -60,23 +60,37 @@ See [Application Template](https://github.com/aymericzip/intlayer-adonis-templat
 Para começar a usar o `adonis-intlayer`, instale o pacote usando o npm:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Este comando detectará seu ambiente e instalará os pacotes necessários. Por exemplo:
+
+```bash packageManager="npm"
 npm install intlayer adonis-intlayer
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer adonis-intlayer
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer adonis-intlayer
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer adonis-intlayer
-bun x intlayer init
 ```
 
 ### Configuração

@@ -91,23 +91,37 @@ More than just an i18n solution, Intlayer provides an **self-hosted [visual edit
 From your Lynx project, install the following packages:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> This command will detect your environment and install the required packages. For example:
+
+```bash packageManager="npm"
 npm install intlayer react-intlayer lynx-intlayer
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer lynx-intlayer
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer react-intlayer lynx-intlayer
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer react-intlayer lynx-intlayer
-bun x intlayer init
 ```
 
 **Intlayer** is an **innovative, open-source internationalisation (i18n) library** that simplifies multilingual support in modern applications. It works in many JavaScript/TypeScript environments, **including Lynx** (via the `react-intlayer` package).
@@ -128,23 +142,37 @@ With Intlayer, you can:
 From your Lynx project, install the following packages:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> This command will detect your environment and install the required packages. For example:
+
+```bash packageManager="npm"
 npm install intlayer react-intlayer lynx-intlayer
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer react-intlayer lynx-intlayer
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer react-intlayer lynx-intlayer
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer react-intlayer lynx-intlayer
-bun x intlayer init
 ```
 
 ### Packages

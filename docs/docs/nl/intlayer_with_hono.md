@@ -63,23 +63,37 @@ Zie [Applicatiesjabloon](https://github.com/aymericzip/intlayer-hono-template) o
 Om `hono-intlayer` te gaan gebruiken, installeert u het pakket met npm:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Dit commando detecteert uw omgeving en installeert de benodigde pakketten. Bijvoorbeeld:
+
+```bash packageManager="npm"
 npm install intlayer hono-intlayer
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer hono-intlayer
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer hono-intlayer
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer hono-intlayer
-bun x intlayer init
 ```
 
 ### Configuratie

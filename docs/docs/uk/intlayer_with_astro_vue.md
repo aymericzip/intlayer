@@ -121,27 +121,37 @@ Intlayer оптимізовано для ідеальної роботи з Astr
 Встановіть необхідні пакети за допомогою бажаного менеджера пакетів:
 
 ```bash packageManager="npm"
-npm install intlayer astro-intlayer vue vue-intlayer @astrojs/vue
+npx intlayer-cli init --interactive
+```
 
-npx intlayer init
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Ця команда виявить ваше середовище та встановить необхідні пакети. Наприклад:
+
+```bash packageManager="npm"
+npm install intlayer astro-intlayer vue vue-intlayer @astrojs/vue
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer astro-intlayer vue vue-intlayer @astrojs/vue
-
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer astro-intlayer vue vue-intlayer @astrojs/vue
-
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer astro-intlayer vue vue-intlayer @astrojs/vue
-
-bun x intlayer init
 ```
 
 - **intlayer**

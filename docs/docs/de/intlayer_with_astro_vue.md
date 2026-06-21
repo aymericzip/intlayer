@@ -121,27 +121,37 @@ Sehen Sie sich das [Anwendungstemplate](https://github.com/aymericzip/intlayer-a
 Installieren Sie die erforderlichen Pakete mit Ihrem bevorzugten Paketmanager:
 
 ```bash packageManager="npm"
-npm install intlayer astro-intlayer vue vue-intlayer @astrojs/vue
+npx intlayer-cli init --interactive
+```
 
-npx intlayer init
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Dieser Befehl erkennt Ihre Umgebung und installiert die erforderlichen Pakete. Zum Beispiel:
+
+```bash packageManager="npm"
+npm install intlayer astro-intlayer vue vue-intlayer @astrojs/vue
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer astro-intlayer vue vue-intlayer @astrojs/vue
-
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer astro-intlayer vue vue-intlayer @astrojs/vue
-
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer astro-intlayer vue vue-intlayer @astrojs/vue
-
-bun x intlayer init
 ```
 
 - **intlayer**

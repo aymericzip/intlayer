@@ -51,23 +51,37 @@ Bu kılavuzu takip etmek için aşağıdaki araçlara ihtiyacınız olacak:
 İlk olarak, Intlayer paketlerini projenize kurun:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Bu komut ortamınızı algılayacak ve gerekli paketleri yükleyecektir. Örneğin:
+
+```bash packageManager="npm"
 npm install next-intlayer intlayer --save
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add next-intlayer intlayer
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add next-intlayer intlayer
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add next-intlayer intlayer --save
-bun x intlayer init
 ```
 
 </Step>

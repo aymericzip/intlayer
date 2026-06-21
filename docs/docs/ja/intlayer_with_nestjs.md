@@ -65,23 +65,37 @@ nest new my-nest-app
 `express-intlayer` を使い始めるには、npm を使ってパッケージをインストールします。
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> このコマンドは環境を検出し、必要なパッケージをインストールします。例えば：
+
+```bash packageManager="npm"
 npm install intlayer express-intlayer
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer express-intlayer
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer express-intlayer
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer express-intlayer
-bun x intlayer init
 ```
 
 ### tsconfig.json の設定

@@ -65,23 +65,37 @@ Voir le [Modèle d’Application](https://github.com/aymericzip/intlayer-express
 Pour commencer à utiliser `express-intlayer`, installez le package avec npm :
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Cette commande détectera votre environnement et installera les packages requis. Par exemple :
+
+```bash packageManager="npm"
 npm install intlayer express-intlayer
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer express-intlayer
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer express-intlayer
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer express-intlayer
-bun x intlayer init
 ```
 
 ### Configuration

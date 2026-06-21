@@ -98,23 +98,37 @@ Los siguientes pasos son el mínimo requerido para que tu aplicación `next-intl
 Instala los paquetes principales de Intlayer y el adaptador de compatibilidad `@intlayer/next-intl`:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Este comando detectará su entorno e instalará los paquetes necesarios. Por ejemplo:
+
+```bash packageManager="npm"
 npm install intlayer next-intlayer @intlayer/next-intl @intlayer/sync-json-plugin
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer next-intlayer @intlayer/next-intl @intlayer/sync-json-plugin
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer next-intlayer @intlayer/next-intl @intlayer/sync-json-plugin
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer next-intlayer @intlayer/next-intl @intlayer/sync-json-plugin
-bun x intlayer init
 ```
 
 > Conserva instalado `next-intl` — sigue siendo necesario para el **enrutamiento URL** (`createNavigation`, `createMiddleware`, `Link`, `redirect`, `usePathname`, `useRouter`). El adaptador de compatibilidad **no** reemplaza la capa de enrutamiento.

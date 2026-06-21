@@ -63,23 +63,37 @@ GitHub-এ [Application Template](https://github.com/aymericzip/intlayer-hono-te
 `hono-intlayer` ব্যবহার শুরু করতে, npm ব্যবহার করে প্যাকেজটি ইনস্টল করুন:
 
 ```bash packageManager="npm"
+npx intlayer-cli init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> এই কমান্ডটি আপনার এনভায়রনমেন্ট সনাক্ত করবে এবং প্রয়োজনীয় প্যাকেজগুলি ইনস্টল করবে। উদাহরণস্বরূপ:
+
+```bash packageManager="npm"
 npm install intlayer hono-intlayer
-npx intlayer init
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer hono-intlayer
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer hono-intlayer
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer hono-intlayer
-bun x intlayer init
 ```
 
 ### সেটআপ (Setup)

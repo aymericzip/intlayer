@@ -61,27 +61,37 @@ author: aymericzip
 لبدء استخدام `fastify-intlayer`، قم بتثبيت الحزمة باستخدام npm:
 
 ```bash packageManager="npm"
-npm install intlayer fastify-intlayer
-npx intlayer init
+npx intlayer-cli init --interactive
+```
 
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> سيقوم هذا الأمر باكتشاف بيئتك وتثبيت الحزم المطلوبة. على سبيل المثال:
+
+```bash packageManager="npm"
+npm install intlayer fastify-intlayer
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer fastify-intlayer
-pnpm intlayer init
-
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer fastify-intlayer
-yarn intlayer init
-
 ```
 
 ```bash packageManager="bun"
 bun add intlayer fastify-intlayer
-bun x intlayer init
-
 ```
 
 ### الإعداد

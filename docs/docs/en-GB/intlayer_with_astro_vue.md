@@ -121,27 +121,37 @@ Check out the [application template](https://github.com/aymericzip/intlayer-astr
 Install the necessary packages using your preferred package manager:
 
 ```bash packageManager="npm"
-npm install intlayer astro-intlayer vue vue-intlayer @astrojs/vue
+npx intlayer-cli init --interactive
+```
 
-npx intlayer init
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> This command will detect your environment and install the required packages. For example:
+
+```bash packageManager="npm"
+npm install intlayer astro-intlayer vue vue-intlayer @astrojs/vue
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer astro-intlayer vue vue-intlayer @astrojs/vue
-
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer astro-intlayer vue vue-intlayer @astrojs/vue
-
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer astro-intlayer vue vue-intlayer @astrojs/vue
-
-bun x intlayer init
 ```
 
 - **intlayer**

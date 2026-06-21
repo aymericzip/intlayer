@@ -104,27 +104,37 @@ GitHub पर [एप्लिकेशन टेम्पलेट](https://git
 अपने पसंदीदा पैकेज मैनेजर का उपयोग करके आवश्यक पैकेज स्थापित करें:
 
 ```bash packageManager="npm"
-npm install intlayer astro-intlayer vue vue-intlayer @astrojs/vue
+npx intlayer-cli init --interactive
+```
 
-npx intlayer init
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> यह कमांड आपके एनवायरनमेंट को डिटेक्ट करेगी और आवश्यक पैकेज इंस्टॉल करेगी। उदाहरण के लिए:
+
+```bash packageManager="npm"
+npm install intlayer astro-intlayer vue vue-intlayer @astrojs/vue
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer astro-intlayer vue vue-intlayer @astrojs/vue
-
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer astro-intlayer vue vue-intlayer @astrojs/vue
-
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer astro-intlayer vue vue-intlayer @astrojs/vue
-
-bun x intlayer init
 ```
 
 - **intlayer**

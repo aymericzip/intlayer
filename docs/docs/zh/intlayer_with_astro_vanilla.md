@@ -102,27 +102,37 @@ Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的
 使用您喜欢的包管理器安装所需的软件包：
 
 ```bash packageManager="npm"
-npm install intlayer astro-intlayer vanilla-intlayer
+npx intlayer-cli init --interactive
+```
 
-npx intlayer init
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> 该命令将检测您的环境并安装所需的软件包。例如：
+
+```bash packageManager="npm"
+npm install intlayer astro-intlayer vanilla-intlayer
 ```
 
 ```bash packageManager="pnpm"
 pnpm add intlayer astro-intlayer vanilla-intlayer
-
-pnpm intlayer init
 ```
 
 ```bash packageManager="yarn"
 yarn add intlayer astro-intlayer vanilla-intlayer
-
-yarn intlayer init
 ```
 
 ```bash packageManager="bun"
 bun add intlayer astro-intlayer vanilla-intlayer
-
-bun x intlayer init
 ```
 
 - **intlayer**
