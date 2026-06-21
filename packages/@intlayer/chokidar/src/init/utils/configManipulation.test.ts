@@ -285,6 +285,27 @@ export default config;
       expect(updated).toMatch(/source:\s*\(\{\s*key,\s*locale\s*\}\)/);
     });
 
+    it('emits splitKeys: true for the next-intl single-file namespace model', () => {
+      const updated = updateIntlayerConfigWithSyncPlugin(baseConfig, 'ts', {
+        format: 'icu',
+        sourceTemplate: './messages/${locale}.json',
+        splitKeys: true,
+      });
+
+      expect(updated).toMatch(/source:\s*\(\{\s*locale\s*\}\)/);
+      expect(updated).toContain('`./messages/${locale}.json`');
+      expect(updated).toMatch(/splitKeys:\s*true/);
+    });
+
+    it('omits splitKeys when not forced (auto-detection stays in control)', () => {
+      const updated = updateIntlayerConfigWithSyncPlugin(baseConfig, 'ts', {
+        format: 'icu',
+        sourceTemplate: './messages/${locale}.json',
+      });
+
+      expect(updated).not.toMatch(/splitKeys/);
+    });
+
     it('does not add dictionary.format if already present', () => {
       const configWithDictionary = `
 import { type IntlayerConfig, Locales } from 'intlayer';

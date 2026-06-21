@@ -681,9 +681,14 @@ const buildSyncJSONCallNode = (syncConfig: CompatSyncConfig): any => {
         ? '{ locale, key }'
         : '{ locale }';
 
+  // `splitKeys` is written explicitly only when forced on (next-intl / use-intl
+  // single-file namespace model). When omitted, syncJSON auto-detects it from
+  // the presence of a `${key}` segment in the source.
+  const splitKeysProperty = syncConfig.splitKeys ? ', splitKeys: true' : '';
+
   // The sourceTemplate contains ${locale} / ${key} as literal characters;
   // they become proper template expressions once the snippet is parsed by recast.
-  const snippet = `syncJSON({ format: '${syncConfig.format}', source: (${paramDestructuring}) => \`${syncConfig.sourceTemplate}\` })`;
+  const snippet = `syncJSON({ format: '${syncConfig.format}', source: (${paramDestructuring}) => \`${syncConfig.sourceTemplate}\`${splitKeysProperty} })`;
   const snippetAst = recast.parse(snippet, {
     parser: require('recast/parsers/typescript'),
   });

@@ -30,6 +30,8 @@ describe('detectMissingIntlayerPackages', () => {
       expect(result.compatSyncConfig).toEqual({
         format: 'icu',
         sourceTemplate: './messages/${locale}.json',
+        // single-file namespace model → split each top-level key
+        splitKeys: true,
       });
 
       // syncJSON plugin is a dev dependency once a compat sync config is set
@@ -62,11 +64,34 @@ describe('detectMissingIntlayerPackages', () => {
       });
 
       // next-intl wins the sync config (checked first); both resolve to the
-      // single-file-per-locale layout, so splitKeys auto-detection applies
+      // single-file-per-locale namespace layout, so splitKeys is forced on
       expect(result.compatSyncConfig).toEqual({
         format: 'icu',
         sourceTemplate: './messages/${locale}.json',
+        splitKeys: true,
       });
+    });
+
+    it('forces splitKeys for a next-intl project', () => {
+      const result = detectMissingIntlayerPackages({
+        next: '^15.0.0',
+        'next-intl': '^4.0.0',
+      });
+
+      expect(result.compatSyncConfig).toEqual({
+        format: 'icu',
+        sourceTemplate: './messages/${locale}.json',
+        splitKeys: true,
+      });
+    });
+
+    it('does not force splitKeys for i18next (plain message keys)', () => {
+      const result = detectMissingIntlayerPackages({
+        react: '^19.0.0',
+        i18next: '^23.0.0',
+      });
+
+      expect(result.compatSyncConfig?.splitKeys).toBeUndefined();
     });
   });
 });

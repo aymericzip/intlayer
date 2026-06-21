@@ -531,8 +531,9 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
     // For next-intl / use-intl, the messages path is authoritatively declared
     // in `i18n/request.ts` (e.g. `import(`../messages/${locale}.json`)`), so we
     // read it directly. It usually resolves to a single file per locale (no
-    // `${key}` segment), which `syncJSON` splits per top-level namespace key via
-    // `splitKeys` auto-detection. Falls back to file-system globbing otherwise.
+    // `${key}` segment), whose first-level keys are namespaces — so the compat
+    // config carries `splitKeys: true` to emit one dictionary per namespace.
+    // Falls back to file-system globbing otherwise.
     const nextIntlMessagesPattern =
       allDeps['next-intl'] ||
       allDeps['@intlayer/next-intl'] ||
@@ -544,9 +545,21 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
     const sourceTemplate =
       nextIntlMessagesPattern?.template ?? detectedPattern?.template;
 
-    const resolvedSyncConfig = sourceTemplate
-      ? { ...compatSyncConfig, sourceTemplate }
-      : compatSyncConfig;
+    const resolvedSyncConfig = {
+      ...compatSyncConfig,
+      ...(sourceTemplate ? { sourceTemplate } : {}),
+    };
+
+    // `splitKeys` only makes sense for a single file holding several namespaces.
+    // If the resolved template addresses one namespace per file (`${key}`
+    // segment), each file is already a single namespace — drop the flag so
+    // syncJSON keeps one dictionary per file.
+    if (
+      resolvedSyncConfig.splitKeys &&
+      resolvedSyncConfig.sourceTemplate.includes('${key}')
+    ) {
+      resolvedSyncConfig.splitKeys = false;
+    }
 
     const intlayerConfigCandidates = [
       'intlayer.config.ts',

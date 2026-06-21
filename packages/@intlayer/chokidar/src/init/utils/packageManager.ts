@@ -18,6 +18,21 @@ export type CompatSyncConfig = {
    * Rendered as a template literal in the generated config.
    */
   sourceTemplate: string;
+  /**
+   * Force `splitKeys: true` in the generated `syncJSON(...)` call so each
+   * top-level key of a single per-locale file becomes its own dictionary.
+   *
+   * Set for libraries whose single `messages/${locale}.json` file groups
+   * namespaces by its first-level keys (`next-intl` / `use-intl`, where
+   * `useTranslations('Hero')` resolves to the `Hero` dictionary). Left
+   * undefined for libraries whose top-level keys are plain message keys
+   * (e.g. `i18next`, `react-intl`); for those, syncJSON's auto-detection
+   * (split only when the source has no `${key}` segment) stays in control.
+   *
+   * Only meaningful for flat templates (no `${key}` segment); it is dropped
+   * automatically when the resolved template addresses one namespace per file.
+   */
+  splitKeys?: boolean;
 };
 
 /**
@@ -173,6 +188,8 @@ export const detectMissingIntlayerPackages = (
     compatSyncConfig ??= {
       format: 'icu',
       sourceTemplate: './messages/${locale}.json',
+      // next-intl groups namespaces by the first-level keys of one file.
+      splitKeys: true,
     };
     // next config handled via updateNextConfigForNextIntl in init/index.ts
   }
@@ -248,6 +265,8 @@ export const detectMissingIntlayerPackages = (
     compatSyncConfig ??= {
       format: 'icu',
       sourceTemplate: './messages/${locale}.json',
+      // use-intl (the core of next-intl) uses the same single-file namespace model.
+      splitKeys: true,
     };
     compatVitePluginConfig ??= {
       pluginFunctionName: 'useIntlVitePlugin',
