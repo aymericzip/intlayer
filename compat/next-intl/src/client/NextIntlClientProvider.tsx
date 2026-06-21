@@ -3,7 +3,9 @@
 import { log } from '@intlayer/config/built';
 import { CYAN } from '@intlayer/config/colors';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
+import { getLocaleFromPath } from '@intlayer/core/localization';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import { usePathname } from 'next/navigation';
 import type { NextIntlClientProvider as _NextIntlClientProvider } from 'next-intl';
 import { IntlayerClientProvider } from 'next-intlayer';
 import type { ComponentProps } from 'react';
@@ -31,12 +33,26 @@ export const NextIntlClientProvider: typeof _NextIntlClientProvider = ({
     );
   }
 
-  // `key={locale}` remounts the provider when the locale changes via navigation
-  // (next-intl switches locale by routing to a locale-prefixed path). This
-  // re-seeds the client locale context from the new `locale` prop so client
-  // components re-render in the new language instead of keeping the previous one.
+  // next-intl drives the locale from the request: apps render
+  // `<NextIntlClientProvider>` without a `locale` prop and the server resolves it
+  // from the `[locale]` route segment. As a client component we cannot read the
+  // server request here, so when no explicit `locale` is given we derive it from
+  // the URL (the same `[locale]` segment) using Intlayer's routing config. This
+  // keeps `useLocale`, `Link` and the locale switcher in sync with the URL
+  // instead of falling back to the stored cookie / default locale.
+  const pathname = usePathname();
+  const resolvedLocale = locale ?? getLocaleFromPath(pathname);
+
+  // `key={resolvedLocale}` remounts the provider when the locale changes via
+  // navigation (next-intl switches locale by routing to a locale-prefixed path).
+  // This re-seeds the client locale context so client components re-render in
+  // the new language instead of keeping the previous one.
   return (
-    <IntlayerClientProvider key={String(locale)} locale={locale} {...rest}>
+    <IntlayerClientProvider
+      key={String(resolvedLocale)}
+      locale={resolvedLocale}
+      {...rest}
+    >
       {children}
     </IntlayerClientProvider>
   );
