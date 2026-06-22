@@ -317,6 +317,10 @@ export const setAPI = (): Command => {
       'Do not scaffold the fill and test GitHub Actions workflows'
     )
     .option(
+      '--no-framework-setup',
+      'Do not scaffold framework middleware/proxy and providers in layout/page'
+    )
+    .option(
       '-i, --interactive',
       'Interactively choose what to set up (packages, skills, MCP, VS Code extension, LSP, …)'
     )
@@ -326,6 +330,7 @@ export const setAPI = (): Command => {
         {
           noGitignore: options.gitignore === false,
           noGithubActions: options.githubActions === false,
+          noFrameworkSetup: options.frameworkSetup === false,
           upgradeToVersion: packageJson.version,
         },
         options.interactive === true

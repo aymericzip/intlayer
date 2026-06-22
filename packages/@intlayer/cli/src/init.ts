@@ -25,6 +25,7 @@ type InitStep =
   | 'packages'
   | 'gitignore'
   | 'githubActions'
+  | 'frameworkSetup'
   | 'vscodeExtension'
   | 'lsp'
   | 'skills'
@@ -49,6 +50,11 @@ const INIT_STEP_OPTIONS: Array<{
     value: 'githubActions',
     label: 'GitHub Actions',
     hint: 'scaffold the fill and test workflows',
+  },
+  {
+    value: 'frameworkSetup',
+    label: 'Framework setup',
+    hint: 'middleware/proxy and providers in layout/page',
   },
   {
     value: 'vscodeExtension',
@@ -106,6 +112,8 @@ const runInteractiveInit = async (
     noGitignore: baseOptions?.noGitignore || !steps.includes('gitignore'),
     noGithubActions:
       baseOptions?.noGithubActions || !steps.includes('githubActions'),
+    noFrameworkSetup:
+      baseOptions?.noFrameworkSetup || !steps.includes('frameworkSetup'),
     noVscodeExtension: !steps.includes('vscodeExtension'),
     noLsp: !steps.includes('lsp'),
   };

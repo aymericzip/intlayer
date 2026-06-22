@@ -1,6 +1,6 @@
 'use client';
 
-import { log } from '@intlayer/config/built';
+import { log, routing } from '@intlayer/config/built';
 import { CYAN } from '@intlayer/config/colors';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { getLocaleFromPath } from '@intlayer/core/localization';
@@ -40,8 +40,16 @@ export const NextIntlClientProvider: typeof _NextIntlClientProvider = ({
   // the URL (the same `[locale]` segment) using Intlayer's routing config. This
   // keeps `useLocale`, `Link` and the locale switcher in sync with the URL
   // instead of falling back to the stored cookie / default locale.
+  //
+  // Only prefix-based routing carries the locale in the path. For `no-prefix` /
+  // `search-params` the path has no locale segment, so we leave `locale`
+  // undefined and let the provider resolve it from storage (cookie) — deriving
+  // from the path there would wrongly clobber the cookie with the default locale.
   const pathname = usePathname();
-  const resolvedLocale = locale ?? getLocaleFromPath(pathname);
+  const mode = routing?.mode ?? 'prefix-no-default';
+  const isPrefixMode = mode === 'prefix-all' || mode === 'prefix-no-default';
+  const resolvedLocale =
+    locale ?? (isPrefixMode ? getLocaleFromPath(pathname) : undefined);
 
   // `key={resolvedLocale}` remounts the provider when the locale changes via
   // navigation (next-intl switches locale by routing to a locale-prefixed path).

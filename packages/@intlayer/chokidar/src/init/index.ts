@@ -5,6 +5,7 @@ import { getConfiguration } from '@intlayer/config/node';
 
 import { getAlias } from '@intlayer/config/utils';
 import { initConfig } from '../initConfig';
+import { setupFramework } from './frameworkSetup';
 import {
   detectJsonLocalePattern,
   detectMissingIntlayerPackages,
@@ -186,6 +187,11 @@ export type InitOptions = {
   noVscodeExtension?: boolean;
   /** Skip writing the Intlayer LSP configuration to `.vscode/settings.json`. */
   noLsp?: boolean;
+  /**
+   * Skip framework-specific scaffolding (middleware/proxy, providers in
+   * layout/page, example content). Defaults to enabled.
+   */
+  noFrameworkSetup?: boolean;
   /**
    * Version that outdated Intlayer packages should be upgraded to (typically the
    * running CLI version). When omitted, installed packages are left untouched and
@@ -930,6 +936,27 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
           );
         }
       }
+    }
+  }
+
+  // FRAMEWORK-SPECIFIC SCAFFOLDING
+  // Sets up middleware/proxy and wraps the layout/page with the Intlayer
+  // providers for the detected framework (Next.js App Router today). Idempotent
+  // and non-destructive: it never overwrites user code it cannot safely
+  // transform, skipping with guidance instead.
+  if (!options?.noFrameworkSetup) {
+    try {
+      await setupFramework({
+        rootDir,
+        allDeps,
+        packageManager,
+        useTypeScript: hasTsConfig,
+      });
+    } catch {
+      logger(
+        `${x} Framework-specific scaffolding failed. Your existing files were left untouched; follow the documentation to finish the setup.`,
+        { level: 'warn' }
+      );
     }
   }
 
