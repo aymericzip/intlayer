@@ -16,7 +16,7 @@ const metadataContent = {
       ja: '私たちのAIドキュメントに問い合わせる',
       ko: '우리의 AI 스마트 문서에 문의하세요',
       pt: 'Faça uma pergunta para nossa documentação inteligente',
-      ru: 'Спросите нашу умную документацию',
+      ru: 'Задайте вопрос по документации нашему интеллектуальному помощнику',
       tr: 'Yapay Zeka Destekli Akıllı Dokümantasyonumuza Sorun',
       zh: '请向我们的AI智能文档发出问题',
       pl: 'Zadaj swoje pytanie naszej inteligentnej dokumentacji zasilanej sztuczną inteligencją',

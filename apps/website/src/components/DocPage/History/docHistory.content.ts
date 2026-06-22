@@ -39,7 +39,7 @@ const docHistory: Dictionary = {
         ja: '英語のドキュメントへ',
         ko: '영문 문서로 이동',
         pt: 'Ir para a documentação em inglês',
-        ru: 'Перейти к английской документации',
+        ru: 'Перейти к английской версии документа',
         zh: '前往英文文档',
         hi: 'अंग्रेजी दस्तावेज़ पर जाएँ',
         tr: 'İngilizce dökümana git',

@@ -17,7 +17,7 @@ const chatFormSectionContent = {
         pt: 'Faça uma pergunta para nossa documentação inteligente',
         hi: 'हमारे एआई-पॉयटेड स्मार्ट दस्तावेज़ के लिए अपनी प्रश्न करें',
         ar: 'طرح سؤالك لدردشة الوثائق الخاصة بنا AI',
-        ru: 'Спросите нашу умную документацию',
+        ru: 'Задайте вопрос по документации нашему интеллектуальному помощнику',
         tr: 'Yapay Zeka Destekli Akıllı Belgelerimize sorunuzu sorun',
         pl: 'Zadaj pytanie naszej inteligentnej dokumentacji wspieranej przez AI',
         id: 'Ajukan pertanyaan Anda kepada Dokumentasi Cerdas bertenaga AI kami',

@@ -121,7 +121,7 @@ const docNavTitlesContent = {
         pt: 'Clique para acessar o chatbot inteligente de documentação inteligente',
         hi: 'क्लिक करें केंद्रित सामग्री चैटबॉट पर जाएं',
         ar: 'انقر للدخول إلى الدردشة الذكية للوثائق الذكية',
-        ru: 'Нажмите, чтобы перейти к интеллектуальному чат-боту для умной документации',
+        ru: 'Нажмите, чтобы перейти к интеллектуальному чат-боту',
         tr: 'Yapay zeka destekli akıllı dokümantasyon sohbet botuna gitmek için tıklayın',
         pl: 'Kliknij, aby przejść do inteligentnego chatbota dokumentacji napędzanego sztuczną inteligencją',
         id: 'Klik untuk membuka chatbot dokumentasi cerdas bertenaga AI',
