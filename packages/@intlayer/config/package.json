@@ -163,12 +163,12 @@
     "@intlayer/types": "workspace:*",
     "defu": "6.1.7",
     "dotenv": "17.4.2",
-    "esbuild": "0.28.0",
+    "esbuild": "0.28.1",
     "json5": "2.2.3",
     "zod": "4.4.3"
   },
   "devDependencies": {
-    "@types/node": "25.9.3",
+    "@types/node": "25.9.4",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",

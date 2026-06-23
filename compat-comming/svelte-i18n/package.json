@@ -84,7 +84,7 @@
     "vite-intlayer": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "25.9.3",
+    "@types/node": "25.9.4",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
@@ -92,7 +92,7 @@
     "svelte-i18n": "^4.0.1",
     "tsdown": "0.22.2",
     "typescript": "6.0.3",
-    "vite": "8.0.16",
+    "vite": "8.1.0",
     "vitest": "4.1.9"
   },
   "peerDependencies": {
