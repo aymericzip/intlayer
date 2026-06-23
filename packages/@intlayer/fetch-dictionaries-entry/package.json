@@ -83,7 +83,7 @@
     "@intlayer/types": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "25.9.3",
+    "@types/node": "25.9.4",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",

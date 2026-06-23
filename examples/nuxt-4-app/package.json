@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "intlayer": "workspace:*",
-    "nuxt": "4.4.6",
-    "vue": "3.5.35",
+    "nuxt": "4.4.8",
+    "vue": "3.5.38",
     "vue-intlayer": "workspace:*",
     "vue-router": "5.1.0"
   },
