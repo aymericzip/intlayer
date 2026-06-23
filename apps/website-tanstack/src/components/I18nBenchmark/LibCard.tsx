@@ -58,12 +58,12 @@ export const LibCard: FC<{
         </div>
 
         {/* Text container */}
-        <div className="flex shrink-0 flex-col items-start justify-center gap-1 text-left">
-          <span className="font-semibold text-xs leading-tight">
+        <div className="flex min-w-0 flex-1 flex-col items-start justify-center gap-1 text-left">
+          <span className="w-full truncate font-semibold text-xs leading-tight">
             {lib.name}
           </span>
           {lib.version && (
-            <span className="text-neutral text-xs leading-none">
+            <span className="w-full truncate text-neutral text-xs leading-none">
               v{lib.version}
             </span>
           )}
