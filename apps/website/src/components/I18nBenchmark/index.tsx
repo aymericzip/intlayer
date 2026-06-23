@@ -39,12 +39,35 @@ import { useBenchmarkMetrics } from './useBenchmarkMetrics';
 
 export const getDisplayName = (id: string, baseAppLabel?: string): string => {
   if (id === 'base') return baseAppLabel ?? 'Base App';
+  if (id === 'intlayer') return 'Intlayer';
+  if (id === 'next-intlayer') return 'next-intlayer';
   return id
     .replace(/-app-nextjs$/, '')
     .replace(/-app-tanstack$/, '')
     .replace(/-app-vite-vue$/, '')
     .replace(/-app-vite-solid$/, '')
     .replace(/-app-vite-svelte$/, '');
+};
+
+const POPULARITY_SCORES: Record<string, number> = {
+  base: 1000,
+  intlayer: 900,
+  'next-intlayer': 900,
+  'react-i18next': 140,
+  'react-intl': 130,
+  'next-i18next': 120,
+  'next-intl': 110,
+  lingui: 100,
+  'next-translate': 90,
+  'use-intl': 80,
+  'next-international': 70,
+  tolgee: 60,
+  paraglide: 50,
+  'paraglide-next': 50,
+  'lingo.dev': 30,
+  'gt-next': 20,
+  'gt-react': 20,
+  wuchale: 10,
 };
 
 const CATEGORY_FALLBACKS: Record<string, string[]> = {
@@ -201,12 +224,18 @@ export const I18nBenchmark = ({
 
   const allLibs = useMemo<LibInfo[]>(() => {
     if (!currentFrameworkData?.libs) return [];
-    return Object.keys(currentFrameworkData.libs).map((id) => ({
-      id,
-      logoId: id === 'i18n' || id === 'i18next' ? `${framework}-${id}` : id,
-      name: getDisplayName(id, baseApp.value),
-      version: currentFrameworkData.libs[id].global?.version ?? null,
-    }));
+    return Object.keys(currentFrameworkData.libs)
+      .map((id) => ({
+        id,
+        logoId: id === 'i18n' || id === 'i18next' ? `${framework}-${id}` : id,
+        name: getDisplayName(id, baseApp.value),
+        version: currentFrameworkData.libs[id].global?.version ?? null,
+      }))
+      .sort((a, b) => {
+        const scoreA = POPULARITY_SCORES[a.id] ?? 50;
+        const scoreB = POPULARITY_SCORES[b.id] ?? 50;
+        return scoreB - scoreA;
+      });
   }, [currentFrameworkData, baseApp, framework]);
 
   useEffect(() => {
@@ -569,11 +598,14 @@ export const I18nBenchmark = ({
 
       {/* Library selector — grid layout */}
       <div className="max-h-70 overflow-y-auto">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 [&>div:nth-child(2n)]:border-r-0 sm:[&>div:nth-child(2n)]:border-r sm:[&>div:nth-child(3n)]:border-r-0 md:[&>div:nth-child(3n)]:border-r md:[&>div:nth-child(4n)]:border-r-0 lg:[&>div:nth-child(4n)]:border-r lg:[&>div:nth-child(5n)]:border-r-0 xl:[&>div:nth-child(5n)]:border-r xl:[&>div:nth-child(6n)]:border-r-0 [&>div:nth-last-child(-n+2)]:border-b-0 sm:[&>div:nth-last-child(-n+2)]:border-b sm:[&>div:nth-last-child(-n+3)]:border-b-0 md:[&>div:nth-last-child(-n+3)]:border-b md:[&>div:nth-last-child(-n+4)]:border-b-0 lg:[&>div:nth-last-child(-n+4)]:border-b lg:[&>div:nth-last-child(-n+5)]:border-b-0 xl:[&>div:nth-last-child(-n+5)]:border-b xl:[&>div:nth-last-child(-n+6)]:border-b-0">
-          {allLibs.map((lib) => (
+        <div className="flex flex-wrap">
+          {allLibs.map((lib, index) => (
             <div
               key={lib.id}
-              className="min-w-0 border-border border-r border-b border-dotted p-2"
+              className={cn(
+                'min-w-max border-border border-r border-b border-dotted p-2',
+                index < 2 ? 'flex-[2_2_16rem]' : 'flex-[1_1_10rem]'
+              )}
             >
               <LibCard
                 lib={lib}
@@ -581,6 +613,14 @@ export const I18nBenchmark = ({
                 onToggle={() => toggleLib(lib.id)}
               />
             </div>
+          ))}
+          {/* Invisible filler divs to prevent the last flex row from massively stretching */}
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <div
+              key={`filler-${i}`}
+              className="m-0 h-0 flex-[1_1_10rem] border-0 p-0"
+              aria-hidden="true"
+            />
           ))}
         </div>
       </div>
