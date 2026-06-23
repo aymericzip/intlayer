@@ -14,6 +14,9 @@ slugs:
   - preact-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "إضافة أداة usePathname"
   - version: 8.0.0
     date: 2026-01-21
     changes: "توحيد الوثائق لجميع الصادرات"
@@ -40,12 +43,13 @@ npm install preact-intlayer
 
 ### الهوكس (Hooks)
 
-| الـ Hook        | الوصف                                                                                      | الوثيقة ذات الصلة                                                                                  |
-| --------------- | ------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------- |
-| `useIntlayer`   | مبني على `useDictionary`، لكنه يحقن نسخة مُحسّنة من القاموس المأخوذة من التصريح المُولَّد. | -                                                                                                  |
-| `useDictionary` | يعالج الكائنات التي تشبه القواميس (key, content). يعالج ترجمات `t()`، وenumerations، إلخ.  | -                                                                                                  |
-| `useLocale`     | يعيد اللغة الحالية ودالة لتعيينها.                                                         | -                                                                                                  |
-| `t`             | يختار المحتوى بناءً على اللغة الحالية.                                                     | [الترجمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/translation.md) |
+| الـ Hook        | الوصف                                                                                                   | الوثيقة ذات الصلة                                                                                                    |
+| --------------- | ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`   | مبني على `useDictionary`، لكنه يحقن نسخة مُحسّنة من القاموس المأخوذة من التصريح المُولَّد.              | -                                                                                                                    |
+| `useDictionary` | يعالج الكائنات التي تشبه القواميس (key, content). يعالج ترجمات `t()`، وenumerations، إلخ.               | -                                                                                                                    |
+| `useLocale`     | يعيد اللغة الحالية ودالة لتعيينها.                                                                      | -                                                                                                                    |
+| `usePathname`   | هوك (Hook) يعيد المسار الحالي (pathname) بعد إزالة مقطع اللغة منه. يستجيب لتنقل المتصفح عبر `popstate`. | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/preact-intlayer/usePathname.md) |
+| `t`             | يختار المحتوى بناءً على اللغة الحالية.                                                                  | [الترجمة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/translation.md)                   |
 
 ### المكونات
 

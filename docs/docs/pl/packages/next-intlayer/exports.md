@@ -15,6 +15,9 @@ slugs:
   - next-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Dodano narzędzie usePathname"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Ujednolicona dokumentacja wszystkich eksportów"
@@ -95,6 +98,7 @@ Ponownie eksportuje większość hooków z `react-intlayer`.
 | `useDictionaryAsync`   | Hook obsługujący asynchroniczne słowniki. Akceptuje mapę słowników opartą na Promise i rozwiązuje ją dla bieżącego locale.                                       | -                                                                                                                       |
 | `useDictionaryDynamic` | Hook obsługujący dynamiczne słowniki ładowane po kluczu. Wewnątrz wykorzystuje React Suspense do obsługi stanów ładowania.                                       | -                                                                                                                       |
 | `useLocale`            | Hook po stronie klienta do pobierania bieżącego locale i funkcji do jego ustawiania. Rozszerzony dla Next.js App Router o wsparcie nawigacji.                    | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/useLocale.md)         |
+| `usePathname`          | Zwraca aktualną ścieżkę bez prefiksu ustawień regionalnych i bez parametrów zapytania związanych z ustawieniami regionalnymi.                                    | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/next-intlayer/usePathname.md)      |
 | `useRewriteURL`        | Hook po stronie klienta do zarządzania przepisywaniem URL. Automatycznie aktualizuje URL, jeśli istnieje bardziej estetyczna zlokalizowana reguła przepisywania. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/next-intlayer/useRewriteURL.md)  |
 | `useLocalePageRouter`  | Hook specyficzny dla Next.js Page Router do zarządzania locale. Obsługuje przekierowania i przeładowania strony przy zmianie locale.                             | -                                                                                                                       |
 | `useI18n`              | Hook, który udostępnia funkcję tłumaczącą `t()` do dostępu do zagnieżdżonych treści po kluczu. Imituje wzorzec i18next/next-intl.                                | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/react-intlayer/useI18n.md)             |

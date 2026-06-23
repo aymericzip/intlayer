@@ -14,6 +14,9 @@ slugs:
   - solid-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Thêm tiện ích usePathname"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Hợp nhất tài liệu cho tất cả các exports"
@@ -52,17 +55,18 @@ Nhập:
 import "solid-intlayer";
 ```
 
-| Hook                   | Mô tả                                                                                                              | Tài liệu liên quan                                                                                                      |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
-| `useIntlayer`          | Dựa trên `useDictionary`, nhưng injects một phiên bản tối ưu hóa của dictionary từ khai báo được sinh.             | [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/solid-intlayer/useIntlayer.md)     |
-| `useDictionary`        | Xử lý các đối tượng có cấu trúc giống từ điển (key, content). Nó xử lý các bản dịch `t()`, enumerations, v.v.      | -                                                                                                                       |
-| `useDictionaryAsync`   | Tương tự `useDictionary`, nhưng xử lý các từ điển bất đồng bộ.                                                     | -                                                                                                                       |
-| `useDictionaryDynamic` | Tương tự `useDictionary`, nhưng xử lý các từ điển động.                                                            | -                                                                                                                       |
-| `useLocale`            | Trả về locale hiện tại và một hàm để thiết lập nó.                                                                 | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/solid-intlayer/useLocale.md)         |
-| `useRewriteURL`        | Hook phía client để quản lý việc viết lại URL. Tự động cập nhật URL nếu tồn tại quy tắc viết lại được bản địa hóa. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/solid-intlayer/useRewriteURL.md) |
-| `useIntl`              | Trả về đối tượng Intl cho locale hiện tại.                                                                         | -                                                                                                                       |
-| `useLoadDynamic`       | Hook để tải từ điển động.                                                                                          | -                                                                                                                       |
-| `t`                    | Chọn nội dung dựa trên locale hiện tại.                                                                            | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/translation.md)                  |
+| Hook                   | Mô tả                                                                                                                    | Tài liệu liên quan                                                                                                      |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`          | Dựa trên `useDictionary`, nhưng injects một phiên bản tối ưu hóa của dictionary từ khai báo được sinh.                   | [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/solid-intlayer/useIntlayer.md)     |
+| `useDictionary`        | Xử lý các đối tượng có cấu trúc giống từ điển (key, content). Nó xử lý các bản dịch `t()`, enumerations, v.v.            | -                                                                                                                       |
+| `useDictionaryAsync`   | Tương tự `useDictionary`, nhưng xử lý các từ điển bất đồng bộ.                                                           | -                                                                                                                       |
+| `useDictionaryDynamic` | Tương tự `useDictionary`, nhưng xử lý các từ điển động.                                                                  | -                                                                                                                       |
+| `useLocale`            | Trả về locale hiện tại và một hàm để thiết lập nó.                                                                       | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/solid-intlayer/useLocale.md)         |
+| `usePathname`          | Trả về pathname hiện tại dưới dạng `Accessor<string>` với phần locale đã bị loại bỏ. Reactive (phản ứng) với `popstate`. | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/solid-intlayer/usePathname.md)     |
+| `useRewriteURL`        | Hook phía client để quản lý việc viết lại URL. Tự động cập nhật URL nếu tồn tại quy tắc viết lại được bản địa hóa.       | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/solid-intlayer/useRewriteURL.md) |
+| `useIntl`              | Trả về đối tượng Intl cho locale hiện tại.                                                                               | -                                                                                                                       |
+| `useLoadDynamic`       | Hook để tải từ điển động.                                                                                                | -                                                                                                                       |
+| `t`                    | Chọn nội dung dựa trên locale hiện tại.                                                                                  | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/translation.md)                  |
 
 ### Thành phần
 

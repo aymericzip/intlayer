@@ -14,6 +14,9 @@ slugs:
   - svelte-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Tambahkan utilitas usePathname"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Dokumentasi terpadu untuk semua ekspor"
@@ -64,15 +67,16 @@ Impor:
 import "svelte-intlayer";
 ```
 
-| Fungsi                 | Deskripsi                                                                                                                  | Dokumen Terkait                                                                                                          |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `useIntlayer`          | Berdasarkan `useDictionary`, tetapi menyuntikkan versi kamus yang dioptimalkan dari deklarasi yang dihasilkan.             | -                                                                                                                        |
-| `useDictionary`        | Memproses objek yang menyerupai dictionary (key, content). Ini memproses terjemahan `t()`, enumerasi, dll.                 | -                                                                                                                        |
-| `useDictionaryAsync`   | Sama seperti `useDictionary`, tetapi menangani dictionary asinkron.                                                        | -                                                                                                                        |
-| `useDictionaryDynamic` | Sama seperti `useDictionary`, tetapi menangani dictionary dinamis.                                                         | -                                                                                                                        |
-| `useLocale`            | Mengembalikan locale saat ini dan sebuah fungsi untuk mengubahnya.                                                         | -                                                                                                                        |
-| `useRewriteURL`        | Fungsi di sisi klien untuk mengelola rewrite URL. Secara otomatis memperbarui URL jika ada aturan rewrite yang dilokalkan. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/svelte-intlayer/useRewriteURL.md) |
-| `useIntl`              | Mengembalikan objek Intl untuk locale saat ini.                                                                            | -                                                                                                                        |
+| Fungsi                 | Deskripsi                                                                                                                              | Dokumen Terkait                                                                                                          |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `useIntlayer`          | Berdasarkan `useDictionary`, tetapi menyuntikkan versi kamus yang dioptimalkan dari deklarasi yang dihasilkan.                         | -                                                                                                                        |
+| `useDictionary`        | Memproses objek yang menyerupai dictionary (key, content). Ini memproses terjemahan `t()`, enumerasi, dll.                             | -                                                                                                                        |
+| `useDictionaryAsync`   | Sama seperti `useDictionary`, tetapi menangani dictionary asinkron.                                                                    | -                                                                                                                        |
+| `useDictionaryDynamic` | Sama seperti `useDictionary`, tetapi menangani dictionary dinamis.                                                                     | -                                                                                                                        |
+| `useLocale`            | Mengembalikan locale saat ini dan sebuah fungsi untuk mengubahnya.                                                                     | -                                                                                                                        |
+| `usePathname`          | Mengembalikan pathname saat ini sebagai store `Readable<string>` dengan segmen locale yang telah dihapus. Reaktif terhadap `popstate`. | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/svelte-intlayer/usePathname.md)     |
+| `useRewriteURL`        | Fungsi di sisi klien untuk mengelola rewrite URL. Secara otomatis memperbarui URL jika ada aturan rewrite yang dilokalkan.             | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/svelte-intlayer/useRewriteURL.md) |
+| `useIntl`              | Mengembalikan objek Intl untuk locale saat ini.                                                                                        | -                                                                                                                        |
 
 ### Markdown
 

@@ -14,6 +14,9 @@ slugs:
   - angular-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Dodano narzędzie usePathname"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Ujednolicona dokumentacja dla wszystkich eksportów"
@@ -46,15 +49,16 @@ import "angular-intlayer";
 
 ### Hooki
 
-| Hook                   | Opis                                                                                                                 | Powiązany dokument |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| `useIntlayer`          | Opiera się na `useDictionary`, ale wstrzykuje zoptymalizowaną wersję słownika pochodzącą z wygenerowanej deklaracji. | -                  |
-| `useDictionary`        | Przetwarza obiekty wyglądające jak słowniki (klucz, zawartość). Przetwarza tłumaczenia `t()`, enumeracje itp.        | -                  |
-| `useDictionaryAsync`   | Tak jak `useDictionary`, ale obsługuje asynchroniczne słowniki.                                                      | -                  |
-| `useDictionaryDynamic` | Tak jak `useDictionary`, ale obsługuje dynamiczne słowniki.                                                          | -                  |
-| `useLocale`            | Zwraca bieżący locale i funkcję do jego ustawienia.                                                                  | -                  |
-| `useIntl`              | Zwraca obiekt Intl dla bieżącego locale.                                                                             | -                  |
-| `useLoadDynamic`       | Hook do ładowania dynamicznych słowników.                                                                            | -                  |
+| Hook                   | Opis                                                                                                                                           | Powiązany dokument                                                                                                    |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`          | Opiera się na `useDictionary`, ale wstrzykuje zoptymalizowaną wersję słownika pochodzącą z wygenerowanej deklaracji.                           | -                                                                                                                     |
+| `useDictionary`        | Przetwarza obiekty wyglądające jak słowniki (klucz, zawartość). Przetwarza tłumaczenia `t()`, enumeracje itp.                                  | -                                                                                                                     |
+| `useDictionaryAsync`   | Tak jak `useDictionary`, ale obsługuje asynchroniczne słowniki.                                                                                | -                                                                                                                     |
+| `useDictionaryDynamic` | Tak jak `useDictionary`, ale obsługuje dynamiczne słowniki.                                                                                    | -                                                                                                                     |
+| `useLocale`            | Zwraca obecną lokalizację oraz funkcję do jej ustawienia.                                                                                      | -                                                                                                                     |
+| `usePathname`          | Zwraca bieżącą ścieżkę jako `Signal<string>` po usunięciu segmentu ustawień regionalnych. Reaguje na `popstate` za pośrednictwem `DestroyRef`. | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/packages/angular-intlayer/usePathname.md) |
+| `useIntl`              | Zwraca obiekt Intl dla obecnej lokalizacji.                                                                                                    | -                                                                                                                     |
+| `useLoadDynamic`       | Hook do ładowania dynamicznych słowników.                                                                                                      | -                                                                                                                     |
 
 ### Komponenty
 

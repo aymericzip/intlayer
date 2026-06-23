@@ -15,6 +15,9 @@ slugs:
   - next-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "usePathname-Dienstprogramm hinzugefügt"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Vereinheitlichte Dokumentation für alle Exporte"
@@ -99,6 +102,7 @@ Re-exportiert die meisten Hooks aus `react-intlayer`.
 | `useDictionaryAsync`   | Hook, der asynchrone Dictionaries verarbeitet. Akzeptiert eine auf Promises basierende Dictionary-Map und löst sie für die aktuelle locale auf.                         | -                                                                                                                       |
 | `useDictionaryDynamic` | Hook, der dynamische Dictionaries behandelt, die per key geladen werden. Verwendet intern React Suspense für Ladezustände.                                              | -                                                                                                                       |
 | `useLocale`            | Client-seitiger Hook, um die aktuelle Locale und eine Funktion zum Setzen derselben zu erhalten. Für den Next.js App Router erweitert und mit Navigationsunterstützung. | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/useLocale.md)         |
+| `usePathname`          | Gibt den aktuellen Pfad ohne das Gebietsschema-Präfix und ohne Gebietsschema-Abfrageparameter zurück.                                                                   | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/next-intlayer/usePathname.md)      |
 | `useRewriteURL`        | Client-seitiger Hook zur Verwaltung von URL-Umschreibungen. Aktualisiert die URL automatisch, wenn eine besser lesbare lokalisierte Umschreibregel existiert.           | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/next-intlayer/useRewriteURL.md)  |
 | `useLocalePageRouter`  | Spezifischer Hook für den Next.js Page Router zur Verwaltung von Locales. Handhabt Weiterleitungen und Seiten-Neuladungen bei Locale-Änderungen.                        | -                                                                                                                       |
 | `useI18n`              | Hook, der eine Übersetzungsfunktion `t()` bereitstellt, um verschachtelte Inhalte per Schlüssel abzurufen. Orientiert sich am i18next/next-intl-Muster.                 | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/useI18n.md)             |

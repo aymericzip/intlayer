@@ -14,6 +14,9 @@ slugs:
   - react-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "usePathname उपयोगिता जोड़ें"
   - version: 7.5.14
     date: 2026-01-21
     changes: "सभी एक्सपोर्ट्स के लिए एकीकृत प्रलेखन"

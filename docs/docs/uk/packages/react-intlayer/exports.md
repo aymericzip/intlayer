@@ -14,6 +14,9 @@ slugs:
   - react-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Додано утиліту usePathname"
   - version: 7.5.14
     date: 2026-01-21
     changes: "Уніфікована документація для всіх експортів"
@@ -62,6 +65,7 @@ import "react-intlayer";
 | `useDictionaryDynamic` | Хук, що обробляє динамічні словники, завантажувані за ключем. Використовує React Suspense для обробки станів завантаження.           | -                                                                                                                       |
 | `useLocale`            | Клієнтський хук для отримання поточної локалі, локалі за замовчуванням, доступних локалей та функції для оновлення локалі.           | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/useLocale.md)         |
 | `useLocaleBase`        | Хук для отримання поточної локалі та всіх пов'язаних полів (locale, defaultLocale, availableLocales, setLocale) з контексту.         | -                                                                                                                       |
+| `usePathname`          | Хук, який повертає поточний шлях (pathname) із видаленим сегментом локалі. Реактивно реагує на навігацію браузера через `popstate`.  | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/usePathname.md)     |
 | `useRewriteURL`        | Клієнтський хук для керування переписуванням URL. Якщо для поточного pathname і локалі існує правило переписування, він оновить URL. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/useRewriteURL.md) |
 | `useI18n`              | Хук, що надає функцію перекладу `t()` для доступу до вкладених даних за ключем. Наслідує патерн i18next/next-intl.                   | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/useI18n.md)             |
 | `useIntl`              | Хук, який надає об'єкт `Intl`, прив'язаний до локалі. Автоматично підставляє поточну локаль і використовує оптимізоване кешування.   | -                                                                                                                       |

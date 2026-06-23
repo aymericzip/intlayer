@@ -22,4 +22,5 @@ export {
   useLocaleCookie,
   useLocaleStorage,
 } from './useLocaleStorage';
+export { usePathname } from './usePathname';
 export { useRewriteURL } from './useRewriteURL';

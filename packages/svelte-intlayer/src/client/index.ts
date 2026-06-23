@@ -8,4 +8,5 @@ export { useDictionaryAsync } from './useDictionaryAsync';
 export { useDictionaryDynamic } from './useDictionaryDynamic';
 export { useIntlayer } from './useIntlayer';
 export { useLocale } from './useLocale';
+export { usePathname } from './usePathname';
 export { useRewriteURL } from './useRewriteURL';

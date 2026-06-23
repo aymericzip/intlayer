@@ -14,6 +14,9 @@ slugs:
   - preact-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "usePathname yardımcı programı eklendi"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Unified documentation for all exports"
@@ -40,12 +43,13 @@ npm install preact-intlayer
 
 ### Hook'lar
 
-| Hook            | Açıklama                                                                                                           | İlgili Doküman                                                                                    |
-| --------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
-| `useIntlayer`   | `useDictionary` temel alınarak, ancak üretilen deklarasyondan sözlüğün optimize edilmiş bir sürümünü enjekte eder. | -                                                                                                 |
-| `useDictionary` | Sözlük gibi görünen nesneleri (anahtar, içerik) işler. `t()` çevirilerini, enum'ları vb. işler.                    | -                                                                                                 |
-| `useLocale`     | Mevcut locale'i ve bunu ayarlamak için bir fonksiyon döndürür.                                                     | -                                                                                                 |
-| `t`             | Mevcut locale'e göre içeriği seçer.                                                                                | [çeviri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/translation.md) |
+| Hook            | Açıklama                                                                                                                                   | İlgili Doküman                                                                                                       |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`   | `useDictionary` temel alınarak, ancak üretilen deklarasyondan sözlüğün optimize edilmiş bir sürümünü enjekte eder.                         | -                                                                                                                    |
+| `useDictionary` | Sözlük gibi görünen nesneleri (anahtar, içerik) işler. `t()` çevirilerini, enum'ları vb. işler.                                            | -                                                                                                                    |
+| `useLocale`     | Mevcut locale'i ve bunu ayarlamak için bir fonksiyon döndürür.                                                                             | -                                                                                                                    |
+| `usePathname`   | Locale segmenti çıkarılmış şekilde mevcut pathname'i (yolu) döndüren hook'tur. `popstate` aracılığıyla tarayıcı gezinmelerine tepki verir. | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/preact-intlayer/usePathname.md) |
+| `t`             | Mevcut locale'e göre içeriği seçer.                                                                                                        | [çeviri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/translation.md)                    |
 
 ### Bileşenler
 

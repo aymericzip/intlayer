@@ -14,9 +14,12 @@ slugs:
   - react-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Adicionado o utilitário usePathname"
   - version: 7.5.14
     date: 2026-01-21
-    changes: "Unified documentation for all exports"
+    changes: "Documentação unificada para todas as exportações"
 author: aymericzip
 ---
 
@@ -54,22 +57,23 @@ Importação:
 import "react-intlayer";
 ```
 
-| Hook                   | Descrição                                                                                                                                       | Doc Relacionado                                                                                                         |
-| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `useIntlayer`          | Hook do lado do cliente que seleciona um dicionário pela sua chave e retorna o seu conteúdo. Usa a locale do contexto se não for fornecida.     | [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useIntlayer.md)     |
-| `useDictionary`        | Hook que transforma um objeto de dicionário e retorna o conteúdo para o locale atual. Processa traduções `t()`, enumerações, etc.               | [useDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useDictionary.md) |
-| `useDictionaryAsync`   | Hook que lida com dicionários assíncronos. Aceita um mapa de dicionários baseado em Promise e o resolve para o locale atual.                    | -                                                                                                                       |
-| `useDictionaryDynamic` | Hook que lida com dicionários dinâmicos carregados por chave. Usa React Suspense internamente para estados de carregamento.                     | -                                                                                                                       |
-| `useLocale`            | Hook do lado do cliente para obter a locale atual, a locale padrão, as locales disponíveis e uma função para atualizar a locale.                | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useLocale.md)         |
-| `useLocaleBase`        | Hook para obter a locale atual e todos os campos relacionados (locale, defaultLocale, availableLocales, setLocale) a partir do contexto.        | -                                                                                                                       |
-| `useRewriteURL`        | Hook do lado do cliente para gerir reescritas de URL. Se existir uma regra de reescrita para o pathname e a locale atuais, irá atualizar a URL. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useRewriteURL.md) |
-| `useI18n`              | Hook que fornece uma função de tradução `t()` para acessar conteúdo aninhado por chave. Imita o padrão do i18next/next-intl.                    | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useI18n.md)             |
-| `useIntl`              | Hook que fornece um objeto `Intl` vinculado ao locale. Injeta automaticamente o locale atual e usa cache otimizado.                             | -                                                                                                                       |
-| `useLocaleStorage`     | Hook que fornece persistência do locale em localStorage ou em cookies. Retorna funções getter e setter.                                         | -                                                                                                                       |
-| `useLocaleCookie`      | Obsoleto. Use `useLocaleStorage` em vez disso. Hook que gerencia a persistência do locale em cookies.                                           | -                                                                                                                       |
-| `useLoadDynamic`       | Hook para carregar dicionários dinâmicos usando React Suspense. Aceita uma chave e uma Promise, faz cache dos resultados.                       | -                                                                                                                       |
-| `useIntlayerContext`   | Hook que fornece os valores do contexto do cliente Intlayer atual (locale, setLocale, etc.).                                                    | -                                                                                                                       |
-| `useHTMLContext`       | Hook para acessar substituições de componentes HTML a partir do contexto HTMLProvider.                                                          | -                                                                                                                       |
+| Hook                   | Descrição                                                                                                                                     | Doc Relacionado                                                                                                         |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`          | Hook do lado do cliente que seleciona um dicionário pela sua chave e retorna o seu conteúdo. Usa a locale do contexto se não for fornecida.   | [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useIntlayer.md)     |
+| `useDictionary`        | Hook que transforma um objeto de dicionário e retorna o conteúdo para o locale atual. Processa traduções `t()`, enumerações, etc.             | [useDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useDictionary.md) |
+| `useDictionaryAsync`   | Hook que lida com dicionários assíncronos. Aceita um mapa de dicionários baseado em Promise e o resolve para o locale atual.                  | -                                                                                                                       |
+| `useDictionaryDynamic` | Hook que lida com dicionários dinâmicos carregados por chave. Usa React Suspense internamente para estados de carregamento.                   | -                                                                                                                       |
+| `useLocale`            | Hook do lado do cliente para obter o local atual, local padrão, locais disponíveis e uma função para atualizar o local.                       | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useLocale.md)         |
+| `useLocaleBase`        | Hook para obter o locale atual e todos os campos relacionados (locale, defaultLocale, availableLocales, setLocale) do contexto.               | -                                                                                                                       |
+| `usePathname`          | Hook que retorna o pathname atual com o segmento de local removido. Reativo à navegação do navegador via `popstate`.                          | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/usePathname.md)     |
+| `useRewriteURL`        | Hook do lado do cliente para gerenciar reescritas de URL. Se existir uma regra de reescrita para o pathname e local atuais, atualizará o URL. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useRewriteURL.md) |
+| `useI18n`              | Hook que fornece uma função de tradução `t()` para acessar conteúdo aninhado por chave. Imita o padrão do i18next/next-intl.                  | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useI18n.md)             |
+| `useIntl`              | Hook que fornece um objeto `Intl` vinculado ao locale. Injeta automaticamente o locale atual e usa cache otimizado.                           | -                                                                                                                       |
+| `useLocaleStorage`     | Hook que fornece persistência do locale em localStorage ou em cookies. Retorna funções getter e setter.                                       | -                                                                                                                       |
+| `useLocaleCookie`      | Obsoleto. Use `useLocaleStorage` em vez disso. Hook que gerencia a persistência do locale em cookies.                                         | -                                                                                                                       |
+| `useLoadDynamic`       | Hook para carregar dicionários dinâmicos usando React Suspense. Aceita uma chave e uma Promise, faz cache dos resultados.                     | -                                                                                                                       |
+| `useIntlayerContext`   | Hook que fornece os valores do contexto do cliente Intlayer atual (locale, setLocale, etc.).                                                  | -                                                                                                                       |
+| `useHTMLContext`       | Hook para acessar substituições de componentes HTML a partir do contexto HTMLProvider.                                                        | -                                                                                                                       |
 
 ### Funções
 

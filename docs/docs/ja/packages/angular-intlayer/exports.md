@@ -14,6 +14,9 @@ slugs:
   - angular-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "usePathname ユーティリティの追加"
   - version: 8.0.0
     date: 2026-01-21
     changes: "すべてのエクスポートに対するドキュメントを統一"
@@ -46,15 +49,16 @@ import "angular-intlayer";
 
 ### フック
 
-| フック                 | 説明                                                                                             | 関連ドキュメント |
-| ---------------------- | ------------------------------------------------------------------------------------------------ | ---------------- |
-| `useIntlayer`          | `useDictionary` に基づいていますが、生成された宣言から辞書の最適化されたバージョンを注入します。 | -                |
-| `useDictionary`        | 辞書（key、content）のようなオブジェクトを処理します。`t()` の翻訳や列挙、その他を処理します。   | -                |
-| `useDictionaryAsync`   | `useDictionary` と同様ですが、非同期の辞書を扱います。                                           | -                |
-| `useDictionaryDynamic` | `useDictionary` と同様ですが、動的な辞書を扱います。                                             | -                |
-| `useLocale`            | 現在のロケールとそれを設定する関数を返します。                                                   | -                |
-| `useIntl`              | 現在のロケールに対応する Intl オブジェクトを返します。                                           | -                |
-| `useLoadDynamic`       | 動的辞書を読み込むためのフック。                                                                 | -                |
+| フック                 | 説明                                                                                                                        | 関連ドキュメント                                                                                                      |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`          | `useDictionary` に基づいていますが、生成された宣言から辞書の最適化されたバージョンを注入します。                            | -                                                                                                                     |
+| `useDictionary`        | 辞書（key、content）のようなオブジェクトを処理します。`t()` の翻訳や列挙、その他を処理します。                              | -                                                                                                                     |
+| `useDictionaryAsync`   | `useDictionary` と同様ですが、非同期の辞書を扱います。                                                                      | -                                                                                                                     |
+| `useDictionaryDynamic` | `useDictionary` と同様ですが、動的な辞書を扱います。                                                                        | -                                                                                                                     |
+| `useLocale`            | 現在のロケールとそれを設定する関数を返します。                                                                              | -                                                                                                                     |
+| `usePathname`          | ロケールセグメントが削除された現在のパス名を `Signal<string>` として返します。`DestroyRef` 経由で `popstate` に反応します。 | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/angular-intlayer/usePathname.md) |
+| `useIntl`              | 現在のロケールに対応する Intl オブジェクトを返します。                                                                      | -                                                                                                                     |
+| `useLoadDynamic`       | 動的辞書を読み込むためのフック。                                                                                            | -                                                                                                                     |
 
 ### コンポーネント
 

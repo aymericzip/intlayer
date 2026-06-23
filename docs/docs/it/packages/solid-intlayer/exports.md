@@ -14,6 +14,9 @@ slugs:
   - solid-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Aggiungi l'utilità usePathname"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Documentazione unificata per tutte le esportazioni"
@@ -59,6 +62,7 @@ import "solid-intlayer";
 | `useDictionaryAsync`   | Stesso di `useDictionary`, ma gestisce dizionari asincroni.                                                                            | -                                                                                                                       |
 | `useDictionaryDynamic` | Stesso di `useDictionary`, ma gestisce dizionari dinamici.                                                                             | -                                                                                                                       |
 | `useLocale`            | Restituisce la locale corrente e una funzione per impostarla.                                                                          | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/solid-intlayer/useLocale.md)         |
+| `usePathname`          | Restituisce il percorso (pathname) corrente come `Accessor<string>` con il segmento locale rimosso. Reattivo a `popstate`.             | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/solid-intlayer/usePathname.md)     |
 | `useRewriteURL`        | Hook lato client per gestire le riscritture degli URL. Aggiorna automaticamente l'URL se esiste una regola di riscrittura localizzata. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/solid-intlayer/useRewriteURL.md) |
 | `useIntl`              | Restituisce l'oggetto Intl per la locale corrente.                                                                                     | -                                                                                                                       |
 | `useLoadDynamic`       | Hook per caricare dizionari dinamici.                                                                                                  | -                                                                                                                       |

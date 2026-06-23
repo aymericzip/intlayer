@@ -15,6 +15,9 @@ slugs:
   - next-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "usePathname ユーティリティを追加"
   - version: 8.0.0
     date: 2026-01-21
     changes: "すべてのエクスポートに関するドキュメントを統一"
@@ -95,6 +98,7 @@ import "next-intlayer";
 | `useDictionaryAsync`   | 非同期辞書を扱うフック。Promiseベースの辞書マップを受け取り、現在のロケール向けに解決します。                                               | -                                                                                                                       |
 | `useDictionaryDynamic` | キーで読み込まれる動的辞書を扱うフック。読み込み状態のために内部で React Suspense を使用します。                                            | -                                                                                                                       |
 | `useLocale`            | 現在のロケールを取得し、それを設定する関数を返すクライアントサイドフック。Next.js App Router 向けにナビゲーション対応で拡張されています。   | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useLocale.md)         |
+| `usePathname`          | ロケールプレフィックスとロケールパラメータを取り除いたクエリパラメータを含まない現在のパス名を返します。                                    | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/usePathname.md)      |
 | `useRewriteURL`        | URL のリライトを管理するクライアントサイドフック。より見栄えの良いローカライズされたリライトルールが存在する場合に自動で URL を更新します。 | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/next-intlayer/useRewriteURL.md)  |
 | `useLocalePageRouter`  | Next.js の Page Router 用のロケール管理フック。ロケール変更時のリダイレクトやページ再読み込みを処理します。                                 | -                                                                                                                       |
 | `useI18n`              | キーでネストされたコンテンツにアクセスするための翻訳関数 `t()` を提供するフック。i18next/next-intl のパターンに似ています。                 | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useI18n.md)             |

@@ -15,6 +15,9 @@ slugs:
   - next-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Ajout de l'utilitaire usePathname"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Documentation unifiée pour toutes les exportations"
@@ -99,6 +102,7 @@ Réexporte la plupart des hooks depuis `react-intlayer`.
 | `useDictionaryAsync`   | Hook qui gère des dictionnaires asynchrones. Accepte une map de dictionnaires basée sur des promesses et la résout pour la locale courante.                 | -                                                                                                                       |
 | `useDictionaryDynamic` | Hook qui gère des dictionnaires dynamiques chargés par clé. Utilise React Suspense en interne pour les états de chargement.                                 | -                                                                                                                       |
 | `useLocale`            | Hook côté client pour récupérer la locale courante et une fonction pour la définir. Amélioré pour Next.js App Router avec prise en charge de la navigation. | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/react-intlayer/useLocale.md)         |
+| `usePathname`          | Retourne le chemin actuel sans le préfixe de la locale et sans les paramètres de requête de locale.                                                         | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/next-intlayer/usePathname.md)      |
 | `useRewriteURL`        | Hook côté client pour gérer les réécritures d'URL. Met automatiquement à jour l'URL si une règle de réécriture localisée plus "propre" existe.              | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/next-intlayer/useRewriteURL.md)  |
 | `useLocalePageRouter`  | Hook spécifique au Page Router de Next.js pour la gestion des locales. Gère les redirections et les rechargements de page lors des changements de locale.   | -                                                                                                                       |
 | `useI18n`              | Hook qui fournit une fonction de traduction `t()` pour accéder au contenu imbriqué par clé. Imite le pattern i18next/next-intl.                             | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/react-intlayer/useI18n.md)             |

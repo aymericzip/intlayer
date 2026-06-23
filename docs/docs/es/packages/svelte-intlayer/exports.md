@@ -14,6 +14,9 @@ slugs:
   - svelte-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Añadir utilidad usePathname"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Documentación unificada para todas las exportaciones"
@@ -71,6 +74,7 @@ import "svelte-intlayer";
 | `useDictionaryAsync`   | Igual que `useDictionary`, pero maneja diccionarios asíncronos.                                                                                  | -                                                                                                                        |
 | `useDictionaryDynamic` | Igual que `useDictionary`, pero maneja diccionarios dinámicos.                                                                                   | -                                                                                                                        |
 | `useLocale`            | Devuelve la locale actual y una función para establecerla.                                                                                       | -                                                                                                                        |
+| `usePathname`          | Devuelve el pathname actual como un store `Readable<string>` con el segmento de la locale eliminado. Reactivo a `popstate`.                      | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/svelte-intlayer/usePathname.md)     |
 | `useRewriteURL`        | Función del lado del cliente para gestionar reescrituras de URL. Actualiza automáticamente la URL si existe una regla de reescritura localizada. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/packages/svelte-intlayer/useRewriteURL.md) |
 | `useIntl`              | Devuelve el objeto Intl para la locale actual.                                                                                                   | -                                                                                                                        |
 

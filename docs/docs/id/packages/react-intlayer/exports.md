@@ -14,6 +14,9 @@ slugs:
   - react-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Tambahkan utilitas usePathname"
   - version: 7.5.14
     date: 2026-01-21
     changes: "Dokumentasi terpadu untuk semua ekspor"
@@ -62,6 +65,7 @@ import "react-intlayer";
 | `useDictionaryDynamic` | Hook yang menangani dictionary dinamis yang dimuat berdasarkan key. Menggunakan React Suspense secara internal untuk status pemuatan.                   | -                                                                                                                       |
 | `useLocale`            | Hook sisi-klien untuk mendapatkan locale saat ini, defaultLocale, availableLocales, dan fungsi untuk memperbarui locale.                                | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useLocale.md)         |
 | `useLocaleBase`        | Hook untuk mendapatkan locale saat ini dan semua field terkait (locale, defaultLocale, availableLocales, setLocale) dari context.                       | -                                                                                                                       |
+| `usePathname`          | Hook yang mengembalikan nama path (pathname) saat ini dengan segmen lokal (locale) dihapus. Reaktif terhadap navigasi browser melalui `popstate`.       | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/usePathname.md)     |
 | `useRewriteURL`        | Client-side hook untuk mengelola rewrite URL. Jika ada aturan rewrite untuk pathname dan locale saat ini, hook ini akan memperbarui URL.                | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useRewriteURL.md) |
 | `useI18n`              | Hook yang menyediakan fungsi terjemahan `t()` untuk mengakses konten bersarang berdasarkan kunci. Meniru pola i18next/next-intl.                        | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useI18n.md)             |
 | `useIntl`              | Hook yang menyediakan objek `Intl` yang terikat pada locale. Secara otomatis menyuntikkan locale saat ini dan menggunakan caching yang dioptimalkan.    | -                                                                                                                       |

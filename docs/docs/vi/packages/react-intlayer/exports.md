@@ -14,6 +14,9 @@ slugs:
   - react-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Thêm tiện ích usePathname"
   - version: 7.5.14
     date: 2026-01-21
     changes: "Hợp nhất tài liệu cho tất cả các exports"
@@ -54,22 +57,23 @@ Nhập:
 import "react-intlayer";
 ```
 
-| Hook                   | Mô tả                                                                                                                          | Tài liệu liên quan                                                                                                      |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
-| `useIntlayer`          | Hook phía client chọn một dictionary theo khóa và trả về nội dung của nó. Sử dụng locale từ context nếu không được cung cấp.   | [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/useIntlayer.md)     |
-| `useDictionary`        | Hook chuyển đổi một đối tượng dictionary và trả về nội dung cho locale hiện tại. Xử lý các bản dịch `t()`, enumerations, v.v.  | [useDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/useDictionary.md) |
-| `useDictionaryAsync`   | Hook xử lý các dictionary bất đồng bộ. Chấp nhận một map dictionary dựa trên Promise và giải quyết nó cho locale hiện tại.     | -                                                                                                                       |
-| `useDictionaryDynamic` | Hook xử lý các từ điển động được tải theo khóa. Sử dụng React Suspense nội bộ để xử lý trạng thái tải.                         | -                                                                                                                       |
-| `useLocale`            | Hook phía client để lấy locale hiện tại, default locale, các locale khả dụng, và một hàm để cập nhật locale.                   | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/useLocale.md)         |
-| `useLocaleBase`        | Hook để lấy locale hiện tại và tất cả các trường liên quan (locale, defaultLocale, availableLocales, setLocale) từ context.    | -                                                                                                                       |
-| `useRewriteURL`        | Hook phía client để quản lý việc rewrite URL. Nếu tồn tại quy tắc rewrite cho pathname và locale hiện tại, nó sẽ cập nhật URL. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/useRewriteURL.md) |
-| `useI18n`              | Hook cung cấp một hàm dịch `t()` để truy cập nội dung lồng nhau theo khóa. Bắt chước mẫu i18next/next-intl.                    | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/useI18n.md)             |
-| `useIntl`              | Hook cung cấp một đối tượng `Intl` liên kết với locale. Tự động chèn locale hiện tại và sử dụng bộ nhớ đệm tối ưu.             | -                                                                                                                       |
-| `useLocaleStorage`     | Hook cung cấp khả năng lưu trữ locale trong localStorage hoặc cookies. Trả về các hàm getter và setter.                        | -                                                                                                                       |
-| `useLocaleCookie`      | Không còn được khuyến nghị (Deprecated). Sử dụng `useLocaleStorage` thay thế. Hook quản lý việc lưu trữ locale trong cookies.  | -                                                                                                                       |
-| `useLoadDynamic`       | Hook để tải các từ điển động sử dụng React Suspense. Nhận một key và một Promise, lưu kết quả vào cache.                       | -                                                                                                                       |
-| `useIntlayerContext`   | Hook cung cấp các giá trị context hiện tại của client Intlayer (locale, setLocale, v.v.).                                      | -                                                                                                                       |
-| `useHTMLContext`       | Hook để truy cập các override (ghi đè) của component HTML từ context HTMLProvider.                                             | -                                                                                                                       |
+| Hook                   | Mô tả                                                                                                                                       | Tài liệu liên quan                                                                                                      |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`          | Hook phía client chọn một dictionary theo khóa và trả về nội dung của nó. Sử dụng locale từ context nếu không được cung cấp.                | [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/useIntlayer.md)     |
+| `useDictionary`        | Hook chuyển đổi một đối tượng dictionary và trả về nội dung cho locale hiện tại. Xử lý các bản dịch `t()`, enumerations, v.v.               | [useDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/useDictionary.md) |
+| `useDictionaryAsync`   | Hook xử lý các dictionary bất đồng bộ. Chấp nhận một map dictionary dựa trên Promise và giải quyết nó cho locale hiện tại.                  | -                                                                                                                       |
+| `useDictionaryDynamic` | Hook xử lý các từ điển động được tải theo khóa. Sử dụng React Suspense nội bộ để xử lý trạng thái tải.                                      | -                                                                                                                       |
+| `useLocale`            | Hook phía client để lấy locale hiện tại, default locale, các locale khả dụng, và một hàm để cập nhật locale.                                | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/useLocale.md)         |
+| `useLocaleBase`        | Hook để lấy locale hiện tại và tất cả các trường liên quan (locale, defaultLocale, availableLocales, setLocale) từ context.                 | -                                                                                                                       |
+| `usePathname`          | Hook trả về đường dẫn hiện tại (pathname) đã được loại bỏ phân đoạn locale. Có tính phản hồi với điều hướng của trình duyệt qua `popstate`. | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/usePathname.md)     |
+| `useRewriteURL`        | Hook phía client để quản lý việc rewrite URL. Nếu tồn tại quy tắc rewrite cho pathname và locale hiện tại, nó sẽ cập nhật URL.              | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/useRewriteURL.md) |
+| `useI18n`              | Hook cung cấp một hàm dịch `t()` để truy cập nội dung lồng nhau theo khóa. Bắt chước mẫu i18next/next-intl.                                 | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/useI18n.md)             |
+| `useIntl`              | Hook cung cấp một đối tượng `Intl` liên kết với locale. Tự động chèn locale hiện tại và sử dụng bộ nhớ đệm tối ưu.                          | -                                                                                                                       |
+| `useLocaleStorage`     | Hook cung cấp khả năng lưu trữ locale trong localStorage hoặc cookies. Trả về các hàm getter và setter.                                     | -                                                                                                                       |
+| `useLocaleCookie`      | Không còn được khuyến nghị (Deprecated). Sử dụng `useLocaleStorage` thay thế. Hook quản lý việc lưu trữ locale trong cookies.               | -                                                                                                                       |
+| `useLoadDynamic`       | Hook để tải các từ điển động sử dụng React Suspense. Nhận một key và một Promise, lưu kết quả vào cache.                                    | -                                                                                                                       |
+| `useIntlayerContext`   | Hook cung cấp các giá trị context hiện tại của client Intlayer (locale, setLocale, v.v.).                                                   | -                                                                                                                       |
+| `useHTMLContext`       | Hook để truy cập các override (ghi đè) của component HTML từ context HTMLProvider.                                                          | -                                                                                                                       |
 
 ### Hàm
 

@@ -14,6 +14,9 @@ slugs:
   - solid-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Tambahkan utilitas usePathname"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Menyatukan dokumentasi untuk semua ekspor"
@@ -59,6 +62,7 @@ import "solid-intlayer";
 | `useDictionaryAsync`   | Sama seperti `useDictionary`, tetapi menangani dictionary asinkron.                                                                   | -                                                                                                                       |
 | `useDictionaryDynamic` | Sama seperti `useDictionary`, tetapi menangani dictionary dinamis.                                                                    | -                                                                                                                       |
 | `useLocale`            | Mengembalikan locale saat ini dan sebuah fungsi untuk mengaturnya.                                                                    | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/solid-intlayer/useLocale.md)         |
+| `usePathname`          | Mengembalikan pathname saat ini sebagai `Accessor<string>` dengan segmen locale yang dihapus. Reaktif terhadap `popstate`.            | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/solid-intlayer/usePathname.md)     |
 | `useRewriteURL`        | Hook sisi-klien untuk mengelola penulisan ulang URL. Secara otomatis memperbarui URL jika aturan penulisan ulang yang dilokalkan ada. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/solid-intlayer/useRewriteURL.md) |
 | `useIntl`              | Mengembalikan objek Intl untuk locale saat ini.                                                                                       | -                                                                                                                       |
 | `useLoadDynamic`       | Hook untuk memuat kamus dinamis.                                                                                                      | -                                                                                                                       |

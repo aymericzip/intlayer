@@ -15,6 +15,9 @@ slugs:
   - next-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Додано утиліту usePathname"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Уніфікована документація для всіх експортів"
@@ -95,6 +98,7 @@ import "next-intlayer";
 | `useDictionaryAsync`   | Хук, що працює з асинхронними словниками. Приймає мапу словників на основі Promise і отримує дані для поточної локалі.                    | -                                                                                                                       |
 | `useDictionaryDynamic` | Хук, який обробляє динамічні словники, завантажувані за ключем. Внутрішньо використовує React Suspense для станів завантаження.           | -                                                                                                                       |
 | `useLocale`            | Клієнтський хук для отримання поточної локалі та функції для її встановлення. Розширений для Next.js App Router з підтримкою навігації.   | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/useLocale.md)         |
+| `usePathname`          | Повертає поточний шлях без префікса локалі та без параметрів запиту локалі.                                                               | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/next-intlayer/usePathname.md)      |
 | `useRewriteURL`        | Клієнтський хук для керування переписуванням URL. Автоматично оновлює URL, якщо існує більш естетичне локалізоване правило переписування. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/next-intlayer/useRewriteURL.md)  |
 | `useLocalePageRouter`  | Специфічний для Next.js Page Router хук для керування локаллю. Обробляє перенаправлення та перезавантаження сторінки при зміні локалі.    | -                                                                                                                       |
 | `useI18n`              | Хук, який надає функцію перекладу `t()` для доступу до вкладеного вмісту за ключем. Імітує патерн i18next/next-intl.                      | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/react-intlayer/useI18n.md)             |

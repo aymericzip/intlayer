@@ -15,6 +15,9 @@ slugs:
   - next-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "إضافة أداة usePathname"
   - version: 8.0.0
     date: 2026-01-21
     changes: "توثيق موحد لجميع الصادرات"
@@ -99,6 +102,7 @@ import "next-intlayer";
 | `useDictionaryAsync`   | Hook يتعامل مع القواميس غير المتزامنة. يقبل خريطة قواميس مبنية على Promise ويقوم بحلّها وفقًا للـ locale الحالي.                 | -                                                                                                                       |
 | `useDictionaryDynamic` | Hook يتعامل مع القواميس الديناميكية المحمّلة حسب المفتاح. يستخدم React Suspense داخليًا لحالات التحميل.                          | -                                                                                                                       |
 | `useLocale`            | هوك على جانب العميل للحصول على اللغة الحالية ودالة لتعيينها. محسّن لـ Next.js App Router مع دعم التنقل.                          | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useLocale.md)         |
+| `usePathname`          | يُرجع مسار URL الحالي مع إزالة بادئة اللغة ومعلمات استعلام اللغة.                                                                | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/usePathname.md)      |
 | `useRewriteURL`        | هوك على جانب العميل لإدارة إعادة كتابة عناوين URL. يقوم تلقائيًا بتحديث عنوان URL إذا وُجدت قاعدة إعادة كتابة محلية أكثر ملاءمة. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/next-intlayer/useRewriteURL.md)  |
 | `useLocalePageRouter`  | Hook مخصص لـ Next.js Page Router لإدارة الـ locale. يتعامل مع إعادة التوجيه وإعادة تحميل الصفحة عند تغيّر الـ locale.            | -                                                                                                                       |
 | `useI18n`              | Hook يوفّر دالة ترجمة `t()` للوصول إلى محتوى متداخل بواسطة مفتاح. يُحاكي نمط i18next/next-intl.                                  | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useI18n.md)             |

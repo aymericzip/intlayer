@@ -14,6 +14,9 @@ slugs:
   - solid-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "usePathname-Dienstprogramm hinzufügen"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Einheitliche Dokumentation für alle Exporte"
@@ -59,6 +62,7 @@ import "solid-intlayer";
 | `useDictionaryAsync`   | Wie `useDictionary`, behandelt jedoch asynchrone Wörterbücher.                                                                                     | -                                                                                                                       |
 | `useDictionaryDynamic` | Wie `useDictionary`, jedoch für dynamische Wörterbücher.                                                                                           | -                                                                                                                       |
 | `useLocale`            | Gibt die aktuelle Locale zurück und eine Funktion, um sie zu setzen.                                                                               | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/solid-intlayer/useLocale.md)         |
+| `usePathname`          | Gibt den aktuellen Pfadnamen als `Accessor<string>` zurück, bei dem das Locale-Segment entfernt wurde. Reaktiv auf `popstate`.                     | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/solid-intlayer/usePathname.md)     |
 | `useRewriteURL`        | Client-seitiger Hook zur Verwaltung von URL-Umschreibungen. Aktualisiert die URL automatisch, wenn eine lokalisierte Umschreibregel vorhanden ist. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/solid-intlayer/useRewriteURL.md) |
 | `useIntl`              | Gibt das Intl-Objekt für die aktuelle Locale zurück.                                                                                               | -                                                                                                                       |
 | `useLoadDynamic`       | Hook zum Laden dynamischer Wörterbücher.                                                                                                           | -                                                                                                                       |

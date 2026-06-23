@@ -14,6 +14,9 @@ slugs:
   - solid-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Add usePathname utility"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Unified documentation for all exports"
@@ -52,17 +55,18 @@ Import:
 import "solid-intlayer";
 ```
 
-| Hook                   | Description                                                                                                  | Related Doc                                                                                                                |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
-| `useIntlayer`          | Based on `useDictionary`, but injects an optimised version of the dictionary from the generated declaration. | [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/solid-intlayer/useIntlayer.md)     |
-| `useDictionary`        | Processes objects resembling dictionaries (key, content). Handles `t()` translations, enumerations, etc.     | -                                                                                                                          |
-| `useDictionaryAsync`   | Same as `useDictionary`, but handles asynchronous dictionaries.                                              | -                                                                                                                          |
-| `useDictionaryDynamic` | Same as `useDictionary`, but handles dynamic dictionaries.                                                   | -                                                                                                                          |
-| `useLocale`            | Returns the current locale and a function to set it.                                                         | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/solid-intlayer/useLocale.md)         |
-| `useRewriteURL`        | Client-side hook to manage URL rewrites. Automatically updates the URL if a localised rewrite rule exists.   | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/solid-intlayer/useRewriteURL.md) |
-| `useIntl`              | Returns the Intl object for the current locale.                                                              | -                                                                                                                          |
-| `useLoadDynamic`       | Hook to load dynamic dictionaries.                                                                           | -                                                                                                                          |
-| `t`                    | Selects content based on the current locale.                                                                 | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/translation.md)                  |
+| Hook                   | Description                                                                                                    | Related Doc                                                                                                                |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`          | Based on `useDictionary`, but injects an optimised version of the dictionary from the generated declaration.   | [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/solid-intlayer/useIntlayer.md)     |
+| `useDictionary`        | Processes objects resembling dictionaries (key, content). Handles `t()` translations, enumerations, etc.       | -                                                                                                                          |
+| `useDictionaryAsync`   | Same as `useDictionary`, but handles asynchronous dictionaries.                                                | -                                                                                                                          |
+| `useDictionaryDynamic` | Same as `useDictionary`, but handles dynamic dictionaries.                                                     | -                                                                                                                          |
+| `useLocale`            | Returns the current locale and a function to set it.                                                           | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/solid-intlayer/useLocale.md)         |
+| `usePathname`          | Returns the current pathname as an `Accessor<string>` with the locale segment removed. Reactive to `popstate`. | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/solid-intlayer/usePathname.md)     |
+| `useRewriteURL`        | Client-side hook to manage URL rewrites. Automatically updates the URL if a localised rewrite rule exists.     | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/solid-intlayer/useRewriteURL.md) |
+| `useIntl`              | Returns the Intl object for the current locale.                                                                | -                                                                                                                          |
+| `useLoadDynamic`       | Hook to load dynamic dictionaries.                                                                             | -                                                                                                                          |
+| `t`                    | Selects content based on the current locale.                                                                   | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/translation.md)                  |
 
 ### Components
 

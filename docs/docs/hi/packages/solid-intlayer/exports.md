@@ -14,6 +14,9 @@ slugs:
   - solid-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "usePathname उपयोगिता जोड़ें"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Unified documentation for all exports"
@@ -52,17 +55,18 @@ import "solid-intlayer";
 import "solid-intlayer";
 ```
 
-| हुक                    | विवरण                                                                                                                                         | संबंधित दस्तावेज़                                                                                                       |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `useIntlayer`          | यह `useDictionary` पर आधारित है, लेकिन generated declaration से dictionary का अनुकूलित संस्करण इंजेक्ट करता है।                               | [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/solid-intlayer/useIntlayer.md)     |
-| `useDictionary`        | डिक्शनरी जैसे दिखने वाले ऑब्जेक्ट्स (key, content) को प्रोसेस करता है। यह `t()` अनुवादों, enumerations आदि को प्रोसेस करता है।                | -                                                                                                                       |
-| `useDictionaryAsync`   | बिलकुल `useDictionary` जैसा, लेकिन asynchronous डिक्शनरीज़ को संभालता है।                                                                     | -                                                                                                                       |
-| `useDictionaryDynamic` | बिलकुल `useDictionary` जैसा, लेकिन dynamic डिक्शनरीज़ को संभालता है।                                                                          | -                                                                                                                       |
-| `useLocale`            | वर्तमान locale और इसे सेट करने के लिए एक फ़ंक्शन लौटाता है।                                                                                   | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/solid-intlayer/useLocale.md)         |
-| `useRewriteURL`        | URL rewrites को प्रबंधित करने के लिए क्लाइंट-साइड हुक। यदि कोई localized rewrite rule मौजूद है तो यह URL को स्वचालित रूप से अपडेट कर देता है। | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/solid-intlayer/useRewriteURL.md) |
-| `useIntl`              | वर्तमान locale के लिए Intl ऑब्जेक्ट लौटाता है।                                                                                                | -                                                                                                                       |
-| `useLoadDynamic`       | डायनेमिक शब्दकोश लोड करने के लिए हुक।                                                                                                         | -                                                                                                                       |
-| `t`                    | वर्तमान locale के आधार पर कंटेंट चुनता है।                                                                                                    | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/translation.md)                  |
+| हुक                    | विवरण                                                                                                                                                          | संबंधित दस्तावेज़                                                                                                       |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`          | यह `useDictionary` पर आधारित है, लेकिन generated declaration से dictionary का अनुकूलित संस्करण इंजेक्ट करता है।                                                | [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/solid-intlayer/useIntlayer.md)     |
+| `useDictionary`        | डिक्शनरी जैसे दिखने वाले ऑब्जेक्ट्स (key, content) को प्रोसेस करता है। यह `t()` अनुवादों, enumerations आदि को प्रोसेस करता है।                                 | -                                                                                                                       |
+| `useDictionaryAsync`   | बिलकुल `useDictionary` जैसा, लेकिन asynchronous डिक्शनरीज़ को संभालता है।                                                                                      | -                                                                                                                       |
+| `useDictionaryDynamic` | बिलकुल `useDictionary` जैसा, लेकिन dynamic डिक्शनरीज़ को संभालता है।                                                                                           | -                                                                                                                       |
+| `useLocale`            | वर्तमान locale और इसे सेट करने के लिए एक फ़ंक्शन लौटाता है।                                                                                                    | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/solid-intlayer/useLocale.md)         |
+| `usePathname`          | वर्तमान पाथनेम (pathname) को `Accessor<string>` के रूप में लौटाता है, जिसमें से locale सेगमेंट हटा दिया गया है। `popstate` के प्रति प्रतिक्रियाशील (reactive)। | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/solid-intlayer/usePathname.md)     |
+| `useRewriteURL`        | URL rewrites को प्रबंधित करने के लिए क्लाइंट-साइड हुक। यदि कोई localized rewrite rule मौजूद है तो यह URL को स्वचालित रूप से अपडेट कर देता है।                  | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/solid-intlayer/useRewriteURL.md) |
+| `useIntl`              | वर्तमान locale के लिए Intl ऑब्जेक्ट लौटाता है।                                                                                                                 | -                                                                                                                       |
+| `useLoadDynamic`       | डायनेमिक शब्दकोश लोड करने के लिए हुक।                                                                                                                          | -                                                                                                                       |
+| `t`                    | वर्तमान locale के आधार पर कंटेंट चुनता है।                                                                                                                     | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/translation.md)                  |
 
 ### कंपोनेंट्स
 

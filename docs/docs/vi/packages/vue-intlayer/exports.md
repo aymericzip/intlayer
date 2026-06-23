@@ -14,6 +14,9 @@ slugs:
   - vue-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Thêm tiện ích usePathname"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Hợp nhất tài liệu cho tất cả các exports"
@@ -52,16 +55,17 @@ Import:
 import "vue-intlayer";
 ```
 
-| Composable             | Mô tả                                                                                                                | Tài liệu liên quan                                                                                                    |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `useIntlayer`          | Dựa trên `useDictionary`, nhưng chèn một phiên bản tối ưu hóa của dictionary từ khai báo được sinh ra.               | -                                                                                                                     |
-| `useDictionary`        | Xử lý các object trông giống dictionary (key, content). Nó xử lý các bản dịch `t()`, enumerations, v.v.              | -                                                                                                                     |
-| `useDictionaryAsync`   | Tương tự `useDictionary`, nhưng xử lý các từ điển bất đồng bộ.                                                       | -                                                                                                                     |
-| `useDictionaryDynamic` | Tương tự `useDictionary`, nhưng xử lý các từ điển động.                                                              | -                                                                                                                     |
-| `useLocale`            | Trả về locale hiện tại và một hàm để thiết lập nó.                                                                   | -                                                                                                                     |
-| `useRewriteURL`        | Composable phía client để quản lý rewrite URL. Tự động cập nhật URL nếu tồn tại quy tắc rewrite đã được bản địa hóa. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vue-intlayer/useRewriteURL.md) |
-| `useIntl`              | Trả về đối tượng Intl cho locale hiện tại.                                                                           | -                                                                                                                     |
-| `useLoadDynamic`       | Composable để tải các từ điển động.                                                                                  | -                                                                                                                     |
+| Composable             | Mô tả                                                                                                                                        | Tài liệu liên quan                                                                                                    |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`          | Dựa trên `useDictionary`, nhưng chèn một phiên bản tối ưu hóa của dictionary từ khai báo được sinh ra.                                       | -                                                                                                                     |
+| `useDictionary`        | Xử lý các object trông giống dictionary (key, content). Nó xử lý các bản dịch `t()`, enumerations, v.v.                                      | -                                                                                                                     |
+| `useDictionaryAsync`   | Tương tự `useDictionary`, nhưng xử lý các từ điển bất đồng bộ.                                                                               | -                                                                                                                     |
+| `useDictionaryDynamic` | Tương tự `useDictionary`, nhưng xử lý các từ điển động.                                                                                      | -                                                                                                                     |
+| `useLocale`            | Trả về locale hiện tại và một hàm để thiết lập nó.                                                                                           | -                                                                                                                     |
+| `usePathname`          | Trả về pathname hiện tại dưới dạng `ComputedRef<string>` với phân đoạn locale đã bị xóa. Có tính phản ứng (reactive) với sự kiện `popstate`. | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vue-intlayer/usePathname.md)     |
+| `useRewriteURL`        | Composable phía client để quản lý rewrite URL. Tự động cập nhật URL nếu tồn tại quy tắc rewrite đã được bản địa hóa.                         | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/vue-intlayer/useRewriteURL.md) |
+| `useIntl`              | Trả về đối tượng Intl cho locale hiện tại.                                                                                                   | -                                                                                                                     |
+| `useLoadDynamic`       | Composable để tải các từ điển động.                                                                                                          | -                                                                                                                     |
 
 ### Hàm
 

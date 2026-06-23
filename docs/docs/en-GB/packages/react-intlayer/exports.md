@@ -14,6 +14,9 @@ slugs:
   - react-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Add usePathname utility"
   - version: 7.5.14
     date: 2026-01-21
     changes: "Unified documentation for all exports"
@@ -62,6 +65,7 @@ import "react-intlayer";
 | `useDictionaryDynamic` | Hook that handles dynamic dictionaries loaded by key. Uses React Suspense internally to manage loading states.                            | -                                                                                                                               |
 | `useLocale`            | Client-side hook to get the current locale, default locale, available locales, and a function to change the locale.                       | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useLocale.md)              |
 | `useLocaleBase`        | Hook to obtain the current locale and all related fields (locale, defaultLocale, availableLocales, setLocale) from context.               | -                                                                                                                               |
+| `usePathname`          | Hook that returns the current pathname with the locale segment removed. Reactive to browser navigation via `popstate`.                    | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/usePathname.md)          |
 | `useRewriteURL`        | Client-side hook to manage URL rewrites. If a rewrite rule exists for the current pathname and locale, it will update the URL.            | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/packages/react-intlayer/useRewriteURL.md) |
 | `useI18n`              | Hook that provides a translation function `t()` for accessing nested content by key. Emulates i18next/next-intl pattern.                  | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useI18n.md)                  |
 | `useIntl`              | Hook that provides a locale-bound `Intl` object. Automatically injects the current locale and uses optimised caching.                     | -                                                                                                                               |

@@ -14,6 +14,9 @@ slugs:
   - vue-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Добавлена утилита usePathname"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Унифицированная документация для всех экспортов"
@@ -59,6 +62,7 @@ import "vue-intlayer";
 | `useDictionaryAsync`   | То же, что `useDictionary`, но обрабатывает асинхронные словари.                                                                                    | -                                                                                                                     |
 | `useDictionaryDynamic` | То же, что `useDictionary`, но обрабатывает динамические словари.                                                                                   | -                                                                                                                     |
 | `useLocale`            | Возвращает текущую локаль и функцию для её установки.                                                                                               | -                                                                                                                     |
+| `usePathname`          | Возвращает текущий pathname как `ComputedRef<string>` с удалённым сегментом локали. Реактивен к событиям `popstate`.                                | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vue-intlayer/usePathname.md)     |
 | `useRewriteURL`        | Composable на стороне клиента для управления переписыванием URL. Автоматически обновляет URL, если существует локализованное правило переписывания. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/vue-intlayer/useRewriteURL.md) |
 | `useIntl`              | Возвращает объект Intl для текущей локали.                                                                                                          | -                                                                                                                     |
 | `useLoadDynamic`       | Composable для загрузки динамических словарей.                                                                                                      | -                                                                                                                     |

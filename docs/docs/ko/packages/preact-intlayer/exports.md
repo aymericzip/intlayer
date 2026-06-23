@@ -14,6 +14,9 @@ slugs:
   - preact-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "usePathname 유틸리티 추가"
   - version: 8.0.0
     date: 2026-01-21
     changes: "모든 exports에 대한 문서 통합"
@@ -40,12 +43,13 @@ npm install preact-intlayer
 
 ### 훅
 
-| 훅              | 설명                                                                                             | 관련 문서                                                                                              |
-| --------------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
-| `useIntlayer`   | `useDictionary`를 기반으로 하며, 생성된 declaration에서 dictionary의 최적화된 버전을 주입합니다. | -                                                                                                      |
-| `useDictionary` | 키와 내용(key, content)처럼 보이는 객체를 처리합니다. `t()` 번역, enumerations 등을 처리합니다.  | -                                                                                                      |
-| `useLocale`     | 현재 로케일과 이를 설정하는 함수를 반환합니다.                                                   | -                                                                                                      |
-| `t`             | 현재 로케일에 따라 콘텐츠를 선택합니다.                                                          | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/translation.md) |
+| 훅              | 설명                                                                                                        | 관련 문서                                                                                                            |
+| --------------- | ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`   | `useDictionary`를 기반으로 하며, 생성된 declaration에서 dictionary의 최적화된 버전을 주입합니다.            | -                                                                                                                    |
+| `useDictionary` | 키와 내용(key, content)처럼 보이는 객체를 처리합니다. `t()` 번역, enumerations 등을 처리합니다.             | -                                                                                                                    |
+| `useLocale`     | 현재 로케일과 이를 설정하는 함수를 반환합니다.                                                              | -                                                                                                                    |
+| `usePathname`   | 로케일 세그먼트가 제거된 현재 경로명(pathname)을 반환하는 훅입니다. 브라우저 탐색(`popstate`)에 반응합니다. | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/preact-intlayer/usePathname.md) |
+| `t`             | 현재 로케일에 따라 콘텐츠를 선택합니다.                                                                     | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/translation.md)               |
 
 ### 컴포넌트
 

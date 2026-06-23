@@ -14,6 +14,9 @@ slugs:
   - vue-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "usePathname उपयोगिता जोड़ें"
   - version: 8.0.0
     date: 2026-01-21
     changes: "सभी एक्सपोर्ट्स के लिए एकीकृत दस्तावेज़ीकरण"
@@ -52,16 +55,17 @@ import "vue-intlayer";
 import "vue-intlayer";
 ```
 
-| कम्पोज़ेबल             | विवरण                                                                                                                                      | संबंधित दस्तावेज़                                                                                                     |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
-| `useIntlayer`          | `useDictionary` पर आधारित है, लेकिन जेनरेट की गई declaration से dictionary का optimized वर्शन inject करता है।                              | -                                                                                                                     |
-| `useDictionary`        | उन objects को प्रोसेस करता है जो dictionaries (key, content) जैसी दिखती हैं। यह `t()` translations, enumerations, आदि को प्रोसेस करता है।  | -                                                                                                                     |
-| `useDictionaryAsync`   | `useDictionary` जैसा ही है, लेकिन असिंक्रोनस (asynchronous) शब्दकोशों को संभालता है।                                                       | -                                                                                                                     |
-| `useDictionaryDynamic` | `useDictionary` जैसा ही है, लेकिन डायनेमिक (dynamic) शब्दकोशों को संभालता है।                                                              | -                                                                                                                     |
-| `useLocale`            | वर्तमान locale लौटाता है और इसे सेट करने के लिए एक फ़ंक्शन प्रदान करता है।                                                                 | -                                                                                                                     |
-| `useRewriteURL`        | क्लाइंट-साइड composable जो URL री-राइट्स को प्रबंधित करता है। यदि कोई localized री-राइट नियम मौजूद है तो यह स्वतः URL को अपडेट कर देता है। | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vue-intlayer/useRewriteURL.md) |
-| `useIntl`              | वर्तमान locale के लिए Intl ऑब्जेक्ट लौटाता है।                                                                                             | -                                                                                                                     |
-| `useLoadDynamic`       | डायनेमिक शब्दकोश लोड करने के लिए composable।                                                                                               | -                                                                                                                     |
+| कम्पोज़ेबल             | विवरण                                                                                                                                               | संबंधित दस्तावेज़                                                                                                     |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`          | `useDictionary` पर आधारित है, लेकिन जेनरेट की गई declaration से dictionary का optimized वर्शन inject करता है।                                       | -                                                                                                                     |
+| `useDictionary`        | उन objects को प्रोसेस करता है जो dictionaries (key, content) जैसी दिखती हैं। यह `t()` translations, enumerations, आदि को प्रोसेस करता है।           | -                                                                                                                     |
+| `useDictionaryAsync`   | `useDictionary` जैसा ही है, लेकिन असिंक्रोनस (asynchronous) शब्दकोशों को संभालता है।                                                                | -                                                                                                                     |
+| `useDictionaryDynamic` | `useDictionary` जैसा ही है, लेकिन डायनेमिक (dynamic) शब्दकोशों को संभालता है।                                                                       | -                                                                                                                     |
+| `useLocale`            | वर्तमान locale लौटाता है और इसे सेट करने के लिए एक फ़ंक्शन प्रदान करता है।                                                                          | -                                                                                                                     |
+| `usePathname`          | वर्तमान पथनाम (pathname) को `ComputedRef<string>` के रूप में लौटाता है जिसमें से locale खंड हटा दिया गया हो। `popstate` के प्रति प्रतिक्रियाशील है। | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vue-intlayer/usePathname.md)     |
+| `useRewriteURL`        | क्लाइंट-साइड composable जो URL री-राइट्स को प्रबंधित करता है। यदि कोई localized री-राइट नियम मौजूद है तो यह स्वतः URL को अपडेट कर देता है।          | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/vue-intlayer/useRewriteURL.md) |
+| `useIntl`              | वर्तमान locale के लिए Intl ऑब्जेक्ट लौटाता है।                                                                                                      | -                                                                                                                     |
+| `useLoadDynamic`       | डायनेमिक शब्दकोश लोड करने के लिए composable।                                                                                                        | -                                                                                                                     |
 
 ### फ़ंक्शन
 

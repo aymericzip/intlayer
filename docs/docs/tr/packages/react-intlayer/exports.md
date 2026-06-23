@@ -14,6 +14,9 @@ slugs:
   - react-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "usePathname yardımcı programını ekle"
   - version: 7.5.14
     date: 2026-01-21
     changes: "Tüm dışa aktarımlar için birleşik dokümantasyon"
@@ -62,6 +65,7 @@ import "react-intlayer";
 | `useDictionaryDynamic` | Anahtara göre yüklenen dinamik sözlükleri işleyen hook. Yükleme durumları için dahili olarak React Suspense kullanır.                     | -                                                                                                                       |
 | `useLocale`            | İstemci tarafı hook; geçerli locale'i, varsayılan locale'i, kullanılabilir locale'leri ve locale'i güncellemek için bir fonksiyonu alır.  | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useLocale.md)         |
 | `useLocaleBase`        | Context'ten geçerli locale ve ilgili tüm alanları (locale, defaultLocale, availableLocales, setLocale) almak için hook.                   | -                                                                                                                       |
+| `usePathname`          | Yerel ayar segmenti kaldırılmış olarak mevcut yol adını (pathname) döndüren kanca. `popstate` üzerinden tarayıcı gezinmesine duyarlıdır.  | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/usePathname.md)     |
 | `useRewriteURL`        | URL yeniden yazmalarını yönetmek için istemci tarafı hook. Geçerli pathname ve locale için bir rewrite kuralı varsa, URL'i günceller.     | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useRewriteURL.md) |
 | `useI18n`              | Anahtara göre iç içe geçmiş içeriğe erişmek için `t()` çeviri fonksiyonunu sağlayan Hook. i18next/next-intl modelini taklit eder.         | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useI18n.md)             |
 | `useIntl`              | Locale'e bağlı bir `Intl` nesnesi sağlayan Hook. Geçerli locale'i otomatik olarak enjekte eder ve optimize edilmiş önbellekleme kullanır. | -                                                                                                                       |

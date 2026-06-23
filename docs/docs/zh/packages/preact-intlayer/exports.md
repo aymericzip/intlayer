@@ -14,6 +14,9 @@ slugs:
   - preact-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "添加 usePathname 实用工具"
   - version: 8.0.0
     date: 2026-01-21
     changes: "统一了所有导出的文档"
@@ -40,12 +43,13 @@ npm install preact-intlayer
 
 ### 钩子
 
-| 钩子            | 描述                                                            | 相关文档                                                                                        |
-| --------------- | --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| `useIntlayer`   | 基于 `useDictionary`，但注入来自生成声明的优化版本的字典。      | -                                                                                               |
-| `useDictionary` | 处理类似字典的对象（key，content）。它处理 `t()` 翻译、枚举等。 | -                                                                                               |
-| `useLocale`     | 返回当前 locale 以及用于设置它的函数。                          | -                                                                                               |
-| `t`             | 根据当前 locale 选择内容。                                      | [翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/translation.md) |
+| 钩子            | 描述                                                                       | 相关文档                                                                                                             |
+| --------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`   | 基于 `useDictionary`，但注入来自生成声明的优化版本的字典。                 | -                                                                                                                    |
+| `useDictionary` | 处理类似字典的对象（key，content）。它处理 `t()` 翻译、枚举等。            | -                                                                                                                    |
+| `useLocale`     | 返回当前 locale 以及用于设置它的函数。                                     | -                                                                                                                    |
+| `usePathname`   | 钩子：返回移除 locale 语言段后的当前路径名。响应 `popstate` 的浏览器导航。 | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/preact-intlayer/usePathname.md) |
+| `t`             | 根据当前 locale 选择内容。                                                 | [翻译](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/translation.md)                      |
 
 ### 组件
 

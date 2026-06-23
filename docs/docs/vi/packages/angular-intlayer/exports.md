@@ -14,9 +14,12 @@ slugs:
   - angular-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Đã thêm tiện ích usePathname"
   - version: 8.0.0
     date: 2026-01-21
-    changes: "Unified documentation for all exports"
+    changes: "Tài liệu hợp nhất cho tất cả các bản xuất"
 author: aymericzip
 ---
 
@@ -46,15 +49,16 @@ import "angular-intlayer";
 
 ### Các Hook
 
-| Hook                   | Mô tả                                                                                                         | Tài liệu liên quan |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------ |
-| `useIntlayer`          | Dựa trên `useDictionary`, nhưng inject một phiên bản được tối ưu hóa của dictionary từ khai báo được sinh ra. | -                  |
-| `useDictionary`        | Xử lý các đối tượng trông giống như từ điển (key, content). Nó xử lý các bản dịch `t()`, các enum, v.v.       | -                  |
-| `useDictionaryAsync`   | Giống `useDictionary`, nhưng xử lý các từ điển bất đồng bộ.                                                   | -                  |
-| `useDictionaryDynamic` | Giống `useDictionary`, nhưng xử lý các từ điển động.                                                          | -                  |
-| `useLocale`            | Trả về locale hiện tại và một hàm để đặt (set) nó.                                                            | -                  |
-| `useIntl`              | Trả về đối tượng Intl cho locale hiện tại.                                                                    | -                  |
-| `useLoadDynamic`       | Hook để tải các từ điển động.                                                                                 | -                  |
+| Hook                   | Mô tả                                                                                                                                 | Tài liệu liên quan                                                                                                    |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`          | Dựa trên `useDictionary`, nhưng inject một phiên bản được tối ưu hóa của dictionary từ khai báo được sinh ra.                         | -                                                                                                                     |
+| `useDictionary`        | Xử lý các đối tượng trông giống như từ điển (key, content). Nó xử lý các bản dịch `t()`, các enum, v.v.                               | -                                                                                                                     |
+| `useDictionaryAsync`   | Giống `useDictionary`, nhưng xử lý các từ điển bất đồng bộ.                                                                           | -                                                                                                                     |
+| `useDictionaryDynamic` | Giống `useDictionary`, nhưng xử lý các từ điển động.                                                                                  | -                                                                                                                     |
+| `useLocale`            | Trả về locale hiện tại và một hàm để đặt (set) nó.                                                                                    | -                                                                                                                     |
+| `usePathname`          | Trả về đường dẫn hiện tại dưới dạng `Signal<string>` với phần ngôn ngữ đã bị loại bỏ. Phản hồi với `popstate` thông qua `DestroyRef`. | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/angular-intlayer/usePathname.md) |
+| `useIntl`              | Trả về đối tượng Intl cho locale hiện tại.                                                                                            | -                                                                                                                     |
+| `useLoadDynamic`       | Hook để tải các từ điển động.                                                                                                         | -                                                                                                                     |
 
 ### Thành phần
 

@@ -14,6 +14,9 @@ slugs:
   - angular-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "usePathname-Dienstprogramm hinzugefügt"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Vereinheitlichte Dokumentation für alle Exporte"
@@ -46,15 +49,16 @@ import "angular-intlayer";
 
 ### Hooks
 
-| Hook                   | Beschreibung                                                                                                                | Zugehöriges Dokument |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------------------- | -------------------- |
-| `useIntlayer`          | Basierend auf `useDictionary`, injiziert es jedoch eine optimierte Version des Dictionarys aus der generierten Deklaration. | -                    |
-| `useDictionary`        | Verarbeitet Objekte, die wie Dictionaries aussehen (key, content). Verarbeitet `t()`-Übersetzungen, Enumerationen usw.      | -                    |
-| `useDictionaryAsync`   | Wie `useDictionary`, behandelt jedoch asynchrone Dictionaries.                                                              | -                    |
-| `useDictionaryDynamic` | Wie `useDictionary`, behandelt jedoch dynamische Dictionaries.                                                              | -                    |
-| `useLocale`            | Gibt die aktuelle Locale und eine Funktion zurück, um diese zu setzen.                                                      | -                    |
-| `useIntl`              | Gibt das Intl-Objekt für die aktuelle Locale zurück.                                                                        | -                    |
-| `useLoadDynamic`       | Hook zum Laden dynamischer Dictionaries.                                                                                    | -                    |
+| Hook                   | Beschreibung                                                                                                                 | Zugehöriges Dokument                                                                                                  |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`          | Basierend auf `useDictionary`, injiziert es jedoch eine optimierte Version des Dictionarys aus der generierten Deklaration.  | -                                                                                                                     |
+| `useDictionary`        | Verarbeitet Objekte, die wie Dictionaries aussehen (key, content). Verarbeitet `t()`-Übersetzungen, Enumerationen usw.       | -                                                                                                                     |
+| `useDictionaryAsync`   | Wie `useDictionary`, behandelt jedoch asynchrone Dictionaries.                                                               | -                                                                                                                     |
+| `useDictionaryDynamic` | Wie `useDictionary`, behandelt jedoch dynamische Dictionaries.                                                               | -                                                                                                                     |
+| `useLocale`            | Gibt die aktuelle Locale und eine Funktion zurück, um diese zu setzen.                                                       | -                                                                                                                     |
+| `usePathname`          | Gibt den aktuellen Pfad als `Signal<string>` ohne das Gebietsschema-Segment zurück. Reaktiv auf `popstate` via `DestroyRef`. | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/angular-intlayer/usePathname.md) |
+| `useIntl`              | Gibt das Intl-Objekt für die aktuelle Locale zurück.                                                                         | -                                                                                                                     |
+| `useLoadDynamic`       | Hook zum Laden dynamischer Dictionaries.                                                                                     | -                                                                                                                     |
 
 ### Komponenten
 

@@ -14,6 +14,9 @@ slugs:
   - svelte-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "إضافة أداة usePathname المساعدة"
   - version: 8.0.0
     date: 2026-01-21
     changes: "توحيد التوثيق لجميع الصادرات"
@@ -71,6 +74,7 @@ import "svelte-intlayer";
 | `useDictionaryAsync`   | نفس عمل `useDictionary`، لكنه يتعامل مع القواميس غير المتزامنة.                                                                      | -                                                                                                                        |
 | `useDictionaryDynamic` | نفس عمل `useDictionary`، لكنه يتعامل مع القواميس الديناميكية.                                                                        | -                                                                                                                        |
 | `useLocale`            | تعيد الـ locale الحالي ودالة لتعيينها.                                                                                               | -                                                                                                                        |
+| `usePathname`          | تُرجع مسار URL الحالي (pathname) كمخزن `Readable<string>` مع إزالة جزء locale. يتفاعل مع أحداث `popstate`.                           | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/svelte-intlayer/usePathname.md)     |
 | `useRewriteURL`        | دالة على جانب العميل لإدارة إعادة كتابة عناوين URL. تقوم بتحديث عنوان URL تلقائيًا إذا كانت هناك قاعدة إعادة كتابة مخصصة للـ locale. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/svelte-intlayer/useRewriteURL.md) |
 | `useIntl`              | تعيد كائن Intl للـ locale الحالي.                                                                                                    | -                                                                                                                        |
 

@@ -14,6 +14,9 @@ slugs:
   - svelte-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "usePathname उपयोगिता जोड़ें"
   - version: 8.0.0
     date: 2026-01-21
     changes: "सभी एक्सपोर्ट्स के लिए एकीकृत दस्तावेज़ीकरण"
@@ -64,15 +67,16 @@ import "svelte-intlayer";
 import "svelte-intlayer";
 ```
 
-| फ़ंक्शन                | विवरण                                                                                                                                             | संबंधित दस्तावेज                                                                                                         |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `useIntlayer`          | `useDictionary` पर आधारित है, लेकिन जनरेट की गई declaration से dictionary का एक optimized संस्करण inject करता है।                                 | -                                                                                                                        |
-| `useDictionary`        | उन ऑब्जेक्ट्स को प्रोसेस करता है जो शब्दकोश जैसे दिखते हैं (key, content)। यह `t()` अनुवादों, enumerations, आदि को प्रोसेस करता है।               | -                                                                                                                        |
-| `useDictionaryAsync`   | `useDictionary` जैसा ही, लेकिन असिंक्रोनस शब्दकोशों को संभालता है।                                                                                | -                                                                                                                        |
-| `useDictionaryDynamic` | `useDictionary` जैसा ही, लेकिन डायनामिक शब्दकोशों को संभालता है।                                                                                  | -                                                                                                                        |
-| `useLocale`            | वर्तमान locale और इसे सेट करने के लिए एक फ़ंक्शन लौटाता है।                                                                                       | -                                                                                                                        |
-| `useRewriteURL`        | URL रीराइट्स को प्रबंधित करने के लिए क्लाइंट-साइड फ़ंक्शन। यदि कोई स्थानीयकृत रीराइट नियम मौजूद है तो यह स्वचालित रूप से URL को अपडेट कर देता है। | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/svelte-intlayer/useRewriteURL.md) |
-| `useIntl`              | वर्तमान locale के लिए Intl ऑब्जेक्ट लौटाता है।                                                                                                    | -                                                                                                                        |
+| फ़ंक्शन                | विवरण                                                                                                                                                  | संबंधित दस्तावेज                                                                                                         |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| `useIntlayer`          | `useDictionary` पर आधारित है, लेकिन जनरेट की गई declaration से dictionary का एक optimized संस्करण inject करता है।                                      | -                                                                                                                        |
+| `useDictionary`        | उन ऑब्जेक्ट्स को प्रोसेस करता है जो शब्दकोश जैसे दिखते हैं (key, content)। यह `t()` अनुवादों, enumerations, आदि को प्रोसेस करता है।                    | -                                                                                                                        |
+| `useDictionaryAsync`   | `useDictionary` जैसा ही, लेकिन असिंक्रोनस शब्दकोशों को संभालता है।                                                                                     | -                                                                                                                        |
+| `useDictionaryDynamic` | `useDictionary` जैसा ही, लेकिन डायनामिक शब्दकोशों को संभालता है।                                                                                       | -                                                                                                                        |
+| `useLocale`            | वर्तमान locale और इसे सेट करने के लिए एक फ़ंक्शन लौटाता है।                                                                                            | -                                                                                                                        |
+| `usePathname`          | वर्तमान पथनाम (pathname) को `Readable<string>` स्टोर के रूप में लौटाता है जिसमें से locale खंड हटा दिया गया हो। `popstate` के प्रति प्रतिक्रियाशील है। | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/svelte-intlayer/usePathname.md)     |
+| `useRewriteURL`        | URL रीराइट्स को प्रबंधित करने के लिए क्लाइंट-साइड फ़ंक्शन। यदि कोई स्थानीयकृत रीराइट नियम मौजूद है तो यह स्वचालित रूप से URL को अपडेट कर देता है।      | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/svelte-intlayer/useRewriteURL.md) |
+| `useIntl`              | वर्तमान locale के लिए Intl ऑब्जेक्ट लौटाता है।                                                                                                         | -                                                                                                                        |
 
 ### मार्कडाउन
 

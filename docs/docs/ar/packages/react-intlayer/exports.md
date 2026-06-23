@@ -14,6 +14,9 @@ slugs:
   - react-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "إضافة أداة usePathname"
   - version: 7.5.14
     date: 2026-01-21
     changes: "توثيق موحّد لجميع الصادرات"
@@ -64,6 +67,7 @@ import "react-intlayer";
 | `useDictionaryDynamic` | هوك يتعامل مع القواميس الديناميكية التي تُحمّل بواسطة المفتاح. يستخدم React Suspense داخليًا لحالات التحميل.                    | -                                                                                                                       |
 | `useLocale`            | هوك على جهة العميل للحصول على الـlocale الحالية، الـlocale الافتراضية، الـlocales المتاحة، ودالة لتحديث الـlocale.              | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useLocale.md)         |
 | `useLocaleBase`        | Hook للحصول على اللغة الحالية وجميع الحقول المتعلقة بها (locale, defaultLocale, availableLocales, setLocale) من السياق.         | -                                                                                                                       |
+| `usePathname`          | خطاف (Hook) يعيد مسار الرابط (pathname) الحالي مع إزالة جزء الإعداد المحلي. يتفاعل مع تنقل المتصفح عبر `popstate`.              | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/usePathname.md)     |
 | `useRewriteURL`        | Hook على جانب العميل لإدارة إعادة كتابة عناوين URL. إذا وُجدت قاعدة إعادة كتابة للمسار الحالي والlocale، فسيتم تحديث عنوان URL. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useRewriteURL.md) |
 | `useI18n`              | هوك يوفر دالة ترجمة `t()` للوصول إلى محتوى متداخل عبر المفتاح. يحاكي نمط i18next/next-intl.                                     | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/react-intlayer/useI18n.md)             |
 | `useIntl`              | هوك يوفر كائن `Intl` مربوط بالـ locale. يقوم بحقن الـ locale الحالي تلقائيًا ويستخدم تخزينًا مؤقتًا محسّنًا.                    | -                                                                                                                       |

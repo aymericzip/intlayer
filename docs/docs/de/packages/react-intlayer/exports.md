@@ -14,6 +14,9 @@ slugs:
   - react-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Dienstprogramm usePathname hinzufügen"
   - version: 7.5.14
     date: 2026-01-21
     changes: "Vereinheitlichte Dokumentation für alle Exporte"
@@ -64,6 +67,7 @@ import "react-intlayer";
 | `useDictionaryDynamic` | Hook, der dynamische, nach Schlüssel geladene Wörterbücher verwaltet. Verwendet intern React Suspense für Ladezustände.                                                   | -                                                                                                                               |
 | `useLocale`            | Client-seitiger Hook, um die aktuelle Locale, die Standard-Locale, verfügbare Locales und eine Funktion zum Aktualisieren der Locale zu erhalten.                         | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/useLocale.md)                 |
 | `useLocaleBase`        | Hook, um die aktuelle Locale und alle zugehörigen Felder (locale, defaultLocale, availableLocales, setLocale) aus dem Kontext zu erhalten.                                | -                                                                                                                               |
+| `usePathname`          | Hook, der den aktuellen Pfadnamen (pathname) zurückgibt, wobei das Locale-Segment entfernt wurde. Reaktiv auf Browser-Navigation über `popstate`.                         | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/usePathname.md)             |
 | `useRewriteURL`        | Client-seitiger Hook, um URL-Rewrites zu verwalten. Wenn eine Rewrite-Regel für den aktuellen pathname und die locale existiert, wird die URL aktualisiert.               | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/useRewriteURL.md)         |
 | `useI18n`              | Hook, der eine Übersetzungsfunktion `t()` bereitstellt, um per Schlüssel auf verschachtelte Inhalte zuzugreifen. Imitiert das Verhalten von i18next/next-intl.            | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/react-intlayer/useI18n.md)                     |
 | `useIntl`              | Hook, der ein lokalgebundenes `Intl`-Objekt bereitstellt. Injiziert automatisch die aktuelle Locale und verwendet optimiertes Caching.                                    | -                                                                                                                               |

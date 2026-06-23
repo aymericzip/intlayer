@@ -15,6 +15,9 @@ slugs:
   - next-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Thêm tiện ích usePathname"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Hợp nhất tài liệu cho tất cả các exports"
@@ -95,6 +98,7 @@ Tái xuất hầu hết các hooks từ `react-intlayer`.
 | `useDictionaryAsync`   | Hook xử lý các dictionary bất đồng bộ. Nhận một map dictionary dựa trên Promise và resolve nó cho locale hiện tại.              | -                                                                                                                       |
 | `useDictionaryDynamic` | Hook xử lý các dictionary động được load theo key. Sử dụng React Suspense nội bộ để quản lý trạng thái tải.                     | -                                                                                                                       |
 | `useLocale`            | Hook phía client để lấy locale hiện tại và một hàm để thiết lập nó. Được cải tiến cho Next.js App Router với hỗ trợ điều hướng. | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/useLocale.md)         |
+| `usePathname`          | Trả về pathname hiện tại đã được loại bỏ tiền tố locale và loại bỏ các tham số truy vấn liên quan đến locale.                   | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/usePathname.md)      |
 | `useRewriteURL`        | Hook phía client để quản lý URL rewrites. Tự động cập nhật URL nếu tồn tại quy tắc rewrite bản địa hóa gọn gàng hơn.            | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/useRewriteURL.md)  |
 | `useLocalePageRouter`  | Hook dành cho Next.js Page Router để quản lý locale. Xử lý chuyển hướng và tải lại trang khi thay đổi locale.                   | -                                                                                                                       |
 | `useI18n`              | Hook cung cấp hàm dịch `t()` để truy cập nội dung lồng nhau theo khóa. Mô phỏng mô hình i18next/next-intl.                      | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/react-intlayer/useI18n.md)             |

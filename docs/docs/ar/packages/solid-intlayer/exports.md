@@ -14,6 +14,9 @@ slugs:
   - solid-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "إضافة أداة usePathname"
   - version: 8.0.0
     date: 2026-01-21
     changes: "توحيد التوثيق لجميع الصادرات"
@@ -59,6 +62,7 @@ import "solid-intlayer";
 | `useDictionaryAsync`   | مثل `useDictionary`، ولكن يتعامل مع القواميس غير المتزامنة.                                                            | -                                                                                                                       |
 | `useDictionaryDynamic` | مثل `useDictionary`، ولكن يتعامل مع القواميس الديناميكية.                                                              | -                                                                                                                       |
 | `useLocale`            | يعيد الـ locale الحالية ودالة لتعيينها.                                                                                | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/solid-intlayer/useLocale.md)         |
+| `usePathname`          | يُعيد مسار الرابط الحالي (pathname) كـ `Accessor<string>` مع إزالة جزء اللغة (locale). متفاعل مع `popstate`.           | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/solid-intlayer/usePathname.md)     |
 | `useRewriteURL`        | هو hook على جانب العميل لإدارة إعادة كتابة عناوين URL. يقوم بتحديث الـ URL تلقائيًا إذا وُجدت قاعدة إعادة كتابة محلية. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/solid-intlayer/useRewriteURL.md) |
 | `useIntl`              | يعيد كائن Intl للـ locale الحالية.                                                                                     | -                                                                                                                       |
 | `useLoadDynamic`       | هوك لتحميل القواميس الديناميكية.                                                                                       | -                                                                                                                       |

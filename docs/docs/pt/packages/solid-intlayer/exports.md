@@ -14,6 +14,9 @@ slugs:
   - solid-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Adicionar o utilitário usePathname"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Documentação unificada para todas as exportações"
@@ -59,6 +62,7 @@ import "solid-intlayer";
 | `useDictionaryAsync`   | Igual a `useDictionary`, mas lida com dicionários assíncronos.                                                                     | -                                                                                                                       |
 | `useDictionaryDynamic` | Igual a `useDictionary`, mas lida com dicionários dinâmicos.                                                                       | -                                                                                                                       |
 | `useLocale`            | Retorna o locale atual e uma função para defini-lo.                                                                                | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/solid-intlayer/useLocale.md)         |
+| `usePathname`          | Retorna o pathname atual como um `Accessor<string>` com o segmento de locale removido. Reativo a `popstate`.                       | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/solid-intlayer/usePathname.md)     |
 | `useRewriteURL`        | Hook do lado do cliente para gerir reescritas de URL. Atualiza automaticamente a URL se existir uma regra de reescrita localizada. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/solid-intlayer/useRewriteURL.md) |
 | `useIntl`              | Retorna o objeto Intl para o locale atual.                                                                                         | -                                                                                                                       |
 | `useLoadDynamic`       | Hook para carregar dicionários dinâmicos.                                                                                          | -                                                                                                                       |

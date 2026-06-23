@@ -14,9 +14,12 @@ slugs:
   - solid-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Додано утиліту usePathname"
   - version: 8.0.0
     date: 2026-01-21
-    changes: "Уніфікована документація для всіх експортів"
+    changes: "Уніфікована документация для всіх експортів"
 author: aymericzip
 ---
 
@@ -59,6 +62,7 @@ import "solid-intlayer";
 | `useDictionaryAsync`   | Те саме, що `useDictionary`, але працює з асинхронними словниками.                                                 | -                                                                                                                       |
 | `useDictionaryDynamic` | Те саме, що `useDictionary`, але працює з динамічними словниками.                                                  | -                                                                                                                       |
 | `useLocale`            | Повертає поточну локаль та функцію для її встановлення.                                                            | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/solid-intlayer/useLocale.md)         |
+| `usePathname`          | Повертає поточний шлях (pathname) як `Accessor<string>` із видаленим сегментом локалі. Реактивний до `popstate`.   | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/solid-intlayer/usePathname.md)     |
 | `useRewriteURL`        | Клієнтський хук для керування перенаписами URL. Автоматично оновлює URL, якщо існує локалізоване правило перепису. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/solid-intlayer/useRewriteURL.md) |
 | `useIntl`              | Повертає об'єкт Intl для поточної локалі.                                                                          | -                                                                                                                       |
 | `useLoadDynamic`       | Hook для завантаження динамічних словників.                                                                        | -                                                                                                                       |

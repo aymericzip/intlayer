@@ -14,6 +14,9 @@ slugs:
   - angular-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "usePathname उपयोगिता जोड़ी गई"
   - version: 8.0.0
     date: 2026-01-21
     changes: "सभी एक्सपोर्ट्स के लिए एकीकृत प्रलेखन"
@@ -46,15 +49,16 @@ import "angular-intlayer";
 
 ### हुक्स
 
-| हुक                    | विवरण                                                                                                                                   | संबंधित दस्तावेज़ |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
-| `useIntlayer`          | `useDictionary` पर आधारित है, लेकिन जनरेट की गई घोषणा से शब्दकोश का एक अनुकूलित संस्करण इंजेक्ट करता है।                                | -                 |
-| `useDictionary`        | ऐसे ऑब्जेक्ट्स को प्रोसेस करता है जो dictionary (key, content) जैसे दिखते हैं। यह `t()` अनुवादों, enumerations, आदि को प्रोसेस करता है। | -                 |
-| `useDictionaryAsync`   | `useDictionary` के समान, लेकिन asynchronous dictionaries को हैंडल करता है।                                                              | -                 |
-| `useDictionaryDynamic` | `useDictionary` के समान, लेकिन dynamic dictionaries को हैंडल करता है।                                                                   | -                 |
-| `useLocale`            | वर्तमान locale और इसे सेट करने के लिए एक फ़ंक्शन लौटाता है।                                                                             | -                 |
-| `useIntl`              | वर्तमान locale के लिए Intl ऑब्जेक्ट लौटाता है।                                                                                          | -                 |
-| `useLoadDynamic`       | डायनामिक शब्दकोश लोड करने के लिए हुक।                                                                                                   | -                 |
+| हुक                    | विवरण                                                                                                                                                                       | संबंधित दस्तावेज़                                                                                                     |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`          | `useDictionary` पर आधारित है, लेकिन जनरेट की गई घोषणा से शब्दकोश का एक अनुकूलित संस्करण इंजेक्ट करता है।                                                                    | -                                                                                                                     |
+| `useDictionary`        | ऐसे ऑब्जेक्ट्स को प्रोसेस करता है जो dictionary (key, content) जैसे दिखते हैं। यह `t()` अनुवादों, enumerations, आदि को प्रोसेस करता है।                                     | -                                                                                                                     |
+| `useDictionaryAsync`   | `useDictionary` के समान, लेकिन asynchronous dictionaries को हैंडल करता है।                                                                                                  | -                                                                                                                     |
+| `useDictionaryDynamic` | `useDictionary` के समान, लेकिन dynamic dictionaries को हैंडल करता है।                                                                                                       | -                                                                                                                     |
+| `useLocale`            | वर्तमान स्थान (locale) और इसे सेट करने के लिए एक फ़ंक्शन लौटाता है।                                                                                                         | -                                                                                                                     |
+| `usePathname`          | वर्तमान पाथनेम को `Signal<string>` के रूप में लौटाता है जिसमें से स्थान (locale) खंड हटा दिया गया होता है। `DestroyRef` के माध्यम से `popstate` के प्रति प्रतिक्रियाशील है। | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/angular-intlayer/usePathname.md) |
+| `useIntl`              | वर्तमान स्थान (locale) के लिए Intl ऑब्जेक्ट लौटाता है।                                                                                                                      | -                                                                                                                     |
+| `useLoadDynamic`       | डायनामिक शब्दकोश लोड करने के लिए हुक।                                                                                                                                       | -                                                                                                                     |
 
 ### कम्पोनेंट्स
 

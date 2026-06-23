@@ -14,6 +14,9 @@ slugs:
   - angular-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "usePathname yardımcı programı eklendi"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Tüm dışa aktarımlar için birleştirilmiş belgeler"
@@ -46,15 +49,16 @@ import "angular-intlayer";
 
 ### Hook'lar
 
-| Hook                   | Açıklama                                                                                                      | İlgili Doküman |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------- | -------------- |
-| `useIntlayer`          | `useDictionary`'e dayanır, ancak oluşturulan bildirimden sözlüğün optimize edilmiş bir sürümünü enjekte eder. | -              |
-| `useDictionary`        | Sözlük gibi görünen (key, content) nesneleri işler. `t()` çevirilerini, enumerations vb. işler.               | -              |
-| `useDictionaryAsync`   | `useDictionary` ile aynı, ancak asenkron sözlükleri işler.                                                    | -              |
-| `useDictionaryDynamic` | `useDictionary` ile aynı, ancak dinamik sözlükleri işler.                                                     | -              |
-| `useLocale`            | Geçerli locale'i ve bunu ayarlamak için bir fonksiyon döndürür.                                               | -              |
-| `useIntl`              | Geçerli locale için Intl nesnesini döndürür.                                                                  | -              |
-| `useLoadDynamic`       | Dinamik sözlükleri yüklemek için hook.                                                                        | -              |
+| Hook                   | Açıklama                                                                                                                                            | İlgili Doküman                                                                                                        |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`          | `useDictionary`'e dayanır, ancak oluşturulan bildirimden sözlüğün optimize edilmiş bir sürümünü enjekte eder.                                       | -                                                                                                                     |
+| `useDictionary`        | Sözlük gibi görünen (key, content) nesneleri işler. `t()` çevirilerini, enumerations vb. işler.                                                     | -                                                                                                                     |
+| `useDictionaryAsync`   | `useDictionary` ile aynı, ancak asenkron sözlükleri işler.                                                                                          | -                                                                                                                     |
+| `useDictionaryDynamic` | `useDictionary` ile aynı, ancak dinamik sözlükleri işler.                                                                                           | -                                                                                                                     |
+| `useLocale`            | Geçerli locale'i ve bunu ayarlamak için bir fonksiyon döndürür.                                                                                     | -                                                                                                                     |
+| `usePathname`          | Geçerli yol adını yerel ayar segmenti kaldırılmış olarak bir `Signal<string>` şeklinde döndürür. `DestroyRef` aracılığıyla `popstate`'e duyarlıdır. | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/angular-intlayer/usePathname.md) |
+| `useIntl`              | Geçerli locale için Intl nesnesini döndürür.                                                                                                        | -                                                                                                                     |
+| `useLoadDynamic`       | Dinamik sözlükleri yüklemek için hook.                                                                                                              | -                                                                                                                     |
 
 ### Bileşenler
 

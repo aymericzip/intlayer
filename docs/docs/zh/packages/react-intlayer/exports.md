@@ -14,6 +14,9 @@ slugs:
   - react-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "添加 usePathname 实用工具"
   - version: 7.5.14
     date: 2026-01-21
     changes: "统一了所有导出项的文档"
@@ -62,8 +65,9 @@ import "react-intlayer";
 | `useDictionary`        | 将字典对象转换并返回当前语言内容的 Hook。处理 `t()` 翻译、枚举等。                                             | [useDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useDictionary.md) |
 | `useDictionaryAsync`   | 处理异步字典的 Hook。接受基于 Promise 的字典映射并为当前语言解析它。                                           | -                                                                                                                       |
 | `useDictionaryDynamic` | 处理按键加载的动态词典的 Hook。内部使用 React Suspense 处理加载状态。                                          | -                                                                                                                       |
-| `useLocale`            | 客户端 Hook，用于获取当前 locale、默认 locale、可用 locales，以及用于更新 locale 的函数。                      | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)         |
+| `useLocale`            | 客户端 Hook，用于获取当前区域设置、默认区域设置、可用区域设置以及更新区域设置的函数。                          | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)         |
 | `useLocaleBase`        | 用于从 context 获取当前 locale 以及所有相关字段 (locale、defaultLocale、availableLocales、setLocale) 的 Hook。 | -                                                                                                                       |
+| `usePathname`          | 返回移除了区域设置段的当前路径名的 Hook。通过 `popstate` 对浏览器导航作出反应。                                | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/usePathname.md)     |
 | `useRewriteURL`        | 客户端 Hook，用于管理 URL 重写。如果针对当前 pathname 和 locale 存在重写规则，则会更新 URL。                   | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useRewriteURL.md) |
 | `useI18n`              | 提供翻译函数 `t()` 的 Hook，用于通过键访问嵌套内容。模仿 i18next/next-intl 的模式。                            | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useI18n.md)             |
 | `useIntl`              | 提供与语言环境绑定的 `Intl` 对象的 Hook。自动注入当前语言并使用优化的缓存。                                    | -                                                                                                                       |

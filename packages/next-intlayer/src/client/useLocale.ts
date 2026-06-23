@@ -1,20 +1,18 @@
 'use client';
 
-import {
-  getLocalizedUrl,
-  getPathWithoutLocale,
-} from '@intlayer/core/localization';
+import { getLocalizedUrl } from '@intlayer/core/localization';
 import { checkIsURLAbsolute } from '@intlayer/core/utils';
 import type {
   DeclaredLocales,
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
-import { usePathname, useRouter } from 'next/navigation.js';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation.js';
+import { useCallback } from 'react';
 import {
   type UseLocaleResult as UseLocaleResultReact,
   useLocale as useLocaleReact,
 } from 'react-intlayer';
+import { usePathname } from './usePathname';
 
 export type UseLocaleProps = {
   isCookieEnabled?: boolean;
@@ -28,20 +26,6 @@ export type UseLocaleProps = {
 
 export type UseLocaleResult = UseLocaleResultReact & {
   pathWithoutLocale: string;
-};
-
-const usePathWithoutLocale = () => {
-  const pathname = usePathname(); // updates on client navigations
-  const [fullPath, setFullPath] = useState(pathname);
-
-  useEffect(() => {
-    // Runs only on client; avoids suspense.
-    const search = typeof window !== 'undefined' ? window.location.search : '';
-    setFullPath(search ? `${pathname}${search}` : pathname);
-  }, [pathname]);
-
-  // Your own helper
-  return useMemo(() => getPathWithoutLocale(fullPath), [fullPath]);
 };
 
 /**
@@ -74,7 +58,7 @@ export const useLocale = ({
   isCookieEnabled,
 }: UseLocaleProps = {}): UseLocaleResult => {
   const { replace, push } = useRouter();
-  const pathWithoutLocale = usePathWithoutLocale();
+  const pathWithoutLocale = usePathname();
 
   const redirectionFunction = useCallback(
     (locale: LocalesValues) => {

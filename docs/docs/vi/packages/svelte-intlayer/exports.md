@@ -14,6 +14,9 @@ slugs:
   - svelte-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Thêm tiện ích usePathname"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Hợp nhất tài liệu cho tất cả các exports"
@@ -64,15 +67,16 @@ Nhập:
 import "svelte-intlayer";
 ```
 
-| Hàm                    | Mô tả                                                                                                                  | Tài liệu liên quan                                                                                                       |
-| ---------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `useIntlayer`          | Dựa trên `useDictionary`, nhưng chèn một phiên bản tối ưu của dictionary từ khai báo được sinh ra.                     | -                                                                                                                        |
-| `useDictionary`        | Xử lý các đối tượng có dạng dictionary (key, content). Nó xử lý các bản dịch `t()`, các enumeration, v.v.              | -                                                                                                                        |
-| `useDictionaryAsync`   | Tương tự `useDictionary`, nhưng xử lý các dictionary bất đồng bộ.                                                      | -                                                                                                                        |
-| `useDictionaryDynamic` | Tương tự `useDictionary`, nhưng xử lý các dictionary động.                                                             | -                                                                                                                        |
-| `useLocale`            | Trả về locale hiện tại và một hàm để thiết lập nó.                                                                     | -                                                                                                                        |
-| `useRewriteURL`        | Hàm phía client để quản lý việc rewrite URL. Tự động cập nhật URL nếu tồn tại một quy tắc rewrite đã được bản địa hóa. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/svelte-intlayer/useRewriteURL.md) |
-| `useIntl`              | Trả về đối tượng Intl cho locale hiện tại.                                                                             | -                                                                                                                        |
+| Hàm                    | Mô tả                                                                                                                      | Tài liệu liên quan                                                                                                       |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `useIntlayer`          | Dựa trên `useDictionary`, nhưng chèn một phiên bản tối ưu của dictionary từ khai báo được sinh ra.                         | -                                                                                                                        |
+| `useDictionary`        | Xử lý các đối tượng có dạng dictionary (key, content). Nó xử lý các bản dịch `t()`, các enumeration, v.v.                  | -                                                                                                                        |
+| `useDictionaryAsync`   | Tương tự `useDictionary`, nhưng xử lý các dictionary bất đồng bộ.                                                          | -                                                                                                                        |
+| `useDictionaryDynamic` | Tương tự `useDictionary`, nhưng xử lý các dictionary động.                                                                 | -                                                                                                                        |
+| `useLocale`            | Trả về locale hiện tại và một hàm để thiết lập nó.                                                                         | -                                                                                                                        |
+| `usePathname`          | Trả về pathname hiện tại dưới dạng một `Readable<string>` store với phần locale đã bị loại bỏ. Có phản ứng với `popstate`. | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/svelte-intlayer/usePathname.md)     |
+| `useRewriteURL`        | Hàm phía client để quản lý việc rewrite URL. Tự động cập nhật URL nếu tồn tại một quy tắc rewrite đã được bản địa hóa.     | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/svelte-intlayer/useRewriteURL.md) |
+| `useIntl`              | Trả về đối tượng Intl cho locale hiện tại.                                                                                 | -                                                                                                                        |
 
 ### Markdown
 

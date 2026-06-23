@@ -14,9 +14,12 @@ slugs:
   - angular-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Menambahkan utilitas usePathname"
   - version: 8.0.0
     date: 2026-01-21
-    changes: "Dokumentasi yang disatukan untuk semua ekspor"
+    changes: "Dokumentasi terpadu untuk semua ekspor"
 author: aymericzip
 ---
 
@@ -46,15 +49,16 @@ import "angular-intlayer";
 
 ### Hooks
 
-| Hook                   | Deskripsi                                                                                                      | Dokumen Terkait |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------- | --------------- |
-| `useIntlayer`          | Berdasarkan `useDictionary`, tetapi menyuntikkan versi kamus yang dioptimalkan dari deklarasi yang dihasilkan. | -               |
-| `useDictionary`        | Memproses objek yang menyerupai dictionary (key, content). Ia memproses terjemahan `t()`, enumerasi, dll.      | -               |
-| `useDictionaryAsync`   | Sama seperti `useDictionary`, tetapi menangani dictionary asinkron.                                            | -               |
-| `useDictionaryDynamic` | Sama seperti `useDictionary`, tetapi menangani dictionary dinamis.                                             | -               |
-| `useLocale`            | Mengembalikan locale saat ini dan sebuah fungsi untuk mengaturnya.                                             | -               |
-| `useIntl`              | Mengembalikan objek Intl untuk locale saat ini.                                                                | -               |
-| `useLoadDynamic`       | Hook untuk memuat kamus dinamis.                                                                               | -               |
+| Hook                   | Deskripsi                                                                                                                               | Dokumen Terkait                                                                                                       |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`          | Berdasarkan `useDictionary`, tetapi menyuntikkan versi kamus yang dioptimalkan dari deklarasi yang dihasilkan.                          | -                                                                                                                     |
+| `useDictionary`        | Memproses objek yang menyerupai dictionary (key, content). Ia memproses terjemahan `t()`, enumerasi, dll.                               | -                                                                                                                     |
+| `useDictionaryAsync`   | Sama seperti `useDictionary`, tetapi menangani dictionary asinkron.                                                                     | -                                                                                                                     |
+| `useDictionaryDynamic` | Sama seperti `useDictionary`, tetapi menangani dictionary dinamis.                                                                      | -                                                                                                                     |
+| `useLocale`            | Mengembalikan lokal saat ini dan fungsi untuk mengaturnya.                                                                              | -                                                                                                                     |
+| `usePathname`          | Mengembalikan pathname saat ini sebagai `Signal<string>` dengan segmen lokal dihapus. Reaktif terhadap `popstate` melalui `DestroyRef`. | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/angular-intlayer/usePathname.md) |
+| `useIntl`              | Mengembalikan objek Intl untuk lokal saat ini.                                                                                          | -                                                                                                                     |
+| `useLoadDynamic`       | Hook untuk memuat kamus dinamis.                                                                                                        | -                                                                                                                     |
 
 ### Komponen
 

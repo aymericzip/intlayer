@@ -14,6 +14,9 @@ slugs:
   - vue-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Додано утиліту usePathname"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Уніфікована документація для всіх експортів"
@@ -59,6 +62,7 @@ import "vue-intlayer";
 | `useDictionaryAsync`   | Те саме, що `useDictionary`, але обробляє асинхронні словники.                                                                          | -                                                                                                                     |
 | `useDictionaryDynamic` | Те саме, що `useDictionary`, але обробляє динамічні словники.                                                                           | -                                                                                                                     |
 | `useLocale`            | Повертає поточну локаль та функцію для її встановлення.                                                                                 | -                                                                                                                     |
+| `usePathname`          | Повертає поточний pathname як `ComputedRef<string>` з видаленим сегментом локалі. Реактивний до подій `popstate`.                       | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/vue-intlayer/usePathname.md)     |
 | `useRewriteURL`        | Composable на стороні клієнта для керування переписуванням URL. Автоматично оновлює URL, якщо існує локалізоване правило переписування. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/vue-intlayer/useRewriteURL.md) |
 | `useIntl`              | Повертає об'єкт Intl для поточної локалі.                                                                                               | -                                                                                                                     |
 | `useLoadDynamic`       | Composable для завантаження динамічних словників.                                                                                       | -                                                                                                                     |

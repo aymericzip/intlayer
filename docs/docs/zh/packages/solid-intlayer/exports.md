@@ -14,6 +14,9 @@ slugs:
   - solid-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "添加 usePathname 实用程序"
   - version: 8.0.0
     date: 2026-01-21
     changes: "统一了所有导出的文档"
@@ -52,17 +55,18 @@ import "solid-intlayer";
 import "solid-intlayer";
 ```
 
-| 钩子                   | 描述                                                                       | 相关文档                                                                                                                |
-| ---------------------- | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `useIntlayer`          | 基于 `useDictionary`，但注入了从生成的声明中优化后的字典版本。             | [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useIntlayer.md)     |
-| `useDictionary`        | 处理类似字典（键，内容）的对象。它处理 `t()` 翻译、枚举等。                | -                                                                                                                       |
-| `useDictionaryAsync`   | 与 `useDictionary` 相同，但处理异步字典。                                  | -                                                                                                                       |
-| `useDictionaryDynamic` | 与 `useDictionary` 相同，但处理动态字典。                                  | -                                                                                                                       |
-| `useLocale`            | 返回当前 locale 和一个用于设置它的函数。                                   | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useLocale.md)         |
-| `useRewriteURL`        | 客户端 hook，用于管理 URL 重写。如果存在本地化的重写规则，会自动更新 URL。 | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useRewriteURL.md) |
-| `useIntl`              | 返回当前 locale 的 Intl 对象。                                             | -                                                                                                                       |
-| `useLoadDynamic`       | 用于加载动态字典的 Hook。                                                  | -                                                                                                                       |
-| `t`                    | 根据当前 locale 选择内容。                                                 | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/translation.md)                  |
+| 钩子                   | 描述                                                                                        | 相关文档                                                                                                                |
+| ---------------------- | ------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`          | 基于 `useDictionary`，但注入了从生成的声明中优化后的字典版本。                              | [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useIntlayer.md)     |
+| `useDictionary`        | 处理类似字典（键，内容）的对象。它处理 `t()` 翻译、枚举等。                                 | -                                                                                                                       |
+| `useDictionaryAsync`   | 与 `useDictionary` 相同，但处理异步字典。                                                   | -                                                                                                                       |
+| `useDictionaryDynamic` | 与 `useDictionary` 相同，但处理动态字典。                                                   | -                                                                                                                       |
+| `useLocale`            | 返回当前 locale 和一个用于设置它的函数。                                                    | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useLocale.md)         |
+| `usePathname`          | 返回移除了 locale 分段的当前路径 (pathname)，作为一个 `Accessor<string>`。响应 `popstate`。 | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/usePathname.md)     |
+| `useRewriteURL`        | 客户端 hook，用于管理 URL 重写。如果存在本地化的重写规则，会自动更新 URL。                  | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/solid-intlayer/useRewriteURL.md) |
+| `useIntl`              | 返回当前 locale 的 Intl 对象。                                                              | -                                                                                                                       |
+| `useLoadDynamic`       | 用于加载动态字典的 Hook。                                                                   | -                                                                                                                       |
+| `t`                    | 根据当前 locale 选择内容。                                                                  | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/translation.md)                  |
 
 ### 组件
 

@@ -14,6 +14,9 @@ slugs:
   - vue-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Ajout de l'utilitaire usePathname"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Documentation unifiée pour toutes les exportations"
@@ -52,16 +55,17 @@ Import :
 import "vue-intlayer";
 ```
 
-| Composable             | Description                                                                                                                            | Doc associée                                                                                                          |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `useIntlayer`          | Basé sur `useDictionary`, mais injecte une version optimisée du dictionnaire provenant de la déclaration générée.                      | -                                                                                                                     |
-| `useDictionary`        | Traite les objets qui ressemblent à des dictionnaires (clé, contenu). Il traite les traductions `t()`, les énumérations, etc.          | -                                                                                                                     |
-| `useDictionaryAsync`   | Identique à `useDictionary`, mais gère les dictionnaires asynchrones.                                                                  | -                                                                                                                     |
-| `useDictionaryDynamic` | Identique à `useDictionary`, mais gère les dictionnaires dynamiques.                                                                   | -                                                                                                                     |
-| `useLocale`            | Renvoie la locale actuelle et une fonction pour la définir.                                                                            | -                                                                                                                     |
-| `useRewriteURL`        | Composable côté client pour gérer les réécritures d'URL. Met automatiquement à jour l'URL si une règle de réécriture localisée existe. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/vue-intlayer/useRewriteURL.md) |
-| `useIntl`              | Retourne l'objet Intl pour la locale courante.                                                                                         | -                                                                                                                     |
-| `useLoadDynamic`       | Composable pour charger des dictionnaires dynamiques.                                                                                  | -                                                                                                                     |
+| Composable             | Description                                                                                                                                      | Doc associée                                                                                                          |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`          | Basé sur `useDictionary`, mais injecte une version optimisée du dictionnaire provenant de la déclaration générée.                                | -                                                                                                                     |
+| `useDictionary`        | Traite les objets qui ressemblent à des dictionnaires (clé, contenu). Il traite les traductions `t()`, les énumérations, etc.                    | -                                                                                                                     |
+| `useDictionaryAsync`   | Identique à `useDictionary`, mais gère les dictionnaires asynchrones.                                                                            | -                                                                                                                     |
+| `useDictionaryDynamic` | Identique à `useDictionary`, mais gère les dictionnaires dynamiques.                                                                             | -                                                                                                                     |
+| `useLocale`            | Renvoie la locale actuelle et une fonction pour la définir.                                                                                      | -                                                                                                                     |
+| `usePathname`          | Retourne le chemin (pathname) actuel sous forme de `ComputedRef<string>` avec le segment de la locale retiré. Réactif aux événements `popstate`. | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/vue-intlayer/usePathname.md)     |
+| `useRewriteURL`        | Composable côté client pour gérer les réécritures d'URL. Met automatiquement à jour l'URL si une règle de réécriture localisée existe.           | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/vue-intlayer/useRewriteURL.md) |
+| `useIntl`              | Retourne l'objet Intl pour la locale courante.                                                                                                   | -                                                                                                                     |
+| `useLoadDynamic`       | Composable pour charger des dictionnaires dynamiques.                                                                                            | -                                                                                                                     |
 
 ### Fonctions
 

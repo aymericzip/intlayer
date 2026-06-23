@@ -14,6 +14,9 @@ slugs:
   - svelte-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "添加 usePathname 实用程序"
   - version: 8.0.0
     date: 2026-01-21
     changes: "统一了所有导出的文档"
@@ -64,15 +67,16 @@ Import:
 import "svelte-intlayer";
 ```
 
-| Function               | Description                                                               | Related Doc                                                                                                              |
-| ---------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `useIntlayer`          | 基于 `useDictionary`，但注入从生成的声明中得到的优化版本的字典。          | -                                                                                                                        |
-| `useDictionary`        | 处理类似字典的对象（键、内容）。它处理 `t()` 翻译、枚举等。               | -                                                                                                                        |
-| `useDictionaryAsync`   | 与 `useDictionary` 相同，但处理异步字典。                                 | -                                                                                                                        |
-| `useDictionaryDynamic` | 与 `useDictionary` 相同，但处理动态字典。                                 | -                                                                                                                        |
-| `useLocale`            | 返回当前 locale 以及用于设置它的函数。                                    | -                                                                                                                        |
-| `useRewriteURL`        | 用于客户端管理 URL 重写的函数。如果存在本地化的重写规则，会自动更新 URL。 | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/svelte-intlayer/useRewriteURL.md) |
-| `useIntl`              | 返回当前 locale 的 Intl 对象。                                            | -                                                                                                                        |
+| Function               | Description                                                                                                   | Related Doc                                                                                                              |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `useIntlayer`          | 基于 `useDictionary`，但注入从生成的声明中得到的优化版本的字典。                                              | -                                                                                                                        |
+| `useDictionary`        | 处理类似字典的对象（键、内容）。它处理 `t()` 翻译、枚举等。                                                   | -                                                                                                                        |
+| `useDictionaryAsync`   | 与 `useDictionary` 相同，但处理异步字典。                                                                     | -                                                                                                                        |
+| `useDictionaryDynamic` | 与 `useDictionary` 相同，但处理动态字典。                                                                     | -                                                                                                                        |
+| `useLocale`            | 返回当前 locale 以及用于设置它的函数。                                                                        | -                                                                                                                        |
+| `usePathname`          | 返回当前路径名（pathname）作为 `Readable<string>` store，其中 locale 细分已被移除。对 `popstate` 具有响应性。 | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/svelte-intlayer/usePathname.md)     |
+| `useRewriteURL`        | 用于客户端管理 URL 重写的函数。如果存在本地化的重写规则，会自动更新 URL。                                     | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/svelte-intlayer/useRewriteURL.md) |
+| `useIntl`              | 返回当前 locale 的 Intl 对象。                                                                                | -                                                                                                                        |
 
 ### Markdown
 

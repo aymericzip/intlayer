@@ -14,6 +14,9 @@ slugs:
   - preact-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Tambahkan utilitas usePathname"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Dokumentasi terpadu untuk semua ekspor"
@@ -40,12 +43,13 @@ npm install preact-intlayer
 
 ### Hooks
 
-| Hook            | Deskripsi                                                                                                          | Dokumentasi Terkait                                                                                    |
-| --------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
-| `useIntlayer`   | Berdasarkan `useDictionary`, namun menyuntikkan versi dictionary yang dioptimalkan dari deklarasi yang dihasilkan. | -                                                                                                      |
-| `useDictionary` | Memproses objek yang menyerupai dictionary (key, content). Ini memproses terjemahan `t()`, enumerasi, dll.         | -                                                                                                      |
-| `useLocale`     | Mengembalikan locale saat ini dan sebuah fungsi untuk mengaturnya.                                                 | -                                                                                                      |
-| `t`             | Memilih konten berdasarkan locale saat ini.                                                                        | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/translation.md) |
+| Hook            | Deskripsi                                                                                                                            | Dokumentasi Terkait                                                                                                  |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`   | Berdasarkan `useDictionary`, namun menyuntikkan versi dictionary yang dioptimalkan dari deklarasi yang dihasilkan.                   | -                                                                                                                    |
+| `useDictionary` | Memproses objek yang menyerupai dictionary (key, content). Ini memproses terjemahan `t()`, enumerasi, dll.                           | -                                                                                                                    |
+| `useLocale`     | Mengembalikan locale saat ini dan sebuah fungsi untuk mengaturnya.                                                                   | -                                                                                                                    |
+| `usePathname`   | Hook yang mengembalikan pathname saat ini dengan segmen locale yang telah dihapus. Reaktif terhadap navigasi browser via `popstate`. | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/preact-intlayer/usePathname.md) |
+| `t`             | Memilih konten berdasarkan locale saat ini.                                                                                          | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/translation.md)               |
 
 ### Komponen
 

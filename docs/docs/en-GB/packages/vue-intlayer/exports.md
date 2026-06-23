@@ -14,6 +14,9 @@ slugs:
   - vue-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Add usePathname utility"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Unified documentation for all exports"
@@ -59,6 +62,7 @@ import "vue-intlayer";
 | `useDictionaryAsync`   | Same as `useDictionary`, but handles asynchronous dictionaries.                                                  | -                                                                                                                        |
 | `useDictionaryDynamic` | Same as `useDictionary`, but handles dynamic dictionaries.                                                       | -                                                                                                                        |
 | `useLocale`            | Returns the current locale and a function to set it.                                                             | -                                                                                                                        |
+| `usePathname`          | Returns the current pathname as a `ComputedRef<string>` with the locale segment removed. Reactive to `popstate`. | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/vue-intlayer/usePathname.md)     |
 | `useRewriteURL`        | Client-side composable to manage URL rewrites. Automatically updates the URL if a localised rewrite rule exists. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/vue-intlayer/useRewriteURL.md) |
 | `useIntl`              | Returns the Intl object for the current locale.                                                                  | -                                                                                                                        |
 | `useLoadDynamic`       | Composable to load dynamic dictionaries.                                                                         | -                                                                                                                        |

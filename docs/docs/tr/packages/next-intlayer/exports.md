@@ -15,6 +15,9 @@ slugs:
   - next-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "usePathname aracı eklendi"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Tüm dışa aktarımlar için birleştirilmiş dokümantasyon"
@@ -95,6 +98,7 @@ Re-exports most hooks from `react-intlayer`.
 | `useDictionaryAsync`   | Asenkron sözlükleri yöneten hook. Promise tabanlı bir sözlük haritası kabul eder ve mevcut locale için çözer.                                           | -                                                                                                                       |
 | `useDictionaryDynamic` | Anahtara göre yüklenen dinamik sözlükleri yöneten hook. Yükleme durumları için dahili olarak React Suspense kullanır.                                   | -                                                                                                                       |
 | `useLocale`            | İstemci tarafı hook; geçerli locale'i alır ve bunu ayarlamak için bir fonksiyon sağlar. Next.js App Router için navigasyon desteğiyle geliştirilmiştir. | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useLocale.md)         |
+| `usePathname`          | Yerel ayar öneki kaldırılmış ve yerel ayar parametrelerinden arındırılmış sorgu parametreleri ile mevcut yol adını döndürür.                            | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/usePathname.md)      |
 | `useRewriteURL`        | URL yeniden yazmalarını yönetmek için istemci tarafı hook. Daha uygun bir yerelleştirilmiş yeniden yazma kuralı varsa URL'yi otomatik olarak günceller. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/next-intlayer/useRewriteURL.md)  |
 | `useLocalePageRouter`  | Next.js Page Router'a özgü yerelleştirme yönetimi için hook. Dil değişikliklerinde yönlendirmeleri ve sayfa yeniden yüklemelerini işler.                | -                                                                                                                       |
 | `useI18n`              | Anahtar kullanarak iç içe geçmiş içeriğe erişen `t()` çeviri fonksiyonunu sağlayan hook. i18next/next-intl desenini taklit eder.                        | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/react-intlayer/useI18n.md)             |

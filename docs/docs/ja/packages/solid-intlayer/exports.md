@@ -14,6 +14,9 @@ slugs:
   - solid-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "usePathnameユーティリティを追加"
   - version: 8.0.0
     date: 2026-01-21
     changes: "全エクスポートのドキュメントを統一"
@@ -59,6 +62,7 @@ import "solid-intlayer";
 | `useDictionaryAsync`   | `useDictionary` と同じですが、非同期の辞書を扱います。                                                                         | -                                                                                                                       |
 | `useDictionaryDynamic` | `useDictionary` と同じですが、動的な辞書を扱います。                                                                           | -                                                                                                                       |
 | `useLocale`            | 現在のロケールと、それを設定する関数を返します。                                                                               | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/solid-intlayer/useLocale.md)         |
+| `usePathname`          | ロケールセグメントを削除した現在のパス名(pathname)を `Accessor<string>` として返します。`popstate` に反応します。              | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/solid-intlayer/usePathname.md)     |
 | `useRewriteURL`        | クライアント側のフックで、URLの書き換えを管理します。ローカライズされた書き換えルールが存在する場合、自動的にURLを更新します。 | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/solid-intlayer/useRewriteURL.md) |
 | `useIntl`              | 現在のロケールのIntlオブジェクトを返します。                                                                                   | -                                                                                                                       |
 | `useLoadDynamic`       | 動的辞書を読み込むフック。                                                                                                     | -                                                                                                                       |

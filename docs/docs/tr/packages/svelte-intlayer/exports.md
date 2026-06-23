@@ -14,6 +14,9 @@ slugs:
   - svelte-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "usePathname yardımcı programını ekle"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Unified documentation for all exports"
@@ -64,15 +67,16 @@ import "svelte-intlayer";
 import "svelte-intlayer";
 ```
 
-| Fonksiyon              | Açıklama                                                                                                                                          | İlgili Doküman                                                                                                           |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `useIntlayer`          | `useDictionary` tabanlıdır, ancak üretilen deklarasyondan optimize edilmiş bir sözlük sürümünü enjekte eder.                                      | -                                                                                                                        |
-| `useDictionary`        | Anahtar, içerik (key, content) şeklinde görünen sözlük benzeri nesneleri işler. `t()` çevirilerini, enumerasyonları vb. işler.                    | -                                                                                                                        |
-| `useDictionaryAsync`   | `useDictionary` ile aynı, ancak asenkron (asynchronous) sözlükleri işler.                                                                         | -                                                                                                                        |
-| `useDictionaryDynamic` | `useDictionary` ile aynı, ancak dinamik sözlükleri işler.                                                                                         | -                                                                                                                        |
-| `useLocale`            | Mevcut locale'i (yerel ayarı) ve bunu ayarlamak için bir fonksiyon döndürür.                                                                      | -                                                                                                                        |
-| `useRewriteURL`        | URL yeniden yazımlarını yönetmek için istemci tarafı fonksiyon. Yerelleştirilmiş bir yeniden yazma kuralı varsa URL'yi otomatik olarak günceller. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/svelte-intlayer/useRewriteURL.md) |
-| `useIntl`              | Mevcut locale için Intl nesnesini döndürür.                                                                                                       | -                                                                                                                        |
+| Fonksiyon              | Açıklama                                                                                                                                           | İlgili Doküman                                                                                                           |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `useIntlayer`          | `useDictionary` tabanlıdır, ancak üretilen deklarasyondan optimize edilmiş bir sözlük sürümünü enjekte eder.                                       | -                                                                                                                        |
+| `useDictionary`        | Anahtar, içerik (key, content) şeklinde görünen sözlük benzeri nesneleri işler. `t()` çevirilerini, enumerasyonları vb. işler.                     | -                                                                                                                        |
+| `useDictionaryAsync`   | `useDictionary` ile aynı, ancak asenkron (asynchronous) sözlükleri işler.                                                                          | -                                                                                                                        |
+| `useDictionaryDynamic` | `useDictionary` ile aynı, ancak dinamik sözlükleri işler.                                                                                          | -                                                                                                                        |
+| `useLocale`            | Mevcut locale'i (yerel ayarı) ve bunu ayarlamak için bir fonksiyon döndürür.                                                                       | -                                                                                                                        |
+| `usePathname`          | Geçerli yol adını (pathname), locale segmenti kaldırılmış olarak bir `Readable<string>` store şeklinde döndürür. `popstate` olaylarına duyarlıdır. | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/svelte-intlayer/usePathname.md)     |
+| `useRewriteURL`        | URL yeniden yazımlarını yönetmek için istemci tarafı fonksiyon. Yerelleştirilmiş bir yeniden yazma kuralı varsa URL'yi otomatik olarak günceller.  | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/svelte-intlayer/useRewriteURL.md) |
+| `useIntl`              | Mevcut locale için Intl nesnesini döndürür.                                                                                                        | -                                                                                                                        |
 
 ### Markdown
 

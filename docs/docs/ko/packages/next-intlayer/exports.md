@@ -15,6 +15,9 @@ slugs:
   - next-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "usePathname 유틸리티 추가"
   - version: 8.0.0
     date: 2026-01-21
     changes: "모든 exports에 대한 통합 문서화"
@@ -95,6 +98,7 @@ import "next-intlayer";
 | `useDictionaryAsync`   | 비동기 사전을 처리하는 훅입니다. Promise 기반의 dictionary 맵을 받아 현재 로케일에 맞게 이를 해결(resolve)합니다.                            | -                                                                                                                       |
 | `useDictionaryDynamic` | 키로 로드되는 동적 사전을 처리하는 훅입니다. 로딩 상태 관리를 위해 내부적으로 React Suspense를 사용합니다.                                   | -                                                                                                                       |
 | `useLocale`            | 클라이언트 사이드 훅으로 현재 로케일과 이를 설정하는 함수를 제공합니다. Next.js App Router의 navigation 지원을 위해 확장되어 있습니다.       | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useLocale.md)         |
+| `usePathname`          | 로케일 접두사와 로케일 매개변수가 제거된 쿼리 매개변수를 제외한 현재 경로 이름을 반환합니다.                                                 | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/usePathname.md)      |
 | `useRewriteURL`        | URL 재작성(rewrite)을 관리하는 클라이언트 사이드 훅입니다. 보다 보기 좋은 로컬라이즈된 리라이트 규칙이 있으면 URL을 자동으로 업데이트합니다. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/next-intlayer/useRewriteURL.md)  |
 | `useLocalePageRouter`  | Next.js Page Router 전용 로케일 관리 훅입니다. 로케일 변경 시 리디렉션 및 페이지 리로드를 처리합니다.                                        | -                                                                                                                       |
 | `useI18n`              | 키로 중첩된 콘텐츠에 접근하기 위한 번역 함수 `t()`를 제공하는 훅입니다. i18next/next-intl 패턴을 모방합니다.                                 | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useI18n.md)             |

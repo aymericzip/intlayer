@@ -14,6 +14,9 @@ slugs:
   - react-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Ajout de l'utilitaire usePathname"
   - version: 7.5.14
     date: 2026-01-21
     changes: "Documentation unifiée pour tous les exports"
@@ -64,6 +67,7 @@ import "react-intlayer";
 | `useDictionaryDynamic` | Hook qui gère des dictionnaires dynamiques chargés par clé. Utilise React Suspense en interne pour gérer les états de chargement.                     | -                                                                                                                       |
 | `useLocale`            | Hook côté client pour obtenir la locale courante, la locale par défaut, les locales disponibles, et une fonction pour mettre à jour la locale.        | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/react-intlayer/useLocale.md)         |
 | `useLocaleBase`        | Hook pour obtenir la locale actuelle et tous les champs associés (locale, defaultLocale, availableLocales, setLocale) depuis le contexte.             | -                                                                                                                       |
+| `usePathname`          | Hook qui renvoie le chemin actuel (pathname) avec le segment de locale supprimé. Réactif à la navigation du navigateur via `popstate`.                | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/react-intlayer/usePathname.md)     |
 | `useRewriteURL`        | Hook côté client pour gérer les réécritures d'URL. Si une règle de réécriture existe pour le pathname et la locale actuels, elle mettra à jour l'URL. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/react-intlayer/useRewriteURL.md) |
 | `useI18n`              | Hook qui fournit une fonction de traduction `t()` pour accéder au contenu imbriqué par clé. Imite le pattern i18next/next-intl.                       | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/packages/react-intlayer/useI18n.md)             |
 | `useIntl`              | Hook qui fournit un objet `Intl` lié à la locale. Injecte automatiquement la locale courante et utilise un cache optimisé.                            | -                                                                                                                       |

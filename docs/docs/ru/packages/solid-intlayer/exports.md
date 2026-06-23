@@ -14,6 +14,9 @@ slugs:
   - solid-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Добавлена утилита usePathname"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Унифицированная документация для всех экспортов"
@@ -59,6 +62,7 @@ import "solid-intlayer";
 | `useDictionaryAsync`   | То же, что и `useDictionary`, но работает с асинхронными словарями.                                                             | -                                                                                                                       |
 | `useDictionaryDynamic` | То же, что и `useDictionary`, но работает с динамическими словарями.                                                            | -                                                                                                                       |
 | `useLocale`            | Возвращает текущую локаль и функцию для её установки.                                                                           | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/solid-intlayer/useLocale.md)         |
+| `usePathname`          | Возвращает текущий путь (pathname) как `Accessor<string>` с удаленным сегментом локали. Реактивен к `popstate`.                 | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/solid-intlayer/usePathname.md)     |
 | `useRewriteURL`        | Клиентский хук для управления перезаписями URL. Автоматически обновляет URL, если существует локализованное правило перезаписи. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/solid-intlayer/useRewriteURL.md) |
 | `useIntl`              | Возвращает объект Intl для текущей локали.                                                                                      | -                                                                                                                       |
 | `useLoadDynamic`       | Хук для загрузки динамических словарей.                                                                                         | -                                                                                                                       |

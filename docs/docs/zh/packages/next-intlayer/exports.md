@@ -15,6 +15,9 @@ slugs:
   - next-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "添加 usePathname 实用程序"
   - version: 8.0.0
     date: 2026-01-21
     changes: "统一了所有导出的文档"
@@ -99,6 +102,7 @@ import "next-intlayer";
 | `useDictionaryAsync`   | 处理异步字典的 Hook。接受一个以 Promise 为值的字典映射，并为当前 locale 解析它。                             | -                                                                                                                       |
 | `useDictionaryDynamic` | 处理按键加载的动态字典的 Hook。内部使用 React Suspense 来处理加载状态。                                      | -                                                                                                                       |
 | `useLocale`            | 客户端 hook，用于获取当前 locale 并提供设置它的函数。为 Next.js App Router 增强，支持导航。                  | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)         |
+| `usePathname`          | 返回当前路径名，去除了区域设置前缀以及去除了区域设置参数的查询参数。                                         | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/usePathname.md)      |
 | `useRewriteURL`        | 客户端 hook，用于管理 URL 重写。如果存在更优雅的本地化重写规则，会自动更新 URL。                             | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/useRewriteURL.md)  |
 | `useLocalePageRouter`  | 用于 Next.js Page Router 的特定 locale 管理 hook。处理在 locale 更改时的重定向和页面重载。                   | -                                                                                                                       |
 | `useI18n`              | 提供翻译函数 `t()` 的 hook，用于通过键访问嵌套内容。模仿 i18next/next-intl 的模式。                          | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useI18n.md)             |

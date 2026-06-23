@@ -14,6 +14,9 @@ slugs:
   - preact-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Thêm tiện ích usePathname"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Hợp nhất tài liệu cho tất cả các export"
@@ -40,12 +43,13 @@ npm install preact-intlayer
 
 ### Hooks
 
-| Hook            | Mô tả                                                                                                   | Tài liệu liên quan                                                                                     |
-| --------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `useIntlayer`   | Dựa trên `useDictionary`, nhưng chèn một phiên bản tối ưu hóa của từ điển từ khai báo được sinh ra.     | -                                                                                                      |
-| `useDictionary` | Xử lý các đối tượng có dạng từ điển (key, content). Nó xử lý các bản dịch `t()`, các enumerations, v.v. | -                                                                                                      |
-| `useLocale`     | Trả về locale hiện tại và một hàm để thiết lập nó.                                                      | -                                                                                                      |
-| `t`             | Lấy nội dung dựa trên locale hiện tại.                                                                  | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/translation.md) |
+| Hook            | Mô tả                                                                                                                                | Tài liệu liên quan                                                                                                   |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`   | Dựa trên `useDictionary`, nhưng chèn một phiên bản tối ưu hóa của từ điển từ khai báo được sinh ra.                                  | -                                                                                                                    |
+| `useDictionary` | Xử lý các đối tượng có dạng từ điển (key, content). Nó xử lý các bản dịch `t()`, các enumerations, v.v.                              | -                                                                                                                    |
+| `useLocale`     | Trả về locale hiện tại và một hàm để thiết lập nó.                                                                                   | -                                                                                                                    |
+| `usePathname`   | Hook trả về đường dẫn hiện tại (pathname) với phần locale đã bị loại bỏ. Phản hồi tự động với điều hướng trình duyệt qua `popstate`. | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/preact-intlayer/usePathname.md) |
+| `t`             | Lấy nội dung dựa trên locale hiện tại.                                                                                               | [translation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/translation.md)               |
 
 ### Thành phần
 

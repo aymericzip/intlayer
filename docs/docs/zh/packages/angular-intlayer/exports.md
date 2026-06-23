@@ -14,6 +14,9 @@ slugs:
   - angular-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "添加 usePathname 实用程序"
   - version: 8.0.0
     date: 2026-01-21
     changes: "统一了所有导出项的文档"
@@ -46,15 +49,16 @@ import "angular-intlayer";
 
 ### 钩子
 
-| 钩子                   | 描述                                                                | 相关文档 |
-| ---------------------- | ------------------------------------------------------------------- | -------- |
-| `useIntlayer`          | 基于 `useDictionary`，但从生成的声明注入了经过优化的字典版本。      | -        |
-| `useDictionary`        | 处理看起来像字典的对象（key, content）。它处理 `t()` 翻译、枚举等。 | -        |
-| `useDictionaryAsync`   | 与 `useDictionary` 相同，但处理异步字典。                           | -        |
-| `useDictionaryDynamic` | 与 `useDictionary` 相同，但处理动态字典。                           | -        |
-| `useLocale`            | 返回当前 locale 以及一个用于设置它的函数。                          | -        |
-| `useIntl`              | 返回当前 locale 的 Intl 对象。                                      | -        |
-| `useLoadDynamic`       | 用于加载动态字典的 Hook。                                           | -        |
+| 钩子                   | 描述                                                                                                | 相关文档                                                                                                              |
+| ---------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`          | 基于 `useDictionary`，但从生成的声明注入了经过优化的字典版本。                                      | -                                                                                                                     |
+| `useDictionary`        | 处理看起来像字典的对象（key, content）。它处理 `t()` 翻译、枚举等。                                 | -                                                                                                                     |
+| `useDictionaryAsync`   | 与 `useDictionary` 相同，但处理异步字典。                                                           | -                                                                                                                     |
+| `useDictionaryDynamic` | 与 `useDictionary` 相同，但处理动态字典。                                                           | -                                                                                                                     |
+| `useLocale`            | 返回当前 locale 以及一个用于设置它的函数。                                                          | -                                                                                                                     |
+| `usePathname`          | 以 `Signal<string>` 的形式返回当前路径名，并移除了区域设置部分。通过 `DestroyRef` 响应 `popstate`。 | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/angular-intlayer/usePathname.md) |
+| `useIntl`              | 返回当前 locale 的 Intl 对象。                                                                      | -                                                                                                                     |
+| `useLoadDynamic`       | 用于加载动态字典的 Hook。                                                                           | -                                                                                                                     |
 
 ### 组件
 

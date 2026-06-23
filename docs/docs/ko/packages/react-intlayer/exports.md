@@ -14,6 +14,9 @@ slugs:
   - react-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "usePathname 유틸리티 추가"
   - version: 7.5.14
     date: 2026-01-21
     changes: "Unified documentation for all exports"
@@ -61,6 +64,7 @@ import "react-intlayer";
 | `useDictionaryDynamic` | 키(key)로 로드되는 동적 딕셔너리를 처리하는 훅입니다. 내부적으로 로딩 상태를 위해 React Suspense를 사용합니다. | - |
 | `useLocale` | 클라이언트 측 훅으로 현재 로케일, 기본 로케일, 사용 가능한 로케일들, 그리고 로케일을 업데이트하는 함수를 가져옵니다. | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useLocale.md) |
 | `useLocaleBase` | 컨텍스트에서 현재 로케일과 관련된 모든 필드(locale, defaultLocale, availableLocales, setLocale)를 가져오는 훅. | - |
+| `usePathname` | 로케일 세그먼트가 제거된 현재 경로 이름(pathname)을 반환하는 Hook. `popstate`를 통해 브라우저 탐색에 반응합니다. | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/usePathname.md) |
 | `useRewriteURL` | URL 재작성을 관리하는 클라이언트 측 훅. 현재 pathname과 로케일에 대한 rewrite 규칙이 존재하면 URL을 업데이트합니다. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useRewriteURL.md) |
 | `useI18n` | 키로 중첩된 콘텐츠에 접근할 수 있는 번역 함수 `t()`을 제공하는 훅. i18next/next-intl 패턴을 따름. | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useI18n.md) |
 | `useIntl` | 로케일에 바인딩된 `Intl` 객체를 제공하는 훅. 현재 로케일을 자동으로 주입하고 최적화된 캐싱을 사용함. | - |

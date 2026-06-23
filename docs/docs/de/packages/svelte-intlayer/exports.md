@@ -14,6 +14,9 @@ slugs:
   - svelte-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Dienstprogramm usePathname hinzufügen"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Vereinheitlichte Dokumentation für alle Exporte"
@@ -64,15 +67,16 @@ Importieren:
 import "svelte-intlayer";
 ```
 
-| Funktion               | Beschreibung                                                                                                                                 | Verwandte Doku                                                                                                           |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `useIntlayer`          | Basierend auf `useDictionary`, injiziert jedoch eine optimierte Version des Dictionarys aus der generierten Deklaration.                     | -                                                                                                                        |
-| `useDictionary`        | Verarbeitet Objekte, die wie Dictionaries aufgebaut sind (key, content). Verarbeitet `t()`-Übersetzungen, enumerations, etc.                 | -                                                                                                                        |
-| `useDictionaryAsync`   | Wie `useDictionary`, behandelt jedoch asynchrone Dictionaries.                                                                               | -                                                                                                                        |
-| `useDictionaryDynamic` | Wie `useDictionary`, behandelt jedoch dynamische Dictionaries.                                                                               | -                                                                                                                        |
-| `useLocale`            | Gibt die aktuelle Locale zurück und eine Funktion, um sie zu setzen.                                                                         | -                                                                                                                        |
-| `useRewriteURL`        | Clientseitige Funktion zum Verwalten von URL-Rewrites. Aktualisiert die URL automatisch, wenn eine lokalisierte Rewrite-Regel vorhanden ist. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/svelte-intlayer/useRewriteURL.md) |
-| `useIntl`              | Gibt das Intl-Objekt für die aktuelle Locale zurück.                                                                                         | -                                                                                                                        |
+| Funktion               | Beschreibung                                                                                                                                    | Verwandte Doku                                                                                                           |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `useIntlayer`          | Basierend auf `useDictionary`, injiziert jedoch eine optimierte Version des Dictionarys aus der generierten Deklaration.                        | -                                                                                                                        |
+| `useDictionary`        | Verarbeitet Objekte, die wie Dictionaries aufgebaut sind (key, content). Verarbeitet `t()`-Übersetzungen, enumerations, etc.                    | -                                                                                                                        |
+| `useDictionaryAsync`   | Wie `useDictionary`, behandelt jedoch asynchrone Dictionaries.                                                                                  | -                                                                                                                        |
+| `useDictionaryDynamic` | Wie `useDictionary`, behandelt jedoch dynamische Dictionaries.                                                                                  | -                                                                                                                        |
+| `useLocale`            | Gibt die aktuelle Locale zurück und eine Funktion, um sie zu setzen.                                                                            | -                                                                                                                        |
+| `usePathname`          | Gibt den aktuellen Pfadnamen (pathname) als `Readable<string>`-Store zurück, aus dem das Locale-Segment entfernt wurde. Reaktiv auf `popstate`. | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/svelte-intlayer/usePathname.md)     |
+| `useRewriteURL`        | Clientseitige Funktion zum Verwalten von URL-Rewrites. Aktualisiert die URL automatisch, wenn eine lokalisierte Rewrite-Regel vorhanden ist.    | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/svelte-intlayer/useRewriteURL.md) |
+| `useIntl`              | Gibt das Intl-Objekt für die aktuelle Locale zurück.                                                                                            | -                                                                                                                        |
 
 ### Markdown
 

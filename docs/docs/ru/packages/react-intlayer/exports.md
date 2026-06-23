@@ -14,6 +14,9 @@ slugs:
   - react-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Добавлена утилита usePathname"
   - version: 7.5.14
     date: 2026-01-21
     changes: "Унифицированная документация для всех экспортов"
@@ -62,6 +65,7 @@ import "react-intlayer";
 | `useDictionaryDynamic` | Хук, который обрабатывает динамические словари, загружаемые по ключу. Внутри использует React Suspense для состояний загрузки.                         | -                                                                                                                       |
 | `useLocale`            | Клиентский хук для получения текущей локали, локали по умолчанию, доступных локалей и функции для смены локали.                                        | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useLocale.md)         |
 | `useLocaleBase`        | Хук для получения текущей локали и всех связанных полей (locale, defaultLocale, availableLocales, setLocale) из контекста.                             | -                                                                                                                       |
+| `usePathname`          | Хук, возвращающий текущий путь (pathname) с удаленным сегментом локали. Реактивно реагирует на навигацию браузера через `popstate`.                    | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/usePathname.md)     |
 | `useRewriteURL`        | Клиентский хук для управления перезаписью URL. Если для текущего pathname и локали существует правило перезаписи, он обновит URL.                      | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useRewriteURL.md) |
 | `useI18n`              | Хук, который предоставляет функцию перевода `t()` для доступа к вложенному содержимому по ключу. Имитирует паттерн i18next/next-intl.                  | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/packages/react-intlayer/useI18n.md)             |
 | `useIntl`              | Хук, который предоставляет объект `Intl`, привязанный к локали. Автоматически внедряет текущую локаль и использует оптимизированный кэш.               | -                                                                                                                       |

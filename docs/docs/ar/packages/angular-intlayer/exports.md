@@ -14,9 +14,12 @@ slugs:
   - angular-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "إضافة الأداة المساعدة usePathname"
   - version: 8.0.0
     date: 2026-01-21
-    changes: "Unified documentation for all exports"
+    changes: "توحيد التوثيق لجميع الصادرات"
 author: aymericzip
 ---
 
@@ -46,15 +49,16 @@ import "angular-intlayer";
 
 ### الـ Hooks
 
-| الـ Hook               | الوصف                                                                                                 | المستند ذو الصلة |
-| ---------------------- | ----------------------------------------------------------------------------------------------------- | ---------------- |
-| `useIntlayer`          | مبنية على `useDictionary`، لكنها تحقن نسخة مُحسّنة من القاموس مأخوذة من التصريح المُولد.              | -                |
-| `useDictionary`        | يعالج الكائنات التي تشبه القواميس (مفتاح، محتوى). يعالج ترجمات `t()`، والتعدادات (enumerations)، إلخ. | -                |
-| `useDictionaryAsync`   | نفس عمل `useDictionary`، لكنه يتعامل مع القواميس غير المتزامنة (asynchronous).                        | -                |
-| `useDictionaryDynamic` | نفس عمل `useDictionary`، لكنه يتعامل مع القواميس الديناميكية (dynamic).                               | -                |
-| `useLocale`            | يعيد الـ locale الحالي ودالة لتعيينه.                                                                 | -                |
-| `useIntl`              | يعيد كائن Intl للـ locale الحالي.                                                                     | -                |
-| `useLoadDynamic`       | Hook لتحميل القواميس الديناميكية.                                                                     | -                |
+| الـ Hook               | الوصف                                                                                                 | المستند ذو الصلة                                                                                                      |
+| ---------------------- | ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`          | مبنية على `useDictionary`، لكنها تحقن نسخة مُحسّنة من القاموس مأخوذة من التصريح المُولد.              | -                                                                                                                     |
+| `useDictionary`        | يعالج الكائنات التي تشبه القواميس (مفتاح، محتوى). يعالج ترجمات `t()`، والتعدادات (enumerations)، إلخ. | -                                                                                                                     |
+| `useDictionaryAsync`   | نفس عمل `useDictionary`، لكنه يتعامل مع القواميس غير المتزامنة (asynchronous).                        | -                                                                                                                     |
+| `useDictionaryDynamic` | نفس عمل `useDictionary`، لكنه يتعامل مع القواميس الديناميكية (dynamic).                               | -                                                                                                                     |
+| `useLocale`            | إرجاع اللغة الحالية ووظيفة لتعيينها.                                                                  | -                                                                                                                     |
+| `usePathname`          | يُرجع المسار الحالي كـ `Signal<string>` مع إزالة جزء اللغة. يتفاعل مع `popstate` عبر `DestroyRef`.    | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/angular-intlayer/usePathname.md) |
+| `useIntl`              | إرجاع كائن Intl للغة الحالية.                                                                         | -                                                                                                                     |
+| `useLoadDynamic`       | Hook لتحميل القواميس الديناميكية.                                                                     | -                                                                                                                     |
 
 ### المكوّنات
 

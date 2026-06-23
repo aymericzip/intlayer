@@ -15,6 +15,9 @@ slugs:
   - next-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Menambahkan utilitas usePathname"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Dokumentasi terpadu untuk semua ekspor"
@@ -95,6 +98,7 @@ Mengekspor ulang sebagian besar hooks dari `react-intlayer`.
 | `useDictionaryAsync`   | Hook yang menangani kamus asinkron. Menerima peta kamus berbasis promise dan menyelesaikannya untuk locale saat ini.                                   | -                                                                                                                       |
 | `useDictionaryDynamic` | Hook yang menangani kamus dinamis yang dimuat berdasarkan kunci. Menggunakan React Suspense secara internal untuk status pemuatan.                     | -                                                                                                                       |
 | `useLocale`            | Hook sisi-klien untuk mendapatkan locale saat ini dan sebuah fungsi untuk mengaturnya. Ditingkatkan untuk Next.js App Router dengan dukungan navigasi. | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useLocale.md)         |
+| `usePathname`          | Mengembalikan pathname saat ini tanpa awalan lokal dan tanpa parameter kueri yang terkait dengan lokal.                                                | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/next-intlayer/usePathname.md)      |
 | `useRewriteURL`        | Hook sisi-klien untuk mengelola rewrite URL. Secara otomatis memperbarui URL jika ada aturan rewrite terlokalisasi yang lebih rapi.                    | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/next-intlayer/useRewriteURL.md)  |
 | `useLocalePageRouter`  | Hook khusus Next.js Page Router untuk manajemen locale. Menangani pengalihan (redirections) dan muat ulang halaman saat perubahan locale.              | -                                                                                                                       |
 | `useI18n`              | Hook yang menyediakan fungsi terjemahan `t()` untuk mengakses konten bersarang berdasarkan kunci. Meniru pola i18next/next-intl.                       | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/react-intlayer/useI18n.md)             |

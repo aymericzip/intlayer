@@ -14,6 +14,9 @@ slugs:
   - preact-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "usePathnameユーティリティを追加"
   - version: 8.0.0
     date: 2026-01-21
     changes: "すべてのエクスポートに関するドキュメントを統合"
@@ -40,12 +43,13 @@ npm install preact-intlayer
 
 ### フック
 
-| フック          | 説明                                                                                                                           | 関連ドキュメント                                                                                |
-| --------------- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
-| `useIntlayer`   | `useDictionary` をベースにしていますが、生成された宣言から最適化された辞書のバージョンを注入します。                           | -                                                                                               |
-| `useDictionary` | キーとコンテンツ（key, content）のような辞書的なオブジェクトを処理します。`t()` の翻訳、enumerations（列挙）などを処理します。 | -                                                                                               |
-| `useLocale`     | 現在のロケールとそれを設定する関数を返します。                                                                                 | -                                                                                               |
-| `t`             | 現在のロケールに基づいてコンテンツを選択します。                                                                               | [翻訳](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/translation.md) |
+| フック          | 説明                                                                                                                           | 関連ドキュメント                                                                                                     |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`   | `useDictionary` をベースにしていますが、生成された宣言から最適化された辞書のバージョンを注入します。                           | -                                                                                                                    |
+| `useDictionary` | キーとコンテンツ（key, content）のような辞書的なオブジェクトを処理します。`t()` の翻訳、enumerations（列挙）などを処理します。 | -                                                                                                                    |
+| `useLocale`     | 現在のロケールとそれを設定する関数を返します。                                                                                 | -                                                                                                                    |
+| `usePathname`   | ロケールセグメントが削除された現在のパス名 (pathname) を返すフックです。ブラウザのナビゲーション（`popstate`）に反応します。   | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/preact-intlayer/usePathname.md) |
+| `t`             | 現在のロケールに基づいてコンテンツを選択します。                                                                               | [翻訳](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/translation.md)                      |
 
 ### コンポーネント
 

@@ -14,6 +14,9 @@ slugs:
   - svelte-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Додано утиліту usePathname"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Уніфікована документація для всіх експортів"
@@ -71,6 +74,7 @@ import "svelte-intlayer";
 | `useDictionaryAsync`   | Те ж саме, що й `useDictionary`, але обробляє асинхронні словники.                                                      | -                                                                                                                        |
 | `useDictionaryDynamic` | Те ж саме, що й `useDictionary`, але обробляє динамічні словники.                                                       | -                                                                                                                        |
 | `useLocale`            | Повертає поточну локаль та функцію для її встановлення.                                                                 | -                                                                                                                        |
+| `usePathname`          | Повертає поточний шлях (pathname) як стор `Readable<string>` із видаленим сегментом локалі. Реактивний до `popstate`.   | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/svelte-intlayer/usePathname.md)     |
 | `useRewriteURL`        | Клієнтська функція для керування перезаписами URL. Автоматично оновлює URL, якщо існує локалізоване правило перезапису. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/svelte-intlayer/useRewriteURL.md) |
 | `useIntl`              | Повертає об'єкт Intl для поточної локалі.                                                                               | -                                                                                                                        |
 

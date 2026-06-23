@@ -14,6 +14,9 @@ slugs:
   - preact-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "usePathname-Dienstprogramm hinzufügen"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Vereinheitlichte Dokumentation für alle Exporte"
@@ -40,12 +43,13 @@ npm install preact-intlayer
 
 ### Hooks
 
-| Hook            | Beschreibung                                                                                                                | Zugehörige Doku                                                                                        |
-| --------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `useIntlayer`   | Basierend auf `useDictionary`, injiziert es jedoch eine optimierte Version des Dictionarys aus der generierten Deklaration. | -                                                                                                      |
-| `useDictionary` | Verarbeitet Objekte, die wie Dictionaries aussehen (key, content). Es verarbeitet `t()`-Übersetzungen, Enumerationen usw.   | -                                                                                                      |
-| `useLocale`     | Gibt die aktuelle Locale und eine Funktion zum Ändern zurück.                                                               | -                                                                                                      |
-| `t`             | Wählt Inhalte basierend auf der aktuellen Locale aus.                                                                       | [Übersetzung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/translation.md) |
+| Hook            | Beschreibung                                                                                                                         | Zugehörige Doku                                                                                                      |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`   | Basierend auf `useDictionary`, injiziert es jedoch eine optimierte Version des Dictionarys aus der generierten Deklaration.          | -                                                                                                                    |
+| `useDictionary` | Verarbeitet Objekte, die wie Dictionaries aussehen (key, content). Es verarbeitet `t()`-Übersetzungen, Enumerationen usw.            | -                                                                                                                    |
+| `useLocale`     | Gibt die aktuelle Locale und eine Funktion zum Ändern zurück.                                                                        | -                                                                                                                    |
+| `usePathname`   | Hook, der den aktuellen Pfadnamen (pathname) ohne das Locale-Segment zurückgibt. Reagiert auf die Browser-Navigation per `popstate`. | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/packages/preact-intlayer/usePathname.md) |
+| `t`             | Wählt Inhalte basierend auf der aktuellen Locale aus.                                                                                | [Übersetzung](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/translation.md)               |
 
 ### Komponenten
 

@@ -14,6 +14,9 @@ slugs:
   - solid-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "usePathname yardımcı programını ekle"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Tüm dışa aktarılanlar için birleştirilmiş dokümantasyon"
@@ -59,6 +62,7 @@ import "solid-intlayer";
 | `useDictionaryAsync`   | `useDictionary` ile aynı, ancak asenkron sözlükleri işler.                                                                                     | -                                                                                                                       |
 | `useDictionaryDynamic` | `useDictionary` ile aynı, ancak dinamik sözlükleri işler.                                                                                      | -                                                                                                                       |
 | `useLocale`            | Geçerli locale'i ve bunu ayarlamak için bir fonksiyon döndürür.                                                                                | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/solid-intlayer/useLocale.md)         |
+| `usePathname`          | Geçerli yol adını (pathname), locale segmenti kaldırılmış olarak bir `Accessor<string>` şeklinde döndürür. `popstate` olaylarına duyarlıdır.   | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/solid-intlayer/usePathname.md)     |
 | `useRewriteURL`        | URL yeniden yazımlarını yönetmek için istemci tarafı hook'u. Lokalize edilmiş bir yeniden yazma kuralı varsa URL'yi otomatik olarak günceller. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/solid-intlayer/useRewriteURL.md) |
 | `useIntl`              | Geçerli locale için Intl nesnesini döndürür.                                                                                                   | -                                                                                                                       |
 | `useLoadDynamic`       | Dinamik sözlükleri yüklemek için hook.                                                                                                         | -                                                                                                                       |

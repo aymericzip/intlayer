@@ -14,9 +14,12 @@ slugs:
   - angular-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "usePathname 유틸리티 추가"
   - version: 8.0.0
     date: 2026-01-21
-    changes: "모든 exports에 대한 문서 통합"
+    changes: "모든 내보내기에 대한 통합 문서" 통합"
 author: aymericzip
 ---
 
@@ -46,15 +49,16 @@ import "angular-intlayer";
 
 ### 훅
 
-| 훅                     | 설명                                                                                           | 관련 문서 |
-| ---------------------- | ---------------------------------------------------------------------------------------------- | --------- |
-| `useIntlayer`          | `useDictionary`를 기반으로 하며, 생성된 declaration에서 딕셔너리의 최적화된 버전을 주입합니다. | -         |
-| `useDictionary`        | 사전(key, content)처럼 보이는 객체를 처리합니다. `t()` 번역, 열거형 등도 처리합니다.           | -         |
-| `useDictionaryAsync`   | `useDictionary`와 동일하지만 비동기 사전을 처리합니다.                                         | -         |
-| `useDictionaryDynamic` | `useDictionary`와 동일하지만 동적 사전을 처리합니다.                                           | -         |
-| `useLocale`            | 현재 로케일과 이를 설정하는 함수를 반환합니다.                                                 | -         |
-| `useIntl`              | 현재 로케일에 대한 Intl 객체를 반환합니다.                                                     | -         |
-| `useLoadDynamic`       | 동적 사전을 로드하는 훅.                                                                       | -         |
+| 훅                     | 설명                                                                                                               | 관련 문서                                                                                                             |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`          | `useDictionary`를 기반으로 하며, 생성된 declaration에서 딕셔너리의 최적화된 버전을 주입합니다.                     | -                                                                                                                     |
+| `useDictionary`        | 사전(key, content)처럼 보이는 객체를 처리합니다. `t()` 번역, 열거형 등도 처리합니다.                               | -                                                                                                                     |
+| `useDictionaryAsync`   | `useDictionary`와 동일하지만 비동기 사전을 처리합니다.                                                             | -                                                                                                                     |
+| `useDictionaryDynamic` | `useDictionary`와 동일하지만 동적 사전을 처리합니다.                                                               | -                                                                                                                     |
+| `useLocale`            | 현재 로케일과 이를 설정하는 함수를 반환합니다.                                                                     | -                                                                                                                     |
+| `usePathname`          | 로케일 세그먼트가 제거된 현재 경로를 `Signal<string>`으로 반환합니다. `DestroyRef`를 통해 `popstate`에 반응합니다. | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/angular-intlayer/usePathname.md) |
+| `useIntl`              | 현재 로케일에 대한 Intl 객체를 반환합니다.                                                                         | -                                                                                                                     |
+| `useLoadDynamic`       | 동적 사전을 로드하는 훅.                                                                                           | -                                                                                                                     |
 
 ### 컴포넌트
 

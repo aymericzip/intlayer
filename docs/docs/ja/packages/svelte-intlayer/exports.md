@@ -14,6 +14,9 @@ slugs:
   - svelte-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "usePathname ユーティリティを追加"
   - version: 8.0.0
     date: 2026-01-21
     changes: "すべてのエクスポートのドキュメントを統合"
@@ -64,15 +67,16 @@ import "svelte-intlayer";
 import "svelte-intlayer";
 ```
 
-| 関数                   | 説明                                                                                                                     | 関連ドキュメント                                                                                                         |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `useIntlayer`          | `useDictionary` をベースにしており、生成された宣言から辞書の最適化されたバージョンを注入します。                         | -                                                                                                                        |
-| `useDictionary`        | 辞書のようなオブジェクト（key、content）を処理します。`t()` の翻訳、列挙などを処理します。                               | -                                                                                                                        |
-| `useDictionaryAsync`   | `useDictionary` と同じですが、非同期の辞書を扱います。                                                                   | -                                                                                                                        |
-| `useDictionaryDynamic` | `useDictionary` と同じですが、動的な辞書を扱います。                                                                     | -                                                                                                                        |
-| `useLocale`            | 現在のロケールとそれを設定する関数を返します。                                                                           | -                                                                                                                        |
-| `useRewriteURL`        | URLの書き換えを管理するクライアントサイド関数。ローカライズされた書き換えルールが存在する場合は自動的にURLを更新します。 | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/svelte-intlayer/useRewriteURL.md) |
-| `useIntl`              | 現在のロケールのためのIntlオブジェクトを返します。                                                                       | -                                                                                                                        |
+| 関数                   | 説明                                                                                                                      | 関連ドキュメント                                                                                                         |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `useIntlayer`          | `useDictionary` をベースにしており、生成された宣言から辞書の最適化されたバージョンを注入します。                          | -                                                                                                                        |
+| `useDictionary`        | 辞書のようなオブジェクト（key、content）を処理します。`t()` の翻訳、列挙などを処理します。                                | -                                                                                                                        |
+| `useDictionaryAsync`   | `useDictionary` と同じですが、非同期の辞書を扱います。                                                                    | -                                                                                                                        |
+| `useDictionaryDynamic` | `useDictionary` と同じですが、動的な辞書を扱います。                                                                      | -                                                                                                                        |
+| `useLocale`            | 現在のロケールとそれを設定する関数を返します。                                                                            | -                                                                                                                        |
+| `usePathname`          | ロケールセグメントが削除された現在のパス名(pathname)を `Readable<string>` ストアとして返します。`popstate` に反応します。 | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/svelte-intlayer/usePathname.md)     |
+| `useRewriteURL`        | URLの書き換えを管理するクライアントサイド関数。ローカライズされた書き換えルールが存在する場合は自動的にURLを更新します。  | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/svelte-intlayer/useRewriteURL.md) |
+| `useIntl`              | 現在のロケールのためのIntlオブジェクトを返します。                                                                        | -                                                                                                                        |
 
 ### マークダウン
 

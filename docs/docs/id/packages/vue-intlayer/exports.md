@@ -14,6 +14,9 @@ slugs:
   - vue-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Tambahkan utilitas usePathname"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Dokumentasi terpadu untuk semua ekspor"
@@ -59,6 +62,7 @@ import "vue-intlayer";
 | `useDictionaryAsync`   | Sama seperti `useDictionary`, tetapi menangani kamus asinkron.                                                                                 | -                                                                                                                     |
 | `useDictionaryDynamic` | Sama seperti `useDictionary`, tetapi menangani kamus dinamis.                                                                                  | -                                                                                                                     |
 | `useLocale`            | Mengembalikan locale saat ini dan fungsi untuk mengaturnya.                                                                                    | -                                                                                                                     |
+| `usePathname`          | Mengembalikan pathname saat ini sebagai `ComputedRef<string>` dengan segmen locale yang telah dihapus. Reaktif terhadap `popstate`.            | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vue-intlayer/usePathname.md)     |
 | `useRewriteURL`        | Composable di sisi klien untuk mengelola penulisan ulang URL. Secara otomatis memperbarui URL jika ada aturan penulisan ulang yang dilokalkan. | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vue-intlayer/useRewriteURL.md) |
 | `useIntl`              | Mengembalikan objek Intl untuk locale saat ini.                                                                                                | -                                                                                                                     |
 | `useLoadDynamic`       | Composable untuk memuat dictionary dinamis.                                                                                                    | -                                                                                                                     |

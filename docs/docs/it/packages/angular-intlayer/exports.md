@@ -14,6 +14,9 @@ slugs:
   - angular-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "Aggiunta utilità usePathname"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Documentazione unificata per tutte le esportazioni"
@@ -46,15 +49,16 @@ import "angular-intlayer";
 
 ### Hooks
 
-| Hook                   | Descrizione                                                                                                   | Doc correlato |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------- | ------------- |
-| `useIntlayer`          | Basato su `useDictionary`, ma inietta una versione ottimizzata del dizionario dalla dichiarazione generata.   | -             |
-| `useDictionary`        | Elabora oggetti che assomigliano a dizionari (key, content). Gestisce le traduzioni `t()`, enumerazioni, ecc. | -             |
-| `useDictionaryAsync`   | Come `useDictionary`, ma gestisce dizionari asincroni.                                                        | -             |
-| `useDictionaryDynamic` | Come `useDictionary`, ma gestisce dizionari dinamici.                                                         | -             |
-| `useLocale`            | Restituisce la locale corrente e una funzione per impostarla.                                                 | -             |
-| `useIntl`              | Restituisce l'oggetto Intl per la locale corrente.                                                            | -             |
-| `useLoadDynamic`       | Hook per caricare dizionari dinamici.                                                                         | -             |
+| Hook                   | Descrizione                                                                                                                        | Doc correlato                                                                                                         |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`          | Basato su `useDictionary`, ma inietta una versione ottimizzata del dizionario dalla dichiarazione generata.                        | -                                                                                                                     |
+| `useDictionary`        | Elabora oggetti che assomigliano a dizionari (key, content). Gestisce le traduzioni `t()`, enumerazioni, ecc.                      | -                                                                                                                     |
+| `useDictionaryAsync`   | Come `useDictionary`, ma gestisce dizionari asincroni.                                                                             | -                                                                                                                     |
+| `useDictionaryDynamic` | Come `useDictionary`, ma gestisce dizionari dinamici.                                                                              | -                                                                                                                     |
+| `useLocale`            | Restituisce la locale corrente e una funzione per impostarla.                                                                      | -                                                                                                                     |
+| `usePathname`          | Restituisce il pathname corrente come `Signal<string>` con il segmento locale rimosso. Reattivo a `popstate` tramite `DestroyRef`. | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/angular-intlayer/usePathname.md) |
+| `useIntl`              | Restituisce l'oggetto Intl per la locale corrente.                                                                                 | -                                                                                                                     |
+| `useLoadDynamic`       | Hook per caricare dizionari dinamici.                                                                                              | -                                                                                                                     |
 
 ### Componenti
 

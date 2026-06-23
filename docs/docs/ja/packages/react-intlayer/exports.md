@@ -14,9 +14,12 @@ slugs:
   - react-intlayer
   - exports
 history:
+  - version: 10.0.0
+    date: 2026-06-23
+    changes: "usePathnameユーティリティを追加"
   - version: 7.5.14
     date: 2026-01-21
-    changes: "全エクスポートのドキュメントを統一"
+    changes: "すべてのエクスポートのドキュメントを統一"
 author: aymericzip
 ---
 
@@ -54,21 +57,23 @@ import "react-intlayer";
 import "react-intlayer";
 ```
 
-| フック | 説明 | 関連ドキュメント |
-| `useIntlayer` | クライアントサイドのフックで、キーで辞書を選択してその内容を返します。指定がなければコンテキストのロケールを使用します。 | [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useIntlayer.md) |
-| `useDictionary` | 辞書オブジェクトを変換し、現在のロケール向けのコンテンツを返すフック。`t()` の翻訳、列挙型（enums）などを処理します。 | [useDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useDictionary.md) |
-| `useDictionaryAsync` | 非同期の辞書を扱うフック。Promise ベースの辞書マップを受け取り、現在のロケール向けに解決します。 | - |
-| `useDictionaryDynamic` | キーでロードされる動的な辞書を扱うフック。内部で React Suspense を使用してロード状態を処理します。 | - |
-| `useLocale` | クライアントサイドのフック。現在のロケール、デフォルトロケール、利用可能なロケール、およびロケールを更新する関数を取得します。 | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useLocale.md) |
-| `useLocaleBase` | コンテキストから現在のロケールと関連するすべてのフィールド（locale、defaultLocale、availableLocales、setLocale）を取得するフック。 | - |
-| `useRewriteURL` | URL書き換えを管理するクライアントサイドのフック。現在のパス名とロケールに対する書き換えルールが存在する場合、URLを更新します。 | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useRewriteURL.md) |
-| `useI18n` | フック。キーでネストされたコンテンツにアクセスするための翻訳関数 `t()` を提供します。i18next/next-intl のパターンを模倣しています。 | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useI18n.md) |
-| `useIntl` | フック。ロケールに結びついた `Intl` オブジェクトを提供します。現在のロケールを自動で注入し、最適化されたキャッシュを使用します。 | - |
-| `useLocaleStorage` | ローカルストレージまたはクッキーで locale の永続化を提供するフック。getter と setter 関数を返します。 | - |
-| `useLocaleCookie` | 非推奨。代わりに `useLocaleStorage` を使用してください。クッキーで locale の永続化を管理するフック。 | - |
-| `useLoadDynamic` | React Suspenseを使用して動的辞書を読み込むためのフック。キーとPromiseを受け取り、結果をキャッシュします。 | - |
-| `useIntlayerContext` | 現在の Intlayer クライアントのコンテキスト値（locale、setLocale など）を提供するフック。 | - |
-| `useHTMLContext` | HTMLProvider コンテキストから HTML コンポーネントのオーバーライドにアクセスするフック。 | - |
+| フック                 | 説明                                                                                                                                     | 関連ドキュメント                                                                                                        |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `useIntlayer`          | クライアントサイドのフックで、キーで辞書を選択してその内容を返します。指定がなければコンテキストのロケールを使用します。                 | [useIntlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useIntlayer.md)     |
+| `useDictionary`        | 辞書オブジェクトを変換し、現在のロケール向けのコンテンツを返すフック。`t()` の翻訳、列挙型（enums）などを処理します。                    | [useDictionary](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useDictionary.md) |
+| `useDictionaryAsync`   | 非同期の辞書を扱うフック。Promise ベースの辞書マップを受け取り、現在のロケール向けに解決します。                                         | -                                                                                                                       |
+| `useDictionaryDynamic` | キーでロードされる動的な辞書を扱うフック。内部で React Suspense を使用してロード状態を処理します。                                       | -                                                                                                                       |
+| `useLocale`            | 現在のロケール、デフォルトロケール、利用可能なロケール、およびロケールを更新する機能を取得するためのクライアントサイドフック。           | [useLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useLocale.md)         |
+| `useLocaleBase`        | コンテキストから現在のロケールと関連するすべてのフィールド（locale、defaultLocale、availableLocales、setLocale）を取得するためのフック。 | -                                                                                                                       |
+| `usePathname`          | ロケールセグメントが削除された現在のパス名を返すフック。`popstate`を介したブラウザナビゲーションに反応します。                           | [usePathname](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/usePathname.md)     |
+| `useRewriteURL`        | URLの書き換えを管理するためのクライアントサイドフック。現在のパス名とロケールの書き換えルールが存在する場合、URLを更新します。           | [useRewriteURL](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useRewriteURL.md) |
+| `useI18n`              | フック。キーでネストされたコンテンツにアクセスするための翻訳関数 `t()` を提供します。i18next/next-intl のパターンを模倣しています。      | [useI18n](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/react-intlayer/useI18n.md)             |
+| `useIntl`              | フック。ロケールに結びついた `Intl` オブジェクトを提供します。現在のロケールを自動で注入し、最適化されたキャッシュを使用します。         | -                                                                                                                       |
+| `useLocaleStorage`     | ローカルストレージまたはクッキーで locale の永続化を提供するフック。getter と setter 関数を返します。                                    | -                                                                                                                       |
+| `useLocaleCookie`      | 非推奨。代わりに `useLocaleStorage` を使用してください。クッキーで locale の永続化を管理するフック。                                     | -                                                                                                                       |
+| `useLoadDynamic`       | React Suspenseを使用して動的辞書を読み込むためのフック。キーとPromiseを受け取り、結果をキャッシュします。                                | -                                                                                                                       |
+| `useIntlayerContext`   | 現在の Intlayer クライアントのコンテキスト値（locale、setLocale など）を提供するフック。                                                 | -                                                                                                                       |
+| `useHTMLContext`       | HTMLProvider コンテキストから HTML コンポーネントのオーバーライドにアクセスするフック。                                                  | -                                                                                                                       |
 
 ### 関数
 
