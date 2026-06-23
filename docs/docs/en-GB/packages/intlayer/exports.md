@@ -14,6 +14,9 @@ slugs:
   - intlayer
   - exports
 history:
+  - version: 9.0.0
+    date: 2026-06-23
+    changes: "Add comparePaths utility"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Unified documentation for all exports"
@@ -119,6 +122,8 @@ import "intlayer";
 | `getMultilingualUrls`  | `Function` | Generates URLs for all supported locales.        | [getMultilingualUrls](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getMultilingualUrls.md)   |
 | `getPathWithoutLocale` | `Function` | Removes the locale prefix from a path.           | [getPathWithoutLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getPathWithoutLocale.md) |
 | `getPrefix`            | `Function` | Retrieves the locale prefix from a path.         | [getPrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getPrefix.md)                       |
+| `comparePaths`         | `Function` | Compares two paths ignoring the locale.          | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/comparePaths.md)                 |
+| `normalizePath`        | `Function` | Normalizes a path to a locale-agnostic one.      | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/comparePaths.md)                 |
 | `getHTMLTextDir`       | `Function` | Retrieves the text direction (LTR/RTL).          | [getHTMLTextDir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/getHTMLTextDir.md)             |
 | `validatePrefix`       | `Function` | Validates a locale prefix.                       | [validatePrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/intlayer/validatePrefix.md)             |
 

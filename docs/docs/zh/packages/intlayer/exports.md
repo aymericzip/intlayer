@@ -14,6 +14,9 @@ slugs:
   - intlayer
   - exports
 history:
+  - version: 9.0.0
+    date: 2026-06-23
+    changes: "添加 comparePaths 实用工具"
   - version: 8.0.0
     date: 2026-01-21
     changes: "为所有导出统一文档"
@@ -108,19 +111,21 @@ import "intlayer";
 import "intlayer";
 ```
 
-| 函数                   | 类型       | 描述                             | 相关文档                                                                                                                        |
-| ---------------------- | ---------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `getLocale`            | `Function` | 从字符串或路径检测 locale。      | [getLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocale.md)                       |
-| `getLocaleLang`        | `Function` | 获取 locale 的语言部分。         | [getLocaleLang](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocaleLang.md)               |
-| `getLocaleName`        | `Function` | 获取 locale 的显示名称。         | [getLocaleName](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocaleName.md)               |
-| `getLocalizedPath`     | `Function` | 将规范路径解析为本地化路径。     | [getLocalizedPath](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedPath.md)         |
-| `getCanonicalPath`     | `Function` | 将本地化路径解析为规范路径。     | [getCanonicalPath](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getCanonicalPath.md)         |
-| `getLocalizedUrl`      | `Function` | 生成本地化的 URL。               | [getLocalizedUrl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedUrl.md)           |
-| `getMultilingualUrls`  | `Function` | 为所有受支持的 locale 生成 URL。 | [getMultilingualUrls](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getMultilingualUrls.md)   |
-| `getPathWithoutLocale` | `Function` | 从路径中移除 locale 前缀。       | [getPathWithoutLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getPathWithoutLocale.md) |
-| `getPrefix`            | `Function` | 从路径获取 locale 前缀。         | [getPrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getPrefix.md)                       |
-| `getHTMLTextDir`       | `Function` | 获取文本方向（LTR/RTL）。        | [getHTMLTextDir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getHTMLTextDir.md)             |
-| `validatePrefix`       | `Function` | 验证区域设置前缀。               | [validatePrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/validatePrefix.md)             |
+| 函数                   | 类型       | 描述                                 | 相关文档                                                                                                                        |
+| ---------------------- | ---------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| `getLocale`            | `Function` | 从字符串或路径检测 locale。          | [getLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocale.md)                       |
+| `getLocaleLang`        | `Function` | 获取 locale 的语言部分。             | [getLocaleLang](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocaleLang.md)               |
+| `getLocaleName`        | `Function` | 获取 locale 的显示名称。             | [getLocaleName](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocaleName.md)               |
+| `getLocalizedPath`     | `Function` | 将规范路径解析为本地化路径。         | [getLocalizedPath](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedPath.md)         |
+| `getCanonicalPath`     | `Function` | 将本地化路径解析为规范路径。         | [getCanonicalPath](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getCanonicalPath.md)         |
+| `getLocalizedUrl`      | `Function` | 生成本地化的 URL。                   | [getLocalizedUrl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedUrl.md)           |
+| `getMultilingualUrls`  | `Function` | 为所有受支持的 locale 生成 URL。     | [getMultilingualUrls](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getMultilingualUrls.md)   |
+| `getPathWithoutLocale` | `Function` | 从路径中移除 locale 前缀。           | [getPathWithoutLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getPathWithoutLocale.md) |
+| `getPrefix`            | `Function` | 从路径获取 locale 前缀。             | [getPrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getPrefix.md)                       |
+| `comparePaths`         | `Function` | 忽略区域设置比较两个路径。           | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/comparePaths.md)                 |
+| `normalizePath`        | `Function` | 将路径规范化为与区域设置无关的路径。 | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/comparePaths.md)                 |
+| `getHTMLTextDir`       | `Function` | 获取文本方向（LTR/RTL）。            | [getHTMLTextDir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getHTMLTextDir.md)             |
+| `validatePrefix`       | `Function` | 验证区域设置前缀。                   | [validatePrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/validatePrefix.md)             |
 
 ### 浏览器工具
 

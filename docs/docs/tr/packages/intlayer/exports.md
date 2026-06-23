@@ -14,6 +14,9 @@ slugs:
   - intlayer
   - exports
 history:
+  - version: 9.0.0
+    date: 2026-06-23
+    changes: "comparePaths yardımcı programı eklendi"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Tüm dışa aktarımlar için birleştirilmiş dokümantasyon"
@@ -108,19 +111,21 @@ import "intlayer";
 import "intlayer";
 ```
 
-| Fonksiyon              | Tür         | Açıklama                                           | İlgili Doküman                                                                                                                  |
-| ---------------------- | ----------- | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `getLocale`            | `Fonksiyon` | Bir dizeden veya yoldan locale'i algılar.          | [getLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocale.md)                       |
-| `getLocaleLang`        | `Function`  | Bir locale'in dil kısmını alır.                    | [getLocaleLang](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocaleLang.md)               |
-| `getLocaleName`        | `Function`  | Bir locale'in görüntü adını alır.                  | [getLocaleName](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocaleName.md)               |
-| `getLocalizedPath`     | `Function`  | Kanonik bir yolu yerelleştirilmiş bir yola çözer.  | [getLocalizedPath](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocalizedPath.md)         |
-| `getCanonicalPath`     | `Function`  | Yerelleştirilmiş bir yolu kanonik hale çözer.      | [getCanonicalPath](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getCanonicalPath.md)         |
-| `getLocalizedUrl`      | `Function`  | Yerelleştirilmiş bir URL oluşturur.                | [getLocalizedUrl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocalizedUrl.md)           |
-| `getMultilingualUrls`  | `Function`  | Desteklenen tüm locale'lar için URL'ler oluşturur. | [getMultilingualUrls](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getMultilingualUrls.md)   |
-| `getPathWithoutLocale` | `Function`  | Yoldan locale önekini kaldırır.                    | [getPathWithoutLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getPathWithoutLocale.md) |
-| `getPrefix`            | `Function`  | Yoldan locale önekini alır.                        | [getPrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getPrefix.md)                       |
-| `getHTMLTextDir`       | `Function`  | Metin yönünü (LTR/RTL) döndürür.                   | [getHTMLTextDir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getHTMLTextDir.md)             |
-| `validatePrefix`       | `Function`  | Yerel önekini doğrular.                            | [validatePrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/validatePrefix.md)             |
+| Fonksiyon              | Tür         | Açıklama                                              | İlgili Doküman                                                                                                                  |
+| ---------------------- | ----------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `getLocale`            | `Fonksiyon` | Bir dizeden veya yoldan locale'i algılar.             | [getLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocale.md)                       |
+| `getLocaleLang`        | `Function`  | Bir locale'in dil kısmını alır.                       | [getLocaleLang](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocaleLang.md)               |
+| `getLocaleName`        | `Function`  | Bir locale'in görüntü adını alır.                     | [getLocaleName](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocaleName.md)               |
+| `getLocalizedPath`     | `Function`  | Kanonik bir yolu yerelleştirilmiş bir yola çözer.     | [getLocalizedPath](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocalizedPath.md)         |
+| `getCanonicalPath`     | `Function`  | Yerelleştirilmiş bir yolu kanonik hale çözer.         | [getCanonicalPath](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getCanonicalPath.md)         |
+| `getLocalizedUrl`      | `Function`  | Yerelleştirilmiş bir URL oluşturur.                   | [getLocalizedUrl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getLocalizedUrl.md)           |
+| `getMultilingualUrls`  | `Function`  | Desteklenen tüm locale'lar için URL'ler oluşturur.    | [getMultilingualUrls](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getMultilingualUrls.md)   |
+| `getPathWithoutLocale` | `Function`  | Yoldan locale önekini kaldırır.                       | [getPathWithoutLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getPathWithoutLocale.md) |
+| `getPrefix`            | `Function`  | Yoldan locale önekini alır.                           | [getPrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getPrefix.md)                       |
+| `comparePaths`         | `Function`  | Locale'i göz ardı ederek iki yolu karşılaştırır.      | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/comparePaths.md)                 |
+| `normalizePath`        | `Function`  | Bir yolu locale'den bağımsız bir yola normalleştirir. | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/comparePaths.md)                 |
+| `getHTMLTextDir`       | `Function`  | Metin yönünü (LTR/RTL) döndürür.                      | [getHTMLTextDir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/getHTMLTextDir.md)             |
+| `validatePrefix`       | `Function`  | Yerel önekini doğrular.                               | [validatePrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/intlayer/validatePrefix.md)             |
 
 ### Tarayıcı Yardımcıları
 

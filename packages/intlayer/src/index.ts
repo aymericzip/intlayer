@@ -128,6 +128,7 @@ export type {
   SitemapUrlEntry,
 } from '@intlayer/core/localization';
 export {
+  comparePaths,
   generateSitemap,
   generateSitemapUrl,
   getBrowserLocale,
@@ -148,6 +149,7 @@ export {
   localeMap,
   localeRecord,
   localeResolver,
+  normalizePath,
   validatePrefix,
 } from '@intlayer/core/localization';
 export { getMarkdownMetadata } from '@intlayer/core/markdown';

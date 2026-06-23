@@ -14,6 +14,9 @@ slugs:
   - intlayer
   - exports
 history:
+  - version: 9.0.0
+    date: 2026-06-23
+    changes: "Add comparePaths utility"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Unified documentation for all exports"
@@ -108,19 +111,21 @@ Import:
 import "intlayer";
 ```
 
-| Function               | Type       | Description                               | Related Doc                                                                                                                     |
-| ---------------------- | ---------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `getLocale`            | `Function` | Detects the locale from a string or path. | [getLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocale.md)                       |
-| `getLocaleLang`        | `Function` | Gets the language part of a locale.       | [getLocaleLang](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleLang.md)               |
-| `getLocaleName`        | `Function` | Gets the display name of a locale.        | [getLocaleName](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleName.md)               |
-| `getLocalizedPath`     | `Function` | Resolves a canonical path to localized.   | [getLocalizedPath](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedPath.md)         |
-| `getCanonicalPath`     | `Function` | Resolves a localized path to canonical.   | [getCanonicalPath](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getCanonicalPath.md)         |
-| `getLocalizedUrl`      | `Function` | Generates a localized URL.                | [getLocalizedUrl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md)           |
-| `getMultilingualUrls`  | `Function` | Generates URLs for all supported locales. | [getMultilingualUrls](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getMultilingualUrls.md)   |
-| `getPathWithoutLocale` | `Function` | Removes the locale prefix from a path.    | [getPathWithoutLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPathWithoutLocale.md) |
-| `getPrefix`            | `Function` | Gets the locale prefix from a path.       | [getPrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPrefix.md)                       |
-| `getHTMLTextDir`       | `Function` | Gets the text direction (LTR/RTL).        | [getHTMLTextDir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getHTMLTextDir.md)             |
-| `validatePrefix`       | `Function` | Validates a locale prefix.                | [validatePrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/validatePrefix.md)             |
+| Function               | Type       | Description                                 | Related Doc                                                                                                                     |
+| ---------------------- | ---------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `getLocale`            | `Function` | Detects the locale from a string or path.   | [getLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocale.md)                       |
+| `getLocaleLang`        | `Function` | Gets the language part of a locale.         | [getLocaleLang](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleLang.md)               |
+| `getLocaleName`        | `Function` | Gets the display name of a locale.          | [getLocaleName](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocaleName.md)               |
+| `getLocalizedPath`     | `Function` | Resolves a canonical path to localized.     | [getLocalizedPath](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedPath.md)         |
+| `getCanonicalPath`     | `Function` | Resolves a localized path to canonical.     | [getCanonicalPath](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getCanonicalPath.md)         |
+| `getLocalizedUrl`      | `Function` | Generates a localized URL.                  | [getLocalizedUrl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getLocalizedUrl.md)           |
+| `getMultilingualUrls`  | `Function` | Generates URLs for all supported locales.   | [getMultilingualUrls](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getMultilingualUrls.md)   |
+| `getPathWithoutLocale` | `Function` | Removes the locale prefix from a path.      | [getPathWithoutLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPathWithoutLocale.md) |
+| `getPrefix`            | `Function` | Gets the locale prefix from a path.         | [getPrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getPrefix.md)                       |
+| `comparePaths`         | `Function` | Compares two paths ignoring the locale.     | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/comparePaths.md)                 |
+| `normalizePath`        | `Function` | Normalizes a path to a locale-agnostic one. | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/comparePaths.md)                 |
+| `getHTMLTextDir`       | `Function` | Gets the text direction (LTR/RTL).          | [getHTMLTextDir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/getHTMLTextDir.md)             |
+| `validatePrefix`       | `Function` | Validates a locale prefix.                  | [validatePrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/intlayer/validatePrefix.md)             |
 
 ### Browser Utilities
 

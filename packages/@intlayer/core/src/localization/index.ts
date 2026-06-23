@@ -1,3 +1,4 @@
+export { comparePaths, normalizePath } from './comparePaths';
 export type {
   GenerateSitemapOptions,
   SitemapUrlEntry,

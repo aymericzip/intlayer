@@ -14,6 +14,9 @@ slugs:
   - intlayer
   - exports
 history:
+  - version: 9.0.0
+    date: 2026-06-23
+    changes: "Додано утиліту comparePaths"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Уніфікована документація для всіх експортів"
@@ -119,6 +122,8 @@ import "intlayer";
 | `getMultilingualUrls`  | `Function` | Генерує URL-адреси для всіх підтримуваних локалей. | [getMultilingualUrls](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getMultilingualUrls.md)   |
 | `getPathWithoutLocale` | `Function` | Видаляє префікс локалі з шляху.                    | [getPathWithoutLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getPathWithoutLocale.md) |
 | `getPrefix`            | `Function` | Отримує префікс локалі з шляху.                    | [getPrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getPrefix.md)                       |
+| `comparePaths`         | `Function` | Порівнює два шляхи, ігноруючи локаль.              | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/comparePaths.md)                 |
+| `normalizePath`        | `Function` | Нормалізує шлях у незалежний від локалі.           | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/comparePaths.md)                 |
 | `getHTMLTextDir`       | `Function` | Отримує напрямок тексту (LTR/RTL).                 | [getHTMLTextDir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/getHTMLTextDir.md)             |
 | `validatePrefix`       | `Function` | Перевіряє префікс локалі.                          | [validatePrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/intlayer/validatePrefix.md)             |
 

@@ -14,6 +14,9 @@ slugs:
   - intlayer
   - exports
 history:
+  - version: 9.0.0
+    date: 2026-06-23
+    changes: "Thêm tiện ích comparePaths"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Hợp nhất tài liệu cho tất cả các exports"
@@ -119,6 +122,8 @@ import "intlayer";
 | `getMultilingualUrls`  | `Function` | Tạo các URL cho tất cả các locale được hỗ trợ.                          | [getMultilingualUrls](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getMultilingualUrls.md)   |
 | `getPathWithoutLocale` | `Function` | Xóa tiền tố locale khỏi đường dẫn.                                      | [getPathWithoutLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getPathWithoutLocale.md) |
 | `getPrefix`            | `Function` | Lấy tiền tố locale từ đường dẫn.                                        | [getPrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getPrefix.md)                       |
+| `comparePaths`         | `Function` | So sánh hai đường dẫn mà bỏ qua locale.                                 | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/comparePaths.md)                 |
+| `normalizePath`        | `Function` | Chuẩn hóa một đường dẫn thành đường dẫn không có locale.                | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/comparePaths.md)                 |
 | `getHTMLTextDir`       | `Function` | Lấy hướng văn bản (LTR/RTL).                                            | [getHTMLTextDir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getHTMLTextDir.md)             |
 | `validatePrefix`       | `Function` | Xác thực một tiền tố locale.                                            | [validatePrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/validatePrefix.md)             |
 

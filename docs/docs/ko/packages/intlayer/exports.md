@@ -14,6 +14,9 @@ slugs:
   - intlayer
   - exports
 history:
+  - version: 9.0.0
+    date: 2026-06-23
+    changes: "comparePaths 유틸리티 추가"
   - version: 8.0.0
     date: 2026-01-21
     changes: "모든 내보내기에 대한 문서 통합"
@@ -119,6 +122,8 @@ import "intlayer";
 | `getMultilingualUrls`  | `Function` | 지원되는 모든 로케일에 대한 URL을 생성합니다. | [getMultilingualUrls](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getMultilingualUrls.md)   |
 | `getPathWithoutLocale` | `Function` | 경로에서 로케일 접두사를 제거합니다.          | [getPathWithoutLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getPathWithoutLocale.md) |
 | `getPrefix`            | `Function` | 경로에서 로케일 접두사를 가져옵니다.          | [getPrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getPrefix.md)                       |
+| `comparePaths`         | `Function` | 로케일을 무시하고 두 경로를 비교합니다.       | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/comparePaths.md)                 |
+| `normalizePath`        | `Function` | 경로를 로케일 독립적인 경로로 정규화합니다.   | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/comparePaths.md)                 |
 | `getHTMLTextDir`       | `Function` | 텍스트 방향(LTR/RTL)을 가져옵니다.            | [getHTMLTextDir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/getHTMLTextDir.md)             |
 | `validatePrefix`       | `Function` | 로케일 접두사를 검증합니다.                   | [validatePrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/intlayer/validatePrefix.md)             |
 

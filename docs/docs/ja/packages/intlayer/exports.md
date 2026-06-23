@@ -14,6 +14,9 @@ slugs:
   - intlayer
   - exports
 history:
+  - version: 9.0.0
+    date: 2026-06-23
+    changes: "comparePaths ユーティリティを追加"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Unified documentation for all exports"
@@ -119,6 +122,8 @@ import "intlayer";
 | `getMultilingualUrls`  | `Function` | サポートされているすべてのロケールのURLを生成します。        | [getMultilingualUrls](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getMultilingualUrls.md)   |
 | `getPathWithoutLocale` | `Function` | パスからロケールプレフィックスを削除します。                 | [getPathWithoutLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getPathWithoutLocale.md) |
 | `getPrefix`            | `Function` | パスからロケールプレフィックスを取得します。                 | [getPrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getPrefix.md)                       |
+| `comparePaths`         | `Function` | ロケールを無視して 2 つのパスを比較します。                  | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/comparePaths.md)                 |
+| `normalizePath`        | `Function` | パスをロケールに依存しないパスに正規化します。               | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/comparePaths.md)                 |
 | `getHTMLTextDir`       | `Function` | テキストの方向（LTR/RTL）を取得します。                      | [getHTMLTextDir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/getHTMLTextDir.md)             |
 | `validatePrefix`       | `Function` | ロケールプレフィックスを検証します。                         | [validatePrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/intlayer/validatePrefix.md)             |
 

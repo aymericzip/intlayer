@@ -14,6 +14,9 @@ slugs:
   - intlayer
   - exports
 history:
+  - version: 9.0.0
+    date: 2026-06-23
+    changes: "إضافة الأداة المساعدة comparePaths"
   - version: 8.0.0
     date: 2026-01-21
     changes: "توحيد التوثيق لجميع الصادرات"
@@ -119,6 +122,8 @@ import "intlayer";
 | `getMultilingualUrls`  | `Function` | ينشئ URLs لجميع اللغات المدعومة.           | [getMultilingualUrls](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getMultilingualUrls.md)   |
 | `getPathWithoutLocale` | `Function` | يزيل بادئة اللغة من المسار.                | [getPathWithoutLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getPathWithoutLocale.md) |
 | `getPrefix`            | `Function` | يحصل على بادئة اللغة من المسار.            | [getPrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getPrefix.md)                       |
+| `comparePaths`         | `Function` | يقارن بين مسارين مع تجاهل اللغة (locale).  | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/comparePaths.md)                 |
+| `normalizePath`        | `Function` | يقوم بتسوية مسار ليكون مستقلاً عن اللغة.   | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/comparePaths.md)                 |
 | `getHTMLTextDir`       | `Function` | يحصل على اتجاه النص (LTR/RTL).             | [getHTMLTextDir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/getHTMLTextDir.md)             |
 | `validatePrefix`       | `Function` | يتحقق من صحة بادئة اللغة.                  | [validatePrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/intlayer/validatePrefix.md)             |
 

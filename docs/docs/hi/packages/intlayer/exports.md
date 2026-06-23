@@ -14,6 +14,9 @@ slugs:
   - intlayer
   - exports
 history:
+  - version: 9.0.0
+    date: 2026-06-23
+    changes: "comparePaths उपयोगिता जोड़ी गई"
   - version: 8.0.0
     date: 2026-01-21
     changes: "सभी एक्सपोर्ट्स के लिए एकीकृत प्रलेखन"
@@ -108,19 +111,21 @@ import "intlayer";
 import "intlayer";
 ```
 
-| `फ़ंक्शन`              | `प्रकार`   | विवरण                                            | संबंधित डॉक्स                                                                                                                   |
-| ---------------------- | ---------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
-| `getLocale`            | `Function` | किसी स्ट्रिंग या path से locale का पता लगाता है। | [getLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getLocale.md)                       |
-| `getLocaleLang`        | `Function` | किसी locale का भाषा भाग प्राप्त करता है।         | [getLocaleLang](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getLocaleLang.md)               |
-| `getLocaleName`        | `Function` | किसी locale का display name प्राप्त करता है।     | [getLocaleName](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getLocaleName.md)               |
-| `getLocalizedPath`     | `Function` | कैनोनिकल पथ को स्थानीयकृत पथ में हल करता है।     | [getLocalizedPath](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getLocalizedPath.md)         |
-| `getCanonicalPath`     | `Function` | स्थानीयकृत पथ को canonical पथ में हल करता है।    | [getCanonicalPath](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getCanonicalPath.md)         |
-| `getLocalizedUrl`      | `Function` | स्थानीयकृत URL उत्पन्न करता है।                  | [getLocalizedUrl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getLocalizedUrl.md)           |
-| `getMultilingualUrls`  | `Function` | समर्थित सभी locales के लिए URLs उत्पन्न करता है। | [getMultilingualUrls](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getMultilingualUrls.md)   |
-| `getPathWithoutLocale` | `Function` | पाथ से locale प्रिफिक्स हटाता है।                | [getPathWithoutLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getPathWithoutLocale.md) |
-| `getPrefix`            | `Function` | पाथ से locale प्रिफिक्स प्राप्त करता है।         | [getPrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getPrefix.md)                       |
-| `getHTMLTextDir`       | `Function` | टेक्स्ट की दिशा (LTR/RTL) प्राप्त करता है।       | [getHTMLTextDir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getHTMLTextDir.md)             |
-| `validatePrefix`       | `Function` | locale प्रीफिक्स की वैधता की जाँच करता है।       | [validatePrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/validatePrefix.md)             |
+| `फ़ंक्शन`              | `प्रकार`   | विवरण                                               | संबंधित डॉक्स                                                                                                                   |
+| ---------------------- | ---------- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `getLocale`            | `Function` | किसी स्ट्रिंग या path से locale का पता लगाता है।    | [getLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getLocale.md)                       |
+| `getLocaleLang`        | `Function` | किसी locale का भाषा भाग प्राप्त करता है।            | [getLocaleLang](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getLocaleLang.md)               |
+| `getLocaleName`        | `Function` | किसी locale का display name प्राप्त करता है।        | [getLocaleName](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getLocaleName.md)               |
+| `getLocalizedPath`     | `Function` | कैनोनिकल पथ को स्थानीयकृत पथ में हल करता है।        | [getLocalizedPath](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getLocalizedPath.md)         |
+| `getCanonicalPath`     | `Function` | स्थानीयकृत पथ को canonical पथ में हल करता है।       | [getCanonicalPath](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getCanonicalPath.md)         |
+| `getLocalizedUrl`      | `Function` | स्थानीयकृत URL उत्पन्न करता है।                     | [getLocalizedUrl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getLocalizedUrl.md)           |
+| `getMultilingualUrls`  | `Function` | समर्थित सभी locales के लिए URLs उत्पन्न करता है।    | [getMultilingualUrls](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getMultilingualUrls.md)   |
+| `getPathWithoutLocale` | `Function` | पाथ से locale प्रिफिक्स हटाता है।                   | [getPathWithoutLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getPathWithoutLocale.md) |
+| `getPrefix`            | `Function` | पाथ से locale प्रिफिक्स प्राप्त करता है।            | [getPrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getPrefix.md)                       |
+| `comparePaths`         | `Function` | लोकेल को अनदेखा करते हुए दो पाथ्स की तुलना करता है। | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/comparePaths.md)                 |
+| `normalizePath`        | `Function` | पाथ को लोकेल-स्वतंत्र पाथ में सामान्यीकृत करता है।  | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/comparePaths.md)                 |
+| `getHTMLTextDir`       | `Function` | टेक्स्ट की दिशा (LTR/RTL) प्राप्त करता है।          | [getHTMLTextDir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/getHTMLTextDir.md)             |
+| `validatePrefix`       | `Function` | locale प्रीफिक्स की वैधता की जाँच करता है।          | [validatePrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/packages/intlayer/validatePrefix.md)             |
 
 ### ब्राउज़र उपयोगिताएँ
 

@@ -14,6 +14,9 @@ slugs:
   - intlayer
   - exports
 history:
+  - version: 9.0.0
+    date: 2026-06-23
+    changes: "Menambahkan utilitas comparePaths"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Dokumentasi terpadu untuk semua ekspor"
@@ -119,6 +122,8 @@ import "intlayer";
 | `getMultilingualUrls`  | `Function` | Menghasilkan URL untuk semua locale yang didukung.  | [getMultilingualUrls](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getMultilingualUrls.md)   |
 | `getPathWithoutLocale` | `Function` | Menghapus prefix locale dari path.                  | [getPathWithoutLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getPathWithoutLocale.md) |
 | `getPrefix`            | `Function` | Mengambil prefix locale dari path.                  | [getPrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getPrefix.md)                       |
+| `comparePaths`         | `Function` | Membandingkan dua path dengan mengabaikan locale.   | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/comparePaths.md)                 |
+| `normalizePath`        | `Function` | Menormalisasi path menjadi tidak bergantung locale. | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/comparePaths.md)                 |
 | `getHTMLTextDir`       | `Function` | Mengambil arah teks (LTR/RTL).                      | [getHTMLTextDir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/getHTMLTextDir.md)             |
 | `validatePrefix`       | `Function` | Memvalidasi prefix locale.                          | [validatePrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/intlayer/validatePrefix.md)             |
 

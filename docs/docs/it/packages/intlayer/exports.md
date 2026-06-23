@@ -14,6 +14,9 @@ slugs:
   - intlayer
   - exports
 history:
+  - version: 9.0.0
+    date: 2026-06-23
+    changes: "Aggiunta l'utilità comparePaths"
   - version: 8.0.0
     date: 2026-01-21
     changes: "Documentazione unificata per tutte le esportazioni"
@@ -108,19 +111,21 @@ Importazione:
 import "intlayer";
 ```
 
-| Funzione               | Tipo       | Descrizione                                               | Doc correlata                                                                                                                   |
-| ---------------------- | ---------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `getLocale`            | `Function` | Rileva la locale da una stringa o da un percorso.         | [getLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getLocale.md)                       |
-| `getLocaleLang`        | `Function` | Estrae la parte lingua di una locale.                     | [getLocaleLang](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getLocaleLang.md)               |
-| `getLocaleName`        | `Function` | Restituisce il nome di visualizzazione di una locale.     | [getLocaleName](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getLocaleName.md)               |
-| `getLocalizedPath`     | `Function` | Converte un percorso canonico in un percorso localizzato. | [getLocalizedPath](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getLocalizedPath.md)         |
-| `getCanonicalPath`     | `Function` | Risolve un percorso localizzato nella forma canonica.     | [getCanonicalPath](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getCanonicalPath.md)         |
-| `getLocalizedUrl`      | `Function` | Genera un URL localizzato.                                | [getLocalizedUrl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getLocalizedUrl.md)           |
-| `getMultilingualUrls`  | `Function` | Genera URL per tutte le locali supportate.                | [getMultilingualUrls](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getMultilingualUrls.md)   |
-| `getPathWithoutLocale` | `Function` | Rimuove il prefisso locale da un percorso.                | [getPathWithoutLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getPathWithoutLocale.md) |
-| `getPrefix`            | `Function` | Ottiene il prefisso locale da un percorso.                | [getPrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getPrefix.md)                       |
-| `getHTMLTextDir`       | `Function` | Ottiene la direzione del testo (LTR/RTL).                 | [getHTMLTextDir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getHTMLTextDir.md)             |
-| `validatePrefix`       | `Function` | Valida un prefisso locale.                                | [validatePrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/validatePrefix.md)             |
+| Funzione               | Tipo       | Descrizione                                                  | Doc correlata                                                                                                                   |
+| ---------------------- | ---------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| `getLocale`            | `Function` | Rileva la locale da una stringa o da un percorso.            | [getLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getLocale.md)                       |
+| `getLocaleLang`        | `Function` | Estrae la parte lingua di una locale.                        | [getLocaleLang](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getLocaleLang.md)               |
+| `getLocaleName`        | `Function` | Restituisce il nome di visualizzazione di una locale.        | [getLocaleName](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getLocaleName.md)               |
+| `getLocalizedPath`     | `Function` | Converte un percorso canonico in un percorso localizzato.    | [getLocalizedPath](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getLocalizedPath.md)         |
+| `getCanonicalPath`     | `Function` | Risolve un percorso localizzato nella forma canonica.        | [getCanonicalPath](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getCanonicalPath.md)         |
+| `getLocalizedUrl`      | `Function` | Genera un URL localizzato.                                   | [getLocalizedUrl](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getLocalizedUrl.md)           |
+| `getMultilingualUrls`  | `Function` | Genera URL per tutte le locali supportate.                   | [getMultilingualUrls](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getMultilingualUrls.md)   |
+| `getPathWithoutLocale` | `Function` | Rimuove il prefisso locale da un percorso.                   | [getPathWithoutLocale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getPathWithoutLocale.md) |
+| `getPrefix`            | `Function` | Ottiene il prefisso locale da un percorso.                   | [getPrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getPrefix.md)                       |
+| `comparePaths`         | `Function` | Confronta due percorsi ignorando la lingua (locale).         | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/comparePaths.md)                 |
+| `normalizePath`        | `Function` | Normalizza un percorso rendendolo indipendente dalla lingua. | [comparePaths](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/comparePaths.md)                 |
+| `getHTMLTextDir`       | `Function` | Ottiene la direzione del testo (LTR/RTL).                    | [getHTMLTextDir](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/getHTMLTextDir.md)             |
+| `validatePrefix`       | `Function` | Valida un prefisso locale.                                   | [validatePrefix](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/packages/intlayer/validatePrefix.md)             |
 
 ### Utility del browser
 
