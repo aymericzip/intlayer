@@ -7,9 +7,6 @@ import {
   type ParsedMarkdown,
   renderMarkdown,
 } from 'react-intlayer/markdown';
-
-export type { ParsedMarkdown };
-
 import type { BundledLanguage } from 'shiki/bundle/web';
 import { H1, H2, H3, H4, H5, H6 } from '../Headers';
 import { Code } from '../IDE/Code';
@@ -19,6 +16,8 @@ import { Tab } from '../Tab';
 import { TabProvider } from '../Tab/TabContext';
 import { Hr, SmartTable, Td, Th, Tr } from '../Table';
 import { MarkDownIframe } from './MarkDownIframe';
+
+export type { ParsedMarkdown };
 
 // Extracted, stable component renderers
 const H1Renderer = (props: ComponentProps<'h1'>) => (
@@ -60,7 +59,7 @@ const MemoizedCodeBlock = memo(
         (_, code: string) => String.fromCharCode(parseInt(code, 10))
       );
       return (
-        <code className="scale-80 rounded-md border border-neutral/30 bg-card/60 box-decoration-clone px-1.5 py-0.5 font-mono">
+        <code className="inline-block scale-80 rounded-lg border border-neutral/30 bg-card/60 box-decoration-clone px-1.5 py-0.5 font-mono">
           {decodedContent}
         </code>
       );

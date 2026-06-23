@@ -1,7 +1,6 @@
 import type { MarkdownContent } from '@intlayer/core/transpiler';
 import type { ContentNode } from '@intlayer/types/dictionary';
 import type { KeyPath } from '@intlayer/types/keyPath';
-
 import * as NodeTypes from '@intlayer/types/nodeType';
 import type { FC } from 'react';
 import { NodeWrapper, type NodeWrapperProps } from './index';
