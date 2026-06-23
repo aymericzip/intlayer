@@ -28,8 +28,8 @@ const CodeBlockWrapper: FC<CodeBlockWrapperProps> = ({
       className={cn('relative overflow-hidden text-text-opposite', className)}
     >
       <div className="mb-2 flex items-center justify-between">
-        <span className="text-text-opposite/70 text-xs">{title}</span>
-        <span className="text-text-opposite/40 text-xs">CLI</span>
+        <span className="text-text/70 text-xs">{title}</span>
+        <span className="text-text/40 text-xs">CLI</span>
       </div>
       {children}
     </Container>
