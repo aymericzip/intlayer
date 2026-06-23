@@ -713,6 +713,449 @@ const docDataContent: Dictionary = {
           }),
           default: getDocMetadata('./docs/en/bundle_optimization.md'),
         },
+        package: {
+          title: 'Packages',
+          subSections: {
+            intlayer: {
+              title: 'intlayer',
+              default: getDocMetadata('./docs/en/packages/intlayer/exports.md'),
+              subSections: {
+                getTranslation: {
+                  title: 'getTranslation',
+                  default: getDocMetadata(
+                    './docs/en/packages/intlayer/getTranslation.md'
+                  ),
+                },
+                getEnumeration: {
+                  title: 'getEnumeration',
+                  default: getDocMetadata(
+                    './docs/en/packages/intlayer/getEnumeration.md'
+                  ),
+                },
+                getConfiguration: {
+                  title: 'getConfiguration',
+                  default: getDocMetadata(
+                    './docs/en/packages/intlayer/getConfiguration.md'
+                  ),
+                },
+                getLocale: {
+                  title: 'getLocale',
+                  default: getDocMetadata(
+                    './docs/en/packages/intlayer/getLocale.md'
+                  ),
+                },
+                getLocaleLang: {
+                  title: 'getLocaleLang',
+                  default: getDocMetadata(
+                    './docs/en/packages/intlayer/getLocaleLang.md'
+                  ),
+                },
+                getLocaleName: {
+                  title: 'getLocaleName',
+                  default: getDocMetadata(
+                    './docs/en/packages/intlayer/getLocaleName.md'
+                  ),
+                },
+                getHTMLTextDir: {
+                  title: 'getHTMLTextDir',
+                  default: getDocMetadata(
+                    './docs/en/packages/intlayer/getHTMLTextDir.md'
+                  ),
+                },
+                getLocalizedUrl: {
+                  title: 'getLocalizedUrl',
+                  default: getDocMetadata(
+                    './docs/en/packages/intlayer/getLocalizedUrl.md'
+                  ),
+                },
+                getLocalizedPath: {
+                  title: 'getLocalizedPath',
+                  default: getDocMetadata(
+                    './docs/en/packages/intlayer/getLocalizedPath.md'
+                  ),
+                },
+                getCanonicalPath: {
+                  title: 'getCanonicalPath',
+                  default: getDocMetadata(
+                    './docs/en/packages/intlayer/getCanonicalPath.md'
+                  ),
+                },
+                getMultilingualUrls: {
+                  title: 'getMultilingualUrls',
+                  default: getDocMetadata(
+                    './docs/en/packages/intlayer/getMultilingualUrls.md'
+                  ),
+                },
+                getPathWithoutLocale: {
+                  title: 'getPathWithoutLocale',
+                  default: getDocMetadata(
+                    './docs/en/packages/intlayer/getPathWithoutLocale.md'
+                  ),
+                },
+                getPrefix: {
+                  title: 'getPrefix',
+                  default: getDocMetadata(
+                    './docs/en/packages/intlayer/getPrefix.md'
+                  ),
+                },
+                comparePaths: {
+                  title: 'comparePaths',
+                  default: getDocMetadata(
+                    './docs/en/packages/intlayer/comparePaths.md'
+                  ),
+                },
+                validatePrefix: {
+                  title: 'validatePrefix',
+                  default: getDocMetadata(
+                    './docs/en/packages/intlayer/validatePrefix.md'
+                  ),
+                },
+              },
+            },
+            'react-intlayer': {
+              title: 'react-intlayer',
+              default: getDocMetadata(
+                './docs/en/packages/react-intlayer/exports.md'
+              ),
+              subSections: {
+                IntlayerProvider: {
+                  title: 'IntlayerProvider',
+                  default: getDocMetadata(
+                    './docs/en/packages/react-intlayer/IntlayerProvider.md'
+                  ),
+                },
+                MarkdownRenderer: {
+                  title: 'MarkdownRenderer',
+                  default: getDocMetadata(
+                    './docs/en/packages/react-intlayer/MarkdownRenderer.md'
+                  ),
+                },
+                t: {
+                  title: 't',
+                  default: getDocMetadata(
+                    './docs/en/packages/react-intlayer/t.md'
+                  ),
+                },
+                useDictionary: {
+                  title: 'useDictionary',
+                  default: getDocMetadata(
+                    './docs/en/packages/react-intlayer/useDictionary.md'
+                  ),
+                },
+                useI18n: {
+                  title: 'useI18n',
+                  default: getDocMetadata(
+                    './docs/en/packages/react-intlayer/useI18n.md'
+                  ),
+                },
+                useIntlayer: {
+                  title: 'useIntlayer',
+                  default: getDocMetadata(
+                    './docs/en/packages/react-intlayer/useIntlayer.md'
+                  ),
+                },
+                useLocale: {
+                  title: 'useLocale',
+                  default: getDocMetadata(
+                    './docs/en/packages/react-intlayer/useLocale.md'
+                  ),
+                },
+                usePathname: {
+                  title: 'usePathname',
+                  default: getDocMetadata(
+                    './docs/en/packages/react-intlayer/usePathname.md'
+                  ),
+                },
+                useRewriteURL: {
+                  title: 'useRewriteURL',
+                  default: getDocMetadata(
+                    './docs/en/packages/react-intlayer/useRewriteURL.md'
+                  ),
+                },
+              },
+            },
+            'next-intlayer': {
+              title: 'next-intlayer',
+              default: getDocMetadata(
+                './docs/en/packages/next-intlayer/exports.md'
+              ),
+              subSections: {
+                intlayerMiddleware: {
+                  title: 'intlayerMiddleware',
+                  default: getDocMetadata(
+                    './docs/en/packages/next-intlayer/intlayerMiddleware.md'
+                  ),
+                },
+                t: {
+                  title: 't',
+                  default: getDocMetadata(
+                    './docs/en/packages/next-intlayer/t.md'
+                  ),
+                },
+                useDictionary: {
+                  title: 'useDictionary',
+                  default: getDocMetadata(
+                    './docs/en/packages/next-intlayer/useDictionary.md'
+                  ),
+                },
+                useIntlayer: {
+                  title: 'useIntlayer',
+                  default: getDocMetadata(
+                    './docs/en/packages/next-intlayer/useIntlayer.md'
+                  ),
+                },
+                useLocale: {
+                  title: 'useLocale',
+                  default: getDocMetadata(
+                    './docs/en/packages/next-intlayer/useLocale.md'
+                  ),
+                },
+                usePathname: {
+                  title: 'usePathname',
+                  default: getDocMetadata(
+                    './docs/en/packages/next-intlayer/usePathname.md'
+                  ),
+                },
+                useRewriteURL: {
+                  title: 'useRewriteURL',
+                  default: getDocMetadata(
+                    './docs/en/packages/next-intlayer/useRewriteURL.md'
+                  ),
+                },
+              },
+            },
+            'vue-intlayer': {
+              title: 'vue-intlayer',
+              default: getDocMetadata(
+                './docs/en/packages/vue-intlayer/exports.md'
+              ),
+              subSections: {
+                usePathname: {
+                  title: 'usePathname',
+                  default: getDocMetadata(
+                    './docs/en/packages/vue-intlayer/usePathname.md'
+                  ),
+                },
+                useRewriteURL: {
+                  title: 'useRewriteURL',
+                  default: getDocMetadata(
+                    './docs/en/packages/vue-intlayer/useRewriteURL.md'
+                  ),
+                },
+              },
+            },
+            'nuxt-intlayer': {
+              title: 'nuxt-intlayer',
+              default: getDocMetadata(
+                './docs/en/packages/nuxt-intlayer/exports.md'
+              ),
+            },
+            'svelte-intlayer': {
+              title: 'svelte-intlayer',
+              default: getDocMetadata(
+                './docs/en/packages/svelte-intlayer/exports.md'
+              ),
+              subSections: {
+                usePathname: {
+                  title: 'usePathname',
+                  default: getDocMetadata(
+                    './docs/en/packages/svelte-intlayer/usePathname.md'
+                  ),
+                },
+                useRewriteURL: {
+                  title: 'useRewriteURL',
+                  default: getDocMetadata(
+                    './docs/en/packages/svelte-intlayer/useRewriteURL.md'
+                  ),
+                },
+              },
+            },
+            'solid-intlayer': {
+              title: 'solid-intlayer',
+              default: getDocMetadata(
+                './docs/en/packages/solid-intlayer/exports.md'
+              ),
+              subSections: {
+                IntlayerProvider: {
+                  title: 'IntlayerProvider',
+                  default: getDocMetadata(
+                    './docs/en/packages/solid-intlayer/IntlayerProvider.md'
+                  ),
+                },
+                useIntlayer: {
+                  title: 'useIntlayer',
+                  default: getDocMetadata(
+                    './docs/en/packages/solid-intlayer/useIntlayer.md'
+                  ),
+                },
+                useLocale: {
+                  title: 'useLocale',
+                  default: getDocMetadata(
+                    './docs/en/packages/solid-intlayer/useLocale.md'
+                  ),
+                },
+                usePathname: {
+                  title: 'usePathname',
+                  default: getDocMetadata(
+                    './docs/en/packages/solid-intlayer/usePathname.md'
+                  ),
+                },
+                useRewriteURL: {
+                  title: 'useRewriteURL',
+                  default: getDocMetadata(
+                    './docs/en/packages/solid-intlayer/useRewriteURL.md'
+                  ),
+                },
+              },
+            },
+            'preact-intlayer': {
+              title: 'preact-intlayer',
+              default: getDocMetadata(
+                './docs/en/packages/preact-intlayer/exports.md'
+              ),
+              subSections: {
+                usePathname: {
+                  title: 'usePathname',
+                  default: getDocMetadata(
+                    './docs/en/packages/preact-intlayer/usePathname.md'
+                  ),
+                },
+              },
+            },
+            'angular-intlayer': {
+              title: 'angular-intlayer',
+              default: getDocMetadata(
+                './docs/en/packages/angular-intlayer/exports.md'
+              ),
+              subSections: {
+                usePathname: {
+                  title: 'usePathname',
+                  default: getDocMetadata(
+                    './docs/en/packages/angular-intlayer/usePathname.md'
+                  ),
+                },
+              },
+            },
+            'react-native-intlayer': {
+              title: 'react-native-intlayer',
+              default: getDocMetadata(
+                './docs/en/packages/react-native-intlayer/exports.md'
+              ),
+            },
+            'lynx-intlayer': {
+              title: 'lynx-intlayer',
+              default: getDocMetadata(
+                './docs/en/packages/lynx-intlayer/exports.md'
+              ),
+            },
+            'astro-intlayer': {
+              title: 'astro-intlayer',
+              default: getDocMetadata(
+                './docs/en/packages/astro-intlayer/exports.md'
+              ),
+            },
+            'vite-intlayer': {
+              title: 'vite-intlayer',
+              default: getDocMetadata(
+                './docs/en/packages/vite-intlayer/exports.md'
+              ),
+              subSections: {
+                intlayer: {
+                  title: 'intlayer',
+                  default: getDocMetadata(
+                    './docs/en/packages/vite-intlayer/intlayer.md'
+                  ),
+                },
+                intlayerPrune: {
+                  title: 'intlayerPrune',
+                  default: getDocMetadata(
+                    './docs/en/packages/vite-intlayer/intlayerPrune.md'
+                  ),
+                },
+              },
+            },
+            'express-intlayer': {
+              title: 'express-intlayer',
+              default: getDocMetadata(
+                './docs/en/packages/express-intlayer/exports.md'
+              ),
+              subSections: {
+                intlayer: {
+                  title: 'intlayer',
+                  default: getDocMetadata(
+                    './docs/en/packages/express-intlayer/intlayer.md'
+                  ),
+                },
+                t: {
+                  title: 't',
+                  default: getDocMetadata(
+                    './docs/en/packages/express-intlayer/t.md'
+                  ),
+                },
+              },
+            },
+            'fastify-intlayer': {
+              title: 'fastify-intlayer',
+              default: getDocMetadata(
+                './docs/en/packages/fastify-intlayer/exports.md'
+              ),
+              subSections: {
+                intlayer: {
+                  title: 'intlayer',
+                  default: getDocMetadata(
+                    './docs/en/packages/fastify-intlayer/intlayer.md'
+                  ),
+                },
+              },
+            },
+            'hono-intlayer': {
+              title: 'hono-intlayer',
+              default: getDocMetadata(
+                './docs/en/packages/hono-intlayer/exports.md'
+              ),
+              subSections: {
+                intlayer: {
+                  title: 'intlayer',
+                  default: getDocMetadata(
+                    './docs/en/packages/hono-intlayer/intlayer.md'
+                  ),
+                },
+                t: {
+                  title: 't',
+                  default: getDocMetadata(
+                    './docs/en/packages/hono-intlayer/t.md'
+                  ),
+                },
+              },
+            },
+            'adonis-intlayer': {
+              title: 'adonis-intlayer',
+              default: getDocMetadata(
+                './docs/en/packages/adonis-intlayer/exports.md'
+              ),
+              subSections: {
+                intlayer: {
+                  title: 'intlayer',
+                  default: getDocMetadata(
+                    './docs/en/packages/adonis-intlayer/intlayer.md'
+                  ),
+                },
+                t: {
+                  title: 't',
+                  default: getDocMetadata(
+                    './docs/en/packages/adonis-intlayer/t.md'
+                  ),
+                },
+              },
+            },
+            'intlayer-cli': {
+              title: 'intlayer-cli',
+              default: getDocMetadata(
+                './docs/en/packages/intlayer-cli/exports.md'
+              ),
+            },
+          },
+        },
       },
       routing: {
         title: t({
