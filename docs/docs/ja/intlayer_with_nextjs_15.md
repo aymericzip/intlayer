@@ -65,6 +65,10 @@ author: aymericzip
 
 GitHubの[アプリケーションテンプレート](https://github.com/aymericzip/intlayer-next-15-template)をご覧ください。
 
+## 目次
+
+<TOC/>
+
 ## 代替手段ではなく Interlayer を使用する理由
 
 「next-intl」や「i18next」などの主要なソリューションと比較して、Intlayer は次のような統合された最適化を備えたソリューションです。
@@ -847,6 +851,22 @@ bun add @intlayer/swc --dev
 > </Step>
 
 </Steps>
+
+### Turbopack での辞書の変更の監視
+
+`next dev --turbopack` コマンドを使用して開発サーバーとして Turbopack を使用する場合、デフォルトでは辞書の変更が自动的に検出されません。
+
+この制限は、Turbopack がコンテンツファイルの変更を監視するために webpack プラグインを並行して実行できないために発生します。これを回避するには、`intlayer watch` コマンドを使用して、開発サーバーと Intlayer ビルドウォッチャーを同時に実行する必要があります。
+
+```json5 fileName="package.json"
+{
+  // ... 既存の package.json 設定
+  "scripts": {
+    // ... 既存のスクリプト設定
+    "dev": "intlayer watch --with 'next dev --turbopack'",
+  },
+}
+```
 
 ### TypeScript の設定
 

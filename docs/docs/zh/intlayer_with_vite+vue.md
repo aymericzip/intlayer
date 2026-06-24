@@ -34,37 +34,58 @@ author: aymericzip
 
 请参阅 GitHub 上的[应用模板](https://github.com/aymericzip/intlayer-vite-vue-template)。
 
+## 目录
+
+<TOC/>
+
 ## 为什么选择 Inlayer 而不是替代品？
 
 与“vue-i18n”或“i18next”等主要解决方案相比，Intlayer是一个具有集成优化的解决方案，例如：
 
-**完整的 Vue 覆盖**
+<AccordionGroup>
+
+<Accordion header="完整的 Vue 覆盖">
 
 Intlayer 经过优化，可与 Vue 完美配合，提供**组件级内容范围**、**反应式翻译**以及​​扩展国际化 (i18n) 所需的所有功能。
 
-**捆绑尺寸**
+</Accordion>
+
+<Accordion header="捆绑尺寸">
 
 不要将大量 JSON 文件加载到页面中，而只需加载必要的内容。 Intlayer 有助于**将捆绑包和页面大小减少多达 50%**。
 
-**可维护性**
+</Accordion>
+
+<Accordion header="可维护性">
 
 确定应用程序内容的范围**有利于大型应用程序的维护**。您可以复制或删除单个功能文件夹，而无需承担检查整个内容代码库的精神负担。此外，Intlayer 具有**完全类型化 (fully typed)**，以确保您的内容的准确性。
 
-**人工智能代理**
+</Accordion>
+
+<Accordion header="人工智能代理">
 
 共置内容**减少大型语言模型 (LLM) 所需的上下文**。 Intlayer 还附带了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** 和 **[agent技能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**，使 AI 代理的开发者体验 (DX) 更加流畅。
 
-**自动化**
+</Accordion>
+
+<Accordion header="自动化">
 
 使用您选择的法学硕士，通过自动化在 CI/CD 管道中进行翻译，而费用由您的 AI 提供商承担。 Intlayer 还提供了一个**编译器**来自动提取内容，以及一个[网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)来帮助**在后台翻译**。
 
-**表现**
+</Accordion>
+
+<Accordion header="表现">
 
 将大量 JSON 文件连接到组件可能会导致性能和反应性问题。 Intlayer 可在构建时 (build time)优化您的内容加载。
 
-**无需开发即可扩展**
+</Accordion>
+
+<Accordion header="无需开发即可扩展">
 
 Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)**和一个**[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** 来帮助您管理多语言内容**实时**，与译员、文案人员和其他团队成员无缝协作。内容可以本地和/或远程存储。
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -102,7 +123,9 @@ Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的
 
 请参阅 GitHub 上的[应用模板](https://github.com/aymericzip/intlayer-vite-vue-template)。
 
-### 第一步：安装依赖
+<Steps>
+
+<Step number={1} title="安装依赖">
 
 使用 npm 安装所需的包：
 
@@ -156,7 +179,9 @@ bun add vite-intlayer --dev
 - **vite-intlayer**
   包含用于将 Intlayer 集成到 [Vite 打包工具](https://vite.dev/guide/why.html#why-bundle-for-production) 的 Vite 插件，以及用于检测用户首选语言环境、管理 Cookie 和处理 URL 重定向的中间件。
 
-### 第 2 步：配置您的项目
+</Step>
+
+<Step number={2} title="配置您的项目">
 
 创建一个配置文件来配置应用程序的语言：
 
@@ -180,7 +205,9 @@ export default config;
 
 > 通过此配置文件，您可以设置本地化的 URL、中间件重定向、cookie 名称、内容声明的位置和扩展名，禁用控制台中的 Intlayer 日志等。有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
-### 第三步：在您的 Vite 配置中集成 Intlayer
+</Step>
+
+<Step number={3} title="在您的 Vite 配置中集成 Intlayer">
 
 将 intlayer 插件添加到您的配置中。
 
@@ -197,7 +224,9 @@ export default defineConfig({
 
 > `intlayer()` Vite 插件用于将 Intlayer 集成到 Vite 中。它确保构建内容声明文件并在开发模式下监视这些文件。在 Vite 应用中定义了 Intlayer 环境变量。此外，它还提供别名以优化性能。
 
-### 第4步：声明您的内容
+</Step>
+
+<Step number={4} title="声明您的内容">
 
 创建并管理您的内容声明以存储翻译：
 
@@ -321,7 +350,9 @@ export default helloWorldContent;
 
 > 更多详情，请参阅[内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
 
-### 第5步：在代码中使用 Intlayer
+</Step>
+
+<Step number={5} title="在代码中使用 Intlayer">
 
 要在整个 Vue 应用中使用 Intlayer 的国际化功能，首先需要在主文件中注册 Intlayer 单例实例。这一步非常关键，因为它为应用中的所有组件提供了国际化上下文，使得翻译内容可以在组件树中的任何位置访问。
 
@@ -414,6 +445,8 @@ Intlayer 提供了多种 API 来访问您的内容：
 > 如果您的应用程序已经存在，您可以结合使用 [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 和 [提取命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 在一秒钟内转换成干个组件。
 
 <Steps>
+
+</Step>
 
 <Step number={6} title="更改内容语言">
 
@@ -871,57 +904,7 @@ import RouterLink from "@components/RouterLink.vue";
 
 </Step>
 
-<Step number={11} title="渲染 Markdown">
-
-Intlayer 支持在您的 Vue 应用中直接渲染 Markdown 内容。默认情况下，Markdown 被视为纯文本。要将 Markdown 转换为丰富的 HTML，您可以集成一个 Markdown 解析器 [markdown-it](https://github.com/markdown-it/markdown-it)。
-
-当您的翻译内容包含格式化内容，如列表、链接或强调时，这尤其有用。
-
-默认情况下，Intlayer 将 Markdown 渲染为字符串。但 Intlayer 也提供了一种使用 `installIntlayerMarkdown` 函数将 Markdown 渲染为 HTML 的方式。
-
-> 要了解如何使用 `intlayer` 包声明 Markdown 内容，请参见 [markdown 文档](https://github.com/aymericzip/intlayer/tree/main/docs/zh/dictionary/markdown.md)。
-
-```ts fileName="main.ts"
-import MarkdownIt from "markdown-it";
-import { createApp, h } from "vue";
-import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
-
-const app = createApp(App);
-
-app.use(intlayer);
-
-const md = new MarkdownIt({
-  html: true, // 允许 HTML 标签
-  linkify: true, // 自动识别链接
-  typographer: true, // 启用智能引号、破折号等排版功能
-});
-
-// 告诉 Intlayer 在需要将 markdown 转换为 HTML 时使用 md.render()
-installIntlayerMarkdown(app, (markdown) => {
-  const html = md.render(markdown);
-  return h("div", { innerHTML: html });
-});
-```
-
-注册完成后，您可以使用基于组件的语法直接显示 Markdown 内容：
-
-```vue
-<template>
-  <div>
-    <myMarkdownContent />
-  </div>
-</template>
-
-<script setup lang="ts">
-import { useIntlayer } from "vue-intlayer";
-
-const { myMarkdownContent } = useIntlayer("my-component");
-</script>
-```
-
-</Step>
-
-<Step number={1} title="提取组件内容" isOptional={true}>
+<Step number={11} title="提取组件内容" isOptional={true}>
 
 如果您有现有的代码库，转换数千个文件可能会非常耗时。
 
@@ -1020,76 +1003,6 @@ bun run build # Or bun run dev
 
 </Steps>
 
-### 配置 TypeScript
-
-Intlayer 使用模块增强来利用 TypeScript 的优势，使您的代码库更强大。
-
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-确保您的 TypeScript 配置包含自动生成的类型。
-
-```json5 fileName="tsconfig.json"
-{
-  // ... 您现有的 TypeScript 配置
-  "include": [
-    // ... 您现有的 TypeScript 配置
-    ".intlayer/**/*.ts", // 包含自动生成的类型
-  ],
-}
-```
-
-### Git 配置
-
-建议忽略 Intlayer 生成的文件。这样可以避免将它们提交到您的 Git 仓库中。
-
-为此，您可以在 `.gitignore` 文件中添加以下指令：
-
-```bash
-#  忽略 Intlayer 生成的文件
-.intlayer
-```
-
-### VS Code 扩展
-
-为了提升您使用 Intlayer 的开发体验，您可以安装官方的 **Intlayer VS Code 扩展**。
-
-[从 VS Code 市场安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-该扩展提供：
-
-- 翻译键的 **自动补全**。
-- 缺失翻译的 **实时错误检测**。
-- 翻译内容的 **内联预览**。
-- 轻松创建和更新翻译的 **快速操作**。
-
-建议忽略由 Intlayer 生成的文件。这样可以避免将它们提交到您的 Git 仓库中。
-
-为此，您可以在 `.gitignore` 文件中添加以下指令：
-
-```bash
-#  忽略由 Intlayer 生成的文件
-.intlayer
-```
-
-### VS Code 扩展
-
-为了提升您使用 Intlayer 的开发体验，您可以安装官方的 **Intlayer VS Code 扩展**。
-
-[从 VS Code 市场安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-该扩展提供：
-
-- 翻译键的 **自动补全**。
-- 缺失翻译的 **实时错误检测**。
-- 翻译内容的 **内联预览**。
-- 轻松创建和更新翻译的 **快速操作**。
-
-有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
-
----
-
 ### （可选）站点地图与 robots.txt（构建时生成）
 
 Intlayer 提供 `generateSitemap` 与 `getMultilingualUrls`，可将面向爬虫的多语言 `sitemap.xml` 和 `robots.txt` 格式化并自动写入 `public/`。实践中在 Vite **之前**运行小型 Node 脚本（例如 npm 的 `predev` / `prebuild`）即可在构建或开发时生成这些文件。
@@ -1164,8 +1077,54 @@ console.log("SEO files generated successfully.");
 
 若使用 pnpm 或 yarn，请相应调整命令；也可在 CI 或其他步骤中调用该脚本。
 
-### 深入了解
+### 配置 TypeScript
 
-要进一步使用，您可以实现 [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md) 或使用 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 来外部管理您的内容。
+Intlayer 使用模块扩展 (module augmentation) 来利用 TypeScript 的优势，并使你的 codebase 更强大。
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+确保你的 TypeScript 配置包含了自动生成的类型。
+
+```json5 fileName="tsconfig.json"
+{
+  // ... 你现有的 TypeScript 配置
+  "include": [
+    // ... 你现有的 TypeScript 配置
+    ".intlayer/**/*.ts", // 包含自动生成的类型
+  ],
+}
+```
+
+### Git 配置
+
+建议忽略由 Intlayer 生成的文件。这可以让你避免将它们提交到你的 Git 仓库。
+
+为此，你可以将以下指令添加到你的 `.gitignore` 文件中：
+
+```plaintext fileName=".gitignore"
+# 忽略由 Intlayer 生成的文件
+.intlayer
+```
+
+### VS Code 扩展
+
+为了提升使用 Intlayer 的开发体验，你可以安装官方的 **Intlayer VS Code 扩展**。
+
+[从 VS Code 市场安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+该扩展提供：
+
+- 翻译键的**自动补全**。
+- 针对缺失翻译的**实时错误检测**。
+- 已翻译内容的**行内预览**。
+- 轻松创建和更新翻译的**快速操作**。
+
+有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://intlayer.org/zh/doc/vs-code-extension)。
 
 ---
+
+### 深入了解
+
+要进一步使用，您可以实现[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)或使用[内容管理系统（CMS）](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)将内容外部化。

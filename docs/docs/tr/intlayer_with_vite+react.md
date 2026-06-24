@@ -851,54 +851,6 @@ bun run build # Or bun run dev
 
 </Steps>
 
-### TypeScript Yapılandırın
-
-Intlayer, modül genişletmesi kullanarak TypeScript avantajlarından yararlanır ve kod tabanınızı daha güçlü hale getirir.
-
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Otomatik oluşturulan türleri TypeScript yapılandırmanıza dahil edin.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Mevcut TypeScript yapılandırmalarınız
-  "include": [
-    // ... Mevcut TypeScript yapılandırmalarınız
-    ".intlayer/**/*.ts", // Otomatik oluşturulan türleri dahil et
-  ],
-}
-```
-
-### Git Yapılandırması
-
-Intlayer tarafından oluşturulan dosyaların yok sayılması önerilir. Bu, bu dosyaların Git deponuza işlenmesini önlemenize olanak tanır.
-
-Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirsiniz:
-
-```bash
-#  Intlayer tarafından oluşturulan dosyaları yok say
-.intlayer
-```
-
-### VS Code Uzantısı
-
-Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Uzantısı**'nı kurabilirsiniz.
-
-[VS Code Marketplace'ten yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Bu uzantı şunları sağlar:
-
-- **Çeviri anahtarları için otomatik tamamlama**.
-- **Eksik çeviriler için gerçek zamanlı hata tespiti**.
-- **Çevrilmiş içeriğin satır içi önizlemeleri**.
-- **Çevirileri kolayca oluşturmak ve güncellemek için hızlı işlemler**.
-
-Uzantının nasıl kullanılacağına dair daha fazla ayrıntı için [Intlayer VS Code Uzantısı dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakın.
-
----
-
 ### (İsteğe bağlı) Sitemap ve robots.txt (build zamanı üretimi)
 
 Intlayer, `generateSitemap` ve `getMultilingualUrls` ile tarayıcılar için çok dilli `sitemap.xml` ve `robots.txt` üretip bunları `public/` klasörüne otomatik yazmanıza yardımcı olur. Genelde Vite’tan **önce** küçük bir Node betiği çalıştırılır (ör. npm `predev` / `prebuild` kancaları).
@@ -972,6 +924,54 @@ Betik `intlayer` içe aktarabilmeli; paket kurulu olmalı. Üretimde ortam deği
 ```
 
 pnpm veya yarn kullanıyorsanız komutları uyarlayın. CI’dan da çağrılabilir.
+
+### TypeScript'ı Yapılandırın
+
+Intlayer, TypeScript'in avantajlarından yararlanmak ve codebase'inizi daha güçlü hale getirmek için modül genişletme (module augmentation) kullanır.
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+TypeScript yapılandırmanızın otomatik olarak oluşturulan türleri (types) içerdiğinden emin olun.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Mevcut TypeScript yapılandırmalarınız
+  "include": [
+    // ... Mevcut TypeScript yapılandırmalarınız
+    ".intlayer/**/*.ts", // Otomatik oluşturulan türleri dahil edin
+  ],
+}
+```
+
+### Git Yapılandırması
+
+Intlayer tarafından oluşturulan dosyaların yoksayılması önerilir. Bu, bu dosyaların Git deponuza commit edilmesini önlemenizi sağlar.
+
+Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirsiniz:
+
+```plaintext fileName=".gitignore"
+# Intlayer tarafından oluşturulan dosyaları yoksay
+.intlayer
+```
+
+### VS Code Uzantısı
+
+Intlayer ile geliştirme deneyiminizi geliştirmek için resmi **Intlayer VS Code Uzantısını** yükleyebilirsiniz.
+
+[VS Code Marketplace'ten yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Bu uzantı şunları sağlar:
+
+- Çeviri anahtarları için **otomatik tamamlama**.
+- Eksik çeviriler için **gerçek zamanlı hata tespiti**.
+- Çevrilmiş içeriğin **satır içi önizlemeleri**.
+- Çevirileri kolayca oluşturmak ve güncellemek için **hızlı eylemler**.
+
+Uzantının nasıl kullanılacağı hakkında daha fazla ayrıntı için [Intlayer VS Code Uzantısı belgelerine](https://intlayer.org/tr/doc/vs-code-extension) bakın.
+
+---
 
 ### Daha Fazla İlerle
 

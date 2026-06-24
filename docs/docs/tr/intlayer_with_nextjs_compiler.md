@@ -612,27 +612,6 @@ bun run build # Or bun run dev
 
 </Steps>
 
-### Babel'i Yapılandır
-
-Intlayer derleyicisi, içeriğinizi çıkarmak ve optimize etmek için Babel gerektirir. Intlayer eklentilerini içerecek şekilde `babel.config.js` (veya `babel.config.json`) dosyanızı güncelleyin:
-
-```typescript fileName="babel.config.js"
-const {
-  intlayerExtractBabelPlugin,
-  intlayerOptimizeBabelPlugin,
-  getExtractPluginOptions,
-  getOptimizePluginOptions,
-} = require("@intlayer/babel");
-
-module.exports = {
-  presets: ["next/babel"],
-  plugins: [
-    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
-    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
-  ],
-};
-```
-
 ### TypeScript Yapılandırması
 
 Intlayer, TypeScript'in avantajlarından yararlanmak ve kod tabanınızı daha sağlam hale getirmek için modül genişletmesini (module augmentation) kullanır.

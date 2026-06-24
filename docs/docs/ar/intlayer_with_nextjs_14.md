@@ -53,6 +53,10 @@ author: aymericzip
 
 انظر [Template Application](https://github.com/aymericzip/intlayer-next-14-template) على GitHub.
 
+## جدول المحتويات
+
+<TOC/>
+
 ## لماذا Intlayer على البدائل؟
 
 بالمقارنة مع الحلول الرئيسية مثل `next-intl` أو `i18next`، يعد Intlayer حلاً يأتي مزودًا بتحسينات متكاملة مثل:
@@ -917,33 +921,52 @@ bun add @intlayer/swc --dev
 
 ### تكوين TypeScript
 
-يستخدم Intlayer توسيع الوحدات للحصول على فوائد TypeScript وجعل قاعدة الكود الخاصة بك أقوى.
+يستخدم Intlayer تعزيز الوحدة (module augmentation) للاستفادة من TypeScript وجعل قاعدة الشيفرة الخاصة بك أقوى.
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
 ![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
-تأكد من أن تكوين TypeScript الخاص بك يتضمن الأنواع التي يتم إنشاؤها تلقائيًا.
+تأكد من أن تكوين TypeScript الخاص بك يتضمن الأنواع التي تم إنشاؤها تلقائيًا.
 
 ```json5 fileName="tsconfig.json"
 {
   // ... تكوينات TypeScript الحالية الخاصة بك
   "include": [
     // ... تكوينات TypeScript الحالية الخاصة بك
-    ".intlayer/**/*.ts", // تضمين الأنواع التي يتم إنشاؤها تلقائيًا
+    ".intlayer/**/*.ts", // تضمين الأنواع التي تم إنشاؤها تلقائيًا
   ],
 }
 ```
 
 ### تكوين Git
 
-يوصى بتجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer. يتيح لك ذلك تجنب إضافتها إلى مستودع Git الخاص بك.
+يوصى بتجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer. هذا يسمح لك بتجنب الالتزام بها في مستودع Git الخاص بك.
 
 للقيام بذلك، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
 
 ```plaintext fileName=".gitignore"
-# تجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer
+# تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
 .intlayer
 ```
 
-### المزيد
+### إضافة VS Code
+
+لتحسين تجربة التطوير الخاصة بك مع Intlayer، يمكنك تثبيت **إضافة Intlayer الرسمية لـ VS Code**.
+
+[التثبيت من سوق VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+تقدم هذه الإضافة:
+
+- **الإكمال التلقائي** لمفاتيح الترجمة.
+- **الكشف عن الأخطاء في الوقت الحقيقي** للترجمات المفقودة.
+- **معاينات داخلية** للمحتوى المترجم.
+- **إجراءات سريعة** لإنشاء الترجمات وتحديثها بسهولة.
+
+لمزيد من التفاصيل حول كيفية استخدام الإضافة، راجع [توثيق إضافة Intlayer لـ VS Code](https://intlayer.org/doc/vs-code-extension).
+
+---
+
+### التقدم أكثر
+
+للتقدم أكثر، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو إخراج محتواك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).

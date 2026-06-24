@@ -612,27 +612,6 @@ bun run build # Or bun run dev
 
 </Steps>
 
-### Babel の構成
-
-Intlayerコンパイラは、コンテンツを抽出し最適化するためにBabelを必要とします。 `babel.config.js`（または `babel.config.json`）を更新してIntlayerプラグインを含めます：
-
-```typescript fileName="babel.config.js"
-const {
-  intlayerExtractBabelPlugin,
-  intlayerOptimizeBabelPlugin,
-  getExtractPluginOptions,
-  getOptimizePluginOptions,
-} = require("@intlayer/babel");
-
-module.exports = {
-  presets: ["next/babel"],
-  plugins: [
-    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
-    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
-  ],
-};
-```
-
 ### TypeScript 設定
 
 Intlayerは、TypeScriptの利点を活用し、コードベースをより堅牢にするためにモジュール拡張（module augmentation）を使用しています。

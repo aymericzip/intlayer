@@ -58,6 +58,10 @@ author: aymericzip
   </Tab>
 </Tabs>
 
+## 目次
+
+<TOC/>
+
 ## 代替手段ではなく Interlayer を使用する理由
 
 「next-intl」や「i18next」などの主要なソリューションと比較して、Intlayer は次のような統合された最適化を備えたソリューションです。

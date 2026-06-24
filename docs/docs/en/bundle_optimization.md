@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-11-25
-updatedAt: 2026-06-07
+updatedAt: 2026-06-24
 title: Optimizing i18n Bundle Size & Performance
 description: Reduce application bundle size by optimizing internationalization (i18n) content. Learn how to leverage tree shaking and lazy loading for dictionaries with Intlayer.
 keywords:
@@ -16,6 +16,9 @@ slugs:
   - concept
   - bundle-optimization
 history:
+  - version: 8.12.0
+    date: 2026-06-24
+    changes: "List Babel plugins in required pipeline order (extract → purge → minify → optimize) in the reference tables"
   - version: 8.12.0
     date: 2026-06-07
     changes: "Add `intlayerPurgeBabelPlugin` and `intlayerMinifyBabelPlugin` for Babel/Webpack; clarify plugin pipeline"
@@ -191,12 +194,14 @@ Intlayer's build optimization is split across several discrete plugins, each wit
 
 These are used directly in `babel.config.js` for Webpack-based setups (Next.js with Babel, CRA, custom Webpack, etc.).
 
+The table below lists them in their required pipeline order (the same order they must appear in `babel.config.js`):
+
 | Plugin                        | What it does                                                                                                   |
 | :---------------------------- | :------------------------------------------------------------------------------------------------------------- |
 | `intlayerExtractBabelPlugin`  | Scans `.content.ts` files and writes compiled dictionaries to `.intlayer/`                                     |
-| `intlayerOptimizeBabelPlugin` | Rewrites `useIntlayer('key')` → `useDictionary(hash)` and injects the matching dictionary `import`             |
 | `intlayerPurgeBabelPlugin`    | Scans all source files, removes **unused content fields** from compiled `.intlayer/**/*.json` dictionary files |
 | `intlayerMinifyBabelPlugin`   | **Renames content field keys** to short alphabetic aliases (`title` → `a`) in both JSON files and source code  |
+| `intlayerOptimizeBabelPlugin` | Rewrites `useIntlayer('key')` → `useDictionary(hash)` and injects the matching dictionary `import`             |
 
 > **Plugin order matters.** In your `babel.config.js` the purge and minify plugins must appear **before** the optimize plugin. The optimize pass replaces `useIntlayer('key')` with an opaque `useDictionary(hash)` call, erasing the dictionary-key information that the purge and minify passes need to identify which fields are used.
 
@@ -205,9 +210,9 @@ Each Babel plugin has a matching options helper that reads your `intlayer.config
 | Options helper               | Used with                     |
 | :--------------------------- | :---------------------------- |
 | `getExtractPluginOptions()`  | `intlayerExtractBabelPlugin`  |
-| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
 | `getPurgePluginOptions()`    | `intlayerPurgeBabelPlugin`    |
 | `getMinifyPluginOptions()`   | `intlayerMinifyBabelPlugin`   |
+| `getOptimizePluginOptions()` | `intlayerOptimizeBabelPlugin` |
 
 ### Vite plugins (`vite-intlayer`)
 

@@ -888,6 +888,22 @@ Paramètres relatifs au traitement du contenu dans l'application (noms de réper
 
 ---
 
+### Configuration Système (System Configuration)
+
+Ces paramètres sont destinés aux cas d'utilisation avancés et à la configuration interne d'Intlayer.
+
+| Champ                     | Description                                        | Type     | Par défaut                        | Exemple | Note |
+| ------------------------- | -------------------------------------------------- | -------- | --------------------------------- | ------- | ---- |
+| `dictionariesDir`         | Répertoire des dictionnaires compilés.             | `string` | `'.intlayer/dictionary'`          |         |      |
+| `moduleAugmentationDir`   | Répertoire d'augmentation de modules TypeScript.   | `string` | `'.intlayer/types'`               |         |      |
+| `unmergedDictionariesDir` | Répertoire des dictionnaires non fusionnés.        | `string` | `'.intlayer/unmerged_dictionary'` |         |      |
+| `typesDir`                | Répertoire des types générés.                      | `string` | `'.intlayer/types'`               |         |      |
+| `mainDir`                 | Répertoire du fichier principal d'Intlayer.        | `string` | `'.intlayer/main'`                |         |      |
+| `configDir`               | Répertoire des fichiers de configuration compilés. | `string` | `'.intlayer/config'`              |         |      |
+| `cacheDir`                | Répertoire des fichiers de cache.                  | `string` | `'.intlayer/cache'`               |         |      |
+
+---
+
 ### Configuration du Dictionnaire (Dictionary Configuration)
 
 Paramètres contrôlant les opérations de dictionnaire, y compris le comportement de remplissage automatique et la génération de contenu.
@@ -993,22 +1009,6 @@ Les options de build s'appliquent aux plugins `@intlayer/babel` et `@intlayer/sw
 | `checkTypes`      | Indique si le build doit vérifier les types TypeScript et loguer les erreurs. | `boolean`                        | `false`                                                                                                                                                                           |                                                                               | Peut ralentir le build.                                                                                                                                                                                                                                                                                                                  |
 | `outputFormat`    | Contrôle le format de sortie des dictionnaires.                               | `('esm' &#124; 'cjs')[]`         | `['esm', 'cjs']`                                                                                                                                                                  | `['cjs']`                                                                     |                                                                                                                                                                                                                                                                                                                                          |
 | `traversePattern` | Motifs définissant quels fichiers parcourir lors de l'optimisation.           | `string[]`                       | `['**/*.{tsx,ts,js,mjs,cjs,jsx,vue,svelte,svte}', '!**/node_modules/**', '!**/dist/**', '!**/.intlayer/**', '!**/*.config.*', '!**/*.test.*', '!**/*.spec.*', '!**/*.stories.*']` | `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']` | • Limitez l'optimisation aux fichiers pertinents pour améliorer les performances de build.<br/>• Ignoré si `optimize` est désactivé.<br/>• Utilise des motifs glob.                                                                                                                                                                      |
-
----
-
-### Configuration Système (System Configuration)
-
-Ces paramètres sont destinés aux cas d'utilisation avancés et à la configuration interne d'Intlayer.
-
-| Champ                     | Description                                        | Type     | Par défaut                        | Exemple | Note |
-| ------------------------- | -------------------------------------------------- | -------- | --------------------------------- | ------- | ---- |
-| `dictionariesDir`         | Répertoire des dictionnaires compilés.             | `string` | `'.intlayer/dictionary'`          |         |      |
-| `moduleAugmentationDir`   | Répertoire d'augmentation de modules TypeScript.   | `string` | `'.intlayer/types'`               |         |      |
-| `unmergedDictionariesDir` | Répertoire des dictionnaires non fusionnés.        | `string` | `'.intlayer/unmerged_dictionary'` |         |      |
-| `typesDir`                | Répertoire des types générés.                      | `string` | `'.intlayer/types'`               |         |      |
-| `mainDir`                 | Répertoire du fichier principal d'Intlayer.        | `string` | `'.intlayer/main'`                |         |      |
-| `configDir`               | Répertoire des fichiers de configuration compilés. | `string` | `'.intlayer/config'`              |         |      |
-| `cacheDir`                | Répertoire des fichiers de cache.                  | `string` | `'.intlayer/cache'`               |         |      |
 
 ---
 

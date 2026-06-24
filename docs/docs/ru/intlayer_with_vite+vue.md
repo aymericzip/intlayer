@@ -34,6 +34,10 @@ author: aymericzip
 
 Смотрите [Шаблон приложения](https://github.com/aymericzip/intlayer-vite-vue-template) на GitHub.
 
+## Оглавление
+
+<TOC/>
+
 ## Почему Intlayer лучше альтернатив?
 
 По сравнению с основными решениями, такими как vue-i18n или i18next, Intlayer — это решение со встроенными оптимизациями, такими как:
@@ -899,56 +903,6 @@ import RouterLink from "@components/RouterLink.vue";
 
 </Step>
 
-<Step number={11} title="Рендеринг Markdown" isOptional={true}>
-
-Intlayer поддерживает рендеринг Markdown-контента непосредственно в вашем Vue-приложении. По умолчанию Markdown обрабатывается как простой текст. Чтобы преобразовать Markdown в насыщенный HTML, вы можете интегрировать [markdown-it](https://github.com/markdown-it/markdown-it) - парсер Markdown.
-
-Это особенно полезно, когда ваши переводы содержат форматированный контент, такой как списки, ссылки или выделения.
-
-По умолчанию Intlayer рендерит markdown как строку. Но Intlayer также предоставляет способ рендерить markdown в HTML с помощью функции `installIntlayerMarkdown`.
-
-> Чтобы узнать, как объявлять markdown-контент с использованием пакета `intlayer`, смотрите [документацию по markdown](https://github.com/aymericzip/intlayer/tree/main/docs/ru/dictionary/markdown.md).
-
-```ts fileName="main.ts"
-import MarkdownIt from "markdown-it";
-import { createApp, h } from "vue";
-import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
-
-const app = createApp(App);
-
-app.use(intlayer);
-
-const md = new MarkdownIt({
-  html: true, // разрешить HTML-теги
-  linkify: true, // автоматически преобразовывать URL в ссылки
-  typographer: true, // включить умные кавычки, тире и т.д.
-});
-
-// Сообщаем Intlayer использовать md.render() всякий раз, когда нужно преобразовать markdown в HTML
-installIntlayerMarkdown(app, (markdown) => {
-  const html = md.render(markdown);
-  return h("div", { innerHTML: html });
-});
-```
-
-После регистрации вы можете использовать синтаксис на основе компонентов для прямого отображения содержимого Markdown:
-
-```vue
-<template>
-  <div>
-    <myMarkdownContent />
-  </div>
-</template>
-
-<script setup lang="ts">
-import { useIntlayer } from "vue-intlayer";
-
-const { myMarkdownContent } = useIntlayer("my-component");
-</script>
-```
-
-</Step>
-
 <Step number={1} title="Извлечение содержимого ваших компонентов" isOptional={true}>
 
 Если у вас есть существующая кодовая база, преобразование тысяч файлов может занять много времени.
@@ -1048,54 +1002,6 @@ bun run build # Or bun run dev
 
 </Steps>
 
-### Настройка TypeScript
-
-Intlayer использует расширение модулей (module augmentation), чтобы использовать преимущества TypeScript и сделать ваш код более надежным.
-
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Убедитесь, что ваша конфигурация TypeScript включает автоматически сгенерированные типы.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Ваши существующие настройки TypeScript
-  "include": [
-    // ... Ваши существующие настройки TypeScript
-    ".intlayer/**/*.ts", // Включить автоматически сгенерированные типы
-  ],
-}
-```
-
-### Конфигурация Git
-
-Рекомендуется игнорировать файлы, сгенерированные Intlayer. Это позволит избежать их коммита в ваш Git-репозиторий.
-
-Для этого вы можете добавить следующие инструкции в файл `.gitignore`:
-
-```bash
-#  Игнорировать файлы, сгенерированные Intlayer
-.intlayer
-```
-
-### Расширение VS Code
-
-Для улучшения вашего опыта разработки с Intlayer вы можете установить официальное **расширение Intlayer для VS Code**.
-
-[Установить из VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Это расширение предоставляет:
-
-- **Автодополнение** ключей переводов.
-- **Обнаружение ошибок в реальном времени** для отсутствующих переводов.
-- **Встроенный просмотр** переведенного контента.
-- **Быстрые действия** для легкого создания и обновления переводов.
-
-Для получения дополнительной информации о том, как использовать расширение, обратитесь к [документации по расширению Intlayer для VS Code](https://intlayer.org/doc/vs-code-extension).
-
----
-
 ### (Опционально) Sitemap и robots.txt (генерация на сборке)
 
 Intlayer предоставляет `generateSitemap` и `getMultilingualUrls` - утилиты, которые формируют многоязычные `sitemap.xml` и `robots.txt` для краулеров и позволяют автоматически записать их в `public/`. Обычно запускают небольшой Node-скрипт **до** Vite (например, npm-хуки `predev` / `prebuild`).
@@ -1170,8 +1076,54 @@ console.log("SEO files generated successfully.");
 
 Подстройте команды для pnpm или yarn. Скрипт можно вызывать из CI или другого шага.
 
+### Настройка TypeScript
+
+Intlayer использует расширение модулей (module augmentation), чтобы использовать преимущества TypeScript и сделать вашу codebase более надежной.
+
+![Автодополнение](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Ошибка перевода](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+Убедитесь, что ваша конфигурация TypeScript включает автоматически сгенерированные типы.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Ваши существующие конфигурации TypeScript
+  "include": [
+    // ... Ваши существующие конфигурации TypeScript
+    ".intlayer/**/*.ts", // Включите автоматически сгенерированные типы
+  ],
+}
+```
+
+### Конфигурация Git
+
+Рекомендуется игнорировать файлы, генерируемые Intlayer. Это позволит избежать их коммита в ваш Git-репозиторий.
+
+Для этого вы можете добавить следующие инструкции в ваш файл `.gitignore`:
+
+```plaintext fileName=".gitignore"
+# Игнорировать файлы, генерируемые Intlayer
+.intlayer
+```
+
+### Расширение VS Code
+
+Чтобы улучшить ваш опыт разработки с Intlayer, вы можете установить официальное расширение **Intlayer VS Code Extension**.
+
+[Установить из VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Это расширение предоставляет:
+
+- **Автодополнение** для ключей перевода.
+- **Обнаружение ошибок в реальном времени** для отсутствующих переводов.
+- **Встроенный предпросмотр** переведенного контента.
+- **Быстрые действия** для легкого создания и обновления переводов.
+
+Для получения более подробной информации о том, как использовать расширение, обратитесь к [документации Intlayer VS Code Extension](https://intlayer.org/ru/doc/vs-code-extension).
+
+---
+
 ### Продвинутые возможности
 
 Для расширения возможностей вы можете реализовать [визуальный редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_visual_editor.md) или вынести ваш контент во внешний [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/intlayer_CMS.md).
-
----

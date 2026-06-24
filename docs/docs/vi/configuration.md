@@ -995,17 +995,18 @@ Các tùy chọn build được áp dụng cho các plugin `@intlayer/babel` và
 
 ### Cấu hình Hệ thống (System)
 
-Các cài đặt này dành cho người dùng nâng cao và dành cho cấu hình nội bộ của Intlayer.
+Các cài đặt liên quan đến các đường dẫn nội bộ và kết quả đầu ra của Intlayer. Các cài đặt này thường là nội bộ và người dùng không cần phải thay đổi chúng.
 
-| Trường                    | Mô tả                                              | Kiểu dữ liệu | Mặc định                          | Ví dụ | Nhận xét |
-| ------------------------- | -------------------------------------------------- | ------------ | --------------------------------- | ----- | -------- |
-| `dictionariesDir`         | Thư mục chứa các dictionary đã biên dịch.          | `string`     | `'.intlayer/dictionary'`          |       |          |
-| `moduleAugmentationDir`   | Thư mục chứa module augmentation TypeScript.       | `string`     | `'.intlayer/types'`               |       |          |
-| `unmergedDictionariesDir` | Thư mục lưu trữ các dictionary chưa được hợp nhất. | `string`     | `'.intlayer/unmerged_dictionary'` |       |          |
-| `typesDir`                | Thư mục chứa các kiểu dữ liệu đã tạo.              | `string`     | `'.intlayer/types'`               |       |          |
-| `mainDir`                 | Thư mục chứa các tệp chính của Intlayer.           | `string`     | `'.intlayer/main'`                |       |          |
-| `configDir`               | Thư mục chứa các tệp cấu hình đã được biên dịch.   | `string`     | `'.intlayer/config'`              |       |          |
-| `cacheDir`                | Thư mục chứa các tệp cache.                        | `string`     | `'.intlayer/cache'`               |       |          |
+| Trường                    | Mô tả                                                                                 | Kiểu dữ liệu | Mặc định                          | Ví dụ                | Nhận xét                                                              |
+| ------------------------- | ------------------------------------------------------------------------------------- | ------------ | --------------------------------- | -------------------- | --------------------------------------------------------------------- |
+| `baseDir`                 | Thư mục gốc của dự án.                                                                | `string`     | `process.cwd()`                   | `'/path/to/project'` | Được sử dụng để giải quyết tất cả các thư mục liên quan đến Intlayer. |
+| `dictionariesDir`         | Đường dẫn thư mục để lưu trữ các từ điển bản địa hóa.                                 | `string`     | `'.intlayer/dictionary'`          |                      |                                                                       |
+| `moduleAugmentationDir`   | Thư mục cho module augmentation, cho phép gợi ý IDE và kiểm tra kiểu dữ liệu tốt hơn. | `string`     | `'.intlayer/types'`               | `'intlayer-types'`   | Đảm bảo bao gồm phần này trong `tsconfig.json`.                       |
+| `unmergedDictionariesDir` | Thư mục để lưu trữ các từ điển chưa được hợp nhất.                                    | `string`     | `'.intlayer/unmerged_dictionary'` |                      |                                                                       |
+| `typesDir`                | Thư mục để lưu trữ các kiểu dữ liệu từ điển.                                          | `string`     | `'.intlayer/types'`               |                      |                                                                       |
+| `mainDir`                 | Thư mục lưu trữ các tệp ứng dụng chính.                                               | `string`     | `'.intlayer/main'`                |                      |                                                                       |
+| `configDir`               | Thư mục lưu trữ các tệp cấu hình.                                                     | `string`     | `'.intlayer/config'`              |                      |                                                                       |
+| `cacheDir`                | Thư mục lưu trữ các tệp bộ nhớ đệm (cache).                                           | `string`     | `'.intlayer/cache'`               |                      |                                                                       |
 
 ---
 

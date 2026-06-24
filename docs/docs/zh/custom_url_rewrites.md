@@ -228,21 +228,19 @@ Intlayer 为所有流行框架提供格式化器：
 - `reactRouterRewrite`：用于 React Router。支持 `:slug` 和 `*`（0+）。
 - `vueRouterRewrite`：用于 Vue Router 4。支持 `:slug`、`:slug?`（0-1）、`:slug*`（0+）和 `:slug+`（1+）。
 - `solidRouterRewrite`：用于 Solid Router。支持 `:slug` 和 `*slug`（0+）。
-  /// - `tanstackRouterRewrite`: For TanStack Router。支持 `$slug` 和 `*`（0+）。
-  /// - `nuxtRewrite`: For Nuxt 3。支持 `[slug]` 和 `[...slug]`（0+）。
-  /// - `viteRewrite`: Generic formatter for any Vite-based project。规范化用于 Vite 代理的语法。
-  ///
-  /// ### 高级模式
-  ///
-  /// Intlayer 在内部将这些模式规范化为统一语法，允许复杂的路径匹配与生成：
-  ///
-  /// - **可选段**：`[[optional]]`（SvelteKit）或 `:slug?`（Vue/React）受到支持。
-  /// - **捕获全部（零个或多个）**：`[[...slug]]`（Next.js）、`[...path]`（SvelteKit/Nuxt）或 `*`（React/TanStack）允许匹配多个段。
-  /// - **必须捕获（一个或多个）**：`[...slug]`（Next.js）或 `:slug+`（Vue）确保至少存在一个段。
-  ///
-  /// ## 客户端 URL 校正：`useRewriteURL`
-  ///
-  ///
+- `tanstackRouterRewrite`: For TanStack Router。支持 `$slug` 和 `*`（0+）。
+- `nuxtRewrite`: For Nuxt 3。支持 `[slug]` 和 `[...slug]`（0+）。
+- `viteRewrite`: Generic formatter for any Vite-based project。规范化用于 Vite 代理的语法。
+
+### 高级模式
+
+Intlayer 在内部将这些模式规范化为统一语法，允许复杂的路径匹配与生成：
+
+- **可选段**：`[[optional]]`（SvelteKit）或 `:slug?`（Vue/React）受到支持。
+- **捕获全部（零个或多个）**：`[[...slug]]`（Next.js）、`[...path]`（SvelteKit/Nuxt）或 `*`（React/TanStack）允许匹配多个段。
+- **必须捕获（一个或多个）**：`[...slug]`（Next.js）或 `:slug+`（Vue）确保至少存在一个段。
+
+## 客户端 URL 校正：`useRewriteURL`
 
 为确保浏览器的地址栏始终反映“友好”的本地化 URL，Intlayer 提供了 `useRewriteURL` 钩子。该钩子在用户进入一个规范路径时，会静默地使用 `window.history.replaceState` 更新 URL。
 

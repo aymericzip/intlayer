@@ -318,26 +318,10 @@ const changeLocale = (event: Event) => {
 
 Intlayer सीधे आपके Svelte एप्लिकेशन में Markdown सामग्री को रेंडर करने का समर्थन करता है। डिफ़ॉल्ट रूप से, Markdown को सादा टेक्स्ट के रूप में माना जाता है। Markdown को समृद्ध HTML में बदलने के लिए, आप `@humanspeak/svelte-markdown` या किसी अन्य markdown पार्सर को एकीकृत कर सकते हैं।
 
-> `intlayer` पैकेज का उपयोग करके markdown सामग्री को कैसे घोषित करें, यह देखने के लिए [markdown doc](https://github.com/aymericzip/intlayer/tree/main/docs/docs/hi/dictionary/markdown.md) देखें।
+> `intlayer` पैकेज का उपयोग क�
+> </Steps>
 
-```svelte fileName="src/App.svelte"
-<script>
-  import { setIntlayerMarkdown } from "svelte-intlayer";
-
-  setIntlayerMarkdown((markdown) =>
-   // मार्कडाउन सामग्री को एक स्ट्रिंग के रूप में रेंडर करें
-   return markdown;
-  );
-</script>
-
-<h1>{$content.markdownContent}</h1>
-```
-
-> आप अपने मार्कडाउन फ्रंट-मैटर डेटा को `content.markdownContent.metadata.xxx` प्रॉपर्टी का उपयोग करके भी एक्सेस कर सकते हैं।
-
-</Step>
-
-<Step number={8} title="intlayer संपादक / CMS सेट करें" isOptional={true}>
+e}>
 
 intlayer संपादक सेट करने के लिए, आपको [intlayer संपादक दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) का पालन करना होगा।
 
@@ -588,34 +572,6 @@ bun run build # Or bun run dev
 
 </Steps>
 
-### Git कॉन्फ़िगरेशन
-
-यह अनुशंसा की जाती है कि Intlayer द्वारा उत्पन्न फ़ाइलों को अनदेखा किया जाए। इससे आप उन्हें अपने Git रिपॉजिटरी में कमिट करने से बच सकते हैं।
-
-ऐसा करने के लिए, आप अपनी `.gitignore` फ़ाइल में निम्नलिखित निर्देश जोड़ सकते हैं:
-
-```bash
-#  Intlayer द्वारा उत्पन्न फ़ाइलों को अनदेखा करें
-.intlayer
-```
-
-### VS कोड एक्सटेंशन
-
-अपने विकास अनुभव को बेहतर बनाने के लिए, आप आधिकारिक **Intlayer VS Code Extension** इंस्टॉल कर सकते हैं।
-
-[VS Code Marketplace से इंस्टॉल करें](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-यह एक्सटेंशन प्रदान करता है:
-
-- अनुवाद कुंजियों के लिए **ऑटोकंप्लीशन**।
-- गायब अनुवादों के लिए **रीयल-टाइम त्रुटि पता लगाना**।
-- अनुवादित सामग्री के **इनलाइन पूर्वावलोकन**।
-- अनुवादों को आसानी से बनाने और अपडेट करने के लिए **त्वरित क्रियाएं**।
-
-एक्सटेंशन का उपयोग कैसे करें, इसके लिए अधिक जानकारी के लिए देखें [Intlayer VS Code Extension दस्तावेज़](https://intlayer.org/doc/vs-code-extension)।
-
----
-
 ### (वैकल्पिक) साइटमैप और robots.txt (बिल्ड-टाइम जनरेशन)
 
 Intlayer `generateSitemap` और `getMultilingualUrls` उपलब्ध कराता है ताकि आप क्रॉलर-तैयार बहुभाषी `sitemap.xml` और `robots.txt` बनाकर `public/` में स्वचालित लिख सकें। आमतौर पर Vite से **पहले** छोटा Node स्क्रिप्ट चलाएँ (जैसे npm `predev` / `prebuild`)।
@@ -689,6 +645,34 @@ console.log("SEO files generated successfully.");
 ```
 
 pnpm या yarn हो तो कमांड अनुकूलित करें। CI से भी कॉल कर सकते हैं।
+
+### Git कॉन्फ़िगरेशन
+
+यह अनुशंसा की जाती है कि Intlayer द्वारा उत्पन्न फ़ाइलों को अनदेखा किया जाए। इससे आप उन्हें अपने Git रिपॉज़िटरी में कमिट करने से बच सकते हैं।
+
+ऐसा करने के लिए, आप अपनी `.gitignore` फ़ाइल में निम्नलिखित निर्देश जोड़ सकते हैं:
+
+```bash
+# Intlayer द्वारा उत्पन्न फ़ाइलों को अनदेखा करें
+.intlayer
+```
+
+### VS कोड एक्सटेंशन
+
+अपने विकास अनुभव को बेहतर बनाने के लिए, आप आधिकारिक **Intlayer VS Code Extension** इंस्टॉल कर सकते हैं।
+
+[VS Code Marketplace से इंस्टॉल करें](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+यह एक्सटेंशन प्रदान करता है:
+
+- अनुवाद कुंजियों के लिए **ऑटोकंप्लीशन**।
+- गायब अनुवादों के लिए **रीयल-टाइम त्रुटि पता लगाना**।
+- अनुवादित सामग्री के **इनलाइन पूर्वावलोकन**।
+- अनुवादों को आसानी से बनाने और अपडेट करने के लिए **त्वरित क्रियाएं**।
+
+एक्सटेंशन का उपयोग कैसे करें, इसके लिए अधिक जानकारी के लिए देखें [Intlayer VS Code Extension दस्ताव़ज़](https://intlayer.org/doc/vs-code-extension)।
+
+---
 
 ### आगे बढ़ें
 

@@ -623,33 +623,6 @@ export default aboutPageContent;
 
 </Steps>
 
-### (Optionnel) Étape 6b : Créer un layout avec navigation
-
-Les layouts Nuxt vous permettent de définir une structure commune pour vos pages. Créez un layout par défaut qui inclut le sélecteur de langue et la navigation :
-
-```vue fileName="layouts/default.vue"
-<script setup lang="ts">
-import Links from "~/components/Links.vue";
-import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
-</script>
-
-<template>
-  <div>
-    <header>
-      <LocaleSwitcher />
-    </header>
-    <main>
-      <slot />
-    </main>
-
-    <Links href="/">Accueil</Links>
-    <Links href="/about">À propos</Links>
-  </div>
-</template>
-```
-
-Le composant `Links` (montré ci-dessous) garantit que les liens de navigation internes sont automatiquement localisés.
-
 ### Configuration Git
 
 Il est recommandé d'ignorer les fichiers générés par Intlayer. Cela vous permet d'éviter de les committer dans votre dépôt Git.

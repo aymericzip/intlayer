@@ -845,7 +845,61 @@ export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
 
 </Step>
 
-<Step number={1} title="استخراج محتوى مكوناتك" isOptional={true}>
+<Step number={12} title="الحصول على اللغة الحالية في إجراءات الخادم (Server Actions)" isOptional={true}>
+
+إذا كنت بحاجة إلى اللغة النشطة داخل إجراء الخادم (Server Action) (على سبيل المثال، لتوطين رسائل البريد الإلكتروني أو تشغيل منطق يتعرف على اللغة)، فقم باستدعاء `getLocale` من `next-intlayer/server`:
+
+```tsx fileName="src/app/actions/getLocale.ts" codeFormat="typescript"
+"use server";
+
+import { getLocale } from "next-intlayer/server";
+
+export const myServerAction = async () => {
+  const locale = await getLocale();
+
+  // افعل شيئًا باللغة
+};
+```
+
+> تتبع وظيفة `getLocale` استراتيجية متتالية لتحديد لغة المستخدم:
+>
+> 1. أولاً، تتحقق من ترويسات الطلب بحثًا عن قيمة اللغة التي ربما تم تعيينها بواسطة الوكيل
+> 2. إذا لم يتم العثور على لغة في الترويسات، فإنها تبحث عن لغة مخزنة في ملفات تعريف الارتباط (cookies)
+> 3. إذا لم يتم العثور على ملف تعريف ارتباط، فإنها تحاول اكتشاف اللغة المفضلة للمستخدم من إعدادات المتصفح الخاصة به
+> 4. كملاذ أخير، تعود إلى اللغة الافتراضية المكونة للتطبيق
+>
+> يضمن ذلك تحديد اللغة الأكثر ملاءمة بناءً على السياق المتاح.
+
+</Step>
+
+<Step number={13} title="تحسين حجم البندل" isOptional={true}>
+
+عند استخدام `next-intlayer`، يتم تضمين القواميس في الحزمة لكل صفحة بشكل افتراضي. لتحسين حجم البندل، يوفر Intlayer مكون SWC اختياري يقوم بذكاء باستبدال استدعاءات `useIntlayer` باستخدام الماكروز. هذا يضمن تضمين القواميس فقط في الحزم الخاصة بالصفحات التي تستخدمها فعليًا.
+
+لتمكين هذا التحسين، قم بتثبيت حزمة `@intlayer/swc`. بمجرد التثبيت، سيقوم `next-intlayer` بالكشف التلقائي عن المكون واستخدامه:
+
+```bash packageManager="npm"
+npm install @intlayer/swc --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/swc --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/swc --save-dev
+```
+
+```bash packageManager="bun"
+bun add @intlayer/swc --dev
+```
+
+> ملاحظة: هذا التحسين متاح فقط لـ Next.js 13 وما فوق.
+
+> ملاحظة: هذه الحزمة غير مثبتة بشكل افتراضي لأن إضافات SWC لا تزال تجريبية في Next.js. قد يتغير ذلك في المستقبل.
+> </Step>
+
+<Step number={14} title="استخراج محتوى مكوناتك" isOptional={true}>
 
 إذا كان لديك قاعدة بيانات كود موجودة، فقد يكون تحويل آلاف الملفات مستهلكًا للوقت.
 
@@ -977,3 +1031,71 @@ bun run build # Or bun run dev
 </Step>
 
 </Steps>
+
+### مراقبة تغييرات القواميس في Turbopack
+
+عند استخدام Turbopack كخادم تطوير مع الأمر `next dev --turbopack` ، لن يتم اكتشاف تغييرات القاموس تلقائيًا بشكل افتراضي.
+
+يحدث هذا القيد لأن Turbopack لا يمكنه تشغيل إضافات webpack بالتوازي لمراقبة التغييرات في ملفات المحتوى الخاصة بك. للتغلب على ذلك ، ستحتاج إلى استخدام الأمر `intlayer watch` لتشغيل كل من خادم التطوير ومراقب بناء Intlayer في وقت واحد.
+
+```json5 fileName="package.json"
+{
+  // ... إعدادات package.json الحالية الخاصة بك
+  "scripts": {
+    // ... إعدادات البرامج النصية الحالية الخاصة بك
+    "dev": "intlayer watch --with 'next dev'",
+  },
+}
+```
+
+> إذا كنت تستخدم next-intlayer@<=6.x.x، فيجب عليك الاحتفاظ بعلامة `--turbopack` لكي يعمل تطبيق Next.js 16 بشكل صحيح مع Turbopack. نوصي باستخدام next-intlayer@>=7.x.x لتجنب هذا القيد.
+
+### تكوين TypeScript
+
+يستخدم Intlayer تعزيز الوحدة (module augmentation) للاستفادة من TypeScript وجعل قاعدة الشيفرة الخاصة بك أقوى.
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+تأكد من أن تكوين TypeScript الخاص بك يتضمن الأنواع التي تم إنشاؤها تلقائيًا.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... تكوينات TypeScript الحالية الخاصة بك
+  "include": [
+    // ... تكوينات TypeScript الحالية الخاصة بك
+    ".intlayer/**/*.ts", // تضمين الأنواع التي تم إنشاؤها تلقائيًا
+  ],
+}
+```
+
+### تكوين Git
+
+يوصى بتجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer. هذا يسمح لك بتجنب الالتزام بها في مستودع Git الخاص بك.
+
+للقيام بذلك، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
+
+```plaintext fileName=".gitignore"
+# تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
+.intlayer
+```
+
+### إضافة VS Code
+
+لتحسين تجربة التطوير الخاصة بك مع Intlayer، يمكنك تثبيت **إضافة Intlayer الرسمية لـ VS Code**.
+
+[التثبيت من سوق VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+تقدم هذه الإضافة:
+
+- **الإكمال التلقائي** لمفاتيح الترجمة.
+- **الكشف عن الأخطاء في الوقت الحقيقي** للترجمات المفقودة.
+- **معاينات داخلية** للمحتوى المترجم.
+- **إجراءات سريعة** لإنشاء الترجمات وتحديثها بسهولة.
+
+لمزيد من التفاصيل حول كيفية استخدام الإضافة، راجع [توثيق إضافة Intlayer لـ VS Code](https://intlayer.org/doc/vs-code-extension).
+
+### التقدم أكثر
+
+للتقدم أكثر، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو إخراج محتواك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).

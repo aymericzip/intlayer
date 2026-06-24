@@ -611,34 +611,6 @@ bun run build # Or bun run dev
 
 </Steps>
 
-### Konfigurasi Git
-
-Disarankan untuk mengabaikan file-file yang dihasilkan oleh Intlayer. Ini memungkinkan Anda untuk menghindari meng-commit file tersebut ke repositori Git Anda.
-
-Untuk melakukan ini, Anda dapat menambahkan instruksi berikut ke file `.gitignore` Anda:
-
-```bash
-#  Abaikan file yang dihasilkan oleh Intlayer
-.intlayer
-```
-
-### Ekstensi VS Code
-
-Untuk meningkatkan pengalaman pengembangan Anda dengan Intlayer, Anda dapat menginstal **Ekstensi VS Code Intlayer** resmi.
-
-[Pasang dari VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Ekstensi ini menyediakan:
-
-- **Autocompletion** untuk kunci terjemahan.
-- **Deteksi kesalahan waktu nyata** untuk terjemahan yang hilang.
-- **Pratinjau inline** dari konten yang diterjemahkan.
-- **Tindakan cepat** untuk dengan mudah membuat dan memperbarui terjemahan.
-
-Untuk detail lebih lanjut tentang cara menggunakan ekstensi ini, lihat [dokumentasi Ekstensi VS Code Intlayer](https://intlayer.org/doc/vs-code-extension).
-
----
-
 ### (Opsional) Sitemap dan robots.txt (generate saat build)
 
 Intlayer menyediakan `generateSitemap` dan `getMultilingualUrls` untuk memformat `sitemap.xml` multibahasa dan `robots.txt` yang siap untuk crawler, lalu menulisnya secara otomatis ke `public/`. Biasanya skrip Node kecil dijalankan **sebelum** Vite (misalnya hook npm `predev` / `prebuild`).
@@ -712,6 +684,32 @@ Paket `intlayer` harus terpasang. Setel `SITE_URL` di lingkungan produksi (misal
 ```
 
 Sesuaikan perintah jika memakai pnpm atau yarn. Skrip juga bisa dipanggil dari CI.
+
+### Konfigurasi Git
+
+Disarankan untuk mengabaikan file-file yang dihasilkan oleh Intlayer. Ini memungkinkan Anda untuk menghindari meng-commit file tersebut ke repositori Git Anda.
+
+Untuk melakukan ini, Anda dapat menambahkan instruksi berikut ke file `.gitignore` Anda:
+
+```bash
+#  Abaikan file yang dihasilkan oleh Intlayer
+.intlayer
+```
+
+### Ekstensi VS Code
+
+Untuk meningkatkan pengalaman pengembangan Anda dengan Intlayer, Anda dapat menginstal **Ekstensi VS Code Intlayer** resmi.
+
+[Pasang dari VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Ekstensi ini menyediakan:
+
+- **Autocompletion** untuk kunci terjemahan.
+- **Deteksi kesalahan waktu nyata** untuk terjemahan yang hilang.
+- **Pratinjau inline** dari konten yang diterjemahkan.
+- **Tindakan cepat** untuk dengan mudah membuat dan memperbarui terjemahan.
+
+Untuk detail lebih lanjut tentang cara menggunakan ekstensi ini, lihat [dokumentasi Ekstensi VS Code Intlayer](https://intlayer.org/doc/vs-code-extension).
 
 ### Melangkah Lebih Jauh
 

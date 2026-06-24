@@ -907,56 +907,6 @@ import RouterLink from "@components/RouterLink.vue";
 
 </Step>
 
-<Step number={11} title="Render Markdown" isOptional={true}>
-
-Intlayer mendukung rendering konten Markdown langsung di aplikasi Vue Anda. Secara default, Markdown diperlakukan sebagai teks biasa. Untuk mengubah Markdown menjadi HTML kaya, Anda dapat mengintegrasikan [markdown-it](https://github.com/markdown-it/markdown-it), sebuah parser Markdown.
-
-Ini sangat berguna ketika terjemahan Anda mencakup konten yang diformat seperti daftar, tautan, atau penekanan.
-
-Secara default Intlayer merender markdown sebagai string. Namun Intlayer juga menyediakan cara untuk merender markdown menjadi HTML menggunakan fungsi `installIntlayerMarkdown`.
-
-> Untuk melihat cara mendeklarasikan konten markdown menggunakan paket `intlayer`, lihat [dokumen markdown](https://github.com/aymericzip/intlayer/tree/main/docs/id/dictionary/markdown.md).
-
-```ts fileName="main.ts"
-import MarkdownIt from "markdown-it";
-import { createApp, h } from "vue";
-import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
-
-const app = createApp(App);
-
-app.use(intlayer);
-
-const md = new MarkdownIt({
-  html: true, // mengizinkan tag HTML
-  linkify: true, // otomatis membuat tautan URL
-  typographer: true, // mengaktifkan tanda kutip pintar, tanda hubung, dll.
-});
-
-// Beritahu Intlayer untuk menggunakan md.render() setiap kali perlu mengubah markdown menjadi HTML
-installIntlayerMarkdown(app, (markdown) => {
-  const html = md.render(markdown);
-  return h("div", { innerHTML: html });
-});
-```
-
-Setelah terdaftar, Anda dapat menggunakan sintaks berbasis komponen untuk menampilkan konten Markdown secara langsung:
-
-```vue
-<template>
-  <div>
-    <myMarkdownContent />
-  </div>
-</template>
-
-<script setup lang="ts">
-import { useIntlayer } from "vue-intlayer";
-
-const { myMarkdownContent } = useIntlayer("my-component");
-</script>
-```
-
-</Step>
-
 <Step number={1} title="Ekstrak konten komponen Anda" isOptional={true}>
 
 Jika Anda memiliki basis kode yang ada, mengubah ribuan file bisa memakan waktu lama.
@@ -1056,54 +1006,6 @@ bun run build # Or bun run dev
 
 </Steps>
 
-### Konfigurasi TypeScript
-
-Intlayer menggunakan module augmentation untuk mendapatkan manfaat dari TypeScript dan membuat codebase Anda lebih kuat.
-
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Kesalahan Terjemahan](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Pastikan konfigurasi TypeScript Anda menyertakan tipe yang dihasilkan secara otomatis.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Konfigurasi TypeScript Anda yang sudah ada
-  "include": [
-    // ... Konfigurasi TypeScript Anda yang sudah ada
-    ".intlayer/**/*.ts", // Sertakan tipe yang dihasilkan secara otomatis
-  ],
-}
-```
-
-### Konfigurasi Git
-
-Disarankan untuk mengabaikan file-file yang dihasilkan oleh Intlayer. Ini memungkinkan Anda untuk menghindari meng-commit file tersebut ke repository Git Anda.
-
-Untuk melakukan ini, Anda dapat menambahkan instruksi berikut ke dalam file `.gitignore` Anda:
-
-```bash
-#  Abaikan file yang dihasilkan oleh Intlayer
-.intlayer
-```
-
-### Ekstensi VS Code
-
-Untuk meningkatkan pengalaman pengembangan Anda dengan Intlayer, Anda dapat menginstal **Ekstensi Intlayer VS Code** resmi.
-
-[Pasang dari VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Ekstensi ini menyediakan:
-
-- **Autocompletion** untuk kunci terjemahan.
-- **Deteksi kesalahan secara real-time** untuk terjemahan yang hilang.
-- **Pratinjau inline** dari konten terjemahan.
-- **Aksi cepat** untuk dengan mudah membuat dan memperbarui terjemahan.
-
-Untuk informasi lebih lanjut tentang cara menggunakan ekstensi ini, lihat dokumentasi [Intlayer VS Code Extension](https://intlayer.org/doc/vs-code-extension).
-
----
-
 ### (Opsional) Sitemap dan robots.txt (generate saat build)
 
 Intlayer menyediakan `generateSitemap` dan `getMultilingualUrls` untuk memformat `sitemap.xml` multibahasa dan `robots.txt` yang siap untuk crawler, lalu menulisnya secara otomatis ke `public/`. Biasanya skrip Node kecil dijalankan **sebelum** Vite (misalnya hook npm `predev` / `prebuild`).
@@ -1178,8 +1080,54 @@ Paket `intlayer` harus terpasang. Setel `SITE_URL` di lingkungan produksi (misal
 
 Sesuaikan perintah jika memakai pnpm atau yarn. Skrip juga bisa dipanggil dari CI.
 
+### Konfigurasi TypeScript
+
+Intlayer menggunakan module augmentation untuk mendapatkan manfaat dari TypeScript dan membuat codebase Anda lebih kuat.
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+Pastikan konfigurasi TypeScript Anda menyertakan tipe yang dihasilkan secara otomatis.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Konfigurasi TypeScript Anda yang ada
+  "include": [
+    // ... Konfigurasi TypeScript Anda yang ada
+    ".intlayer/**/*.ts", // Sertakan tipe yang dihasilkan secara otomatis
+  ],
+}
+```
+
+### Konfigurasi Git
+
+Direkomendasikan untuk mengabaikan file yang dihasilkan oleh Intlayer. Hal ini memungkinkan Anda untuk menghindari melakukan commit ke repositori Git Anda.
+
+Untuk melakukan ini, Anda dapat menambahkan instruksi berikut ke file `.gitignore` Anda:
+
+```plaintext fileName=".gitignore"
+# Abaikan file yang dihasilkan oleh Intlayer
+.intlayer
+```
+
+### Ekstensi VS Code
+
+Untuk meningkatkan pengalaman pengembangan Anda dengan Intlayer, Anda dapat menginstal **Ekstensi VS Code Intlayer** resmi.
+
+[Instal dari VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Ekstensi ini menyediakan:
+
+- **Autocompletion** untuk kunci terjemahan.
+- **Deteksi kesalahan real-time** untuk terjemahan yang hilang.
+- **Pratinjau inline** dari konten yang diterjemahkan.
+- **Tindakan cepat** untuk membuat dan memperbarui terjemahan dengan mudah.
+
+Untuk detail lebih lanjut tentang cara menggunakan ekstensi ini, silakan merujuk ke [dokumentasi Ekstensi VS Code Intlayer](https://intlayer.org/doc/vs-code-extension).
+
+---
+
 ### Melangkah Lebih Jauh
 
 Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau mengeksternalisasi konten Anda menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).
-
----

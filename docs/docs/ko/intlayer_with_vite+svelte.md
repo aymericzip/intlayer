@@ -613,34 +613,6 @@ const changeLocale = (event: Event) => {
 
 </Steps>
 
-### Git 구성
-
-Intlayer가 생성하는 파일은 Git 저장소에 커밋하지 않도록 무시하는 것이 좋습니다.
-
-이를 위해 `.gitignore` 파일에 다음 지침을 추가할 수 있습니다:
-
-```bash
-#  Intlayer가 생성하는 파일 무시
-.intlayer
-```
-
-### VS Code 확장 프로그램
-
-Intlayer 개발 경험을 향상시키기 위해 공식 **Intlayer VS Code 확장 프로그램**을 설치할 수 있습니다.
-
-[VS Code 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-이 확장 프로그램은 다음을 제공합니다:
-
-- 번역 키에 대한 **자동 완성** 기능.
-- 누락된 번역에 대한 **실시간 오류 감지**.
-- 번역된 콘텐츠의 **인라인 미리보기**.
-- 번역을 쉽게 생성하고 업데이트할 수 있는 **빠른 작업**.
-
-확장 프로그램 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 프로그램 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
-
----
-
 ### (선택) 사이트맵과 robots.txt(빌드 시 생성)
 
 Intlayer는 `generateSitemap`과 `getMultilingualUrls`로 크롤러용 다국어 `sitemap.xml`과 `robots.txt`를 만들어 `public/`에 자동으로 쓸 수 있습니다. 보통 Vite 실행 **전에** 작은 Node 스크립트를 돌립니다(예: npm `predev` / `prebuild`).
@@ -714,6 +686,32 @@ console.log("SEO files generated successfully.");
 ```
 
 pnpm이나 yarn을 쓰면 명령을 맞게 바꾸세요. CI에서 호출해도 됩니다.
+
+### Git 구성
+
+Intlayer가 생성하는 파일은 Git 저장소에 커밋하지 않도록 무시하는 것이 좋습니다.
+
+이를 위해 `.gitignore` 파일에 다음 지침을 추가할 수 있습니다:
+
+```bash
+#  Intlayer가 생성하는 파일 무시
+.intlayer
+```
+
+### VS Code 확장 프로그램
+
+Intlayer 개발 경험을 향상시키기 위해 공식 **Intlayer VS Code 확장 프로그램**을 설치할 수 있습니다.
+
+[VS Code 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+이 확장 프로그램은 다음을 제공합니다:
+
+- 번역 키에 대한 **자동 완성** 기능.
+- 누락된 번역에 대한 **실시간 오류 감지**.
+- 번역된 콘텐츠의 **인라인 미리보기**.
+- 번역을 쉽게 생성하고 업데이트할 수 있는 **빠른 작업**.
+
+확장 프로그램 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 프로그램 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
 
 ### 더 나아가기
 

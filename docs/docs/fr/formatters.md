@@ -261,77 +261,6 @@ getHTMLTextDir("he"); // "rtl"
 - **locale** : La locale pour laquelle obtenir la direction du texte (par défaut la locale courante)
 - **returns** : `"ltr"`, `"rtl"`, ou `"auto"`
 
-## Utilitaires de gestion de contenu
-
-### `getContent(node, nodeProps, locale?)`
-
-Transforme un nœud de contenu avec tous les plugins disponibles (traduction, énumération, insertion, etc.) :
-
-```ts
-import { getContent } from "intlayer";
-
-const content = getContent(
-  contentNode,
-  { dictionaryKey: "common", dictionaryPath: "/path/to/dict" },
-  "fr"
-);
-```
-
-- **node** : Le nœud de contenu à transformer
-- **nodeProps** : Propriétés pour le contexte de transformation
-- **locale** : Locale optionnelle (par défaut la locale par défaut configurée)
-
-### `getTranslation(languageContent, locale?, fallback?)`
-
-Extrait le contenu pour une locale spécifique à partir d'un objet de contenu multilingue :
-
-```ts
-import { getTranslation } from "intlayer";
-
-const content = getTranslation(
-  {
-    en: "Hello",
-    fr: "Bonjour",
-    de: "Hallo",
-  },
-  "fr",
-  true
-); // "Bonjour"
-```
-
-- **languageContent** : Objet associant les locales au contenu
-- **locale** : Locale cible (par défaut la locale par défaut configurée)
-- **fallback** : Indique s'il faut revenir à la locale par défaut (par défaut à true)
-
-### `getIntlayer(dictionaryKey, locale?, plugins?)`
-
-Récupère et transforme le contenu d'un dictionnaire par clé :
-
-```ts
-import { getIntlayer } from "intlayer";
-
-const content = getIntlayer("common", "fr");
-const nestedContent = getIntlayer("common", "fr", customPlugins);
-```
-
-- **dictionaryKey** : La clé du dictionnaire à récupérer
-- **locale** : Locale optionnelle (par défaut la locale configurée par défaut)
-- **plugins** : Tableau optionnel de plugins de transformation personnalisés
-
-### `getIntlayerAsync(dictionaryKey, locale?, plugins?)`
-
-Récupère de manière asynchrone le contenu d'un dictionnaire distant :
-
-```ts
-import { getIntlayerAsync } from "intlayer";
-
-const content = await getIntlayerAsync("common", "fr");
-```
-
-- **dictionaryKey** : La clé du dictionnaire à récupérer
-- **locale** : Locale optionnelle (par défaut la locale configurée par défaut)
-- **plugins** : Tableau optionnel de plugins de transformation personnalisés
-
 ## Formatteurs
 
 Tous les helpers ci-dessous sont exportés depuis `intlayer`.
@@ -445,6 +374,124 @@ import { units } from "intlayer";
 
 units(5, { unit: "kilometer", unitDisplay: "long", locale: "en-GB" }); // "5 kilometers"
 units(1024, { unit: "byte", unitDisplay: "narrow" }); // "1,024B" (dépendant de la locale)
+```
+
+### Fonctionnalités Intl Supplémentaires
+
+#### `Intl.DisplayNames`
+
+Pour les noms localisés des langues, régions, devises et écritures :
+
+```ts
+import { Intl } from "intlayer";
+
+const languageNames = new Intl.DisplayNames("en", { type: "language" });
+languageNames.of("fr"); // "French"
+
+const regionNames = new Intl.DisplayNames("fr", { type: "region" });
+regionNames.of("US"); // "États-Unis"
+```
+
+#### `Intl.Collator`
+
+Pour la comparaison et le tri de chaînes sensibles à la locale :
+
+```ts
+import { Intl } from "intlayer";
+
+const collator = new Intl.Collator("de", {
+  sensitivity: "base",
+  numeric: true,
+});
+
+const words = ["äpfel", "zebra", "100", "20"];
+words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
+```
+
+#### `Intl.PluralRules`
+
+Pour déterminer les formes plurielles dans différentes locales :
+
+```ts
+import { Intl } from "intlayer";
+
+const pluralRules = new Intl.PluralRules("ar");
+pluralRules.select(0); // "zero"
+pluralRules.select(1); // "one"
+pluralRules.select(2); // "two"
+pluralRules.select(3); // "few"
+pluralRules.select(11); // "many"
+```
+
+## Utilitaires de Locale
+
+### `getLocaleName(displayLocale, targetLocale?)`
+
+Obtient le nom localisé d'une locale :
+
+```ts
+import { getLocaleName } from "intlayer";
+
+getLocaleName("fr", "en"); // "French"
+getLocaleName("en", "fr"); // "anglais"
+getLocaleName("de", "es"); // "alemán"
+```
+
+### `getLocaleLang(locale?)`
+
+Extrait le code de langue d'une chaîne de locale :
+
+```ts
+import { getLocaleLang } from "intlayer";
+
+getLocaleLang("en-US"); // "en"
+getLocaleLang("fr-CA"); // "fr"
+```
+
+### `getLocaleFromPath(inputUrl)`
+
+Extrait le segment de locale d'une URL ou d'un chemin :
+
+```ts
+import { getLocaleFromPath } from "intlayer";
+
+getLocaleFromPath("/en/dashboard"); // "en"
+getLocaleFromPath("/fr/dashboard"); // "fr"
+getLocaleFromPath("/dashboard"); // "en" (locale par défaut)
+```
+
+### `getPathWithoutLocale(inputUrl, locales?)`
+
+Supprime le segment de locale d'une URL :
+
+```ts
+import { getPathWithoutLocale } from "intlayer";
+
+getPathWithoutLocale("/en/dashboard"); // "/dashboard"
+getPathWithoutLocale("/fr/dashboard"); // "/dashboard"
+```
+
+### `getLocalizedUrl(url, currentLocale, locales?, defaultLocale?, prefixDefault?)`
+
+Génère une URL localisée :
+
+```ts
+import { getLocalizedUrl } from "intlayer";
+
+getLocalizedUrl("/about", "fr", ["en", "fr"], "en", false); // "/fr/about"
+getLocalizedUrl("/about", "en", ["en", "fr"], "en", false); // "/about"
+```
+
+### `getHTMLTextDir(locale?)`
+
+Retourne la direction du texte pour une locale :
+
+```ts
+import { getHTMLTextDir } from "intlayer";
+
+getHTMLTextDir("en-US"); // "ltr"
+getHTMLTextDir("ar"); // "rtl"
+getHTMLTextDir("he"); // "rtl"
 ```
 
 ### `compact(value, options?)`

@@ -317,7 +317,134 @@ const { title } = getIntlayer('app');
 
 </Step>
 
-<Step number={7} title="Продолжайте использовать ваш любимый фреймворк">
+<Step number={7} title="Добавление переключателя языков">
+
+Чтобы пользователи могли переключаться между языками, вы можете создать компонент `LocaleSwitcher`. Этот компонент должен отображать список всех поддерживаемых языков и ссылаться на ту же страницу на каждом языке.
+
+```astro fileName="src/components/LocaleSwitcher.astro"
+---
+import {
+  locales,
+  getLocaleName,
+  getLocalizedUrl,
+  getLocaleFromPath,
+  getPathWithoutLocale,
+  type LocalesValues,
+} from "intlayer";
+
+const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
+---
+
+<nav>
+  {
+    locales.map((localeItem) => (
+      <a
+        href={getLocalizedUrl(pathWithoutLocale, localeItem)}
+        data-locale={localeItem}
+        aria-current={localeItem === locale ? "page" : undefined}
+      >
+        {getLocaleName(localeItem)}
+      </a>
+    ))
+  }
+</nav>
+
+<script>
+  import { setLocaleInStorageClient, getLocalizedUrl, type LocalesValues } from "intlayer";
+
+  const localeLinks = document.querySelectorAll("[data-locale]");
+
+  localeLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const locale = link.getAttribute("data-locale") as LocalesValues;
+
+      // Update the locale cookie
+      setLocaleInStorageClient(locale);
+    });
+  });
+</script>
+
+<style>
+  nav {
+    display: flex;
+    gap: 1rem;
+  }
+  a[aria-current="page"] {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+</style>
+```
+
+> **Примечание о сохранении настроек:**
+> Использование `setLocaleInStorageClient` в клиентском скрипте гарантирует, что языковые предпочтения пользователя сохраняются в куки. Это позволяет промежуточному ПО Intlayer запомнить выбор и автоматически перенаправлять пользователя на предпочитаемый язык при будущих посещениях.
+
+</Step>
+
+<Step number={8} title="Sitemap и Robots.txt">
+
+Intlayer предоставляет утилиты для динамического создания локализованных карт сайта и файлов robots.txt.
+
+#### Sitemap
+
+Intlayer поставляется со встроенным генератором карты сайта, который поможет вам легко создать карту сайта для вашего приложения. Он учитывает локализованные маршруты и добавляет необходимые метаданные для поисковых систем.
+
+> Создаваемая Intlayer карта сайта поддерживает пространство имен `xhtml:link` (Hreflang XML Extensions). В отличие от стандартных генераторов карт сайта, которые просто перечисляют прямые URL-адреса, Intlayer автоматически создает необходимые двусторонние связи между всеми языковыми версиями страницы (например, `/about`, `/about?lang=fr` и `/about?lang=es`). Это гарантирует, что поисковые системы будут правильно индексировать и показывать нужную языковую версию соответствующей аудитории.
+
+Создайте `src/pages/sitemap.xml.ts` для генерации карты сайта, включающей все ваши локализованные маршруты.
+
+```typescript fileName="src/pages/sitemap.xml.ts"
+import type { APIRoute } from "astro";
+import { generateSitemap, type SitemapUrlEntry } from "intlayer";
+
+const pathList: SitemapUrlEntry[] = [
+  { path: "/", changefreq: "daily", priority: 1.0 },
+  { path: "/about", changefreq: "monthly", priority: 0.7 },
+];
+
+const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
+
+export const GET: APIRoute = async ({ site }) => {
+  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+
+  return new Response(xmlOutput, {
+    headers: { "Content-Type": "application/xml" },
+  });
+};
+```
+
+#### Robots.txt
+
+Создайте `src/pages/robots.txt.ts` для управления сканированием поисковыми системами.
+
+```typescript fileName="src/pages/robots.txt.ts"
+import type { APIRoute } from "astro";
+import { getMultilingualUrls } from "intlayer";
+
+const getAllMultilingualUrls = (urls: string[]) =>
+  urls.flatMap((url) => Object.values(getMultilingualUrls(url)) as string[]);
+
+const disallowedPaths = getAllMultilingualUrls(["/admin", "/private"]);
+
+export const GET: APIRoute = ({ site }) => {
+  const robotsTxt = [
+    "User-agent: *",
+    "Allow: /",
+    ...disallowedPaths.map((path) => `Disallow: ${path}`),
+    "",
+    `Sitemap: ${new URL("/sitemap.xml", site).href}`,
+  ].join("\n");
+
+  return new Response(robotsTxt, {
+    headers: { "Content-Type": "text/plain" },
+  });
+};
+```
+
+</Step>
+
+<Step number={9} title="Продолжайте использовать ваш любимый фреймворк">
 
 Продолжайте использовать ваш любимый фреймворк для создания вашего приложения.
 

@@ -58,6 +58,10 @@ author: aymericzip
   </Tab>
 </Tabs>
 
+## Inhaltsverzeichnis
+
+<TOC/>
+
 ## Warum Intlayer gegenüber Alternativen?
 
 Im Vergleich zu Hauptlösungen wie „next-intl“ oder „i18next“ ist Intlayer eine Lösung, die über integrierte Optimierungen verfügt wie:

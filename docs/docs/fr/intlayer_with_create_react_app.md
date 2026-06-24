@@ -618,17 +618,3 @@ Pour plus de détails sur l'utilisation de l'extension, consultez la [documentat
 ### Aller plus loin
 
 Pour aller plus loin, vous pouvez implémenter l'[éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) ou externaliser votre contenu en utilisant le [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md).
-[Installation depuis le Marketplace VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Cette extension offre :
-
-- **L'autocomplétion** pour les clés de traduction.
-- **La détection d'erreurs en temps réel** pour les traductions manquantes.
-- **Des aperçus en ligne** du contenu traduit.
-- **Des actions rapides** pour créer et mettre à jour facilement les traductions.
-
-Pour plus de détails sur l'utilisation de l'extension, consultez la [documentation de l'extension Intlayer pour VS Code](https://intlayer.org/doc/vs-code-extension).
-
-### Aller plus loin
-
-Pour aller plus loin, vous pouvez implémenter l'[éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) ou externaliser votre contenu en utilisant le [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md).

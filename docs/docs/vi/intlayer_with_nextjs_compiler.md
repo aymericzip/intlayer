@@ -612,27 +612,6 @@ bun run build # Or bun run dev
 
 </Steps>
 
-### Cấu hình Babel
-
-Trình biên dịch Intlayer yêu cầu Babel để trích xuất và tối ưu hóa nội dung của bạn. Cập nhật `babel.config.js` (hoặc `babel.config.json`) của bạn để bao gồm các plugin Intlayer:
-
-```typescript fileName="babel.config.js"
-const {
-  intlayerExtractBabelPlugin,
-  intlayerOptimizeBabelPlugin,
-  getExtractPluginOptions,
-  getOptimizePluginOptions,
-} = require("@intlayer/babel");
-
-module.exports = {
-  presets: ["next/babel"],
-  plugins: [
-    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
-    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
-  ],
-};
-```
-
 ### Cấu hình TypeScript
 
 Intlayer sử dụng module augmentation để tận dụng các ưu điểm của TypeScript và làm cho cơ sở mã của bạn mạnh mẽ hơn.

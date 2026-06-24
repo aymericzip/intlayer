@@ -804,11 +804,132 @@ return (
 
 </Step>
 
-</Steps>
+<Step number={11} title="지역화된 링크 컴포넌트 생성하기" isOptional={true}>
 
-<Steps>
+애플리케이션의 내비게이션이 현재 로케일을 준수하도록 하려면, 커스텀 `Link` 컴포넌트를 만들 수 있습니다. 이 컴포넌트는 내부 URL에 현재 언어를 자동으로 접두사로 붙여줍니다. 예를 들어, 프랑스어 사용자가 "About" 페이지로 가는 링크를 클릭하면 `/about` 대신 `/fr/about`로 리디렉션됩니다.
 
-<Step number={1} title="컴포넌트 콘텐츠 추출" isOptional={true}>
+이 동작은 여러 가지 이유로 유용합니다:
+
+- **SEO 및 사용자 경험**: 로컬라이즈된 URL은 검색 엔진이 언어별 페이지를 올바르게 색인하도록 도와주며, 사용자에게 선호하는 언어로 된 콘텐츠를 제공합니다.
+- **일관성**: 애플리케이션 전반에 걸쳐 로컬라이즈된 링크를 사용함으로써 내비게이션이 현재 로케일 내에서 유지되어 예상치 못한 언어 전환을 방지합니다.
+- **유지보수성**: 로컬라이제이션 로직을 단일 컴포넌트에 중앙 집중화하면 URL 관리를 단순화하여 애플리케이션이 성장함에 따라 코드베이스를 더 쉽게 유지보수하고 확장할 수 있습니다.
+
+아래는 TypeScript로 구현한 로컬라이즈된 `Link` 컴포넌트입니다:
+
+```tsx fileName="src/components/Link.tsx" codeFormat={["typescript", "esm"]}
+"use client";
+
+import { getLocalizedUrl } from "intlayer";
+import NextLink, { type LinkProps as NextLinkProps } from "next/link";
+import { useLocale } from "next-intlayer";
+import type { PropsWithChildren, FC } from "react";
+
+/**
+ * 주어진 URL이 외부 링크인지 확인하는 유틸리티 함수입니다.
+ * URL이 http:// 또는 https://로 시작하면 외부 링크로 간주합니다.
+ */
+export const checkIsExternalLink = (href?: string): boolean =>
+  /^https?:\/\//.test(href ?? "");
+
+/**
+ * 현재 로케일에 따라 href 속성을 조정하는 커스텀 Link 컴포넌트입니다.
+ * 내부 링크의 경우, `getLocalizedUrl`을 사용하여 URL 앞에 로케일을 붙입니다 (예: /fr/about).
+ * 이를 통해 내비게이션이 동일한 로케일 컨텍스트 내에서 이루어지도록 보장합니다.
+ */
+export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
+  href,
+  children,
+  ...props
+}) => {
+  const { locale } = useLocale();
+  const isExternalLink = checkIsExternalLink(href.toString());
+
+  // 만약 링크가 내부 링크이고 유효한 href가 제공되었다면, 지역화된 URL을 가져옵니다.
+  const hrefI18n: NextLinkProps["href"] =
+    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
+
+  return (
+    <NextLink href={hrefI18n} {...props}>
+      {children}
+    </NextLink>
+  );
+};
+```
+
+#### 작동 원리
+
+- **외부 링크 감지**:  
+  유틸리티 함수 `checkIsExternalLink`는 URL이 외부 링크인지 확인합니다. 외부 링크는 현지화가 필요하지 않으므로 변경되지 않은 상태로 유지됩니다.
+
+- **현재 로케일 가져오기**:  
+  `useLocale` 훅은 현재 로케일(예: 프랑스어의 경우 `fr`)을 제공합니다.
+
+- **URL 현지화**:  
+  내부 링크(즉, 외부 링크가 아닌 링크)의 경우, `getLocalizedUrl`을 사용하여 URL 앞에 현재 로케일을 자동으로 붙입니다. 즉, 사용자가 프랑스어 환경에 있는 경우, `href`로 `/about`을 전달하면 `/fr/about`으로 변환됩니다.
+
+- **링크 반환**:  
+  컴포넌트는 현지화된 URL을 가진 `<a>` 요소를 반환하여 내비게이션이 로케일과 일치하도록 보장합니다.
+
+이 `Link` 컴포넌트를 애플리케이션 전반에 통합함으로써, 일관성 있고 언어를 인식하는 사용자 경험을 유지하는 동시에 향상된 SEO 및 사용성 이점을 누릴 수 있습니다.
+
+</Step>
+
+<Step number={12} title="Server Actions에서 현재 로케일 가져오기" isOptional={true}>
+
+Server Action 내부에서 활성 로케일이 필요한 경우(예: 이메일 현지화 또는 로케일 인식 로직 실행), `next-intlayer/server`에서 `getLocale`을 호출하십시오:
+
+```tsx fileName="src/app/actions/getLocale.ts" codeFormat="typescript"
+"use server";
+
+import { getLocale } from "next-intlayer/server";
+
+export const myServerAction = async () => {
+  const locale = await getLocale();
+
+  // 로케일을 사용한 작업 수행
+};
+```
+
+> `getLocale` 함수는 사용자의 로케일을 결정하기 위해 계단식 전략을 따릅니다:
+>
+> 1. 먼저, 프록시에 의해 설정되었을 수 있는 로케일 값을 요청 헤더에서 확인합니다
+> 2. 헤더에서 로케일을 찾을 수 없으면 쿠키에 저장된 로케일을 찾습니다
+> 3. 쿠키가 발견되지 않으면 브라우저 설정에서 사용자가 선호하는 언어 감지를 시도합니다
+> 4. 마지막 수단으로 애플리케이션의 구성된 기본 로케일로 대체됩니다
+>
+> 이는 사용 가능한 컨텍스트를 기반으로 가장 적절한 로케일이 선택되도록 합니다.
+
+</Step>
+
+<Step number={13} title="번들 크기 최적화" isOptional={true}>
+
+`next-intlayer`를 사용할 때, 사전(dictionary)은 기본적으로 모든 페이지의 번들에 포함됩니다. 번들 크기를 최적화하기 위해 Intlayer는 매크로를 사용하여 `useIntlayer` 호출을 지능적으로 대체하는 선택적 SWC 플러그인을 제공합니다. 이를 통해 사전은 실제로 사용하는 페이지의 번들에만 포함됩니다.
+
+이 최적화를 활성화하려면 `@intlayer/swc` 패키지를 설치하세요. 설치가 완료되면 `next-intlayer`가 자동으로 플러그인을 감지하고 사용합니다:
+
+```bash packageManager="npm"
+npm install @intlayer/swc --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/swc --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/swc --save-dev
+```
+
+```bash packageManager="bun"
+bun add @intlayer/swc --dev
+```
+
+> 참고: 이 최적화는 Next.js 13 이상에서만 사용할 수 있습니다.
+
+> 참고: 이 패키지는 SWC 플러그인이 Next.js에서 아직 실험적이기 때문에 기본적으로 설치되지 않습니다. 향후 변경될 수 있습니다.
+
+</Step>
+
+<Step number={14} title="컴포넌트 콘텐츠 추출" isOptional={true}>
 
 기존 코드베이스가 있는 경우 수천 개의 파일을 변환하는 데 시간이 많이 걸릴 수 있습니다.
 
@@ -922,74 +1043,72 @@ bun run build # Or bun run dev
 </Tabs>
 </Step>
 
-<Step number={11} title="지역화된 링크 컴포넌트 생성하기" isOptional={true}>
+</Steps>
 
-애플리케이션의 내비게이션이 현재 로케일을 준수하도록 하려면, 커스텀 `Link` 컴포넌트를 만들 수 있습니다. 이 컴포넌트는 내부 URL에 현재 언어를 자동으로 접두사로 붙여줍니다. 예를 들어, 프랑스어 사용자가 "About" 페이지로 가는 링크를 클릭하면 `/about` 대신 `/fr/about`로 리디렉션됩니다.
+### Turbopack에서 사전 변경 사항 감시
 
-이 동작은 여러 가지 이유로 유용합니다:
+`next dev --turbopack` 명령을 사용하여 개발 서버로 Turbopack을 사용할 때, 기본적으로 사전 변경 사항이 자동으로 감지되지 않습니다.
 
-- **SEO 및 사용자 경험**: 로컬라이즈된 URL은 검색 엔진이 언어별 페이지를 올바르게 색인하도록 도와주며, 사용자에게 선호하는 언어로 된 콘텐츠를 제공합니다.
-- **일관성**: 애플리케이션 전반에 걸쳐 로컬라이즈된 링크를 사용함으로써 내비게이션이 현재 로케일 내에서 유지되어 예상치 못한 언어 전환을 방지합니다.
-- **유지보수성**: 로컬라이제이션 로직을 단일 컴포넌트에 중앙 집중화하면 URL 관리를 단순화하여 애플리케이션이 성장함에 따라 코드베이스를 더 쉽게 유지보수하고 확장할 수 있습니다.
+이 제한은 Turbopack이 콘텐츠 파일의 변경 사항을 모니터링하기 위해 webpack 플러그인을 병렬로 실행할 수 없기 때문에 발생합니다. 이 문제를 해결하려면 `intlayer watch` 명령을 사용하여 개발 서버와 Intlayer 빌드 감시자를 동시에 실행해야 합니다.
 
-아래는 TypeScript로 구현한 로컬라이즈된 `Link` 컴포넌트입니다:
-
-```tsx fileName="src/components/Link.tsx" codeFormat={["typescript", "esm"]}
-"use client";
-
-import { getLocalizedUrl } from "intlayer";
-import NextLink, { type LinkProps as NextLinkProps } from "next/link";
-import { useLocale } from "next-intlayer";
-import type { PropsWithChildren, FC } from "react";
-
-/**
- * 주어진 URL이 외부 링크인지 확인하는 유틸리티 함수입니다.
- * URL이 http:// 또는 https://로 시작하면 외부 링크로 간주합니다.
- */
-export const checkIsExternalLink = (href?: string): boolean =>
-  /^https?:\/\//.test(href ?? "");
-
-/**
- * 현재 로케일에 따라 href 속성을 조정하는 커스텀 Link 컴포넌트입니다.
- * 내부 링크의 경우, `getLocalizedUrl`을 사용하여 URL 앞에 로케일을 붙입니다 (예: /fr/about).
- * 이를 통해 내비게이션이 동일한 로케일 컨텍스트 내에서 이루어지도록 보장합니다.
- */
-export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
-  href,
-  children,
-  ...props
-}) => {
-  const { locale } = useLocale();
-  const isExternalLink = checkIsExternalLink(href.toString());
-
-  // 만약 링크가 내부 링크이고 유효한 href가 제공되었다면, 지역화된 URL을 가져옵니다.
-  const hrefI18n: NextLinkProps["href"] =
-    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
-
-  return (
-    <NextLink href={hrefI18n} {...props}>
-      {children}
-    </NextLink>
-  );
-};
+```json5 fileName="package.json"
+{
+  // ... 기존 package.json 구성
+  "scripts": {
+    // ... 기존 스크립트 구성
+    "dev": "intlayer watch --with 'next dev'",
+  },
+}
 ```
 
-#### 작동 원리
+> next-intlayer@<=6.x.x를 사용하는 경우, Next.js 16 애플리케이션이 Turbopack에서 올바르게 작동하도록 `--turbopack` 플래그를 유지해야 합니다. 이 제한을 피하기 위해 next-intlayer@>=7.x.x를 사용하는 것을 권장합니다.
 
-- **외부 링크 감지**:  
-  유틸리티 함수 `checkIsExternalLink`는 URL이 외부 링크인지 확인합니다. 외부 링크는 현지화가 필요하지 않으므로 변경되지 않은 상태로 유지됩니다.
+### TypeScript 구성
 
-- **현재 로케일 가져오기**:  
-  `useLocale` 훅은 현재 로케일(예: 프랑스어의 경우 `fr`)을 제공합니다.
+Intlayer는 모듈 증강(module augmentation)을 사용하여 TypeScript의 이점을 활용하고 코드베이스를 더욱 견고하게 만듭니다.
 
-- **URL 현지화**:  
-  내부 링크(즉, 외부 링크가 아닌 링크)의 경우, `getLocalizedUrl`을 사용하여 URL 앞에 현재 로케일을 자동으로 붙입니다. 즉, 사용자가 프랑스어 환경에 있는 경우, `href`로 `/about`을 전달하면 `/fr/about`으로 변환됩니다.
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-- **링크 반환**:  
-  컴포넌트는 현지화된 URL을 가진 `<a>` 요소를 반환하여 내비게이션이 로케일과 일치하도록 보장합니다.
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
-이 `Link` 컴포넌트를 애플리케이션 전반에 통합함으로써, 일관성 있고 언어를 인식하는 사용자 경험을 유지하는 동시에 향상된 SEO 및 사용성 이점을 누릴 수 있습니다.
+TypeScript 구성에 자동 생성된 타입이 포함되어 있는지 확인하세요.
 
-</Step>
+```json5 fileName="tsconfig.json"
+{
+  // ... 기존 TypeScript 구성
+  "include": [
+    // ... 기존 TypeScript 설정
+    ".intlayer/**/*.ts", // 자동 생성된 타입 포함
+  ],
+}
+```
 
-</Steps>
+### Git 설정
+
+Intlayer가 생성한 파일들은 Git 저장소에 커밋하지 않도록 무시하는 것이 권장됩니다.
+
+이를 위해 `.gitignore` 파일에 다음 지시문을 추가할 수 있습니다:
+
+```plaintext fileName=".gitignore"
+# Intlayer가 생성한 파일 무시
+.intlayer
+```
+
+### VS Code 확장
+
+Intlayer와 함께 개발 경험을 향상시키기 위해 공식 **Intlayer VS Code 확장**을 설치할 수 있습니다.
+
+[VS Code 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+이 확장은 다음 기능을 제공합니다:
+
+- 번역 키에 대한 **자동 완성**.
+- **실시간 오류 감지**로 누락된 번역을 확인할 수 있습니다.
+- **인라인 미리보기**로 번역된 내용을 바로 확인할 수 있습니다.
+- **빠른 작업**으로 번역을 쉽게 생성하고 업데이트할 수 있습니다.
+
+확장 기능 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
+
+### 더 나아가기
+
+더 나아가려면 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 구현하거나 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 사용하여 콘텐츠를 외부화할 수 있습니다.

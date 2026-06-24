@@ -102,7 +102,7 @@ export const ServerComponentExample: FC = () => (
 );
 ```
 
-###Traductions en ligne dans les attributs
+### Traductions en ligne dans les attributs
 
 La fonction `t` est particulièrement utile pour les traductions en ligne dans les attributs JSX.
 Lors de la localisation d'attributs tels que `alt`, `title`, `href` ou `aria-label`, vous pouvez utiliser `t` directement dans l'attribut.

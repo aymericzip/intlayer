@@ -37,6 +37,57 @@ author: aymericzip
 
 <TOC/>
 
+## 왜 다른 대안들 대신 Intlayer를 선택해야 하나요?
+
+react-i18next나 i18next와 같은 주요 솔루션과 비교했을 때, Intlayer는 다음과 같은 통합된 최적화 기능을 제공하는 솔루션입니다:
+
+<AccordionGroup>
+
+<Accordion header="완벽한 Vite 및 React 지원">
+
+Intlayer는 **컴포넌트 수준의 콘텐츠 스코핑**, **지연 로드(lazy-loaded) 번역**, 그리고 국제화(i18n) 확장에 필요한 모든 기능을 제공하여 Vite 및 React와 완벽하게 작동하도록 최적화되어 있습니다.
+
+</Accordion>
+
+<Accordion header="번들 크기">
+
+페이지에 방대한 JSON 파일을 로드하는 대신, 필요한 콘텐츠만 로드하세요. Intlayer는 **번들 및 페이지 크기를 최대 50%까지 줄이는 데** 도움을 줍니다.
+
+</Accordion>
+
+<Accordion header="유지보수성">
+
+애플리케이션의 콘텐츠를 스코핑하면 대규모 애플리케이션의 **유지보수가 용이해집니다**. 전체 콘텐츠 codebase를 검토해야 한다는 심리적 부담 없이 단일 기능 폴더를 복제하거나 삭제할 수 있습니다. 또한, Intlayer는 콘텐츠의 정확성을 보장하기 위해 **완벽한 타입 지정(fully typed)**을 지원합니다.
+
+</Accordion>
+
+<Accordion header="AI 에이전트">
+
+콘텐츠를 같은 위치에 배치(Co-locating)하면 대규모 언어 모델(LLM)에 필요한 문맥이 줄어듭니다. Intlayer는 또한 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/mcp_server.md)**, 그리고 **[에이전트 스킬(agent skills)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/agent_skills.md)**과 같은 도구 모음을 제공하여 AI 에이전트의 개발자 경험(DX)을 더욱 원활하게 만듭니다.
+
+</Accordion>
+
+<Accordion header="자동화">
+
+AI 제공업체의 비용으로 원하는 LLM을 사용하여 CI/CD 파이프라인에서 번역을 자동화하세요. Intlayer는 또한 콘텐츠 추출을 자동화하는 **컴파일러**뿐만 아니라, **백그라운드에서 번역**을 도와주는 [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)을 제공합니다.
+
+</Accordion>
+
+<Accordion header="성능">
+
+방대한 JSON 파일을 컴포넌트에 연결하면 성능 및 반응성 문제가 발생할 수 있습니다. Intlayer는 빌드 타임에 콘텐츠 로딩을 최적화합니다.
+
+</Accordion>
+
+<Accordion header="비개발자와의 확장성">
+
+단순한 i18n 솔루션 그 이상으로, Intlayer는 **자체 호스팅 가능한 [시각적 편집기(visual editor)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)**와 **[전체 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)**를 제공하여 다국어 콘텐츠를 **실시간**으로 관리할 수 있게 도와주며, 번역가, 카피라이터 및 기타 팀원과의 협업을 원활하게 만듭니다. 콘텐츠는 로컬 및/또는 원격으로 저장할 수 있습니다.
+
+</Accordion>
+</AccordionGroup>
+
+---
+
 ## 대안보다 Intlayer를 선택해야 하는 이유는 무엇입니까?
 
 'react-i18next' 또는 'i18next'와 같은 주요 솔루션과 비교할 때 Intlayer는 다음과 같은 통합 최적화가 제공되는 솔루션입니다.
@@ -174,6 +225,35 @@ const LocaleSwitcher: FC = () => {
 
 ---
 
+#### Hook 구현하기
+
+HTML 속성을 관리하기 위한 커스텀 hook을 생성합니다. 이 hook은 로케일 변경을 감지하고 그에 따라 속성을 업데이트합니다:
+
+```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx" codeFormat={["typescript", "esm"]}
+import { useEffect } from "react";
+import { useLocale } from "react-intlayer";
+import { getHTMLTextDir } from "intlayer";
+
+/**
+ * 현재 로케일을 기반으로 HTML <html> 요소의 `lang` 및 `dir` 속성을 업데이트합니다.
+ * - `lang`: 브라우저와 검색 엔진에 페이지의 언어를 알립니다.
+ * - `dir`: 올바른 읽기 순서를 보장합니다 (예: 영어의 경우 'ltr', 아랍어의 경우 'rtl').
+ *
+ * 이 동적 업데이트는 올바른 텍스트 렌더링, 접근성 및 SEO에 필수적입니다.
+ */
+export const useI18nHTMLAttributes = () => {
+  const { locale } = useLocale();
+
+  useEffect(() => {
+    // 언어 속성을 현재 로케일로 업데이트합니다.
+    document.documentElement.lang = locale;
+
+    // 현재 로케일을 기반으로 텍스트 방향을 설정합니다.
+    document.documentElement.dir = getHTMLTextDir(locale);
+  }, [locale]);
+};
+```
+
 #### 훅 구현하기
 
 HTML 속성을 관리하는 커스텀 훅을 만듭니다. 이 훅은 로케일 변경을 감지하여 속성을 적절히 업데이트합니다:
@@ -263,30 +343,25 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
 Link.displayName = "Link";
 ```
 
+#### 작동 방식
+
+- **외부 링크 감지**:  
+  헬퍼 함수 `checkIsExternalLink`는 지정된 URL이 외부 링크인지 여부를 판단합니다. 외부 링크는 현지화할 필요가 없으므로 변경되지 않은 상태로 유지됩니다.
+
+- **현재 로케일 가져오기**:  
+  `useLocale` 훅은 현재 로케일(예: 프랑스어의 경우 `fr`)을 제공합니다.
+
+- **URL 현지화**:  
+  내부 링크(즉, 외부 링크가 아닌 링크)의 경우, `getLocalizedUrl`을 사용하여 현재 로케일로 URL 접두사를 자동으로 붙입니다. 즉, 사용자가 프랑스어 환경인 경우 `/about`을 `href`로 전달하면 `/fr/about`으로 변환됩니다.
+
+- **링크 반환**:  
+  이 컴포넌트는 로컬라이즈된 URL이 적용된 `<a>` 요소를 반환하여 내비게이션이 로케일과 일치하도록 보장합니다.
+
+애플리케이션 전반에 이 `Link` 컴포넌트를 통합함으로써, 일관되고 언어를 인식하는 사용자 경험을 유지하는 동시에 개선된 SEO 및 사용성 이점을 누릴 수 있습니다.
+
 </Step>
 
-</Steps>
-
-### VS Code 확장 프로그램
-
-Intlayer와 함께 개발 경험을 향상시키기 위해 공식 **Intlayer VS Code 확장 프로그램**을 설치할 수 있습니다.
-
-[VS Code 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-이 확장 프로그램은 다음 기능을 제공합니다:
-
-- 번역 키에 대한 **자동 완성**.
-- 누락된 번역에 대한 **실시간 오류 감지**.
-- 번역된 내용의 **인라인 미리보기**.
-- 번역을 쉽게 생성하고 업데이트할 수 있는 **빠른 작업**.
-
-확장 기능 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
-
----
-
-<Steps>
-
-<Step number={1} title="컴포넌트 콘텐츠 추출" isOptional={true}>
+<Step number={11} title="컴포넌트 콘텐츠 추출" isOptional={true}>
 
 기존 코드베이스가 있는 경우 수천 개의 파일을 변환하는 데 시간이 많이 걸릴 수 있습니다.
 

@@ -61,6 +61,10 @@ author: aymericzip
   </Tab>
 </Tabs>
 
+## İçindekiler
+
+<TOC/>
+
 ## Neden alternatifler yerine Intlayer?
 
 'Next-intl' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:

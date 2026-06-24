@@ -612,27 +612,6 @@ bun run build # Or bun run dev
 
 </Steps>
 
-### Konfigurasi Babel
-
-Kompilator Intlayer memerlukan Babel untuk mengekstrak dan mengoptimalkan konten Anda. Perbarui `babel.config.js` (atau `babel.config.json`) Anda untuk menyertakan plugin Intlayer:
-
-```typescript fileName="babel.config.js"
-const {
-  intlayerExtractBabelPlugin,
-  intlayerOptimizeBabelPlugin,
-  getExtractPluginOptions,
-  getOptimizePluginOptions,
-} = require("@intlayer/babel");
-
-module.exports = {
-  presets: ["next/babel"],
-  plugins: [
-    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
-    [intlayerOptimizeBabelPlugin, getOptimizePluginOptions()],
-  ],
-};
-```
-
 ### Konfigurasi TypeScript
 
 Intlayer menggunakan augmentasi modul untuk memanfaatkan keunggulan TypeScript dan membuat basis kode Anda lebih kuat.

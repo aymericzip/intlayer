@@ -665,4 +665,472 @@ export const generateMetadata = async ({
 
 </Step>
 
+<Step number={9} title="Quốc tế hóa sitemap.xml và robots.txt của bạn" isOptional={true}>
+
+Để quốc tế hóa `sitemap.xml` và `robots.txt` của bạn, bạn có thể sử dụng hàm `getMultilingualUrls` do Intlayer cung cấp. Hàm này cho phép bạn tạo các URL đa ngôn ngữ cho sitemap của mình.
+
+```tsx fileName="src/app/sitemap.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { getMultilingualUrls } from "intlayer";
+import type { MetadataRoute } from "next";
+
+const sitemap = (): MetadataRoute.Sitemap => [
+  {
+    url: "https://example.com",
+    alternates: {
+      languages: {
+        ...getMultilingualUrls("https://example.com"),
+        "x-default": "https://example.com",
+      },
+    },
+  },
+  {
+    url: "https://example.com/login",
+    alternates: {
+      languages: {
+        ...getMultilingualUrls("https://example.com/login"),
+        "x-default": "https://example.com/login",
+      },
+    },
+  },
+  {
+    url: "https://example.com/register",
+    alternates: {
+      languages: {
+        ...getMultilingualUrls("https://example.com/register"),
+        "x-default": "https://example.com/register",
+      },
+    },
+  },
+];
+
+export default sitemap;
+```
+
+```tsx fileName="src/app/robots.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { MetadataRoute } from "next";
+import { getMultilingualUrls } from "intlayer";
+
+const getAllMultilingualUrls = (urls: string[]) =>
+  urls.flatMap((url) => Object.values(getMultilingualUrls(url)) as string[]);
+
+const robots = (): MetadataRoute.Robots => ({
+  rules: {
+    userAgent: "*",
+    allow: ["/"],
+    disallow: getAllMultilingualUrls(["/login", "/register"]),
+  },
+  host: "https://example.com",
+  sitemap: `https://example.com/sitemap.xml`,
+});
+
+export default robots;
+```
+
+> Tìm hiểu thêm về tối ưu hóa sitemap [trên tài liệu chính thức của Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap). Tìm hiểu thêm về tối ưu hóa robots.txt [trên tài liệu chính thức của Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots).
+
+</Step>
+
+<Step number={10} title="Thay đổi ngôn ngữ của nội dung của bạn" isOptional={true}>
+
+Để thay đổi ngôn ngữ của nội dung trong Next.js, cách được khuyến nghị là sử dụng thành phần `Link` để chuyển hướng người dùng đến trang bản địa hóa thích hợp. Thành phần `Link` cho phép tải trước trang, giúp tránh việc tải lại toàn bộ trang.
+
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
+"use client";
+
+import type { FC } from "react";
+import {
+  Locales,
+  getHTMLTextDir,
+  getLocaleName,
+  getLocalizedUrl,
+} from "intlayer";
+import { useLocale } from "next-intlayer";
+import Link from "next/link";
+
+export const LocaleSwitcher: FC = () => {
+  const { locale, pathWithoutLocale, availableLocales, setLocale } =
+    useLocale();
+
+  return (
+    <div>
+      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
+      <div id="localePopover" popover="auto">
+        {availableLocales.map((localeItem) => (
+          <Link
+            href={getLocalizedUrl(pathWithoutLocale, localeItem)}
+            key={localeItem}
+            aria-current={locale === localeItem ? "page" : undefined}
+            onClick={() => setLocale(localeItem)}
+            replace // Sẽ đảm bảo nút "quay lại" của trình duyệt sẽ chuyển hướng đến trang trước đó
+          >
+            <span>
+              {/* Locale - ví dụ: FR */}
+              {localeItem}
+            </span>
+            <span>
+              {/* Ngôn ngữ trong chính Locale đó - ví dụ: Français */}
+              {getLocaleName(localeItem, locale)}
+            </span>
+            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
+              {/* Ngôn ngữ trong Locale hiện tại - ví dụ: Francés với locale hiện tại là Locales.SPANISH */}
+              {getLocaleName(localeItem)}
+            </span>
+            <span dir="ltr" lang={Locales.ENGLISH}>
+              {/* Ngôn ngữ bằng tiếng Anh - ví dụ: French */}
+              {getLocaleName(localeItem, Locales.ENGLISH)}
+            </span>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+};
+```
+
+> Một cách thay thế là sử dụng hàm `setLocale` do hook `useLocale` cung cấp. Hàm này sẽ không cho phép tải trước trang. Xem [tài liệu hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/useLocale.md) để biết thêm chi tiết.
+
+> Bạn cũng có thể thiết lập một hàm trong tùy chọn `onLocaleChange` để kích hoạt một hàm tùy chỉnh khi ngôn ngữ thay đổi.
+
+```tsx fileName="src/components/LocaleSwitcher.tsx"
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useLocale } from "next-intlayer";
+import { getLocalizedUrl } from "intlayer";
+
+// ... Phần còn lại của mã
+
+const router = useRouter();
+const { setLocale } = useLocale({
+  onLocaleChange: (locale) => {
+    router.push(getLocalizedUrl(pathWithoutLocale, locale));
+  },
+});
+
+return (
+  <button onClick={() => setLocale(Locales.FRENCH)}>
+    Chuyển sang tiếng Pháp
+  </button>
+);
+```
+
+> Tài liệu tham khảo:
+>
+> - [hook `useLocale`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/next-intlayer/useLocale.md)
+> - [hook `getLocaleName`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getLocaleName.md)
+> - [hook `getLocalizedUrl`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getLocalizedUrl.md)
+> - [hook `getHTMLTextDir`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/packages/intlayer/getHTMLTextDir.md)
+> - [thuộc tính `hrefLang`](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
+> - [thuộc tính `lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+> - [thuộc tính `dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
+> - [thuộc tính `aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+
+</Step>
+
+<Step number={11} title="Tạo một thành phần Link được bản địa hóa" isOptional={true}>
+
+Để đảm bảo rằng việc điều hướng của ứng dụng tôn trọng ngôn ngữ hiện tại, bạn có thể tạo một thành phần `Link` tùy chỉnh. Thành phần này tự động thêm tiền tố ngôn ngữ hiện tại vào các URL nội bộ. Ví dụ: khi một người dùng nói tiếng Pháp nhấp vào liên kết đến trang "Giới thiệu", họ sẽ được chuyển hướng đến `/fr/about` thay vì `/about`.
+
+Hành vi này hữu ích vì một số lý do:
+
+- **SEO và Trải nghiệm người dùng**: Các URL được bản địa hóa giúp công cụ tìm kiếm lập chỉ mục các trang dành riêng cho ngôn ngữ một cách chính xác và cung cấp cho người dùng nội dung bằng ngôn ngữ ưa thích của họ.
+- **Tính nhất quán**: Bằng cách sử dụng một liên kết được bản địa hóa trong toàn bộ ứng dụng của mình, bạn đảm bảo rằng việc điều hướng luôn nằm trong ngôn ngữ hiện tại, ngăn chặn việc chuyển đổi ngôn ngữ không mong muốn.
+- **Khả năng bảo trì**: Việc tập trung logic bản địa hóa trong một thành phần duy nhất giúp đơn giản hóa việc quản lý các URL, làm cho mã nguồn của bạn dễ bảo trì và mở rộng hơn khi ứng dụng phát triển.
+
+Dưới đây là việc triển khai thành phần `Link` được bản địa hóa trong TypeScript:
+
+```tsx fileName="src/components/Link.tsx" codeFormat={["typescript", "esm"]}
+"use client";
+
+import { getLocalizedUrl } from "intlayer";
+import NextLink, { type LinkProps as NextLinkProps } from "next/link";
+import { useLocale } from "next-intlayer";
+import type { PropsWithChildren, FC } from "react";
+
+/**
+ * Hàm tiện ích để kiểm tra xem một URL cho trước có phải là bên ngoài hay không.
+ * Nếu URL bắt đầu bằng http:// hoặc https://, nó được coi là bên ngoài.
+ */
+export const checkIsExternalLink = (href?: string): boolean =>
+  /^https?:\/\//.test(href ?? "");
+
+/**
+ * Một thành phần Link tùy chỉnh thích ứng thuộc tính href dựa trên ngôn ngữ hiện tại.
+ * Đối với các liên kết nội bộ, nó sử dụng `getLocalizedUrl` để thêm tiền tố ngôn ngữ vào URL (ví dụ: /fr/about).
+ * Điều này đảm bảo rằng việc điều hướng vẫn nằm trong cùng một ngữ cảnh ngôn ngữ.
+ */
+export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
+  href,
+  children,
+  ...props
+}) => {
+  const { locale } = useLocale();
+  const isExternalLink = checkIsExternalLink(href.toString());
+
+  // Nếu liên kết là nội bộ và một href hợp lệ được cung cấp, lấy URL được bản địa hóa.
+  const hrefI18n: NextLinkProps["href"] =
+    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
+
+  return (
+    <NextLink href={hrefI18n} {...props}>
+      {children}
+    </NextLink>
+  );
+};
+```
+
+#### Cách hoạt động
+
+- **Phát hiện các liên kết bên ngoài**:  
+  Hàm trợ giúp `checkIsExternalLink` xác định xem một URL có phải là bên ngoài hay không. Các liên kết bên ngoài được để nguyên vì chúng không cần bản địa hóa.
+
+- **Truy xuất ngôn ngữ hiện tại**:  
+  Hook `useLocale` cung cấp ngôn ngữ hiện tại (ví dụ: `fr` cho tiếng Pháp).
+
+- **Bản địa hóa URL**:  
+  Đối với các liên kết nội bộ (nghĩa là không phải bên ngoài), `getLocalizedUrl` được sử dụng để tự động thêm tiền tố ngôn ngữ hiện tại vào URL. Điều này có nghĩa là nếu người dùng của bạn đang ở tiếng Pháp, việc truyền `/about` dưới dạng `href` sẽ chuyển nó thành `/fr/about`.
+
+- **Trả về liên kết**:  
+  Thành phần trả về một phần tử `<a>` với URL được bản địa hóa, đảm bảo rằng việc điều hướng nhất quán với ngôn ngữ.
+
+Bằng cách tích hợp thành phần `Link` này trong toàn bộ ứng dụng của mình, bạn duy trì một trải nghiệm người dùng nhất quán và nhận biết ngôn ngữ đồng thời được hưởng lợi từ việc cải thiện SEO và khả năng sử dụng.
+
+</Step>
+
+<Step number={12} title="Lấy ngôn ngữ hiện tại trong Server Actions" isOptional={true}>
+
+Nếu bạn cần ngôn ngữ hoạt động bên trong một Server Action (ví dụ: để bản địa hóa email hoặc chạy logic nhận biết ngôn ngữ), hãy gọi `getLocale` từ `next-intlayer/server`:
+
+```tsx fileName="src/app/actions/getLocale.ts" codeFormat="typescript"
+"use server";
+
+import { getLocale } from "next-intlayer/server";
+
+export const myServerAction = async () => {
+  const locale = await getLocale();
+
+  // Làm điều gì đó với ngôn ngữ
+};
+```
+
+> Hàm `getLocale` tuân theo một chiến lược phân cấp để xác định ngôn ngữ của người dùng:
+>
+> 1. Đầu tiên, nó kiểm tra các tiêu đề yêu cầu cho một giá trị ngôn ngữ có thể đã được thiết lập bởi proxy.
+> 2. Nếu không tìm thấy ngôn ngữ nào trong tiêu đề, nó sẽ tìm kiếm ngôn ngữ được lưu trữ trong cookie.
+> 3. Nếu không tìm thấy cookie nào, nó sẽ cố gắng phát hiện ngôn ngữ ưa thích của người dùng từ cài đặt trình duyệt của họ.
+> 4. Là phương án cuối cùng, nó quay trở lại ngôn ngữ mặc định đã định cấu hình của ứng dụng.
+>
+> Điều này đảm bảo rằng ngôn ngữ thích hợp nhất được chọn dựa trên ngữ cảnh có sẵn.
+
+</Step>
+
+<Step number={13} title="Tối ưu hóa kích thước bundle của bạn" isOptional={true}>
+
+Khi sử dụng `next-intlayer`, các từ điển được đưa vào gói cho mỗi trang theo mặc định. Để tối ưu hóa kích thước bundle, Intlayer cung cấp một plugin SWC tùy chọn giúp thay thế các cuộc gọi `useIntlayer` một cách thông minh bằng các macro. Điều này đảm bảo các từ điển chỉ được đưa vào gói cho các trang thực sự sử dụng chúng.
+
+Để bật tính năng tối ưu hóa này, hãy cài đặt gói `@intlayer/swc`. Sau khi cài đặt, `next-intlayer` sẽ tự động phát hiện và sử dụng plugin:
+
+```bash packageManager="npm"
+npm install @intlayer/swc --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/swc --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/swc --save-dev
+```
+
+```bash packageManager="bun"
+bun add @intlayer/swc --dev
+```
+
+> Lưu ý: Tính năng tối ưu hóa này chỉ khả dụng cho Next.js 13 trở lên.
+
+> Lưu ý: Gói này không được cài đặt theo mặc định vì các plugin SWC vẫn đang trong quá trình thử nghiệm trên Next.js. Nó có thể thay đổi trong tương lai.
+
+> Lưu ý: Nếu bạn đặt tùy chọn thành `importMode: 'dynamic'` hoặc `importMode: 'fetch'` (trong cấu hình `dictionary`), nó sẽ dựa trên Suspense, vì vậy bạn sẽ phải bao bọc các cuộc gọi `useIntlayer` của mình trong một ranh giới `Suspense`. Điều đó có nghĩa là, bạn sẽ không thể sử dụng `useIntlayer` trực tiếp ở cấp cao nhất của thành phần Trang / Bố cục của mình.
+> </Step>
+
+<Step number={1} title="Trích xuất nội dung các thành phần của bạn" isOptional={true}>
+
+Nếu bạn có một cơ sở mã hiện có, việc chuyển đổi hàng nghìn tệp có thể tốn nhiều thời gian.
+
+Để đơn giản hóa quy trình này, Intlayer đề xuất một [trình biên dịch](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/compiler.md) / [trình trích xuất](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md) để chuyển đổi các thành phần của bạn và trích xuất nội dung.
+
+Để thiết lập, bạn có thể thêm phần `compiler` vào tệp `intlayer.config.ts` của mình:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... Phần còn lại của cấu hình
+  compiler: {
+    /**
+     * Cho biết trình biên dịch có nên được bật hay không.
+     */
+    enabled: true,
+
+    /**
+     * Xác định đường dẫn các tệp đầu ra
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Cho biết các thành phần có nên được lưu sau khi chuyển đổi hay không. Bằng cách đó, trình biên dịch có thể được chạy chỉ một lần để chuyển đổi ứng dụng, sau đó có thể được gỡ bỏ.
+     */
+    saveComponents: false,
+
+    /**
+     * Tiền tố khóa từ điển
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='Lệnh trích xuất'>
+
+Chạy trình trích xuất để chuyển đổi các thành phần và trích xuất nội dung
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Trình biên dịch Babel'>
+
+```bash packageManager="npm"
+npm install @intlayer/babel --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/babel --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/babel --save-dev
+```
+
+```bash packageManager="bun"
+bun add @intlayer/babel --dev
+```
+
+```js fileName="babel.config.js"
+const {
+  intlayerExtractBabelPlugin,
+  getExtractPluginOptions,
+} = require("@intlayer/babel");
+
+module.exports = {
+  presets: ["next/babel"],
+  plugins: [
+    // Trích xuất nội dung từ các thành phần vào từ điển
+    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+  ],
+};
+```
+
+```bash packageManager="npm"
+npm run build # Hoặc npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # Or pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Or yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
+</Step>
+
 </Steps>
+
+### Theo dõi các thay đổi từ điển trên Turbopack
+
+Khi sử dụng Turbopack làm máy chủ phát triển của bạn với lệnh `next dev --turbopack`項目, các thay đổi từ điển sẽ không được tự động phát hiện theo mặc định.
+
+Hạn chế này xảy ra vì Turbopack không thể chạy các plugin webpack song song để theo dõi các thay đổi trong tệp nội dung của bạn. Để giải quyết vấn đề này, bạn sẽ cần sử dụng lệnh `intlayer watch` để chạy đồng thời cả máy chủ phát triển và trình theo dõi xây dựng Intlayer.
+
+```json5 fileName="package.json"
+{
+  // ... Các cấu hình package.json hiện có của bạn
+  "scripts": {
+    // ... Các cấu hình scripts hiện có của bạn
+    "dev": "intlayer watch --with 'next dev --turbopack'",
+  },
+}
+```
+
+### Cấu hình TypeScript
+
+Intlayer sử dụng tăng cường mô-đun (module augmentation) để nhận được các lợi ích của TypeScript và làm cho cơ sở mã của bạn mạnh mẽ hơn.
+
+![Tự động hoàn thành](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Lỗi dịch](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+Đảm bảo cấu hình TypeScript của bạn bao gồm các kiểu được tạo tự động.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Các cấu hình TypeScript hiện có của bạn
+  "include": [
+    // ... Các cấu hình TypeScript hiện có của bạn
+    ".intlayer/**/*.ts", // Bao gồm các kiểu được tạo tự động
+  ],
+}
+```
+
+### Cấu hình Git
+
+Khuyến nghị bỏ qua các tệp được tạo bởi Intlayer. Điều này cho phép bạn tránh cam kết chúng vào kho lưu trữ Git của mình.
+
+Để thực hiện việc này, bạn có thể thêm các hướng dẫn sau vào tệp `.gitignore` của mình:
+
+```plaintext fileName=".gitignore"
+# Bỏ qua các tệp được tạo bởi Intlayer
+.intlayer
+```
+
+### Tiện ích mở rộng VS Code
+
+Để cải thiện trải nghiệm phát triển của bạn với Intlayer, bạn có thể cài đặt **Tiện ích mở rộng Intlayer VS Code** chính thức.
+
+[Cài đặt từ VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Tiện ích mở rộng này cung cấp:
+
+- **Tự động hoàn thành** cho các khóa bản dịch.
+- **Phát hiện lỗi thời gian thực** cho các bản dịch bị thiếu.
+- **Xem trước nội tuyến** nội dung đã dịch.
+- **Các hành động nhanh** để dễ dàng tạo và cập nhật các bản dịch.
+
+Để biết thêm chi tiết về cách sử dụng tiện ích mở rộng, hãy tham khảo [tài liệu Tiện ích mở rộng Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
+
+### Đi Xa Hơn
+
+Để đi xa hơn, bạn có thể triển khai [trình chỉnh sửa trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc bên ngoài hóa nội dung của bạn bằng cách sử dụng [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md).

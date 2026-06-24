@@ -317,7 +317,134 @@ Astro entegrasyonu, geliştirme sırasında dile duyarlı yönlendirme ve ortam 
 
 </Step>
 
-<Step number={7} title="Favori Framework'ünüzü Kullanmaya Devam Edin">
+<Step number={7} title="Dil Seçici Ekleme">
+
+Kullanıcıların diller arasında geçiş yapabilmesi için bir `LocaleSwitcher` bileşeni oluşturabilirsiniz. Bu bileşen, desteklenen tüm dillerin bir listesini görüntülemeli ve her dilde aynı sayfaya bağlantı vermelidir.
+
+```astro fileName="src/components/LocaleSwitcher.astro"
+---
+import {
+  locales,
+  getLocaleName,
+  getLocalizedUrl,
+  getLocaleFromPath,
+  getPathWithoutLocale,
+  type LocalesValues,
+} from "intlayer";
+
+const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
+---
+
+<nav>
+  {
+    locales.map((localeItem) => (
+      <a
+        href={getLocalizedUrl(pathWithoutLocale, localeItem)}
+        data-locale={localeItem}
+        aria-current={localeItem === locale ? "page" : undefined}
+      >
+        {getLocaleName(localeItem)}
+      </a>
+    ))
+  }
+</nav>
+
+<script>
+  import { setLocaleInStorageClient, getLocalizedUrl, type LocalesValues } from "intlayer";
+
+  const localeLinks = document.querySelectorAll("[data-locale]");
+
+  localeLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const locale = link.getAttribute("data-locale") as LocalesValues;
+
+      // Update the locale cookie
+      setLocaleInStorageClient(locale);
+    });
+  });
+</script>
+
+<style>
+  nav {
+    display: flex;
+    gap: 1rem;
+  }
+  a[aria-current="page"] {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+</style>
+```
+
+> **Kalıcılık Hakkında Not:**
+> İstemci tarafı betiğinde `setLocaleInStorageClient` kullanılması, kullanıcının dil tercihinin bir çerezde saklanmasını sağlar. Bu, Intlayer ara yazılımının seçimi hatırlamasına ve gelecekteki ziyaretlerde kullanıcıyı tercih ettiği dile otomatik olarak yönlendirmesine olanak tanır.
+
+</Step>
+
+<Step number={8} title="Sitemap ve Robots.txt">
+
+Intlayer, yerelleştirilmiş site haritanızı ve robots.txt dosyalarınızı dinamik olarak oluşturmak için yardımcı programlar sunar.
+
+#### Sitemap
+
+Intlayer comes with a built-in sitemap generator to help you create a sitemap for your application easily. It handles localized routes and adds the necessary metadata for search engines.
+
+> The Intlayer generated sitemap supports the `xhtml:link` namespace (Hreflang XML Extensions). Unlike the default sitemap generators that only list raw URLs, Intlayer automatically creates the required bidirectional links between all language versions of a page (e.g., `/about`, `/about?lang=fr`, and `/about?lang=es`). This ensures search engines correctly index and serve the right language version to the right audience.
+
+Tüm yerelleştirilmiş rotalarınızı içeren bir site haritası oluşturmak için `src/pages/sitemap.xml.ts` dosyasını oluşturun.
+
+```typescript fileName="src/pages/sitemap.xml.ts"
+import type { APIRoute } from "astro";
+import { generateSitemap, type SitemapUrlEntry } from "intlayer";
+
+const pathList: SitemapUrlEntry[] = [
+  { path: "/", changefreq: "daily", priority: 1.0 },
+  { path: "/about", changefreq: "monthly", priority: 0.7 },
+];
+
+const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
+
+export const GET: APIRoute = async ({ site }) => {
+  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+
+  return new Response(xmlOutput, {
+    headers: { "Content-Type": "application/xml" },
+  });
+};
+```
+
+#### Robots.txt
+
+Arama motoru taramasını kontroll etmek için `src/pages/robots.txt.ts` dosyasını oluşturun.
+
+```typescript fileName="src/pages/robots.txt.ts"
+import type { APIRoute } from "astro";
+import { getMultilingualUrls } from "intlayer";
+
+const getAllMultilingualUrls = (urls: string[]) =>
+  urls.flatMap((url) => Object.values(getMultilingualUrls(url)) as string[]);
+
+const disallowedPaths = getAllMultilingualUrls(["/admin", "/private"]);
+
+export const GET: APIRoute = ({ site }) => {
+  const robotsTxt = [
+    "User-agent: *",
+    "Allow: /",
+    ...disallowedPaths.map((path) => `Disallow: ${path}`),
+    "",
+    `Sitemap: ${new URL("/sitemap.xml", site).href}`,
+  ].join("\n");
+
+  return new Response(robotsTxt, {
+    headers: { "Content-Type": "text/plain" },
+  });
+};
+```
+
+</Step>
+
+<Step number={9} title="Favori Framework'ünüzü Kullanmaya Devam Edin">
 
 Seçtiğiniz framework'ü kullanarak uygulamanızı oluşturmaya devam edin.
 
@@ -328,103 +455,33 @@ Seçtiğiniz framework'ü kullanarak uygulamanızı oluşturmaya devam edin.
 - Intlayer + Preact: [Preact ile Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_with_vite+preact.md)
   </Step>
 
-<Step number={17} title="Bileşenlerinizin içeriğini çıkarın" isOptional={true}>
+<Step number={15} title="Bağımlılıkları Yükleyin">
 
-Mevcut bir kod tabanınız varsa, binlerce dosyayı dönüştürmek zaman alıcı olabilir.
-
-Bu süreci kolaylaştırmak için Intlayer, bileşenlerinizi dönüştürmek ve içeriği çıkarmak için bir [derleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/compiler.md) / [çıkarıcı](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/extract.md) sunar.
-
-Kurulum için `intlayer.config.ts` dosyanıza bir `compiler` bölümü ekleyebilirsiniz:
-
-```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import { type IntlayerConfig } from "intlayer";
-
-const config: IntlayerConfig = {
-  // ... Yapılandırmanızın geri kalanı
-  compiler: {
-    /**
-     * Derleyicinin etkinleştirilip etkinleştirilmeyeceğini belirtir.
-     */
-    enabled: true,
-
-    /**
-     * Çıktı dosyalarının yolunu tanımlar
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * Bileşenlerin dönüştürüldükten sonra kaydedilip kaydedilmeyeceğini belirtir. Bu sayede derleyici, uygulamayı dönüştürmek için yalnızca bir kez çalıştırılabilir ve ardından kaldırılabilir.
-     */
-    saveComponents: false,
-
-    /**
-     * Sözlük anahtarı öneki
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-<Tabs>
- <Tab value='Çıkarma komutu'>
-
-Bileşenlerinizi dönüştürmek ve içeriği çıkarmak için çıkarıcıyı çalıştırın
+Tercih ettiğiniz paket yöneticisini kullanarak gerekli paketleri yükleyin:
 
 ```bash packageManager="npm"
-npx intlayer extract
+npm install intlayer astro-intlayer
+# opsiyonel: React islands desteği eklemek isterseniz
+npm install react react-dom react-intlayer @astrojs/react
 ```
 
 ```bash packageManager="pnpm"
-pnpm intlayer extract
+pnpm add intlayer astro-intlayer
+# opsiyonel: React islands desteği eklemek isterseniz
+pnpm add react react-dom react-intlayer @astrojs/react
 ```
 
 ```bash packageManager="yarn"
-yarn intlayer extract
+yarn add intlayer astro-intlayer
+# opsiyonel: React islands desteği eklemek isterseniz
+yarn add react react-dom react-intlayer @astrojs/react
 ```
 
-```bash packageManager="bun"
-bun x intlayer extract
-```
+- **intlayer**
+  Konfigürasyon yönetimi, çeviriler, [içerik deklarasyonu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md), transpilasyon ve [CLI komutları](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/index.md) için i18n araçları sağlayan temel paket.
 
- </Tab>
- <Tab value='Babel derleyicisi'>
-
-`vite.config.ts` dosyanızı `intlayerCompiler` eklentisini içerecek şekilde güncelleyin:
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Derleyici eklentisini ekler
-  ],
-});
-```
-
-```bash packageManager="npm"
-npm run build # Veya npm run dev
-```
-
-```bash packageManager="pnpm"
-pnpm run build # Or pnpm run dev
-```
-
-```bash packageManager="yarn"
-yarn build # Or yarn dev
-```
-
-```bash packageManager="bun"
-bun run build # Or bun run dev
-```
-
- </Tab>
-</Tabs>
-
----
+- **astro-intlayer**
+  Intlayer'ı [Vite paketleyici](https://vite.dev/guide/why.html#why-bundle-for-production) ile bağlamak için Astro entegrasyon eklentisi; ayrıca kullanıcının tercih ettiği dili algılamak, çerezleri yönetmek ve URL yönlendirmelerini işlemek için ara yazılım (middleware) içerir.
 
 </Step>
 

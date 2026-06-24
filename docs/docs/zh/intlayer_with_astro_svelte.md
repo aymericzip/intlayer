@@ -71,25 +71,37 @@ Intlayer 经过优化，可与 Astro 完美配合，提供**多语言路由**、
 
 不要将大量 JSON 文件加载到页面中，而只需加载必要的内容。 Intlayer 有助于**将捆绑包和页面大小减少多达 50%**。
 
-**可维护性**
+<AccordionGroup>
+<Accordion header="可维护性">
 
 确定应用程序内容的范围**有利于大型应用程序的维护**。您可以复制或删除单个功能文件夹，而无需承担检查整个内容代码库的精神负担。此外，Intlayer 具有**完全类型化 (fully typed)**，以确保您的内容的准确性。
 
-**人工智能代理**
+</Accordion>
+
+<Accordion header="人工智能代理">
 
 共置内容**减少大型语言模型 (LLM) 所需的上下文**。 Intlayer 还附带了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** 和 **[agent技能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**，使 AI 代理的开发者体验 (DX) 更加流畅。
 
-**自动化**
+</Accordion>
+
+<Accordion header="自动化">
 
 使用您选择的法学硕士，通过自动化在 CI/CD 管道中进行翻译，而费用由您的 AI 提供商承担。 Intlayer 还提供了一个**编译器**来自动提取内容，以及一个[网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)来帮助**在后台翻译**。
 
-**表现**
+</Accordion>
+
+<Accordion header="表现">
 
 将大量 JSON 文件连接到组件可能会导致性能和反应性问题。 Intlayer 可在构建时 (build time)优化您的内容加载。
 
-**无需开发即可扩展**
+</Accordion>
+
+<Accordion header="无需开发即可扩展">
 
 Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)**和一个**[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** 来帮助您管理多语言内容**实时**，与译员、文案人员和其他团队成员无缝协作。内容可以本地和/或远程存储。
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -97,7 +109,9 @@ Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的
 
 在 GitHub 上查看[应用程序模板](https://github.com/aymericzip/intlayer-astro-template)。
 
-### 第一步：安装依赖
+<Steps>
+
+<Step number={1} title="安装依赖">
 
 使用您喜欢的包管理器安装所需的软件包：
 
@@ -152,7 +166,9 @@ bun add intlayer astro-intlayer svelte svelte-intlayer @astrojs/svelte
 - **@astrojs/svelte**
   官方 Astro 集成，允许使用 Svelte 组件岛 (islands)。
 
-### 第二步：配置您的项目
+</Step>
+
+<Step number={2} title="配置您的项目">
 
 创建一个配置文件来定义您的应用程序语言：
 
@@ -176,7 +192,9 @@ export default config;
 
 > 通过此配置文件，您可以配置本地化 URL、中间件重定向、Cookie 名称、内容声明的位置和扩展名、在控制台中禁用 Intlayer 日志等。有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
-### 第三步：在 Astro 配置中集成 Intlayer
+</Step>
+
+<Step number={3} title="在 Astro 配置中集成 Intlayer">
 
 将 intlayer 插件和 Svelte 集成添加到您的 Astro 配置中。
 
@@ -197,7 +215,9 @@ export default defineConfig({
 
 > `svelte()` 集成允许通过 `client:only="svelte"` 使用 Svelte 组件岛。
 
-### 第四步：声明您的内容
+</Step>
+
+<Step number={4} title="声明您的内容">
 
 创建并管理您的内容声明以存储翻译：
 
@@ -223,7 +243,9 @@ export default appContent;
 
 > 有关更多信息，请参阅[内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
 
-### 第五步：在 Astro 中使用内容
+</Step>
+
+<Step number={5} title="在 Astro 中使用内容">
 
 您可以使用 `intlayer` 导出的核心辅助函数直接在 `.astro` 文件中消费词典。您还应在每个页面添加 SEO 元数据（如 hreflang 和规范链接），并为客户端交互内容引入 Svelte 岛。
 
@@ -303,7 +325,9 @@ const { title } = getIntlayer("app", locale);
 > - **`prefix-all`**：所有 URL 都有语言前缀。如果您不需要单独处理根目录，可以使用标准的 `[locale]`。
 > - **`search-param` 或 `no-prefix`**：不需要语言文件夹名。语言通过查询参数或 Cookie 处理。
 
-### 第六步：创建 Svelte 岛组件
+</Step>
+
+<Step number={6} title="创建 Svelte 岛组件">
 
 创建一个包装 Svelte 应用程序的岛组件。在访问 Store 之前，您必须使用服务端检测到的语言调用 `setupIntlayer`。
 
@@ -348,7 +372,9 @@ const { title } = getIntlayer("app", locale);
 
 > `locale` 属性从 Astro 页面（服务端检测）传递并用于初始化 `setupIntlayer`，这决定了树中所有 Store 的初始语言。
 
-### 第七步：添加语言切换器
+</Step>
+
+<Step number={7} title="添加语言切换器">
 
 语言切换功能直接内置在 Svelte 岛（参见上面的第六步）。它使用来自 `svelte-intlayer` 的 `useLocale` Store，并在用户选择新语言时导航到本地化 URL：
 
@@ -392,7 +418,9 @@ const { title } = getIntlayer("app", locale);
 > **关于持久性的说明：**
 > 使用 `onLocaleChange` 通过 `window.location.href` 重定向，确保访问了新的语言 URL，允许 Intlayer 中间件设置语言 Cookie 并记住用户在未来访问时的首选语言。
 
-### 第八步：站点地图和 Robots.txt
+</Step>
+
+<Step number={8} title="站点地图和 Robots.txt">
 
 Intlayer 提供了实用工具来动态创建您的本地化站点地图和 robots.txt 文件。
 
@@ -452,63 +480,9 @@ export const GET: APIRoute = ({ site }) => {
 };
 ```
 
-### TypeScript 配置
+</Step>
 
-Intlayer 使用模块扩展来利用 TypeScript，使您的代码库更加健壮。
-
-![自动补全](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![翻译错误](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-确保您的 TypeScript 配置包含自动生成的类型。
-
-```json5 fileName="tsconfig.json"
-{
-  // ... 您现有的 TypeScript 配置
-  "include": [
-    // ... 您现有的 TypeScript 配置
-    ".intlayer/**/*.ts", // 包含自动生成的类型
-  ],
-}
-```
-
-### Git 配置
-
-建议忽略 Intlayer 生成的文件。这可以避免将它们提交到您的 Git 仓库。
-
-为此，您可以将以下说明添加到 `.gitignore` 文件中：
-
-```bash
-# 忽略 Intlayer 生成的文件
-.intlayer
-```
-
-> 如果您想在 `字符串` 属性（如 `alt`、`title`、`href`、`aria-label` 等）中使用内容，可以使用函数的值，例如：
-
-> ```html
-> <img src="{content.image.src.value}" alt="{content.image.value}" />
-> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
-> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
-> ```
-
-### VS Code 扩展
-
-为了改善使用 Intlayer 的开发体验，您可以安装**官方 Intlayer VS Code 扩展**。
-
-[从 VS Code Marketplace 安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-此扩展提供：
-
-- 翻译键的**自动补全**。
-- 缺失翻译的**实时错误检测**。
-- 翻译内容的**内联预览**。
-- 轻松创建和更新翻译的**快速操作**。
-
-有关使用该扩展的更多信息，请参阅 [Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
-
----
-
-### 第十五步：提取组件中的内容（可选）
+<Step number={15} title="提取组件中的内容（可选）" isOptional={true}>
 
 如果您有现有的代码库，转换数千个文件可能会非常耗时。
 
@@ -587,6 +561,66 @@ export default defineConfig({
 
  </Tab>
 </Tabs>
+
+---
+
+</Step>
+
+</Steps>
+
+### TypeScript 配置
+
+Intlayer 使用模块扩展来利用 TypeScript，使您的代码库更加健壮。
+
+![自动补全](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![翻译错误](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+确保您的 TypeScript 配置包含自动生成的类型。
+
+```json5 fileName="tsconfig.json"
+{
+  // ... 您现有的 TypeScript 配置
+  "include": [
+    // ... 您现有的 TypeScript 配置
+    ".intlayer/**/*.ts", // 包含自动生成的类型
+  ],
+}
+```
+
+### Git 配置
+
+建议忽略 Intlayer 生成的文件。这可以避免将它们提交到您的 Git 仓库。
+
+为此，您可以将以下说明添加到 `.gitignore` 文件中：
+
+```bash
+# 忽略 Intlayer 生成的文件
+.intlayer
+```
+
+> 如果您想在 `字符串` 属性（如 `alt`、`title`、`href`、`aria-label` 等）中使用内容，可以使用函数的值，例如：
+
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
+
+### VS Code 扩展
+
+为了改善使用 Intlayer 的开发体验，您可以安装**官方 Intlayer VS Code 扩展**。
+
+[从 VS Code Marketplace 安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+此扩展提供：
+
+- 翻译键的**自动补全**。
+- 缺失翻译的**实时错误检测**。
+- 翻译内容的**内联预览**。
+- 轻松创建和更新翻译的**快速操作**。
+
+有关使用该扩展的更多信息，请参阅 [Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
 
 ---
 

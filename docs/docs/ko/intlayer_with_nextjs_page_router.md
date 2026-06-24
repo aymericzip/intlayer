@@ -58,6 +58,10 @@ author: aymericzip
   </Tab>
 </Tabs>
 
+## 목차
+
+<TOC/>
+
 ## 대안보다 Intlayer를 선택해야 하는 이유는 무엇입니까?
 
 'next-intl' 또는 'i18next'와 같은 주요 솔루션과 비교할 때 Intlayer는 다음과 같은 통합 최적화 기능을 제공하는 솔루션입니다.

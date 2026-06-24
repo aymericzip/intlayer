@@ -316,7 +316,134 @@ Die Astro-Integration fügt eine Vite-Middleware hinzu, die beim sprachsensitive
 
 </Step>
 
-<Step number={7} title="Verwenden Sie weiterhin Ihre bevorzugten Frameworks">
+<Step number={7} title="Sprachumschalter hinzufügen">
+
+Um Benutzern den Wechsel zwischen Sprachen zu ermöglichen, können Sie eine `LocaleSwitcher`-Komponente erstellen. Diese Komponente sollte eine Liste aller unterstützten Sprachen anzeigen und auf dieselbe Seite in jeder Sprache verlinken.
+
+```astro fileName="src/components/LocaleSwitcher.astro"
+---
+import {
+  locales,
+  getLocaleName,
+  getLocalizedUrl,
+  getLocaleFromPath,
+  getPathWithoutLocale,
+  type LocalesValues,
+} from "intlayer";
+
+const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
+---
+
+<nav>
+  {
+    locales.map((localeItem) => (
+      <a
+        href={getLocalizedUrl(pathWithoutLocale, localeItem)}
+        data-locale={localeItem}
+        aria-current={localeItem === locale ? "page" : undefined}
+      >
+        {getLocaleName(localeItem)}
+      </a>
+    ))
+  }
+</nav>
+
+<script>
+  import { setLocaleInStorageClient, getLocalizedUrl, type LocalesValues } from "intlayer";
+
+  const localeLinks = document.querySelectorAll("[data-locale]");
+
+  localeLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const locale = link.getAttribute("data-locale") as LocalesValues;
+
+      // Update the locale cookie
+      setLocaleInStorageClient(locale);
+    });
+  });
+</script>
+
+<style>
+  nav {
+    display: flex;
+    gap: 1rem;
+  }
+  a[aria-current="page"] {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+</style>
+```
+
+> **Hinweis zur Persistenz:**
+> Die Verwendung von `setLocaleInStorageClient` im clientseitigen Skript stellt sicher, dass die Sprachpräferenz des Benutzers in einem Cookie gespeichert wird. Dies ermöglicht es der Intlayer-Middleware, sich an die Auswahl zu erinnern und den Benutzer bei zukünftigen Besuchen automatisch auf seine bevorzugte Sprache umzuleiten.
+
+</Step>
+
+<Step number={8} title="Sitemap und Robots.txt">
+
+Intlayer bietet Dienstprogramme zum dynamischen Erstellen Ihrer lokalisierten Sitemap und Robots.txt-Dateien.
+
+#### Sitemap
+
+Intlayer wird mit einem integrierten Sitemap-Generator geliefert, mit dem Sie ganz einfach eine Sitemap für Ihre Anwendung erstellen können. Er berücksichtigt lokalisierte Routen und fügt die erforderlichen Metadaten für Suchmaschinen hinzu.
+
+> Die von Intlayer generierte Sitemap unterstützt den `xhtml:link`-Namespace (Hreflang XML-Erweiterungen). Im Gegensatz zu Standard-Sitemap-Generatoren, die nur rohe URLs auflisten, erstellt Intlayer automatisch die erforderlichen bidirektionalen Links zwischen allen Sprachversionen einer Seite (z. B. `/about`, `/about?lang=fr` und `/about?lang=es`). Dies stellt sicher, dass Suchmaschinen die richtige Sprachversion korrekt indexieren und der richtigen Zielgruppe bereitstellen.
+
+Erstellen Sie `src/pages/sitemap.xml.ts`, um eine Sitemap zu generieren, die alle Ihre lokalisierten Routen enthält.
+
+```typescript fileName="src/pages/sitemap.xml.ts"
+import type { APIRoute } from "astro";
+import { generateSitemap, type SitemapUrlEntry } from "intlayer";
+
+const pathList: SitemapUrlEntry[] = [
+  { path: "/", changefreq: "daily", priority: 1.0 },
+  { path: "/about", changefreq: "monthly", priority: 0.7 },
+];
+
+const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
+
+export const GET: APIRoute = async ({ site }) => {
+  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+
+  return new Response(xmlOutput, {
+    headers: { "Content-Type": "application/xml" },
+  });
+};
+```
+
+#### Robots.txt
+
+Erstellen Sie `src/pages/robots.txt.ts`, um das Crawling durch Suchmaschinen zu steuern.
+
+```typescript fileName="src/pages/robots.txt.ts"
+import type { APIRoute } from "astro";
+import { getMultilingualUrls } from "intlayer";
+
+const getAllMultilingualUrls = (urls: string[]) =>
+  urls.flatMap((url) => Object.values(getMultilingualUrls(url)) as string[]);
+
+const disallowedPaths = getAllMultilingualUrls(["/admin", "/private"]);
+
+export const GET: APIRoute = ({ site }) => {
+  const robotsTxt = [
+    "User-agent: *",
+    "Allow: /",
+    ...disallowedPaths.map((path) => `Disallow: ${path}`),
+    "",
+    `Sitemap: ${new URL("/sitemap.xml", site).href}`,
+  ].join("\n");
+
+  return new Response(robotsTxt, {
+    headers: { "Content-Type": "text/plain" },
+  });
+};
+```
+
+</Step>
+
+<Step number={9} title="Verwenden Sie weiterhin Ihre bevorzugten Frameworks">
 
 Bauen Sie Ihre Anwendung mit dem Framework Ihrer Wahl weiter auf.
 

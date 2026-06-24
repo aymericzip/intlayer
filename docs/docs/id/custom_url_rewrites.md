@@ -228,21 +228,19 @@ Intlayer menyediakan formatter untuk semua framework populer:
 - `reactRouterRewrite`: Untuk React Router. Mendukung `:slug` dan `*` (0+).
 - `vueRouterRewrite`: Untuk Vue Router 4. Mendukung `:slug`, `:slug?` (0-1), `:slug*` (0+), dan `:slug+` (1+).
 - `solidRouterRewrite`: Untuk Solid Router. Mendukung `:slug` dan `*slug` (0+).
-  /// `tanstackRouterRewrite`: Untuk TanStack Router. Mendukung `$slug` dan `*` (0+).
-  /// `nuxtRewrite`: Untuk Nuxt 3. Mendukung `[slug]` dan `[...slug]` (0+).
-  /// `viteRewrite`: Formatter umum untuk proyek berbasis Vite. Menormalkan sintaks untuk proxy Vite.
-  ///
-  /// ### Pola Lanjutan
-  ///
-  /// Intlayer secara internal menormalkan pola-pola ini menjadi sintaks terpadu, memungkinkan pencocokan dan pembuatan path yang lebih canggih:
-  ///
-  /// - **Segmen Opsional**: `[[optional]]` (SvelteKit) atau `:slug?` (Vue/React) didukung.
-  /// - **Catch-all (Nol atau lebih)**: `[[...slug]]` (Next.js), `[...path]` (SvelteKit/Nuxt), atau `*` (React/TanStack) memungkinkan mencocokkan beberapa segmen.
-  /// - **Catch-all Wajib (Satu atau lebih)**: `[...slug]` (Next.js) atau `:slug+` (Vue) memastikan setidaknya satu segmen ada.
-  ///
-  /// ## Koreksi URL di Sisi Klien: `useRewriteURL`
-  ///
-  ///
+- `tanstackRouterRewrite`: Untuk TanStack Router. Mendukung `$slug` dan `*` (0+).
+- `nuxtRewrite`: Untuk Nuxt 3. Mendukung `[slug]` dan `[...slug]` (0+).
+- `viteRewrite`: Formatter umum untuk proyek berbasis Vite. Menormalkan sintaks untuk proxy Vite.
+
+### Pola Lanjutan
+
+Intlayer secara internal menormalkan pola-pola ini menjadi sintaks terpadu, memungkinkan pencocokan dan pembuatan path yang lebih canggih:
+
+- **Segmen Opsional**: `[[optional]]` (SvelteKit) atau `:slug?` (Vue/React) didukung.
+- **Catch-all (Nol atau lebih)**: `[[...slug]]` (Next.js), `[...path]` (SvelteKit/Nuxt), atau `*` (React/TanStack) memungkinkan mencocokkan beberapa segmen.
+- **Catch-all Wajib (Satu atau lebih)**: `[...slug]` (Next.js) atau `:slug+` (Vue) memastikan setidaknya satu segmen ada.
+
+## Koreksi URL di Sisi Klien: `useRewriteURL`
 
 Untuk memastikan bilah alamat browser selalu mencerminkan URL terlokalisasi yang "cantik", Intlayer menyediakan hook `useRewriteURL`. Hook ini memperbarui URL secara diam-diam menggunakan `window.history.replaceState` ketika pengguna mendarat pada path kanonik.
 

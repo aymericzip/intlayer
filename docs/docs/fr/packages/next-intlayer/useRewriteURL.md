@@ -23,14 +23,6 @@ Le hook `useRewriteURL` pour Next.js est un hook côté client qui gère automat
 
 Ce hook fonctionne discrètement en utilisant `window.history.replaceState`, évitant des navigations redondantes via le routeur Next.js ou des rafraîchissements de page.
 
-## Comment ça fonctionne
-
-1. **Surveillance du chemin** : Le hook écoute les changements de la `locale` de l'utilisateur.
-2. **Détection de réécriture** : Il compare le `window.location.pathname` actuel aux règles de réécriture dans votre configuration.
-3. **Correction de l'URL** : Si un alias localisé plus lisible est trouvé pour le chemin courant, le hook déclenche un `window.history.replaceState` pour mettre à jour la barre d'adresse tout en maintenant l'utilisateur sur la même page interne.
-
-## Pourquoi l'utiliser dans Next.js ?
-
 ## Utilisation
 
 Appelez simplement le hook dans un Client Component qui fait partie de votre layout.

@@ -845,54 +845,6 @@ bun run build # Or bun run dev
 
 </Steps>
 
-### Konfiguracja TypeScript
-
-Intlayer wykorzystuje rozszerzenie modułów (module augmentation), aby korzystać z zalet TypeScript i wzmocnić Twoją bazę kodu.
-
-![Autouzupełnianie](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Błąd tłumaczenia](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Upewnij się, że Twoja konfiguracja TypeScript zawiera automatycznie generowane typy.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Twoje istniejące konfiguracje TypeScript
-  "include": [
-    // ... Twoje istniejące konfiguracje TypeScript
-    ".intlayer/**/*.ts", // Dołącz automatycznie generowane typy
-  ],
-}
-```
-
-### Konfiguracja Git
-
-Zaleca się ignorowanie plików generowanych przez Intlayer. Pozwala to uniknąć ich zatwierdzania do repozytorium Git.
-
-Aby to zrobić, możesz dodać następujące instrukcje do pliku `.gitignore`:
-
-```bash
-#  Ignoruj pliki generowane przez Intlayer
-.intlayer
-```
-
-### Rozszerzenie VS Code
-
-Aby poprawić swoje doświadczenie programistyczne z Intlayer, możesz zainstalować oficjalne **rozszerzenie Intlayer dla VS Code**.
-
-[Zainstaluj z Marketplace VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-To rozszerzenie zapewnia:
-
-- **Autouzupełnianie** kluczy tłumaczeń.
-- **Wykrywanie błędów w czasie rzeczywistym** dla brakujących tłumaczeń.
-- **Podglądy w linii** przetłumaczonej zawartości.
-- **Szybkie akcje** umożliwiające łatwe tworzenie i aktualizowanie tłumaczeń.
-
-Aby uzyskać więcej informacji na temat korzystania z rozszerzenia, zapoznaj się z [dokumentacją rozszerzenia Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
-
----
-
 ### (Opcjonalnie) Sitemap i robots.txt (generacja przy buildzie)
 
 Intlayer udostępnia `generateSitemap` i `getMultilingualUrls` - narzędzia do formatowania wielojęzycznych plików `sitemap.xml` i `robots.txt` dla crawlerów i automatycznego zapisu do `public/`. Zwykle uruchamia się mały skrypt Node **przed** Vite (np. hooki npm `predev` / `prebuild`).
@@ -966,6 +918,54 @@ Pakiet `intlayer` musi być zainstalowany. W produkcji ustaw `SITE_URL` w środo
 ```
 
 Dostosuj polecenia dla pnpm lub yarn. Możesz też wywołać skrypt z CI.
+
+### Konfiguracja TypeScript
+
+Intlayer wykorzystuje rozszerzanie modułów (module augmentation), aby czerpać korzyści z TypeScript i wzmocnić Twoją codebase.
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+Upewnij się, że Twoja konfiguracja TypeScript zawiera automatycznie wygenerowane typy.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Twoje istniejące konfiguracje TypeScript
+  "include": [
+    // ... Twoje istniejące konfiguracje TypeScript
+    ".intlayer/**/*.ts", // Uwzględnij automatycznie wygenerowane typy
+  ],
+}
+```
+
+### Konfiguracja Git
+
+Zaleca się ignorowanie plików generowanych przez Intlayer. Pozwala to uniknąć dodawania ich do repozytorium Git.
+
+Aby to zrobić, możesz dodać następujące instrukcje do pliku `.gitignore`:
+
+```plaintext fileName=".gitignore"
+# Ignoruj pliki generowane przez Intlayer
+.intlayer
+```
+
+### Rozszerzenie VS Code
+
+Aby usprawnić proces developmentu z Intlayer, możesz zainstalować oficjalne **rozszerzenie Intlayer VS Code**.
+
+[Zainstaluj z VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+To rozszerzenie zapewnia:
+
+- **Autouzupełnianie** kluczy tłumaczeń.
+- **Wykrywanie błędów w czasie rzeczywistym** dla brakujących tłumaczeń.
+- **Podgląd inline** przetłumaczonej treści.
+- **Szybkie akcje** do łatwego tworzenia i aktualizowania tłumaczeń.
+
+Aby uzyskać więcej szczegółów na temat korzystania z rozszerzenia, zapoznaj się z [dokumentacją rozszerzenia Intlayer VS Code](https://intlayer.org/pl/doc/vs-code-extension).
+
+---
 
 ### Idź dalej
 

@@ -808,7 +808,131 @@ return (
 
 </Step>
 
-<Step number={1} title="Ekstrak konten komponen Anda" isOptional={true}>
+<Step number={11} title="Membuat Komponen Link yang Dilokalkan" isOptional={true}>
+
+Untuk memastikan navigasi aplikasi Anda menghormati lokal saat ini, Anda dapat membuat komponen `Link` kustom. Komponen ini secara otomatis menambahkan awalan bahasa saat ini pada URL internal, sehingga. Misalnya, ketika pengguna berbahasa Prancis mengklik tautan ke halaman "Tentang", mereka akan diarahkan ke `/fr/about` alih-alih `/about`.
+
+Perilaku ini berguna untuk beberapa alasan:
+
+- **SEO dan Pengalaman Pengguna**: URL yang dilokalkan membantu mesin pencari mengindeks halaman spesifik bahasa dengan benar dan menyediakan konten kepada pengguna dalam bahasa pilihan mereka.
+- **Konsistensi**: Dengan menggunakan tautan yang dilokalkan di seluruh aplikasi Anda, Anda menjamin navigasi tetap dalam lokal saat ini, mencegah perubahan bahasa yang tidak diinginkan.
+- **Pemeliharaan**: Memusatkan logika lokalisasi dalam satu komponen menyederhanakan pengelolaan URL, sehingga basis kode Anda lebih mudah dipelihara dan diperluas seiring pertumbuhan aplikasi Anda.
+
+Berikut adalah implementasi komponen `Link` yang dilokalisasi dalam TypeScript:
+
+```tsx fileName="src/components/Link.tsx" codeFormat={["typescript", "esm"]}
+"use client";
+
+import { getLocalizedUrl } from "intlayer";
+import NextLink, { type LinkProps as NextLinkProps } from "next/link";
+import { useLocale } from "next-intlayer";
+import type { PropsWithChildren, FC } from "react";
+
+/**
+ * Fungsi utilitas untuk memeriksa apakah URL yang diberikan bersifat eksternal.
+ * Jika URL dimulai dengan http:// atau https://, maka dianggap eksternal.
+ */
+export const checkIsExternalLink = (href?: string): boolean =>
+  /^https?:\/\//.test(href ?? "");
+
+/**
+ * Komponen Link kustom yang menyesuaikan atribut href berdasarkan locale saat ini.
+ * Untuk tautan internal, menggunakan `getLocalizedUrl` untuk menambahkan prefix locale pada URL (misalnya, /fr/about).
+ * Ini memastikan navigasi tetap dalam konteks locale yang sama.
+ */
+export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
+  href,
+  children,
+  ...props
+}) => {
+  const { locale } = useLocale();
+  const isExternalLink = checkIsExternalLink(href.toString());
+
+  // Jika tautan bersifat internal dan href valid diberikan, dapatkan URL yang sudah dilokalisasi.
+  const hrefI18n: NextLinkProps["href"] =
+    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
+
+  return (
+    <NextLink href={hrefI18n} {...props}>
+      {children}
+    </NextLink>
+  );
+};
+```
+
+#### Cara Kerjanya
+
+- **Mendeteksi Tautan Eksternal**:  
+  Fungsi pembantu `checkIsExternalLink` menentukan apakah sebuah URL bersifat eksternal. Tautan eksternal dibiarkan tidak berubah karena tidak memerlukan lokalisasi.
+
+- **Mengambil Locale Saat Ini**:  
+  Hook `useLocale` menyediakan locale saat ini (misalnya, `fr` untuk bahasa Prancis).
+
+- **Melokalisasi URL**:  
+  Untuk tautan internal (yaitu, non-eksternal), `getLocalizedUrl` digunakan untuk secara otomatis menambahkan awalan URL dengan locale saat ini. Ini berarti jika pengguna Anda menggunakan bahasa Prancis, meneruskan `/about` sebagai `href` akan mengubahnya menjadi `/fr/about`.
+
+- **Mengembalikan Tautan**:  
+  Komponen mengembalikan elemen `<a>` dengan URL yang dilokalkan, memastikan bahwa navigasi konsisten dengan locale tersebut.
+
+Dengan mengintegrasikan komponen `Link` ini di seluruh aplikasi, Anda mempertahankan pengalaman pengguna yang koheren dan sadar bahasa sambil juga mendapatkan manfaat dari peningkatan SEO dan kegunaan.
+
+</Step>
+
+<Step number={12} title="Mendapatkan locale saat ini di Server Actions" isOptional={true}>
+
+Jika Anda memerlukan locale yang aktif di dalam Server Action (misalnya, untuk melokalkan email atau menjalankan logika yang sensitif terhadap locale), panggil `getLocale` dari `next-intlayer/server`:
+
+```tsx fileName="src/app/actions/getLocale.ts" codeFormat="typescript"
+"use server";
+
+import { getLocale } from "next-intlayer/server";
+
+export const myServerAction = async () => {
+  const locale = await getLocale();
+
+  // Lakukan sesuatu dengan locale
+};
+```
+
+> Fungsi `getLocale` mengikuti strategi bertingkat untuk menentukan locale pengguna:
+>
+> 1. Pertama, ia memeriksa header permintaan untuk nilai locale yang mungkin telah diatur oleh proxy
+> 2. Jika tidak ada locale yang ditemukan di header, ia mencari locale yang disimpan di cookie
+> 3. Jika tidak ada cookie yang ditemukan, ia mencoba mendeteksi bahasa pilihan pengguna dari pengaturan browser mereka
+> 4. Sebagai upaya terakhir, ia kembali ke default locale yang dikonfigurasi aplikasi
+>
+> Ini memastikan locale yang paling tepat dipilih berdasarkan konteks yang tersedia.
+
+</Step>
+
+<Step number={13} title="Mendapatkan locale saat ini di Server Actions" isOptional={true}>
+
+Jika Anda memerlukan locale aktif di dalam Server Action (misalnya, untuk melokalkan email atau menjalankan logika yang sadar locale), panggil `getLocale` dari `next-intlayer/server`:
+
+```tsx fileName="src/app/actions/getLocale.ts" codeFormat="typescript"
+"use server";
+
+import { getLocale } from "next-intlayer/server";
+
+export const myServerAction = async () => {
+  const locale = await getLocale();
+
+  // Lakukan sesuatu dengan locale
+};
+```
+
+> Fungsi `getLocale` mengikuti strategi cascading untuk menentukan locale pengguna:
+>
+> 1. Pertama, memeriksa header permintaan untuk nilai locale yang mungkin telah diatur oleh middleware
+> 2. Jika tidak ditemukan locale di header, mencari locale yang disimpan di cookie
+> 3. Jika tidak ditemukan cookie, mencoba mendeteksi bahasa yang dipilih pengguna dari pengaturan browser mereka
+> 4. Sebagai upaya terakhir, menggunakan locale default yang dikonfigurasi dalam aplikasi
+>
+> Ini memastikan locale yang paling sesuai dipilih berdasarkan konteks yang tersedia.
+
+</Step>
+
+<Step number={14} title="Ekstrak konten komponen Anda" isOptional={true}>
 
 Jika Anda memiliki basis kode yang ada, mengubah ribuan file bisa memakan waktu lama.
 
@@ -923,74 +1047,72 @@ bun run build # Or bun run dev
 
 </Step>
 
-<Step number={11} title="Membuat Komponen Link yang Dilokalkan" isOptional={true}>
+</Steps>
 
-Untuk memastikan navigasi aplikasi Anda menghormati lokal saat ini, Anda dapat membuat komponen `Link` kustom. Komponen ini secara otomatis menambahkan awalan bahasa saat ini pada URL internal, sehingga. Misalnya, ketika pengguna berbahasa Prancis mengklik tautan ke halaman "Tentang", mereka akan diarahkan ke `/fr/about` alih-alih `/about`.
+### Memantau perubahan kamus pada Turbopack
 
-Perilaku ini berguna untuk beberapa alasan:
+Saat menggunakan Turbopack sebagai server pengembangan Anda dengan perintah `next dev --turbopack`, perubahan kamus tidak akan terdeteksi secara otomatis secara default.
 
-- **SEO dan Pengalaman Pengguna**: URL yang dilokalkan membantu mesin pencari mengindeks halaman spesifik bahasa dengan benar dan menyediakan konten kepada pengguna dalam bahasa pilihan mereka.
-- **Konsistensi**: Dengan menggunakan tautan yang dilokalkan di seluruh aplikasi Anda, Anda menjamin navigasi tetap dalam lokal saat ini, mencegah perubahan bahasa yang tidak diinginkan.
-- **Pemeliharaan**: Memusatkan logika lokalisasi dalam satu komponen menyederhanakan pengelolaan URL, sehingga basis kode Anda lebih mudah dipelihara dan diperluas seiring pertumbuhan aplikasi Anda.
+Batasan ini terjadi karena Turbopack tidak dapat menjalankan plugin webpack secara paralel untuk memantau perubahan pada file konten Anda. Untuk mengatasinya, Anda perlu menggunakan perintah `intlayer watch` untuk menjalankan server pengembangan dan pengawas build Intlayer secara bersamaan.
 
-Berikut adalah implementasi komponen `Link` yang dilokalisasi dalam TypeScript:
-
-```tsx fileName="src/components/Link.tsx" codeFormat={["typescript", "esm"]}
-"use client";
-
-import { getLocalizedUrl } from "intlayer";
-import NextLink, { type LinkProps as NextLinkProps } from "next/link";
-import { useLocale } from "next-intlayer";
-import type { PropsWithChildren, FC } from "react";
-
-/**
- * Fungsi utilitas untuk memeriksa apakah URL yang diberikan bersifat eksternal.
- * Jika URL dimulai dengan http:// atau https://, maka dianggap eksternal.
- */
-export const checkIsExternalLink = (href?: string): boolean =>
-  /^https?:\/\//.test(href ?? "");
-
-/**
- * Komponen Link kustom yang menyesuaikan atribut href berdasarkan locale saat ini.
- * Untuk tautan internal, menggunakan `getLocalizedUrl` untuk menambahkan prefix locale pada URL (misalnya, /fr/about).
- * Ini memastikan navigasi tetap dalam konteks locale yang sama.
- */
-export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
-  href,
-  children,
-  ...props
-}) => {
-  const { locale } = useLocale();
-  const isExternalLink = checkIsExternalLink(href.toString());
-
-  // Jika tautan bersifat internal dan href valid diberikan, dapatkan URL yang sudah dilokalisasi.
-  const hrefI18n: NextLinkProps["href"] =
-    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
-
-  return (
-    <NextLink href={hrefI18n} {...props}>
-      {children}
-    </NextLink>
-  );
-};
+```json5 fileName="package.json"
+{
+  // ... Konfigurasi package.json Anda yang sudah ada
+  "scripts": {
+    // ... Konfigurasi skrip Anda yang sudah ada
+    "dev": "intlayer watch --with 'next dev'",
+  },
+}
 ```
 
-#### Cara Kerjanya
+> Jika Anda menggunakan next-intlayer@<=6.x.x, Anda harus mempertahankan bendera `--turbopack` agar aplikasi Next.js 16 berfungsi dengan benar dengan Turbopack. Kami merekomendasikan penggunaan next-intlayer@>=7.x.x untuk menghindari batasan ini.
 
-- **Mendeteksi Tautan Eksternal**:  
-  Fungsi pembantu `checkIsExternalLink` menentukan apakah sebuah URL bersifat eksternal. Tautan eksternal dibiarkan tidak berubah karena tidak memerlukan lokalisasi.
+### Konfigurasi TypeScript
 
-- **Mengambil Locale Saat Ini**:  
-  Hook `useLocale` menyediakan locale saat ini (misalnya, `fr` untuk bahasa Prancis).
+Intlayer menggunakan module augmentation untuk mendapatkan manfaat dari TypeScript dan membuat codebase Anda lebih kuat.
 
-- **Melokalisasi URL**:  
-  Untuk tautan internal (yaitu, non-eksternal), `getLocalizedUrl` digunakan untuk secara otomatis menambahkan awalan URL dengan locale saat ini. Ini berarti jika pengguna Anda menggunakan bahasa Prancis, meneruskan `/about` sebagai `href` akan mengubahnya menjadi `/fr/about`.
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-- **Mengembalikan Tautan**:  
-  Komponen mengembalikan elemen `<a>` dengan URL yang dilokalkan, memastikan bahwa navigasi konsisten dengan locale tersebut.
+![Kesalahan terjemahan](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
-Dengan mengintegrasikan komponen `Link` ini di seluruh aplikasi, Anda mempertahankan pengalaman pengguna yang koheren dan sadar bahasa sambil juga mendapatkan manfaat dari peningkatan SEO dan kegunaan.
+Pastikan konfigurasi TypeScript Anda menyertakan tipe yang dihasilkan secara otomatis.
 
-</Step>
+```json5 fileName="tsconfig.json"
+{
+  // ... Konfigurasi TypeScript Anda yang sudah ada
+  "include": [
+    // ... Konfigurasi TypeScript Anda yang sudah ada
+    ".intlayer/**/*.ts", // Sertakan tipe yang dihasilkan secara otomatis
+  ],
+}
+```
 
-</Steps>
+### Konfigurasi Git
+
+Disarankan untuk mengabaikan file yang dihasilkan oleh Intlayer. Ini memungkinkan Anda untuk menghindari meng-commit file tersebut ke repositori Git Anda.
+
+Untuk melakukan ini, Anda dapat menambahkan instruksi berikut ke file `.gitignore` Anda:
+
+```plaintext fileName=".gitignore"
+# Abaikan file yang dihasilkan oleh Intlayer
+.intlayer
+```
+
+### Ekstensi VS Code
+
+Untuk meningkatkan pengalaman pengembangan Anda dengan Intlayer, Anda dapat menginstal **Ekstensi VS Code Intlayer** resmi.
+
+[Pasang dari VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Ekstensi ini menyediakan:
+
+- **Autocompletion** untuk kunci terjemahan.
+- **Deteksi kesalahan waktu nyata** untuk terjemahan yang hilang.
+- **Pratinjau inline** dari konten yang diterjemahkan.
+- **Tindakan cepat** untuk dengan mudah membuat dan memperbarui terjemahan.
+
+Untuk detail lebih lanjut tentang cara menggunakan ekstensi ini, lihat [dokumentasi Ekstensi VS Code Intlayer](https://intlayer.org/doc/vs-code-extension).
+
+### Melangkah Lebih Jauh
+
+Untuk melangkah lebih jauh, Anda dapat mengimplementasikan [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_visual_editor.md) atau mengeksternalisasi konten Anda menggunakan [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/intlayer_CMS.md).

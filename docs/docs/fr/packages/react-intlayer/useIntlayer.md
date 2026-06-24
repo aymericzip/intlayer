@@ -29,49 +29,6 @@ author: aymericzip
 
 Cette section fournit des instructions détaillées sur l'utilisation du hook `useIntlayer` dans les applications React, permettant une localisation efficace du contenu.
 
-## Importer `useIntlayer` dans React
-
-Le hook `useIntlayer` peut être intégré dans les applications React en l'important selon le contexte :
-
-- **Composant Client :**
-
-  ```typescript codeFormat="typescript"
-  import { useIntlayer } from "react-intlayer"; // Utilisé dans les composants React côté client
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer"; // Utilisé dans les composants React côté client
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer"); // Utilisé dans les composants React côté client
-  ```
-
-- **Composant Serveur :**
-
-  ```typescript codeFormat="commonjs"
-  import { useIntlayer } from "react-intlayer/server"; // Utilisé dans les composants React côté serveur
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react.intlayer/server"; // Utilisé dans les composants React côté serveur
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer/server"); // Utilisé dans les composants React côté serveur
-  ```
-
-## Paramètres
-
-Le hook accepte deux paramètres :
-
-1. **`key`** : La clé du dictionnaire pour récupérer le contenu localisé.
-2. **`locale`** (optionnel) : La locale souhaitée. Par défaut, la locale du contexte est utilisée si elle n'est pas spécifiée.
-
-## Dictionnaire
-
-Toutes les clés du dictionnaire doivent être déclarées dans des fichiers de déclaration de contenu afin d'améliorer la sécurité des types et d'éviter les erreurs. Vous pouvez trouver les [instructions d'installation ici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md).
-
 ## Exemple d'utilisation dans React
 
 Démonstration du hook `useIntlayer` dans un composant React :
@@ -129,14 +86,6 @@ const ServerComponentExample = () => {
     </div>
   );
 };
-```
-
-## Gestion des attributs
-
-Lors de la localisation des attributs, accédez aux valeurs du contenu de manière appropriée :
-
-```jsx
-<button title={content.buttonTitle.value}>{content.buttonText}</button>
 ```
 
 ## Ressources supplémentaires

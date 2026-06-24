@@ -10,9 +10,10 @@ import { defaultLocale, locales } from '../intlayer.config';
 // Fill the list of files to audit if you want to audit only a subset of the files
 // If empty list is provided, the audit will run on all markdown files present in the /en folder
 const DOC_PATTERN: string[] = [
-  './docs/en/intlayer_with_vite+react.md',
-  // './blog/en/**/*.md',
-  // './frequent_questions/en/**/*.md',
+  './docs/docs/en/**/*.md',
+  './docs/blog/en/**/*.md',
+  './docs/frequent_questions/en/**/*.md',
+  './docs/legal/en/**/*.md',
 ];
 const EXCLUDED_GLOB_PATTEN: string[] = [
   '**/_*',
@@ -21,7 +22,7 @@ const EXCLUDED_GLOB_PATTEN: string[] = [
   '**/src/**',
 ];
 
-const LOG_ONLY = true; // If false it gonna generate translations
+const LOG_ONLY = true; // If false it gonna generate translations // NEVER TOUCH IT
 
 // Number of files to process simultaneously
 const NB_SIMULTANEOUS_FILE_PROCESSED: number = 1;
@@ -29,7 +30,7 @@ const NB_SIMULTANEOUS_FILE_PROCESSED: number = 1;
 const LOCALE_LIST_TO_TRANSLATE: Locale[] = locales.filter(
   // Include all locales except English
   // Change it to include your specific locales if you want to translate only a subset of the locale(s)
-  (locale) => locale !== Locales.ENGLISH
+  (locale) => locale === Locales.FRENCH
 );
 
 const SKIP_IF_MODIFIED_BEFORE: number | undefined = undefined; //1000 * 60 * 60 * 24; // 1 day ago
@@ -42,7 +43,7 @@ const GIT_OPTIONS: ListGitFilesOptions | undefined = {
 const configuration = getConfiguration();
 
 const customInstructions = readFileSync(
-  join(process.cwd(), './tools/prompts/CUSTOM_INSTRUCTIONS.md'),
+  join(process.cwd(), './docs/tools/prompts/CUSTOM_INSTRUCTIONS.md'),
   'utf-8'
 );
 
@@ -54,8 +55,8 @@ reviewDoc({
   aiOptions: configuration.ai as AIOptions,
   nbSimultaneousFileProcessed: NB_SIMULTANEOUS_FILE_PROCESSED,
   customInstructions,
-  skipIfModifiedBefore: SKIP_IF_MODIFIED_BEFORE,
-  skipIfModifiedAfter: SKIP_IF_MODIFIED_AFTER,
+  // skipIfModifiedBefore: SKIP_IF_MODIFIED_BEFORE,
+  // skipIfModifiedAfter: SKIP_IF_MODIFIED_AFTER,
   // gitOptions: GIT_OPTIONS,
   log: LOG_ONLY,
 });

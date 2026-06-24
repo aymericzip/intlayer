@@ -34,6 +34,10 @@ author: aymericzip
 
 See [Application Template](https://github.com/aymericzip/intlayer-vite-vue-template) on GitHub.
 
+## Table of Contents
+
+<TOC/>
+
 ## Why Intlayer over alternatives?
 
 Compared to main solutions like `vue-i18n` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
@@ -849,157 +853,6 @@ useI18nHTMLAttributes();
 
 </Step>
 
-<Step number={10} title="Creating a Localised Link Component" isOptional={true}>
-
-To ensure that your application’s navigation respects the current locale, you can create a custom `Link` component. This component automatically prefixes internal URLs with the current language. For example, when a French-speaking user clicks on a link to the "About" page, they are redirected to `/fr/about` instead of `/about`.
-
-This behaviour is useful for several reasons:
-
-- **SEO and User Experience**: Localised URLs help search engines index language-specific pages correctly and provide users with content in their preferred language.
-- **Consistency**: By using a localised link throughout your application, you guarantee that navigation stays within the current locale, preventing unexpected language switches.
-- **Maintainability**: Centralising the localisation logic in a single component simplifies the management of URLs, making your codebase easier to maintain and extend as your application grows.
-
-```vue fileName="src/components/Link.vue"
-<template>
-  <a :href="localizedHref" v-bind="$attrs">
-    <slot />
-  </a>
-</template>
-
-<script setup lang="ts">
-import { computed } from "vue";
-import { getLocalizedUrl } from "intlayer";
-import { useLocale } from "vue-intlayer";
-
-const props = defineProps({
-  href: {
-    type: String,
-    required: true,
-  },
-});
-
-const { locale } = useLocale();
-
-// Check if the link is external
-const isExternalLink = computed(() => /^https?:\/\//.test(props.href || ""));
-
-// Create a localised href for internal links
-const localizedHref = computed(() =>
-  isExternalLink.value ? props.href : getLocalizedUrl(props.href, locale.value)
-);
-</script>
-```
-
-For use with Vue Router, create a router-specific version:
-
-```vue fileName="src/components/RouterLink.vue"
-<template>
-  <router-link :to="localizedTo" v-bind="$attrs">
-    <slot />
-  </router-link>
-</template>
-
-<script setup lang="ts">
-import { computed } from "vue";
-import { getLocalizedUrl } from "intlayer";
-import { useLocale } from "vue-intlayer";
-
-const props = defineProps({
-  to: {
-    type: [String, Object],
-    required: true,
-  },
-});
-
-const { locale } = useLocale();
-
-// Create localised to-prop for router-link
-const localizedTo = computed(() => {
-  if (typeof props.to === "string") {
-    return getLocalizedUrl(props.to, locale.value);
-  } else {
-    // If 'to' is an object, localise the path property
-    return {
-      ...props.to,
-      path: getLocalizedUrl(props.to.path ?? "/", locale.value),
-    };
-  }
-});
-</script>
-```
-
-Use these components in your application:
-
-```vue fileName="src/App.vue"
-<template>
-  <div>
-    <!-- Vue router  -->
-    <RouterLink to="/">Root</RouterLink>
-    <RouterLink to="/home">Home</RouterLink>
-    <!-- Other -->
-    <Link href="/">Root</Link>
-    <Link href="/home">Home</Link>
-  </div>
-</template>
-
-<script setup lang="ts">
-import Link from "@components/Link.vue";
-import RouterLink from "@components/RouterLink.vue";
-</script>
-```
-
-</Step>
-
-<Step number={11} title="Render Markdown" isOptional={true}>
-
-Intlayer supports rendering Markdown content directly in your Vue application. By default, Markdown is treated as plain text. To convert Markdown into rich HTML, you can integrate [markdown-it](https://github.com/markdown-it/markdown-it), a Markdown parser.
-
-This is particularly useful when your translations include formatted content such as lists, links, or emphasis.
-
-By default, Intlayer renders Markdown as a string. However, Intlayer also provides a way to render Markdown into HTML using the `installIntlayerMarkdown` function.
-
-> To see how to declare Markdown content using the `intlayer` package, see the [markdown doc](https://github.com/aymericzip/intlayer/tree/main/docs/docs/en-GB/dictionary/markdown.md).
-
-```ts fileName="main.ts"
-import MarkdownIt from "markdown-it";
-import { createApp, h } from "vue";
-import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
-
-const app = createApp(App);
-
-app.use(intlayer);
-
-const md = new MarkdownIt({
-  html: true, // allow HTML tags
-  linkify: true, // auto-link URLs
-  typographer: true, // enable smart quotes, dashes, etc.
-});
-
-// Tell Intlayer to use md.render() whenever it needs to turn markdown into HTML
-installIntlayerMarkdown(app, (markdown) => {
-  const html = md.render(markdown);
-  return h("div", { innerHTML: html });
-});
-```
-
-Once registered, you can use the component-based syntax to display the Markdown content directly:
-
-```vue
-<template>
-  <div>
-    <myMarkdownContent />
-  </div>
-</template>
-
-<script setup lang="ts">
-import { useIntlayer } from "vue-intlayer";
-
-const { myMarkdownContent } = useIntlayer("my-component");
-</script>
-```
-
-</Step>
-
 </Steps>
 
 ### (Optional) Sitemap and robots.txt (build-time)
@@ -1078,13 +931,13 @@ Adjust if you use pnpm or yarn. You can also invoke the same script from CI or a
 
 ### Configure TypeScript
 
-Intlayer uses module augmentation to leverage the benefits of TypeScript and strengthen your codebase.
+Intlayer uses module augmentation to take advantage of TypeScript and make your codebase stronger.
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
 ![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
-Ensure your TypeScript configuration includes the auto-generated types.
+Ensure your TypeScript configuration includes the autogenerated types.
 
 ```json5 fileName="tsconfig.json"
 {
@@ -1098,7 +951,7 @@ Ensure your TypeScript configuration includes the auto-generated types.
 
 ### Git Configuration
 
-It is recommended to ignore the files generated by Intlayer. This allows you to avoid committing them to your Git repository.
+It is recommended to ignore the files generated by Intlayer. This prevents you from committing them to your Git repository.
 
 To do this, you can add the following instructions to your `.gitignore` file:
 
@@ -1109,31 +962,9 @@ To do this, you can add the following instructions to your `.gitignore` file:
 
 ### VS Code Extension
 
-To improve your development experience with Intlayer, you can install the official **Intlayer VS Code Extension**.
+To enhance your development experience with Intlayer, you can install the official **Intlayer VS Code Extension**.
 
 [Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-This extension provides:
-
-- **Autocompletion** for translation keys.
-- **Real-time error detection** for missing translations.
-- **Inline previews** of translated content.
-- **Quick actions** to easily create and update translations.
-
-It is recommended to ignore the files generated by Intlayer. This allows you to avoid committing them to your Git repository.
-
-To do this, you can add the following instructions to your `.gitignore` file:
-
-```bash
-# Ignore the files generated by Intlayer
-.intlayer
-```
-
-### VS Code Extension
-
-To improve your development experience with Intlayer, you can install the official **Intlayer VS Code Extension**.
-
-[Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?=itemName=intlayer.intlayer-vs-code-extension)
 
 This extension provides:
 
@@ -1149,5 +980,3 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 ### Go Further
 
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_visual_editor.md) or externalise your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/intlayer_CMS.md).
-
----

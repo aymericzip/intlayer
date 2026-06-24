@@ -604,34 +604,6 @@ bun run build # Or bun run dev
 
 </Steps>
 
-### Git Yapılandırması
-
-Intlayer tarafından oluşturulan dosyaların göz ardı edilmesi önerilir. Bu, bu dosyaların Git deposuna eklenmesini önlemenizi sağlar.
-
-Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirsiniz:
-
-```bash
-#  Intlayer tarafından oluşturulan dosyaları göz ardı et
-.intlayer
-```
-
-### VS Code Eklentisi
-
-Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Eklentisi**ni yükleyebilirsiniz.
-
-[VS Code Marketplace'ten Yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Bu eklenti şunları sağlar:
-
-- Çeviri anahtarları için **Otomatik tamamlama**.
-- Eksik çeviriler için **Gerçek zamanlı hata tespiti**.
-- Çevrilmiş içeriğin **Satır içi önizlemeleri**.
-- Çevirileri kolayca oluşturup güncellemek için **Hızlı işlemler**.
-
-Eklentinin nasıl kullanılacağı hakkında daha fazla bilgi için [Intlayer VS Code Eklentisi dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakabilirsiniz.
-
----
-
 ### (İsteğe bağlı) Sitemap ve robots.txt (build zamanı üretimi)
 
 Intlayer, `generateSitemap` ve `getMultilingualUrls` ile tarayıcılar için çok dilli `sitemap.xml` ve `robots.txt` üretip bunları `public/` klasörüne otomatik yazmanıza yardımcı olur. Genelde Vite’tan **önce** küçük bir Node betiği çalıştırılır (ör. npm `predev` / `prebuild` kancaları).
@@ -705,6 +677,32 @@ Betik `intlayer` içe aktarabilmeli; paket kurulu olmalı. Üretimde ortam deği
 ```
 
 pnpm veya yarn kullanıyorsanız komutları uyarlayın. CI’dan da çağrılabilir.
+
+### Git Yapılandırması
+
+Intlayer tarafından oluşturulan dosyaların göz ardı edilmesi önerilir. Bu, bu dosyaların Git deposuna eklenmesini önlemenizi sağlar.
+
+Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirsiniz:
+
+```bash
+#  Intlayer tarafından oluşturulan dosyaları göz ardı et
+.intlayer
+```
+
+### VS Code Eklentisi
+
+Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Eklentisi**ni yükleyebilirsiniz.
+
+[VS Code Marketplace'ten Yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Bu eklenti şunları sağlar:
+
+- Çeviri anahtarları için **Otomatik tamamlama**.
+- Eksik çeviriler için **Gerçek zamanlı hata tespiti**.
+- Çevrilmiş içeriğin **Satır içi önizlemeleri**.
+- Çevirileri kolayca oluşturup güncellemek için **Hızlı işlemler**.
+
+Eklentinin nasıl kullanılacağı hakkında daha fazla bilgi için [Intlayer VS Code Eklentisi dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakabilirsiniz.
 
 ### Daha İleri Gitmek
 

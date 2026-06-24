@@ -228,19 +228,19 @@ Intlayer fournit des formatters pour tous les frameworks populaires :
 - `reactRouterRewrite`: Pour React Router. Prend en charge `:slug` et `*` (0+).
 - `vueRouterRewrite`: Pour Vue Router 4. Prend en charge `:slug`, `:slug?` (0-1), `:slug*` (0+), et `:slug+` (1+).
 - `solidRouterRewrite`: Pour Solid Router. Prend en charge `:slug` et `*slug` (0+).
-  /// `tanstackRouterRewrite` : Pour TanStack Router. Prend en charge `$slug` et `*` (0+).
-  /// `nuxtRewrite` : Pour Nuxt 3. Prend en charge `[slug]` et `[...slug]` (0+).
-  /// `viteRewrite` : Formateur générique pour tout projet basé sur Vite. Normalise la syntaxe pour le proxy Vite.
-  ///
-  /// ### Modèles avancés
-  ///
-  /// Intlayer normalise en interne ces modèles vers une syntaxe unifiée, permettant des correspondances et une génération de chemins sophistiquées :
-  ///
-  /// - **Segments optionnels** : `[[optional]]` (SvelteKit) ou `:slug?` (Vue/React) sont pris en charge.
-  /// - **Catch-all (zéro ou plusieurs)** : `[[...slug]]` (Next.js), `[...path]` (SvelteKit/Nuxt), ou `*` (React/TanStack) permettent de matcher plusieurs segments.
-  /// - **Catch-all obligatoire (un ou plusieurs)** : `[...slug]` (Next.js) ou `:slug+` (Vue) garantissent qu'au moins un segment est présent.
-  ///
-  /// ## Correction d'URL côté client : `useRewriteURL`
+- `tanstackRouterRewrite` : Pour TanStack Router. Prend en charge `$slug` et `*` (0+).
+- `nuxtRewrite` : Pour Nuxt 3. Prend en charge `[slug]` et `[...slug]` (0+).
+- `viteRewrite` : Formateur générique pour tout projet basé sur Vite. Normalise la syntaxe pour le proxy Vite.
+
+### Modèles avancés
+
+Intlayer normalise en interne ces modèles vers une syntaxe unifiée, permettant des correspondances et une génération de chemins sophistiquées :
+
+- **Segments optionnels** : `[[optional]]` (SvelteKit) ou `:slug?` (Vue/React) sont pris en charge.
+- **Catch-all (zéro ou plusieurs)** : `[[...slug]]` (Next.js), `[...path]` (SvelteKit/Nuxt), ou `*` (React/TanStack) permettent de matcher plusieurs segments.
+- **Catch-all obligatoire (un ou plusieurs)** : `[...slug]` (Next.js) ou `:slug+` (Vue) garantissent qu'au moins un segment est présent.
+
+## Correction d'URL côté client : `useRewriteURL`
 
 Pour faire en sorte que la barre d'adresse du navigateur reflète toujours l'URL localisée "propre", Intlayer fournit le hook `useRewriteURL`. Ce hook met à jour silencieusement l'URL en utilisant `window.history.replaceState` lorsqu'un utilisateur arrive sur un chemin canonique.
 

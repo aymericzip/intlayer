@@ -65,6 +65,10 @@ author: aymericzip
 
 Veja o [Modelo de Aplicação](https://github.com/aymericzip/intlayer-next-15-template) no GitHub.
 
+## Tabela de Conteúdos
+
+<TOC/>
+
 ## Por que Intlayer em vez de alternativas?
 
 Comparado com soluções principais como `next-intl` ou `i18next`, Intlayer é uma solução que vem com otimizações integradas como:
@@ -861,6 +865,22 @@ bun add @intlayer/swc --dev
 > </Step>
 
 </Steps>
+
+### Monitorar alterações nos dicionários no Turbopack
+
+Ao usar o Turbopack como seu servidor de desenvolvimento com o comando `next dev --turbopack`, as alterações nos dicionários não serão detectadas automaticamente por padrão.
+
+Esta limitação ocorre porque o Turbopack não pode executar plug-ins do webpack em paralelo para monitorar alterações em seus arquivos de conteúdo. Para contornar isso, você precisará usar o comando `intlayer watch` para executar o servidor de desenvolvimento e o observador de compilação do Intlayer simultaneamente.
+
+```json5 fileName="package.json"
+{
+  // ... Suas configurações existentes do package.json
+  "scripts": {
+    // ... Suas configurações de scripts existentes
+    "dev": "intlayer watch --with 'next dev --turbopack'",
+  },
+}
+```
 
 ### Configurar TypeScript
 

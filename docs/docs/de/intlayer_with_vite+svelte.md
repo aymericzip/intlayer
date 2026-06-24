@@ -622,34 +622,6 @@ bun run build # Or bun run dev
 
 </Steps>
 
-### Git-Konfiguration
-
-Es wird empfohlen, die von Intlayer generierten Dateien zu ignorieren. Dadurch vermeiden Sie, diese versehentlich in Ihr Git-Repository zu committen.
-
-Fügen Sie dazu die folgenden Anweisungen in Ihre `.gitignore`-Datei ein:
-
-```bash
-#  Ignoriere die von Intlayer generierten Dateien
-.intlayer
-```
-
-### VS Code Erweiterung
-
-Um Ihre Entwicklungserfahrung mit Intlayer zu verbessern, können Sie die offizielle **Intlayer VS Code Extension** installieren.
-
-[Im VS Code Marketplace installieren](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Diese Erweiterung bietet:
-
-- **Autovervollständigung** für Übersetzungsschlüssel.
-- **Echtzeit-Fehlererkennung** für fehlende Übersetzungen.
-- **Inline-Vorschauen** des übersetzten Inhalts.
-- **Schnellaktionen**, um Übersetzungen einfach zu erstellen und zu aktualisieren.
-
-Für weitere Details zur Verwendung der Erweiterung lesen Sie die [Intlayer VS Code Extension Dokumentation](https://intlayer.org/doc/vs-code-extension).
-
----
-
 ### (Optional) Sitemap und robots.txt (Build-Zeit)
 
 Intlayer stellt Hilfsfunktionen bereit - `generateSitemap` und `getMultilingualUrls` -, mit denen Sie mehrsprachige `sitemap.xml`- und `robots.txt`-Inhalte für Crawler formatieren und automatisch nach `public/` schreiben können. Üblich ist ein kleines Node-Skript **vor** Vite (z. B. npm-`predev`-/`prebuild`-Hooks), damit die Dateien beim Build bzw. Dev-Server vorliegen.
@@ -723,6 +695,32 @@ console.log("SEO files generated successfully.");
 ```
 
 Bei pnpm oder yarn die Befehle anpassen. Aufruf aus der CI ist ebenfalls möglich.
+
+### Git-Konfiguration
+
+Es wird empfohlen, die von Intlayer generierten Dateien zu ignorieren. Dadurch vermeiden Sie, diese versehentlich in Ihr Git-Repository zu committen.
+
+Fügen Sie dazu die folgenden Anweisungen in Ihre `.gitignore`-Datei ein:
+
+```bash
+#  Ignoriere die von Intlayer generierten Dateien
+.intlayer
+```
+
+### VS Code Erweiterung
+
+Um Ihre Entwicklungserfahrung mit Intlayer zu verbessern, können Sie die offizielle **Intlayer VS Code Extension** installieren.
+
+[Im VS Code Marketplace installieren](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Diese Erweiterung bietet:
+
+- **Autovervollständigung** für Übersetzungsschlüssel.
+- **Echtzeit-Fehlererkennung** für fehlende Übersetzungen.
+- **Inline-Vorschauen** des übersetzten Inhalts.
+- **Schnellaktionen**, um Übersetzungen einfach zu erstellen und zu aktualisieren.
+
+Für weitere Details zur Verwendung der Erweiterung lesen Sie die [Intlayer VS Code Extension Dokumentation](https://intlayer.org/doc/vs-code-extension).
 
 ### Weiterführende Schritte
 

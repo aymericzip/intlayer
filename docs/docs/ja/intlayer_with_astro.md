@@ -300,7 +300,134 @@ Astro統合により、開発中に言語認識ルーティングや環境定義
 
 </Step>
 
-<Step number={7} title="お好みのフレームワークの使用を続ける">
+<Step number={7} title="言語切り替え器の追加">
+
+ユーザーが言語を切り替えられるようにするために、`LocaleSwitcher`コンポーネントを作成できます。このコンポーネントは、サポートされているすべてのロケールのリストを表示し、各言語の同じページへのリンクを提供する必要があります。
+
+```astro fileName="src/components/LocaleSwitcher.astro"
+---
+import {
+  locales,
+  getLocaleName,
+  getLocalizedUrl,
+  getLocaleFromPath,
+  getPathWithoutLocale,
+  type LocalesValues,
+} from "intlayer";
+
+const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
+const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
+---
+
+<nav>
+  {
+    locales.map((localeItem) => (
+      <a
+        href={getLocalizedUrl(pathWithoutLocale, localeItem)}
+        data-locale={localeItem}
+        aria-current={localeItem === locale ? "page" : undefined}
+      >
+        {getLocaleName(localeItem)}
+      </a>
+    ))
+  }
+</nav>
+
+<script>
+  import { setLocaleInStorageClient, getLocalizedUrl, type LocalesValues } from "intlayer";
+
+  const localeLinks = document.querySelectorAll("[data-locale]");
+
+  localeLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const locale = link.getAttribute("data-locale") as LocalesValues;
+
+      // Update the locale cookie
+      setLocaleInStorageClient(locale);
+    });
+  });
+</script>
+
+<style>
+  nav {
+    display: flex;
+    gap: 1rem;
+  }
+  a[aria-current="page"] {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+</style>
+```
+
+> **永続性に関する注意:**
+> クライアント側のスクリプトで`setLocaleInStorageClient`を使用すると、ユーザーの言語設定がクッキーに保存されます。これにより、Intlayerミドルウェアは選択内容を記憶し、次回の訪問時にユーザーを優先言語に自動的にリダイレクトできます。
+
+</Step>
+
+<Step number={8} title="サイトマップとRobots.txt">
+
+Intlayerは、動的にローカライズされたサイトマップとrobots.txtファイルを生成するためのユーティリティを提供します。
+
+#### サイトマップ
+
+Intlayer には、アプリケーションのサイトマップを簡単に作成できるサイトマップ ジェネレーターが組み込まれています。ローカライズされたルートを処理し、検索エンジンに必要なメタデータを追加します。
+
+> Intlayer によって生成されたサイトマップは、`xhtml:link` 名前空間 (Hreflang XML Extensions) をサポートしています。生の URL のみを表示するデフォルトのサイトマップ ジェネレーターとは異なり、Intlayer はページのすべての言語バージョン (例: `/about`、`/about?lang=fr`、`/about?lang=es`) 間に必要な双方向リンクを自動的に作成します。これにより、検索エンジンが正しい言語バージョンを正しい対象者に正しくインデックス付けして提供できるようになります。
+
+すべてのローカライズされたルートを含むサイトマップを生成するために、`src/pages/sitemap.xml.ts` を作成します。
+
+```typescript fileName="src/pages/sitemap.xml.ts"
+import type { APIRoute } from "astro";
+import { generateSitemap, type SitemapUrlEntry } from "intlayer";
+
+const pathList: SitemapUrlEntry[] = [
+  { path: "/", changefreq: "daily", priority: 1.0 },
+  { path: "/about", changefreq: "monthly", priority: 0.7 },
+];
+
+const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
+
+export const GET: APIRoute = async ({ site }) => {
+  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+
+  return new Response(xmlOutput, {
+    headers: { "Content-Type": "application/xml" },
+  });
+};
+```
+
+#### Robots.txt
+
+検索エンジンのクロールを制御するために `src/pages/robots.txt.ts` を作成します。
+
+```typescript fileName="src/pages/robots.txt.ts"
+import type { APIRoute } from "astro";
+import { getMultilingualUrls } from "intlayer";
+
+const getAllMultilingualUrls = (urls: string[]) =>
+  urls.flatMap((url) => Object.values(getMultilingualUrls(url)) as string[]);
+
+const disallowedPaths = getAllMultilingualUrls(["/admin", "/private"]);
+
+export const GET: APIRoute = ({ site }) => {
+  const robotsTxt = [
+    "User-agent: *",
+    "Allow: /",
+    ...disallowedPaths.map((path) => `Disallow: ${path}`),
+    "",
+    `Sitemap: ${new URL("/sitemap.xml", site).href}`,
+  ].join("\n");
+
+  return new Response(robotsTxt, {
+    headers: { "Content-Type": "text/plain" },
+  });
+};
+```
+
+</Step>
+
+<Step number={9} title="お好みのフレームワークの使用を続ける">
 
 お好みのフレームワークを使用してアプリケーションを構築し続けましょう。
 

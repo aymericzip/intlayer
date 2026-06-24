@@ -59,6 +59,10 @@ author: aymericzip
 
 GitHub の [アプリケーションテンプレート](https://github.com/aymericzip/intlayer-next-14-template) をご覧ください。
 
+## 目次
+
+<TOC/>
+
 ## 代替手段ではなく Interlayer を使用する理由
 
 「next-intl」や「i18next」などの主要なソリューションと比較して、Intlayer は次のような統合された最適化を備えたソリューションです。
@@ -913,52 +917,54 @@ bun add @intlayer/swc --dev
 
 </Steps>
 
-### TypeScriptの設定
+### TypeScript の設定
 
-Intlayerはモジュール拡張を使用して、TypeScriptの利点を活かし、コードベースをより強固にします。
+Intlayer はモジュール拡張を使用して TypeScript の利点を活かし、コードベースをより強固にします。
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
 ![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
-TypeScriptの設定に自動生成された型が含まれていることを確認してください。
+TypeScript の設定に自動生成された型を含めていることを確認してください。
 
 ```json5 fileName="tsconfig.json"
 {
-  // ... 既存のTypeScript設定
+  // ... 既存の TypeScript 設定
   "include": [
-    // ... 既存のTypeScript設定
+    // ... 既存の TypeScript 設定
     ".intlayer/**/*.ts", // 自動生成された型を含める
   ],
 }
 ```
 
-### Gitの設定
+### Git 設定
 
-Intlayerによって生成されたファイルは無視することを推奨します。これにより、これらのファイルをGitリポジトリにコミットするのを避けることができます。
+Intlayer によって生成されたファイルは無視することを推奨します。これにより、Git リポジトリへのコミットを避けることができます。
 
-これを行うには、以下の指示を `.gitignore` ファイルに追加してください。
+これを行うには、`.gitignore` ファイルに以下の指示を追加してください。
 
 ```plaintext fileName=".gitignore"
-# Intlayerによって生成されたファイルを無視する
+# Intlayer によって生成されたファイルを無視する
 .intlayer
 ```
 
-### VS Code拡張機能
+### VS Code 拡張機能
 
-Intlayerでの開発体験を向上させるために、公式の**Intlayer VS Code拡張機能**をインストールできます。
+Intlayer での開発体験を向上させるために、公式の **Intlayer VS Code 拡張機能** をインストールできます。
 
-[VS Codeマーケットプレイスからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+[VS Code Marketplace からインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 この拡張機能は以下を提供します：
 
-- 翻訳キーの**オートコンプリート**。
-- 欠落している翻訳の**リアルタイムエラー検出**。
-- 翻訳された内容の**インラインプレビュー**。
-- 翻訳を簡単に作成・更新できる**クイックアクション**。
+- 翻訳キーの **オートコンプリート**
+- **翻訳が不足している場合のリアルタイムエラー検出**。
+- **翻訳されたコンテンツのインラインプレビュー**。
+- **翻訳を簡単に作成・更新するためのクイックアクション**。
 
-拡張機能の使用方法の詳細については、[Intlayer VS Code Extension ドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
+拡張機能の使い方の詳細については、[Intlayer VS Code 拡張機能のドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
 
-### さらに進む
+---
 
-さらに進むために、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化することができます。
+### さらに進むには
+
+さらに進むには、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化することができます。

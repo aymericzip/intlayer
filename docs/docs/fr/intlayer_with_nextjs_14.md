@@ -53,6 +53,10 @@ author: aymericzip
 
 Voir [Application Template](https://github.com/aymericzip/intlayer-next-14-template) sur GitHub.
 
+## Table des matières
+
+<TOC/>
+
 ## Pourquoi Intlayer plutôt que des alternatives ?
 
 Par rapport aux solutions principales telles que `next-intl` ou `i18next`, Intlayer est une solution dotée d'optimisations intégrées telles que :
@@ -842,9 +846,9 @@ bun add @intlayer/swc --dev
 
 Intlayer utilise l'augmentation de module pour bénéficier de TypeScript et renforcer votre base de code.
 
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+![texte alternatif](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
 
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![texte alternatif](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
 
 Assurez-vous que votre configuration TypeScript inclut les types générés automatiquement.
 
@@ -860,14 +864,31 @@ Assurez-vous que votre configuration TypeScript inclut les types générés auto
 
 ### Configuration Git
 
-Il est recommandé d'ignorer les fichiers générés par Intlayer. Cela vous permet d'éviter de les ajouter à votre dépôt Git.
+Il est recommandé d'ignorer les fichiers générés par Intlayer. Cela vous permet d'éviter de les commettre dans votre dépôt Git.
 
-Pour ce faire, vous pouvez ajouter les instructions suivantes à votre fichier `.gitignore` :
+Pour ce faire, vous pouvez ajouter les instructions suivantes dans votre fichier `.gitignore` :
 
 ```plaintext fileName=".gitignore"
 # Ignorer les fichiers générés par Intlayer
 .intlayer
 ```
+
+### Extension VS Code
+
+Pour améliorer votre expérience de développement avec Intlayer, vous pouvez installer l'**extension officielle Intlayer pour VS Code**.
+
+[Installer depuis le Marketplace VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Cette extension offre :
+
+- **Autocomplétion** pour les clés de traduction.
+- **Détection d'erreurs en temps réel** pour les traductions manquantes.
+- **Aperçus en ligne** du contenu traduit.
+- **Actions rapides** pour créer et mettre à jour facilement les traductions.
+
+Pour plus de détails sur l'utilisation de l'extension, consultez la [documentation de l'extension VS Code Intlayer](https://intlayer.org/doc/vs-code-extension).
+
+---
 
 ### Aller plus loin
 

@@ -207,6 +207,54 @@ zur Einrichtung von Intlayer in einer Next.js-Anwendung
 
 </Steps>
 
+### TypeScript konfigurieren
+
+Intlayer verwendet Modulerweiterung (Module Augmentation), um die Vorteile von TypeScript zu nutzen und Ihre Codebasis robuster zu machen.
+
+![Autovervollständigung](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Übersetzungsfehler](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+Stellen Sie sicher, dass Ihre TypeScript-Konfiguration die automatisch generierten Typen enthält.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Ihre bestehenden TypeScript-Konfigurationen
+  "include": [
+    // ... Ihre bestehenden TypeScript-Konfigurationen
+    ".intlayer/**/*.ts", // Fügen Sie die automatisch generierten Typen hinzu
+  ],
+}
+```
+
+### Git-Konfiguration
+
+Es wird empfohlen, die von Intlayer generierten Dateien zu ignorieren. Dadurch wird verhindert, dass sie in Ihr Git-Repository übertragen werden.
+
+Fügen Sie dazu die folgenden Anweisungen zu Ihrer `.gitignore`-Datei hinzu:
+
+```plaintext fileName=".gitignore"
+# Ignoriere die von Intlayer generierten Dateien
+.intlayer
+```
+
+### VS Code-Erweiterung
+
+Um Ihre Entwicklungserfahrung mit Intlayer zu verbessern, können Sie die offizielle **Intlayer VS Code-Erweiterung** installieren.
+
+[Im VS Code Marketplace installieren](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Diese Erweiterung bietet:
+
+- **Autovervollständigung** für Übersetzungsschlüssel.
+- **Fehlererkennung in Echtzeit** für fehlende Übersetzungen.
+- **Inline-Vorschau** von übersetzten Inhalten.
+- **Schnelle Aktionen**, um Übersetzungen einfach zu erstellen und zu aktualisieren.
+
+Weitere Details zur Verwendung der Erweiterung finden Sie in der [Dokumentation zur Intlayer VS Code-Erweiterung](https://intlayer.org/doc/vs-code-extension).
+
+---
+
 ### Weiterführende Informationen
 
 Um noch weiter zu gehen, können Sie den [Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_visual_editor.md) implementieren oder Ihre Inhalte mit dem [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/intlayer_CMS.md) externalisieren.

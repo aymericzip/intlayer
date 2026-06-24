@@ -34,6 +34,10 @@ author: aymericzip
 
 GitHub'da [Uygulama Şablonu](https://github.com/aymericzip/intlayer-vite-vue-template)'na bakın.
 
+## İçindekiler
+
+<TOC/>
+
 ## Neden alternatifler yerine Intlayer?
 
 'vue-i18n' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
@@ -927,57 +931,7 @@ import RouterLink from "@components/RouterLink.vue";
 
 </Step>
 
-<Step number={11} title="Markdown İşleyin" isOptional={true}>
-
-Intlayer, Vue uygulamanızda Markdown içeriğini doğrudan işleme desteği sağlar. Varsayılan olarak, Markdown düz metin olarak kabul edilir. Markdown'ı zengin HTML'ye dönüştürmek için [markdown-it](https://github.com/markdown-it/markdown-it), bir Markdown ayrıştırıcısı entegre edebilirsiniz.
-
-Bu, çevirileriniz listeler, bağlantılar veya vurgu gibi biçimlendirilmiş içerik içerdiğinde özellikle kullanışlıdır.
-
-Varsayılan olarak Intlayer markdown'ı dize olarak işler. Ancak Intlayer, markdown'ı HTML'ye dönüştürmek için `installIntlayerMarkdown` işlevini kullanarak markdown'ı işleme konusunda bir yol sağlar.
-
-> Markdown içeriğini `intlayer` paketi kullanarak nasıl bildireceğinizi görmek için [markdown dokümantasyonuna](https://github.com/aymericzip/intlayer/tree/main/docs/en/dictionary/markdown.md) bakın.
-
-```ts fileName="main.ts"
-import MarkdownIt from "markdown-it";
-import { createApp, h } from "vue";
-import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
-
-const app = createApp(App);
-
-app.use(intlayer);
-
-const md = new MarkdownIt({
-  html: true, // HTML etiketlerine izin ver
-  linkify: true, // URL'leri otomatik olarak bağla
-  typographer: true, // Akıllı tırnaklar, tireler vb. etkinleştir
-});
-
-// Intlayer'a markdown'ı HTML'ye dönüştürmesi gerektiğinde md.render() kullanmasını söyle
-installIntlayerMarkdown(app, (markdown) => {
-  const html = md.render(markdown);
-  return h("div", { innerHTML: html });
-});
-```
-
-Kaydedildikten sonra, bileşen tabanlı sözdizimini kullanarak Markdown içeriğini doğrudan görüntüleyebilirsiniz:
-
-```vue
-<template>
-  <div>
-    <myMarkdownContent />
-  </div>
-</template>
-
-<script setup lang="ts">
-import { useIntlayer } from "vue-intlayer";
-
-const { myMarkdownContent } = useIntlayer("my-component");
-</script>
-```
-
-</Step>
-
-<Step number={12} title="Bileşenlerinizin içeriğini çıkarın" isOptional={true}>
+<Step number={11} title="Bileşenlerinizin içeriğini çıkarın" isOptional={true}>
 
 Mevcut bir kod tabanınız varsa, binlerce dosyayı dönüştürmek zaman alıcı olabilir.
 
@@ -1076,54 +1030,6 @@ bun run build # Or bun run dev
 
 </Steps>
 
-### TypeScript Yapılandırın
-
-Intlayer, modül genişletmesi kullanarak TypeScript avantajlarından yararlanır.
-
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Otomatik oluşturulan türleri TypeScript yapılandırmanıza dahil edin.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Mevcut TypeScript yapılandırmalarınız
-  "include": [
-    // ... Mevcut TypeScript yapılandırmalarınız
-    ".intlayer/**/*.ts", // Otomatik oluşturulan türleri dahil et
-  ],
-}
-```
-
-### Git Yapılandırması
-
-Intlayer tarafından oluşturulan dosyaları Git deponuza kaydetmekten kaçınmak için bunları yok saymanız önerilir. Bu, bunları Git deponuza kaydetmekten kaçınmanıza olanak tanır.
-
-Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyin:
-
-```bash
-#  Intlayer tarafından oluşturulan dosyaları yok say
-.intlayer
-```
-
-### VS Code Uzantısı
-
-Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Uzantısı**'nı kurun.
-
-[VS Code Marketplace'ten yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Bu uzantı şunları sağlar:
-
-- **Çeviri anahtarları için otomatik tamamlama**.
-- **Eksik çeviriler için gerçek zamanlı hata algılama**.
-- **Çevrilmiş içeriğin satır içi önizlemeleri**.
-- **Çevirileri kolayca oluşturmak ve güncellemek için hızlı eylemler**.
-
-Uzantıyı kullanma hakkında daha fazla ayrıntı için [Intlayer VS Code Uzantısı dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakın.
-
----
-
 ### (İsteğe bağlı) Sitemap ve robots.txt (build zamanı üretimi)
 
 Intlayer, `generateSitemap` ve `getMultilingualUrls` ile tarayıcılar için çok dilli `sitemap.xml` ve `robots.txt` üretip bunları `public/` klasörüne otomatik yazmanıza yardımcı olur. Genelde Vite’tan **önce** küçük bir Node betiği çalıştırılır (ör. npm `predev` / `prebuild` kancaları).
@@ -1198,8 +1104,54 @@ Betik `intlayer` içe aktarabilmeli; paket kurulu olmalı. Üretimde ortam deği
 
 pnpm veya yarn kullanıyorsanız komutları uyarlayın. CI’dan da çağrılabilir.
 
-### Daha Fazla İlerle
+### TypeScript'ı Yapılandırın
 
-Daha fazla ilerlemek için [görsel düzenleyici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) kullanarak dışa aktarmayı uygulayabilirsiniz.
+Intlayer, TypeScript'in avantajlarından yararlanmak ve codebase'inizi daha güçlü hale getirmek için modül genişletme (module augmentation) kullanır.
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+TypeScript yapılandırmanızın otomatik olarak oluşturulan türleri (types) içerdiğinden emin olun.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Mevcut TypeScript yapılandırmalarınız
+  "include": [
+    // ... Mevcut TypeScript yapılandırmalarınız
+    ".intlayer/**/*.ts", // Otomatik oluşturulan türleri dahil edin
+  ],
+}
+```
+
+### Git Yapılandırması
+
+Intlayer tarafından oluşturulan dosyaların yoksayılması önerilir. Bu, bu dosyaların Git deponuza commit edilmesini önlemenizi sağlar.
+
+Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirsiniz:
+
+```plaintext fileName=".gitignore"
+# Intlayer tarafından oluşturulan dosyaları yoksay
+.intlayer
+```
+
+### VS Code Uzantısı
+
+Intlayer ile geliştirme deneyiminizi geliştirmek için resmi **Intlayer VS Code Uzantısını** yükleyebilirsiniz.
+
+[VS Code Marketplace'ten yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Bu uzantı şunları sağlar:
+
+- Çeviri anahtarları için **otomatik tamamlama**.
+- Eksik çeviriler için **gerçek zamanlı hata tespiti**.
+- Çevrilmiş içeriğin **satır içi önizlemeleri**.
+- Çevirileri kolayca oluşturmak ve güncellemek için **hızlı eylemler**.
+
+Uzantının nasıl kullanılacağı hakkında daha fazla ayrıntı için [Intlayer VS Code Uzantısı belgelerine](https://intlayer.org/tr/doc/vs-code-extension) bakın.
 
 ---
+
+### Daha Fazla İlerle
+
+Daha ileri gitmek için [görsel düzenleyiciyi](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_visual_editor.md) uygulayabilir veya içeriğinizi [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/intlayer_CMS.md) kullanarak dışa aktarabilirsiniz.

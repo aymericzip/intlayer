@@ -32,6 +32,10 @@ author: aymericzip
 
 # Traduire votre Vite et Vue avec Intlayer | Internationalisation (i18n)
 
+## Table des matières
+
+<TOC/>
+
 ## Pourquoi Intlayer plutôt que des alternatives ?
 
 Par rapport aux solutions principales telles que `vue-i18n` ou `i18next`, Intlayer est une solution qui vient avec des optimisations intégrées telles que :
@@ -885,57 +889,7 @@ import RouterLink from "@components/RouterLink.vue";
 
 </Step>
 
-<Step number={11} title="Rendre du Markdown" isOptional={true}>
-
-Intlayer prend en charge le rendu du contenu Markdown directement dans votre application Vue. Par défaut, le Markdown est traité comme du texte brut. Pour convertir le Markdown en HTML enrichi, vous pouvez intégrer [markdown-it](https://github.com/markdown-it/markdown-it), un parseur Markdown.
-
-Cela est particulièrement utile lorsque vos traductions incluent du contenu formaté comme des listes, des liens ou des emphases.
-
-Par défaut, Intlayer rend le markdown sous forme de chaîne de caractères. Mais Intlayer fournit également un moyen de rendre le markdown en HTML en utilisant la fonction `installIntlayerMarkdown`.
-
-> Pour voir comment déclarer du contenu markdown en utilisant le package `intlayer`, consultez la [documentation markdown](https://github.com/aymericzip/intlayer/tree/main/docs/fr/dictionary/markdown.md).
-
-```ts fileName="main.ts"
-import MarkdownIt from "markdown-it";
-import { createApp, h } from "vue";
-import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
-
-const app = createApp(App);
-
-app.use(intlayer);
-
-const md = new MarkdownIt({
-  html: true, // autoriser les balises HTML
-  linkify: true, // transformer automatiquement les URL en liens
-  typographer: true, // activer les guillemets typographiques, tirets, etc.
-});
-
-// Indiquer à Intlayer d'utiliser md.render() chaque fois qu'il doit convertir du markdown en HTML
-installIntlayerMarkdown(app, (markdown) => {
-  const html = md.render(markdown);
-  return h("div", { innerHTML: html });
-});
-```
-
-Une fois enregistré, vous pouvez utiliser la syntaxe basée sur les composants pour afficher directement le contenu Markdown :
-
-```vue
-<template>
-  <div>
-    <myMarkdownContent />
-  </div>
-</template>
-
-<script setup lang="ts">
-import { useIntlayer } from "vue-intlayer";
-
-const { myMarkdownContent } = useIntlayer("my-component");
-</script>
-```
-
-</Step>
-
-<Step number={12} title="Extraire le contenu de vos composants" isOptional={true}>
+<Step number={11} title="Extraire le contenu de vos composants" isOptional={true}>
 
 Si vous avez une base de code existante, transformer des milliers de fichiers peut prendre beaucoup de temps.
 
@@ -1025,7 +979,7 @@ yarn build # Ou yarn dev
 ```
 
 ```bash packageManager="bun"
-bun run build # Or bun run dev
+bun run build # Ou bun run dev
 ```
 
  </Tab>
@@ -1110,11 +1064,11 @@ Adaptez les commandes si vous utilisez pnpm ou yarn. Vous pouvez aussi appeler c
 
 ### Configurer TypeScript
 
-Intlayer utilise l'augmentation de module pour tirer parti de TypeScript et renforcer votre base de code.
+Intlayer utilise l’augmentation de module pour tirer parti de TypeScript et renforcer votre base de code.
 
-![texte alternatif](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
+![Autocomplétion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-![texte alternatif](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
+![Erreur de traduction](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
 Assurez-vous que votre configuration TypeScript inclut les types générés automatiquement.
 
@@ -1132,7 +1086,7 @@ Assurez-vous que votre configuration TypeScript inclut les types générés auto
 
 Il est recommandé d'ignorer les fichiers générés par Intlayer. Cela vous permet d'éviter de les commettre dans votre dépôt Git.
 
-Pour ce faire, vous pouvez ajouter les instructions suivantes à votre fichier `.gitignore` :
+Pour ce faire, vous pouvez ajouter les instructions suivantes dans votre fichier `.gitignore` :
 
 ```bash
 #  Ignorer les fichiers générés par Intlayer
@@ -1141,7 +1095,7 @@ Pour ce faire, vous pouvez ajouter les instructions suivantes à votre fichier `
 
 ### Extension VS Code
 
-Pour améliorer votre expérience de développement avec Intlayer, vous pouvez installer l'**extension officielle Intlayer pour VS Code**.
+Pour améliorer votre expérience de développement avec Intlayer, vous pouvez installer l'extension officielle **Intlayer VS Code Extension**.
 
 [Installer depuis le Marketplace VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
@@ -1152,34 +1106,10 @@ Cette extension offre :
 - **Aperçus en ligne** du contenu traduit.
 - **Actions rapides** pour créer et mettre à jour facilement les traductions.
 
-Il est recommandé d’ignorer les fichiers générés par Intlayer. Cela vous permet d’éviter de les committer dans votre dépôt Git.
-
-Pour ce faire, vous pouvez ajouter les instructions suivantes à votre fichier `.gitignore` :
-
-```bash
-#  Ignorer les fichiers générés par Intlayer
-.intlayer
-```
-
-### Extension VS Code
-
-Pour améliorer votre expérience de développement avec Intlayer, vous pouvez installer l’extension officielle **Intlayer VS Code Extension**.
-
-[Installer depuis le Marketplace VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Cette extension offre :
-
-- **Autocomplétion** pour les clés de traduction.
-- **Détection d’erreurs en temps réel** pour les traductions manquantes.
-- **Aperçus en ligne** du contenu traduit.
-- **Actions rapides** pour créer et mettre à jour facilement les traductions.
-
-Pour plus de détails sur l’utilisation de l’extension, consultez la [documentation de l’extension VS Code Intlayer](https://intlayer.org/doc/vs-code-extension).
+Pour plus de détails sur l'utilisation de l'extension, consultez la [documentation de l'extension Intlayer pour VS Code](https://intlayer.org/doc/vs-code-extension).
 
 ---
 
 ### Aller plus loin
 
 Pour aller plus loin, vous pouvez implémenter l’[éditeur visuel](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_visual_editor.md) ou externaliser votre contenu en utilisant le [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_CMS.md).
-
----

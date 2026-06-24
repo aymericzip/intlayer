@@ -34,6 +34,10 @@ author: aymericzip
 
 GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-vite-vue-template)을 확인하세요.
 
+## 목차
+
+<TOC/>
+
 ## 대안보다 Intlayer를 선택해야 하는 이유는 무엇입니까?
 
 'vue-i18n' 또는 'i18next'와 같은 주요 솔루션과 비교할 때 Intlayer는 다음과 같은 통합 최적화 기능을 제공하는 솔루션입니다.
@@ -903,109 +907,7 @@ import RouterLink from "@components/RouterLink.vue";
 
 </Step>
 
-<Step number={11} title="마크다운 렌더링" isOptional={true}>
-
-Intlayer는 Vue 애플리케이션에서 Markdown 콘텐츠를 직접 렌더링하는 것을 지원합니다. 기본적으로 Markdown은 일반 텍스트로 처리됩니다. Markdown을 풍부한 HTML로 변환하려면 Markdown 파서인 [markdown-it](https://github.com/markdown-it/markdown-it)을 통합할 수 있습니다.
-
-이는 번역에 목록, 링크 또는 강조와 같은 서식이 포함된 콘텐츠가 있을 때 특히 유용합니다.
-
-기본적으로 Intlayer는 Markdown을 문자열로 렌더링합니다. 하지만 Intlayer는 `installIntlayerMarkdown` 함수를 사용하여 Markdown을 HTML로 렌더링하는 방법도 제공합니다.
-
-> `intlayer` 패키지를 사용하여 Markdown 콘텐츠를 선언하는 방법은 [markdown 문서](https://github.com/aymericzip/intlayer/tree/main/docs/ko/dictionary/markdown.md)를 참조하세요.
-
-```ts fileName="main.ts"
-import MarkdownIt from "markdown-it";
-import { createApp, h } from "vue";
-import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
-
-const app = createApp(App);
-
-app.use(intlayer);
-
-const md = new MarkdownIt({
-  html: true, // HTML 태그 허용
-  linkify: true, // URL 자동 링크 변환
-  typographer: true, // 스마트 따옴표, 대시 등 활성화
-});
-
-// Intlayer에게 마크다운을 HTML로 변환할 때 md.render()를 사용하도록 지시
-installIntlayerMarkdown(app, (markdown) => {
-  const html = md.render(markdown);
-  return h("div", { innerHTML: html });
-});
-```
-
-등록이 완료되면, 컴포넌트 기반 문법을 사용하여 마크다운 콘텐츠를 직접 표시할 수 있습니다:
-
-```vue
-<template>
-  <div>
-    <myMarkdownContent />
-  </div>
-</template>
-
-<script setup lang="ts">
-import { useIntlayer } from "vue-intlayer";
-
-const { myMarkdownContent } = useIntlayer("my-component");
-</script>
-```
-
-</Step>
-
-</Steps>
-
-### TypeScript 구성
-
-Intlayer는 모듈 확장을 사용하여 TypeScript의 이점을 활용하고 코드베이스를 더욱 견고하게 만듭니다.
-
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-TypeScript 구성에 자동 생성된 타입이 포함되어 있는지 확인하세요.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... 기존 TypeScript 구성
-  "include": [
-    // ... 기존 TypeScript 구성
-    ".intlayer/**/*.ts", // 자동 생성된 타입 포함
-  ],
-}
-```
-
-### Git 구성
-
-Intlayer에서 생성된 파일은 무시하는 것이 권장됩니다. 이렇게 하면 Git 저장소에 해당 파일을 커밋하는 것을 방지할 수 있습니다.
-
-이를 위해 `.gitignore` 파일에 다음 지침을 추가할 수 있습니다:
-
-```bash
-#  Intlayer에서 생성된 파일 무시
-.intlayer
-```
-
-### VS Code 확장 프로그램
-
-Intlayer와 함께 개발 경험을 향상시키기 위해 공식 **Intlayer VS Code 확장 프로그램**을 설치할 수 있습니다.
-
-[VS Code 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-이 확장 프로그램은 다음 기능을 제공합니다:
-
-- 번역 키에 대한 **자동 완성**.
-- 누락된 번역에 대한 **실시간 오류 감지**.
-- 번역된 콘텐츠의 **인라인 미리보기**.
-- 번역을 쉽게 생성하고 업데이트할 수 있는 **빠른 작업**.
-
-확장 프로그램 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
-
----
-
-<Steps>
-
-<Step number={1} title="컴포넌트 콘텐츠 추출" isOptional={true}>
+<Step number={11} title="컴포넌트 콘텐츠 추출" isOptional={true}>
 
 기존 코드베이스가 있는 경우 수천 개의 파일을 변환하는 데 시간이 많이 걸릴 수 있습니다.
 
@@ -1178,8 +1080,54 @@ console.log("SEO files generated successfully.");
 
 pnpm이나 yarn을 쓰면 명령을 맞게 바꾸세요. CI에서 호출해도 됩니다.
 
+### TypeScript 설정
+
+Intlayer는 TypeScript의 이점을 활용하고 codebase를 더욱 강력하게 만들기 위해 module augmentation을 사용합니다.
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+TypeScript 설정에 자동 생성된 타입이 포함되어 있는지 확인하세요.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... 기존 TypeScript 설정
+  "include": [
+    // ... 기존 TypeScript 설정
+    ".intlayer/**/*.ts", // 자동 생성된 타입 포함
+  ],
+}
+```
+
+### Git 설정
+
+Intlayer에 의해 생성된 파일들을 무시할 것을 권장합니다. 이를 통해 해당 파일들이 Git 리포지토리에 커밋되는 것을 방지할 수 있습니다.
+
+이를 위해, `.gitignore` 파일에 다음 내용을 추가할 수 있습니다:
+
+```plaintext fileName=".gitignore"
+# Intlayer에서 생성된 파일 무시
+.intlayer
+```
+
+### VS Code 확장 프로그램
+
+Intlayer와 함께하는 개발 환경을 개선하기 위해 공식 **Intlayer VS Code 확장 프로그램**을 설치할 수 있습니다.
+
+[VS Code 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+이 확장 프로그램은 다음을 제공합니다:
+
+- 번역 키에 대한 **자동 완성(Autocompletion)**.
+- 누락된 번역에 대한 **실시간 오류 감지**.
+- 번역된 콘텐츠의 **인라인 미리보기**.
+- 번역을 쉽게 생성하고 업데이트할 수 있는 **빠른 작업(Quick actions)**.
+
+확장 프로그램 사용법에 대한 자세한 내용은 [Intlayer VS Code 확장 프로그램 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
+
+---
+
 ### 더 나아가기
 
 더 나아가려면 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 구현하거나 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 사용하여 콘텐츠를 외부화할 수 있습니다.
-
----

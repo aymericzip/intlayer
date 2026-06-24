@@ -34,6 +34,10 @@ author: aymericzip
 
 GitHub の [アプリケーションテンプレート](https://github.com/aymericzip/intlayer-vite-vue-template) を参照してください。
 
+## 目次
+
+<TOC/>
+
 ## 代替手段ではなく Interlayer を使用する理由
 
 「vue-i18n」や「i18next」などの主要なソリューションと比較して、Intlayer は次のような統合された最適化を備えたソリューションです。
@@ -889,69 +893,19 @@ import RouterLink from "@components/RouterLink.vue";
 
 </Step>
 
-<Step number={11} title="Markdownのレンダリング">
+<Step number={11} title="コンポーネントのコンテンツを抽出する" isOptional={true}>
 
-Intlayerは、Vueアプリケーション内でMarkdownコンテンツを直接レンダリングすることをサポートしています。デフォルトでは、Markdownはプレーンテキストとして扱われます。MarkdownをリッチなHTMLに変換するには、Markdownパーサーである[markdown-it](https://github.com/markdown-it/markdown-it)を統合できます。
+既存のコードベースがある場合、数千ものファイルを変換するのは時間がかかる場合があります。
 
-これは、翻訳にリスト、リンク、強調などのフォーマットされたコンテンツが含まれる場合に特に便利です。
+このプロセスを容易にするために、Intlayerはコンポーネントを変換し、コンテンツを抽出するための [コンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md) / [エクストラクター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md) を提供しています。
 
-デフォルトではIntlayerはMarkdownを文字列としてレンダリングしますが、`installIntlayerMarkdown`関数を使ってMarkdownをHTMLにレンダリングする方法も提供しています。
-
-> `intlayer`パッケージを使ってMarkdownコンテンツを宣言する方法については、[markdownドキュメント](https://github.com/aymericzip/intlayer/tree/main/docs/ja/dictionary/markdown.md)を参照してください。
-
-```ts fileName="main.ts"
-import MarkdownIt from "markdown-it";
-import { createApp, h } from "vue";
-import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
-
-const app = createApp(App);
-
-app.use(intlayer);
-
-const md = new MarkdownIt({
-  html: true, // HTMLタグを許可
-  linkify: true, // URLを自動リンク化
-  typographer: true, // スマートクォートやダッシュなどを有効化
-});
-
-// IntlayerにmarkdownをHTMLに変換する際にmd.render()を使うよう指示
-installIntlayerMarkdown(app, (markdown) => {
-  const html = md.render(markdown);
-  return h("div", { innerHTML: html });
-});
-```
-
-登録が完了すると、コンポーネントベースの構文を使ってMarkdownコンテンツを直接表示できます：
-
-```vue
-<template>
-  <div>
-    <myMarkdownContent />
-  </div>
-</template>
-
-<script setup lang="ts">
-import { useIntlayer } from "vue-intlayer";
-
-const { myMarkdownContent } = useIntlayer("my-component");
-</script>
-```
-
-</Step>
-
-<Step number={1} title="コンポーネントのコンテンツを抽出する" isOptional={true}>
-
-既存のコードベースがある場合、数千のファイルを変換するのは時間がかかることがあります。
-
-このプロセスを容易にするために、Intlayerは、コンポーネントを変換しコンテンツを抽出するための [コンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md) / [エクストラクタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md) を提案しています。
-
-セットアップするには、`intlayer.config.ts` ファイルに `compiler` セクションを追加します。
+セットアップするには、`intlayer.config.ts` ファイルに `compiler` セクションを追加できます。
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  // ... 他の構成
+  // ... その他の設定
   compiler: {
     /**
      * コンパイラを有効にするかどうかを指定します。
@@ -959,17 +913,21 @@ const config: IntlayerConfig = {
     enabled: true,
 
     /**
-     * 出力ファイルのパスを定義します。
+     * 出力ファイルのパスを定義します
      */
     output: ({ fileName, extension }) => `./${fileName}${extension}`,
 
     /**
-     * 変換後にコンポーネントを保存するかどうかを指定します。これにより、コンパイラを一度だけ実行してアプリを変換し、その後削除することができます。
+     * 変換後にコンポーネントを保存するかどうかを指定します。
+     *
+     * - `true` の場合、コンパイラはディスク上のコンポーネントファイルを書き換えます。これにより変換は永続的になり、次回のプロセスでは変換をスキップします。その方法で、コンパイラがアプリを変換した後に、コンパイラを削除することができます。
+     *
+     * - `false` の場合、コンパイラはビルド出力のコードにのみ `useIntlayer()` 関数の呼び出しを注入し、元のコードベースはそのまま維持します。変換はメモリ内でのみ行われます。
      */
     saveComponents: false,
 
     /**
-     * 辞書キーの接頭辞
+     * 辞書キーのプレフィックス
      */
     dictionaryKeyPrefix: "",
   },
@@ -979,9 +937,9 @@ export default config;
 ```
 
 <Tabs>
- <Tab value='抽出コマンド'>
+ <Tab value='Extract command'>
 
-コンポーネントを変換してコンテンツを抽出するためにエクストラクタを実行します
+エクストラクターを実行して、コンポーネントを変換しコンテンツを抽出します
 
 ```bash packageManager="npm"
 npx intlayer extract
@@ -1000,9 +958,9 @@ bun x intlayer extract
 ```
 
  </Tab>
- <Tab value='Babelコンパイラ'>
+ <Tab value='Babel compiler'>
 
-`vite.config.ts` を更新して `intlayerCompiler` プラグインを含めます。
+`vite.config.ts` を更新して `intlayerCompiler` プラグインを含めます:
 
 ```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
@@ -1029,7 +987,7 @@ yarn build # または yarn dev
 ```
 
 ```bash packageManager="bun"
-bun run build # Or bun run dev
+bun run build # または bun run dev
 ```
 
  </Tab>
@@ -1037,54 +995,6 @@ bun run build # Or bun run dev
 </Step>
 
 </Steps>
-
-### TypeScriptの設定
-
-Intlayerはモジュール拡張を利用して、TypeScriptの利点を活かし、コードベースをより強固にします。
-
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-TypeScriptの設定に自動生成された型定義が含まれていることを確認してください。
-
-```json5 fileName="tsconfig.json"
-{
-  // ... 既存のTypeScript設定
-  "include": [
-    // ... 既存のTypeScript設定
-    ".intlayer/**/*.ts", // 自動生成された型定義を含める
-  ],
-}
-```
-
-### Gitの設定
-
-Intlayerによって生成されたファイルは無視することを推奨します。これにより、それらのファイルをGitリポジトリにコミットするのを避けることができます。
-
-これを行うには、以下の指示を`.gitignore`ファイルに追加してください。
-
-```bash
-#  Intlayerによって生成されたファイルを無視する
-.intlayer
-```
-
-### VS Code拡張機能
-
-Intlayerでの開発体験を向上させるために、公式の**Intlayer VS Code拡張機能**をインストールできます。
-
-[VS Codeマーケットプレイスからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-この拡張機能は以下を提供します：
-
-- 翻訳キーの**オートコンプリート**。
-- 欠落している翻訳の**リアルタイムエラー検出**。
-- 翻訳されたコンテンツの**インラインプレビュー**。
-- 翻訳を簡単に作成・更新できる**クイックアクション**。
-
-拡張機能の使用方法の詳細については、[Intlayer VS Code Extension ドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
-
----
 
 ### （任意）サイトマップと robots.txt（ビルド時生成）
 
@@ -1160,8 +1070,54 @@ console.log("SEO files generated successfully.");
 
 pnpm や yarn を使う場合はコマンドを読み替えてください。CI から呼び出しても構いません。
 
+### TypeScriptの設定
+
+Intlayerはモジュール拡張（module augmentation）を使用してTypeScriptの利点を活用し、コードベースをより強固にします。
+
+![オートコンプリート](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![翻訳エラー](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+TypeScriptの設定に、自動生成された型が含まれていることを確認してください。
+
+```json5 fileName="tsconfig.json"
+{
+  // ... 既存のTypeScript設定
+  "include": [
+    // ... 既存のTypeScript設定
+    ".intlayer/**/*.ts", // 自動生成された型を含める
+  ],
+}
+```
+
+### Gitの設定
+
+Intlayerによって生成されたファイルを無視することをお勧めします。これにより、それらをGitリポジトリにコミットすることを避けることができます。
+
+これを行うには、`.gitignore`ファイルに以下の指示を追加できます。
+
+```plaintext fileName=".gitignore"
+# Intlayerによって生成されたファイルを無視する
+.intlayer
+```
+
+### VS Code 拡張機能
+
+Intlayer での開発体験を向上させるために、公式の **Intlayer VS Code Extension** をインストールできます。
+
+[VS Code Marketplace からインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+この拡張機能は以下の機能を提供します：
+
+- 翻訳キーの **オートコンプリート**。
+- 不足している翻訳の **リアルタイムエラー検出**。
+- 翻訳済みコンテンツの **インラインプレビュー**。
+- 翻訳を簡単に作成・更新するための **クイックアクション**。
+
+拡張機能の使用方法の詳細については、[Intlayer VS Code Extension ドキュメント](https://intlayer.org/ja/doc/vs-code-extension)を参照してください。
+
+---
+
 ### さらに進むために
 
 さらに進むには、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化することができます。
-
----

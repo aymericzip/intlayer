@@ -67,33 +67,50 @@ author: aymericzip
 
 与“svelte-i18n”或“i18next”等主要解决方案相比，Intlayer是一个具有集成优化的解决方案，例如：
 
-**完全 Svelte 覆盖**
+<AccordionGroup>
+
+<Accordion header="完全 Svelte 覆盖">
 
 Intlayer 经过优化，可与 Svelte 完美配合，提供**组件级内容范围**、**反应式翻译**以及​​扩展国际化 (i18n) 所需的所有功能。
 
-**捆绑尺寸**
+</Accordion>
+
+<Accordion header="捆绑尺寸">
 
 不要将大量 JSON 文件加载到页面中，而只需加载必要的内容。 Intlayer 有助于**将捆绑包和页面大小减少多达 50%**。
 
-**可维护性**
+</Accordion>
+
+<Accordion header="可维护性">
 
 确定应用程序内容的范围**有利于大型应用程序的维护**。您可以复制或删除单个功能文件夹，而无需承担检查整个内容代码库的精神负担。此外，Intlayer 具有**完全类型化 (fully typed)**，以确保您的内容的准确性。
 
-**人工智能代理**
+</Accordion>
+
+<Accordion header="人工智能代理">
 
 共置内容**减少大型语言模型 (LLM) 所需的上下文**。 Intlayer 还附带了一套工具，例如用于测试缺失翻译的 **CLI**、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** 和 **[agent技能](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**，使 AI 代理的开发者体验 (DX) 更加流畅。
 
-**自动化**
+</Accordion>
 
-使用您选择的法学硕士，通过自动化在 CI/CD 管道中进行翻译，而费用由您的 AI 提供商承担。 Intlayer 还提供了一个**编译器**来自动提取内容，以及一个[网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)来帮助**在后台翻译**。
+<Accordion header="自动化">
 
-**表现**
+使用您选择 of 法学硕士，通过自动化在 CI/CD 管道中进行翻译，而费用由您的 AI 提供商承担。 Intlayer 还提供了一个**编译器**来自动提取内容，以及一个[网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)来帮助**在后台翻译**。
+
+</Accordion>
+
+<Accordion header="表现">
 
 将大量 JSON 文件连接到组件可能会导致性能和反应性问题。 Intlayer 可在构建时 (build time)优化您的内容加载。
 
-**无需开发即可扩展**
+</Accordion>
 
-Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)**和一个**[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** 来帮助您管理多语言内容**实时**，与译员、文案人员和其他团队成员无缝协作。内容可以本地和/或远程存储。
+<Accordion header="无需开发即可扩展">
+
+Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)**和一个**[完整的 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** 来帮助您管理多语言内容**实时**，与译员、文案人员和其他团队成员无缝协作。内容可以本地 and/or 远程存储。
+
+</Accordion>
+</AccordionGroup>
 
 ---
 
@@ -109,7 +126,9 @@ Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的
 
 请参阅 GitHub 上的[应用模板](https://github.com/aymericzip/intlayer-vite-svelte-template)。
 
-### 第一步：安装依赖
+<Steps>
+
+<Step number={1} title="安装依赖">
 
 使用 npm 安装必要的包：
 
@@ -163,7 +182,9 @@ bun add vite-intlayer --save-dev
 - **vite-intlayer**
   包含用于将 Intlayer 集成到 [Vite 打包工具](https://vite.dev/guide/why.html#why-bundle-for-production) 的 Vite 插件，以及用于检测用户首选语言环境、管理 Cookie 和处理 URL 重定向的中间件。
 
-### 第 2 步：配置您的项目
+</Step>
+
+<Step number={2} title="配置您的项目">
 
 创建一个配置文件来配置您的应用程序语言：
 
@@ -187,7 +208,9 @@ export default config;
 
 > 通过此配置文件，您可以设置本地化 URL、中间件重定向、cookie 名称、内容声明的位置和扩展名，禁用控制台中的 Intlayer 日志等。有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
-### 第三步：在您的 Vite 配置中集成 Intlayer
+</Step>
+
+<Step number={3} title="在您的 Vite 配置中集成 Intlayer">
 
 将 intlayer 插件添加到您的配置中。
 
@@ -204,7 +227,9 @@ export default defineConfig({
 
 > `intlayer()` Vite 插件用于将 Intlayer 集成到 Vite 中。它确保内容声明文件的构建，并在开发模式下监控这些文件。它在 Vite 应用中定义了 Intlayer 的环境变量。此外，它还提供别名以优化性能。
 
-### 第四步：声明您的内容
+</Step>
+
+<Step number={4} title="声明您的内容">
 
 创建并管理您的内容声明以存储翻译：
 
@@ -246,7 +271,9 @@ export default appContent;
 
 > 更多详情，请参阅[内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
 
-### 第5步：在代码中使用 Intlayer
+</Step>
+
+<Step number={5} title="在代码中使用 Intlayer">
 
 ```svelte fileName="src/App.svelte"
 <script>
@@ -270,7 +297,7 @@ export default appContent;
 
 > 如果您的应用程序已经存在，您可以结合使用 [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 和 [提取命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 在一秒钟内转换成干个组件。
 
-<Steps>
+</Step>
 
 <Step number={6} title="更改内容语言">
 
@@ -428,52 +455,28 @@ $: content = useIntlayer('app', locale);
 
 > 注意，要在生产环境中使用 `intlayerProxy`，您需要将 `vite-intlayer` 包从 `devDependencies` 切换到 `dependencies`。
 
-```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import { defineConfig } from "vite";
-import { svelte } from "@sveltejs/vite-plugin-svelte";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+> 自 Intlayer v9 起，`intlayerProxy()` 已直接捆绑到 `intlayer()` 插件中，并默认通过 `routing.enableProxy` 选项（默认为 `true`）启用。如上所示单独注册现在是可选的——保留它是为了向后兼容以及需要控制插件顺序的设置。设置 `routing.enableProxy: false` 以退出。请参阅 [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
 
-typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
+```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { intlayer, intlayerProxy } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [intlayerProxy(), // should be placed first
- svelte(), intlayer()],
+  plugins: [
+    intlayerProxy(), // should be placed first
+    svelte(),
+    intlayer(),
+  ],
 });
 ```
 
 </Step>
 
-<Step number={8} title="当语言环境改变时更改 URL">
+<Step number={8} title="当语言环境变化时更改 URL" isOptional={true}>
 
-为了允许用户切换语言并相应地更新 URL，您可以创建一个 `LocaleSwitcher` 组件。该组件将使用 `intlayer` 中的 `getLocalizedUrl` 和 `svelte-spa-router` 中的 `push`。
-
-```svelte fileName="src/lib/LocaleSwitcher.svelte"
-<script lang="ts">
-import { getLocaleName, getLocalizedUrl } from "intlayer";
-import { useLocale } from "svelte-intlayer";
-import { push } from "svelte-spa-router";
-
-export let currentLocale: string | undefined = undefined;
-
-// 获取语言环境信息
-const { locale, availableLocales } = useLocale();
-
-// 处理语言环境变化
-const changeLocale = (event: Event) => {
-  plugins: [intlayerProxy(), // should be placed first
- svelte(), intlayer()],
-});
-```
-
-</Step>
-
-<Step number={8} title="当语言环境变化时更改 URL">
-
-为了允许用户切换语言并相应地更新 URL，您可以创建一个 `LocaleSwitcher` 组件。该组件将使用来自 `intlayer` 的 `getLocalizedUrl` 和来自 `svelte-spa-router` 的 `push`。
+为了允许用户切换语言并相应地更新 URL，您可以创建一个 `LocaleSwitcher` 组件。该组件将使用来自 `intlayer` 的 `getLocalizedUrl` and 来自 `svelte-spa-router` 的 `push`。
 
 ```svelte fileName="src/lib/LocaleSwitcher.svelte"
 <script lang="ts">
@@ -509,7 +512,30 @@ const changeLocale = (event: Event) => {
 
 </Step>
 
-<Step number={1} title="提取组件内容" isOptional={true}>
+<Step number={9} title="国际化链接" isOptional={true}>
+
+为了利于 SEO，建议在路由前加上语言环境前缀（例如，`/about`，`/fr/about`）。
+
+```svelte fileName="src/lib/components/Link.svelte"
+<script lang="ts">
+  import { getLocalizedUrl } from "intlayer";
+  import { useLocale } from "svelte-intlayer";
+
+  export let href = "";
+  const { locale } = useLocale();
+
+  // 辅助前缀 URL
+  $: localizedHref = getLocalizedUrl(href, $locale);
+</script>
+
+<a href={localizedHref}>
+  <slot />
+</a>
+```
+
+</Step>
+
+<Step number={10} title="提取组件内容" isOptional={true}>
 
 如果您有现有的代码库，转换数千个文件可能会非常耗时。
 
@@ -608,34 +634,6 @@ bun run build # Or bun run dev
 
 </Steps>
 
-### Git 配置
-
-建议忽略 Intlayer 生成的文件。这样可以避免将它们提交到您的 Git 仓库中。
-
-为此，您可以在 `.gitignore` 文件中添加以下指令：
-
-```bash
-#  忽略 Intlayer 生成的文件
-.intlayer
-```
-
-### VS Code 扩展
-
-为了提升您使用 Intlayer 的开发体验，您可以安装官方的 **Intlayer VS Code 扩展**。
-
-[从 VS Code 市场安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-该扩展提供：
-
-- 翻译键的 **自动补全**。
-- 缺失翻译的 **实时错误检测**。
-- 翻译内容的 **内联预览**。
-- 轻松创建和更新翻译的 **快速操作**。
-
-有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
-
----
-
 ### （可选）站点地图与 robots.txt（构建时生成）
 
 Intlayer 提供 `generateSitemap` 与 `getMultilingualUrls`，可将面向爬虫的多语言 `sitemap.xml` 和 `robots.txt` 格式化并自动写入 `public/`。实践中在 Vite **之前**运行小型 Node 脚本（例如 npm 的 `predev` / `prebuild`）即可在构建或开发时生成这些文件。
@@ -713,3 +711,31 @@ console.log("SEO files generated successfully.");
 ### 深入了解
 
 要进一步提升，您可以实现[可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)或使用[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)将内容外部化。
+
+### Git 配置
+
+建议忽略 Intlayer 生成的文件。这样可以避免将它们提交到您的 Git 仓库中。
+
+为此，您可以在 `.gitignore` 文件中添加以下指令：
+
+```bash
+#  忽略 Intlayer 生成的文件
+.intlayer
+```
+
+### VS Code 扩展
+
+为了提升您使用 Intlayer 的开发体验，您可以安装官方的 **Intlayer VS Code 扩展**。
+
+[从 VS Code 市场安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+该扩展提供：
+
+- 翻译键的 **自动补全**。
+- 缺失翻译的 **实时错误检测**。
+- 翻译内容的 **内联预览**。
+- 轻松创建和更新翻译的 **快速操作**。
+
+有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
+
+---

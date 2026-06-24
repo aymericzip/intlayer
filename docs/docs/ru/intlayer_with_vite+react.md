@@ -504,6 +504,8 @@ const App: FC = () => (
 
 Обратите внимание, что для использования `intlayerProxy` в продакшене необходимо переместить пакет `vite-intlayer` из `devDependencies` в `dependencies`.
 
+> Начиная с Intlayer v9, `intlayerProxy()` встроен напрямую в плагин `intlayer()` и включен по умолчанию через опцию `routing.enableProxy` (`true` по умолчанию). Регистрация его отдельно, как показано ниже, теперь является необязательной — она сохранена для обратной совместимости и для конфигураций, в которых необходимо контролировать порядок плагинов. Установите `routing.enableProxy: false`, чтобы отключить эту функцию. См. [примечания к релизу v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/releases/v9.md).
+
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";

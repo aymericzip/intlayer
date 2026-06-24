@@ -599,34 +599,6 @@ bun run build # Or bun run dev
 
 </Steps>
 
-### Git 設定
-
-Intlayer によって生成されたファイルは無視することを推奨します。これにより、Git リポジトリへの不要なコミットを避けることができます。
-
-これを行うには、`.gitignore` ファイルに以下の指示を追加してください：
-
-```bash
-#  Intlayer によって生成されたファイルを無視する
-.intlayer
-```
-
-### VS Code 拡張機能
-
-Intlayerでの開発体験を向上させるために、公式の**Intlayer VS Code拡張機能**をインストールできます。
-
-[VS Codeマーケットプレイスからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-この拡張機能は以下を提供します：
-
-- 翻訳キーの**オートコンプリート**。
-- 欠落している翻訳の**リアルタイムエラー検出**。
-- 翻訳されたコンテンツの**インラインプレビュー**。
-- 翻訳を簡単に作成・更新できる**クイックアクション**。
-
-拡張機能の使い方の詳細については、[Intlayer VS Code拡張機能のドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
-
----
-
 ### （任意）サイトマップと robots.txt（ビルド時生成）
 
 Intlayer は `generateSitemap` と `getMultilingualUrls` により、クローラ向けに整形した多言語の `sitemap.xml` と `robots.txt` を `public/` に自動で書き出せます。通常は Vite より**前**に小さな Node スクリプトを走らせます（例: npm の `predev` / `prebuild`）。
@@ -704,3 +676,31 @@ pnpm や yarn を使う場合はコマンドを読み替えてください。CI 
 ### さらに進む
 
 さらに進めるために、[ビジュアルエディター](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化することができます。
+
+### Git 設定
+
+Intlayer によって生成されたファイルは無視することを推奨します。これにより、Git リポジトリへの不要なコミットを避けることができます。
+
+これを行うには、`.gitignore` ファイルに以下の指示を追加してください：
+
+```bash
+#  Intlayer によって生成されたファイルを無視する
+.intlayer
+```
+
+### VS Code 拡張機能
+
+Intlayerでの開発体験を向上させるために、公式の**Intlayer VS Code拡張機能**をインストールできます。
+
+[VS Codeマーケットプレイスからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+この拡張機能は以下を提供します：
+
+- 翻訳キーの**オートコンプリート**。
+- 欠落している翻訳の**リアルタイムエラー検出**。
+- 翻訳されたコンテンツの**インラインプレビュー**。
+- 翻訳を簡単に作成・更新できる**クイックアクション**。
+
+拡張機能の使い方の詳細については、[Intlayer VS Code拡張機能のドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
+
+---

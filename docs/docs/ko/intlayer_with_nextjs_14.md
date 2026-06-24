@@ -59,6 +59,10 @@ author: aymericzip
 
 GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-next-14-template)을 확인하세요.
 
+## 목차
+
+<TOC/>
+
 ## 대안보다 Intlayer를 선택해야 하는 이유는 무엇입니까?
 
 'next-intl' 또는 'i18next'와 같은 주요 솔루션과 비교할 때 Intlayer는 다음과 같은 통합 최적화 기능을 제공하는 솔루션입니다.
@@ -925,37 +929,39 @@ TypeScript 구성에 자동 생성된 타입이 포함되어 있는지 확인하
 {
   // ... 기존 TypeScript 구성
   "include": [
-    // ... 기존 TypeScript 구성
+    // ... 기존 TypeScript 설정
     ".intlayer/**/*.ts", // 자동 생성된 타입 포함
   ],
 }
 ```
 
-### Git 구성
+### Git 설정
 
-Intlayer에서 생성된 파일은 무시하는 것이 권장됩니다. 이렇게 하면 Git 저장소에 해당 파일들이 커밋되는 것을 방지할 수 있습니다.
+Intlayer가 생성한 파일들은 Git 저장소에 커밋하지 않도록 무시하는 것이 권장됩니다.
 
-이를 위해 `.gitignore` 파일에 다음 지침을 추가할 수 있습니다:
+이를 위해 `.gitignore` 파일에 다음 지시문을 추가할 수 있습니다:
 
 ```plaintext fileName=".gitignore"
-# Intlayer에서 생성된 파일 무시
+# Intlayer가 생성한 파일 무시
 .intlayer
 ```
 
-### VS 코드 확장
+### VS Code 확장
 
-Intlayer와 함께 개발 경험을 향상시키기 위해 공식 **Intlayer VS 코드 확장**을 설치할 수 있습니다.
+Intlayer와 함께 개발 경험을 향상시키기 위해 공식 **Intlayer VS Code 확장**을 설치할 수 있습니다.
 
-[VS 코드 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+[VS Code 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
 이 확장은 다음 기능을 제공합니다:
 
 - 번역 키에 대한 **자동 완성**.
-- 누락된 번역에 대한 **실시간 오류 감지**.
-- 번역된 내용을 **인라인 미리보기**.
-- 번역을 쉽게 생성하고 업데이트할 수 있는 **빠른 작업**.
+- **실시간 오류 감지**로 누락된 번역을 확인할 수 있습니다.
+- **인라인 미리보기**로 번역된 내용을 바로 확인할 수 있습니다.
+- **빠른 작업**으로 번역을 쉽게 생성하고 업데이트할 수 있습니다.
 
-확장 프로그램 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
+확장 기능 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
+
+---
 
 ### 더 나아가기
 

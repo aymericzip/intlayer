@@ -22,6 +22,10 @@ author: aymericzip
 
 # Comment Intlayer fonctionne
 
+## Table des matières
+
+<TOC/>
+
 ## Vue d'ensemble
 
 L'idée principale derrière Intlayer est d'adopter une gestion de contenu par composant. Ainsi, l'idée derrière Intlayer est de vous permettre de déclarer votre contenu n'importe où dans votre base de code, comme dans le même répertoire que votre composant.

@@ -806,7 +806,131 @@ return (
 
 </Step>
 
-<Step number={1} title="Estrarre il contenuto dei tuoi componenti" isOptional={true}>
+<Step number={11} title="Creazione di un componente Link localizzato" isOptional={true}>
+
+Per garantire che la navigazione della tua applicazione rispetti la lingua corrente, puoi creare un componente `Link` personalizzato. Questo componente aggiunge automaticamente il prefisso della lingua corrente agli URL interni. Ad esempio, quando un utente francofono clicca su un link alla pagina "About", viene reindirizzato a `/fr/about` invece che a `/about`.
+
+Questo comportamento è utile per diversi motivi:
+
+- **SEO e esperienza utente**: Gli URL localizzati aiutano i motori di ricerca a indicizzare correttamente le pagine specifiche per lingua e forniscono agli utenti contenuti nella loro lingua preferita.
+- **Coerenza**: Utilizzando un link localizzato in tutta l'applicazione, garantisci che la navigazione rimanga all'interno della lingua corrente, evitando cambi di lingua imprevisti.
+- **Manutenibilità**: Centralizzare la logica di localizzazione in un unico componente semplifica la gestione degli URL, rendendo il tuo codice più facile da mantenere ed estendere man mano che la tua applicazione cresce.
+
+Di seguito è riportata l'implementazione di un componente `Link` localizzato in TypeScript:
+
+```tsx fileName="src/components/Link.tsx" codeFormat={["typescript", "esm"]}
+"use client";
+
+import { getLocalizedUrl } from "intlayer";
+import NextLink, { type LinkProps as NextLinkProps } from "next/link";
+import { useLocale } from "next-intlayer";
+import type { PropsWithChildren, FC } from "react";
+
+/**
+ * Funzione di utilità per verificare se un dato URL è esterno.
+ * Se l'URL inizia con http:// o https://, è considerato esterno.
+ */
+export const checkIsExternalLink = (href?: string): boolean =>
+  /^https?:\/\//.test(href ?? "");
+
+/**
+ * Un componente Link personalizzato che adatta l'attributo href in base alla locale corrente.
+ * Per i link interni, utilizza `getLocalizedUrl` per aggiungere il prefisso della locale all'URL (es. /fr/about).
+ * Questo garantisce che la navigazione rimanga all'interno dello stesso contesto di locale.
+ */
+export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
+  href,
+  children,
+  ...props
+}) => {
+  const { locale } = useLocale();
+  const isExternalLink = checkIsExternalLink(href.toString());
+
+  // Se il link è interno e viene fornito un href valido, ottieni l'URL localizzato.
+  const hrefI18n: NextLinkProps["href"] =
+    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
+
+  return (
+    <NextLink href={hrefI18n} {...props}>
+      {children}
+    </NextLink>
+  );
+};
+```
+
+#### Come funziona
+
+- **Rilevamento di link esterni**:  
+  La funzione di utilità `checkIsExternalLink` determina se un URL è esterno. I link esterni rimangono invariati perché non necessitano di localizzazione.
+
+- **Recupero della locale corrente**:  
+  L'hook `useLocale` fornisce la locale corrente (es. `fr` per il francese).
+
+- **Localizzazione dell'URL**:  
+  Per i link interni (ovvero non esterni), `getLocalizedUrl` viene utilizzato per aggiungere automaticamente il prefisso della locale corrente all'URL. Ciò significa che se il tuo utente è in francese, passare `/about` come `href` lo trasformerà in `/fr/about`.
+
+- **Restituzione del link**:  
+  Il componente restituisce un elemento `<a>` con l'URL localizzato, garantendo che la navigazione sia coerente con la locale.
+
+Integrando questo componente `Link` in tutta la tua applicazione, manterrai un'esperienza utente coerente e consapevole della lingua, beneficiando al contempo di una migliore SEO e usabilità.
+
+</Step>
+
+<Step number={12} title="Ottenere la locale corrente nelle Server Actions" isOptional={true}>
+
+Se hai bisogno della locale attiva all'interno di una Server Action (ad esempio, per localizzare le email o eseguire logiche sensibili alla locale), chiama `getLocale` da `next-intlayer/server`:
+
+```tsx fileName="src/app/actions/getLocale.ts" codeFormat="typescript"
+"use server";
+
+import { getLocale } from "next-intlayer/server";
+
+export const myServerAction = async () => {
+  const locale = await getLocale();
+
+  // Fai qualcosa con la locale
+};
+```
+
+> La funzione `getLocale` segue una strategia a cascata per determinare la locale dell'utente:
+>
+> 1. Innanzitutto, controlla gli intestazioni della richiesta per un valore di locale che potrebbe essere stato impostato dal proxy
+> 2. Se non viene trovata alcuna locale negli intestazioni, cerca una locale memorizzata nei cookie
+> 3. Se non viene trovato alcun cookie, tenta di rilevare la lingua preferita dell'utente dalle impostazioni del browser
+> 4. Come ultima risorsa, ripiega sulla locale predefinita configurata dell'applicazione
+>
+> Questo garantisce che venga selezionata la locale più appropriata in base al contesto disponibile.
+
+</Step>
+
+<Step number={13} title="Ottimizza la dimensione del bundle" isOptional={true}>
+
+Quando usi `next-intlayer`, i dizionari sono inclusi nel bundle per ogni pagina di default. Per ottimizzare la dimensione del bundle, Intlayer fornisce un plugin SWC opzionale che sostituisce in modo intelligente le chiamate a `useIntlayer` usando macro. Questo assicura che i dizionari siano inclusi solo nei bundle delle pagine che li utilizzano effettivamente.
+
+Per abilitare questa ottimizzazione, installa il pacchetto `@intlayer/swc`. Una volta installato, `next-intlayer` rileverà automaticamente e utilizzerà il plugin:
+
+```bash packageManager="npm"
+npm install @intlayer/swc --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/swc --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/swc --save-dev
+```
+
+```bash packageManager="bun"
+bun add @intlayer/swc --dev
+```
+
+> Nota: Questa ottimizzazione è disponibile solo per Next.js 13 e versioni successive.
+
+> Nota: Questo pacchetto non è installato di default perché i plugin SWC sono ancora sperimentali su Next.js. Potrebbe cambiare in futuro.
+> </Step>
+
+<Step number={14} title="Estrarre il contenuto dei tuoi componenti" isOptional={true}>
 
 Se hai una base di codice esistente, trasformare migliaia di file può richiedere molto tempo.
 
@@ -921,74 +1045,72 @@ bun run build # Or bun run dev
 
 </Step>
 
-<Step number={11} title="Creazione di un componente Link localizzato" isOptional={true}>
+</Steps>
 
-Per garantire che la navigazione della tua applicazione rispetti la lingua corrente, puoi creare un componente `Link` personalizzato. Questo componente aggiunge automaticamente il prefisso della lingua corrente agli URL interni. Ad esempio, quando un utente francofono clicca su un link alla pagina "About", viene reindirizzato a `/fr/about` invece che a `/about`.
+### Monitorare le modifiche ai dizionari su Turbopack
 
-Questo comportamento è utile per diversi motivi:
+Quando si utilizza Turbopack come server di sviluppo con il comando `next dev --turbopack`, le modifiche ai dizionari non verranno rilevate automaticamente per impostazione predefinita.
 
-- **SEO e esperienza utente**: Gli URL localizzati aiutano i motori di ricerca a indicizzare correttamente le pagine specifiche per lingua e forniscono agli utenti contenuti nella loro lingua preferita.
-- **Coerenza**: Utilizzando un link localizzato in tutta l'applicazione, garantisci che la navigazione rimanga all'interno della lingua corrente, evitando cambi di lingua imprevisti.
-- **Manutenibilità**: Centralizzare la logica di localizzazione in un unico componente semplifica la gestione degli URL, rendendo il tuo codice più facile da mantenere ed estendere man mano che la tua applicazione cresce.
+Questa limitazione si verifica perché Turbopack non può eseguire plugin webpack in parallelo per monitorare le modifiche nei file di contenuto. Per ovviare a questo problema, sarà necessario utilizzare il comando `intlayer watch` per eseguire contemporaneamente il server di sviluppo e l'osservatore di compilazione Intlayer.
 
-Di seguito è riportata l'implementazione di un componente `Link` localizzato in TypeScript:
-
-```tsx fileName="src/components/Link.tsx" codeFormat={["typescript", "esm"]}
-"use client";
-
-import { getLocalizedUrl } from "intlayer";
-import NextLink, { type LinkProps as NextLinkProps } from "next/link";
-import { useLocale } from "next-intlayer";
-import type { PropsWithChildren, FC } from "react";
-
-/**
- * Funzione di utilità per verificare se un dato URL è esterno.
- * Se l'URL inizia con http:// o https://, è considerato esterno.
- */
-export const checkIsExternalLink = (href?: string): boolean =>
-  /^https?:\/\//.test(href ?? "");
-
-/**
- * Un componente Link personalizzato che adatta l'attributo href in base alla locale corrente.
- * Per i link interni, utilizza `getLocalizedUrl` per aggiungere il prefisso della locale all'URL (es. /fr/about).
- * Questo garantisce che la navigazione rimanga all'interno dello stesso contesto di locale.
- */
-export const Link: FC<PropsWithChildren<NextLinkProps>> = ({
-  href,
-  children,
-  ...props
-}) => {
-  const { locale } = useLocale();
-  const isExternalLink = checkIsExternalLink(href.toString());
-
-  // Se il link è interno e viene fornito un href valido, ottieni l'URL localizzato.
-  const hrefI18n: NextLinkProps["href"] =
-    href && !isExternalLink ? getLocalizedUrl(href.toString(), locale) : href;
-
-  return (
-    <NextLink href={hrefI18n} {...props}>
-      {children}
-    </NextLink>
-  );
-};
+```json5 fileName="package.json"
+{
+  // ... Le tue configurazioni package.json esistenti
+  "scripts": {
+    // ... Le tue configurazioni di script esistenti
+    "dev": "intlayer watch --with 'next dev'",
+  },
+}
 ```
 
-#### Come funziona
+> Se stai utilizzando next-intlayer@<=6.x.x, devi mantenere il flag `--turbopack` per far funzionare correttamente l'applicazione Next.js 16 con Turbopack. Consigliamo di utilizzare next-intlayer@>=7.x.x per evitare questa limitazione.
 
-- **Rilevamento di link esterni**:  
-  La funzione di utilità `checkIsExternalLink` determina se un URL è esterno. I link esterni rimangono invariati perché non necessitano di localizzazione.
+### Configurare TypeScript
 
-- **Recupero della locale corrente**:  
-  L'hook `useLocale` fornisce la locale corrente (es. `fr` per il francese).
+Intlayer utilizza l'augmentation dei moduli per sfruttare i vantaggi di TypeScript e rendere il tuo codice più robusto.
 
-- **Localizzazione dell'URL**:  
-  Per i link interni (ovvero non esterni), `getLocalizedUrl` viene utilizzato per aggiungere automaticamente il prefisso della locale corrente all'URL. Ciò significa che se il tuo utente è in francese, passare `/about` come `href` lo trasformerà in `/fr/about`.
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
-- **Restituzione del link**:  
-  Il componente restituisce un elemento `<a>` con l'URL localizzato, garantendo che la navigazione sia coerente con la locale.
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
-Integrando questo componente `Link` in tutta la tua applicazione, manterrai un'esperienza utente coerente e consapevole della lingua, beneficiando al contempo di una migliore SEO e usabilità.
+Assicurati che la tua configurazione di TypeScript includa i tipi generati automaticamente.
 
-</Step>
+```json5 fileName="tsconfig.json"
+{
+  // ... Le tue configurazioni TypeScript esistenti
+  "include": [
+    // ... Le tue configurazioni TypeScript esistenti
+    ".intlayer/**/*.ts", // Includi i tipi generati automaticamente
+  ],
+}
+```
 
-</Steps>
+### Configurazione Git
+
+Si consiglia di ignorare i file generati da Intlayer. Questo ti permette di evitare di committarli nel tuo repository Git.
+
+Per farlo, puoi aggiungere le seguenti istruzioni al tuo file `.gitignore`:
+
+```plaintext fileName=".gitignore"
+# Ignora i file generati da Intlayer
+.intlayer
+```
+
+### Estensione VS Code
+
+Per migliorare la tua esperienza di sviluppo con Intlayer, puoi installare l'**Estensione ufficiale Intlayer per VS Code**.
+
+[Installa dal Marketplace di VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Questa estensione offre:
+
+- **Completamento automatico** per le chiavi di traduzione.
+- **Rilevamento errori in tempo reale** per traduzioni mancanti.
+- **Anteprime inline** del contenuto tradotto.
+- **Azioni rapide** per creare e aggiornare facilmente le traduzioni.
+
+Per maggiori dettagli su come utilizzare l'estensione, consulta la [documentazione dell'estensione Intlayer per VS Code](https://intlayer.org/doc/vs-code-extension).
+
+### Approfondimenti
+
+Per approfondire, puoi implementare l'[editor visuale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md) o esternalizzare i tuoi contenuti utilizzando il [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_CMS.md).

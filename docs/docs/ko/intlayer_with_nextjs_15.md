@@ -65,6 +65,10 @@ author: aymericzip
 
 GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-next-15-template)을 확인하세요.
 
+## 목차
+
+<TOC/>
+
 ## 대안보다 Intlayer를 선택해야 하는 이유는 무엇입니까?
 
 'next-intl' 또는 'i18next'와 같은 주요 솔루션과 비교할 때 Intlayer는 다음과 같은 통합 최적화 기능을 제공하는 솔루션입니다.
@@ -880,6 +884,22 @@ bun add @intlayer/swc --dev
 </Step>
 
 </Steps>
+
+### Turbopack에서 사전 변경 사항 감시
+
+`next dev --turbopack` 명령을 사용하여 개발 서버로 Turbopack을 사용할 때, 기본적으로 사전 변경 사항이 자동으로 감지되지 않습니다.
+
+이 제한은 Turbopack이 콘텐츠 파일의 변경 사항을 모니터링하기 위해 webpack 플러그인을 병렬로 실행할 수 없기 때문에 발생합니다. 이 문제를 해결하려면 `intlayer watch` 명령을 사용하여 개발 서버와 Intlayer 빌드 감시자를 동시에 실행해야 합니다.
+
+```json5 fileName="package.json"
+{
+  // ... 기존 package.json 구성
+  "scripts": {
+    // ... 기존 스크립트 구성
+    "dev": "intlayer watch --with 'next dev --turbopack'",
+  },
+}
+```
 
 ### TypeScript 구성
 

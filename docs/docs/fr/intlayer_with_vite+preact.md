@@ -65,6 +65,10 @@ author: aymericzip
 
 Voir le [Modèle d'application](https://github.com/aymericzip/intlayer-vite-preact-template) sur GitHub.
 
+## Table des matières
+
+<TOC/>
+
 ## Pourquoi Intlayer plutôt que des alternatives ?
 
 Par rapport aux solutions principales telles que `preact-i18n` ou `i18next`, Intlayer est une solution dotée d'optimisations intégrées telles que :

@@ -473,7 +473,7 @@ Link.displayName = "Link";
 通过在整个应用中集成此 `Link` 组件，您可以维护一致且具语言感知的用户体验，同时提升 SEO 和可用性。
 </Step>
 
-<Step number={1} title="提取组件内容" isOptional={true}>
+<Step number={11} title="提取组件内容" isOptional={true}>
 
 如果您有现有的代码库，转换数千个文件可能会非常耗时。
 

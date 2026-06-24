@@ -59,6 +59,10 @@ author: aymericzip
 
 Consulta la [Plantilla de Aplicación](https://github.com/aymericzip/intlayer-next-14-template) en GitHub.
 
+## Tabla de Contenidos
+
+<TOC/>
+
 ## ¿Por qué Intlayer en lugar de alternativas?
 
 En comparación con soluciones principales como `next-intl` o `i18next`, Intlayer es una solución que viene con optimizaciones integradas como:
@@ -947,7 +951,7 @@ Intlayer utiliza la ampliación de módulos para aprovechar las ventajas de Type
 
 ![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
-Asegúrate de que tu configuración de TypeScript incluya los tipos generados automáticamente.
+Asegúrate de que tu configuración de TypeScript incluya los tipos autogenerados.
 
 ```json5 fileName="tsconfig.json"
 {
@@ -963,7 +967,7 @@ Asegúrate de que tu configuración de TypeScript incluya los tipos generados au
 
 Se recomienda ignorar los archivos generados por Intlayer. Esto te permite evitar comprometerlos en tu repositorio Git.
 
-Para hacer esto, puedes agregar las siguientes instrucciones a tu archivo `.gitignore`:
+Para hacerlo, puedes agregar las siguientes instrucciones a tu archivo `.gitignore`:
 
 ```plaintext fileName=".gitignore"
 # Ignorar los archivos generados por Intlayer
@@ -985,6 +989,8 @@ Esta extensión proporciona:
 
 Para más detalles sobre cómo usar la extensión, consulta la [documentación de la extensión Intlayer para VS Code](https://intlayer.org/doc/vs-code-extension).
 
-### Ir Más Allá
+---
+
+### Ir más allá
 
 Para ir más allá, puedes implementar el [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_visual_editor.md) o externalizar tu contenido usando el [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/intlayer_CMS.md).

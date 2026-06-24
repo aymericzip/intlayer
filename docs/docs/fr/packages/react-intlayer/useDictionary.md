@@ -1,176 +1,60 @@
 ---
-createdAt: 2025-02-07
-updatedAt: 2025-06-29
-title: Hook useDictionary - Documentation React Intlayer
-description: Guide complet pour utiliser le hook useDictionary dans les applications React avec Intlayer pour une gestion efficace du contenu localisé sans éditeur visuel.
+createdAt: 2026-01-21
+updatedAt: 2026-01-21
+title: Documentation du Hook useDictionary | react-intlayer
+description: Découvrez comment utiliser le hook useDictionary pour le package react-intlayer
 keywords:
   - useDictionary
-  - React
-  - hook
+  - dictionary
+  - Intlayer
   - intlayer
-  - localisation
-  - i18n
-  - dictionnaire
-  - traduction
+  - Internationalisation
+  - Documentation
 slugs:
   - doc
   - packages
   - react-intlayer
   - useDictionary
 history:
-  - version: 5.5.10
-    date: 2025-06-29
-    changes: "Historique initial"
+  - version: 7.5.14
+    date: 2026-01-21
+    changes: "Documentation unifiée pour tous les exports"
 author: aymericzip
 ---
 
-# Intégration React : Documentation du hook `useDictionary`
+# Documentation du Hook useDictionary
 
-Cette section fournit des instructions détaillées sur l'utilisation du hook `useDictionary` dans les applications React, permettant une gestion efficace du contenu localisé sans éditeur visuel.
+Le hook `useDictionary` vous permet de traiter un objet qui ressemble à un dictionnaire (contenant des clés et du contenu) et de gérer les traductions, énumérations, etc., en son sein. Contrairement à `useIntlayer`, qui est conçu pour fonctionner avec les déclarations de dictionnaire générées, `useDictionary` est plus flexible et peut être utilisé avec n'importe quel objet qui suit la structure d'un dictionnaire.
 
-## Importation de `useDictionary` dans React
+## Utilisation
 
-Le hook `useDictionary` peut être intégré dans les applications React en l'important selon le contexte :
-
-- **Composant Client :**
-
-  ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer"; // Utilisé dans les composants React côté client
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer"; // Utilisé dans les composants React côté client
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer"); // Utilisé dans les composants React côté client
-  ```
-
-- **Composant Serveur :**
-
-  ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer/server"; // Utilisé dans les composants React côté serveur
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer/server"; // Utilisé dans les composants React côté serveur
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer/server"); // Utilisé dans les composants React côté serveur
-  ```
-
-## Paramètres
-
-Le hook accepte deux paramètres :
-
-1. **`dictionary`** : Un objet dictionnaire déclaré contenant le contenu localisé pour des clés spécifiques.
-2. **`locale`** (optionnel) : La locale souhaitée. Par défaut, la locale du contexte actuel est utilisée si elle n'est pas spécifiée.
-
-## Dictionnaire
-
-Tous les objets dictionnaires doivent être déclarés dans des fichiers de contenu structurés afin d'assurer la sécurité des types et d'éviter les erreurs d'exécution. Vous pouvez trouver les [instructions d'installation ici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/dictionary/content_file.md). Voici un exemple de déclaration de contenu :
-
-```typescript fileName="./component.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
-import { t, type Dictionary } from "intlayer";
-
-const componentContent = {
-  key: "component-example",
-  content: {
-    title: t({
-      en: "Client Component Example",
-      fr: "Exemple de composant client",
-      es: "Ejemplo de componente cliente",
-    }),
-    content: t({
-      en: "This is the content of a client component example",
-      fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es el contenido de un ejemplo de componente cliente",
-    }),
-  },
-} satisfies Dictionary;
-
-export default componentContent;
-```
-
-```json fileName="./component.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "component-example",
-  "content": {
-    "title": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Client Component Example",
-        "fr": "Exemple de composant client",
-        "es": "Ejemplo de componente cliente"
-      }
-    },
-    "content": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "This is the content of a client component example",
-        "fr": "Ceci est le contenu d'un exemple de composant client",
-        "es": "Este es el contenido de un ejemplo de componente cliente"
-      }
-    }
-  }
-}
-```
-
-## Exemple d'utilisation dans React
-
-Voici un exemple de la façon d'utiliser le hook `useDictionary` dans un composant React :
-
-```tsx fileName="./ComponentExample.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
+```tsx
 import { useDictionary } from "react-intlayer";
-import componentContent from "./component.content";
+import { t } from "intlayer";
 
-const ComponentExample: FC = () => {
-  const { title, content } = useDictionary(componentContent);
+const MyComponent = () => {
+  const content = useDictionary({
+    key: "my_key",
+    content: {
+      myTranslation: t({
+        en: "Hello",
+        fr: "Bonjour",
+      }),
+    },
+  });
 
   return (
     <div>
-      <h1>{title}</h1>
-      <p>{content}</p>
+      <p>{content.myTranslation}</p>
     </div>
   );
 };
 ```
 
-## Intégration Serveur
+## Description
 
-Si vous utilisez le hook `useDictionary` en dehors du `IntlayerProvider`, la locale doit être explicitement fournie en paramètre lors du rendu du composant :
+Le hook effectue les tâches suivantes :
 
-```tsx fileName="./ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { useDictionary } from "react-intlayer/server";
-import clientComponentExampleContent from "./component.content";
-
-const ServerComponentExample: FC<{ locale: string }> = ({ locale }) => {
-  const { content } = useDictionary(clientComponentExampleContent, locale);
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
-## Notes sur les attributs
-
-Contrairement aux intégrations utilisant des éditeurs visuels, les attributs comme `buttonTitle.value` ne s'appliquent pas ici. Accédez directement aux chaînes localisées telles que déclarées dans votre contenu.
-
-```jsx
-<button title={content.title}>{content.content}</button>
-```
-
-## Conseils supplémentaires
-
-- **Sécurité de type** : Utilisez toujours `Dictionary` pour définir vos dictionnaires afin d'assurer la sécurité de type.
-- **Mises à jour de la localisation** : Lors de la mise à jour du contenu, assurez-vous que toutes les locales sont cohérentes pour éviter les traductions manquantes.
-
-Cette documentation se concentre sur l'intégration du hook `useDictionary`, offrant une approche simplifiée pour gérer le contenu localisé sans dépendre des fonctionnalités des éditeurs visuels.
+1. **Détection de la locale** : Il utilise la locale actuelle du contexte `IntlayerProvider`.
+2. **Traitement de la traduction** : il résout le contenu en fonction de la locale détectée, en traitant toutes les définitions `t()`, `enu()`, etc., trouvées dans l'objet.
+3. **Contenu flexible** : Il fonctionne directement avec l'objet qui lui est passé, ce qui le rend idéal pour du contenu dynamique ou des objets qui ne font pas partie des dictionnaires standard pré-compilés.

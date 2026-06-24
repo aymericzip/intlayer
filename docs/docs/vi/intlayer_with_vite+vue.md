@@ -902,56 +902,6 @@ import RouterLink từ "@components/RouterLink.vue";
 
 </Step>
 
-<Step number={11} title="Kết xuất Markdown" isOptional={true}>
-
-Intlayer hỗ trợ hiển thị nội dung Markdown trực tiếp trong ứng dụng Vue của bạn. Theo mặc định, Markdown được xử lý như văn bản thuần túy. Để chuyển đổi Markdown thành HTML phong phú, bạn có thể tích hợp [markdown-it](https://github.com/markdown-it/markdown-it), một trình phân tích cú pháp Markdown.
-
-Điều này đặc biệt hữu ích khi bản dịch của bạn bao gồm các nội dung có định dạng như danh sách, liên kết hoặc nhấn mạnh.
-
-Theo mặc định, Intlayer hiển thị markdown dưới dạng chuỗi. Nhưng Intlayer cũng cung cấp một cách để hiển thị markdown thành HTML bằng cách sử dụng hàm `installIntlayerMarkdown`.
-
-> Để xem cách khai báo nội dung markdown sử dụng gói `intlayer`, xem tài liệu [markdown doc](https://github.com/aymericzip/intlayer/tree/main/docs/vi/dictionary/markdown.md).
-
-```ts fileName="main.ts"
-import MarkdownIt from "markdown-it";
-import { createApp, h } from "vue";
-import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
-
-const app = createApp(App);
-
-app.use(intlayer);
-
-const md = new MarkdownIt({
-  html: true, // cho phép thẻ HTML
-  linkify: true, // tự động liên kết URL
-  typographer: true, // bật dấu ngoặc thông minh, dấu gạch nối, v.v.
-});
-
-// Yêu cầu Intlayer sử dụng md.render() mỗi khi cần chuyển markdown thành HTML
-installIntlayerMarkdown(app, (markdown) => {
-  const html = md.render(markdown);
-  return h("div", { innerHTML: html });
-});
-```
-
-Sau khi đăng ký, bạn có thể sử dụng cú pháp dựa trên component để hiển thị nội dung Markdown trực tiếp:
-
-```vue
-<template>
-  <div>
-    <myMarkdownContent />
-  </div>
-</template>
-
-<script setup lang="ts">
-import { useIntlayer } from "vue-intlayer";
-
-const { myMarkdownContent } = useIntlayer("my-component");
-</script>
-```
-
-</Step>
-
 <Step number={1} title="Trích xuất nội dung các thành phần của bạn" isOptional={true}>
 
 Nếu bạn có một cơ sở mã hiện có, việc chuyển đổi hàng nghìn tệp có thể tốn nhiều thời gian.
@@ -1051,54 +1001,6 @@ bun run build # Or bun run dev
 
 </Steps>
 
-### Cấu hình TypeScript
-
-Intlayer sử dụng module augmentation để tận dụng các lợi ích của TypeScript và làm cho codebase của bạn mạnh mẽ hơn.
-
-![Tự động hoàn thành](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Lỗi dịch thuật](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Đảm bảo cấu hình TypeScript của bạn bao gồm các kiểu được tạo tự động.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Các cấu hình TypeScript hiện có của bạn
-  "include": [
-    // ... Các cấu hình TypeScript hiện có của bạn
-    ".intlayer/**/*.ts", // Bao gồm các kiểu được tạo tự động
-  ],
-}
-```
-
-### Cấu hình Git
-
-Nên bỏ qua các tệp được tạo bởi Intlayer. Điều này giúp bạn tránh việc commit chúng vào kho Git của mình.
-
-Để làm điều này, bạn có thể thêm các hướng dẫn sau vào tệp `.gitignore` của bạn:
-
-```bash
-#  Bỏ qua các tệp được tạo bởi Intlayer
-.intlayer
-```
-
-### Tiện ích mở rộng VS Code
-
-Để cải thiện trải nghiệm phát triển với Intlayer, bạn có thể cài đặt **Tiện ích mở rộng Intlayer cho VS Code** chính thức.
-
-[Cài đặt từ VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Tiện ích mở rộng này cung cấp:
-
-- **Tự động hoàn thành** cho các khóa dịch.
-- **Phát hiện lỗi thời gian thực** cho các bản dịch bị thiếu.
-- **Xem trước nội dung dịch ngay trong dòng**.
-- **Các hành động nhanh** để dễ dàng tạo và cập nhật bản dịch.
-
-Để biết thêm chi tiết về cách sử dụng extension, hãy tham khảo [tài liệu Extension VS Code của Intlayer](https://intlayer.org/doc/vs-code-extension).
-
----
-
 ### (Tuỳ chọn) Sitemap và robots.txt (sinh lúc build)
 
 Intlayer cung cấp `generateSitemap` và `getMultilingualUrls` để định dạng `sitemap.xml` đa ngôn ngữ và `robots.txt` cho crawler rồi tự ghi vào `public/`. Thường chạy một script Node nhỏ **trước** Vite (ví dụ hook npm `predev` / `prebuild`).
@@ -1173,8 +1075,54 @@ Cần cài `intlayer` để script import. Môi trường production đặt `SIT
 
 Chỉnh lệnh nếu dùng pnpm hoặc yarn. Có thể gọi từ CI hoặc bước pipeline khác.
 
-### Tiến xa hơn
+### Cấu hình TypeScript
 
-Để tiến xa hơn, bạn có thể triển khai [trình soạn thảo trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc tách nội dung của bạn ra bên ngoài bằng cách sử dụng [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md).
+Intlayer sử dụng module augmentation để tận dụng các lợi ích của TypeScript và làm cho codebase của bạn mạnh mẽ hơn.
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+Đảm bảo cấu hình TypeScript của bạn bao gồm các type được tạo tự động.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Cấu hình TypeScript hiện tại của bạn
+  "include": [
+    // ... Cấu hình TypeScript hiện tại của bạn
+    ".intlayer/**/*.ts", // Bao gồm các type được tạo tự động
+  ],
+}
+```
+
+### Cấu hình Git
+
+Bạn nên bỏ qua các tệp được tạo bởi Intlayer. Điều này cho phép bạn tránh việc commit chúng vào kho lưu trữ Git của mình.
+
+Để thực hiện việc này, bạn có thể thêm các hướng dẫn sau vào tệp `.gitignore` của mình:
+
+```plaintext fileName=".gitignore"
+# Bỏ qua các tệp được tạo bởi Intlayer
+.intlayer
+```
+
+### VS Code Extension
+
+Để cải thiện trải nghiệm phát triển của bạn với Intlayer, bạn có thể cài đặt **Intlayer VS Code Extension** chính thức.
+
+[Cài đặt từ VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Tiện ích mở rộng này cung cấp:
+
+- **Autocompletion** cho các khóa dịch.
+- **Phát hiện lỗi thời gian thực** cho các bản dịch còn thiếu.
+- **Inline previews** cho nội dung đã dịch.
+- **Quick actions** để dễ dàng tạo và cập nhật các bản dịch.
+
+Để biết thêm chi tiết về cách sử dụng tiện ích mở rộng, hãy tham khảo [tài liệu Intlayer VS Code Extension](https://intlayer.org/vi/doc/vs-code-extension).
 
 ---
+
+### Tiến xa hơn
+
+Để tiến xa hơn, bạn có thể triển khai [trình soạn thảo trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) hoặc tách nội dung của bạn ra ngoài bằng cách sử dụng [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).

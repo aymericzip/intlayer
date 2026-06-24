@@ -53,6 +53,10 @@ author: aymericzip
 
 [एप्लीकेशन टेम्पलेट](https://github.com/aymericzip/intlayer-next-14-template) पर देखें.
 
+## विषय-सूची
+
+<TOC/>
+
 ## विकल्पों पर इन्टलेयर क्यों?
 
 `नेक्स्ट-इंटल` या `आई18नेक्स्ट` जैसे मुख्य समाधानों की तुलना में, इंटलेयर एक ऐसा समाधान है जो एकीकृत अनुकूलन के साथ आता है जैसे:
@@ -922,31 +926,50 @@ bun add @intlayer/swc --dev
 
 ### TypeScript कॉन्फ़िगर करें
 
-Intlayer TypeScript का उपयोग करता है और आपके कोडबेस को मजबूत बनाने के लिए मॉड्यूल ऑगमेंटेशन का लाभ उठाता है।
+Intlayer TypeScript के लाभ प्राप्त करने और आपके कोडबेस को मजबूत बनाने के लिए मॉड्यूल ऑगमेंटेशन का उपयोग करता है।
 
 ![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
 
 ![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
 
-सुनिश्चित करें कि आपकी TypeScript कॉन्फ़िगरेशन में स्वतः उत्पन्न प्रकार शामिल हैं।
+सुनिश्चित करें कि आपकी TypeScript कॉन्फ़िगरेशन में ऑटो-जेनरेटेड टाइप्स शामिल हैं।
 
 ```json5 fileName="tsconfig.json"
 {
-  // ... आपकी मौजूदा TypeScript कॉन्फ़िगरेशन
+  // ... आपके मौजूदा TypeScript कॉन्फ़िगरेशन
   "include": [
-    // ... आपकी मौजूदा TypeScript कॉन्फ़िगरेशन
-    ".intlayer/**/*.ts", // स्वतः उत्पन्न प्रकार शामिल करें
+    // ... आपके मौजूदा TypeScript कॉन्फ़िगरेशन
+    ".intlayer/**/*.ts", // स्वचालित रूप से उत्पन्न प्रकार शामिल करें
   ],
 }
 ```
 
 ### Git कॉन्फ़िगरेशन
 
-यह अनुशंसा की जाती है कि Intlayer द्वारा उत्पन्न फ़ाइलों को अनदेखा करें। इससे आप उन्हें अपने Git रिपॉजिटरी में कमिट करने से बच सकते हैं।
+यह अनुशंसा की जाती है कि Intlayer द्वारा उत्पन्न फ़ाइलों को अनदेखा किया जाए। इससे आप उन्हें अपनी Git रिपॉजिटरी में कमिट करने से बच सकते हैं।
 
-इसके लिए, आप अपनी `.gitignore` फ़ाइल में निम्नलिखित निर्देश जोड़ सकते हैं:
+ऐसा करने के लिए, आप अपनी `.gitignore` फ़ाइल में निम्नलिखित निर्देश जोड़ सकते हैं:
 
 ```plaintext fileName=".gitignore"
 # Intlayer द्वारा उत्पन्न फ़ाइलों को अनदेखा करें
 .intlayer
 ```
+
+### VS कोड एक्सटेंशन
+
+Intlayer के साथ अपने विकास अनुभव को बेहतर बनाने के लिए, आप आधिकारिक **Intlayer VS Code एक्सटेंशन** इंस्टॉल कर सकते हैं।
+
+[VS Code मार्केटप्लेस से इंस्टॉल करें](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+यह एक्सटेंशन प्रदान करता है:
+
+- अनुवाद कुंजियों के लिए **ऑटोकम्प्लीशन**।
+- **अनुवादों के लिए रियल-टाइम त्रुटि पहचान।**
+- **अनुवादित सामग्री के इनलाइन पूर्वावलोकन।**
+- **तेजी से क्रियाएं** जो अनुवादों को आसानी से बनाने और अपडेट करने में मदद करती हैं।
+
+विस्तृत जानकारी के लिए, एक्सटेंशन का उपयोग कैसे करें, देखें [Intlayer VS Code एक्सटेंशन दस्तावेज़](https://intlayer.org/doc/vs-code-extension)।
+
+### आगे बढ़ें
+
+आगे बढ़ने के लिए, आप [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) को लागू कर सकते हैं या अपनी सामग्री को [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) का उपयोग करके बाहरी रूप से प्रबंधित कर सकते हैं।
