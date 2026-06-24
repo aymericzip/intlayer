@@ -37,15 +37,17 @@
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
+      "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
     "./plugin": {
       "types": "./dist/types/plugin/index.d.ts",
+      "require": "./dist/cjs/plugin/index.cjs",
       "import": "./dist/esm/plugin/index.mjs"
     },
     "./package.json": "./package.json"
   },
-  "main": "dist/esm/index.mjs",
+  "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.mjs",
   "types": "dist/types/index.d.ts",
   "typesVersions": {
