@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/i18n-js",
-  "version": "9.0.0-canary.3",
+  "version": "9.0.0-canary.4",
   "private": false,
   "description": "i18n-js API adapter for intlayer — drop-in compatibility layer",
   "keywords": [

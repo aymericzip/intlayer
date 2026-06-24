@@ -1,6 +1,6 @@
 {
   "name": "intlayer-monorepo",
-  "version": "9.0.0-canary.3",
+  "version": "9.0.0-canary.4",
   "private": false,
   "description": "Intlayer monorepo - Layer of abstraction between the business logic and the data access layer. Manage internationalization in a simple way, through TypeScript, JavaScript or JSON declaration file.",
   "homepage": "https://intlayer.org",
@@ -66,7 +66,7 @@
     "prepare:publish": "bun run clean && bun install && bun run build",
     "prepublish_": "bun turbo prepublish '--filter=./packages/**' '--filter=./docs' '--filter=./apps/backend' '--filter=./plugins/**' '--filter=./compat/**'",
     "prepublish": "turbo prepublish '--filter=./packages/**' '--filter=./docs' '--filter=./apps/backend'",
-    "publish": "bun turbo publish '--filter=./packages/**' '--filter=./docs' '--filter=./apps/backend' '--filter=./apps/app' '--filter=./plugins/**'",
+    "publish": "bun turbo publish '--filter=./packages/**' '--filter=./docs' '--filter=./apps/backend' '--filter=./apps/app' '--filter=./plugins/**' '--filter=./compat/**'",
     "publish:canary": "bun run prepare:publish && turbo publish:canary '--filter=./packages/@intlayer/design-system' && turbo publish:canary '--filter=./packages/**' '--filter=./docs' '--filter=./apps/backend' '--filter=./plugins/**' '--filter=./compat/**'",
     "publish:canary:ok": "bun turbo publish:canary '--filter=./packages/@intlayer/design-system' && turbo publish:canary '--filter=./packages/**' '--filter=./docs' '--filter=./apps/backend' '--filter=./plugins/**' '--filter=./compat/**'",
     "publish:ci": "bun run prepublish && bun run publish",
