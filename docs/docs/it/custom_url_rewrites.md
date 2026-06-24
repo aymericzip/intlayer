@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-01-26
+updatedAt: 2026-06-23
 title: Riscritture URL personalizzate
 description: Scopri come configurare e utilizzare le riscritture URL personalizzate in Intlayer per definire percorsi specifici per lingua.
 keywords:

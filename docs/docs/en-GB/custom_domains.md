@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-02
-updatedAt: 2026-04-02
+updatedAt: 2026-06-23
 title: Custom Domains
 description: Learn how to configure domain-based locale routing in Intlayer to serve different locales from dedicated hostnames.
 keywords:

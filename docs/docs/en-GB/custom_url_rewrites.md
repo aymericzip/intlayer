@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-01-26
+updatedAt: 2026-06-23
 title: Custom URL Rewrites
 description: Learn how to configure and use custom URL rewrites in Intlayer to define locale-specific paths.
 keywords:

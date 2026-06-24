@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-03-23
-updatedAt: 2026-05-31
+updatedAt: 2026-06-23
 title: "Vite + Lit i18n - Complete guide to translate your app"
 description: "No more i18next. The 2026 guide to building a multilingual (i18n) Vite + Lit app. Translate with AI agents and optimise bundle size, SEO and performances."
 keywords:

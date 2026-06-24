@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-02
-updatedAt: 2026-04-02
+updatedAt: 2026-06-23
 title: カスタムドメイン
 description: Intlayerでのドメインベースのロケールルーティングを設定し、専用のホスト名から異なるロケールを提供する方法を学びます。
 keywords:

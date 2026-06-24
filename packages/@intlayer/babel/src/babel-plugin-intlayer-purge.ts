@@ -1,6 +1,6 @@
 import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import type { PluginObj, PluginPass } from '@babel/core';
+import type { PluginObject, PluginPass } from '@babel/core';
 import { transformSync } from '@babel/core';
 import type * as BabelTypes from '@babel/types';
 import { buildNestedRenameMapFromContent } from './babel-plugin-intlayer-field-rename';
@@ -762,7 +762,7 @@ const runPurgePipeline = (options: PurgePluginOptions): PruneContext => {
  */
 export const intlayerPurgeBabelPlugin = (_babel: {
   types: typeof BabelTypes;
-}): PluginObj => ({
+}): PluginObject => ({
   name: 'intlayer-purge',
 
   pre(this: PluginPass & { opts: PurgePluginOptions }) {

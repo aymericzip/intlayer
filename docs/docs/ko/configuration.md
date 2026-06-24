@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-06-17
+updatedAt: 2026-06-23
 title: 구성 (Configuration)
 description: 애플리케이션에 Intlayer를 구성하는 방법을 알아보세요. 필요에 따라 Intlayer를 맞춤설정하는 데 사용할 수 있는 다양한 설정과 옵션을 이해하세요.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 9.0.0
+    date: 2026-06-24
+    changes: "Add `enableProxy` option to the routing configuration"
   - version: 8.10.0
     date: 2026-06-17
     changes: "사전 구성에 `format` 옵션 추가"

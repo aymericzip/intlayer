@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-02
-updatedAt: 2026-04-02
+updatedAt: 2026-06-23
 title: कस्टम डोमेन (Custom Domains)
 description: समर्पित होस्टनेम से विभिन्न लोकेल (locales) की सेवा के लिए Intlayer में डोमेन-आधारित लोकेल रूटिंग कॉन्फ़िगर करना सीखें।
 keywords:

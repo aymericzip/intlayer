@@ -26,7 +26,12 @@ import {
   STRICT_MODE,
 } from '../defaultValues/internationalization';
 import { MODE, PREFIX } from '../defaultValues/log';
-import { BASE_PATH, ROUTING_MODE, STORAGE } from '../defaultValues/routing';
+import {
+  BASE_PATH,
+  ENABLE_PROXY,
+  ROUTING_MODE,
+  STORAGE,
+} from '../defaultValues/routing';
 import { getStorageAttributes } from '../utils/getStorageAttributes';
 
 // ---------------------------------------------------------------------------
@@ -148,6 +153,17 @@ export const buildRoutingFields = (
      * Default: 'prefix-no-default'
      */
     mode: customConfiguration?.mode ?? ROUTING_MODE,
+
+    /**
+     * Enables the Intlayer locale-routing proxy (middleware).
+     *
+     * When enabled, the build-tool integration (e.g. the `intlayer()` Vite plugin)
+     * automatically wires the locale-detection / redirect / rewrite middleware in
+     * development, preview, and production SSR.
+     *
+     * Default: true
+     */
+    enableProxy: customConfiguration?.enableProxy ?? ENABLE_PROXY,
 
     /**
      * Configuration for storing the locale in the client (localStorage or sessionStorage)
@@ -455,6 +471,7 @@ export const extractBrowserConfiguration = (
   },
   routing: {
     mode: config.routing.mode,
+    enableProxy: config.routing.enableProxy,
     storage: config.routing.storage,
     basePath: config.routing.basePath,
     rewrite: config.routing.rewrite,

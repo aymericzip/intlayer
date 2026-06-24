@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-02
-updatedAt: 2026-04-02
+updatedAt: 2026-06-23
 title: 사용자 정의 도메인
 description: 전용 호스트 이름에서 서로 다른 로케일을 제공하기 위해 Intlayer에서 도메인 기반 로케ール 라우팅을 구성하는 방법을 알아봅니다.
 keywords:

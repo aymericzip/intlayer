@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-05-31
+updatedAt: 2026-06-23
 title: "TanStack Start + Solid i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) TanStack Start + Solid uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
@@ -827,6 +827,8 @@ bun x intlayer extract
  <Tab value='Babel derleyicisi'>
 
 `intlayerCompiler` eklentisini dahil etmek için `vite.config.ts` dosyanızı güncelleyin:
+
+> Intlayer v9'dan itibaren derleyici (compiler) doğrudan `intlayer()` eklentisine entegre edilmiştir ve `compiler.enabled` ayarlandığında ve bir `compiler.output` yolu yapılandırıldığında otomatik olarak etkinleşir. Aşağıda gösterildiği gibi `intlayerCompiler()`'ın ayrıca kaydedilmesi artık isteğe bağlıdır — eklendiği takdirde kendisini tekilleştirir. Lütfen [v9 sürüm notlarına](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/releases/v9.md) bakın.
 
 ```ts fileName="vite.config.ts"
 import { intlayer, intlayerCompiler } from "vite-intlayer";

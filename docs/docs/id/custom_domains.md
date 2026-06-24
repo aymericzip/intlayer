@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-02
-updatedAt: 2026-04-02
+updatedAt: 2026-06-23
 title: Domain Kustom
 description: Pelajari cara mengonfigurasi perutean lokal berbasis domain di Intlayer untuk menyajikan berbagai lokal dari nama host khusus.
 keywords:

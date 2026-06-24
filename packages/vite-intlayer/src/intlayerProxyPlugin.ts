@@ -21,6 +21,9 @@ import {
 import type { Locale } from '@intlayer/types/allLocales';
 /* @ts-ignore - Vite types error */
 import type { Connect, Plugin } from 'vite';
+import { createPrimaryInstanceGuard } from './dedupePlugin';
+
+const PROXY_PLUGIN_NAME = 'vite-intlayer-middleware-plugin';
 
 type IntlayerProxyPluginOptions = {
   /**
@@ -73,6 +76,7 @@ type NodeMiddleware = (
  * @param configOptions - Optional Intlayer configuration overrides.
  * @param options - Plugin-specific options, such as path ignoring.
  * @returns A Connect-compatible `(req, res, next) => void` middleware.
+ *
  */
 export const createIntlayerProxyHandler = (
   configOptions?: GetConfigurationOptions,
@@ -844,6 +848,8 @@ export const createIntlayerProxyHandler = (
  *   plugins: [intlayerProxy()],
  * });
  * ```
+ *
+ * @deprecated Since Intlayer v9, `intlayerProxy()` is bundled directly into the `intlayer()` plugin and enabled by default through the `routing.enableProxy` option (`true` by default). Registering it separately as shown below is now optional.
  */
 export const intlayerProxy = (
   configOptions?: GetConfigurationOptions,
@@ -852,6 +858,11 @@ export const intlayerProxy = (
   const handler = createIntlayerProxyHandler(configOptions, options);
   const intlayerConfig = getConfiguration(configOptions);
   const logger = getAppLogger(intlayerConfig);
+
+  // Ensures the proxy registers its middleware only once, even when it is
+  // registered both via `intlayer()` (which now bundles it) and a manual
+  // `intlayerProxy()` call.
+  const guard = createPrimaryInstanceGuard(PROXY_PLUGIN_NAME);
 
   /**
    * Nitro module injected automatically by `nitro/vite`.
@@ -886,6 +897,13 @@ export const intlayerProxy = (
         new URL('./intlayerNitroHandler.mjs', import.meta.url)
       );
 
+      // Skip if an identical handler was already registered by another instance
+      // (e.g. both `intlayer()` and a manual `intlayerProxy()`).
+      const alreadyRegistered = nitro.options.handlers.some(
+        (existingHandler) => existingHandler.handler === handlerPath
+      );
+      if (alreadyRegistered) return;
+
       nitro.options.handlers.push({
         route: '/**',
         handler: handlerPath,
@@ -894,14 +912,19 @@ export const intlayerProxy = (
     },
   };
 
-  return {
-    name: 'vite-intlayer-middleware-plugin',
+  const plugin = {
+    name: PROXY_PLUGIN_NAME,
+    // Decide whether this is the primary instance before registering middleware.
+    configResolved: (config: { plugins: readonly { name: string }[] }) => {
+      guard.resolve(config);
+    },
     // Injected into nitroConfig.modules by the `nitro/vite` plugin so the
     // locale-routing middleware is registered in the production Nitro server.
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     nitro: nitroModule as any,
     // Vite dev server
     configureServer: (server) => {
+      if (!guard.isPrimary) return;
       logger(`Intlayer proxy ${colorize('enabled', ANSIColors.GREEN)}`, {
         level: 'info',
       });
@@ -909,12 +932,19 @@ export const intlayerProxy = (
     },
     // Vite preview server
     configurePreviewServer: (server) => {
+      if (!guard.isPrimary) return;
       logger(`Intlayer proxy ${colorize('enabled', ANSIColors.GREEN)}`, {
         level: 'info',
       });
       server.middlewares.use(handler);
     },
   } as Plugin;
+
+  // Register the plugin object so the dedupe guard can identify the primary
+  // instance by reference during `configResolved`.
+  guard.setPlugin(plugin);
+
+  return plugin;
 };
 
 /**

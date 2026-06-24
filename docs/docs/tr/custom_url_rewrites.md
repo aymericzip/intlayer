@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-01-26
+updatedAt: 2026-06-23
 title: Özel URL Yeniden Yazımları
 description: Intlayer'da yerel-dil özgü yollar tanımlamak için özel URL yeniden yazımlarının nasıl yapılandırılacağını ve kullanılacağını öğrenin.
 keywords:

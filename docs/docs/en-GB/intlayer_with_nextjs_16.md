@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-12-06
-updatedAt: 2026-05-31
+updatedAt: 2026-06-23
 title: "Next.js 16 i18n - Complete guide to translate your app"
 description: "No more i18next. The 2026 guide to building a multilingual (i18n) Next.js 16 app. Translate with AI agents and optimise bundle size, SEO and performances."
 keywords:
@@ -495,6 +495,8 @@ export const config = {
 ```
 
 > The `intlayerProxy` is used to detect the user's preferred locale and redirect them to the appropriate URL as specified in the [configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md). Additionally, it enables saving the user's preferred locale in a cookie.
+
+> Since Intlayer v9, this middleware respects the `routing.enableProxy` option (`true` by default). Set `routing.enableProxy: false` in your configuration to turn it into a pass-through without removing this file. See the [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/releases/v9.md).
 
 > If you need to chain several proxies together (for example, `intlayerProxy` with authentication or custom proxies), Intlayer now provides a helper called `multipleProxies`.
 

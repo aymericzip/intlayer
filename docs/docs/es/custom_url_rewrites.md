@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-01-26
+updatedAt: 2026-06-23
 title: Reescrituras de URL personalizadas
 description: Aprende cómo configurar y usar reescrituras de URL personalizadas en Intlayer para definir rutas específicas por locale.
 keywords:

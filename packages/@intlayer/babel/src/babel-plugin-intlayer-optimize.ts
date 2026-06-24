@@ -1,5 +1,5 @@
 import { dirname, join, relative } from 'node:path';
-import type { NodePath, PluginObj, PluginPass } from '@babel/core';
+import type { NodePath, PluginObject, PluginPass } from '@babel/core';
 import type * as BabelTypes from '@babel/types';
 import { getPathHash } from '@intlayer/chokidar/utils';
 import { normalizePath } from '@intlayer/config/utils';
@@ -343,7 +343,7 @@ const resolveHelperPlan = (
  */
 export const intlayerOptimizeBabelPlugin = (babel: {
   types: typeof BabelTypes;
-}): PluginObj<State> => {
+}): PluginObject<State> => {
   const { types: t } = babel;
 
   return {

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-01-26
+updatedAt: 2026-06-23
 title: 自定义 URL 重写
 description: 了解如何在 Intlayer 中配置并使用自定义 URL 重写，以定义特定于 locale 的路径。
 keywords:

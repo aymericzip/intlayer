@@ -616,6 +616,8 @@ To allow users to switch languages, update the URL.
 
 To add a backend proxy to your SvelteKit application, you can use the `intlayerProxy` function provided by the `vite-intlayer` plugin. This plugin will automatically detect the best locale for the user based on the URL, cookies, and browser language preferences.
 
+> Since Intlayer v9, `intlayerProxy()` is bundled directly into the `intlayer()` plugin and enabled by default through the `routing.enableProxy` option (`true` by default). Registering it separately as shown below is now optional — it is kept for backward compatibility and for setups that need to control plugin order. Set `routing.enableProxy: false` to opt out. See the [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/releases/v9.md).
+
 ```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
 import { intlayer, intlayerProxy } from "vite-intlayer";
@@ -728,6 +730,8 @@ bun x intlayer extract
  <Tab value='Babel compiler'>
 
 Update your `vite.config.ts` to include the `intlayerCompiler` plugin:
+
+> Since Intlayer v9, the compiler is bundled directly into the `intlayer()` plugin and activates automatically once `compiler.enabled` is set with a `compiler.output` path. Registering `intlayerCompiler()` separately as shown below is now optional — it deduplicates itself if also added. See the [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/releases/v9.md).
 
 ```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";

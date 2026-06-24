@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-01-26
+updatedAt: 2026-06-23
 title: Benutzerdefinierte URL Rewrites
 description: Erfahren Sie, wie Sie in Intlayer benutzerdefinierte URL Rewrites konfigurieren und verwenden, um locale-spezifische Pfade zu definieren.
 keywords:

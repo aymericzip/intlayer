@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-02
-updatedAt: 2026-04-02
+updatedAt: 2026-06-23
 title: Domínios personalizados
 description: Aprenda como configurar o roteamento de locale baseado em domínio no Intlayer para servir diferentes locales a partir de hostnames dedicados.
 keywords:

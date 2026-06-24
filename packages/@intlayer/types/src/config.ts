@@ -298,6 +298,18 @@ export type RoutingConfig = {
   mode: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
 
   /**
+   * Enables the Intlayer locale-routing proxy (middleware).
+   *
+   * When enabled, the build-tool integration (e.g. the `intlayer()` Vite plugin)
+   * automatically wires the locale-detection / redirect / rewrite middleware in
+   * development, preview, and production SSR. Disable it when you want to handle
+   * locale routing yourself, or when your routing mode does not require a proxy.
+   *
+   * Default: true
+   */
+  enableProxy: boolean;
+
+  /**
    * Pre-computed storage attributes derived from the raw `storage` input.
    * Populated at config-build time by `getStorageAttributes(rawStorage)`.
    * Use this at runtime instead of re-processing the raw storage config.

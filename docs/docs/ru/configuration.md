@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-06-17
+updatedAt: 2026-06-23
 title: Конфигурация (Configuration)
 description: Узнайте, как настроить Intlayer для вашего приложения. Разберитесь в различных параметрах и опциях, доступных для настройки Intlayer в соответствии с вашими потребностями.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 9.0.0
+    date: 2026-06-24
+    changes: "Add `enableProxy` option to the routing configuration"
   - version: 8.10.0
     date: 2026-06-17
     changes: "Добавлена опция `format` в конфигурацию словаря"

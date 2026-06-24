@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-03-12
+updatedAt: 2026-06-23
 title: Trình Biên Dịch Intlayer | Trích Xuất Nội Dung Tự Động cho i18n
 description: Tự động hóa quy trình quốc tế hóa của bạn với Trình Biên Dịch Intlayer. Trích xuất nội dung trực tiếp từ các component để i18n nhanh hơn và hiệu quả hơn trong Vite, Next.js và nhiều hơn nữa.
 keywords:
@@ -59,6 +59,8 @@ Mặc dù trình biên dịch mang lại trải nghiệm "hoạt động ngay" t
 Như một giải pháp thay thế, để tự động hóa quy trình i18n của bạn trong khi vẫn giữ quyền kiểm soát hoàn toàn đối với nội dung của bạn, Intlayer cũng cung cấp lệnh tự động trích xuất `intlayer extract` (xem [tài liệu CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/extract.md)), hoặc lệnh `Intlayer: extract content to Dictionary` từ tiện ích mở rộng Intlayer VS Code (xem [tài liệu tiện ích mở rộng VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/vs_code_extension.md)).
 
 ## Cách sử dụng
+
+> The quickest way to wire the compiler in is the interactive setup: run `npx intlayer init --interactive` and select **Compiler**. On Vite there is nothing to configure — the compiler is plugged in directly through the `intlayerCompiler()` plugin. On Next.js the command scaffolds the `babel.config.js` shown below. The non-interactive `intlayer init` leaves the compiler setup untouched.
 
 <Tabs>
  <Tab value='vite'>

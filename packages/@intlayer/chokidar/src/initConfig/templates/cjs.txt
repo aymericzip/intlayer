@@ -24,6 +24,13 @@ const config = {
      * Default: "prefix-no-default"
      */
     mode: 'prefix-no-default',
+
+    /**
+     * Enables the Intlayer locale-routing proxy (middleware).
+     * Handles locale detection, redirects and rewrites in dev, preview and SSR.
+     * Default: true
+     */
+    enableProxy: true,
   },
   editor: {
     /**

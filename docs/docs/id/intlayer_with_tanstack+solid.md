@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-05-31
+updatedAt: 2026-06-23
 title: "TanStack Start + Solid i18n - Panduan lengkap menerjemahkan aplikasi Anda"
 description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi TanStack Start + Solid multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
@@ -826,6 +826,8 @@ bun x intlayer extract
  <Tab value='Kompiler Babel'>
 
 Perbarui `vite.config.ts` Anda untuk menyertakan plugin `intlayerCompiler`:
+
+> Sejak Intlayer v9, kompiler dibundel langsung ke dalam plugin `intlayer()` dan diaktifkan secara otomatis setelah `compiler.enabled` disetel bersama dengan jalur `compiler.output`. Mendaftarkan `intlayerCompiler()` secara terpisah seperti yang ditunjukkan di bawah ini sekarang opsional — plugin ini akan menghilangkan duplikasinya sendiri jika juga ditambahkan. Lihat [catatan rilis v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/releases/v9.md).
 
 ```ts fileName="vite.config.ts"
 import { intlayer, intlayerCompiler } from "vite-intlayer";

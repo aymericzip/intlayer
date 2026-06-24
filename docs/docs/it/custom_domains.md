@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-02
-updatedAt: 2026-04-02
+updatedAt: 2026-06-23
 title: Domini personalizzati
 description: Impara come configurare il routing delle locale basato su dominio in Intlayer per servire diverse locale da hostname dedicati.
 keywords:

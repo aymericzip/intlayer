@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-03-12
+updatedAt: 2026-06-23
 title: Intlayer Compiler | Automated Content Extraction for i18n
 description: Automate your internationalization process with the Intlayer Compiler. Extract content directly from your components for faster, more efficient i18n in Vite, Next.js, and more.
 keywords:
@@ -20,6 +20,9 @@ slugs:
   - doc
   - compiler
 history:
+  - version: 9.0.0
+    date: 2026-06-24
+    changes: "Add change regarding Intlayer v9"
   - version: 8.2.0
     date: 2026-03-09
     changes: "Update compiler options, add FilePathPattern support"
@@ -64,12 +67,14 @@ As an alternative, to automate your i18n process while keeping full control of y
 
 ## Usage
 
+> The quickest way to wire the compiler in is the interactive setup: run `npx intlayer init --interactive` and select **Compiler**. On Vite there is nothing to configure — the compiler is plugged in directly through the main `intlayer()` plugin (it activates automatically once `compiler.enabled` is set and a `compiler.output` path is configured). On Next.js the command scaffolds the `babel.config.js` shown below. The non-interactive `intlayer init` leaves the compiler setup untouched.
+
 <Tabs>
  <Tab value='vite'>
 
 ### Vite
 
-For Vite-based applications (React, Vue, Svelte, etc.), the easiest way to use the compiler is through the `vite-intlayer` plugin.
+For Vite-based applications (React, Vue, Svelte, etc.), the compiler is bundled directly into the main `intlayer()` plugin from the `vite-intlayer` package. There is no separate plugin to register.
 
 #### Installation
 
@@ -79,19 +84,20 @@ npm install vite-intlayer
 
 #### Configuration
 
-Update your `vite.config.ts` to include the `intlayerCompiler` plugin:
+The `intlayer()` plugin already includes the compiler. It activates automatically once `compiler.enabled` is set and a `compiler.output` path is configured in your `intlayer.config.ts` (see [Custom config](#custom-config) below):
 
 ```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
   plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
+    intlayer(), // The compiler and locale-routing proxy are bundled in
   ],
 });
 ```
+
+> The standalone `intlayerCompiler()` plugin is still exported for advanced setups. Registering it alongside `intlayer()` is safe — the compiler deduplicates itself and runs only once.
 
 See complete tutorial: [Intlayer Compiler with Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react_compiler.md)
 

@@ -1,4 +1,4 @@
-import type { NodePath, PluginObj } from '@babel/core';
+import type { NodePath, PluginObject } from '@babel/core';
 import type * as BabelTypes from '@babel/types';
 import {
   INTLAYER_CALLER_NAMES,
@@ -325,7 +325,7 @@ const walkObjectDestructuring = (
  */
 export const makeFieldRenameBabelPlugin =
   (pruneContext: PruneContext) =>
-  ({ types: babelTypes }: { types: typeof BabelTypes }): PluginObj => ({
+  ({ types: babelTypes }: { types: typeof BabelTypes }): PluginObject => ({
     name: 'intlayer-field-rename',
     visitor: {
       Program: {

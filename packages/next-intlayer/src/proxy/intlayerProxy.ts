@@ -54,7 +54,14 @@ import { localeDetector } from './localeDetector';
 const DEFAULT_DETECT_LOCALE_ON_PREFETCH_NO_PREFIX = false;
 
 const { locales, defaultLocale } = internationalization ?? {};
-const { basePath, mode, rewrite, domains } = routing ?? {};
+const { basePath, mode, rewrite, domains, enableProxy } = routing ?? {};
+
+// Whether the locale-routing proxy is enabled (default: true). When disabled,
+// `intlayerProxy` becomes a pass-through so apps can handle routing themselves.
+// The env var is injected at build time so bundlers can tree-shake this branch.
+const isProxyEnabled =
+  process.env['INTLAYER_ROUTING_ENABLE_PROXY'] !== 'false' &&
+  (enableProxy ?? true);
 
 // Note: cookie names are resolved inside LocaleStorage based on configuration
 
@@ -106,10 +113,12 @@ const normalizeDomainHostname = (domain: string): string => {
  */
 const getLocaleFromDomain = (hostname: string): Locale | undefined => {
   if (!domains) return undefined;
+
   const matching = Object.entries(domains).filter(
     ([, domain]) => normalizeDomainHostname(domain!) === hostname
   );
-  return matching.length === 1 ? (matching[0][0] as Locale) : undefined;
+
+  return matching.length === 1 ? (matching[0]?.[0] as Locale) : undefined;
 };
 
 /**
@@ -178,12 +187,18 @@ const appendLocaleSearchIfNeeded = (
  * @param event - The Next.js fetch event (optional).
  * @param response - The Next.js response object (optional).
  * @returns - The response to be returned to the client.
+ *
  */
 export const intlayerProxy = (
   request: NextRequest,
   _event?: NextFetchEvent,
   _response?: NextResponse
 ): NextResponse => {
+  // When the proxy is disabled, pass the request through untouched.
+  if (!isProxyEnabled) {
+    return NextResponse.next();
+  }
+
   const pathname = request.nextUrl.pathname;
 
   const localLocale = getLocalLocale(request);

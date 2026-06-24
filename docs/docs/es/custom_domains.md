@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-02
-updatedAt: 2026-04-02
+updatedAt: 2026-06-23
 title: Dominios personalizados
 description: Aprenda a configurar el enrutamiento por locales basado en dominios en Intlayer para servir diferentes locales desde nombres de host dedicados.
 keywords:

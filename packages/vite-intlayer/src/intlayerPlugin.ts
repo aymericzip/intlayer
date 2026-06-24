@@ -24,8 +24,10 @@ import {
 } from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type { PluginOption } from 'vite';
+import { intlayerCompiler } from './IntlayerCompilerPlugin';
 import { intlayerMinify } from './intlayerMinifyPlugin';
 import { intlayerOptimize } from './intlayerOptimizePlugin';
+import { intlayerProxy } from './intlayerProxyPlugin';
 import { intlayerPrune } from './intlayerPrunePlugin';
 
 /**
@@ -230,6 +232,24 @@ export const intlayerPlugin = (
   // Minify: compacts dictionary JSON files (parse + re-stringify).
   // Registered after prune so it receives already-pruned output when both options are active.
   plugins.push(intlayerMinify(intlayerConfig, pruneContext));
+
+  // Compiler: extracts content declared inline in components into dictionaries.
+  // Bundled directly into the main plugin so users no longer need to register
+  // `intlayerCompiler()` separately. Only added when the compiler is enabled and
+  // an `output` path is configured. Registering `intlayerCompiler()` manually as
+  // well is safe — the compiler deduplicates itself.
+  if (intlayerConfig.compiler?.enabled && intlayerConfig.compiler?.output) {
+    plugins.push(intlayerCompiler({ configOptions: getConfigOptions }));
+  }
+
+  // Proxy: locale-routing middleware (detection / redirect / rewrite) for dev,
+  // preview, and production SSR. Bundled directly into the main plugin and
+  // controlled by the `routing.enableProxy` option (true by default).
+  // Registering `intlayerProxy()` manually as well is safe — the proxy
+  // deduplicates itself.
+  if (intlayerConfig.routing.enableProxy) {
+    plugins.push(intlayerProxy(getConfigOptions));
+  }
 
   return plugins;
 };

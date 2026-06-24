@@ -11,4 +11,6 @@ export const SERVER_SET_COOKIE = 'always';
 
 export const ROUTING_MODE = 'prefix-no-default';
 
+export const ENABLE_PROXY = true;
+
 export const STORAGE: RoutingStorageInput = ['cookie', 'header'];

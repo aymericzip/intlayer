@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-05-31
+updatedAt: 2026-06-23
 title: "TanStack Start + Solid i18n - Полное руководство по переводу вашего приложения"
 description: "Больше никакого i18next. Руководство 2026 по созданию многоязычного (i18n) приложения TanStack Start + Solid. Переводите с помощью ИИ-агентов и оптимизируйте размер бандла, SEO и производительность."
 keywords:
@@ -827,6 +827,8 @@ bun x intlayer extract
  <Tab value='Babel-компилятор'>
 
 Обновите ваш `vite.config.ts`, включив плагин `intlayerCompiler`:
+
+> Начиная с Intlayer v9, компилятор интегрирован напрямую в плагин `intlayer()` и активируется автоматически, когда задан `compiler.enabled` и путь `compiler.output`. Отдельная регистрация `intlayerCompiler()`, как показано ниже, теперь необязательна — он дедублицируется автоматически, если добавлен. Смотрите [примечания к выпуску v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/releases/v9.md).
 
 ```ts fileName="vite.config.ts"
 import { intlayer, intlayerCompiler } from "vite-intlayer";

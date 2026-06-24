@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-02
-updatedAt: 2026-04-02
+updatedAt: 2026-06-23
 title: Eigene Domains
 description: Erfahren Sie, wie Sie das domänenbasierte Locale-Routing in Intlayer konfigurieren, um verschiedene Locales über dedizierte Hostnamen bereitzustellen.
 keywords:

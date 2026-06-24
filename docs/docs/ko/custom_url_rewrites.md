@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-01-26
+updatedAt: 2026-06-23
 title: 맞춤형 URL 재작성
 description: Intlayer에서 로케일별 경로를 정의하기 위해 맞춤형 URL 재작성(custom URL rewrites)을 구성하고 사용하는 방법을 알아봅니다.
 keywords:

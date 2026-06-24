@@ -1,5 +1,5 @@
 import { relative } from 'node:path';
-import type { PluginObj, PluginPass } from '@babel/core';
+import type { PluginObject, PluginPass } from '@babel/core';
 import { parse } from '@babel/parser';
 import type * as BabelTypes from '@babel/types';
 import * as ANSIColors from '@intlayer/config/colors';
@@ -59,7 +59,7 @@ type State = PluginPass & { opts: ExtractPluginOptions };
  */
 export const intlayerExtractBabelPlugin = (_babel: {
   types: typeof BabelTypes;
-}): PluginObj<State> => {
+}): PluginObject<State> => {
   return {
     name: 'babel-plugin-intlayer-extract',
 

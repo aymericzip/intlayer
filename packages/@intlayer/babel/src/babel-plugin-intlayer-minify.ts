@@ -1,4 +1,4 @@
-import type { NodePath, PluginObj, PluginPass } from '@babel/core';
+import type { NodePath, PluginObject, PluginPass } from '@babel/core';
 import type * as BabelTypes from '@babel/types';
 import { makeFieldRenameBabelPlugin } from './babel-plugin-intlayer-field-rename';
 import { getSharedPruneContext } from './babel-plugin-intlayer-purge';
@@ -89,7 +89,7 @@ export type MinifyPluginOptions = {
  */
 export const intlayerMinifyBabelPlugin = (babel: {
   types: typeof BabelTypes;
-}): PluginObj => {
+}): PluginObject => {
   /**
    * The field-rename `Program.exit` handler extracted from
    * {@link makeFieldRenameBabelPlugin}.  Resolved once per plugin-instance

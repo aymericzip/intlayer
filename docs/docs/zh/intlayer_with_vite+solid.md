@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-05-31
+updatedAt: 2026-06-23
 title: "Vite + Solid i18n - 翻译你的应用的完整指南"
 description: "告别 i18next。2026 年构建多语言 (i18n) Vite + Solid 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
 keywords:

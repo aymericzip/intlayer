@@ -165,6 +165,8 @@ GET intlayer.zh/about
 
 The `intlayerProxy` Vite plugin applies the same logic during development:
 
+> Since Intlayer v9, `intlayerProxy()` is bundled directly into the `intlayer()` plugin and enabled by default through the `routing.enableProxy` option (`true` by default). Registering it separately as shown below is now optional — it is kept for backward compatibility and for setups that need to control plugin order. Set `routing.enableProxy: false` to opt out. See the [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/releases/v9.md).
+
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";
 import { intlayerProxy } from "vite-intlayer";

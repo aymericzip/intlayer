@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-03-25
-updatedAt: 2026-05-31
+updatedAt: 2026-06-23
 title: "TanStack Start + Solid i18n - अपने ऐप को अनुवाद करने का पूर्ण गाइड"
 description: "अब i18next की जरूरत नहीं। 2026 में TanStack Start + Solid ऐप को बहुभाषी (i18n) बनाने का गाइड। AI एजेंट्स से अनुवाद करें और बंडल साइज़, SEO और परफॉर्मेंस ऑप्टिमाइज़ करें।"
 keywords:
@@ -809,6 +809,8 @@ bun x intlayer extract
  <Tab value='Babel कंपाइलर'>
 
 `intlayerCompiler` प्लगइन शामिल करने के लिए अपनी `vite.config.ts` अपडेट करें:
+
+> Intlayer v9 के बाद से, कंपाइलर को सीधे `intlayer()` प्लगइन में बंडल किया गया है और `compiler.enabled` के सेट होने और `compiler.output` पथ कॉन्फ़िगर होने पर यह स्वचालित रूप से सक्रिय हो जाता है। `intlayerCompiler()` को अलग से पंजीकृत करना (जैसा नीचे दिखाया गया है) अब वैकल्पिक है — यदि इसे भी जोड़ा जाता है तो यह स्वयं को डीडुप्लीकेट कर लेता है। कृपया [v9 रिलीज़ नोट्स](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/releases/v9.md) देखें।
 
 ```ts fileName="vite.config.ts"
 import { intlayer, intlayerCompiler } from "vite-intlayer";

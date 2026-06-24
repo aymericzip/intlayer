@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-02
-updatedAt: 2026-04-02
+updatedAt: 2026-06-23
 title: Domaines personnalisés
 description: Apprenez à configurer le routage par domaine dans Intlayer pour servir différentes locales à partir de noms d'hôte dédiés.
 keywords:

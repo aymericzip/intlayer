@@ -24,7 +24,10 @@ import {
 } from '@intlayer/config/node';
 import { normalizePath } from '@intlayer/config/utils';
 import type { CompilerConfig, IntlayerConfig } from '@intlayer/types/config';
-import type { HmrContext, PluginOption } from 'vite';
+import type { HmrContext, Plugin, PluginOption } from 'vite';
+import { createPrimaryInstanceGuard } from './dedupePlugin';
+
+const COMPILER_PLUGIN_NAME = 'vite-intlayer-compiler';
 
 /**
  * Options for initializing the compiler
@@ -60,6 +63,8 @@ export type IntlayerCompilerOptions = {
  *   plugins: [intlayerCompiler()],
  * });
  * ```
+ *
+ * @deprecated Since Intlayer v9, the compiler is bundled directly into the `intlayer()` plugin and activates automatically once `compiler.enabled` is set with a `compiler.output` path. Registering `intlayerCompiler()` separately as shown below is now optional. See the [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/releases/v9.md).
  */
 export const intlayerCompiler = (
   options?: IntlayerCompilerOptions
@@ -69,6 +74,11 @@ export const intlayerCompiler = (
   let logger: ReturnType<typeof getAppLogger>;
   let projectRoot = '';
   let filesList: string[] = [];
+
+  // Ensures the compiler runs its side effects only once, even when it is
+  // registered both via `intlayer()` (which now bundles it) and a manual
+  // `intlayerCompiler()` call.
+  const guard = createPrimaryInstanceGuard(COMPILER_PLUGIN_NAME);
 
   // Promise to track dictionary writing (for synchronization)
   let pendingDictionaryWrite: Promise<void> | null = null;
@@ -168,7 +178,12 @@ export const intlayerCompiler = (
   const configResolved = async (viteConfig: {
     env?: { DEV?: boolean };
     root: string;
+    plugins?: readonly { name: string }[];
   }): Promise<void> => {
+    // Decide whether this is the primary instance before doing any work.
+    guard.resolve({ plugins: viteConfig.plugins ?? [] });
+    if (!guard.isPrimary) return;
+
     const compilerMode: CompilerMode = viteConfig.env?.DEV ? 'dev' : 'build';
     projectRoot = viteConfig.root;
 
@@ -180,6 +195,8 @@ export const intlayerCompiler = (
    * The compiler is now autonomous and extracts content inline
    */
   const buildStart = async (): Promise<void> => {
+    if (!guard.isPrimary) return;
+
     // Bootstrap dictionaries and types before build starts
     // This ensures existing dictionaries are available for resolution
     try {
@@ -215,6 +232,8 @@ export const intlayerCompiler = (
     server,
     modules,
   }: HmrContext): Promise<void> => {
+    if (!guard.isPrimary) return undefined;
+
     // Check if this is a file we should transform (compare as POSIX paths).
     const normalizedFile = normalizePath(file);
     const isTransformableFile = filesList.some(
@@ -335,6 +354,11 @@ export const intlayerCompiler = (
    * JS/TS/JSX/TSX/Vue/Svelte/Astro extraction and transformation.
    */
   const transformHandler = async (code: string, id: string) => {
+    // Skip duplicate instances so dictionaries are not written twice.
+    if (!guard.isPrimary) {
+      return undefined;
+    }
+
     // Only transform if compiler is enabled
     if (!compilerConfig.enabled) {
       return undefined;
@@ -404,8 +428,8 @@ export const intlayerCompiler = (
     return undefined;
   };
 
-  return {
-    name: 'vite-intlayer-compiler',
+  const plugin: Plugin = {
+    name: COMPILER_PLUGIN_NAME,
     enforce: 'pre',
     configResolved,
     buildStart,
@@ -439,4 +463,10 @@ export const intlayerCompiler = (
       return compilerConfig.enabled;
     },
   };
+
+  // Register the plugin object so the dedupe guard can identify the primary
+  // instance by reference during `configResolved`.
+  guard.setPlugin(plugin);
+
+  return plugin;
 };

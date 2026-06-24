@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-01-26
+updatedAt: 2026-06-23
 title: कस्टम URL रीराइट्स
 description: यह जानें कि Intlayer में लोकल-विशिष्ट पथ निर्धारित करने के लिए कस्टम URL रीराइट्स को कैसे कॉन्फ़िगर और उपयोग करें।
 keywords:

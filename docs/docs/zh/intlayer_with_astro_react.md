@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-05-31
+updatedAt: 2026-06-23
 title: "Astro + React i18n - 翻译你的应用的完整指南"
 description: "告别 i18next。2026 年构建多语言 (i18n) Astro + React 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
 keywords:

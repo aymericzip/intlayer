@@ -88,6 +88,7 @@ export const routingSchema = z.object({
   mode: z
     .enum(['prefix-no-default', 'prefix-all', 'no-prefix', 'search-params'])
     .optional(),
+  enableProxy: z.boolean().optional(),
   storage: storageSchema.optional(),
   basePath: z.string().optional(),
   domains: z.record(z.string(), z.string()).optional(),

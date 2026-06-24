@@ -19,7 +19,13 @@
      * - "search-params": Use search params to define the locale (e.g., /dashboard/?locale=en, /dashboard/?locale=fr)
      * Default: "prefix-no-default"
      */
-    "mode": "prefix-no-default"
+    "mode": "prefix-no-default",
+    /**
+     * Enables the Intlayer locale-routing proxy (middleware).
+     * Handles locale detection, redirects and rewrites in dev, preview and SSR.
+     * Default: true
+     */
+    "enableProxy": true
   },
   "editor": {
     /**

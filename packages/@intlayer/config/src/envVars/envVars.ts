@@ -89,6 +89,10 @@ export const getConfigEnvVars = (
     [wrapKey('INTLAYER_ROUTING_MODE')]: wrapValue(routing.mode),
   };
 
+  if (routing.enableProxy === false) {
+    envVars[wrapKey('INTLAYER_ROUTING_ENABLE_PROXY')] = wrapValue('false');
+  }
+
   if (!routing.rewrite) {
     envVars[wrapKey('INTLAYER_ROUTING_REWRITE_RULES')] = wrapValue('false');
   }

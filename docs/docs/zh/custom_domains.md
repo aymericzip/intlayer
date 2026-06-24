@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-02
-updatedAt: 2026-04-02
+updatedAt: 2026-06-23
 title: 自定义域名
 description: 了解如何在 Intlayer 中配置基于域名的语言路由，以便从专用主机名提供不同的语言版本。
 keywords:

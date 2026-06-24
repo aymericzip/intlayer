@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-06-17
+updatedAt: 2026-06-23
 title: 設定 (Configuration)
 description: アプリケーションにIntlayerを設定する方法について説明します。ニーズに合わせてIntlayerをカスタマイズするためのさまざまな設定とオプションを理解してください。
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 9.0.0
+    date: 2026-06-24
+    changes: "Add `enableProxy` option to the routing configuration"
   - version: 8.10.0
     date: 2026-06-17
     changes: "辞書設定に `format` オプションを追加"
