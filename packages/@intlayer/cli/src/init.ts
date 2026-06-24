@@ -1,9 +1,21 @@
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import * as p from '@clack/prompts';
-import { type InitOptions, initIntlayer } from '@intlayer/chokidar/cli';
+import {
+  type InitOptions,
+  initIntlayer,
+  PLATFORMS,
+  type Platform,
+} from '@intlayer/chokidar/cli';
+import enquirer from 'enquirer';
+import { initBuildOptimization } from './initBuildOptimization';
+import { initCompiler } from './initCompiler';
 import { initMCP } from './initMCP';
-import { initSkills } from './initSkills';
+import {
+  getDetectedPlatform,
+  initSkills,
+  PLATFORM_OPTIONS,
+} from './initSkills';
 
 export const findProjectRoot = (startDir: string) => {
   let currentDir = startDir;
@@ -29,9 +41,11 @@ type InitStep =
   | 'vscodeExtension'
   | 'lsp'
   | 'skills'
-  | 'mcp';
+  | 'mcp'
+  | 'compiler'
+  | 'buildOptimization';
 
-const INIT_STEP_OPTIONS: Array<{
+const BASE_INIT_STEP_OPTIONS: Array<{
   value: InitStep;
   label: string;
   hint: string;
@@ -78,6 +92,28 @@ const INIT_STEP_OPTIONS: Array<{
   },
 ];
 
+/** Reads the merged dependencies of the project at `root`. */
+const getProjectDependencies = (root: string): Record<string, string> => {
+  try {
+    const packageJsonPath = join(root, 'package.json');
+    if (!existsSync(packageJsonPath)) return {};
+    const { dependencies = {}, devDependencies = {} } = JSON.parse(
+      readFileSync(packageJsonPath, 'utf-8')
+    );
+    return { ...dependencies, ...devDependencies };
+  } catch {
+    return {};
+  }
+};
+
+/** Returns true when the project at `root` depends on Next.js. */
+const isNextJsProject = (root: string): boolean =>
+  Boolean(getProjectDependencies(root).next);
+
+/** Returns true when the project at `root` depends on Vite. */
+const isViteProject = (root: string): boolean =>
+  Boolean(getProjectDependencies(root).vite);
+
 /**
  * Runs `init` in interactive mode: prompts the user with a checkbox of setup
  * steps, then forwards the selection to {@link initIntlayer} (packages,
@@ -90,10 +126,34 @@ const runInteractiveInit = async (
 ): Promise<void> => {
   p.intro('Initialize Intlayer');
 
+  const stepOptions = [...BASE_INIT_STEP_OPTIONS];
+
+  const nextJsProject = isNextJsProject(root);
+
+  // The compiler is plugged in directly on Vite; on Next.js it needs a Babel
+  // config. Only offer the step when one of those frameworks is detected.
+  if (nextJsProject || isViteProject(root)) {
+    stepOptions.push({
+      value: 'compiler',
+      label: 'Compiler',
+      hint: nextJsProject
+        ? 'add the Babel compiler config to extract inline content (Next.js)'
+        : 'auto-extract inline content at build time (already plugged in on Vite)',
+    });
+  }
+
+  if (nextJsProject) {
+    stepOptions.push({
+      value: 'buildOptimization',
+      label: 'Build optimization',
+      hint: 'add @intlayer/swc or @intlayer/babel for tree-shaking and minification (Next.js only)',
+    });
+  }
+
   const selected = await p.multiselect<InitStep>({
     message: 'Select what you want to set up:',
-    options: INIT_STEP_OPTIONS,
-    initialValues: INIT_STEP_OPTIONS.map((option) => option.value),
+    options: stepOptions,
+    initialValues: BASE_INIT_STEP_OPTIONS.map((option) => option.value),
     required: false,
   });
 
@@ -120,12 +180,49 @@ const runInteractiveInit = async (
 
   await initIntlayer(root, options);
 
+  const needsPlatform = steps.includes('skills') || steps.includes('mcp');
+
+  let sharedPlatform: Platform | undefined;
+
+  if (needsPlatform) {
+    const detectedPlatform = getDetectedPlatform();
+
+    try {
+      const response = await enquirer.prompt<{ platforms: Platform }>({
+        type: 'autocomplete',
+        name: 'platforms',
+        message: 'Which platform are you using? (Type to search)',
+        multiple: false,
+        initial: detectedPlatform
+          ? PLATFORMS.indexOf(detectedPlatform)
+          : undefined,
+        choices: PLATFORM_OPTIONS.map((opt) => ({
+          name: opt.value,
+          message: opt.label,
+          hint: opt.hint,
+        })),
+      });
+      sharedPlatform = response.platforms;
+    } catch {
+      p.cancel('Operation cancelled.');
+      return;
+    }
+  }
+
   if (steps.includes('skills')) {
-    await initSkills(root);
+    await initSkills(root, sharedPlatform);
   }
 
   if (steps.includes('mcp')) {
-    await initMCP(root);
+    await initMCP(root, sharedPlatform);
+  }
+
+  if (steps.includes('compiler')) {
+    await initCompiler(root);
+  }
+
+  if (steps.includes('buildOptimization')) {
+    await initBuildOptimization(root);
   }
 
   p.outro('Intlayer initialization complete');

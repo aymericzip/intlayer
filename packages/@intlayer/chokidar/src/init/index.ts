@@ -245,12 +245,21 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
   } = detectMissingIntlayerPackages(allDeps);
 
   if (!options?.noInstallPackages) {
+    const withVersion = (packages: string[]): string[] =>
+      options?.upgradeToVersion
+        ? packages.map((pkg) => `${pkg}@${options.upgradeToVersion}`)
+        : packages;
+
     if (packagesToInstall.length > 0) {
       logger(
         colorize('Installing missing Intlayer dependencies...', ANSIColors.CYAN)
       );
       try {
-        installPackages(rootDir, packagesToInstall, packageManager);
+        installPackages(
+          rootDir,
+          withVersion(packagesToInstall),
+          packageManager
+        );
         logger(
           `${v} Installed: ${packagesToInstall.map((pkg) => colorize(pkg, ANSIColors.MAGENTA)).join(', ')}`
         );
@@ -270,7 +279,12 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
         )
       );
       try {
-        installPackages(rootDir, devPackagesToInstall, packageManager, true);
+        installPackages(
+          rootDir,
+          withVersion(devPackagesToInstall),
+          packageManager,
+          true
+        );
         logger(
           `${v} Installed: ${devPackagesToInstall.map((pkg) => colorize(pkg, ANSIColors.MAGENTA)).join(', ')}`
         );

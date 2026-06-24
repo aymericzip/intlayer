@@ -1,6 +1,11 @@
 export * from './detectFormatCommand';
 export * from './getContentDeclarationFileTemplate';
 export * from './init/index';
+export {
+  detectPackageManager,
+  installPackages,
+  type PackageManager,
+} from './init/utils/packageManager';
 export * from './installLSP';
 export * from './installMCP/installMCP';
 export * from './installSkills/index';

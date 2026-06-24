@@ -52,6 +52,25 @@ export default RootLayout;`;
     expect(code).toContain('const locale = await getLocale();');
   });
 
+  it('does not add a duplicate locale variable when the function already destructures locale from params', () => {
+    const input = `export default async function LocaleLayout({ children, params }: any) {
+  const { locale } = await params;
+  return (
+    <html lang={locale}>
+      <body>{children}</body>
+    </html>
+  );
+}`;
+
+    const { code, status } = wrapLayoutWithProvider(input);
+
+    expect(status).toBe('wrapped');
+    // locale must appear exactly once as a variable declaration
+    const localeDeclarationMatches =
+      code.match(/\bconst\b[^=]*\blocale\b/g) ?? [];
+    expect(localeDeclarationMatches).toHaveLength(1);
+  });
+
   it('is idempotent', () => {
     const input = `import { IntlayerClientProvider } from "next-intlayer";
 

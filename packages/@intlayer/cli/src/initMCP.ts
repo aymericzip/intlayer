@@ -4,40 +4,49 @@ import {
   installMCP,
   type MCPTransport,
   PLATFORMS,
+  type Platform,
 } from '@intlayer/chokidar/cli';
 import enquirer from 'enquirer';
 import { findProjectRoot } from './init';
 import { getDetectedPlatform, PLATFORM_OPTIONS } from './initSkills';
 
-export const initMCP = async (projectRoot?: string) => {
+export const initMCP = async (
+  projectRoot?: string,
+  preselectedPlatform?: Platform
+) => {
   const root = findProjectRoot(
     projectRoot ? resolve(projectRoot) : process.cwd()
   );
 
   p.intro('Initializing Intlayer MCP Server');
 
-  const detectedPlatform = getDetectedPlatform();
+  let platform: Platform;
 
-  let platform: any;
-  try {
-    const response = await enquirer.prompt<{ platforms: any }>({
-      type: 'autocomplete',
-      name: 'platforms',
-      message: 'Which platform are you using? (Type to search)',
-      multiple: false,
-      initial: detectedPlatform
-        ? PLATFORMS.indexOf(detectedPlatform)
-        : undefined,
-      choices: PLATFORM_OPTIONS.map((opt) => ({
-        name: opt.value,
-        message: opt.label,
-        hint: opt.hint,
-      })),
-    });
-    platform = response.platforms;
-  } catch {
-    p.cancel('Operation cancelled.');
-    return;
+  if (preselectedPlatform) {
+    platform = preselectedPlatform;
+  } else {
+    const detectedPlatform = getDetectedPlatform();
+
+    try {
+      const response = await enquirer.prompt<{ platforms: Platform }>({
+        type: 'autocomplete',
+        name: 'platforms',
+        message: 'Which platform are you using? (Type to search)',
+        multiple: false,
+        initial: detectedPlatform
+          ? PLATFORMS.indexOf(detectedPlatform)
+          : undefined,
+        choices: PLATFORM_OPTIONS.map((opt) => ({
+          name: opt.value,
+          message: opt.label,
+          hint: opt.hint,
+        })),
+      });
+      platform = response.platforms;
+    } catch {
+      p.cancel('Operation cancelled.');
+      return;
+    }
   }
 
   if (!platform) {

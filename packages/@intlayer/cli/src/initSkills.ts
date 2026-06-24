@@ -48,35 +48,43 @@ const getDependencies = (root: string): Record<string, string> => {
   }
 };
 
-export const initSkills = async (projectRoot?: string) => {
+export const initSkills = async (
+  projectRoot?: string,
+  preselectedPlatform?: Platform
+) => {
   const root = findProjectRoot(
     projectRoot ? resolve(projectRoot) : process.cwd()
   );
 
   p.intro('Initializing Intlayer skills');
 
-  const detectedPlatform = getDetectedPlatform();
-
   let platform: Platform;
-  try {
-    const response = await enquirer.prompt<{ platforms: Platform }>({
-      type: 'autocomplete',
-      name: 'platforms',
-      message: 'Which platforms are you using? (Type to search)',
-      multiple: false,
-      initial: detectedPlatform
-        ? PLATFORMS.indexOf(detectedPlatform)
-        : undefined,
-      choices: PLATFORM_OPTIONS.map((opt) => ({
-        name: opt.value,
-        message: opt.label,
-        hint: opt.hint,
-      })),
-    });
-    platform = response.platforms;
-  } catch {
-    p.cancel('Operation cancelled.');
-    return;
+
+  if (preselectedPlatform) {
+    platform = preselectedPlatform;
+  } else {
+    const detectedPlatform = getDetectedPlatform();
+
+    try {
+      const response = await enquirer.prompt<{ platforms: Platform }>({
+        type: 'autocomplete',
+        name: 'platforms',
+        message: 'Which platforms are you using? (Type to search)',
+        multiple: false,
+        initial: detectedPlatform
+          ? PLATFORMS.indexOf(detectedPlatform)
+          : undefined,
+        choices: PLATFORM_OPTIONS.map((opt) => ({
+          name: opt.value,
+          message: opt.label,
+          hint: opt.hint,
+        })),
+      });
+      platform = response.platforms;
+    } catch {
+      p.cancel('Operation cancelled.');
+      return;
+    }
   }
 
   if (!platform) {

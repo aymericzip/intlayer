@@ -18,6 +18,7 @@ import { startEditor } from './editor';
 import { extract } from './extract';
 import { type FillOptions, fill } from './fill/fill';
 import { init } from './init';
+import { initBuildOptimization } from './initBuildOptimization';
 import { initMCP } from './initMCP';
 import { initSkills } from './initSkills';
 import { listContentDeclaration } from './listContentDeclaration';
@@ -348,6 +349,14 @@ export const setAPI = (): Command => {
     .description('Initialize Intlayer MCP server in the project')
     .option('--project-root [projectRoot]', 'Project root directory')
     .action((options) => initMCP(options.projectRoot));
+
+  initCmd
+    .command('build-optimization')
+    .description(
+      'Configure build optimization for Next.js (@intlayer/swc or @intlayer/babel)'
+    )
+    .option('--project-root [projectRoot]', 'Project root directory')
+    .action((options) => initBuildOptimization(options.projectRoot));
 
   /**
    * DICTIONARIES

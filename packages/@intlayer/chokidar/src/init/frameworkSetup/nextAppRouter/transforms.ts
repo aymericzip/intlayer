@@ -164,7 +164,16 @@ const ensureAwaitedLocale = (funcNode: any): void => {
     (stmt: any) =>
       stmt.type === 'VariableDeclaration' &&
       stmt.declarations.some(
-        (d: any) => d.id?.type === 'Identifier' && d.id.name === 'locale'
+        (d: any) =>
+          // const locale = ...
+          (d.id?.type === 'Identifier' && d.id.name === 'locale') ||
+          // const { locale } = ... or const { locale: locale } = ...
+          (d.id?.type === 'ObjectPattern' &&
+            d.id.properties?.some(
+              (prop: any) =>
+                prop.value?.type === 'Identifier' &&
+                prop.value?.name === 'locale'
+            ))
       )
   );
 
