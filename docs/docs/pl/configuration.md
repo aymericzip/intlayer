@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-06-23
+updatedAt: 2026-06-17
 title: Konfiguracja
 description: Dowiedz się, jak skonfigurować Intlayer dla swojej aplikacji. Zrozum różne ustawienia i opcje dostępne do dostosowania Intlayer do Twoich potrzeb.
 keywords:
@@ -14,9 +14,6 @@ slugs:
   - concept
   - configuration
 history:
-  - version: 9.0.0
-    date: 2026-06-24
-    changes: "Add `enableProxy` option to the routing configuration"
   - version: 8.10.0
     date: 2026-06-17
     changes: "Dodano opcję `format` do konfiguracji słownika"

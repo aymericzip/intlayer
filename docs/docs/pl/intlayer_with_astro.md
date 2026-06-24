@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-06-23
+updatedAt: 2026-05-31
 title: "Astro i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
 description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji Astro. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
 keywords:
@@ -300,134 +300,7 @@ Integracja z Astro dodaje oprogramowanie pośredniczące Vite, które pomaga w r
 
 </Step>
 
-<Step number={7} title="Dodawanie przełącznika języków">
-
-Aby umożliwić użytkownikom przełączanie się między językami, możesz utworzyć komponent `LocaleSwitcher`. Komponent ten powinien wyświetlać listę wszystkich obsługiwanych języków i linkować do tej samej strony w każdym języku.
-
-```astro fileName="src/components/LocaleSwitcher.astro"
----
-import {
-  locales,
-  getLocaleName,
-  getLocalizedUrl,
-  getLocaleFromPath,
-  getPathWithoutLocale,
-  type LocalesValues,
-} from "intlayer";
-
-const locale = getLocaleFromPath(Astro.url.pathname) as LocalesValues;
-const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
----
-
-<nav>
-  {
-    locales.map((localeItem) => (
-      <a
-        href={getLocalizedUrl(pathWithoutLocale, localeItem)}
-        data-locale={localeItem}
-        aria-current={localeItem === locale ? "page" : undefined}
-      >
-        {getLocaleName(localeItem)}
-      </a>
-    ))
-  }
-</nav>
-
-<script>
-  import { setLocaleInStorageClient, getLocalizedUrl, type LocalesValues } from "intlayer";
-
-  const localeLinks = document.querySelectorAll("[data-locale]");
-
-  localeLinks.forEach((link) => {
-    link.addEventListener("click", (e) => {
-      const locale = link.getAttribute("data-locale") as LocalesValues;
-
-      // Update the locale cookie
-      setLocaleInStorageClient(locale);
-    });
-  });
-</script>
-
-<style>
-  nav {
-    display: flex;
-    gap: 1rem;
-  }
-  a[aria-current="page"] {
-    font-weight: bold;
-    text-decoration: underline;
-  }
-</style>
-```
-
-> **Uwaga dotycząca trwałości:**
-> Użycie `setLocaleInStorageClient` w skrypcie po stronie klienta zapewnia, że preferencje językowe użytkownika są zapisywane w pliku cookie. Dzięki temu oprogramowanie pośredniczące Intlayer zapamiętuje wybór i automatycznie przekierowuje użytkownika do preferowanego języka przy kolejnych wizytach.
-
-</Step>
-
-<Step number={8} title="Sitemap i Robots.txt">
-
-Intlayer oferuje narzędzia do dynamicznego generowania zlokalizowanej mapy witryny oraz pliku robots.txt.
-
-#### Sitemap
-
-Intlayer comes with a built-in sitemap generator to help you create a sitemap for your application easily. It handles localized routes and adds the necessary metadata for search engines.
-
-> The Intlayer generated sitemap supports the `xhtml:link` namespace (Hreflang XML Extensions). Unlike the default sitemap generators that only list raw URLs, Intlayer automatically creates the required bidirectional links between all language versions of a page (e.g., `/about`, `/about?lang=fr`, and `/about?lang=es`). This ensures search engines correctly index and serve the right language version to the right audience.
-
-Utwórz plik `src/pages/sitemap.xml.ts`, aby wygenerować mapę witryny obejmującą wszystkie Twoje zlokalizowane trasy.
-
-```typescript fileName="src/pages/sitemap.xml.ts"
-import type { APIRoute } from "astro";
-import { generateSitemap, type SitemapUrlEntry } from "intlayer";
-
-const pathList: SitemapUrlEntry[] = [
-  { path: "/", changefreq: "daily", priority: 1.0 },
-  { path: "/about", changefreq: "monthly", priority: 0.7 },
-];
-
-const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
-
-export const GET: APIRoute = async ({ site }) => {
-  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
-
-  return new Response(xmlOutput, {
-    headers: { "Content-Type": "application/xml" },
-  });
-};
-```
-
-#### Robots.txt
-
-Utwórz plik `src/pages/robots.txt.ts`, aby kontrolować indeksowanie przez wyszukiwarki.
-
-```typescript fileName="src/pages/robots.txt.ts"
-import type { APIRoute } from "astro";
-import { getMultilingualUrls } from "intlayer";
-
-const getAllMultilingualUrls = (urls: string[]) =>
-  urls.flatMap((url) => Object.values(getMultilingualUrls(url)) as string[]);
-
-const disallowedPaths = getAllMultilingualUrls(["/admin", "/private"]);
-
-export const GET: APIRoute = ({ site }) => {
-  const robotsTxt = [
-    "User-agent: *",
-    "Allow: /",
-    ...disallowedPaths.map((path) => `Disallow: ${path}`),
-    "",
-    `Sitemap: ${new URL("/sitemap.xml", site).href}`,
-  ].join("\n");
-
-  return new Response(robotsTxt, {
-    headers: { "Content-Type": "text/plain" },
-  });
-};
-```
-
-</Step>
-
-<Step number={9} title="Kontynuuj korzystanie ze swojego ulubionego frameworka">
+<Step number={7} title="Kontynuuj korzystanie ze swojego ulubionego frameworka">
 
 Kontynuuj budowanie swojej aplikacji, korzystając z wybranego frameworka.
 
@@ -438,33 +311,103 @@ Kontynuuj budowanie swojej aplikacji, korzystając z wybranego frameworka.
 - Intlayer + Preact: [Intlayer z Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_with_vite+preact.md)
   </Step>
 
-<Step number={15} title="Zainstaluj zależności">
+<Step number={17} title="Wyodrębnij zawartość swoich komponentów" isOptional={true}>
 
-Zainstaluj niezbędne pakiety za pomocą preferowanego menedżera pakietów:
+Jeśli masz istniejącą bazę kodu, transformacja tysięcy plików może być czasochłonna.
+
+Aby ułatwić ten proces, Intlayer proponuje [kompilator](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/compiler.md) / [ekstraktor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md), aby przetransformować komponenty i wyodrębnić zawartość.
+
+Aby go skonfigurować, możesz dodać sekcję `compiler` w pliku `intlayer.config.ts`:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... Reszta Twojej konfiguracji
+  compiler: {
+    /**
+     * Wskazuje, czy kompilator powinien być włączony.
+     */
+    enabled: true,
+
+    /**
+     * Definiuje ścieżkę plików wyjściowych
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Wskazuje, czy komponenty powinny zostać zapisane po transformacji. W ten sposób kompilator można uruchomić tylko raz, aby przetransformować aplikację, a następnie go usunąć.
+     */
+    saveComponents: false,
+
+    /**
+     * Prefiks klucza słownika
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='Polecenie wyodrębniania'>
+
+Uruchom ekstraktor, aby przetransformować komponenty i wyodrębnić zawartość
 
 ```bash packageManager="npm"
-npm install intlayer astro-intlayer
-# opcjonalnie: jeśli chcesz dodać obsługę islandów React
-npm install react react-dom react-intlayer @astrojs/react
+npx intlayer extract
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer astro-intlayer
-# opcjonalnie: jeśli chcesz dodać obsługę islandów React
-pnpm add react react-dom react-intlayer @astrojs/react
+pnpm intlayer extract
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer astro-intlayer
-# opcjonalnie: jeśli chcesz dodać obsługę islandów React
-yarn add react react-dom react-intlayer @astrojs/react
+yarn intlayer extract
 ```
 
-- **intlayer**
-  Główny pakiet zapewniający narzędzia i18n do zarządzania konfiguracją, tłumaczeniami, [deklaracją treści](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md), transpilacją i [poleceniami CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md).
+```bash packageManager="bun"
+bun x intlayer extract
+```
 
-- **astro-intlayer**
-  Wtyczka integracyjna Astro służąca do połączenia Intlayer z [bundlerem Vite](https://vite.dev/guide/why.html#why-bundle-for-production); zawiera również oprogramowanie pośredniczące (middleware) do wykrywania preferowanego języka użytkownika, zarządzania plikami cookie i obsługi przekierowań URL.
+ </Tab>
+ <Tab value='Kompilator Babel'>
+
+Zaktualizuj `vite.config.ts`, aby dołączyć wtyczkę `intlayerCompiler`:
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // Dodaje wtyczkę kompilatora
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # Lub npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # Or pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Or yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Or bun run dev
+```
+
+ </Tab>
+</Tabs>
+
+---
 
 </Step>
 

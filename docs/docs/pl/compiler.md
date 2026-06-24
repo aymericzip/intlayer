@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-06-23
+updatedAt: 2026-03-12
 title: Intlayer Compiler | Zautomatyzowane wydobywanie treści dla i18n
 description: Zautomatyzuj proces internacjonalizacji za pomocą Intlayer Compiler. Wydobywaj treści bezpośrednio z komponentów dla szybszego i bardziej efektywnego i18n w Vite, Next.js i innych.
 keywords:
@@ -59,8 +59,6 @@ Aby uzyskać głębsze porównanie architektoniczne, zobacz wpis na blogu [Compi
 Jako alternatywę, aby zautomatyzować proces i18n przy zachowaniu pełnej kontroli nad treścią, Intlayer zapewnia również polecenie auto-ekstrakcji `intlayer extract` (zobacz [dokumentację CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/extract.md)) lub polecenie `Intlayer: extract content to Dictionary` z rozszerzenia Intlayer VS Code (zobacz [dokumentację rozszerzenia VS Code](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md)).
 
 ## Użycie
-
-> The quickest way to wire the compiler in is the interactive setup: run `npx intlayer init --interactive` and select **Compiler**. On Vite there is nothing to configure — the compiler is plugged in directly through the `intlayerCompiler()` plugin. On Next.js the command scaffolds the `babel.config.js` shown below. The non-interactive `intlayer init` leaves the compiler setup untouched.
 
 <Tabs>
  <Tab value='vite'>

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-02
-updatedAt: 2026-06-23
+updatedAt: 2026-04-02
 title: Własne domeny
 description: Dowiedz się, jak skonfigurować routing lokalizacji oparty na domenach w Intlayer, aby obsługiwać różne lokalizacje z dedykowanych nazw hostów.
 keywords:
