@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-09
-updatedAt: 2026-06-23
+updatedAt: 2026-03-12
 title: Intlayer Compiler | Extração Automática de Conteúdo para i18n
 description: Automatize seu processo de internacionalização com o Intlayer Compiler. Extraia conteúdo diretamente dos seus componentes para uma i18n mais rápida e eficiente em Vite, Next.js e mais.
 keywords:
@@ -60,8 +60,6 @@ Como alternativa, para automatizar seu processo i18n mantendo controle total sob
 
 ## Uso
 
-> The quickest way to wire the compiler in is the interactive setup: run `npx intlayer init --interactive` and select **Compiler**. On Vite there is nothing to configure — the compiler is plugged in directly through the `intlayerCompiler()` plugin. On Next.js the command scaffolds the `babel.config.js` shown below. The non-interactive `intlayer init` leaves the compiler setup untouched.
-
 <Tabs>
  <Tab value='vite'>
 
@@ -91,7 +89,7 @@ export default defineConfig({
 });
 ```
 
-See complete tutorial: [Intlayer Compiler with Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_vite+react_compiler.md)
+See complete tutorial: [Intlayer Compiler with Vite+React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_vite+react_compiler.md)
 
 #### Suporte a Frameworks
 
@@ -149,7 +147,7 @@ module.exports = {
 
 Esta configuração garante que o conteúdo declarado em seus componentes seja automaticamente extraído e usado para gerar dicionários durante o processo de build.
 
-See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_with_nextjs_compiler.md)
+See complete tutorial: [Intlayer Compiler with Next.js](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_nextjs_compiler.md)
 
  </Tab>
 </Tabs>

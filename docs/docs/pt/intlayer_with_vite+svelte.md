@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-06-23
+updatedAt: 2026-05-31
 title: "Vite + Svelte i18n - Guia completo para traduzir seu aplicativo"
 description: "Sem mais i18next. O guia 2026 para criar uma aplicação Vite + Svelte multilíngue (i18n). Traduza com agentes de IA e otimize o tamanho do bundle, SEO e desempenho."
 keywords:
@@ -89,13 +89,13 @@ Definir o escopo do conteúdo do seu aplicativo **facilita a manutenção** de a
 
 <Accordion header="Agente de IA">
 
-A co-localização de conteúdo **reduz o contexto necessário** pelos Large Language Models (LLMs). O Intlayer também vem com um conjunto de ferramentas, como uma **CLI** para testar traduções ausentes,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, e **[habilidades do agente](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, para tornar a experiência do desenvolvedor (DX) ainda mais tranquila para os agentes de IA.
+A co-localização de conteúdo **reduz o contexto necessário** pelos Large Language Models (LLMs). O Intlayer também vem com um conjunto de ferramentas, como uma **CLI** para testar traduções ausentes,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/mcp_server.md)**, e **[habilidades do agente](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/agent_skills.md)**, para tornar a experiência do desenvolvedor (DX) ainda mais tranquila para os agentes de IA.
 
 </Accordion>
 
 <Accordion header="Automação">
 
-Use a automação para traduzir seu pipeline de CI/CD usando o LLM de sua escolha às custas de seu provedor de IA. O Intlayer também oferece um **compilador** para automatizar a extração de conteúdo, bem como uma [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) para ajudar a **traduzir em segundo plano**.
+Use a automação para traduzir seu pipeline de CI/CD usando o LLM de sua escolha às custas de seu provedor de IA. O Intlayer também oferece um **compilador** para automatizar a extração de conteúdo, bem como uma [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md) para ajudar a **traduzir em segundo plano**.
 
 </Accordion>
 
@@ -107,7 +107,7 @@ Conectar arquivos JSON enormes a componentes pode levar a problemas de desempenh
 
 <Accordion header="Escalonamento sem nenhum desenvolvedor">
 
-Mais do que apenas uma solução i18n, o Intlayer fornece um **[editor visual] auto-hospedado(https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** e um **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** para ajudá-lo a gerenciar seu conteúdo multilíngue em **tempo real**, facilitando a colaboração com tradutores, redatores e outros membros da equipe. O conteúdo pode ser armazenado local e/ou remotamente.
+Mais do que apenas uma solução i18n, o Intlayer fornece um **[editor visual] auto-hospedado(https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md)** e um **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)** para ajudá-lo a gerenciar seu conteúdo multilíngue em **tempo real**, facilitando a colaboração com tradutores, redatores e outros membros da equipe. O conteúdo pode ser armazenado local e/ou remotamente.
 
 </Accordion>
 </AccordionGroup>
@@ -628,6 +628,34 @@ bun run build # Or bun run dev
 
 </Steps>
 
+### Configuração do Git
+
+É recomendado ignorar os arquivos gerados pelo Intlayer. Isso permite evitar que eles sejam comitados no seu repositório Git.
+
+Para isso, você pode adicionar as seguintes instruções no seu arquivo `.gitignore`:
+
+```bash
+#  Ignorar os arquivos gerados pelo Intlayer
+.intlayer
+```
+
+### Extensão para VS Code
+
+Para melhorar sua experiência de desenvolvimento com o Intlayer, você pode instalar a extensão oficial **Intlayer VS Code Extension**.
+
+[Instalar no VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Esta extensão oferece:
+
+- **Autocompletar** para chaves de tradução.
+- **Detecção de erros em tempo real** para traduções ausentes.
+- **Pré-visualizações inline** do conteúdo traduzido.
+- **Ações rápidas** para criar e atualizar traduções facilmente.
+
+Para mais detalhes sobre como usar a extensão, consulte a [documentação da Intlayer VS Code Extension](https://intlayer.org/doc/vs-code-extension).
+
+---
+
 ### (Opcional) Sitemap e robots.txt (geração no build)
 
 A Intlayer expõe utilitários - `generateSitemap` e `getMultilingualUrls` - para formatar um `sitemap.xml` multilíngue e um `robots.txt` prontos para crawlers e os gravar automaticamente em `public/`. Normalmente corre um pequeno script Node **antes** do Vite (por exemplo hooks npm `predev` / `prebuild`) para que os ficheiros existam no build ou no servidor de desenvolvimento.
@@ -701,34 +729,6 @@ O pacote `intlayer` tem de estar instalado. Defina `SITE_URL` no ambiente em pro
 ```
 
 Ajuste os comandos se usar pnpm ou yarn. Também pode invocar o script a partir da CI ou de outro passo do pipeline.
-
-### Configuração do Git
-
-É recomendado ignorar os arquivos gerados pelo Intlayer. Isso permite evitar que eles sejam comitados no seu repositório Git.
-
-Para isso, você pode adicionar as seguintes instruções no seu arquivo `.gitignore`:
-
-```bash
-# Ignorar os arquivos gerados pelo Intlayer
-.intlayer
-```
-
-### Extensão para VS Code
-
-Para melhorar sua experiência de desenvolvimento com o Intlayer, você pode instalar a extensão oficial **Intlayer VS Code Extension**.
-
-[Instalar no VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Esta extensão oferece:
-
-- **Autocompletar** para chaves de tradução.
-- **Detecção de erros em tempo real** para traduções ausentes.
-- **Pré-visualizações inline** do conteúdo traduzido.
-- **Ações rápidas** para criar e atualizar traduções facilmente.
-
-Para mais detalhes sobre como usar a extensão, consulte a [documentação da Intlayer VS Code Extension](https://intlayer.org/doc/vs-code-extension).
-
----
 
 ### Ir Além
 

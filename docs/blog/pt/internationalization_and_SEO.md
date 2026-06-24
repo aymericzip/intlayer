@@ -113,7 +113,7 @@ No seu HTML, você adicionará algo como:
    - Você deve apenas traduzir o texto e os títulos do arquivo.
    - Você não deve alterar a estrutura do arquivo.
    - Você não deve alterar a lógica do código dos elementos de código.
-   - Você deve transformar URLs como `https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/**/*.md` em `https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/**/*.md`
+   - Você deve transformar URLs como `https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/**/*.md` em `https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/**/*.md`
    - Você não deve transformar URLs como `https://github.com/aymericzip/intlayer/blob/main/docs/assets/**/*`
    - Você deve transformar URLs de local como `/**/*` em `/{{locale}}/**/*`
    - Nos elementos de código, a nomeação das variáveis deve ser feita em inglês. Mas os comentários devem ser em português.

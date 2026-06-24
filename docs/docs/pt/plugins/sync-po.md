@@ -319,7 +319,7 @@ Os arquivos PO sincronizados serão considerados como outros arquivos `.content`
 - `intlayer content push` para enviar os arquivos PO sincronizados
 - `intlayer content pull` para baixar os arquivos PO sincronizados
 
-Consulte o [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md) para mais detalhes.
+Consulte o [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md) para mais detalhes.
 
 ## Limitações (atuais)
 

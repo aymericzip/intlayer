@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-04-02
-updatedAt: 2026-06-23
+updatedAt: 2026-04-02
 title: Domínios personalizados
 description: Aprenda como configurar o roteamento de locale baseado em domínio no Intlayer para servir diferentes locales a partir de hostnames dedicados.
 keywords:
@@ -45,12 +45,7 @@ import { Locales, type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      Locales.CHINESE,
-    ],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.CHINESE],
     defaultLocale: Locales.ENGLISH,
   },
   routing: {

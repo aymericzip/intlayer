@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-03-07
-updatedAt: 2026-06-23
+updatedAt: 2026-05-31
 title: "Vite + React i18n - Guia completo para traduzir seu aplicativo"
 description: "Sem mais i18next. O guia 2026 para criar uma aplicação Vite + React multilíngue (i18n). Traduza com agentes de IA e otimize o tamanho do bundle, SEO e desempenho."
 keywords:
@@ -87,7 +87,7 @@ Depois, ele modifica seu código durante o build para injetar os hooks de i18n n
 
 Como o compilador realiza análise e transformação de código (inserindo hooks e gerando dicionários) em **tempo de compilação**, ele pode **reduzir a velocidade do processo di build** da sua aplicação.
 
-Para mitigar esse impacto durante o desenvolvimento, você pode configurar o compilador para rodar no modo [`'build-only'`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) ou desativá-lo quando não for necessário.
+Para mitigar esse impacto durante o desenvolvimento, você pode configurar o compilador para rodar no modo [`'build-only'`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md) ou desativá-lo quando não for necessário.
 
 ---
 
@@ -140,7 +140,7 @@ bun add vite-intlayer --dev
 ```
 
 - **intlayer**
-  O pacote principal que fornece ferramentas de internacionalização para gerenciamento de configuração, tradução, [declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md), transpilação e [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md).
+  O pacote principal que fornece ferramentas de internacionalização para gerenciamento de configuração, tradução, [declaração de conteúdo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md), transpilação e [comandos CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/index.md).
 
 - **react-intlayer**
   O pacote que integra o Intlayer com a aplicação React. Ele fornece provedores de contexto e hooks para internacionalização no React.
@@ -207,7 +207,7 @@ export default config;
 
 > **Nota**: Certifique-se de ter sua `OPEN_AI_API_KEY` definida em suas variáveis de ambiente.
 
-> Através deste arquivo de configuração, você pode configurar URLs localizadas, redirecionamento de middleware, nomes de cookies, a localização e extensão das suas declarações de conteúdo, desativar logs do Intlayer no console e muito mais. Para uma lista completa de parâmetros disponíveis, consulte a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
+> Através deste arquivo de configuração, você pode configurar URLs localizadas, redirecionamento de middleware, nomes de cookies, a localização e extensão das suas declarações de conteúdo, desativar logs do Intlayer no console e muito mais. Para uma lista completa de parâmetros disponíveis, consulte a [documentação de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md).
 
 </Step>
 
@@ -393,7 +393,7 @@ const LocaleSwitcher: FC = () => {
 };
 ```
 
-> Para aprender mais sobre o hook `useLocale`, consulte a [documentação](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md).
+> Para aprender mais sobre o hook `useLocale`, consulte a [documentação](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/react-intlayer/useLocale.md).
 
 </Step>
 
@@ -540,4 +540,4 @@ Para mais detalhes sobre como usar a extensão, consulte a [documentação da Ex
 
 ### Indo Além
 
-Para ir além, você pode implementar o [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) ou externalizar seu conteúdo usando o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
+Para ir além, você pode implementar o [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) ou externalizar seu conteúdo usando o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).

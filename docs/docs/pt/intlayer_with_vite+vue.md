@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-04-18
-updatedAt: 2026-06-23
+updatedAt: 2026-05-31
 title: "Vite + Vue i18n - Guia completo para traduzir seu aplicativo"
 description: "Sem mais i18next. O guia 2026 para criar uma aplicação Vite + Vue multilíngue (i18n). Traduza com agentes de IA e otimize o tamanho do bundle, SEO e desempenho."
 keywords:
@@ -31,10 +31,6 @@ author: aymericzip
 
 Veja o [Modelo de Aplicação](https://github.com/aymericzip/intlayer-vite-vue-template) no GitHub.
 
-## Tabela de Conteúdos
-
-<TOC/>
-
 ## Por que Intlayer em vez de alternativas?
 
 Comparado com soluções principais como `vue-i18n` ou `i18next`, Intlayer é uma solução que vem com otimizações integradas como:
@@ -61,13 +57,13 @@ Definir o escopo do conteúdo do seu aplicativo **facilita a manutenção** de a
 
 <Accordion header="Agente de IA">
 
-A co-localização de conteúdo **reduz o contexto necessário** pelos Large Language Models (LLMs). O Intlayer também vem com um conjunto de ferramentas, como uma **CLI** para testar traduções ausentes,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, e **[habilidades do agente](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, para tornar a experiência do desenvolvedor (DX) ainda mais tranquila para os agentes de IA.
+A co-localização de conteúdo **reduz o contexto necessário** pelos Large Language Models (LLMs). O Intlayer também vem com um conjunto de ferramentas, como uma **CLI** para testar traduções ausentes,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/mcp_server.md)**, e **[habilidades do agente](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/agent_skills.md)**, para tornar a experiência do desenvolvedor (DX) ainda mais tranquila para os agentes de IA.
 
 </Accordion>
 
 <Accordion header="Automação">
 
-Use a automação para traduzir seu pipeline de CI/CD usando o LLM de sua escolha às custas de seu provedor de IA. O Intlayer também oferece um **compilador** para automatizar a extração de conteúdo, bem como uma [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md) para ajudar a **traduzir em segundo plano**.
+Use a automação para traduzir seu pipeline de CI/CD usando o LLM de sua escolha às custas de seu provedor de IA. O Intlayer também oferece um **compilador** para automatizar a extração de conteúdo, bem como uma [plataforma web](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md) para ajudar a **traduzir em segundo plano**.
 
 </Accordion>
 
@@ -79,7 +75,7 @@ Conectar arquivos JSON enormes a componentes pode levar a problemas de desempenh
 
 <Accordion header="Escalonamento sem nenhum desenvolvedor">
 
-Mais do que apenas uma solução i18n, o Intlayer fornece um **[editor visual] auto-hospedado(https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** e um **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** para ajudá-lo a gerenciar seu conteúdo multilíngue em **tempo real**, facilitando a colaboração com tradutores, redatores e outros membros da equipe. O conteúdo pode ser armazenado local e/ou remotamente.
+Mais do que apenas uma solução i18n, o Intlayer fornece um **[editor visual] auto-hospedado(https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md)** e um **[CMS completo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)** para ajudá-lo a gerenciar seu conteúdo multilíngue em **tempo real**, facilitando a colaboração com tradutores, redatores e outros membros da equipe. O conteúdo pode ser armazenado local e/ou remotamente.
 
 </Accordion>
 </AccordionGroup>
@@ -892,6 +888,56 @@ import RouterLink from "@components/RouterLink.vue";
 
 </Step>
 
+<Step number={11} title="Renderizar Markdown" isOptional={true}>
+
+Intlayer suporta a renderização de conteúdo Markdown diretamente na sua aplicação Vue. Por padrão, o Markdown é tratado como texto simples. Para converter Markdown em HTML enriquecido, você pode integrar o [markdown-it](https://github.com/markdown-it/markdown-it), um parser de Markdown.
+
+Isto é particularmente útil quando suas traduções incluem conteúdo formatado como listas, links ou ênfases.
+
+Por padrão, o Intlayer renderiza markdown como string. Mas o Intlayer também fornece uma forma de renderizar markdown em HTML usando a função `installIntlayerMarkdown`.
+
+> Para ver como declarar conteúdo markdown usando o pacote `intlayer`, consulte a [documentação de markdown](https://github.com/aymericzip/intlayer/tree/main/docs/pt/dictionary/markdown.md).
+
+```ts fileName="main.ts"
+import MarkdownIt from "markdown-it";
+import { createApp, h } from "vue";
+import { installIntlayer, installIntlayerMarkdown } from "vue-intlayer";
+
+const app = createApp(App);
+
+app.use(intlayer);
+
+const md = new MarkdownIt({
+  html: true, // permitir tags HTML
+  linkify: true, // auto-linkar URLs
+  typographer: true, // ativar aspas inteligentes, travessões, etc.
+});
+
+// Diga ao Intlayer para usar md.render() sempre que precisar transformar markdown em HTML
+installIntlayerMarkdown(app, (markdown) => {
+  const html = md.render(markdown);
+  return h("div", { innerHTML: html });
+});
+```
+
+Uma vez registrado, você pode usar a sintaxe baseada em componentes para exibir o conteúdo Markdown diretamente:
+
+```vue
+<template>
+  <div>
+    <myMarkdownContent />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { useIntlayer } from "vue-intlayer";
+
+const { myMarkdownContent } = useIntlayer("my-component");
+</script>
+```
+
+</Step>
+
 <Step number={1} title="Extrair o conteúdo dos seus componentes" isOptional={true}>
 
 Se você tiver uma base de código existente, transformar milhares de arquivos pode ser demorado.
@@ -1069,9 +1115,9 @@ Ajuste os comandos se usar pnpm ou yarn. Também pode invocar o script a partir 
 
 O Intlayer utiliza a ampliação de módulos para aproveitar os benefícios do TypeScript e tornar sua base de código mais robusta.
 
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+![texto alternativo](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png)
 
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+![texto alternativo](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png)
 
 Certifique-se de que sua configuração do TypeScript inclua os tipos gerados automaticamente.
 
@@ -1091,14 +1137,14 @@ Certifique-se de que sua configuração do TypeScript inclua os tipos gerados au
 
 Para isso, você pode adicionar as seguintes instruções ao seu arquivo `.gitignore`:
 
-```plaintext fileName=".gitignore"
-# Ignore os arquivos gerados pelo Intlayer
+```bash
+#  Ignorar os arquivos gerados pelo Intlayer
 .intlayer
 ```
 
-### Extensão do VS Code
+### Extensão VS Code
 
-Para melhorar sua experiência de desenvolvimento com o Intlayer, você pode instalar a extensão oficial **Intlayer VS Code Extension**.
+Para melhorar sua experiência de desenvolvimento com o Intlayer, você pode instalar a **Extensão oficial do Intlayer para VS Code**.
 
 [Instalar no VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
 
@@ -1113,6 +1159,8 @@ Para mais detalhes sobre como usar a extensão, consulte a [documentação da Ex
 
 ---
 
-### Avançar Mais
+### Ir Além
 
-Para avançar mais, você pode implementar o [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) ou externalizar seu conteúdo usando o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).
+Para ir além, você pode implementar o [editor visual](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_visual_editor.md) ou externalizar seu conteúdo usando o [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md).
+
+---
