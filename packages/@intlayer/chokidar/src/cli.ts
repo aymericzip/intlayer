@@ -1,6 +1,7 @@
 export * from './detectFormatCommand';
 export * from './getContentDeclarationFileTemplate';
 export * from './init/index';
+export { NEXT_INTLAYER_BABEL_CONFIG_CONTENT } from './init/utils/nextCompilerBabel';
 export {
   detectPackageManager,
   installPackages,

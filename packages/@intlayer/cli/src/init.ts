@@ -62,8 +62,8 @@ const BASE_INIT_STEP_OPTIONS: Array<{
   },
   {
     value: 'githubActions',
-    label: 'GitHub Actions',
-    hint: 'scaffold the fill and test workflows',
+    label: 'CI/CD (GitHub Actions)',
+    hint: 'scaffold the fill and test workflows that run on every pull request',
   },
   {
     value: 'frameworkSetup',
@@ -145,8 +145,8 @@ const runInteractiveInit = async (
   if (nextJsProject) {
     stepOptions.push({
       value: 'buildOptimization',
-      label: 'Build optimization',
-      hint: 'add @intlayer/swc or @intlayer/babel for tree-shaking and minification (Next.js only)',
+      label: 'Bundle optimization',
+      hint: 'choose @intlayer/babel or @intlayer/swc for tree-shaking and minification (Next.js only)',
     });
   }
 

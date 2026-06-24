@@ -1,44 +1,36 @@
 import { existsSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import * as p from '@clack/prompts';
-import { detectPackageManager, installPackages } from '@intlayer/chokidar/cli';
+import {
+  detectPackageManager,
+  installPackages,
+  NEXT_INTLAYER_BABEL_CONFIG_CONTENT,
+} from '@intlayer/chokidar/cli';
 import { findProjectRoot } from './init';
 
 /** Intlayer build optimization plugin choices for Next.js. */
-export type BuildOptimizationPlugin = 'swc' | 'babel';
+export type BuildOptimizationPlugin = 'babel' | 'swc';
 
-/**
- * babel.config.js that adds purge + minify passes for Next.js.
- * The @intlayer/swc plugin handles the optimize (import-rewriting) pass;
- * these Babel plugins cover field removal and field renaming.
- */
-const BABEL_CONFIG_CONTENT = `const {
-  intlayerPurgeBabelPlugin,
-  intlayerMinifyBabelPlugin,
-  getPurgePluginOptions,
-  getMinifyPluginOptions,
-} = require("@intlayer/babel");
-
-module.exports = {
-  presets: ["next/babel"],
-  plugins: [
-    // Purge: removes unused content fields from .intlayer/**/*.json
-    [intlayerPurgeBabelPlugin, getPurgePluginOptions()],
-    // Minify: renames content field keys in JSON and source code
-    [intlayerMinifyBabelPlugin, getMinifyPluginOptions()],
-    // Note: intlayerOptimizeBabelPlugin is NOT needed here —
-    // @intlayer/swc handles the useIntlayer → useDictionary rewrite.
-  ],
-};
-`;
+/** Babel config filenames Next.js picks up, ordered by preference. */
+const BABEL_CONFIG_CANDIDATES = [
+  'babel.config.js',
+  'babel.config.cjs',
+  'babel.config.mjs',
+  'babel.config.ts',
+];
 
 /**
  * Interactive prompt to select a build optimization plugin for Next.js and
- * scaffold the required files.
+ * scaffold the required files. The two options are independent — pick one:
  *
- * - `@intlayer/swc`   — quicker: SWC plugin for import rewriting only.
- * - `@intlayer/babel` — more advanced: adds purge + minify Babel passes on top
- *                       of the SWC plugin; creates `babel.config.js`.
+ * - `@intlayer/babel` — runs the full compiler pipeline (extract, purge, minify,
+ *   optimize) through Babel. Installs `@intlayer/babel` and creates a
+ *   `babel.config.js`.
+ * - `@intlayer/swc` — lightweight SWC plugin that rewrites `useIntlayer` imports.
+ *   Installs only the dependency; `withIntlayer` wires it in automatically, so
+ *   no config file is required.
+ *
+ * @param projectRoot - Optional project root; defaults to the current directory.
  */
 export const initBuildOptimization = async (
   projectRoot?: string
@@ -52,14 +44,14 @@ export const initBuildOptimization = async (
     message: 'Which build optimization plugin do you want to use?',
     options: [
       {
-        value: 'swc',
-        label: '@intlayer/swc',
-        hint: 'Quicker — SWC plugin rewrites useIntlayer imports at build time',
-      },
-      {
         value: 'babel',
         label: '@intlayer/babel',
-        hint: 'More advanced — adds purge + minify passes on top of SWC; creates babel.config.js',
+        hint: 'Full pipeline — extract, purge, minify and optimize via Babel; creates babel.config.js',
+      },
+      {
+        value: 'swc',
+        label: '@intlayer/swc',
+        hint: 'Lightweight — SWC plugin that rewrites useIntlayer imports; wired automatically by withIntlayer',
       },
     ],
   })) as BuildOptimizationPlugin;
@@ -70,56 +62,54 @@ export const initBuildOptimization = async (
   }
 
   const packageManager = detectPackageManager(root);
-  const devPackagesToInstall: string[] = ['@intlayer/swc'];
-
-  if (plugin === 'babel') {
-    devPackagesToInstall.push('@intlayer/babel');
-  }
+  const packageToInstall =
+    plugin === 'babel' ? '@intlayer/babel' : '@intlayer/swc';
 
   const spinner = p.spinner();
   spinner.start('Installing packages...');
 
   try {
-    installPackages(root, devPackagesToInstall, packageManager, true);
-    spinner.stop(`Installed: ${devPackagesToInstall.join(', ')}`);
+    installPackages(root, [packageToInstall], packageManager, true);
+    spinner.stop(`Installed: ${packageToInstall}`);
   } catch {
     spinner.stop('Package installation failed');
-    p.log.warn(
-      `Please install manually: ${devPackagesToInstall.join(' ')} (dev dependency)`
-    );
+    p.log.warn(`Please install manually: ${packageToInstall} (dev dependency)`);
   }
 
-  if (plugin === 'babel') {
-    const babelConfigCandidates = [
-      'babel.config.js',
-      'babel.config.cjs',
-      'babel.config.mjs',
-      'babel.config.ts',
-    ];
+  // SWC needs no extra setup — withIntlayer injects the plugin at build time.
+  if (plugin === 'swc') {
+    p.outro('Build optimization configuration complete');
+    return;
+  }
 
-    const existingBabelConfig = babelConfigCandidates.find((file) =>
-      existsSync(join(root, file))
+  // BABEL — scaffold babel.config.js with the full compiler pipeline.
+  const existingBabelConfig = BABEL_CONFIG_CANDIDATES.find((file) =>
+    existsSync(join(root, file))
+  );
+
+  if (existingBabelConfig) {
+    p.log.warn(
+      `${existingBabelConfig} already exists — add the Intlayer plugins manually.`
     );
-
-    if (existingBabelConfig) {
-      p.log.warn(
-        `${existingBabelConfig} already exists — add the Intlayer plugins manually.`
+    p.note(
+      NEXT_INTLAYER_BABEL_CONFIG_CONTENT,
+      'Plugins to add to your babel config'
+    );
+  } else {
+    try {
+      writeFileSync(
+        join(root, 'babel.config.js'),
+        NEXT_INTLAYER_BABEL_CONFIG_CONTENT,
+        { encoding: 'utf-8' }
       );
-      p.note(BABEL_CONFIG_CONTENT, 'Plugins to add to your babel config');
-    } else {
-      try {
-        writeFileSync(join(root, 'babel.config.js'), BABEL_CONFIG_CONTENT, {
-          encoding: 'utf-8',
-        });
-        p.log.success(
-          'Created babel.config.js with Intlayer purge and minify plugins'
-        );
-      } catch {
-        p.log.warn(
-          'Could not create babel.config.js — please create it manually.'
-        );
-        p.note(BABEL_CONFIG_CONTENT, 'babel.config.js');
-      }
+      p.log.success(
+        'Created babel.config.js with the Intlayer compiler plugins (extract, purge, minify, optimize)'
+      );
+    } catch {
+      p.log.warn(
+        'Could not create babel.config.js — please create it manually.'
+      );
+      p.note(NEXT_INTLAYER_BABEL_CONFIG_CONTENT, 'babel.config.js');
     }
   }
 

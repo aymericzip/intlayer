@@ -19,6 +19,7 @@ import {
   installPackages,
   parseJSONWithComments,
   readFileFromRoot,
+  setupNextCompilerBabelConfig,
   updateAstroConfig,
   updateIntlayerConfigWithSyncPlugin,
   updateNextConfig,
@@ -712,6 +713,19 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
       }
       break;
     }
+  }
+
+  // CHECK NEXT.JS COMPILER (BABEL)
+  // When a Next.js project already uses Babel, install @intlayer/babel and print
+  // the compiler + build-optimization plugins (extract, purge, minify, optimize)
+  // to add. SWC projects need no setup: withIntlayer injects @intlayer/swc.
+  if (isNextJsProject) {
+    await setupNextCompilerBabelConfig({
+      rootDir,
+      packageManager,
+      allDeps,
+      skipInstall: Boolean(options?.noInstallPackages),
+    });
   }
 
   // CHECK OTHER FRAMEWORKS CONFIG
