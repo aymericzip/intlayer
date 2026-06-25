@@ -3,7 +3,6 @@ import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { getConfiguration } from '@intlayer/config/node';
 import { getAlias } from '@intlayer/config/utils';
 import type { getDefaultConfig } from 'expo/metro-config';
-import { exclusionList } from './exclusionList';
 
 /**
  * Returns the `resolve` function from metro-resolver, preferring the copy
