@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/transloco",
-  "version": "9.0.0-canary.6",
+  "version": "9.0.0-canary.7",
   "private": false,
   "description": "transloco API adapter for intlayer — drop-in compatibility layer",
   "keywords": [
