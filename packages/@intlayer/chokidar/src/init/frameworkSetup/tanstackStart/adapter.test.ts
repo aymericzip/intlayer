@@ -214,6 +214,21 @@ export const Route = createRootRoute({ shellComponent: RootDocument });
     expect(root).toContain('const locale =');
   });
 
+  it('skips restructure for prefix-all routing (existing $locale segment)', async () => {
+    await writeFileAt(
+      'src/routes/$locale/index.tsx',
+      'export const Route = null;\n'
+    );
+
+    await tanStackStartAdapter.setup(context());
+
+    // The existing prefix-all segment is left in place and never nested under a
+    // freshly created `{-$locale}` (which would produce `{-$locale}/$locale`).
+    expect(await exists('src/routes/$locale/index.tsx')).toBe(true);
+    expect(await exists('src/routes/{-$locale}/$locale/index.tsx')).toBe(false);
+    expect(await exists('src/routes/{-$locale}/index.tsx')).toBe(false);
+  });
+
   it('is idempotent (already-structured project is left intact)', async () => {
     await writeFileAt(
       'src/routes/__root.tsx',

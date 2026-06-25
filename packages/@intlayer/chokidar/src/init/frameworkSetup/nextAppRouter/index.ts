@@ -156,8 +156,21 @@ export const nextAppRouterAdapter: FrameworkAdapter = {
       );
     } else if (restructureResult.status === 'already-structured') {
       logger(
-        `${v} ${colorizePath(join(appDir, '[locale]'))} already exists, skipping restructure`
+        `${v} ${colorizePath(join(appDir, restructureResult.localeSegment))} already exists, skipping restructure`
       );
+    }
+
+    // When the app already uses a different locale-prefix scheme (e.g. an
+    // `[...locale]` / `[[...locale]]` catch-all), respect the user's routing:
+    // don't scaffold a second, conflicting `[locale]` segment.
+    if (
+      restructureResult.status === 'already-structured' &&
+      restructureResult.localeSegment !== '[locale]'
+    ) {
+      logger(
+        `${v} Detected existing locale routing (${colorize(restructureResult.localeSegment, ANSIColors.MAGENTA)}), skipping locale layout/page scaffold`
+      );
+      return;
     }
 
     const localeDir = join(appDir, '[locale]');

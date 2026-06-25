@@ -1,4 +1,3 @@
-import { existsSync } from 'node:fs';
 import { mkdir, readdir, readFile, rename, writeFile } from 'node:fs/promises';
 import { dirname, isAbsolute, join, relative, resolve, sep } from 'node:path';
 import fg from 'fast-glob';
@@ -12,6 +11,18 @@ const SCRIPT_GLOB = '**/*.{ts,tsx,js,jsx,mjs,cjs}';
 /** Strips a known script extension from a file name, e.g. `page.tsx` -> `page`. */
 const stripScriptExtension = (fileName: string): string =>
   fileName.replace(/\.(tsx|ts|jsx|js|mjs|cjs)$/, '');
+
+/**
+ * Detects whether a top-level App Router entry is already a locale segment, in
+ * any of the Next.js dynamic-segment forms:
+ * - `[locale]` — required segment (prefix every locale),
+ * - `[...locale]` / `[[...locale]]` — catch-all / optional catch-all segments.
+ *
+ * Used to skip the restructure when the project is already locale-aware, so an
+ * existing locale segment is never nested under a freshly created `[locale]`.
+ */
+export const isLocaleSegment = (entryName: string): boolean =>
+  /^\[\[?\.{0,3}locale\]\]?$/.test(entryName);
 
 /**
  * Top-level App Router entries that must stay at the app root and never be
@@ -159,15 +170,16 @@ export const rewriteRelativeImports = (
 
 /** Outcome of an attempted `[locale]` restructure. */
 export type RestructureResult =
-  | { status: 'already-structured' }
+  | { status: 'already-structured'; localeSegment: string }
   | { status: 'nothing-to-move' }
   | { status: 'moved'; movedEntries: string[] };
 
 /**
  * Moves the routable App Router entries of `appDir` under a new `[locale]`
  * segment and rewrites relative imports in the moved files. Idempotent: it is a
- * no-op when `[locale]` already exists. Root-only files (see
- * {@link shouldKeepAppEntryAtRoot}) are left in place.
+ * no-op when the app is already locale-aware in any prefix mode (see
+ * {@link isLocaleSegment}), which is reported via `localeSegment`. Root-only
+ * files (see {@link shouldKeepAppEntryAtRoot}) are left in place.
  */
 export const restructureAppIntoLocale = async (
   rootDir: string,
@@ -176,11 +188,20 @@ export const restructureAppIntoLocale = async (
   const appDirAbs = join(rootDir, appDir);
   const localeDirAbs = join(appDirAbs, '[locale]');
 
-  if (existsSync(localeDirAbs)) {
-    return { status: 'already-structured' };
+  const entries = await readdir(appDirAbs, { withFileTypes: true });
+
+  // Skip when the app is already locale-aware in any prefix mode — a fresh
+  // `[locale]`, or an existing `[...locale]` / `[[...locale]]` catch-all segment.
+  const existingLocaleSegment = entries.find((entry) =>
+    isLocaleSegment(entry.name)
+  );
+  if (existingLocaleSegment) {
+    return {
+      status: 'already-structured',
+      localeSegment: existingLocaleSegment.name,
+    };
   }
 
-  const entries = await readdir(appDirAbs, { withFileTypes: true });
   const movedTopLevelNames = entries
     .map((entry) => entry.name)
     .filter((name) => !shouldKeepAppEntryAtRoot(name));

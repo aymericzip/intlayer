@@ -162,6 +162,24 @@ describe('restructureAppIntoLocale', () => {
     expect(await exists('src/app/page.tsx')).toBe(true);
   });
 
+  it('skips and reports the segment when a catch-all locale segment exists', async () => {
+    await writeFileAt(
+      'src/app/[[...locale]]/page.tsx',
+      'export default function P() {}'
+    );
+    await writeFileAt('src/app/page.tsx', 'export default function Root() {}');
+
+    const result = await restructureAppIntoLocale(rootDir, 'src/app');
+
+    expect(result).toEqual({
+      status: 'already-structured',
+      localeSegment: '[[...locale]]',
+    });
+    // The existing routing is left intact — no conflicting `[locale]` created.
+    expect(await exists('src/app/page.tsx')).toBe(true);
+    expect(await exists('src/app/[locale]/page.tsx')).toBe(false);
+  });
+
   it('reports nothing-to-move when only root-only files exist', async () => {
     await writeFileAt('src/app/globals.css', 'body{}');
     await writeFileAt('src/app/favicon.ico', '');

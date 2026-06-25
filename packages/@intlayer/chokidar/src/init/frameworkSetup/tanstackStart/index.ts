@@ -106,20 +106,30 @@ export const tanStackStartAdapter: FrameworkAdapter = {
       );
     } else if (restructureResult.status === 'already-structured') {
       logger(
-        `${v} ${colorizePath(join(routesDir, LOCALE_SEGMENT))} already exists, skipping restructure`
+        `${v} ${colorizePath(join(routesDir, restructureResult.localeSegment))} already exists, skipping restructure`
       );
     }
 
-    const localeDir = join(routesDir, LOCALE_SEGMENT);
-    await ensureDirectory(rootDir, localeDir);
+    // When the routes already use a different locale-prefix scheme (e.g. the
+    // prefix-all `$locale` segment), respect the user's routing: don't scaffold
+    // the optional-prefix `{-$locale}/route.tsx`, which would create a second,
+    // conflicting locale segment.
+    const usesDefaultLocaleSegment =
+      restructureResult.status !== 'already-structured' ||
+      restructureResult.localeSegment === LOCALE_SEGMENT;
 
-    // 2. Locale segment route (`{-$locale}/route.tsx`) — create only when absent.
-    await createIfMissing(
-      rootDir,
-      join(localeDir, `route.${scriptExtension}`),
-      LOCALE_ROUTE_TEMPLATE,
-      'locale route'
-    );
+    if (usesDefaultLocaleSegment) {
+      const localeDir = join(routesDir, LOCALE_SEGMENT);
+      await ensureDirectory(rootDir, localeDir);
+
+      // 2. Locale segment route (`{-$locale}/route.tsx`) — create when absent.
+      await createIfMissing(
+        rootDir,
+        join(localeDir, `route.${scriptExtension}`),
+        LOCALE_ROUTE_TEMPLATE,
+        'locale route'
+      );
+    }
 
     // 3. Root document — transform an existing `__root`, else scaffold one.
     const existingRoot = await findAppFile(rootDir, routesDir, '__root');

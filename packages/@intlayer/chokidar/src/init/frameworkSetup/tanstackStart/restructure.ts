@@ -1,4 +1,3 @@
-import { existsSync } from 'node:fs';
 import { mkdir, readdir, readFile, rename, writeFile } from 'node:fs/promises';
 import { join, relative } from 'node:path';
 import fg from 'fast-glob';
@@ -9,6 +8,19 @@ const SCRIPT_GLOB = '**/*.{ts,tsx,js,jsx,mjs,cjs}';
 
 /** The TanStack Router locale segment directory (optional `{-$locale}` param). */
 export const LOCALE_SEGMENT = '{-$locale}';
+
+/**
+ * Detects whether a top-level route entry is already a locale segment, in any of
+ * the TanStack Router param forms:
+ * - `{-$locale}` — optional param (prefix every locale except the default),
+ * - `$locale` / `{$locale}` — required param (prefix **all** locales).
+ *
+ * Used to skip the restructure when the project is already locale-aware, so an
+ * existing prefix-all `$locale` directory is never nested under a freshly created
+ * `{-$locale}` (which would produce `{-$locale}/$locale`).
+ */
+export const isLocaleSegment = (entryName: string): boolean =>
+  /^(\{-?\$locale\}|\$locale)$/.test(entryName);
 
 /** Strips a known script extension from a file name, e.g. `index.tsx` -> `index`. */
 const stripScriptExtension = (fileName: string): string =>
@@ -37,15 +49,16 @@ export const shouldKeepRouteAtRoot = (entryName: string): boolean => {
 
 /** Outcome of an attempted `{-$locale}` restructure. */
 export type RestructureResult =
-  | { status: 'already-structured' }
+  | { status: 'already-structured'; localeSegment: string }
   | { status: 'nothing-to-move' }
   | { status: 'moved'; movedEntries: string[] };
 
 /**
  * Moves the routable entries of `routesDir` under a new `{-$locale}` segment and
- * rewrites relative imports in the moved files. Idempotent: a no-op when
- * `{-$locale}` already exists. Root-only files (see {@link shouldKeepRouteAtRoot})
- * are left in place.
+ * rewrites relative imports in the moved files. Idempotent: a no-op when the
+ * routes are already locale-aware in any prefix mode (see {@link isLocaleSegment}),
+ * which is reported via `localeSegment`. Root-only files (see
+ * {@link shouldKeepRouteAtRoot}) are left in place.
  */
 export const restructureRoutesIntoLocale = async (
   rootDir: string,
@@ -54,11 +67,20 @@ export const restructureRoutesIntoLocale = async (
   const routesDirAbs = join(rootDir, routesDir);
   const localeDirAbs = join(routesDirAbs, LOCALE_SEGMENT);
 
-  if (existsSync(localeDirAbs)) {
-    return { status: 'already-structured' };
+  const entries = await readdir(routesDirAbs, { withFileTypes: true });
+
+  // Skip when the routes are already locale-aware in any prefix mode — a fresh
+  // `{-$locale}`, or an existing `$locale` / `{$locale}` (prefix-all) segment.
+  const existingLocaleSegment = entries.find((entry) =>
+    isLocaleSegment(entry.name)
+  );
+  if (existingLocaleSegment) {
+    return {
+      status: 'already-structured',
+      localeSegment: existingLocaleSegment.name,
+    };
   }
 
-  const entries = await readdir(routesDirAbs, { withFileTypes: true });
   const movedTopLevelNames = entries
     .map((entry) => entry.name)
     .filter((name) => !shouldKeepRouteAtRoot(name));
