@@ -938,12 +938,12 @@ describe('intlayerProxy', () => {
         rewrite: undefined,
         domains: undefined,
       };
-      process.env['INTLAYER_ROUTING_MODE'] = 'prefix-no-default';
+      process.env.INTLAYER_ROUTING_MODE = 'prefix-no-default';
       await reimportProxy();
     });
 
     afterAll(() => {
-      delete process.env['INTLAYER_ROUTING_MODE'];
+      delete process.env.INTLAYER_ROUTING_MODE;
     });
 
     beforeEach(restorePathMocks);

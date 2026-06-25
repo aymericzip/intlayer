@@ -16,8 +16,7 @@ export const useEditor = () => {
   const managerRef = useRef<EditorStateManager | null>(null);
 
   useEffect(() => {
-    if (process.env['INTLAYER_EDITOR_ENABLED'] === 'false' || !isEnabled)
-      return;
+    if (process.env.INTLAYER_EDITOR_ENABLED === 'false' || !isEnabled) return;
 
     import('@intlayer/editor').then(({ initEditorClient }) => {
       const manager = initEditorClient();

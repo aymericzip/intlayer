@@ -116,7 +116,7 @@ export const intlayerNodePlugins: Plugins = {
     typeof node === 'string' ||
     typeof node === 'number',
   transform: (_node, { children, keyPath, dictionaryKey, ...rest }) => {
-    if (process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' && editor.enabled) {
+    if (process.env.INTLAYER_EDITOR_ENABLED !== 'false' && editor.enabled) {
       const rawStr = String(children ?? '');
       const htmlStr = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${escapeHtmlText(rawStr)}</intlayer-content-selector-wrapper>`;
       return createLitHTMLNode(htmlStr, rawStr);
@@ -144,7 +144,7 @@ export type InsertionCond<T, _S, L extends LocalesValues> = T extends {
   : never;
 
 export const insertionPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_INSERTION'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_INSERTION === 'false'
     ? fallbackPlugin
     : {
         id: 'insertion-plugin',
@@ -239,7 +239,7 @@ export type MarkdownStringCond<T> = T extends string
 
 /** Markdown string plugin. Replaces string node with a component that render the markdown. */
 export const markdownStringPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_MARKDOWN === 'false'
     ? fallbackPlugin
     : {
         id: 'markdown-string-plugin',
@@ -277,7 +277,7 @@ export const markdownStringPlugin: Plugins =
             const rendered = compileMarkdown(node, { components });
 
             if (
-              process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
+              process.env.INTLAYER_EDITOR_ENABLED !== 'false' &&
               editor.enabled
             ) {
               const wrappedHTML = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${rendered}</intlayer-content-selector-wrapper>`;
@@ -288,7 +288,7 @@ export const markdownStringPlugin: Plugins =
           };
 
           if (
-            process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
+            process.env.INTLAYER_EDITOR_ENABLED !== 'false' &&
             editor.enabled
           ) {
             const wrappedHTML = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${compiled}</intlayer-content-selector-wrapper>`;
@@ -318,7 +318,7 @@ export type MarkdownCond<T> = T extends {
   : never;
 
 export const markdownPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_MARKDOWN === 'false'
     ? fallbackPlugin
     : {
         id: 'markdown-plugin',
@@ -357,7 +357,7 @@ export type HTMLPluginCond<T> = T extends {
   : never;
 
 export const htmlPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_HTML'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_HTML === 'false'
     ? fallbackPlugin
     : {
         id: 'html-plugin',
@@ -396,7 +396,7 @@ export const htmlPlugin: Plugins =
             const rendered = getHTML(htmlStr, wrappedComponents as any);
 
             if (
-              process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
+              process.env.INTLAYER_EDITOR_ENABLED !== 'false' &&
               editor.enabled
             ) {
               const wrappedHTML = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${rendered}</intlayer-content-selector-wrapper>`;
@@ -407,7 +407,7 @@ export const htmlPlugin: Plugins =
           };
 
           if (
-            process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
+            process.env.INTLAYER_EDITOR_ENABLED !== 'false' &&
             editor.enabled
           ) {
             const wrappedHTML = `<intlayer-content-selector-wrapper key-path="${escapeHtmlAttr(JSON.stringify(keyPath ?? []))}" dictionary-key="${escapeHtmlAttr(String(dictionaryKey ?? ''))}">${htmlStr}</intlayer-content-selector-wrapper>`;

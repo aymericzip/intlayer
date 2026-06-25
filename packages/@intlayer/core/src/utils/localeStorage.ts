@@ -12,25 +12,25 @@ import { getCookie } from './getCookie';
  * True when cookie storage is explicitly disabled at build time.
  */
 const TREE_SHAKE_STORAGE_COOKIES =
-  process.env['INTLAYER_ROUTING_STORAGE_COOKIES'] === 'false';
+  process.env.INTLAYER_ROUTING_STORAGE_COOKIES === 'false';
 
 /**
  * True when localStorage is explicitly disabled at build time.
  */
 const TREE_SHAKE_STORAGE_LOCAL_STORAGE =
-  process.env['INTLAYER_ROUTING_STORAGE_LOCALSTORAGE'] === 'false';
+  process.env.INTLAYER_ROUTING_STORAGE_LOCALSTORAGE === 'false';
 
 /**
  * True when sessionStorage is explicitly disabled at build time.
  */
 const TREE_SHAKE_STORAGE_SESSION_STORAGE =
-  process.env['INTLAYER_ROUTING_STORAGE_SESSIONSTORAGE'] === 'false';
+  process.env.INTLAYER_ROUTING_STORAGE_SESSIONSTORAGE === 'false';
 
 /**
  * True when header storage is explicitly disabled at build time.
  */
 const TREE_SHAKE_STORAGE_HEADERS =
-  process.env['INTLAYER_ROUTING_STORAGE_HEADERS'] === 'false';
+  process.env.INTLAYER_ROUTING_STORAGE_HEADERS === 'false';
 
 // ============================================================================
 // Shared types

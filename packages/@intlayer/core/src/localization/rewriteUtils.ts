@@ -7,7 +7,7 @@
  * (INTLAYER_ROUTING_REWRITE_RULES === 'false').
  */
 const TREE_SHAKE_REWRITE =
-  process.env['INTLAYER_ROUTING_REWRITE_RULES'] === 'false';
+  process.env.INTLAYER_ROUTING_REWRITE_RULES === 'false';
 
 import type { Locale } from '@intlayer/types/allLocales';
 import type {

@@ -97,23 +97,23 @@ export const createIntlayerProxyHandler = (
   // Derived flags from routing.mode
   const noPrefix =
     (!(
-      process.env['INTLAYER_ROUTING_MODE'] &&
-      process.env['INTLAYER_ROUTING_MODE'] !== 'no-prefix'
+      process.env.INTLAYER_ROUTING_MODE &&
+      process.env.INTLAYER_ROUTING_MODE !== 'no-prefix'
     ) &&
       mode === 'no-prefix') ||
     (!(
-      process.env['INTLAYER_ROUTING_MODE'] &&
-      process.env['INTLAYER_ROUTING_MODE'] !== 'search-params'
+      process.env.INTLAYER_ROUTING_MODE &&
+      process.env.INTLAYER_ROUTING_MODE !== 'search-params'
     ) &&
       mode === 'search-params');
   const prefixDefault =
     !(
-      process.env['INTLAYER_ROUTING_MODE'] &&
-      process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-all'
+      process.env.INTLAYER_ROUTING_MODE &&
+      process.env.INTLAYER_ROUTING_MODE !== 'prefix-all'
     ) && mode === 'prefix-all';
 
   const rewriteRules =
-    process.env['INTLAYER_ROUTING_REWRITE_RULES'] !== 'false'
+    process.env.INTLAYER_ROUTING_REWRITE_RULES !== 'false'
       ? getRewriteRules(rewrite, 'url')
       : undefined;
 
@@ -163,8 +163,8 @@ export const createIntlayerProxyHandler = (
     locale: Locale
   ): string | undefined => {
     if (
-      (process.env['INTLAYER_ROUTING_MODE'] &&
-        process.env['INTLAYER_ROUTING_MODE'] !== 'search-params') ||
+      (process.env.INTLAYER_ROUTING_MODE &&
+        process.env.INTLAYER_ROUTING_MODE !== 'search-params') ||
       mode !== 'search-params'
     )
       return search;
@@ -287,13 +287,13 @@ export const createIntlayerProxyHandler = (
     // In 'search-params' and 'no-prefix' modes, do not prefix the path with the locale
     if (
       (!(
-        process.env['INTLAYER_ROUTING_MODE'] &&
-        process.env['INTLAYER_ROUTING_MODE'] !== 'no-prefix'
+        process.env.INTLAYER_ROUTING_MODE &&
+        process.env.INTLAYER_ROUTING_MODE !== 'no-prefix'
       ) &&
         mode === 'no-prefix') ||
       (!(
-        process.env['INTLAYER_ROUTING_MODE'] &&
-        process.env['INTLAYER_ROUTING_MODE'] !== 'search-params'
+        process.env.INTLAYER_ROUTING_MODE &&
+        process.env.INTLAYER_ROUTING_MODE !== 'search-params'
       ) &&
         mode === 'search-params')
     ) {
@@ -389,8 +389,8 @@ export const createIntlayerProxyHandler = (
     // In search-params mode, we need to redirect to add the locale search param
     if (
       !(
-        process.env['INTLAYER_ROUTING_MODE'] &&
-        process.env['INTLAYER_ROUTING_MODE'] !== 'search-params'
+        process.env.INTLAYER_ROUTING_MODE &&
+        process.env.INTLAYER_ROUTING_MODE !== 'search-params'
       ) &&
       mode === 'search-params'
     ) {
@@ -734,7 +734,7 @@ export const createIntlayerProxyHandler = (
     // Domain routing: if the path locale is mapped to a different domain, redirect there.
     // e.g. intlayer.org/zh/about → https://intlayer.zh/about
     if (
-      process.env['INTLAYER_ROUTING_DOMAINS'] !== 'false' &&
+      process.env.INTLAYER_ROUTING_DOMAINS !== 'false' &&
       !noPrefix &&
       pathLocale &&
       domains
@@ -763,7 +763,7 @@ export const createIntlayerProxyHandler = (
     // treat it as that locale without a URL prefix.
     // e.g. intlayer.zh/about → internally rewrite to /zh/about
     if (
-      process.env['INTLAYER_ROUTING_DOMAINS'] !== 'false' &&
+      process.env.INTLAYER_ROUTING_DOMAINS !== 'false' &&
       !noPrefix &&
       !pathLocale
     ) {

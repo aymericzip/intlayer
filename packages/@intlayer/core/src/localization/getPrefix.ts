@@ -145,9 +145,9 @@ export const getPrefix = <const L extends LocalesValues | undefined>(
     resolveRoutingConfig(options);
 
   if (
-    (process.env['INTLAYER_ROUTING_MODE'] &&
-      process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-all' &&
-      process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-no-default') ||
+    (process.env.INTLAYER_ROUTING_MODE &&
+      process.env.INTLAYER_ROUTING_MODE !== 'prefix-all' &&
+      process.env.INTLAYER_ROUTING_MODE !== 'prefix-no-default') ||
     !locale ||
     !locales.includes(locale)
   ) {
@@ -159,7 +159,7 @@ export const getPrefix = <const L extends LocalesValues | undefined>(
 
   // If this locale is the only one assigned to its domain, no URL prefix is needed
   // (the domain itself identifies the locale). Shared domains use normal prefix logic.
-  if (process.env['INTLAYER_ROUTING_DOMAINS'] !== 'false' && domains) {
+  if (process.env.INTLAYER_ROUTING_DOMAINS !== 'false' && domains) {
     const localeDomain = domains[locale as LocalesValues];
 
     if (localeDomain) {

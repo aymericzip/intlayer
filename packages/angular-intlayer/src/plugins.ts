@@ -30,8 +30,8 @@ let _markdownInstall: {
   useMarkdown: () => { renderMarkdown: (s: string, components?: any) => any };
 } | null = null;
 if (
-  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] !== 'false' ||
-  process.env['INTLAYER_NODE_TYPE_HTML'] !== 'false'
+  process.env.INTLAYER_NODE_TYPE_MARKDOWN !== 'false' ||
+  process.env.INTLAYER_NODE_TYPE_HTML !== 'false'
 ) {
   void import('./markdown/installIntlayerMarkdown').then((m) => {
     _markdownInstall = m as any;
@@ -93,7 +93,7 @@ export const intlayerNodePlugins: Plugins = {
       value: children,
       children: () => ({
         component:
-          process.env['INTLAYER_EDITOR_ENABLED'] === 'false' || !editor.enabled
+          process.env.INTLAYER_EDITOR_ENABLED === 'false' || !editor.enabled
             ? children
             : ContentSelectorWrapperComponent,
         props: {
@@ -115,7 +115,7 @@ export type MarkdownStringCond<T> = T extends string
 
 /** Markdown string plugin. Replaces string node with a component that render the markdown. */
 export const markdownStringPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_MARKDOWN === 'false'
     ? fallbackPlugin
     : {
         id: 'markdown-string-plugin',
@@ -155,7 +155,7 @@ export const markdownStringPlugin: Plugins =
               ...rest,
               value: node,
               children:
-                process.env['INTLAYER_EDITOR_ENABLED'] === 'false' ||
+                process.env.INTLAYER_EDITOR_ENABLED === 'false' ||
                 !editor.enabled
                   ? () => {
                       const { renderMarkdown } =
@@ -253,7 +253,7 @@ export type MarkdownCond<T, _S, _L extends LocalesValues> = T extends {
   : never;
 
 export const markdownPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_MARKDOWN === 'false'
     ? fallbackPlugin
     : {
         id: 'markdown-plugin',
@@ -303,7 +303,7 @@ export type HTMLPluginCond<T, _S, _L> = T extends {
 
 /** HTML plugin. Replaces node with a function that takes components => IntlayerNode. */
 export const htmlPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_HTML'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_HTML === 'false'
     ? fallbackPlugin
     : {
         id: 'html-plugin',
@@ -320,7 +320,7 @@ export const htmlPlugin: Plugins =
               ...rest,
               value: html,
               children:
-                process.env['INTLAYER_EDITOR_ENABLED'] === 'false' ||
+                process.env.INTLAYER_EDITOR_ENABLED === 'false' ||
                 !editor.enabled
                   ? html
                   : () => ({
@@ -416,7 +416,7 @@ export type InsertionPluginCond<T> = T extends {
   : never;
 
 export const insertionPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_INSERTION'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_INSERTION === 'false'
     ? fallbackPlugin
     : {
         id: 'insertion-plugin',

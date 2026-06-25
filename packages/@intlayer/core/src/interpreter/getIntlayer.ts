@@ -100,7 +100,7 @@ export const getIntlayer = <
   let locale: LocalesValues | undefined;
   let selectorCacheKey = '';
 
-  if (process.env['INTLAYER_DICTIONARY_SELECTOR'] !== 'false') {
+  if (process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false') {
     const parsed = parseDictionarySelector(localeOrSelector);
     locale = parsed.locale;
     selectorCacheKey = getDictionarySelectorCacheKey(parsed.selector);

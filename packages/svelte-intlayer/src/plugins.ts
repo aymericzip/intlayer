@@ -41,7 +41,7 @@ let _MarkdownWithSelector: any = null;
 let _svelteHtmlRuntime: any = null;
 let _HTMLWithSelector: any = null;
 
-if (process.env['INTLAYER_NODE_TYPE_MARKDOWN'] !== 'false') {
+if (process.env.INTLAYER_NODE_TYPE_MARKDOWN !== 'false') {
   void import('@intlayer/core/markdown').then((m) => {
     _getMarkdownMetadata = m.getMarkdownMetadata;
     _compile = m.compile;
@@ -65,7 +65,7 @@ if (process.env['INTLAYER_NODE_TYPE_MARKDOWN'] !== 'false') {
   ]);
 }
 
-if (process.env['INTLAYER_NODE_TYPE_HTML'] !== 'false') {
+if (process.env.INTLAYER_NODE_TYPE_HTML !== 'false') {
   void import('./html/HTMLWithSelector.svelte').then(
     (m) => (_HTMLWithSelector = m.default)
   );
@@ -108,7 +108,7 @@ export const intlayerNodePlugins: Plugins = {
     renderIntlayerNode({
       value: children ?? node,
       component:
-        process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' && editor.enabled
+        process.env.INTLAYER_EDITOR_ENABLED !== 'false' && editor.enabled
           ? ContentSelector
           : undefined,
       props: rest,
@@ -204,7 +204,7 @@ const splitAndJoinInsertion = (
 
 /** Insertion plugin for Svelte. Handles component insertion. */
 export const insertionPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_INSERTION'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_INSERTION === 'false'
     ? fallbackPlugin
     : {
         id: 'insertion-plugin',
@@ -300,7 +300,7 @@ export type MarkdownStringCond<T> = T extends string
 
 /** Markdown string plugin. Replaces string node with a component that render the markdown. */
 export const markdownStringPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_MARKDOWN === 'false'
     ? fallbackPlugin
     : {
         id: 'markdown-string-plugin',
@@ -321,7 +321,7 @@ export const markdownStringPlugin: Plugins =
               renderIntlayerNode({
                 value: metadataNode,
                 component:
-                  process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
+                  process.env.INTLAYER_EDITOR_ENABLED !== 'false' &&
                   editor.enabled
                     ? (_MarkdownMetadataWithSelector ??
                       _MarkdownMetadataRenderer)
@@ -346,7 +346,7 @@ export const markdownStringPlugin: Plugins =
             const nodeResult = renderIntlayerNode({
               value: node,
               component:
-                process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
+                process.env.INTLAYER_EDITOR_ENABLED !== 'false' &&
                 editor.enabled
                   ? (_MarkdownWithSelector ?? _MarkdownRenderer)
                   : _MarkdownRenderer,
@@ -404,7 +404,7 @@ export type MarkdownCond<T, _S, L extends LocalesValues> = T extends {
   : never;
 
 export const markdownPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_MARKDOWN === 'false'
     ? fallbackPlugin
     : {
         id: 'markdown-plugin',
@@ -445,7 +445,7 @@ export type HTMLPluginCond<T> = T extends {
 
 /** HTML plugin. Replaces node with a function that takes components => HTMLElement[]. */
 export const htmlPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_HTML'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_HTML === 'false'
     ? fallbackPlugin
     : {
         id: 'html-plugin',
@@ -461,7 +461,7 @@ export const htmlPlugin: Plugins =
               ...props,
               value: htmlString,
               component:
-                process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
+                process.env.INTLAYER_EDITOR_ENABLED !== 'false' &&
                 editor.enabled
                   ? (_HTMLWithSelector ?? HTMLRenderer)
                   : HTMLRenderer,

@@ -33,7 +33,7 @@ import { type IntlayerNode, renderIntlayerNode } from './IntlayerNode';
 import { renderPreactElement } from './preactElement/renderPreactElement';
 
 const markdownRendererModulePromise =
-  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] !== 'false'
+  process.env.INTLAYER_NODE_TYPE_MARKDOWN !== 'false'
     ? import('./markdown/MarkdownRendererPlugin').then((m) => ({
         MarkdownRendererPlugin: m.MarkdownRendererPlugin,
         MarkdownMetadataRenderer: m.MarkdownMetadataRenderer,
@@ -41,7 +41,7 @@ const markdownRendererModulePromise =
     : null;
 
 const htmlRendererModulePromise =
-  process.env['INTLAYER_NODE_TYPE_HTML'] !== 'false'
+  process.env.INTLAYER_NODE_TYPE_HTML !== 'false'
     ? import('./html/HTMLRenderer').then((m) => m.HTMLRenderer)
     : null;
 
@@ -71,7 +71,7 @@ export const intlayerNodePlugins: Plugins = {
       ...rest,
       value: rest.children,
       children:
-        process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' && editor.enabled ? (
+        process.env.INTLAYER_EDITOR_ENABLED !== 'false' && editor.enabled ? (
           <ContentSelector {...rest} key={rest.children}>
             {rest.children}
           </ContentSelector>
@@ -94,7 +94,7 @@ export type PreactNodeCond<T> = T extends {
 
 /** Translation plugin. Replaces node with a locale string if nodeType = Translation. */
 export const preactNodePlugins: Plugins =
-  process.env['INTLAYER_NODE_TYPE_PREACT_NODE'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_PREACT_NODE === 'false'
     ? fallbackPlugin
     : {
         id: 'preact-node-plugin',
@@ -114,7 +114,7 @@ export const preactNodePlugins: Plugins =
             ...rest,
             value: '[[preact-element]]',
             children:
-              process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
+              process.env.INTLAYER_EDITOR_ENABLED !== 'false' &&
               editor.enabled ? (
                 <ContentSelector {...rest}>
                   {renderPreactElement(node)}
@@ -212,7 +212,7 @@ const splitAndJoinInsertion = (
 
 /** Insertion plugin for Preact. Handles component/node insertion. */
 export const insertionPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_INSERTION'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_INSERTION === 'false'
     ? fallbackPlugin
     : {
         id: 'insertion-plugin',
@@ -331,7 +331,7 @@ const MarkdownMetadataSuspenseRenderer: FunctionComponent<
 
 /** Markdown string plugin. Replaces string node with a component that render the markdown. */
 export const markdownStringPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_MARKDOWN === 'false'
     ? fallbackPlugin
     : {
         id: 'markdown-string-plugin',
@@ -356,7 +356,7 @@ export const markdownStringPlugin: Plugins =
                 ...props,
                 value: metadataNode,
                 children:
-                  process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
+                  process.env.INTLAYER_EDITOR_ENABLED !== 'false' &&
                   editor.enabled ? (
                     <ContentSelector {...rest}>
                       <MarkdownMetadataSuspenseRenderer
@@ -389,7 +389,7 @@ export const markdownStringPlugin: Plugins =
               ...props,
               value: node,
               children:
-                process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
+                process.env.INTLAYER_EDITOR_ENABLED !== 'false' &&
                 editor.enabled ? (
                   <ContentSelector {...rest}>
                     <MarkdownSuspenseRenderer {...rest} components={components}>
@@ -440,7 +440,7 @@ export type MarkdownCond<T> = T extends {
   : never;
 
 export const markdownPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_MARKDOWN === 'false'
     ? fallbackPlugin
     : {
         id: 'markdown-plugin',
@@ -491,7 +491,7 @@ const HTMLSuspenseRenderer: FunctionComponent<Record<string, any>> = (
 
 /** HTML plugin. Replaces node with a function that takes components => VNode. */
 export const htmlPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_HTML'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_HTML === 'false'
     ? fallbackPlugin
     : {
         id: 'html-plugin',
@@ -508,7 +508,7 @@ export const htmlPlugin: Plugins =
               ...rest,
               value: html,
               children:
-                process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
+                process.env.INTLAYER_EDITOR_ENABLED !== 'false' &&
                 editor.enabled
                   ? h(
                       ContentSelector,

@@ -33,7 +33,7 @@ import { type IntlayerNode, renderIntlayerNode } from './IntlayerNode';
 import { renderSolidElement } from './solidElement/renderSolidElement';
 
 const LazyContentSelector = (
-  process.env['INTLAYER_EDITOR_ENABLED'] === 'false'
+  process.env.INTLAYER_EDITOR_ENABLED === 'false'
     ? null
     : lazy(() =>
         import('./editor/ContentSelector').then((m) => ({
@@ -43,7 +43,7 @@ const LazyContentSelector = (
 )!;
 
 const markdownRendererModulePromise =
-  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] !== 'false'
+  process.env.INTLAYER_NODE_TYPE_MARKDOWN !== 'false'
     ? import('./markdown/MarkdownRenderer').then((m) => ({
         MarkdownRenderer: m.MarkdownRenderer,
         MarkdownMetadataRenderer: m.MarkdownMetadataRenderer,
@@ -51,7 +51,7 @@ const markdownRendererModulePromise =
     : null;
 
 const htmlRendererModulePromise =
-  process.env['INTLAYER_NODE_TYPE_HTML'] !== 'false'
+  process.env.INTLAYER_NODE_TYPE_HTML !== 'false'
     ? import('./html/HTMLRenderer').then((m) => m.HTMLRenderer)
     : null;
 
@@ -81,7 +81,7 @@ export const intlayerNodePlugins: Plugins = {
       ...rest,
       value: rest.children,
       children:
-        process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' && editor.enabled ? (
+        process.env.INTLAYER_EDITOR_ENABLED !== 'false' && editor.enabled ? (
           <Suspense fallback={rest.children}>
             <LazyContentSelector {...rest}>{rest.children}</LazyContentSelector>
           </Suspense>
@@ -104,7 +104,7 @@ export type SolidNodeCond<T> = T extends {
 
 /** Translation plugin. Replaces node with a locale string if nodeType = Translation. */
 export const solidNodePlugins: Plugins =
-  process.env['INTLAYER_NODE_TYPE_SOLID_NODE'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_SOLID_NODE === 'false'
     ? fallbackPlugin
     : {
         id: 'solid-node-plugin',
@@ -123,7 +123,7 @@ export const solidNodePlugins: Plugins =
             ...rest,
             value: '[[solid-element]]',
             children:
-              process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
+              process.env.INTLAYER_EDITOR_ENABLED !== 'false' &&
               editor.enabled ? (
                 <Suspense
                   fallback={
@@ -185,7 +185,7 @@ const splitAndJoinInsertion = (
 
 /** Insertion plugin for Solid. Handles component/element insertion. */
 export const insertionPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_INSERTION'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_INSERTION === 'false'
     ? fallbackPlugin
     : {
         id: 'insertion-plugin',
@@ -276,7 +276,7 @@ const MarkdownMetadataSuspenseRenderer: Component<Record<string, any>> = (
 
 /** Markdown string plugin. Replaces string node with a component that render the markdown. */
 export const markdownStringPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_MARKDOWN === 'false'
     ? fallbackPlugin
     : {
         id: 'markdown-string-plugin',
@@ -301,7 +301,7 @@ export const markdownStringPlugin: Plugins =
                 ...props,
                 value: metadataNode,
                 children:
-                  process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
+                  process.env.INTLAYER_EDITOR_ENABLED !== 'false' &&
                   editor.enabled ? (
                     <Suspense>
                       <LazyContentSelector {...rest}>
@@ -336,7 +336,7 @@ export const markdownStringPlugin: Plugins =
               ...props,
               value: node,
               children:
-                process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
+                process.env.INTLAYER_EDITOR_ENABLED !== 'false' &&
                 editor.enabled ? (
                   <Suspense>
                     <LazyContentSelector {...rest}>
@@ -395,7 +395,7 @@ export type MarkdownCond<T> = T extends {
   : never;
 
 export const markdownPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_MARKDOWN === 'false'
     ? fallbackPlugin
     : {
         id: 'markdown-plugin',
@@ -448,7 +448,7 @@ const HTMLSuspenseRenderer: Component<Record<string, any>> = (props) => {
 
 /** HTML plugin. Replaces node with a function that takes components => JSX.Element. */
 export const htmlPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_HTML'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_HTML === 'false'
     ? fallbackPlugin
     : {
         id: 'html-plugin',
@@ -464,7 +464,7 @@ export const htmlPlugin: Plugins =
               ...rest,
               value: html,
               children:
-                process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
+                process.env.INTLAYER_EDITOR_ENABLED !== 'false' &&
                 editor.enabled ? (
                   <Suspense>
                     <LazyContentSelector {...rest}>

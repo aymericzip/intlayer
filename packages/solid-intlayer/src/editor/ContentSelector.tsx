@@ -23,7 +23,7 @@ export type ContentSelectorWrapperProps = NodeProps &
 export const ContentSelector: Component<ContentSelectorWrapperProps> = (
   props
 ) => {
-  if (process.env['INTLAYER_EDITOR_ENABLED'] === 'false' || !isEnabled) {
+  if (process.env.INTLAYER_EDITOR_ENABLED === 'false' || !isEnabled) {
     return props.children;
   }
 

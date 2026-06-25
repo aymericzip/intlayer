@@ -23,7 +23,7 @@ export const ContentSelector: FunctionalComponent<
 > = ({ children, dictionaryKey, keyPath }) => {
   useEffect(() => {
     if (
-      process.env['INTLAYER_EDITOR_ENABLED'] === 'false' ||
+      process.env.INTLAYER_EDITOR_ENABLED === 'false' ||
       !isEnabled ||
       typeof window === 'undefined'
     )
@@ -33,7 +33,7 @@ export const ContentSelector: FunctionalComponent<
     });
   }, [isEnabled]);
 
-  if (process.env['INTLAYER_EDITOR_ENABLED'] === 'false' || !isEnabled) {
+  if (process.env.INTLAYER_EDITOR_ENABLED === 'false' || !isEnabled) {
     return children;
   }
 

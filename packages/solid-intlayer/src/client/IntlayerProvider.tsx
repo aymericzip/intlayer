@@ -19,7 +19,7 @@ import {
 import { localeInStorage, setLocaleInStorage } from './useLocaleStorage';
 
 const LazyEditorProvider =
-  process.env['INTLAYER_EDITOR_ENABLED'] !== 'false'
+  process.env.INTLAYER_EDITOR_ENABLED !== 'false'
     ? lazy(() =>
         import('../editor/EditorProvider').then((m) => ({
           default: m.EditorProvider,
@@ -138,12 +138,11 @@ export const IntlayerProviderContent: Component<IntlayerProviderProps> = (
  */
 export const IntlayerProvider: Component<IntlayerProviderProps> = (props) => (
   <IntlayerProviderContent {...props}>
-    {process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
-      LazyEditorProvider && (
-        <Suspense>
-          <LazyEditorProvider />
-        </Suspense>
-      )}
+    {process.env.INTLAYER_EDITOR_ENABLED !== 'false' && LazyEditorProvider && (
+      <Suspense>
+        <LazyEditorProvider />
+      </Suspense>
+    )}
     {props.children}
   </IntlayerProviderContent>
 );

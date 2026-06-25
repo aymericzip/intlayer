@@ -9,16 +9,16 @@ import { internationalization } from '@intlayer/config/built';
  * mode (neither 'prefix-all' nor 'prefix-no-default').
  */
 const TREE_SHAKE_PREFIX_MODES =
-  process.env['INTLAYER_ROUTING_MODE'] &&
-  process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-all' &&
-  process.env['INTLAYER_ROUTING_MODE'] !== 'prefix-no-default';
+  process.env.INTLAYER_ROUTING_MODE &&
+  process.env.INTLAYER_ROUTING_MODE !== 'prefix-all' &&
+  process.env.INTLAYER_ROUTING_MODE !== 'prefix-no-default';
 
 /**
  * True when the build-time routing mode is known and is NOT 'search-params'.
  */
 const TREE_SHAKE_SEARCH_PARAMS =
-  process.env['INTLAYER_ROUTING_MODE'] &&
-  process.env['INTLAYER_ROUTING_MODE'] !== 'search-params';
+  process.env.INTLAYER_ROUTING_MODE &&
+  process.env.INTLAYER_ROUTING_MODE !== 'search-params';
 
 import type {
   DeclaredLocales,

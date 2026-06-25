@@ -82,7 +82,7 @@ export const installIntlayer = (
 
   app.provide(INTLAYER_SYMBOL, client);
 
-  if (process.env['INTLAYER_EDITOR_ENABLED'] !== 'false') {
+  if (process.env.INTLAYER_EDITOR_ENABLED !== 'false') {
     import('../editor/useEditor').then(({ useEditor }) => {
       useEditor(app);
     });

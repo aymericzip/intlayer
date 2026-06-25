@@ -149,7 +149,7 @@ export const useDictionary = <
       localeOrSelector !== undefined ? toValue(localeOrSelector) : undefined;
 
     if (
-      process.env['INTLAYER_DICTIONARY_SELECTOR'] !== 'false' &&
+      process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
       typeof value === 'object' &&
       value !== null
     ) {

@@ -59,7 +59,7 @@ export const intlayerNodePlugins: Plugins = {
     typeof node === 'string' ||
     typeof node === 'number',
   transform: (_node, { children, keyPath, dictionaryKey, ...rest }) => {
-    if (process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' && editor.enabled) {
+    if (process.env.INTLAYER_EDITOR_ENABLED !== 'false' && editor.enabled) {
       const rawStr = String(children ?? '');
       const keyPathJson = JSON.stringify(keyPath ?? []);
       const dictKey = String(dictionaryKey ?? '');
@@ -114,7 +114,7 @@ export type InsertionCond<T, _S, L extends LocalesValues> = T extends {
   : never;
 
 export const insertionPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_INSERTION'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_INSERTION === 'false'
     ? fallbackPlugin
     : {
         id: 'insertion-plugin',
@@ -233,7 +233,7 @@ export type MarkdownStringCond<T> = T extends string
   : never;
 
 export const markdownStringPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_MARKDOWN === 'false'
     ? fallbackPlugin
     : {
         id: 'markdown-string-plugin',
@@ -283,7 +283,7 @@ export const markdownStringPlugin: Plugins =
           let children = node;
 
           if (
-            process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
+            process.env.INTLAYER_EDITOR_ENABLED !== 'false' &&
             editor.enabled
           ) {
             const keyPathJson = JSON.stringify(props.keyPath ?? []);
@@ -316,7 +316,7 @@ export type MarkdownCond<T> = T extends {
   : never;
 
 export const markdownPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_MARKDOWN === 'false'
     ? fallbackPlugin
     : {
         id: 'markdown-plugin',
@@ -353,7 +353,7 @@ export type HTMLPluginCond<T> = T extends {
   : never;
 
 export const htmlPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_HTML'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_HTML === 'false'
     ? fallbackPlugin
     : {
         id: 'html-plugin',
@@ -398,7 +398,7 @@ export const htmlPlugin: Plugins =
           let children = htmlStr;
 
           if (
-            process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
+            process.env.INTLAYER_EDITOR_ENABLED !== 'false' &&
             editor.enabled
           ) {
             const keyPathJson = JSON.stringify(props.keyPath ?? []);

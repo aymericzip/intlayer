@@ -3,8 +3,8 @@ import { createElement, Fragment } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.hoisted(() => {
-  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] = 'false';
-  process.env['INTLAYER_NODE_TYPE_HTML'] = 'false';
+  process.env.INTLAYER_NODE_TYPE_MARKDOWN = 'false';
+  process.env.INTLAYER_NODE_TYPE_HTML = 'false';
 });
 
 // ---------------------------------------------------------------------------

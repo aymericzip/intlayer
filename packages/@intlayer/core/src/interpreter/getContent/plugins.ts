@@ -101,7 +101,7 @@ export const translationPlugin = (
   locale: LocalesValues,
   fallback?: LocalesValues
 ): Plugins =>
-  process.env['INTLAYER_NODE_TYPE_TRANSLATION'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_TRANSLATION === 'false'
     ? fallbackPlugin
     : {
         id: 'translation-plugin',
@@ -148,7 +148,7 @@ export type EnumerationCond<T, S, _L> = T extends {
 
 /** Enumeration plugin. Replaces node with a function that takes quantity => string. */
 export const enumerationPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_ENUMERATION'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_ENUMERATION === 'false'
     ? fallbackPlugin
     : {
         id: 'enumeration-plugin',
@@ -208,7 +208,7 @@ type SubResultFunction = (values: Record<string, string | number>) => string;
  * for the active locale and interpolating `{{count}}` (and other values).
  */
 export const pluralPlugin = (locale?: LocalesValues): Plugins =>
-  process.env['INTLAYER_NODE_TYPE_PLURAL'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_PLURAL === 'false'
     ? fallbackPlugin
     : {
         id: 'plural-plugin',
@@ -301,7 +301,7 @@ export type ConditionCond<T, S, _L> = T extends {
 
 /** Condition plugin. Replaces node with a function that takes boolean => string. */
 export const conditionPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_CONDITION'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_CONDITION === 'false'
     ? fallbackPlugin
     : {
         id: 'condition-plugin',
@@ -357,7 +357,7 @@ export type InsertionCond<T, S, _L> = T extends {
 
 /** Insertion plugin. Replaces node with a function that takes quantity => string. */
 export const insertionPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_INSERTION'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_INSERTION === 'false'
     ? fallbackPlugin
     : {
         id: 'insertion-plugin',
@@ -431,7 +431,7 @@ export type GenderCond<T, S, _L> = T extends {
 
 /** Gender plugin. Replaces node with a function that takes gender => string. */
 export const genderPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_GENDER'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_GENDER === 'false'
     ? fallbackPlugin
     : {
         id: 'gender-plugin',
@@ -476,7 +476,7 @@ export type NestedCond<T, S, _L> = T extends {
 
 /** Nested plugin. Replaces node with the result of `getNesting`. */
 export const nestedPlugin = (locale?: LocalesValues): Plugins =>
-  process.env['INTLAYER_NODE_TYPE_NESTED'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_NESTED === 'false'
     ? fallbackPlugin
     : {
         id: 'nested-plugin',
@@ -508,7 +508,7 @@ export type FileCond<T, S, _L> = T extends {
 
 /** File plugin. Replaces node with the result of `getNesting`. */
 export const filePlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_FILE'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_FILE === 'false'
     ? fallbackPlugin
     : {
         id: 'file-plugin',

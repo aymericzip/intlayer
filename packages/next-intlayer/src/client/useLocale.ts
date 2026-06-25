@@ -65,7 +65,7 @@ export const useLocale = ({
       if (!onChange) return;
 
       const currentDomain =
-        process.env['INTLAYER_ROUTING_DOMAINS'] !== 'false' &&
+        process.env.INTLAYER_ROUTING_DOMAINS !== 'false' &&
         typeof window !== 'undefined'
           ? window.location.hostname
           : undefined;
@@ -82,7 +82,7 @@ export const useLocale = ({
       // Cross-domain navigation: the Next.js router cannot navigate to a
       // different origin, so fall back to a full page load.
       if (
-        process.env['INTLAYER_ROUTING_DOMAINS'] !== 'false' &&
+        process.env.INTLAYER_ROUTING_DOMAINS !== 'false' &&
         checkIsURLAbsolute(pathWithLocale)
       ) {
         try {

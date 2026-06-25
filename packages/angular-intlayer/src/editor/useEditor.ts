@@ -27,7 +27,7 @@ import { INTLAYER_TOKEN, type IntlayerProvider } from '../client/intlayerToken';
  *   so it still works when called directly from a component.
  */
 export const useEditor = (client?: IntlayerProvider | null): void => {
-  if (process.env['INTLAYER_EDITOR_ENABLED'] === 'false' || !isEnabled) return;
+  if (process.env.INTLAYER_EDITOR_ENABLED === 'false' || !isEnabled) return;
 
   const destroyRef = inject(DestroyRef, { optional: true });
   const injector = inject(Injector);

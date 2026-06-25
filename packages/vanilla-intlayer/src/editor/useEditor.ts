@@ -23,7 +23,7 @@ import { getIntlayerClient } from '../client/installIntlayer';
  */
 
 export const useEditor = (): (() => void) => {
-  if (process.env['INTLAYER_EDITOR_ENABLED'] === 'false' || !isEnabled)
+  if (process.env.INTLAYER_EDITOR_ENABLED === 'false' || !isEnabled)
     return () => {};
 
   let unsubscribeLocale: (() => void) | null = null;

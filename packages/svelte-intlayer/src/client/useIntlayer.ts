@@ -51,7 +51,7 @@ export const useIntlayer = <
   const context = getIntlayerContext();
 
   const isSelector =
-    process.env['INTLAYER_DICTIONARY_SELECTOR'] !== 'false' &&
+    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
     typeof localeOrSelector === 'object' &&
     localeOrSelector !== null;
 

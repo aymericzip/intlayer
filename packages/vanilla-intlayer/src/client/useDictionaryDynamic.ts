@@ -89,7 +89,7 @@ export const useDictionaryDynamic = <
 
   // --- Qualified loader map (collection / variant / meta record) ---
   if (
-    process.env['INTLAYER_DICTIONARY_SELECTOR'] !== 'false' &&
+    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
     isQualifiedDynamicLoaderMap(dictionaryLoaders)
   ) {
     const loaderMap = dictionaryLoaders;

@@ -42,7 +42,7 @@ export const useDictionary = <
     const currentLocale = context?.locale?.();
 
     if (
-      process.env['INTLAYER_DICTIONARY_SELECTOR'] !== 'false' &&
+      process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
       typeof localeOrSelector === 'object' &&
       localeOrSelector !== null
     ) {

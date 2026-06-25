@@ -6,15 +6,15 @@
  * True when the build-time routing mode is known and is NOT 'no-prefix'.
  */
 const TREE_SHAKE_NO_PREFIX =
-  process.env['INTLAYER_ROUTING_MODE'] &&
-  process.env['INTLAYER_ROUTING_MODE'] !== 'no-prefix';
+  process.env.INTLAYER_ROUTING_MODE &&
+  process.env.INTLAYER_ROUTING_MODE !== 'no-prefix';
 
 /**
  * True when the build-time routing mode is known and is NOT 'search-params'.
  */
 const TREE_SHAKE_SEARCH_PARAMS =
-  process.env['INTLAYER_ROUTING_MODE'] &&
-  process.env['INTLAYER_ROUTING_MODE'] !== 'search-params';
+  process.env.INTLAYER_ROUTING_MODE &&
+  process.env.INTLAYER_ROUTING_MODE !== 'search-params';
 
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 import {

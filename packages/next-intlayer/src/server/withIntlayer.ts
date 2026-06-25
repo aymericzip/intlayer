@@ -566,7 +566,7 @@ export const withIntlayer = async <T extends NextConfig | Partial<NextConfig>>(
 ): Promise<NextConfig & T> => {
   const { isBuildCommand, isDevCommand, isStartCommand } = getCommandsEvent();
 
-  process.env['INTLAYER_IS_DEV_COMMAND'] = isDevCommand ? 'true' : 'false';
+  process.env.INTLAYER_IS_DEV_COMMAND = isDevCommand ? 'true' : 'false';
 
   const intlayerConfig = getConfiguration(configOptions);
 

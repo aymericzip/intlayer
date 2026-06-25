@@ -59,7 +59,7 @@ export const useDictionaryDynamic = <
   const dictionaryKey = String(key);
 
   if (
-    process.env['INTLAYER_DICTIONARY_SELECTOR'] !== 'false' &&
+    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
     isQualifiedDynamicLoaderMap(dictionaryPromise)
   ) {
     const { locale: selectorLocale, selector } =

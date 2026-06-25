@@ -47,7 +47,7 @@ import {
 // Guarded by INTLAYER_EDITOR_ENABLED so bundlers can eliminate the dynamic import() entirely
 // when the editor is disabled at build time.
 const LazyContentSelector = (
-  process.env['INTLAYER_EDITOR_ENABLED'] === 'false'
+  process.env.INTLAYER_EDITOR_ENABLED === 'false'
     ? null
     : defineAsyncComponent(
         () =>
@@ -80,7 +80,7 @@ export const intlayerNodePlugins: Plugins = {
         ...rest,
         value: children,
         children:
-          process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' && editor.enabled
+          process.env.INTLAYER_EDITOR_ENABLED !== 'false' && editor.enabled
             ? () =>
                 h(
                   // EditorSelectorRenderer, // Maximum stack size exceeded
@@ -234,7 +234,7 @@ const splitAndJoinInsertion = (
 
 /** Insertion plugin for Vue. Handles component/node insertion. */
 export const insertionPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_INSERTION'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_INSERTION === 'false'
     ? fallbackPlugin
     : {
         id: 'insertion-plugin',
@@ -309,7 +309,7 @@ export type MarkdownStringCond<T> = T extends string
 
 /** Markdown string plugin. Replaces string node with a component that render the markdown. */
 export const markdownStringPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_MARKDOWN === 'false'
     ? fallbackPlugin
     : {
         id: 'markdown-string-plugin',
@@ -358,7 +358,7 @@ export const markdownStringPlugin: Plugins =
                 });
 
                 if (
-                  process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
+                  process.env.INTLAYER_EDITOR_ENABLED !== 'false' &&
                   editor.enabled
                 ) {
                   return h(
@@ -398,7 +398,7 @@ export type MarkdownCond<T> = T extends {
   : never;
 
 export const markdownPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_MARKDOWN === 'false'
     ? fallbackPlugin
     : {
         id: 'markdown-plugin',
@@ -439,7 +439,7 @@ export type HTMLPluginCond<T> = T extends {
 
 /** HTML plugin. Replaces node with a function that takes components => VNode. */
 export const htmlPlugin: Plugins =
-  process.env['INTLAYER_NODE_TYPE_HTML'] === 'false'
+  process.env.INTLAYER_NODE_TYPE_HTML === 'false'
     ? fallbackPlugin
     : {
         id: 'html-plugin',
@@ -456,7 +456,7 @@ export const htmlPlugin: Plugins =
               ...props,
               value: html,
               children:
-                process.env['INTLAYER_EDITOR_ENABLED'] !== 'false' &&
+                process.env.INTLAYER_EDITOR_ENABLED !== 'false' &&
                 editor.enabled
                   ? () =>
                       h(

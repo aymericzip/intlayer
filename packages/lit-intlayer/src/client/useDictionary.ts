@@ -46,7 +46,7 @@ export const useDictionary = <
   const client = getIntlayerClient();
 
   const isSelector =
-    process.env['INTLAYER_DICTIONARY_SELECTOR'] !== 'false' &&
+    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
     typeof localeOrSelector === 'object' &&
     localeOrSelector !== null;
   const explicitLocale = isSelector

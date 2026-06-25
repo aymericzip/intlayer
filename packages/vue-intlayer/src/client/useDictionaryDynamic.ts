@@ -42,7 +42,7 @@ export const useDictionaryDynamic = async <
   localeOrSelector?: MaybeRefOrGetter<A | null | undefined>
 ) => {
   if (
-    process.env['INTLAYER_DICTIONARY_SELECTOR'] !== 'false' &&
+    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
     isQualifiedDynamicLoaderMap(dictionaryPromise)
   ) {
     const intlayer = inject<IntlayerProvider>(INTLAYER_SYMBOL);

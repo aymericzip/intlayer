@@ -116,6 +116,7 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
+    "@babel/core": "^7.26.9",
     "@babel/plugin-syntax-import-attributes": "7.28.6",
     "@babel/preset-env": "7.29.2",
     "@intlayer/chokidar": "workspace:*",
@@ -129,6 +130,8 @@
     "defu": "6.1.7"
   },
   "devDependencies": {
+    "@angular/common": "19.2.25",
+    "@angular/core": "19.2.25",
     "@types/node": "25.9.4",
     "@types/webpack": "5.28.5",
     "@utils/ts-config": "workspace:*",

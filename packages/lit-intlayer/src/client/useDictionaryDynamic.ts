@@ -113,10 +113,10 @@ export const useDictionaryDynamic = <
   const client = getIntlayerClient();
 
   const isQualified =
-    process.env['INTLAYER_DICTIONARY_SELECTOR'] !== 'false' &&
+    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
     isQualifiedDynamicLoaderMap(dictionaryPromise);
   const { locale: explicitLocale, selector } =
-    process.env['INTLAYER_DICTIONARY_SELECTOR'] !== 'false'
+    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false'
       ? parseDictionarySelector<LocalesValues>(localeOrSelector)
       : {
           locale: localeOrSelector as LocalesValues | undefined,

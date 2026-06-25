@@ -94,8 +94,8 @@ export const getLocalizedUrl = <
 
   if (
     !(
-      process.env['INTLAYER_ROUTING_MODE'] &&
-      process.env['INTLAYER_ROUTING_MODE'] !== 'no-prefix'
+      process.env.INTLAYER_ROUTING_MODE &&
+      process.env.INTLAYER_ROUTING_MODE !== 'no-prefix'
     ) &&
     mode === 'no-prefix'
   ) {
@@ -128,7 +128,7 @@ export const getLocalizedUrl = <
   // When none of these is available we fall back to always generating an
   // absolute URL (the previous behaviour, safe for SSR/static generation).
   const detectedCurrentHostname =
-    process.env['INTLAYER_ROUTING_DOMAINS'] !== 'false'
+    process.env.INTLAYER_ROUTING_DOMAINS !== 'false'
       ? extractHostname(
           currentDomain ??
             (isAbsoluteUrl ? parsedUrl.hostname : undefined) ??
@@ -140,7 +140,7 @@ export const getLocalizedUrl = <
       : null;
 
   const localeDomain =
-    process.env['INTLAYER_ROUTING_DOMAINS'] !== 'false'
+    process.env.INTLAYER_ROUTING_DOMAINS !== 'false'
       ? domains?.[currentLocale as LocalesValues]
       : undefined;
 
@@ -170,8 +170,8 @@ export const getLocalizedUrl = <
 
   if (
     !(
-      process.env['INTLAYER_ROUTING_MODE'] &&
-      process.env['INTLAYER_ROUTING_MODE'] !== 'search-params'
+      process.env.INTLAYER_ROUTING_MODE &&
+      process.env.INTLAYER_ROUTING_MODE !== 'search-params'
     ) &&
     mode === 'search-params'
   ) {

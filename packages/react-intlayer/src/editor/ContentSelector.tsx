@@ -12,7 +12,7 @@ export const ContentSelector: FC<ContentSelectorProps> = ({
   dictionaryKey,
   keyPath,
 }) => {
-  if (process.env['INTLAYER_EDITOR_ENABLED'] === 'false' || !isEnabled) {
+  if (process.env.INTLAYER_EDITOR_ENABLED === 'false' || !isEnabled) {
     return children;
   }
 

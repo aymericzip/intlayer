@@ -23,8 +23,7 @@ class EditorController implements ReactiveController {
 
   hostConnected(): void {
     this._stopped = false;
-    if (process.env['INTLAYER_EDITOR_ENABLED'] === 'false' || !isEnabled)
-      return;
+    if (process.env.INTLAYER_EDITOR_ENABLED === 'false' || !isEnabled) return;
 
     import('@intlayer/editor').then(({ initEditorClient }) => {
       if (this._stopped) return;
@@ -84,7 +83,7 @@ class EditorController implements ReactiveController {
 export function useEditor(): () => void;
 export function useEditor(host: ReactiveControllerHost): void;
 export function useEditor(host?: ReactiveControllerHost): void | (() => void) {
-  if (process.env['INTLAYER_EDITOR_ENABLED'] === 'false' || !isEnabled) {
+  if (process.env.INTLAYER_EDITOR_ENABLED === 'false' || !isEnabled) {
     return host ? undefined : () => {};
   }
 

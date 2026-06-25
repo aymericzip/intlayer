@@ -5,8 +5,8 @@ import { describe, expect, it, vi } from 'vitest';
 vi.hoisted(() => {
   // Disable the fire-and-forget renderer imports at the top of plugins.tsx so
   // no module load can settle after the test environment is torn down.
-  process.env['INTLAYER_NODE_TYPE_MARKDOWN'] = 'false';
-  process.env['INTLAYER_NODE_TYPE_HTML'] = 'false';
+  process.env.INTLAYER_NODE_TYPE_MARKDOWN = 'false';
+  process.env.INTLAYER_NODE_TYPE_HTML = 'false';
 });
 
 const mockSolid = vi.hoisted(() => ({
