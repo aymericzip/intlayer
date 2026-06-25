@@ -261,6 +261,8 @@ export default RootLayout;
 Crea archivos de **declaración de contenido** en cualquier lugar de tu proyecto (comúnmente dentro de `src/`), usando cualquiera de los formatos de extensión que Intlayer soporta:
 
 - `.content.json`
+- `.content.jsonc`
+- `.content.json5`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
@@ -268,7 +270,10 @@ Crea archivos de **declaración de contenido** en cualquier lugar de tu proyecto
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.content.cjx`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
 - etc.
 
 > **Expo Router (web): mantén los archivos `.content.*` fuera del directorio `app/`.** Expo Router trata cada archivo JavaScript/TypeScript dentro de `app/` como una ruta. En la web, su descubrimiento de rutas escanea el sistema de archivos directamente y **no** respeta el `resolver.blockList` de Metro, por lo que un `*.content.ts` co-ubicado se registra como una ruta. Un archivo como `app/(tabs)/_layout.content.ts` incluso se analiza como un diseño (la parte `.content` se lee como un sufijo de plataforma), lo que choca con el `_layout.tsx` real y lanza:

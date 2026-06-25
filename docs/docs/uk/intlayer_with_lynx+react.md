@@ -233,6 +233,8 @@ if (import.meta.webpackHot) {
 Створіть **файли декларації контенту** у будь-якому місці вашого проєкту (зазвичай у `src/`), використовуючи будь-який із форматів розширень, які підтримує Intlayer:
 
 - `.content.json`
+- `.content.jsonc`
+- `.content.json5`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
@@ -240,7 +242,10 @@ if (import.meta.webpackHot) {
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.content.cjx`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
 - etc.
 
 Приклад:

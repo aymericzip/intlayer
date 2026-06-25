@@ -258,6 +258,8 @@ export default RootLayout;
 在项目中任意位置（通常在 `src/` 目录中）创建**内容声明**文件，使用 Intlayer 支持的任何扩展格式：
 
 - `.content.json`
+- `.content.jsonc`
+- `.content.json5`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
@@ -265,7 +267,10 @@ export default RootLayout;
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.content.cjx`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
 - 等等
 
 > **Expo Router (web): 请将 `.content.*` 文件保留在 `app/` 目录之外。** Expo Router 会将 `app/` 内的每个 JavaScript/TypeScript 文件视为一个路由。在 web 上，它的路由发现会直接扫描文件系统，并且 **不** 遵循 Metro 的 `resolver.blockList`，因此同位置的 `*.content.ts` 会被注册为一个路由。像 `app/(tabs)/_layout.content.ts` 这样的文件甚至会被解析为布局（`.content` 部分被读取为平台后缀），这会与实际的 `_layout.tsx` 发生冲突并抛出错误：

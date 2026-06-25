@@ -261,6 +261,8 @@ export default RootLayout;
 Buat file **deklarasi konten** di mana saja dalam proyek Anda (biasanya di dalam `src/`), menggunakan salah satu format ekstensi yang didukung Intlayer:
 
 - `.content.json`
+- `.content.jsonc`
+- `.content.json5`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
@@ -268,7 +270,10 @@ Buat file **deklarasi konten** di mana saja dalam proyek Anda (biasanya di dalam
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.content.cjx`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
 - dll.
 
 > **Expo Router (web): jauhkan file `.content.*` dari direktori `app/`.** Expo Router memperlakukan setiap file JavaScript/TypeScript di dalam `app/` sebagai rute. Di web, penemuan rutenya memindai sistem file secara langsung dan **tidak** menghormati `resolver.blockList` Metro, sehingga `*.content.ts` yang ditempatkan bersama terdaftar sebagai rute. File seperti `app/(tabs)/_layout.content.ts` bahkan diuraikan sebagai tata letak (bagian `.content` dibaca sebagai sufiks platform), yang bertabrakan dengan `_layout.tsx` asli dan menampilkan:

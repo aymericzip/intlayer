@@ -89,6 +89,8 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 프로젝트 내 어디에서나 **콘텐츠 선언** 파일을 생성하세요(일반적으로 `src/` 내). Intlayer가 지원하는 확장 형식을 사용할 수 있습니다:
 
 - `.content.json`
+- `.content.jsonc`
+- `.content.json5`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
@@ -96,7 +98,10 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.content.cjx`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
 - 등등.
 
 예시:

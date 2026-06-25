@@ -258,6 +258,8 @@ export default RootLayout;
 プロジェクト内の任意の場所（一般的には `src/` 内）に**コンテンツ宣言**ファイルを作成します。Intlayer がサポートする任意の拡張子形式を使用できます：
 
 - `.content.json`
+- `.content.jsonc`
+- `.content.json5`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
@@ -265,7 +267,10 @@ export default RootLayout;
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.content.cjx`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
 - その他
 
 > **Expo Router (Web): `.content.*` ファイルは `app/` ディレクトリの外に配置してください。** Expo Router は `app/` 内のすべての JavaScript/TypeScript ファイルをルートとして扱います。Web では、ルート検出がファイルシステムを直接スキャンし、Metro の `resolver.blockList` を**考慮しない**ため、同じ場所に配置された `*.content.ts` がルートとして登録されてしまいます。`app/(tabs)/_layout.content.ts` のようなファイルはレイアウトとして解析され（`.content` 部分がプラットフォームの接尾辞として読み込まれます）、実際の `_layout.tsx` と競合して次のエラーがスローされます:

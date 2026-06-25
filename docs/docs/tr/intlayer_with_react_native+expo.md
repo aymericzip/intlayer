@@ -258,6 +258,8 @@ export default RootLayout;
 Projenizde herhangi bir yerde **içerik bildirim** dosyaları oluşturun (genellikle `src/` içinde), Intlayer'ın desteklediği uzantı formatlarından herhangi birini kullanarak:
 
 - `.content.json`
+- `.content.jsonc`
+- `.content.json5`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
@@ -265,7 +267,10 @@ Projenizde herhangi bir yerde **içerik bildirim** dosyaları oluşturun (genell
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.content.cjx`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
 - vb.
 
 > **Expo Router (web): `.content.*` dosyalarını `app/` dizininin dışında tutun.** Expo Router, `app/` içindeki her JavaScript/TypeScript dosyasını bir rota olarak ele alır. Web'de rota keşfi doğrudan dosya sistemini tarar ve Metro'nun `resolver.blockList` ayarını **dikkate almaz**, bu nedenle aynı konumdaki `*.content.ts` bir rota olarak kaydedilir. `app/(tabs)/_layout.content.ts` gibi bir dosya bir düzen (layout) olarak bile ayrıştırılır (`.content` kısmı bir platform eki olarak okunur), bu da gerçek `_layout.tsx` ile çakışır ve şu hatayı fırlatır:

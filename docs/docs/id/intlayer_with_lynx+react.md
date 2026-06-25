@@ -232,6 +232,8 @@ if (import.meta.webpackHot) {
 Buat file **deklarasi konten** di mana saja dalam proyek Anda (biasanya di dalam `src/`), menggunakan salah satu format ekstensi yang didukung oleh Intlayer:
 
 - `.content.json`
+- `.content.jsonc`
+- `.content.json5`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
@@ -239,7 +241,10 @@ Buat file **deklarasi konten** di mana saja dalam proyek Anda (biasanya di dalam
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.content.cjx`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
 - dll.
 
 Contoh:

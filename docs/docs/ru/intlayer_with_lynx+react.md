@@ -223,6 +223,8 @@ if (import.meta.webpackHot) {
 Создайте файлы **объявления контента** в любом месте вашего проекта (обычно в `src/`), используя любой из форматов расширений, поддерживаемых Intlayer:
 
 - `.content.json`
+- `.content.jsonc`
+- `.content.json5`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
@@ -230,7 +232,10 @@ if (import.meta.webpackHot) {
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.content.cjx`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
 - и т.д.
 
 Пример:

@@ -207,6 +207,8 @@ if (import.meta.webpackHot) {
 अपने प्रोजेक्ट में कहीं भी **सामग्री घोषणा** फ़ाइलें बनाएं (आमतौर पर `src/` के भीतर), किसी भी एक्सटेंशन प्रारूप का उपयोग करके जिसे इंटलेयर समर्थन करता है:
 
 - `.content.json`
+- `.content.jsonc`
+- `.content.json5`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
@@ -214,7 +216,10 @@ if (import.meta.webpackHot) {
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.content.cjx`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
 - आदि।
 
 उदाहरण:

@@ -258,6 +258,8 @@ export default RootLayout;
 Erstellen Sie **Content-Deklarations**-Dateien an beliebiger Stelle in Ihrem Projekt (häufig innerhalb von `src/`), unter Verwendung eines der von Intlayer unterstützten Dateiendungen:
 
 - `.content.json`
+- `.content.jsonc`
+- `.content.json5`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
@@ -265,7 +267,10 @@ Erstellen Sie **Content-Deklarations**-Dateien an beliebiger Stelle in Ihrem Pro
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.content.cjx`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
 - usw.
 
 > **Expo Router (Web): Behalten Sie `.content.*`-Dateien außerhalb des `app/`-Verzeichnisses.** Expo Router behandelt jede JavaScript/TypeScript-Datei innerhalb von `app/` als Route. Im Web scannt die Routen-Erkennung direkt das Dateisystem und **ignoriert** Metros `resolver.blockList`, sodass eine am selben Ort befindliche `*.content.ts` als Route registriert wird. Eine Datei wie `app/(tabs)/_layout.content.ts` wird sogar als Layout geparst (der `.content`-Teil wird als Plattform-Suffix gelesen), was mit der echten `_layout.tsx` kollidiert und folgenden Fehler auslöst:

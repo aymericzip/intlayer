@@ -261,6 +261,8 @@ export default RootLayout;
 प्रोजेक्ट में कहीं भी **content declaration** फाइलें बनाएं (आमतौर पर `src/` के अंदर), Intlayer द्वारा समर्थित किसी भी एक्सटेंशन फॉर्मेट का उपयोग करते हुए:
 
 - `.content.json`
+- `.content.jsonc`
+- `.content.json5`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
@@ -268,7 +270,10 @@ export default RootLayout;
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.content.cjx`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
 - आदि।
 
 > **Expo Router (वेब): `.content.*` फ़ाइलों को `app/` डायरेक्टरी से बाहर रखें।** Expo Router `app/` के अंदर मौजूद हर JavaScript/TypeScript फ़ाइल को एक रूट मानता है। वेब पर, इसकी रूट खोज फ़ाइल सिस्टम को सीधे स्कैन करती है और Metro के `resolver.blockList` का **सम्मान नहीं** करती है, इसलिए एक सह-स्थित `*.content.ts` रूट के रूप में पंजीकृत हो जाता है। `app/(tabs)/_layout.content.ts` जैसी फ़ाइल को लेआउट के रूप में भी पार्स किया जाता है (`.content` भाग को प्लेटफ़ॉर्म प्रत्यय के रूप में पढ़ा जाता है), जो वास्तविक `_layout.tsx` के साथ टकराता है और यह त्रुटि देता है:

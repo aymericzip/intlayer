@@ -215,6 +215,8 @@ if (import.meta.webpackHot) {
 Utwórz pliki **deklaracji treści** w dowolnym miejscu w swoim projekcie (zazwyczaj w katalogu `src/`), używając dowolnego z formatów rozszerzeń obsługiwanych przez Intlayer:
 
 - `.content.json`
+- `.content.jsonc`
+- `.content.json5`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
@@ -222,7 +224,10 @@ Utwórz pliki **deklaracji treści** w dowolnym miejscu w swoim projekcie (zazwy
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.content.cjx`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
 - itd.
 
 Przykład:

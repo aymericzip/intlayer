@@ -261,6 +261,8 @@ export default RootLayout;
 프로젝트 내 어디에서나(일반적으로 `src/` 내) **콘텐츠 선언** 파일을 생성하세요. Intlayer가 지원하는 확장자 형식을 사용할 수 있습니다:
 
 - `.content.json`
+- `.content.jsonc`
+- `.content.json5`
 - `.content.ts`
 - `.content.tsx`
 - `.content.js`
@@ -268,7 +270,10 @@ export default RootLayout;
 - `.content.mjs`
 - `.content.mjx`
 - `.content.cjs`
-- `.content.cjx`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
 - 기타
 
 > **Expo Router (웹): `.content.*` 파일을 `app/` 디렉토리 외부에 보관하세요.** Expo Router는 `app/` 내의 모든 JavaScript/TypeScript 파일을 라우트로 취급합니다. 웹에서는 라우트 검색이 파일 시스템을 직접 스캔하며 Metro의 `resolver.blockList`를 **따르지 않으므로**, 함께 위치한 `*.content.ts`가 라우트로 등록됩니다. `app/(tabs)/_layout.content.ts`와 같은 파일은 레이아웃으로 파싱되기도 하며(`.content` 부분이 플랫폼 접미사로 읽힘), 이는 실제 `_layout.tsx`와 충돌하여 다음 오류를 발생시킵니다:
