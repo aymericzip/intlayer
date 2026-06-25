@@ -38,7 +38,6 @@ export const findProjectRoot = (startDir: string) => {
 /** Individually selectable setup steps exposed by the interactive init flow. */
 type InitStep =
   | 'packages'
-  | 'gitignore'
   | 'githubActions'
   | 'frameworkSetup'
   | 'vscodeExtension'
@@ -57,11 +56,6 @@ const BASE_INIT_STEP_OPTIONS: Array<{
     value: 'packages',
     label: 'Install & upgrade packages',
     hint: 'install missing Intlayer dependencies and upgrade outdated ones',
-  },
-  {
-    value: 'gitignore',
-    label: '.gitignore entry',
-    hint: 'add .intlayer to .gitignore',
   },
   {
     value: 'githubActions',
@@ -168,9 +162,10 @@ const hasUrlRouting = (root: string): boolean => {
 
 /**
  * Runs `init` in interactive mode: prompts the user with a checkbox of setup
- * steps, then forwards the selection to {@link initIntlayer} (packages,
- * .gitignore, GitHub Actions, VS Code extension, LSP) and runs the dedicated
- * skills/MCP installers for the steps that own their own prompts.
+ * steps, then forwards the selection to {@link initIntlayer} (packages, GitHub
+ * Actions, VS Code extension, LSP) and runs the dedicated skills/MCP installers
+ * for the steps that own their own prompts. The `.gitignore` entry is not
+ * offered as a checkbox — it is always added (unless `--no-gitignore` is set).
  */
 const runInteractiveInit = async (
   root: string,
@@ -240,9 +235,12 @@ const runInteractiveInit = async (
     ...baseOptions,
     routingMode,
     noInstallPackages: !steps.includes('packages'),
+    // The `.gitignore` entry is never offered as a checkbox: in interactive
+    // mode we always add `.intlayer` to `.gitignore`, only honoring an explicit
+    // `--no-gitignore` flag from the command line.
+    noGitignore: baseOptions?.noGitignore,
     // Respect explicit `--no-*` flags from the command line even when the
     // corresponding step is selected in the checkbox.
-    noGitignore: baseOptions?.noGitignore || !steps.includes('gitignore'),
     noGithubActions:
       baseOptions?.noGithubActions || !steps.includes('githubActions'),
     noFrameworkSetup:
