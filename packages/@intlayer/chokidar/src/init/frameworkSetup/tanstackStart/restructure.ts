@@ -1,13 +1,34 @@
 import { mkdir, readdir, readFile, rename, writeFile } from 'node:fs/promises';
 import { join, relative } from 'node:path';
 import fg from 'fast-glob';
+import type { RoutingMode } from '../../utils/configManipulation';
 import { rewriteRelativeImports } from '../nextAppRouter/restructure';
 
 /** Source file extensions whose relative imports must be rewritten after a move. */
 const SCRIPT_GLOB = '**/*.{ts,tsx,js,jsx,mjs,cjs}';
 
-/** The TanStack Router locale segment directory (optional `{-$locale}` param). */
+/**
+ * The optional TanStack Router locale segment directory (`{-$locale}` param),
+ * used by every routing mode except `prefix-all` so the default locale stays
+ * prefix-free.
+ */
 export const LOCALE_SEGMENT = '{-$locale}';
+
+/**
+ * The required TanStack Router locale segment directory (`$locale` param), used
+ * by `prefix-all` routing where every URL — including the default locale — is
+ * prefixed.
+ */
+export const PREFIX_ALL_LOCALE_SEGMENT = '$locale';
+
+/**
+ * Picks the locale segment directory for the project's routing mode. `prefix-all`
+ * requires the mandatory `$locale` param so the default locale is also prefixed;
+ * all other modes use the optional `{-$locale}` param so the default locale stays
+ * prefix-free.
+ */
+export const getLocaleSegment = (routingMode: RoutingMode): string =>
+  routingMode === 'prefix-all' ? PREFIX_ALL_LOCALE_SEGMENT : LOCALE_SEGMENT;
 
 /**
  * Detects whether a top-level route entry is already a locale segment, in any of
@@ -54,18 +75,20 @@ export type RestructureResult =
   | { status: 'moved'; movedEntries: string[] };
 
 /**
- * Moves the routable entries of `routesDir` under a new `{-$locale}` segment and
- * rewrites relative imports in the moved files. Idempotent: a no-op when the
- * routes are already locale-aware in any prefix mode (see {@link isLocaleSegment}),
- * which is reported via `localeSegment`. Root-only files (see
- * {@link shouldKeepRouteAtRoot}) are left in place.
+ * Moves the routable entries of `routesDir` under a new `localeSegment` directory
+ * (the optional `{-$locale}` by default, or the required `$locale` for
+ * `prefix-all`) and rewrites relative imports in the moved files. Idempotent: a
+ * no-op when the routes are already locale-aware in any prefix mode (see
+ * {@link isLocaleSegment}), which is reported via `localeSegment`. Root-only
+ * files (see {@link shouldKeepRouteAtRoot}) are left in place.
  */
 export const restructureRoutesIntoLocale = async (
   rootDir: string,
-  routesDir: string
+  routesDir: string,
+  localeSegment: string = LOCALE_SEGMENT
 ): Promise<RestructureResult> => {
   const routesDirAbs = join(rootDir, routesDir);
-  const localeDirAbs = join(routesDirAbs, LOCALE_SEGMENT);
+  const localeDirAbs = join(routesDirAbs, localeSegment);
 
   const entries = await readdir(routesDirAbs, { withFileTypes: true });
 

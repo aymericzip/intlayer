@@ -4,14 +4,18 @@
  */
 
 /**
- * Locale segment route (`routes/{-$locale}/route.tsx`). The optional `{-$locale}`
- * param makes the default locale prefix-free; `validatePrefix` redirects unknown
- * prefixes to a valid one. Identical for TypeScript and JavaScript projects.
+ * Builds the locale segment route (`routes/<localeSegment>/route.tsx`) for the
+ * given segment. The optional `{-$locale}` param makes the default locale
+ * prefix-free, while the required `$locale` param (`prefix-all`) prefixes every
+ * locale; in both cases `validatePrefix` redirects unknown prefixes to a valid
+ * one. Identical for TypeScript and JavaScript projects.
  */
-export const LOCALE_ROUTE_TEMPLATE = `import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+export const buildLocaleRouteTemplate = (
+  localeSegment: string
+): string => `import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { validatePrefix } from "intlayer";
 
-export const Route = createFileRoute("/{-$locale}")({
+export const Route = createFileRoute("/${localeSegment}")({
   beforeLoad: ({ params }) => {
     // beforeLoad runs on both client and server, so resolve the locale from the
     // route params rather than from request headers.
@@ -23,7 +27,7 @@ export const Route = createFileRoute("/{-$locale}")({
     // Otherwise redirect to the same route with a valid locale prefix.
     throw redirect({
       params: { locale: localePrefix },
-      to: "/{-$locale}",
+      to: "/${localeSegment}",
     });
   },
   component: Outlet,

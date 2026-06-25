@@ -1055,11 +1055,19 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
   // transform, skipping with guidance instead.
   if (!options?.noFrameworkSetup) {
     try {
+      // Prefer the user's interactive choice, else the configured routing mode
+      // (which itself defaults to `prefix-no-default`). Drives whether the
+      // locale path segment is required (`prefix-all`) or optional.
+      const routingMode =
+        options?.routingMode ??
+        getConfiguration({ baseDir: rootDir }).routing.mode;
+
       await setupFramework({
         rootDir,
         allDeps,
         packageManager,
         useTypeScript: hasTsConfig,
+        routingMode,
       });
     } catch {
       logger(

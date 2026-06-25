@@ -10,9 +10,9 @@ import {
 import { findAppFile } from '../nextAppRouter/detect';
 import type { FrameworkAdapter, FrameworkSetupContext } from '../types';
 import { detectTanStackRoutesDir, hasTanStackStartDeps } from './detect';
-import { LOCALE_SEGMENT, restructureRoutesIntoLocale } from './restructure';
+import { getLocaleSegment, restructureRoutesIntoLocale } from './restructure';
 import {
-  LOCALE_ROUTE_TEMPLATE,
+  buildLocaleRouteTemplate,
   ROOT_TEMPLATE_JS,
   ROOT_TEMPLATE_TS,
 } from './templates';
@@ -82,25 +82,34 @@ export const tanStackStartAdapter: FrameworkAdapter = {
     return (await detectTanStackRoutesDir(rootDir)) !== null;
   },
 
-  setup: async ({ rootDir, useTypeScript }: FrameworkSetupContext) => {
+  setup: async ({
+    rootDir,
+    useTypeScript,
+    routingMode,
+  }: FrameworkSetupContext) => {
     const routesInfo = await detectTanStackRoutesDir(rootDir);
     if (!routesInfo) return;
 
     const { routesDir } = routesInfo;
     const scriptExtension = useTypeScript ? 'tsx' : 'jsx';
 
+    // `prefix-all` needs the required `$locale` segment; every other mode uses
+    // the optional `{-$locale}` segment so the default locale stays prefix-free.
+    const targetLocaleSegment = getLocaleSegment(routingMode);
+
     logger(
       colorize('Setting up TanStack Start integration...', ANSIColors.CYAN)
     );
 
-    // 1. Move routable route entries under a `{-$locale}` segment (idempotent).
+    // 1. Move routable route entries under the locale segment (idempotent).
     const restructureResult = await restructureRoutesIntoLocale(
       rootDir,
-      routesDir
+      routesDir,
+      targetLocaleSegment
     );
     if (restructureResult.status === 'moved') {
       logger(
-        `${v} Restructured routes under ${colorizePath(join(routesDir, LOCALE_SEGMENT))}: ${restructureResult.movedEntries
+        `${v} Restructured routes under ${colorizePath(join(routesDir, targetLocaleSegment))}: ${restructureResult.movedEntries
           .map((entry) => colorize(entry, ANSIColors.MAGENTA))
           .join(', ')}`
       );
@@ -110,26 +119,24 @@ export const tanStackStartAdapter: FrameworkAdapter = {
       );
     }
 
-    // When the routes already use a different locale-prefix scheme (e.g. the
-    // prefix-all `$locale` segment), respect the user's routing: don't scaffold
-    // the optional-prefix `{-$locale}/route.tsx`, which would create a second,
-    // conflicting locale segment.
-    const usesDefaultLocaleSegment =
-      restructureResult.status !== 'already-structured' ||
-      restructureResult.localeSegment === LOCALE_SEGMENT;
+    // Scaffold the locale route for the segment actually in use: a pre-existing
+    // segment (e.g. a prefix-all `$locale` the user already set up) wins over the
+    // target, so we never create a second, conflicting locale segment.
+    const activeLocaleSegment =
+      restructureResult.status === 'already-structured'
+        ? restructureResult.localeSegment
+        : targetLocaleSegment;
 
-    if (usesDefaultLocaleSegment) {
-      const localeDir = join(routesDir, LOCALE_SEGMENT);
-      await ensureDirectory(rootDir, localeDir);
+    const localeDir = join(routesDir, activeLocaleSegment);
+    await ensureDirectory(rootDir, localeDir);
 
-      // 2. Locale segment route (`{-$locale}/route.tsx`) — create when absent.
-      await createIfMissing(
-        rootDir,
-        join(localeDir, `route.${scriptExtension}`),
-        LOCALE_ROUTE_TEMPLATE,
-        'locale route'
-      );
-    }
+    // 2. Locale segment route (`<segment>/route.tsx`) — create when absent.
+    await createIfMissing(
+      rootDir,
+      join(localeDir, `route.${scriptExtension}`),
+      buildLocaleRouteTemplate(activeLocaleSegment),
+      'locale route'
+    );
 
     // 3. Root document — transform an existing `__root`, else scaffold one.
     const existingRoot = await findAppFile(rootDir, routesDir, '__root');

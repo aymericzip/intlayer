@@ -39,6 +39,7 @@ describe('nextAppRouterAdapter', () => {
     allDeps: { next: '^16.0.0', 'next-intlayer': '^7.0.0' },
     packageManager: 'npm',
     useTypeScript: true,
+    routingMode: 'prefix-no-default',
   });
 
   it('detects a Next.js App Router project', async () => {

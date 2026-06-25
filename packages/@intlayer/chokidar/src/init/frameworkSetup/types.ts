@@ -1,3 +1,4 @@
+import type { RoutingMode } from '../utils/configManipulation';
 import type { PackageManager } from '../utils/packageManager';
 
 /**
@@ -13,6 +14,13 @@ export type FrameworkSetupContext = {
   packageManager: PackageManager;
   /** Whether the project is a TypeScript project (drives file extensions). */
   useTypeScript: boolean;
+  /**
+   * Effective locale routing mode for the project (the user's interactive
+   * choice, else the configured/`routing.mode` default). Drives whether the
+   * locale path segment is required (`prefix-all` → `$locale`) or optional
+   * (`prefix-no-default` → `{-$locale}`).
+   */
+  routingMode: RoutingMode;
 };
 
 /**

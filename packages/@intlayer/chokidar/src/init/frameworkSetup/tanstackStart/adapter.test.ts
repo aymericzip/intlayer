@@ -34,11 +34,14 @@ describe('tanStackStartAdapter', () => {
     }
   };
 
-  const context = (): FrameworkSetupContext => ({
+  const context = (
+    routingMode: FrameworkSetupContext['routingMode'] = 'prefix-no-default'
+  ): FrameworkSetupContext => ({
     rootDir,
     allDeps: { '@tanstack/react-start': '^1.0.0', 'react-intlayer': '^7.0.0' },
     packageManager: 'npm',
     useTypeScript: true,
+    routingMode,
   });
 
   it('detects a TanStack Start project', async () => {
@@ -212,6 +215,31 @@ export const Route = createRootRoute({ shellComponent: RootDocument });
     expect(root.match(/const params =/g)?.length).toBe(1);
     expect(root).toContain('<IntlayerProvider locale={locale}>');
     expect(root).toContain('const locale =');
+  });
+
+  it('uses the required $locale segment (not the optional {-$locale}) for prefix-all', async () => {
+    await writeFileAt(
+      'src/routes/index.tsx',
+      `import { createFileRoute } from "@tanstack/react-router";
+
+export const Route = createFileRoute("/")({
+  component: () => <h1>Home</h1>,
+});
+`
+    );
+
+    await tanStackStartAdapter.setup(context('prefix-all'));
+
+    // Routes moved under the required `$locale` segment, not the optional one.
+    expect(await exists('src/routes/$locale/index.tsx')).toBe(true);
+    expect(await exists('src/routes/{-$locale}/index.tsx')).toBe(false);
+
+    // The locale route targets the required `$locale` param.
+    expect(await exists('src/routes/$locale/route.tsx')).toBe(true);
+    const localeRoute = await readFileAt('src/routes/$locale/route.tsx');
+    expect(localeRoute).toContain('createFileRoute("/$locale")');
+    expect(localeRoute).toContain('to: "/$locale"');
+    expect(localeRoute).not.toContain('{-$locale}');
   });
 
   it('skips restructure for prefix-all routing (existing $locale segment)', async () => {
