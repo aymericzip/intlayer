@@ -108,7 +108,6 @@ const config: IntlayerConfig = {
      * Irá carregar e escrever a saída e as traduções de volta para os arquivos JSON no diretório de localidades
      */
     syncJSON({
-      format: "i18next",
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
       priority: 0,
       format: "i18next",
