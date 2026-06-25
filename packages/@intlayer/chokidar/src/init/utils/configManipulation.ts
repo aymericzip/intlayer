@@ -439,6 +439,120 @@ export const updateNextConfig = (
   return recast.print(ast).code;
 };
 
+/**
+ * Returns true when the expression looks like an Immediately Invoked Function
+ * Expression (e.g. `(async () => { ... })()`). Such custom async exports cannot
+ * be safely wrapped with the synchronous Metro helper, so they are skipped.
+ */
+const isImmediatelyInvokedFunction = (node: any): boolean =>
+  n.CallExpression.check(node) &&
+  (n.ArrowFunctionExpression.check(node.callee) ||
+    n.FunctionExpression.check(node.callee));
+
+/**
+ * Wraps a React Native Metro config's exported value with
+ * `configMetroIntlayerSync` from `react-native-intlayer/metro`, injecting the
+ * import. The synchronous helper is used because it wraps a plain config object
+ * and needs no IIFE, making it safe to inject into existing configs without
+ * restructuring them.
+ *
+ * Non-destructive: returns the content unchanged when the export is already
+ * wrapped, when the Intlayer Metro plugin is already present, or when the export
+ * is a custom async IIFE that cannot be wrapped synchronously. Callers should
+ * compare the result with the input to detect the skipped case.
+ */
+export const updateMetroConfig = (
+  content: string,
+  extension: string
+): string => {
+  if (content.includes('react-native-intlayer')) {
+    return content;
+  }
+
+  const ast = recast.parse(content, {
+    parser: require('recast/parsers/typescript'),
+  });
+
+  const isCJSFile =
+    extension === 'cjs' ||
+    (content.includes('module.exports') && !content.includes('import '));
+
+  const wrapperName = 'configMetroIntlayerSync';
+
+  const isWrappable = (node: any): boolean =>
+    n.Expression.check(node) &&
+    !isImmediatelyInvokedFunction(node) &&
+    !(
+      n.CallExpression.check(node) &&
+      n.Identifier.check(node.callee) &&
+      node.callee.name === wrapperName
+    );
+
+  let wrapped = false;
+
+  recast.visit(ast, {
+    visitExportDefaultDeclaration(path) {
+      const declaration = path.node.declaration;
+      if (isWrappable(declaration)) {
+        path
+          .get('declaration')
+          .replace(
+            b.callExpression(b.identifier(wrapperName), [declaration as any])
+          );
+        wrapped = true;
+      }
+      return false;
+    },
+    visitAssignmentExpression(path) {
+      const { left, right } = path.node;
+
+      if (
+        n.MemberExpression.check(left) &&
+        recast.print(left).code === 'module.exports' &&
+        isWrappable(right)
+      ) {
+        path
+          .get('right')
+          .replace(b.callExpression(b.identifier(wrapperName), [right]));
+        wrapped = true;
+      }
+      return false;
+    },
+  });
+
+  // Only inject the import when an export was actually wrapped, so an
+  // un-wrappable config is left completely untouched.
+  if (!wrapped) {
+    return content;
+  }
+
+  injectImport(ast, isCJSFile, wrapperName, 'react-native-intlayer/metro');
+
+  return recast.print(ast).code;
+};
+
+/**
+ * Builds the contents of a fresh `metro.config.js` wired with the Intlayer
+ * Metro plugin. Uses the async `configMetroIntlayer` helper (which can build
+ * dictionaries on server start) and picks the default-config source based on
+ * whether the project is an Expo app.
+ */
+export const getMetroConfigTemplate = (isExpo: boolean): string => {
+  const defaultConfigSource = isExpo
+    ? 'expo/metro-config'
+    : '@react-native/metro-config';
+
+  return `const { getDefaultConfig } = require("${defaultConfigSource}");
+const { configMetroIntlayer } = require("react-native-intlayer/metro");
+
+module.exports = (async () => {
+  const defaultConfig = getDefaultConfig(__dirname);
+
+  return await configMetroIntlayer(defaultConfig);
+})();
+`;
+};
+
 export const updateNuxtConfig = (content: string): string => {
   const ast = recast.parse(content, {
     parser: require('recast/parsers/typescript'),

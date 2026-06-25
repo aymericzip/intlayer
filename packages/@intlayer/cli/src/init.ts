@@ -146,6 +146,27 @@ const isViteProject = (root: string): boolean =>
   Boolean(getProjectDependencies(root).vite);
 
 /**
+ * Returns true when the project uses a URL-based router for which a locale
+ * routing strategy is meaningful: Next.js, React Router, or TanStack Router.
+ * Apps without URL routing (e.g. React Native / Expo) are excluded, since
+ * `routing.mode` has no effect there.
+ */
+const hasUrlRouting = (root: string): boolean => {
+  const deps = getProjectDependencies(root);
+
+  // React Native / Expo apps have no URL routing — never ask for a strategy.
+  if (deps['react-native'] || deps.expo) return false;
+
+  return Boolean(
+    deps.next ||
+      deps['react-router'] ||
+      deps['react-router-dom'] ||
+      deps['@tanstack/react-router'] ||
+      deps['@tanstack/react-start']
+  );
+};
+
+/**
  * Runs `init` in interactive mode: prompts the user with a checkbox of setup
  * steps, then forwards the selection to {@link initIntlayer} (packages,
  * .gitignore, GitHub Actions, VS Code extension, LSP) and runs the dedicated
@@ -196,28 +217,23 @@ const runInteractiveInit = async (
   const steps = selected as InitStep[];
 
   // Locale routing strategy → written to `routing.mode` in the config file.
-  const routingMode = await p.select<RoutingMode>({
-    message: 'Which locale routing strategy do you want?',
-    options: ROUTING_MODE_OPTIONS,
-    initialValue: 'prefix-no-default',
-  });
+  // Only relevant for URL-based routers (Next.js, React Router, TanStack);
+  // skipped for apps without URL routing such as React Native / Expo.
+  let routingMode: RoutingMode | undefined;
 
-  if (p.isCancel(routingMode)) {
-    p.cancel('Operation cancelled.');
-    return;
-  }
+  if (hasUrlRouting(root)) {
+    const selectedRoutingMode = await p.select<RoutingMode>({
+      message: 'Which locale routing strategy do you want?',
+      options: ROUTING_MODE_OPTIONS,
+      initialValue: 'prefix-no-default',
+    });
 
-  // CMS / visual editor: opt-in browser login that persists the access-key
-  // credentials to `.env` and enables the editor in the config file.
-  const shouldSetUpCms = await p.confirm({
-    message:
-      'Set up the Intlayer CMS now? (opens your browser to log in, then stores the credentials in your .env)',
-    initialValue: false,
-  });
+    if (p.isCancel(selectedRoutingMode)) {
+      p.cancel('Operation cancelled.');
+      return;
+    }
 
-  if (p.isCancel(shouldSetUpCms)) {
-    p.cancel('Operation cancelled.');
-    return;
+    routingMode = selectedRoutingMode;
   }
 
   const options: InitOptions = {
@@ -280,6 +296,20 @@ const runInteractiveInit = async (
 
   if (steps.includes('buildOptimization')) {
     await initBuildOptimization(root);
+  }
+
+  // CMS / visual editor is the last step: an opt-in browser login that
+  // persists the access-key credentials to `.env` and enables the editor in the
+  // config file. Asked last so the browser flow does not interrupt setup.
+  const shouldSetUpCms = await p.confirm({
+    message:
+      'Set up the Intlayer CMS now? (opens your browser to log in, then stores the credentials in your .env)',
+    initialValue: false,
+  });
+
+  if (p.isCancel(shouldSetUpCms)) {
+    p.cancel('Operation cancelled.');
+    return;
   }
 
   if (shouldSetUpCms) {

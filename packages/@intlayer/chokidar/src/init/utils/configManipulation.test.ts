@@ -1,8 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import {
   enableIntlayerEditorConfig,
+  getMetroConfigTemplate,
   setIntlayerConfigRoutingMode,
   updateIntlayerConfigWithSyncPlugin,
+  updateMetroConfig,
   updateNextConfig,
   updateViteConfig,
 } from './configManipulation';
@@ -479,6 +481,77 @@ export default config;
       expect(updated).toContain('clientId: process.env.MY_CUSTOM_ID');
       expect(updated).not.toContain('INTLAYER_CLIENT_ID');
       expect(updated).toContain('enabled: true');
+    });
+  });
+
+  describe('updateMetroConfig', () => {
+    it('should wrap a direct module.exports call expression', () => {
+      const content = `const { getDefaultConfig } = require("expo/metro-config");
+module.exports = getDefaultConfig(__dirname);
+`;
+      const updated = updateMetroConfig(content, 'js');
+      expect(updated).toContain(
+        'const { configMetroIntlayerSync } = require("react-native-intlayer/metro");'
+      );
+      expect(updated).toContain(
+        'module.exports = configMetroIntlayerSync(getDefaultConfig(__dirname));'
+      );
+    });
+
+    it('should wrap a module.exports identifier reference', () => {
+      const content = `const { getDefaultConfig } = require("expo/metro-config");
+const config = getDefaultConfig(__dirname);
+module.exports = config;
+`;
+      const updated = updateMetroConfig(content, 'js');
+      expect(updated).toContain(
+        'module.exports = configMetroIntlayerSync(config);'
+      );
+    });
+
+    it('should preserve a custom mergeConfig export', () => {
+      const content = `const { getDefaultConfig, mergeConfig } = require("@react-native/metro-config");
+const custom = { resolver: {} };
+module.exports = mergeConfig(getDefaultConfig(__dirname), custom);
+`;
+      const updated = updateMetroConfig(content, 'js');
+      expect(updated).toContain(
+        'configMetroIntlayerSync(mergeConfig(getDefaultConfig(__dirname), custom))'
+      );
+    });
+
+    it('should leave a custom async IIFE export untouched', () => {
+      const content = `const { getDefaultConfig } = require("expo/metro-config");
+module.exports = (async () => {
+  const c = getDefaultConfig(__dirname);
+  return c;
+})();
+`;
+      const updated = updateMetroConfig(content, 'js');
+      expect(updated).toBe(content);
+    });
+
+    it('should be idempotent and skip already-configured files', () => {
+      const content = `const { getDefaultConfig } = require("expo/metro-config");
+module.exports = getDefaultConfig(__dirname);
+`;
+      const once = updateMetroConfig(content, 'js');
+      const twice = updateMetroConfig(once, 'js');
+      expect(twice).toBe(once);
+    });
+  });
+
+  describe('getMetroConfigTemplate', () => {
+    it('should use expo/metro-config for Expo projects', () => {
+      const template = getMetroConfigTemplate(true);
+      expect(template).toContain('require("expo/metro-config")');
+      expect(template).toContain('require("react-native-intlayer/metro")');
+      expect(template).toContain('configMetroIntlayer(defaultConfig)');
+    });
+
+    it('should use @react-native/metro-config for bare React Native', () => {
+      const template = getMetroConfigTemplate(false);
+      expect(template).toContain('require("@react-native/metro-config")');
     });
   });
 });

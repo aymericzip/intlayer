@@ -18,12 +18,14 @@ import {
   exists,
   findTsConfigFiles,
   getGithubWorkflows,
+  getMetroConfigTemplate,
   installPackages,
   parseJSONWithComments,
   readFileFromRoot,
   setupNextCompilerBabelConfig,
   updateAstroConfig,
   updateIntlayerConfigWithSyncPlugin,
+  updateMetroConfig,
   updateNextConfig,
   updateNextConfigForNextI18next,
   updateNextConfigForNextIntl,
@@ -796,6 +798,70 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
         logger(`${v} Updated ${colorizePath(file)} to include Intlayer module`);
       }
       break;
+    }
+  }
+
+  // CHECK METRO CONFIG (React Native / Expo)
+  // Metro is the React Native bundler. The Intlayer Metro plugin
+  // (`react-native-intlayer/metro`) handles dictionary aliasing and building.
+  // When no config exists we scaffold one; when one exists we safely wrap its
+  // exported config with `configMetroIntlayerSync`, leaving custom async
+  // (IIFE) configs untouched so existing setups are never broken.
+  const isReactNativeProject = Boolean(allDeps['react-native'] || allDeps.expo);
+
+  if (isReactNativeProject) {
+    // Metro resolves Intlayer aliases itself, so skip the alias fallback below.
+    hasAliasConfiguration = true;
+
+    const metroConfigs = [
+      'metro.config.js',
+      'metro.config.cjs',
+      'metro.config.mjs',
+      'metro.config.ts',
+    ];
+
+    let metroConfigFile: string | undefined;
+
+    for (const file of metroConfigs) {
+      if (await exists(rootDir, file)) {
+        metroConfigFile = file;
+        break;
+      }
+    }
+
+    if (metroConfigFile) {
+      const content = await readFileFromRoot(rootDir, metroConfigFile);
+
+      if (content.includes('react-native-intlayer')) {
+        logger(
+          `${v} ${colorizePath(metroConfigFile)} already includes the Intlayer Metro plugin`
+        );
+      } else {
+        const extension = metroConfigFile.split('.').pop()!;
+        const updatedContent = updateMetroConfig(content, extension);
+
+        if (updatedContent !== content) {
+          await writeFileToRoot(rootDir, metroConfigFile, updatedContent);
+          logger(
+            `${v} Updated ${colorizePath(metroConfigFile)} to include the Intlayer Metro plugin`
+          );
+        } else {
+          logger(
+            `${x} Could not automatically update ${colorizePath(metroConfigFile)}. Wrap your exported config with ${colorize('configMetroIntlayer', ANSIColors.MAGENTA)}: ${colorizePath(DocumentationRouter.ReactNativeAndExpo)}`,
+            { level: 'warn' }
+          );
+        }
+      }
+    } else {
+      const newMetroConfigFile = 'metro.config.js';
+      await writeFileToRoot(
+        rootDir,
+        newMetroConfigFile,
+        getMetroConfigTemplate(Boolean(allDeps.expo))
+      );
+      logger(
+        `${v} Created ${colorizePath(newMetroConfigFile)} with the Intlayer Metro plugin`
+      );
     }
   }
 

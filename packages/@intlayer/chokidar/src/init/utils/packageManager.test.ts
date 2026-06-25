@@ -94,6 +94,32 @@ describe('detectMissingIntlayerPackages', () => {
       expect(result.compatSyncConfig?.splitKeys).toBeUndefined();
     });
   });
+
+  describe('react native / expo', () => {
+    it('installs react-native-intlayer as a dev dependency for Expo', () => {
+      const result = detectMissingIntlayerPackages({
+        react: '^19.0.0',
+        'react-native': '^0.76.0',
+        expo: '^52.0.0',
+      });
+
+      // react runtime integration + RN bundler plugin
+      expect(result.packagesToInstall).toContain('react-intlayer');
+      expect(result.devPackagesToInstall).toContain('react-native-intlayer');
+    });
+
+    it('does not re-list an already installed react-native-intlayer', () => {
+      const result = detectMissingIntlayerPackages({
+        react: '^19.0.0',
+        'react-native': '^0.76.0',
+        'react-native-intlayer': '^9.0.0',
+      });
+
+      expect(result.devPackagesToInstall).not.toContain(
+        'react-native-intlayer'
+      );
+    });
+  });
 });
 
 describe('normalizeVersion', () => {
