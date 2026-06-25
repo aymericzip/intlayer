@@ -112,6 +112,23 @@ export const configMetroIntlayerSync = (
           };
         }
 
+        // @formatjs packages have invalid exports configuration or missing exports for polyfills
+        // By disabling package exports for these modules, we avoid the Metro warnings and let it
+        // fall back cleanly to file-based resolution.
+        if (moduleName.startsWith('@formatjs/')) {
+          inflightFallbackContexts.add(context);
+          try {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const cleanContext = {
+              ...(context as any),
+              unstable_enablePackageExports: false,
+            };
+            return getMetroResolve()(cleanContext, moduleName, ...args);
+          } finally {
+            inflightFallbackContexts.delete(context);
+          }
+        }
+
         // Delegate to the user-provided resolver if present
         if (existingResolveRequest) {
           return existingResolveRequest(context, moduleName, ...args);
@@ -139,12 +156,12 @@ export const configMetroIntlayerSync = (
           inflightFallbackContexts.delete(context);
         }
       },
-      blockList: exclusionList([
+      blockList: [
         ...existingPatterns,
-        // the following instruction should be replaced by a pattern derived from configuration.content.fileExtensions
-        // but generating the pattern from fileExtensions does not exclude the files properly for now
-        /.*\.content\.(?:ts|tsx|js|jsx|cjs|cjx|mjs|mjx|json)$/,
-      ]),
+        ...configuration.content.fileExtensions.map(
+          (ext) => new RegExp(`.*${ext.replace(/\./g, '\\.')}$`)
+        ),
+      ],
     },
   } as MetroConfig;
 
