@@ -24,25 +24,13 @@
   <h2>Markdown</h2>
   <div [innerHTML]="content().markdownContent"></div>
 
-  <div
-    [innerHTML]="
-      content().markdownContent.use({
-        h1: { class: 'text-red-500' },
-      })
-    "
-  ></div>
+  <div [innerHTML]="content().markdownContent"></div>
 
   <hr style="margin: 20px 0" />
   <h2>HTML</h2>
   <div [innerHTML]="content().htmlContent"></div>
 
-  <div
-    [innerHTML]="
-      content().htmlContent.use({
-        strong: { class: 'text-red-500' },
-      })
-    "
-  ></div>
+  <div [innerHTML]="content().htmlContent"></div>
 
   <hr style="margin: 20px 0" />
   <h2>Enumeration</h2>
