@@ -6,7 +6,14 @@ import { intlayerPolyfill } from './intlayerPolyfill';
 
 intlayerPolyfill();
 
-type IntlayerProviderProps = Omit<
+/**
+ * Props accepted by the React Native `IntlayerProvider`.
+ *
+ * Editor-specific (`disableEditor`) and cookie-specific (`isCookieEnabled`)
+ * options are omitted because they are not applicable in a React Native
+ * environment.
+ */
+export type IntlayerProviderProps = Omit<
   IntlayerProviderPropsBase,
   'disableEditor' | 'isCookieEnabled'
 >;

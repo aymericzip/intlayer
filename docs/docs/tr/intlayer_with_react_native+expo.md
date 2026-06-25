@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-09-07
-updatedAt: 2026-05-31
+updatedAt: 2026-06-25
 title: "Expo + React Native i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
 description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Expo + React Native uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-react-native-template
 applicationShowcase: https://intlayer-react-native.vercel.app
 history:
+  - version: 9.0.0
+    date: 2026-06-25
+    changes: "Sağlayıcıları ve hook'ları doğrudan react-native-intlayer'dan içe aktarın; react-intlayer artık doğrudan bağımlılık olarak gerekli değildir"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Solid useIntlayer API kullanımını doğrudan özellik erişimine güncelle"
@@ -37,7 +40,7 @@ author: aymericzip
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-react-native-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - Intlayer"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -56,11 +59,13 @@ author: aymericzip
   </Tab>
 </Tabs>
 
-GitHub'da [Uygulama Şablonu](https://github.com/aymericzip/intlayer-react-native-template)na bakın.
+## İçindekiler
+
+<TOC/>
 
 ## Neden alternatifler yerine Intlayer?
 
-'React-native-localize' veya 'i18next' gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
+`react-native-localize` veya `i18next` gibi ana çözümlerle karşılaştırıldığında Intlayer, aşağıdaki gibi entegre optimizasyonlarla gelen bir çözümdür:
 
 <AccordionGroup>
 
@@ -78,7 +83,7 @@ Uygulamanızın içeriğinin kapsamını belirlemek, büyük ölçekli uygulamal
 
 <Accordion header="Yapay Zeka Temsilcisi">
 
-İçeriğin bir arada konumlandırılması **Büyük Dil Modellerinin (LLM'ler) ihtiyaç duyduğu bağlamı azaltır**. Intlayer ayrıca eksik çevirileri test etmek için **CLI** gibi bir araç paketiyle birlikte gelir**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** ve **[aracı becerileri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, geliştirici deneyimini (DX) yapay zeka için daha da sorunsuz hale getirmek için ajanlar.
+İçeriğin bir arada konumlandırılması **Büyük Dil Modellerinin (LLM'ler) ihtiyaç duyduğu bağlamı azaltır**. Intlayer ayrıca eksik çevirileri test etmek için **CLI** gibi bir araç paketiyle birlikte gelir; **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** ve **[aracı becerileri](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, geliştirici deneyimini (DX) yapay zeka ajanları için daha da sorunsuz hale getirmek için.
 
 </Accordion>
 
@@ -107,22 +112,11 @@ Sayfalarınıza çok büyük JSON dosyaları yüklemek yerine yalnızca gerekli 
 </Accordion>
 </AccordionGroup>
 
-### Paketler
-
-- **ara katman**
-  Yapılandırma, sözlük içeriği, tür oluşturma ve CLI komutları için temel i18n araç seti.
-
-- **tepki katmanı**
-  Yerel ayarları edinmek ve değiştirmek için React Native'de kullanacağınız içerik sağlayıcıları ve React kancalarını sağlayan React entegrasyonu.
-
-- **tepki-yerel-intlayer**
-  Intlayer'ı React Native paketleyiciyle entegre etmek için Metro eklentisini sağlayan React Native entegrasyonu.
-
----
-
 <Steps>
 
 <Step number={1} title="Bağımlılıkları Kurma">
+
+GitHub'da [Uygulama Şablonu](https://github.com/aymericzip/intlayer-react-native-template)na bakın.
 
 React Native projenizden aşağıdaki paketleri kurun:
 
@@ -147,23 +141,19 @@ bunx intlayer-cli init --interactive
 > Bu komut ortamınızı algılayacak ve gerekli paketleri yükleyecektir. Örneğin:
 
 ```bash packageManager="npm"
-npm install intlayer react-intlayer
-npm install --save-dev react-native-intlayer
+npm install intlayer react-native-intlayer
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer react-intlayer
-pnpm add --save-dev react-native-intlayer
+pnpm add intlayer react-native-intlayer
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer react-intlayer
-yarn add --save-dev react-native-intlayer
+yarn add intlayer react-native-intlayer
 ```
 
 ```bash packageManager="bun"
-bun add intlayer react-intlayer
-bun add --dev react-native-intlayer
+bun add intlayer react-native-intlayer
 ```
 
 ### Paketler
@@ -171,11 +161,8 @@ bun add --dev react-native-intlayer
 - **intlayer**  
   Yapılandırma, sözlük içeriği, tür oluşturma ve CLI komutları için çekirdek i18n araç takımı.
 
-- **react-intlayer**  
-  React entegrasyonu, React Native'te yerel ayarları elde etmek ve değiştirmek için kullanacağınız bağlam sağlayıcıları ve React kancalarını sağlar.
-
 - **react-native-intlayer**  
-  React Native entegrasyonu, Intlayer'ı React Native paketleyici ile entegre etmek için Metro eklentisini sağlar.
+  React Native entegrasyonu, yerel ayarları elde etmek ve değiştirmek için kullanacağınız bağlam sağlayıcıları ve React kancalarını, React Native polyfill'lerini ve Intlayer'ı React Native paketleyici ile entegre etmek için Metro eklentisini sağlar. `react-intlayer`'dan her şeyi yeniden dışa aktarır, bu nedenle bir React Native uygulamasında yalnızca bu tek pakete ihtiyaç duyarsınız.
 
 ---
 
@@ -230,13 +217,18 @@ module.exports = (async () => {
 })();
 ```
 
+> Not: `configMetroIntlayer` bir promise fonksiyonudur. Eş zamanlı kullanmak istiyorsanız `configMetroIntlayerSync` kullanın veya IIFE'den (Hemen Çağrılan Fonksiyon İfadesi) kaçının.
+> Not: `configMetroIntlayerSync`, sunucu başlatıldığında intlayer sözlükleri oluşturmaya izin vermez
+
 </Step>
 
 <Step number={4} title="Intlayer Sağlayıcısını Ekleyin">
 
-Uygulamanız genelinde kullanıcı dilini senkronize tutmak için, kök bileşeninizi `react-intlayer-native`'den gelen `IntlayerProvider` bileşeni ile sarmanız gerekir.
+Uygulamanız genelinde kullanıcı dilini senkronize tutmak için, kök bileşeninizi `react-native-intlayer`'dan gelen `IntlayerProvider` bileşeni ile sarmanız gerekir.
 
-> `react-intlayer` yerine `react-native-intlayer`'dan gelen sağlayıcıyı kullandığınızdan emin olun. `react-native-intlayer`'dan gelen dışa aktarım, web API'si için polyfill'leri içerir.
+> Her zaman `react-native-intlayer`'dan içe aktarın. Onun `IntlayerProvider`'ı, Intlayer tarafından kullanılan web API'si için polyfill'leri içerir ve paket, `react-intlayer`'dan tüm hook'ları ve yardımcı programları yeniden dışa aktarır.
+
+Ayrıca Intlayer'ın düzgün çalışmasını sağlamak için `intlayerPolyfill` fonksiyonunu `index.js` dosyanıza eklemeniz gerekir.
 
 ```tsx fileName="app/_layout.tsx" codeFormat={["typescript", "esm"]}
 import { Stack } from "expo-router";
@@ -286,7 +278,7 @@ Projenizde herhangi bir yerde **içerik bildirim** dosyaları oluşturun (genell
 
 Örnek (React Native için TSX düğümleriyle TypeScript):
 
-```tsx fileName="src/app.content.tsx" contentDeclarationFormat={["typescript", "esm"]}
+```tsx fileName="src/app.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
 import type { ReactNode } from "react";
 
@@ -307,24 +299,6 @@ const homeScreenContent = {
 } satisfies Dictionary;
 
 export default homeScreenContent;
-```
-
-```jsx fileName="src/app.content.csx" codeFormat="commonjs"
-const { t } = require("intlayer");
-
-/** @type {import('intlayer').Dictionary} */
-const appContent = {
-  key: "home-screen",
-  content: {
-    title: t({
-      en: "Welcome!",
-      fr: "Bienvenue!",
-      es: "¡Bienvenido!",
-    }),
-  },
-};
-
-module.exports = appContent;
 ```
 
 ```json fileName="src/app.content.json" contentDeclarationFormat="json"
@@ -358,7 +332,7 @@ Alt bileşenlerde yerelleştirilmiş içerik almak için `useIntlayer` kancasın
 
 ```tsx fileName="app/(tabs)/index.tsx" codeFormat={["typescript", "esm"]}
 import { Image, StyleSheet, Platform } from "react-native";
-import { useIntlayer } from "react-intlayer";
+import { useIntlayer } from "react-native-intlayer";
 import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
@@ -405,7 +379,7 @@ export default HomeScreen;
 
 </Step>
 
-<Step number={7} title="Uygulama Yerel Ayarını Değiştirin">
+<Step number={7} title="Uygulama Yerel Ayarını Değiştirin" isOptional={true}>
 
 Bileşenlerinizden yerel ayarları değiştirmek için, `useLocale` kancasının `setLocale` metodunu kullanabilirsiniz:
 
@@ -413,7 +387,7 @@ Bileşenlerinizden yerel ayarları değiştirmek için, `useLocale` kancasının
 import { type FC } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { getLocaleName } from "intlayer";
-import { useLocale } from "react-intlayer";
+import { useLocale } from "react-native-intlayer";
 
 export const LocaleSwitcher: FC = () => {
   const { setLocale, availableLocales } = useLocale();
@@ -490,7 +464,7 @@ Bu, aşağıdaki gibi özellikleri etkinleştirir:
 Intlayer tarafından otomatik olarak oluşturulan dosyaları göndermekten kaçınmak için, `.gitignore`'nize aşağıdakileri ekleyin:
 
 ```bash
-#  Intlayer tarafından oluşturulan dosyaları yok say
+# Intlayer tarafından oluşturulan dosyaları yok say
 .intlayer
 ```
 
@@ -531,7 +505,7 @@ Intlayer öncelikle Web Intl API'sini hedefler; React Native'de uygun polyfill'l
 
 Kontrol Listesi:
 
-- `intlayer`, `react-intlayer` ve `react-native-intlayer`'ın en son sürümlerini kullanın.
+- `intlayer` ve `react-native-intlayer`'ın en son sürümlerini kullanın.
 - Intlayer polyfill'ini etkinleştirin.
 - `getLocaleName` veya diğer Intl-API tabanlı yardımcı programları kullanıyorsanız, bu polyfill'leri erken aktarın (örneğin `index.js` veya `App.tsx` içinde):
 

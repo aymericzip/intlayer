@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2026-05-31
+updatedAt: 2026-06-25
 title: "Expo + React Native i18n - Panduan lengkap menerjemahkan aplikasi Anda"
 description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Expo + React Native multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-react-native-template
 applicationShowcase: https://intlayer-react-native.vercel.app
 history:
+  - version: 9.0.0
+    date: 2026-06-25
+    changes: "Impor provider dan hook langsung dari react-native-intlayer; react-intlayer tidak lagi diperlukan sebagai dependensi langsung"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Perbarui penggunaan API useIntlayer Solid ke akses properti langsung"
@@ -120,28 +123,40 @@ Lihat [Template Aplikasi](https://github.com/aymericzip/intlayer-react-native-te
 
 Dari proyek React Native Anda, instal paket berikut:
 
-```bash packageManager = "npm"
-npm instal intlayer reaksi-intlayer
-npm install --save-dev reaksi-asli-intlayer
-npx lapisan dalam init
+```bash packageManager="npm"
+npx intlayer-cli init --interactive
 ```
 
-```bash packageManager = "pnpm"
-pnpm menambahkan lapisan dalam reaksi-lapisan
-pnpm tambahkan --save-dev react-native-intlayer
-pnpm dalam lapisan init
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
 ```
 
-```bash packageManager = "benang"
-benang tambahkan lapisan dalam reaksi-lapisan
-benang tambahkan --save-dev react-native-intlayer
-benang dalam lapisan init
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
 ```
 
-```bash packageManager = "bun"
-bun tambahkan intlayer react-intlayer
-sanggul tambahkan --dev react-native-intlayer
-bun x lapisan init
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Flag `--interactive` bersifat opsional. Gunakan `intlayer-cli init` jika Anda adalah agen AI.
+
+> Perintah ini akan mendeteksi lingkungan Anda dan menginstal paket yang diperlukan. Contohnya:
+
+```bash packageManager="npm"
+npm install intlayer react-native-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer react-native-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add intlayer react-native-intlayer
+```
+
+```bash packageManager="bun"
+bun add intlayer react-native-intlayer
 ```
 
 ### Paket
@@ -149,17 +164,14 @@ bun x lapisan init
 - **intlayer**  
   Toolkit inti i18n untuk konfigurasi, konten kamus, generasi tipe, dan perintah CLI.
 
-- **react-intlayer**  
-  Integrasi React yang menyediakan context providers dan React hooks yang akan Anda gunakan di React Native untuk mendapatkan dan mengganti locale.
-
 - **react-native-intlayer**  
-  Integrasi React Native yang menyediakan plugin Metro untuk mengintegrasikan Intlayer dengan bundler React Native.
+  Integrasi React Native yang menyediakan context providers dan React hooks yang akan Anda gunakan untuk mendapatkan dan mengganti locale, polyfill React Native, serta plugin Metro untuk mengintegrasikan Intlayer dengan bundler React Native. Paket ini mengekspor ulang semua hal dari `react-intlayer`, sehingga Anda hanya memerlukan satu paket ini dalam aplikasi React Native.
 
 ---
 
 </Step>
 
-<Step number={3} title="Buat Konfigurasi Intlayer">
+<Step number={2} title="Buat Konfigurasi Intlayer">
 
 Di root proyek Anda (atau di mana saja yang nyaman), buat file **konfigurasi Intlayer**. File tersebut mungkin terlihat seperti ini:
 
@@ -189,11 +201,11 @@ Dalam konfigurasi ini, Anda dapat:
 - Mengonfigurasi **daftar locale yang didukung**.
 - Menetapkan locale **default**.
 - Nanti, Anda dapat menambahkan opsi yang lebih canggih (misalnya, log, direktori konten khusus, dll.).
-- Lihat [dokumentasi konfigurasi Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md) untuk informasi lebih lanjut.
+- Lihat [dokumentasi konfigurasi Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md) untuk informasi lebih lanjut.
 
 </Step>
 
-<Step number={4} title="Tambahkan plugin Metro">
+<Step number={3} title="Tambahkan plugin Metro">
 
 Metro adalah bundler untuk React Native. Ini adalah bundler default untuk proyek React Native yang dibuat dengan perintah `react-native init`. Untuk menggunakan Intlayer dengan Metro, Anda perlu menambahkan plugin ke file `metro.config.js` Anda:
 
@@ -213,11 +225,11 @@ module.exports = (async () => {
 
 </Step>
 
-<Step number={5} title="Tambahkan provider Intlayer">
+<Step number={4} title="Tambahkan provider Intlayer">
 
 Untuk menjaga sinkronisasi bahasa pengguna di seluruh aplikasi Anda, Anda perlu membungkus komponen root Anda dengan komponen `IntlayerProvider` dari `react-native-intlayer`.
 
-> Pastikan untuk menggunakan provider dari `react-native-intlayer` bukan dari `react-intlayer`. Ekspor dari `react-native-intlayer` mencakup polyfill untuk API web.
+> Selalu impor dari `react-native-intlayer`. `IntlayerProvider`-nya mencakup polyfill untuk API web yang digunakan oleh Intlayer, dan paket ini mengekspor ulang semua hook serta utilitas dari `react-intlayer`.
 
 Selain itu, Anda perlu menambahkan fungsi `intlayerPolyfill` ke file `index.js` Anda untuk memastikan Intlayer dapat bekerja dengan baik.
 
@@ -244,7 +256,7 @@ export default RootLayout;
 
 </Step>
 
-<Step number={6} title="Deklarasikan Konten Anda">
+<Step number={5} title="Deklarasikan Konten Anda">
 
 Buat file **deklarasi konten** di mana saja dalam proyek Anda (biasanya di dalam `src/`), menggunakan salah satu format ekstensi yang didukung Intlayer:
 
@@ -315,7 +327,7 @@ export default homeScreenContent;
 
 </Step>
 
-<Step number={7} title="Gunakan Intlayer di Komponen Anda">
+<Step number={6} title="Gunakan Intlayer di Komponen Anda">
 
 Gunakan hook `useIntlayer` di komponen anak untuk mendapatkan konten yang sudah dilokalisasi.
 
@@ -323,7 +335,7 @@ Gunakan hook `useIntlayer` di komponen anak untuk mendapatkan konten yang sudah 
 
 ```tsx fileName="app/(tabs)/index.tsx" codeFormat={["typescript", "esm"]}
 import { Image, StyleSheet, Platform } from "react-native";
-import { useIntlayer } from "react-intlayer";
+import { useIntlayer } from "react-native-intlayer";
 import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
@@ -370,7 +382,7 @@ export default HomeScreen;
 
 </Step>
 
-<Step number={8} title="Ubah Locale Aplikasi">
+<Step number={7} title="Ubah Locale Aplikasi" isOptional={true}>
 
 Untuk mengganti locale dari dalam komponen Anda, Anda dapat menggunakan metode `setLocale` dari hook `useLocale`:
 
@@ -378,7 +390,7 @@ Untuk mengganti locale dari dalam komponen Anda, Anda dapat menggunakan metode `
 import { type FC } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { getLocaleName } from "intlayer";
-import { useLocale } from "react-intlayer";
+import { useLocale } from "react-native-intlayer";
 
 export const LocaleSwitcher: FC = () => {
   const { setLocale, availableLocales } = useLocale();
@@ -455,7 +467,7 @@ Ini yang mengaktifkan fitur seperti:
 Untuk menghindari commit file yang dihasilkan otomatis oleh Intlayer, tambahkan berikut ini ke `.gitignore` Anda:
 
 ```bash
-#  Abaikan file yang dihasilkan oleh Intlayer
+# Abaikan file yang dihasilkan oleh Intlayer
 .intlayer
 ```
 
@@ -496,7 +508,7 @@ Intlayer terutama menargetkan Web Intl API; pada React Native Anda harus menyert
 
 Daftar periksa:
 
-- Gunakan versi terbaru dari `intlayer`, `react-intlayer`, dan `react-native-intlayer`.
+- Gunakan versi terbaru dari `intlayer` dan `react-native-intlayer`.
 - Aktifkan polyfill Intlayer.
 - Jika Anda menggunakan `getLocaleName` atau utilitas lain berbasis Intl-API, impor polyfill ini lebih awal (misalnya di `index.js` atau `App.tsx`):
 

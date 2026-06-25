@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2026-05-31
+updatedAt: 2026-06-25
 title: "Expo + React Native i18n - Complete guide to translate your app"
 description: "No more i18next. The 2026 guide to building a multilingual (i18n) Expo + React Native app. Translate with AI agents and optimise bundle size, SEO and performances."
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-react-native-template
 applicationShowcase: https://intlayer-react-native.vercel.app
 history:
+  - version: 9.0.0
+    date: 2026-06-25
+    changes: "Import providers and hooks directly from react-native-intlayer; react-intlayer is no longer needed as a direct dependency"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Update Solid useIntlayer API usage to direct property access"
@@ -29,7 +32,7 @@ history:
 author: aymericzip
 ---
 
-# Getting Started Internationalising (i18n) with Intlayer and React Native
+# Translate your Expo and React Native app | Internationalisation (i18n)
 
 <Tabs defaultTab="code">
   <Tab label="Code" value="code">
@@ -37,7 +40,7 @@ author: aymericzip
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-react-native-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - Intlayer"
+  title="Demo CodeSandbox - How to Internationalise your application using Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -56,17 +59,19 @@ author: aymericzip
   </Tab>
 </Tabs>
 
-See [Application Template](https://github.com/aymericzip/intlayer-react-native-template) on GitHub.
+## Table of Contents
+
+<TOC/>
 
 ## Why Intlayer over alternatives?
 
-Compared to main solutions like `react-native-localize` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
+Compared to main solutions like `react-native-localize` or `i18next`, Intlayer is a solution that comes with integrated optimisations such as:
 
 <AccordionGroup>
 
 <Accordion header="Full React Native coverage">
 
-Intlayer is optimized to work perfectly with React Native and Expo by offering **component-level content scoping**, **TypeScript support**, and all the features needed for scaling internationalization (i18n) in mobile apps.
+Intlayer is optimised to work perfectly with React Native and Expo by offering **component-level content scoping**, **TypeScript support**, and all the features needed for scaling internationalisation (i18n) in mobile apps.
 
 </Accordion>
 
@@ -90,7 +95,7 @@ Use automation to translate in your CI/CD pipeline using the LLM of your choice 
 
 <Accordion header="Performance">
 
-Connecting massive JSON files to components can lead to performance and reactivity issues. Intlayer optimizes your content loading at build time.
+Connecting massive JSON files to components can lead to performance and reactivity issues. Intlayer optimises your content loading at build time.
 
 </Accordion>
 
@@ -136,23 +141,19 @@ bunx intlayer-cli init --interactive
 > This command will detect your environment and install the required packages. For example:
 
 ```bash packageManager="npm"
-npm install intlayer react-intlayer
-npm install --save-dev react-native-intlayer
+npm install intlayer react-native-intlayer
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer react-intlayer
-pnpm add --save-dev react-native-intlayer
+pnpm add intlayer react-native-intlayer
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer react-intlayer
-yarn add --save-dev react-native-intlayer
+yarn add intlayer react-native-intlayer
 ```
 
 ```bash packageManager="bun"
-bun add intlayer react-intlayer
-bun add --dev react-native-intlayer
+bun add intlayer react-native-intlayer
 ```
 
 ### Packages
@@ -160,76 +161,14 @@ bun add --dev react-native-intlayer
 - **intlayer**  
   The core i18n toolkit for configuration, dictionary content, types generation, and CLI commands.
 
-- **react-intlayer**  
-  React integration that provides the context providers and React hooks you’ll use in React Native for obtaining and switching locales.
-
 - **react-native-intlayer**  
-  React Native integration that provides the Metro plugin for integrating Intlayer with the React Native bundler.
+  React Native integration that provides the context providers and React hooks you'll use to obtain and switch locales, the React Native polyfills, and the Metro plugin for integrating Intlayer with the React Native bundler. It re-exports everything from `react-intlayer`, so you only need this single package in a React Native app.
 
 ---
 
 </Step>
 
-<Step number={2} title="Install Dependencies">
-
-From your React Native project, install the following packages:
-
-```bash packageManager="npm"
-npx intlayer-cli init --interactive
-```
-
-```bash packageManager="pnpm"
-pnpm dlx intlayer-cli init --interactive
-```
-
-```bash packageManager="yarn"
-yarn dlx intlayer-cli init --interactive
-```
-
-```bash packageManager="bun"
-bunx intlayer-cli init --interactive
-```
-
-> the `--interactive` flag is optional. Use `intlayer-cli init` if you're an AI agent.
-
-> This command will detect your environment and install the required packages. For example:
-
-```bash packageManager="npm"
-npm install intlayer react-intlayer
-npm install --save-dev react-native-intlayer
-```
-
-```bash packageManager="pnpm"
-pnpm add intlayer react-intlayer
-pnpm add --save-dev react-native-intlayer
-```
-
-```bash packageManager="yarn"
-yarn add intlayer react-intlayer
-yarn add --save-dev react-native-intlayer
-```
-
-```bash packageManager="bun"
-bun add intlayer react-intlayer
-bun add --dev react-native-intlayer
-```
-
-### Packages
-
-- **intlayer**  
-  The core i18n toolkit for configuration, dictionary content, types generation, and CLI commands.
-
-- **react-intlayer**  
-  React integration that provides the context providers and React hooks you’ll use in React Native for obtaining and switching locales.
-
-- **react-native-intlayer**  
-  React Native integration that provides the Metro plugin for integrating Intlayer with the React Native bundler.
-
----
-
-</Step>
-
-<Step number={3} title="Create an Intlayer Config">
+<Step number={2} title="Create an Intlayer Config">
 
 In your project root (or anywhere convenient), create an **Intlayer config** file. It might look like this:
 
@@ -263,7 +202,7 @@ Within this config, you can:
 
 </Step>
 
-<Step number={4} title="Add the Metro plugin">
+<Step number={3} title="Add the Metro plugin">
 
 Metro is a bundler for React Native. It is the default bundler for React Native projects created with the `react-native init` command. To use Intlayer with Metro, you need to add the plugin to your `metro.config.js` file:
 
@@ -278,13 +217,18 @@ module.exports = (async () => {
 })();
 ```
 
+> Note: `configMetroIntlayer` is a promise function. Use `configMetroIntlayerSync` instead if you want to use it synchronously, or avoid IFFE (Immediately Invoked Function Expression).
+> Note: `configMetroIntlayerSync` does not allow building intlayer dictionaries on server start.
+
 </Step>
 
-<Step number={5} title="Add the Intlayer provider">
+<Step number={4} title="Add the Intlayer provider">
 
-To keep synchronized the user language across your application, you need to wrap your root component with the `IntlayerProvider` component from `react-intlayer-native`.
+To keep the user language synchronised across your application, you need to wrap your root component with the `IntlayerProvider` component from `react-native-intlayer`.
 
-> Make sure to use the provider from `react-native-intlayer` instead of `react-intlayer`. The export from `react-native-intlayer` includes polyfills for the web API.
+> Always import from `react-native-intlayer`. Its `IntlayerProvider` includes polyfills for the web API used by Intlayer, and the package re-exports all the hooks and utilities from `react-intlayer`.
+
+Also, you need to add the `intlayerPolyfill` function to your `index.js` file to ensure that Intlayer can work properly.
 
 ```tsx fileName="app/_layout.tsx" codeFormat={["typescript", "esm"]}
 import { Stack } from "expo-router";
@@ -309,7 +253,7 @@ export default RootLayout;
 
 </Step>
 
-<Step number={6} title="Declare Your Content">
+<Step number={5} title="Declare Your Content">
 
 Create **content declaration** files anywhere in your project (commonly within `src/`), using any of the extension formats that Intlayer supports:
 
@@ -324,7 +268,7 @@ Create **content declaration** files anywhere in your project (commonly within `
 - `.content.cjx`
 - etc.
 
-> **Expo Router (web): keep `.content.*` files out of the `app/` directory.** Expo Router treats every JavaScript/TypeScript file inside `app/` as a route. On web, its route discovery scans the filesystem directly and does **not** honor Metro's `resolver.blockList`, so a co-located `*.content.ts` is registered as a route. A file such as `app/(tabs)/_layout.content.ts` is even parsed as a layout (the `.content` part is read as a platform suffix), which collides with the real `_layout.tsx` and throws:
+> **Expo Router (web): keep `.content.*` files out of the `app/` directory.** Expo Router treats every JavaScript/TypeScript file inside `app/` as a route. On web, its route discovery scans the filesystem directly and does **not** honour Metro's `resolver.blockList`, so a co-located `*.content.ts` is registered as a route. A file such as `app/(tabs)/_layout.content.ts` is even parsed as a layout (the `.content` part is read as a platform suffix), which collides with the real `_layout.tsx` and throws:
 >
 > ```
 > The layouts "./(tabs)/_layout.content.ts" and "./(tabs)/_layout.tsx" conflict on the route "/(tabs)/_layout.content". Remove or rename one of these files.
@@ -375,13 +319,13 @@ export default homeScreenContent;
 }
 ```
 
-> For details on content declarations, see [Intlayer’s content docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md).
+> For details on content declarations, see [Intlayer's content docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/dictionary/content_file.md).
 
 ---
 
 </Step>
 
-<Step number={7} title="Use Intlayer in Your Components">
+<Step number={6} title="Use Intlayer in Your Components">
 
 Use the `useIntlayer` hook in child components to obtain localised content.
 
@@ -389,7 +333,7 @@ Use the `useIntlayer` hook in child components to obtain localised content.
 
 ```tsx fileName="app/(tabs)/index.tsx" codeFormat={["typescript", "esm"]}
 import { Image, StyleSheet, Platform } from "react-native";
-import { useIntlayer } from "intlayer";
+import { useIntlayer } from "react-native-intlayer";
 import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
@@ -428,21 +372,23 @@ const styles = StyleSheet.create({
 export default HomeScreen;
 ```
 
-> When using `content.someKey` in string-based props (e.g., a button’s `title` or a `Text` component’s `children`), **call `content.someKey.value`** to obtain the actual string.
+> When using `content.someKey` in string-based props (e.g., a button's `title` or a `Text` component's `children`), **call `content.someKey.value`** to obtain the actual string.
+
+> If your app already exists, you can use the [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/compiler.md), as well as the [extract command](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/cli/extract.md), to transform thousands of components in a second.
 
 ---
 
 </Step>
 
-<Step number={8} title="Change the App Locale" isOptional={true}>
+<Step number={7} title="Change the App Locale" isOptional={true}>
 
-To switch locales from within your components, you can use the `useLocale` hook’s `setLocale` method:
+To switch locales from within your components, you can use the `useLocale` hook's `setLocale` method:
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 import { type FC } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { getLocaleName } from "intlayer";
-import { useLocale } from "react-intlayer";
+import { useLocale } from "react-native-intlayer";
 
 export const LocaleSwitcher: FC = () => {
   const { setLocale, availableLocales } = useLocale();
@@ -483,7 +429,7 @@ const styles = StyleSheet.create({
 });
 ```
 
-This triggers a re-render of all components that use Intlayer content, now displaying translations for the new locale.
+This triggers a re-render of all components that use Intlayer content, now showing translations for the new locale.
 
 > See [`useLocale` docs](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/packages/react-intlayer/useLocale.md) for more details.
 
@@ -560,7 +506,7 @@ Intlayer primarily targets the Web Intl API; on React Native you must include th
 
 Checklist:
 
-- Use the latest versions of `intlayer`, `react-intlayer`, and `react-native-intlayer`.
+- Use the latest versions of `intlayer` and `react-native-intlayer`.
 - Enable the Intlayer polyfill.
 - If you use `getLocaleName` or other Intl-API-based utilities, import these polyfills early (for example in `index.js` or `App.tsx`):
 

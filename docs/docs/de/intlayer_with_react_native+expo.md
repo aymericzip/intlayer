@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2026-05-31
+updatedAt: 2026-06-25
 title: "Expo + React Native i18n - Vollständiger Leitfaden zur Übersetzung Ihrer App"
 description: "Kein i18next mehr. Der 2026-Leitfaden zum Erstellen einer mehrsprachigen (i18n) Expo + React Native-App. Übersetzen Sie mit KI-Agenten und optimieren Sie Bundle-Größe, SEO und Performance."
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-react-native-template
 applicationShowcase: https://intlayer-react-native.vercel.app
 history:
+  - version: 9.0.0
+    date: 2026-06-25
+    changes: "Provider und Hooks direkt aus react-native-intlayer importieren; react-intlayer wird nicht mehr als direkte Abhängigkeit benötigt"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Aktualisieren der Solid useIntlayer API-Nutzung auf direkten Eigenschaftszugriff"
@@ -37,7 +40,7 @@ author: aymericzip
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-react-native-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - Intlayer"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -56,11 +59,13 @@ author: aymericzip
   </Tab>
 </Tabs>
 
-Siehe [Application Template](https://github.com/aymericzip/intlayer-react-native-template) auf GitHub.
+## Inhaltsverzeichnis
+
+<TOC/>
 
 ## Warum Intlayer gegenüber Alternativen?
 
-Im Vergleich zu Hauptlösungen wie „react-native-localize“ oder „i18next“ ist Intlayer eine Lösung, die über integrierte Optimierungen verfügt wie:
+Im Vergleich zu Hauptlösungen wie „react-native-localize" oder „i18next" ist Intlayer eine Lösung, die über integrierte Optimierungen verfügt wie:
 
 <AccordionGroup>
 
@@ -96,7 +101,7 @@ Das Verbinden großer JSON-Dateien mit Komponenten kann zu Leistungs- und Reakti
 
 <Accordion header="Skalierung mit Nicht-Entwickler">
 
-Intlayer ist mehr als nur eine i18n-Lösung. Es bietet einen **selbstgehosteten [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** und ein **[vollständiges CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, um Ihnen zu helfen Verwalten Sie Ihre mehrsprachigen Inhalte in **Echtzeit** und gestalten Sie die Zusammenarbeit mit Übersetzern, Textern und anderen Teammitgliedern reibungslos. Inhalte können lokal und/oder remote gespeichert werden.
+Intlayer ist mehr als nur eine i18n-Lösung. Es bietet einen **selbstgehosteten [visuellen Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** und ein **[vollständiges CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, um Ihnen zu helfen, Ihre mehrsprachigen Inhalte in **Echtzeit** zu verwalten und die Zusammenarbeit mit Übersetzern, Textern und anderen Teammitgliedern reibungslos zu gestalten. Inhalte können lokal und/oder remote gespeichert werden.
 
 </Accordion>
 
@@ -115,65 +120,40 @@ Siehe [Anwendungsvorlage](https://github.com/aymericzip/intlayer-react-native-te
 
 Installieren Sie aus Ihrem React Native-Projekt die folgenden Pakete:
 
-„bash packageManager="npm"
-NPM Install Intlayer React-Intlayer
-npm install --save-dev reagieren-native-intlayer
-Npx-Intlayer-Init
-„
-
-„bash packageManager="pnpm"
-pnpm fügt Intlayer React-Intlayer hinzu
-pnpm add --save-dev reagieren-native-intlayer
-pnpm intlayer init
-„
-
-````bash packageManager="yarn"
-Garn Zwischenschicht hinzufügen React-Intlayer
-Garn hinzufügen --save-dev reagieren-native-intlayer
-Garnzwischenschicht init
-„
-
-```bash packageManager="bun"
-Brötchen Zwischenschicht Reagieren-Zwischenschicht hinzufügen
-Brötchen hinzufügen --dev reagieren-native-intlayer
-Brötchen x Zwischenschicht init
-„
-
-### Pakete
-
-- **Zwischenschicht**
-  Das zentrale i18n-Toolkit für Konfiguration, Wörterbuchinhalt, Typgenerierung und CLI-Befehle.
-
-- **react-intlayer**
-  React-Integration, die die Kontextanbieter und React-Hooks bereitstellt, die Sie in React Native zum Abrufen und Wechseln von Gebietsschemas verwenden.
-
-- **react-native-intlayer**
-  React Native-Integration, die das Metro-Plugin für die Integration von Intlayer mit dem React Native-Bundler bereitstellt.
-
----
-
-</Step>
-
-<Step number={2} title="Abhängigkeiten installieren">
-
-
-Installieren Sie in Ihrem React Native Projekt die folgenden Pakete:
-
 ```bash packageManager="npm"
-bash packageManager="npm"
-npm install intlayer react-intlayer
-npm install --save-dev react-native-intlayer
-````
+npx intlayer-cli init --interactive
+```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer react-intlayer
-pnpm add --save-dev react-native-intlayer
-pnpm intlayer init
+pnpm dlx intlayer-cli init --interactive
 ```
 
 ```bash packageManager="yarn"
-yarn add intlayer react-intlayer
-yarn add --save-dev react-native-intlayer
+yarn dlx intlayer-cli init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Das Flag `--interactive` ist optional. Verwenden Sie `intlayer-cli init`, wenn Sie ein KI-Agent sind.
+
+> Dieser Befehl erkennt Ihre Umgebung und installiert die erforderlichen Pakete. Zum Beispiel:
+
+```bash packageManager="npm"
+npm install intlayer react-native-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer react-native-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add intlayer react-native-intlayer
+```
+
+```bash packageManager="bun"
+bun add intlayer react-native-intlayer
 ```
 
 ### Pakete
@@ -181,17 +161,14 @@ yarn add --save-dev react-native-intlayer
 - **intlayer**  
   Das Kern-i18n-Toolkit für Konfiguration, Wörterbuchinhalte, Typgenerierung und CLI-Befehle.
 
-- **react-intlayer**  
-  React-Integration, die die Context-Provider und React-Hooks bereitstellt, die Sie in React Native verwenden, um Lokalisierungen zu erhalten und zu wechseln.
-
 - **react-native-intlayer**  
-  React Native-Integration, die das Metro-Plugin bereitstellt, um Intlayer mit dem React Native-Bundler zu integrieren.
+  React Native-Integration, die die Kontext-Provider und React-Hooks bereitstellt, die Sie zum Abrufen und Wechseln von Lokalisierungen verwenden, die React Native-Polyfills sowie das Metro-Plugin für die Integration von Intlayer mit dem React Native-Bundler. Alle Exporte aus `react-intlayer` werden erneut exportiert, sodass Sie in einer React Native-App nur dieses eine Paket benötigen.
 
 ---
 
 </Step>
 
-<Step number={3} title="Erstellen Sie eine Intlayer-Konfiguration">
+<Step number={2} title="Erstellen Sie eine Intlayer-Konfiguration">
 
 In Ihrem Projektstammverzeichnis (oder an einem beliebigen anderen Ort) erstellen Sie eine **Intlayer-Konfigurationsdatei**. Sie könnte wie folgt aussehen:
 
@@ -225,7 +202,7 @@ Innerhalb dieser Konfiguration können Sie:
 
 </Step>
 
-<Step number={4} title="Fügen Sie das Metro-Plugin hinzu">
+<Step number={3} title="Fügen Sie das Metro-Plugin hinzu">
 
 Metro ist ein Bundler für React Native. Es ist der Standard-Bundler für React Native-Projekte, die mit dem Befehl `react-native init` erstellt wurden. Um Intlayer mit Metro zu verwenden, müssen Sie das Plugin zu Ihrer `metro.config.js`-Datei hinzufügen:
 
@@ -240,13 +217,18 @@ module.exports = (async () => {
 })();
 ```
 
+> Hinweis: `configMetroIntlayer` ist eine Promise-Funktion. Verwenden Sie stattdessen `configMetroIntlayerSync`, wenn Sie sie synchron verwenden möchten, oder vermeiden Sie IFFE (Immediately Invoked Function Expression).
+> Hinweis: `configMetroIntlayerSync` erlaubt es nicht, Intlayer-Wörterbücher beim Serverstart zu erstellen.
+
 </Step>
 
-<Step number={5} title="Fügen Sie den Intlayer-Provider hinzu">
+<Step number={4} title="Fügen Sie den Intlayer-Provider hinzu">
 
-Um die Benutzersprache in Ihrer Anwendung synchron zu halten, müssen Sie Ihre Root-Komponente mit der `IntlayerProvider`-Komponente von `react-intlayer-native` umschließen.
+Um die Benutzersprache in Ihrer gesamten Anwendung synchron zu halten, müssen Sie Ihre Root-Komponente mit der `IntlayerProvider`-Komponente aus `react-native-intlayer` umschließen.
 
-> Stellen Sie sicher, dass Sie den Provider von `react-native-intlayer` anstelle von `react-intlayer` verwenden. Der Export von `react-native-intlayer` enthält Polyfills für die Web-API.
+> Importieren Sie immer aus `react-native-intlayer`. Dessen `IntlayerProvider` enthält Polyfills für die von Intlayer verwendete Web-API, und das Paket exportiert alle Hooks und Utilities aus `react-intlayer` erneut.
+
+Außerdem müssen Sie die Funktion `intlayerPolyfill` zu Ihrer `index.js`-Datei hinzufügen, um sicherzustellen, dass Intlayer ordnungsgemäß funktioniert.
 
 ```tsx fileName="app/_layout.tsx" codeFormat={["typescript", "esm"]}
 import { Stack } from "expo-router";
@@ -271,7 +253,7 @@ export default RootLayout;
 
 </Step>
 
-<Step number={6} title="Deklarieren Sie Ihren Inhalt">
+<Step number={5} title="Deklarieren Sie Ihren Inhalt">
 
 Erstellen Sie **Content-Deklarations**-Dateien an beliebiger Stelle in Ihrem Projekt (häufig innerhalb von `src/`), unter Verwendung eines der von Intlayer unterstützten Dateiendungen:
 
@@ -336,13 +318,13 @@ export default homeScreenContent;
 }
 ```
 
-> Für Details zu Inhaltsdeklarationen siehe [Intlayer’s Inhaltsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md).
+> Für Details zu Inhaltsdeklarationen siehe [Intlayer's Inhaltsdokumentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md).
 
 ---
 
 </Step>
 
-<Step number={7} title="Verwenden Sie Intlayer in Ihren Komponenten">
+<Step number={6} title="Verwenden Sie Intlayer in Ihren Komponenten">
 
 Verwenden Sie den `useIntlayer` Hook in untergeordneten Komponenten, um lokalisierten Inhalt zu erhalten.
 
@@ -350,7 +332,7 @@ Verwenden Sie den `useIntlayer` Hook in untergeordneten Komponenten, um lokalisi
 
 ```tsx fileName="app/(tabs)/index.tsx" codeFormat={["typescript", "esm"]}
 import { Image, StyleSheet, Platform } from "react-native";
-import { useIntlayer } from "intlayer";
+import { useIntlayer } from "react-native-intlayer";
 import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
@@ -397,7 +379,7 @@ export default HomeScreen;
 
 </Step>
 
-<Step number={8} title="Ändern der App-Sprache" isOptional={true}>
+<Step number={7} title="Ändern der App-Sprache" isOptional={true}>
 
 Um die Sprache innerhalb Ihrer Komponenten zu wechseln, können Sie die `setLocale`-Methode des `useLocale`-Hooks verwenden:
 
@@ -405,7 +387,7 @@ Um die Sprache innerhalb Ihrer Komponenten zu wechseln, können Sie die `setLoca
 import { type FC } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { getLocaleName } from "intlayer";
-import { useLocale } from "react-intlayer";
+import { useLocale } from "react-native-intlayer";
 
 export const LocaleSwitcher: FC = () => {
   const { setLocale, availableLocales } = useLocale();
@@ -482,7 +464,7 @@ Dies ermöglicht Funktionen wie:
 Um zu vermeiden, dass automatisch generierte Dateien von Intlayer committet werden, fügen Sie Folgendes zu Ihrer `.gitignore` hinzu:
 
 ```bash
-#  Ignoriere die von Intlayer generierten Dateien
+# Ignoriere die von Intlayer generierten Dateien
 .intlayer
 ```
 
@@ -523,7 +505,7 @@ Intlayer zielt hauptsächlich auf die Web Intl API ab; bei React Native müssen 
 
 Checkliste:
 
-- Verwenden Sie die neuesten Versionen von `intlayer`, `react-intlayer` und `react-native-intlayer`.
+- Verwenden Sie die neuesten Versionen von `intlayer` und `react-native-intlayer`.
 - Aktivieren Sie das Intlayer Polyfill.
 - Wenn Sie `getLocaleName` oder andere auf der Intl-API basierende Utilities verwenden, importieren Sie diese Polyfills frühzeitig (zum Beispiel in `index.js` oder `App.tsx`):
 

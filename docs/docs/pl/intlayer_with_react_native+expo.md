@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2026-05-31
+updatedAt: 2026-06-25
 title: "Expo + React Native i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
 description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji Expo + React Native. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-react-native-template
 applicationShowcase: https://intlayer-react-native.vercel.app
 history:
+  - version: 9.0.0
+    date: 2026-06-25
+    changes: "Importowanie providerów i hooków bezpośrednio z react-native-intlayer; react-intlayer nie jest już potrzebny jako bezpośrednia zależność"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Aktualizacja użycia API useIntlayer w Solid do bezpośredniego dostępu do właściwości"
@@ -63,37 +66,54 @@ author: aymericzip
 
 <TOC/>
 
-## Dlaczego Interlayer zamiast alternatyw?
+## Dlaczego Intlayer zamiast alternatyw?
 
-W porównaniu do głównych rozwiązań, takich jak „react-native-localize” czy „i18next”, Intlayer jest rozwiązaniem wyposażonym w zintegrowane optymalizacje, takie jak:
+W porównaniu do głównych rozwiązań, takich jak `react-native-localize` czy `i18next`, Intlayer jest rozwiązaniem wyposażonym w zintegrowane optymalizacje, takie jak:
 
-**Pełne pokrycie React Native**
+<AccordionGroup>
+
+<Accordion header="Pełne pokrycie React Native">
 
 Intlayer jest zoptymalizowany do doskonałej współpracy z React Native i Expo, oferując **zakres treści na poziomie komponentów**, **obsługę TypeScript** i wszystkie funkcje potrzebne do skalowania internacjonalizacji (i18n) w aplikacjach mobilnych.
 
-**Łatwość konserwacji**
+</Accordion>
 
-Określanie zakresu zawartości aplikacji **ułatwia konserwację** aplikacji na dużą skalę. Możesz powielić lub usunąć pojedynczy folder funkcji bez obciążania psychicznego koniecznością przeglądania całej bazy kodu zawartości. Dodatkowo Inlayer jest **w pełni napisany**, aby zapewnić dokładność treści.
+<Accordion header="Łatwość konserwacji">
 
-**Agent AI**
+Określanie zakresu zawartości aplikacji **ułatwia konserwację** aplikacji na dużą skalę. Możesz powielić lub usunąć pojedynczy folder funkcji bez obciążania psychicznego koniecznością przeglądania całej bazy kodu zawartości. Dodatkowo Intlayer jest **w pełni typowany**, aby zapewnić dokładność treści.
 
-Wspólna lokalizacja treści **zmniejsza potrzebny kontekst** dzięki modelom dużego języka (LLM). Intlayer zawiera także zestaw narzędzi, taki jak **CLI** do sprawdzania brakujących tłumaczeń**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** i **[umiejętności agenta](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, aby praca programisty (DX) była jeszcze płynniejsza dla agentów AI.
+</Accordion>
 
-**Automatyzacja**
+<Accordion header="Agent AI">
 
-Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wybranego LLM na koszt dostawcy sztucznej inteligencji. Intlayer oferuje także **kompilator** do automatyzacji ekstrakcji treści, a także [platformę internetową] (https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), która pomaga **tłumaczyć w tle**.
+Wspólna lokalizacja treści **zmniejsza potrzebny kontekst** dzięki modelom dużego języka (LLM). Intlayer zawiera także zestaw narzędzi, takich jak **CLI** do sprawdzania brakujących tłumaczeń, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** i **[umiejętności agenta](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, aby praca programisty (DX) była jeszcze płynniejsza dla agentów AI.
 
-**Wydajność**
+</Accordion>
 
-Łączenie ogromnych plików JSON z komponentami może prowadzić do problemów z wydajnością i reaktywnością. Inlayer optymalizuje ładowanie treści w czasie kompilacji.
+<Accordion header="Automatyzacja">
 
-**Skalowanie bez użycia dewelopera**
+Korzystaj z automatyzacji, aby tłumaczyć w swoim potoku CI/CD przy użyciu wybranego LLM na koszt dostawcy sztucznej inteligencji. Intlayer oferuje także **kompilator** do automatyzacji ekstrakcji treści, a także [platformę internetową](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), która pomaga **tłumaczyć w tle**.
 
-Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** i **[pełny CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, który pomoże Ci zarządzać wielojęzyczną treścią w **w czasie rzeczywistym**, dzięki czemu współpraca z tłumaczami, copywriterami i innymi członkami zespołu będzie płynna. Treść może być przechowywana lokalnie i/lub zdalnie.
+</Accordion>
 
-**Rozmiar bundle'a**
+<Accordion header="Wydajność">
+
+Łączenie ogromnych plików JSON z komponentami może prowadzić do problemów z wydajnością i reaktywnością. Intlayer optymalizuje ładowanie treści w czasie kompilacji.
+
+</Accordion>
+
+<Accordion header="Skalowanie bez użycia dewelopera">
+
+Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wizualny](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** i **[pełny CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**, który pomoże Ci zarządzać wielojęzyczną treścią w **czasie rzeczywistym**, dzięki czemu współpraca z tłumaczami, copywriterami i innymi członkami zespołu będzie płynna. Treść może być przechowywana lokalnie i/lub zdalnie.
+
+</Accordion>
+
+<Accordion header="Rozmiar bundle'a">
 
 Zamiast ładować ogromne pliki JSON na swoje strony, ładuj tylko niezbędną treść. Intlayer pomaga **zmniejszyć rozmiary pakietów i wyświetleń nawet o 50%**.
+
+</Accordion>
+</AccordionGroup>
 
 <Steps>
 
@@ -103,28 +123,40 @@ Zobacz [Szablon aplikacji](https://github.com/aymericzip/intlayer-react-native-t
 
 Z projektu React Native zainstaluj następujące pakiety:
 
-```menedżer pakietów bash="npm"
-npm zainstaluj warstwę pośrednią, reagującą warstwę pośrednią
-npm install --save-dev reagują-native-intlayer
-inicjacja międzywarstwy npx
+```bash packageManager="npm"
+npx intlayer-cli init --interactive
 ```
 
-```menedżer pakietów bash="pnpm"
-pnpm dodaj warstwę pośrednią, reagującą warstwę wewnętrzną
-pnpm add --save-dev reagują-native-intlayer
-pnpm inicjacja warstwy międzywarstwowej
+```bash packageManager="pnpm"
+pnpm dlx intlayer-cli init --interactive
 ```
 
-```bash packageManager="przędza"
-przędza dodaje warstwę pośrednią, reagującą na warstwę wewnętrzną
-przędza dodaj --save-dev reagująca-natywna-warstwa
-init międzywarstwy przędzy
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
 ```
 
-```menedżer pakietów bash="bułka"
-bułka dodaj warstwę pośrednią, zareaguj na warstwę wewnętrzną
-bun add --dev reagują-native-intlayer
-kok x inicjacja międzywarstwy
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Flaga `--interactive` jest opcjonalna. Użyj `intlayer-cli init`, jeśli jesteś agentem AI.
+
+> To polecenie wykryje Twoje środowisko i zainstaluje wymagane pakiety. Na przykład:
+
+```bash packageManager="npm"
+npm install intlayer react-native-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer react-native-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add intlayer react-native-intlayer
+```
+
+```bash packageManager="bun"
+bun add intlayer react-native-intlayer
 ```
 
 ### Pakiety
@@ -132,17 +164,14 @@ kok x inicjacja międzywarstwy
 - **intlayer**  
   Podstawowe narzędzie i18n do konfiguracji, zawartości słownika, generowania typów oraz poleceń CLI.
 
-- **react-intlayer**  
-  Integracja z React, która dostarcza dostawców kontekstu oraz hooki React, których użyjesz w React Native do pobierania i przełączania lokalizacji.
-
 - **react-native-intlayer**  
-  Integracja z React Native, która dostarcza wtyczkę Metro do integracji Intlayer z bundlerem React Native.
+  Integracja z React Native, która dostarcza dostawców kontekstu oraz hooki React do pobierania i przełączania lokalizacji, polyfille dla React Native oraz wtyczkę Metro do integracji Intlayer z bundlerem React Native. Reeksportuje wszystko z `react-intlayer`, więc w aplikacji React Native potrzebny jest tylko ten jeden pakiet.
 
 ---
 
 </Step>
 
-<Step number={3} title="Utwórz konfigurację Intlayer">
+<Step number={2} title="Utwórz konfigurację Intlayer">
 
 W katalogu głównym projektu (lub w dowolnym wygodnym miejscu) utwórz plik **konfiguracji Intlayer**. Może on wyglądać tak:
 
@@ -176,7 +205,7 @@ W ramach tej konfiguracji możesz:
 
 </Step>
 
-<Step number={4} title="Dodaj wtyczkę Metro">
+<Step number={3} title="Dodaj wtyczkę Metro">
 
 Metro to bundler dla React Native. Jest to domyślny bundler dla projektów React Native tworzonych za pomocą polecenia `react-native init`. Aby używać Intlayer z Metro, musisz dodać wtyczkę do pliku `metro.config.js`:
 
@@ -196,11 +225,11 @@ module.exports = (async () => {
 
 </Step>
 
-<Step number={5} title="Dodaj dostawcę Intlayer">
+<Step number={4} title="Dodaj dostawcę Intlayer">
 
 Aby utrzymać synchronizację języka użytkownika w całej aplikacji, musisz opakować swój komponent root w komponent `IntlayerProvider` z `react-native-intlayer`.
 
-> Upewnij się, że używasz providera z `react-native-intlayer` zamiast `react-intlayer`. Eksport z `react-native-intlayer` zawiera polyfille dla web API.
+> Zawsze importuj z `react-native-intlayer`. Jego `IntlayerProvider` zawiera polyfille dla web API używanego przez Intlayer, a pakiet reeksportuje wszystkie hooki i narzędzia z `react-intlayer`.
 
 Dodatkowo, musisz dodać funkcję `intlayerPolyfill` do swojego pliku `index.js`, aby zapewnić prawidłowe działanie Intlayer.
 
@@ -227,7 +256,7 @@ export default RootLayout;
 
 </Step>
 
-<Step number={6} title="Zadeklaruj swoją zawartość">
+<Step number={5} title="Zadeklaruj swoją zawartość">
 
 Utwórz pliki **deklaracji zawartości** w dowolnym miejscu w swoim projekcie (zwykle w katalogu `src/`), używając dowolnego z formatów rozszerzeń obsługiwanych przez Intlayer:
 
@@ -298,7 +327,7 @@ export default homeScreenContent;
 
 </Step>
 
-<Step number={7} title="Użyj Intlayer w swoich komponentach">
+<Step number={6} title="Użyj Intlayer w swoich komponentach">
 
 Użyj hooka `useIntlayer` w komponentach potomnych, aby uzyskać zlokalizowaną zawartość.
 
@@ -306,7 +335,7 @@ Użyj hooka `useIntlayer` w komponentach potomnych, aby uzyskać zlokalizowaną 
 
 ```tsx fileName="app/(tabs)/index.tsx" codeFormat={["typescript", "esm"]}
 import { Image, StyleSheet, Platform } from "react-native";
-import { useIntlayer } from "react-intlayer";
+import { useIntlayer } from "react-native-intlayer";
 import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
@@ -353,7 +382,7 @@ export default HomeScreen;
 
 </Step>
 
-<Step number={8} title="Zmiana lokalizacji aplikacji" isOptional={true}>
+<Step number={7} title="Zmiana lokalizacji aplikacji" isOptional={true}>
 
 Aby zmienić lokalizację z poziomu komponentów, możesz użyć metody `setLocale` hooka `useLocale`:
 
@@ -361,7 +390,7 @@ Aby zmienić lokalizację z poziomu komponentów, możesz użyć metody `setLoca
 import { type FC } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { getLocaleName } from "intlayer";
-import { useLocale } from "react-intlayer";
+import { useLocale } from "react-native-intlayer";
 
 export const LocaleSwitcher: FC = () => {
   const { setLocale, availableLocales } = useLocale();
@@ -438,7 +467,7 @@ To umożliwia funkcje takie jak:
 Aby uniknąć zatwierdzania automatycznie generowanych plików przez Intlayer, dodaj następujące wpisy do swojego `.gitignore`:
 
 ```bash
-#  Ignoruj pliki generowane przez Intlayer
+# Ignoruj pliki generowane przez Intlayer
 .intlayer
 ```
 
@@ -479,7 +508,7 @@ Intlayer jest przede wszystkim skierowany do Web Intl API; na React Native musis
 
 Lista kontrolna:
 
-- Używaj najnowszych wersji `intlayer`, `react-intlayer` oraz `react-native-intlayer`.
+- Używaj najnowszych wersji `intlayer` oraz `react-native-intlayer`.
 - Włącz polyfill Intlayer.
 - Jeśli używasz `getLocaleName` lub innych narzędzi opartych na API Intl, zaimportuj te polyfille wcześnie (na przykład w `index.js` lub `App.tsx`):
 

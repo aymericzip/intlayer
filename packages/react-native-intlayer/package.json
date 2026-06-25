@@ -41,6 +41,21 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
+    "./format": {
+      "types": "./dist/types/client/format/index.d.ts",
+      "require": "./dist/cjs/client/format/index.cjs",
+      "import": "./dist/esm/client/format/index.mjs"
+    },
+    "./html": {
+      "types": "./dist/types/html/index.d.ts",
+      "require": "./dist/cjs/html/index.cjs",
+      "import": "./dist/esm/html/index.mjs"
+    },
+    "./markdown": {
+      "types": "./dist/types/markdown/index.d.ts",
+      "require": "./dist/cjs/markdown/index.cjs",
+      "import": "./dist/esm/markdown/index.mjs"
+    },
     "./metro": {
       "types": "./dist/types/metro.d.ts",
       "require": "./dist/cjs/metro.cjs",
@@ -55,6 +70,15 @@
     "*": {
       ".": [
         "./dist/types/index.d.ts"
+      ],
+      "format": [
+        "./dist/types/client/format/index.d.ts"
+      ],
+      "html": [
+        "./dist/types/html/index.d.ts"
+      ],
+      "markdown": [
+        "./dist/types/markdown/index.d.ts"
       ],
       "metro": [
         "./dist/types/metro.d.ts"
@@ -89,7 +113,8 @@
     "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
-    "@intlayer/types": "workspace:*"
+    "@intlayer/types": "workspace:*",
+    "react-intlayer": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "25.9.4",
@@ -107,8 +132,7 @@
   },
   "peerDependencies": {
     "expo": ">=52",
-    "react": ">=18.0.0",
-    "react-intlayer": "workspace:*"
+    "react": ">=18.0.0"
   },
   "engines": {
     "node": ">=14.18"

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-06-18
-updatedAt: 2026-05-31
+updatedAt: 2026-06-25
 title: "Expo + React Native i18n - Повний посібник з перекладу вашого застосунку"
 description: "Більше ніякого i18next. Посібник 2026 зі створення багатомовного (i18n) застосунку Expo + React Native. Перекладайте за допомогою ШІ-агентів та оптимізуйте розмір бандлу, SEO та продуктивність."
 keywords:
@@ -17,6 +17,9 @@ slugs:
 applicationTemplate: https://github.com/aymericzip/intlayer-react-native-template
 applicationShowcase: https://intlayer-react-native.vercel.app
 history:
+  - version: 9.0.0
+    date: 2026-06-25
+    changes: "Імпорт провайдерів та хуків безпосередньо з react-native-intlayer; react-intlayer більше не потрібен як пряма залежність"
   - version: 8.9.0
     date: 2026-05-04
     changes: "Оновлення використання API useIntlayer у Solid для прямого доступу до властивостей"
@@ -40,7 +43,7 @@ author: aymericzip
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-react-native-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Демо CodeSandbox, як інтернаціоналізувати ваш застосунок за допомогою Intlayer"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -83,13 +86,13 @@ Intlayer оптимізовано для ідеальної роботи з Reac
 
 <Accordion header="Агент AI">
 
-Спільне розміщення вмісту **зменшує контекст, необхідний** для великих мовних моделей (LLM). Intlayer також постачається з набором інструментів, наприклад **CLI** для перевірки відсутніх перекладів,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** і **[навички агента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, щоб зробити роботу розробника (DX) ще зручнішою для агентів ШІ.
+Спільне розміщення вмісту **зменшує контекст, необхідний** для великих мовних моделей (LLM). Intlayer також постачається з набором інструментів, наприклад **CLI** для перевірки відсутніх перекладів, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** і **[навички агента](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, щоб зробити роботу розробника (DX) ще зручнішою для агентів ШІ.
 
 </Accordion>
 
 <Accordion header="Автоматизація">
 
-Використовуйте автоматизацію для перекладу в конвеєрі CI/CD за допомогою LLM за вашим вибором за рахунок вашого постачальника штучного інтелекту. Intlayer також пропонує **компілятор** для автоматизації екстракція вмісту, а також [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), щоб допомогти **перекладати у фоновому режимі**.
+Використовуйте автоматизацію для перекладу в конвеєрі CI/CD за допомогою LLM за вашим вибором за рахунок вашого постачальника штучного інтелекту. Intlayer також пропонує **компілятор** для автоматизації екстракції вмісту, а також [веб-платформу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md), щоб допомогти **перекладати у фоновому режимі**.
 
 </Accordion>
 
@@ -121,27 +124,39 @@ Intlayer оптимізовано для ідеальної роботи з Reac
 Зі свого проекту React Native встановіть такі пакети:
 
 ```bash packageManager="npm"
-npm встановити intlayer react-intlayer
-npm install --save-dev react-native-intlayer
-npx intlayer ініціал
+npx intlayer-cli init --interactive
 ```
 
 ```bash packageManager="pnpm"
-pnpm add intlayer react-intlayer
-pnpm add --save-dev react-native-intlayer
-pnpm intlayer ініціал
+pnpm dlx intlayer-cli init --interactive
 ```
 
-```bash packageManager="пряжа"
-пряжа add intlayer react-intlayer
-yarn add --save-dev react-native-intlayer
-yarn intlayer ініц
+```bash packageManager="yarn"
+yarn dlx intlayer-cli init --interactive
 ```
 
-```bash packageManager="булочка"
-bun add intlayer react-intlayer
-bun add --dev react-native-intlayer
-bun x intlayer init
+```bash packageManager="bun"
+bunx intlayer-cli init --interactive
+```
+
+> Прапорець `--interactive` є необов'язковим. Використовуйте `intlayer-cli init`, якщо ви є ШІ-агентом.
+
+> Ця команда визначить ваше середовище та встановить необхідні пакети. Наприклад:
+
+```bash packageManager="npm"
+npm install intlayer react-native-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer react-native-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add intlayer react-native-intlayer
+```
+
+```bash packageManager="bun"
+bun add intlayer react-native-intlayer
 ```
 
 ### Пакети
@@ -149,17 +164,14 @@ bun x intlayer init
 - **intlayer**  
   Основний i18n-набір інструментів для конфігурації, вмісту словників, генерації типів та команд CLI.
 
-- **react-intlayer**  
-  Інтеграція для React, яка надає провайдери контексту та React hooks, які ви використовуватимете в React Native для отримання та перемикання локалей.
-
 - **react-native-intlayer**  
-  Інтеграція для React Native, яка забезпечує плагін Metro для інтеграції Intlayer з бандлером React Native.
+  Інтеграція для React Native, яка надає провайдери контексту та React hooks для отримання та перемикання локалей, поліфіли React Native, а також плагін Metro для інтеграції Intlayer з бандлером React Native. Він реекспортує все з `react-intlayer`, тому у застосунку React Native достатньо лише цього одного пакету.
 
 ---
 
 </Step>
 
-<Step number={3} title="Створіть конфігурацію Intlayer">
+<Step number={2} title="Створіть конфігурацію Intlayer">
 
 У корені вашого проєкту (або в будь-якому зручному місці) створіть файл **Intlayer config**. Він може виглядати так:
 
@@ -187,15 +199,15 @@ export default config;
 У цій конфігурації ви можете:
 
 - Налаштувати ваш **список підтримуваних локалей**.
-- Встановіть локаль за **замовчуванням**.
+- Встановити локаль за **замовчуванням**.
 - Пізніше ви зможете додати більш просунуті опції (наприклад, логи, користувацькі директорії контенту тощо).
 - Див. [документацію конфігурації Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/configuration.md) для детальнішої інформації.
 
 </Step>
 
-<Step number={4} title="Додайте плагін Metro">
+<Step number={3} title="Додайте плагін Metro">
 
-Metro, це бандлер для React Native. Він є бандлером за замовчуванням для проєктів React Native, створених за допомогою команди `react-native init`. Щоб використовувати Intlayer з Metro, потрібно додати плагін у файл `metro.config.js`:
+Metro — це бандлер для React Native. Він є бандлером за замовчуванням для проєктів React Native, створених за допомогою команди `react-native init`. Щоб використовувати Intlayer з Metro, потрібно додати плагін у файл `metro.config.js`:
 
 ```js fileName="metro.config.js"
 const { getDefaultConfig } = require("expo/metro-config");
@@ -208,16 +220,16 @@ module.exports = (async () => {
 })();
 ```
 
-> Примітка: `configMetroIntlayer`, це функція, яка повертає проміс. Використовуйте `configMetroIntlayerSync`, якщо хочете виконувати це синхронно, або уникайте IFFE (Immediately Invoked Function Expression).
+> Примітка: `configMetroIntlayer` — це функція, яка повертає проміс. Використовуйте `configMetroIntlayerSync`, якщо хочете виконувати це синхронно, або уникайте IIFE (Immediately Invoked Function Expression).
 > Примітка: `configMetroIntlayerSync` не дозволяє будувати словники intlayer під час запуску сервера
 
 </Step>
 
-<Step number={5} title="Додайте провайдер Intlayer">
+<Step number={4} title="Додайте провайдер Intlayer">
 
-Щоб синхронізувати мову користувача по всьому застосунку, потрібно обгорнути кореневий компонент компонентом `IntlayerProvider` з `react-intlayer-native`.
+Щоб синхронізувати мову користувача по всьому застосунку, потрібно обгорнути кореневий компонент компонентом `IntlayerProvider` з `react-native-intlayer`.
 
-> Переконайтеся, що використовуєте провайдер з `react-native-intlayer`, а не з `react-intlayer`. Експорт з `react-native-intlayer` включає поліфіли для Web API.
+> Завжди імпортуйте з `react-native-intlayer`. Його `IntlayerProvider` включає поліфіли для Web API, які використовує Intlayer, і пакет реекспортує всі хуки та утиліти з `react-intlayer`.
 
 Також потрібно додати функцію `intlayerPolyfill` у ваш файл `index.js`, щоб забезпечити правильну роботу Intlayer.
 
@@ -244,7 +256,7 @@ export default RootLayout;
 
 </Step>
 
-<Step number={6} title="Оголосіть свій контент">
+<Step number={5} title="Оголосіть свій контент">
 
 Створіть файли **декларації контенту** у будь-якому місці вашого проєкту (зазвичай у `src/`), використовуючи будь-який з форматів розширень, які підтримує Intlayer:
 
@@ -317,7 +329,7 @@ export default homeScreenContent;
 
 </Step>
 
-<Step number={7} title="Використання Intlayer у ваших компонентах">
+<Step number={6} title="Використання Intlayer у ваших компонентах">
 
 Використовуйте хук `useIntlayer` у дочірніх компонентах, щоб отримувати локалізований контент.
 
@@ -325,7 +337,7 @@ export default homeScreenContent;
 
 ```tsx fileName="app/(tabs)/index.tsx" codeFormat={["typescript", "esm"]}
 import { Image, StyleSheet, Platform } from "react-native";
-import { useIntlayer } from "react-intlayer";
+import { useIntlayer } from "react-native-intlayer";
 import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
@@ -334,8 +346,6 @@ import { type FC } from "react";
 
 const HomeScreen = (): FC => {
   const { title, steps } = useIntlayer("home-screen");
-
-> Якщо ваш застосунок уже існує, ви можете скористатися [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) у поєднанні з [командой extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md), щоб перетворити тисячі компонентів за одну секунду.
 
   return (
     <ParallaxScrollView
@@ -368,11 +378,13 @@ export default HomeScreen;
 
 > Коли ви використовуєте `content.someKey` у властивостях, які очікують рядок (наприклад, `title` кнопки або `children` компонента `Text`), **викликайте `content.someKey.value`**, щоб отримати фактичний рядок.
 
+> Якщо ваш застосунок уже існує, ви можете скористатися [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/compiler.md) у поєднанні з [командою extract](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/extract.md), щоб перетворити тисячі компонентів за одну секунду.
+
 ---
 
 </Step>
 
-<Step number={8} title="Змінити локаль додатку">
+<Step number={7} title="Змінити локаль додатку" isOptional={true}>
 
 Щоб перемикати локалі зсередини ваших компонентів, ви можете використовувати метод `setLocale` хука `useLocale`:
 
@@ -380,7 +392,7 @@ export default HomeScreen;
 import { type FC } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { getLocaleName } from "intlayer";
-import { useLocale } from "react-intlayer";
+import { useLocale } from "react-native-intlayer";
 
 export const LocaleSwitcher: FC = () => {
   const { setLocale, availableLocales } = useLocale();
@@ -447,17 +459,17 @@ Intlayer генерує визначення типів у прихованій 
 
 Це дозволяє такі можливості, як:
 
-- **Autocompletion** для ключів вашого словника.
-- **Type checking**, що попереджає, якщо ви звертаєтеся до неіснуючого ключа або є невідповідність типів.
+- **Автодоповнення** для ключів вашого словника.
+- **Перевірка типів**, що попереджає, якщо ви звертаєтеся до неіснуючого ключа або є невідповідність типів.
 
 ---
 
-## Git Configuration
+## Конфігурація Git
 
 Щоб уникнути коміту автоматично згенерованих Intlayer файлів, додайте наступне до вашого `.gitignore`:
 
 ```bash
-#  Ігнорувати файли, згенеровані Intlayer
+# Ігнорувати файли, згенеровані Intlayer
 .intlayer
 ```
 
@@ -471,10 +483,10 @@ Intlayer генерує визначення типів у прихованій 
 
 Це розширення надає:
 
-- **Autocompletion** для ключів перекладу.
-- **Real-time error detection** для відсутніх перекладів.
-- **Inline previews** перекладеного вмісту.
-- **Quick actions** для простого створення та оновлення перекладів.
+- **Автодоповнення** для ключів перекладу.
+- **Виявлення помилок у реальному часі** для відсутніх перекладів.
+- **Вбудований перегляд** перекладеного вмісту.
+- **Швидкі дії** для простого створення та оновлення перекладів.
 
 Для детальнішого опису використання розширення зверніться до [документації Intlayer VS Code Extension](https://intlayer.org/doc/vs-code-extension).
 
@@ -482,9 +494,9 @@ Intlayer генерує визначення типів у прихованій 
 
 ## Додаткові ресурси
 
-- **Visual Editor**: Використовуйте [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) для візуального керування перекладами.
-- **CMS Integration**: Ви також можете винести та отримувати вміст вашого словника з [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).
-- **CLI Commands**: Ознайомтеся з [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md) для завдань, таких як **extracting translations** або **checking missing keys**.
+- **Візуальний редактор**: Використовуйте [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) для візуального керування перекладами.
+- **Інтеграція з CMS**: Ви також можете винести та отримувати вміст вашого словника з [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).
+- **Команди CLI**: Ознайомтеся з [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/cli/index.md) для завдань, таких як **вилучення перекладів** або **перевірка відсутніх ключів**.
 
 Насолоджуйтесь створенням ваших додатків на **React Native** з повноцінною i18n за допомогою **Intlayer**!
 
@@ -494,13 +506,13 @@ Intlayer генерує визначення типів у прихованій 
 
 React Native може бути менш стабільним, ніж React для Web, тому приділяйте особливу увагу узгодженню версій.
 
-Intlayer в першу чергу орієнтований на Web Intl API; на React Native потрібно підключити відповідні polyfills.
+Intlayer в першу чергу орієнтований на Web Intl API; на React Native потрібно підключити відповідні поліфіли.
 
 Контрольний список:
 
-- Використовуйте останні версії `intlayer`, `react-intlayer` та `react-native-intlayer`.
-- Увімкніть Intlayer polyfill.
-- Якщо ви використовуєте `getLocaleName` або інші утиліти на базі Intl API, імпортуйте ці polyfills на ранньому етапі (наприклад, в `index.js` або `App.tsx`):
+- Використовуйте останні версії `intlayer` та `react-native-intlayer`.
+- Увімкніть Intlayer поліфіл.
+- Якщо ви використовуєте `getLocaleName` або інші утиліти на базі Intl API, імпортуйте ці поліфіли на ранньому етапі (наприклад, в `index.js` або `App.tsx`):
 
 ```ts
 import "intl";
