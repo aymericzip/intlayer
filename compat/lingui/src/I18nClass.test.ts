@@ -91,6 +91,14 @@ describe('I18nClass', () => {
     expect(i18n._('home.title')).toBe('Welcome');
   });
 
+  it('resolves a flat dotted key from the dictionary (lingui format)', () => {
+    mockGetIntlayer.mockReturnValue({
+      'results-table.bundleSize': 'Bundle Size',
+    } as never);
+    const i18n = new I18nClass({ locale: 'en' });
+    expect(i18n._('results-table.bundleSize')).toBe('Bundle Size');
+  });
+
   it('interpolates ICU values', () => {
     mockGetIntlayer.mockReturnValue({
       greeting: 'Hello, {name}!',
@@ -147,6 +155,53 @@ describe('I18nClass', () => {
     mockGetIntlayer.mockReturnValue({ hello: 'Hi' } as never);
     const i18n = new I18nClass({ locale: 'en' });
     expect(i18n.t('hello')).toBe(i18n._('hello'));
+  });
+
+  // ── runtime fallback catalog (load / loadAndActivate / constructor) ─────────
+
+  it('resolves from a catalog loaded via load(locale, messages)', () => {
+    mockGetIntlayer.mockImplementation(() => {
+      throw new Error('messages dictionary not found');
+    });
+    const i18n = new I18nClass({ locale: 'en' });
+    i18n.load('en', { 'results-table.bundleSize': 'Bundle Size' });
+    expect(i18n._('results-table.bundleSize')).toBe('Bundle Size');
+  });
+
+  it('resolves a compiled (.mjs) token-array catalog value', () => {
+    mockGetIntlayer.mockImplementation(() => {
+      throw new Error('messages dictionary not found');
+    });
+    const i18n = new I18nClass({ locale: 'en' });
+    i18n.load('en', { greeting: ['Hello ', ['name'], '!'] } as never);
+    expect(i18n._('greeting', { name: 'Alice' })).toBe('Hello Alice!');
+  });
+
+  it('resolves from a catalog passed to the constructor (AllMessages)', () => {
+    mockGetIntlayer.mockImplementation(() => {
+      throw new Error('messages dictionary not found');
+    });
+    const i18n = new I18nClass({
+      locale: 'fr',
+      messages: { fr: { hello: 'Bonjour' } } as never,
+    });
+    expect(i18n._('hello')).toBe('Bonjour');
+  });
+
+  it('loadAndActivate stores the catalog and resolves from it', () => {
+    mockGetIntlayer.mockImplementation(() => {
+      throw new Error('messages dictionary not found');
+    });
+    const i18n = new I18nClass({ locale: 'en' });
+    i18n.loadAndActivate({ locale: 'de', messages: { hi: 'Hallo' } });
+    expect(i18n._('hi')).toBe('Hallo');
+  });
+
+  it('prefers the compiled dictionary over the runtime fallback catalog', () => {
+    mockGetIntlayer.mockReturnValue({ key: 'From dictionary' } as never);
+    const i18n = new I18nClass({ locale: 'en' });
+    i18n.load('en', { key: 'From fallback' });
+    expect(i18n._('key')).toBe('From dictionary');
   });
 
   // ── locale change syncs with lookups ───────────────────────────────────────

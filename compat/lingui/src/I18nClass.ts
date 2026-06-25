@@ -14,6 +14,7 @@ import type {
   Messages,
 } from '@lingui/core';
 import { EventEmitter } from './eventEmitter';
+import { linguiMessageToIcu, navigateCatalog } from './linguiCatalog';
 
 /** Mirrors the unexported `Values` type from `@lingui/core`. */
 type Values = Record<string, unknown>;
@@ -36,42 +37,20 @@ type I18nProps = {
 };
 
 /**
- * Navigates a nested object by a dot-separated path.
- *
- * Example: `navigatePath({home: {title: 'Hello'}}, 'home.title')` → `'Hello'`
- */
-const navigatePath = (object: unknown, path: string): unknown => {
-  if (!path) return object;
-  const parts = path.split('.');
-  let current: unknown = object;
-  for (const part of parts) {
-    if (
-      current === null ||
-      current === undefined ||
-      typeof current !== 'object'
-    ) {
-      return undefined;
-    }
-    current = (current as Record<string, unknown>)[part];
-  }
-  return current;
-};
-
-/**
  * Looks up a lingui message from the `messages` intlayer dictionary.
  *
  * The entire lingui catalog is stored in a single `messages` dictionary.
- * Dotted IDs (e.g. `'home.title'`) are resolved as nested paths within that
- * dictionary. Hash-style IDs (no dots) are direct top-level keys.
+ * Both flat dotted ids (`'results-table.bundleSize'`, lingui's own format)
+ * and genuinely nested paths (`'home.title'`) are supported.
  */
-const lookupMessage = (
+const lookupDictionaryMessage = (
   id: string,
   locale: LocalesValues
 ): string | undefined => {
   try {
     const dictionary = getIntlayer('messages' as DictionaryKeys, locale);
-    const value = navigatePath(dictionary, id);
-    return typeof value === 'string' ? value : undefined;
+    const value = navigateCatalog(dictionary, id);
+    return value === undefined ? undefined : linguiMessageToIcu(value);
   } catch {
     return undefined;
   }
@@ -89,11 +68,22 @@ const lookupMessage = (
 export class I18nClass extends EventEmitter<LinguiEvents> {
   private _locale: string;
   private _locales?: Locales;
+  /**
+   * Per-locale catalogs supplied at runtime via the constructor, `load()` or
+   * `loadAndActivate()`. Used as a fallback when a key is absent from the
+   * compiled intlayer `messages` dictionary, so an unmodified lingui codebase
+   * (which loads its compiled `.mjs`/`.json` catalogs) keeps working as a
+   * drop-in. For optimal bundle size, compile catalogs into intlayer
+   * dictionaries instead — see the dev warning emitted by `load()`.
+   */
+  private _catalogs: Record<string, Messages> = {};
+  private _loadFallbackWarned = false;
 
-  constructor({ locale = 'en', locales }: I18nProps = {}) {
+  constructor({ locale = 'en', locales, messages }: I18nProps = {}) {
     super();
     this._locale = typeof locale === 'string' ? locale : 'en';
     this._locales = locales;
+    if (messages) this.mergeAllCatalogs(messages);
   }
 
   get locale(): string {
@@ -105,13 +95,33 @@ export class I18nClass extends EventEmitter<LinguiEvents> {
   }
 
   get messages(): Messages {
+    let dictionary: Messages = {};
     try {
-      return getIntlayer(
+      dictionary = getIntlayer(
         'messages' as DictionaryKeys,
         this._locale as LocalesValues
       ) as Messages;
     } catch {
-      return {};
+      dictionary = {};
+    }
+    // The compiled dictionary wins over the runtime fallback catalog.
+    return { ...(this._catalogs[this._locale] ?? {}), ...dictionary };
+  }
+
+  /** Merges a single-locale catalog into the in-memory fallback store. */
+  private mergeLocaleCatalog(locale: string, catalog: Messages) {
+    this._catalogs[locale] = { ...this._catalogs[locale], ...catalog };
+  }
+
+  /**
+   * Merges a `{ [locale]: catalog }` map (lingui's `AllMessages`) into the
+   * in-memory fallback store.
+   */
+  private mergeAllCatalogs(messages: AllMessages) {
+    for (const [locale, catalog] of Object.entries(messages)) {
+      if (catalog && typeof catalog === 'object') {
+        this.mergeLocaleCatalog(locale, catalog as Messages);
+      }
     }
   }
 
@@ -129,29 +139,44 @@ export class I18nClass extends EventEmitter<LinguiEvents> {
   }
 
   /**
-   * No-op: messages are loaded automatically via intlayer dictionaries.
+   * Loads message catalogs into the runtime fallback store, supporting both
+   * lingui signatures: `load(locale, messages)` and `load(allMessages)`.
+   *
+   * These messages are a compatibility fallback — keys present in the compiled
+   * intlayer `messages` dictionary take precedence, and only those keys can be
+   * pruned/optimized at build time.
    */
-  load(_localeOrAll: Locale | AllMessages, _messages?: Messages): void {
-    if (process.env.NODE_ENV === 'development') {
+  load(localeOrAll: Locale | AllMessages, messages?: Messages): void {
+    if (typeof localeOrAll === 'string') {
+      this.mergeLocaleCatalog(localeOrAll, messages ?? {});
+    } else {
+      this.mergeAllCatalogs(localeOrAll);
+    }
+
+    if (process.env.NODE_ENV === 'development' && !this._loadFallbackWarned) {
+      this._loadFallbackWarned = true;
       console.warn(
-        '@intlayer/lingui: i18n.load() is a no-op — ' +
-          'messages are loaded automatically via intlayer dictionaries.'
+        '@intlayer/lingui: i18n.load() messages are used as a runtime ' +
+          'fallback. For optimal bundle size, compile your catalogs into ' +
+          'intlayer dictionaries instead of importing lingui locale files.'
       );
     }
   }
 
   /**
-   * Activates the given locale (emits `'change'`).
-   * The `messages` argument is ignored — intlayer handles the catalog.
+   * Loads the given catalog (fallback store) and activates the locale
+   * (emits `'change'`).
    */
   loadAndActivate({
     locale,
     locales,
+    messages,
   }: {
     locale: Locale;
     locales?: Locales;
-    messages: Messages;
+    messages?: Messages;
   }): void {
+    if (messages) this.mergeLocaleCatalog(locale, messages);
     this.activate(locale, locales);
   }
 
@@ -165,12 +190,36 @@ export class I18nClass extends EventEmitter<LinguiEvents> {
   }
 
   /**
+   * Resolves the raw message template for an id (before interpolation).
+   *
+   * Resolution order:
+   * 1. compiled intlayer `messages` dictionary
+   * 2. runtime fallback catalog (constructor / `load()` / `loadAndActivate()`)
+   */
+  private resolveTemplate(id: string): string | undefined {
+    const fromDictionary = lookupDictionaryMessage(
+      id,
+      this._locale as LocalesValues
+    );
+    if (fromDictionary !== undefined) return fromDictionary;
+
+    const catalog = this._catalogs[this._locale];
+    if (catalog) {
+      const raw = navigateCatalog(catalog, id);
+      if (raw !== undefined) return linguiMessageToIcu(raw);
+    }
+
+    return undefined;
+  }
+
+  /**
    * Translates a message descriptor or a plain ID.
    *
    * Resolution order:
-   * 1. `messages` intlayer dictionary (dotted path navigation)
-   * 2. `descriptor.message` or `options.message` (original source string)
-   * 3. The raw `id` as fallback
+   * 1. `messages` intlayer dictionary (flat dotted key or nested path)
+   * 2. runtime fallback catalog loaded via `load()` / `loadAndActivate()`
+   * 3. `descriptor.message` or `options.message` (original source string)
+   * 4. The raw `id` as fallback
    */
   _(descriptor: MessageDescriptor): string;
   _(id: MessageId, values?: Values, options?: MessageOptions): string;
@@ -194,7 +243,7 @@ export class I18nClass extends EventEmitter<LinguiEvents> {
         }
       : (values ?? {});
 
-    const rawValue = lookupMessage(id, this._locale as LocalesValues);
+    const rawValue = this.resolveTemplate(id);
     const template = rawValue ?? defaultMessage ?? id;
 
     return (

@@ -673,6 +673,53 @@ export const updateViteConfigForCompatPlugin = (
 };
 
 /**
+ * Rewrites the module source of an existing named import in a vite config,
+ * keeping the imported binding and its call site untouched. Used when a compat
+ * plugin is a drop-in replacement for an i18n library's own vite plugin — e.g.
+ * lingui: `import { lingui } from "@lingui/vite-plugin"` becomes
+ * `import { lingui } from "@intlayer/lingui/plugin"`, leaving `lingui()` in the
+ * `plugins` array as-is. Returns the content unchanged when no matching import
+ * is found.
+ */
+export const replaceViteConfigPluginImportSource = (
+  content: string,
+  importName: string,
+  fromPackageSource: string,
+  toPackageSource: string
+): string => {
+  const ast = recast.parse(content, {
+    parser: require('recast/parsers/typescript'),
+  });
+
+  let changed = false;
+
+  recast.visit(ast, {
+    visitImportDeclaration(path) {
+      const { source, specifiers } = path.node;
+      const importsBinding = (specifiers ?? []).some(
+        (specifier) =>
+          n.ImportSpecifier.check(specifier) &&
+          specifier.imported.name === importName
+      );
+
+      if (
+        n.StringLiteral.check(source) &&
+        source.value === fromPackageSource &&
+        importsBinding
+      ) {
+        source.value = toPackageSource;
+        changed = true;
+      }
+
+      return false;
+    },
+  });
+
+  if (!changed) return content;
+  return recast.print(ast).code;
+};
+
+/**
  * Generic Next.js config wrapper for compat plugins. Injects the import and
  * wraps the default export / `module.exports` with a HOC call.
  */

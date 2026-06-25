@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   enableIntlayerEditorConfig,
   getMetroConfigTemplate,
+  replaceViteConfigPluginImportSource,
   setIntlayerConfigRoutingMode,
   updateIntlayerConfigWithSyncPlugin,
   updateMetroConfig,
@@ -158,6 +159,70 @@ module.exports = {
       expect(updated).not.toContain(
         'const { intlayer } = require("vite-intlayer");\nconst { intlayer }'
       );
+    });
+  });
+
+  describe('replaceViteConfigPluginImportSource', () => {
+    it('rewrites the import source for a drop-in plugin and keeps the call site', () => {
+      const content = `import { defineConfig } from "vite";
+import { lingui } from "@lingui/vite-plugin";
+
+export default defineConfig({
+  plugins: [lingui()],
+});
+`;
+      const updated = replaceViteConfigPluginImportSource(
+        content,
+        'lingui',
+        '@lingui/vite-plugin',
+        '@intlayer/lingui/plugin'
+      );
+
+      expect(updated).toContain(
+        'import { lingui } from "@intlayer/lingui/plugin";'
+      );
+      expect(updated).not.toContain('@lingui/vite-plugin');
+      // The call site is untouched and not duplicated.
+      expect(updated.match(/lingui\(\)/g)?.length).toBe(1);
+    });
+
+    it('preserves import attributes elsewhere in the file', () => {
+      const content = `import { defineConfig } from "vite";
+import packageJson from "./package.json" with { type: "json" };
+import { lingui } from "@lingui/vite-plugin";
+
+export default defineConfig({
+  plugins: [lingui()],
+});
+`;
+      const updated = replaceViteConfigPluginImportSource(
+        content,
+        'lingui',
+        '@lingui/vite-plugin',
+        '@intlayer/lingui/plugin'
+      );
+
+      expect(updated).toContain(
+        'import packageJson from "./package.json" with { type: "json" }'
+      );
+      expect(updated).toContain(
+        'import { lingui } from "@intlayer/lingui/plugin";'
+      );
+    });
+
+    it('returns the content unchanged when no matching import is present', () => {
+      const content = `import { defineConfig } from "vite";
+
+export default defineConfig({ plugins: [] });
+`;
+      const updated = replaceViteConfigPluginImportSource(
+        content,
+        'lingui',
+        '@lingui/vite-plugin',
+        '@intlayer/lingui/plugin'
+      );
+
+      expect(updated).toBe(content);
     });
   });
 

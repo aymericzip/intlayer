@@ -52,16 +52,14 @@ const LINGUI_COMPAT_CALLERS: CompatCallerConfig[] = [
  * @example
  * ```ts
  * // vite.config.ts
- * import { linguiVitePlugin } from '@intlayer/lingui/plugin';
+ * import { lingui } from '@intlayer/lingui/plugin';
  *
  * export default defineConfig({
- *   plugins: [linguiVitePlugin()],
+ *   plugins: [lingui()],
  * });
  * ```
  */
-export const linguiVitePlugin = (
-  options?: Parameters<typeof intlayer>[0]
-): PluginOption[] => {
+const lingui = (options?: Parameters<typeof intlayer>[0]): PluginOption[] => {
   const intlayerConfig = getConfiguration();
   const appLogger = getAppLogger(intlayerConfig);
 
@@ -114,5 +112,3 @@ export const linguiVitePlugin = (
     compatPlugin,
   ];
 };
-
-export default linguiVitePlugin;

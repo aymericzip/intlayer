@@ -45,6 +45,19 @@ export type CompatVitePluginConfig = {
   pluginFunctionName: string;
   /** Import path for the plugin package, e.g. `'@intlayer/vue-i18n/plugin'`. */
   pluginPackageSource: string;
+  /**
+   * Set when the compat plugin is a drop-in replacement for an i18n library's
+   * own Vite plugin (e.g. lingui ships `@lingui/vite-plugin`). When the original
+   * import is present, init rewrites only that import's module source to
+   * `pluginPackageSource` — keeping the binding and its call site — instead of
+   * injecting a second import and appending another plugin to the array.
+   */
+  replacesVitePlugin?: {
+    /** Imported binding to keep, e.g. `'lingui'`. */
+    importName: string;
+    /** Original package source to rewrite, e.g. `'@lingui/vite-plugin'`. */
+    fromPackageSource: string;
+  };
 };
 
 /** Result of analyzing project dependencies for intlayer package gaps. */
@@ -368,8 +381,16 @@ export const detectMissingIntlayerPackages = (
     addIfMissing('@intlayer/lingui');
     addIfMissing('@lingui/core');
     compatVitePluginConfig ??= {
-      pluginFunctionName: 'linguiVitePlugin',
+      // `@intlayer/lingui/plugin` exports `lingui` as a drop-in replacement for
+      // `@lingui/vite-plugin`, so a fresh project gets `lingui()` injected and a
+      // project already using `@lingui/vite-plugin` only has its import source
+      // rewritten (see `replacesVitePlugin`).
+      pluginFunctionName: 'lingui',
       pluginPackageSource: '@intlayer/lingui/plugin',
+      replacesVitePlugin: {
+        importName: 'lingui',
+        fromPackageSource: '@lingui/vite-plugin',
+      },
     };
   }
 

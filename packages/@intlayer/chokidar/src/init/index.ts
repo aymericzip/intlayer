@@ -22,6 +22,7 @@ import {
   installPackages,
   parseJSONWithComments,
   readFileFromRoot,
+  replaceViteConfigPluginImportSource,
   setupNextCompilerBabelConfig,
   updateAstroConfig,
   updateIntlayerConfigWithSyncPlugin,
@@ -643,7 +644,29 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
       const extension = file.split('.').pop()!;
 
       if (compatVitePluginConfig) {
-        if (!content.includes(compatVitePluginConfig.pluginPackageSource)) {
+        const { replacesVitePlugin } = compatVitePluginConfig;
+
+        if (content.includes(compatVitePluginConfig.pluginPackageSource)) {
+          logger(
+            `${v} ${colorizePath(file)} already includes ${compatVitePluginConfig.pluginPackageSource}`
+          );
+        } else if (
+          replacesVitePlugin &&
+          content.includes(replacesVitePlugin.fromPackageSource)
+        ) {
+          // Drop-in replacement: rewrite the original i18n vite plugin's import
+          // source, keeping its binding and call site (e.g. lingui).
+          const updatedContent = replaceViteConfigPluginImportSource(
+            content,
+            replacesVitePlugin.importName,
+            replacesVitePlugin.fromPackageSource,
+            compatVitePluginConfig.pluginPackageSource
+          );
+          await writeFileToRoot(rootDir, file, updatedContent);
+          logger(
+            `${v} Updated ${colorizePath(file)} to import ${replacesVitePlugin.importName} from ${compatVitePluginConfig.pluginPackageSource}`
+          );
+        } else {
           const updatedContent = updateViteConfigForCompatPlugin(
             content,
             extension,
@@ -652,10 +675,6 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
           await writeFileToRoot(rootDir, file, updatedContent);
           logger(
             `${v} Updated ${colorizePath(file)} to include ${compatVitePluginConfig.pluginFunctionName} compat plugin`
-          );
-        } else {
-          logger(
-            `${v} ${colorizePath(file)} already includes ${compatVitePluginConfig.pluginPackageSource}`
           );
         }
       } else if (!content.includes('vite-intlayer')) {
