@@ -308,6 +308,14 @@ Crea file di **dichiarazione del contenuto** in qualsiasi punto del tuo progetto
 - `.content.cjx`
 - ecc.
 
+> **Expo Router (web): tieni i file `.content.*` fuori dalla directory `app/`.** Expo Router tratta ogni file JavaScript/TypeScript all'interno di `app/` come una rotta. Sul web, la sua scoperta delle rotte scansiona direttamente il file system e **non** rispetta il `resolver.blockList` di Metro, quindi un `*.content.ts` co-localizzato viene registrato come una rotta. Un file come `app/(tabs)/_layout.content.ts` viene persino analizzato come un layout (la parte `.content` viene letta come suffisso della piattaforma), il che entra in conflitto con il vero `_layout.tsx` e genera l'errore:
+>
+> ```
+> The layouts "./(tabs)/_layout.content.ts" and "./(tabs)/_layout.tsx" conflict on the route "/(tabs)/_layout.content". Remove or rename one of these files.
+> ```
+>
+> Posiziona le tue dichiarazioni in una directory al di fuori di `app/` (ad esempio `content/` o `src/content/`). Intlayer scopre i file `.content.*` ovunque nel progetto e i dizionari sono referenziati tramite la loro `key`, quindi non sono necessarie modifiche agli import. Su nativo questo non è richiesto (la `blockList` di Metro li nasconde già), ma utilizzare una directory diversa da `app/` mantiene entrambe le piattaforme funzionanti.
+
 Esempio (TypeScript con nodi TSX per React Native):
 
 ```tsx fileName="src/app.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}

@@ -276,6 +276,14 @@ Projenizde herhangi bir yerde **içerik bildirim** dosyaları oluşturun (genell
 - `.content.cjx`
 - vb.
 
+> **Expo Router (web): `.content.*` dosyalarını `app/` dizininin dışında tutun.** Expo Router, `app/` içindeki her JavaScript/TypeScript dosyasını bir rota olarak ele alır. Web'de rota keşfi doğrudan dosya sistemini tarar ve Metro'nun `resolver.blockList` ayarını **dikkate almaz**, bu nedenle aynı konumdaki `*.content.ts` bir rota olarak kaydedilir. `app/(tabs)/_layout.content.ts` gibi bir dosya bir düzen (layout) olarak bile ayrıştırılır (`.content` kısmı bir platform eki olarak okunur), bu da gerçek `_layout.tsx` ile çakışır ve şu hatayı fırlatır:
+>
+> ```
+> The layouts "./(tabs)/_layout.content.ts" and "./(tabs)/_layout.tsx" conflict on the route "/(tabs)/_layout.content". Remove or rename one of these files.
+> ```
+>
+> Bildirimlerinizi `app/` dışında bir dizine yerleştirin (örneğin `content/` veya `src/content/`). Intlayer, `.content.*` dosyalarını projede herhangi bir yerde keşfeder ve sözlüklere kendi `key` değerleri üzerinden atıfta bulunulur, bu nedenle içe aktarma değişikliklerine gerek yoktur. Yerel uygulamalarda bu gerekli değildir (Metro'nun `blockList` ayarı bunları zaten gizler), ancak `app/` dışı bir dizin kullanmak her iki platformun da çalışmasını sağlar.
+
 Örnek (React Native için TSX düğümleriyle TypeScript):
 
 ```tsx fileName="src/app.content.tsx" contentDeclarationFormat={["typescript", "esm"]}

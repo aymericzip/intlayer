@@ -130,6 +130,14 @@ bun add --dev react-native-intlayer
 - `.content.cjx`
 - 기타
 
+> **Expo Router (웹): `.content.*` 파일을 `app/` 디렉토리 외부에 보관하세요.** Expo Router는 `app/` 내의 모든 JavaScript/TypeScript 파일을 라우트로 취급합니다. 웹에서는 라우트 검색이 파일 시스템을 직접 스캔하며 Metro의 `resolver.blockList`를 **따르지 않으므로**, 함께 위치한 `*.content.ts`가 라우트로 등록됩니다. `app/(tabs)/_layout.content.ts`와 같은 파일은 레이아웃으로 파싱되기도 하며(`.content` 부분이 플랫폼 접미사로 읽힘), 이는 실제 `_layout.tsx`와 충돌하여 다음 오류를 발생시킵니다:
+>
+> ```
+> The layouts "./(tabs)/_layout.content.ts" and "./(tabs)/_layout.tsx" conflict on the route "/(tabs)/_layout.content". Remove or rename one of these files.
+> ```
+>
+> 선언을 `app/` 외부의 디렉토리(예: `content/` 또는 `src/content/`)에 배치하세요. Intlayer는 프로젝트 어디에서나 `.content.*` 파일을 발견하며 딕셔너리는 해당 `key`로 참조되므로 가져오기(import)를 변경할 필요가 없습니다. 네이티브에서는 이것이 필요하지 않지만(Metro의 `blockList`가 이미 숨김 처리함), `app/` 외부 디렉토리를 사용하면 두 플랫폼 모두 정상적으로 작동합니다.
+
 예시 (React Native용 TSX 노드를 포함한 TypeScript):
 
 ```tsx fileName="src/app.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}

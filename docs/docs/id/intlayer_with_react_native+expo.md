@@ -259,6 +259,14 @@ Buat file **deklarasi konten** di mana saja dalam proyek Anda (biasanya di dalam
 - `.content.cjx`
 - dll.
 
+> **Expo Router (web): jauhkan file `.content.*` dari direktori `app/`.** Expo Router memperlakukan setiap file JavaScript/TypeScript di dalam `app/` sebagai rute. Di web, penemuan rutenya memindai sistem file secara langsung dan **tidak** menghormati `resolver.blockList` Metro, sehingga `*.content.ts` yang ditempatkan bersama terdaftar sebagai rute. File seperti `app/(tabs)/_layout.content.ts` bahkan diuraikan sebagai tata letak (bagian `.content` dibaca sebagai sufiks platform), yang bertabrakan dengan `_layout.tsx` asli dan menampilkan:
+>
+> ```
+> The layouts "./(tabs)/_layout.content.ts" and "./(tabs)/_layout.tsx" conflict on the route "/(tabs)/_layout.content". Remove or rename one of these files.
+> ```
+>
+> Tempatkan deklarasi Anda di direktori di luar `app/` (misalnya `content/` atau `src/content/`). Intlayer menemukan file `.content.*` di mana saja dalam proyek dan kamus direferensikan oleh `key` mereka, jadi tidak diperlukan perubahan impor. Pada aplikasi native ini tidak diperlukan (`blockList` Metro sudah menyembunyikannya), tetapi menggunakan direktori selain `app/` membuat kedua platform tetap berfungsi.
+
 Contoh (TypeScript dengan node TSX untuk React Native):
 
 ```tsx fileName="src/app.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}

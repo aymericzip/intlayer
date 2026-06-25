@@ -162,6 +162,14 @@ export default RootLayout;
 
 ## 第5步：声明您的内容
 
+> **Expo Router (web): 请将 `.content.*` 文件保留在 `app/` 目录之外。** Expo Router 会将 `app/` 内的每个 JavaScript/TypeScript 文件视为一个路由。在 web 上，它的路由发现会直接扫描文件系统，并且 **不** 遵循 Metro 的 `resolver.blockList`，因此同位置的 `*.content.ts` 会被注册为一个路由。像 `app/(tabs)/_layout.content.ts` 这样的文件甚至会被解析为布局（`.content` 部分被读取为平台后缀），这会与实际的 `_layout.tsx` 发生冲突并抛出错误：
+>
+> ```
+> The layouts "./(tabs)/_layout.content.ts" and "./(tabs)/_layout.tsx" conflict on the route "/(tabs)/_layout.content". Remove or rename one of these files.
+> ```
+>
+> 请将您的声明放置在 `app/` 之外的目录中（例如 `content/` 或 `src/content/`）。Intlayer 会发现项目中任意位置的 `.content.*` 文件，字典通过它们的 `key` 进行引用，因此不需要进行任何导入更改。在原生端这不是必需的（Metro 的 `blockList` 已经隐藏了它们），但使用非 `app/` 目录可确保这两个平台都能正常工作。
+
 ````
 
 ```jsx fileName="app/_layout.cjx" codeFormat="commonjs"

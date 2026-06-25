@@ -291,6 +291,14 @@ export default RootLayout;
 - `.content.cjx`
 - إلخ.
 
+> **Expo Router (الويب): احتفظ بملفات `.content.*` خارج مجلد `app/`.** يعامل Expo Router كل ملف JavaScript/TypeScript داخل `app/` كمسار. على الويب، يقوم اكتشاف المسار بمسح نظام الملفات مباشرة ولا **يحترم** `resolver.blockList` الخاص بـ Metro، لذلك يتم تسجيل `*.content.ts` الموجود في نفس المكان كمسار. حتى أن ملفًا مثل `app/(tabs)/_layout.content.ts` يتم تحليله كتخطيط (تُقرأ اللاحقة `.content` كلاحقة للمنصة)، مما يتعارض مع `_layout.tsx` الحقيقي ويطرح الخطأ:
+>
+> ```
+> The layouts "./(tabs)/_layout.content.ts" and "./(tabs)/_layout.tsx" conflict on the route "/(tabs)/_layout.content". Remove or rename one of these files.
+> ```
+>
+> ضع تصريحاتك في مجلد خارج `app/` (على سبيل المثال `content/` أو `src/content/`). يكتشف Intlayer ملفات `.content.*` في أي مكان في المشروع ويتم الإشارة إلى القواميس من خلال `key` الخاص بها، لذلك لا توجد حاجة لتغيير الاستيرادات. على التطبيقات الأصلية (native)، هذا غير مطلوب (يخفيها `blockList` الخاص بـ Metro بالفعل)، ولكن استخدام مجلد غير `app/` يحافظ على عمل كلتا المنصتين.
+
 مثال (TypeScript مع عقد TSX لـ React Native):
 
 ```tsx fileName="src/app.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
