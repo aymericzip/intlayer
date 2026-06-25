@@ -13,7 +13,8 @@ type CompilerFramework = 'vite' | 'nextjs' | 'unknown';
  * Mirrors the Next.js (Babel) tab of `docs/docs/en/compiler.md`: the extract
  * plugin pulls inline content into dictionaries and the optimize plugin
  * rewrites `useIntlayer` into direct dictionary imports. On Vite the same work
- * is handled by the `intlayerCompiler()` plugin, so no Babel config is needed.
+ * is handled by the `intlayer()` plugin (which bundles the compiler in v9), so
+ * no Babel config is needed.
  */
 const BABEL_COMPILER_CONFIG_CONTENT = `const {
   intlayerExtractBabelPlugin,
@@ -61,9 +62,9 @@ const detectCompilerFramework = (root: string): CompilerFramework => {
  * Scaffolds the Intlayer compiler for the current project during interactive
  * init.
  *
- * - **Vite** — nothing to do: the compiler is plugged in directly through the
- *   `intlayerCompiler()` plugin in `vite.config.ts`, so this only confirms the
- *   setup to the user.
+ * - **Vite** — nothing to do: since v9 the compiler is built into the
+ *   `intlayer()` plugin in `vite.config.ts`, so this only confirms the setup
+ *   to the user.
  * - **Next.js** — installs `@intlayer/babel` and writes a `babel.config.js`
  *   that runs the extract + optimize compiler passes.
  *
@@ -78,9 +79,9 @@ export const initCompiler = async (projectRoot?: string): Promise<void> => {
   const framework = detectCompilerFramework(root);
 
   if (framework === 'vite') {
-    // The Vite plugin plugs the compiler in directly — nothing to scaffold.
+    // Since v9 the compiler is bundled inside intlayer() — nothing to scaffold.
     p.log.info(
-      'Vite detected — the compiler is plugged in directly through `intlayerCompiler()` in your vite.config. Nothing to configure.'
+      'Vite detected — the compiler is built into `intlayer()` in your vite.config. Nothing to configure.'
     );
     return;
   }
