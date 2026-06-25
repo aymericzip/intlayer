@@ -245,11 +245,15 @@ import { intlayer } from "vite-intlayer";
 const config = defineConfig({
   plugins: [
     nitro(),
-    intlayer(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
     tanstackStart({
       router: {
         routeFileIgnorePattern:
-          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$",
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$",
       },
     }),
     viteReact(),
@@ -655,22 +659,25 @@ You can also use the `intlayerProxy` to add server-side routing to your applicat
 
 > Since Intlayer v9, `intlayerProxy()` is bundled directly into the `intlayer()` plugin and enabled by default through the `routing.enableProxy` option (`true` by default). Registering it separately as shown below is now optional — it is kept for backward compatibility and for setups that need to control plugin order. Set `routing.enableProxy: false` to opt out. See the [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/releases/v9.md).
 
-```typescript {7,14-17} fileName="vite.config.ts"
+```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
   plugins: [
-    intlayerProxy(), // The proxy should be placed before server if you use Nitro
     nitro(),
-    intlayer(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
     tanstackStart({
       router: {
         routeFileIgnorePattern:
-          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$",
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$",
       },
     }),
     viteReact(),
@@ -912,6 +919,8 @@ bun x intlayer extract
 
  </Tab>
  <Tab value='Babel compiler'>
+
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
 Update your `vite.config.ts` to include the `intlayerCompiler` plugin:
 

@@ -216,11 +216,18 @@ Add the intlayer plugin into your configuration.
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), intlayer(), intlayerCompiler()],
+  plugins: [
+    react(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
 });
 ```
 

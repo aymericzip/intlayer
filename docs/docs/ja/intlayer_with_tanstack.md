@@ -228,11 +228,15 @@ import { intlayer } from "vite-intlayer";
 const config = defineConfig({
   plugins: [
     nitro(),
-    intlayer(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
     tanstackStart({
       router: {
         routeFileIgnorePattern:
-          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$",
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$",
       },
     }),
     viteReact(),
@@ -677,22 +681,25 @@ function RootDocument({ children }: { children: ReactNode }) {
 
 > `intlayerProxy`を本番環境で使用するには、`vite-intlayer`パッケージを`devDependencies`から`dependencies`に切り替える必要があることに注意してください。
 
-```typescript {7,14-17} fileName="vite.config.ts"
+```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
   plugins: [
-    intlayerProxy(), // Nitroを使用する場合、プロキシをサーバーの前に配置する必要があります
     nitro(),
-    intlayer(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
     tanstackStart({
       router: {
         routeFileIgnorePattern:
-          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$",
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$",
       },
     }),
     viteReact(),
@@ -937,9 +944,9 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babelコンパイラ'>
 
-`vite.config.ts` を更新して `intlayerCompiler` プラグインを含めます：
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
-> Intlayer v9以降、コンパイラは直接 `intlayer()` プラグインにバンドルされ、`compiler.enabled` が設定され `compiler.output` パスが構成されると自動的に有効になります。以下に示すように `intlayerCompiler()` を個別に登録することは現在オプションです — 追加された場合でも自動的に重複を排除します。[v9 リリースノート](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/releases/v9.md) を参照してください。
+`vite.config.ts` を更新して `intlayerCompiler` プラグインを含めます：
 
 ```ts fileName="vite.config.ts"
 import { intlayer, intlayerCompiler } from "vite-intlayer";
@@ -951,15 +958,15 @@ import viteReact from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [
     devtools(),
-    intlayerCompiler(),
     tanstackStart({
       router: {
         routeFileIgnorePattern:
-          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$",
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$",
       },
     }),
     viteReact(),
     intlayer(),
+    intlayerCompiler(), // Adds the compiler plugin
   ],
 });
 ```

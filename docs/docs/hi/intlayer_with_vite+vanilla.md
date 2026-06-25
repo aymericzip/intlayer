@@ -188,7 +188,13 @@ import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [intlayer()],
+  plugins: [
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
 });
 ```
 
@@ -517,12 +523,15 @@ document.querySelector<HTMLDivElement>(".edit-note")!.innerHTML =
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
   plugins: [
-    intlayerProxy(), // पहले रखा जाना चाहिए
-    intlayer(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
   ],
 });
 ```
@@ -654,6 +663,8 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel कंपाइलर'>
 
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
 `intlayerCompiler` प्लगइन शामिल करने के लिए अपना `vite.config.ts` अपडेट करें:
 
 ```ts fileName="vite.config.ts"
@@ -663,7 +674,7 @@ import { intlayer, intlayerCompiler } from "vite-intlayer";
 export default defineConfig({
   plugins: [
     intlayer(),
-    intlayerCompiler(), // कंपाइलर प्लगइन जोड़ता है
+    intlayerCompiler(), // Adds the compiler plugin
   ],
 });
 ```

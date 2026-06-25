@@ -441,12 +441,12 @@ $: content = useIntlayer('app', locale);
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -557,6 +557,8 @@ bun x intlayer extract
 
  </Tab>
  <Tab value='مترجم Babel'>
+
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
 ```bash packageManager="npm"
 npm install @intlayer/babel --save-dev

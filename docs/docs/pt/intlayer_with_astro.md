@@ -391,6 +391,8 @@ bun x intlayer extract
  </Tab>
  <Tab value='Compilador Babel'>
 
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
 Atualize seu `vite.config.ts` para incluir o plugin `intlayerCompiler`:
 
 ```ts fileName="vite.config.ts"
@@ -400,7 +402,7 @@ import { intlayer, intlayerCompiler } from "vite-intlayer";
 export default defineConfig({
   plugins: [
     intlayer(),
-    intlayerCompiler(), // Adiciona o plugin do compilador
+    intlayerCompiler(), // Adds the compiler plugin
   ],
 });
 ```
@@ -568,9 +570,9 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel compiler'>
 
-Atualize seu `vite.config.ts` para incluir o plugin `intlayerCompiler`:
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
-> Desde o Intlayer v9, o compiler é empacotado diretamente no plugin `intlayer()` e é ativado automaticamente quando `compiler.enabled` está definido com um caminho `compiler.output`. Registrar `intlayerCompiler()` separadamente conforme mostrado abaixo agora é opcional — ele se deduplica se também for adicionado. Veja as [notas de lançamento v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/releases/v9.md).
+Atualize seu `vite.config.ts` para incluir o plugin `intlayerCompiler`:
 
 ```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
@@ -579,7 +581,7 @@ import { intlayer, intlayerCompiler } from "vite-intlayer";
 export default defineConfig({
   plugins: [
     intlayer(),
-    intlayerCompiler(), // Adiciona o plugin do compiler
+    intlayerCompiler(), // Adds the compiler plugin
   ],
 });
 ```

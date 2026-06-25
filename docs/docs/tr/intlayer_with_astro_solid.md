@@ -547,6 +547,8 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel derleyicisi'>
 
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
 `vite.config.ts` dosyanızı `intlayerCompiler` eklentisini içerecek şekilde güncelleyin:
 
 ```ts fileName="vite.config.ts"
@@ -556,7 +558,7 @@ import { intlayer, intlayerCompiler } from "vite-intlayer";
 export default defineConfig({
   plugins: [
     intlayer(),
-    intlayerCompiler(), // Derleyici eklentisini ekler
+    intlayerCompiler(), // Adds the compiler plugin
   ],
 });
 ```

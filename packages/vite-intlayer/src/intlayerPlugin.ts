@@ -27,7 +27,10 @@ import type { PluginOption } from 'vite';
 import { intlayerCompiler } from './IntlayerCompilerPlugin';
 import { intlayerMinify } from './intlayerMinifyPlugin';
 import { intlayerOptimize } from './intlayerOptimizePlugin';
-import { intlayerProxy } from './intlayerProxyPlugin';
+import {
+  type IntlayerProxyPluginOptions,
+  intlayerProxy,
+} from './intlayerProxyPlugin';
 import { intlayerPrune } from './intlayerPrunePlugin';
 
 /**
@@ -48,6 +51,21 @@ export type IntlayerPluginOptions = GetConfigurationOptions & {
    * ships with an empty default to stay framework-agnostic.
    */
   compatCallers?: CompatCallerConfig[];
+
+  /**
+   * Options forwarded to the bundled locale-routing proxy (`intlayerProxy`).
+   *
+   * Since Intlayer v9 the proxy is plugged directly into the main `intlayer()`
+   * plugin (controlled by `routing.enableProxy`, `true` by default). These
+   * routing options let you tune that bundled proxy without registering it
+   * separately — e.g. ignore API routes from locale routing.
+   *
+   * @example
+   * ```ts
+   * intlayer({ proxy: { ignore: (req) => req.url?.startsWith('/api') } })
+   * ```
+   */
+  proxy?: Pick<IntlayerProxyPluginOptions, 'ignore'>;
 };
 
 /**
@@ -76,7 +94,7 @@ export type IntlayerPluginOptions = GetConfigurationOptions & {
 export const intlayerPlugin = (
   configOptions?: IntlayerPluginOptions
 ): PluginOption => {
-  const { compatCallers, ...getConfigOptions } = configOptions ?? {};
+  const { compatCallers, proxy, ...getConfigOptions } = configOptions ?? {};
   const intlayerConfig = getConfiguration(getConfigOptions);
   logConfigDetails(getConfigOptions);
   const appLogger = getAppLogger(intlayerConfig);
@@ -248,7 +266,7 @@ export const intlayerPlugin = (
   // Registering `intlayerProxy()` manually as well is safe — the proxy
   // deduplicates itself.
   if (intlayerConfig.routing.enableProxy) {
-    plugins.push(intlayerProxy(getConfigOptions));
+    plugins.push(intlayerProxy({ ...proxy, configOptions: getConfigOptions }));
   }
 
   return plugins;

@@ -533,6 +533,8 @@ bun x intlayer extract
  </Tab>
  <Tab value='Trình biên dịch Babel'>
 
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
 Cập nhật `vite.config.ts` của bạn để bao gồm plugin `intlayerCompiler`:
 
 ```ts fileName="vite.config.ts"
@@ -542,7 +544,7 @@ import { intlayer, intlayerCompiler } from "vite-intlayer";
 export default defineConfig({
   plugins: [
     intlayer(),
-    intlayerCompiler(), // Thêm plugin trình biên dịch
+    intlayerCompiler(), // Adds the compiler plugin
   ],
 });
 ```

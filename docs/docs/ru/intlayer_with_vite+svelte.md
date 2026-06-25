@@ -460,7 +460,7 @@ $: content = useIntlayer('app', locale);
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
   plugins: [intlayerProxy(), // should be placed first
  svelte(), intlayer()],
@@ -570,6 +570,8 @@ bun x intlayer extract
  </Tab>
  <Tab value='Компилятор Babel'>
 
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
 Обновите ваш `vite.config.ts`, чтобы включить плагин `intlayerCompiler`:
 
 ```ts fileName="vite.config.ts"
@@ -579,7 +581,7 @@ import { intlayer, intlayerCompiler } from "vite-intlayer";
 export default defineConfig({
   plugins: [
     intlayer(),
-    intlayerCompiler(), // Добавляет плагин компилятора
+    intlayerCompiler(), // Adds the compiler plugin
   ],
 });
 ```

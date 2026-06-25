@@ -228,11 +228,15 @@ export default defineConfig({
     tanstackStart({
       router: {
         routeFileIgnorePattern:
-          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$",
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$",
       },
     }),
     solidPlugin({ ssr: true }),
-    intlayer(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
   ],
 });
 ```
@@ -568,22 +572,25 @@ Sie können auch den `intlayerProxy` verwenden, um serverseitiges Routing zu Ihr
 
 > Beachten Sie, dass Sie für die Verwendung des `intlayerProxy` in der Produktion das Paket `vite-intlayer` von `devDependencies` zu `dependencies` verschieben müssen.
 
-```typescript {7,14-17} fileName="vite.config.ts"
+```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
 import solid from "vite-plugin-solid";
 import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
   plugins: [
-    intlayerProxy(), // Der Proxy sollte vor dem Server platziert werden, wenn Sie Nitro verwenden
     nitro(),
-    intlayer(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
     tanstackStart({
       router: {
         routeFileIgnorePattern:
-          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$",
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$",
       },
     }),
     solid(),
@@ -826,9 +833,9 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel compiler'>
 
-Aktualisieren Sie Ihre `vite.config.ts`, um das `intlayerCompiler`-Plugin einzubinden:
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
-> Seit Intlayer v9 ist der Compiler direkt in das `intlayer()` Plugin gebündelt und wird automatisch aktiviert, sobald `compiler.enabled` mit einem `compiler.output`-Pfad gesetzt ist. Die separate Registrierung von `intlayerCompiler()`, wie unten gezeigt, ist jetzt optional — er dedupliziert sich selbst, falls er hinzugefügt wird. Siehe die [v9 Release Notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/releases/v9.md).
+Aktualisieren Sie Ihre `vite.config.ts`, um das `intlayerCompiler`-Plugin einzubinden:
 
 ```ts fileName="vite.config.ts"
 import { intlayer, intlayerCompiler } from "vite-intlayer";
@@ -843,12 +850,12 @@ export default defineConfig({
     tanstackStart({
       router: {
         routeFileIgnorePattern:
-          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$",
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$",
       },
     }),
     solidPlugin({ ssr: true }),
     intlayer(),
-    intlayerCompiler(),
+    intlayerCompiler(), // Adds the compiler plugin
   ],
 });
 ```

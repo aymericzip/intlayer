@@ -614,14 +614,17 @@ import LocaleSwitcher from "@components/LocaleSwitcher.vue";
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    intlayerProxy(), // should be placed first
     vue(),
-    intlayer(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
   ],
 });
 ```
@@ -949,12 +952,15 @@ intlayerCompiler प्लगइन शामिल करने के लि�
 
 ```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
   plugins: [
-    intlayer(),
-    intlayerCompiler(), // कंपाइलर प्लगइन जोड़ता है
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
   ],
 });
 ```

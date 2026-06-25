@@ -81,12 +81,15 @@ Aktualisieren Sie Ihre `vite.config.ts`, um das `intlayerCompiler` Plugin einzub
 
 ```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
   plugins: [
-    intlayer(),
-    intlayerCompiler(), // Fügt das Compiler-Plugin hinzu
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
   ],
 });
 ```

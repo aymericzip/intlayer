@@ -207,7 +207,11 @@ import analog from "@analogjs/platform";
 export default defineConfig(() => ({
   plugins: [
     analog(),
-    intlayer(), // Add the Intlayer plugin
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
   ],
 }));
 ```

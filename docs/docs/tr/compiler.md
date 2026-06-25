@@ -81,12 +81,15 @@ npm install vite-intlayer
 
 ```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
   plugins: [
-    intlayer(),
-    intlayerCompiler(), // Derleyici eklentisini ekler
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
   ],
 });
 ```

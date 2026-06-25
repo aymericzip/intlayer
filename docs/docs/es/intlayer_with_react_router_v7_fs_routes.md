@@ -682,6 +682,8 @@ bun x intlayer extract
  </Tab>
  <Tab value='Compilador Babel'>
 
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
 Actualiza tu archivo `vite.config.ts` para incluir el plugin `intlayerCompiler` :
 
 ```ts fileName="vite.config.ts"
@@ -691,7 +693,7 @@ import { intlayer, intlayerCompiler } from "vite-intlayer";
 export default defineConfig({
   plugins: [
     intlayer(),
-    intlayerCompiler(), // Agrega el plugin del compilador
+    intlayerCompiler(), // Adds the compiler plugin
   ],
 });
 ```
@@ -728,14 +730,17 @@ También puedes usar el `intlayerProxy` para agregar enrutamiento del lado del s
 ```typescript {3,7} fileName="vite.config.ts"
 import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
   plugins: [
-    intlayerProxy(), // should be placed first
     reactRouter(),
 
-    intlayer(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
   ],
 });
 ```

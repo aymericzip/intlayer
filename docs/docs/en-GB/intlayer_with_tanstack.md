@@ -241,11 +241,15 @@ import { intlayer } from "vite-intlayer";
 const config = defineConfig({
   plugins: [
     nitro(),
-    intlayer(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
     tanstackStart({
       router: {
         routeFileIgnorePattern:
-          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$",
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$",
       },
     }),
     viteReact(),
@@ -649,22 +653,25 @@ You can also use the `intlayerProxy` to add server-side routing to your applicat
 
 > Note that to use the `intlayerProxy` in production, you need to switch the `vite-intlayer` package from `devDependencies` to `dependencies`.
 
-```typescript {7,14-17} fileName="vite.config.ts"
+```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
   plugins: [
-    intlayerProxy(), // The proxy should be placed before server if you use Nitro
     nitro(),
-    intlayer(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
     tanstackStart({
       router: {
         routeFileIgnorePattern:
-          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$",
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$",
       },
     }),
     viteReact(),

@@ -92,7 +92,11 @@ import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
   plugins: [
-    intlayer(), // The compiler and locale-routing proxy are bundled in
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
   ],
 });
 ```

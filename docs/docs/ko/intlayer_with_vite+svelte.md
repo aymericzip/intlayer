@@ -295,6 +295,8 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel 컴파일러'>
 
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
 `vite.config.ts`를 업데이트하여 `intlayerCompiler` 플러그인을 포함합니다.
 
 ```ts fileName="vite.config.ts"
@@ -304,7 +306,7 @@ import { intlayer, intlayerCompiler } from "vite-intlayer";
 export default defineConfig({
   plugins: [
     intlayer(),
-    intlayerCompiler(), // 컴파일러 플러그인을 추가합니다
+    intlayerCompiler(), // Adds the compiler plugin
   ],
 });
 ```
@@ -557,12 +559,12 @@ $: content = useIntlayer('app', locale);
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 typescript {3,7} fileName="vite.config.ts" codeFormat="typescript"
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({

@@ -233,10 +233,13 @@ import { intlayerProxy, intlayer } from "vite-intlayer";
 
 export default defineConfig({
   plugins: [
-    intlayerProxy(), // should be placed first
     reactRouter(),
 
-    intlayer(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
   ],
 });
 ```
@@ -648,6 +651,8 @@ bun x intlayer extract
  </Tab>
  <Tab value='Compilador Babel'>
 
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
 Atualize seu `vite.config.ts` para incluir o plugin `intlayerCompiler`:
 
 ```ts fileName="vite.config.ts"
@@ -657,7 +662,7 @@ import { intlayer, intlayerCompiler } from "vite-intlayer";
 export default defineConfig({
   plugins: [
     intlayer(),
-    intlayerCompiler(), // Adiciona o plugin do compilador
+    intlayerCompiler(), // Adds the compiler plugin
   ],
 });
 ```

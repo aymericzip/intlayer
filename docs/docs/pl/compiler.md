@@ -79,12 +79,15 @@ Zaktualizuj swój plik `vite.config.ts`, aby dołączyć wtyczkę `intlayerCompi
 
 ```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
   plugins: [
-    intlayer(),
-    intlayerCompiler(), // Dodaje wtyczkę kompilatora
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
   ],
 });
 ```

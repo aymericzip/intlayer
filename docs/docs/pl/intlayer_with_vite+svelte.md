@@ -442,7 +442,7 @@ Równolegle możesz również użyć `intlayerProxy`, aby dodać routing po stro
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
   plugins: [intlayerProxy(), // should be placed first
  svelte(), intlayer()],
@@ -552,6 +552,8 @@ bun x intlayer extract
  </Tab>
  <Tab value='Kompilator Babel'>
 
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
 Zaktualizuj `vite.config.ts`, aby dołączyć wtyczkę `intlayerCompiler`:
 
 ```ts fileName="vite.config.ts"
@@ -561,7 +563,7 @@ import { intlayer, intlayerCompiler } from "vite-intlayer";
 export default defineConfig({
   plugins: [
     intlayer(),
-    intlayerCompiler(), // Dodaje wtyczkę kompilatora
+    intlayerCompiler(), // Adds the compiler plugin
   ],
 });
 ```

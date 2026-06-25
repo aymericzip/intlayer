@@ -119,14 +119,17 @@ Sie können auch das `intlayerProxy` verwenden, um serverseitiges Routing zu Ihr
 ```typescript {3,7} fileName="vite.config.ts"
 import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
   plugins: [
-    intlayerProxy(), // should be placed first
     reactRouter(),
 
-    intlayer(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
   ],
 });
 ```
@@ -606,6 +609,8 @@ bun x intlayer extract
 
  </Tab>
  <Tab value='Babel-Compiler'>
+
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
 ```bash packageManager="npm"
 npm install @intlayer/babel --save-dev

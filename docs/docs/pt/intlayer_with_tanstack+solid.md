@@ -228,11 +228,15 @@ export default defineConfig({
     tanstackStart({
       router: {
         routeFileIgnorePattern:
-          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$",
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$",
       },
     }),
     solidPlugin({ ssr: true }),
-    intlayer(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
   ],
 });
 ```
@@ -568,22 +572,25 @@ Você também pode usar o `intlayerProxy` para adicionar roteamento do lado do s
 
 > Note que para usar o `intlayerProxy` em produção, você precisa trocar o pacote `vite-intlayer` de `devDependencies` para `dependencies`.
 
-```typescript {7,14-17} fileName="vite.config.ts"
+```typescript fileName="vite.config.ts"
 import { tanstackStart } from "@tanstack/solid-start/plugin/vite";
 import solid from "vite-plugin-solid";
 import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
   plugins: [
-    intlayerProxy(), // O proxy deve ser colocado antes do servidor se você usar o Nitro
     nitro(),
-    intlayer(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
     tanstackStart({
       router: {
         routeFileIgnorePattern:
-          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$",
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$",
       },
     }),
     solid(),
@@ -826,6 +833,8 @@ bun x intlayer extract
  </Tab>
  <Tab value='Compilador Babel'>
 
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
 Atualize o seu `vite.config.ts` para incluir o plugin `intlayerCompiler`:
 
 ```ts fileName="vite.config.ts"
@@ -841,12 +850,12 @@ export default defineConfig({
     tanstackStart({
       router: {
         routeFileIgnorePattern:
-          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$",
+          ".content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$",
       },
     }),
     solidPlugin({ ssr: true }),
     intlayer(),
-    intlayerCompiler(),
+    intlayerCompiler(), // Adds the compiler plugin
   ],
 });
 ```

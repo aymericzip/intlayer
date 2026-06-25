@@ -614,14 +614,17 @@ SvelteKit uygulamanıza bir backend proxy eklemek için, `vite-intlayer` eklenti
 
 ```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 import { sveltekit } from "@sveltejs/kit/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    intlayerProxy(), // should be placed first
-    intlayer(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
     sveltekit(),
   ],],
 });
@@ -719,6 +722,8 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel derleyicisi'>
 
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
 `vite.config.ts` dosyanızı `intlayerCompiler` eklentisini içerecek şekilde güncelleyin:
 
 ```ts fileName="vite.config.ts"
@@ -728,7 +733,7 @@ import { intlayer, intlayerCompiler } from "vite-intlayer";
 export default defineConfig({
   plugins: [
     intlayer(),
-    intlayerCompiler(), // Derleyici eklentisini ekler
+    intlayerCompiler(), // Adds the compiler plugin
   ],
 });
 ```

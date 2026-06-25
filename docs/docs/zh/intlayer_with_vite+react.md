@@ -225,14 +225,17 @@ const App: FC = () => (
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    intlayerProxy(), // should be placed first
     react(),
-    intlayer(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
   ],
 });
 ```
@@ -536,6 +539,8 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel 编译器'>
 
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
 更新您的 `vite.config.ts` 以包含 `intlayerCompiler` 插件：
 
 ```ts fileName="vite.config.ts"
@@ -545,7 +550,7 @@ import { intlayer, intlayerCompiler } from "vite-intlayer";
 export default defineConfig({
   plugins: [
     intlayer(),
-    intlayerCompiler(), // 添加编译器插件
+    intlayerCompiler(), // Adds the compiler plugin
   ],
 });
 ```

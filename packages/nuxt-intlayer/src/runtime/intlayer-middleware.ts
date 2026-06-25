@@ -35,8 +35,9 @@ const nodeMiddleware = createIntlayerProxyHandler();
  * import type { H3Event } from 'h3';
  * import { createIntlayerProxyHandler } from 'vite-intlayer';
  *
- * const nodeMiddleware = createIntlayerProxyHandler(myConfig, {
+ * const nodeMiddleware = createIntlayerProxyHandler({
  *   ignore: (req) => req.url?.startsWith('/api'),
+ *   configOptions: myConfig,
  * });
  *
  * export default async (event: H3Event): Promise<Response | void> => {

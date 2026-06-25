@@ -797,6 +797,8 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel 컴파일러'>
 
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
 `vite.config.ts`를 업데이트하여 `intlayerCompiler` 플러그인을 포함합니다.
 
 ```ts fileName="vite.config.ts"
@@ -806,7 +808,7 @@ import { intlayer, intlayerCompiler } from "vite-intlayer";
 export default defineConfig({
   plugins: [
     intlayer(),
-    intlayerCompiler(), // 컴파일러 플러그인을 추가합니다
+    intlayerCompiler(), // Adds the compiler plugin
   ],
 });
 ```

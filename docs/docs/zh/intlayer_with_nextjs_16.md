@@ -993,6 +993,8 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel 编译器'>
 
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
 ```bash packageManager="npm"
 npm install @intlayer/babel --save-dev
 ```

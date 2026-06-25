@@ -582,14 +582,17 @@ You can also use the `intlayerProxy` to add server-side routing to your applicat
 ```typescript {3,7} fileName="vite.config.ts"
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    intlayerProxy(), // should be placed first
     react(),
-    intlayer(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
   ],
 });
 ```
@@ -662,6 +665,8 @@ bun x intlayer extract
 
  </Tab>
  <Tab value='Babel compiler'>
+
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
 Update your `vite.config.ts` to include the `intlayerCompiler` plugin:
 

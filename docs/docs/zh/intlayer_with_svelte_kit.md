@@ -229,14 +229,17 @@ goto(localizedPath); // 根据语言环境导航到 /en/about 或 /fr/about
 
 ```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 import { sveltekit } from "@sveltejs/kit/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    intlayerProxy(), // should be placed first
-    intlayer(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
     sveltekit(),
   ],],
 });
@@ -334,6 +337,8 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel 编译器'>
 
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
 更新您的 `vite.config.ts` 以包含 `intlayerCompiler` 插件：
 
 ```ts fileName="vite.config.ts"
@@ -343,7 +348,7 @@ import { intlayer, intlayerCompiler } from "vite-intlayer";
 export default defineConfig({
   plugins: [
     intlayer(),
-    intlayerCompiler(), // 添加编译器插件
+    intlayerCompiler(), // Adds the compiler plugin
   ],
 });
 ```

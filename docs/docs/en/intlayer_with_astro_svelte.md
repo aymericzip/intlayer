@@ -561,9 +561,9 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel compiler'>
 
-Update your `vite.config.ts` to include the `intlayerCompiler` plugin:
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
-> Since Intlayer v9, the compiler is bundled directly into the `intlayer()` plugin and activates automatically once `compiler.enabled` is set with a `compiler.output` path. Registering `intlayerCompiler()` separately as shown below is now optional — it deduplicates itself if also added. See the [v9 release notes](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/releases/v9.md).
+Update your `vite.config.ts` to include the `intlayerCompiler` plugin:
 
 ```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";

@@ -458,14 +458,17 @@ En parallèle, vous pouvez également utiliser le `intlayerProxy` pour ajouter u
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    intlayerProxy(), // should be placed first
     svelte(),
-    intlayer(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
   ],
 });
 ```
@@ -597,6 +600,8 @@ bun x intlayer extract
  </Tab>
  <Tab value='Compilateur Babel'>
 
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
 Mettez à jour votre fichier `vite.config.ts` pour inclure le plugin `intlayerCompiler` :
 
 ```ts fileName="vite.config.ts"
@@ -606,7 +611,7 @@ import { intlayer, intlayerCompiler } from "vite-intlayer";
 export default defineConfig({
   plugins: [
     intlayer(),
-    intlayerCompiler(), // Ajoute le plugin du compilateur
+    intlayerCompiler(), // Adds the compiler plugin
   ],
 });
 ```

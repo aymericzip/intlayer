@@ -342,10 +342,16 @@ SolidJS, Vue, Svelte의 경우, 개발 중 리라이트를 `intlayerProxy` Vite 
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";
-import { intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
-  plugins: [intlayerProxy()],
+  plugins: [
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
 });
 ```
 

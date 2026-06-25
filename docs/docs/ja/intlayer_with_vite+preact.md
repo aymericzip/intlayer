@@ -522,15 +522,18 @@ export default App;
 
 ```typescript {3,7} fileName="vite.config.ts"
 import { defineConfig } from "vite";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 import preact from "@preact/preset-vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    intlayerProxy(), // 最初に配置する必要があります
     preact(),
-    intlayer(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
   ],
 });
 ```
@@ -812,6 +815,8 @@ bun x intlayer extract
 
  </Tab>
  <Tab value='Babelコンパイラ'>
+
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
 
 ```bash packageManager="npm"
 npm install @intlayer/babel --save-dev

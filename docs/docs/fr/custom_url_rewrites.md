@@ -342,10 +342,16 @@ Pour SolidJS, Vue et Svelte, le plugin Vite `intlayerProxy` gère les réécritu
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";
-import { intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
-  plugins: [intlayerProxy()],
+  plugins: [
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
 });
 ```
 

@@ -172,10 +172,16 @@ Il plugin Vite `intlayerProxy` applica la stessa logica durante lo sviluppo:
 
 ```typescript fileName="vite.config.ts"
 import { defineConfig } from "vite";
-import { intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
-  plugins: [intlayerProxy()],
+  plugins: [
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
 });
 ```
 

@@ -146,7 +146,13 @@ const config: StorybookConfig = {
     } as const;
 
     const viteConfig = defineConfig(() => ({
-      plugins: [intlayer()],
+      plugins: [
+        intlayer({
+          proxy: {
+            ignore: (req) => req.url?.startsWith("/api"),
+          },
+        }),
+      ],
     }));
 
     return mergeConfig(baseConfig, viteConfig(env));

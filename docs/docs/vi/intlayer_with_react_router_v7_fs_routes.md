@@ -512,6 +512,8 @@ bun x intlayer extract
  </Tab>
  <Tab value='Trình biên dịch Babel'>
 
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
 Cập nhật `vite.config.ts` của bạn để bao gồm plugin `intlayerCompiler`:
 
 ```ts fileName="vite.config.ts"
@@ -521,7 +523,7 @@ import { intlayer, intlayerCompiler } from "vite-intlayer";
 export default defineConfig({
   plugins: [
     intlayer(),
-    intlayerCompiler(), // Thêm plugin trình biên dịch
+    intlayerCompiler(), // Adds the compiler plugin
   ],
 });
 ```
@@ -592,14 +594,17 @@ Bạn cũng có thể sử dụng `intlayerProxy` để thêm routing phía serv
 ```typescript {3,7} fileName="vite.config.ts"
 import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
   plugins: [
-    intlayerProxy(), // should be placed first
     reactRouter(),
 
-    intlayer(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
   ],
 });
 ```

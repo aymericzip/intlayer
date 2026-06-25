@@ -25,14 +25,14 @@ import { createPrimaryInstanceGuard } from './dedupePlugin';
 
 const PROXY_PLUGIN_NAME = 'vite-intlayer-middleware-plugin';
 
-type IntlayerProxyPluginOptions = {
+export type IntlayerProxyPluginOptions = {
   /**
    * A function that allows you to ignore specific requests from the intlayer proxy.
    *
    * @example
    * ```ts
    * export default defineConfig({
-   *   plugins: [ intlayerProxyPlugin({ ignore: (req) => req.url?.startsWith('/api') }) ],
+   *   plugins: [ intlayerProxy({ ignore: (req) => req.url?.startsWith('/api') }) ],
    * });
    * ```
    *
@@ -40,6 +40,17 @@ type IntlayerProxyPluginOptions = {
    * @returns A boolean value indicating whether to ignore the request.
    */
   ignore?: (req: IncomingMessage) => boolean | undefined;
+  /**
+   * Optional Intlayer configuration overrides forwarded to `getConfiguration`.
+   *
+   * @example
+   * ```ts
+   * export default defineConfig({
+   *   plugins: [ intlayerProxy({ configOptions: { override: { ... } } }) ],
+   * });
+   * ```
+   */
+  configOptions?: GetConfigurationOptions;
 };
 
 /**
@@ -73,15 +84,14 @@ type NodeMiddleware = (
  * export default fromNodeMiddleware(createIntlayerProxyHandler());
  * ```
  *
- * @param configOptions - Optional Intlayer configuration overrides.
- * @param options - Plugin-specific options, such as path ignoring.
+ * @param options - Plugin-specific options, such as path ignoring and Intlayer configuration overrides.
  * @returns A Connect-compatible `(req, res, next) => void` middleware.
  *
  */
 export const createIntlayerProxyHandler = (
-  configOptions?: GetConfigurationOptions,
   options?: IntlayerProxyPluginOptions
 ): NodeMiddleware => {
+  const { ignore, configOptions } = options ?? {};
   const intlayerConfig = getConfiguration(configOptions);
 
   const { internationalization, routing } = intlayerConfig;
@@ -686,7 +696,7 @@ export const createIntlayerProxyHandler = (
     // Bypass special Vite/server endpoints and node_modules
     if (
       // Custom ignore function
-      (options?.ignore?.(req) ?? false) ||
+      (ignore?.(req) ?? false) ||
       originalPath.startsWith('/node_modules') ||
       /**
        * /^@vite/            # HMR client and helpers
@@ -832,12 +842,14 @@ export const createIntlayerProxyHandler = (
  * import { createIntlayerProxyHandler } from 'vite-intlayer';
  *
  * export default fromNodeMiddleware(
- *   createIntlayerProxyHandler(myConfig, { ignore: (req) => req.url?.startsWith('/api') })
+ *   createIntlayerProxyHandler({
+ *     ignore: (req) => req.url?.startsWith('/api'),
+ *     configOptions: myConfig,
+ *   })
  * );
  * ```
  *
- * @param configOptions - Optional configuration for Intlayer.
- * @param options - Plugin-specific options, like ignoring certain paths.
+ * @param options - Plugin-specific options, like ignoring certain paths and Intlayer configuration overrides.
  * @returns A Vite plugin.
  *
  * @example
@@ -851,12 +863,9 @@ export const createIntlayerProxyHandler = (
  *
  * @deprecated Since Intlayer v9, `intlayerProxy()` is bundled directly into the `intlayer()` plugin and enabled by default through the `routing.enableProxy` option (`true` by default). Registering it separately as shown below is now optional.
  */
-export const intlayerProxy = (
-  configOptions?: GetConfigurationOptions,
-  options?: IntlayerProxyPluginOptions
-): Plugin => {
-  const handler = createIntlayerProxyHandler(configOptions, options);
-  const intlayerConfig = getConfiguration(configOptions);
+export const intlayerProxy = (options?: IntlayerProxyPluginOptions): Plugin => {
+  const handler = createIntlayerProxyHandler(options);
+  const intlayerConfig = getConfiguration(options?.configOptions);
   const logger = getAppLogger(intlayerConfig);
 
   // Ensures the proxy registers its middleware only once, even when it is

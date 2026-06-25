@@ -205,7 +205,13 @@ import { intlayer } from "vite-intlayer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [intlayer()],
+  plugins: [
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
 });
 ```
 
@@ -466,12 +472,15 @@ document.querySelector<HTMLDivElement>(".edit-note")!.innerHTML =
 
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
   plugins: [
-    intlayerProxy(), // nên đặt đầu tiên
-    intlayer(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
   ],
 });
 ```
@@ -603,6 +612,8 @@ bun x intlayer extract
  </Tab>
  <Tab value='Trình biên dịch Babel'>
 
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
 Cập nhật `vite.config.ts` của bạn để bao gồm plugin `intlayerCompiler`:
 
 ```ts fileName="vite.config.ts"
@@ -612,7 +623,7 @@ import { intlayer, intlayerCompiler } from "vite-intlayer";
 export default defineConfig({
   plugins: [
     intlayer(),
-    intlayerCompiler(), // Thêm plugin trình biên dịch
+    intlayerCompiler(), // Adds the compiler plugin
   ],
 });
 ```

@@ -598,6 +598,8 @@ bun x intlayer extract
  </Tab>
  <Tab value='Kompilator Babel'>
 
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
 Zaktualizuj `vite.config.ts`, aby dołączyć wtyczkę `intlayerCompiler`:
 
 ```ts fileName="vite.config.ts"
@@ -607,7 +609,7 @@ import { intlayer, intlayerCompiler } from "vite-intlayer";
 export default defineConfig({
   plugins: [
     intlayer(),
-    intlayerCompiler(), // Dodaje wtyczkę kompilatora
+    intlayerCompiler(), // Adds the compiler plugin
   ],
 });
 ```

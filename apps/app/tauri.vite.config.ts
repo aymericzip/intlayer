@@ -51,7 +51,7 @@ export default defineConfig({
     tanstackStart({
       router: {
         routeFileIgnorePattern:
-          '.content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5)$',
+          '.content.(ts|tsx|js|mjs|cjs|jsx|json|jsonc|json5|md|mdx|yaml|yml)$',
       },
     }),
     react(),

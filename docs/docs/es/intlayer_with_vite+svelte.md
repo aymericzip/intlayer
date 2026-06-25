@@ -458,7 +458,7 @@ Paralelamente, también puedes usar `intlayerProxy` para añadir enrutamiento de
 ```typescript {3,7} fileName="vite.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { defineConfig } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
-import { intlayer, intlayerProxy } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
   plugins: [intlayerProxy(), // should be placed first
  svelte(), intlayer()],
@@ -592,6 +592,8 @@ bun x intlayer extract
  </Tab>
  <Tab value='Compilador Babel'>
 
+> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+
 Actualiza tu archivo `vite.config.ts` para incluir el plugin `intlayerCompiler` :
 
 ```ts fileName="vite.config.ts"
@@ -601,7 +603,7 @@ import { intlayer, intlayerCompiler } from "vite-intlayer";
 export default defineConfig({
   plugins: [
     intlayer(),
-    intlayerCompiler(), // Agrega el plugin del compilador
+    intlayerCompiler(), // Adds the compiler plugin
   ],
 });
 ```
