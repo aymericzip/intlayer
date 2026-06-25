@@ -13,7 +13,8 @@ type PricingPageProps = {
 
 export const PricingPage: FC<PricingPageProps> = ({ pricings }) => {
   const [focusedPeriod, setFocusedPeriod] = useState<Period>(Period.Yearly);
-  const { title, period, description } = useIntlayer('pricing');
+  const { title, period, periodSwitchLabel, description } =
+    useIntlayer('pricing');
 
   return (
     <div className="m-auto w-full max-w-full">
@@ -25,9 +26,9 @@ export const PricingPage: FC<PricingPageProps> = ({ pricings }) => {
       <SwitchSelector
         className="m-auto mb-5"
         choices={[
-          { content: period.lifetime.value, value: Period.Lifetime },
-          { content: period.yearly.value, value: Period.Yearly },
-          { content: period.monthly.value, value: Period.Monthly },
+          { content: periodSwitchLabel.lifetime.value, value: Period.Lifetime },
+          { content: periodSwitchLabel.yearly.value, value: Period.Yearly },
+          { content: periodSwitchLabel.monthly.value, value: Period.Monthly },
         ]}
         color="text"
         onChange={setFocusedPeriod}
