@@ -67,12 +67,21 @@ type LoginOptions = {
   cmsUrl?: string;
   configOptions?: GetConfigurationOptions;
   /**
-   * When false, do not call process.exit(0) after a successful session-token
-   * login so the caller can continue (e.g. retry a command inline).
-   * Defaults to true to preserve existing standalone-login behaviour.
-   * Access-key login always exits because the user must configure .env first.
+   * When false, do not call process.exit(0) after a successful login so the
+   * caller can continue (e.g. retry a command inline, or finish an interactive
+   * setup). Defaults to true to preserve existing standalone-login behaviour.
    */
   exitAfter?: boolean;
+  /**
+   * Invoked with the access-key credentials when the login flow returns a
+   * `clientId` / `clientSecret` pair. When provided, the caller takes ownership
+   * of persisting the credentials (e.g. writing them to `.env` and enabling the
+   * editor in the config), so the default manual-setup instructions are skipped.
+   */
+  onCredentials?: (credentials: {
+    clientId: string;
+    clientSecret: string;
+  }) => void | Promise<void>;
 };
 
 export const login = async (options: LoginOptions = {}) => {
@@ -141,53 +150,71 @@ export const login = async (options: LoginOptions = {}) => {
         }
 
         if (clientId && clientSecret) {
-          logger('');
-          logger('Log in successful. Client ID and Client Secret received.');
+          if (options.onCredentials) {
+            // The caller persists the credentials itself (e.g. interactive
+            // init writing `.env` and enabling the editor in the config).
+            logger('');
+            logger('Log in successful. Configuring Intlayer CMS...');
 
-          logger('');
-          logger([
-            '1. Insert the Client ID and Client Secret in your',
-            colorizePath('.env'),
-            'file:',
-          ]);
-          logger(
-            colorize('--------------------------------', ANSIColors.GREY_DARK)
-          );
-          logger(
+            try {
+              await options.onCredentials({ clientId, clientSecret });
+            } catch (error) {
+              logger(
+                `Failed to persist the CMS credentials automatically: ${
+                  error instanceof Error ? error.message : String(error)
+                }`,
+                { level: 'error' }
+              );
+            }
+          } else {
+            logger('');
+            logger('Log in successful. Client ID and Client Secret received.');
+
+            logger('');
+            logger([
+              '1. Insert the Client ID and Client Secret in your',
+              colorizePath('.env'),
+              'file:',
+            ]);
+            logger(
+              colorize('--------------------------------', ANSIColors.GREY_DARK)
+            );
+            logger(
+              [
+                colorize('INTLAYER_CLIENT_ID=', ANSIColors.GREY_LIGHT),
+                colorize(clientId, ANSIColors.BLUE),
+              ].join('')
+            );
+            logger(
+              [
+                colorize('INTLAYER_CLIENT_SECRET=', ANSIColors.GREY_LIGHT),
+                colorize(clientSecret, ANSIColors.BLUE),
+              ].join('')
+            );
+            logger(
+              colorize('--------------------------------', ANSIColors.GREY_DARK)
+            );
+            logger('');
+            logger('2. Insert in your Intlayer configuration file:');
+            logger(
+              colorize('--------------------------------', ANSIColors.GREY_DARK)
+            );
             [
-              colorize('INTLAYER_CLIENT_ID=', ANSIColors.GREY_LIGHT),
-              colorize(clientId, ANSIColors.BLUE),
-            ].join('')
-          );
-          logger(
-            [
-              colorize('INTLAYER_CLIENT_SECRET=', ANSIColors.GREY_LIGHT),
-              colorize(clientSecret, ANSIColors.BLUE),
-            ].join('')
-          );
-          logger(
-            colorize('--------------------------------', ANSIColors.GREY_DARK)
-          );
-          logger('');
-          logger('2. Insert in your Intlayer configuration file:');
-          logger(
-            colorize('--------------------------------', ANSIColors.GREY_DARK)
-          );
-          [
-            `${ANSIColors.GREY_LIGHT}{`,
-            `  editor: {`,
-            `     enabled: true,`,
-            `     cmsURL: '${colorizePath(cmsUrl!, undefined, ANSIColors.GREY_LIGHT)}',`,
-            `     clientId: '${colorize('process.env.INTLAYER_CLIENT_ID', ANSIColors.BLUE, ANSIColors.GREY_LIGHT)}',`,
-            `     clientSecret: '${colorize('process.env.INTLAYER_CLIENT_SECRET', ANSIColors.BLUE, ANSIColors.GREY_LIGHT)}',`,
-            `  },`,
-            `}`,
-          ].forEach((line) => {
-            logger(line);
-          });
-          logger(
-            colorize('--------------------------------', ANSIColors.GREY_DARK)
-          );
+              `${ANSIColors.GREY_LIGHT}{`,
+              `  editor: {`,
+              `     enabled: true,`,
+              `     cmsURL: '${colorizePath(cmsUrl!, undefined, ANSIColors.GREY_LIGHT)}',`,
+              `     clientId: '${colorize('process.env.INTLAYER_CLIENT_ID', ANSIColors.BLUE, ANSIColors.GREY_LIGHT)}',`,
+              `     clientSecret: '${colorize('process.env.INTLAYER_CLIENT_SECRET', ANSIColors.BLUE, ANSIColors.GREY_LIGHT)}',`,
+              `  },`,
+              `}`,
+            ].forEach((line) => {
+              logger(line);
+            });
+            logger(
+              colorize('--------------------------------', ANSIColors.GREY_DARK)
+            );
+          }
 
           res.writeHead(200, { 'Content-Type': 'text/html' });
           res.end(
@@ -198,7 +225,9 @@ export const login = async (options: LoginOptions = {}) => {
 
           server.close(() => {
             resolve();
-            process.exit(0);
+            if (options.exitAfter !== false) {
+              process.exit(0);
+            }
           });
         } else {
           res.writeHead(400, { 'Content-Type': 'text/plain' });

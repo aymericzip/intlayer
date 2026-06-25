@@ -1,3 +1,4 @@
+import type { RoutingConfig } from '@intlayer/types/config';
 import * as recast from 'recast';
 import type {
   CompatSyncConfig,
@@ -5,6 +6,172 @@ import type {
 } from './packageManager';
 
 const { builders: b, namedTypes: n } = recast.types;
+
+/** The locale routing strategies supported by the Intlayer configuration. */
+export type RoutingMode = RoutingConfig['mode'];
+
+/** Narrows an arbitrary recast node to an object expression. */
+const isObjectExpression = (node: any): boolean =>
+  Boolean(node) &&
+  (node.type === 'ObjectExpression' || n.ObjectExpression.check(node));
+
+/**
+ * Finds a property by key name on an object expression, creating it with the
+ * provided default value node when it is absent. Returns the property node so
+ * callers can read or mutate its value while preserving any attached comments.
+ */
+const ensureObjectProperty = (
+  objExpr: any,
+  key: string,
+  defaultValueNode: any
+): any => {
+  let property = (objExpr.properties as any[]).find((prop: any) => {
+    if (!prop?.key) return false;
+    return (prop.key.name ?? prop.key.value) === key;
+  });
+
+  if (!property) {
+    property = b.property('init', b.identifier(key), defaultValueNode);
+    (objExpr.properties as any[]).push(property);
+  }
+
+  return property;
+};
+
+/**
+ * Sets (or replaces) a property's value on an object expression. When the
+ * property already exists only its value node is swapped, which keeps the
+ * leading documentation comment in place.
+ */
+const setObjectPropertyValue = (
+  objExpr: any,
+  key: string,
+  valueNode: any
+): void => {
+  const property = (objExpr.properties as any[]).find((prop: any) => {
+    if (!prop?.key) return false;
+    return (prop.key.name ?? prop.key.value) === key;
+  });
+
+  if (property) {
+    property.value = valueNode;
+    return;
+  }
+
+  (objExpr.properties as any[]).push(
+    b.property('init', b.identifier(key), valueNode)
+  );
+};
+
+/**
+ * Adds a `process.env.<envVar>` reference property to an object expression when
+ * the property is not already present. Existing values are left untouched.
+ */
+const addEnvReferenceProperty = (
+  objExpr: any,
+  key: string,
+  envVar: string
+): void => {
+  const hasProperty = (objExpr.properties as any[]).some((prop: any) => {
+    if (!prop?.key) return false;
+    return (prop.key.name ?? prop.key.value) === key;
+  });
+
+  if (hasProperty) return;
+
+  (objExpr.properties as any[]).push(
+    b.property(
+      'init',
+      b.identifier(key),
+      b.memberExpression(
+        b.memberExpression(b.identifier('process'), b.identifier('env')),
+        b.identifier(envVar)
+      )
+    )
+  );
+};
+
+/**
+ * Sets `routing.mode` in an Intlayer configuration file to the requested
+ * strategy. Idempotent: re-running with the same mode produces identical
+ * output. Supports `.ts`, `.mjs`, `.js` and `.cjs` configs; JSON configs are
+ * handled with a scoped string replacement since they cannot be parsed by the
+ * TypeScript recast parser.
+ */
+export const setIntlayerConfigRoutingMode = (
+  content: string,
+  extension: string,
+  mode: RoutingMode
+): string => {
+  if (extension === 'json') {
+    return content.replace(
+      /("mode"\s*:\s*)"(?:prefix-no-default|prefix-all|no-prefix|search-params)"/,
+      `$1"${mode}"`
+    );
+  }
+
+  const ast = recast.parse(content, {
+    parser: require('recast/parsers/typescript'),
+  });
+
+  genericRecastVisit(ast, (objExpr) => {
+    if (!isObjectExpression(objExpr)) return;
+
+    const routingProperty = ensureObjectProperty(
+      objExpr,
+      'routing',
+      b.objectExpression([])
+    );
+
+    if (!isObjectExpression(routingProperty.value)) return;
+
+    setObjectPropertyValue(
+      routingProperty.value,
+      'mode',
+      b.stringLiteral(mode)
+    );
+  });
+
+  return recast.print(ast).code;
+};
+
+/**
+ * Enables the Intlayer visual editor in a configuration file: sets
+ * `editor.enabled` to `true` and wires `clientId` / `clientSecret` to the
+ * `INTLAYER_CLIENT_ID` / `INTLAYER_CLIENT_SECRET` environment variables.
+ * Idempotent and non-destructive — existing `clientId` / `clientSecret` values
+ * are preserved. Only `.ts`, `.mjs`, `.js` and `.cjs` configs are supported
+ * (JSON cannot reference `process.env`).
+ */
+export const enableIntlayerEditorConfig = (content: string): string => {
+  const ast = recast.parse(content, {
+    parser: require('recast/parsers/typescript'),
+  });
+
+  genericRecastVisit(ast, (objExpr) => {
+    if (!isObjectExpression(objExpr)) return;
+
+    const editorProperty = ensureObjectProperty(
+      objExpr,
+      'editor',
+      b.objectExpression([])
+    );
+
+    if (!isObjectExpression(editorProperty.value)) return;
+
+    const editorObject = editorProperty.value;
+
+    setObjectPropertyValue(editorObject, 'enabled', b.booleanLiteral(true));
+    addEnvReferenceProperty(editorObject, 'clientId', 'INTLAYER_CLIENT_ID');
+    addEnvReferenceProperty(
+      editorObject,
+      'clientSecret',
+      'INTLAYER_CLIENT_SECRET'
+    );
+  });
+
+  return recast.print(ast).code;
+};
 
 const injectImport = (
   ast: any,
@@ -31,7 +198,7 @@ const injectImport = (
     return (
       n.ImportDeclaration.check(stmt) &&
       (stmt.source.value === source ||
-        stmt.specifiers.some(
+        stmt.specifiers?.some(
           (spec: any) =>
             (n.ImportSpecifier.check(spec) &&
               spec.imported.name === importName) ||
@@ -109,6 +276,28 @@ const genericRecastVisit = (
   updateConfigObject: (obj: any) => void,
   callNames: string[] = ['defineConfig']
 ) => {
+  /**
+   * Resolves an identifier reference (e.g. `export default config` /
+   * `module.exports = config`) back to the object expression it was declared
+   * with, then runs the updater on it.
+   */
+  const resolveIdentifierConfig = (name: string) => {
+    ast.program.body.forEach((stmt: any) => {
+      if (n.VariableDeclaration.check(stmt)) {
+        stmt.declarations.forEach((vdecl: any) => {
+          if (
+            n.VariableDeclarator.check(vdecl) &&
+            n.Identifier.check(vdecl.id) &&
+            vdecl.id.name === name &&
+            n.ObjectExpression.check(vdecl.init)
+          ) {
+            updateConfigObject(vdecl.init);
+          }
+        });
+      }
+    });
+  };
+
   recast.visit(ast, {
     visitExportDefaultDeclaration(path) {
       const decl = path.node.declaration;
@@ -124,21 +313,7 @@ const genericRecastVisit = (
           updateConfigObject(decl.arguments[0]);
         }
       } else if (n.Identifier.check(decl)) {
-        const name = decl.name;
-        ast.program.body.forEach((stmt: any) => {
-          if (n.VariableDeclaration.check(stmt)) {
-            stmt.declarations.forEach((vdecl: any) => {
-              if (
-                n.VariableDeclarator.check(vdecl) &&
-                n.Identifier.check(vdecl.id) &&
-                vdecl.id.name === name &&
-                n.ObjectExpression.check(vdecl.init)
-              ) {
-                updateConfigObject(vdecl.init);
-              }
-            });
-          }
-        });
+        resolveIdentifierConfig(decl.name);
       }
       return false;
     },
@@ -159,6 +334,8 @@ const genericRecastVisit = (
           if (n.ObjectExpression.check(right.arguments[0])) {
             updateConfigObject(right.arguments[0]);
           }
+        } else if (n.Identifier.check(right)) {
+          resolveIdentifierConfig(right.name);
         }
       }
       return false;

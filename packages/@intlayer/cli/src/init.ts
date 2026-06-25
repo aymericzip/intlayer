@@ -6,8 +6,11 @@ import {
   initIntlayer,
   PLATFORMS,
   type Platform,
+  type RoutingMode,
+  setupCmsCredentials,
 } from '@intlayer/chokidar/cli';
 import enquirer from 'enquirer';
+import { login } from './auth/login';
 import { initBuildOptimization } from './initBuildOptimization';
 import { initCompiler } from './initCompiler';
 import { initMCP } from './initMCP';
@@ -92,6 +95,34 @@ const BASE_INIT_STEP_OPTIONS: Array<{
   },
 ];
 
+/** Locale routing strategies offered by the interactive init flow. */
+const ROUTING_MODE_OPTIONS: Array<{
+  value: RoutingMode;
+  label: string;
+  hint: string;
+}> = [
+  {
+    value: 'prefix-no-default',
+    label: 'Prefix all except the default locale',
+    hint: '/about, /fr/about (default)',
+  },
+  {
+    value: 'prefix-all',
+    label: 'Prefix all locales',
+    hint: '/en/about, /fr/about',
+  },
+  {
+    value: 'no-prefix',
+    label: 'No locale in the URL',
+    hint: '/about',
+  },
+  {
+    value: 'search-params',
+    label: 'Use a search parameter',
+    hint: '/about?locale=fr',
+  },
+];
+
 /** Reads the merged dependencies of the project at `root`. */
 const getProjectDependencies = (root: string): Record<string, string> => {
   try {
@@ -164,8 +195,34 @@ const runInteractiveInit = async (
 
   const steps = selected as InitStep[];
 
+  // Locale routing strategy → written to `routing.mode` in the config file.
+  const routingMode = await p.select<RoutingMode>({
+    message: 'Which locale routing strategy do you want?',
+    options: ROUTING_MODE_OPTIONS,
+    initialValue: 'prefix-no-default',
+  });
+
+  if (p.isCancel(routingMode)) {
+    p.cancel('Operation cancelled.');
+    return;
+  }
+
+  // CMS / visual editor: opt-in browser login that persists the access-key
+  // credentials to `.env` and enables the editor in the config file.
+  const shouldSetUpCms = await p.confirm({
+    message:
+      'Set up the Intlayer CMS now? (opens your browser to log in, then stores the credentials in your .env)',
+    initialValue: false,
+  });
+
+  if (p.isCancel(shouldSetUpCms)) {
+    p.cancel('Operation cancelled.');
+    return;
+  }
+
   const options: InitOptions = {
     ...baseOptions,
+    routingMode,
     noInstallPackages: !steps.includes('packages'),
     // Respect explicit `--no-*` flags from the command line even when the
     // corresponding step is selected in the checkbox.
@@ -223,6 +280,16 @@ const runInteractiveInit = async (
 
   if (steps.includes('buildOptimization')) {
     await initBuildOptimization(root);
+  }
+
+  if (shouldSetUpCms) {
+    p.log.info('Opening your browser to log in to the Intlayer CMS...');
+    // `exitAfter: false` keeps the process alive so the flow can finish; the
+    // credentials are persisted to `.env` and the editor enabled in the config.
+    await login({
+      exitAfter: false,
+      onCredentials: (credentials) => setupCmsCredentials(root, credentials),
+    });
   }
 
   p.outro('Intlayer initialization complete');

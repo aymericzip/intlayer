@@ -5,7 +5,9 @@ import { getConfiguration } from '@intlayer/config/node';
 
 import { getAlias } from '@intlayer/config/utils';
 import { initConfig } from '../initConfig';
+import { setRoutingModeInConfig } from './cms';
 import { setupFramework } from './frameworkSetup';
+import type { RoutingMode } from './utils';
 import {
   detectJsonLocalePattern,
   detectMissingIntlayerPackages,
@@ -199,6 +201,12 @@ export type InitOptions = {
    * only missing ones are installed.
    */
   upgradeToVersion?: string;
+  /**
+   * Locale routing strategy to write to `routing.mode` in the generated/existing
+   * Intlayer configuration file. When omitted, the configuration default
+   * (`prefix-no-default`) is kept.
+   */
+  routingMode?: RoutingMode;
 };
 
 /**
@@ -612,6 +620,13 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
         break;
       }
     }
+  }
+
+  // APPLY ROUTING MODE
+  // When a routing strategy was chosen (interactive init), write it to
+  // `routing.mode` in the configuration file. Idempotent and comment-preserving.
+  if (options?.routingMode) {
+    await setRoutingModeInConfig(rootDir, options.routingMode);
   }
 
   let hasAliasConfiguration = false;

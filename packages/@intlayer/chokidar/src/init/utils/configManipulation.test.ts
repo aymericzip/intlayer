@@ -1,9 +1,41 @@
 import { describe, expect, it } from 'vitest';
 import {
+  enableIntlayerEditorConfig,
+  setIntlayerConfigRoutingMode,
   updateIntlayerConfigWithSyncPlugin,
   updateNextConfig,
   updateViteConfig,
 } from './configManipulation';
+
+const TS_CONFIG = `import { type IntlayerConfig, Locales } from 'intlayer';
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+  routing: {
+    mode: 'prefix-no-default',
+    enableProxy: true,
+  },
+  editor: {
+    enabled: false,
+    applicationURL: 'http://localhost:3000',
+  },
+};
+
+export default config;
+`;
+
+const CJS_CONFIG = `const { Locales } = require('intlayer');
+
+const config = {
+  routing: { mode: 'prefix-no-default' },
+  editor: { enabled: false },
+};
+
+module.exports = config;
+`;
 
 describe('configManipulation', () => {
   describe('updateViteConfig', () => {
@@ -348,6 +380,105 @@ export default config;
 
       const syncMatches = updated.match(/syncJSON\(/g);
       expect(syncMatches?.length).toBe(1);
+    });
+  });
+
+  describe('setIntlayerConfigRoutingMode', () => {
+    it('should replace routing.mode in a ts config', () => {
+      const updated = setIntlayerConfigRoutingMode(
+        TS_CONFIG,
+        'ts',
+        'prefix-all'
+      );
+      expect(updated).toContain('mode: "prefix-all"');
+      expect(updated).not.toContain('prefix-no-default');
+    });
+
+    it('should replace routing.mode in a cjs config (identifier export)', () => {
+      const updated = setIntlayerConfigRoutingMode(
+        CJS_CONFIG,
+        'cjs',
+        'search-params'
+      );
+      expect(updated).toContain('mode: "search-params"');
+    });
+
+    it('should replace routing.mode in a json config', () => {
+      const jsonConfig = `{
+  "routing": { "mode": "prefix-no-default" }
+}`;
+      const updated = setIntlayerConfigRoutingMode(
+        jsonConfig,
+        'json',
+        'no-prefix'
+      );
+      expect(updated).toContain('"mode": "no-prefix"');
+    });
+
+    it('should be idempotent', () => {
+      const once = setIntlayerConfigRoutingMode(TS_CONFIG, 'ts', 'no-prefix');
+      const twice = setIntlayerConfigRoutingMode(once, 'ts', 'no-prefix');
+      expect(twice).toBe(once);
+    });
+
+    it('should preserve the leading documentation comment', () => {
+      const commented = `import { type IntlayerConfig } from 'intlayer';
+
+const config: IntlayerConfig = {
+  routing: {
+    /** Locale routing strategy. */
+    mode: 'prefix-no-default',
+  },
+};
+
+export default config;
+`;
+      const updated = setIntlayerConfigRoutingMode(
+        commented,
+        'ts',
+        'prefix-all'
+      );
+      expect(updated).toContain('/** Locale routing strategy. */');
+      expect(updated).toContain('mode: "prefix-all"');
+    });
+  });
+
+  describe('enableIntlayerEditorConfig', () => {
+    it('should enable the editor and wire env credentials in a ts config', () => {
+      const updated = enableIntlayerEditorConfig(TS_CONFIG);
+      expect(updated).toContain('enabled: true');
+      expect(updated).toContain('clientId: process.env.INTLAYER_CLIENT_ID');
+      expect(updated).toContain(
+        'clientSecret: process.env.INTLAYER_CLIENT_SECRET'
+      );
+    });
+
+    it('should enable the editor in a cjs config (identifier export)', () => {
+      const updated = enableIntlayerEditorConfig(CJS_CONFIG);
+      expect(updated).toContain('enabled: true');
+      expect(updated).toContain('clientId: process.env.INTLAYER_CLIENT_ID');
+    });
+
+    it('should be idempotent', () => {
+      const once = enableIntlayerEditorConfig(TS_CONFIG);
+      const twice = enableIntlayerEditorConfig(once);
+      expect(twice).toBe(once);
+    });
+
+    it('should not duplicate a pre-existing clientId', () => {
+      const withClientId = `const config = {
+  editor: {
+    enabled: false,
+    clientId: process.env.MY_CUSTOM_ID,
+  },
+};
+
+export default config;
+`;
+      const updated = enableIntlayerEditorConfig(withClientId);
+      expect(updated).toContain('clientId: process.env.MY_CUSTOM_ID');
+      expect(updated).not.toContain('INTLAYER_CLIENT_ID');
+      expect(updated).toContain('enabled: true');
     });
   });
 });
