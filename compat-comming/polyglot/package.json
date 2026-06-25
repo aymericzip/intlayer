@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/polyglot",
-  "version": "9.0.0-canary.4",
+  "version": "9.0.0-canary.6",
   "private": false,
   "description": "polyglot API adapter for intlayer — drop-in compatibility layer",
   "keywords": [
