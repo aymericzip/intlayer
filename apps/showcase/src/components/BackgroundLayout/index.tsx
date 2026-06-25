@@ -1,15 +1,12 @@
 import { useDevice, useIsMounted } from '@intlayer/design-system/hooks';
 import { GridPattern } from '@intlayer/design-system/pattern';
 import { cn } from '@intlayer/design-system/utils';
-import dynamic from 'next/dynamic';
-import { type FC, type PropsWithChildren, Suspense } from 'react';
+import { type FC, lazy, type PropsWithChildren, Suspense } from 'react';
 
-const GridDistortionPattern = dynamic(
-  () =>
-    import('@intlayer/design-system/pattern').then((m) => ({
-      default: m.GridDistortionPattern,
-    })),
-  { ssr: false }
+const GridDistortionPattern = lazy(() =>
+  import('@intlayer/design-system/pattern').then((m) => ({
+    default: m.GridDistortionPattern,
+  }))
 );
 
 export const BackgroundLayout: FC<
