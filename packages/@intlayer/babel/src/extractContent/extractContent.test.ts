@@ -563,6 +563,40 @@ export const useCustomHook = () => {
     expect(updatedCode).toContain('{content.helloWorld}');
   });
 
+  it('should not extract string literals used as comparison operands', async () => {
+    const componentPath = join(tmpDir, 'ComparisonTest.tsx');
+    const componentCode = `
+      export function ComparisonTest({ msg }: { msg: { step: string } }) {
+        if (msg.step === 'ERROR') {
+          return <div>Something went wrong</div>;
+        }
+        if (msg.step !== 'SUCCESS') {
+          return null;
+        }
+        switch (msg.step) {
+          case 'PENDING':
+            return <div>Loading</div>;
+          default:
+            return null;
+        }
+      }
+    `;
+    writeFileSync(componentPath, componentCode);
+    await extractContent(componentPath, 'react-intlayer');
+    const updatedCode = readFileSync(componentPath, 'utf-8');
+
+    // Comparison / switch-case constants must remain untouched string literals
+    expect(updatedCode).toContain("msg.step === 'ERROR'");
+    expect(updatedCode).toContain("msg.step !== 'SUCCESS'");
+    expect(updatedCode).toContain("case 'PENDING':");
+    expect(updatedCode).not.toContain('content.error');
+    expect(updatedCode).not.toContain('content.success');
+    expect(updatedCode).not.toContain('content.pending');
+
+    // Genuine JSX display text is still extracted
+    expect(updatedCode).toContain('{content.somethingWentWrong}');
+  });
+
   it('should extract JSX text and inject useIntlayer properly', async () => {
     const componentPath = join(tmpDir, 'BasicJsxTest.tsx');
     const componentCode = `

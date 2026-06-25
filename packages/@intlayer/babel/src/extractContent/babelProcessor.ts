@@ -394,6 +394,20 @@ export const extractBabelContentForComponents = (
 
       if (parent.isJSXAttribute()) return;
 
+      // Skip string literals used as comparison operands (e.g. `msg.step === 'ERROR'`).
+      // These are code constants / enum values, not translatable display text.
+      const COMPARISON_OPERATORS = new Set(['===', '!==', '==', '!=']);
+      if (
+        parent.isBinaryExpression() &&
+        COMPARISON_OPERATORS.has(parent.node.operator)
+      ) {
+        return;
+      }
+
+      // Skip string literals used as `switch` case tests (e.g. `case 'ERROR':`).
+      // Like comparisons, these are code constants, not display text.
+      if (parent.isSwitchCase() && parent.node.test === path.node) return;
+
       if (
         parent.isCallExpression() &&
         t.isMemberExpression(parent.node.callee)
