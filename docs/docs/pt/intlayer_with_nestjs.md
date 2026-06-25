@@ -33,24 +33,6 @@ history:
 
 `express-intlayer` é um middleware poderoso de internacionalização (i18n) para aplicações Express, projetado para tornar seus serviços backend acessíveis globalmente, fornecendo respostas localizadas com base nas preferências do cliente. Como o NestJS é construído sobre o Express, você pode integrar perfeitamente o `express-intlayer` em suas aplicações NestJS para lidar efetivamente com conteúdo multilíngue.
 
-## Por que internacionalizar seu backend?
-
-Internacionalizar seu backend é essencial para atender a um público global de forma eficaz. Isso permite que sua aplicação entregue conteúdo e mensagens no idioma preferido de cada usuário. Essa capacidade melhora a experiência do usuário e amplia o alcance da sua aplicação, tornando-a mais acessível e relevante para pessoas de diferentes origens linguísticas.
-
-### Casos de Uso Práticos
-
-- **Exibir Erros do Backend no Idioma do Usuário**: Quando ocorre um erro, exibir mensagens no idioma nativo do usuário melhora a compreensão e reduz a frustração. Isso é especialmente útil para mensagens de erro dinâmicas que podem ser exibidas em componentes front-end, como toasts ou modais.
-
-- **Recuperar Conteúdo Multilíngue**: Para aplicações que buscam conteúdo em um banco de dados, a internacionalização garante que você possa fornecer esse conteúdo em vários idiomas. Isso é crucial para plataformas como sites de comércio eletrônico ou sistemas de gerenciamento de conteúdo que precisam exibir descrições de produtos, artigos e outros conteúdos no idioma preferido pelo usuário.
-
-- **Enviar Emails Multilíngues**: Seja para emails transacionais, campanhas de marketing ou notificações, enviar emails no idioma do destinatário pode aumentar significativamente o engajamento e a eficácia.
-
-- **Notificações Push Multilíngues**: Para aplicações móveis, enviar notificações push no idioma preferido do usuário pode melhorar a interação e a retenção. Esse toque pessoal pode fazer com que as notificações pareçam mais relevantes e acionáveis.
-
-- **Outras Comunicações**: Qualquer forma de comunicação do backend, como mensagens SMS, alertas do sistema ou atualizações da interface do usuário, se beneficia de estar no idioma do usuário, garantindo clareza e melhorando a experiência geral do usuário.
-
-Ao internacionalizar o backend, sua aplicação não apenas respeita as diferenças culturais, mas também se alinha melhor às necessidades do mercado global, tornando-se um passo fundamental para escalar seus serviços mundialmente.
-
 ## Começando
 
 ### Criar um novo projeto NestJS

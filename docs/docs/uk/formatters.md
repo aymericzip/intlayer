@@ -116,10 +116,6 @@ pluralRules.select(1); // "one"
 pluralRules.select(2); // "інше"
 ```
 
-## Додаткові утиліти Intl
-
-Окрім допоміжних форматерів, ви також можете безпосередньо використовувати кешований обгорток Intl для інших можливостей Intl:
-
 ### `Intl.DisplayNames`
 
 Для локалізованих назв мов, регіонів, валют та писемностей:
@@ -182,20 +178,6 @@ getLocaleName("de", "es"); // іспанською: "alemán"
 - **displayLocale**: Локаль, для якої потрібно отримати назву
 - **targetLocale**: Локаль, в якій відображається назва (за замовчуванням displayLocale)
 
-### `getLocaleLang(locale?)`
-
-Витягує код мови з рядка локалі:
-
-```ts
-import { getLocaleLang } from "intlayer";
-
-getLocaleLang("en-US"); // "en"
-getLocaleLang("fr-CA"); // "fr"
-getLocaleLang("de"); // "de"
-```
-
-- **locale**: Локаль, з якої потрібно витягти код мови (за замовчуванням поточна локаль)
-
 ### `getLocaleFromPath(inputUrl)`
 
 Витягує сегмент локалі з URL або шляху:
@@ -211,22 +193,6 @@ getLocaleFromPath("https://example.com/es/about"); // "es"
 
 - **inputUrl**: Повний рядок URL або шлях (pathname) для обробки
 - **returns**: Виявлена локаль або локаль за замовчуванням, якщо локаль не знайдена
-
-### `getPathWithoutLocale(inputUrl, locales?)`
-
-Видаляє сегмент локалі з URL або шляху (pathname):
-
-```ts
-import { getPathWithoutLocale } from "intlayer";
-
-getPathWithoutLocale("/en/dashboard"); // "/dashboard"
-getPathWithoutLocale("/fr/dashboard"); // "/dashboard"
-getPathWithoutLocale("https://example.com/en/about"); // "https://example.com/about"
-```
-
-- **inputUrl**: Повний рядок URL або шлях (pathname) для обробки
-- **locales**: Необов'язковий масив підтримуваних локалей (за замовчуванням використовується сконфігурований список локалей)
-- **returns**: URL без сегменту локалі
 
 ### `getLocalizedUrl(url, currentLocale, locales?, defaultLocale?, prefixDefault?)`
 
@@ -261,8 +227,6 @@ getHTMLTextDir("he"); // повертає "rtl"
 - **locale**: Локаль, для якої потрібно отримати напрямок тексту (за замовчуванням, поточна локаль)
 - **повертає**: `"ltr"`, `"rtl"`, або `"auto"`
 
-## Утиліти обробки контенту
-
 ### `getContent(node, nodeProps, locale?)`
 
 Перетворює вузол контенту за допомогою всіх доступних плагінів (translation, enumeration, insertion тощо):
@@ -280,28 +244,6 @@ const content = getContent(
 - **node**: Вузол контенту, який потрібно перетворити
 - **nodeProps**: Властивості для контексту перетворення
 - **locale**: Необов'язкова локаль (за замовчуванням використовується налаштована локаль)
-
-### `getTranslation(languageContent, locale?, fallback?)`
-
-Витягує вміст для конкретної локалі з об'єкта мовного вмісту:
-
-```ts
-import { getTranslation } from "intlayer";
-
-const content = getTranslation(
-  {
-    en: "Hello",
-    fr: "Bonjour",
-    de: "Hallo",
-  },
-  "fr",
-  true
-); // "Bonjour"
-```
-
-- **languageContent**: Об'єкт, що відображає локалі на відповідний вміст
-- **locale**: Цільова локаль (за замовчуванням використовується налаштована локаль)
-- **fallback**: Чи виконувати відкат до локалі за замовчуванням (за замовчуванням true)
 
 ### `getIntlayer(dictionaryKey, locale?, plugins?)`
 
@@ -468,11 +410,86 @@ list(["red", "green", "blue"], { locale: "fr", type: "disjunction" }); // "rouge
 list([1, 2, 3], { type: "unit" }); // "1, 2, 3"
 ```
 
+## Cached Intl
+
+Експортований `Intl` з `intlayer` — це кешований wrapper навколо глобального `Intl`. Він мемоізує екземпляри форматерів (`NumberFormat`, `DateTimeFormat` тощо), щоб уникнути їхнього повторного створення та поліпшити продуктивність.
+
+```ts
+import { Intl } from "intlayer";
+
+// Форматування чисел
+const numberFormat = new Intl.NumberFormat("en-GB", {
+  style: "currency",
+  currency: "GBP",
+});
+numberFormat.format(1234.5); // "£1,234.50"
+
+// Назви відображення для мов, регіонів тощо
+const displayNames = new Intl.DisplayNames("fr", { type: "language" });
+displayNames.of("en"); // "anglais"
+
+// Collation для сортування
+const collator = new Intl.Collator("fr", { sensitivity: "base" });
+collator.compare("é", "e"); // 0 (equal)
+
+// Правила множини
+const pluralRules = new Intl.PluralRules("fr");
+pluralRules.select(1); // "one"
+pluralRules.select(2); // "other"
+```
+
+### Додаткові функції Intl
+
 ## Примітки
 
 - Усі утиліти приймають вхідні значення як `string`; всередині вони приводяться до чисел або дат.
 - Якщо локаль не вказана, за замовчуванням використовується налаштована вами `internationalization.defaultLocale`.
 - Ці утиліти, тонкі обгортки; для просунутого форматування передавайте стандартні опції `Intl`.
+
+#### `Intl.Collator`
+
+Для локалізованого порівняння та сортування рядків:
+
+```ts
+import { Intl } from "intlayer";
+
+const collator = new Intl.Collator("de", {
+  sensitivity: "base",
+  numeric: true,
+});
+
+const words = ["äpfel", "zebra", "100", "20"];
+words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
+```
+
+#### `Intl.PluralRules`
+
+Для визначення форм множини в різних локалях:
+
+```ts
+import { Intl } from "intlayer";
+
+const pluralRules = new Intl.PluralRules("ar");
+pluralRules.select(0); // "zero"
+pluralRules.select(1); // "one"
+pluralRules.select(2); // "two"
+pluralRules.select(3); // "few"
+pluralRules.select(11); // "many"
+```
+
+## Locale Utilities
+
+### `getLocaleName(displayLocale, targetLocale?)`
+
+Отримує локалізовану назву локалі:
+
+```ts
+import { getLocaleName } from "intlayer";
+
+getLocaleName("fr", "en"); // "French"
+getLocaleName("en", "fr"); // "anglais"
+getLocaleName("de", "es"); // "alemán"
+```
 
 ## Точки входу та повторні експорти (`@index.ts`)
 
@@ -501,6 +518,29 @@ import {
   getTranslation,
   getIntlayer,
 } from "intlayer";
+```
+
+### `getLocaleFromPath(inputUrl)`
+
+Витягує сегмент локалі з URL-адреси або шляху:
+
+```ts
+import { getLocaleFromPath } from "intlayer";
+
+getLocaleFromPath("/en/dashboard"); // "en"
+getLocaleFromPath("/fr/dashboard"); // "fr"
+getLocaleFromPath("/dashboard"); // "en" (локаль за замовчуванням)
+```
+
+### `getPathWithoutLocale(inputUrl, locales?)`
+
+Видаляє сегмент локалі з URL:
+
+```ts
+import { getPathWithoutLocale } from "intlayer";
+
+getPathWithoutLocale("/en/dashboard"); // "/dashboard"
+getPathWithoutLocale("/fr/dashboard"); // "/dashboard"
 ```
 
 ### React
@@ -576,6 +616,20 @@ import {
 
 > Ці хуки братимуть до уваги локаль із `IntlayerProvider` або `IntlayerServerProvider`
 
+### `getHTMLTextDir(locale?)`
+
+Повертає напрямок тексту для локалі:
+
+```ts
+import { getHTMLTextDir } from "intlayer";
+
+getHTMLTextDir("en-US"); // "ltr"
+getHTMLTextDir("ar"); // "rtl"
+getHTMLTextDir("he"); // "rtl"
+```
+
+## Утиліти обробки вмісту
+
 ### Vue
 
 Клієнтські компоненти:
@@ -594,3 +648,33 @@ import {
 ```
 
 > Ці composables братимуть до уваги локаль із ін'єктованого `IntlayerProvider`
+
+### `getTranslation(languageContent, locale?, fallback?)`
+
+Витягує вміст для конкретної локалі:
+
+```ts
+import { getTranslation } from "intlayer";
+
+const content = getTranslation(
+  { en: "Hello", fr: "Bonjour", de: "Hallo" },
+  "fr",
+  true
+); // "Bonjour"
+```
+
+### `getIntlayer(dictionaryKey, locale?, plugins?)`
+
+Отримує та трансформує вміст зі словника:
+
+```ts
+import { getIntlayer } from "intlayer";
+
+const content = getIntlayer("common", "fr");
+```
+
+## Примітки
+
+- Усі помічники приймають входи типу `string`; внутрішньо вони перетворюються на числа або дати.
+- Locale за замовчуванням використовує ваш налаштований `internationalization.defaultLocale`, якщо він не надано.
+- Ці утиліти є тонкими обгортками; для розширеного форматування передайте стандартні параметри `Intl`.

@@ -882,6 +882,21 @@ Ustawienia do zarządzania treścią w aplikacji, w tym nazwy katalogów, rozsze
 
 ---
 
+### Konfiguracja systemu
+
+Ustawienia związane ze ścieżkami wewnętrznymi i wynikami wyjściowymi Intlayer. Te ustawienia są zazwyczaj wewnętrzne i nie powinny być modyfikowane przez użytkownika.
+
+| Field                     | Description                                                                              | Type     | Default                           | Example              | Note                                                                 |
+| ------------------------- | ---------------------------------------------------------------------------------------- | -------- | --------------------------------- | -------------------- | -------------------------------------------------------------------- |
+| `baseDir`                 | Katalog bazowy dla projektu.                                                             | `string` | `process.cwd()`                   | `'/path/to/project'` | Używany do rozwiązywania wszystkich katalogów związanych z Intlayer. |
+| `dictionariesDir`         | Ścieżka katalogu do przechowywania słowników lokalizacyjnych.                            | `string` | `'.intlayer/dictionary'`          |                      |                                                                      |
+| `moduleAugmentationDir`   | Katalog dla rozszerzenia modułów, umożliwiający lepsze sugestie IDE i sprawdzanie typów. | `string` | `'.intlayer/types'`               | `'intlayer-types'`   | Upewnij się, że jest to uwzględnione w `tsconfig.json`.              |
+| `unmergedDictionariesDir` | Katalog do przechowywania niescalonych słowników.                                        | `string` | `'.intlayer/unmerged_dictionary'` |                      |                                                                      |
+| `typesDir`                | Katalog do przechowywania typów słowników.                                               | `string` | `'.intlayer/types'`               |                      |                                                                      |
+| `mainDir`                 | Katalog, w którym przechowywane są główne pliki aplikacji.                               | `string` | `'.intlayer/main'`                |                      |                                                                      |
+| `configDir`               | Katalog, w którym przechowywane są pliki konfiguracyjne.                                 | `string` | `'.intlayer/config'`              |                      |                                                                      |
+| `cacheDir`                | Katalog, w którym przechowywane są pliki cache'u.                                        | `string` | `'.intlayer/cache'`               |                      |                                                                      |
+
 ### Konfiguracja słownika (Dictionary)
 
 Opcje kontrolujące operacje na słownikach, w tym zachowanie automatycznego uzupełniania i generowanie treści.
@@ -987,22 +1002,6 @@ Ustawienia budowania mają zastosowanie do wtyczek `@intlayer/babel` i `@intlaye
 | `checkTypes`      | Wskazuje, czy budowanie powinno sprawdzać typy TypeScript i logować błędy. | `boolean`                        | `false`                                                                                                                                                                           |                                                                               | Może spowolnić proces budowania.                                                                                                                                                                                                                                                                                                                   |
 | `outputFormat`    | Kontroluje format wyjściowy słowników.                                     | `('esm' &#124; 'cjs')[]`         | `['esm', 'cjs']`                                                                                                                                                                  | `['cjs']`                                                                     |                                                                                                                                                                                                                                                                                                                                                    |
 | `traversePattern` | Wzorzec dla plików, które mają być skanowane podczas optymalizacji.        | `string[]`                       | `['**/*.{tsx,ts,js,mjs,cjs,jsx,vue,svelte,svte}', '!**/node_modules/**', '!**/dist/**', '!**/.intlayer/**', '!**/*.config.*', '!**/*.test.*', '!**/*.spec.*', '!**/*.stories.*']` | `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']` | • Poprawia wydajność budowania poprzez ograniczenie optymalizacji do odpowiednich plików.<br/>• Ignorowane, jeśli `optimize` jest wyłączone.<br/>• Używa wzorców glob.                                                                                                                                                                             |
-
----
-
-### Konfiguracja systemowa (System)
-
-Te ustawienia są przeznaczone dla zaawansowanych użytkowników i wewnętrznej konfiguracji Intlayer.
-
-| Pole                      | Opis                                            | Typ      | Domyślnie                         | Przykład | Uwagi |
-| ------------------------- | ----------------------------------------------- | -------- | --------------------------------- | -------- | ----- |
-| `dictionariesDir`         | Katalog dla skompilowanych słowników.           | `string` | `'.intlayer/dictionary'`          |          |       |
-| `moduleAugmentationDir`   | Katalog dla module augmentation TypeScript.     | `string` | `'.intlayer/types'`               |          |       |
-| `unmergedDictionariesDir` | Katalog dla niepołączonych słowników.           | `string` | `'.intlayer/unmerged_dictionary'` |          |       |
-| `typesDir`                | Katalog dla wygenerowanych typów.               | `string` | `'.intlayer/types'`               |          |       |
-| `mainDir`                 | Katalog głównych plików Intlayer.               | `string` | `'.intlayer/main'`                |          |       |
-| `configDir`               | Katalog skompilowanych plików konfiguracyjnych. | `string` | `'.intlayer/config'`              |          |       |
-| `cacheDir`                | Katalog plików cache.                           | `string` | `'.intlayer/cache'`               |          |       |
 
 ---
 

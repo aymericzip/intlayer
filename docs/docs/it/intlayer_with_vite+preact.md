@@ -65,6 +65,10 @@ author: aymericzip
 
 Consulta il [Template dell'Applicazione](https://github.com/aymericzip/intlayer-vite-preact-template) su GitHub.
 
+## Table of Contents
+
+<TOC/>
+
 ## Perché Intlayer rispetto alle alternative?
 
 Rispetto alle soluzioni principali come `preact-i18n` o `i18next`, Intlayer è una soluzione dotata di ottimizzazioni integrate come:
@@ -861,62 +865,6 @@ bun run build # Or bun run dev
 
 </Steps>
 
-### Configura TypeScript
-
-Intlayer utilizza l'augmentation dei moduli per sfruttare i vantaggi di TypeScript e rendere la tua base di codice più robusta.
-
-![Autocompletamento](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Errore di traduzione](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Assicurati che la tua configurazione TypeScript includa i tipi autogenerati.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Le tue configurazioni TypeScript esistenti
-  "compilerOptions": {
-    // ...
-    "jsx": "react-jsx",
-    "jsxImportSource": "preact", // Consigliato per Preact 10+
-    // ...
-  },
-  "include": [
-    // ... Le tue configurazioni TypeScript esistenti
-    ".intlayer/**/*.ts", // Includi i tipi autogenerati
-  ],
-}
-```
-
-> Assicurati che il tuo `tsconfig.json` sia impostato per Preact, in particolare `jsx` e `jsxImportSource` oppure `jsxFactory`/`jsxFragmentFactory` per versioni precedenti di Preact se non utilizzi i valori predefiniti di `preset-vite`.
-
-### Configurazione Git
-
-Si consiglia di ignorare i file generati da Intlayer. Ciò ti consente di evitare di committarli nel tuo repository Git.
-
-Per farlo, puoi aggiungere le seguenti istruzioni al tuo file `.gitignore`:
-
-```bash
-#  Ignora i file generati da Intlayer
-.intlayer
-```
-
-### Estensione VS Code
-
-Per migliorare la tua esperienza di sviluppo con Intlayer, puoi installare l'**estensione ufficiale Intlayer per VS Code**.
-
-[Installa dal Marketplace di VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Questa estensione offre:
-
-- **Autocompletamento** per le chiavi di traduzione.
-- **Rilevamento degli errori in tempo reale** per le traduzioni mancanti.
-- **Anteprime in linea** del contenuto tradotto.
-- **Azioni rapide** per creare e aggiornare facilmente le traduzioni.
-
-Per maggiori dettagli su come utilizzare l'estensione, consulta la [documentazione dell'estensione Intlayer per VS Code](https://intlayer.org/doc/vs-code-extension).
-
----
-
 ### (Opzionale) Sitemap e robots.txt (generazione in build)
 
 Intlayer espone utilità - `generateSitemap` e `getMultilingualUrls` - per formattare `sitemap.xml` multilingue e `robots.txt` pronti per i crawler e scriverli automaticamente in `public/`. Di solito si esegue un piccolo script Node **prima** di Vite (ad esempio hook npm `predev` / `prebuild`) così che i file siano presenti in build o in sviluppo.
@@ -990,6 +938,62 @@ Serve il pacchetto `intlayer` installato. Imposta `SITE_URL` in ambiente per la 
 ```
 
 Adatta i comandi se usi pnpm o yarn. Puoi anche richiamare lo script dalla CI o da un altro passo del pipeline.
+
+### Configura TypeScript
+
+Intlayer utilizza module augmentation per sfruttare i vantaggi di TypeScript e rendere il tuo codebase più robusto.
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+Assicurati che la tua configurazione TypeScript includa i tipi generati automaticamente.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Le tue configurazioni TypeScript esistenti
+  "compilerOptions": {
+    // ...
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact", // Consigliato per Preact 10+
+    // ...
+  },
+  "include": [
+    // ... Le tue configurazioni TypeScript esistenti
+    ".intlayer/**/*.ts", // Includi i tipi generati automaticamente
+  ],
+}
+```
+
+> Assicurati che il tuo `tsconfig.json` sia configurato per Preact, in particolare `jsx` e `jsxImportSource` o `jsxFactory`/`jsxFragmentFactory` per le versioni precedenti di Preact se non utilizzi i default di `preset-vite`.
+
+### Configurazione Git
+
+Si consiglia di ignorare i file generati da Intlayer. Questo ti permette di evitare di farli scaricare nel tuo repository Git.
+
+Per farlo, puoi aggiungere le seguenti istruzioni al tuo file `.gitignore`:
+
+```bash
+# Ignora i file generati da Intlayer
+.intlayer
+```
+
+### Estensione VS Code
+
+Per migliorare la tua esperienza di sviluppo con Intlayer, puoi installare l'**Estensione ufficiale Intlayer per VS Code**.
+
+[Installa da VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Questa estensione fornisce:
+
+- **Autocompletamento** per le chiavi di traduzione.
+- **Rilevamento errori in tempo reale** per le traduzioni mancanti.
+- **Anteprime inline** del contenuto tradotto.
+- **Azioni rapide** per creare e aggiornare facilmente le traduzioni.
+
+Per ulteriori dettagli su come utilizzare l'estensione, consulta la [documentazione dell'Estensione Intlayer per VS Code](https://intlayer.org/doc/vs-code-extension).
+
+---
 
 ### Andare oltre
 

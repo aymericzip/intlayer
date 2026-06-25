@@ -53,6 +53,8 @@ author: aymericzip
 
 Intlayer dostarcza zestaw lekkich helperów opartych na natywnych API `Intl`, oraz opakowanie `Intl` z pamięcią podręczną, które zapobiega wielokrotnemu tworzeniu ciężkich formatterów. Te narzędzia są w pełni świadome lokalizacji i mogą być używane z głównego pakietu `intlayer`.
 
+## React Formatters
+
 ### Import
 
 ```ts
@@ -79,6 +81,61 @@ import {
 ```
 
 Jeśli używasz React, dostępne są również hooki; zobacz `react-intlayer/format`.
+
+### Dostępne Hooks
+
+Wszystkie hooks automatycznie używają locale z `IntlayerProvider` lub `IntlayerServerProvider`.
+
+| Hook                | Opis                                     | Przykładowe wyjście           |
+| ------------------- | ---------------------------------------- | ----------------------------- |
+| `useNumber()`       | Formatuj liczby z grupowaniem            | `"123,456.789"`               |
+| `useCurrency()`     | Formatuj wartości waluty                 | `"€1,234.50"`                 |
+| `usePercentage()`   | Formatuj procenty                        | `"25%"`                       |
+| `useDate()`         | Formatuj daty i godziny                  | `"Aug 2, 2025"`               |
+| `useRelativeTime()` | Formatuj czas względny                   | `"in 3 days"`                 |
+| `useUnit()`         | Formatuj wartości z jednostkami          | `"5 kilometers"`              |
+| `useCompact()`      | Formatuj liczby w notacji zwartej        | `"1.2K"`                      |
+| `useList()`         | Formatuj tablice jako listy              | `"apple, banana, and orange"` |
+| `useIntl()`         | Pobierz obiekt `Intl` powiązany z locale | Pełny dostęp do API `Intl`    |
+
+### Pełny Przykład
+
+```tsx
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "react-intlayer/format";
+
+const MyComponent = () => {
+  const number = useNumber();
+  const currency = useCurrency();
+  const date = useDate();
+  const percentage = usePercentage();
+  const compact = useCompact();
+  const list = useList();
+  const relativeTime = useRelativeTime();
+  const unit = useUnit();
+
+  return (
+    <div>
+      <p>{number(123456.789)}</p>
+      <p>{currency(1234.5, { currency: "EUR" })}</p>
+      <p>{date(new Date(), "short")}</p>
+      <p>{percentage(0.25)}</p>
+      <p>{compact(1200)}</p>
+      <p>{list(["apple", "banana", "orange"])}</p>
+      <p>{relativeTime(new Date(), new Date(Date.now() + 86400000))}</p>
+      <p>{unit(5, { unit: "kilometer" })}</p>
+    </div>
+  );
+};
+```
 
 ## Buforowany Intl
 
@@ -134,6 +191,61 @@ const regionNames = new Intl.DisplayNames("fr", { type: "region" });
 regionNames.of("US"); // "États-Unis"
 ```
 
+### Dostępne Composables
+
+Wszystkie composables zwracają computed refs, które automatycznie używają locale'a z wstrzykniętego `IntlayerProvider`.
+
+| Composable          | Description                              | Example Output                |
+| ------------------- | ---------------------------------------- | ----------------------------- |
+| `useNumber()`       | Formatowanie liczb z grupowaniem         | `"123,456.789"`               |
+| `useCurrency()`     | Formatowanie wartości walut              | `"€1,234.50"`                 |
+| `usePercentage()`   | Formatowanie procentów                   | `"25%"`                       |
+| `useDate()`         | Formatowanie dat i czasów                | `"Aug 2, 2025"`               |
+| `useRelativeTime()` | Formatowanie czasu względnego            | `"in 3 days"`                 |
+| `useUnit()`         | Formatowanie wartości z jednostkami      | `"5 kilometers"`              |
+| `useCompact()`      | Formatowanie liczb w notacji zwartej     | `"1.2K"`                      |
+| `useList()`         | Formatowanie tablic jako listy           | `"apple, banana, and orange"` |
+| `useIntl()`         | Pobierz obiekt `Intl` powiązany z locale | Pełny dostęp do API `Intl`    |
+
+### Kompletny Przykład
+
+```vue
+<script setup>
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "vue-intlayer/format";
+
+const number = useNumber();
+const currency = useCurrency();
+const date = useDate();
+const percentage = usePercentage();
+const compact = useCompact();
+const list = useList();
+const relativeTime = useRelativeTime();
+const unit = useUnit();
+</script>
+
+<template>
+  <div>
+    <p>{{ number.value(123456.789) }}</p>
+    <p>{{ currency.value(1234.5, { currency: "EUR" }) }}</p>
+    <p>{{ date.value(new Date(), "short") }}</p>
+    <p>{{ percentage.value(0.25) }}</p>
+    <p>{{ compact.value(1200) }}</p>
+    <p>{{ list.value(["apple", "banana", "orange"]) }}</p>
+    <p>{{ relativeTime.value(new Date(), new Date(Date.now() + 86400000)) }}</p>
+    <p>{{ unit.value(5, { unit: "kilometer" }) }}</p>
+  </div>
+</template>
+```
+
 ### `Intl.Collator`
 
 Do porównywania i sortowania łańcuchów znaków z uwzględnieniem lokalizacji:
@@ -149,6 +261,10 @@ const collator = new Intl.Collator("de", {
 const words = ["äpfel", "zebra", "100", "20"];
 words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
 ```
+
+## Vanilla JS / Node.js Formatters
+
+W kontekstach bez frameworka, importuj formatters bezpośrednio z `intlayer`. Pamiętaj, że musisz ręcznie przekazać locale.
 
 ### `Intl.PluralRules`
 
@@ -302,6 +418,8 @@ const content = getTranslation(
 - **languageContent**: Obiekt mapujący lokalizacje na treści
 - **locale**: Docelowa lokalizacja (domyślnie skonfigurowana lokalizacja domyślna)
 - **fallback**: Czy użyć lokalizacji domyślnej jako zapasowej (domyślnie true)
+
+### Dodatkowe funkcje Intl
 
 ### `getIntlayer(dictionaryKey, locale?, plugins?)`
 
@@ -467,6 +585,8 @@ list(["apple", "banana", "orange"]); // "apple, banana, and orange"
 list(["red", "green", "blue"], { locale: "fr", type: "disjunction" }); // "rouge, vert ou bleu"
 list([1, 2, 3], { type: "unit" }); // "1, 2, 3"
 ```
+
+## Narzędzia do obsługi zawartości
 
 ## Uwagi
 

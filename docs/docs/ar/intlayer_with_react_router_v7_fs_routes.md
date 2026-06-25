@@ -146,6 +146,25 @@ bun add vite-intlayer --dev
 
 </Steps>
 
+#### بنية الملفات
+
+```bash
+app/
+├── root.tsx                         # Layout wrapper for locale routes
+└──routes/
+    ├── ($locale)._index.tsx         # Home page (/, /es, etc.)
+    ├── ($locale)._index.content.ts  # Home page content
+    ├── ($locale).about.tsx          # About page (/about, /es/about, etc.)
+    └── ($locale).about.content.ts   # About page content
+```
+
+اتفاقيات التسمية:
+
+- `($locale)` - مقطع ديناميكي اختياري لمعامل اللغة
+- `_layout` - مسار التخطيط الذي يغلف المسارات الفرعية
+- `_index` - مسار الفهرس (يتم عرضه في مسار العنصر الأب)
+- `.` (نقطة) - فاصل مقاطع المسار (مثال: `($locale).about` → `/:locale?/about`)
+
 ## دليل خطوة بخطوة لإعداد Intlayer في تطبيق React Router v7 مع مسارات قائمة على نظام الملفات
 
 <Tabs defaultTab="video">
@@ -654,101 +673,6 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 ## Go Further
 
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
-
----
-
-## Documentation References
-
-- [Intlayer Documentation](https://intlayer.org)
-- [React Router v7 Documentation](https://reactrouter.com/)
-- [React Router fs-routes Documentation](https://reactrouter.com/how-to/file-route-conventions)
-- [useIntlayer hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md)
-- [useLocale hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md)
-- [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
-- [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
-
-This comprehensive guide provides everything you need to integrate Intlayer with React Router v7 using file-system based routing for a fully internationalized application with locale-aware routing and TypeScript support.
-
-<Steps>
-
-<Step number={11} title="إضافة الوسيط">
-
-يمكنك أيضًا استخدام `intlayerProxy` لإضافة التوجيه من جانب الخادم إلى تطبيقك. سيقوم هذا المكون الإضافي بالكشف تلقائيًا عن اللغة الحالية بناءً على عنوان URL وتعيين ملف تعريف الارتباط المناسب للغة. إذا لم يتم تحديد لغة، فسيحدد المكون الإضافي اللغة الأنسب بناءً على تفضيلات لغة متصفح المستخدم. إذا لم يتم الكشف عن أي لغة، فسيتم إعادة التوجيه إلى اللغة الافتراضية.
-
-> لاحظ أنه لاستخدام `intlayerProxy` في بيئة الإنتاج، تحتاج إلى نقل حزمة `vite-intlayer` من `devDependencies` إلى `dependencies`.
-
-```typescript {3,7} fileName="vite.config.ts"
-import { reactRouter } from "@react-router/dev/vite";
-import { defineConfig } from "vite";
-import { intlayer, intlayerProxy } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayerProxy(), // should be placed first
-    reactRouter(),
-
-    intlayer(),
-  ],
-});
-```
-
----
-
-</Step>
-
-</Steps>
-
-## تكوين TypeScript
-
-يستخدم Intlayer توسيع الوحدات (module augmentation) للاستفادة من TypeScript وجعل قاعدة الشيفرة الخاصة بك أقوى.
-
-تأكد من أن تكوين TypeScript الخاص بك يتضمن الأنواع التي تم إنشاؤها تلقائيًا:
-
-```json5 fileName="tsconfig.json"
-{
-  // ... التكوينات الحالية الخاصة بك
-  include: [
-    // ... الملفات المضمنة الحالية الخاصة بك
-    ".intlayer/**/*.ts", // تضمين الأنواع التي تم إنشاؤها تلقائيًا
-  ],
-}
-```
-
----
-
-## تكوين Git
-
-يوصى بتجاهل الملفات التي تم إنشاؤها بواسطة Intlayer. هذا يسمح لك بتجنب الالتزام بها في مستودع Git الخاص بك.
-
-للقيام بذلك، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
-
-```plaintext fileName=".gitignore"
-# تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
-.intlayer
-```
-
----
-
-## إضافة VS Code
-
-لتحسين تجربة التطوير الخاصة بك مع Intlayer، يمكنك تثبيت **إضافة Intlayer الرسمية لـ VS Code**.
-
-[التثبيت من سوق VS Code](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-تقدم هذه الإضافة:
-
-- **الإكمال التلقائي** لمفاتيح الترجمة.
-- **الكشف الفوري عن الأخطاء** للترجمات المفقودة.
-- **معاينات داخلية** للمحتوى المترجم.
-- **إجراءات سريعة** لإنشاء وتحديث الترجمات بسهولة.
-
-لمزيد من التفاصيل حول كيفية استخدام الإضافة، راجع [توثيق إضافة Intlayer لـ VS Code](https://intlayer.org/doc/vs-code-extension).
-
----
-
-## التقدم أكثر
-
-للمضي قدمًا، يمكنك تنفيذ [المحرر المرئي](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md) أو إخراج محتواك باستخدام [نظام إدارة المحتوى (CMS)](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_CMS.md).
 
 ---
 

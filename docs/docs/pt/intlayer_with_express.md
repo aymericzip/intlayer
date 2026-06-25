@@ -32,10 +32,6 @@ author: aymericzip
 
 `express-intlayer` é um middleware poderoso de internacionalização (i18n) para aplicações Express, projetado para tornar seus serviços de backend globalmente acessíveis, fornecendo respostas localizadas com base nas preferências do cliente.
 
-## Por que Internacionalizar Seu Backend?
-
-Internacionalizar seu backend é essencial para atender a um público global de forma eficaz. Isso permite que sua aplicação entregue conteúdo e mensagens no idioma preferido de cada usuário. Essa capacidade melhora a experiência do usuário e amplia o alcance da sua aplicação, tornando-a mais acessível e relevante para pessoas de diferentes origens linguísticas.
-
 ### Casos de Uso Práticos
 
 - **Exibir Erros do Backend no Idioma do Usuário**: Quando ocorre um erro, exibir mensagens no idioma nativo do usuário melhora a compreensão e reduz a frustração. Isso é especialmente útil para mensagens de erro dinâmicas que podem ser exibidas em componentes de front-end, como toasts ou modais.
@@ -266,25 +262,6 @@ Esta extensão oferece:
 - **Ações rápidas** para criar e atualizar traduções facilmente.
 
 Para mais detalhes sobre como usar a extensão, consulte a [documentação da Extensão VS Code do Intlayer](https://intlayer.org/doc/vs-code-extension).
-
-### Configuração do Git
-
-É recomendado ignorar os arquivos gerados pelo Intlayer. Isso permite evitar que eles sejam commitados no seu repositório Git.
-
-### Extensão VS Code
-
-Para melhorar sua experiência de desenvolvimento com o Intlayer, você pode instalar a **Extensão oficial Intlayer para VS Code**.
-
-[Instalar no VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Esta extensão oferece:
-
-- **Autocompletar** para chaves de tradução.
-- **Detecção de erros em tempo real** para traduções ausentes.
-- **Visualizações inline** do conteúdo traduzido.
-- **Ações rápidas** para criar e atualizar traduções facilmente.
-
-Para mais detalhes sobre como usar a extensão, consulte a [documentação da Extensão Intlayer para VS Code](https://intlayer.org/doc/pt/vs-code-extension).
 
 ### Configuração do Git
 

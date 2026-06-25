@@ -22,6 +22,10 @@ author: aymericzip
 
 # How Intlayer Works
 
+## Table of Contents
+
+<TOC/>
+
 ## Overview
 
 The main idea behind Intlayer is to adopt a per-component content management. So the idea behind Intlayer is to allow you to declare your content anywhere in your codebase, as in the same directory as your component.
@@ -220,22 +224,6 @@ The `@intlayer/chokidar` package is used to monitor content files and regenerate
 ### @intlayer/editor
 
 The `@intlayer/editor` package provides the utilities related to the dictionary editor. It notably includes the API to interface an application with the Intlayer editor, and utilities to manipulate dictionaries. This package is cross-platform.
-
-### @intlayer/editor-react
-
-The `@intlayer/editor-react` package provides states, contexts, hooks and components to interface a React application with the Intlayer editor.
-
-### @intlayer/babel
-
-The `@intlayer/babel` package provides tools that optimise bundling of dictionaries for Vite and Webpack based applications.
-
-### @intlayer/swc
-
-The `@intlayer/swc` package provides tools that optimise bundling of dictionaries for Next.js applications.
-
-### @intlayer/api
-
-The `@intlayer/api` package is an API SDK to interact with the backend.
 
 ### @intlayer/editor-react
 

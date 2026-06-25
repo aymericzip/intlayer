@@ -29,6 +29,12 @@ Intlayer é uma solução de gestão de conteúdo e internacionalização projet
 
 ---
 
+## Índice
+
+<TOC/>
+
+---
+
 ## Recursos Atuais
 
 ### 1. Declaração de Conteúdo

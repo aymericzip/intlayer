@@ -885,6 +885,21 @@ Dizin adları, dosya uzantıları ve türetilmiş yapılandırmalar dahil olmak 
 
 ---
 
+### Sistem Yapılandırması
+
+Intlayer'ın iç yolları ve çıktı sonuçlarıyla ilgili ayarlar. Bu ayarlar tipik olarak dahili olup kullanıcı tarafından değiştirilmesi gerekmez.
+
+| Alan                      | Açıklama                                                                   | Tür      | Varsayılan                        | Örnek                | Not                                                          |
+| ------------------------- | -------------------------------------------------------------------------- | -------- | --------------------------------- | -------------------- | ------------------------------------------------------------ |
+| `baseDir`                 | Proje için temel dizin.                                                    | `string` | `process.cwd()`                   | `'/path/to/project'` | Tüm Intlayer ile ilgili dizinleri çözmek için kullanılır.    |
+| `dictionariesDir`         | Yerelleştirme sözlüklerinin depolanması için dizin yolu.                   | `string` | `'.intlayer/dictionary'`          |                      |                                                              |
+| `moduleAugmentationDir`   | Modül artırması için dizin, daha iyi IDE önerileri ve tür kontrolü sağlar. | `string` | `'.intlayer/types'`               | `'intlayer-types'`   | Bunu `tsconfig.json` dosyasına dahil ettiğinizden emin olun. |
+| `unmergedDictionariesDir` | Birleştirilmemiş sözlükleri depolamak için dizin.                          | `string` | `'.intlayer/unmerged_dictionary'` |                      |                                                              |
+| `typesDir`                | Sözlük türlerini depolamak için dizin.                                     | `string` | `'.intlayer/types'`               |                      |                                                              |
+| `mainDir`                 | Ana uygulama dosyalarının depolandığı dizin.                               | `string` | `'.intlayer/main'`                |                      |                                                              |
+| `configDir`               | Yapılandırma dosyalarının depolandığı dizin.                               | `string` | `'.intlayer/config'`              |                      |                                                              |
+| `cacheDir`                | Önbellek dosyalarının depolandığı dizin.                                   | `string` | `'.intlayer/cache'`               |                      |                                                              |
+
 ### Sözlük Yapılandırması
 
 Otomatik doldurma davranışı ve içerik oluşturma dahil olmak üzere sözlük işlemlerini kontrol eden parametreler.
@@ -990,22 +1005,6 @@ Derleme seçenekleri `@intlayer/babel` ve `@intlayer/swc` eklentileri için geç
 | `checkTypes`      | Derlemenin TypeScript türlerini kontrol edip etmeyeceğini ve hataları günlüğe kaydedip kaydetmeyeceğini belirtir. | `boolean`                        | `false`                                                                                                                                                                           |                                                                               | Derleme sürecini yavaşlatabilir.                                                                                                                                                                                                                                                                                                            |
 | `outputFormat`    | Sözlüklerin çıktı formatını kontrol eder.                                                                         | `('esm' &#124; 'cjs')[]`         | `['esm', 'cjs']`                                                                                                                                                                  | `['cjs']`                                                                     |                                                                                                                                                                                                                                                                                                                                             |
 | `traversePattern` | Optimizasyon sırasında hangi dosyaların taranacağını tanımlayan kalıplar.                                         | `string[]`                       | `['**/*.{tsx,ts,js,mjs,cjs,jsx,vue,svelte,svte}', '!**/node_modules/**', '!**/dist/**', '!**/.intlayer/**', '!**/*.config.*', '!**/*.test.*', '!**/*.spec.*', '!**/*.stories.*']` | `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']` | • Derleme performansını artırmak için optimizasyonu ilgili dosyalarla sınırlayın.<br/>• `optimize` kapalıysa yok sayılır.<br/>• Glob kalıplarını kullanır.                                                                                                                                                                                  |
-
----
-
-### Sistem Yapılandırması
-
-Bu ayarlar gelişmiş kullanım durumları ve Intlayer'ın dahili yapılandırması içindir.
-
-| Alan                      | Açıklama                                     | Tür      | Varsayılan                        | Örnek | Not |
-| ------------------------- | -------------------------------------------- | -------- | --------------------------------- | ----- | --- |
-| `dictionariesDir`         | Derlenmiş sözlükler için dizin.              | `string` | `'.intlayer/dictionary'`          |       |     |
-| `moduleAugmentationDir`   | TypeScript modül genişletme dizini.          | `string` | `'.intlayer/types'`               |       |     |
-| `unmergedDictionariesDir` | Birleştirilmemiş sözlükler için dizin.       | `string` | `'.intlayer/unmerged_dictionary'` |       |     |
-| `typesDir`                | Oluşturulan türler için dizin.               | `string` | `'.intlayer/types'`               |       |     |
-| `mainDir`                 | Intlayer ana dosyası için dizin.             | `string` | `'.intlayer/main'`                |       |     |
-| `configDir`               | Derlenmiş yapılandırma dosyaları için dizin. | `string` | `'.intlayer/config'`              |       |     |
-| `cacheDir`                | Önbellek dosyaları için dizin.               | `string` | `'.intlayer/cache'`               |       |     |
 
 ---
 

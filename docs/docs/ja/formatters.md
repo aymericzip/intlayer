@@ -389,6 +389,36 @@ currency(1234.5, { currency: "EUR" }); // "€1,234.50"
 currency("5000", { locale: "fr", currency: "CAD", currencyDisplay: "code" }); // "5 000,00 CAD"
 ```
 
+## キャッシュされた Intl
+
+`intlayer` からエクスポートされた `Intl` は、グローバル `Intl` のキャッシュされたラッパーです。フォーマッター インスタンス（`NumberFormat`、`DateTimeFormat` など）をメモ化して、繰り返しの構築を避け、パフォーマンスを向上させます。
+
+```ts
+import { Intl } from "intlayer";
+
+// 数値のフォーマット
+const numberFormat = new Intl.NumberFormat("en-GB", {
+  style: "currency",
+  currency: "GBP",
+});
+numberFormat.format(1234.5); // "£1,234.50"
+
+// 言語、地域などの表示名
+const displayNames = new Intl.DisplayNames("fr", { type: "language" });
+displayNames.of("en"); // "anglais"
+
+// ソート用の照合
+const collator = new Intl.Collator("fr", { sensitivity: "base" });
+collator.compare("é", "e"); // 0 (等しい)
+
+// 複数形ルール
+const pluralRules = new Intl.PluralRules("fr");
+pluralRules.select(1); // "one"
+pluralRules.select(2); // "other"
+```
+
+### 追加の Intl 機能
+
 ### `date(date, optionsOrPreset?)`
 
 `Intl.DateTimeFormat` を使って日付/時刻の値をフォーマットします。
@@ -429,6 +459,23 @@ const twoHoursAgo = new Date(now.getTime() - 2 * 3600e3);
 relativeTime(now, twoHoursAgo, { unit: "hour", numeric: "auto" }); // "2時間前"
 ```
 
+#### `Intl.PluralRules`
+
+異なるロケールで複数形を決定するため:
+
+```ts
+import { Intl } from "intlayer";
+
+const pluralRules = new Intl.PluralRules("ar");
+pluralRules.select(0); // "zero"
+pluralRules.select(1); // "one"
+pluralRules.select(2); // "two"
+pluralRules.select(3); // "few"
+pluralRules.select(11); // "many"
+```
+
+## ロケールユーティリティ
+
 ### `units(value, options?)`
 
 `Intl.NumberFormat` の `style: 'unit'` を使って数値をローカライズされた単位文字列としてフォーマットします。
@@ -447,6 +494,17 @@ units(5, { unit: "kilometer", unitDisplay: "long", locale: "en-GB" }); // "5 kil
 units(1024, { unit: "byte", unitDisplay: "narrow" }); // "1,024B"（ロケール依存）
 ```
 
+### `getLocaleLang(locale?)`
+
+ロケール文字列から言語コードを抽出します:
+
+```ts
+import { getLocaleLang } from "intlayer";
+
+getLocaleLang("en-US"); // "en"
+getLocaleLang("fr-CA"); // "fr"
+```
+
 ### `compact(value, options?)`
 
 数値をコンパクト表記（例: `1.2K`、`1M`）でフォーマットします。
@@ -461,6 +519,17 @@ import { compact } from "intlayer";
 
 compact(1200); // "1.2K"
 compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
+```
+
+### `getPathWithoutLocale(inputUrl, locales?)`
+
+URLからロケールセグメントを削除します:
+
+```ts
+import { getPathWithoutLocale } from "intlayer";
+
+getPathWithoutLocale("/en/dashboard"); // "/dashboard"
+getPathWithoutLocale("/fr/dashboard"); // "/dashboard"
 ```
 
 ### `list(values, options?)`
@@ -487,6 +556,8 @@ list([1, 2, 3], { type: "unit" }); // "1, 2, 3"
 - すべてのヘルパーは `string` 入力を受け入れます。内部的に数値や日付に変換されます。
 - ロケールは指定されない場合、設定された `internationalization.defaultLocale` がデフォルトになります。
 - これらのユーティリティは薄いラッパーです。高度なフォーマットが必要な場合は、標準の `Intl` オプションを直接渡してください。
+
+## コンテンツ処理ユーティリティ
 
 ## エントリーポイントと再エクスポート（`@index.ts`）
 
@@ -616,3 +687,9 @@ import {
 ```
 
 > これらのコンポーザブルは、注入された `IntlayerProvider` からロケールを考慮します
+
+## 注記
+
+- すべてのヘルパーは `string` 入力を受け入れます。内部的には数値または日付に強制されます。
+- ロケールが提供されていない場合、設定された `internationalization.defaultLocale` がデフォルトになります。
+- これらのユーティリティは薄いラッパーです。高度なフォーマットについては、標準の `Intl` オプションをパスしてください。

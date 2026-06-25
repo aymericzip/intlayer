@@ -176,6 +176,61 @@ getLocaleName("de", "es"); // "alemán"
 - **displayLocale**: La localizzazione di cui ottenere il nome
 - **targetLocale**: La localizzazione in cui visualizzare il nome (predefinita a displayLocale)
 
+### Composables Disponibili
+
+Tutti i composables restituiscono computed refs che utilizzano automaticamente la locale dalla `IntlayerProvider` iniettata.
+
+| Composable          | Descrizione                                  | Esempio di Output             |
+| ------------------- | -------------------------------------------- | ----------------------------- |
+| `useNumber()`       | Formatta numeri con raggruppamento           | `"123,456.789"`               |
+| `useCurrency()`     | Formatta valori di valuta                    | `"€1,234.50"`                 |
+| `usePercentage()`   | Formatta percentuali                         | `"25%"`                       |
+| `useDate()`         | Formatta date e ore                          | `"Aug 2, 2025"`               |
+| `useRelativeTime()` | Formatta tempo relativo                      | `"in 3 days"`                 |
+| `useUnit()`         | Formatta valori con unità                    | `"5 kilometers"`              |
+| `useCompact()`      | Formatta numeri in notazione compatta        | `"1.2K"`                      |
+| `useList()`         | Formatta array come liste                    | `"apple, banana, and orange"` |
+| `useIntl()`         | Ottieni oggetto `Intl` associato alla locale | Accesso completo API `Intl`   |
+
+### Esempio Completo
+
+```vue
+<script setup>
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "vue-intlayer/format";
+
+const number = useNumber();
+const currency = useCurrency();
+const date = useDate();
+const percentage = usePercentage();
+const compact = useCompact();
+const list = useList();
+const relativeTime = useRelativeTime();
+const unit = useUnit();
+</script>
+
+<template>
+  <div>
+    <p>{{ number.value(123456.789) }}</p>
+    <p>{{ currency.value(1234.5, { currency: "EUR" }) }}</p>
+    <p>{{ date.value(new Date(), "short") }}</p>
+    <p>{{ percentage.value(0.25) }}</p>
+    <p>{{ compact.value(1200) }}</p>
+    <p>{{ list.value(["apple", "banana", "orange"]) }}</p>
+    <p>{{ relativeTime.value(new Date(), new Date(Date.now() + 86400000)) }}</p>
+    <p>{{ unit.value(5, { unit: "kilometer" }) }}</p>
+  </div>
+</template>
+```
+
 ### `getLocaleLang(locale?)`
 
 Estrae il codice della lingua da una stringa di localizzazione:
@@ -189,6 +244,10 @@ getLocaleLang("de"); // "de"
 ```
 
 - **locale**: La localizzazione da cui estrarre la lingua (predefinita alla localizzazione corrente)
+
+## Vanilla JS / Node.js Formatters
+
+Per contesti non-framework, importa i formatter direttamente da `intlayer`. Nota che devi passare il locale manualmente.
 
 ### `getLocaleFromPath(inputUrl)`
 
@@ -205,6 +264,8 @@ getLocaleFromPath("https://example.com/es/about"); // "es"
 
 - **inputUrl**: La stringa URL completa o il percorso da elaborare
 - **returns**: La localizzazione rilevata o la localizzazione predefinita se non viene trovata alcuna localizzazione
+
+### Funzioni Formatter
 
 ### `getPathWithoutLocale(inputUrl, locales?)`
 
@@ -330,6 +391,8 @@ const content = await getIntlayerAsync("common", "fr");
 
 Tutti gli helper seguenti sono esportati da `intlayer`.
 
+### Funzionalità Intl Aggiuntive
+
 ### `number(value, options?)`
 
 Formatta un valore numerico utilizzando la separazione delle migliaia e i decimali in base alla localizzazione.
@@ -365,6 +428,23 @@ percentage(0.25); // "25%"
 percentage(25); // "25%"
 percentage(0.237, { minimumFractionDigits: 1 }); // "23.7%"
 ```
+
+#### `Intl.PluralRules`
+
+Per determinare le forme plurali in diverse lingue:
+
+```ts
+import { Intl } from "intlayer";
+
+const pluralRules = new Intl.PluralRules("ar");
+pluralRules.select(0); // "zero"
+pluralRules.select(1); // "one"
+pluralRules.select(2); // "two"
+pluralRules.select(3); // "few"
+pluralRules.select(11); // "many"
+```
+
+## Locale Utilities
 
 ### `currency(value, options?)`
 
@@ -475,6 +555,8 @@ list(["apple", "banana", "orange"]); // "apple, banana, and orange"
 list(["red", "green", "blue"], { locale: "fr", type: "disjunction" }); // "rouge, vert ou bleu"
 list([1, 2, 3], { type: "unit" }); // "1, 2, 3"
 ```
+
+## Utility di Gestione dei Contenuti
 
 ## Note
 

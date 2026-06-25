@@ -22,6 +22,10 @@ author: aymericzip
 
 # Como Intlayer funciona
 
+## Índice
+
+<TOC/>
+
 ## Visão Geral
 
 A ideia principal por trás do Intlayer é adotar um gerenciamento de conteúdo por componente. Assim, a ideia do Intlayer é permitir que você declare seu conteúdo em qualquer lugar no seu código, como no mesmo diretório do seu componente.

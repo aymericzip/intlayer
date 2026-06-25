@@ -868,62 +868,6 @@ bun run build # Or bun run dev
 
 </Steps>
 
-### Cấu hình TypeScript
-
-Intlayer sử dụng module augmentation để tận dụng lợi ích của TypeScript và làm cho codebase của bạn mạnh mẽ hơn.
-
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-Đảm bảo cấu hình TypeScript của bạn bao gồm các loại được tạo tự động.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... Các cấu hình TypeScript hiện có của bạn
-  "compilerOptions": {
-    // ...
-    "jsx": "react-jsx",
-    "jsxImportSource": "preact", // Được đề xuất cho Preact 10+
-    // ...
-  },
-  "include": [
-    // ... Các cấu hình TypeScript hiện có của bạn
-    ".intlayer/**/*.ts", // Bao gồm các loại được tạo tự động
-  ],
-}
-```
-
-> Đảm bảo `tsconfig.json` của bạn được thiết lập cho Preact, đặc biệt là `jsx` và `jsxImportSource` hoặc `jsxFactory`/`jsxFragmentFactory` cho các phiên bản Preact cũ hơn nếu không sử dụng mặc định của `preset-vite`.
-
-### Cấu hình Git
-
-Bạn nên bỏ qua các tệp do Intlayer tạo ra. Điều này cho phép bạn tránh commit chúng vào kho lưu trữ Git của mình.
-
-Để làm điều này, bạn có thể thêm các hướng dẫn sau vào tệp `.gitignore` của mình:
-
-```bash
-#  Bỏ qua các tệp do Intlayer tạo ra
-.intlayer
-```
-
-### Tiện ích mở rộng VS Code
-
-Để cải thiện trải nghiệm phát triển của bạn với Intlayer, bạn có thể cài đặt **Tiện ích mở rộng Intlayer VS Code** chính thức.
-
-[Cài đặt từ VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Tiện ích mở rộng này cung cấp:
-
-- **Tự động hoàn thành** cho các khóa dịch.
-- **Phát hiện lỗi theo thời gian thực** cho các bản dịch còn thiếu.
-- **Xem trước nội tuyến** nội dung đã dịch.
-- **Hành động nhanh** để dễ dàng tạo và cập nhật bản dịch.
-
-Để biết thêm chi tiết về cách sử dụng tiện ích mở rộng, hãy tham khảo [tài liệu Tiện ích mở rộng Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
-
----
-
 ### (Tuỳ chọn) Sitemap và robots.txt (sinh lúc build)
 
 Intlayer cung cấp `generateSitemap` và `getMultilingualUrls` để định dạng `sitemap.xml` đa ngôn ngữ và `robots.txt` cho crawler rồi tự ghi vào `public/`. Thường chạy một script Node nhỏ **trước** Vite (ví dụ hook npm `predev` / `prebuild`).
@@ -997,6 +941,62 @@ Cần cài `intlayer` để script import. Môi trường production đặt `SIT
 ```
 
 Chỉnh lệnh nếu dùng pnpm hoặc yarn. Có thể gọi từ CI hoặc bước pipeline khác.
+
+### Cấu hình TypeScript
+
+Intlayer sử dụng module augmentation để tận dụng lợi ích của TypeScript và làm cho codebase của bạn mạnh mẽ hơn.
+
+![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+Đảm bảo cấu hình TypeScript của bạn bao gồm các kiểu được tạo tự động.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Các cấu hình TypeScript hiện có của bạn
+  "compilerOptions": {
+    // ...
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact", // Khuyến nghị cho Preact 10+
+    // ...
+  },
+  "include": [
+    // ... Các cấu hình TypeScript hiện có của bạn
+    ".intlayer/**/*.ts", // Bao gồm các kiểu được tạo tự động
+  ],
+}
+```
+
+> Đảm bảo `tsconfig.json` của bạn được cấu hình cho Preact, đặc biệt là `jsx` và `jsxImportSource` hoặc `jsxFactory`/`jsxFragmentFactory` cho các phiên bản Preact cũ hơn nếu không sử dụng các giá trị mặc định của `preset-vite`.
+
+### Cấu hình Git
+
+Được khuyến nghị để bỏ qua các tệp được tạo bởi Intlayer. Điều này cho phép bạn tránh commit chúng vào kho lưu trữ Git của bạn.
+
+Để làm điều này, bạn có thể thêm các hướng dẫn sau vào tệp `.gitignore` của bạn:
+
+```bash
+# Bỏ qua các tệp được tạo bởi Intlayer
+.intlayer
+```
+
+### Tiện ích VS Code
+
+Để cải thiện trải nghiệm phát triển của bạn với Intlayer, bạn có thể cài đặt **Tiện ích Intlayer VS Code** chính thức.
+
+[Cài đặt từ VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Tiện ích này cung cấp:
+
+- **Autocompletion** cho các khóa dịch.
+- **Phát hiện lỗi real-time** cho các bản dịch bị thiếu.
+- **Inline previews** của nội dung được dịch.
+- **Quick actions** để dễ dàng tạo và cập nhật các bản dịch.
+
+Để biết thêm chi tiết về cách sử dụng tiện ích, vui lòng tham khảo [tài liệu Intlayer VS Code Extension](https://intlayer.org/doc/vs-code-extension).
+
+---
 
 ### Đi xa hơn
 

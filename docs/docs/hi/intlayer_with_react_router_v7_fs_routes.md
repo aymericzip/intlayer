@@ -147,6 +147,25 @@ bun add vite-intlayer --dev
 
 </Steps>
 
+#### फ़ाइल संरचना
+
+```bash
+app/
+├── root.tsx                         # locale routes के लिए Layout wrapper
+└──routes/
+    ├── ($locale)._index.tsx         # Home page (/, /es, etc.)
+    ├── ($locale)._index.content.ts  # Home page content
+    ├── ($locale).about.tsx          # About page (/about, /es/about, etc.)
+    └── ($locale).about.content.ts   # About page content
+```
+
+नामकरण परंपराएं:
+
+- `($locale)` - locale parameter के लिए वैकल्पिक गतिशील segment
+- `_layout` - Layout route जो child routes को wrap करता है
+- `_index` - Index route (parent path पर renders होता है)
+- `.` (dot) - Path segments को अलग करता है (उदा., `($locale).about` → `/:locale?/about`)
+
 ## फ़ाइल-सिस्टम आधारित रूट्स के साथ React Router v7 एप्लिकेशन में Intlayer सेटअप करने के लिए चरण-दर-चरण मार्गदर्शिका
 
 <Tabs defaultTab="video">
@@ -656,101 +675,6 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 ## Go Further
 
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
-
----
-
-## Documentation References
-
-- [Intlayer Documentation](https://intlayer.org)
-- [React Router v7 Documentation](https://reactrouter.com/)
-- [React Router fs-routes Documentation](https://reactrouter.com/how-to/file-route-conventions)
-- [useIntlayer hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md)
-- [useLocale hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md)
-- [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
-- [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
-
-This comprehensive guide provides everything you need to integrate Intlayer with React Router v7 using file-system based routing for a fully internationalized application with locale-aware routing and TypeScript support.
-
-<Steps>
-
-<Step number={11} title="मिडलवेयर जोड़ें">
-
-आप अपने एप्लिकेशन में सर्वर-साइड रूटिंग जोड़ने के लिए `intlayerProxy` का भी उपयोग कर सकते हैं। यह प्लगइन URL के आधार पर वर्तमान लोकल का स्वचालित रूप से पता लगाएगा और उपयुक्त लोकल कुकी सेट करेगा। यदि कोई लोकल निर्दिष्ट नहीं है, तो प्लगइन उपयोगकर्ता के ब्राउज़र भाषा प्राथमिकताओं के आधार पर सबसे उपयुक्त लोकल निर्धारित करेगा। यदि कोई लोकल पता नहीं चलता है, तो यह डिफ़ॉल्ट लोकल पर पुनः निर्देशित करेगा।
-
-> ध्यान दें कि उत्पादन में `intlayerProxy` का उपयोग करने के लिए, आपको `vite-intlayer` पैकेज को `devDependencies` से `dependencies` में स्विच करना होगा।
-
-```typescript {3,7} fileName="vite.config.ts"
-import { reactRouter } from "@react-router/dev/vite";
-import { defineConfig } from "vite";
-import { intlayer, intlayerProxy } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayerProxy(), // should be placed first
-    reactRouter(),
-
-    intlayer(),
-  ],
-});
-```
-
----
-
-</Step>
-
-</Steps>
-
-## टाइपस्क्रिप्ट कॉन्फ़िगर करें
-
-Intlayer टाइपस्क्रिप्ट के लाभ प्राप्त करने और आपके कोडबेस को मजबूत बनाने के लिए मॉड्यूल ऑगमेंटेशन का उपयोग करता है।
-
-सुनिश्चित करें कि आपकी टाइपस्क्रिप्ट कॉन्फ़िगरेशन में स्वचालित रूप से उत्पन्न प्रकार शामिल हैं:
-
-```json5 fileName="tsconfig.json"
-{
-  // ... आपके मौजूदा कॉन्फ़िगरेशन
-  include: [
-    // ... आपके मौजूदा शामिल
-    ".intlayer/**/*.ts", // स्वचालित रूप से उत्पन्न प्रकार शामिल करें
-  ],
-}
-```
-
----
-
-## गिट कॉन्फ़िगरेशन
-
-यह अनुशंसित है कि Intlayer द्वारा उत्पन्न फ़ाइलों को अनदेखा किया जाए। इससे आप उन्हें अपने गिट रिपॉजिटरी में कमिट करने से बच सकते हैं।
-
-ऐसा करने के लिए, आप अपनी `.gitignore` फ़ाइल में निम्नलिखित निर्देश जोड़ सकते हैं:
-
-```plaintext fileName=".gitignore"
-# Intlayer द्वारा उत्पन्न फ़ाइलों को अनदेखा करें
-.intlayer
-```
-
----
-
-## VS कोड एक्सटेंशन
-
-Intlayer के साथ अपने विकास अनुभव को बेहतर बनाने के लिए, आप आधिकारिक **Intlayer VS कोड एक्सटेंशन** इंस्टॉल कर सकते हैं।
-
-[VS कोड मार्केटप्लेस से इंस्टॉल करें](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-यह एक्सटेंशन प्रदान करता है:
-
-- अनुवाद कुंजियों के लिए **ऑटोकंप्लीशन**।
-- गायब अनुवादों के लिए **रीयल-टाइम त्रुटि पहचान**।
-- अनुवादित सामग्री के **इनलाइन पूर्वावलोकन**।
-- अनुवादों को आसानी से बनाने और अपडेट करने के लिए **त्वरित क्रियाएँ**।
-
-एक्सटेंशन का उपयोग कैसे करें, इसके लिए अधिक विवरण के लिए देखें [Intlayer VS कोड एक्सटेंशन दस्तावेज़](https://intlayer.org/doc/vs-code-extension)।
-
----
-
-## आगे बढ़ें
-
-आगे बढ़ने के लिए, आप [विज़ुअल एडिटर](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_visual_editor.md) को लागू कर सकते हैं या अपनी सामग्री को [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/intlayer_CMS.md) का उपयोग करके बाहरी रूप से प्रबंधित कर सकते हैं।
 
 ---
 

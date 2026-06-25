@@ -192,29 +192,6 @@ pnpm intlayer-editor start -e development
 
 Si encuentras algún problema con el editor visual, verifica lo siguiente:
 
-- El editor visual y la aplicación están en ejecución.
-
-- La configuración del [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) está correctamente establecida en tu archivo de configuración de Intlayer.
-  - Campos requeridos: - La URL de la aplicación debe coincidir con la que configuraste en la configuración del editor (`applicationURL`).
-    bash packageManager="npm"
-    npx intlayer-editor start -e development
-
-```bash packageManager="npm"
-npx intlayer-editor start -e development
-```
-
-```bash packageManager="yarn"
-yarn intlayer-editor start -e development
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer-editor start -e development
-```
-
-## Depuración
-
-Si encuentras algún problema con el editor visual, verifica lo siguiente:
-
 - Que el editor visual y la aplicación estén en ejecución.
 
 - Que la configuración del [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) esté correctamente establecida en tu archivo de configuración de Intlayer.

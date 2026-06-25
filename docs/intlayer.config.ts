@@ -31,9 +31,9 @@ const config: Partial<CustomIntlayerConfig> = {
   },
 
   ai: {
-    provider: 'googlegenerativeai',
-    model: 'gemini-3-flash-preview',
-    apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
+    provider: 'anthropic',
+    model: 'claude-haiku-4-5-20251001',
+    apiKey: process.env.ANTROPIC_API_KEY,
   },
 
   editor: {

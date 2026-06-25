@@ -400,6 +400,8 @@ date(new Date(), "short"); // على سبيل المثال، "08/02/25, 14:30"
 date("2025-08-02T14:30:00Z", { locale: "fr", month: "long", day: "numeric" }); // "2 août"
 ```
 
+### ميزات Intl إضافية
+
 ### `relativeTime(from, to = new Date(), options?)`
 
 يقوم بتنسيق الوقت النسبي بين لحظتين باستخدام `Intl.RelativeTimeFormat`.
@@ -457,6 +459,8 @@ compact(1200); // "1.2K"
 compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
 ```
 
+## أدوات المناطق الإقليمية
+
 ### `list(values, options?)`
 
 يقوم بتنسيق مصفوفة من القيم إلى سلسلة قائمة محلية باستخدام `Intl.ListFormat`.
@@ -476,11 +480,44 @@ list(["red", "green", "blue"], { locale: "fr", type: "disjunction" }); // "rouge
 list([1, 2, 3], { type: "unit" }); // "1, 2, 3"
 ```
 
+### `getLocaleLang(locale?)`
+
+استخراج رمز اللغة من سلسلة نصية للإعدادات المحلية:
+
+```ts
+import { getLocaleLang } from "intlayer";
+
+getLocaleLang("en-US"); // "en"
+getLocaleLang("fr-CA"); // "fr"
+```
+
 ## ملاحظات
 
 - جميع الأدوات المساعدة تقبل مدخلات من نوع `string`؛ حيث يتم تحويلها داخليًا إلى أرقام أو تواريخ.
 - اللغة الافتراضية هي `internationalization.defaultLocale` التي قمت بتكوينها إذا لم يتم توفير لغة.
 - هذه الأدوات هي أغلفة رقيقة؛ للتنسيق المتقدم، استخدم خيارات `Intl` القياسية.
+
+### `getPathWithoutLocale(inputUrl, locales?)`
+
+يزيل جزء اللغة من عنوان URL:
+
+```ts
+import { getPathWithoutLocale } from "intlayer";
+
+getPathWithoutLocale("/en/dashboard"); // "/dashboard"
+getPathWithoutLocale("/fr/dashboard"); // "/dashboard"
+```
+
+### `getLocalizedUrl(url, currentLocale, locales?, defaultLocale?, prefixDefault?)`
+
+ينشئ عنوان URL موطن:
+
+```ts
+import { getLocalizedUrl } from "intlayer";
+
+getLocalizedUrl("/about", "fr", ["en", "fr"], "en", false); // "/fr/about"
+getLocalizedUrl("/about", "en", ["en", "fr"], "en", false); // "/about"
+```
 
 ## نقاط الدخول وإعادة التصدير (`@index.ts`)
 
@@ -511,6 +548,8 @@ import {
   getIntlayerAsync,
 } from "intlayer";
 ```
+
+## أدوات معالجة المحتوى
 
 ### React
 
@@ -592,6 +631,20 @@ import {
 
 > ستأخذ هذه الخطافات في الاعتبار اللغة من `IntlayerProvider` أو `IntlayerServerProvider`
 
+### `getTranslation(languageContent, locale?, fallback?)`
+
+استخراج المحتوى لمحلية معينة:
+
+```ts
+import { getTranslation } from "intlayer";
+
+const content = getTranslation(
+  { ar: "مرحبا", en: "Hello", fr: "Bonjour", de: "Hallo" },
+  "fr",
+  true
+); // "Bonjour"
+```
+
 ### Vue
 
 مكونات العميل:
@@ -610,3 +663,9 @@ import {
 ```
 
 > ستأخذ هذه التركيبات في الاعتبار اللغة من `IntlayerProvider` المحقون
+
+## ملاحظات
+
+- جميع المساعدات تقبل مدخلات `string`؛ يتم تحويلها داخليًا إلى أرقام أو تواريخ.
+- يتم تعيين اللغة الافتراضية إلى `internationalization.defaultLocale` المُكوّن لديك في حالة عدم توفيره.
+- هذه الأدوات عبارة عن أغلفة رقيقة؛ للتنسيق المتقدم، قم بتمرير خيارات `Intl` القياسية.

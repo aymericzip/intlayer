@@ -731,8 +731,6 @@ const LocaleSwitcher: FC = () => {
 
 #### フックの実装
 
-#### フックの実装
-
 HTML属性を管理するカスタムフックを作成します。このフックはロケールの変更を監視し、属性を適切に更新します：
 
 ```tsx fileName="src/hooks/useI18nHTMLAttributes.tsx" codeFormat="typescript"
@@ -878,20 +876,6 @@ Intlayerによって生成されたファイルを無視することをお勧め
 # Intlayerによって生成されたファイルを無視
 .intlayer
 ```
-
-### VS Code拡張機能
-
-Intlayerでの開発体験を向上させるために、公式の**Intlayer VS Code拡張機能**をインストールできます。
-[VS Codeマーケットプレイスからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-この拡張機能は以下を提供します：
-
-- 翻訳キーの**オートコンプリート**。
-- 欠落している翻訳の**リアルタイムエラー検出**。
-- 翻訳されたコンテンツの**インラインプレビュー**。
-- 翻訳を簡単に作成・更新できる**クイックアクション**。
-
-拡張機能の使い方の詳細については、[Intlayer VS Code拡張機能のドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
 
 ### さらに進む
 

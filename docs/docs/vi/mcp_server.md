@@ -248,6 +248,28 @@ Theo dõi [tài liệu chính thức](https://modelcontextprotocol.io/quickstart
 
 ---
 
+## Thiết Lập trong Claude Code (CLI)
+
+Theo dõi [tài liệu chính thức](https://modelcontextprotocol.io/quickstart/user) để cấu hình MCP server trong Claude Code.
+
+### Local server (stdio) (recommended)
+
+Để kết nối máy chủ Intlayer MCP với Claude Code bằng stdio:
+
+```bash
+claude mcp add intlayer npx -y @intlayer/mcp
+```
+
+### Remote server (Streamable HTTP)
+
+Để kết nối máy chủ Intlayer MCP với Claude Code bằng Streamable HTTP (SSE):
+
+```bash
+claude mcp add intlayer https://mcp.intlayer.org -t http
+```
+
+---
+
 ## Sử dụng MCP Server qua CLI
 
 Bạn cũng có thể chạy trực tiếp máy chủ Intlayer MCP từ dòng lệnh để thử nghiệm, gỡ lỗi hoặc tích hợp với các công cụ khác.

@@ -22,6 +22,10 @@ author: aymericzip
 
 # Intlayerの仕組み
 
+## 目次
+
+<TOC/>
+
 ## 概要
 
 Intlayerの主なアイデアは、コンポーネントごとのコンテンツ管理を採用することです。そのため、Intlayerの背後にある考え方は、コンテンツをコードベースのどこにでも、例えばコンポーネントと同じディレクトリ内に宣言できるようにすることです。
@@ -135,8 +139,6 @@ Intlayerは、翻訳プロセスにおいて特定の役割を持つ複数のパ
 ### vue-intlayer
 
 `vue-intlayer`パッケージは、Intlayer辞書を解釈し、Vueアプリケーションで使用可能にします。
-
-### nuxt-intlayer
 
 ### nuxt-intlayer
 

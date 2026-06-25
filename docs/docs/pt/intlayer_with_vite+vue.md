@@ -31,6 +31,10 @@ author: aymericzip
 
 Veja o [Modelo de Aplicação](https://github.com/aymericzip/intlayer-vite-vue-template) no GitHub.
 
+## Índice
+
+<TOC/>
+
 ## Por que Intlayer em vez de alternativas?
 
 Comparado com soluções principais como `vue-i18n` ou `i18next`, Intlayer é uma solução que vem com otimizações integradas como:

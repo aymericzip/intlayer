@@ -469,6 +469,17 @@ Para evitar o commit de arquivos gerados automaticamente pelo Intlayer, adicione
 
 ---
 
+## Configuração do Git
+
+Para evitar fazer commit de arquivos auto-gerados pelo Intlayer, adicione o seguinte ao seu `.gitignore`:
+
+```bash
+# Ignorar os arquivos gerados pelo Intlayer
+.intlayer
+```
+
+---
+
 ### Extensão para VS Code
 
 Para melhorar sua experiência de desenvolvimento com o Intlayer, você pode instalar a **Extensão oficial do Intlayer para VS Code**.

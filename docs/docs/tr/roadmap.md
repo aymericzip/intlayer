@@ -32,6 +32,12 @@ Intlayer, uygulamalarınızda içeriği bildirme, yönetme ve güncelleme şekli
 
 ---
 
+## İçindekiler
+
+<TOC/>
+
+---
+
 ## Mevcut Özellikler
 
 ### 1. İçerik Bildirimi

@@ -29,6 +29,12 @@ Intlayer ist eine Content-Management- und Internationalisierungslösung, die dar
 
 ---
 
+## Inhaltsverzeichnis
+
+<TOC/>
+
+---
+
 ## Aktuelle Funktionen
 
 ### 1. Inhaltsdeklaration
@@ -316,22 +322,6 @@ Intlayer unterstützt **TypeScript** (auch JavaScript) und **JSON** zur Deklarat
 
 - Für Remote-CMS-Nutzer: **Ein-Klick-Übersetzungserstellung** für jede unterstützte Sprache.
 - Das System würde Übersetzungen im Hintergrund generieren und Sie anschließend zur Validierung oder Bearbeitung auffordern.
-
-### 4. SEO-Verbesserungen
-
-- Werkzeuge zur **Analyse von Schlüsselwörtern**, der Suchintention der Nutzer und aufkommenden Trends.
-- Vorschläge für verbesserten Inhalt zur besseren Platzierung und zur Verfolgung der langfristigen Leistung.
-
-### 5. Kompatibilität mit weiteren Frameworks
-
-- Es wird daran gearbeitet, **Solid, Svelte, Angular** und weitere zu unterstützen.
-- Ziel ist es, Intlayer mit **jeder JavaScript-basierten Anwendung** kompatibel zu machen.
-
----
-
-## Fazit
-
-- Das System würde im Hintergrund Übersetzungen generieren und Sie dann zur Validierung oder Bearbeitung auffordern.
 
 ### 4. SEO-Verbesserungen
 

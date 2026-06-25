@@ -383,6 +383,36 @@ currency(1234.5, { currency: "EUR" }); // "€1,234.50"
 currency("5000", { locale: "fr", currency: "CAD", currencyDisplay: "code" }); // "5 000,00 CAD"
 ```
 
+## Cached Intl
+
+`intlayer`에서 내보낸 `Intl`은 전역 `Intl`을 래핑한 캐시된 래퍼입니다. formatter 인스턴스(`NumberFormat`, `DateTimeFormat` 등)를 메모이제이션하여 반복적인 구성을 피하고 성능을 향상시킵니다.
+
+```ts
+import { Intl } from "intlayer";
+
+// 숫자 형식 지정
+const numberFormat = new Intl.NumberFormat("en-GB", {
+  style: "currency",
+  currency: "GBP",
+});
+numberFormat.format(1234.5); // "£1,234.50"
+
+// 언어, 지역 등의 표시 이름
+const displayNames = new Intl.DisplayNames("fr", { type: "language" });
+displayNames.of("en"); // "anglais"
+
+// 정렬을 위한 대조
+const collator = new Intl.Collator("fr", { sensitivity: "base" });
+collator.compare("é", "e"); // 0 (equal)
+
+// 복수형 규칙
+const pluralRules = new Intl.PluralRules("fr");
+pluralRules.select(1); // "one"
+pluralRules.select(2); // "other"
+```
+
+### 추가 Intl 기능
+
 ### `date(date, optionsOrPreset?)`
 
 `Intl.DateTimeFormat`을 사용하여 날짜/시간 값을 포맷합니다.
@@ -423,6 +453,23 @@ const twoHoursAgo = new Date(now.getTime() - 2 * 3600e3);
 relativeTime(now, twoHoursAgo, { unit: "hour", numeric: "auto" }); // "2시간 전"
 ```
 
+#### `Intl.PluralRules`
+
+다양한 로케일에서 복수형을 결정하기 위해:
+
+```ts
+import { Intl } from "intlayer";
+
+const pluralRules = new Intl.PluralRules("ar");
+pluralRules.select(0); // "zero"
+pluralRules.select(1); // "one"
+pluralRules.select(2); // "two"
+pluralRules.select(3); // "few"
+pluralRules.select(11); // "many"
+```
+
+## Locale Utilities
+
 ### `units(value, options?)`
 
 `Intl.NumberFormat`의 `style: 'unit'`을 사용하여 숫자 값을 현지화된 단위 문자열로 포맷합니다.
@@ -441,6 +488,17 @@ units(5, { unit: "kilometer", unitDisplay: "long", locale: "en-GB" }); // "5 kil
 units(1024, { unit: "byte", unitDisplay: "narrow" }); // "1,024B" (로케일에 따라 다름)
 ```
 
+### `getLocaleLang(locale?)`
+
+로케일 문자열에서 언어 코드를 추출합니다:
+
+```ts
+import { getLocaleLang } from "intlayer";
+
+getLocaleLang("en-US"); // "en"
+getLocaleLang("fr-CA"); // "fr"
+```
+
 ### `compact(value, options?)`
 
 숫자를 축약 표기법(예: `1.2K`, `1M`)으로 포맷합니다.
@@ -455,6 +513,17 @@ import { compact } from "intlayer";
 
 compact(1200); // "1.2K"
 compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
+```
+
+### `getPathWithoutLocale(inputUrl, locales?)`
+
+URL에서 로케일 세그먼트를 제거합니다:
+
+```ts
+import { getPathWithoutLocale } from "intlayer";
+
+getPathWithoutLocale("/en/dashboard"); // "/dashboard"
+getPathWithoutLocale("/fr/dashboard"); // "/dashboard"
 ```
 
 ### `list(values, options?)`
@@ -481,6 +550,8 @@ list([1, 2, 3], { type: "unit" }); // "1, 2, 3"
 - 모든 헬퍼는 `string` 입력을 허용하며, 내부적으로 숫자나 날짜로 강제 변환됩니다.
 - 로케일이 제공되지 않으면 구성된 `internationalization.defaultLocale`이 기본값으로 사용됩니다.
 - 이 유틸리티들은 얇은 래퍼이며, 고급 포맷팅이 필요할 경우 표준 `Intl` 옵션을 직접 전달하세요.
+
+## Content Handling Utilities
 
 ## 진입점 및 재내보내기 (`@index.ts`)
 

@@ -641,33 +641,6 @@ export default aboutPageContent;
 
 </Steps>
 
-### (Необов'язково) Крок 6b: Створіть layout з навігацією
-
-Nuxt layouts дозволяють визначити спільну структуру для ваших сторінок. Створіть default layout, який включає locale switcher та навігацію:
-
-```vue fileName="layouts/default.vue"
-<script setup lang="ts">
-import Links from "~/components/Links.vue";
-import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
-</script>
-
-<template>
-  <div>
-    <header>
-      <LocaleSwitcher />
-    </header>
-    <main>
-      <slot />
-    </main>
-
-    <Links href="/">Головна</Links>
-    <Links href="/about">Про нас</Links>
-  </div>
-</template>
-```
-
-Компонент `Links` (показаний нижче) забезпечує автоматичну локалізацію внутрішніх навігаційних посилань.
-
 ### Конфігурація Git
 
 Рекомендується ігнорувати файли, згенеровані Intlayer. Це дозволяє уникнути їх коміту в ваш репозиторій Git.

@@ -32,10 +32,6 @@ author: aymericzip
 
 `express-intlayer`, Express uygulamaları için güçlü bir uluslararasılaştırma (i18n) ara yazılımıdır ve istemcinin tercihlerine göre yerelleştirilmiş yanıtlar sağlayarak arka uç hizmetlerinizi küresel olarak erişilebilir hale getirmek için tasarlanmıştır.
 
-## Neden Arka Ucunuzu Uluslararasılaştırasınız?
-
-Arka ucunuzu uluslararasılaştırmak, küresel bir kitleye etkili bir şekilde hizmet vermek için gereklidir. Bu, uygulamanızın her kullanıcının tercih ettiği dilde içerik ve mesajlar sunmasına izin verir. Bu yetenek, kullanıcı deneyimini geliştirir ve uygulamanızı farklı dilsel geçmişlere sahip insanlara daha erişilebilir ve ilgili hale getirerek uygulamanızın erişimini genişletir.
-
 ### Pratik Kullanım Durumları
 
 - **Arka Uç Hatalarını Kullanıcının Dilinde Görüntüleme**: Bir hata oluştuğunda, mesajları kullanıcının ana dilinde görüntülemek anlayışı iyileştirir ve hayal kırıklığını azaltır. Bu, tostlar veya modallar gibi ön uç bileşenlerinde gösterilebilecek dinamik hata mesajları için özellikle yararlıdır.

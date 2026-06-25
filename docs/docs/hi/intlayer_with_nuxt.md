@@ -609,33 +609,6 @@ export default aboutPageContent;
 
 </Steps>
 
-### (वैकल्पिक) चरण 6b: नेविगेशन के साथ एक लेआउट बनाएं
-
-Nuxt लेआउट्स आपको अपने पृष्ठों के लिए एक सामान्य संरचना परिभाषित करने की अनुमति देते हैं। एक डिफ़ॉल्ट लेआउट बनाएं जिसमें locale स्विचर और नेविगेशन शामिल हो:
-
-```vue fileName="layouts/default.vue"
-<script setup lang="ts">
-import Links from "~/components/Links.vue";
-import LocaleSwitcher from "~/components/LocaleSwitcher.vue";
-</script>
-
-<template>
-  <div>
-    <header>
-      <LocaleSwitcher />
-    </header>
-    <main>
-      <slot />
-    </main>
-
-    <Links href="/">Home</Links>
-    <Links href="/about">About</Links>
-  </div>
-</template>
-```
-
-`Links` कंपोनेंट (नीचे दिखाया गया) यह सुनिश्चित करता है कि आंतरिक नेविगेशन लिंक स्वचालित रूप से स्थानीयकृत हों।
-
 ### Git कॉन्फ़िगरेशन
 
 यह अनुशंसित है कि Intlayer द्वारा जनरेट की गई फाइलों को अनदेखा किया जाए। इससे आप इन्हें अपनी Git रिपॉजिटरी में कमिट करने से बच सकते हैं।

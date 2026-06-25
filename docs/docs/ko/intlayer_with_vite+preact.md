@@ -715,96 +715,6 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
 Link.displayName = "Link";
 ```
 
-#### 작동 방식
-
-- **외부 링크 감지**:  
-  헬퍼 함수 `checkIsExternalLink`는 URL이 외부 링크인지 확인합니다. 외부 링크는 로컬라이제이션이 필요하지 않으므로 변경되지 않은 상태로 유지됩니다.
-- **현재 로케일 검색**:  
-  `useLocale` 훅은 현재 로케일(예: 프랑스어의 경우 `fr`)을 제공합니다.
-- **URL 로컬라이즈**:  
-  내부 링크(즉, 비외부 링크)의 경우, `getLocalizedUrl`을 사용하여 URL에 현재 로케일을 자동으로 접두사로 붙입니다. 즉, 사용자가 프랑스어 환경에 있을 때 `/about`을 `href`로 전달하면 `/fr/about`으로 변환됩니다.
-- **링크 반환**:  
-  컴포넌트는 로컬라이즈된 URL이 포함된 `<a>` 요소를 반환하여 내비게이션이 로케일과 일치하도록 보장합니다.
-
-</Step>
-
-<Step number={11} title="Markdown 및 HTML 렌더링" isOptional={true}>
-
-Intlayer는 Preact에서 Markdown 및 HTML 콘텐츠의 렌더링을 지원합니다.
-
-`.use()` 메서드를 사용하여 Markdown 및 HTML 콘텐츠의 렌더링을 커스터마이징할 수 있습니다. 이 메서드를 사용하면 특정 태그의 기본 렌더링을 오버라이드할 수 있습니다.
-
-```tsx
-import { useIntlayer } from "preact-intlayer";
-
-const { myMarkdownContent, myHtmlContent } = useIntlayer("my-component");
-
-// ...
-
-return (
-  <div>
-    {/* 기본 렌더링 */}
-    {myMarkdownContent}
-
-    {/* Markdown을 위한 커스텀 렌더링 */}
-    {myMarkdownContent.use({
-      h1: (props) => <h1 style={{ color: "red" }} {...props} />,
-    })}
-
-    {/* HTML을 위한 기본 렌더링 */}
-    {myHtmlContent}
-
-    {/* HTML을 위한 커스텀 렌더링 */}
-    {myHtmlContent.use({
-      b: (props) => <strong style={{ color: "blue" }} {...props} />,
-    })}
-  </div>
-);
-```
-
-</Step>
-
-</Steps>
-
-### TypeScript 구성
-
-Intlayer는 모듈 확장을 사용하여 TypeScript의 이점을 활용하고 코드베이스를 더 견고하게 만듭니다.
-
-![Autocompletion](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
-
-![Translation error](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
-
-TypeScript 구성에 자동 생성된 타입이 포함되어 있는지 확인하세요.
-
-```json5 fileName="tsconfig.json"
-{
-  // ... 기존 TypeScript 구성
-  "compilerOptions": {
-    // ...
-    "jsx": "react-jsx",
-    "jsxImportSource": "preact", // Preact 10 이상에서 권장됨
-    // ...
-  },
-  "include": [
-    // ... 기존 TypeScript 구성
-    ".intlayer/**/*.ts", // 자동 생성된 타입 포함
-  ],
-}
-```
-
-> `tsconfig.json`이 Preact에 맞게 설정되었는지 확인하세요. 특히 `jsx`와 `jsxImportSource`를 확인하고, `preset-vite`의 기본값을 사용하지 않는 구버전 Preact의 경우 `jsxFactory`/`jsxFragmentFactory`를 확인하세요.
-
-### Git 구성
-
-Intlayer에서 생성된 파일은 무시하는 것이 좋습니다. 이를 통해 Git 저장소에 커밋되는 것을 방지할 수 있습니다.
-
-이렇게 하려면 `.gitignore` 파일에 다음 지침을 추가할 수 있습니다:
-
-```bash
-#  Intlayer에서 생성된 파일 무시
-.intlayer
-```
-
 ### VS Code 확장 프로그램
 
 Intlayer 개발 경험을 향상시키기 위해 공식 **Intlayer VS Code 확장 프로그램**을 설치할 수 있습니다.
@@ -996,6 +906,62 @@ console.log("SEO files generated successfully.");
 ```
 
 pnpm이나 yarn을 쓰면 명령을 맞게 바꾸세요. CI에서 호출해도 됩니다.
+
+### TypeScript 구성
+
+Intlayer는 모듈 augmentation을 사용하여 TypeScript의 이점을 활용하고 codebase를 더욱 강화합니다.
+
+![자동완성](https://github.com/aymericzip/intlayer/blob/main/docs/assets/autocompletion.png?raw=true)
+
+![번역 오류](https://github.com/aymericzip/intlayer/blob/main/docs/assets/translation_error.png?raw=true)
+
+TypeScript 설정에 자동 생성된 타입이 포함되어 있는지 확인하세요.
+
+```json5 fileName="tsconfig.json"
+{
+  // ... 기존 TypeScript 설정
+  "compilerOptions": {
+    // ...
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact", // Preact 10+ 권장
+    // ...
+  },
+  "include": [
+    // ... 기존 TypeScript 설정
+    ".intlayer/**/*.ts", // 자동 생성된 타입 포함
+  ],
+}
+```
+
+> `preset-vite`의 기본값을 사용하지 않는 경우, 특히 이전 Preact 버전의 `jsxFactory`/`jsxFragmentFactory`에 대해 `tsconfig.json`이 Preact에 맞게 설정되어 있는지 확인하세요.
+
+### Git 구성
+
+Intlayer에서 생성된 파일을 무시하는 것이 좋습니다. 이를 통해 Git 저장소에 커밋하는 것을 피할 수 있습니다.
+
+이를 위해 `.gitignore` 파일에 다음 지침을 추가할 수 있습니다:
+
+```bash
+# Intlayer에서 생성된 파일 무시
+.intlayer
+```
+
+### VS Code Extension
+
+Intlayer를 사용한 개발 경험을 개선하기 위해 공식 **Intlayer VS Code Extension**을 설치할 수 있습니다.
+
+[VS Code Marketplace에서 설치](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+이 extension은 다음을 제공합니다:
+
+- 번역 키에 대한 **자동완성**.
+- 누락된 번역에 대한 **실시간 오류 감지**.
+- 번역된 콘텐츠의 **인라인 미리보기**.
+- 번역을 쉽게 만들고 업데이트하기 위한 **빠른 작업**.
+
+extension 사용 방법에 대한 자세한 내용은 [Intlayer VS Code Extension 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
+
+---
 
 ### 더 나아가기
 

@@ -22,6 +22,10 @@ author: aymericzip
 
 # Wie Intlayer funktioniert
 
+## Inhaltsverzeichnis
+
+<TOC/>
+
 ## Übersicht
 
 Die Hauptidee hinter Intlayer ist die komponentenbasierte Inhaltsverwaltung. Die Idee ist, dass Sie Ihre Inhalte überall in Ihrem Code deklarieren können, z. B. im selben Verzeichnis wie Ihre Komponente.

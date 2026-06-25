@@ -383,6 +383,36 @@ currency(1234.5, { currency: "EUR" }); // "€1,234.50"
 currency("5000", { locale: "fr", currency: "CAD", currencyDisplay: "code" }); // "5 000,00 CAD"
 ```
 
+## 缓存的 Intl
+
+从 `intlayer` 导出的 `Intl` 是围绕全局 `Intl` 的缓存包装器。它会缓存格式化程序实例（`NumberFormat`、`DateTimeFormat` 等），以避免重复构造它们，从而提高性能。
+
+```ts
+import { Intl } from "intlayer";
+
+// 数字格式化
+const numberFormat = new Intl.NumberFormat("en-GB", {
+  style: "currency",
+  currency: "GBP",
+});
+numberFormat.format(1234.5); // "£1,234.50"
+
+// 语言、地区等的显示名称
+const displayNames = new Intl.DisplayNames("fr", { type: "language" });
+displayNames.of("en"); // "anglais"
+
+// 用于排序的排序规则
+const collator = new Intl.Collator("fr", { sensitivity: "base" });
+collator.compare("é", "e"); // 0 (相等)
+
+// 复数规则
+const pluralRules = new Intl.PluralRules("fr");
+pluralRules.select(1); // "one"
+pluralRules.select(2); // "other"
+```
+
+### 额外的 Intl 功能
+
 ### `date(date, optionsOrPreset?)`
 
 使用 `Intl.DateTimeFormat` 格式化日期/时间值。
@@ -441,6 +471,8 @@ units(5, { unit: "kilometer", unitDisplay: "long", locale: "en-GB" }); // "5 kil
 units(1024, { unit: "byte", unitDisplay: "narrow" }); // "1,024B"（依赖于区域设置）
 ```
 
+## 地区工具
+
 ### `compact(value, options?)`
 
 使用紧凑表示法格式化数字（例如，`1.2K`，`1M`）。
@@ -482,6 +514,17 @@ list([1, 2, 3], { type: "unit" }); // "1, 2, 3"
 - 如果未提供，区域设置默认使用您配置的 `internationalization.defaultLocale`。
 - 这些工具是轻量封装；对于高级格式化，请直接传递标准的 `Intl` 选项。
 
+### `getPathWithoutLocale(inputUrl, locales?)`
+
+从 URL 中移除语言区域段：
+
+```ts
+import { getPathWithoutLocale } from "intlayer";
+
+getPathWithoutLocale("/en/dashboard"); // "/dashboard"
+getPathWithoutLocale("/fr/dashboard"); // "/dashboard"
+```
+
 ## 入口点和重新导出（`@index.ts`）
 
 格式化函数位于核心包中，并从更高级的包中重新导出，以保持跨运行时的导入简洁：
@@ -511,6 +554,20 @@ import {
   getIntlayerAsync,
 } from "intlayer";
 ```
+
+### `getHTMLTextDir(locale?)`
+
+返回一个 locale 的文本方向：
+
+```ts
+import { getHTMLTextDir } from "intlayer";
+
+getHTMLTextDir("en-US"); // "ltr"
+getHTMLTextDir("ar"); // "rtl"
+getHTMLTextDir("he"); // "rtl"
+```
+
+## 内容处理工具
 
 ### React
 
@@ -592,6 +649,20 @@ import {
 
 > 这些钩子将会从 `IntlayerProvider` 或 `IntlayerServerProvider` 中获取语言环境
 
+### `getTranslation(languageContent, locale?, fallback?)`
+
+为特定语言环境提取内容：
+
+```ts
+import { getTranslation } from "intlayer";
+
+const content = getTranslation(
+  { zh: "你好", en: "Hello", fr: "Bonjour", de: "Hallo" },
+  "fr",
+  true
+); // "Bonjour"
+```
+
 ### Vue
 
 客户端组件：
@@ -610,3 +681,9 @@ import {
 ```
 
 > 这些组合式函数将会使用注入的 `IntlayerProvider` 中的语言环境
+
+## 注意事项
+
+- 所有辅助函数接受 `string` 输入；它们在内部被强制转换为数字或日期。
+- 如果未提供 locale，则默认为你配置的 `internationalization.defaultLocale`。
+- 这些实用程序是薄包装器；对于高级格式化，请传递标准 `Intl` 选项。

@@ -32,10 +32,6 @@ author: aymericzip
 
 `express-intlayer` es un middleware potente de internacionalización (i18n) para aplicaciones Express, diseñado para hacer que tus servicios backend sean accesibles globalmente al proporcionar respuestas localizadas basadas en las preferencias del cliente.
 
-## ¿Por qué internacionalizar tu backend?
-
-Internacionalizar tu backend es esencial para atender eficazmente a una audiencia global. Permite que tu aplicación entregue contenido y mensajes en el idioma preferido de cada usuario. Esta capacidad mejora la experiencia del usuario y amplía el alcance de tu aplicación al hacerla más accesible y relevante para personas de diferentes contextos lingüísticos.
-
 ### Casos prácticos
 
 - **Mostrar errores del backend en el idioma del usuario**: Cuando ocurre un error, mostrar mensajes en el idioma nativo del usuario mejora la comprensión y reduce la frustración. Esto es especialmente útil para mensajes de error dinámicos que podrían mostrarse en componentes del frontend como toasts o modales.

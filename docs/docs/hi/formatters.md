@@ -40,11 +40,15 @@ history:
 author: aymericzip
 ---
 
+# Intlayer Formatters
+
 # Intlayer फॉर्मेटर्स
 
 ## अवलोकन
 
 Intlayer नेटिव `Intl` APIs के ऊपर बनाए गए हल्के हेल्पर्स का एक सेट प्रदान करता है, साथ ही भारी फॉर्मेटर्स को बार-बार बनाने से बचने के लिए एक कैश्ड `Intl` रैपर भी शामिल है। ये यूटिलिटीज पूरी तरह से लोकल-आधारित हैं और मुख्य `intlayer` पैकेज से उपयोग की जा सकती हैं।
+
+## React Formatters
 
 ### आयात
 
@@ -133,6 +137,8 @@ const regionNames = new Intl.DisplayNames("fr", { type: "region" });
 regionNames.of("US"); // "États-Unis"
 ```
 
+## Vue Formatters
+
 ### `Intl.Collator`
 
 स्थानीय भाषा के अनुसार स्ट्रिंग की तुलना और क्रमबद्धता के लिए:
@@ -149,6 +155,61 @@ const words = ["äpfel", "zebra", "100", "20"];
 words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
 ```
 
+### उपलब्ध Composables
+
+सभी composables computed refs return करते हैं जो injected `IntlayerProvider` से locale को स्वचालित रूप से उपयोग करते हैं।
+
+| Composable          | Description                                  | Example Output                |
+| ------------------- | -------------------------------------------- | ----------------------------- |
+| `useNumber()`       | grouping के साथ संख्याओं को format करें      | `"123,456.789"`               |
+| `useCurrency()`     | currency values को format करें               | `"€1,234.50"`                 |
+| `usePercentage()`   | प्रतिशत को format करें                       | `"25%"`                       |
+| `useDate()`         | तारीखों और समय को format करें                | `"Aug 2, 2025"`               |
+| `useRelativeTime()` | सापेक्ष समय को format करें                   | `"in 3 days"`                 |
+| `useUnit()`         | units के साथ values को format करें           | `"5 kilometers"`              |
+| `useCompact()`      | compact notation में संख्याओं को format करें | `"1.2K"`                      |
+| `useList()`         | arrays को lists के रूप में format करें       | `"apple, banana, and orange"` |
+| `useIntl()`         | locale-bound `Intl` object प्राप्त करें      | Full `Intl` API access        |
+
+### पूर्ण उदाहरण
+
+```vue
+<script setup>
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "vue-intlayer/format";
+
+const number = useNumber();
+const currency = useCurrency();
+const date = useDate();
+const percentage = usePercentage();
+const compact = useCompact();
+const list = useList();
+const relativeTime = useRelativeTime();
+const unit = useUnit();
+</script>
+
+<template>
+  <div>
+    <p>{{ number.value(123456.789) }}</p>
+    <p>{{ currency.value(1234.5, { currency: "EUR" }) }}</p>
+    <p>{{ date.value(new Date(), "short") }}</p>
+    <p>{{ percentage.value(0.25) }}</p>
+    <p>{{ compact.value(1200) }}</p>
+    <p>{{ list.value(["apple", "banana", "orange"]) }}</p>
+    <p>{{ relativeTime.value(new Date(), new Date(Date.now() + 86400000)) }}</p>
+    <p>{{ unit.value(5, { unit: "kilometer" }) }}</p>
+  </div>
+</template>
+```
+
 ### `Intl.PluralRules`
 
 विभिन्न स्थानीय भाषाओं में बहुवचन रूप निर्धारित करने के लिए:
@@ -162,6 +223,26 @@ pluralRules.select(1); // "one" (एक)
 pluralRules.select(2); // "two" (दो)
 pluralRules.select(3); // "few" (कुछ)
 pluralRules.select(11); // "many" (कई)
+```
+
+## Vanilla JS / Node.js Formatters
+
+गैर-framework संदर्भों के लिए, `intlayer` से सीधे formatters को import करें। ध्यान दें कि आपको locale को manually pass करना होगा।
+
+### Import
+
+```ts
+import {
+  number,
+  percentage,
+  currency,
+  date,
+  relativeTime,
+  units,
+  compact,
+  list,
+  Intl,
+} from "intlayer";
 ```
 
 ## स्थानीय उपयोगिताएँ
@@ -480,6 +561,10 @@ list(["apple", "banana", "orange"]); // "apple, banana, and orange"
 list(["red", "green", "blue"], { locale: "fr", type: "disjunction" }); // "rouge, vert ou bleu"
 list([1, 2, 3], { type: "unit" }); // "1, 2, 3"
 ```
+
+## Content Handling Utilities
+
+सामग्री हैंडलिंग यूटिलिटीज
 
 ## नोट्स
 

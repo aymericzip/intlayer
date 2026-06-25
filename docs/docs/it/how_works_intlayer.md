@@ -22,6 +22,10 @@ author: aymericzip
 
 # Come funziona Intlayer
 
+## Indice
+
+<TOC/>
+
 ## Panoramica
 
 L'idea principale dietro Intlayer è adottare una gestione dei contenuti per componente. Quindi l'idea è permetterti di dichiarare i tuoi contenuti ovunque nel tuo codice, ad esempio nella stessa directory del tuo componente.
@@ -138,8 +142,6 @@ Il pacchetto `vue-intlayer` è utilizzato per interpretare i dizionari di Intlay
 
 ### nuxt-intlayer
 
-### nuxt-intlayer
-
 Il pacchetto `nuxt-intlayer` è un modulo Nuxt per rendere utilizzabili i dizionari Intlayer nelle applicazioni Nuxt. Integra funzionalità essenziali per far funzionare Intlayer in un ambiente Nuxt, come il middleware per la traduzione, il routing e la configurazione del file `nuxt.config.js`.
 
 ### svelte-intlayer
@@ -153,8 +155,6 @@ Il pacchetto `solid-intlayer` è utilizzato per interpretare i dizionari di Intl
 ### preact-intlayer
 
 Il pacchetto `preact-intlayer` è utilizzato per interpretare i dizionari di Intlayer e renderli utilizzabili nelle applicazioni Preact.
-
-### angular-intlayer (WIP)
 
 ### angular-intlayer (WIP)
 

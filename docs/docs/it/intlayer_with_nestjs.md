@@ -29,14 +29,6 @@ history:
     changes: "Documentazione iniziale"
 ---
 
-# Traduci la tua Nest backend con Intlayer | Internazionalizzazione (i18n)
-
-`express-intlayer` è un potente middleware di internazionalizzazione (i18n) per applicazioni Express, progettato per rendere i tuoi servizi backend accessibili a livello globale fornendo risposte localizzate in base alle preferenze del client. Poiché NestJS è costruito sopra Express, puoi integrare senza problemi `express-intlayer` nelle tue applicazioni NestJS per gestire efficacemente contenuti multilingue.
-
-## Perché internazionalizzare il tuo backend?
-
-Internazionalizzare il tuo backend è essenziale per servire efficacemente un pubblico globale. Permette alla tua applicazione di fornire contenuti e messaggi nella lingua preferita di ogni utente. Questa capacità migliora l'esperienza utente e amplia la portata della tua applicazione rendendola più accessibile e rilevante per persone di diversi contesti linguistici.
-
 ### Casi d'Uso Pratici
 
 - **Visualizzare gli Errori del Backend nella Lingua dell'Utente**: Quando si verifica un errore, mostrare i messaggi nella lingua madre dell'utente migliora la comprensione e riduce la frustrazione. Questo è particolarmente utile per messaggi di errore dinamici che potrebbero essere mostrati in componenti front-end come toast o modali.

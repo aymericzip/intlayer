@@ -39,10 +39,6 @@ Intlayer Visual Editor は、ローカル辞書のビジュアルエディタで
 
 対照的に、[Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md) は、遠隔辞書のビジュアルエディタでコンテンツを管理できるツールです。変更が行われても、コードベースには影響を与えません。そして、ウェブサイトは自動的に変更されたコンテンツを表示します。
 
-## アプリケーションへの Intlayer の統合
-
-Intlayer の統合方法についての詳細は、以下の関連セクションを参照してください:
-
 ### Next.js との統合
 
 ### Next.js との統合

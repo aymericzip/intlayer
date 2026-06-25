@@ -376,6 +376,59 @@ units(5, { unit: "kilometer", unitDisplay: "long", locale: "en-GB" }); // "5 kil
 units(1024, { unit: "byte", unitDisplay: "narrow" }); // "1,024B" (dépendant de la locale)
 ```
 
+#### `compact(value, options?)`
+
+Formate un nombre en utilisant la notation compacte.
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+
+```ts
+compact(1200); // "1.2K"
+compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
+```
+
+#### `list(values, options?)`
+
+Formate un tableau en une chaîne de liste localisée.
+
+- **values**: `(string | number)[]`
+- **options**: `Intl.ListFormatOptions & { locale?: LocalesValues }`
+  - Courant : `type` (`"conjunction" | "disjunction" | "unit"`), `style` (`"long" | "short" | "narrow"`)
+
+```ts
+list(["apple", "banana", "orange"]); // "apple, banana, and orange"
+list(["red", "green", "blue"], { locale: "fr", type: "disjunction" }); // "rouge, vert ou bleu"
+```
+
+## Intl en cache
+
+L'`Intl` exporté depuis `intlayer` est un wrapper en cache autour de l'`Intl` global. Il mémoïse les instances de formateurs (`NumberFormat`, `DateTimeFormat`, etc.) pour éviter de les construire à plusieurs reprises, améliorant ainsi les performances.
+
+```ts
+import { Intl } from "intlayer";
+
+// Formatage des nombres
+const numberFormat = new Intl.NumberFormat("en-GB", {
+  style: "currency",
+  currency: "GBP",
+});
+numberFormat.format(1234.5); // "£1,234.50"
+
+// Noms d'affichage pour les langues, régions, etc.
+const displayNames = new Intl.DisplayNames("fr", { type: "language" });
+displayNames.of("en"); // "anglais"
+
+// Collation pour le tri
+const collator = new Intl.Collator("fr", { sensitivity: "base" });
+collator.compare("é", "e"); // 0 (égal)
+
+// Règles de pluriel
+const pluralRules = new Intl.PluralRules("fr");
+pluralRules.select(1); // "one"
+pluralRules.select(2); // "other"
+```
+
 ### Fonctionnalités Intl Supplémentaires
 
 #### `Intl.DisplayNames`
@@ -528,12 +581,6 @@ list(["apple", "banana", "orange"]); // "apple, banana, and orange"
 list(["red", "green", "blue"], { locale: "fr", type: "disjunction" }); // "rouge, vert ou bleu"
 list([1, 2, 3], { type: "unit" }); // "1, 2, 3"
 ```
-
-## Notes
-
-- Tous les helpers acceptent des entrées de type `string` ; elles sont converties en interne en nombres ou en dates.
-- La locale par défaut est celle configurée dans `internationalization.defaultLocale` si elle n'est pas fournie.
-- Ces utilitaires sont des wrappers légers ; pour un formatage avancé, utilisez directement les options standard de `Intl`.
 
 ## Points d'entrée et réexportations (`@index.ts`)
 

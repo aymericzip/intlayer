@@ -32,10 +32,6 @@ author: aymericzip
 
 `express-intlayer` 是一个强大的国际化 (i18n) 中间件，适用于 Express 应用程序，旨在通过根据客户端的偏好提供本地化响应，使您的后端服务能够全球化访问。
 
-## 为什么要国际化您的后端？
-
-国际化您的后端对于有效服务全球受众至关重要。它使您的应用程序能够以每个用户的首选语言提供内容和消息。这种能力提升了用户体验，并通过使应用程序更易于访问和更贴近不同语言背景的用户，扩大了应用程序的影响范围。
-
 ### 实际使用场景
 
 - **以用户语言显示后端错误**：当发生错误时，以用户的母语显示消息可以提高理解力并减少挫败感。这对于可能在前端组件（如弹出消息或模态框）中显示的动态错误消息尤为有用。
@@ -266,25 +262,6 @@ export default config;
 - 轻松创建和更新翻译的 **快速操作**。
 
 有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://intlayer.org/doc/vs-code-extension)。
-
-### Git 配置
-
-建议忽略 Intlayer 生成的文件，这样可以避免将它们提交到您的 Git 仓库中。
-
-### VS Code 扩展
-
-为了提升您使用 Intlayer 的开发体验，您可以安装官方的 **Intlayer VS Code 扩展**。
-
-[从 VS Code 市场安装](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-该扩展提供：
-
-- 翻译键的 **自动补全**。
-- 缺失翻译的 **实时错误检测**。
-- 翻译内容的 **内联预览**。
-- 轻松创建和更新翻译的 **快速操作**。
-
-有关如何使用该扩展的更多详细信息，请参阅 [Intlayer VS Code 扩展文档](https://intlayer.org/doc/zh/vs-code-extension)。
 
 ### Git 配置
 

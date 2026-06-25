@@ -248,6 +248,10 @@ bun x intlayer init mcp
 
 ---
 
+## 在 Claude Code (CLI) 中设置
+
+按照[官方文档](https://modelcontextprotocol.io/quickstart/user)来配置 MCP server 在 Claude Code 中。
+
 ## 通过命令行界面使用 MCP 服务器
 
 您也可以直接从命令行运行 Intlayer MCP 服务器，用于测试、调试或与其他工具集成。
@@ -261,3 +265,25 @@ npx @intlayer/mcp
 ```
 
 ---
+
+### 远程服务器 (Streamable HTTP)
+
+要使用 Streamable HTTP (SSE) 将 Intlayer MCP 服务器连接到 Claude Code：
+
+```bash
+claude mcp add intlayer https://mcp.intlayer.org -t http
+```
+
+---
+
+## 通过 CLI 使用 MCP Server
+
+您也可以直接从命令行运行 Intlayer MCP server，用于测试、调试或与其他工具集成。
+
+```bash
+# 全局安装
+npm install -g @intlayer/mcp
+
+# 或使用 npx 直接运行（推荐）
+npx @intlayer/mcp
+```

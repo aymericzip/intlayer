@@ -176,6 +176,100 @@ getLocaleName("de", "es"); // "alemán"
 - **displayLocale**: Локаль, для которой нужно получить название
 - **targetLocale**: Локаль, на которой будет отображаться название (по умолчанию displayLocale)
 
+### Доступные Composables
+
+Все composables возвращают computed refs, которые автоматически используют локаль из внедренного `IntlayerProvider`.
+
+| Composable          | Описание                                    | Пример вывода                 |
+| ------------------- | ------------------------------------------- | ----------------------------- |
+| `useNumber()`       | Форматирование чисел с группировкой         | `"123,456.789"`               |
+| `useCurrency()`     | Форматирование значений валют               | `"€1,234.50"`                 |
+| `usePercentage()`   | Форматирование процентов                    | `"25%"`                       |
+| `useDate()`         | Форматирование дат и времени                | `"Aug 2, 2025"`               |
+| `useRelativeTime()` | Форматирование относительного времени       | `"in 3 days"`                 |
+| `useUnit()`         | Форматирование значений с единицами         | `"5 kilometers"`              |
+| `useCompact()`      | Форматирование чисел в компактной нотации   | `"1.2K"`                      |
+| `useList()`         | Форматирование массивов как списки          | `"apple, banana, and orange"` |
+| `useIntl()`         | Получить привязанный к локали объект `Intl` | Полный доступ к `Intl` API    |
+
+### Полный пример
+
+```vue
+<script setup>
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "vue-intlayer/format";
+
+const number = useNumber();
+const currency = useCurrency();
+const date = useDate();
+const percentage = usePercentage();
+const compact = useCompact();
+const list = useList();
+const relativeTime = useRelativeTime();
+const unit = useUnit();
+</script>
+
+<template>
+  <div>
+    <p>{{ number.value(123456.789) }}</p>
+    <p>{{ currency.value(1234.5, { currency: "EUR" }) }}</p>
+    <p>{{ date.value(new Date(), "short") }}</p>
+    <p>{{ percentage.value(0.25) }}</p>
+    <p>{{ compact.value(1200) }}</p>
+    <p>{{ list.value(["apple", "banana", "orange"]) }}</p>
+    <p>{{ relativeTime.value(new Date(), new Date(Date.now() + 86400000)) }}</p>
+    <p>{{ unit.value(5, { unit: "kilometer" }) }}</p>
+  </div>
+</template>
+```
+
+### Composable `useIntl`
+
+Composable `useIntl` предоставляет прямой доступ к объекту `Intl`, привязанному к локали. Это полезно, когда вам нужен полный API `Intl` с автоматическим внедрением локали.
+
+```vue
+<script setup>
+import { useIntl } from "vue-intlayer/format";
+
+const intl = useIntl(); // использует локаль контекста
+
+// Стандартный API Intl, но локаль автоматически внедряется, если не определена
+const formatted = new intl.value.NumberFormat(undefined, {
+  style: "currency",
+  currency: "USD",
+}).format(123.45);
+
+// Вы все еще можете переопределить локаль, если необходимо
+const date = new intl.value.DateTimeFormat("fr-FR").format(new Date());
+
+// Доступ к другим функциям Intl
+const displayNames = new intl.value.DisplayNames(undefined, {
+  type: "language",
+});
+const languageName = displayNames.of("fr");
+</script>
+
+<template>
+  <div>
+    <p>{{ formatted }}</p>
+    <p>{{ date }}</p>
+    <p>{{ languageName }}</p>
+  </div>
+</template>
+```
+
+## Vanilla JS / Node.js Formatters
+
+Для контекстов без framework'а импортируйте форматтеры напрямую из `intlayer`. Обратите внимание, что вы должны передать locale вручную.
+
 ### `getLocaleLang(locale?)`
 
 Извлекает код языка из строки локали:
@@ -189,6 +283,8 @@ getLocaleLang("de"); // "de"
 ```
 
 - **locale**: Локаль, из которой нужно извлечь язык (по умолчанию текущая локаль)
+
+### Функции форматирования
 
 ### `getLocaleFromPath(inputUrl)`
 
@@ -312,6 +408,36 @@ const nestedContent = getIntlayer("common", "fr", customPlugins);
 - **locale**: Необязательная локаль (по умолчанию используется настроенная локаль по умолчанию)
 - **plugins**: Необязательный массив пользовательских плагинов трансформации
 
+## Cached Intl
+
+Экспортируемый `Intl` из `intlayer` — это кэшированная обёртка вокруг глобального `Intl`. Она мемоизирует экземпляры форматтеров (`NumberFormat`, `DateTimeFormat` и т. д.), чтобы избежать их повторного создания и улучшить производительность.
+
+```ts
+import { Intl } from "intlayer";
+
+// Форматирование чисел
+const numberFormat = new Intl.NumberFormat("en-GB", {
+  style: "currency",
+  currency: "GBP",
+});
+numberFormat.format(1234.5); // "£1,234.50"
+
+// Отображение названий языков, регионов и т. д.
+const displayNames = new Intl.DisplayNames("fr", { type: "language" });
+displayNames.of("en"); // "anglais"
+
+// Сортировка по правилам коллации
+const collator = new Intl.Collator("fr", { sensitivity: "base" });
+collator.compare("é", "e"); // 0 (equal)
+
+// Правила plurals
+const pluralRules = new Intl.PluralRules("fr");
+pluralRules.select(1); // "one"
+pluralRules.select(2); // "other"
+```
+
+### Дополнительные возможности Intl
+
 ### `getIntlayerAsync(dictionaryKey, locale?, plugins?)`
 
 Асинхронно получает контент из удалённого словаря:
@@ -346,6 +472,8 @@ number(123456.789); // "123,456.789" (в en-US)
 number("1000000", { locale: "fr" }); // "1 000 000"
 number(1234.5, { minimumFractionDigits: 2 }); // "1,234.50"
 ```
+
+## Утилиты Локализации
 
 ### `percentage(value, options?)`
 
@@ -456,6 +584,8 @@ import { compact } from "intlayer";
 compact(1200); // "1.2K"
 compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
 ```
+
+## Утилиты для обработки содержимого
 
 ### `list(values, options?)`
 
@@ -591,3 +721,9 @@ import {
 ```
 
 > Эти композиционные функции будут учитывать локаль из внедренного `IntlayerProvider`
+
+## Примечания
+
+- Все вспомогательные функции принимают входные данные типа `string`; они внутренне преобразуются в числа или даты.
+- Локаль по умолчанию использует ваш настроенный `internationalization.defaultLocale`, если не указана.
+- Эти утилиты являются тонкими оболочками; для продвинутого форматирования передавайте стандартные параметры `Intl`.

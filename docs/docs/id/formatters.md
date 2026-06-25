@@ -53,6 +53,8 @@ author: aymericzip
 
 Intlayer menyediakan serangkaian pembantu ringan yang dibangun di atas API `Intl` asli, ditambah pembungkus `Intl` yang di-cache untuk menghindari pembuatan formatter berat berulang kali. Utilitas ini sepenuhnya sadar lokal dan dapat digunakan dari paket utama `intlayer`.
 
+## React Formatters
+
 ### Impor
 
 ```ts
@@ -79,6 +81,61 @@ import {
 ```
 
 Jika Anda menggunakan React, hooks juga tersedia; lihat `react-intlayer/format`.
+
+### Hook yang Tersedia
+
+Semua hook secara otomatis menggunakan locale dari `IntlayerProvider` atau `IntlayerServerProvider`.
+
+| Hook                | Description                          | Example Output                |
+| ------------------- | ------------------------------------ | ----------------------------- |
+| `useNumber()`       | Format angka dengan pengelompokan    | `"123,456.789"`               |
+| `useCurrency()`     | Format nilai mata uang               | `"€1,234.50"`                 |
+| `usePercentage()`   | Format persentase                    | `"25%"`                       |
+| `useDate()`         | Format tanggal dan waktu             | `"Aug 2, 2025"`               |
+| `useRelativeTime()` | Format waktu relatif                 | `"in 3 days"`                 |
+| `useUnit()`         | Format nilai dengan satuan           | `"5 kilometers"`              |
+| `useCompact()`      | Format angka dalam notasi kompak     | `"1.2K"`                      |
+| `useList()`         | Format array sebagai daftar          | `"apple, banana, and orange"` |
+| `useIntl()`         | Dapatkan objek `Intl` terikat locale | Akses penuh API `Intl`        |
+
+### Contoh Lengkap
+
+```tsx
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "react-intlayer/format";
+
+const MyComponent = () => {
+  const number = useNumber();
+  const currency = useCurrency();
+  const date = useDate();
+  const percentage = usePercentage();
+  const compact = useCompact();
+  const list = useList();
+  const relativeTime = useRelativeTime();
+  const unit = useUnit();
+
+  return (
+    <div>
+      <p>{number(123456.789)}</p>
+      <p>{currency(1234.5, { currency: "EUR" })}</p>
+      <p>{date(new Date(), "short")}</p>
+      <p>{percentage(0.25)}</p>
+      <p>{compact(1200)}</p>
+      <p>{list(["apple", "banana", "orange"])}</p>
+      <p>{relativeTime(new Date(), new Date(Date.now() + 86400000))}</p>
+      <p>{unit(5, { unit: "kilometer" })}</p>
+    </div>
+  );
+};
+```
 
 ## Intl yang Di-cache
 
@@ -134,6 +191,61 @@ const regionNames = new Intl.DisplayNames("fr", { type: "region" });
 regionNames.of("US"); // "États-Unis"
 ```
 
+### Composables yang Tersedia
+
+Semua composables mengembalikan computed refs yang secara otomatis menggunakan locale dari `IntlayerProvider` yang diinjeksi.
+
+| Composable          | Deskripsi                            | Contoh Output                 |
+| ------------------- | ------------------------------------ | ----------------------------- |
+| `useNumber()`       | Format angka dengan pengelompokan    | `"123,456.789"`               |
+| `useCurrency()`     | Format nilai mata uang               | `"€1,234.50"`                 |
+| `usePercentage()`   | Format persentase                    | `"25%"`                       |
+| `useDate()`         | Format tanggal dan waktu             | `"Aug 2, 2025"`               |
+| `useRelativeTime()` | Format waktu relatif                 | `"in 3 days"`                 |
+| `useUnit()`         | Format nilai dengan unit             | `"5 kilometers"`              |
+| `useCompact()`      | Format angka dalam notasi kompak     | `"1.2K"`                      |
+| `useList()`         | Format array sebagai daftar          | `"apple, banana, and orange"` |
+| `useIntl()`         | Dapatkan objek `Intl` terikat locale | Akses API `Intl` lengkap      |
+
+### Contoh Lengkap
+
+```vue
+<script setup>
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "vue-intlayer/format";
+
+const number = useNumber();
+const currency = useCurrency();
+const date = useDate();
+const percentage = usePercentage();
+const compact = useCompact();
+const list = useList();
+const relativeTime = useRelativeTime();
+const unit = useUnit();
+</script>
+
+<template>
+  <div>
+    <p>{{ number.value(123456.789) }}</p>
+    <p>{{ currency.value(1234.5, { currency: "EUR" }) }}</p>
+    <p>{{ date.value(new Date(), "short") }}</p>
+    <p>{{ percentage.value(0.25) }}</p>
+    <p>{{ compact.value(1200) }}</p>
+    <p>{{ list.value(["apple", "banana", "orange"]) }}</p>
+    <p>{{ relativeTime.value(new Date(), new Date(Date.now() + 86400000)) }}</p>
+    <p>{{ unit.value(5, { unit: "kilometer" }) }}</p>
+  </div>
+</template>
+```
+
 ### `Intl.Collator`
 
 Untuk perbandingan dan pengurutan string yang sadar lokal:
@@ -149,6 +261,10 @@ const collator = new Intl.Collator("de", {
 const words = ["äpfel", "zebra", "100", "20"];
 words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
 ```
+
+## Vanilla JS / Node.js Formatters
+
+Untuk konteks non-framework, impor formatter langsung dari `intlayer`. Perhatikan bahwa Anda harus melewatkan locale secara manual.
 
 ### `Intl.PluralRules`
 
@@ -302,6 +418,8 @@ const content = getTranslation(
 - **languageContent**: Objek yang memetakan locale ke konten
 - **locale**: Locale target (default ke locale default yang dikonfigurasi)
 - **fallback**: Apakah akan kembali ke locale default (default true)
+
+### Fitur Intl Tambahan
 
 ### `getIntlayer(dictionaryKey, locale?, plugins?)`
 
@@ -467,6 +585,8 @@ list(["apple", "banana", "orange"]); // "apple, banana, dan orange"
 list(["red", "green", "blue"], { locale: "fr", type: "disjunction" }); // "rouge, vert ou bleu"
 list([1, 2, 3], { type: "unit" }); // "1, 2, 3"
 ```
+
+## Utilitas Penanganan Konten
 
 ## Catatan
 

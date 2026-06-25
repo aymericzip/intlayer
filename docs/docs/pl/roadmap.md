@@ -329,22 +329,6 @@ Intlayer obsługuje **TypeScript** (również JavaScript) oraz **JSON** do dekla
 ### 4. Ulepszenia SEO
 
 - Narzędzia do **analizy słów kluczowych**, intencji wyszukiwania użytkowników oraz pojawiających się trendów.
-- Sugestie ulepszonej treści dla lepszych pozycji w rankingach oraz monitorowanie długoterminowej wydajności.
-
-### 5. Zgodność z większą liczbą frameworków
-
-- Trwają prace nad wsparciem dla **Solid, Svelte, Angular** i innych.
-- Celem jest uczynienie Intlayer kompatybilnym z **dowolną aplikacją opartą na JavaScript**.
-
----
-
-## Podsumowanie
-
-- System generowałby tłumaczenia w tle, a następnie prosiłby Cię o ich zatwierdzenie lub edycję.
-
-### 4. Ulepszenia SEO
-
-- Narzędzia do **analizy słów kluczowych**, intencji wyszukiwania użytkowników oraz pojawiających się trendów.
 - Sugestie ulepszonej treści dla lepszych pozycji w rankingach oraz śledzenie długoterminowej wydajności.
 
 ### 5. Kompatybilność z większą liczbą frameworków

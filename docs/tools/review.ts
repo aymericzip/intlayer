@@ -10,10 +10,10 @@ import { defaultLocale, locales } from '../intlayer.config';
 // Fill the list of files to audit if you want to audit only a subset of the files
 // If empty list is provided, the audit will run on all markdown files present in the /en folder
 const DOC_PATTERN: string[] = [
-  './docs/docs/en/**/*.md',
-  './docs/blog/en/**/*.md',
-  './docs/frequent_questions/en/**/*.md',
-  './docs/legal/en/**/*.md',
+  './docs/en/**/*.md',
+  './blog/en/**/*.md',
+  './frequent_questions/en/**/*.md',
+  './legal/en/**/*.md',
 ];
 const EXCLUDED_GLOB_PATTEN: string[] = [
   '**/_*',
@@ -22,7 +22,7 @@ const EXCLUDED_GLOB_PATTEN: string[] = [
   '**/src/**',
 ];
 
-const LOG_ONLY = true; // If false it gonna generate translations // NEVER TOUCH IT
+const LOG_ONLY = false; // If false it gonna generate translations // NEVER TOUCH IT
 
 // Number of files to process simultaneously
 const NB_SIMULTANEOUS_FILE_PROCESSED: number = 1;
@@ -30,7 +30,7 @@ const NB_SIMULTANEOUS_FILE_PROCESSED: number = 1;
 const LOCALE_LIST_TO_TRANSLATE: Locale[] = locales.filter(
   // Include all locales except English
   // Change it to include your specific locales if you want to translate only a subset of the locale(s)
-  (locale) => locale === Locales.FRENCH
+  (locale) => locale !== Locales.ENGLISH
 );
 
 const SKIP_IF_MODIFIED_BEFORE: number | undefined = undefined; //1000 * 60 * 60 * 24; // 1 day ago
@@ -43,7 +43,7 @@ const GIT_OPTIONS: ListGitFilesOptions | undefined = {
 const configuration = getConfiguration();
 
 const customInstructions = readFileSync(
-  join(process.cwd(), './docs/tools/prompts/CUSTOM_INSTRUCTIONS.md'),
+  join(process.cwd(), './tools/prompts/CUSTOM_INSTRUCTIONS.md'),
   'utf-8'
 );
 

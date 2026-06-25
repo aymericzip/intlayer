@@ -248,6 +248,28 @@ ChatGPT에서 MCP 서버를 구성하려면 [공식 문서](https://platform.ope
 
 ---
 
+## Claude Code (CLI)에서 설정
+
+Claude Code에서 MCP 서버를 구성하려면 [공식 문서](https://modelcontextprotocol.io/quickstart/user)를 따르세요.
+
+### Local server (stdio) (권장)
+
+Intlayer MCP 서버를 stdio를 사용하여 Claude Code에 연결하려면:
+
+```bash
+claude mcp add intlayer npx -y @intlayer/mcp
+```
+
+### 원격 서버 (Streamable HTTP)
+
+Streamable HTTP (SSE)를 사용하여 Intlayer MCP 서버를 Claude Code에 연결하려면:
+
+```bash
+claude mcp add intlayer https://mcp.intlayer.org -t http
+```
+
+---
+
 ## CLI를 통한 MCP 서버 사용
 
 테스트, 디버깅 또는 다른 도구와의 통합을 위해 Intlayer MCP 서버를 명령줄에서 직접 실행할 수도 있습니다.

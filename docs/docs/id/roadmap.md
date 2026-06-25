@@ -340,22 +340,6 @@ Intlayer mendukung **TypeScript** (juga JavaScript) dan **JSON** untuk mendeklar
 
 ## Kesimpulan
 
-- Sistem akan menghasilkan terjemahan di latar belakang dan kemudian meminta Anda untuk validasi atau suntingan.
-
-### 4. Peningkatan SEO
-
-- Alat untuk **menganalisis kata kunci**, niat pencarian pengguna, dan tren yang sedang berkembang.
-- Menyarankan konten yang ditingkatkan untuk peringkat yang lebih baik, dan melacak kinerja jangka panjang.
-
-### 5. Kompatibilitas dengan Lebih Banyak Framework
-
-- Upaya sedang dilakukan untuk mendukung **Solid, Svelte, Angular**, dan lainnya.
-- Bertujuan agar Intlayer kompatibel dengan **aplikasi berbasis JavaScript apa pun**.
-
----
-
-## Kesimpulan
-
 Intlayer bertujuan menjadi solusi satu atap untuk manajemen konten dan internasionalisasi. Fokusnya pada fleksibilitas (file terpusat atau terdistribusi), dukungan bahasa yang luas, integrasi mudah dengan framework dan bundler modern, serta fitur bertenaga AI yang kuat. Seiring dengan hadirnya kemampuan baru, seperti pengujian A/B, versioning, dan terjemahan otomatis, Intlayer akan terus menyederhanakan alur kerja konten dan meningkatkan pengalaman pengguna di berbagai platform.
 
 Tetap nantikan rilis berikutnya, dan jangan ragu untuk menjelajahi fitur yang ada untuk melihat bagaimana Intlayer dapat membantu memusatkan dan mengoptimalkan proses manajemen konten Anda hari ini!

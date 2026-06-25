@@ -248,6 +248,28 @@ Lokasi file konfigurasi:
 
 ---
 
+## Set Up in Claude Code (CLI)
+
+Ikuti [dokumentasi resmi](https://modelcontextprotocol.io/quickstart/user) untuk mengonfigurasi server MCP di Claude Code.
+
+### Server lokal (stdio) (direkomendasikan)
+
+Untuk menghubungkan server Intlayer MCP ke Claude Code menggunakan stdio:
+
+```bash
+claude mcp add intlayer npx -y @intlayer/mcp
+```
+
+### Server Jarak Jauh (Streamable HTTP)
+
+Untuk menghubungkan server Intlayer MCP ke Claude Code menggunakan Streamable HTTP (SSE):
+
+```bash
+claude mcp add intlayer https://mcp.intlayer.org -t http
+```
+
+---
+
 ## Menggunakan MCP Server melalui CLI
 
 Anda juga dapat menjalankan server MCP Intlayer langsung dari command line untuk pengujian, debugging, atau integrasi dengan alat lain.

@@ -248,6 +248,28 @@ Yapılandırma dosyasının yolu:
 
 ---
 
+## Claude Code'da Kurulum (CLI)
+
+MCP sunucusunu Claude Code'da yapılandırmak için [resmi dokumentasyonu](https://modelcontextprotocol.io/quickstart/user) takip edin.
+
+### Lokal sunucu (stdio) (önerilen)
+
+Intlayer MCP sunucusunu Claude Code'a stdio kullanarak bağlamak için:
+
+```bash
+claude mcp add intlayer npx -y @intlayer/mcp
+```
+
+### Uzak sunucu (Streamable HTTP)
+
+Intlayer MCP sunucusunu Claude Code'a Streamable HTTP (SSE) kullanarak bağlamak için:
+
+```bash
+claude mcp add intlayer https://mcp.intlayer.org -t http
+```
+
+---
+
 ## CLI aracılığıyla MCP Sunucusunu Kullanma
 
 Intlayer MCP sunucusunu test, hata ayıklama veya diğer araçlarla entegrasyon için komut satırından doğrudan çalıştırabilirsiniz.

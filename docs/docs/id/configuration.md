@@ -885,6 +885,21 @@ Pengaturan yang terkait dengan penanganan konten dalam aplikasi, termasuk nama d
 
 ---
 
+### Konfigurasi Sistem
+
+Pengaturan yang terkait dengan path internal dan hasil output dari Intlayer. Pengaturan ini biasanya bersifat internal dan tidak perlu diubah oleh pengguna.
+
+| Field                     | Description                                                                                    | Type     | Default                           | Example              | Note                                                            |
+| ------------------------- | ---------------------------------------------------------------------------------------------- | -------- | --------------------------------- | -------------------- | --------------------------------------------------------------- |
+| `baseDir`                 | Direktori dasar untuk proyek.                                                                  | `string` | `process.cwd()`                   | `'/path/to/project'` | Digunakan untuk menyelesaikan semua direktori terkait Intlayer. |
+| `dictionariesDir`         | Path direktori untuk menyimpan kamus lokalisasi.                                               | `string` | `'.intlayer/dictionary'`          |                      |                                                                 |
+| `moduleAugmentationDir`   | Direktori untuk augmentasi modul, memungkinkan saran IDE yang lebih baik dan pemeriksaan tipe. | `string` | `'.intlayer/types'`               | `'intlayer-types'`   | Pastikan ini disertakan dalam `tsconfig.json`.                  |
+| `unmergedDictionariesDir` | Direktori untuk menyimpan kamus yang belum digabungkan.                                        | `string` | `'.intlayer/unmerged_dictionary'` |                      |                                                                 |
+| `typesDir`                | Direktori untuk menyimpan tipe kamus.                                                          | `string` | `'.intlayer/types'`               |                      |                                                                 |
+| `mainDir`                 | Direktori tempat file aplikasi utama disimpan.                                                 | `string` | `'.intlayer/main'`                |                      |                                                                 |
+| `configDir`               | Direktori tempat file konfigurasi disimpan.                                                    | `string` | `'.intlayer/config'`              |                      |                                                                 |
+| `cacheDir`                | Direktori tempat file cache disimpan.                                                          | `string` | `'.intlayer/cache'`               |                      |                                                                 |
+
 ### Konfigurasi Kamus (Dictionary)
 
 Opsi yang mengontrol operasi kamus, termasuk perilaku pengisian otomatis dan pembuatan konten.
@@ -990,22 +1005,6 @@ Pengaturan build berlaku untuk plugin `@intlayer/babel` dan `@intlayer/swc`.
 | `checkTypes`      | Menunjukkan apakah build harus memeriksa tipe TypeScript dan mencatat error. | `boolean`                        | `false`                                                                                                                                                                           |                                                                               | Dapat memperlambat performa build.                                                                                                                                                                                                                                                                                         |
 | `outputFormat`    | Mengontrol format output kamus.                                              | `('esm' &#124; 'cjs')[]`         | `['esm', 'cjs']`                                                                                                                                                                  | `['cjs']`                                                                     |                                                                                                                                                                                                                                                                                                                            |
 | `traversePattern` | Pola untuk file yang akan dipindai selama optimasi.                          | `string[]`                       | `['**/*.{tsx,ts,js,mjs,cjs,jsx,vue,svelte,svte}', '!**/node_modules/**', '!**/dist/**', '!**/.intlayer/**', '!**/*.config.*', '!**/*.test.*', '!**/*.spec.*', '!**/*.stories.*']` | `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']` | • Meningkatkan performa build dengan membatasi optimasi ke file yang relevan.<br/>• Diabaikan jika `optimize` dinonaktifkan.<br/>• Menggunakan pola glob.                                                                                                                                                                  |
-
----
-
-### Konfigurasi Sistem (System)
-
-Pengaturan ini ditujukan untuk pengguna tingkat lanjut dan konfigurasi internal Intlayer.
-
-| Bidang                    | Deskripsi                                                  | Tipe     | Default                           | Contoh | Catatan |
-| ------------------------- | ---------------------------------------------------------- | -------- | --------------------------------- | ------ | ------- |
-| `dictionariesDir`         | Lokasi untuk kamus yang dikompilasi.                       | `string` | `'.intlayer/dictionary'`          |        |         |
-| `moduleAugmentationDir`   | Direktori tempat module augmentation TypeScript berada.    | `string` | `'.intlayer/types'`               |        |         |
-| `unmergedDictionariesDir` | Direktori tempat kamus yang belum digabungkan berada.      | `string` | `'.intlayer/unmerged_dictionary'` |        |         |
-| `typesDir`                | Direktori tempat tipe yang dihasilkan berada.              | `string` | `'.intlayer/types'`               |        |         |
-| `mainDir`                 | Direktori tempat file utama Intlayer berada.               | `string` | `'.intlayer/main'`                |        |         |
-| `configDir`               | Direktori tempat file konfigurasi yang dikompilasi berada. | `string` | `'.intlayer/config'`              |        |         |
-| `cacheDir`                | Direktori tempat file cache berada.                        | `string` | `'.intlayer/cache'`               |        |         |
 
 ---
 

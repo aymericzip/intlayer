@@ -53,6 +53,8 @@ author: aymericzip
 
 Intlayer cung cấp một bộ helper nhẹ xây dựng trên các API `Intl` gốc, cùng với một wrapper `Intl` được lưu trong bộ nhớ đệm để tránh việc tạo lại các bộ định dạng nặng nhiều lần. Các tiện ích này hoàn toàn nhận biết locale và có thể được sử dụng từ package chính `intlayer`.
 
+## React Formatters
+
 ### Import
 
 ```ts
@@ -79,6 +81,61 @@ import {
 ```
 
 Nếu bạn sử dụng React, các hook cũng có sẵn; xem `react-intlayer/format`.
+
+### Các Hook Có Sẵn
+
+Tất cả các hook tự động sử dụng locale từ `IntlayerProvider` hoặc `IntlayerServerProvider`.
+
+| Hook                | Description                         | Example Output                |
+| ------------------- | ----------------------------------- | ----------------------------- |
+| `useNumber()`       | Định dạng số với phân nhóm          | `"123,456.789"`               |
+| `useCurrency()`     | Định dạng giá trị tiền tệ           | `"€1,234.50"`                 |
+| `usePercentage()`   | Định dạng phần trăm                 | `"25%"`                       |
+| `useDate()`         | Định dạng ngày và giờ               | `"Aug 2, 2025"`               |
+| `useRelativeTime()` | Định dạng thời gian tương đối       | `"in 3 days"`                 |
+| `useUnit()`         | Định dạng giá trị với đơn vị        | `"5 kilometers"`              |
+| `useCompact()`      | Định dạng số ở dạng ký hiệu compact | `"1.2K"`                      |
+| `useList()`         | Định dạng mảng dưới dạng danh sách  | `"apple, banana, and orange"` |
+| `useIntl()`         | Lấy object `Intl` được gắn locale   | Full `Intl` API access        |
+
+### Ví dụ Hoàn chỉnh
+
+```tsx
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "react-intlayer/format";
+
+const MyComponent = () => {
+  const number = useNumber();
+  const currency = useCurrency();
+  const date = useDate();
+  const percentage = usePercentage();
+  const compact = useCompact();
+  const list = useList();
+  const relativeTime = useRelativeTime();
+  const unit = useUnit();
+
+  return (
+    <div>
+      <p>{number(123456.789)}</p>
+      <p>{currency(1234.5, { currency: "EUR" })}</p>
+      <p>{date(new Date(), "short")}</p>
+      <p>{percentage(0.25)}</p>
+      <p>{compact(1200)}</p>
+      <p>{list(["apple", "banana", "orange"])}</p>
+      <p>{relativeTime(new Date(), new Date(Date.now() + 86400000))}</p>
+      <p>{unit(5, { unit: "kilometer" })}</p>
+    </div>
+  );
+};
+```
 
 ## Intl được lưu trong bộ nhớ đệm
 
@@ -134,6 +191,61 @@ const regionNames = new Intl.DisplayNames("fr", { type: "region" });
 regionNames.of("US"); // "États-Unis"
 ```
 
+### Các Composables Có Sẵn
+
+Tất cả các composables trả về computed refs tự động sử dụng locale từ `IntlayerProvider` được inject.
+
+| Composable          | Mô tả                                | Ví dụ Output                  |
+| ------------------- | ------------------------------------ | ----------------------------- |
+| `useNumber()`       | Định dạng số với nhóm                | `"123,456.789"`               |
+| `useCurrency()`     | Định dạng giá trị tiền tệ            | `"€1,234.50"`                 |
+| `usePercentage()`   | Định dạng phần trăm                  | `"25%"`                       |
+| `useDate()`         | Định dạng ngày và giờ                | `"Aug 2, 2025"`               |
+| `useRelativeTime()` | Định dạng thời gian tương đối        | `"in 3 days"`                 |
+| `useUnit()`         | Định dạng giá trị với đơn vị         | `"5 kilometers"`              |
+| `useCompact()`      | Định dạng số ở ký hiệu compact       | `"1.2K"`                      |
+| `useList()`         | Định dạng mảng dưới dạng danh sách   | `"apple, banana, and orange"` |
+| `useIntl()`         | Lấy đối tượng `Intl` liên kết locale | Full `Intl` API access        |
+
+### Ví Dụ Hoàn Chỉnh
+
+```vue
+<script setup>
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "vue-intlayer/format";
+
+const number = useNumber();
+const currency = useCurrency();
+const date = useDate();
+const percentage = usePercentage();
+const compact = useCompact();
+const list = useList();
+const relativeTime = useRelativeTime();
+const unit = useUnit();
+</script>
+
+<template>
+  <div>
+    <p>{{ number.value(123456.789) }}</p>
+    <p>{{ currency.value(1234.5, { currency: "EUR" }) }}</p>
+    <p>{{ date.value(new Date(), "short") }}</p>
+    <p>{{ percentage.value(0.25) }}</p>
+    <p>{{ compact.value(1200) }}</p>
+    <p>{{ list.value(["apple", "banana", "orange"]) }}</p>
+    <p>{{ relativeTime.value(new Date(), new Date(Date.now() + 86400000)) }}</p>
+    <p>{{ unit.value(5, { unit: "kilometer" }) }}</p>
+  </div>
+</template>
+```
+
 ### `Intl.Collator`
 
 Dùng để so sánh và sắp xếp chuỗi theo ngữ cảnh địa phương:
@@ -149,6 +261,10 @@ const collator = new Intl.Collator("de", {
 const words = ["äpfel", "zebra", "100", "20"];
 words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
 ```
+
+## Vanilla JS / Node.js Formatters
+
+Đối với các ngữ cảnh không sử dụng framework, hãy import các formatter trực tiếp từ `intlayer`. Lưu ý rằng bạn phải truyền locale theo cách thủ công.
 
 ### `Intl.PluralRules`
 
@@ -302,6 +418,8 @@ const content = getTranslation(
 - **languageContent**: Đối tượng ánh xạ các locale tới nội dung
 - **locale**: Locale mục tiêu (mặc định là locale cấu hình sẵn)
 - **fallback**: Có fallback về locale mặc định hay không (mặc định là true)
+
+### Các tính năng Intl bổ sung
 
 ### `getIntlayer(dictionaryKey, locale?, plugins?)`
 
@@ -594,3 +712,9 @@ import {
 ```
 
 > Các composable đó sẽ lấy locale từ `IntlayerProvider` được inject vào
+
+## Ghi chú
+
+- Tất cả các helper chấp nhận `string` inputs; chúng được chuyển đổi nội bộ thành numbers hoặc dates.
+- Locale mặc định là `internationalization.defaultLocale` được cấu hình của bạn nếu không được cung cấp.
+- Các tiện ích này là thin wrappers; để định dạng nâng cao, hãy sử dụng các tùy chọn `Intl` tiêu chuẩn.

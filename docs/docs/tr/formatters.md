@@ -400,6 +400,8 @@ date(new Date(), "short"); // ör. "08/02/25, 14:30"
 date("2025-08-02T14:30:00Z", { locale: "fr", month: "long", day: "numeric" }); // "2 août"
 ```
 
+### Ek Intl Özellikleri
+
 ### `relativeTime(from, to = new Date(), options?)`
 
 `Intl.RelativeTimeFormat` ile iki an arasında göreceli zamanı biçimlendirir.
@@ -457,6 +459,8 @@ compact(1200); // "1.2K"
 compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
 ```
 
+## Locale Utilities
+
 ### `list(values, options?)`
 
 Değerler dizisini `Intl.ListFormat` kullanarak yerelleştirilmiş liste dizesine biçimlendirir.
@@ -474,6 +478,17 @@ import { list } from "intlayer";
 list(["apple", "banana", "orange"]); // "apple, banana, and orange"
 list(["red", "green", "blue"], { locale: "fr", type: "disjunction" }); // "rouge, vert ou bleu"
 list([1, 2, 3], { type: "unit" }); // "1, 2, 3"
+```
+
+### `getLocaleLang(locale?)`
+
+Bir locale stringinden dil kodunu çıkarır:
+
+```ts
+import { getLocaleLang } from "intlayer";
+
+getLocaleLang("en-US"); // "en"
+getLocaleLang("fr-CA"); // "fr"
 ```
 
 ## Notlar
@@ -585,6 +600,20 @@ import {
 
 > Bu kancalar `IntlayerProvider` veya `IntlayerServerProvider`'dan yerel ayarı dikkate alacaktır
 
+### `getHTMLTextDir(locale?)`
+
+Bir locale için metin yönünü döndürür:
+
+```ts
+import { getHTMLTextDir } from "intlayer";
+
+getHTMLTextDir("en-US"); // "ltr"
+getHTMLTextDir("ar"); // "rtl"
+getHTMLTextDir("he"); // "rtl"
+```
+
+## Content Handling Utilities
+
 ### Vue
 
 İstemci bileşenleri:
@@ -603,3 +632,33 @@ import {
 ```
 
 > Bu composable'lar enjekte edilen `IntlayerProvider`'dan yerel ayarı dikkate alacaktır
+
+### `getTranslation(languageContent, locale?, fallback?)`
+
+Belirli bir locale için içeriği çıkarır:
+
+```ts
+import { getTranslation } from "intlayer";
+
+const content = getTranslation(
+  { en: "Hello", fr: "Bonjour", de: "Hallo" },
+  "fr",
+  true
+); // "Bonjour"
+```
+
+### `getIntlayer(dictionaryKey, locale?, plugins?)`
+
+Bir sözlükten içeriği alır ve dönüştürür:
+
+```ts
+import { getIntlayer } from "intlayer";
+
+const content = getIntlayer("common", "fr");
+```
+
+## Notlar
+
+- Tüm yardımcılar `string` girdilerini kabul eder; dahili olarak sayılara veya tarihlere dönüştürülür.
+- Yerel ayar sağlanmadıysa, yapılandırılmış `internationalization.defaultLocale` değerine varsayılan olarak ayarlanır.
+- Bu yardımcılar ince sarmalayıcılardır; gelişmiş biçimlendirme için standart `Intl` seçeneklerinden geçin.

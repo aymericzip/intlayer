@@ -32,10 +32,6 @@ author: aymericzip
 
 `express-intlayer` ist eine leistungsstarke Internationalisierungs-Middleware (i18n) für Express-Anwendungen, die entwickelt wurde, um Ihre Backend-Dienste global zugänglich zu machen, indem sie lokalisierte Antworten basierend auf den Präferenzen des Clients bereitstellt.
 
-## Warum Ihr Backend internationalisieren?
-
-Die Internationalisierung Ihres Backends ist entscheidend, um ein globales Publikum effektiv zu bedienen. Sie ermöglicht es Ihrer Anwendung, Inhalte und Nachrichten in der bevorzugten Sprache jedes Benutzers bereitzustellen. Diese Fähigkeit verbessert die Benutzererfahrung und erweitert die Reichweite Ihrer Anwendung, indem sie für Menschen aus verschiedenen sprachlichen Hintergründen zugänglicher und relevanter wird.
-
 ### Praktische Anwendungsfälle
 
 - **Anzeige von Backend-Fehlern in der Sprache des Benutzers**: Wenn ein Fehler auftritt, verbessert die Anzeige von Nachrichten in der Muttersprache des Benutzers das Verständnis und reduziert Frustration. Dies ist besonders nützlich für dynamische Fehlermeldungen, die in Frontend-Komponenten wie Toasts oder Modals angezeigt werden könnten.
@@ -254,25 +250,6 @@ Stellen Sie sicher, dass die automatisch generierten Typen (standardmäßig unte
   ],
 }
 ```
-
-### VS Code Extension
-
-Um Ihre Entwicklungserfahrung mit Intlayer zu verbessern, können Sie die offizielle **Intlayer VS Code Extension** installieren.
-
-[Im VS Code Marketplace installieren](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Diese Erweiterung bietet:
-
-- **Autovervollständigung** für Übersetzungsschlüssel.
-- **Echtzeit-Fehlererkennung** für fehlende Übersetzungen.
-- **Inline-Vorschauen** des übersetzten Inhalts.
-- **Schnellaktionen**, um Übersetzungen einfach zu erstellen und zu aktualisieren.
-
-Für weitere Details zur Nutzung der Erweiterung lesen Sie die [Intlayer VS Code Extension Dokumentation](https://intlayer.org/doc/vs-code-extension).
-
-### Git-Konfiguration
-
-Es wird empfohlen, die von Intlayer generierten Dateien zu ignorieren. So vermeiden Sie, diese versehentlich in Ihr Git-Repository zu committen.
 
 ### VS Code Extension
 

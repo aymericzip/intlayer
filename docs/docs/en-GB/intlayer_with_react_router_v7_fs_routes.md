@@ -163,6 +163,25 @@ The core package that provides internationalisation tools for configuration mana
 
 </Steps>
 
+#### File Structure
+
+```bash
+app/
+├── root.tsx                         # Layout wrapper for locale routes
+└──routes/
+    ├── ($locale)._index.tsx         # Home page (/, /es, etc.)
+    ├── ($locale)._index.content.ts  # Home page content
+    ├── ($locale).about.tsx          # About page (/about, /es/about, etc.)
+    └── ($locale).about.content.ts   # About page content
+```
+
+The naming conventions:
+
+- `($locale)` - Optional dynamic segment for the locale parameter
+- `_layout` - Layout route that wraps child routes
+- `_index` - Index route (renders at the parent path)
+- `.` (dot) - Separates path segments (e.g., `($locale).about` → `/:locale?/about`)
+
 ## Step-by-Step Guide to Set Up Intlayer in a React Router v7 Application with File-System Routes
 
 <Tabs defaultTab="video">

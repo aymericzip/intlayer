@@ -248,6 +248,28 @@ bun x intlayer init mcp
 
 ---
 
+## الإعداد في Claude Code (CLI)
+
+اتبع [الوثائق الرسمية](https://modelcontextprotocol.io/quickstart/user) لتكوين خادم MCP في Claude Code.
+
+### خادم محلي (stdio) (موصى به)
+
+لربط خادم Intlayer MCP بـ Claude Code باستخدام stdio:
+
+```bash
+claude mcp add intlayer npx -y @intlayer/mcp
+```
+
+### خادم بعيد (Streamable HTTP)
+
+لربط خادم Intlayer MCP بـ Claude Code باستخدام Streamable HTTP (SSE):
+
+```bash
+claude mcp add intlayer https://mcp.intlayer.org -t http
+```
+
+---
+
 ## استخدام خادم MCP عبر سطر الأوامر
 
 يمكنك أيضًا تشغيل خادم Intlayer MCP مباشرة من سطر الأوامر للاختبار أو التصحيح أو التكامل مع أدوات أخرى.

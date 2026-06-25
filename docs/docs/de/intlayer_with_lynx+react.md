@@ -484,10 +484,12 @@ Dies ermöglicht Funktionen wie:
 
 ---
 
-Um zu vermeiden, dass automatisch generierte Dateien von Intlayer in das Repository aufgenommen werden, fügen Sie Folgendes zu Ihrer `.gitignore` hinzu:
+## Git-Konfiguration
+
+Um zu vermeiden, dass von Intlayer automatisch generierte Dateien committed werden, fügen Sie Folgendes zu Ihrer `.gitignore` hinzu:
 
 ```bash
-#  Ignorieren Sie die von Intlayer generierten Dateien
+# Von Intlayer generierte Dateien ignorieren
 .intlayer
 ```
 

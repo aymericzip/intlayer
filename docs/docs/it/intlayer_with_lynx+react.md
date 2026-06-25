@@ -469,6 +469,17 @@ Per evitare di commettere file generati automaticamente da Intlayer, aggiungi qu
 
 ---
 
+## Configurazione Git
+
+Per evitare di committare file auto-generati da Intlayer, aggiungi quanto segue al tuo `.gitignore`:
+
+```bash
+# Ignora i file generati da Intlayer
+.intlayer
+```
+
+---
+
 ### Estensione VS Code
 
 Per migliorare la tua esperienza di sviluppo con Intlayer, puoi installare la **Estensione ufficiale Intlayer per VS Code**.

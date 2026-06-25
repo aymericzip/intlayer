@@ -885,6 +885,21 @@ Các cài đặt về cách nội dung được quản lý trong ứng dụng, b
 
 ---
 
+### Cấu hình Hệ thống
+
+Các cài đặt liên quan đến các đường dẫn nội bộ và kết quả đầu ra của Intlayer. Các cài đặt này thường là nội bộ và không cần phải được sửa đổi bởi người dùng.
+
+| Field                     | Description                                                                   | Type     | Default                           | Example              | Note                                                                  |
+| ------------------------- | ----------------------------------------------------------------------------- | -------- | --------------------------------- | -------------------- | --------------------------------------------------------------------- |
+| `baseDir`                 | Thư mục cơ sở cho dự án.                                                      | `string` | `process.cwd()`                   | `'/path/to/project'` | Được sử dụng để giải quyết tất cả các thư mục liên quan đến Intlayer. |
+| `dictionariesDir`         | Đường dẫn thư mục để lưu trữ từ điển bản địa hóa.                             | `string` | `'.intlayer/dictionary'`          |                      |                                                                       |
+| `moduleAugmentationDir`   | Thư mục để tăng cường module, cho phép có gợi ý IDE tốt hơn và kiểm tra loại. | `string` | `'.intlayer/types'`               | `'intlayer-types'`   | Hãy chắc chắn bao gồm điều này trong `tsconfig.json`.                 |
+| `unmergedDictionariesDir` | Thư mục để lưu trữ các từ điển chưa được hợp nhất.                            | `string` | `'.intlayer/unmerged_dictionary'` |                      |                                                                       |
+| `typesDir`                | Thư mục để lưu trữ các loại từ điển.                                          | `string` | `'.intlayer/types'`               |                      |                                                                       |
+| `mainDir`                 | Thư mục nơi lưu trữ các tệp ứng dụng chính.                                   | `string` | `'.intlayer/main'`                |                      |                                                                       |
+| `configDir`               | Thư mục nơi lưu trữ các tệp cấu hình.                                         | `string` | `'.intlayer/config'`              |                      |                                                                       |
+| `cacheDir`                | Thư mục nơi lưu trữ các tệp bộ nhớ đệm.                                       | `string` | `'.intlayer/cache'`               |                      |                                                                       |
+
 ### Cấu hình Dictionary (Dictionary)
 
 Tham số điều khiển các hoạt động của dictionary, bao gồm hành vi tự động điền (auto-fill) và thế hệ nội dung.
@@ -990,23 +1005,6 @@ Các tùy chọn build được áp dụng cho các plugin `@intlayer/babel` và
 | `checkTypes`      | Biểu thị liệu build có nên kiểm tra các kiểu dữ liệu TypeScript và ghi nhật ký lỗi hay không. | `boolean`                        | `false`                                                                                                                                                                           |                                                                               | Có thể làm chậm quá trình build.                                                                                                                                                                                                                                                                                                                                    |
 | `outputFormat`    | Kiểm soát định dạng đầu ra cho các dictionary.                                                | `('esm' &#124; 'cjs')[]`         | `['esm', 'cjs']`                                                                                                                                                                  | `['cjs']`                                                                     |                                                                                                                                                                                                                                                                                                                                                                     |
 | `traversePattern` | Pattern chỉ rõ các tệp cần quét trong quá trình tối ưu hóa.                                   | `string[]`                       | `['**/*.{tsx,ts,js,mjs,cjs,jsx,vue,svelte,svte}', '!**/node_modules/**', '!**/dist/**', '!**/.intlayer/**', '!**/*.config.*', '!**/*.test.*', '!**/*.spec.*', '!**/*.stories.*']` | `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']` | • Hạn chế tối ưu hóa cho các tệp có liên quan để cải thiện hiệu suất build.<br/>• Bị bỏ qua nếu `optimize` tắt.<br/>• Sử dụng các pattern glob.                                                                                                                                                                                                                     |
-
----
-
-### Cấu hình Hệ thống (System)
-
-Các cài đặt liên quan đến các đường dẫn nội bộ và kết quả đầu ra của Intlayer. Các cài đặt này thường là nội bộ và người dùng không cần phải thay đổi chúng.
-
-| Trường                    | Mô tả                                                                                 | Kiểu dữ liệu | Mặc định                          | Ví dụ                | Nhận xét                                                              |
-| ------------------------- | ------------------------------------------------------------------------------------- | ------------ | --------------------------------- | -------------------- | --------------------------------------------------------------------- |
-| `baseDir`                 | Thư mục gốc của dự án.                                                                | `string`     | `process.cwd()`                   | `'/path/to/project'` | Được sử dụng để giải quyết tất cả các thư mục liên quan đến Intlayer. |
-| `dictionariesDir`         | Đường dẫn thư mục để lưu trữ các từ điển bản địa hóa.                                 | `string`     | `'.intlayer/dictionary'`          |                      |                                                                       |
-| `moduleAugmentationDir`   | Thư mục cho module augmentation, cho phép gợi ý IDE và kiểm tra kiểu dữ liệu tốt hơn. | `string`     | `'.intlayer/types'`               | `'intlayer-types'`   | Đảm bảo bao gồm phần này trong `tsconfig.json`.                       |
-| `unmergedDictionariesDir` | Thư mục để lưu trữ các từ điển chưa được hợp nhất.                                    | `string`     | `'.intlayer/unmerged_dictionary'` |                      |                                                                       |
-| `typesDir`                | Thư mục để lưu trữ các kiểu dữ liệu từ điển.                                          | `string`     | `'.intlayer/types'`               |                      |                                                                       |
-| `mainDir`                 | Thư mục lưu trữ các tệp ứng dụng chính.                                               | `string`     | `'.intlayer/main'`                |                      |                                                                       |
-| `configDir`               | Thư mục lưu trữ các tệp cấu hình.                                                     | `string`     | `'.intlayer/config'`              |                      |                                                                       |
-| `cacheDir`                | Thư mục lưu trữ các tệp bộ nhớ đệm (cache).                                           | `string`     | `'.intlayer/cache'`               |                      |                                                                       |
 
 ---
 

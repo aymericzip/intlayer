@@ -164,6 +164,25 @@ bun add vite-intlayer --dev
 
 </Steps>
 
+#### 파일 구조
+
+```bash
+app/
+├── root.tsx                         # 로케일 경로를 위한 레이아웃 래퍼
+└──routes/
+    ├── ($locale)._index.tsx         # 홈 페이지 (/, /es, 등)
+    ├── ($locale)._index.content.ts  # 홈 페이지 콘텐츠
+    ├── ($locale).about.tsx          # About 페이지 (/about, /es/about, 등)
+    └── ($locale).about.content.ts   # About 페이지 콘텐츠
+```
+
+명명 규칙:
+
+- `($locale)` - 로케일 파라미터를 위한 선택적 동적 세그먼트
+- `_layout` - 자식 경로를 래핑하는 레이아웃 경로
+- `_index` - 인덱스 경로 (부모 경로에서 렌더링)
+- `.` (점) - 경로 세그먼트 구분 (예: `($locale).about` → `/:locale?/about`)
+
 ## 파일 시스템 기반 라우트를 사용한 React Router v7 애플리케이션에서 Intlayer 설정을 위한 단계별 가이드
 
 <Tabs defaultTab="video">
@@ -672,101 +691,6 @@ For more details on how to use the extension, refer to the [Intlayer VS Code Ext
 ## Go Further
 
 To go further, you can implement the [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md) or externalize your content using the [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md).
-
----
-
-## Documentation References
-
-- [Intlayer Documentation](https://intlayer.org)
-- [React Router v7 Documentation](https://reactrouter.com/)
-- [React Router fs-routes Documentation](https://reactrouter.com/how-to/file-route-conventions)
-- [useIntlayer hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useIntlayer.md)
-- [useLocale hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/react-intlayer/useLocale.md)
-- [Content Declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md)
-- [Configuration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md)
-
-This comprehensive guide provides everything you need to integrate Intlayer with React Router v7 using file-system based routing for a fully internationalized application with locale-aware routing and TypeScript support.
-
-<Steps>
-
-<Step number={11} title="미들웨어 추가 (선택 사항)" isOptional={true}>
-
-`intlayerProxy`를 사용하여 애플리케이션에 서버 사이드 라우팅을 추가할 수도 있습니다. 이 플러그인은 URL을 기반으로 현재 로케일을 자동으로 감지하고 적절한 로케일 쿠키를 설정합니다. 로케일이 지정되지 않은 경우, 플러그인은 사용자의 브라우저 언어 설정을 기반으로 가장 적합한 로케일을 결정합니다. 로케일이 감지되지 않으면 기본 로케일로 리디렉션합니다.
-
-> `intlayerProxy`를 프로덕션 환경에서 사용하려면 `vite-intlayer` 패키지를 `devDependencies`에서 `dependencies`로 변경해야 합니다.
-
-```typescript {3,7} fileName="vite.config.ts"
-import { reactRouter } from "@react-router/dev/vite";
-import { defineConfig } from "vite";
-import { intlayer, intlayerProxy } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayerProxy(), // should be placed first
-    reactRouter(),
-
-    intlayer(),
-  ],
-});
-```
-
----
-
-</Step>
-
-</Steps>
-
-## TypeScript 구성
-
-Intlayer는 모듈 확장을 사용하여 TypeScript의 이점을 활용하고 코드베이스를 더욱 견고하게 만듭니다.
-
-TypeScript 구성에 자동 생성된 타입이 포함되어 있는지 확인하세요:
-
-```json5 fileName="tsconfig.json"
-{
-  // ... 기존 구성
-  include: [
-    // ... 기존 포함 항목
-    ".intlayer/**/*.ts", // 자동 생성된 타입 포함
-  ],
-}
-```
-
----
-
-## Git 구성
-
-Intlayer가 생성한 파일은 Git 저장소에 커밋하지 않도록 무시하는 것이 좋습니다.
-
-이를 위해 `.gitignore` 파일에 다음 지침을 추가할 수 있습니다:
-
-```plaintext fileName=".gitignore"
-# Intlayer가 생성한 파일 무시
-.intlayer
-```
-
----
-
-## VS 코드 확장
-
-Intlayer 개발 경험을 향상시키기 위해 공식 **Intlayer VS 코드 확장**을 설치할 수 있습니다.
-
-[VS 코드 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-이 확장은 다음 기능을 제공합니다:
-
-- 번역 키에 대한 **자동 완성**.
-- 누락된 번역에 대한 **실시간 오류 감지**.
-- 번역된 콘텐츠의 **인라인 미리보기**.
-- 번역을 쉽게 생성하고 업데이트할 수 있는 **빠른 작업**.
-
-확장 사용 방법에 대한 자세한 내용은 [Intlayer VS 코드 확장 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
-
----
-
-## 더 나아가기
-
-더 나아가려면 [비주얼 에디터](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_visual_editor.md)를 구현하거나 [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/intlayer_CMS.md)를 사용하여 콘텐츠를 외부화할 수 있습니다.
 
 ---
 

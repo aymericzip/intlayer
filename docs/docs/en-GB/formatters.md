@@ -400,6 +400,8 @@ date(new Date(), "short"); // e.g., "08/02/25, 14:30"
 date("2025-08-02T14:30:00Z", { locale: "fr", month: "long", day: "numeric" }); // "2 août"
 ```
 
+### Additional Intl Features
+
 ### `relativeTime(from, to = new Date(), options?)`
 
 Formats relative time between two instants with `Intl.RelativeTimeFormat`.
@@ -457,6 +459,8 @@ compact(1200); // "1.2K"
 compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
 ```
 
+## Locale Utilities
+
 ### `list(values, options?)`
 
 Formats an array of values into a localised list string using `Intl.ListFormat`.
@@ -474,6 +478,17 @@ import { list } from "intlayer";
 list(["apple", "banana", "orange"]); // "apple, banana, and orange"
 list(["red", "green", "blue"], { locale: "fr", type: "disjunction" }); // "rouge, vert ou bleu"
 list([1, 2, 3], { type: "unit" }); // "1, 2, 3"
+```
+
+### `getLocaleLang(locale?)`
+
+Extracts the language code from a locale string:
+
+```ts
+import { getLocaleLang } from "intlayer";
+
+getLocaleLang("en-US"); // "en"
+getLocaleLang("fr-CA"); // "fr"
 ```
 
 ## Notes
@@ -592,6 +607,20 @@ import {
 
 > These hooks will consider the locale from the `IntlayerProvider` or `IntlayerServerProvider`
 
+### `getHTMLTextDir(locale?)`
+
+Returns the text direction for a locale:
+
+```ts
+import { getHTMLTextDir } from "intlayer";
+
+getHTMLTextDir("en-US"); // "ltr"
+getHTMLTextDir("ar"); // "rtl"
+getHTMLTextDir("he"); // "rtl"
+```
+
+## Content Handling Utilities
+
 ### Vue
 
 Client components:
@@ -610,3 +639,33 @@ import {
 ```
 
 > These composables will consider the locale from the injected `IntlayerProvider`
+
+### `getTranslation(languageContent, locale?, fallback?)`
+
+Extracts content for a specific locale:
+
+```ts
+import { getTranslation } from "intlayer";
+
+const content = getTranslation(
+  { en: "Hello", fr: "Bonjour", de: "Hallo" },
+  "fr",
+  true
+); // "Bonjour"
+```
+
+### `getIntlayer(dictionaryKey, locale?, plugins?)`
+
+Retrieves and transforms content from a dictionary:
+
+```ts
+import { getIntlayer } from "intlayer";
+
+const content = getIntlayer("common", "fr");
+```
+
+## Notes
+
+- All helpers accept `string` inputs; they are internally coerced to numbers or dates.
+- Locale defaults to your configured `internationalization.defaultLocale` if not provided.
+- These utilities are thin wrappers; for advanced formatting, pass through the standard `Intl` options.

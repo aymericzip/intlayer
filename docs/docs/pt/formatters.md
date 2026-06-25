@@ -176,6 +176,61 @@ getLocaleName("de", "es"); // "alemán"
 - **displayLocale**: O locale para o qual obter o nome
 - **targetLocale**: O locale para exibir o nome (padrão é displayLocale)
 
+### Composables Disponíveis
+
+Todos os composables retornam computed refs que usam automaticamente a locale do `IntlayerProvider` injetado.
+
+| Composable          | Descrição                              | Exemplo de Saída              |
+| ------------------- | -------------------------------------- | ----------------------------- |
+| `useNumber()`       | Formatar números com agrupamento       | `"123,456.789"`               |
+| `useCurrency()`     | Formatar valores de moeda              | `"€1,234.50"`                 |
+| `usePercentage()`   | Formatar percentuais                   | `"25%"`                       |
+| `useDate()`         | Formatar datas e horas                 | `"Aug 2, 2025"`               |
+| `useRelativeTime()` | Formatar tempo relativo                | `"in 3 days"`                 |
+| `useUnit()`         | Formatar valores com unidades          | `"5 kilometers"`              |
+| `useCompact()`      | Formatar números em notação compacta   | `"1.2K"`                      |
+| `useList()`         | Formatar arrays como listas            | `"apple, banana, and orange"` |
+| `useIntl()`         | Obter objeto `Intl` vinculado à locale | Acesso completo à API `Intl`  |
+
+### Exemplo Completo
+
+```vue
+<script setup>
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "vue-intlayer/format";
+
+const number = useNumber();
+const currency = useCurrency();
+const date = useDate();
+const percentage = usePercentage();
+const compact = useCompact();
+const list = useList();
+const relativeTime = useRelativeTime();
+const unit = useUnit();
+</script>
+
+<template>
+  <div>
+    <p>{{ number.value(123456.789) }}</p>
+    <p>{{ currency.value(1234.5, { currency: "EUR" }) }}</p>
+    <p>{{ date.value(new Date(), "short") }}</p>
+    <p>{{ percentage.value(0.25) }}</p>
+    <p>{{ compact.value(1200) }}</p>
+    <p>{{ list.value(["apple", "banana", "orange"]) }}</p>
+    <p>{{ relativeTime.value(new Date(), new Date(Date.now() + 86400000)) }}</p>
+    <p>{{ unit.value(5, { unit: "kilometer" }) }}</p>
+  </div>
+</template>
+```
+
 ### `getLocaleLang(locale?)`
 
 Extrai o código de idioma de uma string de locale:
@@ -189,6 +244,10 @@ getLocaleLang("de"); // "de"
 ```
 
 - **locale**: O locale do qual extrair o idioma (padrão é o locale atual)
+
+## Formatadores Vanilla JS / Node.js
+
+Para contextos sem framework, importe formatadores diretamente do `intlayer`. Observe que você deve passar o locale manualmente.
 
 ### `getLocaleFromPath(inputUrl)`
 
@@ -205,6 +264,8 @@ getLocaleFromPath("https://example.com/es/about"); // "es"
 
 - **inputUrl**: A string completa da URL ou caminho para processar
 - **returns**: O locale detectado ou o locale padrão se nenhum locale for encontrado
+
+### Funções de Formatter
 
 ### `getPathWithoutLocale(inputUrl, locales?)`
 
@@ -330,6 +391,8 @@ const content = await getIntlayerAsync("common", "fr");
 
 Todos os helpers abaixo são exportados de `intlayer`.
 
+### Funcionalidades Intl Adicionais
+
 ### `number(value, options?)`
 
 Formata um valor numérico usando agrupamento e decimais sensíveis ao locale.
@@ -365,6 +428,23 @@ percentage(0.25); // "25%"
 percentage(25); // "25%"
 percentage(0.237, { minimumFractionDigits: 1 }); // "23.7%"
 ```
+
+#### `Intl.PluralRules`
+
+Para determinar formas plurais em diferentes locales:
+
+```ts
+import { Intl } from "intlayer";
+
+const pluralRules = new Intl.PluralRules("ar");
+pluralRules.select(0); // "zero"
+pluralRules.select(1); // "one"
+pluralRules.select(2); // "two"
+pluralRules.select(3); // "few"
+pluralRules.select(11); // "many"
+```
+
+## Utilitários de Locale
 
 ### `currency(value, options?)`
 
@@ -610,3 +690,9 @@ import {
 ```
 
 > Esses composables irão considerar o locale do `IntlayerProvider` injetado
+
+## Notas
+
+- Todos os helpers aceitam entradas `string`; elas são internamente coagidas para números ou datas.
+- Locale padrão é sua `internationalization.defaultLocale` configurada, se não fornecida.
+- Esses utilitários são wrappers simples; para formatação avançada, passe pelas opções `Intl` padrão.

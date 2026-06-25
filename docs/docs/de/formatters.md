@@ -48,9 +48,15 @@ author: aymericzip
 
 # Intlayer Formatierer
 
+## Table of Contents
+
+<TOC/>
+
 ## Überblick
 
 Intlayer stellt eine Reihe von leichtgewichtigen Helfern bereit, die auf den nativen `Intl`-APIs aufbauen, sowie einen zwischengespeicherten `Intl`-Wrapper, um die wiederholte Erstellung schwerer Formatierer zu vermeiden. Diese Werkzeuge sind vollständig ortsabhängig und können aus dem Hauptpaket `intlayer` verwendet werden.
+
+## React Formatters
 
 ### Import
 
@@ -79,6 +85,61 @@ import {
 ```
 
 Wenn Sie React verwenden, sind auch Hooks verfügbar; siehe `react-intlayer/format`.
+
+### Verfügbare Hooks
+
+Alle Hooks verwenden automatisch das Locale aus `IntlayerProvider` oder `IntlayerServerProvider`.
+
+| Hook                | Description                              | Example Output                   |
+| ------------------- | ---------------------------------------- | -------------------------------- |
+| `useNumber()`       | Zahlen mit Gruppierung formatieren       | `"123,456.789"`                  |
+| `useCurrency()`     | Währungswerte formatieren                | `"€1,234.50"`                    |
+| `usePercentage()`   | Prozentsätze formatieren                 | `"25%"`                          |
+| `useDate()`         | Daten und Zeiten formatieren             | `"Aug 2, 2025"`                  |
+| `useRelativeTime()` | Relative Zeit formatieren                | `"in 3 days"`                    |
+| `useUnit()`         | Werte mit Einheiten formatieren          | `"5 kilometers"`                 |
+| `useCompact()`      | Zahlen in kompakter Notation formatieren | `"1.2K"`                         |
+| `useList()`         | Arrays als Listen formatieren            | `"apple, banana, and orange"`    |
+| `useIntl()`         | Locale-gebundenes `Intl` Objekt abrufen  | Vollständiger `Intl` API Zugriff |
+
+### Vollständiges Beispiel
+
+```tsx
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "react-intlayer/format";
+
+const MyComponent = () => {
+  const number = useNumber();
+  const currency = useCurrency();
+  const date = useDate();
+  const percentage = usePercentage();
+  const compact = useCompact();
+  const list = useList();
+  const relativeTime = useRelativeTime();
+  const unit = useUnit();
+
+  return (
+    <div>
+      <p>{number(123456.789)}</p>
+      <p>{currency(1234.5, { currency: "EUR" })}</p>
+      <p>{date(new Date(), "short")}</p>
+      <p>{percentage(0.25)}</p>
+      <p>{compact(1200)}</p>
+      <p>{list(["apple", "banana", "orange"])}</p>
+      <p>{relativeTime(new Date(), new Date(Date.now() + 86400000))}</p>
+      <p>{unit(5, { unit: "kilometer" })}</p>
+    </div>
+  );
+};
+```
 
 ## Zwischengespeichertes Intl
 
@@ -134,6 +195,61 @@ const regionNames = new Intl.DisplayNames("fr", { type: "region" });
 regionNames.of("US"); // "États-Unis"
 ```
 
+### Verfügbare Composables
+
+Alle Composables geben berechnete Refs zurück, die automatisch das Gebietsschema vom eingefügten `IntlayerProvider` verwenden.
+
+| Composable          | Beschreibung                                | Beispielausgabe                  |
+| ------------------- | ------------------------------------------- | -------------------------------- |
+| `useNumber()`       | Formatiere Zahlen mit Gruppierung           | `"123,456.789"`                  |
+| `useCurrency()`     | Formatiere Währungswerte                    | `"€1,234.50"`                    |
+| `usePercentage()`   | Formatiere Prozentsätze                     | `"25%"`                          |
+| `useDate()`         | Formatiere Daten und Zeiten                 | `"Aug 2, 2025"`                  |
+| `useRelativeTime()` | Formatiere relative Zeit                    | `"in 3 days"`                    |
+| `useUnit()`         | Formatiere Werte mit Einheiten              | `"5 kilometers"`                 |
+| `useCompact()`      | Formatiere Zahlen in kompakter Notation     | `"1.2K"`                         |
+| `useList()`         | Formatiere Arrays als Listen                | `"apple, banana, and orange"`    |
+| `useIntl()`         | Rufe gebietsschemagebendes `Intl` Objekt ab | Vollständiger `Intl` API-Zugriff |
+
+### Vollständiges Beispiel
+
+```vue
+<script setup>
+import {
+  useNumber,
+  useCurrency,
+  useDate,
+  usePercentage,
+  useCompact,
+  useList,
+  useRelativeTime,
+  useUnit,
+} from "vue-intlayer/format";
+
+const number = useNumber();
+const currency = useCurrency();
+const date = useDate();
+const percentage = usePercentage();
+const compact = useCompact();
+const list = useList();
+const relativeTime = useRelativeTime();
+const unit = useUnit();
+</script>
+
+<template>
+  <div>
+    <p>{{ number.value(123456.789) }}</p>
+    <p>{{ currency.value(1234.5, { currency: "EUR" }) }}</p>
+    <p>{{ date.value(new Date(), "short") }}</p>
+    <p>{{ percentage.value(0.25) }}</p>
+    <p>{{ compact.value(1200) }}</p>
+    <p>{{ list.value(["apple", "banana", "orange"]) }}</p>
+    <p>{{ relativeTime.value(new Date(), new Date(Date.now() + 86400000)) }}</p>
+    <p>{{ unit.value(5, { unit: "kilometer" }) }}</p>
+  </div>
+</template>
+```
+
 ### `Intl.Collator`
 
 Für lokalisierte Zeichenfolgenvergleiche und Sortierungen:
@@ -149,6 +265,10 @@ const collator = new Intl.Collator("de", {
 const words = ["äpfel", "zebra", "100", "20"];
 words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
 ```
+
+## Vanilla JS / Node.js Formatters
+
+For non-framework contexts, import formatters directly from `intlayer`. Note that you must pass the locale manually.
 
 ### `Intl.PluralRules`
 
@@ -597,6 +717,16 @@ import {
 ```
 
 > Diese Hooks berücksichtigen die Locale vom `IntlayerProvider` oder `IntlayerServerProvider`
+
+### `getIntlayer(dictionaryKey, locale?, plugins?)`
+
+Ruft Inhalte aus einem Dictionary ab und transformiert sie:
+
+```ts
+import { getIntlayer } from "intlayer";
+
+const content = getIntlayer("common", "fr");
+```
 
 ### Vue
 

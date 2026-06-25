@@ -888,6 +888,21 @@ Einstellungen für die Inhaltsbehandlung in der Anwendung, einschließlich Verze
 
 ---
 
+### Systemkonfiguration
+
+Einstellungen für interne Pfade und Ausgabeergebnisse von Intlayer. Diese Einstellungen sind typischerweise intern und sollten normalerweise vom Benutzer nicht geändert werden.
+
+| Field                     | Description                                                                               | Type     | Default                           | Example              | Note                                                                 |
+| ------------------------- | ----------------------------------------------------------------------------------------- | -------- | --------------------------------- | -------------------- | -------------------------------------------------------------------- |
+| `baseDir`                 | Das Basisverzeichnis für das Projekt.                                                     | `string` | `process.cwd()`                   | `'/path/to/project'` | Wird verwendet, um alle Intlayer-bezogenen Verzeichnisse aufzulösen. |
+| `dictionariesDir`         | Der Verzeichnispfad zum Speichern von Lokalisierungswörterbüchern.                        | `string` | `'.intlayer/dictionary'`          |                      |                                                                      |
+| `moduleAugmentationDir`   | Verzeichnis für Modul-Augmentation, das bessere IDE-Vorschläge und Typprüfung ermöglicht. | `string` | `'.intlayer/types'`               | `'intlayer-types'`   | Stellen Sie sicher, dass dies in `tsconfig.json` enthalten ist.      |
+| `unmergedDictionariesDir` | Das Verzeichnis zum Speichern von nicht zusammengeführten Wörterbüchern.                  | `string` | `'.intlayer/unmerged_dictionary'` |                      |                                                                      |
+| `typesDir`                | Das Verzeichnis zum Speichern von Wörterbuchtypen.                                        | `string` | `'.intlayer/types'`               |                      |                                                                      |
+| `mainDir`                 | Das Verzeichnis, in dem die Hauptanwendungsdateien gespeichert sind.                      | `string` | `'.intlayer/main'`                |                      |                                                                      |
+| `configDir`               | Das Verzeichnis, in dem Konfigurationsdateien gespeichert sind.                           | `string` | `'.intlayer/config'`              |                      |                                                                      |
+| `cacheDir`                | Das Verzeichnis, in dem Cache-Dateien gespeichert sind.                                   | `string` | `'.intlayer/cache'`               |                      |                                                                      |
+
 ### Wörterbuchkonfiguration
 
 Einstellungen, die Wörterbuchoperationen steuern, einschließlich automatischem Ausfüllverhalten und Inhaltsgenerierung.
@@ -993,22 +1008,6 @@ Die Build-Optionen gelten für die Plugins `@intlayer/babel` und `@intlayer/swc`
 | `checkTypes`      | Gibt an, ob der Build TypeScript-Typen prüfen und Fehler protokollieren soll.             | `boolean`                        | `false`                                                                                                                                                                           |                                                                               | Kann den Build-Prozess verlangsamen.                                                                                                                                                                                                                                                                                              |
 | `outputFormat`    | Steuert das Ausgabeformat der Wörterbücher.                                               | `('esm' &#124; 'cjs')[]`         | `['esm', 'cjs']`                                                                                                                                                                  | `['cjs']`                                                                     |                                                                                                                                                                                                                                                                                                                                   |
 | `traversePattern` | Muster, die definieren, welche Dateien während der Optimierung durchlaufen werden sollen. | `string[]`                       | `['**/*.{tsx,ts,js,mjs,cjs,jsx,vue,svelte,svte}', '!**/node_modules/**', '!**/dist/**', '!**/.intlayer/**', '!**/*.config.*', '!**/*.test.*', '!**/*.spec.*', '!**/*.stories.*']` | `['src/**/*.{ts,tsx}', '../ui-library/**/*.{ts,tsx}', '!**/node_modules/**']` | • Begrenzen Sie die Optimierung auf relevante Dateien, um die Build-Leistung zu verbessern.<br/>• Wird ignoriert, wenn `optimize` deaktiviert ist.<br/>• Verwendet Glob-Muster.                                                                                                                                                   |
-
----
-
-### Systemkonfiguration
-
-Diese Einstellungen sind für fortgeschrittene Anwendungsfälle und die interne Konfiguration von Intlayer gedacht.
-
-| Feld                      | Beschreibung                                         | Typ      | Standard                          | Beispiel | Hinweis |
-| ------------------------- | ---------------------------------------------------- | -------- | --------------------------------- | -------- | ------- |
-| `dictionariesDir`         | Verzeichnis für kompilierte Wörterbücher.            | `string` | `'.intlayer/dictionary'`          |          |         |
-| `moduleAugmentationDir`   | Verzeichnis für die TypeScript-Modul-Augmentierung.  | `string` | `'.intlayer/types'`               |          |         |
-| `unmergedDictionariesDir` | Verzeichnis für nicht zusammengeführte Wörterbücher. | `string` | `'.intlayer/unmerged_dictionary'` |          |         |
-| `typesDir`                | Verzeichnis für generierte Typen.                    | `string` | `'.intlayer/types'`               |          |         |
-| `mainDir`                 | Verzeichnis für die Intlayer-Hauptdatei.             | `string` | `'.intlayer/main'`                |          |         |
-| `configDir`               | Verzeichnis für kompilierte Konfigurationsdateien.   | `string` | `'.intlayer/config'`              |          |         |
-| `cacheDir`                | Verzeichnis für Cache-Dateien.                       | `string` | `'.intlayer/cache'`               |          |         |
 
 ---
 

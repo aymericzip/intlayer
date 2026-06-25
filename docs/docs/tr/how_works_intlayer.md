@@ -22,6 +22,10 @@ author: aymericzip
 
 # Intlayer Nasıl Çalışır
 
+## İçindekiler
+
+<TOC/>
+
 ## Genel Bakış
 
 Intlayer'ın arkasındaki ana fikir, bileşen başına içerik yönetimini benimsemektir. Yani Intlayer'ın arkasındaki fikir, içeriğinizi kod tabanınızın herhangi bir yerinde, bileşeninizle aynı dizinde bildirmenize izin vermektir.
