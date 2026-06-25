@@ -1,25 +1,95 @@
 /**
  * Applies necessary polyfills for React Native to support Intlayer.
  *
- * This includes polyfilling `structuredClone` if it is missing,
- * and providing no-op implementations for standard DOM `window` methods
- * (`addEventListener`, `removeEventListener`, `postMessage`)
- * to ensure compatibility with libraries that expect a browser-like environment.
+ * This includes:
+ * - Polyfilling `structuredClone` if it is missing.
+ * - Providing no-op implementations for standard DOM `window` methods
+ *   (`addEventListener`, `removeEventListener`, `postMessage`).
+ * - Providing in-memory stubs for `document.cookie`, `localStorage`, and
+ *   `sessionStorage` so that `@intlayer/core`'s locale-storage helpers work
+ *   without crashing in a React Native environment.
+ *
+ * Note: These stubs are in-memory only. The locale selection will survive
+ * hot-reloads but not full app restarts. To persist across restarts, pass a
+ * custom `setLocale` to `<IntlayerProvider>` backed by AsyncStorage.
  */
+const createStorage = () => {
+  const store: Record<string, string> = {};
+  return {
+    getItem: (key: string) => store[key] ?? null,
+    setItem: (key: string, value: string) => {
+      store[key] = String(value);
+    },
+    removeItem: (key: string) => {
+      delete store[key];
+    },
+    clear: () => {
+      for (const key in store) {
+        delete store[key];
+      }
+    },
+    get length() {
+      return Object.keys(store).length;
+    },
+    key: (index: number) => Object.keys(store)[index] ?? null,
+  };
+};
+
 export const intlayerPolyfill = () => {
   if (typeof global.structuredClone !== 'function') {
     global.structuredClone = (obj) => JSON.parse(JSON.stringify(obj));
   }
 
   if (typeof window !== 'undefined') {
+    const noop = () => null;
     if (typeof window.addEventListener !== 'function') {
-      window.addEventListener = () => null;
+      window.addEventListener = noop;
     }
     if (typeof window.removeEventListener !== 'function') {
-      window.removeEventListener = () => null;
+      window.removeEventListener = noop;
     }
     if (typeof window.postMessage !== 'function') {
-      window.postMessage = () => null;
+      window.postMessage = noop;
     }
+  }
+
+  // `@intlayer/core`'s localeStorageOptions accesses document.cookie directly.
+  // In React Native, `document` is undefined — we provide a minimal in-memory
+  // cookie jar so reads/writes work without throwing.
+  if (typeof document === 'undefined') {
+    let cookieJar = '';
+    Object.defineProperty(global, 'document', {
+      configurable: true,
+      get: () => ({
+        get cookie() {
+          return cookieJar;
+        },
+        set cookie(value: string) {
+          // Simplified cookie setter: just append/overwrite the key
+          const [pair] = value.split(';');
+          const [key, val] = pair?.split('=') ?? [];
+          const name = key?.trim();
+          const existing = cookieJar
+            .split(';')
+            .filter((c) => !c.trim().startsWith(`${name}=`))
+            .filter(Boolean);
+          cookieJar = [...existing, `${name}=${val ?? ''}`].join('; ');
+        },
+      }),
+    });
+  }
+
+  if (typeof localStorage === 'undefined') {
+    Object.defineProperty(global, 'localStorage', {
+      configurable: true,
+      value: createStorage(),
+    });
+  }
+
+  if (typeof sessionStorage === 'undefined') {
+    Object.defineProperty(global, 'sessionStorage', {
+      configurable: true,
+      value: createStorage(),
+    });
   }
 };

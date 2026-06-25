@@ -55,6 +55,22 @@ export const configMetroIntlayerSync = (
     formatter: pathResolve, // get absolute path
   });
 
+  /**
+   * Project root, used to force `react-intlayer` to resolve to a single copy.
+   *
+   * Metro does not deduplicate packages the way web bundlers do. When a
+   * dependency (e.g. `react-native-intlayer`) pins a different patch of
+   * `react-intlayer` than the app, npm/yarn keep two physical copies. The
+   * provider would then create its React context from one copy while
+   * `useLocale`/`useIntlayer` read the context from the other — two distinct
+   * `IntlayerClientContext` instances. The provider's updates never reach the
+   * consumers, so `setLocale()` silently does nothing on native.
+   *
+   * Resolving every `react-intlayer` request from the project root collapses
+   * those copies to a single module instance (and therefore a single context).
+   */
+  const projectRoot = configuration.system.baseDir;
+
   const existingBlockList = baseConfig?.resolver?.blockList;
   const existingPatterns: RegExp[] =
     existingBlockList instanceof RegExp
@@ -109,6 +125,25 @@ export const configMetroIntlayerSync = (
             filePath: require.resolve('@intlayer/core/file/browser'),
             type: 'sourceFile',
           };
+        }
+
+        // Force a single `react-intlayer` instance regardless of which package
+        // imports it (the app or a nested dependency). This prevents the
+        // duplicate-context bug that silently breaks locale switching on native
+        // when two `react-intlayer` copies are installed (see projectRoot doc).
+        if (
+          moduleName === 'react-intlayer' ||
+          moduleName.startsWith('react-intlayer/')
+        ) {
+          try {
+            return {
+              filePath: require.resolve(moduleName, { paths: [projectRoot] }),
+              type: 'sourceFile',
+            };
+          } catch {
+            // Fall through to the default resolution below if the project root
+            // copy cannot be resolved for some reason.
+          }
         }
 
         // @formatjs packages have invalid exports configuration or missing exports for polyfills
