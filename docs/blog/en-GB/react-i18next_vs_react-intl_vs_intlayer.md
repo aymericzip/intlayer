@@ -139,6 +139,20 @@ We evaluate:
 
 ---
 
+## Interoperability with `react-intl` and `react-i18next`
+
+`intlayer` can also help to manage your `react-intl` and `react-i18next` namespaces.
+
+Using `intlayer`, you can declare your content in the format of your favourite i18n library, and intlayer will generate your namespaces in the location of your choice (example: `/messages/{{locale}}/{{namespace}}.json`).
+
+---
+
+## GitHub STARs
+
+GitHub stars are a strong indicator of a project's popularity, community trust, and long-term relevance. While not a direct measure of technical quality, they reflect how many developers find the project useful, follow its progress, and are likely to adopt it. For estimating the value of a project, stars help compare traction across alternatives and provide insights into ecosystem growth.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
+
 ## Conclusion
 
 All three libraries localise React effectively. The differentiator is how much **infrastructure** you must build to reach a **safe, scalable** setup:

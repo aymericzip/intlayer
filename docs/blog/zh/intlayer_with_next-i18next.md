@@ -34,17 +34,6 @@ author: aymericzip
 
 <TOC/>
 
-## 什么是 next-i18next？
-
-**next-i18next** 是 Next.js 应用中最流行的国际化（i18n）框架之一。它构建于强大的 **i18next** 生态系统之上，为管理 Next.js 项目的翻译、本地化和语言切换提供了全面的解决方案。
-
-然而，next-i18next 也存在一些挑战：
-
-- **配置复杂**：设置 next-i18next 需要多个配置文件，并且需要仔细配置服务器端和客户端的 i18n 实例。
-- **翻译文件分散**：翻译文件通常存储在与组件分开的目录中，导致维护一致性更加困难。
-- **手动命名空间管理**：开发者需要手动管理命名空间，并确保翻译资源的正确加载。
-- **类型安全有限**：TypeScript 支持需要额外配置，且不提供翻译的自动类型生成。
-
 ## 什么是 Intlayer？
 
 **Intlayer** 是一个创新的开源国际化库，旨在解决传统 i18n 解决方案的不足。它为 Next.js 应用提供了一种现代化的内容管理方法。
@@ -64,53 +53,6 @@ author: aymericzip
 本指南将展示如何利用 Intlayer 优越的内容声明系统，同时保持与 next-i18next 的兼容性。
 
 ---
-
-## 使用 next-i18next 设置 Intlayer 的分步指南
-
-### 第一步：安装依赖
-
-使用你喜欢的包管理器安装必要的包：
-
-```bash packageManager="npm"
-npx intlayer-cli init --interactive
-```
-
-```bash packageManager="pnpm"
-pnpm dlx intlayer-cli init --interactive
-```
-
-```bash packageManager="yarn"
-yarn dlx intlayer-cli init --interactive
-```
-
-```bash packageManager="bun"
-bunx intlayer-cli init --interactive
-```
-
-> `--interactive` 标志是可选的。如果您是 AI 代理，请使用 `intlayer-cli init`。
-
-> 该命令将检测您的环境并安装所需的软件包。例如：
-
-```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin --save-dev
-```
-
-```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin --save-dev
-```
-
-```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin --dev
-```
-
-```bash packageManager="bun"
-bun add intlayer @intlayer/sync-json-plugin --dev
-```
-
-**包说明：**
-
-- **intlayer**：内容声明和管理的核心库
-- **@intlayer/sync-json-plugin**：用于将 Intlayer 内容声明同步为 i18next JSON 格式的插件
 
 ### 第2步：实现 Intlayer 插件以封装 JSON
 

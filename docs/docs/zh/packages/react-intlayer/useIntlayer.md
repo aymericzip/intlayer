@@ -29,49 +29,6 @@ author: aymericzip
 
 本节提供了在 React 应用中使用 `useIntlayer` 钩子的详细指导，帮助实现高效的内容本地化。
 
-## 在 React 中导入 `useIntlayer`
-
-`useIntlayer` 钩子可以根据上下文通过导入方式集成到 React 应用中：
-
-- **客户端组件：**
-
-  ```typescript codeFormat="typescript"
-  import { useIntlayer } from "react-intlayer"; // 用于客户端 React 组件
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer"; // 用于客户端 React 组件
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer"); // 用于客户端 React 组件
-  ```
-
-- **服务器端组件：**
-
-  ```typescript codeFormat="commonjs"
-  import { useIntlayer } from "react-intlayer/server"; // 用于服务器端 React 组件
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer/server"; // 用于服务器端 React 组件
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer/server"); // 用于服务器端 React 组件
-  ```
-
-## 参数
-
-该钩子接受两个参数：
-
-1. **`key`**：用于获取本地化内容的字典键。
-2. **`locale`**（可选）：期望的语言环境。如果未指定，则默认为上下文的语言环境。
-
-## 字典
-
-所有字典键必须在内容声明文件中声明，以增强类型安全并避免错误。您可以在[此处找到设置说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
-
 ## React 中的示例用法
 
 演示在 React 组件中使用 `useIntlayer` 钩子：
@@ -129,14 +86,6 @@ const ServerComponentExample = () => {
     </div>
   );
 };
-```
-
-## 处理属性
-
-在本地化属性时，请适当访问内容值：
-
-```jsx
-<button title={content.buttonTitle.value}>{content.buttonText}</button>
 ```
 
 ## 额外资源

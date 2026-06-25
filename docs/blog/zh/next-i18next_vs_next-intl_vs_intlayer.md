@@ -63,14 +63,6 @@ author: aymericzip
 
 ---
 
-## 并排功能比较（以 Next.js 为重点）
-
-| 功能 | `next-intlayer` (Intlayer) | `next-intl` | `next-i18next` |
-
-> 徽章会自动更新。快照会随时间变化。
-
----
-
 ## 并排功能对比（以 Next.js 为重点）
 
 | 功能                                   | `next-intlayer` (Intlayer)                                                     | `next-intl`                                                  | `next-i18next`                                               |
@@ -209,24 +201,6 @@ Next.js 为你内置了国际化路由支持（例如区域段）。但该功能
 </Columns>
 
 **重要原因：** 强类型将失败提前到**左侧**（CI/构建阶段），而非**右侧**（运行时）。
-
----
-
-## 缺失翻译处理
-
-**next-intl**
-
-- 依赖**运行时回退**（例如显示键名或默认语言）。构建不会失败。
-
-**next-i18next**
-
-- 依赖**运行时回退**（例如显示键名或默认语言）。构建不会失败。
-
-**intlayer**
-
-- **构建时检测**，对缺失的语言或键发出**警告/错误**。
-
-**重要原因：** 在构建时捕获缺口，防止生产环境出现“神秘字符串”，并符合严格的发布门控。
 
 ---
 
@@ -1183,6 +1157,127 @@ export default robots;
 </Tabs>
 
 > Intlayer 提供了一个 `getMultilingualUrls` 函数，用于为您的站点地图生成多语言 URL。
+
+---
+
+### 本地化路由的中间件
+
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
+
+添加中间件以处理本地化检测和路由：
+
+```ts fileName="src/middleware.ts"
+import { NextResponse, type NextRequest } from "next/server";
+import { defaultLocale, locales } from "@/i18n.config";
+
+const PUBLIC_FILE = /\.[^/]+$/; // 排除带扩展名的文件
+
+export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  if (
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/api") ||
+    pathname.startsWith("/static") ||
+    PUBLIC_FILE.test(pathname)
+  ) {
+    return;
+  }
+
+  const hasLocale = locales.some(
+    (l) => pathname === "/" + l || pathname.startsWith("/" + l + "/")
+  );
+  if (!hasLocale) {
+    const locale = defaultLocale;
+    const url = request.nextUrl.clone();
+    url.pathname = "/" + locale + (pathname === "/" ? "" : pathname);
+    return NextResponse.redirect(url);
+  }
+}
+
+export const config = {
+  matcher: [
+    // 匹配所有路径，除了以这些开头的路径和带扩展名的文件
+    "/((?!api|_next|static|.*\\..*).*)",
+  ],
+};
+```
+
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
+
+添加中间件以处理本地化检测和路由：
+
+```ts fileName="src/middleware.ts"
+import createMiddleware from "next-intl/middleware";
+import { locales, defaultLocale } from "@/i18n";
+
+export default createMiddleware({
+  locales: [...locales],
+  defaultLocale,
+  localeDetection: true,
+});
+
+export const config = {
+  // 跳过 API、Next 内部文件和静态资源
+  matcher: ["/((?!api|_next|.*\\..*).*)"],
+};
+```
+
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
+
+Intlayer 通过 `next-intlayer` package 配置提供内置的中间件处理。
+
+```ts fileName="src/middleware.ts"
+import { intlayerProxy } from "next-intlayer/proxy";
+
+export const middleware = intlayerProxy();
+
+// 仅将此中间件应用于 app 目录中的文件
+export const config = {
+  matcher: "/((?!api|_next|static|.*\\..*).*)",
+};
+```
+
+中间件的设置集中在 `intlayer.config.ts` 文件中。
+
+  </Tab>
+</Tabs>
+
+### 设置检查清单和最佳实践
+
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
+
+- 确保在 `src/app/[locale]/layout.tsx` 中的根 `<html>` 上设置了 `lang` 和 `dir`。
+- 在 `src/locales/<locale>/` 下将翻译内容分割为命名空间（例如 `common.json`、`about.json`）。
+- 仅在客户端组件中使用 `useTranslation('<ns>')` 加载所需的命名空间，并通过相同的命名空间范围界定 `I18nProvider`。
+- 尽可能保持页面静态：在页面上导出 `export const dynamic = 'force-static'`；设置 `dynamicParams = false` 并实现 `generateStaticParams`。
+- 使用同步服务器组件嵌套在客户端边界下，通过传递预先计算的字符串或 `t` 函数和 `locale`。
+- 对于 SEO，在元数据中设置 `alternates.languages`，在 `sitemap.ts` 中列出本地化的 URL，并在 `robots.ts` 中禁止重复的本地化路由。
+- 优先使用区域感知的格式化程序（例如 `Intl.NumberFormat(locale)`），如果使用 React < 19，在客户端上对其进行 memoize。
+
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
+
+- **设置 html `lang` 和 `dir`**：在 `src/app/[locale]/layout.tsx` 中，通过 `getLocaleDirection(locale)` 计算 `dir`，并设置 `<html lang={locale} dir={dir}>`。
+- **按命名空间分割消息**：按区域和命名空间组织 JSON（例如 `common.json`、`about.json`）。
+- **最小化客户端负载**：在页面上，仅将所需的命名空间发送到 `NextIntlClientProvider`（例如 `pick(messages, ['common', 'about'])`）。
+- **优先使用静态页面**：导出 `export const dynamic = 'force-static'` 并为所有 `locales` 生成静态参数。
+- **同步服务器组件**：通过传递预先计算的字符串（翻译后的标签、格式化的数字）而不是异步调用或不可序列化的函数，保持服务器组件的同步。
+
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
+
+- **模块化内容**：使用 `.content.{ts|js|json}` 文件将内容字典与组件共同定位。
+- **类型安全**：利用 TypeScript 集成进行编译时内容验证。
+- **构建时优化**：使用 Intlayer 的构建工具进行自动 tree-shaking 和 bundle 优化。
+- **集成工具**：利用内置的路由、SEO 辅助工具和可视化编辑器支持。
+
+  </Tab>
+</Tabs>
 
 ---
 

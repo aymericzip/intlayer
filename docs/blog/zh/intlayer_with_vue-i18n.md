@@ -55,53 +55,6 @@ author: aymericzip
 
 ---
 
-## 使用 vue-i18n 设置 Intlayer 的分步指南
-
-### 第一步：安装依赖
-
-使用您喜欢的包管理器安装必要的包：
-
-```bash packageManager="npm"
-npx intlayer-cli init --interactive
-```
-
-```bash packageManager="pnpm"
-pnpm dlx intlayer-cli init --interactive
-```
-
-```bash packageManager="yarn"
-yarn dlx intlayer-cli init --interactive
-```
-
-```bash packageManager="bun"
-bunx intlayer-cli init --interactive
-```
-
-> `--interactive` 标志是可选的。如果您是 AI 代理，请使用 `intlayer-cli init`。
-
-> 该命令将检测您的环境并安装所需的软件包。例如：
-
-```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin --save-dev
-```
-
-```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin --save-dev
-```
-
-```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin --dev
-```
-
-```bash packageManager="bun"
-bun add intlayer @intlayer/sync-json-plugin --dev
-```
-
-**包说明：**
-
-- **intlayer**：内容声明和管理的核心库
-- **@intlayer/sync-json-plugin**：用于将 Intlayer 内容声明同步到 vue-i18n JSON 格式的插件
-
 ### 第2步：实现 Intlayer 插件以封装 JSON
 
 创建一个 Intlayer 配置文件以定义您支持的语言环境：

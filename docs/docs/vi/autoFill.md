@@ -35,6 +35,26 @@ author: aymericzip
 
 **Các tệp khai báo nội dung tự động điền** trong CI của bạn là một cách để tăng tốc quy trình phát triển.
 
+## Hiểu về hành vi
+
+Lệnh `fill` bao gồm hai chế độ:
+
+- **Complete**: Tự động điền tất cả nội dung bị thiếu cho mỗi locale và chỉnh sửa tệp hiện tại hoặc tệp khác nếu được chỉ định. Nói cách khác, chế độ complete sẽ bỏ qua việc dịch nội dung hiện có nếu đã được dịch.
+- **Review**: Tự động điền **tất cả** nội dung cho mỗi locale và tạo cho một tệp cụ thể hoặc tệp khác nếu được chỉ định.
+
+Lệnh `fill` sẽ xử lý tất cả các tệp khai báo nội dung locale của bạn. Nói cách khác, nó sẽ không xử lý nội dung từ xa của bạn từ CMS. CMS bao gồm hệ thống quản lý bản dịch của riêng nó.
+Nếu bạn sử dụng các plugin như `@intlayer/sync-json-plugin`, Intlayer sẽ chuyển đổi các tệp JSON thành các tệp khai báo nội dung locale. Nói cách khác, chúng sẽ được xử lý bởi lệnh `fill`.
+
+Các tệp được tạo mới bao gồm một hướng dẫn `filled` như siêu dữ liệu từ điển. Hướng dẫn này sẽ được Intlayer sử dụng để biết liệu tệp đã được điền tự động hay không, và bỏ qua tệp này khỏi việc dịch lại nếu có.
+
+Intlayer cũng sẽ xem xét hướng dẫn sau để điền tự động:
+
+- Từ `.content.{ts|js|json}` của bạn → hướng dẫn `fill`
+- Từ tệp cấu hình `.intlayer.config.ts` của bạn → hướng dẫn `dictionary.fill`
+- Sẽ được đặt thành `true` theo mặc định nếu không có
+
+Đối với các tệp khai báo nội dung theo locale, hướng dẫn `true` sẽ được thay thế bằng `./{{fileName}}.fill.content.json`. Điều này là vì một tệp khai báo nội dung theo locale không thể nhận nội dung bản địa hóa bổ sung. Vì vậy, nó sẽ tạo một tệp mới để không ghi đè tệp hiện có.
+
 ## Hành Vi Mặc Định
 
 Theo mặc định, `fill` được đặt là `true` toàn cục, có nghĩa là Intlayer sẽ tự động điền tất cả các tệp nội dung và chỉnh sửa chính tệp đó. Hành vi này có thể được tùy chỉnh theo nhiều cách:

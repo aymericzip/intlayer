@@ -400,3 +400,7 @@ Intlayer використовує розширення модулів (module au
 - **Швидкі дії** для легкого створення та оновлення перекладів.
 
 Докладнішу інформацію про використання розширення дивіться в [документації розширення Intlayer для VS Code](https://intlayer.org/doc/vs-code-extension).
+
+### Йдіть далі
+
+Щоб розширити функціональність, ви можете імплементувати [візуальний редактор](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_visual_editor.md) або екстерналізувати ваш контент за допомогою [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/intlayer_CMS.md).

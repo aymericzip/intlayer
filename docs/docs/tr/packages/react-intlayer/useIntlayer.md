@@ -29,49 +29,6 @@ author: aymericzip
 
 Bu bölüm, React uygulamalarında içerik yerelleştirmesini etkinleştirmek için `useIntlayer` hook'unun nasıl kullanılacağına ilişkin detaylı rehberlik sağlar.
 
-## React'te `useIntlayer` İçe Aktarma
-
-`useIntlayer` hook'u, bağlama göre içe aktararak React uygulamalarına entegre edilebilir:
-
-- **İstemci Bileşeni:**
-
-  ```typescript codeFormat="typescript"
-  import { useIntlayer } from "react-intlayer"; // İstemci tarafı React bileşenlerinde kullanılır
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer"; // İstemci tarafı React bileşenlerinde kullanılır
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer"); // İstemci tarafı React bileşenlerinde kullanılır
-  ```
-
-- **Sunucu Bileşeni:**
-
-  ```typescript codeFormat="commonjs"
-  import { useIntlayer } from "react-intlayer/server"; // Sunucu tarafı React bileşenlerinde kullanılır
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer/server"; // Sunucu tarafı React bileşenlerinde kullanılır
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer/server"); // Sunucu tarafı React bileşenlerinde kullanılır
-  ```
-
-## Parametreler
-
-Hook iki parametre kabul eder:
-
-1. **`key`**: Yerelleştirilmiş içerik almak için sözlük anahtarı.
-2. **`locale`** (isteğe bağlı): İstenen yerel ayar. Belirtilmezse, bağlamın yerel ayarına varsayılan olur.
-
-## Sözlük
-
-Tüm sözlük anahtarları, tür güvenliğini geliştirmek ve hataları önlemek için içerik bildirim dosyalarında bildirilmelidir. [Kurulum talimatlarını burada](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bulabilirsiniz.
-
 ## React'te Örnek Kullanım
 
 React bileşeninde `useIntlayer` hook'unun gösterimi:
@@ -129,14 +86,6 @@ const ServerComponentExample = () => {
     </div>
   );
 };
-```
-
-## Özellik İşleme
-
-Özellikleri yerelleştirirken, içerik değerlerine uygun şekilde erişin:
-
-```jsx
-<button title={content.buttonTitle.value}>{content.buttonText}</button>
 ```
 
 ## Ek Kaynaklar

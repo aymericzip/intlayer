@@ -259,6 +259,14 @@ const { greeting } = useIntlayer("component-example");
 
 ---
 
+## GitHub スター
+
+GitHub のスターは、プロジェクトの人気度、コミュニティの信頼、および長期的な関連性の強力な指標です。技術的品質の直接的な尺度ではありませんが、多くの開発者がプロジェクトを有用であると認識し、その進行状況をフォローし、採用する可能性があることを反映しています。プロジェクトの価値を見積もるために、スターは代替案間の牽引力を比較し、エコシステムの成長に関する洞察を提供するのに役立ちます。
+
+[![Star History Chart](https://api.star-history.com/svg?repos=intlify/vue-i18n&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+
+---
+
 ## 結論
 
 **vue-i18n** と **Intlayer** はどちらも Vue アプリのローカライズに優れています。違いは、堅牢でスケーラブルなセットアップを実現するために、**どれだけ自分で構築する必要があるか**にあります：

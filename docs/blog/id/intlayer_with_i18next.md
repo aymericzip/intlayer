@@ -34,6 +34,10 @@ author: aymericzip
 
 <iframe title="Cara mengotomatisasi terjemahan JSON i18next Anda menggunakan Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
+## Daftar Isi
+
+<TOC/>
+
 ## Apa itu Intlayer?
 
 **Intlayer** adalah perpustakaan internasionalisasi sumber terbuka yang inovatif, dirancang untuk mengatasi kekurangan solusi i18n tradisional. Ini menawarkan pendekatan modern untuk manajemen konten dalam aplikasi JavaScript.

@@ -33,6 +33,23 @@ The `getMultilingualUrls` function generates a mapping of multilingual URLs by p
 
 ---
 
+## Function Signature
+
+```typescript
+getMultilingualUrls(
+  url: string,                   // Required
+  options?: {                    // Optional
+    locales?: Locales[];
+    defaultLocale?: Locales;
+    mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
+  }
+): StrictModeLocaleMap<string>
+```
+
+---
+
+## Parameters
+
 ## Parameters
 
 - `url: string`
@@ -53,6 +70,33 @@ The `getMultilingualUrls` function generates a mapping of multilingual URLs by p
   - **Description**: Whether to prefix the default locale. Defaults to the configured value in the project.
   - **Type**: `boolean`
   - **Default**: `prefixDefaultDefault`
+
+### Optional Parameters
+
+- `options?: object`
+  - **Description**: Configuration object for URL localisation behaviour.
+  - **Type**: `object`
+  - **Required**: No (Optional)
+
+  - `options.locales?: Locales[]`
+    - **Description**: Array of supported locales. If not provided, uses the configured locales from your project configuration.
+    - **Type**: `Locales[]`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md#middleware)
+
+  - `options.defaultLocale?: Locales`
+    - **Description**: The default locale for the application. If not provided, uses the configured default locale from your project configuration.
+    - **Type**: `Locales`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md#middleware)
+
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Description**: The URL routing mode for locale handling. If not provided, uses the configured mode from your project configuration.
+    - **Type**: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md#middleware)
+    - **Modes**:
+      - `prefix-no-default`: No prefix for default locale, prefix for all others
+      - `prefix-all`: Prefix for all locales including default
+      - `no-prefix`: No locale prefix in URL
+      - `search-params`: Use query parameters for locale (e.g., `?locale=fr`)
 
 ### Returns
 

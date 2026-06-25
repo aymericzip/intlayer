@@ -78,42 +78,6 @@ bun x intlayer login --cms-url https://intlayer.org
 
 ### 配置选项
 
-您还可以使用常见的配置选项：
-
-- `--env-file <path>`：环境文件的路径
-- `-e, --env <env>`：执行环境
-- `--base-dir <dir>`：项目的基目录
-- `--verbose`：启用详细输出（默认：true）
-- `--prefix <prefix>`：日志前缀
-
-## 工作原理
-
-1. **启动本地服务器**：该命令在一个随机端口上启动本地 HTTP 服务器，以从 CMS 接收凭证
-
-指定要用于身份验证的 Intlayer CMS 的 URL。
-
-- **类型**: `string`
-- **默认**: 在 `intlayer.config.*` 中配置的值，或 `https://intlayer.org`
-- **示例**:
-
-```bash packageManager="npm"
-npx intlayer login --cms-url https://intlayer.org
-```
-
-```bash packageManager="yarn"
-yarn intlayer login --cms-url https://intlayer.org
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer login --cms-url https://intlayer.org
-```
-
-```bash packageManager="bun"
-bun x intlayer login --cms-url https://intlayer.org
-```
-
-### 配置选项
-
 您还可以使用常用的配置选项：
 
 - `--env-file <path>`: 环境文件的路径

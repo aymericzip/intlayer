@@ -347,26 +347,6 @@ Intlayer 中的字典由 `Dictionary` 类型定义，包含多个控制其行为
 }
 ```
 
-#### `format` ('intlayer' | 'icu' | 'i18next')
-
-指定用于字典内容的格式化器。这允许使用不同的消息格式化语法。
-
-- `'intlayer'`: 默认的 Intlayer 格式化器。
-- `'icu'`: 使用 ICU 消息格式化。
-- `'i18next'`: 使用 i18next 消息格式化。
-
-**示例：**
-
-```typescript
-{
-  key: "my-dictionary",
-  format: "icu",
-  content: {
-    message: "Hello {name}, you have {count, plural, one {# message} other {# messages}}"
-  }
-}
-```
-
 #### `locale` (LocalesValues)
 
 将字典转换为按语言区域划分的字典，其中内容中声明的每个字段将自动转换为翻译节点。当设置此属性时：
@@ -603,6 +583,10 @@ export default aboutPageMetaContent;
 
 本地字典的唯一标识符。由 Intlayer 自动生成，用于帮助识别字典并确定其是本地还是远程，以及其位置。
 
+##### `localId` (LocalDictionaryId)
+
+本地字典的唯一标识符。由 Intlayer 自动生成，用于帮助识别字典，以及确定它是本地字典还是远程字典，以及它的位置。
+
 ##### `localIds`（LocalDictionaryId[]）
 
 对于合并的字典，此数组包含所有被合并字典的 ID。对于追踪合并内容的来源非常有用。
@@ -695,6 +679,18 @@ insertionContent: insert("这段文本可以插入到任何地方");
 ```
 
 > 请参阅 [插入内容 (`insert`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/insertion.md) 以获取更多信息。
+
+### 插入内容 (`insert`)
+
+可以插入到其他内容中的内容：
+
+```typescript
+import { insert } from "intlayer";
+
+insertionContent: insert("This text can be inserted anywhere");
+```
+
+> 查看 [插入文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/insertion.md) 了解更多信息。
 
 ### 嵌套内容 (`nest`)
 

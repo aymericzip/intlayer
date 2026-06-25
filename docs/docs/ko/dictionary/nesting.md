@@ -27,6 +27,45 @@ Intlayer에서 중첩은 `nest` 함수를 통해 이루어지며, 이를 통해 
 
 ## 중첩 설정
 
+Intlayer 프로젝트에서 중첩을 설정하려면 먼저 재사용하려는 기본 콘텐츠를 정의합니다. 그런 다음 별도의 콘텐츠 모듈에서 `nest` 함수를 사용하여 해당 콘텐츠를 가져옵니다.
+
+### 기본 Dictionary
+
+다른 dictionary에 중첩할 기본 dictionary의 예시입니다:
+
+```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { type Dictionary } from "intlayer";
+
+const firstDictionary = {
+  key: "key_of_my_first_dictionary",
+  content: {
+    content: "content",
+    subContent: {
+      contentNumber: 0,
+      contentString: "string",
+    },
+  },
+} satisfies Dictionary;
+
+export default firstDictionary;
+```
+
+```json fileName="firstDictionary.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "key_of_my_first_dictionary",
+  "content": {
+    "content": "content",
+    "subContent": {
+      "contentNumber": 0,
+      "contentString": "string"
+    }
+  }
+}
+```
+
+## 중첩 설정
+
 <Tabs group="framework">
   <Tab label="React" value="react">
 

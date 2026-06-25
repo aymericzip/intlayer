@@ -47,6 +47,14 @@ Poin-poin penting:
 - Mempertahankan terjemahan yang ada dengan tidak menimpa mereka.
 - Memproses file, potongan, dan locale secara paralel menggunakan sistem antrian untuk meningkatkan kecepatan.
 
+## Poin-Poin Kunci:
+
+- Membagi file JSON besar menjadi chunk untuk tetap berada dalam batas jendela konteks model AI.
+- Mencoba ulang terjemahan jika format output salah.
+- Menggabungkan konteks spesifik aplikasi dan file untuk meningkatkan akurasi terjemahan.
+- Mempertahankan terjemahan yang ada dengan tidak menimpanya.
+- Memproses file, chunk, dan locale secara paralel menggunakan sistem antrian untuk meningkatkan kecepatan.
+
 ## Alias:
 
 - `npx intlayer dictionaries fill`

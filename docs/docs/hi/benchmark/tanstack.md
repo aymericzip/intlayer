@@ -124,6 +124,28 @@ i18n लीकेज के मुद्दों को तेज़ी से 
 - **Scoped static**: अतिरिक्त जटिल नेटवर्क अनुरोधों के बिना कोड को व्यवस्थित (लॉजिकल सेपरेशन) रखता है।
 - **Scoped dynamic**: कोड स्प्लिटिंग और परफॉरमेंस के लिए सबसे अच्छा दृष्टिकोण। वर्तमान व्यू और सक्रिय लोकेल की आवश्यकता वाली चीज़ों को लोड करके मेमोरी को कम करता है।
 
+### मैंने क्या मापा:
+
+मैंने हर स्टैक के लिए एक वास्तविक ब्राउज़र में एक ही बहुभाषी ऐप चलाया, फिर लिखा कि वास्तव में तार पर क्या दिखाई दिया और चीजों में कितना समय लगा। आकार **सामान्य वेब कंप्रेशन के बाद** रिपोर्ट किए जाते हैं, क्योंकि यह कच्चे स्रोत गणना की तुलना में लोग जो डाउनलोड करते हैं उसके करीब है।
+
+- **Internationalization लाइब्रेरी का आकार**: bundling, tree-shaking और minification के बाद, i18n लाइब्रेरी का आकार providers (जैसे `NextIntlClientProvider`) + hooks (जैसे `useTranslations`) कोड का आकार एक खाली component में है। इसमें translation फाइलों का लोडिंग शामिल नहीं है। यह इस बात का उत्तर देता है कि आपकी content के picture में आने से पहले लाइब्रेरी कितनी महंगी है।
+
+- **प्रति पृष्ठ JavaScript**: प्रत्येक benchmark route के लिए, ब्राउज़र उस visit के लिए कितनी script खींचता है, suite के pages में averaged (और locales में जहां report उन्हें roll करता है)। भारी pages धीमे pages हैं।
+
+- **अन्य locales से Leakage**: यह एक ही page की content है लेकिन एक अलग language में जो audited page में गलती से लोड हो सकती है। यह content अनावश्यक है और इसे avoid किया जाना चाहिए। (उदाहरण के लिए `/fr/about` page content `/en/about` page bundle में)
+
+- **अन्य routes से Leakage**: **अन्य screens** के लिए भी यही विचार है: क्या जब आप केवल एक page खोलते हैं तो उनकी copy साथ चल रही है। (उदाहरण के लिए `/en/about` page content `/en/contact` page bundle में)। एक high score कमजोर splitting या over-broad bundles का संकेत देता है।
+
+- **औसत component bundle का आकार**: Common UI pieces को **एक बार में एक** मापा जाता है, एक विशाल app संख्या के अंदर छिपने के बजाय। यह दिखाता है कि क्या internationalization quietly रोज़मर्रा के components को inflate करती है। उदाहरण के लिए, यदि आपका component rerenders, तो यह memory से सभी data को load करेगा। किसी component को एक विशाल JSON को attach करना अप्रयुक्त data के एक बड़े store को जोड़ने जैसा है जो आपके components के performance को धीमा कर देगा।
+
+- **Language switch responsiveness**: मैं ऐप के अपने control का उपयोग करके language को flip करता हूं और time करता हूं कि page clearly switch होने में कितना समय लगता है, जो एक visitor को notice होगा, एक lab micro-step नहीं।
+
+- **Language change के बाद Rendering work**: एक narrower follow-up: interface को repaint करने में कितना effort लगा नई language के लिए एक बार switch flight में है। उपयोगी जब "felt" time और framework cost diverge हों।
+
+- **Initial page load time**: Navigation से browser तक यह मानते हुए कि मैंने जिन scenarios को test किया उनके लिए page पूरी तरह से loaded है। Cold starts की तुलना करने के लिए अच्छा है।
+
+- **Hydration time**: जब ऐप इसे expose करता है, तो client कितना समय server HTML को ऐसी चीज़ में बदलने में खर्च करता है जिस पर आप actually क्लिक कर सकते हैं। Tables में एक dash का मतलब है कि implementation ने इस benchmark में एक reliable hydration figure प्रदान नहीं किया।
+
 ## GitHub सितारे
 
 GitHub सितारे किसी प्रोजेक्ट की लोकप्रियता, सामुदायिक विश्वास और दीर्घकालिक प्रासंगिकता का एक मजबूत संकेतक हैं। हालांकि यह तकनीकी गुणवत्ता का प्रत्यक्ष माप नहीं है, वे दर्शाते हैं कि कितने डेवलपर्स प्रोजेक्ट को उपयोगी पाते हैं, इसकी प्रगति का पालन करते हैं, और इसे अपनाने की संभावना रखते हैं। किसी प्रोजेक्ट के मूल्य का अनुमान लगाने के लिए, सितारे विकल्पों के बीच कर्षण की तुलना करने में मदद करते हैं और पारिस्थितिकी तंत्र के विकास में अंतर्दृष्टि प्रदान करते हैं।

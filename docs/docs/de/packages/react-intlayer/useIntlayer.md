@@ -29,49 +29,6 @@ author: aymericzip
 
 Dieser Abschnitt bietet eine detaillierte Anleitung zur Verwendung des `useIntlayer` Hooks in React-Anwendungen, um eine effiziente Inhaltslokalisierung zu ermöglichen.
 
-## Importieren von `useIntlayer` in React
-
-Der `useIntlayer` Hook kann in React-Anwendungen integriert werden, indem er je nach Kontext importiert wird:
-
-- **Client-Komponente:**
-
-  ```typescript codeFormat="typescript"
-  import { useIntlayer } from "react-intlayer"; // Wird in clientseitigen React-Komponenten verwendet
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer"; // Wird in clientseitigen React-Komponenten verwendet
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer"); // Wird in clientseitigen React-Komponenten verwendet
-  ```
-
-- **Server-Komponente:**
-
-  ```typescript codeFormat="commonjs"
-  import { useIntlayer } from "react-intlayer/server"; // Wird in serverseitigen React-Komponenten verwendet
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer/server"; // Wird in serverseitigen React-Komponenten verwendet
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer/server"); // Wird in serverseitigen React-Komponenten verwendet
-  ```
-
-## Parameter
-
-Der Hook akzeptiert zwei Parameter:
-
-1. **`key`**: Der Wörterbuchschlüssel, um lokalisierten Inhalt abzurufen.
-2. **`locale`** (optional): Die gewünschte Locale. Standardmäßig wird die Locale des Kontexts verwendet, falls nicht angegeben.
-
-## Wörterbuch
-
-Alle Wörterbuchschlüssel müssen in Inhaltsdeklarationsdateien deklariert werden, um die Typsicherheit zu erhöhen und Fehler zu vermeiden. Die [Setup-Anleitung finden Sie hier](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/content_file.md).
-
 ## Beispielhafte Verwendung in React
 
 Demonstration des `useIntlayer` Hooks innerhalb einer React-Komponente:
@@ -140,14 +97,6 @@ const ServerComponentExample = () => {
     </div>
   );
 };
-```
-
-## Umgang mit Attributen
-
-Beim Lokalisieren von Attributen greifen Sie entsprechend auf die Inhaltswerte zu:
-
-```jsx
-<button title={content.buttonTitle.value}>{content.buttonText}</button>
 ```
 
 ## Zusätzliche Ressourcen

@@ -33,6 +33,36 @@ author: aymericzip
 
 ---
 
+## 関数署名
+
+```typescript
+getLocalizedUrl(
+  url: string,                   // 必須
+  currentLocale: Locales,        // 必須
+  options?: {                    // オプション
+    locales?: Locales[];
+    defaultLocale?: Locales;
+    mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
+  }
+): string
+```
+
+---
+
+## パラメータ
+
+### 必須パラメータ
+
+- `url: string`
+  - **Description**: ロケールをプレフィックスとして付与する元のURL文字列。
+  - **Type**: `string`
+  - **Required**: Yes
+
+- `currentLocale: Locales`
+  - **Description**: URLがローカライズされている現在のロケール。
+  - **Type**: `Locales`
+  - **Required**: Yes
+
 ## パラメーター
 
 - `url: string`
@@ -66,6 +96,25 @@ author: aymericzip
 ---
 
 ## 使用例
+
+### 基本的な使用方法（必須パラメータのみ）
+
+プロジェクトを国際化設定で構成した後、必須パラメータだけで関数を使用できます:
+
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
+import { getLocalizedUrl, Locales } from "intlayer";
+
+// プロジェクトの設定（locales、defaultLocale、mode）を使用します
+getLocalizedUrl("/about", Locales.FRENCH);
+// 出力: "/fr/about" (フランス語がサポートされており、modeが'prefix-no-default'の場合)
+
+getLocalizedUrl("/about", Locales.ENGLISH);
+// 出力: "/about" または "/en/about" (modeの設定に応じて異なります)
+```
+
+### Advanced Usage (With Optional Parameters)
+
+オプションの `options` パラメーターを提供することで、デフォルト設定をオーバーライドできます:
 
 ### 相対 URL
 
@@ -112,6 +161,30 @@ getLocalizedUrl(
 
 // 出力: フランス語ロケールの場合 "/fr/about"
 // 出力: デフォルト（英語）ロケールの場合 "/about"
+```
+
+### 部分的な設定のオーバーライド
+
+オプションパラメータの一部のみを指定することもできます。指定しないパラメータについては、関数はプロジェクト設定を使用します:
+
+```typescript codeFormat="typescript"
+import { getLocalizedUrl, Locales } from "intlayer";
+
+// localesのみをオーバーライドし、defaultLocaleとmodeはプロジェクト設定を使用
+getLocalizedUrl("/about", Locales.SPANISH, {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+});
+
+// modeのみをオーバーライドし、localesとdefaultLocaleはプロジェクト設定を使用
+getLocalizedUrl("/about", Locales.ENGLISH, {
+  mode: "prefix-all", // デフォルトロケールを含むすべてのロケールにプリフィックスを強制
+});
+
+// 複数のオプションをオーバーライド
+getLocalizedUrl("/about", Locales.FRENCH, {
+  defaultLocale: Locales.ENGLISH,
+  mode: "search-params", // クエリパラメータを使用: /about?locale=fr
+});
 ```
 
 ### 絶対URL

@@ -118,6 +118,28 @@ Comparamos **quatro estratégias de carregamento**:
 - **Scoped static**: Mantém o código organizado (separação lógica) sem requisições de rede extras complexas.
 - **Scoped dynamic**: Melhor abordagem para _code splitting_ e desempenho. Minimiza a memória carregando apenas o que a view atual e o local ativo precisam.
 
+### O que medi:
+
+Executei o mesmo aplicativo multilíngue em um navegador real para cada stack e anotei o que realmente aparecia na rede e quanto tempo levava. Os tamanhos são relatados **após compressão web normal**, porque isso se aproxima mais do que as pessoas fazem download do que contagens de código-fonte bruto.
+
+- **Tamanho da biblioteca de internacionalização**: Após bundling, tree-shaking e minificação, o tamanho da biblioteca i18n é o tamanho dos providers + código de hooks/primitives em um componente vazio. Não inclui o carregamento de arquivos de tradução. Responde o quão caro é a biblioteca antes de seu conteúdo entrar na história.
+
+- **JavaScript por página**: Para cada rota de benchmark, quanto script o navegador extrai para essa visita, em média nas páginas do conjunto (e entre idiomas onde o relatório os agrega). Páginas pesadas são páginas lentas.
+
+- **Vazamento de outros idiomas**: É o conteúdo da mesma página mas em outro idioma que seria carregado por engano na página auditada. Este conteúdo é desnecessário e deve ser evitado. (ex. conteúdo da página `/fr/about` no bundle da página `/en/about`)
+
+- **Vazamento de outras rotas**: A mesma ideia para **outras telas** no aplicativo: se sua cópia está viajando junto quando você abriu apenas uma página. (ex. conteúdo da página `/en/about` no bundle da página `/en/contact`). Uma pontuação alta sugere divisão fraca ou bundles muito amplos.
+
+- **Tamanho médio do bundle do componente**: Peças de UI comuns são medidas **uma de cada vez** em vez de se esconder dentro de um número gigante de aplicativo. Mostra se a internacionalização silenciosamente infla componentes cotidianos. Por exemplo, se seu componente é renderizado novamente, ele carregará todos esses dados da memória. Anexar um JSON gigante a qualquer componente é como conectar um grande armazenamento de dados não utilizados que desacelerará o desempenho de seus componentes.
+
+- **Responsividade da troca de idioma**: Mudo o idioma usando o controle do próprio aplicativo e cronometro quanto tempo leva até a página ter claramente trocado, o que um visitante notaria, não um micro-passo de laboratório.
+
+- **Trabalho de renderização após uma mudança de idioma**: Um acompanhamento mais estreito: quanto esforço a interface levou para redesenhar o novo idioma uma vez que a troca está em andamento. Útil quando o tempo "sentido" e o custo do framework divergem.
+
+- **Tempo de carregamento da página inicial**: Da navegação até o navegador considerar a página totalmente carregada para os cenários que testei. Bom para comparar inícios frios.
+
+- **Tempo de hidratação**: Quando o aplicativo o expõe, quanto tempo o cliente gasta transformando HTML do servidor em algo que você pode realmente clicar. Um travessão nas tabelas significa que a implementação não forneceu uma figura de hidratação confiável neste benchmark.
+
 ## Estrelas do GitHub
 
 As estrelas do GitHub são um forte indicador da popularidade de um projeto, da confiança da comunidade e da relevância a longo prazo. Embora não sejam uma medida direta da qualidade técnica, elas refletem quantos desenvolvedores consideram o projeto útil, acompanham seu progresso e têm probabilidade de adotá-lo. Para estimar o valor de um projeto, as estrelas ajudam a comparar a tração entre as alternativas e fornecem insights sobre o crescimento do ecossistema.

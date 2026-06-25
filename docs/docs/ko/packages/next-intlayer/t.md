@@ -133,6 +133,40 @@ export const ServerComponentExample: FC = () => (
 
 ---
 
+### 속성의 인라인 번역
+
+`t` 함수는 JSX 속성의 인라인 번역에 특히 유용합니다.
+`alt`, `title`, `href`, 또는 `aria-label`과 같은 속성을 현지화할 때, 속성 내에서 직접 `t`를 사용할 수 있습니다.
+
+```jsx
+<button
+  aria-label={t({
+    ko: "제출",
+    en: "Submit",
+    fr: "Soumettre",
+    es: "Enviar",
+  })}
+>
+  {t({
+    ko: "제출",
+    en: "Submit",
+    fr: "Soumettre",
+    es: "Enviar",
+  })}
+  <img
+    src="/path/to/image"
+    alt={t({
+      ko: "아름다운 풍경",
+      en: "A beautiful scenery",
+      fr: "Un beau paysage",
+      es: "Un hermoso paisaje",
+    })}
+  />
+</button>
+```
+
+---
+
 ## 고급 주제
 
 ### TypeScript 통합

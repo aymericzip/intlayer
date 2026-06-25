@@ -40,6 +40,12 @@ Intlayer CMS 是一个应用程序，允许您将 Intlayer 项目的内容外部
 
 ![Intlayer CMS 界面](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
 
+## 目录
+
+<TOC/>
+
+---
+
 ## 理解远程字典
 
 Intlayer 区分“本地”字典和“远程”字典。
@@ -367,3 +373,18 @@ export default config;
 - 确保项目配置已推送到 Intlayer CMS。
 
 - 可视化编辑器使用 iframe 来显示您的网站。确保您网站的内容安全策略（CSP）允许 CMS URL 作为 `frame-ancestors`（默认是 'https://intlayer.org'）。检查编辑器控制台是否有任何错误。
+
+## 调试
+
+如果您遇到 CMS 的任何问题，请检查以下内容：
+
+- 应用程序正在运行。
+
+- [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) 配置在您的 Intlayer 配置文件中设置正确。
+  - 必需字段：
+    - 应用程序 URL 应该与您在编辑器配置中设置的 URL 相匹配（`applicationURL`）。
+    - CMS URL
+
+- 确保项目配置已推送到 Intlayer CMS。
+
+- 可视化编辑器使用 iframe 来显示您的网站。确保您的网站的内容安全策略 (CSP) 允许 CMS URL 作为 `frame-ancestors`（默认为 'https://app.intlayer.org'）。检查编辑器控制台中的任何错误。

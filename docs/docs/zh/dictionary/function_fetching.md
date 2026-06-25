@@ -89,33 +89,6 @@ export default asyncFunctionContent;
 
 ## 在 React 组件中使用基于函数的内容
 
-要在 React 组件中使用基于函数的内容，您需要从 `react-intlayer` 导入 `useIntlayer`，并使用内容 ID 调用它以获取内容。示例如下：
-
-```typescript fileName="**/*.jsx" codeFormat="typescript"
-import type { FC } from "react";
-import { useIntlayer } from "react-intlayer";
-
-const MyComponent: FC = () => {
-  const functionContent = useIntlayer("function_content");
-  const asyncFunctionContent = useIntlayer("async_function_content");
-
-  return (
-    <div>
-      <p>{functionContent.text}</p>
-      {/* 输出：这是由函数渲染的内容 */}
-      <p>{asyncFunctionContent.text}</p>
-      {/* 输出：这是从服务器获取的内容 */}
-    </div>
-  );
-};
-
-export default MyComponent;
-```
-
-在这种情况下，`fakeFetch` 函数模拟了延迟以模拟服务器响应时间。Intlayer 执行异步函数并使用结果作为 `text` 键的内容。
-
-## 在 React 组件中使用基于函数的内容
-
 要在 React 组件中使用基于函数的内容，您需要从 `react-intlayer` 导入 `useIntlayer` 并使用内容 ID 调用它以获取内容。示例如下：
 
 ```typescript fileName="**/*.jsx" codeFormat={["typescript", "esm", "commonjs"]}

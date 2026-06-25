@@ -328,26 +328,6 @@ Sözlükleri kategorize etmek ve düzenlemek için kullanılan string dizisi. Et
 
 #### `format` ('intlayer' | 'icu' | 'i18next')
 
-Sözlük içeriği için kullanılacak formatlayıcıyı belirtir. Bu, farklı mesaj formatlama sözdizimlerini kullanmanıza olanak tanır.
-
-- `'intlayer'`: Varsayılan Intlayer formatlayıcısı.
-- `'icu'`: ICU mesaj formatlamasını kullanır.
-- `'i18next'`: i18next mesaj formatlamasını kullanır.
-
-**Örnek:**
-
-```typescript
-{
-  key: "my-dictionary",
-  format: "icu",
-  content: {
-    message: "Hello {name}, you have {count, plural, one {# message} other {# messages}}"
-  }
-}
-```
-
-#### `format` ('intlayer' | 'icu' | 'i18next')
-
 Sözlük içeriği için kullanılacak formatörü belirtir. Bu, farklı mesaj formatlama sözdizimlerini kullanmaya olanak tanır.
 
 - `'intlayer'`: Varsayılan Intlayer formatörü.
@@ -598,6 +578,10 @@ Sözlük yapısının doğrulanması için kullanılan JSON şeması. Sözlük b
 
 Uzak sözlükler için, uzak sunucudaki sözlüğün benzersiz tanımlayıcısıdır. Uzak içeriğin getirilmesi ve yönetilmesi için kullanılır.
 
+##### `projectIds` (string[])
+
+Uzak sözlükler için, bu dizi bu sözlüğü kullanabilen projelerin kimliklerini içerir. Uzak bir sözlük birden fazla proje arasında paylaşılabilir.
+
 ##### `localId` (LocalDictionaryId)
 
 Yerel sözlükler için benzersiz tanımlayıcı. Sözlüğü tanımlamaya ve yerel mi yoksa uzak mı olduğunu, ayrıca konumunu belirlemeye yardımcı olmak için Intlayer tarafından otomatik olarak oluşturulur.
@@ -617,13 +601,6 @@ Uzak sözlükler için, bu dizi sözlüğün mevcut tüm sürümlerini içerir. 
 ##### `autoFilled` (true)
 
 Sözlüğün dış kaynaklardan otomatik olarak doldurulup doldurulmadığını belirtir. Çakışma durumunda, temel sözlükler otomatik doldurulan sözlüklerin üzerine yazacaktır.
-
-##### `location` ('distant' | 'locale')
-
-Sözlüğün konumunu belirtir:
-
-- `'locale'`: Yerel sözlük (içerik dosyalarından)
-- `'distant'`: Uzak sözlük (harici kaynaktan)
 
 ## İçerik Düğüm Türleri
 

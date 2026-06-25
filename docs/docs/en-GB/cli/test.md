@@ -98,40 +98,4 @@ pnpm intlayer content test --verbose
 bun x intlayer content test --verbose
 ```
 
-The output helps you quickly identify which translations need to be completed to ensure your application works correctly across all configured locales.
-
-> Example: `npx intlayer content test --base-dir ./src --env-file .env.production.local`
-
-- **`--no-cache`**: Disable the cache.
-
-  > Example: `npx intlayer build --no-cache`
-
-**Preparation options:**
-
-- **`--build`**: Build the dictionaries before pushing to ensure the content is up to date. True will force the build, false will skip the build, undefined will allow using the cache of the build.
-
-**Log options:**
-
-- **`--verbose`**: Enable verbose logging for debugging. (default to true using CLI)
-
-  > Example: `npx intlayer content test --verbose`
-
-## Example:
-
-```bash packageManager="npm"
-npx intlayer content test --verbose
-```
-
-```bash packageManager="yarn"
-yarn intlayer content test --verbose
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer content test --verbose
-```
-
-```bash packageManager="bun"
-bun x intlayer content test --verbose
-```
-
 The output helps you quickly identify which translations need to be completed to ensure your application works properly across all configured locales.

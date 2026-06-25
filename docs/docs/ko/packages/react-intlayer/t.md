@@ -161,26 +161,6 @@ const App: FC<{ locale: Locales }> = ({ locale }) => (
   - `IntlayerProvider`가 적절한 `locale`로 올바르게 설정되었는지 확인하세요.
   - 번역 객체에 필요한 모든 로케일이 포함되어 있는지 확인하세요.
 
-### TypeScript에서 번역 누락
-
-- **원인**: 번역 객체가 필요한 로케일을 모두 만족하지 않아 TypeScript 오류가 발생합니다.
-- **해결 방법**: `IConfigLocales` 타입을 사용하여 번역의 완전성을 강제하세요.
-
-```typescript codeFormat={["typescript", "esm", "commonjs"]}
-const translations: IConfigLocales<string> = {
-  en: "Text",
-  fr: "Texte",
-  // es: 'Texto', // 'es'가 누락되면 TypeScript 오류가 발생합니다
-};
-
-const text = t(translations);
-```
-
-- **원인**: 현재 로케일이 제대로 설정되지 않았거나, 현재 로케일에 대한 번역이 누락된 경우입니다.
-- **해결책**:
-  - `IntlayerProvider`가 적절한 `locale`과 함께 올바르게 설정되었는지 확인하세요.
-  - 번역 객체에 필요한 모든 로케일이 포함되어 있는지 확인하세요.
-
 ### TypeScript에서 번역 누락 문제
 
 - **원인**: 번역 객체가 요구되는 모든 로케일을 충족하지 않아 TypeScript 오류가 발생합니다.

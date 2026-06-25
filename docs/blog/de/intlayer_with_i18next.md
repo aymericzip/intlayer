@@ -34,6 +34,10 @@ author: aymericzip
 
 <iframe title="Wie Sie Ihre i18next JSON-Übersetzungen mit Intlayer automatisieren" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
+## Inhaltsverzeichnis
+
+<TOC/>
+
 ## Was ist Intlayer?
 
 **Intlayer** ist eine innovative, Open-Source-Internationalisierungsbibliothek, die entwickelt wurde, um die Schwächen traditioneller i18n-Lösungen zu beheben. Sie bietet einen modernen Ansatz für das Content-Management in JavaScript-Anwendungen.

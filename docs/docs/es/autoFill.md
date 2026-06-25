@@ -28,6 +28,53 @@ history:
 author: aymericzip
 ---
 
+# Rellenar Traducciones de Archivos de Declaración de Contenido
+
+**Rellenar automáticamente archivos de declaración de contenido** en tu CI es una forma de acelerar tu flujo de trabajo de desarrollo.
+
+## Entendiendo el comportamiento
+
+El comando `fill` incluye dos modos:
+
+- **Complete**: Completa automáticamente todo el contenido faltante para cada locale y edita el archivo actual, u otro archivo si se especifica. Es decir, el modo complete omitirá la traducción del contenido existente, si ya está traducido.
+- **Review**: Completa automáticamente **todo** el contenido para cada locale y genera para un archivo específico, u otro archivo si se especifica.
+
+El comando will procesará todos tus archivos de declaración de contenido por locale. Es decir, no procesará tu contenido remoto del CMS. El CMS incluye su propia gestión de traducciones.
+Si utilizas plugins como `@intlayer/sync-json-plugin`, Intlayer transformará los archivos JSON en archivos de declaración de contenido por locale. Es decir, serán procesados por el comando `fill`.
+
+Los archivos generados recientemente incluyen una instrucción `filled` como metadatos del diccionario. Esta instrucción será utilizada por Intlayer para saber si el archivo ha sido rellenado automáticamente o no, y omitirá este archivo de ser traducido nuevamente si está presente.
+
+Intlayer también considerará la siguiente instrucción para rellenado automático:
+
+- De tu `.content.{ts|js|json}` → instrucción `fill`
+- De tu archivo de configuración `.intlayer.config.ts` → instrucción `dictionary.fill`
+- Se establecerá en `true` por defecto de lo contrario
+
+Para archivos de declaración de contenido por locale, la instrucción `true` será reemplazada por `./{{fileName}}.fill.content.json`. Esto es porque un archivo de declaración de contenido por locale no puede recibir contenido localizado adicional. Por lo tanto, generará un nuevo archivo para no sobrescribir el archivo existente.
+
+## Comportamiento Predeterminado
+
+Por defecto, `fill` está establecido en `true` globalmente, lo que significa que Intlayer rellenará automáticamente todos los archivos de contenido y editará el archivo en sí. Este comportamiento se puede personalizar de varias formas:
+
+### Opciones de Configuración Global
+
+1. **`fill: true` (default)** - Rellenar automáticamente todos los locales y editar el archivo actual
+2. **`fill: false`** - Desactivar el relleno automático para este archivo de contenido
+3. **`fill: "./relative/path/to/file"`** - Crear/actualizar el archivo especificado sin editar el actual señalando una ruta relativa resuelta basada en la ubicación del archivo actual
+4. **`fill: "/absolute/path/to/file"`** - Crear/actualizar el archivo especificado sin editar el actual señalando una ruta relativa resuelta basada en la ubicación del directorio base (campo `baseDir` en el archivo de configuración `.intlayer.config.ts`)
+5. **`fill: "C:\\absolute\path\to\file"`** - Crear/actualizar el archivo especificado sin editar el actual señalando una ruta absoluta resuelta basada en tu sistema operativo
+6. **`fill: { [key in Locales]?: string }`** - Crear/actualizar el archivo especificado para cada locale
+
+### Cambios de comportamiento en v7
+
+En v7, el comportamiento del comando `fill` ha sido actualizado:
+
+- **`fill: true`** - Reescribe el archivo actual con contenido completado para todos los locales
+- **`fill: "path/to/file"`** - Completa el archivo especificado sin modificar el archivo actual
+- **`fill: false`** - Desactiva la completación automática completamente
+
+Cuando se utiliza una opción de ruta para escribir en otro archivo, el mecanismo de completación funciona a través de una relación _maestro-esclavo_ entre archivos de declaración de contenido. El archivo principal (maestro) sirve como la fuente de verdad, y cuando se actualiza, Intlayer aplicará automáticamente esos cambios a los archivos de declaración completados (derivados) especificados por la ruta.
+
 # Traducciones de Archivos de Declaración de Contenido con Relleno Automático
 
 **Los archivos de declaración de contenido con relleno automático** son una forma de acelerar tu flujo de trabajo de desarrollo.
@@ -87,6 +134,40 @@ Intlayer generará automáticamente el archivo de declaración derivado en `src/
 ```
 
 Después, ambos archivos de declaración se fusionarán en un único diccionario, accesible mediante el hook estándar `useIntlayer("example")` (react) / composable (vue).
+
+## Configuración Global
+
+Puedes configurar la configuración global de auto fill en el archivo `intlayer.config.ts`.
+
+```ts fileName="intlayer.config.ts"
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+    requiredLocales: [Locales.ENGLISH, Locales.FRENCH],
+  },
+  dictionary: {
+    // Auto-generar traducciones faltantes para todos los diccionarios
+    fill: "./{{fileName}}Filled.content.ts",
+    //
+    // fill: "/messages/{{locale}}/{{key}}/{{fileName}}.content.json",
+    //
+    // fill: true, // auto-generar traducciones faltantes para todos los diccionarios como usar "./{{fileName}}.content.json"
+    //
+    // fill: {
+    //   en: "./{{fileName}}.en.content.json",
+    //   fr: "./{{fileName}}.fr.content.json",
+    //   es: "./{{fileName}}.es.content.json",
+    // },
+  },
+};
+
+export default config;
+```
+
+Aún puedes ajustar finamente por diccionario usando el campo `fill` en archivos de contenido. Intlayer primero considerará la configuración por diccionario y luego recurrirá a la configuración global.
 
 ## Formato del Archivo Rellenado Automáticamente
 

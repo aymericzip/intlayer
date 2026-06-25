@@ -21,49 +21,6 @@ slugs:
 author: aymericzip
 ---
 
-# تكامل React: توثيق هوك `useIntlayer`
-
-يوفر هذا القسم إرشادات مفصلة حول استخدام هوك `useIntlayer` داخل تطبيقات React، مما يتيح تعريب المحتوى بكفاءة.
-
-## استيراد `useIntlayer` في React
-
-يمكن دمج هوك `useIntlayer` في تطبيقات React عن طريق استيراده بناءً على السياق:
-
-- **مكون العميل:**
-
-  ```typescript codeFormat="typescript"
-  import { useIntlayer } from "react-intlayer"; // يُستخدم في مكونات React على جانب العميل
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer"; // يُستخدم في مكونات React على جانب العميل
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer"); // يُستخدم في مكونات React على جانب العميل
-  ```
-
-- **مكون الخادم:**
-
-  ```typescript codeFormat="commonjs"
-  import { useIntlayer } from "react-intlayer/server"; // يُستخدم في مكونات React على جانب الخادم
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer/server"; // يُستخدم في مكونات React على جانب الخادم
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer/server"); // يُستخدم في مكونات React على جانب الخادم
-  ```
-
-## المعاملات
-
-يقبل الـ hook معاملين:
-
-1. **`key`**: مفتاح القاموس لاسترجاع المحتوى المحلي.
-2. **`locale`** (اختياري): اللغة المطلوبة. القيمة الافتراضية هي لغة السياق إذا لم يتم تحديدها.
-
 ## القاموس
 
 يجب إعلان جميع مفاتيح القاموس داخل ملفات إعلان المحتوى لتعزيز أمان النوع وتجنب الأخطاء. يمكنك العثور على [تعليمات الإعداد هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
@@ -127,20 +84,8 @@ const ServerComponentExample = () => {
 };
 ```
 
-## التعامل مع السمات
-
-عند تعريب السمات، قم بالوصول إلى قيم المحتوى بشكل مناسب:
-
-```jsx
-<button title={content.buttonTitle.value}>{content.buttonText}</button>
-```
-
 ## موارد إضافية
 
 - **محرر Intlayer المرئي**: لتجربة إدارة محتوى أكثر سهولة وبديهية، راجع توثيق المحرر المرئي [هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/intlayer_visual_editor.md).
 
 تستهدف هذه القسم بشكل خاص دمج الخطاف `useIntlayer` في تطبيقات React، مما يبسط عملية التعريب ويضمن تناسق المحتوى عبر اللغات المختلفة.
-
-## تاريخ التوثيق
-
-- 5.5.10 - 2025-06-29: بداية السجل

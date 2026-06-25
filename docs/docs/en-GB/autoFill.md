@@ -28,6 +28,53 @@ history:
 author: aymericzip
 ---
 
+# Fill Content Declaration File Translations
+
+**Autofill content declaration files** in your CI are a way to speed up your development workflow.
+
+## Understanding the behaviour
+
+The `fill` command includes two modes:
+
+- **Complete**: Automatically fill all missing content for each locale and edit the current file, or another file if specified. That is, complete mode will skip the translation of existing content, if already translated.
+- **Review**: Automatically fill **all** content for each locale and generate for a specific file, or another file if specified.
+
+The fill command will process all your locale content declaration files. That is, it will not process your remote content from the CMS. The CMS includes its own translations management.
+If you use plugins such as `@intlayer/sync-json-plugin`, Intlayer will transform the JSON files into locale content declaration files. That is, they will be processed by the `fill` command.
+
+The new generated files include a `filled` instruction as dictionary metadata. This instruction will be used by Intlayer to know if the file has been autofilled or not, and skip this file from being translated again if present.
+
+Intlayer will also consider the following instruction for autofill:
+
+- From your `.content.{ts|js|json}` → `fill` instruction
+- From your configuration file `.intlayer.config.ts` → `dictionary.fill` instruction
+- Will be set to `true` by default otherwise
+
+For per-locale content declaration files, the `true` instruction will be replaced by `./{{fileName}}.fill.content.json`. This is because a per-locale content declaration file cannot receive additional localised content. So it will generate a new file to not overwrite the existing file.
+
+## Default Behavior
+
+By default, `fill` is set to `true` globally, which means Intlayer will automatically fill all content files and edit the file itself. This behaviour can be customised in several ways:
+
+### Global Configuration Options
+
+1. **`fill: true` (default)** - Automatically fill all locales and edit the current file
+2. **`fill: false`** - Disable auto-fill for this content file
+3. **`fill: "./relative/path/to/file"`** - Create/update the specified file without editing the current one by pointing to a relative path resolved based on the location of the current file
+4. **`fill: "/absolute/path/to/file"`** - Create/update the specified file without editing the current one by pointing to a relative path resolved based on the location of base directory (field `baseDir` in the configuration file `.intlayer.config.ts`)
+5. **`fill: "C:\\absolute\path\to\file"`** - Create/update the specified file without editing the current one by pointing to an absolute path resolved based on your operating system
+6. **`fill: { [key in Locales]?: string }`** - Create/update the specified file for each locale
+
+### v7 Behaviour Changes
+
+In v7, the `fill` command behaviour has been updated:
+
+- **`fill: true`** - Rewrites the current file with filled content for all locales
+- **`fill: "path/to/file"`** - Fills the specified file without modifying the current file
+- **`fill: false`** - Disables auto-fill completely
+
+When using a path option to write to another file, the fill mechanism works through a _master-slave_ relationship between content declaration files. The main (master) file serves as the source of truth, and when it's updated, Intlayer will automatically apply those changes to the derived (filled) declaration files specified by the path.
+
 # Autofill Content Declaration File Translations
 
 **Autofill content declaration files** are a way to speed up your development workflow.
@@ -87,6 +134,40 @@ Intlayer will automatically generate the derived declaration file at `src/compon
 ```
 
 Afterwards, both declaration files will be merged into a single dictionary, accessible using the standard `useIntlayer("example")` hook (React) / composable (Vue).
+
+## Global Configuration
+
+You can configure the global auto fill configuration in the `intlayer.config.ts` file.
+
+```ts fileName="intlayer.config.ts"
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+    requiredLocales: [Locales.ENGLISH, Locales.FRENCH],
+  },
+  dictionary: {
+    // Auto-generate missing translations for all dictionaries
+    fill: "./{{fileName}}Filled.content.ts",
+    //
+    // fill: "/messages/{{locale}}/{{key}}/{{fileName}}.content.json",
+    //
+    // fill: true, // auto-generate missing translations for all dictionaries like using "./{{fileName}}.content.json"
+    //
+    // fill: {
+    //   en: "./{{fileName}}.en.content.json",
+    //   fr: "./{{fileName}}.fr.content.json",
+    //   es: "./{{fileName}}.es.content.json",
+    // },
+  },
+};
+
+export default config;
+```
+
+You can still fine‑tune per dictionary using the `fill` field in content files. Intlayer will first consider the per dictionary configuration and then fallback to the global configuration.
 
 ## Autofilled File Format
 

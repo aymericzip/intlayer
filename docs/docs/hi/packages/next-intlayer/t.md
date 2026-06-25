@@ -135,6 +135,8 @@ export const ServerComponentExample: FC = () => (
 
 ## उन्नत विषय
 
+## Advanced Topics
+
 ### TypeScript एकीकरण
 
 जब `t` फ़ंक्शन TypeScript के साथ उपयोग किया जाता है, तो यह टाइप-सुरक्षित होता है, जिससे यह सुनिश्चित होता है कि सभी आवश्यक लोकल्स प्रदान किए गए हैं।

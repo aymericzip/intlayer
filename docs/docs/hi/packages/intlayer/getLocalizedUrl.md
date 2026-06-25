@@ -29,9 +29,37 @@ author: aymericzip
 
 ## विवरण
 
+`getLocalizedUrl` फ़ंक्शन दिए गए URL को निर्दिष्ट locale के साथ उपसर्ग करके एक localized URL उत्पन्न करता है। यह absolute और relative दोनों URLs को हैंडल करता है, यह सुनिश्चित करता है कि सही locale prefix configuration के आधार पर लागू किया जाता है।
+
+**मुख्य विशेषताएं:**
+
+- केवल 2 parameters आवश्यक हैं: `url` और `currentLocale`
+- `locales`, `defaultLocale`, और `mode` के साथ optional `options` object
+- अपनी project की internationalization configuration को defaults के रूप में उपयोग करता है
+- सरल cases के लिए minimal parameters के साथ या complex scenarios के लिए पूरी तरह से customized किया जा सकता है
+- कई routing modes को support करता है: `prefix-no-default`, `prefix-all`, `no-prefix`, और `search-params`
+
+---
+
+## विवरण
+
 `getLocalizedUrl` फ़ंक्शन निर्दिष्ट लोकल के साथ दिए गए URL के आगे लोकलाइज़्ड URL उत्पन्न करता है। यह पूर्ण (absolute) और सापेक्ष (relative) दोनों प्रकार के URL को संभालता है, यह सुनिश्चित करते हुए कि कॉन्फ़िगरेशन के आधार पर सही लोकल उपसर्ग लागू किया गया है।
 
 ---
+
+## पैरामीटर
+
+### आवश्यक पैरामीटर
+
+- `url: string`
+  - **Description**: मूल URL string जिसे locale के साथ prefix किया जाना है।
+  - **Type**: `string`
+  - **Required**: Yes
+
+- `currentLocale: Locales`
+  - **Description**: वर्तमान locale जिसके लिए URL को localize किया जा रहा है।
+  - **Type**: `Locales`
+  - **Required**: Yes
 
 ## पैरामीटर
 
@@ -66,6 +94,46 @@ author: aymericzip
 ---
 
 ## उदाहरण उपयोग
+
+### बुनियादी उपयोग (केवल आवश्यक पैरामीटर)
+
+जब आप अपनी परियोजना को अंतर्राष्ट्रीयकरण सेटिंग्स के साथ कॉन्फ़िगर कर लेते हैं, तो आप केवल आवश्यक पैरामीटर के साथ फ़ंक्शन का उपयोग कर सकते हैं:
+
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
+import { getLocalizedUrl, Locales } from "intlayer";
+
+// आपकी परियोजना की कॉन्फ़िगरेशन का उपयोग करता है locales, defaultLocale, और mode के लिए
+getLocalizedUrl("/about", Locales.FRENCH);
+// आउटपुट: "/fr/about" (मानते हुए कि फ्रेंच समर्थित है और mode 'prefix-no-default' है)
+
+getLocalizedUrl("/about", Locales.ENGLISH);
+// आउटपुट: "/about" या "/en/about" (आपकी mode सेटिंग के आधार पर)
+```
+
+### Advanced Usage (With Optional Parameters)
+
+आप optional `options` parameter प्रदान करके default configuration को override कर सकते हैं:
+
+### Relative URLs (All Options Specified)
+
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
+import { getLocalizedUrl, Locales } from "intlayer";
+
+// सभी optional parameters को स्पष्ट रूप से प्रदान करना
+getLocalizedUrl("/about", Locales.FRENCH, {
+  locales: [Locales.ENGLISH, Locales.FRENCH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-no-default",
+});
+// Output: "/fr/about" French locale के लिए
+
+getLocalizedUrl("/about", Locales.ENGLISH, {
+  locales: [Locales.ENGLISH, Locales.FRENCH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-no-default",
+});
+// Output: "/about" डिफ़ॉल्ट (English) locale के लिए
+```
 
 ### सापेक्ष URL
 

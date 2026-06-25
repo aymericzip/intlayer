@@ -249,6 +249,14 @@ const { greeting } = useIntlayer("component-example");
 
 ---
 
+## vue-i18n के साथ अंतरसंचालनीयता
+
+`intlayer` आपके `vue-i18n` namespaces को प्रबंधित करने में भी मदद कर सकता है।
+
+`intlayer` का उपयोग करके, आप अपने पसंदीदा i18n library के प्रारूप में अपनी content declare कर सकते हैं, और intlayer आपकी namespaces को अपनी पसंद के स्थान पर generate करेगा (उदाहरण: `/messages/{{locale}}/{{namespace}}.json`)।
+
+---
+
 ## व्यावहारिक माइग्रेशन नोट्स (vue-i18n → Intlayer)
 
 - **प्रत्येक फीचर से शुरू करें**: एक समय में एक रूट/व्यू/कंपोनेंट को स्थानीय Intlayer शब्दकोशों में स्थानांतरित करें।

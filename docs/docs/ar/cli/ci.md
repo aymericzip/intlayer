@@ -140,6 +140,28 @@ steps:
     run: npx intlayer ci fill
 ```
 
+## إجراءات GitHub المُنشأة تلقائياً
+
+عند تشغيل `intlayer init`، يكتشف Intlayer مدير الحزم الخاص بك (npm أو yarn أو pnpm أو bun) وينشئ سير عملين من إجراءات GitHub تحت `.github/workflows/`، مع أوامر تطابق مدير الحزم هذا:
+
+- **`intlayer-fill.yml`** — في كل طلب دمج، ينشئ القواميس ويشغل `intlayer fill --git-diff --mode complete` لإنشاء الترجمات المفقودة للقواميس المتغيرة، ثم يرسل النتيجة مرة أخرى إلى فرع طلب الدمج.
+- **`intlayer-test.yml`** — في كل طلب دمج، ينشئ القواموس ويشغل `intlayer test`، ويفشل الفحص عندما تكون الترجمات المطلوبة مفقودة للغات المطلوبة.
+
+لن يتم استبدال ملفات سير العمل الموجودة. لتخطي الإنشاء بالكامل، قم بتشغيل:
+
+```bash
+npx intlayer init --no-github-actions
+```
+
+### توفير وصول الذكاء الاصطناعي لسير العمل fill
+
+ملف `intlayer-fill.yml` المُنشأ يتطلب وصول الذكاء الاصطناعي. يتوفر خياران (مُكوّنان في كتلة `env` في سير العمل):
+
+1. **مفتاح مزود الذكاء الاصطناعي الخاص بك** — أضف سراً `AI_API_KEY` في إعدادات المستودع (Settings → Secrets and variables → Actions). يقوم سير العمل بإعادة توجيهه عبر `--provider` و `--model` و `--api-key`.
+2. **مفاتيح وصول Intlayer CMS** — أضف أسراراً `INTLAYER_CLIENT_ID` و `INTLAYER_CLIENT_SECRET` وربطها في قسم `editor` الخاص بك في `intlayer.config`. مفاتيح وصول CMS تمنح وصول الذكاء الاصطناعي من خلال خادم Intlayer الخلفي.
+
+سير العمل `intlayer-test.yml` لا يتطلب أي وصول للذكاء الاصطناعي.
+
 ## معالجة الأخطاء
 
 - إذا لم يتم تعيين `INTLAYER_PROJECT_CREDENTIALS`، فسيخرج الأمر مع خطأ.

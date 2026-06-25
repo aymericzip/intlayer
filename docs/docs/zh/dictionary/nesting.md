@@ -27,6 +27,45 @@ author: aymericzip
 
 ## 设置嵌套
 
+要在你的 Intlayer 项目中设置嵌套，你首先定义你希望重用的基础内容。然后，在一个单独的内容模块中，你使用 `nest` 函数来导入该内容。
+
+### 基础字典
+
+下面是一个基础字典的示例，用于嵌套在另一个字典中：
+
+```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { type Dictionary } from "intlayer";
+
+const firstDictionary = {
+  key: "key_of_my_first_dictionary",
+  content: {
+    content: "content",
+    subContent: {
+      contentNumber: 0,
+      contentString: "string",
+    },
+  },
+} satisfies Dictionary;
+
+export default firstDictionary;
+```
+
+```json fileName="firstDictionary.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "key_of_my_first_dictionary",
+  "content": {
+    "content": "content",
+    "subContent": {
+      "contentNumber": 0,
+      "contentString": "string"
+    }
+  }
+}
+```
+
+## 设置嵌套
+
 <Tabs group="framework">
   <Tab label="React" value="react">
 

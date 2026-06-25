@@ -53,6 +53,10 @@ author: aymericzip
 
 Veja [Application Template](https://github.com/aymericzip/intlayer-next-14-template) no GitHub.
 
+## Índice
+
+<TOC/>
+
 ## Por que Intlayer em vez de alternativas?
 
 Comparado com soluções principais como `next-intl` ou `i18next`, Intlayer é uma solução que vem com otimizações integradas como:
@@ -880,6 +884,21 @@ Para fazer isso, você pode adicionar as seguintes instruções ao seu arquivo `
 # Ignore os arquivos gerados pelo Intlayer
 .intlayer
 ```
+
+### Extensão VS Code
+
+Para melhorar sua experiência de desenvolvimento com Intlayer, você pode instalar a **Extensão Intlayer VS Code** oficial.
+
+[Instalar do VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+Esta extensão fornece:
+
+- **Autocompletar** para chaves de tradução.
+- **Detecção de erros em tempo real** para traduções ausentes.
+- **Pré-visualizações inline** do conteúdo traduzido.
+- **Ações rápidas** para criar e atualizar traduções facilmente.
+
+Para mais detalhes sobre como usar a extensão, consulte a [documentação da Extensão Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
 
 ### Vá Além
 

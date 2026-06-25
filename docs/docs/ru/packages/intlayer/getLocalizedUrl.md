@@ -29,6 +29,38 @@ author: aymericzip
 
 ## Описание
 
+Функция `getLocalizedUrl` генерирует локализованный URL, добавляя префикс с указанной локалью к заданному URL. Она обрабатывает как абсолютные, так и относительные URL, обеспечивая правильное применение префикса локали на основе конфигурации.
+
+**Основные возможности:**
+
+- Требуются только 2 параметра: `url` и `currentLocale`
+- Опциональный объект `options` с `locales`, `defaultLocale` и `mode`
+- Использует конфигурацию интернационализации вашего проекта по умолчанию
+- Может использоваться с минимальными параметрами для простых случаев или полностью настраиваться для сложных сценариев
+- Поддерживает несколько режимов маршрутизации: `prefix-no-default`, `prefix-all`, `no-prefix` и `search-params`
+
+---
+
+## Сигнатура функции
+
+```typescript
+getLocalizedUrl(
+  url: string,                   // Обязательно
+  currentLocale: Locales,        // Обязательно
+  options?: {                    // Опционально
+    locales?: Locales[];
+    defaultLocale?: Locales;
+    mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
+  }
+): string
+```
+
+---
+
+## Параметры
+
+## Описание
+
 Функция `getLocalizedUrl` генерирует локализованный URL, добавляя в начало заданного URL указанный локаль. Она обрабатывает как абсолютные, так и относительные URL, обеспечивая применение правильного префикса локали в соответствии с конфигурацией.
 
 ---
@@ -66,6 +98,25 @@ author: aymericzip
 ---
 
 ## Пример использования
+
+### Базовое использование (только необходимые параметры)
+
+Когда вы настроили свой проект с параметрами интернационализации, вы можете использовать функцию только с необходимыми параметрами:
+
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
+import { getLocalizedUrl, Locales } from "intlayer";
+
+// Использует конфигурацию вашего проекта для locales, defaultLocale и mode
+getLocalizedUrl("/about", Locales.FRENCH);
+// Вывод: "/fr/about" (при условии, что французский поддерживается и mode установлен на 'prefix-no-default')
+
+getLocalizedUrl("/about", Locales.ENGLISH);
+// Вывод: "/about" или "/en/about" (в зависимости от параметра mode)
+```
+
+### Advanced Usage (With Optional Parameters)
+
+Вы можете переопределить конфигурацию по умолчанию, предоставив необязательный параметр `options`:
 
 ### Относительные URL
 
@@ -112,6 +163,30 @@ getLocalizedUrl(
 
 // Вывод: "/fr/about" для французской локали
 // Вывод: "/about" для локали по умолчанию (английский)
+```
+
+### Частичное переопределение конфигурации
+
+Вы также можете предоставить только некоторые необязательные параметры. Функция будет использовать конфигурацию вашего проекта для любых параметров, которые вы не указали:
+
+```typescript codeFormat="typescript"
+import { getLocalizedUrl, Locales } from "intlayer";
+
+// Переопределить только locales, использовать конфигурацию проекта для defaultLocale и mode
+getLocalizedUrl("/about", Locales.SPANISH, {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+});
+
+// Переопределить только mode, использовать конфигурацию проекта для locales и defaultLocale
+getLocalizedUrl("/about", Locales.ENGLISH, {
+  mode: "prefix-all", // Принудительный префикс для всех локалей, включая значение по умолчанию
+});
+
+// Переопределить несколько опций
+getLocalizedUrl("/about", Locales.FRENCH, {
+  defaultLocale: Locales.ENGLISH,
+  mode: "search-params", // Использовать параметры запроса: /about?locale=fr
+});
 ```
 
 ### Абсолютные URL

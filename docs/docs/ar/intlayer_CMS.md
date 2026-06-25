@@ -40,6 +40,12 @@ author: aymericzip
 
 ![واجهة نظام إدارة المحتوى Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
 
+## جدول المحتويات
+
+<TOC/>
+
+---
+
 ## فهم القواميس البعيدة
 
 يفرق Intlayer بين القواميس "المحلية" و"البعيدة".

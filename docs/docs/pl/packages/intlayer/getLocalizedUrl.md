@@ -97,6 +97,25 @@ getLocalizedUrl(
 
 ## Przykład użycia
 
+### Podstawowe użycie (tylko wymagane parametry)
+
+Gdy skonfigurujesz projekt z ustawieniami internacjonalizacji, możesz użyć funkcji tylko z wymaganymi parametrami:
+
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
+import { getLocalizedUrl, Locales } from "intlayer";
+
+// Używa konfiguracji projektu dla locales, defaultLocale i mode
+getLocalizedUrl("/about", Locales.FRENCH);
+// Output: "/fr/about" (zakładając, że French jest obsługiwany i mode to 'prefix-no-default')
+
+getLocalizedUrl("/about", Locales.ENGLISH);
+// Output: "/about" lub "/en/about" (zależy od ustawienia mode)
+```
+
+### Zaawansowane użycie (z opcjonalnymi parametrami)
+
+Możesz zastąpić konfigurację domyślną, podając opcjonalny parametr `options`:
+
 ### Podstawowe użycie (Tylko wymagane parametry)
 
 Gdy skonfigurujesz swój projekt z ustawieniami internacjonalizacji, możesz użyć funkcji tylko z wymaganymi parametrami:

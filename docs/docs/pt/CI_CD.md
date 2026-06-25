@@ -26,6 +26,10 @@ author: aymericzip
 
 O Intlayer permite a geração automática de traduções para seus arquivos de declaração de conteúdo. Existem várias maneiras de realizar isso dependendo do seu fluxo de trabalho.
 
+## Índice
+
+<TOC/>
+
 ## Usando o CMS
 
 Com o Intlayer, você pode adotar um fluxo de trabalho onde apenas um único idioma é declarado localmente, enquanto todas as traduções são gerenciadas remotamente através do CMS. Isso permite que o conteúdo e as traduções fiquem completamente desacoplados da base de código, oferecendo mais flexibilidade para os editores de conteúdo e possibilitando o recarregamento dinâmico do conteúdo (sem necessidade de reconstruir a aplicação para aplicar as alterações).

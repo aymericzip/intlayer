@@ -65,14 +65,6 @@ Wir konzentrieren uns auf den **Next.js 13+ App Router** (mit **React Server Com
 
 ## Gegenüberstellung der Funktionen (Fokus auf Next.js)
 
-| Funktion | `next-intlayer` (Intlayer) | `next-intl` | `next-i18next` |
-
-> Abzeichen werden automatisch aktualisiert. Screenshots können sich im Laufe der Zeit ändern.
-
----
-
-## Gegenüberstellung der Funktionen (Fokus auf Next.js)
-
 | Funktion                                           | `next-intlayer` (Intlayer)                                                                                                                        | `next-intl`                                                                                                                           | `next-i18next`                                                                                                                        |
 | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | **Übersetzungen in der Nähe der Komponenten**      | ✅ Ja, Inhalt ist mit jeder Komponente zusammengefasst                                                                                            | ❌ Nein                                                                                                                               | ❌ Nein                                                                                                                               |
@@ -291,34 +283,6 @@ Hier ein Beispiel für die Auswirkung der Bundle-Größenoptimierung mit `intlay
 **Warum es wichtig ist:** Klareres mentales Modell und weniger Randfälle in hybriden Bäumen.
 
 ---
-
-## DX, Tools & Wartung
-
-<Columns>
-  <Column>
-
-**next-intl**
-
-- Wird häufig mit externen Lokalisierungsplattformen und redaktionellen Workflows kombiniert.
-
-  </Column>
-  <Column>
-
-**next-i18next**
-
-- Wird häufig mit externen Lokalisierungsplattformen und redaktionellen Workflows kombiniert.
-
-  </Column>
-  <Column>
-
-**intlayer**
-
-- Bietet einen **kostenlosen Visual Editor** und ein **optionales CMS** (Git-freundlich oder externalisiert) sowie eine **VSCode-Erweiterung** und **KI-unterstützte Übersetzungen** mit Ihren eigenen Anbieter-Schlüsseln.
-
-  </Column>
-</Columns>
-
-**Warum das wichtig ist:** Senkt die Betriebskosten und verkürzt den Kommunikationszyklus zwischen Entwicklern und Inhaltserstellern.
 
 ## Integration mit Lokalisierungsplattformen (TMS)
 
@@ -1324,6 +1288,127 @@ export default robots;
 </Tabs>
 
 > Intlayer stellt eine `getMultilingualUrls`-Funktion bereit, um mehrsprachige URLs für Ihre Sitemap zu generieren.
+
+---
+
+### Middleware für Locale-Routing
+
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
+
+Fügen Sie ein Middleware hinzu, um die Locale-Erkennung und das Routing zu verarbeiten:
+
+```ts fileName="src/middleware.ts"
+import { NextResponse, type NextRequest } from "next/server";
+import { defaultLocale, locales } from "@/i18n.config";
+
+const PUBLIC_FILE = /\.[^/]+$/; // Dateien mit Erweiterungen ausschließen
+
+export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  if (
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/api") ||
+    pathname.startsWith("/static") ||
+    PUBLIC_FILE.test(pathname)
+  ) {
+    return;
+  }
+
+  const hasLocale = locales.some(
+    (l) => pathname === "/" + l || pathname.startsWith("/" + l + "/")
+  );
+  if (!hasLocale) {
+    const locale = defaultLocale;
+    const url = request.nextUrl.clone();
+    url.pathname = "/" + locale + (pathname === "/" ? "" : pathname);
+    return NextResponse.redirect(url);
+  }
+}
+
+export const config = {
+  matcher: [
+    // Alle Pfade abgleichen, außer denen, die mit diesen beginnen, und Dateien mit einer Erweiterung
+    "/((?!api|_next|static|.*\\..*).*)",
+  ],
+};
+```
+
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
+
+Fügen Sie ein Middleware hinzu, um die Locale-Erkennung und das Routing zu verarbeiten:
+
+```ts fileName="src/middleware.ts"
+import createMiddleware from "next-intl/middleware";
+import { locales, defaultLocale } from "@/i18n";
+
+export default createMiddleware({
+  locales: [...locales],
+  defaultLocale,
+  localeDetection: true,
+});
+
+export const config = {
+  // API, Next-Interna und statische Assets überspringen
+  matcher: ["/((?!api|_next|.*\\..*).*)"],
+};
+```
+
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
+
+Intlayer bietet integrierte Middleware-Handhabung durch die `next-intlayer`-Paketkonfiguration.
+
+```ts fileName="src/middleware.ts"
+import { intlayerProxy } from "next-intlayer/proxy";
+
+export const middleware = intlayerProxy();
+
+// wendet dieses Middleware nur auf Dateien im App-Verzeichnis an
+export const config = {
+  matcher: "/((?!api|_next|static|.*\\..*).*)",
+};
+```
+
+Die Einrichtung des Middleware ist in der `intlayer.config.ts`-Datei zentralisiert.
+
+  </Tab>
+</Tabs>
+
+### Setup-Checkliste und bewährte Praktiken
+
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
+
+- Stellen Sie sicher, dass `lang` und `dir` auf dem Root-Element `<html>` in `src/app/[locale]/layout.tsx` gesetzt sind.
+- Teilen Sie Übersetzungen in Namespaces auf (zum Beispiel `common.json`, `about.json`) unter `src/locales/<locale>/`.
+- Laden Sie nur erforderliche Namespaces in Client-Komponenten mit `useTranslation('<ns>')` und scoping des `I18nProvider` mit denselben Namespaces.
+- Halten Sie Seiten wenn möglich statisch: exportieren Sie `export const dynamic = 'force-static'` auf Seiten; setzen Sie `dynamicParams = false` und implementieren Sie `generateStaticParams`.
+- Verwenden Sie synchrone Server-Komponenten, die unter Client-Grenzen verschachtelt sind, indem Sie bereits berechnete Strings oder die `t`-Funktion und das `locale` weitergeben.
+- Für SEO setzen Sie `alternates.languages` in Metadaten, listen Sie lokalisierte URLs in `sitemap.ts` auf und deaktivieren Sie doppelte lokalisierte Routen in `robots.ts`.
+- Bevorzugen Sie locale-bewusste Formatters (z. B. `Intl.NumberFormat(locale)`) und memoizieren Sie sie auf dem Client, falls Sie React < 19 verwenden.
+
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
+
+- **HTML `lang` und `dir` setzen**: In `src/app/[locale]/layout.tsx` berechnen Sie `dir` über `getLocaleDirection(locale)` und setzen Sie `<html lang={locale} dir={dir}>`.
+- **Nachrichten nach Namespace aufteilen**: Organisieren Sie JSON pro Locale und Namespace (z. B. `common.json`, `about.json`).
+- **Client-Payload minimieren**: Auf Seiten senden Sie nur erforderliche Namespaces an `NextIntlClientProvider` (z. B. `pick(messages, ['common', 'about'])`).
+- **Statische Seiten bevorzugen**: Exportieren Sie `export const dynamic = 'force-static'` und generieren Sie statische Parameter für alle `locales`.
+- **Synchrone Server-Komponenten**: Halten Sie Server-Komponenten synchron, indem Sie bereits berechnete Strings (übersetzte Labels, formatierte Zahlen) übergeben, anstatt asynchrone Aufrufe oder nicht-serialisierbare Funktionen zu verwenden.
+
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
+
+- **Modularer Inhalt**: Co-lokalisieren Sie Inhalts-Dictionaries mit Komponenten unter Verwendung von `.content.{ts|js|json}`-Dateien.
+- **Typsicherheit**: Nutzen Sie die TypeScript-Integration für Compile-Zeit-Inhaltsvalidation.
+- **Build-Zeit-Optimierung**: Verwenden Sie Intlayers Build-Tools für automatisches Tree-Shaking und Bundle-Optimierung.
+- **Integriertes Tooling**: Nutzen Sie eingebautes Routing, SEO-Helfer und visuelle Editor-Unterstützung.
+
+  </Tab>
+</Tabs>
 
 ---
 

@@ -133,6 +133,40 @@ Quando si localizzano attributi come `alt`, `title`, `href` o `aria-label`, è p
 
 ---
 
+### Traduzioni Inline negli Attributi
+
+La funzione `t` è particolarmente utile per le traduzioni inline negli attributi JSX.
+Quando localizzi attributi come `alt`, `title`, `href`, o `aria-label`, puoi usare `t` direttamente all'interno dell'attributo.
+
+```jsx
+<button
+  aria-label={t({
+    it: "Invia",
+    en: "Submit",
+    fr: "Soumettre",
+    es: "Enviar",
+  })}
+>
+  {t({
+    it: "Invia",
+    en: "Submit",
+    fr: "Soumettre",
+    es: "Enviar",
+  })}
+  <img
+    src="/path/to/image"
+    alt={t({
+      it: "Un bellissimo paesaggio",
+      en: "A beautiful scenery",
+      fr: "Un beau paysage",
+      es: "Un hermoso paisaje",
+    })}
+  />
+</button>
+```
+
+---
+
 ## Argomenti Avanzati
 
 ### Integrazione con TypeScript

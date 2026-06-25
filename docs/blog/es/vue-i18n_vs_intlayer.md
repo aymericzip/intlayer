@@ -249,6 +249,14 @@ Este enfoque:
 
 ---
 
+## Interoperabilidad con vue-i18n
+
+`intlayer` también puede ayudarte a gestionar tus namespaces de `vue-i18n`.
+
+Usando `intlayer`, puedes declarar tu contenido en el formato de tu librería i18n favorita, e intlayer generará tus namespaces en la ubicación de tu elección (ejemplo: `/messages/{{locale}}/{{namespace}}.json`).
+
+---
+
 ## Notas prácticas para la migración (vue-i18n → Intlayer)
 
 - **Comience por función**: Mueva una ruta/vista/componente a la vez a los diccionarios locales de Intlayer.

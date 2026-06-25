@@ -632,47 +632,6 @@ bun run build # Or bun run dev
 
 </Steps>
 
-### TypeScript Yapılandırması
-
-TypeScript yapılandırmanızın otomatik oluşturulan türleri içerdiğinden emin olun.
-
-```json5 fileName="tsconfig.json"
-{
-  "compilerOptions": {
-    // ...
-  },
-  "include": ["src", ".intlayer/**/*.ts"],
-}
-```
-
-### Git Yapılandırması
-
-Intlayer tarafından oluşturulan dosyaları Git deponuza kaydetmekten kaçınmak için bunları yok saymanız önerilir. Bu, bunları Git deponuza kaydetmekten kaçınmanıza olanak tanır.
-
-Bunu yapmak için `.gitignore` dosyanıza aşağıdaki talimatları ekleyin:
-
-```bash
-#  Intlayer tarafından oluşturulan dosyaları yok say
-.intlayer
-```
-
-### VS Code Uzantısı
-
-Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Uzantısı**'nı kurun.
-
-[VS Code Marketplace'ten yükleyin](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Bu uzantı şunları sağlar:
-
-- **Çeviri anahtarları için otomatik tamamlama**.
-- **Eksik çeviriler için gerçek zamanlı hata algılama**.
-- **Çevrilmiş içeriğin satır içi önizlemeleri**.
-- **Çevirileri kolayca oluşturmak ve güncellemek için hızlı eylemler**.
-
-Uzantıyı kullanma hakkında daha fazla ayrıntı için [Intlayer VS Code Uzantısı dokümantasyonuna](https://intlayer.org/doc/vs-code-extension) bakın.
-
----
-
 ### (İsteğe bağlı) Sitemap ve robots.txt (build zamanı üretimi)
 
 Intlayer, `generateSitemap` ve `getMultilingualUrls` ile tarayıcılar için çok dilli `sitemap.xml` ve `robots.txt` üretip bunları `public/` klasörüne otomatik yazmanıza yardımcı olur. Genelde Vite’tan **önce** küçük bir Node betiği çalıştırılır (ör. npm `predev` / `prebuild` kancaları).
@@ -746,6 +705,38 @@ Betik `intlayer` içe aktarabilmeli; paket kurulu olmalı. Üretimde ortam deği
 ```
 
 pnpm veya yarn kullanıyorsanız komutları uyarlayın. CI’dan da çağrılabilir.
+
+### TypeScript'i Yapılandırın
+
+TypeScript yapılandırmanızın otomatik olarak oluşturulan türleri içerdiğinden emin olun.
+
+```json5 fileName="tsconfig.json"
+{
+  "compilerOptions": {
+    // ...
+  },
+  "include": ["src", ".intlayer/**/*.ts"],
+}
+```
+
+### Git Yapılandırması
+
+Intlayer tarafından oluşturulan dosyaları yok saymak önerilir. Bu, bunları Git deponuza işlemekten kaçınmanızı sağlar.
+
+Bunu yapmak için, `.gitignore` dosyanıza aşağıdaki talimatları ekleyebilirsiniz:
+
+```bash
+# Intlayer tarafından oluşturulan dosyaları yok say
+.intlayer
+```
+
+### VS Code Extension
+
+Intlayer ile geliştirme deneyiminizi iyileştirmek için resmi **Intlayer VS Code Extension**'ı yükleyebilirsiniz.
+
+[VS Code Marketplace'ten Yükle](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+---
 
 ### Daha Fazla İlerle
 

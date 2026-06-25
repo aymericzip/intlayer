@@ -146,6 +146,12 @@ author: aymericzip
 
 ---
 
+## GitHub STARs
+
+GitHub star는 프로젝트의 인기도, 커뮤니티 신뢰도, 장기적 관련성의 강력한 지표입니다. 기술적 품질의 직접적인 척도는 아니지만, 얼마나 많은 개발자가 프로젝트를 유용하다고 생각하는지, 진행 상황을 팔로우하는지, 그리고 이를 도입할 가능성이 있는지를 반영합니다. 프로젝트의 가치를 추정할 때, star는 대안들 간의 견인력을 비교하고 생태계 성장에 대한 통찰력을 제공하는 데 도움이 됩니다.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
+
 ## 결론
 
 세 가지 라이브러리 모두 React를 효과적으로 현지화합니다. 차별점은 **안전하고 확장 가능한** 환경을 구축하기 위해 얼마나 많은 **인프라**를 만들어야 하는가에 있습니다:

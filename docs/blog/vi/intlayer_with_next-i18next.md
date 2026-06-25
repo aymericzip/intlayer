@@ -34,17 +34,6 @@ author: aymericzip
 
 <TOC/>
 
-## next-i18next là gì?
-
-**next-i18next** là một trong những framework quốc tế hóa (i18n) phổ biến nhất cho các ứng dụng Next.js. Được xây dựng trên nền tảng hệ sinh thái mạnh mẽ **i18next**, nó cung cấp một giải pháp toàn diện để quản lý bản dịch, địa phương hóa và chuyển đổi ngôn ngữ trong các dự án Next.js.
-
-Tuy nhiên, next-i18next cũng gặp phải một số thách thức:
-
-- **Cấu hình phức tạp**: Việc thiết lập next-i18next yêu cầu nhiều tệp cấu hình và phải cẩn thận trong việc thiết lập các phiên bản i18n phía server và phía client.
-- **Bản dịch phân tán**: Các tệp bản dịch thường được lưu trữ trong các thư mục riêng biệt so với các thành phần, khiến việc duy trì tính nhất quán trở nên khó khăn hơn.
-- **Quản lý namespace thủ công**: Các nhà phát triển cần phải quản lý namespace một cách thủ công và đảm bảo tải đúng các tài nguyên bản dịch.
-- **An toàn kiểu hạn chế**: Hỗ trợ TypeScript yêu cầu cấu hình bổ sung và không cung cấp tự động tạo kiểu cho các bản dịch.
-
 ## Intlayer là gì?
 
 **Intlayer** là một thư viện quốc tế hóa (i18n) mã nguồn mở sáng tạo, được thiết kế để khắc phục những hạn chế của các giải pháp i18n truyền thống. Nó cung cấp một cách tiếp cận hiện đại cho quản lý nội dung trong các ứng dụng Next.js.

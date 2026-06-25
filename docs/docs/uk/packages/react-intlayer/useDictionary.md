@@ -24,105 +24,6 @@ history:
 author: aymericzip
 ---
 
-# Інтеграція з React: Документація хуку `useDictionary`
-
-У цьому розділі наведено докладні вказівки щодо використання хуку `useDictionary` у React-застосунках, що дозволяє ефективно працювати з локалізованим контентом без використання візуального редактора.
-
-## Імпорт `useDictionary` у React
-
-Хук `useDictionary` можна інтегрувати в React‑додатки, імпортуючи його відповідно до контексту:
-
-- **Клієнтський компонент:**
-
-  ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer"; // Використовується в клієнтських React-компонентах
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer"; // Використовується в клієнтських React-компонентах
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer"); // Використовується в клієнтських React-компонентах
-  ```
-
-- **Серверний компонент:**
-
-  ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer/server"; // Використовується в серверних React-компонентах
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer/server"; // Використовується в серверних React-компонентах
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer/server"); // Використовується в серверних React-компонентах
-  ```
-
-## Параметри
-
-Хук приймає два параметри:
-
-1. **`dictionary`**: Оголошений об'єкт словника, що містить локалізований вміст для конкретних ключів.
-2. **`locale`** (необов'язково): Бажана локаль. За замовчуванням використовується локаль поточного контексту, якщо не вказано.
-
-## Словник
-
-Усі об'єкти словника повинні бути оголошені у структурованих файлах вмісту, щоб забезпечити типобезпеку та запобігти помилкам під час виконання. Інструкції з налаштування можна знайти [тут](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/content_file.md). Ось приклад декларації вмісту:
-
-```typescript fileName="./component.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
-import { t, type Dictionary } from "intlayer";
-
-const componentContent = {
-  key: "component-example",
-  content: {
-    title: t({
-      uk: "Приклад клієнтського компонента",
-      en: "Client Component Example",
-      fr: "Exemple de composant client",
-      es: "Ejemplo de componente cliente",
-    }),
-    content: t({
-      uk: "Це вміст прикладу клієнтського компонента",
-      en: "This is the content of a client component example",
-      fr: "Ceci est le contenu d'un exemple de composant client",
-      uk: "Це вміст прикладу клієнтського компонента",
-      es: "Este es el contenido de un ejemplo de componente cliente",
-    }),
-  },
-} satisfies Dictionary;
-
-export default componentContent;
-```
-
-```json fileName="./component.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "component-example",
-  "content": {
-    "title": {
-      "nodeType": "translation",
-      "translation": {
-        "uk": "Приклад клієнтського компонента",
-        "en": "Client Component Example",
-        "fr": "Exemple de composant client",
-        "es": "Ejemplo de componente cliente"
-      }
-    },
-    "content": {
-      "nodeType": "translation",
-      "translation": {
-        "uk": "Це вміст прикладу клієнтського компонента",
-        "en": "This is the content of a client component example",
-        "fr": "Ceci est le contenu d'un exemple de composant client",
-        "es": "Este es el contenido de un ejemplo de componente cliente"
-      }
-    }
-  }
-}
-```
-
 ## Приклад використання в React
 
 Нижче наведено приклад того, як використовувати хук `useDictionary` у React-компоненті:
@@ -163,14 +64,6 @@ const ServerComponentExample: FC<{ locale: string }> = ({ locale }) => {
     </div>
   );
 };
-```
-
-## Примітки щодо атрибутів
-
-На відміну від інтеграцій з візуальними редакторами, атрибути на кшталт `buttonTitle.value` тут не застосовуються. Натомість безпосередньо звертайтеся до локалізованих рядків, як оголошено у вашому контенті.
-
-```jsx
-<button title={content.title}>{content.content}</button>
 ```
 
 ## Додаткові поради

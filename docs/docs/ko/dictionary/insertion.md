@@ -134,12 +134,6 @@ export default InsertionComponent;
 
 ## 추가 자료
 
-설정 및 사용법에 대한 자세한 정보는 다음 자료를 참조하세요:
-
-- [Intlayer CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)
-
-## 추가 자료
-
 구성 및 사용법에 대한 자세한 정보는 다음 자료를 참조하세요:
 
 - [Intlayer CLI 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)

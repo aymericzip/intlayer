@@ -511,3 +511,31 @@ const styles = StyleSheet.create({
 استمتع ببناء تطبيقات **React Native** الخاصة بك مع دعم كامل للترجمة الدولية (i18n) من خلال **Intlayer**!
 
 ---
+
+### التصحيح
+
+React Native قد يكون أقل استقراراً من React Web، لذلك انتبه جيداً لمحاذاة الإصدارات.
+
+يستهدف Intlayer بشكل أساسي Web Intl API؛ على React Native يجب عليك تضمين polyfills المناسبة.
+
+قائمة التحقق:
+
+- استخدم أحدث إصدارات `intlayer` و `react-intlayer` و `react-native-intlayer`.
+- قم بتفعيل polyfill الخاص بـ Intlayer.
+- إذا كنت تستخدم `getLocaleName` أو أدوات أخرى قائمة على Intl-API، قم باستيراد هذه polyfills مبكراً (على سبيل المثال في `index.js` أو `App.tsx`):
+
+```ts
+import "intl";
+import "@formatjs/intl-getcanonicallocales/polyfill";
+import "@formatjs/intl-locale/polyfill";
+import "@formatjs/intl-pluralrules/polyfill";
+import "@formatjs/intl-displaynames/polyfill";
+import "@formatjs/intl-listformat/polyfill";
+import "@formatjs/intl-numberformat/polyfill";
+import "@formatjs/intl-relativetimeformat/polyfill";
+import "@formatjs/intl-datetimeformat/polyfill";
+```
+
+- تحقق من إعدادات Metro الخاصة بك (resolver aliases و asset plugins و مسارات `tsconfig`) إذا فشل استيراد الوحدات.
+
+---

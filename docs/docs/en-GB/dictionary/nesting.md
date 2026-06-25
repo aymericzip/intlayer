@@ -27,6 +27,14 @@ author: aymericzip
 
 ## How Nesting Works
 
+In Intlayer, nesting is achieved through the `nest` function, which allows you to reference and reuse content from another dictionary. Instead of duplicating content, you can point to an existing content module by its key.
+
+## Setting Up Nesting
+
+To set up nesting in your Intlayer project, you first define the base content that you wish to reuse. Then, in a separate content module, you use the `nest` function to import that content.
+
+## How Nesting Works
+
 <Tabs group="framework">
   <Tab label="React" value="react">
 

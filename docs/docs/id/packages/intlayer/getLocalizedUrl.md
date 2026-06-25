@@ -144,6 +144,31 @@ getLocalizedUrl(
 // Output: "/about" untuk locale default (Bahasa Inggris)
 ```
 
+### Penggunaan Lanjutan (Dengan Parameter Opsional)
+
+Anda dapat mengganti konfigurasi default dengan menyediakan parameter `options` opsional:
+
+### URL Relatif (Semua Opsi Ditentukan)
+
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
+import { getLocalizedUrl, Locales } from "intlayer";
+
+// Secara eksplisit memberikan semua parameter opsional
+getLocalizedUrl("/about", Locales.FRENCH, {
+  locales: [Locales.ENGLISH, Locales.FRENCH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-no-default",
+});
+// Output: "/fr/about" untuk locale Prancis
+
+getLocalizedUrl("/about", Locales.ENGLISH, {
+  locales: [Locales.ENGLISH, Locales.FRENCH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-no-default",
+});
+// Output: "/about" untuk locale default (Inggris)
+```
+
 ### Partial Configuration Override
 
 Anda juga dapat memberikan hanya beberapa parameter opsional. Fungsi akan menggunakan konfigurasi proyek Anda untuk parameter yang tidak Anda tentukan:

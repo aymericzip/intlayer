@@ -118,6 +118,28 @@ Porównaliśmy **cztery strategie ładowania**:
 - **Scoped static**: Utrzymuje porządek w kodzie (logiczna separacja) bez skomplikowanych dodatkowych zapytań sieciowych.
 - **Scoped dynamic**: Najlepsze podejście dla _code splittingu_ i wydajności. Minimalizuje zużycie pamięci, ładując tylko to, czego potrzebuje bieżący widok i aktywna lokalizacja.
 
+### Co mierzyłem:
+
+Uruchomiłem tę samą wielojęzyczną aplikację w prawdziwej przeglądarce dla każdego stosu, a następnie zapisałem, co faktycznie pojawiło się na sieci i jak długo to trwało. Rozmiary są podawane **po normalnej kompresji internetowej**, ponieważ jest to bliższe temu, co ludzie pobierają, niż surowe liczby źródła.
+
+- **Rozmiar biblioteki internacjonalizacji**: Po bundlingu, tree-shakingu i minifikacji, rozmiar biblioteki i18n to rozmiar providerów + kodu hooks/primitives w pustym komponencie. Nie obejmuje ładowania plików tłumaczeń. Odpowiada na pytanie, jak kosztowna jest biblioteka zanim twoja zawartość wejdzie do gry.
+
+- **JavaScript na stronę**: Dla każdej trasy benchmarku, ile skryptu przeglądarka pobiera dla tej wizyty, uśrednione na stronach w zestawie (i na lokalizacjach, gdzie raport je łączy). Ciężkie strony to wolne strony.
+
+- **Wyciek z innych lokalizacji**: To zawartość tej samej strony, ale w innym języku, która byłaby załadowana przez pomyłkę na audytowanej stronie. Ta zawartość jest zbędna i powinna być unikana. (np. zawartość strony `/fr/about` w bundlu strony `/en/about`)
+
+- **Wyciek z innych tras**: Ten sam pomysł dla **innych ekranów** w aplikacji: czy ich kopia jedzie razem, gdy otworzysz tylko jedną stronę. (np. zawartość strony `/en/about` w bundlu strony `/en/contact`). Wysoki wynik sugeruje słabe dzielenie lub zbyt szerokie bundle'i.
+
+- **Średni rozmiar bundle'u komponentu**: Typowe elementy UI są mierzone **jeden po drugim** zamiast ukrywania się wewnątrz jednej gigantycznej liczby aplikacji. Pokazuje, czy internacjonalizacja po cichu rozszerza zwykłe komponenty. Na przykład, jeśli twój komponent zostanie ponownie renderowany, załaduje wszystkie te dane z pamięci. Przywiązanie gigantycznego JSON'a do dowolnego komponentu jest jak podłączenie dużego magazynu nieużywanych danych, który spowolni wydajność twoich komponentów.
+
+- **Responsywność przełącznika języka**: Przełączam język przy użyciu kontrolki aplikacji i mierzę, jak długo trwa, zanim strona wyraźnie się zmieni, co odwiedzający zauważy, a nie laboratoryjny mikrokrok.
+
+- **Praca renderowania po zmianie języka**: Węższe uzupełnienie: ile wysiłku interfejsowi zajęło przepainting dla nowego języka po tym, jak przełączenie jest w locie. Przydatne, gdy „odczuty" czas i koszt framework'u się rozchodzą.
+
+- **Czas początkowego załadowania strony**: Od nawigacji do przeglądarki traktującej stronę jako całkowicie załadowaną dla scenariuszy, które testowałem. Dobry do porównywania zimnych startów.
+
+- **Czas hydratacji**: Gdy aplikacja to ujawnia, jak długo klient spędza na zamienianiu HTML serwera na coś, na co możesz faktycznie kliknąć. Kreska w tabelach oznacza, że implementacja nie dostarczyła wiarygodnej liczby hydratacji w tym benchmarku.
+
 ## Gwiazdki na GitHubie
 
 Gwiazdki na GitHubie są silnym wskaźnikiem popularności projektu, zaufania społeczności i długoterminowego znaczenia. Choć nie są bezpośrednią miarą jakości technicznej, odzwierciedlają, ilu programistów uważa projekt za przydatny, śledzi jego postępy i prawdopodobnie go przyjmie. Przy szacowaniu wartości projektu gwiazdki pomagają porównać zainteresowanie alternatywami i dostarczają wglądu w rozwój ekosystemu.

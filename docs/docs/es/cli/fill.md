@@ -47,6 +47,14 @@ Puntos clave:
 - Preserva las traducciones existentes al no sobrescribirlas.
 - Procesa archivos, fragmentos y locales en paralelo usando un sistema de cola para aumentar la velocidad.
 
+## Puntos clave:
+
+- Divide archivos JSON grandes en chunks para mantenerse dentro de los límites de la ventana de contexto del modelo de IA.
+- Reintenta la traducción si el formato de salida es incorrecto.
+- Incorpora contexto específico de la aplicación y del archivo para una precisión de traducción mejorada.
+- Preserva las traducciones existentes sin sobrescribirlas.
+- Procesa archivos, chunks y locales en paralelo usando un sistema de cola para aumentar la velocidad.
+
 ## Alias:
 
 - `npx intlayer dictionaries fill`

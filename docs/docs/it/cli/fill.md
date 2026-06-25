@@ -47,6 +47,14 @@ Punti chiave:
 - Preserva le traduzioni esistenti non sovrascrivendole.
 - Elabora file, parti e locali in parallelo utilizzando un sistema di code per aumentare la velocità.
 
+## Punti Chiave:
+
+- Divide i file JSON di grandi dimensioni in chunk per rispettare i limiti della finestra di contesto del modello di IA.
+- Riprova la traduzione se il formato dell'output è errato.
+- Incorpora il contesto specifico dell'applicazione e del file per migliorare l'accuratezza della traduzione.
+- Preserva le traduzioni esistenti senza sovrascriverle.
+- Elabora file, chunk e locale in parallelo utilizzando un sistema di queue per aumentare la velocità.
+
 ## Alias:
 
 - `npx intlayer dictionaries fill`

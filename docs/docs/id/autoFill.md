@@ -35,6 +35,26 @@ author: aymericzip
 
 **File deklarasi isi otomatis** dalam CI Anda adalah cara untuk mempercepat alur kerja pengembangan Anda.
 
+## Memahami perilaku
+
+Perintah `fill` mencakup dua mode:
+
+- **Complete**: Secara otomatis mengisi semua konten yang hilang untuk setiap locale dan mengedit file saat ini, atau file lain jika ditentukan. Artinya, mode complete akan melewatkan penerjemahan konten yang sudah ada, jika sudah diterjemahkan.
+- **Review**: Secara otomatis mengisi **semua** konten untuk setiap locale dan menghasilkan untuk file tertentu, atau file lain jika ditentukan.
+
+Perintah will akan memproses semua file deklarasi konten locale Anda. Artinya, tidak akan memproses konten jarak jauh dari CMS. CMS mencakup manajemen terjemahan sendiri.
+Jika Anda menggunakan plugin seperti `@intlayer/sync-json-plugin`, Intlayer akan mengubah file JSON menjadi file deklarasi konten locale. Artinya, file-file tersebut akan diproses oleh perintah `fill`.
+
+File yang baru dihasilkan mencakup instruksi `filled` sebagai metadata kamus. Instruksi ini akan digunakan oleh Intlayer untuk mengetahui apakah file telah diisi secara otomatis atau tidak, dan melewati file ini dari penerjemahan lagi jika ada.
+
+Intlayer juga akan mempertimbangkan instruksi berikut untuk pengisian otomatis:
+
+- Dari `.content.{ts|js|json}` Anda → instruksi `fill`
+- Dari file konfigurasi `.intlayer.config.ts` Anda → instruksi `dictionary.fill`
+- Akan diatur ke `true` secara default sebaliknya
+
+Untuk file deklarasi konten per-locale, instruksi `true` akan diganti dengan `./{{fileName}}.fill.content.json`. Ini karena file deklarasi konten per-locale tidak dapat menerima konten terlokalisasi tambahan. Jadi akan menghasilkan file baru untuk tidak menimpa file yang ada.
+
 ## Perilaku Default
 
 Secara default, `fill` diatur ke `true` secara global, yang berarti Intlayer akan secara otomatis mengisi semua file konten dan mengedit file itu sendiri. Perilaku ini dapat disesuaikan dengan beberapa cara:

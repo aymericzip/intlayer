@@ -124,6 +124,28 @@ Porównaliśmy **cztery strategie ładowania**:
 - **Scoped static**: Utrzymuje porządek w kodzie (separacja logiczna) bez skomplikowanych dodatkowych żądań sieciowych.
 - **Scoped dynamic**: Najlepsze podejście pod kątem dzielenia kodu (code splitting) i wydajności. Minimalizuje zużycie pamięci, ładując tylko to, czego potrzebuje bieżący widok i aktywna lokalizacja.
 
+### Co mierzyłem:
+
+Uruchomiłem tę samą wielojęzyczną aplikację w prawdziwej przeglądarce dla każdego stacku, a następnie zapisałem, co dokładnie pojawiło się na przewodzie i jak długo to trwało. Rozmiary są podawane **po normalnej kompresji sieci web**, ponieważ jest to bliższe temu, co ludzie pobierają, niż surowe liczby źródłowe.
+
+- **Rozmiar biblioteki internationalization**: Po bundlingu, tree-shakingu i minifikacji, rozmiar biblioteki i18n to rozmiar providerów (np. `NextIntlClientProvider`) + kod hooks'ów (np. `useTranslations`) w pustym komponencie. Nie obejmuje to ładowania plików tłumaczeń. Odpowiada na pytanie, jak kosztowna jest biblioteka, zanim Twoja zawartość pojawi się w grze.
+
+- **JavaScript na stronę**: Dla każdej trasy benchmarku, ile skryptu przeglądarka pobiera w tej wizycie, uśrednione na stronach w zestawie (i na locales, gdzie raport je łączy). Ciężkie strony to wolne strony.
+
+- **Wyciek z innych locale'ów**: To zawartość tej samej strony, ale w innym języku, która zostałaby załadowana przez pomyłkę na audytowanej stronie. Ta zawartość jest niepotrzebna i powinna być unikana. (np. zawartość strony `/fr/about` w bundlu strony `/en/about`)
+
+- **Wyciek z innych tras**: Ten sam pomysł dla **innych ekranów** w aplikacji: czy ich zawartość się pojawia, gdy otworzysz tylko jedną stronę. (np. zawartość strony `/en/about` w bundlu strony `/en/contact`). Wysoki wynik wskazuje na słabe splitting'owanie lub zbyt szerokie bundle'e.
+
+- **Średni rozmiar bundle'u komponentu**: Typowe elementy UI są mierzone **pojedynczo** zamiast być ukryte wewnątrz jednej gigantycznej liczby aplikacji. Pokazuje, czy internationalization po cichu nie powiększa codziennych komponentów. Na przykład, jeśli Twój komponent się ponownie renderuje, załaduje wszystkie dane z pamięci. Przyłączenie gigantskiego JSONa do dowolnego komponentu to jak podłączenie dużego magazynu nieużywanych danych, które spowolnią wydajność Twoich komponentów.
+
+- **Responsywność przełączania języka**: Przełączam język za pomocą kontrolki aplikacji i mierzę, jak długo trwa, zanim strona wyraźnie się zmieni, co zauważy odwiedzający, a nie mikro-krok z laboratorium.
+
+- **Praca renderowania po zmianie języka**: Węższe uzupełnienie: ile wysiłku zajęło interfejsowi przerysowanie nowego języka, gdy przełącznik jest w drodze. Przydatne, gdy "odczuwany" czas i koszt frameworka różnią się.
+
+- **Czas ładowania strony początkowej**: Od nawigacji do przeglądarki, która uważa stronę za w pełni załadowaną dla testowanych scenariuszy. Dobry do porównywania zimnych startów.
+
+- **Czas nawodnień (hydration)**: Gdy aplikacja to ujawnia, jak długo klient spędza na zamianie serwera HTML na coś, w co można faktycznie kliknąć. Kreska w tabelach oznacza, że implementacja nie dostarczyła wiarygodnej liczby nawodnienia w tym benchmarku.
+
 ## Gwiazdki na GitHubie
 
 Gwiazdki na GitHubie są silnym wskaźnikiem popularności projektu, zaufania społeczności i długoterminowego znaczenia. Choć nie są bezpośrednią miarą jakości technicznej, odzwierciedlają, ilu programistów uważa projekt za przydatny, śledzi jego postępy i prawdopodobnie go przyjmie. Przy szacowaniu wartości projektu gwiazdki pomagają porównać zainteresowanie alternatywami i dostarczają wglądu w rozwój ekosystemu.

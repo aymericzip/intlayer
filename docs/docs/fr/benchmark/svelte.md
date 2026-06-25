@@ -116,6 +116,28 @@ Nous avons comparé **quatre stratégies de chargement** :
 - **Scoped static** : Organise bien le code (séparation logique) sans requêtes réseau supplémentaires complexes.
 - **Scoped dynamic** : Meilleure approche pour le _code splitting_ et la performance. Minimise la mémoire en ne chargeant que ce dont la vue actuelle et la locale active ont besoin.
 
+### Ce que j'ai mesuré :
+
+J'ai exécuté la même application multilingue dans un vrai navigateur pour chaque stack, puis j'ai noté ce qui s'est réellement affiché sur le réseau et combien de temps cela a pris. Les tailles sont rapportées **après la compression web normale**, car c'est plus proche de ce que les gens téléchargent que les nombres de sources brutes.
+
+- **Taille de la bibliothèque d'internationalisation** : Après bundling, tree-shaking et minification, la taille de la bibliothèque i18n est la taille du code des providers + stores dans un composant vide. Elle n'inclut pas le chargement des fichiers de traduction. Elle répond à la question de savoir à quel point la bibliothèque est coûteuse avant que votre contenu n'entre en jeu.
+
+- **JavaScript par page** : Pour chaque route benchmark, la quantité de script que le navigateur récupère lors de cette visite, en moyenne sur les pages de la suite (et sur les locales lorsque le rapport les agrège). Les pages lourdes sont des pages lentes.
+
+- **Fuite d'autres locales** : C'est le contenu de la même page mais dans une autre langue qui serait chargé par erreur dans la page auditée. Ce contenu est inutile et devrait être évité. (par ex. le contenu de la page `/fr/about` dans le bundle de la page `/en/about`)
+
+- **Fuite d'autres routes** : La même idée pour **autres écrans** dans l'application : que leur contenu soit chargé quand vous n'avez ouvert qu'une seule page. (par ex. le contenu de la page `/en/about` dans le bundle de la page `/en/contact`). Un score élevé indique un splitting faible ou des bundles trop larges.
+
+- **Taille moyenne du bundle de composant** : Les éléments UI courants sont mesurés **un par un** au lieu de se cacher dans un énorme nombre d'applications. Elle montre si l'internationalisation gonfle silencieusement les composants quotidiens. Par exemple, si votre composant effectue un re-render, il chargera toutes ces données de la mémoire. Attacher un énorme JSON à n'importe quel composant, c'est comme connecter un grand magasin de données inutilisées qui ralentira les performances de vos composants.
+
+- **Réactivité du changement de langue** : Je bascule la langue en utilisant le contrôle propre de l'application et je mesure le temps qu'il faut jusqu'à ce que la page ait clairement basculé, ce qu'un visiteur remarquerait, pas une micro-étape de lab.
+
+- **Travail de rendu après un changement de langue** : Un suivi plus étroit : combien d'effort l'interface a pris pour se repeindre pour la nouvelle langue une fois le changement en cours. Utile quand le temps « ressenti » et le coût du framework divergent.
+
+- **Temps de chargement initial de la page** : De la navigation au navigateur considérant la page entièrement chargée pour les scénarios que j'ai testés. Bon pour comparer les démarrages à froid.
+
+- **Temps d'hydratation** : Lorsque l'application l'expose, combien de temps le client passe à transformer le HTML du serveur en quelque chose que vous pouvez réellement cliquer. Un tiret dans les tableaux signifie que cette implémentation n'a pas fourni de chiffre d'hydratation fiable dans ce benchmark.
+
 ## Étoiles GitHub
 
 Les étoiles GitHub sont un indicateur fort de la popularité d'un projet, de la confiance de la communauté et de sa pertinence à long terme. Bien qu'elles ne soient pas une mesure directe de la qualité technique, elles reflètent le nombre de développeurs qui trouvent le projet utile, suivent ses progrès et sont susceptibles de l'adopter. Pour estimer la valeur d'un projet, les étoiles aident à comparer l'attraction entre les alternatives et fournissent des informations sur la croissance de l'écosystème.

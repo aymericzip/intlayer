@@ -146,6 +146,12 @@ author: aymericzip
 
 ---
 
+## GitHub STARs
+
+GitHub stars एक प्रोजेक्ट की लोकप्रियता, कम्युनिटी के विश्वास और दीर्घकालीन प्रासंगिकता का एक मजबूत संकेतक हैं। हालांकि तकनीकी गुणवत्ता का सीधा माप नहीं, वे दर्शाते हैं कि कितने developers को प्रोजेक्ट उपयोगी लगता है, इसकी प्रगति का अनुसरण करते हैं, और इसे अपनाने की संभावना रखते हैं। किसी प्रोजेक्ट के मूल्य का अनुमान लगाने के लिए, stars विकल्पों के बीच traction की तुलना करने और ecosystem growth में insights प्रदान करने में मदद करते हैं।
+
+[![Star History Chart](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
+
 ## निष्कर्ष
 
 तीनों पुस्तकालय React को प्रभावी ढंग से स्थानीयकृत करते हैं। अंतर यह है कि आपको एक **सुरक्षित, स्केलेबल** सेटअप तक पहुंचने के लिए कितना **इन्फ्रास्ट्रक्चर** बनाना होगा:

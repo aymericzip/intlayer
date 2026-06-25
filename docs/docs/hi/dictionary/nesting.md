@@ -25,6 +25,45 @@ author: aymericzip
 
 Intlayer में, नेस्टिंग `nest` फ़ंक्शन के माध्यम से प्राप्त की जाती है, जो आपको किसी अन्य शब्दकोश से सामग्री को संदर्भित करने और पुन: उपयोग करने की अनुमति देता है। सामग्री को डुप्लिकेट करने के बजाय, आप मौजूदा सामग्री मॉड्यूल को उसकी कुंजी द्वारा इंगित कर सकते हैं।
 
+## नेस्टिंग सेटअप करना
+
+अपने Intlayer प्रोजेक्ट में नेस्टिंग सेटअप करने के लिए, आप पहले वह आधार सामग्री परिभाषित करते हैं जिसे आप दोबारा उपयोग करना चाहते हैं। फिर, एक अलग सामग्री मॉड्यूल में, आप उस सामग्री को import करने के लिए `nest` फ़ंक्शन का उपयोग करते हैं।
+
+### Base Dictionary
+
+नीचे एक base dictionary का उदाहरण दिया गया है जिसे किसी दूसरे dictionary में nest किया जा सकता है:
+
+```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { type Dictionary } from "intlayer";
+
+const firstDictionary = {
+  key: "key_of_my_first_dictionary",
+  content: {
+    content: "content",
+    subContent: {
+      contentNumber: 0,
+      contentString: "string",
+    },
+  },
+} satisfies Dictionary;
+
+export default firstDictionary;
+```
+
+```json fileName="firstDictionary.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "key_of_my_first_dictionary",
+  "content": {
+    "content": "content",
+    "subContent": {
+      "contentNumber": 0,
+      "contentString": "string"
+    }
+  }
+}
+```
+
 ## नेस्टिंग सेट करना
 
 <Tabs group="framework">

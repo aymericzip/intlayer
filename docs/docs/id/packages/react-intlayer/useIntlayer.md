@@ -25,49 +25,6 @@ history:
 author: aymericzip
 ---
 
-# Integrasi React: Dokumentasi Hook `useIntlayer`
-
-Bagian ini memberikan panduan rinci tentang penggunaan hook `useIntlayer` dalam aplikasi React, memungkinkan lokalisasi konten yang efisien.
-
-## Mengimpor `useIntlayer` di React
-
-Hook `useIntlayer` dapat diintegrasikan ke dalam aplikasi React dengan mengimpornya berdasarkan konteks:
-
-- **Komponen Klien:**
-
-  ```typescript codeFormat="typescript"
-  import { useIntlayer } from "react-intlayer"; // Digunakan dalam komponen React sisi klien
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer"; // Digunakan dalam komponen React sisi klien
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer"); // Digunakan dalam komponen React sisi klien
-  ```
-
-- **Komponen Server:**
-
-  ```typescript codeFormat="commonjs"
-  import { useIntlayer } from "react-intlayer/server"; // Digunakan dalam komponen React sisi server
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer/server"; // Digunakan dalam komponen React sisi server
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer/server"); // Digunakan dalam komponen React sisi server
-  ```
-
-## Parameter
-
-Hook ini menerima dua parameter:
-
-1. **`key`**: Kunci kamus untuk mengambil konten yang sudah dilokalkan.
-2. **`locale`** (opsional): Locale yang diinginkan. Default-nya adalah locale dari konteks jika tidak ditentukan.
-
 ## Kamus
 
 Semua kunci kamus harus dideklarasikan dalam file deklarasi konten untuk meningkatkan keamanan tipe dan menghindari kesalahan. Anda dapat menemukan [instruksi pengaturan di sini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
@@ -132,14 +89,6 @@ const ServerComponentExample = () => {
     </div>
   );
 };
-```
-
-## Menangani Atribut
-
-Saat melokalisasi atribut, akses nilai konten dengan tepat:
-
-```jsx
-<button title={content.buttonTitle.value}>{content.buttonText}</button>
 ```
 
 ## Sumber Daya Tambahan

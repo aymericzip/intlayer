@@ -118,6 +118,28 @@ Chúng tôi đã so sánh **bốn chiến lược tải**:
 - **Scoped static**: Giữ cho mã được tổ chức (tách biệt logic) mà không cần các request mạng bổ sung phức tạp.
 - **Scoped dynamic**: Phương pháp tốt nhất cho _code splitting_ và hiệu suất. Giảm thiểu bộ nhớ bằng cách chỉ tải những gì chế độ xem hiện tại và ngôn ngữ đang hoạt động cần.
 
+### Những gì tôi đo lường:
+
+Tôi chạy cùng một ứng dụng đa ngôn ngữ trong trình duyệt thực tế cho mỗi stack, sau đó ghi lại những gì thực sự xuất hiện trên dây và mất bao lâu. Kích thước được báo cáo **sau nén web bình thường**, vì điều đó gần hơn với những gì mọi người tải xuống so với số lượng nguồn thô.
+
+- **Kích thước thư viện quốc tế hóa**: Sau khi bundling, tree-shaking và minification, kích thước của thư viện i18n là kích thước của providers + hooks/primitives code trong một thành phần rỗng. Nó không bao gồm việc tải các tệp dịch. Nó trả lời câu hỏi thư viện này tốn kém bao nhiêu trước khi nội dung của bạn xuất hiện.
+
+- **JavaScript trên mỗi trang**: Đối với mỗi tuyến đường benchmark, trình duyệt tải bao nhiêu script trong lần truy cập đó, trung bình trên các trang trong bộ (và trên các locale nếu báo cáo gộp chúng). Các trang nặng là các trang chậm.
+
+- **Rò rỉ từ các locale khác**: Đó là nội dung của cùng một trang nhưng bằng ngôn ngữ khác sẽ được tải do lỗi trong trang được kiểm tra. Nội dung này là không cần thiết và nên tránh. (ví dụ: nội dung trang `/fr/about` trong bundle trang `/en/about`)
+
+- **Rò rỉ từ các tuyến đường khác**: Ý tưởng tương tự cho **các màn hình khác** trong ứng dụng: liệu bản sao của chúng có đi kèm khi bạn chỉ mở một trang. (ví dụ: nội dung trang `/en/about` trong bundle trang `/en/contact`). Điểm số cao gợi ý splitting yếu hoặc bundles quá rộng.
+
+- **Kích thước bundle thành phần trung bình**: Các phần UI phổ biến được đo lường **từng cái một** thay vì ẩn trong một số ứng dụng khổng lồ. Nó cho thấy liệu quốc tế hóa có yên tĩnh làm tăng các thành phần hàng ngày hay không. Ví dụ, nếu thành phần của bạn render lại, nó sẽ tải tất cả dữ liệu đó từ bộ nhớ. Gắn một JSON khổng lồ vào bất kỳ thành phần nào cũng giống như kết nối một cửa hàng lớn dữ liệu không được sử dụng sẽ làm chậm hiệu suất các thành phần của bạn.
+
+- **Độ phản hồi chuyển đổi ngôn ngữ**: Tôi chuyển đổi ngôn ngữ bằng cách điều khiển của ứng dụng và đo lường thời gian cho đến khi trang đã rõ ràng chuyển đổi, điều mà một khách truy cập sẽ nhận thấy, không phải một bước micro trong phòng thí nghiệm.
+
+- **Rendering work sau khi thay đổi ngôn ngữ**: Một bước theo dõi hẹp hơn: giao diện tốn bao nhiêu công sức để vẽ lại cho ngôn ngữ mới khi việc chuyển đổi đang diễn ra. Hữu ích khi "cảm nhận" thời gian và chi phí framework khác nhau.
+
+- **Thời gian tải trang ban đầu**: Từ điều hướng đến trình duyệt coi trang được tải hoàn toàn cho các kịch bản tôi đã kiểm tra. Tốt cho so sánh các lần khởi động lạnh.
+
+- **Hydration time**: Khi ứng dụng cung cấp nó, trình duyệt máy khách dành bao lâu để biến HTML máy chủ thành thứ gì đó bạn thực sự có thể nhấp vào. Một dấu gạch ngang trong các bảng có nghĩa là việc thực hiện này không cung cấp một con số hydration đáng tin cậy trong benchmark này.
+
 ## Sao GitHub
 
 Sao GitHub là một chỉ số mạnh mẽ về mức độ phổ biến của dự án, sự tin tưởng của cộng đồng và mức độ phù hợp lâu dài. Mặc dù không phải là thước đo trực tiếp về chất lượng kỹ thuật, chúng phản ánh số lượng nhà phát triển thấy dự án hữu ích, theo dõi tiến trình của nó và có khả năng áp dụng nó. Để ước tính giá trị của một dự án, các ngôi sao giúp so sánh sức hút giữa các lựa chọn thay thế và cung cấp thông tin chi tiết về sự phát triển của hệ sinh thái.

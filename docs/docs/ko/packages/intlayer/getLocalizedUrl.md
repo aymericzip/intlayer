@@ -36,6 +36,36 @@ author: aymericzip
 
 ---
 
+## 함수 서명
+
+```typescript
+getLocalizedUrl(
+  url: string,                   // 필수
+  currentLocale: Locales,        // 필수
+  options?: {                    // 선택사항
+    locales?: Locales[];
+    defaultLocale?: Locales;
+    mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
+  }
+): string
+```
+
+---
+
+## 매개변수
+
+### 필수 파라미터
+
+- `url: string`
+  - **Description**: 로케일을 접두사로 추가할 원본 URL 문자열입니다.
+  - **Type**: `string`
+  - **Required**: Yes
+
+- `currentLocale: Locales`
+  - **Description**: URL이 로컬라이제이션되는 현재 로케일입니다.
+  - **Type**: `Locales`
+  - **Required**: Yes
+
 ## 매개변수
 
 - `url: string`
@@ -69,6 +99,25 @@ author: aymericzip
 ---
 
 ## 사용 예시
+
+### 기본 사용법 (필수 매개변수만 사용)
+
+국제화 설정으로 프로젝트를 구성한 후에는 필수 매개변수만으로 함수를 사용할 수 있습니다:
+
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
+import { getLocalizedUrl, Locales } from "intlayer";
+
+// 프로젝트의 locales, defaultLocale 및 mode 구성을 사용합니다
+getLocalizedUrl("/about", Locales.FRENCH);
+// 출력: "/fr/about" (French가 지원되고 mode가 'prefix-no-default'라고 가정)
+
+getLocalizedUrl("/about", Locales.ENGLISH);
+// 출력: "/about" 또는 "/en/about" (mode 설정에 따라 다름)
+```
+
+### 고급 사용법 (선택적 매개변수 포함)
+
+선택적 `options` 매개변수를 제공하여 기본 구성을 재정의할 수 있습니다:
 
 ### 상대 URL
 
@@ -115,6 +164,30 @@ getLocalizedUrl(
 
 // 출력: 프랑스어 로케일의 경우 "/fr/about"
 // 출력: 기본(영어) 로케일의 경우 "/about"
+```
+
+### 부분 Configuration Override
+
+선택적 매개변수 중 일부만 제공할 수도 있습니다. 함수는 지정하지 않은 매개변수에 대해 프로젝트 configuration을 사용합니다:
+
+```typescript codeFormat="typescript"
+import { getLocalizedUrl, Locales } from "intlayer";
+
+// locales만 override, defaultLocale과 mode는 프로젝트 config 사용
+getLocalizedUrl("/about", Locales.SPANISH, {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+});
+
+// mode만 override, locales과 defaultLocale은 프로젝트 config 사용
+getLocalizedUrl("/about", Locales.ENGLISH, {
+  mode: "prefix-all", // 기본 locale을 포함한 모든 locale에 prefix 강제
+});
+
+// 여러 옵션 override
+getLocalizedUrl("/about", Locales.FRENCH, {
+  defaultLocale: Locales.ENGLISH,
+  mode: "search-params", // 쿼리 매개변수 사용: /about?locale=fr
+});
 ```
 
 ### 절대 URL

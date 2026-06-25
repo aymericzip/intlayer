@@ -124,6 +124,28 @@ Wir haben **vier Ladestrategien** verglichen:
 - **Scoped static**: Hält den Code organisiert (logische Trennung) ohne komplexe zusätzliche Netzwerkanfragen.
 - **Scoped dynamic**: Bester Ansatz für _Code-Splitting_ und Performance. Minimiert den Speicherbedarf, indem nur das geladen wird, was der aktuelle View und die aktive Sprache benötigen.
 
+### Was ich gemessen habe:
+
+Ich habe dieselbe mehrsprachige App in einem echten Browser für jeden Stack ausgeführt, dann notiert, was tatsächlich über die Leitung ging und wie lange es dauerte. Die Größen werden **nach normaler Webekomprimierung** angegeben, da dies näher an dem liegt, was Benutzer herunterladen, als rohe Quellzählungen.
+
+- **Größe der Internationalisierungsbibliothek**: Nach Bundling, Tree-Shaking und Minifizierung ist die Größe der i18n-Bibliothek die Größe der Provider (z. B. `NextIntlClientProvider`) + Hooks (z. B. `useTranslations`) Code in einer leeren Komponente. Sie umfasst nicht das Laden von Übersetzungsdateien. Sie beantwortet die Frage, wie teuer die Bibliothek ist, bevor Ihr Inhalt ins Spiel kommt.
+
+- **JavaScript pro Seite**: Für jede Benchmark-Route, wie viel Skript der Browser bei diesem Besuch abruft, gemittelt über die Seiten in der Suite (und über Locales, wo der Bericht sie zusammenführt). Schwere Seiten sind langsame Seiten.
+
+- **Leckage aus anderen Locales**: Es ist der Inhalt derselben Seite, aber in einer anderen Sprache, der versehentlich in die geprüfte Seite geladen würde. Dieser Inhalt ist unnötig und sollte vermieden werden. (z. B. Inhalt der Seite `/fr/about` im Bundle der Seite `/en/about`)
+
+- **Leckage aus anderen Routes**: Dieselbe Idee für **andere Bildschirme** in der App: ob ihre Kopie mitkommen, wenn Sie nur eine Seite öffnen. (z. B. Inhalt der Seite `/en/about` im Bundle der Seite `/en/contact`). Ein hoher Wert deutet auf schwache Aufteilung oder zu breite Bundles hin.
+
+- **Durchschnittliche Komponentenbundel-Größe**: Häufig verwendete UI-Elemente werden **einzeln** gemessen, anstatt sie in einer riesigen App-Nummer zu verbergen. Es zeigt, ob die Internationalisierung alltägliche Komponenten stillschweigend aufbläht. Wenn Ihre Komponente beispielsweise neu gerendert wird, werden alle diese Daten aus dem Speicher geladen. Das Anhängen einer riesigen JSON an eine Komponente ist wie das Verbinden mit einem großen Speicher ungenutzter Daten, die die Leistung Ihrer Komponenten verlangsamen.
+
+- **Responsivität des Sprachwechsels**: Ich wechsle die Sprache mit der eigenen Kontrolle der App und messe, wie lange es dauert, bis die Seite eindeutig gewechselt hat, was ein Besucher bemerken würde, nicht ein Lab-Mikro-Schritt.
+
+- **Rendering-Arbeit nach einem Sprachwechsel**: Eine engere Folgefrage: wie viel Aufwand die Schnittstelle aufgewandt hat, um für die neue Sprache neu zu zeichnen, sobald der Wechsel im Gange ist. Nützlich, wenn die „gefühlte" Zeit und die Framework-Kosten auseinandergehen.
+
+- **Anfängliche Seitenladezeit**: Von der Navigation bis zur Annahme der vollständig geladenen Seite durch den Browser für die getesteten Szenarien. Gut zum Vergleichen von Kaltstart.
+
+- **Hydrationsdauer**: Wenn die App sie offenlegt, wie lange der Client damit verbringt, Server-HTML in etwas Klickbares umzuwandeln. Ein Bindestrich in den Tabellen bedeutet, dass diese Implementierung in diesem Benchmark keine zuverlässige Hydrationszahl bereitgestellt hat.
+
 ## GitHub-Sterne
 
 GitHub-Sterne sind ein starker Indikator für die Popularität eines Projekts, das Vertrauen der Community und die langfristige Relevanz. Sie sind zwar kein direktes Maß für die technische Qualität, spiegeln jedoch wider, wie viele Entwickler das Projekt nützlich finden, seinen Fortschritt verfolgen und es wahrscheinlich übernehmen werden. Um den Wert eines Projekts einzuschätzen, helfen Sterne dabei, die Traktion verschiedener Alternativen zu vergleichen und Einblicke in das Wachstum des Ökosystems zu gewinnen.

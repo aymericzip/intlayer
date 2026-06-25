@@ -78,42 +78,6 @@ bun x intlayer login --cms-url https://intlayer.org
 
 ### Options de configuration
 
-Vous pouvez également utiliser les options de configuration communes :
-
-- `--env-file <path>` : Chemin vers le fichier d'environnement
-- `-e, --env <env>` : Environnement d'exécution
-- `--base-dir <dir>` : Répertoire de base du projet
-- `--verbose` : Active la sortie détaillée (par défaut : true)
-- `--prefix <prefix>` : Préfixe pour les logs
-
-## Fonctionnement
-
-1. **Démarrage d'un serveur local** : La commande démarre un serveur HTTP local sur un port aléatoire pour recevoir les identifiants depuis le CMS
-
-Spécifiez l'URL du CMS Intlayer auquel se connecter pour l'authentification.
-
-- **Type**: `string`
-- **Par défaut**: La valeur configurée dans `intlayer.config.*` ou `https://intlayer.org`
-- **Exemple**:
-
-```bash packageManager="npm"
-npx intlayer login --cms-url https://intlayer.org
-```
-
-```bash packageManager="yarn"
-yarn intlayer login --cms-url https://intlayer.org
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer login --cms-url https://intlayer.org
-```
-
-```bash packageManager="bun"
-bun x intlayer login --cms-url https://intlayer.org
-```
-
-### Options de configuration
-
 Vous pouvez également utiliser les options de configuration courantes :
 
 - `--env-file <path>` : Chemin vers le fichier d'environnement

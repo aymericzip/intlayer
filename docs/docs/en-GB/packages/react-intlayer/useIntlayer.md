@@ -29,49 +29,6 @@ author: aymericzip
 
 This section provides detailed guidance on using the `useIntlayer` hook within React applications, allowing for efficient content localisation.
 
-## Importing `useIntlayer` in React
-
-The `useIntlayer` hook can be integrated into React applications by importing it based on the context:
-
-- **Client Component:**
-
-  ```typescript codeFormat="typescript"
-  import { useIntlayer } from "react-intlayer"; // Used in client-side React components
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer"; // Used in client-side React components
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer"); // Used in client-side React components
-  ```
-
-- **Server Component:**
-
-  ```typescript codeFormat="commonjs"
-  import { useIntlayer } from "react-intlayer/server"; // Used in server-side React components
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer/server"; // Used in server-side React components
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer/server"); // Used in server-side React components
-  ```
-
-## Parameters
-
-The hook accepts two parameters:
-
-1. **`key`**: The dictionary key to retrieve localised content.
-2. **`locale`** (optional): The desired locale. Defaults to the context's locale if not specified.
-
-## Dictionary
-
-All dictionary keys must be declared within content declaration files to enhance type safety and avoid errors. You can find the [setup instructions here](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md).
-
 ## Example Usage in React
 
 Demonstrating the `useIntlayer` hook within a React component:
@@ -129,14 +86,6 @@ const ServerComponentExample = () => {
     </div>
   );
 };
-```
-
-## Handling Attributes
-
-When localising attributes, access the content values appropriately:
-
-```jsx
-<button title={content.buttonTitle.value}>{content.buttonText}</button>
 ```
 
 ## Additional Resources

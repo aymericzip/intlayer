@@ -28,6 +28,53 @@ history:
 author: aymericzip
 ---
 
+# İçerik Bildirim Dosyası Çevirilerini Doldur
+
+**İçerik bildirim dosyalarını otomatik doldur**, CI'nizde geliştirme iş akışınızı hızlandırmanın bir yoludur.
+
+## Davranışı Anlamak
+
+`fill` komutu iki moda sahiptir:
+
+- **Complete**: Her yerel ayar için tüm eksik içeriği otomatik olarak doldurur ve geçerli dosyayı veya belirtilmişse başka bir dosyayı düzenler. Yani, complete modu, zaten çevrilen varsa mevcut içeriğin çevirisini atlar.
+- **Review**: Her yerel ayar için **tüm** içeriği otomatik olarak doldurur ve belirli bir dosya için veya belirtilmişse başka bir dosya için oluşturur.
+
+`fill` komutu tüm yerel ayar içeriği bildirimi dosyalarınızı işleyecektir. Yani, CMS'den uzak içeriğinizi işlemeyecektir. CMS'nin kendi çevirileri yönetimi vardır.
+`@intlayer/sync-json-plugin` gibi eklentileri kullanıyorsanız, Intlayer JSON dosyalarını yerel ayar içeriği bildirimi dosyalarına dönüştürecektir. Yani, `fill` komutu tarafından işleneceklerdir.
+
+Yeni oluşturulan dosyalar, sözlük metaverisi olarak `filled` talimatını içerir. Bu talimat, Intlayer tarafından dosyanın otomatik olarak doldurulup doldurulmadığını bilmek için kullanılır ve varsa bu dosyayı tekrar çevirilmekten atlar.
+
+Intlayer ayrıca otomatik doldurma için aşağıdaki talimatı dikkate alacaktır:
+
+- `.content.{ts|js|json}` dosyanızdan → `fill` talimatı
+- `.intlayer.config.ts` yapılandırma dosyanızdan → `dictionary.fill` talimatı
+- Aksi takdirde varsayılan olarak `true` olarak ayarlanır
+
+Yerel ayara özgü içerik bildirimi dosyaları için, `true` talimatı `./{{fileName}}.fill.content.json` ile değiştirilecektir. Bunun nedeni, yerel ayara özgü bir içerik bildirimi dosyasının ek yerelleştirilmiş içerik alamamasıdır. Yani, mevcut dosyayı üzerine yazmamak için yeni bir dosya oluşturacaktır.
+
+## Varsayılan Davranış
+
+Varsayılan olarak, `fill` global olarak `true` olarak ayarlanır, bu da Intlayer'ın tüm içerik dosyalarını otomatik olarak dolduracağı ve dosyanın kendisini düzenleyeceği anlamına gelir. Bu davranış çeşitli şekillerde özelleştirilebilir:
+
+### Genel Yapılandırma Seçenekleri
+
+1. **`fill: true` (default)** - Tüm locales'i otomatik olarak doldur ve mevcut dosyayı düzenle
+2. **`fill: false`** - Bu content dosyası için auto-fill'i devre dışı bırak
+3. **`fill: "./relative/path/to/file"`** - Mevcut dosyayı düzenlemeden belirtilen dosyayı oluştur/güncelle ve mevcut dosyanın konumuna göre çözümlenen göreli yola işaret et
+4. **`fill: "/absolute/path/to/file"`** - Mevcut dosyayı düzenlemeden belirtilen dosyayı oluştur/güncelle ve `.intlayer.config.ts` yapılandırma dosyasındaki base directory konumuna (`baseDir` alanı) göre çözümlenen yola işaret et
+5. **`fill: "C:\\absolute\path\to\file"`** - Mevcut dosyayı düzenlemeden belirtilen dosyayı oluştur/güncelle ve işletim sisteminize göre çözümlenen mutlak yola işaret et
+6. **`fill: { [key in Locales]?: string }`** - Her locale için belirtilen dosyayı oluştur/güncelle
+
+### v7 Davranış Değişiklikleri
+
+v7'de, `fill` komutunun davranışı güncellenmiştir:
+
+- **`fill: true`** - Geçerli dosyayı tüm diller için doldurulmuş içerikle yeniden yazar
+- **`fill: "path/to/file"`** - Belirtilen dosyayı geçerli dosyayı değiştirmeden doldurur
+- **`fill: false`** - Otomatik doldurmayı tamamen devre dışı bırakır
+
+Başka bir dosyaya yazmak için bir yol seçeneği kullanırken, doldurma mekanizması içerik deklarasyon dosyaları arasında _ana-köle_ ilişkisi aracılığıyla çalışır. Ana (master) dosya gerçeğin kaynağı olarak hizmet eder ve güncellendiğinde, Intlayer bu değişiklikleri otomatik olarak yol tarafından belirtilen türetilmiş (doldurulmuş) deklarasyon dosyalarına uygular.
+
 # Otomatik Doldurma İçerik Beyan Dosyası Çevirileri
 
 **Otomatik doldurma içerik beyan dosyaları**, geliştirme iş akışınızı hızlandırmanın bir yoludur.
@@ -87,6 +134,40 @@ Intlayer, ana dosyada henüz beyan edilmemiş tüm yerelleri doldurarak, türeti
 ```
 
 Daha sonra, her iki beyan dosyası tek bir sözlükte birleştirilecek ve standart `useIntlayer("example")` hook'u (react) / composable'ı (vue) kullanılarak erişilebilir olacaktır.
+
+## Genel Konfigürasyon
+
+`intlayer.config.ts` dosyasında genel otomatik doldurma konfigürasyonunu yapılandırabilirsiniz.
+
+```ts fileName="intlayer.config.ts"
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+    requiredLocales: [Locales.ENGLISH, Locales.FRENCH],
+  },
+  dictionary: {
+    // Tüm sözlükler için eksik çevirileri otomatik oluştur
+    fill: "./{{fileName}}Filled.content.ts",
+    //
+    // fill: "/messages/{{locale}}/{{key}}/{{fileName}}.content.json",
+    //
+    // fill: true, // "./{{fileName}}.content.json" kullanarak tüm sözlükler için eksik çevirileri otomatik oluştur
+    //
+    // fill: {
+    //   en: "./{{fileName}}.en.content.json",
+    //   fr: "./{{fileName}}.fr.content.json",
+    //   es: "./{{fileName}}.es.content.json",
+    // },
+  },
+};
+
+export default config;
+```
+
+İçerik dosyalarında `fill` alanını kullanarak her sözlük için ince ayar yapabilirsiniz. Intlayer önce sözlük başına konfigürasyonu dikkate alır, ardından genel konfigürasyona geri döner.
 
 ## Otomatik Doldurulmuş Dosya Formatı
 

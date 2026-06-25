@@ -28,98 +28,6 @@ author: aymericzip
 
 Esta seção fornece orientações detalhadas sobre o uso do hook `useDictionary` em aplicações React, permitindo a manipulação eficiente de conteúdo localizado sem um editor visual.
 
-## Importando `useDictionary` no React
-
-O hook `useDictionary` pode ser integrado em aplicações React importando-o conforme o contexto:
-
-- **Componente Cliente:**
-
-  ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer"; // Usado em componentes React no lado do cliente
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer"; // Usado em componentes React no lado do cliente
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer"); // Usado em componentes React no lado do cliente
-  ```
-
-- **Componente Servidor:**
-
-  ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer/server"; // Usado em componentes React no lado do servidor
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer/server"; // Usado em componentes React no lado do servidor
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer/server"); // Usado em componentes React no lado do servidor
-  ```
-
-## Parâmetros
-
-O hook aceita dois parâmetros:
-
-1. **`dictionary`**: Um objeto dicionário declarado contendo conteúdo localizado para chaves específicas.
-2. **`locale`** (opcional): O locale desejado. Por padrão, usa o locale do contexto atual se não for especificado.
-
-## Dicionário
-
-Todos os objetos dicionário devem ser declarados em arquivos de conteúdo estruturado para garantir a segurança de tipos e evitar erros em tempo de execução. Você pode encontrar as [instruções de configuração aqui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/dictionary/content_file.md). Aqui está um exemplo de declaração de conteúdo:
-
-```typescript fileName="./component.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
-import { t, type Dictionary } from "intlayer";
-
-const componentContent = {
-  key: "component-example",
-  content: {
-    title: t({
-      en: "Client Component Example",
-      fr: "Exemple de composant client",
-      es: "Ejemplo de componente cliente",
-    }),
-    content: t({
-      en: "This is the content of a client component example",
-      fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es el contenido de un ejemplo de componente cliente",
-    }),
-  },
-} satisfies Dictionary;
-
-export default componentContent;
-```
-
-```json fileName="./component.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "component-example",
-  "content": {
-    "title": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Client Component Example",
-        "fr": "Exemple de composant client",
-        "es": "Exemplo de componente cliente",
-        "pt": "Exemplo de Componente Cliente"
-      }
-    },
-    "content": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "This is the content of a client component example",
-        "fr": "Ceci est le contenu d'un exemple de composant client",
-        "es": "Este es el contenido de un ejemplo de componente cliente",
-        "pt": "Este é o conteúdo de um exemplo de componente cliente"
-      }
-    }
-  }
-}
-```
-
 ## Exemplo de Uso no React
 
 Abaixo está um exemplo de como usar o hook `useDictionary` em um componente React:
@@ -139,35 +47,6 @@ const ComponentExample: FC = () => {
     </div>
   );
 };
-```
-
-## Integração com Servidor
-
-Se estiver usando o hook `useDictionary` fora do `IntlayerProvider`, o locale deve ser fornecido explicitamente como parâmetro ao renderizar o componente:
-
-```tsx fileName="./ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { useDictionary } from "react-intlayer/server";
-import clientComponentExampleContent from "./component.content";
-
-const ServerComponentExample: FC<{ locale: string }> = ({ locale }) => {
-  const { content } = useDictionary(clientComponentExampleContent, locale);
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
-## Notas sobre Atributos
-
-Ao contrário das integrações que utilizam editores visuais, atributos como `buttonTitle.value` não se aplicam aqui. Em vez disso, acesse diretamente as strings localizadas conforme declaradas no seu conteúdo.
-
-```jsx
-<button title={content.title}>{content.content}</button>
 ```
 
 ## Dicas Adicionais

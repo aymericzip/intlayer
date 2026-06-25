@@ -85,22 +85,6 @@ console.log(content); // Output: "Hello" (default locale content)
 
 ### Using Custom Content Types:
 
-```typescript codeFormat={["typescript", "esm"]}
-import { getTranslationContent, Locales } from "intlayer";
-
-const customContent = getTranslationContent<Record<string, string>>(
-  {
-    en: { greeting: "Hello" },
-    fr: { greeting: "Bonjour" },
-  },
-  Locales.FRENCH
-);
-
-console.log(customContent.greeting); // Output: "Bonjour"
-```
-
-### Using Custom Content Types:
-
 ```typescript codeFormat={["typescript", "esm", "commonjs"]}
 import { getTranslationContent, Locales } from "intlayer";
 

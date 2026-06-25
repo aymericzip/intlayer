@@ -249,6 +249,14 @@ Dieser Ansatz:
 
 ---
 
+## Interoperabilität mit vue-i18n
+
+`intlayer` kann auch bei der Verwaltung deiner `vue-i18n` Namespaces helfen.
+
+Mit `intlayer` kannst du deinen Content im Format deiner bevorzugten i18n-Bibliothek deklarieren, und intlayer generiert deine Namespaces an dem Ort deiner Wahl (Beispiel: `/messages/{{locale}}/{{namespace}}.json`).
+
+---
+
 ## Praktische Migrationshinweise (vue-i18n → Intlayer)
 
 - **Pro Funktion starten**: Verschieben Sie eine Route/Ansicht/Komponente nach der anderen in lokale Intlayer-Wörterbücher.

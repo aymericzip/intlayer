@@ -200,16 +200,6 @@ Bağlantı sorunlarıyla karşılaşırsanız, şunları doğrulayın:
 
 Kimlik bilgileri alınmadıysa:
 
-1. Tarayıcıda kimlik doğrulama işlemini tamamladığınızdan emin olun
-2. Yerel portun engellenmediğini doğrulayın
-3. Komutu tekrar deneyin
-4. İnternet bağlantınızın düzgün çalıştığından emin olun
-5. Bağlantıyı engelleyen herhangi bir güvenlik duvarı olmadığından emin olun
-
-### Kimlik Bilgileri Alınmadı
-
-Kimlik bilgileri alınmadıysa:
-
 1. Tarayıcıda kimlik doğrulama sürecini tamamladığınızdan emin olun
 2. Yerel portun engellenmediğini doğrulayın
 3. Komutu tekrar deneyin

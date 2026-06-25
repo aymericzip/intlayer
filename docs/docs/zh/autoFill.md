@@ -28,6 +28,53 @@ history:
 author: aymericzip
 ---
 
+# 填充内容声明文件翻译
+
+**在 CI 中自动填充内容声明文件**是加快开发工作流程的一种方式。
+
+## 理解行为
+
+`fill` 命令包括两种模式：
+
+- **Complete**: 自动为每个区域设置填充所有缺失的内容，并编辑当前文件或指定的另一个文件。也就是说，完整模式将跳过已翻译内容的翻译。
+- **Review**: 自动为每个区域设置填充**所有**内容，并为特定文件或指定的另一个文件生成。
+
+fill 命令将处理您的所有区域内容声明文件。也就是说，它不会处理来自 CMS 的远程内容。CMS 包含其自己的翻译管理。
+如果您使用插件，如 `@intlayer/sync-json-plugin`，Intlayer 将把 JSON 文件转换为区域内容声明文件。也就是说，它们将由 `fill` 命令处理。
+
+新生成的文件包含一个 `filled` 指令作为字典元数据。此指令将由 Intlayer 用来判断文件是否已自动填充，以及如果存在则跳过此文件不再进行翻译。
+
+Intlayer 还将考虑以下自动填充指令：
+
+- 来自您的 `.content.{ts|js|json}` → `fill` 指令
+- 来自您的配置文件 `.intlayer.config.ts` → `dictionary.fill` 指令
+- 否则将默认设置为 `true`
+
+对于按区域设置的内容声明文件，`true` 指令将被替换为 `./{{fileName}}.fill.content.json`。这是因为按区域设置的内容声明文件无法接收额外的本地化内容。因此它将生成一个新文件，以不覆盖现有文件。
+
+## 默认行为
+
+默认情况下，`fill` 全局设置为 `true`，这意味着 Intlayer 将自动填充所有内容文件并编辑文件本身。这个行为可以通过以下几种方式自定义：
+
+### 全局配置选项
+
+1. **`fill: true` (默认)** - 自动填充所有语言并编辑当前文件
+2. **`fill: false`** - 禁用此内容文件的自动填充
+3. **`fill: "./relative/path/to/file"`** - 创建/更新指定的文件，不编辑当前文件，指向基于当前文件位置解析的相对路径
+4. **`fill: "/absolute/path/to/file"`** - 创建/更新指定的文件，不编辑当前文件，指向基于基目录位置解析的相对路径（配置文件 `.intlayer.config.ts` 中的 `baseDir` 字段）
+5. **`fill: "C:\\absolute\path\to\file"`** - 创建/更新指定的文件，不编辑当前文件，指向基于你的操作系统解析的绝对路径
+6. **`fill: { [key in Locales]?: string }`** - 为每个语言创建/更新指定的文件
+
+### v7 行为更改
+
+在 v7 中，`fill` 命令的行为已更新：
+
+- **`fill: true`** - 使用所有语言的已填充内容重写当前文件
+- **`fill: "path/to/file"`** - 填充指定文件而不修改当前文件
+- **`fill: false`** - 完全禁用自动填充
+
+使用路径选项写入另一个文件时，填充机制通过内容声明文件之间的 _主从_ 关系工作。主（master）文件作为真实来源，当它被更新时，Intlayer 将自动将这些更改应用到由路径指定的派生（填充）声明文件。
+
 # 自动填充内容声明文件翻译
 
 **自动填充内容声明文件** 是加快开发工作流程的一种方式。
@@ -87,6 +134,40 @@ Intlayer 将自动生成派生的声明文件，路径为 `src/components/exampl
 ```
 
 之后，这两个声明文件将合并为一个字典，可以通过标准的 `useIntlayer("example")` 钩子（React）或组合函数（Vue）访问。
+
+## 全局配置
+
+您可以在 `intlayer.config.ts` 文件中配置全局自动填充配置。
+
+```ts fileName="intlayer.config.ts"
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+    requiredLocales: [Locales.ENGLISH, Locales.FRENCH],
+  },
+  dictionary: {
+    // 为所有字典自动生成缺失的翻译
+    fill: "./{{fileName}}Filled.content.ts",
+    //
+    // fill: "/messages/{{locale}}/{{key}}/{{fileName}}.content.json",
+    //
+    // fill: true, // 为所有字典自动生成缺失的翻译，如使用 "./{{fileName}}.content.json"
+    //
+    // fill: {
+    //   en: "./{{fileName}}.en.content.json",
+    //   fr: "./{{fileName}}.fr.content.json",
+    //   es: "./{{fileName}}.es.content.json",
+    // },
+  },
+};
+
+export default config;
+```
+
+您仍然可以使用内容文件中的 `fill` 字段按字典进行微调。Intlayer 将首先考虑每个字典的配置，然后回退到全局配置。
 
 ## 自动填充文件格式
 

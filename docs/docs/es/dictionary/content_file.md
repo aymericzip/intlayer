@@ -581,6 +581,10 @@ Esquema JSON utilizado para la validación de la estructura del diccionario. Añ
 
 Para diccionarios remotos, este es el identificador único del diccionario en el servidor remoto. Se usa para obtener y gestionar contenido remoto.
 
+##### `projectIds` (string[])
+
+Para diccionarios remotos, este array contiene los IDs de los proyectos que pueden usar este diccionario. Un diccionario remoto puede ser compartido entre múltiples proyectos.
+
 ##### `localId` (LocalDictionaryId)
 
 Identificador único para diccionarios locales. Generado automáticamente por Intlayer para ayudar a identificar el diccionario y determinar si es local o remoto, junto con su ubicación.

@@ -140,6 +140,28 @@ steps:
     run: npx intlayer ci fill
 ```
 
+## スキャフォルドされた GitHub Actions
+
+`intlayer init` を実行すると、Intlayer はパッケージマネージャー (npm、yarn、pnpm、または bun) を検出し、`.github/workflows/` の下に 2 つの GitHub Actions ワークフローをスキャフォルドします。コマンドはそのパッケージマネージャーに対応します:
+
+- **`intlayer-fill.yml`** — すべてのプルリクエストで、辞書をビルドし `intlayer fill --git-diff --mode complete` を実行して、変更された辞書の欠落している翻訳を生成し、結果を PR ブランチにコミットします。
+- **`intlayer-test.yml`** — すべてのプルリクエストで、辞書をビルドし `intlayer test` を実行し、必要なロケールの翻訳が不足している場合はチェックを失敗させます。
+
+既存のワークフローファイルが上書きされることはありません。スキャフォルディングをスキップするには、以下を実行します:
+
+```bash
+npx intlayer init --no-github-actions
+```
+
+### fill workflowへのAIアクセスの提供
+
+スキャフォルドされた `intlayer-fill.yml` はAIアクセスが必要です。2つのオプションが利用可能です（workflowの `env` ブロックで設定）:
+
+1. **独自のAIプロバイダーキー** — リポジトリ設定（Settings → Secrets and variables → Actions）に `AI_API_KEY` シークレットを追加します。workflowは `--provider`、`--model`、`--api-key` 経由でそれを転送します。
+2. **Intlayer CMSアクセスキー** — `INTLAYER_CLIENT_ID` と `INTLAYER_CLIENT_SECRET` シークレットを追加し、`intlayer.config` の `editor` セクションに接続します。CMSアクセスキーはIntlayer backendを通じてAIアクセスを許可します。
+
+`intlayer-test.yml` workflowはAIアクセスを必要としません。
+
 ## エラーハンドリング
 
 - `INTLAYER_PROJECT_CREDENTIALS`が設定されていない場合、コマンドはエラーで終了します。

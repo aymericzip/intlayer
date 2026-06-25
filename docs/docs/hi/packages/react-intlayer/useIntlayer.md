@@ -29,49 +29,6 @@ author: aymericzip
 
 यह अनुभाग React अनुप्रयोगों के भीतर `useIntlayer` हुक का उपयोग करने के लिए विस्तृत मार्गदर्शन प्रदान करता है, जो कुशल सामग्री स्थानीयकरण की अनुमति देता है।
 
-## React में `useIntlayer` को इम्पोर्ट करना
-
-`useIntlayer` हुक को संदर्भ के आधार पर React अनुप्रयोगों में आयात करके एकीकृत किया जा सकता है:
-
-- **क्लाइंट कंपोनेंट:**
-
-  ```typescript codeFormat="typescript"
-  import { useIntlayer } from "react-intlayer"; // क्लाइंट-साइड React कंपोनेंट्स में उपयोग किया जाता है
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer"; // क्लाइंट-साइड React कंपोनेंट्स में उपयोग किया जाता है
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer"); // क्लाइंट-साइड React कंपोनेंट्स में उपयोग किया जाता है
-  ```
-
-- **सर्वर कंपोनेंट:**
-
-  ```typescript codeFormat="commonjs"
-  import { useIntlayer } from "react-intlayer/server"; // सर्वर-साइड React कंपोनेंट्स में उपयोग किया जाता है
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer/server"; // सर्वर-साइड React कंपोनेंट्स में उपयोग किया जाता है
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer/server"); // सर्वर-साइड React कंपोनेंट्स में उपयोग किया जाता है
-  ```
-
-## पैरामीटर
-
-यह हुक दो पैरामीटर स्वीकार करता है:
-
-1. **`key`**: स्थानीयकृत सामग्री प्राप्त करने के लिए शब्दकोश कुंजी।
-2. **`locale`** (वैकल्पिक): इच्छित लोकल। यदि निर्दिष्ट नहीं किया गया है, तो यह संदर्भ के लोकल पर डिफ़ॉल्ट होता है।
-
-## शब्दकोश
-
-सभी शब्दकोश कुंजियाँ सामग्री घोषणा फ़ाइलों में घोषित होनी चाहिए ताकि टाइप सुरक्षा बढ़े और त्रुटियों से बचा जा सके। आप [सेटअप निर्देश यहाँ पा सकते हैं](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/content_file.md)।
-
 ## React में उदाहरण उपयोग
 
 React कंपोनेंट के भीतर `useIntlayer` हुक का प्रदर्शन:
@@ -129,14 +86,6 @@ const ServerComponentExample = () => {
     </div>
   );
 };
-```
-
-## गुणों को संभालना
-
-जब गुणों का स्थानीयकरण करें, तो सामग्री के मानों तक उचित रूप से पहुँचें:
-
-```jsx
-<button title={content.buttonTitle.value}>{content.buttonText}</button>
 ```
 
 ## अतिरिक्त संसाधन

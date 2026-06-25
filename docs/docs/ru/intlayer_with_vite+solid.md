@@ -632,47 +632,6 @@ bun run build # Or bun run dev
 
 </Steps>
 
-### Настройка TypeScript
-
-Убедитесь, что ваша конфигурация TypeScript включает автогенерируемые типы.
-
-```json5 fileName="tsconfig.json"
-{
-  "compilerOptions": {
-    // ...
-  },
-  "include": ["src", ".intlayer/**/*.ts"],
-}
-```
-
-### Конфигурация Git
-
-Рекомендуется игнорировать файлы, сгенерированные Intlayer. Это позволит избежать их коммита в ваш репозиторий Git.
-
-Для этого вы можете добавить следующие инструкции в ваш файл `.gitignore`:
-
-```bash
-#  Игнорировать файлы, сгенерированные Intlayer
-.intlayer
-```
-
-### Расширение VS Code
-
-Для улучшения вашего опыта разработки с Intlayer вы можете установить официальное **расширение Intlayer для VS Code**.
-
-[Установить из VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Это расширение предоставляет:
-
-- **Автодополнение** для ключей переводов.
-- **Обнаружение ошибок в реальном времени** для отсутствующих переводов.
-- **Встроенный просмотр** переведённого контента.
-- **Быстрые действия** для лёгкого создания и обновления переводов.
-
-Для получения дополнительной информации о том, как использовать расширение, обратитесь к [документации расширения Intlayer для VS Code](https://intlayer.org/doc/vs-code-extension).
-
----
-
 ### (Опционально) Sitemap и robots.txt (генерация на сборке)
 
 Intlayer предоставляет `generateSitemap` и `getMultilingualUrls` - утилиты, которые формируют многоязычные `sitemap.xml` и `robots.txt` для краулеров и позволяют автоматически записать их в `public/`. Обычно запускают небольшой Node-скрипт **до** Vite (например, npm-хуки `predev` / `prebuild`).
@@ -746,6 +705,38 @@ console.log("SEO files generated successfully.");
 ```
 
 Подстройте команды для pnpm или yarn. Скрипт можно вызывать из CI или другого шага.
+
+### Настройка TypeScript
+
+Убедитесь, что конфигурация TypeScript включает автогенерируемые типы.
+
+```json5 fileName="tsconfig.json"
+{
+  "compilerOptions": {
+    // ...
+  },
+  "include": ["src", ".intlayer/**/*.ts"],
+}
+```
+
+### Конфигурация Git
+
+Рекомендуется игнорировать файлы, созданные Intlayer. Это позволяет избежать их фиксации в вашем репозитории Git.
+
+Для этого вы можете добавить следующие инструкции в ваш файл `.gitignore`:
+
+```bash
+# Игнорировать файлы, созданные Intlayer
+.intlayer
+```
+
+### VS Code Extension
+
+Чтобы улучшить опыт разработки с Intlayer, вы можете установить официальное **расширение Intlayer для VS Code**.
+
+[Установить из VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+---
 
 ### Продвинутые возможности
 

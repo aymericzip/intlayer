@@ -124,6 +124,28 @@ We compared **four loading strategies**:
 - **Scoped static**: Keeps code organised (logical separation) without complex extra network requests.
 - **Scoped dynamic**: Best approach for _code splitting_ and performance. Minimises memory by loading only what the current view and active locale need.
 
+### What I measured:
+
+I ran the same multilingual app in a real browser for every stack, then wrote down what actually showed up on the wire and how long things took. Sizes are reported **after normal web compression**, because that is closer to what people download than raw source counts.
+
+- **Internationalisation library size**: After bundling, tree-shaking and minification, the size of the i18n library is the size of the providers (e.g. `NextIntlClientProvider`) + hooks (e.g. `useTranslations`) code in an empty component. It does not include the loading of translation files. It answers how expensive the library is before your content enters the picture.
+
+- **JavaScript per page**: For each benchmark route, how much script the browser pulls in for that visit, averaged across the pages in the suite (and across locales where the report rolls them up). Heavy pages are slow pages.
+
+- **Leakage from other locales**: It's the content of the same page but in another language that would be loaded by mistake in the audited page. This content is unnecessary and should be avoided. (e.g. `/fr/about` page content in `/en/about` page bundle)
+
+- **Leakage from other routes**: The same idea for **other screens** in the app: whether their copy is riding along when you only opened one page. (e.g. `/en/about` page content in `/en/contact` page bundle). A high score hints at weak splitting or over-broad bundles.
+
+- **Average component bundle size**: Common UI pieces are measured **one at a time** instead of hiding inside one giant app number. It shows whether internationalisation quietly inflates everyday components. For instance, if your component rerenders, it will load all that data from memory. Attaching a giant JSON to any component is like connecting a big store of unused data that will slow down your components' performance.
+
+- **Language switch responsiveness**: I flip the language using the app's own control and time how long it takes until the page has clearly switched, what a visitor would notice, not a lab micro-step.
+
+- **Rendering work after a language change**: A narrower follow-up: how much effort the interface took to repaint for the new language once the switch is in flight. Useful when the "felt" time and the framework cost diverge.
+
+- **Initial page load time**: From navigation to the browser considering the page fully loaded for the scenarios I tested. Good for comparing cold starts.
+
+- **Hydration time**: When the app exposes it, how long the client spends turning server HTML into something you can actually click. A dash in the tables means that implementation did not provide a reliable hydration figure in this benchmark.
+
 ## GitHub STARs
 
 GitHub stars are a strong indicator of a project's popularity, community trust, and long-term relevance. While not a direct measure of technical quality, they reflect how many developers find the project useful, follow its progress, and are likely to adopt it. For estimating the value of a project, stars help compare traction across alternatives and provide insights into ecosystem growth.

@@ -36,6 +36,36 @@ author: aymericzip
 
 ---
 
+## 函数签名
+
+```typescript
+getLocalizedUrl(
+  url: string,                   // 必需
+  currentLocale: Locales,        // 必需
+  options?: {                    // 可选
+    locales?: Locales[];
+    defaultLocale?: Locales;
+    mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
+  }
+): string
+```
+
+---
+
+## 参数
+
+### 必需参数
+
+- `url: string`
+  - **Description**: 要用 locale 前缀的原始 URL 字符串。
+  - **Type**: `string`
+  - **Required**: Yes
+
+- `currentLocale: Locales`
+  - **Description**: 正在本地化 URL 的当前 locale。
+  - **Type**: `Locales`
+  - **Required**: Yes
+
 ## 参数
 
 - `url: string`
@@ -69,6 +99,25 @@ author: aymericzip
 ---
 
 ## 示例用法
+
+### 基本用法（仅需必需参数）
+
+当你使用国际化设置配置项目后，可以仅使用必需参数来调用该函数：
+
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
+import { getLocalizedUrl, Locales } from "intlayer";
+
+// 使用你的项目配置中的 locales、defaultLocale 和 mode
+getLocalizedUrl("/about", Locales.FRENCH);
+// Output: "/fr/about" (假设支持法语且 mode 设置为 'prefix-no-default')
+
+getLocalizedUrl("/about", Locales.ENGLISH);
+// Output: "/about" 或 "/en/about" (取决于你的 mode 设置)
+```
+
+### 高级用法（带可选参数）
+
+您可以通过提供可选的 `options` 参数来覆盖默认配置：
 
 ### 相对 URL
 
@@ -115,6 +164,30 @@ getLocalizedUrl(
 
 // 输出: 对于法语区域，结果为 "/fr/about"
 // 输出: 对于默认（英语）区域，结果为 "/about"
+```
+
+### 部分配置覆盖
+
+您也可以仅提供部分可选参数。该函数将对您未指定的任何参数使用您的项目配置：
+
+```typescript codeFormat="typescript"
+import { getLocalizedUrl, Locales } from "intlayer";
+
+// 仅覆盖 locales，使用项目配置中的 defaultLocale 和 mode
+getLocalizedUrl("/about", Locales.SPANISH, {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+});
+
+// 仅覆盖 mode，使用项目配置中的 locales 和 defaultLocale
+getLocalizedUrl("/about", Locales.ENGLISH, {
+  mode: "prefix-all", // 对所有语言（包括默认语言）强制添加前缀
+});
+
+// 覆盖多个选项
+getLocalizedUrl("/about", Locales.FRENCH, {
+  defaultLocale: Locales.ENGLISH,
+  mode: "search-params", // 使用查询参数：/about?locale=fr
+});
 ```
 
 ### 绝对 URL

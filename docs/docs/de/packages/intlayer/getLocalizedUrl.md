@@ -29,6 +29,38 @@ author: aymericzip
 
 ## Beschreibung
 
+Die `getLocalizedUrl`-Funktion generiert eine lokalisierte URL, indem sie die gegebene URL mit dem angegebenen Locale präfixiert. Sie verarbeitet sowohl absolute als auch relative URLs und stellt sicher, dass das richtige Locale-Präfix basierend auf der Konfiguration angewendet wird.
+
+**Wichtigste Funktionen:**
+
+- Nur 2 Parameter erforderlich: `url` und `currentLocale`
+- Optionales `options`-Objekt mit `locales`, `defaultLocale` und `mode`
+- Verwendet die Internationalisierungskonfiguration deines Projekts als Standard
+- Kann mit minimalen Parametern für einfache Fälle oder vollständig angepasst für komplexe Szenarien verwendet werden
+- Unterstützt mehrere Routing-Modi: `prefix-no-default`, `prefix-all`, `no-prefix` und `search-params`
+
+---
+
+## Funktionssignatur
+
+```typescript
+getLocalizedUrl(
+  url: string,                   // Erforderlich
+  currentLocale: Locales,        // Erforderlich
+  options?: {                    // Optional
+    locales?: Locales[];
+    defaultLocale?: Locales;
+    mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
+  }
+): string
+```
+
+---
+
+## Parameter
+
+## Beschreibung
+
 Die Funktion `getLocalizedUrl` erzeugt eine lokalisierte URL, indem sie die angegebene URL mit dem spezifizierten Locale voranstellt. Sie verarbeitet sowohl absolute als auch relative URLs und stellt sicher, dass das korrekte Locale-Präfix basierend auf der Konfiguration angewendet wird.
 
 ---
@@ -66,6 +98,25 @@ Die Funktion `getLocalizedUrl` erzeugt eine lokalisierte URL, indem sie die ange
 ---
 
 ## Beispielhafte Verwendung
+
+### Grundlegende Verwendung (Nur erforderliche Parameter)
+
+Wenn Sie Ihr Projekt mit Internationalisierungseinstellungen konfiguriert haben, können Sie die Funktion nur mit den erforderlichen Parametern verwenden:
+
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
+import { getLocalizedUrl, Locales } from "intlayer";
+
+// Verwendet die Konfiguration Ihres Projekts für locales, defaultLocale und mode
+getLocalizedUrl("/about", Locales.FRENCH);
+// Ausgabe: "/fr/about" (angenommen, Französisch wird unterstützt und mode ist 'prefix-no-default')
+
+getLocalizedUrl("/about", Locales.ENGLISH);
+// Ausgabe: "/about" oder "/en/about" (je nach Ihrer mode-Einstellung)
+```
+
+### Erweiterte Verwendung (Mit optionalen Parametern)
+
+Sie können die Standardkonfiguration überschreiben, indem Sie den optionalen Parameter `options` bereitstellen:
 
 ### Relative URLs
 
@@ -112,6 +163,30 @@ getLocalizedUrl(
 
 // Ausgabe: "/fr/about" für das französische Locale
 // Ausgabe: "/about" für das Standard-Locale (Englisch)
+```
+
+### Partielle Konfigurationsüberschreibung
+
+Sie können auch nur einige der optionalen Parameter bereitstellen. Die Funktion verwendet Ihre Projektkonfiguration für alle Parameter, die Sie nicht angeben:
+
+```typescript codeFormat="typescript"
+import { getLocalizedUrl, Locales } from "intlayer";
+
+// Nur die Locales überschreiben, Projektkonfiguration für defaultLocale und mode verwenden
+getLocalizedUrl("/about", Locales.SPANISH, {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+});
+
+// Nur mode überschreiben, Projektkonfiguration für locales und defaultLocale verwenden
+getLocalizedUrl("/about", Locales.ENGLISH, {
+  mode: "prefix-all", // Präfix für alle Locales einschließlich Standard erzwingen
+});
+
+// Mehrere Optionen überschreiben
+getLocalizedUrl("/about", Locales.FRENCH, {
+  defaultLocale: Locales.ENGLISH,
+  mode: "search-params", // Abfrageparameter verwenden: /about?locale=fr
+});
 ```
 
 ### Absolute URLs

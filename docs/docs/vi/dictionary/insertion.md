@@ -114,8 +114,6 @@ Khi tích hợp với React Intlayer hoặc Next Intlayer, bạn chỉ cần cun
 
 ## Sử dụng Nội dung Chèn với React Intlayer
 
-## Sử dụng Nội dung Chèn với React Intlayer
-
 Để sử dụng nội dung chèn trong một component React, hãy import và sử dụng hook `useIntlayer` từ package `react-intlayer`. Hook này lấy nội dung theo key được chỉ định và cho phép bạn truyền vào một đối tượng ánh xạ mỗi placeholder trong nội dung với giá trị bạn muốn hiển thị.
 
 ```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}

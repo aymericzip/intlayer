@@ -25,6 +25,45 @@ author: aymericzip
 
 In Intlayer, l'annidamento viene realizzato tramite la funzione `nest`, che consente di fare riferimento e riutilizzare contenuti da un altro dizionario. Invece di duplicare i contenuti, è possibile puntare a un modulo di contenuto esistente tramite la sua chiave.
 
+## Configurazione del Nesting
+
+Per configurare il nesting nel tuo progetto Intlayer, prima definisci il contenuto di base che desideri riutilizzare. Quindi, in un modulo di contenuto separato, utilizzi la funzione `nest` per importare quel contenuto.
+
+### Dizionario di base
+
+Di seguito è riportato un esempio di un dizionario di base da annidare in un altro dizionario:
+
+```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { type Dictionary } from "intlayer";
+
+const firstDictionary = {
+  key: "key_of_my_first_dictionary",
+  content: {
+    content: "content",
+    subContent: {
+      contentNumber: 0,
+      contentString: "string",
+    },
+  },
+} satisfies Dictionary;
+
+export default firstDictionary;
+```
+
+```json fileName="firstDictionary.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "key_of_my_first_dictionary",
+  "content": {
+    "content": "content",
+    "subContent": {
+      "contentNumber": 0,
+      "contentString": "string"
+    }
+  }
+}
+```
+
 ## Configurazione dell'Annidamento
 
 <Tabs group="framework">

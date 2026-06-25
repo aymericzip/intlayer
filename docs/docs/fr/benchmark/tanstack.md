@@ -124,6 +124,28 @@ Nous avons comparé **quatre stratégies de chargement** :
 - **Scoped static** : Organise bien le code (séparation logique) sans requêtes réseau supplémentaires complexes.
 - **Scoped dynamic** : Meilleure approche pour le _code splitting_ et la performance. Minimise la mémoire en ne chargeant que ce dont la vue actuelle et la locale active ont besoin.
 
+### Ce que j'ai mesuré :
+
+J'ai exécuté la même application multilingue dans un vrai navigateur pour chaque stack, puis j'ai noté ce qui s'est réellement affiché sur le réseau et combien de temps cela a pris. Les tailles sont rapportées **après une compression web normale**, car cela se rapproche davantage de ce que les gens téléchargent que des nombres de sources brutes.
+
+- **Taille de la bibliothèque d'internationalisation** : Après bundling, tree-shaking et minification, la taille de la bibliothèque i18n est la taille des providers (par ex. `NextIntlClientProvider`) + hooks (par ex. `useTranslations`) code dans un composant vide. Cela n'inclut pas le chargement des fichiers de traduction. Cela répond à la question de savoir combien coûte la bibliothèque avant que votre contenu n'entre en jeu.
+
+- **JavaScript par page** : Pour chaque route de benchmark, combien de script le navigateur télécharge lors de cette visite, en moyenne sur les pages de la suite (et sur les locales où le rapport les agrège). Les pages lourdes sont des pages lentes.
+
+- **Fuite d'autres locales** : C'est le contenu de la même page mais dans une autre langue qui serait chargé par erreur dans la page auditée. Ce contenu est inutile et doit être évité. (par ex. contenu de la page `/fr/about` dans le bundle de la page `/en/about`)
+
+- **Fuite d'autres routes** : La même idée pour **les autres écrans** de l'application : si leur copie est chargée lorsque vous n'avez ouvert qu'une seule page. (par ex. contenu de la page `/en/about` dans le bundle de la page `/en/contact`). Un score élevé suggère un fractionnement faible ou des bundles trop larges.
+
+- **Taille moyenne du bundle de composant** : Les éléments d'interface utilisateur courants sont mesurés **un à la fois** au lieu de se cacher dans un énorme nombre d'applications. Cela montre si l'internationalisation augmente discrètement les composants ordinaires. Par exemple, si votre composant se re-render, il chargera toutes ces données depuis la mémoire. Attacher un énorme JSON à n'importe quel composant, c'est comme connecter un grand magasin de données inutilisées qui ralentira les performances de vos composants.
+
+- **Réactivité du changement de langue** : Je bascule la langue en utilisant le contrôle de l'application et je mesure le temps qu'il faut jusqu'à ce que la page ait clairement basculé, ce qu'un visiteur remarquerait, pas une micro-étape de laboratoire.
+
+- **Travail de rendu après un changement de langue** : Un suivi plus étroit : combien d'effort l'interface a dû fournir pour se redessiner dans la nouvelle langue une fois le changement en vol. Utile lorsque le temps « ressenti » et le coût du framework divergent.
+
+- **Temps de chargement initial de la page** : De la navigation à la considération par le navigateur de la page comme entièrement chargée pour les scénarios que j'ai testés. Bon pour comparer les démarrages à froid.
+
+- **Temps d'hydratation** : Quand l'application l'expose, combien de temps le client passe à transformer du HTML serveur en quelque chose sur lequel vous pouvez réellement cliquer. Un tiret dans les tableaux signifie que cette implémentation n'a pas fourni de chiffre d'hydratation fiable dans ce benchmark.
+
 ## Étoiles GitHub
 
 Les étoiles GitHub sont un indicateur fort de la popularité d'un projet, de la confiance de la communauté et de sa pertinence à long terme. Bien qu'elles ne soient pas une mesure directe de la qualité technique, elles reflètent le nombre de développeurs qui trouvent le projet utile, suivent ses progrès et sont susceptibles de l'adopter. Pour estimer la valeur d'un projet, les étoiles aident à comparer l'attraction entre les alternatives et fournissent des informations sur la croissance de l'écosystème.

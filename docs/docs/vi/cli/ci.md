@@ -140,6 +140,28 @@ steps:
     run: npx intlayer ci fill
 ```
 
+## GitHub Actions được tạo tự động
+
+Khi bạn chạy `intlayer init`, Intlayer sẽ phát hiện package manager của bạn (npm, yarn, pnpm, hoặc bun) và tạo hai workflow GitHub Actions trong `.github/workflows/`, với các lệnh phù hợp với package manager đó:
+
+- **`intlayer-fill.yml`** — Trên mọi pull request, xây dựng các từ điển và chạy `intlayer fill --git-diff --mode complete` để tạo các bản dịch bị thiếu cho các từ điển đã thay đổi, sau đó commit kết quả lại vào nhánh PR.
+- **`intlayer-test.yml`** — Trên mọi pull request, xây dựng các từ điển và chạy `intlayer test`, làm cho kiểm tra thất bại khi các locale bắt buộc bị thiếu bản dịch.
+
+Các tập tin workflow hiện có sẽ không bao giờ bị ghi đè. Để bỏ qua việc tạo tự động hoàn toàn, hãy chạy:
+
+```bash
+npx intlayer init --no-github-actions
+```
+
+### Cấp quyền truy cập AI cho quy trình fill
+
+`intlayer-fill.yml` được tạo ra yêu cầu quyền truy cập AI. Có hai tùy chọn có sẵn (được cấu hình trong khối `env` của quy trình):
+
+1. **Khóa nhà cung cấp AI của riêng bạn** — Thêm bí mật `AI_API_KEY` trong cài đặt kho lưu trữ của bạn (Settings → Secrets and variables → Actions). Quy trình sẽ chuyển tiếp nó qua `--provider`, `--model` và `--api-key`.
+2. **Khóa truy cập Intlayer CMS** — Thêm bí mật `INTLAYER_CLIENT_ID` và `INTLAYER_CLIENT_SECRET` và kết nối chúng vào phần `editor` của `intlayer.config` của bạn. Các khóa truy cập CMS cấp quyền truy cập AI thông qua backend Intlayer.
+
+Quy trình `intlayer-test.yml` không yêu cầu bất kỳ quyền truy cập AI nào.
+
 ## Xử lý lỗi
 
 - Nếu `INTLAYER_PROJECT_CREDENTIALS` không được đặt, lệnh sẽ thoát với lỗi.

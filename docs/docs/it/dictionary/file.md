@@ -421,6 +421,14 @@ export default myMultilingualContent;
 
 Questa configurazione consente di recuperare dinamicamente il contenuto in base alla preferenza linguistica dell'utente. Quando viene utilizzata nell'Intlayer Visual Editor o nel CMS, il sistema riconosce che il contenuto proviene dai file Markdown specificati e garantisce che rimangano modificabili.
 
+## Diversi tipi di percorsi
+
+Quando si utilizza la funzione `file`, è possibile utilizzare diversi tipi di percorsi per specificare il file da incorporare.
+
+- `file("./path/to/file.txt")` - Percorso relativo al file corrente
+- `file("path/to/file.txt")` - Percorso relativo alla directory radice del progetto
+- `file("/users/username/path/to/file.txt")` - Percorso assoluto
+
 ## Come Intlayer Gestisce il Contenuto dei File
 
 La funzione `file` si basa sul modulo `fs` di Node.js per leggere il contenuto del file specificato e inserirlo nel dizionario. Quando viene utilizzata in combinazione con l'Intlayer Visual Editor o il CMS, Intlayer può tracciare la relazione tra il dizionario e il file. Questo permette a Intlayer di:

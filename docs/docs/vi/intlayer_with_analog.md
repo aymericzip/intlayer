@@ -400,3 +400,7 @@ Tiện ích mở rộng này cung cấp:
 - **Các hành động nhanh** để dễ dàng tạo và cập nhật các bản dịch.
 
 Để biết thêm chi tiết về cách sử dụng tiện ích mở rộng, hãy tham khảo [tài liệu Tiện ích mở rộng Intlayer VS Code](https://intlayer.org/doc/vs-code-extension).
+
+### Đi Xa Hơn
+
+Để đi xa hơn, bạn có thể triển khai [trình chỉnh sửa trực quan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md) hoặc ngoại hóa nội dung của bạn bằng cách sử dụng [CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_CMS.md).

@@ -25,6 +25,45 @@ author: aymericzip
 
 In Intlayer wird die Verschachtelung durch die Funktion `nest` erreicht, die es Ihnen ermöglicht, Inhalte aus einem anderen Wörterbuch zu referenzieren und wiederzuverwenden. Anstatt Inhalte zu duplizieren, können Sie auf ein bestehendes Inhaltsmodul mit seinem Schlüssel verweisen.
 
+## Nesting einrichten
+
+Um Nesting in Ihrem Intlayer-Projekt einzurichten, definieren Sie zunächst den Basisinhalt, den Sie wiederverwenden möchten. Dann verwenden Sie in einem separaten Content-Modul die Funktion `nest`, um diesen Inhalt zu importieren.
+
+### Basis-Dictionary
+
+Nachfolgend ist ein Beispiel eines Basis-Dictionary zum Verschachteln in einem anderen Dictionary:
+
+```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { type Dictionary } from "intlayer";
+
+const firstDictionary = {
+  key: "key_of_my_first_dictionary",
+  content: {
+    content: "content",
+    subContent: {
+      contentNumber: 0,
+      contentString: "string",
+    },
+  },
+} satisfies Dictionary;
+
+export default firstDictionary;
+```
+
+```json fileName="firstDictionary.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "key_of_my_first_dictionary",
+  "content": {
+    "content": "content",
+    "subContent": {
+      "contentNumber": 0,
+      "contentString": "string"
+    }
+  }
+}
+```
+
 ## Einrichtung der Verschachtelung
 
 <Tabs group="framework">

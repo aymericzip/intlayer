@@ -47,6 +47,14 @@ bun x intlayer fill
 - मौजूदा अनुवादों को अधिलेखित न करके उन्हें संरक्षित करता है।
 - गति बढ़ाने के लिए कतार प्रणाली का उपयोग करके फ़ाइलों, चंक्स और लोकेल्स को समानांतर में संसाधित करता है।
 
+## मुख्य बिंदु:
+
+- बड़ी JSON फ़ाइलों को chunks में विभाजित करता है ताकि AI मॉडल के context window की सीमा के भीतर रहा जा सके।
+- यदि आउटपुट format गलत है तो translation को retry करता है।
+- बेहतर translation accuracy के लिए application और file-specific context को शामिल करता है।
+- मौजूदा translations को preserve करता है और उन्हें overwrite नहीं करता है।
+- Speed बढ़ाने के लिए queue system का उपयोग करके files, chunks, और locales को parallel में process करता है।
+
 ## उपनाम:
 
 - `npx intlayer dictionaries fill`

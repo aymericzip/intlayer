@@ -491,6 +491,516 @@ Intlayer предоставляет два независимых способа
   </Tab>
 </Tabs>
 
+### 2. Вспомогательные утилиты (только строки Markdown)
+
+Эти утилиты отображают **сырые строки Markdown** и независимы от `useIntlayer`. Используйте их, когда вам нужно отобразить Markdown из источников, отличных от ваших словарей.
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+  
+    #### Компонент `<MarkdownRenderer />`
+
+    Отобразите строку Markdown с конкретными параметрами.
+
+    ```tsx
+    import { MarkdownRenderer } from "react-intlayer/markdown";
+
+    <MarkdownRenderer forceBlock={true} tagfilter={true}>
+      {"# My Title"}
+    </MarkdownRenderer>
+    ```
+
+    #### Hook `useMarkdownRenderer()`
+
+    Получить предварительно настроенную функцию рендера.
+
+    ```tsx
+    import { useMarkdownRenderer } from "react-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({
+      forceBlock: true,
+      components: { h1: (props) => <h1 {...props} className="custom" /> }
+    });
+
+    return renderMarkdown("# My Title");
+    ```
+
+    #### Утилита `renderMarkdown()`
+    Автономная утилита для рендеринга вне компонентов.
+
+    ```tsx
+    import { renderMarkdown } from "react-intlayer/markdown";
+
+    const jsx = renderMarkdown("# My Title", { forceBlock: true });
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+  
+    #### Компонент `<MarkdownRenderer />`
+
+    Отрендерить строку Markdown с конкретными опциями.
+
+    ```tsx
+    import { MarkdownRenderer } from "next-intlayer/markdown";
+
+    <MarkdownRenderer forceBlock={true} tagfilter={true}>
+      {"# My Title"}
+    </MarkdownRenderer>
+    ```
+
+    #### Hook `useMarkdownRenderer()`
+
+    Получить предварительно настроенную функцию рендеринга.
+
+    ```tsx
+    import { useMarkdownRenderer } from "next-intlayer/markdown";
+
+    const renderMarkdown = useMarkdownRenderer({
+      forceBlock: true,
+      components: { h1: (props) => <h1 {...props} className="custom" /> }
+    });
+
+    return renderMarkdown("# My Title");
+    ```
+
+    #### Утилита `renderMarkdown()`
+    Самостоятельная утилита для рендеринга вне компонентов.
+
+    ```tsx
+    import { renderMarkdown } from "next-intlayer/markdown";
+
+    const jsx = renderMarkdown("# My Title", { forceBlock: true });
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    #### Компонент `<MarkdownRenderer />`
+
+    ```vue
+    <script setup>
+    import { MarkdownRenderer } from "vue-intlayer/markdown";
+    </script>
+
+    <template>
+      <MarkdownRenderer :forceBlock="true" content="# My Title" />
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    #### Компонент `<MarkdownRenderer />`
+
+    ```svelte
+    <script lang="ts">
+    import { MarkdownRenderer } from "svelte-intlayer/markdown";
+    </script>
+
+    <MarkdownRenderer forceBlock={true} value="# My Title" />
+    ```
+
+    #### `useMarkdownRenderer()` Hook
+
+    ```svelte
+    <script lang="ts">
+    import { useMarkdownRenderer } from "svelte-intlayer/markdown";
+    const render = useMarkdownRenderer();
+    </script>
+
+    {@html render("# My Title")}
+    ```
+
+    #### Утилита `renderMarkdown()`
+
+    ```svelte
+    <script lang="ts">
+    import { renderMarkdown } from "svelte-intlayer/markdown";
+    </script>
+
+    {@html renderMarkdown("# My Title")}
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+    #### Компонент `<MarkdownRenderer />`
+
+    ```tsx
+    import { MarkdownRenderer } from "preact-intlayer/markdown";
+
+    <MarkdownRenderer forceBlock={true}>
+      {"# My Title"}
+    </MarkdownRenderer>
+    ```
+
+    #### `useMarkdownRenderer()` Hook
+
+    ```tsx
+    import { useMarkdownRenderer } from "preact-intlayer/markdown";
+
+    const render = useMarkdownRenderer();
+
+    return <div>{render("# My Title")}</div>;
+    ```
+
+    #### `renderMarkdown()` Утилита
+
+    ```tsx
+    import { renderMarkdown } from "preact-intlayer/markdown";
+
+    return <div>{renderMarkdown("# My Title")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+    #### `<MarkdownRenderer />` компонент
+
+    ```tsx
+    import { MarkdownRenderer } from "solid-intlayer/markdown";
+
+    <MarkdownRenderer forceBlock={true}>
+      {"# My Title"}
+    </MarkdownRenderer>
+    ```
+
+    #### Hook `useMarkdownRenderer()`
+
+    ```tsx
+    import { useMarkdownRenderer } from "solid-intlayer/markdown";
+
+    const render = useMarkdownRenderer();
+
+    return <div>{render("# My Title")}</div>;
+    ```
+
+    #### Утилита `renderMarkdown()`
+
+    ```tsx
+    import { renderMarkdown } from "solid-intlayer/markdown";
+
+    return <div>{renderMarkdown("# My Title")}</div>;
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+    #### Сервис `IntlayerMarkdownService`
+    Отрендеринг Markdown строки с использованием сервиса.
+
+    ```typescript
+    import { IntlayerMarkdownService } from "angular-intlayer/markdown";
+
+    export class MyComponent {
+      constructor(private markdownService: IntlayerMarkdownService) {}
+
+      renderMarkdown(markdown: string) {
+        return this.markdownService.renderMarkdown(markdown);
+      }
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+## Глобальная конфигурация с `MarkdownProvider`
+
+`MarkdownProvider` (или его эквивалент для конкретного фреймворка) настраивает pipeline рендеринга Markdown для всего приложения. Это применяется как к автоматическому рендерингу `useIntlayer`, так и к вспомогательным утилитам. Параметры, установленные здесь, являются значениями по умолчанию — `.use()` переопределяет их на уровне узла.
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "react-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        components={{
+          h1: (props) => <h1 style={{color: 'green'}} {...props} />,
+          a: ({ href, ...props }) => <a style={{color: 'red'}} {...props} />,
+          MyCustomJSXComponent: (props) => <span style={{color: 'red'}} {...props} />,
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+
+    > MDX поддерживается — любое имя компонента, используемое внутри вашего Markdown (например `<MyCustomJSXComponent />`), разрешается по отношению к карте `components`.
+
+    Вы также можете использовать свой собственный renderer Markdown:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "react-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          // Используйте динамический импорт, чтобы уменьшить размер bundle приложения
+          const { renderMarkdown } = await import('react-intlayer/markdown');
+          return renderMarkdown(md);
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > Динамический импорт вашего renderer Markdown — это хороший способ уменьшить размер bundle приложения.
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "next-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        components={{
+          h1: (props) => <h1 style={{color: 'green'}} {...props} />,
+          a: ({ href, ...props }) => <a style={{color: 'red'}} {...props} />,
+          MyCustomJSXComponent: (props) => <span style={{color: 'red'}} {...props} />,
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+
+    > MDX поддерживается — любое имя компонента, используемое внутри вашего Markdown (например `<MyCustomJSXComponent />`), разрешается по отношению к карте `components`.
+
+    Вы также можете использовать свой собственный renderer Markdown:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "next-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          // Используйте динамический импорт, чтобы уменьшить размер bundle приложения
+          const { renderMarkdown } = await import('next-intlayer/markdown');
+          return renderMarkdown(md);
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > Динамический импорт вашего renderer Markdown — это хороший способ уменьшить размер bundle приложения.
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+
+    ```typescript fileName="main.ts"
+    import { createApp } from "vue";
+    import { intlayer } from "vue-intlayer";
+    import { intlayerMarkdown } from "vue-intlayer/markdown";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(intlayer);
+    app.use(intlayerMarkdown, {
+      components: {
+        h1: (props) =>
+        h('h1', { style: { color: 'orange' }, ...props }, props.children),
+        ComponentDemo: () => h('div', { style: { background: 'grey' } }, 'DEMO'),
+        bold: (props) => h('strong', props),
+        code: (props) => h('code', props),
+      },
+    });
+
+    app.mount("#app");
+    ```
+
+
+    > MDX поддерживается — любое имя компонента, используемое внутри вашего Markdown (например `<MyCustomJSXComponent />`), разрешается по отношению к карте `components`.
+
+    Вы также можете использовать свой собственный renderer Markdown:
+
+    ```typescript fileName="main.ts"
+    import { createApp } from "vue";
+    import { intlayer } from "vue-intlayer";
+    import { intlayerMarkdown } from "vue-intlayer/markdown";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    app.use(intlayer);
+    app.use(intlayerMarkdown, {
+      renderMarkdown: async (md) => {
+        const { renderMarkdown } = await import('vue-intlayer/markdown');
+        return renderMarkdown(md);
+      },
+    });
+
+    app.mount("#app");
+    ```
+
+    > Динамический импорт вашего renderer Markdown — это хороший способ уменьшить размер bundle приложения.
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+
+    ```svelte fileName="App.svelte"
+    <script lang="ts">
+      import { MarkdownProvider } from "svelte-intlayer/markdown";
+      import MyHeading from "./MyHeading.svelte";
+    </script>
+
+    <MarkdownProvider
+      components={{
+        h1: MyHeading,
+      }}
+    >
+      <slot />
+    </MarkdownProvider>
+    ```
+
+
+    > MDX поддерживается — любое имя компонента, используемое внутри вашего Markdown (например `<MyCustomJSXComponent />`), разрешается по отношению к карте `components`.
+
+    Вы также можете использовать свой собственный renderer Markdown:
+
+    ```svelte fileName="App.svelte"
+    <script lang="ts">
+      import { MarkdownProvider } from "svelte-intlayer/markdown";
+    </script>
+
+    <MarkdownProvider
+      renderMarkdown={async (md) => {
+        const { renderMarkdown } = await import('svelte-intlayer/markdown');
+        return renderMarkdown(md);
+      }}
+    >
+      <slot />
+    </MarkdownProvider>
+    ```
+
+    > Динамический импорт вашего renderer Markdown — это хороший способ уменьшить размер bundle приложения.
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "preact-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        components={{
+          h1: ({ children }) => <h1 className="text-2xl font-bold">{children}</h1>,
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+
+    > MDX поддерживается — любое имя компонента, используемое внутри вашего Markdown (например `<MyCustomJSXComponent />`), разрешается по отношению к карте `components`.
+
+    Вы также можете использовать свой собственный renderer Markdown:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "preact-intlayer/markdown";
+
+    export const AppProvider = ({ children }) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          const { renderMarkdown } = await import('preact-intlayer/markdown');
+          return renderMarkdown(md);
+        }}
+      >
+        {children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > Динамический импорт вашего renderer Markdown — это хороший способ уменьшить размер bundle приложения.
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "solid-intlayer/markdown";
+
+    export const AppProvider = (props) => (
+      <MarkdownProvider
+        components={{
+          h1: (props) => <h1 className="text-2xl font-bold">{props.children}</h1>,
+        }}
+      >
+        {props.children}
+      </MarkdownProvider>
+    );
+    ```
+
+
+    > MDX поддерживается — любое имя компонента, используемое внутри вашего Markdown (например `<MyCustomJSXComponent />`), разрешается по отношению к карте `components`.
+
+    Вы также можете использовать свой собственный renderer Markdown:
+
+    ```tsx fileName="AppProvider.tsx"
+    import { MarkdownProvider } from "solid-intlayer/markdown";
+
+    export const AppProvider = (props) => (
+      <MarkdownProvider
+        renderMarkdown={async (md) => {
+          const { renderMarkdown } = await import('solid-intlayer/markdown');
+          return renderMarkdown(md);
+        }}
+      >
+        {props.children}
+      </MarkdownProvider>
+    );
+    ```
+
+    > Динамический импорт вашего renderer Markdown — это хороший способ уменьшить размер bundle приложения.
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          components: {
+            h1: { class: "text-2xl font-bold" },
+          },
+        }),
+      ],
+    };
+    ```
+
+
+    > MDX поддерживается — любое имя компонента, используемое внутри вашего Markdown (например `<MyCustomJSXComponent />`), разрешается по отношению к карте `components`.
+
+    Вы также можете использовать свой собственный renderer Markdown:
+
+    ```typescript fileName="app.config.ts"
+    import { createIntlayerMarkdownProvider } from "angular-intlayer/markdown";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [
+        createIntlayerMarkdownProvider({
+          renderMarkdown: async (md) => {
+            const { renderMarkdown } = await import('angular-intlayer/markdown');
+            return renderMarkdown(md);
+          },
+        }),
+      ],
+    };
+    ```
+
+    > Динамический импорт вашего renderer Markdown — это хороший способ уменьшить размер bundle приложения.
+
+  </Tab>
+</Tabs>
+
 ## Suspense
 
 Рендерер Markdown в Intlayer загружается динамически. Несмотря на оптимизацию, базовый фрагмент парсера составляет около 55 КБ. Его синхронная загрузка задерживает первоначальный рендеринг страницы и ухудшает First Contentful Paint (FCP).

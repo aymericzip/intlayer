@@ -40,6 +40,12 @@ For this, Intlayer introduces the concept of 'remote dictionaries'.
 
 ![Intlayer CMS Interface](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
 
+## Table of Contents
+
+<TOC/>
+
+---
+
 ## Understanding remote dictionaries
 
 Intlayer distinguishes between 'local' and 'remote' dictionaries.

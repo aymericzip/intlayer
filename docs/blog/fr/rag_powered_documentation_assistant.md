@@ -254,68 +254,6 @@ Nous avons expérimenté avec gpt-5, mais la latence était trop élevée (parfo
 
 </Steps>
 
-## Aller plus loin
-
-Ce projet est une implémentation minimale. Mais vous pouvez l'étendre de nombreuses façons :
-
-- Serveur MCP → la fonction de recherche dans la documentation vers un serveur MCP pour connecter la documentation à n'importe quel assistant IA
-
-- Bases de données vectorielles → évoluer jusqu'à des millions de fragments de documentation
-- LangChain / LlamaIndex → frameworks prêts à l'emploi pour les pipelines RAG
-- Tableaux de bord analytiques → visualiser les requêtes des utilisateurs et les points de douleur
-- Recherche multi-source → extraire non seulement des documents, mais aussi des entrées de base de données, articles de blog, tickets, etc.
-- Amélioration des prompts → reranking, filtrage, et recherche hybride (mot-clé + sémantique)
-
-## Limitations rencontrées
-
-- Le découpage en fragments et le chevauchement sont empiriques. Le bon équilibre (taille des fragments, pourcentage de chevauchement, nombre de fragments récupérés) nécessite des itérations et des tests.
-- Les embeddings ne sont pas régénérés automatiquement lorsque les documents changent. Notre système réinitialise les embeddings d'un fichier uniquement si le nombre de fragments diffère de ce qui est stocké.
-- Dans ce prototype, les embeddings sont stockés en JSON. Cela fonctionne pour des démonstrations mais pollue Git. En production, une base de données ou un magasin vectoriel dédié est préférable.
-
-## Pourquoi c’est important au-delà de la documentation
-
-La partie intéressante n’est pas seulement le chatbot. C’est la **boucle de rétroaction**.
-
-Avec RAG, vous ne vous contentez pas de répondre :
-
-- Vous apprenez ce qui embrouille les utilisateurs.
-- Vous découvrez quelles fonctionnalités ils attendent.
-- Vous adaptez votre stratégie produit en fonction des requêtes réelles.
-
-**Exemple :**
-
-Imaginez lancer une nouvelle fonctionnalité et voir instantanément :
-
-- 50 % des questions portent sur la même étape de configuration peu claire
-- Les utilisateurs demandent à plusieurs reprises une intégration que vous ne supportez pas encore
-- Les gens recherchent des termes qui révèlent un nouveau cas d’usage
-
-C’est de **l’intelligence produit** directement issue de vos utilisateurs.
-
-## Conclusion
-
-- Dans ce prototype, les embeddings sont stockés en JSON. Cela fonctionne pour des démonstrations mais pollue Git. En production, une base de données ou un magasin vectoriel dédié est préférable.
-
-## Pourquoi c’est important au-delà de la documentation
-
-L’aspect intéressant ne se limite pas au chatbot. C’est la **boucle de rétroaction**.
-
-Avec RAG, vous ne faites pas que répondre :
-
-- Vous apprenez ce qui embrouille les utilisateurs.
-- Vous découvrez quelles fonctionnalités ils attendent.
-- Vous adaptez votre stratégie produit en fonction des requêtes réelles.
-
-**Exemple :**
-
-Imaginez lancer une nouvelle fonctionnalité et voir instantanément :
-
-- 50 % des questions portent sur la même étape de configuration peu claire
-- Les utilisateurs demandent à plusieurs reprises une intégration que vous ne supportez pas encore
-- Les gens recherchent des termes qui révèlent un nouveau cas d’usage
-
-C’est de **l’intelligence produit** directement issue de vos utilisateurs.
-
 ## Conclusion
 
 RAG est l’une des manières les plus simples et puissantes de rendre les LLM pratiques. En combinant **récupération + génération**, vous pouvez transformer des docs statiques en un **assistant intelligent** et, en même temps, obtenir un flux continu d’informations produit.

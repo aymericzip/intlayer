@@ -47,6 +47,14 @@ Lệnh này phân tích các tệp khai báo nội dung của bạn để tìm c
 - Bảo tồn các bản dịch hiện có bằng cách không ghi đè chúng.
 - Xử lý tệp, phần và ngôn ngữ song song bằng hệ thống hàng đợi để tăng tốc độ.
 
+## Những Điểm Chính:
+
+- Chia các tệp JSON lớn thành các chunks để duy trì trong giới hạn cửa sổ ngữ cảnh của mô hình AI.
+- Thử lại dịch nếu định dạng đầu ra không chính xác.
+- Kết hợp ngữ cảnh cụ thể cho ứng dụng và tệp để cải thiện độ chính xác của bản dịch.
+- Bảo tồn các bản dịch hiện có bằng cách không ghi đè chúng.
+- Xử lý các tệp, chunks và locales song song bằng cách sử dụng hệ thống queue để tăng tốc độ.
+
 ## Bí danh:
 
 - `npx intlayer dictionaries fill`

@@ -47,6 +47,14 @@ Points clés :
 - Préserve les traductions existantes en ne les écrasant pas.
 - Traite les fichiers, les morceaux et les locales en parallèle à l'aide d'un système de file d'attente pour augmenter la vitesse.
 
+## Points clés :
+
+- Divise les fichiers JSON volumineux en chunks pour rester dans les limites de la fenêtre contextuelle du modèle d'IA.
+- Réessaye la traduction si le format de sortie est incorrect.
+- Intègre le contexte spécifique à l'application et au fichier pour améliorer la précision de la traduction.
+- Préserve les traductions existantes en ne les remplaçant pas.
+- Traite les fichiers, chunks et locales en parallèle en utilisant un système de file d'attente pour augmenter la vitesse.
+
 ## Alias :
 
 - `npx intlayer dictionaries fill`

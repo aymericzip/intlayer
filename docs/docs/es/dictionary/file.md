@@ -255,6 +255,14 @@ export default myMultilingualContent;
 
 Esta configuración permite que el contenido se recupere dinámicamente según la preferencia de idioma del usuario. Cuando se utiliza en el Editor Visual de Intlayer o en el CMS, el sistema reconocerá que el contenido proviene de los archivos Markdown especificados y garantizará que permanezcan editables.
 
+## Diferentes tipos de rutas
+
+Cuando uses la función `file`, puedes usar diferentes tipos de rutas para especificar el archivo a incrustar.
+
+- `file("./path/to/file.txt")` - Ruta relativa al archivo actual
+- `file("path/to/file.txt")` - Ruta relativa al directorio raíz del proyecto
+- `file("/users/username/path/to/file.txt")` - Ruta absoluta
+
 ## Cómo Intlayer Maneja el Contenido de Archivos
 
 La función `file` se basa en el módulo `fs` de Node.js para leer el contenido del archivo especificado e insertarlo en el diccionario. Cuando se usa junto con el Editor Visual de Intlayer o el CMS, Intlayer puede rastrear la relación entre el diccionario y el archivo. Esto permite a Intlayer:

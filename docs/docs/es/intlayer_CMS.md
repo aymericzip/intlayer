@@ -40,6 +40,12 @@ Para ello, Intlayer introduce el concepto de 'diccionarios distantes'.
 
 ![Interfaz del CMS de Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
 
+## Tabla de Contenidos
+
+<TOC/>
+
+---
+
 ## Entendiendo los diccionarios distantes
 
 Intlayer diferencia entre diccionarios 'locales' y 'distantes'.
@@ -378,3 +384,18 @@ Notas y restricciones:
 - Asegúrate de que la configuración del proyecto se haya enviado al CMS de Intlayer.
 
 - El editor visual utiliza un iframe para mostrar tu sitio web. Asegúrate de que la Política de Seguridad de Contenidos (CSP) de tu sitio web permita la URL del CMS como `frame-ancestors` ('https://app.intlayer.org' por defecto). Revisa la consola del editor para cualquier error.
+
+## Depuración
+
+Si encuentras problemas con el CMS, verifica lo siguiente:
+
+- La aplicación está en ejecución.
+
+- La configuración de [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) está correctamente establecida en tu archivo de configuración de Intlayer.
+  - Campos requeridos:
+    - La URL de la aplicación debe coincidir con la que estableciste en la configuración del editor (`applicationURL`).
+    - La URL del CMS
+
+- Asegúrate de que la configuración del proyecto se haya enviado al CMS de Intlayer.
+
+- El editor visual utiliza un iframe para mostrar tu sitio web. Asegúrate de que la Política de Seguridad de Contenidos (CSP) de tu sitio web permita la URL del CMS como `frame-ancestors` ('https://app.intlayer.org' por defecto). Verifica la consola del editor para cualquier error.

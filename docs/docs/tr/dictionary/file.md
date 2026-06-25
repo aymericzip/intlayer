@@ -255,6 +255,14 @@ export default myMultilingualContent;
 
 Bu kurulum, içeriğin kullanıcının dil tercihine göre dinamik olarak alınmasına izin verir. Intlayer Görsel Düzenleyici veya CMS'de kullanıldığında, sistem içeriğin belirtilen Markdown dosyalarından geldiğini tanır ve düzenlenebilir kalmasını sağlar.
 
+## Farklı yol türleri
+
+`file` fonksiyonunu kullanırken, yerleştirmek istediğiniz dosyayı belirtmek için farklı yol türlerini kullanabilirsiniz.
+
+- `file("./path/to/file.txt")` - Geçerli dosyaya göre göreli yol
+- `file("path/to/file.txt")` - Proje kök dizinine göre göreli yol
+- `file("/users/username/path/to/file.txt")` - Mutlak yol
+
 ## Intlayer Dosya İçeriğini Nasıl Yönetir
 
 `file` fonksiyonu, belirtilen dosyanın içeriğini okumak ve sözlüğe eklemek için Node.js'in `fs` modülüne dayanır. Intlayer Görsel Düzenleyici veya CMS ile birlikte kullanıldığında, Intlayer sözlük ile dosya arasındaki ilişkiyi takip edebilir. Bu, Intlayer'ın şunları yapmasına izin verir:

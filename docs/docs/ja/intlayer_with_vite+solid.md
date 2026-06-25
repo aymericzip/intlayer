@@ -635,47 +635,6 @@ bun run build # Or bun run dev
 
 </Steps>
 
-### TypeScriptを設定する
-
-TypeScript設定に自動生成された型が含まれていることを確認してください。
-
-```json5 fileName="tsconfig.json"
-{
-  "compilerOptions": {
-    // ...
-  },
-  "include": ["src", ".intlayer/**/*.ts"],
-}
-```
-
-### Git設定
-
-Intlayerによって生成されたファイルは、Gitリポジトリにコミットしないように無視することを推奨します。
-
-これを行うには、`.gitignore`ファイルに以下の指示を追加してください。
-
-```bash
-#  Intlayerによって生成されたファイルを無視する
-.intlayer
-```
-
-### VS Code拡張機能
-
-Intlayerでの開発体験を向上させるために、公式の**Intlayer VS Code拡張機能**をインストールできます。
-
-[VS Codeマーケットプレイスからインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-この拡張機能は以下を提供します：
-
-- 翻訳キーの**オートコンプリート**。
-- 欠落している翻訳の**リアルタイムエラー検出**。
-- **翻訳されたコンテンツのインラインプレビュー**。
-- **翻訳を簡単に作成・更新するためのクイックアクション**。
-
-拡張機能の使い方の詳細については、[Intlayer VS Code 拡張機能のドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
-
----
-
 ### （任意）サイトマップと robots.txt（ビルド時生成）
 
 Intlayer は `generateSitemap` と `getMultilingualUrls` により、クローラ向けに整形した多言語の `sitemap.xml` と `robots.txt` を `public/` に自動で書き出せます。通常は Vite より**前**に小さな Node スクリプトを走らせます（例: npm の `predev` / `prebuild`）。
@@ -749,6 +708,38 @@ console.log("SEO files generated successfully.");
 ```
 
 pnpm や yarn を使う場合はコマンドを読み替えてください。CI から呼び出しても構いません。
+
+### TypeScript を設定する
+
+TypeScript 設定に自動生成される型が含まれていることを確認してください。
+
+```json5 fileName="tsconfig.json"
+{
+  "compilerOptions": {
+    // ...
+  },
+  "include": ["src", ".intlayer/**/*.ts"],
+}
+```
+
+### Git Configuration
+
+Intlayer によって生成されたファイルを無視することが推奨されます。これにより、Git リポジトリにコミットすることを避けることができます。
+
+これを行うには、`.gitignore` ファイルに次の指示を追加できます。
+
+```bash
+# Intlayer によって生成されたファイルを無視
+.intlayer
+```
+
+### VS Code Extension
+
+Intlayer での開発体験を向上させるために、公式の **Intlayer VS Code Extension** をインストールできます。
+
+[VS Code Marketplace からインストール](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+---
 
 ### さらに進むために
 

@@ -40,6 +40,12 @@ Dafür führt Intlayer das Konzept der „fernen Wörterbücher“ ein.
 
 ![Intlayer CMS Oberfläche](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
 
+## Inhaltsverzeichnis
+
+<TOC/>
+
+---
+
 ## Verständnis von fernen Wörterbüchern
 
 Intlayer unterscheidet zwischen „lokalen“ und „fernen“ Wörterbüchern.

@@ -124,6 +124,28 @@ Kami membandingkan **empat strategi pemuatan**:
 - **Scoped static**: Menjaga kode tetap teratur (pemisahan logis) tanpa permintaan jaringan ekstra yang kompleks.
 - **Scoped dynamic**: Pendekatan terbaik untuk _code splitting_ dan performa. Meminimalkan memori dengan memuat hanya apa yang dibutuhkan tampilan saat ini dan lokal yang aktif.
 
+### Apa yang saya ukur:
+
+Saya menjalankan aplikasi multibahasa yang sama di browser nyata untuk setiap stack, kemudian mencatat apa yang sebenarnya muncul di kabel dan berapa lama waktu yang dibutuhkan. Ukuran dilaporkan **setelah kompresi web normal**, karena itu lebih dekat dengan apa yang orang unduh daripada hitungan sumber mentah.
+
+- **Ukuran library Internationalization**: Setelah bundling, tree-shaking dan minification, ukuran library i18n adalah ukuran providers (misalnya `NextIntlClientProvider`) + hooks (misalnya `useTranslations`) code dalam komponen kosong. Ini tidak termasuk loading file terjemahan. Ini menjawab betapa mahalnya library sebelum konten Anda masuk ke dalam gambar.
+
+- **JavaScript per halaman**: Untuk setiap rute benchmark, berapa banyak script yang browser tarik dalam kunjungan itu, rata-rata di seluruh halaman dalam suite (dan di seluruh locale di mana laporan menggabungkannya). Halaman yang berat adalah halaman yang lambat.
+
+- **Leakage dari locale lain**: Ini adalah konten halaman yang sama tetapi dalam bahasa lain yang akan dimuat secara tidak sengaja di halaman yang diaudit. Konten ini tidak perlu dan harus dihindari. (misalnya konten halaman `/fr/about` dalam bundle halaman `/en/about`)
+
+- **Leakage dari rute lain**: Ide yang sama untuk **layar lain** di aplikasi: apakah copy mereka berjalan ketika Anda hanya membuka satu halaman. (misalnya konten halaman `/en/about` dalam bundle halaman `/en/contact`). Skor tinggi mengisyaratkan pemisahan yang lemah atau bundle yang terlalu luas.
+
+- **Ukuran bundle komponen rata-rata**: Piece UI umum diukur **satu per satu** daripada bersembunyi di dalam satu angka aplikasi raksasa. Ini menunjukkan apakah internationalization secara diam-diam menginflasi komponen sehari-hari. Misalnya, jika komponen Anda merender ulang, akan memuat semua data itu dari memori. Melampirkan JSON besar ke komponen apa pun seperti menghubungkan toko besar data yang tidak digunakan yang akan memperlambat performa komponen Anda.
+
+- **Responsivitas switch bahasa**: Saya membalik bahasa menggunakan kontrol aplikasi sendiri dan mengukur berapa lama hingga halaman telah jelas berubah, apa yang akan diperhatikan pengunjung, bukan langkah mikro lab.
+
+- **Rendering work setelah perubahan bahasa**: Follow-up yang lebih sempit: berapa banyak effort yang dibutuhkan interface untuk mengecat ulang untuk bahasa baru setelah switch sedang berlangsung. Berguna ketika waktu "felt" dan biaya framework berbeda.
+
+- **Waktu loading halaman awal**: Dari navigasi ke browser yang menganggap halaman sepenuhnya dimuat untuk skenario yang saya uji. Bagus untuk membandingkan cold starts.
+
+- **Hydration time**: Ketika aplikasi memamerkannya, berapa lama klien menghabiskan waktu mengubah server HTML menjadi sesuatu yang benar-benar bisa Anda klik. Dash dalam tabel berarti implementasi itu tidak memberikan angka hydration yang dapat diandalkan dalam benchmark ini.
+
 ## Bintang GitHub
 
 Bintang GitHub adalah indikator kuat dari popularitas proyek, kepercayaan komunitas, dan relevansi jangka panjang. Meskipun bukan ukuran langsung dari kualitas teknis, bintang-bintang tersebut mencerminkan berapa banyak pengembang yang menganggap proyek tersebut berguna, mengikuti kemajuannya, dan kemungkinan akan mengadopsinya. Untuk memperkirakan nilai suatu proyek, bintang membantu membandingkan daya tarik di berbagai alternatif dan memberikan wawasan tentang pertumbuhan ekosistem.

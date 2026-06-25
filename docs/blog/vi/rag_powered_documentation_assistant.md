@@ -317,3 +317,16 @@ Và nếu bạn cũng đang thử nghiệm với RAG, tôi rất muốn nghe cá
 </Step>
 
 </Steps>
+## Kết luận
+
+RAG là một trong những cách đơn giản nhất và mạnh mẽ nhất để làm cho các LLM trở nên thực tế. Bằng cách kết hợp **retrieval + generation**, bạn có thể biến các tài liệu tĩnh thành một **trợ lý thông minh** và cùng lúc đó, thu được một luồng thông tin sản phẩm liên tục.
+
+Đối với tôi, dự án này chứng tỏ rằng RAG không chỉ là một thủ thuật kỹ thuật. Đó là một cách để biến đổi tài liệu thành:
+
+- một hệ thống hỗ trợ tương tác
+- một kênh phản hồi
+- một công cụ chiến lược sản phẩm
+
+👉 [Hãy thử bản demo tại đây](https://intlayer.org/doc/why) 👉 [Xem mẫu mã trên GitHub](https://github.com/aymericzip/smart_doc_RAG)
+
+Và nếu bạn cũng đang thử nghiệm RAG, tôi rất muốn biết cách bạn đang sử dụng nó.

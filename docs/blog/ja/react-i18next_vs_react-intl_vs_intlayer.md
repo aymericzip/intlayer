@@ -146,6 +146,12 @@ author: aymericzip
 
 ---
 
+## GitHub STARs
+
+GitHub スターはプロジェクトの人気度、コミュニティからの信頼、長期的な関連性の強い指標です。技術的な品質の直接的な測定ではありませんが、多くの開発者がプロジェクトを有用であると判断し、その進捗をフォローし、採用する可能性があることを反映しています。プロジェクトの価値を見積もるために、スターは代替案間での牽引力を比較し、エコシステムの成長に関する洞察を提供するのに役立ちます。
+
+[![Star History Chart](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
+
 ## 結論
 
 3つのライブラリはすべてReactのローカライズを効果的に行います。差別化のポイントは、安全でスケーラブルなセットアップを実現するためにどれだけの**インフラストラクチャ**を構築する必要があるかです。

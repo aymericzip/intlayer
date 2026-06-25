@@ -29,49 +29,6 @@ author: aymericzip
 
 Ta sekcja zawiera szczegółowe wskazówki dotyczące używania hooka `useIntlayer` w aplikacjach React, umożliwiając efektywną lokalizację treści.
 
-## Importowanie `useIntlayer` w React
-
-Hook `useIntlayer` można zintegrować z aplikacjami React, importując go w zależności od kontekstu:
-
-- **Komponent Klienta:**
-
-  ```typescript codeFormat="typescript"
-  import { useIntlayer } from "react-intlayer"; // Używane w komponentach React po stronie klienta
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer"; // Używane w komponentach React po stronie klienta
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer"); // Używane w komponentach React po stronie klienta
-  ```
-
-- **Komponent Serwera:**
-
-  ```typescript codeFormat="commonjs"
-  import { useIntlayer } from "react-intlayer/server"; // Używane w komponentach React po stronie serwera
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer/server"; // Używane w komponentach React po stronie serwera
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer/server"); // Używane w komponentach React po stronie serwera
-  ```
-
-## Parametry
-
-Hook przyjmuje dwa parametry:
-
-1. **`key`**: Klucz słownika do pobrania zlokalizowanej zawartości.
-2. **`locale`** (opcjonalny): Żądany locale. Domyślnie używany jest locale z kontekstu, jeśli nie zostanie podany.
-
-## Słownik
-
-Wszystkie klucze słownika muszą być zadeklarowane w plikach deklaracji zawartości, aby zwiększyć bezpieczeństwo typów i uniknąć błędów. Instrukcje konfiguracji znajdziesz [tutaj](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/content_file.md).
-
 ## Przykład użycia w React
 
 Demonstracja hooka `useIntlayer` w komponencie React:
@@ -129,14 +86,6 @@ const ServerComponentExample = () => {
     </div>
   );
 };
-```
-
-## Obsługa Atrybutów
-
-Podczas lokalizowania atrybutów, odpowiednio uzyskuj dostęp do wartości zawartości:
-
-```jsx
-<button title={content.buttonTitle.value}>{content.buttonText}</button>
 ```
 
 ## Dodatkowe Zasoby

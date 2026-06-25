@@ -47,6 +47,14 @@ Kluczowe punkty:
 - Zachowuje istniejące tłumaczenia, nie nadpisując ich.
 - Przetwarza pliki, fragmenty i lokalizacje równolegle przy użyciu systemu kolejkowego, aby zwiększyć prędkość.
 
+## Kluczowe punkty:
+
+- Dzieli duże pliki JSON na fragmenty, aby pozostać w granicach kontekstu modelu AI.
+- Ponawia tłumaczenie, jeśli format wyjściowy jest nieprawidłowy.
+- Zawiera kontekst specyficzny dla aplikacji i pliku, aby poprawić dokładność tłumaczenia.
+- Zachowuje istniejące tłumaczenia, nie zastępując ich.
+- Przetwarza pliki, fragmenty i lokalizacje równolegle przy użyciu systemu kolejki, aby zwiększyć szybkość.
+
 ## Alias:
 
 - `npx intlayer dictionaries fill`

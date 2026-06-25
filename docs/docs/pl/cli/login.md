@@ -76,42 +76,6 @@ pnpm intlayer login --cms-url https://intlayer.org
 bun x intlayer login --cms-url https://intlayer.org
 ```
 
-### Opcje konfiguracji
-
-Możesz także użyć standardowych opcji konfiguracji:
-
-- `--env-file <path>`: Ścieżka do pliku środowiskowego
-- `-e, --env <env>`: Środowisko wykonawcze
-- `--base-dir <dir>`: Katalog bazowy projektu
-- `--verbose`: Włącz szczegółowe logowanie (domyślnie: true)
-- `--prefix <prefix>`: Prefiks dla logów
-
-## Jak to działa
-
-1. **Uruchomienie serwera lokalnego**: Polecenie uruchamia lokalny serwer HTTP na losowym porcie, aby odebrać poświadczenia z CMS
-
-Określ URL Intlayer CMS, z którym należy się połączyć w celu uwierzytelnienia.
-
-- **Typ**: `string`
-- **Domyślna wartość**: Wartość skonfigurowana w `intlayer.config.*` lub `https://intlayer.org`
-- **Przykład**:
-
-```bash packageManager="npm"
-npx intlayer login --cms-url https://intlayer.org
-```
-
-```bash packageManager="yarn"
-yarn intlayer login --cms-url https://intlayer.org
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer login --cms-url https://intlayer.org
-```
-
-```bash packageManager="bun"
-bun x intlayer login --cms-url https://intlayer.org
-```
-
 ### Opcje konfiguracyjne
 
 Możesz również użyć ogólnych opcji konfiguracyjnych:

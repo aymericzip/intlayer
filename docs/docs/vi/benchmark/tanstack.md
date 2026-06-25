@@ -124,6 +124,28 @@ Chúng tôi đã so sánh **bốn chiến lược tải**:
 - **Scoped static**: Giữ cho mã được tổ chức (tách biệt logic) mà không cần các yêu cầu mạng bổ sung phức tạp.
 - **Scoped dynamic**: Phương pháp tốt nhất cho việc _chia tách mã_ (code splitting) và hiệu năng. Giảm thiểu bộ nhớ bằng cách chỉ tải những gì cần thiết cho chế độ xem hiện tại và ngôn ngữ đang hoạt động.
 
+### Những gì tôi đã đo lường:
+
+Tôi chạy cùng một ứng dụng đa ngôn ngữ trong một trình duyệt thực cho mỗi stack, sau đó ghi lại những gì thực sự xuất hiện trên đường truyền và mất bao lâu. Kích thước được báo cáo **sau nén web bình thường**, bởi vì điều đó gần hơn với những gì mọi người tải xuống so với số lượng nguồn thô.
+
+- **Kích thước thư viện quốc tế hóa**: Sau khi bundling, tree-shaking và minification, kích thước của thư viện i18n là kích thước của các providers (ví dụ: `NextIntlClientProvider`) + hooks (ví dụ: `useTranslations`) code trong một component trống. Nó không bao gồm việc tải các tệp dịch. Nó trả lời câu hỏi thư viện tốn kém bao nhiêu trước khi nội dung của bạn vào vào hình ảnh.
+
+- **JavaScript trên mỗi trang**: Đối với mỗi tuyến đường benchmark, trình duyệt tải bao nhiêu script trong lần truy cập đó, được tính trung bình trên các trang trong bộ (và trên các locales nơi báo cáo ghi chép chúng). Các trang nặng là các trang chậm.
+
+- **Rò rỉ từ các locales khác**: Đó là nội dung của cùng một trang nhưng ở ngôn ngữ khác sẽ được tải bởi lỗi trên trang được kiểm tra. Nội dung này là không cần thiết và nên tránh. (ví dụ: nội dung trang `/fr/about` trong bundle trang `/en/about`)
+
+- **Rò rỉ từ các tuyến đường khác**: Cùng ý tưởng cho **các màn hình khác** trong ứng dụng: liệu bản sao của chúng có đi cùng khi bạn chỉ mở một trang. (ví dụ: nội dung trang `/en/about` trong bundle trang `/en/contact`). Điểm số cao gợi ý tách biệt yếu hoặc bundle quá rộng.
+
+- **Kích thước bundle component trung bình**: Các UI pieces phổ biến được đo lường **từng cái một** thay vì ẩn bên trong một số ứng dụng khổng lồ. Nó cho thấy liệu quốc tế hóa có yên tĩnh làm tăng các component hàng ngày hay không. Ví dụ, nếu component của bạn renders lại, nó sẽ tải tất cả dữ liệu đó từ bộ nhớ. Gắn một JSON lớn vào bất kỳ component nào cũng giống như kết nối một cửa hàng lớn dữ liệu không sử dụng sẽ làm chậm hiệu suất component của bạn.
+
+- **Khả năng phản hồi khi chuyển đổi ngôn ngữ**: Tôi lật ngôn ngữ bằng cách sử dụng điều khiển của ứng dụng và đo thời gian cần thiết cho đến khi trang đã rõ ràng được chuyển đổi, điều mà một khách truy cập sẽ nhận thấy, không phải một bước micro của phòng thí nghiệm.
+
+- **Công việc rendering sau khi thay đổi ngôn ngữ**: Một lần theo dõi hẹp hơn: giao diện mất bao nhiêu nỗ lực để vẽ lại cho ngôn ngữ mới khi sự chuyển đổi đang được thực hiện. Hữu ích khi thời gian "cảm nhận" và chi phí framework phân kỳ.
+
+- **Thời gian tải trang ban đầu**: Từ điều hướng đến trình duyệt xem xét trang được tải đầy đủ cho các kịch bản tôi đã kiểm tra. Tốt để so sánh lần khởi động lạnh.
+
+- **Thời gian hydration**: Khi ứng dụng hiển thị nó, khách hàng mất bao lâu để biến HTML máy chủ thành thứ bạn thực sự có thể nhấp. Một dấu gạch ngang trong các bảng có nghĩa là việc triển khai này không cung cấp con số hydration đáng tin cậy trong benchmark này.
+
 ## Sao GitHub
 
 Sao GitHub là một chỉ số mạnh mẽ về mức độ phổ biến của dự án, sự tin tưởng của cộng đồng và mức độ phù hợp lâu dài. Mặc dù không phải là thước đo trực tiếp về chất lượng kỹ thuật, chúng phản ánh số lượng nhà phát triển thấy dự án hữu ích, theo dõi tiến trình của nó và có khả năng áp dụng nó. Để ước tính giá trị của một dự án, các ngôi sao giúp so sánh sức hút giữa các lựa chọn thay thế và cung cấp thông tin chi tiết về sự phát triển của hệ sinh thái.

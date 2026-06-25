@@ -317,3 +317,16 @@ Dan jika Anda juga bereksperimen dengan RAG, saya ingin sekali mendengar bagaima
 </Step>
 
 </Steps>
+## Kesimpulan
+
+RAG adalah salah satu cara paling sederhana dan paling kuat untuk membuat LLM praktis. Dengan menggabungkan **retrieval + generation**, Anda dapat mengubah docs statis menjadi **smart assistant** dan, pada saat yang sama, mendapatkan aliran wawasan produk yang berkelanjutan.
+
+Bagi saya, proyek ini menunjukkan bahwa RAG bukan hanya trik teknis. Ini adalah cara untuk mengubah dokumentasi menjadi:
+
+- sistem dukungan interaktif
+- saluran umpan balik
+- alat strategi produk
+
+👉 [Coba demo di sini](https://intlayer.org/doc/why) 👉 [Periksa template kode di GitHub](https://github.com/aymericzip/smart_doc_RAG)
+
+Dan jika Anda juga bereksperimen dengan RAG, saya ingin mendengar bagaimana Anda menggunakannya.

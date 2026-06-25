@@ -124,6 +124,28 @@ Framework, **10 sayfa** ve **10 dilden** oluşan çok dilli bir uygulamaya sahip
 - **Scoped static**: Karmaşık ek ağ istekleri olmadan kodu düzenli tutar (mantıksal ayrım).
 - **Scoped dynamic**: Kod bölme (code-splitting) ve performans için en iyi yaklaşım. Yalnızca geçerli görünümün ve aktif dilin ihtiyaç duyduğu şeyi yükleyerek bellek kullanımını en aza indirir.
 
+### Ne Ölçtüm:
+
+Aynı çok dilli uygulamayı her stack için gerçek bir tarayıcıda çalıştırdım ve ardından kabloda tam olarak ne göründüğünü ve işlerin ne kadar sürdüğünü yazdım. Boyutlar **normal web sıkıştırmasından sonra** raporlanmıştır, çünkü bu ham kaynak sayılarından daha insanların indirdiklerine yakındır.
+
+- **Uluslararasılaştırma kütüphanesi boyutu**: Paketleme, tree-shaking ve minifikasyondan sonra, i18n kütüphanesinin boyutu sağlayıcıların (örn. `NextIntlClientProvider`) + hook'ların (örn. `useTranslations`) boş bir bileşende yazılan kodunun boyutudur. Çeviri dosyalarının yüklenmesini içermez. Kütüphansenin içeriğiniz resme girmeden önce ne kadar pahalı olduğunu cevaplar.
+
+- **Sayfa başına JavaScript**: Her benchmark rotası için, tarayıcının bu ziyaret için çektiği betik miktarı, paketteki sayfaların genelinde (ve rapor bunları birleştirdiği localer arasında) ortalaması. Ağır sayfalar yavaş sayfalarıdır.
+
+- **Diğer localer'den sızıntı**: Denetlenen sayfada yanlışlıkla yüklenecek başka bir dilde aynı sayfanın içeriğidir. Bu içerik gereksizdir ve kaçınılmalıdır. (örn. `/en/about` sayfasında `/fr/about` sayfa içeriği paketi)
+
+- **Diğer rotalardan sızıntı**: Aynı fikir **uygulamadaki diğer ekranlar** için: yalnızca bir sayfa açtığınızda bunların kopyasının birlikte olup olmadığı. (örn. `/en/contact` sayfası paketinde `/en/about` sayfa içeriği). Yüksek bir puan zayıf bölme veya çok geniş paketleri gösterir.
+
+- **Ortalama bileşen paketi boyutu**: Ortak UI parçaları **birer birer** ölçülür, bir dev uygulama numarasının içinde gizlenmek yerine. Uluslararasılaştırmanın gündelik bileşenleri sessizce şişirip şişirmediğini gösterir. Örneğin, bileşeniniz yeniden oluşturursa, tüm bu verileri bellekten yükler. Herhangi bir bileşene dev bir JSON eklemek, bileşenlerinizin performansını yavaşlatacak kullanılmayan verilerin büyük bir deposuna bağlanmak gibidir.
+
+- **Dil değiştirme duyarlılığı**: Uygulamanın kendi kontrolünü kullanarak dili değiştirir ve sayfanın ne kadar sürede açıkça değiştiği, bir ziyaretçinin fark edeceği, bir laboratuvar mikro-adımı değil, zamanı kaydederim.
+
+- **Dil değişikliğinden sonra işleme çalışması**: Dar bir takip: yeni dil için değiştirme uçuştayken arabirim ne kadar yeniden boyamak için çaba harcadı. "Hissedilen" zaman ve çerçeve maliyeti farklı olduğunda yararlıdır.
+
+- **İlk sayfa yükleme süresi**: Gezintiden tarayıcıya test ettiğim senaryolar için sayfanın tamamen yüklenmiş olduğunu düşünüyor. Soğuk başlangıçları karşılaştırmak için iyidir.
+
+- **Hidrasyon süresi**: Uygulama bunu ortaya çıkardığında, istemcinin sunucu HTML'sini aslında tıklayabileceğiniz bir şeye dönüştürmek için harcadığı zaman. Tablolardaki bir tire, o uygulamanın bu kıyaslamada güvenilir bir hidrasyon rakamı sağlamadığı anlamına gelir.
+
 ## GitHub Yıldızları
 
 GitHub yıldızları, bir projenin popülerliğinin, topluluk güveninin ve uzun vadeli alakasının güçlü bir göstergesidir. Teknik kalitenin doğrudan bir ölçüsü olmasa da, kaç geliştiricinin projeyi yararlı bulduğunu, ilerlemesini takip ettiğini ve benimseme olasılığını yansıtır. Bir projenin değerini tahmin etmek için yıldızlar, alternatifler arasındaki çekişi karşılaştırmaya yardımcı olur ve ekosistem büyümesi hakkında içgörüler sağlar.

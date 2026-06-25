@@ -47,6 +47,14 @@ Pontos-chave:
 - Preserva traduções existentes ao não sobrescrevê-las.
 - Processa arquivos, partes e locales em paralelo usando um sistema de fila para aumentar a velocidade.
 
+## Pontos-Chave:
+
+- Divide arquivos JSON grandes em chunks para se manter dentro dos limites da janela de contexto do modelo de IA.
+- Retenta a tradução se o formato de saída estiver incorreto.
+- Incorpora contexto específico da aplicação e do arquivo para melhor precisão na tradução.
+- Preserva traduções existentes sem sobrescrevê-las.
+- Processa arquivos, chunks e locales em paralelo usando um sistema de fila para aumentar a velocidade.
+
 ## Apelidos:
 
 - `npx intlayer dictionaries fill`

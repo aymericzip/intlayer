@@ -33,6 +33,23 @@ author: aymericzip
 
 ---
 
+## 関数シグネチャ
+
+```typescript
+getMultilingualUrls(
+  url: string,                   // 必須
+  options?: {                    // オプション
+    locales?: Locales[];
+    defaultLocale?: Locales;
+    mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
+  }
+): StrictModeLocaleMap<string>
+```
+
+---
+
+## パラメータ
+
 ## パラメータ
 
 - `url: string`
@@ -54,6 +71,33 @@ author: aymericzip
   - **型**: `boolean`
   - **デフォルト**: `prefixDefaultDefault`
 
+### オプションパラメータ
+
+- `options?: object`
+  - **Description**: URL ローカライゼーション動作の設定オブジェクト。
+  - **Type**: `object`
+  - **Required**: いいえ（オプション）
+
+  - `options.locales?: Locales[]`
+    - **Description**: サポートされるロケールの配列。指定されない場合は、プロジェクト設定から設定されたロケールを使用します。
+    - **Type**: `Locales[]`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md#middleware)
+
+  - `options.defaultLocale?: Locales`
+    - **Description**: アプリケーションのデフォルトロケール。指定されない場合は、プロジェクト設定から設定されたデフォルトロケールを使用します。
+    - **Type**: `Locales`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md#middleware)
+
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Description**: ロケール処理用の URL ルーティングモード。指定されない場合は、プロジェクト設定から設定されたモードを使用します。
+    - **Type**: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md#middleware)
+    - **Modes**:
+      - `prefix-no-default`: デフォルトロケールにはプリフィックスなし、他のすべてにはプリフィックスあり
+      - `prefix-all`: デフォルトを含むすべてのロケールにプリフィックスあり
+      - `no-prefix`: URL にロケールプリフィックスなし
+      - `search-params`: ロケール用にクエリパラメータを使用（例：`?locale=fr`）
+
 ### 戻り値
 
 - **型**: `IConfigLocales<string>`
@@ -62,6 +106,20 @@ author: aymericzip
 ---
 
 ## 使用例
+
+### 基本的な使用法 (プロジェクト構成を使用)
+
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
+import { getMultilingualUrls, Locales } from "intlayer";
+
+// プロジェクトの構成 (locales、defaultLocale、mode) を使用します
+getMultilingualUrls("/dashboard");
+// 出力 (プロジェクト構成に en、fr があり、mode が 'prefix-no-default' の場合):
+// {
+//   en: "/dashboard",
+//   fr: "/fr/dashboard"
+// }
+```
 
 ### 相対 URL
 
@@ -92,6 +150,60 @@ getMultilingualUrls(
 // 出力: {
 //   en: "https://example.com/en/dashboard",
 //   fr: "https://example.com/fr/dashboard"
+// }
+```
+
+---
+
+### 異なるルーティングモード
+
+```typescript
+// prefix-no-default: デフォルトロケールにプレフィックスなし
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-no-default",
+});
+// Output: {
+//   en: "/dashboard",
+//   fr: "/fr/dashboard",
+//   es: "/es/dashboard"
+// }
+
+// prefix-all: すべてのロケールにプレフィックス
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-all",
+});
+// Output: {
+//   en: "/en/dashboard",
+//   fr: "/fr/dashboard",
+//   es: "/es/dashboard"
+// }
+
+// no-prefix: URLにロケールプレフィックスなし
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "no-prefix",
+});
+// Output: {
+//   en: "/dashboard",
+//   fr: "/dashboard",
+//   es: "/dashboard"
+// }
+
+// search-params: クエリパラメータとしてのロケール
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "search-params",
+});
+// Output: {
+//   en: "/dashboard?locale=en",
+//   fr: "/dashboard?locale=fr",
+//   es: "/dashboard?locale=es"
 // }
 ```
 

@@ -29,6 +29,10 @@ author: aymericzip
 
 <iframe title="Intlayer kullanarak next-intl JSON çevirilerinizi nasıl otomatikleştirirsiniz" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
+# İçindekiler Tablosu
+
+<TOC/>
+
 ## Intlayer nedir?
 
 **Intlayer**, geleneksel i18n çözümlerinin eksikliklerini gidermek için tasarlanmış yenilikçi, açık kaynaklı bir uluslararasılaştırma kütüphanesidir. Next.js uygulamalarında içerik yönetimi için modern bir yaklaşım sunar.

@@ -27,6 +27,45 @@ Dans Intlayer, l'imbrication est réalisée via la fonction `nest`, qui vous per
 
 ## Configuration de l'imbrication
 
+Pour configurer l'imbrication dans votre projet Intlayer, vous définissez d'abord le contenu de base que vous souhaitez réutiliser. Ensuite, dans un module de contenu séparé, vous utilisez la fonction `nest` pour importer ce contenu.
+
+### Dictionnaire de base
+
+Voici un exemple d'un dictionnaire de base à imbriquer dans un autre dictionnaire :
+
+```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { type Dictionary } from "intlayer";
+
+const firstDictionary = {
+  key: "key_of_my_first_dictionary",
+  content: {
+    content: "content",
+    subContent: {
+      contentNumber: 0,
+      contentString: "string",
+    },
+  },
+} satisfies Dictionary;
+
+export default firstDictionary;
+```
+
+```json fileName="firstDictionary.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "key_of_my_first_dictionary",
+  "content": {
+    "content": "content",
+    "subContent": {
+      "contentNumber": 0,
+      "contentString": "string"
+    }
+  }
+}
+```
+
+## Configuration de l'imbrication
+
 <Tabs group="framework">
   <Tab label="React" value="react">
 

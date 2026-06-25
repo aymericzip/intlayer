@@ -29,6 +29,45 @@ author: aymericzip
 
 Di Intlayer, penanaman dicapai melalui fungsi `nest`, yang memungkinkan Anda merujuk dan menggunakan kembali konten dari kamus lain. Alih-alih menggandakan konten, Anda dapat menunjuk ke modul konten yang sudah ada berdasarkan kuncinya.
 
+## Menyiapkan Nesting
+
+Untuk menyiapkan nesting di proyek Intlayer Anda, Anda terlebih dahulu menentukan konten dasar yang ingin Anda gunakan kembali. Kemudian, di modul konten terpisah, Anda menggunakan fungsi `nest` untuk mengimpor konten tersebut.
+
+### Kamus Dasar
+
+Di bawah ini adalah contoh kamus dasar untuk bersarang dalam kamus lain:
+
+```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { type Dictionary } from "intlayer";
+
+const firstDictionary = {
+  key: "key_of_my_first_dictionary",
+  content: {
+    content: "content",
+    subContent: {
+      contentNumber: 0,
+      contentString: "string",
+    },
+  },
+} satisfies Dictionary;
+
+export default firstDictionary;
+```
+
+```json fileName="firstDictionary.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "key_of_my_first_dictionary",
+  "content": {
+    "content": "content",
+    "subContent": {
+      "contentNumber": 0,
+      "contentString": "string"
+    }
+  }
+}
+```
+
 ## Menyiapkan Penanaman
 
 <Tabs group="framework">

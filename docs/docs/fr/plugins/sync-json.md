@@ -429,65 +429,6 @@ Lorsque la même clé de traduction existe dans plusieurs sources JSON :
 2. Les sources de priorité inférieure sont utilisées comme secours pour les clés manquantes
 3. Cela vous permet de maintenir les traductions héritées tout en migrant progressivement vers de nouvelles structures
 
-## Intégrations
-
-Voici des mappages courants. Gardez votre runtime intact ; ajoutez uniquement le plugin.
-
-### i18next
-
-Disposition typique des fichiers : `./public/locales/{locale}/{namespace}.json` ou `./locales/{locale}/{namespace}.json`.
-
-```ts fileName="intlayer.config.ts"
-import { syncJSON } from "@intlayer/sync-json-plugin";
-
-export default {
-  plugins: [
-    syncJSON({
-      format: "i18next",
-      source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
-    }),
-  ],
-};
-```
-
-### next-intl
-
-Messages JSON par locale (souvent `./messages/{locale}.json`) ou par namespace.
-
-```ts fileName="intlayer.config.ts"
-plugins: [
-  syncJSON({
-    source: ({ locale, key }) => `./messages/${locale}/${key}.json`,
-  }),
-];
-```
-
-Voir aussi : `docs/fr/intlayer_with_next-intl.md`.
-
-### react-intl
-
-Un seul JSON par locale est courant :
-
-```ts fileName="intlayer.config.ts"
-plugins: [
-  syncJSON({
-    source: ({ locale }) => `./locales/${locale}.json`,
-  }),
-];
-```
-
-### vue-i18n
-
-Soit un seul fichier par locale, soit par namespace :
-
-```ts fileName="intlayer.config.ts"
-plugins: [
-  syncJSON({
-    source: ({ key, locale }) => `./src/locales/${locale}/${key}.json`,
-  }),
-];
-```
-
 ## CLI
 
 Les fichiers JSON synchronisés seront considérés comme d'autres fichiers `.content`. Cela signifie que toutes les commandes intlayer seront disponibles pour les fichiers JSON synchronisés. Cela inclut :

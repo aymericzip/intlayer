@@ -29,9 +29,25 @@ author: aymericzip
 
 ## الوصف
 
+تقوم دالة `getMultilingualUrls` بإنشاء خريطة من عناوين URL متعددة اللغات عن طريق إضافة بادئة للعنوان المحدد بكل لغة مدعومة. يمكنها التعامل مع عناوين URL المطلقة والنسبية، وتطبيق بادئة اللغة المناسبة بناءً على الإعدادات المقدمة أو الإعدادات الافتراضية.
+
+**الميزات الرئيسية:**
+
+- مطلوب معامل واحد فقط: `url`
+- كائن `options` اختياري يحتوي على `locales` و`defaultLocale` و`mode`
+- يستخدم إعدادات الدولية في مشروعك كإعدادات افتراضية
+- يدعم أوضاع التوجيه المتعددة: `prefix-no-default` و`prefix-all` و`no-prefix` و`search-params`
+- يعيد كائن خريطة مع جميع اللغات كمفاتيح وعناوين URL المقابلة لها كقيم
+
+---
+
+## الوصف
+
 تقوم دالة `getMultilingualUrls` بإنشاء خريطة لعناوين URL متعددة اللغات عن طريق إضافة بادئة لكل عنوان URL المعطى باستخدام كل لغة مدعومة. يمكنها التعامل مع عناوين URL المطلقة والنسبية، وتطبيق بادئة اللغة المناسبة بناءً على التكوين المقدم أو الإعدادات الافتراضية.
 
 ---
+
+## المعاملات
 
 ## المعاملات
 
@@ -54,6 +70,33 @@ author: aymericzip
   - **النوع**: `boolean`
   - **الافتراضي**: `prefixDefaultDefault`
 
+### المعاملات الاختيارية
+
+- `options?: object`
+  - **الوصف**: كائن الإعدادات لسلوك تحديد موقع عنوان URL.
+  - **النوع**: `object`
+  - **مطلوب**: لا (اختياري)
+
+  - `options.locales?: Locales[]`
+    - **الوصف**: مصفوفة اللغات المدعومة. إذا لم يتم توفيرها، يتم استخدام اللغات المكونة من إعدادات المشروع الخاص بك.
+    - **النوع**: `Locales[]`
+    - **القيمة الافتراضية**: [`إعدادات المشروع`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md#middleware)
+
+  - `options.defaultLocale?: Locales`
+    - **الوصف**: اللغة الافتراضية للتطبيق. إذا لم يتم توفيرها، يتم استخدام اللغة الافتراضية المكونة من إعدادات المشروع الخاص بك.
+    - **النوع**: `Locales`
+    - **القيمة الافتراضية**: [`إعدادات المشروع`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md#middleware)
+
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **الوصف**: وضع توجيه عنوان URL لمعالجة اللغة. إذا لم يتم توفيره، يتم استخدام الوضع المكون من إعدادات المشروع الخاص بك.
+    - **النوع**: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **القيمة الافتراضية**: [`إعدادات المشروع`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md#middleware)
+    - **الأوضاع**:
+      - `prefix-no-default`: لا توجد بادئة للغة الافتراضية، بادئة لجميع الأخرى
+      - `prefix-all`: بادئة لجميع اللغات بما فيها الافتراضية
+      - `no-prefix`: لا توجد بادئة لغة في عنوان URL
+      - `search-params`: استخدام معاملات الاستعلام للغة (على سبيل المثال، `?locale=fr`)
+
 ### القيم المرجعة
 
 - **النوع**: `IConfigLocales<string>`
@@ -62,6 +105,20 @@ author: aymericzip
 ---
 
 ## مثال على الاستخدام
+
+### الاستخدام الأساسي (استخدام إعدادات المشروع)
+
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
+import { getMultilingualUrls, Locales } from "intlayer";
+
+// يستخدم إعدادات مشروعك للغات وdefaultLocale والوضع mode
+getMultilingualUrls("/dashboard");
+// الإخراج (بافتراض أن إعدادات المشروع تحتوي على en و fr مع وضع 'prefix-no-default'):
+// {
+//   en: "/dashboard",
+//   fr: "/fr/dashboard"
+// }
+```
 
 ### عناوين URL النسبية
 
@@ -92,6 +149,60 @@ getMultilingualUrls(
 // الناتج: {
 //   en: "https://example.com/en/dashboard",
 //   fr: "https://example.com/fr/dashboard"
+// }
+```
+
+---
+
+### أنماط التوجيه المختلفة
+
+```typescript
+// prefix-no-default: بدون بادئة للغة الافتراضية
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-no-default",
+});
+// الإخراج: {
+//   en: "/dashboard",
+//   fr: "/fr/dashboard",
+//   es: "/es/dashboard"
+// }
+
+// prefix-all: بادئة لجميع اللغات
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-all",
+});
+// الإخراج: {
+//   en: "/en/dashboard",
+//   fr: "/fr/dashboard",
+//   es: "/es/dashboard"
+// }
+
+// no-prefix: بدون بادئة اللغة في العناوين
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "no-prefix",
+});
+// الإخراج: {
+//   en: "/dashboard",
+//   fr: "/dashboard",
+//   es: "/dashboard"
+// }
+
+// search-params: اللغة كمعامل استعلام
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "search-params",
+});
+// الإخراج: {
+//   en: "/dashboard?locale=en",
+//   fr: "/dashboard?locale=fr",
+//   es: "/dashboard?locale=es"
 // }
 ```
 

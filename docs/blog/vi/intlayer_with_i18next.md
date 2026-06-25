@@ -34,6 +34,10 @@ author: aymericzip
 
 <iframe title="Cách tự động hóa bản dịch JSON i18next của bạn bằng Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
+## Mục lục
+
+<TOC/>
+
 ## Intlayer là gì?
 
 **Intlayer** là một thư viện quốc tế hóa mã nguồn mở sáng tạo, được thiết kế để khắc phục những hạn chế của các giải pháp i18n truyền thống. Nó cung cấp một phương pháp hiện đại để quản lý nội dung trong các ứng dụng JavaScript.

@@ -29,49 +29,6 @@ author: aymericzip
 
 このセクションでは、React アプリケーション内で `useIntlayer` フックを使用する方法について詳しく説明し、効率的なコンテンツのローカライズを可能にします。
 
-## React での `useIntlayer` のインポート
-
-`useIntlayer` フックは、コンテキストに応じてインポートすることで React アプリケーションに統合できます。
-
-- **クライアントコンポーネント:**
-
-  ```typescript codeFormat="typescript"
-  import { useIntlayer } from "react-intlayer"; // クライアントサイドの React コンポーネントで使用
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer"; // クライアントサイドの React コンポーネントで使用
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer"); // クライアントサイドの React コンポーネントで使用
-  ```
-
-- **サーバーコンポーネント:**
-
-  ```typescript codeFormat="commonjs"
-  import { useIntlayer } from "react-intlayer/server"; // サーバーサイドの React コンポーネントで使用
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer/server"; // サーバーサイドの React コンポーネントで使用
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer/server"); // サーバーサイドの React コンポーネントで使用
-  ```
-
-## パラメーター
-
-このフックは2つのパラメーターを受け取ります：
-
-1. **`key`**: ローカライズされたコンテンツを取得するための辞書キー。
-2. **`locale`**（オプション）: 希望するロケール。指定しない場合はコンテキストのロケールがデフォルトで使用されます。
-
-## 辞書
-
-すべての辞書キーは型安全性を高め、エラーを防ぐためにコンテンツ宣言ファイル内で宣言されている必要があります。セットアップ手順は[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/content_file.md)で確認できます。
-
 ## Reactでの使用例
 
 Reactコンポーネント内での`useIntlayer`フックの使用例：
@@ -132,28 +89,6 @@ const ServerComponentExample = () => {
     </div>
   );
 };
-```
-
-## 属性の取り扱い
-
-属性をローカライズする際は、コンテンツの値に適切にアクセスしてください：
-
-```jsx
-<button title={content.buttonTitle.value}>{content.buttonText}</button>
-```
-
-## 追加リソース
-
-- **Intlayer ビジュアルエディター**: より直感的なコンテンツ管理体験のために、ビジュアルエディターのドキュメントは[こちら](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を参照してください。
-
-このセクションは、Reactアプリケーションにおける `useIntlayer` フックの統合に特化しており、ローカリゼーションプロセスを簡素化し、異なるロケール間でのコンテンツの一貫性を確保します。
-
-## 属性の取り扱い
-
-属性をローカライズする際は、コンテンツの値に適切にアクセスしてください：
-
-```jsx
-<button title={content.buttonTitle.value}>{content.buttonText}</button>
 ```
 
 ## 追加リソース

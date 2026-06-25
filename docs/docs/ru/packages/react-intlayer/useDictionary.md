@@ -24,102 +24,6 @@ history:
 author: aymericzip
 ---
 
-# Интеграция с React: Документация по хуку `useDictionary`
-
-Этот раздел предоставляет подробные инструкции по использованию хука `useDictionary` в React-приложениях, позволяя эффективно работать с локализованным контентом без визуального редактора.
-
-## Импортирование `useDictionary` в React
-
-Хук `useDictionary` можно интегрировать в React-приложения, импортируя его в зависимости от контекста:
-
-- **Клиентский компонент:**
-
-  ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer"; // Используется в клиентских React-компонентах
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer"; // Используется в клиентских React-компонентах
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer"); // Используется в клиентских React-компонентах
-  ```
-
-- **Серверный компонент:**
-
-  ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer/server"; // Используется в серверных React-компонентах
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer/server"; // Используется в серверных React-компонентах
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer/server"); // Используется в серверных React-компонентах
-  ```
-
-## Параметры
-
-Хук принимает два параметра:
-
-1. **`dictionary`**: Объявленный объект словаря, содержащий локализованный контент для определённых ключей.
-2. **`locale`** (необязательный): Желаемая локаль. По умолчанию используется локаль текущего контекста.
-
-## Словарь
-
-Все объекты словарей должны быть объявлены в структурированных файлах контента для обеспечения типобезопасности и предотвращения ошибок во время выполнения. Вы можете найти [инструкции по настройке здесь](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md). Вот пример объявления контента:
-
-```typescript fileName="./component.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
-import { t, type Dictionary } from "intlayer";
-
-const componentContent = {
-  key: "component-example",
-  content: {
-    title: t({
-      en: "Client Component Example",
-      fr: "Exemple de composant client",
-      es: "Ejemplo de componente cliente",
-    }),
-    content: t({
-      en: "This is the content of a client component example",
-      fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es el contenido de un ejemplo de componente cliente",
-    }),
-  },
-} satisfies Dictionary;
-
-export default componentContent;
-```
-
-```json fileName="./component.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "component-example",
-  "content": {
-    "title": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Client Component Example",
-        "fr": "Exemple de composant client",
-        "es": "Ejemplo de componente cliente",
-        "ru": "Пример клиентского компонента"
-      }
-    },
-    "content": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "This is the content of a client component example",
-        "fr": "Ceci est le contenu d'un exemple de composant client",
-        "es": "Este es el contenido de un ejemplo de componente cliente",
-        "ru": "Это содержимое примера клиентского компонента"
-      }
-    }
-  }
-}
-```
-
 ## Пример использования в React
 
 Ниже приведён пример использования хука `useDictionary` в React-компоненте:
@@ -160,14 +64,6 @@ const ServerComponentExample: FC<{ locale: string }> = ({ locale }) => {
     </div>
   );
 };
-```
-
-## Примечания по атрибутам
-
-В отличие от интеграций с визуальными редакторами, такие атрибуты, как `buttonTitle.value`, здесь не применяются. Вместо этого напрямую обращайтесь к локализованным строкам, как они объявлены в вашем контенте.
-
-```jsx
-<button title={content.title}>{content.content}</button>
 ```
 
 ## Дополнительные советы

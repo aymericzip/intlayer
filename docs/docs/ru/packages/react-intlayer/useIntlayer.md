@@ -29,49 +29,6 @@ author: aymericzip
 
 В этом разделе представлено подробное руководство по использованию хука `useIntlayer` в приложениях React, что позволяет эффективно локализовать контент.
 
-## Импорт `useIntlayer` в React
-
-Хук `useIntlayer` можно интегрировать в приложения React, импортируя его в зависимости от контекста:
-
-- **Клиентский компонент:**
-
-  ```typescript codeFormat="typescript"
-  import { useIntlayer } from "react-intlayer"; // Используется в клиентских компонентах React
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer"; // Используется в клиентских компонентах React
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer"); // Используется в клиентских компонентах React
-  ```
-
-- **Серверный компонент:**
-
-  ```typescript codeFormat="commonjs"
-  import { useIntlayer } from "react-intlayer/server"; // Используется в серверных компонентах React
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer/server"; // Используется в серверных компонентах React
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer/server"); // Используется в серверных компонентах React
-  ```
-
-## Параметры
-
-Хук принимает два параметра:
-
-1. **`key`**: Ключ словаря для получения локализованного контента.
-2. **`locale`** (необязательно): Желаемая локаль. По умолчанию используется локаль из контекста, если не указано.
-
-## Словарь
-
-Все ключи словаря должны быть объявлены в файлах декларации контента для повышения типобезопасности и избежания ошибок. Инструкции по настройке можно найти [здесь](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/content_file.md).
-
 ## Пример использования в React
 
 Демонстрация использования хука `useIntlayer` в React-компоненте:
@@ -129,14 +86,6 @@ const ServerComponentExample = () => {
     </div>
   );
 };
-```
-
-## Обработка атрибутов
-
-При локализации атрибутов корректно обращайтесь к значениям контента:
-
-```jsx
-<button title={content.buttonTitle.value}>{content.buttonText}</button>
 ```
 
 ## Дополнительные ресурсы

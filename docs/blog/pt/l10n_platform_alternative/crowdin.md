@@ -24,12 +24,6 @@ author: aymericzip
 
 <TOC/>
 
-# Sistema de Gestão de Traduções
-
-Um Translation Management System (TMS) é uma plataforma de software projetada para automatizar e otimizar o processo de tradução e localização (L10n). Tradicionalmente, um TMS funciona como um hub centralizado onde o conteúdo é carregado, organizado e atribuído a tradutores humanos. Ele gere fluxos de trabalho, armazena memórias de tradução (para evitar retraduzir a mesma frase duas vezes) e trata da entrega dos ficheiros traduzidos de volta aos desenvolvedores ou gestores de conteúdo.
-
-Na prática, historicamente um TMS tem sido a ponte entre o código técnico (onde as strings residem) e os linguistas humanos (que compreendem a cultura).
-
 # Crowdin
 
 Um Sistema de Gestão de Tradução (TMS) é uma plataforma de software projetada para automatizar e agilizar o processo de tradução e localização (L10n). Tradicionalmente, um TMS funciona como um hub centralizado onde o conteúdo é carregado, organizado e atribuído a tradutores humanos. Ele gere fluxos de trabalho, armazena memórias de tradução (para evitar traduzir a mesma frase duas vezes) e trata da entrega dos ficheiros traduzidos de volta aos desenvolvedores ou gestores de conteúdo.

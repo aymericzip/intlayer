@@ -535,148 +535,6 @@ const MyComponent = () => {
 
 </Steps>
 
-### TypeScript 구성
-
-TypeScript 구성에 자동 생성된 타입이 포함되어 있는지 확인하세요.
-
-```json5 fileName="tsconfig.json"
-{
-  "compilerOptions": {
-    // ...
-  },
-  "include": ["src", ".intlayer/**/*.ts"],
-}
-```
-
-### Git 설정
-
-Intlayer가 생성하는 파일들은 Git 저장소에 커밋하지 않도록 무시하는 것이 권장됩니다.
-
-이를 위해 `.gitignore` 파일에 다음 지침을 추가할 수 있습니다:
-
-```bash
-#  Intlayer가 생성하는 파일 무시
-.intlayer
-```
-
-### VS Code 확장 프로그램
-
-Intlayer와 함께 개발 경험을 향상시키기 위해 공식 **Intlayer VS Code 확장 프로그램**을 설치할 수 있습니다.
-
-[VS Code 마켓플레이스에서 설치하기](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-이 확장 프로그램은 다음 기능을 제공합니다:
-
-- 번역 키에 대한 **자동 완성**.
-- 누락된 번역에 대한 **실시간 오류 감지**.
-- **번역된 콘텐츠의 인라인 미리보기**.
-- **번역을 쉽게 생성 및 업데이트할 수 있는 빠른 작업**.
-
-확장 기능 사용 방법에 대한 자세한 내용은 [Intlayer VS Code 확장 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
-
----
-
-<Steps>
-
-<Step number={1} title="컴포넌트 콘텐츠 추출" isOptional={true}>
-
-기존 코드베이스가 있는 경우 수천 개의 파일을 변환하는 데 시간이 많이 걸릴 수 있습니다.
-
-이 프로세스를 용이하게 하기 위해 Intlayer는 컴포넌트를 변환하고 콘텐츠를 추출하기 위한 [컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md) / [추출기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)를 제안합니다.
-
-설정하려면 `intlayer.config.ts` 파일에 `compiler` 섹션을 추가할 수 있습니다.
-
-```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import { type IntlayerConfig } from "intlayer";
-
-const config: IntlayerConfig = {
-  // ... 나머지 구성
-  compiler: {
-    /**
-     * 컴파일러 활성화 여부를 나타냅니다.
-     */
-    enabled: true,
-
-    /**
-     * 출력 파일 경로를 정의합니다.
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * 변환 후 컴포넌트를 저장할지 여부를 나타냅니다. 그렇게 하면 컴파일러를 한 번만 실행하여 앱을 변환한 다음 제거할 수 있습니다.
-     */
-    saveComponents: false,
-
-    /**
-     * 사전 키 접두사
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-<Tabs>
- <Tab value='추출 명령'>
-
-컴포넌트를 변환하고 콘텐츠를 추출하기 위해 추출기를 실행합니다
-
-```bash packageManager="npm"
-npx intlayer extract
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer extract
-```
-
-```bash packageManager="yarn"
-yarn intlayer extract
-```
-
-```bash packageManager="bun"
-bun x intlayer extract
-```
-
- </Tab>
- <Tab value='Babel 컴파일러'>
-
-`vite.config.ts`를 업데이트하여 `intlayerCompiler` 플러그인을 포함합니다.
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // 컴파일러 플러그인을 추가합니다
-  ],
-});
-```
-
-```bash packageManager="npm"
-npm run build # 또는 npm run dev
-```
-
-```bash packageManager="pnpm"
-pnpm run build # 또는 pnpm run dev
-```
-
-```bash packageManager="yarn"
-yarn build # 또는 yarn dev
-```
-
-```bash packageManager="bun"
-bun run build # Or bun run dev
-```
-
- </Tab>
-</Tabs>
-</Step>
-
-</Steps>
-
 ### (선택) 사이트맵과 robots.txt(빌드 시 생성)
 
 Intlayer는 `generateSitemap`과 `getMultilingualUrls`로 크롤러용 다국어 `sitemap.xml`과 `robots.txt`를 만들어 `public/`에 자동으로 쓸 수 있습니다. 보통 Vite 실행 **전에** 작은 Node 스크립트를 돌립니다(예: npm `predev` / `prebuild`).
@@ -750,6 +608,38 @@ console.log("SEO files generated successfully.");
 ```
 
 pnpm이나 yarn을 쓰면 명령을 맞게 바꾸세요. CI에서 호출해도 됩니다.
+
+### TypeScript 구성
+
+TypeScript 구성에 자동 생성된 타입이 포함되어 있는지 확인하세요.
+
+```json5 fileName="tsconfig.json"
+{
+  "compilerOptions": {
+    // ...
+  },
+  "include": ["src", ".intlayer/**/*.ts"],
+}
+```
+
+### Git 구성
+
+Intlayer에서 생성된 파일을 무시하는 것이 권장됩니다. 이렇게 하면 Git 리포지토리에 커밋하는 것을 피할 수 있습니다.
+
+이를 위해 `.gitignore` 파일에 다음 지침을 추가할 수 있습니다:
+
+```bash
+# Intlayer에서 생성한 파일 무시
+.intlayer
+```
+
+### VS Code Extension
+
+Intlayer를 사용한 개발 경험을 개선하기 위해 공식 **Intlayer VS Code Extension**을 설치할 수 있습니다.
+
+[VS Code Marketplace에서 설치](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+---
 
 ### 더 나아가기
 

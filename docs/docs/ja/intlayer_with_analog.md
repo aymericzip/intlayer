@@ -383,3 +383,7 @@ Intlayerでの開発体験を向上させるために、公式の**Intlayer VS C
 - 翻訳を簡単に作成・更新するための**クイックアクション**。
 
 拡張機能の使用方法の詳細については、[Intlayer VS Code Extensionのドキュメント](https://intlayer.org/doc/vs-code-extension)を参照してください。
+
+### さらに進める
+
+さらに進めるために、[ビジュアルエディタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を実装するか、[CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_CMS.md)を使用してコンテンツを外部化することができます。

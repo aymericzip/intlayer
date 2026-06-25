@@ -26,6 +26,10 @@ author: aymericzip
 
 Intlayer ermöglicht die automatische Generierung von Übersetzungen für Ihre Content-Deklarationsdateien. Es gibt verschiedene Möglichkeiten, dies je nach Ihrem Workflow zu realisieren.
 
+## Inhaltsverzeichnis
+
+<TOC/>
+
 ## Verwendung des CMS
 
 Mit Intlayer können Sie einen Workflow verwenden, bei dem nur eine einzige Locale lokal deklariert wird, während alle Übersetzungen remote über das CMS verwaltet werden. Dies ermöglicht es, Inhalte und Übersetzungen vollständig von der Codebasis zu trennen, bietet mehr Flexibilität für Content-Editoren und ermöglicht ein Hot Content Reloading (kein erneutes Bauen der Anwendung erforderlich, um Änderungen anzuwenden).

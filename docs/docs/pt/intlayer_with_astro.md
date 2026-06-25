@@ -430,6 +430,185 @@ bun run build # Or bun run dev
 
 </Steps>
 
+#### Sitemap
+
+O Intlayer vem com um gerador de sitemap integrado para ajudá-lo a criar um sitemap para sua aplicação facilmente. Ele manipula rotas localizadas e adiciona os metadados necessários para mecanismos de busca.
+
+> O sitemap gerado pelo Intlayer suporta o namespace `xhtml:link` (Extensões XML Hreflang). Ao contrário dos geradores de sitemap padrão que apenas listam URLs brutas, o Intlayer cria automaticamente os links bidirecionais necessários entre todas as versões de idioma de uma página (por exemplo, `/about`, `/about?lang=fr` e `/about?lang=es`). Isso garante que os mecanismos de busca indexem corretamente e sirvam a versão correta do idioma para o público certo.
+
+Crie `src/pages/sitemap.xml.ts` para gerar um sitemap que inclua todas as suas rotas localizadas.
+
+```typescript fileName="src/pages/sitemap.xml.ts"
+import type { APIRoute } from "astro";
+import { generateSitemap, type SitemapUrlEntry } from "intlayer";
+
+const pathList: SitemapUrlEntry[] = [
+  { path: "/", changefreq: "daily", priority: 1.0 },
+  { path: "/about", changefreq: "monthly", priority: 0.7 },
+];
+
+const SITE_URL = import.meta.env.SITE ?? "http://localhost:4321";
+
+export const GET: APIRoute = async ({ site }) => {
+  const xmlOutput = generateSitemap(pathList, { siteUrl: SITE_URL });
+
+  return new Response(xmlOutput, {
+    headers: { "Content-Type": "application/xml" },
+  });
+};
+```
+
+#### Robots.txt
+
+Crie `src/pages/robots.txt.ts` para controlar o rastreamento de mecanismos de busca.
+
+```typescript fileName="src/pages/robots.txt.ts"
+import type { APIRoute } from "astro";
+import { getMultilingualUrls } from "intlayer";
+
+const getAllMultilingualUrls = (urls: string[]) =>
+  urls.flatMap((url) => Object.values(getMultilingualUrls(url)) as string[]);
+
+const disallowedPaths = getAllMultilingualUrls(["/admin", "/private"]);
+
+export const GET: APIRoute = ({ site }) => {
+  const robotsTxt = [
+    "User-agent: *",
+    "Allow: /",
+    ...disallowedPaths.map((path) => `Disallow: ${path}`),
+    "",
+    `Sitemap: ${new URL("/sitemap.xml", site).href}`,
+  ].join("\n");
+
+  return new Response(robotsTxt, {
+    headers: { "Content-Type": "text/plain" },
+  });
+};
+```
+
+</Step>
+
+<Step number={9} title="Continue usando seu framework favorito">
+
+Continue usando seu framework favorito para construir sua aplicação.
+
+- Intlayer + React: [Intlayer with React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_astro_react.md)
+- Intlayer + Vue: [Intlayer with Vue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_astro_vue.md)
+- Intlayer + Svelte: [Intlayer with Svelte](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_astro_svelte.md)
+- Intlayer + Solid: [Intlayer with Solid](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_astro_solid.md)
+- Intlayer + Preact: [Intlayer with Preact](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_astro_preact.md)
+- Intlayer + Lit: [Intlayer with Lit](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_astro_lit.md)
+- Intlayer + Vanilla JS: [Intlayer with Vanilla JS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_with_astro_vanilla.md)
+  </Step>
+
+<Step number={15} title="Extraia o conteúdo de seus componentes" isOptional={true}>
+
+Se você tem uma codebase existente, transformar milhares de arquivos pode ser demorado.
+
+Para facilitar esse processo, o Intlayer oferece um [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/compiler.md) / [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/cli/extract.md) para transformar seus componentes e extrair o conteúdo.
+
+Para configurá-lo, você pode adicionar uma seção `compiler` em seu arquivo `intlayer.config.ts`:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... Resto da sua configuração
+  compiler: {
+    /**
+     * Indica se o compiler deve estar habilitado.
+     */
+    enabled: true,
+
+    /**
+     * Define o caminho dos arquivos de saída
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * Indica se os componentes devem ser salvos após serem transformados.
+     *
+     * - Se `true`, o compiler reescreverá o arquivo do componente no disco. Então a transformação será permanente, e o compiler ignorará a transformação para o próximo processo. Dessa forma, o compiler pode transformar a aplicação, e então pode ser removido.
+     *
+     * - Se `false`, o compiler injetará a chamada da função `useIntlayer()` no código apenas na saída da build, e manterá a codebase base intacta. A transformação será feita apenas na memória.
+     */
+    saveComponents: false,
+
+    /**
+     * Prefixo da chave do dicionário
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='Comando de extração'>
+
+Execute o extrator para transformar seus componentes e extrair o conteúdo
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Babel compiler'>
+
+Atualize seu `vite.config.ts` para incluir o plugin `intlayerCompiler`:
+
+> Desde o Intlayer v9, o compiler é empacotado diretamente no plugin `intlayer()` e é ativado automaticamente quando `compiler.enabled` está definido com um caminho `compiler.output`. Registrar `intlayerCompiler()` separadamente conforme mostrado abaixo agora é opcional — ele se deduplica se também for adicionado. Veja as [notas de lançamento v9](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/releases/v9.md).
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // Adiciona o plugin do compiler
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # Ou npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # Ou pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # Ou yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # Ou bun run dev
+```
+
+ </Tab>
+</Tabs>
+
+---
+
+</Step>
+
+</Steps>
+
 ### Configuração do TypeScript
 
 O Intlayer usa o aumento de módulos (module augmentation) para aproveitar o TypeScript, tornando sua base de código mais robusta.

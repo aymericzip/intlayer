@@ -133,6 +133,40 @@ export const ServerComponentExample: FC = () => (
 
 ---
 
+### Встроенные переводы в атрибутах
+
+Функция `t` особенно полезна для встроенных переводов в атрибутах JSX.
+При локализации атрибутов, таких как `alt`, `title`, `href` или `aria-label`, вы можете использовать `t` непосредственно в атрибуте.
+
+```jsx
+<button
+  aria-label={t({
+    ru: "Отправить",
+    en: "Submit",
+    fr: "Soumettre",
+    es: "Enviar",
+  })}
+>
+  {t({
+    ru: "Отправить",
+    en: "Submit",
+    fr: "Soumettre",
+    es: "Enviar",
+  })}
+  <img
+    src="/path/to/image"
+    alt={t({
+      ru: "Красивый пейзаж",
+      en: "A beautiful scenery",
+      fr: "Un beau paysage",
+      es: "Un hermoso paisaje",
+    })}
+  />
+</button>
+```
+
+---
+
 ## Расширенные темы
 
 ### Интеграция с TypeScript

@@ -24,6 +24,12 @@ author: aymericzip
 
 <TOC/>
 
+# System Zarządzania Tłumaczeniami
+
+System Zarządzania Tłumaczeniami (TMS) to platforma programowa zaprojektowana w celu automatyzacji i usprawnienia procesu tłumaczenia i lokalizacji (L10n). Tradycyjnie TMS służy jako scentralizowany hub, w którym treść jest przesyłana, organizowana i przydzielana tłumaczom ludziom. Zarządza przepływami pracy, przechowuje pamięć tłumaczeń (aby uniknąć retłumaczenia tego samego zdania dwukrotnie) i obsługuje dostarczanie przetłumaczonych plików z powrotem do deweloperów lub menedżerów treści.
+
+W istocie, TMS historycznie był mostem między technicznym kodem (gdzie żyją ciągi znaków) a ludzkimi lingwistami (którzy rozumieją kulturę).
+
 # Lokalise
 
 Lokalise jest znaczącym graczem we współczesnym krajobrazie TMS. Założony w 2017 roku, pojawił się, aby zrewolucjonizować rynek, koncentrując się mocno na developer experience (DX) i integracji z designem. W przeciwieństwie do starszych konkurentów, Lokalise priorytetowo traktował elegancki interfejs użytkownika, potężne API oraz integracje z narzędziami takimi jak Figma i GitHub, aby zmniejszyć tarcia związane z przesyłaniem plików tam i z powrotem.

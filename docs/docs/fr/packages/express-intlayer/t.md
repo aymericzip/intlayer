@@ -280,13 +280,4 @@ app.get("/morning", (_req, res) => {
 
 ## Conclusion
 
-1. **Centraliser les traductions** : Utilisez un module centralisé ou des fichiers JSON pour gérer les traductions afin d'améliorer la maintenabilité.
-2. **Valider les traductions** : Assurez-vous que chaque variante linguistique dispose d'une traduction correspondante pour éviter les retours inutiles.
-3. **Combiner avec l'i18n frontend** : Synchronisez avec l'internationalisation frontend pour une expérience utilisateur fluide dans toute l'application.
-4. **Évaluer les performances** : Testez les temps de réponse de votre application lors de l'ajout de traductions pour garantir un impact minimal.
-
----
-
-## Conclusion
-
 La fonction `t` est un outil puissant pour l'internationalisation backend. En l'utilisant efficacement, vous pouvez créer une application plus inclusive et conviviale pour un public mondial. Pour une utilisation avancée et des options de configuration détaillées, référez-vous à la [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/configuration.md).

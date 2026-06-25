@@ -140,6 +140,28 @@ steps:
     run: npx intlayer ci fill
 ```
 
+## Scaffolded GitHub Actions
+
+`intlayer init`을 실행하면, Intlayer가 package manager(npm, yarn, pnpm, 또는 bun)를 감지하고 `.github/workflows/` 디렉토리 아래에 해당 package manager와 일치하는 명령어를 포함한 두 개의 GitHub Actions 워크플로우를 생성합니다:
+
+- **`intlayer-fill.yml`** — 모든 pull request에서 dictionaries를 빌드하고 `intlayer fill --git-diff --mode complete`을 실행하여 변경된 dictionaries에 대한 누락된 번역을 생성한 후, 결과를 PR 브랜치에 커밋합니다.
+- **`intlayer-test.yml`** — 모든 pull request에서 dictionaries를 빌드하고 `intlayer test`를 실행하여, 필수 locales에 번역이 누락된 경우 체크를 실패합니다.
+
+기존 워크플로우 파일은 절대 덮어씌워지지 않습니다. scaffolding을 완전히 건너뛰려면, 다음을 실행합니다:
+
+```bash
+npx intlayer init --no-github-actions
+```
+
+### fill 워크플로우에 AI 접근 제공
+
+스캐폴드된 `intlayer-fill.yml`은 AI 접근이 필요합니다. 두 가지 옵션을 사용할 수 있습니다(워크플로우의 `env` 블록에서 구성):
+
+1. **자신의 AI provider 키** — 리포지토리 설정(Settings → Secrets and variables → Actions)에서 `AI_API_KEY` secret을 추가합니다. 워크플로우는 `--provider`, `--model`, `--api-key`를 통해 이를 전달합니다.
+2. **Intlayer CMS 접근 키** — `INTLAYER_CLIENT_ID` 및 `INTLAYER_CLIENT_SECRET` secret을 추가하고 `intlayer.config` `editor` 섹션에 연결합니다. CMS 접근 키는 Intlayer backend을 통해 AI 접근을 제공합니다.
+
+`intlayer-test.yml` 워크플로우는 AI 접근이 필요하지 않습니다.
+
 ## 오류 처리
 
 - `INTLAYER_PROJECT_CREDENTIALS`가 설정되지 않은 경우, 명령어는 오류로 종료됩니다.

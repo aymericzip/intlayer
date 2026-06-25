@@ -33,6 +33,23 @@ La funzione `getMultilingualUrls` genera una mappatura di URL multilingue aggiun
 
 ---
 
+## Firma della funzione
+
+```typescript
+getMultilingualUrls(
+  url: string,                   // Obbligatorio
+  options?: {                    // Opzionale
+    locales?: Locales[];
+    defaultLocale?: Locales;
+    mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
+  }
+): StrictModeLocaleMap<string>
+```
+
+---
+
+## Parametri
+
 ## Parametri
 
 - `url: string`
@@ -54,6 +71,33 @@ La funzione `getMultilingualUrls` genera una mappatura di URL multilingue aggiun
   - **Tipo**: `boolean`
   - **Predefinito**: `prefixDefaultDefault`
 
+### Parametri Opzionali
+
+- `options?: object`
+  - **Description**: Oggetto di configurazione per il comportamento della localizzazione degli URL.
+  - **Type**: `object`
+  - **Required**: No (Opzionale)
+
+  - `options.locales?: Locales[]`
+    - **Description**: Array di locale supportate. Se non fornito, utilizza le locale configurate dalla configurazione del progetto.
+    - **Type**: `Locales[]`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md#middleware)
+
+  - `options.defaultLocale?: Locales`
+    - **Description**: La locale predefinita per l'applicazione. Se non fornito, utilizza la locale predefinita configurata dalla configurazione del progetto.
+    - **Type**: `Locales`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md#middleware)
+
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Description**: La modalità di routing degli URL per la gestione della locale. Se non fornito, utilizza la modalità configurata dalla configurazione del progetto.
+    - **Type**: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md#middleware)
+    - **Modes**:
+      - `prefix-no-default`: Nessun prefisso per la locale predefinita, prefisso per tutte le altre
+      - `prefix-all`: Prefisso per tutte le locale inclusa quella predefinita
+      - `no-prefix`: Nessun prefisso di locale nell'URL
+      - `search-params`: Utilizza parametri di query per la locale (es. `?locale=fr`)
+
 ### Ritorna
 
 - **Tipo**: `IConfigLocales<string>`
@@ -62,6 +106,20 @@ La funzione `getMultilingualUrls` genera una mappatura di URL multilingue aggiun
 ---
 
 ## Esempio di utilizzo
+
+### Utilizzo di base (Usa la configurazione del progetto)
+
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
+import { getMultilingualUrls, Locales } from "intlayer";
+
+// Usa la configurazione del progetto per locales, defaultLocale e mode
+getMultilingualUrls("/dashboard");
+// Output (supponendo che la configurazione del progetto abbia en, fr con mode 'prefix-no-default'):
+// {
+//   en: "/dashboard",
+//   fr: "/fr/dashboard"
+// }
+```
 
 ### URL relativi
 
@@ -92,6 +150,60 @@ getMultilingualUrls(
 // Output: {
 //   en: "https://example.com/en/dashboard",
 //   fr: "https://example.com/fr/dashboard"
+// }
+```
+
+---
+
+### Modalità di Routing Diverse
+
+```typescript
+// prefix-no-default: Nessun prefisso per la locale predefinita
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-no-default",
+});
+// Output: {
+//   en: "/dashboard",
+//   fr: "/fr/dashboard",
+//   es: "/es/dashboard"
+// }
+
+// prefix-all: Prefisso per tutte le locale
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-all",
+});
+// Output: {
+//   en: "/en/dashboard",
+//   fr: "/fr/dashboard",
+//   es: "/es/dashboard"
+// }
+
+// no-prefix: Nessun prefisso di locale negli URL
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "no-prefix",
+});
+// Output: {
+//   en: "/dashboard",
+//   fr: "/dashboard",
+//   es: "/dashboard"
+// }
+
+// search-params: Locale come parametro di query
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "search-params",
+});
+// Output: {
+//   en: "/dashboard?locale=en",
+//   fr: "/dashboard?locale=fr",
+//   es: "/dashboard?locale=es"
 // }
 ```
 

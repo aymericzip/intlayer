@@ -609,13 +609,6 @@ Schema JSON được sử dụng để xác thực cấu trúc của từ điể
 
 Chỉ ra liệu từ điển đã được tự động điền từ các nguồn bên ngoài hay chưa. Trong trường hợp có xung đột, các từ điển cơ sở sẽ ghi đè lên các từ điển được tự động điền.
 
-##### `location` ('distant' | 'locale')
-
-Chỉ ra vị trí của từ điển:
-
-- `'locale'`: Từ điển cục bộ (từ các tệp nội dung)
-- `'distant'`: Từ điển từ xa (từ nguồn bên ngoài)
-
 ## Các loại nút nội dung
 
 Intlayer cung cấp một số loại nút nội dung chuyên biệt mở rộng các giá trị nguyên thủy cơ bản:

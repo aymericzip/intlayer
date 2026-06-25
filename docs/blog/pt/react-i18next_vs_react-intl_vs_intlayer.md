@@ -137,6 +137,14 @@ Nós avaliamos:
 
 ---
 
+## Interoperabilidade com `react-intl` e `react-i18next`
+
+`intlayer` também pode ajudar a gerenciar seus namespaces `react-intl` e `react-i18next`.
+
+Usando `intlayer`, você pode declarar seu conteúdo no formato de sua biblioteca i18n favorita, e o intlayer gerará seus namespaces no local de sua escolha (exemplo: `/messages/{{locale}}/{{namespace}}.json`).
+
+---
+
 ## Notas práticas de migração (react-intl / react-i18next → Intlayer)
 
 - **Migre de forma incremental**: Comece com uma funcionalidade ou rota; mantenha os catálogos legados em paralelo durante a transição.

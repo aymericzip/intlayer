@@ -25,6 +25,45 @@ author: aymericzip
 
 En Intlayer, la anidación se logra a través de la función `nest`, que permite referenciar y reutilizar contenido de otro diccionario. En lugar de duplicar contenido, puedes apuntar a un módulo de contenido existente mediante su clave.
 
+## Configurar Anidamiento
+
+Para configurar anidamiento en tu proyecto de Intlayer, primero defines el contenido base que deseas reutilizar. Luego, en un módulo de contenido separado, utilizas la función `nest` para importar ese contenido.
+
+### Diccionario Base
+
+A continuación se muestra un ejemplo de un diccionario base para anidar en otro diccionario:
+
+```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { type Dictionary } from "intlayer";
+
+const firstDictionary = {
+  key: "key_of_my_first_dictionary",
+  content: {
+    content: "content",
+    subContent: {
+      contentNumber: 0,
+      contentString: "string",
+    },
+  },
+} satisfies Dictionary;
+
+export default firstDictionary;
+```
+
+```json fileName="firstDictionary.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "key_of_my_first_dictionary",
+  "content": {
+    "content": "content",
+    "subContent": {
+      "contentNumber": 0,
+      "contentString": "string"
+    }
+  }
+}
+```
+
 ## Configuración de la Anidación
 
 <Tabs group="framework">

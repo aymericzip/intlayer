@@ -47,6 +47,14 @@ Bu komut, içerik bildirim dosyalarınızı eksik çeviriler, yapısal tutarsız
 - Mevcut çevirileri üzerine yazmayarak korur.
 - Hızı artırmak için bir kuyruk sistemi kullanarak dosyaları, parçaları ve yerel ayarları paralel olarak işler.
 
+## Ana Noktalar:
+
+- Büyük JSON dosyalarını AI modelinin context window limitine uymak için parçalara böler.
+- Çıktı formatı yanlışsa çeviriye yeniden dener.
+- Çeviri doğruluğunu artırmak için uygulamaya ve dosyaya özgü context'i içerir.
+- Mevcut çevirileri korur ve bunların üzerine yazılmasını engeller.
+- Dosyaları, parçaları ve locale'leri bir kuyruk sistemi kullanarak paralel olarak işler hız artışı için.
+
 ## Takma İsimler:
 
 - `npx intlayer dictionaries fill`

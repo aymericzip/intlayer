@@ -146,6 +146,12 @@ author: aymericzip
 
 ---
 
+## نجوم GitHub
+
+نجوم GitHub هي مؤشر قوي على شعبية المشروع وثقة المجتمع وأهميته طويلة الأجل. على الرغم من أنها ليست مقياساً مباشراً للجودة التقنية، إلا أنها تعكس عدد المطورين الذين يجدون المشروع مفيداً ويتابعون تقدمه ويرجح أن يعتمدوه. لتقدير قيمة المشروع، تساعد النجوم في مقارنة الزخم عبر البدائل وتوفر رؤى حول نمو النظام البيئي.
+
+[![Star History Chart](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
+
 ## الخلاصة
 
 جميع المكتبات الثلاث تقوم بتوطين React بفعالية. الفارق هو مقدار **البنية التحتية** التي يجب عليك بناؤها للوصول إلى إعداد **آمن وقابل للتوسع**:

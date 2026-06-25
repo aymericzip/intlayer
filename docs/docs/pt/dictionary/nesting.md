@@ -25,6 +25,45 @@ author: aymericzip
 
 No Intlayer, o aninhamento é realizado através da função `nest`, que permite referenciar e reutilizar conteúdo de outro dicionário. Em vez de duplicar conteúdo, você pode apontar para um módulo de conteúdo existente usando sua chave.
 
+## Configurando Nesting
+
+Para configurar nesting no seu projeto Intlayer, você primeiro define o conteúdo base que deseja reutilizar. Depois, em um módulo de conteúdo separado, você usa a função `nest` para importar esse conteúdo.
+
+### Dicionário Base
+
+Abaixo está um exemplo de um dicionário base para aninhar em outro dicionário:
+
+```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { type Dictionary } from "intlayer";
+
+const firstDictionary = {
+  key: "key_of_my_first_dictionary",
+  content: {
+    content: "content",
+    subContent: {
+      contentNumber: 0,
+      contentString: "string",
+    },
+  },
+} satisfies Dictionary;
+
+export default firstDictionary;
+```
+
+```json fileName="firstDictionary.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "key_of_my_first_dictionary",
+  "content": {
+    "content": "content",
+    "subContent": {
+      "contentNumber": 0,
+      "contentString": "string"
+    }
+  }
+}
+```
+
 ## Configurando o Aninhamento
 
 <Tabs group="framework">

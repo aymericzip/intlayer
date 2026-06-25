@@ -33,6 +33,23 @@ author: aymericzip
 
 ---
 
+## 함수 서명
+
+```typescript
+getMultilingualUrls(
+  url: string,                   // 필수
+  options?: {                    // 선택사항
+    locales?: Locales[];
+    defaultLocale?: Locales;
+    mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
+  }
+): StrictModeLocaleMap<string>
+```
+
+---
+
+## 매개변수
+
 ## 매개변수
 
 - `url: string`
@@ -54,6 +71,33 @@ author: aymericzip
   - **타입**: `boolean`
   - **기본값**: `prefixDefaultDefault`
 
+### 선택적 매개변수
+
+- `options?: object`
+  - **Description**: URL 지역화 동작을 위한 구성 객체입니다.
+  - **Type**: `object`
+  - **Required**: No (선택사항)
+
+  - `options.locales?: Locales[]`
+    - **Description**: 지원되는 로케일의 배열입니다. 제공되지 않으면 프로젝트 구성에서 구성된 로케일을 사용합니다.
+    - **Type**: `Locales[]`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md#middleware)
+
+  - `options.defaultLocale?: Locales`
+    - **Description**: 애플리케이션의 기본 로케일입니다. 제공되지 않으면 프로젝트 구성에서 구성된 기본 로케일을 사용합니다.
+    - **Type**: `Locales`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md#middleware)
+
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Description**: 로케일 처리를 위한 URL 라우팅 모드입니다. 제공되지 않으면 프로젝트 구성에서 구성된 모드를 사용합니다.
+    - **Type**: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md#middleware)
+    - **Modes**:
+      - `prefix-no-default`: 기본 로케일의 경우 접두사 없음, 다른 로케일의 경우 접두사 포함
+      - `prefix-all`: 기본 로케일을 포함한 모든 로케일에 접두사 포함
+      - `no-prefix`: URL에 로케일 접두사 없음
+      - `search-params`: 로케일에 쿼리 매개변수 사용 (예: `?locale=fr`)
+
 ### 반환값
 
 - **타입**: `IConfigLocales<string>`
@@ -62,6 +106,20 @@ author: aymericzip
 ---
 
 ## 사용 예시
+
+### 기본 사용법 (프로젝트 구성 사용)
+
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
+import { getMultilingualUrls, Locales } from "intlayer";
+
+// 프로젝트의 구성에서 locales, defaultLocale, mode를 사용합니다
+getMultilingualUrls("/dashboard");
+// 출력 (프로젝트 구성에 en, fr이 있고 mode가 'prefix-no-default'인 경우):
+// {
+//   en: "/dashboard",
+//   fr: "/fr/dashboard"
+// }
+```
 
 ### 상대 URL
 
@@ -92,6 +150,60 @@ getMultilingualUrls(
 // 출력: {
 //   en: "https://example.com/en/dashboard",
 //   fr: "https://example.com/fr/dashboard"
+// }
+```
+
+---
+
+### 다양한 라우팅 모드
+
+```typescript
+// prefix-no-default: 기본 로케일에 대한 접두사 없음
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-no-default",
+});
+// 출력: {
+//   en: "/dashboard",
+//   fr: "/fr/dashboard",
+//   es: "/es/dashboard"
+// }
+
+// prefix-all: 모든 로케일에 접두사 추가
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-all",
+});
+// 출력: {
+//   en: "/en/dashboard",
+//   fr: "/fr/dashboard",
+//   es: "/es/dashboard"
+// }
+
+// no-prefix: URL에 로케일 접두사 없음
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "no-prefix",
+});
+// 출력: {
+//   en: "/dashboard",
+//   fr: "/dashboard",
+//   es: "/dashboard"
+// }
+
+// search-params: 쿼리 매개변수로 로케일 전달
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "search-params",
+});
+// 출력: {
+//   en: "/dashboard?locale=en",
+//   fr: "/dashboard?locale=fr",
+//   es: "/dashboard?locale=es"
 // }
 ```
 

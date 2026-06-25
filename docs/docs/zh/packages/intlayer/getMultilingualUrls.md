@@ -33,6 +33,23 @@ author: aymericzip
 
 ---
 
+## 函数签名
+
+```typescript
+getMultilingualUrls(
+  url: string,                   // 必需
+  options?: {                    // 可选
+    locales?: Locales[];
+    defaultLocale?: Locales;
+    mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
+  }
+): StrictModeLocaleMap<string>
+```
+
+---
+
+## 参数
+
 ## 参数
 
 - `url: string`
@@ -54,6 +71,33 @@ author: aymericzip
   - **类型**：`boolean`
   - **默认值**：`prefixDefaultDefault`
 
+### 可选参数
+
+- `options?: object`
+  - **Description**: URL 本地化行为的配置对象。
+  - **Type**: `object`
+  - **Required**: No (Optional)
+
+  - `options.locales?: Locales[]`
+    - **Description**: 支持的 locales 数组。如果未提供，将使用项目配置中的已配置 locales。
+    - **Type**: `Locales[]`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md#middleware)
+
+  - `options.defaultLocale?: Locales`
+    - **Description**: 应用程序的默认 locale。如果未提供，将使用项目配置中的已配置默认 locale。
+    - **Type**: `Locales`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md#middleware)
+
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Description**: 用于 locale 处理的 URL 路由模式。如果未提供，将使用项目配置中的已配置模式。
+    - **Type**: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md#middleware)
+    - **Modes**:
+      - `prefix-no-default`: 默认 locale 无前缀，其他 locale 有前缀
+      - `prefix-all`: 所有 locale（包括默认 locale）都有前缀
+      - `no-prefix`: URL 中无 locale 前缀
+      - `search-params`: 使用查询参数表示 locale（例如，`?locale=fr`）
+
 ### 返回值
 
 - **类型**：`IConfigLocales<string>`
@@ -62,6 +106,20 @@ author: aymericzip
 ---
 
 ## 示例用法
+
+### 基本用法（使用项目配置）
+
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
+import { getMultilingualUrls, Locales } from "intlayer";
+
+// 使用项目的配置来设置 locales、defaultLocale 和 mode
+getMultilingualUrls("/dashboard");
+// 输出（假设项目配置有 en、fr，mode 为 'prefix-no-default'）：
+// {
+//   en: "/dashboard",
+//   fr: "/fr/dashboard"
+// }
+```
 
 ### 相对 URL
 
@@ -92,6 +150,60 @@ getMultilingualUrls(
 // 输出: {
 //   en: "https://example.com/en/dashboard",
 //   fr: "https://example.com/fr/dashboard"
+// }
+```
+
+---
+
+### 不同的路由模式
+
+```typescript
+// prefix-no-default: 默认语言环境无前缀
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-no-default",
+});
+// Output: {
+//   en: "/dashboard",
+//   fr: "/fr/dashboard",
+//   es: "/es/dashboard"
+// }
+
+// prefix-all: 所有语言环境都有前缀
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-all",
+});
+// Output: {
+//   en: "/en/dashboard",
+//   fr: "/fr/dashboard",
+//   es: "/es/dashboard"
+// }
+
+// no-prefix: URL 中无语言环境前缀
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "no-prefix",
+});
+// Output: {
+//   en: "/dashboard",
+//   fr: "/dashboard",
+//   es: "/dashboard"
+// }
+
+// search-params: 语言环境作为查询参数
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "search-params",
+});
+// Output: {
+//   en: "/dashboard?locale=en",
+//   fr: "/dashboard?locale=fr",
+//   es: "/dashboard?locale=es"
 // }
 ```
 

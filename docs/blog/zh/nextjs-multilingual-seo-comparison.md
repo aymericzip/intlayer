@@ -178,36 +178,6 @@ export function abs(locale: string, path: string) {
 ```
 
 ```tsx fileName="src/app/[locale]/about/layout.tsx"
-    rules: { userAgent: "*", allow: ["/"], disallow },
-    host: origin,
-    sitemap: `${origin}/sitemap.xml`,
-  };
-}
-```
-
-### **next-i18next**
-
-  </Tab>
-  <Tab label="next-i18next">
-
-```ts fileName="i18n.config.ts"
-export const locales = ["en", "fr"] as const;
-export type Locale = (typeof locales)[number];
-export const defaultLocale: Locale = "en";
-
-/** 除非是默认语言，否则为路径添加语言前缀 */
-export function localizedPath(locale: string, path: string) {
-  return locale === defaultLocale ? path : `/${locale}${path}`;
-}
-
-/** 绝对 URL 辅助函数 */
-const ORIGIN = "https://example.com";
-export function abs(locale: string, path: string) {
-  return `${ORIGIN}${localizedPath(locale, path)}`;
-}
-```
-
-```tsx fileName="src/app/[locale]/about/layout.tsx"
 import type { Metadata } from "next";
 import { locales, defaultLocale, localizedPath } from "@/i18n.config";
 

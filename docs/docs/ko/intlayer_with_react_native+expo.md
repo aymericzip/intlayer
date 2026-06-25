@@ -58,87 +58,6 @@ author: aymericzip
 
 GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-react-native-template)을 참조하세요.
 
-## 대안보다 Intlayer를 선택해야 하는 이유는 무엇입니까?
-
-'react-native-localize' 또는 'i18next'와 같은 주요 솔루션과 비교할 때 Intlayer는 다음과 같은 통합 최적화가 제공되는 솔루션입니다.
-
-<AccordionGroup>
-
-<Accordion header="전체 React 네이티브 적용 범위">
-
-Intlayer는 **구성 요소 수준 콘텐츠 범위 지정**, **TypeScript 지원** 및 모바일 앱에서 국제화(i18n) 확장에 필요한 모든 기능을 제공하여 React Native 및 Expo와 완벽하게 작동하도록 최적화되었습니다.
-
-</Accordion>
-
-<Accordion header="유지관리성">
-
-애플리케이션 콘텐츠의 범위를 지정하면 대규모 애플리케이션의 **유지 관리가 용이해집니다**. 전체 콘텐츠 코드베이스를 검토해야 하는 정신적 부담 없이 단일 기능 폴더를 복제하거나 삭제할 수 있습니다. 또한 Intlayer는 **완전히 유형**되어 콘텐츠의 정확성을 보장합니다.
-
-</Accordion>
-
-<Accordion header="AI 에이전트">
-
-콘텐츠를 같은 위치에 배치하면 LLM(대형 언어 모델)에 **필요한 컨텍스트가 줄어듭니다**. Intlayer에는 누락된 번역을 테스트하기 위한 **CLI**, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)** 및 **[agent)와 같은 도구 모음도 함께 제공됩니다. 기술](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, AI 에이전트를 위한 개발자 경험(DX)을 더욱 원활하게 만듭니다.
-
-</Accordion>
-
-<Accordion header="오토메이션">
-
-AI 공급자의 비용으로 선택한 LLM을 사용하여 CI/CD 파이프라인을 번역하려면 자동화를 사용하세요. Intlayer는 또한 콘텐츠 추출을 자동화하는 **컴파일러**와 **백그라운드에서 번역**을 돕는 [웹 플랫폼](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)을 제공합니다.
-
-</Accordion>
-
-<Accordion header="성능">
-
-대규모 JSON 파일을 구성 요소에 연결하면 성능 및 반응성 문제가 발생할 수 있습니다. Intlayer는 빌드 시 콘텐츠 로딩을 최적화합니다.
-
-</Accordion>
-
-<Accordion header="개발자가 없는 경우 확장">
-
-Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는 **자체 호스팅 [비주얼 편집기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** 및 **[전체 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)**를 제공합니다. 다국어 콘텐츠를 **실시간**으로 제공하여 번역가, 카피라이터, 기타 팀원과 원활하게 협업할 수 있습니다. 콘텐츠는 로컬 및/또는 원격으로 저장될 수 있습니다.
-
-</Accordion>
-
-<Accordion header="번들 크기">
-
-대용량 JSON 파일을 페이지에 로드하는 대신 필요한 콘텐츠만 로드하세요. Intlayer는 **번들 및 보기 크기를 최대 50%** 줄이는 데 도움이 됩니다.
-
-</Accordion>
-</AccordionGroup>
-
-## 1단계: 종속성 설치
-
-GitHub의 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-react-native-template)을 참조하세요.
-
-React Native 프로젝트에서 다음 패키지를 설치하십시오.
-
-``bash packageManager="npm"
-npm 설치 내부층 반응 내부층
-npm install --save-dev 반응 네이티브-intlayer
-npx 내부층 초기화
-
-```
-
-``bash packageManager="pnpm"
-pnpm 내부층 추가 반응 내부층
-pnpm add --save-dev 반응 네이티브-인레이어
-pnpm 내부층 초기화
-```
-
-``bash packageManager="원사"
-원사 내부층 추가 반응 내부층
-원사 추가 --save-dev 반응 네이티브 내부층
-원사 내부층 초기화
-
-```
-
-``bash packageManager="bun"
-빵 내부 층 추가 반응 내부 층
-bun add --dev 반응 네이티브-인레이어
-롤빵 x 내부층 초기화
-```
-
 ### 패키지
 
 - **중층**  
@@ -195,136 +114,6 @@ yarn add --save-dev react-native-intlayer
 bun add intlayer react-intlayer
 bun add --dev react-native-intlayer
 ```
-
-### 패키지
-
-- **intlayer**  
-  구성, 사전 내용, 타입 생성 및 CLI 명령어를 위한 핵심 i18n 툴킷입니다.
-
-- **react-intlayer**  
-  React Native에서 로케일을 얻고 전환하는 데 사용할 컨텍스트 제공자와 React 훅을 제공하는 React 통합 패키지입니다.
-
-- **react-native-intlayer**  
-  Intlayer를 React Native 번들러와 통합하기 위한 Metro 플러그인을 제공하는 React Native 통합 패키지입니다.
-
----
-
-## 2단계: Intlayer 구성 파일 생성
-
-프로젝트 루트(또는 편리한 위치)에 **Intlayer 구성** 파일을 생성하세요. 다음과 같이 보일 수 있습니다:
-
-```ts fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
-/**
- * Locales 타입을 사용할 수 없는 경우, tsconfig.json에서 moduleResolution을 "bundler"로 설정해 보세요.
- */
-import { Locales, type IntlayerConfig } from "intlayer";
-
-const config: IntlayerConfig = {
-  internationalization: {
-    locales: [
-      Locales.ENGLISH,
-      Locales.FRENCH,
-      Locales.SPANISH,
-      // ... 필요한 다른 로케일을 추가하세요
-    ],
-    defaultLocale: Locales.ENGLISH,
-  },
-};
-
-export default config;
-```
-
-이 구성 내에서 다음을 할 수 있습니다:
-
-- 지원하는 **로케일 목록**을 구성합니다.
-- **기본** 로케일을 설정합니다.
-- 나중에 더 고급 옵션(예: 로그, 사용자 지정 콘텐츠 디렉터리 등)을 추가할 수 있습니다.
-  /// 더 자세한 내용은 [Intlayer 구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
-
-## 3단계: Metro 플러그인 추가
-
-Metro는 React Native용 번들러입니다. `react-native init` 명령어로 생성된 React Native 프로젝트의 기본 번들러입니다. Metro와 함께 Intlayer를 사용하려면 `metro.config.js` 파일에 플러그인을 추가해야 합니다:
-
-```js fileName="metro.config.js"
-const { getDefaultConfig } = require("expo/metro-config");
-const { configMetroIntlayer } = require("react-native-intlayer/metro");
-
-module.exports = (async () => {
-  const defaultConfig = getDefaultConfig(__dirname);
-
-  return await configMetroIntlayer(defaultConfig);
-})();
-```
-
-## 4단계: Intlayer 프로바이더 추가
-
-애플리케이션 전체에서 사용자 언어를 동기화하려면 루트 컴포넌트를 `react-intlayer-native`의 `IntlayerProvider` 컴포넌트로 감싸야 합니다.
-
-> `react-intlayer` 대신 `react-native-intlayer`의 프로바이더를 사용해야 합니다. `react-native-intlayer`의 내보내기에는 웹 API용 폴리필이 포함되어 있습니다.
-
-````tsx fileName="app/_layout.tsx" codeFormat={["typescript", "esm"]}
-import { Stack } from "expo-router";
-import { getLocales } from "expo-localization";
-import { IntlayerProvider } from "react-native-intlayer";
-import { type FC } from "react";
-
-
-const getDeviceLocale = () => getLocales()[0]?.languageTag;
-
-const RootLayout: FC = () => {
-  return (
-    <IntlayerProvider defaultLocale={getDeviceLocale()}>
-      <Stack>
-`IntlayerProvider` 컴포넌트를 `react-intlayer`에서 가져와서 루트 컴포넌트를 감싸야 애플리케이션 전반에 걸쳐 사용자 언어를 동기화할 수 있습니다.
-
-또한, `index.js` 파일에 `intlayerPolyfill` 함수를 추가하여 Intlayer가 제대로 작동하도록 해야 합니다.
-
-```tsx fileName="app/_layout.tsx" codeFormat="typescript"
-import { Stack } from "expo-router";
-import { getLocales } from "expo-localization";
-import { IntlayerProvider } from "react-native-intlayer";
-import { type FC } from "react";
-
-
-const getDeviceLocale = () => getLocales()[0]?.languageTag;
-
-const RootLayout: FC = () => {
-  return (
-    <IntlayerProvider defaultLocale={getDeviceLocale()}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
-    </IntlayerProvider>
-  );
-};
-
-export default RootLayout;
-````
-
-## 5단계: 콘텐츠 선언하기
-
-````
-
-```jsx fileName="app/_layout.cjx" codeFormat="commonjs"
-const { Stack } = require("expo-router");
-const { getLocales } = require("expo-localization");
-const { IntlayerProvider } = require("react-native-intlayer");
-
-
-const getDeviceLocale = () => getLocales()[0]?.languageTag;
-
-const RootLayout = () => {
-  return (
-    <IntlayerProvider defaultLocale={getDeviceLocale()}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
-    </IntlayerProvider>
-  );
-};
-
-module.exports = RootLayout;
-````
 
 ## 5단계: 콘텐츠 선언하기
 
@@ -384,57 +173,6 @@ export default homeScreenContent;
 ```
 
 > 콘텐츠 선언에 대한 자세한 내용은 [Intlayer 콘텐츠 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
-
----
-
-## 4단계: 컴포넌트에서 Intlayer 사용하기
-
-하위 컴포넌트에서 `useIntlayer` 훅을 사용하여 현지화된 콘텐츠를 가져옵니다.
-
-### 예제
-
-```tsx fileName="app/(tabs)/index.tsx" codeFormat={["typescript", "esm"]}
-import { Image, StyleSheet, Platform } from "react-native";
-import { useIntlayer } from "react-intlayer";
-import { HelloWave } from "@/components/HelloWave";
-import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
-import { type FC } from "react";
-
-const HomeScreen = (): FC => {
-  const { title, steps } = useIntlayer("home-screen");
-
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
-      headerImage={
-        <Image
-          source={require("@/assets/images/partial-react-logo.png")}
-          style={styles.reactLogo}
-        />
-      }
-    >
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">{title}</ThemedText>
-        <HelloWave />
-      </ThemedView>
-    </ParallaxScrollView>
-  );
-};
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: "row", // 행 방향 배치
-    alignItems: "center", // 중앙 정렬
-    gap: 8, // 요소 간 간격
-  },
-});
-
-export default HomeScreen;
-```
-
-> 문자열 기반 props(예: 버튼의 `title` 또는 `Text` 컴포넌트의 `children`)에서 `content.someKey`를 사용할 때는, 실제 문자열을 얻기 위해 **`content.someKey.value`를 호출하세요**.
 
 ---
 
@@ -549,5 +287,33 @@ Intlayer와 함께 개발 경험을 향상시키기 위해 공식 **Intlayer VS 
 - **CLI 명령어**: 번역 추출이나 누락된 키 확인과 같은 작업을 위해 [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/index.md)를 탐색해 보세요.
 
 **Intlayer**를 통해 완벽하게 지원되는 i18n으로 **React Native** 앱을 즐겁게 개발하세요!
+
+---
+
+### Debug
+
+React Native은 React Web보다 덜 안정적일 수 있으므로 버전 정렬에 각별히 주의하십시오.
+
+Intlayer는 주로 Web Intl API를 대상으로 하며, React Native에서는 적절한 polyfill을 포함해야 합니다.
+
+체크리스트:
+
+- `intlayer`, `react-intlayer`, `react-native-intlayer`의 최신 버전을 사용하세요.
+- Intlayer polyfill을 활성화하세요.
+- `getLocaleName` 또는 다른 Intl-API 기반 유틸리티를 사용하는 경우, 이러한 polyfill을 먼저 import하세요 (예: `index.js` 또는 `App.tsx`):
+
+```ts
+import "intl";
+import "@formatjs/intl-getcanonicallocales/polyfill";
+import "@formatjs/intl-locale/polyfill";
+import "@formatjs/intl-pluralrules/polyfill";
+import "@formatjs/intl-displaynames/polyfill";
+import "@formatjs/intl-listformat/polyfill";
+import "@formatjs/intl-numberformat/polyfill";
+import "@formatjs/intl-relativetimeformat/polyfill";
+import "@formatjs/intl-datetimeformat/polyfill";
+```
+
+- 모듈을 확인할 수 없으면 Metro 구성(resolver aliases, asset plugins, `tsconfig` paths)을 확인하세요.
 
 ---

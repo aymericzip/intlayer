@@ -578,6 +578,10 @@ Schéma JSON utilisé pour la validation de la structure du dictionnaire. Ajout�
 
 Pour les dictionnaires distants, il s'agit de l'identifiant unique du dictionnaire sur le serveur distant. Utilisé pour récupérer et gérer le contenu distant.
 
+##### `projectIds` (string[])
+
+Pour les dictionnaires distants, ce tableau contient les IDs des projets qui peuvent utiliser ce dictionnaire. Un dictionnaire distant peut être partagé entre plusieurs projets.
+
 ##### `localId` (LocalDictionaryId)
 
 Identifiant unique pour les dictionnaires locaux. Généré automatiquement par Intlayer pour aider à identifier le dictionnaire et déterminer s'il est local ou distant, ainsi que sa localisation.

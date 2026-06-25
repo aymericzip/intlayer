@@ -34,6 +34,10 @@ author: aymericzip
 
 <iframe title="Intlayerを使ってi18nextのJSON翻訳を自動化する方法" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
+## 目次
+
+<TOC/>
+
 ## Intlayerとは何ですか？
 
 **Intlayer**は、従来のi18nソリューションの欠点を解決するために設計された革新的なオープンソースの国際化ライブラリです。JavaScriptアプリケーションにおけるコンテンツ管理に対して、モダンなアプローチを提供します。

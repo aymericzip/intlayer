@@ -109,7 +109,3 @@ const MyComponent: FC = () => {
 
 export default MyComponent;
 ```
-
-## Doc History
-
-- 5.5.10 - 29 June 2025: Init history

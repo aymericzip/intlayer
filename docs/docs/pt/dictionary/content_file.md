@@ -579,6 +579,10 @@ Esquema JSON usado para validação da estrutura do dicionário. Adicionado auto
 
 Para dicionários remotos, este é o identificador único do dicionário no servidor remoto. Usado para buscar e gerenciar conteúdo remoto.
 
+##### `projectIds` (string[])
+
+Para dicionários remotos, este array contém os IDs dos projetos que podem usar este dicionário. Um dicionário remoto pode ser compartilhado entre vários projetos.
+
 ##### `localId` (LocalDictionaryId)
 
 Identificador único para dicionários locais. Gerado automaticamente pelo Intlayer para ajudar a identificar o dicionário e determinar se é local ou remoto, junto com sua localização.
@@ -598,13 +602,6 @@ Para dicionários remotos, este array contém todas as versões disponíveis do 
 ##### `autoFilled` (true)
 
 Indica se o dicionário foi preenchido automaticamente a partir de fontes externas. Em caso de conflitos, os dicionários base substituirão os dicionários preenchidos automaticamente.
-
-##### `location` ('distant' | 'locale')
-
-Indica a localização do dicionário:
-
-- `'locale'`: Dicionário local (a partir dos arquivos de conteúdo)
-- `'distant'`: Dicionário remoto (a partir de fonte externa)
 
 ## Tipos de Nós de Conteúdo
 

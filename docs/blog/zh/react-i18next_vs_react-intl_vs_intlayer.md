@@ -148,6 +148,12 @@ author: aymericzip
 
 ---
 
+## GitHub STARs
+
+GitHub stars 是项目受欢迎程度、社区信任度和长期相关性的强有力指标。虽然不是技术质量的直接衡量标准，但它们反映了有多少开发者认为该项目有用、关注其进展，以及可能会采用它。对于评估项目价值，stars 有助于比较不同替代方案的吸引力，并提供对生态系统增长的洞察。
+
+[![Star History Chart](https://api.star-history.com/chart?repos=formatjs/formatjs%2Ci18next/react-i18next%2Caymericzip/intlayer&type=date&legend=top-left)](https://www.star-history.com/#formatjs/formatjs&i18next/react-i18next&aymericzip/intlayer)
+
 ## 结论
 
 所有三个库都能有效地实现 React 的本地化。区别在于你需要构建多少**基础设施**，才能达到一个**安全、可扩展**的环境：

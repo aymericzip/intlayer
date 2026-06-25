@@ -29,49 +29,6 @@ author: aymericzip
 
 Questa sezione fornisce una guida dettagliata sull'uso dell'hook `useIntlayer` all'interno delle applicazioni React, permettendo una localizzazione efficiente dei contenuti.
 
-## Importare `useIntlayer` in React
-
-L'hook `useIntlayer` può essere integrato nelle applicazioni React importandolo in base al contesto:
-
-- **Componente Client:**
-
-  ```typescript codeFormat="typescript"
-  import { useIntlayer } from "react-intlayer"; // Usato nei componenti React lato client
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer"; // Usato nei componenti React lato client
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer"); // Usato nei componenti React lato client
-  ```
-
-- **Componente Server:**
-
-  ```typescript codeFormat="commonjs"
-  import { useIntlayer } from "react-intlayer/server"; // Usato nei componenti React lato server
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer/server"; // Usato nei componenti React lato server
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer/server"); // Usato nei componenti React lato server
-  ```
-
-## Parametri
-
-L'hook accetta due parametri:
-
-1. **`key`**: La chiave del dizionario per recuperare il contenuto localizzato.
-2. **`locale`** (opzionale): La localizzazione desiderata. Di default è la localizzazione del contesto se non specificata.
-
-## Dizionario
-
-Tutte le chiavi del dizionario devono essere dichiarate all'interno dei file di dichiarazione dei contenuti per migliorare la sicurezza dei tipi ed evitare errori. Puoi trovare le [istruzioni di configurazione qui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_file.md).
-
 ## Esempio di utilizzo in React
 
 Dimostrazione dell'hook `useIntlayer` all'interno di un componente React:
@@ -133,20 +90,6 @@ const ServerComponentExample = () => {
   );
 };
 ```
-
-## Gestione degli attributi
-
-Quando si localizzano gli attributi, accedere ai valori del contenuto in modo appropriato:
-
-```jsx
-<button title={content.buttonTitle.value}>{content.buttonText}</button>
-```
-
-## Risorse aggiuntive
-
-- **Editor Visivo Intlayer**: Per un'esperienza di gestione dei contenuti più intuitiva, fare riferimento alla documentazione dell'editor visivo [qui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/intlayer_visual_editor.md).
-
-Questa sezione si rivolge specificamente all'integrazione del hook `useIntlayer` nelle applicazioni React, semplificando il processo di localizzazione e garantendo la coerenza dei contenuti tra le diverse località.
 
 ## Risorse Aggiuntive
 

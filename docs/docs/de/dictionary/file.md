@@ -255,6 +255,14 @@ export default myMultilingualContent;
 
 Diese Einrichtung ermöglicht es, den Inhalt dynamisch basierend auf der Sprachpräferenz des Benutzers abzurufen. Wenn sie im Intlayer Visual Editor oder CMS verwendet wird, erkennt das System, dass der Inhalt aus den angegebenen Markdown-Dateien stammt und stellt sicher, dass diese weiterhin bearbeitbar bleiben.
 
+## Verschiedene Arten von Pfaden
+
+Bei Verwendung der `file`-Funktion können Sie verschiedene Arten von Pfaden verwenden, um die einzubettende Datei anzugeben.
+
+- `file("./path/to/file.txt")` - Relativer Pfad zur aktuellen Datei
+- `file("path/to/file.txt")` - Relativer Pfad zum Projektroot-Verzeichnis
+- `file("/users/username/path/to/file.txt")` - Absoluter Pfad
+
 ## Wie Intlayer mit Datei-Inhalten umgeht
 
 Die `file`-Funktion basiert auf dem `fs`-Modul von Node.js, um den Inhalt der angegebenen Datei zu lesen und in das Wörterbuch einzufügen. Wenn sie in Verbindung mit dem Intlayer Visual Editor oder CMS verwendet wird, kann Intlayer die Beziehung zwischen dem Wörterbuch und der Datei verfolgen. Dies ermöglicht Intlayer:

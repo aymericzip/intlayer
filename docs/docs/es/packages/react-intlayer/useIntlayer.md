@@ -29,49 +29,6 @@ author: aymericzip
 
 Esta sección proporciona una guía detallada sobre cómo usar el hook `useIntlayer` dentro de aplicaciones React, permitiendo una localización eficiente del contenido.
 
-## Importando `useIntlayer` en React
-
-El hook `useIntlayer` puede integrarse en aplicaciones React importándolo según el contexto:
-
-- **Componente Cliente:**
-
-  ```typescript codeFormat="typescript"
-  import { useIntlayer } from "react-intlayer"; // Usado en componentes React del lado del cliente
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer"; // Usado en componentes React del lado del cliente
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer"); // Usado en componentes React del lado del cliente
-  ```
-
-- **Componente Servidor:**
-
-  ```typescript codeFormat="commonjs"
-  import { useIntlayer } from "react-intlayer/server"; // Usado en componentes React del lado del servidor
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer/server"; // Usado en componentes React del lado del servidor
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer/server"); // Usado en componentes React del lado del servidor
-  ```
-
-## Parámetros
-
-El hook acepta dos parámetros:
-
-1. **`key`**: La clave del diccionario para obtener contenido localizado.
-2. **`locale`** (opcional): La configuración regional deseada. Por defecto, usa la configuración regional del contexto si no se especifica.
-
-## Diccionario
-
-Todas las claves del diccionario deben declararse dentro de archivos de declaración de contenido para mejorar la seguridad de tipos y evitar errores. Puedes encontrar las [instrucciones de configuración aquí](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/content_file.md).
-
 ## Ejemplo de uso en React
 
 Demostración del hook `useIntlayer` dentro de un componente React:
@@ -130,14 +87,6 @@ const ServerComponentExample = () => {
     </div>
   );
 };
-```
-
-## Manejo de Atributos
-
-Al localizar atributos, accede a los valores del contenido de manera adecuada:
-
-```jsx
-<button title={content.buttonTitle.value}>{content.buttonText}</button>
 ```
 
 ## Recursos Adicionales

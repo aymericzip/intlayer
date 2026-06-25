@@ -52,7 +52,3 @@ console.log(getPathWithoutLocale("/en/dashboard")); // الناتج: "/dashboard
 console.log(getPathWithoutLocale("/fr/dashboard")); // الناتج: "/dashboard"
 console.log(getPathWithoutLocale("https://example.com/en/dashboard")); // الناتج: "https://example.com/dashboard"
 ```
-
-## تاريخ التوثيق
-
-- 5.5.10 - 2025-06-29: بداية السجل

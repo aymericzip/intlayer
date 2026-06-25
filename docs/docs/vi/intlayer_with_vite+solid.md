@@ -632,47 +632,6 @@ bun run build # Or bun run dev
 
 </Steps>
 
-### Cấu hình TypeScript
-
-Đảm bảo cấu hình TypeScript của bạn bao gồm các kiểu được tự động tạo.
-
-```json5 fileName="tsconfig.json"
-{
-  "compilerOptions": {
-    // ...
-  },
-  "include": ["src", ".intlayer/**/*.ts"],
-}
-```
-
-### Cấu hình Git
-
-Khuyến nghị bỏ qua các file được tạo bởi Intlayer. Điều này giúp bạn tránh việc commit chúng vào kho Git của bạn.
-
-Để làm điều này, bạn có thể thêm các hướng dẫn sau vào file `.gitignore` của bạn:
-
-```bash
-#  Bỏ qua các file được tạo bởi Intlayer
-.intlayer
-```
-
-### Tiện ích mở rộng VS Code
-
-Để cải thiện trải nghiệm phát triển với Intlayer, bạn có thể cài đặt **Tiện ích mở rộng Intlayer cho VS Code** chính thức.
-
-[Cài đặt từ VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
-
-Tiện ích mở rộng này cung cấp:
-
-- **Tự động hoàn thành** cho các khóa dịch.
-- **Phát hiện lỗi thời gian thực** cho các bản dịch bị thiếu.
-- **Xem trước nội dung dịch ngay trong dòng**.
-- **Các hành động nhanh** để dễ dàng tạo và cập nhật bản dịch.
-
-Để biết thêm chi tiết về cách sử dụng tiện ích mở rộng, hãy tham khảo [tài liệu Tiện ích mở rộng Intlayer cho VS Code](https://intlayer.org/doc/vs-code-extension).
-
----
-
 ### (Tuỳ chọn) Sitemap và robots.txt (sinh lúc build)
 
 Intlayer cung cấp `generateSitemap` và `getMultilingualUrls` để định dạng `sitemap.xml` đa ngôn ngữ và `robots.txt` cho crawler rồi tự ghi vào `public/`. Thường chạy một script Node nhỏ **trước** Vite (ví dụ hook npm `predev` / `prebuild`).
@@ -746,6 +705,38 @@ Cần cài `intlayer` để script import. Môi trường production đặt `SIT
 ```
 
 Chỉnh lệnh nếu dùng pnpm hoặc yarn. Có thể gọi từ CI hoặc bước pipeline khác.
+
+### Cấu hình TypeScript
+
+Đảm bảo cấu hình TypeScript của bạn bao gồm các kiểu được tự động tạo.
+
+```json5 fileName="tsconfig.json"
+{
+  "compilerOptions": {
+    // ...
+  },
+  "include": ["src", ".intlayer/**/*.ts"],
+}
+```
+
+### Cấu hình Git
+
+Nên bỏ qua các tệp được tạo bởi Intlayer. Điều này cho phép bạn tránh commit chúng vào kho Git của mình.
+
+Để thực hiện điều này, bạn có thể thêm các hướng dẫn sau vào tệp `.gitignore` của mình:
+
+```bash
+# Bỏ qua các tệp được tạo bởi Intlayer
+.intlayer
+```
+
+### VS Code Extension
+
+Để cải thiện trải nghiệm phát triển của bạn với Intlayer, bạn có thể cài đặt **Intlayer VS Code Extension** chính thức.
+
+[Cài đặt từ VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+
+---
 
 ### Tiến xa hơn
 

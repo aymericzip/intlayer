@@ -140,6 +140,28 @@ steps:
     run: npx intlayer ci fill
 ```
 
+## 脚手架 GitHub Actions
+
+当你运行 `intlayer init` 时，Intlayer 会检测你的包管理器（npm、yarn、pnpm 或 bun），并在 `.github/workflows/` 下脚手架生成两个 GitHub Actions 工作流，命令与该包管理器相匹配：
+
+- **`intlayer-fill.yml`** — 在每个 pull request 上，构建字典并运行 `intlayer fill --git-diff --mode complete` 来为更改的字典生成缺失的翻译，然后将结果提交回 PR 分支。
+- **`intlayer-test.yml`** — 在每个 pull request 上，构建字典并运行 `intlayer test`，当必需的语言环境缺少翻译时，检查失败。
+
+现有的工作流文件永远不会被覆盖。要完全跳过脚手架，运行：
+
+```bash
+npx intlayer init --no-github-actions
+```
+
+### 为 fill workflow 提供 AI 访问权限
+
+生成的 `intlayer-fill.yml` 需要 AI 访问权限。有两个选项可用（在 workflow 的 `env` 块中配置）：
+
+1. **您自己的 AI 提供商密钥** — 在您的存储库设置中添加 `AI_API_KEY` 密钥（Settings → Secrets and variables → Actions）。workflow 通过 `--provider`、`--model` 和 `--api-key` 转发它。
+2. **Intlayer CMS 访问密钥** — 添加 `INTLAYER_CLIENT_ID` 和 `INTLAYER_CLIENT_SECRET` 密钥，并将它们连接到您的 `intlayer.config` `editor` 部分。CMS 访问密钥通过 Intlayer 后端授予 AI 访问权限。
+
+`intlayer-test.yml` workflow 不需要任何 AI 访问权限。
+
 ## 错误处理
 
 - 如果未设置 `INTLAYER_PROJECT_CREDENTIALS`，命令将以错误退出。

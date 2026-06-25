@@ -40,6 +40,12 @@ Intlayer CMS एक एप्लिकेशन है जो आपको Intla
 
 ![Intlayer CMS इंटरफ़ेस](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
 
+## विषय सूची
+
+<TOC/>
+
+---
+
 ## दूरस्थ शब्दकोश को समझना
 
 Intlayer 'स्थानीय' (local) और 'दूरस्थ' (distant) शब्दकोश के बीच अंतर करता है।

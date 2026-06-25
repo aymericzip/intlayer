@@ -114,10 +114,6 @@ Um Einfügeinhalt in Ihrem Intlayer-Projekt einzurichten, erstellen Sie ein Inha
 }
 ```
 
-## Verwendung von Insertion Content mit React Intlayer
-
-markdown
-
 ## Verwendung von Einfügeinhalten mit React Intlayer
 
 Um Einfügeinhalte innerhalb einer React-Komponente zu verwenden, importieren Sie den `useIntlayer`-Hook aus dem `react-intlayer`-Paket und verwenden ihn. Dieser Hook ruft den Inhalt für den angegebenen Schlüssel ab und ermöglicht es Ihnen, ein Objekt zu übergeben, das jeden Platzhalter in Ihrem Inhalt auf den Wert abbildet, den Sie anzeigen möchten.

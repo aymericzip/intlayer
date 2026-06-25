@@ -256,6 +256,17 @@ bun run build # Or bun run dev
 
 </Steps>
 
+### Git Configuration
+
+Intlayerによって生成されたファイルを無視することをお勧めします。
+
+```plaintext fileName=".gitignore"
+# Intlayerによって生成されたファイルを無視する
+.intlayer
+```
+
+---
+
 ### さらに進む
 
 - **ビジュアルエディター**: UIから直接翻訳を編集するために、[Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/intlayer_visual_editor.md)を統合します。

@@ -133,34 +133,6 @@ const ServerComponentExample = () => {
 };
 ```
 
-## Xử lý thuộc tính
-
-Khi bản địa hóa các thuộc tính, truy cập giá trị dịch một cách thích hợp:
-
-```html
-<!-- Đối với các thuộc tính hỗ trợ truy cập (ví dụ: aria-label), sử dụng .value vì cần chuỗi thuần túy -->
-<button aria-label={t("button.ariaLabel").value}>{t("button.text")}</button>
-```
-
-## Tài nguyên bổ sung
-
-- **Trình chỉnh sửa trực quan Intlayer**: Để có trải nghiệm quản lý nội dung trực quan hơn, tham khảo tài liệu trình chỉnh sửa trực quan [tại đây](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/intlayer_visual_editor.md).
-
-```tsx
-const { useI18n } = require("react-intlayer/server");
-
-const ServerComponentExample = () => {
-  const t = useI18n("server-component");
-
-  return (
-    <div>
-      <h1>{t("title")}</h1>
-      <p>{t("description")}</p>
-    </div>
-  );
-};
-```
-
 ## Xử lý Thuộc tính
 
 Khi bản địa hóa các thuộc tính, truy cập giá trị dịch một cách thích hợp:

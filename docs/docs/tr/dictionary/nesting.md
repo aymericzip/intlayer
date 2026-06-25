@@ -29,6 +29,45 @@ author: aymericzip
 
 Intlayer'da iç içe yerleştirme, `nest` fonksiyonu aracılığıyla gerçekleştirilir ve başka bir sözlükten içeriği referans almanıza ve yeniden kullanmanıza olanak sağlar. İçeriği çoğaltmak yerine, mevcut bir içerik modülünü anahtarına göre işaret edebilirsiniz.
 
+## İç İçe Geçirmeyi Kurma
+
+Intlayer projenizde iç içe geçirmeyi kurmak için, önce yeniden kullanmak istediğiniz temel içeriği tanımlarsınız. Daha sonra, ayrı bir içerik modülünde, o içeriği içe aktarmak için `nest` fonksiyonunu kullanırsınız.
+
+### Temel Sözlük
+
+Aşağıda, başka bir sözlüğe yerleştirilecek bir temel sözlüğün bir örneği verilmiştir:
+
+```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { type Dictionary } from "intlayer";
+
+const firstDictionary = {
+  key: "key_of_my_first_dictionary",
+  content: {
+    content: "content",
+    subContent: {
+      contentNumber: 0,
+      contentString: "string",
+    },
+  },
+} satisfies Dictionary;
+
+export default firstDictionary;
+```
+
+```json fileName="firstDictionary.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "key_of_my_first_dictionary",
+  "content": {
+    "content": "content",
+    "subContent": {
+      "contentNumber": 0,
+      "contentString": "string"
+    }
+  }
+}
+```
+
 ## İç İçe Yerleştirmeyi Ayarlama
 
 <Tabs group="framework">

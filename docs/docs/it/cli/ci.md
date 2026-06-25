@@ -140,6 +140,28 @@ steps:
     run: npx intlayer ci fill
 ```
 
+## GitHub Actions scaffoldati
+
+Quando esegui `intlayer init`, Intlayer rileva il tuo package manager (npm, yarn, pnpm, o bun) e scaffolda due workflow GitHub Actions in `.github/workflows/`, con comandi che corrispondono a quel package manager:
+
+- **`intlayer-fill.yml`** — Su ogni pull request, costruisce i dizionari ed esegue `intlayer fill --git-diff --mode complete` per generare le traduzioni mancanti per i dizionari modificati, quindi esegue il commit del risultato nel branch della PR.
+- **`intlayer-test.yml`** — Su ogni pull request, costruisce i dizionari ed esegue `intlayer test`, fallendo il check quando le locale richieste hanno traduzioni mancanti.
+
+I file di workflow esistenti non vengono mai sovrascritti. Per saltare completamente lo scaffolding, esegui:
+
+```bash
+npx intlayer init --no-github-actions
+```
+
+### Fornire accesso AI al workflow di fill
+
+Il file `intlayer-fill.yml` scaffoldato richiede accesso AI. Sono disponibili due opzioni (configurate nel blocco `env` del workflow):
+
+1. **La tua chiave di provider AI** — Aggiungi un secret `AI_API_KEY` nelle impostazioni del repository (Settings → Secrets and variables → Actions). Il workflow la inoltra tramite `--provider`, `--model`, e `--api-key`.
+2. **Chiavi di accesso Intlayer CMS** — Aggiungi i secret `INTLAYER_CLIENT_ID` e `INTLAYER_CLIENT_SECRET` e collegali alla sezione `editor` del tuo `intlayer.config`. Le chiavi di accesso CMS concedono accesso AI tramite il backend di Intlayer.
+
+Il workflow `intlayer-test.yml` non richiede alcun accesso AI.
+
 ## Gestione degli errori
 
 - Se `INTLAYER_PROJECT_CREDENTIALS` non è impostata, il comando terminerà con un errore.

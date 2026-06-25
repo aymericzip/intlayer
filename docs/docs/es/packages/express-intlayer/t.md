@@ -269,15 +269,6 @@ app.get("/morning", (_req, res) => {
 
 ---
 
-## Consejos para un Uso Efectivo
-
-1. **Centralizar las Traducciones**: Utilice un módulo centralizado o archivos JSON para gestionar las traducciones y mejorar el mantenimiento.
-2. **Validar las Traducciones**: Asegúrese de que cada variante de idioma tenga una traducción correspondiente para evitar retrocesos innecesarios.
-3. **Combinar con i18n en el Frontend**: Sincronice con la internacionalización del frontend para una experiencia de usuario fluida en toda la aplicación.
-4. **Medir el Rendimiento**: Pruebe los tiempos de respuesta de su aplicación al agregar traducciones para asegurar un impacto mínimo.
-
----
-
 ## Conclusión
 
 1. **Centralizar las traducciones**: Utilice un módulo centralizado o archivos JSON para gestionar las traducciones y mejorar el mantenimiento.

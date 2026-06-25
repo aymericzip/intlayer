@@ -31,6 +31,45 @@ W Intlayer zagnieżdżanie realizowane jest za pomocą funkcji `nest`, która po
 
 ## Konfiguracja zagnieżdżania
 
+Aby skonfigurować zagnieżdżanie w projekcie Intlayer, najpierw definiujesz zawartość bazową, którą chcesz ponownie wykorzystać. Następnie w osobnym module zawartości używasz funkcji `nest` do importu tej zawartości.
+
+### Słownik podstawowy
+
+Poniżej znajduje się przykład słownika podstawowego do zagnieżdżenia w innym słowniku:
+
+```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { type Dictionary } from "intlayer";
+
+const firstDictionary = {
+  key: "key_of_my_first_dictionary",
+  content: {
+    content: "content",
+    subContent: {
+      contentNumber: 0,
+      contentString: "string",
+    },
+  },
+} satisfies Dictionary;
+
+export default firstDictionary;
+```
+
+```json fileName="firstDictionary.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "key_of_my_first_dictionary",
+  "content": {
+    "content": "content",
+    "subContent": {
+      "contentNumber": 0,
+      "contentString": "string"
+    }
+  }
+}
+```
+
+## Konfiguracja zagnieżdżania
+
 <Tabs group="framework">
   <Tab label="React" value="react">
 

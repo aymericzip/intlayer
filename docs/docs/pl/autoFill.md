@@ -35,6 +35,26 @@ author: aymericzip
 
 **Pliki deklaracji autouzupełniania** w Twoim CI to sposób na przyspieszenie procesu tworzenia oprogramowania.
 
+## Zrozumienie zachowania
+
+Polecenie `fill` zawiera dwa tryby:
+
+- **Complete**: Automatycznie wypełnia całą brakującą treść dla każdej lokalizacji i edytuje bieżący plik lub inny plik, jeśli jest określony. To znaczy, tryb complete pominiesz tłumaczenie istniejącej treści, jeśli jest już przetłumaczona.
+- **Review**: Automatycznie wypełnia **całą** treść dla każdej lokalizacji i generuje dla określonego pliku lub innego pliku, jeśli jest określony.
+
+Polecenie fill będzie przetwarzać wszystkie pliki deklaracji treści lokalizacji. To znaczy, nie będzie przetwarzać zdalnej treści z CMS. CMS zawiera własne zarządzanie tłumaczeniami.
+Jeśli używasz wtyczek takich jak `@intlayer/sync-json-plugin`, Intlayer przekształci pliki JSON w pliki deklaracji treści lokalizacji. To znaczy, będą przetwarzane przez polecenie `fill`.
+
+Nowo wygenerowane pliki zawierają instrukcję `filled` jako metadane słownika. Instrukcja ta będzie używana przez Intlayer do określenia, czy plik został automatycznie wypełniony, czy nie, i pominie ten plik z ponownego tłumaczenia, jeśli jest obecny.
+
+Intlayer będzie również uwzględniać następującą instrukcję do automatycznego wypełniania:
+
+- Z twojego pliku `.content.{ts|js|json}` → instrukcja `fill`
+- Z pliku konfiguracyjnego `.intlayer.config.ts` → instrukcja `dictionary.fill`
+- Będzie domyślnie ustawiona na `true` w przeciwnym razie
+
+W przypadku plików deklaracji treści dla poszczególnych lokalizacji instrukcja `true` zostanie zastąpiona przez `./{{fileName}}.fill.content.json`. Dzieje się tak, ponieważ plik deklaracji treści dla poszczególnych lokalizacji nie może otrzymać dodatkowej zlokalizowanej treści. Dlatego wygeneruje nowy plik, aby nie nadpisać istniejącego pliku.
+
 ## Domyślne zachowanie
 
 Domyślnie `fill` jest ustawione globalnie na `true`, co oznacza, że Intlayer automatycznie wypełni wszystkie pliki zawartości i edytuje sam plik. To zachowanie można dostosować na kilka sposobów:

@@ -27,6 +27,45 @@ Intlayerでは、`nest`関数を使用して、別の辞書からコンテンツ
 
 ## ネストの設定
 
+Intlayerプロジェクトでネストを設定するには、まず再利用したい基本コンテンツを定義します。次に、別のコンテンツモジュールで`nest`関数を使用してそのコンテンツをインポートします。
+
+### ベースディクショナリ
+
+別のディクショナリにネストするベースディクショナリの例を以下に示します：
+
+```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { type Dictionary } from "intlayer";
+
+const firstDictionary = {
+  key: "key_of_my_first_dictionary",
+  content: {
+    content: "content",
+    subContent: {
+      contentNumber: 0,
+      contentString: "string",
+    },
+  },
+} satisfies Dictionary;
+
+export default firstDictionary;
+```
+
+```json fileName="firstDictionary.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "key_of_my_first_dictionary",
+  "content": {
+    "content": "content",
+    "subContent": {
+      "contentNumber": 0,
+      "contentString": "string"
+    }
+  }
+}
+```
+
+## ネストの設定
+
 <Tabs group="framework">
   <Tab label="React" value="react">
 

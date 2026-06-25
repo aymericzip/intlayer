@@ -140,6 +140,28 @@ steps:
     run: npx intlayer ci fill
 ```
 
+## GitHub Actions générés automatiquement
+
+Lorsque vous exécutez `intlayer init`, Intlayer détecte votre gestionnaire de paquets (npm, yarn, pnpm, ou bun) et génère automatiquement deux workflows GitHub Actions sous `.github/workflows/`, avec des commandes correspondant à ce gestionnaire de paquets :
+
+- **`intlayer-fill.yml`** — Sur chaque pull request, construit les dictionnaires et exécute `intlayer fill --git-diff --mode complete` pour générer les traductions manquantes pour les dictionnaires modifiés, puis valide le résultat sur la branche PR.
+- **`intlayer-test.yml`** — Sur chaque pull request, construit les dictionnaires et exécute `intlayer test`, échouant la vérification si les locales requises ont des traductions manquantes.
+
+Les fichiers de workflow existants ne sont jamais écrasés. Pour ignorer complètement la génération automatique, exécutez :
+
+```bash
+npx intlayer init --no-github-actions
+```
+
+### Fournir un accès IA au workflow de remplissage
+
+Le fichier `intlayer-fill.yml` généré nécessite un accès IA. Deux options sont disponibles (configurées dans le bloc `env` du workflow) :
+
+1. **Votre propre clé de fournisseur IA** — Ajoutez un secret `AI_API_KEY` dans les paramètres de votre référentiel (Settings → Secrets and variables → Actions). Le workflow le transmet via `--provider`, `--model` et `--api-key`.
+2. **Clés d'accès Intlayer CMS** — Ajoutez les secrets `INTLAYER_CLIENT_ID` et `INTLAYER_CLIENT_SECRET` et intégrez-les dans la section `editor` de votre `intlayer.config`. Les clés d'accès CMS accordent l'accès IA via le backend Intlayer.
+
+Le workflow `intlayer-test.yml` ne nécessite aucun accès IA.
+
 ## Gestion des erreurs
 
 - Si `INTLAYER_PROJECT_CREDENTIALS` n'est pas définie, la commande se terminera avec une erreur.

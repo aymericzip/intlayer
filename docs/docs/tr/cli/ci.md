@@ -140,6 +140,28 @@ steps:
     run: npx intlayer ci fill
 ```
 
+## İskele Kurulu GitHub Actions
+
+`intlayer init` komutunu çalıştırdığınızda, Intlayer paket yöneticinizi (npm, yarn, pnpm veya bun) algılar ve `.github/workflows/` klasörü altında iki GitHub Actions iş akışı oluşturur; komutlar paket yöneticinizle eşleşir:
+
+- **`intlayer-fill.yml`** — Her pull request'te sözlükleri derler ve değiştirilen sözlükler için eksik çevirileri oluşturmak üzere `intlayer fill --git-diff --mode complete` komutunu çalıştırır, ardından sonucu PR dalına geri kaydeder.
+- **`intlayer-test.yml`** — Her pull request'te sözlükleri derler ve `intlayer test` komutunu çalıştırır; gerekli localelar çevirilerden yoksun olduğunda kontrolü başarısız kılar.
+
+Mevcut iş akışı dosyaları asla üzerine yazılmaz. İskele kurmayı tamamen atlamak için şu komutu çalıştırın:
+
+```bash
+npx intlayer init --no-github-actions
+```
+
+### Fill workflow'una AI erişimi sağlama
+
+Scaffold edilen `intlayer-fill.yml` AI erişimi gerektirir. İki seçenek mevcuttur (workflow'un `env` bloğunda yapılandırılır):
+
+1. **Kendi AI sağlayıcı anahtarınız** — Repository ayarlarınıza bir `AI_API_KEY` secret'i ekleyin (Settings → Secrets and variables → Actions). Workflow bunu `--provider`, `--model` ve `--api-key` aracılığıyla iletir.
+2. **Intlayer CMS erişim anahtarları** — `INTLAYER_CLIENT_ID` ve `INTLAYER_CLIENT_SECRET` secret'lerini ekleyin ve bunları `intlayer.config` dosyanızdaki `editor` bölümüne bağlayın. CMS erişim anahtarları Intlayer backend'i aracılığıyla AI erişimi sağlar.
+
+`intlayer-test.yml` workflow'u herhangi bir AI erişimi gerektirmez.
+
 ## Hata İşleme
 
 - `INTLAYER_PROJECT_CREDENTIALS` ayarlanmamışsa, komut bir hata ile çıkacaktır.

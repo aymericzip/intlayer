@@ -40,6 +40,12 @@ Pour cela, Intlayer introduit le concept de « dictionnaires distants ».
 
 ![Interface du CMS Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
 
+## Table of Contents
+
+<TOC/>
+
+---
+
 ## Comprendre les dictionnaires distants
 
 Intlayer fait une distinction entre les dictionnaires « locaux » et « distants ».

@@ -53,53 +53,6 @@ author: aymericzip
 
 本指南将向您展示如何利用 Intlayer 优越的内容声明系统，同时保持与 react-intl 的兼容性。
 
-## 使用 react-intl 设置 Intlayer 的分步指南
-
-### 第一步：安装依赖
-
-安装所需的包：
-
-```bash packageManager="npm"
-npx intlayer-cli init --interactive
-```
-
-```bash packageManager="pnpm"
-pnpm dlx intlayer-cli init --interactive
-```
-
-```bash packageManager="yarn"
-yarn dlx intlayer-cli init --interactive
-```
-
-```bash packageManager="bun"
-bunx intlayer-cli init --interactive
-```
-
-> `--interactive` 标志是可选的。如果您是 AI 代理，请使用 `intlayer-cli init`。
-
-> 该命令将检测您的环境并安装所需的软件包。例如：
-
-```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin --save-dev
-```
-
-```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin --save-dev
-```
-
-```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin --dev
-```
-
-```bash packageManager="bun"
-bun add intlayer @intlayer/sync-json-plugin --dev
-```
-
-**包说明：**
-
-- **intlayer**：用于国际化管理、内容声明和构建的核心库
-  /// **@intlayer/sync-json-plugin**：用于将 Intlayer 内容声明导出为兼容 react-intl 的 JSON 格式的插件
-
 ### 第 2 步：实现 Intlayer 插件以包装 JSON
 
 创建一个 Intlayer 配置文件以定义您支持的语言环境：

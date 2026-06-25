@@ -34,17 +34,6 @@ author: aymericzip
 
 <TOC/>
 
-## Was ist next-i18next?
-
-**next-i18next** ist eines der beliebtesten Internationalisierungs- (i18n) Frameworks für Next.js-Anwendungen. Es basiert auf dem leistungsstarken **i18next**-Ökosystem und bietet eine umfassende Lösung zur Verwaltung von Übersetzungen, Lokalisierung und Sprachwechsel in Next.js-Projekten.
-
-Allerdings bringt next-i18next einige Herausforderungen mit sich:
-
-- **Komplexe Konfiguration**: Die Einrichtung von next-i18next erfordert mehrere Konfigurationsdateien und eine sorgfältige Einrichtung der i18n-Instanzen auf Server- und Client-Seite.
-- **Verteilte Übersetzungen**: Übersetzungsdateien werden typischerweise in separaten Verzeichnissen von den Komponenten gespeichert, was die Konsistenz erschwert.
-- **Manuelle Namespace-Verwaltung**: Entwickler müssen Namespaces manuell verwalten und sicherstellen, dass die Übersetzungsressourcen korrekt geladen werden.
-- **Begrenzte Typsicherheit**: TypeScript-Unterstützung erfordert zusätzliche Konfiguration und bietet keine automatische Typgenerierung für Übersetzungen.
-
 ## Was ist Intlayer?
 
 **Intlayer** ist eine innovative, Open-Source-Internationalisierungsbibliothek, die entwickelt wurde, um die Schwächen traditioneller i18n-Lösungen zu beheben. Sie bietet einen modernen Ansatz für das Content-Management in Next.js-Anwendungen.

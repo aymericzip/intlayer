@@ -579,6 +579,10 @@ Schema JSON utilizzato per la validazione della struttura del dizionario. Aggiun
 
 Per i dizionari remoti, questo è l'identificatore univoco del dizionario nel server remoto. Utilizzato per il recupero e la gestione dei contenuti remoti.
 
+##### `projectIds` (string[])
+
+Per i dizionari remoti, questo array contiene gli ID dei progetti che possono utilizzare questo dizionario. Un dizionario remoto può essere condiviso tra più progetti.
+
 ##### `localId` (LocalDictionaryId)
 
 Identificatore univoco per i dizionari locali. Generato automaticamente da Intlayer per aiutare a identificare il dizionario e determinare se è locale o remoto, insieme alla sua posizione.
@@ -598,13 +602,6 @@ Per i dizionari remoti, questo array contiene tutte le versioni disponibili del 
 ##### `autoFilled` (true)
 
 Indica se il dizionario è stato compilato automaticamente da fonti esterne. In caso di conflitti, i dizionari base sovrascriveranno quelli compilati automaticamente.
-
-##### `location` ('distant' | 'locale')
-
-Indica la posizione del dizionario:
-
-- `'locale'`: Dizionario locale (da file di contenuto)
-- `'distant'`: Dizionario remoto (da fonte esterna)
 
 ## Tipi di Nodi di Contenuto
 

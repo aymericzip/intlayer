@@ -78,42 +78,6 @@ bun x intlayer login --cms-url https://intlayer.org
 
 ### 구성 옵션
 
-일반적인 구성 옵션도 사용할 수 있습니다:
-
-- `--env-file <path>`: 환경 파일의 경로
-- `-e, --env <env>`: 실행 환경
-- `--base-dir <dir>`: 프로젝트의 기본 디렉터리
-- `--verbose`: 자세한 출력 활성화 (기본값: true)
-- `--prefix <prefix>`: 로그 접두사
-
-## 동작 방식
-
-1. **로컬 서버 시작**: 명령은 CMS로부터 자격증명을 수신하기 위해 무작위 포트에서 로컬 HTTP 서버를 시작합니다
-
-인증을 위해 연결할 Intlayer CMS의 URL을 지정합니다.
-
-- **형식**: `string`
-- **기본값**: `intlayer.config.*`에 구성된 값 또는 `https://intlayer.org`
-- **예제**:
-
-```bash packageManager="npm"
-npx intlayer login --cms-url https://intlayer.org
-```
-
-```bash packageManager="yarn"
-yarn intlayer login --cms-url https://intlayer.org
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer login --cms-url https://intlayer.org
-```
-
-```bash packageManager="bun"
-bun x intlayer login --cms-url https://intlayer.org
-```
-
-### 구성 옵션
-
 다음과 같은 공통 구성 옵션도 사용할 수 있습니다:
 
 - `--env-file <path>`: 환경 파일의 경로

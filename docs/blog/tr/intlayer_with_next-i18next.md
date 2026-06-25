@@ -34,17 +34,6 @@ author: aymericzip
 
 <TOC/>
 
-## next-i18next nedir?
-
-**next-i18next**, Next.js uygulamaları için en popüler uluslararasılaştırma (i18n) çerçevelerinden biridir. Güçlü **i18next** ekosistemi üzerine inşa edilmiştir ve Next.js projelerinde çevirilerin yönetimi, yerelleştirme ve dil değiştirme için kapsamlı bir çözüm sunar.
-
-Ancak, next-i18next bazı zorluklarla birlikte gelir:
-
-- **Karmaşık yapılandırma**: next-i18next kurulumu, birden fazla yapılandırma dosyası gerektirir ve sunucu tarafı ile istemci tarafı i18n örneklerinin dikkatli kurulmasını gerektirir.
-- **Dağınık çeviriler**: Çeviri dosyaları genellikle bileşenlerden ayrı dizinlerde saklanır, bu da tutarlılığı korumayı zorlaştırır.
-- **Manuel isim alanı yönetimi**: Geliştiricilerin isim alanlarını manuel olarak yönetmesi ve çeviri kaynaklarının doğru şekilde yüklenmesini sağlaması gerekir.
-  /// **Sınırlı tür güvenliği**: TypeScript desteği ek yapılandırma gerektirir ve çeviriler için otomatik tür oluşturma sağlamaz.
-
 ## Intlayer Nedir?
 
 **Intlayer**, geleneksel i18n çözümlerinin eksikliklerini gidermek için tasarlanmış yenilikçi, açık kaynaklı bir uluslararasılaştırma kütüphanesidir. Next.js uygulamalarında içerik yönetimi için modern bir yaklaşım sunar.

@@ -25,6 +25,45 @@ author: aymericzip
 
 في Intlayer، يتم تحقيق التعشيش من خلال وظيفة `nest`، التي تتيح لك الإشارة إلى وإعادة استخدام المحتوى من قاموس آخر. بدلاً من تكرار المحتوى، يمكنك الإشارة إلى وحدة محتوى موجودة باستخدام مفتاحها.
 
+## إعداد التداخل
+
+لإعداد التداخل في مشروع Intlayer الخاص بك، تقوم أولاً بتعريف المحتوى الأساسي الذي تريد إعادة استخدامه. ثم، في وحدة محتوى منفصلة، تستخدم دالة `nest` لاستيراد هذا المحتوى.
+
+### القاموس الأساسي
+
+فيما يلي مثال على قاموس أساسي للتداخل في قاموس آخر:
+
+```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { type Dictionary } from "intlayer";
+
+const firstDictionary = {
+  key: "key_of_my_first_dictionary",
+  content: {
+    content: "content",
+    subContent: {
+      contentNumber: 0,
+      contentString: "string",
+    },
+  },
+} satisfies Dictionary;
+
+export default firstDictionary;
+```
+
+```json fileName="firstDictionary.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "key_of_my_first_dictionary",
+  "content": {
+    "content": "content",
+    "subContent": {
+      "contentNumber": 0,
+      "contentString": "string"
+    }
+  }
+}
+```
+
 ## إعداد التعشيش
 
 <Tabs group="framework">

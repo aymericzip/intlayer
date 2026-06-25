@@ -40,6 +40,12 @@ Bunun için Intlayer, 'uzak sözlükler' kavramını tanıtmaktadır.
 
 ![Intlayer CMS Arayüzü](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
 
+## İçindekiler
+
+<TOC/>
+
+---
+
 ## Uzak sözlükleri anlama
 
 Intlayer, 'yerel' ve 'uzak' sözlükler arasında ayrım yapar.

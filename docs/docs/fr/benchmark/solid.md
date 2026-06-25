@@ -118,6 +118,28 @@ Nous avons comparé **quatre stratégies de chargement** :
 - **Scoped static** : Organise bien le code (séparation logique) sans requêtes réseau supplémentaires complexes.
 - **Scoped dynamic** : Meilleure approche pour le _code splitting_ et la performance. Minimise la mémoire en ne chargeant que ce dont la vue actuelle et la locale active ont besoin.
 
+### Ce que j'ai mesuré :
+
+J'ai exécuté la même application multilingue dans un vrai navigateur pour chaque stack, puis j'ai noté ce qui s'est réellement affiché sur le fil et le temps que cela a pris. Les tailles sont rapportées **après une compression web normale**, car c'est plus proche de ce que les gens téléchargent que les comptages de sources brutes.
+
+- **Taille de la bibliothèque d'internationalization** : Après bundling, tree-shaking et minification, la taille de la bibliothèque i18n est la taille du code des providers + hooks/primitives dans un composant vide. Elle n'inclut pas le chargement des fichiers de traduction. Elle répond à la question : à quel point la bibliothèque est-elle coûteuse avant que votre contenu ne soit pris en compte.
+
+- **JavaScript par page** : Pour chaque route de benchmark, combien de script le navigateur récupère lors de cette visite, moyenné sur les pages de la suite (et sur les locales où le rapport les agrège). Les pages lourdes sont des pages lentes.
+
+- **Fuite d'autres locales** : C'est le contenu de la même page mais dans une autre langue qui serait chargé par erreur dans la page auditée. Ce contenu est inutile et devrait être évité. (par exemple, le contenu de la page `/fr/about` dans le bundle de la page `/en/about`)
+
+- **Fuite d'autres routes** : La même idée pour les **autres écrans** de l'application : si leur contenu se charge quand vous n'avez ouvert qu'une seule page. (par exemple, le contenu de la page `/en/about` dans le bundle de la page `/en/contact`). Un score élevé indique un découpage faible ou des bundles trop larges.
+
+- **Taille moyenne du bundle du composant** : Les éléments d'interface communs sont mesurés **un à la fois** au lieu de se cacher dans un gigantesque numéro d'application. Cela montre si l'internationalization gonfle silencieusement les composants courants. Par exemple, si votre composant se rerender, il chargera toutes ces données de la mémoire. Attacher un énorme JSON à n'importe quel composant, c'est comme connecter un grand magasin de données inutilisées qui ralentira les performances de vos composants.
+
+- **Réactivité du changement de langue** : Je bascule la langue en utilisant le contrôle propre de l'application et je chronométre le temps qu'il faut jusqu'à ce que la page se soit clairement changée, ce qu'un visiteur remarquerait, et non une micro-étape de laboratoire.
+
+- **Travail de rendu après un changement de langue** : Un suivi plus étroit : combien d'effort l'interface a dû faire pour se repeindre pour la nouvelle langue une fois le changement en cours. Utile quand le temps « ressenti » et le coût du framework divergent.
+
+- **Temps de chargement initial de la page** : De la navigation à la considération par le navigateur que la page est complètement chargée pour les scénarios que j'ai testés. Bon pour comparer les démarrages à froid.
+
+- **Temps d'hydratation** : Quand l'application l'expose, le temps que le client passe à transformer le HTML du serveur en quelque chose que vous pouvez réellement cliquer. Un tiret dans les tableaux signifie que cette implémentation n'a pas fourni de chiffre d'hydratation fiable dans ce benchmark.
+
 ## Étoiles GitHub
 
 Les étoiles GitHub sont un indicateur fort de la popularité d'un projet, de la confiance de la communauté et de sa pertinence à long terme. Bien qu'elles ne soient pas une mesure directe de la qualité technique, elles reflètent le nombre de développeurs qui trouvent le projet utile, suivent ses progrès et sont susceptibles de l'adopter. Pour estimer la valeur d'un projet, les étoiles aident à comparer l'attraction entre les alternatives et fournissent des informations sur la croissance de l'écosystème.

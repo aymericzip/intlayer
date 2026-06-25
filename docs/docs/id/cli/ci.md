@@ -140,6 +140,28 @@ steps:
     run: npx intlayer ci fill
 ```
 
+## GitHub Actions yang Dihasilkan
+
+Ketika Anda menjalankan `intlayer init`, Intlayer mendeteksi package manager Anda (npm, yarn, pnpm, atau bun) dan membuat dua workflow GitHub Actions di bawah `.github/workflows/`, dengan perintah yang sesuai dengan package manager tersebut:
+
+- **`intlayer-fill.yml`** — Pada setiap pull request, membangun kamus dan menjalankan `intlayer fill --git-diff --mode complete` untuk menghasilkan terjemahan yang hilang untuk kamus yang berubah, kemudian melakukan commit hasilnya kembali ke branch PR.
+- **`intlayer-test.yml`** — Pada setiap pull request, membangun kamus dan menjalankan `intlayer test`, gagal pada pemeriksaan ketika locale yang diperlukan kehilangan terjemahan.
+
+File workflow yang ada tidak pernah ditimpa. Untuk melewati scaffolding sepenuhnya, jalankan:
+
+```bash
+npx intlayer init --no-github-actions
+```
+
+### Memberikan akses AI ke alur kerja fill
+
+`intlayer-fill.yml` yang telah digenerate memerlukan akses AI. Dua opsi tersedia (dikonfigurasi di blok `env` workflow):
+
+1. **Kunci penyedia AI Anda sendiri** — Tambahkan secret `AI_API_KEY` di pengaturan repository Anda (Settings → Secrets and variables → Actions). Workflow meneruskannya melalui `--provider`, `--model`, dan `--api-key`.
+2. **Kunci akses Intlayer CMS** — Tambahkan secret `INTLAYER_CLIENT_ID` dan `INTLAYER_CLIENT_SECRET` dan integrasikan ke dalam bagian `editor` `intlayer.config` Anda. Kunci akses CMS memberikan akses AI melalui backend Intlayer.
+
+Workflow `intlayer-test.yml` tidak memerlukan akses AI apa pun.
+
 ## Penanganan Kesalahan
 
 - Jika `INTLAYER_PROJECT_CREDENTIALS` tidak disetel, perintah akan keluar dengan kesalahan.

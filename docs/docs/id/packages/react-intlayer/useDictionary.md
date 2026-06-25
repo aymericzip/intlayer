@@ -28,98 +28,6 @@ author: aymericzip
 
 Bagian ini memberikan panduan terperinci tentang penggunaan hook `useDictionary` dalam aplikasi React, memungkinkan penanganan konten lokal yang efisien tanpa editor visual.
 
-## Mengimpor `useDictionary` dalam React
-
-Hook `useDictionary` dapat diintegrasikan ke dalam aplikasi React dengan mengimpornya berdasarkan konteks:
-
-- **Komponen Klien:**
-
-  ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer"; // Digunakan dalam komponen React sisi klien
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer"; // Digunakan dalam komponen React sisi klien
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer"); // Digunakan dalam komponen React sisi klien
-  ```
-
-- **Komponen Server:**
-
-  ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer/server"; // Digunakan dalam komponen React sisi server
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer/server"; // Digunakan dalam komponen React sisi server
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer/server"); // Digunakan dalam komponen React sisi server
-  ```
-
-## Parameter
-
-Hook ini menerima dua parameter:
-
-1. **`dictionary`**: Objek kamus yang dideklarasikan berisi konten yang dilokalisasi untuk kunci tertentu.
-2. **`locale`** (opsional): Locale yang diinginkan. Defaultnya adalah locale konteks saat ini jika tidak ditentukan.
-
-## Kamus
-
-Semua objek kamus harus dideklarasikan dalam file konten terstruktur untuk memastikan keamanan tipe dan mencegah kesalahan runtime. Anda dapat menemukan [instruksi pengaturan di sini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md). Berikut adalah contoh deklarasi konten:
-
-```typescript fileName="./component.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
-import { t, type Dictionary } from "intlayer";
-
-const componentContent = {
-  key: "component-example",
-  content: {
-    title: t({
-      en: "Client Component Example",
-      fr: "Exemple de composant client",
-      es: "Ejemplo de componente cliente",
-    }),
-    content: t({
-      en: "This is the content of a client component example",
-      fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es el contenido de un ejemplo de componente cliente",
-    }),
-  },
-} satisfies Dictionary;
-
-export default componentContent;
-```
-
-```json fileName="./component.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "component-example",
-  "content": {
-    "title": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Client Component Example",
-        "fr": "Exemple de composant client",
-        "es": "Ejemplo de componente cliente",
-        "id": "Contoh Komponen Klien"
-      }
-    },
-    "content": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "This is the content of a client component example",
-        "fr": "Ceci est le contenu d'un exemple de composant client",
-        "es": "Este es el contenido de un ejemplo de componente cliente",
-        "id": "Ini adalah konten dari contoh komponen klien"
-      }
-    }
-  }
-}
-```
-
 ## Contoh Penggunaan di React
 
 Berikut adalah contoh cara menggunakan hook `useDictionary` dalam sebuah komponen React:
@@ -139,35 +47,6 @@ const ComponentExample: FC = () => {
     </div>
   );
 };
-```
-
-## Integrasi Server
-
-Jika Anda menggunakan hook `useDictionary` di luar `IntlayerProvider`, locale harus secara eksplisit diberikan sebagai parameter saat merender komponen:
-
-```tsx fileName="./ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { useDictionary } from "react-intlayer/server";
-import clientComponentExampleContent from "./component.content";
-
-const ServerComponentExample: FC<{ locale: string }> = ({ locale }) => {
-  const { content } = useDictionary(clientComponentExampleContent, locale);
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.content}</p>
-    </div>
-  );
-};
-```
-
-## Catatan tentang Atribut
-
-Berbeda dengan integrasi yang menggunakan editor visual, atribut seperti `buttonTitle.value` tidak berlaku di sini. Sebagai gantinya, akses langsung string yang sudah dilokalisasi sesuai dengan deklarasi dalam konten Anda.
-
-```jsx
-<button title={content.title}>{content.content}</button>
 ```
 
 ## Tips Tambahan

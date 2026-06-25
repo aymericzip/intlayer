@@ -24,102 +24,6 @@ history:
 author: aymericzip
 ---
 
-# تكامل React: توثيق هوك `useDictionary`
-
-يوفر هذا القسم إرشادات مفصلة حول استخدام هوك `useDictionary` داخل تطبيقات React، مما يتيح إدارة فعالة للمحتوى المحلي بدون محرر بصري.
-
-## استيراد `useDictionary` في React
-
-يمكن دمج هوك `useDictionary` في تطبيقات React عن طريق استيراده بناءً على السياق:
-
-- **مكون العميل:**
-
-  ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer"; // يستخدم في مكونات React على جانب العميل
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer"; // يستخدم في مكونات React على جانب العميل
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer"); // يستخدم في مكونات React على جانب العميل
-  ```
-
-- **مكون الخادم:**
-
-  ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer/server"; // يستخدم في مكونات React على جانب الخادم
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer/server"; // يستخدم في مكونات React على جانب الخادم
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer/server"); // يستخدم في مكونات React على جانب الخادم
-  ```
-
-## المعاملات
-
-يقبل الهوك معاملين:
-
-1. **`dictionary`**: كائن قاموس معلن يحتوي على محتوى محلي لمفاتيح محددة.
-2. **`locale`** (اختياري): اللغة المطلوبة. الافتراضي هو لغة السياق الحالي إذا لم يتم تحديدها.
-
-## القاموس
-
-يجب إعلان جميع كائنات القاموس في ملفات محتوى منظمة لضمان سلامة الأنواع ومنع أخطاء وقت التشغيل. يمكنك العثور على [تعليمات الإعداد هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md). إليك مثال على إعلان المحتوى:
-
-```typescript fileName="./component.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
-import { t, type Dictionary } from "intlayer";
-
-const componentContent = {
-  key: "component-example",
-  content: {
-    title: t({
-      en: "Client Component Example",
-      fr: "Exemple de composant client",
-      es: "Ejemplo de componente cliente",
-    }),
-    content: t({
-      en: "This is the content of a client component example",
-      fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es el contenido de un ejemplo de componente cliente",
-    }),
-  },
-} satisfies Dictionary;
-
-export default componentContent;
-```
-
-```json fileName="./component.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "component-example",
-  "content": {
-    "title": {
-      "nodeType": "translation",
-      "translation": {
-        "ar": "مثال على مكون العميل",
-        "en": "Client Component Example",
-        "fr": "Exemple de composant client",
-        "es": "Ejemplo de componente cliente"
-      }
-    },
-    "content": {
-      "nodeType": "translation",
-      "translation": {
-        "ar": "هذا هو محتوى مثال على مكون العميل",
-        "en": "This is the content of a client component example",
-        "fr": "Ceci est le contenu d'un exemple de composant client",
-        "es": "Este es el contenido de un ejemplo de componente cliente"
-      }
-    }
-  }
-}
-```
-
 ## مثال على الاستخدام في React
 
 فيما يلي مثال على كيفية استخدام الخطاف `useDictionary` في مكون React:
@@ -160,14 +64,6 @@ const ServerComponentExample: FC<{ locale: string }> = ({ locale }) => {
     </div>
   );
 };
-```
-
-## ملاحظات حول السمات
-
-على عكس التكاملات التي تستخدم المحررات المرئية، فإن السمات مثل `buttonTitle.value` لا تنطبق هنا. بدلاً من ذلك، قم بالوصول مباشرة إلى السلاسل المحلية كما هو معلن في المحتوى الخاص بك.
-
-```jsx
-<button title={content.title}>{content.content}</button>
 ```
 
 ## نصائح إضافية

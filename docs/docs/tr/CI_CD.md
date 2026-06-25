@@ -26,6 +26,10 @@ author: aymericzip
 
 Intlayer, içerik bildirim dosyalarınız için çevirilerin otomatik olarak oluşturulmasına izin verir. İş akışınıza bağlı olarak bunu başarmanın birden fazla yolu vardır.
 
+## İçindekiler
+
+<TOC/>
+
 ## CMS Kullanarak
 
 Intlayer ile, sadece tek bir yerel ayar yerel olarak bildirilirken, tüm çevirilerin CMS aracılığıyla uzaktan yönetildiği bir iş akışı benimseyebilirsiniz. Bu, içerik ve çevirileri kod tabanından tamamen ayırmaya izin verir, içerik editörleri için daha fazla esneklik sunar ve sıcak içerik yeniden yüklemesini etkinleştirir (değişiklikleri uygulamak için uygulamayı yeniden oluşturmaya gerek yoktur).

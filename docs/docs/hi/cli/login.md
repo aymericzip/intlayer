@@ -88,42 +88,6 @@ bun x intlayer login --cms-url https://intlayer.org
 
 ## यह कैसे काम करता है
 
-1. **लोकल सर्वर शुरू करना**: यह कमांड CMS से क्रेडेंशियल प्राप्त करने के लिए एक रैंडम पोर्ट पर लोकल HTTP सर्वर शुरू करता है
-
-प्रमाणीकरण के लिए कनेक्ट करने हेतु Intlayer CMS का URL निर्दिष्ट करें।
-
-- **प्रकार**: `string`
-- **डिफ़ॉल्ट**: `intlayer.config.*` में कॉन्फ़िगर किया गया मान या `https://intlayer.org`
-- **उदाहरण**:
-
-```bash packageManager="npm"
-npx intlayer login --cms-url https://intlayer.org
-```
-
-```bash packageManager="yarn"
-yarn intlayer login --cms-url https://intlayer.org
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer login --cms-url https://intlayer.org
-```
-
-```bash packageManager="bun"
-bun x intlayer login --cms-url https://intlayer.org
-```
-
-### कॉन्फ़िगरेशन विकल्प
-
-आप सामान्य कॉन्फ़िगरेशन विकल्प भी उपयोग कर सकते हैं:
-
-- `--env-file <path>`: एनवायरनमेंट फ़ाइल का पथ
-- `-e, --env <env>`: निष्पादन वातावरण
-- `--base-dir <dir>`: प्रोजेक्ट की मूल निर्देशिका
-- `--verbose`: विस्तृत आउटपुट सक्षम करें (डिफ़ॉल्ट: true)
-- `--prefix <prefix>`: लॉग्स के लिए प्रीफ़िक्स
-
-## यह कैसे काम करता है
-
 1. **स्थानीय सर्वर शुरू**: कमांड CMS से क्रेडेंशियल प्राप्त करने के लिए एक रैंडम पोर्ट पर स्थानीय HTTP सर्वर शुरू करता है
 2. **ब्राउज़र खोलना**: यह कमांड स्वचालित रूप से आपका डिफ़ॉल्ट ब्राउज़र CMS लॉगिन URL में खोलता है
 3. **प्रमाणीकरण**: ब्राउज़र में अपने Intlayer खाते का उपयोग करके प्रमाणीकरण पूरा करें

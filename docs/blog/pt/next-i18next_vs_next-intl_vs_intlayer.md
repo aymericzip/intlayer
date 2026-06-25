@@ -284,34 +284,6 @@ Aqui está um exemplo do impacto da otimização do tamanho do bundle usando `in
 
 ---
 
-## DX, ferramentas e manutenção
-
-<Columns>
-  <Column>
-
-**next-intl**
-
-- Comumente emparelhado com plataformas externas de localização e fluxos editoriais.
-
-  </Column>
-  <Column>
-
-**next-i18next**
-
-- Comumente emparelhado com plataformas externas de localização e fluxos editoriais.
-
-  </Column>
-  <Column>
-
-**intlayer**
-
-- Fornece um **Editor Visual gratuito** e um **CMS opcional** (compatível com Git ou externalizado), além de uma **extensão para VSCode** e **traduções assistidas por IA** usando suas próprias chaves de provedor.
-
-  </Column>
-</Columns>
-
-**Por que isso importa:** Reduz o custo operacional e encurta o ciclo entre desenvolvedores e autores de conteúdo.
-
 ## Integração com plataformas de localização (TMS)
 
 Grandes organizações frequentemente dependem de Sistemas de Gerenciamento de Tradução (TMS) como **Crowdin**, **Phrase**, **Lokalise**, **Localizely** ou **Localazy**.
@@ -1175,6 +1147,127 @@ export default robots;
 </Tabs>
 
 > Intlayer fornece uma função `getMultilingualUrls` para gerar URLs multilíngues para seu sitemap.
+
+---
+
+### Middleware para roteamento de locale
+
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
+
+Adicione um middleware para lidar com detecção de locale e roteamento:
+
+```ts fileName="src/middleware.ts"
+import { NextResponse, type NextRequest } from "next/server";
+import { defaultLocale, locales } from "@/i18n.config";
+
+const PUBLIC_FILE = /\.[^/]+$/; // excluir arquivos com extensões
+
+export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  if (
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/api") ||
+    pathname.startsWith("/static") ||
+    PUBLIC_FILE.test(pathname)
+  ) {
+    return;
+  }
+
+  const hasLocale = locales.some(
+    (l) => pathname === "/" + l || pathname.startsWith("/" + l + "/")
+  );
+  if (!hasLocale) {
+    const locale = defaultLocale;
+    const url = request.nextUrl.clone();
+    url.pathname = "/" + locale + (pathname === "/" ? "" : pathname);
+    return NextResponse.redirect(url);
+  }
+}
+
+export const config = {
+  matcher: [
+    // Corresponder todos os caminhos exceto os que começam com estes e arquivos com extensão
+    "/((?!api|_next|static|.*\\..*).*)",
+  ],
+};
+```
+
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
+
+Adicione um middleware para lidar com detecção de locale e roteamento:
+
+```ts fileName="src/middleware.ts"
+import createMiddleware from "next-intl/middleware";
+import { locales, defaultLocale } from "@/i18n";
+
+export default createMiddleware({
+  locales: [...locales],
+  defaultLocale,
+  localeDetection: true,
+});
+
+export const config = {
+  // Pular API, Next internals e assets estáticos
+  matcher: ["/((?!api|_next|.*\\..*).*)"],
+};
+```
+
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
+
+O Intlayer fornece manipulação de middleware integrada através da configuração do pacote `next-intlayer`.
+
+```ts fileName="src/middleware.ts"
+import { intlayerProxy } from "next-intlayer/proxy";
+
+export const middleware = intlayerProxy();
+
+// aplica este middleware apenas a arquivos no diretório app
+export const config = {
+  matcher: "/((?!api|_next|static|.*\\..*).*)",
+};
+```
+
+A configuração do middleware está centralizada no arquivo `intlayer.config.ts`.
+
+  </Tab>
+</Tabs>
+
+### Lista de verificação de configuração e boas práticas
+
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
+
+- Certifique-se de que `lang` e `dir` estão definidos no `<html>` raiz em `src/app/[locale]/layout.tsx`.
+- Divida as traduções em namespaces (por exemplo `common.json`, `about.json`) em `src/locales/<locale>/`.
+- Carregue apenas os namespaces necessários em componentes cliente usando `useTranslation('<ns>')` e escopo de `I18nProvider` com os mesmos namespaces.
+- Mantenha as páginas estáticas sempre que possível: exporte `export const dynamic = 'force-static'` nas páginas; defina `dynamicParams = false` e implemente `generateStaticParams`.
+- Use componentes servidor síncronos aninhados sob limites de cliente passando strings pré-computadas ou a função `t` e a `locale`.
+- Para SEO, defina `alternates.languages` nos metadados, liste URLs localizadas em `sitemap.ts` e desabilite rotas localizadas duplicadas em `robots.ts`.
+- Prefira formatadores com reconhecimento de locale (por exemplo, `Intl.NumberFormat(locale)`) e memorize-os no cliente se estiver usando React < 19.
+
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
+
+- **Defina `lang` e `dir` do html**: Em `src/app/[locale]/layout.tsx`, compute `dir` via `getLocaleDirection(locale)` e defina `<html lang={locale} dir={dir}>`.
+- **Divida mensagens por namespace**: Organize JSON por locale e namespace (por exemplo, `common.json`, `about.json`).
+- **Minimize o payload do cliente**: Nas páginas, envie apenas os namespaces necessários para `NextIntlClientProvider` (por exemplo, `pick(messages, ['common', 'about'])`).
+- **Prefira páginas estáticas**: Exporte `export const dynamic = 'force-static'` e gere parâmetros estáticos para todos os `locales`.
+- **Componentes servidor síncronos**: Mantenha componentes servidor síncronos passando strings pré-computadas (rótulos traduzidos, números formatados) em vez de chamadas assíncronas ou funções não-serializáveis.
+
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
+
+- **Conteúdo modular**: Co-localize dicionários de conteúdo com componentes usando arquivos `.content.{ts|js|json}`.
+- **Segurança de tipo**: Aproveite a integração do TypeScript para validação de conteúdo em tempo de compilação.
+- **Otimização em tempo de compilação**: Use as ferramentas de compilação do Intlayer para tree-shaking automático e otimização de bundle.
+- **Ferramentas integradas**: Aproveite o suporte integrado de roteamento, auxiliares de SEO e editor visual.
+
+  </Tab>
+</Tabs>
 
 ---
 

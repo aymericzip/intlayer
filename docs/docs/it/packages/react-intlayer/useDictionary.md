@@ -24,102 +24,6 @@ history:
 author: aymericzip
 ---
 
-# Integrazione React: Documentazione del Hook `useDictionary`
-
-Questa sezione fornisce una guida dettagliata sull'uso del hook `useDictionary` nelle applicazioni React, consentendo una gestione efficiente dei contenuti localizzati senza un editor visuale.
-
-## Importazione di `useDictionary` in React
-
-Il hook `useDictionary` può essere integrato nelle applicazioni React importandolo in base al contesto:
-
-- **Componente Client:**
-
-  ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer"; // Usato nei componenti React lato client
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer"; // Usato nei componenti React lato client
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer"); // Usato nei componenti React lato client
-  ```
-
-- **Componente Server:**
-
-  ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer/server"; // Usato nei componenti React lato server
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer/server"; // Usato nei componenti React lato server
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer/server"); // Usato nei componenti React lato server
-  ```
-
-## Parametri
-
-Il hook accetta due parametri:
-
-1. **`dictionary`**: Un oggetto dizionario dichiarato contenente contenuti localizzati per chiavi specifiche.
-2. **`locale`** (opzionale): La locale desiderata. Per default è quella del contesto corrente se non specificata.
-
-## Dizionario
-
-Tutti gli oggetti dizionario devono essere dichiarati in file di contenuti strutturati per garantire la sicurezza dei tipi e prevenire errori a runtime. Puoi trovare le [istruzioni di configurazione qui](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dictionary/content_file.md). Ecco un esempio di dichiarazione del contenuto:
-
-```typescript fileName="./component.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
-import { t, type Dictionary } from "intlayer";
-
-const componentContent = {
-  key: "component-example",
-  content: {
-    title: t({
-      en: "Client Component Example",
-      fr: "Exemple de composant client",
-      es: "Ejemplo de componente cliente",
-    }),
-    content: t({
-      en: "This is the content of a client component example",
-      fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es el contenido de un ejemplo de componente cliente",
-    }),
-  },
-} satisfies Dictionary;
-
-export default componentContent;
-```
-
-```json fileName="./component.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "component-example",
-  "content": {
-    "title": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Client Component Example",
-        "fr": "Exemple de composant client",
-        "es": "Ejemplo de componente cliente",
-        "it": "Esempio di componente client"
-      }
-    },
-    "content": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "This is the content of a client component example",
-        "fr": "Ceci est le contenu d'un exemple de composant client",
-        "es": "Este es el contenido de un ejemplo de componente cliente",
-        "it": "Questo è il contenuto di un esempio di componente client"
-      }
-    }
-  }
-}
-```
-
 ## Esempio di utilizzo in React
 
 Di seguito un esempio di come utilizzare l'hook `useDictionary` in un componente React:
@@ -160,14 +64,6 @@ const ServerComponentExample: FC<{ locale: string }> = ({ locale }) => {
     </div>
   );
 };
-```
-
-## Note sugli Attributi
-
-A differenza delle integrazioni che utilizzano editor visuali, attributi come `buttonTitle.value` non si applicano qui. Invece, accedi direttamente alle stringhe localizzate come dichiarato nel tuo contenuto.
-
-```jsx
-<button title={content.title}>{content.content}</button>
 ```
 
 ## Suggerimenti Aggiuntivi

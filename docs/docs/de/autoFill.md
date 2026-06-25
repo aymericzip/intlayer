@@ -28,6 +28,53 @@ history:
 author: aymericzip
 ---
 
+# Füllen Sie Content Declaration File Translations aus
+
+**Autofill content declaration files** in Ihrer CI sind eine Möglichkeit, Ihren Entwicklungs-Workflow zu beschleunigen.
+
+## Das Verhalten verstehen
+
+Der `fill`-Befehl umfasst zwei Modi:
+
+- **Complete**: Füllt automatisch alle fehlenden Inhalte für jedes Locale aus und bearbeitet die aktuelle Datei oder eine andere angegebene Datei. Das heißt, der Complete-Modus überspringt die Übersetzung bereits vorhandener Inhalte, falls diese bereits übersetzt wurden.
+- **Review**: Füllt automatisch **alle** Inhalte für jedes Locale aus und generiert für eine bestimmte Datei oder eine andere angegebene Datei.
+
+Der `fill`-Befehl verarbeitet alle Ihre Locale-Content-Deklarationsdateien. Das heißt, er verarbeitet nicht Ihre Remote-Inhalte aus dem CMS. Das CMS umfasst sein eigenes Übersetzungsverwaltungssystem.
+Wenn Sie Plugins wie `@intlayer/sync-json-plugin` verwenden, wird Intlayer die JSON-Dateien in Locale-Content-Deklarationsdateien umwandeln. Das heißt, sie werden vom `fill`-Befehl verarbeitet.
+
+Die neu generierten Dateien enthalten eine `filled`-Anweisung als Dictionary-Metadaten. Diese Anweisung wird von Intlayer verwendet, um zu erkennen, ob die Datei automatisch ausgefüllt wurde oder nicht, und überspringt diese Datei, falls vorhanden, vor erneuter Übersetzung.
+
+Intlayer berücksichtigt auch die folgende Anweisung zum automatischen Ausfüllen:
+
+- Aus Ihrer `.content.{ts|js|json}` → `fill`-Anweisung
+- Aus Ihrer Konfigurationsdatei `.intlayer.config.ts` → `dictionary.fill`-Anweisung
+- Wird standardmäßig auf `true` gesetzt, ansonsten
+
+Bei Pro-Locale-Content-Deklarationsdateien wird die `true`-Anweisung durch `./{{fileName}}.fill.content.json` ersetzt. Dies ist der Fall, da eine Pro-Locale-Content-Deklarationsdatei keine zusätzlichen lokalisierten Inhalte erhalten kann. Daher wird eine neue Datei generiert, um die vorhandene Datei nicht zu überschreiben.
+
+## Standardverhalten
+
+Standardmäßig ist `fill` global auf `true` eingestellt, was bedeutet, dass Intlayer automatisch alle Content-Dateien ausfüllt und die Datei selbst bearbeitet. Dieses Verhalten kann auf verschiedene Weise angepasst werden:
+
+### Globale Konfigurationsoptionen
+
+1. **`fill: true` (Standard)** - Füllt automatisch alle Locales aus und bearbeitet die aktuelle Datei
+2. **`fill: false`** - Deaktiviert das automatische Ausfüllen für diese Content-Datei
+3. **`fill: "./relative/path/to/file"`** - Erstellt/aktualisiert die angegebene Datei, ohne die aktuelle zu bearbeiten, indem auf einen relativen Pfad verwiesen wird, der basierend auf dem Speicherort der aktuellen Datei aufgelöst wird
+4. **`fill: "/absolute/path/to/file"`** - Erstellt/aktualisiert die angegebene Datei, ohne die aktuelle zu bearbeiten, indem auf einen relativen Pfad verwiesen wird, der basierend auf dem Speicherort des Basisverzeichnisses aufgelöst wird (Feld `baseDir` in der Konfigurationsdatei `.intlayer.config.ts`)
+5. **`fill: "C:\\absolute\path\to\file"`** - Erstellt/aktualisiert die angegebene Datei, ohne die aktuelle zu bearbeiten, indem auf einen absoluten Pfad verwiesen wird, der basierend auf Ihrem Betriebssystem aufgelöst wird
+6. **`fill: { [key in Locales]?: string }`** - Erstellt/aktualisiert die angegebene Datei für jede Locale
+
+### v7 Behavior Changes
+
+In v7 hat sich das Verhalten des `fill`-Befehls aktualisiert:
+
+- **`fill: true`** - Schreibt die aktuelle Datei mit gefülltem Inhalt für alle Locales um
+- **`fill: "path/to/file"`** - Füllt die angegebene Datei, ohne die aktuelle Datei zu ändern
+- **`fill: false`** - Deaktiviert Auto-Fill vollständig
+
+Bei Verwendung einer Path-Option zum Schreiben in eine andere Datei funktioniert der Fill-Mechanismus über eine _Master-Slave_-Beziehung zwischen Content-Declaration-Dateien. Die Hauptdatei (Master) dient als Single Source of Truth, und wenn sie aktualisiert wird, wendet Intlayer diese Änderungen automatisch auf die abgeleiteten (gefüllten) Declaration-Dateien an, die durch den Path angegeben werden.
+
 # Übersetzungen der Deklarationsdatei für automatisches Ausfüllen von Inhalten
 
 **Deklarationsdateien für automatisches Ausfüllen von Inhalten** sind eine Möglichkeit, Ihren Entwicklungsworkflow zu beschleunigen.
@@ -87,6 +134,40 @@ Intlayer generiert automatisch die abgeleitete Deklarationsdatei unter `src/comp
 ```
 
 Anschließend werden beide Deklarationsdateien zu einem einzigen Wörterbuch zusammengeführt, das über den Standard-`useIntlayer("example")` Hook (React) / Composable (Vue) zugänglich ist.
+
+## Globale Konfiguration
+
+Sie können die globale Auto-Fill-Konfiguration in der Datei `intlayer.config.ts` konfigurieren.
+
+```ts fileName="intlayer.config.ts"
+import { type IntlayerConfig, Locales } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+    requiredLocales: [Locales.ENGLISH, Locales.FRENCH],
+  },
+  dictionary: {
+    // Fehlende Übersetzungen automatisch für alle Wörterbücher generieren
+    fill: "./{{fileName}}Filled.content.ts",
+    //
+    // fill: "/messages/{{locale}}/{{key}}/{{fileName}}.content.json",
+    //
+    // fill: true, // Fehlende Übersetzungen automatisch für alle Wörterbücher generieren wie die Verwendung von "./{{fileName}}.content.json"
+    //
+    // fill: {
+    //   en: "./{{fileName}}.en.content.json",
+    //   fr: "./{{fileName}}.fr.content.json",
+    //   es: "./{{fileName}}.es.content.json",
+    // },
+  },
+};
+
+export default config;
+```
+
+Sie können die Konfiguration pro Wörterbuch noch optimieren, indem Sie das Feld `fill` in Content-Dateien verwenden. Intlayer berücksichtigt zunächst die Pro-Wörterbuch-Konfiguration und fällt dann auf die globale Konfiguration zurück.
 
 ## Automatisch ausgefülltes Dateiformat
 

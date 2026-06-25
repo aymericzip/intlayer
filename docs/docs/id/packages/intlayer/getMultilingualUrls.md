@@ -33,6 +33,23 @@ Fungsi `getMultilingualUrls` menghasilkan pemetaan URL multibahasa dengan menamb
 
 ---
 
+## Tanda Tangan Fungsi
+
+```typescript
+getMultilingualUrls(
+  url: string,                   // Wajib
+  options?: {                    // Opsional
+    locales?: Locales[];
+    defaultLocale?: Locales;
+    mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
+  }
+): StrictModeLocaleMap<string>
+```
+
+---
+
+## Parameter
+
 ## Parameter
 
 - `url: string`
@@ -54,6 +71,33 @@ Fungsi `getMultilingualUrls` menghasilkan pemetaan URL multibahasa dengan menamb
   - **Tipe**: `boolean`
   - **Default**: `prefixDefaultDefault`
 
+### Parameter Opsional
+
+- `options?: object`
+  - **Description**: Objek konfigurasi untuk perilaku lokalisasi URL.
+  - **Type**: `object`
+  - **Required**: No (Opsional)
+
+  - `options.locales?: Locales[]`
+    - **Description**: Array dari locale yang didukung. Jika tidak disediakan, menggunakan locale yang dikonfigurasi dari konfigurasi proyek Anda.
+    - **Type**: `Locales[]`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md#middleware)
+
+  - `options.defaultLocale?: Locales`
+    - **Description**: Locale default untuk aplikasi. Jika tidak disediakan, menggunakan locale default yang dikonfigurasi dari konfigurasi proyek Anda.
+    - **Type**: `Locales`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md#middleware)
+
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Description**: Mode routing URL untuk penanganan locale. Jika tidak disediakan, menggunakan mode yang dikonfigurasi dari konfigurasi proyek Anda.
+    - **Type**: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/configuration.md#middleware)
+    - **Modes**:
+      - `prefix-no-default`: Tidak ada prefix untuk locale default, prefix untuk semua yang lain
+      - `prefix-all`: Prefix untuk semua locale termasuk default
+      - `no-prefix`: Tidak ada prefix locale dalam URL
+      - `search-params`: Gunakan query parameters untuk locale (misalnya, `?locale=fr`)
+
 ### Mengembalikan
 
 - **Tipe**: `IConfigLocales<string>`
@@ -62,6 +106,20 @@ Fungsi `getMultilingualUrls` menghasilkan pemetaan URL multibahasa dengan menamb
 ---
 
 ## Contoh Penggunaan
+
+### Penggunaan Dasar (Menggunakan Konfigurasi Proyek)
+
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
+import { getMultilingualUrls, Locales } from "intlayer";
+
+// Menggunakan konfigurasi proyek Anda untuk locales, defaultLocale, dan mode
+getMultilingualUrls("/dashboard");
+// Output (dengan asumsi konfigurasi proyek memiliki en, fr dengan mode 'prefix-no-default'):
+// {
+//   en: "/dashboard",
+//   fr: "/fr/dashboard"
+// }
+```
 
 ### URL Relatif
 
@@ -92,6 +150,60 @@ getMultilingualUrls(
 // Output: {
 //   en: "https://example.com/en/dashboard",
 //   fr: "https://example.com/fr/dashboard"
+// }
+```
+
+---
+
+### Mode Routing Berbeda
+
+```typescript
+// prefix-no-default: Tidak ada prefix untuk locale default
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-no-default",
+});
+// Output: {
+//   en: "/dashboard",
+//   fr: "/fr/dashboard",
+//   es: "/es/dashboard"
+// }
+
+// prefix-all: Prefix untuk semua locale
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-all",
+});
+// Output: {
+//   en: "/en/dashboard",
+//   fr: "/fr/dashboard",
+//   es: "/es/dashboard"
+// }
+
+// no-prefix: Tidak ada prefix locale dalam URL
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "no-prefix",
+});
+// Output: {
+//   en: "/dashboard",
+//   fr: "/dashboard",
+//   es: "/dashboard"
+// }
+
+// search-params: Locale sebagai query parameter
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "search-params",
+});
+// Output: {
+//   en: "/dashboard?locale=en",
+//   fr: "/dashboard?locale=fr",
+//   es: "/dashboard?locale=es"
 // }
 ```
 

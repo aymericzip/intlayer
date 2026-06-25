@@ -97,3 +97,134 @@ Następujące kroki są minimalne wymagane aby uruchomić istniejącą aplikacj�
 <Step number={1} title="Zainstaluj zależności">
 
 Zainstaluj pakiety rdzenia Intlayer i adapter compat:
+
+## Pełna migracja
+
+Poniższe kroki są opcjonalne i można je wykonywać stopniowo. Odblokowują one pełny zestaw funkcji Intlayer: edytor wizualny, CMS, pliki zawartości z typami, automatyczne tłumaczenie oparte na AI i wiele więcej.
+
+<Steps>
+
+<Step number={4} title="Jawne zmiana nazwy importu (opcjonalnie)" isOptional={true}>
+
+Jeśli wolisz uczynić zależność jawną w swoich plikach źródłowych lub jeśli nie używasz wtyczki bundlera do aliasowania importów, możesz zmienić nazwy importów ręcznie:
+
+| Przed                                      | Po                                                   |
+| ------------------------------------------ | ---------------------------------------------------- |
+| `import i18next from 'i18next'`            | `import i18next from '@intlayer/i18next'`            |
+| `import { createInstance } from 'i18next'` | `import { createInstance } from '@intlayer/i18next'` |
+| `import { t } from 'i18next'`              | `import { t } from '@intlayer/i18next'`              |
+
+Są to **drop-in replacements** — nie wymagane są żadne zmiany w sygnaturach funkcji, argumentach ani typach zwracanych.
+
+</Step>
+
+<Step number={5} title="Włącz automatyzację tłumaczenia opartą na AI" isOptional={true}>
+
+Gdy Intlayer jest już skonfigurowany, użyj jego CLI do automatycznego wypełnienia brakujących tłumaczeń:
+
+```bash packageManager="npm"
+# Test brakujących tłumaczeń (dodaj do CI)
+npx intlayer test
+
+# Wypełnij brakujące tłumaczenia za pomocą AI
+npx intlayer fill
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test
+pnpm intlayer fill
+```
+
+```bash packageManager="yarn"
+yarn intlayer test
+yarn intlayer fill
+```
+
+```bash packageManager="bun"
+bun x intlayer test
+bun x intlayer fill
+```
+
+Dodaj konfigurację AI do `intlayer.config.ts`:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { Locales, type IntlayerConfig } from "intlayer";
+import { syncJSON } from "@intlayer/sync-json-plugin";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+  plugins: [
+    syncJSON({
+      format: "i18next",
+      source: ({ locale }) => `./src/locales/${locale}.json`,
+      location: "src/locales",
+    }),
+  ],
+  ai: {
+    apiKey: process.env.OPENAI_API_KEY,
+    // provider: "openai",     // domyślnie
+    // model: "gpt-4o-mini",   // domyślnie
+  },
+};
+
+export default config;
+```
+
+> Zapoznaj się z [dokumentacją CLI Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md), aby uzyskać wszystkie dostępne opcje.
+
+</Step>
+
+</Steps>
+
+---
+
+## Co możesz usunąć po migracji
+
+Po umieszczeniu adaptera kompatybilności można usunąć poniższe boilerplate'y `i18next`:
+
+| Plik / pattern                           | Dlaczego już nie jest potrzebny                                                                                                        |
+| ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `i18next.init()` calls                   | Intlayer inicjuje wszystko automatycznie; nie ma kroku ładowania w czasie wykonania.                                                   |
+| `i18next.use(...)`                       | Intlayer nie używa pluginów i18next, backendów ani detektorów języka.                                                                  |
+| JSON language bundles (`locales/*.json`) | Pakiety JSON są potrzebne tylko jeśli nadal używasz pluginu `syncJSON`. Po migracji do plików `.content.ts` możesz usunąć folder JSON. |
+
+Gdy będziesz gotów do dalszych kroków, Intlayer **automatycznie odkrywa wszystkie pliki `.content.ts` i `.content.json` znajdujące się wszędzie w twojej bazie kodu** (domyślnie wszędzie wewnątrz `./src`). Możesz umieścić plik `my-component.content.ts` obok swojej logiki, a Intlayer podejmie go podczas kompilacji bez dodatkowej konfiguracji — bez importów, rejestracji ani scentralizowanego pliku indeksu. To sprawia, że współlokowanie tłumaczeń jest całkowicie bezproblemowe.
+
+---
+
+## Konfiguracja TypeScript
+
+Intlayer wykorzystuje module augmentation, aby zapewnić pełną intellisense TypeScript dla twoich kluczy tłumaczeń. Upewnij się, że twój plik `tsconfig.json` zawiera auto-generowane typy:
+
+```json5 fileName="tsconfig.json"
+{
+  // ... Twoje istniejące konfiguracje TypeScript
+  "include": [
+    // ... Twoje istniejące konfiguracje TypeScript
+    ".intlayer/**/*.ts", // Załącz auto-generowane typy
+  ],
+}
+```
+
+---
+
+## Konfiguracja Git
+
+Dodaj wygenerowany katalog Intlayer do `.gitignore`:
+
+```plaintext fileName=".gitignore"
+# Ignoruj pliki wygenerowane przez Intlayer
+.intlayer
+```
+
+---
+
+## Idź dalej
+
+- **Visual Editor** — Zarządzaj tłumaczeniami wizualnie w przeglądarce: [Intlayer Visual Editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_visual_editor.md)
+- **CMS** — Externalizuj i zarządzaj zawartością zdalnie: [Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/intlayer_CMS.md)
+- **VS Code Extension** — Uzyskaj autouzupełnianie i wykrywanie błędów tłumaczenia w czasie rzeczywistym: [Intlayer VS Code Extension](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/vs_code_extension.md)
+- **CLI Reference** — Pełna lista poleceń CLI: [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/index.md)

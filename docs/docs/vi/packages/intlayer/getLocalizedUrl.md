@@ -144,6 +144,31 @@ getLocalizedUrl(
 // Kết quả: "/about" cho locale mặc định (tiếng Anh)
 ```
 
+### Advanced Usage (With Optional Parameters)
+
+You can override the default configuration by providing the optional `options` parameter:
+
+### Relative URLs (All Options Specified)
+
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
+import { getLocalizedUrl, Locales } from "intlayer";
+
+// Cung cấp tất cả các tham số tùy chọn một cách rõ ràng
+getLocalizedUrl("/about", Locales.FRENCH, {
+  locales: [Locales.ENGLISH, Locales.FRENCH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-no-default",
+});
+// Output: "/fr/about" cho locale tiếng Pháp
+
+getLocalizedUrl("/about", Locales.ENGLISH, {
+  locales: [Locales.ENGLISH, Locales.FRENCH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-no-default",
+});
+// Output: "/about" cho locale mặc định (English)
+```
+
 ### Ghi đè cấu hình một phần
 
 Bạn cũng có thể chỉ cung cấp một số tham số tùy chọn. Hàm sẽ sử dụng cấu hình dự án của bạn cho bất kỳ tham số nào bạn không chỉ định:

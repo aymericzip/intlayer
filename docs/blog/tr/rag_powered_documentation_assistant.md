@@ -254,44 +254,6 @@ Gpt-5 ile denedik, ama gecikme çok yüksekti (bazen 15 saniyeye kadar bir yanı
 
 </Steps>
 
-## Daha İleriye Gitmek
-
-Bu proje minimal bir uygulamadır. Ama birçok şekilde genişletebilirsiniz:
-
-- MCP sunucusu → doküman araştırma fonksiyonunu bir MCP sunucusuna bağlayarak dokümantasyonu herhangi bir AI asistanına bağlayın
-
-- Vektör DB'ler → milyonlarca doküman parçasına ölçeklendirin
-- LangChain / LlamaIndex → hazır RAG pipeline çerçeveleri
-- Analitik dashboard'ları → kullanıcı sorgularını ve acı noktalarını görselleştirin
-- Çok kaynaklı retrieval → sadece dokümanları değil, veritabanı girişlerini, blog gönderilerini, biletleri vb. çekin
-- Geliştirilmiş prompting → reranking, filtreleme ve hibrit arama (anahtar kelime + semantik)
-
-## Karşılaştığımız Sınırlamalar
-
-- Chunking ve örtüşme empirik. Doğru denge (parça boyutu, örtüşme yüzdesi, alınan parça sayısı) iterasyon ve test gerektirir.
-- Dokümanlar değiştiğinde embeddings otomatik olarak yeniden oluşturulmaz. Sistemimiz, sadece parça sayısı farklıysa bir dosya için embeddings'i sıfırlar.
-- Bu prototipte, embeddings JSON'da depolanır. Bu demolar için çalışır ama Git'i kirletir. Üretimde bir veritabanı veya özel vektör deposu daha iyidir.
-
-## Dokümanların Ötesinde Neden Önemli?
-
-İlginç kısım sadece chatbot değil. **Geri bildirim döngüsü**.
-
-RAG ile sadece cevap vermezsiniz:
-
-- Kullanıcıları neyin şaşırttığını öğrenirsiniz.
-- Hangi özelliklerin beklendiğini keşfedersiniz.
-- Gerçek sorgulara göre ürün stratejinizi uyarlarsınız.
-
-**Örnek:**
-
-Yeni bir özellik başlattığınızı ve anında gördüğünüzü hayal edin:
-
-- Soruların %50'si aynı belirsiz kurulum adımı hakkında
-- Kullanıcılar desteklemediğimiz bir entegrasyon soruyor
-- İnsanlar yeni bir kullanım durumu ortaya çıkaran terimler arıyor
-
-Bu, kullanıcılarınızdan doğrudan **ürün zekası**.
-
 ## Sonuç
 
 RAG, LLM'leri pratik hale getirmenin en basit, en güçlü yollarından biridir. **Retrieval + generation** birleştirerek, statik dokümanları **akıllı bir asistana** dönüştürebilir ve aynı zamanda sürekli ürün içgörüleri akışı elde edebilirsiniz.

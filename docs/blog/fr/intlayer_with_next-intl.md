@@ -29,6 +29,10 @@ author: aymericzip
 
 <iframe title="Comment automatiser vos traductions JSON next-intl avec Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
+# Table of Contents
+
+<TOC/>
+
 ## Qu'est-ce qu'Intlayer ?
 
 **Intlayer** est une bibliothèque d'internationalisation innovante et open-source conçue pour pallier les limites des solutions i18n traditionnelles. Elle propose une approche moderne de la gestion de contenu dans les applications Next.js.

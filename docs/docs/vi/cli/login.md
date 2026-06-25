@@ -78,42 +78,6 @@ bun x intlayer login --cms-url https://intlayer.org
 
 ### Tùy chọn cấu hình
 
-Bạn cũng có thể sử dụng các tùy chọn cấu hình chung sau:
-
-- `--env-file <path>`: Đường dẫn tới file môi trường
-- `-e, --env <env>`: Môi trường thực thi
-- `--base-dir <dir>`: Thư mục gốc của dự án
-- `--verbose`: Bật đầu ra chi tiết (mặc định: true)
-- `--prefix <prefix>`: Tiền tố cho logs
-
-## Cách hoạt động
-
-1. **Khởi động máy chủ cục bộ**: Lệnh khởi động một máy chủ HTTP cục bộ trên một cổng ngẫu nhiên để nhận thông tin xác thực từ CMS
-
-Chỉ định URL của Intlayer CMS để kết nối xác thực.
-
-- **Loại**: `string`
-- **Mặc định**: Giá trị được cấu hình trong `intlayer.config.*` hoặc `https://intlayer.org`
-- **Ví dụ**:
-
-```bash packageManager="npm"
-npx intlayer login --cms-url https://intlayer.org
-```
-
-```bash packageManager="yarn"
-yarn intlayer login --cms-url https://intlayer.org
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer login --cms-url https://intlayer.org
-```
-
-```bash packageManager="bun"
-bun x intlayer login --cms-url https://intlayer.org
-```
-
-### Tùy chọn cấu hình
-
 Bạn cũng có thể sử dụng các tùy chọn cấu hình chung:
 
 - `--env-file <path>`: Đường dẫn tới file môi trường

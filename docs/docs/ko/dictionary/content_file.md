@@ -347,26 +347,6 @@ content: { /* ... */ }
 }
 ```
 
-#### `format` ('intlayer' | 'icu' | 'i18next')
-
-사전 콘텐츠에 사용할 포맷터를 지정합니다. 이를 통해 다양한 메시지 포맷팅 구문을 사용할 수 있습니다.
-
-- `'intlayer'`: 기본 Intlayer 포맷터.
-- `'icu'`: ICU 메시지 포맷팅을 사용합니다.
-- `'i18next'`: i18next 메시지 포맷팅을 사용합니다.
-
-**예시:**
-
-```typescript
-{
-  key: "my-dictionary",
-  format: "icu",
-  content: {
-    message: "Hello {name}, you have {count, plural, one {# message} other {# messages}}"
-  }
-}
-```
-
 #### `locale` (LocalesValues)
 
 사전을 각 로케일별 사전으로 변환하며, content에 선언된 각 필드는 자동으로 번역 노드로 변환됩니다. 이 속성이 설정되면:
@@ -599,6 +579,10 @@ export default aboutPageMetaContent;
 
 원격 사전의 경우, 원격 서버에서 사전을 고유하게 식별하는 식별자입니다. 원격 콘텐츠를 가져오고 관리하는 데 사용됩니다.
 
+##### `projectIds` (string[])
+
+원격 사전의 경우, 이 배열은 이 사전을 사용할 수 있는 프로젝트의 ID를 포함합니다. 원격 사전은 여러 프로젝트 간에 공유될 수 있습니다.
+
 ##### `localId` (LocalDictionaryId)
 
 로컬 사전의 고유 식별자입니다. Intlayer가 자동으로 생성하며, 사전이 로컬인지 원격인지 및 위치를 식별하는 데 도움을 줍니다.
@@ -618,13 +602,6 @@ export default aboutPageMetaContent;
 ##### `autoFilled` (true)
 
 사전이 외부 소스에서 자동으로 채워졌는지 여부를 나타냅니다. 충돌이 발생할 경우, 기본 사전이 자동 채워진 사전을 덮어씁니다.
-
-##### `location` ('distant' | 'locale')
-
-사전의 위치를 나타냅니다:
-
-- `'locale'`: 로컬 사전 (콘텐츠 파일에서 가져옴)
-- `'distant'`: 원격 사전 (외부 소스에서 가져옴)
 
 ## 콘텐츠 노드 유형
 

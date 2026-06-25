@@ -140,6 +140,28 @@ steps:
     run: npx intlayer ci fill
 ```
 
+## Acciones de GitHub generadas automáticamente
+
+Cuando ejecutas `intlayer init`, Intlayer detecta tu gestor de paquetes (npm, yarn, pnpm, o bun) y genera automáticamente dos flujos de trabajo de GitHub Actions en `.github/workflows/`, con comandos que coinciden con ese gestor de paquetes:
+
+- **`intlayer-fill.yml`** — En cada pull request, construye los diccionarios y ejecuta `intlayer fill --git-diff --mode complete` para generar traducciones faltantes en los diccionarios modificados, luego confirma el resultado en la rama del PR.
+- **`intlayer-test.yml`** — En cada pull request, construye los diccionarios y ejecuta `intlayer test`, fallando la verificación cuando faltan traducciones en las locales requeridas.
+
+Los archivos de flujo de trabajo existentes nunca se sobrescriben. Para omitir la generación automática por completo, ejecuta:
+
+```bash
+npx intlayer init --no-github-actions
+```
+
+### Proporcionar acceso a IA al flujo de trabajo de relleno
+
+El `intlayer-fill.yml` generado requiere acceso a IA. Hay dos opciones disponibles (configuradas en el bloque `env` del flujo de trabajo):
+
+1. **Tu propia clave de proveedor de IA** — Agrega un secreto `AI_API_KEY` en la configuración de tu repositorio (Settings → Secrets and variables → Actions). El flujo de trabajo la reenvía a través de `--provider`, `--model` y `--api-key`.
+2. **Claves de acceso a Intlayer CMS** — Agrega los secretos `INTLAYER_CLIENT_ID` e `INTLAYER_CLIENT_SECRET` e intégralos en la sección `editor` de tu `intlayer.config`. Las claves de acceso a CMS otorgan acceso a IA a través del backend de Intlayer.
+
+El flujo de trabajo `intlayer-test.yml` no requiere acceso a IA.
+
 ## Manejo de errores
 
 - Si `INTLAYER_PROJECT_CREDENTIALS` no está establecida, el comando saldrá con un error.

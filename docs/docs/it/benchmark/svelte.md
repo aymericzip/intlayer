@@ -116,6 +116,28 @@ Abbiamo confrontato **quattro strategie di caricamento**:
 - **Scoped static**: Mantiene il codice organizzato (separazione logica) senza complesse richieste di rete extra.
 - **Scoped dynamic**: Il miglior approccio per il _code splitting_ e le prestazioni. Minimizza la memoria caricando solo ciò di cui la vista corrente e la lingua attiva hanno bisogno.
 
+### Cosa ho misurato:
+
+Ho eseguito la stessa app multilingue in un vero browser per ogni stack, quindi ho annotato cosa è effettivamente apparso sulla rete e quanto tempo ci è voluto. Le dimensioni sono riportate **dopo la normale compressione web**, perché è più vicino a quello che le persone scaricano rispetto ai conteggi del codice sorgente grezzo.
+
+- **Dimensione della libreria di internazionalizzazione**: Dopo il bundling, il tree-shaking e la minificazione, la dimensione della libreria i18n è la dimensione del codice dei provider + store in un componente vuoto. Non include il caricamento dei file di traduzione. Risponde a quanto è costosa la libreria prima che il tuo contenuto entri in gioco.
+
+- **JavaScript per pagina**: Per ogni route di benchmark, quanto script il browser estrae per quella visita, in media nelle pagine della suite (e tra i locale dove il rapporto li raggruppa). Le pagine pesanti sono pagine lente.
+
+- **Perdita da altri locale**: È il contenuto della stessa pagina ma in un'altra lingua che verrebbe caricato per errore nella pagina controllata. Questo contenuto è non necessario e dovrebbe essere evitato. (ad es. il contenuto della pagina `/fr/about` nel bundle della pagina `/en/about`)
+
+- **Perdita da altri percorsi**: La stessa idea per **altri schermi** nell'app: se il loro contenuto viene trasportato quando hai aperto solo una pagina. (ad es. il contenuto della pagina `/en/about` nel bundle della pagina `/en/contact`). Un punteggio alto suggerisce uno splitting debole o bundle troppo ampi.
+
+- **Dimensione media del bundle dei componenti**: I pezzi comuni dell'interfaccia utente vengono misurati **uno alla volta** invece di nascondersi in un gigantesco numero di app. Mostra se l'internazionalizzazione gonfia silenziosamente i componenti quotidiani. Ad esempio, se il tuo componente esegue il rerender, caricherà tutti quei dati dalla memoria. Allegare un JSON gigante a qualsiasi componente è come collegare un grande negozio di dati inutilizzati che rallenterà le prestazioni dei tuoi componenti.
+
+- **Reattività del cambio di lingua**: Cambio la lingua usando il controllo dell'app e cronometro quanto tempo impiega fino a quando la pagina non si è chiaramente cambiata, quello che un visitatore noterebbe, non un micro-step di laboratorio.
+
+- **Lavoro di rendering dopo un cambio di lingua**: Un seguito più ristretto: quanta fatica l'interfaccia ha impiegato per dipingere di nuovo per la nuova lingua una volta che il cambio è in corso. Utile quando il tempo "percepito" e il costo del framework divergono.
+
+- **Tempo di caricamento della pagina iniziale**: Dalla navigazione al browser considerando la pagina completamente caricata per gli scenari che ho testato. Buono per confrontare i cold start.
+
+- **Tempo di idratazione**: Quando l'app lo espone, quanto tempo il client impiega a trasformare l'HTML del server in qualcosa che puoi effettivamente cliccare. Un trattino nelle tabelle significa che quella implementazione non ha fornito una figura di idratazione affidabile in questo benchmark.
+
 ## Stelle di GitHub
 
 Le stelle di GitHub sono un forte indicatore della popolarità di un progetto, della fiducia della comunità e della pertinenza a lungo termine. Sebbene non siano una misura diretta della qualità tecnica, riflettono quanti sviluppatori trovano il progetto utile, ne seguono i progressi e sono propensi ad adottarlo. Per stimare il valore di un progetto, le stelle aiutano a confrontare la trazione tra le alternative e forniscono approfondimenti sulla crescita dell'ecosistema.

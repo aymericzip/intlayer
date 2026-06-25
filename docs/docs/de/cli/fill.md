@@ -47,6 +47,14 @@ Wichtige Punkte:
 - Erhält bestehende Übersetzungen, indem sie nicht überschrieben werden.
 - Verarbeitet Dateien, Chunks und Locales parallel mithilfe eines Warteschlangensystems, um die Geschwindigkeit zu erhöhen.
 
+## Wichtige Punkte:
+
+- Teilt große JSON-Dateien in Chunks auf, um innerhalb der Kontextfenster-Limits des AI-Modells zu bleiben.
+- Wiederholt die Übersetzung, wenn das Ausgabeformat falsch ist.
+- Berücksichtigt anwendungs- und dateispezifische Kontexte für verbesserte Übersetzungsgenauigkeit.
+- Bewahrt bestehende Übersetzungen, indem sie nicht überschrieben werden.
+- Verarbeitet Dateien, Chunks und Locales parallel mit einem Queue-System, um die Geschwindigkeit zu erhöhen.
+
 ## Aliase:
 
 - `npx intlayer dictionaries fill`

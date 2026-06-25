@@ -582,6 +582,10 @@ JSON-Schema zur Validierung der Wörterbuchstruktur. Wird automatisch von Intlay
 
 Für entfernte Wörterbücher ist dies die eindeutige Kennung des Wörterbuchs auf dem entfernten Server. Wird zum Abrufen und Verwalten von entfernten Inhalten verwendet.
 
+##### `projectIds` (string[])
+
+For remote dictionaries, this array contains the IDs of the projects that can use this dictionary. A remote dictionary can be shared between multiple projects.
+
 ##### `localId` (LocalDictionaryId)
 
 Eindeutige Kennung für lokale Wörterbücher. Wird automatisch von Intlayer generiert, um das Wörterbuch zu identifizieren und festzustellen, ob es lokal oder entfernt ist, sowie dessen Standort.

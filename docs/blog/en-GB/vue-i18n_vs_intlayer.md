@@ -251,6 +251,22 @@ This approach:
 
 ---
 
+## Interoperability with vue-i18n
+
+`intlayer` can also help to manage your `vue-i18n` namespaces.
+
+Using `intlayer`, you can declare your content in the format of your favourite i18n library, and intlayer will generate your namespaces in the location of your choice (example: `/messages/{{locale}}/{{namespace}}.json`).
+
+---
+
+## GitHub STARs
+
+GitHub stars are a strong indicator of a project's popularity, community trust, and long-term relevance. While not a direct measure of technical quality, they reflect how many developers find the project useful, follow its progress, and are likely to adopt it. For estimating the value of a project, stars help compare traction across alternatives and provide insights into ecosystem growth.
+
+[![Star History Chart](https://api.star-history.com/svg?repos=intlify/vue-i18n&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+
+---
+
 ## Conclusion
 
 Both **vue-i18n** and **Intlayer** localise Vue apps well. The difference is **how much you must build yourself** to achieve a robust, scalable setup:

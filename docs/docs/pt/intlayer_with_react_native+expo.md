@@ -528,3 +528,31 @@ Para mais detalhes sobre como usar a extensão, consulte a [documentação da Ex
 Aproveite para construir seus aplicativos **React Native** com i18n totalmente potencializado através do **Intlayer**!
 
 ---
+
+### Debug
+
+React Native pode ser menos estável do que React Web, então preste atenção extra ao alinhamento de versões.
+
+Intlayer tem como alvo principal a Web Intl API; no React Native você deve incluir os polyfills apropriados.
+
+Checklist:
+
+- Use as últimas versões de `intlayer`, `react-intlayer` e `react-native-intlayer`.
+- Ative o polyfill do Intlayer.
+- Se você usar `getLocaleName` ou outros utilitários baseados em Intl-API, importe esses polyfills cedo (por exemplo em `index.js` ou `App.tsx`):
+
+```ts
+import "intl";
+import "@formatjs/intl-getcanonicallocales/polyfill";
+import "@formatjs/intl-locale/polyfill";
+import "@formatjs/intl-pluralrules/polyfill";
+import "@formatjs/intl-displaynames/polyfill";
+import "@formatjs/intl-listformat/polyfill";
+import "@formatjs/intl-numberformat/polyfill";
+import "@formatjs/intl-relativetimeformat/polyfill";
+import "@formatjs/intl-datetimeformat/polyfill";
+```
+
+- Verifique sua configuração do Metro (resolver aliases, asset plugins, caminhos de `tsconfig`) se os módulos falharem em resolver.
+
+---

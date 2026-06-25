@@ -31,6 +31,45 @@ author: aymericzip
 
 ## Налаштування вкладення
 
+Щоб налаштувати вкладення у вашому проекті Intlayer, спочатку визначте базовий контент, який ви хочете повторно використовувати. Потім у окремому модулі контенту використовуйте функцію `nest` для імпорту цього контенту.
+
+### Базовий словник
+
+Нижче наведено приклад базового словника для вкладення в інший словник:
+
+```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { type Dictionary } from "intlayer";
+
+const firstDictionary = {
+  key: "key_of_my_first_dictionary",
+  content: {
+    content: "content",
+    subContent: {
+      contentNumber: 0,
+      contentString: "string",
+    },
+  },
+} satisfies Dictionary;
+
+export default firstDictionary;
+```
+
+```json fileName="firstDictionary.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "key_of_my_first_dictionary",
+  "content": {
+    "content": "content",
+    "subContent": {
+      "contentNumber": 0,
+      "contentString": "string"
+    }
+  }
+}
+```
+
+## Налаштування вкладення
+
 <Tabs group="framework">
   <Tab label="React" value="react">
 

@@ -40,6 +40,12 @@ Per questo, Intlayer introduce il concetto di 'dizionari remoti'.
 
 ![Interfaccia CMS di Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
 
+## Indice dei contenuti
+
+<TOC/>
+
+---
+
 ## Comprendere i dizionari remoti
 
 Intlayer distingue tra dizionari 'locali' e 'remoti'.

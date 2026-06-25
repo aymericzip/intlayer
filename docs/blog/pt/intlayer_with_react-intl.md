@@ -53,10 +53,6 @@ Embora o Intlayer forneça uma excelente solução i18n independente (veja nosso
 
 Este guia mostra como aproveitar o sistema superior de declaração de conteúdo do Intlayer enquanto mantém a compatibilidade com o react-intl.
 
-## Índice
-
-<TOC/>
-
 ## Guia passo a passo para configurar o Intlayer com react-intl
 
 <Steps>

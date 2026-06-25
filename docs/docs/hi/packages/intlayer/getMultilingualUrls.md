@@ -29,9 +29,25 @@ author: aymericzip
 
 ## विवरण
 
+`getMultilingualUrls` फ़ंक्शन प्रत्येक समर्थित locale के साथ दिए गए URL को प्रीफ़िक्स करके बहुभाषी URLs की एक mapping तैयार करता है। यह निरपेक्ष और सापेक्ष दोनों URLs को संभाल सकता है, प्रदान किए गए कॉन्फ़िगरेशन या डिफ़ॉल्ट के आधार पर उपयुक्त locale prefix लागू करता है।
+
+**मुख्य विशेषताएं:**
+
+- केवल 1 पैरामीटर आवश्यक है: `url`
+- Optional `options` ऑब्जेक्ट जिसमें `locales`, `defaultLocale`, और `mode` हैं
+- अपने प्रोजेक्ट के internationalization कॉन्फ़िगरेशन को डिफ़ॉल्ट के रूप में उपयोग करता है
+- कई routing modes को समर्थन करता है: `prefix-no-default`, `prefix-all`, `no-prefix`, और `search-params`
+- एक mapping ऑब्जेक्ट रिटर्न करता है जिसमें सभी locales keys के रूप में हैं और उनके संबंधित URLs values के रूप में हैं
+
+---
+
+## विवरण
+
 `getMultilingualUrls` फ़ंक्शन प्रत्येक समर्थित भाषा-स्थान के साथ दिए गए URL को उपसर्गित करके बहुभाषी URL का एक मानचित्रण उत्पन्न करता है। यह दोनों पूर्ण और सापेक्ष URL को संभाल सकता है, और प्रदान की गई कॉन्फ़िगरेशन या डिफ़ॉल्ट के आधार पर उपयुक्त भाषा-स्थान उपसर्ग लागू करता है।
 
 ---
+
+## पैरामीटर
 
 ## पैरामीटर
 
@@ -54,6 +70,33 @@ author: aymericzip
   - **प्रकार**: `boolean`
   - **डिफ़ॉल्ट**: `prefixDefaultDefault`
 
+### वैकल्पिक Parameters
+
+- `options?: object`
+  - **Description**: URL localization behavior के लिए configuration object।
+  - **Type**: `object`
+  - **Required**: No (Optional)
+
+  - `options.locales?: Locales[]`
+    - **Description**: समर्थित locales की array। यदि प्रदान नहीं किया गया है, तो आपके project configuration से configured locales का उपयोग करता है।
+    - **Type**: `Locales[]`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md#middleware)
+
+  - `options.defaultLocale?: Locales`
+    - **Description**: application के लिए default locale। यदि प्रदान नहीं किया गया है, तो आपके project configuration से configured default locale का उपयोग करता है।
+    - **Type**: `Locales`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md#middleware)
+
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Description**: locale handling के लिए URL routing mode। यदि प्रदान नहीं किया गया है, तो आपके project configuration से configured mode का उपयोग करता है।
+    - **Type**: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md#middleware)
+    - **Modes**:
+      - `prefix-no-default`: Default locale के लिए कोई prefix नहीं, अन्य सभी के लिए prefix
+      - `prefix-all`: सभी locales के लिए prefix, default सहित
+      - `no-prefix`: URL में कोई locale prefix नहीं
+      - `search-params`: Locale के लिए query parameters का उपयोग करें (जैसे, `?locale=fr`)
+
 ### रिटर्न्स
 
 - **प्रकार**: `IConfigLocales<string>`
@@ -62,6 +105,20 @@ author: aymericzip
 ---
 
 ## उदाहरण उपयोग
+
+### बुनियादी उपयोग (परियोजना कॉन्फ़िगरेशन का उपयोग करता है)
+
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
+import { getMultilingualUrls, Locales } from "intlayer";
+
+// आपकी परियोजना के कॉन्फ़िगरेशन को locales, defaultLocale, और mode के लिए उपयोग करता है
+getMultilingualUrls("/dashboard");
+// आउटपुट (यह मानते हुए कि परियोजना कॉन्फ़िगरेशन में en, fr है mode 'prefix-no-default' के साथ):
+// {
+//   en: "/dashboard",
+//   fr: "/fr/dashboard"
+// }
+```
 
 ### सापेक्ष URL
 
@@ -92,6 +149,60 @@ getMultilingualUrls(
 // आउटपुट: {
 //   en: "https://example.com/en/dashboard",
 //   fr: "https://example.com/fr/dashboard"
+// }
+```
+
+---
+
+### विभिन्न रूटिंग मोड्स
+
+```typescript
+// prefix-no-default: डिफ़ॉल्ट लोकेल के लिए कोई प्रीफिक्स नहीं
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-no-default",
+});
+// आउटपुट: {
+//   en: "/dashboard",
+//   fr: "/fr/dashboard",
+//   es: "/es/dashboard"
+// }
+
+// prefix-all: सभी लोकेल्स के लिए प्रीफिक्स
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "prefix-all",
+});
+// आउटपुट: {
+//   en: "/en/dashboard",
+//   fr: "/fr/dashboard",
+//   es: "/es/dashboard"
+// }
+
+// no-prefix: URLs में कोई लोकेल प्रीफिक्स नहीं
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "no-prefix",
+});
+// आउटपुट: {
+//   en: "/dashboard",
+//   fr: "/dashboard",
+//   es: "/dashboard"
+// }
+
+// search-params: क्वेरी पैरामीटर के रूप में लोकेल
+getMultilingualUrls("/dashboard", {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+  defaultLocale: Locales.ENGLISH,
+  mode: "search-params",
+});
+// आउटपुट: {
+//   en: "/dashboard?locale=en",
+//   fr: "/dashboard?locale=fr",
+//   es: "/dashboard?locale=es"
 // }
 ```
 

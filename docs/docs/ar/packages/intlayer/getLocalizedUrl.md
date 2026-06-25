@@ -33,6 +33,36 @@ author: aymericzip
 
 ---
 
+## توقيع الدالة
+
+```typescript
+getLocalizedUrl(
+  url: string,                   // مطلوب
+  currentLocale: Locales,        // مطلوب
+  options?: {                    // اختياري
+    locales?: Locales[];
+    defaultLocale?: Locales;
+    mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params';
+  }
+): string
+```
+
+---
+
+## المعاملات
+
+### المعاملات المطلوبة
+
+- `url: string`
+  - **Description**: سلسلة URL الأصلية التي سيتم بادئتها بلغة.
+  - **Type**: `string`
+  - **Required**: Yes
+
+- `currentLocale: Locales`
+  - **Description**: اللغة الحالية التي يتم تحديث URL لها.
+  - **Type**: `Locales`
+  - **Required**: Yes
+
 ## المعاملات
 
 - `url: string`
@@ -66,6 +96,25 @@ author: aymericzip
 ---
 
 ## مثال على الاستخدام
+
+### الاستخدام الأساسي (المعاملات المطلوبة فقط)
+
+عندما تكون قد قمت بتكوين مشروعك بإعدادات التدويل، يمكنك استخدام الدالة بالمعاملات المطلوبة فقط:
+
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
+import { getLocalizedUrl, Locales } from "intlayer";
+
+// يستخدم إعدادات مشروعك للمحليات و defaultLocale و mode
+getLocalizedUrl("/about", Locales.FRENCH);
+// Output: "/fr/about" (افترض أن الفرنسية مدعومة و mode هو 'prefix-no-default')
+
+getLocalizedUrl("/about", Locales.ENGLISH);
+// Output: "/about" أو "/en/about" (حسب إعداد mode لديك)
+```
+
+### الاستخدام المتقدم (مع معاملات اختيارية)
+
+يمكنك تجاوز التكوين الافتراضي بتوفير معامل `options` الاختياري:
 
 ### عناوين URL النسبية
 
@@ -112,6 +161,30 @@ getLocalizedUrl(
 
 // الناتج: "/fr/about" للغة الفرنسية
 // الناتج: "/about" للغة الافتراضية (الإنجليزية)
+```
+
+### تجاوز الإعدادات الجزئية
+
+يمكنك أيضًا توفير بعض المعاملات الاختيارية فقط. ستستخدم الدالة إعدادات مشروعك لأي معاملات لم تحددها:
+
+```typescript codeFormat="typescript"
+import { getLocalizedUrl, Locales } from "intlayer";
+
+// تجاوز اللغات فقط، استخدم إعدادات المشروع لـ defaultLocale و mode
+getLocalizedUrl("/about", Locales.SPANISH, {
+  locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+});
+
+// تجاوز mode فقط، استخدم إعدادات المشروع لـ locales و defaultLocale
+getLocalizedUrl("/about", Locales.ENGLISH, {
+  mode: "prefix-all", // فرض البادئة لجميع اللغات بما في ذلك اللغة الافتراضية
+});
+
+// تجاوز خيارات متعددة
+getLocalizedUrl("/about", Locales.FRENCH, {
+  defaultLocale: Locales.ENGLISH,
+  mode: "search-params", // استخدم معاملات الاستعلام: /about?locale=fr
+});
 ```
 
 ### عناوين URL المطلقة

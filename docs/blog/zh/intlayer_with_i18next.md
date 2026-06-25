@@ -34,6 +34,10 @@ author: aymericzip
 
 <iframe title="如何使用 Intlayer 自动化您的 i18next JSON 翻译" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
+## 目录
+
+<TOC/>
+
 ## 什么是 Intlayer？
 
 **Intlayer** 是一个创新的开源国际化库，旨在解决传统 i18n 解决方案的不足。它为 JavaScript 应用程序中的内容管理提供了一种现代化的方法。
@@ -56,53 +60,6 @@ author: aymericzip
 ## 目录
 
 <TOC/>
-
-## 使用 i18next 设置 Intlayer 的分步指南
-
-### 第一步：安装依赖
-
-安装必要的软件包：
-
-```bash packageManager="npm"
-npx intlayer-cli init --interactive
-```
-
-```bash packageManager="pnpm"
-pnpm dlx intlayer-cli init --interactive
-```
-
-```bash packageManager="yarn"
-yarn dlx intlayer-cli init --interactive
-```
-
-```bash packageManager="bun"
-bunx intlayer-cli init --interactive
-```
-
-> `--interactive` 标志是可选的。如果您是 AI 代理，请使用 `intlayer-cli init`。
-
-> 该命令将检测您的环境并安装所需的软件包。例如：
-
-```bash packageManager="npm"
-npm install intlayer @intlayer/sync-json-plugin --save-dev
-```
-
-```bash packageManager="pnpm"
-pnpm add intlayer @intlayer/sync-json-plugin --save-dev
-```
-
-```bash packageManager="yarn"
-yarn add intlayer @intlayer/sync-json-plugin --dev
-```
-
-```bash packageManager="bun"
-bun add intlayer @intlayer/sync-json-plugin --dev
-```
-
-**软件包说明：**
-
-- **intlayer**：国际化管理、内容声明和构建的核心库
-- **@intlayer/sync-json-plugin**：用于将 Intlayer 内容声明导出为兼容 i18next 的 JSON 格式的插件
 
 ### 第2步：实现 Intlayer 插件以封装 JSON
 

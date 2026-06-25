@@ -99,24 +99,6 @@ pnpm intlayer projects list
 bun x intlayer projects list
 ```
 
-### 現在のディレクトリ内のプロジェクトを一覧表示:
-
-```bash packageManager="npm"
-npx intlayer projects list --base-dir ./packages
-```
-
-```bash packageManager="yarn"
-yarn intlayer projects list --base-dir ./packages
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer projects list --base-dir ./packages
-```
-
-```bash packageManager="bun"
-bun x intlayer projects list --base-dir ./packages
-```
-
 ### 特定ディレクトリ内のプロジェクトを一覧表示:
 
 ```bash packageManager="npm"

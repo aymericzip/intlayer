@@ -25,49 +25,6 @@ history:
 author: aymericzip
 ---
 
-# Tích hợp React: Tài liệu Hook `useIntlayer`
-
-Phần này cung cấp hướng dẫn chi tiết về cách sử dụng hook `useIntlayer` trong các ứng dụng React, cho phép bản địa hóa nội dung hiệu quả.
-
-## Nhập `useIntlayer` trong React
-
-Hook `useIntlayer` có thể được tích hợp vào các ứng dụng React bằng cách nhập nó tùy theo ngữ cảnh:
-
-- **Component phía Client:**
-
-  ```typescript codeFormat="typescript"
-  import { useIntlayer } from "react-intlayer"; // Sử dụng trong các component React phía client
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer"; // Sử dụng trong các component React phía client
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer"); // Sử dụng trong các component React phía client
-  ```
-
-- **Component phía Server:**
-
-  ```typescript codeFormat="commonjs"
-  import { useIntlayer } from "react-intlayer/server"; // Sử dụng trong các component React phía server
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useIntlayer } from "react-intlayer/server"; // Sử dụng trong các component React phía server
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useIntlayer } = require("react-intlayer/server"); // Sử dụng trong các component React phía server
-  ```
-
-## Tham số
-
-Hook nhận hai tham số:
-
-1. **`key`**: Khóa từ điển để lấy nội dung đã được bản địa hóa.
-2. **`locale`** (tùy chọn): Ngôn ngữ mong muốn. Mặc định là ngôn ngữ của ngữ cảnh nếu không được chỉ định.
-
 ## Từ điển
 
 Tất cả các khóa từ điển phải được khai báo trong các tệp khai báo nội dung để tăng tính an toàn kiểu và tránh lỗi. Bạn có thể tìm thấy [hướng dẫn thiết lập tại đây](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md).
@@ -129,14 +86,6 @@ const ServerComponentExample = () => {
     </div>
   );
 };
-```
-
-## Xử lý Thuộc tính
-
-Khi bản địa hóa các thuộc tính, truy cập giá trị nội dung một cách thích hợp:
-
-```jsx
-<button title={content.buttonTitle.value}>{content.buttonText}</button>
 ```
 
 ## Tài nguyên Bổ sung

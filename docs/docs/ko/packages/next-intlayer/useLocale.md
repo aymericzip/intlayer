@@ -112,9 +112,4 @@ const LocaleSwitcher: FC = () => {
 
 ## 결론
 
-- **`setLocale`**: 애플리케이션의 로케일을 변경하고 URL을 이에 맞게 업데이트하는 함수입니다. 구성에 따라 경로에 로케일을 추가할지 여부와 접두사 규칙을 처리합니다. `next/navigation`의 `useRouter`를 사용하여 `push` 및 `refresh`와 같은 내비게이션 기능을 활용합니다.
-- **`pathWithoutLocale`**: 로케일이 제거된 경로를 반환하는 계산된 속성입니다. URL 비교에 유용합니다. 예를 들어 현재 로케일이 `fr`이고 URL이 `fr/my_path`인 경우, 로케일이 제거된 경로는 `/my_path`가 됩니다. `next/navigation`의 `usePathname`을 사용하여 현재 경로를 가져옵니다.
-
-## 결론
-
 `next-intlayer`의 `useLocale` 훅은 Next.js 애플리케이션에서 로케일을 관리하는 데 중요한 도구입니다. 로케일 저장, 상태 관리, URL 수정 등을 원활하게 처리하여 다중 로케일에 맞게 애플리케이션을 통합적으로 적응시킬 수 있는 접근 방식을 제공합니다.

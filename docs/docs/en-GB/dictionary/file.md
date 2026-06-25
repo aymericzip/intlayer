@@ -421,6 +421,14 @@ export default myMultilingualContent;
 
 This setup allows the content to be dynamically retrieved based on the user's language preference. When used in the Intlayer Visual Editor or CMS, the system will recognise that the content comes from the specified Markdown files and ensure they remain editable.
 
+## Different types of paths
+
+When using the `file` function, you can use different types of paths to specify the file to embed.
+
+- `file("./path/to/file.txt")` - Relative path to the current file
+- `file("path/to/file.txt")` - Relative path to the project root directory
+- `file("/users/username/path/to/file.txt")` - Absolute path
+
 ## How Intlayer Handles File Content
 
 The `file` function is based on Node.js' `fs` module to read the content of the specified file and insert it into the dictionary. When used in conjunction with the Intlayer Visual Editor or CMS, Intlayer can track the relationship between the dictionary and the file. This allows Intlayer to:

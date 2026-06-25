@@ -107,52 +107,6 @@ Sayfalarınıza çok büyük JSON dosyaları yüklemek yerine yalnızca gerekli 
 </Accordion>
 </AccordionGroup>
 
-## 1. Adım: Bağımlılıkları Kurun
-
-GitHub'da [Uygulama Şablonu](https://github.com/aymericzip/intlayer-react-native-template) konusuna bakın.
-
-React Native projenizden aşağıdaki paketleri yükleyin:
-
-```bash packageManager="npm"
-npx intlayer-cli init --interactive
-```
-
-```bash packageManager="pnpm"
-pnpm dlx intlayer-cli init --interactive
-```
-
-```bash packageManager="yarn"
-yarn dlx intlayer-cli init --interactive
-```
-
-```bash packageManager="bun"
-bunx intlayer-cli init --interactive
-```
-
-> `--interactive` bayrağı isteğe bağlıdır. Bir yapay zeka aracısıysanız `intlayer-cli init` kullanın.
-
-> Bu komut ortamınızı algılayacak ve gerekli paketleri yükleyecektir. Örneğin:
-
-```bash packageManager="npm"
-npm install intlayer react-intlayer
-npm install --save-dev react-native-intlayer
-```
-
-```bash packageManager="pnpm"
-pnpm add intlayer react-intlayer
-pnpm add --save-dev react-native-intlayer
-```
-
-```bash packageManager="yarn"
-yarn add intlayer react-intlayer
-yarn add --save-dev react-native-intlayer
-```
-
-```bash packageManager="bun"
-bun add intlayer react-intlayer
-bun add --dev react-native-intlayer
-```
-
 ### Paketler
 
 - **ara katman**
@@ -558,5 +512,33 @@ Uzantının nasıl kullanılacağı hakkında daha fazla detay için, [Intlayer 
 - **CLI Komutları**: Çevirileri çıkarma veya eksik anahtarları kontrol etme gibi görevler için [Intlayer CLI](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md)'yi keşfedin.
 
 **Intlayer** ile tam güçlendirilmiş i18n ile **React Native** uygulamalarınızı oluşturmanın keyfini çıkarın!
+
+---
+
+### Debug
+
+React Native, React Web'ten daha az stabil olabilir, bu nedenle sürüm uyumuna ekstra dikkat edin.
+
+Intlayer öncelikle Web Intl API'sini hedefler; React Native'de uygun polyfill'leri eklemeniz gerekir.
+
+Kontrol Listesi:
+
+- `intlayer`, `react-intlayer` ve `react-native-intlayer`'ın en son sürümlerini kullanın.
+- Intlayer polyfill'ini etkinleştirin.
+- `getLocaleName` veya diğer Intl-API tabanlı yardımcı programları kullanıyorsanız, bu polyfill'leri erken aktarın (örneğin `index.js` veya `App.tsx` içinde):
+
+```ts
+import "intl";
+import "@formatjs/intl-getcanonicallocales/polyfill";
+import "@formatjs/intl-locale/polyfill";
+import "@formatjs/intl-pluralrules/polyfill";
+import "@formatjs/intl-displaynames/polyfill";
+import "@formatjs/intl-listformat/polyfill";
+import "@formatjs/intl-numberformat/polyfill";
+import "@formatjs/intl-relativetimeformat/polyfill";
+import "@formatjs/intl-datetimeformat/polyfill";
+```
+
+- Modüller çözümlenemezse Metro yapılandırmanızı (resolver takma adları, asset eklentileri, `tsconfig` yolları) doğrulayın.
 
 ---

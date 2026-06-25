@@ -29,6 +29,45 @@ author: aymericzip
 
 Trong Intlayer, lồng nội dung được thực hiện thông qua hàm `nest`, cho phép bạn tham chiếu và tái sử dụng nội dung từ một từ điển khác. Thay vì sao chép nội dung, bạn có thể trỏ đến một module nội dung hiện có bằng khóa của nó.
 
+## Thiết lập Nesting
+
+Để thiết lập nesting trong dự án Intlayer của bạn, trước tiên bạn định nghĩa nội dung cơ sở mà bạn muốn tái sử dụng. Sau đó, trong một module nội dung riêng biệt, bạn sử dụng hàm `nest` để import nội dung đó.
+
+### Từ điển cơ bản
+
+Dưới đây là một ví dụ về một từ điển cơ bản để lồng vào một từ điển khác:
+
+```typescript fileName="firstDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { type Dictionary } from "intlayer";
+
+const firstDictionary = {
+  key: "key_of_my_first_dictionary",
+  content: {
+    content: "content",
+    subContent: {
+      contentNumber: 0,
+      contentString: "string",
+    },
+  },
+} satisfies Dictionary;
+
+export default firstDictionary;
+```
+
+```json fileName="firstDictionary.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "key_of_my_first_dictionary",
+  "content": {
+    "content": "content",
+    "subContent": {
+      "contentNumber": 0,
+      "contentString": "string"
+    }
+  }
+}
+```
+
 ## Thiết lập lồng nội dung
 
 <Tabs group="framework">

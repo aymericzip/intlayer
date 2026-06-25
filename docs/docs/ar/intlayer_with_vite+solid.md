@@ -632,30 +632,6 @@ bun run build # Or bun run dev
 
 </Steps>
 
-### تكوين TypeScript
-
-تأكد من أن تكوين TypeScript الخاص بك يتضمن الأنواع المولدة تلقائيًا.
-
-```json5 fileName="tsconfig.json"
-{
-  "compilerOptions": {
-    // ...
-  },
-  "include": ["src", ".intlayer/**/*.ts"],
-}
-```
-
-### تكوين Git
-
-يوصى بتجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer. هذا يسمح لك بتجنب الالتزام بها في مستودع Git الخاص بك.
-
-للقيام بذلك، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
-
-```bash
-#  تجاهل الملفات التي تم إنشاؤها بواسطة Intlayer
-.intlayer
-```
-
 ### (اختياري) خريطة الموقع و robots.txt (توليد وقت البناء)
 
 يوفّر Intlayer الدالتين `generateSitemap` و`getMultilingualUrls` لتنسيق مخرجات جاهزة للزحّافات (`sitemap.xml` متعدد اللغات و`robots.txt`) وكتابتها تلقائياً إلى `public/`. عادةً تشغّل سكربت Node صغير **قبل** Vite (مثلاً خطافات npm `predev` / `prebuild`).
@@ -729,6 +705,30 @@ console.log("SEO files generated successfully.");
 ```
 
 عدّل الأوامر إن كنت تستخدم pnpm أو yarn. يمكن استدعاء السكربت من CI أيضاً.
+
+### تكوين TypeScript
+
+تأكد من أن إعدادات TypeScript تتضمن الأنواع المولدة تلقائياً.
+
+```json5 fileName="tsconfig.json"
+{
+  "compilerOptions": {
+    // ...
+  },
+  "include": ["src", ".intlayer/**/*.ts"],
+}
+```
+
+### إعدادات Git
+
+يُنصح بتجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer. يتيح لك ذلك تجنب إرسالها إلى مستودع Git الخاص بك.
+
+للقيام بذلك، يمكنك إضافة التعليمات التالية إلى ملف `.gitignore` الخاص بك:
+
+```bash
+# تجاهل الملفات التي يتم إنشاؤها بواسطة Intlayer
+.intlayer
+```
 
 ### امتداد VS Code
 

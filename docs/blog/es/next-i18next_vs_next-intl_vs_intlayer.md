@@ -282,34 +282,6 @@ Aquí un ejemplo del impacto de la optimización del tamaño del paquete usando 
 
 ---
 
-## DX, herramientas y mantenimiento
-
-<Columns>
-  <Column>
-
-**next-intl**
-
-- Comúnmente se usa junto con plataformas externas de localización y flujos editoriales.
-
-  </Column>
-  <Column>
-
-**next-i18next**
-
-- Comúnmente se usa junto con plataformas externas de localización y flujos editoriales.
-
-  </Column>
-  <Column>
-
-**intlayer**
-
-- Incluye un **Editor Visual gratuito** y un **CMS opcional** (compatible con Git o externalizado), además de una **extensión para VSCode** y **traducciones asistidas por IA** utilizando tus propias claves de proveedor.
-
-  </Column>
-</Columns>
-
-**Por qué es importante:** Reduce los costos operativos y acorta el ciclo entre desarrolladores y autores de contenido.
-
 ## Integración con plataformas de localización (TMS)
 
 Las grandes organizaciones suelen depender de Sistemas de Gestión de Traducción (TMS) como **Crowdin**, **Phrase**, **Lokalise**, **Localizely** o **Localazy**.
@@ -1278,6 +1250,127 @@ export default robots;
 </Tabs>
 
 > Intlayer proporciona una función `getMultilingualUrls` para generar URLs multilingües para tu sitemap.
+
+---
+
+### Middleware para enrutamiento de idiomas
+
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
+
+Añade un middleware para manejar la detección de idiomas y el enrutamiento:
+
+```ts fileName="src/middleware.ts"
+import { NextResponse, type NextRequest } from "next/server";
+import { defaultLocale, locales } from "@/i18n.config";
+
+const PUBLIC_FILE = /\.[^/]+$/; // excluir archivos con extensiones
+
+export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  if (
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/api") ||
+    pathname.startsWith("/static") ||
+    PUBLIC_FILE.test(pathname)
+  ) {
+    return;
+  }
+
+  const hasLocale = locales.some(
+    (l) => pathname === "/" + l || pathname.startsWith("/" + l + "/")
+  );
+  if (!hasLocale) {
+    const locale = defaultLocale;
+    const url = request.nextUrl.clone();
+    url.pathname = "/" + locale + (pathname === "/" ? "" : pathname);
+    return NextResponse.redirect(url);
+  }
+}
+
+export const config = {
+  matcher: [
+    // Coincide con todas las rutas excepto las que comienzan con estas y archivos con extensión
+    "/((?!api|_next|static|.*\\..*).*)",
+  ],
+};
+```
+
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
+
+Añade un middleware para manejar la detección de idiomas y el enrutamiento:
+
+```ts fileName="src/middleware.ts"
+import createMiddleware from "next-intl/middleware";
+import { locales, defaultLocale } from "@/i18n";
+
+export default createMiddleware({
+  locales: [...locales],
+  defaultLocale,
+  localeDetection: true,
+});
+
+export const config = {
+  // Omitir API, elementos internos de Next y activos estáticos
+  matcher: ["/((?!api|_next|.*\\..*).*)"],
+};
+```
+
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
+
+Intlayer proporciona manejo de middleware incorporado a través de la configuración del paquete `next-intlayer`.
+
+```ts fileName="src/middleware.ts"
+import { intlayerProxy } from "next-intlayer/proxy";
+
+export const middleware = intlayerProxy();
+
+// aplica este middleware solo a archivos en el directorio app
+export const config = {
+  matcher: "/((?!api|_next|static|.*\\..*).*)",
+};
+```
+
+La configuración del middleware está centralizada en el archivo `intlayer.config.ts`.
+
+  </Tab>
+</Tabs>
+
+### Lista de verificación de configuración y buenas prácticas
+
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
+
+- Asegúrate de que `lang` y `dir` estén configurados en el `<html>` raíz en `src/app/[locale]/layout.tsx`.
+- Divide las traducciones en namespaces (por ejemplo `common.json`, `about.json`) bajo `src/locales/<locale>/`.
+- Carga solo los namespaces necesarios en componentes cliente usando `useTranslation('<ns>')` y delimitando `I18nProvider` con los mismos namespaces.
+- Mantén las páginas estáticas cuando sea posible: exporta `export const dynamic = 'force-static'` en páginas; establece `dynamicParams = false` e implementa `generateStaticParams`.
+- Utiliza componentes server síncronos anidados bajo límites cliente pasando strings ya computados o la función `t` y `locale`.
+- Para SEO, establece `alternates.languages` en metadata, lista URLs localizadas en `sitemap.ts` y deshabilita rutas localizadas duplicadas en `robots.ts`.
+- Prefiere formateadores conscientes de locale (por ejemplo, `Intl.NumberFormat(locale)`) y memorízalos en el cliente si usas React < 19.
+
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
+
+- **Configura `lang` y `dir` en html**: En `src/app/[locale]/layout.tsx`, calcula `dir` vía `getLocaleDirection(locale)` y establece `<html lang={locale} dir={dir}>`.
+- **Divide mensajes por namespace**: Organiza JSON por locale y namespace (por ejemplo, `common.json`, `about.json`).
+- **Minimiza la carga del cliente**: En páginas, envía solo los namespaces necesarios a `NextIntlClientProvider` (por ejemplo, `pick(messages, ['common', 'about'])`).
+- **Prefiere páginas estáticas**: Exporta `export const dynamic = 'force-static'` y genera parámetros estáticos para todos los `locales`.
+- **Componentes server síncronos**: Mantén los componentes server síncronos pasando strings precomputados (etiquetas traducidas, números formateados) en lugar de llamadas asincrónicas o funciones no serializables.
+
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
+
+- **Contenido modular**: Co-localiza diccionarios de contenido con componentes usando archivos `.content.{ts|js|json}`.
+- **Seguridad de tipos**: Aprovecha la integración de TypeScript para validación de contenido en tiempo de compilación.
+- **Optimización en tiempo de compilación**: Utiliza las herramientas de compilación de Intlayer para tree-shaking automático y optimización de bundling.
+- **Herramientas integradas**: Aprovecha el soporte incorporado para enrutamiento, helpers de SEO y editor visual.
+
+  </Tab>
+</Tabs>
 
 ---
 

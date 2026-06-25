@@ -34,117 +34,6 @@ author: aymericzip
 
 Bu bölüm, React uygulamalarında görsel düzenleyici olmadan yerelleştirilmiş içeriği verimli bir şekilde yönetmek için `useDictionary` hook'unun kullanımına ilişkin detaylı rehberlik sağlar.
 
-## React'te `useDictionary` İçe Aktarma
-
-`useDictionary` hook'u, bağlama göre içe aktararak React uygulamalarına entegre edilebilir:
-
-- **İstemci Bileşeni:**
-
-  ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer"; // İstemci tarafı React bileşenlerinde kullanılır
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer"; // İstemci tarafı React bileşenlerinde kullanılır
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer"); // İstemci tarafı React bileşenlerinde kullanılır
-  ```
-
-- **Sunucu Bileşeni:**
-
-  ```typescript codeFormat="typescript"
-  import { useDictionary } from "react-intlayer/server"; // Sunucu tarafı React bileşenlerinde kullanılır
-  ```
-
-  ```javascript codeFormat="esm"
-  import { useDictionary } from "react-intlayer/server"; // Sunucu tarafı React bileşenlerinde kullanılır
-  ```
-
-  ```javascript codeFormat="commonjs"
-  const { useDictionary } = require("react-intlayer/server"; // Sunucu tarafı React bileşenlerinde kullanılır
-  ```
-
-## Parametreler
-
-Hook iki parametre kabul eder:
-
-1. **`dictionary`**: Belirli anahtarlar için yerelleştirilmiş içerik içeren bildirilen bir sözlük nesnesi.
-2. **`locale`** (isteğe bağlı): İstenen yerel ayar. Belirtilmezse, mevcut bağlamın yerel ayarına varsayılan olur.
-
-## Sözlük
-
-Tüm sözlük nesneleri, tür güvenliğini sağlamak ve çalışma zamanı hatalarını önlemek için yapılandırılmış içerik dosyalarında bildirilmelidir. [Kurulum talimatlarını burada](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/content_file.md) bulabilirsiniz. İşte içerik bildirimi örneği:
-
-```typescript fileName="./component.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
-import { t, type Dictionary } from "intlayer";
-
-const componentContent = {
-  key: "component-example",
-  content: {
-    title: t({
-      en: "Client Component Example",
-      fr: "Exemple de composant client",
-      es: "Ejemplo de componente cliente",
-    }),
-    content: t({
-      en: "This is the content of a client component example",
-      fr: "Ceci est le contenu d'un exemple de composant client",
-      es: "Este es el contenido de un ejemplo de componente cliente",
-    }),
-  },
-} satisfies Dictionary;
-
-export default componentContent;
-```
-
-```json fileName="./component.content.json" contentDeclarationFormat="json"
-{
-  "$schema": "https://intlayer.org/schema.json",
-  "key": "component-example",
-  "content": {
-    "title": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "Client Component Example",
-        "fr": "Exemple de composant client",
-        "es": "Ejemplo de componente cliente"
-      }
-    },
-    "content": {
-      "nodeType": "translation",
-      "translation": {
-        "en": "This is the content of a client component example",
-        "fr": "Ceci est le contenu d'un exemple de composant client",
-        "es": "Este es el contenido de un ejemplo de componente cliente"
-      }
-    }
-  }
-}
-```
-
-## React'te Örnek Kullanım
-
-Aşağıda `useDictionary` hook'unun bir React bileşeninde nasıl kullanılacağına ilişkin bir örnek verilmiştir:
-
-```tsx fileName="./ComponentExample.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { useDictionary } from "react-intlayer";
-import componentContent from "./component.content";
-
-const ComponentExample: FC = () => {
-  const { title, content } = useDictionary(componentContent);
-
-  return (
-    <div>
-      <h1>{title}</h1>
-      <p>{content}</p>
-    </div>
-  );
-};
-```
-
 ## Sunucu Entegrasyonu
 
 `useDictionary` hook'unu `IntlayerProvider` dışında kullanıyorsanız, bileşeni işlerken yerel ayar açıkça parametre olarak sağlanmalıdır:
@@ -164,14 +53,6 @@ const ServerComponentExample: FC<{ locale: string }> = ({ locale }) => {
     </div>
   );
 };
-```
-
-## Özellikler Hakkında Notlar
-
-Görsel düzenleyiciler kullanan entegrasyonların aksine, `buttonTitle.value` gibi özellikler burada uygulanmaz. Bunun yerine, içeriği doğrudan bildirildiğiniz gibi erişin.
-
-```jsx
-<button title={content.title}>{content.content}</button>
 ```
 
 ## Ek İpuçları

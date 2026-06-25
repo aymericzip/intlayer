@@ -606,13 +606,6 @@ Dla zdalnych słowników, ta tablica zawiera wszystkie dostępne wersje słownik
 
 Wskazuje, czy słownik został automatycznie wypełniony z zewnętrznych źródeł. W przypadku konfliktów, słowniki bazowe mają pierwszeństwo nad automatycznie wypełnionymi słownikami.
 
-##### `location` ('distant' | 'locale')
-
-Wskazuje lokalizację słownika:
-
-- `'locale'`: Słownik lokalny (z plików zawartości)
-- `'distant'`: Słownik zdalny (z zewnętrznego źródła)
-
 ## Typy węzłów zawartości
 
 Intlayer udostępnia kilka specjalizowanych typów węzłów zawartości, które rozszerzają podstawowe wartości prymitywne:
@@ -889,39 +882,6 @@ content:
   hero:
     title: Welcome to Our Platform
     subtitle: Build amazing applications with ease
-```
-
-### Pliki zawartości per-locale
-
-Dla słowników per-locale określ właściwość `locale`:
-
-Możesz również tworzyć pliki z zawartością w formacie JSON:
-
-```json
-{
-  "key": "welcome-page",
-  "title": "Zawartość strony powitalnej",
-  "description": "Zawartość głównej strony powitalnej",
-  "tags": ["strona", "powitanie"],
-  "content": {
-    "hero": {
-      "title": {
-        "nodeType": "translation",
-        "translation": {
-          "en": "Welcome to Our Platform",
-          "fr": "Bienvenue sur Notre Plateforme"
-        }
-      },
-      "subtitle": {
-        "nodeType": "translation",
-        "translation": {
-          "en": "Build amazing applications with ease",
-          "fr": "Construisez des applications incroyables avec facilité"
-        }
-      }
-    }
-  }
-}
 ```
 
 ### Pliki zawartości dla poszczególnych lokalizacji

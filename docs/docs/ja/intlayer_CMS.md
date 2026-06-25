@@ -40,6 +40,12 @@ Intlayer CMSは、Intlayerプロジェクトのコンテンツを外部化でき
 
 ![Intlayer CMS インターフェース](https://github.com/aymericzip/intlayer/blob/main/docs/assets/CMS.png)
 
+## 目次
+
+<TOC/>
+
+---
+
 ## 遠隔辞書の理解
 
 Intlayerは「ローカル辞書」と「遠隔辞書」を区別しています。

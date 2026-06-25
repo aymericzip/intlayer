@@ -140,6 +140,28 @@ steps:
     run: npx intlayer ci fill
 ```
 
+## Строительные блоки GitHub Actions
+
+При запуске `intlayer init`, Intlayer определяет ваш package manager (npm, yarn, pnpm или bun) и создает два workflow'а GitHub Actions в папке `.github/workflows/`, с командами, соответствующими вашему package manager'у:
+
+- **`intlayer-fill.yml`** — При каждом pull request'е собирает словари и запускает `intlayer fill --git-diff --mode complete` для генерации недостающих переводов в измененных словарях, а затем коммитит результат обратно в ветку PR.
+- **`intlayer-test.yml`** — При каждом pull request'е собирает словари и запускает `intlayer test`, не пропуская проверку, когда требуемым локалям не хватает переводов.
+
+Существующие файлы workflow никогда не перезаписываются. Чтобы полностью пропустить создание строительных блоков, запустите:
+
+```bash
+npx intlayer init --no-github-actions
+```
+
+### Предоставление доступа к ИИ для рабочего процесса fill
+
+Созданный файл `intlayer-fill.yml` требует доступа к ИИ. Доступны два варианта (настраиваются в блоке `env` рабочего процесса):
+
+1. **Ваш собственный ключ поставщика ИИ** — добавьте секрет `AI_API_KEY` в настройки репозитория (Settings → Secrets and variables → Actions). Рабочий процесс передает его через `--provider`, `--model` и `--api-key`.
+2. **Ключи доступа Intlayer CMS** — добавьте секреты `INTLAYER_CLIENT_ID` и `INTLAYER_CLIENT_SECRET` и свяжите их с разделом `editor` в вашем `intlayer.config`. Ключи доступа CMS предоставляют доступ к ИИ через backend Intlayer.
+
+Рабочий процесс `intlayer-test.yml` не требует доступа к ИИ.
+
 ## Обработка ошибок
 
 - Если `INTLAYER_PROJECT_CREDENTIALS` не установлена, команда завершится с ошибкой.

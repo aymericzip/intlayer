@@ -39,6 +39,12 @@ Alle drei lassen sich mit dem Locale-Argument kombinieren und unterstützen sele
 - **Varianten** — benannte Inhaltsalternativen für A/B-Tests, saisonale Banner oder Feature-Flags.
 - **Dynamische Einträge** — Inhalte, die zur Laufzeit über eine opake ID abgerufen werden (CMS-Einträge, benutzerspezifische Texte).
 
+## Wann man welches verwendet
+
+- **Collections** — geordnete Liste von Elementen, die in separaten Dateien verwaltet werden (FAQ-Einträge, Blogbeiträge, Produkte).
+- **Variants** — benannte Inhaltsvarianten für A/B-Tests, saisonale Banner oder Feature Flags.
+- **Dynamic records** — Inhalte, die zur Laufzeit über eine undurchsichtige ID abgerufen werden (CMS-Datensätze, benutzerspezifische Texte).
+
 ## Selektor-Eindeutigkeit
 
 Wenn mehrere Selektoren für ein Wörterbuch vorhanden sind, ist die Reihenfolge der Auflösung:

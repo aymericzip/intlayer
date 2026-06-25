@@ -259,6 +259,14 @@ const { greeting } = useIntlayer("component-example");
 
 ---
 
+## GitHub STARs
+
+GitHub stars는 프로젝트의 인기도, 커뮤니티 신뢰도, 장기적 관련성의 강력한 지표입니다. 기술적 품질을 직접 측정하는 것은 아니지만, 얼마나 많은 개발자들이 프로젝트를 유용하게 생각하고, 진행 상황을 따르고 있으며, 채택할 가능성이 있는지를 반영합니다. 프로젝트의 가치를 추정하기 위해 stars는 대안들 간의 견인력을 비교하고 생태계 성장에 대한 통찰력을 제공합니다.
+
+[![Star History Chart](https://api.star-history.com/svg?repos=intlify/vue-i18n&repos=aymericzip/intlayer&type=Date)](https://www.star-history.com/#intlify/vue-i18n&aymericzip/intlayer)
+
+---
+
 ## 결론
 
 **vue-i18n**과 **Intlayer** 모두 Vue 앱을 잘 현지화합니다. 차이점은 견고하고 확장 가능한 설정을 위해 **얼마나 많이 직접 구축해야 하는가**에 있습니다:

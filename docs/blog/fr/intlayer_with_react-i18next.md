@@ -40,14 +40,6 @@ Découvrez une comparaison concrète avec react-i18next dans notre article de bl
 
 ## Pourquoi combiner Intlayer avec react-i18next ?
 
-Alors qu'Intlayer propose une excellente solution i18n autonome (voir notre [guide d'intégration React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_vite+react.md)), vous pourriez vouloir la combiner avec react-i18next pour plusieurs raisons :
-
-**Intlayer** est une bibliothèque d'internationalisation innovante et open-source conçue pour pallier les lacunes des solutions i18n traditionnelles. Elle offre une approche moderne de la gestion de contenu dans les applications React.
-
-Consultez une comparaison concrète avec react-i18next dans notre article de blog [react-i18next vs. react-intl vs. Intlayer](https://github.com/aymericzip/intlayer/blob/main/docs/blog/fr/react-i18next_vs_react-intl_vs_intlayer.md).
-
-## Pourquoi combiner Intlayer avec react-i18next ?
-
 Bien qu'Intlayer fournisse une excellente solution i18n autonome (voir notre [guide d'intégration React](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/intlayer_with_vite+react.md)), vous pourriez vouloir le combiner avec react-i18next pour plusieurs raisons :
 
 1. **Base de code existante** : Vous disposez d'une implémentation react-i18next établie et souhaitez migrer progressivement vers la meilleure expérience développeur d'Intlayer.

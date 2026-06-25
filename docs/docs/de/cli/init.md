@@ -109,6 +109,26 @@ bun x intlayer init --project-root ./my-project
 
 Dies initialisiert Intlayer im angegebenen Verzeichnis.
 
+### Initialisierung ohne .gitignore zu aktualisieren:
+
+```bash packageManager="npm"
+npx intlayer init --no-gitignore
+```
+
+```bash packageManager="yarn"
+yarn intlayer init --no-gitignore
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer init --no-gitignore
+```
+
+```bash packageManager="bun"
+bun x intlayer init --no-gitignore
+```
+
+Dies richtet alle Konfigurationsdateien ein, ohne Ihre `.gitignore` zu ändern.
+
 ## Beispielausgabe:
 
 ```bash

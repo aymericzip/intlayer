@@ -606,13 +606,6 @@ Untuk kamus jarak jauh, array ini berisi semua versi kamus yang tersedia. Memban
 
 Menunjukkan apakah kamus telah diisi otomatis dari sumber eksternal. Jika terjadi konflik, kamus dasar akan mengesampingkan kamus yang diisi otomatis.
 
-##### `location` ('distant' | 'locale')
-
-Menunjukkan lokasi kamus:
-
-- `'locale'`: Kamus lokal (dari file konten)
-- `'distant'`: Kamus jarak jauh (dari sumber eksternal)
-
 ## Jenis Node Konten
 
 Intlayer menyediakan beberapa jenis node konten khusus yang memperluas nilai primitif dasar:
