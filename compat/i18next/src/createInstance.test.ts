@@ -32,6 +32,13 @@ vi.mock('@intlayer/core/interpreter', async (importOriginal) => ({
         hello: 'Hello!',
       };
     }
+    if (ns === 'flatKeys') {
+      return {
+        'resultsTable.sampleResults': 'Sample Results',
+        'resultsTable.bundleSize': 'Bundle Size',
+        'hero.viewResults': 'View Results',
+      };
+    }
     throw new Error('Namespace not found');
   }),
 }));
@@ -143,5 +150,16 @@ describe('i18next createInstance compatibility layer', () => {
 
     expect(i18n.exists('item', { count: 2 })).toBe(true);
     expect(i18n.exists('missing')).toBe(false);
+  });
+
+  it('should resolve flat dot-separated keys (i18next flat JSON format)', async () => {
+    const i18n = createInstance({ lng: 'en', ns: ['flatKeys'] });
+    await i18n.init();
+
+    expect(i18n.t('flatKeys:resultsTable.sampleResults')).toBe(
+      'Sample Results'
+    );
+    expect(i18n.t('flatKeys:resultsTable.bundleSize')).toBe('Bundle Size');
+    expect(i18n.t('flatKeys:hero.viewResults')).toBe('View Results');
   });
 });

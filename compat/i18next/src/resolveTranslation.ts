@@ -52,6 +52,21 @@ const navigatePath = (
 ): unknown => {
   if (!path) return objectValue;
 
+  // Try the full key as a flat property first (supports i18next flat
+  // JSON files that use dotted keys like "section.title": "value").
+  if (
+    keySeparator !== false &&
+    path.includes(keySeparator) &&
+    objectValue !== null &&
+    objectValue !== undefined &&
+    typeof objectValue === 'object'
+  ) {
+    const flatValue = (objectValue as Record<string, unknown>)[path];
+    if (flatValue !== undefined) {
+      return flatValue;
+    }
+  }
+
   const parts = keySeparator === false ? [path] : path.split(keySeparator);
 
   let current: unknown = objectValue;
@@ -65,6 +80,7 @@ const navigatePath = (
     }
     current = (current as Record<string, unknown>)[part];
   }
+
   return current;
 };
 
