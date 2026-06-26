@@ -217,6 +217,63 @@ export const Route = createRootRoute({ shellComponent: RootDocument });
     expect(root).toContain('const locale =');
   });
 
+  it('does not inject a duplicate locale declared via destructuring', async () => {
+    await writeFileAt(
+      'src/routes/__root.tsx',
+      `import { createRootRoute } from "@tanstack/react-router";
+import { defaultLocale } from "../i18n/lingui";
+
+function RootDocument({ children }: { children: React.ReactNode }) {
+  const { locale = defaultLocale, messages } = Route.useLoaderData();
+  return (
+    <html data-messages={messages}>
+      <body>{children}</body>
+    </html>
+  );
+}
+
+export const Route = createRootRoute({ shellComponent: RootDocument });
+`
+    );
+    await writeFileAt('src/routes/index.tsx', 'export const Route = null;\n');
+
+    await tanStackStartAdapter.setup(context());
+
+    const root = await readFileAt('src/routes/__root.tsx');
+    // The destructured `locale` is detected → no second `const locale` is added.
+    expect(root).not.toContain('const locale =');
+    expect(root).toContain('const { locale = defaultLocale, messages }');
+    expect(root).toContain('<IntlayerProvider locale={locale}>');
+    expect(root).toContain('lang={locale}');
+  });
+
+  it('does not inject a duplicate locale declared as a function parameter', async () => {
+    await writeFileAt(
+      'src/routes/__root.tsx',
+      `import { createRootRoute } from "@tanstack/react-router";
+
+function RootDocument({ children, locale }: { children: React.ReactNode; locale: string }) {
+  return (
+    <html>
+      <body>{children}</body>
+    </html>
+  );
+}
+
+export const Route = createRootRoute({ shellComponent: RootDocument });
+`
+    );
+    await writeFileAt('src/routes/index.tsx', 'export const Route = null;\n');
+
+    await tanStackStartAdapter.setup(context());
+
+    const root = await readFileAt('src/routes/__root.tsx');
+    // The `locale` parameter is reused → no `const locale` is injected.
+    expect(root).not.toContain('const locale =');
+    expect(root).toContain('<IntlayerProvider locale={locale}>');
+    expect(root).toContain('lang={locale}');
+  });
+
   it('reuses an existing defaultLocale import instead of redeclaring it', async () => {
     await writeFileAt(
       'src/routes/__root.tsx',

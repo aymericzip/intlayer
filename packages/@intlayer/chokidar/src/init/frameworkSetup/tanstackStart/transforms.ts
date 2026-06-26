@@ -48,25 +48,67 @@ const findHtmlDocumentFunction = (ast: any): any => {
 };
 
 /**
+ * Whether the binding pattern `node` introduces a variable named `name`.
+ * Recurses through destructuring patterns so all of `const locale`,
+ * `const { locale } = …`, `const { locale = fallback } = …`,
+ * `const { foo: locale } = …`, `const [locale] = …` and `...locale` are
+ * detected — not just a bare identifier.
+ */
+const patternBindsName = (node: any, name: string): boolean => {
+  if (!node) return false;
+  switch (node.type) {
+    case 'Identifier':
+      return node.name === name;
+    case 'AssignmentPattern':
+      // `locale = fallback`
+      return patternBindsName(node.left, name);
+    case 'RestElement':
+      // `...locale`
+      return patternBindsName(node.argument, name);
+    case 'ArrayPattern':
+      return node.elements.some((element: any) =>
+        patternBindsName(element, name)
+      );
+    case 'ObjectPattern':
+      return node.properties.some((property: any) =>
+        property.type === 'RestElement'
+          ? patternBindsName(property.argument, name)
+          : // The *value* is the binding target (`{ foo: locale }` binds `locale`).
+            patternBindsName(property.value, name)
+      );
+    default:
+      return false;
+  }
+};
+
+/**
  * Inserts `const locale = …` once, at the top of the function body. A single
  * self-contained statement is used (rather than an intermediate `params` const)
  * so it can never collide with a `params` variable the document already
  * declares. Expression-bodied arrow functions are first converted to a block so
  * the declaration has somewhere to live.
+ *
+ * No-ops when `locale` is already bound in the function — whether as a simple
+ * identifier, through a destructuring pattern (e.g.
+ * `const { locale = defaultLocale } = useLoaderData()`), or as a function
+ * parameter — so the injected declaration never collides with one the document
+ * already provides (which would produce an
+ * `Identifier 'locale' has already been declared` parse error).
  */
 const ensureLocaleFromParams = (funcNode: any): void => {
   if (funcNode.body?.type !== 'BlockStatement') {
     funcNode.body = b.blockStatement([b.returnStatement(funcNode.body)]);
   }
 
-  const hasLocale = funcNode.body.body.some(
+  const declaredInBody = funcNode.body.body.some(
     (stmt: any) =>
       stmt.type === 'VariableDeclaration' &&
-      stmt.declarations.some(
-        (d: any) => d.id?.type === 'Identifier' && d.id.name === 'locale'
-      )
+      stmt.declarations.some((d: any) => patternBindsName(d.id, 'locale'))
   );
-  if (hasLocale) return;
+  const declaredInParams = (funcNode.params ?? []).some((param: any) =>
+    patternBindsName(param, 'locale')
+  );
+  if (declaredInBody || declaredInParams) return;
 
   const statement = parseTsx(
     'const locale = useParams({ strict: false }).locale ?? defaultLocale;'

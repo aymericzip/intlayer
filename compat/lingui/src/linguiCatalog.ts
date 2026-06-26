@@ -44,6 +44,52 @@ export const navigateCatalog = (catalog: unknown, id: string): unknown => {
 };
 
 /**
+ * Returns the flat id→message map of a catalog, transparently unwrapping the
+ * lingui `{ messages: {…} }` wrapper when present.
+ *
+ * Compiled lingui catalogs (`.po`/`.mjs`/`.json`) nest the id→message map under
+ * a top-level `messages` key, and syncJSON-backed intlayer dictionaries
+ * preserve that wrapper (`{ messages: { 'hero.title': […] } }`). Centralized
+ * intlayer dictionaries instead store the map at the top level
+ * (`{ 'hero.title': '…' }`). Both shapes are supported.
+ */
+export const unwrapLinguiCatalog = (
+  catalog: unknown
+): Record<string, unknown> => {
+  if (!catalog || typeof catalog !== 'object') return {};
+  const wrapped = (catalog as Record<string, unknown>).messages;
+  if (wrapped && typeof wrapped === 'object') {
+    return wrapped as Record<string, unknown>;
+  }
+  return catalog as Record<string, unknown>;
+};
+
+/**
+ * Reads a value from a catalog by id, accepting both the flat/nested shapes
+ * handled by {@link navigateCatalog} and the lingui `{ messages: {…} }` wrapper.
+ *
+ * The direct lookup is tried first so a centralized dictionary that genuinely
+ * stores content at the top level keeps working; only on a miss does it look
+ * inside the `messages` wrapper used by namespaced lingui catalogs.
+ */
+export const navigateLinguiCatalog = (
+  catalog: unknown,
+  id: string
+): unknown => {
+  const direct = navigateCatalog(catalog, id);
+  if (direct !== undefined) return direct;
+
+  if (catalog && typeof catalog === 'object') {
+    const wrapped = (catalog as Record<string, unknown>).messages;
+    if (wrapped && typeof wrapped === 'object') {
+      return navigateCatalog(wrapped, id);
+    }
+  }
+
+  return undefined;
+};
+
+/**
  * Converts a single compiled lingui token to its ICU MessageFormat equivalent.
  *
  * Token shapes (from `@lingui/message-utils`):

@@ -6,14 +6,25 @@ vi.mock('@intlayer/core/interpreter', () => ({
   getIntlayer: vi.fn(),
 }));
 
+// Mock the dictionary registry so the namespace enumeration has keys to search.
+vi.mock('@intlayer/dictionaries-entry', () => ({
+  getDictionaries: vi.fn(),
+}));
+
 import { getIntlayer } from '@intlayer/core/interpreter';
+import { getDictionaries } from '@intlayer/dictionaries-entry';
 import { I18nClass } from './I18nClass';
 
 const mockGetIntlayer = vi.mocked(getIntlayer);
+const mockGetDictionaries = vi.mocked(getDictionaries);
 
 describe('I18nClass', () => {
   beforeEach(() => {
     mockGetIntlayer.mockReset();
+    mockGetDictionaries.mockReset();
+    // By default expose a single `messages` namespace; tests that need
+    // namespaced behaviour override this.
+    mockGetDictionaries.mockReturnValue({ messages: {} } as never);
   });
 
   // ── constructor ────────────────────────────────────────────────────────────
@@ -97,6 +108,54 @@ describe('I18nClass', () => {
     } as never);
     const i18n = new I18nClass({ locale: 'en' });
     expect(i18n._('results-table.bundleSize')).toBe('Bundle Size');
+  });
+
+  it('resolves a key from a namespaced dictionary (syncJSON split catalogs)', () => {
+    // Catalogs are split into per-namespace dictionaries, each wrapping the flat
+    // id→message map under a lingui `messages` key.
+    mockGetDictionaries.mockReturnValue({
+      shared: {},
+      home: {},
+    } as never);
+    mockGetIntlayer.mockImplementation(((key: string) => {
+      if (key === 'home') {
+        return {
+          messages: {
+            'hero.aTestApplicationDesignedTo': ['A test application'],
+          },
+        };
+      }
+      return { messages: {} };
+    }) as never);
+
+    const i18n = new I18nClass({ locale: 'en' });
+    expect(i18n._('hero.aTestApplicationDesignedTo')).toBe(
+      'A test application'
+    );
+  });
+
+  it('does not echo the key path when no dictionary matches (no proxy leak)', () => {
+    // A missing `messages` dictionary used to return a safe-fallback proxy that
+    // stringified to the key path (`messages.hero.title`); enumeration avoids it.
+    mockGetDictionaries.mockReturnValue({ home: {} } as never);
+    mockGetIntlayer.mockReturnValue({ messages: {} } as never);
+
+    const i18n = new I18nClass({ locale: 'en' });
+    expect(i18n._('hero.title')).toBe('hero.title');
+  });
+
+  it('merges every namespace into the messages getter', () => {
+    mockGetDictionaries.mockReturnValue({ home: {}, shared: {} } as never);
+    mockGetIntlayer.mockImplementation(((key: string) =>
+      key === 'home'
+        ? { messages: { 'hero.title': 'Home' } }
+        : { messages: { 'nav.about': 'About' } }) as never);
+
+    const i18n = new I18nClass({ locale: 'en' });
+    expect(i18n.messages).toEqual({
+      'hero.title': 'Home',
+      'nav.about': 'About',
+    });
   });
 
   it('interpolates ICU values', () => {
