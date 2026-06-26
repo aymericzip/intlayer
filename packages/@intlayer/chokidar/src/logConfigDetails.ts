@@ -77,12 +77,6 @@ export const logConfigDetails = (options?: GetConfigurationOptions) => {
           appLogger(errorMessage);
         }
 
-        if (customConfiguration.compiler?.enabled === undefined) {
-          appLogger(
-            `Since intlayer v9, the compiler is disabled by default. Set ${colorize('compiler.enabled', ANSIColors.BLUE)}${colorize(': true', ANSIColors.GREY_DARK)} in your configuration to enable it.`
-          );
-        }
-
         if (customConfiguration.build?.importMode) {
           appLogger(
             `${colorize('build.importMode', ANSIColors.BLUE)} is deprecated, use ${colorize('dictionary.importMode', ANSIColors.BLUE)} instead`
