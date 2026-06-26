@@ -186,6 +186,94 @@ export const detectJsonLocalePattern = async (
 };
 
 /**
+ * Detected lingui catalog pattern. lingui stores one catalog file per locale
+ * (default name `messages`), as `.po` (its default) or `.json`.
+ */
+export type LinguiCatalogPattern = {
+  /** Which sync plugin should ingest the catalogs. */
+  format: 'po' | 'json';
+  /**
+   * Source path template, with `${locale}` and `${key}` as literal
+   * placeholders. The catalog filename (`messages`) is captured by `${key}` so
+   * the produced intlayer dictionary key is `messages` — matching the fixed
+   * `messages` namespace the lingui compat runtime reads from.
+   * Example: `./src/locales/${locale}/${key}.po`.
+   */
+  template: string;
+  /** Detected locales. */
+  locales: string[];
+};
+
+/**
+ * Scans the project for lingui catalog files (`{base}/{locale}/messages.po` or
+ * `…/messages.json`, lingui's default layout) and derives the `syncPO` /
+ * `syncJSON` `source` template.
+ *
+ * `.po` is preferred when present (lingui's default format). Returns `null`
+ * when no lingui catalog is found, in which case the caller falls back to the
+ * generic JSON detection.
+ *
+ * @param rootDir - Project root directory.
+ */
+export const detectLinguiCatalogPattern = async (
+  rootDir: string
+): Promise<LinguiCatalogPattern | null> => {
+  // lingui's default catalog name is `messages`; match that basename for both
+  // formats so the captured `${key}` is `messages`.
+  const files = await fg(['**/messages.po', '**/messages.json'], {
+    cwd: rootDir,
+    ignore: EXCLUDED_PATHS,
+    absolute: false,
+    onlyFiles: true,
+  });
+
+  const basePathsByFormat: Record<'po' | 'json', string[]> = {
+    po: [],
+    json: [],
+  };
+  const localesByFormat: Record<'po' | 'json', Set<string>> = {
+    po: new Set(),
+    json: new Set(),
+  };
+
+  for (const file of files) {
+    const parts = file.split('/');
+    // Nested layout: …/{locale}/messages.{po,json} — parent dir is the locale.
+    if (parts.length < 2) continue;
+
+    const localeDir = parts[parts.length - 2] ?? '';
+    if (!isLocaleSegment(localeDir)) continue;
+
+    const extension = (file.endsWith('.po') ? 'po' : 'json') as 'po' | 'json';
+    basePathsByFormat[extension].push(parts.slice(0, -2).join('/') || '.');
+    localesByFormat[extension].add(localeDir);
+  }
+
+  // Prefer `.po` (lingui's default) when catalogs of both formats coexist.
+  const format: 'po' | 'json' = basePathsByFormat.po.length > 0 ? 'po' : 'json';
+
+  const basePaths = basePathsByFormat[format];
+  if (basePaths.length === 0) return null;
+
+  const counts = basePaths.reduce<Record<string, number>>(
+    (accumulator, path) => {
+      accumulator[path] = (accumulator[path] ?? 0) + 1;
+      return accumulator;
+    },
+    {}
+  );
+  const topBasePath =
+    Object.entries(counts).sort(([, a], [, b]) => b - a)[0]?.[0] ?? '.';
+  const prefix = topBasePath === '.' ? '.' : `./${topBasePath}`;
+
+  return {
+    format,
+    template: `${prefix}/\${locale}/\${key}.${format}`,
+    locales: Array.from(localesByFormat[format]),
+  };
+};
+
+/**
  * The messages source template derived from a `next-intl` `i18n/request.ts`
  * file, ready to be used as a `syncJSON` `source` builder.
  */

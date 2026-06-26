@@ -32,6 +32,9 @@ const LINGUI_COMPAT_CALLERS: CompatCallerConfig[] = [
     matchAsMethod: true,
     namespace: { from: 'fixed', value: 'messages' },
     translationFunction: 'self',
+    // lingui catalogs are flat: `i18n._('results-table.bundleSize')` reads the
+    // literal `'results-table.bundleSize'` key, so the whole id is the field.
+    flatKey: true,
   },
   {
     callerName: 't',
@@ -39,6 +42,7 @@ const LINGUI_COMPAT_CALLERS: CompatCallerConfig[] = [
     matchAsMethod: true,
     namespace: { from: 'fixed', value: 'messages' },
     translationFunction: 'self',
+    flatKey: true,
   },
 ];
 
@@ -59,7 +63,9 @@ const LINGUI_COMPAT_CALLERS: CompatCallerConfig[] = [
  * });
  * ```
  */
-const lingui = (options?: Parameters<typeof intlayer>[0]): PluginOption[] => {
+export const lingui = (
+  options?: Parameters<typeof intlayer>[0]
+): PluginOption[] => {
   const intlayerConfig = getConfiguration();
   const appLogger = getAppLogger(intlayerConfig);
 
@@ -112,3 +118,11 @@ const lingui = (options?: Parameters<typeof intlayer>[0]): PluginOption[] => {
     compatPlugin,
   ];
 };
+
+/**
+ * Backwards-compatible alias for {@link lingui}, matching the naming used by the
+ * other compat adapters' Vite plugins (e.g. `i18nextVitePlugin`).
+ */
+export const linguiVitePlugin = lingui;
+
+export default lingui;

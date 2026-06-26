@@ -95,6 +95,61 @@ describe('detectMissingIntlayerPackages', () => {
     });
   });
 
+  describe('lingui compat', () => {
+    it('uses syncPO when the project ships .po catalogs (lingui default)', () => {
+      const result = detectMissingIntlayerPackages(
+        {
+          react: '^19.0.0',
+          vite: '^6.0.0',
+          '@lingui/core': '^5.0.0',
+          '@lingui/react': '^5.0.0',
+        },
+        { linguiCatalogFormat: 'po' }
+      );
+
+      expect(result.packagesToInstall).toContain('@intlayer/lingui');
+      expect(result.compatSyncConfig).toEqual({
+        plugin: 'po',
+        format: 'icu',
+        // `${key}` captures the `messages` filename → dictionary key `messages`
+        sourceTemplate: './src/locales/${locale}/${key}.po',
+      });
+      expect(result.devPackagesToInstall).toContain('@intlayer/sync-po-plugin');
+      expect(result.devPackagesToInstall).not.toContain(
+        '@intlayer/sync-json-plugin'
+      );
+    });
+
+    it('uses syncJSON when the project ships .json catalogs', () => {
+      const result = detectMissingIntlayerPackages(
+        {
+          react: '^19.0.0',
+          vite: '^6.0.0',
+          '@lingui/core': '^5.0.0',
+        },
+        { linguiCatalogFormat: 'json' }
+      );
+
+      expect(result.compatSyncConfig).toEqual({
+        plugin: 'json',
+        format: 'icu',
+        sourceTemplate: './src/locales/${locale}/${key}.json',
+      });
+      expect(result.devPackagesToInstall).toContain(
+        '@intlayer/sync-json-plugin'
+      );
+    });
+
+    it('defaults to syncJSON when no catalog format was detected', () => {
+      const result = detectMissingIntlayerPackages({
+        react: '^19.0.0',
+        '@lingui/core': '^5.0.0',
+      });
+
+      expect(result.compatSyncConfig?.plugin).toBe('json');
+    });
+  });
+
   describe('react native / expo', () => {
     it('installs react-native-intlayer as a dev dependency for Expo', () => {
       const result = detectMissingIntlayerPackages({

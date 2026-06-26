@@ -1,3 +1,4 @@
+export * from './astImports';
 export * from './configManipulation';
 export * from './fileSystem';
 export * from './githubActions';

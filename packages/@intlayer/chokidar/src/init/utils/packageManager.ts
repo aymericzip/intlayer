@@ -11,7 +11,17 @@ export type PackageManager = 'bun' | 'pnpm' | 'yarn' | 'npm';
  * when a compat i18n library is detected.
  */
 export type CompatSyncConfig = {
-  /** JSON format matching the compat library's conventions. */
+  /**
+   * Which sync plugin ingests the catalogs:
+   * - `'json'` → `syncJSON` from `@intlayer/sync-json-plugin` (default).
+   * - `'po'`   → `syncPO` from `@intlayer/sync-po-plugin` (lingui's default
+   *   format).
+   */
+  plugin?: 'json' | 'po';
+  /**
+   * JSON format matching the compat library's conventions. Ignored when
+   * `plugin` is `'po'` (PO catalogs are always serialized as gettext).
+   */
   format: 'icu' | 'i18next' | 'vue-i18n';
   /**
    * Source path template using ${locale} and ${key} placeholders.
@@ -126,8 +136,19 @@ const buildInstallCommand = (
  * are missing and what syncJSON configuration to inject when compat i18n
  * libraries are present.
  */
+/** Extra signals (from a filesystem scan) that refine compat detection. */
+export type DetectMissingPackagesOptions = {
+  /**
+   * Catalog format detected for a lingui project (`'po'` or `'json'`), or
+   * `null`/undefined when none was found. Decides which sync plugin + dev
+   * dependency the lingui compat setup uses.
+   */
+  linguiCatalogFormat?: 'po' | 'json' | null;
+};
+
 export const detectMissingIntlayerPackages = (
-  allDependencies: Record<string, string>
+  allDependencies: Record<string, string>,
+  options: DetectMissingPackagesOptions = {}
 ): IntlayerPackageAnalysis => {
   const packagesToInstall: string[] = [];
   const devPackagesToInstall: string[] = [];
@@ -371,8 +392,11 @@ export const detectMissingIntlayerPackages = (
     };
   }
 
-  // @lingui/core — vite alias injection required
-  // @todo syncJSON format not yet implemented for lingui (uses PO files)
+  // @lingui/core — vite alias injection required.
+  // lingui keeps one catalog file per locale (default name `messages`), as
+  // `.po` (its default) or `.json`. The catalog filename is captured by the
+  // `${key}` segment so the produced dictionary key is `messages`, matching the
+  // fixed `messages` namespace the lingui compat runtime reads from.
   if (
     isInstalled('@lingui/core') ||
     isInstalled('@lingui/react') ||
@@ -380,6 +404,20 @@ export const detectMissingIntlayerPackages = (
   ) {
     addIfMissing('@intlayer/lingui');
     addIfMissing('@lingui/core');
+
+    const linguiUsesPo = options.linguiCatalogFormat === 'po';
+    compatSyncConfig ??= linguiUsesPo
+      ? {
+          plugin: 'po',
+          format: 'icu',
+          sourceTemplate: './src/locales/${locale}/${key}.po',
+        }
+      : {
+          plugin: 'json',
+          format: 'icu',
+          sourceTemplate: './src/locales/${locale}/${key}.json',
+        };
+
     compatVitePluginConfig ??= {
       // `@intlayer/lingui/plugin` exports `lingui` as a drop-in replacement for
       // `@lingui/vite-plugin`, so a fresh project gets `lingui()` injected and a
@@ -406,7 +444,11 @@ export const detectMissingIntlayerPackages = (
   }
 
   if (compatSyncConfig) {
-    addDevIfMissing('@intlayer/sync-json-plugin');
+    addDevIfMissing(
+      compatSyncConfig.plugin === 'po'
+        ? '@intlayer/sync-po-plugin'
+        : '@intlayer/sync-json-plugin'
+    );
   }
 
   return {

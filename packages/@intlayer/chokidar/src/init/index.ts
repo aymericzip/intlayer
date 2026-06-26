@@ -10,6 +10,7 @@ import { setupFramework } from './frameworkSetup';
 import type { RoutingMode } from './utils';
 import {
   detectJsonLocalePattern,
+  detectLinguiCatalogPattern,
   detectMissingIntlayerPackages,
   detectNextIntlMessagesPattern,
   detectOutdatedIntlayerPackages,
@@ -249,12 +250,26 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
 
   // INSTALL MISSING INTLAYER DEPENDENCIES
   const packageManager = detectPackageManager(rootDir);
+
+  // lingui keeps its catalogs as `.po` (default) or `.json`. Detect which so the
+  // matching sync plugin (`syncPO` / `syncJSON`) + dev dependency are chosen.
+  const linguiPresent = Boolean(
+    allDeps['@lingui/core'] ||
+      allDeps['@lingui/react'] ||
+      allDeps['@intlayer/lingui']
+  );
+  const linguiCatalog = linguiPresent
+    ? await detectLinguiCatalogPattern(rootDir)
+    : null;
+
   const {
     packagesToInstall,
     devPackagesToInstall,
     compatSyncConfig,
     compatVitePluginConfig,
-  } = detectMissingIntlayerPackages(allDeps);
+  } = detectMissingIntlayerPackages(allDeps, {
+    linguiCatalogFormat: linguiCatalog?.format,
+  });
 
   if (!options?.noInstallPackages) {
     const withVersion = (packages: string[]): string[] =>
@@ -574,13 +589,25 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
         ? await detectNextIntlMessagesPattern(rootDir)
         : null;
 
+    // lingui authoritatively resolves to `…/{locale}/messages.{po,json}`, where
+    // the `messages` filename becomes the dictionary key. Prefer it so a `.po`
+    // project gets `syncPO` (the generic JSON glob only sees `.json`).
     const sourceTemplate =
-      nextIntlMessagesPattern?.template ?? detectedPattern?.template;
+      linguiCatalog?.template ??
+      nextIntlMessagesPattern?.template ??
+      detectedPattern?.template;
 
     const resolvedSyncConfig = {
       ...compatSyncConfig,
       ...(sourceTemplate ? { sourceTemplate } : {}),
     };
+
+    const syncPluginPackage =
+      resolvedSyncConfig.plugin === 'po'
+        ? '@intlayer/sync-po-plugin'
+        : '@intlayer/sync-json-plugin';
+    const syncPluginName =
+      resolvedSyncConfig.plugin === 'po' ? 'syncPO' : 'syncJSON';
 
     // `splitKeys` only makes sense for a single file holding several namespaces.
     // If the resolved template addresses one namespace per file (`${key}`
@@ -604,7 +631,7 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
       if (await exists(rootDir, configFile)) {
         const configContent = await readFileFromRoot(rootDir, configFile);
 
-        if (!configContent.includes('@intlayer/sync-json-plugin')) {
+        if (!configContent.includes(syncPluginPackage)) {
           const extension = configFile.split('.').pop()!;
           const updatedConfigContent = updateIntlayerConfigWithSyncPlugin(
             configContent,
@@ -613,11 +640,11 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
           );
           await writeFileToRoot(rootDir, configFile, updatedConfigContent);
           logger(
-            `${v} Updated ${colorizePath(configFile)} with syncJSON compat plugin`
+            `${v} Updated ${colorizePath(configFile)} with ${syncPluginName} compat plugin`
           );
         } else {
           logger(
-            `${v} ${colorizePath(configFile)} already includes syncJSON plugin`
+            `${v} ${colorizePath(configFile)} already includes ${syncPluginName} plugin`
           );
         }
         break;

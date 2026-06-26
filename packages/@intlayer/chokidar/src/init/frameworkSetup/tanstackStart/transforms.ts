@@ -1,4 +1,5 @@
 import * as recast from 'recast';
+import { ensureNamedImport } from '../../utils/astImports';
 
 const { builders: b, namedTypes: n } = recast.types;
 
@@ -10,50 +11,6 @@ const parseTsx = (code: string): any =>
 export type TransformResult = {
   code: string;
   status: 'wrapped' | 'already' | 'skipped';
-};
-
-/** Index just past the leading directives + import declarations. */
-const firstInsertIndex = (ast: any): number => {
-  const body = ast.program.body;
-  let index = 0;
-  while (
-    index < body.length &&
-    ((body[index].type === 'ExpressionStatement' &&
-      body[index].expression?.type === 'StringLiteral') ||
-      body[index].type === 'ImportDeclaration')
-  ) {
-    index++;
-  }
-  return index;
-};
-
-/** Ensures `import { importName } from source`, merging into an existing import from the same source. */
-const ensureNamedImport = (
-  ast: any,
-  importName: string,
-  source: string
-): void => {
-  for (const stmt of ast.program.body) {
-    if (stmt.type === 'ImportDeclaration' && stmt.source.value === source) {
-      const hasSpecifier = stmt.specifiers.some(
-        (spec: any) =>
-          spec.type === 'ImportSpecifier' && spec.imported?.name === importName
-      );
-      if (!hasSpecifier) {
-        stmt.specifiers.push(b.importSpecifier(b.identifier(importName)));
-      }
-      return;
-    }
-  }
-
-  ast.program.body.splice(
-    firstInsertIndex(ast),
-    0,
-    b.importDeclaration(
-      [b.importSpecifier(b.identifier(importName))],
-      b.stringLiteral(source)
-    )
-  );
 };
 
 /**

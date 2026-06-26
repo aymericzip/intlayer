@@ -345,6 +345,39 @@ export default config;
       );
     });
 
+    it('injects syncPO from @intlayer/sync-po-plugin for lingui .po catalogs', () => {
+      const updated = updateIntlayerConfigWithSyncPlugin(baseConfig, 'ts', {
+        plugin: 'po',
+        format: 'icu',
+        sourceTemplate: './src/locales/${locale}/${key}.po',
+      });
+
+      expect(updated).toContain(
+        'import { syncPO } from "@intlayer/sync-po-plugin";'
+      );
+      expect(updated).toContain('syncPO(');
+      // syncPO takes no `format` argument (gettext is implicit)
+      expect(updated).not.toContain('syncPO({ format:');
+      expect(updated).toContain('`./src/locales/${locale}/${key}.po`');
+      // dictionary.format is `po` so the runtime parses the catalogs as gettext
+      expect(updated).toMatch(/dictionary:\s*\{[^}]*format:\s*['"]po['"]/s);
+    });
+
+    it('does not add the syncPO plugin twice (idempotent)', () => {
+      const once = updateIntlayerConfigWithSyncPlugin(baseConfig, 'ts', {
+        plugin: 'po',
+        format: 'icu',
+        sourceTemplate: './src/locales/${locale}/${key}.po',
+      });
+      const twice = updateIntlayerConfigWithSyncPlugin(once, 'ts', {
+        plugin: 'po',
+        format: 'icu',
+        sourceTemplate: './src/locales/${locale}/${key}.po',
+      });
+
+      expect(twice.match(/syncPO\(/g)?.length).toBe(1);
+    });
+
     it('injects dictionary.format when format is vue-i18n', () => {
       const updated = updateIntlayerConfigWithSyncPlugin(baseConfig, 'ts', {
         format: 'vue-i18n',

@@ -216,6 +216,20 @@ export type CompatCallerConfig = {
    */
   translationFunction: 'return-value' | 'destructured-t' | 'self' | 'all';
   /**
+   * When `true`, the message key is a *flat* dictionary field that itself
+   * contains dots (e.g. lingui's `i18n._('results-table.bundleSize')`, where the
+   * catalog stores the entry under the literal `'results-table.bundleSize'` key
+   * rather than nesting it as `{ 'results-table': { bundleSize } }`).
+   *
+   * The whole key is then recorded as the consumed top-level field. When unset
+   * (the default), only the first dot-segment is recorded, matching libraries
+   * whose dotted keys map onto nested dictionary objects (next-intl, vue-i18n).
+   *
+   * Only meaningful with `translationFunction: 'self'` and a
+   * `'fixed'` / `'argument'` / `'option'` namespace.
+   */
+  flatKey?: boolean;
+  /**
    * When set, the caller is *also* matched as a JSX element whose local name is
    * `callerName` (gated by `importSources`). The named attribute is read as the
    * message id and analysed with the same `namespace` + `translationFunction`
@@ -948,9 +962,12 @@ const analyzeNamespaceCallerUsage = (
     }
 
     // For 'fixed' / 'argument' / 'option' namespaces: the field is the first
-    // dot-segment of the first argument (the message key itself).
+    // dot-segment of the first argument (the message key itself) — unless
+    // `flatKey` is set, in which case the whole dotted key is the field.
     // String form: i18n._('home.title', values)
-    const segment = readStaticFirstSegment(babelTypes, firstArg);
+    const segment = callerConfig.flatKey
+      ? readStaticString(babelTypes, firstArg)
+      : readStaticFirstSegment(babelTypes, firstArg);
     if (segment !== undefined) {
       recordFieldUsage(pruneContext, dictionaryKey, new Set([segment]));
       return;
@@ -963,7 +980,7 @@ const analyzeNamespaceCallerUsage = (
         recordFieldUsage(
           pruneContext,
           dictionaryKey,
-          new Set([firstPathSegment(idValue)])
+          new Set([callerConfig.flatKey ? idValue : firstPathSegment(idValue)])
         );
         return;
       }

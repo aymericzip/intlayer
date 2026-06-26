@@ -1,5 +1,6 @@
 import type { RoutingConfig } from '@intlayer/types/config';
 import * as recast from 'recast';
+import { isModuleScopeBinding } from './astImports';
 import type {
   CompatSyncConfig,
   CompatVitePluginConfig,
@@ -179,6 +180,10 @@ const injectImport = (
   importName: string,
   source: string
 ) => {
+  // Never redeclare an identifier already bound at module scope (e.g. imported
+  // from another source or declared locally) — that would be a parse error.
+  if (!isCJS && isModuleScopeBinding(ast, importName)) return;
+
   const body = ast.program.body;
   const hasImport = body.some((stmt: any) => {
     if (isCJS) {
@@ -1000,24 +1005,43 @@ export const updateNextConfigForNextIntl = (
   return recast.print(ast).code;
 };
 
+/** The sync plugin used to ingest a compat library's catalogs. */
+type SyncPluginInfo = {
+  /** Called function name, e.g. `'syncJSON'`. */
+  functionName: string;
+  /** Package the function is imported from. */
+  packageSource: string;
+};
+
+/** Resolves the sync plugin (function + package) for a compat sync config. */
+const getSyncPluginInfo = (syncConfig: CompatSyncConfig): SyncPluginInfo =>
+  syncConfig.plugin === 'po'
+    ? { functionName: 'syncPO', packageSource: '@intlayer/sync-po-plugin' }
+    : { functionName: 'syncJSON', packageSource: '@intlayer/sync-json-plugin' };
+
 /**
- * Parses a syncJSON({ ... }) call expression from a source snippet so it can
- * be injected into a config AST without manually constructing template-literal
- * nodes via builders.
+ * Parses a `syncJSON({ ... })` / `syncPO({ ... })` call expression from a source
+ * snippet so it can be injected into a config AST without manually constructing
+ * template-literal nodes via builders.
  *
  * The destructuring parameters adapt to whether the source template uses the
  * `key` placeholder (nested pattern) or only `locale` (flat pattern).
  */
-const buildSyncJSONCallNode = (syncConfig: CompatSyncConfig): any => {
+const buildSyncCallNode = (syncConfig: CompatSyncConfig): any => {
+  const { functionName } = getSyncPluginInfo(syncConfig);
   const usesKey = syncConfig.sourceTemplate.includes('${key}');
-  const paramDestructuring =
-    syncConfig.format === 'icu'
-      ? usesKey
-        ? '{ key, locale }'
-        : '{ locale }'
-      : usesKey
-        ? '{ locale, key }'
-        : '{ locale }';
+  const paramDestructuring = !usesKey
+    ? '{ locale }'
+    : // `icu` (and PO, which is ICU-dialect) reads `{ key, locale }`; the
+      // i18next/vue-i18n JSON dialects keep their established `{ locale, key }`.
+      syncConfig.format === 'icu' || syncConfig.plugin === 'po'
+      ? '{ key, locale }'
+      : '{ locale, key }';
+
+  // `syncPO` always serializes gettext, so it takes no `format`. `syncJSON`
+  // needs the JSON dialect.
+  const formatProperty =
+    syncConfig.plugin === 'po' ? '' : `format: '${syncConfig.format}', `;
 
   // `splitKeys` is written explicitly only when forced on (next-intl / use-intl
   // single-file namespace model). When omitted, syncJSON auto-detects it from
@@ -1026,7 +1050,7 @@ const buildSyncJSONCallNode = (syncConfig: CompatSyncConfig): any => {
 
   // The sourceTemplate contains ${locale} / ${key} as literal characters;
   // they become proper template expressions once the snippet is parsed by recast.
-  const snippet = `syncJSON({ format: '${syncConfig.format}', source: (${paramDestructuring}) => \`${syncConfig.sourceTemplate}\`${splitKeysProperty} })`;
+  const snippet = `${functionName}({ ${formatProperty}source: (${paramDestructuring}) => \`${syncConfig.sourceTemplate}\`${splitKeysProperty} })`;
   const snippetAst = recast.parse(snippet, {
     parser: require('recast/parsers/typescript'),
   });
@@ -1080,9 +1104,9 @@ const injectDictionaryFormat = (objExpr: any, format: string): void => {
 };
 
 /**
- * Injects the syncJSON import and a configured syncJSON(...) call into the
- * plugins array of an intlayer config file. Idempotent: skips when
- * @intlayer/sync-json-plugin is already imported.
+ * Injects the sync plugin import (`syncJSON` / `syncPO`) and a configured
+ * `syncJSON(...)` / `syncPO(...)` call into the plugins array of an intlayer
+ * config file. Idempotent: skips when the plugin call is already present.
  */
 export const updateIntlayerConfigWithSyncPlugin = (
   content: string,
@@ -1095,9 +1119,15 @@ export const updateIntlayerConfigWithSyncPlugin = (
 
   const isCJSFile = extension === 'cjs' || content.includes('module.exports');
 
-  injectImport(ast, isCJSFile, 'syncJSON', '@intlayer/sync-json-plugin');
+  const { functionName, packageSource } = getSyncPluginInfo(syncConfig);
 
-  const callNode = buildSyncJSONCallNode(syncConfig);
+  injectImport(ast, isCJSFile, functionName, packageSource);
+
+  const callNode = buildSyncCallNode(syncConfig);
+
+  // PO catalogs are serialized as gettext; JSON catalogs carry the dialect.
+  const dictionaryFormat =
+    syncConfig.plugin === 'po' ? 'po' : syncConfig.format;
 
   genericRecastVisit(ast, (objExpr) => {
     if (
@@ -1109,7 +1139,7 @@ export const updateIntlayerConfigWithSyncPlugin = (
 
     // Inject dictionary.format alongside the plugin so intlayer knows how to
     // interpret dictionary content at runtime.
-    injectDictionaryFormat(objExpr, syncConfig.format);
+    injectDictionaryFormat(objExpr, dictionaryFormat);
 
     let pluginsProp = (objExpr.properties as any[]).find((prop: any) => {
       if (!prop?.key) return false;
@@ -1133,16 +1163,16 @@ export const updateIntlayerConfigWithSyncPlugin = (
       (arrayValue.type === 'ArrayExpression' ||
         n.ArrayExpression.check(arrayValue))
     ) {
-      const hasSyncJSON = (arrayValue.elements as any[]).some(
+      const hasSyncPlugin = (arrayValue.elements as any[]).some(
         (element: any) => {
           const callee = element?.callee;
           if (!callee) return false;
           const name: string = callee.name ?? callee.id?.name;
-          return name === 'syncJSON';
+          return name === functionName;
         }
       );
 
-      if (!hasSyncJSON) {
+      if (!hasSyncPlugin) {
         (arrayValue.elements as any[]).push(callNode);
       }
     }

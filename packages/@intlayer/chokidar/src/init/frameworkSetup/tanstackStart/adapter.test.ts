@@ -217,6 +217,41 @@ export const Route = createRootRoute({ shellComponent: RootDocument });
     expect(root).toContain('const locale =');
   });
 
+  it('reuses an existing defaultLocale import instead of redeclaring it', async () => {
+    await writeFileAt(
+      'src/routes/__root.tsx',
+      `import { createRootRoute } from "@tanstack/react-router";
+import { defaultLocale } from "../i18n/lingui";
+
+function RootDocument({ children }: { children: React.ReactNode }) {
+  return (
+    <html>
+      <body>{children}</body>
+    </html>
+  );
+}
+
+export const Route = createRootRoute({ shellComponent: RootDocument });
+`
+    );
+    await writeFileAt('src/routes/index.tsx', 'export const Route = null;\n');
+
+    await tanStackStartAdapter.setup(context());
+
+    const root = await readFileAt('src/routes/__root.tsx');
+    // The pre-existing local import is reused — `defaultLocale` is not
+    // re-imported from `intlayer`, so it is never declared twice.
+    expect(root.match(/defaultLocale/g)?.length).toBeGreaterThan(0);
+    expect(root).not.toMatch(
+      /import \{[^}]*defaultLocale[^}]*\} from ["']intlayer["']/
+    );
+    expect(root).toContain(
+      'const locale = useParams({ strict: false }).locale ?? defaultLocale'
+    );
+    // getHTMLTextDir was not previously bound, so it is still imported.
+    expect(root).toContain('getHTMLTextDir');
+  });
+
   it('uses the required $locale segment (not the optional {-$locale}) for prefix-all', async () => {
     await writeFileAt(
       'src/routes/index.tsx',

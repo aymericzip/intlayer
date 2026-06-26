@@ -837,6 +837,8 @@ describe('makeUsageAnalyzerBabelPlugin', () => {
     });
 
     describe('lingui — i18n._ / i18n.t (translationFunction: self)', () => {
+      // Mirrors compat/lingui/src/plugin: lingui catalogs are flat, so the whole
+      // dotted id is the consumed field (`flatKey: true`).
       const LINGUI_CALLERS: CompatCallerConfig[] = [
         {
           callerName: '_',
@@ -844,6 +846,7 @@ describe('makeUsageAnalyzerBabelPlugin', () => {
           matchAsMethod: true,
           namespace: { from: 'fixed', value: 'messages' },
           translationFunction: 'self',
+          flatKey: true,
         },
         {
           callerName: 't',
@@ -851,13 +854,14 @@ describe('makeUsageAnalyzerBabelPlugin', () => {
           matchAsMethod: true,
           namespace: { from: 'fixed', value: 'messages' },
           translationFunction: 'self',
+          flatKey: true,
         },
       ];
 
-      it('records the first path segment from a string id (i18n._)', () => {
+      it('records the full flat dotted key from a string id (i18n._)', () => {
         const ctx = analyze(
           `
-          const result = i18n._('home.title', { name: 'Alice' });
+          const result = i18n._('results-table.bundleSize', { name: 'Alice' });
         `,
           '/app/src/Component.tsx',
           LINGUI_CALLERS
@@ -865,10 +869,12 @@ describe('makeUsageAnalyzerBabelPlugin', () => {
 
         const usage = ctx.dictionaryKeyToFieldUsageMap.get('messages');
         expect(usage).toBeInstanceOf(Set);
-        expect(usage as Set<string>).toContain('home');
+        expect(usage as Set<string>).toContain('results-table.bundleSize');
+        // The first-segment must NOT be recorded — it is not a real catalog key.
+        expect(usage as Set<string>).not.toContain('results-table');
       });
 
-      it('records the top-level key for a flat id (i18n._)', () => {
+      it('records the top-level key for a flat id without dots (i18n._)', () => {
         const ctx = analyze(
           `
           const result = i18n._('greeting');
@@ -882,7 +888,7 @@ describe('makeUsageAnalyzerBabelPlugin', () => {
         expect(usage as Set<string>).toContain('greeting');
       });
 
-      it('records the first path segment from a descriptor id', () => {
+      it('records the full flat dotted key from a descriptor id', () => {
         const ctx = analyze(
           `
           const result = i18n._({ id: 'home.title', message: 'Welcome' });
@@ -893,7 +899,8 @@ describe('makeUsageAnalyzerBabelPlugin', () => {
 
         const usage = ctx.dictionaryKeyToFieldUsageMap.get('messages');
         expect(usage).toBeInstanceOf(Set);
-        expect(usage as Set<string>).toContain('home');
+        expect(usage as Set<string>).toContain('home.title');
+        expect(usage as Set<string>).not.toContain('home');
       });
 
       it('records "all" for a dynamic id (hashed macro output)', () => {
@@ -933,8 +940,8 @@ describe('makeUsageAnalyzerBabelPlugin', () => {
 
         const usage = ctx.dictionaryKeyToFieldUsageMap.get('messages');
         expect(usage).toBeInstanceOf(Set);
-        expect(usage as Set<string>).toContain('home');
-        expect(usage as Set<string>).toContain('about');
+        expect(usage as Set<string>).toContain('home.title');
+        expect(usage as Set<string>).toContain('about.description');
       });
 
       it('tracks i18n.t as an alias for i18n._', () => {
@@ -948,7 +955,7 @@ describe('makeUsageAnalyzerBabelPlugin', () => {
 
         const usage = ctx.dictionaryKeyToFieldUsageMap.get('messages');
         expect(usage).toBeInstanceOf(Set);
-        expect(usage as Set<string>).toContain('home');
+        expect(usage as Set<string>).toContain('home.title');
       });
     });
 
@@ -995,6 +1002,29 @@ describe('makeUsageAnalyzerBabelPlugin', () => {
         const usage = ctx.dictionaryKeyToFieldUsageMap.get('global-messages');
         expect(usage).toBeInstanceOf(Set);
         expect(usage as Set<string>).toContain('greeting');
+      });
+
+      it('records only the first segment of a dotted key when flatKey is unset', () => {
+        const ctx = analyze(
+          `
+          myLib.translate('home.title');
+        `,
+          '/app/src/Component.tsx',
+          [
+            {
+              callerName: 'translate',
+              importSources: ['my-lib'],
+              matchAsMethod: true,
+              namespace: { from: 'fixed', value: 'global-messages' },
+              translationFunction: 'self',
+            },
+          ]
+        );
+
+        const usage = ctx.dictionaryKeyToFieldUsageMap.get('global-messages');
+        expect(usage).toBeInstanceOf(Set);
+        expect(usage as Set<string>).toContain('home');
+        expect(usage as Set<string>).not.toContain('home.title');
       });
     });
 

@@ -2,7 +2,10 @@ import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { detectNextIntlMessagesPattern } from './fileSystem';
+import {
+  detectLinguiCatalogPattern,
+  detectNextIntlMessagesPattern,
+} from './fileSystem';
 
 const REQUEST_FILE_CONTENT = (importPath: string) => `
 import { getRequestConfig } from 'next-intl/server';
@@ -86,6 +89,68 @@ describe('detectNextIntlMessagesPattern', () => {
 
   it('returns null when no request file is present', async () => {
     const result = await detectNextIntlMessagesPattern(rootDir);
+
+    expect(result).toBeNull();
+  });
+});
+
+describe('detectLinguiCatalogPattern', () => {
+  let rootDir: string;
+
+  beforeEach(async () => {
+    rootDir = await mkdtemp(join(tmpdir(), 'intlayer-init-'));
+  });
+
+  afterEach(async () => {
+    await rm(rootDir, { recursive: true, force: true });
+  });
+
+  const writeCatalog = async (relativePath: string) => {
+    const absolutePath = join(rootDir, relativePath);
+    await mkdir(dirname(absolutePath), { recursive: true });
+    await writeFile(absolutePath, '', 'utf8');
+  };
+
+  it('detects .po catalogs and keys the template by the messages filename', async () => {
+    await writeCatalog('src/locales/en/messages.po');
+    await writeCatalog('src/locales/fr/messages.po');
+
+    const result = await detectLinguiCatalogPattern(rootDir);
+
+    expect(result?.format).toBe('po');
+    expect(result?.template).toBe('./src/locales/${locale}/${key}.po');
+    expect(result?.locales.sort()).toEqual(['en', 'fr']);
+  });
+
+  it('detects .json catalogs when no .po files exist', async () => {
+    await writeCatalog('src/locales/en/messages.json');
+    await writeCatalog('src/locales/de/messages.json');
+
+    const result = await detectLinguiCatalogPattern(rootDir);
+
+    expect(result?.format).toBe('json');
+    expect(result?.template).toBe('./src/locales/${locale}/${key}.json');
+  });
+
+  it('prefers .po over .json when both are present (lingui default)', async () => {
+    await writeCatalog('src/locales/en/messages.po');
+    await writeCatalog('src/locales/en/messages.json');
+
+    const result = await detectLinguiCatalogPattern(rootDir);
+
+    expect(result?.format).toBe('po');
+  });
+
+  it('ignores catalogs whose parent directory is not a locale', async () => {
+    await writeCatalog('src/data/messages.po');
+
+    const result = await detectLinguiCatalogPattern(rootDir);
+
+    expect(result).toBeNull();
+  });
+
+  it('returns null when no catalog is found', async () => {
+    const result = await detectLinguiCatalogPattern(rootDir);
 
     expect(result).toBeNull();
   });
