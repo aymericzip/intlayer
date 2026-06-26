@@ -7,7 +7,7 @@ type DictionaryOrGroup = Dictionary | QualifiedDictionaryGroup;
 
 /**
  * Detects whether any built dictionary declares qualifier dimensions
- * (collections, variants or meta records).
+ * (collections or variants).
  *
  * The merge step emits a {@link QualifiedDictionaryGroup} — carrying a
  * non-empty `qualifierTypes` array — for every key whose declarations use a

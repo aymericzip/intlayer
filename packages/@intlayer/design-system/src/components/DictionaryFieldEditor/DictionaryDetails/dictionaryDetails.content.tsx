@@ -1004,7 +1004,7 @@ const dictionaryDetailsContent = {
         vi: '{ "id": "my-record" }',
         uk: '{ "id": "my-record" }',
       }),
-      metaJsonError: t({
+      variantJsonError: t({
         en: 'Invalid JSON. Please fix before saving.',
         'en-GB': 'Invalid JSON. Please fix before saving.',
         fr: 'JSON invalide. Veuillez corriger avant de sauvegarder.',

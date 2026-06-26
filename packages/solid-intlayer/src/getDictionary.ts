@@ -15,7 +15,7 @@ import { type DeepTransformContent, getPlugins } from './plugins';
 /**
  * Transforms a dictionary (or qualified dictionary group) and returns its
  * content for the given locale or selector (`{ item }`, `{ variant }`,
- * `{ id, ...meta }`, optionally combined with `locale`).
+ * optionally combined with `locale`).
  */
 export const getDictionary = <
   const T extends Dictionary | QualifiedDictionaryGroup,

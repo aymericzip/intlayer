@@ -31,12 +31,19 @@ type NodeEditorProps = {
   isDarkMode?: boolean;
 };
 
+/** Render a variant (named string or structured object) for display. */
+const formatVariant = (
+  variant: string | Record<string, string | number> | undefined
+): string =>
+  variant !== null && typeof variant === 'object'
+    ? JSON.stringify(variant)
+    : (variant ?? '');
+
 export const ContentEditor: FC<NodeEditorProps> = ({
   dictionary,
   isDarkMode,
 }) => {
-  const { itemPagination, variantSwitcher, metaSwitcher } =
-    useIntlayer('content-editor');
+  const { itemPagination, variantSwitcher } = useIntlayer('content-editor');
   const { editedContent } = useEditedContent();
   const {
     focusedContent,
@@ -55,9 +62,7 @@ export const ContentEditor: FC<NodeEditorProps> = ({
   }, [dictionary.localId]);
 
   const hasQualifier =
-    dictionary.item !== undefined ||
-    dictionary.variant !== undefined ||
-    dictionary.meta !== undefined;
+    dictionary.item !== undefined || dictionary.variant !== undefined;
 
   const { data: siblingsData } = useGetDictionaries(
     { keys: [dictionary.key] },
@@ -79,11 +84,6 @@ export const ContentEditor: FC<NodeEditorProps> = ({
   const variantDicts = useMemo<Dictionary[]>(() => {
     if (dictionary.variant === undefined) return [];
     return allSiblings.filter((d) => d.variant !== undefined);
-  }, [dictionary, allSiblings]);
-
-  const metaDicts = useMemo<Dictionary[]>(() => {
-    if (dictionary.meta === undefined) return [];
-    return allSiblings.filter((d) => d.meta !== undefined);
   }, [dictionary, allSiblings]);
 
   const switchSibling = useCallback(
@@ -126,7 +126,6 @@ export const ContentEditor: FC<NodeEditorProps> = ({
     (dictionary) => dictionary.localId === activeDictionary.localId
   );
   const currentVariant = activeDictionary.variant;
-  const currentMetaId = activeDictionary.meta?.id;
 
   return (
     <div>
@@ -168,45 +167,14 @@ export const ContentEditor: FC<NodeEditorProps> = ({
                         : 'cursor-pointer border border-border hover:bg-text/10'
                     }`}
                   >
-                    {sibling.variant}
+                    {formatVariant(sibling.variant)}
                   </button>
                 );
               })}
               {currentVariant !== undefined &&
                 !variantDicts.some((d) => d.localId === dictionary.localId) && (
                   <span className="rounded-lg bg-text px-3 py-1 font-semibold text-text-opposite text-xs">
-                    {currentVariant}
-                  </span>
-                )}
-            </div>
-          )}
-
-          {metaDicts.length > 0 && (
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="font-medium text-muted text-xs">
-                {metaSwitcher.label}:
-              </span>
-              {metaDicts.map((sibling) => {
-                const isActive = sibling.localId === activeDictionary.localId;
-                return (
-                  <button
-                    key={sibling.localId}
-                    type="button"
-                    onClick={() => !isActive && switchSibling(sibling)}
-                    className={`rounded-lg px-3 py-1 text-xs transition-colors ${
-                      isActive
-                        ? 'bg-text font-semibold text-text-opposite'
-                        : 'cursor-pointer border border-border hover:bg-text/10'
-                    }`}
-                  >
-                    {sibling.meta?.id}
-                  </button>
-                );
-              })}
-              {currentMetaId !== undefined &&
-                !metaDicts.some((d) => d.localId === dictionary.localId) && (
-                  <span className="rounded-lg bg-text px-3 py-1 font-semibold text-text-opposite text-xs">
-                    {currentMetaId}
+                    {formatVariant(currentVariant)}
                   </span>
                 )}
             </div>

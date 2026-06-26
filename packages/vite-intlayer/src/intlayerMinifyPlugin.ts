@@ -94,17 +94,16 @@ const applyFieldRenameToDict = (
 };
 
 /**
- * Discriminates a compiled qualified dictionary group (collections, variants,
- * meta records) from a plain dictionary. Mirrors `isQualifiedDictionaryGroup`
- * from `@intlayer/core` but is inlined here to avoid a runtime dependency on
- * core inside the build plugin.
+ * Discriminates a compiled qualified dictionary group (collections, variants)
+ * from a plain dictionary. Mirrors `isQualifiedDictionaryGroup` from
+ * `@intlayer/core` but is inlined here to avoid a runtime dependency on core
+ * inside the build plugin.
  */
 const isQualifiedDictionaryGroup = (
   dict: Record<string, unknown>
 ): dict is Record<string, unknown> & {
   qualifierTypes: unknown;
   content: Record<string, unknown>;
-  meta?: Record<string, unknown>;
 } =>
   'qualifierTypes' in dict &&
   Array.isArray(dict.qualifierTypes) &&
@@ -286,11 +285,10 @@ export const intlayerMinify = (
           ? pruneContext.dictionaryKeyToFieldRenameMap.get(dictionaryKey)
           : undefined;
 
-      // Qualified groups (collections / variants / meta records) carry their
-      // payload as a `content` map keyed by composite id + `qualifierTypes`.
-      // Preserve `qualifierTypes` and the per-entry nodes (the coordinates live
-      // in the keys); only the field-rename pass is applied to each node. The
-      // `meta` side-map is kept verbatim for selector matching at runtime.
+      // Qualified groups (collections / variants) carry their payload as a
+      // `content` map keyed by composite id + `qualifierTypes`. Preserve
+      // `qualifierTypes` and the per-entry nodes (the coordinates live in the
+      // keys); only the field-rename pass is applied to each node.
       if (isQualifiedDictionaryGroup(parsedDict)) {
         const minifiedContent: Record<string, unknown> = {};
         for (const [entryId, node] of Object.entries(parsedDict.content)) {
@@ -302,7 +300,6 @@ export const intlayerMinify = (
             key: parsedDict.key,
             qualifierTypes: parsedDict.qualifierTypes,
             content: minifiedContent,
-            ...(parsedDict.meta !== undefined && { meta: parsedDict.meta }),
           }),
           map: null,
         };
@@ -313,16 +310,13 @@ export const intlayerMinify = (
         parsedDict = applyFieldRenameToDict(parsedDict, fieldRenameMap);
       }
 
-      // Strip top-level metadata – ship only key + content, plus `meta` when
-      // present. A per-locale chunk of a meta record carries a `meta` object
-      // ({ id, ...fields }) that the runtime selector matcher
-      // (`metaFieldsMatch` / `chunkMatchesMeta`) needs to confirm every declared
-      // meta field matches; dropping it makes meta records resolve to null.
+      // Strip top-level metadata – ship only key + content. The variant
+      // identity of a qualified chunk is encoded in its composite id (the chunk
+      // path), so no extra per-chunk side-data is needed for selector matching.
       return {
         code: JSON.stringify({
           key: parsedDict.key,
           content: parsedDict.content,
-          ...(parsedDict.meta !== undefined && { meta: parsedDict.meta }),
         }),
         map: null,
       };

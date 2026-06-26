@@ -9,7 +9,6 @@ import { Loader } from '@intlayer/design-system/loader';
 import { Pagination } from '@intlayer/design-system/pagination';
 import { PopoverStatic } from '@intlayer/design-system/popover';
 import { App_Dashboard_Dictionaries_Path } from '@intlayer/design-system/routes';
-import { Tag } from '@intlayer/design-system/tag';
 import { useDictionariesRecord } from '@intlayer/editor-react';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { useQueryClient } from '@tanstack/react-query';
@@ -36,24 +35,25 @@ const extractItemNumbers = (siblings: Dictionary[]): number[] =>
   ].sort((a, b) => a - b);
 
 /**
- * Derives the list of variant names declared among a set of sibling
+ * A variant is a named string or a structured object; format it to a stable
+ * string for display and selection matching.
+ */
+const formatVariant = (
+  variant: string | Record<string, string | number> | undefined
+): string =>
+  variant !== null && typeof variant === 'object'
+    ? JSON.stringify(variant)
+    : (variant ?? '');
+
+/**
+ * Derives the list of variant identities declared among a set of sibling
  * dictionaries, preserving declaration order.
  */
 const extractVariantNames = (siblings: Dictionary[]): string[] => [
   ...new Set(
     siblings
       .filter((d) => d.variant !== undefined)
-      .map((d) => d.variant as string)
-  ),
-];
-
-/**
- * Derives the list of meta IDs (as strings) declared among a set of sibling
- * dictionaries, preserving declaration order.
- */
-const extractMetaIds = (siblings: Dictionary[]): string[] => [
-  ...new Set(
-    siblings.filter((d) => d.meta !== undefined).map((d) => String(d.meta!.id))
+      .map((d) => formatVariant(d.variant))
   ),
 ];
 
@@ -87,7 +87,7 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
     [localeDictionaries, dictionaryKey]
   );
 
-  // All backend dictionaries sharing this key (items, variants, meta records)
+  // All backend dictionaries sharing this key (items, variants)
   const siblings: Dictionary[] = useMemo(
     () => (siblingsResult?.data as Dictionary[] | undefined) ?? [],
     [siblingsResult]
@@ -95,30 +95,27 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
 
   const itemNumbers = useMemo(() => extractItemNumbers(siblings), [siblings]);
   const variantNames = useMemo(() => extractVariantNames(siblings), [siblings]);
-  const metaIds = useMemo(() => extractMetaIds(siblings), [siblings]);
 
   const hasSiblingDimensions =
-    itemNumbers.length > 0 || variantNames.length > 0 || metaIds.length > 0;
+    itemNumbers.length > 0 || variantNames.length > 0;
 
   // Selector state — null means "show base dictionary"
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
   const [selectedVariant, setSelectedVariant] = useState<string | null>(null);
-  const [selectedMetaId, setSelectedMetaId] = useState<string | null>(null);
 
   /** Find the sibling that best matches the current selector state. */
   const selectedSibling = useMemo<Dictionary | null>(() => {
-    if (!selectedItem && !selectedVariant && !selectedMetaId) return null;
+    if (!selectedItem && !selectedVariant) return null;
     return (
       siblings.find((d) => {
         const itemMatch = selectedItem === null || d.item === selectedItem;
         const variantMatch =
-          selectedVariant === null || d.variant === selectedVariant;
-        const metaMatch =
-          selectedMetaId === null || String(d.meta?.id) === selectedMetaId;
-        return itemMatch && variantMatch && metaMatch;
+          selectedVariant === null ||
+          formatVariant(d.variant) === selectedVariant;
+        return itemMatch && variantMatch;
       }) ?? null
     );
-  }, [siblings, selectedItem, selectedVariant, selectedMetaId]);
+  }, [siblings, selectedItem, selectedVariant]);
 
   const dictionary = selectedSibling ?? remoteDictionary ?? localeDictionary;
 
@@ -128,9 +125,6 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
 
   const currentItemPage =
     selectedItem !== null ? itemNumbers.indexOf(selectedItem) + 1 : 1;
-
-  const currentMetaPage =
-    selectedMetaId !== null ? metaIds.indexOf(selectedMetaId) + 1 : 1;
 
   const pinned = isPinned(dictionaryKey);
 
@@ -193,45 +187,6 @@ export const ContentDashboard: FC<ContentDashboardContentProps> = ({
                         );
                       })}
                     </div>
-                  </div>
-                )}
-
-                {/* ── Meta / Dynamic records ─────────────────────── */}
-                {metaIds.length > 0 && (
-                  <div className="flex items-center gap-2">
-                    <span className="text-neutral text-xs">
-                      {String(content.siblings.metaLabel)}
-                    </span>
-                    {metaIds.length <= 6 ? (
-                      <div className="flex flex-wrap gap-1">
-                        {metaIds.map((metaId) => {
-                          const isActive = selectedMetaId === metaId;
-                          return (
-                            <Tag
-                              key={metaId}
-                              color={isActive ? 'purple' : 'neutral'}
-                              size="xs"
-                              className="cursor-pointer"
-                              onClick={() =>
-                                setSelectedMetaId(isActive ? null : metaId)
-                              }
-                            >
-                              {metaId}
-                            </Tag>
-                          );
-                        })}
-                      </div>
-                    ) : (
-                      <Pagination
-                        currentPage={currentMetaPage}
-                        totalPages={metaIds.length}
-                        onPageChange={(page) => {
-                          const metaId = metaIds[page - 1];
-                          setSelectedMetaId(metaId ?? null);
-                        }}
-                        size="sm"
-                      />
-                    )}
                   </div>
                 )}
               </div>

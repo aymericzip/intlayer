@@ -24,14 +24,14 @@ import { getBasePlugins, getContent } from './getContent/getContent';
 /**
  * Transforms a dictionary in a single pass, applying each plugin as needed.
  *
- * Also accepts a `QualifiedDictionaryGroup` (collections, variants, meta
- * records) together with a selector as second argument — the group is resolved
- * to a single entry (or an ordered array of entries for collections without an
- * `item` selector) before transformation.
+ * Also accepts a `QualifiedDictionaryGroup` (collections, variants) together
+ * with a selector as second argument — the group is resolved to a single entry
+ * (or an ordered array of entries for collections without an `item` selector)
+ * before transformation.
  *
  * @param dictionary The dictionary (or qualified dictionary group) to transform.
  * @param localeOrSelector The locale, or a selector object (`{ item }`,
- *                         `{ variant }`, `{ id, ...meta }`, optionally with `locale`).
+ *                         `{ variant }`, optionally with `locale`).
  * @param plugins An array of NodeTransformer that define how to transform recognized nodes.
  *                If omitted, we’ll use a default set of plugins.
  */

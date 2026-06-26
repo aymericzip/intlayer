@@ -12,7 +12,7 @@ import { getServerContext } from './serverContext';
  * On the server side, Hook that picking one dictionary by its key and return the content
  *
  * The second argument is either a locale or a selector object
- * (`{ item }`, `{ variant }`, `{ id, ...meta }`, optionally with `locale`).
+ * (`{ item }`, `{ variant }`, optionally with `locale`).
  *
  * If the locale is not provided, it will use the locale from the server context
  */

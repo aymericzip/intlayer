@@ -7,19 +7,12 @@ import type {
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
 
 /**
- * Selector keys that are reserved for dictionary resolution and therefore
- * excluded from meta field matching.
- */
-const RESERVED_SELECTOR_KEYS = ['locale', 'item', 'variant'] as const;
-
-/**
- * Canonical order of qualifier dimensions. A key that declares several
- * dimensions always nests them in this order, with `item` innermost so it can
- * act as the collection (array) axis.
+ * Canonical order of qualifier dimensions. A key that declares both dimensions
+ * always nests them in this order, with `item` innermost so it can act as the
+ * collection (array) axis.
  */
 export const QUALIFIER_ORDER = [
   'variant',
-  'meta',
   'item',
 ] as const satisfies readonly DictionaryQualifierType[];
 
@@ -30,8 +23,32 @@ export const QUALIFIER_ORDER = [
 export const COMPOSITE_ID_SEPARATOR = '/';
 
 /**
+ * Canonical serialization of a variant value into its identity string — the
+ * variant segment of a composite id and the runtime matching key.
+ *
+ * - `undefined` → `'default'` (the implicit fallback variant)
+ * - a string → the string itself (a named variant)
+ * - an object → its sorted `key=value` pairs joined by `&`
+ *   (e.g. `{ userId: '123', id: 'abc' }` → `'id=abc&userId=123'`)
+ *
+ * Two variants resolve to the same entry iff their serializations are equal, so
+ * an object variant in a selector must equal the one declared on the dictionary.
+ */
+export const serializeVariant = (
+  variant: string | Record<string, string | number> | undefined
+): string => {
+  if (variant === undefined) return 'default';
+  if (typeof variant === 'string') return variant;
+
+  return Object.keys(variant)
+    .sort()
+    .map((field) => `${field}=${variant[field]}`)
+    .join('&');
+};
+
+/**
  * Returns the qualifier dimensions declared on a dictionary, in canonical
- * order (`variant → meta → item`). Empty when the dictionary is unqualified
+ * order (`variant → item`). Empty when the dictionary is unqualified
  * (plain dictionary or shared base content of a qualified group).
  */
 export const getDictionaryQualifierTypes = (
@@ -39,9 +56,7 @@ export const getDictionaryQualifierTypes = (
 ): DictionaryQualifierType[] => {
   const declaredQualifiers: DictionaryQualifierType[] = [];
 
-  if (typeof dictionary.variant === 'string')
-    declaredQualifiers.push('variant');
-  if (dictionary.meta !== undefined) declaredQualifiers.push('meta');
+  if (dictionary.variant !== undefined) declaredQualifiers.push('variant');
   if (typeof dictionary.item === 'number') declaredQualifiers.push('item');
 
   return declaredQualifiers;
@@ -51,18 +66,17 @@ export const getDictionaryQualifierTypes = (
  * Returns the qualifier identifier of a dictionary for the given qualifier
  * dimension — one segment of the composite entry id.
  *
- * - 'variant' → the variant name
- * - 'meta' → the `meta.id` discriminator
+ * - 'variant' → the serialized variant (named string or object identity)
  * - 'item' → the item index as string
  */
 export const getDictionaryQualifierId = (
   dictionary: Dictionary,
   qualifierType: DictionaryQualifierType
 ): string | undefined => {
-  if (qualifierType === 'variant') return dictionary.variant;
-  if (qualifierType === 'meta') {
-    const metaId = dictionary.meta?.id;
-    return metaId === undefined ? undefined : String(metaId);
+  if (qualifierType === 'variant') {
+    return dictionary.variant === undefined
+      ? undefined
+      : serializeVariant(dictionary.variant);
   }
   return dictionary.item === undefined ? undefined : String(dictionary.item);
 };
@@ -100,31 +114,6 @@ export const getDictionaryCompositeId = (
   );
 
 /**
- * Checks that every declared meta field is provided and equal in the selector.
- * Reserved keys (`locale`, `item`, `variant`) are skipped; `meta.id` is part of
- * the equality check.
- */
-const metaFieldsMatch = (
-  meta: Dictionary['meta'] | undefined,
-  selector: DictionarySelector | undefined
-): boolean => {
-  if (!meta) return false;
-
-  return Object.entries(meta).every(([metaField, declaredValue]) => {
-    if ((RESERVED_SELECTOR_KEYS as readonly string[]).includes(metaField)) {
-      return true;
-    }
-
-    const providedValue = selector?.[metaField];
-
-    return (
-      providedValue !== undefined &&
-      String(providedValue) === String(declaredValue)
-    );
-  });
-};
-
-/**
  * Tests whether a group entry matches a selector across every declared
  * dimension. The `item` dimension matches any value when the selector does not
  * provide one (open collection axis).
@@ -136,18 +125,16 @@ const entryMatchesSelector = (
 ): boolean =>
   qualifierTypes.every((qualifierType) => {
     if (qualifierType === 'variant') {
-      return entry.variant === (selector?.variant ?? 'default');
-    }
-
-    if (qualifierType === 'item') {
       return (
-        selector?.item === undefined ||
-        String(entry.item) === String(selector.item)
+        serializeVariant(entry.variant) === serializeVariant(selector?.variant)
       );
     }
 
-    // qualifierType === 'meta'
-    return metaFieldsMatch(entry.meta, selector);
+    // qualifierType === 'item'
+    return (
+      selector?.item === undefined ||
+      String(entry.item) === String(selector.item)
+    );
   });
 
 /**
@@ -167,12 +154,13 @@ export const isQualifiedDictionaryGroup = (
 /**
  * Reconstructs a resolvable {@link Dictionary} from a single entry of a
  * qualified group: the content node stored under its composite id, plus the
- * qualifier coordinates decoded from that id (`variant`, `item`) and the
- * preserved `meta` object for the meta dimension.
+ * qualifier coordinates decoded from that id (`variant`, `item`).
  *
  * This keeps the resolver's matching/transform code unchanged: it still sees a
- * `{ key, content, variant?, item?, meta? }` shape, even though the stored
- * format no longer duplicates those fields per entry.
+ * `{ key, content, variant?, item? }` shape, even though the stored format no
+ * longer duplicates those fields per entry. The `variant` coordinate stays in
+ * its serialized form (e.g. `'id=abc&userId=123'`), which round-trips through
+ * {@link serializeVariant} during matching.
  */
 export const reconstructQualifiedEntry = (
   group: QualifiedDictionaryGroup,
@@ -193,11 +181,6 @@ export const reconstructQualifiedEntry = (
     }
   });
 
-  if (group.qualifierTypes.includes('meta')) {
-    const metaIndex = group.qualifierTypes.indexOf('meta');
-    entry.meta = group.meta?.[compositeId] ?? { id: segments[metaIndex] };
-  }
-
   return entry;
 };
 
@@ -208,8 +191,8 @@ export const reconstructQualifiedEntry = (
  * - Plain dictionary → returned as-is (selector ignored)
  * - `item` declared but not selected → every matching entry ordered by index
  * - `item` selected → the matching entry or null
- * - `variant` defaults to the `default` entry when not selected
- * - `meta` requires `{ id }` and every declared meta field to match
+ * - `variant` defaults to the `default` entry when not selected; an object
+ *   variant resolves only when the selector provides an equal object
  *
  * Dimensions compose: e.g. a variant × item key with `{ variant: 'promo' }`
  * returns every promo item as an array; adding `{ item: 2 }` narrows to one.
@@ -223,11 +206,6 @@ export const resolveQualifiedDictionary = (
   }
 
   const { qualifierTypes, content } = dictionaryOrGroup;
-
-  // The meta dimension cannot resolve without an id discriminator.
-  if (qualifierTypes.includes('meta') && selector?.id === undefined) {
-    return null;
-  }
 
   const itemAxisOpen =
     qualifierTypes.includes('item') && selector?.item === undefined;
@@ -276,7 +254,14 @@ export const getDictionarySelectorCacheKey = (
   return Object.keys(selector)
     .filter((selectorKey) => selectorKey !== 'locale')
     .sort()
-    .map((selectorKey) => `${selectorKey}:${String(selector[selectorKey])}`)
+    .map((selectorKey) => {
+      const value = selector[selectorKey as keyof DictionarySelector];
+      const serialized =
+        selectorKey === 'variant'
+          ? serializeVariant(value as Parameters<typeof serializeVariant>[0])
+          : String(value);
+      return `${selectorKey}:${serialized}`;
+    })
     .join('|');
 };
 
@@ -320,7 +305,7 @@ export type QualifiedDynamicLoaderMap = {
 
 /**
  * Type guard discriminating a qualified dynamic loader map (collections /
- * variants / meta records, possibly combined) from a plain dynamic loader map.
+ * variants, possibly combined) from a plain dynamic loader map.
  */
 export const isQualifiedDynamicLoaderMap = (
   value: unknown
@@ -330,28 +315,6 @@ export const isQualifiedDynamicLoaderMap = (
   QUALIFIER_DYNAMIC_TYPES_KEY in value;
 
 /**
- * Resolves the content of a qualified dynamic loader map against a selector,
- * loading only the chunk(s) the selector actually targets.
- *
- * Walks the nested loader tree one dimension at a time (canonical order
- * `variant → meta → item`): `variant` defaults to `default`, `meta` descends by
- * `id`, and `item` either narrows to the selected index or — when no item is
- * given — expands into every sibling chunk (the collection axis). Meta-equality
- * is verified on the loaded chunk. Semantics mirror
- * {@link resolveQualifiedDictionary} so dynamic and static modes behave alike.
- *
- * The Suspense mechanism is injected through `loadChunk` so the same logic
- * serves both the client (suspender cache) and the server (`react.use`). Every
- * targeted loader is started before the first chunk is read, so sibling chunks
- * load in parallel rather than waterfalling.
- *
- * @param loaderMap - The qualified dynamic loader map (entry point default export).
- * @param key - The dictionary key (used to build stable chunk cache keys).
- * @param locale - The resolved locale to load chunks for.
- * @param selector - The selector splitting the qualifier dimensions.
- * @param loadChunk - Reads a started chunk promise, suspending until it resolves.
- * @param transform - Turns a resolved chunk dictionary into final content.
- */
 /** One targeted chunk: its stable cache key and lazy loader. */
 type CollectedChunk = {
   cacheKey: string;
@@ -388,11 +351,6 @@ const collectQualifiedChunks = (
 
   if (!localeTree) return { itemAxisOpen, missed: true, chunks: [] };
 
-  // The meta dimension cannot resolve without an id discriminator.
-  if (qualifierTypes.includes('meta') && selector?.id === undefined) {
-    return { itemAxisOpen, missed: true, chunks: [] };
-  }
-
   const chunks: CollectedChunk[] = [];
 
   const walk = (
@@ -423,10 +381,8 @@ const collectQualifiedChunks = (
 
     const segment =
       dimension === 'variant'
-        ? (selector?.variant ?? 'default')
-        : dimension === 'meta'
-          ? String(selector?.id)
-          : String(selector?.item);
+        ? serializeVariant(selector?.variant)
+        : String(selector?.item);
 
     const child = tree[segment];
     if (!child) return false;
@@ -440,27 +396,15 @@ const collectQualifiedChunks = (
 };
 
 /**
- * Whether a loaded chunk satisfies the selector's meta fields (no-op unless the
- * key declares a `meta` dimension).
- */
-const chunkMatchesMeta = (
-  loaderMap: QualifiedDynamicLoaderMap,
-  dictionary: Dictionary,
-  selector: DictionarySelector | undefined
-): boolean =>
-  !loaderMap[QUALIFIER_DYNAMIC_TYPES_KEY].includes('meta') ||
-  metaFieldsMatch(dictionary.meta, selector);
-
-/**
  * Resolves the content of a qualified dynamic loader map against a selector,
  * loading only the chunk(s) the selector actually targets.
  *
  * Walks the nested loader tree one dimension at a time (canonical order
- * `variant → meta → item`): `variant` defaults to `default`, `meta` descends by
- * `id`, and `item` either narrows to the selected index or — when no item is
- * given — expands into every sibling chunk (the collection axis). Meta-equality
- * is verified on the loaded chunk. Semantics mirror
- * {@link resolveQualifiedDictionary} so dynamic and static modes behave alike.
+ * `variant → item`): `variant` defaults to `default` (or descends by the
+ * serialized object identity), and `item` either narrows to the selected index
+ * or — when no item is given — expands into every sibling chunk (the collection
+ * axis). Semantics mirror {@link resolveQualifiedDictionary} so dynamic and
+ * static modes behave alike.
  *
  * The Suspense mechanism is injected through `loadChunk` so the same logic
  * serves both the client (suspender cache) and the server (`react.use`). Every
@@ -494,9 +438,9 @@ export const resolveQualifiedDynamicContent = <Content>(params: {
   if (missed) return itemAxisOpen ? [] : null;
 
   // Start every loader before reading, so siblings load in parallel.
-  const dictionaries = chunks
-    .map(({ cacheKey, loader }) => loadChunk(cacheKey, loader()))
-    .filter((dictionary) => chunkMatchesMeta(loaderMap, dictionary, selector));
+  const dictionaries = chunks.map(({ cacheKey, loader }) =>
+    loadChunk(cacheKey, loader())
+  );
 
   if (itemAxisOpen) return dictionaries.map(transform);
 
@@ -533,9 +477,7 @@ export const resolveQualifiedDynamicContentAsync = async <Content>(params: {
 
   if (missed) return itemAxisOpen ? [] : null;
 
-  const dictionaries = (
-    await Promise.all(chunks.map(({ loader }) => loader()))
-  ).filter((dictionary) => chunkMatchesMeta(loaderMap, dictionary, selector));
+  const dictionaries = await Promise.all(chunks.map(({ loader }) => loader()));
 
   if (itemAxisOpen) return dictionaries.map(transform);
 

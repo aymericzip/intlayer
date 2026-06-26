@@ -1,5 +1,4 @@
 import type { Locale } from '@intlayer/types/allLocales';
-import type { DictionarySelector } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
   DictionaryKeys,
@@ -33,7 +32,7 @@ export const safeUseLocale = (): Locale | undefined => {
 /**
  * On the server side, hook that picks one dictionary by its key and returns the
  * content for the given locale or selector (`{ item }`, `{ variant }`,
- * `{ id, ...meta }`, optionally combined with `locale`).
+ * optionally combined with `locale`).
  *
  * If the locale is not provided, it will use the locale from the server context.
  */

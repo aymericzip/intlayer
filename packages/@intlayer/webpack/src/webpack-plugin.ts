@@ -76,7 +76,7 @@ export class IntlayerPlugin {
         ...formatNodeTypeToEnvVar(unusedNodeTypes, wrapKey, wrapValue),
 
         // Tree shaking the dictionary selector logic
-        // (collections / variants / meta records)
+        // (collections / variants)
         ...formatDictionarySelectorEnvVar(
           getHasDictionarySelector(dictionaries),
           wrapKey,

@@ -1,5 +1,4 @@
 import { getIntlayer as getIntlayerCore } from '@intlayer/core/interpreter';
-import type { DictionarySelector } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
   DictionaryKeys,
@@ -14,7 +13,7 @@ import { type DeepTransformContent, getPlugins } from './plugins';
  * Get dictionary content by key for Svelte applications.
  *
  * The second argument is either a locale or a selector object (`{ item }`,
- * `{ variant }`, `{ id, ...meta }`, optionally combined with `locale`).
+ * `{ variant }`, optionally combined with `locale`).
  *
  * @param key The dictionary key to retrieve
  * @param localeOrSelector The target locale or selector (optional)

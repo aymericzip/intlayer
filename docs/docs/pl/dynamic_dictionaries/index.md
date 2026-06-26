@@ -1,15 +1,14 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-06-12
-title: Słowniki Dynamiczne
-description: Omówienie trzech funkcji dynamicznych słowników w Intlayer — kolekcji, wariantów i rekordów dynamicznych — do budowania elastycznych, sterowanych w czasie wykonania treści i18n.
+updatedAt: 2026-06-26
+title: Słowniki dynamiczne
+description: Przegląd funkcji słowników dynamicznych Intlayer — kolekcji i wariantów — do tworzenia elastycznej, sterowanej w czasie wykonywania treści i18n.
 keywords:
-  - Słowniki Dynamiczne
+  - Słowniki dynamiczne
   - Kolekcje
   - Warianty
-  - Rekordy Dynamiczne
   - Intlayer
-  - Umiędzynarodowienie
+  - Internacjonalizacja
 slugs:
   - doc
   - concept
@@ -18,31 +17,38 @@ history:
   - version: 9.0.0
     date: 2026-06-12
     changes: "Wydanie funkcji słowników dynamicznych"
+  - version: 9.1.0
+    date: 2026-06-26
+    changes: "Scalono rekordy dynamiczne z wariantami — `variant` przyjmuje teraz ciąg znaków lub obiekt"
 author: aymericzip
 ---
 
-# Słowniki Dynamiczne
+# Słowniki dynamiczne
 
-Intlayer obsługuje trzy mechanizmy definiowania treści wykraczających poza pojedynczy, statyczny słownik na klucz. Każdy z nich jest deklarowany poprzez **pole metadanych najwyższego poziomu** w pliku zawartości; funkcja opakowująca (wrapper) nie jest wymagana.
+Intlayer obsługuje dwa mechanizmy wyrażania treści wykraczającej poza pojedynczy statyczny słownik na klucz. Każdy jest deklarowany przez **pole metadanych najwyższego poziomu** w pliku treści; nie jest potrzebna żadna funkcja opakowująca.
 
-| Funkcja                                                                                                                     | Pole metadanych   | Selektor w `useIntlayer` |
-| --------------------------------------------------------------------------------------------------------------------------- | ----------------- | ------------------------ |
-| [Kolekcje](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/collections.md)               | `item: N`         | `{ item: N }`            |
-| [Warianty](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/variants.md)                  | `variant: "name"` | `{ variant: "name" }`    |
-| [Rekordy Dynamiczne](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/dynamic_content.md) | `meta: { id, … }` | `{ id, … }`              |
+| Funkcja                                                                                                       | Pole metadanych                          | Selektor w `useIntlayer`                         |
+| ------------------------------------------------------------------------------------------------------------- | ---------------------------------------- | ------------------------------------------------ |
+| [Kolekcje](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/collections.md) | `item: N`                                | `{ item: N }`                                    |
+| [Warianty](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dynamic_dictionaries/variants.md)    | `variant: "name"` _lub_ `variant: { … }` | `{ variant: "name" }` _lub_ `{ variant: { … } }` |
 
-Wszystkie trzy łączą się z argumentem lokalizacji i obsługują wybiórcze / leniwe ładowanie (lazy loading) za pomocą `importMode`.
+Oba łączą się z argumentem locale i obsługują selektywne / leniwe ładowanie przez `importMode`.
 
-## Kiedy używać którego rozwiązania
+## Kiedy czego używać
 
 - **Kolekcje** — uporządkowana lista elementów zarządzanych w osobnych plikach (wpisy FAQ, posty na blogu, produkty).
-- **Warianty** — nazwane alternatywy treści dla testów A/B, banerów sezonowych lub flag funkcji (feature flags).
-- **Rekordy dynamiczne** — treści pobierane w czasie wykonania za pomocą nieprzezroczystego identyfikatora ID (rekordy CMS, treści specyficzne dla użytkownika).
+- **Warianty** — nazwane lub strukturalne alternatywy treści:
+  - wariant **tekstowy** do testów A/B, banerów sezonowych lub feature flag;
+  - wariant **obiektowy** dla rekordów CMS, treści zależnej od użytkownika lub dowolnej treści adresowanej zestawem pól (dawne „rekordy dynamiczne").
 
-## Rozstrzyganie konfliktów selektorów
+> Wcześniejsze wersje udostępniały osobne pole `meta` dla treści indeksowanej rekordami. Zostało scalone z `variant`: przekaż do `variant` **obiekt** zamiast używać `meta`.
 
-Gdy słownik posiada wiele selektorów, kolejność ich rozstrzygania to:
+## Ujednoznacznianie selektora
+
+Klucz może deklarować obydwa wymiary jednocześnie (np. kolekcja, której elementy mają wariant). Są one rozwiązywane w kolejności:
 
 ```
-variant → meta → item
+variant → item
 ```
+
+Zatem `{ variant: "promo" }` dla klucza variant × item zwraca wszystkie elementy promo jako tablicę, a dodanie `{ item: 2 }` zawęża wynik do pojedynczego wpisu.

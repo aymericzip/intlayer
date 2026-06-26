@@ -1,13 +1,12 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-06-12
-title: Dizionari Dinamici
-description: Panoramica delle tre funzionalità di dizionario dinamico di Intlayer — collezioni, varianti e record dinamici — per la creazione di contenuti i18n flessibili e guidati dal runtime.
+updatedAt: 2026-06-26
+title: Dizionari dinamici
+description: Panoramica delle funzionalità dei dizionari dinamici di Intlayer — collezioni e varianti — per creare contenuti i18n flessibili e guidati a runtime.
 keywords:
-  - Dizionari Dinamici
+  - Dizionari dinamici
   - Collezioni
   - Varianti
-  - Record Dinamici
   - Intlayer
   - Internazionalizzazione
 slugs:
@@ -18,31 +17,38 @@ history:
   - version: 9.0.0
     date: 2026-06-12
     changes: "Rilascio della funzionalità dei dizionari dinamici"
+  - version: 9.1.0
+    date: 2026-06-26
+    changes: "Unione dei record dinamici nelle varianti — `variant` ora accetta una stringa o un oggetto"
 author: aymericzip
 ---
 
-# Dizionari Dinamici
+# Dizionari dinamici
 
-Intlayer supporta tre meccanismi per esprimere contenuti che vanno oltre un singolo dizionario statico per chiave. Ognuno viene dichiarato tramite un **campo di metadati di livello superiore** nel file di contenuto; non è necessaria alcuna funzione wrapper.
+Intlayer supporta due meccanismi per esprimere contenuti che vanno oltre un singolo dizionario statico per chiave. Ciascuno è dichiarato tramite un **campo di metadati di primo livello** nel file di contenuto; non è necessaria alcuna funzione wrapper.
 
-| Funzionalità                                                                                                             | Campo metadati    | Selettore in `useIntlayer` |
-| ------------------------------------------------------------------------------------------------------------------------ | ----------------- | -------------------------- |
-| [Collezioni](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dynamic_dictionaries/collections.md)          | `item: N`         | `{ item: N }`              |
-| [Varianti](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dynamic_dictionaries/variants.md)               | `variant: "name"` | `{ variant: "name" }`      |
-| [Record Dinamici](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dynamic_dictionaries/dynamic_content.md) | `meta: { id, … }` | `{ id, … }`                |
+| Funzionalità                                                                                                    | Campo di metadati                      | Selettore in `useIntlayer`                     |
+| --------------------------------------------------------------------------------------------------------------- | -------------------------------------- | ---------------------------------------------- |
+| [Collezioni](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dynamic_dictionaries/collections.md) | `item: N`                              | `{ item: N }`                                  |
+| [Varianti](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/dynamic_dictionaries/variants.md)      | `variant: "name"` _o_ `variant: { … }` | `{ variant: "name" }` _o_ `{ variant: { … } }` |
 
-Tutti e tre si compongono con l'argomento della locale e supportano il caricamento selettivo o lazy tramite `importMode`.
+Entrambi si combinano con l'argomento locale e supportano il caricamento selettivo / differito tramite `importMode`.
 
-## Quando usare quale
+## Quando usare cosa
 
-- **Collezioni** — elenco ordinato di elementi gestiti in file separati (domande frequenti, post di blog, prodotti).
-- **Variantes** — alternative di contenuto denominate per test A/B, banner stagionali o feature flag.
-- **Record dinamici** — contenuto recuperato a runtime tramite un ID opaco (record del CMS, testi specifici dell'utente).
+- **Collezioni** — elenco ordinato di elementi gestiti in file separati (voci di FAQ, articoli di blog, prodotti).
+- **Varianti** — alternative di contenuto con nome o strutturate:
+  - una variante **stringa** per test A/B, banner stagionali o feature flag;
+  - una variante **oggetto** per record di CMS, contenuti specifici per utente o qualsiasi contenuto indirizzato da un insieme di campi (i precedenti «record dinamici»).
 
-## Risoluzione dei conflitti del selettore
+> Le versioni precedenti esponevano un campo `meta` separato per i contenuti indicizzati per record. È stato unito in `variant`: passa un **oggetto** a `variant` invece di usare `meta`.
 
-Quando sono presenti più selettori in un dizionario, l'ordine di risoluzione è:
+## Disambiguazione del selettore
+
+Una chiave può dichiarare entrambe le dimensioni contemporaneamente (ad es. una collezione i cui elementi hanno ciascuno una variante). Vengono risolte nell'ordine:
 
 ```
-variant → meta → item
+variant → item
 ```
+
+Quindi `{ variant: "promo" }` su una chiave variante × item restituisce tutti gli elementi promo come array, e aggiungere `{ item: 2 }` lo restringe a una singola voce.

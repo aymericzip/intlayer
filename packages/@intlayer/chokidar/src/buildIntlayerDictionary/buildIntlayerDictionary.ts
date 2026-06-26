@@ -93,7 +93,7 @@ export const buildDictionary = async (
     const dictionary = mergedResult.dictionary;
 
     if (isQualifiedDictionaryGroup(dictionary)) {
-      // Collections / variants / meta records resolve their qualifier at
+      // Collections / variants resolve their qualifier at
       // runtime from a selector. Static mode keeps every entry in one JSON;
       // dynamic mode splits them into one chunk per (locale, qualifierId).
       const entryMode = dictionary.importMode ?? importMode;

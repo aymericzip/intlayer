@@ -6,10 +6,7 @@ import {
   type QualifiedDynamicLoaderMap,
   resolveQualifiedDynamicContentAsync,
 } from '@intlayer/core/dictionaryManipulator';
-import type {
-  Dictionary,
-  DictionarySelector,
-} from '@intlayer/types/dictionary';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DictionaryKeys,
   DictionarySelectorForKey,
@@ -63,7 +60,7 @@ const recursiveProxy: any = new Proxy(() => {}, {
 /**
  * Dynamically load and transform a dictionary (plain or qualified).
  *
- * For a qualified loader map (collection / variant / meta record, possibly
+ * For a qualified loader map (collection / variant, possibly
  * combined), only the chunk(s) the selector targets are loaded. For a plain
  * loader map, the locale chunk is loaded. The first call returns a placeholder
  * and triggers a background load; the client then notifies subscribers so the
@@ -87,7 +84,7 @@ export const useDictionaryDynamic = <
   const client = getIntlayerClient();
   const defaultLocale = internationalization.defaultLocale;
 
-  // --- Qualified loader map (collection / variant / meta record) ---
+  // --- Qualified loader map (collection / variant) ---
   if (
     process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
     isQualifiedDynamicLoaderMap(dictionaryLoaders)

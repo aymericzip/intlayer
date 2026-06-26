@@ -1,13 +1,12 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-06-12
-title: Từ Điển Động
-description: Tổng quan về ba tính năng từ điển động của Intlayer — bộ sưu tập, biến thể và bản ghi động — để xây dựng nội dung i18n linh hoạt, được điều khiển bằng runtime.
+updatedAt: 2026-06-26
+title: Từ điển động
+description: Tổng quan về các tính năng từ điển động của Intlayer — bộ sưu tập và biến thể — để xây dựng nội dung i18n linh hoạt, được điều khiển trong thời gian chạy.
 keywords:
-  - Từ Điển Động
-  - Bộ Sưu Tập
-  - Biến Thể
-  - Bản Ghi Động
+  - Từ điển động
+  - Bộ sưu tập
+  - Biến thể
   - Intlayer
   - Quốc tế hóa
 slugs:
@@ -18,31 +17,38 @@ history:
   - version: 9.0.0
     date: 2026-06-12
     changes: "Phát hành tính năng từ điển động"
+  - version: 9.1.0
+    date: 2026-06-26
+    changes: "Hợp nhất bản ghi động vào biến thể — `variant` giờ chấp nhận một chuỗi hoặc một đối tượng"
 author: aymericzip
 ---
 
-# Từ Điển Động
+# Từ điển động
 
-Intlayer hỗ trợ ba cơ chế để thể hiện nội dung vượt ra ngoài một từ điển tĩnh duy nhất cho mỗi khóa. Mỗi cơ chế được khai báo thông qua một **trường siêu dữ liệu (metadata) cấp cao nhất** trong tệp nội dung; không cần hàm bao (wrapper).
+Intlayer hỗ trợ hai cơ chế để diễn đạt nội dung vượt ra ngoài một từ điển tĩnh duy nhất cho mỗi khóa. Mỗi cơ chế được khai báo qua một **trường metadata cấp cao nhất** trong tệp nội dung; không cần hàm bao bọc.
 
-| Tính năng                                                                                                             | Trường siêu dữ liệu | Bộ chọn trong `useIntlayer` |
-| --------------------------------------------------------------------------------------------------------------------- | ------------------- | --------------------------- |
-| [Bộ Sưu Tập](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/collections.md)       | `item: N`           | `{ item: N }`               |
-| [Biến Thể](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/variants.md)            | `variant: "name"`   | `{ variant: "name" }`       |
-| [Bản Ghi Động](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/dynamic_content.md) | `meta: { id, … }`   | `{ id, … }`                 |
+| Tính năng                                                                                                       | Trường metadata                           | Bộ chọn trong `useIntlayer`                       |
+| --------------------------------------------------------------------------------------------------------------- | ----------------------------------------- | ------------------------------------------------- |
+| [Bộ sưu tập](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/collections.md) | `item: N`                                 | `{ item: N }`                                     |
+| [Biến thể](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dynamic_dictionaries/variants.md)      | `variant: "name"` _hoặc_ `variant: { … }` | `{ variant: "name" }` _hoặc_ `{ variant: { … } }` |
 
-Cả ba cơ chế đều kết hợp với đối số ngôn ngữ (locale) và hỗ trợ tải chọn lọc / tải lười (lazy loading) thông qua `importMode`.
+Cả hai đều kết hợp với đối số locale và hỗ trợ tải chọn lọc / lười qua `importMode`.
 
-## Khi nào nên sử dụng tính năng nào
+## Khi nào dùng cái nào
 
-- **Bộ sưu tập** — danh sách các mục có thứ tự được quản lý trong các tệp riêng biệt (mục FAQ, bài viết blog, sản phẩm).
-- **Biến thể** — các lựa chọn nội dung thay thế được đặt tên cho các thử nghiệm A/B, biểu ngữ theo mùa hoặc cờ tính năng (feature flags).
-- **Bản ghi động** — nội dung được truy xuất tại runtime bằng một ID ẩn (bản ghi CMS, nội dung dành riêng cho người dùng).
+- **Bộ sưu tập** — danh sách mục được sắp xếp, quản lý trong các tệp riêng (mục FAQ, bài blog, sản phẩm).
+- **Biến thể** — các lựa chọn nội dung được đặt tên hoặc có cấu trúc:
+  - biến thể **chuỗi** cho thử nghiệm A/B, banner theo mùa hoặc feature flag;
+  - biến thể **đối tượng** cho bản ghi CMS, nội dung riêng theo người dùng, hoặc bất kỳ nội dung nào được định địa chỉ bằng một tập hợp trường ("bản ghi động" trước đây).
 
-## Giải quyết xung đột bộ chọn
+> Các phiên bản trước cung cấp một trường `meta` riêng cho nội dung được khóa theo bản ghi. Nó đã được hợp nhất vào `variant`: hãy truyền một **đối tượng** cho `variant` thay vì dùng `meta`.
 
-Khi có nhiều bộ chọn tồn tại trên cùng một từ điển, thứ tự ưu tiên giải quyết là:
+## Khử nhập nhằng bộ chọn
+
+Một khóa có thể khai báo cả hai chiều cùng lúc (ví dụ một bộ sưu tập mà mỗi mục có một biến thể). Chúng được phân giải theo thứ tự:
 
 ```
-variant → meta → item
+variant → item
 ```
+
+Vì vậy, `{ variant: "promo" }` trên khóa variant × item trả về mọi mục promo dưới dạng mảng, và thêm `{ item: 2 }` thu hẹp lại còn một mục duy nhất.

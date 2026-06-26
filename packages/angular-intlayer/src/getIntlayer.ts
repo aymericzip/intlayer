@@ -1,5 +1,4 @@
 import { getIntlayer as getIntlayerCore } from '@intlayer/core/interpreter';
-import type { DictionarySelector } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
   DictionaryKeys,
@@ -12,7 +11,7 @@ import { type DeepTransformContent, getPlugins } from './plugins';
 
 /**
  * Picks one dictionary by its key and returns its content for the given
- * locale or selector (`{ item }`, `{ variant }`, `{ id, ...meta }`,
+ * locale or selector (`{ item }`, `{ variant }`,
  * optionally combined with `locale`).
  */
 export const getIntlayer = <

@@ -60,7 +60,7 @@ export type DictionaryRegistryContent<T extends PropertyKey> = [T] extends [
  * `DictionarySelector`).
  *
  * For plain dictionaries this is the registry content; for qualified groups
- * (collections, variants, meta records) the selector shape drives the result
+ * (collections, variants) the selector shape drives the result
  * (single entry, array of entries, or null).
  */
 export type DictionaryRegistryResult<T extends PropertyKey, Arg = undefined> = [

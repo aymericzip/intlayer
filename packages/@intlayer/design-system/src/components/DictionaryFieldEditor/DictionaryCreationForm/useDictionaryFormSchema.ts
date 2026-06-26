@@ -1,7 +1,7 @@
 import { useIntlayer } from 'react-intlayer';
 import { z } from 'zod/v4';
 
-export const QUALIFIER_TYPES = ['none', 'item', 'variant', 'meta'] as const;
+export const QUALIFIER_TYPES = ['none', 'item', 'variant'] as const;
 export type QualifierType = (typeof QUALIFIER_TYPES)[number];
 
 export const useDictionarySchema = (projectId: string) => {
@@ -35,7 +35,6 @@ export const useDictionarySchema = (projectId: string) => {
     qualifierType: z.enum(QUALIFIER_TYPES).default('none'),
     item: z.coerce.number().int().positive().optional(),
     variant: z.string().optional(),
-    metaId: z.string().optional(),
   });
 };
 

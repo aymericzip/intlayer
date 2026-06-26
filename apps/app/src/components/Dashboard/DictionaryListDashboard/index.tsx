@@ -191,15 +191,13 @@ export const DictionaryListDashboardContent: FC = () => {
         cell: ({ row }) => {
           const dictionary = row.original;
           const qualifiers: Array<{
-            key: 'collection' | 'variant' | 'meta';
-            color: 'blue' | 'orange' | 'purple';
+            key: 'collection' | 'variant';
+            color: 'blue' | 'orange';
           }> = [];
           if (dictionary.item !== undefined)
             qualifiers.push({ key: 'collection', color: 'blue' });
           if (dictionary.variant !== undefined)
             qualifiers.push({ key: 'variant', color: 'orange' });
-          if (dictionary.meta !== undefined)
-            qualifiers.push({ key: 'meta', color: 'purple' });
 
           if (qualifiers.length === 0)
             return <span className="text-neutral">-</span>;

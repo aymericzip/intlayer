@@ -11,8 +11,7 @@ import { locale } from 'react-intlayer/server';
  *   array; `useIntlayer('faq', { item })` returns a single item.
  * - **Variants** — `useIntlayer('hero', { variant })` picks a named shape,
  *   defaulting to the `default` variant.
- * - **Meta records** — `useIntlayer('product', { id, ...meta })` resolves a
- *   build-time record keyed by `meta.id`.
+ * - **Object variants** — `useIntlayer('product', { variant: {…} })` resolves a build-time entry by its object identity.
  * - **Composite** — a single key (`pricing`) stacks two dimensions
  *   (variant × item): `{ variant }` returns every item of that variant as an
  *   array, and adding `{ item }` narrows to one.
@@ -92,21 +91,18 @@ const HeroVariants: FC = () => {
 };
 
 const ProductRecords: FC = () => {
-  // Meta record selectors keyed by `meta.id`; every declared meta field must
-  // match for the record to resolve.
+  // Object variant selectors by object identity; the whole object must match for the entry to resolve.
   const appleWatch = useIntlayer('product', {
-    id: 'apple-watch',
-    category: 'wearables',
+    variant: { id: 'apple-watch', category: 'wearables' },
   });
   const airpods = useIntlayer('product', {
-    id: 'airpods-pro',
-    category: 'audio',
+    variant: { id: 'airpods-pro', category: 'audio' },
   });
 
   return (
     <section>
       <div style={subHeading}>
-        Meta record — useIntlayer('product', {'{ id, category }'})
+        Object variant — useIntlayer('product', {'{ variant: {…} }'})
       </div>
       {[appleWatch, airpods].map((entry) => (
         <div key={String(entry?.name)}>
@@ -166,7 +162,9 @@ const PricingComposite: FC = () => {
 
 export const QualifiedContentDemo: FC = () => (
   <div style={card}>
-    <h2 style={heading}>Collections · Variants · Meta Records · Composite</h2>
+    <h2 style={heading}>
+      Collections · Variants · Object Variants · Composite
+    </h2>
     <Suspense fallback={<p>Loading qualified content…</p>}>
       <FaqCollection />
       <HeroVariants />

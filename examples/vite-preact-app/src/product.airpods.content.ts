@@ -2,7 +2,7 @@ import { type Dictionary, t } from 'intlayer';
 
 const productAirpods = {
   key: 'product',
-  meta: { id: 'airpods-pro', category: 'audio' },
+  variant: { id: 'airpods-pro', category: 'audio' },
   content: {
     name: t({
       en: 'AirPods Pro (2nd generation)',

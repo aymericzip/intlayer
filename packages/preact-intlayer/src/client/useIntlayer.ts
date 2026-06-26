@@ -1,5 +1,4 @@
 import { getDictionarySelectorCacheKey } from '@intlayer/core/dictionaryManipulator';
-import type { DictionarySelector } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
   DictionaryKeys,
@@ -16,7 +15,6 @@ import { IntlayerClientContext } from './IntlayerProvider';
  * The second argument is either a locale or a selector object:
  * - `{ item: 2 }` — collection item (omit `item` to get every item as array)
  * - `{ variant: 'black-friday' }` — named variant (omit for the `default` one)
- * - `{ id: 'prod_abc', ...metaFields }` — meta record
  * - `locale` composes with any selector and overrides the context locale
  *
  * @param key - The unique key of the dictionary to retrieve.

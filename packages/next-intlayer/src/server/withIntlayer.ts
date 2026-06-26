@@ -402,7 +402,7 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
       ...formatNodeTypeToEnvVar(unusedNodeTypes),
 
       // Tree shacking the dictionary selector logic
-      // (collections / variants / meta records)
+      // (collections / variants)
       ...formatDictionarySelectorEnvVar(getHasDictionarySelector(dictionaries)),
 
       // Tree shacking based on config

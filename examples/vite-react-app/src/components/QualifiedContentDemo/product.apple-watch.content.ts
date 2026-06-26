@@ -2,7 +2,7 @@ import { type Dictionary, t } from 'intlayer';
 
 const productAppleWatch = {
   key: 'product',
-  meta: { id: 'apple-watch', category: 'wearables' },
+  variant: { id: 'apple-watch', category: 'wearables' },
   content: {
     name: t({
       en: 'Apple Watch Series 10',

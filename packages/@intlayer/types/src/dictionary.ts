@@ -119,32 +119,22 @@ export type DictionaryId = string;
 export type DictionaryKey = string;
 
 /**
- * Meta record qualifier of a dictionary.
- *
- * The `id` field is the designated discriminator used to resolve the record at
- * runtime (`useIntlayer('product-copy', { id: 'prod_abc', ... })`). All other
- * fields are typed payload that must be provided by the selector to match.
- */
-export type DictionaryMeta = {
-  id: string | number;
-} & Record<string, string | number>;
-
-/**
  * A dimension used to discriminate sibling dictionaries sharing the same key.
  *
- * - 'variant': named alternative content shapes (A/B testing, seasonal banners…)
- * - 'meta': record-keyed content resolved by the `meta.id` discriminator
+ * - 'variant': named or structured alternative content (A/B testing, seasonal
+ *   banners, CMS records, user-specific copy…). The variant value is a string
+ *   (named) or an object (structured discriminator).
  * - 'item': ordered collection items (blog posts, FAQs…)
  *
- * A key may declare SEVERAL dimensions at once (e.g. a collection whose items
- * also have variants). They are always ordered canonically as
- * `variant → meta → item`, with `item` as the innermost / collection axis.
+ * A key may declare BOTH dimensions at once (e.g. a collection whose items also
+ * have variants). They are always ordered canonically as `variant → item`,
+ * with `item` as the innermost / collection axis.
  */
-export type DictionaryQualifierType = 'variant' | 'meta' | 'item';
+export type DictionaryQualifierType = 'variant' | 'item';
 
 /**
  * Output of the merge step for a key whose dictionaries declare one or more
- * qualifier dimensions (`item`, `variant`, `meta`).
+ * qualifier dimensions (`variant`, `item`).
  *
  * Sibling dictionaries sharing the same qualifier coordinates are merged
  * together (locale completion / priority overrides preserved). Sibling
@@ -152,9 +142,11 @@ export type DictionaryQualifierType = 'variant' | 'meta' | 'item';
  * every entry as fallback.
  *
  * `content` is keyed by the composite id — the per-dimension ids joined in
- * canonical order with `/` (e.g. `"promo/2"` for a variant × item key). Each
- * value is the resolved content node directly: the qualifier coordinates are
- * decoded from the composite id, not duplicated on a per-entry wrapper.
+ * canonical order with `/` (e.g. `"promo/2"` for a variant × item key). For an
+ * object variant the variant segment is the canonical serialization of the
+ * object (e.g. `"id=abc&userId=123"`). Each value is the resolved content node
+ * directly: the qualifier coordinates are decoded from the composite id, not
+ * duplicated on a per-entry wrapper.
  *
  * Example (`.intlayer/dictionaries/faq.json`):
  * ```json
@@ -177,12 +169,6 @@ export type QualifiedDictionaryGroup = {
    * per-entry `Dictionary` wrapper — coordinates live in the key, not the value.
    */
   content: Record<string, unknown>;
-  /**
-   * Extra meta fields preserved per composite id, present only for groups that
-   * declare the `meta` dimension. The composite id only encodes `meta.id`, so
-   * the remaining declared meta fields are kept here for selector matching.
-   */
-  meta?: Record<string, DictionaryMeta>;
   /** Import mode shared by the group (collected from its qualified entries). */
   importMode?: ImportMode;
   localIds?: LocalDictionaryId[];
@@ -194,18 +180,15 @@ export type QualifiedDictionaryGroup = {
  *
  * - `{ item: 2 }` selects a collection item (1-based index)
  * - `{ variant: 'black-friday' }` selects a named variant
- * - `{ id: 'prod_abc', ...metaFields }` selects a meta record; every meta field
- *   declared on the matching dictionary must be provided and equal
+ * - `{ variant: { id: 'prod_abc', userId: '123' } }` selects a structured
+ *   variant; the object must equal the variant declared on the dictionary
  * - `locale` composes with any of the above and overrides the context locale
- *
- * The keys `locale`, `item` and `variant` are reserved and cannot be used as
- * meta field names.
  */
 export type DictionarySelector = {
   locale?: LocalesValues;
   item?: number;
-  variant?: string;
-} & Record<string, string | number | undefined>;
+  variant?: string | Record<string, string | number>;
+};
 
 type QualifiedEntryContent<Entry> = Entry extends { content: infer Content }
   ? Content
@@ -232,7 +215,7 @@ type ZipQualifierCoordinates<
 };
 
 /**
- * Rebuilds the per-entry shape (`{ variant; item; meta; content }`) from the
+ * Rebuilds the per-entry shape (`{ variant; item; content }`) from the
  * `content` map keyed by composite id, so the coordinate-comparison helpers can
  * be reused unchanged. Coordinates are decoded from each key.
  */
@@ -247,10 +230,7 @@ type ReconstructedEntries<
     ? { content: ContentMap[Key] } & (Coordinates extends { variant: infer V }
         ? { variant: V }
         : unknown) &
-        (Coordinates extends { item: infer Item } ? { item: Item } : unknown) &
-        (Coordinates extends { meta: infer Id }
-          ? { meta: { id: Id } }
-          : unknown)
+        (Coordinates extends { item: infer Item } ? { item: Item } : unknown)
     : never;
 };
 
@@ -266,15 +246,19 @@ type CoordinateEquals<Left, Right> = [StringifyCoordinate<Left>] extends [
   ? true
   : false;
 
-/** The coordinate a selector pins for each dimension. */
+/**
+ * The variant coordinate a selector pins. A string variant is matched
+ * precisely; an object variant broadens to `string` (it matches any declared
+ * variant entry, since the object identity is not reconstructable at the type
+ * level). An absent selector defaults to the `'default'` variant.
+ */
 type SelectorVariant<Selector> = Selector extends { variant: infer Variant }
-  ? Variant
+  ? Variant extends string
+    ? Variant
+    : string
   : 'default';
 type SelectorItem<Selector> = Selector extends { item: infer Item }
   ? Item
-  : undefined;
-type SelectorMetaId<Selector> = Selector extends { id: infer Id }
-  ? Id
   : undefined;
 
 /**
@@ -293,21 +277,13 @@ type EntryMatchesSelector<
       : false
     : true
 ) extends true
-  ? (
-      'meta' extends QualifierTypes[number]
-        ? Entry extends { meta: { id: infer Id } }
-          ? CoordinateEquals<Id, SelectorMetaId<Selector>>
-          : false
-        : true
-    ) extends true
-    ? 'item' extends QualifierTypes[number]
-      ? [SelectorItem<Selector>] extends [undefined]
-        ? true
-        : Entry extends { item: infer Item }
-          ? CoordinateEquals<Item, SelectorItem<Selector>>
-          : false
-      : true
-    : false
+  ? 'item' extends QualifierTypes[number]
+    ? [SelectorItem<Selector>] extends [undefined]
+      ? true
+      : Entry extends { item: infer Item }
+        ? CoordinateEquals<Item, SelectorItem<Selector>>
+        : false
+    : true
   : false;
 
 /** Entries that match the selector. */
@@ -341,7 +317,7 @@ type IsItemAxisOpen<
  * `Selector`.
  *
  * The result is resolved against the **specific** entries the selector targets
- * (matched across variant / meta / item coordinates), never the union of every
+ * (matched across variant / item coordinates), never the union of every
  * entry:
  * - `item` left open → array of the matching entries' content
  * - all dimensions pinned → that single entry's content (or `null` if none match)
@@ -396,13 +372,13 @@ type EntryVariant<Entry> = Entry extends { variant: infer Variant }
   ? Variant
   : never;
 type EntryItem<Entry> = Entry extends { item: infer Item } ? Item : never;
-type EntryMetaId<Entry> = Entry extends { meta: { id: infer Id } } ? Id : never;
 
 /**
  * The selector accepted for a specific qualified dictionary group `T`: each
  * dimension is constrained to the coordinates that actually exist, so an unknown
- * `variant` / `item` / `id` is a compile-time error. Plain dictionaries (no
- * `entries`) fall back to the loose {@link DictionarySelector}.
+ * `item` is a compile-time error. Named (string) variants are suggested for
+ * autocomplete; object variants are accepted via the loose `Record` form. Plain
+ * dictionaries (no `entries`) fall back to the loose {@link DictionarySelector}.
  */
 export type DictionarySelectorForGroup<T> = [GroupEntryUnion<T>] extends [never]
   ? DictionarySelector
@@ -410,15 +386,15 @@ export type DictionarySelectorForGroup<T> = [GroupEntryUnion<T>] extends [never]
       never,
     ]
       ? unknown
-      : { variant?: EntryVariant<GroupEntryUnion<T>> | (string & {}) }) &
+      : {
+          variant?:
+            | EntryVariant<GroupEntryUnion<T>>
+            | (string & {})
+            | Record<string, string | number>;
+        }) &
       ([EntryItem<GroupEntryUnion<T>>] extends [never]
         ? unknown
-        : { item?: EntryItem<GroupEntryUnion<T>> | number | (string & {}) }) &
-      ([EntryMetaId<GroupEntryUnion<T>>] extends [never]
-        ? unknown
-        : {
-            id?: EntryMetaId<GroupEntryUnion<T>> | number | (string & {});
-          } & Record<string, string | number | undefined>);
+        : { item?: EntryItem<GroupEntryUnion<T>> | number | (string & {}) });
 export type DictionaryLocation =
   | 'remote'
   | 'local'
@@ -624,33 +600,37 @@ type DictionaryBase = {
   item?: number;
 
   /**
-   * Variant name of this dictionary inside the variant set identified by `key`.
+   * Variant of this dictionary inside the variant set identified by `key`.
+   *
+   * A variant can be declared in two equivalent forms:
+   *
+   * - **A string** — a single named alternative (A/B testing, seasonal banners,
+   *   feature flags…). Omitting `variant` (or using `'default'`) marks the
+   *   fallback variant.
+   *
+   *   ```ts
+   *   // hero.content.ts     → { key: 'hero-banner', variant: 'default', content: { ... } }
+   *   // hero.bf.content.ts  → { key: 'hero-banner', variant: 'black-friday', content: { ... } }
+   *
+   *   const hero = useIntlayer('hero-banner');                                 // → 'default' variant
+   *   const heroBf = useIntlayer('hero-banner', { variant: 'black-friday' });  // → named variant
+   *   ```
+   *
+   * - **An object** — a structured discriminator (CMS records, user-specific
+   *   copy, any content keyed by a set of fields). The whole object is the
+   *   identity: the selector must provide an equal object to resolve the entry.
+   *
+   *   ```ts
+   *   // product.abc.content.ts → { key: 'product', variant: { id: 'abc', userId: '123' }, content: { ... } }
+   *
+   *   const product = useIntlayer('product', { variant: { id: 'abc', userId: '123' } });
+   *   ```
    *
    * Sibling dictionaries sharing the same key but different `variant` values
-   * form a named variant set (A/B testing, seasonal banners, feature flags…):
-   *
-   * ```ts
-   * // hero.content.ts     → { key: 'hero-banner', variant: 'default', content: { ... } }
-   * // hero.bf.content.ts  → { key: 'hero-banner', variant: 'black-friday', content: { ... } }
-   *
-   * const hero = useIntlayer('hero-banner');                            // → 'default' variant
-   * const heroBf = useIntlayer('hero-banner', { variant: 'black-friday' }); // → named variant
-   * ```
+   * form the variant set. A sibling without any qualifier acts as shared base
+   * content merged into every variant as fallback.
    */
-  variant?: string;
-
-  /**
-   * Meta record qualifier of this dictionary. The `meta.id` field is the
-   * discriminator used to resolve the record at runtime; every other meta
-   * field must be provided by the selector to match:
-   *
-   * ```ts
-   * // product.abc.content.ts → { key: 'product-copy', meta: { id: 'abc', userId: '123' }, content: { ... } }
-   *
-   * const product = useIntlayer('product-copy', { id: 'abc', userId: '123' });
-   * ```
-   */
-  meta?: DictionaryMeta;
+  variant?: string | Record<string, string | number>;
 
   /**
    * Transform the dictionary in a per-locale dictionary.

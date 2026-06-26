@@ -41,22 +41,13 @@ describe('getDictionaryQualifierTypes', () => {
     expect(
       getDictionaryQualifierTypes({
         key: 'product',
-        meta: { id: 'abc' },
+        variant: { id: 'abc' },
         content: {},
       })
-    ).toEqual(['meta']);
+    ).toEqual(['variant']);
   });
 
-  it('should return several dimensions in canonical order (variant → meta → item)', () => {
-    expect(
-      getDictionaryQualifierTypes({
-        key: 'hero',
-        variant: 'abc',
-        meta: { id: 'abcd' },
-        item: 1,
-        content: {},
-      })
-    ).toEqual(['variant', 'meta', 'item']);
+  it('should return both dimensions in canonical order (variant → item)', () => {
     expect(
       getDictionaryQualifierTypes({
         key: 'hero',
@@ -81,10 +72,10 @@ describe('getDictionaryQualifierId', () => {
     ).toBe('black-friday');
     expect(
       getDictionaryQualifierId(
-        { key: 'product', meta: { id: 123, userId: 'u1' }, content: {} },
-        'meta'
+        { key: 'product', variant: { id: 'abc', userId: 'u1' }, content: {} },
+        'variant'
       )
-    ).toBe('123');
+    ).toBe('id=abc&userId=u1');
   });
 });
 
@@ -270,15 +261,15 @@ describe('mergeQualifiedDictionaries', () => {
     expect(Object.keys(group.content)).toEqual(['promo/1']);
   });
 
-  it('should preserve declared meta fields in a side-map keyed by composite id', () => {
+  it('should group object variants by their serialized identity', () => {
     const productA = {
       key: 'product',
-      meta: { id: 'abc', category: 'audio' },
+      variant: { id: 'abc', category: 'audio' },
       content: { name: 'A' },
     } satisfies Dictionary;
     const productB = {
       key: 'product',
-      meta: { id: 'def', category: 'video' },
+      variant: { id: 'def', category: 'video' },
       content: { name: 'B' },
     } satisfies Dictionary;
 
@@ -287,13 +278,12 @@ describe('mergeQualifiedDictionaries', () => {
       productB,
     ]) as QualifiedDictionaryGroup;
 
-    expect(group.qualifierTypes).toEqual(['meta']);
-    expect(Object.keys(group.content).sort()).toEqual(['abc', 'def']);
-    expect(group.content.abc).toEqual({ name: 'A' });
-    expect(group.meta).toEqual({
-      abc: { id: 'abc', category: 'audio' },
-      def: { id: 'def', category: 'video' },
-    });
+    expect(group.qualifierTypes).toEqual(['variant']);
+    expect(Object.keys(group.content).sort()).toEqual([
+      'category=audio&id=abc',
+      'category=video&id=def',
+    ]);
+    expect(group.content['category=audio&id=abc']).toEqual({ name: 'A' });
   });
 });
 
@@ -319,12 +309,9 @@ describe('resolveQualifiedDictionary', () => {
 
   const productGroup: QualifiedDictionaryGroup = {
     key: 'product',
-    qualifierTypes: ['meta'],
+    qualifierTypes: ['variant'],
     content: {
-      abc: { name: 'Product ABC' },
-    },
-    meta: {
-      abc: { id: 'abc', userId: '123' },
+      'id=abc&userId=123': { name: 'Product ABC' },
     },
   };
 
@@ -387,24 +374,35 @@ describe('resolveQualifiedDictionary', () => {
     ).toBeNull();
   });
 
-  it('should resolve a meta record when every meta field matches', () => {
+  it('should resolve an object variant when the whole object matches', () => {
     const resolved = resolveQualifiedDictionary(productGroup, {
-      id: 'abc',
-      userId: '123',
+      variant: { id: 'abc', userId: '123' },
     });
 
     expect((resolved as Dictionary).content).toEqual({ name: 'Product ABC' });
   });
 
-  it('should return null when the selector misses the meta id', () => {
+  it('should match an object variant regardless of field order', () => {
+    const resolved = resolveQualifiedDictionary(productGroup, {
+      variant: { userId: '123', id: 'abc' },
+    });
+
+    expect((resolved as Dictionary).content).toEqual({ name: 'Product ABC' });
+  });
+
+  it('should return null when no object variant is selected', () => {
     expect(resolveQualifiedDictionary(productGroup)).toBeNull();
     expect(resolveQualifiedDictionary(productGroup, {})).toBeNull();
   });
 
-  it('should return null when a declared meta field is missing or mismatched', () => {
-    expect(resolveQualifiedDictionary(productGroup, { id: 'abc' })).toBeNull();
+  it('should return null when an object variant field is missing or mismatched', () => {
     expect(
-      resolveQualifiedDictionary(productGroup, { id: 'abc', userId: 'other' })
+      resolveQualifiedDictionary(productGroup, { variant: { id: 'abc' } })
+    ).toBeNull();
+    expect(
+      resolveQualifiedDictionary(productGroup, {
+        variant: { id: 'abc', userId: 'other' },
+      })
     ).toBeNull();
   });
 
@@ -467,8 +465,11 @@ describe('parseDictionarySelector', () => {
 describe('getDictionarySelectorCacheKey', () => {
   it('should build a stable identity excluding locale', () => {
     expect(
-      getDictionarySelectorCacheKey({ userId: '1', id: 'abc', locale: 'fr' })
-    ).toBe('id:abc|userId:1');
+      getDictionarySelectorCacheKey({
+        variant: { userId: '1', id: 'abc' },
+        locale: 'fr',
+      })
+    ).toBe('variant:id=abc&userId=1');
     expect(getDictionarySelectorCacheKey({ item: 2 })).toBe('item:2');
     expect(getDictionarySelectorCacheKey()).toBe('');
   });
@@ -630,14 +631,14 @@ describe('resolveQualifiedDynamicContent', () => {
     expect((resolved as Dictionary).variant).toBe('default');
   });
 
-  it('should return null when a meta selector misses the id', () => {
+  it('should return null when an object variant selector is missing', () => {
     const loaderMap: QualifiedDynamicLoaderMap = {
-      [QUALIFIER_DYNAMIC_TYPES_KEY]: ['meta'],
+      [QUALIFIER_DYNAMIC_TYPES_KEY]: ['variant'],
       en: {
-        abc: () =>
+        'id=abc&userId=123': () =>
           Promise.resolve({
             key: 'product',
-            meta: { id: 'abc', userId: '123' },
+            variant: { id: 'abc', userId: '123' },
             content: { name: 'ABC' },
           }),
       },
@@ -647,7 +648,7 @@ describe('resolveQualifiedDynamicContent', () => {
       loaderMap,
       key: 'product',
       locale: 'en',
-      selector: { id: 'unknown' },
+      selector: { variant: { id: 'unknown' } },
       loadChunk: unusedLoadChunk,
       transform: (dictionary) => dictionary,
     });
@@ -655,22 +656,22 @@ describe('resolveQualifiedDynamicContent', () => {
     expect(resolved).toBeNull();
   });
 
-  it('should resolve a meta chunk only when every declared field matches', () => {
+  it('should load the object variant chunk identified by its serialized id', () => {
     const chunk: Dictionary = {
       key: 'product',
-      meta: { id: 'abc', userId: '123' },
+      variant: { id: 'abc', userId: '123' },
       content: { name: 'ABC' },
     };
     const loaderMap: QualifiedDynamicLoaderMap = {
-      [QUALIFIER_DYNAMIC_TYPES_KEY]: ['meta'],
-      en: { abc: () => Promise.resolve(chunk) },
+      [QUALIFIER_DYNAMIC_TYPES_KEY]: ['variant'],
+      en: { 'id=abc&userId=123': () => Promise.resolve(chunk) },
     };
 
     const matched = resolveQualifiedDynamicContent<Dictionary>({
       loaderMap,
       key: 'product',
       locale: 'en',
-      selector: { id: 'abc', userId: '123' },
+      selector: { variant: { id: 'abc', userId: '123' } },
       loadChunk: () => chunk,
       transform: (dictionary) => dictionary,
     });
@@ -681,8 +682,8 @@ describe('resolveQualifiedDynamicContent', () => {
       loaderMap,
       key: 'product',
       locale: 'en',
-      selector: { id: 'abc', userId: 'other' },
-      loadChunk: () => chunk,
+      selector: { variant: { id: 'abc', userId: 'other' } },
+      loadChunk: unusedLoadChunk,
       transform: (dictionary) => dictionary,
     });
 

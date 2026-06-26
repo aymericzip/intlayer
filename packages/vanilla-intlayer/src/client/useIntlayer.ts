@@ -20,7 +20,6 @@ import type { WithOnChange } from './useDictionary';
  * The second argument is either a locale or a selector object:
  * - `{ item: 2 }` — collection item (omit `item` to get every item as array)
  * - `{ variant: 'black-friday' }` — named variant (omit for the `default` one)
- * - `{ id: 'prod_abc', ...metaFields }` — meta record
  * - `locale` composes with any selector and overrides the current locale
  *
  * The function returns the current content **directly** (same shape as

@@ -36,7 +36,7 @@ type DynamicDictionarySource = {
  * reactive content.
  *
  * The dictionary entry is either a plain dynamic loader map
- * (`locale → loader`) or a qualified one (collection / variant / meta record,
+ * (`locale → loader`) or a qualified one (collection / variant,
  * possibly combined). For a qualified map, only the chunk(s) the selector
  * targets are loaded; the resolution mirrors static mode.
  *
@@ -76,7 +76,7 @@ export const useDictionaryDynamic = <
       selectorLocale ?? currentLocale?.() ?? defaultLocale;
 
     if (!isCollection) {
-      // Single entry (variant / meta record / selected item). Reuse the plain
+      // Single entry (variant / selected item). Reuse the plain
       // dynamic path so pending-safety, owner-scoped interpretation and every
       // node type (markdown / html / nested) behave exactly like a normal
       // dictionary.

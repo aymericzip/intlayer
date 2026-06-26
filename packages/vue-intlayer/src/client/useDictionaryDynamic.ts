@@ -5,10 +5,7 @@ import {
   type QualifiedDynamicLoaderMap,
   resolveQualifiedDynamicContentAsync,
 } from '@intlayer/core/dictionaryManipulator';
-import type {
-  Dictionary,
-  DictionarySelector,
-} from '@intlayer/types/dictionary';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DictionaryKeys,
   DictionarySelectorForKey,
@@ -23,7 +20,7 @@ import { useDictionaryAsync } from './useDictionaryAsync';
 /**
  * Lazily loads a dictionary (plain or qualified) and returns its content.
  *
- * For a qualified loader map (collection / variant / meta record, possibly
+ * For a qualified loader map (collection / variant, possibly
  * combined), only the chunk(s) the selector targets are awaited and resolved.
  * For a plain loader map, the locale chunk is awaited and made reactive.
  *

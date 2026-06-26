@@ -41,7 +41,6 @@ const DictionaryCreationFormFields: FC<{
     qualifierTypeSelect,
     itemInput,
     variantInput,
-    metaIdInput,
   } = useIntlayer('dictionary-form');
 
   const qualifierType = (useWatch({ name: 'qualifierType' }) ??
@@ -141,24 +140,6 @@ const DictionaryCreationFormFields: FC<{
             />
           </motion.div>
         )}
-
-        {qualifierType === 'meta' && (
-          <motion.div
-            key="meta-input"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden"
-          >
-            <FormInput
-              name="metaId"
-              label={metaIdInput.label.value}
-              placeholder={metaIdInput.placeholder.value}
-              description={metaIdInput.description.value}
-            />
-          </motion.div>
-        )}
       </AnimatePresence>
 
       <FormButton
@@ -196,8 +177,6 @@ export const DictionaryCreationForm: FC<DictionaryCreationFormProps> = ({
       qualifiers.item = data.item;
     } else if (data.qualifierType === 'variant' && data.variant) {
       qualifiers.variant = data.variant;
-    } else if (data.qualifierType === 'meta' && data.metaId) {
-      qualifiers.meta = { id: data.metaId };
     }
 
     addDictionary(

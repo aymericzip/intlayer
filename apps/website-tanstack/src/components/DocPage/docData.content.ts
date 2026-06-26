@@ -571,31 +571,6 @@ const docDataContent: Dictionary = {
                 './docs/en/dynamic_dictionaries/variants.md'
               ),
             },
-            'dynamic-content': {
-              title: t({
-                en: 'Dynamic Records',
-                'en-GB': 'Dynamic Records',
-                fr: 'Enregistrements dynamiques',
-                es: 'Registros dinámicos',
-                de: 'Dynamische Datensätze',
-                it: 'Record dinamici',
-                ja: 'ダイナミックレコード',
-                ko: '동적 레코드',
-                zh: '动态记录',
-                pt: 'Registros dinâmicos',
-                hi: 'डायनामिक रिकॉर्ड',
-                ar: 'السجلات الديناميكية',
-                uk: 'Динамічні записи',
-                ru: 'Динамические записи',
-                tr: 'Dinamik Kayıtlar',
-                pl: 'Dynamiczne rekordy',
-                id: 'Rekaman dinamis',
-                vi: 'Bản ghi động',
-              }),
-              default: getDocMetadata(
-                './docs/en/dynamic_dictionaries/dynamic_content.md'
-              ),
-            },
           },
         },
         'per-locale-file': {

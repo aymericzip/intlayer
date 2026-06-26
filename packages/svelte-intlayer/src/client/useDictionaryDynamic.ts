@@ -64,7 +64,7 @@ const withState = (value: unknown): any => {
 /**
  * Svelte hook for dynamic dictionary loading.
  *
- * For a qualified loader map (collection / variant / meta record, possibly
+ * For a qualified loader map (collection / variant, possibly
  * combined), only the chunk(s) the selector targets are loaded. For a plain
  * loader map, the locale chunk is loaded.
  *

@@ -69,18 +69,16 @@ const HeroVariants: FunctionComponent = () => {
 
 const ProductRecords: FunctionComponent = () => {
   const appleWatch = useIntlayer('product', {
-    id: 'apple-watch',
-    category: 'wearables',
+    variant: { id: 'apple-watch', category: 'wearables' },
   });
   const airpods = useIntlayer('product', {
-    id: 'airpods-pro',
-    category: 'audio',
+    variant: { id: 'airpods-pro', category: 'audio' },
   });
 
   return (
     <section>
       <div style={subHeading}>
-        Meta record — useIntlayer('product', {'{ id, category }'})
+        Object variant — useIntlayer('product', {'{ variant: {…} }'})
       </div>
       {[appleWatch, airpods].map((entry) => (
         <div key={String(entry?.name)}>
@@ -136,7 +134,9 @@ const PricingComposite: FunctionComponent = () => {
 
 export const QualifiedContentDemo: FunctionComponent = () => (
   <div style={card}>
-    <h2 style={heading}>Collections · Variants · Meta Records · Composite</h2>
+    <h2 style={heading}>
+      Collections · Variants · Object Variants · Composite
+    </h2>
     <Suspense fallback={<p>Loading qualified content…</p>}>
       <FaqCollection />
       <HeroVariants />

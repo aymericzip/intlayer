@@ -2,7 +2,6 @@ import { log } from '@intlayer/config/built';
 import { colorizeKey, getAppLogger } from '@intlayer/config/logger';
 import type {
   Dictionary,
-  DictionaryMeta,
   DictionaryQualifierType,
   QualifiedDictionaryGroup,
 } from '@intlayer/types/dictionary';
@@ -20,7 +19,7 @@ import {
  *   `mergeDictionaries` (single merged dictionary).
  * - At least one dictionary declares a qualifier → the group's dimension set is
  *   the union of every declared dimension (in canonical order
- *   `variant → meta → item`). Dictionaries are grouped by their composite id
+ *   `variant → item`). Dictionaries are grouped by their composite id
  *   (one segment per dimension), merged within each group (locale completion /
  *   priority overrides preserved), and a `QualifiedDictionaryGroup` is returned.
  *   Unqualified siblings act as shared base content merged into every entry.
@@ -77,11 +76,10 @@ export const mergeQualifiedDictionaries = (
   });
 
   // `content` maps each composite id to its resolved content node directly; the
-  // qualifier coordinates live in the key, not in a per-entry wrapper. `meta`
-  // preserves the declared meta fields (composite id only encodes `meta.id`).
+  // qualifier coordinates live in the key, not in a per-entry wrapper. For an
+  // object variant the variant segment is the canonical serialization of the
+  // object, so it fully identifies the entry — no side-map is needed.
   const content: Record<string, unknown> = {};
-  const metaByCompositeId: Record<string, DictionaryMeta> = {};
-  const declaresMeta = groupQualifierTypes.includes('meta');
 
   let importMode: Dictionary['importMode'];
 
@@ -96,10 +94,6 @@ export const mergeQualifiedDictionaries = (
     content[compositeId] = mergedEntry.content;
 
     const [firstQualified] = qualifiedDictionaries;
-
-    if (declaresMeta && firstQualified?.meta !== undefined) {
-      metaByCompositeId[compositeId] = firstQualified.meta;
-    }
 
     importMode ??= firstQualified?.importMode;
   }
@@ -116,7 +110,6 @@ export const mergeQualifiedDictionaries = (
     key: dictionaries[0]!.key,
     qualifierTypes: groupQualifierTypes,
     content,
-    ...(declaresMeta && { meta: metaByCompositeId }),
     ...(importMode !== undefined && { importMode }),
     localIds,
   };

@@ -8,10 +8,7 @@ import {
   type QualifiedDynamicLoaderMap,
   resolveQualifiedDynamicContentAsync,
 } from '@intlayer/core/dictionaryManipulator';
-import type {
-  Dictionary,
-  DictionarySelector,
-} from '@intlayer/types/dictionary';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DictionaryKeys,
   DictionarySelectorForKey,
@@ -27,7 +24,7 @@ import { useLoadDynamic } from './useLoadDynamic';
  * Lazily loads a dictionary (plain or qualified) and returns its reactive
  * content.
  *
- * For a qualified loader map (collection / variant / meta record, possibly
+ * For a qualified loader map (collection / variant, possibly
  * combined), only the chunk(s) the selector targets are loaded. For a plain
  * loader map, the locale chunk is loaded.
  *

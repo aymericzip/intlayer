@@ -61,7 +61,7 @@ const warnedMissingDictionaries = new Set<string>();
  * The second argument is either a locale (`'fr'`) or a selector object:
  * - `{ item: 2 }` — collection item (omit `item` to get every item as array)
  * - `{ variant: 'black-friday' }` — named variant (omit for the `default` one)
- * - `{ id: 'prod_abc', ...metaFields }` — meta record
+ * - `{ variant: { id: 'prod_abc', userId: '123' } }` — structured variant
  * - `locale` can be combined with any selector: `{ item: 2, locale: 'fr' }`
  */
 export const getIntlayer = <

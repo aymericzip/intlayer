@@ -24,7 +24,7 @@ export type MergedDictionaryOutput = Record<string, MergedDictionaryResult>;
 
 /**
  * Merged output restricted to plain (unqualified) dictionaries — qualified
- * groups (collections, variants, meta records) are static-only and filtered
+ * groups (collections, variants) are static-only and filtered
  * out before the dynamic/fetch build steps.
  */
 export type PlainMergedDictionaryResult = {

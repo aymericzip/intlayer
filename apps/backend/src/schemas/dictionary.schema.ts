@@ -47,19 +47,16 @@ export const dictionarySchema = new Schema<DictionarySchema>(
       type: [String],
       default: [],
     },
-    // Qualifier coordinates of collections / variants / meta records. Sibling
-    // dictionaries sharing a `key` are distinguished by these; persisting them
-    // lets the build re-merge remote dictionaries into a qualified group.
+    // Qualifier coordinates of collections / variants. Sibling dictionaries
+    // sharing a `key` are distinguished by these; persisting them lets the build
+    // re-merge remote dictionaries into a qualified group. `variant` is a named
+    // string or a structured object, hence `Mixed`.
     variant: {
-      type: String,
+      type: Schema.Types.Mixed,
       default: undefined,
     },
     item: {
       type: Number,
-      default: undefined,
-    },
-    meta: {
-      type: Schema.Types.Mixed,
       default: undefined,
     },
     importMode: {

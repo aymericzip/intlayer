@@ -23,10 +23,9 @@ export type DictionaryFiltersParams = {
   location?: 'remote' | 'local' | 'both' | 'none';
   /**
    * Filter by qualifier type:
-   * - 'standard': dictionaries without any qualifier (item / variant / meta)
+   * - 'standard': dictionaries without any qualifier (item / variant)
    * - 'collection': dictionaries with an `item` qualifier
    * - 'variant': dictionaries with a `variant` qualifier
-   * - 'meta': dictionaries with a `meta` qualifier
    *
    * Multiple values may be provided as a comma-separated string or array; the
    * result is the union of all matching types.
@@ -171,12 +170,10 @@ export const getDictionaryFiltersAndPagination = (
       .map((typeValue): Record<string, unknown> | null => {
         if (typeValue === 'collection') return { item: { $exists: true } };
         if (typeValue === 'variant') return { variant: { $exists: true } };
-        if (typeValue === 'meta') return { meta: { $exists: true } };
         if (typeValue === 'standard')
           return {
             item: { $exists: false },
             variant: { $exists: false },
-            meta: { $exists: false },
           };
         return null;
       })

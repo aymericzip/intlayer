@@ -9,14 +9,12 @@ const secondQuestion = useIntlayer('faq', { item: '2' });
 const defaultHero = useIntlayer('hero');
 const promoHero = useIntlayer('hero', { variant: 'promo' });
 
-// Meta records
+// Object variants
 const appleWatch = useIntlayer('product', {
-  id: 'apple-watch',
-  category: 'wearables',
+  variant: { id: 'apple-watch', category: 'wearables' },
 });
 const airpods = useIntlayer('product', {
-  id: 'airpods-pro',
-  category: 'audio',
+  variant: { id: 'airpods-pro', category: 'audio' },
 });
 
 // Composite
@@ -30,7 +28,7 @@ const promoPro = useIntlayer('pricing', {
 </script>
 
 <div class="card">
-  <h2 class="heading">Collections · Variants · Meta Records · Composite</h2>
+  <h2 class="heading">Collections · Variants · Object Variants · Composite</h2>
 
   <section>
     <div class="subHeading">Collection — useIntlayer('faq')</div>
@@ -57,7 +55,7 @@ const promoPro = useIntlayer('pricing', {
   </section>
 
   <section>
-    <div class="subHeading">Meta record — useIntlayer('product', {'{ id, category }'})</div>
+    <div class="subHeading">Object variant — useIntlayer('product', {'{ variant: {…} }'})</div>
     {#each [$appleWatch, $airpods] as entry}
       {#if entry}
         <div>

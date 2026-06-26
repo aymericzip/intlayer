@@ -16,7 +16,7 @@ import { useDictionary as useDictionaryClient } from '../client/useDictionary';
  * synchronously from static JSON.
  *
  * The second argument is either a locale or a selector object
- * (`{ item }`, `{ variant }`, `{ id, ...meta }`, optionally with `locale`),
+ * (`{ item }`, `{ variant }`, optionally with `locale`),
  * forwarded to the client `useDictionary`.
  *
  * The discarded `createResource` is load-bearing: Solid assigns hydration

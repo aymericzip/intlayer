@@ -1,15 +1,17 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-06-12
+updatedAt: 2026-06-26
 title: Warianty
-description: Użyj pola metadanych variant w plikach zawartości Intlayer, aby deklarować nazwane alternatywne wersje treści (testy A/B, banery sezonowe, treści z flagami funkcji) i przełączać się między nimi w czasie wykonywania bez modyfikacji kodu.
+description: Użyj pola metadanych variant w plikach treści Intlayer, aby zadeklarować nazwane lub strukturalne alternatywy treści — testy A/B, banery sezonowe, teksty z feature flag, rekordy CMS, treść zależną od użytkownika — i przełączać się między nimi w czasie wykonywania bez zmian w kodzie.
 keywords:
   - Warianty
   - Testy A/B
-  - Flagi Funkcji
-  - Zawartość Dynamiczna
+  - Feature flagi
+  - Treść dynamiczna
+  - Rekordy dynamiczne
+  - CMS
   - Intlayer
-  - Umiędzynarodowienie
+  - Internacjonalizacja
 slugs:
   - doc
   - concept
@@ -17,17 +19,27 @@ slugs:
 history:
   - version: 9.0.0
     date: 2026-06-12
-    changes: "Wydanie funkcji wariantów słowników"
+    changes: "Wydanie funkcji wariantów"
+  - version: 9.1.0
+    date: 2026-06-26
+    changes: "`variant` przyjmuje teraz ciąg znaków lub obiekt — dawne `meta` / rekordy dynamiczne deklaruje się jako warianty obiektowe"
 author: aymericzip
 ---
 
 # Warianty
 
-**Wariant** (Variant) to zestaw plików zawartości, które współdzielą ten sam klucz słownika (`key`), ale każdy ma inną nazwę wariantu (`variant`). Intlayer serwuje odpowiedni plik na podstawie selektora przekazanego do `useIntlayer`.
+**Wariant** to zestaw plików treści, które dzielą ten sam klucz słownika (`key`), lecz każdy ma inną wartość `variant`. Intlayer udostępnia odpowiedni plik na podstawie selektora przekazanego do `useIntlayer`.
 
-## Deklarowanie wariantów
+Wartość `variant` może przyjmować **dwie formy**:
 
-Każdy plik reprezentuje jedną nazwaną alternatywę. Pominięcie klucza `variant` (lub ustawienie go na `"default"`) oznacza dany plik jako wariant domyślny (fallback).
+- **Ciąg znaków** — pojedyncza nazwana alternatywa (testy A/B, banery sezonowe, feature flagi).
+- **Obiekt** — strukturalny dyskryminator adresowany zestawem pól (rekordy CMS, treść zależna od użytkownika, dowolna treść z nieprzezroczystym ID jako kluczem). Tożsamością jest cały obiekt: selektor musi dostarczyć **równy** obiekt, aby rozwiązać wpis.
+
+> Forma obiektowa zastępuje dawne pole `meta`. Wszędzie, gdzie wcześniej pisałeś `meta: { id, … }`, napisz `variant: { id, … }` i wybierz ją przez `{ variant: { id, … } }`.
+
+## Warianty nazwane (tekstowe)
+
+Każdy plik reprezentuje jedną nazwaną alternatywę. Pominięcie `variant` (lub ustawienie na `"default"`) oznacza go jako domyślny.
 
 ```ts fileName="hero-banner.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
@@ -65,9 +77,9 @@ const dictionary = {
 export default dictionary;
 ```
 
-## Używanie wariantów
+### Korzystanie z wariantów nazwanych
 
-### Wariant domyślny
+#### Wariant domyślny
 
 <Tabs group="framework">
   <Tab label="React" value="react">
@@ -209,7 +221,7 @@ export default dictionary;
   </Tab>
 </Tabs>
 
-### Nazwany wariant
+#### Wariant nazwany
 
 ```tsx
 const { headline, cta } = useIntlayer("hero-banner", {
@@ -217,18 +229,264 @@ const { headline, cta } = useIntlayer("hero-banner", {
 });
 ```
 
-### Nazwany wariant z jawnym wskazaniem lokalizacji
+#### Wariant nazwany z jawnym locale
 
 ```tsx
 const content = useIntlayer("hero-banner", {
   variant: "black_friday",
-  locale: "pl",
+  locale: "fr",
 });
 ```
 
+## Warianty obiektowe (strukturalne)
+
+Wariant obiektowy adresuje treść dowolnym zestawem par klucz-wartość zadeklarowanych w polu `variant` — co umożliwia modelowanie rekordów CMS, treści zależnej od użytkownika lub dowolnej treści z nieprzezroczystym ID jako kluczem. Tożsamością jest **cały obiekt**: selektor musi dostarczyć równy obiekt, aby wpis został rozwiązany.
+
+```ts fileName="product.abc.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+
+const dictionary = {
+  key: "product",
+  variant: { id: "prod_abc", userId: "user_123" },
+  content: {
+    name: t({ en: "Widget Pro", fr: "Widget Pro" }),
+    description: t({ en: "The best widget.", fr: "Le meilleur widget." }),
+  },
+} satisfies Dictionary;
+
+export default dictionary;
+```
+
+```ts fileName="product.abcd.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+
+const dictionary = {
+  key: "product",
+  variant: { id: "prod_abcd", userId: "user_123" },
+  content: {
+    name: t({ en: "Widget Lite", fr: "Widget Lite" }),
+    description: t({ en: "A lighter option.", fr: "Une option plus légère." }),
+  },
+} satisfies Dictionary;
+
+export default dictionary;
+```
+
+### Korzystanie z wariantów obiektowych
+
+Przekaż pasujący obiekt do `variant`. Każde pole zadeklarowane w słowniku musi zostać podane i być równe; w przeciwnym razie wynik to `null`. Kolejność pól nie ma znaczenia.
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+    ```tsx fileName="Product.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { useIntlayer } from "react-intlayer";
+
+    export const Product = ({
+      productId,
+      userId,
+    }: {
+      productId: string;
+      userId: string;
+    }) => {
+      const content = useIntlayer("product", {
+        variant: { id: productId, userId },
+      });
+
+      if (!content) return null;
+
+      return <p>{content.description}</p>;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+    ```tsx fileName="Product.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { useIntlayer } from "next-intlayer";
+
+    export const Product = ({
+      productId,
+      userId,
+    }: {
+      productId: string;
+      userId: string;
+    }) => {
+      const content = useIntlayer("product", {
+        variant: { id: productId, userId },
+      });
+
+      if (!content) return null;
+
+      return <p>{content.description}</p>;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+    ```vue fileName="Product.vue" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    <script setup>
+    import { useIntlayer } from "vue-intlayer";
+
+    const props = defineProps({
+      productId: String,
+      userId: String,
+    });
+
+    const content = useIntlayer("product", {
+      variant: { id: props.productId, userId: props.userId },
+    });
+    </script>
+
+    <template>
+      <p v-if="content">{{ content.description }}</p>
+    </template>
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+    ```svelte fileName="Product.svelte" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    <script lang="ts">
+    import { useIntlayer } from "svelte-intlayer";
+
+    export let productId: string;
+    export let userId: string;
+
+    const content = useIntlayer("product", {
+      variant: { id: productId, userId },
+    });
+    </script>
+
+    {#if $content}
+      <p>{$content.description}</p>
+    {/if}
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+    ```tsx fileName="Product.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { useIntlayer } from "preact-intlayer";
+
+    export const Product = ({
+      productId,
+      userId,
+    }: {
+      productId: string;
+      userId: string;
+    }) => {
+      const content = useIntlayer("product", {
+        variant: { id: productId, userId },
+      });
+
+      if (!content) return null;
+
+      return <p>{content.description}</p>;
+    };
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+    ```tsx fileName="Product.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { useIntlayer } from "solid-intlayer";
+
+    export const Product = (props: {
+      productId: string;
+      userId: string;
+    }) => {
+      const content = useIntlayer("product", {
+        variant: { id: props.productId, userId: props.userId },
+      });
+
+      return (
+        <>
+          {content() && <p>{content().description}</p>}
+        </>
+      );
+    };
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+    ```typescript fileName="product.component.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { Component, Input, OnInit } from "@angular/core";
+    import { useIntlayer } from "angular-intlayer";
+
+    @Component({
+      selector: "app-product",
+      template: `
+        @if (content()) {
+          <p>{{ content().description }}</p>
+        }
+      `,
+    })
+    export class ProductComponent implements OnInit {
+      @Input() productId!: string;
+      @Input() userId!: string;
+
+      content: any;
+
+      ngOnInit() {
+        this.content = useIntlayer("product", {
+          variant: { id: this.productId, userId: this.userId },
+        });
+      }
+    }
+    ```
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+    ```javascript fileName="product.js"
+    import { useIntlayer } from "vanilla-intlayer";
+
+    const content = useIntlayer("product", {
+      variant: { id: "prod_abcd", userId: "user_123" },
+    });
+
+    if (content) {
+      document.body.innerHTML = `<p>${content.description}</p>`;
+    }
+    ```
+
+  </Tab>
+</Tabs>
+
+#### Z jawnym locale
+
+```tsx
+const content = useIntlayer("product", {
+  variant: { id: "prod_abc", userId: "user_123" },
+  locale: "fr",
+});
+```
+
+#### Brakujące pole — brak dopasowania
+
+```ts
+// Zwraca null: brakuje `userId`, więc obiekt nie pasuje do zadeklarowanego wariantu
+const content = useIntlayer("product", { variant: { id: "prod_abc" } });
+```
+
+## Tryb ładowania
+
+Warianty obiektowe są często ładowane leniwie. Ustaw `importMode` w słowniku, aby to kontrolować:
+
+```ts contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+const dictionary = {
+  key: "product",
+  importMode: "fetch", // or "dynamic"
+  variant: { id: "prod_abc", userId: "user_123" },
+  content: { … },
+} satisfies Dictionary;
+
+export default dictionary;
+```
+
+Zobacz [optymalizację bundla](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/bundle_optimization.md), aby poznać szczegóły trybów `static`, `dynamic` i `fetch`.
+
 ## Typowe przypadki użycia
 
-- Testy A/B kopii sterowane przez klucz eksperymentu
+- Testy A/B tekstu sterowane kluczem eksperymentu
 - Banery sezonowe lub promocyjne
-- Komunikaty powiązane z flagami funkcji (feature flags)
-- Lokalne kampanie marketingowe specyficzne dla danego obszaru
+- Komunikaty z feature flag
+- Kampanie marketingowe specyficzne dla locale
+- Teksty marketingowe per produkt zarządzane w CMS
+- Treść zależna od użytkownika lub konta
+- Dowolna treść adresowana nieprzezroczystym ID w czasie wykonywania

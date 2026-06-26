@@ -41,7 +41,7 @@ export const formatNodeTypeToEnvVar = (
 
 /**
  * Returns the env-var definition disabling the dictionary-selector resolution
- * path (collections, variants, meta records) when no built dictionary declares
+ * path (collections, variants) when no built dictionary declares
  * a qualifier. Set to `"false"` so bundlers can dead-code-eliminate the
  * selector branch in `getIntlayer` / `useIntlayer`.
  *

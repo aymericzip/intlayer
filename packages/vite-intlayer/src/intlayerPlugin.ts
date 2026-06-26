@@ -191,7 +191,7 @@ export const intlayerPlugin = (
             ),
 
             // Tree shacking env var for the dictionary selector logic
-            // (collections / variants / meta records)
+            // (collections / variants)
             ...formatDictionarySelectorEnvVar(
               getHasDictionarySelector(dictionaries),
               (key) => `process.env.${key}`,

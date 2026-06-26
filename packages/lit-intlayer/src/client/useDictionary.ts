@@ -23,7 +23,7 @@ import { getIntlayerClient } from './installIntlayer';
  * changes via a Lit `ReactiveController`.
  *
  * The second argument is either a locale or a selector object (`{ item }`,
- * `{ variant }`, `{ id, ...meta }`, optionally combined with `locale`).
+ * `{ variant }`, optionally combined with `locale`).
  *
  * @param dictionary - The raw dictionary (or qualified group) object.
  * @param localeOrSelector - Optional locale or selector.

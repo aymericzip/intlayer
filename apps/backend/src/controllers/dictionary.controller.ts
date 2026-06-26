@@ -61,17 +61,16 @@ const removeMetadata = <T extends Record<string, any>>(obj: T): T => {
 };
 
 /**
- * Extracts the qualifier coordinates (`variant` / `item` / `meta`) and
- * `importMode` from a pushed dictionary so sibling declarations sharing a `key`
- * stay distinct and can be re-merged into a qualified group on pull. Only
- * defined fields are returned so plain dictionaries persist nothing extra.
+ * Extracts the qualifier coordinates (`variant` / `item`) and `importMode` from
+ * a pushed dictionary so sibling declarations sharing a `key` stay distinct and
+ * can be re-merged into a qualified group on pull. Only defined fields are
+ * returned so plain dictionaries persist nothing extra.
  */
 const extractQualifiers = (
-  source: Pick<LocalDictionary, 'variant' | 'item' | 'meta' | 'importMode'>
+  source: Pick<LocalDictionary, 'variant' | 'item' | 'importMode'>
 ): Partial<DictionaryData> => ({
   ...(source.variant !== undefined && { variant: source.variant }),
   ...(source.item !== undefined && { item: source.item }),
-  ...(source.meta !== undefined && { meta: source.meta }),
   ...(source.importMode !== undefined && { importMode: source.importMode }),
 });
 

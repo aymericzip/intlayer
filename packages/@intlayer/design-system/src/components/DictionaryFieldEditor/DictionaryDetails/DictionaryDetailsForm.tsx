@@ -29,18 +29,13 @@ import { Loader } from '@components/Loader';
 import { Pagination } from '@components/Pagination';
 import { MultiSelect, Select } from '@components/Select';
 import { useEditedContent } from '@intlayer/editor-react';
-import type {
-  Dictionary,
-  DictionaryMeta,
-  LocalDictionaryId,
-} from '@intlayer/types/dictionary';
+import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';
 import { cn } from '@utils/cn';
 import { AnimatePresence, motion } from 'framer-motion';
 import { WandSparkles } from 'lucide-react';
 import { type FC, useEffect, useMemo, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 import { useIntlayer } from 'react-intlayer';
-import { MonacoCode } from '../../IDE/MonacoCode';
 import { useDictionaryDetailsSchema } from './useDictionaryDetailsSchema';
 
 type DictionaryDetailsProps = {
@@ -50,24 +45,50 @@ type DictionaryDetailsProps = {
   isDarkMode?: boolean;
 };
 
-type QualifierType = 'collection' | 'variant' | 'meta';
+type QualifierType = 'collection' | 'variant';
 
-const QUALIFIER_TYPES: QualifierType[] = ['collection', 'variant', 'meta'];
+const QUALIFIER_TYPES: QualifierType[] = ['collection', 'variant'];
 
 /** Derive active qualifier types from dictionary qualifier fields. */
 const deriveQualifierTypes = (dict: Dictionary): QualifierType[] => {
   const types: QualifierType[] = [];
   if (dict.item !== undefined) types.push('collection');
   if (dict.variant !== undefined) types.push('variant');
-  if (dict.meta !== undefined) types.push('meta');
   return types;
+};
+
+/**
+ * A variant can be a named string or a structured object. The CMS edits it as
+ * text: a value starting with `{` is parsed as JSON (object variant), anything
+ * else is kept as a named-variant string.
+ */
+const formatVariant = (
+  variant: string | Record<string, string | number> | undefined
+): string =>
+  variant !== null && typeof variant === 'object'
+    ? JSON.stringify(variant)
+    : (variant ?? '');
+
+const parseVariantInput = (
+  raw: string
+): { variant: string | Record<string, string | number>; error: boolean } => {
+  if (raw.trim().startsWith('{')) {
+    try {
+      return {
+        variant: JSON.parse(raw) as Record<string, string | number>,
+        error: false,
+      };
+    } catch {
+      return { variant: raw, error: true };
+    }
+  }
+  return { variant: raw, error: false };
 };
 
 export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   dictionary,
   mode,
   onSelectSibling,
-  isDarkMode,
 }) => {
   const { session } = useSession();
   const { project } = session ?? {};
@@ -134,11 +155,6 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     [siblings]
   );
 
-  const metaSiblings = useMemo(
-    () => siblings.filter((d) => d.meta !== undefined),
-    [siblings]
-  );
-
   const allItemDicts = useMemo<Dictionary[]>(() => {
     if (dictionary.item !== undefined) {
       const combined = [dictionary, ...itemSiblings].sort(
@@ -156,13 +172,6 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     return variantSiblings;
   }, [dictionary, variantSiblings]);
 
-  const allMetaDicts = useMemo<Dictionary[]>(() => {
-    if (dictionary.meta !== undefined) {
-      return [dictionary, ...metaSiblings];
-    }
-    return metaSiblings;
-  }, [dictionary, metaSiblings]);
-
   useEffect(() => {
     form.reset({
       ...dictionary,
@@ -171,11 +180,8 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     });
     setSelectedTypes(deriveQualifierTypes(dictionary));
     setItemValue(dictionary.item ?? 1);
-    setVariantValue(dictionary.variant ?? '');
-    setMetaJsonValue(
-      dictionary.meta ? JSON.stringify(dictionary.meta, null, 2) : ''
-    );
-    setMetaJsonError(false);
+    setVariantValue(formatVariant(dictionary.variant));
+    setVariantJsonError(false);
     setShowSiblingPicker(false);
   }, [dictionary, form?.reset]);
 
@@ -232,17 +238,14 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
   );
   const [itemValue, setItemValue] = useState<number>(dictionary.item ?? 1);
   const [variantValue, setVariantValue] = useState<string>(
-    dictionary.variant ?? ''
+    formatVariant(dictionary.variant)
   );
-  const [metaJsonValue, setMetaJsonValue] = useState<string>(
-    dictionary.meta ? JSON.stringify(dictionary.meta, null, 2) : ''
-  );
-  const [metaJsonError, setMetaJsonError] = useState(false);
+  const [variantJsonError, setVariantJsonError] = useState(false);
   const [showSiblingPicker, setShowSiblingPicker] = useState(false);
 
   const allQualifiedSiblings = useMemo<Dictionary[]>(
-    () => [...itemSiblings, ...variantSiblings, ...metaSiblings],
-    [itemSiblings, variantSiblings, metaSiblings]
+    () => [...itemSiblings, ...variantSiblings],
+    [itemSiblings, variantSiblings]
   );
 
   const handleTypesChange = (newTypes: string | string[]) => {
@@ -255,7 +258,6 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
     for (const qualifier of removed) {
       if (qualifier === 'collection') base = { ...base, item: undefined };
       if (qualifier === 'variant') base = { ...base, variant: undefined };
-      if (qualifier === 'meta') base = { ...base, meta: undefined };
     }
 
     for (const qualifier of added) {
@@ -269,17 +271,13 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
       } else if (qualifier === 'variant') {
         const newVariant = variantValue || 'default';
         setVariantValue(newVariant);
-        base = { ...base, variant: newVariant };
-      } else if (qualifier === 'meta') {
-        const initialMeta: DictionaryMeta = { id: '' };
-        setMetaJsonValue(JSON.stringify(initialMeta, null, 2));
-        base = { ...base, meta: initialMeta };
+        base = { ...base, variant: parseVariantInput(newVariant).variant };
       }
     }
 
     setSelectedTypes(nextTypes);
     setEditedDictionary(base);
-    setMetaJsonError(false);
+    setVariantJsonError(false);
 
     if (nextTypes.length === 0 && allQualifiedSiblings.length > 0) {
       setShowSiblingPicker(true);
@@ -592,7 +590,6 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
             getBadgeValue={(val) => {
               if (val === 'collection') return String(typeSwitch.collection);
               if (val === 'variant') return String(typeSwitch.variant);
-              if (val === 'meta') return String(typeSwitch.meta);
               return val;
             }}
           >
@@ -669,63 +666,20 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                   onChange={(e) => {
                     const value = e.target.value;
                     setVariantValue(value);
-                    setEditedDictionary({
-                      ...dictionary,
-                      ...(updatedDictionary ?? {}),
-                      variant: value,
-                    });
+                    const { variant, error } = parseVariantInput(value);
+                    setVariantJsonError(error);
+                    if (!error) {
+                      setEditedDictionary({
+                        ...dictionary,
+                        ...(updatedDictionary ?? {}),
+                        variant,
+                      });
+                    }
                   }}
                 />
-              </div>
-            </motion.div>
-          )}
-
-          {selectedTypes.includes('meta') && (
-            <motion.div
-              key="meta-input"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              <div className="flex flex-col gap-2 px-1">
-                <label
-                  htmlFor="qualifier-meta-value"
-                  className="ml-1 font-medium text-sm"
-                >
-                  {typeSwitch.metaValueLabel}
-                </label>
-                <div
-                  id="qualifier-meta-value"
-                  className="overflow-hidden rounded-xl border border-input bg-background"
-                >
-                  <MonacoCode
-                    language="json"
-                    showCopyButton={false}
-                    showLineNumbers={false}
-                    isDarkMode={isDarkMode}
-                    onChange={(value) => {
-                      const raw = value ?? '';
-                      setMetaJsonValue(raw);
-                      try {
-                        const parsed = JSON.parse(raw) as DictionaryMeta;
-                        setMetaJsonError(false);
-                        setEditedDictionary({
-                          ...dictionary,
-                          ...(updatedDictionary ?? {}),
-                          meta: parsed,
-                        });
-                      } catch {
-                        setMetaJsonError(true);
-                      }
-                    }}
-                  >
-                    {metaJsonValue}
-                  </MonacoCode>
-                </div>
-                {metaJsonError && (
+                {variantJsonError && (
                   <p className="ml-1 text-destructive text-xs">
-                    {typeSwitch.metaJsonError}
+                    {typeSwitch.variantJsonError}
                   </p>
                 )}
               </div>
@@ -767,17 +721,13 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                     >
                       {sibling.variant !== undefined && (
                         <span>
-                          {qualifierSection.variant}: {sibling.variant}
+                          {qualifierSection.variant}:{' '}
+                          {formatVariant(sibling.variant)}
                         </span>
                       )}
                       {sibling.item !== undefined && (
                         <span>
                           {qualifierSection.item}: {sibling.item}
-                        </span>
-                      )}
-                      {sibling.meta !== undefined && (
-                        <span>
-                          {qualifierSection.meta}: {String(sibling.meta.id)}
                         </span>
                       )}
                     </button>
@@ -868,35 +818,7 @@ export const DictionaryDetailsForm: FC<DictionaryDetailsProps> = ({
                           : 'cursor-pointer border border-border hover:bg-text/10'
                       )}
                     >
-                      {sibling.variant}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          {allMetaDicts.length > 0 && (
-            <div className="flex flex-col gap-2">
-              <p className="font-medium text-muted text-xs uppercase tracking-wide">
-                {siblingContent.metaRecords}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {allMetaDicts.map((sibling) => {
-                  const isActive = sibling.localId === dictionary.localId;
-                  return (
-                    <button
-                      key={sibling.localId}
-                      type="button"
-                      onClick={() => !isActive && onSelectSibling?.(sibling)}
-                      className={cn(
-                        'rounded-lg px-3 py-1 text-xs transition-colors',
-                        isActive
-                          ? 'bg-text font-semibold text-text-opposite'
-                          : 'cursor-pointer border border-border hover:bg-text/10'
-                      )}
-                    >
-                      {sibling.meta?.id}
+                      {formatVariant(sibling.variant)}
                     </button>
                   );
                 })}

@@ -1,7 +1,6 @@
 import type {
   ContentNode,
   Dictionary as DictionaryCore,
-  DictionaryMeta,
 } from '@intlayer/types/dictionary';
 import type { RenameId } from '@utils/mongoDB/types';
 import type { Document, Model, ObjectIdToString, Types } from 'mongoose';
@@ -9,7 +8,7 @@ import type { Project } from './project.types';
 import type { User } from './user.types';
 
 /**
- * Qualifier coordinates of a dictionary (collections / variants / meta records).
+ * Qualifier coordinates of a dictionary (collections / variants).
  *
  * Pushed dictionaries are unmerged: sibling declarations sharing a `key` are
  * distinguished by these coordinates. Persisting them lets the build re-merge
@@ -17,12 +16,13 @@ import type { User } from './user.types';
  * dictionary leaves all of them undefined.
  */
 export type DictionaryQualifiers = {
-  /** Named alternative content shape (A/B testing, seasonal banners…). */
-  variant?: string;
+  /**
+   * Variant discriminator — a named string (A/B testing, seasonal banners…) or
+   * a structured object (CMS records, user-specific copy…).
+   */
+  variant?: string | Record<string, string | number>;
   /** Ordered collection item index. */
   item?: number;
-  /** Record discriminator (`meta.id`) plus typed payload fields. */
-  meta?: DictionaryMeta;
 };
 
 export type DictionaryCreationData = DictionaryQualifiers & {

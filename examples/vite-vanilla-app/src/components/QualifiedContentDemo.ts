@@ -8,12 +8,10 @@ export const setupQualifiedContentDemo = (container: HTMLElement) => {
   let promoHero = useIntlayer('hero', { variant: 'promo' });
 
   let appleWatch = useIntlayer('product', {
-    id: 'apple-watch',
-    category: 'wearables',
+    variant: { id: 'apple-watch', category: 'wearables' },
   });
   let airpods = useIntlayer('product', {
-    id: 'airpods-pro',
-    category: 'audio',
+    variant: { id: 'airpods-pro', category: 'audio' },
   });
 
   let defaultPlans = useIntlayer('pricing');
@@ -27,7 +25,7 @@ export const setupQualifiedContentDemo = (container: HTMLElement) => {
   const render = () => {
     container.innerHTML = `
       <div style="padding: 20px; border: 2px solid #646cff; border-radius: 12px; margin-top: 30px; background: rgba(100, 108, 255, 0.05); text-align: left;">
-        <h2 style="color: #646cff; margin-top: 0;">Collections · Variants · Meta Records · Composite</h2>
+        <h2 style="color: #646cff; margin-top: 0;">Collections · Variants · Object Variants · Composite</h2>
 
         <section>
           <div style="color: #888; font-size: 0.78em; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; margin-top: 20px;">Collection — useIntlayer('faq')</div>
@@ -58,7 +56,7 @@ export const setupQualifiedContentDemo = (container: HTMLElement) => {
         </section>
 
         <section>
-          <div style="color: #888; font-size: 0.78em; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; margin-top: 20px;">Meta record — useIntlayer('product', { id, category })</div>
+          <div style="color: #888; font-size: 0.78em; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; margin-top: 20px;">Object variant — useIntlayer('product', { variant: {…} })</div>
           ${[appleWatch, airpods]
             .map(
               (entry) => `

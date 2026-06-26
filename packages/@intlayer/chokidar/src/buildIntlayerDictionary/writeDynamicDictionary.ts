@@ -130,8 +130,8 @@ const serializeLoaderTree = (tree: LoaderTree, indentLevel: number): string => {
 };
 
 /**
- * Generates the entry point of a qualified dictionary (collection / variant /
- * meta record, possibly combined). Under each locale the loader map nests one
+ * Generates the entry point of a qualified dictionary (collection / variant,
+ * possibly combined). Under each locale the loader map nests one
  * level per declared dimension (canonical order) and carries a marker listing
  * those dimensions so the runtime can walk the tree.
  *
@@ -273,7 +273,7 @@ export type QualifiedMergedDictionaryOutput = Record<
 
 /**
  * Writes the dynamic chunks and entry points of qualified dictionaries
- * (collections, variants, meta records — possibly combined) in
+ * (collections, variants — possibly combined) in
  * `importMode: 'dynamic'`.
  *
  * Each entry is reduced to one per-locale chunk written to a path nested by

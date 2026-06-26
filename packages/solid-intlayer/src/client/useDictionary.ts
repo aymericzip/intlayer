@@ -19,7 +19,7 @@ import { IntlayerClientContext } from './IntlayerProvider';
  * dictionary group) and returns its reactive content.
  *
  * The second argument is either a locale or a selector object
- * (`{ item }`, `{ variant }`, `{ id, ...meta }`, optionally with `locale`).
+ * (`{ item }`, `{ variant }`, optionally with `locale`).
  *
  * If the locale is not provided (directly or through the selector), it will
  * use the locale from the client context.
