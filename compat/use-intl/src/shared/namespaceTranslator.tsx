@@ -5,6 +5,7 @@ import {
   resolveMessage,
   type TaggedMessageToken,
 } from '@intlayer/core/messageFormat';
+import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type {
   DictionaryKeys,
   LocalesValues,
@@ -26,6 +27,21 @@ export type MarkupChunkRenderer = (chunks: string) => string;
  */
 export const navigatePath = (objectValue: unknown, path: string): unknown => {
   if (!path) return objectValue;
+
+  // Try the full key as a flat property first (supports flat JSON files
+  // that use dotted keys like "section.title": "value").
+  if (
+    path.includes('.') &&
+    objectValue !== null &&
+    objectValue !== undefined &&
+    typeof objectValue === 'object'
+  ) {
+    const flatValue = (objectValue as Record<string, unknown>)[path];
+    if (flatValue !== undefined) {
+      return flatValue;
+    }
+  }
+
   const parts = path.split('.');
   let current: unknown = objectValue;
   for (const part of parts) {
@@ -124,11 +140,29 @@ export const createNamespaceTranslator = (
     let targetDictionaryKey = dictionaryKey;
     let path = keyPrefix ? `${keyPrefix}.${key}` : key;
 
+    const dictionaries = getDictionaries();
+
     if (!targetDictionaryKey) {
-      // Root scope — the first key segment designates the dictionary
+      // Root scope — the first key segment usually designates the dictionary
       const [firstSegment, ...restSegments] = key.split('.');
       targetDictionaryKey = firstSegment;
       path = restSegments.join('.');
+
+      // If the assumed dictionary doesn't exist, we must fall back to searching all dictionaries.
+      // This supports apps migrating from standard next-intl where all messages were grouped together.
+      if (!dictionaries[targetDictionaryKey as DictionaryKeys]) {
+        for (const dictKey of Object.keys(dictionaries)) {
+          try {
+            const dictionary = getIntlayer(dictKey as DictionaryKeys, locale);
+            const result = navigatePath(dictionary, key);
+            if (result !== undefined) {
+              return result;
+            }
+          } catch {
+            // Ignore if getIntlayer throws
+          }
+        }
+      }
     }
 
     try {
