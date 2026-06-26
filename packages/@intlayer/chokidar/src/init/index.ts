@@ -2,7 +2,6 @@ import { join } from 'node:path';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, colorizePath, logger, v, x } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
-
 import { getAlias } from '@intlayer/config/utils';
 import { initConfig } from '../initConfig';
 import { setRoutingModeInConfig } from './cms';

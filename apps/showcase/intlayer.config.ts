@@ -76,6 +76,7 @@ const config: IntlayerConfig = {
     mode: 'verbose',
   },
   compiler: {
+    enabled: false,
     output: ({ fileName }) => `./${fileName}.content.ts`,
   },
 };

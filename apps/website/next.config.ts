@@ -262,6 +262,7 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   compiler: {
+    enabled: false,
     removeConsole: isProd,
   },
 

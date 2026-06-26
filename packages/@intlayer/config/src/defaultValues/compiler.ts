@@ -1,4 +1,4 @@
-export const COMPILER_ENABLED = true;
+export const COMPILER_ENABLED = false;
 
 export const COMPILER_DICTIONARY_KEY_PREFIX = '';
 

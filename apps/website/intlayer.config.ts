@@ -35,6 +35,7 @@ const config: CustomIntlayerConfig = {
   },
 
   routing: {
+    enableProxy: true,
     mode: 'prefix-no-default',
     rewrite: nextjsRewrite({
       '/[locale]/doc/releases/v8': {
@@ -83,6 +84,7 @@ const config: CustomIntlayerConfig = {
     formatCommand: 'bun x biome format "{{file}}" --write --log-level none',
   },
   compiler: {
+    enabled: false,
     output: ({ fileName }) => `./${fileName}.content.ts`,
   },
   editor: {
