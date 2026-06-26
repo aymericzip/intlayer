@@ -14,7 +14,7 @@
     "@intlayer/swc": "workspace:*",
     "@intlayer/types": "workspace:*",
     "intlayer": "workspace:*",
-    "next": "16.2.9",
+    "next": "preview",
     "next-intlayer": "workspace:*",
     "react": "19.2.7",
     "react-dom": "19.2.7",

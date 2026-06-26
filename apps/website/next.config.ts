@@ -217,7 +217,6 @@ const nextConfig: NextConfig = {
       'next-intlayer',
       'zod',
     ],
-    cssChunking: 'strict',
   },
   outputFileTracingRoot: join(process.cwd(), '../../'),
   reactCompiler: true,
@@ -262,7 +261,6 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   compiler: {
-    enabled: false,
     removeConsole: isProd,
   },
 
