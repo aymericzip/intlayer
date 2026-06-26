@@ -31,6 +31,75 @@ const traverse = (
 ) as typeof _traverse;
 
 /**
+ * Method names whose string arguments are technical operands — lookups,
+ * comparisons, DOM queries, storage keys, event names — rather than translatable
+ * display text. A string literal passed to one of these (e.g.
+ * `message.includes('Loading chunk')`) is code, not content, and is skipped.
+ */
+const NON_TRANSLATABLE_CALL_METHODS = new Set<string>([
+  'includes',
+  'startsWith',
+  'endsWith',
+  'indexOf',
+  'lastIndexOf',
+  'match',
+  'matchAll',
+  'search',
+  'localeCompare',
+  'split',
+  'getAttribute',
+  'setAttribute',
+  'hasAttribute',
+  'removeAttribute',
+  'querySelector',
+  'querySelectorAll',
+  'getElementById',
+  'getElementsByClassName',
+  'getElementsByTagName',
+  'addEventListener',
+  'removeEventListener',
+  'dispatchEvent',
+  'matchMedia',
+  'getItem',
+  'setItem',
+  'removeItem',
+  'getPropertyValue',
+  'setProperty',
+]);
+
+/**
+ * When `path` is a string-literal argument of a member/optional-member call
+ * expression (e.g. `foo.includes('bar')` or `foo?.bar?.includes('baz')`),
+ * returns the called method name and whether the call targets the `console`
+ * object. Returns `undefined` when the parent is not such a call, or the string
+ * is not one of its arguments.
+ */
+const getEnclosingMethodCallInfo = (
+  path: NodePath<t.StringLiteral>
+): { methodName: string | undefined; isConsoleCall: boolean } | undefined => {
+  const parent = path.parentPath;
+  if (!parent.isCallExpression() && !parent.isOptionalCallExpression()) {
+    return undefined;
+  }
+
+  const callNode = parent.node as t.CallExpression | t.OptionalCallExpression;
+  if (!callNode.arguments.includes(path.node)) return undefined;
+
+  const callee = callNode.callee;
+  if (!t.isMemberExpression(callee) && !t.isOptionalMemberExpression(callee)) {
+    return undefined;
+  }
+
+  const methodName = t.isIdentifier(callee.property)
+    ? callee.property.name
+    : undefined;
+  const isConsoleCall =
+    t.isIdentifier(callee.object) && callee.object.name === 'console';
+
+  return { methodName, isConsoleCall };
+};
+
+/**
  * Handles JSX insertions (elements with multiple children, including expressions).
  * Replaces complex JSX structures with variable-based translations.
  */
@@ -408,18 +477,17 @@ export const extractBabelContentForComponents = (
       // Like comparisons, these are code constants, not display text.
       if (parent.isSwitchCase() && parent.node.test === path.node) return;
 
+      // Skip string literals passed to technical method calls, e.g.
+      // `message.includes('Loading chunk')`, `el.getAttribute('data-id')`, or
+      // `console.log('...')`. These are code operands, not display text.
+      const methodCallInfo = getEnclosingMethodCallInfo(path);
       if (
-        parent.isCallExpression() &&
-        t.isMemberExpression(parent.node.callee)
+        methodCallInfo &&
+        (methodCallInfo.isConsoleCall ||
+          (methodCallInfo.methodName !== undefined &&
+            NON_TRANSLATABLE_CALL_METHODS.has(methodCallInfo.methodName)))
       ) {
-        if (
-          t.isIdentifier(parent.node.callee.object) &&
-          parent.node.callee.object.name === 'console' &&
-          t.isIdentifier(parent.node.callee.property) &&
-          parent.node.callee.property.name === 'log'
-        ) {
-          return;
-        }
+        return;
       }
 
       if (parent.isObjectProperty() && parent.node.key === path.node) return;

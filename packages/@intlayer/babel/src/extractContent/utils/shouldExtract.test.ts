@@ -19,10 +19,11 @@ describe('shouldExtract', () => {
     expect(shouldExtract('{ content.value }')).toBe(false);
   });
 
-  it('should return true for single capitalized words', () => {
-    expect(shouldExtract('Contact')).toBe(true);
-    expect(shouldExtract('Submit')).toBe(true);
-    expect(shouldExtract('Home')).toBe(true);
+  it('should return false for single capitalized words (likely proper/brand nouns)', () => {
+    expect(shouldExtract('Contact')).toBe(false);
+    expect(shouldExtract('Submit')).toBe(false);
+    expect(shouldExtract('Home')).toBe(false);
+    expect(shouldExtract('Intlayer')).toBe(false);
   });
 
   it('should return false for single or short uncapitalized strings (<= 2 words)', () => {
@@ -57,10 +58,10 @@ describe('shouldExtract', () => {
     expect(shouldExtract('v1.2.3')).toBe(false);
   });
 
-  it('should still return true for normal single capitalized words', () => {
-    expect(shouldExtract('Contact')).toBe(true);
-    expect(shouldExtract('About')).toBe(true);
-    expect(shouldExtract('Welcome')).toBe(true);
+  it('should return true for capitalized multi-word labels', () => {
+    expect(shouldExtract('Contact us')).toBe(true);
+    expect(shouldExtract('About the project')).toBe(true);
+    expect(shouldExtract('Welcome back')).toBe(true);
   });
 
   it('should not extract single technical values that are not capitalized', () => {

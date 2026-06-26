@@ -4,6 +4,7 @@
  * Filters out:
  * - Empty strings
  * - Emails
+ * - Single capitalized words (likely brand/proper nouns, e.g. "Intlayer")
  * - Uncapitalized strings of 2 words or fewer (likely technical terms)
  * - Dynamic content patterns like Vue bindings (`v-`) or object patterns (`{`)
  */
@@ -66,6 +67,11 @@ export const shouldExtract = (text: string): boolean => {
 
   // Check if starts with a capital letter (including after an opening parenthesis/quote)
   const isCapitalized = /^['"([]*\p{Lu}/u.test(trimmed);
+
+  // Ignore single capitalized words (e.g. brand or proper nouns like "Intlayer").
+  // A lone word starting with a capital is almost always a name/identifier rather
+  // than a translatable sentence or label.
+  if (wordCount === 1 && isCapitalized) return false;
 
   // Ignore technical identifiers (one word strings with camelCase, kebab-case, snake_case etc.)
   if (wordCount === 1) {

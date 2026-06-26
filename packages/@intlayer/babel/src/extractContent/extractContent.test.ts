@@ -297,10 +297,14 @@ const tiers = [
     expect(updatedCode).toMatch(
       /const content = getIntlayer\(['"]top-level-array-test['"]\);/
     );
-    expect(updatedCode).toContain('content.starter');
+    // Single capitalized words (tier names) are treated as proper nouns and skipped
+    expect(updatedCode).toMatch(/name:\s*['"]Starter['"]/);
+    expect(updatedCode).toMatch(/name:\s*['"]Pro['"]/);
+    expect(updatedCode).not.toContain('content.starter');
+    expect(updatedCode).not.toContain('content.pro');
+    // Multi-word feature labels are still extracted
     expect(updatedCode).toContain('content.communitySupport');
     expect(updatedCode).toContain('content.publicResults');
-    expect(updatedCode).toContain('content.pro');
     expect(updatedCode).toContain('content.prioritySupport');
   });
 
@@ -595,6 +599,56 @@ export const useCustomHook = () => {
 
     // Genuine JSX display text is still extracted
     expect(updatedCode).toContain('{content.somethingWentWrong}');
+  });
+
+  it('should not extract string literals passed to technical method calls', async () => {
+    const componentPath = join(tmpDir, 'MethodCallTest.ts');
+    const componentCode = `
+      export function methodCallTest(message: string, event: any) {
+        if (message.includes('Loading chunk')) {
+          return "A real translatable sentence here";
+        }
+        if (event?.reason?.message?.includes('ChunkLoadError occurred')) {
+          return null;
+        }
+        document.querySelector('Some Selector Value');
+        return null;
+      }
+    `;
+    writeFileSync(componentPath, componentCode);
+    await extractContent(componentPath, 'react-intlayer');
+    const updatedCode = readFileSync(componentPath, 'utf-8');
+
+    // String operands of method calls remain untouched literals
+    expect(updatedCode).toContain("message.includes('Loading chunk')");
+    expect(updatedCode).toContain(
+      "event?.reason?.message?.includes('ChunkLoadError occurred')"
+    );
+    expect(updatedCode).toContain(
+      "document.querySelector('Some Selector Value')"
+    );
+    expect(updatedCode).not.toContain('content.loadingChunk');
+
+    // Genuine display text is still extracted
+    expect(updatedCode).toContain('content.aRealTranslatableSentence');
+  });
+
+  it('should not extract single capitalized words (proper/brand nouns)', async () => {
+    const componentPath = join(tmpDir, 'SingleWordTest.tsx');
+    const componentCode = `
+      export function SingleWordTest() {
+        const author = "Intlayer";
+        return <meta name="author" content={author} />;
+      }
+    `;
+    writeFileSync(componentPath, componentCode);
+    await extractContent(componentPath, 'react-intlayer');
+    const updatedCode = readFileSync(componentPath, 'utf-8');
+
+    // The single word "Intlayer" stays a plain string literal
+    expect(updatedCode).toMatch(/const author = ['"]Intlayer['"]/);
+    expect(updatedCode).not.toContain('content.intlayer');
+    expect(updatedCode).not.toContain('useIntlayer');
   });
 
   it('should extract JSX text and inject useIntlayer properly', async () => {
