@@ -144,6 +144,13 @@ export type DetectMissingPackagesOptions = {
    * dependency the lingui compat setup uses.
    */
   linguiCatalogFormat?: 'po' | 'json' | null;
+  /**
+   * Extra package names injected by the interactive init prompt when the user
+   * selects a compat i18n library that is not yet in `package.json`.
+   * These are merged with the real dependency map before running detection so
+   * the correct sync plugin and compat adapter are scheduled for installation.
+   */
+  hintDependencies?: Record<string, string>;
 };
 
 export const detectMissingIntlayerPackages = (
@@ -155,8 +162,16 @@ export const detectMissingIntlayerPackages = (
   let compatSyncConfig: CompatSyncConfig | undefined;
   let compatVitePluginConfig: CompatVitePluginConfig | undefined;
 
+  // Merge hint deps supplied by the interactive init prompt so that compat
+  // libraries the user declared (but hasn't installed yet) are treated the same
+  // as pre-existing deps when building the install and config lists.
+  const effectiveDependencies: Record<string, string> = {
+    ...allDependencies,
+    ...(options.hintDependencies ?? {}),
+  };
+
   const isInstalled = (packageName: string): boolean =>
-    Boolean(allDependencies[packageName]);
+    Boolean(effectiveDependencies[packageName]);
 
   const addIfMissing = (packageName: string): void => {
     if (!isInstalled(packageName)) {

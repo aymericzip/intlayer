@@ -210,6 +210,13 @@ export type InitOptions = {
    * (`prefix-no-default`) is kept.
    */
   routingMode?: RoutingMode;
+  /**
+   * Extra packages hinted by the interactive init prompt (compat i18n library
+   * selections made before those libraries are actually installed). These are
+   * merged into the dependency map used by {@link detectMissingIntlayerPackages}
+   * so the correct sync plugin and compat adapter are always scheduled.
+   */
+  hintDependencies?: Record<string, string>;
 };
 
 /**
@@ -247,27 +254,50 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
     ...(packageJson.devDependencies ?? {}),
   };
 
+  // Effective deps = real deps + interactive hint-deps (compat library selections
+  // from the interactive init prompt that haven't been installed yet).
+  const effectiveAllDeps: Record<string, string> = {
+    ...allDeps,
+    ...(options?.hintDependencies ?? {}),
+  };
+
   // INSTALL MISSING INTLAYER DEPENDENCIES
   const packageManager = detectPackageManager(rootDir);
 
   // lingui keeps its catalogs as `.po` (default) or `.json`. Detect which so the
   // matching sync plugin (`syncPO` / `syncJSON`) + dev dependency are chosen.
+  // Also respect the `__lingui_json__` sentinel injected by the interactive init
+  // prompt when the user explicitly selected "Lingui (.json catalogs)".
   const linguiPresent = Boolean(
-    allDeps['@lingui/core'] ||
-      allDeps['@lingui/react'] ||
-      allDeps['@intlayer/lingui']
+    effectiveAllDeps['@lingui/core'] ||
+      effectiveAllDeps['@lingui/react'] ||
+      effectiveAllDeps['@intlayer/lingui']
   );
+
+  // Determine format: prefer filesystem scan, then the interactive sentinel.
   const linguiCatalog = linguiPresent
     ? await detectLinguiCatalogPattern(rootDir)
     : null;
+
+  const hintLinguiJson = Boolean(
+    options?.hintDependencies?.['__lingui_json__']
+  );
+  // `linguiCatalogFormat` resolution:
+  // 1. Filesystem scan result (authoritative when catalogs already exist)
+  // 2. Interactive sentinel `__lingui_json__` → 'json'
+  // 3. Fallback: 'po' (lingui's default) when lingui is selected but no
+  //    catalogs have been generated yet and no sentinel was injected.
+  const linguiCatalogFormat: 'po' | 'json' | null =
+    linguiCatalog?.format ??
+    (linguiPresent ? (hintLinguiJson ? 'json' : 'po') : null);
 
   const {
     packagesToInstall,
     devPackagesToInstall,
     compatSyncConfig,
     compatVitePluginConfig,
-  } = detectMissingIntlayerPackages(allDeps, {
-    linguiCatalogFormat: linguiCatalog?.format,
+  } = detectMissingIntlayerPackages(effectiveAllDeps, {
+    linguiCatalogFormat,
   });
 
   if (!options?.noInstallPackages) {

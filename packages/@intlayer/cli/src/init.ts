@@ -117,6 +117,86 @@ const ROUTING_MODE_OPTIONS: Array<{
   },
 ];
 
+/**
+ * Compat i18n library options surfaced in the interactive init prompt.
+ * The `packages` field lists the package names to inject as hint-deps so
+ * `detectMissingIntlayerPackages` detects the right sync plugin even before
+ * those libraries are installed.
+ */
+type CompatLibOption = {
+  value: string;
+  label: string;
+  hint: string;
+  /**
+   * Package names to inject as hint-dependencies (fake "installed" so that
+   * the detection logic schedules the correct sync plugin and compat adapter).
+   */
+  packages?: string[];
+};
+
+const COMPAT_LIB_OPTIONS: CompatLibOption[] = [
+  {
+    value: 'i18next',
+    label: 'i18next / react-i18next',
+    hint: 'i18next JSON format — installs @intlayer/i18next + @intlayer/sync-json-plugin',
+    packages: ['i18next', 'react-i18next'],
+  },
+  {
+    value: 'next-intl',
+    label: 'next-intl / use-intl',
+    hint: 'ICU format, Next.js — installs @intlayer/next-intl + @intlayer/sync-json-plugin',
+    packages: ['next-intl'],
+  },
+  {
+    value: 'vue-i18n',
+    label: 'vue-i18n',
+    hint: 'Vue i18n JSON format — installs @intlayer/vue-i18n + @intlayer/sync-json-plugin',
+    packages: ['vue-i18n'],
+  },
+  {
+    value: 'nuxtjs-i18n',
+    label: '@nuxtjs/i18n',
+    hint: 'Nuxt i18n module — installs @intlayer/nuxtjs-i18n + @intlayer/sync-json-plugin',
+    packages: ['@nuxtjs/i18n'],
+  },
+  {
+    value: 'next-i18next',
+    label: 'next-i18next',
+    hint: 'i18next JSON format, Next.js — installs @intlayer/next-i18next + @intlayer/sync-json-plugin',
+    packages: ['next-i18next'],
+  },
+  {
+    value: 'next-translate',
+    label: 'next-translate',
+    hint: 'i18next flat-namespace JSON, Next.js — installs @intlayer/next-translate + @intlayer/sync-json-plugin',
+    packages: ['next-translate'],
+  },
+  {
+    value: 'react-intl',
+    label: 'react-intl',
+    hint: 'ICU format — installs @intlayer/react-intl + @intlayer/sync-json-plugin',
+    packages: ['react-intl'],
+  },
+  {
+    value: 'lingui-po',
+    label: 'Lingui (.po catalogs)',
+    hint: "gettext PO — Lingui's default, installs @intlayer/lingui + @intlayer/sync-po-plugin",
+    packages: ['@lingui/core'],
+  },
+  {
+    value: 'lingui-json',
+    label: 'Lingui (.json catalogs)',
+    hint: 'JSON catalogs — installs @intlayer/lingui + @intlayer/sync-json-plugin',
+    packages: ['@lingui/core'],
+  },
+  {
+    value: 'svelte-i18n',
+    label: 'svelte-i18n',
+    hint: 'Flat i18next JSON — installs @intlayer/svelte-i18n + @intlayer/sync-json-plugin',
+    packages: ['svelte-i18n'],
+  },
+];
+
 /** Reads the merged dependencies of the project at `root`. */
 const getProjectDependencies = (root: string): Record<string, string> => {
   try {
@@ -231,9 +311,116 @@ const runInteractiveInit = async (
     routingMode = selectedRoutingMode;
   }
 
+  // Compat i18n library detection / selection.
+  // When a compat library is already present in package.json the detection
+  // in detectMissingIntlayerPackages handles everything automatically. We
+  // only show the prompt when none of the known compat libs is detected so
+  // we don't ask redundant questions.
+  const knownCompatPackages = [
+    'i18next',
+    'react-i18next',
+    'next-intl',
+    'use-intl',
+    'vue-i18n',
+    '@nuxtjs/i18n',
+    'next-i18next',
+    'next-translate',
+    'react-intl',
+    '@lingui/core',
+    '@lingui/react',
+    'svelte-i18n',
+    '@ngneat/transloco',
+    '@ngx-translate/core',
+    'node-polyglot',
+    'i18n-js',
+  ];
+
+  const existingDeps = getProjectDependencies(root);
+  const hasCompatLib = knownCompatPackages.some((pkg) =>
+    Boolean(existingDeps[pkg])
+  );
+
+  let hintDependencies: Record<string, string> | undefined;
+
+  if (!hasCompatLib) {
+    const selectedCompatLibs = await p.multiselect<string>({
+      message:
+        'Are you using any existing i18n library? (Select all that apply, or press Enter to skip)',
+      options: COMPAT_LIB_OPTIONS.map((opt) => ({
+        value: opt.value,
+        label: opt.label,
+        hint: opt.hint,
+      })),
+      required: false,
+    });
+
+    if (p.isCancel(selectedCompatLibs)) {
+      p.cancel('Operation cancelled.');
+      return;
+    }
+
+    const selectedLibs = selectedCompatLibs as string[];
+
+    if (selectedLibs.length > 0) {
+      hintDependencies = {};
+
+      for (const value of selectedLibs) {
+        const option = COMPAT_LIB_OPTIONS.find((o) => o.value === value);
+        if (option?.packages) {
+          for (const pkg of option.packages) {
+            hintDependencies[pkg] = '*';
+          }
+        }
+      }
+
+      // Lingui-specific: determine the catalog format so the right sync plugin
+      // is chosen. If both lingui variants are selected, ask for clarification.
+      const hasLinguiPo = selectedLibs.includes('lingui-po');
+      const hasLinguiJson = selectedLibs.includes('lingui-json');
+
+      if (hasLinguiPo && hasLinguiJson) {
+        // Both selected — ask for clarification
+        const linguiFormat = await p.select<'po' | 'json'>({
+          message: 'Which catalog format does Lingui use in your project?',
+          options: [
+            {
+              value: 'po' as const,
+              label: '.po files (gettext)',
+              hint: "Lingui's default — installs @intlayer/sync-po-plugin",
+            },
+            {
+              value: 'json' as const,
+              label: '.json files',
+              hint: 'JSON catalogs — installs @intlayer/sync-json-plugin',
+            },
+          ],
+          initialValue: 'po' as const,
+        });
+
+        if (p.isCancel(linguiFormat)) {
+          p.cancel('Operation cancelled.');
+          return;
+        }
+
+        // Signal JSON format to detectMissingIntlayerPackages via a sentinel
+        // hint dep (the lingui detection only needs @lingui/core; the format
+        // is conveyed through linguiCatalogFormat option from the filesystem
+        // scan). For JSON we override by injecting a flag the init/index.ts
+        // can read back from hintDependencies.
+        if (linguiFormat === 'json') {
+          hintDependencies['__lingui_json__'] = '*';
+        }
+      } else if (hasLinguiJson && !hasLinguiPo) {
+        hintDependencies['__lingui_json__'] = '*';
+      }
+      // hasLinguiPo alone: @lingui/core hint is enough; PO is the default
+    }
+  }
+
   const options: InitOptions = {
     ...baseOptions,
     routingMode,
+    hintDependencies,
     noInstallPackages: !steps.includes('packages'),
     // The `.gitignore` entry is never offered as a checkbox: in interactive
     // mode we always add `.intlayer` to `.gitignore`, only honoring an explicit
