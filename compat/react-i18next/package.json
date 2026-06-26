@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/react-i18next",
-  "version": "9.0.0-canary.7",
+  "version": "9.0.0-canary.8",
   "private": false,
   "description": "react-i18next API adapter for intlayer — useTranslation, Trans, withTranslation, I18nextProvider backed by react-intlayer",
   "keywords": [
