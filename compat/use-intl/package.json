@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/use-intl",
-  "version": "9.0.0-canary.8",
+  "version": "9.0.0-canary.9",
   "private": false,
   "description": "use-intl API adapter for intlayer — useTranslations, useLocale, useFormatter, IntlProvider, createTranslator backed by react-intlayer",
   "keywords": [

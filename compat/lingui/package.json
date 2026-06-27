@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/lingui",
-  "version": "9.0.0-canary.8",
+  "version": "9.0.0-canary.9",
   "private": false,
   "description": "lingui API adapter for intlayer — drop-in compatibility layer",
   "keywords": [

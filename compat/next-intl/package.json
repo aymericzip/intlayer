@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/next-intl",
-  "version": "9.0.0-canary.8",
+  "version": "9.0.0-canary.9",
   "private": false,
   "description": "next-intl API adapter for intlayer — useTranslations, useLocale, getTranslations, getLocale, NextIntlClientProvider backed by next-intlayer",
   "keywords": [
