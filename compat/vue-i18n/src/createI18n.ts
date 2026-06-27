@@ -1,6 +1,7 @@
 import { internationalization, log } from '@intlayer/config/built';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
+import { getIntlayer } from '@intlayer/core/interpreter';
 import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
 import type {
   DictionaryKeys,
@@ -29,6 +30,12 @@ import {
 export const VERSION = '9.13.1';
 export const I18nInjectionKey: InjectionKey<I18n> = Symbol('global-i18n');
 
+/**
+ * Dictionary key used for keys that carry no explicit namespace and are not
+ * dot-namespaced (i18next-style flat keys, e.g. `t('greeting')`).
+ */
+const DEFAULT_NAMESPACE = 'translation';
+
 const navigatePath = (objectValue: unknown, path: string): unknown => {
   if (!path) return objectValue;
   let current: unknown = objectValue;
@@ -54,20 +61,61 @@ const navigatePath = (objectValue: unknown, path: string): unknown => {
  * 3. The first key segment as the dictionary key (`'home.title'` →
  *    dictionary `home`, path `title`)
  */
-const lookupRaw = (namespace: string | undefined, key: string): unknown => {
-  let _targetNamespace = namespace;
-  let _path = key;
+/** Resolves a single dictionary by key and navigates to the given path. */
+const lookupInDictionary = (
+  locale: string,
+  dictionaryKey: string,
+  path: string
+): unknown => {
+  try {
+    const dictionary = getIntlayer(
+      dictionaryKey as DictionaryKeys,
+      locale as LocalesValues
+    );
+    const value = navigatePath(dictionary, path);
+    if (value !== undefined && value !== null) return value;
+  } catch {}
+  return undefined;
+};
+
+const lookupRaw = (
+  locale: string,
+  namespace: string | undefined,
+  key: string
+): unknown => {
+  let targetNamespace = namespace;
+  let path = key;
 
   if (key.includes(':')) {
     const separatorIndex = key.indexOf(':');
-    _targetNamespace = key.slice(0, separatorIndex);
-    _path = key.slice(separatorIndex + 1);
+    targetNamespace = key.slice(0, separatorIndex);
+    path = key.slice(separatorIndex + 1);
   }
 
-  // Without getDictionaries, global translation fallback to intlayer dictionaries
-  // is disabled for bundle optimization purposes.
-  // We only lookup if the namespace exists globally, but since we don't have getDictionaries
-  // we rely strictly on what vue-i18n already has in its messages.
+  // 1. Explicit namespace (from `useI18n({ namespace })` or a `ns:key` prefix)
+  if (targetNamespace) {
+    const value = lookupInDictionary(locale, targetNamespace, path);
+    if (value !== undefined) return value;
+  }
+
+  // 2. First key segment as the dictionary key (`'home.title'` →
+  //    dictionary `home`, path `title`). This makes the global `t()` work
+  //    without a namespace, matching how intlayer splits dictionaries by key.
+  if (path.includes('.')) {
+    const separatorIndex = path.indexOf('.');
+    const value = lookupInDictionary(
+      locale,
+      path.slice(0, separatorIndex),
+      path.slice(separatorIndex + 1)
+    );
+    if (value !== undefined) return value;
+  }
+
+  // 3. Default `translation` bucket for flat, namespace-less keys.
+  if (!targetNamespace) {
+    const value = lookupInDictionary(locale, DEFAULT_NAMESPACE, path);
+    if (value !== undefined) return value;
+  }
 
   return undefined;
 };
@@ -82,7 +130,7 @@ const translateKey = (
 ): string => {
   const { values, count, defaultMessage } = parseTranslateArguments(args);
 
-  const rawValue = lookupRaw(namespace, key);
+  const rawValue = lookupRaw(locale, namespace, key);
 
   if (rawValue === undefined) {
     if (fallbackMessages?.[locale]) {
@@ -185,8 +233,10 @@ export const createI18n: typeof _createI18n = ((
       internationalization?.defaultLocale) as string,
     t: globalTranslate,
     tc: globalTranslate,
-    te: (key: string): boolean => lookupRaw(undefined, key) !== undefined,
-    tm: (key: string): unknown => lookupRaw(undefined, key) ?? {},
+    te: (key: string): boolean =>
+      lookupRaw(currentLocale(), undefined, key) !== undefined,
+    tm: (key: string): unknown =>
+      lookupRaw(currentLocale(), undefined, key) ?? {},
     rt: (message: unknown, ...args: unknown[]): string => {
       const { values, count } = parseTranslateArguments(args);
       return resolveVueMessage(
@@ -364,9 +414,9 @@ export const useI18n = <N extends DictionaryKeys = DictionaryKeys>(
     t: translate,
     tc: translate,
     te: <P extends ValidDotPathsFor<N>>(key: P): boolean =>
-      lookupRaw(namespace, String(key)) !== undefined,
+      lookupRaw(currentLocale.value, namespace, String(key)) !== undefined,
     tm: <P extends ValidDotPathsFor<N>>(key: P): unknown =>
-      lookupRaw(namespace, String(key)) ?? {},
+      lookupRaw(currentLocale.value, namespace, String(key)) ?? {},
     rt: (message: unknown, ...args: unknown[]): string => {
       const { values, count } = parseTranslateArguments(args);
       return resolveVueMessage(
