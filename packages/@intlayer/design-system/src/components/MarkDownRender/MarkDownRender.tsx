@@ -59,7 +59,7 @@ const MemoizedCodeBlock = memo(
         (_, code: string) => String.fromCharCode(parseInt(code, 10))
       );
       return (
-        <code className="-mx-4 inline-block scale-70 rounded-lg border border-neutral/30 bg-card/60 box-decoration-clone px-1.5 py-0.5 font-mono">
+        <code className="rounded-md border border-neutral/30 bg-card/60 box-decoration-clone px-1.5 py-0.5 font-mono text-[0.875em] leading-[inherit]">
           {decodedContent}
         </code>
       );
