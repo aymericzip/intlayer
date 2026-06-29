@@ -57,9 +57,16 @@ export const ContentEditor: FC<NodeEditorProps> = ({
   const [activeDictionary, setActiveDictionary] =
     useState<Dictionary>(dictionary);
 
+  // Re-sync the locally tracked dictionary whenever the incoming prop changes
+  // identity — not only when its `localId` changes. After a save, the query
+  // refetches and hands back the same `localId` with fresh content; keying the
+  // effect on `localId` alone left `activeDictionary` (the render source) stale
+  // until a full page reload. The prop reference is stable across unrelated
+  // re-renders (query data / store entry), so sibling switches made via
+  // `switchSibling` are preserved.
   useEffect(() => {
     setActiveDictionary(dictionary);
-  }, [dictionary.localId]);
+  }, [dictionary]);
 
   const hasQualifier =
     dictionary.item !== undefined || dictionary.variant !== undefined;

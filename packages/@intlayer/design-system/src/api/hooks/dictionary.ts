@@ -119,7 +119,11 @@ export const usePushDictionaries = () => {
     mutationFn: (args: PushDictionariesBody) =>
       dictionaryAPI.pushDictionaries(args.dictionaries),
     meta: {
-      invalidateQueries: [['dictionaries'], ['dictionariesKeys']],
+      invalidateQueries: [
+        ['dictionaries'],
+        ['dictionary'],
+        ['dictionariesKeys'],
+      ],
     },
   });
 };
@@ -132,7 +136,11 @@ export const useUpdateDictionary = () => {
     mutationFn: (args: UpdateDictionaryBody) =>
       dictionaryAPI.updateDictionary(args),
     meta: {
-      invalidateQueries: [['dictionaries'], ['dictionariesKeys']],
+      invalidateQueries: [
+        ['dictionaries'],
+        ['dictionary'],
+        ['dictionariesKeys'],
+      ],
     },
   });
 };
@@ -145,7 +153,11 @@ export const useDeleteDictionary = () => {
     mutationFn: (args: DeleteDictionaryParam) =>
       dictionaryAPI.deleteDictionary(args.dictionaryId),
     meta: {
-      invalidateQueries: [['dictionaries'], ['dictionariesKeys']],
+      invalidateQueries: [
+        ['dictionaries'],
+        ['dictionary'],
+        ['dictionariesKeys'],
+      ],
     },
   });
 };

@@ -30,9 +30,16 @@ export const validateDictionary = async (
   dictionary: Partial<Dictionary>,
   fieldsToCheck = defaultFieldsToCheck
 ): Promise<ValidationErrors> => {
+  // Only validate fields that are actually declared in the Zod schema.
+  // Callers (e.g. updateDictionaryById) pass every key present on the
+  // dictionary, but Zod v4's `.pick()` throws `Unrecognized key` when masking
+  // keys that are absent from the schema shape, which would abort the update.
+  const validatableFields = new Set(Object.keys(dictionaryZodSchema.shape));
   const mask = fieldsToCheck.reduce(
     (acc, curr) => {
-      acc[curr as string] = true;
+      if (validatableFields.has(curr as string)) {
+        acc[curr as string] = true;
+      }
       return acc;
     },
     {} as Record<string, true>
