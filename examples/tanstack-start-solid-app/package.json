@@ -10,7 +10,7 @@
     "test": "bun --bun vitest run"
   },
   "dependencies": {
-    "@tailwindcss/vite": "4.3.1",
+    "@tailwindcss/vite": "4.3.2",
     "@tanstack/router-plugin": "1.168.6",
     "@tanstack/solid-router": "latest",
     "@tanstack/solid-router-devtools": "latest",
