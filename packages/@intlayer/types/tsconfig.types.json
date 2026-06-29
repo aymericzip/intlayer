@@ -6,7 +6,6 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "dist/types",
-    "baseUrl": "src",
     "allowJs": false,
     "isolatedDeclarations": false
   }

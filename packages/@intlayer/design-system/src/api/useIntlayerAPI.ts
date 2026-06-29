@@ -68,102 +68,142 @@ export const useIntlayerAuth = (props?: UseIntlayerAuthProps): AuthAPI => {
   return getAuthAPI(props?.intlayerConfiguration ?? configuration);
 };
 
-export const useOrganizationAPI = (props?: UseIntlayerAuthProps) => {
+export const useOrganizationAPI = (
+  props?: UseIntlayerAuthProps
+): ReturnType<typeof getOrganizationAPI> => {
   const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
   return getOrganizationAPI(options, resolvedConfig);
 };
 
-export const useProjectAPI = (props?: UseIntlayerAuthProps) => {
+export const useProjectAPI = (
+  props?: UseIntlayerAuthProps
+): ReturnType<typeof getProjectAPI> => {
   const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
   return getProjectAPI(options, resolvedConfig);
 };
 
-export const useUserAPI = (props?: UseIntlayerAuthProps) => {
+export const useUserAPI = (
+  props?: UseIntlayerAuthProps
+): ReturnType<typeof getUserAPI> => {
   const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
   return getUserAPI(options, resolvedConfig);
 };
 
-export const useOAuthAPI = (props?: UseIntlayerAuthProps) => {
+export const useOAuthAPI = (
+  props?: UseIntlayerAuthProps
+): ReturnType<typeof getOAuthAPI> => {
   const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
   return getOAuthAPI(options, resolvedConfig);
 };
 
-export const useDictionaryAPI = (props?: UseIntlayerAuthProps) => {
+export const useDictionaryAPI = (
+  props?: UseIntlayerAuthProps
+): ReturnType<typeof getDictionaryAPI> => {
   const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
   return getDictionaryAPI(options, resolvedConfig);
 };
 
-export const useStripeAPI = (props?: UseIntlayerAuthProps) => {
+export const useStripeAPI = (
+  props?: UseIntlayerAuthProps
+): ReturnType<typeof getStripeAPI> => {
   const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
   return getStripeAPI(options, resolvedConfig);
 };
 
-export const useAiAPI = (props?: UseIntlayerAuthProps) => {
+export const useAiAPI = (
+  props?: UseIntlayerAuthProps
+): ReturnType<typeof getAiAPI> => {
   const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
   return getAiAPI(options, resolvedConfig);
 };
 
-export const useAuditAPI = (props?: UseIntlayerAuthProps) => {
+export const useAuditAPI = (
+  props?: UseIntlayerAuthProps
+): ReturnType<typeof getAuditAPI> => {
   const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
   return getAuditAPI(options, resolvedConfig);
 };
 
-export const useTagAPI = (props?: UseIntlayerAuthProps) => {
+export const useTagAPI = (
+  props?: UseIntlayerAuthProps
+): ReturnType<typeof getTagAPI> => {
   const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
   return getTagAPI(options, resolvedConfig);
 };
 
-export const useSearchAPI = (props?: UseIntlayerAuthProps) => {
+export const useSearchAPI = (
+  props?: UseIntlayerAuthProps
+): ReturnType<typeof getSearchAPI> => {
   const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
   return getSearchAPI(options, resolvedConfig);
 };
 
-export const useEditorAPI = (props?: UseIntlayerAuthProps) => {
+export const useEditorAPI = (
+  props?: UseIntlayerAuthProps
+): ReturnType<typeof getEditorAPI> => {
   const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
   return getEditorAPI(options, resolvedConfig);
 };
 
-export const useNewsletterAPI = (props?: UseIntlayerAuthProps) => {
+export const useNewsletterAPI = (
+  props?: UseIntlayerAuthProps
+): ReturnType<typeof getNewsletterAPI> => {
   const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
   return getNewsletterAPI(options, resolvedConfig);
 };
 
-export const useGithubAPI = (props?: UseIntlayerAuthProps) => {
+export const useGithubAPI = (
+  props?: UseIntlayerAuthProps
+): ReturnType<typeof getGithubAPI> => {
   const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
   return getGithubAPI(options, resolvedConfig);
 };
 
-export const useGitlabAPI = (props?: UseIntlayerAuthProps) => {
+export const useGitlabAPI = (
+  props?: UseIntlayerAuthProps
+): ReturnType<typeof getGitlabAPI> => {
   const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
   return getGitlabAPI(options, resolvedConfig);
 };
 
-export const useBitbucketAPI = (props?: UseIntlayerAuthProps) => {
+export const useBitbucketAPI = (
+  props?: UseIntlayerAuthProps
+): ReturnType<typeof getBitbucketAPI> => {
   const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
   return getBitbucketAPI(options, resolvedConfig);
 };
 
-export const useShowcaseProjectAPI = (props?: UseIntlayerAuthProps) => {
+export const useShowcaseProjectAPI = (
+  props?: UseIntlayerAuthProps
+): ReturnType<typeof getShowcaseProjectAPI> => {
   const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
   return getShowcaseProjectAPI(options, resolvedConfig);
 };
 
-export const useTranslateAPI = (props?: UseIntlayerAuthProps) => {
+export const useTranslateAPI = (
+  props?: UseIntlayerAuthProps
+): ReturnType<typeof getTranslateAPI> => {
   const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
   return getTranslateAPI(options, resolvedConfig);
 };
 
-export const useReviewerAPI = (props?: UseIntlayerAuthProps) => {
+export const useReviewerAPI = (
+  props?: UseIntlayerAuthProps
+): ReturnType<typeof getReviewerAPI> => {
   const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
   return getReviewerAPI(options, resolvedConfig);
 };
 
-export const useEnvironmentAPI = (props?: UseIntlayerAuthProps) => {
+export const useEnvironmentAPI = (
+  props?: UseIntlayerAuthProps
+): ReturnType<typeof getEnvironmentAPI> => {
   const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
   return getEnvironmentAPI(options, resolvedConfig);
 };
 
-export const useAssetAPI = (props?: UseIntlayerAuthProps) => {
+export const useAssetAPI = (
+  props?: UseIntlayerAuthProps
+): ReturnType<typeof getAssetAPI> => {
   const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
   return getAssetAPI(options, resolvedConfig);
 };

@@ -4,20 +4,18 @@
   "include": ["src/**/*", "types/**/*"],
   "exclude": ["**/*.test.*"],
   "compilerOptions": {
-    "ignoreDeprecations": "6.0",
     "outDir": "dist/types",
-    "baseUrl": "src",
     "paths": {
-      "@controllers/*": ["./controllers/*"],
-      "@services/*": ["./services/*"],
-      "@routes/*": ["./routes/*"],
-      "@webhooks/*": ["./webhooks/*"],
-      "@middlewares/*": ["./middlewares/*"],
-      "@logger": ["./logger/index"],
-      "@schemas/*": ["./schemas/*"],
-      "@emails/*": ["./emails/*"],
-      "@utils/*": ["./utils/*"],
-      "@/*": ["./*"]
+      "@controllers/*": ["./src/controllers/*"],
+      "@services/*": ["./src/services/*"],
+      "@routes/*": ["./src/routes/*"],
+      "@webhooks/*": ["./src/webhooks/*"],
+      "@middlewares/*": ["./src/middlewares/*"],
+      "@logger": ["./src/logger/index"],
+      "@schemas/*": ["./src/schemas/*"],
+      "@emails/*": ["./src/emails/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@/*": ["./src/*"]
     }
   }
 }

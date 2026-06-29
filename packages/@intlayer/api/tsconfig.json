@@ -3,7 +3,6 @@
   "extends": "@utils/ts-config",
   "include": ["src/**/*"],
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@intlayer/backend": ["../../../apps/backend/dist/types/export"],
       "intlayer-editor": ["../../intlayer-editor/server/dist/export"]

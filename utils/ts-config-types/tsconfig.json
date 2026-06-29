@@ -13,7 +13,6 @@
   ],
   "compilerOptions": {
     "strict": false,
-    "baseUrl": "./src",
     "esModuleInterop": true,
     "noEmit": false,
     "declarationMap": true,

@@ -5,7 +5,6 @@
   "exclude": ["**/*.test.*"],
   "compilerOptions": {
     "outDir": "dist/types",
-    "baseUrl": "src",
     "jsx": "react-jsx",
     "jsxImportSource": "preact"
   }

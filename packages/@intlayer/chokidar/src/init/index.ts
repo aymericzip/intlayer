@@ -553,7 +553,7 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
       try {
         const fileContent = await readFileFromRoot(rootDir, fileName);
         const config = parseJSONWithComments(fileContent);
-        const typeDefinition = '.intlayer/**/*.ts';
+        const typeDefinition = './.intlayer/**/*.ts';
 
         let updated = false;
 

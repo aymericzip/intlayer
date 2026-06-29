@@ -5,7 +5,6 @@
   "exclude": ["**/*.test.*"],
   "compilerOptions": {
     "outDir": "dist/types",
-    "baseUrl": "src",
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
     "types": ["vite/client", "@testing-library/jest-dom"]

@@ -5,7 +5,6 @@
   "exclude": ["node_modules", "dist"],
   "compilerOptions": {
     "strict": true,
-    "baseUrl": ".",
     "esModuleInterop": true,
     "noEmit": false,
     "allowImportingTsExtensions": false,
@@ -16,16 +15,16 @@
     "outDir": "dist",
     "skipLibCheck": true,
     "paths": {
-      "@controllers/*": ["src/controllers/*"],
-      "@services/*": ["src/services/*"],
-      "@routes/*": ["src/routes/*"],
-      "@webhooks/*": ["src/webhooks/*"],
-      "@middlewares/*": ["src/middlewares/*"],
-      "@logger": ["src/logger/index"],
-      "@schemas/*": ["src/schemas/*"],
-      "@emails/*": ["src/emails/*"],
-      "@utils/*": ["src/utils/*"],
-      "@/*": ["src/*"]
+      "@controllers/*": ["./src/controllers/*"],
+      "@services/*": ["./src/services/*"],
+      "@routes/*": ["./src/routes/*"],
+      "@webhooks/*": ["./src/webhooks/*"],
+      "@middlewares/*": ["./src/middlewares/*"],
+      "@logger": ["./src/logger/index"],
+      "@schemas/*": ["./src/schemas/*"],
+      "@emails/*": ["./src/emails/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@/*": ["./src/*"]
     }
   }
 }

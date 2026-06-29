@@ -6,7 +6,6 @@
     "target": "ES2022",
     "jsx": "react-jsx",
     "module": "ESNext",
-    "baseUrl": ".",
     "paths": {
       "#/*": ["./src/*"],
       "#components/*": ["./src/components/*"],
@@ -31,7 +30,6 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true,
-    "ignoreDeprecations": "6.0"
+    "noUncheckedSideEffectImports": true
   }
 }

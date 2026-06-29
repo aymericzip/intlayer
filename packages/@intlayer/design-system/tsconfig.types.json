@@ -6,7 +6,6 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "dist/types",
-    "baseUrl": "src",
     "isolatedModules": false,
     "isolatedDeclarations": false,
     "types": ["react", "node"],
