@@ -742,12 +742,18 @@ const buildDictionaryFields = (
  * @param customConfiguration - Optional user-supplied configuration object.
  * @param baseDir - Project root directory. Defaults to `process.cwd()`.
  * @param logFunctions - Optional custom logging functions.
+ * @param env - Environment variables used to resolve credential fallbacks
+ *   (e.g. `INTLAYER_CLIENT_ID` / `INTLAYER_CLIENT_SECRET`). Defaults to
+ *   `process.env`. Callers loading a custom env file (such as the CLI
+ *   `--env-file` flag) should pass the merged env so credentials defined there
+ *   are picked up without polluting `process.env`.
  * @returns A fully-built {@link IntlayerConfig}.
  */
 export const buildConfigurationFields = (
   customConfiguration?: CustomIntlayerConfig,
   baseDir?: string,
-  logFunctions?: LogFunctions
+  logFunctions?: LogFunctions,
+  env: NodeJS.ProcessEnv = process.env
 ): IntlayerConfig => {
   if (customConfiguration) {
     const result = intlayerConfigSchema.safeParse(customConfiguration);
@@ -769,7 +775,7 @@ export const buildConfigurationFields = (
     customConfiguration?.internationalization
   );
 
-  const editorConfig = buildEditorFields(customConfiguration?.editor);
+  const editorConfig = buildEditorFields(customConfiguration?.editor, env);
 
   const logConfig = buildLogFields(customConfiguration?.log, logFunctions);
 

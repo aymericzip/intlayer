@@ -234,11 +234,21 @@ export const buildRoutingFields = (
  * (`clientId`, `clientSecret`). The browser-safe {@link BrowserIntlayerConfig}
  * omits those fields when exposing config to the client.
  *
+ * When the user does not explicitly set `clientId` / `clientSecret` in the
+ * configuration file, they fall back to the `INTLAYER_CLIENT_ID` /
+ * `INTLAYER_CLIENT_SECRET` environment variables read from `env`. This lets
+ * users authenticate purely through their `.env` file (including files passed
+ * via the CLI `--env-file` flag) without having to wire `process.env` into the
+ * configuration manually.
+ *
  * @param customConfiguration - Partial user-supplied editor config.
+ * @param env - Environment variables used to resolve credential fallbacks.
+ *   Defaults to `process.env`.
  * @returns A fully-defaulted {@link EditorConfig}.
  */
 export const buildEditorFields = (
-  customConfiguration?: Partial<EditorConfig>
+  customConfiguration?: Partial<EditorConfig>,
+  env: NodeJS.ProcessEnv = process.env
 ): EditorConfig => {
   const liveSyncPort = customConfiguration?.liveSyncPort ?? LIVE_SYNC_PORT;
   return {
@@ -309,7 +319,7 @@ export const buildEditorFields = (
      *
      * > Important: The clientId and clientSecret should be kept secret and not shared publicly. Please ensure to keep them in a secure location, such as environment variables.
      */
-    clientId: customConfiguration?.clientId ?? undefined,
+    clientId: customConfiguration?.clientId ?? env.INTLAYER_CLIENT_ID,
 
     /**
      * clientId and clientSecret allow the intlayer packages to authenticate with the backend using oAuth2 authentication.
@@ -320,7 +330,8 @@ export const buildEditorFields = (
      *
      * > Important: The clientId and clientSecret should be kept secret and not shared publicly. Please ensure to keep them in a secure location, such as environment variables.
      */
-    clientSecret: customConfiguration?.clientSecret ?? undefined,
+    clientSecret:
+      customConfiguration?.clientSecret ?? env.INTLAYER_CLIENT_SECRET,
 
     /**
      * Strategy for prioritizing dictionaries. If a dictionary is both present online and locally, the content will be merge.

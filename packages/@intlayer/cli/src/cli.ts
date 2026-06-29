@@ -475,10 +475,7 @@ export const setAPI = (): Command => {
     pull({
       ...options,
       dictionaries: dictionaries.length > 0 ? dictionaries : undefined,
-      configOptions: {
-        ...options.configOptions,
-        baseDir: options.baseDir,
-      },
+      configOptions: extractConfigOptions(options),
     });
   });
 
@@ -929,7 +926,12 @@ export const setAPI = (): Command => {
   applyOptions(liveCmd, liveOptions);
   applyConfigOptions(liveCmd);
 
-  liveCmd.action((options) => liveSync(options));
+  liveCmd.action((options) =>
+    liveSync({
+      ...options,
+      configOptions: extractConfigOptions(options),
+    })
+  );
 
   /**
    * EDITOR
@@ -961,6 +963,8 @@ export const setAPI = (): Command => {
     .description(
       'Extract strings from components to be placed in a .content file close to the component'
     );
+
+  applyConfigOptions(extractProgram);
 
   extractProgram
     .option('-f, --file [files...]', 'List of files to extract')
