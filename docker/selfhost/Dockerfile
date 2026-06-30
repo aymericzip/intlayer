@@ -155,7 +155,7 @@ ARG MC_RELEASE=RELEASE.2025-04-16T18-13-26Z
 RUN set -eux; \
     apt-get update; \
     apt-get install -y --no-install-recommends \
-      ca-certificates curl gnupg xz-utils bash procps tini \
+      ca-certificates curl gnupg xz-utils unzip bash procps tini \
       redis-server \
       chromium fonts-freefont-ttf fonts-noto-color-emoji fontconfig \
       libnss3 libfreetype6 libharfbuzz0b; \

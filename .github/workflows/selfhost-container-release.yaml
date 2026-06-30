@@ -17,9 +17,9 @@ on:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 env:
-  # GHCR repo follows the GitHub owner; Docker Hub repo follows the secret namespace.
+  # GHCR repo follows the GitHub owner. The Docker Hub repo (when configured) is
+  # derived from DOCKERHUB_USERNAME in the "Resolve target registries" step.
   GHCR_IMAGE: ghcr.io/${{ github.repository_owner }}/intlayer-selfhost
-  DOCKERHUB_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/intlayer-selfhost
 
 jobs:
   build-and-push:
@@ -42,6 +42,29 @@ jobs:
       - name: 🛠️ Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      # Docker Hub is optional: only push there when both secrets are configured.
+      # GHCR always works via the built-in GITHUB_TOKEN, so the job never fails
+      # just because Docker Hub credentials are absent.
+      - name: 🔎 Resolve target registries
+        id: registries
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          images="${GHCR_IMAGE}"
+          if [ -n "$DOCKERHUB_USERNAME" ] && [ -n "$DOCKERHUB_TOKEN" ]; then
+            echo "dockerhub=true" >> "$GITHUB_OUTPUT"
+            images="${images}"$'\n'"${DOCKERHUB_USERNAME}/intlayer-selfhost"
+          else
+            echo "dockerhub=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::DOCKERHUB_USERNAME / DOCKERHUB_TOKEN not set — pushing to GHCR only."
+          fi
+          {
+            echo "images<<EOF"
+            echo "$images"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
       - name: 🔑 Log in to GHCR
         uses: docker/login-action@v3
         with:
@@ -50,6 +73,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🔑 Log in to Docker Hub
+        if: steps.registries.outputs.dockerhub == 'true'
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -59,9 +83,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: |
-            ${{ env.GHCR_IMAGE }}
-            ${{ env.DOCKERHUB_IMAGE }}
+          images: ${{ steps.registries.outputs.images }}
           tags: |
             type=raw,value=latest
             type=raw,value=${{ github.event.inputs.tag }},enable=${{ github.event.inputs.tag != '' }}
