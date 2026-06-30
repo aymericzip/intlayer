@@ -1,4 +1,5 @@
-import { getIntlayerAPIProxy } from '@intlayer/api';
+import { createIntlayerCMS } from '@intlayer/api';
+import { dictionaryEndpoint } from '@intlayer/api/dictionary';
 // @ts-ignore @intlayer/backend is not build yet
 import type { DictionaryAPI } from '@intlayer/backend';
 import { getAppLogger, x } from '@intlayer/config/logger';
@@ -22,7 +23,7 @@ export const fetchDistantDictionaries = async (
   const config = getConfiguration();
   const appLogger = getAppLogger(config);
   try {
-    const intlayerAPI = getIntlayerAPIProxy(undefined, config);
+    const dictionary = dictionaryEndpoint(createIntlayerCMS(config));
 
     const distantDictionariesKeys = options.dictionaryKeys;
     // Process dictionaries in parallel with a concurrency limit
@@ -40,7 +41,7 @@ export const fetchDistantDictionaries = async (
       try {
         // Fetch the dictionary
         const getDictionaryResult =
-          await intlayerAPI.dictionary.getDictionary(dictionaryKey);
+          await dictionary.getDictionary(dictionaryKey);
 
         const distantDictionary = getDictionaryResult.data;
 

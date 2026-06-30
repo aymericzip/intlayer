@@ -1,4 +1,5 @@
-import { getIntlayerAPIProxy } from '@intlayer/api';
+import { createIntlayerCMS } from '@intlayer/api';
+import { dictionaryEndpoint } from '@intlayer/api/dictionary';
 // @ts-ignore @intlayer/backend is not build yet
 import type { DictionaryAPI } from '@intlayer/backend';
 import { getConfiguration } from '@intlayer/config/node';
@@ -40,11 +41,11 @@ export const loadRemoteDictionaries = async (
   try {
     options?.onStartRemoteCheck?.();
 
-    const intlayerAPI = getIntlayerAPIProxy(undefined, configuration);
+    const dictionary = dictionaryEndpoint(createIntlayerCMS(configuration));
 
     // Get the list of dictionary keys
     const getDictionariesKeysResult =
-      await intlayerAPI.dictionary.getDictionariesUpdateTimestamp();
+      await dictionary.getDictionariesUpdateTimestamp();
 
     const distantDictionaryUpdateTimeStamp: Record<
       DictionaryId,

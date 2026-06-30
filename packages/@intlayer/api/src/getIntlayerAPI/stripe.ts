@@ -32,6 +32,7 @@ import type {
 } from '@intlayer/backend';
 import { editor } from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/types/config';
+import { createEndpoint } from '../cms/createIntlayerCMS';
 import { type FetcherOptions, fetcher } from '../fetcher';
 
 export const getStripeAPI = (
@@ -414,3 +415,11 @@ export const getStripeAPI = (
     getAffiliatePromoCode,
   };
 };
+
+/**
+ * Authenticated `stripe` endpoint bound to an Intlayer CMS authenticator.
+ *
+ * Pass an authenticator created with `createIntlayerCMS`, or omit it to use
+ * the build-time configuration (`@intlayer/config/built`).
+ */
+export const stripeEndpoint = createEndpoint(getStripeAPI);

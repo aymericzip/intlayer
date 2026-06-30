@@ -1,6 +1,7 @@
 import type { DictionaryAPI } from '@intlayer/backend';
 import type { IntlayerConfig } from '@intlayer/types/config';
-import { getIntlayerAPIProxy } from '../proxy';
+import { createIntlayerCMS } from '../cms/createIntlayerCMS';
+import { dictionaryEndpoint } from '../getIntlayerAPI/dictionary';
 
 /**
  * Fetch distant dictionary
@@ -17,10 +18,10 @@ export const fetchDistantDictionaries = async (
       );
     }
 
-    const api = getIntlayerAPIProxy(undefined, intlayerConfig);
+    const dictionary = dictionaryEndpoint(createIntlayerCMS(intlayerConfig));
 
     // Fetch the dictionary list
-    const getDictionaryResult = await api.dictionary.getDictionaries();
+    const getDictionaryResult = await dictionary.getDictionaries();
 
     const distantDictionaries = getDictionaryResult.data;
 

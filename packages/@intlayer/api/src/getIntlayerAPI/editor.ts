@@ -6,6 +6,7 @@ import type {
   WriteContentDeclarationBody,
   WriteContentDeclarationResult,
 } from 'intlayer-editor';
+import { createEndpoint } from '../cms/createIntlayerCMS';
 import { type FetcherOptions, fetcher } from '../fetcher';
 
 export const getEditorAPI = (
@@ -70,3 +71,11 @@ export const getEditorAPI = (
     writeDictionary,
   };
 };
+
+/**
+ * Authenticated `editor` endpoint bound to an Intlayer CMS authenticator.
+ *
+ * Pass an authenticator created with `createIntlayerCMS`, or omit it to use
+ * the build-time configuration (`@intlayer/config/built`).
+ */
+export const editorEndpoint = createEndpoint(getEditorAPI);

@@ -1,183 +1,134 @@
+import { editor } from '@intlayer/config/built';
 import type { IntlayerConfig } from '@intlayer/types/config';
+import { createIntlayerCMS, type IntlayerCMS } from './cms/createIntlayerCMS';
 import type { FetcherOptions } from './fetcher';
-import { getIntlayerAPI } from './getIntlayerAPI';
+import { getAiAPI } from './getIntlayerAPI/ai';
+import { getAssetAPI } from './getIntlayerAPI/asset';
+import { getAuditAPI } from './getIntlayerAPI/audit';
+import { getBitbucketAPI } from './getIntlayerAPI/bitbucket';
+import { getDictionaryAPI } from './getIntlayerAPI/dictionary';
+import { getEditorAPI } from './getIntlayerAPI/editor';
+import { getEnvironmentAPI } from './getIntlayerAPI/environment';
+import { getGithubAPI } from './getIntlayerAPI/github';
+import { getGitlabAPI } from './getIntlayerAPI/gitlab';
 import type { IntlayerAPI } from './getIntlayerAPI/index';
+import { getNewsletterAPI } from './getIntlayerAPI/newsletter';
 import { getOAuthAPI } from './getIntlayerAPI/oAuth';
+import { getOrganizationAPI } from './getIntlayerAPI/organization';
+import { getProjectAPI } from './getIntlayerAPI/project';
+import { getReviewerAPI } from './getIntlayerAPI/reviewer';
+import { getSearchAPI } from './getIntlayerAPI/search';
+import { getShowcaseProjectAPI } from './getIntlayerAPI/showcaseProject';
+import { getStripeAPI } from './getIntlayerAPI/stripe';
+import { getTagAPI } from './getIntlayerAPI/tag';
+import { getTranslateAPI } from './getIntlayerAPI/translate';
+import { getUserAPI } from './getIntlayerAPI/user';
 
-type OAuthTokenLike = {
-  accessToken?: string;
-  accessTokenExpiresAt?: string | Date;
-  expires_in?: number;
-  expiresIn?: number;
-  expiresAt?: string | Date;
-};
-
-const ONE_MINUTE_MS = 60_000;
+type SectionKey = keyof IntlayerAPI;
 
 /**
- * Returns the expiration timestamp in ms from an OAuth token-like object.
+ * Homogeneous factory map: every domain factory normalized to the same
+ * `(fetcherOptions, config) => section` signature, keyed by section name.
+ * Declaring it as a single mapped type lets a generic lookup stay callable
+ * (a union of factory signatures would not be).
  */
-const getExpiryTimestamp = (
-  token: OAuthTokenLike | undefined
-): number | undefined => {
-  if (!token) return undefined;
-  const dateLike = (token.accessTokenExpiresAt ?? token.expiresAt) as
-    | string
-    | Date
-    | undefined;
-  if (dateLike) {
-    const ts =
-      typeof dateLike === 'string'
-        ? Date.parse(dateLike)
-        : dateLike.getTime?.();
-    if (typeof ts === 'number' && Number.isFinite(ts)) return ts;
-  }
-  const seconds = token.expires_in ?? token.expiresIn;
-  if (typeof seconds === 'number' && Number.isFinite(seconds)) {
-    return Date.now() + seconds * 1000;
-  }
-  return undefined;
+type SectionFactories = {
+  [Key in SectionKey]: (
+    fetcherOptions: FetcherOptions,
+    intlayerConfig: IntlayerConfig
+  ) => IntlayerAPI[Key];
 };
 
-let currentAccessToken: string | undefined;
-let currentExpiryTs: number | undefined;
-let pendingRefresh: Promise<void> | undefined;
+const sectionFactories: SectionFactories = {
+  asset: getAssetAPI,
+  organization: getOrganizationAPI,
+  project: getProjectAPI,
+  environment: getEnvironmentAPI,
+  user: getUserAPI,
+  oAuth: getOAuthAPI,
+  dictionary: getDictionaryAPI,
+  stripe: getStripeAPI,
+  ai: getAiAPI,
+  audit: getAuditAPI,
+  tag: getTagAPI,
+  search: getSearchAPI,
+  editor: getEditorAPI,
+  newsletter: getNewsletterAPI,
+  github: getGithubAPI,
+  gitlab: getGitlabAPI,
+  bitbucket: getBitbucketAPI,
+  showcaseProject: getShowcaseProjectAPI,
+  translate: getTranslateAPI,
+  reviewer: getReviewerAPI,
+};
+
+// The OAuth2 token endpoint must never receive an injected Bearer token —
+// it is the call that issues one.
+const AUTH_FREE_SECTIONS: ReadonlySet<SectionKey> = new Set<SectionKey>([
+  'oAuth',
+]);
 
 /**
- * Build an auto-auth proxy around getIntlayerAPI that:
- * - Fetches an OAuth2 token when needed
- * - Injects Authorization header for each request
- * - Refreshes token proactively when near expiry
+ * Builds the **complete** auto-authenticated Intlayer API as a single lazy
+ * object. Every domain is reachable through it, so it pulls every domain client
+ * into the bundle.
  *
- * When `sessionToken` is provided (a CLI session token starting with
- * "clisession_"), it is used directly as the Bearer token without any OAuth2
- * exchange — the backend validates it against the CliSessionToken collection.
- *
- * The returned API matches the shape of getIntlayerAPI.
+ * Prefer {@link createIntlayerCMS} together with the per-domain endpoint binders
+ * (e.g. `dictionaryEndpoint`) in bundle-sensitive code — they include only the
+ * domains you use. This helper is a convenience for Node tools (such as the CLI)
+ * where bundle size is not a concern.
  */
 export const getIntlayerAPIProxy = (
   baseAuthOptions: FetcherOptions = {},
-  intlayerConfig?: Pick<IntlayerConfig, 'editor'>,
+  intlayerConfig: Pick<IntlayerConfig, 'editor'> = { editor },
   sessionToken?: string
 ): IntlayerAPI => {
-  // Use a shared mutable auth options object captured by the API closures.
-  // credentials: 'omit' prevents the browser from attaching session cookies to
-  // these requests; authentication is handled exclusively via the Bearer token
-  // injected below. This is required because the backend only sets
-  // Access-Control-Allow-Credentials: true for whitelisted first-party origins.
-  const authOptionsRef: FetcherOptions = {
-    ...baseAuthOptions,
-    credentials: 'omit',
-  };
-  const hasCMSAuth =
-    Boolean(sessionToken) ||
-    Boolean(
-      intlayerConfig?.editor?.clientId && intlayerConfig?.editor?.clientSecret
-    );
+  const cms: IntlayerCMS = createIntlayerCMS(intlayerConfig, {
+    baseFetcherOptions: baseAuthOptions,
+    sessionToken,
+  });
 
-  // When a CLI session token is provided, inject it immediately and skip the
-  // OAuth2 client_credentials exchange entirely.
-  if (sessionToken) {
-    authOptionsRef.headers = {
-      ...(authOptionsRef.headers ?? {}),
-      Authorization: `Bearer ${sessionToken}`,
-    } as HeadersInit;
-  }
+  const sectionCache = new Map<SectionKey, unknown>();
 
-  const baseApi = getIntlayerAPI(authOptionsRef, intlayerConfig);
+  // Generic over `Key` so `sectionFactories[key]` resolves to a single
+  // `(opts, config) => IntlayerAPI[Key]` signature rather than the union of all
+  // factory signatures (which would not be callable).
+  const buildSection = <Key extends SectionKey>(key: Key): IntlayerAPI[Key] => {
+    const factory = sectionFactories[key] as (
+      fetcherOptions: FetcherOptions,
+      intlayerConfig: IntlayerConfig
+    ) => Record<string, unknown>;
 
-  const needsRefresh = (): boolean => {
-    if (!currentAccessToken) return true;
-    if (!currentExpiryTs) return false; // If unknown, assume usable until failure
-
-    return Date.now() + ONE_MINUTE_MS >= currentExpiryTs; // refresh 1 min before expiry
+    return cms.bindSection(factory, {
+      skipAuth: AUTH_FREE_SECTIONS.has(key) ? true : undefined,
+    }) as IntlayerAPI[Key];
   };
 
-  const refreshToken = async (): Promise<void> => {
-    const doRefresh = async () => {
-      const authApi = getOAuthAPI({}, intlayerConfig);
-      const res = await authApi.getOAuth2AccessToken();
-      const tokenData = res?.data as OAuthTokenLike | undefined;
+  return new Proxy({} as IntlayerAPI, {
+    get(_target, property) {
+      const key = property as SectionKey;
+      if (!(key in sectionFactories)) return undefined;
 
-      currentAccessToken = tokenData?.accessToken;
-      currentExpiryTs = getExpiryTimestamp(tokenData);
-    };
+      if (!sectionCache.has(key)) {
+        sectionCache.set(key, buildSection(key));
+      }
 
-    if (!pendingRefresh) {
-      pendingRefresh = doRefresh().finally(() => {
-        pendingRefresh = undefined;
-      });
-    }
-    await pendingRefresh;
-  };
-
-  const ensureValidToken = async () => {
-    if (needsRefresh()) {
-      await refreshToken();
-    }
-  };
-
-  const applyAuthHeaderToRef = () => {
-    if (!currentAccessToken) return;
-    authOptionsRef.headers = {
-      ...(authOptionsRef.headers ?? {}),
-      Authorization: `Bearer ${currentAccessToken}`,
-    } as HeadersInit;
-  };
-
-  const wrapSection = <T extends Record<string, unknown>>(
-    section: T,
-    skipAuth = !hasCMSAuth
-  ): T => {
-    return new Proxy(section, {
-      get(target, prop, receiver) {
-        const value = Reflect.get(target, prop, receiver);
-
-        if (typeof value === 'function') {
-          // Wrap section method to inject token and headers
-          return async (...args: unknown[]) => {
-            if (!skipAuth) {
-              if (sessionToken) {
-                // Session token is pre-injected in authOptionsRef; no OAuth2 exchange needed
-              } else {
-                await ensureValidToken();
-                applyAuthHeaderToRef();
-              }
-            }
-
-            try {
-              return await value.apply(target, args);
-            } catch (err) {
-              // Best-effort retry: if token might be stale, refresh once and retry
-              if (!skipAuth && !sessionToken) {
-                await refreshToken();
-                applyAuthHeaderToRef();
-                return await value.apply(target, args);
-              }
-              throw err;
-            }
-          };
-        }
-
-        return value;
-      },
-    });
-  };
-
-  return {
-    organization: wrapSection(baseApi.organization),
-    project: wrapSection(baseApi.project),
-    user: wrapSection(baseApi.user),
-    oAuth: wrapSection(baseApi.oAuth, true), // do NOT inject auth for token endpoint
-    dictionary: wrapSection(baseApi.dictionary),
-    stripe: wrapSection(baseApi.stripe),
-    ai: wrapSection(baseApi.ai),
-    tag: wrapSection(baseApi.tag),
-    search: wrapSection(baseApi.search),
-    editor: wrapSection(baseApi.editor),
-    newsletter: wrapSection(baseApi.newsletter),
-    github: wrapSection(baseApi.github),
-  } as IntlayerAPI;
+      return sectionCache.get(key);
+    },
+    has(_target, property) {
+      return (property as SectionKey) in sectionFactories;
+    },
+    ownKeys() {
+      return Reflect.ownKeys(sectionFactories);
+    },
+    getOwnPropertyDescriptor() {
+      return { enumerable: true, configurable: true };
+    },
+  });
 };
 
+/**
+ * The complete auto-authenticated Intlayer API returned by
+ * {@link getIntlayerAPIProxy}. Equivalent in shape to `IntlayerAPI`.
+ */
 export type IntlayerAPIProxy = ReturnType<typeof getIntlayerAPIProxy>;

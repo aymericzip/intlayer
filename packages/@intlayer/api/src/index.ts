@@ -1,3 +1,4 @@
+export * from './cms/index';
 export * from './distantDictionary/index';
 export * from './fetcher';
 export * from './getIntlayerAPI';

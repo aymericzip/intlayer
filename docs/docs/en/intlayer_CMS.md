@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-06-29
 title: Intlayer CMS | Externalize your content into the Intlayer CMS
 description: Externalize your content into the Intlayer CMS to delegate the management of your content to your team.
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - cms
 youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
+  - version: 9.0.0
+    date: 2026-06-29
+    changes: "Add @intlayer/api SDK (createIntlayerCMS) section for programmatic CMS access"
   - version: 6.0.1
     date: 2025-09-22
     changes: "Add live sync documentation"
@@ -240,6 +243,158 @@ This command uploads your initial content dictionaries, making them available fo
 ### Edit the dictionary
 
 Then you will be able to see and manage your dictionary in the [Intlayer CMS](https://app.intlayer.org/content).
+
+## Programmatic access with the `@intlayer/api` SDK
+
+Beyond the CLI and the visual editor, Intlayer ships a typed SDK in the [`@intlayer/api`](https://www.npmjs.com/package/@intlayer/api) package. It lets you treat the CMS as a **headless content database**: you can fetch projects, fetch dictionaries, and push or update them directly from your own application, scripts, or CI pipeline.
+
+The SDK handles authentication for you. As long as your `clientId` and `clientSecret` are available (in your Intlayer configuration or environment), it obtains and refreshes an OAuth2 access token automatically and signs every request.
+
+### Installation
+
+```bash packageManager="npm"
+npm install @intlayer/api
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/api
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/api
+```
+
+```bash packageManager="bun"
+bun add @intlayer/api
+```
+
+### How it works: authenticator + endpoints
+
+The SDK is split into **two separate imports** on purpose, to keep your bundle small:
+
+1. `createIntlayerCMS` — creates a lightweight **authenticator**. It only carries the credentials and the managed access token; it knows nothing about any specific domain.
+2. `dictionaryEndpoint`, `projectEndpoint`, … — per-domain **endpoint binders**, each imported from its own subpath (`@intlayer/api/dictionary`, `@intlayer/api/project`, …). You pass the authenticator to the endpoint you need.
+
+Because each endpoint is imported separately, your bundle includes only the domains you actually use — importing `dictionaryEndpoint` never pulls in the project, AI, or any other domain client.
+
+```typescript fileName="cms.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+
+// The configuration is optional: when omitted, the credentials are read from
+// `@intlayer/config/built`, which resolves the INTLAYER_CLIENT_ID and
+// INTLAYER_CLIENT_SECRET environment variables.
+export const cmsAuthenticator = createIntlayerCMS();
+```
+
+> [!WARNING]
+> The CMS credentials (`clientId` / `clientSecret`) grant **write access** to your content. Only ever create the authenticator on the **server side** (server actions, route handlers, scripts, CI). Never import it into client-side code or expose your credentials to the browser.
+
+If you prefer not to rely on the build-time configuration, pass the credentials explicitly:
+
+```typescript fileName="cms.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+
+export const cmsAuthenticator = createIntlayerCMS({
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+    // Optional, for self-hosted backends:
+    // backendURL: process.env.INTLAYER_BACKEND_URL,
+  },
+});
+```
+
+> Get your credentials by creating a new access key in the [Intlayer Dashboard - Projects](https://app.intlayer.org/projects).
+
+### Fetch projects
+
+```typescript fileName="projects.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { projectEndpoint } from "@intlayer/api/project";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// List the projects accessible with your credentials
+const { data: projects } =
+  await projectEndpoint(cmsAuthenticator).getProjects();
+
+// Read aggregated localization insights of the selected project
+const { data: insights } =
+  await projectEndpoint(cmsAuthenticator).getProjectInsights();
+```
+
+### Fetch dictionaries
+
+```typescript fileName="read-dictionaries.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// List every remote dictionary of the project
+const { data: dictionaries } =
+  await dictionaryEndpoint(cmsAuthenticator).getDictionaries();
+
+// Or get a single dictionary by key
+const { data: dictionary } = await dictionaryEndpoint(
+  cmsAuthenticator
+).getDictionary("my-first-dictionary-key");
+```
+
+### Push and update dictionaries
+
+Use the CMS as a database to write content back:
+
+```typescript fileName="write-dictionaries.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// Create a new dictionary
+await dictionaryEndpoint(cmsAuthenticator).addDictionary({
+  key: "my-first-dictionary-key",
+  content: { title: "Hello world" },
+});
+
+// Upsert a batch of dictionaries (create or update them in one call)
+await dictionaryEndpoint(cmsAuthenticator).pushDictionaries([
+  { key: "home", content: { title: "Home" } },
+  { key: "about", content: { title: "About" } },
+]);
+
+// Update an existing dictionary
+await dictionaryEndpoint(cmsAuthenticator).updateDictionary({
+  id: "<dictionary-id>",
+  key: "home",
+  content: { title: "Updated title" },
+});
+```
+
+> Tip: reuse the bound endpoint to avoid repeating yourself:
+>
+> ```typescript codeFormat="typescript"
+> const dictionary = dictionaryEndpoint(cmsAuthenticator);
+> await dictionary.pushDictionaries([myDictionary]);
+> const { data } = await dictionary.getDictionaries();
+> ```
+
+### Extracting a single method
+
+Every endpoint method is already authenticated and standalone (it carries its own token handling), so you can extract one and pass it around — for example to inject it as a dependency:
+
+```typescript fileName="push.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const dictionary = dictionaryEndpoint(createIntlayerCMS());
+
+// Already authenticated — refreshes the token automatically on each call
+export const pushDictionaries = dictionary.pushDictionaries;
+
+// Usage
+await pushDictionaries([{ key: "home", content: { title: "Home" } }]);
+```
 
 ## Live sync
 
