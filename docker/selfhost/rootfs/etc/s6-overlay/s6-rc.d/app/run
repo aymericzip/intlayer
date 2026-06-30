@@ -1,0 +1,6 @@
+#!/command/with-contenv bash
+# TanStack Start dashboard (Nitro bun server) on :3000. PORT is scoped here so it
+# does not collide with the backend, which also reads PORT.
+export PORT=3000
+cd /app
+exec bun run .output/server/index.mjs

@@ -1,0 +1,8 @@
+#!/command/with-contenv bash
+# MongoDB — internal only (127.0.0.1). Runs as a single-node replica set "rs0",
+# required by better-auth / "w=majority" semantics. See init-mongo for rs.initiate.
+exec mongod \
+  --replSet rs0 \
+  --bind_ip 127.0.0.1 \
+  --port 27017 \
+  --dbpath /data/mongo

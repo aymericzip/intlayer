@@ -1,0 +1,6 @@
+#!/command/with-contenv bash
+# Fastify API on :3100. Depends on mongo (replica set up), redis and minio bucket.
+# If a dependency is briefly unavailable the process exits and s6 restarts it.
+export PORT=3100
+cd /workspace/apps/backend
+exec bun dist/esm/index.mjs
