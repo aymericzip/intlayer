@@ -54,9 +54,18 @@ export const intlayerPolyfill = () => {
   }
 
   // `@intlayer/core`'s localeStorageOptions accesses document.cookie directly.
-  // In React Native, `document` is undefined — we provide a minimal in-memory
-  // cookie jar so reads/writes work without throwing.
-  if (typeof document === 'undefined') {
+  // In React Native native, `document` is undefined — we provide a minimal
+  // in-memory cookie jar so reads/writes work without throwing.
+  //
+  // We guard with `navigator.product === 'ReactNative'` to avoid installing
+  // the stub in SSR / Expo Web pre-render contexts where `document` is also
+  // undefined (Node.js) but browser code will later need the real DOM object
+  // (e.g. document.createElement called by third-party RN libraries on web).
+  const isNativeReactNative =
+    typeof navigator !== 'undefined' &&
+    (navigator as Navigator & { product?: string }).product === 'ReactNative';
+
+  if (typeof document === 'undefined' && isNativeReactNative) {
     let cookieJar = '';
     Object.defineProperty(global, 'document', {
       configurable: true,
@@ -75,6 +84,12 @@ export const intlayerPolyfill = () => {
             .filter(Boolean);
           cookieJar = [...existing, `${name}=${val ?? ''}`].join('; ');
         },
+        createElement: () => null,
+        getElementById: () => null,
+        querySelector: () => null,
+        querySelectorAll: () => [],
+        addEventListener: () => undefined,
+        removeEventListener: () => undefined,
       }),
     });
   }
