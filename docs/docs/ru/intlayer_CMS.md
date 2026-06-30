@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-06-30
 title: Intlayer CMS | Внешнее управление контентом через Intlayer CMS
 description: Внешнее управление вашим контентом через Intlayer CMS для делегирования управления контентом вашей команде.
 keywords:
@@ -18,6 +18,12 @@ slugs:
   - cms
 youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
+  - version: 9.0.0
+    date: 2026-06-30
+    changes: "Добавлен раздел «Самостоятельное размещение»: начальная загрузка Docker Compose, инвентаризация сервисов, конфигурация SDK, необязательные функции и примечания по обновлению"
+  - version: 9.0.0
+    date: 2026-06-29
+    changes: "Добавлен раздел SDK @intlayer/api (createIntlayerCMS) для программного доступа к CMS"
   - version: 6.0.1
     date: 2025-09-22
     changes: "Добавлена документация по live sync"
@@ -241,11 +247,161 @@ bun x intlayer dictionary push -d my-first-dictionary-key --env production
 
 После этого вы сможете просматривать и управлять вашим словарём в [Intlayer CMS](https://app.intlayer.org/content).
 
+## Программный доступ с помощью SDK `@intlayer/api`
+
+Помимо CLI и визуального редактора, Intlayer поставляется с типизированным SDK в пакете [`@intlayer/api`](https://www.npmjs.com/package/@intlayer/api). Он позволяет вам рассматривать CMS как **бесголовую базу данных контента**: вы можете получать проекты, получать словари, а также отправлять или обновлять их непосредственно из вашего собственного приложения, скриптов или CI-конвейера.
+
+SDK обрабатывает аутентификацию за вас. Пока ваши `clientId` и `clientSecret` доступны (в вашей конфигурации Intlayer или переменных окружения), он автоматически получает и обновляет токен доступа OAuth2 и подписывает каждый запрос.
+
+### Установка
+
+```bash packageManager="npm"
+npm install @intlayer/api
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/api
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/api
+```
+
+```bash packageManager="bun"
+bun add @intlayer/api
+```
+
+### Как это работает: аутентификатор + эндпоинты
+
+SDK разделён на **два отдельных импорта** специально, чтобы сохранить размер вашего бандла небольшим:
+
+1. `createIntlayerCMS` — создаёт легковесный **аутентификатор**. Он содержит только учётные данные и управляемый токен доступа; он ничего не знает о каком-либо конкретном домене.
+2. `dictionaryEndpoint`, `projectEndpoint`, … — **биндинги эндпоинтов** для каждого домена, каждый импортируется из своего подпути (`@intlayer/api/dictionary`, `@intlayer/api/project`, …). Вы передаёте аутентификатор нужному эндпоинту.
+
+Поскольку каждый эндпоинт импортируется отдельно, ваш бандл включает только те домены, которые вы фактически используете — импорт `dictionaryEndpoint` никогда не подтягивает проект, ИИ или любой другой клиент домена.
+
+```typescript fileName="cms.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+
+// Конфигурация необязательна: если она пропущена, учётные данные считываются из
+// `@intlayer/config/built`, который разрешает переменные окружения INTLAYER_CLIENT_ID и
+// INTLAYER_CLIENT_SECRET.
+export const cmsAuthenticator = createIntlayerCMS();
+```
+
+> [!WARNING]
+> Учётные данные CMS (`clientId` / `clientSecret`) предоставляют **доступ на запись** к вашему контенту. Создавайте аутентификатор только на **серверной стороне** (серверные действия, обработчики маршрутов, скрипты, CI). Никогда не импортируйте его в клиентский код и не раскрывайте свои учётные данные в браузере.
+
+Если вы предпочитаете не полагаться на конфигурацию времени сборки, передайте учётные данные явно:
+
+```typescript fileName="cms.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+
+export const cmsAuthenticator = createIntlayerCMS({
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+    // Необязательно, для самостоятельно размещённых бэкендов:
+    // backendURL: process.env.INTLAYER_BACKEND_URL,
+  },
+});
+```
+
+> Получите свои учётные данные, создав новый ключ доступа в [Панели управления Intlayer - Проекты](https://app.intlayer.org/projects).
+
+### Получение проектов
+
+```typescript fileName="projects.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { projectEndpoint } from "@intlayer/api/project";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// Список проектов, доступных с вашими учётными данными
+const { data: projects } =
+  await projectEndpoint(cmsAuthenticator).getProjects();
+
+// Чтение агрегированных данных о локализации выбранного проекта
+const { data: insights } =
+  await projectEndpoint(cmsAuthenticator).getProjectInsights();
+```
+
+### Получение словарей
+
+```typescript fileName="read-dictionaries.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// Вывести каждый удалённый словарь проекта
+const { data: dictionaries } =
+  await dictionaryEndpoint(cmsAuthenticator).getDictionaries();
+
+// Или получить один словарь по ключу
+const { data: dictionary } = await dictionaryEndpoint(
+  cmsAuthenticator
+).getDictionary("my-first-dictionary-key");
+```
+
+### Отправка и обновление словарей
+
+Используйте CMS как базу данных для записи контента:
+
+```typescript fileName="write-dictionaries.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// Создать новый словарь
+await dictionaryEndpoint(cmsAuthenticator).addDictionary({
+  key: "my-first-dictionary-key",
+  content: { title: "Hello world" },
+});
+
+// Обновить или вставить партию словарей (создать или обновить их за один вызов)
+await dictionaryEndpoint(cmsAuthenticator).pushDictionaries([
+  { key: "home", content: { title: "Home" } },
+  { key: "about", content: { title: "About" } },
+]);
+
+// Обновить существующий словарь
+await dictionaryEndpoint(cmsAuthenticator).updateDictionary({
+  id: "<dictionary-id>",
+  key: "home",
+  content: { title: "Updated title" },
+});
+```
+
+> Совет: повторно используйте связанный эндпоинт, чтобы избежать повторений:
+>
+> ```typescript codeFormat="typescript"
+> const dictionary = dictionaryEndpoint(cmsAuthenticator);
+> await dictionary.pushDictionaries([myDictionary]);
+> const { data } = await dictionary.getDictionaries();
+> ```
+
+### Извлечение отдельного метода
+
+Каждый метод эндпоинта уже аутентифицирован и самодостаточен (он обрабатывает свой собственный токен), поэтому вы можете извлечь его и передавать — например, для инъекции в качестве зависимости:
+
+```typescript fileName="push.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const dictionary = dictionaryEndpoint(createIntlayerCMS());
+
+// Уже аутентифицирован — автоматически обновляет токен при каждом вызове
+export const pushDictionaries = dictionary.pushDictionaries;
+
+// Использование
+await pushDictionaries([{ key: "home", content: { title: "Home" } }]);
+```
+
 ## Живая синхронизация
 
 Живая синхронизация позволяет вашему приложению отражать изменения контента CMS в режиме реального времени. Пересборка или повторный деплой не требуются. Когда функция включена, обновления передаются на сервер живой синхронизации, который обновляет словари, используемые вашим приложением.
-
-> Живая синхронизация требует постоянного подключения к серверу и доступна в тарифном плане enterprise.
 
 Включите живую синхронизацию, обновив конфигурацию Intlayer:
 
@@ -271,13 +427,13 @@ const config: IntlayerConfig = {
     /**
      * Управляет способом импорта словарей:
      *
-     * - "live": словари загружаются динамически с использованием Live Sync API.
+     * - "fetch": словари загружаются динамически с использованием Live Sync API.
      *   Заменяет useIntlayer на useDictionaryDynamic.
      *
-     * Примечание: Режим live использует Live Sync API для загрузки словарей. Если вызов API
-     * не удаётся, словари загружаются динамически.
-     * Примечание: Режим live используется только для словарей с удалённым содержимым и флагом "live".
-     * Другие используют динамический режим для повышения производительности.
+     * Примечание: Режим "fetch" использует Live Sync API для загрузки словарей. Если вызов API
+     * не удаётся, словари импортируются динамически.
+     * Примечание: Только словари с удалённым содержимым и флагом "live" используют режим "fetch".
+     * Остальные используют динамический режим для повышения производительности.
      */
     importMode: "fetch",
   },
@@ -287,6 +443,19 @@ export default config;
 ```
 
 Запустите сервер Live Sync, чтобы обернуть ваше приложение:
+
+Пример использования автономного сервера:
+
+```json5 fileName="package.json"
+{
+  "scripts": {
+    // ... other scripts
+    "live:start": "npx intlayer live",
+  },
+}
+```
+
+Вы также можете использовать сервер вашего приложения параллельно, используя аргумент `--process`.
 
 Пример с использованием Next.js:
 
@@ -320,11 +489,11 @@ export default config;
 
 Блок-схема (CMS/Backend -> Live Sync Server -> Application Server -> Frontend):
 
-![Схема логики Live Sync](https://github.com/aymericzip/intlayer/blob/main/docs/assets/live_sync_logic_schema.svg)
+![Схема потока Live Sync CMS/Backend/Live Sync Server/Application Server/Frontend](https://github.com/aymericzip/intlayer/blob/main/docs/assets/live_sync_flow_scema.svg)
 
 Как это работает:
 
-![Схема потока Live Sync CMS/Backend/Live Sync Server/Application Server/Frontend](https://github.com/aymericzip/intlayer/blob/main/docs/assets/live_sync_flow_scema.svg)
+![Схема логики Live Sync](https://github.com/aymericzip/intlayer/blob/main/docs/assets/live_sync_logic_schema.svg)
 
 ### Рабочий процесс разработки (локально)
 
@@ -356,7 +525,7 @@ const config: IntlayerConfig = {
     importMode: "fetch",
   },
   build: {
-    optimize: true,
+    optimize: true, // default: process.env.NODE_ENV === 'production'
   },
 };
 
@@ -370,8 +539,20 @@ export default config;
 - Добавьте источник live sync в политику безопасности вашего сайта (CSP). Убедитесь, что URL live sync разрешён в `connect-src` (и в `frame-ancestors`, если это актуально).
 - Live Sync не работает со статическим выводом. Для Next.js страница должна быть динамической, чтобы получать обновления во время выполнения (например, используйте `generateStaticParams`, `generateMetadata`, `getServerSideProps` или `getStaticProps` соответствующим образом, чтобы избежать ограничений полностью статического вывода).
 - В CMS у каждого словаря есть флаг `live`. Только словари с `live=true` загружаются через API live sync; остальные импортируются динамически и остаются неизменными во время выполнения.
-- Флаг `live` оценивается для каждого словаря во время сборки (build time). Если удалённый контент не был помечен как `live=true` во время сборки (build time), необходимо выполнить повторную сборку, чтобы включить Live Sync для этого словаря.
+- Флаг `live` оценивается для каждого словаря во время сборки. Если удалённый контент не был помечен как `live=true` во время сборки, необходимо выполнить повторную сборку, чтобы включить Live Sync для этого словаря.
 - Сервер live sync должен иметь возможность записывать в `.intlayer`. В контейнерах убедитесь, что есть права на запись в `/.intlayer`.
+
+## Самостоятельное размещение (Self-Hosting)
+
+Intlayer может работать полностью на вашей собственной инфраструктуре. Одна команда поднимает весь стек (дашборд, API, база данных, хранилище объектов и электронная почта) с помощью Docker Compose:
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh
+```
+
+Полное руководство по настройке, справочник по переменным окружения, инструкции по обновлению и процедуры резервного копирования/восстановления см. в [Руководстве по самостоятельному размещению](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/self_hosting.md).
+
+---
 
 ## Отладка
 
@@ -381,9 +562,9 @@ export default config;
 
 - Конфигурация [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) корректно настроена в вашем конфигурационном файле Intlayer.
   - Обязательные поля:
-- URL приложения должен совпадать с тем, который вы указали в конфигурации редактора (`applicationURL`).
-- URL CMS
+    - URL приложения должен совпадать с тем, который вы указали в конфигурации редактора (`applicationURL`).
+    - URL CMS
 
 - Убедитесь, что конфигурация проекта была отправлена в Intlayer CMS.
 
-- Визуальный редактор использует iframe для отображения вашего сайта. Убедитесь, что политика безопасности контента (CSP) вашего сайта разрешает URL CMS в качестве `frame-ancestors` (по умолчанию 'https://intlayer.org'). Проверьте консоль редактора на наличие ошибок.
+- Визуальный редактор использует iframe для отображения вашего сайта. Убедитесь, что политика безопасности контента (CSP) вашего сайта разрешает URL CMS в качестве `frame-ancestors` (по умолчанию 'https://app.intlayer.org'). Проверьте консоль редактора на наличие ошибок.

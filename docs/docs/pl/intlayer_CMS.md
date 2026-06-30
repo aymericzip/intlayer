@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-06-30
 title: Intlayer CMS | Zewnętrzne zarządzanie treścią w Intlayer CMS
 description: Zewnętrzne zarządzanie treścią w Intlayer CMS, aby delegować zarządzanie treścią do Twojego zespołu.
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - cms
 youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
+  - version: 9.0.0
+    date: 2026-06-30
+    changes: "Dodano sekcję samodzielnego hostowania"
   - version: 6.0.1
     date: 2025-09-22
     changes: "Dodano dokumentację synchronizacji na żywo"
@@ -383,6 +386,18 @@ Uwagi i ograniczenia:
 - W CMS każdy słownik ma flagę `live`. Tylko słowniki z `live=true` są pobierane przez API live sync; pozostałe są importowane dynamicznie i pozostają niezmienione w czasie wykonywania.
 - Flaga `live` jest oceniana dla każdego słownika podczas budowania (build time). Jeśli zdalna zawartość nie była oznaczona jako `live=true` podczas budowania (build time), musisz przebudować projekt, aby włączyć Live Sync dla tego słownika.
 - Serwer live sync musi mieć możliwość zapisu do `.intlayer`. W kontenerach upewnij się, że masz dostęp do zapisu do `/.intlayer`.
+
+## Samodzielne hostowanie (Self-Hosting)
+
+Intlayer może działać w całości na Twojej własnej infrastrukturze. Jedna komenda uruchamia pełny stos (panel, API, bazę danych, magazyn obiektów i pocztę e-mail) za pomocą Docker Compose:
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh
+```
+
+Pełny przewodnik konfiguracji, dokumentację zmiennych środowiskowych, instrukcje aktualizacji oraz procedury tworzenia kopii zapasowych i przywracania znajdziesz w [Przewodniku po samodzielnym hostowaniu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/self_hosting.md).
+
+---
 
 ## Debug
 

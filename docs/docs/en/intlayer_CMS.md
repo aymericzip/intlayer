@@ -19,6 +19,9 @@ slugs:
 youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
   - version: 9.0.0
+    date: 2026-06-30
+    changes: "Add Self-Hosting section: Docker Compose bootstrap, service inventory, SDK configuration, optional features, and upgrade notes"
+  - version: 9.0.0
     date: 2026-06-29
     changes: "Add @intlayer/api SDK (createIntlayerCMS) section for programmatic CMS access"
   - version: 6.0.1
@@ -538,6 +541,18 @@ Notes and constraints:
 - In the CMS, each dictionary has a `live` flag. Only dictionaries with `live=true` are fetched via the live sync API; others are imported dynamically and remain unchanged at runtime.
 - The `live` flag is evaluated for each dictionary at build time. If remote content wasn't flagged `live=true` during build, you must rebuild to enable Live Sync for that dictionary.
 - The live sync server must be able to write to `.intlayer`. In containers, ensure write access to `/.intlayer`.
+
+## Self-Hosting
+
+Intlayer can run entirely on your own infrastructure. A one-liner bootstraps the full stack (dashboard, API, database, object storage, and email) with Docker Compose:
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh
+```
+
+For the complete setup guide, environment variable reference, upgrade instructions, and backup/restore procedures, see the [Self-Hosting Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/self_hosting.md).
+
+---
 
 ## Debug
 

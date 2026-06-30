@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-06-30
 title: Intlayer CMS | İçeriğinizi Intlayer CMS'ye Dışa Aktarın
 description: İçeriğinizin yönetimini ekibinize devretmek için içeriğinizi Intlayer CMS'ye dışa aktarın.
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - cms
 youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
+  - version: 9.0.0
+    date: 2026-06-30
+    changes: "Kendi Sunucuda Barındırma bölümü eklendi"
   - version: 6.0.1
     date: 2025-09-22
     changes: "Canlı senkronizasyon dokümantasyonu eklendi"
@@ -371,6 +374,18 @@ Notlar ve kısıtlamalar:
 - CMS'de, her sözlüğün bir `live` bayrağı vardır. Yalnızca `live=true` olan sözlükler live sync API'si aracılığıyla alınır; diğerleri dinamik olarak içe aktarılır ve çalışma zamanında değişmeden kalır.
 - `live` bayrağı her sözlük için build zamanında değerlendirilir. Uzaktaki içerik derleme sırasında `live=true` olarak işaretlenmemişse, o sözlük için Live Sync'i etkinleştirmek üzere yeniden derleme yapmanız gerekir.
 - Live sync sunucusunun `.intlayer` dosyasına yazabilmesi gerekir. Konteynerlerde, `/.intlayer` dosyasına yazma erişiminin olduğundan emin olun.
+
+## Kendi Sunucunuzda Barındırma
+
+Intlayer, tamamen kendi altyapınızda çalışabilir. Tek bir komut, tam yığını (kontrol paneli, API, veritabanı, nesne depolama ve e-posta) Docker Compose ile başlatır:
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh
+```
+
+Tam kurulum kılavuzu, ortam değişkeni referansı, yükseltme talimatları ve yedekleme/geri yükleme prosedürleri için [Kendi Sunucuda Barındırma Kılavuzu'na](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/self_hosting.md) bakınız.
+
+---
 
 ## Hata Ayıklama
 

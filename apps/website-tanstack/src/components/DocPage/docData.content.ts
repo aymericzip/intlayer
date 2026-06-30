@@ -232,6 +232,10 @@ const docDataContent: Dictionary = {
         cms: {
           title: 'CMS',
           default: getDocMetadata('./docs/en/intlayer_CMS.md'),
+          subSection: {
+            title: 'Self-hosting',
+            default: getDocMetadata('./docs/en/self_hosting.md'),
+          },
         },
         'ci-cd': {
           title: t({

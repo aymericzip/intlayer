@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-06-30
 title: Intlayer CMS | Externalisieren Sie Ihre Inhalte in das Intlayer CMS
 description: Externalisieren Sie Ihre Inhalte in das Intlayer CMS, um die Verwaltung Ihrer Inhalte an Ihr Team zu delegieren.
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - cms
 youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
+  - version: 9.0.0
+    date: 2026-06-30
+    changes: "Self-Hosting-Abschnitt hinzugefügt: Docker Compose Bootstrap, Service-Inventar, SDK-Konfiguration, optionale Funktionen und Upgrade-Hinweise"
   - version: 6.0.1
     date: 2025-09-22
     changes: "Live-Sync-Dokumentation hinzugefügt"
@@ -379,6 +382,119 @@ Hinweise und Einschränkungen:
 - Im CMS hat jedes Wörterbuch ein `live`-Flag. Nur Wörterbücher mit `live=true` werden über die Live-Sync-API abgerufen; andere werden dynamisch importiert und bleiben zur Laufzeit unverändert.
 - Das `live`-Flag wird für jedes Wörterbuch zur Build-Zeit ausgewertet. Wenn der entfernte Inhalt während des Builds nicht mit `live=true` gekennzeichnet war, müssen Sie neu bauen, um Live Sync für dieses Wörterbuch zu aktivieren.
 - Der Live-Sync-Server muss in der Lage sein, in `.intlayer` zu schreiben. In Containern stellen Sie sicher, dass Schreibzugriff auf `/.intlayer` besteht.
+
+## Self-Hosting
+
+Intlayer kann vollständig auf Ihrer eigenen Infrastruktur betrieben werden – kein Intlayer Cloud-Konto erforderlich. Ein einziger Befehl bootstrappt den gesamten Stack (Dashboard, API, Datenbank, Objektspeicher und E-Mail) mit Docker Compose:
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh
+```
+
+Dies lädt eine `docker-compose.yml` und eine `.env` herunter, generiert automatisch die erforderlichen Secrets (`BETTER_AUTH_SECRET`, MinIO-Anmeldedaten) und startet alle Container mit `docker compose up -d`. Ein erneutes Ausführen desselben Befehls auf einer bestehenden Installation führt ein Rolling Upgrade ohne Datenverlust durch.
+
+### Gestartete Dienste
+
+| Dienst              | Port(s)                        | Zweck                                       |
+| ------------------- | ------------------------------ | ------------------------------------------- |
+| **app** (Dashboard) | `3000`                         | TanStack Start CMS-Oberfläche               |
+| **backend** (API)   | `3100`                         | Fastify REST API                            |
+| **MongoDB 7**       | intern                         | Primäre Datenbank (single-node replica set) |
+| **Redis 7**         | intern                         | Job-Warteschlangen und Caching              |
+| **MinIO**           | `9000` (S3), `9001` (Konsole)  | S3-kompatibler Objektspeicher               |
+| **Mailpit**         | `1025` (SMTP), `8025` (Web-UI) | Lokale transaktionale E-Mail-Senke          |
+
+Chromium (für die Puppeteer-Screenshot-Generierung) ist im Backend-Image gebündelt – kein separater Container erforderlich.
+
+### Ihr Projekt mit einer selbst gehosteten Instanz verbinden
+
+Richten Sie Ihre Intlayer-Konfiguration auf Ihr eigenes Backend und Dashboard statt auf `intlayer.org` aus:
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+
+    /**
+     * URL des selbst gehosteten CMS-Dashboards.
+     * Standard: https://app.intlayer.org
+     */
+    cmsURL: process.env.INTLAYER_CMS_URL, // z.B. http://localhost:3000
+
+    /**
+     * URL der selbst gehosteten Backend-API.
+     * Standard: https://back.intlayer.org
+     */
+    backendURL: process.env.INTLAYER_BACKEND_URL, // z.B. http://localhost:3100
+  },
+};
+
+export default config;
+```
+
+Setzen Sie die passenden Umgebungsvariablen in Ihrem Projekt:
+
+```sh
+INTLAYER_CMS_URL=http://localhost:3000
+INTLAYER_BACKEND_URL=http://localhost:3100
+INTLAYER_CLIENT_ID=<your-client-id>
+INTLAYER_CLIENT_SECRET=<your-client-secret>
+```
+
+Erstellen Sie Zugangsdaten in Ihrem selbst gehosteten Dashboard unter `http://localhost:3000/projects`.
+
+### `@intlayer/api` SDK: auf ein selbst gehostetes Backend verweisen
+
+Bei programmatischer Verwendung des SDK übergeben Sie `backendURL` explizit an `createIntlayerCMS`:
+
+```typescript fileName="cms.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const cms = createIntlayerCMS({
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+    backendURL: process.env.INTLAYER_BACKEND_URL, // http://localhost:3100
+  },
+});
+
+const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
+```
+
+### Optionale Funktionen
+
+Diese Funktionen erfordern externe Konten und funktionieren weiterhin ohne ihre Schlüssel in der selbst gehosteten `.env`:
+
+| Funktion                            | Umgebungsvariable(n)                            |
+| ----------------------------------- | ----------------------------------------------- |
+| KI-Übersetzung / Audit              | `OPENAI_API_KEY`                                |
+| Abrechnung                          | `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, … |
+| GitHub OAuth                        | `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`      |
+| Google OAuth                        | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`      |
+| GitLab / Microsoft / LinkedIn OAuth | `GITLAB_*`, `MICROSOFT_*`, `LINKEDIN_*`         |
+| Transaktionale E-Mail via Resend    | `RESEND_API_KEY` (Standard: Mailpit SMTP)       |
+
+### Datenpersistenz und Upgrades
+
+Drei Docker-Volumes halten alle dauerhaften Daten: `mongo-data`, `redis-data` und `minio-data`. Sie überleben Container-Neustarts und Upgrades. Ein erneutes Ausführen des Installers lädt die neuesten Images herunter und führt ein Rolling `docker compose up -d` durch.
+
+Auf dem Host verfügbare Ports:
+
+| Port   | Dienst                                              |
+| ------ | --------------------------------------------------- |
+| `3000` | Dashboard                                           |
+| `3100` | Backend-API                                         |
+| `8025` | Mailpit E-Mail-Web-UI                               |
+| `9000` | MinIO S3 API (erforderlich für Browser-Asset-Laden) |
+| `9001` | MinIO-Konsole                                       |
+
+Eine vollständige Referenz aller verfügbaren Umgebungsvariablen und erweiterten Optionen (Reverse Proxy, benutzerdefinierte Domains, Sicherung/Wiederherstellung) finden Sie im [Self-Hosting-Leitfaden](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/self_hosting.md).
+
+---
 
 ## Debug
 

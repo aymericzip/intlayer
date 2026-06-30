@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-06-30
 title: Intlayer CMS | Externalisez votre contenu dans le CMS Intlayer
 description: Externalisez votre contenu dans le CMS Intlayer pour déléguer la gestion de votre contenu à votre équipe.
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - cms
 youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
+  - version: 9.0.0
+    date: 2026-06-30
+    changes: "Ajout de la section Auto-hébergement : bootstrap Docker Compose, inventaire des services, configuration SDK, fonctionnalités optionnelles et notes de mise à niveau"
   - version: 6.0.1
     date: 2025-09-22
     changes: "Ajout de la documentation sur la synchronisation en direct"
@@ -379,6 +382,119 @@ Notes et contraintes :
 - Dans le CMS, chaque dictionnaire possède un indicateur `live`. Seuls les dictionnaires avec `live=true` sont récupérés via l'API de synchronisation en direct ; les autres sont importés dynamiquement et restent inchangés à l'exécution.
 - L'indicateur `live` est évalué pour chaque dictionnaire au moment de la compilation. Si le contenu distant n'était pas marqué `live=true` lors de la compilation, vous devez recompiler pour activer la synchronisation en direct pour ce dictionnaire.
 - Le serveur de synchronisation en direct doit pouvoir écrire dans `.intlayer`. Dans les conteneurs, assurez-vous d'avoir un accès en écriture à `/.intlayer`.
+
+## Auto-hébergement
+
+Intlayer peut fonctionner entièrement sur votre propre infrastructure — aucun compte Intlayer Cloud requis. Une seule commande amorce l'ensemble de la pile (tableau de bord, API, base de données, stockage d'objets et e-mail) avec Docker Compose :
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh
+```
+
+Cela télécharge un `docker-compose.yml` et un `.env`, génère automatiquement les secrets requis (`BETTER_AUTH_SECRET`, identifiants MinIO) et démarre tous les conteneurs avec `docker compose up -d`. Relancer la même commande sur une installation existante effectue une mise à niveau progressive sans perte de données.
+
+### Services démarrés
+
+| Service                   | Port(s)                               | Objectif                                           |
+| ------------------------- | ------------------------------------- | -------------------------------------------------- |
+| **app** (tableau de bord) | `3000`                                | Interface CMS TanStack Start                       |
+| **backend** (API)         | `3100`                                | API REST Fastify                                   |
+| **MongoDB 7**             | interne                               | Base de données principale (replica set mono-nœud) |
+| **Redis 7**               | interne                               | Files d'attente de tâches et mise en cache         |
+| **MinIO**                 | `9000` (S3), `9001` (console)         | Stockage d'objets compatible S3                    |
+| **Mailpit**               | `1025` (SMTP), `8025` (interface web) | Puits d'e-mails transactionnels local              |
+
+Chromium (pour la génération de captures d'écran Puppeteer) est intégré dans l'image du backend — aucun conteneur séparé n'est nécessaire.
+
+### Connecter votre projet à une instance auto-hébergée
+
+Pointez votre configuration Intlayer vers votre propre backend et tableau de bord au lieu de `intlayer.org` :
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+
+    /**
+     * URL du tableau de bord CMS auto-hébergé.
+     * Par défaut : https://app.intlayer.org
+     */
+    cmsURL: process.env.INTLAYER_CMS_URL, // ex. http://localhost:3000
+
+    /**
+     * URL de l'API backend auto-hébergée.
+     * Par défaut : https://back.intlayer.org
+     */
+    backendURL: process.env.INTLAYER_BACKEND_URL, // ex. http://localhost:3100
+  },
+};
+
+export default config;
+```
+
+Définissez les variables d'environnement correspondantes dans votre projet :
+
+```sh
+INTLAYER_CMS_URL=http://localhost:3000
+INTLAYER_BACKEND_URL=http://localhost:3100
+INTLAYER_CLIENT_ID=<your-client-id>
+INTLAYER_CLIENT_SECRET=<your-client-secret>
+```
+
+Créez des identifiants d'accès dans votre tableau de bord auto-hébergé à `http://localhost:3000/projects`.
+
+### SDK `@intlayer/api` : pointer vers un backend auto-hébergé
+
+Lors de l'utilisation du SDK de manière programmatique, passez `backendURL` explicitement à `createIntlayerCMS` :
+
+```typescript fileName="cms.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const cms = createIntlayerCMS({
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+    backendURL: process.env.INTLAYER_BACKEND_URL, // http://localhost:3100
+  },
+});
+
+const { data: dictionaries } = await dictionaryEndpoint(cms).getDictionaries();
+```
+
+### Fonctionnalités optionnelles
+
+Ces fonctionnalités nécessitent des comptes externes et fonctionnent normalement même sans leurs clés dans le fichier `.env` auto-hébergé :
+
+| Fonctionnalité                      | Variable(s) d'environnement                     |
+| ----------------------------------- | ----------------------------------------------- |
+| Traduction / audit par IA           | `OPENAI_API_KEY`                                |
+| Facturation                         | `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, … |
+| OAuth GitHub                        | `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`      |
+| OAuth Google                        | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`      |
+| OAuth GitLab / Microsoft / LinkedIn | `GITLAB_*`, `MICROSOFT_*`, `LINKEDIN_*`         |
+| E-mail transactionnel via Resend    | `RESEND_API_KEY` (par défaut : Mailpit SMTP)    |
+
+### Persistance des données et mises à niveau
+
+Trois volumes Docker contiennent tout l'état persistant : `mongo-data`, `redis-data` et `minio-data`. Ils survivent aux redémarrages et aux mises à niveau des conteneurs. Relancer le programme d'installation télécharge les dernières images et effectue un `docker compose up -d` progressif.
+
+Ports exposés sur l'hôte :
+
+| Port   | Service                                                                 |
+| ------ | ----------------------------------------------------------------------- |
+| `3000` | Tableau de bord                                                         |
+| `3100` | API Backend                                                             |
+| `8025` | Interface web Mailpit                                                   |
+| `9000` | API S3 MinIO (requise pour le chargement des assets dans le navigateur) |
+| `9001` | Console MinIO                                                           |
+
+Pour une référence complète de toutes les variables d'environnement disponibles et des options avancées (proxy inverse, domaines personnalisés, sauvegarde/restauration), consultez le [Guide d'auto-hébergement](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/self_hosting.md).
+
+---
 
 ## Débogage
 

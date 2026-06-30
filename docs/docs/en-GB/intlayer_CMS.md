@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2025-08-23
+updatedAt: 2026-06-30
 title: Intlayer CMS | Externalise your content into the Intlayer CMS
 description: Externalise your content into the Intlayer CMS to delegate the management of your content to your team.
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - cms
 youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
+  - version: 9.0.0
+    date: 2026-06-30
+    changes: "Add Self-Hosting section"
   - version: 6.0.1
     date: 2025-09-22
     changes: "Add live sync documentation"
@@ -372,6 +375,18 @@ Notes and constraints:
 - In the CMS, each dictionary has a `live` flag. Only dictionaries with `live=true` are fetched via the live sync API; others are imported dynamically and remain unchanged at runtime.
 - The `live` flag is evaluated for each dictionary at build time. If remote content was not flagged `live=true` during build, you must rebuild to enable Live Sync for that dictionary.
 - The live sync server must be able to write to `.intlayer`. In containers, ensure write access to `/.intlayer`.
+
+## Self-Hosting
+
+Intlayer can run entirely on your own infrastructure. A one-liner bootstraps the full stack (dashboard, API, database, object storage, and email) with Docker Compose:
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh
+```
+
+For the complete setup guide, environment variable reference, upgrade instructions, and backup/restore procedures, see the [Self-Hosting Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/self_hosting.md).
+
+---
 
 ## Debug
 
