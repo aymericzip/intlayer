@@ -61,6 +61,8 @@ function AskResetPasswordPage() {
         <Container
           className="w-full max-w-md justify-center gap-16 p-10 text-2xl"
           padding="xl"
+          border
+          borderColor="neutral"
           roundedSize="2xl"
           transparency="xs"
         >
