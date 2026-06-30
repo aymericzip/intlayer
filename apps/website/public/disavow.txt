@@ -1,3 +1,13 @@
+domain:seoloot.shop
+domain:v4rimw.asia
+domain:seotrove.shop
+domain:seolinkkart.shop
+domain:fgxzvge.info
+domain:seocartly.shop
+domain:linkstockly.shop
+domain:seostock.shop
+domain:link-baron-wiki-leading-system.store
+
 domain:seocrate.shop
 domain:n6zt.info
 domain:q1hm4c.asia
