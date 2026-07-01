@@ -12,6 +12,8 @@ import type {
   SelectOrganizationResult,
   UnselectOrganizationResult,
   UpdateOrganizationBody,
+  UpdateOrganizationMailerConfigBody,
+  UpdateOrganizationMailerConfigResult,
   UpdateOrganizationMembersBody,
   UpdateOrganizationMembersResult,
   UpdateOrganizationResult,
@@ -95,6 +97,25 @@ export const getOrganizationAPI = (
       {
         method: 'PUT',
         body: organization,
+      }
+    );
+
+  /**
+   * Updates the per-organization transactional mailer configuration.
+   * @param body - Mailer configuration. Secrets are optional; omit to keep the
+   *   value already stored.
+   */
+  const updateOrganizationMailerConfig = async (
+    body: UpdateOrganizationMailerConfigBody,
+    otherOptions: FetcherOptions = {}
+  ) =>
+    fetcher<UpdateOrganizationMailerConfigResult>(
+      `${ORGANIZATION_API_ROUTE}/mailer-config`,
+      authAPIOptions,
+      otherOptions,
+      {
+        method: 'PUT',
+        body,
       }
     );
 
@@ -220,6 +241,7 @@ export const getOrganizationAPI = (
     addOrganization,
     addOrganizationMember,
     updateOrganization,
+    updateOrganizationMailerConfig,
     updateOrganizationMembers,
     updateOrganizationMembersById,
     deleteOrganization,

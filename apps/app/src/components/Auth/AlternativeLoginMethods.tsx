@@ -1,6 +1,7 @@
 import { Button } from '@intlayer/design-system/button';
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { IS_SELF_HOSTED } from '#utils/selfHosted.ts';
 import { ExternalsLoginButtons } from './ExternalsLoginButtons';
 import { MagicLinkButton } from './MagicLinkButton';
 import { PasskeyButton } from './PassKeyButton';
@@ -33,7 +34,9 @@ export const AlternativeLoginMethods: FC<AlternativeLoginMethodsProps> = ({
         <MagicLinkButton email={email} className={showAll ? '' : 'hidden!'} />
       </div>
 
-      <ExternalsLoginButtons showAll={showAll} onLogin={onLogin} />
+      {!IS_SELF_HOSTED && (
+        <ExternalsLoginButtons showAll={showAll} onLogin={onLogin} />
+      )}
 
       <Button
         variant="link"

@@ -1,4 +1,6 @@
 import { OrganizationModel } from '@schemas/organization.schema';
+import { encryptSecret } from '@utils/crypto/encryption';
+import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { GenericError } from '@utils/errors';
 import type { OrganizationFilters } from '@utils/filtersAndPagination/getOrganizationFiltersAndPagination';
 import {
@@ -11,6 +13,8 @@ import type {
   OrganizationAPI,
   OrganizationCreationData,
   OrganizationDocument,
+  OrganizationMailerConfig,
+  OrganizationMailerConfigInput,
 } from '@/types/organization.types';
 import type { Plan, PlanDocument } from '@/types/plan.types';
 
@@ -124,6 +128,77 @@ export const updateOrganizationById = async (
   const result = await OrganizationModel.updateOne(
     { _id: organizationId },
     organization
+  );
+
+  if (result.matchedCount === 0) {
+    throw new GenericError('ORGANIZATION_UPDATE_FAILED', { organizationId });
+  }
+
+  return await getOrganizationById(organizationId);
+};
+
+/**
+ * Merges an incoming mailer configuration with the one already stored,
+ * encrypting any newly-provided secrets.
+ *
+ * Secrets that are omitted or empty in the input are preserved from the
+ * existing configuration, so the dashboard never has to send them back.
+ *
+ * @param input - The incoming (plaintext) mailer configuration.
+ * @param existing - The mailer configuration currently stored, if any.
+ * @returns The mailer configuration to persist, with secrets encrypted.
+ */
+const buildMailerConfigToStore = (
+  input: OrganizationMailerConfigInput,
+  existing?: OrganizationMailerConfig
+): OrganizationMailerConfig => {
+  const incomingApiKey = input.resend?.apiKey?.trim();
+  const incomingPassword = input.smtp?.password?.trim();
+
+  return {
+    isActive: input.isActive,
+    provider: input.provider,
+    fromName: input.fromName?.trim() || undefined,
+    fromEmail: input.fromEmail?.trim() || undefined,
+    resend: {
+      apiKey: incomingApiKey
+        ? encryptSecret(incomingApiKey)
+        : existing?.resend?.apiKey,
+    },
+    smtp: {
+      host: input.smtp?.host?.trim() || undefined,
+      port: input.smtp?.port,
+      secure: input.smtp?.secure,
+      user: input.smtp?.user?.trim() || undefined,
+      password: incomingPassword
+        ? encryptSecret(incomingPassword)
+        : existing?.smtp?.password,
+    },
+  };
+};
+
+/**
+ * Updates the per-organization mailer configuration.
+ *
+ * @param organizationId - The ID of the organization to update.
+ * @param input - The incoming (plaintext) mailer configuration.
+ * @returns The updated organization.
+ */
+export const updateOrganizationMailerConfig = async (
+  organizationId: string | Types.ObjectId,
+  input: OrganizationMailerConfigInput
+): Promise<OrganizationDocument> => {
+  const organization = await getOrganizationById(organizationId);
+
+  const existing = ensureMongoDocumentToObject(organization).mailerConfig as
+    | OrganizationMailerConfig
+    | undefined;
+
+  const mailerConfig = buildMailerConfigToStore(input, existing);
+
+  const result = await OrganizationModel.updateOne(
+    { _id: organizationId },
+    { $set: { mailerConfig } }
   );
 
   if (result.matchedCount === 0) {

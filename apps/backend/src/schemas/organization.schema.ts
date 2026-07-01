@@ -45,6 +45,43 @@ export const organizationSchema = new Schema<OrganizationSchema>(
     domain: {
       type: String,
     },
+    mailerConfig: {
+      type: new Schema(
+        {
+          isActive: { type: Boolean, default: false },
+          provider: {
+            type: String,
+            enum: ['resend', 'smtp'],
+            default: 'resend',
+          },
+          fromName: { type: String },
+          fromEmail: { type: String },
+          resend: {
+            type: new Schema(
+              {
+                // Stored encrypted (see @utils/crypto/encryption)
+                apiKey: { type: String },
+              },
+              { _id: false }
+            ),
+          },
+          smtp: {
+            type: new Schema(
+              {
+                host: { type: String },
+                port: { type: Number },
+                secure: { type: Boolean, default: false },
+                user: { type: String },
+                // Stored encrypted (see @utils/crypto/encryption)
+                password: { type: String },
+              },
+              { _id: false }
+            ),
+          },
+        },
+        { _id: false }
+      ),
+    },
   },
   {
     timestamps: true,

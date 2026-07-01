@@ -21,7 +21,8 @@ export const addNewAccessKey = async (
   request: FastifyRequest<{ Body: AddNewAccessKeyBody }>,
   reply: FastifyReply
 ): Promise<void> => {
-  const { user, project, roles, permissions } = request.session || {};
+  const { user, project, organization, roles, permissions } =
+    request.session || {};
   const { grants, name, expiresAt, allowedEnvironmentIds, allowedLocales } =
     request.body;
 
@@ -113,6 +114,7 @@ export const addNewAccessKey = async (
     sendEmail({
       type: 'oAuthTokenCreated',
       to: user.email,
+      organizationId: organization?.id,
       username: user.name,
       applicationName: newAccessKey.name ?? newAccessKey.clientId,
       scopes: newAccessKey.grants,

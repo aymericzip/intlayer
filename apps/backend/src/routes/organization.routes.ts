@@ -7,6 +7,7 @@ import {
   selectOrganization,
   unselectOrganization,
   updateOrganization,
+  updateOrganizationMailerConfig,
   updateOrganizationMembers,
   updateOrganizationMembersById,
 } from '@controllers/organization.controller';
@@ -33,7 +34,11 @@ export const getOrganizationRoutes = () =>
     updateOrganization: {
       urlModel: '/',
       url: baseURL(),
-
+      method: 'PUT',
+    },
+    updateOrganizationMailerConfig: {
+      urlModel: '/mailer-config',
+      url: `${baseURL()}/mailer-config`,
       method: 'PUT',
     },
     updateOrganizationMembers: {
@@ -88,6 +93,10 @@ export const organizationRouter = async (fastify: FastifyInstance) => {
   fastify.put(
     getOrganizationRoutes().updateOrganization.urlModel,
     updateOrganization
+  );
+  fastify.put(
+    getOrganizationRoutes().updateOrganizationMailerConfig.urlModel,
+    updateOrganizationMailerConfig
   );
   fastify.put(
     getOrganizationRoutes().updateOrganizationMembers.urlModel,

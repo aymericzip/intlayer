@@ -7,6 +7,7 @@ import { type FC, Suspense, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { IS_SELF_HOSTED } from '#utils/selfHosted';
 import { DeleteOrganizationModal } from './DeleteOrganizationModal';
+import { MailerSettings } from './Mailer';
 import { MembersForm } from './Members/MembersForm';
 import { NoOrganizationView } from './NoOrganizationView';
 import { OrganizationCreationForm } from './OrganizationCreationForm';
@@ -60,6 +61,15 @@ const OrganizationFormContent: FC = () => {
               className="flex size-full justify-center"
             >
               <SSOSettings />
+            </Container>
+            <Container
+              roundedSize="3xl"
+              padding="md"
+              border
+              borderColor="neutral"
+              className="flex size-full justify-center"
+            >
+              <MailerSettings />
             </Container>
           </div>
           <div className="top-20 mb-auto flex min-w-0 flex-col gap-4 md:sticky">

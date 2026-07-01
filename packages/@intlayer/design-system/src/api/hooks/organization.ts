@@ -6,6 +6,7 @@ import type {
   GetOrganizationsParams,
   SelectOrganizationParam,
   UpdateOrganizationBody,
+  UpdateOrganizationMailerConfigBody,
   UpdateOrganizationMembersBody,
 } from '@intlayer/backend';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -44,6 +45,19 @@ export const useUpdateOrganization = () => {
     mutationKey: ['organizations'],
     mutationFn: (args: UpdateOrganizationBody) =>
       organizationAPI.updateOrganization(args),
+  });
+};
+
+export const useUpdateOrganizationMailerConfig = () => {
+  const organizationAPI = useOrganizationAPI();
+
+  return useMutation({
+    mutationKey: ['organizations'],
+    mutationFn: (args: UpdateOrganizationMailerConfigBody) =>
+      organizationAPI.updateOrganizationMailerConfig(args),
+    meta: {
+      invalidateQueries: [['organizations'], ['session']],
+    },
   });
 };
 

@@ -30,6 +30,7 @@ import type {
   Organization,
   OrganizationAPI,
   OrganizationCreationData,
+  OrganizationMailerConfigInput,
 } from '@/types/organization.types';
 import type { User, UserAPI } from '@/types/user.types';
 
@@ -316,6 +317,86 @@ export const updateOrganization = async (
   }
 };
 
+export type UpdateOrganizationMailerConfigBody = OrganizationMailerConfigInput;
+export type UpdateOrganizationMailerConfigResult =
+  ResponseData<OrganizationAPI>;
+
+/**
+ * Updates the per-organization transactional mailer configuration.
+ *
+ * Requires organization admin rights. Secrets are encrypted before storage and
+ * never returned to the client (see `mapOrganizationToAPI`).
+ */
+export const updateOrganizationMailerConfig = async (
+  request: FastifyRequest<{ Body: UpdateOrganizationMailerConfigBody }>,
+  reply: FastifyReply
+): Promise<void> => {
+  const { organization, roles } = request.session || {};
+  const mailerConfig = request.body;
+
+  if (!organization) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_NOT_DEFINED'
+    );
+  }
+
+  if (!mailerConfig) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'ORGANIZATION_DATA_NOT_FOUND'
+    );
+  }
+
+  if (
+    !hasPermission(
+      roles || [],
+      'organization:admin'
+    )({
+      ...request.session,
+      targetOrganizations: [organization],
+    })
+  ) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
+  }
+
+  try {
+    const updatedOrganization =
+      await organizationService.updateOrganizationMailerConfig(
+        organization.id,
+        mailerConfig
+      );
+
+    const responseData = formatResponse<OrganizationAPI>({
+      message: t({
+        en: 'Mailer configuration updated successfully',
+        'en-GB': 'Mailer configuration updated successfully',
+        fr: 'Configuration du service de messagerie mise à jour avec succès',
+        es: 'Configuración del servicio de correo actualizada con éxito',
+        ru: 'Конфигурация почтового сервиса успешно обновлена',
+        ja: 'メール送信設定が正常に更新されました',
+        ko: '메일러 구성이 성공적으로 업데이트되었습니다',
+        zh: '邮件配置已成功更新',
+        de: 'Mailer-Konfiguration erfolgreich aktualisiert',
+        ar: 'تم تحديث إعدادات البريد بنجاح',
+        it: 'Configurazione del mailer aggiornata con successo',
+        pt: 'Configuração do mailer atualizada com sucesso',
+        hi: 'मेलर कॉन्फ़िगरेशन सफलतापूर्वक अपडेट किया गया',
+        tr: 'Posta yapılandırması başarıyla güncellendi',
+        pl: 'Konfiguracja poczty została pomyślnie zaktualizowana',
+        id: 'Konfigurasi mailer berhasil diperbarui',
+        vi: 'Cấu hình trình gửi thư đã được cập nhật thành công',
+        uk: 'Конфігурацію поштового сервісу успішно оновлено',
+      }),
+      data: mapOrganizationToAPI(updatedOrganization),
+    });
+
+    return reply.send(responseData);
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
+
 export type AddOrganizationMemberBody = {
   userEmail: string;
 };
@@ -396,6 +477,7 @@ export const addOrganizationMember = async (
     await sendEmail({
       type: 'invite',
       to: userEmail,
+      organizationId: organization.id,
       username: newMember.email.slice(0, newMember.email.indexOf('@')),
       invitedByUsername: user.name,
       invitedByEmail: user.email,

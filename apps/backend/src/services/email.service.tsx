@@ -361,9 +361,18 @@ import {
 } from '@emails/Welcome';
 import type { Locale } from '@intlayer/types/allLocales';
 import { logger } from '@logger';
+import { render } from '@react-email/components';
+import * as organizationService from '@services/organization.service';
+import { decryptSecret } from '@utils/crypto/encryption';
+import { ensureMongoDocumentToObject } from '@utils/ensureMongoDocumentToObject';
 import { t } from 'fastify-intlayer';
-import type { ComponentProps, JSX } from 'react';
+import nodemailer from 'nodemailer';
+import type { ComponentProps, JSX, ReactElement } from 'react';
 import { Resend } from 'resend';
+import type {
+  Organization,
+  OrganizationMailerConfig,
+} from '@/types/organization.types';
 
 type EmailComponentsType = (...props: any) => JSX.Element;
 type EmailComponents = {
@@ -1144,17 +1153,124 @@ export type SendEmailProps<T extends EmailType> = {
   to: string;
   subject?: string;
   locale?: Locale;
+  /**
+   * When provided, the email is sent through this organization's configured
+   * mailer (if active). Falls back to the default Intlayer mailer otherwise.
+   * Only meaningful for org-scoped emails.
+   */
+  organizationId?: string | Organization['id'];
 } & ComponentProps<ReturnType<typeof getEmailComponents>[T]['template']>;
 
+/** Default sender used when no organization mailer overrides it. */
+const DEFAULT_FROM = 'Intlayer <no-reply@intlayer.org>';
+
+/**
+ * Builds the `From` header from a mailer configuration.
+ *
+ * @param mailerConfig - The active organization mailer configuration.
+ * @returns A `Name <email>` or bare email string, or the default sender.
+ */
+const buildFromHeader = (mailerConfig?: OrganizationMailerConfig): string => {
+  if (!mailerConfig?.fromEmail) {
+    return DEFAULT_FROM;
+  }
+
+  return mailerConfig.fromName
+    ? `${mailerConfig.fromName} <${mailerConfig.fromEmail}>`
+    : mailerConfig.fromEmail;
+};
+
+/**
+ * Resolves the active mailer configuration for an organization, with secrets
+ * decrypted and ready to use.
+ *
+ * @param organizationId - The organization to resolve the mailer for.
+ * @returns The decrypted mailer configuration, or `null` to use the default.
+ */
+const resolveOrganizationMailer = async (
+  organizationId: string | Organization['id']
+): Promise<OrganizationMailerConfig | null> => {
+  try {
+    const organization =
+      await organizationService.getOrganizationById(organizationId);
+
+    const mailerConfig = ensureMongoDocumentToObject(organization)
+      .mailerConfig as OrganizationMailerConfig | undefined;
+
+    if (!mailerConfig?.isActive) {
+      return null;
+    }
+
+    return {
+      ...mailerConfig,
+      resend: mailerConfig.resend?.apiKey
+        ? { apiKey: decryptSecret(mailerConfig.resend.apiKey) }
+        : mailerConfig.resend,
+      smtp: mailerConfig.smtp?.password
+        ? {
+            ...mailerConfig.smtp,
+            password: decryptSecret(mailerConfig.smtp.password),
+          }
+        : mailerConfig.smtp,
+    };
+  } catch (error) {
+    logger.error(
+      `Failed to resolve mailer for organization ${String(organizationId)}: ${
+        (error as Error).message
+      }`
+    );
+    return null;
+  }
+};
+
+/**
+ * Sends the email through an organization's SMTP server via nodemailer.
+ *
+ * @param mailerConfig - The active SMTP mailer configuration.
+ * @param params - The rendered email, recipient and subject.
+ */
+const sendViaSmtp = async (
+  mailerConfig: OrganizationMailerConfig,
+  { react, to, subject }: { react: ReactElement; to: string; subject: string }
+): Promise<void> => {
+  const { host, port, secure, user, password } = mailerConfig.smtp ?? {};
+
+  if (!host) {
+    throw new Error('SMTP host is not configured');
+  }
+
+  const transporter = nodemailer.createTransport({
+    host,
+    port: port ?? 587,
+    secure: secure ?? false,
+    auth: user ? { user, pass: password } : undefined,
+  });
+
+  const html = await render(react);
+
+  await transporter.sendMail({
+    from: buildFromHeader(mailerConfig),
+    to,
+    subject,
+    html,
+  });
+};
+
+/**
+ * Sends a transactional email.
+ *
+ * If `organizationId` is provided and that organization has an active mailer
+ * configuration, the email is routed through it (Resend or SMTP). Otherwise the
+ * default Intlayer Resend mailer (from `RESEND_API_KEY`) is used.
+ */
 export const sendEmail = async <T extends EmailType>({
   type,
   to,
   subject,
   locale,
+  organizationId,
   ...props
 }: SendEmailProps<T>) => {
-  const resend = new Resend(process.env.RESEND_API_KEY);
-
   const emailComponents = getEmailComponents(locale);
 
   const { template, subject: baseSubject } = emailComponents[type];
@@ -1164,15 +1280,34 @@ export const sendEmail = async <T extends EmailType>({
   const EmailComponent: EmailComponentType = template;
 
   const react = <EmailComponent {...(props as any)} />;
+  const resolvedSubject = subject ?? baseSubject;
 
-  await resend.emails
-    .send({
-      from: 'Intlayer <no-reply@intlayer.org>',
-      to,
-      subject: subject ?? baseSubject,
-      react,
-    })
-    .catch((err) => logger.error(err));
+  const mailerConfig = organizationId
+    ? await resolveOrganizationMailer(organizationId)
+    : null;
 
-  logger.info(`Email sent ${type} to ${to}`);
+  try {
+    if (mailerConfig?.provider === 'smtp') {
+      await sendViaSmtp(mailerConfig, {
+        react,
+        to,
+        subject: resolvedSubject,
+      });
+    } else {
+      // Resend — either the organization's key or the default one.
+      const apiKey = mailerConfig?.resend?.apiKey ?? process.env.RESEND_API_KEY;
+      const resend = new Resend(apiKey);
+
+      await resend.emails.send({
+        from: buildFromHeader(mailerConfig ?? undefined),
+        to,
+        subject: resolvedSubject,
+        react,
+      });
+    }
+
+    logger.info(`Email sent ${type} to ${to}`);
+  } catch (err) {
+    logger.error(err);
+  }
 };
