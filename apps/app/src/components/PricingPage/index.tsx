@@ -13,8 +13,7 @@ type PricingPageProps = {
 
 export const PricingPage: FC<PricingPageProps> = ({ pricings }) => {
   const [focusedPeriod, setFocusedPeriod] = useState<Period>(Period.Yearly);
-  const { title, period, periodSwitchLabel, description } =
-    useIntlayer('pricing');
+  const { title, periodSwitchLabel, description } = useIntlayer('pricing');
 
   return (
     <div className="m-auto w-full max-w-full">

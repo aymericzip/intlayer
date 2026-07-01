@@ -339,8 +339,7 @@ export const WithResizer: FC<PropsWithChildren<WithResizerProps>> = ({
     <div
       className={cn(
         'relative size-full max-w-[80%] shrink-0',
-        style &&
-          (handlePosition === 'right' ? 'border-r-[2px]' : 'border-l-[2px]'),
+        style && (handlePosition === 'right' ? 'border-r-2' : 'border-l-2'),
         style &&
           'border-neutral-200 transition active:border-neutral-400 dark:border-neutral-950 dark:active:border-neutral-600',
         minWidth && `min-w-[${minWidth}px]`,

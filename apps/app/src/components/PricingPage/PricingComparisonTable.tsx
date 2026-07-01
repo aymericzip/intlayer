@@ -22,7 +22,7 @@ type Category = {
 };
 
 const CheckIcon: FC = () => (
-  <span className="inline-flex items-center justify-center rounded-full border-[2px] border-lime-300 p-0.5 text-lime-800 dark:border-lime-900 dark:text-lime-600">
+  <span className="inline-flex items-center justify-center rounded-full border-2 border-lime-300 p-0.5 text-lime-800 dark:border-lime-900 dark:text-lime-600">
     <Check className="size-3" />
   </span>
 );
