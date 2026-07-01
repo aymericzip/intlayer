@@ -24,6 +24,14 @@ import {
 import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
+import { IS_SELF_HOSTED } from '#utils/selfHosted';
+
+/** Admin tabs backed by cloud-only (monetization) features. */
+const SELF_HOSTED_HIDDEN_KEYS = new Set([
+  'affiliate',
+  'promo-code',
+  'reviewers',
+]);
 
 type AdminTabBarProps = {
   className?: string;
@@ -83,7 +91,9 @@ export const AdminTabBar: FC<AdminTabBarProps> = ({ className }) => {
       label: (navigation.management as any).reviewers.label.value,
       title: (navigation.management as any).reviewers.title,
     },
-  ];
+  ].filter(
+    (item) => !(IS_SELF_HOSTED && SELF_HOSTED_HIDDEN_KEYS.has(item.key))
+  );
 
   const isActiveRoute = (href: string) => {
     return getPathWithoutLocale(pathname).startsWith(href);

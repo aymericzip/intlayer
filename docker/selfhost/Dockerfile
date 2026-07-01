@@ -88,10 +88,13 @@ ARG VITE_BACKEND_URL=http://localhost:3100
 ARG VITE_DOMAIN=localhost
 ARG VITE_SITE_URL=http://localhost:3000
 ARG VITE_IDE_URL=http://localhost:3000
+# Self-hosted mode: strips billing, monetization and analytics from the bundle.
+ARG VITE_SELF_HOSTED=true
 ENV VITE_BACKEND_URL=${VITE_BACKEND_URL}
 ENV VITE_DOMAIN=${VITE_DOMAIN}
 ENV VITE_SITE_URL=${VITE_SITE_URL}
 ENV VITE_IDE_URL=${VITE_IDE_URL}
+ENV VITE_SELF_HOSTED=${VITE_SELF_HOSTED}
 
 COPY \
     --exclude=packages/@intlayer/doc \
@@ -202,6 +205,7 @@ ENV PUPPETEER_CACHE_DIR=/root/.cache/puppeteer
 
 # ---- Runtime configuration (override at `docker run` with -e) ----------------
 ENV NODE_ENV=production \
+    SELF_HOSTED=true \
     DOMAIN=localhost \
     APP_URL=http://localhost:3000 \
     BACKEND_URL=http://localhost:3100 \

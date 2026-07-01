@@ -11,8 +11,10 @@ import { useLocale } from 'react-intlayer';
 import { AffiliatePage } from '#components/AffiliatePage';
 import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/AuthenticationBarrier';
 import { BackgroundLayout } from '#components/BackgroundLayout';
+import { redirectIfSelfHosted } from '#utils/selfHosted';
 
 export const Route = createFileRoute('/{-$locale}/_other/affiliation/')({
+  beforeLoad: ({ params }) => redirectIfSelfHosted(params.locale),
   component: AffiliateDashboardPage,
   head: ({ params }) => {
     const { locale } = params;

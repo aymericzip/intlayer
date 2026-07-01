@@ -61,6 +61,7 @@ import { startTranslationWorker } from '@services/translationWorker.service';
 // Utils
 import { initializeAuth } from '@utils/auth/getAuth';
 import { corsOptions } from '@utils/cors';
+import { isSelfHosted } from '@utils/isSelfHosted';
 import { connectDB } from '@utils/mongoDB/connectDB';
 import { ipLimiter } from '@utils/rateLimiter';
 import { connectRedis } from '@utils/redis/connectRedis';
@@ -129,28 +130,30 @@ const startServer = async () => {
   processAuditJobs().catch((err) => logger.error(err));
 
   // Stripe webhook (needs raw body)
-  // Register as an async plugin to prevent Fastify load errors
-  await app.register(async (stripeScope) => {
-    stripeScope.addContentTypeParser(
-      'application/json',
-      { parseAs: 'buffer' },
-      (request, body, done) => {
-        // Attach the raw buffer to the Fastify request for Stripe
-        (request as any).rawBody = body;
+  // Register as an async plugin to prevent Fastify load errors.
+  // Skipped in self-hosted mode where all billing is disabled.
+  if (!isSelfHosted())
+    await app.register(async (stripeScope) => {
+      stripeScope.addContentTypeParser(
+        'application/json',
+        { parseAs: 'buffer' },
+        (request, body, done) => {
+          // Attach the raw buffer to the Fastify request for Stripe
+          (request as any).rawBody = body;
 
-        // Parse the body to JSON so request.body behaves normally
-        try {
-          done(null, JSON.parse(body.toString()));
-        } catch (err) {
-          done(err as Error, undefined);
+          // Parse the body to JSON so request.body behaves normally
+          try {
+            done(null, JSON.parse(body.toString()));
+          } catch (err) {
+            done(err as Error, undefined);
+          }
         }
-      }
-    );
+      );
 
-    stripeScope.post('/webhook/stripe', async (request, reply) => {
-      await stripeWebhook(request, reply);
+      stripeScope.post('/webhook/stripe', async (request, reply) => {
+        await stripeWebhook(request, reply);
+      });
     });
-  });
 
   // Liveness check
   app.get('/', async (_request, reply) => {
@@ -254,7 +257,7 @@ const startServer = async () => {
   // Register auth middleware as a hook
   app.addHook('onRequest', authMiddleware(auth));
 
-  // // oAuth2 Auth
+  // oAuth2 Auth
   app.addHook('onRequest', attachOAuthInstance);
   app.post('/oauth2/token', getOAuth2AccessToken); // Route to get the token
   app.post('/oauth2/token/extend', extendOAuth2Token); // Route to extend an active token
@@ -295,7 +298,6 @@ const startServer = async () => {
   await app.register(environmentRouter, { prefix: environmentRoute });
   await app.register(tagRouter, { prefix: tagRoute });
   await app.register(dictionaryRouter, { prefix: dictionaryRoute });
-  await app.register(stripeRouter, { prefix: stripeRoute });
   await app.register(aiRouter, { prefix: aiRoute });
   await app.register(eventListenerRouter, { prefix: eventListenerRoute });
   await app.register(searchRouter, { prefix: searchRoute });
@@ -304,12 +306,16 @@ const startServer = async () => {
   await app.register(gitlabRouter, { prefix: gitlabRoute });
   await app.register(bitbucketRouter, { prefix: bitbucketRoute });
   await app.register(translationRouter, { prefix: translateRoute });
-  await app.register(reviewerRouter, { prefix: reviewerRoute });
-  await app.register(showcaseProjectRouter, { prefix: showcaseProjectRoute });
   await app.register(auditRouter, { prefix: auditRoute });
-  await app.register(demoRouter, { prefix: demoRoute });
-  await app.register(blogCommentRouter, { prefix: blogCommentRoute });
   await app.register(assetRouter, { prefix: assetRoute });
+
+  if (!isSelfHosted()) {
+    await app.register(stripeRouter, { prefix: stripeRoute });
+    await app.register(reviewerRouter, { prefix: reviewerRoute });
+    await app.register(showcaseProjectRouter, { prefix: showcaseProjectRoute });
+    await app.register(demoRouter, { prefix: demoRoute });
+    await app.register(blogCommentRouter, { prefix: blogCommentRoute });
+  }
 
   // Server
   await app.listen({

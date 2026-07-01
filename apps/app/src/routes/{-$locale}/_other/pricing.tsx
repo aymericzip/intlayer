@@ -19,6 +19,7 @@ import { Suspense } from 'react';
 import { BackgroundLayout } from '#components/BackgroundLayout';
 import { PricingPage as PricingPageContent } from '#components/PricingPage';
 import { PricingSkeleton } from '#components/PricingPage/PricingSkeleton';
+import { redirectIfSelfHosted } from '#utils/selfHosted';
 import { formatStructuredDataOffers, getPricingData } from '#utils/stripe';
 
 type PricingSearch = {
@@ -27,6 +28,7 @@ type PricingSearch = {
 };
 
 export const Route = createFileRoute('/{-$locale}/_other/pricing')({
+  beforeLoad: ({ params }) => redirectIfSelfHosted(params.locale),
   loader: async () => {
     const pricingData = await getPricingData();
     return { pricingData };

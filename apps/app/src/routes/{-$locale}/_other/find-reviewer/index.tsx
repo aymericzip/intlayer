@@ -7,8 +7,10 @@ import {
   localeMap,
 } from 'intlayer';
 import { ReviewerMarketplacePage } from '#components/ReviewerMarketplacePage';
+import { redirectIfSelfHosted } from '#utils/selfHosted';
 
 export const Route = createFileRoute('/{-$locale}/_other/find-reviewer/')({
+  beforeLoad: ({ params }) => redirectIfSelfHosted(params.locale),
   component: MarketplacePage,
   head: ({ params }) => {
     const { locale } = params;

@@ -26,6 +26,10 @@ import {
 } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import { generateSitemap, type SitemapUrlEntry } from 'intlayer';
+import { IS_SELF_HOSTED } from '#utils/selfHosted';
+
+/** Cloud-only paths excluded from the sitemap on self-hosted instances. */
+const SELF_HOSTED_HIDDEN_PATHS = new Set<string>([App_Pricing_Path]);
 
 const siteUrl = (
   import.meta.env.VITE_SITE_URL ?? 'https://app.intlayer.org'
@@ -70,7 +74,13 @@ export const Route = createFileRoute('/sitemap.xml')({
   server: {
     handlers: {
       GET: async () => {
-        const sitemap = generateSitemap(sitemapConfig, {
+        const entries = IS_SELF_HOSTED
+          ? sitemapConfig.filter(
+              (entry) => !SELF_HOSTED_HIDDEN_PATHS.has(entry.path)
+            )
+          : sitemapConfig;
+
+        const sitemap = generateSitemap(entries, {
           siteUrl,
         });
 

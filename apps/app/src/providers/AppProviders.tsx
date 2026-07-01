@@ -4,6 +4,7 @@ import type { FC, PropsWithChildren } from 'react';
 import { AppInstallModal } from '#components/AppInstallModal/AppInstallModal';
 import { ChunkErrorListener } from '#components/ChunkErrorListener';
 import { ElectronUpdater } from '#components/ElectronUpdater/ElectronUpdater';
+import { IS_SELF_HOSTED } from '#utils/selfHosted';
 import { AnimatePresenceProvider } from './AnimatePresenceProvider';
 
 export const AppProviders: FC<PropsWithChildren> = ({ children }) => {
@@ -12,7 +13,7 @@ export const AppProviders: FC<PropsWithChildren> = ({ children }) => {
       <ChunkErrorListener />
       <ReactQueryProvider>
         <Toaster />
-        {import.meta.env.VITE_AHREFS_KEY && (
+        {!IS_SELF_HOSTED && import.meta.env.VITE_AHREFS_KEY && (
           <script
             async
             src="https://analytics.ahrefs.com/analytics.js"

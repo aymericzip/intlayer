@@ -54,6 +54,7 @@ import {
 import { type FC, forwardRef, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
+import { IS_SELF_HOSTED } from '#utils/selfHosted';
 import { DashboardSidebarProfile } from './DashboardSidebarProfile';
 import { ReviewerMarketplaceBanner } from './ReviewerMarketplaceBanner';
 
@@ -624,9 +625,11 @@ export const DashboardSidebar: FC<DashboardSidebarProps> = ({
           />
         </nav>
 
-        {!isCollapsed && process.env.NODE_ENV === 'development' && (
-          <ReviewerMarketplaceBanner />
-        )}
+        {!isCollapsed &&
+          !IS_SELF_HOSTED &&
+          process.env.NODE_ENV === 'development' && (
+            <ReviewerMarketplaceBanner />
+          )}
 
         {/* Environment switcher — shown when project has >1 environments */}
         {environments.length > 1 &&

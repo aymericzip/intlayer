@@ -1,6 +1,7 @@
 import { Loader } from '@intlayer/design-system/loader';
 import { type FC, Suspense } from 'react';
 import type { Period, Plans } from '#components/PricingPage/data.content';
+import { IS_SELF_HOSTED } from '#utils/selfHosted';
 import { ConfirmationsStep } from './ConfirmationsStep/ConfirmationsStep';
 import { DefinePasswordStepForm } from './DefinePasswordStep';
 import { PaymentStepForm } from './PaymentStep';
@@ -21,7 +22,13 @@ export const OnboardFlow: FC<SignUpFormProps> = ({ step, plan, period }) => (
     {step === Steps.Password && <DefinePasswordStepForm />}
     {step === Steps.VerifyEmail && <VerifyEmailStepForm />}
     {step === Steps.SetupOrganization && <SetupOrganizationStepForm />}
-    {step === Steps.Payment && <PaymentStepForm plan={plan} period={period} />}
+    {/* Billing is disabled on self-hosted instances → skip the payment step. */}
+    {step === Steps.Payment &&
+      (IS_SELF_HOSTED ? (
+        <ConfirmationsStep />
+      ) : (
+        <PaymentStepForm plan={plan} period={period} />
+      ))}
     {step === Steps.Confirmation && <ConfirmationsStep />}
   </Suspense>
 );

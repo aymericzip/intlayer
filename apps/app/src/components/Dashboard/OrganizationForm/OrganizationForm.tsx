@@ -5,6 +5,7 @@ import { Modal } from '@intlayer/design-system/modal';
 import { Trash, TriangleAlert } from 'lucide-react';
 import { type FC, Suspense, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { IS_SELF_HOSTED } from '#utils/selfHosted';
 import { DeleteOrganizationModal } from './DeleteOrganizationModal';
 import { MembersForm } from './Members/MembersForm';
 import { NoOrganizationView } from './NoOrganizationView';
@@ -40,15 +41,17 @@ const OrganizationFormContent: FC = () => {
             >
               <OrganizationEditionForm />
             </Container>
-            <Container
-              roundedSize="3xl"
-              padding="md"
-              border
-              borderColor="neutral"
-              className="flex size-full justify-center"
-            >
-              <PlanDetails />
-            </Container>
+            {!IS_SELF_HOSTED && (
+              <Container
+                roundedSize="3xl"
+                padding="md"
+                border
+                borderColor="neutral"
+                className="flex size-full justify-center"
+              >
+                <PlanDetails />
+              </Container>
+            )}
             <Container
               roundedSize="3xl"
               padding="md"

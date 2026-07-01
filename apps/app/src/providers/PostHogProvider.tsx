@@ -1,6 +1,7 @@
 import type { PostHogProvider as PostHogProviderType } from '@posthog/react';
 import type { PostHog } from 'posthog-js';
 import { type FC, type ReactNode, useEffect, useState } from 'react';
+import { IS_SELF_HOSTED } from '#utils/selfHosted';
 
 export const PostHogProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [posthogClient, setPosthogClient] = useState<PostHog | undefined>();
@@ -12,7 +13,8 @@ export const PostHogProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const host = import.meta.env.VITE_POSTHOG_HOST;
 
   useEffect(() => {
-    if (!key || !host || !import.meta.env.PROD) return;
+    // Third-party analytics are disabled on self-hosted instances.
+    if (IS_SELF_HOSTED || !key || !host || !import.meta.env.PROD) return;
 
     const initPostHog = async () => {
       const [posthogModule, posthogReactModule] = await Promise.all([

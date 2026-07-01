@@ -6,13 +6,16 @@ import {
   Website_Home,
 } from '@intlayer/design-system/routes';
 import { createServerFn } from '@tanstack/react-start';
+import { IS_SELF_HOSTED } from '#utils/selfHosted';
 
 /**
  * Shared server function that fetches pricing from the backend.
  * Runs only once per request (server-side) and is cached by TanStack Start.
  */
 export const getPricingData = createServerFn().handler(async () => {
+  // No billing on self-hosted instances → no pricing to fetch.
   if (
+    IS_SELF_HOSTED ||
     !process.env.VITE_STRIPE_PUBLISHABLE_KEY ||
     process.env.VITE_STRIPE_PUBLISHABLE_KEY.length === 0
   ) {

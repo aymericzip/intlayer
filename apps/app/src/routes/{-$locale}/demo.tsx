@@ -14,8 +14,10 @@ import { useCallback, useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
 import { sessionQueryOptions } from '#utils/auth';
+import { redirectIfSelfHosted } from '#utils/selfHosted';
 
 export const Route = createFileRoute('/{-$locale}/demo')({
+  beforeLoad: ({ params }) => redirectIfSelfHosted(params.locale),
   component: DemoPage,
 });
 

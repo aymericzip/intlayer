@@ -1,10 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { getIntlayer } from 'intlayer';
 import { ReviewerProfilePage } from '#components/ReviewerProfilePage';
+import { redirectIfSelfHosted } from '#utils/selfHosted';
 
 export const Route = createFileRoute(
   '/{-$locale}/_other/find-reviewer/$reviewerId'
 )({
+  beforeLoad: ({ params }) => redirectIfSelfHosted(params.locale),
   component: ReviewerPage,
   head: ({ params }) => {
     const { locale } = params;

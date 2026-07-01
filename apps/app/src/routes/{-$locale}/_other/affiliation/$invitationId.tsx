@@ -9,6 +9,7 @@ import {
 import { useLocale } from 'react-intlayer';
 import { AffiliateInvitationPage } from '#components/AffiliateInvitationPage';
 import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/AuthenticationBarrier';
+import { redirectIfSelfHosted } from '#utils/selfHosted';
 
 type AffiliationSearch = {
   stripe_return?: string;
@@ -17,6 +18,7 @@ type AffiliationSearch = {
 export const Route = createFileRoute(
   '/{-$locale}/_other/affiliation/$invitationId'
 )({
+  beforeLoad: ({ params }) => redirectIfSelfHosted(params.locale),
   validateSearch: (search: Record<string, unknown>): AffiliationSearch => ({
     stripe_return:
       typeof search.stripe_return === 'string'
