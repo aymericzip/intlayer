@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/lsp",
-  "version": "9.0.0-canary.10",
+  "version": "9.0.0-canary.11",
   "private": false,
   "description": "Intlayer Language Server. Handle LSP to help IDE and AI agent to use Intlayer",
   "keywords": [
