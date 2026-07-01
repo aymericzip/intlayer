@@ -13,9 +13,8 @@
 # ---------------------------------------------------------------------------
 # Stage 1 — backend builder (mirrors apps/backend/Dockerfile build logic)
 # ---------------------------------------------------------------------------
-FROM node:26-alpine AS backend-builder
+FROM oven/bun:1.3.14-alpine AS backend-builder
 
-RUN npm install -g bun@1.3.14
 RUN apk add --no-cache build-base zlib-dev autoconf automake
 
 WORKDIR /workspace
@@ -77,9 +76,8 @@ RUN find . -path "*/src/*" -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.
 # ---------------------------------------------------------------------------
 # Stage 2 — app builder (mirrors apps/app/Dockerfile build logic)
 # ---------------------------------------------------------------------------
-FROM node:26-alpine AS app-builder
+FROM oven/bun:1.3.14-alpine AS app-builder
 
-RUN npm install -g bun@1.3.14
 RUN apk add --no-cache build-base zlib-dev autoconf automake
 
 WORKDIR /workspace
