@@ -76,8 +76,11 @@ RUN find . -path "*/src/*" -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.
 # ---------------------------------------------------------------------------
 # Stage 2 — app builder (mirrors apps/app/Dockerfile build logic)
 # ---------------------------------------------------------------------------
-FROM oven/bun:1.3.14-alpine AS app-builder
+FROM node:26-alpine AS app-builder
 
+# oven/bun base blocks at "Creating an optimized production build" with Vite
+# (https://github.com/oven-sh/bun/issues/17136) — use node + install bun instead.
+RUN npm install -g bun@1.3.14
 RUN apk add --no-cache build-base zlib-dev autoconf automake
 
 WORKDIR /workspace
@@ -129,7 +132,7 @@ COPY \
     --exclude=**/*.stories.* \
     . .
 
-RUN bun install --ignore-scripts
+RUN bun install
 
 RUN bun x turbo run build:ci --filter=./apps/app
 
