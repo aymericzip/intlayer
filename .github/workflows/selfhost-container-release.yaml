@@ -12,7 +12,9 @@ on:
       platforms:
         description: 'Target platforms (comma-separated)'
         required: false
-        default: 'linux/amd64'
+        # amd64 covers Intel Macs, Windows (Docker Desktop/WSL2) and most Linux;
+        # arm64 covers Apple Silicon Macs and Windows-on-ARM.
+        default: 'linux/amd64,linux/arm64'
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
