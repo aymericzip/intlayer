@@ -26,6 +26,7 @@ export const App_Pricing_Path = '/pricing' as const;
 export const App_Affiliation_Path = '/affiliation' as const;
 
 export const App_Demo_Path = '/demo' as const;
+export const App_Init_Path = '/init' as const;
 
 export const App_ReviewerMarketplace_Path = '/find-reviewer' as const;
 export const App_ReviewerMarketplace_Dashboard_Path =

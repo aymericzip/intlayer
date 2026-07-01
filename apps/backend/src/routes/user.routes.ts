@@ -1,6 +1,7 @@
 import {
   createUser,
   deleteUser,
+  getSetupStatus,
   getUserByEmail,
   getUserById,
   getUsers,
@@ -18,6 +19,11 @@ const baseURL = () => `${process.env.BACKEND_URL}${userRoute}`;
 
 export const getUserRoutes = () =>
   ({
+    getSetupStatus: {
+      urlModel: '/setup',
+      url: `${baseURL()}/setup`,
+      method: 'GET',
+    },
     getUsers: {
       urlModel: '/',
       url: baseURL(),
@@ -69,6 +75,7 @@ export const userRouter = async (fastify: FastifyInstance) => {
     (_req, body, done) => done(null, body)
   );
 
+  fastify.get(getUserRoutes().getSetupStatus.urlModel, getSetupStatus);
   fastify.get(getUserRoutes().getUsers.urlModel, getUsers);
   fastify.put(getUserRoutes().updateUser.urlModel, updateUser);
   fastify.post(getUserRoutes().createUser.urlModel, createUser);

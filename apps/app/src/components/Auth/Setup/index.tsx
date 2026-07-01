@@ -1,0 +1,94 @@
+import type { UserAPI } from '@intlayer/backend';
+import { useRegister } from '@intlayer/design-system/api';
+import { usePersistedStore } from '@intlayer/design-system/hooks';
+import { App_Auth_SignIn_Path } from '@intlayer/design-system/routes';
+import { useSearch } from '@tanstack/react-router';
+import { type FC, useRef } from 'react';
+import { useLocalizedNavigate } from '#hooks/useLocalizedNavigate.ts';
+import { SignUpForm as SignUpFormUI } from '../SignUp/SignUpForm/SignUpForm';
+import type { SignUp } from '../SignUp/SignUpForm/useSignUpSchema';
+import { VerifyEmailForm as VerifyEmailFormUI } from '../VerifyEmail';
+
+/**
+ * First-run setup form for self-hosted instances.
+ *
+ * Reuses the standard sign-up UI and registration flow: because the users
+ * collection is empty, the backend promotes this very first account to super
+ * admin (see the `user.create.after` database hook in `getAuth.ts`). The route
+ * that renders this component (`.../auth/init`) is only reachable while the
+ * instance still requires setup; once an admin exists the guard redirects to
+ * the standard sign-in page.
+ */
+export const SetupForm: FC = () => {
+  const navigate = useLocalizedNavigate();
+  const search = useSearch({ strict: false }) as any;
+  const userId = search[''] as string | undefined;
+  const [user, setUser] = usePersistedStore<UserAPI | null>('user', null);
+  const emailInputRef = useRef<HTMLInputElement>(null);
+  const email = search.email ?? undefined;
+
+  const { mutate: register, isPending } = useRegister();
+
+  const handleRegistration = ({ email, password }: SignUp) => {
+    register(
+      {
+        name: email.split('@')[0],
+        email,
+        password,
+        redirect: false,
+      },
+      {
+        onSuccess: (response: any) => {
+          if (response?.data?.user) {
+            setUser(response.data.user);
+          }
+        },
+      }
+    );
+  };
+
+  const getEmailContext = () => {
+    const email = search.email;
+    if (email) {
+      return email;
+    } else {
+      const emailFromInput = emailInputRef.current;
+      return emailFromInput?.value;
+    }
+  };
+
+  const onClickBackToSignIn = () => {
+    const email = getEmailContext();
+
+    if (email) {
+      navigate({ to: App_Auth_SignIn_Path, search: { email } });
+    } else {
+      navigate({ to: App_Auth_SignIn_Path });
+    }
+  };
+
+  const handleEmailValidated = async () => {
+    setUser(null);
+    onClickBackToSignIn();
+  };
+
+  const handleCancel = () => {
+    setUser(null);
+  };
+
+  return user ? (
+    <VerifyEmailFormUI
+      onSubmitSuccess={handleEmailValidated}
+      onCancel={handleCancel}
+      userId={(user?.id ? String(user.id) : undefined) ?? userId}
+    />
+  ) : (
+    <SignUpFormUI
+      onSubmitSuccess={handleRegistration}
+      onClickBackToSignIn={onClickBackToSignIn}
+      emailInputRef={emailInputRef}
+      defaultEmail={email}
+      isLoading={isPending}
+    />
+  );
+};

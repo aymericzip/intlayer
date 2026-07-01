@@ -19,6 +19,7 @@ import { getProjectAPI } from './getIntlayerAPI/project';
 import { getReviewerAPI } from './getIntlayerAPI/reviewer';
 import { getSearchAPI } from './getIntlayerAPI/search';
 import { getShowcaseProjectAPI } from './getIntlayerAPI/showcaseProject';
+import { getStatusAPI } from './getIntlayerAPI/status';
 import { getStripeAPI } from './getIntlayerAPI/stripe';
 import { getTagAPI } from './getIntlayerAPI/tag';
 import { getTranslateAPI } from './getIntlayerAPI/translate';
@@ -60,6 +61,7 @@ const sectionFactories: SectionFactories = {
   showcaseProject: getShowcaseProjectAPI,
   translate: getTranslateAPI,
   reviewer: getReviewerAPI,
+  status: getStatusAPI,
 };
 
 // The OAuth2 token endpoint must never receive an injected Bearer token —

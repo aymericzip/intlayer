@@ -7,6 +7,7 @@ import type {
   GetUserByIdResult,
   GetUsersParams,
   GetUsersResult,
+  ResponseData,
   UpdateUserBody,
   UpdateUserResult,
   UploadUserAvatarResult,
@@ -18,7 +19,7 @@ import { createEndpoint } from '../cms/createIntlayerCMS';
 import { type FetcherOptions, fetcher } from '../fetcher';
 
 type GetUserByAccountParams = { providerAccountId: string; provider: string };
-type GetUserByAccountResult = import('@intlayer/backend').ResponseData<UserAPI>;
+type GetUserByAccountResult = ResponseData<UserAPI>;
 
 export const getUserAPI = (
   authAPIOptions: FetcherOptions = {},

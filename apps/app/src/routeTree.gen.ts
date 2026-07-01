@@ -12,7 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as HealthzRouteImport } from './routes/healthz'
 import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route'
-import { Route as Char123LocaleChar125PageRouteImport } from './routes/{-$locale}/page'
+import { Route as Char123LocaleChar125InitRouteImport } from './routes/{-$locale}/init'
 import { Route as Char123LocaleChar125DemoRouteImport } from './routes/{-$locale}/demo'
 import { Route as Char123LocaleChar125404RouteImport } from './routes/{-$locale}/404'
 import { Route as Char123LocaleChar125SplatRouteImport } from './routes/{-$locale}/$'
@@ -88,10 +88,10 @@ const Char123LocaleChar125RouteRoute =
     path: '/{-$locale}',
     getParentRoute: () => rootRouteImport,
   } as any)
-const Char123LocaleChar125PageRoute =
-  Char123LocaleChar125PageRouteImport.update({
-    id: '/page',
-    path: '/page',
+const Char123LocaleChar125InitRoute =
+  Char123LocaleChar125InitRouteImport.update({
+    id: '/init',
+    path: '/init',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
 const Char123LocaleChar125DemoRoute =
@@ -465,7 +465,7 @@ export interface FileRoutesByFullPath {
   '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
   '/{-$locale}/404': typeof Char123LocaleChar125404Route
   '/{-$locale}/demo': typeof Char123LocaleChar125DemoRoute
-  '/{-$locale}/page': typeof Char123LocaleChar125PageRoute
+  '/{-$locale}/init': typeof Char123LocaleChar125InitRoute
   '/{-$locale}/assets': typeof Char123LocaleChar125DashboardAssetsRoute
   '/{-$locale}/ide': typeof Char123LocaleChar125DashboardIdeRoute
   '/{-$locale}/organization': typeof Char123LocaleChar125DashboardOrganizationRoute
@@ -524,7 +524,7 @@ export interface FileRoutesByTo {
   '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
   '/{-$locale}/404': typeof Char123LocaleChar125404Route
   '/{-$locale}/demo': typeof Char123LocaleChar125DemoRoute
-  '/{-$locale}/page': typeof Char123LocaleChar125PageRoute
+  '/{-$locale}/init': typeof Char123LocaleChar125InitRoute
   '/{-$locale}/assets': typeof Char123LocaleChar125DashboardAssetsRoute
   '/{-$locale}/ide': typeof Char123LocaleChar125DashboardIdeRoute
   '/{-$locale}/organization': typeof Char123LocaleChar125DashboardOrganizationRoute
@@ -579,7 +579,7 @@ export interface FileRoutesById {
   '/{-$locale}/$': typeof Char123LocaleChar125SplatRoute
   '/{-$locale}/404': typeof Char123LocaleChar125404Route
   '/{-$locale}/demo': typeof Char123LocaleChar125DemoRoute
-  '/{-$locale}/page': typeof Char123LocaleChar125PageRoute
+  '/{-$locale}/init': typeof Char123LocaleChar125InitRoute
   '/{-$locale}/_dashboard/_admin': typeof Char123LocaleChar125DashboardAdminRouteRouteWithChildren
   '/{-$locale}/_dashboard/assets': typeof Char123LocaleChar125DashboardAssetsRoute
   '/{-$locale}/_dashboard/ide': typeof Char123LocaleChar125DashboardIdeRoute
@@ -643,7 +643,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/$'
     | '/{-$locale}/404'
     | '/{-$locale}/demo'
-    | '/{-$locale}/page'
+    | '/{-$locale}/init'
     | '/{-$locale}/assets'
     | '/{-$locale}/ide'
     | '/{-$locale}/organization'
@@ -702,7 +702,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/$'
     | '/{-$locale}/404'
     | '/{-$locale}/demo'
-    | '/{-$locale}/page'
+    | '/{-$locale}/init'
     | '/{-$locale}/assets'
     | '/{-$locale}/ide'
     | '/{-$locale}/organization'
@@ -756,7 +756,7 @@ export interface FileRouteTypes {
     | '/{-$locale}/$'
     | '/{-$locale}/404'
     | '/{-$locale}/demo'
-    | '/{-$locale}/page'
+    | '/{-$locale}/init'
     | '/{-$locale}/_dashboard/_admin'
     | '/{-$locale}/_dashboard/assets'
     | '/{-$locale}/_dashboard/ide'
@@ -841,11 +841,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125RouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/{-$locale}/page': {
-      id: '/{-$locale}/page'
-      path: '/page'
-      fullPath: '/{-$locale}/page'
-      preLoaderRoute: typeof Char123LocaleChar125PageRouteImport
+    '/{-$locale}/init': {
+      id: '/{-$locale}/init'
+      path: '/init'
+      fullPath: '/{-$locale}/init'
+      preLoaderRoute: typeof Char123LocaleChar125InitRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
     '/{-$locale}/demo': {
@@ -1566,7 +1566,7 @@ interface Char123LocaleChar125RouteRouteChildren {
   Char123LocaleChar125SplatRoute: typeof Char123LocaleChar125SplatRoute
   Char123LocaleChar125404Route: typeof Char123LocaleChar125404Route
   Char123LocaleChar125DemoRoute: typeof Char123LocaleChar125DemoRoute
-  Char123LocaleChar125PageRoute: typeof Char123LocaleChar125PageRoute
+  Char123LocaleChar125InitRoute: typeof Char123LocaleChar125InitRoute
 }
 
 const Char123LocaleChar125RouteRouteChildren: Char123LocaleChar125RouteRouteChildren =
@@ -1578,7 +1578,7 @@ const Char123LocaleChar125RouteRouteChildren: Char123LocaleChar125RouteRouteChil
     Char123LocaleChar125SplatRoute: Char123LocaleChar125SplatRoute,
     Char123LocaleChar125404Route: Char123LocaleChar125404Route,
     Char123LocaleChar125DemoRoute: Char123LocaleChar125DemoRoute,
-    Char123LocaleChar125PageRoute: Char123LocaleChar125PageRoute,
+    Char123LocaleChar125InitRoute: Char123LocaleChar125InitRoute,
   }
 
 const Char123LocaleChar125RouteRouteWithChildren =

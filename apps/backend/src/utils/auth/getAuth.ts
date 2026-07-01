@@ -10,7 +10,12 @@ import {
   clearZombieSessionContext,
   restoreSessionContext,
 } from '@services/session.service';
-import { getUserById } from '@services/user.service';
+import {
+  countUsers,
+  getUserById,
+  updateUserById,
+} from '@services/user.service';
+import { isSelfHosted } from '@utils/isSelfHosted';
 import { mapOrganizationToAPI } from '@utils/mapper/organization';
 import { mapProjectToAPI } from '@utils/mapper/project';
 import { mapSessionToAPI } from '@utils/mapper/session';
@@ -107,6 +112,22 @@ export const getAuth = (dbClient: MongoClient): Auth => {
         create: {
           // Runs once, immediately after the INSERT
           after: async (user) => {
+            // Self-hosted first-run bootstrap: the very first user created on
+            // an empty instance is promoted to super admin, so a fresh
+            // self-hosted deployment always has an administrator to manage it.
+            // better-auth writes through the raw MongoDB adapter (bypassing the
+            // Mongoose `role` default), so the role is set explicitly here via
+            // the Mongoose service. `countUsers` is 1 right after this insert.
+            if (isSelfHosted()) {
+              const userCount = await countUsers({});
+              if (userCount === 1) {
+                await updateUserById(user.id, { role: 'admin' });
+                logger.info('First user promoted to super admin', {
+                  email: user.email,
+                });
+              }
+            }
+
             if (!user?.emailVerified) return;
 
             await sendEmail({

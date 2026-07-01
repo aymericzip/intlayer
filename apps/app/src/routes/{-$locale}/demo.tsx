@@ -1,3 +1,4 @@
+import { getStatusAPI } from '@intlayer/api/status';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { Loader } from '@intlayer/design-system/loader';
@@ -31,15 +32,11 @@ function DemoPage() {
 
   const switchToDemoSession = useCallback(async () => {
     setIsLoading(true);
-    const backendUrl = import.meta.env.VITE_BACKEND_URL ?? '';
 
     try {
-      const res = await fetch(`${backendUrl}/api/demo/session`, {
-        method: 'GET',
-        credentials: 'include',
-      });
+      const { ok } = await getStatusAPI().getDemoSession();
 
-      if (!res.ok) {
+      if (!ok) {
         throw new Error(content.failedToCreateDemoSession.value);
       }
 

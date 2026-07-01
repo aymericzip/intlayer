@@ -18,6 +18,7 @@ import { getProjectAPI } from './project';
 import { getReviewerAPI } from './reviewer';
 import { getSearchAPI } from './search';
 import { getShowcaseProjectAPI } from './showcaseProject';
+import { getStatusAPI } from './status';
 import { getStripeAPI } from './stripe';
 import { getTagAPI } from './tag';
 import { getTranslateAPI } from './translate';
@@ -44,6 +45,7 @@ interface IntlayerAPIReturn {
   showcaseProject: ReturnType<typeof getShowcaseProjectAPI>;
   translate: ReturnType<typeof getTranslateAPI>;
   reviewer: ReturnType<typeof getReviewerAPI>;
+  status: ReturnType<typeof getStatusAPI>;
 }
 
 export const getIntlayerAPI = (
@@ -75,6 +77,7 @@ export const getIntlayerAPI = (
     showcaseProject: getShowcaseProjectAPI(authAPIOptions, resolvedConfig),
     translate: getTranslateAPI(authAPIOptions, resolvedConfig),
     reviewer: getReviewerAPI(authAPIOptions, resolvedConfig),
+    status: getStatusAPI(authAPIOptions, resolvedConfig),
   };
 };
 

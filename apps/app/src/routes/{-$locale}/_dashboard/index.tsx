@@ -1,7 +1,10 @@
 import type { SessionAPI } from '@intlayer/backend';
 import {
+  App_Auth_SignIn_Path,
   App_Dashboard_Organization_Path,
   App_Dashboard_Projects_Path,
+  App_Demo_Path,
+  App_Init_Path,
 } from '@intlayer/design-system/routes';
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { getIntlayer } from 'intlayer';
@@ -10,6 +13,8 @@ import { AuthenticationBarrier } from '#components/Auth/AuthenticationBarrier/Au
 import { DashboardContentLayout } from '#components/Dashboard/DashboardContentLayout';
 import { DashboardOverview } from '#components/Dashboard/DashboardOverview';
 import { refetchFreshSession, sessionQueryOptions } from '#utils/auth.tsx';
+import { IS_SELF_HOSTED } from '#utils/selfHosted';
+import { setupStatusQueryOptions } from '#utils/setupStatus';
 
 export const Route = createFileRoute('/{-$locale}/_dashboard/')({
   beforeLoad: async ({ context, params }) => {
@@ -37,7 +42,36 @@ export const Route = createFileRoute('/{-$locale}/_dashboard/')({
           params: { locale },
         });
       }
+
+      return;
     }
+
+    // Unauthenticated visitor on the app root. On the hosted cloud, bootstrap a
+    // read-only demo session. On a self-hosted instance, send them to the init
+    // flow when the first super-admin still has to be created, otherwise to the
+    // sign-in page.
+    if (IS_SELF_HOSTED) {
+      const isSetupRequired = await context.queryClient.ensureQueryData(
+        setupStatusQueryOptions
+      );
+
+      if (isSetupRequired) {
+        throw redirect({
+          to: `/{-$locale}${App_Init_Path}`,
+          params: { locale },
+        });
+      }
+
+      throw redirect({
+        to: `/{-$locale}${App_Auth_SignIn_Path}`,
+        params: { locale },
+      });
+    }
+
+    throw redirect({
+      to: `/{-$locale}${App_Demo_Path}`,
+      params: { locale },
+    });
   },
   component: DashboardIndexPage,
   head: ({ params }) => {

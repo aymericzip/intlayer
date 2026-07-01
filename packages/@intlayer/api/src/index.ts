@@ -18,6 +18,7 @@ export * from './getIntlayerAPI/project';
 export * from './getIntlayerAPI/reviewer';
 export * from './getIntlayerAPI/search';
 export * from './getIntlayerAPI/showcaseProject';
+export * from './getIntlayerAPI/status';
 export * from './getIntlayerAPI/stripe';
 export * from './getIntlayerAPI/tag';
 export * from './getIntlayerAPI/translate';

@@ -53,14 +53,6 @@ export const Route = createFileRoute('/{-$locale}/$')({
           },
           search: location.search,
         });
-      } else {
-        throw redirect({
-          to: `/{-$locale}${App_Dashboard_Organization_Path}`,
-          params: {
-            locale: localePrefix,
-          },
-          search: location.search,
-        });
       }
     }
 

@@ -118,6 +118,11 @@
       "require": "./dist/cjs/getIntlayerAPI/showcaseProject.cjs",
       "import": "./dist/esm/getIntlayerAPI/showcaseProject.mjs"
     },
+    "./status": {
+      "types": "./dist/types/getIntlayerAPI/status.d.ts",
+      "require": "./dist/cjs/getIntlayerAPI/status.cjs",
+      "import": "./dist/esm/getIntlayerAPI/status.mjs"
+    },
     "./stripe": {
       "types": "./dist/types/getIntlayerAPI/stripe.d.ts",
       "require": "./dist/cjs/getIntlayerAPI/stripe.cjs",
@@ -197,6 +202,9 @@
       ],
       "showcaseProject": [
         "./dist/types/getIntlayerAPI/showcaseProject.d.ts"
+      ],
+      "status": [
+        "./dist/types/getIntlayerAPI/status.d.ts"
       ],
       "stripe": [
         "./dist/types/getIntlayerAPI/stripe.d.ts"

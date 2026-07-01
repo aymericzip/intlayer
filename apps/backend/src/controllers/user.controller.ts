@@ -12,6 +12,7 @@ import {
   getUserFiltersAndPagination,
   type UserFiltersParam,
 } from '@utils/filtersAndPagination/getUserFiltersAndPagination';
+import { isSelfHosted } from '@utils/isSelfHosted';
 import { mapUsersToAPI, mapUserToAPI } from '@utils/mapper/user';
 import { hasPermission } from '@utils/permissions';
 import {
@@ -23,6 +24,33 @@ import {
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { t } from 'fastify-intlayer';
 import type { User, UserAPI } from '@/types/user.types';
+
+export type GetSetupStatusResult = ResponseData<{ isSetupRequired: boolean }>;
+
+/**
+ * Reports whether the instance still needs its initial setup, i.e. whether the
+ * first super-admin account must be created. This is only ever `true` on a
+ * self-hosted deployment whose users collection is still empty. On the hosted
+ * cloud it always returns `false`. Public endpoint (no authentication) so the
+ * dashboard can gate the init flow before any user exists.
+ */
+export const getSetupStatus = async (
+  _request: FastifyRequest,
+  reply: FastifyReply
+): Promise<void> => {
+  try {
+    const isSetupRequired =
+      isSelfHosted() && (await userService.countUsers({})) === 0;
+
+    const responseData = formatResponse<{ isSetupRequired: boolean }>({
+      data: { isSetupRequired },
+    });
+
+    return reply.send(responseData);
+  } catch (error) {
+    return ErrorHandler.handleAppErrorResponse(reply, error as AppError);
+  }
+};
 
 export type CreateUserBody = { email: string; password?: string };
 export type CreateUserResult = ResponseData<UserAPI>;
