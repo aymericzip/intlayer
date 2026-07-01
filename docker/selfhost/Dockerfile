@@ -13,8 +13,9 @@
 # ---------------------------------------------------------------------------
 # Stage 1 — backend builder (mirrors apps/backend/Dockerfile build logic)
 # ---------------------------------------------------------------------------
-FROM oven/bun:1.3.14-alpine AS backend-builder
+FROM node:26-alpine AS backend-builder
 
+RUN npm install -g bun@1.3.14
 RUN apk add --no-cache build-base zlib-dev autoconf automake
 
 WORKDIR /workspace
@@ -76,8 +77,9 @@ RUN find . -path "*/src/*" -type f \( -name "*.ts" -o -name "*.tsx" -o -name "*.
 # ---------------------------------------------------------------------------
 # Stage 2 — app builder (mirrors apps/app/Dockerfile build logic)
 # ---------------------------------------------------------------------------
-FROM oven/bun:1.3.14-alpine AS app-builder
+FROM node:26-alpine AS app-builder
 
+RUN npm install -g bun@1.3.14
 RUN apk add --no-cache build-base zlib-dev autoconf automake
 
 WORKDIR /workspace
@@ -88,13 +90,10 @@ ARG VITE_BACKEND_URL=http://localhost:3100
 ARG VITE_DOMAIN=localhost
 ARG VITE_SITE_URL=http://localhost:3000
 ARG VITE_IDE_URL=http://localhost:3000
-# Self-hosted mode: strips billing, monetization and analytics from the bundle.
-ARG VITE_SELF_HOSTED=true
 ENV VITE_BACKEND_URL=${VITE_BACKEND_URL}
 ENV VITE_DOMAIN=${VITE_DOMAIN}
 ENV VITE_SITE_URL=${VITE_SITE_URL}
 ENV VITE_IDE_URL=${VITE_IDE_URL}
-ENV VITE_SELF_HOSTED=${VITE_SELF_HOSTED}
 
 COPY \
     --exclude=packages/@intlayer/doc \
@@ -129,7 +128,7 @@ COPY \
     --exclude=**/*.stories.* \
     . .
 
-RUN bun install --ignore-scripts
+RUN bun install
 
 RUN bun x turbo run build:ci --filter=./apps/app
 
@@ -205,7 +204,6 @@ ENV PUPPETEER_CACHE_DIR=/root/.cache/puppeteer
 
 # ---- Runtime configuration (override at `docker run` with -e) ----------------
 ENV NODE_ENV=production \
-    SELF_HOSTED=true \
     DOMAIN=localhost \
     APP_URL=http://localhost:3000 \
     BACKEND_URL=http://localhost:3100 \
