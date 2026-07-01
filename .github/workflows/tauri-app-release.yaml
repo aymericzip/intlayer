@@ -55,7 +55,7 @@ jobs:
 
       - name: Build Vite app
         working-directory: apps/app
-        run: bun --bun vite build --config tory.vite.config.ts
+        run: bun --bun vite build --config tauri.vite.config.ts
 
       - name: Build and publish Tauri app
         uses: tauri-apps/tauri-action@v0
