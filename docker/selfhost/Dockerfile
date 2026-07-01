@@ -128,7 +128,7 @@ COPY \
     --exclude=**/*.stories.* \
     . .
 
-RUN bun install
+RUN bun install --ignore-scripts
 
 RUN bun x turbo run build:ci --filter=./apps/app
 
