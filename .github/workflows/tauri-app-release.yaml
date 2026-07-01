@@ -13,7 +13,7 @@ jobs:
   build-and-publish:
     strategy:
       matrix:
-        platform: [macos-latest, windows-latest]
+        platform: [macos-latest, windows-latest, ubuntu-latest]
     runs-on: ${{ matrix.platform }}
 
     steps:
@@ -28,6 +28,17 @@ jobs:
       - name: Install libvips (macOS)
         if: matrix.platform == 'macos-latest'
         run: brew install vips
+
+      - name: Install Linux system dependencies
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            libappindicator3-dev \
+            librsvg2-dev \
+            patchelf \
+            libvips-dev
 
       - name: Install dependencies
         run: bun install
