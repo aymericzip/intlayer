@@ -28,78 +28,21 @@ import {
   XCircle,
   Zap,
 } from 'lucide-react';
-import { type FC, memo, useCallback, useEffect, useRef, useState } from 'react';
+import { type FC, memo, useCallback, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useIntlayer } from 'react-intlayer';
 import { useDashboardRightPanel } from '#hooks/useDashboardRightPanel';
+import {
+  getJobPercentage,
+  isJobRunning,
+  isRichProgress,
+  type TranslationJob,
+  type TranslationJobPendingAction,
+  type TranslationTaskProgress,
+  useTranslationJobs,
+} from '#hooks/useTranslationJobs';
 
-// ─── localStorage persistence ─────────────────────────────────────────────────
-
-const DISMISSED_KEY = 'intlayer:dismissed-translation-jobs';
-
-const loadDismissedIds = (): Set<string> => {
-  try {
-    const raw = localStorage.getItem(DISMISSED_KEY);
-    if (!raw) return new Set();
-    return new Set(JSON.parse(raw) as string[]);
-  } catch {
-    return new Set();
-  }
-};
-
-const saveDismissedIds = (ids: Set<string>): void => {
-  try {
-    localStorage.setItem(DISMISSED_KEY, JSON.stringify([...ids]));
-  } catch {
-    /* quota exceeded – ignore */
-  }
-};
-
-// ─── Types ────────────────────────────────────────────────────────────────────
-
-type JobState = 'active' | 'waiting' | 'delayed' | 'completed' | 'failed';
-
-type TranslationProgress = {
-  percentage: number;
-  completedKeys: string[];
-  failedKeys: string[];
-  currentKey: string | null;
-  currentLocale: string | null;
-  currentChunk: number | null;
-  totalChunks: number | null;
-};
-
-/** Internal job record – SSE fields + client-side UI flags */
-type JobData = {
-  jobId: string;
-  state: JobState;
-  progress: number | TranslationProgress;
-  isPaused?: boolean;
-  data?: {
-    dictionaryKeys?: string[];
-    dictionaryIds?: string[];
-    targetLocales?: string[];
-  };
-  updatedAt?: number;
-  /** Client-side: job moved to archive – persisted in localStorage */
-  dismissed?: boolean;
-  /** Client-side: optimistic loading action in progress */
-  pendingAction?: 'stopping' | 'pausing' | 'resuming';
-};
-
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-
-const isRichProgress = (
-  p: number | TranslationProgress
-): p is TranslationProgress =>
-  typeof p === 'object' && p !== null && 'percentage' in p;
-
-const getPercentage = (progress: number | TranslationProgress): number => {
-  if (isRichProgress(progress)) return progress.percentage;
-  return typeof progress === 'number' ? progress : 0;
-};
-
-// ─── DictionaryRow ────────────────────────────────────────────────────────────
+// ─── TaskRow ──────────────────────────────────────────────────────────────────
 
 type JobCardContent = {
   cancelJob: { value: string };
@@ -115,60 +58,63 @@ type JobCardContent = {
   }) => string;
 };
 
-const DictionaryRow: FC<{
-  keyName: string;
-  isCompleted: boolean;
-  isFailed: boolean;
-  isCurrent: boolean;
+/**
+ * One fill-style translation task (a dictionary and its target locales).
+ * Several rows may be active at once since the worker runs concurrently.
+ */
+const TaskRow: FC<{
+  task: TranslationTaskProgress;
   isCancelled: boolean;
-  currentLocale?: string | null;
-  currentChunk?: number | null;
-  totalChunks?: number | null;
   content: { jobCancelled: string };
-}> = memo(
-  ({
-    keyName,
-    isCompleted,
-    isFailed,
-    isCurrent,
-    isCancelled,
-    currentLocale,
-    currentChunk,
-    totalChunks,
-    content,
-  }) => (
+}> = memo(({ task, isCancelled, content }) => {
+  const isCompleted = task.state === 'completed';
+  const isFailed = task.state === 'failed';
+  const isCurrent = task.state === 'active';
+  const showCancelled = isCancelled || task.state === 'cancelled';
+  const hasLocaleDetail = task.targetLocales.length > 0;
+
+  return (
     <div className="flex items-center justify-between gap-2 py-1.5">
       <div className="flex min-w-0 flex-1 flex-col">
-        <span className="truncate font-mono text-text text-xs">{keyName}</span>
-        {isCurrent && currentLocale && (
+        <span className="truncate font-mono text-text text-xs">
+          {task.dictionaryKey}
+        </span>
+        {isCurrent && task.currentLocale && (
           <span className="text-neutral-500 text-xs">
-            {currentLocale}
-            {currentChunk && totalChunks
-              ? ` • chunk ${currentChunk}/${totalChunks}`
+            {task.currentLocale}
+            {task.currentChunk && task.totalChunks && task.totalChunks > 1
+              ? ` • chunk ${task.currentChunk}/${task.totalChunks}`
               : ''}
           </span>
         )}
-        {isCancelled && (
+        {showCancelled && (
           <span className="text-error text-xs">{content.jobCancelled}</span>
         )}
       </div>
-      <span className="shrink-0">
+      <div className="flex shrink-0 items-center gap-2">
+        {hasLocaleDetail && !showCancelled && (
+          <span className="font-mono text-neutral-500 text-xs">
+            {task.completedLocales.length}/{task.targetLocales.length}
+          </span>
+        )}
         {isCompleted && <CheckCircle2 className="size-4 text-success" />}
         {isFailed && <XCircle className="size-4 text-error" />}
-        {isCancelled && <XCircle className="size-4 text-error opacity-50" />}
-        {isCurrent && <Loader className="size-4" />}
-        {!isCompleted && !isFailed && !isCurrent && !isCancelled && (
+        {showCancelled && !isCompleted && !isFailed && (
+          <XCircle className="size-4 text-error opacity-50" />
+        )}
+        {isCurrent && !showCancelled && <Loader className="size-4" />}
+        {!isCompleted && !isFailed && !isCurrent && !showCancelled && (
           <span className="block size-4 rounded-full border border-neutral/40" />
         )}
-      </span>
+      </div>
     </div>
-  )
-);
+  );
+});
 
 // ─── JobCard ──────────────────────────────────────────────────────────────────
 
 type JobCardProps = {
-  job: JobData;
+  job: TranslationJob;
   /** Compact/read-only mode for the archive section */
   archived?: boolean;
   onStop: (jobId: string) => void;
@@ -178,6 +124,39 @@ type JobCardProps = {
   onRetry: (jobId: string) => void;
   onRestore: (jobId: string) => void;
   content: JobCardContent;
+};
+
+/**
+ * Derive the fill-style task list of a job. Jobs created by the current
+ * worker carry `progress.tasks`; older jobs fall back to the flat
+ * `dictionaryKeys` + `currentKey` progress shape.
+ */
+const getJobTasks = (job: TranslationJob): TranslationTaskProgress[] => {
+  const progress = isRichProgress(job.progress) ? job.progress : null;
+
+  if (progress?.tasks) return progress.tasks;
+
+  const dictionaryKeys = job.data?.dictionaryKeys ?? [];
+
+  return dictionaryKeys.map((key) => {
+    const isCurrent = progress?.currentKey === key;
+    return {
+      dictionaryId: key,
+      dictionaryKey: key,
+      targetLocales: [],
+      completedLocales: [],
+      state: progress?.completedKeys.includes(key)
+        ? 'completed'
+        : progress?.failedKeys.includes(key)
+          ? 'failed'
+          : isCurrent
+            ? 'active'
+            : 'pending',
+      currentLocale: isCurrent ? (progress?.currentLocale ?? null) : null,
+      currentChunk: isCurrent ? (progress?.currentChunk ?? null) : null,
+      totalChunks: isCurrent ? (progress?.totalChunks ?? null) : null,
+    };
+  });
 };
 
 const JobCard: FC<JobCardProps> = memo(
@@ -192,9 +171,8 @@ const JobCard: FC<JobCardProps> = memo(
     onRestore,
     content,
   }) => {
-    const progress = isRichProgress(job.progress) ? job.progress : null;
-    const dictionaryKeys = job.data?.dictionaryKeys ?? [];
-    const percentage = getPercentage(job.progress);
+    const percentage = getJobPercentage(job.progress);
+    const tasks = getJobTasks(job);
 
     const effectivelyPaused = job.isPaused || job.pendingAction === 'pausing';
     const effectiveState =
@@ -363,72 +341,57 @@ const JobCard: FC<JobCardProps> = memo(
           </div>
         </div>
 
-        {/* ── Progress / dictionary list ── */}
-        {dictionaryKeys.length > 0 ? (
-          <div className="flex max-h-36 flex-col divide-y divide-neutral/10 overflow-y-auto">
-            {[...dictionaryKeys].reverse().map((key) => {
-              const isCompleted =
-                progress?.completedKeys.includes(key) ??
-                effectiveState === 'completed';
-              const isFailed = progress?.failedKeys.includes(key) ?? false;
-              const isCurrent = !isDone && progress?.currentKey === key;
-              const isCancelled =
-                isDone &&
-                effectiveState === 'failed' &&
-                !isCompleted &&
-                !isFailed &&
-                (progress?.currentKey === key || !progress?.currentKey);
-
-              return (
-                <DictionaryRow
-                  key={key}
-                  keyName={key}
-                  isCompleted={isCompleted}
-                  isFailed={isFailed}
-                  isCurrent={isCurrent}
-                  isCancelled={isCancelled}
-                  currentLocale={isCurrent ? progress?.currentLocale : null}
-                  currentChunk={isCurrent ? progress?.currentChunk : null}
-                  totalChunks={isCurrent ? progress?.totalChunks : null}
-                  content={{ jobCancelled: content.jobCancelled.value }}
-                />
-              );
-            })}
+        {/* ── Overall progress bar ── */}
+        <div className="space-y-1.5">
+          <div
+            className="flex justify-between text-neutral-500 text-xs"
+            aria-hidden="true"
+          >
+            <span>Progress</span>
+            <span>{Math.round(percentage)}%</span>
           </div>
-        ) : (
-          <div className="space-y-1.5">
+          <div
+            role="progressbar"
+            aria-valuenow={Math.round(percentage)}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-label={
+              content.translationJobProgress({
+                jobId: job.jobId,
+                percentage: Math.round(percentage),
+              }) as any
+            }
+            className="h-1.5 w-full overflow-hidden rounded-full bg-neutral/10"
+          >
             <div
-              className="flex justify-between text-neutral-500 text-xs"
               aria-hidden="true"
-            >
-              <span>Progress</span>
-              <span>{Math.round(percentage)}%</span>
-            </div>
-            <div
-              role="progressbar"
-              aria-valuenow={Math.round(percentage)}
-              aria-valuemin={0}
-              aria-valuemax={100}
-              aria-label={
-                content.translationJobProgress({
-                  jobId: job.jobId,
-                  percentage: Math.round(percentage),
-                }) as any
-              }
-              className="h-1.5 w-full overflow-hidden rounded-full bg-neutral/10"
-            >
-              <div
-                aria-hidden="true"
-                className={cn(
-                  'h-full transition-all duration-500 ease-out',
-                  effectiveState === 'completed' && 'bg-success',
-                  effectiveState === 'failed' && 'bg-error',
-                  isActive && !effectivelyPaused && 'bg-blue-500',
-                  isActive && effectivelyPaused && 'bg-warning'
-                )}
-                style={{ width: `${Math.max(5, percentage)}%` }}
+              className={cn(
+                'h-full transition-all duration-500 ease-out',
+                effectiveState === 'completed' && 'bg-success',
+                effectiveState === 'failed' && 'bg-error',
+                isActive && !effectivelyPaused && 'bg-blue-500',
+                isActive && effectivelyPaused && 'bg-warning'
+              )}
+              style={{ width: `${Math.max(5, percentage)}%` }}
+            />
+          </div>
+        </div>
+
+        {/* ── Fill-style task list (one row per dictionary) ── */}
+        {tasks.length > 0 && (
+          <div className="flex max-h-36 flex-col divide-y divide-neutral/10 overflow-y-auto">
+            {tasks.map((task) => (
+              <TaskRow
+                key={task.dictionaryId}
+                task={task}
+                isCancelled={
+                  isDone &&
+                  effectiveState === 'failed' &&
+                  ['pending', 'active'].includes(task.state)
+                }
+                content={{ jobCancelled: content.jobCancelled.value }}
               />
-            </div>
+            ))}
           </div>
         )}
       </Container>
@@ -461,28 +424,33 @@ export const TranslationStatusAside: FC = () => {
   const allDictionaries = dictionariesData?.data ?? [];
 
   /**
-   * All jobs keyed by jobId.
-   * Client-only flags (`dismissed`, `pendingAction`) live inside each record
-   * so SSE merges can never accidentally clear them.
+   * Live job state, fed by the shared SSE store — the same data powers the
+   * TranslationStatusBar in the dashboard layout.
    */
-  const [jobs, setJobs] = useState<Record<string, JobData>>({});
+  const {
+    visibleJobs,
+    archivedJobs,
+    hasConnectionError,
+    dismissJob,
+    restoreJob,
+    setPendingAction,
+    completePendingAction,
+    clearPendingAction,
+  } = useTranslationJobs();
+
   const { open: openPanel, isOpen: checkIsOpen } = useDashboardRightPanel();
   const isOpen = checkIsOpen('translation-status');
   const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
   const [showArchive, setShowArchive] = useState(false);
+  const [lastSeenTimestamp, setLastSeenTimestamp] = useState(0);
 
   useEffect(() => {
     setPortalTarget(document.getElementById('dashboard-right-panel'));
   }, []);
-  const [hasConnectionError, setHasConnectionError] = useState(false);
-  const [lastSeenTimestamp, setLastSeenTimestamp] = useState(0);
 
-  /**
-   * Dismissed IDs persisted in localStorage.
-   * We keep them in a ref (not state) so SSE handler always has the latest
-   * set without being recreated.
-   */
-  const dismissedIdsRef = useRef<Set<string>>(loadDismissedIds());
+  useEffect(() => {
+    if (isOpen) setLastSeenTimestamp(Date.now());
+  }, [isOpen]);
 
   const projectLocales =
     session?.project?.configuration?.internationalization?.locales ?? [];
@@ -490,115 +458,23 @@ export const TranslationStatusAside: FC = () => {
     session?.project?.configuration?.internationalization?.defaultLocale;
   const targetLocales = projectLocales.filter((l) => l !== defaultLocale);
 
-  // ── SSE stream ────────────────────────────────────────────────────────────
-
-  useEffect(() => {
-    const backendUrl = import.meta.env.VITE_BACKEND_URL;
-    const es = new EventSource(`${backendUrl}/api/translate/status`, {
-      withCredentials: true,
-    });
-
-    es.onopen = () => setHasConnectionError(false);
-
-    es.onmessage = (event) => {
-      try {
-        const incoming = JSON.parse(event.data) as Partial<JobData>;
-        if (!incoming.jobId) return;
-
-        setJobs((prev) => {
-          const existing = prev[incoming.jobId!];
-
-          // Merge SSE data but always preserve the client-only `dismissed` flag
-          const merged: JobData = {
-            ...existing,
-            ...(incoming as JobData),
-            updatedAt: Date.now(),
-            dismissed:
-              existing?.dismissed ??
-              dismissedIdsRef.current.has(incoming.jobId!),
-            // pendingAction is managed exclusively by API call handlers,
-            // NOT by SSE — so we always preserve whatever is currently set.
-            pendingAction: existing?.pendingAction,
-          };
-
-          // Skip setState if nothing meaningful changed
-          if (existing) {
-            const prevPct = getPercentage(existing.progress);
-            const newPct = getPercentage(merged.progress);
-            const prevRich = isRichProgress(existing.progress)
-              ? existing.progress
-              : null;
-            const newRich = isRichProgress(merged.progress)
-              ? merged.progress
-              : null;
-
-            if (
-              existing.state === merged.state &&
-              existing.isPaused === merged.isPaused &&
-              existing.dismissed === merged.dismissed &&
-              Math.abs(prevPct - newPct) < 0.5 &&
-              prevRich?.currentKey === newRich?.currentKey &&
-              prevRich?.currentLocale === newRich?.currentLocale &&
-              prevRich?.currentChunk === newRich?.currentChunk &&
-              prevRich?.totalChunks === newRich?.totalChunks &&
-              prevRich?.completedKeys.length ===
-                newRich?.completedKeys.length &&
-              prevRich?.failedKeys.length === newRich?.failedKeys.length
-            ) {
-              return prev;
-            }
-          }
-
-          return { ...prev, [incoming.jobId!]: merged };
-        });
-      } catch (e) {
-        console.error(content.errorParsingSseData.value, e);
-      }
-    };
-
-    es.onerror = () => setHasConnectionError(true);
-    return () => es.close();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    if (isOpen) setLastSeenTimestamp(Date.now());
-  }, [isOpen]);
-
   // ── Optimistic action helper ──────────────────────────────────────────────
 
   const withOptimistic = useCallback(
     async (
       jobId: string,
-      action: NonNullable<JobData['pendingAction']>,
+      action: TranslationJobPendingAction,
       call: () => Promise<unknown>
     ) => {
-      // Show loading state immediately
-      setJobs((prev) => ({
-        ...prev,
-        [jobId]: { ...prev[jobId], pendingAction: action },
-      }));
+      setPendingAction(jobId, action);
       try {
         await call();
-        // Clear loading state immediately when API confirms — don't wait for SSE
-        setJobs((prev) => ({
-          ...prev,
-          [jobId]: {
-            ...prev[jobId],
-            pendingAction: undefined,
-            ...(action === 'stopping' && { state: 'failed' as JobState }),
-            ...(action === 'pausing' && { isPaused: true }),
-            ...(action === 'resuming' && { isPaused: false }),
-          },
-        }));
+        completePendingAction(jobId, action);
       } catch {
-        // Roll back loading state on error
-        setJobs((prev) => ({
-          ...prev,
-          [jobId]: { ...prev[jobId], pendingAction: undefined },
-        }));
+        clearPendingAction(jobId);
       }
     },
-    []
+    [setPendingAction, completePendingAction, clearPendingAction]
   );
 
   // ── Per-job handlers ──────────────────────────────────────────────────────
@@ -619,28 +495,6 @@ export const TranslationStatusAside: FC = () => {
     [resumeJob, withOptimistic]
   );
 
-  /** Archive a job: persist to localStorage + mark in state */
-  const handleDismiss = useCallback((jobId: string) => {
-    dismissedIdsRef.current.add(jobId);
-    saveDismissedIds(dismissedIdsRef.current);
-
-    setJobs((prev) => ({
-      ...prev,
-      [jobId]: { ...prev[jobId], dismissed: true },
-    }));
-  }, []);
-
-  /** Restore a job from archive */
-  const handleRestore = useCallback((jobId: string) => {
-    dismissedIdsRef.current.delete(jobId);
-    saveDismissedIds(dismissedIdsRef.current);
-
-    setJobs((prev) => ({
-      ...prev,
-      [jobId]: { ...prev[jobId], dismissed: false },
-    }));
-  }, []);
-
   const handleRetry = useCallback(
     async (jobId: string) => {
       const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -650,12 +504,12 @@ export const TranslationStatusAside: FC = () => {
           credentials: 'include',
         });
         // Un-archive so the new job is visible in the main list
-        handleRestore(jobId);
+        restoreJob(jobId);
       } catch {
         /* ignore */
       }
     },
-    [handleRestore]
+    [restoreJob]
   );
 
   const handleFillAll = useCallback(async () => {
@@ -688,14 +542,6 @@ export const TranslationStatusAside: FC = () => {
 
   // ── Derived data ──────────────────────────────────────────────────────────
 
-  const allJobs = Object.values(jobs);
-  const visibleJobs = allJobs
-    .filter((job) => !job.dismissed)
-    .sort((a, b) => (b.updatedAt ?? 0) - (a.updatedAt ?? 0));
-  const archivedJobs = allJobs
-    .filter((job) => job.dismissed)
-    .sort((a, b) => (b.updatedAt ?? 0) - (a.updatedAt ?? 0));
-
   const hasUnseenChanges = visibleJobs.some(
     (job) =>
       ['completed', 'failed'].includes(job.state) &&
@@ -716,9 +562,7 @@ export const TranslationStatusAside: FC = () => {
 
   // ── Render ────────────────────────────────────────────────────────────────
 
-  const isProcessingGlobal = visibleJobs.some((job) =>
-    ['active', 'waiting', 'delayed'].includes(job.state)
-  );
+  const isProcessingGlobal = visibleJobs.some(isJobRunning);
 
   return (
     <>
@@ -782,9 +626,9 @@ export const TranslationStatusAside: FC = () => {
                     onStop={handleStop}
                     onPause={handlePause}
                     onResume={handleResume}
-                    onDismiss={handleDismiss}
+                    onDismiss={dismissJob}
                     onRetry={handleRetry}
-                    onRestore={handleRestore}
+                    onRestore={restoreJob}
                     content={cardContent}
                   />
                 ))
@@ -824,9 +668,9 @@ export const TranslationStatusAside: FC = () => {
                         onStop={handleStop}
                         onPause={handlePause}
                         onResume={handleResume}
-                        onDismiss={handleDismiss}
+                        onDismiss={dismissJob}
                         onRetry={handleRetry}
-                        onRestore={handleRestore}
+                        onRestore={restoreJob}
                         content={cardContent}
                       />
                     ))}

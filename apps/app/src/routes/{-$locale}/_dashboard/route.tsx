@@ -28,6 +28,7 @@ import {
   type SidebarNavigationItem,
 } from '#components/Dashboard/DashboardSidebar';
 import { DashboardSkeleton } from '#components/Dashboard/DashboardSkeleton';
+import { TranslationStatusBar } from '#components/TranslationStatusBar';
 import {
   dashboardRightPanelManager,
   useDashboardRightPanel,
@@ -311,6 +312,7 @@ function DashboardLayout() {
             <div className="flex flex-1 flex-col overflow-auto">
               <Outlet />
             </div>
+            <TranslationStatusBar />
           </main>
           <WithResizer
             initialWidth={0}
