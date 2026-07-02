@@ -37,7 +37,7 @@ author: aymericzip
 
 <Tabs defaultTab="video">
   <Tab label="वीडियो" value="video">
-  
+
 <iframe title="Next.js के लिए सबसे अच्छा i18n समाधान? Intlayer खोजें" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
   </Tab>
@@ -118,19 +118,23 @@ GitHub पर [एप्लिकेशन टेम्प्लेट](https://
 npm का उपयोग करके आवश्यक पैकेज स्थापित करें:
 
 ```bash packageManager="npm"
-npx intlayer-cli init --interactive
+npx intlayer@canary init --interactive    # v9
+# npx intlayer init                       # v8
 ```
 
 ```bash packageManager="pnpm"
-pnpm dlx intlayer-cli init --interactive
+pnpm dlx intlayer@canary init --interactive   # v9
+# pnpm dlx intlayer init                      # v8
 ```
 
 ```bash packageManager="yarn"
-yarn dlx intlayer-cli init --interactive
+yarn dlx intlayer@canary init --interactive   # v9
+# yarn dlx intlayer init                      # v8
 ```
 
 ```bash packageManager="bun"
-bunx intlayer-cli init --interactive
+bunx intlayer@canary init --interactive   # v9
+# bunx intlayer init                      # v8
 ```
 
 > `--interactive` ध्वज (flag) वैकल्पिक है। यदि आप एक AI एजेंट हैं तो `intlayer-cli init` का उपयोग करें।
@@ -225,9 +229,7 @@ export default config;
 import type { NextConfig } from "next";
 import { withIntlayer } from "next-intlayer/server";
 
-const nextConfig: NextConfig = {
-  /* यहाँ कॉन्फ़िग विकल्प */
-};
+const nextConfig: NextConfig = {/* यहाँ कॉन्फ़िग विकल्प */};
 
 export default withIntlayer(nextConfig);
 ```

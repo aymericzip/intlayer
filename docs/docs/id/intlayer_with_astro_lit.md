@@ -122,19 +122,23 @@ Lihat [templat aplikasi](https://github.com/aymericzip/intlayer-astro-template) 
 Instal paket yang diperlukan menggunakan manajer paket pilihan Anda:
 
 ```bash packageManager="npm"
-npx intlayer-cli init --interactive
+npx intlayer@canary init --interactive    # v9
+# npx intlayer init                       # v8
 ```
 
 ```bash packageManager="pnpm"
-pnpm dlx intlayer-cli init --interactive
+pnpm dlx intlayer@canary init --interactive   # v9
+# pnpm dlx intlayer init                      # v8
 ```
 
 ```bash packageManager="yarn"
-yarn dlx intlayer-cli init --interactive
+yarn dlx intlayer@canary init --interactive   # v9
+# yarn dlx intlayer init                      # v8
 ```
 
 ```bash packageManager="bun"
-bunx intlayer-cli init --interactive
+bunx intlayer@canary init --interactive   # v9
+# bunx intlayer init                      # v8
 ```
 
 > flag `--interactive` bersifat opsional. Gunakan `intlayer-cli init` jika Anda adalah agen AI.
@@ -401,9 +405,9 @@ class LitDemo extends LitElement {
             ${availableLocales.map(
               (localeItem) => html`
                 <button
-                  class="locale-btn ${localeItem === currentLocale
-                    ? "active"
-                    : ""}"
+                  class="locale-btn ${
+                    localeItem === currentLocale ? "active" : ""
+                  }"
                   ?disabled=${localeItem === currentLocale}
                   @click=${() => setLocale(localeItem)}
                 >

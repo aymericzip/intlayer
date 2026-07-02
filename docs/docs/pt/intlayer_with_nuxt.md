@@ -91,7 +91,7 @@ Mais do que apenas uma solução i18n, o Intlayer fornece um **[editor visual] a
 
 <Tabs defaultTab="video">
   <Tab label="Vídeo" value="video">
-  
+
 <iframe title="Como traduzir sua aplicação Nuxt e Vue usando Intlayer? Descubra o Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/nhUcUAVQ6eQ?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
   </Tab>
@@ -128,19 +128,23 @@ Veja o [Template da Aplicação](https://github.com/aymericzip/intlayer-nuxt-4-t
 Instale os pacotes necessários usando npm:
 
 ```bash packageManager="npm"
-npx intlayer-cli init --interactive
+npx intlayer@canary init --interactive    # v9
+# npx intlayer init                       # v8
 ```
 
 ```bash packageManager="pnpm"
-pnpm dlx intlayer-cli init --interactive
+pnpm dlx intlayer@canary init --interactive   # v9
+# pnpm dlx intlayer init                      # v8
 ```
 
 ```bash packageManager="yarn"
-yarn dlx intlayer-cli init --interactive
+yarn dlx intlayer@canary init --interactive   # v9
+# yarn dlx intlayer init                      # v8
 ```
 
 ```bash packageManager="bun"
-bunx intlayer-cli init --interactive
+bunx intlayer@canary init --interactive   # v9
+# bunx intlayer init                      # v8
 ```
 
 > a flag `--interactive` é opcional. Use `intlayer-cli init` se você for um agente de IA.

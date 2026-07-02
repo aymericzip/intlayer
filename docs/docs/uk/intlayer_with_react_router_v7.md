@@ -109,19 +109,23 @@ Intlayer оптимізовано для ідеальної роботи з Reac
 Встановіть необхідні пакети, використовуючи ваш улюблений package manager:
 
 ```bash packageManager="npm"
-npx intlayer-cli init --interactive
+npx intlayer@canary init --interactive    # v9
+# npx intlayer init                       # v8
 ```
 
 ```bash packageManager="pnpm"
-pnpm dlx intlayer-cli init --interactive
+pnpm dlx intlayer@canary init --interactive   # v9
+# pnpm dlx intlayer init                      # v8
 ```
 
 ```bash packageManager="yarn"
-yarn dlx intlayer-cli init --interactive
+yarn dlx intlayer@canary init --interactive   # v9
+# yarn dlx intlayer init                      # v8
 ```
 
 ```bash packageManager="bun"
-bunx intlayer-cli init --interactive
+bunx intlayer@canary init --interactive   # v9
+# bunx intlayer init                      # v8
 ```
 
 > прапорець `--interactive` не є обов'язковим. Використовуйте `intlayer-cli init`, якщо ви є ШІ-агентом.
@@ -170,7 +174,7 @@ bun add vite-intlayer --dev
 
 <Tabs defaultTab="video">
   <Tab label="Відео" value="video">
-  
+
 <iframe title="Як перекласти ваш застосунок React Router v7 за допомогою Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
   </Tab>

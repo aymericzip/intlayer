@@ -91,19 +91,23 @@ author: aymericzip
 使用您偏好的包管理器安装必要的包：
 
 ```bash packageManager="npm"
-npx intlayer-cli init --interactive
+npx intlayer@canary init --interactive    # v9
+# npx intlayer init                       # v8
 ```
 
 ```bash packageManager="pnpm"
-pnpm dlx intlayer-cli init --interactive
+pnpm dlx intlayer@canary init --interactive   # v9
+# pnpm dlx intlayer init                      # v8
 ```
 
 ```bash packageManager="yarn"
-yarn dlx intlayer-cli init --interactive
+yarn dlx intlayer@canary init --interactive   # v9
+# yarn dlx intlayer init                      # v8
 ```
 
 ```bash packageManager="bun"
-bunx intlayer-cli init --interactive
+bunx intlayer@canary init --interactive   # v9
+# bunx intlayer init                      # v8
 ```
 
 > `--interactive` 标志是可选的。如果您是 AI 代理，请使用 `intlayer-cli init`。
@@ -207,9 +211,7 @@ export default config;
 import type { NextConfig } from "next";
 import { withIntlayer } from "next-intlayer/server";
 
-const nextConfig: NextConfig = {
-  /* 这里可选填写额外的 Next.js 配置 */
-};
+const nextConfig: NextConfig = {/* 这里可选填写额外的 Next.js 配置 */};
 
 export default withIntlayer(nextConfig);
 ```

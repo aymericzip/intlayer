@@ -101,19 +101,23 @@ Các bước sau đây là tối thiểu cần thiết để chạy ứng dụng
 Cài đặt các gói core của Intlayer và các bộ chuyển đổi tương thích:
 
 ```bash packageManager="npm"
-npx intlayer-cli init --interactive
+npx intlayer@canary init --interactive    # v9
+# npx intlayer init                       # v8
 ```
 
 ```bash packageManager="pnpm"
-pnpm dlx intlayer-cli init --interactive
+pnpm dlx intlayer@canary init --interactive   # v9
+# pnpm dlx intlayer init                      # v8
 ```
 
 ```bash packageManager="yarn"
-yarn dlx intlayer-cli init --interactive
+yarn dlx intlayer@canary init --interactive   # v9
+# yarn dlx intlayer init                      # v8
 ```
 
 ```bash packageManager="bun"
-bunx intlayer-cli init --interactive
+bunx intlayer@canary init --interactive   # v9
+# bunx intlayer init                      # v8
 ```
 
 > cờ `--interactive` là tùy chọn. Sử dụng `intlayer-cli init` nếu bạn là agent AI.
@@ -209,9 +213,7 @@ import { createNextI18nPlugin } from "@intlayer/next-i18next/plugin";
 
 const withIntlayer = createNextI18nPlugin();
 
-const nextConfig: NextConfig = {
-  /* các tùy chọn của bạn */
-};
+const nextConfig: NextConfig = {/* các tùy chọn của bạn */};
 
 export default withIntlayer(nextConfig);
 ```

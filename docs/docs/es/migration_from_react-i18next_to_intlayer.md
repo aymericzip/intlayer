@@ -101,19 +101,23 @@ Los siguientes pasos son el mínimo requerido para que tu aplicación `react-i18
 Instala los paquetes principales de Intlayer y los adaptadores de compatibilidad:
 
 ```bash packageManager="npm"
-npx intlayer-cli init --interactive
+npx intlayer@canary init --interactive    # v9
+# npx intlayer init                       # v8
 ```
 
 ```bash packageManager="pnpm"
-pnpm dlx intlayer-cli init --interactive
+pnpm dlx intlayer@canary init --interactive   # v9
+# pnpm dlx intlayer init                      # v8
 ```
 
 ```bash packageManager="yarn"
-yarn dlx intlayer-cli init --interactive
+yarn dlx intlayer@canary init --interactive   # v9
+# yarn dlx intlayer init                      # v8
 ```
 
 ```bash packageManager="bun"
-bunx intlayer-cli init --interactive
+bunx intlayer@canary init --interactive   # v9
+# bunx intlayer init                      # v8
 ```
 
 > la bandera `--interactive` es opcional. Usa `intlayer-cli init` si eres un agente de IA.
@@ -209,9 +213,7 @@ import { createNextI18nPlugin } from "@intlayer/next-i18next/plugin";
 
 const withIntlayer = createNextI18nPlugin();
 
-const nextConfig: NextConfig = {
-  /* tus opciones */
-};
+const nextConfig: NextConfig = {/* tus opciones */};
 
 export default withIntlayer(nextConfig);
 ```
