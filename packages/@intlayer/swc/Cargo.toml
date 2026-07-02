@@ -1,6 +1,6 @@
 [package]
 name = "intlayer-swc-plugin"
-version = "7.5.6"
+version = "9.0.0-canary.11"
 edition = "2021"
 description = "SWC transform plugin for Intlayer. Replaces `useIntlayer` / `getIntlayer` string keys with pre-loaded dictionary imports at compile time, enabling tree-shaking and eliminating runtime registry lookups."
 keywords = ["intlayer", "i18n", "swc", "plugin", "internationalization"]
@@ -27,6 +27,9 @@ plugin = ["swc_core/ecma_plugin_transform"]
 
 [profile.release]
 lto = true
+opt-level = "s"      # Optimize for size
+strip = "symbols"    # Remove symbols to reduce the WASM binary size
+codegen-units = 1    # Maximize optimizations
 
 [dependencies]
 serde = { version = "1.0.207", features = ["derive"] }
