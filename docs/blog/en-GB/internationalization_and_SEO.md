@@ -265,6 +265,12 @@ const LocaleSwitcher: FC = () => {
 
 ---
 
+## Audit your website with the Intlayer SEO Scanner
+
+To ensure your multilingual app is perfectly optimised, we recommend using the [Intlayer SEO Scanner](https://intlayer.org/i18n-seo-scanner). It is a specialised tool for multilingual website checking, helping you identify missing hreflang tags, broken links, and other SEO issues across all your localised pages.
+
+---
+
 ## Wrapping Up
 
 Making your website multilingual involves more than just translating text. It’s about structuring URLs effectively, using `hreflang` tags to help search engines serve the correct version, and providing a stellar user experience, complete with localised visuals, language selectors, and consistent navigation. Following these best practices will set you up for success in global markets, boost user satisfaction, and, ultimately, deliver better SEO results across regions.

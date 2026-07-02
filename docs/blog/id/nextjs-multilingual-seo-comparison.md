@@ -344,6 +344,12 @@ export default robots;
 
 ---
 
+## Audit situs web Anda dengan Intlayer SEO Scanner
+
+Untuk memastikan aplikasi multibahasa Anda dioptimalkan dengan sempurna, kami sarankan untuk menggunakan [Intlayer SEO Scanner](https://intlayer.org/i18n-seo-scanner). Ini adalah alat khusus untuk pengecekan situs web multibahasa, membantu Anda mengidentifikasi tag hreflang yang hilang, tautan rusak, dan masalah SEO lainnya di semua halaman lokal Anda.
+
+---
+
 ## Kesimpulan
 
 Mengelola i18n dengan benar di Next.js bukan hanya soal menerjemahkan teks, tetapi juga memastikan mesin pencari dan pengguna tahu versi konten mana yang harus disajikan.

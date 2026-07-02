@@ -267,6 +267,12 @@ const LocaleSwitcher: FC = () => {
 
 ---
 
+## Auditez votre site Web avec l'Intlayer SEO Scanner
+
+Pour garantir que votre application multilingue est parfaitement optimisée, nous vous recommandons d'utiliser l'[Intlayer SEO Scanner](https://intlayer.org/i18n-seo-scanner). C'est un outil spécialisé dans la vérification de sites Web multilingues, qui vous aide à identifier les balises hreflang manquantes, les liens brisés et d'autres problèmes de référencement (SEO) sur toutes vos pages localisées.
+
+---
+
 ## Conclusion
 
 Rendre votre site web multilingue implique bien plus que de simplement traduire le texte. Il s'agit de structurer efficacement les URLs, d'utiliser des balises `hreflang` pour aider les moteurs de recherche à servir la bonne version, et de fournir une expérience utilisateur exceptionnelle, comportant des visuels localisés, des sélecteurs de langue, et une navigation cohérente. Suivre ces meilleures pratiques vous préparera au succès sur les marchés mondiaux, améliorera la satisfaction des utilisateurs et, finalement, livrera de meilleurs résultats SEO à travers les régions.

@@ -345,6 +345,12 @@ export default robots;
 
 ---
 
+## Kiểm tra trang web của bạn bằng Intlayer SEO Scanner
+
+Để đảm bảo ứng dụng đa ngôn ngữ của bạn được tối ưu hóa hoàn hảo, chúng tôi khuyên bạn nên sử dụng [Intlayer SEO Scanner](https://intlayer.org/i18n-seo-scanner). Đây là một công cụ chuyên dụng để kiểm tra trang web đa ngôn ngữ, giúp bạn xác định các thẻ hreflang bị thiếu, liên kết bị hỏng và các vấn đề SEO khác trên tất cả các trang được bản địa hóa của bạn.
+
+---
+
 ## Kết luận
 
 Việc làm i18n đúng trong Next.js không chỉ là dịch văn bản, mà còn là đảm bảo các công cụ tìm kiếm và người dùng biết chính xác phiên bản nội dung nào cần được phục vụ.

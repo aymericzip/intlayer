@@ -345,6 +345,12 @@ export default robots;
 
 ---
 
+## Przeprowadź audyt swojej witryny za pomocą Intlayer SEO Scanner
+
+Aby upewnić się, że Twoja wielojęzyczna aplikacja jest idealnie zoptymalizowana, zalecamy skorzystanie z [Intlayer SEO Scanner](https://intlayer.org/i18n-seo-scanner). Jest to specjalistyczne narzędzie do sprawdzania wielojęzycznych witryn, pomagające zidentyfikować brakujące tagi hreflang, uszkodzone linki i inne problemy związane z SEO na wszystkich zlokalizowanych stronach.
+
+---
+
 ## Podsumowanie
 
 Poprawne wdrożenie i18n w Next.js to nie tylko tłumaczenie tekstu, ale także upewnienie się, że wyszukiwarki i użytkownicy dokładnie wiedzą, którą wersję Twoich treści wyświetlić.

@@ -345,6 +345,12 @@ export default robots;
 
 ---
 
+## Intlayer SEO Scanner로 웹사이트 감사하기
+
+다국어 앱이 완벽하게 최적화되도록 하려면 [Intlayer SEO Scanner](https://intlayer.org/i18n-seo-scanner)를 사용하는 것이 좋습니다. 다국어 웹사이트 검사에 특화된 도구로, 모든 현지화된 페이지에서 누락된 hreflang 태그, 끊어진 링크 및 기타 SEO 문제를 식별하는 데 도움이 됩니다.
+
+---
+
 ## 결론
 
 Next.js에서 i18n을 제대로 구현하는 것은 단순히 텍스트를 번역하는 것뿐만 아니라, 검색 엔진과 사용자가 정확히 어떤 버전의 콘텐츠를 제공받아야 하는지 아는 것이 중요합니다.

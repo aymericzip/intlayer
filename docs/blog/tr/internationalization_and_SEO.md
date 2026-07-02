@@ -265,6 +265,12 @@ const LocaleSwitcher: FC = () => {
 
 ---
 
+## Intlayer SEO Scanner ile web sitenizi denetleyin
+
+Çok dilli uygulamanızın mükemmel şekilde optimize edildiğinden emin olmak için [Intlayer SEO Scanner](https://intlayer.org/i18n-seo-scanner) kullanmanızı öneririz. Çok dilli web sitesi kontrolü için özel bir araçtır; tüm yerelleştirilmiş sayfalarınızda eksik hreflang etiketlerini, bozuk bağlantıları ve diğer SEO sorunlarını belirlemenize yardımcı olur.
+
+---
+
 ## Sonuç
 
 Web sitenizi çok dilli yapmak, metni çevirmekten daha fazlasını içerir. URL'leri etkili bir şekilde yapılandırmak, arama motorlarının doğru sürümü sunmasına yardımcı olmak için `hreflang` etiketlerini kullanmak ve yerelleştirilmiş görseller, dil seçiciler ve tutarlı navigasyon ile mükemmel bir kullanıcı deneyimi sağlamakla ilgilidir. Bu en iyi uygulamaları takip etmek, küresel pazarlarda başarı için sizi hazırlayacak, kullanıcı memnuniyetini artıracak ve sonuçta bölgeler genelinde daha iyi SEO sonuçları sunacaktır.

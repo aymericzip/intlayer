@@ -346,6 +346,12 @@ export default robots;
 
 ---
 
+## Controlla il tuo sito web con Intlayer SEO Scanner
+
+Per garantire che la tua app multilingue sia perfettamente ottimizzata, ti consigliamo di utilizzare [Intlayer SEO Scanner](https://intlayer.org/i18n-seo-scanner). È uno strumento specializzato nel controllo di siti web multilingue, che ti aiuta a identificare tag hreflang mancanti, collegamenti interrotti e altri problemi SEO in tutte le tue pagine localizzate.
+
+---
+
 ## Conclusione
 
 Gestire correttamente l'i18n in Next.js non significa solo tradurre il testo, ma assicurarsi che i motori di ricerca e gli utenti sappiano esattamente quale versione del tuo contenuto mostrare.

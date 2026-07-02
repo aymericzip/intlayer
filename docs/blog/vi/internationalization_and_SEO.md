@@ -264,6 +264,12 @@ const LocaleSwitcher: FC = () => {
 
 ---
 
+## Kiểm tra trang web của bạn bằng Intlayer SEO Scanner
+
+Để đảm bảo ứng dụng đa ngôn ngữ của bạn được tối ưu hóa hoàn hảo, chúng tôi khuyên bạn nên sử dụng [Intlayer SEO Scanner](https://intlayer.org/i18n-seo-scanner). Đây là một công cụ chuyên dụng để kiểm tra trang web đa ngôn ngữ, giúp bạn xác định các thẻ hreflang bị thiếu, liên kết bị hỏng và các vấn đề SEO khác trên tất cả các trang được bản địa hóa của bạn.
+
+---
+
 ## Kết Luận
 
 Việc làm cho trang web của bạn đa ngôn ngữ không chỉ đơn thuần là dịch văn bản. Nó còn liên quan đến việc cấu trúc URL một cách hiệu quả, sử dụng thẻ `hreflang` để giúp các công cụ tìm kiếm phục vụ phiên bản đúng, và cung cấp trải nghiệm người dùng xuất sắc với hình ảnh địa phương hóa, bộ chọn ngôn ngữ, và điều hướng nhất quán. Tuân theo những thực hành tốt nhất này sẽ giúp bạn thành công trên thị trường toàn cầu, tăng sự hài lòng của người dùng, và cuối cùng là mang lại kết quả SEO tốt hơn trên các khu vực khác nhau.

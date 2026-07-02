@@ -265,6 +265,12 @@ const LocaleSwitcher: FC = () => {
 
 ---
 
+## Audit situs web Anda dengan Intlayer SEO Scanner
+
+Untuk memastikan aplikasi multibahasa Anda dioptimalkan dengan sempurna, kami sarankan untuk menggunakan [Intlayer SEO Scanner](https://intlayer.org/i18n-seo-scanner). Ini adalah alat khusus untuk pengecekan situs web multibahasa, membantu Anda mengidentifikasi tag hreflang yang hilang, tautan rusak, dan masalah SEO lainnya di semua halaman lokal Anda.
+
+---
+
 ## Penutup
 
 Membuat situs web Anda menjadi multibahasa melibatkan lebih dari sekadar menerjemahkan teks. Ini tentang menyusun URL secara efektif, menggunakan tag `hreflang` untuk membantu mesin pencari menyajikan versi yang tepat, dan memberikan pengalaman pengguna yang luar biasa lengkap dengan visual yang dilokalkan, pemilih bahasa, dan navigasi yang konsisten. Mengikuti praktik terbaik ini akan mempersiapkan Anda untuk sukses di pasar global, meningkatkan kepuasan pengguna, dan pada akhirnya, memberikan hasil SEO yang lebih baik di berbagai wilayah.

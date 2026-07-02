@@ -347,6 +347,12 @@ export default robots;
 
 ---
 
+## 使用 Intlayer SEO Scanner 审核您的网站
+
+为了确保您的多语言应用程序得到完美优化，我们建议使用 [Intlayer SEO Scanner](https://intlayer.org/i18n-seo-scanner)。这是一款专门用于多语言网站检查的工具，可帮助您识别所有本地化页面中缺失的 hreflang 标签、断开的链接以及其他 SEO 问题。
+
+---
+
 ## 结论
 
 在 Next.js 中正确处理国际化（i18n）不仅仅是翻译文本，更是确保搜索引擎和用户能够准确识别并访问您内容的正确版本。

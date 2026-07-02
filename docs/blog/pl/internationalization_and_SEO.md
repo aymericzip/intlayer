@@ -264,6 +264,12 @@ const LocaleSwitcher: FC = () => {
 
 ---
 
+## Przeprowadź audyt swojej witryny za pomocą Intlayer SEO Scanner
+
+Aby upewnić się, że Twoja wielojęzyczna aplikacja jest idealnie zoptymalizowana, zalecamy skorzystanie z [Intlayer SEO Scanner](https://intlayer.org/i18n-seo-scanner). Jest to specjalistyczne narzędzie do sprawdzania wielojęzycznych witryn, pomagające zidentyfikować brakujące tagi hreflang, uszkodzone linki i inne problemy związane z SEO na wszystkich zlokalizowanych stronach.
+
+---
+
 ## Podsumowanie
 
 Uczynienie Twojej strony internetowej wielojęzyczną to coś więcej niż tylko tłumaczenie tekstu. Chodzi o efektywne strukturyzowanie URL-i, używanie tagów `hreflang`, które pomagają wyszukiwarkom serwować właściwą wersję, oraz zapewnienie doskonałego doświadczenia użytkownika, obejmującego zlokalizowane elementy wizualne, selektory języka i spójną nawigację. Stosowanie się do tych najlepszych praktyk zapewni Ci sukces na rynkach globalnych, zwiększy satysfakcję użytkowników i ostatecznie przyniesie lepsze wyniki SEO w różnych regionach.

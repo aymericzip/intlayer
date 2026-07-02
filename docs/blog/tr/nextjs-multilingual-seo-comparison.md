@@ -345,6 +345,12 @@ export default robots;
 
 ---
 
+## Intlayer SEO Scanner ile web sitenizi denetleyin
+
+Çok dilli uygulamanızın mükemmel şekilde optimize edildiğinden emin olmak için [Intlayer SEO Scanner](https://intlayer.org/i18n-seo-scanner) kullanmanızı öneririz. Çok dilli web sitesi kontrolü için özel bir araçtır; tüm yerelleştirilmiş sayfalarınızda eksik hreflang etiketlerini, bozuk bağlantıları ve diğer SEO sorunlarını belirlemenize yardımcı olur.
+
+---
+
 ## Sonuç
 
 Next.js'te i18n'i doğru yapmak sadece metni çevirmekle ilgili değildir, aynı zamanda arama motorlarının ve kullanıcıların içeriğinizin hangi sürümünü sunacağını tam olarak bilmelerini sağlamaktır.
