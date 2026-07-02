@@ -1,3 +1,13 @@
+domain:seogo.shop
+domain:rankgear.shop
+domain:agobqv.asia
+domain:outrank-hq-exclusive-crawl-engine.store
+domain:seomart.shop
+domain:apox4w.asia
+domain:rankstash.shop
+domain:rankbundle.shop
+domain:1jg20.asia
+
 domain:seopicks.shop
 domain:8qbrnm.info
 domain:wguwlem.info
