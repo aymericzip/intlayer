@@ -100,7 +100,7 @@
     "ioredis": "5.11.1",
     "mongodb": "7.4.0",
     "mongoose": "9.7.3",
-    "nodemailer": "7.0.9",
+    "nodemailer": "9.0.1",
     "openai": "6.45.0",
     "puppeteer": "25.2.1",
     "react": "19.2.7",
