@@ -105,6 +105,12 @@ export class I18nClass extends EventEmitter<LinguiEvents> {
    */
   private _catalogs: Record<string, Messages> = {};
   private _loadFallbackWarned = false;
+  /**
+   * Pre-resolved `messages` dictionary content bound by the build-optimized
+   * `useDictionary` / `useDictionaryDynamic` variants. Checked before the
+   * runtime registry so lookups stay tree-shakeable.
+   */
+  private _dictionaryContent: unknown;
 
   constructor({ locale = 'en', locales, messages }: I18nProps = {}) {
     super();
@@ -125,6 +131,9 @@ export class I18nClass extends EventEmitter<LinguiEvents> {
     // Merge every intlayer dictionary (namespace) for the active locale into a
     // single flat catalog, unwrapping the lingui `{ messages: {…} }` wrapper.
     const dictionary: Messages = {};
+    if (this._dictionaryContent !== undefined) {
+      Object.assign(dictionary, unwrapLinguiCatalog(this._dictionaryContent));
+    }
     for (const key of getDictionaryKeys()) {
       try {
         Object.assign(
@@ -212,6 +221,18 @@ export class I18nClass extends EventEmitter<LinguiEvents> {
   }
 
   /**
+   * Binds pre-resolved `messages` dictionary content, checked before the
+   * runtime registry.
+   *
+   * @internal Used by the build-optimized `useDictionary` /
+   * `useDictionaryDynamic` variants — not part of the lingui API surface.
+   */
+  bindDictionaryContent(content: unknown): this {
+    this._dictionaryContent = content;
+    return this;
+  }
+
+  /**
    * Sets the active locale and emits `'change'` to notify React consumers.
    */
   activate(locale: Locale, locales?: Locales): void {
@@ -228,6 +249,11 @@ export class I18nClass extends EventEmitter<LinguiEvents> {
    * 2. runtime fallback catalog (constructor / `load()` / `loadAndActivate()`)
    */
   private resolveTemplate(id: string): string | undefined {
+    if (this._dictionaryContent !== undefined) {
+      const boundValue = navigateLinguiCatalog(this._dictionaryContent, id);
+      if (boundValue !== undefined) return linguiMessageToIcu(boundValue);
+    }
+
     const fromDictionary = lookupDictionaryMessage(
       id,
       this._locale as LocalesValues

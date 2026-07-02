@@ -68,6 +68,37 @@ export const buildUsageCheckRegex = (extraCallerNames?: string[]): RegExp => {
   return new RegExp(`\\b(${uniqueNames.join('|')})\\b`);
 };
 
+/** Usage-check regex covering only the native callers (no compat callers). */
+const NATIVE_USAGE_CHECK_REGEX = buildUsageCheckRegex();
+
+/** Cache of usage-check regexes, keyed by the compat-caller array reference. */
+const usageCheckRegexCache = new WeakMap<
+  readonly CompatCallerConfig[],
+  RegExp
+>();
+
+/**
+ * Returns the usage-check regex for the given compat callers, memoised by the
+ * array reference. Plugins pass the same options array for every analysed
+ * file, so the regex is built once per build instead of once per file.
+ */
+export const getUsageCheckRegex = (
+  compatCallers?: readonly CompatCallerConfig[]
+): RegExp => {
+  if (!compatCallers || compatCallers.length === 0) {
+    return NATIVE_USAGE_CHECK_REGEX;
+  }
+
+  let usageCheckRegex = usageCheckRegexCache.get(compatCallers);
+  if (!usageCheckRegex) {
+    usageCheckRegex = buildUsageCheckRegex(
+      compatCallers.map((caller) => caller.callerName)
+    );
+    usageCheckRegexCache.set(compatCallers, usageCheckRegex);
+  }
+  return usageCheckRegex;
+};
+
 /**
  * Matches source files that are valid targets for usage analysis and Babel
  * transformation. Excludes sourcemap files, declaration files, and other
@@ -116,10 +147,7 @@ export const analyzeFieldUsageInFile = async (
   pruneContext: PruneContext,
   compatCallers?: CompatCallerConfig[]
 ): Promise<void> => {
-  const extraCallerNames = (compatCallers ?? []).map(
-    (caller) => caller.callerName
-  );
-  const usageCheckRegex = buildUsageCheckRegex(extraCallerNames);
+  const usageCheckRegex = getUsageCheckRegex(compatCallers);
   const scriptBlocks = extractScriptBlocks(sourceFilePath, code);
 
   // For SFC files (Vue / Svelte): scriptBlocks[0].contentStartOffset > 0

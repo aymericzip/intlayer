@@ -1,3 +1,4 @@
+import { navigatePath } from '@intlayer/core/messageFormat';
 import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
@@ -16,23 +17,6 @@ import {
   parseTranslateArguments,
   resolveVueMessage,
 } from './resolveVueMessage';
-
-const navigatePath = (objectValue: unknown, path: string): unknown => {
-  if (!path) return objectValue;
-  const parts = path.split('.');
-  let current: unknown = objectValue;
-  for (const part of parts) {
-    if (
-      current === null ||
-      current === undefined ||
-      typeof current !== 'object'
-    ) {
-      return undefined;
-    }
-    current = (current as Record<string, unknown>)[part];
-  }
-  return current;
-};
 
 /**
  * Dictionary-accepting variant of `useI18n`.

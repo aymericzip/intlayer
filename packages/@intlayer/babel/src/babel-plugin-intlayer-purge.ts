@@ -14,7 +14,7 @@ import {
 import { extractScriptBlocks } from './extractScriptBlocks';
 import {
   BABEL_PARSER_OPTIONS,
-  buildUsageCheckRegex,
+  getUsageCheckRegex,
   SOURCE_FILE_REGEX,
 } from './transformers';
 
@@ -362,10 +362,7 @@ const analyzeSourceFileSync = (
     return;
   }
 
-  const extraCallerNames = (compatCallers ?? []).map(
-    (caller) => caller.callerName
-  );
-  const usageCheckRegex = buildUsageCheckRegex(extraCallerNames);
+  const usageCheckRegex = getUsageCheckRegex(compatCallers);
 
   if (!usageCheckRegex.test(code)) return;
 

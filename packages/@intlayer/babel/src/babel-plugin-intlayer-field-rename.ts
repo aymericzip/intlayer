@@ -16,18 +16,20 @@ import {
  */
 const RESERVED_CONTENT_FIELD_NAMES = new Set(['nodeType']);
 
+/** Alphabet used to derive short field aliases (`a`, `b`, …, `aa`, `ab`, …). */
+const SHORT_NAME_ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
+
 /**
  * Converts a zero-based index to a short alphabetic identifier.
  *   0 → 'a', 1 → 'b', …, 25 → 'z', 26 → 'aa', 27 → 'ab', …
  */
 export const generateShortFieldName = (index: number): string => {
-  const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
-  const remainder = index % ALPHABET.length;
-  const quotient = Math.floor(index / ALPHABET.length);
+  const remainder = index % SHORT_NAME_ALPHABET.length;
+  const quotient = Math.floor(index / SHORT_NAME_ALPHABET.length);
 
-  return quotient === 0 && ALPHABET[remainder]
-    ? ALPHABET[remainder]
-    : generateShortFieldName(quotient - 1) + ALPHABET[remainder];
+  return quotient === 0 && SHORT_NAME_ALPHABET[remainder]
+    ? SHORT_NAME_ALPHABET[remainder]
+    : generateShortFieldName(quotient - 1) + SHORT_NAME_ALPHABET[remainder];
 };
 
 /**
@@ -158,7 +160,6 @@ const walkRenameChain = (
   let refPath: NodePath<BabelTypes.Node> = startPath;
   let renameMap = currentRenameMap;
 
-  // eslint-disable-next-line no-constant-condition
   while (true) {
     const parentPath = refPath.parentPath;
     if (!parentPath) break;

@@ -1,27 +1,11 @@
 import { join } from 'node:path';
 import { runOnce } from '@intlayer/chokidar/utils';
+import { REACT_I18NEXT_CALLERS } from '@intlayer/config/callers';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
 import type { PluginOption } from 'vite';
-import { type CompatCallerConfig, intlayer } from 'vite-intlayer';
-
-/**
- * Caller configurations for `react-i18next`'s `useTranslation` hook.
- *
- * Tells the intlayer field-usage analyser how to extract the dictionary key
- * (namespace) and consumed fields from `useTranslation` call sites, enabling
- * accurate dictionary pruning for projects using `@intlayer/react-i18next`.
- */
-const REACT_I18NEXT_COMPAT_CALLERS: CompatCallerConfig[] = [
-  {
-    callerName: 'useTranslation',
-    importSources: ['react-i18next', '@intlayer/react-i18next'],
-    namespace: { from: 'argument', index: 0 },
-    keyPrefix: { from: 'option', argumentIndex: 1, property: 'keyPrefix' },
-    translationFunction: 'destructured-t',
-  },
-];
+import { intlayer } from 'vite-intlayer';
 
 /**
  * A Vite plugin for react-i18next compat that wraps vite-intlayer
@@ -61,7 +45,7 @@ export const reactI18nextVitePlugin = (
     ...options,
     compatCallers: [
       ...(options?.compatCallers ?? []),
-      ...REACT_I18NEXT_COMPAT_CALLERS,
+      ...REACT_I18NEXT_CALLERS,
     ],
   });
 

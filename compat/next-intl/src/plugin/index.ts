@@ -1,6 +1,7 @@
 import { createRequire } from 'node:module';
 import { dirname, join, relative, resolve, sep } from 'node:path';
 import { runOnce } from '@intlayer/chokidar/utils';
+import { NEXT_INTL_CALLERS, toSwcExtraCallers } from '@intlayer/config/callers';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
@@ -98,22 +99,12 @@ const resolveEsmPath = (specifier: string): string => {
 const toTurbopackAlias = (absolutePath: string): string =>
   `./${relative(process.cwd(), absolutePath).split(sep).join('/')}`;
 
-const NEXT_INTL_SWC_CALLERS = [
-  {
-    callerName: 'useTranslations',
-    importSources: ['next-intl', '@intlayer/next-intl'],
-    namespaceArgIndex: 0,
-    staticReplacement: 'useDictionary',
-    dynamicReplacement: 'useDictionaryDynamic',
-  },
-  {
-    callerName: 'getTranslations',
-    importSources: ['next-intl/server', '@intlayer/next-intl/server'],
-    namespaceArgIndex: 0,
-    staticReplacement: 'getDictionary',
-    dynamicReplacement: 'getDictionaryDynamic',
-  },
-];
+/**
+ * SWC extra-caller configs derived from the shared caller registry
+ * (`@intlayer/config/callers`) — the single source of truth also consumed by
+ * the babel analyzer/optimizer and the LSP.
+ */
+const NEXT_INTL_SWC_CALLERS = toSwcExtraCallers(NEXT_INTL_CALLERS);
 
 /**
  * A Next.js plugin for next-intl compat that wraps next-intlayer's plugin

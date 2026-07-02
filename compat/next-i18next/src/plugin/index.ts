@@ -1,6 +1,10 @@
 import { createRequire } from 'node:module';
 import { dirname, join, relative, resolve, sep } from 'node:path';
 import { runOnce } from '@intlayer/chokidar/utils';
+import {
+  REACT_I18NEXT_CALLERS,
+  toSwcExtraCallers,
+} from '@intlayer/config/callers';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
@@ -90,15 +94,12 @@ const resolveEsmPath = (specifier: string): string => {
 const toTurbopackAlias = (absolutePath: string): string =>
   `./${relative(process.cwd(), absolutePath).split(sep).join('/')}`;
 
-const NEXT_I18NEXT_SWC_CALLERS = [
-  {
-    callerName: 'useTranslation',
-    importSources: ['react-i18next', '@intlayer/react-i18next', 'next-i18next'],
-    namespaceArgIndex: 0,
-    staticReplacement: 'useDictionary',
-    dynamicReplacement: 'useDictionaryDynamic',
-  },
-];
+/**
+ * SWC extra-caller configs derived from the shared caller registry
+ * (`@intlayer/config/callers`) — the single source of truth also consumed by
+ * the babel analyzer/optimizer and the LSP.
+ */
+const NEXT_I18NEXT_SWC_CALLERS = toSwcExtraCallers(REACT_I18NEXT_CALLERS);
 
 /**
  * Disables the SWC `replaceDictionaryEntry` optimization on the resolved Next.js

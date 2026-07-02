@@ -1,33 +1,11 @@
 import { join } from 'node:path';
 import { runOnce } from '@intlayer/chokidar/utils';
+import { USE_INTL_CALLERS } from '@intlayer/config/callers';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
 import type { PluginOption } from 'vite';
-import { type CompatCallerConfig, intlayer } from 'vite-intlayer';
-
-/**
- * Caller configurations for use-intl's translation entry points.
- *
- * Tells the intlayer field-usage analyser how to extract the dictionary key
- * (namespace) and consumed fields from `useTranslations` / `createTranslator`
- * call sites, enabling accurate dictionary pruning for projects using
- * `@intlayer/use-intl`.
- */
-const USE_INTL_COMPAT_CALLERS: CompatCallerConfig[] = [
-  {
-    callerName: 'useTranslations',
-    importSources: ['use-intl', 'use-intl/react', '@intlayer/use-intl'],
-    namespace: { from: 'argument', index: 0 },
-    translationFunction: 'return-value',
-  },
-  {
-    callerName: 'createTranslator',
-    importSources: ['use-intl', 'use-intl/core', '@intlayer/use-intl'],
-    namespace: { from: 'option', argumentIndex: 0, property: 'namespace' },
-    translationFunction: 'return-value',
-  },
-];
+import { intlayer } from 'vite-intlayer';
 
 /**
  * A Vite plugin for use-intl compat that wraps vite-intlayer and configures
@@ -75,10 +53,7 @@ export const useIntlVitePlugin = (
 
   const basePlugins = intlayer({
     ...options,
-    compatCallers: [
-      ...(options?.compatCallers ?? []),
-      ...USE_INTL_COMPAT_CALLERS,
-    ],
+    compatCallers: [...(options?.compatCallers ?? []), ...USE_INTL_CALLERS],
   });
 
   const compatPlugin: PluginOption = {

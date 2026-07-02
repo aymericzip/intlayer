@@ -1,6 +1,7 @@
 import { getIntlayer } from '@intlayer/core/interpreter';
 import {
   type MessageValues,
+  navigatePath,
   parseTaggedMessage,
   resolveMessage,
   type TaggedMessageToken,
@@ -12,50 +13,13 @@ import type {
 } from '@intlayer/types/module_augmentation';
 import { Fragment, type ReactNode } from 'react';
 
+export { navigatePath } from '@intlayer/core/messageFormat';
+
 /** Chunk renderer used by `t.rich()` — maps tag children to a React node. */
 export type RichChunkRenderer = (chunks: ReactNode) => ReactNode;
 
 /** Chunk renderer used by `t.markup()` — maps tag children to a string. */
 export type MarkupChunkRenderer = (chunks: string) => string;
-
-/**
- * Reads a dotted `path` (e.g. `counter.label`) out of a nested object value.
- *
- * @param objectValue - The object to read from.
- * @param path - Dot-separated path. An empty path returns `objectValue`.
- * @returns The value found at `path`, or `undefined` when any segment is absent.
- */
-export const navigatePath = (objectValue: unknown, path: string): unknown => {
-  if (!path) return objectValue;
-
-  // Try the full key as a flat property first (supports flat JSON files
-  // that use dotted keys like "section.title": "value").
-  if (
-    path.includes('.') &&
-    objectValue !== null &&
-    objectValue !== undefined &&
-    typeof objectValue === 'object'
-  ) {
-    const flatValue = (objectValue as Record<string, unknown>)[path];
-    if (flatValue !== undefined) {
-      return flatValue;
-    }
-  }
-
-  const parts = path.split('.');
-  let current: unknown = objectValue;
-  for (const part of parts) {
-    if (
-      current === null ||
-      current === undefined ||
-      typeof current !== 'object'
-    ) {
-      return undefined;
-    }
-    current = (current as Record<string, unknown>)[part];
-  }
-  return current;
-};
 
 /** Splits rich values into scalar interpolation values and tag renderers. */
 const splitRichValues = (
@@ -136,46 +100,104 @@ export const createNamespaceTranslator = (
   const [dictionaryKey, ...prefixSegments] = (namespace ?? '').split('.');
   const keyPrefix = prefixSegments.join('.');
 
-  const lookup = (key: string): unknown => {
-    let targetDictionaryKey = dictionaryKey;
-    let path = keyPrefix ? `${keyPrefix}.${key}` : key;
+  const lookup = (lookupKey: string): unknown =>
+    lookupNamespaceKey(locale, dictionaryKey ?? '', keyPrefix, lookupKey);
 
-    const dictionaries = getDictionaries();
+  return createLookupTranslator(locale, lookup, (key) =>
+    namespace ? `${namespace}.${key}` : key
+  );
+};
 
-    if (!targetDictionaryKey) {
-      // Root scope — the first key segment usually designates the dictionary
-      const [firstSegment, ...restSegments] = key.split('.');
-      targetDictionaryKey = firstSegment;
-      path = restSegments.join('.');
+/**
+ * Key-based lookup used by {@link createNamespaceTranslator}: resolves the
+ * dictionary through the runtime registry (`getIntlayer`).
+ */
+const lookupNamespaceKey = (
+  locale: LocalesValues,
+  dictionaryKey: string,
+  keyPrefix: string,
+  key: string
+): unknown => {
+  let targetDictionaryKey = dictionaryKey;
+  let path = keyPrefix ? `${keyPrefix}.${key}` : key;
 
-      // If the assumed dictionary doesn't exist, we must fall back to searching all dictionaries.
-      // This supports apps migrating from standard next-intl where all messages were grouped together.
-      if (!dictionaries[targetDictionaryKey as DictionaryKeys]) {
-        for (const dictKey of Object.keys(dictionaries)) {
-          try {
-            const dictionary = getIntlayer(dictKey as DictionaryKeys, locale);
-            const result = navigatePath(dictionary, key);
-            if (result !== undefined) {
-              return result;
-            }
-          } catch {
-            // Ignore if getIntlayer throws
+  const dictionaries = getDictionaries();
+
+  if (!targetDictionaryKey) {
+    // Root scope — the first key segment usually designates the dictionary
+    const [firstSegment, ...restSegments] = key.split('.');
+    targetDictionaryKey = firstSegment ?? key;
+    path = restSegments.join('.');
+
+    // If the assumed dictionary doesn't exist, we must fall back to searching all dictionaries.
+    // This supports apps migrating from standard next-intl where all messages were grouped together.
+    if (!dictionaries[targetDictionaryKey as DictionaryKeys]) {
+      for (const dictKey of Object.keys(dictionaries)) {
+        try {
+          const dictionary = getIntlayer(dictKey as DictionaryKeys, locale);
+          const result = navigatePath(dictionary, key);
+          if (result !== undefined) {
+            return result;
           }
+        } catch {
+          // Ignore if getIntlayer throws
         }
       }
     }
+  }
 
-    try {
-      const dictionary = getIntlayer(
-        targetDictionaryKey as DictionaryKeys,
-        locale
-      );
-      return navigatePath(dictionary, path);
-    } catch {
-      return undefined;
-    }
-  };
+  try {
+    const dictionary = getIntlayer(
+      targetDictionaryKey as DictionaryKeys,
+      locale
+    );
+    return navigatePath(dictionary, path);
+  } catch {
+    return undefined;
+  }
+};
 
+/**
+ * Dictionary-bound translator used by the build-optimized `useDictionary` /
+ * `getDictionary` variants: instead of resolving the dictionary by key at
+ * runtime, the pre-resolved content is supplied directly (the babel/swc
+ * optimize pass imports the dictionary JSON at build time).
+ *
+ * @param locale - The locale messages are resolved for.
+ * @param content - The dictionary content, already resolved for `locale`.
+ * @param namespacePrefix - Optional key prefix for nested namespaces
+ *   (`useTranslations('about.counter')` → content of `about`, prefix `counter`).
+ * @returns A translate function augmented with `has`, `raw`, `rich`, `markup`.
+ */
+export const createDictionaryTranslator = (
+  locale: LocalesValues,
+  content: unknown,
+  namespacePrefix?: string
+) => {
+  const resolveKey = (key: string): string =>
+    namespacePrefix ? `${namespacePrefix}.${key}` : key;
+
+  return createLookupTranslator(
+    locale,
+    (key) => navigatePath(content, resolveKey(key)),
+    resolveKey
+  );
+};
+
+/**
+ * The untyped runtime translator core shared by every factory above:
+ * ICU message resolution plus the `has` / `raw` / `rich` / `markup` helpers.
+ *
+ * @param locale - The locale messages are resolved for.
+ * @param lookup - Reads the raw content value for a message key.
+ * @param missingKeyFallback - Builds the echoed key on lookup miss
+ *   (use-intl convention: `namespace.key`).
+ */
+const createLookupTranslator = (
+  locale: LocalesValues,
+  lookup: (key: string) => unknown,
+  missingKeyFallback: (key: string) => string
+) => {
   const resolveToString = (
     key: string,
     values: MessageValues = {}
@@ -184,9 +206,6 @@ export const createNamespaceTranslator = (
     if (rawValue === null || rawValue === undefined) return undefined;
     return resolveMessage(rawValue, values, locale, 'icu');
   };
-
-  const missingKeyFallback = (key: string): string =>
-    namespace ? `${namespace}.${key}` : key;
 
   const translate = (key: string, values?: MessageValues): string =>
     resolveToString(key, values) ?? missingKeyFallback(key);

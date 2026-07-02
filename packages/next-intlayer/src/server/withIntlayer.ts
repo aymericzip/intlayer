@@ -2,6 +2,7 @@ import { join, relative, resolve } from 'node:path';
 import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { logConfigDetails } from '@intlayer/chokidar/cli';
 import { buildComponentFilesList, runOnce } from '@intlayer/chokidar/utils';
+import type { SwcExtraCallerConfig } from '@intlayer/config/callers';
 import * as ANSIColors from '@intlayer/config/colors';
 import { IMPORT_MODE } from '@intlayer/config/defaultValues';
 import {
@@ -280,14 +281,6 @@ const getCommandsEvent = () => {
 };
 
 type WebpackParams = Parameters<NextJsWebpackConfig>;
-
-type SwcExtraCallerConfig = {
-  callerName: string;
-  importSources: string[];
-  namespaceArgIndex: number;
-  staticReplacement: string;
-  dynamicReplacement: string;
-};
 
 type WithIntlayerOptions = GetConfigurationOptions & {
   enableTurbopack?: boolean;

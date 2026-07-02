@@ -29,6 +29,11 @@ import {
 } from 'vscode-languageserver/node';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import {
+  buildCallerWithKeyPattern,
+  buildKeyUsagePatterns,
+  getCallerNamesAlternation,
+} from './callers/patterns';
+import {
   formatDictionaryHover,
   formatFieldHover,
   formatFieldValue,
@@ -45,18 +50,12 @@ import {
   findContentFieldAtOffset,
   findKeyInContentFile,
 } from './findKeyInContentFile';
-import { findTCallAtOffset } from './findTCallAtOffset';
-import { findUsageFieldAtOffset } from './findUsageFieldAtOffset';
+import { type OxcNode, parseText, walkAst } from './oxcUtils';
 import {
-  GETTER_NAMESPACE_ARG_INDEX,
-  getFirstStringArg,
-  getStringArgAt,
-  INTLAYER_GETTERS,
-  isIntlayerCall,
-  type OxcNode,
-  parseText,
-  walkAst,
-} from './oxcUtils';
+  collectNamespaceReferences,
+  findMessageUsageAtOffset,
+  matchCallNamespace,
+} from './usageAnalyzer';
 
 // Create a connection for the server, using Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -303,10 +302,7 @@ const getKeyUsageLocations = async (
 
   if (!config) return [];
 
-  const usageRegularExpression = new RegExp(
-    `\\b(?:${Object.values(INTLAYER_GETTERS).join('|')})\\b\\s*(?:<[^<>()]*>)?\\s*\\(\\s*(['"\`])${escapeRegularExpression(key)}\\1`,
-    'g'
-  );
+  const usagePatterns = buildKeyUsagePatterns(key);
 
   const filePaths = await getSourceFiles(config.system.baseDir, config);
   const locations: Location[] = [];
@@ -314,19 +310,27 @@ const getKeyUsageLocations = async (
 
   await runConcurrent(filePaths, async (filePath) => {
     const text = await tryReadFile(filePath);
-    // Quick string check before running the regex — skips the vast majority of files
+    // Quick string check before running the regexes — skips the vast majority of files
 
     if (!text?.includes(key)) return;
 
-    for (const match of text.matchAll(usageRegularExpression)) {
-      const matchStart = match.index!;
-      const matchEnd = matchStart + match[0].length;
-      locations.push(
-        Location.create(
-          pathToFileURL(filePath).href,
-          offsetToRange(text, matchStart, matchEnd)
-        )
-      );
+    const seenStarts = new Set<number>();
+
+    for (const usagePattern of usagePatterns) {
+      for (const match of text.matchAll(usagePattern)) {
+        const matchStart = match.index!;
+
+        if (seenStarts.has(matchStart)) continue;
+
+        seenStarts.add(matchStart);
+        const matchEnd = matchStart + match[0].length;
+        locations.push(
+          Location.create(
+            pathToFileURL(filePath).href,
+            offsetToRange(text, matchStart, matchEnd)
+          )
+        );
+      }
     }
   });
 
@@ -357,9 +361,7 @@ const getFieldUsageLocations = async (
   const leafFieldName = fieldPath[fieldPath.length - 1]!;
   const escapedKey = escapeRegularExpression(dictionaryKey);
   const escapedLeaf = escapeRegularExpression(leafFieldName);
-  const useCallRegularExpression = new RegExp(
-    `\\b(?:useIntlayer|getIntlayer|useTranslation|useTranslations|getTranslations|getFixedT|useI18n)\\b(?:<[^<>()]*>)?\\s*\\(\\s*['"\`]${escapedKey}['"\`]`
-  );
+  const useCallRegularExpression = buildCallerWithKeyPattern(dictionaryKey);
 
   const filePaths = await getSourceFiles(config.system.baseDir, config);
   const locations: Location[] = [];
@@ -395,25 +397,27 @@ const getFieldUsageLocations = async (
 };
 
 /**
- * Find the line/column of `fieldName` as a property key inside a content file.
- * Looks for `fieldName:` (the field definition), not just any occurrence.
- * Falls back to the top of the file
- *  if the field cannot be located.
+ * Find the line/column of the field's leaf name as a property key inside a
+ * content file. Looks for `fieldName:` or `'field.name':` (flat keys with
+ * dots, as used by lingui catalogs), not just any occurrence. Falls back to
+ * the top of the file if the field cannot be located.
  */
 const getFieldRangeInContentFile = async (
   absolutePath: string,
-  fieldName: string
+  fieldPath: string[]
 ): Promise<Range> => {
   const content = await tryReadFile(absolutePath);
+  const fieldName = fieldPath[fieldPath.length - 1];
 
-  if (!content)
+  if (!content || !fieldName)
     return Range.create(Position.create(0, 0), Position.create(0, 0));
 
-  const lines = content.split(/\r?\n/);
-  // Match `fieldName:` at an object property key position (not a value)
+  // Match `fieldName:` at an object property key position (not a value),
+  // allowing an optional quoted form for keys containing dots or dashes.
   const fieldRegularExpression = new RegExp(
-    `(?<![.\\w])${escapeRegularExpression(fieldName)}(?![\\w])\\s*:`
+    `(?<![.\\w])(['"\`]?)${escapeRegularExpression(fieldName)}\\1\\s*:`
   );
+  const lines = content.split(/\r?\n/);
 
   for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
     const line = lines[lineIndex]!;
@@ -433,12 +437,12 @@ const getFieldRangeInContentFile = async (
 };
 
 /**
- * Return every content-file location where `fieldName` is defined as a
- * property of the dictionary with the given `dictionaryKey`.
+ * Return every content-file location where the field at `fieldPath` is
+ * defined as a property of the dictionary with the given `dictionaryKey`.
  */
 const getContentFieldLocations = async (
   dictionaryKey: string,
-  fieldName: string,
+  fieldPath: string[],
   absolutePath: string
 ): Promise<Location[]> => {
   const config = getProjectConfig(absolutePath);
@@ -465,7 +469,7 @@ const getContentFieldLocations = async (
     locations.push(
       Location.create(
         pathToFileURL(absolutePath).href,
-        await getFieldRangeInContentFile(absolutePath, fieldName)
+        await getFieldRangeInContentFile(absolutePath, fieldPath)
       )
     );
   });
@@ -484,47 +488,34 @@ const computeDiagnostics = (
   text: string,
   config: WorkspaceConfig
 ): Diagnostic[] => {
-  const program = parseText(text);
+  const namespaceReferences = collectNamespaceReferences(text);
 
-  if (!program) return [];
+  if (namespaceReferences.length === 0) return [];
 
   const unmergedDictionaries = getUnmergedDictionariesCached(config);
+  const knownKeys = new Set(
+    Object.values(unmergedDictionaries)
+      .flat()
+      .map((dictionary) => dictionary?.key)
+      .filter((key): key is string => typeof key === 'string')
+  );
+
   const diagnostics: Diagnostic[] = [];
 
-  walkAst(program, (node) => {
-    if (!isIntlayerCall(node)) return;
+  for (const reference of namespaceReferences) {
+    if (knownKeys.has(reference.dictionaryKey)) continue;
 
-    const callee = node['callee'] as OxcNode;
-    const funcName = callee['name'] as string;
-    const argIndex = GETTER_NAMESPACE_ARG_INDEX.get(funcName) ?? 0;
-    if (argIndex < 0) return true; // useI18n — no positional namespace to validate
-
-    const key = getStringArgAt(node, argIndex);
-    if (!key) return;
-
-    const known = Object.values(unmergedDictionaries)
-      .flat()
-      .some((dictionary) => dictionary?.key === key);
-
-    if (!known) {
-      const args = node['arguments'] as OxcNode[] | undefined;
-      const namespaceArg = args?.[argIndex];
-
-      if (namespaceArg) {
-        diagnostics.push({
-          range: offsetToRange(
-            text,
-            namespaceArg['start'] as number,
-            namespaceArg['end'] as number
-          ),
-          severity: DiagnosticSeverity.Warning,
-          source: 'intlayer',
-          message: `Dictionary key "${key}" is not declared in any content file`,
-        });
-      }
-    }
-    return true; // prune: arguments can't be getter calls
-  });
+    diagnostics.push({
+      range: offsetToRange(
+        text,
+        reference.namespaceStart,
+        reference.namespaceEnd
+      ),
+      severity: DiagnosticSeverity.Warning,
+      source: 'intlayer',
+      message: `Dictionary key "${reference.dictionaryKey}" is not declared in any content file`,
+    });
+  }
 
   return diagnostics;
 };
@@ -576,7 +567,7 @@ type CompletionCtx =
   | { kind: 'field'; dictionaryKey: string; fieldPath: string[] }
   | null;
 
-/** Find the dictionary key for a simple variable assigned from useIntlayer/getIntlayer. */
+/** Find the dictionary key for a simple variable assigned from any registered caller. */
 const resolveVariableToDictionaryKey = (
   program: OxcNode,
   varName: string
@@ -593,8 +584,8 @@ const resolveVariableToDictionaryKey = (
       return;
     const init = node['init'] as OxcNode | undefined;
 
-    if (!init || !isIntlayerCall(init)) return;
-    result = getFirstStringArg(init);
+    if (!init) return;
+    result = matchCallNamespace(init);
     return true;
   });
   return result;
@@ -616,9 +607,9 @@ const getCompletionContext = (
   // Key completion
 
   if (
-    /\b(?:useIntlayer|getIntlayer|useTranslation|useTranslations|getTranslations|getFixedT|useI18n)\b(?:<[^<>]*>)?\s*\(\s*['"`][^'"`\n]*$/.test(
-      textBefore
-    )
+    new RegExp(
+      `\\b(?:${getCallerNamesAlternation()})\\b(?:<[^<>]*>)?\\s*\\(\\s*['"\`][^'"\`\\n]*$`
+    ).test(textBefore)
   ) {
     return { kind: 'key' };
   }
@@ -640,10 +631,9 @@ const getCompletionContext = (
   // Field completion inside destructuring: const { | } = useIntlayer("key")
 
   if (/(?:const|let|var)\s*\{[^}]*$/.test(textBefore)) {
-    const destructMatch =
-      /^[^}]*\}\s*=\s*(?:useIntlayer|getIntlayer|useTranslation|useTranslations|getTranslations|getFixedT|useI18n)(?:<[^<>]*>)?\s*\(\s*['"`]([^'"`\n]+)['"`]/.exec(
-        textAfter
-      );
+    const destructMatch = new RegExp(
+      `^[^}]*\\}\\s*=\\s*(?:${getCallerNamesAlternation()})(?:<[^<>]*>)?\\s*\\(\\s*['"\`]([^'"\`\\n]+)['"\`]`
+    ).exec(textAfter);
 
     if (destructMatch) {
       return { kind: 'field', dictionaryKey: destructMatch[1]!, fieldPath: [] };
@@ -728,23 +718,30 @@ connection.onDefinition(async (parameters) => {
     return locations.length ? locations : null;
   }
 
-  // Cursor on a destructured property or member access from a getter result:
-  //   const { label } = useIntlayer("key")   ← cursor on label
-  //   t.label  where const t = useIntlayer("key")
-  const usageField =
-    findUsageFieldAtOffset(text, offset) ?? findTCallAtOffset(text, offset);
+  // Cursor on any message usage: destructured property, member access,
+  // t('path.to.field') call, formatMessage({ id }), <Trans>, lingui t`…`, …
+  const usage = findMessageUsageAtOffset(text, offset);
 
-  if (usageField) {
+  if (usage && usage.fieldPath.length > 0) {
     log(
-      `onDefinition — usage field: "${usageField.dictionaryKey}.${usageField.fieldName}" → searching content field`
+      `onDefinition — usage field: "${usage.dictionaryKey}.${usage.fieldPath.join('.')}" (${usage.callerName}) → searching content field`
     );
     const locations = await getContentFieldLocations(
-      usageField.dictionaryKey,
-      usageField.fieldName,
+      usage.dictionaryKey,
+      usage.fieldPath,
       absolutePath
     );
     log(
-      `onDefinition — found ${locations.length} content file(s) with field "${usageField.fieldName}"`
+      `onDefinition — found ${locations.length} content file(s) with field "${usage.fieldPath.join('.')}"`
+    );
+    return locations.length ? locations : null;
+  }
+
+  if (usage) {
+    // Dictionary-level usage (e.g. bare content variable) → content files.
+    const locations = await getContentDeclarationLocations(
+      usage.dictionaryKey,
+      absolutePath
     );
     return locations.length ? locations : null;
   }
@@ -820,18 +817,18 @@ connection.onReferences(async (parameters: ReferenceParams) => {
     return locations.length ? locations : null;
   }
 
-  // Source file: field property or t('field') call → content-file field definitions
-  const usageField =
-    findUsageFieldAtOffset(text, offset) ?? findTCallAtOffset(text, offset);
+  // Source file: field property, t('field') call, JSX message component, …
+  // → content-file field definitions
+  const usage = findMessageUsageAtOffset(text, offset);
 
-  if (usageField) {
+  if (usage && usage.fieldPath.length > 0) {
     const locations = await getContentFieldLocations(
-      usageField.dictionaryKey,
-      usageField.fieldName,
+      usage.dictionaryKey,
+      usage.fieldPath,
       absolutePath
     );
     log(
-      `onReferences — field "${usageField.fieldName}" → ${locations.length} content definition(s)`
+      `onReferences — field "${usage.fieldPath.join('.')}" → ${locations.length} content definition(s)`
     );
     return locations.length ? locations : null;
   }
@@ -921,17 +918,28 @@ connection.onHover(async (parameters: HoverParams): Promise<Hover | null> => {
     return null;
   }
 
-  // Source file: cursor on a field property or t('field') call
-  const usageField =
-    findUsageFieldAtOffset(text, offset) ?? findTCallAtOffset(text, offset);
+  // Source file: cursor on any message usage (field property, t('field'),
+  // formatMessage({ id }), <Trans>, lingui t`…`, …)
+  const usage = findMessageUsageAtOffset(text, offset);
 
-  if (usageField) {
-    const dicts = getDicts(usageField.dictionaryKey);
+  if (usage) {
+    const dicts = getDicts(usage.dictionaryKey);
 
     if (dicts.length > 0) {
-      const hoverText = formatFieldHover(dicts, usageField.dictionaryKey, [
-        usageField.fieldName,
-      ]);
+      if (usage.fieldPath.length === 0) {
+        return {
+          contents: {
+            kind: MarkupKind.Markdown,
+            value: formatDictionaryHover(dicts, usage.dictionaryKey),
+          },
+        };
+      }
+
+      const hoverText = formatFieldHover(
+        dicts,
+        usage.dictionaryKey,
+        usage.fieldPath
+      );
 
       if (hoverText) {
         return {

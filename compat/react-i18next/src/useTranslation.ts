@@ -1,9 +1,6 @@
 'use client';
 
-import { getHTMLTextDir } from '@intlayer/core/localization';
-import { resolveMessage } from '@intlayer/core/messageFormat';
 import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
-import { getInterpolationValues, resolveTranslation } from '@intlayer/i18next';
 import type {
   DictionaryKeys,
   LocalesValues,
@@ -12,6 +9,7 @@ import type { TOptions } from 'i18next';
 import { useMemo } from 'react';
 import type { UseTranslationOptions } from 'react-i18next';
 import { useLocale } from 'react-intlayer';
+import { createTranslationApi } from './createTranslationApi';
 
 /**
  * Drop-in for react-i18next's `useTranslation`.
@@ -44,89 +42,16 @@ export const useTranslation = <N extends DictionaryKeys>(
 
   const keyPrefix = options?.keyPrefix;
 
-  /**
-   * @param key - A valid dot-notation path within the namespace N dictionary.
-   * @param optionsOrDefaultValue - i18next `t()` options (interpolation
-   *   values, `count`, `context`, `ns`, `defaultValue`, …) or a default
-   *   value string.
-   */
-  const translate = useMemo(() => {
-    const resolveSingleKey = (
-      key: string,
-      translateOptions?: TOptions
-    ): unknown =>
-      resolveTranslation({
+  const { translate, i18n } = useMemo(
+    () =>
+      createTranslationApi({
         locale: locale as LocalesValues,
+        setLocale: setLocale as (newLocale: LocalesValues) => void,
+        availableLocales: (availableLocales ?? []) as LocalesValues[],
         namespace,
-        key: keyPrefix ? `${keyPrefix}.${key}` : key,
-        options: translateOptions,
-      });
-
-    return (
-      key: string | string[],
-      optionsOrDefaultValue?: TOptions | string,
-      extraOptions?: TOptions
-    ): string => {
-      const translateOptions: TOptions =
-        typeof optionsOrDefaultValue === 'string'
-          ? { defaultValue: optionsOrDefaultValue, ...extraOptions }
-          : (optionsOrDefaultValue ?? {});
-
-      const keys = Array.isArray(key) ? key : [key];
-
-      for (const candidateKey of keys) {
-        const resolved = resolveSingleKey(candidateKey, translateOptions);
-        if (resolved !== undefined) return resolved as string;
-      }
-
-      const defaultValue = translateOptions.defaultValue;
-      if (typeof defaultValue === 'string') {
-        return resolveMessage(
-          defaultValue,
-          getInterpolationValues(translateOptions),
-          locale as LocalesValues,
-          'i18next'
-        );
-      }
-
-      return keys[keys.length - 1];
-    };
-  }, [locale, namespace, keyPrefix]);
-
-  const i18n = useMemo(
-    () => ({
-      language: locale as string,
-      languages: (availableLocales ?? []) as string[],
-      resolvedLanguage: locale as string,
-      isInitialized: true,
-      changeLanguage: async (newLanguage: string) => {
-        setLocale(newLanguage as LocalesValues);
-      },
-      dir: (language?: string): 'ltr' | 'rtl' => {
-        const direction = getHTMLTextDir((language ?? locale) as LocalesValues);
-        return direction === 'rtl' ? 'rtl' : 'ltr';
-      },
-      exists: (key: string, existsOptions?: TOptions): boolean =>
-        resolveTranslation({
-          locale: locale as LocalesValues,
-          namespace,
-          key,
-          options: existsOptions,
-        }) !== undefined,
-      t: translate,
-      getFixedT:
-        (language?: string | null, fixedNamespace?: string | null) =>
-        (key: string, fixedOptions?: TOptions): string => {
-          const resolved = resolveTranslation({
-            locale: (language ?? locale) as LocalesValues,
-            namespace: fixedNamespace ?? namespace,
-            key,
-            options: fixedOptions,
-          });
-          return resolved !== undefined ? (resolved as string) : key;
-        },
-    }),
-    [locale, availableLocales, setLocale, namespace, translate]
+        keyPrefix,
+      }),
+    [locale, setLocale, availableLocales, namespace, keyPrefix]
   );
 
   /** Typed facade over the untyped runtime translate function. */

@@ -2,7 +2,12 @@ import { dirname, join, relative } from 'node:path';
 import type { NodePath, PluginObject, PluginPass } from '@babel/core';
 import type * as BabelTypes from '@babel/types';
 import { getPathHash } from '@intlayer/chokidar/utils';
+import {
+  type CallerDescriptor,
+  getRewritableCallers,
+} from '@intlayer/config/callers';
 import { normalizePath } from '@intlayer/config/utils';
+import { getNormalizedFilesListSet } from './normalizedFilesList';
 
 const PACKAGE_LIST = [
   'intlayer',
@@ -51,6 +56,12 @@ const STATIC_IMPORT_FUNCTION = {
 const DYNAMIC_IMPORT_FUNCTION = {
   useIntlayer: 'useDictionaryDynamic',
 } as const;
+
+/** Import rename table applied when the helper plan for a package is `dynamic`. */
+const DYNAMIC_HELPER_MAP: Record<string, string> = {
+  ...STATIC_IMPORT_FUNCTION,
+  ...DYNAMIC_IMPORT_FUNCTION,
+};
 
 /**
  * Packages whose SSR-static `useDictionary` lives in a `/server` subpath
@@ -129,6 +140,20 @@ export type OptimizePluginOptions = {
    * Whether the current transform is for an SSR bundle.
    */
   isServer?: boolean;
+  /**
+   * Compat-adapter caller descriptors injected by the compat packages'
+   * bundler plugins (e.g. `@intlayer/react-i18next/plugin`).
+   *
+   * Callers carrying `staticReplacement` / `dynamicReplacement` are rewritten
+   * the same way as native `useIntlayer` calls: the namespace string argument
+   * is replaced by a pre-imported dictionary object and the import specifier
+   * is re-pointed to the dictionary-accepting variant, e.g.
+   * `useTranslation('about')` → `useDictionary(_dictHash)`.
+   *
+   * No compat-specific name is hard-coded in this plugin — the whole rewrite
+   * is driven by these descriptors.
+   */
+  compatCallers?: CallerDescriptor[];
 };
 
 type State = PluginPass & {
@@ -143,6 +168,8 @@ type State = PluginPass & {
   _callerMap?: Map<string, (typeof CALLER_LIST)[number]>;
   /** map from local identifier name to the intlayer package it was imported from */
   _callerPackageMap?: Map<string, string>;
+  /** map from local identifier name to the compat caller descriptor it was imported as */
+  _compatCallerMap?: Map<string, CallerDescriptor>;
   /** whether the current file *is* the dictionaries entry file */
   _isDictEntry?: boolean;
   /** whether the current file is included in the filesList */
@@ -215,6 +242,97 @@ const getKeyFromArgument = (
 
 const isCallerName = (name: string): name is CallerName =>
   CALLER_LIST.includes(name as CallerName);
+
+/**
+ * Splits a namespace string at the first `.` to separate the dictionary key
+ * from an optional key prefix for nested namespaces, mirroring the SWC
+ * plugin's `split_namespace`.
+ *
+ *   `'about'`         → `{ dictionaryKey: 'about', keyPrefix: '' }`
+ *   `'about.counter'` → `{ dictionaryKey: 'about', keyPrefix: 'counter' }`
+ */
+const splitNamespace = (
+  namespace: string
+): { dictionaryKey: string; keyPrefix: string } => {
+  const dotPosition = namespace.indexOf('.');
+  if (dotPosition === -1) return { dictionaryKey: namespace, keyPrefix: '' };
+  return {
+    dictionaryKey: namespace.slice(0, dotPosition),
+    keyPrefix: namespace.slice(dotPosition + 1),
+  };
+};
+
+/**
+ * Result of statically resolving the namespace of a compat caller call-site.
+ */
+type CompatNamespaceMatch = {
+  /** The full namespace string, e.g. `'about.counter'`. */
+  fullNamespace: string;
+  /** Index of the positional namespace argument, when read from an argument. */
+  argumentIndex?: number;
+  /**
+   * The options-object property holding the namespace, when read from an
+   * option. The rewrite mutates it in place (key-prefix remainder) or removes
+   * it from `optionsObject`.
+   */
+  optionProperty?: BabelTypes.ObjectProperty;
+  /** The options object owning `optionProperty`. */
+  optionsObject?: BabelTypes.ObjectExpression;
+};
+
+/**
+ * Statically resolves the namespace of a compat caller call-site from its
+ * descriptor's `namespaceSources` (argument / option / fixed — the
+ * per-message-id `path-first-segment` form cannot bind one dictionary to the
+ * call site and is skipped). Returns `undefined` when the namespace is absent
+ * or dynamic, in which case the call is left untouched and resolves through
+ * the runtime dictionary registry.
+ */
+const resolveCompatNamespaceMatch = (
+  t: typeof BabelTypes,
+  callArguments: BabelTypes.CallExpression['arguments'],
+  descriptor: CallerDescriptor
+): CompatNamespaceMatch | undefined => {
+  for (const source of descriptor.namespaceSources) {
+    if (source.from === 'fixed') {
+      return { fullNamespace: source.value };
+    }
+
+    if (source.from === 'argument') {
+      const namespace = getKeyFromArgument(callArguments[source.index], t);
+      if (namespace !== undefined) {
+        return { fullNamespace: namespace, argumentIndex: source.index };
+      }
+      continue;
+    }
+
+    if (source.from === 'option') {
+      const optionsArgument = callArguments[source.argumentIndex];
+      if (!optionsArgument || !t.isObjectExpression(optionsArgument)) continue;
+
+      for (const property of optionsArgument.properties) {
+        if (!t.isObjectProperty(property)) continue;
+        const keyMatches =
+          (t.isIdentifier(property.key) &&
+            property.key.name === source.property) ||
+          (t.isStringLiteral(property.key) &&
+            property.key.value === source.property);
+        if (!keyMatches) continue;
+
+        const namespace = getKeyFromArgument(property.value, t);
+        if (namespace !== undefined) {
+          return {
+            fullNamespace: namespace,
+            optionProperty: property,
+            optionsObject: optionsArgument,
+          };
+        }
+      }
+    }
+  }
+
+  return undefined;
+};
 
 const isDynamicPackage = (
   packageName: string
@@ -354,6 +472,7 @@ export const intlayerOptimizeBabelPlugin = (babel: {
       this._newDynamicImports = new Map();
       this._callerMap = new Map();
       this._callerPackageMap = new Map();
+      this._compatCallerMap = new Map();
       this._isIncluded = true;
       this._hasValidImport = false;
       this._isDictEntry = false;
@@ -369,8 +488,9 @@ export const intlayerOptimizeBabelPlugin = (babel: {
         ? normalizePath(this.file.opts.filename)
         : undefined;
       if (this.opts.filesList && filename) {
-        const filesList = this.opts.filesList.map(normalizePath);
-        const isIncluded = filesList.includes(filename);
+        const isIncluded = getNormalizedFilesListSet(this.opts.filesList).has(
+          filename
+        );
 
         if (!isIncluded) {
           // Force _isIncluded to false to skip processing
@@ -436,6 +556,12 @@ export const intlayerOptimizeBabelPlugin = (babel: {
 
           if (!state._isIncluded) return; // early-out if file is not included
 
+          // Compat callers the optimize pass can rewrite (injected by the
+          // compat packages' bundler plugins — nothing is hard-coded here).
+          const rewritableCompatCallers = getRewritableCallers(
+            state.opts.compatCallers ?? []
+          );
+
           // Manual traversal to process imports and call expressions
           // This runs AFTER all other plugins' visitors have completed
           programPath.traverse({
@@ -443,7 +569,14 @@ export const intlayerOptimizeBabelPlugin = (babel: {
             ImportDeclaration(path) {
               const src = path.node.source.value;
 
-              if (!PACKAGE_LIST.includes(src)) return;
+              const isNativePackage = PACKAGE_LIST.includes(src);
+              const compatCallersForSource = rewritableCompatCallers.filter(
+                (descriptor) => descriptor.importSources.includes(src)
+              );
+
+              if (!isNativePackage && compatCallersForSource.length === 0) {
+                return;
+              }
 
               state._hasValidImport = true;
 
@@ -454,23 +587,67 @@ export const intlayerOptimizeBabelPlugin = (babel: {
                   ? spec.imported.name
                   : (spec.imported as BabelTypes.StringLiteral).value;
 
-                if (isCallerName(importedName)) {
+                if (isNativePackage && isCallerName(importedName)) {
                   state._callerMap?.set(spec.local.name, importedName);
                   state._callerPackageMap?.set(spec.local.name, src);
+                }
+
+                const compatDescriptor = compatCallersForSource.find(
+                  (descriptor) => descriptor.callerName === importedName
+                );
+                if (compatDescriptor) {
+                  state._compatCallerMap?.set(
+                    spec.local.name,
+                    compatDescriptor
+                  );
                 }
               }
             },
           });
 
           // Pre-pass to determine if dictionary-level overrides require the
-          // dynamic helper in an otherwise static file.
+          // dynamic helper in an otherwise static file, and to disable the
+          // rewrite for compat callers with unresolvable call sites.
           const packagesWithDynamicCall = new Set<string>();
           const packagesWithFetchCall = new Set<string>();
+          let compatHasDynamicCall = false;
+          const unresolvableCompatLocalNames = new Set<string>();
           programPath.traverse({
             CallExpression(path) {
               const callee = path.node.callee;
 
               if (!t.isIdentifier(callee)) return;
+
+              const compatDescriptor = state._compatCallerMap?.get(callee.name);
+              if (compatDescriptor) {
+                const namespaceMatch = resolveCompatNamespaceMatch(
+                  t,
+                  path.node.arguments,
+                  compatDescriptor
+                );
+
+                if (!namespaceMatch) {
+                  // Dynamic/absent namespace: the whole local caller must keep
+                  // its original implementation — rewriting the import while
+                  // leaving this call untouched would hand a raw namespace
+                  // string to the dictionary-accepting helper.
+                  unresolvableCompatLocalNames.add(callee.name);
+                  return;
+                }
+
+                const { dictionaryKey } = splitNamespace(
+                  namespaceMatch.fullNamespace
+                );
+                const compatOverrideMode =
+                  state.opts.dictionaryModeMap?.[dictionaryKey];
+                if (
+                  compatOverrideMode === 'dynamic' ||
+                  compatOverrideMode === 'fetch'
+                ) {
+                  compatHasDynamicCall = true;
+                }
+                return;
+              }
 
               const originalImportedName = state._callerMap?.get(callee.name);
               if (originalImportedName !== 'useIntlayer') return;
@@ -492,6 +669,10 @@ export const intlayerOptimizeBabelPlugin = (babel: {
             },
           });
 
+          for (const localName of unresolvableCompatLocalNames) {
+            state._compatCallerMap?.delete(localName);
+          }
+
           const getHelperPlan = (packageName: string): PackageHelperPlan =>
             resolveHelperPlan(
               packageName,
@@ -501,9 +682,39 @@ export const intlayerOptimizeBabelPlugin = (babel: {
               packagesWithFetchCall.has(packageName)
             );
 
+          // Compat helpers are swapped per file (one import specifier serves
+          // every call), so the dynamic decision is file-level: a global
+          // dynamic/fetch mode or any per-dictionary override flips all
+          // rewritten compat calls to the dynamic helper.
+          const compatUseDynamicHelpers =
+            state.opts.importMode === 'dynamic' ||
+            state.opts.importMode === 'fetch' ||
+            compatHasDynamicCall;
+
           programPath.traverse({
             ImportDeclaration(path) {
               const src = path.node.source.value;
+
+              // Compat caller import rename: point the specifier at the
+              // dictionary-accepting helper exported by the compat package
+              // (`useTranslation` → `useDictionary`), keeping the local alias
+              // so call sites read unchanged. Locals with unresolvable call
+              // sites were dropped from the map and keep the original import.
+              for (const spec of path.node.specifiers) {
+                if (!t.isImportSpecifier(spec)) continue;
+
+                const compatDescriptor = state._compatCallerMap?.get(
+                  spec.local.name
+                );
+                if (!compatDescriptor) continue;
+                if (!compatDescriptor.importSources.includes(src)) continue;
+
+                spec.imported = t.identifier(
+                  compatUseDynamicHelpers
+                    ? compatDescriptor.dynamicReplacement!
+                    : compatDescriptor.staticReplacement!
+                );
+              }
 
               if (!PACKAGE_LIST.includes(src)) return;
 
@@ -518,8 +729,8 @@ export const intlayerOptimizeBabelPlugin = (babel: {
 
               const helperMap: Record<string, string> =
                 helperPlan === 'dynamic'
-                  ? { ...STATIC_IMPORT_FUNCTION, ...DYNAMIC_IMPORT_FUNCTION }
-                  : { ...STATIC_IMPORT_FUNCTION };
+                  ? DYNAMIC_HELPER_MAP
+                  : STATIC_IMPORT_FUNCTION;
 
               const serverSpecifiers: BabelTypes.ImportSpecifier[] = [];
 
@@ -574,6 +785,121 @@ export const intlayerOptimizeBabelPlugin = (babel: {
               const callee = path.node.callee;
 
               if (!t.isIdentifier(callee)) return;
+
+              // Compat caller rewrite, e.g. (mirroring the SWC plugin):
+              //   static:  useTranslation('about.counter', opts)
+              //            → useDictionary(_hash, 'counter', opts)
+              //   dynamic: useTranslation('about.counter', opts)
+              //            → useDictionaryDynamic(_hash_dyn, 'about', 'counter', opts)
+              //   option:  useI18n({ namespace: 'about' })
+              //            → useDictionary(_hash, {})
+              //   fixed:   useLingui() → useDictionary(_hash)
+              const compatDescriptor = state._compatCallerMap?.get(callee.name);
+              if (compatDescriptor) {
+                const callArguments = path.node.arguments;
+                const namespaceMatch = resolveCompatNamespaceMatch(
+                  t,
+                  callArguments,
+                  compatDescriptor
+                );
+                if (!namespaceMatch) return; // filtered by the pre-pass — stay safe
+
+                state._hasValidImport = true;
+
+                const { dictionaryKey, keyPrefix } = splitNamespace(
+                  namespaceMatch.fullNamespace
+                );
+                const compatOverrideMode =
+                  state.opts.dictionaryModeMap?.[dictionaryKey];
+
+                // The import specifier serves every call in the file, so a
+                // dynamic file receives a dynamic loader for every call.
+                let compatCallMode: ImportMode = 'static';
+                if (compatUseDynamicHelpers) {
+                  if (
+                    compatOverrideMode === 'dynamic' ||
+                    compatOverrideMode === 'fetch'
+                  ) {
+                    compatCallMode = compatOverrideMode;
+                  } else if (
+                    state.opts.importMode === 'dynamic' ||
+                    state.opts.importMode === 'fetch'
+                  ) {
+                    compatCallMode = state.opts.importMode;
+                  } else {
+                    compatCallMode = 'dynamic';
+                  }
+                }
+
+                let dictionaryIdent: BabelTypes.Identifier;
+                if (compatCallMode === 'static') {
+                  let staticIdent = state._newStaticImports?.get(dictionaryKey);
+                  if (!staticIdent) {
+                    staticIdent = makeIdent(dictionaryKey, t);
+                    state._newStaticImports?.set(dictionaryKey, staticIdent);
+                  }
+                  dictionaryIdent = staticIdent;
+                } else {
+                  let dynamicIdent =
+                    state._newDynamicImports?.get(dictionaryKey);
+                  if (!dynamicIdent) {
+                    const hash = getPathHash(dictionaryKey);
+                    const suffix = compatCallMode === 'fetch' ? 'fetch' : 'dyn';
+                    dynamicIdent = t.identifier(`_${hash}_${suffix}`);
+                    state._newDynamicImports?.set(dictionaryKey, dynamicIdent);
+                  }
+                  dictionaryIdent = dynamicIdent;
+                }
+
+                if (namespaceMatch.argumentIndex !== undefined) {
+                  // Positional namespace: replace the string with the
+                  // dictionary, then (dynamic) key and (nested) prefix.
+                  callArguments[namespaceMatch.argumentIndex] = t.identifier(
+                    dictionaryIdent.name
+                  );
+                  const insertAt = namespaceMatch.argumentIndex + 1;
+                  const insertedArguments: BabelTypes.Expression[] = [];
+                  if (compatCallMode !== 'static') {
+                    insertedArguments.push(t.stringLiteral(dictionaryKey));
+                  }
+                  if (keyPrefix) {
+                    insertedArguments.push(t.stringLiteral(keyPrefix));
+                  }
+                  callArguments.splice(insertAt, 0, ...insertedArguments);
+                } else if (compatCallMode !== 'static') {
+                  // Fixed / option namespace, dynamic helper: prepend the
+                  // loader and the dictionary key.
+                  callArguments.unshift(
+                    t.identifier(dictionaryIdent.name),
+                    t.stringLiteral(dictionaryKey)
+                  );
+                } else {
+                  // Fixed / option namespace, static helper: prepend the
+                  // dictionary object.
+                  callArguments.unshift(t.identifier(dictionaryIdent.name));
+                }
+
+                // Option namespace: leave only the key-prefix remainder in the
+                // options object (or drop the property for a plain namespace),
+                // so the runtime helper does not re-apply the dictionary key
+                // as a lookup prefix.
+                if (
+                  namespaceMatch.optionProperty &&
+                  namespaceMatch.optionsObject
+                ) {
+                  if (keyPrefix) {
+                    namespaceMatch.optionProperty.value =
+                      t.stringLiteral(keyPrefix);
+                  } else {
+                    namespaceMatch.optionsObject.properties =
+                      namespaceMatch.optionsObject.properties.filter(
+                        (property) => property !== namespaceMatch.optionProperty
+                      );
+                  }
+                }
+
+                return;
+              }
 
               const originalImportedName = state._callerMap?.get(callee.name);
               if (!originalImportedName) return;

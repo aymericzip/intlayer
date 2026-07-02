@@ -52,4 +52,6 @@ export {
 export { FormattedMessage } from './FormattedMessage';
 export { IntlProvider } from './IntlProvider';
 // ── Hook ─────────────────────────────────────────────────────────────────────
+export { useDictionary } from './useDictionary';
+export { useDictionaryDynamic } from './useDictionaryDynamic';
 export { useIntl } from './useIntl';

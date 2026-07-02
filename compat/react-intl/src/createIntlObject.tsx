@@ -1,6 +1,7 @@
 import { getIntlayer } from '@intlayer/core/interpreter';
 import {
   type MessageValues,
+  navigatePath,
   parseTaggedMessage,
   resolveMessage,
   type TaggedMessageToken,
@@ -22,23 +23,6 @@ const splitId = (id: string): { dictionaryKey: string; path: string } => {
     dictionaryKey: id.slice(0, dotIndex),
     path: id.slice(dotIndex + 1),
   };
-};
-
-const navigatePath = (object: unknown, path: string): unknown => {
-  if (!path) return object;
-  const parts = path.split('.');
-  let current: unknown = object;
-  for (const part of parts) {
-    if (
-      current === null ||
-      current === undefined ||
-      typeof current !== 'object'
-    ) {
-      return undefined;
-    }
-    current = (current as Record<string, unknown>)[part];
-  }
-  return current;
 };
 
 /** Looks up a message value by full dotted id; first segment = dictionary key. */
@@ -94,8 +78,15 @@ const isRichValues = (values: Record<string, unknown>): boolean =>
  * - Translation ids use the first dot-path segment as the dictionary key.
  * - Full ICU MessageFormat syntax is supported via `@intlayer/core/messageFormat`.
  * - Rich text tags (`<b>chunks</b>`) are resolved through render functions in `values`.
+ *
+ * @param locale - The locale messages are resolved for.
+ * @param lookupOverride - Optional message lookup replacing the registry-based
+ *   id resolution; used by the dictionary-bound `useDictionary` variant.
  */
-export const createIntlObject = (locale: LocalesValues): IntlShape => {
+export const createIntlObject = (
+  locale: LocalesValues,
+  lookupOverride?: (id: string) => unknown
+): IntlShape => {
   const localeString = locale as string;
 
   const formatMessage = (
@@ -103,7 +94,9 @@ export const createIntlObject = (locale: LocalesValues): IntlShape => {
     values?: Record<string, unknown>
   ): string | ReactNode[] => {
     const { id = '', defaultMessage } = descriptor;
-    const rawValue = lookupMessage(id, locale);
+    const rawValue = lookupOverride
+      ? lookupOverride(id)
+      : lookupMessage(id, locale);
     const messageTemplate =
       rawValue !== undefined && rawValue !== null
         ? (rawValue as string)

@@ -2,7 +2,7 @@ import { internationalization, log } from '@intlayer/config/built';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { getIntlayer } from '@intlayer/core/interpreter';
-import { resolveMessage } from '@intlayer/core/messageFormat';
+import { navigatePath, resolveMessage } from '@intlayer/core/messageFormat';
 import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
 import type {
   DictionaryKeys,
@@ -20,22 +20,6 @@ import {
 } from './resolveTranslation';
 
 type EventHandler = (...args: unknown[]) => void;
-
-const navigatePath = (obj: unknown, path: string): unknown => {
-  if (!path) return obj;
-  let current: unknown = obj;
-  for (const part of path.split('.')) {
-    if (
-      current === null ||
-      current === undefined ||
-      typeof current !== 'object'
-    ) {
-      return undefined;
-    }
-    current = (current as Record<string, unknown>)[part];
-  }
-  return current;
-};
 
 const warnIgnoredResources = (location: string) => {
   const appLogger = getAppLogger({ log });

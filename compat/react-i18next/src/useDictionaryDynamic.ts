@@ -2,16 +2,25 @@
 
 import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
+import type {
+  LocalesValues,
+  StrictModeLocaleMap,
+} from '@intlayer/types/module_augmentation';
+import type { TOptions } from 'i18next';
 import { useMemo } from 'react';
 import type { UseTranslationOptions } from 'react-i18next';
 import {
   useDictionaryDynamic as useDictionaryDynamicBase,
   useLocale,
 } from 'react-intlayer';
+import { createTranslationApi } from './createTranslationApi';
 
 /**
  * Dynamic dictionary-accepting variant of `useTranslation`.
+ *
+ * Counterpart to {@link useDictionary} for dictionaries imported lazily per
+ * locale. For a nested namespace (`useTranslation('about.counter')`), the
+ * plugin passes the key prefix (`'counter'`) as the third argument.
  */
 export const useDictionaryDynamic = <
   const T extends Dictionary,
@@ -19,49 +28,36 @@ export const useDictionaryDynamic = <
 >(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   key: K,
+  keyPrefix?: string | UseTranslationOptions<string>,
   options?: UseTranslationOptions<string>
 ) => {
-  const content = useDictionaryDynamicBase<T, any>(
-    dictionaryPromise,
-    key as any
-  );
+  const content = useDictionaryDynamicBase<T, K>(dictionaryPromise, key);
   const { locale, setLocale, availableLocales } = useLocale();
 
-  const i18n = useMemo(
-    () => ({
-      language: locale as string,
-      languages: (availableLocales ?? []) as string[],
-      changeLanguage: async (lng: string) => {
-        setLocale(lng as any);
-      },
-      isInitialized: true,
-    }),
-    [locale, availableLocales, setLocale]
+  const resolvedOptions = typeof keyPrefix === 'object' ? keyPrefix : options;
+  const prefix =
+    resolvedOptions?.keyPrefix ??
+    (typeof keyPrefix === 'string' ? keyPrefix : undefined);
+
+  const { translate, i18n } = useMemo(
+    () =>
+      createTranslationApi({
+        locale: locale as LocalesValues,
+        setLocale: setLocale as (newLocale: LocalesValues) => void,
+        availableLocales: (availableLocales ?? []) as LocalesValues[],
+        namespace: key,
+        keyPrefix: prefix,
+        dictionaryContent: content,
+      }),
+    [locale, setLocale, availableLocales, key, prefix, content]
   );
 
-  const prefix = options?.keyPrefix;
-
-  const t = <P extends ValidDotPathsFor<any>>(
-    lookup: P,
-    params?: Record<string, unknown>
-  ): string => {
-    const lookupKey = prefix ? `${prefix}.${String(lookup)}` : String(lookup);
-    const parts = lookupKey.split('.');
-    let current: any = content;
-
-    for (const part of parts) {
-      if (current == null) break;
-      current = current[part];
-    }
-
-    const str = String(current ?? lookupKey);
-
-    if (!params) return str;
-
-    return str.replace(/\{\{(\w+)\}\}/g, (_, k) =>
-      params[k] != null ? String(params[k]) : `{{${k}}}`
-    );
-  };
+  /** Typed facade over the untyped runtime translate function. */
+  const t = translate as <P extends ValidDotPathsFor<K>>(
+    key: P | P[],
+    optionsOrDefaultValue?: TOptions | string,
+    extraOptions?: TOptions
+  ) => string;
 
   return { t, i18n, ready: true };
 };

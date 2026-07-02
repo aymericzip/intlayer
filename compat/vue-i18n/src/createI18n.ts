@@ -2,6 +2,7 @@ import { internationalization, log } from '@intlayer/config/built';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { getIntlayer } from '@intlayer/core/interpreter';
+import { navigatePath } from '@intlayer/core/messageFormat';
 import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
 import type {
   DictionaryKeys,
@@ -35,22 +36,6 @@ export const I18nInjectionKey: InjectionKey<I18n> = Symbol('global-i18n');
  * dot-namespaced (i18next-style flat keys, e.g. `t('greeting')`).
  */
 const DEFAULT_NAMESPACE = 'translation';
-
-const navigatePath = (objectValue: unknown, path: string): unknown => {
-  if (!path) return objectValue;
-  let current: unknown = objectValue;
-  for (const part of path.split('.')) {
-    if (
-      current === null ||
-      current === undefined ||
-      typeof current !== 'object'
-    ) {
-      return undefined;
-    }
-    current = (current as Record<string, unknown>)[part];
-  }
-  return current;
-};
 
 /**
  * Looks up a raw value for a vue-i18n key against intlayer dictionaries.

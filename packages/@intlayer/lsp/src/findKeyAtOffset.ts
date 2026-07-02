@@ -1,58 +1,35 @@
-import {
-  GETTER_NAMESPACE_ARG_INDEX,
-  getStringArgAt,
-  isIntlayerCall,
-  type OxcNode,
-  parseText,
-  walkAst,
-} from './oxcUtils';
+import { collectNamespaceReferences } from './usageAnalyzer';
 
 /**
- * Scan `text` for a getter call whose namespace/key argument span contains
- * `offset`.  Returns the namespace string, or `null` when the cursor is not
- * inside any recognised getter's key argument.
+ * Scan `text` for a caller whose namespace (dictionary key) is addressed at
+ * `offset`. Returns the namespace string when the cursor is on the caller
+ * name or on the namespace argument itself, `null` otherwise.
  *
- * Handles:
- *   useIntlayer("my-key")           ← cursor on "my-key"
- *   useTranslations("namespace")    ← cursor on "namespace"
- *   getFixedT("en", "namespace")    ← cursor on "namespace" (2nd arg), not "en"
- *   useI18n(...)                    ← always null (no positional namespace)
+ * Handles every registered caller with a positional or options-object
+ * namespace:
+ *   useIntlayer("my-key")                 ← cursor on "my-key" or the callee
+ *   useTranslations("namespace")          ← idem
+ *   getFixedT("en", "namespace")          ← cursor on "namespace", not "en"
+ *   useI18n({ namespace: "ns" })          ← cursor on "ns" or the callee
+ *   getTranslations({ namespace: "ns" })  ← idem
+ *
+ * Self callers (`formatMessage`, lingui `t`/`_`) are message *usages*, not
+ * namespace declarations — they are resolved by `findMessageUsageAtOffset`.
  */
 export const findKeyAtOffset = (
   text: string,
   offset: number
 ): string | null => {
-  const program = parseText(text);
-  if (!program) return null;
+  for (const reference of collectNamespaceReferences(text)) {
+    const isOnCalleeName =
+      offset >= reference.calleeStart && offset <= reference.calleeEnd;
+    const isOnNamespaceArgument =
+      offset >= reference.namespaceStart && offset <= reference.namespaceEnd;
 
-  let result: string | null = null;
+    if (isOnCalleeName || isOnNamespaceArgument) {
+      return reference.dictionaryKey;
+    }
+  }
 
-  walkAst(program, (node) => {
-    if (result) return true; // already found — prune remaining
-    if (!isIntlayerCall(node)) return;
-
-    const start = node['start'] as number;
-    const end = node['end'] as number;
-    if (offset < start || offset > end) return true; // outside call span — prune
-
-    const callee = node['callee'] as OxcNode;
-    const funcName = callee['name'] as string;
-    const argIndex = GETTER_NAMESPACE_ARG_INDEX.get(funcName) ?? 0;
-    if (argIndex < 0) return true; // useI18n — no positional namespace
-
-    const args = node['arguments'] as OxcNode[] | undefined;
-    const namespaceArg = args?.[argIndex];
-    if (!namespaceArg) return true;
-
-    // Only trigger when the cursor is within the namespace arg, not on
-    // a different arg (e.g. the locale in getFixedT("en", "ns")).
-    const argStart = namespaceArg['start'] as number;
-    const argEnd = namespaceArg['end'] as number;
-    if (offset < argStart || offset > argEnd) return true;
-
-    result = getStringArgAt(node, argIndex);
-    return true;
-  });
-
-  return result;
+  return null;
 };

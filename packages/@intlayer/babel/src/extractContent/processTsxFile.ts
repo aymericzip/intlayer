@@ -8,7 +8,6 @@ import type { IntlayerConfig } from '@intlayer/types/config';
 import { extractBabelContentForComponents } from './babelProcessor';
 import {
   type ExistingIntlayerInfo,
-  getExistingIntlayerInfo,
   type PackageName,
   SERVER_CAPABLE_PACKAGES,
 } from './utils';
@@ -84,6 +83,7 @@ export const processTsxFile = (
     componentKeyMap,
     componentPaths,
     hookMap,
+    existingInfoByNode: existingInfoCache,
   } = extractBabelContentForComponents(
     ast,
     fileCode,
@@ -98,19 +98,11 @@ export const processTsxFile = (
 
   const textEdits: TextEdit[] = [];
 
-  // Build a lookup map: component AST node → NodePath (O(1) access)
+  // Build a lookup map: component AST node → NodePath (O(1) access).
+  // Existing-intlayer info comes pre-cached from the extraction pass.
   const componentNodeToPath = new Map<t.Node, NodePath>();
   for (const componentPath of componentPaths) {
     componentNodeToPath.set(componentPath.node, componentPath);
-  }
-
-  // Cache getExistingIntlayerInfo results for all component paths (avoids repeated traversals)
-  const existingInfoCache = new Map<t.Node, ExistingIntlayerInfo | undefined>();
-  for (const componentPath of componentPaths) {
-    existingInfoCache.set(
-      componentPath.node,
-      getExistingIntlayerInfo(componentPath)
-    );
   }
 
   /**

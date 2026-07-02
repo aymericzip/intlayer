@@ -45,4 +45,6 @@ export type {
 export { I18nProvider } from './I18nProvider';
 export { LinguiContext } from './LinguiContext';
 export { Trans } from './Trans';
+export { useDictionary } from './useDictionary';
+export { useDictionaryDynamic } from './useDictionaryDynamic';
 export { useLingui } from './useLingui';

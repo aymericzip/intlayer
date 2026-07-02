@@ -1,6 +1,7 @@
 import { getIntlayer } from '@intlayer/core/interpreter';
 import {
   type MessageValues,
+  navigatePath,
   resolveMessage,
 } from '@intlayer/core/messageFormat';
 import type {
@@ -44,45 +45,6 @@ const CONTROL_OPTION_KEYS = new Set([
 
 /** Maximum `$t()` nesting recursion depth. */
 const MAX_NESTING_DEPTH = 5;
-
-const navigatePath = (
-  objectValue: unknown,
-  path: string,
-  keySeparator: string | false = '.'
-): unknown => {
-  if (!path) return objectValue;
-
-  // Try the full key as a flat property first (supports i18next flat
-  // JSON files that use dotted keys like "section.title": "value").
-  if (
-    keySeparator !== false &&
-    path.includes(keySeparator) &&
-    objectValue !== null &&
-    objectValue !== undefined &&
-    typeof objectValue === 'object'
-  ) {
-    const flatValue = (objectValue as Record<string, unknown>)[path];
-    if (flatValue !== undefined) {
-      return flatValue;
-    }
-  }
-
-  const parts = keySeparator === false ? [path] : path.split(keySeparator);
-
-  let current: unknown = objectValue;
-  for (const part of parts) {
-    if (
-      current === null ||
-      current === undefined ||
-      typeof current !== 'object'
-    ) {
-      return undefined;
-    }
-    current = (current as Record<string, unknown>)[part];
-  }
-
-  return current;
-};
 
 /**
  * Builds the ordered list of key candidates following i18next's resolution
@@ -162,6 +124,17 @@ export type ResolveTranslationParams = {
   nsSeparator?: string | false;
   /** Internal `$t()` nesting recursion depth. */
   depth?: number;
+  /**
+   * Pre-resolved content of the `namespace` dictionary for `locale`.
+   *
+   * Supplied by the build-optimized `useDictionary` / `getDictionary`
+   * variants, where the dictionary is imported at build time instead of read
+   * from the runtime registry. Only used when the call resolves to the
+   * default `namespace` without a locale override — cross-namespace
+   * (`other:key`, `{ ns }`) and `{ lng }` lookups still go through
+   * `getIntlayer`.
+   */
+  dictionaryContent?: unknown;
 };
 
 /**
@@ -181,6 +154,7 @@ export const resolveTranslation = ({
   keySeparator = '.',
   nsSeparator = ':',
   depth = 0,
+  dictionaryContent,
 }: ResolveTranslationParams): unknown => {
   // Namespace resolution: `ns:` prefix > `ns` option > default namespace
   let targetNamespace = namespace;
@@ -202,13 +176,21 @@ export const resolveTranslation = ({
   const ordinal = options?.ordinal === true;
 
   let dictionary: unknown;
-  try {
-    dictionary = getIntlayer(
-      targetNamespace as DictionaryKeys,
-      ((options?.lng as string) ?? locale) as LocalesValues
-    );
-  } catch {
-    return undefined;
+  if (
+    dictionaryContent !== undefined &&
+    targetNamespace === namespace &&
+    options?.lng === undefined
+  ) {
+    dictionary = dictionaryContent;
+  } else {
+    try {
+      dictionary = getIntlayer(
+        targetNamespace as DictionaryKeys,
+        ((options?.lng as string) ?? locale) as LocalesValues
+      );
+    } catch {
+      return undefined;
+    }
   }
 
   let resolvedValue: unknown;
@@ -259,6 +241,8 @@ export const resolveTranslation = ({
           keySeparator,
           nsSeparator,
           depth: depth + 1,
+          dictionaryContent:
+            targetNamespace === namespace ? dictionaryContent : undefined,
         });
         return typeof nestedValue === 'string' ? nestedValue : match;
       }

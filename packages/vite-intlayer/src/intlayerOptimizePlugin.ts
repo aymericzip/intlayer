@@ -603,7 +603,16 @@ export const intlayerOptimize = async (
             unmergedDictionariesEntryPath,
           ].includes(sourceFilePath);
 
-          const isUsingIntlayer = INTLAYER_USAGE_REGEX.test(sourceCode);
+          // Match native intlayer calls plus any configured compat callers
+          // (`useTranslation`, `useTranslations`, …) so compat-only files are
+          // still optimized.
+          const optimizeUsageRegex = compatCallers?.length
+            ? buildUsageCheckRegex(
+                compatCallers.map((caller) => caller.callerName)
+              )
+            : INTLAYER_USAGE_REGEX;
+
+          const isUsingIntlayer = optimizeUsageRegex.test(sourceCode);
           if (!isUsingIntlayer && !isDictionaryEntryFile) return null;
 
           // Step 1: Field rename (must run before the optimize pass, which
@@ -646,6 +655,7 @@ export const intlayerOptimize = async (
               replaceDictionaryEntry: !compatCallers?.length,
               dictionaryModeMap: dictionaryKeyToImportModeMap,
               isServer: options?.ssr === true,
+              compatCallers,
             }
           );
 

@@ -11,6 +11,7 @@ import type { FilePathPattern } from '@intlayer/types/filePathPattern';
 import { extractContentSync } from './extractContent/extractContent';
 import type { PackageName } from './extractContent/utils/constants';
 import { detectPackageName } from './extractContent/utils/detectPackageName';
+import { getNormalizedFilesListSet } from './normalizedFilesList';
 
 export type ExtractResult = {
   dictionaryKey: string;
@@ -80,7 +81,9 @@ export const intlayerExtractBabelPlugin = (_babel: {
           // Compare as POSIX paths (babel filenames use OS separators on Windows).
           if (
             opts.filesList &&
-            !opts.filesList.map(normalizePath).includes(normalizePath(filename))
+            !getNormalizedFilesListSet(opts.filesList).has(
+              normalizePath(filename)
+            )
           ) {
             return;
           }

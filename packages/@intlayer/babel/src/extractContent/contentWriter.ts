@@ -17,21 +17,17 @@ import { resolveContentFilePaths } from './utils/extractDictionaryInfo';
 const hasInsertionVars = (str: string): boolean => /\{\{[^}]+\}\}/.test(str);
 
 const getInsertionFields = (template: string): string[] => {
-  const fields: string[] = [];
+  const fields = new Set<string>();
   const regex = /\{\{([^}]+)\}\}/g;
-  let match: RegExpExecArray | null;
   for (
-    let result = regex.exec(template);
-    result !== null;
-    result = regex.exec(template)
+    let match = regex.exec(template);
+    match !== null;
+    match = regex.exec(template)
   ) {
-    match = result;
-    const fieldMatch = match[1];
-    if (!fieldMatch) continue;
-    const field = fieldMatch.trim();
-    if (!fields.includes(field)) fields.push(field);
+    const field = match[1]?.trim();
+    if (field) fields.add(field);
   }
-  return fields;
+  return [...fields];
 };
 
 /**

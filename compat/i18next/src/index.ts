@@ -15,6 +15,8 @@ import type {
 } from 'i18next';
 import { createInstance, type TypedGetFixedT } from './createInstance';
 
+export { getDictionary } from './getDictionary';
+export { getDictionaryDynamic } from './getDictionaryDynamic';
 export {
   getInterpolationValues,
   type ResolveTranslationParams,

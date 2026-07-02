@@ -1,26 +1,11 @@
 import { join } from 'node:path';
 import { runOnce } from '@intlayer/chokidar/utils';
+import { VUE_I18N_CALLERS } from '@intlayer/config/callers';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
 import type { PluginOption } from 'vite';
-import { type CompatCallerConfig, intlayer } from 'vite-intlayer';
-
-/**
- * Caller configurations for vue-i18n's `useI18n` composable.
- *
- * Tells the intlayer field-usage analyser how to extract the dictionary key
- * (namespace) from `useI18n({ namespace: 'ns' })` call sites, enabling
- * accurate dictionary pruning for projects using `@intlayer/vue-i18n`.
- */
-const VUE_I18N_COMPAT_CALLERS: CompatCallerConfig[] = [
-  {
-    callerName: 'useI18n',
-    importSources: ['vue-i18n', '@intlayer/vue-i18n'],
-    namespace: { from: 'option', argumentIndex: 0, property: 'namespace' },
-    translationFunction: 'destructured-t',
-  },
-];
+import { intlayer } from 'vite-intlayer';
 
 /**
  * A Vite plugin for vue-i18n compat that wraps vite-intlayer
@@ -58,10 +43,7 @@ export const vueI18nVitePlugin = (
 
   const basePlugins = intlayer({
     ...options,
-    compatCallers: [
-      ...(options?.compatCallers ?? []),
-      ...VUE_I18N_COMPAT_CALLERS,
-    ],
+    compatCallers: [...(options?.compatCallers ?? []), ...VUE_I18N_CALLERS],
   });
 
   const compatPlugin: PluginOption = {

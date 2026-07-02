@@ -53,6 +53,11 @@
       "require": "./dist/cjs/built.cjs",
       "import": "./dist/esm/built.mjs"
     },
+    "./callers": {
+      "types": "./dist/types/callers/index.d.ts",
+      "import": "./dist/esm/callers/index.mjs",
+      "require": "./dist/cjs/callers/index.cjs"
+    },
     "./utils": {
       "types": "./dist/types/utils/index.d.ts",
       "require": "./dist/cjs/utils/index.cjs",

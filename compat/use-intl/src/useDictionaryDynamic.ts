@@ -1,10 +1,16 @@
 'use client';
 
-import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
-import { useDictionaryDynamic as useDictionaryDynamicBase } from 'react-intlayer';
-import { navigatePath } from './shared/namespaceTranslator';
+import type {
+  LocalesValues,
+  StrictModeLocaleMap,
+} from '@intlayer/types/module_augmentation';
+import { useContext } from 'react';
+import {
+  IntlayerClientContext,
+  useDictionaryDynamic as useDictionaryDynamicBase,
+} from 'react-intlayer';
+import { createDictionaryTranslator } from './shared/namespaceTranslator';
 
 /**
  * Dynamic dictionary-accepting variant of `useTranslations`.
@@ -20,28 +26,12 @@ export const useDictionaryDynamic = <
   key: K,
   namespacePrefix?: string
 ) => {
+  const { locale } = useContext(IntlayerClientContext) ?? {};
   const content = useDictionaryDynamicBase<T, K>(dictionaryPromise, key);
 
-  const resolveKey = (lookupKey: string): string =>
-    namespacePrefix ? `${namespacePrefix}.${lookupKey}` : lookupKey;
-
-  return Object.assign(
-    <P extends ValidDotPathsFor<string>>(
-      lookup: P,
-      params?: Record<string, unknown>
-    ): string => {
-      const rawValue = navigatePath(content, resolveKey(String(lookup)));
-      const text = String(rawValue ?? resolveKey(String(lookup)));
-      if (!params) return text;
-      return text.replace(/\{(\w+)\}/g, (_match, key) =>
-        params[key] != null ? String(params[key]) : `{${key}}`
-      );
-    },
-    {
-      has: <P extends ValidDotPathsFor<string>>(lookup: P): boolean =>
-        navigatePath(content, resolveKey(String(lookup))) != null,
-      raw: <P extends ValidDotPathsFor<string>>(lookup: P): unknown =>
-        navigatePath(content, resolveKey(String(lookup))),
-    }
+  return createDictionaryTranslator(
+    locale as LocalesValues,
+    content,
+    namespacePrefix
   );
 };

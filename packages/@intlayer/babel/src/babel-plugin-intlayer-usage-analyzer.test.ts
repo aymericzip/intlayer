@@ -31,14 +31,17 @@ const analyze = (
 const REACT_I18NEXT_CALLERS: CompatCallerConfig[] = [
   {
     callerName: 'useTranslation',
+    library: 'react-i18next',
     importSources: [
       'react-i18next',
       '@intlayer/react-i18next',
       'next-i18next',
       '@intlayer/next-i18next',
     ],
-    namespace: { from: 'argument', index: 0 },
-    keyPrefix: { from: 'option', argumentIndex: 1, property: 'keyPrefix' },
+    namespaceSources: [{ from: 'argument', index: 0 }],
+    keyPrefixSources: [
+      { from: 'option', argumentIndex: 1, property: 'keyPrefix' },
+    ],
     translationFunction: 'destructured-t',
   },
 ];
@@ -47,19 +50,21 @@ const REACT_I18NEXT_CALLERS: CompatCallerConfig[] = [
 const NEXT_INTL_CALLERS: CompatCallerConfig[] = [
   {
     callerName: 'useTranslations',
+    library: 'next-intl',
     importSources: ['next-intl', '@intlayer/next-intl'],
-    namespace: { from: 'argument', index: 0 },
+    namespaceSources: [{ from: 'argument', index: 0 }],
     translationFunction: 'return-value',
   },
   {
     callerName: 'getTranslations',
+    library: 'next-intl',
     importSources: [
       'next-intl/server',
       '@intlayer/next-intl/server',
       'next-intl',
       '@intlayer/next-intl',
     ],
-    namespace: { from: 'argument', index: 0 },
+    namespaceSources: [{ from: 'argument', index: 0 }],
     translationFunction: 'return-value',
   },
 ];
@@ -68,10 +73,11 @@ const NEXT_INTL_CALLERS: CompatCallerConfig[] = [
 const I18NEXT_CALLERS: CompatCallerConfig[] = [
   {
     callerName: 'getFixedT',
+    library: 'i18next',
     importSources: ['i18next', '@intlayer/i18next'],
     matchAsMethod: true,
-    namespace: { from: 'argument', index: 1 },
-    keyPrefix: { from: 'argument', index: 2 },
+    namespaceSources: [{ from: 'argument', index: 1 }],
+    keyPrefixSources: [{ from: 'argument', index: 2 }],
     translationFunction: 'return-value',
   },
 ];
@@ -80,8 +86,11 @@ const I18NEXT_CALLERS: CompatCallerConfig[] = [
 const VUE_I18N_CALLERS: CompatCallerConfig[] = [
   {
     callerName: 'useI18n',
+    library: 'vue-i18n',
     importSources: ['vue-i18n', '@intlayer/vue-i18n'],
-    namespace: { from: 'option', argumentIndex: 0, property: 'namespace' },
+    namespaceSources: [
+      { from: 'option', argumentIndex: 0, property: 'namespace' },
+    ],
     translationFunction: 'destructured-t',
   },
 ];
@@ -842,17 +851,19 @@ describe('makeUsageAnalyzerBabelPlugin', () => {
       const LINGUI_CALLERS: CompatCallerConfig[] = [
         {
           callerName: '_',
+          library: 'lingui',
           importSources: ['@lingui/core', '@intlayer/lingui'],
           matchAsMethod: true,
-          namespace: { from: 'fixed', value: 'messages' },
+          namespaceSources: [{ from: 'fixed', value: 'messages' }],
           translationFunction: 'self',
           flatKey: true,
         },
         {
           callerName: 't',
+          library: 'lingui',
           importSources: ['@lingui/core', '@intlayer/lingui'],
           matchAsMethod: true,
-          namespace: { from: 'fixed', value: 'messages' },
+          namespaceSources: [{ from: 'fixed', value: 'messages' }],
           translationFunction: 'self',
           flatKey: true,
         },
@@ -970,8 +981,9 @@ describe('makeUsageAnalyzerBabelPlugin', () => {
           [
             {
               callerName: 'useAllDictionary',
+              library: 'test',
               importSources: ['some-lib'],
-              namespace: { from: 'argument', index: 0 },
+              namespaceSources: [{ from: 'argument', index: 0 }],
               translationFunction: 'all',
             },
           ]
@@ -981,7 +993,7 @@ describe('makeUsageAnalyzerBabelPlugin', () => {
       });
     });
 
-    describe('namespace: { from: fixed }', () => {
+    describe('namespaceSources: [{ from: fixed }]', () => {
       it('always resolves to the configured fixed namespace value', () => {
         const ctx = analyze(
           `
@@ -991,9 +1003,10 @@ describe('makeUsageAnalyzerBabelPlugin', () => {
           [
             {
               callerName: 'translate',
+              library: 'test',
               importSources: ['my-lib'],
               matchAsMethod: true,
-              namespace: { from: 'fixed', value: 'global-messages' },
+              namespaceSources: [{ from: 'fixed', value: 'global-messages' }],
               translationFunction: 'self',
             },
           ]
@@ -1013,9 +1026,10 @@ describe('makeUsageAnalyzerBabelPlugin', () => {
           [
             {
               callerName: 'translate',
+              library: 'test',
               importSources: ['my-lib'],
               matchAsMethod: true,
-              namespace: { from: 'fixed', value: 'global-messages' },
+              namespaceSources: [{ from: 'fixed', value: 'global-messages' }],
               translationFunction: 'self',
             },
           ]
@@ -1032,9 +1046,10 @@ describe('makeUsageAnalyzerBabelPlugin', () => {
       const REACT_INTL_CALLERS: CompatCallerConfig[] = [
         {
           callerName: 'formatMessage',
+          library: 'react-intl',
           importSources: ['react-intl', '@intlayer/react-intl'],
           matchAsMethod: true,
-          namespace: { from: 'path-first-segment' },
+          namespaceSources: [{ from: 'path-first-segment' }],
           translationFunction: 'self',
         },
       ];
@@ -1175,16 +1190,18 @@ describe('makeUsageAnalyzerBabelPlugin', () => {
       const REACT_INTL_JSX_CALLERS: CompatCallerConfig[] = [
         {
           callerName: 'formatMessage',
+          library: 'react-intl',
           importSources: ['react-intl', '@intlayer/react-intl'],
           matchAsMethod: true,
-          namespace: { from: 'path-first-segment' },
+          namespaceSources: [{ from: 'path-first-segment' }],
           translationFunction: 'self',
         },
         {
           callerName: 'FormattedMessage',
+          library: 'react-intl',
           importSources: ['react-intl', '@intlayer/react-intl'],
           jsxIdAttribute: 'id',
-          namespace: { from: 'path-first-segment' },
+          namespaceSources: [{ from: 'path-first-segment' }],
           translationFunction: 'self',
         },
       ];

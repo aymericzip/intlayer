@@ -4,6 +4,7 @@ import type { IntlayerConfig } from '@intlayer/types/config';
 import { resolveDictionaryKey } from '../extractContent/utils';
 import {
   ATTRIBUTES_TO_EXTRACT,
+  type ExistingIntlayerInfo,
   getComponentName,
   getExistingIntlayerInfo,
   getOrGenerateKey,
@@ -36,6 +37,65 @@ const traverse = (
  * display text. A string literal passed to one of these (e.g.
  * `message.includes('Loading chunk')`) is code, not content, and is skipped.
  */
+/**
+ * Binary operators whose string operands are code constants / enum values
+ * (e.g. `msg.step === 'ERROR'`) rather than translatable display text.
+ */
+const COMPARISON_OPERATORS = new Set(['===', '!==', '==', '!=']);
+
+/**
+ * Object property names whose string values are technical/non-translatable
+ * (e.g. `icon: 'Globe'`, `variant: 'primary'`). String values under other
+ * property names (e.g. `label: 'Language'`) are still extracted.
+ */
+const TECHNICAL_KEYS = new Set<string>([
+  'icon',
+  'className',
+  'class',
+  'id',
+  'type',
+  'variant',
+  'color',
+  'theme',
+  'size',
+  'align',
+  'placement',
+  'target',
+  'rel',
+  'method',
+  'mode',
+  'direction',
+  'orientation',
+  'scope',
+  'role',
+  'lang',
+  'locale',
+  'href',
+  'src',
+  'width',
+  'height',
+  'as',
+  'to',
+  'key',
+  'value',
+  'defaultValue',
+  'prop',
+  'property',
+  'state',
+  'action',
+  'event',
+  'handler',
+  'callback',
+  'url',
+  'uri',
+  'path',
+  'route',
+  'slug',
+  'endpoint',
+  'headers',
+  'contentType',
+]);
+
 const NON_TRANSLATABLE_CALL_METHODS = new Set<string>([
   'includes',
   'startsWith',
@@ -261,6 +321,8 @@ export const extractBabelContentForComponents = (
   componentKeyMap: Map<t.Node, string>;
   componentPaths: NodePath[];
   hookMap: Map<t.Node, 'useIntlayer' | 'getIntlayer'>;
+  /** Cached `getExistingIntlayerInfo` result per component node, so callers do not re-traverse. */
+  existingInfoByNode: Map<t.Node, ExistingIntlayerInfo | undefined>;
   isSolid: boolean;
 } => {
   const extractedContent: Record<string, Record<string, string>> = {};
@@ -288,20 +350,33 @@ export const extractBabelContentForComponents = (
     },
   });
 
+  // `getExistingIntlayerInfo` traverses the component body, so resolve it a
+  // single time per component and share the cache with every later phase
+  // (including the caller, via the returned `existingInfoByNode`).
+  const existingInfoByNode = new Map<
+    t.Node,
+    ExistingIntlayerInfo | undefined
+  >();
+  const componentNodeToPath = new Map<t.Node, NodePath>();
+  for (const path of componentPaths) {
+    existingInfoByNode.set(path.node, getExistingIntlayerInfo(path));
+    componentNodeToPath.set(path.node, path);
+  }
+
   // Pre-scan non-Program paths to collect their existing dictionary keys before the
   // Program scope is assigned. Without this, Program is processed first (depth-first
   // traversal) and creates a new file-path-derived key even when a child component
   // already declares a specific dictionary (e.g. useIntlayer('dashboard-sidebar')).
   for (const path of componentPaths) {
     if (path.isProgram()) continue;
-    const existingInfo = getExistingIntlayerInfo(path);
+    const existingInfo = existingInfoByNode.get(path.node);
     if (existingInfo) {
       usedKeysInFile.add(existingInfo.key);
     }
   }
 
   for (const path of componentPaths) {
-    const existingInfo = getExistingIntlayerInfo(path);
+    const existingInfo = existingInfoByNode.get(path.node);
 
     if (existingInfo) {
       componentKeyMap.set(path.node, existingInfo.key);
@@ -465,7 +540,6 @@ export const extractBabelContentForComponents = (
 
       // Skip string literals used as comparison operands (e.g. `msg.step === 'ERROR'`).
       // These are code constants / enum values, not translatable display text.
-      const COMPARISON_OPERATORS = new Set(['===', '!==', '==', '!=']);
       if (
         parent.isBinaryExpression() &&
         COMPARISON_OPERATORS.has(parent.node.operator)
@@ -494,53 +568,6 @@ export const extractBabelContentForComponents = (
 
       // Skip string values in known technical/non-translatable object properties (e.g. `icon: 'Globe'`).
       // String values in translatable object properties (e.g. `label: 'Language'`) are still extracted.
-      const TECHNICAL_KEYS = new Set([
-        'icon',
-        'className',
-        'class',
-        'id',
-        'type',
-        'variant',
-        'color',
-        'theme',
-        'size',
-        'align',
-        'placement',
-        'target',
-        'rel',
-        'method',
-        'mode',
-        'direction',
-        'orientation',
-        'scope',
-        'role',
-        'lang',
-        'locale',
-        'href',
-        'src',
-        'width',
-        'height',
-        'as',
-        'to',
-        'key',
-        'value',
-        'defaultValue',
-        'prop',
-        'property',
-        'state',
-        'action',
-        'event',
-        'handler',
-        'callback',
-        'url',
-        'uri',
-        'path',
-        'route',
-        'slug',
-        'endpoint',
-        'headers',
-        'contentType',
-      ]);
       if (
         parent.isObjectProperty() &&
         t.isIdentifier(parent.node.key) &&
@@ -621,20 +648,32 @@ export const extractBabelContentForComponents = (
     },
   });
 
+  /** Returns true when `componentNode` encloses the replacement's path. */
+  const replacementIsInside = (
+    replacement: BabelReplacement,
+    componentNode: t.Node
+  ): boolean => {
+    let current: NodePath | null = replacement.path;
+    while (current) {
+      if (current.node === componentNode) return true;
+      current = current.parentPath;
+    }
+    return false;
+  };
+
   const componentsNeedingHooks = new Set<NodePath>();
   for (const componentPath of componentPaths) {
     if (componentPath.isProgram()) {
+      // Only count replacements that belong to the Program scope itself, not
+      // to a nested component (which provides its own hook).
       const hasDirectReplacements = replacements.some((replacement) => {
         let current: NodePath | null = replacement.path;
         while (current) {
           if (current.node === componentPath.node) {
             return true;
           }
-          const isOtherComponent = componentPaths.some(
-            (p) => p !== componentPath && p.node === current?.node
-          );
-          if (isOtherComponent) {
-            return false;
+          if (componentNodeToPath.has(current.node)) {
+            return false; // reached an enclosing component first
           }
           current = current.parentPath;
         }
@@ -647,39 +686,25 @@ export const extractBabelContentForComponents = (
       continue;
     }
 
-    const hasReplacements = replacements.some((replacement) => {
-      let current: NodePath | null = replacement.path;
-      while (current) {
-        if (current.node === componentPath.node) return true;
-
-        current = current.parentPath;
-      }
-      return false;
-    });
+    const hasReplacements = replacements.some((replacement) =>
+      replacementIsInside(replacement, componentPath.node)
+    );
 
     if (hasReplacements) {
       const key = componentKeyMap.get(componentPath.node)!;
       let ancestorProvidesKey = false;
       let currentPath: NodePath | null = componentPath.parentPath;
       while (currentPath) {
-        const ancestorPath = componentPaths.find(
-          (path) => path.node === currentPath?.node
-        );
+        const ancestorPath = componentNodeToPath.get(currentPath.node);
 
         if (ancestorPath && !ancestorPath.isProgram()) {
           const ancestorKey = componentKeyMap.get(ancestorPath.node);
 
           if (ancestorKey === key) {
-            const ancestorHasReplacements = replacements.some((replacement) => {
-              let rPath: NodePath | null = replacement.path;
-              while (rPath) {
-                if (rPath.node === ancestorPath.node) return true;
-
-                rPath = rPath.parentPath;
-              }
-              return false;
-            });
-            const existingInfo = getExistingIntlayerInfo(ancestorPath);
+            const ancestorHasReplacements = replacements.some((replacement) =>
+              replacementIsInside(replacement, ancestorPath.node)
+            );
+            const existingInfo = existingInfoByNode.get(ancestorPath.node);
 
             if (ancestorHasReplacements || existingInfo) {
               ancestorProvidesKey = true;
@@ -703,6 +728,7 @@ export const extractBabelContentForComponents = (
     componentKeyMap,
     componentPaths,
     hookMap,
+    existingInfoByNode,
     isSolid: false,
   };
 };

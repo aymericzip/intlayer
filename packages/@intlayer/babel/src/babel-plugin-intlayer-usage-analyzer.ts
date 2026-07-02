@@ -1,5 +1,9 @@
-import type { NodePath, PluginObj, PluginPass } from '@babel/core';
+import type { NodePath, PluginObject, PluginPass } from '@babel/core';
 import type * as BabelTypes from '@babel/types';
+import type {
+  CallerDescriptor,
+  CallerValueSource,
+} from '@intlayer/config/callers';
 
 // ── PruneContext types ────────────────────────────────────────────────────────
 
@@ -131,117 +135,22 @@ export type IntlayerCallerName = (typeof INTLAYER_CALLER_NAMES)[number];
 
 // ── Compat-adapter namespace callers ──────────────────────────────────────────
 
-/**
- * Describes how a compat-adapter "namespace caller" exposes the dictionary key
- * (namespace) and the translation function `t`.
- *
- * Compat adapters (`@intlayer/react-i18next`, `@intlayer/next-intl`, …) expose
- * the original i18n library API while delegating to intlayer under the hood.
- * Their call sites look like:
- *
- *   const { t } = useTranslation('about');   t('counter.label')
- *   const t     = useTranslations('about');  t('counter.label')
- *   const t     = await getTranslations('about');
- *   const t     = i18n.getFixedT(null, 'about', 'counter');
- *   const { t } = useI18n({ namespace: 'about' });
- *
- * The dictionary key is the *namespace* argument and the consumed top-level
- * field is the **first segment** of every dot-path passed to `t()` (or the
- * first segment of `keyPrefix` when one is supplied).
- */
-export type CompatNamespaceSource =
-  /** Namespace is a positional argument (string literal or `{ namespace }`). */
-  | { from: 'argument'; index: number }
-  /** Namespace is a property of an options object argument. */
-  | { from: 'option'; argumentIndex: number; property: string }
-  /**
-   * Namespace is a compile-time constant — the same dictionary key is used for
-   * every call site. Used by single-catalog libraries such as lingui, where all
-   * translations live in a `messages` dictionary regardless of call location.
-   */
-  | { from: 'fixed'; value: string }
-  /**
-   * Namespace is the first dot-segment of the `id` in the first call argument.
-   *
-   * Used for libraries like react-intl where the full dotted id encodes both the
-   * dictionary key and the field path in a single string:
-   *   `formatMessage({ id: 'home.title' })` → dictionaryKey = `'home'`, field = `'title'`
-   *
-   * Works with both string form (`func('home.title')`) and descriptor form
-   * (`func({ id: 'home.title', ... })`). The paired `translationFunction` should
-   * be `'self'` so the field (second segment) is also extracted from the same call.
-   */
-  | { from: 'path-first-segment' };
+// The caller-descriptor model is shared across the build pipeline (babel, swc
+// wire format), the LSP and the compat packages' bundler plugins. It lives in
+// `@intlayer/config/callers`; see that module for the full documentation.
+export type {
+  CallerDescriptor,
+  CallerResultShape,
+  CallerValueSource,
+} from '@intlayer/config/callers';
 
 /**
  * Configuration entry for a single compat namespace caller.
+ *
+ * @deprecated Alias kept for backward compatibility — use the shared
+ * {@link CallerDescriptor} from `@intlayer/config/callers` instead.
  */
-export type CompatCallerConfig = {
-  /** The imported (or method) function name, e.g. `'useTranslation'`. */
-  callerName: string;
-  /**
-   * Module specifiers from which `callerName` must be imported to be treated as
-   * a compat caller. Includes both the original library names and their
-   * `@intlayer/*` adapter equivalents, because the bundler aliases the former
-   * to the latter but user source code may import either.
-   *
-   * Ignored when `matchAsMethod` is `true`.
-   */
-  importSources: string[];
-  /**
-   * When `true`, the caller is matched by method name on any object
-   * (`x.getFixedT(...)`) without an import check. Used for `i18next` instance
-   * methods that are never imported as named specifiers.
-   */
-  matchAsMethod?: boolean;
-  /** How the dictionary key (namespace) is read from the call arguments. */
-  namespace: CompatNamespaceSource;
-  /**
-   * Optional location of a `keyPrefix` that prefixes every `t()` path. When a
-   * static prefix is present, the only consumed top-level field is the first
-   * segment of the prefix.
-   */
-  keyPrefix?: CompatNamespaceSource;
-  /**
-   * How the translation function is obtained from the call result.
-   *
-   * - `'return-value'`   — `const t = useTranslations('ns'); t('key')`
-   * - `'destructured-t'` — `const { t } = useTranslation('ns'); t('key')`
-   * - `'self'`           — the caller IS the translation call;
-   *                        the first argument is the message key.
-   *                        Used for lingui's `i18n._('key')` / `i18n.t('key')`.
-   * - `'all'`            — mark the entire dictionary as used without tracking
-   *                        individual fields. Use when static key analysis is
-   *                        impossible (e.g. lingui hashed IDs, Angular templates).
-   */
-  translationFunction: 'return-value' | 'destructured-t' | 'self' | 'all';
-  /**
-   * When `true`, the message key is a *flat* dictionary field that itself
-   * contains dots (e.g. lingui's `i18n._('results-table.bundleSize')`, where the
-   * catalog stores the entry under the literal `'results-table.bundleSize'` key
-   * rather than nesting it as `{ 'results-table': { bundleSize } }`).
-   *
-   * The whole key is then recorded as the consumed top-level field. When unset
-   * (the default), only the first dot-segment is recorded, matching libraries
-   * whose dotted keys map onto nested dictionary objects (next-intl, vue-i18n).
-   *
-   * Only meaningful with `translationFunction: 'self'` and a
-   * `'fixed'` / `'argument'` / `'option'` namespace.
-   */
-  flatKey?: boolean;
-  /**
-   * When set, the caller is *also* matched as a JSX element whose local name is
-   * `callerName` (gated by `importSources`). The named attribute is read as the
-   * message id and analysed with the same `namespace` + `translationFunction`
-   * (`'self'` / `'all'`) semantics as the call-expression form.
-   *
-   * Required for libraries with a JSX message component, e.g. react-intl's
-   * `<FormattedMessage id="home.title" />`. Without it, JSX usages are invisible
-   * to the analyser and field-level pruning of the same dictionary becomes
-   * unsafe (it could prune a field only referenced from JSX).
-   */
-  jsxIdAttribute?: string;
-};
+export type CompatCallerConfig = CallerDescriptor;
 
 /**
  * Default registry of compat namespace callers.
@@ -277,12 +186,16 @@ const recordFieldUsage = (
     return;
   }
 
-  const mergedFieldSet =
-    existingUsage instanceof Set
-      ? new Set([...existingUsage, ...fieldUsage])
-      : new Set(fieldUsage);
+  if (existingUsage instanceof Set) {
+    // Merge in place — the set is owned by the map.
+    for (const fieldName of fieldUsage) existingUsage.add(fieldName);
+    return;
+  }
 
-  pruneContext.dictionaryKeyToFieldUsageMap.set(dictionaryKey, mergedFieldSet);
+  pruneContext.dictionaryKeyToFieldUsageMap.set(
+    dictionaryKey,
+    new Set(fieldUsage)
+  );
 };
 
 /**
@@ -767,14 +680,14 @@ const readJsxAttributeString = (
 
 /**
  * Resolves the namespace (dictionary key) for a compat caller call-site from
- * its `CompatNamespaceSource` configuration. Returns the static key, or
- * `'__default__'` when the configured argument is absent (caller falls back to
- * its default namespace), or `undefined` when the value is present but dynamic.
+ * one `CallerValueSource`. Returns the static key, or `'__default__'` when the
+ * configured argument is absent (caller falls back to its default namespace),
+ * or `undefined` when the value is present but dynamic.
  */
 const resolveCompatNamespace = (
   babelTypes: typeof BabelTypes,
   callArguments: BabelTypes.CallExpression['arguments'],
-  source: CompatNamespaceSource
+  source: CallerValueSource
 ): string | '__default__' | undefined => {
   if (source.from === 'fixed') return source.value;
 
@@ -822,6 +735,30 @@ const resolveCompatNamespace = (
 };
 
 /**
+ * Resolves the namespace from a list of `CallerValueSource`s, tried in
+ * declaration order. The first source yielding a static string wins.
+ * Returns `'__default__'` when every source reports an absent value, and
+ * `undefined` when the namespace is present somewhere but dynamic.
+ */
+const resolveNamespaceFromSources = (
+  babelTypes: typeof BabelTypes,
+  callArguments: BabelTypes.CallExpression['arguments'],
+  sources: CallerValueSource[]
+): string | '__default__' | undefined => {
+  let sawAbsentValue = false;
+
+  for (const source of sources) {
+    const resolved = resolveCompatNamespace(babelTypes, callArguments, source);
+    if (typeof resolved === 'string' && resolved !== '__default__') {
+      return resolved;
+    }
+    if (resolved === '__default__') sawAbsentValue = true;
+  }
+
+  return sawAbsentValue ? '__default__' : undefined;
+};
+
+/**
  * Resolves an optional `keyPrefix` for a compat caller. Returns the static
  * prefix string, `null` when no prefix is configured/present, or `undefined`
  * when a prefix is present but dynamic.
@@ -829,10 +766,14 @@ const resolveCompatNamespace = (
 const resolveCompatKeyPrefix = (
   babelTypes: typeof BabelTypes,
   callArguments: BabelTypes.CallExpression['arguments'],
-  source: CompatNamespaceSource | undefined
+  sources: CallerValueSource[] | undefined
 ): string | null | undefined => {
-  if (!source) return null;
-  const resolved = resolveCompatNamespace(babelTypes, callArguments, source);
+  if (!sources || sources.length === 0) return null;
+  const resolved = resolveNamespaceFromSources(
+    babelTypes,
+    callArguments,
+    sources
+  );
   if (resolved === '__default__') return null; // prefix absent
   return resolved; // string or undefined (dynamic)
 };
@@ -871,20 +812,29 @@ const analyzeNamespaceCallerUsage = (
   callArguments: BabelTypes.CallExpression['arguments'],
   callerConfig: CompatCallerConfig,
   isSfcFile: boolean,
+  /** Absolute path of the analysed file (for untracked-binding reporting). */
+  currentSourceFilePath: string,
   /**
    * The call-expression path, when the caller was matched as a call. Omitted
    * for JSX-element matches (`<FormattedMessage id>`), where only the static
    * `'self'` / `'all'` analysis paths apply — the binding-based
    * `'destructured-t'` / `'return-value'` paths require a call site.
    */
-  callExpressionPath?: NodePath<BabelTypes.CallExpression>
+  callExpressionPath?: NodePath<BabelTypes.CallExpression>,
+  /**
+   * Pre-resolved namespace bypassing `namespaceSources`, e.g. the `ns`
+   * attribute of react-i18next's `<Trans ns="home" i18nKey="title" />`.
+   */
+  namespaceOverride?: string
 ): void => {
   // 1. Resolve the dictionary key (namespace).
-  const resolvedNamespace = resolveCompatNamespace(
-    babelTypes,
-    callArguments,
-    callerConfig.namespace
-  );
+  const resolvedNamespace =
+    namespaceOverride ??
+    resolveNamespaceFromSources(
+      babelTypes,
+      callArguments,
+      callerConfig.namespaceSources
+    );
   if (resolvedNamespace === undefined) return; // dynamic key – cannot attribute
   const namespaceString =
     resolvedNamespace === '__default__'
@@ -917,6 +867,25 @@ const analyzeNamespaceCallerUsage = (
     return;
   }
 
+  // 3a-bis. The caller returns the dictionary content object itself
+  //     (`useIntlayer`-like shape): reuse the native member-access /
+  //     destructuring analysis. Without a call site, keep every field.
+  if (callerConfig.translationFunction === 'content') {
+    if (callExpressionPath) {
+      analyzeCallExpressionUsage(
+        babelTypes,
+        pruneContext,
+        callExpressionPath,
+        dictionaryKey,
+        currentSourceFilePath,
+        isSfcFile
+      );
+    } else {
+      recordFieldUsage(pruneContext, dictionaryKey, 'all');
+    }
+    return;
+  }
+
   // 3b. The caller IS the translation call (`translationFunction: 'self'`).
   //     The first argument of the current call expression is the message key.
   //     Used for lingui's `i18n._('key')` / `i18n.t('key')` and react-intl's
@@ -928,7 +897,11 @@ const analyzeNamespaceCallerUsage = (
       return;
     }
 
-    if (callerConfig.namespace.from === 'path-first-segment') {
+    if (
+      callerConfig.namespaceSources.some(
+        (source) => source.from === 'path-first-segment'
+      )
+    ) {
       // The dictionary key is already the first segment of the descriptor id.
       // The field to record is the SECOND segment (first level inside the dict).
       // e.g. formatMessage({ id: 'home.title' }) → dictionaryKey='home', field='title'
@@ -1007,7 +980,7 @@ const analyzeNamespaceCallerUsage = (
   const explicitKeyPrefix = resolveCompatKeyPrefix(
     babelTypes,
     callArguments,
-    callerConfig.keyPrefix
+    callerConfig.keyPrefixSources
   );
   if (explicitKeyPrefix === undefined) {
     // Prefix present but dynamic → unknown field set.
@@ -1133,7 +1106,7 @@ export const makeUsageAnalyzerBabelPlugin =
     pruneContext: PruneContext,
     options?: { compatCallers?: CompatCallerConfig[] }
   ) =>
-  ({ types: babelTypes }: { types: typeof BabelTypes }): PluginObj => {
+  ({ types: babelTypes }: { types: typeof BabelTypes }): PluginObject => {
     const compatCallers = options?.compatCallers ?? DEFAULT_COMPAT_CALLERS;
 
     return {
@@ -1156,15 +1129,14 @@ export const makeUsageAnalyzerBabelPlugin =
               CompatCallerConfig
             >();
 
-            // Method-matched compat callers (e.g. i18next `getFixedT`) need no
-            // import and are recognised by method name on any object.
-            const methodCompatCallers = compatCallers.filter(
-              (caller) => caller.matchAsMethod
-            );
+            // Module specifiers imported by the analysed file — used to gate
+            // `requiresImport` callers (generic names such as lingui's `t`).
+            const fileImportSources = new Set<string>();
 
             programPath.traverse({
               ImportDeclaration: (importDeclarationPath) => {
                 const importSource = importDeclarationPath.node.source.value;
+                fileImportSources.add(importSource);
 
                 for (const importSpecifier of importDeclarationPath.node
                   .specifiers) {
@@ -1203,6 +1175,19 @@ export const makeUsageAnalyzerBabelPlugin =
                 }
               },
             });
+
+            // Method-matched compat callers (e.g. i18next `getFixedT`,
+            // `intl.formatMessage`) are recognised by method name on any
+            // object. Callers flagged `requiresImport` only participate when
+            // the file imports from one of their declared modules.
+            const methodCompatCallers = compatCallers.filter(
+              (caller) =>
+                caller.matchAsMethod &&
+                (!caller.requiresImport ||
+                  caller.importSources.some((source) =>
+                    fileImportSources.has(source)
+                  ))
+            );
 
             const hasNativeCallers = intlayerCallerLocalNameMap.size > 0;
             const hasCompatCallers =
@@ -1262,6 +1247,7 @@ export const makeUsageAnalyzerBabelPlugin =
                     callExpressionPath.node.arguments,
                     importedCompatCaller,
                     isSfcFile,
+                    currentSourceFilePath,
                     callExpressionPath
                   );
                   return;
@@ -1279,6 +1265,7 @@ export const makeUsageAnalyzerBabelPlugin =
                       callExpressionPath.node.arguments,
                       methodCaller,
                       isSfcFile,
+                      currentSourceFilePath,
                       callExpressionPath
                     );
                   }
@@ -1301,12 +1288,29 @@ export const makeUsageAnalyzerBabelPlugin =
                   jsxCaller.jsxIdAttribute
                 );
 
+                // Optional dedicated namespace attribute, e.g. react-i18next's
+                // `<Trans ns="home" i18nKey="title" />`. When configured but
+                // absent/dynamic, the dictionary cannot be attributed → skip.
+                let namespaceOverride: string | undefined;
+                if (jsxCaller.jsxNamespaceAttribute) {
+                  const namespaceNode = readJsxAttributeString(
+                    babelTypes,
+                    jsxOpeningElementPath.node,
+                    jsxCaller.jsxNamespaceAttribute
+                  );
+                  if (!namespaceNode) return;
+                  namespaceOverride = namespaceNode.value;
+                }
+
                 analyzeNamespaceCallerUsage(
                   babelTypes,
                   pruneContext,
                   idNode ? [idNode] : [],
                   jsxCaller,
-                  isSfcFile
+                  isSfcFile,
+                  currentSourceFilePath,
+                  undefined,
+                  namespaceOverride
                 );
               },
             });
