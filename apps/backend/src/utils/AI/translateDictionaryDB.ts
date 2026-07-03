@@ -6,7 +6,7 @@ import {
   reconstructFromSingleChunk,
   reduceObjectFormat,
   verifyIdenticObjectFormat,
-} from '@intlayer/chokidar/utils';
+} from '@intlayer/engine/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import { logger } from '@logger';
 import { translateJSON } from './translateJSON';

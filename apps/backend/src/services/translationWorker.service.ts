@@ -1,7 +1,6 @@
 import type { ConnectionOptions } from 'node:tls';
 import * as eventListener from '@controllers/eventListener.controller';
 import { type AIOptions, getAIConfig } from '@intlayer/ai';
-import { pLimit } from '@intlayer/chokidar/utils';
 import { DEFAULT_LOCALE } from '@intlayer/config/defaultValues';
 import { mergeDictionaries } from '@intlayer/core/dictionaryManipulator';
 import {
@@ -9,6 +8,7 @@ import {
   getPerLocaleDictionary,
   insertContentInDictionary,
 } from '@intlayer/core/plugins';
+import { pLimit } from '@intlayer/engine/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { ContentNode } from '@intlayer/types/dictionary';
 import { logger } from '@logger';
