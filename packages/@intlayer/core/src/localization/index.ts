@@ -1,4 +1,11 @@
 export { comparePaths, normalizePath } from './comparePaths';
+export type { LocaleDomainMap } from './domainUtils';
+export {
+  getDomainHostname,
+  getDomainOrigin,
+  getLocaleFromDomain,
+  isLocaleExclusiveOnDomain,
+} from './domainUtils';
 export type {
   GenerateSitemapOptions,
   SitemapUrlEntry,

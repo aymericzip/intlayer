@@ -11,6 +11,7 @@ import type {
   ResolvedDefaultLocale,
 } from '@intlayer/types/module_augmentation';
 import { checkIsURLAbsolute } from '../utils/checkIsURLAbsolute';
+import { getDomainHostname, getDomainOrigin } from './domainUtils';
 import { getPathWithoutLocale } from './getPathWithoutLocale';
 import {
   getPrefix,
@@ -24,15 +25,6 @@ import {
 } from './rewriteUtils';
 
 export type { RoutingOptions };
-
-/** Strips the protocol and returns the bare hostname of a domain string. */
-const extractHostname = (domain: string): string => {
-  try {
-    return /^https?:\/\//.test(domain) ? new URL(domain).hostname : domain;
-  } catch {
-    return domain;
-  }
-};
 
 /**
  * Generate URL by prefixing the given URL with the referenced locale or adding search parameters
@@ -125,11 +117,14 @@ export const getLocalizedUrl = <
   //   1. Explicit `currentDomain` option passed by the caller.
   //   2. Hostname extracted from an absolute input URL.
   //   3. `window.location.hostname` in browser environments.
-  // When none of these is available we fall back to always generating an
-  // absolute URL (the previous behaviour, safe for SSR/static generation).
+  // When none of these is available we fall back to generating an absolute
+  // URL for domain-mapped locales (safe for SSR/static generation): the
+  // locale prefix may already be stripped for domain-exclusive locales, so a
+  // relative URL would silently point to the wrong locale on the current
+  // domain.
   const detectedCurrentHostname =
     process.env.INTLAYER_ROUTING_DOMAINS !== 'false'
-      ? extractHostname(
+      ? getDomainHostname(
           currentDomain ??
             (isAbsoluteUrl ? parsedUrl.hostname : undefined) ??
             (typeof window !== 'undefined'
@@ -145,21 +140,18 @@ export const getLocalizedUrl = <
       : undefined;
 
   const localeDomainHostname = localeDomain
-    ? extractHostname(localeDomain)
+    ? getDomainHostname(localeDomain)
     : null;
 
-  // Only prepend the locale's domain when it differs from the current hostname.
+  // Prepend the locale's domain when it differs from the current hostname,
+  // or when the current hostname is unknown (SSR without `currentDomain`).
   const isCrossDomain =
     localeDomainHostname !== null &&
-    detectedCurrentHostname !== null &&
-    localeDomainHostname !== detectedCurrentHostname;
+    (detectedCurrentHostname === null ||
+      localeDomainHostname !== detectedCurrentHostname);
 
   const normalizedDomain =
-    isCrossDomain && localeDomain
-      ? /^https?:\/\//.test(localeDomain)
-        ? localeDomain
-        : `https://${localeDomain}`
-      : null;
+    isCrossDomain && localeDomain ? getDomainOrigin(localeDomain) : null;
 
   const baseUrl = normalizedDomain
     ? normalizedDomain

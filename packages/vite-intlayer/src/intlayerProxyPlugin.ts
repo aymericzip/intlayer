@@ -9,6 +9,9 @@ import {
 } from '@intlayer/config/node';
 import {
   getCanonicalPath,
+  getDomainHostname,
+  getDomainOrigin,
+  getLocaleFromDomain,
   getLocalizedPath,
   getRewriteRules,
   localeDetector,
@@ -128,17 +131,6 @@ export const createIntlayerProxyHandler = (
       : undefined;
 
   /**
-   * Strips the protocol from a domain string, returning only the hostname.
-   */
-  const normalizeDomainHostname = (domain: string): string => {
-    try {
-      return /^https?:\/\//.test(domain) ? new URL(domain).hostname : domain;
-    } catch {
-      return domain;
-    }
-  };
-
-  /**
    * Extracts the hostname from a request's `Host` header, handling IPv6
    * literals (`[::1]:5173` → `::1`) that a plain `split(':')` would mangle.
    */
@@ -147,18 +139,6 @@ export const createIntlayerProxyHandler = (
     const ipv6Match = host.match(/^\[([^\]]+)\]/);
     if (ipv6Match) return ipv6Match[1]!;
     return host.split(':')[0] ?? '';
-  };
-
-  /**
-   * Returns the locale exclusively mapped to a given hostname via `routing.domains`,
-   * or undefined if zero or more than one locale share that hostname.
-   */
-  const getLocaleFromDomain = (hostname: string): Locale | undefined => {
-    if (!domains) return undefined;
-    const matching = Object.entries(domains).filter(
-      ([, domain]) => normalizeDomainHostname(domain!) === hostname
-    );
-    return matching.length === 1 ? (matching[0]![0] as Locale) : undefined;
   };
 
   /* --------------------------------------------------------------------
@@ -896,12 +876,10 @@ export const createIntlayerProxyHandler = (
       const localeDomain = domains[pathLocale as keyof typeof domains];
       if (localeDomain) {
         const reqHost = getRequestHostname(req);
-        const domainHost = normalizeDomainHostname(localeDomain);
+        const domainHost = getDomainHostname(localeDomain);
         if (domainHost !== reqHost) {
           const rawPath = originalPath.slice(`/${pathLocale}`.length) || '/';
-          const targetOrigin = /^https?:\/\//.test(localeDomain)
-            ? localeDomain
-            : `https://${localeDomain}`;
+          const targetOrigin = getDomainOrigin(localeDomain);
           // Domain mapping is stable config, so a cacheable 301 is intended
           // here — unlike locale-detection redirects, which use 302.
           redirectUrl(req, res, `${targetOrigin}${rawPath}${searchParams}`, {
@@ -924,14 +902,36 @@ export const createIntlayerProxyHandler = (
       !pathLocale
     ) {
       const reqHost = getRequestHostname(req);
-      const domainLocale = getLocaleFromDomain(reqHost);
+      const domainLocale = getLocaleFromDomain(reqHost, domains);
       if (domainLocale) {
         const canonicalPath = getCanonicalPath(
           originalPath,
           domainLocale,
           rewriteRules
         );
-        const internalPath = `/${domainLocale}${canonicalPath}`;
+
+        // Default locale without forced prefixing: pass the canonical path
+        // through unchanged, mirroring handleMissingPathLocale. Rewriting `/`
+        // to `/en/` makes TanStack Start issue a trailing-slash normalisation
+        // redirect (/en/ → /en), whose prefix the proxy then strips back to /,
+        // creating an infinite redirect loop.
+        if (!prefixDefault && domainLocale === defaultLocale) {
+          rewriteUrl(
+            req as Connect.IncomingMessage,
+            res,
+            `${canonicalPath}${searchParams}`,
+            domainLocale
+          );
+          return next();
+        }
+
+        // Never emit a trailing slash (`/zh/`): the framework would redirect
+        // it to `/zh`, which this proxy rewrites to `/zh/` again — a loop.
+        const internalPath =
+          canonicalPath === '/'
+            ? `/${domainLocale}`
+            : `/${domainLocale}${canonicalPath}`;
+
         rewriteUrl(
           req as Connect.IncomingMessage,
           res,

@@ -17,6 +17,7 @@ import type {
   ResolvedDefaultLocale,
   ResolvedRoutingMode,
 } from '@intlayer/types/module_augmentation';
+import { isLocaleExclusiveOnDomain } from './domainUtils';
 
 /**
  * Shared routing options used across all URL localization functions.
@@ -159,21 +160,14 @@ export const getPrefix = <const L extends LocalesValues | undefined>(
 
   // If this locale is the only one assigned to its domain, no URL prefix is needed
   // (the domain itself identifies the locale). Shared domains use normal prefix logic.
-  if (process.env.INTLAYER_ROUTING_DOMAINS !== 'false' && domains) {
-    const localeDomain = domains[locale as LocalesValues];
-
-    if (localeDomain) {
-      const localesOnSameDomain = Object.values(domains).filter(
-        (domain) => domain === localeDomain
-      ).length;
-
-      if (localesOnSameDomain === 1) {
-        return {
-          prefix: '',
-          localePrefix: undefined,
-        } as GetPrefixResultNarrowed<L>;
-      }
-    }
+  if (
+    process.env.INTLAYER_ROUTING_DOMAINS !== 'false' &&
+    isLocaleExclusiveOnDomain(locale as LocalesValues, domains)
+  ) {
+    return {
+      prefix: '',
+      localePrefix: undefined,
+    } as GetPrefixResultNarrowed<L>;
   }
 
   // Handle prefix-based modes (prefix-all or prefix-no-default)

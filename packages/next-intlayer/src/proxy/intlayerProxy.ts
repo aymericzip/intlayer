@@ -7,8 +7,12 @@ import { ROUTING_MODE } from '@intlayer/config/defaultValues';
 
 import {
   getCanonicalPath,
+  getDomainHostname,
+  getDomainOrigin,
+  getLocaleFromDomain,
   getLocalizedPath,
   getRewriteRules,
+  type LocaleDomainMap,
 } from '@intlayer/core/localization';
 import {
   getLocaleFromStorageServer,
@@ -90,36 +94,6 @@ const rewriteRules =
   process.env.INTLAYER_ROUTING_REWRITE_RULES !== 'false'
     ? getRewriteRules(rewrite, 'url')
     : undefined;
-
-/**
- * Strips the protocol from a domain string and returns only the hostname.
- * e.g. 'https://intlayer.zh' → 'intlayer.zh', 'intlayer.zh' → 'intlayer.zh'
- */
-const normalizeDomainHostname = (domain: string): string => {
-  try {
-    return /^https?:\/\//.test(domain) ? new URL(domain).hostname : domain;
-  } catch {
-    return domain;
-  }
-};
-
-/**
- * Returns the locale exclusively mapped to a given hostname via `routing.domains`,
- * or undefined if zero or more than one locale share that hostname.
- *
- * Example: with domains = { zh: 'intlayer.zh', fr: 'intlayer.org' }
- *   getLocaleFromDomain('intlayer.zh')  → 'zh'
- *   getLocaleFromDomain('intlayer.org') → undefined  (multiple locales share it)
- */
-const getLocaleFromDomain = (hostname: string): Locale | undefined => {
-  if (!domains) return undefined;
-
-  const matching = Object.entries(domains).filter(
-    ([, domain]) => normalizeDomainHostname(domain!) === hostname
-  );
-
-  return matching.length === 1 ? (matching[0]?.[0] as Locale) : undefined;
-};
 
 /**
  * Detects if the request is a prefetch request from Next.js.
@@ -217,13 +191,11 @@ export const intlayerProxy = (
     const localeDomain = domains[pathLocale];
 
     if (localeDomain) {
-      const domainHost = normalizeDomainHostname(localeDomain);
+      const domainHost = getDomainHostname(localeDomain);
 
       if (domainHost !== request.nextUrl.hostname) {
         const rawPath = pathname.slice(`/${pathLocale}`.length) || '/';
-        const targetOrigin = /^https?:\/\//.test(localeDomain)
-          ? localeDomain
-          : `https://${localeDomain}`;
+        const targetOrigin = getDomainOrigin(localeDomain);
 
         return NextResponse.redirect(
           new URL(`${rawPath}${request.nextUrl.search}`, targetOrigin)
@@ -236,7 +208,10 @@ export const intlayerProxy = (
   // treat it as that locale's domain — no URL prefix needed.
   // e.g. intlayer.zh/about → internally rewrite to /zh/about
   if (process.env.INTLAYER_ROUTING_DOMAINS !== 'false' && !pathLocale) {
-    const domainLocale = getLocaleFromDomain(request.nextUrl.hostname);
+    const domainLocale = getLocaleFromDomain(
+      request.nextUrl.hostname,
+      domains as LocaleDomainMap
+    );
 
     if (domainLocale) {
       const canonicalPath = getCanonicalPath(
@@ -244,7 +219,13 @@ export const intlayerProxy = (
         domainLocale,
         rewriteRules
       );
-      const internalPath = `/${domainLocale}${canonicalPath}`;
+
+      // Never emit a trailing slash (`/zh/`): Next.js trailing-slash
+      // normalisation would redirect it back and forth with this proxy.
+      const internalPath =
+        canonicalPath === '/'
+          ? `/${domainLocale}`
+          : `/${domainLocale}${canonicalPath}`;
 
       return rewriteUrl(
         request,

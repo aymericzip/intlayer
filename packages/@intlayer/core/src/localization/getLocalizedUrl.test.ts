@@ -466,8 +466,11 @@ describe('getLocalizedUrl', () => {
       expect(result).toBe('https://intlayer.zh/about');
     });
 
-    it('should return relative URL when no currentDomain can be detected (SSR)', () => {
-      // Relative input URL + no explicit currentDomain + no window → no base URL info
+    it('should return absolute URL when no currentDomain can be detected (SSR)', () => {
+      // Relative input URL + no explicit currentDomain + no window → the
+      // locale prefix is already stripped for domain-exclusive locales, so a
+      // relative URL would resolve to the wrong locale on the current domain.
+      // Fall back to the absolute domain URL instead.
       const { currentDomain: _, ...optionsWithoutCurrentDomain } =
         domainOptions;
       const result = getLocalizedUrl(
@@ -475,8 +478,7 @@ describe('getLocalizedUrl', () => {
         Locales.CHINESE,
         optionsWithoutCurrentDomain
       );
-      // Cannot determine cross-domain — emits relative URL without prefix (exclusive domain)
-      expect(result).toBe('/about');
+      expect(result).toBe('https://intlayer.zh/about');
     });
 
     it('should not generate domain URL when domains option is absent', () => {
