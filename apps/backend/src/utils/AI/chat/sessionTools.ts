@@ -1,3 +1,4 @@
+import type { Tool } from '@intlayer/ai';
 import { jsonSchema, tool } from '@intlayer/ai';
 import * as dictionaryService from '@services/dictionary.service';
 import * as organizationService from '@services/organization.service';
@@ -5,7 +6,6 @@ import * as projectService from '@services/project.service';
 import * as tagService from '@services/tag.service';
 import * as userService from '@services/user.service';
 import { hasPermission, type Roles } from '@utils/permissions';
-import type { CoreTool } from 'ai';
 import { Types } from 'mongoose';
 
 export type ClientAction =
@@ -40,7 +40,7 @@ export const createSessionTools = ({
   onAction,
   roles,
   session,
-}: SessionContext): Record<string, CoreTool<any, any>> => ({
+}: SessionContext): Record<string, Tool<any, any>> => ({
   // ---- DICTIONARY READ TOOLS ----
 
   list_dictionaries: tool({
