@@ -5,7 +5,7 @@ import type {
   withTranslation as _withTranslation,
   UseTranslationOptions,
 } from 'react-i18next';
-import { useTranslation } from './useTranslation';
+import { useTranslationLoose } from './useTranslation';
 
 /**
  * Drop-in for react-i18next's `withTranslation` HOC.
@@ -18,7 +18,7 @@ export const withTranslation: typeof _withTranslation = ((
     WrappedComponent: React.ComponentType<P>
   ) => {
     const WithTranslation = (props: Omit<P, 't' | 'i18n' | 'tReady'>) => {
-      const { t, i18n } = useTranslation(ns, options);
+      const { t, i18n } = useTranslationLoose(ns, options);
       return (
         <WrappedComponent
           {...(props as unknown as P)}

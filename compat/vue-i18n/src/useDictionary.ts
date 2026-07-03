@@ -1,11 +1,10 @@
 import { navigatePath } from '@intlayer/core/messageFormat';
-import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DictionaryKeys,
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
-import { computed, type WritableComputedRef } from 'vue';
+import { computed } from 'vue';
 import { useDictionary as useDictionaryBase, useLocale } from 'vue-intlayer';
 import {
   type DateTimeFormatsConfig,
@@ -17,6 +16,24 @@ import {
   parseTranslateArguments,
   resolveVueMessage,
 } from './resolveVueMessage';
+import type { ScopedComposer, TypedComposer } from './typedComposer';
+
+/**
+ * Overload set for {@link useDictionary}: without a `namespace` option the
+ * composer is typed against the dictionary's dot-paths; with one (the
+ * key-prefix remainder left by the build rewrite) the keys are relative
+ * dot-paths under that scope.
+ */
+type UseDictionary = {
+  <T extends Dictionary>(
+    dictionary: T,
+    options?: Record<string, unknown> & { namespace?: undefined }
+  ): TypedComposer<T['key'] & DictionaryKeys>;
+  <T extends Dictionary, Prefix extends string>(
+    dictionary: T,
+    options: Record<string, unknown> & { namespace: Prefix }
+  ): ScopedComposer<T['key'] & DictionaryKeys, Prefix>;
+};
 
 /**
  * Dictionary-accepting variant of `useI18n`.
@@ -25,29 +42,10 @@ import {
  * at runtime by key, the Babel plugin pre-imports the dictionary JSON at build time
  * and passes it directly here. This enables tree-shaking of unused locale content.
  */
-export const useDictionary = <
-  const T extends Dictionary,
-  const N extends DictionaryKeys = DictionaryKeys,
->(
+export const useDictionary = (<const T extends Dictionary>(
   dictionary: T,
-  options?: Record<string, unknown> & { namespace?: N }
-): {
-  locale: WritableComputedRef<string>;
-  availableLocales: string[];
-  t: <P extends ValidDotPathsFor<N>>(key: P, ...args: unknown[]) => string;
-  tc: <P extends ValidDotPathsFor<N>>(key: P, ...args: unknown[]) => string;
-  te: <P extends ValidDotPathsFor<N>>(key: P) => boolean;
-  tm: <P extends ValidDotPathsFor<N>>(key: P) => unknown;
-  rt: (message: unknown, ...args: unknown[]) => string;
-  d: (
-    value: Date | number | string,
-    formatOrOptions?: string | Intl.DateTimeFormatOptions
-  ) => string;
-  n: (
-    value: number,
-    formatOrOptions?: string | Intl.NumberFormatOptions
-  ) => string;
-} => {
+  options?: Record<string, unknown> & { namespace?: string }
+) => {
   const { locale: currentLocale, setLocale, availableLocales } = useLocale();
 
   const namespacePrefix = options?.namespace as string | undefined;
@@ -102,20 +100,16 @@ export const useDictionary = <
     );
   };
 
-  const translate = <P extends ValidDotPathsFor<N>>(
-    key: P,
-    ...args: unknown[]
-  ): string => translateKey(String(key), args);
+  const translate = (key: string, ...args: unknown[]): string =>
+    translateKey(key, args);
 
   return {
     locale: localeRef,
     availableLocales: availableLocales as string[],
     t: translate,
     tc: translate,
-    te: <P extends ValidDotPathsFor<N>>(key: P): boolean =>
-      lookupRaw(String(key)) !== undefined,
-    tm: <P extends ValidDotPathsFor<N>>(key: P): unknown =>
-      lookupRaw(String(key)) ?? {},
+    te: (key: string): boolean => lookupRaw(key) !== undefined,
+    tm: (key: string): unknown => lookupRaw(key) ?? {},
     rt: (message: unknown, ...args: unknown[]): string => {
       const { values, count } = parseTranslateArguments(args);
       return resolveVueMessage(
@@ -146,4 +140,4 @@ export const useDictionary = <
         numberFormats
       ),
   };
-};
+}) as UseDictionary;

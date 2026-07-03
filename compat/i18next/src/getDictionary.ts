@@ -1,10 +1,30 @@
 import { internationalization } from '@intlayer/config/built';
 import { getDictionary as getDictionaryCore } from '@intlayer/core/interpreter';
-import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import type {
+  DictionaryKeys,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import type { TOptions } from 'i18next';
 import { resolveTranslation } from './resolveTranslation';
+import type { ScopedTFunction, TypedTFunction } from './typedTranslation';
+
+/**
+ * Overload set for {@link getDictionary}: without a key prefix the returned
+ * `t()` is typed against the dictionary's dot-paths; with a prefix the keys
+ * are relative dot-paths under that scope.
+ */
+type GetDictionary = {
+  <T extends Dictionary>(
+    dictionary: T,
+    locale?: LocalesValues
+  ): TypedTFunction<T['key'] & DictionaryKeys>;
+  <T extends Dictionary, Prefix extends string>(
+    dictionary: T,
+    locale: LocalesValues | undefined,
+    keyPrefix: Prefix
+  ): ScopedTFunction<T['key'] & DictionaryKeys, Prefix>;
+};
 
 /**
  * Dictionary-accepting variant of `getFixedT`.
@@ -22,7 +42,7 @@ import { resolveTranslation } from './resolveTranslation';
  * const t = getDictionary(aboutDictionary, 'fr');
  * t('counter.label');
  */
-export const getDictionary = <T extends Dictionary>(
+export const getDictionary = (<T extends Dictionary>(
   dictionary: T,
   locale?: LocalesValues,
   keyPrefix?: string
@@ -31,17 +51,14 @@ export const getDictionary = <T extends Dictionary>(
     internationalization?.defaultLocale) as LocalesValues;
   const dictionaryContent = getDictionaryCore(dictionary, targetLocale);
 
-  return <P extends ValidDotPathsFor<T['key']>>(
-    key: P,
-    options?: TOptions
-  ): string => {
+  return (key: string, options?: TOptions): unknown => {
     const resolved = resolveTranslation({
       locale: targetLocale,
       namespace: dictionary.key,
-      key: keyPrefix ? `${keyPrefix}.${String(key)}` : String(key),
+      key: keyPrefix ? `${keyPrefix}.${key}` : key,
       options,
       dictionaryContent,
     });
-    return resolved !== undefined ? (resolved as string) : String(key);
+    return resolved !== undefined ? resolved : key;
   };
-};
+}) as GetDictionary;

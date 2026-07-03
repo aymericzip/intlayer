@@ -3,7 +3,6 @@ import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { getIntlayer } from '@intlayer/core/interpreter';
 import { navigatePath, resolveMessage } from '@intlayer/core/messageFormat';
-import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
 import type {
   DictionaryKeys,
   LocalesValues,
@@ -18,6 +17,9 @@ import {
   getInterpolationValues,
   resolveTranslation,
 } from './resolveTranslation';
+import type { TypedGetFixedT } from './typedTranslation';
+
+export type { TypedGetFixedT } from './typedTranslation';
 
 type EventHandler = (...args: unknown[]) => void;
 
@@ -212,31 +214,30 @@ export const createInstance: typeof _createInstance = (
      * Returns a `t()` function bound to a fixed locale and namespace.
      * When `ns` matches a registered intlayer dictionary key, the returned
      * function's `key` parameter is typed to only accept valid dot-notation
-     * paths for that dictionary.
+     * paths for that dictionary, and its return type is resolved from the
+     * content at that path. With a `keyPrefix`, keys are relative dot-paths
+     * under the prefix.
      *
      * @example
      * ```ts
      * const tAbout = i18n.getFixedT(null, 'about');
-     * tAbout('counter.label'); // ✓ typed
+     * tAbout('counter.label'); // ✓ typed key and return value
      * ```
      */
-    getFixedT<N extends DictionaryKeys>(
+    getFixedT: ((
       lng: string | readonly string[] | null,
-      ns?: N | null,
+      ns?: string | null,
       keyPrefix?: string
-    ): <P extends ValidDotPathsFor<N>>(key: P, opts?: TOptions) => string {
+    ) => {
       const fixedLng = Array.isArray(lng)
         ? ((lng[0] as string) ?? currentLanguage)
         : ((lng as string) ?? currentLanguage);
-      const fixedNS = (ns as string) ?? defaultNS;
-      return <P extends ValidDotPathsFor<N>>(
-        key: P,
-        opts?: TOptions
-      ): string => {
-        const fullKey = keyPrefix ? `${keyPrefix}.${String(key)}` : String(key);
+      const fixedNS = ns ?? defaultNS;
+      return (key: string, opts?: TOptions): string => {
+        const fullKey = keyPrefix ? `${keyPrefix}.${key}` : key;
         return resolveKey(fixedLng, fixedNS, fullKey, opts);
       };
-    },
+    }) as TypedGetFixedT,
 
     use(module: unknown) {
       (module as { init?: (i18n: I18nInterface) => void })?.init?.(
@@ -342,10 +343,3 @@ export const createInstance: typeof _createInstance = (
 
   return instance as unknown as I18nInterface;
 };
-
-/** Typed variant of i18next's `getFixedT`, scoped to an intlayer dictionary namespace. */
-export type TypedGetFixedT = <N extends DictionaryKeys>(
-  lng: string | readonly string[] | null,
-  ns?: N | null,
-  keyPrefix?: string
-) => <P extends ValidDotPathsFor<N>>(key: P, opts?: TOptions) => string;

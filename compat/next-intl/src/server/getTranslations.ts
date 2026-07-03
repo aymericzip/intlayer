@@ -6,6 +6,7 @@ import {
   createTranslator,
   type LooseTranslateFunction,
   type TranslateFunction,
+  type TranslateFunctionForNamespace,
 } from '@intlayer/use-intl';
 import { getLocale } from './getLocale';
 
@@ -26,7 +27,8 @@ type GetTranslationsOptions<N extends DictionaryKeys> = {
  * 2. An options object `{ namespace?, locale? }` → typed when namespace is
  *    a known `DictionaryKeys` value.
  * 3. A nested namespace `'dictionary.sub.scope'` → `t()` accepts relative
- *    `string` paths, matching next-intl's scoped-namespace behaviour.
+ *    dot-paths under the scope, typed against the dictionary, matching
+ *    next-intl's scoped-namespace behaviour.
  * 4. No namespace → root scope; the first segment of each key designates
  *    the dictionary (`t('about.title')`).
  *
@@ -38,7 +40,9 @@ type GetTranslations = {
   <N extends DictionaryKeys>(
     options: GetTranslationsOptions<N>
   ): Promise<TranslateFunction<N>>;
-  (namespace: `${string}.${string}`): Promise<LooseTranslateFunction>;
+  <N extends `${string}.${string}`>(
+    namespace: N
+  ): Promise<TranslateFunctionForNamespace<N>>;
   (): Promise<LooseTranslateFunction>;
 };
 

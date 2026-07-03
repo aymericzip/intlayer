@@ -4,6 +4,7 @@ import {
   parseTaggedMessage,
   type TaggedMessageToken,
 } from '@intlayer/core/messageFormat';
+import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
 import type { DictionaryKeys } from '@intlayer/types/module_augmentation';
 import type { Namespace, TOptions } from 'i18next';
 import {
@@ -14,8 +15,34 @@ import {
   type ReactElement,
   type ReactNode,
 } from 'react';
-import type { Trans as _Trans, TransProps } from 'react-i18next';
-import { useTranslation } from './useTranslation';
+import type { TransProps } from 'react-i18next';
+import { useTranslationLoose } from './useTranslation';
+
+/**
+ * `<Trans>` props for a known dictionary namespace: `i18nKey` is validated
+ * against the dictionary's dot-paths, matching the strength of `useIntlayer`.
+ */
+type TypedTransProps<N extends DictionaryKeys, P extends string> = Omit<
+  TransProps<string>,
+  'i18nKey' | 'ns'
+> & {
+  /** Dictionary namespace the `i18nKey` is validated against. */
+  ns: N | readonly N[];
+  /** Typed dot-path key into the `ns` dictionary. */
+  i18nKey: P;
+};
+
+/**
+ * Overload set for {@link Trans}: with a `ns` prop the `i18nKey` is a typed
+ * dot-path of that dictionary; without one the key falls back to the default
+ * namespace and stays loosely typed.
+ */
+type TypedTrans = {
+  <N extends DictionaryKeys, P extends ValidDotPathsFor<N>>(
+    props: TypedTransProps<N, P>
+  ): ReactElement;
+  (props: TransProps<string> & { ns?: undefined }): ReactElement;
+};
 
 /**
  * Renders parsed message tokens to React nodes, mapping tags to the
@@ -84,7 +111,7 @@ const renderTokens = (
  * </Trans>
  * ```
  */
-export const Trans: typeof _Trans = function Trans<
+export const Trans = function Trans<
   Key extends string = string,
   Ns extends Namespace = Namespace,
 >({
@@ -98,9 +125,7 @@ export const Trans: typeof _Trans = function Trans<
   tOptions,
   children,
 }: TransProps<Key, Ns>): React.ReactElement {
-  const { t } = useTranslation(
-    (Array.isArray(ns) ? ns[0] : ns) as DictionaryKeys
-  );
+  const { t } = useTranslationLoose(Array.isArray(ns) ? ns[0] : ns);
 
   const translateOptions: TOptions = {
     ...((tOptions ?? {}) as TOptions),
@@ -110,13 +135,8 @@ export const Trans: typeof _Trans = function Trans<
   if (context !== undefined) translateOptions.context = context;
   if (typeof defaults === 'string') translateOptions.defaultValue = defaults;
 
-  const translateFunction = t as unknown as (
-    key: string,
-    options?: TOptions
-  ) => string;
-
   const message = i18nKey
-    ? translateFunction(i18nKey as string, translateOptions)
+    ? t(i18nKey as string, translateOptions)
     : (defaults ?? '');
 
   const resolvedMessage =
@@ -146,4 +166,4 @@ export const Trans: typeof _Trans = function Trans<
       )}
     </>
   );
-} as typeof _Trans;
+} as TypedTrans;

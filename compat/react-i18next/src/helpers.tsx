@@ -1,6 +1,6 @@
 import type { i18n, TFunction } from 'i18next';
 import * as React from 'react';
-import { useTranslation } from './useTranslation';
+import { useTranslationLoose } from './useTranslation';
 
 // Context
 export const I18nContext = React.createContext<{ i18n: i18n }>({
@@ -23,7 +23,7 @@ export const Translation = ({
   ns,
   keyPrefix,
 }: TranslationProps): React.ReactElement => {
-  const { t, i18n } = useTranslation(ns, { keyPrefix });
+  const { t, i18n } = useTranslationLoose(ns, { keyPrefix });
   return children(
     t as unknown as TFunction,
     { i18n: i18n as unknown as i18n, lng: i18n.language },

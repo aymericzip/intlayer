@@ -1,15 +1,34 @@
 'use client';
 
-import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
+import type { ScopedTFunction, TypedTFunction } from '@intlayer/i18next';
 import type {
   DictionaryKeys,
   LocalesValues,
 } from '@intlayer/types/module_augmentation';
-import type { TOptions } from 'i18next';
 import { useMemo } from 'react';
 import type { UseTranslationOptions } from 'react-i18next';
 import { useLocale } from 'react-intlayer';
-import { createTranslationApi } from './createTranslationApi';
+import {
+  createTranslationApi,
+  type TypedTranslationResult,
+} from './createTranslationApi';
+
+/**
+ * Overload set for {@link useTranslation}: with a `keyPrefix` option the
+ * returned `t()` accepts relative dot-paths under the prefix; otherwise keys
+ * are the dictionary's full dot-paths. Return types are resolved from the
+ * content at the key's path.
+ */
+type UseTranslation = {
+  <N extends DictionaryKeys, Prefix extends string>(
+    ns: N | N[],
+    options: UseTranslationOptions<Prefix> & { keyPrefix: Prefix }
+  ): TypedTranslationResult<ScopedTFunction<N, Prefix>>;
+  <N extends DictionaryKeys>(
+    ns?: N | N[],
+    options?: UseTranslationOptions<undefined>
+  ): TypedTranslationResult<TypedTFunction<N>>;
+};
 
 /**
  * Drop-in for react-i18next's `useTranslation`.
@@ -21,22 +40,24 @@ import { createTranslationApi } from './createTranslationApi';
  * are all supported.
  *
  * The returned `t()` is typed against the intlayer dictionary for namespace N:
- * keys are autocompleted and dot-paths are validated at compile time.
+ * keys are autocompleted, dot-paths are validated at compile time, and the
+ * return type is resolved from the content at the key's path (with
+ * `returnObjects: true` the raw content subtree type is returned).
  *
  * @example
  * ```tsx
  * const { t } = useTranslation('about');
- * t('counter.label'); // ✓ typed; compile error if key doesn't exist
+ * t('counter.label'); // ✓ typed key and return value
  * t('items', { count: 3 }); // plural suffix resolution
  * ```
  */
-export const useTranslation = <N extends DictionaryKeys>(
-  ns?: N | N[],
+const useTranslationImplementation = (
+  ns?: string | string[],
   options?: UseTranslationOptions<string>
 ) => {
-  const namespace = (
-    Array.isArray(ns) ? (ns[0] ?? 'translation') : (ns ?? 'translation')
-  ) as N;
+  const namespace = Array.isArray(ns)
+    ? (ns[0] ?? 'translation')
+    : (ns ?? 'translation');
 
   const { locale, setLocale, availableLocales } = useLocale();
 
@@ -54,12 +75,17 @@ export const useTranslation = <N extends DictionaryKeys>(
     [locale, setLocale, availableLocales, namespace, keyPrefix]
   );
 
-  /** Typed facade over the untyped runtime translate function. */
-  const t = translate as <P extends ValidDotPathsFor<N>>(
-    key: P | P[],
-    optionsOrDefaultValue?: TOptions | string,
-    extraOptions?: TOptions
-  ) => string;
-
-  return { t, i18n, ready: true };
+  return { t: translate, i18n, ready: true };
 };
+
+export const useTranslation = useTranslationImplementation as UseTranslation;
+
+/**
+ * Loosely-typed view of {@link useTranslation} used by render-prop and HOC
+ * wrappers (`Translation`, `withTranslation`, `Trans`) that forward `t` to
+ * consumer-typed surfaces.
+ */
+export const useTranslationLoose = useTranslationImplementation as (
+  ns?: string | string[],
+  options?: UseTranslationOptions<string>
+) => TypedTranslationResult;

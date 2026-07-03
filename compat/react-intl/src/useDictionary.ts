@@ -2,11 +2,14 @@
 
 import { navigatePath } from '@intlayer/core/messageFormat';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import type {
+  DictionaryKeys,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import { useMemo } from 'react';
-import type { IntlShape } from 'react-intl';
 import { useDictionary as useDictionaryBase, useLocale } from 'react-intlayer';
 import { createIntlObject } from './createIntlObject';
+import type { DictionaryIntlShape } from './dictionaryIntlShape';
 
 /**
  * Builds the id lookup of a dictionary-bound intl object.
@@ -38,11 +41,11 @@ export const createDictionaryLookup =
  * @example
  * import _abc from '.intlayer/dictionaries/home.json' with { type: 'json' };
  * const intl = useDictionary(_abc);
- * intl.formatMessage({ id: 'home.title' }); // or { id: 'title' }
+ * intl.formatMessage({ id: 'home.title' }); // or { id: 'title' } — both typed
  */
 export const useDictionary = <T extends Dictionary>(
   dictionary: T
-): IntlShape => {
+): DictionaryIntlShape<T['key'] & DictionaryKeys> => {
   const content = useDictionaryBase(dictionary);
   const { locale } = useLocale();
 
@@ -51,7 +54,7 @@ export const useDictionary = <T extends Dictionary>(
       createIntlObject(
         locale as LocalesValues,
         createDictionaryLookup(dictionary.key, content)
-      ),
+      ) as DictionaryIntlShape<T['key'] & DictionaryKeys>,
     [locale, dictionary.key, content]
   );
 };

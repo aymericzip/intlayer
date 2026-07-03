@@ -1,13 +1,35 @@
 'use client';
 
-import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
+import type { ScopedTFunction, TypedTFunction } from '@intlayer/i18next';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import type { TOptions } from 'i18next';
+import type {
+  DictionaryKeys,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import { useMemo } from 'react';
 import type { UseTranslationOptions } from 'react-i18next';
 import { useDictionary as useDictionaryBase, useLocale } from 'react-intlayer';
-import { createTranslationApi } from './createTranslationApi';
+import {
+  createTranslationApi,
+  type TypedTranslationResult,
+} from './createTranslationApi';
+
+/**
+ * Overload set for {@link useDictionary}: without a key prefix the returned
+ * `t()` is typed against the dictionary's dot-paths; with a prefix (string or
+ * `keyPrefix` option) the keys are relative dot-paths under that scope.
+ */
+type UseDictionary = {
+  <T extends Dictionary>(
+    dictionary: T,
+    options?: UseTranslationOptions<undefined>
+  ): TypedTranslationResult<TypedTFunction<T['key'] & DictionaryKeys>>;
+  <T extends Dictionary, Prefix extends string>(
+    dictionary: T,
+    keyPrefix: Prefix | (UseTranslationOptions<Prefix> & { keyPrefix: Prefix }),
+    options?: UseTranslationOptions<Prefix>
+  ): TypedTranslationResult<ScopedTFunction<T['key'] & DictionaryKeys, Prefix>>;
+};
 
 /**
  * Dictionary-accepting variant of `useTranslation`.
@@ -27,7 +49,7 @@ import { createTranslationApi } from './createTranslationApi';
  * import _abc from '.intlayer/dictionaries/about.json' with { type: 'json' };
  * const { t } = useDictionary(_abc);
  */
-export const useDictionary = <T extends Dictionary>(
+export const useDictionary = (<T extends Dictionary>(
   dictionary: T,
   keyPrefix?: string | UseTranslationOptions<string>,
   options?: UseTranslationOptions<string>
@@ -53,12 +75,5 @@ export const useDictionary = <T extends Dictionary>(
     [locale, setLocale, availableLocales, dictionary.key, prefix, content]
   );
 
-  /** Typed facade over the untyped runtime translate function. */
-  const t = translate as <P extends ValidDotPathsFor<T['key']>>(
-    key: P | P[],
-    optionsOrDefaultValue?: TOptions | string,
-    extraOptions?: TOptions
-  ) => string;
-
-  return { t, i18n, ready: true };
-};
+  return { t: translate, i18n, ready: true };
+}) as UseDictionary;

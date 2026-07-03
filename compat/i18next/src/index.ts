@@ -22,6 +22,14 @@ export {
   type ResolveTranslationParams,
   resolveTranslation,
 } from './resolveTranslation';
+export type {
+  ContentAtPath,
+  ScopedDotPaths,
+  ScopedTFunction,
+  TranslatedValue,
+  TypedGetFixedT,
+  TypedTFunction,
+} from './typedTranslation';
 
 const i18next: i18n = createInstance();
 

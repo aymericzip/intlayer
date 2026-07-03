@@ -10,6 +10,7 @@ import { createNamespaceTranslator } from '../shared/namespaceTranslator';
 import type {
   LooseTranslateFunction,
   TranslateFunction,
+  TranslateFunctionForNamespace,
 } from '../shared/translateFunctionTypes';
 
 /**
@@ -17,13 +18,16 @@ import type {
  *
  * 1. A bare dictionary key → fully-typed `t()` (autocompleted dot-paths).
  * 2. A nested namespace `'dictionary.sub.scope'` → `t()` accepts relative
- *    `string` paths, matching use-intl's scoped-namespace behaviour.
+ *    dot-paths under the scope, typed against the dictionary, matching
+ *    use-intl's scoped-namespace behaviour.
  * 3. No namespace → root scope; the first segment of each key designates
  *    the dictionary (`t('about.title')`).
  */
 type UseTranslations = {
   <N extends DictionaryKeys>(namespace: N): TranslateFunction<N>;
-  (namespace: `${string}.${string}`): LooseTranslateFunction;
+  <N extends `${string}.${string}`>(
+    namespace: N
+  ): TranslateFunctionForNamespace<N>;
   (): LooseTranslateFunction;
 };
 

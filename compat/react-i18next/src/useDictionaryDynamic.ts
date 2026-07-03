@@ -1,19 +1,41 @@
 'use client';
 
-import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
+import type { ScopedTFunction, TypedTFunction } from '@intlayer/i18next';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
+  DictionaryKeys,
   LocalesValues,
   StrictModeLocaleMap,
 } from '@intlayer/types/module_augmentation';
-import type { TOptions } from 'i18next';
 import { useMemo } from 'react';
 import type { UseTranslationOptions } from 'react-i18next';
 import {
   useDictionaryDynamic as useDictionaryDynamicBase,
   useLocale,
 } from 'react-intlayer';
-import { createTranslationApi } from './createTranslationApi';
+import {
+  createTranslationApi,
+  type TypedTranslationResult,
+} from './createTranslationApi';
+
+/**
+ * Overload set for {@link useDictionaryDynamic}: without a key prefix the
+ * returned `t()` is typed against the dictionary's dot-paths; with a prefix
+ * (string or `keyPrefix` option) the keys are relative dot-paths under it.
+ */
+type UseDictionaryDynamic = {
+  <T extends Dictionary, K extends DictionaryKeys>(
+    dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
+    key: K,
+    options?: UseTranslationOptions<undefined>
+  ): TypedTranslationResult<TypedTFunction<K>>;
+  <T extends Dictionary, K extends DictionaryKeys, Prefix extends string>(
+    dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
+    key: K,
+    keyPrefix: Prefix | (UseTranslationOptions<Prefix> & { keyPrefix: Prefix }),
+    options?: UseTranslationOptions<Prefix>
+  ): TypedTranslationResult<ScopedTFunction<K, Prefix>>;
+};
 
 /**
  * Dynamic dictionary-accepting variant of `useTranslation`.
@@ -22,9 +44,9 @@ import { createTranslationApi } from './createTranslationApi';
  * locale. For a nested namespace (`useTranslation('about.counter')`), the
  * plugin passes the key prefix (`'counter'`) as the third argument.
  */
-export const useDictionaryDynamic = <
+export const useDictionaryDynamic = (<
   const T extends Dictionary,
-  const K extends string,
+  const K extends DictionaryKeys,
 >(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   key: K,
@@ -52,12 +74,5 @@ export const useDictionaryDynamic = <
     [locale, setLocale, availableLocales, key, prefix, content]
   );
 
-  /** Typed facade over the untyped runtime translate function. */
-  const t = translate as <P extends ValidDotPathsFor<K>>(
-    key: P | P[],
-    optionsOrDefaultValue?: TOptions | string,
-    extraOptions?: TOptions
-  ) => string;
-
-  return { t, i18n, ready: true };
-};
+  return { t: translate, i18n, ready: true };
+}) as UseDictionaryDynamic;

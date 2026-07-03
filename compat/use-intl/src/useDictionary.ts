@@ -1,13 +1,35 @@
 'use client';
 
 import type { Dictionary } from '@intlayer/types/dictionary';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import type {
+  DictionaryKeys,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import { useContext } from 'react';
 import {
   IntlayerClientContext,
   useDictionary as useDictionaryBase,
 } from 'react-intlayer';
 import { createDictionaryTranslator } from './shared/namespaceTranslator';
+import type {
+  ScopedTranslateFunction,
+  TranslateFunction,
+} from './shared/translateFunctionTypes';
+
+/**
+ * Overload set for {@link useDictionary}: without a prefix the translator is
+ * typed against the dictionary's dot-paths; with a prefix the keys are
+ * relative dot-paths under that scope.
+ */
+type UseDictionary = {
+  <T extends Dictionary>(
+    dictionary: T
+  ): TranslateFunction<T['key'] & DictionaryKeys>;
+  <T extends Dictionary, Prefix extends string>(
+    dictionary: T,
+    namespacePrefix: Prefix
+  ): ScopedTranslateFunction<T['key'] & DictionaryKeys, Prefix>;
+};
 
 /**
  * Dictionary-accepting variant of `useTranslations`.
@@ -24,7 +46,7 @@ import { createDictionaryTranslator } from './shared/namespaceTranslator';
  * import _abc from '.intlayer/dictionaries/about.json' with { type: 'json' };
  * const t = useDictionary(_abc);
  */
-export const useDictionary = <T extends Dictionary>(
+export const useDictionary = (<T extends Dictionary>(
   dictionary: T,
   namespacePrefix?: string
 ) => {
@@ -36,4 +58,4 @@ export const useDictionary = <T extends Dictionary>(
     content,
     namespacePrefix
   );
-};
+}) as UseDictionary;

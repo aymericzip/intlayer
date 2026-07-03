@@ -1,7 +1,14 @@
 import { getHTMLTextDir } from '@intlayer/core/localization';
 import { resolveMessage } from '@intlayer/core/messageFormat';
-import { getInterpolationValues, resolveTranslation } from '@intlayer/i18next';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import {
+  getInterpolationValues,
+  resolveTranslation,
+  type TypedTFunction,
+} from '@intlayer/i18next';
+import type {
+  DictionaryKeys,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
 import type { TOptions } from 'i18next';
 
 /** Untyped runtime `t()` produced by {@link createTranslationApi}. */
@@ -10,6 +17,33 @@ export type TranslateFunction = (
   optionsOrDefaultValue?: TOptions | string,
   extraOptions?: TOptions
 ) => string;
+
+/**
+ * The `i18n` facade with `t` and `getFixedT` typed against the dictionary the
+ * hook is bound to: `t` is the hook's translate function type `TFn`, and
+ * `getFixedT` returns a fully-typed `t()` for the requested namespace (or the
+ * hook's own `t()` when no namespace is given).
+ */
+export type TypedI18nFacade<TFn = TranslateFunction> = Omit<
+  I18nFacade,
+  't' | 'getFixedT'
+> & {
+  t: TFn;
+  getFixedT: {
+    <N extends DictionaryKeys>(
+      language: string | null | undefined,
+      fixedNamespace: N
+    ): TypedTFunction<N>;
+    (language?: string | null, fixedNamespace?: null): TFn;
+  };
+};
+
+/** Result shape of the typed translation hooks: `{ t, i18n, ready }`. */
+export type TypedTranslationResult<TFn = TranslateFunction> = {
+  t: TFn;
+  i18n: TypedI18nFacade<TFn>;
+  ready: true;
+};
 
 /** `i18n` facade shape produced by {@link createTranslationApi}. */
 export type I18nFacade = {

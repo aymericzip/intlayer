@@ -1,13 +1,33 @@
 import { internationalization } from '@intlayer/config/built';
 import { getDictionary as getDictionaryCore } from '@intlayer/core/interpreter';
-import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
+  DictionaryKeys,
   LocalesValues,
   StrictModeLocaleMap,
 } from '@intlayer/types/module_augmentation';
 import type { TOptions } from 'i18next';
 import { resolveTranslation } from './resolveTranslation';
+import type { ScopedTFunction, TypedTFunction } from './typedTranslation';
+
+/**
+ * Overload set for {@link getDictionaryDynamic}: without a key prefix the
+ * returned `t()` is typed against the dictionary's dot-paths; with a prefix
+ * the keys are relative dot-paths under that scope.
+ */
+type GetDictionaryDynamic = {
+  <T extends Dictionary, K extends DictionaryKeys>(
+    dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
+    key: K,
+    locale?: LocalesValues
+  ): Promise<TypedTFunction<K>>;
+  <T extends Dictionary, K extends DictionaryKeys, Prefix extends string>(
+    dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
+    key: K,
+    locale: LocalesValues | undefined,
+    keyPrefix: Prefix
+  ): Promise<ScopedTFunction<K, Prefix>>;
+};
 
 /**
  * Dynamic dictionary-accepting variant of `getFixedT`.
@@ -20,9 +40,9 @@ import { resolveTranslation } from './resolveTranslation';
  * const t = await getDictionaryDynamic(aboutLoaders, 'about', 'fr');
  * t('counter.label');
  */
-export const getDictionaryDynamic = async <
+export const getDictionaryDynamic = (async <
   const T extends Dictionary,
-  const K extends string,
+  const K extends DictionaryKeys,
 >(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   key: K,
@@ -39,17 +59,14 @@ export const getDictionaryDynamic = async <
     ? getDictionaryCore(dictionary, targetLocale)
     : undefined;
 
-  return <P extends ValidDotPathsFor<K>>(
-    lookupKey: P,
-    options?: TOptions
-  ): string => {
+  return (lookupKey: string, options?: TOptions): unknown => {
     const resolved = resolveTranslation({
       locale: targetLocale,
       namespace: key,
-      key: keyPrefix ? `${keyPrefix}.${String(lookupKey)}` : String(lookupKey),
+      key: keyPrefix ? `${keyPrefix}.${lookupKey}` : lookupKey,
       options,
       dictionaryContent,
     });
-    return resolved !== undefined ? (resolved as string) : String(lookupKey);
+    return resolved !== undefined ? resolved : lookupKey;
   };
-};
+}) as GetDictionaryDynamic;

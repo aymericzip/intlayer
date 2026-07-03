@@ -9,6 +9,7 @@ import { createNamespaceTranslator } from '../shared/namespaceTranslator';
 import type {
   LooseTranslateFunction,
   TranslateFunction,
+  TranslateFunctionForNamespace,
 } from '../shared/translateFunctionTypes';
 
 /**
@@ -35,7 +36,8 @@ export type CreateTranslatorConfig<N extends DictionaryKeys> = {
  *
  * 1. A bare dictionary key → fully-typed `t()` (autocompleted dot-paths).
  * 2. A nested namespace `'dictionary.sub.scope'` → `t()` accepts relative
- *    `string` paths, matching use-intl's scoped-namespace behaviour.
+ *    dot-paths under the scope, typed against the dictionary, matching
+ *    use-intl's scoped-namespace behaviour.
  * 3. No namespace → root scope; the first segment of each key designates
  *    the dictionary (`t('about.title')`).
  */
@@ -43,11 +45,9 @@ type CreateTranslator = {
   <N extends DictionaryKeys>(
     config: CreateTranslatorConfig<N> & { namespace: N }
   ): TranslateFunction<N>;
-  (
-    config: CreateTranslatorConfig<DictionaryKeys> & {
-      namespace: `${string}.${string}`;
-    }
-  ): LooseTranslateFunction;
+  <N extends `${string}.${string}`>(
+    config: CreateTranslatorConfig<DictionaryKeys> & { namespace: N }
+  ): TranslateFunctionForNamespace<N>;
   (config: CreateTranslatorConfig<DictionaryKeys>): LooseTranslateFunction;
 };
 

@@ -24,6 +24,13 @@ export { IntlContext, RawIntlProvider } from './context';
 export { createIntl, createIntlCache } from './createIntl';
 // ── Utilities ─────────────────────────────────────────────────────────────────
 export { defineMessage, defineMessages } from './defineMessages';
+// ── Typed message ids ─────────────────────────────────────────────────────────
+export type {
+  DictionaryIntlShape,
+  DictionaryMessageIds,
+  MessageValueForId,
+  TypedFormatMessage,
+} from './dictionaryIntlShape';
 // ── Error stubs ───────────────────────────────────────────────────────────────
 export {
   InvalidConfigError,
@@ -51,6 +58,7 @@ export {
 // ── Components ───────────────────────────────────────────────────────────────
 export { FormattedMessage } from './FormattedMessage';
 export { IntlProvider } from './IntlProvider';
+export type { RootMessageIds } from './typedMessageIds';
 // ── Hook ─────────────────────────────────────────────────────────────────────
 export { useDictionary } from './useDictionary';
 export { useDictionaryDynamic } from './useDictionaryDynamic';

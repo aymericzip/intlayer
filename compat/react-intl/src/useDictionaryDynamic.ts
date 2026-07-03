@@ -2,16 +2,17 @@
 
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
+  DictionaryKeys,
   LocalesValues,
   StrictModeLocaleMap,
 } from '@intlayer/types/module_augmentation';
 import { useMemo } from 'react';
-import type { IntlShape } from 'react-intl';
 import {
   useDictionaryDynamic as useDictionaryDynamicBase,
   useLocale,
 } from 'react-intlayer';
 import { createIntlObject } from './createIntlObject';
+import type { DictionaryIntlShape } from './dictionaryIntlShape';
 import { createDictionaryLookup } from './useDictionary';
 
 /**
@@ -22,11 +23,11 @@ import { createDictionaryLookup } from './useDictionary';
  */
 export const useDictionaryDynamic = <
   const T extends Dictionary,
-  const K extends string,
+  const K extends DictionaryKeys,
 >(
   dictionaryPromise: StrictModeLocaleMap<() => Promise<T>>,
   key: K
-): IntlShape => {
+): DictionaryIntlShape<K> => {
   const content = useDictionaryDynamicBase<T, K>(dictionaryPromise, key);
   const { locale } = useLocale();
 
@@ -35,7 +36,7 @@ export const useDictionaryDynamic = <
       createIntlObject(
         locale as LocalesValues,
         createDictionaryLookup(key, content)
-      ),
+      ) as DictionaryIntlShape<K>,
     [locale, key, content]
   );
 };

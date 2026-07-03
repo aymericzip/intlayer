@@ -3,7 +3,6 @@ import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { getIntlayer } from '@intlayer/core/interpreter';
 import { navigatePath } from '@intlayer/core/messageFormat';
-import type { ValidDotPathsFor } from '@intlayer/core/transpiler';
 import type {
   DictionaryKeys,
   LocalesValues,
@@ -27,6 +26,7 @@ import {
   parseTranslateArguments,
   resolveVueMessage,
 } from './resolveVueMessage';
+import type { LooseComposer, TypedComposer } from './typedComposer';
 
 export const VERSION = '9.13.1';
 export const I18nInjectionKey: InjectionKey<I18n> = Symbol('global-i18n');
@@ -323,9 +323,25 @@ export const createI18n: typeof _createI18n = ((
 }) as typeof _createI18n;
 
 /**
+ * Overload set for {@link useI18n}: with a `namespace` option the composer is
+ * fully typed against that dictionary (keys and return values); without one
+ * the root scope applies — the first segment of each key designates the
+ * dictionary (`t('about.title')`).
+ */
+type UseI18n = {
+  <N extends DictionaryKeys>(
+    options: Record<string, unknown> & { namespace: N }
+  ): TypedComposer<N>;
+  (
+    options?: Record<string, unknown> & { namespace?: undefined }
+  ): LooseComposer;
+};
+
+/**
  * Composable providing a typed `t()` function scoped to a dictionary namespace.
  * Pass `{ namespace: 'myDict' }` to restrict keys to valid dot-notation paths
- * within that intlayer dictionary (autocompleted and validated at compile time).
+ * within that intlayer dictionary (autocompleted and validated at compile
+ * time) and resolve return types from the content at each path.
  *
  * Supports vue-i18n's full message syntax: named (`{name}`) and list (`{0}`)
  * interpolation, pipe choice messages (`'car | cars'` with a count argument),
@@ -334,38 +350,22 @@ export const createI18n: typeof _createI18n = ((
  * @example
  * ```ts
  * const { t } = useI18n({ namespace: 'about' });
- * t('counter.label'); // ✓ typed; compile error if key doesn't exist
+ * t('counter.label'); // ✓ typed key and return value
  * t('apples', 5); // pipe plural choice
  * ```
  */
-export const useI18n = <N extends DictionaryKeys = DictionaryKeys>(
-  options?: Record<string, unknown> & { namespace?: N }
-): {
-  locale: WritableComputedRef<string>;
-  availableLocales: string[];
-  t: <P extends ValidDotPathsFor<N>>(key: P, ...args: unknown[]) => string;
-  tc: <P extends ValidDotPathsFor<N>>(key: P, ...args: unknown[]) => string;
-  te: <P extends ValidDotPathsFor<N>>(key: P) => boolean;
-  tm: <P extends ValidDotPathsFor<N>>(key: P) => unknown;
-  rt: (message: unknown, ...args: unknown[]) => string;
-  d: (
-    value: Date | number | string,
-    formatOrOptions?: string | Intl.DateTimeFormatOptions
-  ) => string;
-  n: (
-    value: number,
-    formatOrOptions?: string | Intl.NumberFormatOptions
-  ) => string;
-} => {
+export const useI18n = ((
+  options?: Record<string, unknown> & { namespace?: string }
+) => {
   const { locale: currentLocale, setLocale, availableLocales } = useLocale();
-  const instance = inject(I18nInjectionKey) as
+  const instance = inject(I18nInjectionKey) as unknown as
     | Record<string, unknown>
     | undefined;
   const fallbackMessages = instance?.__optionsMessages as
     | Record<string, unknown>
     | undefined;
 
-  const namespace = options?.namespace as string | undefined as N | undefined;
+  const namespace = options?.namespace as string | undefined;
 
   const datetimeFormats = options?.datetimeFormats as
     | DateTimeFormatsConfig
@@ -381,27 +381,18 @@ export const useI18n = <N extends DictionaryKeys = DictionaryKeys>(
     },
   });
 
-  const translate = <P extends ValidDotPathsFor<N>>(
-    key: P,
-    ...args: unknown[]
-  ): string =>
-    translateKey(
-      currentLocale.value,
-      namespace,
-      String(key),
-      args,
-      fallbackMessages
-    );
+  const translate = (key: string, ...args: unknown[]): string =>
+    translateKey(currentLocale.value, namespace, key, args, fallbackMessages);
 
   return {
     locale: localeRef,
     availableLocales: availableLocales as string[],
     t: translate,
     tc: translate,
-    te: <P extends ValidDotPathsFor<N>>(key: P): boolean =>
-      lookupRaw(currentLocale.value, namespace, String(key)) !== undefined,
-    tm: <P extends ValidDotPathsFor<N>>(key: P): unknown =>
-      lookupRaw(currentLocale.value, namespace, String(key)) ?? {},
+    te: (key: string): boolean =>
+      lookupRaw(currentLocale.value, namespace, key) !== undefined,
+    tm: (key: string): unknown =>
+      lookupRaw(currentLocale.value, namespace, key) ?? {},
     rt: (message: unknown, ...args: unknown[]): string => {
       const { values, count } = parseTranslateArguments(args);
       return resolveVueMessage(
@@ -432,4 +423,4 @@ export const useI18n = <N extends DictionaryKeys = DictionaryKeys>(
         numberFormats
       ),
   };
-};
+}) as UseI18n;

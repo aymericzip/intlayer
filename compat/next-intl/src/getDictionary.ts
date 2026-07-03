@@ -1,6 +1,13 @@
 import type { Dictionary } from '@intlayer/types/dictionary';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
-import { createDictionaryTranslator } from '@intlayer/use-intl';
+import type {
+  DictionaryKeys,
+  LocalesValues,
+} from '@intlayer/types/module_augmentation';
+import {
+  createDictionaryTranslator,
+  type ScopedTranslateFunction,
+  type TranslateFunction,
+} from '@intlayer/use-intl';
 import { getDictionary as getDictionaryBase } from 'next-intlayer';
 import { getLocale } from './server/getLocale';
 
@@ -20,6 +27,23 @@ const readRestArgument = (
 };
 
 /**
+ * Overload set for {@link getDictionary}: a string rest argument is the
+ * key-prefix remainder of a nested namespace (relative dot-paths under the
+ * scope); otherwise the translator is typed against the dictionary's
+ * dot-paths.
+ */
+type GetDictionary = {
+  <T extends Dictionary, Prefix extends string>(
+    dictionary: T,
+    namespacePrefix: Prefix
+  ): Promise<ScopedTranslateFunction<T['key'] & DictionaryKeys, Prefix>>;
+  <T extends Dictionary>(
+    dictionary: T,
+    options?: { locale?: LocalesValues }
+  ): Promise<TranslateFunction<T['key'] & DictionaryKeys>>;
+};
+
+/**
  * Dictionary-accepting variant of `getTranslations`.
  *
  * Used internally by the build-time optimization: instead of looking up the
@@ -34,7 +58,7 @@ const readRestArgument = (
  * `getTranslations` is always awaited, so an async resolver is a drop-in
  * replacement.
  */
-export const getDictionary = async <T extends Dictionary>(
+export const getDictionary = (async <T extends Dictionary>(
   dictionary: T,
   rest?: DictionaryTranslatorRest
 ) => {
@@ -43,4 +67,4 @@ export const getDictionary = async <T extends Dictionary>(
   const content = getDictionaryBase(dictionary, locale);
 
   return createDictionaryTranslator(locale, content, namespacePrefix);
-};
+}) as GetDictionary;
