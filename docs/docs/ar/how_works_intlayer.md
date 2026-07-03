@@ -217,9 +217,9 @@ const MyComponent = () => {
 
 تُعيد حزم `@intlayer/dictionaries-entry` و `@intlayer/unmerged-dictionaries-entry` و `@intlayer/dynamic-dictionaries-entry` مسار الدخول لقواميس Intlayer. نظرًا لأن البحث في نظام الملفات من المتصفح مستحيل، فإن استخدام أدوات التجميع مثل Webpack أو Rollup لاسترجاع مسار الدخول للقواميس غير ممكن. تم تصميم هذه الحزم لتكون قابلة للاختصار (aliased)، مما يسمح بتحسين التجميع عبر أدوات تجميع مختلفة مثل Vite وWebpack وTurbopack.
 
-### @intlayer/chokidar
+### @intlayer/engine
 
-تُستخدم حزمة `@intlayer/chokidar` لمراقبة ملفات المحتوى وإعادة توليد القاموس المعدل عند كل تعديل.
+تُستخدم حزمة `@intlayer/engine` لمراقبة ملفات المحتوى وإعادة توليد القاموس المعدل عند كل تعديل.
 
 ### @intlayer/editor
 

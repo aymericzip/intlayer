@@ -150,10 +150,10 @@ await scan("https://example.com", {
 });
 ```
 
-Untuk akses tingkat lebih rendah, `scanWebsite` dari `@intlayer/chokidar/scan` mengembalikan objek `ScanResult` yang terstruktur:
+Untuk akses tingkat lebih rendah, `scanWebsite` dari `@intlayer/engine/scan` mengembalikan objek `ScanResult` yang terstruktur:
 
 ```ts
-import { scanWebsite } from "@intlayer/chokidar/scan";
+import { scanWebsite } from "@intlayer/engine/scan";
 
 const result = await scanWebsite("https://example.com", { deep: false });
 console.log(result.score, result.totalPageSize, result.events);

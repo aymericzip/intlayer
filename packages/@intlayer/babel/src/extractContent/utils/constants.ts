@@ -1,7 +1,7 @@
 /**
  * Attributes that should be extracted as translatable strings from JSX/HTML elements.
  * This is the single source of truth shared across all Intlayer compiler packages
- * (@intlayer/babel, @intlayer/vue-compiler, @intlayer/svelte-compiler, @intlayer/chokidar).
+ * (@intlayer/babel, @intlayer/vue-compiler, @intlayer/svelte-compiler, @intlayer/engine).
  */
 export const ATTRIBUTES_TO_EXTRACT = [
   'title',

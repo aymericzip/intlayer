@@ -1,11 +1,5 @@
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import {
-  type DictionaryStatus,
-  writeContentDeclaration,
-} from '@intlayer/chokidar/build';
-import { logConfigDetails } from '@intlayer/chokidar/cli';
-import { parallelize } from '@intlayer/chokidar/utils';
 import * as ANSIColors from '@intlayer/config/colors';
 import { getAppLogger } from '@intlayer/config/logger';
 import {
@@ -13,6 +7,12 @@ import {
   getConfiguration,
 } from '@intlayer/config/node';
 import { getProjectRequire } from '@intlayer/config/utils';
+import {
+  type DictionaryStatus,
+  writeContentDeclaration,
+} from '@intlayer/engine/build';
+import { logConfigDetails } from '@intlayer/engine/cli';
+import { parallelize } from '@intlayer/engine/utils';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { PullLogger, type PullStatus } from './push/pullLog';

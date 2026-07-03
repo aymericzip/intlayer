@@ -8,7 +8,7 @@ export const packageBuildOrder = [
   'packages/@intlayer/fetch-dictionaries-entry',
   'packages/@intlayer/api',
   'packages/@intlayer/core',
-  'packages/@intlayer/chokidar',
+  'packages/@intlayer/engine',
   'packages/@intlayer/webpack',
   'packages/@intlayer/editor',
   'packages/@intlayer/cli',

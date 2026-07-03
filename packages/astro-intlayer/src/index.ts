@@ -1,8 +1,8 @@
 import { resolve } from 'node:path';
-import { prepareIntlayer } from '@intlayer/chokidar/build';
-import { watch } from '@intlayer/chokidar/watcher';
 import { getConfiguration } from '@intlayer/config/node';
 import { getAlias } from '@intlayer/config/utils';
+import { prepareIntlayer } from '@intlayer/engine/build';
+import { watch } from '@intlayer/engine/watcher';
 import type { AstroIntegration } from 'astro';
 import type { PluginOption } from 'vite';
 import {

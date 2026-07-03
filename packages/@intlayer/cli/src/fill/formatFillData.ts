@@ -1,5 +1,5 @@
 import { basename, dirname, extname, relative } from 'node:path';
-import { getFormatFromExtension } from '@intlayer/chokidar/utils';
+import { getFormatFromExtension } from '@intlayer/engine/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { DictionaryKey, Fill } from '@intlayer/types/dictionary';

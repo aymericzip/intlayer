@@ -1,5 +1,3 @@
-import { prepareIntlayer } from '@intlayer/chokidar/build';
-import { watch } from '@intlayer/chokidar/watcher';
 import { BLUE } from '@intlayer/config/colors';
 import {
   formatDictionarySelectorEnvVar,
@@ -13,6 +11,8 @@ import {
   getUnusedNodeTypesAsync,
 } from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
+import { prepareIntlayer } from '@intlayer/engine/build';
+import { watch } from '@intlayer/engine/watcher';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Compiler } from 'webpack';
 

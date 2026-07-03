@@ -2,7 +2,7 @@ packages=(
   "@intlayer/types" "@intlayer/config" "@intlayer/dictionaries-entry" 
   "@intlayer/unmerged-dictionaries-entry" "@intlayer/dynamic-dictionaries-entry" 
   "@intlayer/remote-dictionaries-entry" "@intlayer/fetch-dictionaries-entry" 
-  "@intlayer/api" "@intlayer/core" "@intlayer/chokidar" "@intlayer/webpack" 
+  "@intlayer/api" "@intlayer/core" "@intlayer/engine" "@intlayer/webpack" 
   "@intlayer/editor" "@intlayer/cli" "@intlayer/babel" "@intlayer/swc" 
   "@intlayer/editor-react" "@intlayer/ai" "@intlayer/vue-compiler" 
   "@intlayer/svelte-compiler" "intlayer" "@intlayer/docs" "@intlayer/mcp" 

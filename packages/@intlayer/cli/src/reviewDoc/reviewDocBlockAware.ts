@@ -4,11 +4,6 @@ import { dirname } from 'node:path';
 import { readAsset } from 'utils:asset';
 import type { AIConfig } from '@intlayer/ai';
 import type { AIOptions } from '@intlayer/api';
-import {
-  buildAlignmentPlan,
-  mergeReviewedSegments,
-} from '@intlayer/chokidar/docReview';
-import { formatLocale, formatPath } from '@intlayer/chokidar/utils';
 import * as ANSIColors from '@intlayer/config/colors';
 import {
   colon,
@@ -22,6 +17,11 @@ import {
 } from '@intlayer/config/node';
 import { retryManager } from '@intlayer/config/utils';
 import { getLocaleName } from '@intlayer/core/localization';
+import {
+  buildAlignmentPlan,
+  mergeReviewedSegments,
+} from '@intlayer/engine/docReview';
+import { formatLocale, formatPath } from '@intlayer/engine/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import { ENGLISH } from '@intlayer/types/locales';
 import { sanitizeChunk, validateTranslation } from '../translateDoc/validation';

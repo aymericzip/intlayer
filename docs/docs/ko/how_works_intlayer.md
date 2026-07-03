@@ -217,9 +217,9 @@ Express를 기반으로 한 서버는 시각적 편집기 요청을 수신하고
 
 `@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` 및 `@intlayer/dynamic-dictionaries-entry` 패키지는 Intlayer 사전의 진입 경로를 반환합니다. 브라우저에서 파일 시스템을 검색하는 것이 불가능하기 때문에, Webpack이나 Rollup과 같은 번들러를 사용하여 사전의 진입 경로를 가져오는 것은 불가능합니다. 이 패키지들은 별칭(alias)으로 설계되어 Vite, Webpack, Turbopack 등 다양한 번들러에서 번들링 최적화를 가능하게 합니다.
 
-### @intlayer/chokidar
+### @intlayer/engine
 
-`@intlayer/chokidar` 패키지는 콘텐츠 파일을 모니터링하고 수정될 때마다 변경된 사전을 재생성하는 데 사용됩니다.
+`@intlayer/engine` 패키지는 콘텐츠 파일을 모니터링하고 수정될 때마다 변경된 사전을 재생성하는 데 사용됩니다.
 
 ### @intlayer/editor
 

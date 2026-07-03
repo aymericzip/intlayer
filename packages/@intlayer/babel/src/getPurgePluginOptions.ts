@@ -1,9 +1,9 @@
-import { buildComponentFilesList } from '@intlayer/chokidar/utils';
 import { IMPORT_MODE } from '@intlayer/config/defaultValues';
 import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
+import { buildComponentFilesList } from '@intlayer/engine/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type { MinifyPluginOptions } from './babel-plugin-intlayer-minify';

@@ -1,12 +1,12 @@
 import { dirname, join, relative } from 'node:path';
 import type { NodePath, PluginObject, PluginPass } from '@babel/core';
 import type * as BabelTypes from '@babel/types';
-import { getPathHash } from '@intlayer/chokidar/utils';
 import {
   type CallerDescriptor,
   getRewritableCallers,
 } from '@intlayer/config/callers';
 import { normalizePath } from '@intlayer/config/utils';
+import { getPathHash } from '@intlayer/engine/utils';
 import { getNormalizedFilesListSet } from './normalizedFilesList';
 
 const PACKAGE_LIST = [

@@ -1,11 +1,11 @@
 import { basename, dirname, extname, relative, resolve } from 'node:path';
-import {
-  getFormatFromExtension,
-  resolveRelativePath,
-} from '@intlayer/chokidar/utils';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize } from '@intlayer/config/logger';
 import { assertPathWithin, parseStringPattern } from '@intlayer/config/utils';
+import {
+  getFormatFromExtension,
+  resolveRelativePath,
+} from '@intlayer/engine/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Fill } from '@intlayer/types/dictionary';

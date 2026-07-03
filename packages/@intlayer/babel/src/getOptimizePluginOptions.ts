@@ -1,9 +1,9 @@
 import { join } from 'node:path';
-import { buildComponentFilesList } from '@intlayer/chokidar/utils';
 import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
+import { buildComponentFilesList } from '@intlayer/engine/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type { OptimizePluginOptions } from './babel-plugin-intlayer-optimize';

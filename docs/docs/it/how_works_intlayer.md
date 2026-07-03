@@ -217,9 +217,9 @@ Il pacchetto `@intlayer/mcp` fornisce un server MCP (Model Context Protocol) che
 
 I pacchetti `@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` e `@intlayer/dynamic-dictionaries-entry` restituiscono il percorso di ingresso dei dizionari Intlayer. Poiché è impossibile cercare nel filesystem dal browser, non è possibile utilizzare bundler come Webpack o Rollup per recuperare il percorso di ingresso dei dizionari. Questi pacchetti sono progettati per essere aliasati, consentendo l'ottimizzazione del bundling attraverso vari bundler come Vite, Webpack e Turbopack.
 
-### @intlayer/chokidar
+### @intlayer/engine
 
-Il pacchetto `@intlayer/chokidar` viene utilizzato per monitorare i file di contenuto e rigenerare il dizionario modificato ad ogni modifica.
+Il pacchetto `@intlayer/engine` viene utilizzato per monitorare i file di contenuto e rigenerare il dizionario modificato ad ogni modifica.
 
 ### @intlayer/editor
 

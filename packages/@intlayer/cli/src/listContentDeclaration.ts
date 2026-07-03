@@ -1,6 +1,4 @@
 import { relative } from 'node:path';
-import { prepareIntlayer } from '@intlayer/chokidar/cli';
-import { formatPath } from '@intlayer/chokidar/utils';
 import {
   colon,
   colorizeKey,
@@ -11,6 +9,8 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
+import { prepareIntlayer } from '@intlayer/engine/cli';
+import { formatPath } from '@intlayer/engine/utils';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 
 type ListContentDeclarationOptions = {

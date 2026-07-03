@@ -82,8 +82,8 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
+    "@intlayer/engine": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "oxc-parser": "0.134.0",

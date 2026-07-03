@@ -150,10 +150,10 @@ await scan("https://example.com", {
 });
 ```
 
-निम्न-स्तरीय पहुँच के लिए, `@intlayer/chokidar/scan` से `scanWebsite` एक संरचित `ScanResult` ऑब्जेक्ट लौटाता है:
+निम्न-स्तरीय पहुँच के लिए, `@intlayer/engine/scan` से `scanWebsite` एक संरचित `ScanResult` ऑब्जेक्ट लौटाता है:
 
 ```ts
-import { scanWebsite } from "@intlayer/chokidar/scan";
+import { scanWebsite } from "@intlayer/engine/scan";
 
 const result = await scanWebsite("https://example.com", { deep: false });
 console.log(result.score, result.totalPageSize, result.events);

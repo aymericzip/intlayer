@@ -220,9 +220,9 @@ Sunucu, Express tabanlıdır ve görsel düzenleyici isteklerini almak ve içeri
 
 `@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` ve `@intlayer/dynamic-dictionaries-entry` paketleri, Intlayer sözlüklerinin giriş yolunu döndürür. Tarayıcıdan dosya sistemini aramak imkansız olduğu için, Webpack veya Rollup gibi paketleyicileri kullanarak sözlüklerin giriş yolunu almak mümkün değildir. Bu paketler, Vite, Webpack ve Turbopack gibi çeşitli paketleyicilerde paketleme optimizasyonuna izin vermek için takma adlandırılmak üzere tasarlanmıştır.
 
-### @intlayer/chokidar
+### @intlayer/engine
 
-`@intlayer/chokidar` paketi, içerik dosyalarını izlemek ve her değişiklikte değiştirilen sözlüğü yeniden oluşturmak için kullanılır.
+`@intlayer/engine` paketi, içerik dosyalarını izlemek ve her değişiklikte değiştirilen sözlüğü yeniden oluşturmak için kullanılır.
 
 ### @intlayer/editor
 

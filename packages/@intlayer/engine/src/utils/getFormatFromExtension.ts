@@ -7,6 +7,7 @@ export type Format =
   | 'json5'
   | 'md'
   | 'yaml';
+
 export type Extension =
   | '.ts'
   | '.tsx'

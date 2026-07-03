@@ -217,9 +217,9 @@ Das `@intlayer/mcp` Paket stellt einen MCP (Model Context Protocol) Server berei
 
 Die Pakete `@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` und `@intlayer/dynamic-dictionaries-entry` geben den Einstiegspfad der Intlayer-Wörterbücher zurück. Da eine Suche im Dateisystem vom Browser aus nicht möglich ist, kann der Einstiegspfad der Wörterbücher mit Bundlern wie Webpack oder Rollup nicht ermittelt werden. Diese Pakete sind so konzipiert, dass sie als Aliase verwendet werden können, um eine Optimierung des Bundlings über verschiedene Bundler wie Vite, Webpack und Turbopack zu ermöglichen.
 
-### @intlayer/chokidar
+### @intlayer/engine
 
-Das `@intlayer/chokidar` Paket wird verwendet, um Inhaltsdateien zu überwachen und das geänderte Wörterbuch bei jeder Änderung neu zu generieren.
+Das `@intlayer/engine` Paket wird verwendet, um Inhaltsdateien zu überwachen und das geänderte Wörterbuch bei jeder Änderung neu zu generieren.
 
 ### @intlayer/editor
 

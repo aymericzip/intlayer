@@ -21,7 +21,7 @@ vi.mock('@intlayer/unmerged-dictionaries-entry', () => ({
   getUnmergedDictionaries: vi.fn().mockReturnValue({}),
 }));
 
-vi.mock('@intlayer/chokidar/build', () => ({
+vi.mock('@intlayer/engine/build', () => ({
   writeContentDeclaration: vi
     .fn()
     .mockResolvedValue({ status: 'created', path: '/temp/path.json' }),
@@ -30,8 +30,8 @@ vi.mock('@intlayer/chokidar/build', () => ({
   loadContentDeclaration: vi.fn().mockResolvedValue(null),
 }));
 
-vi.mock('@intlayer/chokidar/utils', async () => {
-  const actual = await vi.importActual<any>('@intlayer/chokidar/utils');
+vi.mock('@intlayer/engine/utils', async () => {
+  const actual = await vi.importActual<any>('@intlayer/engine/utils');
   return {
     ...actual,
     getFormatFromExtension: vi.fn().mockReturnValue('json'),

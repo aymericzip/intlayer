@@ -11,7 +11,7 @@ vi.mock('@intlayer/config/utils', () => ({
   normalizePath: (path: string) => path.replace(/\\/g, '/'),
 }));
 
-vi.mock('@intlayer/chokidar/utils', () => ({
+vi.mock('@intlayer/engine/utils', () => ({
   getPathHash: (key: string) => `dicHash${key === 'app' ? '2' : ''}`,
 }));
 

@@ -1,7 +1,7 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import * as p from '@clack/prompts';
-import { detectPackageManager, installPackages } from '@intlayer/chokidar/cli';
+import { detectPackageManager, installPackages } from '@intlayer/engine/cli';
 import { findProjectRoot } from './init';
 
 /** Framework the Intlayer compiler can be wired into during init. */

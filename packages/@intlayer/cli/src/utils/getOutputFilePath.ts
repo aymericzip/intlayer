@@ -1,5 +1,5 @@
-import { resolveRelativePath } from '@intlayer/chokidar/utils';
 import { parseStringPattern } from '@intlayer/config/utils';
+import { resolveRelativePath } from '@intlayer/engine/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { Fill } from '@intlayer/types/dictionary';
 import type {

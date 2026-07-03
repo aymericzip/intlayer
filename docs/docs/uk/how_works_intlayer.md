@@ -220,9 +220,9 @@ The `@intlayer/webpack` package is used to provide a Webpack configuration to ma
 
 Пакети `@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` та `@intlayer/dynamic-dictionaries-entry` повертають шлях entry словників Intlayer. Оскільки з браузера неможливо виконувати пошук по файловій системі, використання bundler-ів, таких як Webpack або Rollup, для отримання шляху entry словників неможливе. Ці пакети розроблені для того, щоб їх можна було alias-ити, що дозволяє оптимізувати bundling для різних збирачів, таких як Vite, Webpack та Turbopack.
 
-### @intlayer/chokidar
+### @intlayer/engine
 
-Пакет `@intlayer/chokidar` використовується для моніторингу файлів контенту та перегенерації зміненого словника при кожній модифікації.
+Пакет `@intlayer/engine` використовується для моніторингу файлів контенту та перегенерації зміненого словника при кожній модифікації.
 
 ### @intlayer/editor
 

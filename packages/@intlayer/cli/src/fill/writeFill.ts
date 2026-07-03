@@ -1,8 +1,8 @@
 import { resolve } from 'node:path';
-import { writeContentDeclaration } from '@intlayer/chokidar/build';
-import { formatLocale, formatPath } from '@intlayer/chokidar/utils';
 import { colorizeKey, getAppLogger } from '@intlayer/config/logger';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
+import { writeContentDeclaration } from '@intlayer/engine/build';
+import { formatLocale, formatPath } from '@intlayer/engine/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary, Fill } from '@intlayer/types/dictionary';

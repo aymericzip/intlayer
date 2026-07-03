@@ -2,7 +2,6 @@ import { execSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { extname, relative } from 'node:path';
 import type * as t from '@babel/types';
-import { detectFormatCommand } from '@intlayer/chokidar/cli';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, colorizePath, getAppLogger } from '@intlayer/config/logger';
 import {
@@ -10,6 +9,7 @@ import {
   getConfiguration,
 } from '@intlayer/config/node';
 import { getProjectRequire } from '@intlayer/config/utils';
+import { detectFormatCommand } from '@intlayer/engine/cli';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { extractTsContent } from './babelProcessor';

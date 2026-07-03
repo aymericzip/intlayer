@@ -1,4 +1,3 @@
-import { logConfigDetails } from '@intlayer/chokidar/cli';
 import { CYAN, GREY_DARK } from '@intlayer/config/colors';
 import {
   colorize,
@@ -9,6 +8,7 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
+import { logConfigDetails } from '@intlayer/engine/cli';
 import { checkCMSAuth, getAuthenticatedAPI } from './utils/checkAccess';
 import { selectCmsEnvironment } from './utils/selectCmsEnvironment';
 

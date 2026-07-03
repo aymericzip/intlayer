@@ -1,9 +1,9 @@
-import { logConfigDetails } from '@intlayer/chokidar/cli';
 import { colorizeObject, getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
+import { logConfigDetails } from '@intlayer/engine/cli';
 
 type ConfigOptions = {
   configOptions?: GetConfigurationOptions;

@@ -1,12 +1,12 @@
 import http from 'node:http';
 import { URL } from 'node:url';
-import { logConfigDetails } from '@intlayer/chokidar/cli';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, colorizePath, getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
+import { logConfigDetails } from '@intlayer/engine/cli';
 import { openBrowser } from '../utils/openBrowser';
 import { writeCliSessionToken } from './sessionToken';
 

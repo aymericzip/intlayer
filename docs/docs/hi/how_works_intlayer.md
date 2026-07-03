@@ -215,9 +215,9 @@ Intlayer को [Vite बंडलर](https://vite.dev/guide/why.html#why-bundl
 
 `@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` और `@intlayer/dynamic-dictionaries-entry` पैकेज Intlayer शब्दकोशों का एंट्री पथ लौटाते हैं। चूंकि ब्राउज़र से फ़ाइल सिस्टम की खोज असंभव है, इसलिए Webpack या Rollup जैसे बंडलर्स का उपयोग करके शब्दकोशों का एंट्री पथ प्राप्त करना संभव नहीं है। ये पैकेज alias किए जाने के लिए डिज़ाइन किए गए हैं, जिससे Vite, Webpack, और Turbopack जैसे विभिन्न बंडलर्स में बंडलिंग अनुकूलन की अनुमति मिलती है।
 
-### @intlayer/chokidar
+### @intlayer/engine
 
-`@intlayer/chokidar` पैकेज सामग्री फ़ाइलों की निगरानी के लिए उपयोग किया जाता है और प्रत्येक संशोधन पर संशोधित शब्दकोश को पुनः उत्पन्न करता है।
+`@intlayer/engine` पैकेज सामग्री फ़ाइलों की निगरानी के लिए उपयोग किया जाता है और प्रत्येक संशोधन पर संशोधित शब्दकोश को पुनः उत्पन्न करता है।
 
 ### @intlayer/editor
 

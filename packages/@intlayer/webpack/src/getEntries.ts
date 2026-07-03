@@ -1,5 +1,5 @@
-import { listDictionaries } from '@intlayer/chokidar/listDictionaries';
-import { getPathHash } from '@intlayer/chokidar/utils';
+import { listDictionaries } from '@intlayer/engine/listDictionaries';
+import { getPathHash } from '@intlayer/engine/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { EntryObject } from 'webpack';
 

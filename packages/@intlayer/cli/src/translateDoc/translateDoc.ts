@@ -1,9 +1,6 @@
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { performance } from 'node:perf_hooks';
-
-import { listGitFiles, logConfigDetails } from '@intlayer/chokidar/cli';
-import { parallelize, pLimit } from '@intlayer/chokidar/utils';
 import * as ANSIColors from '@intlayer/config/colors';
 import {
   colorize,
@@ -12,6 +9,8 @@ import {
   x,
 } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
+import { listGitFiles, logConfigDetails } from '@intlayer/engine/cli';
+import { parallelize, pLimit } from '@intlayer/engine/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import fg from 'fast-glob';
 import { checkFileModifiedRange } from '../utils/checkFileModifiedRange';

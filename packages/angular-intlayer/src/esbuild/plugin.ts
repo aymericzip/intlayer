@@ -1,8 +1,5 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { prepareIntlayer } from '@intlayer/chokidar/build';
-import { logConfigDetails } from '@intlayer/chokidar/cli';
-import { watch } from '@intlayer/chokidar/watcher';
 import {
   formatNodeTypeToEnvVar,
   getConfigEnvVars,
@@ -14,6 +11,9 @@ import {
 } from '@intlayer/config/node';
 import { getAlias, getUnusedNodeTypesAsync } from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
+import { prepareIntlayer } from '@intlayer/engine/build';
+import { logConfigDetails } from '@intlayer/engine/cli';
+import { watch } from '@intlayer/engine/watcher';
 
 // Minimal subset of the esbuild Plugin interface to avoid a hard dependency on
 // the `esbuild` package for type resolution. The shape is compatible with

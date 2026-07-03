@@ -150,10 +150,10 @@ await scan("https://example.com", {
 });
 ```
 
-کم درجے کی رسائی کے لیے، `@intlayer/chokidar/scan` سے `scanWebsite` ایک منظم `ScanResult` آبجیکٹ لوٹاتا ہے:
+کم درجے کی رسائی کے لیے، `@intlayer/engine/scan` سے `scanWebsite` ایک منظم `ScanResult` آبجیکٹ لوٹاتا ہے:
 
 ```ts
-import { scanWebsite } from "@intlayer/chokidar/scan";
+import { scanWebsite } from "@intlayer/engine/scan";
 
 const result = await scanWebsite("https://example.com", { deep: false });
 console.log(result.score, result.totalPageSize, result.events);

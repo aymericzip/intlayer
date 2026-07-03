@@ -1,11 +1,11 @@
-import { logConfigDetails } from '@intlayer/chokidar/cli';
-import { runParallel } from '@intlayer/chokidar/utils';
-import { watch } from '@intlayer/chokidar/watcher';
 import { getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
+import { logConfigDetails } from '@intlayer/engine/cli';
+import { runParallel } from '@intlayer/engine/utils';
+import { watch } from '@intlayer/engine/watcher';
 
 type WatchOptions = {
   skipPrepare?: boolean;

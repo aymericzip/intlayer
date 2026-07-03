@@ -1,9 +1,9 @@
 import { join, relative } from 'node:path';
-import { type ListGitFilesOptions, listGitFiles } from '@intlayer/chokidar/cli';
 import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
+import { type ListGitFilesOptions, listGitFiles } from '@intlayer/engine/cli';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 

@@ -9,7 +9,7 @@ import {
   type Platform,
   SKILLS,
   SKILLS_METADATA,
-} from '@intlayer/chokidar/cli';
+} from '@intlayer/engine/cli';
 import enquirer from 'enquirer';
 import { findProjectRoot } from './init';
 

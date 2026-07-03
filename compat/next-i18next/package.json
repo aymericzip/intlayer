@@ -79,9 +79,9 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
+    "@intlayer/engine": "workspace:*",
     "@intlayer/i18next": "workspace:*",
     "@intlayer/react-i18next": "workspace:*",
     "@intlayer/types": "workspace:*",

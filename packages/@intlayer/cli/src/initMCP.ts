@@ -5,7 +5,7 @@ import {
   type MCPTransport,
   PLATFORMS,
   type Platform,
-} from '@intlayer/chokidar/cli';
+} from '@intlayer/engine/cli';
 import enquirer from 'enquirer';
 import { findProjectRoot } from './init';
 import { getDetectedPlatform, PLATFORM_OPTIONS } from './initSkills';

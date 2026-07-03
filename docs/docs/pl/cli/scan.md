@@ -150,10 +150,10 @@ await scan("https://example.com", {
 });
 ```
 
-W przypadku dostępu niskopoziomowego funkcja `scanWebsite` z modułu `@intlayer/chokidar/scan` zwraca ustrukturyzowany obiekt `ScanResult`:
+W przypadku dostępu niskopoziomowego funkcja `scanWebsite` z modułu `@intlayer/engine/scan` zwraca ustrukturyzowany obiekt `ScanResult`:
 
 ```ts
-import { scanWebsite } from "@intlayer/chokidar/scan";
+import { scanWebsite } from "@intlayer/engine/scan";
 
 const result = await scanWebsite("https://example.com", { deep: false });
 console.log(result.score, result.totalPageSize, result.events);

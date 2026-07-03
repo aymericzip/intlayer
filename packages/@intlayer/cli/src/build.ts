@@ -1,10 +1,10 @@
-import { logConfigDetails } from '@intlayer/chokidar/cli';
-import { type ParallelHandle, runParallel } from '@intlayer/chokidar/utils';
-import { buildAndWatchIntlayer } from '@intlayer/chokidar/watcher';
 import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
+import { logConfigDetails } from '@intlayer/engine/cli';
+import { type ParallelHandle, runParallel } from '@intlayer/engine/utils';
+import { buildAndWatchIntlayer } from '@intlayer/engine/watcher';
 
 type BuildOptions = {
   watch?: boolean;

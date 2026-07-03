@@ -1,15 +1,6 @@
 import { basename } from 'node:path';
 import type { AIConfig } from '@intlayer/ai';
 import type { AIOptions } from '@intlayer/api';
-import {
-  chunkJSON,
-  excludeObjectFormat,
-  formatLocale,
-  type JsonChunk,
-  mergeChunks,
-  reconstructFromSingleChunk,
-  verifyIdenticObjectFormat,
-} from '@intlayer/chokidar/utils';
 import * as ANSIColors from '@intlayer/config/colors';
 import {
   colon,
@@ -25,6 +16,15 @@ import {
   getPerLocaleDictionary,
   insertContentInDictionary,
 } from '@intlayer/core/plugins';
+import {
+  chunkJSON,
+  excludeObjectFormat,
+  formatLocale,
+  type JsonChunk,
+  mergeChunks,
+  reconstructFromSingleChunk,
+  verifyIdenticObjectFormat,
+} from '@intlayer/engine/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
@@ -47,7 +47,7 @@ type TranslateDictionaryOptions = {
   aiOptions?: AIOptions;
   fillMetadata?: boolean;
   onHandle?: ReturnType<
-    typeof import('@intlayer/chokidar/utils').getGlobalLimiter
+    typeof import('@intlayer/engine/utils').getGlobalLimiter
   >;
   onSuccess?: () => void;
   onError?: (error: unknown) => void;

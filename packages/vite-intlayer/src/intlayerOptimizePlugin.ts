@@ -11,11 +11,6 @@ import {
   renameFieldsInSourceFile,
   SOURCE_FILE_REGEX,
 } from '@intlayer/babel';
-import {
-  buildComponentFilesList,
-  formatPath,
-  runOnce,
-} from '@intlayer/chokidar/utils';
 import * as ANSIColors from '@intlayer/config/colors';
 import { IMPORT_MODE } from '@intlayer/config/defaultValues';
 import {
@@ -26,6 +21,11 @@ import {
 } from '@intlayer/config/logger';
 import { normalizePath } from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
+import {
+  buildComponentFilesList,
+  formatPath,
+  runOnce,
+} from '@intlayer/engine/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type { PluginOption } from 'vite';

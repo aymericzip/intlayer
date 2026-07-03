@@ -1,8 +1,8 @@
 import { basename, dirname, isAbsolute, normalize, resolve } from 'node:path';
-import { getFormatFromExtension } from '@intlayer/chokidar/utils';
 import { GREY_DARK } from '@intlayer/config/colors';
 import { colorize, colorizePath } from '@intlayer/config/logger';
 import { parseFilePathPattern } from '@intlayer/config/utils';
+import { getFormatFromExtension } from '@intlayer/engine/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { FilePathPattern } from '@intlayer/types/filePathPattern';

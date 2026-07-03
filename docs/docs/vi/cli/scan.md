@@ -150,10 +150,10 @@ await scan("https://example.com", {
 });
 ```
 
-Để truy cập ở cấp độ thấp hơn, `scanWebsite` từ `@intlayer/chokidar/scan` sẽ trả về một đối tượng `ScanResult` có cấu trúc:
+Để truy cập ở cấp độ thấp hơn, `scanWebsite` từ `@intlayer/engine/scan` sẽ trả về một đối tượng `ScanResult` có cấu trúc:
 
 ```ts
-import { scanWebsite } from "@intlayer/chokidar/scan";
+import { scanWebsite } from "@intlayer/engine/scan";
 
 const result = await scanWebsite("https://example.com", { deep: false });
 console.log(result.score, result.totalPageSize, result.events);

@@ -1,8 +1,6 @@
 import { createServer } from 'node:http';
 // @ts-ignore: @intlayer/backend is not built yet
 import type { DictionaryAPI } from '@intlayer/backend';
-import { buildDictionary } from '@intlayer/chokidar/build';
-import { type ParallelHandle, runParallel } from '@intlayer/chokidar/utils';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import {
@@ -12,6 +10,8 @@ import {
 import packageJson from '@intlayer/config/package.json' with { type: 'json' };
 import { getLocalizedContent } from '@intlayer/core/plugins';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
+import { buildDictionary } from '@intlayer/engine/build';
+import { type ParallelHandle, runParallel } from '@intlayer/engine/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import { IntlayerEventListener } from './IntlayerEventListener';

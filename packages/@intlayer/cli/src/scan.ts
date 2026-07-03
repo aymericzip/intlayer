@@ -1,11 +1,7 @@
-import {
-  formatSize,
-  type ScanEvent,
-  scanWebsite,
-} from '@intlayer/chokidar/scan';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
+import { formatSize, type ScanEvent, scanWebsite } from '@intlayer/engine/scan';
 import type { ConfigurationOptions } from './cli';
 
 /** Options accepted by the {@link scan} command. */

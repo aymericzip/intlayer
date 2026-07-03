@@ -1,10 +1,10 @@
 import { join } from 'node:path';
+import { getConfiguration } from '@intlayer/config/node';
+import { clearModuleCache } from '@intlayer/config/utils';
 import {
   type DictionaryStatus,
   writeContentDeclaration as writeContentDeclarationEditor,
-} from '@intlayer/chokidar/build';
-import { getConfiguration } from '@intlayer/config/node';
-import { clearModuleCache } from '@intlayer/config/utils';
+} from '@intlayer/engine/build';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import {
   getUnmergedDictionaries,

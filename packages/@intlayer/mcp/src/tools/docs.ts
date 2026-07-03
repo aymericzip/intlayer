@@ -1,8 +1,4 @@
 import { getSearchAPI } from '@intlayer/api';
-import {
-  buildReviewReport,
-  formatReviewReport,
-} from '@intlayer/chokidar/docReview';
 import type { DocKey } from '@intlayer/docs';
 import {
   getDoc,
@@ -10,6 +6,10 @@ import {
   getDocMetadataRecord,
   getDocsKeys,
 } from '@intlayer/docs';
+import {
+  buildReviewReport,
+  formatReviewReport,
+} from '@intlayer/engine/docReview';
 import z from 'zod';
 
 export type ToolResult = {

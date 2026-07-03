@@ -1,9 +1,9 @@
 import { join } from 'node:path';
-import { runOnce } from '@intlayer/chokidar/utils';
 import { LINGUI_CALLERS } from '@intlayer/config/callers';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
+import { runOnce } from '@intlayer/engine/utils';
 import type { PluginOption } from 'vite';
 import { intlayer } from 'vite-intlayer';
 

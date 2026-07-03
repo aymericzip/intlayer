@@ -75,9 +75,9 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@intlayer/chokidar": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
+    "@intlayer/engine": "workspace:*",
     "@intlayer/types": "workspace:*",
     "cls-hooked": "4.2.2",
     "fastify-plugin": "5.1.0"

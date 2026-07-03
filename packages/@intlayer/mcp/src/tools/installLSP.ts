@@ -1,4 +1,4 @@
-import { installLSP } from '@intlayer/chokidar/cli';
+import { installLSP } from '@intlayer/engine/cli';
 import z from 'zod';
 import type { McpServer } from './docs';
 

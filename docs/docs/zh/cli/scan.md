@@ -150,10 +150,10 @@ await scan("https://example.com", {
 });
 ```
 
-对于更低级别的访问，来自 `@intlayer/chokidar/scan` 的 `scanWebsite` 会返回一个结构化的 `ScanResult` 对象：
+对于更低级别的访问，来自 `@intlayer/engine/scan` 的 `scanWebsite` 会返回一个结构化的 `ScanResult` 对象：
 
 ```ts
-import { scanWebsite } from "@intlayer/chokidar/scan";
+import { scanWebsite } from "@intlayer/engine/scan";
 
 const result = await scanWebsite("https://example.com", { deep: false });
 console.log(result.score, result.totalPageSize, result.events);

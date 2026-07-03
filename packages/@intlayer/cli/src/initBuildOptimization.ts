@@ -5,7 +5,7 @@ import {
   detectPackageManager,
   installPackages,
   NEXT_INTLAYER_BABEL_CONFIG_CONTENT,
-} from '@intlayer/chokidar/cli';
+} from '@intlayer/engine/cli';
 import { findProjectRoot } from './init';
 
 /** Intlayer build optimization plugin choices for Next.js. */

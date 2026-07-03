@@ -1,5 +1,4 @@
 import { basename } from 'node:path';
-import { formatLocale } from '@intlayer/chokidar/utils';
 import * as ANSIColors from '@intlayer/config/colors';
 import {
   colon,
@@ -10,6 +9,7 @@ import {
 } from '@intlayer/config/logger';
 import { getFilterTranslationsOnlyDictionary } from '@intlayer/core/plugins';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
+import { formatLocale } from '@intlayer/engine/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary, LocalDictionaryId } from '@intlayer/types/dictionary';

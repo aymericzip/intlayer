@@ -3,18 +3,6 @@ import { readFile } from 'node:fs/promises';
 import { join, relative } from 'node:path';
 import type { AIConfig } from '@intlayer/ai';
 import type { AIOptions } from '@intlayer/api';
-import {
-  type ListGitFilesOptions,
-  listGitFiles,
-  listGitLines,
-  logConfigDetails,
-} from '@intlayer/chokidar/cli';
-import { buildReviewReport } from '@intlayer/chokidar/docReview';
-import {
-  formatLocale,
-  formatPath,
-  parallelize,
-} from '@intlayer/chokidar/utils';
 import * as ANSIColors from '@intlayer/config/colors';
 import {
   colorize,
@@ -26,6 +14,14 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
+import {
+  type ListGitFilesOptions,
+  listGitFiles,
+  listGitLines,
+  logConfigDetails,
+} from '@intlayer/engine/cli';
+import { buildReviewReport } from '@intlayer/engine/docReview';
+import { formatLocale, formatPath, parallelize } from '@intlayer/engine/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import fg from 'fast-glob';
 import { checkFileModifiedRange } from '../utils/checkFileModifiedRange';

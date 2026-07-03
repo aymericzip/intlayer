@@ -4,7 +4,7 @@ import {
   PLATFORMS,
   SKILLS,
   type Skill,
-} from '@intlayer/chokidar/cli';
+} from '@intlayer/engine/cli';
 import z from 'zod';
 import type { McpServer } from './docs';
 

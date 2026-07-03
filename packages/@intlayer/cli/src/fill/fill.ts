@@ -1,19 +1,5 @@
 import { basename, join, relative } from 'node:path';
 import type { AIOptions } from '@intlayer/api';
-import {
-  loadContentDeclarations,
-  prepareIntlayer,
-  writeContentDeclaration,
-} from '@intlayer/chokidar/build';
-import {
-  type ListGitFilesOptions,
-  logConfigDetails,
-} from '@intlayer/chokidar/cli';
-import {
-  formatPath,
-  getGlobalLimiter,
-  getTaskLimiter,
-} from '@intlayer/chokidar/utils';
 import * as ANSIColors from '@intlayer/config/colors';
 import {
   colorize,
@@ -23,6 +9,20 @@ import {
   x,
 } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
+import {
+  loadContentDeclarations,
+  prepareIntlayer,
+  writeContentDeclaration,
+} from '@intlayer/engine/build';
+import {
+  type ListGitFilesOptions,
+  logConfigDetails,
+} from '@intlayer/engine/cli';
+import {
+  formatPath,
+  getGlobalLimiter,
+  getTaskLimiter,
+} from '@intlayer/engine/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { Fill } from '@intlayer/types/dictionary';
 import {

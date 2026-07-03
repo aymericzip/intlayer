@@ -1,7 +1,4 @@
 import { join, relative, resolve } from 'node:path';
-import { prepareIntlayer } from '@intlayer/chokidar/build';
-import { logConfigDetails } from '@intlayer/chokidar/cli';
-import { buildComponentFilesList, runOnce } from '@intlayer/chokidar/utils';
 import type { SwcExtraCallerConfig } from '@intlayer/config/callers';
 import * as ANSIColors from '@intlayer/config/colors';
 import { IMPORT_MODE } from '@intlayer/config/defaultValues';
@@ -24,6 +21,9 @@ import {
   normalizePath,
 } from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
+import { prepareIntlayer } from '@intlayer/engine/build';
+import { logConfigDetails } from '@intlayer/engine/cli';
+import { buildComponentFilesList, runOnce } from '@intlayer/engine/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import { IntlayerPlugin } from '@intlayer/webpack';
@@ -397,7 +397,7 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
     'chokidar',
     'fsevents',
     'recast',
-    '@intlayer/chokidar',
+    '@intlayer/engine',
     '@intlayer/webpack',
   ];
 
@@ -511,7 +511,7 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
             'fsevents',
             'recast',
           ]);
-          const externalPrefixes = ['@intlayer/chokidar', '@intlayer/webpack'];
+          const externalPrefixes = ['@intlayer/engine', '@intlayer/webpack'];
           config.externals.push(
             (
               { request }: { request?: string },

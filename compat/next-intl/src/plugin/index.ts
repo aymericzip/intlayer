@@ -1,10 +1,10 @@
 import { createRequire } from 'node:module';
 import { dirname, join, relative, resolve, sep } from 'node:path';
-import { runOnce } from '@intlayer/chokidar/utils';
 import { NEXT_INTL_CALLERS, toSwcExtraCallers } from '@intlayer/config/callers';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
+import { runOnce } from '@intlayer/engine/utils';
 import type { NextConfig } from 'next';
 import { withIntlayer } from 'next-intlayer/server';
 

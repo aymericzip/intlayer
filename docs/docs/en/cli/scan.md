@@ -150,10 +150,10 @@ await scan("https://example.com", {
 });
 ```
 
-For lower-level access, `scanWebsite` from `@intlayer/chokidar/scan` returns a structured `ScanResult` object:
+For lower-level access, `scanWebsite` from `@intlayer/engine/scan` returns a structured `ScanResult` object:
 
 ```ts
-import { scanWebsite } from "@intlayer/chokidar/scan";
+import { scanWebsite } from "@intlayer/engine/scan";
 
 const result = await scanWebsite("https://example.com", { deep: false });
 console.log(result.score, result.totalPageSize, result.events);

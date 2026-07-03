@@ -1,16 +1,16 @@
 import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
-import {
-  buildReviewReport,
-  formatReviewReport,
-  type ReviewReport,
-} from '@intlayer/chokidar/docReview';
-import { formatLocale, formatPath } from '@intlayer/chokidar/utils';
 import { getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
+import {
+  buildReviewReport,
+  formatReviewReport,
+  type ReviewReport,
+} from '@intlayer/engine/docReview';
+import { formatLocale, formatPath } from '@intlayer/engine/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 
 /**

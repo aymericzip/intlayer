@@ -1,11 +1,5 @@
 import { resolve } from 'node:path';
 import { type CompatCallerConfig, createPruneContext } from '@intlayer/babel';
-
-export type { CompatCallerConfig } from '@intlayer/babel';
-
-import { prepareIntlayer } from '@intlayer/chokidar/build';
-import { logConfigDetails } from '@intlayer/chokidar/cli';
-import { watch } from '@intlayer/chokidar/watcher';
 import { BLUE } from '@intlayer/config/colors';
 import {
   formatDictionarySelectorEnvVar,
@@ -23,6 +17,9 @@ import {
   getUnusedNodeTypesAsync,
 } from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
+import { prepareIntlayer } from '@intlayer/engine/build';
+import { logConfigDetails } from '@intlayer/engine/cli';
+import { watch } from '@intlayer/engine/watcher';
 import type { PluginOption } from 'vite';
 import { intlayerCompiler } from './IntlayerCompilerPlugin';
 import { intlayerMinify } from './intlayerMinifyPlugin';

@@ -2,7 +2,6 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, relative } from 'node:path';
 import { performance } from 'node:perf_hooks';
 import { readAsset } from 'utils:asset';
-import { formatLocale, formatPath } from '@intlayer/chokidar/utils';
 import * as ANSIColors from '@intlayer/config/colors';
 import {
   colon,
@@ -11,6 +10,7 @@ import {
   getAppLogger,
 } from '@intlayer/config/logger';
 import { retryManager } from '@intlayer/config/utils';
+import { formatLocale, formatPath } from '@intlayer/engine/utils';
 import { chunkText } from '../utils/calculateChunks';
 import { chunkInference } from '../utils/chunkInference';
 import { fixChunkStartEndChars } from '../utils/fixChunkStartEndChars';

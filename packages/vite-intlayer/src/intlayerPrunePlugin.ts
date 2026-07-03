@@ -1,6 +1,5 @@
 import { join } from 'node:path';
 import type { PruneContext } from '@intlayer/babel';
-import { formatPath, runOnce } from '@intlayer/chokidar/utils';
 import * as ANSIColors from '@intlayer/config/colors';
 import {
   colorize,
@@ -8,6 +7,7 @@ import {
   colorizeNumber,
   getAppLogger,
 } from '@intlayer/config/logger';
+import { formatPath, runOnce } from '@intlayer/engine/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { PluginOption } from 'vite';
 

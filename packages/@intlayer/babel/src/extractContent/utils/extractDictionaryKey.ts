@@ -1,6 +1,6 @@
-import { detectExportedComponentName } from '@intlayer/chokidar/cli';
 import { COMPILER_DICTIONARY_KEY_PREFIX } from '@intlayer/config/defaultValues';
 import { camelCaseToKebabCase } from '@intlayer/config/utils';
+import { detectExportedComponentName } from '@intlayer/engine/cli';
 
 /**
  * Extracts a dictionary key from a file path.

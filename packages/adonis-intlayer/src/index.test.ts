@@ -16,7 +16,7 @@ vi.mock('@intlayer/config/node', () => ({
 
 vi.mock('@intlayer/config/built', () => ({ default: mockConfig }));
 
-vi.mock('@intlayer/chokidar/build', () => ({
+vi.mock('@intlayer/engine/build', () => ({
   prepareIntlayer: vi.fn(),
 }));
 

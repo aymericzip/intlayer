@@ -1,5 +1,4 @@
 import { getSearchAPI } from '@intlayer/api';
-import { logConfigDetails } from '@intlayer/chokidar/cli';
 import {
   colorizeKey,
   colorizeNumber,
@@ -9,6 +8,7 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
+import { logConfigDetails } from '@intlayer/engine/cli';
 
 interface SearchDocOptions {
   query: string;

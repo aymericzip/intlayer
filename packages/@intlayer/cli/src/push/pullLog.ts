@@ -1,7 +1,7 @@
-import type { DictionaryStatus } from '@intlayer/chokidar/build';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, spinnerFrames } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
+import type { DictionaryStatus } from '@intlayer/engine/build';
 
 export type PullStatus = {
   dictionaryKey: string;

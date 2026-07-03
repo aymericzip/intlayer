@@ -1,15 +1,15 @@
 import { existsSync } from 'node:fs';
 import { relative, resolve } from 'node:path';
 import type { PackageName } from '@intlayer/babel';
-import { prepareIntlayer } from '@intlayer/chokidar/build';
-import { logConfigDetails } from '@intlayer/chokidar/cli';
-import { buildComponentFilesList, formatPath } from '@intlayer/chokidar/utils';
 import * as ANSIColors from '@intlayer/config/colors';
 import { colorize, getAppLogger, x } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
+import { prepareIntlayer } from '@intlayer/engine/build';
+import { logConfigDetails } from '@intlayer/engine/cli';
+import { buildComponentFilesList, formatPath } from '@intlayer/engine/utils';
 import type { FilePathPattern } from '@intlayer/types/filePathPattern';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
 import enquirer from 'enquirer';

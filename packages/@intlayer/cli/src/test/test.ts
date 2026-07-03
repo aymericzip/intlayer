@@ -1,5 +1,3 @@
-import { prepareIntlayer } from '@intlayer/chokidar/build';
-import { formatLocale, formatPath } from '@intlayer/chokidar/utils';
 import * as ANSIColors from '@intlayer/config/colors';
 import {
   colon,
@@ -12,6 +10,8 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
+import { prepareIntlayer } from '@intlayer/engine/build';
+import { formatLocale, formatPath } from '@intlayer/engine/utils';
 import { listMissingTranslations } from './listMissingTranslations';
 
 type ListMissingTranslationsOptions = {

@@ -1,4 +1,3 @@
-import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { getConfiguration } from '@intlayer/config/node';
 import {
   getDictionary as getDictionaryFunction,
@@ -7,6 +6,7 @@ import {
 } from '@intlayer/core/interpreter';
 import { localeDetector } from '@intlayer/core/localization';
 import { getLocaleFromStorageServer } from '@intlayer/core/utils';
+import { prepareIntlayer } from '@intlayer/engine/build';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import { createNamespace } from 'cls-hooked';

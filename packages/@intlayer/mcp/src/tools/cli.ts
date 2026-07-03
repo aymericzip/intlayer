@@ -1,6 +1,4 @@
 import { relative } from 'node:path';
-import { listProjects } from '@intlayer/chokidar/cli';
-import { scanWebsite } from '@intlayer/chokidar/scan';
 import {
   build,
   extract,
@@ -11,6 +9,8 @@ import {
   pull,
   push,
 } from '@intlayer/cli';
+import { listProjects } from '@intlayer/engine/cli';
+import { scanWebsite } from '@intlayer/engine/scan';
 import { ALL_LOCALES } from '@intlayer/types/allLocales';
 import z from 'zod';
 import type { McpServer } from './docs';

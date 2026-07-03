@@ -10,8 +10,8 @@ import type {
   DictionaryKey,
 } from '@intlayer/types/dictionary';
 import { fetchDistantDictionaries } from '../fetchDistantDictionaries';
-import type { DictionariesStatus } from '../loadDictionaries/loadDictionaries';
 import { sortAlphabetically } from '../utils/sortAlphabetically';
+import type { DictionariesStatus } from './loadDictionaries';
 
 export const formatDistantDictionaries = (
   dictionaries: (DictionaryAPI | Dictionary)[]

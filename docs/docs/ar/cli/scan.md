@@ -150,10 +150,10 @@ await scan("https://example.com", {
 });
 ```
 
-للوصول إلى مستوى أدنى ، يعيد `scanWebsite` من `@intlayer/chokidar/scan` كائن `ScanResult` مهيكل:
+للوصول إلى مستوى أدنى ، يعيد `scanWebsite` من `@intlayer/engine/scan` كائن `ScanResult` مهيكل:
 
 ```ts
-import { scanWebsite } from "@intlayer/chokidar/scan";
+import { scanWebsite } from "@intlayer/engine/scan";
 
 const result = await scanWebsite("https://example.com", { deep: false });
 console.log(result.score, result.totalPageSize, result.events);

@@ -150,10 +150,10 @@ await scan("https://example.com", {
 });
 ```
 
-Daha düşük seviyeli erişim için, `@intlayer/chokidar/scan` altındaki `scanWebsite` yapılandırılmış bir `ScanResult` nesnesi döndürür:
+Daha düşük seviyeli erişim için, `@intlayer/engine/scan` altındaki `scanWebsite` yapılandırılmış bir `ScanResult` nesnesi döndürür:
 
 ```ts
-import { scanWebsite } from "@intlayer/chokidar/scan";
+import { scanWebsite } from "@intlayer/engine/scan";
 
 const result = await scanWebsite("https://example.com", { deep: false });
 console.log(result.score, result.totalPageSize, result.events);

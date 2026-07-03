@@ -8,7 +8,7 @@ import {
   type Platform,
   type RoutingMode,
   setupCmsCredentials,
-} from '@intlayer/chokidar/cli';
+} from '@intlayer/engine/cli';
 import enquirer from 'enquirer';
 import { login } from './auth/login';
 import { initBuildOptimization } from './initBuildOptimization';

@@ -1,5 +1,4 @@
 import type { HttpContext } from '@adonisjs/core/http';
-import { prepareIntlayer } from '@intlayer/chokidar/build';
 import { getConfiguration } from '@intlayer/config/node';
 import {
   getDictionary as getDictionaryFunction,
@@ -7,6 +6,7 @@ import {
   getTranslation,
 } from '@intlayer/core/interpreter';
 import { getLocaleFromStorageServer } from '@intlayer/core/utils';
+import { prepareIntlayer } from '@intlayer/engine/build';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { StrictModeLocaleMap } from '@intlayer/types/module_augmentation';
 import { createNamespace } from 'cls-hooked';

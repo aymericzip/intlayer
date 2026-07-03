@@ -220,9 +220,9 @@ Paket `@intlayer/mcp` menyediakan server MCP (Model Context Protocol) yang membe
 
 Paket `@intlayer/dictionaries-entry`, `@intlayer/unmerged-dictionaries-entry` dan `@intlayer/dynamic-dictionaries-entry` mengembalikan jalur entri dari kamus Intlayer. Karena pencarian sistem berkas dari browser tidak mungkin dilakukan, menggunakan bundler seperti Webpack atau Rollup untuk mengambil jalur entri kamus juga tidak memungkinkan. Paket-paket ini dirancang untuk di-alias-kan, memungkinkan optimasi bundling di berbagai bundler seperti Vite, Webpack, dan Turbopack.
 
-### @intlayer/chokidar
+### @intlayer/engine
 
-Paket `@intlayer/chokidar` digunakan untuk memantau file konten dan menghasilkan ulang kamus yang dimodifikasi setiap kali ada perubahan.
+Paket `@intlayer/engine` digunakan untuk memantau file konten dan menghasilkan ulang kamus yang dimodifikasi setiap kali ada perubahan.
 
 ### @intlayer/editor
 

@@ -1,13 +1,13 @@
 import { existsSync } from 'node:fs';
 import { mkdir } from 'node:fs/promises';
 import { dirname, relative } from 'node:path';
+import { insertContentInDictionary } from '@intlayer/core/plugins';
 import {
   buildDictionary,
   ensureIntlayerBundle,
   loadContentDeclaration,
   writeContentDeclaration,
-} from '@intlayer/chokidar/build';
-import { insertContentInDictionary } from '@intlayer/core/plugins';
+} from '@intlayer/engine/build';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary, DictionaryKey } from '@intlayer/types/dictionary';

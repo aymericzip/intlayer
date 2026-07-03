@@ -150,10 +150,10 @@ await scan("https://example.com", {
 });
 ```
 
-নিম্ন-স্তরের অ্যাক্সেসের জন্য, `@intlayer/chokidar/scan` থেকে `scanWebsite` একটি কাঠামোগত `ScanResult` অবজেক্ট প্রদান করে:
+নিম্ন-স্তরের অ্যাক্সেসের জন্য, `@intlayer/engine/scan` থেকে `scanWebsite` একটি কাঠামোগত `ScanResult` অবজেক্ট প্রদান করে:
 
 ```ts
-import { scanWebsite } from "@intlayer/chokidar/scan";
+import { scanWebsite } from "@intlayer/engine/scan";
 
 const result = await scanWebsite("https://example.com", { deep: false });
 console.log(result.score, result.totalPageSize, result.events);
