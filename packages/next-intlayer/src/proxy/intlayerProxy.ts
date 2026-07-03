@@ -589,9 +589,14 @@ const handleDefaultLocaleRedirect = (
     pathLocale
   );
 
+  // Persist the explicitly-requested default locale. Stripping the prefix
+  // (e.g. /es → /) drops the only locale signal from the URL, so without this
+  // the follow-up request to the canonical path would fall back to
+  // Accept-Language detection and could resolve a different locale (e.g. /en).
   return redirectUrl(
     request,
-    fullPath + (searchWithLocale ?? request.nextUrl.search ?? '')
+    fullPath + (searchWithLocale ?? request.nextUrl.search ?? ''),
+    pathLocale
   );
 };
 
@@ -715,9 +720,16 @@ const rewriteUrl = (
  *
  * @param request - The incoming Next.js request object.
  * @param newPath - The new path to redirect to.
+ * @param persistLocale - When provided, the locale is written to storage
+ *   (cookie/header, per config) on the redirect response so the follow-up
+ *   request resolves the same locale instead of re-running detection.
  * @returns - The redirect response.
  */
-const redirectUrl = (request: NextRequest, newPath: string): NextResponse => {
+const redirectUrl = (
+  request: NextRequest,
+  newPath: string,
+  persistLocale?: Locale
+): NextResponse => {
   const search = request.nextUrl.search;
   const pathWithSearch =
     search && !newPath.includes('?') ? `${newPath}${search}` : newPath;
@@ -734,5 +746,45 @@ const redirectUrl = (request: NextRequest, newPath: string): NextResponse => {
           request.url
         );
 
-  return NextResponse.redirect(safeTarget);
+  const response = NextResponse.redirect(safeTarget);
+
+  if (persistLocale) {
+    persistLocaleOnResponse(response, persistLocale);
+  }
+
+  return response;
+};
+
+/**
+ * Writes the resolved locale to the outgoing response's storage (cookie and/or
+ * header, according to `routing.storage`). Only the cookie survives a client
+ * redirect, so this is what carries an explicitly-selected locale across a
+ * prefix-stripping redirect. Enabled cookie/header targets are resolved by
+ * {@link setLocaleInStorageServer} from the config; disabled ones are no-ops.
+ *
+ * @param response - The outgoing Next.js response to attach storage to.
+ * @param locale - The locale to persist.
+ */
+const persistLocaleOnResponse = (
+  response: NextResponse,
+  locale: Locale
+): void => {
+  setLocaleInStorageServer(locale, {
+    setCookieStore: (name, value, attributes) => {
+      response.cookies.set(name, value, {
+        path: attributes.path,
+        domain: attributes.domain,
+        expires:
+          typeof attributes.expires === 'number'
+            ? new Date(attributes.expires)
+            : attributes.expires,
+        secure: attributes.secure,
+        sameSite: attributes.sameSite,
+        httpOnly: attributes.httpOnly,
+      });
+    },
+    setHeader: (name, value) => {
+      response.headers.set(name, value);
+    },
+  });
 };

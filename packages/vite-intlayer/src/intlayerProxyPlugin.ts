@@ -200,13 +200,52 @@ export const createIntlayerProxyHandler = (
   };
 
   /**
+   * Persists the resolved locale onto the outgoing response as a cookie (and
+   * header, per `routing.storage`). Only the cookie survives a client redirect,
+   * so this is what carries an explicitly-selected locale across a
+   * prefix-stripping redirect. Enabled cookie/header targets are resolved by
+   * {@link setLocaleInStorageServer} from the config; disabled ones are no-ops.
+   */
+  const persistLocaleOnResponse = (
+    res: ServerResponse<IncomingMessage>,
+    locale: Locale
+  ) => {
+    setLocaleInStorageServer(locale, {
+      setCookieStore: (name, value, attributes) => {
+        const parts: string[] = [`${name}=${encodeURIComponent(value)}`];
+        if (attributes.path) parts.push(`Path=${attributes.path}`);
+        if (attributes.domain) parts.push(`Domain=${attributes.domain}`);
+        if (typeof attributes.expires === 'number')
+          parts.push(`Expires=${new Date(attributes.expires).toUTCString()}`);
+        if (attributes.secure) parts.push('Secure');
+        if (attributes.httpOnly) parts.push('HttpOnly');
+        if (attributes.sameSite) parts.push(`SameSite=${attributes.sameSite}`);
+
+        const cookieString = parts.join('; ');
+        const existing = res.getHeader('Set-Cookie');
+        const cookies = Array.isArray(existing)
+          ? existing.map(String)
+          : existing !== undefined
+            ? [String(existing)]
+            : [];
+        cookies.push(cookieString);
+        res.setHeader('Set-Cookie', cookies);
+      },
+      setHeader: (name: string, value: string) => {
+        res.setHeader(name, value);
+      },
+    });
+  };
+
+  /**
    * Writes a 301 redirect response with the given new URL.
    */
   const redirectUrl = (
     res: ServerResponse<IncomingMessage>,
     newUrl: string,
     reason?: string,
-    originalUrl?: string
+    originalUrl?: string,
+    persistLocale?: Locale
   ) => {
     if (originalUrl) {
       if (originalUrl === newUrl) {
@@ -241,6 +280,10 @@ export const createIntlayerProxyHandler = (
       for (const [key, entry] of redirectCounts) {
         if (now - entry.lastSeen >= REDIRECT_TTL_MS) redirectCounts.delete(key);
       }
+    }
+
+    if (persistLocale) {
+      persistLocaleOnResponse(res, persistLocale);
     }
 
     res.writeHead(301, { Location: newUrl });
@@ -665,11 +708,16 @@ export const createIntlayerProxyHandler = (
         '/'
       );
 
+      // Persist the explicitly-requested default locale. Stripping the prefix
+      // (e.g. /es → /) drops the only locale signal from the URL, so without
+      // this the follow-up request to the canonical path would fall back to
+      // Accept-Language detection and could resolve a different locale.
       return redirectUrl(
         res,
         fullPath + (searchParams ?? ''),
         undefined,
-        originalUrl
+        originalUrl,
+        pathLocale
       );
     }
 

@@ -52,6 +52,7 @@ const mockNextResponseActions = vi.hoisted(() => ({
     __type: 'redirect' as const,
     url: url.href,
     headers: { set: vi.fn() },
+    cookies: { set: vi.fn() },
   })),
   rewrite: vi.fn((url: URL, _opts?: unknown) => ({
     __type: 'rewrite' as const,
@@ -275,6 +276,48 @@ describe('intlayerProxy', () => {
       const result = intlayerProxy(makeRequest('/en/'));
       expect(result.__type).toBe('redirect');
       expect(getResponsePathname(result)).toBe('/');
+    });
+
+    it('persists the default locale when stripping the prefix (/en/ → / sets locale en)', () => {
+      // Regression: without persisting, the follow-up GET / re-runs
+      // Accept-Language detection and can override the explicit /en with a
+      // browser-preferred locale (e.g. /fr). Persisting the explicit path
+      // locale keeps it stable across the canonicalization redirect.
+      mockSetLocaleInStorage.mockClear();
+      const result = intlayerProxy(
+        makeRequest('/en/', {
+          headers: { 'accept-language': 'fr-FR,fr;q=0.9' },
+        })
+      );
+      expect(result.__type).toBe('redirect');
+      expect(getResponsePathname(result)).toBe('/');
+      expect(mockSetLocaleInStorage).toHaveBeenCalledWith(
+        'en',
+        expect.anything()
+      );
+    });
+
+    it('persists the default locale when stripping /en/about → /about', () => {
+      mockSetLocaleInStorage.mockClear();
+      const result = intlayerProxy(makeRequest('/en/about'));
+      expect(result.__type).toBe('redirect');
+      expect(getResponsePathname(result)).toBe('/about');
+      expect(mockSetLocaleInStorage).toHaveBeenCalledWith(
+        'en',
+        expect.anything()
+      );
+    });
+
+    it('does NOT persist locale on a detector-driven redirect (avoids sticky detection)', () => {
+      // / with no stored locale but Accept-Language fr resolves to fr via the
+      // detector and redirects to /fr/. This must NOT write the cookie, or the
+      // first detected locale would become permanently sticky.
+      mockSetLocaleInStorage.mockClear();
+      mockLocaleDetectorFn.mockReturnValue('fr');
+      const result = intlayerProxy(makeRequest('/'));
+      expect(result.__type).toBe('redirect');
+      expect(getResponsePathname(result)).toBe('/fr/');
+      expect(mockSetLocaleInStorage).not.toHaveBeenCalled();
     });
 
     it('passes /fr/ through unchanged (URL matches internal target → next())', () => {
