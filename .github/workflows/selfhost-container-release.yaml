@@ -1,7 +1,14 @@
 name: 🐳 Self-host Container
 
-# Builds the all-in-one self-hosting image (app + backend + mongo + redis + minio)
-# and pushes it to GHCR and Docker Hub. Manual only — triggered from the Actions tab.
+# Builds the all-in-one self-hosting image (app + backend + redis + minio, plus a
+# bundled Chromium for screenshots) and pushes it to GHCR and Docker Hub. Manual
+# only — triggered from the Actions tab.
+#
+# NOTE: MongoDB is NOT bundled for use — the backend connects to an external
+# MongoDB Atlas cluster via DB_ID / DB_MDP / DB_CLUSTER at runtime. The browser
+# facing VITE_* URLs are inlined at build time and left at their localhost defaults
+# (see docker/selfhost/Dockerfile), so the published image is reached on
+# http://localhost:3000. See docs/docs/en/self_hosting.md for the full flow.
 on:
   workflow_dispatch:
     inputs:
