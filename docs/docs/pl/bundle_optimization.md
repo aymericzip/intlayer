@@ -231,6 +231,9 @@ Next.js wymaga instalacji wtyczki `@intlayer/swc` na etapie optymalizacji (przep
 
 > Ta wtyczka nie jest instalowana domyślnie, ponieważ wtyczki SWC dla Next.js mają wciąż charakter eksperymentalny. Może się to zmienić w przyszłości.
 
+<Tabs>
+ <Tab value="npm">
+
 ```bash packageManager="npm"
 npm install -D @intlayer/swc
 ```
@@ -246,6 +249,19 @@ pnpm add -D @intlayer/swc
 ```bash packageManager="bun"
 bun add -d @intlayer/swc
 ```
+
+ </Tab>
+ <Tab value="Crates.io (rust)">
+
+```toml fileName="Cargo.toml"
+[dependencies]
+intlayer-swc-plugin = "*"
+```
+
+[View on Crates.io](https://crates.io/crates/intlayer-swc-plugin)
+
+ </Tab>
+</Tabs>
 
 Po jej zainstalowaniu Intlayer automatycznie wykryje i wykorzysta tę wtyczkę.
 

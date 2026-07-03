@@ -231,6 +231,9 @@ Next.js richiede il plugin `@intlayer/swc` per la fase optimize (riscrittura deg
 
 > Questo plugin non è installato di default perché i plugin SWC sono ancora sperimentali in Next.js. Questo aspetto potrebbe cambiare in futuro.
 
+<Tabs>
+ <Tab value="npm">
+
 ```bash packageManager="npm"
 npm install -D @intlayer/swc
 ```
@@ -246,6 +249,19 @@ pnpm add -D @intlayer/swc
 ```bash packageManager="bun"
 bun add -d @intlayer/swc
 ```
+
+ </Tab>
+ <Tab value="Crates.io (rust)">
+
+```toml fileName="Cargo.toml"
+[dependencies]
+intlayer-swc-plugin = "*"
+```
+
+[View on Crates.io](https://crates.io/crates/intlayer-swc-plugin)
+
+ </Tab>
+</Tabs>
 
 Una volta installato, Intlayer rileverà e utilizzerà automaticamente il plugin.
 

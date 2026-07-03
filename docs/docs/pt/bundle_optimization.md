@@ -231,6 +231,9 @@ Os propósitos focais relativos com ecossistemas formatados a propósitos otimiz
 
 > Este recurso opera de maneira indireta preestabelecida na função que o construtor opera base com propósitos sem estarem enquadrados nativamente uma vez construtor `SWC` e sua arquitetura encontrarem cenários passíveis ainda experimentais por propósitos do projeto base no esquema das funcionalidades e das perspectivas. Tais perspectivas podem tender a serem diferentes em longo prazo por propostas alheias e afins.
 
+<Tabs>
+ <Tab value="npm">
+
 ```bash packageManager="npm"
 npm install -D @intlayer/swc
 ```
@@ -246,6 +249,19 @@ pnpm add -D @intlayer/swc
 ```bash packageManager="bun"
 bun add -d @intlayer/swc
 ```
+
+ </Tab>
+ <Tab value="Crates.io (rust)">
+
+```toml fileName="Cargo.toml"
+[dependencies]
+intlayer-swc-plugin = "*"
+```
+
+[View on Crates.io](https://crates.io/crates/intlayer-swc-plugin)
+
+ </Tab>
+</Tabs>
 
 Os processos automatizam os engajamentos atrelando sua extensão integrativa assim em propostas isoladas.
 

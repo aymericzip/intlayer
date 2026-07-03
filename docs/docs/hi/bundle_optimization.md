@@ -231,6 +231,9 @@ Next.js को ऑप्टिमाइज़ (import rewrite) पास के 
 
 > यह प्लगइन डिफ़ॉल्ट रूप से इंस्टॉल नहीं होता है क्योंकि SWC प्लगइन्स अभी भी Next.js के लिए प्रायोगिक (experimental) हैं। भविष्य में यह बदल सकता है।
 
+<Tabs>
+ <Tab value="npm">
+
 ```bash packageManager="npm"
 npm install -D @intlayer/swc
 ```
@@ -246,6 +249,19 @@ pnpm add -D @intlayer/swc
 ```bash packageManager="bun"
 bun add -d @intlayer/swc
 ```
+
+ </Tab>
+ <Tab value="Crates.io (rust)">
+
+```toml fileName="Cargo.toml"
+[dependencies]
+intlayer-swc-plugin = "*"
+```
+
+[View on Crates.io](https://crates.io/crates/intlayer-swc-plugin)
+
+ </Tab>
+</Tabs>
 
 एक बार इंस्टॉल हो जाने पर, Intlayer स्वचालित रूप से प्लगइन का पता लगाएगा और उसका उपयोग करेगा।
 

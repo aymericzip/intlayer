@@ -231,6 +231,9 @@ Next.js využívá SWC pro sestavování, takže k průchodu pro optimalizaci (p
 
 > Tento plugin se neinstaluje ve výchozím nastavení, jelikož SWC pluginy jsou pro Next.js zatím experimentální. V budoucnu se to může změnit.
 
+<Tabs>
+ <Tab value="npm">
+
 ```bash packageManager="npm"
 npm install -D @intlayer/swc
 ```
@@ -246,6 +249,19 @@ pnpm add -D @intlayer/swc
 ```bash packageManager="bun"
 bun add -d @intlayer/swc
 ```
+
+ </Tab>
+ <Tab value="Crates.io (rust)">
+
+```toml fileName="Cargo.toml"
+[dependencies]
+intlayer-swc-plugin = "*"
+```
+
+[View on Crates.io](https://crates.io/crates/intlayer-swc-plugin)
+
+ </Tab>
+</Tabs>
 
 Po instalaci plugin Intlayer automaticky rozpozná a použije.
 

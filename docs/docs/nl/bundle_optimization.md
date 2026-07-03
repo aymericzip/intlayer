@@ -231,6 +231,9 @@ Next.js vereist de `@intlayer/swc` plugin voor de optimize-stap (import-herschri
 
 > Deze plugin is niet standaard geïnstalleerd omdat SWC plugins nog experimenteel zijn voor Next.js. Dit kan in de toekomst veranderen.
 
+<Tabs>
+ <Tab value="npm">
+
 ```bash packageManager="npm"
 npm install -D @intlayer/swc
 ```
@@ -246,6 +249,19 @@ pnpm add -D @intlayer/swc
 ```bash packageManager="bun"
 bun add -d @intlayer/swc
 ```
+
+ </Tab>
+ <Tab value="Crates.io (rust)">
+
+```toml fileName="Cargo.toml"
+[dependencies]
+intlayer-swc-plugin = "*"
+```
+
+[View on Crates.io](https://crates.io/crates/intlayer-swc-plugin)
+
+ </Tab>
+</Tabs>
 
 Zodra geïnstalleerd, zal Intlayer de plugin automatisch detecteren en gebruiken.
 

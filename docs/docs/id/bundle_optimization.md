@@ -231,6 +231,9 @@ Next.js memerlukan plugin `@intlayer/swc` untuk optimasi pass (menulis ulang imp
 
 > Plugin ini tidak terpasang secara default karena plugin SWC masih berada pada tahap eksperimental untuk Next.js. Hal ini dapat berubah di masa yang akan datang.
 
+<Tabs>
+ <Tab value="npm">
+
 ```bash packageManager="npm"
 npm install -D @intlayer/swc
 ```
@@ -246,6 +249,19 @@ pnpm add -D @intlayer/swc
 ```bash packageManager="bun"
 bun add -d @intlayer/swc
 ```
+
+ </Tab>
+ <Tab value="Crates.io (rust)">
+
+```toml fileName="Cargo.toml"
+[dependencies]
+intlayer-swc-plugin = "*"
+```
+
+[View on Crates.io](https://crates.io/crates/intlayer-swc-plugin)
+
+ </Tab>
+</Tabs>
 
 Setelah dipasang, Intlayer akan mendeteksi dan menggunakan plugin ini secara otomatis.
 

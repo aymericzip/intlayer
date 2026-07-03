@@ -231,6 +231,9 @@ Next.js требует использования плагина `@intlayer/swc`
 
 > Этот плагин не устанавливается по умолчанию, поскольку плагины SWC всё еще находятся на стадии эксперимента для Next.js. Это может измениться в будущем.
 
+<Tabs>
+ <Tab value="npm">
+
 ```bash packageManager="npm"
 npm install -D @intlayer/swc
 ```
@@ -246,6 +249,19 @@ pnpm add -D @intlayer/swc
 ```bash packageManager="bun"
 bun add -d @intlayer/swc
 ```
+
+ </Tab>
+ <Tab value="Crates.io (rust)">
+
+```toml fileName="Cargo.toml"
+[dependencies]
+intlayer-swc-plugin = "*"
+```
+
+[View on Crates.io](https://crates.io/crates/intlayer-swc-plugin)
+
+ </Tab>
+</Tabs>
 
 После установки Intlayer автоматически обнаружит и использует этот плагин.
 

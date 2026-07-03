@@ -347,3 +347,4 @@ docker compose run --rm minio-init
 - [Documentação do Intlayer CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md)
 - [Referência de configuração](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md)
 - [SDK do CMS — `@intlayer/api`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/intlayer_CMS.md#programmatic-access-with-the-intlayerapi-sdk)
+- [Docker Image (aymercizip/intlayer-selfhost)](https://hub.docker.com/repository/docker/aymercizip/intlayer-selfhost/general)

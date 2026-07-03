@@ -231,6 +231,9 @@ Next.js erfordert das Plugin `@intlayer/swc` für den Optimize-Pass (Import-Umsc
 
 > Dieses Plugin ist nicht standardmäßig installiert, da SWC-Plugins für Next.js noch experimentell sind. Dies kann sich in Zukunft ändern.
 
+<Tabs>
+ <Tab value="npm">
+
 ```bash packageManager="npm"
 npm install -D @intlayer/swc
 ```
@@ -246,6 +249,19 @@ pnpm add -D @intlayer/swc
 ```bash packageManager="bun"
 bun add -d @intlayer/swc
 ```
+
+ </Tab>
+ <Tab value="Crates.io (rust)">
+
+```toml fileName="Cargo.toml"
+[dependencies]
+intlayer-swc-plugin = "*"
+```
+
+[View on Crates.io](https://crates.io/crates/intlayer-swc-plugin)
+
+ </Tab>
+</Tabs>
 
 Nach der Installation erkennt Intlayer das Plugin automatisch und verwendet es.
 

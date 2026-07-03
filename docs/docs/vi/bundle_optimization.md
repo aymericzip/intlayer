@@ -231,6 +231,9 @@ Next.js yêu cầu có plugin `@intlayer/swc` cho bước optimize (bước thay
 
 > Plugin này không cài đặt theo mặc định bởi vì nền tảng hỗ trợ (API SWC Plugins) trên Next.js vẫn còn là một thử nghiệm. Do đó sẽ có thay đổi khi nó được cập nhật.
 
+<Tabs>
+ <Tab value="npm">
+
 ```bash packageManager="npm"
 npm install -D @intlayer/swc
 ```
@@ -246,6 +249,19 @@ pnpm add -D @intlayer/swc
 ```bash packageManager="bun"
 bun add -d @intlayer/swc
 ```
+
+ </Tab>
+ <Tab value="Crates.io (rust)">
+
+```toml fileName="Cargo.toml"
+[dependencies]
+intlayer-swc-plugin = "*"
+```
+
+[View on Crates.io](https://crates.io/crates/intlayer-swc-plugin)
+
+ </Tab>
+</Tabs>
 
 Sau khi hoàn tất, Intlayer có thể tìm kiếm và ứng dụng tự động nó cho phần compile hệ thống.
 
