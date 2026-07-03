@@ -139,6 +139,17 @@ export const createIntlayerProxyHandler = (
   };
 
   /**
+   * Extracts the hostname from a request's `Host` header, handling IPv6
+   * literals (`[::1]:5173` → `::1`) that a plain `split(':')` would mangle.
+   */
+  const getRequestHostname = (req: IncomingMessage): string => {
+    const host = req.headers.host ?? '';
+    const ipv6Match = host.match(/^\[([^\]]+)\]/);
+    if (ipv6Match) return ipv6Match[1]!;
+    return host.split(':')[0] ?? '';
+  };
+
+  /**
    * Returns the locale exclusively mapped to a given hostname via `routing.domains`,
    * or undefined if zero or more than one locale share that hostname.
    */
@@ -185,6 +196,15 @@ export const createIntlayerProxyHandler = (
 
     return `?${params.toString()}`;
   };
+
+  /**
+   * Checks whether a pathname starts with the given locale as a full path
+   * segment (`/fr` or `/fr/...`). A bare `startsWith('/fr')` would also match
+   * unrelated paths like `/friends`, causing wrong prefix stripping and
+   * self-redirect loops.
+   */
+  const hasLocaleSegmentPrefix = (pathname: string, locale: Locale): boolean =>
+    pathname === `/${locale}` || pathname.startsWith(`/${locale}/`);
 
   /**
    * Extracts the locale from the URL pathname if present as the first segment.
@@ -238,17 +258,81 @@ export const createIntlayerProxyHandler = (
   };
 
   /**
-   * Writes a 301 redirect response with the given new URL.
+   * Identifies the client issuing a request, so redirect-loop tracking is
+   * scoped per client. Without this, concurrent visitors hitting the same
+   * legitimate redirect (e.g. `/` → `/fr/`) would share one counter and trip
+   * the loop detector under normal production traffic.
+   */
+  const getClientKey = (req: IncomingMessage): string => {
+    const forwardedFor = req.headers['x-forwarded-for'];
+    const forwardedIp = (
+      Array.isArray(forwardedFor) ? forwardedFor[0] : forwardedFor
+    )
+      ?.split(',')[0]
+      ?.trim();
+
+    return forwardedIp || req.socket?.remoteAddress || 'unknown';
+  };
+
+  /**
+   * Strips any origin from a redirect target, keeping only path, search and
+   * hash. Prevents open redirects: user-controlled paths like `//evil.com/x`
+   * would otherwise be echoed verbatim into the `Location` header and be
+   * interpreted by browsers as a protocol-relative cross-origin URL.
+   */
+  const toSameOriginUrl = (url: string): string => {
+    try {
+      const parsed = new URL(url, 'http://intlayer-internal');
+      return `${parsed.pathname}${parsed.search}${parsed.hash}`;
+    } catch {
+      return url;
+    }
+  };
+
+  type RedirectOptions = {
+    /** Human-readable reason logged when a redirect loop is detected. */
+    reason?: string;
+    /** The URL of the incoming request, used for redirect-loop tracking. */
+    originalUrl?: string;
+    /**
+     * When provided, the locale is persisted (cookie/header, per config) on
+     * the redirect response so the follow-up request resolves the same locale.
+     */
+    persistLocale?: Locale;
+    /**
+     * HTTP status for the redirect. Defaults to 302: locale redirects depend
+     * on mutable state (cookie, Accept-Language) and must not be cached by
+     * the browser as permanent. Domain-routing redirects pass 301 explicitly.
+     */
+    status?: number;
+    /**
+     * Allows a cross-origin `Location` target. Only the domain-routing
+     * redirect sets this; all other targets are sanitized to same-origin.
+     */
+    allowCrossOrigin?: boolean;
+  };
+
+  /**
+   * Writes a redirect response with the given new URL.
    */
   const redirectUrl = (
+    req: IncomingMessage,
     res: ServerResponse<IncomingMessage>,
     newUrl: string,
-    reason?: string,
-    originalUrl?: string,
-    persistLocale?: Locale
+    options?: RedirectOptions
   ) => {
+    const {
+      reason,
+      originalUrl,
+      persistLocale,
+      status = 302,
+      allowCrossOrigin = false,
+    } = options ?? {};
+
+    const targetUrl = allowCrossOrigin ? newUrl : toSameOriginUrl(newUrl);
+
     if (originalUrl) {
-      if (originalUrl === newUrl) {
+      if (originalUrl === targetUrl) {
         console.error('[REDIRECT LOOP DETECTED!]', { originalUrl, reason });
         res.writeHead(500, { 'Content-Type': 'text/plain' });
         return res.end(
@@ -257,18 +341,20 @@ export const createIntlayerProxyHandler = (
       }
 
       const now = Date.now();
-      const key = `${originalUrl} -> ${newUrl}`;
-      const prev = redirectCounts.get(key);
+      const trackingKey = `${getClientKey(req)}|${originalUrl} -> ${targetUrl}`;
+      const previousEntry = redirectCounts.get(trackingKey);
       const count =
-        prev && now - prev.lastSeen < REDIRECT_TTL_MS ? prev.count + 1 : 1;
+        previousEntry && now - previousEntry.lastSeen < REDIRECT_TTL_MS
+          ? previousEntry.count + 1
+          : 1;
 
-      redirectCounts.set(key, { count, lastSeen: now });
+      redirectCounts.set(trackingKey, { count, lastSeen: now });
 
       if (count > MAX_REDIRECTS) {
         console.error('[REDIRECT LOOP DETECTED!]', {
           originalUrl,
           redirectCount: count,
-          lastRedirectTo: newUrl,
+          lastRedirectTo: targetUrl,
           reason,
         });
         res.writeHead(500, { 'Content-Type': 'text/plain' });
@@ -277,8 +363,9 @@ export const createIntlayerProxyHandler = (
         );
       }
 
-      for (const [key, entry] of redirectCounts) {
-        if (now - entry.lastSeen >= REDIRECT_TTL_MS) redirectCounts.delete(key);
+      for (const [entryKey, entry] of redirectCounts) {
+        if (now - entry.lastSeen >= REDIRECT_TTL_MS)
+          redirectCounts.delete(entryKey);
       }
     }
 
@@ -286,7 +373,7 @@ export const createIntlayerProxyHandler = (
       persistLocaleOnResponse(res, persistLocale);
     }
 
-    res.writeHead(301, { Location: newUrl });
+    res.writeHead(status, { Location: targetUrl });
     return res.end();
   };
 
@@ -327,7 +414,7 @@ export const createIntlayerProxyHandler = (
     search?: string
   ) => {
     // Strip any incoming locale prefix to avoid double-prefixing
-    const pathWithoutPrefix = currentPath.startsWith(`/${locale}`)
+    const pathWithoutPrefix = hasLocaleSegmentPrefix(currentPath, locale)
       ? currentPath.slice(`/${locale}`.length)
       : currentPath;
 
@@ -357,7 +444,7 @@ export const createIntlayerProxyHandler = (
     }
 
     // Check if path already starts with locale to avoid double-prefixing
-    const pathWithLocalePrefix = currentPath.startsWith(`/${locale}`)
+    const pathWithLocalePrefix = hasLocaleSegmentPrefix(currentPath, locale)
       ? currentPath
       : `/${locale}${currentPath}`;
 
@@ -418,6 +505,11 @@ export const createIntlayerProxyHandler = (
       locale = detectedLocale as Locale;
     }
 
+    // Guard against a stale/unsupported locale coming from storage or detection
+    if (!supportedLocales.includes(locale)) {
+      locale = defaultLocale;
+    }
+
     if (pathLocale) {
       const pathWithoutLocale =
         originalPath.slice(`/${pathLocale}`.length) || '/';
@@ -434,7 +526,14 @@ export const createIntlayerProxyHandler = (
         ? `${canonicalPath}${search}`
         : `${canonicalPath}${searchParams ?? ''}`;
 
-      return redirectUrl(res, redirectPath, undefined, originalUrl);
+      // Persist the explicitly-requested locale: stripping the prefix drops
+      // the only locale signal from the URL, so without this the follow-up
+      // request would fall back to cookie / Accept-Language detection and
+      // could resolve a different locale.
+      return redirectUrl(req, res, redirectPath, {
+        originalUrl,
+        persistLocale: pathLocale,
+      });
     }
 
     const canonicalPath = getCanonicalPath(originalPath, locale, rewriteRules);
@@ -467,7 +566,7 @@ export const createIntlayerProxyHandler = (
         ? `${originalPath}${search}`
         : `${originalPath}${searchParams ?? ''}`;
 
-      return redirectUrl(res, redirectPath, undefined, originalUrl);
+      return redirectUrl(req, res, redirectPath, { originalUrl });
     }
 
     // For no-prefix mode (not search-params), add locale prefix internally for routing
@@ -586,9 +685,9 @@ export const createIntlayerProxyHandler = (
     const newPath = constructPath(locale, targetLocalizedPath, search);
 
     // If we always prefix default or if this is not the default locale,
-    // do a 301 redirect so the user sees the locale in the URL
+    // do a redirect so the user sees the locale in the URL
     if (prefixDefault || locale !== defaultLocale) {
-      return redirectUrl(res, newPath, undefined, originalUrl);
+      return redirectUrl(req, res, newPath, { originalUrl });
     }
 
     // If we do NOT prefix the default locale, pass through the canonical path unchanged.
@@ -624,7 +723,7 @@ export const createIntlayerProxyHandler = (
     pathLocale: Locale;
     originalUrl?: string;
   }) => {
-    const rawPath = originalPath.slice(`/${pathLocale}`.length);
+    const rawPath = originalPath.slice(`/${pathLocale}`.length) || '/';
 
     // Identify the canonical path (internal path).
     // Ex: /a-propos (from URL) → /about (canonical)
@@ -712,13 +811,10 @@ export const createIntlayerProxyHandler = (
       // (e.g. /es → /) drops the only locale signal from the URL, so without
       // this the follow-up request to the canonical path would fall back to
       // Accept-Language detection and could resolve a different locale.
-      return redirectUrl(
-        res,
-        fullPath + (searchParams ?? ''),
-        undefined,
+      return redirectUrl(req, res, fullPath + (searchParams ?? ''), {
         originalUrl,
-        pathLocale
-      );
+        persistLocale: pathLocale,
+      });
     }
 
     // If we do prefix the default or pathLocale !== default, keep as-is
@@ -799,19 +895,21 @@ export const createIntlayerProxyHandler = (
     ) {
       const localeDomain = domains[pathLocale as keyof typeof domains];
       if (localeDomain) {
-        const reqHost = (req.headers['host'] ?? '').split(':')[0] ?? '';
+        const reqHost = getRequestHostname(req);
         const domainHost = normalizeDomainHostname(localeDomain);
         if (domainHost !== reqHost) {
           const rawPath = originalPath.slice(`/${pathLocale}`.length) || '/';
           const targetOrigin = /^https?:\/\//.test(localeDomain)
             ? localeDomain
             : `https://${localeDomain}`;
-          redirectUrl(
-            res,
-            `${targetOrigin}${rawPath}${searchParams}`,
-            'domain-routing',
-            originalUrl
-          );
+          // Domain mapping is stable config, so a cacheable 301 is intended
+          // here — unlike locale-detection redirects, which use 302.
+          redirectUrl(req, res, `${targetOrigin}${rawPath}${searchParams}`, {
+            reason: 'domain-routing',
+            originalUrl,
+            status: 301,
+            allowCrossOrigin: true,
+          });
           return;
         }
       }
@@ -825,7 +923,7 @@ export const createIntlayerProxyHandler = (
       !noPrefix &&
       !pathLocale
     ) {
-      const reqHost = (req.headers['host'] ?? '').split(':')[0] ?? '';
+      const reqHost = getRequestHostname(req);
       const domainLocale = getLocaleFromDomain(reqHost);
       if (domainLocale) {
         const canonicalPath = getCanonicalPath(

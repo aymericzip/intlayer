@@ -124,10 +124,15 @@ const getLocaleFromDomain = (hostname: string): Locale | undefined => {
 /**
  * Detects if the request is a prefetch request from Next.js.
  *
- * Next.js prefetch requests can be identified by several headers:
+ * Next.js prefetch requests are identified by:
  * - purpose: 'prefetch' (standard prefetch header)
- * - next-router-prefetch: '1' (Next.js router prefetch)
- * - next-url: present (Next.js internal navigation)
+ * - next-router-prefetch: '1' (Next.js app-router prefetch)
+ *
+ * Note: `next-url` and `x-nextjs-data` are intentionally NOT used here.
+ * Both are also sent on real client-side navigations (RSC navigation
+ * requests and pages-router data requests respectively), so treating them
+ * as prefetch would force such navigations to the default locale instead
+ * of the user's stored locale.
  *
  * During prefetch, we should ignore cookie-based locale detection
  * to prevent unwanted redirects when users are switching locales.
@@ -138,15 +143,8 @@ const getLocaleFromDomain = (hostname: string): Locale | undefined => {
 const isPrefetchRequest = (request: NextRequest): boolean => {
   const purpose = request.headers.get('purpose');
   const nextRouterPrefetch = request.headers.get('next-router-prefetch');
-  const nextUrl = request.headers.get('next-url');
-  const xNextjsData = request.headers.get('x-nextjs-data');
 
-  return (
-    purpose === 'prefetch' ||
-    nextRouterPrefetch === '1' ||
-    !!nextUrl ||
-    !!xNextjsData
-  );
+  return purpose === 'prefetch' || nextRouterPrefetch === '1';
 };
 
 // Ensure locale is reflected in search params when routing mode is 'search-params'
@@ -299,7 +297,11 @@ const handleNoPrefix = (
       ? `${canonicalPath}${search}`
       : `${canonicalPath}${request.nextUrl.search ?? ''}`;
 
-    return redirectUrl(request, redirectPath);
+    // Persist the explicitly-requested locale: stripping the prefix drops the
+    // only locale signal from the URL, so without this the follow-up request
+    // would fall back to cookie / Accept-Language detection and could resolve
+    // a different locale.
+    return redirectUrl(request, redirectPath, pathLocale);
   }
 
   if (
@@ -379,14 +381,27 @@ const handleNoPrefix = (
 };
 
 /**
+ * Checks whether a pathname starts with the given locale as a full path
+ * segment (`/fr` or `/fr/...`). A bare `startsWith('/fr')` would also match
+ * unrelated paths like `/friends`, causing wrong prefix stripping and
+ * self-redirect loops.
+ *
+ * @param pathname - The pathname to test.
+ * @param locale - The locale to look for as the first path segment.
+ * @returns - True if the first path segment is exactly the locale.
+ */
+const hasLocaleSegmentPrefix = (pathname: string, locale: Locale): boolean =>
+  pathname === `/${locale}` || pathname.startsWith(`/${locale}/`);
+
+/**
  * Extracts the locale from the URL pathname if present.
  *
  * @param pathname - The pathname from the request URL.
  * @returns - The locale found in the pathname, or undefined if not found.
  */
 const getPathLocale = (pathname: string): Locale | undefined =>
-  (locales as Locale[] | undefined)?.find(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+  (locales as Locale[] | undefined)?.find((locale) =>
+    hasLocaleSegmentPrefix(pathname, locale)
   );
 
 /**
@@ -617,7 +632,7 @@ const constructPath = (
 ): string => {
   // Remove existing locale prefix from path if it was passed by mistake,
   // though we usually pass localized paths here now.
-  const pathWithoutPrefix = path.startsWith(`/${locale}`)
+  const pathWithoutPrefix = hasLocaleSegmentPrefix(path, locale)
     ? path.slice(`/${locale}`.length) || '/'
     : path;
 
@@ -639,7 +654,7 @@ const constructPath = (
   }
 
   // Prefix handling
-  const pathWithLocalePrefix = path.startsWith(`/${locale}`)
+  const pathWithLocalePrefix = hasLocaleSegmentPrefix(path, locale)
     ? path
     : `${locale}${path.startsWith('/') ? '' : '/'}${path}`;
 

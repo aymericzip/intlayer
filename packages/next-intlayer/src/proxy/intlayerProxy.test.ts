@@ -365,6 +365,33 @@ describe('intlayerProxy', () => {
       expect(getResponsePathname(result)).toBe('/about');
       expect(getResponseSearch(result)).toBe('?ref=x');
     });
+
+    it('redirects /friends to /fr/friends when stored locale is fr (no locale-prefix false positive)', () => {
+      // Regression: `'/friends'.startsWith('/fr')` made constructPath treat the
+      // path as already prefixed, producing a /friends → /friends self-redirect loop.
+      mockGetLocaleFromStorage.mockReturnValue('fr');
+      const result = intlayerProxy(makeRequest('/friends'));
+      expect(result.__type).toBe('redirect');
+      expect(getResponsePathname(result)).toBe('/fr/friends');
+    });
+
+    it('redirects /essays to /es/essays when stored locale is es (no locale-prefix false positive)', () => {
+      mockGetLocaleFromStorage.mockReturnValue('es');
+      const result = intlayerProxy(makeRequest('/essays'));
+      expect(result.__type).toBe('redirect');
+      expect(getResponsePathname(result)).toBe('/es/essays');
+    });
+
+    it('keeps the locale prefix when a rewritten localized path starts with the locale letters', () => {
+      // `'/fresh'.startsWith('/fr')` must not be mistaken for an existing /fr prefix.
+      mockGetLocalizedPath.mockReturnValue({
+        path: '/fresh',
+        isRewritten: true,
+      });
+      const result = intlayerProxy(makeRequest('/fr/tests'));
+      expect(result.__type).toBe('redirect');
+      expect(getResponsePathname(result)).toBe('/fr/fresh');
+    });
   });
 
   // ── prefix-all mode ─────────────────────────────────────────────────────────
@@ -533,6 +560,19 @@ describe('intlayerProxy', () => {
       expect(result.__type).toBe('redirect');
       expect(getResponsePathname(result)).toBe('/about');
       expect(getResponseSearch(result)).toBe('?x=1');
+    });
+
+    it('persists the stripped locale when redirecting /fr/about → /about', () => {
+      // Regression: stripping the prefix drops the only locale signal from the
+      // URL, so the locale must be persisted or the follow-up request would
+      // fall back to cookie / Accept-Language detection.
+      const result = intlayerProxy(makeRequest('/fr/about'));
+      expect(result.__type).toBe('redirect');
+      expect(getResponsePathname(result)).toBe('/about');
+      expect(mockSetLocaleInStorage).toHaveBeenCalledWith(
+        'fr',
+        expect.anything()
+      );
     });
   });
 
@@ -854,22 +894,27 @@ describe('intlayerProxy', () => {
       expect(getResponsePathname(result)).toBe('/en/about');
     });
 
-    it('uses defaultLocale for prefetch with next-url header present', () => {
+    it('does NOT treat next-url as prefetch (real RSC navigation honors stored locale)', () => {
+      // Regression: next-url is also sent on real client-side RSC navigations,
+      // not only prefetches; treating it as prefetch forced those navigations
+      // to the default locale instead of the user's stored locale.
       mockGetLocaleFromStorage.mockReturnValue('fr');
       const result = intlayerProxy(
         makeRequest('/about', { headers: { 'next-url': '/fr/about' } })
       );
-      expect(result.__type).toBe('rewrite');
-      expect(getResponsePathname(result)).toBe('/en/about');
+      expect(result.__type).toBe('redirect');
+      expect(getResponsePathname(result)).toBe('/fr/about');
     });
 
-    it('uses defaultLocale for prefetch with x-nextjs-data header', () => {
+    it('does NOT treat x-nextjs-data as prefetch (pages-router data request honors stored locale)', () => {
+      // Regression: x-nextjs-data is sent on all pages-router data requests
+      // during client-side navigation, not only prefetches.
       mockGetLocaleFromStorage.mockReturnValue('es');
       const result = intlayerProxy(
         makeRequest('/about', { headers: { 'x-nextjs-data': '1' } })
       );
-      expect(result.__type).toBe('rewrite');
-      expect(getResponsePathname(result)).toBe('/en/about');
+      expect(result.__type).toBe('redirect');
+      expect(getResponsePathname(result)).toBe('/es/about');
     });
 
     it('passes /fr/about through in prefetch (explicit locale, URL unchanged → next())', () => {
