@@ -232,7 +232,7 @@ const docDataContent: Dictionary = {
         cms: {
           title: 'CMS',
           default: getDocMetadata('./docs/en/intlayer_CMS.md'),
-          subSection: {
+          subSections: {
             title: 'Self-hosting',
             default: getDocMetadata('./docs/en/self_hosting.md'),
           },
