@@ -1,40 +1,24 @@
 import { Showcase_Submit_Path } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
-import {
-  defaultLocale,
-  getIntlayer,
-  getLocalizedUrl,
-  localeMap,
-} from 'intlayer';
+import { getIntlayer, type Locale } from 'intlayer';
 import { SubmitProjectForm } from '#/components/SubmitProjectForm/SubmitProjectForm';
+import { getAbsoluteUrl, getHreflangLinks } from '#/utils/seo';
 
 export const Route = createFileRoute('/{-$locale}/submit')({
   component: SubmitProjectForm,
   head: ({ params }) => {
-    const { locale } = params as { locale?: string };
+    const { locale } = params as { locale?: Locale };
     const path = Showcase_Submit_Path;
     const content = getIntlayer('showcase-submit', locale);
-    const canonicalUrl = getLocalizedUrl(path, locale);
+    const canonicalUrl = getAbsoluteUrl(path, locale);
 
     return {
       links: [
         // Canonical link: Points to the current localized page
-        { rel: 'canonical', href: getLocalizedUrl(path, locale) },
+        { rel: 'canonical', href: canonicalUrl },
 
-        // Hreflang: Tell Google about all localized versions
-        ...localeMap(({ locale }) => ({
-          rel: 'alternate',
-          hrefLang: locale,
-          href: getLocalizedUrl(path, locale),
-        })),
-
-        // x-default: For users in unmatched languages
-        // Define the default fallback locale (usually your primary language)
-        {
-          rel: 'alternate',
-          hrefLang: 'x-default',
-          href: getLocalizedUrl(path, defaultLocale),
-        },
+        // Hreflang: absolute alternates for every locale, plus x-default
+        ...getHreflangLinks(path),
       ],
       meta: [
         { title: content.metadata.title },

@@ -15,12 +15,7 @@ import {
 } from '@intlayer/design-system/routes';
 import { buildBreadcrumbsJsonLd } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
-import {
-  defaultLocale,
-  getIntlayer,
-  getLocalizedUrl,
-  localeMap,
-} from 'intlayer';
+import { getIntlayer, getLocalizedUrl } from 'intlayer';
 import { useEffect } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { FiltersBar } from '#/components/FiltersBar';
@@ -29,6 +24,7 @@ import { ProjectCardSkeleton } from '#/components/ProjectCardSkeleton';
 import { ShowcaseHeader } from '#/components/ShowcaseHeader';
 import { useSearchParamState } from '#/hooks/useSearchParamState';
 import type { ShowcaseProject } from '#/utils/projectActions/types';
+import { getAbsoluteUrl, getHreflangLinks } from '#/utils/seo';
 
 type ProjectSearchParams = {
   page?: number;
@@ -105,21 +101,12 @@ export const Route = createFileRoute('/{-$locale}/')({
     const path = Showcase_Root_Path;
     const content = getIntlayer('showcase-index', locale);
 
-    const canonicalUrl = getLocalizedUrl(path, locale);
+    const canonicalUrl = getAbsoluteUrl(path, locale);
 
     return {
       links: [
-        { rel: 'canonical', href: getLocalizedUrl(path, locale) },
-        ...localeMap(({ locale }) => ({
-          rel: 'alternate',
-          hrefLang: locale,
-          href: getLocalizedUrl(path, locale),
-        })),
-        {
-          rel: 'alternate',
-          hrefLang: 'x-default',
-          href: getLocalizedUrl(path, defaultLocale),
-        },
+        { rel: 'canonical', href: canonicalUrl },
+        ...getHreflangLinks(path),
       ],
       meta: [
         { title: content.metadata.title },

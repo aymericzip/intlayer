@@ -6,16 +6,12 @@ import {
 } from '@intlayer/design-system/routes';
 import { buildBreadcrumbsJsonLd } from '@intlayer/design-system/structured-data';
 import { createFileRoute } from '@tanstack/react-router';
-import {
-  defaultLocale,
-  getIntlayer,
-  getLocalizedUrl,
-  localeMap,
-} from 'intlayer';
+import { getIntlayer, getLocalizedUrl } from 'intlayer';
 import { useIntlayer } from 'react-intlayer';
 import { ProjectFocus } from '#/components/ProjectFocus/ProjectFocus';
 import { ShowcaseHeader } from '#/components/ShowcaseHeader';
 import type { ShowcaseProject } from '#/utils/projectActions/types';
+import { getAbsoluteUrl, getHreflangLinks } from '#/utils/seo';
 import { Link } from '#components/Link/Link';
 
 export const Route = createFileRoute('/{-$locale}/project/$projectId')({
@@ -43,21 +39,12 @@ export const Route = createFileRoute('/{-$locale}/project/$projectId')({
 
     const description = project?.description ?? content.metadata.description;
 
-    const canonicalUrl = getLocalizedUrl(path, locale);
+    const canonicalUrl = getAbsoluteUrl(path, locale);
 
     return {
       links: [
-        { rel: 'canonical', href: getLocalizedUrl(path, locale) },
-        ...localeMap(({ locale }) => ({
-          rel: 'alternate',
-          hrefLang: locale,
-          href: getLocalizedUrl(path, locale),
-        })),
-        {
-          rel: 'alternate',
-          hrefLang: 'x-default',
-          href: getLocalizedUrl(path, defaultLocale),
-        },
+        { rel: 'canonical', href: canonicalUrl },
+        ...getHreflangLinks(path),
       ],
       meta: [
         { title },
