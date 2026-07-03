@@ -103,7 +103,7 @@
     "rollup-plugin-visualizer": "7.0.1",
     "tsdown": "0.21.10",
     "tslib": "2.8.1",
-    "turbo": "2.10.2",
+    "turbo": "2.10.3",
     "typescript": "6.0.3",
     "vitest": "4.1.9"
   },

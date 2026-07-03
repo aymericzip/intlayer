@@ -135,9 +135,9 @@
     "@parcel/watcher": "2.5.6",
     "defu": "6.1.7",
     "fast-glob": "3.3.3",
-    "recast": "0.23.11",
+    "recast": "0.23.12",
     "simple-git": "3.36.0",
-    "zod-to-ts": "2.0.0"
+    "zod-to-ts": "2.1.0"
   },
   "devDependencies": {
     "@types/node": "25.9.4",

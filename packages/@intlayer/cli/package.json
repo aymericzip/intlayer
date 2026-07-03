@@ -76,7 +76,7 @@
     "@intlayer/remote-dictionaries-entry": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
-    "commander": "14.0.3",
+    "commander": "15.0.0",
     "enquirer": "2.4.1",
     "eventsource": "4.1.0",
     "fast-glob": "3.3.3"
