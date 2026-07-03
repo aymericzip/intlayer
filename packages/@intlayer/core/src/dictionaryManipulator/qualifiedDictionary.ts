@@ -2,6 +2,7 @@ import type {
   Dictionary,
   DictionaryQualifierType,
   DictionarySelector,
+  DictionaryVariantValue,
   QualifiedDictionaryGroup,
 } from '@intlayer/types/dictionary';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
@@ -23,27 +24,89 @@ export const QUALIFIER_ORDER = [
 export const COMPOSITE_ID_SEPARATOR = '/';
 
 /**
- * Canonical serialization of a variant value into its identity string — the
- * variant segment of a composite id and the runtime matching key.
+ * Characters kept verbatim in an encoded qualifier segment. Everything else is
+ * percent-encoded so a segment can never contain the composite-id separator
+ * (`/`), path-hostile characters (`\` `:` `*` `?` `"` `<` `>` `|`, control
+ * chars), or characters that would break the generated loader modules (`'`).
+ */
+const SEGMENT_UNSAFE_CHARS = /[^A-Za-z0-9._&=-]/g;
+
+/**
+ * Stricter set for the components of an object variant: also encodes `&` and
+ * `=` so the `field=value&field=value` serialization stays unambiguous.
+ */
+const COMPONENT_UNSAFE_CHARS = /[^A-Za-z0-9._-]/g;
+
+/** Percent-encodes one UTF-16 code unit as a fixed-width `%XXXX` run. */
+const percentEncodeChar = (char: string): string =>
+  `%${char.charCodeAt(0).toString(16).toUpperCase().padStart(4, '0')}`;
+
+const encodeSegmentText = (raw: string, unsafeChars: RegExp): string => {
+  // Bare '%' cannot be produced by encoding (every encoded run is %XXXX),
+  // so it is a safe stand-in for the empty string.
+  if (raw === '') return '%';
+
+  const encoded = raw.replace(unsafeChars, percentEncodeChar);
+
+  // '.' and '..' are path navigation on every filesystem — encode the dots.
+  if (encoded === '.' || encoded === '..') {
+    return encoded.replace(/\./g, '%002E');
+  }
+
+  return encoded;
+};
+
+/**
+ * Canonical serialization of a single variant value into its identity string —
+ * the variant segment of a composite id, the chunk directory name in dynamic
+ * mode, and the runtime matching key.
  *
  * - `undefined` → `'default'` (the implicit fallback variant)
  * - a string → the string itself (a named variant)
  * - an object → its sorted `key=value` pairs joined by `&`
  *   (e.g. `{ userId: '123', id: 'abc' }` → `'id=abc&userId=123'`)
  *
+ * Characters that are unsafe in file paths or generated code are
+ * percent-encoded (fixed-width `%XXXX` runs, injective). Common names —
+ * letters, digits, `-` `_` `.` — are left untouched. Both the declaration and
+ * the selector go through this function, so encoding never affects matching.
+ *
  * Two variants resolve to the same entry iff their serializations are equal, so
  * an object variant in a selector must equal the one declared on the dictionary.
  */
 export const serializeVariant = (
-  variant: string | Record<string, string | number> | undefined
+  variant: DictionaryVariantValue | undefined
 ): string => {
   if (variant === undefined) return 'default';
-  if (typeof variant === 'string') return variant;
+  if (typeof variant === 'string') {
+    return encodeSegmentText(variant, SEGMENT_UNSAFE_CHARS);
+  }
 
   return Object.keys(variant)
     .sort()
-    .map((field) => `${field}=${variant[field]}`)
+    .map(
+      (field) =>
+        `${encodeSegmentText(field, COMPONENT_UNSAFE_CHARS)}=${encodeSegmentText(String(variant[field]), COMPONENT_UNSAFE_CHARS)}`
+    )
     .join('&');
+};
+
+/**
+ * Normalizes the `variant` field of a dictionary into the list of variant ids
+ * the declaration registers under. A single value yields one id; an **array**
+ * fans out into one id per element (duplicates collapsed). Returns `undefined`
+ * when the dictionary does not declare the variant dimension (no `variant`
+ * field, or an empty array).
+ */
+export const getVariantIds = (
+  variant: Dictionary['variant']
+): string[] | undefined => {
+  if (variant === undefined) return undefined;
+
+  const values = Array.isArray(variant) ? variant : [variant];
+  if (values.length === 0) return undefined;
+
+  return [...new Set(values.map(serializeVariant))];
 };
 
 /**
@@ -56,86 +119,83 @@ export const getDictionaryQualifierTypes = (
 ): DictionaryQualifierType[] => {
   const declaredQualifiers: DictionaryQualifierType[] = [];
 
-  if (dictionary.variant !== undefined) declaredQualifiers.push('variant');
+  if (getVariantIds(dictionary.variant) !== undefined) {
+    declaredQualifiers.push('variant');
+  }
   if (typeof dictionary.item === 'number') declaredQualifiers.push('item');
 
   return declaredQualifiers;
 };
 
 /**
- * Returns the qualifier identifier of a dictionary for the given qualifier
- * dimension — one segment of the composite entry id.
+ * Returns the qualifier identifiers of a dictionary for the given qualifier
+ * dimension — the candidate segments of the composite entry ids.
  *
- * - 'variant' → the serialized variant (named string or object identity)
- * - 'item' → the item index as string
+ * - 'variant' → the serialized variant id(s); an array variant yields one id
+ *   per element (declaration-side fan-out)
+ * - 'item' → the item index as a single-element list
  */
-export const getDictionaryQualifierId = (
+export const getDictionaryQualifierIds = (
   dictionary: Dictionary,
   qualifierType: DictionaryQualifierType
-): string | undefined => {
+): string[] | undefined => {
   if (qualifierType === 'variant') {
-    return dictionary.variant === undefined
-      ? undefined
-      : serializeVariant(dictionary.variant);
+    return getVariantIds(dictionary.variant);
   }
-  return dictionary.item === undefined ? undefined : String(dictionary.item);
+  return dictionary.item === undefined ? undefined : [String(dictionary.item)];
 };
 
 /**
- * Returns the per-dimension id segments of a dictionary for the given ordered
- * dimension set, or `undefined` when the dictionary does not declare every
- * dimension of the set.
+ * Builds every composite entry id of a dictionary — the cartesian product of
+ * its per-dimension id lists, joined in canonical order. A dictionary with a
+ * plain (non-array) variant yields exactly one id; an array variant fans out
+ * into one id per element. `undefined` when a dimension of the set is missing.
  */
-export const getDictionaryQualifierSegments = (
+export const getDictionaryCompositeIds = (
   dictionary: Dictionary,
   qualifierTypes: DictionaryQualifierType[]
 ): string[] | undefined => {
-  const segments: string[] = [];
+  let compositeIds: string[] = [''];
 
   for (const qualifierType of qualifierTypes) {
-    const id = getDictionaryQualifierId(dictionary, qualifierType);
-    if (id === undefined) return undefined;
-    segments.push(id);
+    const ids = getDictionaryQualifierIds(dictionary, qualifierType);
+    if (ids === undefined) return undefined;
+
+    compositeIds = compositeIds.flatMap((prefix) =>
+      ids.map((id) =>
+        prefix === '' ? id : `${prefix}${COMPOSITE_ID_SEPARATOR}${id}`
+      )
+    );
   }
 
-  return segments;
+  return compositeIds;
 };
 
 /**
- * Builds the composite entry id of a dictionary — its per-dimension id segments
- * joined in canonical order. `undefined` when a dimension is missing.
+ * Tests whether a composite entry id matches a selector across every declared
+ * dimension. Segments are compared in their encoded form (both the stored id
+ * and the selector go through {@link serializeVariant}). The `item` dimension
+ * matches any value when the selector does not provide one (open collection
+ * axis).
  */
-export const getDictionaryCompositeId = (
-  dictionary: Dictionary,
-  qualifierTypes: DictionaryQualifierType[]
-): string | undefined =>
-  getDictionaryQualifierSegments(dictionary, qualifierTypes)?.join(
-    COMPOSITE_ID_SEPARATOR
-  );
-
-/**
- * Tests whether a group entry matches a selector across every declared
- * dimension. The `item` dimension matches any value when the selector does not
- * provide one (open collection axis).
- */
-const entryMatchesSelector = (
-  entry: Dictionary,
+const compositeIdMatchesSelector = (
+  compositeId: string,
   qualifierTypes: DictionaryQualifierType[],
   selector: DictionarySelector | undefined
-): boolean =>
-  qualifierTypes.every((qualifierType) => {
+): boolean => {
+  const segments = compositeId.split(COMPOSITE_ID_SEPARATOR);
+
+  return qualifierTypes.every((qualifierType, index) => {
     if (qualifierType === 'variant') {
-      return (
-        serializeVariant(entry.variant) === serializeVariant(selector?.variant)
-      );
+      return segments[index] === serializeVariant(selector?.variant);
     }
 
     // qualifierType === 'item'
     return (
-      selector?.item === undefined ||
-      String(entry.item) === String(selector.item)
+      selector?.item === undefined || segments[index] === String(selector.item)
     );
   });
+};
 
 /**
  * Type guard discriminating a `QualifiedDictionaryGroup` (merge output of a
@@ -156,11 +216,11 @@ export const isQualifiedDictionaryGroup = (
  * qualified group: the content node stored under its composite id, plus the
  * qualifier coordinates decoded from that id (`variant`, `item`).
  *
- * This keeps the resolver's matching/transform code unchanged: it still sees a
+ * This keeps the resolver's transform code unchanged: it still sees a
  * `{ key, content, variant?, item? }` shape, even though the stored format no
  * longer duplicates those fields per entry. The `variant` coordinate stays in
- * its serialized form (e.g. `'id=abc&userId=123'`), which round-trips through
- * {@link serializeVariant} during matching.
+ * its serialized (encoded) form, e.g. `'id=abc&userId=123'` — matching happens
+ * on the composite id segments, never on this reconstructed field.
  */
 export const reconstructQualifiedEntry = (
   group: QualifiedDictionaryGroup,
@@ -211,10 +271,12 @@ export const resolveQualifiedDictionary = (
     qualifierTypes.includes('item') && selector?.item === undefined;
 
   const matchedEntries = Object.keys(content)
+    .filter((compositeId) =>
+      compositeIdMatchesSelector(compositeId, qualifierTypes, selector)
+    )
     .map((compositeId) =>
       reconstructQualifiedEntry(dictionaryOrGroup, compositeId)
-    )
-    .filter((entry) => entryMatchesSelector(entry, qualifierTypes, selector));
+    );
 
   if (itemAxisOpen) {
     return matchedEntries.sort(

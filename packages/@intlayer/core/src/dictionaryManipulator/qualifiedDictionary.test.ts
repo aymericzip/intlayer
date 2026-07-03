@@ -6,10 +6,11 @@ import { describe, expect, it } from 'vitest';
 import { t } from '../transpiler';
 import { mergeQualifiedDictionaries } from './mergeQualifiedDictionaries';
 import {
-  getDictionaryCompositeId,
-  getDictionaryQualifierId,
+  getDictionaryCompositeIds,
+  getDictionaryQualifierIds,
   getDictionaryQualifierTypes,
   getDictionarySelectorCacheKey,
+  getVariantIds,
   isQualifiedDictionaryGroup,
   isQualifiedDynamicLoaderMap,
   parseDictionarySelector,
@@ -18,6 +19,7 @@ import {
   resolveQualifiedDictionary,
   resolveQualifiedDynamicContent,
   resolveQualifiedDynamicContentAsync,
+  serializeVariant,
 } from './qualifiedDictionary';
 
 describe('getDictionaryQualifierTypes', () => {
@@ -59,43 +61,112 @@ describe('getDictionaryQualifierTypes', () => {
   });
 });
 
-describe('getDictionaryQualifierId', () => {
-  it('should return the entry identifier per qualifier dimension', () => {
-    expect(
-      getDictionaryQualifierId({ key: 'faq', item: 2, content: {} }, 'item')
-    ).toBe('2');
-    expect(
-      getDictionaryQualifierId(
-        { key: 'hero', variant: 'black-friday', content: {} },
-        'variant'
-      )
-    ).toBe('black-friday');
-    expect(
-      getDictionaryQualifierId(
-        { key: 'product', variant: { id: 'abc', userId: 'u1' }, content: {} },
-        'variant'
-      )
-    ).toBe('id=abc&userId=u1');
+describe('serializeVariant', () => {
+  it('should keep common variant names untouched', () => {
+    expect(serializeVariant('black-friday')).toBe('black-friday');
+    expect(serializeVariant('promo_2026.v1')).toBe('promo_2026.v1');
+    expect(serializeVariant(undefined)).toBe('default');
+  });
+
+  it('should percent-encode path-hostile and code-breaking characters', () => {
+    expect(serializeVariant('summer/2026')).toBe('summer%002F2026');
+    expect(serializeVariant("it's")).toBe('it%0027s');
+    expect(serializeVariant('a\\b')).toBe('a%005Cb');
+    expect(serializeVariant('50% off')).toBe('50%0025%0020off');
+  });
+
+  it('should encode pathological segments (dot navigation, empty string)', () => {
+    expect(serializeVariant('..')).toBe('%002E%002E');
+    expect(serializeVariant('.')).toBe('%002E');
+    expect(serializeVariant('')).toBe('%');
+  });
+
+  it('should serialize object variants with encoded components', () => {
+    expect(serializeVariant({ userId: 'u1', id: 'abc' })).toBe(
+      'id=abc&userId=u1'
+    );
+    // '=' and '&' inside a component are encoded so the pairs stay unambiguous.
+    expect(serializeVariant({ id: 'a&b=c' })).toBe('id=a%0026b%003Dc');
   });
 });
 
-describe('getDictionaryCompositeId', () => {
+describe('getVariantIds', () => {
+  it('should return undefined when the variant dimension is not declared', () => {
+    expect(getVariantIds(undefined)).toBeUndefined();
+    expect(getVariantIds([])).toBeUndefined();
+  });
+
+  it('should return one id for a single value', () => {
+    expect(getVariantIds('promo')).toEqual(['promo']);
+    expect(getVariantIds({ id: 'abc' })).toEqual(['id=abc']);
+  });
+
+  it('should fan an array out into one id per element, deduplicated', () => {
+    expect(getVariantIds(['black-friday', 'cyber-monday'])).toEqual([
+      'black-friday',
+      'cyber-monday',
+    ]);
+    expect(getVariantIds(['promo', 'promo'])).toEqual(['promo']);
+    expect(getVariantIds([{ id: 'abc' }, 'promo'])).toEqual([
+      'id=abc',
+      'promo',
+    ]);
+  });
+});
+
+describe('getDictionaryQualifierIds', () => {
+  it('should return the entry identifiers per qualifier dimension', () => {
+    expect(
+      getDictionaryQualifierIds({ key: 'faq', item: 2, content: {} }, 'item')
+    ).toEqual(['2']);
+    expect(
+      getDictionaryQualifierIds(
+        { key: 'hero', variant: 'black-friday', content: {} },
+        'variant'
+      )
+    ).toEqual(['black-friday']);
+    expect(
+      getDictionaryQualifierIds(
+        { key: 'product', variant: { id: 'abc', userId: 'u1' }, content: {} },
+        'variant'
+      )
+    ).toEqual(['id=abc&userId=u1']);
+  });
+});
+
+describe('getDictionaryCompositeIds', () => {
   it('should join per-dimension ids in the given order', () => {
     expect(
-      getDictionaryCompositeId(
+      getDictionaryCompositeIds(
         { key: 'x', variant: 'promo', item: 2, content: {} },
         ['variant', 'item']
       )
-    ).toBe('promo/2');
+    ).toEqual(['promo/2']);
   });
 
   it('should return undefined when a dimension is missing', () => {
     expect(
-      getDictionaryCompositeId({ key: 'x', item: 2, content: {} }, [
+      getDictionaryCompositeIds({ key: 'x', item: 2, content: {} }, [
         'variant',
         'item',
       ])
     ).toBeUndefined();
+  });
+
+  it('should fan an array variant out into one composite id per element', () => {
+    expect(
+      getDictionaryCompositeIds(
+        { key: 'x', variant: ['black-friday', 'cyber-monday'], content: {} },
+        ['variant']
+      )
+    ).toEqual(['black-friday', 'cyber-monday']);
+
+    expect(
+      getDictionaryCompositeIds(
+        { key: 'x', variant: ['a', 'b'], item: 1, content: {} },
+        ['variant', 'item']
+      )
+    ).toEqual(['a/1', 'b/1']);
   });
 });
 
@@ -285,6 +356,94 @@ describe('mergeQualifiedDictionaries', () => {
     ]);
     expect(group.content['category=audio&id=abc']).toEqual({ name: 'A' });
   });
+
+  it('should register an array variant under every listed id', () => {
+    const sales = {
+      key: 'hero',
+      variant: ['black-friday', 'cyber-monday'],
+      content: { title: 'Sales!' },
+    } satisfies Dictionary;
+    const control = {
+      key: 'hero',
+      variant: 'default',
+      content: { title: 'Welcome' },
+    } satisfies Dictionary;
+
+    const group = mergeQualifiedDictionaries([
+      sales,
+      control,
+    ]) as QualifiedDictionaryGroup;
+
+    expect(group.qualifierTypes).toEqual(['variant']);
+    expect(Object.keys(group.content).sort()).toEqual([
+      'black-friday',
+      'cyber-monday',
+      'default',
+    ]);
+    expect(group.content['black-friday']).toEqual({ title: 'Sales!' });
+    expect(group.content['cyber-monday']).toEqual({ title: 'Sales!' });
+    expect(group.content.default).toEqual({ title: 'Welcome' });
+  });
+
+  it('should let a sibling override one id of an array variant fan-out', () => {
+    const shared = {
+      key: 'hero',
+      variant: ['a', 'b'],
+      content: { title: 'shared', extra: 'kept' },
+      localId: 'hero::local::shared',
+    } satisfies Dictionary;
+    const overrideA = {
+      key: 'hero',
+      variant: 'a',
+      content: { title: 'a-specific' },
+      localId: 'hero::local::a',
+    } satisfies Dictionary;
+
+    const group = mergeQualifiedDictionaries([
+      overrideA,
+      shared,
+    ]) as QualifiedDictionaryGroup;
+
+    // 'a' merges the override with the shared fan-out; 'b' only gets the shared.
+    expect(group.content.a).toEqual({ title: 'a-specific', extra: 'kept' });
+    expect(group.content.b).toEqual({ title: 'shared', extra: 'kept' });
+  });
+
+  it('should treat an empty variant array as an unqualified sibling', () => {
+    const base = {
+      key: 'hero',
+      variant: [],
+      content: { shared: 'base' },
+    } satisfies Dictionary;
+    const named = {
+      key: 'hero',
+      variant: 'promo',
+      content: { title: 'promo' },
+    } satisfies Dictionary;
+
+    const group = mergeQualifiedDictionaries([
+      base,
+      named,
+    ]) as QualifiedDictionaryGroup;
+
+    expect(Object.keys(group.content)).toEqual(['promo']);
+    expect(group.content.promo).toEqual({ title: 'promo', shared: 'base' });
+  });
+
+  it('should encode unsafe variant names in composite ids', () => {
+    const seasonal = {
+      key: 'hero',
+      variant: 'summer/2026',
+      content: { title: 'Summer' },
+    } satisfies Dictionary;
+
+    const group = mergeQualifiedDictionaries([
+      seasonal,
+    ]) as QualifiedDictionaryGroup;
+
+    // '/' would collide with the composite-id separator — encoded instead.
+    expect(Object.keys(group.content)).toEqual(['summer%002F2026']);
+  });
 });
 
 describe('resolveQualifiedDictionary', () => {
@@ -439,6 +598,47 @@ describe('resolveQualifiedDictionary', () => {
       expect(
         resolveQualifiedDictionary(bannerGroup, { variant: 'default', item: 2 })
       ).toBeNull();
+    });
+  });
+
+  describe('array variant fan-out', () => {
+    const salesGroup = mergeQualifiedDictionaries([
+      {
+        key: 'hero',
+        variant: ['black-friday', 'cyber-monday'],
+        content: { title: 'Sales!' },
+      },
+      { key: 'hero', variant: 'default', content: { title: 'Welcome' } },
+    ]) as QualifiedDictionaryGroup;
+
+    it('should resolve every id an array variant registered', () => {
+      const blackFriday = resolveQualifiedDictionary(salesGroup, {
+        variant: 'black-friday',
+      });
+      const cyberMonday = resolveQualifiedDictionary(salesGroup, {
+        variant: 'cyber-monday',
+      });
+
+      expect((blackFriday as Dictionary).content).toEqual({ title: 'Sales!' });
+      expect((cyberMonday as Dictionary).content).toEqual({ title: 'Sales!' });
+      expect(
+        (resolveQualifiedDictionary(salesGroup) as Dictionary).content
+      ).toEqual({ title: 'Welcome' });
+    });
+  });
+
+  describe('encoded variant names', () => {
+    const seasonalGroup = mergeQualifiedDictionaries([
+      { key: 'hero', variant: 'summer/2026', content: { title: 'Summer' } },
+      { key: 'hero', variant: 'default', content: { title: 'Control' } },
+    ]) as QualifiedDictionaryGroup;
+
+    it('should match a selector against an encoded variant name', () => {
+      const resolved = resolveQualifiedDictionary(seasonalGroup, {
+        variant: 'summer/2026',
+      });
+
+      expect((resolved as Dictionary).content).toEqual({ title: 'Summer' });
     });
   });
 });

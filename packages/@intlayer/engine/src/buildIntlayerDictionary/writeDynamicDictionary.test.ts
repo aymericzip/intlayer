@@ -2,7 +2,14 @@ import { describe, expect, it } from 'vitest';
 import {
   generateDictionaryEntryPoint,
   generateQualifiedDictionaryEntryPoint,
+  type QualifiedEntrySegments,
 } from './writeDynamicDictionary';
+
+/** Shorthand for an entry that loads its own chunk (no aliasing). */
+const ownChunk = (segments: string[]): QualifiedEntrySegments => ({
+  treeSegments: segments,
+  chunkSegments: segments,
+});
 
 describe('generateDictionaryEntryPoint', () => {
   it('should emit one lazy import per locale for a plain dictionary (esm)', () => {
@@ -18,6 +25,16 @@ describe('generateDictionaryEntryPoint', () => {
     expect(content).toContain('export default content;');
     expect(content.indexOf("'en'")).toBeLessThan(content.indexOf("'fr'"));
   });
+
+  it('should escape quotes and backslashes in generated literals', () => {
+    const content = generateDictionaryEntryPoint("it's", ['en'], 'esm');
+
+    expect(content).toContain("import('./json/it\\'s/en.json')");
+    // The emitted module must stay parseable JavaScript.
+    expect(
+      () => new Function(content.replace(/export default.*/, ''))
+    ).not.toThrow();
+  });
 });
 
 describe('generateQualifiedDictionaryEntryPoint', () => {
@@ -25,7 +42,7 @@ describe('generateQualifiedDictionaryEntryPoint', () => {
     const content = generateQualifiedDictionaryEntryPoint(
       'faq',
       ['item'],
-      [['3'], ['1'], ['2']],
+      [ownChunk(['3']), ownChunk(['1']), ownChunk(['2'])],
       ['en', 'fr'],
       'esm'
     );
@@ -52,9 +69,9 @@ describe('generateQualifiedDictionaryEntryPoint', () => {
       'banner',
       ['variant', 'item'],
       [
-        ['promo', '1'],
-        ['promo', '2'],
-        ['default', '1'],
+        ownChunk(['promo', '1']),
+        ownChunk(['promo', '2']),
+        ownChunk(['default', '1']),
       ],
       ['en'],
       'esm'
@@ -76,11 +93,44 @@ describe('generateQualifiedDictionaryEntryPoint', () => {
     expect(content).toMatch(/'default':\s*\{/);
   });
 
+  it('should point aliased entries at the canonical chunk (array variant fan-out)', () => {
+    const content = generateQualifiedDictionaryEntryPoint(
+      'hero',
+      ['variant'],
+      [
+        ownChunk(['black-friday']),
+        // 'cyber-monday' shares the black-friday content → same chunk.
+        { treeSegments: ['cyber-monday'], chunkSegments: ['black-friday'] },
+        ownChunk(['default']),
+      ],
+      ['en'],
+      'esm'
+    );
+
+    // Both variant ids exist as tree keys…
+    expect(content).toMatch(/'black-friday':/);
+    expect(content).toMatch(/'cyber-monday':/);
+    // …but the alias imports the canonical chunk path.
+    expect(content).toContain(
+      "'cyber-monday': () => import('./json/hero/black-friday/en.json').then(m => m.default)"
+    );
+    // Only two distinct chunk paths are referenced.
+    const chunkPaths = new Set(
+      [...content.matchAll(/import\('([^']+)'\)/g)].map((match) => match[1])
+    );
+    expect(chunkPaths).toEqual(
+      new Set([
+        './json/hero/black-friday/en.json',
+        './json/hero/default/en.json',
+      ])
+    );
+  });
+
   it('should support the cjs format', () => {
     const content = generateQualifiedDictionaryEntryPoint(
       'hero',
       ['variant'],
-      [['promo'], ['default']],
+      [ownChunk(['promo']), ownChunk(['default'])],
       ['en'],
       'cjs'
     );

@@ -133,6 +133,18 @@ export type DictionaryKey = string;
 export type DictionaryQualifierType = 'variant' | 'item';
 
 /**
+ * A single variant value declared on a dictionary:
+ *
+ * - a **string** — a named alternative (`'black-friday'`)
+ * - an **object** — a structured discriminator whose canonical serialization
+ *   (sorted `key=value` pairs joined by `&`) is the variant identity
+ *
+ * The `variant` field of a dictionary accepts one value or an **array** of
+ * values — an array registers the same content under every listed variant id.
+ */
+export type DictionaryVariantValue = string | Record<string, string | number>;
+
+/**
  * Output of the merge step for a key whose dictionaries declare one or more
  * qualifier dimensions (`variant`, `item`).
  *
@@ -187,7 +199,7 @@ export type QualifiedDictionaryGroup = {
 export type DictionarySelector = {
   locale?: LocalesValues;
   item?: number;
-  variant?: string | Record<string, string | number>;
+  variant?: DictionaryVariantValue;
 };
 
 type QualifiedEntryContent<Entry> = Entry extends { content: infer Content }
@@ -626,11 +638,22 @@ type DictionaryBase = {
    *   const product = useIntlayer('product', { variant: { id: 'abc', userId: '123' } });
    *   ```
    *
+   * - **An array** of the above — registers the same content under every
+   *   listed variant id (the declaration fans out into one entry per id).
+   *   Selecting any of the ids resolves this content:
+   *
+   *   ```ts
+   *   // hero.sales.content.ts → { key: 'hero-banner', variant: ['black-friday', 'cyber-monday'], content: { ... } }
+   *
+   *   const heroBf = useIntlayer('hero-banner', { variant: 'black-friday' });  // → this content
+   *   const heroCm = useIntlayer('hero-banner', { variant: 'cyber-monday' });  // → same content
+   *   ```
+   *
    * Sibling dictionaries sharing the same key but different `variant` values
    * form the variant set. A sibling without any qualifier acts as shared base
    * content merged into every variant as fallback.
    */
-  variant?: string | Record<string, string | number>;
+  variant?: DictionaryVariantValue | DictionaryVariantValue[];
 
   /**
    * Transform the dictionary in a per-locale dictionary.

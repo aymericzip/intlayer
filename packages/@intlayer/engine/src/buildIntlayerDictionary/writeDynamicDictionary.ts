@@ -38,6 +38,14 @@ export type LocalizedDictionaryOutput = Record<
 const DICTIONARIES_SUBDIR = 'json'; // Necessary to add a static first dir for Turbopack
 
 /**
+ * Escapes a value interpolated into a single-quoted literal of a generated
+ * loader module, so keys or segments containing `'` or `\` cannot break the
+ * emitted JavaScript.
+ */
+const escapeJsLiteral = (value: string): string =>
+  value.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+
+/**
  * Generates the content of a dictionary entry point file.
  */
 export const generateDictionaryEntryPoint = (
@@ -49,12 +57,15 @@ export const generateDictionaryEntryPoint = (
     String(a).localeCompare(String(b))
   );
 
+  const safeKey = escapeJsLiteral(key);
+
   const localeEntries = sortedLocales
-    .map((locale) =>
-      format === 'esm'
-        ? `  '${locale}': () => import('./${DICTIONARIES_SUBDIR}/${key}/${locale}.json').then(m => m.default)`
-        : `  '${locale}': () => Promise.resolve(require('./${DICTIONARIES_SUBDIR}/${key}/${locale}.json'))`
-    )
+    .map((locale) => {
+      const safeLocale = escapeJsLiteral(locale);
+      return format === 'esm'
+        ? `  '${safeLocale}': () => import('./${DICTIONARIES_SUBDIR}/${safeKey}/${safeLocale}.json').then(m => m.default)`
+        : `  '${safeLocale}': () => Promise.resolve(require('./${DICTIONARIES_SUBDIR}/${safeKey}/${safeLocale}.json'))`;
+    })
     .join(',\n');
 
   if (format === 'esm') {
@@ -72,13 +83,29 @@ export const generateDictionaryEntryPoint = (
  */
 type LoaderTree = { [segment: string]: LoaderTree | string };
 
+/**
+ * One entry of a qualified loader map.
+ *
+ * `treeSegments` is where the entry lives in the loader tree (its composite id
+ * segments); `chunkSegments` is the chunk path it loads. They differ when the
+ * entry aliases another entry with identical content (e.g. array-variant
+ * fan-out): the alias keeps its own tree position but points at the canonical
+ * entry's chunk, so equal content is emitted — and downloaded — only once.
+ */
+export type QualifiedEntrySegments = {
+  treeSegments: string[];
+  chunkSegments: string[];
+};
+
 const buildLoaderExpression = (
   key: string,
-  segments: string[],
+  chunkSegments: string[],
   locale: string,
   format: 'cjs' | 'esm'
 ): string => {
-  const path = `./${DICTIONARIES_SUBDIR}/${key}/${segments.join('/')}/${locale}.json`;
+  const path = escapeJsLiteral(
+    `./${DICTIONARIES_SUBDIR}/${key}/${chunkSegments.join('/')}/${locale}.json`
+  );
 
   return format === 'esm'
     ? `() => import('${path}').then(m => m.default)`
@@ -87,18 +114,23 @@ const buildLoaderExpression = (
 
 const buildLoaderTree = (
   key: string,
-  entriesSegments: string[][],
+  entries: QualifiedEntrySegments[],
   locale: string,
   format: 'cjs' | 'esm'
 ): LoaderTree => {
   const root: LoaderTree = {};
 
-  for (const segments of entriesSegments) {
+  for (const { treeSegments, chunkSegments } of entries) {
     let node = root;
 
-    segments.forEach((segment, index) => {
-      if (index === segments.length - 1) {
-        node[segment] = buildLoaderExpression(key, segments, locale, format);
+    treeSegments.forEach((segment, index) => {
+      if (index === treeSegments.length - 1) {
+        node[segment] = buildLoaderExpression(
+          key,
+          chunkSegments,
+          locale,
+          format
+        );
         return;
       }
 
@@ -123,7 +155,7 @@ const serializeLoaderTree = (tree: LoaderTree, indentLevel: number): string => {
           ? value
           : serializeLoaderTree(value, indentLevel + 1);
 
-      return `${innerPad}'${segment}': ${serialized}`;
+      return `${innerPad}'${escapeJsLiteral(segment)}': ${serialized}`;
     });
 
   return `{\n${lines.join(',\n')}\n${pad}}`;
@@ -137,12 +169,13 @@ const serializeLoaderTree = (tree: LoaderTree, indentLevel: number): string => {
  *
  * One static `import()` is emitted per leaf `(locale, …segments)` chunk, which
  * keeps the output compatible with bundlers that reject template-literal
- * dynamic imports (Turbopack).
+ * dynamic imports (Turbopack). Entries whose content is identical share one
+ * chunk: their leaves point at the canonical entry's import path.
  */
 export const generateQualifiedDictionaryEntryPoint = (
   key: string,
   qualifierTypes: DictionaryQualifierType[],
-  entriesSegments: string[][],
+  entries: QualifiedEntrySegments[],
   locales: string[],
   format: 'cjs' | 'esm' = 'esm'
 ): string => {
@@ -152,8 +185,8 @@ export const generateQualifiedDictionaryEntryPoint = (
 
   const localeEntries = sortedLocales
     .map((locale) => {
-      const tree = buildLoaderTree(key, entriesSegments, locale, format);
-      return `  '${locale}': ${serializeLoaderTree(tree, 1)}`;
+      const tree = buildLoaderTree(key, entries, locale, format);
+      return `  '${escapeJsLiteral(locale)}': ${serializeLoaderTree(tree, 1)}`;
     })
     .join(',\n');
 
@@ -304,17 +337,35 @@ export const writeDynamicQualifiedDictionaries = async (
       const keyDir = resolve(dictDir, key);
       assertPathWithin(keyDir, dictDir);
 
-      // Per-entry segment lists (one segment per declared dimension), reused for
-      // both the chunk paths and the generated loader tree.
-      const entriesSegments: string[][] = [];
+      // Entries with identical content (e.g. array-variant fan-out) share one
+      // chunk: only the first entry per content identity writes files; the
+      // others become aliases whose loaders point at the canonical chunk path.
+      const canonicalSegmentsByContent = new Map<string, string[]>();
+      const entries: QualifiedEntrySegments[] = [];
+      const canonicalEntryIds: string[] = [];
 
-      await parallelize(entryIds, async (entryId) => {
+      for (const entryId of entryIds) {
+        const treeSegments = entryId.split(COMPOSITE_ID_SEPARATOR);
+        const contentIdentity = JSON.stringify(group.content[entryId]);
+        const canonicalSegments =
+          canonicalSegmentsByContent.get(contentIdentity);
+
+        if (canonicalSegments) {
+          entries.push({ treeSegments, chunkSegments: canonicalSegments });
+          continue;
+        }
+
+        canonicalSegmentsByContent.set(contentIdentity, treeSegments);
+        entries.push({ treeSegments, chunkSegments: treeSegments });
+        canonicalEntryIds.push(entryId);
+      }
+
+      await parallelize(canonicalEntryIds, async (entryId) => {
         // Rebuild a resolvable dictionary from the content node + composite id
-        // so per-locale extraction sees the same `{ key, content, meta? }` shape.
+        // so per-locale extraction sees the same `{ key, content }` shape.
         const entry = reconstructQualifiedEntry(group, entryId);
 
         const segments = entryId.split(COMPOSITE_ID_SEPARATOR);
-        entriesSegments.push(segments);
 
         const entryDir = resolve(keyDir, ...segments);
         assertPathWithin(entryDir, keyDir);
@@ -346,7 +397,7 @@ export const writeDynamicQualifiedDictionaries = async (
         const content = generateQualifiedDictionaryEntryPoint(
           key,
           group.qualifierTypes,
-          entriesSegments,
+          entries,
           locales,
           format
         );

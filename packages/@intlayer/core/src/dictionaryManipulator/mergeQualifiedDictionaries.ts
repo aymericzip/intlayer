@@ -7,7 +7,7 @@ import type {
 } from '@intlayer/types/dictionary';
 import { mergeDictionaries } from './mergeDictionaries';
 import {
-  getDictionaryCompositeId,
+  getDictionaryCompositeIds,
   getDictionaryQualifierTypes,
   QUALIFIER_ORDER,
 } from './qualifiedDictionary';
@@ -52,17 +52,19 @@ export const mergeQualifiedDictionaries = (
   const entriesDictionaries = new Map<string, Dictionary[]>();
 
   dictionaries.forEach((dictionary, index) => {
-    if (perDictionaryTypes[index].length === 0) {
+    if (perDictionaryTypes[index]?.length === 0) {
       baseDictionaries.push(dictionary);
       return;
     }
 
-    const compositeId = getDictionaryCompositeId(
+    // A dictionary may map to several composite ids (array variant fan-out):
+    // its content is registered under every id it lists.
+    const compositeIds = getDictionaryCompositeIds(
       dictionary,
       groupQualifierTypes
     );
 
-    if (compositeId === undefined) {
+    if (compositeIds === undefined) {
       appLogger(
         `Dictionary ${colorizeKey(dictionary.key)} declares (${perDictionaryTypes[index].join(', ')}) but the key's dimensions are (${groupQualifierTypes.join(', ')}); every entry must declare all of them. Entry ignored${dictionary.filePath ? ` - ${dictionary.filePath}` : ''}.`,
         { level: 'error' }
@@ -70,9 +72,11 @@ export const mergeQualifiedDictionaries = (
       return;
     }
 
-    const existingEntries = entriesDictionaries.get(compositeId) ?? [];
-    existingEntries.push(dictionary);
-    entriesDictionaries.set(compositeId, existingEntries);
+    for (const compositeId of compositeIds) {
+      const existingEntries = entriesDictionaries.get(compositeId) ?? [];
+      existingEntries.push(dictionary);
+      entriesDictionaries.set(compositeId, existingEntries);
+    }
   });
 
   // `content` maps each composite id to its resolved content node directly; the
