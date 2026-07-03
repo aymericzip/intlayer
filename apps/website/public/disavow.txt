@@ -1,3 +1,9 @@
+domain:seochest.shop
+domain:seofinds.shop
+domain:rankchest.shop
+domain:83ebfv.info
+domain:rankdepot.shop
+
 domain:backlinksbank.com
 domain:seoprime.shop
 domain:666whc3.info
