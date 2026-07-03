@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/engine",
-  "version": "9.0.0-canary.11",
+  "version": "9.0.0-canary.12",
   "private": false,
   "description": "Scans and builds Intlayer declaration files into dictionaries based on Intlayer configuration.",
   "keywords": [
