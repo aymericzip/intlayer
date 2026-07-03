@@ -5,6 +5,7 @@ import * as projectService from '@services/project.service';
 import * as tagService from '@services/tag.service';
 import * as userService from '@services/user.service';
 import { hasPermission, type Roles } from '@utils/permissions';
+import type { CoreTool } from 'ai';
 import { Types } from 'mongoose';
 
 export type ClientAction =
@@ -39,7 +40,7 @@ export const createSessionTools = ({
   onAction,
   roles,
   session,
-}: SessionContext) => ({
+}: SessionContext): Record<string, CoreTool<any, any>> => ({
   // ---- DICTIONARY READ TOOLS ----
 
   list_dictionaries: tool({
@@ -611,7 +612,7 @@ export const createSessionTools = ({
         if (!tags || tags.length === 0)
           return JSON.stringify({ error: `Tag "${params.key}" not found` });
 
-        const tag = tags[0];
+        const tag = tags[0]!;
         return JSON.stringify({
           id: tag.id,
           key: tag.key,
@@ -718,7 +719,7 @@ export const createSessionTools = ({
 
         const { key: _key, ...updates } = params;
         const tag = await tagService.updateTagById(
-          String(tags[0].id),
+          String(tags[0]!.id),
           updates as any
         );
 
@@ -760,7 +761,7 @@ export const createSessionTools = ({
         if (!tags || tags.length === 0)
           return JSON.stringify({ error: `Tag "${params.key}" not found` });
 
-        await tagService.deleteTagById(String(tags[0].id));
+        await tagService.deleteTagById(String(tags[0]!.id));
         return JSON.stringify({ success: true, key: params.key });
       } catch (err) {
         return JSON.stringify({ error: String(err) });
