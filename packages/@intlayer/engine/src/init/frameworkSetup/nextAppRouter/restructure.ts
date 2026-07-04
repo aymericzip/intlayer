@@ -2,6 +2,7 @@ import { mkdir, readdir, readFile, rename, writeFile } from 'node:fs/promises';
 import { dirname, isAbsolute, join, relative, resolve, sep } from 'node:path';
 import fg from 'fast-glob';
 import * as recast from 'recast';
+import { babelTsParser } from '../../../utils/recastBabelParser';
 
 const { namedTypes: n } = recast.types;
 
@@ -113,9 +114,7 @@ export const rewriteRelativeImports = (
   context: RewriteContext
 ): string => {
   // babel-ts handles TypeScript *and* JSX (App Router files are `.tsx`).
-  const ast = recast.parse(code, {
-    parser: require('recast/parsers/babel-ts'),
-  });
+  const ast = recast.parse(code, { parser: babelTsParser });
 
   let changed = false;
 

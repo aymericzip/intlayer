@@ -1,5 +1,6 @@
 import type { RoutingConfig } from '@intlayer/types/config';
 import * as recast from 'recast';
+import { typescriptParser } from '../../utils/recastBabelParser';
 import { isModuleScopeBinding } from './astImports';
 import type {
   CompatSyncConfig,
@@ -112,7 +113,7 @@ export const setIntlayerConfigRoutingMode = (
   }
 
   const ast = recast.parse(content, {
-    parser: require('recast/parsers/typescript'),
+    parser: typescriptParser,
   });
 
   genericRecastVisit(ast, (objExpr) => {
@@ -137,6 +138,50 @@ export const setIntlayerConfigRoutingMode = (
 };
 
 /**
+ * Sets `compiler.output` in an Intlayer configuration file to the given path
+ * template (the `{{variable}}` string form, e.g.
+ * `/locales/{{locale}}/{{key}}.content.json`). Idempotent: re-running with the
+ * same template produces identical output. Supports `.ts`, `.mjs`, `.js` and
+ * `.cjs` configs; JSON configs are supported too since the template is a plain
+ * string.
+ */
+export const setIntlayerConfigCompilerOutput = (
+  content: string,
+  extension: string,
+  outputTemplate: string
+): string => {
+  if (extension === 'json') {
+    const parsed = JSON.parse(content);
+    parsed.compiler = { ...parsed.compiler, output: outputTemplate };
+    return JSON.stringify(parsed, null, 2);
+  }
+
+  const ast = recast.parse(content, {
+    parser: typescriptParser,
+  });
+
+  genericRecastVisit(ast, (objExpr) => {
+    if (!isObjectExpression(objExpr)) return;
+
+    const compilerProperty = ensureObjectProperty(
+      objExpr,
+      'compiler',
+      b.objectExpression([])
+    );
+
+    if (!isObjectExpression(compilerProperty.value)) return;
+
+    setObjectPropertyValue(
+      compilerProperty.value,
+      'output',
+      b.stringLiteral(outputTemplate)
+    );
+  });
+
+  return recast.print(ast).code;
+};
+
+/**
  * Enables the Intlayer visual editor in a configuration file: sets
  * `editor.enabled` to `true` and wires `clientId` / `clientSecret` to the
  * `INTLAYER_CLIENT_ID` / `INTLAYER_CLIENT_SECRET` environment variables.
@@ -146,7 +191,7 @@ export const setIntlayerConfigRoutingMode = (
  */
 export const enableIntlayerEditorConfig = (content: string): string => {
   const ast = recast.parse(content, {
-    parser: require('recast/parsers/typescript'),
+    parser: typescriptParser,
   });
 
   genericRecastVisit(ast, (objExpr) => {
@@ -353,7 +398,7 @@ export const updateViteConfig = (
   extension: string
 ): string => {
   const ast = recast.parse(content, {
-    parser: require('recast/parsers/typescript'),
+    parser: typescriptParser,
   });
 
   const isCJSFile =
@@ -374,7 +419,7 @@ export const updateAstroConfig = (
   extension: string
 ): string => {
   const ast = recast.parse(content, {
-    parser: require('recast/parsers/typescript'),
+    parser: typescriptParser,
   });
 
   const isCJSFile =
@@ -395,7 +440,7 @@ export const updateNextConfig = (
   extension: string
 ): string => {
   const ast = recast.parse(content, {
-    parser: require('recast/parsers/typescript'),
+    parser: typescriptParser,
   });
 
   const isCJSFile = extension === 'cjs' || content.includes('module.exports');
@@ -475,7 +520,7 @@ export const updateMetroConfig = (
   }
 
   const ast = recast.parse(content, {
-    parser: require('recast/parsers/typescript'),
+    parser: typescriptParser,
   });
 
   const isCJSFile =
@@ -560,7 +605,7 @@ module.exports = (async () => {
 
 export const updateNuxtConfig = (content: string): string => {
   const ast = recast.parse(content, {
-    parser: require('recast/parsers/typescript'),
+    parser: typescriptParser,
   });
 
   const updateConfigObject = (objExpr: any) => {
@@ -624,7 +669,7 @@ export const updateViteConfigForVueI18n = (
   extension: string
 ): string => {
   const ast = recast.parse(content, {
-    parser: require('recast/parsers/typescript'),
+    parser: typescriptParser,
   });
 
   const isCJSFile =
@@ -656,7 +701,7 @@ export const updateViteConfigForCompatPlugin = (
   pluginConfig: CompatVitePluginConfig
 ): string => {
   const ast = recast.parse(content, {
-    parser: require('recast/parsers/typescript'),
+    parser: typescriptParser,
   });
 
   const isCJSFile =
@@ -693,7 +738,7 @@ export const replaceViteConfigPluginImportSource = (
   toPackageSource: string
 ): string => {
   const ast = recast.parse(content, {
-    parser: require('recast/parsers/typescript'),
+    parser: typescriptParser,
   });
 
   let changed = false;
@@ -735,7 +780,7 @@ const wrapNextConfigWithHoc = (
   pluginPackageSource: string
 ): string => {
   const ast = recast.parse(content, {
-    parser: require('recast/parsers/typescript'),
+    parser: typescriptParser,
   });
 
   const isCJSFile = extension === 'cjs' || content.includes('module.exports');
@@ -807,7 +852,7 @@ export const updateNextConfigForNextTranslate = (
  */
 export const updateNuxtConfigForNuxtjsI18n = (content: string): string => {
   const ast = recast.parse(content, {
-    parser: require('recast/parsers/typescript'),
+    parser: typescriptParser,
   });
 
   const updateConfigObject = (objExpr: any) => {
@@ -890,7 +935,7 @@ export const updateNextConfigForNextIntl = (
   extension: string
 ): string => {
   const ast = recast.parse(content, {
-    parser: require('recast/parsers/typescript'),
+    parser: typescriptParser,
   });
 
   const isCJSFile = extension === 'cjs' || content.includes('module.exports');
@@ -1052,7 +1097,7 @@ const buildSyncCallNode = (syncConfig: CompatSyncConfig): any => {
   // they become proper template expressions once the snippet is parsed by recast.
   const snippet = `${functionName}({ ${formatProperty}source: (${paramDestructuring}) => \`${syncConfig.sourceTemplate}\`${splitKeysProperty} })`;
   const snippetAst = recast.parse(snippet, {
-    parser: require('recast/parsers/typescript'),
+    parser: typescriptParser,
   });
   return (snippetAst.program.body[0] as any).expression;
 };
@@ -1114,7 +1159,7 @@ export const updateIntlayerConfigWithSyncPlugin = (
   syncConfig: CompatSyncConfig
 ): string => {
   const ast = recast.parse(content, {
-    parser: require('recast/parsers/typescript'),
+    parser: typescriptParser,
   });
 
   const isCJSFile = extension === 'cjs' || content.includes('module.exports');

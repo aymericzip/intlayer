@@ -7,15 +7,6 @@ import {
   searchConfigurationFile,
 } from '@intlayer/config/node';
 
-/**
- * UTILITIES
- */
-const rootDir = process.cwd();
-
-// Helper to write a file
-const writeFileToRoot = async (filePath: string, content: string) =>
-  await writeFile(join(rootDir, filePath), content, 'utf8');
-
 type ConfigFormat = 'ts' | 'cjs' | 'mjs' | 'js' | 'json';
 
 const getTemplatePath = (format: ConfigFormat) => {
@@ -35,13 +26,25 @@ const getTemplatePath = (format: ConfigFormat) => {
   }
 };
 
+/** Values injected into the configuration file template. */
+export type InitConfigOptions = {
+  /** Locales detected in the project, inserted into `internationalization.locales`. */
+  locales?: string[];
+  /**
+   * Dev-server URL of the detected framework, inserted as
+   * `editor.applicationURL` (the template defaults to `http://localhost:3000`).
+   */
+  applicationURL?: string;
+};
+
 /**
- * Initialize the Intlayer configuration file
+ * Initialize the Intlayer configuration file. No-ops when a configuration file
+ * already exists at `baseDir`.
  */
 export const initConfig = async (
   format: (typeof configurationFilesCandidates)[number],
   baseDir: string,
-  locales?: string[]
+  options?: InitConfigOptions
 ) => {
   //   Search for configuration file
   const { configurationFilePath } = searchConfigurationFile(baseDir);
@@ -59,6 +62,8 @@ export const initConfig = async (
   const templatePath = getTemplatePath(extension);
   let configContent = readAsset(templatePath);
 
+  const { locales, applicationURL } = options ?? {};
+
   if (locales && locales.length > 0) {
     if (extension === 'json') {
       const localesString = JSON.stringify(locales);
@@ -69,6 +74,13 @@ export const initConfig = async (
     }
   }
 
-  await writeFileToRoot(format, configContent);
+  if (applicationURL) {
+    configContent = configContent.replace(
+      'http://localhost:3000',
+      applicationURL
+    );
+  }
+
+  await writeFile(join(baseDir, format), configContent, 'utf8');
   logger(`${v} Created ${colorizePath(format)}`);
 };

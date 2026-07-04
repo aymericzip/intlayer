@@ -4,6 +4,7 @@ import fg from 'fast-glob';
 import {
   enableIntlayerEditorConfig,
   type RoutingMode,
+  setIntlayerConfigCompilerOutput,
   setIntlayerConfigRoutingMode,
 } from './utils/configManipulation';
 import { exists, readFileFromRoot, writeFileToRoot } from './utils/fileSystem';
@@ -192,6 +193,37 @@ export const setRoutingModeInConfig = async (
     await writeFileToRoot(rootDir, configFile, updatedContent);
     logger(
       `${v} Set ${colorize(`routing.mode = '${mode}'`, ANSIColors.GREY_LIGHT)} in ${colorizePath(configFile)}`
+    );
+  }
+
+  return configFile;
+};
+
+/**
+ * Sets `compiler.output` in the project's Intlayer configuration file to the
+ * given `{{variable}}` path template. Returns the config file that was updated,
+ * or `undefined` when none was found.
+ */
+export const setCompilerOutputInConfig = async (
+  rootDir: string,
+  outputTemplate: string
+): Promise<string | undefined> => {
+  const configFile = await findIntlayerConfigFile(rootDir);
+
+  if (!configFile) return undefined;
+
+  const extension = configFile.split('.').pop()!;
+  const content = await readFileFromRoot(rootDir, configFile);
+  const updatedContent = setIntlayerConfigCompilerOutput(
+    content,
+    extension,
+    outputTemplate
+  );
+
+  if (updatedContent !== content) {
+    await writeFileToRoot(rootDir, configFile, updatedContent);
+    logger(
+      `${v} Set ${colorize(`compiler.output = '${outputTemplate}'`, ANSIColors.GREY_LIGHT)} in ${colorizePath(configFile)}`
     );
   }
 

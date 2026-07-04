@@ -1,9 +1,10 @@
 import * as recast from 'recast';
 import { describe, expect, it } from 'vitest';
+import { babelTsParser } from '../../utils/recastBabelParser';
 import { ensureNamedImport, isModuleScopeBinding } from './astImports';
 
 const parse = (code: string): any =>
-  recast.parse(code, { parser: require('recast/parsers/babel-ts') });
+  recast.parse(code, { parser: babelTsParser });
 
 const print = (ast: any): string => recast.print(ast).code;
 

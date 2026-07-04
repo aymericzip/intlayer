@@ -1,11 +1,12 @@
 import * as recast from 'recast';
+import { babelTsParser } from '../../../utils/recastBabelParser';
 import { ensureNamedImport, firstInsertIndex } from '../../utils/astImports';
 
 const { builders: b } = recast.types;
 
 /** babel-ts parser handles TypeScript *and* JSX (the `typescript` parser does not). */
 const parseTsx = (code: string): any =>
-  recast.parse(code, { parser: require('recast/parsers/babel-ts') });
+  recast.parse(code, { parser: babelTsParser });
 
 /** Result of a source transform. `code` is unchanged for any non-`wrapped` status. */
 export type TransformResult = {
