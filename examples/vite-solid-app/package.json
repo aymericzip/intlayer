@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "vite build",
+    "build": "tsc && vite build",
     "dev": "bun --bun vite",
     "preview": "bun --bun vite preview",
     "start:editor": "bun intlayer-editor start -e development --with 'vite dev'"
@@ -13,7 +13,7 @@
     "@solidjs/router": "0.16.1",
     "intlayer": "workspace:*",
     "solid-intlayer": "workspace:*",
-    "solid-js": "1.9.13"
+    "solid-js": "1.9.14"
   },
   "devDependencies": {
     "intlayer-editor": "workspace:*",
