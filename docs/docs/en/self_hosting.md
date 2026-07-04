@@ -18,7 +18,7 @@ author: aymericzip
 
 # Self-Hosting Intlayer
 
-Intlayer can run on your own infrastructure — no Intlayer Cloud account required. A single all-in-one Docker image bundles the dashboard, the API, and the local datastores (Redis and MinIO) it needs, supervised by [s6-overlay](https://github.com/just-containers/s6-overlay).
+Intlayer can run on your own infrastructure. No Intlayer Cloud account required. A single all-in-one Docker image bundles the dashboard, the API, and the local datastores (Redis and MinIO) it needs, supervised by [s6-overlay](https://github.com/just-containers/s6-overlay).
 
 The only external dependency is **MongoDB**: the backend connects to a MongoDB **Atlas** cluster, which you provide. Everything else runs inside the container.
 
@@ -45,7 +45,7 @@ The only external dependency is **MongoDB**: the backend connects to a MongoDB *
                    (console)
 ```
 
-Chromium (used for Puppeteer screenshot generation) is bundled inside the image — no separate container is needed. Redis and MinIO run inside the container. MongoDB is **not** hosted by the image; the backend connects to your Atlas cluster over `mongodb+srv://`.
+Chromium (used for Puppeteer screenshot generation) is bundled inside the image. No separate container is needed. Redis and MinIO run inside the container. MongoDB is **not** hosted by the image; the backend connects to your Atlas cluster over `mongodb+srv://`.
 
 ---
 

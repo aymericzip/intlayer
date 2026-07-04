@@ -19,7 +19,7 @@ author: aymericzip
 
 # Self-Hosting Intlayer
 
-Intlayer can run entirely on your own infrastructure — no Intlayer Cloud account required. A single command boots a production-ready stack:
+Intlayer can run entirely on your own infrastructure. No Intlayer Cloud account required. A single command boots a production-ready stack:
 
 ```sh
 curl -fsSL https://intlayer.org/install.sh | sh
@@ -50,7 +50,7 @@ The installer downloads a `docker-compose.yml` and a `.env`, auto-generates the 
                              (console)    (web UI)
 ```
 
-Chromium (used for Puppeteer screenshot generation) is bundled inside the backend image — no separate container is needed.
+Chromium (used for Puppeteer screenshot generation) is bundled inside the backend image. No separate container is needed.
 
 ---
 
