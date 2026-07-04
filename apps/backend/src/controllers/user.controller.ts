@@ -21,6 +21,7 @@ import {
   type PaginatedResponse,
   type ResponseData,
 } from '@utils/responseData';
+import { beginServerSentEventStream } from '@utils/serverSentEvents';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { t } from 'fastify-intlayer';
 import type { User, UserAPI } from '@/types/user.types';
@@ -489,7 +490,7 @@ export const uploadAvatar = async (
 
   const rawContentType = request.headers['content-type'] ?? '';
   // Strip parameters like "; charset=utf-8" to get the bare MIME type
-  const contentType = rawContentType.split(';')[0].trim() || 'image/jpeg';
+  const contentType = rawContentType.split(';')[0]?.trim() || 'image/jpeg';
   const contentLength = Number(request.headers['content-length'] ?? 0);
 
   logger.info('uploadAvatar request', {
@@ -681,15 +682,7 @@ export const verifyEmailStatusSSE = async (
     return ErrorHandler.handleGenericErrorResponse(reply, 'PERMISSION_DENIED');
   }
 
-  // Set headers for SSE
-  reply.raw.setHeader('Content-Type', 'text/event-stream;charset=utf-8');
-  reply.raw.setHeader('Cache-Control', 'no-cache, no-transform');
-  reply.raw.setHeader('Connection', 'keep-alive');
-  reply.raw.setHeader('X-Accel-Buffering', 'no'); // For Nginx buffering
-
-  // Send initial data to ensure the connection is open
-  reply.raw.write(':\n\n'); // Comment to keep connection alive
-  reply.raw.flushHeaders?.();
+  beginServerSentEventStream(reply);
 
   const clientId = Date.now();
 

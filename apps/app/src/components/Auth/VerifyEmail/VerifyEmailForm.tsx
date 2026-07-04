@@ -59,9 +59,9 @@ export const VerifyEmailForm: FC<VerifyEmailFormProps> = ({
       }
     };
 
-    eventSource.onerror = () => {
-      eventSource.close();
-    };
+    // No onerror handler: EventSource reconnects automatically after transient
+    // failures (server restart, dropped connection), and the backend re-sends
+    // the current verification status on each (re)connection.
 
     return () => eventSource.close();
   }, [handleVerified, targetedUserId, isEmailVerified]);

@@ -1,5 +1,6 @@
 import { logger } from '@logger';
 import { ErrorHandler } from '@utils/errors';
+import { beginServerSentEventStream } from '@utils/serverSentEvents';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import type { DictionaryAPI } from '@/types/dictionary.types';
 
@@ -62,15 +63,7 @@ export const listenChangeSSE = async (
     );
   }
 
-  // Set headers for SSE
-  reply.raw.setHeader('Content-Type', 'text/event-stream;charset=utf-8');
-  reply.raw.setHeader('Cache-Control', 'no-cache, no-transform');
-  reply.raw.setHeader('Connection', 'keep-alive');
-  reply.raw.setHeader('X-Accel-Buffering', 'no'); // For Nginx buffering
-
-  // Send initial data to ensure the connection is open
-  reply.raw.write(':\n\n'); // Comment to keep connection alive
-  reply.raw.flushHeaders?.();
+  beginServerSentEventStream(reply);
 
   const clientId = Date.now();
 

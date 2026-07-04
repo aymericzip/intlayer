@@ -63,13 +63,24 @@ export const useUpdateOrganizationMailerConfig = () => {
 
 export const useUpdateOrganizationMembers = () => {
   const organizationAPI = useOrganizationAPI();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: ['organizations'],
     mutationFn: (args: UpdateOrganizationMembersBody) =>
       organizationAPI.updateOrganizationMembers(args),
     meta: {
-      invalidateQueries: [['organizations'], ['users']],
+      invalidateQueries: [['organizations'], ['users'], ['session']],
+    },
+    onSuccess: (data) => {
+      // Patch the session cache immediately so member lists derived from
+      // `session.organization` update without waiting for a refetch
+      const session = queryClient.getQueryData(['session']);
+
+      queryClient.setQueryData(['session'], {
+        ...(session ?? {}),
+        organization: data.data,
+      });
     },
   });
 };
@@ -95,13 +106,24 @@ export const useUpdateOrganizationMembersById = () => {
 
 export const useAddOrganizationMember = () => {
   const organizationAPI = useOrganizationAPI();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: ['organizations'],
     mutationFn: (args: AddOrganizationMemberBody) =>
       organizationAPI.addOrganizationMember(args),
     meta: {
-      invalidateQueries: [['organizations']],
+      invalidateQueries: [['organizations'], ['users'], ['session']],
+    },
+    onSuccess: (data) => {
+      // Patch the session cache immediately so member lists derived from
+      // `session.organization` update without waiting for a refetch
+      const session = queryClient.getQueryData(['session']);
+
+      queryClient.setQueryData(['session'], {
+        ...(session ?? {}),
+        organization: data.data,
+      });
     },
   });
 };

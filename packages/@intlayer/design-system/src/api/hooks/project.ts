@@ -103,13 +103,24 @@ export const usePushProjectConfiguration = () => {
 
 export const useUpdateProjectMembers = () => {
   const projectAPI = useProjectAPI();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: ['projects'],
     mutationFn: (args: UpdateProjectMembersBody) =>
       projectAPI.updateProjectMembers(args),
     meta: {
-      invalidateQueries: [['projects']],
+      invalidateQueries: [['projects'], ['users'], ['session']],
+    },
+    onSuccess: (data) => {
+      // Patch the session cache immediately so member lists derived from
+      // `session.project` update without waiting for a refetch
+      const session = queryClient.getQueryData(['session']);
+
+      queryClient.setQueryData(['session'], {
+        ...(session ?? {}),
+        project: data.data,
+      });
     },
   });
 };

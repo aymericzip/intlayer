@@ -10,7 +10,7 @@ import {
 import { Form, FormButton } from '@intlayer/design-system/form';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
-import { type FC, useEffect } from 'react';
+import type { FC } from 'react';
 import { useIntlayer } from 'react-intlayer';
 
 type RemoveMemberModalProps = {
@@ -33,24 +33,13 @@ export const RemoveMemberModal: FC<RemoveMemberModalProps> = ({
   const { confirmButton, cancelButton, description, title } = useIntlayer(
     'remove-member-modal'
   );
-  const usersQuery = useGetUsers();
-  const {
-    data: usersResponse,
-    refetch: getUsers,
-    isLoading: isLoadingUsers,
-  } = usersQuery;
+  const { data: usersResponse, isLoading: isLoadingUsers } = useGetUsers({
+    ids: organization?.membersIds ?? [],
+  });
 
   const user = usersResponse?.data?.find(
     (user: UserAPI) => String(user.id) === String(memberId)
   );
-
-  useEffect(() => {
-    if (organization?.membersIds) {
-      const membersIds = organization.membersIds;
-
-      getUsers({ ids: membersIds });
-    }
-  }, [getUsers, organization]);
 
   const handleRemoveMember = async () => {
     if (!organization) return;

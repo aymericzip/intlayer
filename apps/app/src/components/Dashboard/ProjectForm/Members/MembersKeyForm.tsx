@@ -29,6 +29,7 @@ import { MultiSelect } from '@intlayer/design-system/select';
 import type { Locale } from '@intlayer/types/allLocales';
 import { Settings, Users } from 'lucide-react';
 import { type FC, useState } from 'react';
+import { useWatch } from 'react-hook-form';
 import { useIntlayer } from 'react-intlayer';
 import { LocaleCheckboxList } from '#components/LocalePicker/LocaleCheckboxList';
 import {
@@ -390,6 +391,14 @@ export const MembersForm: FC = () => {
     session?.roles.includes('admin');
   const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
 
+  // Subscribe to the field value so the admins select options update as soon
+  // as a member is added, without waiting for a save (`getValues` is not reactive)
+  const selectedMembersIds =
+    useWatch({
+      control: form.control,
+      name: 'membersIds',
+    }) ?? [];
+
   const memberIds = project?.membersIds.map(String) ?? [];
   const adminIds = project?.adminsIds?.map(String) ?? [];
   const environments = project?.environments ?? [];
@@ -497,7 +506,7 @@ export const MembersForm: FC = () => {
           <Loader isLoading={isLoadingUsers}>
             <MultiSelect.Content>
               <MultiSelect.List>
-                {form.getValues('membersIds').map((memberId) => (
+                {selectedMembersIds.map((memberId) => (
                   <MultiSelect.Item
                     key={String(memberId)}
                     value={String(memberId)}
