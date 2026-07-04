@@ -544,11 +544,14 @@ export const updateProjectMembers = async (
     const existingUsers: UserAndAdmin[] = [];
 
     if (membersIds) {
+      // Compare as strings: the client sends string ids while the
+      // organization stores ObjectIds, so `includes` would never match
+      const organizationMemberIds = organization.membersIds.map(String);
+
       const userIdList = membersIds
-        ?.filter(
-          (member) =>
-            // Remove members that are not in the organization
-            !organization?.membersIds.includes(member.userId as Types.ObjectId)
+        // Keep only members that belong to the organization
+        .filter((member) =>
+          organizationMemberIds.includes(String(member.userId))
         )
         .map((member) => member.userId);
 

@@ -7,7 +7,7 @@ import {
   useGetUsers,
   useUpdateOrganizationMembers,
 } from '@intlayer/design-system/api';
-import { Form, FormButton } from '@intlayer/design-system/form';
+import { FormButton } from '@intlayer/design-system/form';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
 import type { FC } from 'react';
