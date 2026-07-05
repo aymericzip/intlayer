@@ -1,7 +1,11 @@
 import { Button } from '@intlayer/design-system/button';
 import { Logo } from '@intlayer/design-system/logo';
 import { PopoverStatic } from '@intlayer/design-system/popover';
-import { Download } from 'lucide-react';
+import {
+  External_DockerHub_SelfHost,
+  Website_Doc_SelfHosting,
+} from '@intlayer/design-system/routes';
+import { BookText, Container, Download } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 
@@ -49,6 +53,9 @@ export const AppDownloadButton = () => {
     downloadWindows,
     downloadLinux,
     allReleases,
+    selfHost,
+    selfHostingGuide,
+    dockerHubImage,
   } = useIntlayer('app-install-modal');
 
   const [os] = useState<OS>(detectOS);
@@ -129,6 +136,41 @@ export const AppDownloadButton = () => {
                 </Button>
               </a>
             )}
+          </div>
+
+          <div className="flex flex-col gap-1.5 border-neutral-200 border-t pt-4 dark:border-neutral-800">
+            <p className="flex items-center gap-1.5 font-semibold text-sm">
+              <Container className="size-4" />
+              {selfHost}
+            </p>
+            <a href={Website_Doc_SelfHosting} target="_blank" rel="noreferrer">
+              <Button
+                Icon={BookText}
+                variant="outline"
+                size="sm"
+                color="text"
+                className="w-full"
+                label={String(selfHostingGuide)}
+              >
+                {selfHostingGuide}
+              </Button>
+            </a>
+            <a
+              href={External_DockerHub_SelfHost}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Button
+                Icon={Container}
+                variant="outline"
+                size="sm"
+                color="text"
+                className="w-full"
+                label={String(dockerHubImage)}
+              >
+                {dockerHubImage}
+              </Button>
+            </a>
           </div>
         </div>
       </PopoverStatic.Detail>
