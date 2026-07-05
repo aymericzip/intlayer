@@ -1,6 +1,6 @@
 {
   "name": "angular-intlayer",
-  "version": "9.0.0-canary.12",
+  "version": "9.0.0-canary.13",
   "private": false,
   "description": "Easily internationalize i18n your Angular applications with type-safe multilingual content management.",
   "keywords": [
