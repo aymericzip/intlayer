@@ -14,6 +14,13 @@ type WatchOptions = {
 };
 
 /**
+ * Grace period granted to the `--with` child (e.g. Next.js/Turbopack) to exit
+ * after SIGTERM before it is force-killed with SIGKILL. Detached dev servers
+ * that ignore SIGTERM would otherwise re-orphan once the watcher exits.
+ */
+const SHUTDOWN_GRACE_MS = 3000;
+
+/**
  * Get locales dictionaries .content.{json|ts|tsx|js|jsx|mjs|cjs} and build the JSON dictionaries in the .intlayer directory.
  * Watch mode available to get the change in the .content.{json|ts|tsx|js|jsx|mjs|cjs}
  */
@@ -26,10 +33,17 @@ export const watchContentDeclaration = async (options?: WatchOptions) => {
   // Store references to the child process
   let parallelProcess: ReturnType<typeof runParallel> | undefined;
 
+  // Declared before the child is spawned so the failure handler below can tell a
+  // genuine crash apart from the SIGKILL we send during shutdown.
+  let isShuttingDown = false;
+
   if (options?.with) {
     parallelProcess = runParallel(options.with);
     // Handle the promise to avoid unhandled rejection
     parallelProcess.result.catch(() => {
+      // During shutdown the child is expected to reject (we force-kill it); that
+      // must not be reported as a crash.
+      if (isShuttingDown) return;
       // Parallel process failed or was terminated
       process.exit(1);
     });
@@ -42,7 +56,6 @@ export const watchContentDeclaration = async (options?: WatchOptions) => {
   });
 
   // Define a Graceful Shutdown function
-  let isShuttingDown = false;
   const handleShutdown = async () => {
     // Prevent multiple calls
     if (isShuttingDown) return;
@@ -51,9 +64,33 @@ export const watchContentDeclaration = async (options?: WatchOptions) => {
     appLogger('Stopping Intlayer watcher...');
 
     try {
-      // Kill the parallel process (e.g., Next.js) before closing the watcher
+      // Kill the parallel process (e.g., Next.js) before closing the watcher.
+      // The child is spawned detached (its own process group), so we must wait
+      // for it to actually exit — otherwise it re-orphans the moment we exit.
       if (parallelProcess) {
-        parallelProcess.kill();
+        const { kill, result } = parallelProcess;
+
+        kill('SIGTERM'); // graceful termination of the whole process group
+
+        // Escalate to SIGKILL if the child ignores SIGTERM within the grace
+        // period (some dev servers/bundlers do), so it can never be left behind.
+        let killTimer: NodeJS.Timeout | undefined;
+        const graceDeadline = new Promise<void>((resolveDeadline) => {
+          killTimer = setTimeout(() => {
+            appLogger(
+              'Parallel process did not exit after SIGTERM, sending SIGKILL...',
+              { level: 'warn' }
+            );
+            kill('SIGKILL');
+            resolveDeadline();
+          }, SHUTDOWN_GRACE_MS);
+        });
+
+        // `result` rejects when the child is killed; swallow it here since the
+        // outcome is already handled by the shutdown-aware catch above.
+        await Promise.race([result.catch(() => {}), graceDeadline]);
+
+        if (killTimer) clearTimeout(killTimer);
       }
 
       // Close all file watchers to stop "esbuild service not running" errors

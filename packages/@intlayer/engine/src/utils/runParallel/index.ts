@@ -3,7 +3,12 @@ import { spawnPosix } from './spawnPosix';
 import { spawnWin32 } from './spawnWin32';
 
 export type ParallelHandle = {
-  kill: () => void;
+  /**
+   * Terminate the child and its whole process group.
+   * @param signal Signal to send (default `SIGTERM`). Pass `SIGKILL` to force-kill
+   *   a child that ignores graceful termination.
+   */
+  kill: (signal?: NodeJS.Signals) => void;
   result: Promise<any>;
   commandText: string;
 };
@@ -106,9 +111,9 @@ export const runParallel = (proc?: string | string[]): ParallelHandle => {
     });
   });
 
-  const kill = () => {
+  const kill = (signal: NodeJS.Signals = 'SIGTERM') => {
     try {
-      child.kill('SIGTERM');
+      child.kill(signal);
     } catch {
       // Best effort
     }

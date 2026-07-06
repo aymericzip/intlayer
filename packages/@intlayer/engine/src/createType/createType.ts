@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type {
@@ -6,6 +6,7 @@ import type {
   QualifiedDictionaryGroup,
 } from '@intlayer/types/dictionary';
 import { parallelize } from '../utils/parallelize';
+import { writeFileIfChanged } from '../writeFileIfChanged';
 
 export const generateTypeScriptType = (
   dictionary: Dictionary | QualifiedDictionaryGroup
@@ -38,7 +39,9 @@ export const createTypes = async (
 
       const outputPath: string = resolve(typesDir, `${dictionary.key}.ts`);
 
-      await writeFile(outputPath, typeDefinition);
+      // Skip the write when the type definition is unchanged, so warm
+      // rebuilds don't churn mtimes and re-trigger the TS server.
+      await writeFileIfChanged(outputPath, typeDefinition);
 
       return outputPath;
     }

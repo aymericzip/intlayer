@@ -1,8 +1,8 @@
 import { existsSync, watch as fsWatch } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { basename, dirname, resolve } from 'node:path';
-import { pathToFileURL } from 'node:url';
 import * as ANSIColor from '@intlayer/config/colors';
+import { transpileTSToCJS } from '@intlayer/config/file';
 import { colorize, getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
@@ -150,10 +150,15 @@ export const watch = async (options?: WatchOptions) => {
 
         if (event.type === 'update') {
           processEvent(async () => {
-            clearModuleCache(event.path);
             try {
-              const fileUrl = pathToFileURL(event.path).href;
-              await import(`${fileUrl}?update=${Date.now()}`);
+              // Validate that the regenerated entry point — and the relative
+              // dictionary graph it imports — still resolves, by bundling it
+              // in-memory with esbuild (via the shared, freshness-checked
+              // transpile cache). This replaces a cache-busting dynamic
+              // `import()`, which leaked a permanent record into Node's ESM
+              // registry on every rebuild since that registry is never evicted.
+              const entryCode = await readFile(event.path, 'utf-8');
+              await transpileTSToCJS(entryCode, event.path);
             } catch {
               appLogger(
                 `Entry point ${basename(event.path)} failed to load, running clean rebuild...`,

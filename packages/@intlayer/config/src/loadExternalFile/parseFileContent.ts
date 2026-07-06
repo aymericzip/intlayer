@@ -50,11 +50,71 @@ const NODE_GLOBALS = [
   'structuredClone',
 ] as const;
 
+/**
+ * Cache of the project's React module (or the JSX-capturing fallback) keyed by
+ * the require's resolution paths. Node does not cache *failed* resolutions, so
+ * without this every sandbox creation in a non-React project (Vue, Svelte,
+ * Angular…) pays a full node_modules walk that ends in a throw.
+ */
+const reactModuleCache = new Map<string, { React: unknown }>();
+
+/**
+ * Fallback React implementation used when React is not installed in the
+ * project. It captures JSX elements as plain objects so JSX can be used in
+ * content declarations (esbuild's tsx loader defaults to React.createElement).
+ */
+const createFallbackReact = () => ({
+  createElement: (type: any, props: any, ...children: any[]) => ({
+    type,
+    props: {
+      ...props,
+      children: children.length <= 1 ? children[0] : children,
+    },
+  }),
+  Fragment: Symbol.for('react.fragment'),
+});
+
+const getReactGlobal = (baseRequire: NodeJS.Require): { React: unknown } => {
+  // resolve.paths() is computed in-memory (no fs access) and identifies the
+  // node_modules chain this require instance resolves against.
+  const resolutionKey =
+    baseRequire.resolve.paths?.('react')?.join('|') ?? '<default>';
+
+  const cachedReactModule = reactModuleCache.get(resolutionKey);
+  if (cachedReactModule) return cachedReactModule;
+
+  let reactGlobal: { React: unknown };
+  try {
+    // Dynamically try to require React if it's installed in the project
+    reactGlobal = { React: baseRequire('react') };
+  } catch (_err) {
+    reactGlobal = { React: createFallbackReact() };
+  }
+
+  reactModuleCache.set(resolutionKey, reactGlobal);
+
+  return reactGlobal;
+};
+
+/**
+ * Snapshot of the non-env `process` properties, taken once at module load.
+ * Spreading `process` enumerates ~100 properties (some behind getters); doing
+ * it per sandbox is wasteful since everything except `env` is static.
+ */
+const processSnapshot = { ...process };
+
+/**
+ * Builds the global context handed to `runInNewContext`.
+ *
+ * SECURITY NOTE: this sandbox exists for global-scope hygiene (fresh
+ * module/exports, controlled env), NOT for containment. It exposes the real
+ * project `require`, a copy of `process`, and `fetch` — code executed here has
+ * full host privileges. Only ever run trusted, build-time project files
+ * (same trust model as `vite.config.ts`).
+ */
 export const getSandBoxContext = (options?: SandBoxContextOptions): Context => {
   const { envVarOptions, projectRequire, additionalEnvVars, mocks, aliases } =
     options ?? {};
-
-  let additionalGlobalVar = {};
 
   const baseRequire: NodeJS.Require =
     typeof projectRequire === 'function' ? projectRequire : getProjectRequire();
@@ -93,29 +153,6 @@ export const getSandBoxContext = (options?: SandBoxContextOptions): Context => {
     return wrappedRequire;
   })();
 
-  try {
-    // Dynamically try to require React if it's installed in the project
-    additionalGlobalVar = {
-      React: baseRequire('react'),
-    };
-  } catch (_err) {
-    // React is not installed, so we inject a dummy React object to capture JSX elements
-    // This allows using JSX in content declarations even if React is not installed (e.g. in Solid.js or Vue projects)
-    // because esbuild's tsx loader defaults to React.createElement.
-    additionalGlobalVar = {
-      React: {
-        createElement: (type: any, props: any, ...children: any[]) => ({
-          type,
-          props: {
-            ...props,
-            children: children.length <= 1 ? children[0] : children,
-          },
-        }),
-        Fragment: Symbol.for('react.fragment'),
-      },
-    };
-  }
-
   const sandboxContext: Context = {
     exports: {
       default: {},
@@ -124,7 +161,7 @@ export const getSandBoxContext = (options?: SandBoxContextOptions): Context => {
       exports: {},
     },
     process: {
-      ...process,
+      ...processSnapshot,
       env: {
         ...process.env,
         ...loadEnvFile(envVarOptions),
@@ -133,7 +170,7 @@ export const getSandBoxContext = (options?: SandBoxContextOptions): Context => {
     },
     console,
     require: mockedRequire,
-    ...additionalGlobalVar,
+    ...getReactGlobal(baseRequire),
   };
 
   for (const key of NODE_GLOBALS) {

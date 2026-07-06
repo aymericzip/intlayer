@@ -206,15 +206,22 @@ export const createModuleAugmentation = async (
   );
 
   let zodToTsFns: ZodToTsFns | null = null;
-  try {
-    const mod = await import('zod-to-ts');
-    zodToTsFns = {
-      zodToTs: mod.zodToTs,
-      printNode: mod.printNode,
-      createAuxiliaryTypeStore: mod.createAuxiliaryTypeStore,
-    };
-  } catch {
-    // typescript peer dep not installed (plain JS project), use fallback
+
+  const hasSchemas = Object.keys(configuration.schemas ?? {}).length > 0;
+
+  // zod-to-ts drags in the whole `typescript` package (~300ms import), so
+  // only load it when there are schemas to convert.
+  if (hasSchemas) {
+    try {
+      const mod = await import('zod-to-ts');
+      zodToTsFns = {
+        zodToTs: mod.zodToTs,
+        printNode: mod.printNode,
+        createAuxiliaryTypeStore: mod.createAuxiliaryTypeStore,
+      };
+    } catch {
+      // typescript peer dep not installed (plain JS project), use fallback
+    }
   }
 
   const tsContent = generateTypeIndexContent(

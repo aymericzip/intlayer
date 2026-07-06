@@ -66,13 +66,17 @@ export const loadExternalFileSync = (
       return undefined;
     }
 
-    const fileContent = parseFileContent(moduleResultString, {
-      projectRequire: options?.projectRequire,
-      envVarOptions: options?.envVarOptions,
-      additionalEnvVars: options?.additionalEnvVars,
-      mocks: options?.mocks,
-      aliases: options?.aliases,
-    });
+    // parseFileContent/runInNewContext is synchronous, so withPreloadedGlobals
+    // fully restores the globals before returning.
+    const fileContent = withPreloadedGlobals(options?.preloadGlobals, () =>
+      parseFileContent(moduleResultString, {
+        projectRequire: options?.projectRequire,
+        envVarOptions: options?.envVarOptions,
+        additionalEnvVars: options?.additionalEnvVars,
+        mocks: options?.mocks,
+        aliases: options?.aliases,
+      })
+    );
 
     if (typeof fileContent === 'undefined') {
       logger(`File could not be loaded. Path : ${filePath}`);
@@ -100,10 +104,12 @@ const withPreloadedGlobals = <T>(
   if (!globals) return fn();
 
   const globalVars = globalThis as Record<string, unknown>;
-  const prev: Record<string, unknown> = {};
+  const previousValues: Record<string, unknown> = {};
+  const previouslyPresent: Record<string, boolean> = {};
 
   for (const [key, value] of Object.entries(globals)) {
-    prev[key] = globalVars[key];
+    previouslyPresent[key] = key in globalVars;
+    previousValues[key] = globalVars[key];
     globalVars[key] = value;
   }
 
@@ -111,8 +117,10 @@ const withPreloadedGlobals = <T>(
     return fn();
   } finally {
     for (const key of Object.keys(globals)) {
-      if (prev[key] !== undefined) {
-        globalVars[key] = prev[key];
+      // `in` check (not `!== undefined`) so a global that legitimately held
+      // `undefined` is restored rather than deleted.
+      if (previouslyPresent[key]) {
+        globalVars[key] = previousValues[key];
       } else {
         delete globalVars[key];
       }

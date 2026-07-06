@@ -133,8 +133,8 @@ export const loadContentDeclaration = async (
             // Also set on the VM sandbox's globalThis for VM-internal code.
             // External modules (e.g. @intlayer/core's file()) run in the main
             // Node.js context and are handled by preloadGlobals below.
-            `globalThis.INTLAYER_FILE_PATH = '${path}';`,
-            `globalThis.INTLAYER_BASE_DIR = '${configuration.system.baseDir}';`,
+            `globalThis.INTLAYER_FILE_PATH = ${JSON.stringify(path)};`,
+            `globalThis.INTLAYER_BASE_DIR = ${JSON.stringify(configuration.system.baseDir)};`,
           ].join('\n'),
         },
       },
