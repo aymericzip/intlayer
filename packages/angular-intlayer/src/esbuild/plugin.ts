@@ -1,6 +1,6 @@
-import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import {
+  formatDictionarySelectorEnvVar,
   formatNodeTypeToEnvVar,
   getConfigEnvVars,
 } from '@intlayer/config/envVars';
@@ -9,7 +9,11 @@ import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
-import { getAlias, getUnusedNodeTypesAsync } from '@intlayer/config/utils';
+import {
+  getAlias,
+  getHasDictionarySelector,
+  getUnusedNodeTypesAsync,
+} from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import { prepareIntlayer } from '@intlayer/engine/build';
 import { logConfigDetails } from '@intlayer/engine/cli';
@@ -134,9 +138,23 @@ export const intlayerEsbuildPlugin = (
         isBuildMode = true;
       }
 
+      const wrapKey = (key: string) => `process.env.${key}`;
+      const wrapValue = (value: string) => `"${value}"`;
+
       const envVars: Record<string, string> = {
-        INTLAYER: 'true',
-        NODE_ENV: isProduction ? 'production' : 'development',
+        // Catch-all so that any `process.env.*` read NOT covered by a specific
+        // key below resolves to `undefined` instead of dereferencing a bare
+        // `process`, which is not defined in browser bundles and throws
+        // `process is not defined`. esbuild resolves the most specific define
+        // first, so the keys below keep their tree-shaking effect.
+        'process.env': '{}',
+        [wrapKey('INTLAYER')]: wrapValue('true'),
+        [wrapKey('NODE_ENV')]: wrapValue(
+          isProduction ? 'production' : 'development'
+        ),
+        // Tree shaking flags derived from the config (routing / storage /
+        // editor). Emitted in every mode so behaviour is consistent in dev.
+        ...getConfigEnvVars(config, wrapKey, wrapValue),
       };
 
       if (isProduction) {
@@ -150,10 +168,24 @@ export const intlayerEsbuildPlugin = (
         const unusedNodeTypes = await getUnusedNodeTypesAsync(dictionaries);
         Object.assign(
           envVars,
-          formatNodeTypeToEnvVar(unusedNodeTypes),
-          getConfigEnvVars(config)
+          // Tree shaking based on unused node types
+          formatNodeTypeToEnvVar(unusedNodeTypes, wrapKey, wrapValue),
+          // Tree shaking the dictionary selector logic
+          // (collections / variants)
+          formatDictionarySelectorEnvVar(
+            getHasDictionarySelector(dictionaries),
+            wrapKey,
+            wrapValue
+          )
         );
       }
+
+      // Existing defines (Angular's own, or the user's angular.json `define`
+      // block) take precedence over the Intlayer ones.
+      build.initialOptions.define = {
+        ...envVars,
+        ...(build.initialOptions.define ?? {}),
+      };
 
       build.initialOptions.alias = {
         ...alias,

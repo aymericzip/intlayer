@@ -1,5 +1,6 @@
 import { BLUE } from '@intlayer/config/colors';
 import {
+  formatDictionarySelectorEnvVar,
   formatNodeTypeToEnvVar,
   getConfigEnvVars,
 } from '@intlayer/config/envVars';
@@ -7,6 +8,7 @@ import { colorize, getAppLogger } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
 import {
   getAlias,
+  getHasDictionarySelector,
   getProjectRequire,
   getUnusedNodeTypesAsync,
 } from '@intlayer/config/utils';
@@ -86,11 +88,20 @@ export const pluginIntlayerLynx = (): RsbuildPlugin => {
         }
 
         defineVars = {
+          // Tree shaking based on unused node types
           ...formatNodeTypeToEnvVar(
             unusedNodeTypes,
             (key) => `process.env.${key}`,
             (value) => `"${value}"`
           ),
+          // Tree shaking the dictionary selector logic
+          // (collections / variants)
+          ...formatDictionarySelectorEnvVar(
+            getHasDictionarySelector(dictionaries),
+            (key) => `process.env.${key}`,
+            (value) => `"${value}"`
+          ),
+          // Tree shaking based on config
           ...getConfigEnvVars(
             configuration,
             (key) => `process.env.${key}`,
