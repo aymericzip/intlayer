@@ -9,31 +9,8 @@ import {
 import type { DiffMode, ListGitFilesOptions } from '@intlayer/engine/cli';
 import type { CustomIntlayerConfig } from '@intlayer/types/config';
 import { Command } from 'commander';
-import { login } from './auth/login';
-import { build } from './build';
-import { bundle } from './bundle';
-import { runCI } from './ci';
-import { getConfig } from './config';
-import { startEditor } from './editor';
-import { extract } from './extract';
-import { type FillOptions, fill } from './fill/fill';
-import { init } from './init';
-import { initBuildOptimization } from './initBuildOptimization';
-import { initMCP } from './initMCP';
-import { initSkills } from './initSkills';
-import { listContentDeclaration } from './listContentDeclaration';
-import { listProjectsCommand } from './listProjects';
-import { liveSync } from './liveSync';
-import { pull } from './pull';
-import { push } from './push/push';
-import { pushConfig } from './pushConfig';
-import { reviewDoc } from './reviewDoc/reviewDoc';
-import { scan } from './scan';
-import { searchDoc } from './searchDoc';
-import { testMissingTranslations } from './test';
-import { translateDoc } from './translateDoc/translateDoc';
+import type { FillOptions } from './fill/fill';
 import { getParentPackageJSON } from './utils/getParentPackageJSON';
-import { watchContentDeclaration } from './watch';
 
 // Extended AI options to include customPrompt
 type AIOptions = BaseAIOptions & {
@@ -289,7 +266,8 @@ export const setAPI = (): Command => {
 
   applyConfigOptions(loginCmd);
 
-  loginCmd.action((options) => {
+  loginCmd.action(async (options) => {
+    const { login } = await import('./auth/login');
     const configOptions = extractConfigOptions(options) ?? {
       override: {
         log: {
@@ -325,8 +303,9 @@ export const setAPI = (): Command => {
       '-i, --interactive',
       'Interactively choose what to set up (packages, skills, MCP, VS Code extension, LSP, …)'
     )
-    .action((options) =>
-      init(
+    .action(async (options) => {
+      const { init } = await import('./init');
+      return init(
         options.projectRoot,
         {
           noGitignore: options.gitignore === false,
@@ -335,20 +314,26 @@ export const setAPI = (): Command => {
           upgradeToVersion: packageJson.version,
         },
         options.interactive === true
-      )
-    );
+      );
+    });
 
   initCmd
     .command('skills')
     .description('Initialize Intlayer skills in the project')
     .option('--project-root [projectRoot]', 'Project root directory')
-    .action((options) => initSkills(options.projectRoot));
+    .action(async (options) => {
+      const { initSkills } = await import('./initSkills');
+      return initSkills(options.projectRoot);
+    });
 
   initCmd
     .command('mcp')
     .description('Initialize Intlayer MCP server in the project')
     .option('--project-root [projectRoot]', 'Project root directory')
-    .action((options) => initMCP(options.projectRoot));
+    .action(async (options) => {
+      const { initMCP } = await import('./initMCP');
+      return initMCP(options.projectRoot);
+    });
 
   initCmd
     .command('build-optimization')
@@ -356,7 +341,10 @@ export const setAPI = (): Command => {
       'Configure build optimization for Next.js (@intlayer/swc or @intlayer/babel)'
     )
     .option('--project-root [projectRoot]', 'Project root directory')
-    .action((options) => initBuildOptimization(options.projectRoot));
+    .action(async (options) => {
+      const { initBuildOptimization } = await import('./initBuildOptimization');
+      return initBuildOptimization(options.projectRoot);
+    });
 
   /**
    * DICTIONARIES
@@ -386,7 +374,8 @@ export const setAPI = (): Command => {
 
   applyOptions(dictionariesBuildCmd, buildOptions.options);
   applyConfigOptions(dictionariesBuildCmd);
-  dictionariesBuildCmd.action((options) => {
+  dictionariesBuildCmd.action(async (options) => {
+    const { build } = await import('./build');
     build({
       ...options,
       configOptions: extractConfigOptions(options),
@@ -400,7 +389,8 @@ export const setAPI = (): Command => {
 
   applyOptions(rootBuildCmd, buildOptions.options);
   applyConfigOptions(rootBuildCmd);
-  rootBuildCmd.action((options) => {
+  rootBuildCmd.action(async (options) => {
+    const { build } = await import('./build');
     build({
       ...options,
       configOptions: extractConfigOptions(options),
@@ -419,7 +409,8 @@ export const setAPI = (): Command => {
 
   applyOptions(dictionariesWatchCmd, watchOptions.options);
   applyConfigOptions(dictionariesWatchCmd);
-  dictionariesWatchCmd.action((options) => {
+  dictionariesWatchCmd.action(async (options) => {
+    const { watchContentDeclaration } = await import('./watch');
     watchContentDeclaration({
       ...options,
       configOptions: extractConfigOptions(options),
@@ -433,7 +424,8 @@ export const setAPI = (): Command => {
 
   applyOptions(rootWatchCmd, watchOptions.options);
   applyConfigOptions(rootWatchCmd);
-  rootWatchCmd.action((options) => {
+  rootWatchCmd.action(async (options) => {
+    const { watchContentDeclaration } = await import('./watch');
     watchContentDeclaration({
       ...options,
       configOptions: extractConfigOptions(options),
@@ -465,7 +457,8 @@ export const setAPI = (): Command => {
 
   applyOptions(dictionariesPullCmd, pullOptions.options);
   applyConfigOptions(dictionariesPullCmd);
-  dictionariesPullCmd.action((options) => {
+  dictionariesPullCmd.action(async (options) => {
+    const { pull } = await import('./pull');
     // Merge dictionary aliases
     const dictionaries = [
       ...(options.dictionaries ?? []),
@@ -486,7 +479,8 @@ export const setAPI = (): Command => {
 
   applyOptions(rootPullCmd, pullOptions.options);
   applyConfigOptions(rootPullCmd);
-  rootPullCmd.action((options) => {
+  rootPullCmd.action(async (options) => {
+    const { pull } = await import('./pull');
     // Merge dictionary aliases
     const dictionaries = [
       ...(options.dictionaries ?? []),
@@ -543,7 +537,8 @@ export const setAPI = (): Command => {
   applyConfigOptions(dictionariesPushCmd);
   applyGitOptions(dictionariesPushCmd);
 
-  dictionariesPushCmd.action((options) => {
+  dictionariesPushCmd.action(async (options) => {
+    const { push } = await import('./push/push');
     // Merge dictionary aliases
     const dictionaries = [
       ...(options.dictionaries || []),
@@ -567,7 +562,8 @@ export const setAPI = (): Command => {
   applyConfigOptions(rootPushCmd);
   applyGitOptions(rootPushCmd);
 
-  rootPushCmd.action((options) => {
+  rootPushCmd.action(async (options) => {
+    const { push } = await import('./push/push');
     // Merge dictionary aliases
     const dictionaries = [
       ...(options.dictionaries || []),
@@ -598,7 +594,8 @@ export const setAPI = (): Command => {
     .description('Get the configuration');
 
   applyConfigOptions(configGetCmd);
-  configGetCmd.action((options) => {
+  configGetCmd.action(async (options) => {
+    const { getConfig } = await import('./config');
     getConfig({
       ...options,
       configOptions: extractConfigOptions(options),
@@ -611,7 +608,8 @@ export const setAPI = (): Command => {
     .description('Push the configuration');
 
   applyConfigOptions(configPushCmd);
-  configPushCmd.action((options) => {
+  configPushCmd.action(async (options) => {
+    const { pushConfig } = await import('./pushConfig');
     pushConfig({
       ...options,
       configOptions: extractConfigOptions(options),
@@ -637,7 +635,8 @@ export const setAPI = (): Command => {
     )
     .option('--json', 'Output the results as JSON');
 
-  projectsListCmd.action((options) => {
+  projectsListCmd.action(async (options) => {
+    const { listProjectsCommand } = await import('./listProjects');
     listProjectsCommand({
       baseDir: options.baseDir,
       gitRoot: options.gitRoot,
@@ -658,7 +657,8 @@ export const setAPI = (): Command => {
     .option('--absolute', 'Output the results as absolute paths')
     .option('--json', 'Output the results as JSON');
 
-  rootProjectsListCmd.action((options) => {
+  rootProjectsListCmd.action(async (options) => {
+    const { listProjectsCommand } = await import('./listProjects');
     listProjectsCommand({
       baseDir: options.baseDir,
       gitRoot: options.gitRoot,
@@ -680,7 +680,10 @@ export const setAPI = (): Command => {
     .description('List the content declaration files')
     .option('--json', 'Output the results as JSON')
     .option('--absolute', 'Output the results as absolute paths')
-    .action((options) => {
+    .action(async (options) => {
+      const { listContentDeclaration } = await import(
+        './listContentDeclaration'
+      );
       listContentDeclaration({
         json: options.json,
         absolute: options.absolute,
@@ -693,7 +696,10 @@ export const setAPI = (): Command => {
     .description('List the content declaration files')
     .option('--json', 'Output the results as JSON')
     .option('--absolute', 'Output the results as absolute paths')
-    .action((options) => {
+    .action(async (options) => {
+      const { listContentDeclaration } = await import(
+        './listContentDeclaration'
+      );
       listContentDeclaration({
         json: options.json,
         absolute: options.absolute,
@@ -709,7 +715,8 @@ export const setAPI = (): Command => {
     );
 
   applyConfigOptions(testProgram);
-  testProgram.action((options) => {
+  testProgram.action(async (options) => {
+    const { testMissingTranslations } = await import('./test');
     testMissingTranslations({
       ...options,
       configOptions: extractConfigOptions(options),
@@ -726,7 +733,8 @@ export const setAPI = (): Command => {
     );
 
   applyConfigOptions(rootTestCmd);
-  rootTestCmd.action((options) => {
+  rootTestCmd.action(async (options) => {
+    const { testMissingTranslations } = await import('./test');
     testMissingTranslations({
       ...options,
       configOptions: extractConfigOptions(options),
@@ -777,7 +785,8 @@ export const setAPI = (): Command => {
   applyAIOptions(fillProgram);
   applyGitOptions(fillProgram);
 
-  fillProgram.action((options) => {
+  fillProgram.action(async (options) => {
+    const { fill } = await import('./fill/fill');
     // Merge key aliases
     const keys = [...(options.keys ?? []), ...(options.key ?? [])];
     const excludedKeys = [
@@ -845,8 +854,9 @@ export const setAPI = (): Command => {
   applyGitOptions(translateProgram);
   applyOptions(translateProgram, docParams);
 
-  translateProgram.action((options) =>
-    translateDoc({
+  translateProgram.action(async (options) => {
+    const { translateDoc } = await import('./translateDoc/translateDoc');
+    return translateDoc({
       docPattern: options.docPattern,
       excludedGlobPattern: options.excludedGlobPattern,
       locales: options.locales,
@@ -859,8 +869,8 @@ export const setAPI = (): Command => {
       skipIfModifiedBefore: options.skipIfModifiedBefore,
       skipIfModifiedAfter: options.skipIfModifiedAfter,
       skipIfExists: options.skipIfExists,
-    })
-  );
+    });
+  });
 
   const reviewProgram = docProgram
     .command('review')
@@ -875,8 +885,9 @@ export const setAPI = (): Command => {
   applyGitOptions(reviewProgram);
   applyOptions(reviewProgram, docParams);
 
-  reviewProgram.action((options) =>
-    reviewDoc({
+  reviewProgram.action(async (options) => {
+    const { reviewDoc } = await import('./reviewDoc/reviewDoc');
+    return reviewDoc({
       docPattern: options.docPattern,
       excludedGlobPattern: options.excludedGlobPattern,
       locales: options.locales,
@@ -890,8 +901,8 @@ export const setAPI = (): Command => {
       skipIfModifiedAfter: options.skipIfModifiedAfter,
       skipIfExists: options.skipIfExists,
       log: options.log,
-    })
-  );
+    });
+  });
 
   const searchProgram = docProgram
     .command('search')
@@ -901,13 +912,14 @@ export const setAPI = (): Command => {
 
   applyConfigOptions(searchProgram);
 
-  searchProgram.action((query, options) =>
-    searchDoc({
+  searchProgram.action(async (query, options) => {
+    const { searchDoc } = await import('./searchDoc');
+    return searchDoc({
       query,
       limit: options.limit ? parseInt(options.limit, 10) : 10,
       configOptions: extractConfigOptions(options),
-    })
-  );
+    });
+  });
 
   /**
    * LIVE SYNC
@@ -926,12 +938,13 @@ export const setAPI = (): Command => {
   applyOptions(liveCmd, liveOptions);
   applyConfigOptions(liveCmd);
 
-  liveCmd.action((options) =>
-    liveSync({
+  liveCmd.action(async (options) => {
+    const { liveSync } = await import('./liveSync');
+    return liveSync({
       ...options,
       configOptions: extractConfigOptions(options),
-    })
-  );
+    });
+  });
 
   /**
    * EDITOR
@@ -947,7 +960,8 @@ export const setAPI = (): Command => {
 
   applyConfigOptions(editorStartCmd);
 
-  editorStartCmd.action((options) => {
+  editorStartCmd.action(async (options) => {
+    const { startEditor } = await import('./editor');
     startEditor({
       env: options.env,
       envFile: options.envFile,
@@ -970,7 +984,8 @@ export const setAPI = (): Command => {
     .option('-f, --file [files...]', 'List of files to extract')
     .option('--code-only', 'Only extract the component code', false)
     .option('--declaration-only', 'Only generate content declaration', false)
-    .action((options) => {
+    .action(async (options) => {
+      const { extract } = await import('./extract');
       extract({
         files: options.file,
         configOptions: extractConfigOptions(options),
@@ -995,7 +1010,8 @@ export const setAPI = (): Command => {
     .option('--minify', 'Minify the output')
     .option('--platform [platform]', 'Target platform', 'browser')
     .option('--format [format]', 'Output format', 'esm')
-    .action((options) => {
+    .action(async (options) => {
+      const { bundle } = await import('./bundle');
       bundle({
         outfile: options.outfile,
         bundlePackages: options.packages,
@@ -1023,13 +1039,14 @@ export const setAPI = (): Command => {
 
   applyConfigOptions(scanCmd);
 
-  scanCmd.action((url, options) =>
-    scan(url, {
+  scanCmd.action(async (url, options) => {
+    const { scan } = await import('./scan');
+    return scan(url, {
       deep: options.deep,
       json: options.json,
       configOptions: extractConfigOptions(options),
-    })
-  );
+    });
+  });
 
   program.parse(process.argv);
 
@@ -1048,7 +1065,8 @@ export const setAPI = (): Command => {
       'The intlayer command to execute (e.g., "fill", "push")'
     )
     .allowUnknownOption() // Allows passing flags like --verbose to the subcommand
-    .action((args) => {
+    .action(async (args) => {
+      const { runCI } = await import('./ci');
       runCI(args);
     });
 

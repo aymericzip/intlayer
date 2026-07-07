@@ -1,3 +1,4 @@
+import { createRequire } from 'node:module';
 import { join, relative, resolve } from 'node:path';
 import type { SwcExtraCallerConfig } from '@intlayer/config/callers';
 import * as ANSIColors from '@intlayer/config/colors';
@@ -18,19 +19,31 @@ import {
   getHasDictionarySelector,
   getProjectRequire,
   getUnusedNodeTypes,
+  isESModule,
   normalizePath,
 } from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import { prepareIntlayer } from '@intlayer/engine/build';
-import { logConfigDetails } from '@intlayer/engine/cli';
+import { logConfigDetails } from '@intlayer/engine/logConfigDetails';
 import { buildComponentFilesList, runOnce } from '@intlayer/engine/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
-import { IntlayerPlugin } from '@intlayer/webpack';
+import type { IntlayerPlugin as IntlayerPluginType } from '@intlayer/webpack';
 import { defu } from 'defu';
 import type { NextConfig } from 'next';
 import type { NextJsWebpackConfig } from 'next/dist/server/config-shared';
 import nextPackageJSON from 'next/package.json' with { type: 'json' };
+
+/**
+ * A `require` bound to this module, usable in both the ESM and CJS builds.
+ *
+ * Used to lazily pull in heavy, situational dependencies (e.g.
+ * `@intlayer/webpack`) only when they are actually needed, keeping the initial
+ * `next.config` evaluation lightweight. Mirrors the `configESMxCJSRequire`
+ * pattern from `@intlayer/config`.
+ */
+const withIntlayerRequire: NodeJS.Require = isESModule
+  ? createRequire(import.meta.url)
+  : require;
 
 /**
  * Resolve the Next.js version from the *user's* project at runtime.
@@ -549,6 +562,15 @@ export const withIntlayerSync = <T extends Partial<NextConfig>>(
 
           // Activate watch mode webpack plugin
           if (isDevCommand && isServer && nextRuntime === 'nodejs') {
+            // Lazily load `@intlayer/webpack` only on the dev server's Node
+            // runtime — the single place the plugin is needed. This keeps it out
+            // of the initial `next.config` load and out of the (default)
+            // Turbopack path entirely. `require` is used because Next.js invokes
+            // the webpack config callback synchronously.
+            const { IntlayerPlugin } = withIntlayerRequire(
+              '@intlayer/webpack'
+            ) as { IntlayerPlugin: typeof IntlayerPluginType };
+
             // Optional as rspack not support plugin yet
             config.plugins.push(new IntlayerPlugin(intlayerConfig));
           }
@@ -614,6 +636,11 @@ export const withIntlayer = async <T extends NextConfig | Partial<NextConfig>>(
   // If prod: clean and rebuild once
   // If dev: rebuild only once if it's more than 1 hour since last rebuild
   if (!isStartCommand && (isDevCommand || isBuildCommand || mode === 'auto')) {
+    // Lazily load the heavy build pipeline (`@intlayer/engine/build`) only when
+    // a rebuild is actually required, keeping `next.config` evaluation cheap for
+    // commands (e.g. `start`) that never touch it.
+    const { prepareIntlayer } = await import('@intlayer/engine/build');
+
     // prepareIntlayer use runOnce to ensure to run only once because will run twice on client and server side otherwise
     await prepareIntlayer(intlayerConfig, {
       clean: isBuildCommand,

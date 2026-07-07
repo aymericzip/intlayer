@@ -50,6 +50,11 @@
       "require": "./dist/cjs/cli.cjs",
       "import": "./dist/esm/cli.mjs"
     },
+    "./logConfigDetails": {
+      "types": "./dist/types/logConfigDetails.d.ts",
+      "require": "./dist/cjs/logConfigDetails.cjs",
+      "import": "./dist/esm/logConfigDetails.mjs"
+    },
     "./utils": {
       "types": "./dist/types/utils/index.d.ts",
       "require": "./dist/cjs/utils/index.cjs",
@@ -91,8 +96,14 @@
       "cli": [
         "./dist/types/cli.d.ts"
       ],
+      "logConfigDetails": [
+        "./dist/types/logConfigDetails.d.ts"
+      ],
       "utils": [
         "./dist/types/utils/index.d.ts"
+      ],
+      "syncPluginKit": [
+        "./dist/types/syncPluginKit/index.d.ts"
       ],
       "listDictionaries": [
         "./dist/types/listDictionariesPath.d.ts"

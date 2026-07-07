@@ -17,9 +17,7 @@ import {
   getUnusedNodeTypesAsync,
 } from '@intlayer/config/utils';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
-import { prepareIntlayer } from '@intlayer/engine/build';
-import { logConfigDetails } from '@intlayer/engine/cli';
-import { watch } from '@intlayer/engine/watcher';
+import { logConfigDetails } from '@intlayer/engine/logConfigDetails';
 import type { PluginOption } from 'vite';
 import { intlayerCompiler } from './IntlayerCompilerPlugin';
 import { intlayerMinify } from './intlayerMinifyPlugin';
@@ -129,6 +127,11 @@ export const intlayerPlugin = (
         // If prod: clean and rebuild once
         // If dev: rebuild only once if it's more than 1 hour since last rebuild
         if (isDevCommand || isBuildCommand || mode === 'auto') {
+          // Lazily load the heavy build pipeline (`@intlayer/engine/build`) only
+          // when a rebuild is actually required, keeping the Vite config phase
+          // lightweight (e.g. during `preview`).
+          const { prepareIntlayer } = await import('@intlayer/engine/build');
+
           // prepareIntlayer use runOnce to ensure to run only once because will run twice on client and server side otherwise
           await prepareIntlayer(intlayerConfig, {
             clean: isBuildCommand,
@@ -224,6 +227,10 @@ export const intlayerPlugin = (
 
       configureServer: async (server) => {
         if (server.config.mode === 'development') {
+          // Lazily load the file watcher (`@intlayer/engine/watcher`, which pulls
+          // in `@parcel/watcher`) only when the dev server actually starts.
+          const { watch } = await import('@intlayer/engine/watcher');
+
           // Start watching (assuming watch is also async)
           await watch({ configuration: intlayerConfig });
         }
