@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/react-intl",
-  "version": "9.0.0-canary.13",
+  "version": "9.0.0-canary.14",
   "private": false,
   "description": "react-intl API adapter for intlayer — drop-in compatibility layer",
   "keywords": [
