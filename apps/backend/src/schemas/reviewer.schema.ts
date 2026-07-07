@@ -9,6 +9,7 @@ import type {
   TranslationMissionModelType,
   TranslationMissionSchema,
 } from '@/types/reviewer.types';
+import { REVIEWER_CATEGORIES } from '@/types/reviewer.types';
 
 const toJSONTransform = (_doc: any, ret: any) => {
   const { _id, ...rest } = ret;
@@ -50,13 +51,7 @@ export const reviewerProfileSchema = new Schema<ReviewerProfileSchema>(
     languagePairs: { type: [languagePairSchema], default: [] },
     categories: {
       type: [String],
-      enum: [
-        'copywriter',
-        'translator',
-        'proofreader',
-        'technical_writer',
-        'marketing',
-      ],
+      enum: REVIEWER_CATEGORIES,
       default: [],
     },
     pricePerHour: { type: Number, required: true, default: 0 },
@@ -110,8 +105,8 @@ export const translationMissionSchema = new Schema<TranslationMissionSchema>(
       ref: 'dictionary',
       default: [],
     },
-    sourceLocale: { type: String, required: true },
-    targetLocales: { type: [String], required: true },
+    sourceLocale: { type: String },
+    targetLocales: { type: [String], default: [] },
     wordCount: { type: Number, default: 0 },
     estimatedHours: { type: Number, default: 0 },
     pricePerHour: { type: Number, required: true },

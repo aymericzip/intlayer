@@ -55,7 +55,7 @@ export const ContactChat: FC<ContactChatProps> = ({ reviewer }) => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === content.enter.value && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSend();
     }

@@ -1,5 +1,5 @@
 import type { ReviewerProfileAPI, ReviewerReviewAPI } from '@intlayer/backend';
-import { useGetReviewerReviews, useSession } from '@intlayer/design-system/api';
+import { useGetReviewerReviews } from '@intlayer/design-system/api';
 import { Container } from '@intlayer/design-system/container';
 import { MarkdownRenderer } from '@intlayer/design-system/mark-down-render';
 import { Modal } from '@intlayer/design-system/modal';
@@ -125,11 +125,10 @@ export const ReviewerProfileCard: FC<ReviewerProfileCardProps> = ({
   const content = useIntlayer('reviewer-profile-card');
   const sc = sizeConfig[size];
 
-  const { session } = useSession();
-  const user = session?.user;
-
-  const displayName = user?.name;
-  const displayAvatar = user?.image;
+  // Identity comes from the reviewer profile itself (resolved server-side from
+  // the linked user), never from the viewer's own session.
+  const displayName = profile.name;
+  const displayAvatar = profile.avatar;
 
   const { data: reviewsData } = useGetReviewerReviews(
     profile.id,

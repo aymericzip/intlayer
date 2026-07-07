@@ -2,12 +2,42 @@ import {
   ReviewerProfileModel,
   ReviewerReviewModel,
 } from '@schemas/reviewer.schema';
+import { getUsersByIds } from '@services/user.service';
 import type {
   ReviewerProfile,
   ReviewerProfileData,
   ReviewerProfileDocument,
   ReviewerReviewDocument,
 } from '@/types/reviewer.types';
+
+/** Public-facing subset of the linked user shown on marketplace profiles */
+export type ReviewerUserInfo = {
+  name?: string;
+  avatar?: string;
+};
+
+/**
+ * Resolves the public display name and avatar of the users linked to the
+ * given reviewer profiles. Returns a map keyed by stringified user id.
+ */
+export const getReviewerUserInfoMap = async (
+  profiles: ReviewerProfileDocument[]
+): Promise<Map<string, ReviewerUserInfo>> => {
+  const userIds = [
+    ...new Set(profiles.map((profile) => String(profile.userId))),
+  ];
+
+  if (userIds.length === 0) return new Map();
+
+  const users = await getUsersByIds(userIds);
+
+  return new Map(
+    (users ?? []).map((user) => [
+      String(user.id),
+      { name: user.name, avatar: user.image },
+    ])
+  );
+};
 
 export const findReviewerProfiles = async (
   query: Record<string, any> = {},
@@ -137,7 +167,7 @@ export const getReviewerPriceDistribution = async (
   bucketCount = 20
 ): Promise<Array<{ min: number; max: number; count: number }>> => {
   const result = await ReviewerProfileModel.aggregate([
-    { $match: { status: 'active', ...query } },
+    { $match: { status: 'active', isHidden: { $ne: true }, ...query } },
     {
       $bucketAuto: {
         groupBy: '$pricePerHour',

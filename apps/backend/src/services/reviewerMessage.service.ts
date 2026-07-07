@@ -12,13 +12,19 @@ export const createMessage = async (
     content,
   }) as unknown as ReviewerMessageDocument;
 
+/**
+ * Returns the latest `limit` messages of a mission in chronological order.
+ */
 export const findMessagesByMissionId = async (
   missionId: string,
   limit = 100
-): Promise<ReviewerMessageDocument[]> =>
-  ReviewerMessageModel.find({ missionId })
-    .sort({ createdAt: 1 })
-    .limit(limit) as unknown as ReviewerMessageDocument[];
+): Promise<ReviewerMessageDocument[]> => {
+  const latestMessages = (await ReviewerMessageModel.find({ missionId })
+    .sort({ createdAt: -1 })
+    .limit(limit)) as unknown as ReviewerMessageDocument[];
+
+  return latestMessages.reverse();
+};
 
 export const findNewMessagesSince = async (
   missionId: string,

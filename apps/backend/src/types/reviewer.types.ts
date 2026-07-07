@@ -5,12 +5,23 @@ import type { Project } from './project.types';
 import type { User } from './user.types';
 
 export type ReviewerStatus = 'pending' | 'active' | 'suspended';
-export type ReviewerCategory =
-  | 'copywriter'
-  | 'translator'
-  | 'proofreader'
-  | 'technical_writer'
-  | 'marketing';
+
+/**
+ * Single source of truth for the reviewer specialities available on the
+ * marketplace. Consumed by the Mongoose schema and by the frontend
+ * (via `@intlayer/backend`) so both stay in sync.
+ */
+export const REVIEWER_CATEGORIES = [
+  'copywriter',
+  'translator',
+  'proofreader',
+  'technical_writer',
+  'marketing',
+  'seo',
+  'content_reviewer',
+] as const;
+
+export type ReviewerCategory = (typeof REVIEWER_CATEGORIES)[number];
 
 export type MissionStatus =
   | 'pending'
@@ -36,7 +47,10 @@ export type SocialLinks = {
 
 export type ReviewerProfileData = {
   userId: User['id'];
+  /** Public display name — resolved from the linked user at read time, never stored */
   name?: string;
+  /** Public avatar URL — resolved from the linked user at read time, never stored */
+  avatar?: string;
   bio?: string;
   mainPicture?: string;
   coverPicture?: string;
@@ -71,7 +85,8 @@ export type TranslationMissionData = {
   clientUserId: User['id'];
   projectId?: Project['id'];
   dictionaryIds: Dictionary['id'][];
-  sourceLocale: string;
+  /** Optional — non-translation missions (e.g. SEO review) have no locales */
+  sourceLocale?: string;
   targetLocales: string[];
   wordCount: number;
   estimatedHours: number;

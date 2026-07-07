@@ -1,4 +1,4 @@
-import type { ReviewerMessageAPI } from '@intlayer/backend';
+import type { ResponseData, ReviewerMessageAPI } from '@intlayer/backend';
 import {
   useGetChatHistory,
   useIntlayerOAuth,
@@ -13,6 +13,22 @@ type ReviewerChatProps = {
   currentUserId: string;
 };
 
+/**
+ * Merges message lists, deduping by id and keeping ascending chronological
+ * order. Later occurrences of the same id win (server copy replaces optimistic).
+ */
+const mergeMessages = (
+  ...lists: ReviewerMessageAPI[][]
+): ReviewerMessageAPI[] => {
+  const byId = new Map<string, ReviewerMessageAPI>();
+  for (const list of lists) {
+    for (const message of list) byId.set(message.id, message);
+  }
+  return [...byId.values()].sort(
+    (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+  );
+};
+
 export const ReviewerChat: FC<ReviewerChatProps> = ({
   missionId,
   currentUserId,
@@ -25,11 +41,15 @@ export const ReviewerChat: FC<ReviewerChatProps> = ({
   const bottomRef = useRef<HTMLDivElement>(null);
   const eventSourceRef = useRef<EventSource | null>(null);
 
-  const history = data?.data ?? [];
+  const history = data?.data;
 
+  // Merge the fetched history with locally known (SSE + optimistic) messages,
+  // deduping by id and keeping chronological order. Never overwrite — the
+  // stream may hold messages the history query has not caught up with yet.
   useEffect(() => {
-    setLiveMessages(history);
-  }, [history.length]);
+    if (!history || history.length === 0) return;
+    setLiveMessages((prev) => mergeMessages(prev, history));
+  }, [history]);
 
   useEffect(() => {
     const url = intlayerOAuth.reviewer.getChatStreamUrl(missionId);
@@ -38,16 +58,14 @@ export const ReviewerChat: FC<ReviewerChatProps> = ({
     es.onmessage = (event) => {
       try {
         const msg: ReviewerMessageAPI = JSON.parse(event.data);
-        setLiveMessages((prev) => {
-          if (prev.some((m) => m.id === msg.id)) return prev;
-          return [...prev, msg];
-        });
+        setLiveMessages((prev) => mergeMessages(prev, [msg]));
       } catch {
         // ignore malformed events
       }
     };
 
-    es.onerror = () => es.close();
+    // Let the browser auto-reconnect on transient errors instead of closing
+    // the stream permanently.
 
     eventSourceRef.current = es;
     return () => es.close();
@@ -64,13 +82,9 @@ export const ReviewerChat: FC<ReviewerChatProps> = ({
     sendMessage(
       { missionId, content: text },
       {
-        onSuccess: (res: any) => {
-          if (res?.data) {
-            setLiveMessages((prev) => {
-              if (prev.some((m) => m.id === res.data!.id)) return prev;
-              return [...prev, res.data!];
-            });
-          }
+        onSuccess: (res: ResponseData<ReviewerMessageAPI>) => {
+          const sent = res?.data;
+          if (sent) setLiveMessages((prev) => mergeMessages(prev, [sent]));
         },
       }
     );

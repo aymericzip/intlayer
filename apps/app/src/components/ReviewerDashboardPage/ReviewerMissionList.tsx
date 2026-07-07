@@ -11,6 +11,9 @@ import { Link } from '#components/Link/Link';
 
 type ReviewerMissionListProps = {
   missions: TranslationMissionAPI[];
+  /** Whose perspective the list is rendered from. Reviewer-only action
+   * buttons (accept, decline, start…) are hidden for clients. */
+  perspective?: 'client' | 'reviewer';
 };
 
 const STATUS_LABELS: Record<string, string> = {
@@ -35,10 +38,13 @@ const STATUS_BADGE_COLOR: Record<string, BadgeColor> = {
 
 export const ReviewerMissionList: FC<ReviewerMissionListProps> = ({
   missions,
+  perspective = 'reviewer',
 }) => {
   const content = useIntlayer('reviewer-mission-list');
 
   const { mutate: updateStatus } = useUpdateMissionStatus();
+
+  const isReviewer = perspective === 'reviewer';
 
   if (missions.length === 0) {
     return <p className="text-neutral text-sm">{content.noMissionsYet}</p>;
@@ -83,7 +89,7 @@ export const ReviewerMissionList: FC<ReviewerMissionListProps> = ({
             </div>
 
             <div className="flex items-center gap-2">
-              {mission.status === 'pending' && (
+              {isReviewer && mission.status === 'pending' && (
                 <>
                   <Button
                     type="button"
@@ -117,7 +123,7 @@ export const ReviewerMissionList: FC<ReviewerMissionListProps> = ({
                 </>
               )}
 
-              {mission.status === 'accepted' && (
+              {isReviewer && mission.status === 'accepted' && (
                 <Button
                   type="button"
                   color="text"
@@ -134,7 +140,7 @@ export const ReviewerMissionList: FC<ReviewerMissionListProps> = ({
                 </Button>
               )}
 
-              {mission.status === 'reviewer_review' && (
+              {isReviewer && mission.status === 'reviewer_review' && (
                 <Button
                   type="button"
                   color="text"

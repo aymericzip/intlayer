@@ -24,13 +24,51 @@ import type {
   ReviewerCategory,
   ReviewerMessageAPI,
   ReviewerProfileAPI,
+  ReviewerProfileDocument,
   ReviewerReviewAPI,
   TranslationMissionAPI,
 } from '@/types/reviewer.types';
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
-const toProfileAPI = (doc: any): ReviewerProfileAPI => doc.toJSON();
+/**
+ * Maps a reviewer profile document to its API shape, attaching the public
+ * name and avatar of the linked user when provided.
+ */
+const toProfileAPI = (
+  doc: ReviewerProfileDocument,
+  userInfo?: reviewerService.ReviewerUserInfo
+): ReviewerProfileAPI => ({
+  ...(doc.toJSON() as unknown as ReviewerProfileAPI),
+  name: userInfo?.name,
+  avatar: userInfo?.avatar,
+});
+
+/**
+ * Maps reviewer profile documents to their API shape, resolving the public
+ * user info (name, avatar) of each linked user in a single query.
+ */
+const toProfilesAPIWithUserInfo = async (
+  profiles: ReviewerProfileDocument[]
+): Promise<ReviewerProfileAPI[]> => {
+  const userInfoMap = await reviewerService.getReviewerUserInfoMap(profiles);
+
+  return profiles.map((profile) =>
+    toProfileAPI(profile, userInfoMap.get(String(profile.userId)))
+  );
+};
+
+/**
+ * Maps a single reviewer profile document to its API shape, resolving the
+ * public user info (name, avatar) of the linked user.
+ */
+const toProfileAPIWithUserInfo = async (
+  profile: ReviewerProfileDocument
+): Promise<ReviewerProfileAPI> => {
+  const [profileAPI] = await toProfilesAPIWithUserInfo([profile]);
+  return profileAPI ?? toProfileAPI(profile);
+};
+
 const toMissionAPI = (doc: any): TranslationMissionAPI => doc.toJSON();
 const toReviewAPI = (doc: any): ReviewerReviewAPI => doc.toJSON();
 const toMessageAPI = (doc: any): ReviewerMessageAPI => doc.toJSON();
@@ -110,7 +148,7 @@ export const getMarketplace = async (
 
   return reply.send(
     formatPaginatedResponse<ReviewerProfileAPI>({
-      data: profiles.map(toProfileAPI),
+      data: await toProfilesAPIWithUserInfo(profiles),
       page: Number(page),
       pageSize: Number(pageSize),
       totalPages,
@@ -198,9 +236,11 @@ export const getReviewerById = async (
     );
   }
 
+  const profileAPI = await toProfileAPIWithUserInfo(profile);
+
   return reply.send(
     formatResponse<ReviewerProfileAPI>({
-      data: toProfileAPI(profile),
+      data: profileAPI,
       message: t({
         en: 'Reviewer profile fetched',
         fr: 'Profil récupéré',
@@ -250,7 +290,8 @@ export const registerAsReviewer = async (
     );
   }
 
-  const { bio, languagePairs, categories, pricePerHour } = request.body;
+  const { bio, languagePairs, categories, pricePerHour, socialLinks } =
+    request.body;
 
   const profile = await reviewerService.createReviewerProfile({
     userId: user.id as any,
@@ -258,6 +299,7 @@ export const registerAsReviewer = async (
     languagePairs: languagePairs ?? [],
     categories: (categories ?? []) as any,
     pricePerHour: pricePerHour ?? 0,
+    socialLinks,
   });
 
   // Notify the Intlayer team that a new reviewer has applied
@@ -273,7 +315,7 @@ export const registerAsReviewer = async (
 
   return reply.status(201).send(
     formatResponse<ReviewerProfileAPI>({
-      data: toProfileAPI(profile),
+      data: toProfileAPI(profile, { name: user.name, avatar: user.image }),
       message: t({
         en: 'Registered as reviewer',
         fr: 'Enregistré comme traducteur',
@@ -299,7 +341,6 @@ export const registerAsReviewer = async (
 };
 
 export type UpdateReviewerBody = Partial<RegisterReviewerBody> & {
-  coverPicture?: string;
   isHidden?: boolean;
 };
 
@@ -320,14 +361,39 @@ export const updateReviewerProfile = async (
     );
   }
 
+  // Whitelist the updatable fields — status, ratings and mission counters
+  // must never be settable by the reviewer themselves
+  const {
+    bio,
+    languagePairs,
+    categories,
+    pricePerHour,
+    socialLinks,
+    isHidden,
+  } = request.body;
+
   const updated = await reviewerService.updateReviewerProfile(
     String(profile.id),
-    request.body
+    {
+      ...(bio !== undefined && { bio }),
+      ...(languagePairs !== undefined && { languagePairs }),
+      ...(categories !== undefined && { categories }),
+      ...(pricePerHour !== undefined && { pricePerHour }),
+      ...(socialLinks !== undefined && { socialLinks }),
+      ...(isHidden !== undefined && { isHidden }),
+    }
   );
+
+  if (!updated) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'REVIEWER_PROFILE_NOT_FOUND'
+    );
+  }
 
   return reply.send(
     formatResponse<ReviewerProfileAPI>({
-      data: toProfileAPI(updated),
+      data: toProfileAPI(updated, { name: user.name, avatar: user.image }),
       message: t({
         en: 'Profile updated',
         fr: 'Profil mis à jour',
@@ -411,7 +477,9 @@ export const getMyReviewerProfile = async (
 
   return reply.send(
     formatResponse<ReviewerProfileAPI | null>({
-      data: profile ? toProfileAPI(profile) : null,
+      data: profile
+        ? toProfileAPI(profile, { name: user.name, avatar: user.image })
+        : null,
     })
   );
 };
@@ -445,7 +513,7 @@ export const getAdminReviewers = async (
 
   return reply.send(
     formatPaginatedResponse<ReviewerProfileAPI>({
-      data: profiles.map(toProfileAPI),
+      data: await toProfilesAPIWithUserInfo(profiles),
       page: Number(page),
       pageSize: Number(pageSize),
       totalPages: Math.ceil(total / Number(pageSize)),
@@ -477,9 +545,10 @@ export const validateReviewerProfile = async (
 
   if (profile.status === 'active') {
     // Already active — still return 200 so the admin can be idempotent
+    const profileAPI = await toProfileAPIWithUserInfo(profile);
     return reply.send(
       formatResponse<ReviewerProfileAPI>({
-        data: toProfileAPI(profile),
+        data: profileAPI,
         message: t({
           en: 'Reviewer profile is already active',
           fr: 'Le profil du traducteur est déjà actif',
@@ -508,6 +577,13 @@ export const validateReviewerProfile = async (
     status: 'active',
   });
 
+  if (!updated) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'REVIEWER_PROFILE_NOT_FOUND'
+    );
+  }
+
   // Fetch the linked user to send the approval email
   const linkedUser = await userService.getUserById(String(profile.userId));
   if (linkedUser) {
@@ -528,7 +604,10 @@ export const validateReviewerProfile = async (
 
   return reply.send(
     formatResponse<ReviewerProfileAPI>({
-      data: toProfileAPI(updated),
+      data: toProfileAPI(updated, {
+        name: linkedUser?.name,
+        avatar: linkedUser?.image,
+      }),
       message: t({
         en: 'Reviewer profile validated',
         fr: 'Profil traducteur validé',
@@ -664,13 +743,20 @@ const uploadReviewerPictureHandler =
       }
     );
 
+    if (!updated) {
+      return ErrorHandler.handleGenericErrorResponse(
+        reply,
+        'REVIEWER_PROFILE_NOT_FOUND'
+      );
+    }
+
     logger.info(
       `Reviewer ${kind} picture uploaded for profile ${String(profile.id)}`
     );
 
     return reply.send(
       formatResponse<ReviewerProfileAPI>({
-        data: toProfileAPI(updated),
+        data: toProfileAPI(updated, { name: user.name, avatar: user.image }),
         message: t({
           en: 'Picture uploaded',
           fr: 'Image mise à jour',
@@ -818,7 +904,7 @@ export const submitReview = async (
 
 export type EstimateMissionBody = {
   dictionaryIds: string[];
-  sourceLocale: string;
+  sourceLocale?: string;
   pricePerHour: number;
 };
 
@@ -826,10 +912,22 @@ export const estimateMission = async (
   request: FastifyRequest<{ Body: EstimateMissionBody }>,
   reply: FastifyReply
 ): Promise<void> => {
+  const user = request.session?.user;
+  if (!user) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
+  }
+
   const { dictionaryIds, sourceLocale, pricePerHour } = request.body;
 
+  // Only count dictionaries the caller can actually access
+  const accessibleDictionaryIds =
+    await missionService.filterAccessibleDictionaryIds(
+      dictionaryIds ?? [],
+      String(user.id)
+    );
+
   const estimate = await missionService.calculateMissionEstimate(
-    dictionaryIds,
+    accessibleDictionaryIds,
     sourceLocale,
     pricePerHour
   );
@@ -839,9 +937,10 @@ export const estimateMission = async (
 
 export type CreateMissionBody = {
   reviewerId: string;
-  dictionaryIds: string[];
-  sourceLocale: string;
-  targetLocales: string[];
+  dictionaryIds?: string[];
+  /** Optional — non-translation missions (e.g. SEO review) have no locales */
+  sourceLocale?: string;
+  targetLocales?: string[];
   projectId?: string;
   notes?: string;
 };
@@ -865,8 +964,29 @@ export const createMission = async (
     );
   }
 
+  if (reviewer.status !== 'active') {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'REVIEWER_PROFILE_NOT_ACTIVE'
+    );
+  }
+
+  if (String(reviewer.userId) === String(user.id)) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'REVIEWER_CANNOT_BOOK_SELF'
+    );
+  }
+
+  // Only attach dictionaries the caller can actually access
+  const accessibleDictionaryIds =
+    await missionService.filterAccessibleDictionaryIds(
+      request.body.dictionaryIds ?? [],
+      String(user.id)
+    );
+
   const estimate = await missionService.calculateMissionEstimate(
-    request.body.dictionaryIds,
+    accessibleDictionaryIds,
     request.body.sourceLocale,
     reviewer.pricePerHour
   );
@@ -875,9 +995,9 @@ export const createMission = async (
     reviewerId: reviewer.id,
     clientUserId: user.id as any,
     projectId: request.body.projectId as any,
-    dictionaryIds: request.body.dictionaryIds as any[],
+    dictionaryIds: accessibleDictionaryIds as any[],
     sourceLocale: request.body.sourceLocale,
-    targetLocales: request.body.targetLocales,
+    targetLocales: request.body.targetLocales ?? [],
     wordCount: estimate.wordCount,
     estimatedHours: estimate.estimatedHours,
     pricePerHour: reviewer.pricePerHour,
@@ -888,27 +1008,28 @@ export const createMission = async (
 
   const missionLink = `${process.env.APP_URL}/find-reviewer/dashboard/mission/${String(mission.id)}`;
 
+  const reviewerUser = await userService.getUserById(String(reviewer.userId));
+
   // Notify the client that their request was sent
   sendEmail({
     type: 'missionRequestedClient',
     to: user.email,
     clientUsername: user.name ?? user.email,
-    reviewerName: reviewer.name ?? 'the reviewer',
+    reviewerName: reviewerUser?.name ?? 'the reviewer',
     missionLink,
   }).catch((err) =>
     logger.error('Failed to send missionRequestedClient email', err)
   );
 
   // Notify the reviewer that someone contacted them
-  const reviewerUser = await userService.getUserById(String(reviewer.userId));
   if (reviewerUser?.email) {
     sendEmail({
       type: 'missionRequestedReviewer',
       to: reviewerUser.email,
       reviewerUsername: reviewerUser.name ?? reviewerUser.email,
       clientName: user.name ?? user.email,
-      sourceLocale: request.body.sourceLocale,
-      targetLocales: request.body.targetLocales,
+      sourceLocale: request.body.sourceLocale ?? '—',
+      targetLocales: request.body.targetLocales ?? [],
       notes: request.body.notes,
       missionLink,
     }).catch((err) =>
@@ -975,35 +1096,37 @@ export const getMyMissions = async (
         })
       );
     }
-    const missions = await missionService.findMissionsForReviewerProfile(
-      String(profile.id),
-      skip,
-      Number(pageSize)
-    );
+    const [missions, total] = await Promise.all([
+      missionService.findMissionsForReviewerProfile(
+        String(profile.id),
+        skip,
+        Number(pageSize)
+      ),
+      missionService.countMissionsForReviewerProfile(String(profile.id)),
+    ]);
     return reply.send(
       formatPaginatedResponse<TranslationMissionAPI>({
         data: missions.map(toMissionAPI),
         page: Number(page),
         pageSize: Number(pageSize),
-        totalPages: 1,
-        totalItems: missions.length,
+        totalPages: Math.ceil(total / Number(pageSize)),
+        totalItems: total,
       })
     );
   }
 
-  const missions = await missionService.findMissionsForUser(
-    userId,
-    skip,
-    Number(pageSize)
-  );
+  const [missions, total] = await Promise.all([
+    missionService.findMissionsForUser(userId, skip, Number(pageSize)),
+    missionService.countMissionsForUser(userId),
+  ]);
 
   return reply.send(
     formatPaginatedResponse<TranslationMissionAPI>({
       data: missions.map(toMissionAPI),
       page: Number(page),
       pageSize: Number(pageSize),
-      totalPages: 1,
-      totalItems: missions.length,
+      totalPages: Math.ceil(total / Number(pageSize)),
+      totalItems: total,
     })
   );
 };
@@ -1083,14 +1206,25 @@ export const updateMissionStatus = async (
   }
 
   const newStatus = request.body.status;
+  const role: missionService.MissionParticipantRole = isClient
+    ? 'client'
+    : 'reviewer';
+
+  if (!missionService.canUpdateMissionStatus(role, mission.status, newStatus)) {
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'REVIEWER_MISSION_INVALID_STATUS_TRANSITION'
+    );
+  }
 
   const updated = await missionService.updateMissionStatus(
     request.params.missionId,
     newStatus
   );
 
-  if (newStatus === 'completed' && profile) {
-    await reviewerService.incrementMissionCount(String(profile.id));
+  // Credit the mission's reviewer — not the caller, who is the client here
+  if (newStatus === 'completed') {
+    await reviewerService.incrementMissionCount(String(mission.reviewerId));
   }
 
   return reply.send(
@@ -1327,7 +1461,13 @@ export const contactReviewer = async (
 ): Promise<void> => {
   const { reviewerId } = request.params;
   const { message } = request.body;
-  const user = (request as any).user;
+  const user = request.session?.user;
+
+  // Require an authenticated sender so the reviewer knows who wrote and
+  // anonymous callers cannot spam reviewers by email
+  if (!user) {
+    return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_DEFINED');
+  }
 
   if (!message?.trim()) {
     return reply
@@ -1337,9 +1477,10 @@ export const contactReviewer = async (
 
   const reviewer = await reviewerService.findReviewerById(reviewerId);
   if (!reviewer) {
-    return reply
-      .status(404)
-      .send(formatResponse({ data: null, message: 'Reviewer not found' }));
+    return ErrorHandler.handleGenericErrorResponse(
+      reply,
+      'REVIEWER_PROFILE_NOT_FOUND'
+    );
   }
 
   const reviewerUser = await userService.getUserById(String(reviewer.userId));
@@ -1348,7 +1489,7 @@ export const contactReviewer = async (
       type: 'reviewerContactInquiry',
       to: reviewerUser.email,
       reviewerUsername: reviewerUser.name ?? reviewerUser.email,
-      clientName: user?.name ?? user?.email ?? 'A user',
+      clientName: `${user.name ?? user.email} (${user.email})`,
       message: message.trim(),
     }).catch((err) =>
       logger.error('Failed to send reviewerContactInquiry email', err)

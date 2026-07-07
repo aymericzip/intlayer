@@ -1,4 +1,8 @@
-import type { ReviewerCategory, ReviewerProfileAPI } from '@intlayer/backend';
+import {
+  REVIEWER_CATEGORIES,
+  type ReviewerCategory,
+  type ReviewerProfileAPI,
+} from '@intlayer/backend';
 import {
   useRegisterAsReviewer,
   useSession,
@@ -23,14 +27,6 @@ type ReviewerOnboardingProps = {
 };
 
 type LangPair = { from: string; to: string };
-
-const ALL_CATEGORIES: ReviewerCategory[] = [
-  'copywriter',
-  'translator',
-  'proofreader',
-  'technical_writer',
-  'marketing',
-];
 
 const Field: FC<{ label: string; children: React.ReactNode }> = ({
   label,
@@ -213,7 +209,7 @@ export const ReviewerOnboarding: FC<ReviewerOnboardingProps> = ({
 
         <Field label={content.categories.value}>
           <div className="flex flex-wrap gap-2">
-            {ALL_CATEGORIES.map((cat) => {
+            {REVIEWER_CATEGORIES.map((cat) => {
               const checked = categories.includes(cat);
 
               return (

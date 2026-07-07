@@ -8,9 +8,11 @@ import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
 import { Loader } from '@intlayer/design-system/loader';
 import { Modal } from '@intlayer/design-system/modal';
+import { App_ReviewerMarketplace_Path } from '@intlayer/design-system/routes';
 import { Eye, EyeOff, Trash2, TriangleAlert } from 'lucide-react';
 import { type FC, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
+import { Link } from '#components/Link/Link';
 import { ReviewerMissionList } from './ReviewerMissionList';
 import { ReviewerOnboarding } from './ReviewerOnboarding';
 import { ReviewerProfileCard } from './ReviewerProfileCard';
@@ -20,6 +22,9 @@ export const ReviewerDashboardPage: FC = () => {
     title,
     notRegisteredMessage,
     myMissionsTitle,
+    myBookingsTitle,
+    myBookingsAriaLabel,
+    browseReviewersButton,
     pendingMessage,
     missionsAriaLabel,
     loadingMissionsAriaLabel,
@@ -39,6 +44,9 @@ export const ReviewerDashboardPage: FC = () => {
   const { data: missionsData, isLoading: missionsLoading } = useGetMyMissions({
     role: 'reviewer',
   });
+  const { data: bookingsData, isLoading: bookingsLoading } = useGetMyMissions({
+    role: 'client',
+  });
   const { mutate: updateProfile, isPending: isUpdating } =
     useUpdateReviewerProfile();
   const { mutate: deleteProfile, isPending: isDeleting } =
@@ -47,6 +55,7 @@ export const ReviewerDashboardPage: FC = () => {
 
   const profile = profileData?.data ?? null;
   const missions = missionsData?.data ?? [];
+  const bookings = bookingsData?.data ?? [];
 
   if (profileLoading) {
     return (
@@ -56,14 +65,42 @@ export const ReviewerDashboardPage: FC = () => {
     );
   }
 
+  // Bookings this user made as a client — shown to everyone, reviewer or not,
+  // so a client always has a way back to the missions they created.
+  const clientBookingsSection = (
+    <section aria-label={myBookingsAriaLabel.value} className="flex flex-col">
+      <div className="mb-4 flex items-center justify-between gap-4">
+        <h2 className="font-semibold text-xl">{myBookingsTitle}</h2>
+        <Link
+          to={App_ReviewerMarketplace_Path as any}
+          color="text"
+          variant="button-outlined"
+          size="sm"
+          label={browseReviewersButton.value}
+        >
+          {browseReviewersButton}
+        </Link>
+      </div>
+      {bookingsLoading ? (
+        <Loader />
+      ) : (
+        <ReviewerMissionList missions={bookings} perspective="client" />
+      )}
+    </section>
+  );
+
   return (
     <div className="m-auto flex w-full max-w-6xl flex-col gap-6 p-8">
       <h1 className="font-bold text-3xl">{title}</h1>
 
       {!profile ? (
-        <div className="flex flex-col gap-4">
-          <p className="text-neutral text-sm">{notRegisteredMessage}</p>
-          <ReviewerOnboarding />
+        <div className="flex flex-col gap-8">
+          {clientBookingsSection}
+
+          <div className="flex flex-col gap-4 border-neutral/20 border-t pt-8">
+            <p className="text-neutral text-sm">{notRegisteredMessage}</p>
+            <ReviewerOnboarding />
+          </div>
         </div>
       ) : (
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
@@ -209,9 +246,14 @@ export const ReviewerDashboardPage: FC = () => {
                   <Loader />
                 </div>
               ) : (
-                <ReviewerMissionList missions={missions} />
+                <ReviewerMissionList
+                  missions={missions}
+                  perspective="reviewer"
+                />
               )}
             </section>
+
+            {clientBookingsSection}
           </div>
 
           {/* Right — live preview card */}

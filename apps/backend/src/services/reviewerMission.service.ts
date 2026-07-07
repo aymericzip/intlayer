@@ -1,4 +1,5 @@
 import { DictionaryModel } from '@schemas/dictionary.schema';
+import { ProjectModel } from '@schemas/project.schema';
 import { TranslationMissionModel } from '@schemas/reviewer.schema';
 import type {
   MissionEstimate,
@@ -8,6 +9,42 @@ import type {
 } from '@/types/reviewer.types';
 
 const WORDS_PER_HOUR = 300;
+
+/** Role of the caller relative to a mission */
+export type MissionParticipantRole = 'client' | 'reviewer';
+
+/**
+ * Allowed mission status transitions per participant role.
+ * Any transition not listed here is rejected.
+ */
+const MISSION_STATUS_TRANSITIONS: Record<
+  MissionParticipantRole,
+  Partial<Record<MissionStatus, MissionStatus[]>>
+> = {
+  reviewer: {
+    pending: ['accepted', 'canceled'],
+    accepted: ['in_progress', 'canceled'],
+    in_progress: ['reviewer_review'],
+    reviewer_review: ['client_review'],
+  },
+  client: {
+    pending: ['canceled'],
+    accepted: ['canceled'],
+    client_review: ['completed', 'reviewer_review'],
+  },
+};
+
+/**
+ * Checks whether the given participant is allowed to move a mission from
+ * `currentStatus` to `nextStatus`.
+ */
+export const canUpdateMissionStatus = (
+  role: MissionParticipantRole,
+  currentStatus: MissionStatus,
+  nextStatus: MissionStatus
+): boolean =>
+  MISSION_STATUS_TRANSITIONS[role][currentStatus]?.includes(nextStatus) ??
+  false;
 
 const extractStrings = (obj: any): string[] => {
   if (typeof obj === 'string') return [obj];
@@ -20,9 +57,40 @@ const extractStrings = (obj: any): string[] => {
 const countWords = (str: string): number =>
   str.trim().split(/\s+/).filter(Boolean).length;
 
+/**
+ * Keeps only the dictionary ids that belong to a project the given user is a
+ * member, admin or creator of. Prevents estimating or booking missions on
+ * another tenant's dictionaries.
+ */
+export const filterAccessibleDictionaryIds = async (
+  dictionaryIds: string[],
+  userId: string
+): Promise<string[]> => {
+  if (!dictionaryIds.length) return [];
+
+  const projects = await ProjectModel.find(
+    {
+      $or: [
+        { membersIds: userId },
+        { adminsIds: userId },
+        { creatorId: userId },
+      ],
+    },
+    { _id: 1 }
+  );
+  const projectIds = projects.map((project) => project._id);
+
+  const dictionaries = await DictionaryModel.find(
+    { _id: { $in: dictionaryIds }, projectIds: { $in: projectIds } },
+    { _id: 1 }
+  );
+
+  return dictionaries.map((dictionary) => String(dictionary._id));
+};
+
 export const countWordsFromDictionaries = async (
   dictionaryIds: string[],
-  sourceLocale: string
+  sourceLocale?: string
 ): Promise<number> => {
   if (!dictionaryIds.length) return 0;
 
@@ -44,7 +112,7 @@ export const countWordsFromDictionaries = async (
     if (!versionEl?.content) continue;
 
     const localeContent =
-      typeof versionEl.content === 'object'
+      typeof versionEl.content === 'object' && sourceLocale
         ? (versionEl.content[sourceLocale] ?? versionEl.content)
         : versionEl.content;
 
@@ -55,9 +123,14 @@ export const countWordsFromDictionaries = async (
   return total;
 };
 
+/**
+ * Estimates a mission from the word count of the selected dictionaries.
+ * Missions without dictionaries (e.g. SEO or content review) yield a zero
+ * estimate — the scope is then agreed upon through the mission chat.
+ */
 export const calculateMissionEstimate = async (
   dictionaryIds: string[],
-  sourceLocale: string,
+  sourceLocale: string | undefined,
   pricePerHour: number
 ): Promise<MissionEstimate> => {
   const wordCount = await countWordsFromDictionaries(
@@ -129,3 +202,8 @@ export const updateMissionStatus = async (
 
 export const countMissionsForUser = async (userId: string): Promise<number> =>
   TranslationMissionModel.countDocuments({ clientUserId: userId });
+
+export const countMissionsForReviewerProfile = async (
+  reviewerProfileId: string
+): Promise<number> =>
+  TranslationMissionModel.countDocuments({ reviewerId: reviewerProfileId });

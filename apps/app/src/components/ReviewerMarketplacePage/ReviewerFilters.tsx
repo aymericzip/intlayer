@@ -1,4 +1,8 @@
-import type { GetMarketplaceQuery } from '@intlayer/backend';
+import {
+  type GetMarketplaceQuery,
+  REVIEWER_CATEGORIES,
+  type ReviewerCategory,
+} from '@intlayer/backend';
 import { useGetReviewerPriceDistribution } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
@@ -12,15 +16,7 @@ import { PriceRangeSlider } from './PriceRangeSlider';
 
 export type ReviewerFiltersValue = GetMarketplaceQuery;
 
-const CATEGORIES = [
-  'copywriter',
-  'translator',
-  'proofreader',
-  'technical_writer',
-  'marketing',
-] as const;
-
-type Category = (typeof CATEGORIES)[number];
+type Category = ReviewerCategory;
 
 type ReviewerFiltersProps = {
   value: ReviewerFiltersValue;
@@ -90,7 +86,7 @@ export const ReviewerFilters: FC<ReviewerFiltersProps> = ({
         {/* Category checkboxes */}
         <Field label={content.categories.value}>
           <div className="grid grid-cols-1 gap-2">
-            {CATEGORIES.map((cat) => (
+            {REVIEWER_CATEGORIES.map((cat) => (
               <Checkbox
                 key={cat}
                 color="text"
