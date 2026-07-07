@@ -55,6 +55,11 @@
       "require": "./dist/cjs/utils/index.cjs",
       "import": "./dist/esm/utils/index.mjs"
     },
+    "./syncPluginKit": {
+      "types": "./dist/types/syncPluginKit/index.d.ts",
+      "require": "./dist/cjs/syncPluginKit/index.cjs",
+      "import": "./dist/esm/syncPluginKit/index.mjs"
+    },
     "./listDictionaries": {
       "types": "./dist/types/listDictionariesPath.d.ts",
       "require": "./dist/cjs/listDictionariesPath.cjs",

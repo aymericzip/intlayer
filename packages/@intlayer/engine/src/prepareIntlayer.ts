@@ -219,13 +219,25 @@ export const prepareIntlayer = async (
       for await (const plugin of configuration.plugins ?? []) {
         const { unmergedDictionaries, mergedDictionaries } = dictionariesOutput;
 
-        await plugin.afterBuild?.({
-          dictionaries: {
-            unmergedDictionaries,
-            mergedDictionaries,
-          },
-          configuration,
-        });
+        try {
+          await plugin.afterBuild?.({
+            dictionaries: {
+              unmergedDictionaries,
+              mergedDictionaries,
+            },
+            configuration,
+          });
+        } catch (error) {
+          // A failing write-back (e.g. transient network error on a remote
+          // target) must not invalidate the dictionaries already built.
+          appLogger(
+            [
+              `Plugin ${plugin.name} afterBuild failed:`,
+              (error as Error).message,
+            ],
+            { level: 'error' }
+          );
+        }
       }
 
       const preparationElapsedMs = Date.now() - preparationStartMs;

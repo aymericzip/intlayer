@@ -1,149 +1,14 @@
-import { isAbsolute, relative, resolve } from 'node:path';
-import { loadExternalFile } from '@intlayer/config/file';
-import { colorizePath, getAppLogger } from '@intlayer/config/logger';
-import { parseFilePathPattern } from '@intlayer/config/utils';
+import {
+  createFileAdapter,
+  createSyncPlugin,
+} from '@intlayer/engine/syncPluginKit';
 import type { Locale } from '@intlayer/types/allLocales';
-import type { IntlayerConfig } from '@intlayer/types/config';
-import type {
-  Dictionary,
-  DictionaryFormat,
-  LocalDictionaryId,
-} from '@intlayer/types/dictionary';
-import type {
-  FilePathPattern,
-  FilePathPatternContext,
-} from '@intlayer/types/filePathPattern';
+import type { DictionaryFormat } from '@intlayer/types/dictionary';
+import type { FilePathPattern } from '@intlayer/types/filePathPattern';
 import type { Plugin } from '@intlayer/types/plugin';
-import fg from 'fast-glob';
-import { extractKeyAndLocaleFromPath } from './syncJSON';
+import { jsonCodec, readJSONEntry } from './jsonCodec';
 
-type JSONContent = Record<string, any>;
-
-type FilePath = string;
-
-type MessagesRecord = Record<Locale, Record<Dictionary['key'], FilePath>>;
-
-const listMessages = async (
-  source: FilePathPattern,
-  configuration: IntlayerConfig
-): Promise<MessagesRecord> => {
-  const { system, internationalization } = configuration;
-
-  const { baseDir } = system;
-  const { locales } = internationalization;
-
-  const result: MessagesRecord = {} as MessagesRecord;
-
-  for (const locale of locales) {
-    const globPatternLocale = await parseFilePathPattern(source, {
-      key: '**',
-      locale,
-    } as any as FilePathPatternContext);
-
-    const maskPatternLocale = await parseFilePathPattern(source, {
-      key: '{{__KEY__}}',
-      locale,
-    } as any as FilePathPatternContext);
-
-    if (!globPatternLocale || !maskPatternLocale) {
-      continue;
-    }
-
-    const normalizedGlobPattern = globPatternLocale.startsWith('./')
-      ? globPatternLocale.slice(2)
-      : globPatternLocale;
-
-    const files = await fg(normalizedGlobPattern, {
-      cwd: baseDir,
-    });
-
-    for (const file of files) {
-      // extractKeyAndLocaleFromPath requires at least one named capture group
-      // ({{__LOCALE__}} or {{__KEY__}}) in the mask to return a non-null result.
-      // When the mask is fully concrete (e.g. `messages_ICU/en.json` — the source
-      // has {{locale}} but no {{key}}), no groups exist and it returns null.
-      // In that case, fall back directly to the loop locale and key = 'index'.
-      const hasLocaleInMask = maskPatternLocale.includes('{{__LOCALE__}}');
-      const hasKeyInMask = maskPatternLocale.includes('{{__KEY__}}');
-
-      let key: string;
-      let extractedLocale: Locale;
-
-      if (hasLocaleInMask || hasKeyInMask) {
-        const extraction = extractKeyAndLocaleFromPath(
-          file,
-          maskPatternLocale,
-          locales,
-          locale
-        );
-
-        if (!extraction) {
-          continue;
-        }
-
-        key = extraction.key;
-        extractedLocale = extraction.locale;
-      } else {
-        // Mask has no placeholders — the file was found via a concrete locale
-        // glob. Attribute it directly to the current loop locale.
-        key = 'index';
-        extractedLocale = locale;
-      }
-
-      const absolutePath = isAbsolute(file) ? file : resolve(baseDir, file);
-
-      const usedLocale = extractedLocale as Locale;
-      if (!result[usedLocale]) {
-        result[usedLocale] = {};
-      }
-
-      result[usedLocale][key as Dictionary['key']] = absolutePath;
-    }
-  }
-
-  // For the load plugin we only use actual discovered files; do not fabricate
-  // missing locales or keys, since we don't write outputs.
-  return result;
-};
-
-type DictionariesMap = { path: string; locale: Locale; key: string }[];
-
-const loadMessagePathMap = async (
-  source: MessagesRecord | FilePathPattern,
-  configuration: IntlayerConfig
-) => {
-  const sourcePattern = source as FilePathPattern;
-  const messages: MessagesRecord = await listMessages(
-    sourcePattern,
-    configuration
-  );
-
-  // Always include all discovered locales — loadJSON is read-only and should
-  // ingest every locale file that exists, just like syncJSON does.
-  const entries = Object.entries(messages) as [
-    Locale,
-    Record<Dictionary['key'], FilePath>,
-  ][];
-
-  const dictionariesPathMap: DictionariesMap = entries.flatMap(
-    ([locale, keysRecord]) =>
-      Object.entries(keysRecord).map(([key, path]) => {
-        const absolutePath = isAbsolute(path)
-          ? path
-          : resolve(configuration.system.baseDir, path);
-
-        return {
-          path: absolutePath,
-          locale,
-          key,
-        } as DictionariesMap[number];
-      })
-  );
-
-  return dictionariesPathMap;
-};
-
-type LoadJSONPluginOptions = {
+export type LoadJSONPluginOptions = {
   /**
    * The source of the plugin.
    * Is a function to build the source from the key and locale.
@@ -233,98 +98,23 @@ type LoadJSONPluginOptions = {
   splitKeys?: boolean;
 };
 
-export const loadJSON = (options: LoadJSONPluginOptions): Plugin => {
-  const { location, priority, locale, format } = {
-    location: 'plugin',
-    priority: 0,
-    ...options,
-  } as const;
-
-  return {
+/**
+ * Read-only JSON ingestion plugin: loads JSON message files as dictionaries
+ * without ever writing back to them.
+ */
+export const loadJSON = (options: LoadJSONPluginOptions): Plugin =>
+  createSyncPlugin({
     name: 'load-json',
-
-    loadDictionaries: async ({ configuration }) => {
-      const appLogger = getAppLogger(configuration);
-      const dictionariesMap: DictionariesMap = await loadMessagePathMap(
-        options.source,
-        configuration
-      );
-
-      if (dictionariesMap.length === 0) {
-        const pattern = await parseFilePathPattern(options.source, {
-          key: '{{key}}',
-          locale: '{{locale}}',
-        } as any as FilePathPatternContext);
-
-        appLogger(
-          `No dictionaries found at locations matching source pattern: ${colorizePath(pattern)}`,
-          { level: 'warn' }
-        );
-      }
-
-      // When the source pattern has no `{{key}}` segment, a single file holds
-      // every namespace as a first-level key (the next-intl / react-intl model).
-      // In that case each top-level key becomes its own dictionary.
-      const patternMarker = await parseFilePathPattern(options.source, {
-        key: '{{key}}',
-        locale: '{{locale}}',
-      } as any as FilePathPatternContext);
-      const hasKeyPlaceholder = patternMarker.includes('{{key}}');
-      const shouldSplitByKeys = options.splitKeys ?? !hasKeyPlaceholder;
-
-      const dictionaries: Dictionary[] = [];
-
-      for (const { path, key, locale: entryLocale } of dictionariesMap) {
-        // loadExternalFile swallows errors and returns undefined for missing files;
-        // use ?? {} to guarantee a plain object regardless.
-        const json: JSONContent =
-          (await loadExternalFile(path, { logError: false })) ?? {};
-
-        const filePath = relative(configuration.system.baseDir, path);
-
-        // Use the per-entry locale discovered from the file path. If a fixed
-        // locale override was provided, use it only as a fallback.
-        const entryUsedLocale = (locale ?? entryLocale) as Locale;
-
-        const filled =
-          entryUsedLocale !== configuration.internationalization.defaultLocale
-            ? true
-            : undefined;
-
-        if (shouldSplitByKeys) {
-          for (const [namespaceKey, namespaceContent] of Object.entries(json)) {
-            dictionaries.push({
-              key: namespaceKey,
-              locale: entryUsedLocale,
-              fill: filePath,
-              format,
-              localId:
-                `${namespaceKey}::${location}::${filePath}` as LocalDictionaryId,
-              location: location as Dictionary['location'],
-              filled,
-              content: namespaceContent as JSONContent,
-              filePath,
-              priority,
-            });
-          }
-          continue;
-        }
-
-        dictionaries.push({
-          key,
-          locale: entryUsedLocale,
-          fill: filePath,
-          format,
-          localId: `${key}::${location}::${filePath}` as LocalDictionaryId,
-          location: location as Dictionary['location'],
-          filled,
-          content: json,
-          filePath,
-          priority,
-        });
-      }
-
-      return dictionaries;
-    },
-  };
-};
+    adapter: createFileAdapter({
+      source: options.source,
+      codec: jsonCodec,
+      readEntry: readJSONEntry,
+      discovery: 'inclusive',
+    }),
+    direction: 'pull',
+    location: options.location ?? 'plugin',
+    priority: options.priority ?? 0,
+    format: options.format,
+    splitKeys: options.splitKeys,
+    localeOverride: options.locale,
+  });
