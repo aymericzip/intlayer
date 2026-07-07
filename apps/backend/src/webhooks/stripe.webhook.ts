@@ -125,6 +125,14 @@ export const stripeWebhook = async (
 
     const status = statusOverride ?? subscription.status; // Use the provided status override or the subscription's status
 
+    // Snapshot the previous plan state (organization is fetched before the
+    // update) so notification emails are only sent when the status actually
+    // transitions — customer.subscription.updated fires repeatedly.
+    const previousStatus = organization.plan?.status;
+    const isSameSubscription =
+      organization.plan?.subscriptionId === subscriptionId;
+    const statusChanged = !isSameSubscription || previousStatus !== status;
+
     // Update or create a subscription record in the database
     const updatedPlan = await addOrUpdateSubscription(
       subscriptionId,
@@ -135,7 +143,7 @@ export const stripeWebhook = async (
       status
     );
 
-    if (status === 'active') {
+    if (status === 'active' && statusChanged) {
       await emailService.sendEmail({
         type: 'subscriptionPaymentSuccess',
         to: user.email,
@@ -159,14 +167,17 @@ export const stripeWebhook = async (
         billingLink: `${process.env.APP_URL}/organization`,
       });
     }
-    if (status === 'canceled') {
+    if (status === 'canceled' && statusChanged) {
+      // On the pinned Stripe API version current_period_end lives on the
+      // subscription item, not the subscription itself.
+      const currentPeriodEnd = subscription.items.data[0]?.current_period_end;
       await emailService.sendEmail({
         type: 'subscriptionPaymentCancellation',
         to: user.email,
         email: user.email,
-        cancellationDate: new Date(
-          (subscription as any).current_period_end * 1000
-        ).toLocaleDateString(),
+        cancellationDate: currentPeriodEnd
+          ? new Date(currentPeriodEnd * 1000).toLocaleDateString()
+          : new Date().toLocaleDateString(),
         reactivateLink: `${process.env.APP_URL}/pricing`,
         username: user.name,
         organizationName: organization.name,
@@ -181,10 +192,14 @@ export const stripeWebhook = async (
     invoice: Stripe.Invoice,
     status: 'active' | 'incomplete'
   ) => {
+    // On the pinned Stripe API version (2026-05-27.dahlia) the subscription is
+    // no longer a top-level field on the invoice; it lives under
+    // invoice.parent.subscription_details.subscription.
+    const subscriptionRef = invoice.parent?.subscription_details?.subscription;
     const subscriptionId =
-      typeof (invoice as any).subscription === 'string'
-        ? (invoice as any).subscription
-        : (invoice as any).subscription?.id;
+      typeof subscriptionRef === 'string'
+        ? subscriptionRef
+        : subscriptionRef?.id;
 
     if (!subscriptionId) {
       logger.warn('Subscription ID is undefined in invoice.');
@@ -233,8 +248,8 @@ export const stripeWebhook = async (
     // 4. Convert affiliate referral and notify affiliate
     if (status === 'active') {
       const amountPaid =
-        typeof (invoice as any).amount_paid === 'number'
-          ? (invoice as any).amount_paid
+        typeof invoice.amount_paid === 'number'
+          ? invoice.amount_paid
           : undefined;
       const currency = invoice.currency ?? 'usd';
 
@@ -251,11 +266,17 @@ export const stripeWebhook = async (
           const affiliateUser = await getUserById(String(affiliate.userId));
           if (affiliateUser) {
             const appUrl = process.env.APP_URL;
+            // referral.commissionAmount holds the gross amount paid; the
+            // affiliate earns commissionRate% of it.
+            const earnedCommission = Math.round(
+              (referral.commissionAmount ?? 0) *
+                (affiliate.commissionRate / 100)
+            );
             await emailService.sendEmail({
               type: 'affiliateConversion',
               to: affiliateUser.email,
               commissionRate: affiliate.commissionRate,
-              commissionAmount: referral.commissionAmount ?? 0,
+              commissionAmount: earnedCommission,
               commissionCurrency: referral.commissionCurrency ?? currency,
               organizationName: organization.name,
               dashboardLink: `${appUrl}/affiliation`,
@@ -298,6 +319,12 @@ export const stripeWebhook = async (
         throw new GenericError('USER_NOT_FOUND');
       }
 
+      // charge.succeeded and charge.updated both fire for the same charge;
+      // skip re-sending confirmation emails once this charge is recorded.
+      const alreadyProcessed =
+        organization.plan?.subscriptionId === charge.id &&
+        organization.plan?.status === 'active';
+
       const updatedPlan = await addOrUpdateSubscription(
         charge.id,
         priceId,
@@ -317,41 +344,49 @@ export const stripeWebhook = async (
 
       const appUrl = process.env.APP_URL;
 
-      await emailService.sendEmail({
-        type: 'subscriptionPaymentSuccess',
-        to: user.email,
-        email: user.email,
-        subscriptionStartDate: new Date().toLocaleDateString(),
-        manageSubscriptionLink: `${appUrl}/organization`,
-        username: user.name,
-        organizationName: organization.name,
-        planName: updatedPlan?.type ?? 'Unknown',
-        billingLink: `${appUrl}/organization`,
-        locale,
-      });
-      await emailService.sendEmail({
-        type: 'subscriptionPaymentSuccess',
-        to: 'contact@intlayer.org',
-        email: user.email,
-        subscriptionStartDate: new Date().toLocaleDateString(),
-        manageSubscriptionLink: `${appUrl}/organization`,
-        username: user.name,
-        organizationName: organization.name,
-        planName: updatedPlan?.type ?? 'Unknown',
-        billingLink: `${appUrl}/organization`,
-        locale,
-      });
+      if (!alreadyProcessed) {
+        await emailService.sendEmail({
+          type: 'subscriptionPaymentSuccess',
+          to: user.email,
+          email: user.email,
+          subscriptionStartDate: new Date().toLocaleDateString(),
+          manageSubscriptionLink: `${appUrl}/organization`,
+          username: user.name,
+          organizationName: organization.name,
+          planName: updatedPlan?.type ?? 'Unknown',
+          billingLink: `${appUrl}/organization`,
+          locale,
+        });
+        await emailService.sendEmail({
+          type: 'subscriptionPaymentSuccess',
+          to: 'contact@intlayer.org',
+          email: user.email,
+          subscriptionStartDate: new Date().toLocaleDateString(),
+          manageSubscriptionLink: `${appUrl}/organization`,
+          username: user.name,
+          organizationName: organization.name,
+          planName: updatedPlan?.type ?? 'Unknown',
+          billingLink: `${appUrl}/organization`,
+          locale,
+        });
+      }
 
       if (referral) {
         const affiliate = await getAffiliateById(String(referral.affiliateId));
         if (affiliate) {
           const affiliateUser = await getUserById(String(affiliate.userId));
           if (affiliateUser) {
+            // referral.commissionAmount holds the gross amount paid; the
+            // affiliate earns commissionRate% of it.
+            const earnedCommission = Math.round(
+              (referral.commissionAmount ?? 0) *
+                (affiliate.commissionRate / 100)
+            );
             await emailService.sendEmail({
               type: 'affiliateConversion',
               to: affiliateUser.email,
               commissionRate: affiliate.commissionRate,
-              commissionAmount: referral.commissionAmount ?? 0,
+              commissionAmount: earnedCommission,
               commissionCurrency:
                 referral.commissionCurrency ?? charge.currency,
               organizationName: organization.name,

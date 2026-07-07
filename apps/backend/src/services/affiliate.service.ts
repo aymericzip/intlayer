@@ -4,6 +4,7 @@ import {
   AffiliateReferralModel,
 } from '@schemas/affiliate.schema';
 import { AffiliateInvitationModel } from '@schemas/affiliateInvitation.schema';
+import { getOrganizationById } from '@services/organization.service';
 import { GenericError } from '@utils/errors';
 import Stripe from 'stripe';
 import type {
@@ -222,6 +223,23 @@ export const trackReferral = async (
   const affiliate = await getAffiliateByCode(referralCode);
   if (!affiliate) return null;
 
+  // Prevent self-referral: an affiliate must not earn commission on a purchase
+  // made by an organization they belong to (creator, admin or member).
+  const referredOrganization = await getOrganizationById(
+    String(organizationId)
+  );
+  if (referredOrganization) {
+    const affiliateUserId = String(affiliate.userId);
+    const organizationUserIds = [
+      String(referredOrganization.creatorId),
+      ...referredOrganization.adminsIds.map(String),
+      ...referredOrganization.membersIds.map(String),
+    ];
+    if (organizationUserIds.includes(affiliateUserId)) {
+      return null;
+    }
+  }
+
   const existing = await AffiliateReferralModel.findOne({
     affiliateId: affiliate.id,
     referredOrganizationId: String(organizationId),
@@ -297,13 +315,20 @@ export const getAffiliateStats = async (
   const pending = referrals.filter(
     (referral) => referral.conversionStatus === 'pending'
   );
-  const totalEarned = converted.reduce(
-    (sum, referral) => sum + (referral.commissionAmount ?? 0),
-    0
+  // referral.commissionAmount holds the gross amount paid; the affiliate earns
+  // commissionRate% of it.
+  const commissionShare = affiliate.commissionRate / 100;
+  const totalEarned = Math.round(
+    converted.reduce(
+      (sum, referral) => sum + (referral.commissionAmount ?? 0),
+      0
+    ) * commissionShare
   );
-  const pendingAmount = pending.reduce(
-    (sum, referral) => sum + (referral.commissionAmount ?? 0),
-    0
+  const pendingAmount = Math.round(
+    pending.reduce(
+      (sum, referral) => sum + (referral.commissionAmount ?? 0),
+      0
+    ) * commissionShare
   );
 
   const appUrl = process.env.APP_URL;
@@ -394,6 +419,15 @@ export const acceptAffiliateInvitation = async (
   if (!invitation) throw new GenericError('AFFILIATE_INVITATION_NOT_FOUND');
   if (invitation.status !== 'pending')
     throw new GenericError('AFFILIATE_INVITATION_ALREADY_USED');
+
+  // Ensure the accepting user is the invited recipient — the token alone must
+  // not let a different account claim the invitation.
+  if (
+    options.email &&
+    invitation.email.toLowerCase() !== options.email.toLowerCase()
+  ) {
+    throw new GenericError('AFFILIATE_INVITATION_EMAIL_MISMATCH');
+  }
 
   const affiliate = await createAffiliate(userId, {
     commissionRate: invitation.commissionRate,

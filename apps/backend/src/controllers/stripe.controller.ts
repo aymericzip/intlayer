@@ -728,14 +728,29 @@ export const getAffiliateOnboardingLink = async (
     }
 
     const appUrl = process.env.APP_URL;
-    const fallback = `${appUrl}/dashboard/affiliate`;
-    const returnUrl = request.query.returnUrl ?? fallback;
-    const refreshUrl = request.query.returnUrl ?? fallback;
+    const fallback = `${appUrl}/affiliation`;
+
+    // Only accept a returnUrl that points back to our own app origin, to avoid
+    // being used as an open redirect after Stripe onboarding completes.
+    const isSameOrigin = (candidate: string): boolean => {
+      if (!appUrl) return false;
+      try {
+        return new URL(candidate).origin === new URL(appUrl).origin;
+      } catch {
+        return false;
+      }
+    };
+
+    const requestedReturnUrl = request.query.returnUrl;
+    const targetUrl =
+      requestedReturnUrl && isSameOrigin(requestedReturnUrl)
+        ? requestedReturnUrl
+        : fallback;
 
     const url = await affiliateService.createOnboardingLink(
       affiliate.stripeAccountId,
-      returnUrl,
-      refreshUrl
+      targetUrl,
+      targetUrl
     );
 
     return reply.send(
@@ -920,6 +935,12 @@ export const updateAffiliateStatus = async (
   reply: FastifyReply
 ): Promise<void> => {
   try {
+    const { user } = request.session || {};
+
+    if (user?.role !== 'admin') {
+      return ErrorHandler.handleGenericErrorResponse(reply, 'USER_NOT_FOUND');
+    }
+
     const { id } = request.params;
     const { status } = request.body;
 
@@ -982,7 +1003,7 @@ export const acceptAffiliateInvitation = async (
     await emailService.sendEmail({
       type: 'affiliateWelcome',
       to: user.email,
-      dashboardLink: `${appUrl}/affiliation/${token}`,
+      dashboardLink: `${appUrl}/affiliation`,
       commissionRate: affiliate.commissionRate,
     });
 
