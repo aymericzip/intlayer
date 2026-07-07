@@ -80,6 +80,7 @@
   "dependencies": {
     "@craco/craco": "7.1.0",
     "@intlayer/config": "workspace:*",
+    "@intlayer/engine": "workspace:*",
     "@intlayer/types": "workspace:*",
     "@intlayer/webpack": "workspace:*",
     "defu": "6.1.7",

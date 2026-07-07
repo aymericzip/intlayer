@@ -32,6 +32,26 @@ export class IntlayerPlugin {
 
     const appLogger = getAppLogger(this.configuration);
 
+    // Register the dictionary preparation tap *synchronously*, before any
+    // `await` below. webpack does not await a plugin's async `apply`, so any
+    // hook tapped after an `await` (e.g. after `watch()`) may register too late
+    // — after `beforeCompile` has already fired — leaving the `.intlayer`
+    // dictionaries entry unbuilt when module resolution starts and breaking the
+    // build with `Can't resolve '@intlayer/dictionaries-entry'`. Tapping here
+    // guarantees the entry is prepared before compilation begins.
+    compiler.hooks.beforeCompile.tapPromise('IntlayerPlugin', async () => {
+      if (!this.isWatching) {
+        try {
+          await prepareIntlayer(this.configuration);
+          this.isWatching = true;
+        } catch (error) {
+          appLogger(`Error in IntlayerPlugin: ${error}`, {
+            level: 'error',
+          });
+        }
+      }
+    });
+
     const wrapKey = (key: string) => `process.env.${key}`;
     const wrapValue = (value: string) => `"${value}"`;
 
@@ -98,22 +118,12 @@ export class IntlayerPlugin {
       ...env,
     }).apply(compiler);
 
-    if (this.configuration.content.watch) {
+    // Only watch content declarations for the dev server. A production build is
+    // a one-off compilation: starting a file watcher there serves no purpose and
+    // keeps a live `fsevents`/chokidar stream open for the whole build.
+    if (!isBuild && this.configuration.content.watch) {
       // Start watching (assuming watch is also async)
       await watch({ configuration: this.configuration });
     }
-
-    compiler.hooks.beforeCompile.tapPromise('IntlayerPlugin', async () => {
-      if (!this.isWatching) {
-        try {
-          await prepareIntlayer(this.configuration);
-          this.isWatching = true;
-        } catch (error) {
-          appLogger(`Error in IntlayerPlugin: ${error}`, {
-            level: 'error',
-          });
-        }
-      }
-    });
   }
 }
