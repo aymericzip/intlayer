@@ -11,6 +11,7 @@ import {
   getCanonicalPath,
   getDomainHostname,
   getDomainOrigin,
+  getInternalPath,
   getLocaleFromDomain,
   getLocalizedPath,
   getRewriteRules,
@@ -435,6 +436,13 @@ export const createIntlayerProxyHandler = (
       newPath = `${normalizedBasePath}${pathWithoutPrefix || '/'}`;
     }
 
+    // Never emit a trailing slash (`/fr/` for the root path): the framework's
+    // trailing-slash normalisation would redirect it back and forth with this
+    // proxy, creating an infinite redirect loop.
+    if (newPath.length > 1 && newPath.endsWith('/')) {
+      newPath = newPath.slice(0, -1);
+    }
+
     // Append search parameters if provided
     if (search) {
       newPath += search;
@@ -532,8 +540,11 @@ export const createIntlayerProxyHandler = (
 
       if (existingLocale === locale) {
         // Rewrite internally — URL stays the same in the browser, but the framework
-        // sees /[locale]/path so the [locale] route param is populated correctly
-        const internalPath = `/${locale}${canonicalPath}`;
+        // sees /[locale]/path so the [locale] route param is populated correctly.
+        // getInternalPath collapses the root path to `/${locale}` — a trailing
+        // slash (`/fr/`) would trigger the framework's trailing-slash
+        // normalisation redirect and loop with this proxy.
+        const internalPath = getInternalPath(canonicalPath, locale);
         const rewritePath = `${internalPath}${searchParams ?? ''}`;
 
         rewriteUrl(req, res, rewritePath, locale);
@@ -550,8 +561,11 @@ export const createIntlayerProxyHandler = (
     }
 
     // For no-prefix mode (not search-params), add locale prefix internally for routing
-    // so the framework can match the [locale] route param without exposing it in the URL
-    const internalPath = `/${locale}${canonicalPath}`;
+    // so the framework can match the [locale] route param without exposing it in the URL.
+    // getInternalPath collapses the root path to `/${locale}` — a trailing slash
+    // (`/fr/`) would trigger the framework's trailing-slash normalisation
+    // redirect and loop with this proxy.
+    const internalPath = getInternalPath(canonicalPath, locale);
 
     const search = appendLocaleSearchIfNeeded(searchParams, locale);
     const rewritePath = search
@@ -798,8 +812,12 @@ export const createIntlayerProxyHandler = (
     }
 
     // If we do prefix the default or pathLocale !== default, keep as-is
-    // but rewrite to canonical internally
-    const internalUrl = `/${pathLocale}${canonicalPath}`;
+    // but rewrite to canonical internally.
+    // Never emit a trailing slash (`/fr/` for the bare `/fr` URL): rewriting
+    // `/fr` to `/fr/` makes the framework issue a trailing-slash normalisation
+    // redirect back to `/fr`, which this proxy rewrites again — an infinite
+    // redirect loop. `getInternalPath` collapses the root path to `/${locale}`.
+    const internalUrl = getInternalPath(canonicalPath, pathLocale);
     const newPath = searchParams
       ? `${internalUrl}${searchParams}`
       : internalUrl;
@@ -927,10 +945,7 @@ export const createIntlayerProxyHandler = (
 
         // Never emit a trailing slash (`/zh/`): the framework would redirect
         // it to `/zh`, which this proxy rewrites to `/zh/` again — a loop.
-        const internalPath =
-          canonicalPath === '/'
-            ? `/${domainLocale}`
-            : `/${domainLocale}${canonicalPath}`;
+        const internalPath = getInternalPath(canonicalPath, domainLocale);
 
         rewriteUrl(
           req as Connect.IncomingMessage,

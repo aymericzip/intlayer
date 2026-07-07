@@ -9,6 +9,7 @@ import {
   getCanonicalPath,
   getDomainHostname,
   getDomainOrigin,
+  getInternalPath,
   getLocaleFromDomain,
   getLocalizedPath,
   getRewriteRules,
@@ -222,10 +223,7 @@ export const intlayerProxy = (
 
       // Never emit a trailing slash (`/zh/`): Next.js trailing-slash
       // normalisation would redirect it back and forth with this proxy.
-      const internalPath =
-        canonicalPath === '/'
-          ? `/${domainLocale}`
-          : `/${domainLocale}${canonicalPath}`;
+      const internalPath = getInternalPath(canonicalPath, domainLocale);
 
       return rewriteUrl(
         request,
@@ -314,7 +312,7 @@ const handleNoPrefix = (
 
     if (existingLocale === locale) {
       const internalPath = internalPrefix
-        ? `/${locale}${canonicalPath}`
+        ? getInternalPath(canonicalPath, locale as Locale)
         : canonicalPath;
       const rewritePath = `${internalPath}${request.nextUrl.search ?? ''}`;
       return rewriteUrl(request, rewritePath, locale as Locale);
@@ -348,7 +346,7 @@ const handleNoPrefix = (
   );
 
   const internalPath = internalPrefix
-    ? `/${locale}${canonicalPath}`
+    ? getInternalPath(canonicalPath, locale as Locale)
     : canonicalPath;
   const search = appendLocaleSearchIfNeeded(
     request.nextUrl.search,
@@ -461,11 +459,14 @@ const handleMissingPathLocale = (
     appendLocaleSearchIfNeeded(request.nextUrl.search, locale)
   );
 
+  // Never emit a trailing slash (`/en/` for canonicalPath `/`): Next.js
+  // trailing-slash normalisation would redirect it back and forth with this
+  // proxy. `getInternalPath` collapses the root path to `/${locale}`.
   return prefixDefault || locale !== defaultLocale
     ? redirectUrl(request, newPath)
     : rewriteUrl(
         request,
-        internalPrefix ? `/${locale}${canonicalPath}` : canonicalPath,
+        internalPrefix ? getInternalPath(canonicalPath, locale) : canonicalPath,
         locale
       ); // Rewrite must use Canonical
 };
@@ -523,8 +524,12 @@ const handleExistingPathLocale = (
     return redirectUrl(request, newPath);
   }
 
+  // Never emit a trailing slash (`/fr/` for the bare `/fr` URL): rewriting
+  // `/fr` to `/fr/` makes Next.js issue a trailing-slash normalisation
+  // redirect back to `/fr`, which this proxy rewrites again — an infinite
+  // redirect loop. `getInternalPath` collapses the root path to `/${locale}`.
   const internalUrl = internalPrefix
-    ? `/${pathLocale}${canonicalPath}`
+    ? getInternalPath(canonicalPath, pathLocale)
     : canonicalPath;
 
   // Only handle redirect if we are strictly managing default locale prefixing
@@ -646,7 +651,12 @@ const constructPath = (
   // Clean double slashes
   const cleanPath = newPath.replace(/\/+/g, '/');
 
-  return cleanPath;
+  // Never emit a trailing slash (`/fr/` for the root path): the framework's
+  // trailing-slash normalisation would redirect it back and forth with this
+  // proxy, creating an infinite redirect loop.
+  return cleanPath !== '/' && cleanPath.endsWith('/')
+    ? cleanPath.slice(0, -1)
+    : cleanPath;
 };
 
 /**

@@ -72,7 +72,10 @@ const mockNextResponseActions = vi.hoisted(() => ({
 // that each describe block gets fresh module constants (noPrefix, prefixDefault
 // etc.) computed from the current mockConfig state.
 
-vi.mock('@intlayer/core/localization', () => ({
+// Spread the actual module so pure helpers (getInternalPath, domain helpers…)
+// keep their real implementations; only the path/rewrite helpers are stubbed.
+vi.mock('@intlayer/core/localization', async (importOriginal) => ({
+  ...(await importOriginal<Record<string, unknown>>()),
   getCanonicalPath: mockGetCanonicalPath,
   getLocalizedPath: mockGetLocalizedPath,
   getRewriteRules: mockGetRewriteRules,
@@ -235,10 +238,12 @@ describe('intlayerProxy', () => {
       expect(getResponsePathname(result)).toBe('/en/about');
     });
 
-    it('rewrites / to /en/ internally (root path, default locale)', () => {
+    it('rewrites / to /en internally without a trailing slash (root path, default locale)', () => {
+      // Regression: rewriting to /en/ triggered Next.js trailing-slash
+      // normalisation, which redirected back and forth with this proxy.
       const result = intlayerProxy(makeRequest('/'));
       expect(result.__type).toBe('rewrite');
-      expect(getResponsePathname(result)).toBe('/en/');
+      expect(getResponsePathname(result)).toBe('/en');
     });
 
     it('redirects /about to /fr/about when stored locale is fr', () => {
@@ -316,13 +321,22 @@ describe('intlayerProxy', () => {
       mockLocaleDetectorFn.mockReturnValue('fr');
       const result = intlayerProxy(makeRequest('/'));
       expect(result.__type).toBe('redirect');
-      expect(getResponsePathname(result)).toBe('/fr/');
+      expect(getResponsePathname(result)).toBe('/fr');
       expect(mockSetLocaleInStorage).not.toHaveBeenCalled();
     });
 
-    it('passes /fr/ through unchanged (URL matches internal target → next())', () => {
-      const result = intlayerProxy(makeRequest('/fr/'));
+    it('passes /fr through unchanged (bare locale root → next())', () => {
+      // Regression: /fr was rewritten to /fr/ (trailing slash), making Next.js
+      // issue a trailing-slash normalisation redirect back to /fr, which the
+      // proxy rewrote again — an infinite redirect loop.
+      const result = intlayerProxy(makeRequest('/fr'));
       expect(result.__type).toBe('next');
+    });
+
+    it('rewrites /fr/ to /fr internally (trailing-slash locale root)', () => {
+      const result = intlayerProxy(makeRequest('/fr/'));
+      expect(result.__type).toBe('rewrite');
+      expect(getResponsePathname(result)).toBe('/fr');
     });
 
     it('falls back to defaultLocale when detected locale is not configured', () => {
@@ -421,10 +435,12 @@ describe('intlayerProxy', () => {
       expect(getResponsePathname(result)).toBe('/en/about');
     });
 
-    it('redirects / to /en/ (adds prefix to root)', () => {
+    it('redirects / to /en without a trailing slash (adds prefix to root)', () => {
+      // Regression: redirecting to /en/ triggered the framework's
+      // trailing-slash normalisation redirect, looping with this proxy.
       const result = intlayerProxy(makeRequest('/'));
       expect(result.__type).toBe('redirect');
-      expect(getResponsePathname(result)).toBe('/en/');
+      expect(getResponsePathname(result)).toBe('/en');
     });
 
     it('passes /en/about through unchanged (URL matches internal target → next())', () => {
@@ -750,12 +766,12 @@ describe('intlayerProxy', () => {
       expect(getResponseSearch(result)).toBe('?ref=home');
     });
 
-    it('rewrites intlayer.zh/ (root) → /zh/ internally', () => {
+    it('rewrites intlayer.zh/ (root) → /zh internally without a trailing slash', () => {
       const result = intlayerProxy(
         makeRequest('/', { hostname: 'intlayer.zh' })
       );
       expect(result.__type).toBe('rewrite');
-      expect(getResponsePathname(result)).toBe('/zh/');
+      expect(getResponsePathname(result)).toBe('/zh');
     });
   });
 
@@ -819,15 +835,15 @@ describe('intlayerProxy', () => {
     // Next.js strips basePath from nextUrl.pathname; makeRequest receives the
     // stripped pathname and the full URL is constructed with basePathPrefix.
 
-    it('rewrites / to /app/en/ when visited as /app/ (basePath included in rewrite target)', () => {
-      // Before fix: rewriteUrl built `new URL('/en/', 'http://host/app/')` →
-      // `http://host/en/`  (basePath discarded).
-      // After fix:  target becomes `http://host/app/en/`.
+    it('rewrites / to /app/en when visited as /app/ (basePath included in rewrite target)', () => {
+      // Before fix: rewriteUrl built `new URL('/en', 'http://host/app/')` →
+      // `http://host/en`  (basePath discarded).
+      // After fix:  target becomes `http://host/app/en`.
       const result = intlayerProxy(
         makeRequest('/', { basePathPrefix: '/app' })
       );
       expect(result.__type).toBe('rewrite');
-      expect(getResponsePathname(result)).toBe('/app/en/');
+      expect(getResponsePathname(result)).toBe('/app/en');
     });
 
     it('rewrites /about to /app/en/about when visited as /app/about', () => {

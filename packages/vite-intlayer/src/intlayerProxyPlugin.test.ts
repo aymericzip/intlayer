@@ -70,12 +70,53 @@ vi.mock('./dedupePlugin', () => ({
     isPrimary: true,
   }),
 }));
-vi.mock('@intlayer/core/localization', () => ({
-  getCanonicalPath: mockGetCanonicalPath,
-  getLocalizedPath: mockGetLocalizedPath,
-  getRewriteRules: vi.fn(() => undefined),
-  localeDetector: mockLocaleDetector,
-}));
+// The pure helpers below mirror the real implementations in
+// @intlayer/core/src/localization (rewriteUtils.ts / domainUtils.ts).
+// Loading the actual module via importOriginal is not possible here: its
+// import chain pulls in the full @intlayer/config loader (esbuild), which
+// breaks in the jsdom test environment.
+vi.mock('@intlayer/core/localization', () => {
+  const getDomainHostname = (domain: string): string => {
+    try {
+      return /^https?:\/\//.test(domain) ? new URL(domain).hostname : domain;
+    } catch {
+      return domain;
+    }
+  };
+
+  return {
+    getCanonicalPath: mockGetCanonicalPath,
+    getLocalizedPath: mockGetLocalizedPath,
+    getRewriteRules: vi.fn(() => undefined),
+    localeDetector: mockLocaleDetector,
+    getInternalPath: (canonicalPath: string, locale: string): string => {
+      const pathWithLeadingSlash = canonicalPath.startsWith('/')
+        ? canonicalPath
+        : `/${canonicalPath}`;
+      if (
+        pathWithLeadingSlash.startsWith(`/${locale}/`) ||
+        pathWithLeadingSlash === `/${locale}`
+      ) {
+        return pathWithLeadingSlash;
+      }
+      return `/${locale}${pathWithLeadingSlash === '/' ? '' : pathWithLeadingSlash}`;
+    },
+    getDomainHostname,
+    getDomainOrigin: (domain: string): string =>
+      /^https?:\/\//.test(domain) ? domain : `https://${domain}`,
+    getLocaleFromDomain: (
+      hostname: string,
+      domains?: Record<string, string>
+    ): string | undefined => {
+      if (!domains) return undefined;
+      const matchingLocales = Object.entries(domains).filter(
+        ([, domain]) =>
+          typeof domain === 'string' && getDomainHostname(domain) === hostname
+      );
+      return matchingLocales.length === 1 ? matchingLocales[0]?.[0] : undefined;
+    },
+  };
+});
 vi.mock('@intlayer/core/utils', () => ({
   getCookie: vi.fn(() => undefined),
   getLocaleFromStorageServer: mockGetLocaleFromStorage,
@@ -145,6 +186,34 @@ describe('createIntlayerProxyHandler (prefix-no-default)', () => {
     expect(String(setCookie)).toContain('INTLAYER_LOCALE=en');
   });
 
+  it('rewrites the bare locale root /fr internally without a trailing slash (no redirect loop)', () => {
+    // Regression: /fr was rewritten to /fr/ (trailing slash), making the
+    // framework issue a trailing-slash normalisation redirect back to /fr,
+    // which the proxy rewrote to /fr/ again — an infinite redirect loop
+    // ("redirect count exceeded" during TanStack Start prerender).
+    const next = vi.fn();
+    const req = makeReq('/fr');
+    const res = makeRes();
+    handler(req, res, next);
+
+    expect(res.writeHead).not.toHaveBeenCalled();
+    expect(req.url).toBe('/fr');
+    expect(next).toHaveBeenCalled();
+  });
+
+  it('rewrites the root path / internally to /en without a trailing slash', () => {
+    // Same regression as above for the default locale: an internal rewrite of
+    // / to /en/ triggers the framework's trailing-slash normalisation redirect.
+    const next = vi.fn();
+    const req = makeReq('/');
+    const res = makeRes();
+    handler(req, res, next);
+
+    expect(res.writeHead).not.toHaveBeenCalled();
+    expect(req.url).toBe('/');
+    expect(next).toHaveBeenCalled();
+  });
+
   it('persists the default locale when stripping /en/about → /about', () => {
     const req = makeReq('/en/about');
     const res = makeRes();
@@ -157,16 +226,17 @@ describe('createIntlayerProxyHandler (prefix-no-default)', () => {
     );
   });
 
-  it('does NOT persist locale on a detector-driven redirect (/ → /fr/ avoids sticky detection)', () => {
+  it('does NOT persist locale on a detector-driven redirect (/ → /fr avoids sticky detection)', () => {
     // No stored locale + Accept-Language fr → detector resolves fr and redirects
-    // to /fr/. This must NOT write a cookie, or the first detected locale would
-    // become permanently sticky.
+    // to /fr (never /fr/ — a trailing slash would loop with the framework's
+    // trailing-slash normalisation). This must NOT write a cookie, or the
+    // first detected locale would become permanently sticky.
     mockLocaleDetector.mockReturnValue('fr');
     const req = makeReq('/', { 'accept-language': 'fr-FR,fr;q=0.9' });
     const res = makeRes();
     handler(req, res, vi.fn());
 
-    expect(res.writeHead).toHaveBeenCalledWith(302, { Location: '/fr/' });
+    expect(res.writeHead).toHaveBeenCalledWith(302, { Location: '/fr' });
     expect(mockSetLocaleInStorage).not.toHaveBeenCalled();
     expect(res.__headers['Set-Cookie']).toBeUndefined();
   });
@@ -199,7 +269,7 @@ describe('createIntlayerProxyHandler (prefix-no-default)', () => {
         res,
         vi.fn()
       );
-      expect(res.writeHead).toHaveBeenCalledWith(302, { Location: '/fr/' });
+      expect(res.writeHead).toHaveBeenCalledWith(302, { Location: '/fr' });
     }
 
     // 11 redirects from the SAME client within the TTL: the loop detector trips.
