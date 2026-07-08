@@ -393,6 +393,17 @@ const genericRecastVisit = (
   });
 };
 
+/**
+ * Detects whether a Vite config already wires in an Intlayer plugin — either the
+ * base `vite-intlayer` plugin or one of the compat adapters (e.g.
+ * `reactI18nextVitePlugin` from `@intlayer/react-i18next/plugin`). The compat
+ * plugins internally wrap `intlayer()`, so a standalone `intlayer()` must not be
+ * appended when one is already present, otherwise the plugin runs twice.
+ */
+export const hasIntlayerVitePlugin = (content: string): boolean =>
+  content.includes('vite-intlayer') ||
+  /@intlayer\/[^'"]+\/plugin/.test(content);
+
 export const updateViteConfig = (
   content: string,
   extension: string

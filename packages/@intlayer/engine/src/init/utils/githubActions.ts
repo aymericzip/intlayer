@@ -123,6 +123,9 @@ ${setupSteps}
       - name: ⚙️ Build dictionaries
         run: ${execCommand} build
       - name: 🤖 Fill missing translations
+        # Skip when no AI credentials are configured, so the workflow stays green
+        # until an \`AI_API_KEY\` (or Intlayer CMS access keys) secret is added.
+        if: \${{ env.AI_API_KEY != '' || env.INTLAYER_CLIENT_ID != '' }}
         run: ${execCommand} fill --git-diff --mode complete --provider $AI_PROVIDER --model $AI_MODEL --api-key $AI_API_KEY
       - name: 📤 Commit and push changes
         run: |

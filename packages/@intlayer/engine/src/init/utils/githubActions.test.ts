@@ -40,29 +40,37 @@ describe('githubActions', () => {
       const expectedExec = execByPackageManager[packageManager];
       const expectedInstall = installByPackageManager[packageManager];
 
-      expect(fillWorkflow.content).toContain(`${expectedExec} build`);
-      expect(fillWorkflow.content).toContain(`${expectedExec} fill`);
-      expect(fillWorkflow.content).toContain(expectedInstall);
+      expect(fillWorkflow?.content).toContain(`${expectedExec} build`);
+      expect(fillWorkflow?.content).toContain(`${expectedExec} fill`);
+      expect(fillWorkflow?.content).toContain(expectedInstall);
 
-      expect(testWorkflow.content).toContain(`${expectedExec} test`);
-      expect(testWorkflow.content).toContain(expectedInstall);
+      expect(testWorkflow?.content).toContain(`${expectedExec} test`);
+      expect(testWorkflow?.content).toContain(expectedInstall);
     });
 
     it('fills only changed dictionaries in complete mode and provides AI access', () => {
       const [fillWorkflow] = getGithubWorkflows('npm');
 
-      expect(fillWorkflow.content).toContain('--git-diff');
-      expect(fillWorkflow.content).toContain('--mode complete');
-      expect(fillWorkflow.content).toContain('--api-key $AI_API_KEY');
-      expect(fillWorkflow.content).toContain('contents: write');
+      expect(fillWorkflow?.content).toContain('--git-diff');
+      expect(fillWorkflow?.content).toContain('--mode complete');
+      expect(fillWorkflow?.content).toContain('--api-key $AI_API_KEY');
+      expect(fillWorkflow?.content).toContain('contents: write');
+    });
+
+    it('skips the fill step when no AI credentials are configured', () => {
+      const [fillWorkflow] = getGithubWorkflows('npm');
+
+      expect(fillWorkflow?.content).toContain(
+        "if: ${{ env.AI_API_KEY != '' || env.INTLAYER_CLIENT_ID != '' }}"
+      );
     });
 
     it('adds pnpm and bun specific setup actions', () => {
       const [pnpmFill] = getGithubWorkflows('pnpm');
       const [bunFill] = getGithubWorkflows('bun');
 
-      expect(pnpmFill.content).toContain('pnpm/action-setup@v4');
-      expect(bunFill.content).toContain('oven-sh/setup-bun@v2');
+      expect(pnpmFill?.content).toContain('pnpm/action-setup@v4');
+      expect(bunFill?.content).toContain('oven-sh/setup-bun@v2');
     });
   });
 });

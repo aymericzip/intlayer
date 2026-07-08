@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   enableIntlayerEditorConfig,
   getMetroConfigTemplate,
+  hasIntlayerVitePlugin,
   replaceViteConfigPluginImportSource,
   setIntlayerConfigCompilerOutput,
   setIntlayerConfigRoutingMode,
@@ -160,6 +161,40 @@ module.exports = {
       expect(updated).not.toContain(
         'const { intlayer } = require("vite-intlayer");\nconst { intlayer }'
       );
+    });
+  });
+
+  describe('hasIntlayerVitePlugin', () => {
+    it('detects the base vite-intlayer plugin', () => {
+      const content = `
+import { intlayer } from "vite-intlayer";
+export default { plugins: [intlayer()] };
+`;
+      expect(hasIntlayerVitePlugin(content)).toBe(true);
+    });
+
+    it('detects a compat adapter plugin (react-i18next)', () => {
+      const content = `
+import { reactI18nextVitePlugin } from "@intlayer/react-i18next/plugin";
+export default { plugins: [reactI18nextVitePlugin()] };
+`;
+      expect(hasIntlayerVitePlugin(content)).toBe(true);
+    });
+
+    it('detects a compat adapter plugin (vue-i18n)', () => {
+      const content = `
+import { vueI18nVitePlugin } from "@intlayer/vue-i18n/plugin";
+export default { plugins: [vueI18nVitePlugin()] };
+`;
+      expect(hasIntlayerVitePlugin(content)).toBe(true);
+    });
+
+    it('returns false when no Intlayer plugin is present', () => {
+      const content = `
+import react from "@vitejs/plugin-react";
+export default { plugins: [react()] };
+`;
+      expect(hasIntlayerVitePlugin(content)).toBe(false);
     });
   });
 

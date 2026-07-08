@@ -19,6 +19,7 @@ import {
   findTsConfigFiles,
   getGithubWorkflows,
   getMetroConfigTemplate,
+  hasIntlayerVitePlugin,
   installPackages,
   isVersionAtLeast,
   parseJSONWithComments,
@@ -813,7 +814,13 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
             `${v} Updated ${colorizePath(file)} to include ${compatVitePluginConfig.pluginFunctionName} compat plugin`
           );
         }
-      } else if (!content.includes('vite-intlayer')) {
+      } else if (hasIntlayerVitePlugin(content)) {
+        // A compat adapter plugin (e.g. `reactI18nextVitePlugin`) already wraps
+        // `intlayer()` internally, so skip adding a redundant standalone plugin.
+        logger(
+          `${v} ${colorizePath(file)} already includes an Intlayer plugin`
+        );
+      } else {
         const updatedContent = updateViteConfig(content, extension);
         await writeFileToRoot(rootDir, file, updatedContent);
         logger(`${v} Updated ${colorizePath(file)} to include Intlayer plugin`);
