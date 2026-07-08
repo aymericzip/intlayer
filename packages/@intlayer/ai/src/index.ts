@@ -15,12 +15,12 @@ import type {
   VertexProviderOptions,
 } from './aiSdk';
 
+export type { Tool } from 'ai';
 export {
   generateText,
   jsonSchema,
   stepCountIs,
   streamText,
-  Tool,
   tool,
 } from 'ai';
 export * from './aiSdk';
