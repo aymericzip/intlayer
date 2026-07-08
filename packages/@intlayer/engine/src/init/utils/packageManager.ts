@@ -274,7 +274,8 @@ export const detectMissingIntlayerPackages = (
     // next config handled via updateNextConfigForNextTranslate in init/index.ts
   }
 
-  // i18next — explicit import from @intlayer/i18next (no alias injection needed)
+  // i18next — vite alias injection (`i18next` → `@intlayer/i18next`) so existing
+  // `import … from 'i18next'` is served by Intlayer without touching call sites.
   if (isInstalled('i18next') || isInstalled('@intlayer/i18next')) {
     addIfMissing('@intlayer/i18next');
     // Ensure the required peer dependency is installed
@@ -283,9 +284,23 @@ export const detectMissingIntlayerPackages = (
       format: 'i18next',
       sourceTemplate: './src/locales/${locale}/${key}.json',
     };
+    // When react-i18next is also present, its wrapper plugin aliases both
+    // `react-i18next` and `i18next`, so it must win — only inject the bare
+    // i18next plugin when no React wrapper is installed.
+    if (
+      !isInstalled('react-i18next') &&
+      !isInstalled('@intlayer/react-i18next')
+    ) {
+      compatVitePluginConfig ??= {
+        pluginFunctionName: 'i18nextVitePlugin',
+        pluginPackageSource: '@intlayer/i18next/plugin',
+      };
+    }
   }
 
-  // react-i18next — explicit import from @intlayer/react-i18next (no alias)
+  // react-i18next — vite alias injection (`react-i18next` → `@intlayer/react-i18next`
+  // and `i18next` → `@intlayer/i18next`) so components keep importing from
+  // `react-i18next` unchanged.
   if (isInstalled('react-i18next') || isInstalled('@intlayer/react-i18next')) {
     addIfMissing('@intlayer/react-i18next');
     // Ensure the required peer dependency is installed
@@ -293,6 +308,10 @@ export const detectMissingIntlayerPackages = (
     compatSyncConfig ??= {
       format: 'i18next',
       sourceTemplate: './src/locales/${locale}/${key}.json',
+    };
+    compatVitePluginConfig ??= {
+      pluginFunctionName: 'reactI18nextVitePlugin',
+      pluginPackageSource: '@intlayer/react-i18next/plugin',
     };
   }
 

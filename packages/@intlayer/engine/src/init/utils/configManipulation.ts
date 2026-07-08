@@ -1071,6 +1071,12 @@ const getSyncPluginInfo = (syncConfig: CompatSyncConfig): SyncPluginInfo =>
  *
  * The destructuring parameters adapt to whether the source template uses the
  * `key` placeholder (nested pattern) or only `locale` (flat pattern).
+ *
+ * For `syncJSON` every option is emitted explicitly — `source`, then `format`
+ * and `splitKeys` — each preceded by an explanatory JSDoc block, so the
+ * generated config self-documents the two knobs a user is most likely to tweak.
+ * `syncPO` takes neither `format` (gettext is always the serialization) nor
+ * `splitKeys`, so it keeps a bare `source`-only call.
  */
 const buildSyncCallNode = (syncConfig: CompatSyncConfig): any => {
   const { functionName } = getSyncPluginInfo(syncConfig);
@@ -1083,23 +1089,51 @@ const buildSyncCallNode = (syncConfig: CompatSyncConfig): any => {
       ? '{ key, locale }'
       : '{ locale, key }';
 
-  // `syncPO` always serializes gettext, so it takes no `format`. `syncJSON`
-  // needs the JSON dialect.
-  const formatProperty =
-    syncConfig.plugin === 'po' ? '' : `format: '${syncConfig.format}', `;
-
-  // `splitKeys` is written explicitly only when forced on (next-intl / use-intl
-  // single-file namespace model). When omitted, syncJSON auto-detects it from
-  // the presence of a `${key}` segment in the source.
-  const splitKeysProperty = syncConfig.splitKeys ? ', splitKeys: true' : '';
-
   // The sourceTemplate contains ${locale} / ${key} as literal characters;
   // they become proper template expressions once the snippet is parsed by recast.
-  const snippet = `${functionName}({ ${formatProperty}source: (${paramDestructuring}) => \`${syncConfig.sourceTemplate}\`${splitKeysProperty} })`;
-  const snippetAst = recast.parse(snippet, {
-    parser: typescriptParser,
-  });
-  return (snippetAst.program.body[0] as any).expression;
+  const sourceProperty = `source: (${paramDestructuring}) => \`${syncConfig.sourceTemplate}\``;
+
+  const parseSnippet = (snippet: string): any => {
+    const snippetAst = recast.parse(snippet, {
+      parser: typescriptParser,
+    });
+    return (snippetAst.program.body[0] as any).expression;
+  };
+
+  // `syncPO` always serializes gettext, so it exposes neither `format` nor
+  // `splitKeys`: emit a bare `source`-only call.
+  if (syncConfig.plugin === 'po') {
+    return parseSnippet(`${functionName}({ ${sourceProperty} })`);
+  }
+
+  // `splitKeys: true` is forced only for the single-file namespace model
+  // (next-intl / use-intl); every other library keeps a single dictionary per
+  // file. It is now written explicitly (rather than relying on syncJSON's
+  // auto-detection) so the generated config documents the choice.
+  const splitKeys = Boolean(syncConfig.splitKeys);
+
+  // The JSDoc blocks are embedded in the snippet and preserved by recast when
+  // the parsed call node is printed back into the config AST.
+  const snippet = `${functionName}({
+  ${sourceProperty},
+
+  /**
+   * Parsing of json respecting the syntax
+   * Default \`'intlayer'\` message format
+   */
+  format: '${syncConfig.format}',
+
+  /**
+   * \`true\`:
+   * \`en.json\` ->  \`useTranslation('home')\` -> \`t("title")\`
+   *
+   * \`false\`:
+   * \`en.json\` ->  \`useTranslation()\` -> \`t("home.title")\`
+   */
+  splitKeys: ${splitKeys},
+})`;
+
+  return parseSnippet(snippet);
 };
 
 /**

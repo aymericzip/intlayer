@@ -4,6 +4,7 @@ import {
   navigatePath,
   resolveMessage,
 } from '@intlayer/core/messageFormat';
+import { getDictionaries } from '@intlayer/dictionaries-entry';
 import type {
   DictionaryKeys,
   LocalesValues,
@@ -45,6 +46,32 @@ const CONTROL_OPTION_KEYS = new Set([
 
 /** Maximum `$t()` nesting recursion depth. */
 const MAX_NESTING_DEPTH = 5;
+
+/**
+ * Canonical key of the single dictionary produced when a JSON source pattern
+ * has no `{{key}}` segment (one file holds the whole namespace, e.g.
+ * `./src/i18n/{{locale}}.json`). Used as the fallback namespace so i18next's
+ * default `translation` namespace resolves against the whole-file dictionary.
+ */
+const ROOT_DICTIONARY_KEY = 'index';
+
+/**
+ * Reads a dictionary from the runtime registry, returning `undefined` when the
+ * namespace is not a registered dictionary.
+ *
+ * `getIntlayer` never throws for a missing key — in development it returns a
+ * path-stringifying fallback proxy — so a plain `getIntlayer` call cannot tell
+ * "missing namespace" apart from "resolved content". The registry membership
+ * check makes the distinction explicit before resolving.
+ */
+const getDictionaryOrUndefined = (
+  namespace: DictionaryKeys,
+  locale: LocalesValues
+): unknown => {
+  if (!(namespace in getDictionaries())) return undefined;
+
+  return getIntlayer(namespace, locale);
+};
 
 /**
  * Builds the ordered list of key candidates following i18next's resolution
@@ -175,6 +202,8 @@ export const resolveTranslation = ({
     options?.context !== undefined ? String(options.context) : undefined;
   const ordinal = options?.ordinal === true;
 
+  const resolvedLocale = ((options?.lng as string) ?? locale) as LocalesValues;
+
   let dictionary: unknown;
   if (
     dictionaryContent !== undefined &&
@@ -183,14 +212,29 @@ export const resolveTranslation = ({
   ) {
     dictionary = dictionaryContent;
   } else {
-    try {
-      dictionary = getIntlayer(
-        targetNamespace as DictionaryKeys,
-        ((options?.lng as string) ?? locale) as LocalesValues
+    dictionary = getDictionaryOrUndefined(
+      targetNamespace as DictionaryKeys,
+      resolvedLocale
+    );
+
+    // i18next's default namespace is `translation`, but a single-file JSON
+    // source (no `{{key}}` segment) is loaded as the root `index` dictionary.
+    // When the *default* namespace is not itself a registered dictionary, fall
+    // back to `index` so `t('login.heroSubtitle')` resolves against the
+    // whole-file dictionary. Explicit `ns:` prefixes / `ns` options never fall
+    // back, so a genuinely missing namespace still returns `undefined`.
+    if (
+      dictionary === undefined &&
+      targetNamespace === namespace &&
+      targetNamespace !== ROOT_DICTIONARY_KEY
+    ) {
+      dictionary = getDictionaryOrUndefined(
+        ROOT_DICTIONARY_KEY as DictionaryKeys,
+        resolvedLocale
       );
-    } catch {
-      return undefined;
     }
+
+    if (dictionary === undefined) return undefined;
   }
 
   let resolvedValue: unknown;

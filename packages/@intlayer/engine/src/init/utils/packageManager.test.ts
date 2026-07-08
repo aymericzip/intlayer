@@ -95,6 +95,36 @@ describe('detectMissingIntlayerPackages', () => {
     });
   });
 
+  describe('i18next / react-i18next compat vite plugin', () => {
+    it('wires the react-i18next vite plugin (aliases react-i18next + i18next)', () => {
+      const result = detectMissingIntlayerPackages({
+        react: '^19.0.0',
+        vite: '^6.0.0',
+        'react-i18next': '^15.0.0',
+        i18next: '^23.0.0',
+      });
+
+      expect(result.packagesToInstall).toContain('@intlayer/react-i18next');
+      // react-i18next's wrapper wins over the bare i18next plugin
+      expect(result.compatVitePluginConfig).toEqual({
+        pluginFunctionName: 'reactI18nextVitePlugin',
+        pluginPackageSource: '@intlayer/react-i18next/plugin',
+      });
+    });
+
+    it('wires the bare i18next vite plugin when no react wrapper is present', () => {
+      const result = detectMissingIntlayerPackages({
+        vite: '^6.0.0',
+        i18next: '^23.0.0',
+      });
+
+      expect(result.compatVitePluginConfig).toEqual({
+        pluginFunctionName: 'i18nextVitePlugin',
+        pluginPackageSource: '@intlayer/i18next/plugin',
+      });
+    });
+  });
+
   describe('lingui compat', () => {
     it('uses syncPO when the project ships .po catalogs (lingui default)', () => {
       const result = detectMissingIntlayerPackages(

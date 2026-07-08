@@ -11,6 +11,17 @@ vi.mock('@intlayer/config/built', () => ({
   internationalization: mockConfig.internationalization,
 }));
 
+// `resolveTranslation` checks registry membership (a missing namespace must be
+// distinguishable from resolved content), so the registered namespaces are
+// declared here to match the `getIntlayer` mock below.
+vi.mock('@intlayer/dictionaries-entry', () => ({
+  getDictionaries: vi.fn(() => ({
+    translation: {},
+    custom: {},
+    flatKeys: {},
+  })),
+}));
+
 vi.mock('@intlayer/core/interpreter', async (importOriginal) => ({
   ...(await importOriginal<typeof import('@intlayer/core/interpreter')>()),
   getIntlayer: vi.fn((ns: string, _lang: string) => {

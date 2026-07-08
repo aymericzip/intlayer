@@ -430,12 +430,39 @@ export default config;
       expect(updated).toMatch(/splitKeys:\s*true/);
     });
 
-    it('omits splitKeys when not forced (auto-detection stays in control)', () => {
+    it('emits splitKeys: false explicitly when not forced', () => {
       const updated = updateIntlayerConfigWithSyncPlugin(baseConfig, 'ts', {
         format: 'icu',
         sourceTemplate: './messages/${locale}.json',
       });
 
+      expect(updated).toMatch(/splitKeys:\s*false/);
+    });
+
+    it('emits every syncJSON option with a documenting JSDoc block', () => {
+      const updated = updateIntlayerConfigWithSyncPlugin(baseConfig, 'ts', {
+        format: 'i18next',
+        sourceTemplate: './src/i18n/${locale}.json',
+      });
+
+      // source, format and splitKeys are all present…
+      expect(updated).toMatch(/source:\s*\(\{\s*locale\s*\}\)/);
+      expect(updated).toContain("format: 'i18next'");
+      expect(updated).toMatch(/splitKeys:\s*false/);
+      // …each preceded by an explanatory JSDoc block.
+      expect(updated).toContain("Default `'intlayer'` message format");
+      expect(updated).toContain("`useTranslation('home')`");
+    });
+
+    it('never emits format or splitKeys for the syncPO call', () => {
+      const updated = updateIntlayerConfigWithSyncPlugin(baseConfig, 'ts', {
+        plugin: 'po',
+        format: 'icu',
+        sourceTemplate: './src/locales/${locale}/${key}.po',
+      });
+
+      expect(updated).toContain('syncPO(');
+      expect(updated).not.toMatch(/syncPO\([\s\S]*format:/);
       expect(updated).not.toMatch(/splitKeys/);
     });
 
