@@ -125,7 +125,7 @@ Mevcut dillerin veya diğer parametrelerin nasıl yapılandırılacağını öğ
 
 ### Kimlik Doğrulama
 
-- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/login.md)** - Intlayer CMS ile kimlik doğrulaması yapın ve erişim kimlik bilgilerini alın
+- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/cli/login.md)** - Intlayer CMS ile kimlik doğrulaması yapın ve erişim kimlik bilgilerini alın
 
 ### Temel Komutlar
 

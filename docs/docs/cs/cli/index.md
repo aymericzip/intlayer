@@ -125,7 +125,7 @@ Chcete-li se dozvědět, jak nakonfigurovat dostupné jazyky nebo jiné parametr
 
 ### Autentizace
 
-- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/login.md)** - Autentizujte se v Intlayer CMS a získejte přístupové údaje
+- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/cs/cli/login.md)** - Autentizujte se v Intlayer CMS a získejte přístupové údaje
 
 ### Základní příkazy
 

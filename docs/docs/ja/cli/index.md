@@ -125,7 +125,7 @@ Intlayerは、複数の設定ファイル形式をサポートしています：
 
 ### 認証
 
-- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/login.md)** - Intlayer CMSで認証し、アクセス資格情報を取得します。
+- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/login.md)** - Intlayer CMSで認証し、アクセス資格情報を取得します。
 
 ### コアコマンド
 

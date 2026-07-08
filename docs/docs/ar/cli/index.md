@@ -125,7 +125,7 @@ bun add intlayer-cli -g
 
 ### المصادقة
 
-- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/login.md)** - المصادقة مع Intlayer CMS والحصول على أوراق اعتماد الوصول
+- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/cli/login.md)** - المصادقة مع Intlayer CMS والحصول على أوراق اعتماد الوصول
 
 ### الأوامر الأساسية
 

@@ -125,7 +125,7 @@ Aby dowiedzieć się, jak skonfigurować dostępne języki lub inne parametry, z
 
 ### Uwierzytelnianie
 
-- **[Zaloguj](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/login.md)** - Uwierzytelnij się w Intlayer CMS i uzyskaj dane dostępu
+- **[Zaloguj](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/cli/login.md)** - Uwierzytelnij się w Intlayer CMS i uzyskaj dane dostępu
 
 ### Polecenia Podstawowe
 

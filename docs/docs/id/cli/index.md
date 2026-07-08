@@ -125,7 +125,7 @@ Untuk mempelajari cara mengonfigurasi bahasa yang tersedia atau parameter lainny
 
 ### Autentikasi
 
-- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/login.md)** - Autentikasi dengan Intlayer CMS dan dapatkan kredensial akses
+- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/cli/login.md)** - Autentikasi dengan Intlayer CMS dan dapatkan kredensial akses
 
 ### Perintah Utama
 

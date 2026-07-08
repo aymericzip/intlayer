@@ -125,7 +125,7 @@ Om te zien hoe u beschikbare talen of andere parameters configureert, raadpleegt
 
 ### Authenticatie
 
-- **[Inloggen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/login.md)** - Authenticeren bij het Intlayer CMS en inloggegevens verkrijgen
+- **[Inloggen](https://github.com/aymericzip/intlayer/blob/main/docs/docs/nl/cli/login.md)** - Authenticeren bij het Intlayer CMS en inloggegevens verkrijgen
 
 ### Kerncommando's
 

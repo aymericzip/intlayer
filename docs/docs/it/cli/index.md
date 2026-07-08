@@ -125,7 +125,7 @@ Per vedere come configurare le lingue disponibili o altri parametri, fai riferim
 
 ### Autenticazione
 
-- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/login.md)** - Autenticati con l'Intlayer CMS e ottieni le credenziali di accesso
+- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/cli/login.md)** - Autenticati con l'Intlayer CMS e ottieni le credenziali di accesso
 
 ### Comandi principali
 

@@ -125,7 +125,7 @@ Intlayer chấp nhận nhiều định dạng tệp cấu hình khác nhau:
 
 ### Xác thực
 
-- **[Đăng nhập](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/login.md)** - Xác thực với Intlayer CMS và nhận thông tin xác thực truy cập
+- **[Đăng nhập](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/cli/login.md)** - Xác thực với Intlayer CMS và nhận thông tin xác thực truy cập
 
 ### Các lệnh cốt lõi
 

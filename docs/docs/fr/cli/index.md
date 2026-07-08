@@ -125,7 +125,7 @@ Pour voir comment configurer les locales disponibles ou d'autres paramètres, re
 
 ### Authentification
 
-- **[Connexion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/login.md)** - S'authentifier auprès du CMS Intlayer et obtenir les identifiants d'accès
+- **[Connexion](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/cli/login.md)** - S'authentifier auprès du CMS Intlayer et obtenir les identifiants d'accès
 
 ### Commandes principales
 

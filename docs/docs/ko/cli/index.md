@@ -125,7 +125,7 @@ Intlayer는 여러 설정 파일 형식을 허용합니다:
 
 ### 인증
 
-- **[로그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/login.md)** - Intlayer CMS에 인증하고 액세스 자격 증명을 가져옵니다.
+- **[로그인](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/login.md)** - Intlayer CMS에 인증하고 액세스 자격 증명을 가져옵니다.
 
 ### 핵심 명령어
 

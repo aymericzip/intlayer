@@ -125,7 +125,7 @@ Intlayer 接受多种配置文件格式：
 
 ### 身份验证
 
-- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/login.md)** - 在 Intlayer CMS 中进行身份验证并获取访问凭据
+- **[Login](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/login.md)** - 在 Intlayer CMS 中进行身份验证并获取访问凭据
 
 ### 核心命令
 
