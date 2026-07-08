@@ -101,7 +101,7 @@
     "pwa-asset-generator": "8.1.5",
     "raw-loader": "4.0.2",
     "tailwindcss": "4.3.2",
-    "typescript": "6.0.3",
+    "typescript": "7.0.2",
     "vite": "8.1.3",
     "vite-intlayer": "workspace:*",
     "vite-plugin-wasm": "3.6.0",
