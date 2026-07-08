@@ -21,6 +21,7 @@ const markdownEditorContent = {
       pl: 'Brak wyników',
       id: 'Tidak ada hasil',
       vi: 'Không có kết quả',
+      uk: 'Немає результатів',
     }),
     text: t({
       en: 'Text',
@@ -40,6 +41,7 @@ const markdownEditorContent = {
       pl: 'Tekst',
       id: 'Teks',
       vi: 'Văn bản',
+      uk: 'Текст',
     }),
     textDesc: t({
       en: 'Just start typing with plain text.',
@@ -59,6 +61,7 @@ const markdownEditorContent = {
       pl: 'Po prostu zacznij pisać zwykłym tekstem.',
       id: 'Mulai mengetik dengan teks biasa.',
       vi: 'Chỉ cần bắt đầu nhập bằng văn bản thuần túy.',
+      uk: 'Просто почніть вводити звичайний текст.',
     }),
     todoList: t({
       en: 'To-do List',
@@ -78,6 +81,7 @@ const markdownEditorContent = {
       pl: 'Lista zadań',
       id: 'Daftar Tugas',
       vi: 'Danh sách việc cần làm',
+      uk: 'Список справ',
     }),
     todoListDesc: t({
       en: 'Track tasks with a to-do list.',
@@ -97,6 +101,7 @@ const markdownEditorContent = {
       pl: 'Śledź zadania za pomocą listy zadań.',
       id: 'Lacak tugas dengan daftar tugas.',
       vi: 'Theo dõi nhiệm vụ bằng danh sách việc cần làm.',
+      uk: 'Відстежуйте завдання за допомогою списку справ.',
     }),
     heading1: t({
       en: 'Heading 1',
@@ -116,6 +121,7 @@ const markdownEditorContent = {
       pl: 'Nagłówek 1',
       id: 'Heading 1',
       vi: 'Tiêu đề 1',
+      uk: 'Заголовок 1',
     }),
     heading1Desc: t({
       en: 'Big section heading.',
@@ -135,6 +141,7 @@ const markdownEditorContent = {
       pl: 'Duży nagłówek sekcji.',
       id: 'Heading bagian besar.',
       vi: 'Tiêu đề phần lớn.',
+      uk: 'Великий заголовок розділу.',
     }),
     heading2: t({
       en: 'Heading 2',
@@ -154,6 +161,7 @@ const markdownEditorContent = {
       pl: 'Nagłówek 2',
       id: 'Heading 2',
       vi: 'Tiêu đề 2',
+      uk: 'Заголовок 2',
     }),
     heading2Desc: t({
       en: 'Medium section heading.',
@@ -173,6 +181,7 @@ const markdownEditorContent = {
       pl: 'Średni nagłówek sekcji.',
       id: 'Heading bagian sedang.',
       vi: 'Tiêu đề phần trung bình.',
+      uk: 'Середній заголовок розділу.',
     }),
     heading3: t({
       en: 'Heading 3',
@@ -192,6 +201,7 @@ const markdownEditorContent = {
       pl: 'Nagłówek 3',
       id: 'Heading 3',
       vi: 'Tiêu đề 3',
+      uk: 'Заголовок 3',
     }),
     heading3Desc: t({
       en: 'Small section heading.',
@@ -211,6 +221,7 @@ const markdownEditorContent = {
       pl: 'Mały nagłówek sekcji.',
       id: 'Heading bagian kecil.',
       vi: 'Tiêu đề phần nhỏ.',
+      uk: 'Малий заголовок розділу.',
     }),
     bulletList: t({
       en: 'Bullet List',
@@ -230,6 +241,7 @@ const markdownEditorContent = {
       pl: 'Lista punktowana',
       id: 'Daftar Simbol',
       vi: 'Danh sách dấu đầu dòng',
+      uk: 'Маркований список',
     }),
     bulletListDesc: t({
       en: 'Create a simple bullet list.',
@@ -249,6 +261,7 @@ const markdownEditorContent = {
       pl: 'Utwórz prostą listę punktowaną.',
       id: 'Buat daftar simbol sederhana.',
       vi: 'Tạo danh sách dấu đầu dòng đơn giản.',
+      uk: 'Створіть простий маркований список.',
     }),
     numberedList: t({
       en: 'Numbered List',
@@ -268,6 +281,7 @@ const markdownEditorContent = {
       pl: 'Lista numerowana',
       id: 'Daftar Bernomor',
       vi: 'Danh sách đánh số',
+      uk: 'Нумерований список',
     }),
     numberedListDesc: t({
       en: 'Create a list with numbering.',
@@ -287,6 +301,7 @@ const markdownEditorContent = {
       pl: 'Utwórz listę z numeracją.',
       id: 'Buat daftar dengan nomor.',
       vi: 'Tạo danh sách có đánh số.',
+      uk: 'Створіть список із нумерацією.',
     }),
     quote: t({
       en: 'Quote',
@@ -306,6 +321,7 @@ const markdownEditorContent = {
       pl: 'Cytat',
       id: 'Kutipan',
       vi: 'Trích dẫn',
+      uk: 'Цитата',
     }),
     quoteDesc: t({
       en: 'Capture a quote.',
@@ -325,6 +341,7 @@ const markdownEditorContent = {
       pl: 'Utwórz cytat.',
       id: 'Buat kutipan.',
       vi: 'Thêm một trích dẫn.',
+      uk: 'Додайте цитату.',
     }),
     code: t({
       en: 'Code',
@@ -344,6 +361,7 @@ const markdownEditorContent = {
       pl: 'Kod',
       id: 'Kode',
       vi: 'Mã code',
+      uk: 'Код',
     }),
     codeDesc: t({
       en: 'Capture a code snippet.',
@@ -363,6 +381,7 @@ const markdownEditorContent = {
       pl: 'Utwórz fragment kodu.',
       id: 'Buat cuplikan kode.',
       vi: 'Thêm một đoạn mã.',
+      uk: 'Додайте фрагмент коду.',
     }),
     image: t({
       en: 'Image',
@@ -382,6 +401,7 @@ const markdownEditorContent = {
       pl: 'Obraz',
       id: 'Gambar',
       vi: 'Hình ảnh',
+      uk: 'Зображення',
     }),
     imageDesc: t({
       en: 'Upload an image from your computer.',
@@ -401,6 +421,7 @@ const markdownEditorContent = {
       pl: 'Prześlij obraz z komputera.',
       id: 'Unggah gambar dari komputer Anda.',
       vi: 'Tải lên một hình ảnh từ máy tính của bạn.',
+      uk: 'Завантажте зображення з комп’ютера.',
     }),
     youtube: t({
       en: 'Youtube',
@@ -420,6 +441,7 @@ const markdownEditorContent = {
       pl: 'Youtube',
       id: 'Youtube',
       vi: 'Youtube',
+      uk: 'Youtube',
     }),
     youtubeDesc: t({
       en: 'Embed a Youtube video.',
@@ -439,6 +461,7 @@ const markdownEditorContent = {
       pl: 'Osadź wideo z Youtube.',
       id: 'Sematkan video Youtube.',
       vi: 'Nhúng video Youtube.',
+      uk: 'Вставте відео з Youtube.',
     }),
     youtubePrompt: t({
       en: 'Please enter Youtube Video Link',
@@ -458,6 +481,7 @@ const markdownEditorContent = {
       pl: 'Wprowadź link do wideo na Youtube',
       id: 'Silakan masukkan Tautan Video Youtube',
       vi: 'Vui lòng nhập liên kết video Youtube',
+      uk: 'Будь ласка, введіть посилання на відео Youtube',
     }),
     youtubeError: t({
       en: 'Please enter a correct Youtube Video Link',
@@ -477,6 +501,7 @@ const markdownEditorContent = {
       pl: 'Wprowadź poprawny link do wideo na Youtube',
       id: 'Silakan masukkan Tautan Video Youtube yang benar',
       vi: 'Vui lòng nhập liên kết video Youtube chính xác',
+      uk: 'Будь ласка, введіть правильне посилання на відео Youtube',
     }),
     multiple: t({
       en: 'Multiple',
@@ -496,6 +521,7 @@ const markdownEditorContent = {
       pl: 'Wielokrotny',
       id: 'Beberapa',
       vi: 'Nhiều',
+      uk: 'Кілька',
     }),
     bold: t({
       en: 'bold',
@@ -515,6 +541,7 @@ const markdownEditorContent = {
       pl: 'pogrubienie',
       id: 'tebal',
       vi: 'in đậm',
+      uk: 'жирний',
     }),
     italic: t({
       en: 'italic',
@@ -534,6 +561,7 @@ const markdownEditorContent = {
       pl: 'kursywa',
       id: 'miring',
       vi: 'in nghiêng',
+      uk: 'курсив',
     }),
     underline: t({
       en: 'underline',
@@ -553,6 +581,7 @@ const markdownEditorContent = {
       pl: 'podkreślenie',
       id: 'garis bawah',
       vi: 'gạch chân',
+      uk: 'підкреслений',
     }),
     strike: t({
       en: 'strike',
@@ -572,6 +601,7 @@ const markdownEditorContent = {
       pl: 'przekreślenie',
       id: 'coret',
       vi: 'gạch ngang',
+      uk: 'закреслений',
     }),
     colorHeading: t({
       en: 'Color',
@@ -591,6 +621,7 @@ const markdownEditorContent = {
       pl: 'Kolor',
       id: 'Warna',
       vi: 'Màu sắc',
+      uk: 'Колір',
     }),
     highlightHeading: t({
       en: 'Highlight',
@@ -610,6 +641,7 @@ const markdownEditorContent = {
       pl: 'Wyróżnienie',
       id: 'Sorotan',
       vi: 'Tô sáng',
+      uk: 'Виділення',
     }),
     colorDefault: t({
       en: 'Default',
@@ -629,6 +661,7 @@ const markdownEditorContent = {
       pl: 'Domyślny',
       id: 'Bawaan',
       vi: 'Mặc định',
+      uk: 'За замовчуванням',
     }),
     colorPrimary: t({
       en: 'Primary',
@@ -648,6 +681,7 @@ const markdownEditorContent = {
       pl: 'Podstawowy',
       id: 'Utama',
       vi: 'Chủ đạo',
+      uk: 'Основний',
     }),
     colorSecondary: t({
       en: 'Secondary',
@@ -667,6 +701,7 @@ const markdownEditorContent = {
       pl: 'Drugorzędny',
       id: 'Sekunder',
       vi: 'Phụ',
+      uk: 'Другорядний',
     }),
     colorSuccess: t({
       en: 'Success',
@@ -686,6 +721,7 @@ const markdownEditorContent = {
       pl: 'Sukces',
       id: 'Sukses',
       vi: 'Thành công',
+      uk: 'Успіх',
     }),
     colorWarning: t({
       en: 'Warning',
@@ -705,6 +741,7 @@ const markdownEditorContent = {
       pl: 'Ostrzeżenie',
       id: 'Peringatan',
       vi: 'Cảnh báo',
+      uk: 'Попередження',
     }),
     colorError: t({
       en: 'Error',
@@ -724,6 +761,7 @@ const markdownEditorContent = {
       pl: 'Błąd',
       id: 'Kesalahan',
       vi: 'Lỗi',
+      uk: 'Помилка',
     }),
     colorNeutral: t({
       en: 'Neutral',
@@ -743,6 +781,7 @@ const markdownEditorContent = {
       pl: 'Neutralny',
       id: 'Netral',
       vi: 'Trung tính',
+      uk: 'Нейтральний',
     }),
     link: t({
       en: 'Link',
@@ -762,6 +801,7 @@ const markdownEditorContent = {
       pl: 'Link',
       id: 'Tautan',
       vi: 'Liên kết',
+      uk: 'Посилання',
     }),
     linkPlaceholder: t({
       en: 'Paste a link',
@@ -781,6 +821,7 @@ const markdownEditorContent = {
       pl: 'Wklej link',
       id: 'Tempel tautan',
       vi: 'Dán liên kết',
+      uk: 'Вставте посилання',
     }),
     removeLink: t({
       en: 'Remove link',
@@ -800,6 +841,7 @@ const markdownEditorContent = {
       pl: 'Usuń link',
       id: 'Hapus tautan',
       vi: 'Xóa liên kết',
+      uk: 'Видалити посилання',
     }),
     applyLink: t({
       en: 'Apply link',
@@ -819,6 +861,7 @@ const markdownEditorContent = {
       pl: 'Zastosuj link',
       id: 'Terapkan tautan',
       vi: 'Áp dụng liên kết',
+      uk: 'Застосувати посилання',
     }),
     askAI: t({
       en: 'Ask AI',
@@ -838,6 +881,7 @@ const markdownEditorContent = {
       pl: 'Zapytaj AI',
       id: 'Tanya AI',
       vi: 'Hỏi AI',
+      uk: 'Запитати ШІ',
     }),
     replaceSelection: t({
       en: 'Replace selection',
@@ -857,6 +901,7 @@ const markdownEditorContent = {
       pl: 'Zastąp zaznaczenie',
       id: 'Ganti pilihan',
       vi: 'Thay thế lựa chọn',
+      uk: 'Замінити виділене',
     }),
     insertBelow: t({
       en: 'Insert below',
@@ -876,6 +921,7 @@ const markdownEditorContent = {
       pl: 'Wstaw poniżej',
       id: 'Sisipkan di bawah',
       vi: 'Chèn vào bên dưới',
+      uk: 'Вставити нижче',
     }),
     discard: t({
       en: 'Discard',
@@ -895,6 +941,7 @@ const markdownEditorContent = {
       pl: 'Odrzuć',
       id: 'Buang',
       vi: 'Hủy bỏ',
+      uk: 'Відхилити',
     }),
     aiError: t({
       en: 'AI error',
@@ -914,6 +961,7 @@ const markdownEditorContent = {
       pl: 'Błąd AI',
       id: 'Kesalahan AI',
       vi: 'Lỗi AI',
+      uk: 'Помилка ШІ',
     }),
     aiThinking: t({
       en: 'AI is thinking',
@@ -933,6 +981,7 @@ const markdownEditorContent = {
       pl: 'AI myśli',
       id: 'AI sedang berpikir',
       vi: 'AI đang suy nghĩ',
+      uk: 'ШІ думає',
     }),
     tellAI: t({
       en: 'Tell AI what to do next',
@@ -952,6 +1001,7 @@ const markdownEditorContent = {
       pl: 'Powiedz AI, co robić dalej',
       id: 'Beri tahu AI apa yang harus dilakukan selanjutnya',
       vi: 'Cho AI biết cần làm gì tiếp theo',
+      uk: 'Скажіть ШІ, що робити далі',
     }),
     askAIToEdit: t({
       en: 'Ask AI to edit or generate...',
@@ -971,6 +1021,7 @@ const markdownEditorContent = {
       pl: 'Poproś AI o edycję lub wygenerowanie...',
       id: 'Minta AI untuk mengedit atau membuat...',
       vi: 'Yêu cầu AI chỉnh sửa hoặc tạo...',
+      uk: 'Попросіть ШІ редагувати або створити...',
     }),
     send: t({
       en: 'Send',
@@ -990,6 +1041,7 @@ const markdownEditorContent = {
       pl: 'Wyślij',
       id: 'Kirim',
       vi: 'Gửi',
+      uk: 'Надіслати',
     }),
     editHeading: t({
       en: 'Edit or review selection',
@@ -1009,6 +1061,7 @@ const markdownEditorContent = {
       pl: 'Edytuj lub przejrzyj zaznaczenie',
       id: 'Edit atau tinjau pilihan',
       vi: 'Chỉnh sửa hoặc đánh giá lựa chọn',
+      uk: 'Редагувати або переглянути виділене',
     }),
     improveWriting: t({
       en: 'Improve writing',
@@ -1028,6 +1081,7 @@ const markdownEditorContent = {
       pl: 'Popraw styl',
       id: 'Tingkatkan penulisan',
       vi: 'Cải thiện cách viết',
+      uk: 'Покращити текст',
     }),
     fixGrammar: t({
       en: 'Fix grammar',
@@ -1047,6 +1101,7 @@ const markdownEditorContent = {
       pl: 'Popraw gramatykę',
       id: 'Perbaiki tata bahasa',
       vi: 'Sửa ngữ pháp',
+      uk: 'Виправити граматику',
     }),
     makeShorter: t({
       en: 'Make shorter',
@@ -1066,6 +1121,7 @@ const markdownEditorContent = {
       pl: 'Skróć',
       id: 'Perpendek',
       vi: 'Làm ngắn lại',
+      uk: 'Зробити коротшим',
     }),
     makeLonger: t({
       en: 'Make longer',
@@ -1085,6 +1141,7 @@ const markdownEditorContent = {
       pl: 'Wydłuż',
       id: 'Perpanjang',
       vi: 'Làm dài ra',
+      uk: 'Зробити довшим',
     }),
     moreHeading: t({
       en: 'Use AI to do more',
@@ -1104,6 +1161,7 @@ const markdownEditorContent = {
       pl: 'Użyj AI, aby zrobić więcej',
       id: 'Gunakan AI untuk melakukan lebih banyak',
       vi: 'Sử dụng AI để làm nhiều hơn',
+      uk: 'Використовуйте ШІ, щоб зробити більше',
     }),
     continueWriting: t({
       en: 'Continue writing',
@@ -1123,6 +1181,7 @@ const markdownEditorContent = {
       pl: 'Kontynuuj pisanie',
       id: 'Lanjutkan menulis',
       vi: 'Tiếp tục viết',
+      uk: 'Продовжити писати',
     }),
   },
   title: 'Markdown Editor',

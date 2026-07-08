@@ -6,6 +6,10 @@ declare module '@intlayer/core/interpreter' {
     extends IInterpreterPluginReact<T, S, L> {}
 }
 
+export { AnalyticsProvider } from './analytics/AnalyticsProvider';
+export { useAnalytics } from './analytics/useAnalytics';
+export type { ConversionParams } from './analytics/useConversion';
+export { useConversion } from './analytics/useConversion';
 /**
  * @deprecated import from react-intlayer/format instead
  */

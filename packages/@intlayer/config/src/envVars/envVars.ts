@@ -129,5 +129,13 @@ export const getConfigEnvVars = (
     envVars[wrapKey('INTLAYER_EDITOR_ENABLED')] = wrapValue('false');
   }
 
+  // Analytics reuses the editor config (no dedicated schema): it can only
+  // attribute events when a project key is configured. Without an
+  // `editor.clientId`, disable it so bundlers dead-code-eliminate the whole
+  // `@intlayer/analytics` integration (providers + node plugins).
+  if (!editor?.clientId) {
+    envVars[wrapKey('INTLAYER_ANALYTICS_ENABLED')] = wrapValue('false');
+  }
+
   return envVars;
 };

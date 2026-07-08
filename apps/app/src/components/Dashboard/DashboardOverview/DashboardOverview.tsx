@@ -30,6 +30,7 @@ import {
 import type { FC, ReactNode } from 'react';
 import { useIntlayer, useLocale } from 'react-intlayer';
 import { Link } from '#components/Link/Link';
+import { DashboardAudience } from './DashboardAudience';
 
 /** Formats a `[0, 1]` ratio as an integer percentage (e.g. `0.5` → `50%`). */
 const formatPercent = (ratio: number): string => `${Math.round(ratio * 100)}%`;
@@ -143,6 +144,9 @@ export const DashboardOverview: FC = () => {
 
   return (
     <div className="flex flex-col gap-6 p-6">
+      {/* Audience analytics — who is actually seeing the content */}
+      <DashboardAudience />
+
       {/* Headline metrics */}
       <div className="flex flex-wrap gap-4">
         <StatCard

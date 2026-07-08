@@ -72,6 +72,11 @@
       "require": "./dist/cjs/editor/index.cjs",
       "import": "./dist/esm/editor/index.mjs"
     },
+    "./analytics": {
+      "types": "./dist/types/analytics/index.d.ts",
+      "require": "./dist/cjs/analytics/index.cjs",
+      "import": "./dist/esm/analytics/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "main": "dist/cjs/index.cjs",
@@ -96,6 +101,9 @@
       ],
       "editor": [
         "./dist/types/editor/index.d.ts"
+      ],
+      "analytics": [
+        "./dist/types/analytics/index.d.ts"
       ],
       "package.json": [
         "./package.json"
@@ -124,6 +132,7 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
+    "@intlayer/analytics": "workspace:*",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",

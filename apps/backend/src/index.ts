@@ -21,6 +21,7 @@ import {
 import { authMiddleware } from '@middlewares/sessionAuth.middleware';
 // Routes
 import { aiRoute, aiRouter } from '@routes/ai.routes';
+import { analyticsRoute, analyticsRouter } from '@routes/analytics.routes';
 import { assetRoute, assetRouter } from '@routes/asset.routes';
 import { auditRoute, auditRouter } from '@routes/audit.routes';
 import { bitbucketRoute, bitbucketRouter } from '@routes/bitbucket.routes';
@@ -302,6 +303,7 @@ const startServer = async () => {
   await app.register(eventListenerRouter, { prefix: eventListenerRoute });
   await app.register(searchRouter, { prefix: searchRoute });
   await app.register(newsletterRouter, { prefix: newsletterRoute });
+  await app.register(analyticsRouter, { prefix: analyticsRoute });
   await app.register(githubRouter, { prefix: githubRoute });
   await app.register(gitlabRouter, { prefix: gitlabRoute });
   await app.register(bitbucketRouter, { prefix: bitbucketRoute });

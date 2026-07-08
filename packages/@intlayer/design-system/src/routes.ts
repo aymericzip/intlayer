@@ -21,6 +21,7 @@ export const App_Dashboard_Profile_Path = '/profile' as const;
 export const App_Dashboard_IDE_Path = '/ide' as const;
 export const App_Dashboard_Scanner_Path = '/scanner' as const;
 export const App_Dashboard_Assets_Path = '/assets' as const;
+export const App_Dashboard_Analytics_Path = '/analytics' as const;
 
 export const App_Pricing_Path = '/pricing' as const;
 export const App_Affiliation_Path = '/affiliation' as const;
@@ -101,6 +102,8 @@ export const App_Dashboard_IDE =
   `https://${App_Domain}${App_Dashboard_IDE_Path}` as const;
 export const App_Dashboard_Scanner =
   `https://${App_Domain}${App_Dashboard_Scanner_Path}` as const;
+export const App_Dashboard_Analytics =
+  `https://${App_Domain}${App_Dashboard_Analytics_Path}` as const;
 
 export const App_Pricing = `https://${App_Domain}${App_Pricing_Path}` as const;
 export const App_Affiliation =

@@ -3,6 +3,7 @@ import type { IntlayerConfig } from '@intlayer/types/config';
 import { defu } from 'defu';
 import type { FetcherOptions } from '../fetcher';
 import { getAiAPI } from './ai';
+import { getAnalyticsAPI } from './analytics';
 import { getAssetAPI } from './asset';
 import { getAuditAPI } from './audit';
 import { getBitbucketAPI } from './bitbucket';
@@ -34,6 +35,7 @@ interface IntlayerAPIReturn {
   dictionary: ReturnType<typeof getDictionaryAPI>;
   stripe: ReturnType<typeof getStripeAPI>;
   ai: ReturnType<typeof getAiAPI>;
+  analytics: ReturnType<typeof getAnalyticsAPI>;
   audit: ReturnType<typeof getAuditAPI>;
   tag: ReturnType<typeof getTagAPI>;
   search: ReturnType<typeof getSearchAPI>;
@@ -66,6 +68,7 @@ export const getIntlayerAPI = (
     dictionary: getDictionaryAPI(authAPIOptions, resolvedConfig),
     stripe: getStripeAPI(authAPIOptions, resolvedConfig),
     ai: getAiAPI(authAPIOptions, resolvedConfig),
+    analytics: getAnalyticsAPI(authAPIOptions, resolvedConfig),
     audit: getAuditAPI(authAPIOptions, resolvedConfig),
     tag: getTagAPI(authAPIOptions, resolvedConfig),
     search: getSearchAPI(authAPIOptions, resolvedConfig),

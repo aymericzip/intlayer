@@ -2,6 +2,7 @@ import { useSession } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import {
   App_Admin_Users_Path,
+  App_Dashboard_Analytics_Path,
   App_Dashboard_Assets_Path,
   App_Dashboard_Dictionaries_Path,
   App_Dashboard_Editor_Path,
@@ -244,6 +245,13 @@ function DashboardLayout() {
       title: navigation.scanner.title.value,
     },
     {
+      key: 'analytics',
+      href: App_Dashboard_Analytics_Path,
+      icon: 'BarChart3',
+      label: navigation.analytics.label.value,
+      title: navigation.analytics.title.value,
+    },
+    {
       key: 'ide',
       href: App_Dashboard_IDE_Path,
       icon: 'SquareCode',
@@ -309,7 +317,7 @@ function DashboardLayout() {
             aria-label={mainContentAriaLabel.value}
             className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-neutral/40 bg-background"
           >
-            <div className="flex flex-1 flex-col overflow-auto">
+            <div className="flex min-h-0 flex-1 flex-col overflow-auto">
               <Outlet />
             </div>
             <TranslationStatusBar />

@@ -33,6 +33,7 @@ import {
   type ReactElement,
   type ReactNode,
 } from 'react';
+import { reportExposure } from './analytics/exposureSink';
 import { useLoadDynamic } from './client/useLoadDynamic';
 import { ContentSelector } from './editor/ContentSelector';
 import type { HTMLComponents } from './html/HTMLComponentTypes';
@@ -72,8 +73,19 @@ export const intlayerNodePlugins: Plugins = {
       plugins, // Removed to avoid next error - Functions cannot be passed directly to Client Components
       ...rest
     }
-  ) =>
-    renderIntlayerNode({
+  ) => {
+    // Node-level analytics: record which content is resolved for display.
+    // No-op (and dead-code-eliminated) when analytics is disabled.
+    if (process.env.INTLAYER_ANALYTICS_ENABLED !== 'false') {
+      reportExposure({
+        dictionaryKey: rest.dictionaryKey,
+        keyPath: rest.keyPath,
+        locale: rest.locale,
+        nodeType: 'text',
+      });
+    }
+
+    return renderIntlayerNode({
       ...rest,
       value: rest.children,
       children:
@@ -82,7 +94,8 @@ export const intlayerNodePlugins: Plugins = {
         ) : (
           rest.children
         ),
-    }),
+    });
+  },
 };
 
 /** ---------------------------------------------
@@ -113,8 +126,17 @@ export const reactNodePlugins: Plugins =
             plugins, // Removed to avoid next error - Functions cannot be passed directly to Client Components
             ...rest
           }
-        ) =>
-          renderIntlayerNode({
+        ) => {
+          if (process.env.INTLAYER_ANALYTICS_ENABLED !== 'false') {
+            reportExposure({
+              dictionaryKey: rest.dictionaryKey,
+              keyPath: rest.keyPath,
+              locale: rest.locale,
+              nodeType: 'react-node',
+            });
+          }
+
+          return renderIntlayerNode({
             ...rest,
             value: '[[react-element]]',
             children:
@@ -126,7 +148,8 @@ export const reactNodePlugins: Plugins =
               ) : (
                 renderReactElement(node)
               ),
-          }),
+          });
+        },
       };
 
 /** ---------------------------------------------

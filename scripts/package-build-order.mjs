@@ -11,6 +11,7 @@ export const packageBuildOrder = [
   'packages/@intlayer/engine',
   'packages/@intlayer/webpack',
   'packages/@intlayer/editor',
+  'packages/@intlayer/analytics',
   'packages/@intlayer/cli',
   'packages/@intlayer/babel',
   'packages/@intlayer/swc',

@@ -12,6 +12,7 @@ import {
   useEffect,
   useState,
 } from 'react';
+import { AnalyticsProvider } from '../analytics/AnalyticsProvider';
 import { EditorProvider } from '../editor/EditorProvider';
 import { localeInStorage, setLocaleInStorage } from './useLocaleStorage';
 
@@ -156,6 +157,7 @@ export const IntlayerProvider: FC<IntlayerProviderProps> = ({
 }) => (
   <IntlayerProviderContent {...props}>
     <EditorProvider />
+    <AnalyticsProvider />
     {children}
   </IntlayerProviderContent>
 );

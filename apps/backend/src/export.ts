@@ -1,5 +1,6 @@
 // Controllers types
 export type * from '@controllers/ai.controller';
+export type * from '@controllers/analytics.controller';
 export type * from '@controllers/asset.controller';
 export type * from '@controllers/audit.controller';
 export type {
@@ -58,6 +59,7 @@ export type * from '@controllers/tag.controller';
 export type * from '@controllers/translation.controller';
 export type * from '@controllers/user.controller';
 export { getAiRoutes } from '@routes/ai.routes';
+export { getAnalyticsRoutes } from '@routes/analytics.routes';
 export { getAssetRoutes } from '@routes/asset.routes';
 // Routes
 export { getAuditRoutes } from '@routes/audit.routes';
@@ -84,6 +86,7 @@ export * from '@utils/responseData';
 export type * from '@/types/affiliate.types';
 export type * from '@/types/affiliateInvitation.types';
 export type * from '@/types/aiStats.types';
+export type * from '@/types/analytics.types';
 export type * from '@/types/asset.types';
 export type * from '@/types/dictionary.types';
 export type * from '@/types/discussion.types';

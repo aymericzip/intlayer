@@ -3,6 +3,7 @@ import type { IntlayerConfig } from '@intlayer/types/config';
 import { createIntlayerCMS, type IntlayerCMS } from './cms/createIntlayerCMS';
 import type { FetcherOptions } from './fetcher';
 import { getAiAPI } from './getIntlayerAPI/ai';
+import { getAnalyticsAPI } from './getIntlayerAPI/analytics';
 import { getAssetAPI } from './getIntlayerAPI/asset';
 import { getAuditAPI } from './getIntlayerAPI/audit';
 import { getBitbucketAPI } from './getIntlayerAPI/bitbucket';
@@ -50,6 +51,7 @@ const sectionFactories: SectionFactories = {
   dictionary: getDictionaryAPI,
   stripe: getStripeAPI,
   ai: getAiAPI,
+  analytics: getAnalyticsAPI,
   audit: getAuditAPI,
   tag: getTagAPI,
   search: getSearchAPI,

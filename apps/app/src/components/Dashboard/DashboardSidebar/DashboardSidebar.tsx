@@ -10,6 +10,7 @@ import {
   App_Admin_Organizations_Path,
   App_Admin_Projects_Path,
   App_Admin_Users_Path,
+  App_Dashboard_Analytics_Path,
   App_Dashboard_Assets_Path,
   App_Dashboard_Dictionaries_Path,
   App_Dashboard_Editor_Path,
@@ -28,6 +29,7 @@ import { AnimatePresence, m, useReducedMotion } from 'framer-motion';
 import { getPathWithoutLocale } from 'intlayer';
 import {
   ArrowLeftToLine,
+  BarChart3,
   Book,
   Building2,
   Check,
@@ -75,6 +77,7 @@ export const iconMap: Record<string, LucideIcon> = {
   ScanLine,
   SquareCode,
   MessageSquare,
+  BarChart3,
 };
 
 export const shouldHaveOrganizationRoutes = [
@@ -91,6 +94,7 @@ export const shouldHaveProjectRoutes = [
   App_Dashboard_IDE_Path,
   App_Dashboard_Scanner_Path,
   App_Dashboard_Assets_Path,
+  App_Dashboard_Analytics_Path,
 ] as string[];
 
 export const shouldHaveAdminRoutes = [

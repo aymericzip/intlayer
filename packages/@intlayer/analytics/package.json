@@ -1,0 +1,100 @@
+{
+  "name": "@intlayer/analytics",
+  "version": "9.0.0-canary.15",
+  "private": false,
+  "description": "Collects which Intlayer content is shown (page/locale + node-level) and powers content A/B testing. Optional, lazily-imported companion to @intlayer/editor.",
+  "keywords": [
+    "intlayer",
+    "analytics",
+    "ab-testing",
+    "i18n"
+  ],
+  "homepage": "https://intlayer.org",
+  "bugs": {
+    "url": "https://github.com/aymericzip/intlayer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Aymeric PINEAU",
+    "url": "https://github.com/aymericzip"
+  },
+  "contributors": [
+    {
+      "name": "Aymeric Pineau",
+      "email": "ay.pineau@gmail.com",
+      "url": "https://github.com/aymericzip"
+    }
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/cjs/index.cjs",
+      "import": "./dist/esm/index.mjs"
+    },
+    "./isEnabled": {
+      "types": "./dist/types/isEnabled.d.ts",
+      "require": "./dist/cjs/isEnabled.cjs",
+      "import": "./dist/esm/isEnabled.mjs"
+    },
+    "./client": {
+      "types": "./dist/types/core/index.d.ts",
+      "require": "./dist/cjs/core/index.cjs",
+      "import": "./dist/esm/core/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "package.json": [
+        "./package.json"
+      ]
+    }
+  },
+  "files": [
+    "./dist",
+    "./package.json"
+  ],
+  "scripts": {
+    "build": "bun --bun tsdown --config tsdown.config.ts",
+    "build:ci": "bun --bun tsdown --config tsdown.config.ts",
+    "clean": "bun --bun rimraf ./dist .turbo",
+    "dev": "bun --bun tsdown --config tsdown.config.ts --watch",
+    "format": "bun --bun biome format . --check",
+    "format:fix": "bun --bun biome format --write .",
+    "lint": "bun --bun biome lint .",
+    "lint:fix": "bun --bun biome lint --write .",
+    "prepublish": "cp -f ../../../README.md ./README.md",
+    "publish": "bun publish || true",
+    "publish:canary": "bun publish --access public --tag canary || true",
+    "publish:latest": "bun publish --access public --tag latest || true",
+    "test": "bun --bun vitest run",
+    "test:watch": "bun --bun vitest",
+    "typecheck": "tsc --noEmit --project tsconfig.types.json"
+  },
+  "dependencies": {
+    "@intlayer/config": "workspace:*",
+    "@intlayer/core": "workspace:*",
+    "@intlayer/types": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "25.9.4",
+    "@utils/ts-config": "workspace:*",
+    "@utils/ts-config-types": "workspace:*",
+    "@utils/tsdown-config": "workspace:*",
+    "rimraf": "6.1.3",
+    "tsdown": "0.21.10",
+    "typescript": "6.0.3",
+    "vitest": "4.1.9"
+  },
+  "engines": {
+    "node": ">=14.18"
+  }
+}

@@ -6,6 +6,7 @@ import {
   type IntlayerAPI,
 } from '@intlayer/api';
 import { getAiAPI } from '@intlayer/api/ai';
+import { getAnalyticsAPI } from '@intlayer/api/analytics';
 import { getAssetAPI } from '@intlayer/api/asset';
 import { getAuditAPI } from '@intlayer/api/audit';
 import { getBitbucketAPI } from '@intlayer/api/bitbucket';
@@ -122,6 +123,13 @@ export const useAuditAPI = (
 ): ReturnType<typeof getAuditAPI> => {
   const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
   return getAuditAPI(options, resolvedConfig);
+};
+
+export const useAnalyticsAPI = (
+  props?: UseIntlayerAuthProps
+): ReturnType<typeof getAnalyticsAPI> => {
+  const { options, resolvedConfig } = useIntlayerOAuthOptions(props);
+  return getAnalyticsAPI(options, resolvedConfig);
 };
 
 export const useTagAPI = (
