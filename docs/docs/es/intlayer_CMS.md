@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-08-23
-updatedAt: 2026-06-30
+updatedAt: 2026-07-08
 title: Intlayer CMS | Externaliza tu contenido en el Intlayer CMS
 description: Externaliza tu contenido en el Intlayer CMS para delegar la gestión de tu contenido a tu equipo.
 keywords:
@@ -18,6 +18,9 @@ slugs:
   - cms
 youtubeVideo: https://www.youtube.com/watch?v=UDDTnirwi_4
 history:
+  - version: 9.0.0
+    date: 2026-07-08
+    changes: "Se trasladó la sección «Sincronización en vivo» a su propia página (live-sync.md), dejando aquí una breve introducción y un enlace"
   - version: 9.0.0
     date: 2026-06-30
     changes: "Añadida sección de Auto-alojamiento: bootstrap Docker Compose, inventario de servicios, configuración SDK, características opcionales y notas de actualización"
@@ -248,145 +251,7 @@ Luego podrás ver y gestionar tu diccionario en el [Intlayer CMS](https://app.in
 
 La sincronización en vivo permite que tu aplicación refleje los cambios de contenido del CMS en runtime. No se requiere reconstrucción ni redepliegue. Cuando está habilitada, las actualizaciones se transmiten a un servidor de sincronización en vivo que actualiza los diccionarios que tu aplicación lee.
 
-> Live Sync requiere una conexión continua al servidor y está disponible en el plan enterprise.
-
-Habilita Live Sync actualizando tu configuración de Intlayer:
-
-```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import type { IntlayerConfig } from "intlayer";
-
-const config: IntlayerConfig = {
-  // ... otras configuraciones
-  editor: {
-    /**
-     * Habilita la recarga en caliente de las configuraciones de localización cuando se detectan cambios.
-     * Por ejemplo, cuando se añade o actualiza un diccionario, la aplicación actualiza
-     * el contenido mostrado en la página.
-     *
-     * Debido a que la recarga en caliente requiere una conexión continua al servidor,
-     * solo está disponible para clientes del plan `enterprise`.
-     *
-     * Por defecto: false
-     */
-    liveSync: true,
-  },
-  dictionary: {
-    /**
-     * Controla cómo se importan los diccionarios:
-     *
-     * - "live": Los diccionarios se obtienen dinámicamente usando la API de Live Sync.
-     *   Reemplaza useIntlayer por useDictionaryDynamic.
-     *
-     * Nota: El modo live usa la API de Live Sync para obtener los diccionarios. Si la llamada a la API
-     * falla, los diccionarios se importan dinámicamente.
-     * Nota: Solo los diccionarios con contenido remoto y la bandera "live" usan el modo live.
-     * Los demás usan el modo dinámico para mejorar el rendimiento.
-     */
-    importMode: "fetch",
-  },
-};
-
-export default config;
-```
-
-Inicie el servidor Live Sync para envolver su aplicación:
-
-Ejemplo usando Next.js:
-
-```json5 fileName="package.json"
-{
-  "scripts": {
-    // ... otros scripts
-    "build": "next build",
-    "dev": "next dev",
-    "start": "npx intlayer live --with 'next start'",
-  },
-}
-```
-
-Ejemplo usando Vite:
-
-```json5 fileName="package.json"
-{
-  "scripts": {
-    // ... otros scripts
-    "build": "vite build",
-    "dev": "vite dev",
-    "start": "npx intlayer live --with 'vite start'",
-  },
-}
-```
-
-El servidor Live Sync envuelve su aplicación y aplica automáticamente el contenido actualizado a medida que llega.
-
-Para recibir notificaciones de cambios desde el CMS, el servidor Live Sync mantiene una conexión SSE con el backend. Cuando el contenido cambia en el CMS, el backend envía la actualización al servidor Live Sync, que escribe los nuevos diccionarios. Su aplicación reflejará la actualización en la siguiente navegación o recarga del navegador, sin necesidad de reconstrucción.
-
-Diagrama de flujo (CMS/Backend -> Servidor Live Sync -> Servidor de Aplicación -> Frontend):
-
-![Esquema de lógica de Live Sync](https://github.com/aymericzip/intlayer/blob/main/docs/assets/live_sync_logic_schema.svg)
-
-Cómo funciona:
-
-![Esquema de flujo Live Sync CMS/Backend/Servidor Live Sync/Servidor de Aplicación/Frontend](https://github.com/aymericzip/intlayer/blob/main/docs/assets/live_sync_flow_scema.svg)
-
-### Flujo de trabajo de desarrollo (local)
-
-docs/ko/intlayer_CMS.md
-
-- En desarrollo, todos los diccionarios remotos se obtienen cuando la aplicación se inicia, para que puedas probar actualizaciones rápidamente.
-- Para probar Live Sync localmente con Next.js, envuelve tu servidor de desarrollo:
-
-```json5 fileName="package.json"
-{
-  "scripts": {
-    // ... otros scripts
-    "dev": "npx intlayer live --with 'next dev'",
-    // "dev": "npx intlayer live --with 'vite dev'", // Para Vite
-  },
-}
-```
-
-Habilita la optimización para que Intlayer aplique las transformaciones de importación en vivo durante el desarrollo:
-
-```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import type { IntlayerConfig } from "intlayer";
-
-const config: IntlayerConfig = {
-  editor: {
-    applicationURL: "http://localhost:5173",
-    liveSyncURL: "http://localhost:4000",
-    liveSync: true,
-  },
-  dictionary: {
-    importMode: "fetch",
-  },
-  build: {
-    optimize: true,
-  },
-};
-
-export default config;
-```
-
-Esta configuración envuelve tu servidor de desarrollo con el servidor Live Sync, obtiene los diccionarios remotos al iniciar y transmite actualizaciones desde el CMS vía SSE. Actualiza la página para ver los cambios.
-
-Notas y restricciones:
-
-- Añade el origen de live sync a la política de seguridad de tu sitio (CSP). Asegúrate de que la URL de live sync esté permitida en `connect-src` (y en `frame-ancestors` si es relevante).
-- Live Sync no funciona con salida estática. Para Next.js, la página debe ser dinámica para recibir actualizaciones en runtime (por ejemplo, usa `generateStaticParams`, `generateMetadata`, `getServerSideProps` o `getStaticProps` adecuadamente para evitar restricciones de solo estático).
-
-Esta configuración envuelve tu servidor de desarrollo con el servidor Live Sync, obtiene diccionarios remotos al iniciar y transmite actualizaciones desde el CMS vía SSE. Actualiza la página para ver los cambios.
-
-Notas y restricciones:
-
-- Añade el origen de live sync a la política de seguridad de tu sitio (CSP). Asegúrate de que la URL de live sync esté permitida en `connect-src` (y en `frame-ancestors` si es relevante).
-- Live Sync no funciona con salida estática. Para Next.js, la página debe ser dinámica para recibir actualizaciones en runtime (por ejemplo, usa `generateStaticParams`, `generateMetadata`, `getServerSideProps` o `getStaticProps` adecuadamente para evitar restricciones de solo estático).
-- La URL de la aplicación debe coincidir con la que configuraste en la configuración del editor (`applicationURL`).
-- La URL del CMS
-
-- Asegúrate de que la configuración del proyecto se haya enviado al CMS de Intlayer.
-
-- El editor visual utiliza un iframe para mostrar tu sitio web. Asegúrate de que la Política de Seguridad de Contenidos (CSP) de tu sitio web permita la URL del CMS como `frame-ancestors` ('https://app.intlayer.org' por defecto). Revisa la consola del editor para cualquier error.
+Para la guía de configuración completa (activación, inicio del servidor Live Sync, flujo de trabajo de desarrollo local y restricciones), consulta la [documentación de Live Sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/live-sync.md).
 
 ## Auto-alojamiento
 
