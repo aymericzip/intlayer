@@ -36,6 +36,8 @@ A Sincronização ao Vivo permite que a sua aplicação reflita as alterações 
 
 ---
 
+## Ativar a sincronização ao vivo
+
 > A Sincronização ao Vivo requer uma conexão contínua com o servidor e está disponível no plano enterprise.
 
 Ative a Sincronização ao Vivo atualizando a sua configuração Intlayer:
@@ -156,28 +158,13 @@ export default config;
 
 Esta configuração envolve seu servidor de desenvolvimento com o servidor Live Sync, busca dicionários remotos na inicialização e transmite atualizações do CMS via SSE. Atualize a página para ver as mudanças.
 
-Notas e restrições:
+## Notas e restrições
 
 - Adicione a origem do live sync à política de segurança do seu site (CSP). Certifique-se de que a URL do live sync esteja permitida em `connect-src` (e `frame-ancestors`, se relevante).
 - O Live Sync não funciona com saída estática. Para Next.js, a página deve ser dinâmica para receber atualizações em tempo de execução (por exemplo, use `generateStaticParams`, `generateMetadata`, `getServerSideProps` ou `getStaticProps` adequadamente para evitar restrições de somente estático).
-  /// No CMS, cada dicionário possui uma flag `live`. Apenas dicionários com `live=true` são buscados via API de sincronização ao vivo; os demais são importados dinamicamente e permanecem inalterados em tempo de execução.
-  /// A flag `live` é avaliada para cada dicionário no momento da compilação. Se o conteúdo remoto não foi marcado como `live=true` durante a compilação, você deve recompilar para habilitar a Sincronização ao Vivo para esse dicionário.
-  /// O servidor de sincronização ao vivo deve ter permissão para escrever em `.intlayer`. Em contêineres, assegure o acesso de escrita a `/.intlayer`.
-  ///
-  /// ## Depuração
-  ///
-  /// Se você encontrar algum problema com o CMS, verifique o seguinte:
-  ///
-  /// - A aplicação está em execução.
-  ///
-  /// - A configuração do [`editor`](https://intlayer.org/doc/concept/configuration#editor-configuration) está corretamente definida no seu arquivo de configuração do Intlayer.
-  /// - Campos obrigatórios:
-- A URL da aplicação deve corresponder àquela que você definiu na configuração do editor (`applicationURL`).
-- A URL do CMS
-
-- Certifique-se de que a configuração do projeto foi enviada para o Intlayer CMS.
-
-- O editor visual usa um iframe para exibir seu site. Certifique-se de que a Política de Segurança de Conteúdo (CSP) do seu site permita a URL do CMS como `frame-ancestors` ('https://app.intlayer.org' por padrão). Verifique o console do editor para qualquer erro.
+- No CMS, cada dicionário possui uma flag `live`. Apenas dicionários com `live=true` são buscados via API de sincronização ao vivo; os demais são importados dinamicamente e permanecem inalterados em tempo de execução.
+- A flag `live` é avaliada para cada dicionário no momento da compilação. Se o conteúdo remoto não foi marcado como `live=true` durante a compilação, você deve recompilar para habilitar a Sincronização ao Vivo para esse dicionário.
+- O servidor de sincronização ao vivo deve ter permissão para escrever em `.intlayer`. Em contêineres, assegure o acesso de escrita a `/.intlayer`.
 
 ## Links úteis
 

@@ -36,6 +36,8 @@ La sincronización en vivo permite que tu aplicación refleje los cambios de con
 
 ---
 
+## Activar la sincronización en vivo
+
 > Live Sync requiere una conexión continua al servidor y está disponible en el plan enterprise.
 
 Habilita Live Sync actualizando tu configuración de Intlayer:
@@ -158,23 +160,13 @@ export default config;
 
 Esta configuración envuelve tu servidor de desarrollo con el servidor Live Sync, obtiene los diccionarios remotos al iniciar y transmite actualizaciones desde el CMS vía SSE. Actualiza la página para ver los cambios.
 
-Notas y restricciones:
+## Notas y restricciones
 
 - Añade el origen de live sync a la política de seguridad de tu sitio (CSP). Asegúrate de que la URL de live sync esté permitida en `connect-src` (y en `frame-ancestors` si es relevante).
 - Live Sync no funciona con salida estática. Para Next.js, la página debe ser dinámica para recibir actualizaciones en runtime (por ejemplo, usa `generateStaticParams`, `generateMetadata`, `getServerSideProps` o `getStaticProps` adecuadamente para evitar restricciones de solo estático).
-
-Esta configuración envuelve tu servidor de desarrollo con el servidor Live Sync, obtiene diccionarios remotos al iniciar y transmite actualizaciones desde el CMS vía SSE. Actualiza la página para ver los cambios.
-
-Notas y restricciones:
-
-- Añade el origen de live sync a la política de seguridad de tu sitio (CSP). Asegúrate de que la URL de live sync esté permitida en `connect-src` (y en `frame-ancestors` si es relevante).
-- Live Sync no funciona con salida estática. Para Next.js, la página debe ser dinámica para recibir actualizaciones en runtime (por ejemplo, usa `generateStaticParams`, `generateMetadata`, `getServerSideProps` o `getStaticProps` adecuadamente para evitar restricciones de solo estático).
-- La URL de la aplicación debe coincidir con la que configuraste en la configuración del editor (`applicationURL`).
-- La URL del CMS
-
-- Asegúrate de que la configuración del proyecto se haya enviado al CMS de Intlayer.
-
-- El editor visual utiliza un iframe para mostrar tu sitio web. Asegúrate de que la Política de Seguridad de Contenidos (CSP) de tu sitio web permita la URL del CMS como `frame-ancestors` ('https://app.intlayer.org' por defecto). Revisa la consola del editor para cualquier error.
+- En el CMS, cada diccionario tiene una bandera `live`. Solo los diccionarios con `live=true` se obtienen a través de la API de live sync; los demás se importan dinámicamente y permanecen sin cambios en tiempo de ejecución.
+- La bandera `live` se evalúa para cada diccionario en el momento de la compilación. Si el contenido remoto no estaba marcado como `live=true` durante la compilación, debes recompilar para habilitar Live Sync para ese diccionario.
+- El servidor de live sync debe poder escribir en `.intlayer`. En contenedores, asegura el acceso de escritura a `/.intlayer`.
 
 ## Enlaces útiles
 

@@ -36,6 +36,8 @@ author: aymericzip
 
 ---
 
+## ライブ同期を有効にする
+
 Intlayerの設定を更新してLive Syncを有効にします：
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
@@ -167,7 +169,7 @@ export default config;
 
 この設定により、開発サーバーがLive Syncサーバーでラップされ、起動時にリモート辞書を取得し、CMSからの更新をSSE経由でストリーミングします。変更を確認するにはページをリロードしてください。
 
-注意事項と制約：
+## 注意事項と制約
 
 - Live Sync のオリジンをサイトのセキュリティポリシー（CSP）に追加してください。Live Sync の URL が `connect-src`（および該当する場合は `frame-ancestors`）で許可されていることを確認してください。
 - Live Sync は静的出力では動作しません。Next.js の場合、ページはランタイムで更新を受け取るために動的である必要があります（例：完全な静的のみの制約を避けるために、`generateStaticParams`、`generateMetadata`、`getServerSideProps`、または `getStaticProps` を適切に使用してください）。

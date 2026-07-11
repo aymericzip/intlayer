@@ -35,6 +35,8 @@ Live Sync allows your app to reflect CMS content changes at runtime. No rebuild 
 
 ---
 
+## Enabling Live Sync
+
 > Live Sync requires a continuous server connection and is available on the enterprise plan.
 
 Enable Live Sync by updating your Intlayer configuration:
@@ -155,7 +157,7 @@ export default config;
 
 This setup wraps your dev server with the Live Sync server, fetches remote dictionaries at startup, and streams updates from the CMS via SSE. Refresh the page to see changes.
 
-Notes and constraints:
+## Notes and constraints
 
 - Add the live sync origin to your site security policy (CSP). Ensure the live sync URL is allowed in `connect-src` (and `frame-ancestors` if relevant).
 - Live Sync does not work with static output. For Next.js, the page must be dynamic to receive updates at runtime (e.g., use `generateStaticParams`, `generateMetadata`, `getServerSideProps`, or `getStaticProps` appropriately to avoid full static-only constraints).

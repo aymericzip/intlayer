@@ -36,6 +36,8 @@ Synchronizacja na żywo pozwala Twojej aplikacji odzwierciedlać zmiany treści 
 
 ---
 
+## Włączanie synchronizacji na żywo
+
 Włącz synchronizację na żywo, aktualizując konfigurację Intlayer:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
@@ -167,7 +169,7 @@ export default config;
 
 To ustawienie owija Twój serwer deweloperski serwerem Live Sync, pobiera zdalne słowniki podczas uruchamiania i przesyła aktualizacje z CMS za pomocą SSE. Odśwież stronę, aby zobaczyć zmiany.
 
-Uwagi i ograniczenia:
+## Uwagi i ograniczenia
 
 - Dodaj pochodzenie live sync do polityki bezpieczeństwa swojej strony (CSP). Upewnij się, że adres URL live sync jest dozwolony w `connect-src` (oraz `frame-ancestors`, jeśli ma to zastosowanie).
 - Live Sync nie działa ze statycznym outputem. W Next.js strona musi być dynamiczna, aby otrzymywać aktualizacje w czasie wykonywania (np. użyj `generateStaticParams`, `generateMetadata`, `getServerSideProps` lub `getStaticProps` odpowiednio, aby uniknąć pełnych ograniczeń statycznych).

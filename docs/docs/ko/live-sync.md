@@ -36,6 +36,8 @@ author: aymericzip
 
 ---
 
+## 라이브 동기화 활성화
+
 > Live Sync는 지속적인 서버 연결이 필요하며 엔터프라이즈 플랜에서만 사용할 수 있습니다.
 
 Intlayer 구성을 업데이트하여 Live Sync를 활성화하세요:
@@ -169,7 +171,7 @@ export default config;
 
 이 설정은 개발 서버를 Live Sync 서버와 래핑하고, 시작 시 원격 사전을 가져오며, CMS에서 SSE를 통해 업데이트를 스트리밍합니다. 변경 사항을 보려면 페이지를 새로 고치세요.
 
-참고 사항 및 제약 조건:
+## 참고 사항 및 제약 조건
 
 - 라이브 싱크 출처를 사이트 보안 정책(CSP)에 추가하세요. 라이브 싱크 URL이 `connect-src`(및 관련이 있다면 `frame-ancestors`)에 허용되어 있는지 확인하세요.
 - 라이브 싱크는 정적 출력과 함께 작동하지 않습니다. Next.js의 경우, 런타임에 업데이트를 받으려면 페이지가 동적이어야 합니다(예: 전체 정적 전용 제약을 피하기 위해 `generateStaticParams`, `generateMetadata`, `getServerSideProps` 또는 `getStaticProps`를 적절히 사용).

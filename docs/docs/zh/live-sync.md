@@ -36,6 +36,8 @@ author: aymericzip
 
 ---
 
+## 启用实时同步
+
 > 实时同步需要持续的服务器连接，并且仅在企业版计划中可用。
 
 通过更新您的 Intlayer 配置来启用实时同步：
@@ -155,7 +157,7 @@ export default config;
 
 此设置将您的开发服务器与实时同步服务器包装在一起，在启动时获取远程字典，并通过 SSE 从 CMS 流式传输更新。刷新页面以查看更改。
 
-注意事项和限制：
+## 注意事项和限制
 
 - 将实时同步源添加到您的站点安全策略（CSP）中。确保实时同步 URL 被允许在 `connect-src` 中（如果相关，也包括 `frame-ancestors`）。
 - 实时同步不适用于静态输出。对于 Next.js，页面必须是动态的才能在运行时接收更新（例如，适当使用 `generateStaticParams`、`generateMetadata`、`getServerSideProps` 或 `getStaticProps`，以避免完全静态的限制）。

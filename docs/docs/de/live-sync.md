@@ -36,6 +36,8 @@ Live Sync ermöglicht es Ihrer App, CMS-Inhaltsänderungen zur Laufzeit widerzus
 
 ---
 
+## Live-Synchronisation aktivieren
+
 > Live Sync erfordert eine kontinuierliche Serververbindung und ist im Enterprise-Plan verfügbar.
 
 Aktivieren Sie Live Sync, indem Sie Ihre Intlayer-Konfiguration aktualisieren:
@@ -156,14 +158,7 @@ export default config;
 
 Diese Konfiguration umschließt Ihren Dev-Server mit dem Live Sync Server, lädt entfernte Wörterbücher beim Start und streamt Updates vom CMS über SSE. Aktualisieren Sie die Seite, um Änderungen zu sehen.
 
-Hinweise und Einschränkungen:
-
-- Fügen Sie die Live Sync-Quelle zu Ihrer Site-Sicherheitsrichtlinie (CSP) hinzu. Stellen Sie sicher, dass die Live Sync-URL in `connect-src` (und `frame-ancestors`, falls relevant) erlaubt ist.
-- Live Sync funktioniert nicht mit statischem Output. Für Next.js muss die Seite dynamisch sein, um zur Laufzeit Updates zu erhalten (z. B. verwenden Sie `generateStaticParams`, `generateMetadata`, `getServerSideProps` oder `getStaticProps` entsprechend, um vollständige statische Einschränkungen zu vermeiden).
-
-Diese Einrichtung bindet Ihren Entwicklungsserver mit dem Live-Sync-Server, lädt beim Start entfernte Wörterbücher und streamt Aktualisierungen vom CMS über SSE. Aktualisieren Sie die Seite, um Änderungen zu sehen.
-
-Hinweise und Einschränkungen:
+## Hinweise und Einschränkungen
 
 - Fügen Sie die Live-Sync-Quelle zu Ihrer Sicherheitsrichtlinie der Website (CSP) hinzu. Stellen Sie sicher, dass die Live-Sync-URL in `connect-src` (und `frame-ancestors`, falls relevant) erlaubt ist.
 - Live Sync funktioniert nicht mit statischer Ausgabe. Für Next.js muss die Seite dynamisch sein, um zur Laufzeit Updates zu erhalten (z. B. verwenden Sie `generateStaticParams`, `generateMetadata`, `getServerSideProps` oder `getStaticProps` entsprechend, um vollständige statische Einschränkungen zu vermeiden).

@@ -36,6 +36,8 @@ La Sincronizzazione Live consente alla tua app di riflettere le modifiche ai con
 
 ---
 
+## Attivare la sincronizzazione live
+
 > Live Sync richiede una connessione continua al server ed è disponibile nel piano enterprise.
 
 Abilita Live Sync aggiornando la configurazione di Intlayer:
@@ -156,7 +158,7 @@ export default config;
 
 Questa configurazione avvolge il tuo server di sviluppo con il server Live Sync, recupera i dizionari remoti all'avvio e trasmette aggiornamenti dal CMS tramite SSE. Aggiorna la pagina per vedere le modifiche.
 
-Note e vincoli:
+## Note e vincoli
 
 - Aggiungi l'origine del live sync alla tua politica di sicurezza del sito (CSP). Assicurati che l'URL del live sync sia consentito in `connect-src` (e in `frame-ancestors` se pertinente).
 - Live Sync non funziona con output statico. Per Next.js, la pagina deve essere dinamica per ricevere aggiornamenti in fase di esecuzione (ad esempio, usa `generateStaticParams`, `generateMetadata`, `getServerSideProps` o `getStaticProps` in modo appropriato per evitare vincoli di solo statico completo).

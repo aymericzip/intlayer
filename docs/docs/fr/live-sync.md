@@ -36,6 +36,8 @@ La synchronisation en direct permet à votre application de refléter les modifi
 
 ---
 
+## Activer la synchronisation en direct
+
 > La synchronisation en direct nécessite une connexion continue au serveur et est disponible dans le plan entreprise.
 
 Activez la synchronisation en direct en mettant à jour votre configuration Intlayer :
@@ -156,14 +158,7 @@ export default config;
 
 Cette configuration encapsule votre serveur de développement avec le serveur Live Sync, récupère les dictionnaires distants au démarrage et diffuse les mises à jour du CMS via SSE. Rafraîchissez la page pour voir les changements.
 
-Notes et contraintes :
-
-- Ajoutez l'origine de live sync à votre politique de sécurité du site (CSP). Assurez-vous que l'URL de live sync est autorisée dans `connect-src` (et `frame-ancestors` si pertinent).
-- Live Sync ne fonctionne pas avec une sortie statique. Pour Next.js, la page doit être dynamique pour recevoir les mises à jour à l'exécution (par exemple, utilisez `generateStaticParams`, `generateMetadata`, `getServerSideProps` ou `getStaticProps` de manière appropriée pour éviter les contraintes de statique complète).
-
-Cette configuration enveloppe votre serveur de développement avec le serveur Live Sync, récupère les dictionnaires distants au démarrage, et diffuse les mises à jour du CMS via SSE. Actualisez la page pour voir les changements.
-
-Notes et contraintes :
+## Notes et contraintes
 
 - Ajoutez l'origine du live sync à la politique de sécurité de votre site (CSP). Assurez-vous que l'URL du live sync est autorisée dans `connect-src` (et `frame-ancestors` si pertinent).
 - Live Sync ne fonctionne pas avec une sortie statique. Pour Next.js, la page doit être dynamique pour recevoir les mises à jour à l'exécution (par exemple, utilisez `generateStaticParams`, `generateMetadata`, `getServerSideProps` ou `getStaticProps` de manière appropriée pour éviter les contraintes de statique complète).

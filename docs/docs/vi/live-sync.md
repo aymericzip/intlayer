@@ -36,6 +36,8 @@ Live Sync cho phép ứng dụng của bạn phản ánh các thay đổi nội 
 
 ---
 
+## Bật Đồng bộ trực tiếp
+
 Bật Live Sync bằng cách cập nhật cấu hình Intlayer của bạn:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
@@ -167,7 +169,7 @@ export default config;
 
 Cấu hình này bao bọc server phát triển của bạn với server Live Sync, lấy các từ điển từ xa khi khởi động, và truyền các cập nhật từ CMS qua SSE. Tải lại trang để xem các thay đổi.
 
-Ghi chú và hạn chế:
+## Ghi chú và hạn chế
 
 - Thêm nguồn gốc live sync vào chính sách bảo mật trang web của bạn (CSP). Đảm bảo URL live sync được phép trong `connect-src` (và `frame-ancestors` nếu có liên quan).
 - Live Sync không hoạt động với đầu ra tĩnh. Đối với Next.js, trang phải là động để nhận các cập nhật tại thời gian chạy (ví dụ: sử dụng `generateStaticParams`, `generateMetadata`, `getServerSideProps`, hoặc `getStaticProps` một cách phù hợp để tránh các hạn chế chỉ tĩnh hoàn toàn).

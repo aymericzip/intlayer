@@ -36,6 +36,8 @@ Sinkronisasi Langsung memungkinkan aplikasi Anda mencerminkan perubahan konten C
 
 ---
 
+## Mengaktifkan Sinkronisasi langsung
+
 Aktifkan Sinkronisasi Langsung dengan memperbarui konfigurasi Intlayer Anda:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
@@ -167,7 +169,7 @@ export default config;
 
 Pengaturan ini membungkus server dev Anda dengan server Live Sync, mengambil kamus jarak jauh saat startup, dan mengalirkan pembaruan dari CMS melalui SSE. Segarkan halaman untuk melihat perubahan.
 
-Catatan dan batasan:
+## Catatan dan batasan
 
 - Tambahkan origin live sync ke kebijakan keamanan situs Anda (CSP). Pastikan URL live sync diizinkan dalam `connect-src` (dan `frame-ancestors` jika relevan).
 - Live Sync tidak berfungsi dengan output statis. Untuk Next.js, halaman harus dinamis agar dapat menerima pembaruan saat runtime (misalnya, gunakan `generateStaticParams`, `generateMetadata`, `getServerSideProps`, atau `getStaticProps` secara tepat untuk menghindari batasan hanya statis penuh).

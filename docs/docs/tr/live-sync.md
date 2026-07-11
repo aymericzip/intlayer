@@ -36,6 +36,8 @@ Canlı Senkronizasyon, uygulamanızın CMS içerik değişikliklerini çalışma
 
 ---
 
+## Canlı senkronizasyonu etkinleştirme
+
 > Canlı Senkronizasyon sürekli bir sunucu bağlantısı gerektirir ve yalnızca enterprise planında kullanılabilir.
 
 Intlayer yapılandırmanızı güncelleyerek Canlı Senkronizasyonu etkinleştirin:
@@ -155,7 +157,7 @@ export default config;
 
 Bu yapılandırma, geliştirme sunucunuzu Live Sync sunucusuyla sarar, başlangıçta uzak sözlükleri getirir ve CMS'den SSE aracılığıyla güncellemeleri aktarır. Değişiklikleri görmek için sayfayı yenileyin.
 
-Notlar ve kısıtlamalar:
+## Notlar ve kısıtlamalar
 
 - Live sync kaynağını site güvenlik politikanıza (CSP) ekleyin. Live sync URL'sinin `connect-src` içinde (ve ilgili ise `frame-ancestors` içinde) izinli olduğundan emin olun.
 - Live Sync statik çıktı ile çalışmaz. Next.js için, sayfa çalışma zamanında güncellemeleri alabilmek için dinamik olmalıdır (örneğin, tam statik kısıtlamalardan kaçınmak için `generateStaticParams`, `generateMetadata`, `getServerSideProps` veya `getStaticProps` uygun şekilde kullanılmalıdır).
