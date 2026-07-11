@@ -1,3 +1,4 @@
+export * from './analytics';
 export * from './build';
 export * from './compiler';
 export * from './content';

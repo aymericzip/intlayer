@@ -80,3 +80,39 @@ export const unauthenticatedChatBotLimiter: RateLimitOptions = {
     };
   },
 };
+
+/**
+ * Limiter for the public analytics ingestion endpoint. A well-behaved SDK
+ * flushes once per ~20s per tab (≈3 requests/minute), so 60/minute leaves
+ * generous headroom for bursts (multi-tab, conversions, flush-on-hide) while
+ * capping abuse of the unauthenticated endpoint.
+ */
+export const analyticsIngestLimiter: RateLimitOptions = {
+  max: 60, // 60 requests
+  timeWindow: 60 * 1000, // 1-minute window
+  enableDraftSpec: true,
+  // Use a custom key generator that handles proxy headers securely
+  keyGenerator: (request: FastifyRequest) => {
+    const ip =
+      request.ip ??
+      request.socket?.remoteAddress ??
+      request.headers['x-forwarded-for'] ??
+      'unknown';
+    return normalizeIP(typeof ip === 'string' ? ip : ip[0]);
+  },
+  errorResponseBuilder: (_request: FastifyRequest, context) => {
+    // context.ttl is already the remaining time in milliseconds
+    const retryAfter = Math.ceil(context.ttl / 1000);
+    const errorResponse = ErrorHandler.formatGenericErrorResponse(
+      'RATE_LIMIT_EXCEEDED',
+      {
+        limit: `${context.max} per minute`,
+        retryAfter,
+      }
+    );
+    return {
+      statusCode: errorResponse.status,
+      ...errorResponse,
+    };
+  },
+};

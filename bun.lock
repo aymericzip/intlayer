@@ -2100,6 +2100,7 @@
         "@babel/core": "^7.26.9",
         "@babel/plugin-syntax-import-attributes": "7.28.6",
         "@babel/preset-env": "7.29.2",
+        "@intlayer/analytics": "workspace:*",
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
         "@intlayer/dictionaries-entry": "workspace:*",
@@ -2448,6 +2449,7 @@
       "name": "preact-intlayer",
       "version": "9.0.0-canary.15",
       "dependencies": {
+        "@intlayer/analytics": "workspace:*",
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2568,6 +2570,7 @@
       "name": "solid-intlayer",
       "version": "9.0.0-canary.15",
       "dependencies": {
+        "@intlayer/analytics": "workspace:*",
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2599,6 +2602,7 @@
       "name": "svelte-intlayer",
       "version": "9.0.0-canary.15",
       "dependencies": {
+        "@intlayer/analytics": "workspace:*",
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
@@ -2691,6 +2695,7 @@
       "name": "vue-intlayer",
       "version": "9.0.0-canary.15",
       "dependencies": {
+        "@intlayer/analytics": "workspace:*",
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",

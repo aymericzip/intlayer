@@ -6,7 +6,10 @@ import type { AnalyticsIngestBody } from './types';
  *
  * Strategy:
  * 1. `navigator.sendBeacon` for the flush-on-hide path — survives page unload
- *    and never blocks navigation.
+ *    and never blocks navigation. The payload is sent as `text/plain` (a
+ *    CORS-safelisted content type): a JSON `Blob` would require a CORS
+ *    preflight that browsers handle inconsistently during unload, silently
+ *    dropping the beacon. The backend parses `text/plain` bodies as JSON.
  * 2. `fetch(..., { keepalive: true })` for interval flushes — survives short
  *    navigations without holding the main thread.
  * 3. Plain `fetch` fallback for runtimes without `keepalive` (older RN/Lynx).
@@ -30,8 +33,9 @@ export const sendEvents = (
       typeof navigator !== 'undefined' &&
       typeof navigator.sendBeacon === 'function'
     ) {
-      const blob = new Blob([payload], { type: 'application/json' });
-      return navigator.sendBeacon(endpoint, blob);
+      // Note: unlike the fetch path below, sendBeacon always includes
+      // credentials; the ingest endpoint ignores them.
+      return navigator.sendBeacon(endpoint, payload);
     }
 
     if (typeof fetch === 'function') {
@@ -52,7 +56,7 @@ export const sendEvents = (
 
     return false;
   } catch {
-    // JSON serialization or Blob construction failed — drop the batch silently.
+    // JSON serialization failed — drop the batch silently.
     return false;
   }
 };

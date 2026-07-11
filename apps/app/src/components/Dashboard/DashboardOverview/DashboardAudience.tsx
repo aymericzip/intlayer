@@ -259,8 +259,8 @@ export const DashboardAudience: FC = () => {
 
   const hasData =
     audience &&
-    (audience.usersLast30Days > 0 ||
-      audience.viewsLast30Days > 0 ||
+    (audience.usersInRange > 0 ||
+      audience.viewsInRange > 0 ||
       audience.usersToday > 0);
 
   return (
@@ -313,7 +313,7 @@ export const DashboardAudience: FC = () => {
             <StatTile
               icon={<Users className="size-4" />}
               label={content.statActiveUsers}
-              value={audience.usersLast30Days.toLocaleString()}
+              value={audience.usersInRange.toLocaleString()}
               hint={`${content.statActiveUsersHint} (${rangeLabels[range]})`}
             />
             <StatTile
@@ -329,7 +329,7 @@ export const DashboardAudience: FC = () => {
             <StatTile
               icon={<Eye className="size-4" />}
               label={content.statViews}
-              value={audience.viewsLast30Days.toLocaleString()}
+              value={audience.viewsInRange.toLocaleString()}
             />
           </div>
 

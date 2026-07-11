@@ -27,6 +27,15 @@ const LazyEditorProvider =
       )
     : null;
 
+const LazyAnalyticsProvider =
+  process.env.INTLAYER_ANALYTICS_ENABLED !== 'false'
+    ? lazy(() =>
+        import('../analytics/AnalyticsProvider').then((m) => ({
+          default: m.AnalyticsProvider,
+        }))
+      )
+    : null;
+
 type IntlayerValue = {
   locale: () => LocalesValues;
   setLocale: (newLocale: LocalesValues) => void;
@@ -143,6 +152,12 @@ export const IntlayerProvider: Component<IntlayerProviderProps> = (props) => (
         <LazyEditorProvider />
       </Suspense>
     )}
+    {process.env.INTLAYER_ANALYTICS_ENABLED !== 'false' &&
+      LazyAnalyticsProvider && (
+        <Suspense>
+          <LazyAnalyticsProvider />
+        </Suspense>
+      )}
     {props.children}
   </IntlayerProviderContent>
 );

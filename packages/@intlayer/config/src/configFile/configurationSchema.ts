@@ -135,6 +135,12 @@ export const editorSchema = z.object({
   liveSyncURL: z.union([z.url(), z.literal('')]).optional(),
 });
 
+export const analyticsSchema = z.object({
+  enabled: z.boolean().optional(),
+  flushInterval: z.number().int().positive().optional(),
+  sampleRate: z.number().min(0).max(1).optional(),
+});
+
 export const logSchema = z.object({
   mode: z.enum(['default', 'verbose', 'disabled']).optional(),
   prefix: z.string().optional(),
@@ -198,6 +204,7 @@ export const intlayerConfigSchema = z.object({
   content: contentSchema.optional(),
   system: systemSchema.optional(),
   editor: editorSchema.optional(),
+  analytics: analyticsSchema.optional(),
   log: logSchema.optional(),
   ai: aiSchema.optional(),
   build: buildSchema.optional(),

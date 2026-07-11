@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-06-17
+updatedAt: 2026-07-11
 title: Configuratie (Configuration)
 description: Leer hoe u Intlayer configureert voor uw applicatie. Begrijp de verschillende instellingen en opties die beschikbaar zijn om Intlayer aan uw behoeften aan te passen.
 keywords:
@@ -14,6 +14,12 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 9.0.0
+    date: 2026-07-11
+    changes: "`analytics` configuratie toegevoegd"
+  - version: 9.0.0
+    date: 2026-06-24
+    changes: "Add `enableProxy` option to the routing configuration"
   - version: 8.10.0
     date: 2026-06-17
     changes: "Optie `format` toegevoegd aan de woordenboekconfiguratie"
@@ -353,6 +359,30 @@ const config: IntlayerConfig = {
   },
 
   /**
+   * Analytics-configuratie.
+   */
+  analytics: {
+    /**
+     * Of het verzamelen van analytics is ingeschakeld (paginaweergaven, content-exposities, A/B-events).
+     * Vereist dat `editor.clientId` is ingesteld voor attributie.
+     * Standaard: false
+     */
+    enabled: true,
+
+    /**
+     * Milliseconden tussen automatische gebundelde verzendingen naar de backend.
+     * Standaard: 20000
+     */
+    flushInterval: 20000,
+
+    /**
+     * Fractie van sessies om te registreren, van 0 (geen) tot 1 (alle).
+     * Standaard: 1
+     */
+    sampleRate: 1,
+  },
+
+  /**
    * Instellingen voor vertalingen en genereren met behulp van AI.
    */
   ai: {
@@ -662,6 +692,20 @@ Definieert de instellingen voor de ingebouwde visuele editor, inclusief de serve
 | `liveSync`                   | Of de applicatieserver content onmiddellijk opnieuw moet laden bij detectie van wijzigingen in de CMS <br/> Visuele editor <br/> Backendserver.                         | `boolean`                         | `true`                              | `true`                                                                                          | • Bij toevoegen/bijwerken van een woordenboek vernieuwt de applicatie de pagina-inhoud.<br/>• Live Sync verplaatst content naar een andere server, wat de prestaties licht kan beinvloeden.<br/>• Het wordt aangeraden om beide op dezelfde machine te hosten.  |
 | `liveSyncPort`               | Poort van de live sync server.                                                                                                                                          | `number`                          | `4000`                              | `4000`                                                                                          |                                                                                                                                                                                                                                                                 |
 | `liveSyncURL`                | URL van de live sync server.                                                                                                                                            | `string`                          | `'http://localhost:{liveSyncPort}'` | `'https://example.com'`                                                                         | Verwijst standaard naar localhost; kan worden gewijzigd naar een externe live sync server.                                                                                                                                                                      |
+
+---
+
+### Analytics-configuratie (Analytics)
+
+Definieert instellingen voor Intlayer analytics: het verzamelen van welke content daadwerkelijk aan gebruikers wordt getoond (paginaweergaven, content-exposities) en het mogelijk maken van A/B-testen op content.
+
+Analytics is strikt opt-in: er wordt niets verzameld tenzij `analytics.enabled` expliciet is ingesteld op `true` **en** een projectsleutel (`editor.clientId`) is geconfigureerd voor attributie. Wanneer uitgeschakeld (standaard) wordt de volledige analytics-integratie uit uw applicatiebundel verwijderd (dead-code elimination).
+
+| Veld            | Beschrijving                                                                                | Type      | Standaard | Voorbeeld | Opmerking                                                                                                                               |
+| --------------- | ------------------------------------------------------------------------------------------- | --------- | --------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `enabled`       | Schakelt het verzamelen van analytics in (paginaweergaven, content-exposities, A/B-events). | `boolean` | `false`   | `true`    | Vereist dat `editor.clientId` is ingesteld voor attributie; anders blijft analytics uitgeschakeld, zelfs als `enabled` op `true` staat. |
+| `flushInterval` | Milliseconden tussen automatische gebundelde verzendingen naar de backend.                  | `number`  | `20000`   | `10000`   |                                                                                                                                         |
+| `sampleRate`    | Fractie van sessies om te registreren, van `0` (geen) tot `1` (alle).                       | `number`  | `1`       | `0.5`     | Sampling is deterministisch per sessie, zodat een geregistreerde sessie al zijn events rapporteert (geen gedeeltelijke funnels).        |
 
 ---
 

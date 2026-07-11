@@ -1,4 +1,5 @@
 import type {
+  AnalyticsConfig,
   CustomIntlayerConfig,
   CustomRoutingConfig,
   EditorConfig,
@@ -8,6 +9,11 @@ import type {
   LogFunctions,
   RoutingConfig,
 } from '@intlayer/types/config';
+import {
+  ANALYTICS_ENABLED,
+  ANALYTICS_FLUSH_INTERVAL,
+  ANALYTICS_SAMPLE_RATE,
+} from '../defaultValues/analytics';
 import {
   APPLICATION_URL,
   BACKEND_URL,
@@ -52,6 +58,7 @@ export type BrowserIntlayerConfig = {
   >;
   routing: RoutingConfig;
   editor: Omit<EditorConfig, 'clientId' | 'clientSecret'>;
+  analytics: AnalyticsConfig;
   log: Pick<LogConfig, 'mode' | 'prefix'>;
 };
 
@@ -375,6 +382,41 @@ export const buildEditorFields = (
 };
 
 /**
+ * Build the analytics section of the Intlayer configuration.
+ *
+ * Analytics is strictly opt-in: `enabled` defaults to `false` and, even when
+ * enabled, the runtime additionally requires a project key (`editor.clientId`)
+ * for attribution before collecting anything.
+ *
+ * @param customConfiguration - Partial user-supplied analytics config.
+ * @returns A fully-defaulted {@link AnalyticsConfig}.
+ */
+export const buildAnalyticsFields = (
+  customConfiguration?: Partial<AnalyticsConfig>
+): AnalyticsConfig => ({
+  /**
+   * Enables analytics collection (page views, content exposures, A/B events).
+   *
+   * Default: false
+   */
+  enabled: customConfiguration?.enabled ?? ANALYTICS_ENABLED,
+
+  /**
+   * Milliseconds between automatic batched flushes to the backend.
+   *
+   * Default: 20000
+   */
+  flushInterval: customConfiguration?.flushInterval ?? ANALYTICS_FLUSH_INTERVAL,
+
+  /**
+   * Fraction of sessions to record, from 0 (none) to 1 (all).
+   *
+   * Default: 1
+   */
+  sampleRate: customConfiguration?.sampleRate ?? ANALYTICS_SAMPLE_RATE,
+});
+
+/**
  * Build the log section of the Intlayer configuration.
  *
  * @param customConfiguration - Partial user-supplied log config.
@@ -452,12 +494,14 @@ export const buildBrowserConfiguration = (
     clientSecret: _clientSecret,
     ...editorPublic
   } = buildEditorFields(customConfig?.editor);
+  const analytics = buildAnalyticsFields(customConfig?.analytics);
   const { mode, prefix } = buildLogFields(customConfig?.log);
 
   return {
     internationalization: { locales, defaultLocale },
     routing,
     editor: editorPublic,
+    analytics,
     log: { mode, prefix },
   };
 };
@@ -499,6 +543,7 @@ export const extractBrowserConfiguration = (
     liveSyncPort: config.editor.liveSyncPort,
     liveSyncURL: config.editor.liveSyncURL,
   },
+  analytics: buildAnalyticsFields(config.analytics),
   log: {
     mode: config.log.mode,
     prefix: config.log.prefix,

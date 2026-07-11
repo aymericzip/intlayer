@@ -5,6 +5,7 @@ import {
   getExperimentResults,
   ingestAnalyticsEvents,
 } from '@controllers/analytics.controller';
+import { analyticsIngestLimiter } from '@utils/rateLimiter';
 import type { FastifyInstance } from 'fastify';
 import type { Routes } from '@/types/Routes';
 
@@ -42,9 +43,11 @@ export const getAnalyticsRoutes = () =>
   }) satisfies Routes;
 
 export const analyticsRouter = async (fastify: FastifyInstance) => {
-  // Public ingestion — attributed by the SDK's `clientId`.
+  // Public ingestion — attributed by the SDK's `clientId`. Rate limited per
+  // IP: the endpoint is unauthenticated, so it must not be a write amplifier.
   fastify.post(
     getAnalyticsRoutes().ingestAnalyticsEvents.urlModel,
+    { config: { rateLimit: analyticsIngestLimiter } },
     ingestAnalyticsEvents
   );
 

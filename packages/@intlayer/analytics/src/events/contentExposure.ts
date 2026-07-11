@@ -33,6 +33,7 @@ export const buildContentExposure = (params: {
   keyPath: KeyPath[];
   locale?: string;
   nodeType?: string;
+  experimentKey?: string;
   variant?: string;
 }): Omit<TrackableEvent<ContentExposureEvent>, 'type'> => ({
   dictionaryKey: params.dictionaryKey,
@@ -40,5 +41,6 @@ export const buildContentExposure = (params: {
   // Left undefined when unknown so the client stamps its ambient locale.
   locale: params.locale,
   nodeType: params.nodeType,
+  experimentKey: params.experimentKey,
   variant: params.variant,
 });

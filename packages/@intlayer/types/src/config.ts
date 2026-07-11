@@ -502,6 +502,50 @@ export type EditorConfig = {
   liveSyncURL: URLType;
 };
 
+/**
+ * Configuration for Intlayer analytics (`@intlayer/analytics`).
+ *
+ * Analytics is strictly **opt-in**: nothing is collected unless `enabled` is
+ * explicitly set to `true` AND a project key (`editor.clientId`) is configured
+ * for attribution.
+ */
+export type AnalyticsConfig = {
+  /**
+   * Enables analytics collection (page views, content exposures, A/B events).
+   *
+   * Default: false
+   *
+   * When `false` (the default), the whole `@intlayer/analytics` integration is
+   * dead-code-eliminated from the application bundle.
+   *
+   * Usage:
+   * ```js
+   * {
+   *  // Other configurations
+   *  analytics: {
+   *   enabled: process.env.NODE_ENV === 'production',
+   *  }
+   * };
+   * ```
+   */
+  enabled: boolean;
+
+  /**
+   * Milliseconds between automatic batched flushes to the backend.
+   *
+   * Default: 20000
+   */
+  flushInterval: number;
+
+  /**
+   * Fraction of sessions to record, from 0 (none) to 1 (all). Sampling is
+   * deterministic per session so recorded sessions report all of their events.
+   *
+   * Default: 1
+   */
+  sampleRate: number;
+};
+
 export enum AiProviders {
   OPENAI = 'openai',
   ANTHROPIC = 'anthropic',
@@ -909,6 +953,11 @@ export type CustomIntlayerConfig = {
   editor?: Partial<EditorConfig>;
 
   /**
+   * Custom analytics configuration
+   */
+  analytics?: Partial<AnalyticsConfig>;
+
+  /**
    * Custom log configuration
    */
   log?: Partial<LogConfig>;
@@ -1179,6 +1228,11 @@ export type IntlayerConfig = {
    * Intlayer editor configuration
    */
   editor: EditorConfig;
+
+  /**
+   * Intlayer analytics configuration
+   */
+  analytics?: AnalyticsConfig;
 
   /**
    * Logger configuration

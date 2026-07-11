@@ -19,8 +19,8 @@ export type ConversionParams = {
 
 /**
  * Returns a stable `trackConversion` callback for content A/B testing. Safe to
- * call from any component: it resolves to a no-op when analytics is disabled or
- * `@intlayer/analytics` is not installed.
+ * call from any component: it resolves to a no-op when analytics is disabled
+ * or the client has not been initialized yet.
  *
  * @example
  * ```tsx

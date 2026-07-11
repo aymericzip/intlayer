@@ -53,6 +53,8 @@ export type ContentExposureEvent = BaseAnalyticsEvent & {
   keyPath: string;
   /** The interpreter node type (translation, enumeration, markdown, …). */
   nodeType?: string;
+  /** The experiment this exposure belongs to, when part of an experiment. */
+  experimentKey?: string;
   /** A/B variant that produced this exposure, when part of an experiment. */
   variant?: string;
   /** Number of coalesced exposures represented by this event. */
@@ -100,7 +102,7 @@ export type TrackableEvent<E extends AnalyticsEvent = AnalyticsEvent> = Omit<
 export type AnalyticsIngestBody = {
   /** Public project key — reused from `editor.clientId`. */
   clientId?: string;
-  /** Anonymous, rotating, per-tab session identifier. */
+  /** Anonymous per-tab session identifier (new tab ⇒ new id; never durable). */
   sessionId: string;
   /** Version of the analytics SDK that produced the batch. */
   sdkVersion: string;

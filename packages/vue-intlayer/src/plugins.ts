@@ -35,6 +35,7 @@ import {
   type VNode,
   type VNodeChild,
 } from 'vue';
+import { reportExposure } from './analytics/exposureSink';
 import { renderHTML } from './html/HTMLRenderer';
 import type { HTMLComponents } from './html/types';
 import { useMarkdown } from './markdown/installIntlayerMarkdown';
@@ -75,6 +76,17 @@ export const intlayerNodePlugins: Plugins = {
     typeof node === 'string' ||
     typeof node === 'number',
   transform: (_node, { children, ...rest }) => {
+    // Node-level analytics: record which content is resolved for display.
+    // No-op (and dead-code-eliminated) when analytics is disabled.
+    if (process.env.INTLAYER_ANALYTICS_ENABLED !== 'false') {
+      reportExposure({
+        dictionaryKey: rest.dictionaryKey,
+        keyPath: rest.keyPath,
+        locale: rest.locale,
+        nodeType: 'text',
+      });
+    }
+
     const render = (children: any) =>
       renderIntlayerNode({
         ...rest,

@@ -24,6 +24,7 @@ import type {
 } from '@intlayer/types/module_augmentation';
 import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
+import { reportExposure } from './analytics/exposureSink';
 import { default as ContentSelector } from './editor/ContentSelector.svelte';
 import { HTMLRenderer } from './html/index';
 import type { HTMLComponents } from './html/types';
@@ -104,15 +105,27 @@ export const intlayerNodePlugins: Plugins = {
     typeof node === 'bigint' ||
     typeof node === 'string' ||
     typeof node === 'number',
-  transform: (node, { children, ...rest }) =>
-    renderIntlayerNode({
+  transform: (node, { children, ...rest }) => {
+    // Node-level analytics: record which content is resolved for display.
+    // No-op (and dead-code-eliminated) when analytics is disabled.
+    if (process.env.INTLAYER_ANALYTICS_ENABLED !== 'false') {
+      reportExposure({
+        dictionaryKey: rest.dictionaryKey,
+        keyPath: rest.keyPath,
+        locale: rest.locale,
+        nodeType: 'text',
+      });
+    }
+
+    return renderIntlayerNode({
       value: children ?? node,
       component:
         process.env.INTLAYER_EDITOR_ENABLED !== 'false' && editor.enabled
           ? ContentSelector
           : undefined,
       props: rest,
-    }),
+    });
+  },
 };
 
 /**

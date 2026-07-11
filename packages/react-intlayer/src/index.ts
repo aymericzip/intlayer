@@ -10,6 +10,8 @@ export { AnalyticsProvider } from './analytics/AnalyticsProvider';
 export { useAnalytics } from './analytics/useAnalytics';
 export type { ConversionParams } from './analytics/useConversion';
 export { useConversion } from './analytics/useConversion';
+export type { ExperimentState } from './analytics/useExperiment';
+export { useExperiment } from './analytics/useExperiment';
 /**
  * @deprecated import from react-intlayer/format instead
  */

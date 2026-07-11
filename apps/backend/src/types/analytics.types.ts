@@ -124,10 +124,10 @@ export type AudienceStats = {
   usersToday: number;
   /** Distinct visitors over the last 7 days. */
   usersLast7Days: number;
-  /** Distinct visitors over the requested window. */
-  usersLast30Days: number;
-  /** Page views over the requested window. */
-  viewsLast30Days: number;
+  /** Distinct visitors over the requested window (`rangeDays`). */
+  usersInRange: number;
+  /** Page views over the requested window (`rangeDays`). */
+  viewsInRange: number;
   /** Number of days covered by the series. */
   rangeDays: number;
   /** Daily evolution over the requested window, oldest first. */

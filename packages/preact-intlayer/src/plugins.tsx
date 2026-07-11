@@ -26,6 +26,7 @@ import type {
 import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { Fragment, type FunctionComponent, h, type VNode } from 'preact';
+import { reportExposure } from './analytics/exposureSink';
 import { useLoadDynamic } from './client/useLoadDynamic';
 import { ContentSelector } from './editor/ContentSelector';
 import type { HTMLComponents } from './html/types';
@@ -66,8 +67,19 @@ export const intlayerNodePlugins: Plugins = {
       plugins, // Removed to avoid next error - Functions cannot be passed directly to Client Components
       ...rest
     }
-  ) =>
-    renderIntlayerNode({
+  ) => {
+    // Node-level analytics: record which content is resolved for display.
+    // No-op (and dead-code-eliminated) when analytics is disabled.
+    if (process.env.INTLAYER_ANALYTICS_ENABLED !== 'false') {
+      reportExposure({
+        dictionaryKey: rest.dictionaryKey,
+        keyPath: rest.keyPath,
+        locale: rest.locale,
+        nodeType: 'text',
+      });
+    }
+
+    return renderIntlayerNode({
       ...rest,
       value: rest.children,
       children:
@@ -78,7 +90,8 @@ export const intlayerNodePlugins: Plugins = {
         ) : (
           rest.children
         ),
-    }),
+    });
+  },
 };
 
 /** ---------------------------------------------
@@ -109,8 +122,17 @@ export const preactNodePlugins: Plugins =
             plugins, // Removed to avoid next error - Functions cannot be passed directly to Client Components
             ...rest
           }
-        ) =>
-          renderIntlayerNode({
+        ) => {
+          if (process.env.INTLAYER_ANALYTICS_ENABLED !== 'false') {
+            reportExposure({
+              dictionaryKey: rest.dictionaryKey,
+              keyPath: rest.keyPath,
+              locale: rest.locale,
+              nodeType: 'preact-node',
+            });
+          }
+
+          return renderIntlayerNode({
             ...rest,
             value: '[[preact-element]]',
             children:
@@ -122,7 +144,8 @@ export const preactNodePlugins: Plugins =
               ) : (
                 renderPreactElement(node)
               ),
-          }),
+          });
+        },
       };
 
 /** ---------------------------------------------

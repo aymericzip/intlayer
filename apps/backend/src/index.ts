@@ -112,6 +112,22 @@ const startServer = async () => {
   // Parse application/x-www-form-urlencoded
   await app.register(fastifyFormbody);
 
+  // Parse text/plain as JSON when possible (falling back to the raw string).
+  // `navigator.sendBeacon` payloads (analytics flush-on-hide) are sent as
+  // text/plain because a JSON content type would require a CORS preflight
+  // that browsers handle inconsistently during page unload.
+  app.addContentTypeParser(
+    'text/plain',
+    { parseAs: 'string' },
+    (_request, body, done) => {
+      try {
+        done(null, JSON.parse(body as string));
+      } catch {
+        done(null, body);
+      }
+    }
+  );
+
   // Load internationalization request handler
   await app.register(intlayer);
 

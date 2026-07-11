@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-06-23
+updatedAt: 2026-07-11
 title: Konfigurasi
 description: Pelajari cara mengonfigurasi Intlayer untuk aplikasi Anda. Pahami berbagai pengaturan dan opsi yang tersedia untuk menyesuaikan Intlayer sesuai kebutuhan Anda.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 9.0.0
+    date: 2026-07-11
+    changes: "Menambahkan konfigurasi `analytics`"
   - version: 9.0.0
     date: 2026-06-24
     changes: "Add `enableProxy` option to the routing configuration"
@@ -356,6 +359,30 @@ const config: IntlayerConfig = {
   },
 
   /**
+   * Konfigurasi analitik (analytics).
+   */
+  analytics: {
+    /**
+     * Apakah pengumpulan analitik diaktifkan (tampilan halaman, eksposur konten, peristiwa A/B).
+     * Membutuhkan `editor.clientId` untuk diatur agar atribusi berfungsi.
+     * Default: false
+     */
+    enabled: true,
+
+    /**
+     * Milidetik antara pengiriman batch otomatis ke backend.
+     * Default: 20000
+     */
+    flushInterval: 20000,
+
+    /**
+     * Fraksi sesi yang direkam, dari 0 (tidak ada) hingga 1 (semua).
+     * Default: 1
+     */
+    sampleRate: 1,
+  },
+
+  /**
    * Pengaturan terjemahan dan pembuatan berbasis AI.
    */
   ai: {
@@ -665,6 +692,20 @@ Mendefinisikan pengaturan yang terkait dengan editor terintegrasi, termasuk port
 | `liveSync`                   | Menunjukkan apakah server aplikasi harus memuat ulang konten secara panas (hot reload) saat terdeteksi perubahan pada CMS <br/> Visual Editor <br/> Backend.                             | `boolean`                         | `true`                              | `true`                                                                                          | • Saat kamus ditambahkan/diperbarui, aplikasi memperbarui konten halaman.<br/>• Sinkronisasi langsung mengeksternalisasi konten ke server lain, yang mungkin sedikit berdampak pada performa.<br/>• Direkomendasikan untuk menghosting keduanya di mesin yang sama. |
 | `liveSyncPort`               | Port server sinkronisasi langsung (live sync).                                                                                                                                           | `number`                          | `4000`                              | `4000`                                                                                          |                                                                                                                                                                                                                                                                     |
 | `liveSyncURL`                | URL server sinkronisasi langsung (live sync).                                                                                                                                            | `string`                          | `'http://localhost:{liveSyncPort}'` | `'https://example.com'`                                                                         | Menunjuk ke localhost secara default; dapat diubah untuk server sinkronisasi langsung jarak jauh.                                                                                                                                                                   |
+
+---
+
+### Konfigurasi Analitik (Analytics)
+
+Menentukan pengaturan terkait analitik Intlayer: mengumpulkan konten apa yang sebenarnya ditampilkan kepada pengguna (tampilan halaman, eksposur konten) dan mendukung pengujian A/B pada konten.
+
+Analitik bersifat opt-in secara ketat: tidak ada yang dikumpulkan kecuali `analytics.enabled` secara eksplisit diatur ke `true` **dan** kunci proyek (`editor.clientId`) dikonfigurasi untuk atribusi. Saat dinonaktifkan (default), seluruh integrasi analitik dihilangkan dari bundel aplikasi Anda (dead-code elimination).
+
+| Field           | Deskripsi                                                                             | Tipe      | Default | Contoh  | Catatan                                                                                                                                     |
+| --------------- | ------------------------------------------------------------------------------------- | --------- | ------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `enabled`       | Mengaktifkan pengumpulan analitik (tampilan halaman, eksposur konten, peristiwa A/B). | `boolean` | `false` | `true`  | Membutuhkan `editor.clientId` untuk diatur agar atribusi berfungsi; jika tidak, analitik tetap nonaktif meskipun `enabled` bernilai `true`. |
+| `flushInterval` | Milidetik antara pengiriman batch otomatis ke backend.                                | `number`  | `20000` | `10000` |                                                                                                                                             |
+| `sampleRate`    | Fraksi sesi yang direkam, dari `0` (tidak ada) hingga `1` (semua).                    | `number`  | `1`     | `0.5`   | Sampling bersifat deterministik per sesi, sehingga sesi yang direkam melaporkan semua peristiwanya (tidak ada funnel parsial).              |
 
 ---
 

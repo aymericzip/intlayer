@@ -88,6 +88,12 @@ export const installIntlayer = (
     });
   }
 
+  if (process.env.INTLAYER_ANALYTICS_ENABLED !== 'false') {
+    import('../analytics/useAnalytics').then(({ useAnalytics }) => {
+      useAnalytics(app);
+    });
+  }
+
   return app;
 };
 

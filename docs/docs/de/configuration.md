@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-06-23
+updatedAt: 2026-07-11
 title: Konfiguration (Configuration)
 description: Erfahren Sie, wie Sie Intlayer für Ihre Anwendung konfigurieren. Verstehen Sie die verschiedenen Einstellungen und Optionen, um Intlayer an Ihre Bedürfnisse anzupassen.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 9.0.0
+    date: 2026-07-11
+    changes: "`analytics` Konfiguration hinzugefügt"
   - version: 9.0.0
     date: 2026-06-24
     changes: "Add `enableProxy` option to the routing configuration"
@@ -356,6 +359,30 @@ const config: IntlayerConfig = {
   },
 
   /**
+   * Analytics-Konfiguration.
+   */
+  analytics: {
+    /**
+     * Ob die Analytics-Erfassung aktiviert ist (Seitenaufrufe, Content-Expositionen, A/B-Ereignisse).
+     * Erfordert, dass `editor.clientId` für die Zuordnung gesetzt ist.
+     * Standard: false
+     */
+    enabled: true,
+
+    /**
+     * Millisekunden zwischen automatischen gebündelten Übertragungen an das Backend.
+     * Standard: 20000
+     */
+    flushInterval: 20000,
+
+    /**
+     * Anteil der zu erfassenden Sitzungen, von 0 (keine) bis 1 (alle).
+     * Standard: 1
+     */
+    sampleRate: 1,
+  },
+
+  /**
    * KI-gestützte Übersetzungs- und Generierungseinstellungen.
    */
   ai: {
@@ -668,6 +695,20 @@ Definiert Einstellungen für den integrierten Editor, einschließlich Server-Por
 | `liveSync`                   | Gibt an, ob der App-Server Inhalte im Hot-Reload-Verfahren aktualisieren soll, wenn eine Änderung im CMS <br/> Visual Editor <br/> Backend erkannt wird.                             | `boolean`                         | `true`                              | `true`                                                                                          | • Wenn ein Wörterbuch hinzugefügt/aktualisiert wird, aktualisiert die App den Seiteninhalt.<br/>• Live Sync verlagert Inhalte auf einen anderen Server, was die Leistung geringfügig beeinflussen kann.<br/>• Es wird empfohlen, beides auf derselben Maschine zu hosten.  |
 | `liveSyncPort`               | Der Port des Live Sync Servers.                                                                                                                                                      | `number`                          | `4000`                              | `4000`                                                                                          |                                                                                                                                                                                                                                                                            |
 | `liveSyncURL`                | Die URL des Live Sync Servers.                                                                                                                                                       | `string`                          | `'http://localhost:{liveSyncPort}'` | `'https://example.com'`                                                                         | Zeigt standardmäßig auf localhost; kann für einen entfernten Live Sync Server geändert werden.                                                                                                                                                                             |
+
+---
+
+### Analytics-Konfiguration (Analytics Configuration)
+
+Definiert Einstellungen für Intlayer Analytics: die Erfassung, welche Inhalte Nutzern tatsächlich angezeigt werden (Seitenaufrufe, Content-Expositionen), und die Unterstützung von A/B-Tests für Inhalte.
+
+Analytics ist streng Opt-in: Es wird nichts erfasst, es sei denn, `analytics.enabled` ist explizit auf `true` gesetzt **und** ein Projektschlüssel (`editor.clientId`) ist für die Zuordnung konfiguriert. Wenn deaktiviert (Standard), wird die gesamte Analytics-Integration aus Ihrem Anwendungs-Bundle per Dead-Code-Elimination entfernt.
+
+| Feld            | Beschreibung                                                                             | Typ       | Standard | Beispiel | Hinweis                                                                                                                                            |
+| --------------- | ---------------------------------------------------------------------------------------- | --------- | -------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `enabled`       | Aktiviert die Analytics-Erfassung (Seitenaufrufe, Content-Expositionen, A/B-Ereignisse). | `boolean` | `false`  | `true`   | Erfordert, dass `editor.clientId` für die Zuordnung gesetzt ist; andernfalls bleibt Analytics deaktiviert, selbst wenn `enabled` auf `true` steht. |
+| `flushInterval` | Millisekunden zwischen automatischen gebündelten Übertragungen an das Backend.           | `number`  | `20000`  | `10000`  |                                                                                                                                                    |
+| `sampleRate`    | Anteil der zu erfassenden Sitzungen, von `0` (keine) bis `1` (alle).                     | `number`  | `1`      | `0.5`    | Das Sampling ist pro Sitzung deterministisch, sodass eine erfasste Sitzung alle ihre Ereignisse meldet (keine unvollständigen Funnels).            |
 
 ---
 

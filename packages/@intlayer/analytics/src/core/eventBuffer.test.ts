@@ -58,9 +58,37 @@ describe('createEventBuffer', () => {
     expect(buffer.drain()).toHaveLength(0);
   });
 
+  it('keeps exposures on different pages separate', () => {
+    const buffer = createEventBuffer({ max: 100 });
+    buffer.push(exposure({ url: '/home' }));
+    buffer.push(exposure({ url: '/pricing' }));
+
+    expect(buffer.drain()).toHaveLength(2);
+  });
+
   it('drops oldest discrete events beyond the cap', () => {
     const buffer = createEventBuffer({ max: 3 });
     for (let index = 0; index < 10; index++) buffer.push(pageView());
     expect(buffer.size()).toBeLessThanOrEqual(3);
+  });
+
+  it('evicts oldest exposures before discrete events when over the cap', () => {
+    const buffer = createEventBuffer({ max: 3 });
+    buffer.push(exposure({ keyPath: 'first' }));
+    buffer.push(exposure({ keyPath: 'second' }));
+    buffer.push(pageView());
+    buffer.push(pageView());
+
+    expect(buffer.size()).toBe(3);
+    const drained = buffer.drain();
+    const exposures = drained.filter(
+      (event) => event.type === 'content_exposure'
+    ) as ContentExposureEvent[];
+    const pageViews = drained.filter((event) => event.type === 'page_view');
+
+    // The oldest exposure ('first') was evicted; both page views survived.
+    expect(pageViews).toHaveLength(2);
+    expect(exposures).toHaveLength(1);
+    expect(exposures[0].keyPath).toBe('second');
   });
 });

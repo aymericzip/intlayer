@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-06-23
+updatedAt: 2026-07-11
 title: 配置
 description: 了解如何为您的应用程序配置 Intlayer。了解可用于根据您的需求自定义 Intlayer 的各种设置和选项。
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 9.0.0
+    date: 2026-07-11
+    changes: "添加 `analytics` 配置"
   - version: 9.0.0
     date: 2026-06-24
     changes: "Add `enableProxy` option to the routing configuration"
@@ -356,6 +359,30 @@ const config: IntlayerConfig = {
   },
 
   /**
+   * 分析（analytics）配置。
+   */
+  analytics: {
+    /**
+     * 是否启用分析数据收集（页面浏览量、内容曝光、A/B 事件）。
+     * 需要设置 `editor.clientId` 以进行归因。
+     * 默认值：false
+     */
+    enabled: true,
+
+    /**
+     * 自动批量发送到后端之间的毫秒数。
+     * 默认值：20000
+     */
+    flushInterval: 20000,
+
+    /**
+     * 要记录的会话比例，从 0（不记录）到 1（全部记录）。
+     * 默认值：1
+     */
+    sampleRate: 1,
+  },
+
+  /**
    * 使用 AI 进行翻译和生成的设置。
    */
   ai: {
@@ -668,6 +695,20 @@ export default config;
 | `liveSync`                   | 当在 CMS <br/> 可视化编辑器 <br/> 后端服务器中检测到更改时，应用程序服务器是否立即构建内容重新加载。                             | `boolean`                         | `true`                              | `true`                                                                                          | • 添加/更新字典时刷新应用程序页面内容。<br/>• Live Sync 接受来自另一台服务器的内容，这可能会稍微影响性能。<br/>• 建议将两者托管在同一台机器上。 |
 | `liveSyncPort`               | Live Sync 服务器的端口。                                                                                                         | `number`                          | `4000`                              | `4000`                                                                                          |                                                                                                                                                 |
 | `liveSyncURL`                | Live Sync 服务器的 URL。                                                                                                         | `string`                          | `'http://localhost:{liveSyncPort}'` | `'https://example.com'`                                                                         | 默认指向本地主机；可以更改为指向远程实时同步服务器。                                                                                            |
+
+---
+
+### 分析配置 (Analytics)
+
+定义与 Intlayer 分析相关的设置：收集实际展示给用户的内容（页面浏览量、内容曝光），并支持内容的 A/B 测试。
+
+分析功能严格采用选择加入（opt-in）模式：除非将 `analytics.enabled` 显式设置为 `true` **并且** 配置了用于归因的项目密钥（`editor.clientId`），否则不会收集任何数据。禁用时（默认），整个分析集成会从应用程序打包结果中被移除（死代码消除）。
+
+| 字段            | 描述                                                   | 类型      | 默认值  | 示例    | 说明                                                                                          |
+| --------------- | ------------------------------------------------------ | --------- | ------- | ------- | --------------------------------------------------------------------------------------------- |
+| `enabled`       | 启用分析数据收集（页面浏览量、内容曝光、A/B 事件）。   | `boolean` | `false` | `true`  | 需要设置 `editor.clientId` 以进行归因；否则即使 `enabled` 为 `true`，分析功能仍保持禁用状态。 |
+| `flushInterval` | 自动批量发送到后端之间的毫秒数。                       | `number`  | `20000` | `10000` |                                                                                               |
+| `sampleRate`    | 要记录的会话比例，从 `0`（不记录）到 `1`（全部记录）。 | `number`  | `1`     | `0.5`   | 采样按会话确定性进行，因此被记录的会话会报告其所有事件（不会出现部分漏斗）。                  |
 
 ---
 

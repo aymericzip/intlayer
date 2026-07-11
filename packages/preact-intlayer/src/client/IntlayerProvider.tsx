@@ -8,6 +8,7 @@ import {
   type FunctionComponent,
 } from 'preact';
 import { useContext, useEffect, useState } from 'preact/hooks';
+import { AnalyticsProvider } from '../analytics/AnalyticsProvider';
 import { EditorProvider } from '../editor/EditorProvider';
 import { localeInStorage, setLocaleInStorage } from './useLocaleStorage';
 
@@ -125,6 +126,7 @@ export const IntlayerProvider: FunctionComponent<IntlayerProviderProps> = ({
 }) => (
   <IntlayerProviderContent {...props}>
     <EditorProvider />
+    <AnalyticsProvider />
     {children}
   </IntlayerProviderContent>
 );

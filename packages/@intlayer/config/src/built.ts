@@ -16,6 +16,7 @@ export const routing = parsedJSONConfig.routing;
 export const content = parsedJSONConfig.content;
 export const system = parsedJSONConfig.system;
 export const editor = parsedJSONConfig.editor;
+export const analytics = parsedJSONConfig.analytics;
 export const log = parsedJSONConfig.log;
 export const ai = parsedJSONConfig.ai;
 export const build = parsedJSONConfig.build;

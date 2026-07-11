@@ -6,6 +6,7 @@ declare module '@intlayer/core/interpreter' {
     extends IInterpreterPluginSvelte<T, S, L> {}
 }
 
+export * from './analytics';
 export * from './client';
 export * from './getDictionary';
 export * from './getIntlayer';

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-06-23
+updatedAt: 2026-07-11
 title: 구성 (Configuration)
 description: 애플리케이션에 Intlayer를 구성하는 방법을 알아보세요. 필요에 따라 Intlayer를 맞춤설정하는 데 사용할 수 있는 다양한 설정과 옵션을 이해하세요.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 9.0.0
+    date: 2026-07-11
+    changes: "`analytics` 구성 추가"
   - version: 9.0.0
     date: 2026-06-24
     changes: "Add `enableProxy` option to the routing configuration"
@@ -356,6 +359,30 @@ const config: IntlayerConfig = {
   },
 
   /**
+   * 애널리틱스(analytics) 구성.
+   */
+  analytics: {
+    /**
+     * 애널리틱스 수집 활성화 여부(페이지 뷰, 콘텐츠 노출, A/B 이벤트).
+     * 귀속(attribution)을 위해 `editor.clientId`가 설정되어 있어야 합니다.
+     * 기본값: false
+     */
+    enabled: true,
+
+    /**
+     * 백엔드로 자동 일괄 전송하는 간격(밀리초).
+     * 기본값: 20000
+     */
+    flushInterval: 20000,
+
+    /**
+     * 기록할 세션의 비율, 0(없음)에서 1(전체) 사이.
+     * 기본값: 1
+     */
+    sampleRate: 1,
+  },
+
+  /**
    * AI 기반 번역 및 생성 설정.
    */
   ai: {
@@ -665,6 +692,20 @@ export default config;
 | `liveSync`                   | CMS <br/> 비주얼 에디터 <br/> 백엔드 서버에서 변경 사항이 감지될 때 앱 서버가 콘텐츠를 핫 리로드해야 하는지 여부.                                                 | `boolean`                         | `true`                              | `true`                                                                                          | • 딕셔너리가 추가/업데이트되면 앱이 페이지 콘텐츠를 업데이트합니다.<br/>• Live Sync는 콘텐츠를 다른 서버에 의존하므로 성능에 약간의 영향을 줄 수 있습니다.<br/>• 두 서버를 동일한 머신에 호스팅하는 것이 권장됩니다. |
 | `liveSyncPort`               | Live Sync 서버 포트.                                                                                                                                              | `number`                          | `4000`                              | `4000`                                                                                          |                                                                                                                                                                                                                      |
 | `liveSyncURL`                | Live Sync 서버 URL.                                                                                                                                               | `string`                          | `'http://localhost:{liveSyncPort}'` | `'https://example.com'`                                                                         | 기본적으로 localhost를 가리키며, 원격 Live Sync 서버로 변경할 수 있습니다.                                                                                                                                           |
+
+---
+
+### 애널리틱스 구성 (Analytics)
+
+Intlayer 애널리틱스와 관련된 설정을 정의합니다: 사용자에게 실제로 표시되는 콘텐츠(페이지 뷰, 콘텐츠 노출)를 수집하고 콘텐츠에 대한 A/B 테스트를 지원합니다.
+
+애널리틱스는 철저히 옵트인(opt-in) 방식입니다: `analytics.enabled`가 명시적으로 `true`로 설정되고 **그리고** 귀속을 위한 프로젝트 키(`editor.clientId`)가 구성되지 않는 한 아무것도 수집되지 않습니다. 비활성화된 경우(기본값), 전체 애널리틱스 통합은 애플리케이션 번들에서 데드 코드 제거(dead-code elimination)됩니다.
+
+| 필드            | 설명                                                                | 타입      | 기본값  | 예시    | 참고                                                                                                                                  |
+| --------------- | ------------------------------------------------------------------- | --------- | ------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `enabled`       | 애널리틱스 수집을 활성화합니다(페이지 뷰, 콘텐츠 노출, A/B 이벤트). | `boolean` | `false` | `true`  | 귀속을 위해 `editor.clientId`가 설정되어 있어야 합니다. 설정되지 않으면 `enabled`가 `true`여도 애널리틱스는 비활성 상태로 유지됩니다. |
+| `flushInterval` | 백엔드로 자동 일괄 전송하는 간격(밀리초).                           | `number`  | `20000` | `10000` |                                                                                                                                       |
+| `sampleRate`    | 기록할 세션의 비율, `0`(없음)에서 `1`(전체) 사이.                   | `number`  | `1`     | `0.5`   | 샘플링은 세션별로 결정적이므로, 기록된 세션은 자신의 모든 이벤트를 보고합니다(부분 퍼널 없음).                                        |
 
 ---
 

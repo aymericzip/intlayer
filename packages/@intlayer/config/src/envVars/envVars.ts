@@ -83,7 +83,7 @@ export const getConfigEnvVars = (
   wrapKey = (key: string) => key,
   wrapValue = (value: string) => value
 ): Record<string, string> => {
-  const { routing, editor } = config;
+  const { routing, editor, analytics } = config;
 
   const envVars: Record<string, string> = {
     [wrapKey('INTLAYER_ROUTING_MODE')]: wrapValue(routing.mode),
@@ -129,11 +129,11 @@ export const getConfigEnvVars = (
     envVars[wrapKey('INTLAYER_EDITOR_ENABLED')] = wrapValue('false');
   }
 
-  // Analytics reuses the editor config (no dedicated schema): it can only
-  // attribute events when a project key is configured. Without an
-  // `editor.clientId`, disable it so bundlers dead-code-eliminate the whole
-  // `@intlayer/analytics` integration (providers + node plugins).
-  if (!editor?.clientId) {
+  // Analytics is strictly opt-in (`analytics.enabled === true`) and requires a
+  // project key (`editor.clientId`) for attribution. Otherwise, disable it so
+  // bundlers dead-code-eliminate the whole `@intlayer/analytics` integration
+  // (providers + node plugins).
+  if (analytics?.enabled !== true || !editor?.clientId) {
     envVars[wrapKey('INTLAYER_ANALYTICS_ENABLED')] = wrapValue('false');
   }
 

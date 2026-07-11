@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-06-23
+updatedAt: 2026-07-11
 title: Configuración (Configuration)
 description: Aprenda a configure Intlayer para su aplicación. Entienda los diversos ajustes y opciones disponibles para personalizar Intlayer según sus necesidades.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 9.0.0
+    date: 2026-07-11
+    changes: "Se añadió la configuración `analytics`"
   - version: 9.0.0
     date: 2026-06-24
     changes: "Add `enableProxy` option to the routing configuration"
@@ -356,6 +359,30 @@ const config: IntlayerConfig = {
   },
 
   /**
+   * Configuración de analíticas (analytics).
+   */
+  analytics: {
+    /**
+     * Si la recopilación de analíticas está habilitada (vistas de página, exposiciones de contenido, eventos A/B).
+     * Requiere que `editor.clientId` esté configurado para la atribución.
+     * Predeterminado: false
+     */
+    enabled: true,
+
+    /**
+     * Milisegundos entre los envíos por lotes automáticos al backend.
+     * Predeterminado: 20000
+     */
+    flushInterval: 20000,
+
+    /**
+     * Fracción de sesiones a registrar, de 0 (ninguna) a 1 (todas).
+     * Predeterminado: 1
+     */
+    sampleRate: 1,
+  },
+
+  /**
    * Ajustes de traducción y construcción basados en IA.
    */
   ai: {
@@ -668,6 +695,20 @@ Define los ajustes relacionados con el editor integrado, incluido el puerto del 
 | `liveSync`                   | Indica si el servidor de aplicaciones debe recargar el contenido en caliente cuando se detecta un cambio en el CMS <br/> Editor Visual <br/> Backend.                                | `boolean`                         | `true`                              | `true`                                                                                          | • Cuando se agrega/actualiza un diccionario, la aplicación actualiza el contenido de la página.<br/>• Live sync externaliza el contenido a otro servidor, lo que puede afectar ligeramente el rendimiento.<br/>• Se recomienda alojar ambos en la misma máquina. |
 | `liveSyncPort`               | Puerto del servidor de sincronización en vivo (live sync).                                                                                                                           | `number`                          | `4000`                              | `4000`                                                                                          |                                                                                                                                                                                                                                                                  |
 | `liveSyncURL`                | URL del servidor de sincronización en vivo (live sync).                                                                                                                              | `string`                          | `'http://localhost:{liveSyncPort}'` | `'https://example.com'`                                                                         | Apunta a localhost de forma predeterminada; puede cambiarse a un servidor remoto de Live Sync.                                                                                                                                                                   |
+
+---
+
+### Configuración de Analíticas (Analytics Configuration)
+
+Define los ajustes relacionados con las analíticas de Intlayer: la recopilación de qué contenido se muestra realmente a los usuarios (vistas de página, exposiciones de contenido) y el soporte de pruebas A/B sobre el contenido.
+
+Las analíticas son estrictamente opcionales (opt-in): no se recopila nada a menos que `analytics.enabled` esté explícitamente establecido en `true` **y** se configure una clave de proyecto (`editor.clientId`) para la atribución. Cuando está deshabilitada (predeterminado), toda la integración de analíticas se elimina del paquete (bundle) de su aplicación (dead-code elimination).
+
+| Campo           | Descripción                                                                                        | Tipo      | Predeterminado | Ejemplo | Nota                                                                                                                                                       |
+| --------------- | -------------------------------------------------------------------------------------------------- | --------- | -------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `enabled`       | Habilita la recopilación de analíticas (vistas de página, exposiciones de contenido, eventos A/B). | `boolean` | `false`        | `true`  | Requiere que `editor.clientId` esté configurado para la atribución; de lo contrario, las analíticas permanecen deshabilitadas aunque `enabled` sea `true`. |
+| `flushInterval` | Milisegundos entre los envíos por lotes automáticos al backend.                                    | `number`  | `20000`        | `10000` |                                                                                                                                                            |
+| `sampleRate`    | Fracción de sesiones a registrar, de `0` (ninguna) a `1` (todas).                                  | `number`  | `1`            | `0.5`   | El muestreo es determinista por sesión, por lo que una sesión registrada reporta todos sus eventos (sin embudos parciales).                                |
 
 ---
 

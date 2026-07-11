@@ -38,6 +38,11 @@ export const DEFAULT_FLUSH_INTERVAL = 20_000;
 export const DEFAULT_MAX_BUFFER_SIZE = 500;
 /** Default sampling — keep every session. */
 export const DEFAULT_SAMPLE_RATE = 1;
+/**
+ * Maximum events per network request. `sendBeacon` and `fetch(keepalive)`
+ * reject bodies over ~64KB, so large batches are split into multiple sends.
+ */
+export const MAX_EVENTS_PER_SEND = 200;
 /** Identifies the producing SDK in the ingest envelope. */
 const SDK_VERSION = 'intlayer-analytics/1';
 
@@ -50,7 +55,7 @@ export type AnalyticsClient = {
   setLocale: (locale: string) => void;
   /** Records a page/locale view (provider level). */
   trackPageView: (event?: PageViewInput) => void;
-  /** Records a content exposure (node level). Sampled + coalesced. */
+  /** Records a content exposure (node level). Sampled + deduped per page view. */
   trackContentExposure: (
     event: Omit<TrackableEvent<ContentExposureEvent>, 'type'>
   ) => void;
@@ -113,20 +118,29 @@ export const createAnalyticsClient = (
   let started = false;
   let detachListeners: (() => void) | null = null;
 
+  // Exposure keys already recorded for the current page view. React (and other
+  // frameworks) resolve content nodes on every re-render; without this gate a
+  // component re-rendering 60×/s would count 60 exposures per second. The set
+  // is cleared on each page view so the recorded semantic is "shown at least
+  // once during this page view".
+  let seenExposureKeys = new Set<string>();
+
   const flush = (useBeacon = false): void => {
     const events = buffer.drain();
-    if (events.length === 0) return;
 
-    sendEvents(
-      endpoint,
-      {
-        clientId: config.clientId,
-        sessionId,
-        sdkVersion: SDK_VERSION,
-        events,
-      },
-      { useBeacon }
-    );
+    // Split into bounded chunks so no single request exceeds transport limits.
+    for (let start = 0; start < events.length; start += MAX_EVENTS_PER_SEND) {
+      sendEvents(
+        endpoint,
+        {
+          clientId: config.clientId,
+          sessionId,
+          sdkVersion: SDK_VERSION,
+          events: events.slice(start, start + MAX_EVENTS_PER_SEND),
+        },
+        { useBeacon }
+      );
+    }
   };
 
   /** Pushes an event and triggers an early flush if the buffer is full. */
@@ -141,6 +155,10 @@ export const createAnalyticsClient = (
 
   const trackPageView: AnalyticsClient['trackPageView'] = (event = {}) => {
     if (!sampledIn) return;
+
+    // A new page view starts a fresh exposure window.
+    seenExposureKeys = new Set<string>();
+
     enqueue({
       type: 'page_view',
       t: Date.now(),
@@ -161,12 +179,27 @@ export const createAnalyticsClient = (
     event
   ) => {
     if (!sampledIn) return;
+
+    const locale = event.locale ?? ambientLocale;
+    // Joined with \x01 (never present in content keys) so parts cannot collide.
+    const exposureKey = [
+      event.dictionaryKey,
+      event.keyPath,
+      locale,
+      event.experimentKey ?? '',
+      event.variant ?? '',
+    ].join('');
+
+    // Deduplicate within the current page view (see `seenExposureKeys`).
+    if (seenExposureKeys.has(exposureKey)) return;
+    seenExposureKeys.add(exposureKey);
+
     enqueue({
       ...event,
       type: 'content_exposure',
       t: Date.now(),
       url: currentUrl(),
-      locale: event.locale ?? ambientLocale,
+      locale,
     });
   };
 
@@ -203,12 +236,13 @@ export const createAnalyticsClient = (
     window.addEventListener('pagehide', onPageHide, { capture: true });
     window.addEventListener('popstate', onPopState);
 
-    // Patch history so client-side route changes emit a page view.
+    // Patch history.pushState so client-side route changes emit a page view.
+    // `replaceState` is intentionally left untouched: routers use it for
+    // same-page URL sync (scroll, params), which is not a navigation.
     const history = window.history;
     const originalPush = history.pushState;
-    const originalReplace = history.replaceState;
 
-    history.pushState = function patchedPushState(
+    const patchedPushState = function patchedPush(
       this: History,
       ...args: Parameters<History['pushState']>
     ) {
@@ -216,19 +250,17 @@ export const createAnalyticsClient = (
       trackPageView({ reason: 'route_change' });
       return result;
     };
-    history.replaceState = function patchedReplaceState(
-      this: History,
-      ...args: Parameters<History['replaceState']>
-    ) {
-      return originalReplace.apply(this, args);
-    };
+    history.pushState = patchedPushState;
 
     detachListeners = (): void => {
       document.removeEventListener('visibilitychange', onHidden);
       window.removeEventListener('pagehide', onPageHide, { capture: true });
       window.removeEventListener('popstate', onPopState);
-      history.pushState = originalPush;
-      history.replaceState = originalReplace;
+      // Only restore if nothing else re-patched pushState after us; restoring
+      // blindly would clobber another library's wrapper.
+      if (history.pushState === patchedPushState) {
+        history.pushState = originalPush;
+      }
     };
   };
 

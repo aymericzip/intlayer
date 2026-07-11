@@ -1,6 +1,7 @@
 import { internationalization } from '@intlayer/config/built';
 import { setIntlayerIdentifier } from '@intlayer/config/client';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import { useAnalytics } from '../analytics/useAnalytics';
 import { useEditor } from '../editor/useEditor';
 import { setIntlayerContext } from './intlayerContext';
 import { intlayerStore } from './intlayerStore';
@@ -25,6 +26,7 @@ import { intlayerStore } from './intlayerStore';
 export const setupIntlayer = (initialLocale?: LocalesValues) => {
   setIntlayerIdentifier();
   useEditor();
+  useAnalytics();
 
   // Create Reactive State (Svelte 5)
   // We make the locale a "rune" so updates propagate

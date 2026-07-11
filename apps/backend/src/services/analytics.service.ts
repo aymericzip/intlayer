@@ -32,6 +32,93 @@ export type IngestContext = {
 const hashSession = (sessionId: string): string =>
   createHash('sha256').update(sessionId).digest('hex');
 
+/** How far in the past a client timestamp may claim to be (7 days). */
+const MAX_EVENT_AGE_MS = 7 * 24 * 60 * 60 * 1000;
+/** How far in the future a client timestamp may claim to be (1 hour of skew). */
+const MAX_EVENT_SKEW_MS = 60 * 60 * 1000;
+/** Per-field length caps — the endpoint is public, so nothing is trusted. */
+const FIELD_LENGTH_LIMITS = {
+  url: 512,
+  locale: 35,
+  ref: 256,
+  dictionaryKey: 256,
+  keyPath: 512,
+  nodeType: 64,
+  variant: 128,
+  experimentKey: 256,
+  goal: 128,
+} as const;
+
+const VALID_EVENT_TYPES: ReadonlySet<string> = new Set([
+  'page_view',
+  'content_exposure',
+  'conversion',
+]);
+
+/** Returns the value when it is a string, truncated to `maxLength`; else `undefined`. */
+const sanitizeString = (
+  value: unknown,
+  maxLength: number
+): string | undefined =>
+  typeof value === 'string' ? value.slice(0, maxLength) : undefined;
+
+/**
+ * Validates and normalizes one client-supplied event. The ingestion endpoint is
+ * public: every field is attacker-controlled, so anything malformed is dropped
+ * or clamped rather than trusted (a bad timestamp must not throw and a
+ * non-finite `value` must never reach a `$inc`).
+ *
+ * @param event - The raw event from the request body.
+ * @returns The sanitized event, or `null` when the event is not salvageable.
+ */
+const sanitizeEvent = (
+  event: IncomingAnalyticsEvent
+): IncomingAnalyticsEvent | null => {
+  if (typeof event !== 'object' || event === null) return null;
+  if (!VALID_EVENT_TYPES.has(event.type)) return null;
+
+  const now = Date.now();
+  const t =
+    typeof event.t === 'number' &&
+    Number.isFinite(event.t) &&
+    event.t > now - MAX_EVENT_AGE_MS &&
+    event.t < now + MAX_EVENT_SKEW_MS
+      ? event.t
+      : now;
+
+  const value =
+    typeof event.value === 'number' && Number.isFinite(event.value)
+      ? event.value
+      : undefined;
+
+  const count =
+    typeof event.count === 'number' && Number.isFinite(event.count)
+      ? event.count
+      : undefined;
+
+  return {
+    type: event.type,
+    t,
+    locale: sanitizeString(event.locale, FIELD_LENGTH_LIMITS.locale) ?? '',
+    url: sanitizeString(event.url, FIELD_LENGTH_LIMITS.url) ?? '',
+    ref: sanitizeString(event.ref, FIELD_LENGTH_LIMITS.ref),
+    dictionaryKey: sanitizeString(
+      event.dictionaryKey,
+      FIELD_LENGTH_LIMITS.dictionaryKey
+    ),
+    keyPath: sanitizeString(event.keyPath, FIELD_LENGTH_LIMITS.keyPath),
+    nodeType: sanitizeString(event.nodeType, FIELD_LENGTH_LIMITS.nodeType),
+    variant: sanitizeString(event.variant, FIELD_LENGTH_LIMITS.variant),
+    experimentKey: sanitizeString(
+      event.experimentKey,
+      FIELD_LENGTH_LIMITS.experimentKey
+    ),
+    goal: sanitizeString(event.goal, FIELD_LENGTH_LIMITS.goal),
+    count,
+    value,
+  };
+};
+
 /** Field separator that will not appear inside content values. */
 const DEDUP_SEPARATOR = '';
 
@@ -80,7 +167,10 @@ export const ingestEvents = async (
   // Distinct (day → locale) markers for this session, to record visitors once.
   const visitorDays = new Map<string, string | undefined>();
 
-  for (const event of events) {
+  for (const rawEvent of events) {
+    const event = sanitizeEvent(rawEvent);
+    if (!event) continue;
+
     const day = toDay(event.t);
     const increment = Math.max(1, Math.min(event.count ?? 1, 10_000));
 
@@ -101,6 +191,7 @@ export const ingestEvents = async (
         keyPath: event.keyPath,
         locale: event.locale,
         nodeType: event.nodeType,
+        experimentKey: event.experimentKey,
         variant: event.variant,
       };
     } else if (event.type === 'conversion') {
@@ -122,6 +213,7 @@ export const ingestEvents = async (
       dimensions.locale,
       dimensions.dictionaryKey,
       dimensions.keyPath,
+      dimensions.nodeType,
       dimensions.variant,
       dimensions.experimentKey,
       dimensions.goal,
@@ -287,7 +379,14 @@ export const getExperimentResults = async (
   const [exposureRows, conversionRows] = await Promise.all([
     AnalyticsRollupModel.aggregate<{ _id: string; total: number }>([
       {
-        $match: { projectId, type: 'content_exposure', variant: { $ne: null } },
+        // Scoped to this experiment — exposures from concurrent experiments
+        // sharing variant names must not pollute each other's denominators.
+        $match: {
+          projectId,
+          type: 'content_exposure',
+          experimentKey,
+          variant: { $ne: null },
+        },
       },
       { $group: { _id: '$variant', total: { $sum: '$count' } } },
     ]),
@@ -389,7 +488,7 @@ export const getAudience = async (
   const [
     usersToday,
     usersLast7Days,
-    usersLast30Days,
+    usersInRange,
     visitorsByDay,
     viewsByDay,
     visitorsByLocale,
@@ -455,13 +554,13 @@ export const getAudience = async (
     .map((row) => ({ key: row._id || 'ZZ', users: row.users, views: 0 }))
     .sort((a, b) => b.users - a.users);
 
-  const viewsLast30Days = series.reduce((sum, point) => sum + point.views, 0);
+  const viewsInRange = series.reduce((sum, point) => sum + point.views, 0);
 
   return {
     usersToday,
     usersLast7Days,
-    usersLast30Days,
-    viewsLast30Days,
+    usersInRange,
+    viewsInRange,
     rangeDays: days,
     series,
     byLocale,

@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-06-17
+updatedAt: 2026-07-11
 title: Konfigurace (Configuration)
 description: Naučte se, jak nakonfigurovat Intlayer pro vaši aplikaci. Porozumějte různým nastavením a možnostem dostupným pro přizpůsobení Intlayer vašim potřebám.
 keywords:
@@ -14,6 +14,12 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 9.0.0
+    date: 2026-07-11
+    changes: "Přidána konfigurace `analytics`"
+  - version: 9.0.0
+    date: 2026-06-24
+    changes: "Add `enableProxy` option to the routing configuration"
   - version: 8.10.0
     date: 2026-06-17
     changes: "Přidání možnosti `format` do konfigurace slovníku"
@@ -353,6 +359,30 @@ const config: IntlayerConfig = {
   },
 
   /**
+   * Konfigurace analytiky (analytics).
+   */
+  analytics: {
+    /**
+     * Zda je povoleno shromažďování analytiky (zobrazení stránek, expozice obsahu, A/B události).
+     * Vyžaduje nastavení `editor.clientId` pro atribuci.
+     * Výchozí: false
+     */
+    enabled: true,
+
+    /**
+     * Milisekundy mezi automatickým dávkovým odesíláním na backend.
+     * Výchozí: 20000
+     */
+    flushInterval: 20000,
+
+    /**
+     * Podíl relací k zaznamenání, od 0 (žádná) do 1 (všechny).
+     * Výchozí: 1
+     */
+    sampleRate: 1,
+  },
+
+  /**
    * Nastavení překladů a generování pomocí AI.
    */
   ai: {
@@ -662,6 +692,20 @@ Definuje nastavení pro vestavěný vizuální editor, včetně portu serveru a 
 | `liveSync`                   | Zda má server aplikace okamžitě znovu načíst obsah při detekci změn v CMS <br/> Vizuálním editoru <br/> Backend serveru.                                                  | `boolean`                         | `true`                              | `true`                                                                                          | • Při přidání/aktualizaci slovníku aplikace aktualizuje obsah stránky.<br/>• Live Sync přesouvá obsah na jiný server, což může mírně ovlivnit výkon.<br/>• Doporučuje se hostovat obojí na stejném stroji.                      |
 | `liveSyncPort`               | Port serveru live sync.                                                                                                                                                   | `number`                          | `4000`                              | `4000`                                                                                          |                                                                                                                                                                                                                                 |
 | `liveSyncURL`                | URL serveru live sync.                                                                                                                                                    | `string`                          | `'http://localhost:{liveSyncPort}'` | `'https://example.com'`                                                                         | Ve výchozím nastavení ukazuje na localhost; lze změnit na vzdálený server live sync.                                                                                                                                            |
+
+---
+
+### Konfigurace analytiky (Analytics)
+
+Definuje nastavení související s analytikou Intlayer: shromažďování informací o tom, jaký obsah je uživatelům skutečně zobrazován (zobrazení stránek, expozice obsahu), a podporu A/B testování obsahu.
+
+Analytika je striktně opt-in: nic se neshromažďuje, pokud není `analytics.enabled` explicitně nastaveno na `true` **a** není nakonfigurován projektový klíč (`editor.clientId`) pro atribuci. Je-li vypnuta (výchozí stav), celá integrace analytiky je odstraněna z balíčku vaší aplikace (dead-code elimination).
+
+| Pole            | Popis                                                                              | Typ       | Výchozí | Příklad | Poznámka                                                                                                                         |
+| --------------- | ---------------------------------------------------------------------------------- | --------- | ------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `enabled`       | Povolí shromažďování analytiky (zobrazení stránek, expozice obsahu, A/B události). | `boolean` | `false` | `true`  | Vyžaduje nastavení `editor.clientId` pro atribuci; jinak analytika zůstává vypnutá, i když je `enabled` nastaveno na `true`.     |
+| `flushInterval` | Milisekundy mezi automatickým dávkovým odesíláním na backend.                      | `number`  | `20000` | `10000` |                                                                                                                                  |
+| `sampleRate`    | Podíl relací k zaznamenání, od `0` (žádná) do `1` (všechny).                       | `number`  | `1`     | `0.5`   | Vzorkování je deterministické pro každou relaci, takže zaznamenaná relace hlásí všechny své události (žádné částečné trychtýře). |
 
 ---
 

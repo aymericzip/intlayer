@@ -27,6 +27,7 @@ import type {
 import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { type Component, type JSX, lazy, Suspense } from 'solid-js';
+import { reportExposure } from './analytics/exposureSink';
 import { useLoadDynamic } from './client/useLoadDynamic';
 import type { HTMLComponents } from './html/types';
 import { type IntlayerNode, renderIntlayerNode } from './IntlayerNode';
@@ -76,8 +77,19 @@ export const intlayerNodePlugins: Plugins = {
       plugins, // Removed to avoid next error - Functions cannot be passed directly to Client Components
       ...rest
     }
-  ) =>
-    renderIntlayerNode({
+  ) => {
+    // Node-level analytics: record which content is resolved for display.
+    // No-op (and dead-code-eliminated) when analytics is disabled.
+    if (process.env.INTLAYER_ANALYTICS_ENABLED !== 'false') {
+      reportExposure({
+        dictionaryKey: rest.dictionaryKey,
+        keyPath: rest.keyPath,
+        locale: rest.locale,
+        nodeType: 'text',
+      });
+    }
+
+    return renderIntlayerNode({
       ...rest,
       value: rest.children,
       children:
@@ -88,7 +100,8 @@ export const intlayerNodePlugins: Plugins = {
         ) : (
           rest.children
         ),
-    }),
+    });
+  },
 };
 
 /** ---------------------------------------------
@@ -118,8 +131,17 @@ export const solidNodePlugins: Plugins =
             plugins, // Removed to avoid next error - Functions cannot be passed directly to Client Components
             ...rest
           }
-        ) =>
-          renderIntlayerNode({
+        ) => {
+          if (process.env.INTLAYER_ANALYTICS_ENABLED !== 'false') {
+            reportExposure({
+              dictionaryKey: rest.dictionaryKey,
+              keyPath: rest.keyPath,
+              locale: rest.locale,
+              nodeType: 'solid-node',
+            });
+          }
+
+          return renderIntlayerNode({
             ...rest,
             value: '[[solid-element]]',
             children:
@@ -143,7 +165,8 @@ export const solidNodePlugins: Plugins =
               ) : (
                 renderSolidElement(node)
               ),
-          }),
+          });
+        },
       };
 
 /** ---------------------------------------------

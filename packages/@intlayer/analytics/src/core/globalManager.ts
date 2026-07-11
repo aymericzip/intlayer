@@ -9,8 +9,17 @@ import type { AnalyticsClient } from './AnalyticsClient';
  */
 const CLIENT_KEY = '__intlayer_analytics_client__';
 
+/**
+ * Key on `window` holding the provider reference count. It lives next to the
+ * client (rather than in module scope) for the same reason the client does:
+ * duplicated module instances must share one count, otherwise one copy's
+ * `stopAnalyticsClient` could stop a client another copy still uses.
+ */
+const REF_COUNT_KEY = '__intlayer_analytics_ref_count__';
+
 type WindowWithAnalyticsGlobals = typeof window & {
   [CLIENT_KEY]?: AnalyticsClient | null;
+  [REF_COUNT_KEY]?: number;
 };
 
 /**
@@ -31,4 +40,28 @@ export const setGlobalAnalyticsClient = (
 ): void => {
   if (typeof window === 'undefined') return;
   (window as WindowWithAnalyticsGlobals)[CLIENT_KEY] = client;
+};
+
+/**
+ * Increments the shared provider reference count.
+ *
+ * @returns The count after incrementing (`0` in SSR, where nothing is stored).
+ */
+export const incrementAnalyticsClientRefCount = (): number => {
+  if (typeof window === 'undefined') return 0;
+  const globals = window as WindowWithAnalyticsGlobals;
+  globals[REF_COUNT_KEY] = (globals[REF_COUNT_KEY] ?? 0) + 1;
+  return globals[REF_COUNT_KEY];
+};
+
+/**
+ * Decrements the shared provider reference count, clamping at zero.
+ *
+ * @returns The count after decrementing (`0` in SSR, where nothing is stored).
+ */
+export const decrementAnalyticsClientRefCount = (): number => {
+  if (typeof window === 'undefined') return 0;
+  const globals = window as WindowWithAnalyticsGlobals;
+  globals[REF_COUNT_KEY] = Math.max(0, (globals[REF_COUNT_KEY] ?? 0) - 1);
+  return globals[REF_COUNT_KEY];
 };

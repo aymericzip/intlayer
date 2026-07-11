@@ -41,6 +41,7 @@ export const routing = configuration.routing;
 export const content = configuration.content;
 export const system = configuration.system;
 export const editor = configuration.editor;
+export const analytics = configuration.analytics;
 export const log = configuration.log;
 export const ai = configuration.ai;
 export const build = configuration.build;

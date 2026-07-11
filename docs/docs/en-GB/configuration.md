@@ -1,6 +1,6 @@
 ---
 createdAt: 2024-08-13
-updatedAt: 2026-06-23
+updatedAt: 2026-07-11
 title: Configuration
 description: Learn how to configure Intlayer for your application. Understand the various settings and options available to customize Intlayer to your needs.
 keywords:
@@ -14,6 +14,9 @@ slugs:
   - concept
   - configuration
 history:
+  - version: 9.0.0
+    date: 2026-07-11
+    changes: "Add `analytics` configuration"
   - version: 9.0.0
     date: 2026-06-24
     changes: "Add `enableProxy` option to the routing configuration"
@@ -356,6 +359,30 @@ const config: IntlayerConfig = {
   },
 
   /**
+   * Analytics configuration.
+   */
+  analytics: {
+    /**
+     * Whether analytics collection is enabled (page views, content exposures, A/B events).
+     * Requires `editor.clientId` to be set for attribution.
+     * Default: false
+     */
+    enabled: true,
+
+    /**
+     * Milliseconds between automatic batched flushes to the backend.
+     * Default: 20000
+     */
+    flushInterval: 20000,
+
+    /**
+     * Fraction of sessions to record, from 0 (none) to 1 (all).
+     * Default: 1
+     */
+    sampleRate: 1,
+  },
+
+  /**
    * AI-powered translation and generation settings.
    */
   ai: {
@@ -669,6 +696,20 @@ Defines settings related to the integrated editor, including server port and act
 | `liveSync`                   | Indicates if the app server should hot reload content when a change is detected on the CMS <br/> Visual Editor <br/> Backend.                                   | `boolean`                         | `true`                              | `true`                                                                                          | • When a dictionary is added/updated, the app updates page content.<br/>• Live sync externalizes content to another server, which may slightly impact performance.<br/>• Recommend hosting both on the same machine. |
 | `liveSyncPort`               | The port of the live sync server.                                                                                                                               | `number`                          | `4000`                              | `4000`                                                                                          |                                                                                                                                                                                                                      |
 | `liveSyncURL`                | The URL of the live sync server.                                                                                                                                | `string`                          | `'http://localhost:{liveSyncPort}'` | `'https://example.com'`                                                                         | Points to localhost by default; can be changed for a remote live sync server.                                                                                                                                        |
+
+### Analytics Configuration
+
+Defines settings related to Intlayer analytics: collecting which content is actually shown to users (page views, content exposures) and powering content A/B testing.
+
+Analytics is strictly opt-in: nothing is collected unless `analytics.enabled` is explicitly set to `true` **and** a project key (`editor.clientId`) is configured for attribution. When disabled (the default), the whole analytics integration is dead-code-eliminated from your application bundle.
+
+| Field           | Description                                                               | Type      | Default | Example | Note                                                                                                                  |
+| --------------- | ------------------------------------------------------------------------- | --------- | ------- | ------- | --------------------------------------------------------------------------------------------------------------------- |
+| `enabled`       | Enables analytics collection (page views, content exposures, A/B events). | `boolean` | `false` | `true`  | Requires `editor.clientId` to be set for attribution; otherwise analytics stays disabled even if `enabled` is `true`. |
+| `flushInterval` | Milliseconds between automatic batched flushes to the backend.            | `number`  | `20000` | `10000` |                                                                                                                       |
+| `sampleRate`    | Fraction of sessions to record, from `0` (none) to `1` (all).             | `number`  | `1`     | `0.5`   | Sampling is deterministic per session, so a recorded session reports all of its events (no partial funnels).          |
+
+---
 
 ### Routing Configuration
 

@@ -1,4 +1,5 @@
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import { provideIntlayerAnalytics } from '../analytics/useAnalytics';
 import { provideIntlayerEditor } from '../editor/useEditor';
 import {
   createIntlayerClient,
@@ -40,6 +41,7 @@ export const provideIntlayer = (
   return [
     { provide: INTLAYER_TOKEN, useValue: client },
     provideIntlayerEditor(client),
+    provideIntlayerAnalytics(client),
   ];
 };
 

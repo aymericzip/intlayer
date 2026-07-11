@@ -10,10 +10,11 @@ import { setExposureSink } from './exposureSink';
  * Initializes the Intlayer analytics client singleton when analytics is enabled
  * and keeps it aware of the current locale.
  *
- * Mirrors {@link useEditor}: the dependency is loaded via a dynamic `import()`
- * wrapped so that apps which never install `@intlayer/analytics` (or disable it
- * via `INTLAYER_ANALYTICS_ENABLED`) pay nothing — the whole body is guarded and
- * dead-code-eliminated at build time.
+ * Mirrors {@link useEditor}: the module is loaded via a dynamic `import()` so it
+ * ships as its own async chunk, off the critical rendering path. Apps that
+ * don't opt in (`analytics.enabled !== true`) pay nothing — the whole body is
+ * guarded by `INTLAYER_ANALYTICS_ENABLED` and dead-code-eliminated at build
+ * time.
  */
 export const useAnalytics = () => {
   const { locale } = useContext(IntlayerClientContext) ?? {};
@@ -25,12 +26,18 @@ export const useAnalytics = () => {
     }
 
     let cancelled = false;
+    // Tracks whether initAnalyticsClient actually ran, so cleanup never calls
+    // stopAnalyticsClient for an init that was cancelled — that would decrement
+    // the shared reference count once too many and could stop a client another
+    // provider still uses.
+    let initialized = false;
 
     import('@intlayer/analytics')
       .then(({ initAnalyticsClient, buildContentExposure }) => {
         if (cancelled) return;
 
         const client = initAnalyticsClient();
+        initialized = true;
         clientRef.current = client;
 
         if (locale) client.setLocale(locale);
@@ -43,7 +50,7 @@ export const useAnalytics = () => {
         );
       })
       .catch(() => {
-        /* package not installed — analytics stays a no-op */
+        /* chunk failed to load — analytics stays a no-op */
       });
 
     return () => {
@@ -51,7 +58,9 @@ export const useAnalytics = () => {
       clientRef.current = null;
       setExposureSink(null);
       import('@intlayer/analytics')
-        .then(({ stopAnalyticsClient }) => stopAnalyticsClient())
+        .then(({ stopAnalyticsClient }) => {
+          if (initialized) stopAnalyticsClient();
+        })
         .catch(() => {});
     };
     // Run once on mount; locale updates are handled by the effect below.

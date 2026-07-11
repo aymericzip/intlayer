@@ -8,6 +8,7 @@ export const generateConfigurationContent = (
     internationalization,
     routing,
     editor,
+    analytics,
     log,
     system,
     content,
@@ -22,6 +23,7 @@ export const generateConfigurationContent = (
   fileContent += `const internationalization = ${JSON.stringify(internationalization, null, 2)};\n`;
   fileContent += `const routing = ${JSON.stringify(routing, null, 2)};\n`;
   fileContent += `const editor = ${JSON.stringify(editor, null, 2)};\n`;
+  fileContent += `const analytics = ${JSON.stringify(analytics, null, 2)};\n`;
   fileContent += `const log = ${JSON.stringify(log, null, 2)};\n`;
   fileContent += `const system = ${JSON.stringify(system, null, 2)};\n`;
   fileContent += `const content = ${JSON.stringify(content, null, 2)};\n`;
@@ -31,11 +33,12 @@ export const generateConfigurationContent = (
   fileContent += `const compiler = ${JSON.stringify(compiler, null, 2)};\n`;
 
   if (format === 'esm') {
-    fileContent += `\nexport { internationalization, routing, editor, log, system, content, ai, dictionary, build, compiler };\n`;
+    fileContent += `\nexport { internationalization, routing, editor, analytics, log, system, content, ai, dictionary, build, compiler };\n`;
   } else {
     fileContent += `\nmodule.exports.internationalization = internationalization;\n`;
     fileContent += `module.exports.routing = routing;\n`;
     fileContent += `module.exports.editor = editor;\n`;
+    fileContent += `module.exports.analytics = analytics;\n`;
     fileContent += `module.exports.log = log;\n`;
     fileContent += `module.exports.system = system;\n`;
     fileContent += `module.exports.content = content;\n`;

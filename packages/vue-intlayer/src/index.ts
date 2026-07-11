@@ -6,6 +6,7 @@ declare module '@intlayer/core/interpreter' {
     extends IInterpreterPluginVue<T, S, L> {}
 }
 
+export * from './analytics';
 export * from './client';
 export * from './editor/useEditor';
 export * from './getDictionary';

@@ -54,6 +54,7 @@ import {
 } from '../defaultValues/system';
 import { getProjectRequire } from '../utils';
 import {
+  buildAnalyticsFields,
   buildBrowserConfiguration,
   buildEditorFields,
   buildInternationalizationFields,
@@ -63,6 +64,7 @@ import { intlayerConfigSchema } from './configurationSchema';
 
 export {
   type BrowserIntlayerConfig,
+  buildAnalyticsFields,
   buildBrowserConfiguration,
   buildEditorFields,
   buildInternationalizationFields,
@@ -793,6 +795,7 @@ export const buildConfigurationFields = (
     // Full (extended) shared fields
     internationalization: internationalizationConfig,
     editor: editorConfig,
+    analytics: buildAnalyticsFields(customConfiguration?.analytics),
     log: logConfig,
     // Server-only fields
     system: systemConfig,

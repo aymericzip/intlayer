@@ -7,6 +7,14 @@ declare module '@intlayer/core/interpreter' {
 }
 
 export {
+  AnalyticsProvider,
+  type ConversionParams,
+  type ExperimentState,
+  useAnalytics,
+  useConversion,
+  useExperiment,
+} from './analytics/index';
+export {
   IntlayerClientContext,
   IntlayerProvider,
   IntlayerProviderContent,
