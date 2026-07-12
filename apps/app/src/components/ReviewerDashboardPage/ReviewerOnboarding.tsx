@@ -1,8 +1,4 @@
-import {
-  REVIEWER_CATEGORIES,
-  type ReviewerCategory,
-  type ReviewerProfileAPI,
-} from '@intlayer/backend';
+import type { ReviewerCategory, ReviewerProfileAPI } from '@intlayer/backend';
 import {
   useRegisterAsReviewer,
   useSession,
@@ -21,6 +17,16 @@ import { ImageIcon, Plus, Trash2 } from 'lucide-react';
 import { type ChangeEvent, type FC, useRef, useState } from 'react';
 import { useIntlayer } from 'react-intlayer';
 import { LocalePicker } from '#components/LocalePicker';
+
+const REVIEWER_CATEGORIES: ReviewerCategory[] = [
+  'copywriter',
+  'translator',
+  'proofreader',
+  'technical_writer',
+  'marketing',
+  'seo',
+  'content_reviewer',
+];
 
 type ReviewerOnboardingProps = {
   existingProfile?: ReviewerProfileAPI;

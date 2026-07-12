@@ -1,8 +1,4 @@
-import {
-  type GetMarketplaceQuery,
-  REVIEWER_CATEGORIES,
-  type ReviewerCategory,
-} from '@intlayer/backend';
+import type { GetMarketplaceQuery, ReviewerCategory } from '@intlayer/backend';
 import { useGetReviewerPriceDistribution } from '@intlayer/design-system/api';
 import { Button } from '@intlayer/design-system/button';
 import { Container } from '@intlayer/design-system/container';
@@ -22,6 +18,16 @@ type ReviewerFiltersProps = {
   value: ReviewerFiltersValue;
   onChange: (filters: ReviewerFiltersValue) => void;
 };
+
+const REVIEWER_CATEGORIES: ReviewerCategory[] = [
+  'copywriter',
+  'translator',
+  'proofreader',
+  'technical_writer',
+  'marketing',
+  'seo',
+  'content_reviewer',
+];
 
 const Field: FC<{
   label: string;
