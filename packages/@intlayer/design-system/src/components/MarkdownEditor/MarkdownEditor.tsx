@@ -22,7 +22,6 @@ import {
   handleImageDrop,
   handleImagePaste,
   ImageResizer,
-  type JSONContent,
 } from './novel';
 import { ColorSelector } from './selectors/ColorSelector';
 import { LinkSelector } from './selectors/LinkSelector';
@@ -91,8 +90,6 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
     };
   }, [uploadFn, content]);
 
-  const initialContent = (defaultValue ?? '') as unknown as JSONContent;
-
   const handleUpdate = ({ editor }: { editor: EditorInstance }) => {
     onChange?.(editor.storage.markdown.getMarkdown() as string);
   };
@@ -115,7 +112,7 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
         <EditorContent
           immediatelyRender={false}
           editable={editable}
-          initialContent={initialContent}
+          initialContent={defaultValue ?? ''}
           extensions={extensions}
           className={cn('min-h-[350px] w-full max-w-full', className)}
           editorProps={{
@@ -136,7 +133,7 @@ export const MarkdownEditor: FC<MarkdownEditorProps> = ({
           onUpdate={handleUpdate}
           slotAfter={<ImageResizer />}
         >
-          <EditorCommand className="z-50 h-auto max-h-[330px] overflow-y-auto px-1 py-2 shadow-md transition-all">
+          <EditorCommand className="z-50 h-auto max-h-[330px] overflow-y-auto rounded-lg border border-neutral/20 bg-card px-1 py-2 text-text shadow-xl transition-all">
             <EditorCommandEmpty className="px-2 text-muted-foreground">
               {content.noResults.value}
             </EditorCommandEmpty>

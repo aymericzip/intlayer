@@ -234,7 +234,11 @@ export type TextEditorProps = {
   keyPath: KeyPath[];
   section: ContentNode;
   isDarkMode?: boolean;
-  renderSection?: (content: string) => ReactNode;
+  /**
+   * Custom renderer for string leaves. Receives the leaf content and its full
+   * key path so the renderer can write edits back to the right location.
+   */
+  renderSection?: (content: string, keyPath: KeyPath[]) => ReactNode;
   onContentChange?: (newValue: string) => void;
 };
 
@@ -805,10 +809,42 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
     NodeTypes.MARKDOWN
   ] ?? '') as ContentNode;
 
-  // The WYSIWYG editor only handles a plain markdown string. When the markdown
-  // node wraps another node (e.g. `md(t({ ... }))`), fall back to the recursive
-  // editor so the inner translation/nested structure stays editable.
-  const isStringLeaf = typeof content === 'string';
+  /**
+   * WYSIWYG editor rendered on every markdown string leaf. When the markdown
+   * node wraps another node (e.g. `md(t({ ... }))`), the recursive editor
+   * walks the inner structure and calls this renderer once per string leaf,
+   * so each locale/branch gets its own rich-text surface writing back to its
+   * own key path.
+   */
+  const renderMarkdownEditor = (
+    leafContent: string,
+    leafKeyPath: KeyPath[]
+  ): ReactNode => (
+    <Suspense fallback={<Loader />}>
+      <LazyMarkdownEditor
+        key={JSON.stringify(leafKeyPath)}
+        defaultValue={leafContent}
+        onChange={(markdown) =>
+          addEditedContent(dictionary.localId!, markdown, leafKeyPath)
+        }
+      />
+    </Suspense>
+  );
+
+  const renderMarkdownPreview = (leafContent: string): ReactNode => (
+    <Suspense fallback={<Loader />}>
+      <LazyMarkdownRenderer isDarkMode={isDarkMode}>
+        {leafContent}
+      </LazyMarkdownRenderer>
+    </Suspense>
+  );
+
+  const renderSectionByMode: TextEditorProps['renderSection'] =
+    mode === MarkdownViewMode.Edit
+      ? renderMarkdownEditor
+      : mode === MarkdownViewMode.Preview
+        ? renderMarkdownPreview
+        : undefined;
 
   return (
     <div className="flex w-full flex-col justify-center gap-6 p-2">
@@ -821,42 +857,12 @@ const MarkdownTextEditor: FC<TextEditorProps> = ({
         className="ml-auto"
       />
 
-      {mode === MarkdownViewMode.Edit && isStringLeaf ? (
-        <Container
-          border
-          background="none"
-          roundedSize="2xl"
-          padding="lg"
-          className="w-full"
-        >
-          <Suspense fallback={<Loader />}>
-            <LazyMarkdownEditor
-              key={JSON.stringify(childKeyPath)}
-              defaultValue={content}
-              onChange={(markdown) =>
-                addEditedContent(dictionary.localId!, markdown, childKeyPath)
-              }
-            />
-          </Suspense>
-        </Container>
-      ) : (
-        <TextEditorContainer
-          section={content}
-          keyPath={childKeyPath}
-          dictionary={dictionary}
-          renderSection={
-            mode === MarkdownViewMode.Preview
-              ? (content) => (
-                  <Suspense fallback={<Loader />}>
-                    <LazyMarkdownRenderer isDarkMode={isDarkMode}>
-                      {content}
-                    </LazyMarkdownRenderer>
-                  </Suspense>
-                )
-              : undefined
-          }
-        />
-      )}
+      <TextEditorContainer
+        section={content}
+        keyPath={childKeyPath}
+        dictionary={dictionary}
+        renderSection={renderSectionByMode}
+      />
     </div>
   );
 };
@@ -1131,7 +1137,7 @@ export const TextEditor = memo<TextEditorProps>(function TextEditor({
     return (
       <div className="w-full p-2">
         {typeof renderSection === 'function' ? (
-          renderSection(section as string)
+          renderSection(section as string, keyPath)
         ) : (
           <ContentEditorTextArea
             variant="default"

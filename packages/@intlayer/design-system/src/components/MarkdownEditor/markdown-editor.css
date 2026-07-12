@@ -5,8 +5,8 @@
  * imported only by consumers that actually use the editor (currently the
  * `apps/app` CMS dashboard), rather than from the shared `tailwind.css`
  * entry — this keeps the ProseMirror specific rules (placeholder, task
- * checkboxes, image placeholder, drag handle, tippy bubble) out of every
- * other consumer's CSS bundle.
+ * checkboxes, image placeholder, drag handle) out of every other consumer's
+ * CSS bundle.
  */
 
 :root,
@@ -211,12 +211,6 @@ ul[data-type="taskList"] li[data-checked="true"] > div > p {
   color: var(--muted-foreground);
   text-decoration: line-through;
   text-decoration-thickness: 2px;
-}
-
-/* Bubble menu (tippy) */
-.tippy-box {
-  /* biome-ignore lint/complexity/noImportantStyles: override third-party tippy.js inline max-width */
-  max-width: 400px !important;
 }
 
 .ProseMirror:not(.dragging) .ProseMirror-selectednode {

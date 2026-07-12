@@ -27,7 +27,11 @@ export const EditorRoot: FC<EditorRootProps> = ({ children }) => {
 export type EditorContentProps = Omit<EditorProviderProps, 'content'> & {
   readonly children?: ReactNode;
   readonly className?: string;
-  readonly initialContent?: JSONContent;
+  /**
+   * Initial document. A plain string is parsed as markdown by the
+   * `tiptap-markdown` extension; a `JSONContent` object is used as-is.
+   */
+  readonly initialContent?: JSONContent | string;
 };
 
 export const EditorContent: FC<
