@@ -24,6 +24,7 @@ COPY \
     --exclude=packages/@intlayer/vue-compiler \
     --exclude=packages/@intlayer/svelte-compiler \
     --exclude=packages/@intlayer/lsp \
+    --exclude=packages/@intlayer/chrome-extension \
     --exclude=packages/@intlayer/swc \
     --exclude=packages/@intlayer/webpack \
     --exclude=packages/@intlayer/editor \

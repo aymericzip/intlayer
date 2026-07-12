@@ -43,6 +43,7 @@ export const packageBuildOrder = [
   'packages/react-native-intlayer',
   'packages/lynx-intlayer',
   'packages/@intlayer/design-system',
+  'packages/@intlayer/chrome-extension',
   'packages/intlayer-editor',
   'packages/fastify-intlayer',
   'docs',

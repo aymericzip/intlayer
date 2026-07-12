@@ -15,6 +15,7 @@ COPY \
   --exclude=packages/@intlayer/swc \
   --exclude=packages/@intlayer/mcp \
   --exclude=packages/@intlayer/lsp \
+  --exclude=packages/@intlayer/chrome-extension \
   --exclude=packages/intlayer-cli \
   --exclude=packages/react-scripts-intlayer \
   --exclude=packages/vue-intlayer \

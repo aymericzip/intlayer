@@ -1,0 +1,63 @@
+{
+  "name": "@intlayer/chrome-extension",
+  "version": "9.0.0-canary.15",
+  "private": true,
+  "description": "Chrome extension that inspects the i18n implementation of the current website (framework, i18n library, locales, SEO tags) and runs a full Intlayer scan through the backend.",
+  "keywords": [
+    "intlayer",
+    "chrome-extension",
+    "i18n",
+    "seo",
+    "scanner",
+    "internationalization"
+  ],
+  "homepage": "https://intlayer.org",
+  "bugs": {
+    "url": "https://github.com/aymericzip/intlayer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aymericzip/intlayer.git"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Aymeric PINEAU",
+    "url": "https://github.com/aymericzip"
+  },
+  "contributors": [
+    {
+      "name": "Aymeric Pineau",
+      "email": "ay.pineau@gmail.com",
+      "url": "https://github.com/aymericzip"
+    }
+  ],
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "build:ci": "vite build",
+    "clean": "bun --bun rimraf ./dist .turbo",
+    "dev": "vite build --watch",
+    "format": "bun --bun biome format . --check",
+    "format:fix": "bun --bun biome format --write .",
+    "lint": "bun --bun biome lint .",
+    "lint:fix": "bun --bun biome lint --write .",
+    "test": "bun --bun vitest run",
+    "test:watch": "bun --bun vitest",
+    "typecheck": "tsc --noEmit",
+    "zip": "cd dist && zip -r ../intlayer-chrome-extension.zip ."
+  },
+  "dependencies": {
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
+  },
+  "devDependencies": {
+    "@types/chrome": "0.1.32",
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.0.3",
+    "rimraf": "6.1.3",
+    "typescript": "6.0.3",
+    "vite": "8.1.3",
+    "vitest": "4.1.10"
+  }
+}

@@ -1,0 +1,393 @@
+:root {
+  color-scheme: light dark;
+  --background: #ffffff;
+  --card: #f6f6f7;
+  --text: #1a1a1a;
+  --text-soft: #6b7280;
+  --border: #e5e7eb;
+  --accent: #3b82f6;
+  --success: #16a34a;
+  --warning: #d97706;
+  --error: #dc2626;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #111113;
+    --card: #1b1b1f;
+    --text: #f4f4f5;
+    --text-soft: #9ca3af;
+    --border: #2e2e33;
+    --accent: #60a5fa;
+    --success: #4ade80;
+    --warning: #fbbf24;
+    --error: #f87171;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  width: 380px;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  font-size: 13px;
+  color: var(--text);
+  background: var(--background);
+}
+
+.popup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+  max-height: 560px;
+  overflow-y: auto;
+}
+
+/* ------------------------------- Header -------------------------------- */
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-titles h1 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.header-host {
+  color: var(--text-soft);
+  font-size: 12px;
+}
+
+/* ------------------------------ Sections ------------------------------- */
+
+.section {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.section-title {
+  margin: 0 0 8px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-soft);
+}
+
+.empty-hint {
+  margin: 0;
+  color: var(--text-soft);
+}
+
+/* ---------------------------- Technologies ----------------------------- */
+
+.technology-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.technology-main {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.technology-name {
+  font-weight: 600;
+}
+
+.technology-version {
+  color: var(--text-soft);
+  font-size: 12px;
+}
+
+.category-badge {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 6px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--text-soft);
+}
+
+.category-i18n-library {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.technology-evidence {
+  color: var(--text-soft);
+  font-size: 11px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  overflow-wrap: anywhere;
+}
+
+/* ------------------------------- Locales ------------------------------- */
+
+.locale-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.locale-chip {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.locale-detail {
+  color: var(--text-soft);
+  font-size: 12px;
+  margin-top: 4px;
+  overflow-wrap: anywhere;
+}
+
+.locale-detail code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+}
+
+/* ----------------------------- Tags / checks --------------------------- */
+
+.tag-list,
+.check-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tag-row,
+.check-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.tag-label {
+  font-weight: 500;
+}
+
+.tag-value {
+  margin-left: auto;
+  color: var(--text-soft);
+  font-size: 12px;
+  max-width: 55%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.status {
+  font-weight: 700;
+  width: 14px;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.status.success {
+  color: var(--success);
+}
+
+.status.warning {
+  color: var(--warning);
+}
+
+.status.error {
+  color: var(--error);
+}
+
+.status.pending {
+  color: var(--text-soft);
+}
+
+/* ------------------------------- Audit --------------------------------- */
+
+.primary-button {
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.ghost-button {
+  background: none;
+  border: none;
+  color: var(--text-soft);
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.scan-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.progress-track {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--border);
+  overflow: hidden;
+}
+
+.progress-value {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.scan-progress-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.scan-step {
+  color: var(--text-soft);
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.scan-error {
+  margin: 8px 0 0;
+  color: var(--error);
+}
+
+.audit-results {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.audit-score {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.audit-score-title {
+  font-weight: 600;
+}
+
+.audit-score-subtitle {
+  color: var(--text-soft);
+  font-size: 12px;
+}
+
+.audit-group-title {
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-soft);
+}
+
+/* ----------------------------- Score ring ------------------------------ */
+
+.score-ring {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+}
+
+.score-ring-track {
+  stroke: var(--border);
+}
+
+.score-ring-value {
+  transition: stroke-dasharray 0.4s ease;
+}
+
+.score-good .score-ring-value {
+  stroke: var(--success);
+}
+
+.score-medium .score-ring-value {
+  stroke: var(--warning);
+}
+
+.score-bad .score-ring-value {
+  stroke: var(--error);
+}
+
+.score-ring-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.score-good .score-ring-label {
+  color: var(--success);
+}
+
+.score-medium .score-ring-label {
+  color: var(--warning);
+}
+
+.score-bad .score-ring-label {
+  color: var(--error);
+}
+
+/* ------------------------------- Footer -------------------------------- */
+
+.footer {
+  text-align: center;
+  padding-bottom: 2px;
+}
+
+.footer a {
+  color: var(--text-soft);
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: var(--accent);
+}

@@ -16,6 +16,7 @@ COPY \
     --exclude=packages/@intlayer/webpack \
     --exclude=packages/@intlayer/editor \
     --exclude=packages/@intlayer/editor-react \
+    --exclude=packages/@intlayer/chrome-extension \
     --exclude=packages/@intlayer/swc \
     --exclude=packages/@intlayer/lsp \
     --exclude=packages/intlayer-cli \
