@@ -1,6 +1,6 @@
 import type { NodePath, PluginObject, PluginPass } from '@babel/core';
 import type * as BabelTypes from '@babel/types';
-import { makeFieldRenameBabelPlugin } from './babel-plugin-intlayer-field-rename';
+import { renameIntlayerFieldAccesses } from './babel-plugin-intlayer-field-rename';
 import { getSharedPruneContext } from './babel-plugin-intlayer-purge';
 import type { PruneContext } from './babel-plugin-intlayer-usage-analyzer';
 import { INTLAYER_USAGE_REGEX } from './transformers';
@@ -89,76 +89,24 @@ export type MinifyPluginOptions = {
  */
 export const intlayerMinifyBabelPlugin = (babel: {
   types: typeof BabelTypes;
-}): PluginObject => {
-  /**
-   * The field-rename `Program.exit` handler extracted from
-   * {@link makeFieldRenameBabelPlugin}.  Resolved once per plugin-instance
-   * (i.e. once per babel.config.js registration, not once per file).
-   */
-  let fieldRenameExitVisitor:
-    | ((programPath: NodePath<BabelTypes.Program>) => void)
-    | null = null;
+}): PluginObject => ({
+  name: 'intlayer-minify',
 
-  /** The `baseDir` for which the visitor was last resolved. */
-  let resolvedBaseDir: string | null = null;
+  visitor: {
+    Program: {
+      exit(programPath: NodePath<BabelTypes.Program>, state: PluginPass): void {
+        const { baseDir, minify, optimize, editorEnabled } =
+          state.opts as MinifyPluginOptions;
 
-  return {
-    name: 'intlayer-minify',
+        if (!minify || optimize === false || editorEnabled) return;
+        if (!INTLAYER_USAGE_REGEX.test(state.file.code)) return;
 
-    pre(this: PluginPass & { opts: MinifyPluginOptions }) {
-      const { baseDir, minify, optimize, editorEnabled } = this.opts;
+        const pruneContext: PruneContext | null =
+          getSharedPruneContext(baseDir);
+        if (!pruneContext) return;
 
-      if (!minify || optimize === false || editorEnabled) return;
-
-      // Re-resolve when the baseDir changes (edge case in monorepos where the
-      // same process handles multiple workspaces with different configs).
-      if (resolvedBaseDir === baseDir && fieldRenameExitVisitor !== null)
-        return;
-
-      const pruneContext: PruneContext | null = getSharedPruneContext(baseDir);
-      if (
-        !pruneContext ||
-        pruneContext.dictionaryKeyToFieldRenameMap.size === 0
-      )
-        return;
-
-      resolvedBaseDir = baseDir;
-
-      // Instantiate makeFieldRenameBabelPlugin and extract its Program.exit
-      // handler so we can invoke it from our own visitor.
-      const fieldRenamePlugin = makeFieldRenameBabelPlugin(pruneContext)(babel);
-      const programVisitor = fieldRenamePlugin.visitor.Program;
-
-      if (
-        programVisitor &&
-        typeof programVisitor === 'object' &&
-        'exit' in programVisitor &&
-        typeof (
-          programVisitor as {
-            exit: (path: NodePath<BabelTypes.Program>) => void;
-          }
-        ).exit === 'function'
-      ) {
-        fieldRenameExitVisitor = (
-          programVisitor as {
-            exit: (path: NodePath<BabelTypes.Program>) => void;
-          }
-        ).exit;
-      }
-    },
-
-    visitor: {
-      Program: {
-        exit(
-          programPath: NodePath<BabelTypes.Program>,
-          state: PluginPass
-        ): void {
-          if (!fieldRenameExitVisitor) return;
-          if (!INTLAYER_USAGE_REGEX.test(state.file.code)) return;
-
-          fieldRenameExitVisitor(programPath);
-        },
+        renameIntlayerFieldAccesses(babel.types, programPath, pruneContext);
       },
     },
-  };
-};
+  },
+});

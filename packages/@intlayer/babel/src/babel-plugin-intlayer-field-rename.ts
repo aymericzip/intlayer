@@ -300,9 +300,44 @@ const walkObjectDestructuring = (
 };
 
 /**
- * Creates a Babel plugin that rewrites dictionary content field accesses in
- * source files to their short aliases defined in
- * `pruneContext.dictionaryKeyToFieldRenameMap`.
+ * Collects the local aliases under which `useIntlayer` / `getIntlayer` are
+ * imported in the given program (e.g. `import { useIntlayer as useI } …`
+ * yields `useI` → `useIntlayer`).
+ *
+ * Import declarations can only appear at the top level of a module, so the
+ * program body is scanned directly instead of traversing the whole AST.
+ */
+const collectIntlayerCallerLocalNames = (
+  babelTypes: typeof BabelTypes,
+  programNode: BabelTypes.Program
+): Map<string, string> => {
+  const intlayerCallerLocalNameMap = new Map<string, string>();
+
+  for (const statement of programNode.body) {
+    if (!babelTypes.isImportDeclaration(statement)) continue;
+
+    for (const importSpecifier of statement.specifiers) {
+      if (!babelTypes.isImportSpecifier(importSpecifier)) continue;
+
+      const importedName = babelTypes.isIdentifier(importSpecifier.imported)
+        ? importSpecifier.imported.name
+        : importSpecifier.imported.value;
+
+      if (INTLAYER_CALLER_NAMES.includes(importedName as IntlayerCallerName)) {
+        intlayerCallerLocalNameMap.set(
+          importSpecifier.local.name,
+          importedName
+        );
+      }
+    }
+  }
+
+  return intlayerCallerLocalNameMap;
+};
+
+/**
+ * Rewrites dictionary content field accesses in the given program to the
+ * short aliases defined in `pruneContext.dictionaryKeyToFieldRenameMap`.
  *
  * Handled patterns (mirrors the usage analyser):
  *
@@ -320,6 +355,146 @@ const walkObjectDestructuring = (
  *     → const { shortA: fieldA } = useIntlayer('key');
  *       const { shortN: nested } = fieldA;
  *
+ * Exposed as a standalone function so that both
+ * {@link makeFieldRenameBabelPlugin} and `intlayerMinifyBabelPlugin` can
+ * invoke it from their own `Program.exit` visitors.
+ */
+export const renameIntlayerFieldAccesses = (
+  babelTypes: typeof BabelTypes,
+  programPath: NodePath<BabelTypes.Program>,
+  pruneContext: PruneContext
+): void => {
+  if (pruneContext.dictionaryKeyToFieldRenameMap.size === 0) return;
+
+  const intlayerCallerLocalNameMap = collectIntlayerCallerLocalNames(
+    babelTypes,
+    programPath.node
+  );
+  if (intlayerCallerLocalNameMap.size === 0) return;
+
+  // Visit all useIntlayer / getIntlayer call-sites and rename field accesses
+  programPath.traverse({
+    CallExpression: (callExpressionPath) => {
+      const calleeNode = callExpressionPath.node.callee;
+      let localCallerName: string | undefined;
+
+      if (babelTypes.isIdentifier(calleeNode)) {
+        localCallerName = calleeNode.name;
+      } else if (
+        babelTypes.isMemberExpression(calleeNode) &&
+        babelTypes.isIdentifier(calleeNode.property)
+      ) {
+        localCallerName = calleeNode.property.name;
+      }
+
+      if (!localCallerName || !intlayerCallerLocalNameMap.has(localCallerName))
+        return;
+
+      const callArguments = callExpressionPath.node.arguments;
+      if (callArguments.length === 0) return;
+
+      const firstArgument = callArguments[0];
+      let dictionaryKey: string | undefined;
+
+      if (babelTypes.isStringLiteral(firstArgument)) {
+        dictionaryKey = firstArgument.value;
+      } else if (
+        babelTypes.isTemplateLiteral(firstArgument) &&
+        firstArgument.expressions.length === 0 &&
+        firstArgument.quasis.length === 1 &&
+        firstArgument.quasis[0]
+      ) {
+        dictionaryKey =
+          firstArgument.quasis[0].value.cooked ??
+          firstArgument.quasis[0].value.raw;
+      }
+
+      if (!dictionaryKey) return;
+
+      const fieldRenameMap =
+        pruneContext.dictionaryKeyToFieldRenameMap.get(dictionaryKey);
+      if (!fieldRenameMap || fieldRenameMap.size === 0) return;
+
+      const parentNode = callExpressionPath.parent;
+
+      // ── Case 1: const { fieldA, fieldB } = useIntlayer('key') ────────
+      if (
+        babelTypes.isVariableDeclarator(parentNode) &&
+        babelTypes.isObjectPattern(parentNode.id)
+      ) {
+        walkObjectDestructuring(babelTypes, callExpressionPath, fieldRenameMap);
+        return;
+      }
+
+      // ── Case 2: useIntlayer('key').fieldA.nested ─────────────────────
+      if (
+        (babelTypes.isMemberExpression(parentNode) ||
+          babelTypes.isOptionalMemberExpression(parentNode)) &&
+        (parentNode as BabelTypes.MemberExpression).object ===
+          callExpressionPath.node
+      ) {
+        const { finalPath, finalRenameMap } = walkRenameChain(
+          babelTypes,
+          callExpressionPath,
+          fieldRenameMap
+        );
+        walkObjectDestructuring(babelTypes, finalPath, finalRenameMap);
+        return;
+      }
+
+      // ── Case 3: const result = useIntlayer('key'); result.fieldA ─────
+      if (
+        babelTypes.isVariableDeclarator(parentNode) &&
+        babelTypes.isIdentifier(parentNode.id)
+      ) {
+        const variableBinding = callExpressionPath.scope.getBinding(
+          parentNode.id.name
+        );
+        if (!variableBinding) return;
+
+        for (const variableReferencePath of variableBinding.referencePaths) {
+          // Direct access: result.fieldA or const { fieldA } = result
+          const { finalPath, finalRenameMap } = walkRenameChain(
+            babelTypes,
+            variableReferencePath,
+            fieldRenameMap
+          );
+          walkObjectDestructuring(babelTypes, finalPath, finalRenameMap);
+
+          // Signal accessor: result().fieldA or const { fieldA } = result()
+          // walkRenameChain stops at a CallExpression parent, so we need to
+          // start a new walk from the call-expression node itself.
+          const refParent = variableReferencePath.parent;
+          if (
+            (babelTypes.isCallExpression(refParent) ||
+              babelTypes.isOptionalCallExpression(refParent)) &&
+            (refParent as BabelTypes.CallExpression).callee ===
+              variableReferencePath.node
+          ) {
+            const callPath = variableReferencePath.parentPath;
+            if (callPath) {
+              const {
+                finalPath: signalFinalPath,
+                finalRenameMap: signalFinalRenameMap,
+              } = walkRenameChain(babelTypes, callPath, fieldRenameMap);
+              walkObjectDestructuring(
+                babelTypes,
+                signalFinalPath,
+                signalFinalRenameMap
+              );
+            }
+          }
+        }
+      }
+    },
+  });
+};
+
+/**
+ * Creates a Babel plugin that rewrites dictionary content field accesses in
+ * source files to their short aliases via
+ * {@link renameIntlayerFieldAccesses}.
+ *
  * This plugin must run in a separate `transformAsync` pass **before**
  * `intlayerOptimizeBabelPlugin`, because the latter replaces `useIntlayer`
  * with `useDictionary`, erasing the dictionary-key information needed here.
@@ -331,209 +506,7 @@ export const makeFieldRenameBabelPlugin =
     visitor: {
       Program: {
         exit: (programPath) => {
-          if (pruneContext.dictionaryKeyToFieldRenameMap.size === 0) return;
-
-          // Collect local aliases for useIntlayer / getIntlayer
-          const intlayerCallerLocalNameMap = new Map<string, string>();
-
-          programPath.traverse({
-            ImportDeclaration: (importDeclarationPath) => {
-              for (const importSpecifier of importDeclarationPath.node
-                .specifiers) {
-                if (!babelTypes.isImportSpecifier(importSpecifier)) continue;
-
-                const importedName = babelTypes.isIdentifier(
-                  importSpecifier.imported
-                )
-                  ? importSpecifier.imported.name
-                  : (importSpecifier.imported as BabelTypes.StringLiteral)
-                      .value;
-
-                if (
-                  INTLAYER_CALLER_NAMES.includes(
-                    importedName as IntlayerCallerName
-                  )
-                ) {
-                  intlayerCallerLocalNameMap.set(
-                    importSpecifier.local.name,
-                    importedName
-                  );
-                }
-              }
-            },
-          });
-
-          if (intlayerCallerLocalNameMap.size === 0) return;
-
-          // Visit all useIntlayer / getIntlayer call-sites and rename field accesses
-          programPath.traverse({
-            CallExpression: (callExpressionPath) => {
-              const calleeNode = callExpressionPath.node.callee;
-              let localCallerName: string | undefined;
-
-              if (babelTypes.isIdentifier(calleeNode)) {
-                localCallerName = calleeNode.name;
-              } else if (
-                babelTypes.isMemberExpression(calleeNode) &&
-                babelTypes.isIdentifier(calleeNode.property)
-              ) {
-                localCallerName = calleeNode.property.name;
-              }
-
-              if (
-                !localCallerName ||
-                !intlayerCallerLocalNameMap.has(localCallerName)
-              )
-                return;
-
-              const callArguments = callExpressionPath.node.arguments;
-              if (callArguments.length === 0) return;
-
-              const firstArgument = callArguments[0];
-              let dictionaryKey: string | undefined;
-
-              if (babelTypes.isStringLiteral(firstArgument)) {
-                dictionaryKey = firstArgument.value;
-              } else if (
-                babelTypes.isTemplateLiteral(firstArgument) &&
-                firstArgument.expressions.length === 0 &&
-                firstArgument.quasis.length === 1 &&
-                firstArgument.quasis[0]
-              ) {
-                dictionaryKey =
-                  firstArgument.quasis[0].value.cooked ??
-                  firstArgument.quasis[0].value.raw;
-              }
-
-              if (!dictionaryKey) return;
-
-              const fieldRenameMap =
-                pruneContext.dictionaryKeyToFieldRenameMap.get(dictionaryKey);
-              if (!fieldRenameMap || fieldRenameMap.size === 0) return;
-
-              const parentNode = callExpressionPath.parent;
-
-              // ── Case 1: const { fieldA, fieldB } = useIntlayer('key') ────────
-              if (
-                babelTypes.isVariableDeclarator(parentNode) &&
-                babelTypes.isObjectPattern(parentNode.id)
-              ) {
-                for (const property of parentNode.id.properties) {
-                  if (!babelTypes.isObjectProperty(property)) continue;
-
-                  const keyName = babelTypes.isIdentifier(property.key)
-                    ? property.key.name
-                    : babelTypes.isStringLiteral(property.key)
-                      ? property.key.value
-                      : null;
-                  if (!keyName) continue;
-
-                  const renameEntry = fieldRenameMap.get(keyName);
-                  if (!renameEntry) continue;
-
-                  // { fieldA } → { shortA: fieldA }
-                  // { fieldA: localVar } → { shortA: localVar }
-                  if (property.shorthand) {
-                    property.shorthand = false;
-                    property.key = babelTypes.identifier(renameEntry.shortName);
-                  } else {
-                    property.key = babelTypes.identifier(renameEntry.shortName);
-                  }
-
-                  // Walk nested member accesses and secondary destructurings
-                  // on the local variable.
-                  if (
-                    renameEntry.children.size > 0 &&
-                    babelTypes.isIdentifier(property.value)
-                  ) {
-                    const localVarBinding = callExpressionPath.scope.getBinding(
-                      (property.value as BabelTypes.Identifier).name
-                    );
-                    if (localVarBinding) {
-                      for (const refPath of localVarBinding.referencePaths) {
-                        const { finalPath, finalRenameMap } = walkRenameChain(
-                          babelTypes,
-                          refPath,
-                          renameEntry.children
-                        );
-                        walkObjectDestructuring(
-                          babelTypes,
-                          finalPath,
-                          finalRenameMap
-                        );
-                      }
-                    }
-                  }
-                }
-                return;
-              }
-
-              // ── Case 2: useIntlayer('key').fieldA.nested ─────────────────────
-              if (
-                (babelTypes.isMemberExpression(parentNode) ||
-                  babelTypes.isOptionalMemberExpression(parentNode)) &&
-                (parentNode as BabelTypes.MemberExpression).object ===
-                  callExpressionPath.node
-              ) {
-                const { finalPath, finalRenameMap } = walkRenameChain(
-                  babelTypes,
-                  callExpressionPath,
-                  fieldRenameMap
-                );
-                walkObjectDestructuring(babelTypes, finalPath, finalRenameMap);
-                return;
-              }
-
-              // ── Case 3: const result = useIntlayer('key'); result.fieldA ─────
-              if (
-                babelTypes.isVariableDeclarator(parentNode) &&
-                babelTypes.isIdentifier(parentNode.id)
-              ) {
-                const variableName = parentNode.id.name;
-                const variableBinding =
-                  callExpressionPath.scope.getBinding(variableName);
-                if (!variableBinding) return;
-
-                for (const variableReferencePath of variableBinding.referencePaths) {
-                  // Direct access: result.fieldA or const { fieldA } = result
-                  const { finalPath, finalRenameMap } = walkRenameChain(
-                    babelTypes,
-                    variableReferencePath,
-                    fieldRenameMap
-                  );
-                  walkObjectDestructuring(
-                    babelTypes,
-                    finalPath,
-                    finalRenameMap
-                  );
-
-                  // Signal accessor: result().fieldA or const { fieldA } = result()
-                  // walkRenameChain stops at a CallExpression parent, so we need to
-                  // start a new walk from the call-expression node itself.
-                  const refParent = variableReferencePath.parent;
-                  if (
-                    (babelTypes.isCallExpression(refParent) ||
-                      babelTypes.isOptionalCallExpression(refParent)) &&
-                    (refParent as BabelTypes.CallExpression).callee ===
-                      variableReferencePath.node
-                  ) {
-                    const callPath = variableReferencePath.parentPath;
-                    if (callPath) {
-                      const {
-                        finalPath: signalFinalPath,
-                        finalRenameMap: signalFinalRenameMap,
-                      } = walkRenameChain(babelTypes, callPath, fieldRenameMap);
-                      walkObjectDestructuring(
-                        babelTypes,
-                        signalFinalPath,
-                        signalFinalRenameMap
-                      );
-                    }
-                  }
-                }
-              }
-            },
-          });
+          renameIntlayerFieldAccesses(babelTypes, programPath, pruneContext);
         },
       },
     },

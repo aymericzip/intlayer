@@ -108,15 +108,11 @@ export type PurgePluginOptions = {
 
 /**
  * Cache of built {@link PruneContext} objects, keyed by the project's
- * `baseDir`.  Each context is built exactly once per Node.js process.
+ * `baseDir`.  Each context is built exactly once per Node.js process:
+ * {@link runPurgePipeline} registers the context before running so every
+ * subsequent transform is a no-op cache hit.
  */
 const _pruneContextCache = new Map<string, PruneContext>();
-
-/**
- * Tracks base directories whose full analysis + dictionary-write cycle has
- * already completed, to avoid repeating work across file transforms.
- */
-const _completedBaseDirs = new Set<string>();
 
 /**
  * Returns the shared {@link PruneContext} for the given base directory, or
@@ -161,6 +157,20 @@ type PruneResult = {
   wasRecognised: boolean;
 };
 
+/** Returns a copy of `record` keeping only the keys listed in `usedFieldNames`. */
+const filterRecordByUsedFields = (
+  record: Record<string, unknown>,
+  usedFieldNames: Set<string>
+): Record<string, unknown> => {
+  const filteredRecord: Record<string, unknown> = {};
+  for (const [fieldName, fieldValue] of Object.entries(record)) {
+    if (usedFieldNames.has(fieldName)) {
+      filteredRecord[fieldName] = fieldValue;
+    }
+  }
+  return filteredRecord;
+};
+
 /**
  * Removes unused fields from a **static** dictionary (all locales in one
  * file). Supports shape A (translation node at the root) and shape B (flat
@@ -180,17 +190,9 @@ const pruneStaticDictionaryContent = (
       for (const [locale, localeContent] of Object.entries(
         content.translation
       )) {
-        if (!isPlainRecord(localeContent)) {
-          prunedTranslation[locale] = localeContent;
-          continue;
-        }
-        const prunedLocaleFields: Record<string, unknown> = {};
-        for (const [fieldName, fieldValue] of Object.entries(localeContent)) {
-          if (usedFieldNames.has(fieldName)) {
-            prunedLocaleFields[fieldName] = fieldValue;
-          }
-        }
-        prunedTranslation[locale] = prunedLocaleFields;
+        prunedTranslation[locale] = isPlainRecord(localeContent)
+          ? filterRecordByUsedFields(localeContent, usedFieldNames)
+          : localeContent;
       }
       return {
         prunedDictionary: {
@@ -204,16 +206,10 @@ const pruneStaticDictionaryContent = (
 
   // Shape B: { field1: { nodeType: "translation", … }, field2: { … } }
   if (isPlainRecord(content) && !isTranslationNode(content)) {
-    const prunedContent: Record<string, unknown> = {};
-    for (const [fieldName, fieldValue] of Object.entries(content)) {
-      if (usedFieldNames.has(fieldName)) {
-        prunedContent[fieldName] = fieldValue;
-      }
-    }
     return {
       prunedDictionary: {
         ...dictionary,
-        content: prunedContent as CompiledDictionaryJson['content'],
+        content: filterRecordByUsedFields(content, usedFieldNames),
       },
       wasRecognised: true,
     };
@@ -234,16 +230,10 @@ const pruneDynamicDictionaryContent = (
   if (!isPlainRecord(content)) {
     return { prunedDictionary: dictionary, wasRecognised: false };
   }
-  const prunedContent: Record<string, unknown> = {};
-  for (const [fieldName, fieldValue] of Object.entries(content)) {
-    if (usedFieldNames.has(fieldName)) {
-      prunedContent[fieldName] = fieldValue;
-    }
-  }
   return {
     prunedDictionary: {
       ...dictionary,
-      content: prunedContent as CompiledDictionaryJson['content'],
+      content: filterRecordByUsedFields(content, usedFieldNames),
     },
     wasRecognised: true,
   };
@@ -444,14 +434,10 @@ const buildRenameMapsSynchronously = (
     const opaqueFieldMap =
       pruneContext.dictionaryKeysWithOpaqueTopLevelFields.get(dictionaryKey);
     if (opaqueFieldMap) {
-      const dangerousEntries = [...opaqueFieldMap.entries()].filter(
-        ([fieldName]) =>
-          (nestedRenameMap.get(fieldName)?.children.size ?? 0) > 0
-      );
-      for (const [fieldName] of dangerousEntries) {
-        const entry = nestedRenameMap.get(fieldName);
-        if (entry) {
-          entry.children = new Map();
+      for (const fieldName of opaqueFieldMap.keys()) {
+        const renameEntry = nestedRenameMap.get(fieldName);
+        if (renameEntry && renameEntry.children.size > 0) {
+          renameEntry.children = new Map();
         }
       }
     }
@@ -467,24 +453,28 @@ const buildRenameMapsSynchronously = (
 
 // ── Dictionary file writing ───────────────────────────────────────────────────
 
-const processStaticDictionaryFile = (
+/**
+ * Reads a compiled dictionary JSON file, applies the purge and/or minify
+ * transformations, and writes it back in-place when something changed.
+ *
+ * `dictionaryKind` selects the prune strategy and the minified output shape:
+ * static dictionaries keep `{ key, content }`, dynamic per-locale
+ * dictionaries additionally keep `locale`.
+ */
+const processDictionaryFile = (
   filePath: string,
+  dictionaryKind: 'static' | 'dynamic',
   pruneContext: PruneContext,
   shouldPurge: boolean,
   shouldMinify: boolean
 ): void => {
-  let rawJson: string;
-  try {
-    rawJson = readFileSync(filePath, 'utf-8');
-  } catch {
-    return;
-  }
-
   let parsedDict: CompiledDictionaryJson;
   try {
-    parsedDict = JSON.parse(rawJson) as CompiledDictionaryJson;
+    parsedDict = JSON.parse(
+      readFileSync(filePath, 'utf-8')
+    ) as CompiledDictionaryJson;
   } catch {
-    return;
+    return; // Unreadable or invalid JSON – leave file unchanged.
   }
 
   const { key: dictionaryKey } = parsedDict;
@@ -497,7 +487,11 @@ const processStaticDictionaryFile = (
     const fieldUsage =
       pruneContext.dictionaryKeyToFieldUsageMap.get(dictionaryKey);
     if (fieldUsage && fieldUsage !== 'all') {
-      const { prunedDictionary, wasRecognised } = pruneStaticDictionaryContent(
+      const pruneDictionaryContent =
+        dictionaryKind === 'static'
+          ? pruneStaticDictionaryContent
+          : pruneDynamicDictionaryContent;
+      const { prunedDictionary, wasRecognised } = pruneDictionaryContent(
         parsedDict,
         fieldUsage
       );
@@ -525,79 +519,13 @@ const processStaticDictionaryFile = (
   if (!modified) return;
 
   const outputDict = shouldMinify
-    ? { key: parsedDict.key, content: parsedDict.content }
-    : parsedDict;
-
-  try {
-    writeFileSync(filePath, JSON.stringify(outputDict), 'utf-8');
-  } catch {
-    // Write failure – leave file unchanged.
-  }
-};
-
-const processDynamicDictionaryFile = (
-  filePath: string,
-  pruneContext: PruneContext,
-  shouldPurge: boolean,
-  shouldMinify: boolean
-): void => {
-  let rawJson: string;
-  try {
-    rawJson = readFileSync(filePath, 'utf-8');
-  } catch {
-    return;
-  }
-
-  let parsedDict: CompiledDictionaryJson;
-  try {
-    parsedDict = JSON.parse(rawJson) as CompiledDictionaryJson;
-  } catch {
-    return;
-  }
-
-  const { key: dictionaryKey } = parsedDict;
-  if (!dictionaryKey) return;
-  if (pruneContext.dictionariesWithEdgeCases.has(dictionaryKey)) return;
-
-  let modified = false;
-
-  if (shouldPurge) {
-    const fieldUsage =
-      pruneContext.dictionaryKeyToFieldUsageMap.get(dictionaryKey);
-    if (fieldUsage && fieldUsage !== 'all') {
-      const { prunedDictionary, wasRecognised } = pruneDynamicDictionaryContent(
-        parsedDict,
-        fieldUsage
-      );
-      if (!wasRecognised) {
-        pruneContext.dictionariesWithEdgeCases.add(dictionaryKey);
-        return;
-      }
-      parsedDict = prunedDictionary;
-      modified = true;
-    }
-  }
-
-  if (shouldMinify) {
-    const fieldRenameMap =
-      pruneContext.dictionaryKeyToFieldRenameMap.get(dictionaryKey);
-    if (fieldRenameMap && fieldRenameMap.size > 0) {
-      parsedDict = applyFieldRenameToDict(
-        parsedDict as Record<string, unknown>,
-        fieldRenameMap
-      ) as CompiledDictionaryJson;
-      modified = true;
-    }
-  }
-
-  if (!modified) return;
-
-  const outputDict = shouldMinify
-    ? {
-        key: parsedDict.key,
-        content: parsedDict.content,
-        locale: parsedDict.locale,
-      }
+    ? dictionaryKind === 'static'
+      ? { key: parsedDict.key, content: parsedDict.content }
+      : {
+          key: parsedDict.key,
+          content: parsedDict.content,
+          locale: parsedDict.locale,
+        }
     : parsedDict;
 
   try {
@@ -617,8 +545,9 @@ const processAllDictionaryFiles = (
   if (existsSync(dictionariesDir)) {
     for (const entry of readdirSync(dictionariesDir)) {
       if (!entry.endsWith('.json')) continue;
-      processStaticDictionaryFile(
+      processDictionaryFile(
         join(dictionariesDir, entry),
+        'static',
         pruneContext,
         shouldPurge,
         shouldMinify
@@ -632,8 +561,9 @@ const processAllDictionaryFiles = (
       try {
         for (const localeFile of readdirSync(keyDirPath)) {
           if (!localeFile.endsWith('.json')) continue;
-          processDynamicDictionaryFile(
+          processDictionaryFile(
             join(keyDirPath, localeFile),
+            'dynamic',
             pruneContext,
             shouldPurge,
             shouldMinify
@@ -762,13 +692,8 @@ export const intlayerPurgeBabelPlugin = (_babel: {
 }): PluginObject => ({
   name: 'intlayer-purge',
 
-  pre(this: PluginPass & { opts: PurgePluginOptions }) {
-    const { baseDir } = this.opts;
-
-    if (_completedBaseDirs.has(baseDir)) return;
-    _completedBaseDirs.add(baseDir);
-
-    runPurgePipeline(this.opts);
+  pre(this: PluginPass) {
+    runPurgePipeline(this.opts as PurgePluginOptions);
   },
 
   visitor: {
