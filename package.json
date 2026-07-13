@@ -97,7 +97,7 @@
     "intlayer": "workspace:*",
     "lint-staged": "17.0.8",
     "minimist": "1.2.8",
-    "prettier": "3.9.4",
+    "prettier": "3.9.5",
     "prettier-plugin-packagejson": "3.0.2",
     "rimraf": "6.1.3",
     "rollup-plugin-visualizer": "7.0.1",

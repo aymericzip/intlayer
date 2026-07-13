@@ -28,7 +28,7 @@
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
     "intlayer-editor": "workspace:*",
-    "postcss": "8.5.16",
+    "postcss": "8.5.18",
     "tailwindcss": "4.3.2",
     "typescript": "6.0.3"
   }
