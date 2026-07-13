@@ -239,6 +239,7 @@
         "@intlayer/design-system": "workspace:*",
         "@intlayer/dictionaries-entry": "workspace:*",
         "@intlayer/docs": "workspace:*",
+        "@intlayer/editor": "workspace:*",
         "@intlayer/editor-react": "workspace:*",
         "@intlayer/types": "workspace:*",
         "@intlayer/unmerged-dictionaries-entry": "workspace:*",
