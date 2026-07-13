@@ -2117,6 +2117,7 @@
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
         "@intlayer/dictionaries-entry": "workspace:*",
+        "@intlayer/editor": "workspace:*",
         "@intlayer/engine": "workspace:*",
         "@intlayer/types": "workspace:*",
         "@intlayer/webpack": "workspace:*",
@@ -2139,7 +2140,6 @@
       },
       "optionalDependencies": {
         "@intlayer/analytics": "workspace:*",
-        "@intlayer/editor": "workspace:*",
       },
       "peerDependencies": {
         "@angular/common": ">=15",
@@ -2468,6 +2468,7 @@
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
+        "@intlayer/editor": "workspace:*",
         "@intlayer/engine": "workspace:*",
         "@intlayer/types": "workspace:*",
       },
@@ -2483,7 +2484,6 @@
       },
       "optionalDependencies": {
         "@intlayer/analytics": "workspace:*",
-        "@intlayer/editor": "workspace:*",
       },
       "peerDependencies": {
         "preact": ">=8.0.0",
@@ -2497,6 +2497,7 @@
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
         "@intlayer/dictionaries-entry": "workspace:*",
+        "@intlayer/editor": "workspace:*",
         "@intlayer/types": "workspace:*",
       },
       "devDependencies": {
@@ -2515,8 +2516,6 @@
       },
       "optionalDependencies": {
         "@intlayer/analytics": "workspace:*",
-        "@intlayer/editor": "workspace:*",
-        "@intlayer/editor-react": "workspace:*",
       },
       "peerDependencies": {
         "react": ">=16.0.0",
@@ -2593,6 +2592,7 @@
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
+        "@intlayer/editor": "workspace:*",
         "@intlayer/types": "workspace:*",
       },
       "devDependencies": {
@@ -2614,7 +2614,6 @@
       },
       "optionalDependencies": {
         "@intlayer/analytics": "workspace:*",
-        "@intlayer/editor": "workspace:*",
       },
       "peerDependencies": {
         "solid-js": ">=1.0.0",
@@ -2627,6 +2626,7 @@
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
+        "@intlayer/editor": "workspace:*",
         "@intlayer/types": "workspace:*",
       },
       "devDependencies": {
@@ -2647,7 +2647,6 @@
       },
       "optionalDependencies": {
         "@intlayer/analytics": "workspace:*",
-        "@intlayer/editor": "workspace:*",
       },
       "peerDependencies": {
         "svelte": ">=5.0.0",
@@ -2722,6 +2721,7 @@
         "@intlayer/api": "workspace:*",
         "@intlayer/config": "workspace:*",
         "@intlayer/core": "workspace:*",
+        "@intlayer/editor": "workspace:*",
         "@intlayer/types": "workspace:*",
       },
       "devDependencies": {
@@ -2742,7 +2742,6 @@
       },
       "optionalDependencies": {
         "@intlayer/analytics": "workspace:*",
-        "@intlayer/editor": "workspace:*",
       },
       "peerDependencies": {
         "intlayer": "workspace:*",
