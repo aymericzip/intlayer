@@ -61,19 +61,27 @@ export const AuthenticationBarrier: FC<AuthenticationBarrierProps> = ({
 
   const redirectURL = redirectionRoute ?? defaultRedirect;
 
+  // An unauthenticated user must always land on the login page, even when the
+  // barrier declares a custom `redirectionRoute` for its organization/project
+  // rules. Sending them to another protected page instead would trigger that
+  // page's own barrier and produce an infinite redirect loop (e.g. sign-out:
+  // /dictionary → /projects → /auth/login → /projects → …).
+  const unauthenticatedRedirectURL = `${App_Auth_SignIn_Path}?redirect_url=${encodeURIComponent(effectivePathname)}`;
+
   const isAlreadyLocalized = (url: string, loc: string) =>
     url === `/${loc}` || url.startsWith(`/${loc}/`);
 
-  const localizedRedirectionURL =
-    locale && !isAlreadyLocalized(redirectURL, locale)
-      ? getLocalizedUrl(redirectURL, locale)
-      : redirectURL;
+  const localizeUrl = (url: string) =>
+    locale && !isAlreadyLocalized(url, locale)
+      ? getLocalizedUrl(url, locale)
+      : url;
 
   return (
     <AuthenticationBarrierClient
       {...props}
       session={undefined} // Let client fetch fresh session data
-      redirectionRoute={localizedRedirectionURL}
+      redirectionRoute={localizeUrl(redirectURL)}
+      unauthenticatedRedirectionRoute={localizeUrl(unauthenticatedRedirectURL)}
       isEnabled={true}
     >
       {children}

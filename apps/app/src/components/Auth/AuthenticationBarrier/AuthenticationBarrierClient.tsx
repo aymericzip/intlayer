@@ -13,6 +13,11 @@ type AuthenticationBarrierPropsClient = Omit<
   'sessionToken' | 'redirectionFunction'
 > & {
   redirectionRoute?: string;
+  /**
+   * Redirect target used when the failure is "unauthenticated".
+   * Falls back to `redirectionRoute` when not provided.
+   */
+  unauthenticatedRedirectionRoute?: string;
   originUrl?: string;
   /**
    * If false, render the loader before redirecting if access is not allowed.
@@ -26,6 +31,7 @@ export const AuthenticationBarrierClient: FC<
 > = ({
   children,
   redirectionRoute = App_Home_Path,
+  unauthenticatedRedirectionRoute,
   session: sessionProp,
   accessRule,
   isEnabled,
@@ -44,25 +50,34 @@ export const AuthenticationBarrierClient: FC<
     if (isEnabled === false) return;
     if (typeof sessionClient === 'undefined') return;
 
-    const redirectionPathname = redirectionRoute?.split('?')[0];
-    const samePath =
-      typeof window !== 'undefined' &&
-      (redirectionRoute === pathname ||
-        redirectionPathname === pathname ||
-        redirectionRoute === originUrl);
-
-    if (samePath) return;
-
     accessValidation(
       accessRule,
       sessionClient,
-      (url) => navigate({ to: url, replace: true }),
+      (fallbackUrl, failureReason) => {
+        const url =
+          failureReason === 'unauthenticated'
+            ? (unauthenticatedRedirectionRoute ?? fallbackUrl)
+            : fallbackUrl;
+
+        // Never navigate to the page we are already on. This also breaks the
+        // redirect loop where a barrier still mounted during a route
+        // transition re-fires against the destination pathname.
+        const urlPathname = url?.split('?')[0];
+        const samePath =
+          typeof window !== 'undefined' &&
+          (url === pathname || urlPathname === pathname || url === originUrl);
+
+        if (samePath) return;
+
+        navigate({ to: url, replace: true });
+      },
       redirectionRoute,
       isEnabled
     );
   }, [
     accessRule,
     redirectionRoute,
+    unauthenticatedRedirectionRoute,
     sessionClient,
     isEnabled,
     pathname,

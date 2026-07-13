@@ -9,10 +9,36 @@ type AccessRule =
   | 'organization-required'
   | 'project-required';
 
+/**
+ * Reason why a session failed the access rules. Lets callers pick a
+ * different redirect target per failure (e.g. an unauthenticated user
+ * belongs on the login page, while a user without a selected project
+ * belongs on the project-selection page).
+ */
+export type AccessRuleFailure =
+  | 'unauthenticated'
+  | 'already-authenticated'
+  | 'not-admin'
+  | 'organization-missing'
+  | 'project-missing';
+
+/**
+ * Validates the session against the access rules and, on the first failing
+ * rule, calls `redirectionFunction` exactly once with the failure reason.
+ *
+ * Rules are evaluated in priority order (authentication first): a signed-out
+ * user visiting a page that also requires an organization/project must be
+ * treated as "unauthenticated", not "organization-missing", otherwise the
+ * caller would redirect them to another protected page and create a
+ * redirect loop between barriers.
+ */
 export const accessValidation = (
   accessRule: AccessRule | AccessRule[],
   session: SessionAPI | null,
-  redirectionFunction: (redirectionRoute: string) => void,
+  redirectionFunction: (
+    redirectionRoute: string,
+    failureReason: AccessRuleFailure
+  ) => void,
   redirectionRoute: string,
   isEnabled?: boolean
 ) => {
@@ -29,7 +55,8 @@ export const accessValidation = (
     (accessRuleArray?.includes('authenticated') ||
       accessRuleArray?.includes('admin'))
   ) {
-    redirectionFunction(redirectionRoute);
+    redirectionFunction(redirectionRoute, 'unauthenticated');
+    return;
   }
 
   if (session?.user && accessRuleArray?.includes('not-authenticated')) {
@@ -37,7 +64,8 @@ export const accessValidation = (
     // so they can complete the email verification flow.
     if (!session.user.emailVerified) return;
 
-    redirectionFunction(redirectionRoute);
+    redirectionFunction(redirectionRoute, 'already-authenticated');
+    return;
   }
 
   if (
@@ -45,18 +73,20 @@ export const accessValidation = (
     accessRuleArray?.includes('admin') &&
     (session.user?.role !== 'admin' || !session?.roles?.includes('admin'))
   ) {
-    redirectionFunction(redirectionRoute);
+    redirectionFunction(redirectionRoute, 'not-admin');
+    return;
   }
 
   if (
     !session?.organization &&
     accessRuleArray?.includes('organization-required')
   ) {
-    redirectionFunction(redirectionRoute);
+    redirectionFunction(redirectionRoute, 'organization-missing');
+    return;
   }
 
   if (!session?.project && accessRuleArray?.includes('project-required')) {
-    redirectionFunction(redirectionRoute);
+    redirectionFunction(redirectionRoute, 'project-missing');
   }
 };
 
