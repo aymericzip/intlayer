@@ -17,9 +17,10 @@ export type ListProjectsOptions = {
 };
 
 /**
- * Get the git root directory
+ * Returns the git repository root directory, or `null` when the given
+ * directory is not inside a git repository.
  */
-const getGitRootDir = async (cwd?: string): Promise<string | null> => {
+export const getGitRootDir = async (cwd?: string): Promise<string | null> => {
   try {
     const git = cwd ? simpleGit(cwd) : simpleGit();
     const rootDir = await git.revparse(['--show-toplevel']);

@@ -25,6 +25,7 @@ import {
   parseJSONWithComments,
   readFileFromRoot,
   replaceViteConfigPluginImportSource,
+  resolveGithubWorkflowsContext,
   setupNextCompilerBabelConfig,
   updateAstroConfig,
   updateIntlayerConfigWithSyncPlugin,
@@ -484,18 +485,36 @@ export const initIntlayer = async (rootDir: string, options?: InitOptions) => {
   // Generate two workflows whose commands match the detected package manager:
   // - intlayer-fill.yml: auto-fills missing translations on pull requests
   // - intlayer-test.yml: fails the PR when required locales are missing
+  // GitHub only triggers workflows stored at the repository root, so in a
+  // monorepo the files are written to the git root and the commands go through
+  // `intlayer ci`, which iterates over every Intlayer project of the
+  // repository (see resolveGithubWorkflowsContext).
   if (!options?.noGithubActions) {
-    const workflows = getGithubWorkflows(packageManager);
+    const workflowsContext = await resolveGithubWorkflowsContext(
+      rootDir,
+      packageManager
+    );
+    const workflows = getGithubWorkflows(
+      workflowsContext.packageManager,
+      workflowsContext.options
+    );
 
     for (const workflow of workflows) {
-      if (await exists(rootDir, workflow.filePath)) {
+      if (await exists(workflowsContext.workflowsRootDir, workflow.filePath)) {
         logger(`${v} ${colorizePath(workflow.filePath)} already exists`);
         continue;
       }
 
       try {
-        await ensureDirectory(rootDir, join('.github', 'workflows'));
-        await writeFileToRoot(rootDir, workflow.filePath, workflow.content);
+        await ensureDirectory(
+          workflowsContext.workflowsRootDir,
+          join('.github', 'workflows')
+        );
+        await writeFileToRoot(
+          workflowsContext.workflowsRootDir,
+          workflow.filePath,
+          workflow.content
+        );
         logger(
           `${v} Added GitHub Actions workflow ${colorizePath(workflow.filePath)}`
         );

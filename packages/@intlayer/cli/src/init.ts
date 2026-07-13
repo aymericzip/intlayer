@@ -61,7 +61,7 @@ const BASE_INIT_STEP_OPTIONS: Array<{
   {
     value: 'githubActions',
     label: 'CI/CD (GitHub Actions)',
-    hint: 'scaffold the fill and test workflows that run on every pull request',
+    hint: 'scaffold the fill and test workflows that run on every pull request (covers every project in a monorepo)',
   },
   {
     value: 'frameworkSetup',
