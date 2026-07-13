@@ -39,7 +39,7 @@ COPY \
     --exclude=packages/express-intlayer \
     --exclude=packages/hono-intlayer \
     --exclude=packages/adonis-intlayer \
-    --exclude=apps/website \ 
+    --exclude=apps/website \
     --exclude=apps/website-tanstack \
     --exclude=apps/showcase \
     --exclude=docs/assets \

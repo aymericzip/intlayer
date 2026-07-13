@@ -67,7 +67,7 @@ COPY \
     --exclude=docs/frequent_questions \
     --exclude=docs/legal \
     --exclude=examples \
-    --exclude=apps/website \ 
+    --exclude=apps/website \
     --exclude=apps/website-tanstack \    
     --exclude=apps/showcase \
     --exclude=apps/app \

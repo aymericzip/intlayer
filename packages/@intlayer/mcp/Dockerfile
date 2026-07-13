@@ -48,7 +48,7 @@ COPY \
     --exclude=examples \
     --exclude=plugins \
     --exclude=compat \
-    --exclude=apps/website \ 
+    --exclude=apps/website \
     --exclude=apps/website-tanstack \
     --exclude=apps/showcase \
     --exclude=apps/app \
