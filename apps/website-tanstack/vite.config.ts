@@ -116,6 +116,8 @@ export default defineConfig(async ({ mode }) => {
       backendUrl,
       'static.cloudflareinsights.com',
       '*.google-analytics.com',
+      '*.analytics.google.com',
+      '*.google.com',
       '*.googletagmanager.com',
       '*.posthog.com',
       'github.com',

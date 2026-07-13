@@ -83,6 +83,8 @@ export default defineConfig(({ mode }) => {
       'fonts.googleapis.com',
       'static.cloudflareinsights.com',
       '*.google-analytics.com',
+      '*.analytics.google.com',
+      '*.google.com',
       '*.googletagmanager.com',
       '*.posthog.com',
       'github.com',

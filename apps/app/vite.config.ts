@@ -181,7 +181,14 @@ export default defineConfig(({ mode }) => {
     ],
     'manifest-src': ["'self'"],
     'child-src': ["'self'"],
-    'connect-src': ['*', 'data:', 'blob:'],
+    'connect-src': [
+      '*',
+      'data:',
+      'blob:',
+      '*.google-analytics.com',
+      '*.analytics.google.com',
+      '*.google.com',
+    ],
     'frame-src': ['*', 'data:', 'blob:'],
   };
 
