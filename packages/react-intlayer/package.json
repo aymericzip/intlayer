@@ -132,13 +132,11 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@intlayer/analytics": "workspace:*",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
     "@intlayer/editor": "workspace:*",
-    "@intlayer/editor-react": "workspace:*",
     "@intlayer/types": "workspace:*"
   },
   "devDependencies": {
@@ -158,6 +156,9 @@
   "peerDependencies": {
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0"
+  },
+  "optionalDependencies": {
+    "@intlayer/analytics": "workspace:*"
   },
   "engines": {
     "node": ">=14.18"

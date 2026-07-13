@@ -82,7 +82,6 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@intlayer/analytics": "workspace:*",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
@@ -107,6 +106,9 @@
   },
   "peerDependencies": {
     "svelte": ">=5.0.0"
+  },
+  "optionalDependencies": {
+    "@intlayer/analytics": "workspace:*"
   },
   "engines": {
     "node": ">=14.18"

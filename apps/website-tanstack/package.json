@@ -51,7 +51,6 @@
     "test": "bun --bun vitest run"
   },
   "dependencies": {
-    "@intlayer/analytics": "workspace:*",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",

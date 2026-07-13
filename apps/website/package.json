@@ -83,7 +83,6 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
-    "@intlayer/analytics": "workspace:*",
     "@intlayer/swc": "workspace:*",
     "@tailwindcss/postcss": "4.3.2",
     "@types/node": "25.9.4",
