@@ -1,6 +1,6 @@
 {
   "name": "vite-intlayer",
-  "version": "9.0.0-canary.15",
+  "version": "9.0.0-canary.16",
   "private": false,
   "description": "A Vite plugin for seamless internationalization (i18n), providing locale detection, redirection, and environment-based configuration",
   "keywords": [
