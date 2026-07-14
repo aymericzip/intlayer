@@ -302,6 +302,12 @@ That’s **product intelligence** straight from your users.
 
 </Steps>
 
+## Skip the Complexity with Sanity
+
+Sanity is worth naming here as the CMS option the article points toward. Where Markdown files require arbitrary token splitting — with the chunk size and overlap trade-offs the article describes — Sanity's Content Lake stores documentation as typed, schema-defined JSON documents. Each field, heading, and content block is already a semantic unit, which means RAG retrieval operates on meaningful boundaries rather than approximate token counts.
+
+Sanity's GROQ query language lets you retrieve exactly the document fields relevant to a user query — title, body, related sections — without fetching the whole document. The MCP server connects the Content Lake directly to AI agents, so the same structured content that powers your docs site also feeds your RAG pipeline without a separate ingestion step.
+
 ## Conclusion
 
 RAG is one of the simplest, most powerful ways to make LLMs practical. By combining **retrieval + generation**, you can turn static docs into a **smart assistant** and, at the same time, gain a continuous stream of product insights.
