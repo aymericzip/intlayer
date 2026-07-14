@@ -14,7 +14,7 @@
     "test": ""
   },
   "dependencies": {
-    "fuse.js": "7.4.2",
+    "fuse.js": "7.5.0",
     "intlayer": "workspace:*",
     "next": "15.5.18",
     "next-intlayer": "workspace:*",

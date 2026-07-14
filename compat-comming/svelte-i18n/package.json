@@ -92,7 +92,7 @@
     "svelte-i18n": "^4.0.1",
     "tsdown": "0.22.2",
     "typescript": "6.0.3",
-    "vite": "8.1.3",
+    "vite": "8.1.4",
     "vitest": "4.1.10"
   },
   "peerDependencies": {

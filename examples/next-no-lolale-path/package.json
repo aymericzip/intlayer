@@ -14,7 +14,7 @@
     "start:editor": "intlayer-editor start --with 'next dev'"
   },
   "dependencies": {
-    "fuse.js": "7.4.2",
+    "fuse.js": "7.5.0",
     "intlayer": "workspace:*",
     "next": "16.2.10",
     "next-intlayer": "workspace:*",
