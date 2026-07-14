@@ -40,6 +40,8 @@ export class CrossFrameMessenger {
   private _windowHandler: ((event: MessageEvent) => void) | null = null;
   /** Tracks recently processed messageIds to discard duplicates (same payload sent to multiple origins) */
   private readonly _seenMessageIds = new Set<string>();
+  /** Origins already reported as rejected, to warn only once per origin */
+  private readonly _warnedRejectedOrigins = new Set<string>();
 
   constructor(config: MessengerConfig) {
     this._config = config;
@@ -123,7 +125,23 @@ export class CrossFrameMessenger {
         .filter((url) => Boolean(url) && url !== '')
         .some((url) => compareUrls(url, event.origin));
 
-    if (!isAllowed) return;
+    if (!isAllowed) {
+      // Intlayer messages silently dropped by the origin filter are extremely
+      // hard to diagnose (the editor looks activated while the client never
+      // reacts). Warn once per rejected origin so the misconfiguration —
+      // usually editorURL/cmsURL not matching the actual serving origin — is
+      // visible in the console.
+      if (
+        type.startsWith('INTLAYER') &&
+        !this._warnedRejectedOrigins.has(event.origin)
+      ) {
+        this._warnedRejectedOrigins.add(event.origin);
+        console.warn(
+          `[intlayer] Ignored editor message "${type}" from origin "${event.origin}" — not in allowed origins [${allowedOrigins.join(', ')}]. Check the editor.editorURL / editor.cmsURL configuration.`
+        );
+      }
+      return;
+    }
 
     const handlers = this._subscribers.get(type);
 

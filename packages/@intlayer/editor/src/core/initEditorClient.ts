@@ -8,10 +8,21 @@ import {
 } from './globalManager';
 
 export const buildClientMessengerConfig = (): MessengerConfig => {
+  // The editor/CMS origins are baked into the bundle at build time, so they can
+  // diverge from the actual serving origin (e.g. a production build served on
+  // localhost, or a preview deployment). A same-origin parent is always safe to
+  // trust — same-origin content already has full script access to this frame —
+  // so include the app's own origin to keep same-origin embeddings (like the
+  // website playground embedding /demo) working regardless of the built URLs.
+  const sameOrigin =
+    typeof window !== 'undefined' ? window.location.origin : undefined;
+
+  const allowedOrigins = [
+    ...new Set([editor?.editorURL, editor?.cmsURL, sameOrigin].filter(Boolean)),
+  ] as string[];
+
   return {
-    allowedOrigins: [editor?.editorURL, editor?.cmsURL].filter(
-      Boolean
-    ) as string[],
+    allowedOrigins,
     postMessageFn: (payload: unknown, origin: string) => {
       if (typeof window === 'undefined') return;
 
