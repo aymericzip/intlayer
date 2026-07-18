@@ -115,14 +115,14 @@ Once an admin exists, `/init` redirects to the standard sign-in page.
 
 ### Required
 
-| Variable               | Example                      | Description                                                   |
-| ---------------------- | ---------------------------- | ------------------------------------------------------------- |
-| `DB_ID`                | `intlayer`                   | MongoDB Atlas user                                            |
-| `DB_MDP`               | _(your password)_            | MongoDB Atlas password                                        |
-| `DB_CLUSTER`           | `cluster0.xxxxx.mongodb.net` | MongoDB Atlas cluster host (used in the `mongodb+srv://` URI) |
-| `BETTER_AUTH_SECRET`   | _(generated)_                | 32-byte secret for session signing                            |
-| `S3_SECRET_ACCESS_KEY` | _(generated)_                | Secret for the bundled MinIO                                  |
-| `RESEND_API_KEY`       | _(your key)_                 | Transactional email; required to complete first-run setup     |
+| Variable               | Example                      | Description                                                                                                                                  |
+| ---------------------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `DB_ID`                | `intlayer`                   | MongoDB Atlas user                                                                                                                           |
+| `DB_MDP`               | _(your password)_            | MongoDB Atlas password                                                                                                                       |
+| `DB_CLUSTER`           | `cluster0.xxxxx.mongodb.net` | MongoDB Atlas cluster host (used in the `mongodb+srv://` URI)                                                                                |
+| `BETTER_AUTH_SECRET`   | _(generated)_                | 32-byte secret for session signing                                                                                                           |
+| `S3_SECRET_ACCESS_KEY` | _(generated)_                | Secret for the bundled MinIO                                                                                                                 |
+| `RESEND_API_KEY`       | _(your key)_                 | Transactional email via Resend. Required for first-run setup unless you configure a global SMTP mailer (see [Global mailer](#global-mailer)) |
 
 ### Baked-in defaults (override only if needed)
 
@@ -148,6 +148,24 @@ Once an admin exists, `/init` redirects to the standard sign-in page.
 | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`               | Google OAuth login                        |
 | `GITLAB_CLIENT_ID`, `GITLAB_CLIENT_SECRET`               | GitLab OAuth login                        |
 | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Microsoft OAuth login                     |
+
+### Global mailer
+
+By default, all transactional emails are sent through Resend using `RESEND_API_KEY`. Self-hosted deployments can instead route **every** email — including non-organization emails such as password resets and magic links — through a global mailer configured with environment variables.
+
+Set `MAIL_PROVIDER` to activate it. When unset, the default Resend mailer is used.
+
+| Variable             | Example                        | Description                                                       |
+| -------------------- | ------------------------------ | ----------------------------------------------------------------- |
+| `MAIL_PROVIDER`      | `smtp`                         | Global transport: `smtp` or `resend`. Leave unset to use defaults |
+| `MAIL_FROM`          | `Intlayer <no-reply@acme.com>` | Sender header. Accepts a bare address or `Name <email>` format    |
+| `MAIL_SMTP_HOST`     | `smtp.acme.com`                | SMTP host (required when `MAIL_PROVIDER=smtp`)                    |
+| `MAIL_SMTP_PORT`     | `587`                          | SMTP port (defaults to `587`)                                     |
+| `MAIL_SMTP_SECURE`   | `false`                        | Implicit TLS. Set `true` for port `465`                           |
+| `MAIL_SMTP_USER`     | _(your user)_                  | SMTP username (optional; omit for unauthenticated relays)         |
+| `MAIL_SMTP_PASSWORD` | _(your password)_              | SMTP password                                                     |
+
+> Precedence: an organization's own mailer (configured from the **Organization** dashboard) takes priority over the global mailer, which in turn takes priority over the default Resend key.
 
 ---
 
@@ -254,7 +272,7 @@ docker run --rm \
 
 - **MongoDB must be external (Atlas).** The backend connects only over `mongodb+srv://` (built from `DB_ID` / `DB_MDP` / `DB_CLUSTER`), so a plain `mongodb://host:27017` — including the container's own bundled `mongod` — cannot be used. Provide a MongoDB Atlas cluster.
 - **No custom domain.** All browser-facing `VITE_*` URLs are inlined into the app at build time, and the published image ships with `localhost` values. The dashboard must be accessed at `http://localhost:3000`; serving it on a public domain would require rebuilding the image with the target URLs baked in and is not supported out of the box.
-- **Email requires Resend.** First-run setup enforces email verification, so `RESEND_API_KEY` must be set. After the first admin signs in, each organization can configure its own SMTP or Resend mailer from the dashboard.
+- **Email requires a working mailer.** First-run setup enforces email verification, so either `RESEND_API_KEY` or a [global SMTP mailer](#global-mailer) (`MAIL_PROVIDER=smtp` + `MAIL_SMTP_*`) must be configured. After the first admin signs in, each organization can also configure its own SMTP or Resend mailer from the dashboard.
 
 ---
 
@@ -272,7 +290,7 @@ Look for `MongoDB connection error` near the top of the log.
 
 ### First account can't be verified
 
-Email verification is mandatory. Make sure `RESEND_API_KEY` is set and valid, then re-check your inbox (and spam). Without a working mailer, the verification link is never delivered.
+Email verification is mandatory. Make sure a mailer is configured — either `RESEND_API_KEY`, or a [global SMTP mailer](#global-mailer) (`MAIL_PROVIDER=smtp` + `MAIL_SMTP_*`) — then re-check your inbox (and spam). Without a working mailer, the verification link is never delivered. Delivery failures are logged by the backend (`docker logs intlayer`) with the underlying error message.
 
 ### MinIO bucket missing
 

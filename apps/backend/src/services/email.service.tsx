@@ -1224,6 +1224,89 @@ const resolveOrganizationMailer = async (
 };
 
 /**
+ * Parses a `MAIL_FROM` environment value into its name and email parts.
+ *
+ * Accepts either a bare address (`no-reply@acme.com`) or an RFC 5322 formatted
+ * header (`Acme <no-reply@acme.com>`).
+ *
+ * @param raw - The raw `MAIL_FROM` value, if any.
+ * @returns The extracted `fromName`/`fromEmail`, either of which may be absent.
+ */
+export const parseMailFrom = (
+  raw?: string
+): { fromName?: string; fromEmail?: string } => {
+  const value = raw?.trim();
+
+  if (!value) {
+    return {};
+  }
+
+  const match = value.match(/^(.*?)\s*<([^<>]+)>$/);
+
+  if (match) {
+    const [, name, email] = match;
+    return { fromName: name.trim() || undefined, fromEmail: email.trim() };
+  }
+
+  return { fromEmail: value };
+};
+
+/**
+ * Resolves a global mailer from environment variables.
+ *
+ * Deployments (e.g. self-hosting) can configure a single mailer for *all*
+ * transactional emails through env vars — including emails that are not scoped
+ * to an organization (password resets, magic links), which would otherwise
+ * always fall back to the default Intlayer Resend mailer.
+ *
+ * Activated by `MAIL_PROVIDER`:
+ * - `smtp` → nodemailer using `MAIL_SMTP_HOST` / `MAIL_SMTP_PORT` /
+ *   `MAIL_SMTP_SECURE` / `MAIL_SMTP_USER` / `MAIL_SMTP_PASSWORD`.
+ * - `resend` → Resend using `RESEND_API_KEY`.
+ *
+ * The sender is taken from `MAIL_FROM`. Env-provided secrets are already
+ * plaintext, matching what `sendViaSmtp` and the Resend branch expect.
+ *
+ * @returns The env-derived mailer configuration, or `null` when `MAIL_PROVIDER`
+ *   is unset/unrecognized, so the default Intlayer Resend mailer is used.
+ */
+export const resolveGlobalMailer = (): OrganizationMailerConfig | null => {
+  const provider = process.env.MAIL_PROVIDER?.trim().toLowerCase();
+
+  if (provider !== 'smtp' && provider !== 'resend') {
+    return null;
+  }
+
+  const { fromName, fromEmail } = parseMailFrom(process.env.MAIL_FROM);
+
+  if (provider === 'smtp') {
+    const parsedPort = Number(process.env.MAIL_SMTP_PORT);
+
+    return {
+      isActive: true,
+      provider: 'smtp',
+      fromName,
+      fromEmail,
+      smtp: {
+        host: process.env.MAIL_SMTP_HOST,
+        port: Number.isFinite(parsedPort) ? parsedPort : undefined,
+        secure: process.env.MAIL_SMTP_SECURE === 'true',
+        user: process.env.MAIL_SMTP_USER,
+        password: process.env.MAIL_SMTP_PASSWORD,
+      },
+    };
+  }
+
+  return {
+    isActive: true,
+    provider: 'resend',
+    fromName,
+    fromEmail,
+    resend: { apiKey: process.env.RESEND_API_KEY },
+  };
+};
+
+/**
  * Sends the email through an organization's SMTP server via nodemailer.
  *
  * @param mailerConfig - The active SMTP mailer configuration.
@@ -1259,9 +1342,12 @@ const sendViaSmtp = async (
 /**
  * Sends a transactional email.
  *
- * If `organizationId` is provided and that organization has an active mailer
- * configuration, the email is routed through it (Resend or SMTP). Otherwise the
- * default Intlayer Resend mailer (from `RESEND_API_KEY`) is used.
+ * Mailer resolution, in order of precedence:
+ * 1. The organization's active mailer, when `organizationId` is provided and
+ *    that organization has one configured (Resend or SMTP).
+ * 2. The global env mailer (`MAIL_PROVIDER` + `MAIL_SMTP_*` / `MAIL_FROM`),
+ *    which also covers non-org emails such as password resets and magic links.
+ * 3. The default Intlayer Resend mailer (from `RESEND_API_KEY`).
  */
 export const sendEmail = async <T extends EmailType>({
   type,
@@ -1282,9 +1368,9 @@ export const sendEmail = async <T extends EmailType>({
   const react = <EmailComponent {...(props as any)} />;
   const resolvedSubject = subject ?? baseSubject;
 
-  const mailerConfig = organizationId
-    ? await resolveOrganizationMailer(organizationId)
-    : null;
+  const mailerConfig =
+    (organizationId ? await resolveOrganizationMailer(organizationId) : null) ??
+    resolveGlobalMailer();
 
   try {
     if (mailerConfig?.provider === 'smtp') {
@@ -1308,6 +1394,10 @@ export const sendEmail = async <T extends EmailType>({
 
     logger.info(`Email sent ${type} to ${to}`);
   } catch (err) {
-    logger.error(err);
+    logger.error(
+      `Failed to send email ${type} to ${to}: ${
+        err instanceof Error ? err.message : String(err)
+      }`
+    );
   }
 };
