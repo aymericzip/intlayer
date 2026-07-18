@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import {
   buildNestedRenameMapFromContent,
   generateShortFieldName,
+  getNestedRenameEntryAtPath,
   makeFieldRenameBabelPlugin,
 } from './babel-plugin-intlayer-field-rename';
 import {
@@ -50,6 +51,11 @@ describe('generateShortFieldName', () => {
     expect(generateShortFieldName(27)).toBe('ab');
     expect(generateShortFieldName(51)).toBe('az');
     expect(generateShortFieldName(52)).toBe('ba');
+  });
+
+  it('throws a RangeError for negative or non-integer indices', () => {
+    expect(() => generateShortFieldName(-1)).toThrow(RangeError);
+    expect(() => generateShortFieldName(1.5)).toThrow(RangeError);
   });
 });
 
@@ -134,6 +140,22 @@ describe('buildNestedRenameMapFromContent', () => {
     expect(buildNestedRenameMapFromContent(content)).toEqual(new Map());
   });
 
+  it('treats enumeration nodes as leaves — inner values are not traversed', () => {
+    // Enumeration values are resolved at runtime through a call
+    // (`content.myEnum(count)`) that the source-code rename walk cannot
+    // traverse, and the JSON renamers only descend into translation nodes.
+    // Building children for enumeration values would desynchronise the two
+    // sides, so enumeration nodes must yield an empty map.
+    const content = {
+      nodeType: 'enumeration',
+      enumeration: {
+        '1': { title: 'One item' },
+        '>1': { title: 'Many items' },
+      },
+    };
+    expect(buildNestedRenameMapFromContent(content).size).toBe(0);
+  });
+
   it('treats any object with nodeType as a runtime node and returns empty map', () => {
     // Any object with a `nodeType` string field is considered an intlayer
     // runtime node. Unknown runtime nodes (neither translation nor other
@@ -143,6 +165,39 @@ describe('buildNestedRenameMapFromContent', () => {
     expect(map.has('nodeType')).toBe(false);
     expect(map.has('title')).toBe(false);
     expect(map.size).toBe(0);
+  });
+});
+
+// ── getNestedRenameEntryAtPath ────────────────────────────────────────────────
+
+describe('getNestedRenameEntryAtPath', () => {
+  const renameMap = buildNestedRenameMapFromContent({
+    // sorted: footer → 'a', sections → 'b'
+    footer: 'leaf',
+    sections: {
+      // sorted inside: hero → 'a'
+      hero: { subtitle: 'World', title: 'Hello' },
+    },
+  });
+
+  it('resolves a single-segment path', () => {
+    expect(getNestedRenameEntryAtPath(renameMap, ['footer'])?.shortName).toBe(
+      'a'
+    );
+  });
+
+  it('resolves a multi-segment path', () => {
+    const entry = getNestedRenameEntryAtPath(renameMap, ['sections', 'hero']);
+    expect(entry?.shortName).toBe('a');
+    expect(entry?.children.get('title')?.shortName).toBe('b');
+  });
+
+  it('returns undefined for unknown segments and empty paths', () => {
+    expect(getNestedRenameEntryAtPath(renameMap, ['missing'])).toBeUndefined();
+    expect(
+      getNestedRenameEntryAtPath(renameMap, ['footer', 'tooDeep'])
+    ).toBeUndefined();
+    expect(getNestedRenameEntryAtPath(renameMap, [])).toBeUndefined();
   });
 });
 
@@ -407,6 +462,93 @@ describe('makeFieldRenameBabelPlugin', () => {
       `;
       const output = rename(code, ctx);
       expect(output).toContain('b: title');
+    });
+
+    it('renames inside nested destructuring patterns', () => {
+      // const { hero: { title } } = useIntlayer('home')
+      //   → const { a: { b: title } } = useIntlayer('home')
+      const fieldRenameMap = buildNestedRenameMapFromContent({
+        // top-level: hero → 'a'; inside hero: subtitle → 'a', title → 'b'
+        hero: { subtitle: 'World', title: 'Hello' },
+      });
+      const ctx = makeContext(new Map([['home', fieldRenameMap]]));
+      const code = `
+        import { useIntlayer } from 'react-intlayer';
+        const { hero: { title } } = useIntlayer('home');
+      `;
+      const output = rename(code, ctx);
+      expect(output).toContain('b: title');
+      expect(output).not.toMatch(/\bhero\b/);
+    });
+
+    it('renames past a destructuring default value', () => {
+      // const { hero = {} } = useIntlayer('home'); hero.title
+      //   → const { a: hero = {} } = useIntlayer('home'); hero.b
+      const fieldRenameMap = buildNestedRenameMapFromContent({
+        hero: { subtitle: 'World', title: 'Hello' },
+      });
+      const ctx = makeContext(new Map([['home', fieldRenameMap]]));
+      const code = `
+        import { useIntlayer } from 'react-intlayer';
+        const { hero = {} } = useIntlayer('home');
+        console.log(hero.title);
+      `;
+      const output = rename(code, ctx);
+      expect(output).toContain('a: hero');
+      expect(output).toContain('hero.b');
+      expect(output).not.toMatch(/hero\.title\b/);
+    });
+
+    it('renames computed string-literal destructuring keys in place', () => {
+      // const { ['hero']: h } = useIntlayer('home')
+      //   → const { ['a']: h } = useIntlayer('home')
+      const fieldRenameMap = buildNestedRenameMapFromContent({
+        hero: { subtitle: 'World', title: 'Hello' },
+      });
+      const ctx = makeContext(new Map([['home', fieldRenameMap]]));
+      const code = `
+        import { useIntlayer } from 'react-intlayer';
+        const { ['hero']: h } = useIntlayer('home');
+        console.log(h.title);
+      `;
+      const output = rename(code, ctx);
+      expect(output).not.toContain(`'hero'`);
+      expect(output).toContain('h.b');
+      // The key must stay a string literal — an identifier would be a
+      // variable reference.
+      expect(output).toMatch(/['"]a['"]\]?\s*:\s*h/);
+    });
+
+    it('leaves dynamic computed destructuring keys untouched', () => {
+      const fieldRenameMap = buildNestedRenameMapFromContent({
+        hero: { subtitle: 'World', title: 'Hello' },
+      });
+      const ctx = makeContext(new Map([['home', fieldRenameMap]]));
+      const code = `
+        import { useIntlayer } from 'react-intlayer';
+        const key = 'hero';
+        const { [key]: h } = useIntlayer('home');
+      `;
+      const output = rename(code, ctx);
+      expect(output).toContain('[key]: h');
+    });
+
+    it('skips dictionaries flagged as structural edge cases', () => {
+      const fieldRenameMap = buildNestedRenameMapFromContent({
+        description: 'x',
+        title: 'y',
+      });
+      const ctx = makeContext(new Map([['homepage', fieldRenameMap]]));
+      ctx.dictionariesWithEdgeCases.add('homepage');
+      const code = `
+        import { useIntlayer } from 'react-intlayer';
+        const { title } = useIntlayer('homepage');
+      `;
+      const output = rename(code, ctx);
+      // The JSON pipeline leaves edge-case dictionaries untouched — the
+      // source accesses must stay untouched too.
+      expect(output).toContain('title');
+      expect(output).not.toContain('b: title');
     });
 
     it('two components consuming the same dictionary both rename consistently', () => {

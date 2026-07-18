@@ -32,6 +32,24 @@ export type NestedRenameEntry = {
 export type NestedRenameMap = Map<string, NestedRenameEntry>;
 
 /**
+ * One opaque consumption of a dictionary content value: the value at
+ * `fieldPath` escapes static analysis (passed as-is to a child component or a
+ * function argument), so its children must keep their original key names in
+ * the compiled JSON.
+ */
+export type OpaqueFieldOccurrence = {
+  /**
+   * Original (pre-rename) user-defined field names from the content root to
+   * the escaping value, e.g. `['sections', 'hero']` for
+   * `<Card data={content.sections.hero} />`.
+   */
+  fieldPath: string[];
+
+  /** Source locations (`filePath:line`) where the value escapes. */
+  locations: string[];
+};
+
+/**
  * Shared mutable state created once by the vite plugin and passed by reference
  * to the usage-analyzer (writer) and the prune/minify plugins (readers).
  *
@@ -74,14 +92,20 @@ export type PruneContext = {
   dictionaryKeyToFieldRenameMap: Map<string, NestedRenameMap>;
 
   /**
-   * Maps each dictionary key to a per-field list of source locations where
-   * the field value is consumed "opaquely" (passed as-is to a child component
-   * or function argument). When a field is opaque AND has nested user-defined
-   * structure, its children must not be renamed.
+   * Maps each dictionary key to the content field paths whose values are
+   * consumed "opaquely" (passed as-is to a child component or function
+   * argument). When an opaque value has nested user-defined structure, its
+   * children must not be renamed.
    *
-   * Structure: dictionaryKey → fieldName → ["filePath:line", …]
+   * The inner map is keyed by the dot-joined field path for de-duplication
+   * only; the authoritative path is {@link OpaqueFieldOccurrence.fieldPath}.
+   *
+   * Structure: dictionaryKey → joinedFieldPath → { fieldPath, locations }
    */
-  dictionaryKeysWithOpaqueTopLevelFields: Map<string, Map<string, string[]>>;
+  dictionaryKeysWithOpaqueFields: Map<
+    string,
+    Map<string, OpaqueFieldOccurrence>
+  >;
 
   /**
    * Dictionary keys for which field-key renaming must be skipped even if a
@@ -119,9 +143,9 @@ export const createPruneContext = (): PruneContext => ({
   hasUnparsableSourceFiles: false,
   dictionaryKeysWithUntrackedBindings: new Map(),
   dictionaryKeyToFieldRenameMap: new Map(),
-  dictionaryKeysWithOpaqueTopLevelFields: new Map<
+  dictionaryKeysWithOpaqueFields: new Map<
     string,
-    Map<string, string[]>
+    Map<string, OpaqueFieldOccurrence>
   >(),
   dictionariesSkippingFieldRename: new Set(),
   pendingFrameworkAnalysis: new Map(),
@@ -232,24 +256,30 @@ const analyzeCallExpressionUsage = (
     recordFieldUsage(pruneContext, dictionaryKey, 'all');
   };
 
-  /** Record that a field value is consumed opaquely (not further destructured). */
+  /** Record that the content value at `fieldPath` is consumed opaquely. */
   const markOpaqueField = (
-    fieldName: string,
+    fieldPath: string[],
     line: number | undefined
   ): void => {
-    const fieldToLocations =
-      pruneContext.dictionaryKeysWithOpaqueTopLevelFields.get(dictionaryKey) ??
-      new Map<string, string[]>();
+    const pathToOccurrence =
+      pruneContext.dictionaryKeysWithOpaqueFields.get(dictionaryKey) ??
+      new Map<string, OpaqueFieldOccurrence>();
     const location =
       line !== undefined
         ? `${currentSourceFilePath}:${line}`
         : currentSourceFilePath;
-    const locations = fieldToLocations.get(fieldName) ?? [];
-    if (!locations.includes(location)) locations.push(location);
-    fieldToLocations.set(fieldName, locations);
-    pruneContext.dictionaryKeysWithOpaqueTopLevelFields.set(
+    const joinedFieldPath = fieldPath.join('.');
+    const occurrence = pathToOccurrence.get(joinedFieldPath) ?? {
+      fieldPath: [...fieldPath],
+      locations: [],
+    };
+    if (!occurrence.locations.includes(location)) {
+      occurrence.locations.push(location);
+    }
+    pathToOccurrence.set(joinedFieldPath, occurrence);
+    pruneContext.dictionaryKeysWithOpaqueFields.set(
       dictionaryKey,
-      fieldToLocations
+      pathToOccurrence
     );
   };
 
@@ -269,36 +299,79 @@ const analyzeCallExpressionUsage = (
   };
 
   /**
-   * Analyses usage of a variable or member access to detect opaque
-   * consumption (passing a dictionary field as-is to a prop or function).
+   * Analyses how the content value at `fieldPath` (currently referenced by
+   * `refPath`) is consumed, to detect opaque consumption (passing a dictionary
+   * value as-is to a prop or function argument).
    *
-   * If a direct, non-chained consumption is found, it calls `markOpaqueField`.
-   * Chained accesses (e.g. `field.sub`) are NOT considered opaque for `field`
-   * because the renamer can safely track and update them.
+   * Member-access chains and destructuring are followed recursively with an
+   * extended field path, so the *terminal* consumption of a chain like
+   * `content.sections.hero` decides opacity — mirroring how far the
+   * source-code renamer can rewrite accesses. When the terminal consumption
+   * escapes static tracking, the deepest reached field path is marked opaque
+   * so the children of that value keep their original key names.
    */
   const analyzeOpaqueUsage = (
     refPath: NodePath<BabelTypes.Node>,
-    fieldName: string
+    fieldPath: string[]
   ): void => {
     const parentNode = refPath.parent;
+    const parentPath = refPath.parentPath;
 
-    // 1. Chained member access (e.g. field.sub or field?.sub)
+    // 1. Chained member access (e.g. field.sub or field?.sub): follow the
+    //    chain with an extended path and analyse the terminal consumption.
     if (
+      parentPath &&
       (babelTypes.isMemberExpression(parentNode) ||
         babelTypes.isOptionalMemberExpression(parentNode)) &&
       (parentNode as BabelTypes.MemberExpression).object === refPath.node
     ) {
-      // Chained access is safe: the renamer correctly updates it.
+      const memberNode = parentNode as BabelTypes.MemberExpression;
+
+      // Numeric index access ([0], [1], …) is transparent: the JSON renamers
+      // apply the same rename map to every array element.
+      if (
+        memberNode.computed &&
+        babelTypes.isNumericLiteral(memberNode.property)
+      ) {
+        analyzeOpaqueUsage(parentPath, fieldPath);
+        return;
+      }
+
+      if (
+        !memberNode.computed &&
+        babelTypes.isIdentifier(memberNode.property)
+      ) {
+        analyzeOpaqueUsage(parentPath, [
+          ...fieldPath,
+          memberNode.property.name,
+        ]);
+        return;
+      }
+
+      if (
+        memberNode.computed &&
+        babelTypes.isStringLiteral(memberNode.property)
+      ) {
+        analyzeOpaqueUsage(parentPath, [
+          ...fieldPath,
+          memberNode.property.value,
+        ]);
+        return;
+      }
+
+      // Dynamic computed access (field[expr]): the renamer cannot rewrite the
+      // key, so the children of the current path must keep their names.
+      markOpaqueField(fieldPath, refPath.node.loc?.start.line);
       return;
     }
 
-    // 2. Destructuring (e.g. const { sub } = field)
+    // 2. Destructuring (e.g. const { sub } = field): follow each binding.
     if (
       babelTypes.isVariableDeclarator(parentNode) &&
       babelTypes.isObjectPattern(parentNode.id) &&
       parentNode.init === refPath.node
     ) {
-      // Destructuring is analogous to member access: safe.
+      analyzeOpaqueDestructuring(parentNode.id, refPath, fieldPath);
       return;
     }
 
@@ -308,12 +381,74 @@ const analyzeCallExpressionUsage = (
     }
 
     // 4. Opaque consumption (passed to prop, function, etc.)
-    markOpaqueField(fieldName, refPath.node.loc?.start.line);
+    markOpaqueField(fieldPath, refPath.node.loc?.start.line);
+  };
+
+  /**
+   * Analyses a destructuring pattern applied to the content value at
+   * `fieldPath`, recursively following each bound local variable's references
+   * via {@link analyzeOpaqueUsage}.
+   *
+   * Patterns the source-code renamer cannot rewrite (rest elements, dynamic
+   * computed keys, array patterns) mark the corresponding path opaque.
+   */
+  const analyzeOpaqueDestructuring = (
+    objectPattern: BabelTypes.ObjectPattern,
+    scopePath: NodePath<BabelTypes.Node>,
+    fieldPath: string[]
+  ): void => {
+    for (const property of objectPattern.properties) {
+      // A rest element re-exposes the remaining fields under their original
+      // names — nothing at this level may be renamed.
+      if (babelTypes.isRestElement(property)) {
+        markOpaqueField(fieldPath, property.loc?.start.line);
+        continue;
+      }
+      if (!babelTypes.isObjectProperty(property)) continue;
+
+      // Dynamic computed keys ({ [expr]: x }) cannot be renamed.
+      if (property.computed && !babelTypes.isStringLiteral(property.key)) {
+        markOpaqueField(fieldPath, property.loc?.start.line);
+        continue;
+      }
+
+      const keyName = babelTypes.isIdentifier(property.key)
+        ? property.key.name
+        : babelTypes.isStringLiteral(property.key)
+          ? property.key.value
+          : null;
+      if (!keyName) continue;
+
+      const childFieldPath = [...fieldPath, keyName];
+
+      // A default value ({ field = fallback }) wraps the binding target.
+      const bindingTarget = babelTypes.isAssignmentPattern(property.value)
+        ? property.value.left
+        : property.value;
+
+      if (babelTypes.isObjectPattern(bindingTarget)) {
+        analyzeOpaqueDestructuring(bindingTarget, scopePath, childFieldPath);
+        continue;
+      }
+
+      if (babelTypes.isIdentifier(bindingTarget)) {
+        const localVarBinding = scopePath.scope.getBinding(bindingTarget.name);
+        if (!localVarBinding) continue;
+        for (const referencePath of localVarBinding.referencePaths) {
+          analyzeOpaqueUsage(referencePath, childFieldPath);
+        }
+        continue;
+      }
+
+      // Array patterns and other targets escape the rename walk.
+      markOpaqueField(childFieldPath, property.loc?.start.line);
+    }
   };
 
   /**
    * Helper to collect field names from an ObjectPattern (destructuring).
-   * Returns true if successful, false if a rest element was found (meaning 'all').
+   * Returns true if successful, false when the accessed fields cannot be
+   * determined statically (rest element or dynamic computed key → 'all').
    */
   const collectFieldsFromObjectPattern = (
     pattern: BabelTypes.ObjectPattern,
@@ -325,36 +460,45 @@ const analyzeCallExpressionUsage = (
     }
 
     for (const property of pattern.properties) {
+      if (!babelTypes.isObjectProperty(property)) continue;
+
+      // Dynamic computed keys ({ [expr]: x }) cannot be attributed to a
+      // specific field — the whole dictionary must be kept.
+      if (property.computed && !babelTypes.isStringLiteral(property.key)) {
+        return false;
+      }
+
       let fieldName: string | undefined;
 
-      if (
-        babelTypes.isObjectProperty(property) &&
-        babelTypes.isIdentifier(property.key)
-      ) {
+      if (!property.computed && babelTypes.isIdentifier(property.key)) {
         fieldName = property.key.name;
-      } else if (
-        babelTypes.isObjectProperty(property) &&
-        babelTypes.isStringLiteral(property.key)
-      ) {
+      } else if (babelTypes.isStringLiteral(property.key)) {
         fieldName = property.key.value;
       }
 
-      if (fieldName) {
-        targetSet.add(fieldName);
+      if (!fieldName) continue;
 
-        if (
-          babelTypes.isObjectProperty(property) &&
-          babelTypes.isIdentifier(property.value)
-        ) {
-          const variableBinding = initPath.scope.getBinding(
-            property.value.name
-          );
-          if (variableBinding) {
-            for (const refPath of variableBinding.referencePaths) {
-              analyzeOpaqueUsage(refPath, fieldName);
-            }
+      targetSet.add(fieldName);
+
+      // A default value ({ field = fallback }) wraps the binding target.
+      const bindingTarget = babelTypes.isAssignmentPattern(property.value)
+        ? property.value.left
+        : property.value;
+
+      if (babelTypes.isIdentifier(bindingTarget)) {
+        const variableBinding = initPath.scope.getBinding(bindingTarget.name);
+        if (variableBinding) {
+          for (const refPath of variableBinding.referencePaths) {
+            analyzeOpaqueUsage(refPath, [fieldName]);
           }
         }
+      } else if (babelTypes.isObjectPattern(bindingTarget)) {
+        // Nested pattern: const { fieldA: { nested } } = … — follow each
+        // nested binding so deeper opaque consumption is detected.
+        analyzeOpaqueDestructuring(bindingTarget, initPath, [fieldName]);
+      } else {
+        // Array patterns and other targets escape the rename walk.
+        markOpaqueField([fieldName], property.loc?.start.line);
       }
     }
     return true;
@@ -404,7 +548,7 @@ const analyzeCallExpressionUsage = (
       // Check for opaque usage (e.g. passed directly to a prop)
       const memberExprPath = callExpressionPath.parentPath;
       if (memberExprPath) {
-        analyzeOpaqueUsage(memberExprPath, fieldName);
+        analyzeOpaqueUsage(memberExprPath, [fieldName]);
       }
     } else {
       markUntrackedBinding();
@@ -459,7 +603,7 @@ const analyzeCallExpressionUsage = (
           // Check usage of the field to look for opaque consumption
           const memberExprPath = variableReferencePath.parentPath;
           if (memberExprPath) {
-            analyzeOpaqueUsage(memberExprPath, fieldName);
+            analyzeOpaqueUsage(memberExprPath, [fieldName]);
           }
         } else {
           // Dynamic computed access – cannot resolve statically
@@ -511,7 +655,7 @@ const analyzeCallExpressionUsage = (
           if (fieldName) {
             accessedTopLevelFieldNames.add(fieldName);
             const memberExprPath = callExprPath?.parentPath;
-            if (memberExprPath) analyzeOpaqueUsage(memberExprPath, fieldName);
+            if (memberExprPath) analyzeOpaqueUsage(memberExprPath, [fieldName]);
           } else {
             // content()[dynamicKey] – cannot resolve statically
             hasUntrackedReferenceAccess = true;

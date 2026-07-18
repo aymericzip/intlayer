@@ -129,6 +129,29 @@ describe('makeUsageAnalyzerBabelPlugin', () => {
       expect(usage).toBeInstanceOf(Set);
       expect(usage as Set<string>).toContain('my-field');
     });
+
+    it('handles computed string-literal keys in destructuring', () => {
+      const ctx = analyze(`
+        import { useIntlayer } from 'react-intlayer';
+        const { ['title']: myTitle } = useIntlayer('homepage');
+      `);
+
+      const usage = ctx.dictionaryKeyToFieldUsageMap.get('homepage');
+      expect(usage).toBeInstanceOf(Set);
+      expect(usage as Set<string>).toContain('title');
+    });
+
+    it('records "all" for dynamic computed keys in destructuring', () => {
+      // The accessed field cannot be attributed statically — recording the
+      // key expression's variable name instead would mis-prune the dictionary.
+      const ctx = analyze(`
+        import { useIntlayer } from 'react-intlayer';
+        const key = 'title';
+        const { [key]: myTitle } = useIntlayer('homepage');
+      `);
+
+      expect(ctx.dictionaryKeyToFieldUsageMap.get('homepage')).toBe('all');
+    });
   });
 
   describe('direct member access', () => {
@@ -497,6 +520,109 @@ describe('makeUsageAnalyzerBabelPlugin', () => {
       expect(usage).toBeInstanceOf(Set);
       expect(usage as Set<string>).toContain('title');
       expect(usage as Set<string>).toContain('subtitle');
+    });
+  });
+
+  describe('opaque consumption detection', () => {
+    /** Collects the recorded opaque field paths for a dictionary key. */
+    const getOpaqueFieldPaths = (
+      ctx: PruneContext,
+      dictionaryKey: string
+    ): string[][] =>
+      [
+        ...(ctx.dictionaryKeysWithOpaqueFields.get(dictionaryKey)?.values() ??
+          []),
+      ].map((occurrence) => occurrence.fieldPath);
+
+    it('marks a top-level field passed as a function argument', () => {
+      const ctx = analyze(`
+        import { useIntlayer } from 'react-intlayer';
+        const content = useIntlayer('homepage');
+        renderCard(content.hero);
+      `);
+
+      expect(getOpaqueFieldPaths(ctx, 'homepage')).toContainEqual(['hero']);
+    });
+
+    it('marks the terminal of a deep member chain — not the top-level field', () => {
+      // <Card data={content.sections.hero} /> equivalent: the escaping value
+      // is sections.hero, so only ITS children must keep their names —
+      // renames elsewhere under sections stay possible.
+      const ctx = analyze(`
+        import { useIntlayer } from 'react-intlayer';
+        const content = useIntlayer('homepage');
+        renderCard(content.sections.hero);
+      `);
+
+      const opaqueFieldPaths = getOpaqueFieldPaths(ctx, 'homepage');
+      expect(opaqueFieldPaths).toContainEqual(['sections', 'hero']);
+      expect(opaqueFieldPaths).not.toContainEqual(['sections']);
+    });
+
+    it('records the full path when a leaf value escapes (harmless to clear)', () => {
+      // Leaf values have no children, so clearing the recorded path is a
+      // no-op — but the intermediate fields must NOT be marked opaque.
+      const ctx = analyze(`
+        import { useIntlayer } from 'react-intlayer';
+        const content = useIntlayer('homepage');
+        console.log(content.sections.hero.title);
+      `);
+
+      const opaqueFieldPaths = getOpaqueFieldPaths(ctx, 'homepage');
+      expect(opaqueFieldPaths).toContainEqual(['sections', 'hero', 'title']);
+      expect(opaqueFieldPaths).not.toContainEqual(['sections', 'hero']);
+      expect(opaqueFieldPaths).not.toContainEqual(['sections']);
+    });
+
+    it('marks values escaping through secondary destructuring', () => {
+      const ctx = analyze(`
+        import { useIntlayer } from 'react-intlayer';
+        const { section } = useIntlayer('homepage');
+        const { modal } = section;
+        renderModal(modal);
+      `);
+
+      expect(getOpaqueFieldPaths(ctx, 'homepage')).toContainEqual([
+        'section',
+        'modal',
+      ]);
+    });
+
+    it('marks the current path on dynamic computed access along a chain', () => {
+      // content.hero[key] — the renamer cannot rewrite the dynamic key, so
+      // hero's children must keep their original names.
+      const ctx = analyze(`
+        import { useIntlayer } from 'react-intlayer';
+        const content = useIntlayer('homepage');
+        const key = 'title';
+        const value = content.hero[key];
+      `);
+
+      expect(getOpaqueFieldPaths(ctx, 'homepage')).toContainEqual(['hero']);
+    });
+
+    it('marks the parent path when secondary destructuring uses a rest element', () => {
+      // const { title, ...rest } = section — rest re-exposes the remaining
+      // fields under their original names.
+      const ctx = analyze(`
+        import { useIntlayer } from 'react-intlayer';
+        const { section } = useIntlayer('homepage');
+        const { title, ...rest } = section;
+      `);
+
+      expect(getOpaqueFieldPaths(ctx, 'homepage')).toContainEqual(['section']);
+    });
+
+    it('does not mark destructuring at the end of a chain as opaque', () => {
+      // const { title } = content.hero — fully rewritable by the renamer, so
+      // nothing must be marked opaque.
+      const ctx = analyze(`
+        import { useIntlayer } from 'react-intlayer';
+        const content = useIntlayer('homepage');
+        const { title } = content.hero;
+      `);
+
+      expect(ctx.dictionaryKeysWithOpaqueFields.has('homepage')).toBe(false);
     });
   });
 

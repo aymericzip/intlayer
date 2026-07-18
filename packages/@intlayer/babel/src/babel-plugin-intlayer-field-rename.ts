@@ -3,6 +3,7 @@ import type * as BabelTypes from '@babel/types';
 import {
   INTLAYER_CALLER_NAMES,
   type IntlayerCallerName,
+  type NestedRenameEntry,
   type NestedRenameMap,
   type PruneContext,
 } from './babel-plugin-intlayer-usage-analyzer';
@@ -24,6 +25,12 @@ const SHORT_NAME_ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
  *   0 → 'a', 1 → 'b', …, 25 → 'z', 26 → 'aa', 27 → 'ab', …
  */
 export const generateShortFieldName = (index: number): string => {
+  if (!Number.isInteger(index) || index < 0) {
+    throw new RangeError(
+      `generateShortFieldName expects a non-negative integer index, received: ${index}`
+    );
+  }
+
   const remainder = index % SHORT_NAME_ALPHABET.length;
   const quotient = Math.floor(index / SHORT_NAME_ALPHABET.length);
 
@@ -87,24 +94,11 @@ export const buildNestedRenameMapFromContent = (
       return buildNestedRenameMapFromContent(firstLocaleValue);
     }
 
-    // Enumeration node: user-defined keys live inside enumeration.
-    if (
-      record.nodeType === 'enumeration' &&
-      record.enumeration &&
-      typeof record.enumeration === 'object' &&
-      !Array.isArray(record.enumeration)
-    ) {
-      const values = Object.values(
-        record.enumeration as Record<string, unknown>
-      );
-      if (values.length > 0) {
-        return buildNestedRenameMapFromContent(values[0]);
-      }
-    }
-
-    // All other intlayer nodes (pluralization, conditions, etc.) resolve to a
-    // single value at runtime – return an empty map so they are treated
-    // as leaves unless they contain nested user records.
+    // All other intlayer nodes (enumeration, pluralization, conditions, …)
+    // resolve to a single value at runtime through a call the source-code
+    // rename walk cannot traverse (e.g. `content.myEnum(count)`), and the
+    // JSON renamers only descend into translation nodes. Treat them as
+    // leaves so the source and JSON sides always stay consistent.
     return new Map();
   }
 
@@ -136,6 +130,33 @@ export const buildNestedRenameMapFromContent = (
   }
 
   return renameMap;
+};
+
+/**
+ * Walks `fieldPath` through a {@link NestedRenameMap} and returns the entry at
+ * the final path segment, or `undefined` when any segment is missing (e.g. the
+ * path crosses an array or leaf value whose children are not mapped).
+ *
+ * Used to locate the rename entry of an opaquely-consumed content value so its
+ * children map can be cleared before the JSON rename is applied.
+ *
+ * @param renameMap - The root rename map to walk.
+ * @param fieldPath - Original (pre-rename) field names from the content root.
+ */
+export const getNestedRenameEntryAtPath = (
+  renameMap: NestedRenameMap,
+  fieldPath: readonly string[]
+): NestedRenameEntry | undefined => {
+  let currentRenameMap = renameMap;
+  let renameEntry: NestedRenameEntry | undefined;
+
+  for (const fieldName of fieldPath) {
+    renameEntry = currentRenameMap.get(fieldName);
+    if (!renameEntry) return undefined;
+    currentRenameMap = renameEntry.children;
+  }
+
+  return renameEntry;
 };
 
 // ── Field-rename Babel plugin ─────────────────────────────────────────────────
@@ -224,6 +245,99 @@ const walkRenameChain = (
 };
 
 /**
+ * Renames the properties of a destructuring `ObjectPattern` using `renameMap`,
+ * recursing into nested patterns and following the references of bound local
+ * variables.
+ *
+ * Handled property shapes:
+ *
+ *   { fieldA }              → { shortA: fieldA }
+ *   { fieldA: localVar }    → { shortA: localVar }
+ *   { fieldA = fallback }   → { shortA: fieldA = fallback }
+ *   { fieldA: { nested } }  → { shortA: { shortN: nested } }
+ *   { ['fieldA']: x }       → { ['shortA']: x }
+ *   { [dynamicKey]: x }     → left untouched (dynamic key – not renamable)
+ *
+ * @param babelTypes - Babel types helper.
+ * @param objectPattern - The destructuring pattern to rename.
+ * @param scopePath - A path whose scope resolves the pattern's bindings.
+ * @param renameMap - Rename table for the current nesting level.
+ */
+const renameObjectPatternProperties = (
+  babelTypes: typeof BabelTypes,
+  objectPattern: BabelTypes.ObjectPattern,
+  scopePath: NodePath<BabelTypes.Node>,
+  renameMap: NestedRenameMap
+): void => {
+  for (const property of objectPattern.properties) {
+    if (!babelTypes.isObjectProperty(property)) continue;
+
+    // Computed keys: a static string key ({ ['title']: x }) is renamable in
+    // place; any other computed key is dynamic and must be left untouched —
+    // replacing it with an identifier would create a variable reference.
+    if (property.computed && !babelTypes.isStringLiteral(property.key)) {
+      continue;
+    }
+
+    const keyName = babelTypes.isIdentifier(property.key)
+      ? property.key.name
+      : babelTypes.isStringLiteral(property.key)
+        ? property.key.value
+        : null;
+    if (!keyName) continue;
+
+    const renameEntry = renameMap.get(keyName);
+    if (!renameEntry) continue;
+
+    if (property.computed) {
+      // { ['fieldA']: x } → { ['shortA']: x }
+      (property.key as BabelTypes.StringLiteral).value = renameEntry.shortName;
+    } else {
+      // { fieldA } → { shortA: fieldA }
+      // { fieldA: localVar } → { shortA: localVar }
+      if (property.shorthand) {
+        property.shorthand = false;
+      }
+      property.key = babelTypes.identifier(renameEntry.shortName);
+    }
+
+    if (renameEntry.children.size === 0) continue;
+
+    // A default value ({ fieldA = fallback }) wraps the actual binding target.
+    const bindingTarget = babelTypes.isAssignmentPattern(property.value)
+      ? property.value.left
+      : property.value;
+
+    // Nested pattern:  const { fieldA: { nested } } = …  — rename its keys
+    // with this entry's children map.
+    if (babelTypes.isObjectPattern(bindingTarget)) {
+      renameObjectPatternProperties(
+        babelTypes,
+        bindingTarget,
+        scopePath,
+        renameEntry.children
+      );
+      continue;
+    }
+
+    // Identifier binding: recursively walk references to the local variable.
+    if (babelTypes.isIdentifier(bindingTarget)) {
+      const localVarBinding = scopePath.scope.getBinding(bindingTarget.name);
+      if (!localVarBinding) continue;
+
+      for (const nestedRefPath of localVarBinding.referencePaths) {
+        const { finalPath, finalRenameMap } = walkRenameChain(
+          babelTypes,
+          nestedRefPath,
+          renameEntry.children
+        );
+        walkObjectDestructuring(babelTypes, finalPath, finalRenameMap);
+      }
+    }
+  }
+};
+
+/**
  * Walks an object-destructuring assignment whose right-hand side is `refPath`,
  * renaming each destructured key that is found in `renameMap`.
  *
@@ -234,10 +348,11 @@ const walkRenameChain = (
  *   const { modal, validationErrors } = webhooksSection;
  *     → const { a: modal, b: validationErrors } = webhooksSection;
  *
- * After renaming each key the function recursively walks references to the
- * newly-bound local variable, calling both `walkRenameChain` (for subsequent
- * member-access chains like `validationErrors.invalidUrl`) and itself (for
- * further levels of secondary destructuring).
+ * After renaming each key, {@link renameObjectPatternProperties} recursively
+ * walks references to the newly-bound local variables, calling both
+ * `walkRenameChain` (for subsequent member-access chains like
+ * `validationErrors.invalidUrl`) and this function again (for further levels
+ * of secondary destructuring).
  */
 const walkObjectDestructuring = (
   babelTypes: typeof BabelTypes,
@@ -257,46 +372,7 @@ const walkObjectDestructuring = (
     return;
   }
 
-  for (const property of (parentNode.id as BabelTypes.ObjectPattern)
-    .properties) {
-    if (!babelTypes.isObjectProperty(property)) continue;
-
-    const keyName = babelTypes.isIdentifier(property.key)
-      ? property.key.name
-      : babelTypes.isStringLiteral(property.key)
-        ? property.key.value
-        : null;
-    if (!keyName) continue;
-
-    const renameEntry = renameMap.get(keyName);
-    if (!renameEntry) continue;
-
-    // { fieldA } → { shortA: fieldA }
-    // { fieldA: localVar } → { shortA: localVar }
-    if (property.shorthand) {
-      property.shorthand = false;
-    }
-    property.key = babelTypes.identifier(renameEntry.shortName);
-
-    // Recursively walk references to the local variable bound by this key.
-    if (
-      renameEntry.children.size > 0 &&
-      babelTypes.isIdentifier(property.value)
-    ) {
-      const localVarName = (property.value as BabelTypes.Identifier).name;
-      const localVarBinding = refPath.scope.getBinding(localVarName);
-      if (localVarBinding) {
-        for (const nestedRefPath of localVarBinding.referencePaths) {
-          const { finalPath, finalRenameMap } = walkRenameChain(
-            babelTypes,
-            nestedRefPath,
-            renameEntry.children
-          );
-          walkObjectDestructuring(babelTypes, finalPath, finalRenameMap);
-        }
-      }
-    }
-  }
+  renameObjectPatternProperties(babelTypes, parentNode.id, refPath, renameMap);
 };
 
 /**
@@ -410,6 +486,11 @@ export const renameIntlayerFieldAccesses = (
       }
 
       if (!dictionaryKey) return;
+
+      // Dictionaries flagged as structural edge cases are left completely
+      // untouched by the JSON pipeline — keep their source accesses untouched
+      // too so both sides stay consistent.
+      if (pruneContext.dictionariesWithEdgeCases.has(dictionaryKey)) return;
 
       const fieldRenameMap =
         pruneContext.dictionaryKeyToFieldRenameMap.get(dictionaryKey);

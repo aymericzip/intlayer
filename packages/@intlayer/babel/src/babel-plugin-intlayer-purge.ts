@@ -3,7 +3,10 @@ import { join } from 'node:path';
 import type { PluginObject, PluginPass } from '@babel/core';
 import { transformSync } from '@babel/core';
 import type * as BabelTypes from '@babel/types';
-import { buildNestedRenameMapFromContent } from './babel-plugin-intlayer-field-rename';
+import {
+  buildNestedRenameMapFromContent,
+  getNestedRenameEntryAtPath,
+} from './babel-plugin-intlayer-field-rename';
 import {
   type CompatCallerConfig,
   createPruneContext,
@@ -430,12 +433,15 @@ const buildRenameMapsSynchronously = (
 
     const nestedRenameMap = buildNestedRenameMapFromContent(dictionaryContent);
 
-    // Preserve children of opaque fields to avoid breaking child components.
+    // Preserve children of opaque values to avoid breaking child components.
     const opaqueFieldMap =
-      pruneContext.dictionaryKeysWithOpaqueTopLevelFields.get(dictionaryKey);
+      pruneContext.dictionaryKeysWithOpaqueFields.get(dictionaryKey);
     if (opaqueFieldMap) {
-      for (const fieldName of opaqueFieldMap.keys()) {
-        const renameEntry = nestedRenameMap.get(fieldName);
+      for (const occurrence of opaqueFieldMap.values()) {
+        const renameEntry = getNestedRenameEntryAtPath(
+          nestedRenameMap,
+          occurrence.fieldPath
+        );
         if (renameEntry && renameEntry.children.size > 0) {
           renameEntry.children = new Map();
         }

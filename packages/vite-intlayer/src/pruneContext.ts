@@ -12,7 +12,7 @@ export const createPruneContext = (): PruneContext => ({
   hasUnparsableSourceFiles: false,
   dictionaryKeysWithUntrackedBindings: new Map(),
   dictionaryKeyToFieldRenameMap: new Map(),
-  dictionaryKeysWithOpaqueTopLevelFields: new Map(),
+  dictionaryKeysWithOpaqueFields: new Map(),
   dictionariesSkippingFieldRename: new Set(),
   pendingFrameworkAnalysis: new Map(),
 });

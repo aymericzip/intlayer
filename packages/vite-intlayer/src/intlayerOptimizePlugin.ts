@@ -4,7 +4,8 @@ import {
   analyzeFieldUsageInFile,
   buildNestedRenameMapFromContent,
   buildUsageCheckRegex,
-  type CompatCallerConfig,
+  type CallerDescriptor,
+  getNestedRenameEntryAtPath,
   INTLAYER_USAGE_REGEX,
   optimizeSourceFile,
   type PruneContext,
@@ -58,7 +59,7 @@ import { intlayerVueAsyncPlugin } from './intlayerVueAsyncPlugin';
 export const intlayerOptimize = async (
   intlayerConfig: IntlayerConfig,
   pruneContext: PruneContext | null,
-  compatCallers?: CompatCallerConfig[]
+  compatCallers?: CallerDescriptor[]
 ): Promise<PluginOption[]> => {
   try {
     const logger = getAppLogger(intlayerConfig);
@@ -482,20 +483,23 @@ export const intlayerOptimize = async (
               const nestedRenameMap =
                 buildNestedRenameMapFromContent(dictionaryContent);
 
-              // Skip dictionaries whose opaque fields have nested user-defined
-              // structure – renaming those sub-keys would silently break child
-              // components that consume the field value as-is.
+              // Skip renaming below opaque values that have nested
+              // user-defined structure – renaming those sub-keys would
+              // silently break child components that consume the value as-is.
               const opaqueFieldMap =
-                pruneContext.dictionaryKeysWithOpaqueTopLevelFields.get(
-                  dictionaryKey
-                );
+                pruneContext.dictionaryKeysWithOpaqueFields.get(dictionaryKey);
 
               if (opaqueFieldMap) {
-                const dangerousEntries = [...opaqueFieldMap.entries()].filter(
-                  ([fieldName]) =>
-                    (nestedRenameMap.get(fieldName)?.children.size ?? 0) > 0
+                const dangerousOccurrences = [
+                  ...opaqueFieldMap.values(),
+                ].filter(
+                  (occurrence) =>
+                    (getNestedRenameEntryAtPath(
+                      nestedRenameMap,
+                      occurrence.fieldPath
+                    )?.children.size ?? 0) > 0
                 );
-                if (dangerousEntries.length > 0) {
+                if (dangerousOccurrences.length > 0) {
                   partiallyMinifiedDictionariesCount += 1;
 
                   logger(
@@ -503,11 +507,14 @@ export const intlayerOptimize = async (
                       `Dictionary`,
                       colorizeKey(dictionaryKey),
                       `partially minified.`,
-                      ...dangerousEntries.flatMap(([fieldName, locations]) => [
+                      ...dangerousOccurrences.flatMap((occurrence) => [
                         `\n    Opaque field:`,
-                        colorize(`'${fieldName}'`, ANSIColors.BLUE),
+                        colorize(
+                          `'${occurrence.fieldPath.join('.')}'`,
+                          ANSIColors.BLUE
+                        ),
                         `(nested keys preserved for stability).`,
-                        ...locations.map(
+                        ...occurrence.locations.map(
                           (loc) => `\n      at ${formatPath(loc)}`
                         ),
                       ]),
@@ -515,10 +522,14 @@ export const intlayerOptimize = async (
                     { level: 'warn', isVerbose: true }
                   );
 
-                  // Disable renaming for the children of opaque fields to prevent
-                  // breaking components that receive the field as a prop.
-                  for (const [fieldName] of dangerousEntries) {
-                    const entry = nestedRenameMap.get(fieldName);
+                  // Disable renaming for the children of opaque values to
+                  // prevent breaking components that receive the value as a
+                  // prop.
+                  for (const occurrence of dangerousOccurrences) {
+                    const entry = getNestedRenameEntryAtPath(
+                      nestedRenameMap,
+                      occurrence.fieldPath
+                    );
                     if (entry) {
                       entry.children = new Map();
                     }
