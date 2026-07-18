@@ -1,6 +1,6 @@
 {
   "name": "fastify-intlayer",
-  "version": "9.0.0-canary.16",
+  "version": "9.0.0-canary.17",
   "private": false,
   "description": "Manage internationalization i18n in a simple way for Fastify applications.",
   "keywords": [

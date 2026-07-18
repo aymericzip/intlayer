@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/ngx-translate",
-  "version": "9.0.0-canary.16",
+  "version": "9.0.0-canary.17",
   "private": false,
   "description": "ngx-translate API adapter for intlayer — drop-in compatibility layer",
   "keywords": [
