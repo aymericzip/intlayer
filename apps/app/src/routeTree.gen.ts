@@ -9,78 +9,78 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as HealthzRouteImport } from './routes/healthz'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route'
-import { Route as Char123LocaleChar125InitRouteImport } from './routes/{-$locale}/init'
-import { Route as Char123LocaleChar125DemoRouteImport } from './routes/{-$locale}/demo'
-import { Route as Char123LocaleChar125404RouteImport } from './routes/{-$locale}/404'
 import { Route as Char123LocaleChar125SplatRouteImport } from './routes/{-$locale}/$'
-import { Route as Char123LocaleChar125OtherRouteRouteImport } from './routes/{-$locale}/_other/route'
+import { Route as Char123LocaleChar125404RouteImport } from './routes/{-$locale}/404'
 import { Route as Char123LocaleChar125DashboardRouteRouteImport } from './routes/{-$locale}/_dashboard/route'
+import { Route as Char123LocaleChar125OtherRouteRouteImport } from './routes/{-$locale}/_other/route'
+import { Route as Char123LocaleChar125DemoRouteImport } from './routes/{-$locale}/demo'
+import { Route as Char123LocaleChar125InitRouteImport } from './routes/{-$locale}/init'
 import { Route as Char123LocaleChar125DashboardIndexRouteImport } from './routes/{-$locale}/_dashboard/index'
-import { Route as Char123LocaleChar125OtherPricingRouteImport } from './routes/{-$locale}/_other/pricing'
-import { Route as Char123LocaleChar125DashboardScannerRouteImport } from './routes/{-$locale}/_dashboard/scanner'
-import { Route as Char123LocaleChar125DashboardProjectsRouteImport } from './routes/{-$locale}/_dashboard/projects'
-import { Route as Char123LocaleChar125DashboardProfileRouteImport } from './routes/{-$locale}/_dashboard/profile'
-import { Route as Char123LocaleChar125DashboardOrganizationRouteImport } from './routes/{-$locale}/_dashboard/organization'
-import { Route as Char123LocaleChar125DashboardIdeRouteImport } from './routes/{-$locale}/_dashboard/ide'
-import { Route as Char123LocaleChar125DashboardAssetsRouteImport } from './routes/{-$locale}/_dashboard/assets'
-import { Route as Char123LocaleChar125DashboardAnalyticsRouteImport } from './routes/{-$locale}/_dashboard/analytics'
 import { Route as Char123LocaleChar125DashboardAdminRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/route'
-import { Route as Char123LocaleChar125OtherFindReviewerIndexRouteImport } from './routes/{-$locale}/_other/find-reviewer/index'
-import { Route as Char123LocaleChar125OtherAffiliationIndexRouteImport } from './routes/{-$locale}/_other/affiliation/index'
-import { Route as Char123LocaleChar125OtherOnboardingStepRouteImport } from './routes/{-$locale}/_other/onboarding.$step'
-import { Route as Char123LocaleChar125OtherFindReviewerReviewerIdRouteImport } from './routes/{-$locale}/_other/find-reviewer/$reviewerId'
-import { Route as Char123LocaleChar125OtherAuthDemoRouteImport } from './routes/{-$locale}/_other/auth/demo'
-import { Route as Char123LocaleChar125OtherAuthCliLoginRouteImport } from './routes/{-$locale}/_other/auth/cli-login'
-import { Route as Char123LocaleChar125OtherAffiliationInvitationIdRouteImport } from './routes/{-$locale}/_other/affiliation/$invitationId'
-import { Route as Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/route'
-import { Route as Char123LocaleChar125OtherAuthAuthenticatedRouteRouteImport } from './routes/{-$locale}/_other/auth/_authenticated/route'
+import { Route as Char123LocaleChar125DashboardAnalyticsRouteImport } from './routes/{-$locale}/_dashboard/analytics'
+import { Route as Char123LocaleChar125DashboardAssetsRouteImport } from './routes/{-$locale}/_dashboard/assets'
+import { Route as Char123LocaleChar125DashboardIdeRouteImport } from './routes/{-$locale}/_dashboard/ide'
+import { Route as Char123LocaleChar125DashboardOrganizationRouteImport } from './routes/{-$locale}/_dashboard/organization'
+import { Route as Char123LocaleChar125DashboardProfileRouteImport } from './routes/{-$locale}/_dashboard/profile'
+import { Route as Char123LocaleChar125DashboardProjectsRouteImport } from './routes/{-$locale}/_dashboard/projects'
+import { Route as Char123LocaleChar125DashboardScannerRouteImport } from './routes/{-$locale}/_dashboard/scanner'
+import { Route as Char123LocaleChar125OtherPricingRouteImport } from './routes/{-$locale}/_other/pricing'
 import { Route as Char123LocaleChar125DashboardEditorContentRouteRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/route'
-import { Route as Char123LocaleChar125OtherFindReviewerDashboardIndexRouteImport } from './routes/{-$locale}/_other/find-reviewer/dashboard/index'
-import { Route as Char123LocaleChar125OtherAuthPasswordResetRouteImport } from './routes/{-$locale}/_other/auth/password/reset'
-import { Route as Char123LocaleChar125OtherAuthPasswordAskResetRouteImport } from './routes/{-$locale}/_other/auth/password/ask-reset'
-import { Route as Char123LocaleChar125OtherAuthPasswordLayoutRouteImport } from './routes/{-$locale}/_other/auth/password/_layout'
-import { Route as Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/register'
-import { Route as Char123LocaleChar125OtherAuthNotAuthenticatedLoginRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/login'
-import { Route as Char123LocaleChar125OtherAuthNotAuthenticated2faRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/2fa'
-import { Route as Char123LocaleChar125DashboardEditorContentTranslateRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/translate'
-import { Route as Char123LocaleChar125DashboardEditorContentEditorRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/editor'
-import { Route as Char123LocaleChar125DashboardAdminAdminDiscussionsRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/discussions'
-import { Route as Char123LocaleChar125DashboardAdminAdminUsersRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/route'
-import { Route as Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/reviewers/route'
-import { Route as Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/promo-code/route'
-import { Route as Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/projects/route'
-import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/organizations/route'
+import { Route as Char123LocaleChar125OtherAffiliationIndexRouteImport } from './routes/{-$locale}/_other/affiliation/index'
+import { Route as Char123LocaleChar125OtherAffiliationInvitationIdRouteImport } from './routes/{-$locale}/_other/affiliation/$invitationId'
+import { Route as Char123LocaleChar125OtherAuthAuthenticatedRouteRouteImport } from './routes/{-$locale}/_other/auth/_authenticated/route'
+import { Route as Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/route'
+import { Route as Char123LocaleChar125OtherAuthCliLoginRouteImport } from './routes/{-$locale}/_other/auth/cli-login'
+import { Route as Char123LocaleChar125OtherAuthDemoRouteImport } from './routes/{-$locale}/_other/auth/demo'
+import { Route as Char123LocaleChar125OtherFindReviewerIndexRouteImport } from './routes/{-$locale}/_other/find-reviewer/index'
+import { Route as Char123LocaleChar125OtherFindReviewerReviewerIdRouteImport } from './routes/{-$locale}/_other/find-reviewer/$reviewerId'
+import { Route as Char123LocaleChar125OtherOnboardingStepRouteImport } from './routes/{-$locale}/_other/onboarding.$step'
 import { Route as Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/affiliate/route'
-import { Route as Char123LocaleChar125DashboardEditorContentTagsIndexRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/tags.index'
-import { Route as Char123LocaleChar125DashboardEditorContentDictionaryIndexRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/dictionary.index'
-import { Route as Char123LocaleChar125DashboardAdminAdminUsersIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/index'
-import { Route as Char123LocaleChar125DashboardAdminAdminReviewersIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/reviewers/index'
-import { Route as Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/promo-code/index'
-import { Route as Char123LocaleChar125DashboardAdminAdminProjectsIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/projects/index'
-import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/organizations/index'
+import { Route as Char123LocaleChar125DashboardAdminAdminDiscussionsRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/discussions'
+import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/organizations/route'
+import { Route as Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/projects/route'
+import { Route as Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/promo-code/route'
+import { Route as Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/reviewers/route'
+import { Route as Char123LocaleChar125DashboardAdminAdminUsersRouteRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/route'
+import { Route as Char123LocaleChar125DashboardEditorContentEditorRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/editor'
+import { Route as Char123LocaleChar125DashboardEditorContentTranslateRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/translate'
+import { Route as Char123LocaleChar125OtherAuthNotAuthenticated2faRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/2fa'
+import { Route as Char123LocaleChar125OtherAuthNotAuthenticatedLoginRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/login'
+import { Route as Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRouteImport } from './routes/{-$locale}/_other/auth/_not-authenticated/register'
+import { Route as Char123LocaleChar125OtherAuthPasswordLayoutRouteImport } from './routes/{-$locale}/_other/auth/password/_layout'
+import { Route as Char123LocaleChar125OtherAuthPasswordAskResetRouteImport } from './routes/{-$locale}/_other/auth/password/ask-reset'
+import { Route as Char123LocaleChar125OtherAuthPasswordResetRouteImport } from './routes/{-$locale}/_other/auth/password/reset'
+import { Route as Char123LocaleChar125OtherFindReviewerDashboardIndexRouteImport } from './routes/{-$locale}/_other/find-reviewer/dashboard/index'
 import { Route as Char123LocaleChar125DashboardAdminAdminAffiliateIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/affiliate/index'
-import { Route as Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRouteImport } from './routes/{-$locale}/_other/find-reviewer/dashboard/mission.$missionId'
-import { Route as Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRouteImport } from './routes/{-$locale}/_other/auth/_authenticated/password.change'
-import { Route as Char123LocaleChar125DashboardEditorContentTagsTagKeyRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/tags.$tagKey'
-import { Route as Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/dictionary.$dictionaryKey'
-import { Route as Char123LocaleChar125DashboardAdminAdminUsersIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/$id'
-import { Route as Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/reviewers/$reviewerId'
-import { Route as Char123LocaleChar125DashboardAdminAdminPromoCodeIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/promo-code/$id'
-import { Route as Char123LocaleChar125DashboardAdminAdminProjectsIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/projects/$id'
-import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/organizations/$id'
 import { Route as Char123LocaleChar125DashboardAdminAdminAffiliateIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/affiliate/$id'
+import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/organizations/index'
+import { Route as Char123LocaleChar125DashboardAdminAdminOrganizationsIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/organizations/$id'
+import { Route as Char123LocaleChar125DashboardAdminAdminProjectsIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/projects/index'
+import { Route as Char123LocaleChar125DashboardAdminAdminProjectsIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/projects/$id'
+import { Route as Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/promo-code/index'
+import { Route as Char123LocaleChar125DashboardAdminAdminPromoCodeIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/promo-code/$id'
+import { Route as Char123LocaleChar125DashboardAdminAdminReviewersIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/reviewers/index'
+import { Route as Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/reviewers/$reviewerId'
+import { Route as Char123LocaleChar125DashboardAdminAdminUsersIndexRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/index'
+import { Route as Char123LocaleChar125DashboardAdminAdminUsersIdRouteImport } from './routes/{-$locale}/_dashboard/_admin/admin/users/$id'
+import { Route as Char123LocaleChar125DashboardEditorContentDictionaryIndexRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/dictionary.index'
+import { Route as Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/dictionary.$dictionaryKey'
+import { Route as Char123LocaleChar125DashboardEditorContentTagsIndexRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/tags.index'
+import { Route as Char123LocaleChar125DashboardEditorContentTagsTagKeyRouteImport } from './routes/{-$locale}/_dashboard/_editor/_content/tags.$tagKey'
+import { Route as Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRouteImport } from './routes/{-$locale}/_other/auth/_authenticated/password.change'
+import { Route as Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRouteImport } from './routes/{-$locale}/_other/find-reviewer/dashboard/mission.$missionId'
 
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const HealthzRoute = HealthzRouteImport.update({
   id: '/healthz',
   path: '/healthz',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Char123LocaleChar125RouteRoute =
@@ -89,10 +89,25 @@ const Char123LocaleChar125RouteRoute =
     path: '/{-$locale}',
     getParentRoute: () => rootRouteImport,
   } as any)
-const Char123LocaleChar125InitRoute =
-  Char123LocaleChar125InitRouteImport.update({
-    id: '/init',
-    path: '/init',
+const Char123LocaleChar125SplatRoute =
+  Char123LocaleChar125SplatRouteImport.update({
+    id: '/$',
+    path: '/$',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125404Route = Char123LocaleChar125404RouteImport.update({
+  id: '/404',
+  path: '/404',
+  getParentRoute: () => Char123LocaleChar125RouteRoute,
+} as any)
+const Char123LocaleChar125DashboardRouteRoute =
+  Char123LocaleChar125DashboardRouteRouteImport.update({
+    id: '/_dashboard',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125OtherRouteRoute =
+  Char123LocaleChar125OtherRouteRouteImport.update({
+    id: '/_other',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
 const Char123LocaleChar125DemoRoute =
@@ -101,25 +116,10 @@ const Char123LocaleChar125DemoRoute =
     path: '/demo',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
-const Char123LocaleChar125404Route = Char123LocaleChar125404RouteImport.update({
-  id: '/404',
-  path: '/404',
-  getParentRoute: () => Char123LocaleChar125RouteRoute,
-} as any)
-const Char123LocaleChar125SplatRoute =
-  Char123LocaleChar125SplatRouteImport.update({
-    id: '/$',
-    path: '/$',
-    getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any)
-const Char123LocaleChar125OtherRouteRoute =
-  Char123LocaleChar125OtherRouteRouteImport.update({
-    id: '/_other',
-    getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any)
-const Char123LocaleChar125DashboardRouteRoute =
-  Char123LocaleChar125DashboardRouteRouteImport.update({
-    id: '/_dashboard',
+const Char123LocaleChar125InitRoute =
+  Char123LocaleChar125InitRouteImport.update({
+    id: '/init',
+    path: '/init',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
 const Char123LocaleChar125DashboardIndexRoute =
@@ -128,46 +128,9 @@ const Char123LocaleChar125DashboardIndexRoute =
     path: '/',
     getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
   } as any)
-const Char123LocaleChar125OtherPricingRoute =
-  Char123LocaleChar125OtherPricingRouteImport.update({
-    id: '/pricing',
-    path: '/pricing',
-    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any)
-const Char123LocaleChar125DashboardScannerRoute =
-  Char123LocaleChar125DashboardScannerRouteImport.update({
-    id: '/scanner',
-    path: '/scanner',
-    getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
-  } as any)
-const Char123LocaleChar125DashboardProjectsRoute =
-  Char123LocaleChar125DashboardProjectsRouteImport.update({
-    id: '/projects',
-    path: '/projects',
-    getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
-  } as any)
-const Char123LocaleChar125DashboardProfileRoute =
-  Char123LocaleChar125DashboardProfileRouteImport.update({
-    id: '/profile',
-    path: '/profile',
-    getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
-  } as any)
-const Char123LocaleChar125DashboardOrganizationRoute =
-  Char123LocaleChar125DashboardOrganizationRouteImport.update({
-    id: '/organization',
-    path: '/organization',
-    getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
-  } as any)
-const Char123LocaleChar125DashboardIdeRoute =
-  Char123LocaleChar125DashboardIdeRouteImport.update({
-    id: '/ide',
-    path: '/ide',
-    getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
-  } as any)
-const Char123LocaleChar125DashboardAssetsRoute =
-  Char123LocaleChar125DashboardAssetsRouteImport.update({
-    id: '/assets',
-    path: '/assets',
+const Char123LocaleChar125DashboardAdminRouteRoute =
+  Char123LocaleChar125DashboardAdminRouteRouteImport.update({
+    id: '/_admin',
     getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
   } as any)
 const Char123LocaleChar125DashboardAnalyticsRoute =
@@ -176,45 +139,57 @@ const Char123LocaleChar125DashboardAnalyticsRoute =
     path: '/analytics',
     getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
   } as any)
-const Char123LocaleChar125DashboardAdminRouteRoute =
-  Char123LocaleChar125DashboardAdminRouteRouteImport.update({
-    id: '/_admin',
+const Char123LocaleChar125DashboardAssetsRoute =
+  Char123LocaleChar125DashboardAssetsRouteImport.update({
+    id: '/assets',
+    path: '/assets',
     getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
   } as any)
-const Char123LocaleChar125OtherFindReviewerIndexRoute =
-  Char123LocaleChar125OtherFindReviewerIndexRouteImport.update({
-    id: '/find-reviewer/',
-    path: '/find-reviewer/',
+const Char123LocaleChar125DashboardIdeRoute =
+  Char123LocaleChar125DashboardIdeRouteImport.update({
+    id: '/ide',
+    path: '/ide',
+    getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardOrganizationRoute =
+  Char123LocaleChar125DashboardOrganizationRouteImport.update({
+    id: '/organization',
+    path: '/organization',
+    getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardProfileRoute =
+  Char123LocaleChar125DashboardProfileRouteImport.update({
+    id: '/profile',
+    path: '/profile',
+    getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardProjectsRoute =
+  Char123LocaleChar125DashboardProjectsRouteImport.update({
+    id: '/projects',
+    path: '/projects',
+    getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardScannerRoute =
+  Char123LocaleChar125DashboardScannerRouteImport.update({
+    id: '/scanner',
+    path: '/scanner',
+    getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
+  } as any)
+const Char123LocaleChar125OtherPricingRoute =
+  Char123LocaleChar125OtherPricingRouteImport.update({
+    id: '/pricing',
+    path: '/pricing',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardEditorContentRouteRoute =
+  Char123LocaleChar125DashboardEditorContentRouteRouteImport.update({
+    id: '/_editor/_content',
+    getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
   } as any)
 const Char123LocaleChar125OtherAffiliationIndexRoute =
   Char123LocaleChar125OtherAffiliationIndexRouteImport.update({
     id: '/affiliation/',
     path: '/affiliation/',
-    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any)
-const Char123LocaleChar125OtherOnboardingStepRoute =
-  Char123LocaleChar125OtherOnboardingStepRouteImport.update({
-    id: '/onboarding/$step',
-    path: '/onboarding/$step',
-    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any)
-const Char123LocaleChar125OtherFindReviewerReviewerIdRoute =
-  Char123LocaleChar125OtherFindReviewerReviewerIdRouteImport.update({
-    id: '/find-reviewer/$reviewerId',
-    path: '/find-reviewer/$reviewerId',
-    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any)
-const Char123LocaleChar125OtherAuthDemoRoute =
-  Char123LocaleChar125OtherAuthDemoRouteImport.update({
-    id: '/auth/demo',
-    path: '/auth/demo',
-    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any)
-const Char123LocaleChar125OtherAuthCliLoginRoute =
-  Char123LocaleChar125OtherAuthCliLoginRouteImport.update({
-    id: '/auth/cli-login',
-    path: '/auth/cli-login',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any)
 const Char123LocaleChar125OtherAffiliationInvitationIdRoute =
@@ -223,51 +198,106 @@ const Char123LocaleChar125OtherAffiliationInvitationIdRoute =
     path: '/affiliation/$invitationId',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any)
-const Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute =
-  Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteImport.update({
-    id: '/auth/_not-authenticated',
-    path: '/auth',
-    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-  } as any)
 const Char123LocaleChar125OtherAuthAuthenticatedRouteRoute =
   Char123LocaleChar125OtherAuthAuthenticatedRouteRouteImport.update({
     id: '/auth/_authenticated',
     path: '/auth',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any)
-const Char123LocaleChar125DashboardEditorContentRouteRoute =
-  Char123LocaleChar125DashboardEditorContentRouteRouteImport.update({
-    id: '/_editor/_content',
-    getParentRoute: () => Char123LocaleChar125DashboardRouteRoute,
-  } as any)
-const Char123LocaleChar125OtherFindReviewerDashboardIndexRoute =
-  Char123LocaleChar125OtherFindReviewerDashboardIndexRouteImport.update({
-    id: '/find-reviewer/dashboard/',
-    path: '/find-reviewer/dashboard/',
+const Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute =
+  Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteImport.update({
+    id: '/auth/_not-authenticated',
+    path: '/auth',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any)
-const Char123LocaleChar125OtherAuthPasswordResetRoute =
-  Char123LocaleChar125OtherAuthPasswordResetRouteImport.update({
-    id: '/auth/password/reset',
-    path: '/auth/password/reset',
+const Char123LocaleChar125OtherAuthCliLoginRoute =
+  Char123LocaleChar125OtherAuthCliLoginRouteImport.update({
+    id: '/auth/cli-login',
+    path: '/auth/cli-login',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any)
-const Char123LocaleChar125OtherAuthPasswordAskResetRoute =
-  Char123LocaleChar125OtherAuthPasswordAskResetRouteImport.update({
-    id: '/auth/password/ask-reset',
-    path: '/auth/password/ask-reset',
+const Char123LocaleChar125OtherAuthDemoRoute =
+  Char123LocaleChar125OtherAuthDemoRouteImport.update({
+    id: '/auth/demo',
+    path: '/auth/demo',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any)
-const Char123LocaleChar125OtherAuthPasswordLayoutRoute =
-  Char123LocaleChar125OtherAuthPasswordLayoutRouteImport.update({
-    id: '/auth/password/_layout',
-    path: '/auth/password',
+const Char123LocaleChar125OtherFindReviewerIndexRoute =
+  Char123LocaleChar125OtherFindReviewerIndexRouteImport.update({
+    id: '/find-reviewer/',
+    path: '/find-reviewer/',
     getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any)
-const Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute =
-  Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRouteImport.update({
-    id: '/register',
-    path: '/register',
+const Char123LocaleChar125OtherFindReviewerReviewerIdRoute =
+  Char123LocaleChar125OtherFindReviewerReviewerIdRouteImport.update({
+    id: '/find-reviewer/$reviewerId',
+    path: '/find-reviewer/$reviewerId',
+    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
+  } as any)
+const Char123LocaleChar125OtherOnboardingStepRoute =
+  Char123LocaleChar125OtherOnboardingStepRouteImport.update({
+    id: '/onboarding/$step',
+    path: '/onboarding/$step',
+    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute =
+  Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteImport.update({
+    id: '/admin/affiliate',
+    path: '/admin/affiliate',
+    getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardAdminAdminDiscussionsRoute =
+  Char123LocaleChar125DashboardAdminAdminDiscussionsRouteImport.update({
+    id: '/admin/discussions',
+    path: '/admin/discussions',
+    getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute =
+  Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteImport.update({
+    id: '/admin/organizations',
+    path: '/admin/organizations',
+    getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute =
+  Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteImport.update({
+    id: '/admin/projects',
+    path: '/admin/projects',
+    getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute =
+  Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteImport.update({
+    id: '/admin/promo-code',
+    path: '/admin/promo-code',
+    getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute =
+  Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteImport.update({
+    id: '/admin/reviewers',
+    path: '/admin/reviewers',
+    getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardAdminAdminUsersRouteRoute =
+  Char123LocaleChar125DashboardAdminAdminUsersRouteRouteImport.update({
+    id: '/admin/users',
+    path: '/admin/users',
+    getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardEditorContentEditorRoute =
+  Char123LocaleChar125DashboardEditorContentEditorRouteImport.update({
+    id: '/editor',
+    path: '/editor',
+    getParentRoute: () => Char123LocaleChar125DashboardEditorContentRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardEditorContentTranslateRoute =
+  Char123LocaleChar125DashboardEditorContentTranslateRouteImport.update({
+    id: '/translate',
+    path: '/translate',
+    getParentRoute: () => Char123LocaleChar125DashboardEditorContentRouteRoute,
+  } as any)
+const Char123LocaleChar125OtherAuthNotAuthenticated2faRoute =
+  Char123LocaleChar125OtherAuthNotAuthenticated2faRouteImport.update({
+    id: '/2fa',
+    path: '/2fa',
     getParentRoute: () =>
       Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute,
   } as any)
@@ -278,113 +308,36 @@ const Char123LocaleChar125OtherAuthNotAuthenticatedLoginRoute =
     getParentRoute: () =>
       Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute,
   } as any)
-const Char123LocaleChar125OtherAuthNotAuthenticated2faRoute =
-  Char123LocaleChar125OtherAuthNotAuthenticated2faRouteImport.update({
-    id: '/2fa',
-    path: '/2fa',
+const Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRoute =
+  Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRouteImport.update({
+    id: '/register',
+    path: '/register',
     getParentRoute: () =>
       Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute,
   } as any)
-const Char123LocaleChar125DashboardEditorContentTranslateRoute =
-  Char123LocaleChar125DashboardEditorContentTranslateRouteImport.update({
-    id: '/translate',
-    path: '/translate',
-    getParentRoute: () => Char123LocaleChar125DashboardEditorContentRouteRoute,
+const Char123LocaleChar125OtherAuthPasswordLayoutRoute =
+  Char123LocaleChar125OtherAuthPasswordLayoutRouteImport.update({
+    id: '/auth/password/_layout',
+    path: '/auth/password',
+    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any)
-const Char123LocaleChar125DashboardEditorContentEditorRoute =
-  Char123LocaleChar125DashboardEditorContentEditorRouteImport.update({
-    id: '/editor',
-    path: '/editor',
-    getParentRoute: () => Char123LocaleChar125DashboardEditorContentRouteRoute,
+const Char123LocaleChar125OtherAuthPasswordAskResetRoute =
+  Char123LocaleChar125OtherAuthPasswordAskResetRouteImport.update({
+    id: '/auth/password/ask-reset',
+    path: '/auth/password/ask-reset',
+    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any)
-const Char123LocaleChar125DashboardAdminAdminDiscussionsRoute =
-  Char123LocaleChar125DashboardAdminAdminDiscussionsRouteImport.update({
-    id: '/admin/discussions',
-    path: '/admin/discussions',
-    getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
+const Char123LocaleChar125OtherAuthPasswordResetRoute =
+  Char123LocaleChar125OtherAuthPasswordResetRouteImport.update({
+    id: '/auth/password/reset',
+    path: '/auth/password/reset',
+    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any)
-const Char123LocaleChar125DashboardAdminAdminUsersRouteRoute =
-  Char123LocaleChar125DashboardAdminAdminUsersRouteRouteImport.update({
-    id: '/admin/users',
-    path: '/admin/users',
-    getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
-  } as any)
-const Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute =
-  Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteImport.update({
-    id: '/admin/reviewers',
-    path: '/admin/reviewers',
-    getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
-  } as any)
-const Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute =
-  Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteImport.update({
-    id: '/admin/promo-code',
-    path: '/admin/promo-code',
-    getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
-  } as any)
-const Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute =
-  Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteImport.update({
-    id: '/admin/projects',
-    path: '/admin/projects',
-    getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
-  } as any)
-const Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute =
-  Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteImport.update({
-    id: '/admin/organizations',
-    path: '/admin/organizations',
-    getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
-  } as any)
-const Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute =
-  Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteImport.update({
-    id: '/admin/affiliate',
-    path: '/admin/affiliate',
-    getParentRoute: () => Char123LocaleChar125DashboardAdminRouteRoute,
-  } as any)
-const Char123LocaleChar125DashboardEditorContentTagsIndexRoute =
-  Char123LocaleChar125DashboardEditorContentTagsIndexRouteImport.update({
-    id: '/tags/',
-    path: '/tags/',
-    getParentRoute: () => Char123LocaleChar125DashboardEditorContentRouteRoute,
-  } as any)
-const Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute =
-  Char123LocaleChar125DashboardEditorContentDictionaryIndexRouteImport.update({
-    id: '/dictionary/',
-    path: '/dictionary/',
-    getParentRoute: () => Char123LocaleChar125DashboardEditorContentRouteRoute,
-  } as any)
-const Char123LocaleChar125DashboardAdminAdminUsersIndexRoute =
-  Char123LocaleChar125DashboardAdminAdminUsersIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () =>
-      Char123LocaleChar125DashboardAdminAdminUsersRouteRoute,
-  } as any)
-const Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute =
-  Char123LocaleChar125DashboardAdminAdminReviewersIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () =>
-      Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute,
-  } as any)
-const Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRoute =
-  Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () =>
-      Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute,
-  } as any)
-const Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute =
-  Char123LocaleChar125DashboardAdminAdminProjectsIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () =>
-      Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute,
-  } as any)
-const Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute =
-  Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () =>
-      Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute,
+const Char123LocaleChar125OtherFindReviewerDashboardIndexRoute =
+  Char123LocaleChar125OtherFindReviewerDashboardIndexRouteImport.update({
+    id: '/find-reviewer/dashboard/',
+    path: '/find-reviewer/dashboard/',
+    getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
   } as any)
 const Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute =
   Char123LocaleChar125DashboardAdminAdminAffiliateIndexRouteImport.update({
@@ -393,24 +346,87 @@ const Char123LocaleChar125DashboardAdminAdminAffiliateIndexRoute =
     getParentRoute: () =>
       Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute,
   } as any)
-const Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute =
-  Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRouteImport.update(
-    {
-      id: '/find-reviewer/dashboard/mission/$missionId',
-      path: '/find-reviewer/dashboard/mission/$missionId',
-      getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
-    } as any,
-  )
-const Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute =
-  Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRouteImport.update({
-    id: '/password/change',
-    path: '/password/change',
-    getParentRoute: () => Char123LocaleChar125OtherAuthAuthenticatedRouteRoute,
+const Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute =
+  Char123LocaleChar125DashboardAdminAdminAffiliateIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () =>
+      Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute,
   } as any)
-const Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute =
-  Char123LocaleChar125DashboardEditorContentTagsTagKeyRouteImport.update({
-    id: '/tags/$tagKey',
-    path: '/tags/$tagKey',
+const Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRoute =
+  Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () =>
+      Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute =
+  Char123LocaleChar125DashboardAdminAdminOrganizationsIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () =>
+      Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardAdminAdminProjectsIndexRoute =
+  Char123LocaleChar125DashboardAdminAdminProjectsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () =>
+      Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardAdminAdminProjectsIdRoute =
+  Char123LocaleChar125DashboardAdminAdminProjectsIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () =>
+      Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRoute =
+  Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () =>
+      Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardAdminAdminPromoCodeIdRoute =
+  Char123LocaleChar125DashboardAdminAdminPromoCodeIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () =>
+      Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardAdminAdminReviewersIndexRoute =
+  Char123LocaleChar125DashboardAdminAdminReviewersIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () =>
+      Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute =
+  Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRouteImport.update({
+    id: '/$reviewerId',
+    path: '/$reviewerId',
+    getParentRoute: () =>
+      Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardAdminAdminUsersIndexRoute =
+  Char123LocaleChar125DashboardAdminAdminUsersIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () =>
+      Char123LocaleChar125DashboardAdminAdminUsersRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardAdminAdminUsersIdRoute =
+  Char123LocaleChar125DashboardAdminAdminUsersIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () =>
+      Char123LocaleChar125DashboardAdminAdminUsersRouteRoute,
+  } as any)
+const Char123LocaleChar125DashboardEditorContentDictionaryIndexRoute =
+  Char123LocaleChar125DashboardEditorContentDictionaryIndexRouteImport.update({
+    id: '/dictionary/',
+    path: '/dictionary/',
     getParentRoute: () => Char123LocaleChar125DashboardEditorContentRouteRoute,
   } as any)
 const Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute =
@@ -422,48 +438,32 @@ const Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRoute =
         Char123LocaleChar125DashboardEditorContentRouteRoute,
     } as any,
   )
-const Char123LocaleChar125DashboardAdminAdminUsersIdRoute =
-  Char123LocaleChar125DashboardAdminAdminUsersIdRouteImport.update({
-    id: '/$id',
-    path: '/$id',
-    getParentRoute: () =>
-      Char123LocaleChar125DashboardAdminAdminUsersRouteRoute,
+const Char123LocaleChar125DashboardEditorContentTagsIndexRoute =
+  Char123LocaleChar125DashboardEditorContentTagsIndexRouteImport.update({
+    id: '/tags/',
+    path: '/tags/',
+    getParentRoute: () => Char123LocaleChar125DashboardEditorContentRouteRoute,
   } as any)
-const Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRoute =
-  Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRouteImport.update({
-    id: '/$reviewerId',
-    path: '/$reviewerId',
-    getParentRoute: () =>
-      Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute,
+const Char123LocaleChar125DashboardEditorContentTagsTagKeyRoute =
+  Char123LocaleChar125DashboardEditorContentTagsTagKeyRouteImport.update({
+    id: '/tags/$tagKey',
+    path: '/tags/$tagKey',
+    getParentRoute: () => Char123LocaleChar125DashboardEditorContentRouteRoute,
   } as any)
-const Char123LocaleChar125DashboardAdminAdminPromoCodeIdRoute =
-  Char123LocaleChar125DashboardAdminAdminPromoCodeIdRouteImport.update({
-    id: '/$id',
-    path: '/$id',
-    getParentRoute: () =>
-      Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute,
+const Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRoute =
+  Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRouteImport.update({
+    id: '/password/change',
+    path: '/password/change',
+    getParentRoute: () => Char123LocaleChar125OtherAuthAuthenticatedRouteRoute,
   } as any)
-const Char123LocaleChar125DashboardAdminAdminProjectsIdRoute =
-  Char123LocaleChar125DashboardAdminAdminProjectsIdRouteImport.update({
-    id: '/$id',
-    path: '/$id',
-    getParentRoute: () =>
-      Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute,
-  } as any)
-const Char123LocaleChar125DashboardAdminAdminOrganizationsIdRoute =
-  Char123LocaleChar125DashboardAdminAdminOrganizationsIdRouteImport.update({
-    id: '/$id',
-    path: '/$id',
-    getParentRoute: () =>
-      Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute,
-  } as any)
-const Char123LocaleChar125DashboardAdminAdminAffiliateIdRoute =
-  Char123LocaleChar125DashboardAdminAdminAffiliateIdRouteImport.update({
-    id: '/$id',
-    path: '/$id',
-    getParentRoute: () =>
-      Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute,
-  } as any)
+const Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRoute =
+  Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRouteImport.update(
+    {
+      id: '/find-reviewer/dashboard/mission/$missionId',
+      path: '/find-reviewer/dashboard/mission/$missionId',
+      getParentRoute: () => Char123LocaleChar125OtherRouteRoute,
+    } as any,
+  )
 
 export interface FileRoutesByFullPath {
   '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
@@ -833,18 +833,18 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/healthz': {
       id: '/healthz'
       path: '/healthz'
       fullPath: '/healthz'
       preLoaderRoute: typeof HealthzRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/{-$locale}': {
@@ -854,18 +854,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125RouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/{-$locale}/init': {
-      id: '/{-$locale}/init'
-      path: '/init'
-      fullPath: '/{-$locale}/init'
-      preLoaderRoute: typeof Char123LocaleChar125InitRouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
-    '/{-$locale}/demo': {
-      id: '/{-$locale}/demo'
-      path: '/demo'
-      fullPath: '/{-$locale}/demo'
-      preLoaderRoute: typeof Char123LocaleChar125DemoRouteImport
+    '/{-$locale}/$': {
+      id: '/{-$locale}/$'
+      path: '/$'
+      fullPath: '/{-$locale}/$'
+      preLoaderRoute: typeof Char123LocaleChar125SplatRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
     '/{-$locale}/404': {
@@ -875,11 +868,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125404RouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
-    '/{-$locale}/$': {
-      id: '/{-$locale}/$'
-      path: '/$'
-      fullPath: '/{-$locale}/$'
-      preLoaderRoute: typeof Char123LocaleChar125SplatRouteImport
+    '/{-$locale}/_dashboard': {
+      id: '/{-$locale}/_dashboard'
+      path: ''
+      fullPath: '/{-$locale}'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardRouteRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
     '/{-$locale}/_other': {
@@ -889,11 +882,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125OtherRouteRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
-    '/{-$locale}/_dashboard': {
-      id: '/{-$locale}/_dashboard'
-      path: ''
-      fullPath: '/{-$locale}'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardRouteRouteImport
+    '/{-$locale}/demo': {
+      id: '/{-$locale}/demo'
+      path: '/demo'
+      fullPath: '/{-$locale}/demo'
+      preLoaderRoute: typeof Char123LocaleChar125DemoRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
+    '/{-$locale}/init': {
+      id: '/{-$locale}/init'
+      path: '/init'
+      fullPath: '/{-$locale}/init'
+      preLoaderRoute: typeof Char123LocaleChar125InitRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
     '/{-$locale}/_dashboard/': {
@@ -903,53 +903,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125DashboardIndexRouteImport
       parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
     }
-    '/{-$locale}/_other/pricing': {
-      id: '/{-$locale}/_other/pricing'
-      path: '/pricing'
-      fullPath: '/{-$locale}/pricing'
-      preLoaderRoute: typeof Char123LocaleChar125OtherPricingRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
-    }
-    '/{-$locale}/_dashboard/scanner': {
-      id: '/{-$locale}/_dashboard/scanner'
-      path: '/scanner'
-      fullPath: '/{-$locale}/scanner'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardScannerRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
-    }
-    '/{-$locale}/_dashboard/projects': {
-      id: '/{-$locale}/_dashboard/projects'
-      path: '/projects'
-      fullPath: '/{-$locale}/projects'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardProjectsRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
-    }
-    '/{-$locale}/_dashboard/profile': {
-      id: '/{-$locale}/_dashboard/profile'
-      path: '/profile'
-      fullPath: '/{-$locale}/profile'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardProfileRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
-    }
-    '/{-$locale}/_dashboard/organization': {
-      id: '/{-$locale}/_dashboard/organization'
-      path: '/organization'
-      fullPath: '/{-$locale}/organization'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardOrganizationRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
-    }
-    '/{-$locale}/_dashboard/ide': {
-      id: '/{-$locale}/_dashboard/ide'
-      path: '/ide'
-      fullPath: '/{-$locale}/ide'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardIdeRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
-    }
-    '/{-$locale}/_dashboard/assets': {
-      id: '/{-$locale}/_dashboard/assets'
-      path: '/assets'
-      fullPath: '/{-$locale}/assets'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAssetsRouteImport
+    '/{-$locale}/_dashboard/_admin': {
+      id: '/{-$locale}/_dashboard/_admin'
+      path: ''
+      fullPath: '/{-$locale}'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminRouteRouteImport
       parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
     }
     '/{-$locale}/_dashboard/analytics': {
@@ -959,74 +917,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125DashboardAnalyticsRouteImport
       parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
     }
-    '/{-$locale}/_dashboard/_admin': {
-      id: '/{-$locale}/_dashboard/_admin'
-      path: ''
-      fullPath: '/{-$locale}'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminRouteRouteImport
+    '/{-$locale}/_dashboard/assets': {
+      id: '/{-$locale}/_dashboard/assets'
+      path: '/assets'
+      fullPath: '/{-$locale}/assets'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAssetsRouteImport
       parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
     }
-    '/{-$locale}/_other/find-reviewer/': {
-      id: '/{-$locale}/_other/find-reviewer/'
-      path: '/find-reviewer'
-      fullPath: '/{-$locale}/find-reviewer/'
-      preLoaderRoute: typeof Char123LocaleChar125OtherFindReviewerIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
+    '/{-$locale}/_dashboard/ide': {
+      id: '/{-$locale}/_dashboard/ide'
+      path: '/ide'
+      fullPath: '/{-$locale}/ide'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardIdeRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
     }
-    '/{-$locale}/_other/affiliation/': {
-      id: '/{-$locale}/_other/affiliation/'
-      path: '/affiliation'
-      fullPath: '/{-$locale}/affiliation/'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAffiliationIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
+    '/{-$locale}/_dashboard/organization': {
+      id: '/{-$locale}/_dashboard/organization'
+      path: '/organization'
+      fullPath: '/{-$locale}/organization'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardOrganizationRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
     }
-    '/{-$locale}/_other/onboarding/$step': {
-      id: '/{-$locale}/_other/onboarding/$step'
-      path: '/onboarding/$step'
-      fullPath: '/{-$locale}/onboarding/$step'
-      preLoaderRoute: typeof Char123LocaleChar125OtherOnboardingStepRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
+    '/{-$locale}/_dashboard/profile': {
+      id: '/{-$locale}/_dashboard/profile'
+      path: '/profile'
+      fullPath: '/{-$locale}/profile'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardProfileRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
     }
-    '/{-$locale}/_other/find-reviewer/$reviewerId': {
-      id: '/{-$locale}/_other/find-reviewer/$reviewerId'
-      path: '/find-reviewer/$reviewerId'
-      fullPath: '/{-$locale}/find-reviewer/$reviewerId'
-      preLoaderRoute: typeof Char123LocaleChar125OtherFindReviewerReviewerIdRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
+    '/{-$locale}/_dashboard/projects': {
+      id: '/{-$locale}/_dashboard/projects'
+      path: '/projects'
+      fullPath: '/{-$locale}/projects'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardProjectsRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
     }
-    '/{-$locale}/_other/auth/demo': {
-      id: '/{-$locale}/_other/auth/demo'
-      path: '/auth/demo'
-      fullPath: '/{-$locale}/auth/demo'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthDemoRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
+    '/{-$locale}/_dashboard/scanner': {
+      id: '/{-$locale}/_dashboard/scanner'
+      path: '/scanner'
+      fullPath: '/{-$locale}/scanner'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardScannerRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
     }
-    '/{-$locale}/_other/auth/cli-login': {
-      id: '/{-$locale}/_other/auth/cli-login'
-      path: '/auth/cli-login'
-      fullPath: '/{-$locale}/auth/cli-login'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthCliLoginRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
-    }
-    '/{-$locale}/_other/affiliation/$invitationId': {
-      id: '/{-$locale}/_other/affiliation/$invitationId'
-      path: '/affiliation/$invitationId'
-      fullPath: '/{-$locale}/affiliation/$invitationId'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAffiliationInvitationIdRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
-    }
-    '/{-$locale}/_other/auth/_not-authenticated': {
-      id: '/{-$locale}/_other/auth/_not-authenticated'
-      path: '/auth'
-      fullPath: '/{-$locale}/auth'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
-    }
-    '/{-$locale}/_other/auth/_authenticated': {
-      id: '/{-$locale}/_other/auth/_authenticated'
-      path: '/auth'
-      fullPath: '/{-$locale}/auth'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRouteImport
+    '/{-$locale}/_other/pricing': {
+      id: '/{-$locale}/_other/pricing'
+      path: '/pricing'
+      fullPath: '/{-$locale}/pricing'
+      preLoaderRoute: typeof Char123LocaleChar125OtherPricingRouteImport
       parentRoute: typeof Char123LocaleChar125OtherRouteRoute
     }
     '/{-$locale}/_dashboard/_editor/_content': {
@@ -1036,102 +973,81 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRouteImport
       parentRoute: typeof Char123LocaleChar125DashboardRouteRoute
     }
-    '/{-$locale}/_other/find-reviewer/dashboard/': {
-      id: '/{-$locale}/_other/find-reviewer/dashboard/'
-      path: '/find-reviewer/dashboard'
-      fullPath: '/{-$locale}/find-reviewer/dashboard/'
-      preLoaderRoute: typeof Char123LocaleChar125OtherFindReviewerDashboardIndexRouteImport
+    '/{-$locale}/_other/affiliation/': {
+      id: '/{-$locale}/_other/affiliation/'
+      path: '/affiliation'
+      fullPath: '/{-$locale}/affiliation/'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAffiliationIndexRouteImport
       parentRoute: typeof Char123LocaleChar125OtherRouteRoute
     }
-    '/{-$locale}/_other/auth/password/reset': {
-      id: '/{-$locale}/_other/auth/password/reset'
-      path: '/auth/password/reset'
-      fullPath: '/{-$locale}/auth/password/reset'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthPasswordResetRouteImport
+    '/{-$locale}/_other/affiliation/$invitationId': {
+      id: '/{-$locale}/_other/affiliation/$invitationId'
+      path: '/affiliation/$invitationId'
+      fullPath: '/{-$locale}/affiliation/$invitationId'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAffiliationInvitationIdRouteImport
       parentRoute: typeof Char123LocaleChar125OtherRouteRoute
     }
-    '/{-$locale}/_other/auth/password/ask-reset': {
-      id: '/{-$locale}/_other/auth/password/ask-reset'
-      path: '/auth/password/ask-reset'
-      fullPath: '/{-$locale}/auth/password/ask-reset'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthPasswordAskResetRouteImport
+    '/{-$locale}/_other/auth/_authenticated': {
+      id: '/{-$locale}/_other/auth/_authenticated'
+      path: '/auth'
+      fullPath: '/{-$locale}/auth'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRouteImport
       parentRoute: typeof Char123LocaleChar125OtherRouteRoute
     }
-    '/{-$locale}/_other/auth/password/_layout': {
-      id: '/{-$locale}/_other/auth/password/_layout'
-      path: '/auth/password'
-      fullPath: '/{-$locale}/auth/password'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthPasswordLayoutRouteImport
+    '/{-$locale}/_other/auth/_not-authenticated': {
+      id: '/{-$locale}/_other/auth/_not-authenticated'
+      path: '/auth'
+      fullPath: '/{-$locale}/auth'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRouteImport
       parentRoute: typeof Char123LocaleChar125OtherRouteRoute
     }
-    '/{-$locale}/_other/auth/_not-authenticated/register': {
-      id: '/{-$locale}/_other/auth/_not-authenticated/register'
-      path: '/register'
-      fullPath: '/{-$locale}/auth/register'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute
+    '/{-$locale}/_other/auth/cli-login': {
+      id: '/{-$locale}/_other/auth/cli-login'
+      path: '/auth/cli-login'
+      fullPath: '/{-$locale}/auth/cli-login'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthCliLoginRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
     }
-    '/{-$locale}/_other/auth/_not-authenticated/login': {
-      id: '/{-$locale}/_other/auth/_not-authenticated/login'
-      path: '/login'
-      fullPath: '/{-$locale}/auth/login'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedLoginRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute
+    '/{-$locale}/_other/auth/demo': {
+      id: '/{-$locale}/_other/auth/demo'
+      path: '/auth/demo'
+      fullPath: '/{-$locale}/auth/demo'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthDemoRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
     }
-    '/{-$locale}/_other/auth/_not-authenticated/2fa': {
-      id: '/{-$locale}/_other/auth/_not-authenticated/2fa'
-      path: '/2fa'
-      fullPath: '/{-$locale}/auth/2fa'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticated2faRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute
+    '/{-$locale}/_other/find-reviewer/': {
+      id: '/{-$locale}/_other/find-reviewer/'
+      path: '/find-reviewer'
+      fullPath: '/{-$locale}/find-reviewer/'
+      preLoaderRoute: typeof Char123LocaleChar125OtherFindReviewerIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
     }
-    '/{-$locale}/_dashboard/_editor/_content/translate': {
-      id: '/{-$locale}/_dashboard/_editor/_content/translate'
-      path: '/translate'
-      fullPath: '/{-$locale}/translate'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentTranslateRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute
+    '/{-$locale}/_other/find-reviewer/$reviewerId': {
+      id: '/{-$locale}/_other/find-reviewer/$reviewerId'
+      path: '/find-reviewer/$reviewerId'
+      fullPath: '/{-$locale}/find-reviewer/$reviewerId'
+      preLoaderRoute: typeof Char123LocaleChar125OtherFindReviewerReviewerIdRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
     }
-    '/{-$locale}/_dashboard/_editor/_content/editor': {
-      id: '/{-$locale}/_dashboard/_editor/_content/editor'
-      path: '/editor'
-      fullPath: '/{-$locale}/editor'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentEditorRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute
+    '/{-$locale}/_other/onboarding/$step': {
+      id: '/{-$locale}/_other/onboarding/$step'
+      path: '/onboarding/$step'
+      fullPath: '/{-$locale}/onboarding/$step'
+      preLoaderRoute: typeof Char123LocaleChar125OtherOnboardingStepRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
+    }
+    '/{-$locale}/_dashboard/_admin/admin/affiliate': {
+      id: '/{-$locale}/_dashboard/_admin/admin/affiliate'
+      path: '/admin/affiliate'
+      fullPath: '/{-$locale}/admin/affiliate'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
     }
     '/{-$locale}/_dashboard/_admin/admin/discussions': {
       id: '/{-$locale}/_dashboard/_admin/admin/discussions'
       path: '/admin/discussions'
       fullPath: '/{-$locale}/admin/discussions'
       preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminDiscussionsRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
-    }
-    '/{-$locale}/_dashboard/_admin/admin/users': {
-      id: '/{-$locale}/_dashboard/_admin/admin/users'
-      path: '/admin/users'
-      fullPath: '/{-$locale}/admin/users'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
-    }
-    '/{-$locale}/_dashboard/_admin/admin/reviewers': {
-      id: '/{-$locale}/_dashboard/_admin/admin/reviewers'
-      path: '/admin/reviewers'
-      fullPath: '/{-$locale}/admin/reviewers'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
-    }
-    '/{-$locale}/_dashboard/_admin/admin/promo-code': {
-      id: '/{-$locale}/_dashboard/_admin/admin/promo-code'
-      path: '/admin/promo-code'
-      fullPath: '/{-$locale}/admin/promo-code'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
-    }
-    '/{-$locale}/_dashboard/_admin/admin/projects': {
-      id: '/{-$locale}/_dashboard/_admin/admin/projects'
-      path: '/admin/projects'
-      fullPath: '/{-$locale}/admin/projects'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteImport
       parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
     }
     '/{-$locale}/_dashboard/_admin/admin/organizations': {
@@ -1141,61 +1057,96 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRouteImport
       parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
     }
-    '/{-$locale}/_dashboard/_admin/admin/affiliate': {
-      id: '/{-$locale}/_dashboard/_admin/admin/affiliate'
-      path: '/admin/affiliate'
-      fullPath: '/{-$locale}/admin/affiliate'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRouteImport
+    '/{-$locale}/_dashboard/_admin/admin/projects': {
+      id: '/{-$locale}/_dashboard/_admin/admin/projects'
+      path: '/admin/projects'
+      fullPath: '/{-$locale}/admin/projects'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRouteImport
       parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
     }
-    '/{-$locale}/_dashboard/_editor/_content/tags/': {
-      id: '/{-$locale}/_dashboard/_editor/_content/tags/'
-      path: '/tags'
-      fullPath: '/{-$locale}/tags/'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentTagsIndexRouteImport
+    '/{-$locale}/_dashboard/_admin/admin/promo-code': {
+      id: '/{-$locale}/_dashboard/_admin/admin/promo-code'
+      path: '/admin/promo-code'
+      fullPath: '/{-$locale}/admin/promo-code'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
+    }
+    '/{-$locale}/_dashboard/_admin/admin/reviewers': {
+      id: '/{-$locale}/_dashboard/_admin/admin/reviewers'
+      path: '/admin/reviewers'
+      fullPath: '/{-$locale}/admin/reviewers'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
+    }
+    '/{-$locale}/_dashboard/_admin/admin/users': {
+      id: '/{-$locale}/_dashboard/_admin/admin/users'
+      path: '/admin/users'
+      fullPath: '/{-$locale}/admin/users'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminRouteRoute
+    }
+    '/{-$locale}/_dashboard/_editor/_content/editor': {
+      id: '/{-$locale}/_dashboard/_editor/_content/editor'
+      path: '/editor'
+      fullPath: '/{-$locale}/editor'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentEditorRouteImport
       parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute
     }
-    '/{-$locale}/_dashboard/_editor/_content/dictionary/': {
-      id: '/{-$locale}/_dashboard/_editor/_content/dictionary/'
-      path: '/dictionary'
-      fullPath: '/{-$locale}/dictionary/'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRouteImport
+    '/{-$locale}/_dashboard/_editor/_content/translate': {
+      id: '/{-$locale}/_dashboard/_editor/_content/translate'
+      path: '/translate'
+      fullPath: '/{-$locale}/translate'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentTranslateRouteImport
       parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute
     }
-    '/{-$locale}/_dashboard/_admin/admin/users/': {
-      id: '/{-$locale}/_dashboard/_admin/admin/users/'
-      path: '/'
-      fullPath: '/{-$locale}/admin/users/'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRoute
+    '/{-$locale}/_other/auth/_not-authenticated/2fa': {
+      id: '/{-$locale}/_other/auth/_not-authenticated/2fa'
+      path: '/2fa'
+      fullPath: '/{-$locale}/auth/2fa'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticated2faRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute
     }
-    '/{-$locale}/_dashboard/_admin/admin/reviewers/': {
-      id: '/{-$locale}/_dashboard/_admin/admin/reviewers/'
-      path: '/'
-      fullPath: '/{-$locale}/admin/reviewers/'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute
+    '/{-$locale}/_other/auth/_not-authenticated/login': {
+      id: '/{-$locale}/_other/auth/_not-authenticated/login'
+      path: '/login'
+      fullPath: '/{-$locale}/auth/login'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedLoginRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute
     }
-    '/{-$locale}/_dashboard/_admin/admin/promo-code/': {
-      id: '/{-$locale}/_dashboard/_admin/admin/promo-code/'
-      path: '/'
-      fullPath: '/{-$locale}/admin/promo-code/'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute
+    '/{-$locale}/_other/auth/_not-authenticated/register': {
+      id: '/{-$locale}/_other/auth/_not-authenticated/register'
+      path: '/register'
+      fullPath: '/{-$locale}/auth/register'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRegisterRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherAuthNotAuthenticatedRouteRoute
     }
-    '/{-$locale}/_dashboard/_admin/admin/projects/': {
-      id: '/{-$locale}/_dashboard/_admin/admin/projects/'
-      path: '/'
-      fullPath: '/{-$locale}/admin/projects/'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute
+    '/{-$locale}/_other/auth/password/_layout': {
+      id: '/{-$locale}/_other/auth/password/_layout'
+      path: '/auth/password'
+      fullPath: '/{-$locale}/auth/password'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthPasswordLayoutRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
     }
-    '/{-$locale}/_dashboard/_admin/admin/organizations/': {
-      id: '/{-$locale}/_dashboard/_admin/admin/organizations/'
-      path: '/'
-      fullPath: '/{-$locale}/admin/organizations/'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute
+    '/{-$locale}/_other/auth/password/ask-reset': {
+      id: '/{-$locale}/_other/auth/password/ask-reset'
+      path: '/auth/password/ask-reset'
+      fullPath: '/{-$locale}/auth/password/ask-reset'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthPasswordAskResetRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
+    }
+    '/{-$locale}/_other/auth/password/reset': {
+      id: '/{-$locale}/_other/auth/password/reset'
+      path: '/auth/password/reset'
+      fullPath: '/{-$locale}/auth/password/reset'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthPasswordResetRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
+    }
+    '/{-$locale}/_other/find-reviewer/dashboard/': {
+      id: '/{-$locale}/_other/find-reviewer/dashboard/'
+      path: '/find-reviewer/dashboard'
+      fullPath: '/{-$locale}/find-reviewer/dashboard/'
+      preLoaderRoute: typeof Char123LocaleChar125OtherFindReviewerDashboardIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
     }
     '/{-$locale}/_dashboard/_admin/admin/affiliate/': {
       id: '/{-$locale}/_dashboard/_admin/admin/affiliate/'
@@ -1204,25 +1155,88 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateIndexRouteImport
       parentRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute
     }
-    '/{-$locale}/_other/find-reviewer/dashboard/mission/$missionId': {
-      id: '/{-$locale}/_other/find-reviewer/dashboard/mission/$missionId'
-      path: '/find-reviewer/dashboard/mission/$missionId'
-      fullPath: '/{-$locale}/find-reviewer/dashboard/mission/$missionId'
-      preLoaderRoute: typeof Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
+    '/{-$locale}/_dashboard/_admin/admin/affiliate/$id': {
+      id: '/{-$locale}/_dashboard/_admin/admin/affiliate/$id'
+      path: '/$id'
+      fullPath: '/{-$locale}/admin/affiliate/$id'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute
     }
-    '/{-$locale}/_other/auth/_authenticated/password/change': {
-      id: '/{-$locale}/_other/auth/_authenticated/password/change'
-      path: '/password/change'
-      fullPath: '/{-$locale}/auth/password/change'
-      preLoaderRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRouteImport
-      parentRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRoute
+    '/{-$locale}/_dashboard/_admin/admin/organizations/': {
+      id: '/{-$locale}/_dashboard/_admin/admin/organizations/'
+      path: '/'
+      fullPath: '/{-$locale}/admin/organizations/'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute
     }
-    '/{-$locale}/_dashboard/_editor/_content/tags/$tagKey': {
-      id: '/{-$locale}/_dashboard/_editor/_content/tags/$tagKey'
-      path: '/tags/$tagKey'
-      fullPath: '/{-$locale}/tags/$tagKey'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentTagsTagKeyRouteImport
+    '/{-$locale}/_dashboard/_admin/admin/organizations/$id': {
+      id: '/{-$locale}/_dashboard/_admin/admin/organizations/$id'
+      path: '/$id'
+      fullPath: '/{-$locale}/admin/organizations/$id'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute
+    }
+    '/{-$locale}/_dashboard/_admin/admin/projects/': {
+      id: '/{-$locale}/_dashboard/_admin/admin/projects/'
+      path: '/'
+      fullPath: '/{-$locale}/admin/projects/'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute
+    }
+    '/{-$locale}/_dashboard/_admin/admin/projects/$id': {
+      id: '/{-$locale}/_dashboard/_admin/admin/projects/$id'
+      path: '/$id'
+      fullPath: '/{-$locale}/admin/projects/$id'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute
+    }
+    '/{-$locale}/_dashboard/_admin/admin/promo-code/': {
+      id: '/{-$locale}/_dashboard/_admin/admin/promo-code/'
+      path: '/'
+      fullPath: '/{-$locale}/admin/promo-code/'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute
+    }
+    '/{-$locale}/_dashboard/_admin/admin/promo-code/$id': {
+      id: '/{-$locale}/_dashboard/_admin/admin/promo-code/$id'
+      path: '/$id'
+      fullPath: '/{-$locale}/admin/promo-code/$id'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIdRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute
+    }
+    '/{-$locale}/_dashboard/_admin/admin/reviewers/': {
+      id: '/{-$locale}/_dashboard/_admin/admin/reviewers/'
+      path: '/'
+      fullPath: '/{-$locale}/admin/reviewers/'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute
+    }
+    '/{-$locale}/_dashboard/_admin/admin/reviewers/$reviewerId': {
+      id: '/{-$locale}/_dashboard/_admin/admin/reviewers/$reviewerId'
+      path: '/$reviewerId'
+      fullPath: '/{-$locale}/admin/reviewers/$reviewerId'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute
+    }
+    '/{-$locale}/_dashboard/_admin/admin/users/': {
+      id: '/{-$locale}/_dashboard/_admin/admin/users/'
+      path: '/'
+      fullPath: '/{-$locale}/admin/users/'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRoute
+    }
+    '/{-$locale}/_dashboard/_admin/admin/users/$id': {
+      id: '/{-$locale}/_dashboard/_admin/admin/users/$id'
+      path: '/$id'
+      fullPath: '/{-$locale}/admin/users/$id'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersIdRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRoute
+    }
+    '/{-$locale}/_dashboard/_editor/_content/dictionary/': {
+      id: '/{-$locale}/_dashboard/_editor/_content/dictionary/'
+      path: '/dictionary'
+      fullPath: '/{-$locale}/dictionary/'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentDictionaryIndexRouteImport
       parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute
     }
     '/{-$locale}/_dashboard/_editor/_content/dictionary/$dictionaryKey': {
@@ -1232,47 +1246,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentDictionaryDictionaryKeyRouteImport
       parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute
     }
-    '/{-$locale}/_dashboard/_admin/admin/users/$id': {
-      id: '/{-$locale}/_dashboard/_admin/admin/users/$id'
-      path: '/$id'
-      fullPath: '/{-$locale}/admin/users/$id'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersIdRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminUsersRouteRoute
+    '/{-$locale}/_dashboard/_editor/_content/tags/': {
+      id: '/{-$locale}/_dashboard/_editor/_content/tags/'
+      path: '/tags'
+      fullPath: '/{-$locale}/tags/'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentTagsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute
     }
-    '/{-$locale}/_dashboard/_admin/admin/reviewers/$reviewerId': {
-      id: '/{-$locale}/_dashboard/_admin/admin/reviewers/$reviewerId'
-      path: '/$reviewerId'
-      fullPath: '/{-$locale}/admin/reviewers/$reviewerId'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersReviewerIdRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminReviewersRouteRoute
+    '/{-$locale}/_dashboard/_editor/_content/tags/$tagKey': {
+      id: '/{-$locale}/_dashboard/_editor/_content/tags/$tagKey'
+      path: '/tags/$tagKey'
+      fullPath: '/{-$locale}/tags/$tagKey'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardEditorContentTagsTagKeyRouteImport
+      parentRoute: typeof Char123LocaleChar125DashboardEditorContentRouteRoute
     }
-    '/{-$locale}/_dashboard/_admin/admin/promo-code/$id': {
-      id: '/{-$locale}/_dashboard/_admin/admin/promo-code/$id'
-      path: '/$id'
-      fullPath: '/{-$locale}/admin/promo-code/$id'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeIdRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminPromoCodeRouteRoute
+    '/{-$locale}/_other/auth/_authenticated/password/change': {
+      id: '/{-$locale}/_other/auth/_authenticated/password/change'
+      path: '/password/change'
+      fullPath: '/{-$locale}/auth/password/change'
+      preLoaderRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedPasswordChangeRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherAuthAuthenticatedRouteRoute
     }
-    '/{-$locale}/_dashboard/_admin/admin/projects/$id': {
-      id: '/{-$locale}/_dashboard/_admin/admin/projects/$id'
-      path: '/$id'
-      fullPath: '/{-$locale}/admin/projects/$id'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsIdRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminProjectsRouteRoute
-    }
-    '/{-$locale}/_dashboard/_admin/admin/organizations/$id': {
-      id: '/{-$locale}/_dashboard/_admin/admin/organizations/$id'
-      path: '/$id'
-      fullPath: '/{-$locale}/admin/organizations/$id'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsIdRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminOrganizationsRouteRoute
-    }
-    '/{-$locale}/_dashboard/_admin/admin/affiliate/$id': {
-      id: '/{-$locale}/_dashboard/_admin/admin/affiliate/$id'
-      path: '/$id'
-      fullPath: '/{-$locale}/admin/affiliate/$id'
-      preLoaderRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateIdRouteImport
-      parentRoute: typeof Char123LocaleChar125DashboardAdminAdminAffiliateRouteRoute
+    '/{-$locale}/_other/find-reviewer/dashboard/mission/$missionId': {
+      id: '/{-$locale}/_other/find-reviewer/dashboard/mission/$missionId'
+      path: '/find-reviewer/dashboard/mission/$missionId'
+      fullPath: '/{-$locale}/find-reviewer/dashboard/mission/$missionId'
+      preLoaderRoute: typeof Char123LocaleChar125OtherFindReviewerDashboardMissionMissionIdRouteImport
+      parentRoute: typeof Char123LocaleChar125OtherRouteRoute
     }
   }
 }

@@ -12,9 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route'
 import { Route as Char123LocaleChar125IndexRouteImport } from './routes/{-$locale}/index'
-import { Route as Char123LocaleChar125SubmitRouteImport } from './routes/{-$locale}/submit'
-import { Route as Char123LocaleChar125404RouteImport } from './routes/{-$locale}/404'
 import { Route as Char123LocaleChar125SplatRouteImport } from './routes/{-$locale}/$'
+import { Route as Char123LocaleChar125404RouteImport } from './routes/{-$locale}/404'
+import { Route as Char123LocaleChar125SubmitRouteImport } from './routes/{-$locale}/submit'
 import { Route as Char123LocaleChar125ProjectProjectIdRouteImport } from './routes/{-$locale}/project.$projectId'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -34,10 +34,10 @@ const Char123LocaleChar125IndexRoute =
     path: '/',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
-const Char123LocaleChar125SubmitRoute =
-  Char123LocaleChar125SubmitRouteImport.update({
-    id: '/submit',
-    path: '/submit',
+const Char123LocaleChar125SplatRoute =
+  Char123LocaleChar125SplatRouteImport.update({
+    id: '/$',
+    path: '/$',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
 const Char123LocaleChar125404Route = Char123LocaleChar125404RouteImport.update({
@@ -45,10 +45,10 @@ const Char123LocaleChar125404Route = Char123LocaleChar125404RouteImport.update({
   path: '/404',
   getParentRoute: () => Char123LocaleChar125RouteRoute,
 } as any)
-const Char123LocaleChar125SplatRoute =
-  Char123LocaleChar125SplatRouteImport.update({
-    id: '/$',
-    path: '/$',
+const Char123LocaleChar125SubmitRoute =
+  Char123LocaleChar125SubmitRouteImport.update({
+    id: '/submit',
+    path: '/submit',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
 const Char123LocaleChar125ProjectProjectIdRoute =
@@ -142,11 +142,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125IndexRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
-    '/{-$locale}/submit': {
-      id: '/{-$locale}/submit'
-      path: '/submit'
-      fullPath: '/{-$locale}/submit'
-      preLoaderRoute: typeof Char123LocaleChar125SubmitRouteImport
+    '/{-$locale}/$': {
+      id: '/{-$locale}/$'
+      path: '/$'
+      fullPath: '/{-$locale}/$'
+      preLoaderRoute: typeof Char123LocaleChar125SplatRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
     '/{-$locale}/404': {
@@ -156,11 +156,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125404RouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
-    '/{-$locale}/$': {
-      id: '/{-$locale}/$'
-      path: '/$'
-      fullPath: '/{-$locale}/$'
-      preLoaderRoute: typeof Char123LocaleChar125SplatRouteImport
+    '/{-$locale}/submit': {
+      id: '/{-$locale}/submit'
+      path: '/submit'
+      fullPath: '/{-$locale}/submit'
+      preLoaderRoute: typeof Char123LocaleChar125SubmitRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
     '/{-$locale}/project/$projectId': {

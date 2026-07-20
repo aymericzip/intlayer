@@ -23,7 +23,7 @@
   "devDependencies": {
     "@intlayer/sync-json-plugin": "workspace:*",
     "@tailwindcss/postcss": "4",
-    "@types/node": "25.9.4",
+    "@types/node": "26.1.1",
     "@types/react": "19",
     "@types/react-dom": "19",
     "eslint": "10.4.1",

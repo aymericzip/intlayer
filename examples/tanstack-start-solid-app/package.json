@@ -10,7 +10,7 @@
     "test": "bun --bun vitest run"
   },
   "dependencies": {
-    "@tailwindcss/vite": "4.3.2",
+    "@tailwindcss/vite": "4.3.3",
     "@tanstack/router-plugin": "1.168.6",
     "@tanstack/solid-router": "latest",
     "@tanstack/solid-router-devtools": "latest",
@@ -19,12 +19,12 @@
     "intlayer": "workspace:*",
     "solid-intlayer": "workspace:*",
     "solid-js": "1.9.14",
-    "tailwindcss": "4.3.2"
+    "tailwindcss": "4.3.3"
   },
   "devDependencies": {
     "@tanstack/devtools-vite": "latest",
-    "typescript": "6.0.3",
-    "vite": "8.1.4",
+    "typescript": "7.0.2",
+    "vite": "8.1.5",
     "vite-intlayer": "workspace:*",
     "vite-plugin-solid": "2.11.12"
   }

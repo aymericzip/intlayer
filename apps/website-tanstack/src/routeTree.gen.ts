@@ -9,49 +9,44 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
-import { Route as PostsDotjsonRouteImport } from './routes/posts[.]json'
 import { Route as FeedDotxmlRouteImport } from './routes/feed[.]xml'
+import { Route as PostsDotjsonRouteImport } from './routes/posts[.]json'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route'
-import { Route as Char123LocaleChar125IndexRouteImport } from './routes/{-$locale}/index'
-import { Route as Char123LocaleChar125TranslateRouteImport } from './routes/{-$locale}/translate'
-import { Route as Char123LocaleChar125TmsRouteImport } from './routes/{-$locale}/tms'
-import { Route as Char123LocaleChar125I18nSeoScannerRouteImport } from './routes/{-$locale}/i18n-seo-scanner'
-import { Route as Char123LocaleChar125DemoRouteImport } from './routes/{-$locale}/demo'
-import { Route as Char123LocaleChar125ContributorsRouteImport } from './routes/{-$locale}/contributors'
-import { Route as Char123LocaleChar125CmsRouteImport } from './routes/{-$locale}/cms'
-import { Route as Char123LocaleChar125SplatRouteImport } from './routes/{-$locale}/$'
-import { Route as ApiHealthRouteImport } from './routes/api/health'
 import { Route as ApiBaiduPushRouteImport } from './routes/api/baidu-push'
-import { Route as Char123LocaleChar125PlaygroundRouteRouteImport } from './routes/{-$locale}/_playground/route'
+import { Route as ApiHealthRouteImport } from './routes/api/health'
+import { Route as Char123LocaleChar125IndexRouteImport } from './routes/{-$locale}/index'
+import { Route as Char123LocaleChar125SplatRouteImport } from './routes/{-$locale}/$'
 import { Route as Char123LocaleChar125DocsRouteRouteImport } from './routes/{-$locale}/_docs/route'
-import { Route as Char123LocaleChar125PlaygroundPlaygroundRouteImport } from './routes/{-$locale}/_playground/playground'
-import { Route as Char123LocaleChar125DocsTermsOfServiceDotmdRouteImport } from './routes/{-$locale}/_docs/terms-of-service[.]md'
-import { Route as Char123LocaleChar125DocsTermsOfServiceRouteImport } from './routes/{-$locale}/_docs/terms-of-service'
-import { Route as Char123LocaleChar125DocsPrivacyNoticeDotmdRouteImport } from './routes/{-$locale}/_docs/privacy-notice[.]md'
-import { Route as Char123LocaleChar125DocsPrivacyNoticeRouteImport } from './routes/{-$locale}/_docs/privacy-notice'
+import { Route as Char123LocaleChar125PlaygroundRouteRouteImport } from './routes/{-$locale}/_playground/route'
+import { Route as Char123LocaleChar125CmsRouteImport } from './routes/{-$locale}/cms'
+import { Route as Char123LocaleChar125ContributorsRouteImport } from './routes/{-$locale}/contributors'
+import { Route as Char123LocaleChar125DemoRouteImport } from './routes/{-$locale}/demo'
+import { Route as Char123LocaleChar125I18nSeoScannerRouteImport } from './routes/{-$locale}/i18n-seo-scanner'
+import { Route as Char123LocaleChar125TmsRouteImport } from './routes/{-$locale}/tms'
+import { Route as Char123LocaleChar125TranslateRouteImport } from './routes/{-$locale}/translate'
 import { Route as ApiProxyAhrefsAnalyticsRouteImport } from './routes/api/proxy/ahrefs-analytics'
-import { Route as Char123LocaleChar125DocsFrequentQuestionsIndexRouteImport } from './routes/{-$locale}/_docs/frequent-questions/index'
+import { Route as Char123LocaleChar125DocsPrivacyNoticeRouteImport } from './routes/{-$locale}/_docs/privacy-notice'
+import { Route as Char123LocaleChar125DocsPrivacyNoticeDotmdRouteImport } from './routes/{-$locale}/_docs/privacy-notice[.]md'
+import { Route as Char123LocaleChar125DocsTermsOfServiceRouteImport } from './routes/{-$locale}/_docs/terms-of-service'
+import { Route as Char123LocaleChar125DocsTermsOfServiceDotmdRouteImport } from './routes/{-$locale}/_docs/terms-of-service[.]md'
+import { Route as Char123LocaleChar125PlaygroundPlaygroundRouteImport } from './routes/{-$locale}/_playground/playground'
 import { Route as Char123LocaleChar125DocsBlogIndexRouteImport } from './routes/{-$locale}/_docs/blog/index'
-import { Route as Char123LocaleChar125FrequentQuestionsRawSplatRouteImport } from './routes/{-$locale}/frequent-questions/raw/$'
-import { Route as Char123LocaleChar125DocRawSplatRouteImport } from './routes/{-$locale}/doc/raw/$'
-import { Route as Char123LocaleChar125BlogRawSplatRouteImport } from './routes/{-$locale}/blog/raw/$'
-import { Route as Char123LocaleChar125DocsFrequentQuestionsSplatRouteImport } from './routes/{-$locale}/_docs/frequent-questions/$'
-import { Route as Char123LocaleChar125DocsDocSearchRouteImport } from './routes/{-$locale}/_docs/doc/search'
-import { Route as Char123LocaleChar125DocsDocChatRouteImport } from './routes/{-$locale}/_docs/doc/chat'
-import { Route as Char123LocaleChar125DocsDocSplatRouteImport } from './routes/{-$locale}/_docs/doc/$'
-import { Route as Char123LocaleChar125DocsBlogSearchRouteImport } from './routes/{-$locale}/_docs/blog/search'
 import { Route as Char123LocaleChar125DocsBlogSplatRouteImport } from './routes/{-$locale}/_docs/blog/$'
+import { Route as Char123LocaleChar125DocsBlogSearchRouteImport } from './routes/{-$locale}/_docs/blog/search'
+import { Route as Char123LocaleChar125DocsDocSplatRouteImport } from './routes/{-$locale}/_docs/doc/$'
+import { Route as Char123LocaleChar125DocsDocChatRouteImport } from './routes/{-$locale}/_docs/doc/chat'
+import { Route as Char123LocaleChar125DocsDocSearchRouteImport } from './routes/{-$locale}/_docs/doc/search'
+import { Route as Char123LocaleChar125DocsFrequentQuestionsIndexRouteImport } from './routes/{-$locale}/_docs/frequent-questions/index'
+import { Route as Char123LocaleChar125DocsFrequentQuestionsSplatRouteImport } from './routes/{-$locale}/_docs/frequent-questions/$'
+import { Route as Char123LocaleChar125BlogRawSplatRouteImport } from './routes/{-$locale}/blog/raw/$'
+import { Route as Char123LocaleChar125DocRawSplatRouteImport } from './routes/{-$locale}/doc/raw/$'
+import { Route as Char123LocaleChar125FrequentQuestionsRawSplatRouteImport } from './routes/{-$locale}/frequent-questions/raw/$'
 
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
-  id: '/robots.txt',
-  path: '/robots.txt',
+const FeedDotxmlRoute = FeedDotxmlRouteImport.update({
+  id: '/feed.xml',
+  path: '/feed.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PostsDotjsonRoute = PostsDotjsonRouteImport.update({
@@ -59,9 +54,14 @@ const PostsDotjsonRoute = PostsDotjsonRouteImport.update({
   path: '/posts.json',
   getParentRoute: () => rootRouteImport,
 } as any)
-const FeedDotxmlRoute = FeedDotxmlRouteImport.update({
-  id: '/feed.xml',
-  path: '/feed.xml',
+const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Char123LocaleChar125RouteRoute =
@@ -70,27 +70,47 @@ const Char123LocaleChar125RouteRoute =
     path: '/{-$locale}',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiBaiduPushRoute = ApiBaiduPushRouteImport.update({
+  id: '/api/baidu-push',
+  path: '/api/baidu-push',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiHealthRoute = ApiHealthRouteImport.update({
+  id: '/api/health',
+  path: '/api/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const Char123LocaleChar125IndexRoute =
   Char123LocaleChar125IndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
-const Char123LocaleChar125TranslateRoute =
-  Char123LocaleChar125TranslateRouteImport.update({
-    id: '/translate',
-    path: '/translate',
+const Char123LocaleChar125SplatRoute =
+  Char123LocaleChar125SplatRouteImport.update({
+    id: '/$',
+    path: '/$',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
-const Char123LocaleChar125TmsRoute = Char123LocaleChar125TmsRouteImport.update({
-  id: '/tms',
-  path: '/tms',
+const Char123LocaleChar125DocsRouteRoute =
+  Char123LocaleChar125DocsRouteRouteImport.update({
+    id: '/_docs',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125PlaygroundRouteRoute =
+  Char123LocaleChar125PlaygroundRouteRouteImport.update({
+    id: '/_playground',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125CmsRoute = Char123LocaleChar125CmsRouteImport.update({
+  id: '/cms',
+  path: '/cms',
   getParentRoute: () => Char123LocaleChar125RouteRoute,
 } as any)
-const Char123LocaleChar125I18nSeoScannerRoute =
-  Char123LocaleChar125I18nSeoScannerRouteImport.update({
-    id: '/i18n-seo-scanner',
-    path: '/i18n-seo-scanner',
+const Char123LocaleChar125ContributorsRoute =
+  Char123LocaleChar125ContributorsRouteImport.update({
+    id: '/contributors',
+    path: '/contributors',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
 const Char123LocaleChar125DemoRoute =
@@ -99,59 +119,32 @@ const Char123LocaleChar125DemoRoute =
     path: '/demo',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
-const Char123LocaleChar125ContributorsRoute =
-  Char123LocaleChar125ContributorsRouteImport.update({
-    id: '/contributors',
-    path: '/contributors',
+const Char123LocaleChar125I18nSeoScannerRoute =
+  Char123LocaleChar125I18nSeoScannerRouteImport.update({
+    id: '/i18n-seo-scanner',
+    path: '/i18n-seo-scanner',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
-const Char123LocaleChar125CmsRoute = Char123LocaleChar125CmsRouteImport.update({
-  id: '/cms',
-  path: '/cms',
+const Char123LocaleChar125TmsRoute = Char123LocaleChar125TmsRouteImport.update({
+  id: '/tms',
+  path: '/tms',
   getParentRoute: () => Char123LocaleChar125RouteRoute,
 } as any)
-const Char123LocaleChar125SplatRoute =
-  Char123LocaleChar125SplatRouteImport.update({
-    id: '/$',
-    path: '/$',
+const Char123LocaleChar125TranslateRoute =
+  Char123LocaleChar125TranslateRouteImport.update({
+    id: '/translate',
+    path: '/translate',
     getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
-const ApiHealthRoute = ApiHealthRouteImport.update({
-  id: '/api/health',
-  path: '/api/health',
+const ApiProxyAhrefsAnalyticsRoute = ApiProxyAhrefsAnalyticsRouteImport.update({
+  id: '/api/proxy/ahrefs-analytics',
+  path: '/api/proxy/ahrefs-analytics',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiBaiduPushRoute = ApiBaiduPushRouteImport.update({
-  id: '/api/baidu-push',
-  path: '/api/baidu-push',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const Char123LocaleChar125PlaygroundRouteRoute =
-  Char123LocaleChar125PlaygroundRouteRouteImport.update({
-    id: '/_playground',
-    getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any)
-const Char123LocaleChar125DocsRouteRoute =
-  Char123LocaleChar125DocsRouteRouteImport.update({
-    id: '/_docs',
-    getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any)
-const Char123LocaleChar125PlaygroundPlaygroundRoute =
-  Char123LocaleChar125PlaygroundPlaygroundRouteImport.update({
-    id: '/playground',
-    path: '/playground',
-    getParentRoute: () => Char123LocaleChar125PlaygroundRouteRoute,
-  } as any)
-const Char123LocaleChar125DocsTermsOfServiceDotmdRoute =
-  Char123LocaleChar125DocsTermsOfServiceDotmdRouteImport.update({
-    id: '/terms-of-service.md',
-    path: '/terms-of-service.md',
-    getParentRoute: () => Char123LocaleChar125DocsRouteRoute,
-  } as any)
-const Char123LocaleChar125DocsTermsOfServiceRoute =
-  Char123LocaleChar125DocsTermsOfServiceRouteImport.update({
-    id: '/terms-of-service',
-    path: '/terms-of-service',
+const Char123LocaleChar125DocsPrivacyNoticeRoute =
+  Char123LocaleChar125DocsPrivacyNoticeRouteImport.update({
+    id: '/privacy-notice',
+    path: '/privacy-notice',
     getParentRoute: () => Char123LocaleChar125DocsRouteRoute,
   } as any)
 const Char123LocaleChar125DocsPrivacyNoticeDotmdRoute =
@@ -160,22 +153,23 @@ const Char123LocaleChar125DocsPrivacyNoticeDotmdRoute =
     path: '/privacy-notice.md',
     getParentRoute: () => Char123LocaleChar125DocsRouteRoute,
   } as any)
-const Char123LocaleChar125DocsPrivacyNoticeRoute =
-  Char123LocaleChar125DocsPrivacyNoticeRouteImport.update({
-    id: '/privacy-notice',
-    path: '/privacy-notice',
+const Char123LocaleChar125DocsTermsOfServiceRoute =
+  Char123LocaleChar125DocsTermsOfServiceRouteImport.update({
+    id: '/terms-of-service',
+    path: '/terms-of-service',
     getParentRoute: () => Char123LocaleChar125DocsRouteRoute,
   } as any)
-const ApiProxyAhrefsAnalyticsRoute = ApiProxyAhrefsAnalyticsRouteImport.update({
-  id: '/api/proxy/ahrefs-analytics',
-  path: '/api/proxy/ahrefs-analytics',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const Char123LocaleChar125DocsFrequentQuestionsIndexRoute =
-  Char123LocaleChar125DocsFrequentQuestionsIndexRouteImport.update({
-    id: '/frequent-questions/',
-    path: '/frequent-questions/',
+const Char123LocaleChar125DocsTermsOfServiceDotmdRoute =
+  Char123LocaleChar125DocsTermsOfServiceDotmdRouteImport.update({
+    id: '/terms-of-service.md',
+    path: '/terms-of-service.md',
     getParentRoute: () => Char123LocaleChar125DocsRouteRoute,
+  } as any)
+const Char123LocaleChar125PlaygroundPlaygroundRoute =
+  Char123LocaleChar125PlaygroundPlaygroundRouteImport.update({
+    id: '/playground',
+    path: '/playground',
+    getParentRoute: () => Char123LocaleChar125PlaygroundRouteRoute,
   } as any)
 const Char123LocaleChar125DocsBlogIndexRoute =
   Char123LocaleChar125DocsBlogIndexRouteImport.update({
@@ -183,46 +177,10 @@ const Char123LocaleChar125DocsBlogIndexRoute =
     path: '/blog/',
     getParentRoute: () => Char123LocaleChar125DocsRouteRoute,
   } as any)
-const Char123LocaleChar125FrequentQuestionsRawSplatRoute =
-  Char123LocaleChar125FrequentQuestionsRawSplatRouteImport.update({
-    id: '/frequent-questions/raw/$',
-    path: '/frequent-questions/raw/$',
-    getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any)
-const Char123LocaleChar125DocRawSplatRoute =
-  Char123LocaleChar125DocRawSplatRouteImport.update({
-    id: '/doc/raw/$',
-    path: '/doc/raw/$',
-    getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any)
-const Char123LocaleChar125BlogRawSplatRoute =
-  Char123LocaleChar125BlogRawSplatRouteImport.update({
-    id: '/blog/raw/$',
-    path: '/blog/raw/$',
-    getParentRoute: () => Char123LocaleChar125RouteRoute,
-  } as any)
-const Char123LocaleChar125DocsFrequentQuestionsSplatRoute =
-  Char123LocaleChar125DocsFrequentQuestionsSplatRouteImport.update({
-    id: '/frequent-questions/$',
-    path: '/frequent-questions/$',
-    getParentRoute: () => Char123LocaleChar125DocsRouteRoute,
-  } as any)
-const Char123LocaleChar125DocsDocSearchRoute =
-  Char123LocaleChar125DocsDocSearchRouteImport.update({
-    id: '/doc/search',
-    path: '/doc/search',
-    getParentRoute: () => Char123LocaleChar125DocsRouteRoute,
-  } as any)
-const Char123LocaleChar125DocsDocChatRoute =
-  Char123LocaleChar125DocsDocChatRouteImport.update({
-    id: '/doc/chat',
-    path: '/doc/chat',
-    getParentRoute: () => Char123LocaleChar125DocsRouteRoute,
-  } as any)
-const Char123LocaleChar125DocsDocSplatRoute =
-  Char123LocaleChar125DocsDocSplatRouteImport.update({
-    id: '/doc/$',
-    path: '/doc/$',
+const Char123LocaleChar125DocsBlogSplatRoute =
+  Char123LocaleChar125DocsBlogSplatRouteImport.update({
+    id: '/blog/$',
+    path: '/blog/$',
     getParentRoute: () => Char123LocaleChar125DocsRouteRoute,
   } as any)
 const Char123LocaleChar125DocsBlogSearchRoute =
@@ -231,11 +189,53 @@ const Char123LocaleChar125DocsBlogSearchRoute =
     path: '/blog/search',
     getParentRoute: () => Char123LocaleChar125DocsRouteRoute,
   } as any)
-const Char123LocaleChar125DocsBlogSplatRoute =
-  Char123LocaleChar125DocsBlogSplatRouteImport.update({
-    id: '/blog/$',
-    path: '/blog/$',
+const Char123LocaleChar125DocsDocSplatRoute =
+  Char123LocaleChar125DocsDocSplatRouteImport.update({
+    id: '/doc/$',
+    path: '/doc/$',
     getParentRoute: () => Char123LocaleChar125DocsRouteRoute,
+  } as any)
+const Char123LocaleChar125DocsDocChatRoute =
+  Char123LocaleChar125DocsDocChatRouteImport.update({
+    id: '/doc/chat',
+    path: '/doc/chat',
+    getParentRoute: () => Char123LocaleChar125DocsRouteRoute,
+  } as any)
+const Char123LocaleChar125DocsDocSearchRoute =
+  Char123LocaleChar125DocsDocSearchRouteImport.update({
+    id: '/doc/search',
+    path: '/doc/search',
+    getParentRoute: () => Char123LocaleChar125DocsRouteRoute,
+  } as any)
+const Char123LocaleChar125DocsFrequentQuestionsIndexRoute =
+  Char123LocaleChar125DocsFrequentQuestionsIndexRouteImport.update({
+    id: '/frequent-questions/',
+    path: '/frequent-questions/',
+    getParentRoute: () => Char123LocaleChar125DocsRouteRoute,
+  } as any)
+const Char123LocaleChar125DocsFrequentQuestionsSplatRoute =
+  Char123LocaleChar125DocsFrequentQuestionsSplatRouteImport.update({
+    id: '/frequent-questions/$',
+    path: '/frequent-questions/$',
+    getParentRoute: () => Char123LocaleChar125DocsRouteRoute,
+  } as any)
+const Char123LocaleChar125BlogRawSplatRoute =
+  Char123LocaleChar125BlogRawSplatRouteImport.update({
+    id: '/blog/raw/$',
+    path: '/blog/raw/$',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125DocRawSplatRoute =
+  Char123LocaleChar125DocRawSplatRouteImport.update({
+    id: '/doc/raw/$',
+    path: '/doc/raw/$',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125FrequentQuestionsRawSplatRoute =
+  Char123LocaleChar125FrequentQuestionsRawSplatRouteImport.update({
+    id: '/frequent-questions/raw/$',
+    path: '/frequent-questions/raw/$',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -461,18 +461,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/robots.txt': {
-      id: '/robots.txt'
-      path: '/robots.txt'
-      fullPath: '/robots.txt'
-      preLoaderRoute: typeof RobotsDottxtRouteImport
+    '/feed.xml': {
+      id: '/feed.xml'
+      path: '/feed.xml'
+      fullPath: '/feed.xml'
+      preLoaderRoute: typeof FeedDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/posts.json': {
@@ -482,11 +475,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PostsDotjsonRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/feed.xml': {
-      id: '/feed.xml'
-      path: '/feed.xml'
-      fullPath: '/feed.xml'
-      preLoaderRoute: typeof FeedDotxmlRouteImport
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/{-$locale}': {
@@ -496,53 +496,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125RouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/baidu-push': {
+      id: '/api/baidu-push'
+      path: '/api/baidu-push'
+      fullPath: '/api/baidu-push'
+      preLoaderRoute: typeof ApiBaiduPushRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/health': {
+      id: '/api/health'
+      path: '/api/health'
+      fullPath: '/api/health'
+      preLoaderRoute: typeof ApiHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/{-$locale}/': {
       id: '/{-$locale}/'
       path: '/'
       fullPath: '/{-$locale}/'
       preLoaderRoute: typeof Char123LocaleChar125IndexRouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
-    '/{-$locale}/translate': {
-      id: '/{-$locale}/translate'
-      path: '/translate'
-      fullPath: '/{-$locale}/translate'
-      preLoaderRoute: typeof Char123LocaleChar125TranslateRouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
-    '/{-$locale}/tms': {
-      id: '/{-$locale}/tms'
-      path: '/tms'
-      fullPath: '/{-$locale}/tms'
-      preLoaderRoute: typeof Char123LocaleChar125TmsRouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
-    '/{-$locale}/i18n-seo-scanner': {
-      id: '/{-$locale}/i18n-seo-scanner'
-      path: '/i18n-seo-scanner'
-      fullPath: '/{-$locale}/i18n-seo-scanner'
-      preLoaderRoute: typeof Char123LocaleChar125I18nSeoScannerRouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
-    '/{-$locale}/demo': {
-      id: '/{-$locale}/demo'
-      path: '/demo'
-      fullPath: '/{-$locale}/demo'
-      preLoaderRoute: typeof Char123LocaleChar125DemoRouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
-    '/{-$locale}/contributors': {
-      id: '/{-$locale}/contributors'
-      path: '/contributors'
-      fullPath: '/{-$locale}/contributors'
-      preLoaderRoute: typeof Char123LocaleChar125ContributorsRouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
-    '/{-$locale}/cms': {
-      id: '/{-$locale}/cms'
-      path: '/cms'
-      fullPath: '/{-$locale}/cms'
-      preLoaderRoute: typeof Char123LocaleChar125CmsRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
     '/{-$locale}/$': {
@@ -552,19 +524,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125SplatRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
-    '/api/health': {
-      id: '/api/health'
-      path: '/api/health'
-      fullPath: '/api/health'
-      preLoaderRoute: typeof ApiHealthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/baidu-push': {
-      id: '/api/baidu-push'
-      path: '/api/baidu-push'
-      fullPath: '/api/baidu-push'
-      preLoaderRoute: typeof ApiBaiduPushRouteImport
-      parentRoute: typeof rootRouteImport
+    '/{-$locale}/_docs': {
+      id: '/{-$locale}/_docs'
+      path: ''
+      fullPath: '/{-$locale}'
+      preLoaderRoute: typeof Char123LocaleChar125DocsRouteRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
     }
     '/{-$locale}/_playground': {
       id: '/{-$locale}/_playground'
@@ -573,32 +538,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125PlaygroundRouteRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
-    '/{-$locale}/_docs': {
-      id: '/{-$locale}/_docs'
-      path: ''
-      fullPath: '/{-$locale}'
-      preLoaderRoute: typeof Char123LocaleChar125DocsRouteRouteImport
+    '/{-$locale}/cms': {
+      id: '/{-$locale}/cms'
+      path: '/cms'
+      fullPath: '/{-$locale}/cms'
+      preLoaderRoute: typeof Char123LocaleChar125CmsRouteImport
       parentRoute: typeof Char123LocaleChar125RouteRoute
     }
-    '/{-$locale}/_playground/playground': {
-      id: '/{-$locale}/_playground/playground'
-      path: '/playground'
-      fullPath: '/{-$locale}/playground'
-      preLoaderRoute: typeof Char123LocaleChar125PlaygroundPlaygroundRouteImport
-      parentRoute: typeof Char123LocaleChar125PlaygroundRouteRoute
+    '/{-$locale}/contributors': {
+      id: '/{-$locale}/contributors'
+      path: '/contributors'
+      fullPath: '/{-$locale}/contributors'
+      preLoaderRoute: typeof Char123LocaleChar125ContributorsRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
     }
-    '/{-$locale}/_docs/terms-of-service.md': {
-      id: '/{-$locale}/_docs/terms-of-service.md'
-      path: '/terms-of-service.md'
-      fullPath: '/{-$locale}/terms-of-service.md'
-      preLoaderRoute: typeof Char123LocaleChar125DocsTermsOfServiceDotmdRouteImport
-      parentRoute: typeof Char123LocaleChar125DocsRouteRoute
+    '/{-$locale}/demo': {
+      id: '/{-$locale}/demo'
+      path: '/demo'
+      fullPath: '/{-$locale}/demo'
+      preLoaderRoute: typeof Char123LocaleChar125DemoRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
     }
-    '/{-$locale}/_docs/terms-of-service': {
-      id: '/{-$locale}/_docs/terms-of-service'
-      path: '/terms-of-service'
-      fullPath: '/{-$locale}/terms-of-service'
-      preLoaderRoute: typeof Char123LocaleChar125DocsTermsOfServiceRouteImport
+    '/{-$locale}/i18n-seo-scanner': {
+      id: '/{-$locale}/i18n-seo-scanner'
+      path: '/i18n-seo-scanner'
+      fullPath: '/{-$locale}/i18n-seo-scanner'
+      preLoaderRoute: typeof Char123LocaleChar125I18nSeoScannerRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
+    '/{-$locale}/tms': {
+      id: '/{-$locale}/tms'
+      path: '/tms'
+      fullPath: '/{-$locale}/tms'
+      preLoaderRoute: typeof Char123LocaleChar125TmsRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
+    '/{-$locale}/translate': {
+      id: '/{-$locale}/translate'
+      path: '/translate'
+      fullPath: '/{-$locale}/translate'
+      preLoaderRoute: typeof Char123LocaleChar125TranslateRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
+    '/api/proxy/ahrefs-analytics': {
+      id: '/api/proxy/ahrefs-analytics'
+      path: '/api/proxy/ahrefs-analytics'
+      fullPath: '/api/proxy/ahrefs-analytics'
+      preLoaderRoute: typeof ApiProxyAhrefsAnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/{-$locale}/_docs/privacy-notice': {
+      id: '/{-$locale}/_docs/privacy-notice'
+      path: '/privacy-notice'
+      fullPath: '/{-$locale}/privacy-notice'
+      preLoaderRoute: typeof Char123LocaleChar125DocsPrivacyNoticeRouteImport
       parentRoute: typeof Char123LocaleChar125DocsRouteRoute
     }
     '/{-$locale}/_docs/privacy-notice.md': {
@@ -608,26 +601,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125DocsPrivacyNoticeDotmdRouteImport
       parentRoute: typeof Char123LocaleChar125DocsRouteRoute
     }
-    '/{-$locale}/_docs/privacy-notice': {
-      id: '/{-$locale}/_docs/privacy-notice'
-      path: '/privacy-notice'
-      fullPath: '/{-$locale}/privacy-notice'
-      preLoaderRoute: typeof Char123LocaleChar125DocsPrivacyNoticeRouteImport
+    '/{-$locale}/_docs/terms-of-service': {
+      id: '/{-$locale}/_docs/terms-of-service'
+      path: '/terms-of-service'
+      fullPath: '/{-$locale}/terms-of-service'
+      preLoaderRoute: typeof Char123LocaleChar125DocsTermsOfServiceRouteImport
       parentRoute: typeof Char123LocaleChar125DocsRouteRoute
     }
-    '/api/proxy/ahrefs-analytics': {
-      id: '/api/proxy/ahrefs-analytics'
-      path: '/api/proxy/ahrefs-analytics'
-      fullPath: '/api/proxy/ahrefs-analytics'
-      preLoaderRoute: typeof ApiProxyAhrefsAnalyticsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/{-$locale}/_docs/frequent-questions/': {
-      id: '/{-$locale}/_docs/frequent-questions/'
-      path: '/frequent-questions'
-      fullPath: '/{-$locale}/frequent-questions/'
-      preLoaderRoute: typeof Char123LocaleChar125DocsFrequentQuestionsIndexRouteImport
+    '/{-$locale}/_docs/terms-of-service.md': {
+      id: '/{-$locale}/_docs/terms-of-service.md'
+      path: '/terms-of-service.md'
+      fullPath: '/{-$locale}/terms-of-service.md'
+      preLoaderRoute: typeof Char123LocaleChar125DocsTermsOfServiceDotmdRouteImport
       parentRoute: typeof Char123LocaleChar125DocsRouteRoute
+    }
+    '/{-$locale}/_playground/playground': {
+      id: '/{-$locale}/_playground/playground'
+      path: '/playground'
+      fullPath: '/{-$locale}/playground'
+      preLoaderRoute: typeof Char123LocaleChar125PlaygroundPlaygroundRouteImport
+      parentRoute: typeof Char123LocaleChar125PlaygroundRouteRoute
     }
     '/{-$locale}/_docs/blog/': {
       id: '/{-$locale}/_docs/blog/'
@@ -636,53 +629,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125DocsBlogIndexRouteImport
       parentRoute: typeof Char123LocaleChar125DocsRouteRoute
     }
-    '/{-$locale}/frequent-questions/raw/$': {
-      id: '/{-$locale}/frequent-questions/raw/$'
-      path: '/frequent-questions/raw/$'
-      fullPath: '/{-$locale}/frequent-questions/raw/$'
-      preLoaderRoute: typeof Char123LocaleChar125FrequentQuestionsRawSplatRouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
-    '/{-$locale}/doc/raw/$': {
-      id: '/{-$locale}/doc/raw/$'
-      path: '/doc/raw/$'
-      fullPath: '/{-$locale}/doc/raw/$'
-      preLoaderRoute: typeof Char123LocaleChar125DocRawSplatRouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
-    '/{-$locale}/blog/raw/$': {
-      id: '/{-$locale}/blog/raw/$'
-      path: '/blog/raw/$'
-      fullPath: '/{-$locale}/blog/raw/$'
-      preLoaderRoute: typeof Char123LocaleChar125BlogRawSplatRouteImport
-      parentRoute: typeof Char123LocaleChar125RouteRoute
-    }
-    '/{-$locale}/_docs/frequent-questions/$': {
-      id: '/{-$locale}/_docs/frequent-questions/$'
-      path: '/frequent-questions/$'
-      fullPath: '/{-$locale}/frequent-questions/$'
-      preLoaderRoute: typeof Char123LocaleChar125DocsFrequentQuestionsSplatRouteImport
-      parentRoute: typeof Char123LocaleChar125DocsRouteRoute
-    }
-    '/{-$locale}/_docs/doc/search': {
-      id: '/{-$locale}/_docs/doc/search'
-      path: '/doc/search'
-      fullPath: '/{-$locale}/doc/search'
-      preLoaderRoute: typeof Char123LocaleChar125DocsDocSearchRouteImport
-      parentRoute: typeof Char123LocaleChar125DocsRouteRoute
-    }
-    '/{-$locale}/_docs/doc/chat': {
-      id: '/{-$locale}/_docs/doc/chat'
-      path: '/doc/chat'
-      fullPath: '/{-$locale}/doc/chat'
-      preLoaderRoute: typeof Char123LocaleChar125DocsDocChatRouteImport
-      parentRoute: typeof Char123LocaleChar125DocsRouteRoute
-    }
-    '/{-$locale}/_docs/doc/$': {
-      id: '/{-$locale}/_docs/doc/$'
-      path: '/doc/$'
-      fullPath: '/{-$locale}/doc/$'
-      preLoaderRoute: typeof Char123LocaleChar125DocsDocSplatRouteImport
+    '/{-$locale}/_docs/blog/$': {
+      id: '/{-$locale}/_docs/blog/$'
+      path: '/blog/$'
+      fullPath: '/{-$locale}/blog/$'
+      preLoaderRoute: typeof Char123LocaleChar125DocsBlogSplatRouteImport
       parentRoute: typeof Char123LocaleChar125DocsRouteRoute
     }
     '/{-$locale}/_docs/blog/search': {
@@ -692,12 +643,61 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char123LocaleChar125DocsBlogSearchRouteImport
       parentRoute: typeof Char123LocaleChar125DocsRouteRoute
     }
-    '/{-$locale}/_docs/blog/$': {
-      id: '/{-$locale}/_docs/blog/$'
-      path: '/blog/$'
-      fullPath: '/{-$locale}/blog/$'
-      preLoaderRoute: typeof Char123LocaleChar125DocsBlogSplatRouteImport
+    '/{-$locale}/_docs/doc/$': {
+      id: '/{-$locale}/_docs/doc/$'
+      path: '/doc/$'
+      fullPath: '/{-$locale}/doc/$'
+      preLoaderRoute: typeof Char123LocaleChar125DocsDocSplatRouteImport
       parentRoute: typeof Char123LocaleChar125DocsRouteRoute
+    }
+    '/{-$locale}/_docs/doc/chat': {
+      id: '/{-$locale}/_docs/doc/chat'
+      path: '/doc/chat'
+      fullPath: '/{-$locale}/doc/chat'
+      preLoaderRoute: typeof Char123LocaleChar125DocsDocChatRouteImport
+      parentRoute: typeof Char123LocaleChar125DocsRouteRoute
+    }
+    '/{-$locale}/_docs/doc/search': {
+      id: '/{-$locale}/_docs/doc/search'
+      path: '/doc/search'
+      fullPath: '/{-$locale}/doc/search'
+      preLoaderRoute: typeof Char123LocaleChar125DocsDocSearchRouteImport
+      parentRoute: typeof Char123LocaleChar125DocsRouteRoute
+    }
+    '/{-$locale}/_docs/frequent-questions/': {
+      id: '/{-$locale}/_docs/frequent-questions/'
+      path: '/frequent-questions'
+      fullPath: '/{-$locale}/frequent-questions/'
+      preLoaderRoute: typeof Char123LocaleChar125DocsFrequentQuestionsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125DocsRouteRoute
+    }
+    '/{-$locale}/_docs/frequent-questions/$': {
+      id: '/{-$locale}/_docs/frequent-questions/$'
+      path: '/frequent-questions/$'
+      fullPath: '/{-$locale}/frequent-questions/$'
+      preLoaderRoute: typeof Char123LocaleChar125DocsFrequentQuestionsSplatRouteImport
+      parentRoute: typeof Char123LocaleChar125DocsRouteRoute
+    }
+    '/{-$locale}/blog/raw/$': {
+      id: '/{-$locale}/blog/raw/$'
+      path: '/blog/raw/$'
+      fullPath: '/{-$locale}/blog/raw/$'
+      preLoaderRoute: typeof Char123LocaleChar125BlogRawSplatRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
+    '/{-$locale}/doc/raw/$': {
+      id: '/{-$locale}/doc/raw/$'
+      path: '/doc/raw/$'
+      fullPath: '/{-$locale}/doc/raw/$'
+      preLoaderRoute: typeof Char123LocaleChar125DocRawSplatRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
+    }
+    '/{-$locale}/frequent-questions/raw/$': {
+      id: '/{-$locale}/frequent-questions/raw/$'
+      path: '/frequent-questions/raw/$'
+      fullPath: '/{-$locale}/frequent-questions/raw/$'
+      preLoaderRoute: typeof Char123LocaleChar125FrequentQuestionsRawSplatRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
     }
   }
 }
