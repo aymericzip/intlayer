@@ -41,10 +41,10 @@
       "require": "./dist/cjs/index.cjs",
       "import": "./dist/esm/index.mjs"
     },
-    "./recastBabelParser": {
-      "types": "./dist/types/recastBabelParser.d.ts",
-      "require": "./dist/cjs/recastBabelParser.cjs",
-      "import": "./dist/esm/recastBabelParser.mjs"
+    "./babelParser": {
+      "types": "./dist/types/babelParser.d.ts",
+      "require": "./dist/cjs/babelParser.cjs",
+      "import": "./dist/esm/babelParser.mjs"
     },
     "./package.json": "./package.json"
   },
@@ -53,8 +53,8 @@
   "types": "dist/types/index.d.ts",
   "typesVersions": {
     "*": {
-      "recastBabelParser": [
-        "./dist/types/recastBabelParser.d.ts"
+      "babelParser": [
+        "./dist/types/babelParser.d.ts"
       ],
       "package.json": [
         "./package.json"

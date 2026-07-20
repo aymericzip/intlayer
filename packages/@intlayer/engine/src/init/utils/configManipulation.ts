@@ -1,6 +1,6 @@
 import type { RoutingConfig } from '@intlayer/types/config';
 import * as recast from 'recast';
-import { typescriptParser } from '../../utils/recastBabelParser';
+import { typescriptParser } from '../../utils/babelParser';
 import { isModuleScopeBinding } from './astImports';
 import type {
   CompatSyncConfig,

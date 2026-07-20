@@ -2,7 +2,7 @@ import { mkdir, readdir, readFile, rename, writeFile } from 'node:fs/promises';
 import { dirname, isAbsolute, join, relative, resolve, sep } from 'node:path';
 import fg from 'fast-glob';
 import * as recast from 'recast';
-import { babelTsParser } from '../../../utils/recastBabelParser';
+import { babelTsParser } from '../../../utils/babelParser';
 
 const { namedTypes: n } = recast.types;
 

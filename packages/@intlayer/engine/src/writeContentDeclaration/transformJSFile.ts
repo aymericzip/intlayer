@@ -3,7 +3,7 @@ import type { Locale } from '@intlayer/types/allLocales';
 import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import * as recast from 'recast';
-import { babelTsParser } from '../utils/recastBabelParser';
+import { babelTsParser } from '../utils/babelParser';
 
 const b = recast.types.builders;
 const n = recast.types.namedTypes;

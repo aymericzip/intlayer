@@ -1,6 +1,6 @@
 import * as recast from 'recast';
 import { describe, expect, it } from 'vitest';
-import { babelTsParser } from '../../utils/recastBabelParser';
+import { babelTsParser } from '../../utils/babelParser';
 import { ensureNamedImport, isModuleScopeBinding } from './astImports';
 
 const parse = (code: string): any =>

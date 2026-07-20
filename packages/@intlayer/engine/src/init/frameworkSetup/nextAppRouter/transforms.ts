@@ -1,5 +1,5 @@
 import * as recast from 'recast';
-import { babelTsParser } from '../../../utils/recastBabelParser';
+import { babelTsParser } from '../../../utils/babelParser';
 import { ensureNamedImport, firstInsertIndex } from '../../utils/astImports';
 
 const { builders: b } = recast.types;
