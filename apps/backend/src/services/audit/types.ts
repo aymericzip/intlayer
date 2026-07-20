@@ -26,17 +26,35 @@ export type AuditData = {
 
 type Url = string;
 
+/**
+ * Prefixes for the per-URL audit checks. The full runtime key is
+ * backslash-separated (e.g. `url_hasCanonical\https://example.com`), built by
+ * the producers/consumers of {@link AuditEvent}.
+ */
+type UrlAuditCheck =
+  | 'url_hasCanonical'
+  | 'url_hasLocalizedLinks'
+  | 'url_currentLocale'
+  | 'url_htmlLang'
+  | 'url_htmlDir'
+  | 'url_hreflang'
+  | 'url_hasXDefault'
+  | 'url_allAnchorsLocalized'
+  | 'url_hasFlagIcons'
+  | 'url_unusedBundleContent';
+
+/**
+ * Keys used to describe each audit check.
+ *
+ * The per-URL keys interpolate the audited URL as `${UrlAuditCheck}${T}`. The
+ * literal backslash that separates the prefix from the URL at runtime is
+ * intentionally omitted from the type: the TypeScript 7 native `.d.ts` emitter
+ * cannot serialise a backslash inside a template-literal type (it silently
+ * drops the whole declaration). Widening the suffix to the interpolated URL is
+ * emit-safe and the runtime keys still satisfy the type.
+ */
 export type AuditDataList<T extends Url> =
-  | `url_hasCanonical\\${T}`
-  | `url_hasLocalizedLinks\\${T}`
-  | `url_currentLocale\\${T}`
-  | `url_htmlLang\\${T}`
-  | `url_htmlDir\\${T}`
-  | `url_hreflang\\${T}`
-  | `url_hasXDefault\\${T}`
-  | `url_allAnchorsLocalized\\${T}`
-  | `url_hasFlagIcons\\${T}`
-  | `url_unusedBundleContent\\${T}`
+  | `${UrlAuditCheck}${T}`
   | 'robots_robotsPresent'
   | 'robots_noLocalizedUrlsForgotten'
   | 'sitemap_sitemapPresent'
