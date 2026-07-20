@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/analytics",
-  "version": "9.0.0-canary.17",
+  "version": "9.0.0-canary.18",
   "private": false,
   "description": "Collects which Intlayer content is shown (page/locale + node-level) and powers content A/B testing. Optional, lazily-imported companion to @intlayer/editor.",
   "keywords": [

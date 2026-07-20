@@ -1,6 +1,6 @@
 {
   "name": "astro-intlayer",
-  "version": "9.0.0-canary.17",
+  "version": "9.0.0-canary.18",
   "private": false,
   "description": "Easily internationalize i18n your Astro applications with type-safe multilingual content management.",
   "keywords": [

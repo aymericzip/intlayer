@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/next-i18next",
-  "version": "9.0.0-canary.17",
+  "version": "9.0.0-canary.18",
   "private": false,
   "description": "next-i18next API adapter for intlayer — serverSideTranslations, appWithTranslation, useTranslation backed by next-intlayer",
   "keywords": [

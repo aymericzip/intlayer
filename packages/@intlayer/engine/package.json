@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/engine",
-  "version": "9.0.0-canary.17",
+  "version": "9.0.0-canary.18",
   "private": false,
   "description": "Scans and builds Intlayer declaration files into dictionaries based on Intlayer configuration.",
   "keywords": [
@@ -142,7 +142,6 @@
   },
   "dependencies": {
     "@intlayer/api": "workspace:*",
-    "@intlayer/babel-parser": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
     "@intlayer/dictionaries-entry": "workspace:*",
@@ -166,6 +165,14 @@
     "typescript": "7.0.2",
     "vitest": "4.1.10",
     "zod": "4.4.3"
+  },
+  "peerDependencies": {
+    "@intlayer/babel": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@intlayer/babel": {
+      "optional": true
+    }
   },
   "engines": {
     "node": ">=14.18"
