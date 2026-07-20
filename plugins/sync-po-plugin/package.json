@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/sync-po-plugin",
-  "version": "9.0.0-canary.18",
+  "version": "9.0.0-canary.19",
   "private": false,
   "description": "A plugin for Intlayer that syncs Portable Object (.po) files to dictionaries.",
   "keywords": [

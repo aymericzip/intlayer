@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/ai",
-  "version": "9.0.0-canary.18",
+  "version": "9.0.0-canary.19",
   "private": false,
   "description": "SDK that provides AI capabilities for Intlayer applications",
   "keywords": [
