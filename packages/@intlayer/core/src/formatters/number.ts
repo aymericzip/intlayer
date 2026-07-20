@@ -19,7 +19,7 @@ export const number = (
   }: Intl.NumberFormatOptions & { locale?: LocalesValues } = {}
 ): string =>
   getCachedIntl(
-    Intl.NumberFormat,
+    'NumberFormat',
     locale ?? internationalization?.defaultLocale,
 
     options

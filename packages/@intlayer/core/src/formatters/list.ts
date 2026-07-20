@@ -29,7 +29,7 @@ export const list = (
   options?: ListFormatOptions & { locale?: LocalesValues }
 ): string =>
   getCachedIntl(
-    (Intl as any).ListFormat,
+    'ListFormat',
     options?.locale ?? internationalization?.defaultLocale,
 
     {

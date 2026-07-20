@@ -30,6 +30,140 @@ import type { LocalesValues } from '@intlayer/types/module_augmentation';
 const MAX_CACHE_SIZE = 50;
 const cache = new Map<any, Map<string, any>>();
 
+/**
+ * Minimal `Intl.ListFormat` surface, declared locally so consumers do not need
+ * the `ES2021.Intl` lib in their tsconfig.
+ */
+type ListFormatInstance = {
+  format(list: Iterable<string>): string;
+  formatToParts(
+    list: Iterable<string>
+  ): { type: 'element' | 'literal'; value: string }[];
+};
+
+/**
+ * Minimal `Intl.Segmenter` surface, declared locally so consumers do not need
+ * the `ES2022.Intl` lib in their tsconfig.
+ */
+type SegmenterInstance = {
+  segment(input: string): Iterable<{ segment: string; index: number }>;
+};
+
+/**
+ * Instance type produced by each `Intl` constructor this module can build.
+ */
+type IntlInstanceByName = {
+  Collator: Intl.Collator;
+  DateTimeFormat: Intl.DateTimeFormat;
+  DisplayNames: Intl.DisplayNames;
+  ListFormat: ListFormatInstance;
+  Locale: Intl.Locale;
+  NumberFormat: Intl.NumberFormat;
+  PluralRules: Intl.PluralRules;
+  RelativeTimeFormat: Intl.RelativeTimeFormat;
+  Segmenter: SegmenterInstance;
+};
+
+/**
+ * Names of the `Intl` constructors this module knows how to instantiate.
+ */
+export type IntlConstructorName = keyof IntlInstanceByName;
+
+const alreadyWarnedConstructors = new Set<string>();
+
+/**
+ * Warns once per missing `Intl` constructor, in development only.
+ */
+const warnMissingIntlConstructor = (constructorName: string): void => {
+  if (process.env.NODE_ENV === 'production') return;
+  if (alreadyWarnedConstructors.has(constructorName)) return;
+
+  alreadyWarnedConstructors.add(constructorName);
+
+  console.warn(
+    `[intlayer] \`Intl.${constructorName}\` is not available in this JavaScript engine. ` +
+      `A degraded fallback is used instead. ` +
+      `On React Native, load a polyfill (e.g. \`@formatjs/intl-${constructorName.toLowerCase()}/polyfill\`) before rendering your app.`
+  );
+};
+
+/**
+ * Minimal stand-ins used when the engine ships without the matching `Intl`
+ * constructor. Hermes — the default React Native engine — omits
+ * `DisplayNames`, `ListFormat` and `Segmenter` in release builds unless the
+ * app opts into the full ICU build or loads a polyfill. Without these shims,
+ * `new Intl.DisplayNames(...)` throws
+ * `TypeError: undefined cannot be used as a constructor` and takes the whole
+ * app down at render time.
+ *
+ * Each shim mirrors only the surface Intlayer relies on, and returns the
+ * un-localized input so rendering degrades rather than crashing.
+ */
+const intlConstructorFallbacks: Partial<
+  Record<IntlConstructorName, new (locale?: any, options?: any) => any>
+> = {
+  DisplayNames: class DisplayNamesFallback {
+    /** Returns the requested code unchanged, since no CLDR data is available. */
+    public of(code: string): string {
+      return code;
+    }
+  },
+  ListFormat: class ListFormatFallback {
+    /** Joins the list with a comma, the most neutral separator available. */
+    public format(list: Iterable<string>): string {
+      return Array.from(list).join(', ');
+    }
+
+    /** Mirrors `Intl.ListFormat.prototype.formatToParts` shape. */
+    public formatToParts(
+      list: Iterable<string>
+    ): { type: 'element' | 'literal'; value: string }[] {
+      return Array.from(list).flatMap((value, index) =>
+        index === 0
+          ? [{ type: 'element' as const, value }]
+          : [
+              { type: 'literal' as const, value: ', ' },
+              { type: 'element' as const, value },
+            ]
+      );
+    }
+  },
+  Segmenter: class SegmenterFallback {
+    /** Segments by code point, the closest approximation without ICU data. */
+    public segment(input: string): { segment: string; index: number }[] {
+      let index = 0;
+
+      return Array.from(input).map((segment) => {
+        const segmentStart = index;
+        index += segment.length;
+
+        return { segment, index: segmentStart };
+      });
+    }
+  },
+};
+
+/**
+ * Resolves an `Intl` constructor by name at call time, falling back to a
+ * degraded shim when the engine does not provide it.
+ *
+ * Resolution is deliberately lazy: React Native apps install their polyfills
+ * at startup, which may run after this module is first imported.
+ */
+const resolveIntlConstructor = (
+  constructorName: IntlConstructorName
+): (new (locale?: any, options?: any) => any) | undefined => {
+  const nativeConstructor = (
+    Intl as unknown as Record<string, new (...args: any[]) => any>
+  )[constructorName];
+
+  if (typeof nativeConstructor === 'function') return nativeConstructor;
+
+  warnMissingIntlConstructor(constructorName);
+
+  return intlConstructorFallbacks[constructorName];
+};
+
 type IntlConstructors = {
   [K in keyof typeof Intl as (typeof Intl)[K] extends new (
     ...args: any
@@ -67,40 +201,71 @@ export type WrappedIntl = {
 
 /**
  * Generic caching instantiator for Intl constructors.
+ *
+ * Prefer passing the constructor *name* (e.g. `'DisplayNames'`) rather than the
+ * constructor itself: the name is resolved lazily against the global `Intl`, so
+ * late-installed polyfills are picked up and missing constructors degrade to a
+ * fallback instead of throwing.
  */
-export const getCachedIntl = <T extends new (...args: any[]) => any>(
+export function getCachedIntl<Name extends IntlConstructorName>(
+  constructorName: Name,
+  locale?: LocalesValues | string,
+  options?: any
+): IntlInstanceByName[Name];
+export function getCachedIntl<T extends new (...args: any[]) => any>(
   Ctor: T,
   locale?: LocalesValues | string,
   options?: any
-): InstanceType<T> => {
+): InstanceType<T>;
+export function getCachedIntl(
+  intlConstructor: IntlConstructorName | (new (...args: any[]) => any),
+  locale?: LocalesValues | string,
+  options?: any
+): any {
   const resLoc = locale ?? internationalization?.defaultLocale;
 
   const optKey = options ? JSON.stringify(options) : '';
   const key = `${resLoc}|${optKey}`;
 
-  let ctorCache = cache.get(Ctor);
+  // Cache per name when available, so two constructors that are both missing
+  // from the engine do not collide on a single `undefined` cache bucket.
+  const cacheKey = intlConstructor;
+
+  let ctorCache = cache.get(cacheKey);
 
   if (!ctorCache) {
     ctorCache = new Map();
-    cache.set(Ctor, ctorCache);
+    cache.set(cacheKey, ctorCache);
   }
 
   let instance = ctorCache.get(key);
 
   if (!instance) {
+    const ResolvedConstructor =
+      typeof intlConstructor === 'string'
+        ? resolveIntlConstructor(intlConstructor)
+        : intlConstructor;
+
+    if (typeof ResolvedConstructor !== 'function') {
+      throw new Error(
+        `[intlayer] \`Intl.${String(intlConstructor)}\` is not available in this JavaScript engine and has no fallback. ` +
+          `Load the matching polyfill before formatting.`
+      );
+    }
+
     if (ctorCache.size > MAX_CACHE_SIZE) ctorCache.clear();
-    instance = new Ctor(resLoc, options);
+    instance = new ResolvedConstructor(resLoc, options);
     ctorCache.set(key, instance);
   }
   return instance;
-};
+}
 
 /**
  * Optional: Keep bindIntl if your library exports it publicly.
  * It now uses the much smaller getCachedIntl under the hood.
  */
 export const bindIntl = (boundLocale: LocalesValues): WrappedIntl => {
-  const bindWrap = (Ctor: any) =>
+  const bindWrap = (constructorName: IntlConstructorName) =>
     // function is used as a constructor, do not change in arrow function
     function intlConstructor(locales?: any, options?: any) {
       const isOptsFirst =
@@ -112,20 +277,20 @@ export const bindIntl = (boundLocale: LocalesValues): WrappedIntl => {
         ? (resOpts as any).locale || boundLocale
         : locales || boundLocale;
 
-      return getCachedIntl(Ctor, resLoc, resOpts);
+      return getCachedIntl(constructorName, resLoc, resOpts);
     };
 
   return {
     ...Intl,
-    Collator: bindWrap(Intl.Collator),
-    DateTimeFormat: bindWrap(Intl.DateTimeFormat),
-    DisplayNames: bindWrap(Intl.DisplayNames),
-    ListFormat: bindWrap(Intl.ListFormat),
-    NumberFormat: bindWrap(Intl.NumberFormat),
-    PluralRules: bindWrap(Intl.PluralRules),
-    RelativeTimeFormat: bindWrap(Intl.RelativeTimeFormat),
-    Locale: bindWrap(Intl.Locale),
-    Segmenter: bindWrap((Intl as any).Segmenter),
+    Collator: bindWrap('Collator'),
+    DateTimeFormat: bindWrap('DateTimeFormat'),
+    DisplayNames: bindWrap('DisplayNames'),
+    ListFormat: bindWrap('ListFormat'),
+    NumberFormat: bindWrap('NumberFormat'),
+    PluralRules: bindWrap('PluralRules'),
+    RelativeTimeFormat: bindWrap('RelativeTimeFormat'),
+    Locale: bindWrap('Locale'),
+    Segmenter: bindWrap('Segmenter'),
   } as unknown as WrappedIntl;
 };
 
@@ -133,31 +298,31 @@ export const bindIntl = (boundLocale: LocalesValues): WrappedIntl => {
 export const CachedIntl = {
   // function is used as a constructor, do not change in arrow function
   Collator: function Collator(locales?: any, options?: any) {
-    return getCachedIntl(Intl.Collator, locales, options);
+    return getCachedIntl('Collator', locales, options);
   },
   DateTimeFormat: function DateTimeFormat(locales?: any, options?: any) {
-    return getCachedIntl(Intl.DateTimeFormat, locales, options);
+    return getCachedIntl('DateTimeFormat', locales, options);
   },
   DisplayNames: function DisplayNames(locales?: any, options?: any) {
-    return getCachedIntl(Intl.DisplayNames, locales, options);
+    return getCachedIntl('DisplayNames', locales, options);
   },
   ListFormat: function ListFormat(locales?: any, options?: any) {
-    return getCachedIntl(Intl.ListFormat as any, locales, options);
+    return getCachedIntl('ListFormat', locales, options);
   },
   NumberFormat: function NumberFormat(locales?: any, options?: any) {
-    return getCachedIntl(Intl.NumberFormat, locales, options);
+    return getCachedIntl('NumberFormat', locales, options);
   },
   PluralRules: function PluralRules(locales?: any, options?: any) {
-    return getCachedIntl(Intl.PluralRules, locales, options);
+    return getCachedIntl('PluralRules', locales, options);
   },
   RelativeTimeFormat: function RelativeTimeFormat(
     locales?: any,
     options?: any
   ) {
-    return getCachedIntl(Intl.RelativeTimeFormat, locales, options);
+    return getCachedIntl('RelativeTimeFormat', locales, options);
   },
   Segmenter: function Segmenter(locales?: any, options?: any) {
-    return getCachedIntl((Intl as any).Segmenter, locales, options);
+    return getCachedIntl('Segmenter', locales, options);
   },
 } as any; // Cast to 'any' internally to avoid TS readonly errors
 

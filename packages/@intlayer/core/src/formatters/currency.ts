@@ -18,7 +18,7 @@ export const currency = (
   options?: Intl.NumberFormatOptions & { locale?: LocalesValues }
 ): string =>
   getCachedIntl(
-    Intl.NumberFormat,
+    'NumberFormat',
     options?.locale ?? internationalization?.defaultLocale,
 
     {

@@ -1,3 +1,7 @@
+// Must stay first: installs the React Native polyfills before `react-intlayer`
+// module scope runs. See `applyIntlayerPolyfill.ts`.
+import './applyIntlayerPolyfill';
+
 // Re-export everything an app needs from `react-intlayer` so that a React
 // Native app only ever imports from `react-native-intlayer`. The
 // `IntlayerProvider` is intentionally omitted here because it is overridden

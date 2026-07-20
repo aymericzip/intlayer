@@ -70,7 +70,7 @@ export const date = (
     (typeof options === 'object' ? options?.locale : undefined) ??
     internationalization?.defaultLocale;
 
-  const formatter = getCachedIntl(Intl.DateTimeFormat, locale, resolvedOptions);
+  const formatter = getCachedIntl('DateTimeFormat', locale, resolvedOptions);
 
   return formatter.format(dateTime);
 };

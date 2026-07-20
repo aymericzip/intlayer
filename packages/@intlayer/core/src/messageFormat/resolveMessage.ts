@@ -65,16 +65,16 @@ const formatArgument = (
     if (type === 'number') {
       const numberValue = Number(value);
       if (style === 'percent') {
-        return getCachedIntl(Intl.NumberFormat, locale, {
+        return getCachedIntl('NumberFormat', locale, {
           style: 'percent',
         }).format(numberValue);
       }
       if (style === 'integer') {
-        return getCachedIntl(Intl.NumberFormat, locale, {
+        return getCachedIntl('NumberFormat', locale, {
           maximumFractionDigits: 0,
         }).format(numberValue);
       }
-      return getCachedIntl(Intl.NumberFormat, locale).format(numberValue);
+      return getCachedIntl('NumberFormat', locale).format(numberValue);
     }
 
     if (type === 'date' || type === 'time') {
@@ -89,7 +89,7 @@ const formatArgument = (
       ) as 'short' | 'medium' | 'long' | 'full';
 
       return getCachedIntl(
-        Intl.DateTimeFormat,
+        'DateTimeFormat',
         locale,
         type === 'date'
           ? { dateStyle: dateTimeStyle }
@@ -233,7 +233,7 @@ export const resolveMessageNode = (
       // ICU `selectordinal` — exact numeric match first, then the CLDR
       // ordinal category, then the fallback
       const ordinalCount = Number(selector);
-      const ordinalCategory = getCachedIntl(Intl.PluralRules, locale, {
+      const ordinalCategory = getCachedIntl('PluralRules', locale, {
         type: 'ordinal',
       }).select(ordinalCount);
       selected =

@@ -1,10 +1,10 @@
+// Must stay first: installs the React Native polyfills before `react-intlayer`
+// module scope runs. See `applyIntlayerPolyfill.ts`.
+import './applyIntlayerPolyfill';
 import {
   IntlayerProviderContent,
   type IntlayerProviderProps as IntlayerProviderPropsBase,
 } from 'react-intlayer';
-import { intlayerPolyfill } from './intlayerPolyfill';
-
-intlayerPolyfill();
 
 /**
  * Props accepted by the React Native `IntlayerProvider`.

@@ -26,7 +26,7 @@ export const percentage = (
   }
 
   const formatter = getCachedIntl(
-    Intl.NumberFormat,
+    'NumberFormat',
     locale ?? internationalization?.defaultLocale,
 
     {

@@ -4,7 +4,8 @@
  * This includes:
  * - Polyfilling `structuredClone` if it is missing.
  * - Providing no-op implementations for standard DOM `window` methods
- *   (`addEventListener`, `removeEventListener`, `postMessage`).
+ *   (`addEventListener`, `removeEventListener`, `postMessage`) and a stub
+ *   `window.location`, which React Native leaves undefined.
  * - Providing in-memory stubs for `document.cookie`, `localStorage`, and
  *   `sessionStorage` so that `@intlayer/core`'s locale-storage helpers work
  *   without crashing in a React Native environment.
@@ -51,6 +52,35 @@ export const intlayerPolyfill = () => {
     if (typeof window.postMessage !== 'function') {
       window.postMessage = noop;
     }
+
+    // React Native defines `window` (aliased to `global`) but leaves
+    // `window.location` undefined. Any library reading `window.location.href`
+    // — a very common `typeof window !== 'undefined'` guard pattern — then
+    // crashes with `Cannot read property 'href' of undefined`, often at module
+    // evaluation time, before any component renders.
+    if (typeof window.location === 'undefined') {
+      const appOrigin = 'http://localhost';
+
+      Object.defineProperty(window, 'location', {
+        configurable: true,
+        writable: true,
+        value: {
+          href: `${appOrigin}/`,
+          origin: appOrigin,
+          protocol: 'http:',
+          host: 'localhost',
+          hostname: 'localhost',
+          port: '',
+          pathname: '/',
+          search: '',
+          hash: '',
+          assign: noop,
+          replace: noop,
+          reload: noop,
+          toString: () => `${appOrigin}/`,
+        },
+      });
+    }
   }
 
   // `@intlayer/core`'s localeStorageOptions accesses document.cookie directly.
@@ -84,6 +114,7 @@ export const intlayerPolyfill = () => {
             .filter(Boolean);
           cookieJar = [...existing, `${name}=${val ?? ''}`].join('; ');
         },
+        documentElement: { lang: '', dir: 'ltr', style: {} },
         createElement: () => null,
         getElementById: () => null,
         querySelector: () => null,

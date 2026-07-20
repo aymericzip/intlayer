@@ -41,7 +41,9 @@ const detectLanguage = (
   >;
 
   const queryStringDetector = () => {
-    if (typeof window === 'undefined') return;
+    // `window` exists in React Native but carries no `location`, so the
+    // property must be probed rather than inferred from `window` alone.
+    if (typeof window === 'undefined' || !window.location) return;
     const search = window.location.search || '';
     const params = new URLSearchParams(search);
     const value = params.get(options.lookupQuerystring ?? '');

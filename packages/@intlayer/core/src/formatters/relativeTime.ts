@@ -56,7 +56,7 @@ export const relativeTime = (
   const value = diffInUnit(fromDate, toDate, unit);
 
   return getCachedIntl(
-    Intl.RelativeTimeFormat,
+    'RelativeTimeFormat',
     options?.locale ?? internationalization?.defaultLocale,
 
     options

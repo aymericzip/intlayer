@@ -26,7 +26,7 @@ export const getPlural = <const L extends LocalesValues = DeclaredLocales>(
   count: number,
   locale: L
 ): string => {
-  const category = getCachedIntl(Intl.PluralRules, locale).select(
+  const category = getCachedIntl('PluralRules', locale).select(
     count
   ) as PluralCategory;
 
