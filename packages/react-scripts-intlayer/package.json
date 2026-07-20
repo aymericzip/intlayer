@@ -86,7 +86,7 @@
     "defu": "6.1.7",
     "node-loader": "2.1.0",
     "process": "0.11.10",
-    "webpack": "5.108.0"
+    "webpack": "5.108.4"
   },
   "devDependencies": {
     "@craco/types": "7.1.0",

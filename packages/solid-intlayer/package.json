@@ -124,6 +124,7 @@
     "@testing-library/jest-dom": "7.0.0",
     "@testing-library/user-event": "14.6.1",
     "@types/node": "26.1.1",
+    "@typescript/typescript6": "^6.0.2",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
@@ -133,7 +134,7 @@
     "typescript": "7.0.2",
     "vite": "8.1.5",
     "vite-plugin-dts": "5.0.3",
-    "vite-plugin-solid": "2.11.12",
+    "vite-plugin-solid": "2.11.13",
     "vitest": "4.1.10"
   },
   "peerDependencies": {
