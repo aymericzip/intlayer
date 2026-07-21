@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/chrome-extension",
-  "version": "9.0.0-canary.20",
+  "version": "9.0.0-canary.21",
   "private": true,
   "description": "Chrome extension that inspects the i18n implementation of the current website (framework, i18n library, locales, SEO tags) and runs a full Intlayer scan through the backend.",
   "keywords": [
