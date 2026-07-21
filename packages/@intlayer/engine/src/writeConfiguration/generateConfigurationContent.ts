@@ -1,51 +1,37 @@
+import { BUILT_CONFIG_KEYS } from '@intlayer/config/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 
+/**
+ * Generates the source of the `.intlayer/config/configuration.{mjs,cjs}` file
+ * that bundler integrations alias `@intlayer/config/built` to.
+ *
+ * The emitted named exports are derived from {@link BUILT_CONFIG_KEYS}, the same
+ * canonical list `built.ts` uses, so the aliased file always exposes exactly the
+ * exports consumers import — preventing `MISSING_EXPORT` errors when a new
+ * configuration section (e.g. `analytics`) is added.
+ *
+ * @param configuration - The fully resolved Intlayer configuration.
+ * @param format - Module format to emit (`esm` for `.mjs`, `cjs` for `.cjs`).
+ * @returns The file content as a string.
+ */
 export const generateConfigurationContent = (
   configuration: IntlayerConfig,
   format: 'cjs' | 'esm'
 ): string => {
-  const {
-    internationalization,
-    routing,
-    editor,
-    analytics,
-    log,
-    system,
-    content,
-    ai,
-    dictionary,
-    build,
-    compiler,
-  } = configuration;
-
   let fileContent = '';
 
-  fileContent += `const internationalization = ${JSON.stringify(internationalization, null, 2)};\n`;
-  fileContent += `const routing = ${JSON.stringify(routing, null, 2)};\n`;
-  fileContent += `const editor = ${JSON.stringify(editor, null, 2)};\n`;
-  fileContent += `const analytics = ${JSON.stringify(analytics, null, 2)};\n`;
-  fileContent += `const log = ${JSON.stringify(log, null, 2)};\n`;
-  fileContent += `const system = ${JSON.stringify(system, null, 2)};\n`;
-  fileContent += `const content = ${JSON.stringify(content, null, 2)};\n`;
-  fileContent += `const ai = ${JSON.stringify(ai, null, 2)};\n`;
-  fileContent += `const dictionary = ${JSON.stringify(dictionary, null, 2)};\n`;
-  fileContent += `const build = ${JSON.stringify(build, null, 2)};\n`;
-  fileContent += `const compiler = ${JSON.stringify(compiler, null, 2)};\n`;
+  for (const key of BUILT_CONFIG_KEYS) {
+    const value = configuration[key];
+    fileContent += `const ${key} = ${JSON.stringify(value, null, 2)};\n`;
+  }
 
   if (format === 'esm') {
-    fileContent += `\nexport { internationalization, routing, editor, analytics, log, system, content, ai, dictionary, build, compiler };\n`;
+    fileContent += `\nexport { ${BUILT_CONFIG_KEYS.join(', ')} };\n`;
   } else {
-    fileContent += `\nmodule.exports.internationalization = internationalization;\n`;
-    fileContent += `module.exports.routing = routing;\n`;
-    fileContent += `module.exports.editor = editor;\n`;
-    fileContent += `module.exports.analytics = analytics;\n`;
-    fileContent += `module.exports.log = log;\n`;
-    fileContent += `module.exports.system = system;\n`;
-    fileContent += `module.exports.content = content;\n`;
-    fileContent += `module.exports.ai = ai;\n`;
-    fileContent += `module.exports.dictionary = dictionary;\n`;
-    fileContent += `module.exports.build = build;\n`;
-    fileContent += `module.exports.compiler = compiler;\n`;
+    fileContent += '\n';
+    for (const key of BUILT_CONFIG_KEYS) {
+      fileContent += `module.exports.${key} = ${key};\n`;
+    }
   }
 
   return fileContent;

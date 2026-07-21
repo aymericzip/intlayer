@@ -1,4 +1,5 @@
 export * from './alias';
+export * from './builtConfigKeys';
 export * from './cacheDisk';
 export * from './cacheMemory';
 export * from './clearModuleCache';
