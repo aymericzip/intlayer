@@ -2157,76 +2157,76 @@ const docDataContent: Dictionary = {
       }),
       default: getDocMetadata('./docs/en/compat/index.md'),
       subSections: {
-        'react-i18next': {
-          title: 'React i18next',
-          default: getDocMetadata('./docs/en/compat/react-i18next.md'),
-          frameworks: ['react'],
-        },
-        'next-i18next': {
-          title: 'Next i18next',
-          default: getDocMetadata('./docs/en/compat/next-i18next.md'),
-          frameworks: ['nextjs', 'react'],
-        },
-        'next-intl': {
-          title: 'Next Intl',
-          default: getDocMetadata('./docs/en/compat/next-intl.md'),
-          frameworks: ['nextjs', 'react'],
-        },
-        'vue-i18n': {
-          title: 'Vue I18n',
-          default: getDocMetadata('./docs/en/compat/vue-i18n.md'),
-          frameworks: ['vue'],
-        },
-        'nuxtjs-i18n': {
-          title: 'NuxtJS I18n',
-          default: getDocMetadata('./docs/en/compat/nuxtjs-i18n.md'),
-          frameworks: ['nuxt', 'vue'],
-        },
-        transloco: {
-          title: 'Transloco',
-          default: getDocMetadata('./docs/en/compat/transloco.md'),
-          frameworks: ['angular'],
-        },
-        'ngx-translate': {
-          title: 'NGX Translate',
-          default: getDocMetadata('./docs/en/compat/ngx-translate.md'),
-          frameworks: ['angular'],
-        },
-        'react-intl': {
-          title: 'React Intl',
-          default: getDocMetadata('./docs/en/compat/react-intl.md'),
-          frameworks: ['react'],
-        },
-        'svelte-i18n': {
-          title: 'Svelte I18n',
-          default: getDocMetadata('./docs/en/compat/svelte-i18n.md'),
-          frameworks: ['svelte'],
-        },
-        polyglot: {
-          title: 'Polyglot.js',
-          default: getDocMetadata('./docs/en/compat/polyglot.md'),
-          frameworks: ['vanilla'],
-        },
-        'next-translate': {
-          title: 'Next Translate',
-          default: getDocMetadata('./docs/en/compat/next-translate.md'),
-          frameworks: ['nextjs', 'react'],
-        },
         i18next: {
           title: 'i18next',
           default: getDocMetadata('./docs/en/compat/i18next.md'),
           frameworks: ['vanilla'],
+        },
+        'react-i18next': {
+          title: 'react-i18next',
+          default: getDocMetadata('./docs/en/compat/react-i18next.md'),
+          frameworks: ['react'],
+        },
+        'next-i18next': {
+          title: 'next-i18next',
+          default: getDocMetadata('./docs/en/compat/next-i18next.md'),
+          frameworks: ['nextjs', 'react'],
+        },
+        'next-intl': {
+          title: 'next-intl',
+          default: getDocMetadata('./docs/en/compat/next-intl.md'),
+          frameworks: ['nextjs', 'react'],
+        },
+        'react-intl': {
+          title: 'react-intl',
+          default: getDocMetadata('./docs/en/compat/react-intl.md'),
+          frameworks: ['react'],
         },
         lingui: {
           title: 'Lingui',
           default: getDocMetadata('./docs/en/compat/lingui.md'),
           frameworks: ['vanilla', 'nextjs', 'react', 'vue'],
         },
-        'i18n-js': {
-          title: 'i18n-js',
-          default: getDocMetadata('./docs/en/compat/i18n-js.md'),
-          frameworks: ['vanilla', 'nextjs', 'react'],
+        'vue-i18n': {
+          title: 'vue-i18n',
+          default: getDocMetadata('./docs/en/compat/vue-i18n.md'),
+          frameworks: ['vue'],
         },
+        // 'nuxt-i18n': {
+        //   title: '@nuxt/i18n',
+        //   default: getDocMetadata('./docs/en/compat/nuxtjs-i18n.md'),
+        //   frameworks: ['nuxt', 'vue'],
+        // },
+        // transloco: {
+        //   title: 'Transloco',
+        //   default: getDocMetadata('./docs/en/compat/transloco.md'),
+        //   frameworks: ['angular'],
+        // },
+        // 'ngx-translate': {
+        //   title: 'ngx-translate',
+        //   default: getDocMetadata('./docs/en/compat/ngx-translate.md'),
+        //   frameworks: ['angular'],
+        // },
+        // 'svelte-i18n': {
+        //   title: 'svelte-i18n',
+        //   default: getDocMetadata('./docs/en/compat/svelte-i18n.md'),
+        //   frameworks: ['svelte'],
+        // },
+        // polyglot: {
+        //   title: 'Polyglot.js',
+        //   default: getDocMetadata('./docs/en/compat/polyglot.md'),
+        //   frameworks: ['vanilla'],
+        // },
+        // 'next-translate': {
+        //   title: 'next-translate',
+        //   default: getDocMetadata('./docs/en/compat/next-translate.md'),
+        //   frameworks: ['nextjs', 'react'],
+        // },
+        // 'i18n-js': {
+        //   title: 'i18n-js',
+        //   default: getDocMetadata('./docs/en/compat/i18n-js.md'),
+        //   frameworks: ['vanilla', 'nextjs', 'react'],
+        // },
       },
     },
   },
