@@ -8,4 +8,9 @@ export type CategorizedDocMetadata = {
   subSections?: Section;
   /** Framework keys this section applies to. If absent, always visible. */
   frameworks?: string[];
+  /**
+   * Whether the section's accordion is expanded (unrolled) by default.
+   * Defaults to `true`. Set to `false` to render the section collapsed (rolled).
+   */
+  deployed?: boolean;
 };

@@ -258,18 +258,46 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
           }
         );
 
+        const hasSubSections =
+          subSections && Object.keys(subSections).length > 0;
+        const isActive = isSelfActive || isSubSectionActive;
+        // `deployed: false` renders the section rolled (collapsed); default unrolled.
+        const isDeployed = section1Data.deployed !== false;
+
+        if (!hasSubSections) {
+          return (
+            <div key={key1}>
+              <OptionalLink
+                to={sectionDefault?.relativeUrl ?? ''}
+                label={key1}
+                isActive={isSelfActive && !isSubSectionActive}
+                frameworks={section1Data.frameworks}
+              >
+                {section1Data.title}
+              </OptionalLink>
+            </div>
+          );
+        }
+
         return (
           <div key={key1}>
-            <OptionalLink
-              to={sectionDefault?.relativeUrl ?? ''}
+            <Accordion
+              header={
+                <OptionalLink
+                  to={sectionDefault?.relativeUrl ?? ''}
+                  label={key1}
+                  isActive={isSelfActive && !isSubSectionActive}
+                  frameworks={section1Data.frameworks}
+                >
+                  {section1Data.title}
+                </OptionalLink>
+              }
               label={key1}
-              isActive={isSelfActive && !isSubSectionActive}
-              frameworks={section1Data.frameworks}
+              isOpen={isActive ? true : undefined}
+              defaultIsOpen={isDeployed}
+              className="py-0! pl-0!"
+              isActive={isSubSectionActive}
             >
-              {section1Data.title}
-            </OptionalLink>
-
-            {subSections && Object.keys(subSections).length > 0 && (
               <ul className="mt-4 flex flex-col gap-4 border-neutral border-l-[0.5px] p-1 text-base">
                 {Object.keys(subSections).map((key2) => {
                   const section2Data = subSections[key2];
@@ -371,7 +399,7 @@ export const DocNavListContent: FC<DocNavListContentProps> = ({
                   );
                 })}
               </ul>
-            )}
+            </Accordion>
           </div>
         );
       })}
