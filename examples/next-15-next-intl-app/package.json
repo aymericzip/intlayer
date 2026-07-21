@@ -13,7 +13,7 @@
     "next": "15.5.15",
     "next-intl": "4.9.0",
     "react": "19.2.8",
-    "react-dom": "19.2.7"
+    "react-dom": "19.2.8"
   },
   "devDependencies": {
     "@intlayer/sync-json-plugin": "workspace:*",

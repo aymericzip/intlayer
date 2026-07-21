@@ -848,7 +848,7 @@
         "next": "16.2.11",
         "next-intlayer": "workspace:*",
         "react": "19.2.8",
-        "react-dom": "19.2.7",
+        "react-dom": "19.2.8",
       },
       "devDependencies": {
         "@intlayer/ai": "workspace:*",
@@ -991,7 +991,7 @@
         "next": "15.5.15",
         "next-intl": "4.9.0",
         "react": "19.2.8",
-        "react-dom": "19.2.7",
+        "react-dom": "19.2.8",
       },
       "devDependencies": {
         "@intlayer/sync-json-plugin": "workspace:*",
@@ -1011,7 +1011,7 @@
         "next": "16.2.11",
         "next-intlayer": "workspace:*",
         "react": "19.2.8",
-        "react-dom": "19.2.7",
+        "react-dom": "19.2.8",
       },
       "devDependencies": {
         "@intlayer/swc": "workspace:*",
@@ -1056,7 +1056,7 @@
         "next": "15.5.18",
         "next-intlayer": "workspace:*",
         "react": "19.2.8",
-        "react-dom": "19.2.7",
+        "react-dom": "19.2.8",
       },
       "devDependencies": {
         "@next/bundle-analyzer": "15.5.18",
@@ -1079,7 +1079,7 @@
         "next": "16.2.11",
         "next-intlayer": "workspace:*",
         "react": "19.2.8",
-        "react-dom": "19.2.7",
+        "react-dom": "19.2.8",
       },
       "devDependencies": {
         "@next/bundle-analyzer": "16.2.0",
@@ -1522,7 +1522,7 @@
       "version": "9.0.0-canary.21",
       "dependencies": {
         "react": "19.2.8",
-        "react-dom": "19.2.7",
+        "react-dom": "19.2.8",
       },
       "devDependencies": {
         "@types/chrome": "0.1.32",
@@ -2831,7 +2831,7 @@
   },
   "overrides": {
     "react": "19.2.8",
-    "react-dom": "19.2.7",
+    "react-dom": "19.2.8",
   },
   "packages": {
     "@acemir/cssom": ["@acemir/cssom@0.9.31", "", {}, "sha512-ZnR3GSaH+/vJ0YlHau21FjfLYjMpYVIzTD8M8vIEQvIGxeOXyXdzCI140rrCY862p/C/BbzWsjc1dgnM9mkoTA=="],
@@ -8836,7 +8836,7 @@
 
     "react-docgen-typescript": ["react-docgen-typescript@2.4.0", "", { "peerDependencies": { "typescript": ">= 4.3.x" } }, "sha512-ZtAp5XTO5HRzQctjPU0ybY0RRCQO19X/8fxn3w7y2VVTUbGHDKULPTL4ky3vB05euSgG5NpALhEhDPvQ56wvXg=="],
 
-    "react-dom": ["react-dom@19.2.7", "", { "dependencies": { "scheduler": "^0.27.0" }, "peerDependencies": { "react": "^19.2.7" } }, "sha512-t0BRVXvbiE/o20Hfw669rLbMCDWtYZLvmJigy2f0MxsXF+71pxhR3xOkspmsO8h3ZlNzyibAmtCa3l4lYKk6gQ=="],
+    "react-dom": ["react-dom@19.2.8", "", { "dependencies": { "scheduler": "^0.27.0" }, "peerDependencies": { "react": "^19.2.8" } }, "sha512-rVprimfGBG3DR+Tq0IQG2DT5PxKth1WIGDmj5yPmlzr4YBe7uyE+Du4oVqTDXZSHGGGXRtTJEGSSePyQCMBglQ=="],
 
     "react-email": ["react-email@6.9.0", "", { "dependencies": { "@babel/parser": "7.29.2", "@babel/traverse": "7.29.0", "@react-email/render": ">=2.1.0", "chokidar": "^4.0.3", "commander": "^13.0.0", "conf": "^15.0.2", "css-tree": "3.2.1", "debounce": "^2.0.0", "esbuild": "^0.28.0", "glob": "^13.0.6", "jiti": "2.6.1", "log-symbols": "^7.0.0", "marked": "^15.0.12", "mime-types": "^3.0.0", "normalize-path": "^3.0.0", "nypm": "0.6.6", "picospinner": "^3.0.0", "prismjs": "^1.30.0", "prompts": "2.4.2", "socket.io": "^4.8.1", "tailwindcss": "^4.1.18", "tsconfig-paths": "4.2.0" }, "peerDependencies": { "react": "^18.0 || ^19.0 || ^19.0.0-rc", "react-dom": "^18.0 || ^19.0 || ^19.0.0-rc" }, "bin": { "email": "./dist/cli/index.mjs" } }, "sha512-72jV+VkeeXgNWDycNDn2tIlHFLg4Hevi3pC77g63FAY1+bDgTs4b56jbZfHF1t5d+GVGb02sGS8bOwoptgvI1w=="],
 
