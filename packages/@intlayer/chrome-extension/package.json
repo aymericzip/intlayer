@@ -47,7 +47,7 @@
     "zip": "cd dist && zip -r ../intlayer-chrome-extension.zip ."
   },
   "dependencies": {
-    "react": "19.2.7",
+    "react": "19.2.8",
     "react-dom": "19.2.7"
   },
   "devDependencies": {

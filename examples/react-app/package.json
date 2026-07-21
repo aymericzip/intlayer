@@ -37,8 +37,8 @@
     "intlayer": "workspace:*",
     "intlayer-cli": "workspace:*",
     "postcss-preset-env": "10.6.0",
-    "react": "19.2.7",
-    "react-dom": "19.2.7",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
     "react-intlayer": "workspace:*",
     "react-router-dom": "7.18.1",
     "react-scripts": "5.0.1",
@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@craco/craco": "7.1.0",
-    "@tailwindcss/postcss": "4.3.2",
+    "@tailwindcss/postcss": "4.3.3",
     "intlayer-editor": "workspace:*",
     "react-scripts-intlayer": "workspace:*",
     "tailwindcss": "4.2.0"

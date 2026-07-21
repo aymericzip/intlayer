@@ -33,7 +33,7 @@
     "marked-gfm-heading-id": "4.1.4",
     "marked-highlight": "2.2.4",
     "marked-mangle": "1.1.13",
-    "postcss": "8.5.18",
+    "postcss": "8.5.21",
     "prismjs": "1.30.0",
     "rxjs": "~7.8.2",
     "tailwindcss": "4.3.3",

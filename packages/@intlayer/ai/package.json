@@ -100,7 +100,7 @@
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
     "rimraf": "6.1.3",
-    "tsdown": "0.22.12",
+    "tsdown": "0.22.13",
     "typescript": "7.0.2",
     "vitest": "4.1.10"
   },

@@ -16,14 +16,14 @@
   "dependencies": {
     "fuse.js": "7.5.0",
     "intlayer": "workspace:*",
-    "next": "16.2.10",
+    "next": "16.2.11",
     "next-intlayer": "workspace:*",
-    "react": "19.2.7",
+    "react": "19.2.8",
     "react-dom": "19.2.7"
   },
   "devDependencies": {
     "@intlayer/swc": "workspace:*",
-    "@tailwindcss/postcss": "4.3.2",
+    "@tailwindcss/postcss": "4.3.3",
     "@types/node": "26.1.1",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
