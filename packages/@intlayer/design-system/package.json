@@ -440,8 +440,8 @@
     "typecheck_": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@better-auth/passkey": "1.6.23",
-    "@better-auth/sso": "1.6.23",
+    "@better-auth/passkey": "1.6.24",
+    "@better-auth/sso": "1.6.24",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
     "@intlayer/core": "workspace:*",
@@ -474,7 +474,7 @@
     "@tiptap/react": "3.28.0",
     "@tiptap/starter-kit": "3.28.0",
     "@tiptap/suggestion": "3.28.0",
-    "better-auth": "1.6.23",
+    "better-auth": "1.6.24",
     "class-variance-authority": "0.7.1",
     "cmdk": "1.1.1",
     "cnfast": "^0.0.8",

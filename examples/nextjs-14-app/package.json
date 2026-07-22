@@ -28,7 +28,7 @@
     "@types/react-dom": "18.3.7",
     "autoprefixer": "10.5.4",
     "intlayer-editor": "workspace:*",
-    "postcss": "8.5.21",
+    "postcss": "8.5.22",
     "tailwindcss": "4.3.3",
     "typescript": "6.0.3"
   }

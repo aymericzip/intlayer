@@ -111,7 +111,7 @@
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
     "@utils/ts-config": "workspace:*",
-    "@vitejs/plugin-react": "6.0.3",
+    "@vitejs/plugin-react": "6.0.4",
     "autoprefixer": "10.5.4",
     "babel-plugin-react-compiler": "1.0.0",
     "framer-motion": "12.42.2",

@@ -37,7 +37,7 @@
     "test": "bun --bun vitest run"
   },
   "dependencies": {
-    "@better-auth/sso": "1.6.23",
+    "@better-auth/sso": "1.6.24",
     "@electron-toolkit/utils": "4.0.0",
     "@intlayer/api": "workspace:*",
     "@intlayer/config": "workspace:*",
@@ -74,7 +74,7 @@
     "lucide-react": "1.25.0",
     "next-themes": "0.4.6",
     "nitro": "latest",
-    "posthog-js": "1.406.1",
+    "posthog-js": "1.406.2",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "react-hook-form": "7.82.0",
@@ -98,7 +98,7 @@
     "@types/node": "26.1.1",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
-    "@vitejs/plugin-react": "6.0.3",
+    "@vitejs/plugin-react": "6.0.4",
     "babel-plugin-react-compiler": "1.0.0",
     "esbuild": "0.28.1",
     "jsdom": "29.1.1",
