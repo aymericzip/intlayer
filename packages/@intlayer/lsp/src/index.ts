@@ -3,7 +3,10 @@ import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { dirname, isAbsolute, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { getConfiguration } from '@intlayer/config/node';
+import {
+  getConfiguration,
+  searchConfigurationFile,
+} from '@intlayer/config/node';
 import { buildComponentFilesList } from '@intlayer/engine/utils';
 import type { IntlayerConfig } from '@intlayer/types/config';
 import { getUnmergedDictionaries } from '@intlayer/unmerged-dictionaries-entry';
@@ -100,17 +103,47 @@ type SourceFilesCache = {
 const projectSourceFiles = new Map<string, SourceFilesCache>();
 const SOURCE_FILES_CACHE_TTL_MS = 30_000;
 
+/**
+ * Directory of the file → directory holding the closest intlayer config.
+ * Populated lazily by `getProjectRoot`.
+ */
+const projectRoots = new Map<string, string>();
+
 const invalidateConfigCaches = () => {
   projectConfigs.clear();
   projectDictionaries.clear();
+  projectRoots.clear();
 
   projectSourceFiles.clear();
 };
 
+/**
+ * Resolve the project root for a file — the directory that holds the closest
+ * intlayer config file.
+ *
+ * `getConfiguration({ baseDir })` treats `baseDir` as the project root and
+ * derives every `system.*` path from it, so passing the file's own directory
+ * would resolve `.intlayer/` next to the file (e.g. `src/.intlayer/…`) instead
+ * of at the project root — leaving every dictionary lookup empty.
+ */
+const getProjectRoot = (fileDirectory: string): string => {
+  const cached = projectRoots.get(fileDirectory);
+
+  if (cached !== undefined) return cached;
+
+  const { configurationFilePath } = searchConfigurationFile(fileDirectory);
+  const root = configurationFilePath
+    ? dirname(configurationFilePath)
+    : (workspaceRoot ?? fileDirectory);
+
+  projectRoots.set(fileDirectory, root);
+  return root;
+};
+
 const getProjectConfig = (absolutePath: string): WorkspaceConfig | null => {
   try {
-    const baseDir = dirname(absolutePath);
     // Find the closest intlayer config relative to the file.
+    const baseDir = getProjectRoot(dirname(absolutePath));
     const { system, build, content, compiler } = getConfiguration({ baseDir });
     const cacheKey = system.baseDir;
 
@@ -1070,6 +1103,13 @@ connection.onDidChangeWatchedFiles(() => {
   log(
     'watched files changed — source file list and dictionary cache invalidated'
   );
+
+  // Diagnostics are only recomputed on open/change, so a key reported as
+  // undeclared would stay flagged after its content file (or the built
+  // dictionaries) appear. Re-publish for every open document.
+  for (const document of documents.all()) {
+    scheduleDiagnostics(document.uri, document.getText(), document.version);
+  }
 });
 
 // Make the text document manager listen on the connection

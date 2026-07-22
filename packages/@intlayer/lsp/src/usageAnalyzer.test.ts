@@ -70,6 +70,65 @@ describe('base intlayer usages', () => {
     });
   });
 
+  it('scopes same-named bindings to their own component', () => {
+    const text = [
+      `const Page = () => {`,
+      `  const content = useIntlayer('benchmark');`,
+      `  return <p>{content.first}</p>;`,
+      `};`,
+      `const App = () => {`,
+      `  const content = useIntlayer('app');`,
+      `  return <p>{content.second}</p>;`,
+      `};`,
+    ].join('\n');
+
+    const usages = collectMessageUsages(text).filter(
+      (usage) => usage.kind === 'member'
+    );
+
+    expect(usages).toMatchObject([
+      { dictionaryKey: 'benchmark', fieldPath: ['first'] },
+      { dictionaryKey: 'app', fieldPath: ['second'] },
+    ]);
+  });
+
+  it('resolves an outer binding from a nested scope', () => {
+    const text = [
+      `const content = useIntlayer('home');`,
+      `const Item = () => <p>{content.title}</p>;`,
+    ].join('\n');
+
+    const usage = findMessageUsageAtOffset(text, offsetOf(text, 'title}'));
+
+    expect(usage).toMatchObject({
+      dictionaryKey: 'home',
+      fieldPath: ['title'],
+    });
+  });
+
+  it('scopes same-named translator bindings to their own component', () => {
+    const text = [
+      `import { useTranslations } from 'next-intl';`,
+      `const Page = () => {`,
+      `  const t = useTranslations('benchmark');`,
+      `  return t('first');`,
+      `};`,
+      `const App = () => {`,
+      `  const t = useTranslations('app');`,
+      `  return t('second');`,
+      `};`,
+    ].join('\n');
+
+    const usages = collectMessageUsages(text).filter(
+      (usage) => usage.kind === 'call'
+    );
+
+    expect(usages).toMatchObject([
+      { dictionaryKey: 'benchmark', fieldPath: ['first'] },
+      { dictionaryKey: 'app', fieldPath: ['second'] },
+    ]);
+  });
+
   it('resolves Svelte store references ($content)', () => {
     const text = [
       `const content = useIntlayer('home');`,

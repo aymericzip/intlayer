@@ -228,6 +228,24 @@ export const useDictionary = <
           );
         }
 
+        if (typeof snapshot === 'function') {
+          const parent = atPath(source.value, path);
+
+          // Native prototype methods reached off array/string content
+          // (Array.prototype.map, String.prototype.split, …) are not own
+          // properties of the content node and must stay bound to their
+          // receiver, or calling them throws "called on null or undefined".
+          if (parent != null && !Object.hasOwn(parent, prop)) {
+            return snapshot.bind(parent);
+          }
+
+          // Own dictionary-authored functions (enumeration/condition/gender/
+          // insertion accessors) must stay callable. Forward to whatever
+          // function currently lives at this path so locale/content changes
+          // stay reactive.
+          return (...args: any[]) => atPath(source.value, nextPath)?.(...args);
+        }
+
         // For other component-like things or primitives, return computed ref
         const subLeafRef = computed(() => atPath(source.value, nextPath));
 

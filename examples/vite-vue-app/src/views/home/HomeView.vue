@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, h } from 'vue';
-import QualifiedContentDemo from '../../components/QualifiedContentDemo/index.vue';
 import { useIntlayer } from 'vue-intlayer';
 import {
   useCompact,
@@ -12,6 +11,7 @@ import {
   useRelativeTime,
   useUnit,
 } from 'vue-intlayer/format';
+import QualifiedContentDemo from '../../components/QualifiedContentDemo/index.vue';
 
 const { title, viteLogoLabel, vueLogoLabel, readTheDocs } = useIntlayer('app');
 const content = useIntlayer('benchmark');
@@ -42,73 +42,73 @@ const sections = computed<Section[]>(() => {
           id: nextId(),
           name: 't()',
           desc: 'Simple translation',
-          result: content.value.n01_t,
+          result: content.n01_t,
         },
         {
           id: nextId(),
           name: 't().value',
           desc: 'Raw string value',
-          result: content.value.n01_t.value,
+          result: content.n01_t.value,
         },
         {
           id: nextId(),
           name: 'enu() −2',
           desc: "count=-2 → '<-1'",
-          result: content.value.n02_enu(-2),
+          result: content.n02_enu(-2),
         },
         {
           id: nextId(),
           name: 'enu() 0',
           desc: "count=0 → '0'",
-          result: content.value.n02_enu(0),
+          result: content.n02_enu(0),
         },
         {
           id: nextId(),
           name: 'enu() 1',
           desc: "count=1 → '1'",
-          result: content.value.n02_enu(1),
+          result: content.n02_enu(1),
         },
         {
           id: nextId(),
           name: 'enu() 7',
           desc: "count=7 → '>5'",
-          result: content.value.n02_enu(7),
+          result: content.n02_enu(7),
         },
         {
           id: nextId(),
           name: 'enu() 25',
           desc: "count=25 → '>19'",
-          result: content.value.n02_enu(25),
+          result: content.n02_enu(25),
         },
         {
           id: nextId(),
           name: 'cond() true',
           desc: 'condition=true',
-          result: content.value.n03_cond(true),
+          result: content.n03_cond(true),
         },
         {
           id: nextId(),
           name: 'cond() false',
           desc: 'condition=false',
-          result: content.value.n03_cond(false),
+          result: content.n03_cond(false),
         },
         {
           id: nextId(),
           name: "gender() 'male'",
           desc: "gender='male'",
-          result: content.value.n04_gender('male'),
+          result: content.n04_gender('male'),
         },
         {
           id: nextId(),
           name: "gender() 'female'",
           desc: "gender='female'",
-          result: content.value.n04_gender('female'),
+          result: content.n04_gender('female'),
         },
         {
           id: nextId(),
           name: 'insert()',
           desc: "{name:'Alice', age:30}",
-          result: content.value.n05_insert({ name: 'Alice', age: 30 }),
+          result: content.n05_insert({ name: 'Alice', age: 30 }),
         },
         {
           id: nextId(),
@@ -120,13 +120,13 @@ const sections = computed<Section[]>(() => {
           id: nextId(),
           name: 'plural() 1',
           desc: "count=1 → 'one'",
-          result: content.value.n22_plural(1),
+          result: content.n22_plural(1),
         },
         {
           id: nextId(),
           name: 'plural() 5',
           desc: "count=5 → 'other'",
-          result: content.value.n22_plural(5),
+          result: content.n22_plural(5),
         },
       ],
     },
@@ -137,39 +137,37 @@ const sections = computed<Section[]>(() => {
           id: nextId(),
           name: 'insert(t())',
           desc: "{name:'Alice', place:'Paris'}",
-          result: content.value.n08_insert_t({ name: 'Alice', place: 'Paris' }),
+          result: content.n08_insert_t({ name: 'Alice', place: 'Paris' }),
         },
         {
           id: nextId(),
           name: 'enu(t()) 2',
           desc: 'Enumeration of t(), count=2',
-          result: content.value.n11_enu_t(2),
+          result: content.n11_enu_t(2),
         },
         {
           id: nextId(),
           name: 'insert(enu(t()))',
           desc: '{count:3,name:"Alice"}(3)',
-          result: content.value.n12_insert_enu_t({ count: 3, name: 'Alice' })(
-            3
-          ),
+          result: content.n12_insert_enu_t({ count: 3, name: 'Alice' })(3),
         },
         {
           id: nextId(),
           name: 'cond(t()) true',
           desc: 'Condition of t(), true',
-          result: content.value.n13_cond_t(true),
+          result: content.n13_cond_t(true),
         },
         {
           id: nextId(),
           name: 'cond(insert(t()))',
           desc: "true · {name:'Alice'}",
-          result: content.value.n14_cond_insert_t(true)?.({ name: 'Alice' }),
+          result: content.n14_cond_insert_t(true)?.({ name: 'Alice' }),
         },
         {
           id: nextId(),
           name: 'gender(insert(t()))',
           desc: "female · {name:'Alice'}",
-          result: content.value.n15_gender_insert_t('female')?.({
+          result: content.n15_gender_insert_t('female')?.({
             name: 'Alice',
           }),
         },
@@ -200,25 +198,25 @@ const sections = computed<Section[]>(() => {
           id: nextId(),
           name: 'nested object',
           desc: 'obj.level1.level2',
-          result: content.value.n17_nested_object.level1.level2,
+          result: content.n17_nested_object.level1.level2,
         },
         {
           id: nextId(),
           name: "array ['string']",
           desc: "['item1','item2','item3']",
-          result: content.value.n18_array_strings,
+          result: content.n18_array_strings,
         },
         {
           id: nextId(),
           name: 'array [t()]',
           desc: 'Array of translations',
-          result: content.value.n19_array_translations,
+          result: content.n19_array_translations,
         },
         {
           id: nextId(),
           name: 'array [{obj}]',
           desc: 'Array of {name,role}',
-          result: content.value.n20_array_objects
+          result: content.n20_array_objects
             .map((o) => `${o.name.value} (${o.role.value})`)
             .join(' · '),
         },
@@ -226,7 +224,7 @@ const sections = computed<Section[]>(() => {
           id: nextId(),
           name: "nest('app','title')",
           desc: 'Cross-dict reference',
-          result: content.value.n21_nest,
+          result: content.n21_nest,
         },
       ],
     },
@@ -287,13 +285,12 @@ const sections = computed<Section[]>(() => {
 });
 
 const htmlRow = () =>
-  content.value.n07_html.use({
+  content.n07_html.use({
     b: (props) => h('strong', { style: { color: '#42b883' } }, props.children),
   });
 
-const pluralHtmlRow = (count: number) => content.value.n23_plural_html(count).use({});
-const insertHtmlRow = () =>
-  content.value.n24_insert_html({ name: 'Alice' }).use({});
+const pluralHtmlRow = (count: number) => content.n23_plural_html(count).use({});
+const insertHtmlRow = () => content.n24_insert_html({ name: 'Alice' }).use({});
 </script>
 
 <template>

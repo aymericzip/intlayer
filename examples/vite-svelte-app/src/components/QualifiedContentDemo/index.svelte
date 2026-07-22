@@ -18,13 +18,13 @@ const airpods = useIntlayer('product', {
 });
 
 // Composite
-const defaultPlans = useIntlayer('pricing') as any;
-const promoPlans = useIntlayer('pricing', { variant: 'promo' }) as any;
+const defaultPlans = useIntlayer('pricing');
+const promoPlans = useIntlayer('pricing', { variant: 'promo' });
 const promoPro = useIntlayer('pricing', {
   variant: 'promo',
   locale: 'es',
   item: '2',
-}) as any;
+});
 </script>
 
 <div class="card">

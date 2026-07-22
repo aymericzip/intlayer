@@ -84,7 +84,7 @@ export type MessageUsage = {
  * without a namespace) — the dictionary is then the first dot-segment of
  * each message id.
  */
-type TranslatorBinding = {
+type TranslatorBinding = BindingScope & {
   dictionaryKey: string | null;
   keyPrefix: string[];
   descriptor: CallerDescriptor;
@@ -92,11 +92,29 @@ type TranslatorBinding = {
 };
 
 /** Variable holding dictionary content (or a field subtree of it). */
-type ContentBinding = {
+type ContentBinding = BindingScope & {
   dictionaryKey: string;
   basePath: string[];
   descriptor: CallerDescriptor;
   moduleSource?: string;
+};
+
+/**
+ * Where a binding is visible. Two components in the same file routinely bind
+ * the same variable name to different dictionaries:
+ *
+ *   const Page = () => { const content = useIntlayer('benchmark'); … }
+ *   const App  = () => { const content = useIntlayer('app'); … }
+ *
+ * Without a scope, the second declaration would shadow the first and every
+ * usage in the file would resolve to the last dictionary declared.
+ */
+type BindingScope = {
+  /** Span of the function (or the program) the declaration lives in. */
+  scopeStart: number;
+  scopeEnd: number;
+  /** End offset of the declaration itself — usages before it are not bound. */
+  declarationEnd: number;
 };
 
 /**
@@ -311,10 +329,96 @@ const collectImportedLocalNames = (program: OxcNode): Map<string, string> => {
 
 type AnalyzerState = {
   usages: MessageUsage[];
-  translatorBindings: Map<string, TranslatorBinding>;
-  contentBindings: Map<string, ContentBinding>;
+  /** Bindings are keyed by variable name, then by declaration (see BindingScope). */
+  translatorBindings: Map<string, TranslatorBinding[]>;
+  contentBindings: Map<string, ContentBinding[]>;
   activeDescriptors: CallerDescriptor[];
   importedLocalNames: Map<string, string>;
+  parentMap: Map<OxcNode, OxcNode>;
+  program: OxcNode;
+};
+
+/** Node types that open a new binding scope. */
+const SCOPE_NODE_TYPES = new Set([
+  'FunctionDeclaration',
+  'FunctionExpression',
+  'ArrowFunctionExpression',
+  'ClassMethod',
+  'ObjectMethod',
+  'StaticBlock',
+  'Program',
+]);
+
+/**
+ * Span of the nearest enclosing function — the region a declaration is
+ * visible in. Falls back to the whole program for module-level declarations.
+ */
+const getEnclosingScope = (
+  state: AnalyzerState,
+  node: OxcNode
+): { scopeStart: number; scopeEnd: number } => {
+  let current: OxcNode | undefined = node;
+
+  while (current) {
+    if (SCOPE_NODE_TYPES.has(current['type'] as string)) {
+      return { scopeStart: nodeStart(current), scopeEnd: nodeEnd(current) };
+    }
+    current = state.parentMap.get(current);
+  }
+
+  return {
+    scopeStart: nodeStart(state.program),
+    scopeEnd: nodeEnd(state.program),
+  };
+};
+
+const addBinding = <T>(
+  bindings: Map<string, T[]>,
+  variableName: string,
+  binding: T
+): void => {
+  const existing = bindings.get(variableName);
+
+  if (existing) {
+    existing.push(binding);
+  } else {
+    bindings.set(variableName, [binding]);
+  }
+};
+
+/**
+ * The binding a variable resolves to at `offset`: the innermost scope that
+ * contains the offset, among declarations that precede it.
+ */
+const resolveBinding = <T extends BindingScope>(
+  bindings: Map<string, T[]>,
+  variableName: string,
+  offset: number
+): T | undefined => {
+  const candidates = bindings.get(variableName);
+
+  if (!candidates) return undefined;
+
+  let best: T | undefined;
+
+  for (const candidate of candidates) {
+    if (offset < candidate.scopeStart || offset > candidate.scopeEnd) continue;
+
+    // A usage textually before its declaration belongs to an outer binding.
+    if (offset < candidate.declarationEnd) continue;
+
+    // Innermost scope wins; on equal scopes the latest declaration wins.
+    if (
+      !best ||
+      candidate.scopeStart > best.scopeStart ||
+      (candidate.scopeStart === best.scopeStart &&
+        candidate.declarationEnd > best.declarationEnd)
+    ) {
+      best = candidate;
+    }
+  }
+
+  return best;
 };
 
 /**
@@ -365,7 +469,8 @@ const collectContentDestructure = (
   dictionaryKey: string,
   basePath: string[],
   descriptor: CallerDescriptor,
-  moduleSource: string | undefined
+  moduleSource: string | undefined,
+  scope: BindingScope
 ): void => {
   for (const property of (pattern['properties'] as OxcNode[]) ?? []) {
     const propertyType = property['type'] as string;
@@ -400,11 +505,12 @@ const collectContentDestructure = (
     }
 
     if (valueNode?.['type'] === 'Identifier') {
-      state.contentBindings.set(valueNode['name'] as string, {
+      addBinding(state.contentBindings, valueNode['name'] as string, {
         dictionaryKey,
         basePath: fieldPath,
         descriptor,
         moduleSource,
+        ...scope,
       });
     } else if (valueNode?.['type'] === 'ObjectPattern') {
       collectContentDestructure(
@@ -413,7 +519,8 @@ const collectContentDestructure = (
         dictionaryKey,
         fieldPath,
         descriptor,
-        moduleSource
+        moduleSource,
+        scope
       );
     }
   }
@@ -499,26 +606,33 @@ const collectBindings = (state: AnalyzerState, program: OxcNode): void => {
 
     if (!idNode) return;
 
+    const scope: BindingScope = {
+      ...getEnclosingScope(state, node),
+      declarationEnd: nodeEnd(node),
+    };
+
     // const t = useTranslations('ns') / const content = useIntlayer('key')
     if (idNode['type'] === 'Identifier') {
       const variableName = idNode['name'] as string;
 
       if (descriptor.translationFunction === 'return-value') {
-        state.translatorBindings.set(variableName, {
+        addBinding(state.translatorBindings, variableName, {
           dictionaryKey,
           keyPrefix,
           descriptor,
           moduleSource,
+          ...scope,
         });
       } else if (
         descriptor.translationFunction === 'content' &&
         dictionaryKey
       ) {
-        state.contentBindings.set(variableName, {
+        addBinding(state.contentBindings, variableName, {
           dictionaryKey,
           basePath: keyPrefix,
           descriptor,
           moduleSource,
+          ...scope,
         });
       }
       return;
@@ -536,7 +650,8 @@ const collectBindings = (state: AnalyzerState, program: OxcNode): void => {
         dictionaryKey,
         keyPrefix,
         descriptor,
-        moduleSource
+        moduleSource,
+        scope
       );
       return;
     }
@@ -561,11 +676,12 @@ const collectBindings = (state: AnalyzerState, program: OxcNode): void => {
       // Only the `t` property carries the translation function.
       if (fieldName !== 't' || !localName) continue;
 
-      state.translatorBindings.set(localName, {
+      addBinding(state.translatorBindings, localName, {
         dictionaryKey,
         keyPrefix,
         descriptor,
         moduleSource,
+        ...scope,
       });
     }
   });
@@ -588,7 +704,11 @@ const collectCallUsages = (state: AnalyzerState, program: OxcNode): void => {
 
     // Translator binding call: t('path.to.field')
     if (callee?.['type'] === 'Identifier') {
-      const binding = state.translatorBindings.get(callee['name'] as string);
+      const binding = resolveBinding(
+        state.translatorBindings,
+        callee['name'] as string,
+        nodeStart(node)
+      );
 
       if (binding) {
         const argumentsList = node['arguments'] as OxcNode[] | undefined;
@@ -764,6 +884,7 @@ const collectJsxUsages = (state: AnalyzerState, program: OxcNode): void => {
   // distinct translator namespace declared in the file (react-i18next Trans).
   const translatorNamespaces = new Set(
     [...state.translatorBindings.values()]
+      .flat()
       .map((binding) => binding.dictionaryKey)
       .filter(
         (dictionaryKey): dictionaryKey is string => dictionaryKey !== null
@@ -914,7 +1035,11 @@ const collectMemberUsages = (
     const rawName = node['name'] as string;
     // Svelte store sugar: `$content` reads the `content` store.
     const variableName = rawName.startsWith('$') ? rawName.slice(1) : rawName;
-    const binding = state.contentBindings.get(variableName);
+    const binding = resolveBinding(
+      state.contentBindings,
+      variableName,
+      nodeStart(node)
+    );
 
     if (!binding) return;
 
@@ -1033,6 +1158,7 @@ export const collectMessageUsages = (text: string): MessageUsage[] => {
   if (!program) return [];
 
   const fileImportSources = collectImportSources(program);
+  const parentMap = buildParentMap(program);
   const state: AnalyzerState = {
     usages: [],
     translatorBindings: new Map(),
@@ -1041,13 +1167,13 @@ export const collectMessageUsages = (text: string): MessageUsage[] => {
       isCallerActive(descriptor, fileImportSources)
     ),
     importedLocalNames: collectImportedLocalNames(program),
+    parentMap,
+    program,
   };
 
   collectBindings(state, program);
   collectCallUsages(state, program);
   collectJsxUsages(state, program);
-
-  const parentMap = buildParentMap(program);
   collectMemberUsages(state, program, parentMap);
 
   return state.usages.sort((first, second) => first.start - second.start);
@@ -1249,34 +1375,42 @@ export const collectCallerBindings = (
       isCallerActive(descriptor, fileImportSources)
     ),
     importedLocalNames: collectImportedLocalNames(program),
+    parentMap: buildParentMap(program),
+    program,
   };
 
   collectBindings(state, program);
 
   return [
-    ...[...state.contentBindings.entries()].map(
-      ([variableName, binding]): CallerVariableBinding => ({
-        variableName,
-        dictionaryKey: binding.dictionaryKey,
-        basePath: binding.basePath,
-        bindingKind: 'content',
-        callerName: binding.descriptor.callerName,
-        library: binding.descriptor.library,
-      })
+    ...[...state.contentBindings.entries()].flatMap(
+      ([variableName, bindings]) =>
+        bindings.map(
+          (binding): CallerVariableBinding => ({
+            variableName,
+            dictionaryKey: binding.dictionaryKey,
+            basePath: binding.basePath,
+            bindingKind: 'content',
+            callerName: binding.descriptor.callerName,
+            library: binding.descriptor.library,
+          })
+        )
     ),
-    ...[...state.translatorBindings.entries()]
-      // Root-scope translators have no bound dictionary to expose.
-      .filter(([, binding]) => binding.dictionaryKey !== null)
-      .map(
-        ([variableName, binding]): CallerVariableBinding => ({
-          variableName,
-          dictionaryKey: binding.dictionaryKey!,
-          basePath: binding.keyPrefix,
-          bindingKind: 'translator',
-          callerName: binding.descriptor.callerName,
-          library: binding.descriptor.library,
-        })
-      ),
+    ...[...state.translatorBindings.entries()].flatMap(
+      ([variableName, bindings]) =>
+        bindings
+          // Root-scope translators have no bound dictionary to expose.
+          .filter((binding) => binding.dictionaryKey !== null)
+          .map(
+            (binding): CallerVariableBinding => ({
+              variableName,
+              dictionaryKey: binding.dictionaryKey!,
+              basePath: binding.keyPrefix,
+              bindingKind: 'translator',
+              callerName: binding.descriptor.callerName,
+              library: binding.descriptor.library,
+            })
+          )
+    ),
   ];
 };
 
