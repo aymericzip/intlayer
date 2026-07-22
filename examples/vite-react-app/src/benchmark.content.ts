@@ -225,6 +225,60 @@ const benchmarkContent = {
         es: '{{count}} artículos',
       }),
     }),
+
+    // plural() wrapping html() — the `{{count}}` placeholder must be
+    // interpolated inside the raw HTML string before it is rendered.
+    n23_plural_html: t({
+      en: plural({
+        one: html('<b>{{count}}</b> day'),
+        other: html('<b>{{count}}</b> days'),
+      }),
+      fr: plural({
+        one: html('<b>{{count}}</b> jour'),
+        other: html('<b>{{count}}</b> jours'),
+      }),
+      es: plural({
+        one: html('<b>{{count}}</b> día'),
+        other: html('<b>{{count}}</b> días'),
+      }),
+    }),
+
+    // insert() wrapping html() — the `{{name}}` placeholder must be
+    // interpolated inside the raw HTML string before it is rendered.
+    n24_insert_html: insert(
+      t({
+        en: html('Hello <b>{{name}}</b>'),
+        fr: html('Bonjour <b>{{name}}</b>'),
+        es: html('Hola <b>{{name}}</b>'),
+      })
+    ),
+
+    // plural() wrapping md() — the `{{count}}` placeholder must be
+    // interpolated inside the raw Markdown string before it is rendered.
+    n25_plural_md: t({
+      en: plural({
+        one: md('**{{count}}** day'),
+        other: md('**{{count}}** days'),
+      }),
+      fr: plural({
+        one: md('**{{count}}** jour'),
+        other: md('**{{count}}** jours'),
+      }),
+      es: plural({
+        one: md('**{{count}}** día'),
+        other: md('**{{count}}** días'),
+      }),
+    }),
+
+    // insert() wrapping md() — the `{{name}}` placeholder must be
+    // interpolated inside the raw Markdown string before it is rendered.
+    n26_insert_md: insert(
+      t({
+        en: md('Hello **{{name}}**'),
+        fr: md('Bonjour **{{name}}**'),
+        es: md('Hola **{{name}}**'),
+      })
+    ),
   },
 
   filled: true,

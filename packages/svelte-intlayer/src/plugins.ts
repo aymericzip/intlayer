@@ -7,9 +7,11 @@ import {
   filePlugin,
   genderPlugin,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
+  isInterpolableWrapperNode,
   nestedPlugin,
   type Plugins,
   pluralPlugin,
+  transformInterpolableNode,
   translationPlugin,
 } from '@intlayer/core/interpreter';
 import type {
@@ -35,35 +37,56 @@ import { type IntlayerNode, renderIntlayerNode } from './renderIntlayerNode';
 // entirely when the feature is disabled at build time.
 let _getMarkdownMetadata: ((s: string) => any) | null = null;
 let _compile: ((s: string, opts: any, ctx?: any) => any) | null = null;
-let _MarkdownMetadataRenderer: any = null;
-let _MarkdownMetadataWithSelector: any = null;
-let _MarkdownRenderer: any = null;
-let _MarkdownWithSelector: any = null;
 let _svelteHtmlRuntime: any = null;
 let _HTMLWithSelector: any = null;
+
+/** Renderer components resolved from the code-split markdown chunk. */
+type MarkdownRendererModules = {
+  MarkdownMetadataRenderer: any;
+  MarkdownMetadataWithSelector: any;
+  MarkdownRenderer: any;
+  MarkdownWithSelector: any;
+};
+
+/**
+ * Kept as a promise rather than being unwrapped into module-level variables:
+ * a dictionary interpreted during the first synchronous render would otherwise
+ * snapshot a still-`null` renderer, and `IntlayerNodeWrapper` would silently
+ * fall back to printing the raw markdown source (`**bold**`) forever.
+ */
+let markdownRendererModulesPromise: Promise<MarkdownRendererModules> | null =
+  null;
 
 if (process.env.INTLAYER_NODE_TYPE_MARKDOWN !== 'false') {
   void import('@intlayer/core/markdown').then((m) => {
     _getMarkdownMetadata = m.getMarkdownMetadata;
     _compile = m.compile;
   });
-  void Promise.all([
-    import('./markdown/MarkdownMetadataRenderer.svelte').then(
-      (m) => (_MarkdownMetadataRenderer = m.default)
-    ),
-    import('./markdown/MarkdownMetadataWithSelector.svelte').then(
-      (m) => (_MarkdownMetadataWithSelector = m.default)
-    ),
-    import('./markdown/MarkdownRenderer.svelte').then(
-      (m) => (_MarkdownRenderer = m.default)
-    ),
-    import('./markdown/MarkdownWithSelector.svelte').then(
-      (m) => (_MarkdownWithSelector = m.default)
-    ),
-    import('./markdown/runtime').then(
-      (m) => (_svelteHtmlRuntime = m.svelteHtmlRuntime)
-    ),
-  ]);
+
+  markdownRendererModulesPromise = Promise.all([
+    import('./markdown/MarkdownMetadataRenderer.svelte'),
+    import('./markdown/MarkdownMetadataWithSelector.svelte'),
+    import('./markdown/MarkdownRenderer.svelte'),
+    import('./markdown/MarkdownWithSelector.svelte'),
+    import('./markdown/runtime'),
+  ]).then(
+    ([
+      metadataRendererModule,
+      metadataWithSelectorModule,
+      rendererModule,
+      withSelectorModule,
+      runtimeModule,
+    ]) => {
+      _svelteHtmlRuntime = runtimeModule.svelteHtmlRuntime;
+
+      return {
+        MarkdownMetadataRenderer: metadataRendererModule.default,
+        MarkdownMetadataWithSelector: metadataWithSelectorModule.default,
+        MarkdownRenderer: rendererModule.default,
+        MarkdownWithSelector: withSelectorModule.default,
+      };
+    }
+  );
 }
 
 if (process.env.INTLAYER_NODE_TYPE_HTML !== 'false') {
@@ -71,6 +94,35 @@ if (process.env.INTLAYER_NODE_TYPE_HTML !== 'false') {
     (m) => (_HTMLWithSelector = m.default)
   );
 }
+
+/**
+ * Resolves the Svelte component that renders a markdown node, awaiting the
+ * code-split chunk so the renderer is never lost to a load race.
+ *
+ * @param pickMetadataRenderer - Selects the metadata renderer instead of the
+ * content renderer.
+ * @returns A promise for the renderer, or `undefined` when markdown nodes are
+ * tree-shaken out of the bundle.
+ */
+const resolveMarkdownRenderer = (
+  pickMetadataRenderer: boolean = false
+): Promise<any> | undefined => {
+  const useEditorSelector =
+    process.env.INTLAYER_EDITOR_ENABLED !== 'false' && editor.enabled;
+
+  return markdownRendererModulesPromise?.then((modules) => {
+    if (pickMetadataRenderer) {
+      return useEditorSelector
+        ? (modules.MarkdownMetadataWithSelector ??
+            modules.MarkdownMetadataRenderer)
+        : modules.MarkdownMetadataRenderer;
+    }
+
+    return useEditorSelector
+      ? (modules.MarkdownWithSelector ?? modules.MarkdownRenderer)
+      : modules.MarkdownRenderer;
+  });
+};
 
 /**
  * Interface for Svelte-specific plugin functionality
@@ -236,8 +288,27 @@ export const insertionPlugin: Plugins =
           /** Insertion string plugin. Replaces string node with a component that render the insertion. */
           const insertionStringPlugin: Plugins = {
             id: 'insertion-string-plugin',
-            canHandle: (node) => typeof node === 'string',
-            transform: (node: string, subProps, deepTransformNode) => {
+            canHandle: (node) =>
+              typeof node === 'string' || isInterpolableWrapperNode(node),
+            transform: (node, subProps, deepTransformNode) => {
+              // `html()`/`markdown()` nodes carry their `{{ … }}` placeholders
+              // inside a raw string. Interpolate into that string, then re-run
+              // the transform so the html/markdown renderer applies afterwards.
+              if (isInterpolableWrapperNode(node)) {
+                return (
+                  values: {
+                    [K in InsertionContent['fields'][number]]: string | number;
+                  }
+                ) =>
+                  transformInterpolableNode(
+                    node,
+                    values,
+                    subProps,
+                    props.plugins,
+                    deepTransformNode
+                  );
+              }
+
               const transformedResult = deepTransformNode(node, {
                 ...subProps,
                 children: node,
@@ -333,12 +404,7 @@ export const markdownStringPlugin: Plugins =
             transform: (metadataNode, props) =>
               renderIntlayerNode({
                 value: metadataNode,
-                component:
-                  process.env.INTLAYER_EDITOR_ENABLED !== 'false' &&
-                  editor.enabled
-                    ? (_MarkdownMetadataWithSelector ??
-                      _MarkdownMetadataRenderer)
-                    : _MarkdownMetadataRenderer,
+                component: resolveMarkdownRenderer(true),
                 props: {
                   ...rest,
                   value: node, // The full markdown string
@@ -358,11 +424,7 @@ export const markdownStringPlugin: Plugins =
           const render = (components?: any) => {
             const nodeResult = renderIntlayerNode({
               value: node,
-              component:
-                process.env.INTLAYER_EDITOR_ENABLED !== 'false' &&
-                editor.enabled
-                  ? (_MarkdownWithSelector ?? _MarkdownRenderer)
-                  : _MarkdownRenderer,
+              component: resolveMarkdownRenderer(),
               props: {
                 ...rest,
                 value: node,

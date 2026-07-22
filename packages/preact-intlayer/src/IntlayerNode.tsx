@@ -43,8 +43,11 @@ export const renderIntlayerNode = <
       if (prop === 'toString') return () => String(value ?? '');
       if (prop === 'valueOf') return () => value;
 
-      // Additional Props take precedence
-      if (additionalProps && prop in additionalProps) {
+      // Additional Props take precedence. Own keys only: `in` would also match
+      // inherited `Object.prototype` members, and serving `constructor` from
+      // there makes Preact stop recognising this proxy as a VNode — it detects
+      // them by `constructor === undefined` — so the node renders as nothing.
+      if (additionalProps && Object.hasOwn(additionalProps, prop)) {
         return additionalProps[prop as keyof typeof additionalProps];
       }
 
@@ -65,5 +68,7 @@ export const renderIntlayerNode = <
 
       return Reflect.get(target, prop, receiver);
     },
-  }) as IntlayerNode<T>;
+    // The proxy impersonates a VNode while also exposing the node's own value
+    // and additional props, so the two types never structurally overlap.
+  }) as unknown as IntlayerNode<T>;
 };

@@ -1,4 +1,4 @@
-import { createRenderEffect, createResource } from 'solid-js';
+import { createRenderEffect, createResource, untrack } from 'solid-js';
 import { PROXY_RESERVED_KEYS } from '../proxyKeys';
 
 type DynamicSource = string | { cacheKey: string };
@@ -134,10 +134,26 @@ export const createLoadableProxy = <T>(read: () => T | undefined): T => {
 
         if (typeof currentValue !== 'function') {
           // A zero-arg call resolves the leaf: its real value once loaded, or
-          // the empty string while pending (synchronous-safe). A call with
-          // arguments keeps descending so nested pending access stays safe.
+          // the empty string while pending (synchronous-safe).
           if (argumentsList.length === 0) return currentValue ?? '';
-          return createProxyAtPath(path);
+
+          // A call with arguments made while the chunk is still pending must not
+          // lose them: return a proxy that replays the exact call once the value
+          // at this path resolves to a function.
+          return createLoadableProxy(() => {
+            // `read()` stays tracked so the replay re-runs once the chunk lands.
+            const resolvedValue = readValueAtPath(read(), path);
+
+            if (typeof resolvedValue !== 'function') return undefined;
+
+            // The call itself is untracked: a replayed function runs inside
+            // whichever effect happens to read this proxy, and its own reactive
+            // reads would otherwise become that effect's dependencies and
+            // re-trigger it forever.
+            return untrack(() =>
+              Reflect.apply(resolvedValue, thisArgument, argumentsList)
+            );
+          });
         }
 
         return Reflect.apply(currentValue, thisArgument, argumentsList);

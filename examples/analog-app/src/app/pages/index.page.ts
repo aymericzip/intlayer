@@ -56,6 +56,28 @@ import { LocaleSwitcherComponent } from '../locale-switcher.component';
       <h2>Insertion</h2>
       <p>{{ content().insertionContent({ name: 'User', city: 'Paris' }) }}</p>
 
+      <h2>Plural</h2>
+      <p>1 item: {{ content().pluralContent(1) }}</p>
+      <p>5 items: {{ content().pluralContent(5) }}</p>
+
+      <h2>Plural + HTML</h2>
+      <!-- plural(html()) — the {{count}} placeholder is interpolated inside the raw HTML string. -->
+      <div [innerHTML]="content().pluralHtmlContent(1)"></div>
+      <div [innerHTML]="content().pluralHtmlContent(5)"></div>
+
+      <h2>Insert + HTML</h2>
+      <!-- insert(html()) — the {{name}} placeholder is interpolated inside the raw HTML string. -->
+      <div [innerHTML]="content().insertHtmlContent({ name: 'Alice' })"></div>
+
+      <h2>Plural + Markdown</h2>
+      <!-- plural(md()) — the {{count}} placeholder is interpolated inside the raw Markdown string. -->
+      <div [innerHTML]="content().pluralMdContent(1)"></div>
+      <div [innerHTML]="content().pluralMdContent(5)"></div>
+
+      <h2>Insert + Markdown</h2>
+      <!-- insert(md()) — the {{name}} placeholder is interpolated inside the raw Markdown string. -->
+      <div [innerHTML]="content().insertMdContent({ name: 'Alice' })"></div>
+
       <h2>File</h2>
       <pre>{{ content().fileContent }}</pre>
 

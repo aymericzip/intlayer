@@ -94,6 +94,36 @@ const getSections = (): Section[] => {
           "female · {name:'Alice'}",
           $bm.n15_gender_insert_t('female')?.({ name: 'Alice' })
         ),
+        r(
+          'plural(html()) 1',
+          "count=1 → '<b>1</b> day'",
+          'n23_plural_html_1' as const
+        ),
+        r(
+          'plural(html()) 5',
+          "count=5 → '<b>5</b> days'",
+          'n23_plural_html_5' as const
+        ),
+        r(
+          'insert(html())',
+          "{name:'Alice'} → 'Hello <b>Alice</b>'",
+          'n24_insert_html' as const
+        ),
+        r(
+          'plural(md()) 1',
+          "count=1 → '**1** day'",
+          'n25_plural_md_1' as const
+        ),
+        r(
+          'plural(md()) 5',
+          "count=5 → '**5** days'",
+          'n25_plural_md_5' as const
+        ),
+        r(
+          'insert(md())',
+          "{name:'Alice'} → 'Hello **Alice**'",
+          'n26_insert_md' as const
+        ),
       ],
     },
     {
@@ -209,6 +239,21 @@ let sections = $derived(getSections());
                       <div class="md-preview"><Comp /></div>
                     {:else if row.result === 'n10_md_t'}
                       {@const Comp = $bm.n10_md_t}
+                      <div class="md-preview"><Comp /></div>
+                    {:else if row.result === 'n23_plural_html_1'}
+                      {@html String($bm.n23_plural_html(1))}
+                    {:else if row.result === 'n23_plural_html_5'}
+                      {@html String($bm.n23_plural_html(5))}
+                    {:else if row.result === 'n24_insert_html'}
+                      {@html String($bm.n24_insert_html({ name: 'Alice' }))}
+                    {:else if row.result === 'n25_plural_md_1'}
+                      {@const Comp = $bm.n25_plural_md(1)}
+                      <div class="md-preview"><Comp /></div>
+                    {:else if row.result === 'n25_plural_md_5'}
+                      {@const Comp = $bm.n25_plural_md(5)}
+                      <div class="md-preview"><Comp /></div>
+                    {:else if row.result === 'n26_insert_md'}
+                      {@const Comp = $bm.n26_insert_md({ name: 'Alice' })}
                       <div class="md-preview"><Comp /></div>
                     {:else}
                       {row.result}

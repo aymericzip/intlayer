@@ -7,9 +7,11 @@ import {
   filePlugin,
   genderPlugin,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
+  isInterpolableWrapperNode,
   nestedPlugin,
   type Plugins,
   pluralPlugin,
+  transformInterpolableNode,
   translationPlugin,
 } from '@intlayer/core/interpreter';
 import { getMarkdownMetadata } from '@intlayer/core/markdown';
@@ -26,8 +28,8 @@ import type {
 import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { Fragment, type FunctionComponent, h, type VNode } from 'preact';
+import { lazy } from 'preact/compat';
 import { reportExposure } from './analytics/exposureSink';
-import { useLoadDynamic } from './client/useLoadDynamic';
 import { ContentSelector } from './editor/ContentSelector';
 import type { HTMLComponents } from './html/types';
 import { type IntlayerNode, renderIntlayerNode } from './IntlayerNode';
@@ -254,8 +256,29 @@ export const insertionPlugin: Plugins =
           /** Insertion string plugin. Replaces string node with a component that render the insertion. */
           const insertionStringPlugin: Plugins = {
             id: 'insertion-string-plugin',
-            canHandle: (node) => typeof node === 'string',
-            transform: (node: string, subProps, deepTransformNode) => {
+            canHandle: (node) =>
+              typeof node === 'string' || isInterpolableWrapperNode(node),
+            transform: (node, subProps, deepTransformNode) => {
+              // `html()`/`markdown()` nodes carry their `{{ … }}` placeholders
+              // inside a raw string. Interpolate into that string, then re-run
+              // the transform so the html/markdown renderer applies afterwards.
+              // VNodes cannot be injected into a raw markup string, so string
+              // interpolation (not `splitAndJoinInsertion`) is used here.
+              if (isInterpolableWrapperNode(node)) {
+                return (
+                  values: {
+                    [K in InsertionContent['fields'][number]]: string | number;
+                  }
+                ) =>
+                  transformInterpolableNode(
+                    node,
+                    values,
+                    subProps,
+                    props.plugins,
+                    deepTransformNode
+                  );
+              }
+
               const transformedResult = deepTransformNode(node, {
                 ...subProps,
                 children: node,
@@ -331,26 +354,27 @@ export type MarkdownStringCond<T> = T extends string
     >
   : never;
 
-const MarkdownSuspenseRenderer: FunctionComponent<Record<string, any>> = ({
-  children,
-  ...props
-}) => {
-  const { MarkdownRendererPlugin } = useLoadDynamic(
-    'preact-markdown-renderer',
-    markdownRendererModulePromise!
-  );
-  return h(MarkdownRendererPlugin as any, { ...props, children });
-};
+/**
+ * Code-split renderers are loaded with `lazy` rather than a hand-rolled
+ * suspender. A node that suspended on the hand-rolled one never recovered once
+ * the chunk landed, so every markdown node present on the first paint stayed
+ * blank forever; `lazy` implements the suspend/retry handshake correctly.
+ */
+const MarkdownSuspenseRenderer = lazy(() =>
+  markdownRendererModulePromise!.then((modules) => ({
+    default: modules.MarkdownRendererPlugin as FunctionComponent<
+      Record<string, any>
+    >,
+  }))
+);
 
-const MarkdownMetadataSuspenseRenderer: FunctionComponent<
-  Record<string, any>
-> = ({ children, ...props }) => {
-  const { MarkdownMetadataRenderer } = useLoadDynamic(
-    'preact-markdown-renderer',
-    markdownRendererModulePromise!
-  );
-  return h(MarkdownMetadataRenderer as any, { ...props, children });
-};
+const MarkdownMetadataSuspenseRenderer = lazy(() =>
+  markdownRendererModulePromise!.then((modules) => ({
+    default: modules.MarkdownMetadataRenderer as FunctionComponent<
+      Record<string, any>
+    >,
+  }))
+);
 
 /** Markdown string plugin. Replaces string node with a component that render the markdown. */
 export const markdownStringPlugin: Plugins =
@@ -502,15 +526,11 @@ export type HTMLPluginCond<T> = T extends {
     }
   : never;
 
-const HTMLSuspenseRenderer: FunctionComponent<Record<string, any>> = (
-  props
-) => {
-  const HTMLRenderer = useLoadDynamic(
-    'preact-html-renderer',
-    htmlRendererModulePromise!
-  );
-  return h(HTMLRenderer as any, props);
-};
+const HTMLSuspenseRenderer = lazy(() =>
+  htmlRendererModulePromise!.then((HTMLRenderer) => ({
+    default: HTMLRenderer as FunctionComponent<Record<string, any>>,
+  }))
+);
 
 /** HTML plugin. Replaces node with a function that takes components => VNode. */
 export const htmlPlugin: Plugins =
@@ -523,7 +543,10 @@ export const htmlPlugin: Plugins =
         transform: (node: HTMLContent<string>, props) => {
           const html = node[NodeTypes.HTML];
           const _tags = node.tags ?? [];
-          const { plugins, ...rest } = props;
+          // `children` is dropped deliberately: `HTMLRenderer` resolves its
+          // content as `children || html`, so forwarding the raw node here would
+          // shadow the HTML string and render nothing.
+          const { plugins, children: _nodeChildren, ...rest } = props;
 
           // Type-safe render function that accepts properly typed components
           const render = (userComponents?: HTMLComponents): VNode =>
@@ -536,9 +559,17 @@ export const htmlPlugin: Plugins =
                   ? h(
                       ContentSelector,
                       { ...rest },
-                      h(HTMLSuspenseRenderer, { ...rest, html, userComponents })
+                      h(HTMLSuspenseRenderer, {
+                        ...rest,
+                        html,
+                        components: userComponents,
+                      })
                     )
-                  : h(HTMLSuspenseRenderer, { ...rest, html, userComponents }),
+                  : h(HTMLSuspenseRenderer, {
+                      ...rest,
+                      html,
+                      components: userComponents,
+                    }),
             }) as any;
 
           const element = render() as any;

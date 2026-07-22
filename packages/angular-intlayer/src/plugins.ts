@@ -7,9 +7,11 @@ import {
   filePlugin,
   genderPlugin,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
+  isInterpolableWrapperNode,
   nestedPlugin,
   type Plugins,
   pluralPlugin,
+  transformInterpolableNode,
   translationPlugin,
 } from '@intlayer/core/interpreter';
 import type { MarkdownContent } from '@intlayer/core/markdown';
@@ -435,12 +437,27 @@ export const insertionPlugin: Plugins =
         id: 'insertion-plugin',
         canHandle: (node) =>
           typeof node === 'object' && node?.nodeType === NodeTypes.INSERTION,
-        transform: (node: InsertionContent, props) => {
+        transform: (node: InsertionContent, props, deepTransformNode) => {
           const { plugins, ...rest } = props;
+          const content = node[NodeTypes.INSERTION];
+
+          // `html()`/`markdown()` nodes carry their `{{ … }}` placeholders
+          // inside a raw string. Interpolate into that string, then re-run the
+          // transform so the html/markdown renderer applies afterwards.
+          if (isInterpolableWrapperNode(content)) {
+            return (args: Record<string, string | number> = {}) =>
+              transformInterpolableNode(
+                content,
+                args,
+                props,
+                props.plugins,
+                deepTransformNode
+              );
+          }
 
           // Return a function that performs the interpolation
           const render = (args: Record<string, string | number> = {}) => {
-            let text = node[NodeTypes.INSERTION] as string;
+            let text = content as string;
             if (args) {
               Object.entries(args).forEach(([key, value]) => {
                 text = text.replace(

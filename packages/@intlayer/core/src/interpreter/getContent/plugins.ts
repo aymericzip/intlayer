@@ -26,6 +26,10 @@ import { getInsertion } from '../getInsertion';
 import { type GetNestingResult, getNesting } from '../getNesting';
 import { getPlural } from '../getPlural';
 import { getTranslation } from '../getTranslation';
+import {
+  isInterpolableWrapperNode,
+  transformInterpolableNode,
+} from '../interpolableNode';
 
 // ── Tree-shake constants ──────────────────────────────────────────────────────
 // When these env vars are injected at build time, bundlers eliminate the
@@ -221,8 +225,23 @@ export const pluralPlugin = (locale?: LocalesValues): Plugins =>
           /** String plugin for plural. Replaces string node with a component that renders the insertion. */
           const pluralStringPlugin: Plugins = {
             id: 'plural-string-plugin',
-            canHandle: (node) => typeof node === 'string',
-            transform: (node: string, subProps, deepTransformNode) => {
+            canHandle: (node) =>
+              typeof node === 'string' || isInterpolableWrapperNode(node),
+            transform: (node, subProps, deepTransformNode) => {
+              // `html()`/`markdown()` nodes carry their `{{count}}` placeholders
+              // inside a raw string. Interpolate into that string, then re-run
+              // the transform so the html/markdown renderer applies afterwards.
+              if (isInterpolableWrapperNode(node)) {
+                return (values: { [k: string]: string | number }) =>
+                  transformInterpolableNode(
+                    node,
+                    values,
+                    subProps,
+                    props.plugins,
+                    deepTransformNode
+                  );
+              }
+
               const transformedResult = deepTransformNode(node, {
                 ...subProps,
                 children: node,
@@ -376,8 +395,27 @@ export const insertionPlugin: Plugins =
           /** Insertion string plugin. Replaces string node with a component that render the insertion. */
           const insertionStringPlugin: Plugins = {
             id: 'insertion-string-plugin',
-            canHandle: (node) => typeof node === 'string',
-            transform: (node: string, subProps, deepTransformNode) => {
+            canHandle: (node) =>
+              typeof node === 'string' || isInterpolableWrapperNode(node),
+            transform: (node, subProps, deepTransformNode) => {
+              // `html()`/`markdown()` nodes carry their `{{ … }}` placeholders
+              // inside a raw string. Interpolate into that string, then re-run
+              // the transform so the html/markdown renderer applies afterwards.
+              if (isInterpolableWrapperNode(node)) {
+                return (
+                  values: {
+                    [K in InsertionContent['fields'][number]]: string | number;
+                  }
+                ) =>
+                  transformInterpolableNode(
+                    node,
+                    values,
+                    subProps,
+                    props.plugins,
+                    deepTransformNode
+                  );
+              }
+
               const transformedResult = deepTransformNode(node, {
                 ...subProps,
                 children: node,

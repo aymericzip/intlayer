@@ -7,10 +7,12 @@ import {
   filePlugin,
   genderPlugin,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
+  isInterpolableWrapperNode,
   nestedPlugin,
   type Plugins,
   pluralPlugin,
   splitInsertionTemplate,
+  transformInterpolableNode,
   translationPlugin,
 } from '@intlayer/core/interpreter';
 import { getMarkdownMetadata } from '@intlayer/core/markdown';
@@ -28,7 +30,6 @@ import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { type Component, type JSX, lazy, Suspense } from 'solid-js';
 import { reportExposure } from './analytics/exposureSink';
-import { useLoadDynamic } from './client/useLoadDynamic';
 import type { HTMLComponents } from './html/types';
 import { type IntlayerNode, renderIntlayerNode } from './IntlayerNode';
 import { renderSolidElement } from './solidElement/renderSolidElement';
@@ -229,8 +230,22 @@ export const insertionPlugin: Plugins =
             /** Insertion string plugin. Replaces strings by injecting the values. */
             const insertionStringPlugin: Plugins = {
               id: 'insertion-string-plugin',
-              canHandle: (n) => typeof n === 'string',
-              transform: (n: string, subProps, deepTransformNode) => {
+              canHandle: (n) =>
+                typeof n === 'string' || isInterpolableWrapperNode(n),
+              transform: (n, subProps, deepTransformNode) => {
+                // `html()`/`markdown()` nodes carry their `{{ … }}` placeholders
+                // inside a raw string. Interpolate into that string, then re-run
+                // the transform so the html/markdown renderer applies after.
+                if (isInterpolableWrapperNode(n)) {
+                  return transformInterpolableNode(
+                    n,
+                    values as Record<string, string | number>,
+                    subProps,
+                    props.plugins,
+                    deepTransformNode
+                  );
+                }
+
                 const transformedResult = deepTransformNode(n, {
                   ...subProps,
                   children: n,
@@ -277,25 +292,25 @@ export type MarkdownStringCond<T> = T extends string
     >
   : never;
 
-const MarkdownSuspenseRenderer: Component<Record<string, any>> = (props) => {
-  const { MarkdownRenderer } = useLoadDynamic(
-    'solid-markdown-renderer',
-    markdownRendererModulePromise!
-  );
-  const Renderer = MarkdownRenderer as Component<any>;
-  return <Renderer {...props} />;
-};
+/**
+ * Code-split renderers are loaded with `lazy` rather than read through
+ * `useLoadDynamic`'s value proxy. A component reached through that proxy gets
+ * re-invoked on every read, inside the caller's tracking scope — which leaks the
+ * component's own reactive reads upward and re-renders forever, rebuilding a
+ * fresh instance each pass. `lazy` keeps a single memoised instance and hands
+ * pending state to Suspense.
+ */
+const MarkdownSuspenseRenderer = lazy(() =>
+  markdownRendererModulePromise!.then((modules) => ({
+    default: modules.MarkdownRenderer as Component<Record<string, any>>,
+  }))
+);
 
-const MarkdownMetadataSuspenseRenderer: Component<Record<string, any>> = (
-  props
-) => {
-  const { MarkdownMetadataRenderer } = useLoadDynamic(
-    'solid-markdown-renderer',
-    markdownRendererModulePromise!
-  );
-  const Renderer = MarkdownMetadataRenderer as Component<any>;
-  return <Renderer {...props} />;
-};
+const MarkdownMetadataSuspenseRenderer = lazy(() =>
+  markdownRendererModulePromise!.then((modules) => ({
+    default: modules.MarkdownMetadataRenderer as Component<Record<string, any>>,
+  }))
+);
 
 /** Markdown string plugin. Replaces string node with a component that render the markdown. */
 export const markdownStringPlugin: Plugins =
@@ -460,14 +475,11 @@ export type HTMLPluginCond<T> = T extends {
     >
   : never;
 
-const HTMLSuspenseRenderer: Component<Record<string, any>> = (props) => {
-  const HTMLRenderer = useLoadDynamic(
-    'solid-html-renderer',
-    htmlRendererModulePromise!
-  );
-  const Renderer = HTMLRenderer as Component<any>;
-  return <Renderer {...props} />;
-};
+const HTMLSuspenseRenderer = lazy(() =>
+  htmlRendererModulePromise!.then((HTMLRenderer) => ({
+    default: HTMLRenderer as Component<Record<string, any>>,
+  }))
+);
 
 /** HTML plugin. Replaces node with a function that takes components => JSX.Element. */
 export const htmlPlugin: Plugins =
@@ -479,7 +491,10 @@ export const htmlPlugin: Plugins =
           typeof node === 'object' && node?.nodeType === NodeTypes.HTML,
         transform: (node: HTMLContent<string>, props) => {
           const html = node[NodeTypes.HTML];
-          const { plugins, ...rest } = props;
+          // `children` is dropped deliberately: `HTMLRenderer` resolves its
+          // content as `children || html`, so forwarding the raw node here would
+          // shadow the HTML string and render nothing.
+          const { plugins, children: _nodeChildren, ...rest } = props;
 
           // Type-safe render function that accepts properly typed components
           const render = (userComponents?: HTMLComponents): any =>

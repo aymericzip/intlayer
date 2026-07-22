@@ -8,10 +8,12 @@ import {
   genderPlugin,
   getHTML,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
+  isInterpolableWrapperNode,
   nestedPlugin,
   type Plugins,
   pluralPlugin,
   splitInsertionTemplate,
+  transformInterpolableNode,
   translationPlugin,
 } from '@intlayer/core/interpreter';
 import {
@@ -130,8 +132,27 @@ export const insertionPlugin: Plugins =
 
           const insertionStringPlugin: Plugins = {
             id: 'insertion-string-plugin',
-            canHandle: (node) => typeof node === 'string',
-            transform: (node: string, subProps, deepTransformNode) => {
+            canHandle: (node) =>
+              typeof node === 'string' || isInterpolableWrapperNode(node),
+            transform: (node, subProps, deepTransformNode) => {
+              // `html()`/`markdown()` nodes carry their `{{ … }}` placeholders
+              // inside a raw string. Interpolate into that string, then re-run
+              // the transform so the html/markdown renderer applies afterwards.
+              if (isInterpolableWrapperNode(node)) {
+                return (
+                  values: {
+                    [K in InsertionContent['fields'][number]]: string | number;
+                  }
+                ) =>
+                  transformInterpolableNode(
+                    node,
+                    values,
+                    subProps,
+                    props.plugins,
+                    deepTransformNode
+                  );
+              }
+
               const transformedResult = deepTransformNode(node, {
                 ...subProps,
                 children: node,

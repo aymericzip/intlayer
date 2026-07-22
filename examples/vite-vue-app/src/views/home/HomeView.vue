@@ -173,6 +173,24 @@ const sections = computed<Section[]>(() => {
             name: 'Alice',
           }),
         },
+        {
+          id: nextId(),
+          name: 'plural(html()) 1',
+          desc: "count=1 → '<b>1</b> day'",
+          result: 'plural_html_1' as const,
+        },
+        {
+          id: nextId(),
+          name: 'plural(html()) 5',
+          desc: "count=5 → '<b>5</b> days'",
+          result: 'plural_html_5' as const,
+        },
+        {
+          id: nextId(),
+          name: 'insert(html())',
+          desc: "{name:'Alice'} → 'Hello <b>Alice</b>'",
+          result: 'insert_html' as const,
+        },
       ],
     },
     {
@@ -272,6 +290,10 @@ const htmlRow = () =>
   content.value.n07_html.use({
     b: (props) => h('strong', { style: { color: '#42b883' } }, props.children),
   });
+
+const pluralHtmlRow = (count: number) => content.value.n23_plural_html(count).use({});
+const insertHtmlRow = () =>
+  content.value.n24_insert_html({ name: 'Alice' }).use({});
 </script>
 
 <template>
@@ -317,6 +339,15 @@ const htmlRow = () =>
                   <template v-if="row.result === 'html'">
                     <component :is="htmlRow()" />
                   </template>
+                  <template v-else-if="row.result === 'plural_html_1'">
+                    <component :is="pluralHtmlRow(1)" />
+                  </template>
+                  <template v-else-if="row.result === 'plural_html_5'">
+                    <component :is="pluralHtmlRow(5)" />
+                  </template>
+                  <template v-else-if="row.result === 'insert_html'">
+                    <component :is="insertHtmlRow()" />
+                  </template>
                   <template v-else>{{ row.result }}</template>
                 </td>
               </tr>
@@ -345,6 +376,30 @@ const htmlRow = () =>
               <td class="col-desc">Markdown from translation</td>
               <td class="col-result markdown-cell">
                 <component :is="(content.n10_md_t as any).use ? (content.n10_md_t as any).use({}) : content.n10_md_t" />
+              </td>
+            </tr>
+            <tr class="even">
+              <td class="col-id">—</td>
+              <td class="col-name"><code>plural(md()) 1</code></td>
+              <td class="col-desc">count=1 → '**1** day'</td>
+              <td class="col-result markdown-cell">
+                <component :is="(content.n25_plural_md(1) as any).use ? (content.n25_plural_md(1) as any).use({}) : content.n25_plural_md(1)" />
+              </td>
+            </tr>
+            <tr>
+              <td class="col-id">—</td>
+              <td class="col-name"><code>plural(md()) 5</code></td>
+              <td class="col-desc">count=5 → '**5** days'</td>
+              <td class="col-result markdown-cell">
+                <component :is="(content.n25_plural_md(5) as any).use ? (content.n25_plural_md(5) as any).use({}) : content.n25_plural_md(5)" />
+              </td>
+            </tr>
+            <tr class="even">
+              <td class="col-id">—</td>
+              <td class="col-name"><code>insert(md())</code></td>
+              <td class="col-desc">{name:'Alice'} → 'Hello **Alice**'</td>
+              <td class="col-result markdown-cell">
+                <component :is="(content.n26_insert_md({ name: 'Alice' }) as any).use ? (content.n26_insert_md({ name: 'Alice' }) as any).use({}) : content.n26_insert_md({ name: 'Alice' })" />
               </td>
             </tr>
           </tbody>

@@ -132,6 +132,36 @@ export class MyElement extends LitElement {
             desc: "female · {name:'Alice'}",
             result: b.n15_gender_insert_t('female')?.({ name: 'Alice' }),
           },
+          {
+            name: 'plural(html()) 1',
+            desc: "count=1 → '<b>1</b> day'",
+            result: b.n23_plural_html(1).use({}),
+          },
+          {
+            name: 'plural(html()) 5',
+            desc: "count=5 → '<b>5</b> days'",
+            result: b.n23_plural_html(5).use({}),
+          },
+          {
+            name: 'insert(html())',
+            desc: "{name:'Alice'} → 'Hello <b>Alice</b>'",
+            result: b.n24_insert_html({ name: 'Alice' }).use({}),
+          },
+          {
+            name: 'plural(md()) 1',
+            desc: "count=1 → '**1** day'",
+            result: b.n25_plural_md(1),
+          },
+          {
+            name: 'plural(md()) 5',
+            desc: "count=5 → '**5** days'",
+            result: b.n25_plural_md(5),
+          },
+          {
+            name: 'insert(md())',
+            desc: "{name:'Alice'} → 'Hello **Alice**'",
+            result: b.n26_insert_md({ name: 'Alice' }),
+          },
         ],
       },
       {

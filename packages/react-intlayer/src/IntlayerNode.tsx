@@ -41,8 +41,10 @@ export const renderIntlayerNode = <
       if (prop === 'toString') return () => String(value ?? '');
       if (prop === 'valueOf') return () => value;
 
-      // Additional Props take precedence
-      if (additionalProps && prop in additionalProps) {
+      // Additional Props take precedence. Own keys only: `in` would also match
+      // inherited `Object.prototype` members such as `constructor`, which are
+      // never meant to be served as additional props.
+      if (additionalProps && Object.hasOwn(additionalProps, prop)) {
         return additionalProps[prop as keyof typeof additionalProps];
       }
 

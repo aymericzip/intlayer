@@ -7,10 +7,12 @@ import {
   filePlugin,
   genderPlugin,
   type IInterpreterPluginState as IInterpreterPluginStateCore,
+  isInterpolableWrapperNode,
   nestedPlugin,
   type Plugins,
   pluralPlugin,
   splitInsertionTemplate,
+  transformInterpolableNode,
   translationPlugin,
 } from '@intlayer/core/interpreter';
 import { getMarkdownMetadata } from '@intlayer/core/markdown';
@@ -265,8 +267,29 @@ export const insertionPlugin: Plugins =
           /** Insertion string plugin. Replaces string node with a component that render the insertion. */
           const insertionStringPlugin: Plugins = {
             id: 'insertion-string-plugin',
-            canHandle: (node) => typeof node === 'string',
-            transform: (node: string, subProps, deepTransformNode) => {
+            canHandle: (node) =>
+              typeof node === 'string' || isInterpolableWrapperNode(node),
+            transform: (node, subProps, deepTransformNode) => {
+              // `html()`/`markdown()` nodes carry their `{{ … }}` placeholders
+              // inside a raw string. Interpolate into that string, then re-run
+              // the transform so the html/markdown renderer applies afterwards.
+              // VNodes cannot be injected into a raw markup string, so string
+              // interpolation (not `splitAndJoinInsertion`) is used here.
+              if (isInterpolableWrapperNode(node)) {
+                return (
+                  values: {
+                    [K in InsertionContent['fields'][number]]: string | number;
+                  }
+                ) =>
+                  transformInterpolableNode(
+                    node,
+                    values,
+                    subProps,
+                    props.plugins,
+                    deepTransformNode
+                  );
+              }
+
               const transformedResult = deepTransformNode(node, {
                 ...subProps,
                 children: node,

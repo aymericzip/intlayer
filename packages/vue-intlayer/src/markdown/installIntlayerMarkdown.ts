@@ -1,8 +1,10 @@
 import {
   type App,
   type Component,
+  h,
   inject,
   provide,
+  shallowRef,
   type VNodeChild,
 } from 'vue';
 import type { HTMLComponents } from '../html/types';
@@ -32,6 +34,17 @@ export type RenderMarkdownFunction = (
   components?: HTMLComponents<'permissive', {}>,
   wrapper?: Component | string
 ) => VNodeChild | Promise<VNodeChild>;
+
+/**
+ * Tells an unresolved thenable apart from an already-rendered `VNodeChild`.
+ *
+ * @param value - The value returned by a render function.
+ * @returns `true` when `value` is a promise that still has to be awaited.
+ */
+const isPromiseLike = <TResolved>(
+  value: unknown
+): value is Promise<TResolved> =>
+  typeof (value as Promise<TResolved> | null | undefined)?.then === 'function';
 
 /**
  * Singleton instance
@@ -163,27 +176,47 @@ export const installIntlayerMarkdown = (
       typeof pluginOptions === 'function' ||
       (typeof pluginOptions === 'object' && pluginOptions?.renderMarkdown);
 
-    if (isCustom) {
-      return {
-        setup() {
-          provide(INTLAYER_MARKDOWN_SYMBOL, { renderMarkdown: undefined });
-          return () =>
-            renderMarkdown(
-              markdown,
-              options,
-              componentsOverride,
-              wrapperOverride
-            );
-        },
-      } as any;
+    if (!isCustom) {
+      return renderMarkdown(
+        markdown,
+        options,
+        componentsOverride,
+        wrapperOverride
+      );
     }
 
-    return renderMarkdown(
-      markdown,
-      options,
-      componentsOverride,
-      wrapperOverride
-    );
+    // A custom renderer may resolve intlayer markdown nodes of its own, which
+    // would re-enter this provider forever. Running it inside a component gives
+    // us a scope to `provide` a recursion guard into — and the component has to
+    // be turned into a VNode via `h`, because every caller treats the return
+    // value as renderable children (a bare component definition is stringified
+    // to `[object Object]`). Custom renderers may also be async, so the result
+    // is resolved through a ref rather than returned raw.
+    return h({
+      name: 'IntlayerCustomMarkdown',
+      setup: () => {
+        provide(INTLAYER_MARKDOWN_SYMBOL, { renderMarkdown: undefined });
+
+        const renderedContent = shallowRef<VNodeChild>(null);
+
+        const result = renderMarkdown(
+          markdown,
+          options,
+          componentsOverride,
+          wrapperOverride
+        );
+
+        if (isPromiseLike<VNodeChild>(result)) {
+          result.then((resolvedContent) => {
+            renderedContent.value = resolvedContent;
+          });
+        } else {
+          renderedContent.value = result;
+        }
+
+        return () => renderedContent.value;
+      },
+    });
   };
 
   const client = createIntlayerMarkdownClient(

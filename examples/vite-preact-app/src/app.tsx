@@ -1,4 +1,9 @@
-import { type FunctionComponent, Suspense, useState } from 'preact/compat';
+import {
+  Fragment,
+  type FunctionComponent,
+  Suspense,
+  useState,
+} from 'preact/compat';
 import { useIntlayer } from 'preact-intlayer';
 import {
   useCompact,
@@ -206,6 +211,36 @@ const BenchmarkTable: FunctionComponent = () => {
             name: 'Alice',
           }),
         },
+        {
+          name: 'plural(html()) 1',
+          desc: "count=1 → '<b>1</b> day'",
+          result: content.n23_plural_html(1),
+        },
+        {
+          name: 'plural(html()) 5',
+          desc: "count=5 → '<b>5</b> days'",
+          result: content.n23_plural_html(5),
+        },
+        {
+          name: 'insert(html())',
+          desc: "{name:'Alice'} → 'Hello <b>Alice</b>'",
+          result: content.n24_insert_html({ name: 'Alice' }),
+        },
+        {
+          name: 'plural(md()) 1',
+          desc: "count=1 → '**1** day'",
+          result: preview(content.n25_plural_md(1)),
+        },
+        {
+          name: 'plural(md()) 5',
+          desc: "count=5 → '**5** days'",
+          result: preview(content.n25_plural_md(5)),
+        },
+        {
+          name: 'insert(md())',
+          desc: "{name:'Alice'} → 'Hello **Alice**'",
+          result: preview(content.n26_insert_md({ name: 'Alice' })),
+        },
       ],
     },
     {
@@ -296,8 +331,8 @@ const BenchmarkTable: FunctionComponent = () => {
         </thead>
         <tbody>
           {sections.map((section) => (
-            <>
-              <tr key={section.label}>
+            <Fragment key={section.label}>
+              <tr>
                 <td colSpan={4} style={sectionHdr}>
                   {section.label}
                 </td>
@@ -335,7 +370,7 @@ const BenchmarkTable: FunctionComponent = () => {
                   </tr>
                 );
               })}
-            </>
+            </Fragment>
           ))}
         </tbody>
       </table>

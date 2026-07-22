@@ -22,6 +22,8 @@ vi.mock('solid-js', () => ({
   // `useLoadDynamic` reads the resource in a render effect to trigger Suspense;
   // the effect runner is a no-op here.
   createRenderEffect: () => undefined,
+  // No tracking scope exists in these unit tests, so `untrack` just invokes.
+  untrack: <TResult>(fn: () => TResult): TResult => fn(),
 }));
 
 const importUseLoadDynamic = async () => {
@@ -84,6 +86,36 @@ describe('useLoadDynamic', () => {
     expect(Number(content.count)).toBe(42);
     expect(+content.count).toBe(42);
     expect(content.format('message')).toBe('Formatted message');
+  });
+
+  it('replays a call made while pending with its original arguments once loaded', async () => {
+    const { useLoadDynamic } = await importUseLoadDynamic();
+
+    type RendererModule = {
+      Renderer: (props: { children: string }) => string;
+    };
+
+    const content = useLoadDynamic<RendererModule>('renderer.module', () =>
+      Promise.resolve({
+        Renderer: (props) => `Rendered ${props.children}`,
+      })
+    );
+
+    // Solid invokes lazily loaded renderer components through the proxy with
+    // their props; the call must be replayed once the chunk resolves.
+    const pendingResult = content.Renderer({
+      children: 'markdown',
+    }) as unknown as () => string;
+
+    // While pending, the replayed call stays synchronous-safe.
+    expect(pendingResult()).toBe('');
+
+    resourceValue = {
+      Renderer: (props: { children: string }) => `Rendered ${props.children}`,
+    };
+
+    // Once loaded, the zero-arg re-invocation replays the captured props.
+    expect(pendingResult()).toBe('Rendered markdown');
   });
 
   it('caches a pending loader promise by key', async () => {
