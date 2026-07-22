@@ -107,23 +107,19 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 선호하는 패키지 관리자를 사용하여 필요한 패키지를 설치하세요:
 
 ```bash packageManager="npm"
-npx intlayer@canary init --interactive    # v9
-# npx intlayer init                       # v8
+npx intlayer init --interactive
 ```
 
 ```bash packageManager="pnpm"
-pnpm dlx intlayer@canary init --interactive   # v9
-# pnpm dlx intlayer init                      # v8
+pnpm dlx intlayer@canary init --interactive
 ```
 
 ```bash packageManager="yarn"
-yarn dlx intlayer@canary init --interactive   # v9
-# yarn dlx intlayer init                      # v8
+yarn dlx intlayer@canary init --interactive
 ```
 
 ```bash packageManager="bun"
-bunx intlayer@canary init --interactive   # v9
-# bunx intlayer init                      # v8
+bunx intlayer@canary init --interactive
 ```
 
 > `--interactive` 플래그는 선택 사항입니다. AI 에이전트인 경우 `intlayer-cli init`를 사용하세요.

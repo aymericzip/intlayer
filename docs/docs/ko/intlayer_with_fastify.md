@@ -61,23 +61,19 @@ GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlay
 `fastify-intlayer` 사용을 시작하려면 npm을 사용하여 패키지를 설치하세요.
 
 ```bash packageManager="npm"
-npx intlayer@canary init --interactive    # v9
-# npx intlayer init                       # v8
+npx intlayer init --interactive
 ```
 
 ```bash packageManager="pnpm"
-pnpm dlx intlayer@canary init --interactive   # v9
-# pnpm dlx intlayer init                      # v8
+pnpm dlx intlayer@canary init --interactive
 ```
 
 ```bash packageManager="yarn"
-yarn dlx intlayer@canary init --interactive   # v9
-# yarn dlx intlayer init                      # v8
+yarn dlx intlayer@canary init --interactive
 ```
 
 ```bash packageManager="bun"
-bunx intlayer@canary init --interactive   # v9
-# bunx intlayer init                      # v8
+bunx intlayer@canary init --interactive
 ```
 
 > `--interactive` 플래그는 선택 사항입니다. AI 에이전트인 경우 `intlayer-cli init`를 사용하세요.

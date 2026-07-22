@@ -86,23 +86,19 @@ Zie de [Applicatiesjabloon](https://github.com/aymericzip/intlayer-angular-21-te
 Installeer de benodigde pakketten via npm:
 
 ```bash packageManager="npm"
-npx intlayer@canary init --interactive    # v9
-# npx intlayer init                       # v8
+npx intlayer init --interactive
 ```
 
 ```bash packageManager="pnpm"
-pnpm dlx intlayer@canary init --interactive   # v9
-# pnpm dlx intlayer init                      # v8
+pnpm dlx intlayer@canary init --interactive
 ```
 
 ```bash packageManager="yarn"
-yarn dlx intlayer@canary init --interactive   # v9
-# yarn dlx intlayer init                      # v8
+yarn dlx intlayer@canary init --interactive
 ```
 
 ```bash packageManager="bun"
-bunx intlayer@canary init --interactive   # v9
-# bunx intlayer init                      # v8
+bunx intlayer@canary init --interactive
 ```
 
 > de `--interactive` vlag is optioneel. Gebruik `intlayer-cli init` als je een AI-agent bent.

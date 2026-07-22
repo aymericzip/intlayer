@@ -122,23 +122,19 @@ Veja o [Modelo de Aplicação](https://github.com/aymericzip/intlayer-angular-19
 Instale os pacotes necessários usando npm:
 
 ```bash packageManager="npm"
-npx intlayer@canary init --interactive    # v9
-# npx intlayer init                       # v8
+npx intlayer init --interactive
 ```
 
 ```bash packageManager="pnpm"
-pnpm dlx intlayer@canary init --interactive   # v9
-# pnpm dlx intlayer init                      # v8
+pnpm dlx intlayer@canary init --interactive
 ```
 
 ```bash packageManager="yarn"
-yarn dlx intlayer@canary init --interactive   # v9
-# yarn dlx intlayer init                      # v8
+yarn dlx intlayer@canary init --interactive
 ```
 
 ```bash packageManager="bun"
-bunx intlayer@canary init --interactive   # v9
-# bunx intlayer init                      # v8
+bunx intlayer@canary init --interactive
 ```
 
 > a flag `--interactive` é opcional. Use `intlayer-cli init` se você for um agente de IA.

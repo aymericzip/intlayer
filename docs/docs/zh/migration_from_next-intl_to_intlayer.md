@@ -98,23 +98,19 @@ Intlayer 不仅仅是一个 i18n 解决方案，它提供了一个**自托管的
 安装 Intlayer 核心包和 `@intlayer/next-intl` 兼容性适配器：
 
 ```bash packageManager="npm"
-npx intlayer@canary init --interactive    # v9
-# npx intlayer init                       # v8
+npx intlayer init --interactive
 ```
 
 ```bash packageManager="pnpm"
-pnpm dlx intlayer@canary init --interactive   # v9
-# pnpm dlx intlayer init                      # v8
+pnpm dlx intlayer@canary init --interactive
 ```
 
 ```bash packageManager="yarn"
-yarn dlx intlayer@canary init --interactive   # v9
-# yarn dlx intlayer init                      # v8
+yarn dlx intlayer@canary init --interactive
 ```
 
 ```bash packageManager="bun"
-bunx intlayer@canary init --interactive   # v9
-# bunx intlayer init                      # v8
+bunx intlayer@canary init --interactive
 ```
 
 > `--interactive` 标志是可选的。如果你是 AI 代理，请使用 `intlayer-cli init`。
