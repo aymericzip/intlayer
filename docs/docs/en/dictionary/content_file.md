@@ -499,7 +499,7 @@ Indicates the priority of the dictionary for conflict resolution. When multiple 
 
 #### `item` (number)
 
-Used in conjunction with Collections, this field defines the item's position in a collection. It allows you to build ordered collections of localized items selectable by index at runtime.
+Used in conjunction with [Collections](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/collections.md), this field defines the item's position in a collection. It allows you to build ordered collections of localized items selectable by index at runtime.
 
 **Example:**
 
@@ -518,7 +518,7 @@ Used in conjunction with Collections, this field defines the item's position in 
 
 #### `variant` (string)
 
-Used in conjunction with Variants, this field defines named content alternatives. It allows you to switch between different variations of the same dictionary key at runtime without code changes (e.g., for A/B testing, seasonal banners). If not provided, it is considered as the default variant.
+Used in conjunction with [Variants](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dynamic_dictionaries/variants.md), this field defines named content alternatives. It allows you to switch between different variations of the same dictionary key at runtime without code changes (e.g., for A/B testing, seasonal banners). If not provided, it is considered as the default variant.
 
 **Example:**
 
