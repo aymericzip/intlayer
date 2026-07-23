@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/vue-i18n",
-  "version": "9.0.0",
+  "version": "9.0.1",
   "private": false,
   "description": "vue-i18n API adapter for intlayer — useI18n, createI18n, and installIntlayer backed by vue-intlayer",
   "keywords": [
