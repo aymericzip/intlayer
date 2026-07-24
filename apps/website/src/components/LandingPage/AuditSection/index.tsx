@@ -32,7 +32,7 @@ export const AuditSection: FC = () => {
         <Link
           href={Website_Scanner_Path}
           className="flex w-full items-center justify-end gap-2 px-2 text-sm"
-          label={goToScanner.text.value}
+          label={goToScanner.label.value}
           color="neutral"
         >
           {goToScanner.text}
