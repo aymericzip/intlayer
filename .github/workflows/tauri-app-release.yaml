@@ -16,6 +16,25 @@ jobs:
         platform: [macos-latest, windows-latest, ubuntu-latest]
     runs-on: ${{ matrix.platform }}
 
+    # Code-signing secrets. When a secret is not configured in the repo it
+    # resolves to an empty string, and the matching signing step is skipped,
+    # so the corresponding artifact is simply built unsigned (green build).
+    env:
+      # --- macOS (Apple Developer ID signing + notarization) ---
+      APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+      APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+      APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+      APPLE_ID: ${{ secrets.APPLE_ID }}
+      APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      # --- Windows (code-signing certificate) ---
+      WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
+      WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
+      # --- Linux (AppImage GPG signing) ---
+      LINUX_SIGN_GPG_PRIVATE_KEY: ${{ secrets.LINUX_SIGN_GPG_PRIVATE_KEY }}
+      LINUX_SIGN_GPG_KEY_ID: ${{ secrets.LINUX_SIGN_GPG_KEY_ID }}
+      APPIMAGETOOL_SIGN_PASSPHRASE: ${{ secrets.LINUX_SIGN_GPG_PASSPHRASE }}
+
     steps:
       - uses: actions/checkout@v4
 
@@ -57,13 +76,40 @@ jobs:
         working-directory: apps/app
         run: bun --bun vite build --config tauri.vite.config.ts
 
+      # Windows: decode the base64 .pfx from the secret and import it into the
+      # current-user certificate store so signtool can find it by thumbprint.
+      # Emits the `--config` arg that merges the Windows signing settings.
+      - name: Import Windows signing certificate
+        id: windows_signing
+        if: matrix.platform == 'windows-latest' && env.WINDOWS_CERTIFICATE != ''
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path certificate | Out-Null
+          Set-Content -Path certificate/tempCert.txt -Value $env:WINDOWS_CERTIFICATE
+          certutil -decode certificate/tempCert.txt certificate/certificate.pfx
+          Remove-Item -Path certificate/tempCert.txt
+          Import-PfxCertificate -FilePath certificate/certificate.pfx -CertStoreLocation Cert:\CurrentUser\My -Password (ConvertTo-SecureString -String $env:WINDOWS_CERTIFICATE_PASSWORD -Force -AsPlainText)
+          "args=--config src-tauri/tauri.windows.conf.json" >> $env:GITHUB_OUTPUT
+
+      # Linux: import the GPG private key used to sign the AppImage.
+      - name: Import GPG signing key (Linux)
+        if: matrix.platform == 'ubuntu-latest' && env.LINUX_SIGN_GPG_PRIVATE_KEY != ''
+        run: echo "$LINUX_SIGN_GPG_PRIVATE_KEY" | gpg --batch --import
+
       - name: Build and publish Tauri app
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # AppImage GPG signing (Linux only; ignored on other platforms).
+          # SIGN=1 is only enabled when the GPG private key secret is present.
+          SIGN: ${{ matrix.platform == 'ubuntu-latest' && env.LINUX_SIGN_GPG_PRIVATE_KEY != '' && '1' || '' }}
+          SIGN_KEY: ${{ env.LINUX_SIGN_GPG_KEY_ID }}
+          APPIMAGETOOL_FORCE_SIGN: '1'
         with:
           projectPath: apps/app
           tauriScript: bunx tauri
+          # Windows signing config merge (empty on other platforms / when unsigned).
+          args: ${{ steps.windows_signing.outputs.args }}
           tagName: ${{ steps.get_version.outputs.version }}
           releaseName: '${{ steps.get_version.outputs.version }}'
           releaseBody: 'See the assets to download this version and install.'
