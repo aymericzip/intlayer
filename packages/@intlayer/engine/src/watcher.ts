@@ -225,8 +225,9 @@ export const watch = async (options?: WatchOptions) => {
   // Ignore patterns for @parcel/watcher (micromatch globs)
   const ignorePatterns = excludedSegments.map((s) => `**/${s}/**`);
 
+  // Strip trailing slashes so directory matching stays exact. A user-supplied
   const contentDirs = contentDir
-    .map((dir) => normalizePath(dir))
+    .map((dir) => normalizePath(dir).replace(/\/+$/, ''))
     .filter(existsSync);
 
   // Collect unique directories to subscribe to (dirs only, not file paths)
