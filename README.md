@@ -1,3 +1,5 @@
+[![MCP Toplist](https://mcptoplist.com/badge/glama%2Faymericzip%2Fintlayer.svg)](https://mcptoplist.com/server/glama%2Faymericzip%2Fintlayer)
+
 <p align="center">
   <a href="https://intlayer.org" rel="">
     <img src="https://raw.githubusercontent.com/aymericzip/intlayer/main/docs/assets/cover.png" width="60%" alt="Intlayer Logo" />
