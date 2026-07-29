@@ -82,7 +82,7 @@
     "react-dom": "19.2.8"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.5",
+    "@biomejs/biome": "2.5.6",
     "@commitlint/cli": "21.2.1",
     "@commitlint/config-conventional": "21.2.0",
     "@commitlint/types": "21.2.0",
@@ -104,7 +104,7 @@
     "rollup-plugin-visualizer": "7.0.1",
     "tsdown": "0.22.14",
     "tslib": "2.8.1",
-    "turbo": "2.10.6",
+    "turbo": "2.10.7",
     "typescript": "6.0.3",
     "vitest": "4.1.10"
   },
