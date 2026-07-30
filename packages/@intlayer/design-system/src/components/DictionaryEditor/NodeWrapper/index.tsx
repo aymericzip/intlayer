@@ -12,6 +12,7 @@ import type {
   InsertionContent,
   MarkdownContent,
   PluralContent,
+  SelectContent,
   TranslationContent,
 } from '@intlayer/core/transpiler';
 import { useEditorLocale } from '@intlayer/editor-react';
@@ -31,6 +32,7 @@ import { MarkdownWrapper } from './MarkdownWrapper';
 import { NestedObjectWrapper } from './NestedObjectWrapper';
 import { NumberWrapper } from './NumberWrapper';
 import { PluralWrapper } from './PluralWrapper';
+import { SelectWrapper } from './SelectWrapper';
 import { StringWrapper } from './StringWrapper';
 import { TranslationWrapper } from './TranslationWrapper';
 
@@ -117,6 +119,10 @@ export const NodeWrapper: FC<NodeWrapperProps> = memo((props) => {
           section={section as PluralContent<ContentNode>}
         />
       );
+    }
+
+    if (nodeType === NodeTypes.SELECT) {
+      return <SelectWrapper {...props} section={section as SelectContent} />;
     }
 
     if (nodeType === NodeTypes.CONDITION) {

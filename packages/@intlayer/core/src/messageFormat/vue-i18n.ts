@@ -157,6 +157,7 @@ const intlayerToVueI18nPlugin = {
         node.nodeType === NodeTypes.ENUMERATION ||
         node.nodeType === NodeTypes.PLURAL ||
         node.nodeType === NodeTypes.GENDER ||
+        node.nodeType === NodeTypes.SELECT ||
         node.nodeType === 'composite')
     ) {
       return true;
@@ -176,6 +177,7 @@ const intlayerToVueI18nPlugin = {
           (item.nodeType === NodeTypes.INSERTION ||
             item.nodeType === NodeTypes.ENUMERATION ||
             item.nodeType === NodeTypes.GENDER ||
+            item.nodeType === NodeTypes.SELECT ||
             item.nodeType === 'composite')
         ) {
           hasNode = true;
@@ -305,6 +307,20 @@ const intlayerToVueI18nPlugin = {
 
         const childVal = next(val, props);
         transformedOptions[newKey] = childVal;
+      }
+      return transformedOptions;
+    }
+
+    if (node.nodeType === NodeTypes.SELECT) {
+      const options = node[NodeTypes.SELECT];
+      const transformedOptions: Record<string, any> = {};
+
+      // vue-i18n has no `select` syntax: the cases become a nested message
+      // object, resolved by the caller with `t('key.Draft')`.
+      for (const [key, val] of Object.entries(options)) {
+        const newKey = key === 'fallback' ? 'other' : key;
+
+        transformedOptions[newKey] = next(val, props);
       }
       return transformedOptions;
     }

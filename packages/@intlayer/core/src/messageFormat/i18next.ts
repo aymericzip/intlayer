@@ -1,7 +1,7 @@
 import type { Dictionary } from '@intlayer/types/dictionary';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { deepTransformNode } from '../interpreter';
-import { enu, gender, html, insert, plural } from '../transpiler';
+import { enu, gender, html, insert, plural, select } from '../transpiler';
 import type { JsonValue } from './ICU';
 
 // Types for our AST
@@ -291,7 +291,9 @@ const i18nextNodesToIntlayer = (nodes: I18NextNode[]): any => {
     if (node.type === 'select') {
       const options: Record<string, any> = {};
       for (const [key, val] of Object.entries(node.options)) {
-        options[key] = i18nextNodesToIntlayer(val);
+        // ICU names its catch-all case `other`; intlayer names it `fallback`.
+        options[key === 'other' ? 'fallback' : key] =
+          i18nextNodesToIntlayer(val);
       }
 
       // Check for gender
@@ -304,16 +306,15 @@ const i18nextNodesToIntlayer = (nodes: I18NextNode[]): any => {
 
       if (isGender) {
         return gender({
-          fallback: options.other,
+          fallback: options.fallback,
           male: options.male,
           female: options.female,
         });
       }
 
-      // Preserve variable name for generic select
-      options.__intlayer_icu_var = node.name;
-
-      return enu(options);
+      // Any other discriminant maps to a `select` node, which resolves on
+      // arbitrary string values at runtime.
+      return select(options, node.name);
     }
   }
 
@@ -348,6 +349,7 @@ const intlayerToI18nextPlugin = {
         node.nodeType === NodeTypes.ENUMERATION ||
         node.nodeType === NodeTypes.PLURAL ||
         node.nodeType === NodeTypes.GENDER ||
+        node.nodeType === NodeTypes.SELECT ||
         node.nodeType === 'composite')
     ) {
       return true;
@@ -368,6 +370,7 @@ const intlayerToI18nextPlugin = {
             item.nodeType === NodeTypes.HTML ||
             item.nodeType === NodeTypes.ENUMERATION ||
             item.nodeType === NodeTypes.GENDER ||
+            item.nodeType === NodeTypes.SELECT ||
             item.nodeType === 'composite')
         ) {
           hasNode = true;
@@ -540,6 +543,31 @@ const intlayerToI18nextPlugin = {
       for (const [key, val] of entries) {
         let icuKey = key;
         if (key === 'fallback') icuKey = 'other';
+
+        const childVal = next(val, props);
+        let strVal =
+          typeof childVal === 'string' ? childVal : JSON.stringify(childVal);
+
+        strVal = strVal.replace(/\{\{([^}]+)\}\}/g, '{$1}');
+        parts.push(`${icuKey} {${strVal}}`);
+      }
+      return `{${varName}, select, ${parts.join(' ')}}`;
+    }
+
+    if (node.nodeType === NodeTypes.SELECT) {
+      const options = node[NodeTypes.SELECT];
+      const varName = node.variable || 'value';
+      const parts = [];
+
+      // ICU requires the `other` case to come last.
+      const entries = Object.entries(options).sort(([keyA], [keyB]) => {
+        if (keyA === 'fallback') return 1;
+        if (keyB === 'fallback') return -1;
+        return 0;
+      });
+
+      for (const [key, val] of entries) {
+        const icuKey = key === 'fallback' ? 'other' : key;
 
         const childVal = next(val, props);
         let strVal =

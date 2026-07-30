@@ -98,6 +98,7 @@ export const findContentFieldAtOffset = (
  * `cond`   – condition      ({ true: "…", false: "…" })
  * `plural` – plural rules   ({ one: "…", other: "…" })
  * `gender` – gender rules   ({ male: "…", female: "…", other: "…" })
+ * `select` – select cases    ({ Draft: "…", Published: "…", fallback: "…" })
  * `insert` – insertion      ("Hello {{name}}!")
  * `nest`   – nested dict    ("navbar")
  * `md`     – markdown       ("# …")
@@ -110,6 +111,7 @@ const INTLAYER_LEAF_CALL_NAMES: ReadonlySet<string> = new Set([
   'cond',
   'plural',
   'gender',
+  'select',
   'insert',
   'nest',
   'md',

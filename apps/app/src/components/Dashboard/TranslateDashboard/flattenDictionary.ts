@@ -106,6 +106,7 @@ export const flattenDictionary = (
       nodeType === NodeTypes.PLURAL ||
       nodeType === NodeTypes.CONDITION ||
       nodeType === NodeTypes.GENDER ||
+      nodeType === NodeTypes.SELECT ||
       nodeType === NodeTypes.INSERTION ||
       nodeType === NodeTypes.NESTED ||
       nodeType === NodeTypes.FILE

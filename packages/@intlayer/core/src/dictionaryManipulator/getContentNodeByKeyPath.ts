@@ -24,7 +24,9 @@ export const getContentNodeByKeyPath = (
       keyObj.type === NodeTypes.TRANSLATION ||
       keyObj.type === NodeTypes.CONDITION ||
       keyObj.type === NodeTypes.ENUMERATION ||
-      keyObj.type === NodeTypes.PLURAL
+      keyObj.type === NodeTypes.PLURAL ||
+      keyObj.type === NodeTypes.GENDER ||
+      keyObj.type === NodeTypes.SELECT
     ) {
       currentValue = currentValue?.[keyObj.type]?.[keyObj.key];
     }

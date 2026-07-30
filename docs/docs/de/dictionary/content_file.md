@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-05-12
+updatedAt: 2026-07-30
 title: Inhaltsdatei
 description: Erfahren Sie, wie Sie die Erweiterungen für Ihre Inhaltsdeklarationsdateien anpassen können. Folgen Sie dieser Dokumentation, um Bedingungen effizient in Ihrem Projekt umzusetzen.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 9.1.0
+    date: 2026-07-30
+    changes: "Auswahlbasierten Inhalt eingeführt"
   - version: 8.10.0
     date: 2026-05-19
     changes: "Unterstützung für YAML- und Markdown-Dateiformate hinzugefügt"
@@ -257,6 +260,7 @@ Intlayer unterstützt verschiedene Inhaltstypen durch typisierte Knoten:
 - **HTML-Inhalt**: Rich-HTML-Inhalt mit optionalen benutzerdefinierten Komponenten [siehe HTML-Inhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/html.md)
 - **Verschachtelter Inhalt**: Verweise auf andere Wörterbücher [siehe Verschachtelter Inhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/nested_content.md)
 - **Geschlechtsabhängiger Inhalt**: Inhalt, der sich je nach Geschlecht unterscheidet [siehe Geschlechtsabhängiger Inhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/gender_content.md)
+- **Auswahlbasierter Inhalt**: Inhalt, der basierend auf einem beliebigen Zeichenfolgenwert variiert [siehe Auswahlbasierter Inhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/select.md)
 - **Dateiinhalt**: Verweise auf externe Dateien [siehe Dateiinhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/file_content.md)
 
 ## Wörterbuchstruktur
@@ -745,6 +749,25 @@ genderContent: gender({
 ```
 
 > Siehe [Geschlechtsabhängiger Inhalt (`gender`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/gender.md) für weitere Informationen.
+
+### Auswahlbasierter Inhalt (`select`)
+
+Inhalt, der basierend auf einem beliebigen Zeichenfolgenwert variiert — das Äquivalent zum ICU `select`:
+
+```typescript
+import { select } from "intlayer";
+
+selectContent: select({
+  draft: "This post is a draft",
+  published: "This post is live",
+  scheduled: "This post is scheduled",
+  fallback: "Unknown status",
+});
+```
+
+Verwenden Sie `select`, wenn der Diskriminant weder eine Menge (`enu`), noch ein Boolean (`cond`) oder ein Geschlecht (`gender`) ist. Bevorzugen Sie es gegenüber der Indizierung eines einfachen Objekts mit einem Laufzeitwert: Ein dynamisch berechneter Zugriff kann vom Intlayer-Compiler nicht statisch aufgelöst werden.
+
+> Siehe [Auswahlbasierter Inhalt](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/dictionary/select.md) für weitere Informationen.
 
 ### Dateiinhalt (`file`)
 

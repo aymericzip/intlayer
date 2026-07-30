@@ -3,6 +3,7 @@ import * as NodeTypes from '@intlayer/types/nodeType';
 import { getCachedIntl } from '../formatters';
 import { getEnumeration } from '../interpreter/getEnumeration';
 import { getPlural } from '../interpreter/getPlural';
+import { getSelect } from '../interpreter/getSelect';
 import type { PluralContentState } from '../transpiler/plural/plural';
 import { icuToIntlayerFormatter } from './ICU';
 import { i18nextToIntlayerFormatter } from './i18next';
@@ -250,6 +251,20 @@ export const resolveMessageNode = (
       // String selector — ICU `select` converted to an enumeration
       selected = options[String(selector)] ?? options.fallback ?? options.other;
     }
+
+    return resolveMessageNode(selected, values, locale);
+  }
+
+  if (typedNode.nodeType === NodeTypes.SELECT) {
+    const selectState = typedNode[NodeTypes.SELECT] as Record<string, unknown>;
+
+    // The node records the ICU variable it was imported from; fall back to
+    // `value` for nodes authored directly with `select()`.
+    const variableName =
+      typeof typedNode.variable === 'string' ? typedNode.variable : 'value';
+
+    const selector = getSelectorValue(values, variableName);
+    const selected = getSelect(selectState, String(selector ?? ''));
 
     return resolveMessageNode(selected, values, locale);
   }

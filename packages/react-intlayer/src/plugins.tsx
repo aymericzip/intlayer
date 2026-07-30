@@ -11,6 +11,7 @@ import {
   nestedPlugin,
   type Plugins,
   pluralPlugin,
+  selectPlugin,
   splitInsertionTemplate,
   transformInterpolableNode,
   translationPlugin,
@@ -607,6 +608,7 @@ export const getPlugins = (
 
     filePlugin,
     genderPlugin,
+    selectPlugin,
     // Always include: handle plain strings/numbers and React elements
     intlayerNodePlugins,
     reactNodePlugins,

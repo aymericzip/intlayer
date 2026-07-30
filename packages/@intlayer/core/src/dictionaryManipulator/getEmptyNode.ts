@@ -23,6 +23,8 @@ export const getEmptyNode = (section: ContentNode): ContentNode => {
       typedNode.nodeType === NodeTypes.PLURAL ||
       typedNode.nodeType === NodeTypes.CONDITION ||
       typedNode.nodeType === NodeTypes.INSERTION ||
+      typedNode.nodeType === NodeTypes.GENDER ||
+      typedNode.nodeType === NodeTypes.SELECT ||
       typedNode.nodeType === NodeTypes.HTML
     ) {
       return getEmptyNode(content as ContentNode);

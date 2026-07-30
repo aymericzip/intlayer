@@ -11,6 +11,7 @@ import {
   nestedPlugin,
   type Plugins,
   pluralPlugin,
+  selectPlugin,
   transformInterpolableNode,
   translationPlugin,
 } from '@intlayer/core/interpreter';
@@ -532,6 +533,7 @@ export const getPlugins = (
     nestedPlugin(locale ?? internationalization.defaultLocale),
     filePlugin,
     genderPlugin,
+    selectPlugin,
     intlayerNodePlugins,
     markdownPlugin,
     htmlPlugin,

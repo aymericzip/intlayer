@@ -1,6 +1,6 @@
 import * as NodeTypes from '@intlayer/types/nodeType';
 import { describe, expect, it } from 'vitest';
-import { enu, gender, html, insert, plural } from '../transpiler';
+import { enu, gender, html, insert, plural, select } from '../transpiler';
 import { icuToIntlayerFormatter, intlayerToICUFormatter } from './ICU';
 
 describe('ICU Formatter', () => {
@@ -145,6 +145,22 @@ describe('ICU Formatter', () => {
       });
     });
 
+    it('should transform a non-gender select into a select node', () => {
+      const result = icuToIntlayerFormatter(
+        '{publishType, select, draft {draft} published {published} other {Unknown}}'
+      );
+
+      expect(result).toEqual({
+        nodeType: NodeTypes.SELECT,
+        select: {
+          draft: 'draft',
+          published: 'published',
+          fallback: 'Unknown',
+        },
+        variable: 'publishType',
+      });
+    });
+
     it('should transform nested complex structures', () => {
       const input =
         '{gender, select, male {He has {count, plural, =0 {no cars} other {# cars}}} other {They have {count, plural, =0 {no cars} other {# cars}}}}';
@@ -239,6 +255,40 @@ describe('ICU Formatter', () => {
       expect(result).toContain('male {He}');
       expect(result).toContain('female {She}');
       expect(result).toContain('other {They}');
+    });
+
+    it('should transform select', () => {
+      const input = select(
+        {
+          draft: 'draft',
+          published: 'published',
+          fallback: 'Unknown',
+        },
+        'publishType'
+      );
+
+      const result = intlayerToICUFormatter(input);
+      expect(result).toBe(
+        '{publishType, select, draft {draft} published {published} other {Unknown}}'
+      );
+    });
+
+    it('should default the select variable name when none is declared', () => {
+      const input = select({ draft: 'draft', fallback: 'Unknown' });
+
+      const result = intlayerToICUFormatter(input);
+      expect(result).toBe('{value, select, draft {draft} other {Unknown}}');
+    });
+
+    it('should round-trip a non-gender select', () => {
+      const original =
+        '{publishType, select, draft {draft} published {published} other {Unknown}}';
+
+      const result = intlayerToICUFormatter(
+        icuToIntlayerFormatter(original) as any
+      );
+
+      expect(result).toBe(original);
     });
 
     it('should transform plural (CLDR)', () => {

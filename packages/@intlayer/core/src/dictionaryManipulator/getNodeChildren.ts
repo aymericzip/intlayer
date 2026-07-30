@@ -31,6 +31,7 @@ export const getNodeChildren = (section: ContentNode): ContentNode => {
       typedNode.nodeType === NodeTypes.CONDITION ||
       typedNode.nodeType === NodeTypes.INSERTION ||
       typedNode.nodeType === NodeTypes.GENDER ||
+      typedNode.nodeType === NodeTypes.SELECT ||
       typedNode.nodeType === NodeTypes.FILE
     ) {
       const firstKey = Object.keys(content)[0] as keyof typeof content;

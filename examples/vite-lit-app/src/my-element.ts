@@ -79,6 +79,21 @@ export class MyElement extends LitElement {
             result: b.n04_gender('female'),
           },
           {
+            name: "select() 'published'",
+            desc: "publishType='published'",
+            result: b.n27_select('published'),
+          },
+          {
+            name: "select() 'archived'",
+            desc: "publishType='archived' → fallback",
+            result: b.n27_select('archived'),
+          },
+          {
+            name: 'select() + insert()',
+            desc: "publishType='draft' · {name:'Alice'}",
+            result: b.n28_select_insert_t('draft')({ name: 'Alice' }),
+          },
+          {
             name: 'insert()',
             desc: "{name:'Alice', age:30}",
             result: b.n05_insert({ name: 'Alice', age: 30 }),

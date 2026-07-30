@@ -106,6 +106,24 @@ const sections = computed<Section[]>(() => {
         },
         {
           id: nextId(),
+          name: "select() 'published'",
+          desc: "publishType='published'",
+          result: content.n27_select('published'),
+        },
+        {
+          id: nextId(),
+          name: "select() 'archived'",
+          desc: "publishType='archived' → fallback",
+          result: content.n27_select('archived'),
+        },
+        {
+          id: nextId(),
+          name: 'select() + insert()',
+          desc: "publishType='draft' · {name:'Alice'}",
+          result: content.n28_select_insert_t('draft')({ name: 'Alice' }),
+        },
+        {
+          id: nextId(),
           name: 'insert()',
           desc: "{name:'Alice', age:30}",
           result: content.n05_insert({ name: 'Alice', age: 30 }),

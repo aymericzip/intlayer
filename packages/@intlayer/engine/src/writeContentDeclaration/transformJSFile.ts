@@ -135,7 +135,8 @@ const isMultilingualNode = (val: any): boolean => {
     nodeType === NodeTypes.ENUMERATION ||
     nodeType === NodeTypes.PLURAL ||
     nodeType === NodeTypes.CONDITION ||
-    nodeType === NodeTypes.GENDER
+    nodeType === NodeTypes.GENDER ||
+    nodeType === NodeTypes.SELECT
   ) {
     const data = (val as any)[nodeType];
 
@@ -178,6 +179,7 @@ const buildNodeForValue = (
           'plural',
           'cond',
           'gender',
+          'select',
           'insert',
           'md',
           'html',
@@ -348,6 +350,7 @@ const buildNodeForValue = (
       NodeTypes.PLURAL,
       NodeTypes.CONDITION,
       NodeTypes.GENDER,
+      NodeTypes.SELECT,
       NodeTypes.INSERTION,
       NodeTypes.MARKDOWN,
       NodeTypes.HTML,
@@ -371,6 +374,7 @@ const buildNodeForValue = (
     else if (nodeType === NodeTypes.PLURAL) calleeName = 'plural';
     else if (nodeType === NodeTypes.CONDITION) calleeName = 'cond';
     else if (nodeType === NodeTypes.GENDER) calleeName = 'gender';
+    else if (nodeType === NodeTypes.SELECT) calleeName = 'select';
     else if (nodeType === NodeTypes.INSERTION) calleeName = 'insert';
     else if (nodeType === NodeTypes.MARKDOWN) calleeName = 'md';
     else if (nodeType === NodeTypes.HTML) calleeName = 'html';
@@ -385,7 +389,9 @@ const buildNodeForValue = (
       n.Identifier.check(existingNode.callee) &&
       existingNode.callee.name === calleeName;
 
-    if (['t', 'enu', 'plural', 'cond', 'gender'].includes(calleeName)) {
+    if (
+      ['t', 'enu', 'plural', 'cond', 'gender', 'select'].includes(calleeName)
+    ) {
       let objArg: any = null;
 
       if (

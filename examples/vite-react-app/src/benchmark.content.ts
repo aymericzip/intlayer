@@ -8,6 +8,7 @@ import {
   md,
   nest,
   plural,
+  select,
   t,
 } from 'intlayer';
 
@@ -279,6 +280,57 @@ const benchmarkContent = {
         es: md('Hola **{{name}}**'),
       })
     ),
+
+    // select() — switch on an arbitrary string value (the ICU `select`
+    // equivalent). Use it when the discriminant is neither a quantity
+    // (`enu`), a boolean (`cond`), nor a gender (`gender`).
+    n27_select: select({
+      draft: t({
+        en: 'This post is a draft',
+        fr: 'Cet article est un brouillon',
+        es: 'Esta publicación es un borrador',
+      }),
+      published: t({
+        en: 'This post is live',
+        fr: 'Cet article est en ligne',
+        es: 'Esta publicación está publicada',
+      }),
+      scheduled: t({
+        en: 'This post is scheduled',
+        fr: 'Cet article est programmé',
+        es: 'Esta publicación está programada',
+      }),
+      fallback: t({
+        en: 'Unknown status',
+        fr: 'Statut inconnu',
+        es: 'Estado desconocido',
+      }),
+    }),
+
+    // select() wrapping insert() — the selected case is interpolated.
+    n28_select_insert_t: select({
+      draft: insert(
+        t({
+          en: '{{name}} saved a draft',
+          fr: '{{name}} a enregistré un brouillon',
+          es: '{{name}} guardó un borrador',
+        })
+      ),
+      published: insert(
+        t({
+          en: '{{name}} published the post',
+          fr: '{{name}} a publié l’article',
+          es: '{{name}} publicó la publicación',
+        })
+      ),
+      fallback: insert(
+        t({
+          en: '{{name}} updated the post',
+          fr: '{{name}} a mis à jour l’article',
+          es: '{{name}} actualizó la publicación',
+        })
+      ),
+    }),
   },
 
   filled: true,

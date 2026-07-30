@@ -7,4 +7,5 @@ export * from './insertion/index';
 export * from './markdown/index';
 export * from './nesting/index';
 export * from './plural/index';
+export * from './select/index';
 export * from './translation/index';

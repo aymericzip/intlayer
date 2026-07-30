@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-05-12
+updatedAt: 2026-07-30
 title: Archivo de Contenido
 description: Aprende a personalizar las extensiones para tus archivos de declaración de contenido. Sigue esta documentación para implementar condiciones de manera eficiente en tu proyecto.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 9.1.0
+    date: 2026-07-30
+    changes: "Introducir contenido basado en selección"
   - version: 8.10.0
     date: 2026-05-19
     changes: "Añadir soporte para formatos de archivo YAML y Markdown"
@@ -256,6 +259,7 @@ Intlayer soporta varios tipos de contenido a través de nodos tipados:
 - **Contenido HTML**: Contenido HTML enriquecido con componentes personalizados opcionales [ver Contenido HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/html.md)
 - **Contenido Anidado**: Referencias a otros diccionarios [ver Contenido Anidado](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/nested_content.md)
 - **Contenido de Género**: Contenido que varía según el género [ver Contenido de Género](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/gender_content.md)
+- **Contenido Basado en Selección**: Contenido que varía según un valor de cadena arbitrario [ver Contenido Basado en Selección](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/select.md)
 - **Contenido de Archivo**: Referencias a archivos externos [ver Contenido de Archivo](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/file_content.md)
 
 ## Estructura del Diccionario
@@ -744,6 +748,25 @@ genderContent: gender({
 ```
 
 > Ver [Contenido según género (`gender`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/gender.md) para más información.
+
+### Contenido Basado en Selección (`select`)
+
+Contenido que varía según un valor de cadena arbitrario — el equivalente a `select` de ICU:
+
+```typescript
+import { select } from "intlayer";
+
+selectContent: select({
+  draft: "This post is a draft",
+  published: "This post is live",
+  scheduled: "This post is scheduled",
+  fallback: "Unknown status",
+});
+```
+
+Usa `select` cuando el discriminante no es una cantidad (`enu`), ni un booleano (`cond`), ni un género (`gender`). Prefiérelo antes que indexar un objeto simple con un valor de tiempo de ejecución: el compilador de Intlayer no puede resolver estáticamente un acceso computado dinámico.
+
+> Ver [Contenido Basado en Selección](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/dictionary/select.md) para más información.
 
 ### Contenido de archivo (`file`)
 

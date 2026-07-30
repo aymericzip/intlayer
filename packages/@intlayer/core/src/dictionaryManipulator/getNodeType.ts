@@ -17,30 +17,40 @@ const isTypedNode = (content: unknown): content is TypedNode => {
 };
 
 /**
- * Type guard to check if content is a valid NodeType
+ * Every known {@link NodeType}, as a lookup record.
+ *
+ * Typed as `Record<NodeType, true>` so that adding a node type to
+ * `@intlayer/types` without registering it here becomes a compile-time error.
  */
-const isValidNodeType = (nodeType: string): nodeType is NodeType => {
-  return [
-    NodeTypes.TRANSLATION,
-    NodeTypes.ENUMERATION,
-    NodeTypes.PLURAL,
-    NodeTypes.CONDITION,
-    NodeTypes.INSERTION,
-    NodeTypes.FILE,
-    NodeTypes.OBJECT,
-    NodeTypes.ARRAY,
-    NodeTypes.NESTED,
-    NodeTypes.REACT_NODE,
-    NodeTypes.MARKDOWN,
-    NodeTypes.HTML,
-    NodeTypes.TEXT,
-    NodeTypes.NUMBER,
-    NodeTypes.BOOLEAN,
-    NodeTypes.GENDER,
-    NodeTypes.NULL,
-    NodeTypes.UNKNOWN,
-  ].includes(nodeType as NodeType);
+const validNodeTypes: Record<NodeType, true> = {
+  [NodeTypes.TRANSLATION]: true,
+  [NodeTypes.ENUMERATION]: true,
+  [NodeTypes.PLURAL]: true,
+  [NodeTypes.CONDITION]: true,
+  [NodeTypes.INSERTION]: true,
+  [NodeTypes.FILE]: true,
+  [NodeTypes.OBJECT]: true,
+  [NodeTypes.ARRAY]: true,
+  [NodeTypes.NESTED]: true,
+  [NodeTypes.REACT_NODE]: true,
+  [NodeTypes.PREACT_NODE]: true,
+  [NodeTypes.SOLID_NODE]: true,
+  [NodeTypes.MARKDOWN]: true,
+  [NodeTypes.HTML]: true,
+  [NodeTypes.TEXT]: true,
+  [NodeTypes.NUMBER]: true,
+  [NodeTypes.BOOLEAN]: true,
+  [NodeTypes.GENDER]: true,
+  [NodeTypes.SELECT]: true,
+  [NodeTypes.NULL]: true,
+  [NodeTypes.UNKNOWN]: true,
 };
+
+/**
+ * Type guard to check if a raw string is a valid {@link NodeType}
+ */
+const isValidNodeType = (nodeType: string): nodeType is NodeType =>
+  Object.hasOwn(validNodeTypes, nodeType);
 
 export const getNodeType = (content: ContentNode): NodeType => {
   if (typeof content === 'string') {

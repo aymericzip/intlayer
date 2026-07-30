@@ -24,7 +24,9 @@ export const renameContentNodeByKeyPath = (
       keyObj.type === NodeTypes.TRANSLATION ||
       keyObj.type === NodeTypes.ENUMERATION ||
       keyObj.type === NodeTypes.PLURAL ||
-      keyObj.type === NodeTypes.CONDITION
+      keyObj.type === NodeTypes.CONDITION ||
+      keyObj.type === NodeTypes.GENDER ||
+      keyObj.type === NodeTypes.SELECT
     ) {
       lastKey = keyObj.type;
       currentValue = currentValue[keyObj.type][keyObj.key];

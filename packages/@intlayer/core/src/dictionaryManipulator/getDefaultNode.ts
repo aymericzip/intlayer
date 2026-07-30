@@ -48,6 +48,25 @@ export const getDefaultNode = (
         },
       } as ContentNode;
 
+    case NodeTypes.GENDER:
+      return {
+        nodeType: NodeTypes.GENDER,
+        [NodeTypes.GENDER]: {
+          male: clonedContent ?? '',
+          female: clonedContent ?? '',
+          fallback: clonedContent ?? '',
+        },
+      } as ContentNode;
+
+    case NodeTypes.SELECT:
+      return {
+        nodeType: NodeTypes.SELECT,
+        [NodeTypes.SELECT]: {
+          case1: clonedContent ?? '',
+          fallback: clonedContent ?? '',
+        },
+      } as ContentNode;
+
     case NodeTypes.INSERTION:
       return {
         nodeType: NodeTypes.INSERTION,

@@ -167,6 +167,21 @@ const BenchmarkTable = () => {
           result: () => content.n04_gender('female'),
         },
         {
+          name: "select() 'published'",
+          desc: "publishType='published'",
+          result: () => content.n27_select('published'),
+        },
+        {
+          name: "select() 'archived'",
+          desc: "publishType='archived' → fallback",
+          result: () => content.n27_select('archived'),
+        },
+        {
+          name: 'select() + insert()',
+          desc: "publishType='draft' · {name:'Alice'}",
+          result: () => content.n28_select_insert_t('draft')({ name: 'Alice' }),
+        },
+        {
           name: 'insert()',
           desc: "{name:'Alice', age:30}",
           result: () => content.n05_insert({ name: 'Alice', age: 30 }),

@@ -35,6 +35,11 @@ export type GenderNode = {
   key: string;
 };
 
+export type SelectNode = {
+  type: typeof NodeTypes.SELECT;
+  key: string;
+};
+
 export type InsertionNode = {
   type: typeof NodeTypes.INSERTION;
   key?: undefined;
@@ -73,6 +78,7 @@ export type KeyPath =
   | PluralNode
   | InsertionNode
   | GenderNode
+  | SelectNode
   | MarkdownNode
   | ReactNode
   | ConditionNode

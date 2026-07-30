@@ -162,6 +162,7 @@ export {
   md,
   nest,
   plural,
+  select,
   t,
 } from '@intlayer/core/transpiler';
 export {

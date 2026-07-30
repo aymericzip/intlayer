@@ -36,6 +36,7 @@ import type {
   InsertionContent,
   MarkdownContent,
   PluralContent,
+  SelectContent,
   TranslationContent,
 } from '@intlayer/core/transpiler';
 import { useConfiguration, useEditedContent } from '@intlayer/editor-react';
@@ -410,6 +411,127 @@ const EnumerationTextEditor: FC<TextEditorProps> = ({
         className="m-2"
       >
         {addNewEnumeration.text}
+      </Button>
+    </div>
+  );
+};
+
+const SelectTextEditor: FC<TextEditorProps> = ({
+  section,
+  keyPath,
+  dictionary,
+  renderSection,
+}) => {
+  const { addEditedContent } = useEditedContent();
+  const { addNewSelectCase, removeSelectCase } = useIntlayer('navigation-view');
+
+  const content = (section as SelectContent)[NodeTypes.SELECT] as Record<
+    string,
+    ContentNode
+  >;
+  const firstKey = Object.keys(content)[0];
+
+  return (
+    <div className="flex flex-col gap-2">
+      <table className="w-full">
+        <tbody className="flex w-full flex-col gap-2">
+          {Object.keys(content).map((caseKey) => {
+            const childrenKeyPath = [
+              ...keyPath,
+              { type: NodeTypes.SELECT, key: caseKey },
+            ] as KeyPath[];
+            const uniqueKey = `${JSON.stringify(keyPath)}-select-${caseKey}`;
+
+            return (
+              <Fragment key={uniqueKey}>
+                <tr className="mt-2 w-full">
+                  <td className="flex w-full">
+                    <div className="flex flex-1">
+                      <Button
+                        label={removeSelectCase.label.value}
+                        variant="hoverable"
+                        size="sm"
+                        color="error"
+                        className="ml-auto text-neutral hover:text-error"
+                        Icon={Trash}
+                        onClick={() =>
+                          addEditedContent(
+                            dictionary.localId!,
+                            undefined,
+                            childrenKeyPath
+                          )
+                        }
+                      >
+                        {removeSelectCase.text}
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+                <tr className="w-full p-2">
+                  <td className="flex w-full">
+                    {/* Select cases are free-form strings, so the key is edited
+                        as plain text rather than through `EnumKeyInput`, which
+                        only builds numeric comparators. */}
+                    <ContentEditorInputBase
+                      aria-label="Edit case"
+                      type="text"
+                      variant="default"
+                      onContentChange={(value) => {
+                        const newValue = {
+                          ...(section as SelectContent),
+                          [NodeTypes.SELECT]: renameKey(
+                            content,
+                            caseKey,
+                            String(value)
+                          ),
+                        };
+
+                        addEditedContent(
+                          dictionary.localId!,
+                          newValue as ContentNode,
+                          keyPath
+                        );
+                      }}
+                    >
+                      {caseKey}
+                    </ContentEditorInputBase>
+                  </td>
+                </tr>
+                <tr className="block w-full">
+                  <td className="flex w-full">
+                    <TextEditor
+                      section={
+                        content[caseKey] ?? getEmptyNode(content[firstKey])
+                      }
+                      keyPath={childrenKeyPath}
+                      dictionary={dictionary}
+                      renderSection={renderSection}
+                    />
+                  </td>
+                </tr>
+              </Fragment>
+            );
+          })}
+        </tbody>
+      </table>
+
+      <Button
+        label={addNewSelectCase.label.value}
+        variant="hoverable"
+        color="neutral"
+        textAlign="left"
+        isFullWidth
+        onClick={() =>
+          addEditedContent(
+            dictionary.localId!,
+            getEmptyNode(content[firstKey]) ?? '',
+            [...keyPath, { type: NodeTypes.SELECT, key: 'newCase' }]
+          )
+        }
+        Icon={Plus}
+        className="m-2"
+      >
+        {addNewSelectCase.text}
       </Button>
     </div>
   );
@@ -1023,6 +1145,17 @@ export const TextEditor = memo<TextEditorProps>(function TextEditor({
   if (nodeType === NodeTypes.CONDITION) {
     return (
       <ConditionTextEditor
+        dictionary={dictionary}
+        renderSection={renderSection}
+        keyPath={keyPath}
+        section={section}
+      />
+    );
+  }
+
+  if (nodeType === NodeTypes.SELECT) {
+    return (
+      <SelectTextEditor
         dictionary={dictionary}
         renderSection={renderSection}
         keyPath={keyPath}

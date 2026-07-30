@@ -22,7 +22,10 @@ export const editDictionaryByKeyPath = (
       const keyObj = keyPath[i];
       parentValue = currentValue;
 
-      if (keyObj.type === NodeTypes.OBJECT || keyObj.type === NodeTypes.ARRAY) {
+      if (
+        keyObj?.type === NodeTypes.OBJECT ||
+        keyObj?.type === NodeTypes.ARRAY
+      ) {
         lastKeys = [keyObj.key];
 
         if (
@@ -35,9 +38,11 @@ export const editDictionaryByKeyPath = (
       }
 
       if (
-        keyObj.type === NodeTypes.TRANSLATION ||
-        keyObj.type === NodeTypes.ENUMERATION ||
-        keyObj.type === NodeTypes.PLURAL
+        keyObj?.type === NodeTypes.TRANSLATION ||
+        keyObj?.type === NodeTypes.ENUMERATION ||
+        keyObj?.type === NodeTypes.PLURAL ||
+        keyObj?.type === NodeTypes.GENDER ||
+        keyObj?.type === NodeTypes.SELECT
       ) {
         lastKeys = [keyObj.type, keyObj.key];
 
@@ -58,9 +63,9 @@ export const editDictionaryByKeyPath = (
       }
 
       if (
-        keyObj.type === NodeTypes.ENUMERATION ||
-        keyObj.type === NodeTypes.PLURAL ||
-        keyObj.type === NodeTypes.CONDITION
+        keyObj?.type === NodeTypes.ENUMERATION ||
+        keyObj?.type === NodeTypes.PLURAL ||
+        keyObj?.type === NodeTypes.CONDITION
       ) {
         // Note: Logic above already handles Enumeration/Plural, ensure no duplication in your actual file
         // or keep the specific block if your logic differs.
@@ -78,9 +83,9 @@ export const editDictionaryByKeyPath = (
       }
 
       if (
-        keyObj.type === NodeTypes.MARKDOWN ||
-        keyObj.type === NodeTypes.HTML ||
-        keyObj.type === NodeTypes.INSERTION
+        keyObj?.type === NodeTypes.MARKDOWN ||
+        keyObj?.type === NodeTypes.HTML ||
+        keyObj?.type === NodeTypes.INSERTION
       ) {
         lastKeys = [keyObj.type];
 
@@ -90,7 +95,7 @@ export const editDictionaryByKeyPath = (
         currentValue = currentValue[keyObj.type];
       }
 
-      if (keyObj.type === NodeTypes.FILE) {
+      if (keyObj?.type === NodeTypes.FILE) {
         lastKeys = ['content'];
         currentValue = currentValue.content;
       }

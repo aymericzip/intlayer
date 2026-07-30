@@ -57,6 +57,21 @@ const getSections = (): Section[] => {
         r("gender() 'male'", "gender='male'", $bm.n04_gender('male')),
         r("gender() 'female'", "gender='female'", $bm.n04_gender('female')),
         r(
+          "select() 'published'",
+          "publishType='published'",
+          $bm.n27_select('published')
+        ),
+        r(
+          "select() 'archived'",
+          "publishType='archived' → fallback",
+          $bm.n27_select('archived')
+        ),
+        r(
+          'select() + insert()',
+          "publishType='draft' · {name:'Alice'}",
+          $bm.n28_select_insert_t('draft')({ name: 'Alice' })
+        ),
+        r(
           'insert()',
           "{name:'Alice', age:30}",
           $bm.n05_insert({ name: 'Alice', age: 30 })

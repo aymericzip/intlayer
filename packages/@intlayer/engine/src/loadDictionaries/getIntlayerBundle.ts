@@ -1,5 +1,5 @@
 import { readFile } from 'node:fs/promises';
-import { builtinModules } from 'node:module';
+import { builtinModules, createRequire } from 'node:module';
 import { join } from 'node:path';
 import { bundleFile, type ESBuildPlugin } from '@intlayer/config/file';
 import { getProjectRequire } from '@intlayer/config/utils';
@@ -25,16 +25,30 @@ const localResolvePlugin = (
           };
         }
 
-        // Dynamic resolution via user workspace
+        // Dynamic resolution, importer first then user workspace.
+        //
+        // The importer takes priority so the bundle always keeps the
+        // `@intlayer/*` copy the importing file itself depends on. Resolving
+        // only from the project root lets Node walk past the project when the
+        // package is not installed there, and pick up an unrelated
+        // `node_modules` in a parent directory — which silently mixes two
+        // different Intlayer installations into the same bundle.
         if (args.path === 'defu' || args.path.startsWith('@intlayer/')) {
-          try {
-            const absolutePath = rootRequire.resolve(args.path);
-            return {
-              path: absolutePath,
-              external: true, // Injects `require('/absolute/path')`
-            };
-          } catch {
-            return null;
+          const importerRequire = args.importer
+            ? createRequire(args.importer)
+            : undefined;
+
+          for (const resolver of [importerRequire, rootRequire]) {
+            if (!resolver) continue;
+
+            try {
+              return {
+                path: resolver.resolve(args.path),
+                external: true, // Injects `require('/absolute/path')`
+              };
+            } catch {
+              // Try the next resolver, then let esbuild resolve it itself.
+            }
           }
         }
 

@@ -55,6 +55,7 @@ const NodeTypeView: FC<NodeTypeViewProps> = ({
     nodeType === NodeTypes.TRANSLATION ||
     nodeType === NodeTypes.CONDITION ||
     nodeType === NodeTypes.GENDER ||
+    nodeType === NodeTypes.SELECT ||
     nodeType === NodeTypes.ENUMERATION ||
     nodeType === NodeTypes.PLURAL
   ) {

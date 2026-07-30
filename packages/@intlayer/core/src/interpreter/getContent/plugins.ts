@@ -17,6 +17,7 @@ import type {
   NestedContent,
   PluralContent,
   PluralContentState,
+  SelectContent,
   TranslationContent,
 } from '../../transpiler';
 import { getCondition } from '../getCondition';
@@ -25,6 +26,7 @@ import { getGender } from '../getGender';
 import { getInsertion } from '../getInsertion';
 import { type GetNestingResult, getNesting } from '../getNesting';
 import { getPlural } from '../getPlural';
+import { getSelect } from '../getSelect';
 import { getTranslation } from '../getTranslation';
 import {
   isInterpolableWrapperNode,
@@ -497,6 +499,73 @@ export const genderPlugin: Plugins =
       };
 
 /** ---------------------------------------------
+ * SELECT PLUGIN
+ * --------------------------------------------- */
+
+/**
+ * Accepted selector for a select node.
+ *
+ * When the node declares a `fallback` case, any string is accepted (the
+ * fallback covers the unmatched values) while the declared cases still
+ * autocomplete. Without a `fallback`, only the declared cases are accepted.
+ */
+export type SelectSelector<States> = 'fallback' extends keyof States
+  ? Exclude<keyof States & string, 'fallback'> | (string & {})
+  : keyof States & string;
+
+export type SelectCond<T, S, _L> = T extends {
+  nodeType: NodeType | string;
+  [NodeTypes.SELECT]: object;
+}
+  ? (
+      value:
+        | SelectSelector<T[typeof NodeTypes.SELECT]>
+        | { value: SelectSelector<T[typeof NodeTypes.SELECT]> }
+    ) => DeepTransformContent<
+      T[typeof NodeTypes.SELECT][keyof T[typeof NodeTypes.SELECT]],
+      S
+    >
+  : never;
+
+/** Select plugin. Replaces node with a function that takes a string => content. */
+export const selectPlugin: Plugins =
+  process.env.INTLAYER_NODE_TYPE_SELECT === 'false'
+    ? fallbackPlugin
+    : {
+        id: 'select-plugin',
+        canHandle: (node) =>
+          typeof node === 'object' && node?.nodeType === NodeTypes.SELECT,
+        transform: (node: SelectContent, props, deepTransformNode) => {
+          const original = node[NodeTypes.SELECT];
+          const result: Record<string, any> = {};
+
+          for (const key in original) {
+            const child = original[key as keyof typeof original];
+            const childProps = {
+              ...props,
+              children: child,
+              keyPath: [
+                ...props.keyPath,
+                { type: NodeTypes.SELECT, key } as KeyPath,
+              ],
+            };
+            result[key] = deepTransformNode(child, childProps);
+          }
+
+          return (arg: string | { value: string }) => {
+            const value = typeof arg === 'string' ? arg : arg?.value;
+            const subResult = getSelect(result, value);
+
+            if (typeof subResult === 'function' && typeof arg === 'object') {
+              return subResult(arg);
+            }
+
+            return subResult;
+          };
+        },
+      };
+
+/** ---------------------------------------------
  * NESTED PLUGIN
  * --------------------------------------------- */
 
@@ -594,6 +663,7 @@ export interface IInterpreterPlugin<T, S, L extends LocalesValues> {
   condition: ConditionCond<T, S, L>;
   insertion: InsertionCond<T, S, L>;
   gender: GenderCond<T, S, L>;
+  select: SelectCond<T, S, L>;
   nested: NestedCond<T, S, L>;
   file: FileCond<T, S, L>;
 }
@@ -608,6 +678,7 @@ export type IInterpreterPluginState = {
   condition: true;
   insertion: true;
   gender: true;
+  select: true;
   nested: true;
   file: true;
 };

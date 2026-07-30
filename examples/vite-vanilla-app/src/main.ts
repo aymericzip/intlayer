@@ -85,6 +85,21 @@ const setupApp = async () => {
             result: bm.n04_gender('female'),
           },
           {
+            name: "select() 'published'",
+            desc: "publishType='published'",
+            result: bm.n27_select('published'),
+          },
+          {
+            name: "select() 'archived'",
+            desc: "publishType='archived' → fallback",
+            result: bm.n27_select('archived'),
+          },
+          {
+            name: 'select() + insert()',
+            desc: "publishType='draft' · {name:'Alice'}",
+            result: bm.n28_select_insert_t('draft')({ name: 'Alice' }),
+          },
+          {
             name: 'insert()',
             desc: "{name:'Alice', age:30}",
             result: bm.n05_insert({ name: 'Alice', age: 30 }),

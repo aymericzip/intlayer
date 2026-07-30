@@ -16,6 +16,7 @@ export const TEXT = 'text' as const;
 export const NUMBER = 'number' as const;
 export const BOOLEAN = 'boolean' as const;
 export const GENDER = 'gender' as const;
+export const SELECT = 'select' as const;
 export const NULL = 'null' as const;
 export const UNKNOWN = 'unknown' as const;
 
@@ -30,6 +31,7 @@ export const PLUGIN_NODE_TYPES: readonly [
   typeof CONDITION,
   typeof INSERTION,
   typeof GENDER,
+  typeof SELECT,
   typeof NESTED,
   typeof FILE,
   typeof MARKDOWN,
@@ -44,6 +46,7 @@ export const PLUGIN_NODE_TYPES: readonly [
   CONDITION,
   INSERTION,
   GENDER,
+  SELECT,
   NESTED,
   FILE,
   MARKDOWN,
@@ -72,6 +75,7 @@ export type NodeType =
   | typeof NUMBER
   | typeof BOOLEAN
   | typeof GENDER
+  | typeof SELECT
   | typeof NULL
   | typeof UNKNOWN;
 

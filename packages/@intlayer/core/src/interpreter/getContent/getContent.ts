@@ -16,6 +16,7 @@ import {
   type NodeProps,
   nestedPlugin,
   type Plugins,
+  selectPlugin,
   translationPlugin,
 } from './plugins';
 
@@ -34,6 +35,7 @@ export const getBasePlugins = (
     nestedPlugin(locale ?? internationalization.defaultLocale),
     filePlugin,
     genderPlugin,
+    selectPlugin,
   ] as Plugins[];
 
 /**

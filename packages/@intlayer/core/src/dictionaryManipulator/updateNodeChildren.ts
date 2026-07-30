@@ -27,7 +27,9 @@ export const updateNodeChildren = <
       typedNode.nodeType === NodeTypes.TRANSLATION ||
       typedNode.nodeType === NodeTypes.ENUMERATION ||
       typedNode.nodeType === NodeTypes.PLURAL ||
-      typedNode.nodeType === NodeTypes.CONDITION
+      typedNode.nodeType === NodeTypes.CONDITION ||
+      typedNode.nodeType === NodeTypes.GENDER ||
+      typedNode.nodeType === NodeTypes.SELECT
     ) {
       const newContent = Object.entries(content).reduce(
         (acc, [key]) => {

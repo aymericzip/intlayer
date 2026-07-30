@@ -11,6 +11,7 @@ import {
   nestedPlugin,
   type Plugins,
   pluralPlugin,
+  selectPlugin,
   transformInterpolableNode,
   translationPlugin,
 } from '@intlayer/core/interpreter';
@@ -248,8 +249,8 @@ const splitAndJoinInsertion = (
     }
 
     // Add the replaced value
-    const key = match[1].trim();
-    const value = values[key];
+    const key = match[1]?.trim();
+    const value = values[key as keyof typeof values];
     if (value !== undefined && value !== null) {
       parts.push(value);
     }
@@ -589,6 +590,7 @@ export const getPlugins = (
     nestedPlugin(locale ?? internationalization.defaultLocale),
     filePlugin,
     genderPlugin,
+    selectPlugin,
     intlayerNodePlugins,
     svelteNodePlugins,
     insertionPlugin,
