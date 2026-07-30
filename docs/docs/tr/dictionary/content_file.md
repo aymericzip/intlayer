@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-05-12
+updatedAt: 2026-07-30
 title: İçerik Dosyası
 description: İçerik bildirim dosyalarınız için uzantıları nasıl özelleştireceğinizi öğrenin. Projenizde koşulları verimli bir şekilde uygulamak için bu dokümantasyonu takip edin.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 9.1.0
+    date: 2026-07-30
+    changes: "Seçime dayalı (select) içerik eklendi"
   - version: 8.10.0
     date: 2026-05-19
     changes: "YAML ve Markdown dosya formatları için destek eklendi"
@@ -253,6 +256,7 @@ Intlayer, tiplenmiş düğümler aracılığıyla çeşitli içerik türlerini d
 - **HTML İçeriği**: İsteğe bağlı özel bileşenlerle zengin HTML içeriği [bkz. HTML İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/html.md)
 - **İç İçe İçerik**: Diğer sözlüklere referanslar [bkz. İç İçe İçerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/nested_content.md)
 - **Cinsiyet İçeriği**: Cinsiyete göre değişen içerik [bkz. Cinsiyet İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender_content.md)
+- **Seçime Dayalı İçerik**: Rastgele bir dize değerine göre değişen içerik [bkz. Seçime Dayalı İçerik](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/select.md)
 - **Dosya İçeriği**: Harici dosyalara referanslar [bkz. Dosya İçeriği](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/file_content.md)
 
 ## Sözlük Yapısı
@@ -741,6 +745,25 @@ genderContent: gender({
 ```
 
 > See [Cinsiyete Göre İçerik (`gender`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/gender.md) for more information.
+
+### Seçime Dayalı İçerik (`select`)
+
+Rastgele bir dize değerine göre değişen içerik — ICU `select` ile eşdeğerdir:
+
+```typescript
+import { select } from "intlayer";
+
+selectContent: select({
+  draft: "This post is a draft",
+  published: "This post is live",
+  scheduled: "This post is scheduled",
+  fallback: "Unknown status",
+});
+```
+
+Ayırt edici (discriminant) bir miktar (`enu`), bir boolean (`cond`) veya cinsiyet (`gender`) olmadığında `select` kullanın. Düzenli bir nesneyi çalışma zamanı değeriyle dizinlemek yerine bunu tercih edin: Intlayer derleyicisi dinamik olarak hesaplanan erişimi statik olarak çözemez.
+
+> See [Seçime Dayalı İçerik (`select`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/dictionary/select.md) for more information.
 
 ### Dosya İçeriği (`file`)
 

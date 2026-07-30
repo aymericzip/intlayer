@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-05-12
+updatedAt: 2026-07-30
 title: Файл контенту
 description: Дізнайтеся, як налаштувати розширення для файлів декларації контенту. Дотримуйтесь цієї документації, щоб ефективно реалізувати умови у вашому проєкті.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 9.1.0
+    date: 2026-07-30
+    changes: "Представлено контент на основі вибору"
   - version: 8.10.0
     date: 2026-05-19
     changes: "Додано підтримку форматів файлів YAML та Markdown"
@@ -262,6 +265,7 @@ Intlayer підтримує різні типи контенту через ти
 - **HTML-вміст**: Багатий HTML-вміст з опційними власними компонентами [див. HTML-вміст](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/html.md)
 - **Вкладений вміст**: Посилання на інші словники [див. Вкладений вміст](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/nested_content.md)
 - **Гендерний вміст**: Вміст, що змінюється залежно від статі [див. Гендерний вміст](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/gender_content.md)
+- **Контент на основі вибору**: Контент, який змінюється залежно від довільного рядкового значення [див. Контент на основі вибору](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/select.md)
 - **Вміст файлу**: Посилання на зовнішні файли [див. Вміст файлу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/file_content.md)
 
 ## Структура словника
@@ -752,6 +756,25 @@ genderContent: gender({
 ```
 
 > See [Гендерний вміст (`gender`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/gender.md) for more information.
+
+### Контент на основі вибору (`select`)
+
+Контент, який змінюється залежно від довільного рядкового значення — еквівалент ICU `select`:
+
+```typescript
+import { select } from "intlayer";
+
+selectContent: select({
+  draft: "This post is a draft",
+  published: "This post is live",
+  scheduled: "This post is scheduled",
+  fallback: "Unknown status",
+});
+```
+
+Використовуйте `select`, коли дискримінантом не є ні кількість (`enu`), ні логічне значення (`cond`), ні стать (`gender`). Краще використовувати його, аніж індексувати звичайний об'єкт значенням під час виконання: компілятор Intlayer не може статично вирішити динамічно обчислюваний доступ.
+
+> See [Контент на основі вибору (`select`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/dictionary/select.md) for more information.
 
 ### Вміст файлу (`file`)
 

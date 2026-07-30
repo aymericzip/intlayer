@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-05-12
+updatedAt: 2026-07-30
 title: Tệp Nội Dung
 description: Tìm hiểu cách tùy chỉnh các phần mở rộng cho các tệp khai báo nội dung của bạn. Theo dõi tài liệu này để triển khai các điều kiện một cách hiệu quả trong dự án của bạn.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 9.1.0
+    date: 2026-07-30
+    changes: "Giới thiệu nội dung dựa trên lựa chọn"
   - version: 8.10.0
     date: 2026-05-19
     changes: "Thêm hỗ trợ cho các định dạng tệp YAML và Markdown"
@@ -259,6 +262,7 @@ Intlayer hỗ trợ nhiều loại nội dung thông qua các node kiểu:
 - **Nội dung HTML**: Nội dung HTML phong phú với các component tùy chỉnh tùy chọn [xem Nội dung HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/html.md)
 - **Nội dung Lồng nhau**: Tham chiếu đến các từ điển khác [xem Nội dung Lồng nhau](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/nested_content.md)
 - **Nội dung Giới tính**: Nội dung thay đổi dựa trên giới tính [xem Nội dung Giới tính](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/gender_content.md)
+- **Nội dung dựa trên lựa chọn**: Nội dung thay đổi dựa trên các giá trị chuỗi tùy ý [xem Nội dung dựa trên lựa chọn](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/select.md)
 - **Nội dung Tệp**: Tham chiếu đến các tệp bên ngoài [xem Nội dung Tệp](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/file_content.md)
 
 ## Cấu trúc Từ điển
@@ -748,6 +752,25 @@ genderContent: gender({
 ```
 
 > Xem [Nội dung theo giới tính (`gender`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/gender.md) để biết thêm thông tin.
+
+### Nội dung dựa trên lựa chọn (`select`)
+
+Nội dung thay đổi dựa trên các giá trị chuỗi tùy ý — tương đương với ICU `select`:
+
+```typescript
+import { select } from "intlayer";
+
+selectContent: select({
+  draft: "This post is a draft",
+  published: "This post is live",
+  scheduled: "This post is scheduled",
+  fallback: "Unknown status",
+});
+```
+
+Sử dụng `select` khi yếu tố phân biệt không phải là một số lượng (`enu`), không phải là một boolean (`cond`) và cũng không phải là giới tính (`gender`). Ưu tiên tính năng này hơn so với việc lập chỉ mục (indexing) một đối tượng (object) thông thường bằng một giá trị trong thời gian chạy (runtime value): trình biên dịch (compiler) Intlayer không thể giải quyết tĩnh (statically resolve) các truy cập được tính toán động (dynamically computed access) như vậy.
+
+> Xem [Nội dung dựa trên lựa chọn (`select`) Tài liệu](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/select.md) để biết thêm thông tin.
 
 ### Nội dung tệp tin (`file`)
 

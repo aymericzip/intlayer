@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-05-12
+updatedAt: 2026-07-30
 title: Plik z Treścią
 description: Dowiedz się, jak dostosować rozszerzenia dla plików deklaracji treści. Postępuj zgodnie z tą dokumentacją, aby efektywnie wdrażać warunki w swoim projekcie.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 9.1.0
+    date: 2026-07-30
+    changes: "Wprowadzono treść opartą na wyborze (select)"
   - version: 8.10.0
     date: 2026-05-19
     changes: "Dodano obsługę formatów plików YAML i Markdown"
@@ -256,6 +259,7 @@ Intlayer obsługuje różne typy zawartości poprzez węzły typowane:
 - **Zawartość HTML**: Zawartość HTML z opcjonalnymi niestandardowymi komponentami [zobacz Zawartość HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/html.md)
 - **Zagnieżdżona zawartość**: Odwołania do innych słowników [zobacz Zagnieżdżoną zawartość](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/nested_content.md)
 - **Zawartość zależna od płci**: Zawartość zmieniająca się w zależności od płci [zobacz Zawartość zależną od płci](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/gender_content.md)
+- **Treść Oparta na Wyborze**: Treść zmieniająca się w zależności od dowolnej wartości znakowej [zobacz Treść Opartą na Wyborze](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/select.md)
 - **Zawartość plikowa**: Odwołania do plików zewnętrznych [zobacz Zawartość plikową](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/file_content.md)
 
 ## Struktura słownika
@@ -745,6 +749,25 @@ genderContent: gender({
 ```
 
 > See [Zawartość według płci (`gender`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/gender.md) for more information.
+
+### Treść Oparta na Wyborze (`select`)
+
+Treść zmieniająca się w zależności od dowolnej wartości znakowej — odpowiednik ICU `select`:
+
+```typescript
+import { select } from "intlayer";
+
+selectContent: select({
+  draft: "This post is a draft",
+  published: "This post is live",
+  scheduled: "This post is scheduled",
+  fallback: "Unknown status",
+});
+```
+
+Używaj `select`, gdy dyskryminatorem nie jest ani ilość (`enu`), ani wartość logiczna (`cond`), ani płeć (`gender`). Preferuj to podejście zamiast indeksowania zwykłego obiektu za pomocą wartości obliczanej w czasie wykonywania: kompilator Intlayer nie potrafi statycznie rozwiązać dynamicznie obliczanego dostępu.
+
+> See [Treść Oparta na Wyborze (`select`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pl/dictionary/select.md) for more information.
 
 ### Zawartość pliku (`file`)
 

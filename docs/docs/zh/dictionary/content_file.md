@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-05-12
+updatedAt: 2026-07-30
 title: 内容文件
 description: 学习如何自定义内容声明文件的扩展。按照本指南高效地在项目中实现条件。
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 9.1.0
+    date: 2026-07-30
+    changes: "引入基于选择的内容"
   - version: 8.10.0
     date: 2026-05-19
     changes: "添加对 YAML 和 Markdown 文件格式的支持"
@@ -254,6 +257,7 @@ Intlayer 通过类型化节点支持多种内容类型：
 - **HTML 内容**：富 HTML 内容，可使用标准标签或自定义组件 [参见 HTML 内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/html.md)
 - **嵌套内容**：对其他字典的引用 [参见 嵌套内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/nested_content.md)
 - **性别内容**：基于性别变化的内容 [参见 性别内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/gender_content.md)
+- **基于选择的内容**：基于任意字符串值变化的内容 [参见 基于选择的内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/select.md)
 - **文件内容**：对外部文件的引用 [参见 文件内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/file_content.md)
 
 ## 字典结构
@@ -752,6 +756,25 @@ genderContent: gender({
 ```
 
 > 请参阅 [性别内容 (`gender`) 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/gender.md) 以获取更多信息。
+
+### 基于选择的内容 (`select`)
+
+基于任意字符串值变化的内容——相当于 ICU 的 `select`：
+
+```typescript
+import { select } from "intlayer";
+
+selectContent: select({
+  draft: "This post is a draft",
+  published: "This post is live",
+  scheduled: "This post is scheduled",
+  fallback: "Unknown status",
+});
+```
+
+当判别条件不是数量 (`enu`)、布尔值 (`cond`)，也不是性别 (`gender`) 时，请使用 `select`。将其优先于使用运行时值索引简单对象：动态计算访问无法由 Intlayer 编译器静态解析。
+
+> 参见 [基于选择的内容](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/select.md) 了解更多信息。
 
 ### 文件内容 (`file`)
 

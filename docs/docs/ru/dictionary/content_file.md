@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-05-12
+updatedAt: 2026-07-30
 title: Файл контента
 description: Узнайте, как настраивать расширения для ваших файлов декларации контента. Следуйте этой документации, чтобы эффективно реализовывать условия в вашем проекте.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 9.1.0
+    date: 2026-07-30
+    changes: "Представлен контент на основе выбора (Select)"
   - version: 8.10.0
     date: 2026-05-19
     changes: "Добавлена поддержка форматов файлов YAML и Markdown"
@@ -256,7 +259,8 @@ Intlayer поддерживает различные типы содержимо
 - **Содержимое Markdown**: Форматированный текст в формате Markdown [см. Содержимое Markdown](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/markdown_content.md)
 - **HTML-содержимое**: Богатое HTML-содержимое с необязательными пользовательскими компонентами [см. HTML-содержимое](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/html.md)
 - **Вложенное содержимое**: Ссылки на другие словари [см. Вложенное содержимое](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/nested_content.md)
-- **Содержимое по полу**: Содержимое, зависящее от пола [см. Содержимое по полу](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/gender_content.md)
+- **Содержимое по половому признаку**: Содержимое, зависящее от пола [см. Содержимое по половому признаку](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/gender_content.md)
+- **Контент на основе выбора**: Контент, изменяющийся в зависимости от произвольного строкового значения [см. Контент на основе выбора](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/select.md)
 - **Содержимое файла**: Ссылки на внешние файлы [см. Содержимое файла](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/file_content.md)
 
 ## Структура словаря
@@ -745,6 +749,25 @@ genderContent: gender({
 ```
 
 > См. [Контент по половому признаку (`gender`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/gender.md) для получения дополнительной информации.
+
+### Контент на основе выбора (`select`)
+
+Контент, который изменяется в зависимости от произвольного строкового значения — эквивалент ICU `select`:
+
+```typescript
+import { select } from "intlayer";
+
+selectContent: select({
+  draft: "This post is a draft",
+  published: "This post is live",
+  scheduled: "This post is scheduled",
+  fallback: "Unknown status",
+});
+```
+
+Используйте `select`, когда дискриминантом не является ни количество (`enu`), ни логическое значение (`cond`), ни пол (`gender`). Предпочтительнее использовать его, а не индексировать обычный объект значением во время выполнения: компилятор Intlayer не может статически разрешить динамически вычисляемый доступ.
+
+> См. [Контент на основе выбора (`select`) Документация](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/dictionary/select.md) для получения дополнительной информации.
 
 ### Контент из файла (`file`)
 

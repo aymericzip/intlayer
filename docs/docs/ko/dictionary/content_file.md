@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-05-12
+updatedAt: 2026-07-30
 title: 콘텐츠 파일
 description: 콘텐츠 선언 파일의 확장자를 사용자 정의하는 방법을 배우세요. 이 문서를 따라 프로젝트에서 조건을 효율적으로 구현하세요.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 9.1.0
+    date: 2026-07-30
+    changes: "선택 기반 콘텐츠 도입"
   - version: 8.10.0
     date: 2026-05-19
     changes: "YAML 및 Markdown 파일 형식 지원 추가"
@@ -254,6 +257,7 @@ Intlayer는 타입이 지정된 노드를 통해 다양한 콘텐츠 유형을 �
 - **HTML Content**: 선택적 사용자 정의 컴포넌트가 있는 리치 HTML 콘텐츠 [HTML Content 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/html.md)
 - **Nested Content**: 다른 사전을 참조하는 콘텐츠 [Nested Content 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/nested_content.md)
 - **Gender Content**: 성별에 따라 달라지는 콘텐츠 [Gender Content 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/gender_content.md)
+- **Select Content**: 임의의 문자열 값에 따라 달라지는 콘텐츠 [Select Content 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/select.md)
 - **File Content**: 외부 파일을 참조하는 콘텐츠 [File Content 보기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/file_content.md)
 
 ## 사전 구조
@@ -742,6 +746,25 @@ genderContent: gender({
 ```
 
 > 자세한 내용은 [성별에 따른 콘텐츠 (`gender`) 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/gender.md) 를 참조하세요.
+
+### 선택 기반 콘텐츠 (`select`)
+
+임의의 문자열 값에 따라 달라지는 콘텐츠 — ICU `select`와 동일합니다:
+
+```typescript
+import { select } from "intlayer";
+
+selectContent: select({
+  draft: "This post is a draft",
+  published: "This post is live",
+  scheduled: "This post is scheduled",
+  fallback: "Unknown status",
+});
+```
+
+판별자가 수량(`enu`), 불리언(`cond`), 성별(`gender`)이 아닌 경우 `select`를 사용하세요. 런타임 값을 사용하여 일반 객체를 인덱싱하는 것보다 `select`를 우선하세요: Intlayer 컴파일러는 동적 계산된 접근(dynamic computed access)을 정적으로 확인할 수 없습니다.
+
+> 자세한 내용은 [선택 기반 콘텐츠](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/select.md) 를 참조하세요.
 
 ### 파일 콘텐츠 (`file`)
 

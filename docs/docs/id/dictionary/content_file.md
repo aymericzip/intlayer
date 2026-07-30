@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-05-12
+updatedAt: 2026-07-30
 title: Berkas Konten
 description: Pelajari cara menyesuaikan ekstensi untuk berkas deklarasi konten Anda. Ikuti dokumentasi ini untuk mengimplementasikan kondisi secara efisien dalam proyek Anda.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 9.1.0
+    date: 2026-07-30
+    changes: "Memperkenalkan konten berbasis pilihan"
   - version: 8.10.0
     date: 2026-05-19
     changes: "Tambahkan dukungan format file YAML dan Markdown"
@@ -256,6 +259,7 @@ Intlayer mendukung berbagai jenis konten melalui node bertipe:
 - **Konten HTML**: Konten HTML kaya dengan komponen kustom opsional [lihat Konten HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/html.md)
 - **Konten Bersarang**: Referensi ke kamus lain [lihat Konten Bersarang](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/nested_content.md)
 - **Konten Gender**: Konten yang bervariasi berdasarkan gender [lihat Konten Gender](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/gender_content.md)
+- **Konten Berbasis Pilihan**: Konten yang bervariasi berdasarkan nilai string sembarang [lihat Konten Berbasis Pilihan](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/select.md)
 - **Konten File**: Referensi ke file eksternal [lihat Konten File](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/file_content.md)
 
 ## Struktur Kamus
@@ -745,6 +749,25 @@ genderContent: gender({
 ```
 
 > See [Konten Gender (`gender`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/gender.md) for more information.
+
+### Konten Berbasis Pilihan (`select`)
+
+Konten yang bervariasi berdasarkan nilai string sembarang — setara dengan ICU `select`:
+
+```typescript
+import { select } from "intlayer";
+
+selectContent: select({
+  draft: "This post is a draft",
+  published: "This post is live",
+  scheduled: "This post is scheduled",
+  fallback: "Unknown status",
+});
+```
+
+Gunakan `select` ketika penentu (discriminant) bukan berupa kuantitas (`enu`), bukan boolean (`cond`), dan bukan pula gender (`gender`). Utamakan fungsi ini daripada melakukan pengindeksan objek biasa menggunakan nilai saat runtime: kompilator Intlayer tidak dapat menyelesaikan akses yang dikomputasi secara dinamis tersebut.
+
+> See [Konten Berbasis Pilihan (`select`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/select.md) for more information.
 
 ### Konten File (`file`)
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-05-12
+updatedAt: 2026-07-30
 title: कंटेंट फ़ाइल
 description: अपनी कंटेंट घोषणा फ़ाइलों के एक्सटेंशनों को कस्टमाइज़ करना सीखें। अपने प्रोजेक्ट में शर्तों को कुशलतापूर्वक लागू करने के लिए इस दस्तावेज़ का पालन करें।
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 9.1.0
+    date: 2026-07-30
+    changes: "चयन-आधारित सामग्री प्रस्तुत की गई"
   - version: 8.10.0
     date: 2026-05-19
     changes: "YAML और Markdown फ़ाइल स्वरूपों का समर्थन जोड़ें"
@@ -255,6 +258,7 @@ Intlayer टाइप्ड नोड्स के माध्यम से व
 - **HTML सामग्री**: समृद्ध HTML सामग्री जो मानक टैग या कस्टम कंपोनेंट्स का उपयोग कर सकती है [देखें HTML सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/html.md)
 - **नेस्टेड सामग्री**: अन्य शब्दकोशों के संदर्भ [देखें नेस्टेड सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/nested_content.md)
 - **लिंग सामग्री**: लिंग के आधार पर भिन्न सामग्री [देखें लिंग सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender_content.md)
+- **चयन-आधारित सामग्री**: किसी मनमाने स्ट्रिंग मान के आधार पर गतिशील रूप से प्रदर्शित होने वाली सामग्री [देखें चयन-आधारित सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/select.md)
 - **फ़ाइल सामग्री**: बाहरी फ़ाइलों के संदर्भ [देखें फ़ाइल सामग्री](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/file_content.md)
 
 ## शब्दकोश संरचना
@@ -746,6 +750,25 @@ genderContent: gender({
 ```
 
 > See [जेंडर सामग्री (`gender`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/gender.md) for more information.
+
+### चयन-आधारित सामग्री (`select`)
+
+किसी मनमाने स्ट्रिंग मान के आधार पर गतिशील रूप से प्रदर्शित होने वाली सामग्री — ICU `select` के बराबर:
+
+```typescript
+import { select } from "intlayer";
+
+selectContent: select({
+  draft: "This post is a draft",
+  published: "This post is live",
+  scheduled: "This post is scheduled",
+  fallback: "Unknown status",
+});
+```
+
+`select` का उपयोग तब करें जब विवेचक मात्रा (`enu`), बूलियन (`cond`), या लिंग (`gender`) न हो। इसे रनटाइम मान का उपयोग करके एक साधारण ऑब्जेक्ट को अनुक्रमित (indexing) करने पर प्राथमिकता दें: Intlayer कंपाइलर स्थिर रूप से गतिशील गणना की गई पहुंच का मूल्यांकन नहीं कर सकता है।
+
+> See [चयन-आधारित सामग्री (`select`) Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/dictionary/select.md) for more information.
 
 ### फ़ाइल सामग्री (`file`)
 

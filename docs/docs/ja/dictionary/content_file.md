@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-05-12
+updatedAt: 2026-07-30
 title: コンテンツファイル
 description: コンテンツ宣言ファイルの拡張機能をカスタマイズする方法を学びます。このドキュメントに従って、プロジェクトで効率的に条件を実装しましょう。
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 9.1.0
+    date: 2026-07-30
+    changes: "選択ベースのコンテンツを導入"
   - version: 8.10.0
     date: 2026-05-19
     changes: "YAMLおよびMarkdownファイルフォーマットのサポートを追加"
@@ -254,6 +257,7 @@ Intlayerは型付きノードを通じて様々なコンテンツタイプをサ
 - **HTML Content**: オプションのカスタムコンポーネントを使用したリッチHTMLコンテンツ [HTML Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/html.md)
 - **Nested Content**: 他の辞書への参照 [Nested Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/nested_content.md)
 - **Gender Content**: 性別に応じて変わるコンテンツ [Gender Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender_content.md)
+- **Select Content**: 任意の文字列値に基づいて変化するコンテンツ [Select Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/select.md)
 - **File Content**: 外部ファイルへの参照 [File Contentを参照](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/file_content.md)
 
 ## 辞書の構造
@@ -747,6 +751,25 @@ genderContent: gender({
 ```
 
 > 詳細については、 [ジェンダーコンテンツ (`gender`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/gender.md) を参照してください。
+
+### 選択ベースのコンテンツ (`select`)
+
+任意の文字列値に基づいて変化するコンテンツ — ICUの `select` と同等のものです：
+
+```typescript
+import { select } from "intlayer";
+
+selectContent: select({
+  draft: "This post is a draft",
+  published: "This post is live",
+  scheduled: "This post is scheduled",
+  fallback: "Unknown status",
+});
+```
+
+判別子が数量 (`enu`) ではなく、ブール値 (`cond`) ではなく、性別 (`gender`) でもない場合に `select` を使用します。実行時の値を使用して単純なオブジェクトをインデックス化するよりも優先してください：Intlayer コンパイラは動的に計算されたアクセスを静的に解決できません。
+
+> 詳細については、 [選択ベースのコンテンツ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/select.md) を参照してください。
 
 ### ファイルコンテンツ (`file`)
 

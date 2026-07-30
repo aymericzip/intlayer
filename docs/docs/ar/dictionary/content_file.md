@@ -1,6 +1,6 @@
 ---
 createdAt: 2025-02-07
-updatedAt: 2026-05-12
+updatedAt: 2026-07-30
 title: ملف المحتوى
 description: تعلّم كيفية تخصيص الامتدادات لملفات إعلان المحتوى الخاصة بك. اتبع هذا التوثيق لتنفيذ الشروط بكفاءة في مشروعك.
 keywords:
@@ -12,6 +12,9 @@ slugs:
   - concept
   - content
 history:
+  - version: 9.1.0
+    date: 2026-07-30
+    changes: "تم تقديم محتوى يعتمد على الاختيار"
   - version: 8.10.0
     date: 2026-05-19
     changes: "إضافة دعم لتنسيقات ملفات YAML و Markdown"
@@ -257,6 +260,7 @@ export default {
 - **محتوى HTML**: محتوى HTML غني مع مكونات مخصصة اختيارية [انظر محتوى HTML](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/html.md)
 - **محتوى متداخل**: مراجع إلى قواميس أخرى [انظر المحتوى المتداخل](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/nested_content.md)
 - **محتوى حسب الجنس**: محتوى يختلف بناءً على الجنس [انظر محتوى الجنس](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender_content.md)
+- **محتوى يعتمد على الاختيار**: محتوى يتغير بناءً على قيمة نصية عشوائية [انظر المحتوى المعتمد على الاختيار](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/select.md)
 - **محتوى ملف**: مراجع إلى ملفات خارجية [انظر محتوى الملف](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/file_content.md)
 
 ## هيكل القاموس
@@ -745,6 +749,25 @@ genderContent: gender({
 ```
 
 > راجع [محتوى الجنس (`gender`) توثيق](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/gender.md) لمزيد من المعلومات.
+
+### المحتوى المعتمد على الاختيار (`select`)
+
+محتوى يتغير بناءً على قيمة نصية عشوائية — ما يعادل `select` في ICU:
+
+```typescript
+import { select } from "intlayer";
+
+selectContent: select({
+  draft: "This post is a draft",
+  published: "This post is live",
+  scheduled: "This post is scheduled",
+  fallback: "Unknown status",
+});
+```
+
+استخدم `select` عندما لا يكون المميّز عبارة عن كمية (`enu`)، ولا قيمة منطقية (`cond`)، ولا جنس (`gender`). تفضيله على فهرسة كائن بسيط باستخدام قيمة وقت التشغيل (runtime value): لا يستطيع مترجم (compiler) Intlayer تقييم الوصول المحسوب ديناميكيًا بشكل ثابت.
+
+> راجع [المحتوى المعتمد على الاختيار](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/select.md) لمزيد من المعلومات.
 
 ### محتوى الملف (`file`)
 
