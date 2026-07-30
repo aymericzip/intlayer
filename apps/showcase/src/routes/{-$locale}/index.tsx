@@ -8,9 +8,7 @@ import {
   ShowingResultsNumberItems,
 } from '@intlayer/design-system/pagination';
 import {
-  Showcase_Root,
   Showcase_Root_Path,
-  Website_Domain,
   Website_Home,
 } from '@intlayer/design-system/routes';
 import { buildBreadcrumbsJsonLd } from '@intlayer/design-system/structured-data';
@@ -133,10 +131,9 @@ export const Route = createFileRoute('/{-$locale}/')({
                 },
                 {
                   name: 'Showcase',
-                  url: getLocalizedUrl(Showcase_Root, locale),
+                  url: getAbsoluteUrl(Showcase_Root_Path, locale),
                 },
               ],
-              domain: Website_Domain,
             })
           ),
         },

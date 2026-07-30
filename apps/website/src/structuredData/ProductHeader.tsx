@@ -3,7 +3,6 @@
 import type { GetPricingResult } from '@intlayer/backend';
 import { App_Dashboard } from '@intlayer/design-system/routes';
 import { buildProductJsonLd } from '@intlayer/design-system/structured-data';
-import Script from 'next/script';
 import { useIntlayer } from 'next-intlayer/server';
 import { formatStructuredDataOffers } from '../utils/stripe';
 
@@ -17,7 +16,7 @@ export const ProductHeader = ({
   const offers = formatStructuredDataOffers(pricings);
 
   return (
-    <Script
+    <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(

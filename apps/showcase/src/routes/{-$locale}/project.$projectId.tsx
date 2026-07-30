@@ -1,7 +1,6 @@
 import { getIntlayerAPI } from '@intlayer/api';
 import {
-  Showcase_Root,
-  Website_Domain,
+  Showcase_Root_Path,
   Website_Home,
 } from '@intlayer/design-system/routes';
 import { buildBreadcrumbsJsonLd } from '@intlayer/design-system/structured-data';
@@ -72,14 +71,13 @@ export const Route = createFileRoute('/{-$locale}/project/$projectId')({
                     },
                     {
                       name: 'Showcase',
-                      url: getLocalizedUrl(Showcase_Root, locale),
+                      url: getAbsoluteUrl(Showcase_Root_Path, locale),
                     },
                     {
                       name: project.title,
-                      url: getLocalizedUrl(`/project/${project.id}`, locale),
+                      url: getAbsoluteUrl(`/project/${project.id}`, locale),
                     },
                   ],
-                  domain: Website_Domain,
                 })
               ),
             },

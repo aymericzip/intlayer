@@ -2,7 +2,6 @@
 
 import { External_Github, Website_Home } from '@intlayer/design-system/routes';
 import { buildSoftwareApplicationJsonLd } from '@intlayer/design-system/structured-data';
-import Script from 'next/script';
 import { useIntlayer } from 'next-intlayer/server';
 import type { FC } from 'react';
 import packageJson from '../../package_mock.json' with { type: 'json' };
@@ -14,7 +13,7 @@ export const ScannerSoftwareApplicationHeader: FC = () => {
   );
 
   return (
-    <Script
+    <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(
