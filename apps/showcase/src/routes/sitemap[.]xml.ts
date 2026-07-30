@@ -4,10 +4,10 @@ import {
 } from '@intlayer/design-system/routes';
 import { createFileRoute } from '@tanstack/react-router';
 import { generateSitemap } from 'intlayer';
+import { SITE_URL } from '#/lib/site';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL ?? '';
 const SHOWCASE_API = `${BACKEND_URL}/api/showcase-project`;
-const SITE_URL = (import.meta.env.VITE_SITE_URL ?? '').replace(/\/$/, '');
 
 type ProjectEntry = { _id: string; createdAt?: string };
 

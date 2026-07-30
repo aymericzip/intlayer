@@ -1,29 +1,19 @@
-import { Showcase_Root } from '@intlayer/design-system/routes';
 import { getLocalizedUrl, type LocalesValues, localeMap } from 'intlayer';
-
-/**
- * Origin used to build absolute URLs. Prefers the deployment-provided
- * `VITE_SITE_URL`, falling back to the canonical showcase domain so the output
- * is never a relative URL (Google rejects relative `hreflang` / canonical URLs).
- */
-const baseUrl = (import.meta.env?.VITE_SITE_URL ?? Showcase_Root).replace(
-  /\/$/,
-  ''
-);
+import { SITE_URL } from '#/lib/site';
 
 /**
  * Converts any path (or already-absolute URL) to an absolute URL rooted at
- * {@link baseUrl}. When the input is already absolute, its origin is swapped for
- * {@link baseUrl} so the correct deployment domain is always used.
+ * {@link SITE_URL}. When the input is already absolute, its origin is swapped
+ * for {@link SITE_URL} so the correct deployment domain is always used.
  *
  * @param path - Relative path (e.g. `/es/submit`) or absolute URL.
  * @returns Absolute URL string.
  */
 const toAbsoluteUrl = (path: string): string => {
   if (/^https?:\/\//.test(path)) {
-    return path.replace(/^https?:\/\/[^/]+/, baseUrl);
+    return path.replace(/^https?:\/\/[^/]+/, SITE_URL);
   }
-  return `${baseUrl}${path}`;
+  return `${SITE_URL}${path}`;
 };
 
 /**
@@ -38,7 +28,7 @@ export const getAbsoluteUrl = (path: string, locale?: LocalesValues): string =>
 
 /**
  * Generates `hreflang` alternate link entries for every locale, plus
- * `x-default`. Every `href` is an absolute URL rooted at {@link baseUrl}.
+ * `x-default`. Every `href` is an absolute URL rooted at {@link SITE_URL}.
  *
  * @param path - Path to generate alternates for (e.g. `/submit`).
  * @returns Array of `<link rel="alternate">` descriptors.
