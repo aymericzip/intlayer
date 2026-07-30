@@ -210,6 +210,7 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ['@intlayer/backend', '@intlayer/docs'],
   transpilePackages: ['@intlayer/design-system', 'shiki'],
   experimental: {
+    useTypeScriptCli: true,
     optimizePackageImports: [
       '@intlayer/design-system',
       'lucide-react',

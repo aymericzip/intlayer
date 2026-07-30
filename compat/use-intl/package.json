@@ -98,7 +98,7 @@
     "vite-intlayer": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "26.1.1",
+    "@types/node": "26.1.2",
     "@types/react": "19.2.17",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
@@ -107,7 +107,7 @@
     "tsdown": "0.22.14",
     "typescript": "7.0.2",
     "use-intl": "4.13.2",
-    "vite": "8.1.5",
+    "vite": "8.2.0",
     "vitest": "4.1.10"
   },
   "peerDependencies": {

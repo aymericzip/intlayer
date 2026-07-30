@@ -108,11 +108,11 @@
     "@intlayer/types": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "26.1.1",
+    "@types/node": "26.1.2",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
-    "preact": "10.29.0",
+    "preact": "10.29.7",
     "rimraf": "6.1.3",
     "tsdown": "0.22.14",
     "typescript": "7.0.2",
