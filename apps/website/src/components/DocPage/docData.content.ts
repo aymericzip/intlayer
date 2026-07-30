@@ -339,6 +339,29 @@ const docDataContent: Dictionary = {
               }),
               default: getDocMetadata('./docs/en/dictionary/plurial.md'),
             },
+            select: {
+              title: t({
+                en: 'Select',
+                'en-GB': 'Select',
+                fr: 'Sélection',
+                es: 'Selección',
+                de: 'Auswahl',
+                it: 'Selezione',
+                ja: '選択',
+                ko: '선택',
+                zh: '选择',
+                pt: 'Seleção',
+                hi: 'चयन',
+                ar: 'اختيار',
+                uk: 'Вибір',
+                ru: 'Выбор',
+                tr: 'Seçim',
+                pl: 'Wybór',
+                id: 'Pilihan',
+                vi: 'Lựa chọn',
+              }),
+              default: getDocMetadata('./docs/en/dictionary/select.md'),
+            },
             enumeration: {
               title: t({
                 en: 'Enumeration',
@@ -408,6 +431,7 @@ const docDataContent: Dictionary = {
               }),
               default: getDocMetadata('./docs/en/dictionary/gender.md'),
             },
+
             insertion: {
               title: t({
                 en: 'Insertion',
