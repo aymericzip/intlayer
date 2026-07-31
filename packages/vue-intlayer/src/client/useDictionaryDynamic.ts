@@ -30,7 +30,9 @@ import { useDictionaryAsync } from './useDictionaryAsync';
 export const useDictionaryDynamic = async <
   const T extends Dictionary,
   const K extends DictionaryKeys,
-  const A extends LocalesValues | DictionarySelectorForKey<K> = LocalesValues,
+  const A extends
+    | DeclaredLocales
+    | DictionarySelectorForKey<K> = DeclaredLocales,
 >(
   dictionaryPromise:
     | StrictModeLocaleMap<() => Promise<T>>

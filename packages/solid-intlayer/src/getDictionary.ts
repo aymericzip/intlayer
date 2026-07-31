@@ -20,7 +20,7 @@ import { type DeepTransformContent, getPlugins } from './plugins';
 export const getDictionary = <
   const T extends Dictionary | QualifiedDictionaryGroup,
   const A extends
-    | LocalesValues
+    | DeclaredLocales
     | DictionarySelectorForGroup<T> = DeclaredLocales,
 >(
   dictionary: T,

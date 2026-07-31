@@ -22,7 +22,10 @@ history:
     changes: "Rilascio della funzionalità delle varianti"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "`variant` ora accetta una stringa o un oggetto — i precedenti `meta` / record dinamici si dichiarano come varianti oggetto"
+    changes: "`variant` ora accetta una stringa o un oggetto — i precedenti `meta` / record dinamici vengono dichiarati come varianti oggetto"
+  - version: 9.1.1
+    date: 2026-07-31
+    changes: "Una variante dichiara solo le chiavi che sovrascrive; le varianti non dichiarate ricadono sulla voce predefinita"
 author: aymericzip
 ---
 
@@ -76,6 +79,37 @@ const dictionary = {
 
 export default dictionary;
 ```
+
+### Varianti parziali
+
+Una variante dichiara **solo le chiavi che sovrascrive**; il resto viene ereditato dalla voce predefinita.
+
+```ts fileName="hero-banner.summer.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+
+const dictionary = {
+  key: "hero-banner",
+  variant: "summer",
+  content: {
+    headline: t({
+      en: "Build faster all summer",
+      fr: "Développez plus vite tout l'été",
+    }),
+  },
+} satisfies Dictionary;
+
+export default dictionary;
+```
+
+```tsx
+useIntlayer("hero-banner", { variant: "summer" });
+// → { headline: "Développez plus vite tout l'été", cta: "Commencer" } — `cta` ereditato
+
+useIntlayer("hero-banner", { variant: "never-declared" });
+// → la voce predefinita
+```
+
+Quindi aggiungi un file variante solo dove la formulazione differisce effettivamente. Una chiave si risolve in `null` solo quando dichiara varianti ma nessuna voce predefinita.
 
 ### Consumare varianti con nome
 

@@ -13,6 +13,7 @@ import type {
   Dictionary,
   DictionarySelector,
   DictionarySelectorForGroup,
+  DictionaryVariantIdsOf,
   ResolveQualifiedDictionaryContent,
 } from './dictionary';
 
@@ -80,6 +81,26 @@ export type ExtractSelectorLocale<Arg> = Arg extends {
   : Arg extends LocalesValues
     ? Arg
     : DeclaredLocales;
+
+/**
+ * Every named variant declared anywhere in the project — the vocabulary of
+ * variant names collected across the whole dictionary registry. `never` when the
+ * project declares no variant at all.
+ *
+ * This is the domain a `variant` selector is checked against, rather than the
+ * names of the single key being read: a key that declares no entry for the
+ * selected variant falls back to its `default` entry at runtime, so one
+ * session-wide variant can legitimately be passed to every key. Checking against
+ * the project vocabulary keeps that legal while still catching a name that no
+ * dictionary declares.
+ *
+ * Kept as a plain alias (the `never` fallback lives at the use site) so
+ * TypeScript prints this name in error messages instead of expanding the
+ * registry inline.
+ */
+export type DeclaredVariants = DictionaryVariantIdsOf<
+  __DictionaryRegistry[keyof __DictionaryRegistry]
+>;
 
 /**
  * The selector accepted for a dictionary **key** `T`: its `variant` / `item` /

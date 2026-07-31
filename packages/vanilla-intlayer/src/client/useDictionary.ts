@@ -44,7 +44,7 @@ export type WithOnChange<T> = T & {
 export const useDictionary = <
   const T extends Dictionary | QualifiedDictionaryGroup,
   const A extends
-    | LocalesValues
+    | DeclaredLocales
     | DictionarySelectorForGroup<T> = DeclaredLocales,
 >(
   dictionary: T,

@@ -426,8 +426,101 @@ describe('mergeQualifiedDictionaries', () => {
       named,
     ]) as QualifiedDictionaryGroup;
 
-    expect(Object.keys(group.content)).toEqual(['promo']);
+    // The base is shared content of every entry, and also materializes the
+    // `default` entry no declaration claims.
+    expect(Object.keys(group.content).sort()).toEqual(['default', 'promo']);
     expect(group.content.promo).toEqual({ title: 'promo', shared: 'base' });
+    expect(group.content.default).toEqual({ shared: 'base' });
+  });
+
+  it('should materialize the default entry from unqualified base content', () => {
+    const base = {
+      key: 'lesson',
+      content: { title: 'Lesson', teacher: 'Teacher' },
+      localId: 'lesson::local::base',
+    } satisfies Dictionary;
+    const preschool = {
+      key: 'lesson',
+      variant: 'preschool',
+      content: { teacher: 'Pedagogue' },
+      localId: 'lesson::local::preschool',
+    } satisfies Dictionary;
+
+    const group = mergeQualifiedDictionaries([
+      base,
+      preschool,
+    ]) as QualifiedDictionaryGroup;
+
+    expect(Object.keys(group.content).sort()).toEqual(['default', 'preschool']);
+    expect(group.content.default).toEqual({
+      title: 'Lesson',
+      teacher: 'Teacher',
+    });
+    // The partial variant keeps inheriting every key it does not override.
+    expect(group.content.preschool).toEqual({
+      title: 'Lesson',
+      teacher: 'Pedagogue',
+    });
+  });
+
+  it('should let a partial variant inherit from an explicitly declared default', () => {
+    const fallback = {
+      key: 'lesson',
+      variant: 'default',
+      content: { title: 'Lesson', teacher: 'Teacher' },
+    } satisfies Dictionary;
+    const preschool = {
+      key: 'lesson',
+      variant: 'preschool',
+      content: { teacher: 'Pedagogue' },
+    } satisfies Dictionary;
+
+    const group = mergeQualifiedDictionaries([
+      fallback,
+      preschool,
+    ]) as QualifiedDictionaryGroup;
+
+    // Declaring the base as `variant: 'default'` behaves exactly like leaving
+    // the variant field out: the partial variant still completes from it.
+    expect(group.content.preschool).toEqual({
+      title: 'Lesson',
+      teacher: 'Pedagogue',
+    });
+  });
+
+  it('should inherit from the default entry of the same item on a composite key', () => {
+    const defaultItem1 = {
+      key: 'banner',
+      variant: 'default',
+      item: 1,
+      content: { title: 'Title', subtitle: 'Subtitle' },
+    } satisfies Dictionary;
+    const promoItem1 = {
+      key: 'banner',
+      variant: 'promo',
+      item: 1,
+      content: { title: 'Promo title' },
+    } satisfies Dictionary;
+    const promoItem2 = {
+      key: 'banner',
+      variant: 'promo',
+      item: 2,
+      content: { title: 'Promo title 2' },
+    } satisfies Dictionary;
+
+    const group = mergeQualifiedDictionaries([
+      defaultItem1,
+      promoItem1,
+      promoItem2,
+    ]) as QualifiedDictionaryGroup;
+
+    // 'promo/1' completes from 'default/1' — the same position on the item axis.
+    expect(group.content['promo/1']).toEqual({
+      title: 'Promo title',
+      subtitle: 'Subtitle',
+    });
+    // 'promo/2' has no 'default/2' counterpart to inherit from.
+    expect(group.content['promo/2']).toEqual({ title: 'Promo title 2' });
   });
 
   it('should encode unsafe variant names in composite ids', () => {
@@ -527,10 +620,25 @@ describe('resolveQualifiedDictionary', () => {
     expect((resolved as Dictionary).content).toEqual({ title: '-50%' });
   });
 
-  it('should return null for a missing variant', () => {
+  it('should fall back to the default variant when the selected one is not declared', () => {
+    const resolved = resolveQualifiedDictionary(heroGroup, {
+      variant: 'unknown',
+    });
+
+    expect((resolved as Dictionary).content).toEqual({ title: 'Hi' });
+  });
+
+  it('should return null for a missing variant when no default is declared', () => {
+    const withoutDefault: QualifiedDictionaryGroup = {
+      key: 'hero',
+      qualifierTypes: ['variant'],
+      content: { 'black-friday': { title: '-50%' } },
+    };
+
     expect(
-      resolveQualifiedDictionary(heroGroup, { variant: 'unknown' })
+      resolveQualifiedDictionary(withoutDefault, { variant: 'unknown' })
     ).toBeNull();
+    expect(resolveQualifiedDictionary(withoutDefault)).toBeNull();
   });
 
   it('should resolve an object variant when the whole object matches', () => {
@@ -598,6 +706,16 @@ describe('resolveQualifiedDictionary', () => {
       expect(
         resolveQualifiedDictionary(bannerGroup, { variant: 'default', item: 2 })
       ).toBeNull();
+    });
+
+    it('should fall back to the default variant then fan out its items', () => {
+      const resolved = resolveQualifiedDictionary(bannerGroup, {
+        variant: 'unknown',
+      });
+
+      expect((resolved as Dictionary[]).map((entry) => entry.content)).toEqual([
+        { title: 'default-1' },
+      ]);
     });
   });
 
@@ -829,6 +947,44 @@ describe('resolveQualifiedDynamicContent', () => {
     });
 
     expect((resolved as Dictionary).variant).toBe('default');
+  });
+
+  it('should fall back to the default variant chunk when the selected one has none', () => {
+    const loaded: string[] = [];
+    const makeLoader = (variant: string) => () => {
+      loaded.push(variant);
+      return Promise.resolve({
+        key: 'lesson',
+        variant,
+        content: { title: variant },
+      });
+    };
+
+    const loaderMap: QualifiedDynamicLoaderMap = {
+      [QUALIFIER_DYNAMIC_TYPES_KEY]: ['variant'],
+      en: {
+        default: makeLoader('default'),
+        preschool: makeLoader('preschool'),
+      },
+    };
+
+    const resolved = resolveQualifiedDynamicContent<Dictionary>({
+      loaderMap,
+      key: 'lesson',
+      locale: 'en',
+      selector: { variant: 'upper-secondary' },
+      loadChunk: (cacheKey) =>
+        reconstructFromCacheKey(cacheKey, ([variant]) => ({
+          key: 'lesson',
+          variant,
+          content: { title: variant },
+        })),
+      transform: (dictionary) => dictionary,
+    });
+
+    expect((resolved as Dictionary).variant).toBe('default');
+    // Only the fallback chunk is downloaded — not the sibling variants.
+    expect(loaded).toEqual(['default']);
   });
 
   it('should return null when an object variant selector is missing', () => {

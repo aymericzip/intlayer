@@ -22,7 +22,10 @@ history:
     changes: "वैरिएंट सुविधा का रिलीज़"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "अब `variant` एक स्ट्रिंग या ऑब्जेक्ट स्वीकार करता है — पूर्व `meta` / डायनेमिक रिकॉर्ड ऑब्जेक्ट वैरिएंट के रूप में घोषित किए जाते हैं"
+    changes: "`variant` अब एक स्ट्रिंग या ऑब्जेक्ट स्वीकार करता है — पूर्व `meta` / गतिशील रिकॉर्ड को ऑब्जेक्ट वेरिएंट के रूप में घोषित किया जाता है"
+  - version: 9.1.1
+    date: 2026-07-31
+    changes: "वेरिएंट केवल उन्हीं कुंजियों को घोषित करता है जिन्हें वह ओवरराइड करता है; अघोषित वेरिएंट डिफ़ॉल्ट प्रविष्टि पर वापस आ जाते हैं"
 author: aymericzip
 ---
 
@@ -77,7 +80,38 @@ const dictionary = {
 export default dictionary;
 ```
 
-### नामित वैरिएंट का उपयोग
+### आंशिक वेरिएंट
+
+एक वेरिएंट **केवल उन्हीं कुंजियों को घोषित करता है जिन्हें वह ओवरराइड करता है**; बाकी डिफ़ॉल्ट प्रविष्टि से विरासत में मिलती हैं।
+
+```ts fileName="hero-banner.summer.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+
+const dictionary = {
+  key: "hero-banner",
+  variant: "summer",
+  content: {
+    headline: t({
+      en: "Build faster all summer",
+      fr: "Développez plus vite tout l'été",
+    }),
+  },
+} satisfies Dictionary;
+
+export default dictionary;
+```
+
+```tsx
+useIntlayer("hero-banner", { variant: "summer" });
+// → { headline: "Développez plus vite tout l'été", cta: "Commencer" } — `cta` विरासत में मिला
+
+useIntlayer("hero-banner", { variant: "never-declared" });
+// → डिफ़ॉल्ट प्रविष्टि
+```
+
+इसलिए आप केवल वहीं वेरिएंट फ़ाइल जोड़ते हैं जहां शब्द वास्तव में भिन्न होते हैं। एक कुंजी केवल तभी `null` पर हल होती है जब वह वेरिएंट घोषित करती है लेकिन कोई डिफ़ॉल्ट प्रविष्टि नहीं होती है।
+
+### नामित वेरिएंट का उपयोग करना
 
 #### डिफ़ॉल्ट वैरिएंट
 

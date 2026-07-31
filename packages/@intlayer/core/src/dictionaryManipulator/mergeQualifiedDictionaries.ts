@@ -7,6 +7,8 @@ import type {
 } from '@intlayer/types/dictionary';
 import { mergeDictionaries } from './mergeDictionaries';
 import {
+  COMPOSITE_ID_SEPARATOR,
+  DEFAULT_VARIANT_ID,
   getDictionaryCompositeIds,
   getDictionaryQualifierTypes,
   QUALIFIER_ORDER,
@@ -22,7 +24,10 @@ import {
  *   `variant → item`). Dictionaries are grouped by their composite id
  *   (one segment per dimension), merged within each group (locale completion /
  *   priority overrides preserved), and a `QualifiedDictionaryGroup` is returned.
- *   Unqualified siblings act as shared base content merged into every entry.
+ *   Unqualified siblings act as shared base content merged into every entry —
+ *   and, on a variant-only key, also materialize the `default` entry when no
+ *   declaration claims it. Every other variant entry then inherits from that
+ *   `default` entry, so a variant only declares the fields it overrides.
  *
  * Every qualified entry must declare ALL dimensions of the group; an entry that
  * declares only a subset is ambiguous and is rejected with an error log.
@@ -79,6 +84,25 @@ export const mergeQualifiedDictionaries = (
     }
   });
 
+  // Unqualified siblings are the key's base content. On a variant key they also
+  // materialize the `default` entry when no declaration claims it, so the key
+  // still resolves when no variant is selected — and so variants that declare
+  // no entry of their own can fall back to it. Registering an empty entry list
+  // is enough: the merge loop below appends the base dictionaries to it.
+  //
+  // Composite (variant × item) keys are excluded: base content carries no item
+  // index, so it cannot be placed on the collection axis.
+  const isVariantOnlyGroup =
+    groupQualifierTypes.length === 1 && groupQualifierTypes[0] === 'variant';
+
+  if (
+    isVariantOnlyGroup &&
+    baseDictionaries.length > 0 &&
+    !entriesDictionaries.has(DEFAULT_VARIANT_ID)
+  ) {
+    entriesDictionaries.set(DEFAULT_VARIANT_ID, []);
+  }
+
   // `content` maps each composite id to its resolved content node directly; the
   // qualifier coordinates live in the key, not in a per-entry wrapper. For an
   // object variant the variant segment is the canonical serialization of the
@@ -87,11 +111,39 @@ export const mergeQualifiedDictionaries = (
 
   let importMode: Dictionary['importMode'];
 
+  const variantIndex = groupQualifierTypes.indexOf('variant');
+
+  /**
+   * The id of the entry a composite id inherits from — itself with its variant
+   * segment swapped for `default` (`'promo/2'` → `'default/2'`). `undefined`
+   * for the default entries themselves and for keys with no variant dimension.
+   */
+  const getInheritedEntryId = (compositeId: string): string | undefined => {
+    if (variantIndex === -1) return undefined;
+
+    const segments = compositeId.split(COMPOSITE_ID_SEPARATOR);
+    if (segments[variantIndex] === DEFAULT_VARIANT_ID) return undefined;
+
+    segments[variantIndex] = DEFAULT_VARIANT_ID;
+    return segments.join(COMPOSITE_ID_SEPARATOR);
+  };
+
   for (const [compositeId, qualifiedDictionaries] of entriesDictionaries) {
-    // Unqualified siblings act as shared base content: appended last so the
-    // qualified entries take precedence (mergeDictionaries prefers first).
+    // Precedence, highest first: the entry's own declarations, then the
+    // `default` variant it inherits from, then the unqualified siblings shared
+    // by the whole key (mergeDictionaries prefers the first occurrence).
+    //
+    // Inheriting from `default` is what makes a variant declaration partial: it
+    // only has to declare the fields whose wording actually differs, and every
+    // other field is completed from the default entry.
+    const inheritedEntryId = getInheritedEntryId(compositeId);
+    const inheritedDictionaries = inheritedEntryId
+      ? (entriesDictionaries.get(inheritedEntryId) ?? [])
+      : [];
+
     const mergedEntry = mergeDictionaries([
       ...qualifiedDictionaries,
+      ...inheritedDictionaries,
       ...baseDictionaries,
     ]);
 

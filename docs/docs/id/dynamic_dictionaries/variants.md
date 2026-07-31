@@ -23,6 +23,9 @@ history:
   - version: 9.1.0
     date: 2026-06-26
     changes: "`variant` kini menerima string atau objek — `meta` / record dinamis sebelumnya dideklarasikan sebagai varian objek"
+  - version: 9.1.1
+    date: 2026-07-31
+    changes: "Varian hanya mendeklarasikan kunci yang ditimpanya; varian yang tidak dideklarasikan akan kembali ke entri default"
 author: aymericzip
 ---
 
@@ -76,6 +79,37 @@ const dictionary = {
 
 export default dictionary;
 ```
+
+### Varian parsial
+
+Varian **hanya mendeklarasikan kunci yang ditimpanya**; sisanya diwarisi dari entri default.
+
+```ts fileName="hero-banner.summer.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+
+const dictionary = {
+  key: "hero-banner",
+  variant: "summer",
+  content: {
+    headline: t({
+      en: "Build faster all summer",
+      fr: "Développez plus vite tout l'été",
+    }),
+  },
+} satisfies Dictionary;
+
+export default dictionary;
+```
+
+```tsx
+useIntlayer("hero-banner", { variant: "summer" });
+// → { headline: "Développez plus vite tout l'été", cta: "Commencer" } — `cta` diwarisi
+
+useIntlayer("hero-banner", { variant: "never-declared" });
+// → entri default
+```
+
+Jadi Anda hanya menambahkan file varian di mana kata-katanya benar-benar berbeda. Sebuah kunci hanya menjadi `null` jika mendeklarasikan varian tetapi tidak ada entri default.
 
 ### Mengonsumsi varian bernama
 

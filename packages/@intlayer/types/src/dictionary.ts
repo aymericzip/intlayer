@@ -1,6 +1,7 @@
 import type { FilePathPattern } from './filePathPattern';
 import type {
   DeclaredLocales,
+  DeclaredVariants,
   LocalesValues,
   Schema,
   SchemaKeys,
@@ -197,7 +198,11 @@ export type QualifiedDictionaryGroup = {
  * - `locale` composes with any of the above and overrides the context locale
  */
 export type DictionarySelector = {
-  locale?: LocalesValues;
+  /**
+   * Restricted to the declared locales (no `string` escape hatch), so a typo is
+   * a compile error and the declared locales are offered as suggestions.
+   */
+  locale?: DeclaredLocales;
   item?: number;
   variant?: DictionaryVariantValue;
 };
@@ -216,15 +221,30 @@ type SplitCompositeId<Id extends string> =
  * Zips the declared qualifier dimensions with the segments decoded from a
  * composite id into a coordinate record (e.g. `['variant', 'item']` +
  * `['promo', '2']` → `{ variant: 'promo'; item: '2' }`).
+ *
+ * Both tuples are consumed head-first in lockstep. A mapped type over
+ * `keyof QualifierTypes` cannot be used here: remapping the keys of a tuple
+ * collapses the index into the union of all positions, so every dimension would
+ * receive the union of all segments (`{ variant: 'promo' | '2'; item: 'promo' |
+ * '2' }`) and no entry would ever compare equal to a selector coordinate.
  */
 type ZipQualifierCoordinates<
   QualifierTypes extends readonly DictionaryQualifierType[],
   Segments extends readonly string[],
-> = {
-  [Index in keyof QualifierTypes as QualifierTypes[Index] extends DictionaryQualifierType
-    ? QualifierTypes[Index]
-    : never]: Index extends keyof Segments ? Segments[Index] : never;
-};
+> = QualifierTypes extends readonly [
+  infer Dimension extends DictionaryQualifierType,
+  ...infer RestDimensions extends readonly DictionaryQualifierType[],
+]
+  ? Segments extends readonly [
+      infer Segment extends string,
+      ...infer RestSegments extends readonly string[],
+    ]
+    ? { [Key in Dimension]: Segment } & ZipQualifierCoordinates<
+        RestDimensions,
+        RestSegments
+      >
+    : unknown
+  : unknown;
 
 /**
  * Rebuilds the per-entry shape (`{ variant; item; content }`) from the
@@ -264,28 +284,61 @@ type CoordinateEquals<Left, Right> = [StringifyCoordinate<Left>] extends [
  * variant entry, since the object identity is not reconstructable at the type
  * level). An absent selector defaults to the `'default'` variant.
  */
-type SelectorVariant<Selector> = Selector extends { variant: infer Variant }
-  ? Variant extends string
-    ? Variant
-    : string
+type SelectorVariant<Selector> = 'variant' extends keyof Selector
+  ? Selector['variant' & keyof Selector] extends infer Variant
+    ? Variant extends string
+      ? Variant
+      : string
+    : never
   : 'default';
-type SelectorItem<Selector> = Selector extends { item: infer Item }
-  ? Item
+
+/** The item a selector pins, or `undefined` when it leaves the axis open. */
+type SelectorItem<Selector> = 'item' extends keyof Selector
+  ? Selector['item' & keyof Selector]
   : undefined;
+
+/**
+ * The variant ids a group declares — the first segment of every composite id
+ * (`variant` is always the outermost dimension in canonical order).
+ */
+type DeclaredVariantIds<ContentMap> = SplitCompositeId<
+  keyof ContentMap & string
+>[0];
+
+/**
+ * The variant id a selector actually resolves to, mirroring the runtime
+ * sparse-override fallback: the requested id when the group declares it,
+ * otherwise the `'default'` entry when the group declares one.
+ *
+ * A broad (non-literal) variant — what an object variant widens to — is left
+ * untouched, since it is meant to match any declared entry.
+ */
+type EffectiveSelectorVariant<Selector, DeclaredIds extends string> =
+  SelectorVariant<Selector> extends infer Requested extends string
+    ? string extends Requested
+      ? Requested
+      : Requested extends DeclaredIds
+        ? Requested
+        : 'default' extends DeclaredIds
+          ? 'default'
+          : Requested
+    : never;
 
 /**
  * Whether a single group entry matches the selector across every declared
  * dimension. The `item` dimension matches any value when the selector leaves it
- * open (collection axis).
+ * open (collection axis); the `variant` dimension is compared against the
+ * already-resolved effective id, so the `default` fallback applies here too.
  */
 type EntryMatchesSelector<
   Entry,
   QualifierTypes extends readonly DictionaryQualifierType[],
   Selector,
+  EffectiveVariant,
 > = (
   'variant' extends QualifierTypes[number]
     ? Entry extends { variant: infer Variant }
-      ? CoordinateEquals<Variant, SelectorVariant<Selector>>
+      ? CoordinateEquals<Variant, EffectiveVariant>
       : false
     : true
 ) extends true
@@ -303,11 +356,13 @@ type MatchingEntries<
   Entries,
   QualifierTypes extends readonly DictionaryQualifierType[],
   Selector,
+  EffectiveVariant,
 > = {
   [Key in keyof Entries as EntryMatchesSelector<
     Entries[Key],
     QualifierTypes,
-    Selector
+    Selector,
+    EffectiveVariant
   > extends true
     ? Key
     : never]: Entries[Key];
@@ -333,6 +388,8 @@ type IsItemAxisOpen<
  * entry:
  * - `item` left open → array of the matching entries' content
  * - all dimensions pinned → that single entry's content (or `null` if none match)
+ * - a variant the group does not declare → the `default` entry's content, when
+ *   the group declares one (sparse-override fallback)
  * - plain dictionary → its `content` (selector ignored)
  */
 export type ResolveQualifiedDictionaryContent<
@@ -343,26 +400,17 @@ export type ResolveQualifiedDictionaryContent<
     readonly DictionaryQualifierType[];
   content: infer ContentMap extends Record<string, any>;
 }
-  ? ReconstructedEntries<ContentMap, QualifierTypes> extends infer Entries
+  ? MatchingEntries<
+      ReconstructedEntries<ContentMap, QualifierTypes>,
+      QualifierTypes,
+      Selector,
+      EffectiveSelectorVariant<Selector, DeclaredVariantIds<ContentMap>>
+    > extends infer Matched
     ? IsItemAxisOpen<QualifierTypes, Selector> extends true
-      ? QualifiedEntryContent<
-          MatchingEntries<
-            Entries,
-            QualifierTypes,
-            Selector
-          >[keyof MatchingEntries<Entries, QualifierTypes, Selector>]
-        >[]
-      : [keyof MatchingEntries<Entries, QualifierTypes, Selector>] extends [
-            never,
-          ]
+      ? QualifiedEntryContent<Matched[keyof Matched]>[]
+      : [keyof Matched] extends [never]
         ? null
-        : QualifiedEntryContent<
-            MatchingEntries<
-              Entries,
-              QualifierTypes,
-              Selector
-            >[keyof MatchingEntries<Entries, QualifierTypes, Selector>]
-          >
+        : QualifiedEntryContent<Matched[keyof Matched]>
     : never
   : T extends { content: infer Content }
     ? Content
@@ -386,23 +434,111 @@ type EntryVariant<Entry> = Entry extends { variant: infer Variant }
 type EntryItem<Entry> = Entry extends { item: infer Item } ? Item : never;
 
 /**
+ * Every variant id a qualified group declares — the variant segment of each
+ * composite id, in its stored (serialized) form. Distributes over a union of
+ * groups so it can be applied to the whole dictionary registry at once.
+ */
+type VariantIdsOfGroup<T> = T extends {
+  qualifierTypes: infer QualifierTypes extends
+    readonly DictionaryQualifierType[];
+  content: infer ContentMap;
+}
+  ? 'variant' extends QualifierTypes[number]
+    ? DeclaredVariantIds<ContentMap>
+    : never
+  : never;
+
+/**
+ * Splits the serialized ids of a group into their two declaration forms. An
+ * object variant serializes to `field=value` pairs joined by `&`, so the
+ * presence of `=` discriminates it from a named (string) variant.
+ */
+type NamedVariantIds<Ids> = Ids extends `${string}=${string}` ? never : Ids;
+type ObjectVariantIds<Ids> = Ids extends `${string}=${string}` ? Ids : never;
+
+/** Rebuilds one `field=value` pair into `{ field: value }`. */
+type ParseVariantPair<Pair extends string> =
+  Pair extends `${infer Field}=${infer Value}`
+    ? { [Key in Field]: Value }
+    : never;
+
+/**
+ * Rebuilds a serialized object-variant id into the object literal that declared
+ * it (`'category=audio&id=abc'` → `{ category: 'audio'; id: 'abc' }`), so the
+ * selector is typed by the declaration rather than by its storage encoding.
+ *
+ * Values come back as string literals: the serialization stringifies numbers,
+ * and percent-encoded characters (see `serializeVariant`) are not decoded, so a
+ * variant whose field values contain path-hostile characters is matched on its
+ * encoded form.
+ */
+type ParseObjectVariantId<Id extends string> =
+  Id extends `${infer Pair}&${infer Rest}`
+    ? ParseVariantPair<Pair> & ParseObjectVariantId<Rest>
+    : ParseVariantPair<Id>;
+
+/**
+ * The **named** variant ids declared by a group (or by a union of groups).
+ * Excludes object variants: their serialized form is an internal storage
+ * encoding, never a value the selector should accept as a string.
+ */
+export type DictionaryVariantIdsOf<T> = NamedVariantIds<VariantIdsOfGroup<T>>;
+
+/**
+ * The object variants a group declares, rebuilt into their declared shape.
+ *
+ * Left as the intersection `ParseObjectVariantId` accumulates: wrapping it in a
+ * flattening mapped type makes TypeScript print the wrapper's name instead of
+ * resolving it, which hides the accepted values from the error message.
+ */
+type DictionaryObjectVariantsOf<T> = ParseObjectVariantId<
+  ObjectVariantIds<VariantIdsOfGroup<T>> & string
+>;
+
+/**
+ * Whether a group declares a `default` entry — the target every undeclared
+ * variant falls back to. A group without one (an object-variant catalogue, say)
+ * resolves an undeclared variant to `null`, so it cannot accept the project
+ * vocabulary.
+ */
+type HasDefaultVariant<T> =
+  'default' extends VariantIdsOfGroup<T> ? true : false;
+
+/**
  * The selector accepted for a specific qualified dictionary group `T`: each
  * dimension is constrained to the coordinates that actually exist, so an unknown
- * `item` is a compile-time error. Named (string) variants are suggested for
- * autocomplete; object variants are accepted via the loose `Record` form. Plain
- * dictionaries (no `entries`) fall back to the loose {@link DictionarySelector}.
+ * `item` is a compile-time error. Plain dictionaries (no `entries`) fall back to
+ * the loose {@link DictionarySelector}.
+ *
+ * The two variant forms are scoped differently, because they mean different
+ * things:
+ *
+ * - **Named** variants always accept the names this key declares. A key that
+ *   also declares a `default` entry additionally accepts any name declared
+ *   **anywhere in the project** (`KnownVariants`), because an undeclared name
+ *   resolves to that `default` entry at runtime. That is what makes the
+ *   sparse-override pattern typecheck — one session-wide variant passed to every
+ *   key, most of which override nothing — while still rejecting a name no
+ *   dictionary declares (a typo). A key **without** a `default` entry resolves
+ *   an undeclared name to `null`, so it accepts only its own names.
+ * - **Object** variants address one specific record, so they are restricted to
+ *   the objects **this key** declares, rebuilt from their stored form. They are
+ *   never accepted in their serialized string form (`'id=abc&userId=123'`) —
+ *   that is a storage encoding, not part of the API.
  */
-export type DictionarySelectorForGroup<T> = [GroupEntryUnion<T>] extends [never]
+export type DictionarySelectorForGroup<T, KnownVariants = DeclaredVariants> = [
+  GroupEntryUnion<T>,
+] extends [never]
   ? DictionarySelector
-  : { locale?: LocalesValues } & ([EntryVariant<GroupEntryUnion<T>>] extends [
+  : { locale?: DeclaredLocales } & ([EntryVariant<GroupEntryUnion<T>>] extends [
       never,
     ]
       ? unknown
       : {
           variant?:
-            | EntryVariant<GroupEntryUnion<T>>
-            | (string & {})
-            | Record<string, string | number>;
+            | NamedVariantIds<EntryVariant<GroupEntryUnion<T>>>
+            | (HasDefaultVariant<T> extends true ? KnownVariants : never)
+            | DictionaryObjectVariantsOf<T>;
         }) &
       ([EntryItem<GroupEntryUnion<T>>] extends [never]
         ? unknown

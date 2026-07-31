@@ -9,6 +9,7 @@ import {
 } from '@intlayer/core/dictionaryManipulator';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
+  DeclaredLocales,
   DictionaryKeys,
   DictionarySelectorForKey,
   LocalesValues,
@@ -46,7 +47,9 @@ type DynamicDictionarySource = {
 export const useDictionaryDynamic = <
   const T extends Dictionary,
   const K extends DictionaryKeys,
-  const A extends LocalesValues | DictionarySelectorForKey<K> = LocalesValues,
+  const A extends
+    | DeclaredLocales
+    | DictionarySelectorForKey<K> = DeclaredLocales,
 >(
   dictionaryPromise:
     | StrictModeLocaleMap<() => Promise<T>>
@@ -109,9 +112,10 @@ export const useDictionaryDynamic = <
       // Pass the explicit selector locale (or `undefined` to follow the client
       // context), mirroring the plain path so interpretation and the loaded
       // chunk stay on the same locale.
-      return useDictionary(dictionary, selectorLocale) as DeepTransformContent<
-        T['content']
-      >;
+      return useDictionary(
+        dictionary,
+        selectorLocale as DeclaredLocales
+      ) as DeepTransformContent<T['content']>;
     }
 
     // Collection: load only the targeted raw entries, then interpret each inside

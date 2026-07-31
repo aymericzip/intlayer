@@ -23,6 +23,9 @@ history:
   - version: 9.1.0
     date: 2026-06-26
     changes: "`variant` akzeptiert jetzt einen String oder ein Objekt — die früheren `meta` / dynamischen Datensätze werden als Objekt-Varianten deklariert"
+  - version: 9.1.1
+    date: 2026-07-31
+    changes: "Eine Variante deklariert nur die Schlüssel, die sie überschreibt; nicht deklarierte Varianten fallen auf den Standardeintrag zurück"
 author: aymericzip
 ---
 
@@ -76,6 +79,37 @@ const dictionary = {
 
 export default dictionary;
 ```
+
+### Teilvarianten
+
+Eine Variante deklariert **nur die Schlüssel, die sie überschreibt**; der Rest wird vom Standardeintrag geerbt.
+
+```ts fileName="hero-banner.summer.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+
+const dictionary = {
+  key: "hero-banner",
+  variant: "summer",
+  content: {
+    headline: t({
+      en: "Build faster all summer",
+      fr: "Développez plus vite tout l'été",
+    }),
+  },
+} satisfies Dictionary;
+
+export default dictionary;
+```
+
+```tsx
+useIntlayer("hero-banner", { variant: "summer" });
+// → { headline: "Développez plus vite tout l'été", cta: "Commencer" } — `cta` geerbt
+
+useIntlayer("hero-banner", { variant: "never-declared" });
+// → der Standardeintrag
+```
+
+Fügen Sie also nur dort eine Varianten-Datei hinzu, wo der Wortlaut tatsächlich abweicht. Ein Schlüssel wird nur dann in `null` aufgelöst, wenn er Varianten deklariert, aber keinen Standardeintrag.
 
 ### Benannte Varianten verwenden
 

@@ -23,6 +23,9 @@ history:
   - version: 9.1.0
     date: 2026-06-26
     changes: "`variant` ahora acepta una cadena o un objeto — los antiguos `meta` / registros dinámicos se declaran como variantes de objeto"
+  - version: 9.1.1
+    date: 2026-07-31
+    changes: "Una variante declara solo las claves que anula; las variantes no declaradas recurren a la entrada por defecto"
 author: aymericzip
 ---
 
@@ -76,6 +79,37 @@ const dictionary = {
 
 export default dictionary;
 ```
+
+### Variantes parciales
+
+Una variante declara **solo las claves que anula**; el resto se hereda de la entrada por defecto.
+
+```ts fileName="hero-banner.summer.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+
+const dictionary = {
+  key: "hero-banner",
+  variant: "summer",
+  content: {
+    headline: t({
+      en: "Build faster all summer",
+      fr: "Développez plus vite tout l'été",
+    }),
+  },
+} satisfies Dictionary;
+
+export default dictionary;
+```
+
+```tsx
+useIntlayer("hero-banner", { variant: "summer" });
+// → { headline: "Développez plus vite tout l'été", cta: "Commencer" } — `cta` heredado
+
+useIntlayer("hero-banner", { variant: "never-declared" });
+// → la entrada por defecto
+```
+
+Por lo tanto, solo debe agregar un archivo de variante donde la redacción realmente difiera. Una clave se resuelve en `null` solo cuando declara variantes pero ninguna entrada por defecto.
 
 ### Consumir variantes con nombre
 

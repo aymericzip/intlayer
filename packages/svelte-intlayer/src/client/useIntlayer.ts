@@ -4,7 +4,6 @@ import type {
   DictionaryRegistryResult,
   DictionarySelectorForKey,
   ExtractSelectorLocale,
-  LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import { derived, type Readable } from 'svelte/store';
 import { getIntlayer } from '../getIntlayer';
@@ -39,7 +38,9 @@ import { intlayerStore } from './intlayerStore';
  */
 export const useIntlayer = <
   const T extends DictionaryKeys,
-  const A extends LocalesValues | DictionarySelectorForKey<T> = DeclaredLocales,
+  const A extends
+    | DeclaredLocales
+    | DictionarySelectorForKey<T> = DeclaredLocales,
 >(
   key: T,
   localeOrSelector?: A

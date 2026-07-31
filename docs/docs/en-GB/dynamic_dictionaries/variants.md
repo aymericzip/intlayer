@@ -23,6 +23,9 @@ history:
   - version: 9.1.0
     date: 2026-06-26
     changes: "`variant` now accepts a string or an object — the former `meta` / dynamic records are declared as object variants"
+  - version: 9.1.1
+    date: 2026-07-31
+    changes: "A variant declares only the keys it overrides; undeclared variants fall back to the default entry"
 author: aymericzip
 ---
 
@@ -76,6 +79,37 @@ const dictionary = {
 
 export default dictionary;
 ```
+
+### Partial variants
+
+A variant declares **only the keys it overrides**; the rest are inherited from the default entry.
+
+```ts fileName="hero-banner.summer.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+
+const dictionary = {
+  key: "hero-banner",
+  variant: "summer",
+  content: {
+    headline: t({
+      en: "Build faster all summer",
+      fr: "Développez plus vite tout l'été",
+    }),
+  },
+} satisfies Dictionary;
+
+export default dictionary;
+```
+
+```tsx
+useIntlayer("hero-banner", { variant: "summer" });
+// → { headline: "Build faster all summer", cta: "Get started" } — `cta` inherited
+
+useIntlayer("hero-banner", { variant: "never-declared" });
+// → the default entry
+```
+
+So you only add a variant file where the wording actually differs. A key resolves to `null` only when it declares variants but no default entry.
 
 ### Consuming named variants
 

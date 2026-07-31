@@ -21,7 +21,9 @@ import { type DeepTransformContent, getPlugins } from './plugins';
  */
 export const getIntlayer = <
   const T extends DictionaryKeys,
-  const A extends LocalesValues | DictionarySelectorForKey<T> = DeclaredLocales,
+  const A extends
+    | DeclaredLocales
+    | DictionarySelectorForKey<T> = DeclaredLocales,
 >(
   key: T,
   localeOrSelector?: A

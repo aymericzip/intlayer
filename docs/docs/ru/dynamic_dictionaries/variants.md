@@ -22,7 +22,10 @@ history:
     changes: "Выпуск функции вариантов"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "`variant` теперь принимает строку или объект — прежние `meta` / динамические записи объявляются как объектные варианты"
+    changes: "`variant` теперь принимает строку или объект — прежние `meta` / динамические записи объявляются как вариант объектов"
+  - version: 9.1.1
+    date: 2026-07-31
+    changes: "Вариант объявляет только ключи, которые он переопределяет; необъявленные варианты возвращаются к записи по умолчанию"
 author: aymericzip
 ---
 
@@ -76,6 +79,37 @@ const dictionary = {
 
 export default dictionary;
 ```
+
+### Частичные варианты
+
+Вариант **объявляет только ключи, которые он переопределяет**; остальные наследуются из записи по умолчанию.
+
+```ts fileName="hero-banner.summer.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+
+const dictionary = {
+  key: "hero-banner",
+  variant: "summer",
+  content: {
+    headline: t({
+      en: "Build faster all summer",
+      fr: "Développez plus vite tout l'été",
+    }),
+  },
+} satisfies Dictionary;
+
+export default dictionary;
+```
+
+```tsx
+useIntlayer("hero-banner", { variant: "summer" });
+// → { headline: "Développez plus vite tout l'été", cta: "Commencer" } — `cta` унаследовано
+
+useIntlayer("hero-banner", { variant: "never-declared" });
+// → запись по умолчанию
+```
+
+Поэтому вы добавляете файл варианта только там, где текст действительно отличается. Ключ разрешается в `null` только в том случае, если он объявляет варианты, но не имеет записи по умолчанию.
 
 ### Использование именованных вариантов
 

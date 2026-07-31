@@ -22,7 +22,10 @@ history:
     changes: "Wydanie funkcji wariantów"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "`variant` przyjmuje teraz ciąg znaków lub obiekt — dawne `meta` / rekordy dynamiczne deklaruje się jako warianty obiektowe"
+    changes: "`variant` akceptuje teraz ciąg znaków lub obiekt — dawne rekordy `meta` / dynamiczne są deklarowane jako warianty obiektowe"
+  - version: 9.1.1
+    date: 2026-07-31
+    changes: "Wariant deklaruje tylko klucze, które nadpisuje; niezadeklarowane warianty powracają do domyślnego wpisu"
 author: aymericzip
 ---
 
@@ -76,6 +79,37 @@ const dictionary = {
 
 export default dictionary;
 ```
+
+### Warianty częściowe
+
+Wariant deklaruje **tylko klucze, które nadpisuje**; reszta jest dziedziczona z wpisu domyślnego.
+
+```ts fileName="hero-banner.summer.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+
+const dictionary = {
+  key: "hero-banner",
+  variant: "summer",
+  content: {
+    headline: t({
+      en: "Build faster all summer",
+      fr: "Développez plus vite tout l'été",
+    }),
+  },
+} satisfies Dictionary;
+
+export default dictionary;
+```
+
+```tsx
+useIntlayer("hero-banner", { variant: "summer" });
+// → { headline: "Développez plus vite tout l'été", cta: "Commencer" } — `cta` odziedziczone
+
+useIntlayer("hero-banner", { variant: "never-declared" });
+// → wpis domyślny
+```
+
+Dlatego dodajesz plik wariantu tylko tam, gdzie brzmienie faktycznie się różni. Klucz jest rozwiązywany na `null` tylko wtedy, gdy deklaruje warianty, ale nie ma domyślnego wpisu.
 
 ### Korzystanie z wariantów nazwanych
 

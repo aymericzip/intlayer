@@ -23,6 +23,9 @@ history:
   - version: 9.1.0
     date: 2026-06-26
     changes: "`variant` accepte désormais une chaîne ou un objet — les anciens `meta` / enregistrements dynamiques se déclarent comme variantes objet"
+  - version: 9.1.1
+    date: 2026-07-31
+    changes: "Une variante déclare uniquement les clés qu'elle remplace ; les variantes non déclarées se rabattent sur l'entrée par défaut"
 author: aymericzip
 ---
 
@@ -76,6 +79,37 @@ const dictionary = {
 
 export default dictionary;
 ```
+
+### Variantes partielles
+
+Une variante déclare **uniquement les clés qu'elle remplace** ; le reste est hérité de l'entrée par défaut.
+
+```ts fileName="hero-banner.summer.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+
+const dictionary = {
+  key: "hero-banner",
+  variant: "summer",
+  content: {
+    headline: t({
+      en: "Build faster all summer",
+      fr: "Développez plus vite tout l'été",
+    }),
+  },
+} satisfies Dictionary;
+
+export default dictionary;
+```
+
+```tsx
+useIntlayer("hero-banner", { variant: "summer" });
+// → { headline: "Développez plus vite tout l'été", cta: "Commencer" } — `cta` hérité
+
+useIntlayer("hero-banner", { variant: "never-declared" });
+// → l'entrée par défaut
+```
+
+Ainsi, vous n'ajoutez un fichier de variante que là où la formulation diffère réellement. Une clé se résout en `null` uniquement lorsqu'elle déclare des variantes mais aucune entrée par défaut.
 
 ### Consommer des variantes nommées
 

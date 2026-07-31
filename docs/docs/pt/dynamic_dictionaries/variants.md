@@ -23,6 +23,9 @@ history:
   - version: 9.1.0
     date: 2026-06-26
     changes: "`variant` agora aceita uma string ou um objeto — os antigos `meta` / registros dinâmicos são declarados como variantes de objeto"
+  - version: 9.1.1
+    date: 2026-07-31
+    changes: "Uma variante declara apenas as chaves que sobrescreve; as variantes não declaradas retornam para a entrada padrão"
 author: aymericzip
 ---
 
@@ -76,6 +79,37 @@ const dictionary = {
 
 export default dictionary;
 ```
+
+### Variantes parciais
+
+Uma variante declara **apenas as chaves que sobrescreve**; o restante é herdado da entrada padrão.
+
+```ts fileName="hero-banner.summer.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+
+const dictionary = {
+  key: "hero-banner",
+  variant: "summer",
+  content: {
+    headline: t({
+      en: "Build faster all summer",
+      fr: "Développez plus vite tout l'été",
+    }),
+  },
+} satisfies Dictionary;
+
+export default dictionary;
+```
+
+```tsx
+useIntlayer("hero-banner", { variant: "summer" });
+// → { headline: "Développez plus vite tout l'été", cta: "Commencer" } — `cta` herdado
+
+useIntlayer("hero-banner", { variant: "never-declared" });
+// → a entrada padrão
+```
+
+Portanto, adicione um arquivo de variante apenas onde o texto realmente difere. Uma chave é resolvida como `null` apenas quando declara variantes, mas nenhuma entrada padrão.
 
 ### Consumir variantes nomeadas
 

@@ -3,10 +3,7 @@ import type {
   DictionarySelectorForGroup,
   QualifiedDictionaryGroup,
 } from '@intlayer/types/dictionary';
-import type {
-  DeclaredLocales,
-  LocalesValues,
-} from '@intlayer/types/module_augmentation';
+import type { DeclaredLocales } from '@intlayer/types/module_augmentation';
 import { createResource } from 'solid-js';
 import { useDictionary as useDictionaryClient } from '../client/useDictionary';
 
@@ -30,7 +27,7 @@ import { useDictionary as useDictionaryClient } from '../client/useDictionary';
 export const useDictionary = <
   const T extends Dictionary | QualifiedDictionaryGroup,
   const A extends
-    | LocalesValues
+    | DeclaredLocales
     | DictionarySelectorForGroup<T> = DeclaredLocales,
 >(
   dictionary: T,

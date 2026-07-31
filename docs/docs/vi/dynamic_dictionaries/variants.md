@@ -22,7 +22,10 @@ history:
     changes: "Phát hành tính năng biến thể"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "`variant` giờ chấp nhận một chuỗi hoặc một đối tượng — `meta` / bản ghi động trước đây được khai báo dưới dạng biến thể đối tượng"
+    changes: "`variant` hiện chấp nhận một chuỗi hoặc một đối tượng — trước đây `meta` / bản ghi động được khai báo là biến thể đối tượng"
+  - version: 9.1.1
+    date: 2026-07-31
+    changes: "Biến thể chỉ khai báo các khóa mà nó ghi đè; các biến thể không được khai báo sẽ quay lại mục mặc định"
 author: aymericzip
 ---
 
@@ -77,7 +80,38 @@ const dictionary = {
 export default dictionary;
 ```
 
-### Sử dụng biến thể được đặt tên
+### Biến thể một phần
+
+Một biến thể **chỉ khai báo các khóa mà nó ghi đè**; phần còn lại được kế thừa từ mục mặc định.
+
+```ts fileName="hero-banner.summer.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+
+const dictionary = {
+  key: "hero-banner",
+  variant: "summer",
+  content: {
+    headline: t({
+      en: "Build faster all summer",
+      fr: "Développez plus vite tout l'été",
+    }),
+  },
+} satisfies Dictionary;
+
+export default dictionary;
+```
+
+```tsx
+useIntlayer("hero-banner", { variant: "summer" });
+// → { headline: "Développez plus vite tout l'été", cta: "Commencer" } — `cta` được kế thừa
+
+useIntlayer("hero-banner", { variant: "never-declared" });
+// → mục mặc định
+```
+
+Vì vậy, bạn chỉ thêm một tệp biến thể ở nơi văn bản thực sự khác biệt. Một khóa chỉ giải quyết thành `null` khi nó khai báo các biến thể nhưng không có mục mặc định.
+
+### Tiêu thụ các biến thể được đặt tên
 
 #### Biến thể mặc định
 

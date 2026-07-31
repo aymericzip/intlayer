@@ -22,7 +22,10 @@ history:
     changes: "Varyantlar özelliğinin yayımlanması"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "`variant` artık bir dize veya nesne kabul ediyor — eski `meta` / dinamik kayıtlar nesne varyantı olarak bildirilir"
+    changes: "`variant` artık bir dize veya bir nesne kabul ediyor — önceki `meta` / dinamik kayıtlar nesne varyantları olarak bildiriliyor"
+  - version: 9.1.1
+    date: 2026-07-31
+    changes: "Bir varyant yalnızca geçersiz kıldığı anahtarları bildirir; bildirilmemiş varyantlar varsayılan girdiye geri döner"
 author: aymericzip
 ---
 
@@ -76,6 +79,37 @@ const dictionary = {
 
 export default dictionary;
 ```
+
+### Kısmi varyantlar
+
+Bir varyant **yalnızca geçersiz kıldığı anahtarları bildirir**; geri kalanı varsayılan girdiden miras alınır.
+
+```ts fileName="hero-banner.summer.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+
+const dictionary = {
+  key: "hero-banner",
+  variant: "summer",
+  content: {
+    headline: t({
+      en: "Build faster all summer",
+      fr: "Développez plus vite tout l'été",
+    }),
+  },
+} satisfies Dictionary;
+
+export default dictionary;
+```
+
+```tsx
+useIntlayer("hero-banner", { variant: "summer" });
+// → { headline: "Développez plus vite tout l'été", cta: "Commencer" } — `cta` miras alındı
+
+useIntlayer("hero-banner", { variant: "never-declared" });
+// → varsayılan girdi
+```
+
+Böylece yalnızca ifadelerin gerçekten farklı olduğu durumlarda bir varyant dosyası eklersiniz. Bir anahtar, yalnızca varyantları bildirip varsayılan girdisi olmadığında `null` olarak çözülür.
 
 ### Adlandırılmış varyantları kullanma
 

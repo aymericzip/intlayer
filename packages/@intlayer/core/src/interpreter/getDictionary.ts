@@ -7,7 +7,6 @@ import type {
 import type {
   DeclaredLocales,
   ExtractSelectorLocale,
-  LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import {
   parseDictionarySelector,
@@ -37,7 +36,7 @@ import { getBasePlugins, getContent } from './getContent/getContent';
  */
 export const getDictionary = <
   const T extends Dictionary | QualifiedDictionaryGroup,
-  const A extends LocalesValues | DictionarySelector = DeclaredLocales,
+  const A extends DeclaredLocales | DictionarySelector = DeclaredLocales,
 >(
   dictionary: T,
   localeOrSelector?: A,

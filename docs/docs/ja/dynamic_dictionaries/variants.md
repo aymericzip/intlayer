@@ -22,7 +22,10 @@ history:
     changes: "バリアント機能のリリース"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "`variant` が文字列またはオブジェクトを受け取るようになりました — 旧 `meta` / 動的レコードはオブジェクトバリアントとして宣言します"
+    changes: "`variant`は文字列またはオブジェクトを受け付けるようになりました — 以前の `meta` / 動的レコードはオブジェクトバリアントとして宣言されます"
+  - version: 9.1.1
+    date: 2026-07-31
+    changes: "バリアントは上書きするキーのみを宣言します。宣言されていないバリアントはデフォルトのエントリにフォールバックします"
 author: aymericzip
 ---
 
@@ -76,6 +79,37 @@ const dictionary = {
 
 export default dictionary;
 ```
+
+### 部分的なバリアント
+
+バリアントは**上書きするキーのみを宣言します**。残りはデフォルトのエントリから継承されます。
+
+```ts fileName="hero-banner.summer.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+
+const dictionary = {
+  key: "hero-banner",
+  variant: "summer",
+  content: {
+    headline: t({
+      en: "Build faster all summer",
+      fr: "Développez plus vite tout l'été",
+    }),
+  },
+} satisfies Dictionary;
+
+export default dictionary;
+```
+
+```tsx
+useIntlayer("hero-banner", { variant: "summer" });
+// → { headline: "Développez plus vite tout l'été", cta: "Commencer" } — `cta` は継承されます
+
+useIntlayer("hero-banner", { variant: "never-declared" });
+// → デフォルトのエントリ
+```
+
+したがって、実際にテキストが異なる場所にのみバリアントファイルを追加します。バリアントを宣言しているがデフォルトのエントリがない場合にのみ、キーは `null` に解決されます。
 
 ### 名前付きバリアントの利用
 

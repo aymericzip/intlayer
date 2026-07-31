@@ -5,10 +5,7 @@ import type {
   DictionarySelectorForGroup,
   QualifiedDictionaryGroup,
 } from '@intlayer/types/dictionary';
-import type {
-  DeclaredLocales,
-  LocalesValues,
-} from '@intlayer/types/module_augmentation';
+import type { DeclaredLocales } from '@intlayer/types/module_augmentation';
 import { useContext, useMemo } from 'preact/hooks';
 import { getDictionary } from '../getDictionary';
 import { IntlayerClientContext } from './IntlayerProvider';
@@ -23,7 +20,7 @@ import { IntlayerClientContext } from './IntlayerProvider';
 export const useDictionary = <
   const T extends Dictionary | QualifiedDictionaryGroup,
   const A extends
-    | LocalesValues
+    | DeclaredLocales
     | DictionarySelectorForGroup<T> = DeclaredLocales,
 >(
   dictionary: T,

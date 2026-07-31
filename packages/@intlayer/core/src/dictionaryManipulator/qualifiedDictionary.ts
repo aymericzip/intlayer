@@ -24,6 +24,13 @@ export const QUALIFIER_ORDER = [
 export const COMPOSITE_ID_SEPARATOR = '/';
 
 /**
+ * Identity of the implicit fallback variant. A selector that pins no variant
+ * resolves to it, and a variant that declares no entry of its own falls back to
+ * it — so a key only has to ship the entries that actually differ.
+ */
+export const DEFAULT_VARIANT_ID = 'default';
+
+/**
  * Characters kept verbatim in an encoded qualifier segment. Everything else is
  * percent-encoded so a segment can never contain the composite-id separator
  * (`/`), path-hostile characters (`\` `:` `*` `?` `"` `<` `>` `|`, control
@@ -77,7 +84,7 @@ const encodeSegmentText = (raw: string, unsafeChars: RegExp): string => {
 export const serializeVariant = (
   variant: DictionaryVariantValue | undefined
 ): string => {
-  if (variant === undefined) return 'default';
+  if (variant === undefined) return DEFAULT_VARIANT_ID;
   if (typeof variant === 'string') {
     return encodeSegmentText(variant, SEGMENT_UNSAFE_CHARS);
   }
@@ -172,22 +179,47 @@ export const getDictionaryCompositeIds = (
 };
 
 /**
+ * Resolves the variant id a selector actually targets among the ids a key
+ * declares — the sparse-override fallback.
+ *
+ * The requested id wins when the key declares it. Otherwise the key falls back
+ * to its `default` entry, so a variant only has to be declared where its
+ * wording differs. When the key declares no `default` either, the requested id
+ * is returned unchanged and the caller resolves to `null` / `[]`.
+ *
+ * @param requestedVariantId - The serialized variant id the selector asks for.
+ * @param isVariantIdDeclared - Whether the key declares an entry for an id.
+ */
+const resolveEffectiveVariantId = (
+  requestedVariantId: string,
+  isVariantIdDeclared: (variantId: string) => boolean
+): string => {
+  if (isVariantIdDeclared(requestedVariantId)) return requestedVariantId;
+
+  return isVariantIdDeclared(DEFAULT_VARIANT_ID)
+    ? DEFAULT_VARIANT_ID
+    : requestedVariantId;
+};
+
+/**
  * Tests whether a composite entry id matches a selector across every declared
  * dimension. Segments are compared in their encoded form (both the stored id
  * and the selector go through {@link serializeVariant}). The `item` dimension
  * matches any value when the selector does not provide one (open collection
- * axis).
+ * axis); the `variant` dimension is compared against the already-resolved
+ * effective id, so the fallback is applied consistently across dimensions.
  */
 const compositeIdMatchesSelector = (
   compositeId: string,
   qualifierTypes: DictionaryQualifierType[],
-  selector: DictionarySelector | undefined
+  selector: DictionarySelector | undefined,
+  effectiveVariantId: string
 ): boolean => {
   const segments = compositeId.split(COMPOSITE_ID_SEPARATOR);
 
   return qualifierTypes.every((qualifierType, index) => {
     if (qualifierType === 'variant') {
-      return segments[index] === serializeVariant(selector?.variant);
+      return segments[index] === effectiveVariantId;
     }
 
     // qualifierType === 'item'
@@ -251,8 +283,10 @@ export const reconstructQualifiedEntry = (
  * - Plain dictionary → returned as-is (selector ignored)
  * - `item` declared but not selected → every matching entry ordered by index
  * - `item` selected → the matching entry or null
- * - `variant` defaults to the `default` entry when not selected; an object
- *   variant resolves only when the selector provides an equal object
+ * - `variant` defaults to the `default` entry when not selected, and falls back
+ *   to it when the selected variant declares no entry of its own; an object
+ *   variant resolves only when the selector provides an equal object (or, again,
+ *   through the `default` fallback)
  *
  * Dimensions compose: e.g. a variant × item key with `{ variant: 'promo' }`
  * returns every promo item as an array; adding `{ item: 2 }` narrows to one.
@@ -270,9 +304,30 @@ export const resolveQualifiedDictionary = (
   const itemAxisOpen =
     qualifierTypes.includes('item') && selector?.item === undefined;
 
-  const matchedEntries = Object.keys(content)
+  const compositeIds = Object.keys(content);
+  const variantIndex = qualifierTypes.indexOf('variant');
+
+  const effectiveVariantId =
+    variantIndex === -1
+      ? DEFAULT_VARIANT_ID
+      : resolveEffectiveVariantId(
+          serializeVariant(selector?.variant),
+          (variantId) =>
+            compositeIds.some(
+              (compositeId) =>
+                compositeId.split(COMPOSITE_ID_SEPARATOR)[variantIndex] ===
+                variantId
+            )
+        );
+
+  const matchedEntries = compositeIds
     .filter((compositeId) =>
-      compositeIdMatchesSelector(compositeId, qualifierTypes, selector)
+      compositeIdMatchesSelector(
+        compositeId,
+        qualifierTypes,
+        selector,
+        effectiveVariantId
+      )
     )
     .map((compositeId) =>
       reconstructQualifiedEntry(dictionaryOrGroup, compositeId)
@@ -441,9 +496,14 @@ const collectQualifiedChunks = (
       return true;
     }
 
+    // A variant with no chunk of its own falls back to the `default` chunk, so
+    // only the entries that actually differ need to be emitted.
     const segment =
       dimension === 'variant'
-        ? serializeVariant(selector?.variant)
+        ? resolveEffectiveVariantId(
+            serializeVariant(selector?.variant),
+            (variantId) => tree[variantId] !== undefined
+          )
         : String(selector?.item);
 
     const child = tree[segment];
@@ -462,11 +522,11 @@ const collectQualifiedChunks = (
  * loading only the chunk(s) the selector actually targets.
  *
  * Walks the nested loader tree one dimension at a time (canonical order
- * `variant → item`): `variant` defaults to `default` (or descends by the
- * serialized object identity), and `item` either narrows to the selected index
- * or — when no item is given — expands into every sibling chunk (the collection
- * axis). Semantics mirror {@link resolveQualifiedDictionary} so dynamic and
- * static modes behave alike.
+ * `variant → item`): `variant` descends by the serialized id, falling back to
+ * `default` when the selected variant has no chunk of its own, and `item`
+ * either narrows to the selected index or — when no item is given — expands
+ * into every sibling chunk (the collection axis). Semantics mirror
+ * {@link resolveQualifiedDictionary} so dynamic and static modes behave alike.
  *
  * The Suspense mechanism is injected through `loadChunk` so the same logic
  * serves both the client (suspender cache) and the server (`react.use`). Every

@@ -7,7 +7,6 @@ import type {
   DeclaredLocales,
   DictionaryKeys,
   DictionaryRegistryContent,
-  LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import { useContext, useMemo } from 'react';
 import type { DeepTransformContent } from '../plugins';
@@ -32,7 +31,7 @@ import { IntlayerClientContext } from './IntlayerProvider';
  */
 export const useI18n = <
   T extends DictionaryKeys,
-  L extends LocalesValues = DeclaredLocales,
+  L extends DeclaredLocales = DeclaredLocales,
 >(
   namespace: T,
   locale?: L

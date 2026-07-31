@@ -22,7 +22,10 @@ history:
     changes: "변형 기능 출시"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "이제 `variant`는 문자열 또는 객체를 허용합니다 — 이전의 `meta` / 동적 레코드는 객체 변형으로 선언됩니다"
+    changes: "`variant`는 이제 문자열 또는 객체를 허용합니다 — 이전의 `meta` / 동적 레코드는 객체 변형으로 선언됩니다"
+  - version: 9.1.1
+    date: 2026-07-31
+    changes: "변형은 재정의하는 키만 선언합니다. 선언되지 않은 변형은 기본 항목으로 대체됩니다"
 author: aymericzip
 ---
 
@@ -76,6 +79,37 @@ const dictionary = {
 
 export default dictionary;
 ```
+
+### 부분 변형
+
+변형은 **재정의하는 키만 선언합니다**. 나머지는 기본 항목에서 상속됩니다.
+
+```ts fileName="hero-banner.summer.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+
+const dictionary = {
+  key: "hero-banner",
+  variant: "summer",
+  content: {
+    headline: t({
+      en: "Build faster all summer",
+      fr: "Développez plus vite tout l'été",
+    }),
+  },
+} satisfies Dictionary;
+
+export default dictionary;
+```
+
+```tsx
+useIntlayer("hero-banner", { variant: "summer" });
+// → { headline: "Développez plus vite tout l'été", cta: "Commencer" } — `cta`가 상속됨
+
+useIntlayer("hero-banner", { variant: "never-declared" });
+// → 기본 항목
+```
+
+따라서 텍스트가 실제로 다른 곳에만 변형 파일을 추가하면 됩니다. 변형을 선언했지만 기본 항목이 없는 경우에만 키가 `null`로 확인됩니다.
 
 ### 이름 지정 변형 사용
 

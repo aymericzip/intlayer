@@ -8,6 +8,7 @@ import type {
   DictionarySelector,
 } from '@intlayer/types/dictionary';
 import type {
+  DeclaredLocales,
   DictionaryKeys,
   DictionarySelectorForKey,
   LocalesValues,
@@ -76,7 +77,9 @@ const withState = (value: unknown): any => {
 export function useDictionaryDynamic<
   const T extends Dictionary,
   const K extends DictionaryKeys,
-  const A extends LocalesValues | DictionarySelectorForKey<K> = LocalesValues,
+  const A extends
+    | DeclaredLocales
+    | DictionarySelectorForKey<K> = DeclaredLocales,
 >(
   dictionaryPromise:
     | StrictModeLocaleMap<() => Promise<T>>
@@ -128,7 +131,8 @@ export function useDictionaryDynamic<
               key: String(key),
               locale: $locale,
               selector,
-              transform: (dictionary) => getDictionary(dictionary, $locale),
+              transform: (dictionary) =>
+                getDictionary(dictionary, $locale as DeclaredLocales),
             });
           } else {
             const loader = (

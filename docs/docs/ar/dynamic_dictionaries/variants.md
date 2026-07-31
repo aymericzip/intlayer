@@ -22,7 +22,10 @@ history:
     changes: "إصدار ميزة المتغيرات"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "أصبح `variant` يقبل سلسلة نصية أو كائنًا — تُعلَن `meta` / السجلات الديناميكية السابقة كمتغيرات كائنية"
+    changes: "تقبل `variant` الآن سلسلة أو كائنًا — تُعلن السجلات الديناميكية أو `meta` السابقة كمتغيرات كائنات"
+  - version: 9.1.1
+    date: 2026-07-31
+    changes: "تُعرّف المتغيرة فقط المفاتيح التي تتجاوزها؛ بينما تتراجع المتغيرات غير المُعرّفة إلى الإدخال الافتراضي"
 author: aymericzip
 ---
 
@@ -37,9 +40,40 @@ author: aymericzip
 
 > يحلّ الشكل الكائني محل حقل `meta` السابق. في كل مكان كنت تكتب فيه سابقًا `meta: { id, … }`، اكتب `variant: { id, … }`، وحدّدها بـ `{ variant: { id, … } }`.
 
-## المتغيرات المُسمّاة (النصية)
+### المتغيرات الجزئية
 
-يمثّل كل ملف بديلًا مُسمّى واحدًا. حذف `variant` (أو ضبطه على `"default"`) يجعله البديل الاحتياطي.
+تُعرّف المتغيرة **فقط المفاتيح التي تتجاوزها**؛ ويتم وراثة الباقي من الإدخال الافتراضي.
+
+```ts fileName="hero-banner.summer.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+
+const dictionary = {
+  key: "hero-banner",
+  variant: "summer",
+  content: {
+    headline: t({
+      en: "Build faster all summer",
+      fr: "Développez plus vite tout l'été",
+    }),
+  },
+} satisfies Dictionary;
+
+export default dictionary;
+```
+
+```tsx
+useIntlayer("hero-banner", { variant: "summer" });
+// → { headline: "Développez plus vite tout l'été", cta: "Commencer" } — تم وراثة `cta`
+
+useIntlayer("hero-banner", { variant: "never-declared" });
+// → الإدخال الافتراضي
+```
+
+لذلك لا تضيف ملف متغيرة إلا عندما تختلف الصياغة بالفعل. يتحول المفتاح إلى `null` فقط عندما يُعرّف متغيرات ولكن دون إدخال افتراضي.
+
+### استخدام المتغيرات المسماة
+
+#### المتغير الافتراضي
 
 ```ts fileName="hero-banner.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
@@ -76,10 +110,6 @@ const dictionary = {
 
 export default dictionary;
 ```
-
-### استهلاك المتغيرات المُسمّاة
-
-#### المتغير الافتراضي
 
 <Tabs group="framework">
   <Tab label="React" value="react">

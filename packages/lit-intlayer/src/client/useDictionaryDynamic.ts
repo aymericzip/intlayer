@@ -10,6 +10,7 @@ import type {
   DictionarySelector,
 } from '@intlayer/types/dictionary';
 import type {
+  DeclaredLocales,
   DictionaryKeys,
   DictionarySelectorForKey,
   LocalesValues,
@@ -102,7 +103,9 @@ const recursiveProxy: any = new Proxy(
 export const useDictionaryDynamic = <
   const T extends Dictionary,
   const K extends DictionaryKeys,
-  const A extends LocalesValues | DictionarySelectorForKey<K> = LocalesValues,
+  const A extends
+    | DeclaredLocales
+    | DictionarySelectorForKey<K> = DeclaredLocales,
 >(
   dictionaryPromise:
     | StrictModeLocaleMap<() => Promise<T>>
@@ -150,7 +153,8 @@ export const useDictionaryDynamic = <
         key: String(key),
         locale: currentLocale,
         selector,
-        transform: (dict) => getDictionary(dict, currentLocale),
+        transform: (dict) =>
+          getDictionary(dict, currentLocale as DeclaredLocales),
       }).then((resolved) => {
         loadedContent = resolved;
         notify();

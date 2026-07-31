@@ -22,7 +22,10 @@ history:
     changes: "变体功能发布"
   - version: 9.1.0
     date: 2026-06-26
-    changes: "`variant` 现在接受字符串或对象——以前的 `meta` / 动态记录现声明为对象变体"
+    changes: "`variant` 现在接受字符串或对象 — 以前的 `meta` / 动态记录现在声明为对象变体"
+  - version: 9.1.1
+    date: 2026-07-31
+    changes: "变体仅声明它覆盖的键；未声明的变体将回退到默认条目"
 author: aymericzip
 ---
 
@@ -76,6 +79,37 @@ const dictionary = {
 
 export default dictionary;
 ```
+
+### 部分变体
+
+变体**仅声明它覆盖的键**；其余部分从默认条目继承。
+
+```ts fileName="hero-banner.summer.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+
+const dictionary = {
+  key: "hero-banner",
+  variant: "summer",
+  content: {
+    headline: t({
+      en: "Build faster all summer",
+      fr: "Développez plus vite tout l'été",
+    }),
+  },
+} satisfies Dictionary;
+
+export default dictionary;
+```
+
+```tsx
+useIntlayer("hero-banner", { variant: "summer" });
+// → { headline: "Développez plus vite tout l'été", cta: "Commencer" } — 继承了 `cta`
+
+useIntlayer("hero-banner", { variant: "never-declared" });
+// → 默认条目
+```
+
+因此，您只需在文本确实不同的地方添加变体文件。只有在声明了变体但没有默认条目的情况下，键才会解析为 `null`。
 
 ### 使用具名变体
 

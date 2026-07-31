@@ -23,6 +23,9 @@ history:
   - version: 9.1.0
     date: 2026-06-26
     changes: "`variant` тепер приймає рядок або об'єкт — колишні `meta` / динамічні записи оголошуються як об'єктні варіанти"
+  - version: 9.1.1
+    date: 2026-07-31
+    changes: "Варіант оголошує лише ключі, які він перевизначає; неоголошені варіанти повертаються до запису за замовчуванням"
 author: aymericzip
 ---
 
@@ -76,6 +79,37 @@ const dictionary = {
 
 export default dictionary;
 ```
+
+### Часткові варіанти
+
+Варіант **оголошує лише ключі, які він перевизначає**; решта успадковується з запису за замовчуванням.
+
+```ts fileName="hero-banner.summer.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+
+const dictionary = {
+  key: "hero-banner",
+  variant: "summer",
+  content: {
+    headline: t({
+      en: "Build faster all summer",
+      fr: "Développez plus vite tout l'été",
+    }),
+  },
+} satisfies Dictionary;
+
+export default dictionary;
+```
+
+```tsx
+useIntlayer("hero-banner", { variant: "summer" });
+// → { headline: "Développez plus vite tout l'été", cta: "Commencer" } — `cta` успадковано
+
+useIntlayer("hero-banner", { variant: "never-declared" });
+// → запис за замовчуванням
+```
+
+Тому ви додаєте файл варіанту лише там, де текст дійсно відрізняється. Ключ дозволяється в `null` тільки в тому випадку, якщо він оголошує варіанти, але не має запису за замовчуванням.
 
 ### Використання іменованих варіантів
 
