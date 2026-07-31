@@ -294,9 +294,16 @@ const nextConfig: NextConfig = {
         },
       ],
     },
+    // `js`/`css` are deliberately absent. These rules are matched on the
+    // request path *before* the response exists, so a URL that 404s still
+    // receives the header — and because the catch-all route answers with HTTP
+    // 200, a CDN pins that HTML for a year under a `.js` URL and the chunk can
+    // never recover. Next.js already sets `immutable` on the `/_next/static`
+    // files it actually serves, so hashed bundles stay covered without a rule
+    // here that would also match missing ones.
     {
       source:
-        '/:path*\\.(mp4|webm|ogg|webp|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|otf|eot|css|js)',
+        '/:path*\\.(mp4|webm|ogg|webp|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|otf|eot)',
       headers: [
         {
           key: 'Cache-Control',
