@@ -3,6 +3,7 @@ import {
   isQualifiedDynamicLoaderMap,
   parseDictionarySelector,
   type QualifiedDynamicLoaderMap,
+  resolveDictionaryArgument,
   resolveQualifiedDynamicContent,
 } from '@intlayer/core/dictionaryManipulator';
 import type {
@@ -12,10 +13,14 @@ import type {
 import type {
   DeclaredLocales,
   LocalesValues,
+  ProviderVariant,
   StrictModeLocaleMap,
 } from '@intlayer/types/module_augmentation';
 import { getDictionary } from '../getDictionary';
-import { IntlayerServerContext } from './IntlayerServerProvider';
+import {
+  IntlayerServerContext,
+  IntlayerServerVariantContext,
+} from './IntlayerServerProvider';
 import { getServerContext } from './serverContext';
 // `useLoadDynamic` wraps `react.use`, which may be called in loops /
 // conditionally — aliased to a non-hook name so a collection can load several
@@ -44,9 +49,22 @@ export const useDictionaryDynamic = <
   localeOrSelector?: A,
   fallbackLocale?: DeclaredLocales
 ) => {
+  const contextLocale = getServerContext<LocalesValues>(IntlayerServerContext);
+
   const { locale: selectorLocale, selector } =
     process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false'
-      ? parseDictionarySelector<LocalesValues>(localeOrSelector)
+      ? parseDictionarySelector<LocalesValues>(
+          // Layers the request's ambient variant under the call-site argument
+          // before the chunk walk, so only the targeted chunk is loaded.
+          resolveDictionaryArgument({
+            localeOrSelector,
+            contextLocale,
+            contextVariant: getServerContext<ProviderVariant>(
+              IntlayerServerVariantContext
+            ),
+            dictionaryKey: String(key),
+          })
+        )
       : {
           locale: localeOrSelector as LocalesValues | undefined,
           selector: undefined,
@@ -54,7 +72,7 @@ export const useDictionaryDynamic = <
 
   const localeTarget =
     selectorLocale ??
-    getServerContext<LocalesValues>(IntlayerServerContext) ??
+    contextLocale ??
     fallbackLocale ??
     internationalization.defaultLocale;
 

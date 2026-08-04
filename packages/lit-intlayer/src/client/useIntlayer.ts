@@ -1,4 +1,5 @@
 import { internationalization } from '@intlayer/config/built';
+import { resolveDictionaryArgument } from '@intlayer/core/dictionaryManipulator';
 import type { DictionarySelector } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
@@ -52,12 +53,19 @@ export const useIntlayer = <
     ? (localeOrSelector as DictionarySelector).locale
     : (localeOrSelector as LocalesValues | undefined);
 
+  // Layers the client's ambient variant under the call-site argument. Resolved
+  // per compute so a `setVariant` between renders is picked up.
   const compute = (currentLocale: string): unknown =>
-    isSelector
-      ? getIntlayer(key, {
-          ...(localeOrSelector as DictionarySelector),
-          locale: currentLocale,
-        } as A)
+    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false'
+      ? getIntlayer(
+          key,
+          resolveDictionaryArgument({
+            localeOrSelector,
+            contextLocale: currentLocale as LocalesValues,
+            contextVariant: client.variant,
+            dictionaryKey: key as string,
+          }) as A
+        )
       : getIntlayer(key, currentLocale as A);
 
   let cachedLocale: string | undefined;

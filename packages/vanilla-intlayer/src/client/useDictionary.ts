@@ -1,3 +1,4 @@
+import { resolveDictionaryArgument } from '@intlayer/core/dictionaryManipulator';
 import type {
   Dictionary,
   DictionarySelector,
@@ -65,12 +66,19 @@ export const useDictionary = <
     ? (localeOrSelector as DictionarySelector).locale
     : (localeOrSelector as LocalesValues | undefined);
 
+  // Layers the client's ambient variant under the call-site argument. Resolved
+  // per read so a `setVariant` between reads is picked up.
   const read = (locale: LocalesValues | undefined) =>
-    isSelector
-      ? getDictionary(dictionary, {
-          ...(localeOrSelector as DictionarySelector),
-          locale,
-        } as A)
+    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false'
+      ? getDictionary(
+          dictionary,
+          resolveDictionaryArgument({
+            localeOrSelector,
+            contextLocale: locale,
+            contextVariant: client.variant,
+            dictionaryKey: dictionary.key,
+          }) as A
+        )
       : getDictionary(dictionary, locale as A);
 
   const content = read(explicitLocale ?? client.locale) as WithOnChange<any>;

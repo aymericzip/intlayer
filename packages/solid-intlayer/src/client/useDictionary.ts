@@ -1,3 +1,4 @@
+import { resolveDictionaryArgument } from '@intlayer/core/dictionaryManipulator';
 import type {
   Dictionary,
   DictionarySelectorForGroup,
@@ -11,7 +12,7 @@ import type {
 import { createMemo, useContext } from 'solid-js';
 import { getDictionary } from '../getDictionary';
 import type { DeepTransformContent } from '../plugins';
-import { IntlayerClientContext } from './IntlayerProvider';
+import { IntlayerClientContext, type IntlayerValue } from './IntlayerProvider';
 
 /**
  * On the client side, Hook that transforms a dictionary (or qualified
@@ -35,20 +36,26 @@ export const useDictionary = <
   ResolveQualifiedDictionaryContent<T, A>,
   ExtractSelectorLocale<A>
 > => {
-  const context = useContext(IntlayerClientContext) ?? {};
+  // Reads outside a provider fall back to an empty context.
+  const context: Partial<IntlayerValue> =
+    useContext(IntlayerClientContext) ?? {};
 
   const accessor = createMemo(() => {
     const currentLocale = context?.locale?.();
 
-    if (
-      process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
-      typeof localeOrSelector === 'object' &&
-      localeOrSelector !== null
-    ) {
-      return getDictionary(dictionary, {
-        ...localeOrSelector,
-        locale: localeOrSelector.locale ?? currentLocale,
-      } as A);
+    if (process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false') {
+      // Layers the provider's locale and variant under the call-site argument.
+      // This is also the seam the build-time optimize transform lands on, which
+      // rewrites `useIntlayer('key', selector)` into `useDictionary(dict, …)`.
+      return getDictionary<T, A>(
+        dictionary,
+        resolveDictionaryArgument({
+          localeOrSelector,
+          contextLocale: currentLocale,
+          contextVariant: context?.variant?.(),
+          dictionaryKey: dictionary.key,
+        }) as A
+      );
     }
 
     const localeTarget = (localeOrSelector ?? currentLocale) as A;

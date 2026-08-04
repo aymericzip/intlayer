@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-06-26
+updatedAt: 2026-08-04
 title: 变体
 description: 在 Intlayer 内容文件中使用 variant 元数据字段来声明具名或结构化的内容替代项——A/B 测试、季节性横幅、功能开关文案、CMS 记录、用户特定内容——并在运行时无需更改代码即可在它们之间切换。
 keywords:
@@ -26,6 +26,9 @@ history:
   - version: 9.1.1
     date: 2026-07-31
     changes: "变体仅声明它覆盖的键；未声明的变体将回退到默认条目"
+  - version: 9.1.2
+    date: 2026-08-04
+    changes: "提供者接受环境级 `variant` 属性；选择器接受有序的优先级链"
 author: aymericzip
 ---
 
@@ -497,6 +500,176 @@ const content = useIntlayer("product", {
 // 返回 null：缺少 `userId`，因此对象与声明的变体不匹配
 const content = useIntlayer("product", { variant: { id: "prod_abc" } });
 ```
+
+## 环境变体
+
+有些变体维度在整个会话中都是固定的——租户、学校类型、套餐等级。它们只需解析一次，任何组件都不应手动传递它们。
+
+> 不要为了注入它们而把 `useIntlayer` 包装进你自己的 Hook。构建期优化只会重写从框架包中导入的字面量 `useIntlayer("key")` 调用，因此包装器背后的内容不会被打包。
+
+请改为在提供者上声明一次变体，就像 `locale` 一样：
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "react-intlayer";
+
+    export const App = ({ locale, schoolType }) => (
+      <IntlayerProvider locale={locale} variant={schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+    ```tsx fileName="layout.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerServerProvider } from "next-intlayer/server";
+    import { IntlayerClientProvider } from "next-intlayer";
+
+    export default async function Layout({ children, params }) {
+      const { locale } = await params;
+      const schoolType = await getSchoolType();
+
+      return (
+        <IntlayerServerProvider locale={locale} variant={schoolType}>
+          <IntlayerClientProvider locale={locale} variant={schoolType}>
+            {children}
+          </IntlayerClientProvider>
+        </IntlayerServerProvider>
+      );
+    }
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+    ```ts fileName="main.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { createApp } from "vue";
+    import { installIntlayer } from "vue-intlayer";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    installIntlayer(app, { locale: "en", variant: schoolType });
+
+    app.mount("#app");
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+    ```svelte fileName="+layout.svelte" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    <script lang="ts">
+    import { setupIntlayer } from "svelte-intlayer";
+
+    export let schoolType: string;
+
+    setupIntlayer("en", schoolType);
+    </script>
+
+    <slot />
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "preact-intlayer";
+
+    export const App = ({ locale, schoolType }) => (
+      <IntlayerProvider locale={locale} variant={schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "solid-intlayer";
+
+    export const App = (props) => (
+      <IntlayerProvider locale={props.locale} variant={props.schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+    ```typescript fileName="app.config.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { ApplicationConfig } from "@angular/core";
+    import { provideIntlayer } from "angular-intlayer";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [provideIntlayer("en", true, schoolType)],
+    };
+    ```
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+    ```javascript fileName="main.js"
+    import { installIntlayer } from "vanilla-intlayer";
+
+    installIntlayer({ locale: "en", variant: schoolType });
+    ```
+
+  </Tab>
+</Tabs>
+
+现在提供者下的每次字典读取都会基于该变体解析，而调用处的选择器始终优先：
+
+```tsx
+useIntlayer("hero-banner");
+// → 提供者的变体
+
+useIntlayer("hero-banner", { variant: "summer" });
+// → "summer" —— 替换提供者的变体，而不是扩展它
+```
+
+### 形式
+
+`variant` 属性接受三种形式：
+
+| 形式                                                      | 含义                       |
+| --------------------------------------------------------- | -------------------------- |
+| `variant="school1"`                                       | 对所有键使用同一个具名变体 |
+| `variant={["school1", "default"]}`                        | 有序的优先级链             |
+| `variant={{ "hero-banner": "school1", default: "base" }}` | 按字典键分别指定变体       |
+
+#### 优先级链
+
+链会针对每个键所声明的条目从左到右依次尝试，第一个已声明的胜出。若都未声明，则使用隐式的默认条目——与单个值的行为完全一致。
+
+```tsx
+<IntlayerProvider variant={["school1", "school2"]} />
+// `hero-banner` 未声明 `school1` 条目，但声明了 `school2` → "school2"
+// 两者都未声明的键 → 默认条目
+```
+
+因此 `["black_friday", "summer"]` 可读作「若该键有 black friday 则用它，否则用 summer，再否则用默认」。调用处同样接受链：
+
+```tsx
+useIntlayer("hero-banner", { variant: ["black_friday", "summer"] });
+```
+
+> 请注意，这与内容文件中 `variant` **字段**所接受的数组正好相反：在那里，数组为每个元素*声明*一个条目；而在这里，它按优先级顺序*消费*这些条目。
+
+#### 按键映射
+
+分别指定每个字典键。保留的 `default` 条目覆盖所有未列出的键：
+
+```tsx
+<IntlayerProvider
+  variant={{
+    "hero-banner": "school1",
+    product: ["school1", "default"],
+    default: "base",
+  }}
+/>
+```
+
+> 在提供者上，普通对象**始终**被解读为按键映射，而绝不会被当作对象变体——两者在结构上完全相同。若要全局指定对象变体，请将其嵌套在某个条目下：`variant={{ default: { id: "prod_abc" } }}`。
+
+由于映射的键会与你声明的字典键进行校验，拼写错误——或直接写成对象变体，例如 `variant={{ id: "prod_abc" }}`——都会导致编译期错误。
 
 ## 加载模式
 

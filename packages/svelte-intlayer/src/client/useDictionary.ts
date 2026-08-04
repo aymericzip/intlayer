@@ -1,3 +1,4 @@
+import { resolveDictionaryArgument } from '@intlayer/core/dictionaryManipulator';
 import type {
   Dictionary,
   DictionarySelectorForGroup,
@@ -38,20 +39,23 @@ export const useDictionary = <
 > => {
   const context = getIntlayerContext();
 
-  const isSelector =
-    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
-    typeof localeOrSelector === 'object' &&
-    localeOrSelector !== null;
-
   // Create a derived store that reactively updates when locale changes
   return derived([intlayerStore], ([$store]) => {
     const contextLocale = context?.locale ?? $store.locale;
 
-    if (isSelector) {
-      return getDictionary(dictionary, {
-        ...localeOrSelector,
-        locale: localeOrSelector.locale ?? contextLocale,
-      } as A);
+    if (process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false') {
+      // Layers the provider's locale and variant under the call-site argument.
+      // This is also the seam the build-time optimize transform lands on, which
+      // rewrites `useIntlayer('key', selector)` into `useDictionary(dict, …)`.
+      return getDictionary(
+        dictionary,
+        resolveDictionaryArgument({
+          localeOrSelector,
+          contextLocale,
+          contextVariant: context?.variant,
+          dictionaryKey: dictionary.key,
+        }) as A
+      );
     }
 
     return getDictionary(dictionary, (localeOrSelector ?? contextLocale) as A);

@@ -1,3 +1,4 @@
+import { resolveDictionaryArgument } from '@intlayer/core/dictionaryManipulator';
 import type {
   DeclaredLocales,
   DictionaryKeys,
@@ -49,20 +50,21 @@ export const useIntlayer = <
 > => {
   const context = getIntlayerContext();
 
-  const isSelector =
-    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
-    typeof localeOrSelector === 'object' &&
-    localeOrSelector !== null;
-
   // Create a derived store that reactively updates when locale changes
   return derived([intlayerStore], ([$store]) => {
     const contextLocale = context?.locale ?? $store.locale;
 
-    if (isSelector) {
-      return getIntlayer(key, {
-        ...localeOrSelector,
-        locale: localeOrSelector.locale ?? contextLocale,
-      } as A);
+    if (process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false') {
+      // Layers the provider's locale and variant under the call-site argument.
+      return getIntlayer(
+        key,
+        resolveDictionaryArgument({
+          localeOrSelector,
+          contextLocale,
+          contextVariant: context?.variant,
+          dictionaryKey: key as string,
+        }) as A
+      );
     }
 
     return getIntlayer(key, (localeOrSelector ?? contextLocale) as A);

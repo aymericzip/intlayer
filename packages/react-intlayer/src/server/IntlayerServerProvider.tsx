@@ -1,5 +1,8 @@
 import { internationalization } from '@intlayer/config/built';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import type {
+  LocalesValues,
+  ProviderVariant,
+} from '@intlayer/types/module_augmentation';
 
 import type { FC, PropsWithChildren } from 'react';
 import { createServerContext, getServerContext } from './serverContext';
@@ -13,6 +16,15 @@ export const IntlayerServerContext =
   createServerContext<LocalesValues>(defaultLocale);
 
 /**
+ * Context that stores the ambient variant on the server side.
+ *
+ * Kept separate from {@link IntlayerServerContext} so the locale context keeps
+ * its plain `LocalesValues` shape for the packages already reading it.
+ */
+export const IntlayerServerVariantContext =
+  createServerContext<ProviderVariant>(undefined);
+
+/**
  * Hook that provides the current locale
  */
 export const useIntlayer = () => getServerContext(IntlayerServerContext);
@@ -24,6 +36,15 @@ export const locale = getServerContext(IntlayerServerContext);
 
 export type IntlayerServerProviderProps = PropsWithChildren & {
   locale?: LocalesValues;
+  /**
+   * Ambient variant applied to every dictionary read below this provider — for
+   * a dimension resolved once per request (tenant, school type, plan tier…).
+   *
+   * Accepts a name (`'school1'`), an ordered preference chain
+   * (`['school1', 'default']`), or a per-key map
+   * (`{ key1: 'school1', default: 'base' }`). A call-site selector wins.
+   */
+  variant?: ProviderVariant;
 };
 
 /**
@@ -32,8 +53,11 @@ export type IntlayerServerProviderProps = PropsWithChildren & {
 export const IntlayerServerProvider: FC<IntlayerServerProviderProps> = ({
   children,
   locale = defaultLocale,
+  variant,
 }) => (
   <IntlayerServerContext.Provider value={locale}>
-    {children}
+    <IntlayerServerVariantContext.Provider value={variant}>
+      {children}
+    </IntlayerServerVariantContext.Provider>
   </IntlayerServerContext.Provider>
 );

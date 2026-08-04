@@ -1,3 +1,4 @@
+import { resolveDictionaryArgument } from '@intlayer/core/dictionaryManipulator';
 import type {
   DeclaredLocales,
   DictionaryKeys,
@@ -8,7 +9,7 @@ import type {
 import { createMemo, useContext } from 'solid-js';
 import { getIntlayer } from '../getIntlayer';
 import type { DeepTransformContent } from '../plugins';
-import { IntlayerClientContext } from './IntlayerProvider';
+import { IntlayerClientContext, type IntlayerValue } from './IntlayerProvider';
 
 /**
  * Solid hook that picks one dictionary by its key and returns its reactive content.
@@ -50,21 +51,25 @@ export const useIntlayer = <
   DictionaryRegistryResult<T, A>,
   ExtractSelectorLocale<A>
 > => {
-  const context = useContext(IntlayerClientContext) ?? {};
+  // Reads outside a provider fall back to an empty context.
+  const context: Partial<IntlayerValue> =
+    useContext(IntlayerClientContext) ?? {};
 
   // @ts-ignore Type instantiation is excessively deep and possibly infinite
   const accessor = createMemo(() => {
     const currentLocale = context?.locale?.();
 
-    if (
-      process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
-      typeof localeOrSelector === 'object' &&
-      localeOrSelector !== null
-    ) {
-      return getIntlayer(key, {
-        ...localeOrSelector,
-        locale: localeOrSelector.locale ?? currentLocale,
-      } as A);
+    if (process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false') {
+      // Layers the provider's locale and variant under the call-site argument.
+      return getIntlayer<T, A>(
+        key,
+        resolveDictionaryArgument({
+          localeOrSelector,
+          contextLocale: currentLocale,
+          contextVariant: context?.variant?.(),
+          dictionaryKey: key as string,
+        }) as A
+      );
     }
 
     const localeTarget = (localeOrSelector ?? currentLocale) as A;

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-06-26
+updatedAt: 2026-08-04
 title: वैरिएंट
 description: नामित या संरचित सामग्री विकल्प — A/B परीक्षण, मौसमी बैनर, फ़ीचर-फ़्लैग टेक्स्ट, CMS रिकॉर्ड, उपयोगकर्ता-विशिष्ट सामग्री — घोषित करने और कोड बदले बिना रनटाइम पर उनके बीच स्विच करने के लिए Intlayer सामग्री फ़ाइलों में variant मेटाडेटा फ़ील्ड का उपयोग करें।
 keywords:
@@ -26,6 +26,9 @@ history:
   - version: 9.1.1
     date: 2026-07-31
     changes: "वेरिएंट केवल उन्हीं कुंजियों को घोषित करता है जिन्हें वह ओवरराइड करता है; अघोषित वेरिएंट डिफ़ॉल्ट प्रविष्टि पर वापस आ जाते हैं"
+  - version: 9.1.2
+    date: 2026-08-04
+    changes: "प्रोवाइडर एक परिवेशी `variant` प्रॉप स्वीकार करते हैं; सेलेक्टर एक क्रमित वरीयता शृंखला स्वीकार करते हैं"
 author: aymericzip
 ---
 
@@ -497,6 +500,176 @@ const content = useIntlayer("product", {
 // null लौटाता है: `userId` अनुपस्थित है, इसलिए ऑब्जेक्ट घोषित वैरिएंट से मेल नहीं खाता
 const content = useIntlayer("product", { variant: { id: "prod_abc" } });
 ```
+
+## परिवेशी वैरिएंट
+
+कुछ वैरिएंट आयाम पूरे सत्र के लिए स्थिर रहते हैं — टेनेंट, विद्यालय का प्रकार, प्लान स्तर। ये एक ही बार हल होते हैं, और किसी भी कॉम्पोनेंट को इन्हें हाथ से पास नहीं करना चाहिए।
+
+> इन्हें इंजेक्ट करने के लिए `useIntlayer` को अपने हुक में न लपेटें। बिल्ड-टाइम अनुकूलन केवल फ्रेमवर्क पैकेज से आयातित शाब्दिक `useIntlayer("key")` कॉल को ही पुनर्लिखित करता है, इसलिए किसी रैपर के पीछे कुछ भी बंडल नहीं होता।
+
+इसके बजाय वैरिएंट को प्रोवाइडर पर एक ही बार घोषित करें, ठीक `locale` की तरह:
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "react-intlayer";
+
+    export const App = ({ locale, schoolType }) => (
+      <IntlayerProvider locale={locale} variant={schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+    ```tsx fileName="layout.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerServerProvider } from "next-intlayer/server";
+    import { IntlayerClientProvider } from "next-intlayer";
+
+    export default async function Layout({ children, params }) {
+      const { locale } = await params;
+      const schoolType = await getSchoolType();
+
+      return (
+        <IntlayerServerProvider locale={locale} variant={schoolType}>
+          <IntlayerClientProvider locale={locale} variant={schoolType}>
+            {children}
+          </IntlayerClientProvider>
+        </IntlayerServerProvider>
+      );
+    }
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+    ```ts fileName="main.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { createApp } from "vue";
+    import { installIntlayer } from "vue-intlayer";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    installIntlayer(app, { locale: "en", variant: schoolType });
+
+    app.mount("#app");
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+    ```svelte fileName="+layout.svelte" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    <script lang="ts">
+    import { setupIntlayer } from "svelte-intlayer";
+
+    export let schoolType: string;
+
+    setupIntlayer("en", schoolType);
+    </script>
+
+    <slot />
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "preact-intlayer";
+
+    export const App = ({ locale, schoolType }) => (
+      <IntlayerProvider locale={locale} variant={schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "solid-intlayer";
+
+    export const App = (props) => (
+      <IntlayerProvider locale={props.locale} variant={props.schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+    ```typescript fileName="app.config.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { ApplicationConfig } from "@angular/core";
+    import { provideIntlayer } from "angular-intlayer";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [provideIntlayer("en", true, schoolType)],
+    };
+    ```
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+    ```javascript fileName="main.js"
+    import { installIntlayer } from "vanilla-intlayer";
+
+    installIntlayer({ locale: "en", variant: schoolType });
+    ```
+
+  </Tab>
+</Tabs>
+
+अब प्रोवाइडर के नीचे प्रत्येक डिक्शनरी पठन उसी वैरिएंट के सापेक्ष हल होता है, और कॉल-स्थल का सेलेक्टर हमेशा जीतता है:
+
+```tsx
+useIntlayer("hero-banner");
+// → प्रोवाइडर का वैरिएंट
+
+useIntlayer("hero-banner", { variant: "summer" });
+// → "summer" — प्रोवाइडर वैरिएंट को प्रतिस्थापित करता है, उसका विस्तार नहीं करता
+```
+
+### रूप
+
+`variant` प्रॉप तीन रूप स्वीकार करता है:
+
+| रूप                                                       | अर्थ                             |
+| --------------------------------------------------------- | -------------------------------- |
+| `variant="school1"`                                       | हर कुंजी के लिए एक नामित वैरिएंट |
+| `variant={["school1", "default"]}`                        | एक क्रमित वरीयता शृंखला          |
+| `variant={{ "hero-banner": "school1", default: "base" }}` | प्रति डिक्शनरी कुंजी एक वैरिएंट  |
+
+#### वरीयता शृंखला
+
+शृंखला को प्रत्येक कुंजी द्वारा घोषित प्रविष्टियों के सापेक्ष बाएँ से दाएँ आज़माया जाता है, और पहली घोषित प्रविष्टि जीतती है। जब कोई भी घोषित न हो, तो निहित डिफ़ॉल्ट प्रविष्टि का उपयोग होता है — ठीक वैसे ही जैसे एकल मान के लिए।
+
+```tsx
+<IntlayerProvider variant={["school1", "school2"]} />
+// `hero-banner` कोई `school1` प्रविष्टि घोषित नहीं करता, पर `school2` घोषित करता है → "school2"
+// वह कुंजी जो दोनों में से कोई घोषित नहीं करती → डिफ़ॉल्ट प्रविष्टि
+```
+
+अतः `["black_friday", "summer"]` का अर्थ है «यदि इस कुंजी के पास black friday है तो वही, अन्यथा summer, अन्यथा डिफ़ॉल्ट»। शृंखलाएँ कॉल-स्थल पर भी स्वीकार्य हैं:
+
+```tsx
+useIntlayer("hero-banner", { variant: ["black_friday", "summer"] });
+```
+
+> ध्यान दें कि यह कंटेंट फ़ाइल के `variant` **फ़ील्ड** द्वारा स्वीकार किए जाने वाले ऐरे का दर्पण प्रतिबिंब है: वहाँ एक ऐरे प्रति तत्व एक प्रविष्टि _घोषित_ करता है, यहाँ वह उन्हें प्राथमिकता क्रम में _उपभोग_ करता है।
+
+#### प्रति-कुंजी मैप
+
+प्रत्येक डिक्शनरी कुंजी को अलग-अलग संबोधित करें। आरक्षित `default` प्रविष्टि उन सभी कुंजियों को कवर करती है जो सूचीबद्ध नहीं हैं:
+
+```tsx
+<IntlayerProvider
+  variant={{
+    "hero-banner": "school1",
+    product: ["school1", "default"],
+    default: "base",
+  }}
+/>
+```
+
+> प्रोवाइडर पर एक सामान्य ऑब्जेक्ट **हमेशा** प्रति-कुंजी मैप के रूप में पढ़ा जाता है, कभी ऑब्जेक्ट वैरिएंट के रूप में नहीं — दोनों संरचनात्मक रूप से समान हैं। किसी ऑब्जेक्ट वैरिएंट को वैश्विक रूप से तय करने के लिए उसे किसी प्रविष्टि के नीचे नेस्ट करें: `variant={{ default: { id: "prod_abc" } }}`।
+
+चूँकि मैप की कुंजियाँ आपकी घोषित डिक्शनरी कुंजियों के विरुद्ध जाँची जाती हैं, कोई टाइपो — या सीधे लिखा गया ऑब्जेक्ट वैरिएंट, जैसे `variant={{ id: "prod_abc" }}` — संकलन-समय त्रुटि है।
 
 ## लोडिंग मोड
 

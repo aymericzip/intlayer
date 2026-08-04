@@ -1,7 +1,10 @@
 import { internationalization } from '@intlayer/config/built';
 import { setIntlayerIdentifier } from '@intlayer/config/client';
 import type { Locale } from '@intlayer/types/allLocales';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import type {
+  LocalesValues,
+  ProviderVariant,
+} from '@intlayer/types/module_augmentation';
 import { type App, type Ref, readonly, ref } from 'vue';
 
 export const INTLAYER_SYMBOL = Symbol('intlayer');
@@ -14,6 +17,12 @@ let instance: IntlayerProvider | null = null;
 export type IntlayerProvider = {
   locale: Ref<Locale>;
   setLocale: (locale: LocalesValues) => void;
+  /**
+   * Ambient variant applied to every dictionary read in the app, the same way
+   * `locale` is. Overridden per call by an explicit selector.
+   */
+  variant: Ref<ProviderVariant | undefined>;
+  setVariant: (variant: ProviderVariant | undefined) => void;
   isCookieEnabled?: boolean;
 };
 
@@ -22,7 +31,8 @@ export type IntlayerProvider = {
  */
 export const createIntlayerClient = (
   locale?: LocalesValues,
-  isCookieEnabled = true
+  isCookieEnabled = true,
+  variant?: ProviderVariant
 ): IntlayerProvider => {
   if (instance) return instance;
 
@@ -36,9 +46,17 @@ export const createIntlayerClient = (
     targetLocale.value = newLocale as Locale;
   };
 
+  const targetVariant = ref<ProviderVariant | undefined>(variant);
+
+  const setVariant = (newVariant: ProviderVariant | undefined) => {
+    targetVariant.value = newVariant;
+  };
+
   instance = {
     locale: readonly(targetLocale),
     setLocale,
+    variant: readonly(targetVariant) as Ref<ProviderVariant | undefined>,
+    setVariant,
     isCookieEnabled,
   };
 
@@ -52,8 +70,15 @@ export const createIntlayerClient = (
  * like `useIntlayer` and `useLocale`.
  *
  * @param app - The Vue application instance.
- * @param locale - Initial locale to use.
- * @param isCookieEnabled - Whether to store the locale in cookies.
+ * @param options.locale - Initial locale to use.
+ * @param options.isCookieEnabled - Whether to store the locale in cookies.
+ * @param options.variant - Ambient variant applied to every dictionary read in
+ *   the app — for a dimension fixed for the whole session (tenant, school type,
+ *   plan tier…) that no component should have to pass by hand. Accepts a name
+ *   (`'school1'`), an ordered preference chain (`['school1', 'default']`), or a
+ *   per-key map (`{ key1: 'school1', default: 'base' }`). A plain object is
+ *   always the per-key map; nest a structured variant as
+ *   `{ default: { id: 'prod_abc' } }`. A call-site selector always wins.
  * @returns The Vue application instance.
  *
  * @example
@@ -74,11 +99,12 @@ export const installIntlayer = (
   options?: {
     locale?: LocalesValues;
     isCookieEnabled?: boolean;
+    variant?: ProviderVariant;
   }
 ) => {
-  const { locale, isCookieEnabled } = options ?? {};
+  const { locale, isCookieEnabled, variant } = options ?? {};
 
-  const client = createIntlayerClient(locale, isCookieEnabled);
+  const client = createIntlayerClient(locale, isCookieEnabled, variant);
 
   app.provide(INTLAYER_SYMBOL, client);
 

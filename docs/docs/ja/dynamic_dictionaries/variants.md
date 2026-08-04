@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-06-26
+updatedAt: 2026-08-04
 title: バリアント
 description: Intlayer のコンテンツファイルで variant メタデータフィールドを使用し、名前付きまたは構造化されたコンテンツの代替（A/B テスト、季節バナー、フィーチャーフラグ付きコピー、CMS レコード、ユーザー固有コンテンツ）を宣言し、コード変更なしにランタイムで切り替えます。
 keywords:
@@ -26,6 +26,9 @@ history:
   - version: 9.1.1
     date: 2026-07-31
     changes: "バリアントは上書きするキーのみを宣言します。宣言されていないバリアントはデフォルトのエントリにフォールバックします"
+  - version: 9.1.2
+    date: 2026-08-04
+    changes: "プロバイダーがアンビエントな `variant` プロパティを受け取り、セレクターが順序付きの優先チェーンを受け取れるようになりました"
 author: aymericzip
 ---
 
@@ -497,6 +500,176 @@ const content = useIntlayer("product", {
 // null を返します: `userId` が欠落しているため、オブジェクトは宣言されたバリアントに一致しません
 const content = useIntlayer("product", { variant: { id: "prod_abc" } });
 ```
+
+## アンビエントバリアント
+
+バリアントの次元の中には、テナント、学校種別、プラン階層のように、セッション全体で固定されるものがあります。これらは一度だけ解決されるものであり、各コンポーネントが手で渡すべきものではありません。
+
+> これらを注入するために `useIntlayer` を独自のフックでラップしないでください。ビルド時の最適化は、フレームワークパッケージからインポートされたリテラルな `useIntlayer("key")` の呼び出しだけを書き換えるため、ラッパーの背後にあるものはバンドルされません。
+
+代わりに、`locale` とまったく同じように、プロバイダーで一度だけバリアントを宣言します:
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "react-intlayer";
+
+    export const App = ({ locale, schoolType }) => (
+      <IntlayerProvider locale={locale} variant={schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+    ```tsx fileName="layout.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerServerProvider } from "next-intlayer/server";
+    import { IntlayerClientProvider } from "next-intlayer";
+
+    export default async function Layout({ children, params }) {
+      const { locale } = await params;
+      const schoolType = await getSchoolType();
+
+      return (
+        <IntlayerServerProvider locale={locale} variant={schoolType}>
+          <IntlayerClientProvider locale={locale} variant={schoolType}>
+            {children}
+          </IntlayerClientProvider>
+        </IntlayerServerProvider>
+      );
+    }
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+    ```ts fileName="main.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { createApp } from "vue";
+    import { installIntlayer } from "vue-intlayer";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    installIntlayer(app, { locale: "en", variant: schoolType });
+
+    app.mount("#app");
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+    ```svelte fileName="+layout.svelte" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    <script lang="ts">
+    import { setupIntlayer } from "svelte-intlayer";
+
+    export let schoolType: string;
+
+    setupIntlayer("en", schoolType);
+    </script>
+
+    <slot />
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "preact-intlayer";
+
+    export const App = ({ locale, schoolType }) => (
+      <IntlayerProvider locale={locale} variant={schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "solid-intlayer";
+
+    export const App = (props) => (
+      <IntlayerProvider locale={props.locale} variant={props.schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+    ```typescript fileName="app.config.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { ApplicationConfig } from "@angular/core";
+    import { provideIntlayer } from "angular-intlayer";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [provideIntlayer("en", true, schoolType)],
+    };
+    ```
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+    ```javascript fileName="main.js"
+    import { installIntlayer } from "vanilla-intlayer";
+
+    installIntlayer({ locale: "en", variant: schoolType });
+    ```
+
+  </Tab>
+</Tabs>
+
+これでプロバイダー配下のすべての辞書の読み取りがそのバリアントで解決され、呼び出し側のセレクターが常に優先されます:
+
+```tsx
+useIntlayer("hero-banner");
+// → プロバイダーのバリアント
+
+useIntlayer("hero-banner", { variant: "summer" });
+// → "summer" — プロバイダーのバリアントを置き換えます（拡張はしません）
+```
+
+### 形式
+
+`variant` プロパティは 3 つの形式を受け取ります:
+
+| 形式                                                      | 意味                                          |
+| --------------------------------------------------------- | --------------------------------------------- |
+| `variant="school1"`                                       | すべてのキーに対する 1 つの名前付きバリアント |
+| `variant={["school1", "default"]}`                        | 順序付きの優先チェーン                        |
+| `variant={{ "hero-banner": "school1", default: "base" }}` | 辞書キーごとに 1 つのバリアント               |
+
+#### 優先チェーン
+
+チェーンは各キーが宣言しているエントリーに対して左から右へ順に試され、最初に宣言されているものが採用されます。どれも宣言されていない場合は、単一の値のときとまったく同じく、暗黙のデフォルトエントリーが使われます。
+
+```tsx
+<IntlayerProvider variant={["school1", "school2"]} />
+// `hero-banner` は `school1` エントリーを宣言していないが `school2` を宣言している → "school2"
+// どちらも宣言していないキー → デフォルトエントリー
+```
+
+したがって `["black_friday", "summer"]` は「このキーに black friday があればそれ、なければ summer、それもなければデフォルト」と読めます。チェーンは呼び出し側でも使えます:
+
+```tsx
+useIntlayer("hero-banner", { variant: ["black_friday", "summer"] });
+```
+
+> これはコンテンツファイルの `variant` **フィールド**が受け取る配列とちょうど逆であることに注意してください。あちらでは配列が要素ごとに 1 つのエントリーを*宣言*しますが、こちらでは優先順位に従ってそれらを*消費*します。
+
+#### キーごとのマップ
+
+辞書キーごとに個別に指定します。予約された `default` エントリーが、記載されていないすべてのキーをカバーします:
+
+```tsx
+<IntlayerProvider
+  variant={{
+    "hero-banner": "school1",
+    product: ["school1", "default"],
+    default: "base",
+  }}
+/>
+```
+
+> プロバイダーでは、プレーンなオブジェクトは**常に**キーごとのマップとして読み取られ、オブジェクトバリアントとしては解釈されません（両者は構造的に同一のためです）。オブジェクトバリアントをグローバルに指定するには、エントリーの下にネストしてください: `variant={{ default: { id: "prod_abc" } }}`。
+
+マップのキーは宣言済みの辞書キーと照合されるため、タイプミス（あるいは `variant={{ id: "prod_abc" }}` のようにオブジェクトバリアントを直接書いた場合）はコンパイルエラーになります。
 
 ## 読み込みモード
 

@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-06-26
+updatedAt: 2026-08-04
 title: المتغيرات
 description: استخدم حقل البيانات الوصفية variant في ملفات محتوى Intlayer لإعلان بدائل محتوى مُسمّاة أو منظّمة — اختبارات A/B، لافتات موسمية، نصوص بأعلام الميزات، سجلات CMS، محتوى خاص بالمستخدم — والتبديل بينها في وقت التشغيل دون تغييرات في الشيفرة.
 keywords:
@@ -26,6 +26,9 @@ history:
   - version: 9.1.1
     date: 2026-07-31
     changes: "تُعرّف المتغيرة فقط المفاتيح التي تتجاوزها؛ بينما تتراجع المتغيرات غير المُعرّفة إلى الإدخال الافتراضي"
+  - version: 9.1.2
+    date: 2026-08-04
+    changes: "تقبل المزوِّدات خاصية `variant` محيطية؛ وتقبل المحدِّدات سلسلة تفضيل مرتَّبة"
 author: aymericzip
 ---
 
@@ -39,6 +42,46 @@ author: aymericzip
 - **كائن** — مُميِّز منظّم يُعنوَن بمجموعة من الحقول (سجلات CMS، محتوى خاص بالمستخدم، أي محتوى مفتاحه مُعرِّف غامض). الكائن بأكمله هو الهوية: يجب أن يوفّر المُحدِّد كائنًا **مساويًا** لحلّ المدخلة.
 
 > يحلّ الشكل الكائني محل حقل `meta` السابق. في كل مكان كنت تكتب فيه سابقًا `meta: { id, … }`، اكتب `variant: { id, … }`، وحدّدها بـ `{ variant: { id, … } }`.
+
+## المتغيرات المسماة (سلسلة نصية)
+
+يمثّل كل ملف بديلًا مُسمّى واحدًا. وإغفال `variant` (أو ضبطه على `"default"`) يجعله البديل الاحتياطي.
+
+```ts fileName="hero-banner.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+
+const dictionary = {
+  key: "hero-banner",
+  variant: "default",
+  content: {
+    headline: t({
+      en: "Build faster with Intlayer",
+      fr: "Développez plus vite avec Intlayer",
+    }),
+    cta: t({ en: "Get started", fr: "Commencer" }),
+  },
+} satisfies Dictionary;
+
+export default dictionary;
+```
+
+```ts fileName="hero-banner.black-friday.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+
+const dictionary = {
+  key: "hero-banner",
+  variant: "black_friday",
+  content: {
+    headline: t({
+      en: "50 % off — today only",
+      fr: "−50 % — aujourd'hui seulement",
+    }),
+    cta: t({ en: "Shop now", fr: "Acheter maintenant" }),
+  },
+} satisfies Dictionary;
+
+export default dictionary;
+```
 
 ### المتغيرات الجزئية
 
@@ -493,6 +536,176 @@ const content = useIntlayer("product", {
 // يُعيد null: `userId` مفقود، لذا لا يتطابق الكائن مع المتغير المُعلَن
 const content = useIntlayer("product", { variant: { id: "prod_abc" } });
 ```
+
+## المتغير المحيطي
+
+بعض أبعاد المتغيرات ثابتة طوال الجلسة — المستأجر، ونوع المدرسة، ومستوى الخطة. تُحلّ مرة واحدة، ولا ينبغي لأي مكوّن أن يمررها يدويًا.
+
+> لا تغلّف `useIntlayer` داخل خطّاف خاص بك لحقنها. فتحسين وقت البناء لا يعيد كتابة سوى استدعاء `useIntlayer("key")` الحرفي المستورد من حزمة إطار العمل، لذا لن يُحزَم أي شيء خلف غلاف.
+
+بدلًا من ذلك، صرّح عن المتغير مرة واحدة على المزوِّد، تمامًا مثل `locale`:
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "react-intlayer";
+
+    export const App = ({ locale, schoolType }) => (
+      <IntlayerProvider locale={locale} variant={schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+    ```tsx fileName="layout.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerServerProvider } from "next-intlayer/server";
+    import { IntlayerClientProvider } from "next-intlayer";
+
+    export default async function Layout({ children, params }) {
+      const { locale } = await params;
+      const schoolType = await getSchoolType();
+
+      return (
+        <IntlayerServerProvider locale={locale} variant={schoolType}>
+          <IntlayerClientProvider locale={locale} variant={schoolType}>
+            {children}
+          </IntlayerClientProvider>
+        </IntlayerServerProvider>
+      );
+    }
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+    ```ts fileName="main.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { createApp } from "vue";
+    import { installIntlayer } from "vue-intlayer";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    installIntlayer(app, { locale: "en", variant: schoolType });
+
+    app.mount("#app");
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+    ```svelte fileName="+layout.svelte" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    <script lang="ts">
+    import { setupIntlayer } from "svelte-intlayer";
+
+    export let schoolType: string;
+
+    setupIntlayer("en", schoolType);
+    </script>
+
+    <slot />
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "preact-intlayer";
+
+    export const App = ({ locale, schoolType }) => (
+      <IntlayerProvider locale={locale} variant={schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "solid-intlayer";
+
+    export const App = (props) => (
+      <IntlayerProvider locale={props.locale} variant={props.schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+    ```typescript fileName="app.config.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { ApplicationConfig } from "@angular/core";
+    import { provideIntlayer } from "angular-intlayer";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [provideIntlayer("en", true, schoolType)],
+    };
+    ```
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+    ```javascript fileName="main.js"
+    import { installIntlayer } from "vanilla-intlayer";
+
+    installIntlayer({ locale: "en", variant: schoolType });
+    ```
+
+  </Tab>
+</Tabs>
+
+أصبحت كل قراءة قاموس أسفل المزوِّد تُحلّ وفق ذلك المتغير، ويفوز دائمًا المحدِّد الموجود في موضع الاستدعاء:
+
+```tsx
+useIntlayer("hero-banner");
+// → متغير المزوِّد
+
+useIntlayer("hero-banner", { variant: "summer" });
+// → "summer" — يستبدل متغير المزوِّد ولا يوسّعه
+```
+
+### الأشكال
+
+تقبل خاصية `variant` ثلاثة أشكال:
+
+| الشكل                                                     | المعنى                        |
+| --------------------------------------------------------- | ----------------------------- |
+| `variant="school1"`                                       | متغير مسمّى واحد لكل المفاتيح |
+| `variant={["school1", "default"]}`                        | سلسلة تفضيل مرتَّبة           |
+| `variant={{ "hero-banner": "school1", default: "base" }}` | متغير لكل مفتاح قاموس         |
+
+#### سلسلة التفضيل
+
+تُجرَّب السلسلة من اليسار إلى اليمين مقابل المدخلات التي يصرّح بها كل مفتاح، ويفوز أول مدخل مُصرَّح به. وعندما لا يكون أي منها مُصرَّحًا به، يُستخدم المدخل الافتراضي الضمني — تمامًا كما في حالة القيمة المفردة.
+
+```tsx
+<IntlayerProvider variant={["school1", "school2"]} />
+// `hero-banner` لا يصرّح بمدخل `school1` لكنه يصرّح بـ `school2` ← "school2"
+// مفتاح لا يصرّح بأي منهما ← المدخل الافتراضي
+```
+
+لذا تُقرأ `["black_friday", "summer"]` على أنها «black friday إن كان لهذا المفتاح واحد، وإلا summer، وإلا الافتراضي». وتُقبل السلاسل أيضًا في موضع الاستدعاء:
+
+```tsx
+useIntlayer("hero-banner", { variant: ["black_friday", "summer"] });
+```
+
+> لاحظ أن هذا هو الصورة المعكوسة للمصفوفة التي يقبلها **حقل** `variant` في ملف المحتوى: فهناك تُصرِّح المصفوفة بمدخل لكل عنصر، أما هنا فتستهلكها بترتيب الأولوية.
+
+#### خريطة لكل مفتاح
+
+خاطب كل مفتاح قاموس على حدة. ويغطي المدخل المحجوز `default` كل المفاتيح غير المذكورة:
+
+```tsx
+<IntlayerProvider
+  variant={{
+    "hero-banner": "school1",
+    product: ["school1", "default"],
+    default: "base",
+  }}
+/>
+```
+
+> على المزوِّد، يُقرأ الكائن البسيط **دائمًا** كخريطة لكل مفتاح، ولا يُقرأ أبدًا كمتغير كائني — فالاثنان متطابقان بنيويًا. ولتثبيت متغير كائني عالميًا، ضعه متداخلًا تحت مدخل: `variant={{ default: { id: "prod_abc" } }}`.
+
+ولأن مفاتيح الخريطة تُدقَّق مقابل مفاتيح القواميس المصرَّح بها، فإن أي خطأ مطبعي — أو متغيرًا كائنيًا مكتوبًا مباشرة مثل `variant={{ id: "prod_abc" }}` — يُعدّ خطأ في وقت الترجمة.
 
 ## وضع التحميل
 

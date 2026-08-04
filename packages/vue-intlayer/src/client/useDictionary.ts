@@ -1,4 +1,8 @@
 import { internationalization } from '@intlayer/config/built';
+import {
+  parseDictionarySelector,
+  resolveDictionaryArgument,
+} from '@intlayer/core/dictionaryManipulator';
 import type {
   Dictionary,
   DictionarySelector,
@@ -140,7 +144,8 @@ export const useDictionary = <
     ? intlayer.locale
     : ref(intlayer?.locale ?? internationalization.defaultLocale);
 
-  // split the (possibly reactive) second argument into selector + locale
+  // split the (possibly reactive) second argument into selector + locale,
+  // layering the provider's ambient variant under it
   const resolvedArg = computed<{
     selector: DictionarySelector | undefined;
     locale: LocalesValues | undefined;
@@ -148,13 +153,15 @@ export const useDictionary = <
     const value =
       localeOrSelector !== undefined ? toValue(localeOrSelector) : undefined;
 
-    if (
-      process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
-      typeof value === 'object' &&
-      value !== null
-    ) {
-      const selector = value as DictionarySelector;
-      return { selector, locale: selector.locale };
+    if (process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false') {
+      const argument = resolveDictionaryArgument({
+        localeOrSelector: value as A | undefined,
+        contextLocale: providerLocale.value,
+        contextVariant: intlayer?.variant?.value,
+        dictionaryKey: (toValue(dictionary) as T).key,
+      });
+
+      return parseDictionarySelector<LocalesValues>(argument);
     }
 
     return { selector: undefined, locale: value as LocalesValues | undefined };

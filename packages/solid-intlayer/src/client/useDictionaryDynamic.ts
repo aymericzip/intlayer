@@ -5,6 +5,7 @@ import {
   parseDictionarySelector,
   QUALIFIER_DYNAMIC_TYPES_KEY,
   type QualifiedDynamicLoaderMap,
+  resolveDictionaryArgument,
   resolveQualifiedDynamicContentAsync,
 } from '@intlayer/core/dictionaryManipulator';
 import type { Dictionary } from '@intlayer/types/dictionary';
@@ -23,7 +24,7 @@ import {
 } from 'solid-js';
 import { getDictionary } from '../getDictionary';
 import type { DeepTransformContent } from '../plugins';
-import { IntlayerClientContext } from './IntlayerProvider';
+import { IntlayerClientContext, type IntlayerValue } from './IntlayerProvider';
 import { useDictionary } from './useDictionary';
 import { useLoadDynamic } from './useLoadDynamic';
 
@@ -57,7 +58,10 @@ export const useDictionaryDynamic = <
   key: K,
   localeOrSelector?: A
 ) => {
-  const { locale: currentLocale } = useContext(IntlayerClientContext) ?? {};
+  // Reads outside a provider fall back to an empty context.
+  const context: Partial<IntlayerValue> =
+    useContext(IntlayerClientContext) ?? {};
+  const { locale: currentLocale } = context;
   const defaultLocale = internationalization.defaultLocale;
   const dictionaryKey = String(key);
 
@@ -65,15 +69,29 @@ export const useDictionaryDynamic = <
     process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
     isQualifiedDynamicLoaderMap(dictionaryPromise)
   ) {
-    const { locale: selectorLocale, selector } =
+    const { locale: selectorLocale, selector: callSelector } =
       parseDictionarySelector<LocalesValues>(localeOrSelector);
-    const selectorCacheKey = getDictionarySelectorCacheKey(selector);
+
+    // Layers the provider's ambient variant under the call-site argument. Kept
+    // as an accessor — not resolved once — so a variant or locale change
+    // re-runs the sources and resources below.
+    const selectorAccessor = () =>
+      parseDictionarySelector<LocalesValues>(
+        resolveDictionaryArgument({
+          localeOrSelector,
+          contextLocale: currentLocale?.(),
+          contextVariant: context.variant?.(),
+          dictionaryKey,
+        })
+      ).selector;
+
     const qualifierTypes = dictionaryPromise[QUALIFIER_DYNAMIC_TYPES_KEY];
 
     // The `item` axis is the only one that can expand into several entries; when
-    // it is declared but not selected, the result is a collection (array).
+    // it is declared but not selected, the result is a collection (array). Only
+    // the call site can pin an item, so this stays a one-off check.
     const isCollection =
-      qualifierTypes.includes('item') && selector?.item === undefined;
+      qualifierTypes.includes('item') && callSelector?.item === undefined;
 
     const localeAccessor = () =>
       selectorLocale ?? currentLocale?.() ?? defaultLocale;
@@ -87,7 +105,9 @@ export const useDictionaryDynamic = <
         const localeTarget = localeAccessor();
 
         return {
-          cacheKey: `${dictionaryKey}.${localeTarget}.${selectorCacheKey}`,
+          cacheKey: `${dictionaryKey}.${localeTarget}.${getDictionarySelectorCacheKey(
+            selectorAccessor()
+          )}`,
           locale: localeTarget,
         };
       };
@@ -97,7 +117,7 @@ export const useDictionaryDynamic = <
           loaderMap: dictionaryPromise,
           key: dictionaryKey,
           locale: localeTarget,
-          selector,
+          selector: selectorAccessor(),
           transform: (dictionary) => dictionary,
         }).then(
           (resolved) =>
@@ -121,14 +141,18 @@ export const useDictionaryDynamic = <
     // Collection: load only the targeted raw entries, then interpret each inside
     // the component owner scope so a real array is exposed (so `<For>` works) and
     // owner-scoped context (router, markdown, editor) stays available.
-    const [resolvedEntries] = createResource(localeAccessor, (localeTarget) =>
-      resolveQualifiedDynamicContentAsync<Dictionary>({
-        loaderMap: dictionaryPromise,
-        key: dictionaryKey,
-        locale: localeTarget,
-        selector,
-        transform: (dictionary) => dictionary,
-      })
+    const [resolvedEntries] = createResource(
+      // Tracks the variant as well as the locale, so an ambient variant change
+      // reloads the targeted chunks.
+      () => ({ locale: localeAccessor(), selector: selectorAccessor() }),
+      ({ locale: localeTarget, selector }) =>
+        resolveQualifiedDynamicContentAsync<Dictionary>({
+          loaderMap: dictionaryPromise,
+          key: dictionaryKey,
+          locale: localeTarget,
+          selector,
+          transform: (dictionary) => dictionary,
+        })
     );
 
     const accessor = createMemo(() => {

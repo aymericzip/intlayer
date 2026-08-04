@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-06-26
+updatedAt: 2026-08-04
 title: Variants
 description: Use the variant metadata field in Intlayer content files to declare named or structured content alternatives — A/B tests, seasonal banners, feature-flagged copy, CMS records, user-specific content — and switch between them at runtime without code changes.
 keywords:
@@ -26,6 +26,9 @@ history:
   - version: 9.1.1
     date: 2026-07-31
     changes: "A variant declares only the keys it overrides; undeclared variants fall back to the default entry"
+  - version: 9.1.2
+    date: 2026-08-04
+    changes: "Providers accept an ambient `variant` prop; selectors accept an ordered preference chain"
 author: aymericzip
 ---
 
@@ -497,6 +500,176 @@ const content = useIntlayer("product", {
 // Returns null: `userId` is missing, so the object does not match the declared variant
 const content = useIntlayer("product", { variant: { id: "prod_abc" } });
 ```
+
+## Ambient variant
+
+Some variant dimensions are fixed for a whole session — the tenant, the school type, the plan tier. They are resolved once, and no component should have to pass them by hand.
+
+> Do not wrap `useIntlayer` in your own hook to inject them. The build-time optimisation only rewrites a literal `useIntlayer("key")` imported from the framework package, so nothing behind a wrapper gets bundled.
+
+Declare the variant once on the provider instead, exactly like `locale`:
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "react-intlayer";
+
+    export const App = ({ locale, schoolType }) => (
+      <IntlayerProvider locale={locale} variant={schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+    ```tsx fileName="layout.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerServerProvider } from "next-intlayer/server";
+    import { IntlayerClientProvider } from "next-intlayer";
+
+    export default async function Layout({ children, params }) {
+      const { locale } = await params;
+      const schoolType = await getSchoolType();
+
+      return (
+        <IntlayerServerProvider locale={locale} variant={schoolType}>
+          <IntlayerClientProvider locale={locale} variant={schoolType}>
+            {children}
+          </IntlayerClientProvider>
+        </IntlayerServerProvider>
+      );
+    }
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+    ```ts fileName="main.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { createApp } from "vue";
+    import { installIntlayer } from "vue-intlayer";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    installIntlayer(app, { locale: "en", variant: schoolType });
+
+    app.mount("#app");
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+    ```svelte fileName="+layout.svelte" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    <script lang="ts">
+    import { setupIntlayer } from "svelte-intlayer";
+
+    export let schoolType: string;
+
+    setupIntlayer("en", schoolType);
+    </script>
+
+    <slot />
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "preact-intlayer";
+
+    export const App = ({ locale, schoolType }) => (
+      <IntlayerProvider locale={locale} variant={schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "solid-intlayer";
+
+    export const App = (props) => (
+      <IntlayerProvider locale={props.locale} variant={props.schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+    ```typescript fileName="app.config.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { ApplicationConfig } from "@angular/core";
+    import { provideIntlayer } from "angular-intlayer";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [provideIntlayer("en", true, schoolType)],
+    };
+    ```
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+    ```javascript fileName="main.js"
+    import { installIntlayer } from "vanilla-intlayer";
+
+    installIntlayer({ locale: "en", variant: schoolType });
+    ```
+
+  </Tab>
+</Tabs>
+
+Every dictionary read below the provider now resolves against that variant, and a call-site selector always wins:
+
+```tsx
+useIntlayer("hero-banner");
+// → the provider variant
+
+useIntlayer("hero-banner", { variant: "summer" });
+// → "summer" — replaces the provider variant, it is not extended
+```
+
+### Forms
+
+The `variant` prop accepts three forms:
+
+| Form                                                      | Meaning                         |
+| --------------------------------------------------------- | ------------------------------- |
+| `variant="school1"`                                       | one named variant for every key |
+| `variant={["school1", "default"]}`                        | an ordered preference chain     |
+| `variant={{ "hero-banner": "school1", default: "base" }}` | one variant per dictionary key  |
+
+#### Preference chain
+
+A chain is tried left to right against the entries each key declares, and the first declared one wins. When none is declared, the implicit default entry is used — exactly as for a single value.
+
+```tsx
+<IntlayerProvider variant={["school1", "school2"]} />
+// `hero-banner` declares no `school1` entry but declares `school2` → "school2"
+// a key declaring neither → the default entry
+```
+
+So `["black_friday", "summer"]` reads as "black friday if this key has one, else summer, else default". Chains are also accepted at the call site:
+
+```tsx
+useIntlayer("hero-banner", { variant: ["black_friday", "summer"] });
+```
+
+> Note this is the mirror image of the array accepted by the `variant` **field** of a content file: there an array _declares_ one entry per element, here it _consumes_ them in priority order.
+
+#### Per-key map
+
+Address each dictionary key separately. The reserved `default` entry covers every key not listed:
+
+```tsx
+<IntlayerProvider
+  variant={{
+    "hero-banner": "school1",
+    product: ["school1", "default"],
+    default: "base",
+  }}
+/>
+```
+
+> On a provider a plain object is **always** read as the per-key map, never as an object variant — the two are structurally identical. To pin an object variant globally, nest it under an entry: `variant={{ default: { id: "prod_abc" } }}`.
+
+Because the map's keys are checked against your declared dictionary keys, a typo — or an object variant written directly, such as `variant={{ id: "prod_abc" }}` — is a compile-time error.
 
 ## Loading mode
 

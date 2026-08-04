@@ -1,4 +1,7 @@
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import type {
+  LocalesValues,
+  ProviderVariant,
+} from '@intlayer/types/module_augmentation';
 import { provideIntlayerAnalytics } from '../analytics/useAnalytics';
 import { provideIntlayerEditor } from '../editor/useEditor';
 import {
@@ -19,6 +22,13 @@ export { createIntlayerClient, INTLAYER_TOKEN, IntlayerProvider };
  *
  * @param locale - Initial locale to use.
  * @param isCookieEnabled - Whether to store the locale in cookies.
+ * @param variant - Ambient variant applied to every dictionary read in the app
+ *   — for a dimension fixed for the whole session (tenant, school type, plan
+ *   tier…) that no component should have to pass by hand. Accepts a name
+ *   (`'school1'`), an ordered preference chain (`['school1', 'default']`), or a
+ *   per-key map (`{ key1: 'school1', default: 'base' }`). A plain object is
+ *   always the per-key map; nest a structured variant as
+ *   `{ default: { id: 'prod_abc' } }`. A call-site selector always wins.
  * @returns An array of Angular providers for Intlayer.
  *
  * @example
@@ -34,9 +44,10 @@ export { createIntlayerClient, INTLAYER_TOKEN, IntlayerProvider };
  */
 export const provideIntlayer = (
   locale?: LocalesValues,
-  isCookieEnabled = true
+  isCookieEnabled = true,
+  variant?: ProviderVariant
 ) => {
-  const client = installIntlayer(locale, isCookieEnabled);
+  const client = installIntlayer(locale, isCookieEnabled, variant);
 
   return [
     { provide: INTLAYER_TOKEN, useValue: client },
@@ -50,7 +61,8 @@ export const provideIntlayer = (
  */
 export const installIntlayer = (
   locale?: LocalesValues,
-  isCookieEnabled = true
+  isCookieEnabled = true,
+  variant?: ProviderVariant
 ) => {
-  return createIntlayerClient(locale, isCookieEnabled);
+  return createIntlayerClient(locale, isCookieEnabled, variant);
 };

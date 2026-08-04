@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-06-26
+updatedAt: 2026-08-04
 title: Varian
 description: Gunakan field metadata variant di file konten Intlayer untuk mendeklarasikan alternatif konten bernama atau terstruktur — pengujian A/B, banner musiman, teks ber-feature flag, record CMS, konten khusus pengguna — dan beralih di antaranya saat runtime tanpa perubahan kode.
 keywords:
@@ -26,6 +26,9 @@ history:
   - version: 9.1.1
     date: 2026-07-31
     changes: "Varian hanya mendeklarasikan kunci yang ditimpanya; varian yang tidak dideklarasikan akan kembali ke entri default"
+  - version: 9.1.2
+    date: 2026-08-04
+    changes: "Provider menerima prop `variant` ambien; selektor menerima rantai preferensi terurut"
 author: aymericzip
 ---
 
@@ -497,6 +500,176 @@ const content = useIntlayer("product", {
 // Mengembalikan null: `userId` hilang, sehingga objek tidak cocok dengan varian yang dideklarasikan
 const content = useIntlayer("product", { variant: { id: "prod_abc" } });
 ```
+
+## Varian ambien
+
+Beberapa dimensi varian tetap sepanjang satu sesi — tenant, jenis sekolah, tingkat paket. Semuanya diselesaikan sekali, dan tidak ada komponen yang perlu meneruskannya secara manual.
+
+> Jangan membungkus `useIntlayer` dalam hook Anda sendiri untuk menyuntikkannya. Optimasi saat build hanya menulis ulang pemanggilan literal `useIntlayer("key")` yang diimpor dari paket framework, sehingga apa pun di balik pembungkus tidak akan ikut dibundel.
+
+Sebagai gantinya, deklarasikan varian sekali pada provider, persis seperti `locale`:
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "react-intlayer";
+
+    export const App = ({ locale, schoolType }) => (
+      <IntlayerProvider locale={locale} variant={schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+    ```tsx fileName="layout.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerServerProvider } from "next-intlayer/server";
+    import { IntlayerClientProvider } from "next-intlayer";
+
+    export default async function Layout({ children, params }) {
+      const { locale } = await params;
+      const schoolType = await getSchoolType();
+
+      return (
+        <IntlayerServerProvider locale={locale} variant={schoolType}>
+          <IntlayerClientProvider locale={locale} variant={schoolType}>
+            {children}
+          </IntlayerClientProvider>
+        </IntlayerServerProvider>
+      );
+    }
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+    ```ts fileName="main.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { createApp } from "vue";
+    import { installIntlayer } from "vue-intlayer";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    installIntlayer(app, { locale: "en", variant: schoolType });
+
+    app.mount("#app");
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+    ```svelte fileName="+layout.svelte" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    <script lang="ts">
+    import { setupIntlayer } from "svelte-intlayer";
+
+    export let schoolType: string;
+
+    setupIntlayer("en", schoolType);
+    </script>
+
+    <slot />
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "preact-intlayer";
+
+    export const App = ({ locale, schoolType }) => (
+      <IntlayerProvider locale={locale} variant={schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "solid-intlayer";
+
+    export const App = (props) => (
+      <IntlayerProvider locale={props.locale} variant={props.schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+    ```typescript fileName="app.config.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { ApplicationConfig } from "@angular/core";
+    import { provideIntlayer } from "angular-intlayer";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [provideIntlayer("en", true, schoolType)],
+    };
+    ```
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+    ```javascript fileName="main.js"
+    import { installIntlayer } from "vanilla-intlayer";
+
+    installIntlayer({ locale: "en", variant: schoolType });
+    ```
+
+  </Tab>
+</Tabs>
+
+Setiap pembacaan kamus di bawah provider kini diselesaikan terhadap varian tersebut, dan selektor di titik pemanggilan selalu menang:
+
+```tsx
+useIntlayer("hero-banner");
+// → varian dari provider
+
+useIntlayer("hero-banner", { variant: "summer" });
+// → "summer" — menggantikan varian provider, bukan memperluasnya
+```
+
+### Bentuk
+
+Prop `variant` menerima tiga bentuk:
+
+| Bentuk                                                    | Arti                                   |
+| --------------------------------------------------------- | -------------------------------------- |
+| `variant="school1"`                                       | satu varian bernama untuk setiap kunci |
+| `variant={["school1", "default"]}`                        | rantai preferensi terurut              |
+| `variant={{ "hero-banner": "school1", default: "base" }}` | satu varian per kunci kamus            |
+
+#### Rantai preferensi
+
+Rantai dicoba dari kiri ke kanan terhadap entri yang dideklarasikan setiap kunci, dan yang pertama dideklarasikan menang. Bila tidak ada yang dideklarasikan, entri default implisit digunakan — persis seperti untuk nilai tunggal.
+
+```tsx
+<IntlayerProvider variant={["school1", "school2"]} />
+// `hero-banner` tidak mendeklarasikan entri `school1` tetapi mendeklarasikan `school2` → "school2"
+// kunci yang tidak mendeklarasikan keduanya → entri default
+```
+
+Jadi `["black_friday", "summer"]` dibaca sebagai «black friday jika kunci ini memilikinya, jika tidak summer, jika tidak default». Rantai juga diterima di titik pemanggilan:
+
+```tsx
+useIntlayer("hero-banner", { variant: ["black_friday", "summer"] });
+```
+
+> Perhatikan bahwa ini adalah kebalikan dari array yang diterima oleh **field** `variant` pada berkas konten: di sana array _mendeklarasikan_ satu entri per elemen, di sini ia _mengonsumsi_ entri tersebut sesuai urutan prioritas.
+
+#### Peta per kunci
+
+Alamatkan setiap kunci kamus secara terpisah. Entri `default` yang dicadangkan mencakup semua kunci yang tidak terdaftar:
+
+```tsx
+<IntlayerProvider
+  variant={{
+    "hero-banner": "school1",
+    product: ["school1", "default"],
+    default: "base",
+  }}
+/>
+```
+
+> Pada provider, objek biasa **selalu** dibaca sebagai peta per kunci, bukan sebagai varian objek — keduanya identik secara struktural. Untuk menetapkan varian objek secara global, sarangkan di bawah sebuah entri: `variant={{ default: { id: "prod_abc" } }}`.
+
+Karena kunci pada peta diperiksa terhadap kunci kamus yang Anda deklarasikan, salah ketik — atau varian objek yang ditulis langsung, seperti `variant={{ id: "prod_abc" }}` — adalah galat saat kompilasi.
 
 ## Mode pemuatan
 

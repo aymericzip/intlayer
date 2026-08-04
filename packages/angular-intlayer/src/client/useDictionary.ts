@@ -1,7 +1,7 @@
 import { computed, inject, type Signal } from '@angular/core';
+import { resolveDictionaryArgument } from '@intlayer/core/dictionaryManipulator';
 import type {
   Dictionary,
-  DictionarySelector,
   DictionarySelectorForGroup,
   QualifiedDictionaryGroup,
   ResolveQualifiedDictionaryContent,
@@ -34,20 +34,23 @@ export const useDictionary = <
 > => {
   const intlayer = inject<IntlayerProvider>(INTLAYER_TOKEN);
 
-  const isSelector =
-    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
-    typeof localeOrSelector === 'object' &&
-    localeOrSelector !== null;
-
   /** a *stable* reactive dictionary object */
   const content = computed(() => {
     const currentLocale = intlayer?.locale();
 
-    if (isSelector) {
-      return getDictionary(dictionary, {
-        ...localeOrSelector,
-        locale: localeOrSelector.locale ?? currentLocale,
-      } as A) as any;
+    if (process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false') {
+      // Layers the provider's locale and variant under the call-site argument.
+      // This is also the seam the build-time optimize transform lands on, which
+      // rewrites `useIntlayer('key', selector)` into `useDictionary(dict, …)`.
+      return getDictionary(
+        dictionary,
+        resolveDictionaryArgument({
+          localeOrSelector,
+          contextLocale: currentLocale,
+          contextVariant: intlayer?.variant?.(),
+          dictionaryKey: dictionary.key,
+        }) as A
+      ) as any;
     }
 
     return getDictionary(

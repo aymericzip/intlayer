@@ -1,22 +1,31 @@
 import { internationalization } from '@intlayer/config/built';
 import { setIntlayerIdentifier } from '@intlayer/config/client';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import type {
+  LocalesValues,
+  ProviderVariant,
+} from '@intlayer/types/module_augmentation';
 import { useEditor } from '../editor/useEditor';
 
 type LocaleListener = (locale: LocalesValues) => void;
 
 export class IntlayerClient {
   private _locale: LocalesValues;
+  private _variant: ProviderVariant | undefined;
   private _listeners: Set<LocaleListener> = new Set();
   isCookieEnabled: boolean;
 
-  constructor(locale?: LocalesValues, isCookieEnabled = true) {
+  constructor(
+    locale?: LocalesValues,
+    isCookieEnabled = true,
+    variant?: ProviderVariant
+  ) {
     const { defaultLocale } = internationalization ?? {};
 
     setIntlayerIdentifier();
 
     this._locale =
       (locale as LocalesValues) ?? (defaultLocale as LocalesValues);
+    this._variant = variant;
     this.isCookieEnabled = isCookieEnabled;
   }
 
@@ -24,10 +33,25 @@ export class IntlayerClient {
     return this._locale;
   }
 
+  /**
+   * Ambient variant applied to every dictionary read, the same way `locale` is.
+   * Overridden per call by an explicit selector.
+   */
+  get variant(): ProviderVariant | undefined {
+    return this._variant;
+  }
+
   setLocale(newLocale: LocalesValues): void {
     this._locale = newLocale;
     for (const listener of this._listeners) {
       listener(newLocale);
+    }
+  }
+
+  setVariant(newVariant: ProviderVariant | undefined): void {
+    this._variant = newVariant;
+    for (const listener of this._listeners) {
+      listener(this._locale);
     }
   }
 
@@ -49,10 +73,11 @@ let instance: IntlayerClient | null = null;
  */
 export const createIntlayerClient = (
   locale?: LocalesValues,
-  isCookieEnabled = true
+  isCookieEnabled = true,
+  variant?: ProviderVariant
 ): IntlayerClient => {
   if (instance) return instance;
-  instance = new IntlayerClient(locale, isCookieEnabled);
+  instance = new IntlayerClient(locale, isCookieEnabled, variant);
   return instance;
 };
 
@@ -77,6 +102,13 @@ export const getIntlayerClient = (): IntlayerClient => {
  *
  * @param locale - Initial locale (defaults to config defaultLocale).
  * @param isCookieEnabled - Whether to persist locale in cookies/localStorage.
+ * @param variant - Ambient variant applied to every dictionary read — for a
+ *   dimension fixed for the whole session (tenant, school type, plan tier…)
+ *   that no call site should have to pass by hand. Accepts a name
+ *   (`'school1'`), an ordered preference chain (`['school1', 'default']`), or a
+ *   per-key map (`{ key1: 'school1', default: 'base' }`). A plain object is
+ *   always the per-key map; nest a structured variant as
+ *   `{ default: { id: 'prod_abc' } }`. A call-site selector always wins.
  * @param config - Optional Intlayer configuration. When provided, sets
  *   `window.INTLAYER_CONFIG` with the browser-safe subset of the config so
  *   the application works without a Vite/webpack plugin alias.
@@ -98,11 +130,13 @@ export const getIntlayerClient = (): IntlayerClient => {
 export const installIntlayer = ({
   locale,
   isCookieEnabled,
+  variant,
 }: {
   locale?: LocalesValues;
   isCookieEnabled?: boolean;
+  variant?: ProviderVariant;
 } = {}): IntlayerClient => {
-  const client = createIntlayerClient(locale, isCookieEnabled);
+  const client = createIntlayerClient(locale, isCookieEnabled, variant);
 
   useEditor();
 

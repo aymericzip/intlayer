@@ -1,6 +1,9 @@
 'use client';
 
-import { getDictionarySelectorCacheKey } from '@intlayer/core/dictionaryManipulator';
+import {
+  getDictionarySelectorCacheKey,
+  resolveDictionaryArgument,
+} from '@intlayer/core/dictionaryManipulator';
 import type {
   DeclaredLocales,
   DictionaryKeys,
@@ -16,7 +19,11 @@ import { IntlayerClientContext } from './IntlayerProvider';
  * The second argument is either a locale or a selector object:
  * - `{ item: 2 }` — collection item (omit `item` to get every item as array)
  * - `{ variant: 'black-friday' }` — named variant (omit for the `default` one)
+ * - `{ variant: ['black-friday', 'promo'] }` — ordered preference chain
  * - `locale` composes with any selector and overrides the context locale
+ *
+ * `locale` and `variant` both fall back to the surrounding `IntlayerProvider`
+ * when the call does not pin them.
  *
  * @param key - The unique key of the dictionary to retrieve.
  * @param localeOrSelector - Optional locale or selector.
@@ -43,28 +50,32 @@ export const useIntlayer = <
   key: T,
   localeOrSelector?: A
 ) => {
-  const { locale: currentLocale } = useContext(IntlayerClientContext) ?? {};
+  const { locale: currentLocale, variant: contextVariant } =
+    useContext(IntlayerClientContext) ?? {};
 
-  const isSelector =
-    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
-    typeof localeOrSelector === 'object' &&
-    localeOrSelector !== null;
+  // Layers the provider's locale and variant under the call-site argument.
+  // Selectors disabled project-wide (build-time flag) ⇒ the argument can only
+  // be a locale, so the merge is dead code and is dropped by the bundler.
+  const argument =
+    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false'
+      ? resolveDictionaryArgument({
+          localeOrSelector,
+          contextLocale: currentLocale,
+          contextVariant,
+          dictionaryKey: key as string,
+        })
+      : (localeOrSelector ?? currentLocale);
 
-  // Stable identity of the second argument for memoization
-  const localeOrSelectorIdentity = isSelector
-    ? `${localeOrSelector.locale ?? ''}|${getDictionarySelectorCacheKey(localeOrSelector)}`
-    : localeOrSelector;
+  // Stable identity of the resolved argument for memoization — a provider
+  // variant is often a fresh object literal on every render, so the dependency
+  // has to be its serialization, never its reference.
+  const argumentIdentity =
+    typeof argument === 'object' && argument !== null
+      ? `${argument.locale ?? ''}|${getDictionarySelectorCacheKey(argument)}`
+      : argument;
 
-  return useMemo(() => {
-    if (isSelector) {
-      return getIntlayer(key, {
-        ...localeOrSelector,
-        locale: localeOrSelector.locale ?? currentLocale,
-      } as A);
-    }
-
-    const localeTarget = (localeOrSelector ?? currentLocale) as A;
-
-    return getIntlayer<T, A>(key, localeTarget);
-  }, [key, currentLocale, localeOrSelectorIdentity]);
+  return useMemo(
+    () => getIntlayer<T, A>(key, argument as A),
+    [key, argumentIdentity]
+  );
 };

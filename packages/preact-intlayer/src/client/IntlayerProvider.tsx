@@ -1,7 +1,10 @@
 import { internationalization } from '@intlayer/config/built';
 import { setIntlayerIdentifier } from '@intlayer/config/client';
 import { localeResolver } from '@intlayer/core/localization';
-import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import type {
+  LocalesValues,
+  ProviderVariant,
+} from '@intlayer/types/module_augmentation';
 import {
   type ComponentChild,
   createContext,
@@ -15,6 +18,11 @@ import { localeInStorage, setLocaleInStorage } from './useLocaleStorage';
 type IntlayerValue = {
   locale: LocalesValues;
   setLocale: (newLocale: LocalesValues) => void;
+  /**
+   * Ambient variant applied to every dictionary read below the provider, the
+   * same way `locale` is. Overridden per call by an explicit selector.
+   */
+  variant?: ProviderVariant;
   isCookieEnabled?: boolean;
 };
 
@@ -35,6 +43,24 @@ export type IntlayerProviderProps = {
   children?: ComponentChild;
   locale?: LocalesValues;
   defaultLocale?: LocalesValues;
+  /**
+   * Ambient variant applied to every dictionary read below this provider — for
+   * a dimension that is fixed for the whole session (tenant, school type, plan
+   * tier…) and that therefore no component should have to pass by hand.
+   *
+   * Accepts three forms:
+   * - `variant="school1"` — one named variant for every key
+   * - `variant={['school1', 'default']}` — an ordered preference chain: the
+   *   first variant the key actually declares wins
+   * - `variant={{ key1: 'school1', default: 'base' }}` — per dictionary key,
+   *   with `default` covering every key not listed
+   *
+   * A plain object is always read as the per-key map. To pin a structured
+   * variant globally, nest it: `variant={{ default: { id: 'prod_abc' } }}`.
+   *
+   * A call-site selector always wins.
+   */
+  variant?: ProviderVariant;
   setLocale?: (locale: LocalesValues) => void;
   isCookieEnabled?: boolean;
 };
@@ -47,6 +73,7 @@ export const IntlayerProviderContent: FunctionComponent<
 > = ({
   locale: localeProp,
   defaultLocale: defaultLocaleProp,
+  variant,
   children,
   setLocale: setLocaleProp,
   isCookieEnabled,
@@ -92,6 +119,7 @@ export const IntlayerProviderContent: FunctionComponent<
       value={{
         locale: resolvedLocale,
         setLocale,
+        variant,
         isCookieEnabled,
       }}
     >

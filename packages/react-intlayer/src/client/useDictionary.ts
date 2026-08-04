@@ -1,6 +1,9 @@
 'use client';
 
-import { getDictionarySelectorCacheKey } from '@intlayer/core/dictionaryManipulator';
+import {
+  getDictionarySelectorCacheKey,
+  resolveDictionaryArgument,
+} from '@intlayer/core/dictionaryManipulator';
 import type {
   Dictionary,
   DictionarySelectorForGroup,
@@ -16,7 +19,8 @@ import { IntlayerClientContext } from './IntlayerProvider';
  * group) and returns the content.
  *
  * If the locale is not provided (directly or through the selector), it will
- * use the locale from the client context.
+ * use the locale from the client context. The same applies to the variant,
+ * which falls back to the provider's ambient `variant`.
  */
 export const useDictionary = <
   const T extends Dictionary | QualifiedDictionaryGroup,
@@ -27,28 +31,33 @@ export const useDictionary = <
   dictionary: T,
   localeOrSelector?: A
 ) => {
-  const { locale: currentLocale } = useContext(IntlayerClientContext) ?? {};
+  const { locale: currentLocale, variant: contextVariant } =
+    useContext(IntlayerClientContext) ?? {};
 
-  const isSelector =
-    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
-    typeof localeOrSelector === 'object' &&
-    localeOrSelector !== null;
+  // Layers the provider's locale and variant under the call-site argument.
+  // This is the seam the build-time optimize transform lands on: it rewrites
+  // `useIntlayer('key', selector)` into `useDictionary(dict, selector)`, so an
+  // ambient variant has to be applied here to survive the rewrite.
+  const argument =
+    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false'
+      ? resolveDictionaryArgument({
+          localeOrSelector,
+          contextLocale: currentLocale,
+          contextVariant,
+          dictionaryKey: dictionary.key,
+        })
+      : (localeOrSelector ?? currentLocale);
 
-  // Stable identity of the second argument for memoization
-  const localeOrSelectorIdentity = isSelector
-    ? `${localeOrSelector.locale ?? ''}|${getDictionarySelectorCacheKey(localeOrSelector)}`
-    : localeOrSelector;
+  // Stable identity of the resolved argument for memoization — a provider
+  // variant is often a fresh object literal on every render, so the dependency
+  // has to be its serialization, never its reference.
+  const argumentIdentity =
+    typeof argument === 'object' && argument !== null
+      ? `${argument.locale ?? ''}|${getDictionarySelectorCacheKey(argument)}`
+      : argument;
 
-  return useMemo(() => {
-    if (isSelector) {
-      return getDictionary(dictionary, {
-        ...localeOrSelector,
-        locale: localeOrSelector.locale ?? currentLocale,
-      } as A);
-    }
-
-    const localeTarget = (localeOrSelector ?? currentLocale) as A;
-
-    return getDictionary<T, A>(dictionary, localeTarget);
-  }, [dictionary.key, currentLocale, localeOrSelectorIdentity]);
+  return useMemo(
+    () => getDictionary<T, A>(dictionary, argument as A),
+    [dictionary.key, argumentIdentity]
+  );
 };

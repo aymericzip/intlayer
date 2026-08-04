@@ -146,6 +146,47 @@ export type DictionaryQualifierType = 'variant' | 'item';
 export type DictionaryVariantValue = string | Record<string, string | number>;
 
 /**
+ * A variant coordinate as pinned by a **selector** (or by a provider default):
+ * one value, or an **ordered preference chain**.
+ *
+ * A chain is tried left to right against the entries the key declares, and the
+ * first declared one wins; when none is declared the implicit `default` entry
+ * is used, exactly as for a single value. So `['black-friday', 'promo']` reads
+ * as "black-friday if this key has one, else promo, else default".
+ *
+ * Note this is the mirror image of the array accepted by the `variant` field of
+ * a {@link Dictionary}: there an array **declares** one entry per element
+ * (fan-out), here it **consumes** them in priority order.
+ */
+export type DictionaryVariantChain =
+  | DictionaryVariantValue
+  | readonly DictionaryVariantValue[];
+
+/**
+ * Variant default carried by a framework provider (`<IntlayerProvider variant>`)
+ * and applied to every dictionary read below it, the way `locale` already is.
+ *
+ * Three forms:
+ * - `'school1'` — one named variant for every key
+ * - `['school1', 'default']` — an ordered {@link DictionaryVariantChain}
+ * - `{ key1: 'school1', default: 'base' }` — per dictionary key, with the
+ *   reserved `default` entry covering every key not listed
+ *
+ * On a provider a plain object is **always** read as the per-key map, never as
+ * a structured variant value — the two are structurally identical. To pin a
+ * structured variant globally, nest it under an entry:
+ * `variant={{ default: { id: 'prod_abc' } }}`.
+ */
+export type ProviderVariantMap<Key extends string = DictionaryKey> = Partial<
+  Record<Key | 'default', DictionaryVariantChain>
+>;
+
+export type ProviderVariant<Key extends string = DictionaryKey> =
+  | string
+  | readonly DictionaryVariantValue[]
+  | ProviderVariantMap<Key>;
+
+/**
  * Output of the merge step for a key whose dictionaries declare one or more
  * qualifier dimensions (`variant`, `item`).
  *
@@ -193,6 +234,8 @@ export type QualifiedDictionaryGroup = {
  *
  * - `{ item: 2 }` selects a collection item (1-based index)
  * - `{ variant: 'black-friday' }` selects a named variant
+ * - `{ variant: ['black-friday', 'promo'] }` selects the first of an ordered
+ *   preference chain that the key actually declares
  * - `{ variant: { id: 'prod_abc', userId: '123' } }` selects a structured
  *   variant; the object must equal the variant declared on the dictionary
  * - `locale` composes with any of the above and overrides the context locale
@@ -204,7 +247,7 @@ export type DictionarySelector = {
    */
   locale?: DeclaredLocales;
   item?: number;
-  variant?: DictionaryVariantValue;
+  variant?: DictionaryVariantChain;
 };
 
 type QualifiedEntryContent<Entry> = Entry extends { content: infer Content }
@@ -283,12 +326,20 @@ type CoordinateEquals<Left, Right> = [StringifyCoordinate<Left>] extends [
  * precisely; an object variant broadens to `string` (it matches any declared
  * variant entry, since the object identity is not reconstructable at the type
  * level). An absent selector defaults to the `'default'` variant.
+ *
+ * A {@link DictionaryVariantChain} broadens to the **union** of its entries:
+ * which one wins depends on what the key declares, which is a runtime fact, so
+ * the content type is the union of every outcome the chain can produce.
  */
 type SelectorVariant<Selector> = 'variant' extends keyof Selector
   ? Selector['variant' & keyof Selector] extends infer Variant
-    ? Variant extends string
-      ? Variant
-      : string
+    ? Variant extends readonly (infer ChainEntry)[]
+      ? ChainEntry extends string
+        ? ChainEntry
+        : string
+      : Variant extends string
+        ? Variant
+        : string
     : never
   : 'default';
 
@@ -526,6 +577,11 @@ type HasDefaultVariant<T> =
  *   never accepted in their serialized string form (`'id=abc&userId=123'`) —
  *   that is a storage encoding, not part of the API.
  */
+type SelectableVariantsOf<T, KnownVariants> =
+  | NamedVariantIds<EntryVariant<GroupEntryUnion<T>>>
+  | (HasDefaultVariant<T> extends true ? KnownVariants : never)
+  | DictionaryObjectVariantsOf<T>;
+
 export type DictionarySelectorForGroup<T, KnownVariants = DeclaredVariants> = [
   GroupEntryUnion<T>,
 ] extends [never]
@@ -535,10 +591,13 @@ export type DictionarySelectorForGroup<T, KnownVariants = DeclaredVariants> = [
     ]
       ? unknown
       : {
+          /**
+           * One variant, or an ordered preference chain of them — every value
+           * accepted alone is also accepted as a chain entry.
+           */
           variant?:
-            | NamedVariantIds<EntryVariant<GroupEntryUnion<T>>>
-            | (HasDefaultVariant<T> extends true ? KnownVariants : never)
-            | DictionaryObjectVariantsOf<T>;
+            | SelectableVariantsOf<T, KnownVariants>
+            | readonly SelectableVariantsOf<T, KnownVariants>[];
         }) &
       ([EntryItem<GroupEntryUnion<T>>] extends [never]
         ? unknown

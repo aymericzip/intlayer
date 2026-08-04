@@ -3,12 +3,10 @@ import {
   isQualifiedDynamicLoaderMap,
   parseDictionarySelector,
   type QualifiedDynamicLoaderMap,
+  resolveDictionaryArgument,
   resolveQualifiedDynamicContentAsync,
 } from '@intlayer/core/dictionaryManipulator';
-import type {
-  Dictionary,
-  DictionarySelector,
-} from '@intlayer/types/dictionary';
+import type { Dictionary } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
   DictionaryKeys,
@@ -120,7 +118,16 @@ export const useDictionaryDynamic = <
     isQualifiedDynamicLoaderMap(dictionaryPromise);
   const { locale: explicitLocale, selector } =
     process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false'
-      ? parseDictionarySelector<LocalesValues>(localeOrSelector)
+      ? parseDictionarySelector<LocalesValues>(
+          // Layers the client's ambient variant under the call-site argument
+          // before the chunk walk, so only the targeted chunk is loaded.
+          resolveDictionaryArgument({
+            localeOrSelector,
+            contextLocale: client.locale,
+            contextVariant: client.variant,
+            dictionaryKey: String(key),
+          })
+        )
       : {
           locale: localeOrSelector as LocalesValues | undefined,
           selector: undefined,

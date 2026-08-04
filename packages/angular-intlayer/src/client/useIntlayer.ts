@@ -1,5 +1,5 @@
 import { computed, inject, type Signal } from '@angular/core';
-import type { DictionarySelector } from '@intlayer/types/dictionary';
+import { resolveDictionaryArgument } from '@intlayer/core/dictionaryManipulator';
 import type {
   DeclaredLocales,
   DictionaryKeys,
@@ -57,21 +57,22 @@ export const useIntlayer = <
 > => {
   const intlayer = inject<IntlayerProvider>(INTLAYER_TOKEN)!;
 
-  const isSelector =
-    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
-    typeof localeOrSelector === 'object' &&
-    localeOrSelector !== null;
-
   /** a *stable* reactive dictionary object */
   // @ts-ignore Type instantiation is excessively deep and possibly infinite
   const content = computed(() => {
     const currentLocale = intlayer.locale();
 
-    if (isSelector) {
-      return getIntlayer(key, {
-        ...localeOrSelector,
-        locale: localeOrSelector.locale ?? currentLocale,
-      } as A) as any;
+    if (process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false') {
+      // Layers the provider's locale and variant under the call-site argument.
+      return getIntlayer(
+        key,
+        resolveDictionaryArgument({
+          localeOrSelector,
+          contextLocale: currentLocale,
+          contextVariant: intlayer.variant?.(),
+          dictionaryKey: key as string,
+        }) as A
+      ) as any;
     }
 
     return getIntlayer(key, (localeOrSelector ?? currentLocale) as A) as any;

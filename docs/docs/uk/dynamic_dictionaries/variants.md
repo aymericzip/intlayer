@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-06-26
+updatedAt: 2026-08-04
 title: Варіанти
 description: Використовуйте поле метаданих variant у файлах контенту Intlayer, щоб оголошувати іменовані або структуровані альтернативи контенту — A/B-тести, сезонні банери, тексти під feature-прапорцями, записи CMS, контент конкретного користувача — і перемикатися між ними під час виконання без змін коду.
 keywords:
@@ -26,6 +26,9 @@ history:
   - version: 9.1.1
     date: 2026-07-31
     changes: "Варіант оголошує лише ключі, які він перевизначає; неоголошені варіанти повертаються до запису за замовчуванням"
+  - version: 9.1.2
+    date: 2026-08-04
+    changes: "Провайдери приймають зовнішній проп `variant`; селектори приймають упорядкований ланцюжок переваг"
 author: aymericzip
 ---
 
@@ -497,6 +500,176 @@ const content = useIntlayer("product", {
 // Повертає null: відсутній `userId`, тож об'єкт не збігається з оголошеним варіантом
 const content = useIntlayer("product", { variant: { id: "prod_abc" } });
 ```
+
+## Зовнішній варіант
+
+Деякі виміри варіанта незмінні протягом усієї сесії — орендар, тип навчального закладу, тарифний рівень. Вони визначаються один раз, і жоден компонент не має передавати їх вручну.
+
+> Не загортайте `useIntlayer` у власний хук, щоб їх підставити. Оптимізація під час збірки переписує лише літеральний виклик `useIntlayer("key")`, імпортований з пакета фреймворку, тож ніщо за обгорткою не потрапить до бандла.
+
+Натомість оголосіть варіант один раз на провайдері, так само як `locale`:
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "react-intlayer";
+
+    export const App = ({ locale, schoolType }) => (
+      <IntlayerProvider locale={locale} variant={schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+    ```tsx fileName="layout.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerServerProvider } from "next-intlayer/server";
+    import { IntlayerClientProvider } from "next-intlayer";
+
+    export default async function Layout({ children, params }) {
+      const { locale } = await params;
+      const schoolType = await getSchoolType();
+
+      return (
+        <IntlayerServerProvider locale={locale} variant={schoolType}>
+          <IntlayerClientProvider locale={locale} variant={schoolType}>
+            {children}
+          </IntlayerClientProvider>
+        </IntlayerServerProvider>
+      );
+    }
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+    ```ts fileName="main.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { createApp } from "vue";
+    import { installIntlayer } from "vue-intlayer";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    installIntlayer(app, { locale: "en", variant: schoolType });
+
+    app.mount("#app");
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+    ```svelte fileName="+layout.svelte" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    <script lang="ts">
+    import { setupIntlayer } from "svelte-intlayer";
+
+    export let schoolType: string;
+
+    setupIntlayer("en", schoolType);
+    </script>
+
+    <slot />
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "preact-intlayer";
+
+    export const App = ({ locale, schoolType }) => (
+      <IntlayerProvider locale={locale} variant={schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "solid-intlayer";
+
+    export const App = (props) => (
+      <IntlayerProvider locale={props.locale} variant={props.schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+    ```typescript fileName="app.config.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { ApplicationConfig } from "@angular/core";
+    import { provideIntlayer } from "angular-intlayer";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [provideIntlayer("en", true, schoolType)],
+    };
+    ```
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+    ```javascript fileName="main.js"
+    import { installIntlayer } from "vanilla-intlayer";
+
+    installIntlayer({ locale: "en", variant: schoolType });
+    ```
+
+  </Tab>
+</Tabs>
+
+Тепер кожне читання словника під провайдером розв'язується з цим варіантом, а селектор у місці виклику завжди перемагає:
+
+```tsx
+useIntlayer("hero-banner");
+// → варіант провайдера
+
+useIntlayer("hero-banner", { variant: "summer" });
+// → "summer" — замінює варіант провайдера, а не доповнює його
+```
+
+### Форми
+
+Проп `variant` приймає три форми:
+
+| Форма                                                     | Значення                                |
+| --------------------------------------------------------- | --------------------------------------- |
+| `variant="school1"`                                       | один іменований варіант для всіх ключів |
+| `variant={["school1", "default"]}`                        | упорядкований ланцюжок переваг          |
+| `variant={{ "hero-banner": "school1", default: "base" }}` | свій варіант для кожного ключа словника |
+
+#### Ланцюжок переваг
+
+Ланцюжок перебирається зліва направо за записами, які оголошує кожен ключ, і перемагає перший оголошений. Якщо не оголошено жодного, використовується неявний запис за замовчуванням — так само, як для одиничного значення.
+
+```tsx
+<IntlayerProvider variant={["school1", "school2"]} />
+// `hero-banner` не оголошує запис `school1`, але оголошує `school2` → "school2"
+// ключ, що не оголошує жодного з них → запис за замовчуванням
+```
+
+Отже, `["black_friday", "summer"]` читається як «black friday, якщо цей ключ його має, інакше summer, інакше за замовчуванням». Ланцюжки також приймаються в місці виклику:
+
+```tsx
+useIntlayer("hero-banner", { variant: ["black_friday", "summer"] });
+```
+
+> Зверніть увагу: це дзеркальне відображення масиву, який приймає **поле** `variant` файлу контенту: там масив _оголошує_ по одному запису на елемент, тут він _споживає_ їх у порядку пріоритету.
+
+#### Відображення за ключами
+
+Звертайтеся до кожного ключа словника окремо. Зарезервований запис `default` покриває всі неперелічені ключі:
+
+```tsx
+<IntlayerProvider
+  variant={{
+    "hero-banner": "school1",
+    product: ["school1", "default"],
+    default: "base",
+  }}
+/>
+```
+
+> На провайдері звичайний об'єкт **завжди** читається як відображення за ключами, а не як об'єктний варіант — вони структурно ідентичні. Щоб задати об'єктний варіант глобально, вкладіть його в запис: `variant={{ default: { id: "prod_abc" } }}`.
+
+Оскільки ключі відображення звіряються з оголошеними ключами словників, друкарська помилка — або об'єктний варіант, записаний напряму, як-от `variant={{ id: "prod_abc" }}` — призводить до помилки компіляції.
 
 ## Режим завантаження
 

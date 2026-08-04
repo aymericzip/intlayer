@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-06-26
+updatedAt: 2026-08-04
 title: Biến thể
 description: Dùng trường metadata variant trong các tệp nội dung Intlayer để khai báo các lựa chọn nội dung được đặt tên hoặc có cấu trúc — thử nghiệm A/B, banner theo mùa, nội dung gắn feature flag, bản ghi CMS, nội dung riêng theo người dùng — và chuyển đổi giữa chúng trong thời gian chạy mà không cần đổi mã.
 keywords:
@@ -26,6 +26,9 @@ history:
   - version: 9.1.1
     date: 2026-07-31
     changes: "Biến thể chỉ khai báo các khóa mà nó ghi đè; các biến thể không được khai báo sẽ quay lại mục mặc định"
+  - version: 9.1.2
+    date: 2026-08-04
+    changes: "Provider chấp nhận prop `variant` bao trùm; bộ chọn chấp nhận chuỗi ưu tiên có thứ tự"
 author: aymericzip
 ---
 
@@ -497,6 +500,176 @@ const content = useIntlayer("product", {
 // Trả về null: thiếu `userId`, nên đối tượng không khớp với biến thể đã khai báo
 const content = useIntlayer("product", { variant: { id: "prod_abc" } });
 ```
+
+## Biến thể bao trùm
+
+Một số chiều biến thể cố định trong suốt phiên làm việc — tenant, loại trường học, hạng gói. Chúng được xác định một lần, và không component nào phải truyền chúng thủ công.
+
+> Đừng bọc `useIntlayer` trong hook riêng của bạn để chèn chúng. Tối ưu hóa lúc build chỉ viết lại lời gọi `useIntlayer("key")` dạng literal được import từ gói framework, nên mọi thứ nằm sau một lớp bọc sẽ không được đóng gói.
+
+Thay vào đó, hãy khai báo biến thể một lần trên provider, y như `locale`:
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "react-intlayer";
+
+    export const App = ({ locale, schoolType }) => (
+      <IntlayerProvider locale={locale} variant={schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+    ```tsx fileName="layout.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerServerProvider } from "next-intlayer/server";
+    import { IntlayerClientProvider } from "next-intlayer";
+
+    export default async function Layout({ children, params }) {
+      const { locale } = await params;
+      const schoolType = await getSchoolType();
+
+      return (
+        <IntlayerServerProvider locale={locale} variant={schoolType}>
+          <IntlayerClientProvider locale={locale} variant={schoolType}>
+            {children}
+          </IntlayerClientProvider>
+        </IntlayerServerProvider>
+      );
+    }
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+    ```ts fileName="main.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { createApp } from "vue";
+    import { installIntlayer } from "vue-intlayer";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    installIntlayer(app, { locale: "en", variant: schoolType });
+
+    app.mount("#app");
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+    ```svelte fileName="+layout.svelte" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    <script lang="ts">
+    import { setupIntlayer } from "svelte-intlayer";
+
+    export let schoolType: string;
+
+    setupIntlayer("en", schoolType);
+    </script>
+
+    <slot />
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "preact-intlayer";
+
+    export const App = ({ locale, schoolType }) => (
+      <IntlayerProvider locale={locale} variant={schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "solid-intlayer";
+
+    export const App = (props) => (
+      <IntlayerProvider locale={props.locale} variant={props.schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+    ```typescript fileName="app.config.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { ApplicationConfig } from "@angular/core";
+    import { provideIntlayer } from "angular-intlayer";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [provideIntlayer("en", true, schoolType)],
+    };
+    ```
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+    ```javascript fileName="main.js"
+    import { installIntlayer } from "vanilla-intlayer";
+
+    installIntlayer({ locale: "en", variant: schoolType });
+    ```
+
+  </Tab>
+</Tabs>
+
+Mọi lần đọc từ điển bên dưới provider giờ đây được phân giải theo biến thể đó, và bộ chọn tại nơi gọi luôn thắng:
+
+```tsx
+useIntlayer("hero-banner");
+// → biến thể của provider
+
+useIntlayer("hero-banner", { variant: "summer" });
+// → "summer" — thay thế biến thể của provider, không mở rộng nó
+```
+
+### Các dạng
+
+Prop `variant` chấp nhận ba dạng:
+
+| Dạng                                                      | Ý nghĩa                           |
+| --------------------------------------------------------- | --------------------------------- |
+| `variant="school1"`                                       | một biến thể có tên cho mọi khóa  |
+| `variant={["school1", "default"]}`                        | một chuỗi ưu tiên có thứ tự       |
+| `variant={{ "hero-banner": "school1", default: "base" }}` | một biến thể cho mỗi khóa từ điển |
+
+#### Chuỗi ưu tiên
+
+Chuỗi được thử từ trái sang phải theo các mục mà mỗi khóa khai báo, và mục được khai báo đầu tiên sẽ thắng. Khi không có mục nào được khai báo, mục mặc định ngầm định sẽ được dùng — hệt như với một giá trị đơn.
+
+```tsx
+<IntlayerProvider variant={["school1", "school2"]} />
+// `hero-banner` không khai báo mục `school1` nhưng có khai báo `school2` → "school2"
+// một khóa không khai báo mục nào trong hai → mục mặc định
+```
+
+Vậy `["black_friday", "summer"]` đọc là «black friday nếu khóa này có, nếu không thì summer, nếu không nữa thì mặc định». Chuỗi cũng được chấp nhận tại nơi gọi:
+
+```tsx
+useIntlayer("hero-banner", { variant: ["black_friday", "summer"] });
+```
+
+> Lưu ý đây là hình ảnh phản chiếu của mảng được **trường** `variant` trong tệp nội dung chấp nhận: ở đó một mảng _khai báo_ mỗi phần tử một mục, còn ở đây nó _tiêu thụ_ chúng theo thứ tự ưu tiên.
+
+#### Ánh xạ theo khóa
+
+Chỉ định riêng từng khóa từ điển. Mục `default` được dành riêng sẽ bao phủ mọi khóa không được liệt kê:
+
+```tsx
+<IntlayerProvider
+  variant={{
+    "hero-banner": "school1",
+    product: ["school1", "default"],
+    default: "base",
+  }}
+/>
+```
+
+> Trên provider, một object thuần **luôn** được đọc là ánh xạ theo khóa, không bao giờ là biến thể object — hai thứ này giống hệt nhau về cấu trúc. Để cố định một biến thể object trên toàn cục, hãy lồng nó dưới một mục: `variant={{ default: { id: "prod_abc" } }}`.
+
+Vì các khóa của ánh xạ được đối chiếu với các khóa từ điển bạn đã khai báo, một lỗi gõ nhầm — hoặc một biến thể object viết trực tiếp, chẳng hạn `variant={{ id: "prod_abc" }}` — sẽ là lỗi biên dịch.
 
 ## Chế độ tải
 

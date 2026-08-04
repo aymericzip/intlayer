@@ -1,6 +1,7 @@
 import {
   isQualifiedDynamicLoaderMap,
   type QualifiedDynamicLoaderMap,
+  resolveProviderVariant,
   resolveQualifiedDynamicContentAsync,
 } from '@intlayer/core/dictionaryManipulator';
 import type {
@@ -98,9 +99,20 @@ export function useDictionaryDynamic<
     process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
     typeof localeOrSelector === 'object' &&
     localeOrSelector !== null;
-  const selector = isSelector
+  const callSelector = isSelector
     ? (localeOrSelector as DictionarySelector)
     : undefined;
+
+  // Layers the provider's ambient variant under the call-site selector, so only
+  // the targeted chunk is loaded. A call-site variant always wins.
+  const variant =
+    callSelector?.variant ?? resolveProviderVariant(context?.variant, key);
+
+  const selector =
+    variant !== undefined
+      ? ({ ...callSelector, variant } as DictionarySelector)
+      : callSelector;
+
   const explicitLocale = isSelector
     ? (localeOrSelector as DictionarySelector).locale
     : (localeOrSelector as LocalesValues | undefined);

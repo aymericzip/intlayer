@@ -2,7 +2,10 @@ import type {
   Dictionary,
   DictionaryQualifierType,
   DictionarySelector,
+  DictionaryVariantChain,
   DictionaryVariantValue,
+  ProviderVariant,
+  ProviderVariantMap,
   QualifiedDictionaryGroup,
 } from '@intlayer/types/dictionary';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
@@ -179,26 +182,55 @@ export const getDictionaryCompositeIds = (
 };
 
 /**
+ * Serializes the variant coordinate of a selector into the ordered list of
+ * candidate ids to try, so a single value and a preference chain share one code
+ * path downstream.
+ *
+ * - `undefined` → `['default']`
+ * - a single value → its one serialization
+ * - a chain → one serialization per entry, order preserved
+ *
+ * An empty chain is treated as "no variant pinned" (`['default']`) rather than
+ * as an unsatisfiable request.
+ */
+export const serializeVariantChain = (
+  variant: DictionaryVariantChain | undefined
+): string[] => {
+  if (!Array.isArray(variant)) {
+    return [serializeVariant(variant as DictionaryVariantValue | undefined)];
+  }
+
+  if (variant.length === 0) return [DEFAULT_VARIANT_ID];
+
+  return variant.map(serializeVariant);
+};
+
+/**
  * Resolves the variant id a selector actually targets among the ids a key
  * declares — the sparse-override fallback.
  *
- * The requested id wins when the key declares it. Otherwise the key falls back
- * to its `default` entry, so a variant only has to be declared where its
- * wording differs. When the key declares no `default` either, the requested id
- * is returned unchanged and the caller resolves to `null` / `[]`.
+ * Candidates are tried in order and the first one the key declares wins.
+ * Otherwise the key falls back to its `default` entry, so a variant only has to
+ * be declared where its wording differs. When the key declares no `default`
+ * either, the first candidate is returned unchanged and the caller resolves to
+ * `null` / `[]`.
  *
- * @param requestedVariantId - The serialized variant id the selector asks for.
+ * @param requestedVariantIds - The serialized ids the selector asks for, in
+ *                              preference order (a single value is a 1-element
+ *                              list).
  * @param isVariantIdDeclared - Whether the key declares an entry for an id.
  */
 const resolveEffectiveVariantId = (
-  requestedVariantId: string,
+  requestedVariantIds: string[],
   isVariantIdDeclared: (variantId: string) => boolean
 ): string => {
-  if (isVariantIdDeclared(requestedVariantId)) return requestedVariantId;
+  for (const requestedVariantId of requestedVariantIds) {
+    if (isVariantIdDeclared(requestedVariantId)) return requestedVariantId;
+  }
 
   return isVariantIdDeclared(DEFAULT_VARIANT_ID)
     ? DEFAULT_VARIANT_ID
-    : requestedVariantId;
+    : (requestedVariantIds[0] ?? DEFAULT_VARIANT_ID);
 };
 
 /**
@@ -311,7 +343,7 @@ export const resolveQualifiedDictionary = (
     variantIndex === -1
       ? DEFAULT_VARIANT_ID
       : resolveEffectiveVariantId(
-          serializeVariant(selector?.variant),
+          serializeVariantChain(selector?.variant),
           (variantId) =>
             compositeIds.some(
               (compositeId) =>
@@ -360,6 +392,88 @@ export const parseDictionarySelector = <L extends LocalesValues>(
 };
 
 /**
+ * Resolves the variant a provider pins for one dictionary key.
+ *
+ * A string or a chain applies to every key as-is. A plain object is the per-key
+ * map: the entry for `dictionaryKey` wins, falling back to the reserved
+ * `default` entry, and `undefined` when neither is present (the key then
+ * resolves to its own `default` variant, i.e. the behaviour without a provider
+ * variant at all).
+ *
+ * A plain object is **always** the map here — never a structured variant value,
+ * which is why a structured variant has to be nested (`{ default: { id } }`).
+ *
+ * @param providerVariant - The `variant` prop of the surrounding provider.
+ * @param dictionaryKey - The key being read.
+ */
+export const resolveProviderVariant = (
+  providerVariant: ProviderVariant | undefined,
+  dictionaryKey: string
+): DictionaryVariantChain | undefined => {
+  if (providerVariant === undefined) return undefined;
+
+  if (typeof providerVariant === 'string' || Array.isArray(providerVariant)) {
+    return providerVariant as DictionaryVariantChain;
+  }
+
+  const variantMap = providerVariant as ProviderVariantMap;
+
+  return variantMap[dictionaryKey] ?? variantMap[DEFAULT_VARIANT_ID];
+};
+
+/**
+ * Builds the effective second argument of a dictionary read by layering the
+ * provider defaults under the call-site one — the single place the `locale` and
+ * `variant` context defaults are applied, shared by every framework binding.
+ *
+ * Precedence, per dimension independently:
+ * - a call-site selector always wins; `{ variant: 'x' }` **replaces** the
+ *   provider chain rather than extending it
+ * - otherwise the provider value applies
+ *
+ * Returns a bare locale (not a selector object) whenever no variant is in play,
+ * so the existing fast path — and the cache keys built from it — are unchanged
+ * for projects that never use variants.
+ */
+export const resolveDictionaryArgument = (params: {
+  localeOrSelector?: LocalesValues | DictionarySelector;
+  contextLocale?: LocalesValues;
+  contextVariant?: ProviderVariant;
+  dictionaryKey: string;
+}): LocalesValues | DictionarySelector | undefined => {
+  const { localeOrSelector, contextLocale, contextVariant, dictionaryKey } =
+    params;
+
+  const callSelector =
+    typeof localeOrSelector === 'object' && localeOrSelector !== null
+      ? localeOrSelector
+      : undefined;
+
+  const callLocale = callSelector
+    ? callSelector.locale
+    : (localeOrSelector as LocalesValues | undefined);
+
+  // The context locale is typed as widely as the runtime allows, while a
+  // selector narrows `locale` to the declared ones — the value is the same.
+  const locale = (callLocale ?? contextLocale) as DictionarySelector['locale'];
+
+  // A call-site variant is authoritative; the provider only fills the gap.
+  const variant =
+    callSelector?.variant ??
+    resolveProviderVariant(contextVariant, dictionaryKey);
+
+  if (variant === undefined) {
+    // Nothing to add: keep the argument in its original shape so the identity
+    // built from it stays byte-identical to the pre-variant behaviour.
+    return callSelector
+      ? { ...callSelector, locale }
+      : (locale as LocalesValues | undefined);
+  }
+
+  return { ...callSelector, locale, variant };
+};
+
+/**
  * Builds a stable string identity of a selector (excluding `locale`), suitable
  * for cache keys and memoization dependencies.
  */
@@ -375,7 +489,9 @@ export const getDictionarySelectorCacheKey = (
       const value = selector[selectorKey as keyof DictionarySelector];
       const serialized =
         selectorKey === 'variant'
-          ? serializeVariant(value as Parameters<typeof serializeVariant>[0])
+          ? serializeVariantChain(
+              value as DictionaryVariantChain | undefined
+            ).join(',')
           : String(value);
       return `${selectorKey}:${serialized}`;
     })
@@ -501,7 +617,7 @@ const collectQualifiedChunks = (
     const segment =
       dimension === 'variant'
         ? resolveEffectiveVariantId(
-            serializeVariant(selector?.variant),
+            serializeVariantChain(selector?.variant),
             (variantId) => tree[variantId] !== undefined
           )
         : String(selector?.item);

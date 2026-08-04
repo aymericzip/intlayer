@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-06-26
+updatedAt: 2026-08-04
 title: Varyantlar
 description: Adlandırılmış veya yapılandırılmış içerik alternatifleri — A/B testleri, sezonluk afişler, özellik bayraklı metin, CMS kayıtları, kullanıcıya özel içerik — bildirmek ve kod değişikliği olmadan çalışma zamanında aralarında geçiş yapmak için Intlayer içerik dosyalarında variant meta veri alanını kullanın.
 keywords:
@@ -26,6 +26,9 @@ history:
   - version: 9.1.1
     date: 2026-07-31
     changes: "Bir varyant yalnızca geçersiz kıldığı anahtarları bildirir; bildirilmemiş varyantlar varsayılan girdiye geri döner"
+  - version: 9.1.2
+    date: 2026-08-04
+    changes: "Sağlayıcılar ortam düzeyinde bir `variant` prop'u kabul eder; seçiciler sıralı bir tercih zinciri kabul eder"
 author: aymericzip
 ---
 
@@ -497,6 +500,176 @@ const content = useIntlayer("product", {
 // null döndürür: `userId` eksik, bu nedenle nesne bildirilen varyantla eşleşmiyor
 const content = useIntlayer("product", { variant: { id: "prod_abc" } });
 ```
+
+## Ortam varyantı
+
+Bazı varyant boyutları tüm oturum boyunca sabittir — kiracı, okul türü, plan seviyesi. Bir kez çözümlenirler ve hiçbir bileşenin bunları elle geçirmesi gerekmemelidir.
+
+> Bunları enjekte etmek için `useIntlayer`'ı kendi hook'unuza sarmayın. Derleme zamanı optimizasyonu yalnızca framework paketinden içe aktarılan düz bir `useIntlayer("key")` çağrısını yeniden yazar; bir sarmalayıcının arkasındaki hiçbir şey paketlenmez.
+
+Bunun yerine varyantı sağlayıcıda bir kez bildirin, tıpkı `locale` gibi:
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "react-intlayer";
+
+    export const App = ({ locale, schoolType }) => (
+      <IntlayerProvider locale={locale} variant={schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+    ```tsx fileName="layout.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerServerProvider } from "next-intlayer/server";
+    import { IntlayerClientProvider } from "next-intlayer";
+
+    export default async function Layout({ children, params }) {
+      const { locale } = await params;
+      const schoolType = await getSchoolType();
+
+      return (
+        <IntlayerServerProvider locale={locale} variant={schoolType}>
+          <IntlayerClientProvider locale={locale} variant={schoolType}>
+            {children}
+          </IntlayerClientProvider>
+        </IntlayerServerProvider>
+      );
+    }
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+    ```ts fileName="main.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { createApp } from "vue";
+    import { installIntlayer } from "vue-intlayer";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    installIntlayer(app, { locale: "en", variant: schoolType });
+
+    app.mount("#app");
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+    ```svelte fileName="+layout.svelte" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    <script lang="ts">
+    import { setupIntlayer } from "svelte-intlayer";
+
+    export let schoolType: string;
+
+    setupIntlayer("en", schoolType);
+    </script>
+
+    <slot />
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "preact-intlayer";
+
+    export const App = ({ locale, schoolType }) => (
+      <IntlayerProvider locale={locale} variant={schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "solid-intlayer";
+
+    export const App = (props) => (
+      <IntlayerProvider locale={props.locale} variant={props.schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+    ```typescript fileName="app.config.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { ApplicationConfig } from "@angular/core";
+    import { provideIntlayer } from "angular-intlayer";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [provideIntlayer("en", true, schoolType)],
+    };
+    ```
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+    ```javascript fileName="main.js"
+    import { installIntlayer } from "vanilla-intlayer";
+
+    installIntlayer({ locale: "en", variant: schoolType });
+    ```
+
+  </Tab>
+</Tabs>
+
+Sağlayıcının altındaki her sözlük okuması artık bu varyanta göre çözümlenir ve çağrı noktasındaki bir seçici her zaman kazanır:
+
+```tsx
+useIntlayer("hero-banner");
+// → sağlayıcının varyantı
+
+useIntlayer("hero-banner", { variant: "summer" });
+// → "summer" — sağlayıcı varyantının yerini alır, onu genişletmez
+```
+
+### Biçimler
+
+`variant` prop'u üç biçim kabul eder:
+
+| Biçim                                                     | Anlamı                                         |
+| --------------------------------------------------------- | ---------------------------------------------- |
+| `variant="school1"`                                       | her anahtar için tek bir adlandırılmış varyant |
+| `variant={["school1", "default"]}`                        | sıralı bir tercih zinciri                      |
+| `variant={{ "hero-banner": "school1", default: "base" }}` | sözlük anahtarı başına bir varyant             |
+
+#### Tercih zinciri
+
+Zincir, her anahtarın bildirdiği girdilere karşı soldan sağa denenir ve bildirilen ilk girdi kazanır. Hiçbiri bildirilmemişse örtük varsayılan girdi kullanılır — tıpkı tek bir değerde olduğu gibi.
+
+```tsx
+<IntlayerProvider variant={["school1", "school2"]} />
+// `hero-banner` bir `school1` girdisi bildirmez ama `school2` bildirir → "school2"
+// ikisini de bildirmeyen bir anahtar → varsayılan girdi
+```
+
+Yani `["black_friday", "summer"]` şöyle okunur: «bu anahtarda varsa black friday, yoksa summer, o da yoksa varsayılan». Zincirler çağrı noktasında da kabul edilir:
+
+```tsx
+useIntlayer("hero-banner", { variant: ["black_friday", "summer"] });
+```
+
+> Bunun, bir içerik dosyasının `variant` **alanının** kabul ettiği dizinin ayna görüntüsü olduğuna dikkat edin: orada bir dizi öğe başına bir girdi _bildirir_, burada ise onları öncelik sırasına göre _tüketir_.
+
+#### Anahtar başına eşleme
+
+Her sözlük anahtarını ayrı ayrı adresleyin. Ayrılmış `default` girdisi, listelenmeyen tüm anahtarları kapsar:
+
+```tsx
+<IntlayerProvider
+  variant={{
+    "hero-banner": "school1",
+    product: ["school1", "default"],
+    default: "base",
+  }}
+/>
+```
+
+> Bir sağlayıcıda düz bir nesne **her zaman** anahtar başına eşleme olarak okunur, asla nesne varyantı olarak değil — ikisi yapısal olarak aynıdır. Bir nesne varyantını global olarak sabitlemek için onu bir girdinin altına yerleştirin: `variant={{ default: { id: "prod_abc" } }}`.
+
+Eşlemenin anahtarları bildirdiğiniz sözlük anahtarlarına karşı denetlendiğinden, bir yazım hatası — ya da doğrudan yazılmış bir nesne varyantı, örneğin `variant={{ id: "prod_abc" }}` — derleme zamanı hatasıdır.
 
 ## Yükleme modu
 

@@ -4,6 +4,7 @@ import {
   isQualifiedDynamicLoaderMap,
   parseDictionarySelector,
   type QualifiedDynamicLoaderMap,
+  resolveDictionaryArgument,
   resolveQualifiedDynamicContentAsync,
 } from '@intlayer/core/dictionaryManipulator';
 import type { Dictionary } from '@intlayer/types/dictionary';
@@ -93,8 +94,17 @@ export const useDictionaryDynamic = <
     isQualifiedDynamicLoaderMap(dictionaryLoaders)
   ) {
     const loaderMap = dictionaryLoaders;
+    // Layers the client's ambient variant under the call-site argument before
+    // the chunk walk, so only the targeted chunk is loaded.
     const { locale: selectorLocale, selector } =
-      parseDictionarySelector<LocalesValues>(localeOrSelector);
+      parseDictionarySelector<LocalesValues>(
+        resolveDictionaryArgument({
+          localeOrSelector,
+          contextLocale: client.locale,
+          contextVariant: client.variant,
+          dictionaryKey: String(key),
+        })
+      );
     const selectorId = getDictionarySelectorCacheKey(selector);
 
     const buildKey = (locale: string) =>

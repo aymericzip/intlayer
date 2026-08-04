@@ -1,3 +1,4 @@
+import { resolveDictionaryArgument } from '@intlayer/core/dictionaryManipulator';
 import type {
   Dictionary,
   DictionarySelectorForGroup,
@@ -6,9 +7,13 @@ import type {
 import type {
   DeclaredLocales,
   LocalesValues,
+  ProviderVariant,
 } from '@intlayer/types/module_augmentation';
 import { getDictionary } from '../getDictionary';
-import { IntlayerServerContext } from './IntlayerServerProvider';
+import {
+  IntlayerServerContext,
+  IntlayerServerVariantContext,
+} from './IntlayerServerProvider';
 import { getServerContext } from './serverContext';
 
 /**
@@ -31,15 +36,20 @@ export const useDictionary = <
   const contextLocale =
     getServerContext<LocalesValues>(IntlayerServerContext) ?? fallbackLocale;
 
-  if (
-    process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false' &&
-    typeof localeOrSelector === 'object' &&
-    localeOrSelector !== null
-  ) {
-    return getDictionary(dictionary, {
-      ...localeOrSelector,
-      locale: localeOrSelector.locale ?? contextLocale,
-    } as A);
+  if (process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false') {
+    const contextVariant = getServerContext<ProviderVariant>(
+      IntlayerServerVariantContext
+    );
+
+    return getDictionary<T, A>(
+      dictionary,
+      resolveDictionaryArgument({
+        localeOrSelector,
+        contextLocale,
+        contextVariant,
+        dictionaryKey: dictionary.key,
+      }) as A
+    );
   }
 
   const localeTarget = (localeOrSelector ?? contextLocale) as A;

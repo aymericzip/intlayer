@@ -5,6 +5,7 @@ import {
   isQualifiedDynamicLoaderMap,
   parseDictionarySelector,
   type QualifiedDynamicLoaderMap,
+  resolveDictionaryArgument,
   resolveQualifiedDynamicContent,
 } from '@intlayer/core/dictionaryManipulator';
 import type { Dictionary } from '@intlayer/types/dictionary';
@@ -47,11 +48,21 @@ export const useDictionaryDynamic = <
   key: K,
   localeOrSelector?: A
 ) => {
-  const { locale: currentLocale } = useContext(IntlayerClientContext) ?? {};
+  const { locale: currentLocale, variant: contextVariant } =
+    useContext(IntlayerClientContext) ?? {};
 
   const { locale: selectorLocale, selector } =
     process.env.INTLAYER_DICTIONARY_SELECTOR !== 'false'
-      ? parseDictionarySelector<LocalesValues>(localeOrSelector)
+      ? parseDictionarySelector<LocalesValues>(
+          // Layers the provider's ambient variant under the call-site argument
+          // before the chunk walk, so only the targeted chunk is loaded.
+          resolveDictionaryArgument({
+            localeOrSelector,
+            contextLocale: currentLocale,
+            contextVariant,
+            dictionaryKey: String(key),
+          })
+        )
       : {
           locale: localeOrSelector as LocalesValues | undefined,
           selector: undefined,

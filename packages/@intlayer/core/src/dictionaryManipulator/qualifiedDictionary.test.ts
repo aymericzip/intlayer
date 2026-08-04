@@ -16,10 +16,13 @@ import {
   parseDictionarySelector,
   QUALIFIER_DYNAMIC_TYPES_KEY,
   type QualifiedDynamicLoaderMap,
+  resolveDictionaryArgument,
+  resolveProviderVariant,
   resolveQualifiedDictionary,
   resolveQualifiedDynamicContent,
   resolveQualifiedDynamicContentAsync,
   serializeVariant,
+  serializeVariantChain,
 } from './qualifiedDictionary';
 
 describe('getDictionaryQualifierTypes', () => {
@@ -745,6 +748,74 @@ describe('resolveQualifiedDictionary', () => {
     });
   });
 
+  describe('variant chain', () => {
+    // `school1` overrides nothing here, `school2` overrides the title.
+    const schoolGroup = mergeQualifiedDictionaries([
+      { key: 'hero', variant: 'school2', content: { title: 'School 2' } },
+      { key: 'hero', variant: 'default', content: { title: 'Generic' } },
+    ]) as QualifiedDictionaryGroup;
+
+    it('should pick the first chain entry the key declares', () => {
+      const resolved = resolveQualifiedDictionary(schoolGroup, {
+        variant: ['school2', 'default'],
+      });
+
+      expect((resolved as Dictionary).content).toEqual({ title: 'School 2' });
+    });
+
+    it('should skip chain entries the key does not declare', () => {
+      const resolved = resolveQualifiedDictionary(schoolGroup, {
+        variant: ['school1', 'school2'],
+      });
+
+      expect((resolved as Dictionary).content).toEqual({ title: 'School 2' });
+    });
+
+    it('should fall back to the default entry when no chain entry is declared', () => {
+      const resolved = resolveQualifiedDictionary(schoolGroup, {
+        variant: ['school1', 'school3'],
+      });
+
+      expect((resolved as Dictionary).content).toEqual({ title: 'Generic' });
+    });
+
+    it('should behave like the bare value for a single-entry chain', () => {
+      expect(
+        (
+          resolveQualifiedDictionary(schoolGroup, {
+            variant: ['school2'],
+          }) as Dictionary
+        ).content
+      ).toEqual(
+        (
+          resolveQualifiedDictionary(schoolGroup, {
+            variant: 'school2',
+          }) as Dictionary
+        ).content
+      );
+    });
+
+    it('should resolve to the default entry for an empty chain', () => {
+      const resolved = resolveQualifiedDictionary(schoolGroup, {
+        variant: [],
+      });
+
+      expect((resolved as Dictionary).content).toEqual({ title: 'Generic' });
+    });
+
+    it('should return null when the chain misses and the key declares no default', () => {
+      const noDefaultGroup = mergeQualifiedDictionaries([
+        { key: 'hero', variant: 'school2', content: { title: 'School 2' } },
+      ]) as QualifiedDictionaryGroup;
+
+      expect(
+        resolveQualifiedDictionary(noDefaultGroup, {
+          variant: ['school1', 'school3'],
+        })
+      ).toBeNull();
+    });
+  });
+
   describe('encoded variant names', () => {
     const seasonalGroup = mergeQualifiedDictionaries([
       { key: 'hero', variant: 'summer/2026', content: { title: 'Summer' } },
@@ -790,6 +861,160 @@ describe('getDictionarySelectorCacheKey', () => {
     ).toBe('variant:id=abc&userId=1');
     expect(getDictionarySelectorCacheKey({ item: 2 })).toBe('item:2');
     expect(getDictionarySelectorCacheKey()).toBe('');
+  });
+
+  it('should distinguish chains that differ only by order', () => {
+    expect(getDictionarySelectorCacheKey({ variant: ['a', 'b'] })).toBe(
+      'variant:a,b'
+    );
+    expect(getDictionarySelectorCacheKey({ variant: ['b', 'a'] })).toBe(
+      'variant:b,a'
+    );
+  });
+
+  it('should give a single-entry chain the same identity as the bare value', () => {
+    expect(getDictionarySelectorCacheKey({ variant: ['a'] })).toBe(
+      getDictionarySelectorCacheKey({ variant: 'a' })
+    );
+  });
+});
+
+describe('serializeVariantChain', () => {
+  it('should wrap a single value into a one-element candidate list', () => {
+    expect(serializeVariantChain('promo')).toEqual(['promo']);
+    expect(serializeVariantChain({ id: 'abc', userId: '1' })).toEqual([
+      'id=abc&userId=1',
+    ]);
+  });
+
+  it('should preserve chain order', () => {
+    expect(serializeVariantChain(['school1', 'default'])).toEqual([
+      'school1',
+      'default',
+    ]);
+  });
+
+  it('should treat undefined and an empty chain as no variant pinned', () => {
+    expect(serializeVariantChain(undefined)).toEqual(['default']);
+    expect(serializeVariantChain([])).toEqual(['default']);
+  });
+});
+
+describe('resolveProviderVariant', () => {
+  it('should apply a bare name and a chain to every key', () => {
+    expect(resolveProviderVariant('school1', 'anyKey')).toBe('school1');
+    expect(resolveProviderVariant(['school1', 'default'], 'anyKey')).toEqual([
+      'school1',
+      'default',
+    ]);
+  });
+
+  it('should read a plain object as the per-key map', () => {
+    const map = { key1: 'school1', key2: ['school1', 'default'] };
+
+    expect(resolveProviderVariant(map, 'key1')).toBe('school1');
+    expect(resolveProviderVariant(map, 'key2')).toEqual(['school1', 'default']);
+  });
+
+  it('should fall back to the reserved default entry for unlisted keys', () => {
+    const map = { key1: 'school1', default: 'base' };
+
+    expect(resolveProviderVariant(map, 'unlisted')).toBe('base');
+  });
+
+  it('should return undefined when neither the key nor default is listed', () => {
+    expect(
+      resolveProviderVariant({ key1: 'school1' }, 'unlisted')
+    ).toBeUndefined();
+    expect(resolveProviderVariant(undefined, 'key1')).toBeUndefined();
+  });
+
+  it('should pin a structured variant globally when nested under default', () => {
+    expect(
+      resolveProviderVariant({ default: { id: 'prod_abc' } }, 'anyKey')
+    ).toEqual({ id: 'prod_abc' });
+  });
+});
+
+describe('resolveDictionaryArgument', () => {
+  it('should return a bare locale when no variant is in play', () => {
+    expect(
+      resolveDictionaryArgument({
+        localeOrSelector: 'fr',
+        contextLocale: 'en',
+        dictionaryKey: 'home',
+      })
+    ).toBe('fr');
+
+    expect(
+      resolveDictionaryArgument({
+        contextLocale: 'en',
+        dictionaryKey: 'home',
+      })
+    ).toBe('en');
+  });
+
+  it('should apply the provider variant when the call pins none', () => {
+    expect(
+      resolveDictionaryArgument({
+        contextLocale: 'en',
+        contextVariant: 'school1',
+        dictionaryKey: 'home',
+      })
+    ).toEqual({ locale: 'en', variant: 'school1' });
+  });
+
+  it('should let a call-site variant replace the provider chain entirely', () => {
+    expect(
+      resolveDictionaryArgument({
+        localeOrSelector: { variant: 'school2' },
+        contextLocale: 'en',
+        contextVariant: ['school1', 'default'],
+        dictionaryKey: 'home',
+      })
+    ).toEqual({ locale: 'en', variant: 'school2' });
+  });
+
+  it('should compose the provider variant with an unrelated call-site selector', () => {
+    expect(
+      resolveDictionaryArgument({
+        localeOrSelector: { item: 2 },
+        contextLocale: 'en',
+        contextVariant: 'school1',
+        dictionaryKey: 'faq',
+      })
+    ).toEqual({ item: 2, locale: 'en', variant: 'school1' });
+  });
+
+  it('should resolve the per-key map against the key being read', () => {
+    const contextVariant = { faq: 'school1', default: 'base' };
+
+    expect(
+      resolveDictionaryArgument({
+        contextLocale: 'en',
+        contextVariant,
+        dictionaryKey: 'faq',
+      })
+    ).toEqual({ locale: 'en', variant: 'school1' });
+
+    expect(
+      resolveDictionaryArgument({
+        contextLocale: 'en',
+        contextVariant,
+        dictionaryKey: 'hero',
+      })
+    ).toEqual({ locale: 'en', variant: 'base' });
+  });
+
+  it('should let a call-site locale override the provider locale', () => {
+    expect(
+      resolveDictionaryArgument({
+        localeOrSelector: { locale: 'fr' },
+        contextLocale: 'en',
+        contextVariant: 'school1',
+        dictionaryKey: 'home',
+      })
+    ).toEqual({ locale: 'fr', variant: 'school1' });
   });
 });
 
@@ -947,6 +1172,46 @@ describe('resolveQualifiedDynamicContent', () => {
     });
 
     expect((resolved as Dictionary).variant).toBe('default');
+  });
+
+  it('should load only the first chain chunk the key actually ships', () => {
+    const loaded: string[] = [];
+    const makeLoader = (variant: string) => () => {
+      loaded.push(variant);
+      return Promise.resolve({
+        key: 'lesson',
+        variant,
+        content: { title: variant },
+      });
+    };
+
+    const loaderMap: QualifiedDynamicLoaderMap = {
+      [QUALIFIER_DYNAMIC_TYPES_KEY]: ['variant'],
+      en: {
+        default: makeLoader('default'),
+        school2: makeLoader('school2'),
+      },
+    };
+
+    const resolved = resolveQualifiedDynamicContent<Dictionary>({
+      loaderMap,
+      key: 'lesson',
+      locale: 'en',
+      // `school1` ships no chunk for this key, so the chain moves on.
+      selector: { variant: ['school1', 'school2'] },
+      loadChunk: (cacheKey) =>
+        reconstructFromCacheKey(cacheKey, ([variant]) => ({
+          key: 'lesson',
+          variant,
+          content: { title: variant },
+        })),
+      transform: (dictionary) => dictionary,
+    });
+
+    expect((resolved as Dictionary).variant).toBe('school2');
+    // The point of the chain: the skipped entry is never fetched.
+    expect(loaded).not.toContain('school1');
+    expect(loaded).not.toContain('default');
   });
 
   it('should fall back to the default variant chunk when the selected one has none', () => {

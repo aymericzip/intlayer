@@ -14,6 +14,7 @@ import type {
   DictionarySelector,
   DictionarySelectorForGroup,
   DictionaryVariantIdsOf,
+  ProviderVariant as ProviderVariantBase,
   ResolveQualifiedDictionaryContent,
 } from './dictionary';
 
@@ -112,6 +113,19 @@ export type DictionarySelectorForKey<T extends PropertyKey> = [T] extends [
 ]
   ? DictionarySelectorForGroup<__DictionaryRegistry[T]>
   : DictionarySelector;
+
+/**
+ * The `variant` prop of a framework provider (`<IntlayerProvider variant>`),
+ * narrowed to this project's declared dictionary keys — so the per-key map form
+ * rejects a key no dictionary declares.
+ *
+ * That narrowing is also what keeps the per-key map safely distinguishable from
+ * a structured variant value: on a provider a plain object is always read as
+ * the map, and `variant={{ id: 'prod_abc' }}` is a compile error unless `id`
+ * happens to be a dictionary key. Pin a structured variant globally by nesting
+ * it under an entry instead: `variant={{ default: { id: 'prod_abc' } }}`.
+ */
+export type ProviderVariant = ProviderVariantBase<DictionaryKeys & string>;
 
 export type { DictionarySelector, DictionarySelectorForGroup };
 

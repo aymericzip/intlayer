@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-06-12
-updatedAt: 2026-06-26
+updatedAt: 2026-08-04
 title: 변형
 description: Intlayer 콘텐츠 파일에서 variant 메타데이터 필드를 사용하여 이름이 지정되었거나 구조화된 콘텐츠 대안 — A/B 테스트, 시즌 배너, 기능 플래그 텍스트, CMS 레코드, 사용자별 콘텐츠 — 을 선언하고 코드 변경 없이 런타임에 전환합니다.
 keywords:
@@ -26,6 +26,9 @@ history:
   - version: 9.1.1
     date: 2026-07-31
     changes: "변형은 재정의하는 키만 선언합니다. 선언되지 않은 변형은 기본 항목으로 대체됩니다"
+  - version: 9.1.2
+    date: 2026-08-04
+    changes: "프로바이더가 앰비언트 `variant` 프로퍼티를 받고, 셀렉터가 순서가 있는 우선순위 체인을 받습니다"
 author: aymericzip
 ---
 
@@ -497,6 +500,176 @@ const content = useIntlayer("product", {
 // null 반환: `userId`가 누락되어 객체가 선언된 변형과 일치하지 않습니다
 const content = useIntlayer("product", { variant: { id: "prod_abc" } });
 ```
+
+## 앰비언트 변형
+
+테넌트, 학교 유형, 요금제 등급처럼 세션 전체에서 고정되는 변형 차원이 있습니다. 이런 값은 한 번만 결정되며, 어떤 컴포넌트도 직접 전달할 필요가 없어야 합니다.
+
+> 이 값을 주입하려고 `useIntlayer`를 직접 만든 훅으로 감싸지 마세요. 빌드 타임 최적화는 프레임워크 패키지에서 임포트한 리터럴 `useIntlayer("key")` 호출만 다시 작성하므로, 래퍼 뒤에 있는 것은 번들에 포함되지 않습니다.
+
+대신 `locale`과 똑같이 프로바이더에서 변형을 한 번만 선언하세요:
+
+<Tabs group="framework">
+  <Tab label="React" value="react">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "react-intlayer";
+
+    export const App = ({ locale, schoolType }) => (
+      <IntlayerProvider locale={locale} variant={schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Next.js" value="nextjs">
+    ```tsx fileName="layout.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerServerProvider } from "next-intlayer/server";
+    import { IntlayerClientProvider } from "next-intlayer";
+
+    export default async function Layout({ children, params }) {
+      const { locale } = await params;
+      const schoolType = await getSchoolType();
+
+      return (
+        <IntlayerServerProvider locale={locale} variant={schoolType}>
+          <IntlayerClientProvider locale={locale} variant={schoolType}>
+            {children}
+          </IntlayerClientProvider>
+        </IntlayerServerProvider>
+      );
+    }
+    ```
+
+  </Tab>
+  <Tab label="Vue" value="vue">
+    ```ts fileName="main.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { createApp } from "vue";
+    import { installIntlayer } from "vue-intlayer";
+    import App from "./App.vue";
+
+    const app = createApp(App);
+
+    installIntlayer(app, { locale: "en", variant: schoolType });
+
+    app.mount("#app");
+    ```
+
+  </Tab>
+  <Tab label="Svelte" value="svelte">
+    ```svelte fileName="+layout.svelte" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    <script lang="ts">
+    import { setupIntlayer } from "svelte-intlayer";
+
+    export let schoolType: string;
+
+    setupIntlayer("en", schoolType);
+    </script>
+
+    <slot />
+    ```
+
+  </Tab>
+  <Tab label="Preact" value="preact">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "preact-intlayer";
+
+    export const App = ({ locale, schoolType }) => (
+      <IntlayerProvider locale={locale} variant={schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Solid" value="solid">
+    ```tsx fileName="App.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { IntlayerProvider } from "solid-intlayer";
+
+    export const App = (props) => (
+      <IntlayerProvider locale={props.locale} variant={props.schoolType}>
+        <Hero />
+      </IntlayerProvider>
+    );
+    ```
+
+  </Tab>
+  <Tab label="Angular" value="angular">
+    ```typescript fileName="app.config.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+    import { ApplicationConfig } from "@angular/core";
+    import { provideIntlayer } from "angular-intlayer";
+
+    export const appConfig: ApplicationConfig = {
+      providers: [provideIntlayer("en", true, schoolType)],
+    };
+    ```
+
+  </Tab>
+  <Tab label="Vanilla JS" value="vanilla">
+    ```javascript fileName="main.js"
+    import { installIntlayer } from "vanilla-intlayer";
+
+    installIntlayer({ locale: "en", variant: schoolType });
+    ```
+
+  </Tab>
+</Tabs>
+
+이제 프로바이더 아래의 모든 사전 읽기가 해당 변형으로 해석되며, 호출 지점의 셀렉터가 항상 우선합니다:
+
+```tsx
+useIntlayer("hero-banner");
+// → 프로바이더의 변형
+
+useIntlayer("hero-banner", { variant: "summer" });
+// → "summer" — 프로바이더 변형을 대체하며, 확장하지 않습니다
+```
+
+### 형태
+
+`variant` 프로퍼티는 세 가지 형태를 받습니다:
+
+| 형태                                                      | 의미                                     |
+| --------------------------------------------------------- | ---------------------------------------- |
+| `variant="school1"`                                       | 모든 키에 적용되는 하나의 이름 있는 변형 |
+| `variant={["school1", "default"]}`                        | 순서가 있는 우선순위 체인                |
+| `variant={{ "hero-banner": "school1", default: "base" }}` | 사전 키별 변형                           |
+
+#### 우선순위 체인
+
+체인은 각 키가 선언한 항목에 대해 왼쪽에서 오른쪽으로 시도하며, 가장 먼저 선언된 것이 선택됩니다. 아무것도 선언되어 있지 않으면 단일 값일 때와 똑같이 암묵적인 기본 항목이 사용됩니다.
+
+```tsx
+<IntlayerProvider variant={["school1", "school2"]} />
+// `hero-banner`는 `school1` 항목을 선언하지 않지만 `school2`를 선언함 → "school2"
+// 둘 다 선언하지 않은 키 → 기본 항목
+```
+
+따라서 `["black_friday", "summer"]`는 «이 키에 black friday가 있으면 그것, 없으면 summer, 그것도 없으면 기본값»으로 읽힙니다. 체인은 호출 지점에서도 사용할 수 있습니다:
+
+```tsx
+useIntlayer("hero-banner", { variant: ["black_friday", "summer"] });
+```
+
+> 이는 콘텐츠 파일의 `variant` **필드**가 받는 배열과 정반대라는 점에 유의하세요. 그쪽에서는 배열이 요소마다 항목을 하나씩 *선언*하지만, 여기서는 우선순위 순서대로 그것들을 *소비*합니다.
+
+#### 키별 맵
+
+각 사전 키를 개별적으로 지정합니다. 예약된 `default` 항목이 나열되지 않은 모든 키를 처리합니다:
+
+```tsx
+<IntlayerProvider
+  variant={{
+    "hero-banner": "school1",
+    product: ["school1", "default"],
+    default: "base",
+  }}
+/>
+```
+
+> 프로바이더에서 일반 객체는 **항상** 키별 맵으로 읽히며, 객체 변형으로는 해석되지 않습니다 — 둘은 구조적으로 동일하기 때문입니다. 객체 변형을 전역으로 지정하려면 항목 아래에 중첩하세요: `variant={{ default: { id: "prod_abc" } }}`.
+
+맵의 키는 선언된 사전 키와 대조되므로, 오타 — 또는 `variant={{ id: "prod_abc" }}`처럼 객체 변형을 직접 작성한 경우 — 는 컴파일 오류가 됩니다.
 
 ## 로딩 모드
 
