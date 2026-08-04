@@ -82,8 +82,8 @@
     "@intlayer/engine": "workspace:*",
     "@intlayer/types": "workspace:*",
     "fast-glob": "3.3.3",
-    "webpack": "5.107.2",
-    "webpack-dev-server": "5.2.4"
+    "webpack": "5.109.2",
+    "webpack-dev-server": "6.0.0"
   },
   "devDependencies": {
     "@types/node": "26.1.2",
@@ -96,7 +96,7 @@
     "vitest": "4.1.10"
   },
   "peerDependencies": {
-    "webpack": "5.107.2"
+    "webpack": "5.109.2"
   },
   "engines": {
     "node": ">=14.18"
