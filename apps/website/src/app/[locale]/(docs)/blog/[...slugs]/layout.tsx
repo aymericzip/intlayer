@@ -11,12 +11,20 @@ export type BlogProps = {
 
 export type BlogPageProps = LocalPromiseParams<BlogProps>;
 
-export const generateStaticParams = async () => {
+/**
+ * Builds the static params for the blog catch-all route.
+ *
+ * The metadata slugs include the `blog` section prefix (e.g.
+ * `['blog', 'i18n-meaning']`), while the route segment only holds the
+ * remaining slugs, so the prefix is stripped. Entries resolving to an empty
+ * slug list are dropped since a required catch-all segment cannot match them.
+ */
+export const generateStaticParams = async (): Promise<BlogProps[]> => {
   const blogMetadata = await getBlogMetadataBySlug([]);
 
-  const slugList: string[][] = blogMetadata.map((meta) => meta.slugs);
-
-  return slugList;
+  return blogMetadata
+    .map((meta) => ({ slugs: meta.slugs.slice(1) }))
+    .filter(({ slugs }) => slugs.length > 0);
 };
 
 export const generateMetadata = async ({

@@ -10,14 +10,23 @@ export type FrequentQuestionProps = {
 export type FrequentQuestionPageProps =
   LocalPromiseParams<FrequentQuestionProps>;
 
-export const generateStaticParams = async () => {
+/**
+ * Builds the static params for the frequent questions catch-all route.
+ *
+ * The metadata slugs include the `frequent-questions` section prefix (e.g.
+ * `['frequent-questions', 'build-dictionaries']`), while the route segment only
+ * holds the remaining slugs, so the prefix is stripped. Entries resolving to an
+ * empty slug list are dropped since a required catch-all segment cannot match
+ * them.
+ */
+export const generateStaticParams = async (): Promise<
+  FrequentQuestionProps[]
+> => {
   const frequentQuestionsMetadata = await getFrequentQuestionMetadataBySlug([]);
 
-  const slugList: string[][] = frequentQuestionsMetadata.map(
-    (meta) => meta.slugs
-  );
-
-  return slugList;
+  return frequentQuestionsMetadata
+    .map((meta) => ({ slugs: meta.slugs.slice(1) }))
+    .filter(({ slugs }) => slugs.length > 0);
 };
 
 export const generateMetadata = async ({

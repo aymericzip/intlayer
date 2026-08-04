@@ -12,12 +12,18 @@ export type DocProps = {
 
 export type DocPageProps = LocalPromiseParams<DocProps>;
 
-export const generateStaticParams = async () => {
+/**
+ * Builds the static params for the doc optional catch-all route.
+ *
+ * The metadata slugs include the `doc` section prefix (e.g.
+ * `['doc', 'concept', 'ci-cd']`), while the route segment only holds the
+ * remaining slugs, so the prefix is stripped. An empty slug list is kept as it
+ * maps to the `/doc` index handled by the optional catch-all.
+ */
+export const generateStaticParams = async (): Promise<DocProps[]> => {
   const docMetadata = await getDocMetadataBySlug([]);
 
-  const slugList: string[][] = docMetadata.map((meta) => meta.slugs);
-
-  return slugList;
+  return docMetadata.map((meta) => ({ slugs: meta.slugs.slice(1) }));
 };
 
 export const generateMetadata = async ({

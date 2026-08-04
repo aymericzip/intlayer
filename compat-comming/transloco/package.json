@@ -1,6 +1,6 @@
 {
   "name": "@intlayer/transloco",
-  "version": "9.1.1",
+  "version": "9.1.2",
   "private": false,
   "description": "transloco API adapter for intlayer — drop-in compatibility layer",
   "keywords": [
