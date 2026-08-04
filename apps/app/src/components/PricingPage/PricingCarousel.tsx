@@ -321,8 +321,13 @@ export const PricingCarousel: FC<PricingCarouselProps> = ({
     return diff * offset;
   };
 
+  /**
+   * Center the carousel on the default (second) column whenever no plan is
+   * selected. Must check for `null` explicitly: index `0` is a valid selection
+   * and must not be treated as "nothing selected".
+   */
   useEffect(() => {
-    if (!selectedPlanIndex) {
+    if (selectedPlanIndex === null) {
       setDisplayedPlanIndex(1);
     }
   }, [selectedPlanIndex]);
