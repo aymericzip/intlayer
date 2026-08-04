@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { buildCreativeWorkJsonLd } from './buildCreativeWorkJsonLd';
 import { buildSoftwareApplicationJsonLd } from './buildSoftwareApplicationJsonLd';
 import { buildWebsiteJsonLd } from './buildWebsiteJsonLd';
 
@@ -11,6 +12,14 @@ const websiteParams = {
   locales: ['en', 'fr'],
   keywords: ['i18n', 'localization'],
   rssUrl: 'https://intlayer.org/feed.xml',
+};
+
+const creativeWorkParams = {
+  name: 'Blog',
+  description: 'Everything about internationalization.',
+  content: '# Blog',
+  keywords: 'i18n, blog',
+  audienceType: 'Developers',
 };
 
 const softwareApplicationParams = {
@@ -53,6 +62,43 @@ describe('buildWebsiteJsonLd', () => {
     });
 
     expect(websiteJsonLd).not.toHaveProperty('subjectOf');
+  });
+});
+
+describe('buildCreativeWorkJsonLd', () => {
+  it('formats valid dates as ISO 8601 calendar dates', () => {
+    const { datePublished, dateModified } = buildCreativeWorkJsonLd({
+      ...creativeWorkParams,
+      datePublished: new Date('2024-12-24'),
+      dateModified: new Date('2025-06-29'),
+    });
+
+    expect(datePublished).toBe('2024-12-24');
+    expect(dateModified).toBe('2025-06-29');
+  });
+
+  it('omits invalid dates instead of throwing', () => {
+    // A malformed frontmatter value such as `2024-24-12` yields an
+    // `Invalid Date`, which previously threw a RangeError and failed the
+    // whole page prerender.
+    const build = () =>
+      buildCreativeWorkJsonLd({
+        ...creativeWorkParams,
+        datePublished: new Date('2024-24-12'),
+        dateModified: new Date('2025-06-29'),
+      });
+
+    expect(build).not.toThrow();
+    expect(build().datePublished).toBeUndefined();
+    expect(build().dateModified).toBe('2025-06-29');
+  });
+
+  it('omits missing dates', () => {
+    const { datePublished, dateModified } =
+      buildCreativeWorkJsonLd(creativeWorkParams);
+
+    expect(datePublished).toBeUndefined();
+    expect(dateModified).toBeUndefined();
   });
 });
 

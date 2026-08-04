@@ -1,9 +1,19 @@
 /** @module buildCreativeWorkJsonLd */
 
-// ISO 8601 date formatter — Schema.org requires YYYY-MM-DD.
-const formatDate = (date: Date): string => {
-  if (!(date instanceof Date)) {
-    throw new Error('Input must be a valid Date object');
+/**
+ * ISO 8601 date formatter — Schema.org requires YYYY-MM-DD.
+ *
+ * Returns `undefined` for anything that is not a valid `Date` (including
+ * `Invalid Date`, which a malformed frontmatter value such as `2024-24-12`
+ * produces) so that a single bad document date degrades the JSON-LD payload
+ * instead of throwing and failing the whole page render.
+ *
+ * @param date - Candidate date value.
+ * @returns The `YYYY-MM-DD` representation, or `undefined` when invalid.
+ */
+const formatDate = (date: Date | undefined): string | undefined => {
+  if (!(date instanceof Date) || Number.isNaN(date.getTime())) {
+    return undefined;
   }
   return date.toISOString().split('T')[0]!;
 };
@@ -92,8 +102,8 @@ export const buildCreativeWorkJsonLd = ({
   text: content,
   description,
   url,
-  datePublished: datePublished ? formatDate(datePublished) : undefined,
-  dateModified: dateModified ? formatDate(dateModified) : undefined,
+  datePublished: formatDate(datePublished),
+  dateModified: formatDate(dateModified),
   version,
   keywords,
   license:
