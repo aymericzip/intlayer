@@ -103,7 +103,7 @@ const generateTypeIndexContent = (
 
   // Build dictionary refs
   const dictionariesRef = typeFiles.map((dictionaryPath) => ({
-    relativePath: `./${relative(moduleAugmentationDir, dictionaryPath)}`,
+    relativePath: `./${normalizePath(relative(moduleAugmentationDir, dictionaryPath))}`,
     id: basename(dictionaryPath, extname(dictionaryPath)),
     hash: `_${getPathHash(dictionaryPath)}`,
   }));
