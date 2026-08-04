@@ -1,5 +1,15 @@
 import { getLocalizedUrl, Locales } from 'intlayer';
 
+/** Max time to wait for the live sitemap before giving up on the push. */
+const sitemapFetchTimeoutMs = 15_000;
+
+/**
+ * Pushes a sample of the site URLs to the Baidu indexing API.
+ *
+ * Runs as a build step, so it is intentionally best-effort: the live site may
+ * be unreachable from the builder (deploy in progress, network egress blocked),
+ * and that must never fail the build.
+ */
 const pushToBaidu = async () => {
   const token = process.env.NEXT_PUBLIC_BAIDU_PUSH_TOKEN;
   const site = process.env.NEXT_PUBLIC_URL;
@@ -9,10 +19,15 @@ const pushToBaidu = async () => {
     return;
   }
 
-  const sitemapResponse = await fetch(`${site}/sitemap.xml`);
+  const sitemapResponse = await fetch(`${site}/sitemap.xml`, {
+    signal: AbortSignal.timeout(sitemapFetchTimeoutMs),
+  });
 
   if (!sitemapResponse.ok) {
-    throw new Error(`Failed to fetch sitemap: ${sitemapResponse.statusText}`);
+    console.warn(
+      `Baidu push skipped - failed to fetch sitemap: ${sitemapResponse.status} ${sitemapResponse.statusText}`
+    );
+    return;
   }
 
   const sitemapText = await sitemapResponse.text();
@@ -51,4 +66,6 @@ const pushToBaidu = async () => {
   }
 };
 
-pushToBaidu();
+pushToBaidu().catch((error) => {
+  console.warn('Baidu push skipped:', error);
+});
