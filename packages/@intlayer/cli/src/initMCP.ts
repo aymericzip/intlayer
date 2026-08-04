@@ -85,7 +85,7 @@ export const initMCP = async (
 
     p.note(result, 'Success');
   } catch (error) {
-    s.stop('Failed to configure MCP Server');
+    s.error('Failed to configure MCP Server');
     p.log.error(error instanceof Error ? error.message : String(error));
   }
 

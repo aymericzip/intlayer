@@ -72,7 +72,7 @@ export const initBuildOptimization = async (
     installPackages(root, [packageToInstall], packageManager, true);
     spinner.stop(`Installed: ${packageToInstall}`);
   } catch {
-    spinner.stop('Package installation failed');
+    spinner.error('Package installation failed');
     p.log.warn(`Please install manually: ${packageToInstall} (dev dependency)`);
   }
 

@@ -125,7 +125,7 @@ export const initSkills = async (
 
     p.note(result, 'Success');
   } catch (error) {
-    s.stop('Failed to install skills');
+    s.error('Failed to install skills');
     p.log.error(error instanceof Error ? error.message : String(error));
   }
 

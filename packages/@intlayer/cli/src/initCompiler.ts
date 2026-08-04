@@ -105,7 +105,7 @@ export const initCompiler = async (projectRoot?: string): Promise<void> => {
     installPackages(root, devPackagesToInstall, packageManager, true);
     spinner.stop(`Installed: ${devPackagesToInstall.join(', ')}`);
   } catch {
-    spinner.stop('Package installation failed');
+    spinner.error('Package installation failed');
     p.log.warn(
       `Please install manually: ${devPackagesToInstall.join(' ')} (dev dependency)`
     );
