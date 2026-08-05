@@ -66,7 +66,7 @@
     "typecheck": "tsc --noEmit --project tsconfig.types.json"
   },
   "dependencies": {
-    "@clack/prompts": "0.11.0",
+    "@clack/prompts": "1.7.0",
     "@intlayer/api": "workspace:*",
     "@intlayer/babel": "workspace:*",
     "@intlayer/config": "workspace:*",
@@ -78,7 +78,7 @@
     "@intlayer/unmerged-dictionaries-entry": "workspace:*",
     "commander": "15.0.0",
     "enquirer": "2.4.1",
-    "eventsource": "4.1.0",
+    "eventsource": "4.1.1",
     "fast-glob": "3.3.3"
   },
   "devDependencies": {
