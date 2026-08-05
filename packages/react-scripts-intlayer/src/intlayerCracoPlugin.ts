@@ -9,7 +9,18 @@ import { getConfiguration } from '@intlayer/config/node';
 import { getAlias } from '@intlayer/config/utils';
 import { IntlayerPlugin } from '@intlayer/webpack';
 import { defu } from 'defu';
-import type { Configuration as WebpackConfig } from 'webpack';
+
+/**
+ * The webpack `Configuration` type exactly as CRACO hands it to us.
+ *
+ * Deliberately derived from `@craco/types` rather than imported from `webpack`:
+ * the webpack copy CRACO resolves and the one this package resolves are two
+ * distinct type identities whenever their versions differ, which makes any
+ * conversion between them a compile error. Reusing CRACO's own type keeps a
+ * single identity, and — being an indexed access on an imported type — it stays
+ * nameable in the emitted declarations, avoiding TS2742.
+ */
+type CracoWebpackConfig = WebpackConfigOverride['webpackConfig'];
 
 // Get Intlayer configuration
 const intlayerConfig = getConfiguration();
@@ -21,11 +32,10 @@ const alias = getAlias({
 
 /**
  * Override the final CRA Webpack config.
- * We explicitely type the return as WebpackConfig to solve TS2742.
  */
 export const overrideWebpackConfig = ({
   webpackConfig,
-}: WebpackConfigOverride): WebpackConfig => {
+}: WebpackConfigOverride): CracoWebpackConfig => {
   // 1) Remove `module`, `fs`, `path`, `vm` from externals.
   if (typeof webpackConfig.externals === 'object') {
     webpackConfig.externals = {
@@ -40,8 +50,7 @@ export const overrideWebpackConfig = ({
     use: 'node-loader',
   });
 
-  // We cast here to satisfy the internal function return type if there are minor discrepancies
-  return webpackConfig as WebpackConfig;
+  return webpackConfig;
 };
 
 /**
@@ -73,7 +82,5 @@ export const overrideCracoConfig = ({
  */
 export const intlayerCracoPlugin: CracoPlugin = {
   overrideCracoConfig,
-  // We cast to `any` here to bypass the strict version mismatch between
-  // the 'webpack' package installed in your node_modules and the one expected by '@craco/types'
-  overrideWebpackConfig: overrideWebpackConfig as any,
+  overrideWebpackConfig,
 };

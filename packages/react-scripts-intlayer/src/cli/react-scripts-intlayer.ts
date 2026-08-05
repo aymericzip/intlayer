@@ -11,12 +11,35 @@ import { spawnSync } from 'node:child_process';
 import { logger } from '@intlayer/config/logger';
 import { getConfiguration } from '@intlayer/config/node';
 import { getProjectRequire } from '@intlayer/config/utils';
+import { findDuplicateWebpackPaths } from '../findDuplicateWebpackPaths';
 
 const args = process.argv.slice(2);
 const scriptIndex = args.findIndex(
   (index) => index === 'build' || index === 'start' || index === 'test'
 );
 const script = scriptIndex === -1 ? args[0] : args[scriptIndex];
+
+/**
+ * Surface a duplicated webpack install up-front, instead of leaving the user
+ * with the unactionable `TypeError: The 'compilation' argument must be an
+ * instance of Compilation` stack trace webpack throws much later.
+ */
+const warnOnDuplicateWebpack = (): void => {
+  const duplicateWebpackPaths = findDuplicateWebpackPaths();
+
+  if (duplicateWebpackPaths.length === 0) return;
+
+  logger(
+    [
+      'Multiple copies of webpack were found in this project:',
+      ...duplicateWebpackPaths.map((webpackPath) => `  - ${webpackPath}`),
+      '',
+      'react-scripts and its plugins must share a single webpack instance, otherwise the build fails with "The \'compilation\' argument must be an instance of Compilation".',
+      'Deduplicate the install — for example by removing node_modules and the lockfile and reinstalling, or by pinning a single webpack version through your package manager (npm `overrides`, yarn `resolutions`, pnpm/bun `overrides`).',
+    ].join('\n'),
+    { level: 'warn' }
+  );
+};
 
 /**
  * Build the Intlayer dictionaries (i.e. populate the `.intlayer` folder that
@@ -54,6 +77,8 @@ const runScript = async (): Promise<void> => {
     logger('Perhaps you need to update craco?');
     return;
   }
+
+  warnOnDuplicateWebpack();
 
   await prepareDictionaries(script);
 

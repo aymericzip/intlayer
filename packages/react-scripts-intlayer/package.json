@@ -85,8 +85,7 @@
     "@intlayer/webpack": "workspace:*",
     "defu": "6.1.7",
     "node-loader": "2.1.0",
-    "process": "0.11.10",
-    "webpack": "5.108.4"
+    "process": "0.11.10"
   },
   "devDependencies": {
     "@craco/types": "7.1.0",
@@ -103,6 +102,11 @@
   },
   "peerDependencies": {
     "webpack": ">=5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "webpack": {
+      "optional": true
+    }
   },
   "engines": {
     "node": ">=14.18"
