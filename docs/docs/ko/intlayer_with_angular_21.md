@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: "Angular 21 i18n - 앱을 번역하는 완전 가이드"
-description: "i18next는 이제 그만. 2026년 다국어 (i18n) Angular 21 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
+title: "Angular 22 i18n - 앱을 번역하는 완전 가이드"
+description: "i18next는 이제 그만. 2026년 다국어 (i18n) Angular 22 앱 구축 가이드. AI 에이전트로 번역하고 번들 크기, SEO, 성능을 최적화하세요."
 keywords:
   - 국제화
   - 문서
@@ -13,8 +13,8 @@ slugs:
   - doc
   - environment
   - angular
-applicationTemplate: https://github.com/aymericzip/intlayer-angular-21-template
-applicationShowcase: https://intlayer-angular-21-template.vercel.app/
+applicationTemplate: https://github.com/aymericzip/intlayer-angular-22-template
+applicationShowcase: https://intlayer-angular-22-template.vercel.app/
 history:
   - version: 8.9.0
     date: 2026-05-04
@@ -31,7 +31,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer를 사용하여 Angular 21(Vite) 웹사이트 번역하기 | 국제화(i18n)
+# Intlayer를 사용하여 Angular 22(Vite) 웹사이트 번역하기 | 국제화(i18n)
 
 ## 목차
 
@@ -94,7 +94,7 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
   <Tab label="코드" value="code">
 
 <iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-angular-21-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-angular-22-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Intlayer를 사용하여 애플리케이션을 국제화하는 방법"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -105,7 +105,7 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
   <Tab label="데모" value="demo">
 
 <iframe
-  src="https://intlayer-angular-21-template.vercel.app/"
+  src="https://intlayer-angular-22-template.vercel.app/"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo - intlayer-angular-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -115,7 +115,7 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
   </Tab>
 </Tabs>
 
-GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-angular-21-template)을 확인하세요.
+GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-angular-22-template)을 확인하세요.
 
 <Steps>
 
@@ -203,7 +203,7 @@ export default config;
 
 <Step number={3} title="Angular 구성에 Intlayer 통합">
 
-Intlayer를 Angular CLI와 통합하려면 사용자 지정 빌더를 사용해야 합니다. 이 가이드에서는 Vite/esbuild(Angular 21 프로젝트의 기본값)를 사용한다고 가정합니다.
+Intlayer를 Angular CLI와 통합하려면 사용자 지정 빌더를 사용해야 합니다. 이 가이드에서는 Vite/esbuild(Angular 22 프로젝트의 기본값)를 사용한다고 가정합니다.
 
 먼저 사용자 지정 esbuild 빌더를 사용하도록 `angular.json`을 수정합니다. `build` 및 `serve` 구성을 업데이트합니다:
 

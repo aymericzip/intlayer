@@ -1,7 +1,7 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: "Angular 21 i18n - あなたのアプリを翻訳する完全ガイド"
+title: "Angular 22 i18n - あなたのアプリを翻訳する完全ガイド"
 description: "i18nextはもう不要。2026年に多言語（i18n）Angular 21アプリを構築するためのガイド。AIエージェントで翻訳し、バンドルサイズ、SEO、パフォーマンスを最適化します。"
 keywords:
   - 国際化
@@ -13,8 +13,8 @@ slugs:
   - doc
   - environment
   - angular
-applicationTemplate: https://github.com/aymericzip/intlayer-angular-21-template
-applicationShowcase: https://intlayer-angular-21-template.vercel.app/
+applicationTemplate: https://github.com/aymericzip/intlayer-angular-22-template
+applicationShowcase: https://intlayer-angular-22-template.vercel.app/
 history:
   - version: 8.9.0
     date: 2026-05-04
@@ -77,7 +77,7 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
   <Tab label="コード" value="code">
 
 <iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-angular-21-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-angular-22-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Intlayerを使用してアプリケーションを国際化する方法"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -88,7 +88,7 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
   <Tab label="デモ" value="demo">
 
 <iframe
-  src="https://intlayer-angular-21-template.vercel.app/"
+  src="https://intlayer-angular-22-template.vercel.app/"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo - intlayer-angular-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -98,7 +98,7 @@ Intlayer は単なる i18n ソリューションではなく、**自己ホスト
   </Tab>
 </Tabs>
 
-GitHubで[アプリケーションテンプレート](https://github.com/aymericzip/intlayer-angular-21-template)を参照してください。
+GitHubで[アプリケーションテンプレート](https://github.com/aymericzip/intlayer-angular-22-template)を参照してください。
 
 <Steps>
 

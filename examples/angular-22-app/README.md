@@ -1,4 +1,4 @@
-# Translate your Angular 21 (Vite) website using Intlayer | Internationalization (i18n)
+# Translate your Angular 22 (Vite) website using Intlayer | Internationalization (i18n)
 
 ## What is Intlayer?
 
@@ -106,7 +106,7 @@ export default config;
 
 ### Step 3: Integrate Intlayer in Your Angular Configuration
 
-To integrate Intlayer with the Angular CLI, you need to use a custom builder. This guide assumes you are using Vite/esbuild (default for Angular 21 projects).
+To integrate Intlayer with the Angular CLI, you need to use a custom builder. This guide assumes you are using Vite/esbuild (default for Angular 22 projects).
 
 First, modify your `angular.json` to use the custom esbuild builder. Update the `build` and `serve` configurations:
 

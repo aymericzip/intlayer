@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: "Angular 21 i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
-description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji Angular 21. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
+title: "Angular 22 i18n - Kompletny przewodnik po tłumaczeniu swojej aplikacji"
+description: "Koniec z i18next. Przewodnik 2026 do budowania wielojęzycznej (i18n) aplikacji Angular 22. Tłumacz z agentami AI i optymalizuj rozmiar bundle, SEO i wydajność."
 keywords:
   - Umiędzynarodowienie
   - Dokumentacja
@@ -13,8 +13,8 @@ slugs:
   - doc
   - environment
   - angular
-applicationTemplate: https://github.com/aymericzip/intlayer-angular-21-template
-applicationShowcase: https://intlayer-angular-21-template.vercel.app/
+applicationTemplate: https://github.com/aymericzip/intlayer-angular-22-template
+applicationShowcase: https://intlayer-angular-22-template.vercel.app/
 history:
   - version: 8.9.0
     date: 2026-05-04
@@ -31,7 +31,7 @@ history:
 author: aymericzip
 ---
 
-# Przetłumacz swoją stronę Angular 21 (Vite) za pomocą Intlayer | Umiędzynarodowienie (i18n)
+# Przetłumacz swoją stronę Angular 22 (Vite) za pomocą Intlayer | Umiędzynarodowienie (i18n)
 
 ## Spis Treści
 
@@ -77,7 +77,7 @@ Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wi
   <Tab label="Kod" value="code">
 
 <iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-angular-21-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-angular-22-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Jak umiędzynarodowić swoją aplikację za pomocą Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -88,7 +88,7 @@ Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wi
   <Tab label="Demo" value="demo">
 
 <iframe
-  src="https://intlayer-angular-21-template.vercel.app/"
+  src="https://intlayer-angular-22-template.vercel.app/"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo - intlayer-angular-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -98,7 +98,7 @@ Więcej niż tylko rozwiązanie i18n, Intlayer zapewnia **samodzielny [edytor wi
   </Tab>
 </Tabs>
 
-Zobacz [Szablon Aplikacji](https://github.com/aymericzip/intlayer-angular-21-template) na GitHubie.
+Zobacz [Szablon Aplikacji](https://github.com/aymericzip/intlayer-angular-22-template) na GitHubie.
 
 <Steps>
 
@@ -186,7 +186,7 @@ export default config;
 
 <Step number={3} title="Integracja Intlayer w Konfiguracji Angular">
 
-Aby zintegrować Intlayer z Angular CLI, musisz użyć niestandardowego buildera. Niniejszy przewodnik zakłada, że używasz Vite/esbuild (domyślnego w projektach Angular 21).
+Aby zintegrować Intlayer z Angular CLI, musisz użyć niestandardowego buildera. Niniejszy przewodnik zakłada, że używasz Vite/esbuild (domyślnego w projektach Angular 22).
 
 Najpierw zmodyfikuj plik `angular.json`, aby użyć niestandardowego buildera esbuild. Zaktualizuj konfiguracje `build` i `serve`:
 

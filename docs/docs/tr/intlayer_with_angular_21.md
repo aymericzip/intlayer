@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: "Angular 21 i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
-description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Angular 21 uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
+title: "Angular 22 i18n - Uygulamanızı çevirmek için eksiksiz kılavuz"
+description: "Artık i18next yok. 2026 yılı için çok dilli (i18n) Angular 22 uygulaması oluşturma kılavuzu. Yapay zeka ajanlarıyla çevirin ve bundle boyutu, SEO ve performansı optimize edin."
 keywords:
   - Uluslararasılaştırma
   - Dokümantasyon
@@ -13,8 +13,8 @@ slugs:
   - doc
   - environment
   - angular
-applicationTemplate: https://github.com/aymericzip/intlayer-angular-21-template
-applicationShowcase: https://intlayer-angular-21-template.vercel.app/
+applicationTemplate: https://github.com/aymericzip/intlayer-angular-22-template
+applicationShowcase: https://intlayer-angular-22-template.vercel.app/
 history:
   - version: 8.9.0
     date: 2026-05-04
@@ -31,7 +31,7 @@ history:
 author: aymericzip
 ---
 
-# Angular 21 (Vite) web sitenizi Intlayer kullanarak çevirin | Uluslararasılaştırma (i18n)
+# Angular 22 (Vite) web sitenizi Intlayer kullanarak çevirin | Uluslararasılaştırma (i18n)
 
 ## İçindekiler
 
@@ -94,7 +94,7 @@ Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barın
   <Tab label="Kod" value="code">
 
 <iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-angular-21-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-angular-22-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Uygulamanızı Intlayer kullanarak nasıl uluslararasılaştırabilirsiniz"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -105,7 +105,7 @@ Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barın
   <Tab label="Demo" value="demo">
 
 <iframe
-  src="https://intlayer-angular-21-template.vercel.app/"
+  src="https://intlayer-angular-22-template.vercel.app/"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo - intlayer-angular-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -115,7 +115,7 @@ Bir i18n çözümünden çok daha fazlası olan Intlayer, **kendi kendine barın
   </Tab>
 </Tabs>
 
-GitHub'da [Uygulama Şablonunu](https://github.com/aymericzip/intlayer-angular-21-template) görüntüleyin.
+GitHub'da [Uygulama Şablonunu](https://github.com/aymericzip/intlayer-angular-22-template) görüntüleyin.
 
 <Steps>
 
@@ -203,7 +203,7 @@ export default config;
 
 <Step number={3} title="Intlayer'ı Angular Yapılandırmanıza Entegre Edin">
 
-Intlayer'ı Angular CLI ile bütünleştirmek için özel bir oluşturucu (builder) kullanmanız gerekir. Bu kılavuz, Vite/esbuild kullandığınızı (Angular 21 projeleri için varsayılan) varsaymaktadır.
+Intlayer'ı Angular CLI ile bütünleştirmek için özel bir oluşturucu (builder) kullanmanız gerekir. Bu kılavuz, Vite/esbuild kullandığınızı (Angular 22 projeleri için varsayılan) varsaymaktadır.
 
 Öncelikle, `angular.json` dosyanızı özel esbuild oluşturucuyu kullanacak şekilde değiştirin. `build` ve `serve` yapılandırmalarını güncelleyin:
 

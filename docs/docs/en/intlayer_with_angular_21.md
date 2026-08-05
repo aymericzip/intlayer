@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: "Angular 21 i18n - Complete guide to translate your app"
-description: "No more i18next. The 2026 guide to building a multilingual (i18n) Angular 21 app. Translate with AI agents and optimize bundle size, SEO and performances."
+title: "Angular 22 i18n - Complete guide to translate your app"
+description: "No more i18next. The 2026 guide to building a multilingual (i18n) Angular 22 app. Translate with AI agents and optimize bundle size, SEO and performances."
 keywords:
   - Internationalization
   - Documentation
@@ -13,8 +13,8 @@ slugs:
   - doc
   - environment
   - angular
-applicationTemplate: https://github.com/aymericzip/intlayer-angular-21-template
-applicationShowcase: https://intlayer-angular-21-template.vercel.app/
+applicationTemplate: https://github.com/aymericzip/intlayer-angular-22-template
+applicationShowcase: https://intlayer-angular-22-template.vercel.app/
 history:
   - version: 8.9.0
     date: 2026-05-04
@@ -31,7 +31,7 @@ history:
 author: aymericzip
 ---
 
-# Translate your Angular 21 (Vite) website using Intlayer | Internationalization (i18n)
+# Translate your Angular 22 (Vite) website using Intlayer | Internationalization (i18n)
 
 ## Table of Contents
 
@@ -94,7 +94,7 @@ More than just an i18n solution, Intlayer provides an **self-hosted [visual edit
   <Tab label="Code" value="code">
 
 <iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-angular-21-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-angular-22-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -105,7 +105,7 @@ More than just an i18n solution, Intlayer provides an **self-hosted [visual edit
   <Tab label="Demo" value="demo">
 
 <iframe
-  src="https://intlayer-angular-21-template.vercel.app/"
+  src="https://intlayer-angular-22-template.vercel.app/"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo - intlayer-angular-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -115,7 +115,7 @@ More than just an i18n solution, Intlayer provides an **self-hosted [visual edit
   </Tab>
 </Tabs>
 
-See [Application Template](https://github.com/aymericzip/intlayer-angular-21-template) on GitHub.
+See [Application Template](https://github.com/aymericzip/intlayer-angular-22-template) on GitHub.
 
 <Steps>
 
@@ -203,7 +203,7 @@ export default config;
 
 <Step number={3} title="Integrate Intlayer in Your Angular Configuration">
 
-To integrate Intlayer with the Angular CLI, you need to use a custom builder. This guide assumes you are using Vite/esbuild (default for Angular 21 projects).
+To integrate Intlayer with the Angular CLI, you need to use a custom builder. This guide assumes you are using Vite/esbuild (default for Angular 22 projects).
 
 First, modify your `angular.json` to use the custom esbuild builder. Update the `build` and `serve` configurations:
 

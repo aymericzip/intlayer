@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: "Angular 21 i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
-description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Angular 21 đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
+title: "Angular 22 i18n - Hướng dẫn đầy đủ để dịch ứng dụng của bạn"
+description: "Không còn i18next nữa. Hướng dẫn 2026 để xây dựng ứng dụng Angular 22 đa ngôn ngữ (i18n). Dịch với các AI agent và tối ưu hóa kích thước bundle, SEO và hiệu suất."
 keywords:
   - Quốc tế hóa
   - Tài liệu
@@ -13,8 +13,8 @@ slugs:
   - doc
   - environment
   - angular
-applicationTemplate: https://github.com/aymericzip/intlayer-angular-21-template
-applicationShowcase: https://intlayer-angular-21-template.vercel.app/
+applicationTemplate: https://github.com/aymericzip/intlayer-angular-22-template
+applicationShowcase: https://intlayer-angular-22-template.vercel.app/
 history:
   - version: 8.9.0
     date: 2026-05-04
@@ -31,7 +31,7 @@ history:
 author: aymericzip
 ---
 
-# Dịch trang web Angular 21 (Vite) của bạn bằng Intlayer | Quốc tế hóa (i18n)
+# Dịch trang web Angular 22 (Vite) của bạn bằng Intlayer | Quốc tế hóa (i18n)
 
 ## Mục lục
 
@@ -94,7 +94,7 @@ Không chỉ là giải pháp i18n, Intlayer còn cung cấp **[trình chỉnh s
   <Tab label="Mã" value="code">
 
 <iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-angular-21-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-angular-22-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Cách quốc tế hóa ứng dụng của bạn bằng Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -105,7 +105,7 @@ Không chỉ là giải pháp i18n, Intlayer còn cung cấp **[trình chỉnh s
   <Tab label="Demo" value="demo">
 
 <iframe
-  src="https://intlayer-angular-21-template.vercel.app/"
+  src="https://intlayer-angular-22-template.vercel.app/"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo - intlayer-angular-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -115,7 +115,7 @@ Không chỉ là giải pháp i18n, Intlayer còn cung cấp **[trình chỉnh s
   </Tab>
 </Tabs>
 
-Xem [Mẫu Ứng Dụng](https://github.com/aymericzip/intlayer-angular-21-template) trên GitHub.
+Xem [Mẫu Ứng Dụng](https://github.com/aymericzip/intlayer-angular-22-template) trên GitHub.
 
 <Steps>
 
@@ -203,7 +203,7 @@ export default config;
 
 <Step number={3} title="Tích hợp Intlayer vào Cấu hình Angular của bạn">
 
-Để tích hợp Intlayer với Angular CLI, bạn cần sử dụng một builder tùy chỉnh. Hướng dẫn này giả định bạn đang sử dụng Vite/esbuild (mặc định cho các dự án Angular 21).
+Để tích hợp Intlayer với Angular CLI, bạn cần sử dụng một builder tùy chỉnh. Hướng dẫn này giả định bạn đang sử dụng Vite/esbuild (mặc định cho các dự án Angular 22).
 
 Trước tiên, sửa đổi tập tin `angular.json` của bạn để sử dụng builder esbuild tùy chỉnh. Cập nhật cấu hình `build` và `serve`:
 

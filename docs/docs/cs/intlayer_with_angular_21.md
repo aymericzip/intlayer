@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: "Angular 21 i18n - Kompletní průvodce překladem vaší aplikace"
-description: "Žádný i18next. Průvodce 2026 pro vytváření vícejazyčné (i18n) aplikace Angular 21. Překládejte pomocí agentů AI a optimalizujte velikost bundlu, SEO a výkon."
+title: "Angular 22 i18n - Kompletní průvodce překladem vaší aplikace"
+description: "Žádný i18next. Průvodce 2026 pro vytváření vícejazyčné (i18n) aplikace Angular 22. Překládejte pomocí agentů AI a optimalizujte velikost bundlu, SEO a výkon."
 keywords:
   - Internacionalizace
   - Dokumentace
@@ -13,8 +13,8 @@ slugs:
   - doc
   - environment
   - angular
-applicationTemplate: https://github.com/aymericzip/intlayer-angular-21-template
-applicationShowcase: https://intlayer-angular-21-template.vercel.app/
+applicationTemplate: https://github.com/aymericzip/intlayer-angular-22-template
+applicationShowcase: https://intlayer-angular-22-template.vercel.app/
 history:
   - version: 8.9.0
     date: 2026-05-04
@@ -31,7 +31,7 @@ history:
 author: aymericzip
 ---
 
-# Přeložte svůj web Angular 21 (Vite) pomocí Intlayer | Internacionalizace (i18n)
+# Přeložte svůj web Angular 22 (Vite) pomocí Intlayer | Internacionalizace (i18n)
 
 ## Obsah
 
@@ -56,7 +56,7 @@ S Intlayer můžete:
   <Tab label="Kód" value="code">
 
 <iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-angular-21-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-angular-22-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Jak internacionalizovat vaši aplikaci pomocí Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -67,7 +67,7 @@ S Intlayer můžete:
   <Tab label="Demo" value="demo">
 
 <iframe
-  src="https://intlayer-angular-21-template.vercel.app/"
+  src="https://intlayer-angular-22-template.vercel.app/"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo - intlayer-angular-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -77,7 +77,7 @@ S Intlayer můžete:
   </Tab>
 </Tabs>
 
-Podívejte se na [šablonu aplikace](https://github.com/aymericzip/intlayer-angular-21-template) na GitHubu.
+Podívejte se na [šablonu aplikace](https://github.com/aymericzip/intlayer-angular-22-template) na GitHubu.
 
 <Steps>
 
@@ -165,7 +165,7 @@ export default config;
 
 <Step number={3} title="Integrace Intlayer do vaší konfigurace Angular">
 
-K integraci Intlayer s Angular CLI je nutné použít vlastní builder. Tento průvodce předpokládá, že používáte Vite/esbuild (výchozí pro projekty Angular 21).
+K integraci Intlayer s Angular CLI je nutné použít vlastní builder. Tento průvodce předpokládá, že používáte Vite/esbuild (výchozí pro projekty Angular 22).
 
 Nejprve upravte svůj `angular.json` tak, aby používal vlastní esbuild builder. Aktualizujte konfigurace pro `build` a `serve`:
 

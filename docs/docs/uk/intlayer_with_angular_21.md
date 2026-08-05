@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: "Angular 21 i18n - Повний посібник з перекладу вашого застосунку"
-description: "Більше ніякого i18next. Посібник 2026 зі створення багатомовного (i18n) застосунку Angular 21. Перекладайте за допомогою ШІ-агентів та оптимізуйте розмір бандлу, SEO та продуктивність."
+title: "Angular 22 i18n - Повний посібник з перекладу вашого застосунку"
+description: "Більше ніякого i18next. Посібник 2026 зі створення багатомовного (i18n) застосунку Angular 22. Перекладайте за допомогою ШІ-агентів та оптимізуйте розмір бандлу, SEO та продуктивність."
 keywords:
   - Інтернаціоналізація
   - Документація
@@ -13,8 +13,8 @@ slugs:
   - doc
   - environment
   - angular
-applicationTemplate: https://github.com/aymericzip/intlayer-angular-21-template
-applicationShowcase: https://intlayer-angular-21-template.vercel.app/
+applicationTemplate: https://github.com/aymericzip/intlayer-angular-22-template
+applicationShowcase: https://intlayer-angular-22-template.vercel.app/
 history:
   - version: 8.9.0
     date: 2026-05-04
@@ -31,7 +31,7 @@ history:
 author: aymericzip
 ---
 
-# Перекладіть ваш вебсайт Angular 21 (Vite) за допомогою Intlayer | Інтернаціоналізація (i18n)
+# Перекладіть ваш вебсайт Angular 22 (Vite) за допомогою Intlayer | Інтернаціоналізація (i18n)
 
 ## Зміст
 
@@ -94,7 +94,7 @@ Intlayer оптимізовано для ідеальної роботи з Angu
   <Tab label="Код" value="code">
 
 <iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-angular-21-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-angular-22-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Як інтернаціоналізувати ваш додаток за допомогою Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -105,7 +105,7 @@ Intlayer оптимізовано для ідеальної роботи з Angu
   <Tab label="Демо" value="demo">
 
 <iframe
-  src="https://intlayer-angular-21-template.vercel.app/"
+  src="https://intlayer-angular-22-template.vercel.app/"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo - intlayer-angular-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -115,7 +115,7 @@ Intlayer оптимізовано для ідеальної роботи з Angu
   </Tab>
 </Tabs>
 
-Перегляньте [Шаблон Додатку](https://github.com/aymericzip/intlayer-angular-21-template) на GitHub.
+Перегляньте [Шаблон Додатку](https://github.com/aymericzip/intlayer-angular-22-template) на GitHub.
 
 <Steps>
 
@@ -203,7 +203,7 @@ export default config;
 
 <Step number={3} title="Інтеграція Intlayer у вашу конфігурацію Angular">
 
-Щоб інтегрувати Intlayer з Angular CLI, вам потрібно використовувати кастомний збирач. У цьому посібнику передбачається, що ви використовуєте Vite/esbuild (за замовчуванням для проєктів Angular 21).
+Щоб інтегрувати Intlayer з Angular CLI, вам потрібно використовувати кастомний збирач. У цьому посібнику передбачається, що ви використовуєте Vite/esbuild (за замовчуванням для проєктів Angular 22).
 
 Спершу змініть ваш `angular.json` для використання користувацького esbuild. Оновіть конфігурації `build` та `serve`:
 

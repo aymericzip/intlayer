@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: "تدويل Angular 21 - الدليل الكامل لترجمة تطبيقك"
-description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Angular 21 متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
+title: "تدويل Angular 22 - الدليل الكامل لترجمة تطبيقك"
+description: "لا مزيد من i18next. دليل 2026 لبناء تطبيق Angular 22 متعدد اللغات (i18n). ترجم باستخدام وكلاء الذكاء الاصطناعي وحسّن حجم الحزمة وتحسين محركات البحث والأداء."
 keywords:
   - تدويل
   - وثائق
@@ -13,8 +13,8 @@ slugs:
   - doc
   - environment
   - angular
-applicationTemplate: https://github.com/aymericzip/intlayer-angular-21-template
-applicationShowcase: https://intlayer-angular-21-template.vercel.app/
+applicationTemplate: https://github.com/aymericzip/intlayer-angular-22-template
+applicationShowcase: https://intlayer-angular-22-template.vercel.app/
 history:
   - version: 8.9.0
     date: 2026-05-04
@@ -31,7 +31,7 @@ history:
 author: aymericzip
 ---
 
-# ترجم موقع Angular 21 (Vite) الخاص بك باستخدام Intlayer | التدويل (i18n)
+# ترجم موقع Angular 22 (Vite) الخاص بك باستخدام Intlayer | التدويل (i18n)
 
 ## جدول المحتويات
 
@@ -77,7 +77,7 @@ author: aymericzip
   <Tab label="الرمز" value="code">
 
 <iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-angular-21-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-angular-22-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - كيفية تدويل تطبيقك باستخدام Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -88,7 +88,7 @@ author: aymericzip
   <Tab label="عرض تجريبي" value="demo">
 
 <iframe
-  src="https://intlayer-angular-21-template.vercel.app/"
+  src="https://intlayer-angular-22-template.vercel.app/"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo - intlayer-angular-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -98,7 +98,7 @@ author: aymericzip
   </Tab>
 </Tabs>
 
-راجع [قالب التطبيق](https://github.com/aymericzip/intlayer-angular-21-template) على GitHub.
+راجع [قالب التطبيق](https://github.com/aymericzip/intlayer-angular-22-template) على GitHub.
 
 <Steps>
 
@@ -186,7 +186,7 @@ export default config;
 
 <Step number={3} title="دمج Intlayer في تكوين Angular الخاص بك">
 
-لدمج Intlayer مع Angular CLI، تحتاج إلى استخدام باني مخصص (custom builder). يفترض هذا الدليل أنك تستخدم Vite/esbuild (الافتراضي لمشاريع Angular 21).
+لدمج Intlayer مع Angular CLI، تحتاج إلى استخدام باني مخصص (custom builder). يفترض هذا الدليل أنك تستخدم Vite/esbuild (الافتراضي لمشاريع Angular 22).
 
 أولاً، قم بتعديل `angular.json` الخاص بك لاستخدام باني esbuild المخصص. قم بتحديث تكوينات `build` و `serve`:
 

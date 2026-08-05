@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: "Angular 21 i18n - Panduan lengkap menerjemahkan aplikasi Anda"
-description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Angular 21 multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
+title: "Angular 22 i18n - Panduan lengkap menerjemahkan aplikasi Anda"
+description: "Tidak ada lagi i18next. Panduan 2026 untuk membangun aplikasi Angular 22 multibahasa (i18n). Terjemahkan dengan agen AI dan optimalkan ukuran bundle, SEO, dan performa."
 keywords:
   - Internasionalisasi
   - Dokumentasi
@@ -13,8 +13,8 @@ slugs:
   - doc
   - environment
   - angular
-applicationTemplate: https://github.com/aymericzip/intlayer-angular-21-template
-applicationShowcase: https://intlayer-angular-21-template.vercel.app/
+applicationTemplate: https://github.com/aymericzip/intlayer-angular-22-template
+applicationShowcase: https://intlayer-angular-22-template.vercel.app/
 history:
   - version: 8.9.0
     date: 2026-05-04
@@ -31,7 +31,7 @@ history:
 author: aymericzip
 ---
 
-# Terjemahkan situs web Angular 21 (Vite) Anda menggunakan Intlayer | Internasionalisasi (i18n)
+# Terjemahkan situs web Angular 22 (Vite) Anda menggunakan Intlayer | Internasionalisasi (i18n)
 
 ## Daftar Isi
 
@@ -94,7 +94,7 @@ Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://g
   <Tab label="Kode" value="code">
 
 <iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-angular-21-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-angular-22-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Cara menginternasionalisasikan aplikasi Anda menggunakan Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -105,7 +105,7 @@ Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://g
   <Tab label="Demo" value="demo">
 
 <iframe
-  src="https://intlayer-angular-21-template.vercel.app/"
+  src="https://intlayer-angular-22-template.vercel.app/"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo - intlayer-angular-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -115,7 +115,7 @@ Lebih dari sekedar solusi i18n, Intlayer menyediakan **[editor visual](https://g
   </Tab>
 </Tabs>
 
-Lihat [Templat Aplikasi](https://github.com/aymericzip/intlayer-angular-21-template) di GitHub.
+Lihat [Templat Aplikasi](https://github.com/aymericzip/intlayer-angular-22-template) di GitHub.
 
 <Steps>
 
@@ -203,7 +203,7 @@ export default config;
 
 <Step number={3} title="Integrasikan Intlayer dalam Konfigurasi Angular Anda">
 
-Untuk mengintegrasikan Intlayer dengan Angular CLI, Anda perlu menggunakan pembuat (builder) kustom. Panduan ini mengasumsikan Anda menggunakan Vite/esbuild (default untuk proyek Angular 21).
+Untuk mengintegrasikan Intlayer dengan Angular CLI, Anda perlu menggunakan pembuat (builder) kustom. Panduan ini mengasumsikan Anda menggunakan Vite/esbuild (default untuk proyek Angular 22).
 
 Pertama, modifikasi `angular.json` Anda untuk menggunakan pembuat esbuild kustom. Perbarui konfigurasi `build` dan `serve`:
 

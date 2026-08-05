@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: "Angular 21 i18n - 翻译你的应用的完整指南"
-description: "告别 i18next。2026 年构建多语言 (i18n) Angular 21 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
+title: "Angular 22 i18n - 翻译你的应用的完整指南"
+description: "告别 i18next。2026 年构建多语言 (i18n) Angular 22 应用的完整指南。使用 AI 代理翻译并优化包体积、SEO 和性能。"
 keywords:
   - 国际化
   - 文档
@@ -13,8 +13,8 @@ slugs:
   - doc
   - environment
   - angular
-applicationTemplate: https://github.com/aymericzip/intlayer-angular-21-template
-applicationShowcase: https://intlayer-angular-21-template.vercel.app/
+applicationTemplate: https://github.com/aymericzip/intlayer-angular-22-template
+applicationShowcase: https://intlayer-angular-22-template.vercel.app/
 history:
   - version: 8.9.0
     date: 2026-05-04
@@ -77,7 +77,7 @@ Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的
   <Tab label="代码" value="code">
 
 <iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-angular-21-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-angular-22-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - 如何使用Intlayer进行应用程序国际化"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -88,7 +88,7 @@ Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的
   <Tab label="演示" value="demo">
 
 <iframe
-  src="https://intlayer-angular-21-template.vercel.app/"
+  src="https://intlayer-angular-22-template.vercel.app/"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo - intlayer-angular-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -98,7 +98,7 @@ Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的
   </Tab>
 </Tabs>
 
-在GitHub上查看 [应用程序模板](https://github.com/aymericzip/intlayer-angular-21-template)。
+在GitHub上查看 [应用程序模板](https://github.com/aymericzip/intlayer-angular-22-template)。
 
 <Steps>
 

@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: "Angular 21 i18n - 翻譯您的應用程式的完整指南"
-description: "告別 i18next。2026 年建構多語言 (i18n) Angular 21 應用程式的完整指南。使用 AI 代理翻譯並優化套件大小、SEO 和效能。"
+title: "Angular 22 i18n - 翻譯您的應用程式的完整指南"
+description: "告別 i18next。2026 年建構多語言 (i18n) Angular 22 應用程式的完整指南。使用 AI 代理翻譯並優化套件大小、SEO 和效能。"
 keywords:
   - 國際化
   - 文件
@@ -13,8 +13,8 @@ slugs:
   - doc
   - environment
   - angular
-applicationTemplate: https://github.com/aymericzip/intlayer-angular-21-template
-applicationShowcase: https://intlayer-angular-21-template.vercel.app/
+applicationTemplate: https://github.com/aymericzip/intlayer-angular-22-template
+applicationShowcase: https://intlayer-angular-22-template.vercel.app/
 history:
   - version: 8.9.0
     date: 2026-05-04
@@ -56,7 +56,7 @@ author: aymericzip
   <Tab label="程式碼" value="code">
 
 <iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-angular-21-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-angular-22-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - 如何使用Intlayer進行應用程式國際化"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -67,7 +67,7 @@ author: aymericzip
   <Tab label="展示" value="demo">
 
 <iframe
-  src="https://intlayer-angular-21-template.vercel.app/"
+  src="https://intlayer-angular-22-template.vercel.app/"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo - intlayer-angular-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -77,7 +77,7 @@ author: aymericzip
   </Tab>
 </Tabs>
 
-在GitHub上查看 [應用程式模板](https://github.com/aymericzip/intlayer-angular-21-template)。
+在GitHub上查看 [應用程式模板](https://github.com/aymericzip/intlayer-angular-22-template)。
 
 <Steps>
 

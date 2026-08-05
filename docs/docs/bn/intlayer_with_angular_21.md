@@ -1,8 +1,8 @@
 ---
 createdAt: 2025-04-18
 updatedAt: 2026-05-31
-title: "Angular 21 i18n - আপনার অ্যাপ অনুবাদের সম্পূর্ণ গাইড"
-description: "আর i18next নয়। 2026 সালে Angular 21 অ্যাপ কে বহুভাষিক (i18n) করার গাইড। AI এজেন্ট দিয়ে অনুবাদ করুন এবং বান্ডেল সাইজ, SEO ও পারফরম্যান্স অপ্টিমাইজ করুন।"
+title: "Angular 22 i18n - আপনার অ্যাপ অনুবাদের সম্পূর্ণ গাইড"
+description: "আর i18next নয়। 2026 সালে Angular 22 অ্যাপ কে বহুভাষিক (i18n) করার গাইড। AI এজেন্ট দিয়ে অনুবাদ করুন এবং বান্ডেল সাইজ, SEO ও পারফরম্যান্স অপ্টিমাইজ করুন।"
 keywords:
   - আন্তর্জাতিকীকরণ
   - ডকুমেন্টেশন
@@ -13,8 +13,8 @@ slugs:
   - doc
   - environment
   - angular
-applicationTemplate: https://github.com/aymericzip/intlayer-angular-21-template
-applicationShowcase: https://intlayer-angular-21-template.vercel.app/
+applicationTemplate: https://github.com/aymericzip/intlayer-angular-22-template
+applicationShowcase: https://intlayer-angular-22-template.vercel.app/
 history:
   - version: 8.9.0
     date: 2026-05-04
@@ -31,7 +31,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer ব্যবহার করে আপনার Angular 21 (Vite) ওয়েবসাইট অনুবাদ করুন | আন্তর্জাতিকীকরণ (i18n)
+# Intlayer ব্যবহার করে আপনার Angular 22 (Vite) ওয়েবসাইট অনুবাদ করুন | আন্তর্জাতিকীকরণ (i18n)
 
 ## সূচিপত্র
 
@@ -56,7 +56,7 @@ Intlayer এর মাধ্যমে আপনি যা করতে পার
   <Tab label="কোড" value="code">
 
 <iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-angular-21-template?file=intlayer.config.ts"
+  src="https://ide.intlayer.org/aymericzip/intlayer-angular-22-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - Intlayer ব্যবহার করে কীভাবে আপনার অ্যাপ্লিকেশনের আন্তর্জাতিকীকরণ করবেন"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -67,7 +67,7 @@ Intlayer এর মাধ্যমে আপনি যা করতে পার
   <Tab label="ডেমো" value="demo">
 
 <iframe
-  src="https://intlayer-angular-21-template.vercel.app/"
+  src="https://intlayer-angular-22-template.vercel.app/"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo - intlayer-angular-template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
@@ -77,7 +77,7 @@ Intlayer এর মাধ্যমে আপনি যা করতে পার
   </Tab>
 </Tabs>
 
-GitHub এ [অ্যাপ্লিকেশন টেমপ্লেট](https://github.com/aymericzip/intlayer-angular-21-template) দেখুন।
+GitHub এ [অ্যাপ্লিকেশন টেমপ্লেট](https://github.com/aymericzip/intlayer-angular-22-template) দেখুন।
 
 ### ধাপ ১: ডিপেন্ডেন্সি ইন্সটল করুন
 
@@ -159,7 +159,7 @@ export default config;
 
 ### ধাপ ৩: আপনার Angular কনফিগারেশনে Intlayer একত্রিত করুন
 
-Intlayer কে Angular CLI এর সাথে একত্রিত করতে আপনাকে একটি কাস্টম বিল্ডার ব্যবহার করতে হবে। এই গাইডটি ধরে নেয় যে আপনি Vite/esbuild ব্যবহার করছেন (Angular 21 প্রজেক্টের জন্য ডিফল্ট)।
+Intlayer কে Angular CLI এর সাথে একত্রিত করতে আপনাকে একটি কাস্টম বিল্ডার ব্যবহার করতে হবে। এই গাইডটি ধরে নেয় যে আপনি Vite/esbuild ব্যবহার করছেন (Angular 22 প্রজেক্টের জন্য ডিফল্ট)।
 
 প্রথমে আপনার `angular.json` পরিবর্তন করে কাস্টম esbuild বিল্ডার ব্যবহার করুন। `build` এবং `serve` কনফিগারেশন আপডেট করুন:
 
