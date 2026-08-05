@@ -67,6 +67,7 @@ const secureHeaders = {
         '*.analytics.google.com',
         '*.google.com',
         '*.googletagmanager.com',
+        '*.doubleclick.net',
         '*.posthog.com',
         'github.com',
         'api.github.com',
