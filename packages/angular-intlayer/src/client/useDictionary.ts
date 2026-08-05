@@ -9,6 +9,7 @@ import type {
 import type {
   DeclaredLocales,
   ExtractSelectorLocale,
+  LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import { getDictionary } from '../getDictionary';
 import type { DeepTransformContent } from '../plugins';
@@ -21,7 +22,7 @@ import { INTLAYER_TOKEN, type IntlayerProvider } from './installIntlayer';
 export const useDictionary = <
   const T extends Dictionary | QualifiedDictionaryGroup,
   const A extends
-    | DeclaredLocales
+    | LocalesValues
     | DictionarySelectorForGroup<T> = DeclaredLocales,
 >(
   dictionary: T,

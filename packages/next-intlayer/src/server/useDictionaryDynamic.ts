@@ -5,6 +5,7 @@ import type {
 } from '@intlayer/types/dictionary';
 import type {
   DeclaredLocales,
+  LocalesValues,
   StrictModeLocaleMap,
 } from '@intlayer/types/module_augmentation';
 import { useDictionaryDynamic as useDictionaryDynamicBase } from 'react-intlayer/server';
@@ -18,7 +19,7 @@ import { safeUseLocale } from './useIntlayer';
  */
 export const useDictionaryDynamic = <
   const T extends Dictionary,
-  const A extends DeclaredLocales | DictionarySelector = DeclaredLocales,
+  const A extends LocalesValues | DictionarySelector = DeclaredLocales,
 >(
   dictionaryPromise:
     | StrictModeLocaleMap<() => Promise<T>>

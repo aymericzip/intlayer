@@ -66,7 +66,7 @@ const warnedMissingDictionaries = new Set<string>();
  */
 export const getIntlayer = <
   const T extends DictionaryKeys,
-  const A extends DeclaredLocales | DictionarySelector = DeclaredLocales,
+  const A extends LocalesValues | DictionarySelector = DeclaredLocales,
 >(
   key: T,
   localeOrSelector?: A,

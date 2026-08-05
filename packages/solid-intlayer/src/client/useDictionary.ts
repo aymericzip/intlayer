@@ -8,6 +8,7 @@ import type {
 import type {
   DeclaredLocales,
   ExtractSelectorLocale,
+  LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import { createMemo, useContext } from 'solid-js';
 import { getDictionary } from '../getDictionary';
@@ -27,7 +28,7 @@ import { IntlayerClientContext, type IntlayerValue } from './IntlayerProvider';
 export const useDictionary = <
   const T extends Dictionary | QualifiedDictionaryGroup,
   const A extends
-    | DeclaredLocales
+    | LocalesValues
     | DictionarySelectorForGroup<T> = DeclaredLocales,
 >(
   dictionary: T,

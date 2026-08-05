@@ -35,9 +35,7 @@ import { useLoadDynamic as loadDynamicChunk } from './useLoadDynamic';
 export const useDictionaryDynamic = <
   const T extends Dictionary,
   const K extends DictionaryKeys,
-  const A extends
-    | DeclaredLocales
-    | DictionarySelectorForKey<K> = DeclaredLocales,
+  const A extends LocalesValues | DictionarySelectorForKey<K> = DeclaredLocales,
 >(
   dictionaryPromise:
     | StrictModeLocaleMap<() => Promise<T>>

@@ -8,6 +8,7 @@ import type {
   DeclaredLocales,
   DictionaryKeys,
   DictionarySelectorForKey,
+  LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import { useContext, useMemo } from 'react';
 import { getIntlayer } from '../getIntlayer';
@@ -43,9 +44,7 @@ import { IntlayerClientContext } from './IntlayerProvider';
  */
 export const useIntlayer = <
   const T extends DictionaryKeys,
-  const A extends
-    | DeclaredLocales
-    | DictionarySelectorForKey<T> = DeclaredLocales,
+  const A extends LocalesValues | DictionarySelectorForKey<T> = DeclaredLocales,
 >(
   key: T,
   localeOrSelector?: A

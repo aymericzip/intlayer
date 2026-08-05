@@ -207,8 +207,17 @@ describe('DictionarySelectorForGroup', () => {
     });
   });
 
-  it('should reject an undeclared locale', () => {
-    expectTypeOf<{ locale: 'not-a-locale' }>().not.toExtend<LessonSelector>();
+  describe('locale', () => {
+    it('should accept a declared locale', () => {
+      expectTypeOf<{ locale: 'fr' }>().toExtend<LessonSelector>();
+    });
+
+    it('should accept a widened `string` locale', () => {
+      // A locale usually reaches this API as a router param (`params.locale`)
+      // or a stored value, both typed `string`. Rejecting those would force a
+      // cast at every call site, so the declared locales are suggestions only.
+      expectTypeOf<{ locale: string }>().toExtend<LessonSelector>();
+    });
   });
 });
 

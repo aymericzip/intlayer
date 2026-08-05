@@ -34,9 +34,7 @@ import { getIntlayerClient } from './installIntlayer';
  */
 export const useIntlayer = <
   const T extends DictionaryKeys,
-  const A extends
-    | DeclaredLocales
-    | DictionarySelectorForKey<T> = DeclaredLocales,
+  const A extends LocalesValues | DictionarySelectorForKey<T> = DeclaredLocales,
 >(
   key: T,
   localeOrSelector?: A

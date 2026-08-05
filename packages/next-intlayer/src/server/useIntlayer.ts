@@ -3,6 +3,7 @@ import type {
   DeclaredLocales,
   DictionaryKeys,
   DictionarySelectorForKey,
+  LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import React from 'react';
 import { useIntlayer as useIntlayerBase } from 'react-intlayer/server';
@@ -37,9 +38,7 @@ export const safeUseLocale = (): Locale | undefined => {
  */
 export const useIntlayer = <
   const T extends DictionaryKeys,
-  const A extends
-    | DeclaredLocales
-    | DictionarySelectorForKey<T> = DeclaredLocales,
+  const A extends LocalesValues | DictionarySelectorForKey<T> = DeclaredLocales,
 >(
   key: T,
   localeOrSelector?: A

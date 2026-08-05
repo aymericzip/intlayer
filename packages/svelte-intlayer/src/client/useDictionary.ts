@@ -8,6 +8,7 @@ import type {
 import type {
   DeclaredLocales,
   ExtractSelectorLocale,
+  LocalesValues,
 } from '@intlayer/types/module_augmentation';
 import { derived, type Readable } from 'svelte/store';
 import { getDictionary } from '../getDictionary';
@@ -26,7 +27,7 @@ import { intlayerStore } from './intlayerStore';
 export const useDictionary = <
   const T extends Dictionary | QualifiedDictionaryGroup,
   const A extends
-    | DeclaredLocales
+    | LocalesValues
     | DictionarySelectorForGroup<T> = DeclaredLocales,
 >(
   dictionary: T,

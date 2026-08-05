@@ -242,10 +242,11 @@ export type QualifiedDictionaryGroup = {
  */
 export type DictionarySelector = {
   /**
-   * Restricted to the declared locales (no `string` escape hatch), so a typo is
-   * a compile error and the declared locales are offered as suggestions.
+   * The declared locales are offered as suggestions, but any string is
+   * accepted: a locale usually reaches this API as a router param or a stored
+   * value, whose type is a plain `string`.
    */
-  locale?: DeclaredLocales;
+  locale?: LocalesValues;
   item?: number;
   variant?: DictionaryVariantChain;
 };
@@ -586,7 +587,7 @@ export type DictionarySelectorForGroup<T, KnownVariants = DeclaredVariants> = [
   GroupEntryUnion<T>,
 ] extends [never]
   ? DictionarySelector
-  : { locale?: DeclaredLocales } & ([EntryVariant<GroupEntryUnion<T>>] extends [
+  : { locale?: LocalesValues } & ([EntryVariant<GroupEntryUnion<T>>] extends [
       never,
     ]
       ? unknown
