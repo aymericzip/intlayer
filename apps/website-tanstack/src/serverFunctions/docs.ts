@@ -56,7 +56,7 @@ export const loadDocPage = createServerFn()
 
 export const loadNavData = createServerFn()
   .validator((data: { locale: string }) => data)
-  // .middleware([staticFunctionMiddleware])
+  .middleware([staticFunctionMiddleware])
   .handler(async ({ data: { locale } }) => getDocData(locale));
 
 export const loadDocRaw = createServerFn()

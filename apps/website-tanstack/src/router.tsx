@@ -13,9 +13,9 @@ export function getRouter() {
     },
     scrollRestoration: true,
     defaultPreload: 'intent',
-    defaultPreloadStaleTime: 0,
+    defaultPreloadStaleTime: Infinity,
     defaultStaleTime: Infinity,
-    defaultPendingMs: 0,
+    defaultPendingMs: 1000,
     defaultNotFoundComponent: NotFoundComponent,
   });
 
