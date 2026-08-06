@@ -4,7 +4,7 @@ import { parseMarkdown } from 'react-intlayer/markdown';
 
 export const loadLegalContent = createServerFn()
   .validator((data: { locale: string; docKey: string }) => data)
-  // .middleware([staticFunctionMiddleware])
+  .middleware([staticFunctionMiddleware])
   .handler(async ({ data: { locale, docKey } }) => {
     const { getLegal, getLegalMetadata } = await import('@intlayer/docs');
 

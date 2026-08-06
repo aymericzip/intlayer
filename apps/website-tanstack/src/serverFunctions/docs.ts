@@ -9,7 +9,7 @@ import { urlRenamer } from '~/utils/markdown';
 
 export const loadDocPage = createServerFn()
   .validator((data: { locale: string; slugs: string[] }) => data)
-  // .middleware([staticFunctionMiddleware])
+  .middleware([staticFunctionMiddleware])
   .handler(async ({ data: { locale, slugs } }) => {
     const { getDoc, getDocMetadata, getDocMetadataBySlug, getAuthor } =
       await import('@intlayer/docs');

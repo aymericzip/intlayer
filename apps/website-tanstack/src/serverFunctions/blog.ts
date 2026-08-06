@@ -9,7 +9,7 @@ import { urlRenamer } from '~/utils/markdown';
 
 export const loadBlogPage = createServerFn()
   .validator((data: { locale: string; slugs: string[] }) => data)
-  // .middleware([staticFunctionMiddleware])
+  .middleware([staticFunctionMiddleware])
   .handler(async ({ data: { locale, slugs } }) => {
     const { getBlog, getBlogMetadataBySlug, getAuthor } = await import(
       '@intlayer/docs'
