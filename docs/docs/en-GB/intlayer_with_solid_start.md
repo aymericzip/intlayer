@@ -25,7 +25,7 @@ history:
 author: aymericzip
 ---
 
-# Translate your SolidStart website using Intlayer | Internationalization (i18n)
+# Translate your SolidStart website using Intlayer | Internationalisation (i18n)
 
 <Tabs defaultTab="video">
   <Tab label="Video" value="video">
@@ -38,7 +38,7 @@ author: aymericzip
 <iframe
   src="https://ide.intlayer.org/aymericzip/intlayer-solid-start-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  title="Demo CodeSandbox - How to Internationalise your application using Intlayer"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />
@@ -54,13 +54,13 @@ This guide covers a **server-rendered** SolidStart application: locale detection
 
 ## Why Intlayer over alternatives?
 
-Compared to main solutions like `@solid-primitives/i18n` or `i18next`, Intlayer is a solution that comes with integrated optimizations such as:
+Compared to main solutions like `@solid-primitives/i18n` or `i18next`, Intlayer is a solution that comes with integrated optimisations such as:
 
 <AccordionGroup>
 
 <Accordion header="Full Solid coverage">
 
-Intlayer is optimized to work perfectly with Solid by offering **component-level content scoping**, **reactive translations**, and all the features needed for scaling internationalization (i18n).
+Intlayer is optimised to work perfectly with Solid by offering **component-level content scoping**, **reactive translations**, and all the features needed for scaling internationalisation (i18n).
 
 </Accordion>
 
@@ -78,7 +78,7 @@ Scoping your application's content **facilitates maintenance** for large-scale a
 
 <Accordion header="AI Agent">
 
-Co-locating content **reduces the context needed** by Large Language Models (LLMs). Intlayer also comes with a suite of tools, such as a **CLI** to test for missing translations,**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, and **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, to make the developer experience (DX) even smoother for AI agents.
+Co-locating content **reduces the context needed** by Large Language Models (LLMs). Intlayer also comes with a suite of tools, such as a **CLI** to test for missing translations, **[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/lsp.md)**, **[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/mcp_server.md)**, and **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/agent_skills.md)**, to make the developer experience (DX) even smoother for AI agents.
 
 </Accordion>
 
@@ -90,13 +90,13 @@ Use automation to translate in your CI/CD pipeline using the LLM of your choice 
 
 <Accordion header="Performance">
 
-Connecting massive JSON files to components can lead to performance and reactivity issues. Intlayer optimizes your content loading at build time.
+Connecting massive JSON files to components can lead to performance and reactivity issues. Intlayer optimises your content loading at build time.
 
 </Accordion>
 
-<Accordion header="Scaling with none-dev">
+<Accordion header="Scaling with non-devs">
 
-More than just an i18n solution, Intlayer provides an **self-hosted [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** and a **[full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** to help you manage your multilingual content in **real-time**, making collaboration with translators, copywriters, and other team members seamless. Content can be stored locally and/or remotely.
+More than just an i18n solution, Intlayer provides a **self-hosted [visual editor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_visual_editor.md)** and a **[full CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/intlayer_CMS.md)** to help you manage your multilingual content in **real-time**, making collaboration with translators, copywriters, and other team members seamless. Content can be stored locally and/or remotely.
 
 </Accordion>
 </AccordionGroup>
@@ -149,11 +149,11 @@ bun add intlayer solid-intlayer vite-intlayer
 
 - **intlayer**
 
-  The core package that provides internationalization tools for configuration management, translation, [content declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md), transpilation, and [CLI commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md).
+  The core package that provides internationalisation tools for configuration management, translation, [content declaration](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/dictionary/content_file.md), transpilation, and [CLI commands](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/cli/index.md).
 
 - **solid-intlayer**
 
-  The package that integrates Intlayer with Solid application. It provides context providers and hooks for Solid internationalization.
+  The package that integrates Intlayer with Solid application. It provides context providers and hooks for Solid internationalisation.
 
 - **vite-intlayer**
 
@@ -196,7 +196,7 @@ With `prefix-no-default`, the default locale is served from unprefixed URLs:
 /es          /es/about       → Spanish
 ```
 
-> Through this configuration file, you can set up localized URLs, middleware redirection, cookie names, the location and extension of your content declarations, disable Intlayer logs in the console, and more. For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
+> Through this configuration file, you can set up localised URLs, middleware redirection, cookie names, the location and extension of your content declarations, disable Intlayer logs in the console, and more. For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/configuration.md).
 
 </Step>
 
@@ -215,14 +215,14 @@ export default defineConfig({
 });
 ```
 
-> The `intlayer()` Vite plugin builds your content declaration files, watches them in development mode, and defines the Intlayer environment variables inside the application. It also provides aliases that optimize performance.
+> The `intlayer()` Vite plugin builds your content declaration files, watches them in development mode, and defines the Intlayer environment variables inside the application. It also provides aliases that optimise performance.
 
 ### Locale routing comes with the plugin
 
 SolidStart runs on [Nitro](https://nitro.build), and `intlayer()` registers its locale-routing handler directly into Nitro's server pipeline (through the `routing.enableProxy` option, `true` by default). Nothing else to wire: on a built server, every request is inspected before it reaches the router, and
 
 - the locale is read from the URL prefix, then the `INTLAYER_LOCALE` cookie, then the `Accept-Language` header;
-- a non-prefixed URL is redirected to its localized counterpart when the resolved locale is not the default one (`/` → `/fr`);
+- a non-prefixed URL is redirected to its localised counterpart when the resolved locale is not the default one (`/` → `/fr`);
 - a redundantly prefixed URL is redirected back to its canonical form (`/en/about` → `/about`);
 - the locale cookie is written back on the response.
 
@@ -348,7 +348,7 @@ export default function LocaleLayout(props: RouteSectionProps) {
 
 <Step number={6} title="Provide the locale to your application">
 
-The URL is the single source of truth for the locale: the middleware has already redirected the request to its localized path, so reading the path in the root layout keeps the server render and the client hydration in agreement, and makes every client-side navigation update the locale for free.
+The URL is the single source of truth for the locale: the middleware has already redirected the request to its localised path, so reading the path in the root layout keeps the server render and the client hydration in agreement, and makes every client-side navigation update the locale for free.
 
 ```tsx fileName="src/app.tsx" codeFormat="typescript"
 import { MetaProvider } from "@solidjs/meta";
@@ -479,7 +479,7 @@ export default function Home() {
 
 > To learn more about the `useIntlayer` hook, refer to the [documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en/packages/solid-intlayer/useIntlayer.md).
 
-Content nodes are not limited to plain translations. A pluralized counter, for example:
+Content nodes are not limited to plain translations. A pluralised counter, for example:
 
 ```typescript fileName="src/components/Counter.content.ts" codeFormat="typescript"
 import { type Dictionary, plural, t } from "intlayer";
@@ -750,7 +750,7 @@ export default function NotFound() {
 
 Intlayer's sitemap generator expands every path into one entry per locale and wires the `xhtml:link` alternates between them, so the route only has to list the canonical, locale-free paths.
 
-> Unlike basic generators that only emit flat URLs, Intlayer wires bidirectional links between every localized variant of each page, which helps search engines relate localized URLs and serve the right one to the right audience.
+> Unlike basic generators that only emit flat URLs, Intlayer wires bidirectional links between every localised variant of each page, which helps search engines relate localised URLs and serve the right one to the right audience.
 
 SolidStart turns a file exporting an HTTP method into an API route, and strips the `.ts` extension from the path — so `src/routes/sitemap.xml.ts` is served at `/sitemap.xml`:
 
@@ -795,7 +795,7 @@ export const GET = (_event: APIEvent) => {
 
 > API routes do not support optional parameters, so keep this file at the root of `src/routes`, outside the `[[locale]]` segment. The sitemap already contains every locale.
 
-You can build a `robots.txt` the same way with `getMultilingualUrls`, so that `Disallow` entries cover every localized spelling of a sensitive path:
+You can build a `robots.txt` the same way with `getMultilingualUrls`, so that `Disallow` entries cover every localised spelling of a sensitive path:
 
 ```typescript fileName="src/routes/robots.txt.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { getMultilingualUrls } from "intlayer";

@@ -1,9 +1,10 @@
 {
-  "name": "example-basic",
+  "name": "intlayer-solid-start",
+  "private": true,
   "type": "module",
   "scripts": {
     "build": "vite build",
-    "dev": "vite dev",
+    "dev": "vite dev --port 3000",
     "preview": "vite preview",
     "start": "node .output/server/index.mjs"
   },
@@ -11,11 +12,16 @@
     "@solidjs/meta": "^0.29.4",
     "@solidjs/router": "^1.0.0",
     "@solidjs/start": "^2.0.0",
+    "intlayer": "workspace:*",
     "nitro": "^3.0.260610-beta",
+    "solid-intlayer": "workspace:*",
     "solid-js": "^1.9.14",
-    "vite": "^8.0.0"
+    "vite": "^8.0.0",
+    "vite-intlayer": "workspace:*"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "typescript": "7.0.2"
+  },
   "engines": {
     "node": ">=24"
   }
