@@ -1698,6 +1698,13 @@ const docDataContent: Dictionary = {
           }),
           default: getDocMetadata('./docs/en/intlayer_with_vite+solid.md'),
           frameworks: ['solid', 'vite'],
+          subSections: {
+            'vite-and-solid-start': {
+              title: 'Solid Start',
+              default: getDocMetadata('./docs/en/intlayer_with_solid_start.md'),
+              frameworks: ['solid', 'vite'],
+            },
+          },
         },
         'vite-and-svelte': {
           title: t({
