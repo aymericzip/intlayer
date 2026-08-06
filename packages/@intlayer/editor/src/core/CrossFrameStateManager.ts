@@ -8,6 +8,17 @@ export type CrossFrameStateOptions = {
 };
 
 /**
+ * A new value, or an updater deriving it from the previous one — mirroring
+ * React's `SetStateAction` so callers can use the familiar `set(prev => …)` form.
+ *
+ * Updaters are resolved locally before broadcasting: a function can never be
+ * structured-cloned by `postMessage`, so only the resolved value crosses frames.
+ */
+export type CrossFrameStateAction<T> =
+  | T
+  | ((previousValue: T | undefined) => T);
+
+/**
  * CrossFrameStateManager synchronizes a single named value across frames using
  * the postMessage API via CrossFrameMessenger.
  *
@@ -47,12 +58,24 @@ export class CrossFrameStateManager<T> extends EventTarget {
     return this._value;
   }
 
-  /** Update the value locally and broadcast it to other frames if emit is enabled. */
-  set(newValue: T): void {
-    this._value = newValue;
-    this.dispatchEvent(new CustomEvent<T>('change', { detail: newValue }));
+  /**
+   * Update the value locally and broadcast it to other frames if emit is enabled.
+   *
+   * Accepts either a concrete value or an updater function. An updater is applied
+   * against the current value first, so the function itself is never handed to
+   * `postMessage` — doing so throws `DataCloneError`, since functions are not
+   * structured-cloneable.
+   */
+  set(newValue: CrossFrameStateAction<T>): void {
+    const resolvedValue =
+      typeof newValue === 'function'
+        ? (newValue as (previousValue: T | undefined) => T)(this._value)
+        : newValue;
+
+    this._value = resolvedValue;
+    this.dispatchEvent(new CustomEvent<T>('change', { detail: resolvedValue }));
     if (this._options.emit) {
-      this._messenger.send(`${this._key}/post`, newValue);
+      this._messenger.send(`${this._key}/post`, resolvedValue);
     }
   }
 

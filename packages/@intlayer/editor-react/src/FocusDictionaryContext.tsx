@@ -1,6 +1,6 @@
 'use client';
 
-import type { FileContent } from '@intlayer/editor';
+import type { CrossFrameStateAction, FileContent } from '@intlayer/editor';
 import type { KeyPath } from '@intlayer/types/keyPath';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import {
@@ -21,7 +21,8 @@ export type FocusDictionaryState = {
 };
 
 export type FocusDictionaryActions = {
-  setFocusedContent: (value: FileContent | null) => void;
+  /** Accepts a value or an updater — `setFocusedContent(prev => …)`. */
+  setFocusedContent: (value: CrossFrameStateAction<FileContent | null>) => void;
   setFocusedContentKeyPath: (keyPath: KeyPath[]) => void;
 };
 
@@ -42,7 +43,7 @@ export const FocusDictionaryProvider: FC<PropsWithChildren> = ({
   );
 
   const setFocusedContent = useCallback(
-    (value: FileContent | null) => {
+    (value: CrossFrameStateAction<FileContent | null>) => {
       if (manager) {
         manager.focusedContent.set(value);
       } else {
@@ -106,7 +107,7 @@ export const useFocusDictionary = (): FocusDictionaryState &
   }, [manager, reactContext?.focusedContent]);
 
   const setFocusedContent = useCallback(
-    (value: FileContent | null) => {
+    (value: CrossFrameStateAction<FileContent | null>) => {
       if (reactContext) {
         reactContext.setFocusedContent(value);
       } else if (manager) {
