@@ -109,6 +109,27 @@ describe('docReview', () => {
       expect(sections[1]?.content).toContain('Second body paragraph.');
     });
 
+    it('carries the depth of the heading opening each section', () => {
+      const text = [
+        '---',
+        'title: Hello',
+        '---',
+        '',
+        '# Title',
+        '',
+        '## Section',
+        '',
+        'Body.',
+        '',
+        '#### Deep',
+        '',
+      ].join('\n');
+
+      expect(
+        segmentSections(text).map((section) => section.headingDepth)
+      ).toEqual([null, 1, 2, 4]);
+    });
+
     it('keeps frontmatter as its own leading section', () => {
       const text = [
         '---',
@@ -303,6 +324,177 @@ describe('docReview', () => {
         'Paragraphe supplémentaire propre à la traduction.'
       );
       expect(merged).toContain('Deuxième paragraphe 222.');
+    });
+
+    it('never pairs sections whose heading depths differ', () => {
+      // The translation demoted `## Usage` to a `###`. Reusing it would keep the
+      // stale `###` while the base `## Usage` is translated again next to it.
+      const baseText = [
+        '## Usage',
+        '',
+        'Install it 1234 and run 5678.',
+        '',
+      ].join('\n');
+      const targetText = [
+        '### Utilisation',
+        '',
+        'Installez-le 1234 et lancez 5678.',
+        '',
+      ].join('\n');
+
+      const { plan } = buildAlignmentPlan({
+        baseText,
+        targetText,
+        changedLines: undefined,
+      });
+
+      expect(plan.actions.some((action) => action.kind === 'reuse')).toBe(
+        false
+      );
+      expect(plan.actions.some((action) => action.kind === 'insert_new')).toBe(
+        true
+      );
+      expect(plan.actions.some((action) => action.kind === 'delete')).toBe(
+        true
+      );
+    });
+
+    it('never pairs a bare heading section with a section that has a body', () => {
+      // Regression: `## Usage` became a bare heading once its content moved into
+      // subsections, while the translation still held the whole body. Pairing
+      // them reused that body *and* inserted the translated `## Usage` next to
+      // it, emitting the same heading twice.
+      const baseText = [
+        '## Usage',
+        '',
+        '### Standalone',
+        '',
+        'When you compose the plugin stack yourself, intlayerPrune and',
+        'intlayerMinify share a PruneContext created once and passed to both.',
+        '',
+      ].join('\n');
+      const targetText = [
+        '## Utilisation',
+        '',
+        'Lorsque vous composez la pile de plugins vous-même, intlayerPrune et',
+        'intlayerMinify partagent un PruneContext créé une fois et passé aux deux.',
+        '',
+      ].join('\n');
+
+      const { plan, baseBlocks, targetBlocks } = buildAlignmentPlan({
+        baseText,
+        targetText,
+        changedLines: undefined,
+      });
+
+      const reusedPairs = plan.actions.filter(
+        (action) => action.kind === 'reuse'
+      );
+      expect(reusedPairs).toHaveLength(0);
+
+      // `apply` mode resolves every deletion to an empty string, so the stale
+      // section is dropped instead of surviving next to its own retranslation.
+      const resolvedSegments = new Map<number, string>();
+      plan.actions.forEach((action, actionIndex) => {
+        if (action.kind === 'delete') resolvedSegments.set(actionIndex, '');
+        else if (action.kind === 'insert_new') {
+          resolvedSegments.set(
+            actionIndex,
+            baseBlocks[action.baseIndex]!.content
+          );
+        }
+      });
+
+      const merged = mergeReviewedSegments(
+        plan,
+        targetBlocks,
+        resolvedSegments
+      );
+
+      expect(merged).not.toContain('## Utilisation');
+      expect(merged.match(/^## /gm)).toHaveLength(1);
+    });
+
+    it('separates a block appended after the end of the translation', () => {
+      // Regression: blocks own the blank lines that trail them, but the block
+      // that ended the document owns none. Appending a new section after it
+      // glued the two together ("…intlayerPrune`.### 6. Build optimisations").
+      const baseText = [
+        '## Description',
+        '',
+        'The plugin does the following:',
+        '',
+        '1. **Prepare** the dictionaries.',
+        '',
+        '### 6. Build optimisations',
+        '',
+        'During a production build the plugin adds intlayerOptimize.',
+        '',
+      ].join('\n');
+      // Note the absence of a trailing blank line: the file ends right here.
+      const targetText = [
+        '## Description',
+        '',
+        'Le plugin effectue les tâches suivantes :',
+        '',
+        '1. **Préparer** les dictionnaires.',
+        '',
+      ].join('\n');
+
+      const { plan, baseBlocks, targetBlocks } = buildAlignmentPlan({
+        baseText,
+        targetText,
+        changedLines: undefined,
+      });
+
+      const resolvedSegments = new Map<number, string>();
+      plan.actions.forEach((action, actionIndex) => {
+        if (action.kind === 'insert_new') {
+          resolvedSegments.set(
+            actionIndex,
+            baseBlocks[action.baseIndex]!.content
+          );
+        }
+      });
+
+      const merged = mergeReviewedSegments(
+        plan,
+        targetBlocks,
+        resolvedSegments
+      );
+
+      expect(merged).toContain(
+        'les dictionnaires.\n\n### 6. Build optimisations'
+      );
+      // No heading may sit directly under a non-blank line.
+      const mergedLines = merged.split('\n');
+      const gluedHeadings = mergedLines.filter(
+        (line, index) =>
+          index > 0 &&
+          /^\s*#{1,6}\s+/.test(line) &&
+          mergedLines[index - 1]!.trim().length > 0
+      );
+      expect(gluedHeadings).toHaveLength(0);
+    });
+
+    it('merges an unchanged translation back byte for byte', () => {
+      // The separator logic must never reformat a document that has nothing to
+      // change, otherwise every review would rewrite untouched files.
+      const baseText = ['# Title', '', 'Hello world 42.', ''].join('\n');
+      const targetText = ['# Titre', '', 'Bonjour le monde 42.', ''].join('\n');
+
+      const { plan, targetBlocks } = buildAlignmentPlan({
+        baseText,
+        targetText,
+        changedLines: undefined,
+      });
+
+      expect(plan.actions.every((action) => action.kind === 'reuse')).toBe(
+        true
+      );
+      expect(mergeReviewedSegments(plan, targetBlocks, new Map())).toBe(
+        targetText
+      );
     });
 
     it('keeps a target-only section verbatim even when it is reported as delete', () => {

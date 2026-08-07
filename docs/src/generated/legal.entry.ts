@@ -55,12 +55,12 @@ const readLocale = (
 export const legalEntry = {
   './legal/en/privacy_notice.md': {
     en: readLocale('privacy_notice.md', 'en'),
+    es: readLocale('privacy_notice.md', 'es'),
     ru: readLocale('privacy_notice.md', 'ru'),
     ja: readLocale('privacy_notice.md', 'ja'),
     fr: readLocale('privacy_notice.md', 'fr'),
     ko: readLocale('privacy_notice.md', 'ko'),
     zh: readLocale('privacy_notice.md', 'zh'),
-    es: readLocale('privacy_notice.md', 'es'),
     de: readLocale('privacy_notice.md', 'de'),
     ar: readLocale('privacy_notice.md', 'ar'),
     it: readLocale('privacy_notice.md', 'it'),
@@ -75,12 +75,12 @@ export const legalEntry = {
   } as unknown as Record<LocalesValues, Promise<string>>,
   './legal/en/terms_of_service.md': {
     en: readLocale('terms_of_service.md', 'en'),
+    es: readLocale('terms_of_service.md', 'es'),
     ru: readLocale('terms_of_service.md', 'ru'),
     ja: readLocale('terms_of_service.md', 'ja'),
     fr: readLocale('terms_of_service.md', 'fr'),
     ko: readLocale('terms_of_service.md', 'ko'),
     zh: readLocale('terms_of_service.md', 'zh'),
-    es: readLocale('terms_of_service.md', 'es'),
     de: readLocale('terms_of_service.md', 'de'),
     ar: readLocale('terms_of_service.md', 'ar'),
     it: readLocale('terms_of_service.md', 'it'),

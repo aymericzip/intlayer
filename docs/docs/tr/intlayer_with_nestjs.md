@@ -29,19 +29,9 @@ history:
     changes: "İlk doküman"
 ---
 
-### Pratik Kullanım Durumları
+# Intlayer Kullanarak Nest Backend Web Sitenizi Çevirme | Uluslararasılaştırma (i18n)
 
-- **Backend Hatalarını Kullanıcının Dilinde Gösterme**: Bir hata oluştuğunda, mesajları kullanıcının ana dilinde göstermek anlayışı iyileştirir ve hayal kırıklığını azaltır. Bu, toast'lar veya modal'lar gibi ön uç bileşenlerinde gösterilebilecek dinamik hata mesajları için özellikle yararlıdır.
-
-- **Çok Dilli İçerik Alma**: Bir veritabanından içerik çeken uygulamalar için uluslararasılaştırma, bu içeriği kullanıcının tercih ettiği dilde sunabilmenizi sağlar. Bu, ürün açıklamaları, makaleler ve diğer içerikleri kullanıcının tercih ettiği dilde görüntülemesi gereken e-ticaret siteleri veya içerik yönetim sistemleri gibi platformlar için çok önemlidir.
-
-- **Çok Dilli E-posta Gönderme**: İşlem e-postaları, pazarlama kampanyaları veya bildirimler olsun, e-postaları alıcının dilinde göndermek etkileşimi ve etkinliği önemli ölçüde artırabilir.
-
-- **Çok Dilli Push Bildirimleri**: Mobil uygulamalar için, push bildirimlerini kullanıcının tercih ettiği dilde göndermek etkileşimi ve elde tutmayı artırabilir. Bu kişisel dokunuş, bildirimleri daha ilgili ve eyleme geçirilebilir hale getirebilir.
-
-- **Diğer İletişimler**: SMS mesajları, sistem uyarıları veya kullanıcı arayüzü güncellemeleri gibi backend'den gelen herhangi bir iletişim biçimi, kullanıcının dilinde olmakla fayda sağlar, netlik sağlar ve genel kullanıcı deneyimini geliştirir.
-
-Backend'i uluslararasılaştırarak, uygulamanız sadece kültürel farklılıklara saygı göstermez, aynı zamanda küresel pazar ihtiyaçlarına daha iyi uyum sağlar ve hizmetlerinizi dünya çapında ölçeklendirmenin anahtar adımı haline gelir.
+`express-intlayer`, Express uygulamaları için güçlü bir uluslararasılaştırma (i18n) middleware'idir. İstemcinin tercihlerine dayalı olarak yerelleştirilmiş yanıtlar sağlayarak backend hizmetlerinizi küresel olarak erişilebilir hale getirmek için tasarlanmıştır. NestJS, Express üzerine inşa edildiğinden, `express-intlayer`'ı NestJS uygulamalarınıza sorunsuzca entegre edebilir ve çok dilli içeriği etkili bir şekilde yönetebilirsiniz.
 
 ## Başlarken
 

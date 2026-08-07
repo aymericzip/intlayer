@@ -75,11 +75,30 @@ author: aymericzip
 
 عند استخدام خيار المسار للكتابة إلى ملف آخر، تعمل آلية الملء من خلال علاقة _master-slave_ بين ملفات إعلان المحتوى. يعمل الملف الرئيسي (master) كمصدر الحقيقة، وعند تحديثه، سيقوم Intlayer تلقائياً بتطبيق تلك التغييرات على ملفات إعلان المحتوى المشتقة (المملوءة) المحددة بواسطة المسار.
 
-# ترجمات ملف إعلان محتوى التعبئة التلقائية
+### تخصيص لكل Locale
 
-**ملفات إعلان محتوى التعبئة التلقائية** هي وسيلة لتسريع سير عمل التطوير الخاص بك.
+يمكنك أيضًا تخصيص السلوك لكل locale باستخدام كائن:
 
-تعمل آلية التعبئة التلقائية من خلال علاقة _رئيسي-تابع_ بين ملفات إعلان المحتوى. عندما يتم تحديث الملف الرئيسي (الرئيسي)، يقوم Intlayer تلقائيًا بتطبيق تلك التغييرات على ملفات الإعلان المشتقة (المعبأة تلقائيًا).
+```ts fileName="intlayer.config.ts"
+const config: IntlayerConfig = {
+  content: {
+    internationalization: {
+      locales: [Locales.ENGLISH, Locales.FRENCH, Locales.POLISH],
+      defaultLocale: Locales.ENGLISH,
+      requiredLocales: [Locales.ENGLISH], // يُنصح به لتجنب Property 'pl' is missing in type '{ en: string; xxx } على دالة t الخاصة بك إذا
+    },
+  },
+  dictionary: {
+    fill: {
+      en: true, // ملء وتعديل الملف الحالي للغة الإنجليزية
+      fr: "./translations/fr.json", // إنشاء ملف منفصل للفرنسية
+      es: false, // تعطيل الملء للإسبانية
+    },
+  },
+};
+```
+
+هذا يسمح لك بوجود سلوكيات ملء مختلفة لـ locales مختلفة ضمن نفس المشروع.
 
 ```ts fileName="src/components/example/example.content.ts"
 import { Locales, type Dictionary } from "intlayer";
@@ -87,18 +106,18 @@ import { Locales, type Dictionary } from "intlayer";
 const exampleContent = {
   key: "example",
   locale: Locales.ENGLISH,
-  autoFill: "./example.content.json",
+  fill: "./example.content.json",
   content: {
-    contentExample: "هذا مثال على المحتوى",
+    contentExample: "This is an example of content",
   },
 } satisfies Dictionary;
 
 export default exampleContent;
 ```
 
-إليك [ملف إعلان محتوى لكل لغة](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/per_locale_file.md) يستخدم تعليمة `autoFill`.
+إليك [ملف إعلان المحتوى لكل locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/per_locale_file.md) باستخدام تعليمات `fill`.
 
-ثم، عند تشغيل الأمر التالي:
+بعد ذلك، عند تشغيل الأمر التالي:
 
 ```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
@@ -116,7 +135,7 @@ pnpm intlayer fill --file 'src/components/example/example.content.ts'
 bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
-سيقوم Intlayer تلقائيًا بإنشاء ملف الإعلان المشتق في `src/components/example/example.content.json`، مع ملء جميع اللغات التي لم تُعلن بعد في الملف الرئيسي.
+سيقوم Intlayer تلقائيًا بإنشاء ملف الإعلان المشتق في `src/components/example/example.content.json`، وملء جميع locales التي لم يتم إعلانها بالفعل في الملف الرئيسي.
 
 ```json5 fileName="src/components/example/example.content.json"
 {
@@ -133,7 +152,7 @@ bun x intlayer fill --file 'src/components/example/example.content.ts'
 }
 ```
 
-بعد ذلك، سيتم دمج كلا ملفي الإعلان في قاموس واحد، يمكن الوصول إليه باستخدام الخطاف القياسي `useIntlayer("example")` (react) / القابل للاستخدام (vue).
+بعد ذلك، سيتم دمج ملفات الإعلان معًا في قاموس واحد، يمكن الوصول إليه باستخدام hook `useIntlayer("example")` القياسي (react) / composable (vue).
 
 ## الإعدادات العامة
 

@@ -48,3 +48,18 @@ import "vite-intlayer";
 | `intlayerProxy`      | Yerel tespiti ve yönlendirmeyi işlemek için geliştirme middleware eklentisi.          | -                                                                                                                      |
 | `intlayerMiddleware` | (**Kullanımdan Kaldırıldı**) `intlayerProxy` için takma ad.                           | -                                                                                                                      |
 | `intlayerPrune`      | Derleme sırasında kullanılmayan sözlükleri tree-shake yapmak ve budamak için eklenti. | [intlayerPrune](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/intlayerPrune.md) |
+
+### Utilities
+
+| Export                       | Description                                                                                     | Related Doc                                                                                                            |
+| ---------------------------- | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `createIntlayerProxyHandler` | Framework-agnostic Node.js `(req, res, next)` middleware'i locale-routing logic'i ile döndürür. | [intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/packages/vite-intlayer/intlayerProxy.md) |
+
+### Türler
+
+| Export                       | Açıklama                                                                                                                              |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `IntlayerPluginOptions`      | `intlayer()` tarafından kabul edilen seçenekler. `GetConfigurationOptions` öğesini `compatCallers` ve `proxy` ile genişletir.         |
+| `IntlayerProxyPluginOptions` | `intlayerProxy()` ve `createIntlayerProxyHandler()` tarafından kabul edilen seçenekler. `ignore` ve `configOptions` öğelerini içerir. |
+| `IntlayerCompilerOptions`    | `intlayerCompiler()` tarafından kabul edilen seçenekler. `configOptions` ve `compilerConfig` öğelerini içerir.                        |
+| `CompatCallerConfig`         | `@intlayer/babel` öğesinden yeniden dışa aktarılan. Alan kullanımı analizi için compat-adapter çağrı deseni tanımlar.                 |

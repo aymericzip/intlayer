@@ -33,7 +33,62 @@ author: aymericzip
 
 请参阅 GitHub 上的[应用模板](https://github.com/aymericzip/intlayer-react-cra-template)。
 
-### 第一步：安装依赖
+## 为什么选择 Intlayer 而不是其他方案？
+
+与 `react-i18next` 或 `i18next` 等主要解决方案相比，Intlayer 是一个集成了以下优化的解决方案：
+
+<AccordionGroup>
+
+<Accordion header="完整的 React 支持">
+
+Intlayer 针对 React 进行了优化，提供 **组件级内容作用域**、**延迟加载的翻译** 以及国际化 (i18n) 扩展所需的所有功能。
+
+</Accordion>
+
+<Accordion header="Bundle 大小">
+
+无需将庞大的 JSON 文件加载到页面中，只需加载必要的内容。Intlayer 可帮助 **将 bundle 和页面大小减少高达 50%**。
+
+</Accordion>
+
+<Accordion header="可维护性">
+
+对应用程序内容的作用域划分 **便于大规模应用的维护**。您可以复制或删除单个功能文件夹，而无需审查整个内容代码库的负担。此外，Intlayer **完全类型化**，确保内容的准确性。
+
+</Accordion>
+
+<Accordion header="AI Agent">
+
+共置内容 **降低大语言模型 (LLM) 所需的上下文**。Intlayer 还提供了一套工具，例如 **CLI** 用于测试缺失的翻译、**[LSP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/lsp.md)**、**[MCP](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/mcp_server.md)** 以及 **[agent skills](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/agent_skills.md)**，使 AI Agent 的开发者体验 (DX) 更加顺畅。
+
+</Accordion>
+
+<Accordion header="自动化">
+
+在 CI/CD 管道中使用自动化翻译，使用您选择的 LLM，按照您的 AI 提供商的成本计费。Intlayer 还提供 **编译器** 以自动提取内容，以及 [网络平台](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md) 来帮助 **后台翻译**。
+
+</Accordion>
+
+<Accordion header="性能">
+
+将庞大的 JSON 文件连接到组件可能导致性能和响应性问题。Intlayer 在构建时优化您的内容加载。
+
+</Accordion>
+
+<Accordion header="与非开发人员协作的扩展">
+
+Intlayer 不仅是一个 i18n 解决方案，还提供 **自托管 [可视化编辑器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_visual_editor.md)** 和 **[完整 CMS](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_CMS.md)** 来帮助您 **实时** 管理多语言内容，使与翻译人员、文案撰写人员和其他团队成员的协作无缝进行。内容可以存储在本地和/或远程。
+
+</Accordion>
+</AccordionGroup>
+
+---
+
+## 在 React 应用中设置 Intlayer 的分步指南
+
+<Steps>
+
+<Step number={1} title="安装依赖">
 
 使用 npm 安装必要的包：
 
@@ -53,9 +108,9 @@ yarn dlx intlayer@canary init --interactive
 bunx intlayer@canary init --interactive
 ```
 
-> `--interactive` 标志是可选的。如果您是 AI 代理，请使用 `intlayer-cli init`。
+> `--interactive` 标志是可选的。如果你是 AI 代理，请使用 `intlayer-cli init`。
 
-> 该命令将检测您的环境并安装所需的软件包。例如：
+> 此命令将检测你的环境并安装所需的包。例如：
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer react-scripts-intlayer
@@ -75,19 +130,191 @@ bun add intlayer react-intlayer react-scripts-intlayer
 
 - **intlayer**
 
-  提供用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、转译和 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md) 的核心包。
+  核心包，提供国际化工具用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、转译和 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。
 
 - **react-intlayer**
 
-  将 Intlayer 集成到 React 应用中的包。它为 React 国际化提供上下文提供者和钩子。
+  将 Intlayer 与 React 应用集成的包。它为 React 国际化提供上下文提供者和钩子。
 
 - **react-scripts-intlayer**
 
-包括 `react-scripts-intlayer` 命令和插件，用于将 Intlayer 集成到基于 Create React App 的应用中。这些插件基于 [craco](https://craco.js.org/)，并包含对 [Webpack](https://webpack.js.org/) 打包器的额外配置。
+  包含 `react-scripts-intlayer` 命令和插件，用于将 Intlayer 与基于 Create React App 的应用集成。这些插件基于 [craco](https://craco.js.org/)，并包含 [Webpack](https://webpack.js.org/) bundler 的额外配置。
 
-### （可选）第七步：为您的应用添加本地化路由
+</Step>
 
-此步骤的目的是为每种语言创建唯一的路由。这对于 SEO 和 SEO 友好的 URL 非常有用。
+<Step number={2} title="配置你的项目">
+
+创建一个配置文件来配置应用的语言：
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH,
+      // 你的其他语言环境
+    ],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+> 通过此配置文件，你可以设置本地化 URL、中间件重定向、cookie 名称、内容声明的位置和扩展名、禁用 Intlayer 控制台日志等。有关可用参数的完整列表，请参考 [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
+
+</Step>
+
+<Step number={3} title="在 CRA 配置中集成 Intlayer">
+
+更改你的脚本以使用 react-intlayer
+
+```json fileName="package.json"
+  "scripts": {
+    "build": "react-scripts-intlayer build",
+    "start": "react-scripts-intlayer start",
+    "transpile": "intlayer build"
+  },
+```
+
+> `react-scripts-intlayer` 脚本基于 [CRACO](https://craco.js.org/)。你也可以基于 intlayer craco 插件实现自己的设置。[在此查看示例](https://github.com/aymericzip/intlayer/blob/main/examples/react-app/craco.config.js)。
+
+</Step>
+
+<Step number={4} title="声明你的内容">
+
+创建和管理你的内容声明以存储翻译：
+
+```tsx fileName="src/app.content.tsx" codeFormat={["typescript", "esm"]}
+import { t, type Dictionary } from "intlayer";
+import React, { type ReactNode } from "react";
+
+const appContent = {
+  key: "app",
+  content: {
+    getStarted: t<ReactNode>({
+      zh: (
+        <>
+          编辑 <code>src/App.tsx</code> 并保存以重新加载
+        </>
+      ),
+      en: (
+        <>
+          Edit <code>src/App.tsx</code> and save to reload
+        </>
+      ),
+      fr: (
+        <>
+          Éditez <code>src/App.tsx</code> et enregistrez pour recharger
+        </>
+      ),
+      es: (
+        <>
+          Edita <code>src/App.tsx</code> y guarda para recargar
+        </>
+      ),
+    }),
+    reactLink: {
+      href: "https://reactjs.org",
+      content: t({
+        zh: "学习 React",
+        en: "Learn React",
+        fr: "Apprendre React",
+        es: "Aprender React",
+      }),
+    },
+  },
+} satisfies Dictionary;
+
+export default appContent;
+```
+
+> 你的内容声明可以在应用的任何地方定义，只要它们包含在 `contentDir` 目录中（默认为 `./src`）。并匹配内容声明文件扩展名（默认为 `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`）。
+
+> 有关更多详情，请参考 [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
+
+> 如果你的内容文件包含 TSX 代码，你应该考虑在内容文件中导入 `import React from "react";`。
+
+</Step>
+
+<Step number={5} title="在你的代码中使用 Intlayer">
+
+在整个应用中访问你的内容字典：
+
+```tsx {4,7} fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
+import logo from "./logo.svg";
+import "./App.css";
+import type { FC } from "react";
+import { IntlayerProvider, useIntlayer } from "react-intlayer";
+
+const AppContent: FC = () => {
+  const content = useIntlayer("app");
+
+  return (
+    <div className="App">
+      <img src={logo} className="App-logo" alt="logo" />
+
+      {content.getStarted}
+      <a
+        className="App-link"
+        href={content.reactLink.href.value}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {content.reactLink.content}
+      </a>
+    </div>
+  );
+};
+
+const App: FC = () => (
+  <IntlayerProvider>
+    <AppContent />
+  </IntlayerProvider>
+);
+
+export default App;
+```
+
+> 注意：如果你想在 `string` 属性中使用你的内容，例如 `alt`、`title`、`href`、`aria-label` 等，你可以使用函数的值，如下所示：
+
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
+
+> 要了解有关 `useIntlayer` 钩子的更多信息，请参考 [文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useIntlayer.md)。
+
+</Step>
+
+<Step number={6} title="更改你的内容的语言" isOptional={true}>
+
+要更改你的内容的语言，你可以使用 `useLocale` 钩子提供的 `setLocale` 函数。此函数允许你设置应用的语言环境并相应地更新内容。
+
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
+import { Locales } from "intlayer";
+import { useLocale } from "react-intlayer";
+
+const LocaleSwitcher = () => {
+  const { setLocale } = useLocale();
+
+  return (
+    <button onClick={() => setLocale(Locales.English)}>更改语言为英文</button>
+  );
+};
+```
+
+> 要了解有关 `useLocale` 钩子的更多信息，请参考 [文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)。
+
+</Step>
+
+<Step number={7} title="为你的应用添加本地化路由" isOptional={true}>
+
+此步骤的目的是为每种语言创建唯一的路由。这对 SEO 和友好的 SEO URL 非常有用。
 示例：
 
 ```plaintext
@@ -96,14 +323,15 @@ bun add intlayer react-intlayer react-scripts-intlayer
 - https://example.com/fr/about
 ```
 
-> 默认情况下，默认语言环境的路由不会添加前缀。如果您希望为默认语言环境添加前缀，可以在配置中将 `middleware.prefixDefault` 选项设置为 `true`。有关更多信息，请参阅 [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
+> 默认情况下，默认语言的路由没有前缀。如果你想为默认语言添加前缀，可以在配置中将 `middleware.prefixDefault` 选项设置为 `true`。有关更多信息，请参考 [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
-要为您的应用添加本地化路由，您可以创建一个 `LocaleRouter` 组件，该组件包装您的应用路由并处理基于语言环境的路由。以下是使用 [React Router](https://reactrouter.com/home) 的示例：
+要为你的应用添加本地化路由，你可以创建一个 `LocaleRouter` 组件来包装应用的路由并处理基于语言环境的路由。以下是使用 [React Router](https://reactrouter.com/home) 的示例：
 
 ```tsx fileName="src/components/LocaleRouter.tsx" codeFormat={["typescript", "esm"]}
 // 导入必要的依赖项和函数
 import { type Locales, configuration, getPathWithoutLocale } from "intlayer"; // 来自 'intlayer' 的实用函数和类型
-import type { FC, PropsWithChildren } from "react"; // React 的函数组件和 props 类型
+// 来自 'intlayer' 的实用函数和类型
+import type { FC, PropsWithChildren } from "react"; // React 函数组件和 props 的类型
 import { IntlayerProvider } from "react-intlayer"; // 国际化上下文的提供者
 import {
   BrowserRouter,
@@ -118,7 +346,7 @@ const { internationalization, middleware } = configuration;
 const { locales, defaultLocale } = internationalization;
 
 /**
- * 一个处理本地化的组件，并使用适当的语言环境上下文包装子组件。
+ * 一个处理本地化并用适当的语言环境上下文包装子组件的组件。
  * 它管理基于 URL 的语言环境检测和验证。
  */
 const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
@@ -127,7 +355,7 @@ const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
 }) => {
   const { pathname, search } = useLocation(); // 获取当前 URL 路径
 
-  // 确定当前语言环境，如果未提供则回退到默认语言环境
+  // 确定当前语言环境，如果未提供则回退到默认语言
   const currentLocale = locale ?? defaultLocale;
 
   // 从路径中移除语言环境前缀以构造基本路径
@@ -136,34 +364,34 @@ const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
   );
 
   /**
-   * 如果 middleware.prefixDefault 为 true，则默认语言环境应始终添加前缀。
+   * 如果 middleware.prefixDefault 为真，默认语言应始终带有前缀。
    */
   if (middleware.prefixDefault) {
     // 验证语言环境
     if (!locale || !locales.includes(locale)) {
-      // 重定向到默认语言环境并更新路径
+      // 重定向到带有更新路径的默认语言
       return (
         <Navigate
           to={`/${defaultLocale}/${pathWithoutLocale}${search}`}
-          replace // 用新路径替换当前历史记录条目
+          replace // 用新项替换当前历史记录条目
         />
       );
     }
 
-    // 使用 IntlayerProvider 包装子组件并设置当前语言环境
+    // 用 IntlayerProvider 包装子组件并设置当前语言环境
     return (
       <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
     );
   } else {
     /**
-     * 当 middleware.prefixDefault 为 false 时，默认语言环境不会添加前缀。
-     * 确保当前语言环境有效且不是默认语言环境。
+     * 当 middleware.prefixDefault 为假时，默认语言没有前缀。
+     * 确保当前语言环境有效且不是默认语言。
      */
     if (
       currentLocale.toString() !== defaultLocale.toString() &&
       !locales
         .filter(
-          (locale) => locale.toString() !== defaultLocale.toString() // 排除默认语言环境
+          (locale) => locale.toString() !== defaultLocale.toString() // 排除默认语言
         )
         .includes(currentLocale) // 检查当前语言环境是否在有效语言环境列表中
     ) {
@@ -171,7 +399,7 @@ const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
       return <Navigate to={`${pathWithoutLocale}${search}`} replace />;
     }
 
-    // 使用 IntlayerProvider 包装子组件并设置当前语言环境
+    // 用 IntlayerProvider 包装子组件并设置当前语言环境
     return (
       <IntlayerProvider locale={currentLocale}>{children}</IntlayerProvider>
     );
@@ -179,8 +407,8 @@ const AppLocalized: FC<PropsWithChildren<{ locale: Locales }>> = ({
 };
 
 /**
- * 一个设置语言环境特定路由的路由组件。
- * 它使用 React Router 管理导航并渲染本地化组件。
+ * 一个设置特定于语言环境的路由的路由组件。
+ * 它使用 React Router 来管理导航和呈现本地化组件。
  */
 export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
   <BrowserRouter>
@@ -199,7 +427,7 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
         ))}
 
       {
-        // 如果禁用了默认语言环境的前缀，则直接在根路径渲染子组件
+        // 如果禁用了默认语言前缀，在根路径直接呈现子组件
         !middleware.prefixDefault && (
           <Route
             path="*"
@@ -214,13 +442,13 @@ export const LocaleRouter: FC<PropsWithChildren> = ({ children }) => (
 );
 ```
 
-然后，您可以在应用中使用 `LocaleRouter` 组件：
+然后，你可以在你的应用中使用 `LocaleRouter` 组件：
 
 ```tsx fileName="src/App.tsx" codeFormat={["typescript", "esm"]}
 import { LocaleRouter } from "./components/LocaleRouter";
 import type { FC } from "react";
 
-// ... 您的 AppContent 组件
+// ... 你的 AppContent 组件
 
 const App: FC = () => (
   <LocaleRouter>
@@ -228,6 +456,100 @@ const App: FC = () => (
   </LocaleRouter>
 );
 ```
+
+</Step>
+
+<Step number={8} title="当语言环境更改时更改 URL" isOptional={true}>
+
+要在语言环境更改时更改 URL，你可以使用 `useLocale` 钩子提供的 `onLocaleChange` prop。同时，你可以使用 `react-router-dom` 中的 `useLocation` 和 `useNavigate` 钩子来更新 URL 路径。
+
+```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
+import { useLocation, useNavigate } from "react-router-dom";
+import {
+  Locales,
+  getHTMLTextDir,
+  getLocaleName,
+  getLocalizedUrl,
+} from "intlayer";
+import { useLocale } from "react-intlayer";
+import { type FC } from "react";
+
+const LocaleSwitcher: FC = () => {
+  const { pathname, search } = useLocation(); // 获取当前 URL 路径。示例：/fr/about?foo=bar
+  const navigate = useNavigate();
+
+  const { locale, availableLocales, setLocale } = useLocale({
+    onLocaleChange: (locale) => {
+      // 使用更新的语言环境构造 URL
+      // 示例：/es/about?foo=bar
+      const pathWithLocale = getLocalizedUrl(`${pathname}${search}`, locale);
+
+      // 更新 URL 路径
+      navigate(pathWithLocale);
+    },
+  });
+
+  return (
+    <div>
+      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
+      <div id="localePopover" popover="auto">
+        {availableLocales.map((localeItem) => (
+          <a
+            href={getLocalizedUrl(location.pathname, localeItem)}
+            hrefLang={localeItem}
+            aria-current={locale === localeItem ? "page" : undefined}
+            onClick={(e) => {
+              e.preventDefault();
+              setLocale(localeItem);
+            }}
+            key={localeItem}
+          >
+            <span>
+              {/* 语言环境 - 例如 FR */}
+              {localeItem}
+            </span>
+            <span>
+              {/* 该语言环境中的语言 - 例如 Français */}
+              {getLocaleName(localeItem, locale)}
+            </span>
+            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
+              {/* 当前语言环境中的语言 - 例如当前语言环境设置为 Locales.SPANISH 时的 Francés */}
+              {getLocaleName(localeItem)}
+            </span>
+            <span dir="ltr" lang={Locales.ENGLISH}>
+              {/* 英文语言 - 例如 French */}
+              {getLocaleName(localeItem, Locales.ENGLISH)}
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+};
+```
+
+> 文档参考：
+>
+> - [`useLocale` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)
+> - [`getLocaleName` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocaleName.md)
+> - [`getLocalizedUrl` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedUrl.md)
+> - [`getHTMLTextDir` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getHTMLTextDir.md)
+> - [`hrefLang` 属性](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
+> - [`lang` 属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+> - [`dir` 属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
+> - [`aria-current` 属性](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+
+</Step>
+
+<Step number={9} title="切换 HTML 语言和方向属性" isOptional={true}>
+
+当你的应用支持多种语言时，更新 `<html>` 标签的 `lang` 和 `dir` 属性以匹配当前语言环境至关重要。这样做可以确保：
+
+- **可访问性**：屏幕阅读器和辅助技术依赖正确的 `lang` 属性来准确地发音和解释内容。
+- **文本呈现**：`dir`（方向）属性确保文本按正确的顺序呈现（例如英文的从左到右、阿拉伯语或希伯来语的从右到左），这对可读性至关重要。
+- **SEO**：搜索引擎使用 `lang` 属性来确定你页面的语言，帮助在搜索结果中提供正确的本地化内容。
+
+通过在语言环境更改时动态更新这些属性，你可以为所有支持的语言的用户保证一致和可访问的体验。
 
 #### 实现钩子
 

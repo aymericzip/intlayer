@@ -24,6 +24,10 @@ history:
 author: aymericzip
 ---
 
+# Документация хука useDictionary
+
+Хук `useDictionary` позволяет обрабатывать объект, похожий на словарь (содержащий ключи и содержимое), и обрабатывать переводы, перечисления и т. д. в нём. В отличие от `useIntlayer`, который предназначен для работы с генерируемыми объявлениями словарей, `useDictionary` более гибок и может использоваться с любым объектом, который соответствует структуре словаря.
+
 ## Пример использования в React
 
 Ниже приведён пример использования хука `useDictionary` в React-компоненте:
@@ -40,27 +44,6 @@ const ComponentExample: FC = () => {
     <div>
       <h1>{title}</h1>
       <p>{content}</p>
-    </div>
-  );
-};
-```
-
-## Интеграция на сервере
-
-Если вы используете хук `useDictionary` вне `IntlayerProvider`, локаль должна быть явно передана в качестве параметра при рендеринге компонента:
-
-```tsx fileName="./ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { useDictionary } from "react-intlayer/server";
-import clientComponentExampleContent from "./component.content";
-
-const ServerComponentExample: FC<{ locale: string }> = ({ locale }) => {
-  const { content } = useDictionary(clientComponentExampleContent, locale);
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.content}</p>
     </div>
   );
 };

@@ -64,6 +64,53 @@ export default firstDictionary;
 }
 ```
 
+### Nestを使用した参照
+
+次に、`nest`関数を使用して上記のコンテンツを参照する別のコンテンツモジュールを作成します。コンテンツ全体または特定のネストされた値を参照できます:
+
+```typescript fileName="secondDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { nest, type Dictionary } from "intlayer";
+
+const myNestingContent = {
+  key: "key_of_my_second_dictionary",
+  content: {
+    // 辞書全体を参照します:
+    fullNestedContent: nest("key_of_my_first_dictionary"),
+    // 特定のネストされた値を参照します:
+    partialNestedContent: nest(
+      "key_of_my_first_dictionary",
+      "subContent.contentNumber"
+    ),
+  },
+} satisfies Dictionary;
+
+export default myNestingContent;
+```
+
+```json fileName="secondDictionary.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "key_of_my_second_dictionary",
+  "content": {
+    "fullNestedContent": {
+      "nodeType": "nested",
+      "nested": {
+        "dictionaryKey": "key_of_my_first_dictionary"
+      }
+    },
+    "partialNestedContent": {
+      "nodeType": "nested",
+      "nested": {
+        "dictionaryKey": "key_of_my_first_dictionary",
+        "path": "subContent.contentNumber"
+      }
+    }
+  }
+}
+```
+
+2番目のパラメーターとして、そのコンテンツ内のネストされた値へのパスを指定できます。パスが指定されない場合、参照された辞書のコンテンツ全体が返されます。
+
 ## ネストの設定
 
 <Tabs group="framework">
@@ -257,36 +304,6 @@ document.getElementById("nested")!.textContent = content.partialNestedContent;
 
   </Tab>
 </Tabs>
-
-## React Intlayerでのネストの使用
-
-Reactコンポーネントでネストされたコンテンツを使用するには、`react-intlayer`パッケージの`useIntlayer`フックを活用します。このフックは、指定されたキーに基づいて正しいコンテンツを取得します。以下はその使用例です:
-
-```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { useIntlayer } from "react-intlayer";
-
-const NestComponent: FC = () => {
-  const { fullNestedContent, partialNestedContent } = useIntlayer(
-    "key_of_my_second_dictionary"
-  );
-
-  return (
-    <div>
-      <p>
-        Full Nested Content: {JSON.stringify(fullNestedContent)}
-        {/* 出力: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
-      </p>
-      <p>
-        Partial Nested Value: {partialNestedContent}
-        {/* 出力: 0 */}
-      </p>
-    </div>
-  );
-};
-
-export default NestComponent;
-```
 
 ## 追加リソース
 

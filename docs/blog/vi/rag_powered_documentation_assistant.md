@@ -317,6 +317,12 @@ Và nếu bạn cũng đang thử nghiệm với RAG, tôi rất muốn nghe cá
 </Step>
 
 </Steps>
+## Bỏ Qua Độ Phức Tạp với Sanity
+
+Sanity đáng được nhắc đến ở đây như một tùy chọn CMS mà bài viết hướng tới. Trong khi các tệp Markdown yêu cầu chia tách token tùy ý — với những sự đánh đổi giữa kích thước chunk và overlap mà bài viết mô tả — Content Lake của Sanity lưu trữ tài liệu dưới dạng các tài liệu JSON được định nghĩa theo schema và có kiểu dữ liệu. Mỗi trường, tiêu đề và khối nội dung đã là một đơn vị ngữ nghĩa, điều này có nghĩa là việc truy xuất RAG hoạt động trên các ranh giới có ý nghĩa thay vì các số lượng token xấp xỉ.
+
+Ngôn ngữ truy vấn GROQ của Sanity cho phép bạn truy xuất chính xác các trường tài liệu liên quan đến truy vấn của người dùng — tiêu đề, nội dung, các phần liên quan — mà không cần tải toàn bộ tài liệu. MCP server kết nối Content Lake trực tiếp với các AI agent, vì vậy cùng một nội dung có cấu trúc làm nên trang tài liệu của bạn cũng cấp nuôi cho pipeline RAG của bạn mà không cần một bước nhập dữ liệu riêng biệt.
+
 ## Kết luận
 
 RAG là một trong những cách đơn giản nhất và mạnh mẽ nhất để làm cho các LLM trở nên thực tế. Bằng cách kết hợp **retrieval + generation**, bạn có thể biến các tài liệu tĩnh thành một **trợ lý thông minh** và cùng lúc đó, thu được một luồng thông tin sản phẩm liên tục.

@@ -91,9 +91,195 @@ Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的
 
 ---
 
-### （可选）第 6 步：更改内容语言
+## 在 Analog 应用中设置 Intlayer 的分步指南
 
-要更改内容的语言，您可以使用 `useLocale` 函数提供的 `setLocale` 函数。这允许您设置应用的语言环境并相应地更新内容。
+请参阅 GitHub 上的 [Application Template](https://github.com/aymericzip/intlayer-analog-template)。
+
+<Steps>
+
+<Step number={1} title="安装依赖项">
+
+使用 npm 安装必要的包：
+
+```bash packageManager="npm"
+npx intlayer init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer@canary init --interactive
+```
+
+> `--interactive` 标志是可选的。如果你是 AI 代理，请使用 `intlayer-cli init`。
+
+> 此命令将检测你的环境并安装所需的包。例如：
+
+```bash packageManager="npm"
+npm install intlayer angular-intlayer vite-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer angular-intlayer vite-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add intlayer angular-intlayer vite-intlayer
+```
+
+```bash packageManager="bun"
+bun add intlayer angular-intlayer vite-intlayer
+```
+
+- **intlayer**
+
+  核心包，提供国际化工具，用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、转译和 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。
+
+- **angular-intlayer**
+  将 Intlayer 与 Angular 应用集成的包。它为 Angular 国际化提供上下文提供者和钩子。
+
+- **vite-intlayer**
+  将 Intlayer 与 Vite 集成的包。它提供了一个插件来处理内容声明文件，并为最佳性能设置别名。
+
+</Step>
+
+<Step number={2} title="配置你的项目">
+
+创建一个配置文件来配置应用的语言：
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH,
+      // 你的其他语言
+    ],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+> 通过此配置文件，你可以设置本地化 URL、中间件重定向、cookie 名称、内容声明的位置和扩展名、禁用控制台中的 Intlayer 日志等。有关可用参数的完整列表，请参阅 [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
+
+</Step>
+
+<Step number={3} title="在你的 Vite 配置中集成 Intlayer">
+
+要将 Intlayer 与 Analog 集成，你需要使用 `vite-intlayer` 插件。
+
+修改你的 `vite.config.ts` 文件：
+
+```typescript fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+import analog from "@analogjs/platform";
+
+// https://vitejs.dev/config/
+export default defineConfig(() => ({
+  plugins: [
+    analog(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
+}));
+```
+
+> `intlayer()` 插件使用 Intlayer 配置 Vite。它处理内容声明文件并为最佳性能设置别名。
+
+</Step>
+
+<Step number={4} title="声明你的内容">
+
+创建和管理内容声明以存储翻译：
+
+```tsx fileName="src/app/app.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
+import { t, type Dictionary } from "intlayer";
+
+const appContent = {
+  key: "app",
+  content: {
+    title: t({
+      zh: "你好",
+      en: "Hello",
+      fr: "Bonjour",
+      es: "Hola",
+    }),
+    congratulations: t({
+      zh: "恭喜！你的应用正在运行。🎉",
+      en: "Congratulations! Your app is running. 🎉",
+      fr: "Félicitations! Votre application est en cours d'exécution. 🎉",
+      es: "¡Felicidades! Tu aplicación está en ejecución. 🎉",
+    }),
+  },
+} satisfies Dictionary;
+
+export default appContent;
+```
+
+> 你的内容声明可以在应用的任何地方定义，只要它们包含在 `contentDir` 目录中（默认为 `./src`）。并且匹配内容声明文件扩展名（默认为 `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`）。
+
+> 有关更多详情，请参阅 [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
+
+</Step>
+
+<Step number={5} title="在你的代码中使用 Intlayer">
+
+要在整个 Analog 应用中使用 Intlayer 的国际化功能，你需要在应用配置中提供 Intlayer。
+
+```typescript fileName="src/app/app.config.ts"
+import { ApplicationConfig } from "@angular/core";
+import { provideIntlayer } from "angular-intlayer";
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideIntlayer(), // 在这里添加 Intlayer 提供者
+  ],
+};
+```
+
+然后，你可以在任何组件中使用 `useIntlayer` 函数。
+
+```typescript fileName="src/app/pages/index.page.ts"
+import { Component } from "@angular/core";
+import { useIntlayer } from "angular-intlayer";
+
+@Component({
+  selector: "app-home",
+  standalone: true,
+  template: `
+    <div class="content">
+      <h1>{{ content().title }}</h1>
+      <p>{{ content().congratulations }}</p>
+    </div>
+  `,
+})
+export default class HomeComponent {
+  content = useIntlayer("app");
+}
+```
+
+Intlayer 内容作为 `Signal` 返回，所以你通过调用信号来访问值：`content().title`。
+
+</Step>
+
+<Step number={6} title="更改你的内容的语言" isOptional={true}>
+
+要更改内容的语言，你可以使用由 `useLocale` 函数提供的 `setLocale` 函数。这允许你设置应用的语言环境并相应地更新内容。
 
 创建一个用于切换语言的组件：
 
@@ -128,7 +314,7 @@ export class LocaleSwitcherComponent {
 }
 ```
 
-然后，在您的页面中使用此组件：
+然后，在你的页面中使用此组件：
 
 ```typescript fileName="src/app/pages/index.page.ts"
 import { Component } from "@angular/core";
@@ -151,6 +337,10 @@ export default class HomeComponent {
   content = useIntlayer("app");
 }
 ```
+
+</Step>
+
+</Steps>
 
 ### 配置 TypeScript
 

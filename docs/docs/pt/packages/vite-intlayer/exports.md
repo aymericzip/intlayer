@@ -48,3 +48,18 @@ import "vite-intlayer";
 | `intlayerProxy`      | Plugin middleware de desenvolvimento para tratar a detecção de locale e roteamento. | -                                                                                                                      |
 | `intlayerMiddleware` | (**Obsoleto**) Alias para `intlayerProxy`.                                          | -                                                                                                                      |
 | `intlayerPrune`      | Plugin para tree-shake e remover dicionários não utilizados durante o build.        | [intlayerPrune](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/vite-intlayer/intlayerPrune.md) |
+
+### Utilitários
+
+| Exportação                   | Descrição                                                                                                   | Documentação Relacionada                                                                                               |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `createIntlayerProxyHandler` | Retorna um middleware Node.js agnóstico de framework `(req, res, next)` com lógica de roteamento de locale. | [intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/packages/vite-intlayer/intlayerProxy.md) |
+
+### Tipos
+
+| Exportação                   | Descrição                                                                                                       |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `IntlayerPluginOptions`      | Opções aceitas por `intlayer()`. Estende `GetConfigurationOptions` com `compatCallers` e `proxy`.               |
+| `IntlayerProxyPluginOptions` | Opções aceitas por `intlayerProxy()` e `createIntlayerProxyHandler()`. Inclui `ignore` e `configOptions`.       |
+| `IntlayerCompilerOptions`    | Opções aceitas por `intlayerCompiler()`. Inclui `configOptions` e `compilerConfig`.                             |
+| `CompatCallerConfig`         | Re-exportação de `@intlayer/babel`. Descreve um padrão de chamador compat-adapter para análise de uso de campo. |

@@ -22,7 +22,9 @@ author: aymericzip
 
 # Intlayer कैसे काम करता है
 
-# Intlayer कैसे काम करता है
+## विषय सूची
+
+<TOC/>
 
 ## अवलोकन
 

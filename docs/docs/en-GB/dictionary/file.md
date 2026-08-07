@@ -25,6 +25,8 @@ author: aymericzip
 
 # File Content / Embedding Files in Intlayer
 
+In Intlayer, the `file` function allows embedding external file content into a dictionary. This approach ensures that Intlayer recognises the source file, enabling seamless integration with the Intlayer Visual Editor and CMS.
+
 ## How File Embedding Works
 
 <Tabs group="framework">

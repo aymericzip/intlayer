@@ -21,7 +21,13 @@ author: aymericzip
 
 ![i18n illustration](https://github.com/aymericzip/intlayer/blob/main/docs/assets/i18n.webp)
 
-## Comprendre la signification de "i18n"
+## Comprendre la signification de l'« i18n »
+
+Si vous travaillez dans le développement logiciel, le design web ou le marketing numérique, vous avez probablement rencontré le terme **i18n**. La véritable signification de l'**i18n** est simplement un numéronymе pour **internationalization** (internationalisation).
+
+Mais pourquoi « i18n » ? L'abréviation est créée en prenant la première lettre du mot « internationalization » (**i**), la dernière lettre (**n**), et en comptant le nombre de lettres entre elles (**18**). Cette convention est fréquemment utilisée dans l'industrie tech pour raccourcir les termes longs et maladroits (un autre exemple courant est **l10n** pour localization).
+
+En termes techniques, la signification de l'**i18n** fait référence au processus de conception et de préparation d'une application logicielle, d'un site web ou d'un produit afin qu'il puisse facilement supporter plusieurs langues, des normes régionales et des conventions culturelles, sans nécessiter de changements significatifs d'ingénierie du code source sous-jacent.
 
 ## La Signification Fondamentale de l'i18n en Pratique
 

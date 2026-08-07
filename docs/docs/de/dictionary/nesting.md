@@ -64,6 +64,53 @@ export default firstDictionary;
 }
 ```
 
+### Referencing mit Nest
+
+Erstellen Sie nun ein weiteres Content-Modul, das die `nest`-Funktion verwendet, um auf den obigen Inhalt zu verweisen. Sie können auf den gesamten Inhalt oder auf einen bestimmten verschachtelten Wert verweisen:
+
+```typescript fileName="secondDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { nest, type Dictionary } from "intlayer";
+
+const myNestingContent = {
+  key: "key_of_my_second_dictionary",
+  content: {
+    // Referenziert das gesamte Dictionary:
+    fullNestedContent: nest("key_of_my_first_dictionary"),
+    // Referenziert einen bestimmten verschachtelten Wert:
+    partialNestedContent: nest(
+      "key_of_my_first_dictionary",
+      "subContent.contentNumber"
+    ),
+  },
+} satisfies Dictionary;
+
+export default myNestingContent;
+```
+
+```json fileName="secondDictionary.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "key_of_my_second_dictionary",
+  "content": {
+    "fullNestedContent": {
+      "nodeType": "nested",
+      "nested": {
+        "dictionaryKey": "key_of_my_first_dictionary"
+      }
+    },
+    "partialNestedContent": {
+      "nodeType": "nested",
+      "nested": {
+        "dictionaryKey": "key_of_my_first_dictionary",
+        "path": "subContent.contentNumber"
+      }
+    }
+  }
+}
+```
+
+Als zweiter Parameter können Sie einen Pfad zu einem verschachtelten Wert innerhalb dieses Inhalts angeben. Wenn kein Pfad angegeben wird, wird der gesamte Inhalt des referenzierten Dictionaries zurückgegeben.
+
 ## Einrichtung der Verschachtelung
 
 <Tabs group="framework">
@@ -257,37 +304,6 @@ document.getElementById("nested")!.textContent = content.partialNestedContent;
 
   </Tab>
 </Tabs>
-
-## Verwendung der Verschachtelung mit React Intlayer
-
-Um verschachtelte Inhalte in einer React-Komponente zu verwenden, nutzen Sie den `useIntlayer`-Hook aus dem Paket `react-intlayer`. Dieser Hook ruft den richtigen Inhalt basierend auf dem angegebenen Schlüssel ab. Hier ist ein Beispiel, wie Sie ihn verwenden können:
-
-```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { useIntlayer } from "react-intlayer";
-
-const NestComponent: FC = () => {
-  const { fullNestedContent, partialNestedContent } = useIntlayer(
-    "key_of_my_second_dictionary"
-  );
-
-  return (
-    <div>
-      <p>
-        Vollständiger verschachtelter Inhalt:{" "}
-        {JSON.stringify(fullNestedContent)}
-        {/* Ausgabe: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
-      </p>
-      <p>
-        Teilweise verschachtelter Wert: {partialNestedContent}
-        {/* Ausgabe: 0 */}
-      </p>
-    </div>
-  );
-};
-
-export default NestComponent;
-```
 
 ## Zusätzliche Ressourcen
 

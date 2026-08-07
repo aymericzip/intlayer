@@ -59,36 +59,44 @@ getLocalizedUrl(
 
 ## Parametri
 
-## Descrizione
-
-La funzione `getLocalizedUrl` genera un URL localizzato anteponendo all'URL fornito la locale specificata. Gestisce sia URL assoluti che relativi, assicurando che il prefisso della locale corretta venga applicato in base alla configurazione.
-
----
-
-## Parametri
+### Parametri Obbligatori
 
 - `url: string`
-  - **Descrizione**: La stringa URL originale a cui anteporre una locale.
-  - **Tipo**: `string`
+  - **Description**: La stringa URL originale da prefissare con una locale.
+  - **Type**: `string`
+  - **Required**: Yes
 
 - `currentLocale: Locales`
-  - **Descrizione**: La locale corrente per cui l'URL viene localizzato.
-  - **Tipo**: `Locales`
+  - **Description**: La locale corrente per cui l'URL è in corso di localizzazione.
+  - **Type**: `Locales`
+  - **Required**: Yes
 
-- `locales: Locales[]`
-  - **Descrizione**: Array opzionale delle localizzazioni supportate. Per default, vengono fornite le localizzazioni configurate nel progetto.
-  - **Tipo**: `Locales[]`
-  - **Default**: [`Configurazione del Progetto`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md#middleware)
+### Parametri Opzionali
 
-- `defaultLocale: Locales`
-  - **Descrizione**: La locale predefinita per l'applicazione. Per default, viene fornita la locale predefinita configurata nel progetto.
-  - **Tipo**: `Locales`
-  - **Default**: [`Configurazione del Progetto`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md#middleware)
+- `options?: object`
+  - **Description**: Oggetto di configurazione per il comportamento della localizzazione degli URL.
+  - **Type**: `object`
+  - **Required**: No (Opzionale)
 
-- `prefixDefault: boolean`
-  - **Descrizione**: Se anteporre il prefisso all'URL per la locale predefinita. Per default, viene fornito il valore configurato nel progetto.
-  - **Tipo**: `boolean`
-  - **Default**: [`Configurazione del Progetto`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md#middleware)
+  - `options.locales?: Locales[]`
+    - **Description**: Array di locale supportate. Se non fornito, utilizza le locale configurate dalla configurazione del tuo progetto.
+    - **Type**: `Locales[]`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md#middleware)
+
+  - `options.defaultLocale?: Locales`
+    - **Description**: La locale predefinita per l'applicazione. Se non fornito, utilizza la locale predefinita configurata dalla configurazione del tuo progetto.
+    - **Type**: `Locales`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md#middleware)
+
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Description**: La modalità di routing degli URL per la gestione delle locale. Se non fornito, utilizza la modalità configurata dalla configurazione del tuo progetto.
+    - **Type**: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/it/configuration.md#middleware)
+    - **Modes**:
+      - `prefix-no-default`: Nessun prefisso per la locale predefinita, prefisso per tutte le altre
+      - `prefix-all`: Prefisso per tutte le locale inclusa quella predefinita
+      - `no-prefix`: Nessun prefisso di locale nell'URL
+      - `search-params`: Utilizza i parametri di query per la locale (es. `?locale=fr`)
 
 ### Ritorna
 

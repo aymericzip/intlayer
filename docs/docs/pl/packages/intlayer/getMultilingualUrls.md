@@ -49,26 +49,12 @@ Funkcja `getMultilingualUrls` generuje mapowanie wielojęzycznych URL-i, poprzed
 
 ## Parametry
 
-## Parametry
+### Wymagane parametry
 
 - `url: string`
-  - **Opis**: Oryginalny ciąg URL, który ma zostać poprzedzony prefiksami językowymi.
-  - **Typ**: `string`
-
-- `locales: Locales[]`
-  - **Opis**: Opcjonalna tablica obsługiwanych języków. Domyślnie używa skonfigurowanych języków w projekcie.
-  - **Typ**: `Locales[]`
-  - **Domyślnie**: `localesDefault`
-
-- `defaultLocale: Locales`
-  - **Opis**: Domyślny język aplikacji. Domyślnie używa skonfigurowanego domyślnego języka w projekcie.
-  - **Typ**: `Locales`
-  - **Domyślnie**: `defaultLocaleDefault`
-
-- `prefixDefault: boolean`
-  - **Opis**: Czy poprzedzać domyślny język prefiksem. Domyślnie używa skonfigurowanej wartości w projekcie.
-  - **Typ**: `boolean`
-  - **Domyślnie**: `prefixDefaultDefault`
+  - **Description**: Oryginalny ciąg URL do prefiksu z lokalizacjami.
+  - **Type**: `string`
+  - **Required**: Tak
 
 ### Parametry opcjonalne
 

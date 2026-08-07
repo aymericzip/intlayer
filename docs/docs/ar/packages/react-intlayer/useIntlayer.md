@@ -21,9 +21,9 @@ slugs:
 author: aymericzip
 ---
 
-## القاموس
+# توثيق خطاف useIntlayer
 
-يجب إعلان جميع مفاتيح القاموس داخل ملفات إعلان المحتوى لتعزيز أمان النوع وتجنب الأخطاء. يمكنك العثور على [تعليمات الإعداد هنا](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/dictionary/content_file.md).
+يسمح خطاف `useIntlayer` بالحصول على محتوى محلي من قاموس باستخدام مفتاحه. وهو يعتمد على `useDictionary` لكنه يحقن تلقائياً نسخة محسّنة من القاموس من التصريحات المُنشأة.
 
 ## مثال على الاستخدام في React
 

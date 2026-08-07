@@ -25,6 +25,8 @@ author: aymericzip
 
 # 文件内容 / 在 Intlayer 中嵌入文件
 
+在 Intlayer 中，`file` 函数允许将外部文件内容嵌入到字典中。这种方法确保 Intlayer 识别源文件，从而与 Intlayer Visual Editor 和 CMS 实现无缝集成。
+
 ## 文件嵌入的工作原理
 
 在 Intlayer 中，`file` 函数允许将外部文件内容嵌入到字典中。这种方法确保 Intlayer 识别源文件，实现与 Intlayer 可视化编辑器和 CMS 的无缝集成。与直接使用 `import`、`require` 或 `fs` 文件读取方法不同，使用 `file` 会将文件与字典关联，使 Intlayer 能够在文件被编辑时动态跟踪和更新内容。

@@ -31,39 +31,7 @@ history:
 author: aymericzip
 ---
 
-# Traduire votre Next.js 15 avec Intlayer | Internationalisation (i18n)
-
-<Tabs defaultTab="video">
-  <Tab label="Vidéo" value="video">
-
-<iframe title="Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
-
-  </Tab>
-  <Tab label="Code" value="code">
-
-<iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-next-15-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-  </Tab>
-  <Tab label="Démo" value="demo">
-
-<iframe
-  src="https://next-15-intlayer-template-xt83.vercel.app"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Démo - intlayer-next-15-template"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-  </Tab>
-</Tabs>
-
-Voir le [Modèle d’Application](https://github.com/aymericzip/intlayer-next-15-template) sur GitHub.
+# Traduisez votre site web Next.js 15 avec Intlayer | Internationalization (i18n)
 
 ## Table des matières
 

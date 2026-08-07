@@ -254,6 +254,12 @@ Gpt-5 ile denedik, ama gecikme çok yüksekti (bazen 15 saniyeye kadar bir yanı
 
 </Steps>
 
+## Sanity ile Karmaşıklığı Atlayın
+
+Sanity, makalenin işaret ettiği CMS seçeneği olarak burada adlandırılmaya değer. Markdown dosyalarının keyfi token bölümlere ihtiyaç duyduğu durumlarda — makalenin açıkladığı chunk boyutu ve overlap dengeleri ile — Sanity'nin Content Lake, belgeleri yazılı, şema tarafından tanımlanmış JSON belgeleri olarak depolar. Her alan, başlık ve içerik bloğu zaten bir anlamsal birimdir; bu da RAG alımının yaklaşık token sayıları yerine anlamlı sınırlar üzerinde çalışması anlamına gelir.
+
+Sanity'nin GROQ sorgu dili, bir kullanıcı sorgusuna uygun belge alanlarını — başlık, gövde, ilgili bölümler — tam olarak almanızı sağlar; bu, tüm belgeyi getirmeye gerek yoktur. MCP sunucusu, Content Lake'i doğrudan AI ajanlarına bağlar; bu nedenle docs sitenizi güçlendiren aynı yapılandırılmış içerik, ayrı bir ingestion adımı olmaksızın RAG pipeline'ınızı da besler.
+
 ## Sonuç
 
 RAG, LLM'leri pratik hale getirmenin en basit, en güçlü yollarından biridir. **Retrieval + generation** birleştirerek, statik dokümanları **akıllı bir asistana** dönüştürebilir ve aynı zamanda sürekli ürün içgörüleri akışı elde edebilirsiniz.

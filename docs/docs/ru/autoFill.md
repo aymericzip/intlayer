@@ -75,11 +75,30 @@ Intlayer также будет учитывать следующую инстр�
 
 При использовании опции пути для записи в другой файл механизм заполнения работает через отношение _master-slave_ между файлами объявления содержимого. Основной файл (master) служит источником истины, и при его обновлении Intlayer автоматически применит эти изменения к производным (заполненным) файлам объявления, указанным в пути.
 
-# Переводы файлов декларации автозаполнения контента
+### Кастомизация по локалям
 
-**Файлы декларации автозаполнения контента**, это способ ускорить ваш процесс разработки.
+Вы также можете кастомизировать поведение для каждой локали, используя объект:
 
-Механизм автозаполнения работает через _мастер-слейв_ отношения между файлами декларации контента. Когда основной (мастер) файл обновляется, Intlayer автоматически применяет эти изменения к производным (автозаполненным) файлам декларации.
+```ts fileName="intlayer.config.ts"
+const config: IntlayerConfig = {
+  content: {
+    internationalization: {
+      locales: [Locales.ENGLISH, Locales.FRENCH, Locales.POLISH],
+      defaultLocale: Locales.ENGLISH,
+      requiredLocales: [Locales.ENGLISH], // Рекомендуется, чтобы избежать Property 'pl' is missing in type '{ en: string; xxx } on your t function if
+    },
+  },
+  dictionary: {
+    fill: {
+      en: true, // Заполнить и отредактировать текущий файл для английского языка
+      fr: "./translations/fr.json", // Создать отдельный файл для французского языка
+      es: false, // Отключить заполнение для испанского языка
+    },
+  },
+};
+```
+
+Это позволяет вам иметь разные поведения заполнения для разных локалей в одном проекте.
 
 ```ts fileName="src/components/example/example.content.ts"
 import { Locales, type Dictionary } from "intlayer";
@@ -87,16 +106,16 @@ import { Locales, type Dictionary } from "intlayer";
 const exampleContent = {
   key: "example",
   locale: Locales.ENGLISH,
-  autoFill: "./example.content.json",
+  fill: "./example.content.json",
   content: {
-    contentExample: "Это пример контента", // пример контента
+    contentExample: "This is an example of content",
   },
 } satisfies Dictionary;
 
 export default exampleContent;
 ```
 
-Вот [файл декларации контента для каждого локаля](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/per_locale_file.md), использующий инструкцию `autoFill`.
+Вот [файл объявления содержимого для каждой локали](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/per_locale_file.md) с использованием инструкции `fill`.
 
 Затем, когда вы выполните следующую команду:
 
@@ -116,7 +135,7 @@ pnpm intlayer fill --file 'src/components/example/example.content.ts'
 bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
-Intlayer автоматически сгенерирует производный файл декларации по пути `src/components/example/example.content.json`, заполняя все локали, которые ещё не объявлены в основном файле.
+Intlayer автоматически создаст производный файл объявления в `src/components/example/example.content.json`, заполняя все локали, которые еще не объявлены в основном файле.
 
 ```json5 fileName="src/components/example/example.content.json"
 {
@@ -133,7 +152,7 @@ Intlayer автоматически сгенерирует производны�
 }
 ```
 
-После этого оба файла деклараций будут объединены в один словарь, доступный через стандартный хук `useIntlayer("example")` (react) / композицию (vue).
+После этого оба файла объявления будут объединены в один словарь, доступный с помощью стандартного хука `useIntlayer("example")` (react) / композабла (vue).
 
 ## Глобальная конфигурация
 

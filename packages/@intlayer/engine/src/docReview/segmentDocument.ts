@@ -1,8 +1,23 @@
 import type { Block, BlockType } from './types';
 
+const HEADING_PATTERN = /^\s*(#{1,6})\s+/;
+
 const isBlankLine = (line: string): boolean => line.trim().length === 0;
 const isFencedCodeDelimiter = (line: string): boolean => /^\s*```/.test(line);
-const isHeading = (line: string): boolean => /^\s*#{1,6}\s+/.test(line);
+
+/**
+ * Read the depth of an ATX markdown heading (`#` → 1, `######` → 6).
+ *
+ * @param line - The line to inspect.
+ * @returns The heading depth, or `null` when the line is not a heading.
+ */
+const parseHeadingDepth = (line: string): number | null => {
+  const match = HEADING_PATTERN.exec(line);
+
+  return match?.[1]?.length ?? null;
+};
+
+const isHeading = (line: string): boolean => parseHeadingDepth(line) !== null;
 const isFrontmatterDelimiter = (line: string): boolean =>
   /^\s*---\s*$/.test(line);
 
@@ -15,6 +30,8 @@ const isFrontmatterDelimiter = (line: string): boolean =>
  */
 type ContentUnit = {
   type: BlockType;
+  /** Depth of the ATX heading opening the unit, `null` when it is not a heading. */
+  headingDepth: number | null;
   startIndex: number;
   endIndex: number;
 };
@@ -58,7 +75,12 @@ export const segmentDocument = (text: string): Block[] => {
       }
       // Include the closing delimiter when present.
       if (index < lineCount) index += 1;
-      units.push({ type: 'unknown', startIndex, endIndex: index - 1 });
+      units.push({
+        type: 'unknown',
+        headingDepth: null,
+        startIndex,
+        endIndex: index - 1,
+      });
       continue;
     }
 
@@ -72,13 +94,25 @@ export const segmentDocument = (text: string): Block[] => {
       }
       // Include the closing fence when present.
       if (index < lineCount) index += 1;
-      units.push({ type: 'code_block', startIndex, endIndex: index - 1 });
+      units.push({
+        type: 'code_block',
+        headingDepth: null,
+        startIndex,
+        endIndex: index - 1,
+      });
       continue;
     }
 
     // Heading: a single self-contained line.
-    if (isHeading(currentLine)) {
-      units.push({ type: 'heading', startIndex: index, endIndex: index });
+    const headingDepth = parseHeadingDepth(currentLine);
+
+    if (headingDepth !== null) {
+      units.push({
+        type: 'heading',
+        headingDepth,
+        startIndex: index,
+        endIndex: index,
+      });
       index += 1;
       continue;
     }
@@ -95,7 +129,12 @@ export const segmentDocument = (text: string): Block[] => {
     ) {
       index += 1;
     }
-    units.push({ type: 'paragraph', startIndex, endIndex: index - 1 });
+    units.push({
+      type: 'paragraph',
+      headingDepth: null,
+      startIndex,
+      endIndex: index - 1,
+    });
   }
 
   if (units.length === 0) return [];
@@ -121,6 +160,7 @@ export const segmentDocument = (text: string): Block[] => {
     return {
       type: unit.type,
       content,
+      headingDepth: unit.headingDepth,
       lineStart: blockStartIndex + 1,
       lineEnd: blockEndIndex + 1,
     };
@@ -159,6 +199,9 @@ export const segmentSections = (text: string): Block[] => {
     sections.push({
       type: firstBlock.type,
       content: currentBlocks.map((block) => block.content).join(''),
+      // A section is identified by the heading that opens it, so it inherits its
+      // depth — this is what keeps a `##` section from aligning with a `###` one.
+      headingDepth: firstBlock.headingDepth,
       lineStart: firstBlock.lineStart,
       lineEnd: lastBlock.lineEnd,
     });

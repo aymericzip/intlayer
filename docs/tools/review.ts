@@ -1,7 +1,11 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { AIOptions } from '@intlayer/api';
-import { type ListGitFilesOptions, reviewDoc } from '@intlayer/cli';
+import {
+  type ListGitFilesOptions,
+  type ReviewDocMode,
+  reviewDoc,
+} from '@intlayer/cli';
 import { getConfiguration } from '@intlayer/config/node';
 import type { Locale } from '@intlayer/types/allLocales';
 import * as Locales from '@intlayer/types/locales';
@@ -22,7 +26,10 @@ const EXCLUDED_GLOB_PATTEN: string[] = [
   '**/src/**',
 ];
 
-const LOG_ONLY = false; // If false it gonna generate translations // NEVER TOUCH IT
+// 'report'    → log every block that needs attention, then the final synthesis
+// 'synthesis' → log only the final synthesis (documents up to date / to edit)
+// 'apply'     → generate the translations with AI // NEVER TOUCH IT
+const MODE: ReviewDocMode = 'apply';
 
 // Number of files to process simultaneously
 const NB_SIMULTANEOUS_FILE_PROCESSED: number = 1;
@@ -58,5 +65,5 @@ reviewDoc({
   // skipIfModifiedBefore: SKIP_IF_MODIFIED_BEFORE,
   // skipIfModifiedAfter: SKIP_IF_MODIFIED_AFTER,
   // gitOptions: GIT_OPTIONS,
-  log: LOG_ONLY,
+  mode: MODE,
 });

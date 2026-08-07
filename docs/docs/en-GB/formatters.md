@@ -46,34 +46,6 @@ author: aymericzip
 
 Intlayer provides a set of lightweight helpers built on top of the native `Intl` APIs, plus a cached `Intl` wrapper to avoid repeatedly constructing heavy formatters. These utilities are fully locale-aware and can be used from the main `intlayer` package.
 
-### Import
-
-```ts
-import {
-  Intl,
-  number,
-  percentage,
-  currency,
-  date,
-  relativeTime,
-  units,
-  compact,
-  list,
-  getLocaleName,
-  getLocaleLang,
-  getLocaleFromPath,
-  getPathWithoutLocale,
-  getLocalizedUrl,
-  getHTMLTextDir,
-  getContent,
-  getTranslation,
-  getIntlayer,
-  getIntlayerAsync,
-} from "intlayer";
-```
-
-If you are using React, hooks are also available; see `react-intlayer/format`.
-
 ## Cached Intl
 
 The exported `Intl` is a thin, cached wrapper around the global `Intl`. It memoises instances of `NumberFormat`, `DateTimeFormat`, `RelativeTimeFormat`, `ListFormat`, `DisplayNames`, `Collator`, and `PluralRules`, which avoids rebuilding the same formatter repeatedly.
@@ -110,85 +82,7 @@ pluralRules.select(1); // "one"
 pluralRules.select(2); // "other"
 ```
 
-## Additional Intl Utilities
-
-Beyond the formatter helpers, you can also use the cached Intl wrapper directly for other Intl features:
-
-### `Intl.DisplayNames`
-
-For localised names of languages, regions, currencies, and scripts:
-
-```ts
-import { Intl } from "intlayer";
-
-const languageNames = new Intl.DisplayNames("en", { type: "language" });
-languageNames.of("fr"); // "French"
-
-const regionNames = new Intl.DisplayNames("fr", { type: "region" });
-regionNames.of("US"); // "États-Unis"
-```
-
-### `Intl.Collator`
-
-For locale-aware string comparison and sorting:
-
-```ts
-import { Intl } from "intlayer";
-
-const collator = new Intl.Collator("de", {
-  sensitivity: "base",
-  numeric: true,
-});
-
-const words = ["äpfel", "zebra", "100", "20"];
-words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
-```
-
-### `Intl.PluralRules`
-
-For determining plural forms in different locales:
-
-```ts
-import { Intl } from "intlayer";
-
-const pluralRules = new Intl.PluralRules("ar");
-pluralRules.select(0); // "zero"
-pluralRules.select(1); // "one"
-pluralRules.select(2); // "two"
-pluralRules.select(3); // "few"
-pluralRules.select(11); // "many"
-```
-
 ## Locale Utilities
-
-### `getLocaleName(displayLocale, targetLocale?)`
-
-Gets the localised name of a locale in another locale:
-
-```ts
-import { getLocaleName } from "intlayer";
-
-getLocaleName("fr", "en"); // "French"
-getLocaleName("en", "fr"); // "anglais"
-getLocaleName("de", "es"); // "alemán"
-```
-
-- **displayLocale**: The locale to get the name for
-- **targetLocale**: The locale to display the name in (defaults to displayLocale)
-
-### `getLocaleLang(locale?)`
-
-Extracts the language code from a locale string:
-
-```ts
-import { getLocaleLang } from "intlayer";
-
-getLocaleLang("en-US"); // "en"
-getLocaleLang("fr-CA"); // "fr"
-getLocaleLang("de"); // "de"
-```
-
-- **locale**: The locale to extract the language from (defaults to current locale)
 
 ### `getLocaleFromPath(inputUrl)`
 
@@ -330,23 +224,6 @@ const content = await getIntlayerAsync("common", "fr");
 
 All helpers below are exported from `intlayer`.
 
-### `number(value, options?)`
-
-Formats a numeric value using locale-aware grouping and decimals.
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-
-Examples:
-
-```ts
-import { number } from "intlayer";
-
-number(123456.789); // "123,456.789" (in en-US)
-number("1000000", { locale: "fr" }); // "1 000 000"
-number(1234.5, { minimumFractionDigits: 2 }); // "1,234.50"
-```
-
 ### `percentage(value, options?)`
 
 Formats a number as a percentage string.
@@ -366,57 +243,68 @@ percentage(25); // "25%"
 percentage(0.237, { minimumFractionDigits: 1 }); // "23.7%"
 ```
 
-### `currency(value, options?)`
+### Additional Intl Features
 
-Formats a value as localised currency. Defaults to `USD` with two fraction digits.
+#### `number(value, options?)`
+
+Formats a numeric value using locale-aware grouping and decimals.
 
 - **value**: `number | string`
 - **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-  - Common fields: `currency` (e.g., `"EUR"`), `currencyDisplay` (`"symbol" | "code" | "name"`)
-
-Examples:
 
 ```ts
-import { currency } from "intlayer";
+number(123456.789); // "123,456.789" (in en-US)
+number("1000000", { locale: "fr" }); // "1 000 000"
+number(1234.5, { minimumFractionDigits: 2 }); // "1,234.50"
+```
 
+#### `percentage(value, options?)`
+
+Formats a number as a percentage string. Values greater than 1 are normalised (e.g., `25` → `25%`, `0.25` → `25%`).
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+
+```ts
+percentage(0.25); // "25%"
+percentage(25); // "25%"
+percentage(0.237, { minimumFractionDigits: 1 }); // "23.7%"
+```
+
+#### `currency(value, options?)`
+
+Formats a value as localised currency. Defaults to `USD`.
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+  - Common: `currency`, `currencyDisplay` (`"symbol" | "code" | "name"`)
+
+```ts
 currency(1234.5, { currency: "EUR" }); // "€1,234.50"
 currency("5000", { locale: "fr", currency: "CAD", currencyDisplay: "code" }); // "5 000,00 CAD"
 ```
 
-### `date(date, optionsOrPreset?)`
+#### `date(date, optionsOrPreset?)`
 
-Formats a date/time value with `Intl.DateTimeFormat`.
+Formats a date/time value.
 
 - **date**: `Date | string | number`
-- **optionsOrPreset**: `Intl.DateTimeFormatOptions & { locale?: LocalesValues }` or one of the presets:
-  - Presets: `"short" | "long" | "dateOnly" | "timeOnly" | "full"`
-
-Examples:
+- **optionsOrPreset**: `Intl.DateTimeFormatOptions & { locale?: LocalesValues }` or preset: `"short" | "long" | "dateOnly" | "timeOnly" | "full"`
 
 ```ts
-import { date } from "intlayer";
-
 date(new Date(), "short"); // e.g., "08/02/25, 14:30"
 date("2025-08-02T14:30:00Z", { locale: "fr", month: "long", day: "numeric" }); // "2 août"
 ```
 
-### Additional Intl Features
+#### `relativeTime(from, to?, options?)`
 
-### `relativeTime(from, to = new Date(), options?)`
+Formats relative time between two instants.
 
-Formats relative time between two instants with `Intl.RelativeTimeFormat`.
-
-- Pass "now" as the first argument and the target as the second to get natural phrasing.
 - **from**: `Date | string | number`
 - **to**: `Date | string | number` (defaults to `new Date()`)
-- **options**: `{ locale?: LocalesValues; unit?: Intl.RelativeTimeFormatUnit; numeric?: Intl.RelativeTimeFormatNumeric; style?: Intl.RelativeTimeFormatStyle }`
-  - Default `unit` is `"second"`.
-
-Examples:
+- **options**: `{ locale?, unit?, numeric?, style? }`
 
 ```ts
-import { relativeTime } from "intlayer";
-
 const now = new Date();
 const in3Days = new Date(now.getTime() + 3 * 864e5);
 relativeTime(now, in3Days, { unit: "day" }); // "in 3 days"
@@ -424,6 +312,121 @@ relativeTime(now, in3Days, { unit: "day" }); // "in 3 days"
 const twoHoursAgo = new Date(now.getTime() - 2 * 3600e3);
 relativeTime(now, twoHoursAgo, { unit: "hour", numeric: "auto" }); // "2 hours ago"
 ```
+
+#### `units(value, options?)`
+
+Formats a numeric value with a unit.
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+  - Common: `unit` (e.g., `"kilometer"`, `"byte"`), `unitDisplay` (`"short" | "narrow" | "long"`)
+
+```ts
+units(5, { unit: "kilometer", unitDisplay: "long", locale: "en-GB" }); // "5 kilometres"
+units(1024, { unit: "byte", unitDisplay: "narrow" }); // "1,024B"
+```
+
+#### `compact(value, options?)`
+
+Formats a number using compact notation.
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+
+```ts
+compact(1200); // "1.2K"
+compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
+```
+
+#### `list(values, options?)`
+
+Formats an array into a localised list string.
+
+- **values**: `(string | number)[]`
+- **options**: `Intl.ListFormatOptions & { locale?: LocalesValues }`
+  - Common: `type` (`"conjunction" | "disjunction" | "unit"`), `style` (`"long" | "short" | "narrow"`)
+
+```ts
+list(["apple", "banana", "orange"]); // "apple, banana, and orange"
+list(["red", "green", "blue"], { locale: "fr", type: "disjunction" }); // "rouge, vert ou bleu"
+```
+
+## Cached Intl
+
+The exported `Intl` from `intlayer` is a cached wrapper around the global `Intl`. It memoizes formatter instances (`NumberFormat`, `DateTimeFormat`, etc.) to avoid repeatedly constructing them, improving performance.
+
+```ts
+import { Intl } from "intlayer";
+
+// Number formatting
+const numberFormat = new Intl.NumberFormat("en-GB", {
+  style: "currency",
+  currency: "GBP",
+});
+numberFormat.format(1234.5); // "£1,234.50"
+
+// Display names for languages, regions, etc.
+const displayNames = new Intl.DisplayNames("fr", { type: "language" });
+displayNames.of("en"); // "anglais"
+
+// Collation for sorting
+const collator = new Intl.Collator("fr", { sensitivity: "base" });
+collator.compare("é", "e"); // 0 (equal)
+
+// Plural rules
+const pluralRules = new Intl.PluralRules("fr");
+pluralRules.select(1); // "one"
+pluralRules.select(2); // "other"
+```
+
+### Additional Intl Features
+
+#### `Intl.DisplayNames`
+
+For localised names of languages, regions, currencies, and scripts:
+
+```ts
+import { Intl } from "intlayer";
+
+const languageNames = new Intl.DisplayNames("en", { type: "language" });
+languageNames.of("fr"); // "French"
+
+const regionNames = new Intl.DisplayNames("fr", { type: "region" });
+regionNames.of("US"); // "États-Unis"
+```
+
+#### `Intl.Collator`
+
+For locale-aware string comparison and sorting:
+
+```ts
+import { Intl } from "intlayer";
+
+const collator = new Intl.Collator("de", {
+  sensitivity: "base",
+  numeric: true,
+});
+
+const words = ["äpfel", "zebra", "100", "20"];
+words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
+```
+
+#### `Intl.PluralRules`
+
+For determining plural forms in different locales:
+
+```ts
+import { Intl } from "intlayer";
+
+const pluralRules = new Intl.PluralRules("ar");
+pluralRules.select(0); // "zero"
+pluralRules.select(1); // "one"
+pluralRules.select(2); // "two"
+pluralRules.select(3); // "few"
+pluralRules.select(11); // "many"
+```
+
+## Locale Utilities
 
 ### `units(value, options?)`
 
@@ -459,8 +462,6 @@ compact(1200); // "1.2K"
 compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
 ```
 
-## Locale Utilities
-
 ### `list(values, options?)`
 
 Formats an array of values into a localised list string using `Intl.ListFormat`.
@@ -489,42 +490,6 @@ import { getLocaleLang } from "intlayer";
 
 getLocaleLang("en-US"); // "en"
 getLocaleLang("fr-CA"); // "fr"
-```
-
-## Notes
-
-- All helpers accept `string` inputs; they are internally coerced to numbers or dates.
-- Locale defaults to your configured `internationalization.defaultLocale` if not provided.
-- These utilities are thin wrappers; for advanced formatting, pass through the standard `Intl` options.
-
-## Entry points and re-exports (`@index.ts`)
-
-The formatters reside in the core package and are re-exported from higher-level packages to keep imports ergonomic across runtimes:
-
-Examples:
-
-```ts
-// App code (recommended)
-import {
-  number,
-  currency,
-  date,
-  relativeTime,
-  units,
-  compact,
-  list,
-  Intl,
-  getLocaleName,
-  getLocaleLang,
-  getLocaleFromPath,
-  getPathWithoutLocale,
-  getLocalizedUrl,
-  getHTMLTextDir,
-  getContent,
-  getTranslation,
-  getIntlayer,
-  getIntlayerAsync,
-} from "intlayer";
 ```
 
 ### React

@@ -69,11 +69,276 @@ Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的
 
 ---
 
-### (可选) 第 6 步：更改内容的语言
+## 在 Angular 应用中设置 Intlayer 的分步指南
 
-要更改内容的语言，你可以使用 `useLocale` 函数提供的 `setLocale` 函数。这允许你设置应用的语言区域并相应地更新内容。
+<Tabs defaultTab="code">
+  <Tab label="代码" value="code">
 
-创建一个用于切换语言的组件：
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-angular-19-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="演示" value="demo">
+
+<iframe
+  src="https://intlayer-angular-19-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo - intlayer-angular-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
+查看 GitHub 上的[应用模板](https://github.com/aymericzip/intlayer-angular-19-template)。
+
+<Steps>
+
+<Step number={1} title="安装依赖">
+
+使用 npm 安装必要的包：
+
+```bash packageManager="npm"
+npx intlayer init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer@canary init --interactive
+```
+
+> `--interactive` 标志是可选的。如果你是 AI 代理，请使用 `intlayer-cli init`。
+
+> 此命令将检测你的环境并安装所需的包。例如：
+
+```bash packageManager="npm"
+npm install intlayer angular-intlayer
+npm install @angular-builders/custom-webpack --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer angular-intlayer
+pnpm add @angular-builders/custom-webpack --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add intlayer angular-intlayer
+yarn add @angular-builders/custom-webpack --save-dev
+```
+
+```bash packageManager="bun"
+bun add intlayer angular-intlayer
+bun add @angular-builders/custom-webpack --dev
+```
+
+- **intlayer**
+
+  核心包，为配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、转译和 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)提供国际化工具。
+
+- **angular-intlayer**
+  将 Intlayer 与 Angular 应用集成的包。它为 Angular 国际化提供上下文提供者和钩子。
+
+- **@angular-builders/custom-webpack**
+  自定义 Angular CLI 的 Webpack 配置所需。
+
+</Step>
+
+<Step number={2} title="配置你的项目">
+
+创建一个配置文件来配置应用的语言：
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH,
+      // 你的其他语言
+    ],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+> 通过此配置文件，你可以设置本地化 URL、中间件重定向、cookie 名称、内容声明的位置和扩展名、禁用 Intlayer 在控制台中的日志等等。有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
+
+</Step>
+
+<Step number={3} title="在你的 Angular 配置中集成 Intlayer">
+
+要将 Intlayer 与 Angular CLI 集成，你需要使用自定义构建器。本指南假设你使用 Webpack（许多 Angular 项目的默认设置）。
+
+首先，修改你的 `angular.json` 以使用自定义 Webpack 构建器。更新 `build` 和 `serve` 配置：
+
+```json5 fileName="angular.json"
+{
+  "projects": {
+    "your-app-name": {
+      "architect": {
+        "build": {
+          "builder": "@angular-builders/custom-webpack:browser", // 替换 "@angular-devkit/build-angular:application"
+          "options": {
+            "customWebpackConfig": {
+              "path": "./webpack.config.ts",
+              "mergeStrategies": { "module.rules": "prepend" },
+            },
+            "main": "src/main.ts", // 替换 "browser": "src/main.ts"
+            // ...
+          },
+        },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server", // 替换 "@angular-devkit/build-angular:dev-server"
+        },
+      },
+    },
+  },
+}
+```
+
+> 确保在 `angular.json` 中用你项目的实际名称替换 `your-app-name`。
+
+接下来，在项目的根目录创建一个 `webpack.config.ts` 文件：
+
+```typescript fileName="webpack.config.ts"
+import { mergeConfig } from "angular-intlayer/webpack";
+
+export default mergeConfig({});
+```
+
+> `mergeConfig` 函数使用 Intlayer 配置 Webpack。它注入 `IntlayerPlugin`（处理内容声明文件）并设置别名以获得最佳性能。
+
+</Step>
+
+<Step number={4} title="声明你的内容">
+
+创建并管理你的内容声明以存储翻译：
+
+```tsx fileName="src/app/app.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
+import { t, type Dictionary } from "intlayer";
+
+const appContent = {
+  key: "app",
+  content: {
+    title: t({
+      zh: "你好",
+      en: "Hello",
+      fr: "Bonjour",
+      es: "Hola",
+    }),
+    congratulations: t({
+      zh: "恭喜！你的应用正在运行。🎉",
+      en: "Congratulations! Your app is running. 🎉",
+      fr: "Félicitations! Votre application est en cours d'exécution. 🎉",
+      es: "¡Felicidades! Tu aplicación está en ejecución. 🎉",
+    }),
+    exploreDocs: t({
+      zh: "浏览文档",
+      en: "Explore the Docs",
+      fr: "Explorer les Docs",
+      es: "Explorar los Docs",
+    }),
+    learnWithTutorials: t({
+      zh: "通过教程学习",
+      en: "Learn with Tutorials",
+      fr: "Apprendre avec les Tutoriels",
+      es: "Aprender con los Tutorios",
+    }),
+    cliDocs: "CLI Docs",
+    angularLanguageService: t({
+      zh: "Angular 语言服务",
+      en: "Angular Language Service",
+      fr: "Service de Langage Angular",
+      es: "Servicio de Lenguaje Angular",
+    }),
+    angularDevTools: "Angular DevTools",
+    github: "Github",
+    twitter: "Twitter",
+    youtube: "Youtube",
+  },
+} satisfies Dictionary;
+
+export default appContent;
+```
+
+> 你的内容声明可以定义在应用的任何地方，只要它们包含在 `contentDir` 目录中（默认为 `./src`）。并且匹配内容声明文件扩展名（默认为 `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`）。
+
+> 有关更多详情，请参阅[内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
+
+</Step>
+
+<Step number={5} title="在你的代码中使用 Intlayer">
+
+要在整个 Angular 应用中使用 Intlayer 的国际化功能，你需要在应用配置中提供 Intlayer。
+
+```typescript fileName="src/app/app.config.ts"
+import { ApplicationConfig } from "@angular/core";
+import { provideRouter } from "@angular/router";
+import { provideIntlayer } from "angular-intlayer";
+import { routes } from "./app.routes";
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideRouter(routes),
+    provideIntlayer(), // 在此处添加 Intlayer 提供者
+  ],
+};
+```
+
+然后，你可以在任何组件中使用 `useIntlayer` 函数。
+
+```typescript fileName="src/app/app.component.ts"
+import { Component } from "@angular/core";
+import { RouterOutlet } from "@angular/router";
+import { useIntlayer } from "angular-intlayer";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  imports: [RouterOutlet],
+  templateUrl: "./app.component.html",
+  styleUrl: "./app.component.css",
+})
+export class AppComponent {
+  content = useIntlayer("app");
+}
+```
+
+在你的模板中：
+
+```html fileName="src/app/app.component.html"
+<div class="content">
+  <h1>{{ content().title }}</h1>
+  <p>{{ content().congratulations }}</p>
+</div>
+```
+
+Intlayer 内容作为 `Signal` 返回，所以你通过调用 signal 来访问值：`content().title`。
+
+</Step>
+
+<Step number={6} title="更改内容的语言" isOptional={true}>
+
+要更改内容的语言，你可以使用 `useLocale` 函数提供的 `setLocale` 函数。这允许你设置应用的语言环境并相应地更新内容。
+
+创建一个组件来在语言之间切换：
 
 ```typescript fileName="src/app/locale-switcher.component.ts"
 import { Component } from "@angular/core";
@@ -125,6 +390,10 @@ export class AppComponent {
   content = useIntlayer("app");
 }
 ```
+
+</Step>
+
+</Steps>
 
 ### 配置 TypeScript
 

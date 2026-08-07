@@ -75,11 +75,30 @@ In v7 hat sich das Verhalten des `fill`-Befehls aktualisiert:
 
 Bei Verwendung einer Path-Option zum Schreiben in eine andere Datei funktioniert der Fill-Mechanismus über eine _Master-Slave_-Beziehung zwischen Content-Declaration-Dateien. Die Hauptdatei (Master) dient als Single Source of Truth, und wenn sie aktualisiert wird, wendet Intlayer diese Änderungen automatisch auf die abgeleiteten (gefüllten) Declaration-Dateien an, die durch den Path angegeben werden.
 
-# Übersetzungen der Deklarationsdatei für automatisches Ausfüllen von Inhalten
+### Pro-Locale-Anpassung
 
-**Deklarationsdateien für automatisches Ausfüllen von Inhalten** sind eine Möglichkeit, Ihren Entwicklungsworkflow zu beschleunigen.
+Sie können das Verhalten für jedes Locale auch anpassen, indem Sie ein Objekt verwenden:
 
-Der Mechanismus des automatischen Ausfüllens funktioniert durch eine _Master-Slave_-Beziehung zwischen Inhaltsdeklarationsdateien. Wenn die Hauptdatei (Master) aktualisiert wird, wendet Intlayer diese Änderungen automatisch auf die abgeleiteten (automatisch ausgefüllten) Deklarationsdateien an.
+```ts fileName="intlayer.config.ts"
+const config: IntlayerConfig = {
+  content: {
+    internationalization: {
+      locales: [Locales.ENGLISH, Locales.FRENCH, Locales.POLISH],
+      defaultLocale: Locales.ENGLISH,
+      requiredLocales: [Locales.ENGLISH], // Empfohlen, um zu vermeiden, dass Property 'pl' in type '{ en: string; xxx } on your t function fehlt
+    },
+  },
+  dictionary: {
+    fill: {
+      en: true, // Aktuelle Datei für Englisch ausfüllen und bearbeiten
+      fr: "./translations/fr.json", // Separate Datei für Französisch erstellen
+      es: false, // Ausfüllen für Spanisch deaktivieren
+    },
+  },
+};
+```
+
+Dies ermöglicht es Ihnen, verschiedene Fill-Verhalten für verschiedene Locales innerhalb desselben Projekts zu haben.
 
 ```ts fileName="src/components/example/example.content.ts"
 import { Locales, type Dictionary } from "intlayer";
@@ -87,18 +106,18 @@ import { Locales, type Dictionary } from "intlayer";
 const exampleContent = {
   key: "example",
   locale: Locales.ENGLISH,
-  autoFill: "./example.content.json",
+  fill: "./example.content.json",
   content: {
-    contentExample: "Dies ist ein Beispielinhalt", // Beispielinhalt
+    contentExample: "This is an example of content",
   },
 } satisfies Dictionary;
 
 export default exampleContent;
 ```
 
-Hier ist eine [pro-Locale Inhaltsdeklarationsdatei](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/per_locale_file.md) mit der `autoFill`-Anweisung.
+Hier ist eine [Pro-Locale-Inhaltsdeklarationsdatei](https://github.com/aymericzip/intlayer/blob/main/docs/docs/de/per_locale_file.md), die die `fill`-Anweisung verwendet.
 
-Dann, wenn Sie den folgenden Befehl ausführen:
+Wenn Sie dann den folgenden Befehl ausführen:
 
 ```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
@@ -116,7 +135,7 @@ pnpm intlayer fill --file 'src/components/example/example.content.ts'
 bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
-Intlayer generiert automatisch die abgeleitete Deklarationsdatei unter `src/components/example/example.content.json` und füllt alle Lokalisierungen aus, die in der Hauptdatei noch nicht deklariert sind.
+Intlayer generiert automatisch die abgeleitete Deklarationsdatei unter `src/components/example/example.content.json` und füllt alle Locales aus, die nicht bereits in der Hauptdatei deklariert sind.
 
 ```json5 fileName="src/components/example/example.content.json"
 {
@@ -133,7 +152,7 @@ Intlayer generiert automatisch die abgeleitete Deklarationsdatei unter `src/comp
 }
 ```
 
-Anschließend werden beide Deklarationsdateien zu einem einzigen Wörterbuch zusammengeführt, das über den Standard-`useIntlayer("example")` Hook (React) / Composable (Vue) zugänglich ist.
+Danach werden beide Deklarationsdateien in ein einzelnes Wörterbuch zusammengeführt, das mit dem Standard-`useIntlayer("example")`-Hook (React) / Composable (Vue) zugänglich ist.
 
 ## Globale Konfiguration
 

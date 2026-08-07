@@ -30,16 +30,89 @@ Plugin Vite `intlayerPrune` digunakan untuk melakukan tree-shaking dan memangkas
 
 ## Penggunaan
 
+### Sebagai bagian dari `intlayer()` (direkomendasikan)
+
+Aktifkan pruning melalui konfigurasi Intlayer Anda dan plugin utama menangani semuanya:
+
 ```ts
-// vite.config.ts (konfigurasi Vite)
-import { defineConfig } from "vite";
-import { intlayer, intlayerPrune } from "vite-intlayer";
+// intlayer.config.ts
+import { defineConfig } from "intlayer";
 
 export default defineConfig({
-  plugins: [intlayer(), intlayerPrune()],
+  build: {
+    optimize: true, // mengaktifkan pruning dan minify
+  },
 });
 ```
 
-## Deskripsi
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
 
-Plugin ini menganalisis kode sumber Anda untuk mengidentifikasi kunci kamus mana yang benar-benar digunakan. Setelah itu, plugin akan menghapus konten yang tidak terpakai dari file kamus yang dibundel. Ini sangat berguna untuk proyek besar dengan banyak kamus di mana hanya sebagian yang digunakan pada halaman atau komponen tertentu.
+export default defineConfig({
+  plugins: [intlayer()],
+});
+```
+
+### Standalone
+
+Jika Anda menyusun stack plugin secara manual, `intlayerPrune` dan `intlayerMinify` berbagi objek `PruneContext` yang harus dibuat sekali dan dilewatkan ke keduanya:
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import { intlayerPrune, intlayerMinify } from "vite-intlayer";
+import { createPruneContext } from "@intlayer/babel";
+import { getConfiguration } from "@intlayer/config/node";
+
+const intlayerConfig = getConfiguration();
+const pruneContext = createPruneContext();
+
+export default defineConfig({
+  plugins: [
+    intlayerPrune(intlayerConfig, pruneContext),
+    intlayerMinify(intlayerConfig, pruneContext), // opsional, membaca dari konteks yang sama
+  ],
+});
+```
+
+## Cara Kerjanya
+
+### 1. Analisis Penggunaan (buildStart)
+
+Selama `buildStart`, plugin `intlayerOptimize` (juga bagian dari `intlayer()`) memindai setiap file sumber komponen yang tercantum dalam `build.filesList`. Untuk setiap panggilan `useIntlayer('key')` atau `getIntlayer('key')`, plugin ini mencatat dengan tepat bidang mana yang diakses, misalnya:
+
+```ts
+const { title, description } = useIntlayer("myDict");
+// mencatat: myDict → { title, description }
+```
+
+Ini membangun `pruneContext.fieldUsageMap` sebelum panggilan `transform` apa pun dijalankan.
+
+### 2. JSON pruning (transform, enforce: 'pre')
+
+Ketika Vite memproses file JSON kamus yang telah dikompilasi, `intlayerPrune` mencegat sebelum konversi JSON → ESM bawaan Vite. Ini membaca peta penggunaan field dari `pruneContext` dan menghapus setiap field konten yang tidak ada dalam set penggunaan yang tercatat.
+
+Dua bentuk konten didukung:
+
+- **Static dictionaries** — `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Field dipangkas per-locale di dalam `translation`.
+- **Dynamic (per-locale) dictionaries** — flat `{ fieldA: ..., fieldB: ... }`. Field dipangkas di tingkat atas.
+
+### 3. Kasus Edge Cases
+
+Jika struktur konten kamus tidak dapat dikenali (misalnya, bentuk nested yang tidak biasa), kamus tersebut ditambahkan ke `pruneContext.dictionariesWithEdgeCases` dan **dibiarkan tanpa diubah**. Peringatan dicatat. `intlayerMinify` juga melewati kamus-kamus ini.
+
+### 4. Field-rename map
+
+Ketika pruning berhasil, `intlayerPrune` juga menulis `pruneContext.dictionaryKeyToFieldRenameMap` — sebuah pemetaan dari nama field asli ke alias pendek. `intlayerMinify` membaca peta ini untuk mengubah nama field dalam output JSON, dan Babel rename pass milik `intlayerOptimize` memperbarui akses properti dalam file sumber sesuai dengan itu.
+
+## Kondisi Aktivasi
+
+`intlayerPrune` aktif **hanya** ketika semua kondisi berikut terpenuhi:
+
+1. Perintah Vite adalah `build`.
+2. `build.optimize` adalah `true` (atau `undefined`, yang secara default adalah `true` untuk build).
+3. `build.purge` adalah `true` dalam konfigurasi Intlayer Anda.
+
+Secara otomatis **dinonaktifkan** ketika `editor.enabled` adalah `true` karena editor memerlukan konten kamus lengkap.

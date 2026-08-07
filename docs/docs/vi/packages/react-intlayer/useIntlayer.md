@@ -25,9 +25,9 @@ history:
 author: aymericzip
 ---
 
-## Từ điển
+# Tài liệu Hook useIntlayer
 
-Tất cả các khóa từ điển phải được khai báo trong các tệp khai báo nội dung để tăng tính an toàn kiểu và tránh lỗi. Bạn có thể tìm thấy [hướng dẫn thiết lập tại đây](https://github.com/aymericzip/intlayer/blob/main/docs/docs/vi/dictionary/content_file.md).
+Hook `useIntlayer` cho phép bạn truy xuất nội dung được bản địa hóa từ một từ điển bằng khóa của nó. Nó dựa trên `useDictionary` nhưng tự động đưa vào một phiên bản tối ưu hóa của từ điển từ các khai báo được tạo ra.
 
 ## Ví dụ sử dụng trong React
 

@@ -23,7 +23,9 @@ history:
 author: aymericzip
 ---
 
-# Conteúdo de Arquivo / Incorporando Arquivos no Intlayer
+# Conteúdo de Arquivo / Incorporação de Arquivos no Intlayer
+
+No Intlayer, a função `file` permite incorporar conteúdo de arquivo externo em um dicionário. Esta abordagem garante que o Intlayer reconheça o arquivo de origem, permitindo integração perfeita com o Editor Visual do Intlayer e CMS.
 
 ## Como Funciona a Incorporação de Arquivos
 

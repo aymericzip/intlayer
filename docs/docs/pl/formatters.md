@@ -137,45 +137,40 @@ const MyComponent = () => {
 };
 ```
 
-## Buforowany Intl
+### Hook `useIntl`
 
-Eksportowany `Intl` to cienkie, buforowane opakowanie wokół globalnego `Intl`. Zapamiętuje instancje `NumberFormat`, `DateTimeFormat`, `RelativeTimeFormat`, `ListFormat`, `DisplayNames`, `Collator` oraz `PluralRules`, co zapobiega wielokrotnemu tworzeniu tego samego formattera.
+Hook `useIntl` zapewnia bezpośredni dostęp do obiektu `Intl` powiązanego z locale'em. Jest to przydatne, gdy potrzebujesz pełnego API `Intl` (np. `DisplayNames`, `Collator`, `PluralRules`) z automatycznym wstrzyknięciem locale'a.
 
-Ponieważ tworzenie formatterów jest stosunkowo kosztowne, to buforowanie poprawia wydajność bez zmiany zachowania. Opakowanie udostępnia ten sam interfejs API co natywny `Intl`, więc sposób użycia jest identyczny.
+```tsx
+import { useIntl } from "react-intlayer/format";
 
-- Buforowanie jest na poziomie procesu i jest przezroczyste dla wywołujących.
+const MyComponent = () => {
+  const intl = useIntl(); // używa locale z kontekstu
 
-> Jeśli `Intl.DisplayNames` nie jest dostępne w środowisku, zostanie wyświetlone jedno ostrzeżenie tylko dla deweloperów (zaleca się użycie polyfill).
+  // Standardowe API Intl, ale locale jest automatycznie wstrzykiwane, gdy jest undefined
+  const formatted = new intl.NumberFormat(undefined, {
+    style: "currency",
+    currency: "USD",
+  }).format(123.45);
 
-Przykłady:
+  // Możesz nadal przesłonić locale, jeśli jest potrzebne
+  const date = new intl.DateTimeFormat("fr-FR").format(new Date());
 
-```ts
-import { Intl } from "intlayer";
+  // Dostęp do innych funkcji Intl
+  const displayNames = new intl.DisplayNames(undefined, { type: "language" });
+  const languageName = displayNames.of("fr"); // "French" (lub zlokalizowana)
 
-// Formatowanie liczb
-const numberFormat = new Intl.NumberFormat("en-GB", {
-  style: "currency",
-  currency: "GBP",
-});
-numberFormat.format(1234.5); // "£1,234.50"
-
-// Wyświetlanie nazw języków, regionów itp.
-const displayNames = new Intl.DisplayNames("fr", { type: "language" });
-displayNames.of("en"); // "anglais"
-
-// Sortowanie (kolacja)
-const collator = new Intl.Collator("fr", { sensitivity: "base" });
-collator.compare("é", "e"); // 0 (równe)
-
-// Reguły liczby mnogiej
-const pluralRules = new Intl.PluralRules("fr");
-pluralRules.select(1); // "one"
-pluralRules.select(2); // "other"
+  return (
+    <div>
+      <p>{formatted}</p>
+      <p>{date}</p>
+      <p>{languageName}</p>
+    </div>
+  );
+};
 ```
 
-## Dodatkowe narzędzia Intl
-
-Poza pomocnikami do formatowania, możesz również używać bezpośrednio buforowanego wrappera Intl do innych funkcji Intl:
+## Vue Formatters
 
 ### `Intl.DisplayNames`
 
@@ -269,6 +264,189 @@ W kontekstach bez frameworka, importuj formatters bezpośrednio z `intlayer`. Pa
 ### `Intl.PluralRules`
 
 Do określania form liczby mnogiej w różnych lokalizacjach:
+
+```ts
+import { Intl } from "intlayer";
+
+const pluralRules = new Intl.PluralRules("ar");
+pluralRules.select(0); // "zero"
+pluralRules.select(1); // "one"
+pluralRules.select(2); // "two"
+pluralRules.select(3); // "few"
+pluralRules.select(11); // "many"
+```
+
+### Funkcje formatujące
+
+#### `number(value, options?)`
+
+Formatuje wartość numeryczną z uwzględnieniem ustawień lokalnych dla grupowania i separatorów dziesiętnych.
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+
+```ts
+number(123456.789); // "123,456.789" (in en-US)
+number("1000000", { locale: "fr" }); // "1 000 000"
+number(1234.5, { minimumFractionDigits: 2 }); // "1,234.50"
+```
+
+#### `percentage(value, options?)`
+
+Formatuje liczbę jako ciąg znaków procentowych. Wartości większe niż 1 są normalizowane (np. `25` → `25%`, `0.25` → `25%`).
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+
+```ts
+percentage(0.25); // "25%"
+percentage(25); // "25%"
+percentage(0.237, { minimumFractionDigits: 1 }); // "23.7%"
+```
+
+#### `currency(value, options?)`
+
+Formatuje wartość jako zlokalizowaną walutę. Domyślnie `USD`.
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+  - Common: `currency`, `currencyDisplay` (`"symbol" | "code" | "name"`)
+
+```ts
+currency(1234.5, { currency: "EUR" }); // "€1,234.50"
+currency("5000", { locale: "fr", currency: "CAD", currencyDisplay: "code" }); // "5 000,00 CAD"
+```
+
+#### `date(date, optionsOrPreset?)`
+
+Formatuje wartość daty/czasu.
+
+- **date**: `Date | string | number`
+- **optionsOrPreset**: `Intl.DateTimeFormatOptions & { locale?: LocalesValues }` lub preset: `"short" | "long" | "dateOnly" | "timeOnly" | "full"`
+
+```ts
+date(new Date(), "short"); // np. "08/02/25, 14:30"
+date("2025-08-02T14:30:00Z", { locale: "fr", month: "long", day: "numeric" }); // "2 août"
+```
+
+#### `relativeTime(from, to?, options?)`
+
+Formatuje czas względny między dwoma momentami.
+
+- **from**: `Date | string | number`
+- **to**: `Date | string | number` (domyślnie `new Date()`)
+- **options**: `{ locale?, unit?, numeric?, style? }`
+
+```ts
+const now = new Date();
+const in3Days = new Date(now.getTime() + 3 * 864e5);
+relativeTime(now, in3Days, { unit: "day" }); // "za 3 dni"
+
+const twoHoursAgo = new Date(now.getTime() - 2 * 3600e3);
+relativeTime(now, twoHoursAgo, { unit: "hour", numeric: "auto" }); // "2 godziny temu"
+```
+
+#### `units(value, options?)`
+
+Formatuje wartość numeryczną z jednostką.
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+  - Common: `unit` (np. `"kilometer"`, `"byte"`), `unitDisplay` (`"short" | "narrow" | "long"`)
+
+```ts
+units(5, { unit: "kilometer", unitDisplay: "long", locale: "en-GB" }); // "5 kilometers"
+units(1024, { unit: "byte", unitDisplay: "narrow" }); // "1,024B"
+```
+
+#### `compact(value, options?)`
+
+Formatuje liczbę używając notacji kompaktowej.
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+
+```ts
+compact(1200); // "1.2K"
+compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
+```
+
+#### `list(values, options?)`
+
+Formatuje tablicę na zlokalizowany ciąg znaków listy.
+
+- **values**: `(string | number)[]`
+- **options**: `Intl.ListFormatOptions & { locale?: LocalesValues }`
+  - Common: `type` (`"conjunction" | "disjunction" | "unit"`), `style` (`"long" | "short" | "narrow"`)
+
+```ts
+list(["apple", "banana", "orange"]); // "apple, banana, and orange"
+list(["red", "green", "blue"], { locale: "fr", type: "disjunction" }); // "rouge, vert ou bleu"
+```
+
+## Cached Intl
+
+Eksportowany `Intl` z `intlayer` jest buforowanym wrapperem wokół globalnego `Intl`. Memoizuje instancje formaterów (`NumberFormat`, `DateTimeFormat`, itp.) aby uniknąć wielokrotnego ich konstruowania, co poprawia wydajność.
+
+```ts
+import { Intl } from "intlayer";
+
+// Formatowanie liczb
+const numberFormat = new Intl.NumberFormat("en-GB", {
+  style: "currency",
+  currency: "GBP",
+});
+numberFormat.format(1234.5); // "£1,234.50"
+
+// Nazwy wyświetlane dla języków, regionów, itp.
+const displayNames = new Intl.DisplayNames("fr", { type: "language" });
+displayNames.of("en"); // "anglais"
+
+// Sortowanie (Collation)
+const collator = new Intl.Collator("fr", { sensitivity: "base" });
+collator.compare("é", "e"); // 0 (equal)
+
+// Reguły liczby pojedynczej/mnogiej
+const pluralRules = new Intl.PluralRules("fr");
+pluralRules.select(1); // "one"
+pluralRules.select(2); // "other"
+```
+
+### Dodatkowe funkcje Intl
+
+#### `Intl.DisplayNames`
+
+Dla zlokalizowanych nazw języków, regionów, walut i skryptów:
+
+```ts
+import { Intl } from "intlayer";
+
+const languageNames = new Intl.DisplayNames("en", { type: "language" });
+languageNames.of("fr"); // "French"
+
+const regionNames = new Intl.DisplayNames("fr", { type: "region" });
+regionNames.of("US"); // "États-Unis"
+```
+
+#### `Intl.Collator`
+
+Do porównywania i sortowania ciągów znaków z uwzględnieniem locale:
+
+```ts
+import { Intl } from "intlayer";
+
+const collator = new Intl.Collator("de", {
+  sensitivity: "base",
+  numeric: true,
+});
+
+const words = ["äpfel", "zebra", "100", "20"];
+words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
+```
+
+#### `Intl.PluralRules`
+
+Do określania form liczby mnogiej w różnych ustawieniach regionalnych:
 
 ```ts
 import { Intl } from "intlayer";
@@ -419,8 +597,6 @@ const content = getTranslation(
 - **locale**: Docelowa lokalizacja (domyślnie skonfigurowana lokalizacja domyślna)
 - **fallback**: Czy użyć lokalizacji domyślnej jako zapasowej (domyślnie true)
 
-### Dodatkowe funkcje Intl
-
 ### `getIntlayer(dictionaryKey, locale?, plugins?)`
 
 Pobiera i transformuje treść ze słownika na podstawie klucza:
@@ -436,281 +612,8 @@ const nestedContent = getIntlayer("common", "fr", customPlugins);
 - **locale**: Opcjonalna lokalizacja (domyślnie skonfigurowana lokalizacja domyślna)
 - **plugins**: Opcjonalna tablica niestandardowych wtyczek transformujących
 
-## Formatery
-
-Wszystkie poniższe pomocniki są eksportowane z `intlayer`.
-
-### `number(value, options?)`
-
-Formatuje wartość liczbową, używając grupowania i miejsc dziesiętnych zgodnych z lokalizacją.
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-
-Przykłady:
-
-```ts
-import { number } from "intlayer";
-
-number(123456.789); // "123,456.789" (w en-US)
-number("1000000", { locale: "fr" }); // "1 000 000"
-number(1234.5, { minimumFractionDigits: 2 }); // "1,234.50"
-```
-
-### `percentage(value, options?)`
-
-Formatuje liczbę jako ciąg procentowy.
-
-Zachowanie: wartości większe niż 1 są interpretowane jako całkowite procenty i normalizowane (np. `25` → `25%`, `0.25` → `25%`).
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-
-Przykłady:
-
-```ts
-import { percentage } from "intlayer";
-
-percentage(0.25); // "25%"
-percentage(25); // "25%"
-percentage(0.237, { minimumFractionDigits: 1 }); // "23.7%"
-```
-
-### `currency(value, options?)`
-
-Formatuje wartość jako lokalną walutę. Domyślnie `USD` z dwoma miejscami po przecinku.
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-  - Typowe pola: `currency` (np. `"EUR"`), `currencyDisplay` (`"symbol" | "code" | "name"`)
-
-Przykłady:
-
-```ts
-import { currency } from "intlayer";
-
-currency(1234.5, { currency: "EUR" }); // "€1,234.50"
-currency("5000", { locale: "fr", currency: "CAD", currencyDisplay: "code" }); // "5 000,00 CAD"
-```
-
-### `date(date, optionsOrPreset?)`
-
-Formatuje wartość daty/czasu za pomocą `Intl.DateTimeFormat`.
-
-- **date**: `Date | string | number`
-- **optionsOrPreset**: `Intl.DateTimeFormatOptions & { locale?: LocalesValues }` lub jeden z presetów:
-  - Presety: `"short" | "long" | "dateOnly" | "timeOnly" | "full"`
-
-Przykłady:
-
-```ts
-import { date } from "intlayer";
-
-date(new Date(), "short"); // np. "08/02/25, 14:30"
-date("2025-08-02T14:30:00Z", { locale: "fr", month: "long", day: "numeric" }); // "2 août"
-```
-
-### `relativeTime(from, to = new Date(), options?)`
-
-Formatuje względny czas pomiędzy dwoma momentami za pomocą `Intl.RelativeTimeFormat`.
-
-- Przekaż "now" jako pierwszy argument, a cel jako drugi, aby uzyskać naturalne sformułowanie.
-- **from**: `Date | string | number`
-- **to**: `Date | string | number` (domyślnie `new Date()`)
-- **options**: `{ locale?: LocalesValues; unit?: Intl.RelativeTimeFormatUnit; numeric?: Intl.RelativeTimeFormatNumeric; style?: Intl.RelativeTimeFormatStyle }`
-  - Domyślną wartością `unit` jest `"second"`.
-
-Przykłady:
-
-```ts
-import { relativeTime } from "intlayer";
-
-const now = new Date();
-const in3Days = new Date(now.getTime() + 3 * 864e5);
-relativeTime(now, in3Days, { unit: "day" }); // "za 3 dni"
-
-const twoHoursAgo = new Date(now.getTime() - 2 * 3600e3);
-relativeTime(now, twoHoursAgo, { unit: "hour", numeric: "auto" }); // "2 godziny temu"
-```
-
-### `units(value, options?)`
-
-Formatuje wartość liczbową jako zlokalizowany ciąg jednostki za pomocą `Intl.NumberFormat` ze stylem `unit`.
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-  - Typowe pola: `unit` (np. `"kilometer"`, `"byte"`), `unitDisplay` (`"short" | "narrow" | "long"`)
-  - Domyślne wartości: `unit: 'day'`, `unitDisplay: 'short'`, `useGrouping: false`
-
-Przykłady:
-
-```ts
-import { units } from "intlayer";
-
-units(5, { unit: "kilometer", unitDisplay: "long", locale: "en-GB" }); // "5 kilometers"
-units(1024, { unit: "byte", unitDisplay: "narrow" }); // "1,024B" (zależne od lokalizacji)
-```
-
-### `compact(value, options?)`
-
-Formatuje liczbę używając notacji skróconej (np. `1.2K`, `1M`).
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }` (używa `notation: 'compact'` w tle)
-
-Przykłady:
-
-```ts
-import { compact } from "intlayer";
-
-compact(1200); // "1.2K"
-compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
-```
-
-### `list(values, options?)`
-
-Formatuje tablicę wartości do zlokalizowanego ciągu listy za pomocą `Intl.ListFormat`.
-
-- **values**: `(string | number)[]`
-- **options**: `Intl.ListFormatOptions & { locale?: LocalesValues }`
-  - Typowe pola: `type` (`"conjunction" | "disjunction" | "unit"`), `style` (`"long" | "short" | "narrow"`)
-  - Domyślne: `type: 'conjunction'`, `style: 'long'`
-
-Przykłady:
-
-```ts
-import { list } from "intlayer";
-
-list(["apple", "banana", "orange"]); // "apple, banana, and orange"
-list(["red", "green", "blue"], { locale: "fr", type: "disjunction" }); // "rouge, vert ou bleu"
-list([1, 2, 3], { type: "unit" }); // "1, 2, 3"
-```
-
-## Narzędzia do obsługi zawartości
-
 ## Uwagi
 
 - Wszystkie helpery akceptują dane wejściowe typu `string`; są one wewnętrznie konwertowane na liczby lub daty.
 - Domyślny locale to skonfigurowany przez Ciebie `internationalization.defaultLocale`, jeśli nie zostanie podany.
 - Te narzędzia to cienkie nakładki; dla zaawansowanego formatowania przekaż standardowe opcje `Intl`.
-
-## Punkty wejścia i ponowne eksporty (`@index.ts`)
-
-Formatery znajdują się w pakiecie core i są ponownie eksportowane z wyższych poziomów pakietów, aby utrzymać ergonomię importów w różnych środowiskach:
-
-Przykłady:
-
-```ts
-// Kod aplikacji (zalecane)
-import {
-  number,
-  currency,
-  date,
-  relativeTime,
-  units,
-  compact,
-  list,
-  Intl,
-  getLocaleName,
-  getLocaleLang,
-  getLocaleFromPath,
-  getPathWithoutLocale,
-  getLocalizedUrl,
-  getHTMLTextDir,
-  getContent,
-  getTranslation,
-  getIntlayer,
-} from "intlayer";
-```
-
-### React
-
-Komponenty klienckie:
-
-```tsx
-import {
-  useNumber,
-  useCurrency,
-  useDate,
-  usePercentage,
-  useCompact,
-  useList,
-  useRelativeTime,
-  useUnit,
-} from "react-intlayer/format";
-// lub w aplikacjach Preact
-// "preact-intlayer/format";
-// lub w aplikacjach Next.js
-// "next-intlayer/client/format";
-
-const MyComponent = () => {
-  const number = useNumber();
-  const currency = useCurrency();
-  const date = useDate();
-  const percentage = usePercentage();
-  const compact = useCompact();
-  const list = useList();
-  const relativeTime = useRelativeTime();
-  const unit = useUnit();
-
-  return (
-    <div>
-      <p>{number(123456.789)}</p>
-      <p>{currency(1234.5, { currency: "EUR" })}</p>
-      <p>{date(new Date(), "short")}</p>
-      <p>{percentage(0.25)}</p>
-      <p>{compact(1200)}</p>
-      <p>{list(["apple", "banana", "orange"])}</p>
-      <p>{relativeTime(new Date(), new Date() + 1000)}</p>
-      <p>{unit(123456.789, { unit: "kilometer" })}</p>
-    </div>
-  );
-};
-```
-
-Komponenty serwerowe (lub środowisko wykonawcze React Server):
-
-```ts
-import {
-  useNumber,
-  useCurrency,
-  useDate,
-  usePercentage,
-  useCompact,
-  useList,
-  useRelativeTime,
-  useUnit,
-} from "intlayer/server/format";
-// lub w aplikacjach Next.js
-import {
-  useNumber,
-  useCurrency,
-  useDate,
-  usePercentage,
-  useCompact,
-  useList,
-  useRelativeTime,
-  useUnit,
-} from "next-intlayer/server/format";
-```
-
-> Te hooki będą uwzględniać lokalizację z `IntlayerProvider` lub `IntlayerServerProvider`
-
-### Vue
-
-Komponenty klienckie:
-
-```ts
-import {
-  useNumber,
-  useCurrency,
-  useDate,
-  usePercentage,
-  useCompact,
-  useList,
-  useRelativeTime,
-  useUnit,
-} from "vue-intlayer/format";
-```
-
-> Te composables będą uwzględniać lokalizację z wstrzykniętego `IntlayerProvider`

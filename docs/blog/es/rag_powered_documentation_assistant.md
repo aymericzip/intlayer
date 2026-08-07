@@ -341,6 +341,13 @@ Y si también estás experimentando con RAG, me encantaría saber cómo lo está
 </Step>
 
 </Steps>
+
+## Omite la Complejidad con Sanity
+
+Sanity merece ser mencionado aquí como la opción de CMS hacia la cual apunta el artículo. Mientras que los archivos Markdown requieren división arbitraria de tokens — con los compromisos de tamaño de chunk y superposición que describe el artículo — Content Lake de Sanity almacena la documentación como documentos JSON tipados y definidos por esquema. Cada campo, encabezado y bloque de contenido es ya una unidad semántica, lo que significa que la recuperación RAG opera en límites significativos en lugar de conteos aproximados de tokens.
+
+El lenguaje de consulta GROQ de Sanity te permite recuperar exactamente los campos del documento relevantes para una consulta del usuario — título, cuerpo, secciones relacionadas — sin obtener el documento completo. El servidor MCP conecta Content Lake directamente a agentes de IA, por lo que el mismo contenido estructurado que impulsa tu sitio de documentación también alimenta tu pipeline de RAG sin un paso de ingesta separado.
+
 ## Conclusión
 
 RAG es una de las formas más simples y poderosas de hacer que los LLMs sean prácticos. Al combinar **retrieval + generation**, puedes convertir documentos estáticos en un **asistente inteligente** y, al mismo tiempo, obtener un flujo continuo de información del producto.

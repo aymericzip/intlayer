@@ -92,7 +92,564 @@ Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的
 
 ---
 
-## 在 Next.js 应用中设置 Intlayer 的逐步指南
+## 在 Next.js 应用中逐步设置 Intlayer 的指南
+
+<Steps>
+
+<Step number={1} title="安装依赖">
+
+使用 npm 安装必要的包：
+
+```bash packageManager="npm"
+npx intlayer init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer@canary init --interactive
+```
+
+> `--interactive` 标志是可选的。如果你是 AI agent，请使用 `intlayer-cli init`。
+
+> 此命令将检测你的环境并安装所需的包。例如：
+
+```bash packageManager="npm"
+npm install intlayer next-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer next-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add intlayer next-intlayer
+```
+
+```bash packageManager="bun"
+bun add intlayer next-intlayer
+```
+
+- **intlayer**
+
+  核心包，提供国际化工具，用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、转换以及 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。
+
+- **next-intlayer**
+
+  将 Intlayer 与 Next.js 集成的包。它为 Next.js 国际化提供上下文提供者和 hooks。此外，它还包括用于将 Intlayer 与 [Webpack](https://webpack.js.org/) 或 [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) 集成的 Next.js 插件，以及用于检测用户首选语言、管理 cookies 和处理 URL 重定向的代理。
+
+</Step>
+
+<Step number={2} title="配置你的项目">
+
+以下是我们将创建的最终结构：
+
+```bash
+.
+├── src
+│   ├── app
+│   │   ├── layout.tsx
+│   │   ├── page.content.ts
+│   │   └── page.tsx
+│   ├── components
+│   │   ├── clientComponentExample
+│   │   │   ├── client-component-example.content.ts
+│   │   │   └── ClientComponentExample.tsx
+│   │   ├── localeSwitcher
+│   │   │   ├── localeSwitcher.content.ts
+│   │   │   └── LocaleSwitcher.tsx
+│   │   └── serverComponentExample
+│   │       ├── server-component-example.content.ts
+│   │       └── ServerComponentExample.tsx
+│   └── proxy.ts
+├── intlayer.config.ts
+├── next.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+> 如果你不想要语言路由，intlayer 可以作为一个简单的提供者 / hook 使用。详见[此指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/intlayer_with_nextjs_no_locale_path.md)。
+
+创建一个配置文件来配置你的应用程序的语言：
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH,
+      // 你的其他语言
+    ],
+    defaultLocale: Locales.ENGLISH,
+  },
+  routing: {
+    mode: "search-params", // 或 `no-prefix` - 用于中间件检测
+  },
+};
+
+export default config;
+```
+
+> 通过此配置文件，你可以设置本地化 URL、代理重定向、cookie 名称、内容声明的位置和扩展名、禁用 Intlayer 的控制台日志等。如需完整的可用参数列表，请参考[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
+
+</Step>
+
+<Step number={3} title="在 Next.js 配置中集成 Intlayer">
+
+配置你的 Next.js 设置以使用 Intlayer：
+
+```typescript fileName="next.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import type { NextConfig } from "next";
+import { withIntlayer } from "next-intlayer/server";
+
+const nextConfig: NextConfig = {/* 配置选项在这里 */};
+
+export default withIntlayer(nextConfig);
+```
+
+> `withIntlayer()` Next.js 插件用于将 Intlayer 与 Next.js 集成。它确保构建内容声明文件，并在开发模式下监视它们。它在 [Webpack](https://webpack.js.org/) 或 [Turbopack](https://nextjs.org/docs/app/api-reference/turbopack) 环境中定义 Intlayer 环境变量。此外，它提供别名以优化性能并确保与服务器组件的兼容性。
+
+> `withIntlayer()` 函数是一个 promise 函数。它允许在构建开始之前准备 intlayer 字典。如果你想将其与其他插件一起使用，你可以等待它。例如：
+>
+> ```ts
+> const nextConfig = await withIntlayer(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+>
+> 如果你想同步使用它，可以使用 `withIntlayerSync()` 函数。例如：
+>
+> ```ts
+> const nextConfig = withIntlayerSync(nextConfig);
+> const nextConfigWithOtherPlugins = withOtherPlugins(nextConfig);
+>
+> export default nextConfigWithOtherPlugins;
+> ```
+
+> Intlayer 根据命令行标志 `--webpack`、`--turbo` 或 `--turbopack`，以及你当前的 **Next.js 版本**，自动检测你的项目是否使用 **webpack** 或 **Turbopack**。
+>
+> 自 `next>=16` 起，如果你使用 **Rspack**，必须通过禁用 Turbopack 显式强制 Intlayer 使用 webpack 配置：
+>
+> ```ts
+> withRspack(withIntlayer(nextConfig, { enableTurbopack: false }));
+> ```
+
+</Step>
+
+<Step number={4} title="定义动态语言路由">
+
+从 `RootLayout` 中删除所有内容，然后用以下代码替换：
+
+```tsx {3} fileName="src/app/layout.tsx" codeFormat={["typescript", "esm"]}
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
+import "./globals.css";
+import { IntlayerClientProvider, LocalPromiseParams } from "next-intlayer";
+import { getHTMLTextDir, getIntlayer } from "intlayer";
+import { getLocale } from "next-intlayer/server";
+export { generateStaticParams } from "next-intlayer";
+
+export const generateMetadata = async (): Promise<Metadata> => {
+  const locale = await getLocale();
+  const { title, description, keywords } = getIntlayer("metadata", locale);
+
+  return {
+    title,
+    description,
+    keywords,
+  };
+};
+
+const RootLayout = async ({
+  children,
+}: Readonly<{
+  children: ReactNode;
+}>) => {
+  const locale = await getLocale();
+
+  return (
+    <html lang={locale} dir={getHTMLTextDir(locale)}>
+      <IntlayerClientProvider defaultLocale={locale}>
+        <body>{children}</body>
+      </IntlayerClientProvider>
+    </html>
+  );
+};
+
+export default RootLayout;
+```
+
+</Step>
+
+<Step number={5} title="声明你的内容">
+
+创建和管理你的内容声明以存储翻译：
+
+```tsx fileName="src/app/metadata.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+import { Metadata } from "next";
+
+const metadataContent = {
+  key: "metadata",
+  content: {
+    title: t({
+      zh: "我的项目标题",
+      en: "My Project Title",
+      fr: "Le Titre de mon Projet",
+      es: "El Título de mi Proyecto",
+    }),
+
+    description: t({
+      zh: "发现我们为简化工作流程和提高生产力而设计的创新平台。",
+      en: "Discover our innovative platform designed to streamline your workflow and boost productivity.",
+      fr: "Découvrez notre plateforme innovante conçue pour simplifier votre flux de travail et booster votre productivité.",
+      es: "Descubra nuestra plataforma innovadora diseñada para simplificar su flujo de trabajo y aumentar su productividad.",
+    }),
+
+    keywords: t({
+      zh: ["创新", "生产力", "工作流程", "SaaS"],
+      en: ["innovation", "productivity", "workflow", "SaaS"],
+      fr: ["innovation", "productivité", "flux de travail", "SaaS"],
+      es: ["innovación", "productividad", "flujo de trabajo", "SaaS"],
+    }),
+  },
+} as Dictionary<Metadata>;
+
+export default metadataContent;
+```
+
+```json fileName="src/app/metadata.content.json" contentDeclarationFormat="json"
+{
+  "key": "metadata",
+  "content": {
+    "title": {
+      "nodeType": "translation",
+      "translation": {
+        "zh": "我的项目标题",
+        "en": "My Project Title",
+        "fr": "Le Titre de mon Projet",
+        "es": "El Título de mi Proyecto"
+      }
+    },
+    "description": {
+      "nodeType": "translation",
+      "translation": {
+        "zh": "发现我们为简化工作流程和提高生产力而设计的创新平台。",
+        "en": "Discover our innovative platform designed to streamline your workflow and boost productivity.",
+        "fr": "Découvrez notre plateforme innovante conçue pour simplifier votre flux de travail et booster votre productivité.",
+        "es": "Descubra nuestra plataforma innovadora diseñada para simplificar su flujo de trabajo y aumentar su productividad."
+      }
+    },
+    "keywords": {
+      "nodeType": "translation",
+      "translation": {
+        "zh": ["创新", "生产力", "工作流程", "SaaS"],
+        "en": ["innovation", "productivity", "workflow", "SaaS"],
+        "fr": ["innovation", "productivité", "flux de travail", "SaaS"],
+        "es": ["innovación", "productividad", "flujo de trabajo", "SaaS"]
+      }
+    }
+  }
+}
+```
+
+```tsx fileName="src/app/page.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+
+const pageContent = {
+  key: "page",
+  content: {
+    getStarted: {
+      main: t({
+        zh: "通过编辑开始",
+        en: "Get started by editing",
+        fr: "Commencez par éditer",
+        es: "Comience por editar",
+      }),
+      pageLink: "src/app/page.tsx",
+    },
+  },
+} satisfies Dictionary;
+
+export default pageContent;
+```
+
+```json fileName="src/app/page.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "page",
+  "content": {
+    "getStarted": {
+      "nodeType": "translation",
+      "translation": {
+        "zh": "通过编辑开始",
+        "en": "Get started by editing",
+        "fr": "Commencez par éditer",
+        "es": "Comience por editar"
+      }
+    },
+    "pageLink": "src/app/page.tsx"
+  }
+}
+```
+
+> 你的内容声明可以在应用程序的任何地方定义，只要它们包含在 `contentDir` 目录中（默认为 `./src`）且匹配内容声明文件扩展名（默认为 `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`）。
+
+> 更多详情，请参考[内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
+
+</Step>
+
+<Step number={6} title="在代码中使用内容">
+
+在整个应用程序中访问你的内容字典：
+
+```tsx fileName="src/app/page.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { ClientComponentExample } from "@components/clientComponentExample/ClientComponentExample";
+import { ServerComponentExample } from "@components/serverComponentExample/ServerComponentExample";
+import {
+  IntlayerServerProvider,
+  useIntlayer,
+  getLocale,
+} from "next-intlayer/server";
+import { NextPage } from "next";
+import { headers, cookies } from "next/headers";
+
+const PageContent: FC = () => {
+  const content = useIntlayer("page");
+
+  return (
+    <>
+      <p>{content.getStarted.main}</p>
+      <code>{content.getStarted.pageLink}</code>
+    </>
+  );
+};
+
+const Page: NextPage = async () => {
+  const locale = await getLocale();
+
+  return (
+    <IntlayerServerProvider locale={locale}>
+      <PageContent />
+      <ServerComponentExample />
+      <ClientComponentExample />
+    </IntlayerServerProvider>
+  );
+};
+
+export default Page;
+```
+
+- **`IntlayerClientProvider`** 用于向客户端组件提供语言设置。它可以放在任何父组件中，包括布局。但是，建议将其放在布局中，因为 Next.js 在页面中共享布局代码，这样更有效。通过在布局中使用 `IntlayerClientProvider`，你可以避免为每个页面重新初始化它，改进性能并在整个应用程序中维持一致的本地化上下文。
+- **`IntlayerServerProvider`** 用于向服务器子组件提供语言设置。它不能在布局中设置。
+
+  > 布局和页面不能共享一个通用的服务器上下文，因为服务器上下文系统基于每个请求的数据存储（通过 [React's cache](https://react.dev/reference/react/cache) 机制），导致每个"上下文"为应用程序的不同段重新创建。在共享布局中放置提供者会破坏这种隔离，防止服务器上下文值正确传播到你的服务器组件。
+
+```tsx {4,7} fileName="src/components/clientComponentExample/ClientComponentExample.tsx" codeFormat={["typescript", "esm"]}
+"use client";
+
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer";
+
+export const ClientComponentExample: FC = () => {
+  const content = useIntlayer("client-component-example"); // 创建相关的内容声明
+
+  return (
+    <div>
+      <h2>{content.title}</h2>
+      <p>{content.content}</p>
+    </div>
+  );
+};
+```
+
+```tsx {2} fileName="src/components/serverComponentExample/ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
+import type { FC } from "react";
+import { useIntlayer } from "next-intlayer/server";
+
+export const ServerComponentExample: FC = () => {
+  const content = useIntlayer("server-component-example"); // 创建相关的内容声明
+
+  return (
+    <div>
+      <h2>{content.title}</h2>
+      <p>{content.content}</p>
+    </div>
+  );
+};
+```
+
+> 如果你想在 `string` 属性（如 `alt`、`title`、`href`、`aria-label` 等）中使用你的内容，你可以使用函数的值，如：
+
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
+
+> 要了解更多关于 `useIntlayer` hook 的信息，请参考[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/useIntlayer.md)。
+
+</Step>
+
+<Step number={7} title="配置代理以进行语言检测" isOptional={true}>
+
+设置代理以检测用户的首选语言：
+
+```typescript fileName="src/proxy.ts" codeFormat={["typescript", "esm", "commonjs"]}
+export { intlayerProxy as proxy } from "next-intlayer/proxy";
+
+export const config = {
+  matcher:
+    "/((?!api|static|assets|robots|sitemap|sw|service-worker|manifest|.*\\..*|_next).*)",
+};
+```
+
+> `intlayerProxy` 用于检测用户的首选语言并根据[配置](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)中指定的内容将其重定向到适当的 URL。此外，它能够将用户的首选语言保存在 cookie 中。
+
+> 自 Intlayer v9 起，此中间件遵守 `routing.enableProxy` 选项（默认为 `true`）。在你的配置中设置 `routing.enableProxy: false` 以将其转为通过模式，而不移除此文件。详见 [v9 发行说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
+
+> 如果你需要将多个代理链接在一起（例如，`intlayerProxy` 与认证或自定义代理），Intlayer 现在提供一个称为 `multipleProxies` 的辅助函数。
+
+```ts
+import { multipleProxies, intlayerProxy } from "next-intlayer/proxy";
+import { customProxy } from "@utils/customProxy";
+
+export const proxy = multipleProxies([intlayerProxy, customProxy]);
+```
+
+</Step>
+
+<Step number={8} title="改变内容的语言" isOptional={true}>
+
+要在 Next.js 中改变内容的语言，推荐的方式是使用 `Link` 组件将用户重定向到适当的本地化页面。`Link` 组件支持页面预获取，这有助于避免完整的页面重新加载。
+
+```tsx fileName="src/components/localeSwitcher/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
+"use client";
+
+import type { FC } from "react";
+import { Locales, getHTMLTextDir, getLocaleName } from "intlayer";
+import { useLocale } from "next-intlayer";
+
+export const LocaleSwitcher: FC = () => {
+  const { locale, availableLocales, setLocale } = useLocale();
+
+  return (
+    <div>
+      <button popoverTarget="localePopover">{getLocaleName(locale)}</button>
+      <div id="localePopover" popover="auto">
+        {availableLocales.map((localeItem) => (
+          <button
+            key={localeItem}
+            aria-current={locale === localeItem ? "page" : undefined}
+            onClick={() => setLocale(localeItem)}
+          >
+            <span>
+              {/* 语言代码 - 例如 FR */}
+              {localeItem}
+            </span>
+            <span>
+              {/* 该语言用其自身语言表示 - 例如 Français */}
+              {getLocaleName(localeItem, locale)}
+            </span>
+            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
+              {/* 该语言用当前语言表示 - 例如当前语言设置为 Locales.SPANISH 时为 Francés */}
+              {getLocaleName(localeItem)}
+            </span>
+            <span dir="ltr" lang={Locales.ENGLISH}>
+              {/* 英语中的语言 - 例如 French */}
+              {getLocaleName(localeItem, Locales.ENGLISH)}
+            </span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+```
+
+> 另一种方式是使用 `useLocale` hook 提供的 `setLocale` 函数。此函数不允许预获取页面。详见 [`useLocale` hook 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/useLocale.md)以了解更多详情。
+
+> 文档参考：
+>
+> - [`useLocale` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/next-intlayer/useLocale.md)
+> - [`getLocaleName` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocaleName.md)
+> - [`getLocalizedUrl` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedUrl.md)
+> - [`getHTMLTextDir` hook](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getHTMLTextDir.md)
+> - [`hrefLang` 属性](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
+> - [`lang` 属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang)
+> - [`dir` 属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir)
+> - [`aria-current` 属性](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+
+</Step>
+
+<Step number={9} title="在 Server Actions 中获取当前语言" isOptional={true}>
+
+如果你需要在 Server Action 中使用活动语言（例如，本地化电子邮件或运行与语言相关的逻辑），请从 `next-intlayer/server` 调用 `getLocale`：
+
+```tsx fileName="src/app/actions/getLocale.ts" codeFormat="typescript"
+"use server";
+
+import { getLocale } from "next-intlayer/server";
+
+export const myServerAction = async () => {
+  const locale = await getLocale();
+
+  // 使用语言做一些操作
+};
+```
+
+> `getLocale` 函数遵循级联策略来确定用户的语言：
+>
+> 1. 首先，它检查请求标头中的语言值，该值可能已由代理设置
+> 2. 如果在标头中找不到语言，它会查找存储在 cookies 中的语言
+> 3. 如果找不到 cookie，它会尝试检测用户浏览器设置中的首选语言
+> 4. 作为最后的手段，它会回退到应用程序配置的默认语言
+>
+> 这确保根据可用的上下文选择最合适的语言。
+
+</Step>
+
+<Step number={10} title="优化你的 bundle 大小" isOptional={true}>
+
+在使用 `next-intlayer` 时，默认情况下字典被包含在每个页面的 bundle 中。要优化 bundle 大小，Intlayer 提供了一个可选的 SWC 插件，它可以智能地替换使用宏的 `useIntlayer` 调用。这确保字典仅被包含在实际使用它们的页面的 bundle 中。
+
+要启用此优化，请安装 `@intlayer/swc` 包。安装后，`next-intlayer` 将自动检测并使用该插件：
+
+```bash packageManager="npm"
+npm install @intlayer/swc --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/swc --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/swc --save-dev
+```
+
+```bash packageManager="bun"
+bun add @intlayer/swc --dev
+```
+
+> 注意：此优化仅适用于 Next.js 13 及以上版本。
+
+> 注意：此包默认未安装，因为 SWC 插件在 Next.js 中仍是实验性的。它可能会在未来发生变化。
+
+> 注意：如果你将选项设置为 `importMode: 'dynamic'` 或 `importMode: 'fetch'`（在 `dictionary` 配置中），它将依赖于 Suspense，因此你需要将你的 `useIntlayer` 调用包装在 `Suspense` 边界中。这意味着你将不能在你的 Page / Layout 组件的顶层直接使用 `useIntlayer`。
+> </Step>
+
+</Steps>
 
 ### 第一步：安装依赖
 

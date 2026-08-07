@@ -50,26 +50,12 @@ getMultilingualUrls(
 
 ## 매개변수
 
-## 매개변수
+### 필수 매개변수
 
 - `url: string`
-  - **설명**: 로케일 접두사를 붙일 원본 URL 문자열입니다.
-  - **타입**: `string`
-
-- `locales: Locales[]`
-  - **설명**: 선택적 지원 로케일 배열입니다. 프로젝트에 구성된 로케일이 기본값입니다.
-  - **타입**: `Locales[]`
-  - **기본값**: `localesDefault`
-
-- `defaultLocale: Locales`
-  - **설명**: 애플리케이션의 기본 로케일입니다. 프로젝트에 구성된 기본 로케일이 기본값입니다.
-  - **타입**: `Locales`
-  - **기본값**: `defaultLocaleDefault`
-
-- `prefixDefault: boolean`
-  - **설명**: 기본 로케일에 접두사를 붙일지 여부입니다. 프로젝트에 구성된 값이 기본값입니다.
-  - **타입**: `boolean`
-  - **기본값**: `prefixDefaultDefault`
+  - **Description**: 로케일로 접두어가 붙을 원본 URL 문자열입니다.
+  - **Type**: `string`
+  - **Required**: Yes
 
 ### 선택적 매개변수
 

@@ -23,7 +23,9 @@ history:
 author: aymericzip 
 ---
 
-# 파일 콘텐츠 / Intlayer에서 파일 임베딩하기
+# Intlayer의 파일 콘텐츠 / 파일 임베딩
+
+Intlayer에서 `file` 함수는 외부 파일 콘텐츠를 딕셔너리에 임베드할 수 있게 합니다. 이 방식은 Intlayer이 소스 파일을 인식하도록 하여 Intlayer Visual Editor 및 CMS와의 seamless 통합을 가능하게 합니다.
 
 ## 파일 임베딩 작동 방식
 

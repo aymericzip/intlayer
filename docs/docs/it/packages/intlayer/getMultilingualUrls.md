@@ -50,26 +50,12 @@ getMultilingualUrls(
 
 ## Parametri
 
-## Parametri
+### Parametri Richiesti
 
 - `url: string`
-  - **Descrizione**: La stringa URL originale a cui verranno aggiunti i prefissi delle lingue.
-  - **Tipo**: `string`
-
-- `locales: Locales[]`
-  - **Descrizione**: Array opzionale delle lingue supportate. Di default utilizza le lingue configurate nel progetto.
-  - **Tipo**: `Locales[]`
-  - **Predefinito**: `localesDefault`
-
-- `defaultLocale: Locales`
-  - **Descrizione**: La lingua predefinita per l'applicazione. Di default utilizza la lingua predefinita configurata nel progetto.
-  - **Tipo**: `Locales`
-  - **Predefinito**: `defaultLocaleDefault`
-
-- `prefixDefault: boolean`
-  - **Descrizione**: Se aggiungere il prefisso per la lingua predefinita. Di default utilizza il valore configurato nel progetto.
-  - **Tipo**: `boolean`
-  - **Predefinito**: `prefixDefaultDefault`
+  - **Description**: La stringa URL originale da prefissare con i locale.
+  - **Type**: `string`
+  - **Required**: Yes
 
 ### Parametri Opzionali
 

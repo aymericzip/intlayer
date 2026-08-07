@@ -30,16 +30,89 @@ author: aymericzip
 
 ## उपयोग
 
+### `intlayer()` के भाग के रूप में (अनुशंसित)
+
+अपने Intlayer कॉन्फ़िगरेशन के माध्यम से pruning सक्षम करें और मुख्य प्लगइन सब कुछ संभालता है:
+
 ```ts
-// vite.config.ts (Vite कॉन्फ़िगरेशन फ़ाइल)
-import { defineConfig } from "vite";
-import { intlayer, intlayerPrune } from "vite-intlayer";
+// intlayer.config.ts
+import { defineConfig } from "intlayer";
 
 export default defineConfig({
-  plugins: [intlayer(), intlayerPrune()],
+  build: {
+    optimize: true, // prune और minify दोनों को सक्षम करता है
+  },
 });
 ```
 
-## विवरण
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
 
-यह plugin आपके स्रोत कोड का विश्लेषण करता है ताकि यह पहचान किया जा सके कि कौन सी dictionary keys वास्तव में उपयोग की जा रही हैं। इसके बाद यह bundled dictionary files से किसी भी अप्रयुक्त सामग्री को हटा देता है। यह उन बड़े प्रोजेक्ट्स के लिए विशेष रूप से उपयोगी है जिनमें कई dictionaries हों और केवल उनका एक subset ही विशिष्ट पेजों या components में इस्तेमाल हो रहा हो।
+export default defineConfig({
+  plugins: [intlayer()],
+});
+```
+
+### स्वतंत्र
+
+यदि आप प्लगइन स्टैक को मैन्युअल रूप से कंपोज़ कर रहे हैं, तो `intlayerPrune` और `intlayerMinify` एक `PruneContext` ऑब्जेक्ट साझा करते हैं जिसे एक बार बनाया जाना चाहिए और दोनों को पारित किया जाना चाहिए:
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import { intlayerPrune, intlayerMinify } from "vite-intlayer";
+import { createPruneContext } from "@intlayer/babel";
+import { getConfiguration } from "@intlayer/config/node";
+
+const intlayerConfig = getConfiguration();
+const pruneContext = createPruneContext();
+
+export default defineConfig({
+  plugins: [
+    intlayerPrune(intlayerConfig, pruneContext),
+    intlayerMinify(intlayerConfig, pruneContext), // वैकल्पिक, समान संदर्भ से पढ़ता है
+  ],
+});
+```
+
+## यह कैसे काम करता है
+
+### 1. उपयोग विश्लेषण (buildStart)
+
+`buildStart` के दौरान, `intlayerOptimize` plugin (जो `intlayer()` का भी हिस्सा है) `build.filesList` में सूचीबद्ध प्रत्येक component source file को स्कैन करता है। प्रत्येक `useIntlayer('key')` या `getIntlayer('key')` कॉल के लिए, यह रिकॉर्ड करता है कि कौन से fields को exactly एक्सेस किया गया है, जैसे:
+
+```ts
+const { title, description } = useIntlayer("myDict");
+// records: myDict → { title, description }
+```
+
+यह किसी भी `transform` कॉल के चलने से पहले `pruneContext.fieldUsageMap` बनाता है।
+
+### 2. JSON pruning (transform, enforce: 'pre')
+
+जब Vite एक compiled dictionary JSON फ़ाइल को प्रोसेस करता है, तो `intlayerPrune` इसे Vite के built-in JSON → ESM conversion से पहले intercept करता है। यह `pruneContext` से field-usage map को पढ़ता है और किसी भी content field को हटाता है जो recorded usage set में नहीं है।
+
+दो content shapes समर्थित हैं:
+
+- **Static dictionaries** — `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Fields को `translation` के अंदर per-locale pruned किया जाता है।
+- **Dynamic (per-locale) dictionaries** — flat `{ fieldA: ..., fieldB: ... }`. Fields को top level पर pruned किया जाता है।
+
+### 3. Edge cases
+
+यदि किसी dictionary की content structure को पहचाना नहीं जा सकता (उदाहरण के लिए, एक असामान्य nested shape), तो इसे `pruneContext.dictionariesWithEdgeCases` में जोड़ा जाता है और **अछूता छोड़ दिया जाता है**। एक warning लॉग की जाती है। `intlayerMinify` भी इन dictionaries को छोड़ देता है।
+
+### 4. Field-rename map
+
+जब pruning सफल होता है, `intlayerPrune` `pruneContext.dictionaryKeyToFieldRenameMap` भी लिखता है — मूल field names से short aliases तक एक mapping। `intlayerMinify` इस map को output JSON में fields को rename करने के लिए पढ़ता है, और `intlayerOptimize` का Babel rename pass source files में property accesses को अपडेट करता है।
+
+## सक्रियण शर्तें
+
+`intlayerPrune` सक्रिय है **केवल** जब निम्नलिखित सभी सत्य हों:
+
+1. Vite कमांड `build` है।
+2. `build.optimize` `true` है (या `undefined`, जो builds के लिए डिफ़ॉल्ट रूप से `true` है)।
+3. `build.purge` आपके Intlayer config में `true` है।
+
+यह स्वचालित रूप से **अक्षम** हो जाता है जब `editor.enabled` `true` है क्योंकि संपादक को पूर्ण शब्दकोश सामग्री की आवश्यकता होती है।

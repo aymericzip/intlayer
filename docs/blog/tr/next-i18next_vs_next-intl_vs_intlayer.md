@@ -73,14 +73,20 @@ Bu rehber, **Next.js** için yaygın olarak kullanılan üç i18n seçeneğini k
 
 ---
 
-## Derinlemesine karşılaştırma
+## Giriş
 
-### 1) Mimari ve ölçeklenebilirlik
+Next.js, uluslararasılaştırılmış routing (örneğin, locale segmentleri) için yerleşik destek sağlar. Ancak bu özellik kendi başına çeviriler yapmaz. Yine de kullanıcılarınıza yerelleştirilmiş içerik sunmak için bir kütüphaneye ihtiyacınız vardır.
 
-- **next-intl / next-i18next**: Yerel başına **merkezi kataloglara** varsayılan (i18next'te **ad alanları** artı). Başlangıçta iyi çalışır, ancak artan bağlantı ve anahtar karmaşasıyla genellikle büyük bir paylaşılan yüzey alanı haline gelir.
-- **Intlayer**: **Bileşen başına** (veya özellik başına) sözlükleri **hizmet ettikleri kodla birlikte** teşvik eder. Bu, bilişsel yükü azaltır, UI parçalarının çoğaltılmasını/migrasyonunu kolaylaştırır ve ekip arası çatışmaları azaltır. Kullanılmayan içerik doğal olarak daha kolay tespit edilir ve temizlenir.
+Birçok i18n kütüphanesi mevcuttur, ancak günümüzde Next.js dünyasında üçü popüler hale gelmektedir: next-i18next, next-intl ve Intlayer.
 
-**Neden önemli:** Büyük kod tabanlarında veya tasarım sistemi kurulumlarında, **modüler içerik** monolitik kataloglardan daha iyi ölçeklenir.
+---
+
+## Mimari & ölçeklenebilirlik
+
+- **next-intl / next-i18next**: Varsayılan olarak dile göre **merkezi katologlar** kullanır (plus i18next'te **namespaces**). Başlangıçta iyi çalışır, ancak artan coupling ve key churn ile büyük bir paylaşılan surface area haline gelebilir.
+- **Intlayer**: **bileşen başına** (veya özellik başına) sözlükleri **hizmet ettikleri kod ile birlikte** yerleştirmeyi teşvik eder. Bu, bilişsel yükü azaltır, UI parçalarının çoğaltılmasını/göç edilmesini kolaylaştırır ve takımlar arası çatışmaları azaltır. Kullanılmayan içerik doğal olarak tanımlanması ve kaldırılması daha kolaydır.
+
+**Neden önemli:** Büyük codebases veya design-system kurulumlarında, **modüler içerik** monolitik kataloğlardan daha iyi ölçeklenir.
 
 ---
 
@@ -153,40 +159,132 @@ Kütüphanenin fallback'leri nasıl işlediği de önemlidir. Uygulamanın varsa
 
 ---
 
-### 2) TypeScript ve güvenlik
+## TypeScript & güvenlik
 
-- **next-intl**: Sağlam TypeScript desteği, ancak **anahtarlar varsayılan olarak katı şekilde yazılmaz**; güvenliği manuel olarak sürdüreceksiniz.
-- **next-i18next**: Hook'lar için temel yazımlar; **katı anahtar yazımı ekstra araç/yapılandırma gerektirir**.
-- **Intlayer**: İçeriğinizden **katı türler oluşturur**. **IDE otomatik tamamlama** ve **derleme zamanı hataları** dağıtım öncesi yazım hatalarını ve eksik anahtarları yakalar.
+<Columns>
+  <Column>
 
-**Neden önemli:** Güçlü yazım, başarısızlıkları **sol** (CI/derleme) yerine **sağ** (çalışma zamanı) kaydırır.
+**next-i18next**
+
+- Hook'lar için temel typings. **katı anahtar typing ekstra araç/yapılandırma gerektirir**.
+
+  </Column>
+  <Column>
+
+**next-intl**
+
+- Sağlam TypeScript desteği, ancak **anahtarlar varsayılan olarak katı şekilde yazılmaz**. güvenlik desenlerini manuel olarak korumanız gerekecektir.
+
+  </Column>
+  <Column>
+
+**intlayer**
+
+- **İçeriğinizden katı türler oluşturur**. **IDE otomatik tamamlama** ve **derleme zamanı hataları** yazım hatalarını ve eksik anahtarları deploy'dan önce yakalar.
+
+  </Column>
+
+</Columns>
+
+**Neden önemli:** Güçlü typing hataları **sola** (CI/build) kaydırır, **sağa** (runtime) değil.
 
 ---
 
-### 3) Eksik çeviri işleme
+## Eksik çeviri işleme
 
-- **next-intl / next-i18next**: **Çalışma zamanı geri dönüşlerine** güvenir (örneğin, anahtarı göster veya varsayılan yerel). Derleme başarısız olmaz.
-- **Intlayer**: **Derleme zamanı algılama** ile eksik yerel veya anahtarlar için **uyarılar/hatalar**.
+<Columns>
+  <Column>
 
-**Neden önemli:** Derleme sırasında boşlukları yakalamak, üretimde "gizemli dizeler"i önler ve katı sürüm kapılarıyla uyumlu hale getirir.
+**next-i18next**
+
+- **Runtime fallbacks** kullanır. Build başarısız olmaz.
+
+  </Column>
+  <Column>
+
+**next-intl**
+
+- **Runtime fallbacks** kullanır. Build başarısız olmaz.
+
+  </Column>
+  <Column>
+
+**intlayer**
+
+- Eksik locale'ler veya anahtarlar için **build-time detection** ile **uyarılar/hatalar** verir.
+
+  </Column>
+
+</Columns>
+
+**Neden önemlidir:** Build sırasındaki boşlukları yakalamak, üretimde 'undefined' stringleri önler.
 
 ---
 
-### 4) Yönlendirme, ara yazılım ve URL stratejisi
+## Yönlendirme, middleware & URL stratejisi
 
-- Üçü de App Router'da **Next.js yerelleştirilmiş yönlendirme** ile çalışır.
-- **Intlayer**, **i18n ara yazılımı** (üstbilgi/çerezler aracılığıyla yerel algılama) ve yerelleştirilmiş URL'ler ve `<link rel="alternate" hreflang="…">` etiketleri oluşturmak için **yardımcılarla** daha da ileri gider.
+<Columns>
+  <Column>
 
-**Neden önemli:** Daha az özel yapıştırıcı katman; yerel genelinde **tutarlı UX** ve **temiz SEO**.
+**next-i18next**
+
+- Yerelleştirilmiş yönlendirmeye izin verir. Ancak middleware yerleşik değildir.
+
+  </Column>
+  <Column>
+
+**next-intl**
+
+- Yerelleştirilmiş yönlendirmeye izin verir.
+- Middleware sağlar.
+
+  </Column>
+  <Column>
+
+**intlayer**
+
+- Yerelleştirilmiş yönlendirmeye izin verir.
+- Middleware sağlar.
+
+  </Column>
+
+</Columns>
+
+**Neden önemli:** SEO ve keşif için, ayrıca kullanıcı deneyimi için yardımcı olur.
 
 ---
 
-### 5) Sunucu Bileşenleri (RSC) uyumu
+## Server Components (RSC) hizalaması
 
-- **Hepsi** Next.js 13+'yı destekler.
-- **Intlayer**, RSC için tasarlanmış tutarlı API ve sağlayıcılarla **sunucu/istemci sınırını** yumuşatır, böylece formatlayıcıları veya t-fonksiyonlarını bileşen ağaçları aracılığıyla taşımazsınız.
+<Columns>
+  <Column>
 
-**Neden önemli:** Hibrit ağaçlarda daha temiz zihinsel model ve daha az uç durum.
+**next-i18next**
+
+- Sayfa ve layout server bileşenlerini destekler.
+- Alt server bileşenleri için senkron API sağlamaz.
+
+  </Column>
+  <Column>
+
+**next-intl**
+
+- Sayfa ve layout server bileşenlerini destekler.
+- Alt server bileşenleri için senkron API sağlamaz.
+
+  </Column>
+  <Column>
+
+**intlayer**
+
+- Sayfa ve layout server bileşenlerini destekler.
+- Alt server bileşenleri için senkron API sağlar.
+
+  </Column>
+
+</Columns>
+
+**Neden önemlidir:** Server component desteği Next.js 13+ sürümünün önemli bir özelliğidir ve performans için yardımcıdır. Ebeveyn server bileşenlerinden çocuk server bileşenlerine locale veya `t` fonksiyonunu props olarak geçirmek, bileşenlerinizi daha az yeniden kullanılabilir hale getirir.
 
 ---
 
@@ -297,14 +395,10 @@ Uygulama yapısı, codebase'iniz için iyi bir bakım alabilirliği sağlamak a�
   </Tab>
 </Tabs>
 
-### 6) Performans ve yükleme davranışı
+#### Karşılaştırma
 
-- **next-intl / next-i18next**: **Ad alanları** ve **rota düzeyinde bölmeler** aracılığıyla kısmi kontrol; disiplin kayarsa kullanılmayan dizeleri paketleme riski.
-- **Intlayer**: **Derleme zamanında ağaç sallar** ve **sözlük/yere göre tembel yükler**. Kullanılmayan içerik gönderilmez.
-
-**Neden önemli:** Özellikle çok yerel sitelerde daha küçük paketler ve daha hızlı başlatma.
-
----
+- **next-intl / next-i18next**: Merkezi kataloglar (JSON; namespaces/messages). Net yapı, çeviri platformlarıyla iyi entegrasyon sağlar, ancak uygulamalar büyüdükçe dosyalar arası daha fazla düzenlemeye yol açabilir.
+- **Intlayer**: Bileşenlerle birlikte bulunan `.content.{ts|js|json}` sözlükleri. Bileşen yeniden kullanımını ve yerel akıl yürütmeyi kolaylaştırır; dosya ekler ve derleme zamanı araçlarına bağlıdır.
 
 #### Kurulum ve İçerik Yükleme
 
@@ -658,14 +752,15 @@ export default LandingPage;
   </Tab>
 </Tabs>
 
-### 7) DX, araçlar ve bakım
+#### Karşılaştırma
 
-- **next-intl / next-i18next**: Genellikle çeviriler ve düzenleme iş akışları için harici platformları bağlayacaksınız.
-- **Intlayer**: **Ücretsiz Görsel Düzenleyici** ve **isteğe bağlı CMS** (Git dostu veya dışa aktarılmış) gönderir. Artı içerik yazımı için **VSCode uzantısı** ve kendi sağlayıcı anahtarlarınızı kullanarak **AI destekli çeviriler**.
+Üçü de yerel başına içerik yükleme ve sağlayıcıları destekler.
 
-**Neden önemli:** Operasyon maliyetini düşürür ve geliştiriciler ile içerik yazarları arasındaki döngüyü kısaltır.
+- **next-intl/next-i18next** ile, tipik olarak seçili mesajları/namespace'leri rota başına yükler ve sağlayıcıları gerekli yerlere yerleştirirsiniz.
 
----
+- **Intlayer** ile, kullanımı çıkarmak için derleme zamanı analizini ekler, bu da manuel bağlantıları azaltabilir ve tek bir kök sağlayıcı kullanılmasını sağlayabilir.
+
+Ekip tercihine göre açık kontrol ile otomasyon arasında seçim yapın.
 
 ### İstemci bileşeninde kullanım
 
@@ -831,11 +926,20 @@ const ClientComponentExample = () => {
   </Tab>
 </Tabs>
 
-## Hangisini ne zaman seçmeli?
+#### Karşılaştırma
 
-- **next-intl**'i seçin eğer **minimal** bir çözüm istiyorsanız, merkezi kataloglarla rahatınız ve uygulamanız **küçük ila orta boy**.
-- **next-i18next**'i seçin eğer **i18next'in eklenti ekosistemine** ihtiyacınız varsa (örneğin, eklentiler aracılığıyla gelişmiş ICU kuralları) ve ekibiniz zaten i18next'i biliyorsa, esnekliği için **daha fazla yapılandırma** kabul ederek.
-- **Intlayer**'ı seçin eğer **bileşen kapsamlı içerik**, **katı TypeScript**, **derleme zamanı garantileri**, **ağaç sallama** ve **pil dahil** yönlendirme/SEO/düzenleyici araçlarını takdir ediyorsanız - özellikle **Next.js App Router**, tasarım sistemleri ve **büyük, modüler kod tabanları** için.
+- **Sayı biçimlendirme**
+  - **next-i18next**: `useNumber` yok; `Intl.NumberFormat` kullanın (veya i18next-icu).
+  - **next-intl**: `useFormatter().number(value)`.
+  - **Intlayer**: `useNumber()` built-in.
+
+- **Anahtarlar**
+  - İç içe geçmiş bir yapı tutun (`about.counter.label`) ve hook'unuzu buna göre kapsamlandırın (`useTranslation("about")` + `t("counter.label")` veya `useTranslations("about.counter")` + `t("label")`).
+
+- **Dosya konumları**
+  - **next-i18next** `public/locales/{lng}/{ns}.json` içinde JSON bekler.
+  - **next-intl** esnek; mesajları nasıl yapılandırdığınıza göre yükleyin.
+  - **Intlayer** içeriği TS/JS sözlüklerinde depolar ve anahtara göre çözer.
 
 ---
 
@@ -951,7 +1055,7 @@ const ServerComponent = ({ count }: ServerComponentProps) => {
 Geliştiriciler genellikle sayfalarını yerel ayarlar arasında düzgün şekilde referans vermeyi unuturlar.
 
 <Tabs defaultTab="next-intl" group='techno'>
- 
+
   <Tab label="next-i18next" value="next-i18next">
 
 ```ts fileName="i18n.config.ts"
@@ -1302,11 +1406,39 @@ Middleware'in kurulumu `intlayer.config.ts` dosyasında merkezileştirilmiştir.
   </Tab>
 </Tabs>
 
-## `next-intl` ve `next-i18next` ile birlikte çalışabilirlik
+### Kurulum kontrol listesi ve en iyi uygulamalar
 
-`intlayer`, `next-intl` ve `next-i18next` ad alanlarınızı yönetmenize de yardımcı olabilir.
+<Tabs defaultTab="next-intl" group='techno'>
+  <Tab label="next-i18next" value="next-i18next">
 
-`intlayer` kullanarak, içeriğinizi favori i18n kütüphanenizin formatında beyan edebilirsiniz ve intlayer ad alanlarınızı istediğiniz konumda oluşturacaktır (örnek: `/messages/{{locale}}/{{namespace}}.json`).
+- `src/app/[locale]/layout.tsx` dosyasında kök `<html>` öğesinde `lang` ve `dir` özniteliklerinin ayarlandığından emin olun.
+- Çevirileri ad alanlarına (örneğin `common.json`, `about.json`) `src/locales/<locale>/` altında bölün.
+- İstemci bileşenlerinde `useTranslation('<ns>')` kullanarak ve `I18nProvider` kapsamını aynı ad alanlarıyla ayarlayarak yalnızca gerekli ad alanlarını yükleyin.
+- Mümkün olduğunda sayfaları statik tutun: sayfalar üzerinde `export const dynamic = 'force-static'` olarak dışa aktarın; `dynamicParams = false` olarak ayarlayın ve `generateStaticParams` uygulayın.
+- Önceden hesaplanmış dizeler veya `t` işlevi ve `locale` geçirerek istemci sınırları altında eşzamanlı sunucu bileşenlerini kullanın.
+- SEO için, meta verilerde `alternates.languages` ayarlayın, `sitemap.ts` içinde yerelleştirilmiş URL'leri listeleyin ve `robots.ts` içinde yinelenen yerelleştirilmiş rotaları devre dışı bırakın.
+- Yerel ayara duyarlı biçimlendiricileri (örneğin `Intl.NumberFormat(locale)`) tercih edin ve React < 19 kullanırken bunları istemci üzerinde hafızaya alın.
+
+  </Tab>
+  <Tab label="next-intl" value="next-intl">
+
+- **HTML `lang` ve `dir` özniteliklerini ayarlayın**: `src/app/[locale]/layout.tsx` içinde, `dir` özniteliğini `getLocaleDirection(locale)` aracılığıyla hesaplayın ve `<html lang={locale} dir={dir}>` olarak ayarlayın.
+- **İletileri ad alanlarına göre bölün**: JSON'u locale ve ad alanına göre düzenleyin (örneğin `common.json`, `about.json`).
+- **İstemci yükünü en aza indirin**: Sayfalarda, yalnızca gerekli ad alanlarını `NextIntlClientProvider` öğesine gönderin (örneğin `pick(messages, ['common', 'about'])`).
+- **Statik sayfaları tercih edin**: `export const dynamic = 'force-static'` olarak dışa aktarın ve tüm `locales` için statik parametreler oluşturun.
+- **Eşzamanlı sunucu bileşenleri**: Sunucu bileşenlerini önceden hesaplanmış dizeler (çevrilmiş etiketler, biçimlendirilmiş sayılar) geçirerek eşzamanlı tutun; async çağrıları veya seri hale getirilemeyen işlevleri kullanmayın.
+
+  </Tab>
+  <Tab label="intlayer" value="intlayer">
+
+- **Modüler içerik**: `.content.{ts|js|json}` dosyalarını kullanarak içerik sözlüklerini bileşenlerle birlikte konumlandırın.
+- **Tür güvenliği**: Derleme zamanı içerik doğrulaması için TypeScript entegrasyonundan yararlanın.
+- **Derleme zamanı optimizasyonu**: Otomatik tree-shaking ve bundle optimizasyonu için Intlayer'ın derleme araçlarını kullanın.
+- **Entegre araçlar**: Yerleşik yönlendirme, SEO yardımcıları ve görsel editör desteğinden yararlanın.
+
+  </Tab>
+
+</Tabs>
 
 ---
 
@@ -1336,6 +1468,7 @@ Basit değil. Her seçeneğin avantaj ve dezavantajları var. İşte benim gör�
 - modern Next.js için oluşturulmuş, modüler içerik, tip güvenliği, araçlar ve daha az boilerplate ile. **Bileşen kapsamlı içerik**, **kesin TypeScript**, **derleme zamanı garantileri**, **tree-shaking** ve **pil dahil** yönlendirme/SEO/editör araçlarını değer veriyorsanız - özellikle **Next.js App Router**, tasarım sistemleri ve **büyük, modüler kod tabanları** için.
 
   </Column>
+
 </Columns>
 
 Minimal kurulumu tercih ederseniz ve bazı manuel bağlantıları kabul ederseniz, next-intl iyi bir seçimdir. Tüm özelliklere ihtiyacınız varsa ve karmaşıklığa aldırmıyorsanız, next-i18next işe yarar. Ancak modern, ölçeklenebilir, modüler bir çözüm istiyorsanız ve dahili araçlarla, Intlayer bunu size kutusundan çıkar halde sağlamayı amaçlar.

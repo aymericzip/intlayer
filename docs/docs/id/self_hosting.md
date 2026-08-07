@@ -62,6 +62,32 @@ Chromium (digunakan untuk pembuatan screenshot Puppeteer) dibundel di dalam imag
 
 ---
 
+## Mulai Cepat
+
+Pull dan jalankan image yang dipublikasikan, dengan menyediakan kredensial dan secrets MongoDB Atlas Anda:
+
+```sh
+docker run -d --name intlayer \
+  -p 3000:3000 \
+  -p 3100:3100 \
+  -p 9000:9000 \
+  -p 9001:9001 \
+  -v intlayer-data:/data \
+  -e DB_ID="<atlas-user>" \
+  -e DB_MDP="<atlas-password>" \
+  -e DB_CLUSTER="<cluster>.xxxxx.mongodb.net" \
+  -e BETTER_AUTH_SECRET="$(openssl rand -hex 32)" \
+  -e S3_SECRET_ACCESS_KEY="$(openssl rand -hex 16)" \
+  -e RESEND_API_KEY="<your-resend-key>" \
+  aymericzip/intlayer-selfhost
+```
+
+Kemudian buka **http://localhost:3000**.
+
+> Dashboard disajikan di `localhost`. Lihat [Batasan](#batasan) — domain kustom tidak didukung oleh image yang dipublikasikan.
+
+---
+
 ## Memulai Cepat
 
 ```sh
@@ -97,9 +123,18 @@ Port internal (mongo, redis) tidak terekspos ke host secara default.
 
 ---
 
-## Variabel Lingkungan
+## Variabel lingkungan
 
-Installer menghasilkan `.env` yang siap pakai. Tabel di bawah ini menjelaskan setiap variabel.
+### Diperlukan
+
+| Variable               | Example                      | Description                                                                                                                                  |
+| ---------------------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `DB_ID`                | `intlayer`                   | MongoDB Atlas user                                                                                                                           |
+| `DB_MDP`               | _(your password)_            | MongoDB Atlas password                                                                                                                       |
+| `DB_CLUSTER`           | `cluster0.xxxxx.mongodb.net` | MongoDB Atlas cluster host (used in the `mongodb+srv://` URI)                                                                                |
+| `BETTER_AUTH_SECRET`   | _(generated)_                | 32-byte secret for session signing                                                                                                           |
+| `S3_SECRET_ACCESS_KEY` | _(generated)_                | Secret for the bundled MinIO                                                                                                                 |
+| `RESEND_API_KEY`       | _(your key)_                 | Transactional email via Resend. Required for first-run setup unless you configure a global SMTP mailer (see [Global mailer](#global-mailer)) |
 
 ### Wajib (dibuat secara otomatis atau diminta)
 
@@ -138,6 +173,26 @@ Installer menghasilkan `.env` yang siap pakai. Tabel di bawah ini menjelaskan se
 | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Login Microsoft OAuth                                         |
 | `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`           | Login LinkedIn OAuth                                          |
 | `ATLASSIAN_CLIENT_ID`, `ATLASSIAN_CLIENT_SECRET`         | Login Atlassian OAuth                                         |
+
+---
+
+### Global mailer
+
+Secara default, semua email transaksional dikirim melalui Resend menggunakan `RESEND_API_KEY`. Deployment yang self-hosted dapat mengarahkan **setiap** email — termasuk email non-organisasi seperti reset password dan magic links — melalui global mailer yang dikonfigurasi dengan environment variables.
+
+Atur `MAIL_PROVIDER` untuk mengaktifkannya. Ketika tidak diatur, mailer Resend default digunakan.
+
+| Variable             | Example                        | Description                                                                            |
+| -------------------- | ------------------------------ | -------------------------------------------------------------------------------------- |
+| `MAIL_PROVIDER`      | `smtp`                         | Global transport: `smtp` atau `resend`. Biarkan tidak diatur untuk menggunakan default |
+| `MAIL_FROM`          | `Intlayer <no-reply@acme.com>` | Sender header. Menerima alamat bare atau format `Name <email>`                         |
+| `MAIL_SMTP_HOST`     | `smtp.acme.com`                | SMTP host (diperlukan ketika `MAIL_PROVIDER=smtp`)                                     |
+| `MAIL_SMTP_PORT`     | `587`                          | SMTP port (default ke `587`)                                                           |
+| `MAIL_SMTP_SECURE`   | `false`                        | Implicit TLS. Atur `true` untuk port `465`                                             |
+| `MAIL_SMTP_USER`     | _(user anda)_                  | SMTP username (opsional; abaikan untuk unauthenticated relays)                         |
+| `MAIL_SMTP_PASSWORD` | _(password anda)_              | SMTP password                                                                          |
+
+> Precedence: mailer milik organisasi sendiri (dikonfigurasi dari dashboard **Organization**) mengambil prioritas atas global mailer, yang pada gilirannya mengambil prioritas atas kunci Resend default.
 
 ---
 
@@ -259,47 +314,11 @@ docker run --rm \
 
 ---
 
-## Menggunakan reverse proxy (Nginx / Caddy)
+## Keterbatasan
 
-Untuk deployment produksi, letakkan reverse proxy di depan kontainer aplikasi dan backend daripada mengeksposnya secara langsung.
-
-### Contoh Nginx
-
-```nginx
-server {
-    listen 80;
-    server_name cms.example.com;
-
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-
-server {
-    listen 80;
-    server_name api.example.com;
-
-    location / {
-        proxy_pass http://localhost:3100;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-```
-
-Perbarui variabel `.env` berikut agar sesuai dengan domain publik Anda:
-
-```sh
-BACKEND_URL=https://api.example.com
-APP_URL=https://cms.example.com
-DOMAIN=example.com
-VITE_BACKEND_URL=https://api.example.com
-VITE_DOMAIN=example.com
-```
-
-> Variabel `VITE_*` tertanam dalam image dashboard pada waktu build. Jika Anda mengubahnya setelah image dibuat, Anda perlu membangun ulang image `app` (`docker compose build app`) atau menggunakan injeksi konfigurasi runtime.
+- **MongoDB harus external (Atlas).** Backend terhubung hanya melalui `mongodb+srv://` (dibangun dari `DB_ID` / `DB_MDP` / `DB_CLUSTER`), jadi plain `mongodb://host:27017` — termasuk `mongod` bundled container sendiri — tidak dapat digunakan. Sediakan cluster MongoDB Atlas.
+- **Tidak ada custom domain.** Semua URL `VITE_*` yang dihadapi browser di-inline ke dalam app pada saat build, dan image yang dipublikasikan dilengkapi dengan nilai `localhost`. Dashboard harus diakses di `http://localhost:3000`; melayaninya di domain publik memerlukan rebuilding image dengan target URLs yang tertanam dan tidak didukung out of the box.
+- **Email memerlukan mailer yang berfungsi.** Setup first-run menerapkan verifikasi email, jadi baik `RESEND_API_KEY` atau [global SMTP mailer](#global-mailer) (`MAIL_PROVIDER=smtp` + `MAIL_SMTP_*`) harus dikonfigurasi. Setelah admin pertama masuk, setiap organisasi juga dapat mengonfigurasi SMTP atau Resend mailer-nya sendiri dari dashboard.
 
 ---
 
@@ -322,14 +341,6 @@ Verifikasi bahwa `VITE_BACKEND_URL` cocok dengan URL di mana backend dapat dijan
 ```sh
 docker compose build app
 docker compose up -d app
-```
-
-### Email tidak terkirim
-
-Secara default, semua email keluar ditangkap oleh Mailpit. Buka `http://localhost:8025` untuk melihat pesan yang terkirim. Untuk mengirim email sungguhan, setel `MAIL_PROVIDER=resend` dan `RESEND_API_KEY=<your-key>` di `.env`, lalu restart backend:
-
-```sh
-docker compose restart backend
 ```
 
 ### Bucket MinIO hilang

@@ -133,7 +133,39 @@ export const ServerComponentExample: FC = () => (
 
 ---
 
-## उन्नत विषय
+### विशेषताओं में इनलाइन अनुवाद
+
+`t` फ़ंक्शन JSX विशेषताओं में इनलाइन अनुवादों के लिए विशेष रूप से उपयोगी है।
+जब `alt`, `title`, `href`, या `aria-label` जैसी विशेषताओं को स्थानीयकृत करते हैं, तो आप विशेषता के भीतर सीधे `t` का उपयोग कर सकते हैं।
+
+```jsx
+<button
+  aria-label={t({
+    hi: "जमा करें",
+    en: "Submit",
+    fr: "Soumettre",
+    es: "Enviar",
+  })}
+>
+  {t({
+    hi: "जमा करें",
+    en: "Submit",
+    fr: "Soumettre",
+    es: "Enviar",
+  })}
+  <img
+    src="/path/to/image"
+    alt={t({
+      hi: "एक सुंदर दृश्य",
+      en: "A beautiful scenery",
+      fr: "Un beau paysage",
+      es: "Un hermoso paisaje",
+    })}
+  />
+</button>
+```
+
+---
 
 ## Advanced Topics
 

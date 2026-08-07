@@ -46,34 +46,6 @@ author: aymericzip
 
 Intlayer fornisce un set di helper leggeri costruiti sopra le API native `Intl`, oltre a un wrapper `Intl` con cache per evitare di costruire ripetutamente formattatori pesanti. Queste utilità sono completamente sensibili alla localizzazione e possono essere utilizzate dal pacchetto principale `intlayer`.
 
-### Importazione
-
-```ts
-import {
-  Intl,
-  number,
-  percentage,
-  currency,
-  date,
-  relativeTime,
-  units,
-  compact,
-  list,
-  getLocaleName,
-  getLocaleLang,
-  getLocaleFromPath,
-  getPathWithoutLocale,
-  getLocalizedUrl,
-  getHTMLTextDir,
-  getContent,
-  getTranslation,
-  getIntlayer,
-  getIntlayerAsync,
-} from "intlayer";
-```
-
-Se stai usando React, sono disponibili anche gli hook; vedi `react-intlayer/format`.
-
 ## Intl con cache
 
 L'`Intl` esportato è un wrapper sottile con cache attorno all'`Intl` globale. Memorizza in cache le istanze di `NumberFormat`, `DateTimeFormat`, `RelativeTimeFormat`, `ListFormat`, `DisplayNames`, `Collator` e `PluralRules`, evitando così di ricostruire ripetutamente lo stesso formattatore.
@@ -110,9 +82,7 @@ pluralRules.select(1); // "one"
 pluralRules.select(2); // "other"
 ```
 
-## Utilità aggiuntive di Intl
-
-Oltre agli helper per i formatter, puoi anche utilizzare direttamente il wrapper Intl con cache per altre funzionalità Intl:
+## React Formatters
 
 ### `Intl.DisplayNames`
 
@@ -127,6 +97,22 @@ languageNames.of("fr"); // "French"
 const regionNames = new Intl.DisplayNames("fr", { type: "region" });
 regionNames.of("US"); // "États-Unis"
 ```
+
+### Hook Disponibili
+
+Tutti gli hook utilizzano automaticamente la locale da `IntlayerProvider` o `IntlayerServerProvider`.
+
+| Hook                | Description                               | Example Output                |
+| ------------------- | ----------------------------------------- | ----------------------------- |
+| `useNumber()`       | Formatta numeri con raggruppamento        | `"123,456.789"`               |
+| `useCurrency()`     | Formatta valori di valuta                 | `"€1,234.50"`                 |
+| `usePercentage()`   | Formatta percentuali                      | `"25%"`                       |
+| `useDate()`         | Formatta date e orari                     | `"Aug 2, 2025"`               |
+| `useRelativeTime()` | Formatta tempo relativo                   | `"in 3 days"`                 |
+| `useUnit()`         | Formatta valori con unità                 | `"5 kilometers"`              |
+| `useCompact()`      | Formatta numeri in notazione compatta     | `"1.2K"`                      |
+| `useList()`         | Formatta array come liste                 | `"apple, banana, and orange"` |
+| `useIntl()`         | Ottieni oggetto `Intl` legato alla locale | Accesso completo API `Intl`   |
 
 ### `Intl.Collator`
 
@@ -267,125 +253,111 @@ getLocaleFromPath("https://example.com/es/about"); // "es"
 
 ### Funzioni Formatter
 
-### `getPathWithoutLocale(inputUrl, locales?)`
+#### `number(value, options?)`
 
-Rimuove il segmento di localizzazione da un URL o percorso:
+Formatta un valore numerico utilizzando il raggruppamento e i decimali consapevoli della locale.
 
-```ts
-import { getPathWithoutLocale } from "intlayer";
-
-getPathWithoutLocale("/en/dashboard"); // "/dashboard"
-getPathWithoutLocale("/fr/dashboard"); // "/dashboard"
-getPathWithoutLocale("https://example.com/en/about"); // "https://example.com/about"
-```
-
-- **inputUrl**: La stringa URL completa o il percorso da elaborare
-- **locales**: Array opzionale delle localizzazioni supportate (predefinito alle localizzazioni configurate)
-- **returns**: L'URL senza il segmento della localizzazione
-
-### `getLocalizedUrl(url, currentLocale, locales?, defaultLocale?, prefixDefault?)`
-
-Genera un URL localizzato per la localizzazione corrente:
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
 
 ```ts
-import { getLocalizedUrl } from "intlayer";
-
-getLocalizedUrl("/about", "fr", ["en", "fr"], "en", false); // "/fr/about"
-getLocalizedUrl("/about", "en", ["en", "fr"], "en", false); // "/about"
-getLocalizedUrl("https://example.com/about", "fr", ["en", "fr"], "en", true); // "https://example.com/fr/about"
+number(123456.789); // "123,456.789" (in en-US)
+number("1000000", { locale: "fr" }); // "1 000 000"
+number(1234.5, { minimumFractionDigits: 2 }); // "1,234.50"
 ```
 
-- **url**: L'URL originale da localizzare
-- **currentLocale**: La localizzazione corrente
-- **locales**: Array opzionale delle localizzazioni supportate (predefinito alle localizzazioni configurate)
-- **defaultLocale**: Localizzazione predefinita opzionale (predefinita alla localizzazione predefinita configurata)
-- **prefixDefault**: Se aggiungere il prefisso alla localizzazione predefinita (predefinito al valore configurato)
+#### `percentage(value, options?)`
 
-### `getHTMLTextDir(locale?)`
+Formatta un numero come stringa percentuale. I valori maggiori di 1 sono normalizzati (es. `25` → `25%`, `0.25` → `25%`).
 
-Restituisce la direzione del testo per una localizzazione:
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
 
 ```ts
-import { getHTMLTextDir } from "intlayer";
-
-getHTMLTextDir("en-US"); // "ltr"
-getHTMLTextDir("ar"); // "rtl"
-getHTMLTextDir("he"); // "rtl"
+percentage(0.25); // "25%"
+percentage(25); // "25%"
+percentage(0.237, { minimumFractionDigits: 1 }); // "23.7%"
 ```
 
-- **locale**: La localizzazione per cui ottenere la direzione del testo (predefinita alla localizzazione corrente)
-- **returns**: `"ltr"`, `"rtl"`, o `"auto"`
+#### `currency(value, options?)`
 
-## Utilità per la gestione dei contenuti
+Formatta un valore come valuta localizzata. Il valore predefinito è `USD`.
 
-### `getContent(node, nodeProps, locale?)`
-
-Trasforma un nodo di contenuto con tutti i plugin disponibili (traduzione, enumerazione, inserimento, ecc.):
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+  - Comuni: `currency`, `currencyDisplay` (`"symbol" | "code" | "name"`)
 
 ```ts
-import { getContent } from "intlayer";
-
-const content = getContent(
-  contentNode,
-  { dictionaryKey: "common", dictionaryPath: "/path/to/dict" },
-  "fr"
-);
+currency(1234.5, { currency: "EUR" }); // "€1,234.50"
+currency("5000", { locale: "fr", currency: "CAD", currencyDisplay: "code" }); // "5 000,00 CAD"
 ```
 
-- **node**: Il nodo di contenuto da trasformare
-- **nodeProps**: Proprietà per il contesto di trasformazione
-- **locale**: Localizzazione opzionale (predefinita alla localizzazione predefinita configurata)
+#### `date(date, optionsOrPreset?)`
 
-### `getTranslation(languageContent, locale?, fallback?)`
+Formatta un valore di data/ora.
 
-Estrae il contenuto per una specifica lingua da un oggetto contenente più lingue:
+- **date**: `Date | string | number`
+- **optionsOrPreset**: `Intl.DateTimeFormatOptions & { locale?: LocalesValues }` o preset: `"short" | "long" | "dateOnly" | "timeOnly" | "full"`
 
 ```ts
-import { getTranslation } from "intlayer";
-
-const content = getTranslation(
-  {
-    en: "Hello",
-    fr: "Bonjour",
-    de: "Hallo",
-  },
-  "fr",
-  true
-); // "Bonjour"
+date(new Date(), "short"); // es. "08/02/25, 14:30"
+date("2025-08-02T14:30:00Z", { locale: "fr", month: "long", day: "numeric" }); // "2 août"
 ```
 
-- **languageContent**: Oggetto che mappa le lingue al contenuto
-- **locale**: Lingua di destinazione (default è la lingua configurata come predefinita)
-- **fallback**: Se effettuare il fallback alla lingua predefinita (default è true)
+#### `relativeTime(from, to?, options?)`
 
-### `getIntlayer(dictionaryKey, locale?, plugins?)`
+Formatta il tempo relativo tra due istanti.
 
-Recupera e trasforma il contenuto da un dizionario tramite la chiave:
+- **from**: `Date | string | number`
+- **to**: `Date | string | number` (predefinito `new Date()`)
+- **options**: `{ locale?, unit?, numeric?, style? }`
 
 ```ts
-import { getIntlayer } from "intlayer";
+const now = new Date();
+const in3Days = new Date(now.getTime() + 3 * 864e5);
+relativeTime(now, in3Days, { unit: "day" }); // "in 3 days"
 
-const content = getIntlayer("common", "fr");
-const nestedContent = getIntlayer("common", "fr", customPlugins);
+const twoHoursAgo = new Date(now.getTime() - 2 * 3600e3);
+relativeTime(now, twoHoursAgo, { unit: "hour", numeric: "auto" }); // "2 hours ago"
 ```
 
-- **dictionaryKey**: La chiave del dizionario da recuperare
-- **locale**: Locale opzionale (default è la locale configurata di default)
-- **plugins**: Array opzionale di plugin di trasformazione personalizzati
+#### `units(value, options?)`
 
-### `getIntlayerAsync(dictionaryKey, locale?, plugins?)`
+Formatta un valore numerico con un'unità.
 
-Recupera asincronamente contenuti da un dizionario remoto:
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+  - Common: `unit` (e.g., `"kilometer"`, `"byte"`), `unitDisplay` (`"short" | "narrow" | "long"`)
 
 ```ts
-import { getIntlayerAsync } from "intlayer";
-
-const content = await getIntlayerAsync("common", "fr");
+units(5, { unit: "kilometer", unitDisplay: "long", locale: "en-GB" }); // "5 kilometers"
+units(1024, { unit: "byte", unitDisplay: "narrow" }); // "1,024B"
 ```
 
-- **dictionaryKey**: La chiave del dizionario da recuperare
-- **locale**: Locale opzionale (default è la locale configurata di default)
-- **plugins**: Array opzionale di plugin di trasformazione personalizzati
+#### `compact(value, options?)`
+
+Formatta un numero utilizzando la notazione compatta.
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+
+```ts
+compact(1200); // "1.2K"
+compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
+```
+
+#### `list(values, options?)`
+
+Formatta un array in una stringa di lista localizzata.
+
+- **values**: `(string | number)[]`
+- **options**: `Intl.ListFormatOptions & { locale?: LocalesValues }`
+  - Common: `type` (`"conjunction" | "disjunction" | "unit"`), `style` (`"long" | "short" | "narrow"`)
+
+```ts
+list(["apple", "banana", "orange"]); // "apple, banana, and orange"
+list(["red", "green", "blue"], { locale: "fr", type: "disjunction" }); // "rouge, vert ou bleu"
+```
 
 ## Formatter
 
@@ -393,40 +365,34 @@ Tutti gli helper seguenti sono esportati da `intlayer`.
 
 ### Funzionalità Intl Aggiuntive
 
-### `number(value, options?)`
+#### `Intl.DisplayNames`
 
-Formatta un valore numerico utilizzando la separazione delle migliaia e i decimali in base alla localizzazione.
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-
-Esempi:
+Per nomi localizzati di lingue, regioni, valute e script:
 
 ```ts
-import { number } from "intlayer";
+import { Intl } from "intlayer";
 
-number(123456.789); // "123,456.789" (in en-US)
-number("1000000", { locale: "fr" }); // "1 000 000"
-number(1234.5, { minimumFractionDigits: 2 }); // "1,234.50"
+const languageNames = new Intl.DisplayNames("en", { type: "language" });
+languageNames.of("fr"); // "French"
+
+const regionNames = new Intl.DisplayNames("fr", { type: "region" });
+regionNames.of("US"); // "États-Unis"
 ```
 
-### `percentage(value, options?)`
+#### `Intl.Collator`
 
-Formatta un numero come stringa percentuale.
-
-Comportamento: i valori maggiori di 1 sono interpretati come percentuali intere e normalizzati (es. `25` → `25%`, `0.25` → `25%`).
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-
-Esempi:
+Per il confronto e l'ordinamento di stringhe consapevoli della locale:
 
 ```ts
-import { percentage } from "intlayer";
+import { Intl } from "intlayer";
 
-percentage(0.25); // "25%"
-percentage(25); // "25%"
-percentage(0.237, { minimumFractionDigits: 1 }); // "23.7%"
+const collator = new Intl.Collator("de", {
+  sensitivity: "base",
+  numeric: true,
+});
+
+const words = ["äpfel", "zebra", "100", "20"];
+words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
 ```
 
 #### `Intl.PluralRules`
@@ -558,42 +524,6 @@ list([1, 2, 3], { type: "unit" }); // "1, 2, 3"
 
 ## Utility di Gestione dei Contenuti
 
-## Note
-
-- Tutti gli helper accettano input di tipo `string`; internamente vengono convertiti in numeri o date.
-- La localizzazione predefinita è quella configurata in `internationalization.defaultLocale` se non specificata.
-- Queste utility sono dei semplici wrapper; per formattazioni avanzate, passare le opzioni standard di `Intl`.
-
-## Punti di ingresso e re-export (`@index.ts`)
-
-I formatter risiedono nel pacchetto core e vengono re-esportati da pacchetti di livello superiore per mantenere gli import ergonomici attraverso i runtime:
-
-Esempi:
-
-```ts
-// Codice dell'app (consigliato)
-import {
-  number,
-  currency,
-  date,
-  relativeTime,
-  units,
-  compact,
-  list,
-  Intl,
-  getLocaleName,
-  getLocaleLang,
-  getLocaleFromPath,
-  getPathWithoutLocale,
-  getLocalizedUrl,
-  getHTMLTextDir,
-  getContent,
-  getTranslation,
-  getIntlayer,
-  getIntlayerAsync,
-} da "intlayer";
-```
-
 ### React
 
 Componenti client:
@@ -692,3 +622,19 @@ import {
 ```
 
 > Questi composables considereranno la localizzazione dal `IntlayerProvider` iniettato
+
+### `getIntlayer(dictionaryKey, locale?, plugins?)`
+
+Recupera e trasforma il contenuto da un dizionario:
+
+```ts
+import { getIntlayer } from "intlayer";
+
+const content = getIntlayer("common", "fr");
+```
+
+## Note
+
+- Tutti gli helper accettano input `string`; vengono convertiti internamente a numeri o date.
+- La locale predefinita è quella configurata in `internationalization.defaultLocale` se non fornita.
+- Questi utility sono wrapper sottili; per la formattazione avanzata, passa attraverso le opzioni standard `Intl`.

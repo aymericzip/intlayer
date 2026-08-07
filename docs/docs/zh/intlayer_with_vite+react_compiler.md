@@ -36,7 +36,7 @@ author: aymericzip
 
 <Tabs defaultTab="video">
   <Tab label="视频" value="video">
-  
+
 <iframe title="Vite 和 React 的最佳 i18n 解决方案？探索 Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
 
   </Tab>
@@ -91,14 +91,162 @@ author: aymericzip
 
 ---
 
-### 第 4 步：编译您的代码
+## 在 Vite 和 React 应用中设置 Intlayer 的分步指南
 
-只需使用您的默认语言在组件中编写硬编码字符串。编译器会处理剩下的工作。
+<Steps>
 
-您的页面可能如下所示：
+<Step number={1} title="安装依赖">
+
+使用 npm 安装必要的包：
+
+```bash packageManager="npm"
+npx intlayer init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer@canary init --interactive
+```
+
+> `--interactive` 标志是可选的。如果你是 AI 代理，请使用 `intlayer-cli init`。
+
+> 此命令将检测你的环境并安装所需的包。例如：
+
+```bash packageManager="npm"
+npm install intlayer react-intlayer
+npm install vite-intlayer --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer react-intlayer
+pnpm add vite-intlayer --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add intlayer react-intlayer
+yarn add vite-intlayer --save-dev
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer
+bun add vite-intlayer --dev
+```
+
+- **intlayer**
+  核心包，提供国际化工具用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、转译和 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。
+
+- **react-intlayer**
+  将 Intlayer 与 React 应用集成的包。它为 React 国际化提供上下文提供程序和 hooks。
+
+- **vite-intlayer**
+  包含用于将 Intlayer 与 [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production) 集成的 Vite 插件，以及用于检测用户首选语言环境、管理 cookie 和处理 URL 重定向的中间件。
+
+</Step>
+
+<Step number={2} title="配置你的项目">
+
+创建配置文件以配置应用程序的语言：
+
+```typescript fileName="intlayer.config.ts"
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+  compiler: {
+    /**
+     * 指示编译器是否应启用。
+     */
+    enabled: true,
+
+    /**
+     * 优化字典的输出目录。
+     */
+    output: ({ locale, key }) => `compiler/${locale}/${key}.json`,
+
+    /**
+     * 仅在生成的文件中插入内容，不包含键。
+     */
+    noMetadata: false,
+
+    /**
+     * 字典键前缀
+     */
+    dictionaryKeyPrefix: "", // 移除基础前缀
+
+    /**
+     * 指示转换后的组件是否应保存。
+     *
+     * - 如果为 `true`，编译器将在磁盘上重写组件文件。因此转换将是永久的，编译器将在下一个过程中跳过转换。这样，编译器可以转换应用，然后可以将其移除。
+     *
+     * - 如果为 `false`，编译器将仅在构建输出中注入 `useIntlayer()` 函数调用，保持基础代码库完整。转换仅在内存中进行。
+     */
+    saveComponents: false,
+  },
+  ai: {
+    provider: "openai",
+    model: "gpt-5-mini",
+    apiKey: process.env.OPEN_AI_API_KEY,
+    applicationContext: "This app is an map app", // 注意：你可以自定义此应用描述
+  },
+};
+
+export default config;
+```
+
+> **注意**：确保你的 `OPEN_AI_API_KEY` 已在环境变量中设置。
+
+> 通过此配置文件，你可以设置本地化 URL、中间件重定向、cookie 名称、内容声明的位置和扩展名、禁用 Intlayer 控制台日志等。有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
+
+</Step>
+
+<Step number={3} title="在你的 Vite 配置中集成 Intlayer">
+
+将 intlayer 插件添加到你的配置中。
+
+```typescript fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
+import { intlayer } from "vite-intlayer";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    react(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
+});
+```
+
+> `intlayer()` Vite 插件用于将 Intlayer 与 Vite 集成。它确保构建内容声明文件并在开发模式下监视它们。它在 Vite 应用中定义 Intlayer 环境变量。此外，它提供别名以优化性能。
+
+> `intlayerCompiler()` Vite 插件用于从组件提取内容并写入 `.content` 文件。
+
+> 从 Intlayer v9 开始，编译器直接捆绑到 `intlayer()` 插件中，一旦设置了 `compiler.enabled` 和 `compiler.output` 路径，就会自动激活。如下所示单独注册 `intlayerCompiler()` 现在是可选的——如果也添加了它，它会自动去重。请参阅 [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
+
+</Step>
+
+<Step number={4} title="编译你的代码">
+
+仅需使用默认语言中的硬编码字符串编写组件。编译器会处理其余部分。
+
+你的页面可能看起来的示例：
 
 <Tabs>
- <Tab value="代码">
+ <Tab value="Code">
 
 ```tsx fileName="src/App.tsx"
 import { useState, type FC } from "react";
@@ -146,7 +294,7 @@ export default App;
 ```
 
  </Tab>
- <Tab value="输出">
+ <Tab value="Output">
 
 ```ts fileName="i18n/app-content.content.json"
 {
@@ -163,14 +311,14 @@ export default App;
         hmrMessage: "and save to test HMR",
         readTheDocs: "Click on the Vite and React logos to learn more",
       },
-      zh: {
-        viteLogo: "Vite 图标",
-        reactLogo: "React 图标",
+      fr: {
+        viteLogo: "Logo Vite",
+        reactLogo: "Logo React",
         title: "Vite + React",
-        countButton: "当前计数为",
-        editMessage: "编辑",
-        hmrMessage: "并保存以测试 HMR",
-        readTheDocs: "点击 Vite 和 React 图标了解更多信息",
+        countButton: "compte est",
+        editMessage: "Modifier",
+        hmrMessage: "et enregistrer pour tester HMR",
+        readTheDocs: "Cliquez sur les logos Vite et React pour en savoir plus",
       },
     }
   }
@@ -229,6 +377,73 @@ export default App;
 </Tabs>
 
 - **`IntlayerProvider`** 用于向嵌套组件提供语言环境。
+
+</Step>
+
+<Step number={6} title="更改内容的语言" isOptional={true}>
+
+要更改内容的语言，你可以使用 `useLocale` hook 提供的 `setLocale` 函数。此函数允许你设置应用程序的语言环境并相应地更新内容。
+
+```tsx fileName="src/components/LocaleSwitcher.tsx"
+import type { FC } from "react";
+import { Locales } from "intlayer";
+import { useLocale } from "react-intlayer";
+
+const LocaleSwitcher: FC = () => {
+  const { setLocale } = useLocale();
+
+  return (
+    <button onClick={() => setLocale(Locales.English)}>
+      Change Language to English
+    </button>
+  );
+};
+```
+
+> 要了解更多关于 `useLocale` hook 的信息，请参阅[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)。
+
+</Step>
+
+<Step number={7} title="填充缺失的翻译" isOptional={true}>
+
+Intlayer 提供了一个 CLI 工具来帮助你填充缺失的翻译。你可以使用 `intlayer` 命令来测试和填充代码中缺失的翻译。
+
+```bash packageManager="npm"
+npx intlayer test         # 测试是否有缺失的翻译
+```
+
+```bash packageManager="yarn"
+yarn intlayer test         # 测试是否有缺失的翻译
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer test         # 测试是否有缺失的翻译
+```
+
+```bash packageManager="bun"
+bun x intlayer test         # 测试是否有缺失的翻译
+```
+
+```bash packageManager="npm"
+npx intlayer fill         # 填充缺失的翻译
+```
+
+```bash packageManager="yarn"
+yarn intlayer fill         # 填充缺失的翻译
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer fill         # 填充缺失的翻译
+```
+
+```bash packageManager="bun"
+bun x intlayer fill         # 填充缺失的翻译
+```
+
+> 有关更多详细信息，请参阅 [CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/ci.md)
+> </Step>
+
+</Steps>
 
 ### （可选）站点地图与 robots.txt（构建时生成）
 

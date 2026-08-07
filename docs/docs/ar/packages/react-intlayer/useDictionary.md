@@ -24,6 +24,10 @@ history:
 author: aymericzip
 ---
 
+# توثيق Hook useDictionary
+
+يسمح hook `useDictionary` بمعالجة كائن يشبه القاموس (يحتوي على مفاتيح ومحتوى) والتعامل مع الترجمات والتعددات وما إلى ذلك بداخله. بخلاف `useIntlayer`، الذي تم تصميمه للعمل مع إعلانات القاموس المُنشأة، فإن `useDictionary` أكثر مرونة ويمكن استخدامه مع أي كائن يتبع هيكل القاموس.
+
 ## مثال على الاستخدام في React
 
 فيما يلي مثال على كيفية استخدام الخطاف `useDictionary` في مكون React:
@@ -40,27 +44,6 @@ const ComponentExample: FC = () => {
     <div>
       <h1>{title}</h1>
       <p>{content}</p>
-    </div>
-  );
-};
-```
-
-## التكامل مع الخادم
-
-إذا كنت تستخدم الخطاف `useDictionary` خارج `IntlayerProvider`، يجب توفير اللغة صراحة كمعامل عند عرض المكون:
-
-```tsx fileName="./ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { useDictionary } from "react-intlayer/server";
-import clientComponentExampleContent from "./component.content";
-
-const ServerComponentExample: FC<{ locale: string }> = ({ locale }) => {
-  const { content } = useDictionary(clientComponentExampleContent, locale);
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.content}</p>
     </div>
   );
 };

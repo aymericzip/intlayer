@@ -30,9 +30,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer ile Vite and Vue çevirin | Uluslararasılaştırma (i18n)
-
-GitHub'da [Uygulama Şablonu](https://github.com/aymericzip/intlayer-vite-vue-template)'na bakın.
+# Intlayer kullanarak Vite ve Vue web sitenizi çevirme | Uluslararasılaştırma (i18n)
 
 ## İçindekiler
 

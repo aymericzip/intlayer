@@ -30,9 +30,7 @@ history:
 author: aymericzip
 ---
 
-# Übersetzen Sie Ihre Vite and Vue mit Intlayer | Internationalisierung (i18n)
-
-Siehe [Application Template](https://github.com/aymericzip/intlayer-vite-vue-template) auf GitHub.
+# Übersetzen Sie Ihre Vite- und Vue-Website mit Intlayer | Internationalization (i18n)
 
 ## Inhaltsverzeichnis
 

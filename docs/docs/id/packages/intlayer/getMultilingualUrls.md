@@ -50,26 +50,12 @@ getMultilingualUrls(
 
 ## Parameter
 
-## Parameter
+### Parameter yang Diperlukan
 
 - `url: string`
-  - **Deskripsi**: String URL asli yang akan diberi prefix locale.
-  - **Tipe**: `string`
-
-- `locales: Locales[]`
-  - **Deskripsi**: Array opsional dari locale yang didukung. Defaultnya adalah locale yang dikonfigurasi dalam proyek.
-  - **Tipe**: `Locales[]`
-  - **Default**: `localesDefault`
-
-- `defaultLocale: Locales`
-  - **Deskripsi**: Locale default untuk aplikasi. Defaultnya adalah locale default yang dikonfigurasi dalam proyek.
-  - **Tipe**: `Locales`
-  - **Default**: `defaultLocaleDefault`
-
-- `prefixDefault: boolean`
-  - **Deskripsi**: Apakah akan menambahkan prefix pada locale default. Defaultnya adalah nilai yang dikonfigurasi dalam proyek.
-  - **Tipe**: `boolean`
-  - **Default**: `prefixDefaultDefault`
+  - **Description**: String URL asli yang akan diawali dengan locale.
+  - **Type**: `string`
+  - **Required**: Yes
 
 ### Parameter Opsional
 

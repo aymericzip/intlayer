@@ -50,26 +50,12 @@ getMultilingualUrls(
 
 ## Parámetros
 
-## Parámetros
+### Parámetros Requeridos
 
 - `url: string`
-  - **Descripción**: La cadena URL original a la que se le antepondrán los prefijos de localización.
-  - **Tipo**: `string`
-
-- `locales: Locales[]`
-  - **Descripción**: Arreglo opcional de locales soportados. Por defecto, usa los locales configurados en el proyecto.
-  - **Tipo**: `Locales[]`
-  - **Por defecto**: `localesDefault`
-
-- `defaultLocale: Locales`
-  - **Descripción**: El local predeterminado para la aplicación. Por defecto, usa el local predeterminado configurado en el proyecto.
-  - **Tipo**: `Locales`
-  - **Por defecto**: `defaultLocaleDefault`
-
-- `prefixDefault: boolean`
-  - **Descripción**: Indica si se debe anteponer el prefijo para el local predeterminado. Por defecto, usa el valor configurado en el proyecto.
-  - **Tipo**: `boolean`
-  - **Por defecto**: `prefixDefaultDefault`
+  - **Description**: La cadena URL original que se prefijará con locales.
+  - **Type**: `string`
+  - **Required**: Yes
 
 ### Parámetros Opcionales
 

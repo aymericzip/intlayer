@@ -17,6 +17,9 @@ slugs:
   - doc-review
 history:
   - version: 9.0.0
+    date: 2026-08-06
+    changes: "Replace --log by --mode and log a synthesis at the end of the run"
+  - version: 9.0.0
     date: 2026-06-17
     changes: "Add --log option"
 author: aymericzip
@@ -89,9 +92,17 @@ For most use cases,
 
 **Review mode options:**
 
-- **`--log`**: Log-only mode. Do not translate with AI; instead log the blocks that need attention (with line numbers and content) for the base and target locales, to help another agent generate the translations.
+- **`--mode [mode]`**: How the review runs. Defaults to `apply`.
 
-  > Example: `npx intlayer doc review --log`
+  - `apply`: translate the diverging blocks with AI and write the files.
+  - `report`: do not call any AI; log the blocks that need attention (with line numbers and content) for the base and target locales, to help another agent generate the translations.
+  - `synthesis`: do not call any AI and skip the per-block output; only log the final recap of the documents that are up to date and the ones that have blocks to edit.
+
+  > Example: `npx intlayer doc review --mode report`
+
+  > Example: `npx intlayer doc review --mode synthesis`
+
+Whatever the mode, the run ends with a synthesis listing the documents that are aligned with their base document and the ones that still have blocks to edit.
 
 **Entry output options:**
 

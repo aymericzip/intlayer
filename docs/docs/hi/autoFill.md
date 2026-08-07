@@ -75,11 +75,30 @@ v7 में, `fill` कमांड का व्यवहार अपडे�
 
 जब किसी दूसरी फ़ाइल में लिखने के लिए path विकल्प का उपयोग करते हैं, तो fill तंत्र सामग्री घोषणा फ़ाइलों के बीच एक _master-slave_ संबंध के माध्यम से काम करता है। मुख्य (master) फ़ाइल सत्य का स्रोत है, और जब इसे अपडेट किया जाता है, तो Intlayer स्वचालित रूप से उन परिवर्तनों को path द्वारा निर्दिष्ट व्युत्पन्न (भरी गई) घोषणा फ़ाइलों पर लागू करता है।
 
-# ऑटोफिल सामग्री घोषणा फ़ाइल अनुवाद
+### प्रति-लोकेल कस्टमाइज़ेशन
 
-**ऑटोफिल सामग्री घोषणा फ़ाइलें** आपके विकास कार्यप्रवाह को तेज़ करने का एक तरीका हैं।
+आप एक ऑब्जेक्ट का उपयोग करके प्रत्येक लोकेल के लिए व्यवहार को कस्टमाइज़ कर सकते हैं:
 
-ऑटोफिल तंत्र सामग्री घोषणा फ़ाइलों के बीच एक _मास्टर-स्लेव_ संबंध के माध्यम से काम करता है। जब मुख्य (मास्टर) फ़ाइल अपडेट होती है, तो Intlayer स्वचालित रूप से उन परिवर्तनों को व्युत्पन्न (ऑटोफिल की गई) घोषणा फ़ाइलों पर लागू कर देगा।
+```ts fileName="intlayer.config.ts"
+const config: IntlayerConfig = {
+  content: {
+    internationalization: {
+      locales: [Locales.ENGLISH, Locales.FRENCH, Locales.POLISH],
+      defaultLocale: Locales.ENGLISH,
+      requiredLocales: [Locales.ENGLISH], // अनुशंसित है Property 'pl' is missing in type '{ en: string; xxx } on your t function if से बचने के लिए
+    },
+  },
+  dictionary: {
+    fill: {
+      en: true, // अंग्रेजी के लिए वर्तमान फ़ाइल को भरें और संपादित करें
+      fr: "./translations/fr.json", // फ्रेंच के लिए अलग फ़ाइल बनाएं
+      es: false, // स्पैनिश के लिए fill को अक्षम करें
+    },
+  },
+};
+```
+
+यह आपको एक ही प्रोजेक्ट के भीतर विभिन्न लोकेल के लिए विभिन्न fill व्यवहार रखने की अनुमति देता है।
 
 ```ts fileName="src/components/example/example.content.ts"
 import { Locales, type Dictionary } from "intlayer";
@@ -87,18 +106,18 @@ import { Locales, type Dictionary } from "intlayer";
 const exampleContent = {
   key: "example",
   locale: Locales.ENGLISH,
-  autoFill: "./example.content.json",
+  fill: "./example.content.json",
   content: {
-    contentExample: "यह सामग्री का एक उदाहरण है", // सामग्री का उदाहरण
+    contentExample: "यह सामग्री का एक उदाहरण है",
   },
 } satisfies Dictionary;
 
 export default exampleContent;
 ```
 
-यहाँ `autoFill` निर्देश का उपयोग करते हुए एक [प्रति-स्थान सामग्री घोषणा फ़ाइल](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/per_locale_file.md) है।
+यहाँ `fill` instruction का उपयोग करने वाली एक [per-locale content declaration file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/per_locale_file.md) है।
 
-फिर, जब आप निम्नलिखित कमांड चलाते हैं:
+फिर, जब आप निम्नलिखित आदेश चलाते हैं:
 
 ```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
@@ -116,7 +135,7 @@ pnpm intlayer fill --file 'src/components/example/example.content.ts'
 bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
-Intlayer स्वचालित रूप से व्युत्पन्न घोषणा फ़ाइल `src/components/example/example.content.json` बनाएगा, जिसमें मुख्य फ़ाइल में पहले से घोषित नहीं किए गए सभी स्थानों को भरा जाएगा।
+Intlayer स्वचालित रूप से `src/components/example/example.content.json` पर derived declaration file जेनरेट करेगा, मुख्य फ़ाइल में पहले से घोषित नहीं किए गए सभी लोकेल को भरते हुए।
 
 ```json5 fileName="src/components/example/example.content.json"
 {
@@ -133,7 +152,7 @@ Intlayer स्वचालित रूप से व्युत्पन्�
 }
 ```
 
-इसके बाद, दोनों घोषणा फ़ाइलों को एकल शब्दकोश में मर्ज किया जाएगा, जिसे मानक `useIntlayer("example")` हुक (react) / कॉम्पोज़ेबल (vue) का उपयोग करके एक्सेस किया जा सकता है।
+इसके बाद, दोनों declaration files को एक एकल dictionary में मर्ज किया जाएगा, जिसे मानक `useIntlayer("example")` hook (react) / composable (vue) का उपयोग करके एक्सेस किया जा सकता है।
 
 ## Global Configuration
 

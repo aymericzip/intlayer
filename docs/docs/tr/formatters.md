@@ -46,34 +46,6 @@ author: aymericzip
 
 Intlayer, yerel `Intl` API'leri üzerine inşa edilmiş hafif yardımcılar kümesi sağlar, ayrıca ağır biçimlendiricileri tekrar tekrar oluşturmaktan kaçınmak için önbelleğe alınmış bir `Intl` sarmalayıcısı. Bu yardımcılar tamamen yerel ayar duyarlıdır ve ana `intlayer` paketinden kullanılabilir.
 
-### İçe Aktarma
-
-```ts
-import {
-  Intl,
-  number,
-  percentage,
-  currency,
-  date,
-  relativeTime,
-  units,
-  compact,
-  list,
-  getLocaleName,
-  getLocaleLang,
-  getLocaleFromPath,
-  getPathWithoutLocale,
-  getLocalizedUrl,
-  getHTMLTextDir,
-  getContent,
-  getTranslation,
-  getIntlayer,
-  getIntlayerAsync,
-} from "intlayer";
-```
-
-React kullanıyorsanız, kancalar da kullanılabilir; `react-intlayer/format` bölümüne bakın.
-
 ## Önbelleğe Alınmış Intl
 
 Dışa aktarılan `Intl`, global `Intl` etrafında ince, önbelleğe alınmış bir sarmalayıcıdır. `NumberFormat`, `DateTimeFormat`, `RelativeTimeFormat`, `ListFormat`, `DisplayNames`, `Collator` ve `PluralRules` örneklerini önbelleğe alır, bu da aynı biçimlendiriciyi tekrar tekrar yeniden oluşturmaktan kaçınır.
@@ -110,85 +82,7 @@ pluralRules.select(1); // "one"
 pluralRules.select(2); // "other"
 ```
 
-## Ek Intl Yardımcıları
-
-Biçimlendirici yardımcılarının ötesinde, önbelleğe alınmış Intl sarmalayıcısını doğrudan diğer Intl özellikleri için de kullanabilirsiniz:
-
-### `Intl.DisplayNames`
-
-Diller, bölgeler, para birimleri ve yazılar için yerelleştirilmiş adlar için:
-
-```ts
-import { Intl } from "intlayer";
-
-const languageNames = new Intl.DisplayNames("en", { type: "language" });
-languageNames.of("fr"); // "French"
-
-const regionNames = new Intl.DisplayNames("fr", { type: "region" });
-regionNames.of("US"); // "États-Unis"
-```
-
-### `Intl.Collator`
-
-Yerel ayar duyarlı dize karşılaştırması ve sıralama için:
-
-```ts
-import { Intl } from "intlayer";
-
-const collator = new Intl.Collator("de", {
-  sensitivity: "base",
-  numeric: true,
-});
-
-const words = ["äpfel", "zebra", "100", "20"];
-words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
-```
-
-### `Intl.PluralRules`
-
-Farklı yerel ayarlarda çoğul formları belirlemek için:
-
-```ts
-import { Intl } from "intlayer";
-
-const pluralRules = new Intl.PluralRules("ar");
-pluralRules.select(0); // "zero"
-pluralRules.select(1); // "one"
-pluralRules.select(2); // "two"
-pluralRules.select(3); // "few"
-pluralRules.select(11); // "many"
-```
-
 ## Yerel Ayar Yardımcıları
-
-### `getLocaleName(displayLocale, targetLocale?)`
-
-Bir yerel ayar adını başka bir yerel ayarda alır:
-
-```ts
-import { getLocaleName } from "intlayer";
-
-getLocaleName("fr", "en"); // "French"
-getLocaleName("en", "fr"); // "anglais"
-getLocaleName("de", "es"); // "alemán"
-```
-
-- **displayLocale**: Adı alınacak yerel ayar
-- **targetLocale**: Adın görüntüleneceği yerel ayar (varsayılan olarak displayLocale)
-
-### `getLocaleLang(locale?)`
-
-Bir yerel ayar dizesinden dil kodunu çıkarır:
-
-```ts
-import { getLocaleLang } from "intlayer";
-
-getLocaleLang("en-US"); // "en"
-getLocaleLang("fr-CA"); // "fr"
-getLocaleLang("de"); // "de"
-```
-
-- **locale**: Dili çıkarılacak yerel ayar (varsayılan olarak mevcut yerel ayar)
 
 ### `getLocaleFromPath(inputUrl)`
 
@@ -330,23 +224,6 @@ const content = await getIntlayerAsync("common", "fr");
 
 Aşağıdaki tüm yardımcılar `intlayer`'dan dışa aktarılır.
 
-### `number(value, options?)`
-
-Yerel ayar duyarlı gruplandırma ve ondalıklar kullanarak sayısal bir değeri biçimlendirir.
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-
-Örnekler:
-
-```ts
-import { number } from "intlayer";
-
-number(123456.789); // "123,456.789" (en-US'de)
-number("1000000", { locale: "fr" }); // "1 000 000"
-number(1234.5, { minimumFractionDigits: 2 }); // "1,234.50"
-```
-
 ### `percentage(value, options?)`
 
 Bir sayıyı yüzde dizesi olarak biçimlendirir.
@@ -366,97 +243,187 @@ percentage(25); // "25%"
 percentage(0.237, { minimumFractionDigits: 1 }); // "23.7%"
 ```
 
-### `currency(value, options?)`
+### Ek Intl Özellikleri
 
-Bir değeri yerelleştirilmiş para birimi olarak biçimlendirir. Varsayılan olarak `USD` ile iki kesirli basamak.
+#### `number(value, options?)`
+
+Sayısal bir değeri yerel ayara duyarlı gruplama ve ondalık sayılarla biçimlendirir.
 
 - **value**: `number | string`
 - **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-  - Yaygın alanlar: `currency` (ör. `"EUR"`), `currencyDisplay` (`"symbol" | "code" | "name"`)
-
-Örnekler:
 
 ```ts
-import { currency } from "intlayer";
+number(123456.789); // "123,456.789" (en-US'de)
+number("1000000", { locale: "fr" }); // "1 000 000"
+number(1234.5, { minimumFractionDigits: 2 }); // "1,234.50"
+```
 
+#### `percentage(value, options?)`
+
+Bir sayıyı yüzde dizesi olarak biçimlendirir. 1'den büyük değerler normalize edilir (örneğin, `25` → `25%`, `0.25` → `25%`).
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+
+```ts
+percentage(0.25); // "25%"
+percentage(25); // "25%"
+percentage(0.237, { minimumFractionDigits: 1 }); // "23.7%"
+```
+
+#### `currency(value, options?)`
+
+Bir değeri yerelleştirilmiş para biriminde biçimlendirir. Varsayılan olarak `USD` kullanılır.
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+  - Ortak: `currency`, `currencyDisplay` (`"symbol" | "code" | "name"`)
+
+```ts
 currency(1234.5, { currency: "EUR" }); // "€1,234.50"
 currency("5000", { locale: "fr", currency: "CAD", currencyDisplay: "code" }); // "5 000,00 CAD"
 ```
 
-### `date(date, optionsOrPreset?)`
+#### `date(date, optionsOrPreset?)`
 
-`Intl.DateTimeFormat` ile tarih/saat değerini biçimlendirir.
+Bir tarih/saat değerini biçimlendirir.
 
 - **date**: `Date | string | number`
-- **optionsOrPreset**: `Intl.DateTimeFormatOptions & { locale?: LocalesValues }` veya ön ayarların biri:
-  - Ön ayarlar: `"short" | "long" | "dateOnly" | "timeOnly" | "full"`
-
-Örnekler:
+- **optionsOrPreset**: `Intl.DateTimeFormatOptions & { locale?: LocalesValues }` veya preset: `"short" | "long" | "dateOnly" | "timeOnly" | "full"`
 
 ```ts
-import { date } from "intlayer";
-
-date(new Date(), "short"); // ör. "08/02/25, 14:30"
+date(new Date(), "short"); // örn., "08/02/25, 14:30"
 date("2025-08-02T14:30:00Z", { locale: "fr", month: "long", day: "numeric" }); // "2 août"
+```
+
+#### `relativeTime(from, to?, options?)`
+
+İki zaman noktası arasındaki göreceli zamanı biçimlendirir.
+
+- **from**: `Date | string | number`
+- **to**: `Date | string | number` (varsayılan olarak `new Date()`)
+- **options**: `{ locale?, unit?, numeric?, style? }`
+
+```ts
+const now = new Date();
+const in3Days = new Date(now.getTime() + 3 * 864e5);
+relativeTime(now, in3Days, { unit: "day" }); // "3 gün içinde"
+
+const twoHoursAgo = new Date(now.getTime() - 2 * 3600e3);
+relativeTime(now, twoHoursAgo, { unit: "hour", numeric: "auto" }); // "2 saat önce"
+```
+
+#### `units(value, options?)`
+
+Bir sayısal değeri bir birimle biçimlendirir.
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+  - Yaygın: `unit` (örn. `"kilometer"`, `"byte"`), `unitDisplay` (`"short" | "narrow" | "long"`)
+
+```ts
+units(5, { unit: "kilometer", unitDisplay: "long", locale: "en-GB" }); // "5 kilometers"
+units(1024, { unit: "byte", unitDisplay: "narrow" }); // "1,024B"
+```
+
+#### `compact(value, options?)`
+
+Bir sayıyı compact gösterimini kullanarak biçimlendirir.
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+
+```ts
+compact(1200); // "1.2K"
+compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
+```
+
+#### `list(values, options?)`
+
+Bir diziyi yerelleştirilmiş bir liste dizesine biçimlendirir.
+
+- **values**: `(string | number)[]`
+- **options**: `Intl.ListFormatOptions & { locale?: LocalesValues }`
+  - Yaygın: `type` (`"conjunction" | "disjunction" | "unit"`), `style` (`"long" | "short" | "narrow"`)
+
+```ts
+list(["apple", "banana", "orange"]); // "apple, banana, and orange"
+list(["red", "green", "blue"], { locale: "fr", type: "disjunction" }); // "rouge, vert ou bleu"
+```
+
+## Cached Intl
+
+`intlayer`'dan dışa aktarılan `Intl`, global `Intl` etrafında bir cache wrapper'ıdır. Formatter örneklerini (`NumberFormat`, `DateTimeFormat`, vb.) memoize eder, bunları tekrar tekrar oluşturmaktan kaçınır ve performansı artırır.
+
+```ts
+import { Intl } from "intlayer";
+
+// Sayı biçimlendirme
+const numberFormat = new Intl.NumberFormat("en-GB", {
+  style: "currency",
+  currency: "GBP",
+});
+numberFormat.format(1234.5); // "£1,234.50"
+
+// Diller, bölgeler vb. için görünen adlar
+const displayNames = new Intl.DisplayNames("fr", { type: "language" });
+displayNames.of("en"); // "anglais"
+
+// Sıralama için harflerin sıralanması
+const collator = new Intl.Collator("fr", { sensitivity: "base" });
+collator.compare("é", "e"); // 0 (eşit)
+
+// Çoğul kuralları
+const pluralRules = new Intl.PluralRules("fr");
+pluralRules.select(1); // "one"
+pluralRules.select(2); // "other"
 ```
 
 ### Ek Intl Özellikleri
 
-### `relativeTime(from, to = new Date(), options?)`
+#### `Intl.DisplayNames`
 
-`Intl.RelativeTimeFormat` ile iki an arasında göreceli zamanı biçimlendirir.
-
-- Doğal ifadeler için ilk argüman olarak "now" geçin ve ikinci olarak hedefi.
-- **from**: `Date | string | number`
-- **to**: `Date | string | number` (varsayılan olarak `new Date()`)
-- **options**: `{ locale?: LocalesValues; unit?: Intl.RelativeTimeFormatUnit; numeric?: Intl.RelativeTimeFormatNumeric; style?: Intl.RelativeTimeFormatStyle }`
-  - Varsayılan `unit` `"second"`.
-
-Örnekler:
+Diller, bölgeler, para birimleri ve yazı sistemlerinin yerelleştirilmiş adları için:
 
 ```ts
-import { relativeTime } from "intlayer";
+import { Intl } from "intlayer";
 
-const now = new Date();
-const in3Days = new Date(now.getTime() + 3 * 864e5);
-relativeTime(now, in3Days, { unit: "day" }); // "in 3 days"
+const languageNames = new Intl.DisplayNames("en", { type: "language" });
+languageNames.of("fr"); // "French"
 
-const twoHoursAgo = new Date(now.getTime() - 2 * 3600e3);
-relativeTime(now, twoHoursAgo, { unit: "hour", numeric: "auto" }); // "2 hours ago"
+const regionNames = new Intl.DisplayNames("fr", { type: "region" });
+regionNames.of("US"); // "États-Unis"
 ```
 
-### `units(value, options?)`
+#### `Intl.Collator`
 
-`Intl.NumberFormat` ile `style: 'unit'` kullanarak sayısal bir değeri yerelleştirilmiş birim dizesi olarak biçimlendirir.
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-  - Yaygın alanlar: `unit` (ör. `"kilometer"`, `"byte"`), `unitDisplay` (`"short" | "narrow" | "long"`)
-  - Varsayılanlar: `unit: 'day'`, `unitDisplay: 'short'`, `useGrouping: false`
-
-Örnekler:
+Locale'a duyarlı string karşılaştırması ve sıralaması için:
 
 ```ts
-import { units } from "intlayer";
+import { Intl } from "intlayer";
 
-units(5, { unit: "kilometer", unitDisplay: "long", locale: "en-GB" }); // "5 kilometers"
-units(1024, { unit: "byte", unitDisplay: "narrow" }); // "1,024B" (yerel ayara bağlı)
+const collator = new Intl.Collator("de", {
+  sensitivity: "base",
+  numeric: true,
+});
+
+const words = ["äpfel", "zebra", "100", "20"];
+words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
 ```
 
-### `compact(value, options?)`
+#### `Intl.PluralRules`
 
-Kompakt gösterim kullanarak bir sayıyı biçimlendirir (ör. `1.2K`, `1M`).
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }` (arka planda `notation: 'compact'` kullanır)
-
-Örnekler:
+Farklı yerel ayarlarda çoğul formlarını belirlemek için:
 
 ```ts
-import { compact } from "intlayer";
+import { Intl } from "intlayer";
 
-compact(1200); // "1.2K"
-compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
+const pluralRules = new Intl.PluralRules("ar");
+pluralRules.select(0); // "zero"
+pluralRules.select(1); // "one"
+pluralRules.select(2); // "two"
+pluralRules.select(3); // "few"
+pluralRules.select(11); // "many"
 ```
 
 ## Locale Utilities
@@ -491,40 +458,27 @@ getLocaleLang("en-US"); // "en"
 getLocaleLang("fr-CA"); // "fr"
 ```
 
-## Notlar
+### `getLocaleFromPath(inputUrl)`
 
-- Tüm yardımcılar `string` girdilerini kabul eder; dahili olarak sayılara veya tarihlere dönüştürülürler.
-- Yerel ayar sağlanmazsa yapılandırılmış `internationalization.defaultLocale`'a varsayılan olarak ayarlanır.
-- Bu yardımcılar ince sarmalayıcılardır; gelişmiş biçimlendirme için standart `Intl` seçeneklerini geçirin.
-
-## Giriş Noktaları ve Yeniden Dışa Aktarmalar (`@index.ts`)
-
-Biçimlendiriciler çekirdek pakette yaşar ve çalışma zamanları arasında içe aktarmaları ergonomik tutmak için daha yüksek seviyeli paketlerden yeniden dışa aktarılır:
-
-Örnekler:
+Bir URL veya pathname'den locale segmentini çıkarır:
 
 ```ts
-// Uygulama kodu (önerilen)
-import {
-  number,
-  currency,
-  date,
-  relativeTime,
-  units,
-  compact,
-  list,
-  Intl,
-  getLocaleName,
-  getLocaleLang,
-  getLocaleFromPath,
-  getPathWithoutLocale,
-  getLocalizedUrl,
-  getHTMLTextDir,
-  getContent,
-  getTranslation,
-  getIntlayer,
-  getIntlayerAsync,
-} from "intlayer";
+import { getLocaleFromPath } from "intlayer";
+
+getLocaleFromPath("/en/dashboard"); // "en"
+getLocaleFromPath("/fr/dashboard"); // "fr"
+getLocaleFromPath("/dashboard"); // "en" (varsayılan locale)
+```
+
+### `getPathWithoutLocale(inputUrl, locales?)`
+
+URL'den yerel ayar segmentini kaldırır:
+
+```ts
+import { getPathWithoutLocale } from "intlayer";
+
+getPathWithoutLocale("/en/dashboard"); // "/dashboard"
+getPathWithoutLocale("/fr/dashboard"); // "/dashboard"
 ```
 
 ### React

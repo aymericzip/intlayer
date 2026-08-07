@@ -64,6 +64,32 @@ Chromium (używany do generowania zrzutów ekranu przez Puppeteer) jest dołącz
 
 ## Szybki start
 
+Pobierz i uruchom opublikowany obraz, podając swoje poświadczenia i sekrety MongoDB Atlas:
+
+```sh
+docker run -d --name intlayer \
+  -p 3000:3000 \
+  -p 3100:3100 \
+  -p 9000:9000 \
+  -p 9001:9001 \
+  -v intlayer-data:/data \
+  -e DB_ID="<atlas-user>" \
+  -e DB_MDP="<atlas-password>" \
+  -e DB_CLUSTER="<cluster>.xxxxx.mongodb.net" \
+  -e BETTER_AUTH_SECRET="$(openssl rand -hex 32)" \
+  -e S3_SECRET_ACCESS_KEY="$(openssl rand -hex 16)" \
+  -e RESEND_API_KEY="<your-resend-key>" \
+  aymericzip/intlayer-selfhost
+```
+
+Następnie otwórz **http://localhost:3000**.
+
+> Dashboard jest obsługiwany na `localhost`. Zapoznaj się z [Ograniczeniami](#limitations) — domeny niestandardowe nie są obsługiwane przez opublikowany obraz.
+
+---
+
+## Szybki start
+
 ```sh
 curl -fsSL https://intlayer.org/install.sh | sh
 ```
@@ -99,7 +125,16 @@ Wewnętrzne porty (mongo, redis) nie są domyślnie udostępniane na hoście.
 
 ## Zmienne środowiskowe
 
-Instalator generuje gotowy do użycia plik `.env`. Poniższa tabela opisuje każdą zmienną.
+### Wymagane
+
+| Variable               | Example                      | Description                                                                                                                                                                   |
+| ---------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `DB_ID`                | `intlayer`                   | Użytkownik MongoDB Atlas                                                                                                                                                      |
+| `DB_MDP`               | _(your password)_            | Hasło MongoDB Atlas                                                                                                                                                           |
+| `DB_CLUSTER`           | `cluster0.xxxxx.mongodb.net` | Host klastra MongoDB Atlas (używany w URI `mongodb+srv://`)                                                                                                                   |
+| `BETTER_AUTH_SECRET`   | _(generated)_                | 32-bajtowy secret do podpisywania sesji                                                                                                                                       |
+| `S3_SECRET_ACCESS_KEY` | _(generated)_                | Secret dla wbudowanego MinIO                                                                                                                                                  |
+| `RESEND_API_KEY`       | _(your key)_                 | Transakcyjne e-maile via Resend. Wymagane dla konfiguracji przy pierwszym uruchomieniu, chyba że skonfigurujesz globalny mailer SMTP (zobacz [Global mailer](#global-mailer)) |
 
 ### Wymagane (generowane automatycznie lub monitowane)
 
@@ -138,6 +173,26 @@ Instalator generuje gotowy do użycia plik `.env`. Poniższa tabela opisuje każ
 | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Logowanie Microsoft OAuth                                                                       |
 | `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`           | Logowanie LinkedIn OAuth                                                                        |
 | `ATLASSIAN_CLIENT_ID`, `ATLASSIAN_CLIENT_SECRET`         | Logowanie Atlassian OAuth                                                                       |
+
+---
+
+### Globalny dostawca poczty
+
+Domyślnie wszystkie transakcyjne wiadomości e-mail są wysyłane za pośrednictwem Resend przy użyciu `RESEND_API_KEY`. Wdrożenia self-hosted mogą zamiast tego kierować **każdy** e-mail — w tym e-maile niezwiązane z organizacją, takie jak resetowanie hasła i linki magiczne — za pośrednictwem globalnego dostawcy poczty skonfigurowanego zmiennymi środowiskowymi.
+
+Ustaw `MAIL_PROVIDER`, aby go aktywować. Jeśli nie jest ustawiony, używany jest domyślny dostawca Resend.
+
+| Zmienna              | Przykład                       | Opis                                                                              |
+| -------------------- | ------------------------------ | --------------------------------------------------------------------------------- |
+| `MAIL_PROVIDER`      | `smtp`                         | Transport globalny: `smtp` lub `resend`. Pozostaw puste, aby użyć domyślnych      |
+| `MAIL_FROM`          | `Intlayer <no-reply@acme.com>` | Nagłówek nadawcy. Akceptuje zwykły adres lub format `Nazwa <email>`               |
+| `MAIL_SMTP_HOST`     | `smtp.acme.com`                | Host SMTP (wymagany, gdy `MAIL_PROVIDER=smtp`)                                    |
+| `MAIL_SMTP_PORT`     | `587`                          | Port SMTP (domyślnie `587`)                                                       |
+| `MAIL_SMTP_SECURE`   | `false`                        | Niejawny TLS. Ustaw `true` dla portu `465`                                        |
+| `MAIL_SMTP_USER`     | _(twoja nazwa użytkownika)_    | Nazwa użytkownika SMTP (opcjonalnie; pomiń dla nieuwierzytelnionych przekaźników) |
+| `MAIL_SMTP_PASSWORD` | _(twoje hasło)_                | Hasło SMTP                                                                        |
+
+> Priorytet: własny dostawca poczty organizacji (skonfigurowany z pulpitu **Organizacji**) ma priorytet nad globalnym dostawcą poczty, który z kolei ma priorytet nad domyślnym kluczem Resend.
 
 ---
 
@@ -259,47 +314,11 @@ docker run --rm \
 
 ---
 
-## Używanie reverse proxy (Nginx / Caddy)
+## Ograniczenia
 
-W przypadku wdrożeń produkcyjnych, umieść reverse proxy przed kontenerami aplikacji i backendu, zamiast udostępniać je bezpośrednio.
-
-### Przykład Nginx
-
-```nginx
-server {
-    listen 80;
-    server_name cms.example.com;
-
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-
-server {
-    listen 80;
-    server_name api.example.com;
-
-    location / {
-        proxy_pass http://localhost:3100;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-```
-
-Zaktualizuj poniższe zmienne `.env`, aby odpowiadały Twoim publicznym domenom:
-
-```sh
-BACKEND_URL=https://api.example.com
-APP_URL=https://cms.example.com
-DOMAIN=example.com
-VITE_BACKEND_URL=https://api.example.com
-VITE_DOMAIN=example.com
-```
-
-> Zmienne `VITE_*` są wbudowywane w obraz pulpitu nawigacyjnego podczas kompilacji. Jeśli zmienisz je po zbudowaniu obrazu, musisz ponownie zbudować obraz `app` (`docker compose build app`) lub użyć wstrzykiwania konfiguracji w czasie uruchomienia.
+- **MongoDB musi być zewnętrzna (Atlas).** Backend łączy się tylko przez `mongodb+srv://` (zbudowany z `DB_ID` / `DB_MDP` / `DB_CLUSTER`), więc zwykły `mongodb://host:27017` — w tym wbudowany `mongod` kontenera — nie może być używany. Zapewnij klaster MongoDB Atlas.
+- **Brak niestandardowej domeny.** Wszystkie adresy URL `VITE_*` dostępne w przeglądarce są wbudowywane w aplikację w czasie kompilacji, a opublikowany obraz zawiera wartości `localhost`. Dostęp do dashboardu musi być realizowany pod adresem `http://localhost:3000`; udostępnienie go w domenie publicznej wymagałoby przebudowania obrazu z docelowymi adresami URL wbakowanymi w kod i nie jest obsługiwane out of the box.
+- **Email wymaga działającego mailera.** Konfiguracja przy pierwszym uruchomieniu wymusza weryfikację email, więc musi być skonfigurowany `RESEND_API_KEY` lub [globalny mailer SMTP](#global-mailer) (`MAIL_PROVIDER=smtp` + `MAIL_SMTP_*`). Po zalogowaniu się pierwszego administratora każda organizacja może również skonfigurować swój własny mailer SMTP lub Resend z dashboardu.
 
 ---
 
@@ -322,14 +341,6 @@ Sprawdź, czy `VITE_BACKEND_URL` odpowiada adresowi URL, pod którym backend jes
 ```sh
 docker compose build app
 docker compose up -d app
-```
-
-### E-mail nie jest wysyłany
-
-Domyślnie wszystkie wychodzące wiadomości e-mail są przechwytywane przez Mailpit. Otwórz `http://localhost:8025`, aby zobaczyć wysłane wiadomości. Aby wysyłać prawdziwe wiadomości e-mail, ustaw `MAIL_PROVIDER=resend` i `RESEND_API_KEY=<your-key>` w `.env`, a następnie zrestartuj backend:
-
-```sh
-docker compose restart backend
 ```
 
 ### Brak zasobnika MinIO

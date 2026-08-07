@@ -49,26 +49,12 @@ Die Funktion `getMultilingualUrls` erzeugt eine Zuordnung mehrsprachiger URLs, i
 
 ## Parameter
 
-## Parameter
+### Erforderliche Parameter
 
 - `url: string`
-  - **Beschreibung**: Der ursprüngliche URL-String, der mit Gebietsschemata vorangestellt werden soll.
-  - **Typ**: `string`
-
-- `locales: Locales[]`
-  - **Beschreibung**: Optionale Liste der unterstützten Gebietsschemata. Standardmäßig die im Projekt konfigurierten Gebietsschemata.
-  - **Typ**: `Locales[]`
-  - **Standard**: `localesDefault`
-
-- `defaultLocale: Locales`
-  - **Beschreibung**: Das Standardgebietsschema für die Anwendung. Standardmäßig das im Projekt konfigurierte Standardgebietsschema.
-  - **Typ**: `Locales`
-  - **Standard**: `defaultLocaleDefault`
-
-- `prefixDefault: boolean`
-  - **Beschreibung**: Ob das Standard-Gebietsschema vorangestellt werden soll. Standardmäßig der im Projekt konfigurierte Wert.
-  - **Typ**: `boolean`
-  - **Standard**: `prefixDefaultDefault`
+  - **Description**: Die ursprüngliche URL-Zeichenkette, der Locales vorangestellt werden sollen.
+  - **Type**: `string`
+  - **Required**: Ja
 
 ### Optionale Parameter
 

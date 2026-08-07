@@ -52,34 +52,6 @@ author: aymericzip
 
 Intlayerは、ネイティブの`Intl` APIの上に構築された軽量なヘルパー群と、重いフォーマッターを繰り返し構築することを避けるためのキャッシュされた`Intl`ラッパーを提供します。これらのユーティリティは完全にロケール対応しており、メインの`intlayer`パッケージから利用可能です。
 
-### インポート
-
-```ts
-import {
-  Intl,
-  number,
-  percentage,
-  currency,
-  date,
-  relativeTime,
-  units,
-  compact,
-  list,
-  getLocaleName,
-  getLocaleLang,
-  getLocaleFromPath,
-  getPathWithoutLocale,
-  getLocalizedUrl,
-  getHTMLTextDir,
-  getContent,
-  getTranslation,
-  getIntlayer,
-  getIntlayerAsync,
-} from "intlayer";
-```
-
-Reactを使用している場合は、フックも利用可能です。詳細は`react-intlayer/format`を参照してください。
-
 ## キャッシュされたIntl
 
 エクスポートされる`Intl`は、グローバルな`Intl`の薄いキャッシュラッパーです。`NumberFormat`、`DateTimeFormat`、`RelativeTimeFormat`、`ListFormat`、`DisplayNames`、`Collator`、および`PluralRules`のインスタンスをメモ化し、同じフォーマッターを繰り返し再構築するのを防ぎます。
@@ -116,71 +88,7 @@ pluralRules.select(1); // "one"
 pluralRules.select(2); // "other"
 ```
 
-## 追加のIntlユーティリティ
-
-フォーマッターヘルパーに加えて、キャッシュされたIntlラッパーを直接使用して他のIntl機能も利用できます。
-
-### `Intl.DisplayNames`
-
-言語、地域、通貨、スクリプトのローカライズされた名前の取得：
-
-```ts
-import { Intl } from "intlayer";
-
-const languageNames = new Intl.DisplayNames("en", { type: "language" });
-languageNames.of("fr"); // "French"
-
-const regionNames = new Intl.DisplayNames("fr", { type: "region" });
-regionNames.of("US"); // "États-Unis"
-```
-
-### `Intl.Collator`
-
-ロケールに対応した文字列の比較とソートのために：
-
-```ts
-import { Intl } from "intlayer";
-
-const collator = new Intl.Collator("de", {
-  sensitivity: "base",
-  numeric: true,
-});
-
-const words = ["äpfel", "zebra", "100", "20"];
-words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
-```
-
-### `Intl.PluralRules`
-
-異なるロケールでの複数形の判定のために：
-
-```ts
-import { Intl } from "intlayer";
-
-const pluralRules = new Intl.PluralRules("ar");
-pluralRules.select(0); // "zero"
-pluralRules.select(1); // "one"
-pluralRules.select(2); // "two"
-pluralRules.select(3); // "few"
-pluralRules.select(11); // "many"
-```
-
 ## ロケールユーティリティ
-
-### `getLocaleName(displayLocale, targetLocale?)`
-
-あるロケールの名前を別のロケールで取得します：
-
-```ts
-import { getLocaleName } from "intlayer";
-
-getLocaleName("fr", "en"); // "French"
-getLocaleName("en", "fr"); // "anglais"
-getLocaleName("de", "es"); // "alemán"
-```
-
-- **displayLocale**: 名前を取得する対象のロケール
-- **targetLocale**: 名前を表示するロケール（省略時は displayLocale と同じ）
 
 ### `getLocaleLang(locale?)`
 
@@ -211,22 +119,6 @@ getLocaleFromPath("https://example.com/es/about"); // "es"
 
 - **inputUrl**: 処理する完全なURL文字列またはパス名
 - **returns**: 検出されたロケール、またはロケールが見つからない場合はデフォルトのロケール
-
-### `getPathWithoutLocale(inputUrl, locales?)`
-
-URLまたはパス名からロケールセグメントを削除します：
-
-```ts
-import { getPathWithoutLocale } from "intlayer";
-
-getPathWithoutLocale("/en/dashboard"); // "/dashboard"
-getPathWithoutLocale("/fr/dashboard"); // "/dashboard"
-getPathWithoutLocale("https://example.com/en/about"); // "https://example.com/about"
-```
-
-- **inputUrl**: 処理する完全なURL文字列またはパス名
-- **locales**: サポートされているロケールのオプション配列（デフォルトは設定されたロケール）
-- **returns**: ロケール部分を除いたURL
 
 ### `getLocalizedUrl(url, currentLocale, locales?, defaultLocale?, prefixDefault?)`
 
@@ -336,23 +228,6 @@ const content = await getIntlayerAsync("common", "fr");
 
 以下のすべてのヘルパーは `intlayer` からエクスポートされています。
 
-### `number(value, options?)`
-
-数値をロケールに応じた区切りと小数点でフォーマットします。
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-
-例:
-
-```ts
-import { number } from "intlayer";
-
-number(123456.789); // "123,456.789"（en-USの場合）
-number("1000000", { locale: "fr" }); // "1 000 000"
-number(1234.5, { minimumFractionDigits: 2 }); // "1,234.50"
-```
-
 ### `percentage(value, options?)`
 
 数値をパーセンテージ文字列としてフォーマットします。
@@ -372,21 +247,112 @@ percentage(25); // "25%"
 percentage(0.237, { minimumFractionDigits: 1 }); // "23.7%"
 ```
 
-### `currency(value, options?)`
+### フォーマッター関数
 
-値をローカライズされた通貨形式でフォーマットします。デフォルトは小数点以下2桁の `USD` です。
+#### `number(value, options?)`
+
+ロケール対応のグループ化と小数点を使用して数値をフォーマットします。
 
 - **value**: `number | string`
 - **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-  - 共通フィールド: `currency`（例: `"EUR"`）、`currencyDisplay`（`"symbol" | "code" | "name"`）
-
-例:
 
 ```ts
-import { currency } from "intlayer";
+number(123456.789); // "123,456.789" (in en-US)
+number("1000000", { locale: "fr" }); // "1 000 000"
+number(1234.5, { minimumFractionDigits: 2 }); // "1,234.50"
+```
 
+#### `percentage(value, options?)`
+
+数値をパーセンテージ文字列としてフォーマットします。1より大きい値は正規化されます（例：`25` → `25%`、`0.25` → `25%`）。
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+
+```ts
+percentage(0.25); // "25%"
+percentage(25); // "25%"
+percentage(0.237, { minimumFractionDigits: 1 }); // "23.7%"
+```
+
+#### `currency(value, options?)`
+
+値をローカライズされた通貨としてフォーマットします。デフォルトは `USD` です。
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+  - 一般的: `currency`, `currencyDisplay` (`"symbol" | "code" | "name"`)
+
+```ts
 currency(1234.5, { currency: "EUR" }); // "€1,234.50"
 currency("5000", { locale: "fr", currency: "CAD", currencyDisplay: "code" }); // "5 000,00 CAD"
+```
+
+#### `date(date, optionsOrPreset?)`
+
+日時の値をフォーマットします。
+
+- **date**: `Date | string | number`
+- **optionsOrPreset**: `Intl.DateTimeFormatOptions & { locale?: LocalesValues }` またはプリセット: `"short" | "long" | "dateOnly" | "timeOnly" | "full"`
+
+```ts
+date(new Date(), "short"); // 例: "08/02/25, 14:30"
+date("2025-08-02T14:30:00Z", { locale: "fr", month: "long", day: "numeric" }); // "2 août"
+```
+
+#### `relativeTime(from, to?, options?)`
+
+2つの時刻間の相対時間をフォーマットします。
+
+- **from**: `Date | string | number`
+- **to**: `Date | string | number` (デフォルトは `new Date()`)
+- **options**: `{ locale?, unit?, numeric?, style? }`
+
+```ts
+const now = new Date();
+const in3Days = new Date(now.getTime() + 3 * 864e5);
+relativeTime(now, in3Days, { unit: "day" }); // "3日後"
+
+const twoHoursAgo = new Date(now.getTime() - 2 * 3600e3);
+relativeTime(now, twoHoursAgo, { unit: "hour", numeric: "auto" }); // "2時間前"
+```
+
+#### `units(value, options?)`
+
+数値を単位付きでフォーマットします。
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+  - 一般的: `unit` (例: `"kilometer"`, `"byte"`), `unitDisplay` (`"short" | "narrow" | "long"`)
+
+```ts
+units(5, { unit: "kilometer", unitDisplay: "long", locale: "en-GB" }); // "5 kilometers"
+units(1024, { unit: "byte", unitDisplay: "narrow" }); // "1,024B"
+```
+
+#### `compact(value, options?)`
+
+コンパクト記法を使用して数値をフォーマットします。
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+
+```ts
+compact(1200); // "1.2K"
+compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
+```
+
+#### `list(values, options?)`
+
+配列をローカライズされたリスト文字列にフォーマットします。
+
+- **values**: `(string | number)[]`
+- **options**: `Intl.ListFormatOptions & { locale?: LocalesValues }`
+  - 共通: `type` (`"conjunction" | "disjunction" | "unit"`), `style` (`"long" | "short" | "narrow"`)
+
+```ts
+list(["apple", "banana", "orange"]); // "apple, banana, and orange"
+list(["red", "green", "blue"], { locale: "fr", type: "disjunction" }); // "rouge, vert ou bleu"
 ```
 
 ## キャッシュされた Intl
@@ -419,44 +385,34 @@ pluralRules.select(2); // "other"
 
 ### 追加の Intl 機能
 
-### `date(date, optionsOrPreset?)`
+#### `Intl.DisplayNames`
 
-`Intl.DateTimeFormat` を使って日付/時刻の値をフォーマットします。
-
-- **date**: `Date | string | number`
-- **optionsOrPreset**: `Intl.DateTimeFormatOptions & { locale?: LocalesValues }` または以下のプリセットのいずれか:
-  - プリセット: `"short" | "long" | "dateOnly" | "timeOnly" | "full"`
-
-例:
+言語、地域、通貨、スクリプトのローカライズされた名前の場合:
 
 ```ts
-import { date } from "intlayer";
+import { Intl } from "intlayer";
 
-date(new Date(), "short"); // 例: "08/02/25, 14:30"
-date("2025-08-02T14:30:00Z", { locale: "fr", month: "long", day: "numeric" }); // "2 août"
+const languageNames = new Intl.DisplayNames("en", { type: "language" });
+languageNames.of("fr"); // "French"
+
+const regionNames = new Intl.DisplayNames("fr", { type: "region" });
+regionNames.of("US"); // "États-Unis"
 ```
 
-### `relativeTime(from, to = new Date(), options?)`
+#### `Intl.Collator`
 
-`Intl.RelativeTimeFormat` を使って、2つの時点間の相対時間をフォーマットします。
-
-- 最初の引数に "now" を渡し、2番目に対象の日時を渡すと自然な表現が得られます。
-- **from**: `Date | string | number`
-- **to**: `Date | string | number` （デフォルトは `new Date()`）
-- **options**: `{ locale?: LocalesValues; unit?: Intl.RelativeTimeFormatUnit; numeric?: Intl.RelativeTimeFormatNumeric; style?: Intl.RelativeTimeFormatStyle }`
-  - デフォルトの `unit` は `"second"` です。
-
-例:
+ロケール対応の文字列比較とソート:
 
 ```ts
-import { relativeTime } from "intlayer";
+import { Intl } from "intlayer";
 
-const now = new Date();
-const in3Days = new Date(now.getTime() + 3 * 864e5);
-relativeTime(now, in3Days, { unit: "day" }); // "3日後"
+const collator = new Intl.Collator("de", {
+  sensitivity: "base",
+  numeric: true,
+});
 
-const twoHoursAgo = new Date(now.getTime() - 2 * 3600e3);
-relativeTime(now, twoHoursAgo, { unit: "hour", numeric: "auto" }); // "2時間前"
+const words = ["äpfel", "zebra", "100", "20"];
+words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
 ```
 
 #### `Intl.PluralRules`
@@ -551,43 +507,19 @@ list(["red", "green", "blue"], { locale: "fr", type: "disjunction" }); // "rouge
 list([1, 2, 3], { type: "unit" }); // "1, 2, 3"
 ```
 
-## 注意事項
+### `getHTMLTextDir(locale?)`
 
-- すべてのヘルパーは `string` 入力を受け入れます。内部的に数値や日付に変換されます。
-- ロケールは指定されない場合、設定された `internationalization.defaultLocale` がデフォルトになります。
-- これらのユーティリティは薄いラッパーです。高度なフォーマットが必要な場合は、標準の `Intl` オプションを直接渡してください。
-
-## コンテンツ処理ユーティリティ
-
-## エントリーポイントと再エクスポート（`@index.ts`）
-
-フォーマッターはコアパッケージに存在し、ランタイム間でのインポートを使いやすくするために上位パッケージから再エクスポートされています。
-
-例:
+ロケールのテキスト方向を返します:
 
 ```ts
-// アプリコード（推奨）
-import {
-  number,
-  currency,
-  date,
-  relativeTime,
-  units,
-  compact,
-  list,
-  Intl,
-  getLocaleName,
-  getLocaleLang,
-  getLocaleFromPath,
-  getPathWithoutLocale,
-  getLocalizedUrl,
-  getHTMLTextDir,
-  getContent,
-  getTranslation,
-  getIntlayer,
-  getIntlayerAsync,
-} from "intlayer";
+import { getHTMLTextDir } from "intlayer";
+
+getHTMLTextDir("en-US"); // "ltr"
+getHTMLTextDir("ar"); // "rtl"
+getHTMLTextDir("he"); // "rtl"
 ```
+
+## コンテンツ処理ユーティリティ
 
 ### React
 
@@ -668,6 +600,20 @@ import {
 ```
 
 > これらのフックは `IntlayerProvider` または `IntlayerServerProvider` からロケールを考慮します
+
+### `getTranslation(languageContent, locale?, fallback?)`
+
+特定のロケールのコンテンツを抽出します：
+
+```ts
+import { getTranslation } from "intlayer";
+
+const content = getTranslation(
+  { en: "Hello", fr: "Bonjour", de: "Hallo" },
+  "fr",
+  true
+); // "Bonjour"
+```
 
 ### Vue
 

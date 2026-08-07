@@ -64,6 +64,32 @@ Chromium（用于 Puppeteer 屏幕截图生成）捆绑在后端镜像中——�
 
 ## 快速开始
 
+Pull 并运行已发布的镜像，提供您的 MongoDB Atlas 凭证和密钥：
+
+```sh
+docker run -d --name intlayer \
+  -p 3000:3000 \
+  -p 3100:3100 \
+  -p 9000:9000 \
+  -p 9001:9001 \
+  -v intlayer-data:/data \
+  -e DB_ID="<atlas-user>" \
+  -e DB_MDP="<atlas-password>" \
+  -e DB_CLUSTER="<cluster>.xxxxx.mongodb.net" \
+  -e BETTER_AUTH_SECRET="$(openssl rand -hex 32)" \
+  -e S3_SECRET_ACCESS_KEY="$(openssl rand -hex 16)" \
+  -e RESEND_API_KEY="<your-resend-key>" \
+  aymericzip/intlayer-selfhost
+```
+
+然后打开 **http://localhost:3000**。
+
+> dashboard 在 `localhost` 上提供。请参阅 [限制](#limitations) — 已发布的镜像不支持自定义域名。
+
+---
+
+## 快速开始
+
 ```sh
 curl -fsSL https://intlayer.org/install.sh | sh
 ```
@@ -99,7 +125,16 @@ curl -fsSL https://intlayer.org/install.sh | sh
 
 ## 环境变量
 
-安装程序会生成一个即用型 `.env` 文件。下表描述了每个变量。
+### 必需
+
+| Variable               | Example                      | Description                                                                                                          |
+| ---------------------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `DB_ID`                | `intlayer`                   | MongoDB Atlas 用户                                                                                                   |
+| `DB_MDP`               | _(your password)_            | MongoDB Atlas 密码                                                                                                   |
+| `DB_CLUSTER`           | `cluster0.xxxxx.mongodb.net` | MongoDB Atlas 集群主机（在 `mongodb+srv://` URI 中使用）                                                             |
+| `BETTER_AUTH_SECRET`   | _(generated)_                | 用于会话签名的 32 字节密钥                                                                                           |
+| `S3_SECRET_ACCESS_KEY` | _(generated)_                | 捆绑 MinIO 的密钥                                                                                                    |
+| `RESEND_API_KEY`       | _(your key)_                 | 通过 Resend 发送事务性邮件。除非你配置全局 SMTP 邮件器（见[全局邮件器](#global-mailer)），否则首次运行设置时为必需项 |
 
 ### 必需（自动生成或提示）
 
@@ -138,6 +173,26 @@ curl -fsSL https://intlayer.org/install.sh | sh
 | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Microsoft OAuth 登录                                   |
 | `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`           | LinkedIn OAuth 登录                                    |
 | `ATLASSIAN_CLIENT_ID`, `ATLASSIAN_CLIENT_SECRET`         | Atlassian OAuth 登录                                   |
+
+---
+
+### 全局邮件服务
+
+默认情况下，所有事务性电子邮件都通过使用 `RESEND_API_KEY` 的 Resend 发送。自托管部署可以改为通过配置了环境变量的全局邮件服务路由**所有**电子邮件 — 包括非组织电子邮件，例如密码重置和魔法链接。
+
+设置 `MAIL_PROVIDER` 以激活它。如果未设置，将使用默认的 Resend 邮件服务。
+
+| 变量                 | 示例                           | 描述                                         |
+| -------------------- | ------------------------------ | -------------------------------------------- |
+| `MAIL_PROVIDER`      | `smtp`                         | 全局传输：`smtp` 或 `resend`。留空使用默认值 |
+| `MAIL_FROM`          | `Intlayer <no-reply@acme.com>` | 发件人标题。接受裸地址或 `Name <email>` 格式 |
+| `MAIL_SMTP_HOST`     | `smtp.acme.com`                | SMTP 主机（当 `MAIL_PROVIDER=smtp` 时必需）  |
+| `MAIL_SMTP_PORT`     | `587`                          | SMTP 端口（默认为 `587`）                    |
+| `MAIL_SMTP_SECURE`   | `false`                        | 隐式 TLS。对于端口 `465` 设置为 `true`       |
+| `MAIL_SMTP_USER`     | _（你的用户名）_               | SMTP 用户名（可选；无身份验证中继可省略）    |
+| `MAIL_SMTP_PASSWORD` | _（你的密码）_                 | SMTP 密码                                    |
+
+> 优先级：组织自己的邮件服务（从**组织**仪表板配置）优先于全局邮件服务，全局邮件服务优先于默认的 Resend 密钥。
 
 ---
 
@@ -259,47 +314,11 @@ docker run --rm \
 
 ---
 
-## 使用反向代理 (Nginx / Caddy)
+## 限制条件
 
-对于生产部署，请在应用和后端容器前放置一个反向代理，而不是直接暴露它们。
-
-### Nginx 示例
-
-```nginx
-server {
-    listen 80;
-    server_name cms.example.com;
-
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-
-server {
-    listen 80;
-    server_name api.example.com;
-
-    location / {
-        proxy_pass http://localhost:3100;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-```
-
-更新以下 `.env` 变量以匹配您的公共域名：
-
-```sh
-BACKEND_URL=https://api.example.com
-APP_URL=https://cms.example.com
-DOMAIN=example.com
-VITE_BACKEND_URL=https://api.example.com
-VITE_DOMAIN=example.com
-```
-
-> `VITE_*` 变量在构建时被嵌入到仪表盘镜像中。如果在镜像构建后更改它们，您需要重建 `app` 镜像 (`docker compose build app`) 或使用运行时配置注入。
+- **MongoDB 必须是外部的 (Atlas)。** 后端仅通过 `mongodb+srv://` 连接（由 `DB_ID` / `DB_MDP` / `DB_CLUSTER` 构建），因此不能使用普通的 `mongodb://host:27017` — 包括容器自己的捆绑 `mongod`。请提供一个 MongoDB Atlas 集群。
+- **不支持自定义域名。** 所有面向浏览器的 `VITE_*` URL 都在构建时内联到应用中，发布的镜像带有 `localhost` 值。必须在 `http://localhost:3000` 上访问仪表板；在公共域上提供服务需要使用目标 URL 重新构建镜像，这在开箱即用时不受支持。
+- **Email 需要工作的邮件程序。** 首次运行设置强制执行电子邮件验证，因此必须配置 `RESEND_API_KEY` 或 [全局 SMTP 邮件程序](#global-mailer)（`MAIL_PROVIDER=smtp` + `MAIL_SMTP_*`）。第一个管理员登录后，每个组织也可以从仪表板配置自己的 SMTP 或 Resend 邮件程序。
 
 ---
 
@@ -313,15 +332,6 @@ MongoDB 和 Redis 必须在后端启动前保持健康。compose 文件使用带
 docker compose ps
 docker compose logs mongo
 docker compose logs redis
-```
-
-### 仪表盘无法连接到 API
-
-验证 `VITE_BACKEND_URL` 是否与后端可以从**浏览器**（而非 Docker 网络）访问的 URL 匹配。如果您更改了后端端口或添加了反向代理，请重建仪表盘镜像：
-
-```sh
-docker compose build app
-docker compose up -d app
 ```
 
 ### 电子邮件未发送

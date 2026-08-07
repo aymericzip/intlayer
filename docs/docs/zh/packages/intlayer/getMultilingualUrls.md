@@ -50,26 +50,12 @@ getMultilingualUrls(
 
 ## 参数
 
-## 参数
+### 必需参数
 
 - `url: string`
-  - **描述**：需要添加语言环境前缀的原始 URL 字符串。
-  - **类型**：`string`
-
-- `locales: Locales[]`
-  - **描述**：可选的支持语言环境数组。默认为项目中配置的语言环境。
-  - **类型**：`Locales[]`
-  - **默认值**：`localesDefault`
-
-- `defaultLocale: Locales`
-  - **描述**：应用的默认语言环境。默认为项目中配置的默认语言环境。
-  - **类型**：`Locales`
-  - **默认值**：`defaultLocaleDefault`
-
-- `prefixDefault: boolean`
-  - **描述**：是否为默认语言环境添加前缀。默认为项目中配置的值。
-  - **类型**：`boolean`
-  - **默认值**：`prefixDefaultDefault`
+  - **描述**: 原始 URL 字符串，用于添加区域前缀。
+  - **类型**: `string`
+  - **必需**: 是
 
 ### 可选参数
 

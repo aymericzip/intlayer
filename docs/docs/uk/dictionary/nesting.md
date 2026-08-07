@@ -68,6 +68,53 @@ export default firstDictionary;
 }
 ```
 
+### Посилання з Nest
+
+Тепер створіть ще один модуль контенту, який використовує функцію `nest` для посилання на вищезазначений контент. Ви можете посилатися на весь контент або на конкретне вкладене значення:
+
+```typescript fileName="secondDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { nest, type Dictionary } from "intlayer";
+
+const myNestingContent = {
+  key: "key_of_my_second_dictionary",
+  content: {
+    // Посилається на весь словник:
+    fullNestedContent: nest("key_of_my_first_dictionary"),
+    // Посилається на конкретне вкладене значення:
+    partialNestedContent: nest(
+      "key_of_my_first_dictionary",
+      "subContent.contentNumber"
+    ),
+  },
+} satisfies Dictionary;
+
+export default myNestingContent;
+```
+
+```json fileName="secondDictionary.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "key_of_my_second_dictionary",
+  "content": {
+    "fullNestedContent": {
+      "nodeType": "nested",
+      "nested": {
+        "dictionaryKey": "key_of_my_first_dictionary"
+      }
+    },
+    "partialNestedContent": {
+      "nodeType": "nested",
+      "nested": {
+        "dictionaryKey": "key_of_my_first_dictionary",
+        "path": "subContent.contentNumber"
+      }
+    }
+  }
+}
+```
+
+Як другий параметр, ви можете вказати шлях до вкладеного значення в цьому контенті. Якщо шлях не вказаний, повертається весь контент посилаючого словника.
+
 ## Налаштування вкладення
 
 <Tabs group="framework">
@@ -261,36 +308,6 @@ document.getElementById("nested")!.textContent = content.partialNestedContent;
 
   </Tab>
 </Tabs>
-
-## Використання вкладення з React Intlayer
-
-Щоб використовувати вкладений вміст у React-компоненті, скористайтеся хуком `useIntlayer` з пакету `react-intlayer`. Цей хук отримує відповідний вміст на основі вказаного ключа. Ось приклад того, як його використовувати:
-
-```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { useIntlayer } from "react-intlayer";
-
-const NestComponent: FC = () => {
-  const { fullNestedContent, partialNestedContent } = useIntlayer(
-    "key_of_my_second_dictionary"
-  );
-
-  return (
-    <div>
-      <p>
-        Full Nested Content: {JSON.stringify(fullNestedContent)}
-        {/* Вивід: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
-      </p>
-      <p>
-        Часткове вкладене значення: {partialNestedContent}
-        {/* Вивід: 0 */}
-      </p>
-    </div>
-  );
-};
-
-export default NestComponent;
-```
 
 ## Додаткові ресурси
 

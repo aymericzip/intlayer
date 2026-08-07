@@ -30,9 +30,7 @@ history:
 author: aymericzip
 ---
 
-# Переведите ваш Vite and Vue с Intlayer | Интернационализация (i18n)
-
-Смотрите [Шаблон приложения](https://github.com/aymericzip/intlayer-vite-vue-template) на GitHub.
+# Переведите ваш сайт Vite и Vue с помощью Intlayer | Интернационализация (i18n)
 
 ## Оглавление
 

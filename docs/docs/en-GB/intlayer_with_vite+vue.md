@@ -30,9 +30,7 @@ history:
 author: aymericzip
 ---
 
-# Getting Started Internationalising (i18n) with Intlayer and Vite and Vue
-
-See [Application Template](https://github.com/aymericzip/intlayer-vite-vue-template) on GitHub.
+# Translate your Vite and Vue website using Intlayer | Internationalisation (i18n)
 
 ## Table of Contents
 

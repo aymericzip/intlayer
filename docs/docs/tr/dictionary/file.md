@@ -25,6 +25,8 @@ author: aymericzip
 
 # Dosya İçeriği / Intlayer'da Dosyaları Gömme
 
+Intlayer'da, `file` işlevi dış dosya içeriğini bir sözlüğe gömmeyi sağlar. Bu yaklaşım, Intlayer'ın kaynak dosyayı tanımasını sağlayarak Intlayer Visual Editor ve CMS ile kusursuz bir entegrasyon sağlar.
+
 ## Dosya Gömme Nasıl Çalışır
 
 Intlayer'da `file` fonksiyonu, harici dosya içeriğini bir sözlüğe gömmeyi sağlar. Bu yaklaşım, Intlayer'ın kaynak dosyayı tanımasını sağlar ve Intlayer Görsel Düzenleyici ve CMS ile sorunsuz entegrasyonu sağlar. Doğrudan `import`, `require` veya `fs` dosya okuma yöntemlerinden farklı olarak, `file` kullanmak dosyayı sözlükle ilişkilendirir ve Intlayer'ın dosya düzenlendiğinde içeriği dinamik olarak takip etmesine ve güncellemesine izin verir.

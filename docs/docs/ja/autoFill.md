@@ -75,11 +75,30 @@ v7 では、`fill` コマンドの動作が更新されました：
 
 別のファイルに書き込むためのパスオプションを使用する場合、埋め込みメカニズムはコンテンツ宣言ファイル間の _マスター・スレーブ_ 関係を通じて機能します。メインファイル（マスター）が情報源として機能し、更新されると、Intlayer はパスで指定されたスレーブの宣言ファイルに変更を自動的に適用します。
 
-# 自動入力コンテンツ宣言ファイルの翻訳
+### ロケールごとのカスタマイズ
 
-**自動入力コンテンツ宣言ファイル**は、開発ワークフローを高速化する方法です。
+オブジェクトを使用して、各ロケールの動作をカスタマイズすることもできます：
 
-自動入力メカニズムは、コンテンツ宣言ファイル間の _マスター・スレーブ_ 関係を通じて機能します。メイン（マスター）ファイルが更新されると、Intlayerはその変更を派生（自動入力された）宣言ファイルに自動的に適用します。
+```ts fileName="intlayer.config.ts"
+const config: IntlayerConfig = {
+  content: {
+    internationalization: {
+      locales: [Locales.ENGLISH, Locales.FRENCH, Locales.POLISH],
+      defaultLocale: Locales.ENGLISH,
+      requiredLocales: [Locales.ENGLISH], // Property 'pl' is missing in type '{ en: string; xxx } on your t function if を回避することをお勧めします
+    },
+  },
+  dictionary: {
+    fill: {
+      en: true, // 英語の現在のファイルを埋める・編集する
+      fr: "./translations/fr.json", // フランス語用に別ファイルを作成
+      es: false, // スペイン語の埋めを無効にする
+    },
+  },
+};
+```
+
+これにより、同じプロジェクト内の異なるロケールに対して異なるfill動作を設定できます。
 
 ```ts fileName="src/components/example/example.content.ts"
 import { Locales, type Dictionary } from "intlayer";
@@ -87,18 +106,18 @@ import { Locales, type Dictionary } from "intlayer";
 const exampleContent = {
   key: "example",
   locale: Locales.ENGLISH,
-  autoFill: "./example.content.json",
+  fill: "./example.content.json",
   content: {
-    contentExample: "これはコンテンツの例です", // コンテンツの例
+    contentExample: "This is an example of content",
   },
 } satisfies Dictionary;
 
 export default exampleContent;
 ```
 
-こちらは `autoFill` 指示を使用した[ロケール別コンテンツ宣言ファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)です。
+ここに `fill` 命令を使用した[ロケール単位のコンテンツ宣言ファイル](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/per_locale_file.md)があります。
 
-次に、以下のコマンドを実行すると：
+次に、以下のコマンドを実行します：
 
 ```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
@@ -116,7 +135,7 @@ pnpm intlayer fill --file 'src/components/example/example.content.ts'
 bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
-Intlayer は、メインファイルにまだ宣言されていないすべてのロケールを埋めて、派生した宣言ファイルを `src/components/example/example.content.json` に自動生成します。
+Intlayerは `src/components/example/example.content.json` に派生宣言ファイルを自動生成し、メインファイルでまだ宣言されていないすべてのロケールを埋めます。
 
 ```json5 fileName="src/components/example/example.content.json"
 {
@@ -133,7 +152,7 @@ Intlayer は、メインファイルにまだ宣言されていないすべて�
 }
 ```
 
-その後、両方の宣言ファイルは単一の辞書にマージされ、標準の `useIntlayer("example")` フック（React）/ コンポーザブル（Vue）を使ってアクセス可能になります。
+その後、両方の宣言ファイルが単一の辞書にマージされ、標準の `useIntlayer("example")` hook（react）/composable（vue）を使用してアクセスできます。
 
 ## グローバル設定
 

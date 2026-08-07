@@ -68,6 +68,53 @@ export default firstDictionary;
 }
 ```
 
+### Odwołania się z Nest
+
+Teraz utwórz inny moduł zawartości, który używa funkcji `nest` do odwołania się do powyższej zawartości. Możesz odwołać się do całej zawartości lub do określonej wartości zagnieżdżonej:
+
+```typescript fileName="secondDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { nest, type Dictionary } from "intlayer";
+
+const myNestingContent = {
+  key: "key_of_my_second_dictionary",
+  content: {
+    // Odwołanie do całego słownika:
+    fullNestedContent: nest("key_of_my_first_dictionary"),
+    // Odwołanie do określonej wartości zagnieżdżonej:
+    partialNestedContent: nest(
+      "key_of_my_first_dictionary",
+      "subContent.contentNumber"
+    ),
+  },
+} satisfies Dictionary;
+
+export default myNestingContent;
+```
+
+```json fileName="secondDictionary.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "key_of_my_second_dictionary",
+  "content": {
+    "fullNestedContent": {
+      "nodeType": "nested",
+      "nested": {
+        "dictionaryKey": "key_of_my_first_dictionary"
+      }
+    },
+    "partialNestedContent": {
+      "nodeType": "nested",
+      "nested": {
+        "dictionaryKey": "key_of_my_first_dictionary",
+        "path": "subContent.contentNumber"
+      }
+    }
+  }
+}
+```
+
+Jako drugi parametr możesz określić ścieżkę do wartości zagnieżdżonej w ramach tej zawartości. Jeśli nie zostanie podana żadna ścieżka, zwracana jest cała zawartość odwoływanego słownika.
+
 ## Konfiguracja zagnieżdżania
 
 <Tabs group="framework">
@@ -261,36 +308,6 @@ document.getElementById("nested")!.textContent = content.partialNestedContent;
 
   </Tab>
 </Tabs>
-
-## Używanie zagnieżdżenia z React Intlayer
-
-Aby użyć zagnieżdżonej zawartości w komponencie React, skorzystaj z hooka `useIntlayer` z pakietu `react-intlayer`. Ten hook pobiera odpowiednią zawartość na podstawie podanego klucza. Oto przykład, jak go użyć:
-
-```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { useIntlayer } from "react-intlayer";
-
-const NestComponent: FC = () => {
-  const { fullNestedContent, partialNestedContent } = useIntlayer(
-    "key_of_my_second_dictionary"
-  );
-
-  return (
-    <div>
-      <p>
-        Full Nested Content: {JSON.stringify(fullNestedContent)}
-        {/* Wynik: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
-      </p>
-      <p>
-        Częściowa wartość zagnieżdżona: {partialNestedContent}
-        {/* Wynik: 0 */}
-      </p>
-    </div>
-  );
-};
-
-export default NestComponent;
-```
 
 ## Dodatkowe zasoby
 

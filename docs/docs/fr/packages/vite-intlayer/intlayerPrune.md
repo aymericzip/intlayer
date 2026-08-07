@@ -30,16 +30,89 @@ Le plugin Vite `intlayerPrune` permet d'effectuer du tree-shaking et de supprime
 
 ## Utilisation
 
+### Dans le cadre de `intlayer()` (recommandé)
+
+Activez le pruning via votre configuration Intlayer et le plugin principal gère tout :
+
 ```ts
-// vite.config.ts
-import { defineConfig } from "vite";
-import { intlayer, intlayerPrune } from "vite-intlayer";
+// intlayer.config.ts
+import { defineConfig } from "intlayer";
 
 export default defineConfig({
-  plugins: [intlayer(), intlayerPrune()],
+  build: {
+    optimize: true, // active à la fois le pruning et la minification
+  },
 });
 ```
 
-## Description
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
 
-Le plugin analyse votre code source pour identifier quelles clés de dictionnaire sont réellement utilisées. Il supprime ensuite tout contenu inutilisé des fichiers de dictionnaire inclus dans le bundle. Cela est particulièrement utile pour les grands projets comportant de nombreux dictionnaires où seul un sous-ensemble est utilisé dans des pages ou composants spécifiques.
+export default defineConfig({
+  plugins: [intlayer()],
+});
+```
+
+### Standalone
+
+Si vous composez manuellement la pile de plugins, `intlayerPrune` et `intlayerMinify` partagent un objet `PruneContext` qui doit être créé une seule fois et passé aux deux :
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import { intlayerPrune, intlayerMinify } from "vite-intlayer";
+import { createPruneContext } from "@intlayer/babel";
+import { getConfiguration } from "@intlayer/config/node";
+
+const intlayerConfig = getConfiguration();
+const pruneContext = createPruneContext();
+
+export default defineConfig({
+  plugins: [
+    intlayerPrune(intlayerConfig, pruneContext),
+    intlayerMinify(intlayerConfig, pruneContext), // optionnel, lit depuis le même contexte
+  ],
+});
+```
+
+## Comment ça marche
+
+### 1. Analyse d'utilisation (buildStart)
+
+Durante `buildStart`, le plugin `intlayerOptimize` (également partie de `intlayer()`) analyse chaque fichier source de composant listé dans `build.filesList`. Pour chaque appel `useIntlayer('key')` ou `getIntlayer('key')`, il enregistre exactement quels champs sont accédés, par exemple :
+
+```ts
+const { title, description } = useIntlayer("myDict");
+// enregistre : myDict → { title, description }
+```
+
+Cela construit `pruneContext.fieldUsageMap` avant que les appels `transform` ne s'exécutent.
+
+### 2. Élagage JSON (transform, enforce: 'pre')
+
+Lorsque Vite traite un fichier JSON de dictionnaire compilé, `intlayerPrune` l'intercepte avant la conversion JSON → ESM intégrée de Vite. Il lit la carte d'utilisation des champs à partir de `pruneContext` et supprime tout champ de contenu qui ne figure pas dans l'ensemble d'utilisation enregistré.
+
+Deux formes de contenu sont supportées :
+
+- **Dictionnaires statiques** — `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Les champs sont élagués par locale à l'intérieur de `translation`.
+- **Dictionnaires dynamiques (par locale)** — flat `{ fieldA: ..., fieldB: ... }`. Les champs sont élagués au niveau supérieur.
+
+### 3. Cas limites
+
+Si la structure de contenu d'un dictionnaire ne peut pas être reconnue (par exemple, une forme imbriquée inhabituelle), il est ajouté à `pruneContext.dictionariesWithEdgeCases` et **laissé inchangé**. Un avertissement est enregistré. `intlayerMinify` ignore également ces dictionnaires.
+
+### 4. Field-rename map
+
+Lorsque l'élagage réussit, `intlayerPrune` écrit également `pruneContext.dictionaryKeyToFieldRenameMap` — un mapping entre les noms de champs originaux et leurs alias courts. `intlayerMinify` lit cette carte pour renommer les champs dans le JSON de sortie, et la passe de renommage Babel d'`intlayerOptimize` met à jour les accès aux propriétés dans les fichiers sources en conséquence.
+
+## Conditions d'activation
+
+`intlayerPrune` est actif **uniquement** quand toutes les conditions suivantes sont vraies :
+
+1. La commande Vite est `build`.
+2. `build.optimize` est `true` (ou `undefined`, qui est `true` par défaut pour les builds).
+3. `build.purge` est `true` dans votre configuration Intlayer.
+
+Il est automatiquement **désactivé** quand `editor.enabled` est `true` car l'éditeur a besoin du contenu complet du dictionnaire.

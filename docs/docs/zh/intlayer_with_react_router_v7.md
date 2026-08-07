@@ -81,9 +81,13 @@ Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的
 
 ---
 
-### 第一步：安装依赖
+## 在 React Router v7 应用中设置 Intlayer 的分步指南
 
-使用您喜欢的包管理器安装必要的包：
+<Steps>
+
+<Step number={1} title="安装依赖">
+
+使用您首选的包管理器安装必要的包：
 
 ```bash packageManager="npm"
 npx intlayer init --interactive
@@ -101,9 +105,9 @@ yarn dlx intlayer@canary init --interactive
 bunx intlayer@canary init --interactive
 ```
 
-> `--interactive` 标志是可选的。如果您是 AI 代理，请使用 `intlayer-cli init`。
+> `--interactive` 标志是可选的。如果您是 AI agent，请使用 `intlayer-cli init`。
 
-> 该命令将检测您的环境并安装所需的软件包。例如：
+> 此命令将检测您的环境并安装所需的包。例如：
 
 ```bash packageManager="npm"
 npm install intlayer react-intlayer
@@ -127,13 +131,21 @@ bun add vite-intlayer --dev
 
 - **intlayer**
 
-  提供国际化工具的核心包，用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、转译以及[命令行工具](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。
+  核心包，提供国际化工具，用于配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、转译和 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)。
 
 - **react-intlayer**
-  将 Intlayer 集成到 React 应用中的包。它提供了 React 国际化的上下文提供者和钩子。
+  将 Intlayer 与 React 应用集成的包。它为 React 国际化提供了上下文提供者和钩子。
 
 - **vite-intlayer**
-  包含用于将 Intlayer 集成到 [Vite 打包工具](https://vite.dev/guide/why.html#why-bundle-for-production) 的 Vite 插件，以及用于检测用户首选语言、管理 Cookie 和处理 URL 重定向的中间件。
+  包括用于将 Intlayer 与 [Vite bundler](https://vite.dev/guide/why.html#why-bundle-for-production) 集成的 Vite 插件，以及用于检测用户首选区域设置、管理 cookie 和处理 URL 重定向的中间件。
+
+</Step>
+
+<Step number={2} title="配置您的项目">
+
+</Step>
+
+</Steps>
 
 ## 在 React Router v7 应用程序中使用基于文件系统的路由设置 Intlayer 的分步指南
 
@@ -236,9 +248,123 @@ export function Layout({
 }
 ```
 
-### 第10步：添加HTML属性管理（可选）
+#### 本地化主页
 
-创建一个钩子来管理HTML的 lang 和 dir 属性：
+```tsx fileName="app/routes/page.tsx"
+import { getIntlayer, validatePrefix } from "intlayer";
+import { useIntlayer } from "react-intlayer";
+import { data } from "react-router";
+
+import { LocaleSwitcher } from "~/components/locale-switcher";
+
+import { Navbar } from "~/components/navbar";
+import type { Route } from "./+types/page";
+
+export const loader = ({ params }: Route.LoaderArgs) => {
+  const { locale } = params;
+
+  const { isValid } = validatePrefix(locale);
+
+  if (!isValid) {
+    throw data("Locale not supported", { status: 404 });
+  }
+};
+
+export const meta: Route.MetaFunction = ({ params }) => {
+  const content = getIntlayer("page", params.locale);
+
+  return [
+    { title: content.title },
+    { content: content.description, name: "description" },
+  ];
+};
+
+export default function Page() {
+  const { title, description, aboutLink } = useIntlayer("page");
+
+  return (
+    <div>
+      <h1>{title}</h1>
+      <p>{description}</p>
+      <nav>
+        <LocalizedLink to="/about">{aboutLink}</LocalizedLink>
+      </nav>
+    </div>
+  );
+}
+```
+
+> 了解更多关于 `useIntlayer` hook 的信息，请参考[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useIntlayer.md)。
+
+> 如果你的应用已经存在，你可以使用 [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md)以及[提取命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md)，在一秒内转换数千个组件。
+
+</Step>
+
+<Step number={9} title="创建语言切换器组件">
+
+创建一个组件以允许用户更改语言：
+
+```tsx fileName="app/components/locale-switcher.tsx"
+import type { FC } from "react";
+
+import {
+  getHTMLTextDir,
+  getLocaleName,
+  getLocalizedUrl,
+  getPathWithoutLocale,
+} from "intlayer";
+import { setLocaleInStorage, useIntlayer, useLocale } from "react-intlayer";
+import { Link, useLocation } from "react-router";
+
+export const LocaleSwitcher: FC = () => {
+  const { localeSwitcherLabel } = useIntlayer("locale-switcher");
+  const { pathname } = useLocation();
+
+  const { availableLocales, locale } = useLocale();
+
+  const pathWithoutLocale = getPathWithoutLocale(pathname);
+
+  return (
+    <ol>
+      {availableLocales.map((localeItem) => (
+        <li key={localeItem}>
+          <Link
+            aria-current={localeItem === locale ? "page" : undefined}
+            aria-label={`${localeSwitcherLabel.value} ${getLocaleName(localeItem)}`}
+            onClick={() => setLocale(localeItem)}
+            to={getLocalizedUrl(pathWithoutLocale, localeItem)}
+          >
+            <span>
+              {/* 语言环境代码 - 例如 FR */}
+              {localeItem}
+            </span>
+            <span>
+              {/* 用其自身语言环境表示的语言 - 例如 Français */}
+              {getLocaleName(localeItem, locale)}
+            </span>
+            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
+              {/* 用当前语言环境表示的语言 - 例如当前语言环境设置为 Locales.SPANISH 时的 Francés */}
+              {getLocaleName(localeItem)}
+            </span>
+            <span dir="ltr" lang={Locales.ENGLISH}>
+              {/* 用英文表示的语言 - 例如 French */}
+              {getLocaleName(localeItem, Locales.ENGLISH)}
+            </span>
+          </Link>
+        </li>
+      ))}
+    </ol>
+  );
+};
+```
+
+> 了解更多关于 `useLocale` hook 的信息，请参考[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)。
+
+</Step>
+
+<Step number={10} title="添加 HTML 属性管理">
+
+创建一个 hook 来管理 HTML lang 和 dir 属性：
 
 ```tsx fileName="app/hooks/useI18nHTMLAttributes.tsx"
 import { getHTMLTextDir } from "intlayer";
@@ -261,10 +387,10 @@ export const useI18nHTMLAttributes = () => {
 import { Outlet } from "react-router";
 import { IntlayerProvider } from "react-intlayer";
 
-import { useI18nHTMLAttributes } from "app/hooks/useI18nHTMLAttributes"; // 导入该钩子
+import { useI18nHTMLAttributes } from "app/hooks/useI18nHTMLAttributes"; // 导入 hook
 
 export default function RootLayout() {
-  useI18nHTMLAttributes(); // 调用该钩子
+  useI18nHTMLAttributes(); // 调用 hook
 
   return (
     <IntlayerProvider>
@@ -274,24 +400,52 @@ export default function RootLayout() {
 }
 ```
 
-<Steps>
+</Step>
 
-<Step number={1} title="提取组件内容" isOptional={true}>
+<Step number={11} title="添加中间件">
 
-如果您有现有的代码库，转换数千个文件可能会非常耗时。
+你也可以使用 `intlayerProxy` 来为你的应用添加服务器端路由。这个插件将自动根据 URL 检测当前语言环境并设置适当的语言 cookie。如果未指定语言环境，该插件将根据用户的浏览器语言偏好确定最合适的语言环境。如果未检测到语言环境，它将重定向到默认语言环境。
 
-为了简化此过程，Intlayer 提出了 [编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) / [提取器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 来转换您的组件并提取内容。
+> 注意，要在生产环境中使用 `intlayerProxy`，你需要将 `vite-intlayer` 包从 `devDependencies` 切换到 `dependencies`。
 
-要进行设置，您可以在 `intlayer.config.ts` 文件中添加 `compiler` 部分：
+> 自 Intlayer v9 起，`intlayerProxy()` 直接捆绑在 `intlayer()` 插件中，并通过 `routing.enableProxy` 选项（默认为 `true`）默认启用。如下所示单独注册它现在是可选的 — 它保留用于向后兼容性和需要控制插件顺序的设置。设置 `routing.enableProxy: false` 以选择退出。查看 [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
+
+```typescript {3,7} fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
+import { intlayer } from "vite-intlayer";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    react(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
+});
+```
+
+</Step>
+
+<Step number={12} title="提取组件的内容" isOptional={true}>
+
+如果你有一个现有的代码库，转换数千个文件可能很耗时。
+
+为了简化这个过程，Intlayer 提供了一个[编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) / [提取器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md)来转换你的组件并提取内容。
+
+要进行设置，你可以在 `intlayer.config.ts` 文件中添加一个 `compiler` 部分：
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  // ... 您的其他配置
+  // ... 其余配置
   compiler: {
     /**
-     * 指示是否应启用编译器。
+     * 指示编译器是否应该被启用。
      */
     enabled: true,
 
@@ -301,12 +455,16 @@ const config: IntlayerConfig = {
     output: ({ fileName, extension }) => `./${fileName}${extension}`,
 
     /**
-     * 指示在转换后是否应保存组件。这样，编译器只需运行一次即可转换应用程序，然后即可将其删除。
+     * 指示组件在转换后是否应该被保存。
+     *
+     * - 如果为 `true`，编译器将重新将组件文件写入磁盘。因此转换将是永久的，编译器将跳过下一个过程的转换。这样，编译器可以转换应用，然后可以删除它。
+     *
+     * - 如果为 `false`，编译器仅在构建输出中注入 `useIntlayer()` 函数调用，并保持基础代码库完整。转换仅在内存中完成。
      */
     saveComponents: false,
 
     /**
-     * 字典键前缀
+     * 词典键前缀
      */
     dictionaryKeyPrefix: "",
   },
@@ -318,7 +476,7 @@ export default config;
 <Tabs>
  <Tab value='提取命令'>
 
-运行提取器以转换组件并提取内容
+运行提取器来转换你的组件并提取内容
 
 ```bash packageManager="npm"
 npx intlayer extract
@@ -339,9 +497,9 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel 编译器'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+> 自 v9 起，`intlayerCompiler` 已包含在 `intlayer` 插件中。因此你不需要手动添加它。
 
-更新您的 `vite.config.ts` 以包含 `intlayerCompiler` 插件：
+更新你的 `vite.config.ts` 以包含 `intlayerCompiler` 插件：
 
 ```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
@@ -350,7 +508,7 @@ import { intlayer, intlayerCompiler } from "vite-intlayer";
 export default defineConfig({
   plugins: [
     intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
+    intlayerCompiler(), // 添加编译器插件
   ],
 });
 ```
@@ -368,7 +526,7 @@ yarn build # 或 yarn dev
 ```
 
 ```bash packageManager="bun"
-bun run build # Or bun run dev
+bun run build # 或 bun run dev
 ```
 
  </Tab>

@@ -80,6 +80,18 @@ Yığın çalışmaya başladıktan sonra **http://localhost:3000** adresini aç
 
 ---
 
+## İlk çalıştırma kurulumu
+
+Yeni bir instance'ta (boş veritabanı), dashboard'u açmak sizi **`/init`** sayfasına yönlendirir:
+
+1. İlk hesabı oluşturun. Kullanıcılar koleksiyonu boş olduğundan, bu hesap otomatik olarak **super admin** olarak yükseltilir.
+2. Bir doğrulama e-postası gönderilir (Resend aracılığıyla). E-posta doğrulaması **zorunludur** — bu nedenle `RESEND_API_KEY` başlamadan önce ayarlanmalıdır.
+3. E-postadaki bağlantıyı tıklayın, ardından oturum açın.
+
+Bir admin mevcut olduğunda, `/init` standart oturum açma sayfasına yönlendirilir.
+
+---
+
 ## Servisler
 
 | Servis      | Görüntü                                           | Ana Bilgisayar Bağlantı Noktası(ları) | Amaç                                                         |
@@ -97,9 +109,18 @@ Dahili bağlantı noktaları (mongo, redis) varsayılan olarak ana bilgisayara a
 
 ---
 
-## Ortam Değişkenleri
+## Ortam değişkenleri
 
-Yükleyici, kullanıma hazır bir `.env` dosyası oluşturur. Aşağıdaki tablo her değişkeni açıklar.
+### Gerekli
+
+| Variable               | Example                      | Description                                                                                                                                                          |
+| ---------------------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `DB_ID`                | `intlayer`                   | MongoDB Atlas kullanıcısı                                                                                                                                            |
+| `DB_MDP`               | _(şifreniz)_                 | MongoDB Atlas şifresi                                                                                                                                                |
+| `DB_CLUSTER`           | `cluster0.xxxxx.mongodb.net` | MongoDB Atlas cluster host'u (`mongodb+srv://` URI'de kullanılır)                                                                                                    |
+| `BETTER_AUTH_SECRET`   | _(generated)_                | Session imzalama için 32-byte secret                                                                                                                                 |
+| `S3_SECRET_ACCESS_KEY` | _(generated)_                | Bundled MinIO için secret                                                                                                                                            |
+| `RESEND_API_KEY`       | _(your key)_                 | Resend aracılığıyla işlemsel e-posta. Global SMTP mailer'ı yapılandırmadığınız sürece ilk çalıştırma kurulumu için gereklidir (bkz. [Global mailer](#global-mailer)) |
 
 ### Gerekli (otomatik oluşturulur veya istenir)
 
@@ -138,6 +159,26 @@ Yükleyici, kullanıma hazır bir `.env` dosyası oluşturur. Aşağıdaki tablo
 | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Microsoft OAuth girişi                                                      |
 | `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`           | LinkedIn OAuth girişi                                                       |
 | `ATLASSIAN_CLIENT_ID`, `ATLASSIAN_CLIENT_SECRET`         | Atlassian OAuth girişi                                                      |
+
+---
+
+### Global mailer
+
+Varsayılan olarak, tüm işlemsel e-postalar Resend üzerinden `RESEND_API_KEY` kullanılarak gönderilir. Self-hosted dağıtımlar bunun yerine **tüm** e-postaları — şifre sıfırlamaları ve magic linkler gibi organizasyon dışı e-postalar dahil — ortam değişkenleriyle yapılandırılmış global bir mailer üzerinden yönlendirebilir.
+
+Etkinleştirmek için `MAIL_PROVIDER` ayarlayın. Ayarlanmadığında, varsayılan Resend mailer kullanılır.
+
+| Değişken             | Örnek                          | Açıklama                                                                          |
+| -------------------- | ------------------------------ | --------------------------------------------------------------------------------- |
+| `MAIL_PROVIDER`      | `smtp`                         | Global transport: `smtp` veya `resend`. Varsayılanları kullanmak için ayarlamayın |
+| `MAIL_FROM`          | `Intlayer <no-reply@acme.com>` | Gönderen başlığı. Düz bir adres veya `Name <email>` formatını kabul eder          |
+| `MAIL_SMTP_HOST`     | `smtp.acme.com`                | SMTP host (`MAIL_PROVIDER=smtp` olduğunda gerekli)                                |
+| `MAIL_SMTP_PORT`     | `587`                          | SMTP port (varsayılan `587`)                                                      |
+| `MAIL_SMTP_SECURE`   | `false`                        | Implicit TLS. Port `465` için `true` olarak ayarlayın                             |
+| `MAIL_SMTP_USER`     | _(your user)_                  | SMTP kullanıcı adı (isteğe bağlı; kimliği doğrulanmamış relayler için atlayın)    |
+| `MAIL_SMTP_PASSWORD` | _(your password)_              | SMTP şifresi                                                                      |
+
+> Öncelik: bir organizasyonun kendi mailer'ı (**Organization** panosundan yapılandırılmış) global mailer'dan daha yüksek önceliğe sahiptir ve bu da varsayılan Resend anahtarından daha yüksek önceliğe sahiptir.
 
 ---
 
@@ -259,47 +300,11 @@ docker run --rm \
 
 ---
 
-## Ters Proxy Kullanımı (Nginx / Caddy)
+## Sınırlamalar
 
-Üretim dağıtımları için, uygulama ve backend kapsayıcılarının önüne doğrudan açmak yerine bir ters proxy yerleştirin.
-
-### Nginx örneği
-
-```nginx
-server {
-    listen 80;
-    server_name cms.example.com;
-
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-
-server {
-    listen 80;
-    server_name api.example.com;
-
-    location / {
-        proxy_pass http://localhost:3100;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-```
-
-Aşağıdaki `.env` değişkenlerini genel alan adlarınızla eşleşecek şekilde güncelleyin:
-
-```sh
-BACKEND_URL=https://api.example.com
-APP_URL=https://cms.example.com
-DOMAIN=example.com
-VITE_BACKEND_URL=https://api.example.com
-VITE_DOMAIN=example.com
-```
-
-> `VITE_*` değişkenleri oluşturma zamanında kontrol paneli görüntüsüne gömülür. Görüntü oluşturulduktan sonra bunları değiştirirseniz, `app` görüntüsünü yeniden oluşturmanız (`docker compose build app`) veya çalışma zamanı yapılandırma enjeksiyonu kullanmanız gerekir.
+- **MongoDB harici (Atlas) olmalıdır.** Backend yalnızca `mongodb+srv://` üzerinden bağlanır (`DB_ID` / `DB_MDP` / `DB_CLUSTER` öğesinden oluşturulur), bu nedenle düz `mongodb://host:27017` — konteyner'ın kendi paketlenmiş `mongod` dahil — kullanılamaz. Bir MongoDB Atlas kümesi sağlayın.
+- **Özel alan adı yok.** Tüm tarayıcıya yönelik `VITE_*` URL'leri derleme zamanında uygulamaya satır içine alınır ve yayınlanan görüntü `localhost` değerleriyle gemi. Pano şu adreste erişilmelidir: `http://localhost:3000`; bunu genel bir alan adında sunmak, görüntüyü hedef URL'ler ile yeniden oluşturmayı gerektiriyor ve kutudan hemen çıkar desteklenmiyor.
+- **E-posta çalışan bir postacı gerektirir.** İlk çalıştırma kurulumu e-posta doğrulamasını uygular, bu nedenle `RESEND_API_KEY` veya bir [global SMTP postacısı](#global-mailer) (`MAIL_PROVIDER=smtp` + `MAIL_SMTP_*`) yapılandırılmalıdır. İlk yönetici oturum açtıktan sonra, her kuruluş panodan kendi SMTP veya Resend postacısını da yapılandırabilir.
 
 ---
 
@@ -322,14 +327,6 @@ docker compose logs redis
 ```sh
 docker compose build app
 docker compose up -d app
-```
-
-### E-posta Gönderilmiyor
-
-Varsayılan olarak, tüm giden e-postalar Mailpit tarafından yakalanır. Gönderilen mesajları görmek için `http://localhost:8025` adresini açın. Gerçek e-posta göndermek için `.env` dosyasında `MAIL_PROVIDER=resend` ve `RESEND_API_KEY=<anahtarınız>` ayarlayın, ardından backend'i yeniden başlatın:
-
-```sh
-docker compose restart backend
 ```
 
 ### MinIO Kovası Eksik

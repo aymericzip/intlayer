@@ -64,6 +64,32 @@ Chromium (used for Puppeteer screenshot generation) is bundled inside the backen
 
 ## Quick start
 
+Pull and run the published image, supplying your MongoDB Atlas credentials and secrets:
+
+```sh
+docker run -d --name intlayer \
+  -p 3000:3000 \
+  -p 3100:3100 \
+  -p 9000:9000 \
+  -p 9001:9001 \
+  -v intlayer-data:/data \
+  -e DB_ID="<atlas-user>" \
+  -e DB_MDP="<atlas-password>" \
+  -e DB_CLUSTER="<cluster>.xxxxx.mongodb.net" \
+  -e BETTER_AUTH_SECRET="$(openssl rand -hex 32)" \
+  -e S3_SECRET_ACCESS_KEY="$(openssl rand -hex 16)" \
+  -e RESEND_API_KEY="<your-resend-key>" \
+  aymericzip/intlayer-selfhost
+```
+
+Then open **http://localhost:3000**.
+
+> The dashboard is served on `localhost`. See [Limitations](#limitations) — custom domains are not supported by the published image.
+
+---
+
+## Quick start
+
 ```sh
 curl -fsSL https://intlayer.org/install.sh | sh
 ```
@@ -99,7 +125,16 @@ Internal ports (mongo, redis) are not exposed to the host by default.
 
 ## Environment variables
 
-The installer generates a ready-to-use `.env`. The table below describes every variable.
+### Required
+
+| Variable               | Example                      | Description                                                                                                                                  |
+| ---------------------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `DB_ID`                | `intlayer`                   | MongoDB Atlas user                                                                                                                           |
+| `DB_MDP`               | _(your password)_            | MongoDB Atlas password                                                                                                                       |
+| `DB_CLUSTER`           | `cluster0.xxxxx.mongodb.net` | MongoDB Atlas cluster host (used in the `mongodb+srv://` URI)                                                                                |
+| `BETTER_AUTH_SECRET`   | _(generated)_                | 32-byte secret for session signing                                                                                                           |
+| `S3_SECRET_ACCESS_KEY` | _(generated)_                | Secret for the bundled MinIO                                                                                                                 |
+| `RESEND_API_KEY`       | _(your key)_                 | Transactional email via Resend. Required for first-run setup unless you configure a global SMTP mailer (see [Global mailer](#global-mailer)) |
 
 ### Required (auto-generated or prompted)
 
@@ -138,6 +173,26 @@ The installer generates a ready-to-use `.env`. The table below describes every v
 | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Microsoft OAuth login                                       |
 | `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`           | LinkedIn OAuth login                                        |
 | `ATLASSIAN_CLIENT_ID`, `ATLASSIAN_CLIENT_SECRET`         | Atlassian OAuth login                                       |
+
+---
+
+### Global mailer
+
+By default, all transactional emails are sent through Resend using `RESEND_API_KEY`. Self-hosted deployments can instead route **every** email — including non-organisation emails such as password resets and magic links — through a global mailer configured with environment variables.
+
+Set `MAIL_PROVIDER` to activate it. When unset, the default Resend mailer is used.
+
+| Variable             | Example                        | Description                                                       |
+| -------------------- | ------------------------------ | ----------------------------------------------------------------- |
+| `MAIL_PROVIDER`      | `smtp`                         | Global transport: `smtp` or `resend`. Leave unset to use defaults |
+| `MAIL_FROM`          | `Intlayer <no-reply@acme.com>` | Sender header. Accepts a bare address or `Name <email>` format    |
+| `MAIL_SMTP_HOST`     | `smtp.acme.com`                | SMTP host (required when `MAIL_PROVIDER=smtp`)                    |
+| `MAIL_SMTP_PORT`     | `587`                          | SMTP port (defaults to `587`)                                     |
+| `MAIL_SMTP_SECURE`   | `false`                        | Implicit TLS. Set `true` for port `465`                           |
+| `MAIL_SMTP_USER`     | _(your user)_                  | SMTP username (optional; omit for unauthenticated relays)         |
+| `MAIL_SMTP_PASSWORD` | _(your password)_              | SMTP password                                                     |
+
+> Precedence: an organisation's own mailer (configured from the **Organisation** dashboard) takes priority over the global mailer, which in turn takes priority over the default Resend key.
 
 ---
 
@@ -259,47 +314,11 @@ docker run --rm \
 
 ---
 
-## Using a reverse proxy (Nginx / Caddy)
+## Limitations
 
-For production deployments, place a reverse proxy in front of the app and backend containers instead of exposing them directly.
-
-### Nginx example
-
-```nginx
-server {
-    listen 80;
-    server_name cms.example.com;
-
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-
-server {
-    listen 80;
-    server_name api.example.com;
-
-    location / {
-        proxy_pass http://localhost:3100;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-```
-
-Update the following `.env` variables to match your public domains:
-
-```sh
-BACKEND_URL=https://api.example.com
-APP_URL=https://cms.example.com
-DOMAIN=example.com
-VITE_BACKEND_URL=https://api.example.com
-VITE_DOMAIN=example.com
-```
-
-> `VITE_*` variables are baked into the dashboard image at build time. If you change them after the image is built, you need to rebuild the `app` image (`docker compose build app`) or use runtime config injection.
+- **MongoDB must be external (Atlas).** The backend connects only over `mongodb+srv://` (built from `DB_ID` / `DB_MDP` / `DB_CLUSTER`), so a plain `mongodb://host:27017` — including the container's own bundled `mongod` — cannot be used. Provide a MongoDB Atlas cluster.
+- **No custom domain.** All browser-facing `VITE_*` URLs are inlined into the app at build time, and the published image ships with `localhost` values. The dashboard must be accessed at `http://localhost:3000`; serving it on a public domain would require rebuilding the image with the target URLs baked in and is not supported out of the box.
+- **Email requires a working mailer.** First-run setup enforces email verification, so either `RESEND_API_KEY` or a [global SMTP mailer](#global-mailer) (`MAIL_PROVIDER=smtp` + `MAIL_SMTP_*`) must be configured. After the first admin signs in, each organisation can also configure its own SMTP or Resend mailer from the dashboard.
 
 ---
 
@@ -322,14 +341,6 @@ Verify that `VITE_BACKEND_URL` matches the URL where the backend is reachable fr
 ```sh
 docker compose build app
 docker compose up -d app
-```
-
-### Email not sending
-
-By default, all outbound email is captured by Mailpit. Open `http://localhost:8025` to see sent messages. To send real email, set `MAIL_PROVIDER=resend` and `RESEND_API_KEY=<your-key>` in `.env`, then restart the backend:
-
-```sh
-docker compose restart backend
 ```
 
 ### MinIO bucket missing

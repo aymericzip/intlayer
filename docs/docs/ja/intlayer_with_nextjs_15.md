@@ -31,39 +31,7 @@ history:
 author: aymericzip
 ---
 
-# IntlayerでNext.js 15を翻訳する | 国際化（i18n）
-
-<Tabs defaultTab="video">
-  <Tab label="動画" value="video">
-
-<iframe title="Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/e_PPG7PTqGU?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
-
-  </Tab>
-  <Tab label="コード" value="code">
-
-<iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-next-15-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-  </Tab>
-  <Tab label="デモ" value="demo">
-
-<iframe
-  src="https://next-15-intlayer-template-xt83.vercel.app"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="デモ - intlayer-next-15-template"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
-
-  </Tab>
-</Tabs>
-
-GitHubの[アプリケーションテンプレート](https://github.com/aymericzip/intlayer-next-15-template)をご覧ください。
+# Intlayer を使用した Next.js 15 ウェブサイトの国際化 (i18n)
 
 ## 目次
 

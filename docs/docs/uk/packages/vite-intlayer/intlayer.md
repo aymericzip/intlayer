@@ -39,11 +39,126 @@ export default defineConfig({
 });
 ```
 
-## Опис
+## Опції
 
-Плагін виконує такі завдання:
+```ts
+import type { IntlayerPluginOptions } from "vite-intlayer";
+```
 
-1. **Підготовка словників**: Він компілює словники в оптимізовані файли на початку процесу збірки або під час режиму розробки.
-2. **Режим спостереження**: У режимі розробки він стежить за змінами у файлах словників і автоматично їх перекомпілює.
-3. **Аліаси**: він надає аліаси для доступу до словників у вашому застосунку.
-4. **Tree-shaking**: він підтримує tree-shaking невикористаних перекладів через плагін `intlayerPrune`.
+`IntlayerPluginOptions` розширює `GetConfigurationOptions` (див. `@intlayer/config`) з наступними додатковими полями:
+
+| Опція           | Тип                             | За замовчуванням | Опис                                                                                                                                                             |
+| --------------- | ------------------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `compatCallers` | `CompatCallerConfig[]`          | `[]`             | Додаткові шаблони для пакетів compat-adapter (наприклад `@intlayer/react-i18next`). Передаються до аналізатора використання полів під час збирання.              |
+| `proxy`         | `{ ignore?: (req) => boolean }` | `undefined`      | Опції, передані до вбудованого проксі маршрутизації локалі. Використовуйте `ignore`, щоб виключити певні шляхи (наприклад маршрути API) із маршрутизації локалі. |
+
+Усі інші опції (`override`, `configFile`, …) передаються безпосередньо до `getConfiguration()`.
+
+### Приклади
+
+#### Ігнорування маршрутів API від маршрутизації локалі
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
+});
+```
+
+#### З користувацьким шляхом до файлу конфігурації
+
+```ts
+export default defineConfig({
+  plugins: [
+    intlayer({
+      configFile: "./config/intlayer.config.ts",
+    }),
+  ],
+});
+```
+
+#### З compat-adapter callers
+
+```ts
+import { intlayer } from "vite-intlayer";
+import { reactI18nextCallerConfig } from "@intlayer/react-i18next/plugin";
+
+export default defineConfig({
+  plugins: [
+    intlayer({
+      compatCallers: [reactI18nextCallerConfig],
+    }),
+  ],
+});
+```
+
+## Що робить плагін
+
+### 1. Підготовка словника
+
+Перед початком збірки (та один раз на годину в режимі розробки), `intlayer` викликає `prepareIntlayer` для компіляції всіх файлів `.content.ts` в оптимізовані JSON-словники, які зберігаються в `.intlayer/`.
+
+### 2. Module aliases
+
+Плагін додає Vite resolve aliases, щоб `import { myDict } from 'intlayer/dictionaries/my-dict'` розв'язувався до скомпільованого JSON файлу на диску. SSR builds використовують `ssr.noExternal`, щоб забезпечити, що всі пакети `@intlayer/*` об'єднані з застосованими aliases.
+
+### 3. Dev-server watcher
+
+У режимі розробки запускається `chokidar` watcher. Коли змінюється файл `.content.ts`, словники перекомпілюються, а Vite's HMR поширює оновлення на браузер.
+
+### 4. Bundled locale-routing proxy (v9+)
+
+З версії Intlayer v9 middleware `intlayerProxy` реєструється автоматично всередині `intlayer()`. Він обробляє:
+
+- Визначення локалі за префіксом URL, cookies та заголовком `Accept-Language`.
+- 301 переспрямування, коли визначена локаль не відповідає поточному URL.
+- Внутрішні переписування URL, щоб framework бачив правильний параметр маршруту `[locale]`.
+
+Proxy керується параметром `routing.enableProxy` (за замовчуванням `true`) у конфігурації Intlayer. Щоб повністю відключити його:
+
+```ts
+// intlayer.config.ts
+import { defineConfig } from "intlayer";
+
+export default defineConfig({
+  routing: { enableProxy: false },
+});
+```
+
+Щоб налаштувати поведінку proxy без окремого виклику `intlayerProxy()`, передайте опції `proxy` до основного плагіна:
+
+```ts
+intlayer({ proxy: { ignore: (req) => req.url?.startsWith("/api") } });
+```
+
+Див. [документацію intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/vite-intlayer/intlayerProxy.md) для повного довідника поведінки маршрутизації.
+
+### 5. Bundled compiler (v9+)
+
+Коли `compiler.enabled` має значення `true` **та** `compiler.output` встановлено у вашій конфігурації Intlayer, `intlayer()` автоматично реєструє `intlayerCompiler`. Компілятор витягує вбудовані декларації контенту, написані безпосередньо у файлах компонентів, і записує їх у словники під час трансформації. Дивіться [документацію intlayerCompiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/vite-intlayer/intlayerCompiler.md).
+
+### 6. Оптимізація збірки
+
+Під час виробничої збірки плагін додає:
+
+- **intlayerOptimize** – трансформація Babel, яка перезаписує `useIntlayer('key')` → `useDictionary(hash)` та вводить прямий імпорт JSON.
+- **intlayerPrune** – видаляє невикористовувані поля вмісту з JSON словника.
+- **intlayerMinify** – стискує JSON словника та за потреби мангліфікує назви полів.
+
+Ці функції неактивні в режимі розробки.
+
+## Застарілі псевдоніми
+
+| Застарілий експорт | Заміна     |
+| ------------------ | ---------- |
+| `intlayerPlugin`   | `intlayer` |
+| `intLayerPlugin`   | `intlayer` |

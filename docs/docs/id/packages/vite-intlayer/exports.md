@@ -48,3 +48,18 @@ import "vite-intlayer";
 | `intlayerProxy`      | Plugin middleware pengembangan untuk menangani deteksi locale dan routing.               | -                                                                                                                      |
 | `intlayerMiddleware` | (**Tidak lagi digunakan**) Alias untuk `intlayerProxy`.                                  | -                                                                                                                      |
 | `intlayerPrune`      | Plugin untuk melakukan tree-shake dan memangkas kamus yang tidak digunakan selama build. | [intlayerPrune](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/intlayerPrune.md) |
+
+### Utilitas
+
+| Export                       | Deskripsi                                                                                                 | Dokumentasi Terkait                                                                                                    |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `createIntlayerProxyHandler` | Mengembalikan middleware Node.js `(req, res, next)` yang framework-agnostic dengan logika locale-routing. | [intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/packages/vite-intlayer/intlayerProxy.md) |
+
+### Tipe
+
+| Export                       | Deskripsi                                                                                                            |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `IntlayerPluginOptions`      | Opsi yang diterima oleh `intlayer()`. Memperluas `GetConfigurationOptions` dengan `compatCallers` dan `proxy`.       |
+| `IntlayerProxyPluginOptions` | Opsi yang diterima oleh `intlayerProxy()` dan `createIntlayerProxyHandler()`. Mencakup `ignore` dan `configOptions`. |
+| `IntlayerCompilerOptions`    | Opsi yang diterima oleh `intlayerCompiler()`. Mencakup `configOptions` dan `compilerConfig`.                         |
+| `CompatCallerConfig`         | Re-export dari `@intlayer/babel`. Menjelaskan pola compat-adapter caller untuk analisis penggunaan field.            |

@@ -247,6 +247,158 @@ Bu komut, başlangıç içerik sözlüklerinizi yükler ve Intlayer platformu ü
 
 Daha sonra sözlüğünüzü [Intlayer CMS](https://app.intlayer.org/content) üzerinde görüntüleyip yönetebileceksiniz.
 
+## `@intlayer/api` SDK ile Programmatic Erişim
+
+CLI ve visual editor'ın ötesinde, Intlayer [`@intlayer/api`](https://www.npmjs.com/package/@intlayer/api) paketinde yazılı bir SDK ile birlikte gelir. CMS'i bir **headless içerik veritabanı** olarak ele almanızı sağlar: projeleri alabilir, sözlükleri alabilir ve bunları doğrudan kendi uygulamanızdan, script'lerinizden veya CI pipeline'ınızdan gönderebilir veya güncelleyebilirsiniz.
+
+SDK, kimlik doğrulamasını sizin için yönetir. `clientId` ve `clientSecret` değerleriniz mevcut olduğu sürece (Intlayer yapılandırmanızda veya ortam değişkenlerinde), OAuth2 erişim tokenini otomatik olarak alır ve yeniler, her isteği imzalar.
+
+### Kurulum
+
+```bash packageManager="npm"
+npm install @intlayer/api
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/api
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/api
+```
+
+```bash packageManager="bun"
+bun add @intlayer/api
+```
+
+### Nasıl çalışır: authenticator + endpoints
+
+SDK, paket boyutunuzu küçük tutmak amacıyla **iki ayrı import**'a bölünmüştür:
+
+1. `createIntlayerCMS` — hafif bir **authenticator** oluşturur. Yalnızca kimlik bilgilerini ve yönetilen erişim token'ını taşır; belirli bir alan adı hakkında hiçbir şey bilmez.
+2. `dictionaryEndpoint`, `projectEndpoint`, … — alan başına **endpoint bağlayıcıları**, her biri kendi alt yolundan içe aktarılır (`@intlayer/api/dictionary`, `@intlayer/api/project`, …). Authenticator'u ihtiyacınız olan endpoint'e geçirirsiniz.
+
+Her endpoint ayrı olarak içe aktarıldığından, paketiniz yalnızca gerçekten kullandığınız alanları içerir — `dictionaryEndpoint` içe aktarmak hiçbir zaman proje, AI veya başka bir alan istemcisini içeri çekmez.
+
+```typescript fileName="cms.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+
+// Yapılandırma isteğe bağlıdır: atlanırsa, kimlik bilgileri
+// `@intlayer/config/built` dosyasından okunur; bu dosya INTLAYER_CLIENT_ID ve
+// INTLAYER_CLIENT_SECRET ortam değişkenlerini çözer.
+export const cmsAuthenticator = createIntlayerCMS();
+```
+
+> [!WARNING]
+> CMS kimlik bilgileri (`clientId` / `clientSecret`) içeriğinize **yazma erişimi** verir. Authenticator'u yalnızca **sunucu tarafında** (server actions, route handlers, scripts, CI) oluşturun. İstemci tarafı koduna asla içe aktarmayın veya kimlik bilgilerinizi tarayıcıya maruz bırakmayın.
+
+Yapı zamanı yapılandırmasına güvenmemeyi tercih ederseniz, kimlik bilgilerini açıkça geçirin:
+
+```typescript fileName="cms.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+
+export const cmsAuthenticator = createIntlayerCMS({
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+    // İsteğe bağlı, kendi barındırılan arka uçlar için:
+    // backendURL: process.env.INTLAYER_BACKEND_URL,
+  },
+});
+```
+
+> [Intlayer Dashboard - Projects](https://app.intlayer.org/projects) içinde yeni bir erişim anahtarı oluşturarak kimlik bilgilerinizi alın.
+
+### Projeleri Getir
+
+```typescript fileName="projects.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { projectEndpoint } from "@intlayer/api/project";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// Kimlik bilgilerinizle erişilebilir projeleri listeleyin
+const { data: projects } =
+  await projectEndpoint(cmsAuthenticator).getProjects();
+
+// Seçilen projenin toplu lokalizasyon içgörülerini okuyun
+const { data: insights } =
+  await projectEndpoint(cmsAuthenticator).getProjectInsights();
+```
+
+### Sözlükleri Getir
+
+```typescript fileName="read-dictionaries.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// Projenin tüm uzak sözlüklerini listele
+const { data: dictionaries } =
+  await dictionaryEndpoint(cmsAuthenticator).getDictionaries();
+
+// Veya anahtara göre tek bir sözlük al
+const { data: dictionary } = await dictionaryEndpoint(
+  cmsAuthenticator
+).getDictionary("my-first-dictionary-key");
+```
+
+### Sözlükleri push etme ve güncelleme
+
+İçeriği geri yazmak için CMS'yi bir veritabanı olarak kullanın:
+
+```typescript fileName="write-dictionaries.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// Yeni bir sözlük oluştur
+await dictionaryEndpoint(cmsAuthenticator).addDictionary({
+  key: "my-first-dictionary-key",
+  content: { title: "Hello world" },
+});
+
+// Sözlüklerin bir batch'ini upsert et (bunları bir çağrıda oluştur veya güncelle)
+await dictionaryEndpoint(cmsAuthenticator).pushDictionaries([
+  { key: "home", content: { title: "Home" } },
+  { key: "about", content: { title: "About" } },
+]);
+
+// Mevcut bir sözlüğü güncelle
+await dictionaryEndpoint(cmsAuthenticator).updateDictionary({
+  id: "<dictionary-id>",
+  key: "home",
+  content: { title: "Updated title" },
+});
+```
+
+> İpucu: kendinizi tekrarlamaktan kaçınmak için bağlı endpoint'i yeniden kullanın:
+>
+> ```typescript codeFormat="typescript"
+> const dictionary = dictionaryEndpoint(cmsAuthenticator);
+> await dictionary.pushDictionaries([myDictionary]);
+> const { data } = await dictionary.getDictionaries();
+> ```
+
+### Tek bir yöntemi çıkarma
+
+Her endpoint yöntemi zaten kimliği doğrulanmış ve bağımsızdır (kendi token işlemesini taşır), bu nedenle birini çıkarabilir ve etrafta geçirebilirsiniz — örneğin bir bağımlılık olarak enjekte etmek için:
+
+```typescript fileName="push.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const dictionary = dictionaryEndpoint(createIntlayerCMS());
+
+// Zaten kimliği doğrulanmış — her çağrıda token'ı otomatik olarak yeniler
+export const pushDictionaries = dictionary.pushDictionaries;
+
+// Kullanım
+await pushDictionaries([{ key: "home", content: { title: "Home" } }]);
+```
+
 ## Canlı senkronizasyon
 
 Canlı Senkronizasyon, uygulamanızın CMS içerik değişikliklerini çalışma zamanında yansıtmasını sağlar. Yeniden derleme veya yeniden dağıtım gerekmez. Etkinleştirildiğinde, güncellemeler uygulamanızın okuduğu sözlükleri yenileyen bir Canlı Senkronizasyon sunucusuna aktarılır.

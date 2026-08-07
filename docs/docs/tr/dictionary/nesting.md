@@ -68,6 +68,53 @@ export default firstDictionary;
 }
 ```
 
+### Nest ile Referanslama
+
+Şimdi, yukarıdaki içeriğe referans vermek için `nest` fonksiyonunu kullanan başka bir içerik modülü oluşturun. Tüm içeriğe veya belirli bir iç içe değere referans verebilirsiniz:
+
+```typescript fileName="secondDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { nest, type Dictionary } from "intlayer";
+
+const myNestingContent = {
+  key: "key_of_my_second_dictionary",
+  content: {
+    // Tüm sözlüğe referans verir:
+    fullNestedContent: nest("key_of_my_first_dictionary"),
+    // Belirli bir iç içe değere referans verir:
+    partialNestedContent: nest(
+      "key_of_my_first_dictionary",
+      "subContent.contentNumber"
+    ),
+  },
+} satisfies Dictionary;
+
+export default myNestingContent;
+```
+
+```json fileName="secondDictionary.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "key_of_my_second_dictionary",
+  "content": {
+    "fullNestedContent": {
+      "nodeType": "nested",
+      "nested": {
+        "dictionaryKey": "key_of_my_first_dictionary"
+      }
+    },
+    "partialNestedContent": {
+      "nodeType": "nested",
+      "nested": {
+        "dictionaryKey": "key_of_my_first_dictionary",
+        "path": "subContent.contentNumber"
+      }
+    }
+  }
+}
+```
+
+İkinci parametre olarak, bu içerik içinde iç içe bir değere giden yolu belirtebilirsiniz. Yol sağlanmadığında, referans verilen sözlüğün tüm içeriği döndürülür.
+
 ## İç İçe Yerleştirmeyi Ayarlama
 
 <Tabs group="framework">
@@ -261,36 +308,6 @@ document.getElementById("nested")!.textContent = content.partialNestedContent;
 
   </Tab>
 </Tabs>
-
-## React Intlayer ile İç İçe Yerleştirmeyi Kullanma
-
-Bir React bileşeninde iç içe yerleştirilmiş içeriği kullanmak için, `react-intlayer` paketinden `useIntlayer` hook'unu kullanın. Bu hook, belirtilen anahtara göre doğru içeriği alır. İşte nasıl kullanılacağına dair bir örnek:
-
-```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { useIntlayer } from "react-intlayer";
-
-const NestComponent: FC = () => {
-  const { fullNestedContent, partialNestedContent } = useIntlayer(
-    "key_of_my_second_dictionary"
-  );
-
-  return (
-    <div>
-      <p>
-        Tam İç İçe Yerleştirilmiş İçerik: {JSON.stringify(fullNestedContent)}
-        {/* Çıktı: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
-      </p>
-      <p>
-        Kısmi İç İçe Yerleştirilmiş Değer: {partialNestedContent}
-        {/* Çıktı: 0 */}
-      </p>
-    </div>
-  );
-};
-
-export default NestComponent;
-```
 
 ## Ek Kaynaklar
 

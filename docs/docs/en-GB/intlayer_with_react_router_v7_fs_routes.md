@@ -182,97 +182,55 @@ The naming conventions:
 - `_index` - Index route (renders at the parent path)
 - `.` (dot) - Separates path segments (e.g., `($locale).about` → `/:locale?/about`)
 
-## Step-by-Step Guide to Set Up Intlayer in a React Router v7 Application with File-System Routes
+#### Layout Component
 
-<Tabs defaultTab="video">
-  <Tab label="Video" value="video">
+```tsx fileName="app/root.tsx"
+import { getLocaleFromPath } from "intlayer";
+import { IntlayerProvider } from "react-intlayer";
+import {
+  isRouteErrorResponse,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useLoaderData,
+} from "react-router";
 
-<iframe title="How to translate an React Router v7 (File-System Routes) app using Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
+import type { Route } from "./+types/root";
 
-  </Tab>
-  <Tab label="Code" value="code">
+import "./app.css";
 
-<iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-react-router-v7-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
+// ... Unchanged App, links and ErrorBoundary code
 
-  </Tab>
-  <Tab label="Demo" value="demo">
+export async function loader({ request }: Route.LoaderArgs) {
+  const locale = getLocaleFromPath(request.url);
 
-<iframe
-  src="https://intlayer-react-router-v7.vercel.app"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo - intlayer-react-router-v7-template"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
+  return { locale };
+}
 
-  </Tab>
-</Tabs>
+export function Layout({
+  children,
+}: { children: React.ReactNode } & Route.ComponentProps) {
+  const data = useLoaderData<typeof loader>();
+  const { locale } = data ?? {};
 
-See [Application Template](https://github.com/aymericzip/intlayer-react-router-v7-template) on GitHub.
-
-Create a config file to configure the languages of your application:
-
-```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import { type IntlayerConfig, Locales } from "intlayer";
-
-const config: IntlayerConfig = {
-  internationalization: {
-    defaultLocale: Locales.ENGLISH,
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-  },
-};
-
-export default config;
+  return (
+    <html lang={locale}>
+      <head>
+        <meta charSet="utf-8" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+    </html>
+  );
+}
 ```
-
-> Through this configuration file, you can set up localised URLs, middleware redirection, cookie names, the location and extension of your content declarations, disable Intlayer logs in the console, and more. For a complete list of available parameters, refer to the [configuration documentation](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md).
-
-<Steps>
-
-<Step number={3} title="Integrate Intlayer in Your Vite Configuration">
-
-Add the intlayer plugin into your configuration:
-
-```typescript fileName="vite.config.ts"
-import { reactRouter } from "@react-router/dev/vite";
-import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [reactRouter(), intlayer()],
-});
-```
-
-> The `intlayer()` Vite plugin is used to integrate Intlayer with Vite. It ensures the building of content declaration files and monitors them in development mode. It defines Intlayer environment variables within the Vite application. Additionally, it provides aliases to optimise performance.
-
-</Step>
-
-<Step number={4} title="Configure React Router v7 Routes">
-
-Set up your routing configuration with locale-aware routes:
-
-```typescript fileName="app/routes.ts"
-import { layout, route, type RouteConfig } from "@react-router/dev/routes";
-
-export default [
-  layout("routes/layout.tsx", [
-    route("/:lang?", "routes/page.tsx"), // Localised home page
-    route("/:lang?/about", "routes/about/page.tsx"), // Localised about page
-  ]),
-] satisfies RouteConfig;
-```
-
-</Step>
-
-<Step number={5} title="Create Layout Components">
-
-Set up your root layout and locale-specific layouts:
 
 #### Root Layout
 

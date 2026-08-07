@@ -48,3 +48,18 @@ import "vite-intlayer";
 | `intlayerProxy`      | مكوّن إضافي أثناء التطوير للتعامل مع اكتشاف اللغة والتوجيه.              | -                                                                                                                      |
 | `intlayerMiddleware` | (**مهمل**) مرادف لـ `intlayerProxy`.                                     | -                                                                                                                      |
 | `intlayerPrune`      | ملحق لإجراء tree-shake وتقليم القواميس غير المستخدمة أثناء عملية البناء. | [intlayerPrune](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/intlayerPrune.md) |
+
+### الأدوات
+
+| التصدير                      | الوصف                                                                                        | المستند ذو الصلة                                                                                                       |
+| ---------------------------- | -------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `createIntlayerProxyHandler` | إرجاع middleware لـ Node.js `(req, res, next)` غير متعلق بأي framework مع منطق توجيه locale. | [intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/packages/vite-intlayer/intlayerProxy.md) |
+
+### الأنواع
+
+| التصدير                      | الوصف                                                                                                          |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `IntlayerPluginOptions`      | الخيارات المقبولة بواسطة `intlayer()`. تمتد `GetConfigurationOptions` مع `compatCallers` و `proxy`.            |
+| `IntlayerProxyPluginOptions` | الخيارات المقبولة بواسطة `intlayerProxy()` و `createIntlayerProxyHandler()`. تتضمن `ignore` و `configOptions`. |
+| `IntlayerCompilerOptions`    | الخيارات المقبولة بواسطة `intlayerCompiler()`. تتضمن `configOptions` و `compilerConfig`.                       |
+| `CompatCallerConfig`         | إعادة تصدير من `@intlayer/babel`. يصف نمط compat-adapter caller لتحليل استخدام الحقول.                         |

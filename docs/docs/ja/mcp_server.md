@@ -252,19 +252,13 @@ ChatGPT で MCP サーバーを設定するには、[公式ドキュメント](h
 
 [公式ドキュメント](https://modelcontextprotocol.io/quickstart/user)に従って、Claude Code で MCP サーバーを設定してください。
 
-## CLIを使ったMCPサーバーの利用
+### ローカルサーバー (stdio) (推奨)
 
-Intlayer MCPサーバーは、テスト、デバッグ、または他のツールとの統合のために、コマンドラインから直接実行することもできます。
+Intlayer MCP サーバーを Claude Code に stdio を使用して接続するには:
 
 ```bash
-# グローバルにインストール
-npm install -g @intlayer/mcp
-
-# またはnpxで直接使用（推奨）
-npx @intlayer/mcp
+claude mcp add intlayer npx -y @intlayer/mcp
 ```
-
----
 
 ### リモートサーバー (Streamable HTTP)
 

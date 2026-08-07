@@ -29,13 +29,17 @@ history:
     changes: "Initial doc"
 ---
 
-### Practical Use Cases
+# Translate your Nest backend website using Intlayer | Internationalization (i18n)
+
+`express-intlayer` is a powerful internationalization (i18n) middleware for Express applications, designed to make your backend services globally accessible by providing localised responses based on the client's preferences. Since NestJS is built on top of Express, you can seamlessly integrate `express-intlayer` into your NestJS applications to handle multilingual content effectively.
+
+Practical Use Cases
 
 - **Displaying Backend Errors in User's Language**: When an error occurs, displaying messages in the user's native language improves understanding and reduces frustration. This is especially useful for dynamic error messages that might be shown in front-end components like toasts or modals.
 
 - **Retrieving Multilingual Content**: For applications pulling content from a database, internationalisation ensures that you can serve this content in multiple languages. This is crucial for platforms like e-commerce sites or content management systems that need to display product descriptions, articles, and other content in the language preferred by the user.
 
-- **Sending Multilingual Emails**: Whether it is transactional emails, marketing campaigns, or notifications, sending emails in the recipient’s language can significantly increase engagement and effectiveness.
+- **Sending Multilingual Emails**: Whether it's transactional emails, marketing campaigns, or notifications, sending emails in the recipient's language can significantly increase engagement and effectiveness.
 
 - **Multilingual Push Notifications**: For mobile applications, sending push notifications in a user's preferred language can enhance interaction and retention. This personal touch can make notifications feel more relevant and actionable.
 

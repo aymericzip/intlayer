@@ -50,26 +50,12 @@ getMultilingualUrls(
 
 ## Parameters
 
-## Parameters
+### Required Parameters
 
 - `url: string`
   - **Description**: The original URL string to be prefixed with locales.
   - **Type**: `string`
-
-- `locales: Locales[]`
-  - **Description**: Optional array of supported locales. Defaults to the configured locales in the project.
-  - **Type**: `Locales[]`
-  - **Default**: `localesDefault`
-
-- `defaultLocale: Locales`
-  - **Description**: The default locale for the application. Defaults to the configured default locale in the project.
-  - **Type**: `Locales`
-  - **Default**: `defaultLocaleDefault`
-
-- `prefixDefault: boolean`
-  - **Description**: Whether to prefix the default locale. Defaults to the configured value in the project.
-  - **Type**: `boolean`
-  - **Default**: `prefixDefaultDefault`
+  - **Required**: Yes
 
 ### Optional Parameters
 
@@ -107,6 +93,20 @@ getMultilingualUrls(
 
 ## Example Usage
 
+### Basic Usage (Uses Project Configuration)
+
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
+import { getMultilingualUrls, Locales } from "intlayer";
+
+// Uses your project's configuration for locales, defaultLocale, and mode
+getMultilingualUrls("/dashboard");
+// Output (assuming project config has en, fr with mode 'prefix-no-default'):
+// {
+//   en: "/dashboard",
+//   fr: "/fr/dashboard"
+// }
+```
+
 ### Relative URLs
 
 ```typescript codeFormat={["typescript", "esm", "commonjs"]}
@@ -140,38 +140,6 @@ getMultilingualUrls(
 ```
 
 ---
-
-## Edge Cases
-
-- **No Locale Segment:**
-
-```typescript
-getMultilingualUrls(
-  "/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-// Output: {
-// en: "/dashboard",
-// fr: "/fr/dashboard"
-// }
-```
-
-```javascript codeFormat="commonjs"
-const { getMultilingualUrls, Locales } = require("intlayer");
-
-getMultilingualUrls(
-  "/dashboard",
-  [Locales.ENGLISH, Locales.FRENCH],
-  Locales.ENGLISH,
-  false
-);
-// Output: {
-//   en: "/dashboard",
-//   fr: "/fr/dashboard"
-// }
-```
 
 ### Absolute URLs
 

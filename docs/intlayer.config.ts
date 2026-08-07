@@ -3,12 +3,12 @@ import * as Locales from '@intlayer/types/locales';
 
 export const locales = [
   Locales.ENGLISH,
+  Locales.SPANISH,
   Locales.RUSSIAN,
   Locales.JAPANESE,
   Locales.FRENCH,
   Locales.KOREAN,
   Locales.CHINESE,
-  Locales.SPANISH,
   Locales.GERMAN,
   Locales.ARABIC,
   Locales.ITALIAN,

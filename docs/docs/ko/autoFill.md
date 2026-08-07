@@ -75,11 +75,30 @@ v7에서는 `fill` 명령 동작이 업데이트되었습니다:
 
 다른 파일에 쓰기 위해 경로 옵션을 사용할 때, fill 메커니즘은 콘텐츠 선언 파일 간의 _master-slave_ 관계를 통해 작동합니다. 메인(master) 파일이 소스 오브 트루스 역할을 하며, 업데이트될 때 Intlayer는 경로로 지정된 파생(filled) 선언 파일에 자동으로 그 변경 사항을 적용합니다.
 
-# 자동 채우기 콘텐츠 선언 파일 번역
+### 로케일별 커스터마이제이션
 
-**자동 채우기 콘텐츠 선언 파일**은 개발 워크플로우를 가속화하는 방법입니다.
+객체를 사용하여 각 로케일의 동작을 커스터마이즈할 수도 있습니다:
 
-자동 채우기 메커니즘은 콘텐츠 선언 파일 간의 _마스터-슬레이브_ 관계를 통해 작동합니다. 메인(마스터) 파일이 업데이트되면 Intlayer가 파생(자동 채우기된) 선언 파일에 해당 변경 사항을 자동으로 적용합니다.
+```ts fileName="intlayer.config.ts"
+const config: IntlayerConfig = {
+  content: {
+    internationalization: {
+      locales: [Locales.ENGLISH, Locales.FRENCH, Locales.POLISH],
+      defaultLocale: Locales.ENGLISH,
+      requiredLocales: [Locales.ENGLISH], // t 함수에서 Property 'pl' is missing in type '{ en: string; xxx }' 오류를 피하기 위해 권장됨
+    },
+  },
+  dictionary: {
+    fill: {
+      en: true, // 현재 파일을 영어로 채우고 편집
+      fr: "./translations/fr.json", // 프랑스어용 별도 파일 생성
+      es: false, // 스페인어 채우기 비활성화
+    },
+  },
+};
+```
+
+이를 통해 동일한 프로젝트 내에서 다양한 로케일에 대해 다른 fill 동작을 가질 수 있습니다.
 
 ```ts fileName="src/components/example/example.content.ts"
 import { Locales, type Dictionary } from "intlayer";
@@ -87,18 +106,18 @@ import { Locales, type Dictionary } from "intlayer";
 const exampleContent = {
   key: "example",
   locale: Locales.ENGLISH,
-  autoFill: "./example.content.json",
+  fill: "./example.content.json",
   content: {
-    contentExample: "이것은 콘텐츠의 예시입니다",
+    contentExample: "This is an example of content",
   },
 } satisfies Dictionary;
 
 export default exampleContent;
 ```
 
-다음은 `autoFill` 지시어를 사용한 [로케일별 콘텐츠 선언 파일](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/per_locale_file.md)입니다.
+다음은 `fill` 명령어를 사용하는 [로케일별 콘텐츠 선언 파일](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/per_locale_file.md)입니다.
 
-그런 다음, 다음 명령어를 실행하면:
+그런 다음 다음 명령어를 실행할 때:
 
 ```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
@@ -116,7 +135,7 @@ pnpm intlayer fill --file 'src/components/example/example.content.ts'
 bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
-Intlayer는 메인 파일에 아직 선언되지 않은 모든 로케일을 채워 `src/components/example/example.content.json`에 파생 선언 파일을 자동으로 생성합니다.
+Intlayer는 `src/components/example/example.content.json`에서 파생 선언 파일을 자동으로 생성하여 메인 파일에 아직 선언되지 않은 모든 로케일을 채웁니다.
 
 ```json5 fileName="src/components/example/example.content.json"
 {
@@ -133,7 +152,7 @@ Intlayer는 메인 파일에 아직 선언되지 않은 모든 로케일을 채�
 }
 ```
 
-그 후, 두 선언 파일은 단일 사전으로 병합되어 표준 `useIntlayer("example")` 훅(react) / 컴포저블(vue)을 통해 접근할 수 있습니다.
+그 후, 두 선언 파일은 단일 dictionary로 병합되어 표준 `useIntlayer("example")` hook (react) / composable (vue)을 사용하여 접근할 수 있습니다.
 
 ## 글로벌 설정
 

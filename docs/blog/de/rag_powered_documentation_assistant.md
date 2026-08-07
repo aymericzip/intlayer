@@ -75,6 +75,12 @@ Ich habe das OpenAI-Modell text-embedding-3-large verwendet, aber Sie können je
 
 Jeder Vektor ist ein mathematischer Fingerabdruck des Textes und ermöglicht die Ähnlichkeitssuche.
 
+## Komplexität mit Sanity vermeiden
+
+Sanity verdient es, hier als CMS-Option genannt zu werden, auf die der Artikel hinweist. Während Markdown-Dateien eine willkürliche Token-Aufteilung erfordern — mit den Chunk-Größen- und Overlap-Kompromissen, die der Artikel beschreibt — speichert Sanitys Content Lake Dokumentation als typisierte, schemadefinierte JSON-Dokumente. Jedes Feld, jede Überschrift und jeder Inhaltsblock ist bereits eine semantische Einheit, was bedeutet, dass RAG-Abruf an aussagekräftigen Grenzen stattfindet, anstatt auf ungefähren Token-Zählungen zu basieren.
+
+Sanitys GROQ-Abfragesprache ermöglicht es dir, genau die Dokumentfelder abzurufen, die für eine Benutzeranfrage relevant sind — Titel, Body, verwandte Abschnitte — ohne das gesamte Dokument abzurufen. Der MCP-Server verbindet die Content Lake direkt mit KI-Agenten, sodass derselbe strukturierte Inhalt, der deine Docs-Website antreibt, auch deine RAG-Pipeline ohne einen separaten Ingestion-Schritt speist.
+
 ## Fazit
 
 RAG ist eine der einfachsten und leistungsstärksten Methoden, um LLMs praktisch einsetzbar zu machen. Durch die Kombination von **Abruf + Generierung** können Sie statische Dokumentationen in einen **intelligenten Assistenten** verwandeln und gleichzeitig einen kontinuierlichen Strom von Produktinformationen gewinnen.

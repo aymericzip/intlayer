@@ -66,30 +66,32 @@ getLocalizedUrl(
   - **Type**: `Locales`
   - **Required**: Yes
 
-## 매개변수
+### 선택적 매개변수
 
-- `url: string`
-  - **설명**: 로케일 접두사가 붙을 원본 URL 문자열입니다.
-  - **타입**: `string`
+- `options?: object`
+  - **설명**: URL 로컬라이제이션 동작을 위한 구성 객체입니다.
+  - **타입**: `object`
+  - **필수**: 아니오 (선택적)
 
-- `currentLocale: Locales`
-  - **설명**: URL이 지역화되는 현재 로케일입니다.
-  - **타입**: `Locales`
+  - `options.locales?: Locales[]`
+    - **설명**: 지원되는 로컬의 배열입니다. 제공되지 않으면 프로젝트 구성에서 구성된 로컬을 사용합니다.
+    - **타입**: `Locales[]`
+    - **기본값**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md#middleware)
 
-- `locales: Locales[]`
-  - **설명**: 지원되는 로케일의 선택적 배열입니다. 기본적으로 프로젝트에 구성된 로케일이 제공됩니다.
-  - **타입**: `Locales[]`
-  - **기본값**: [`프로젝트 구성`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md#middleware)
+  - `options.defaultLocale?: Locales`
+    - **설명**: 애플리케이션의 기본 로컬입니다. 제공되지 않으면 프로젝트 구성에서 구성된 기본 로컬을 사용합니다.
+    - **타입**: `Locales`
+    - **기본값**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md#middleware)
 
-- `defaultLocale: Locales`
-  - **설명**: 애플리케이션의 기본 로케일입니다. 기본적으로 프로젝트에 구성된 기본 로케일이 제공됩니다.
-  - **타입**: `Locales`
-  - **기본값**: [`프로젝트 구성`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md#middleware)
-
-- `prefixDefault: boolean`
-  - **설명**: 기본 로케일에 대해 URL에 접두사를 붙일지 여부입니다. 기본적으로 프로젝트에 구성된 값이 제공됩니다.
-  - **타입**: `boolean`
-  - **기본값**: [`프로젝트 구성`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md#middleware)
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **설명**: 로컬 처리를 위한 URL 라우팅 모드입니다. 제공되지 않으면 프로젝트 구성에서 구성된 모드를 사용합니다.
+    - **타입**: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **기본값**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md#middleware)
+    - **모드**:
+      - `prefix-no-default`: 기본 로컬에는 접두사 없음, 다른 모든 로컬에는 접두사 사용
+      - `prefix-all`: 기본 로컬을 포함한 모든 로컬에 접두사 사용
+      - `no-prefix`: URL에 로컬 접두사 없음
+      - `search-params`: 로컬에 쿼리 매개변수 사용 (예: `?locale=fr`)
 
 ### 반환값
 

@@ -76,9 +76,79 @@ Storybook 是开发和记录 UI 组件的行业标准工具。通过将它与 In
 
 ---
 
-### 第三步：将 Vite 插件添加到 Storybook
+## 逐步设置
 
-Storybook 的 `viteFinal` 钩子允许您扩展内部的 Vite 配置。在此处导入并添加 `intlayer()` 插件：
+<Tabs>
+<Tab value="Vite Setup">
+
+<Steps>
+
+<Step number={1} title="安装依赖">
+
+```bash packageManager="npm"
+npm install intlayer react-intlayer
+npm install vite-intlayer --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer react-intlayer
+pnpm add vite-intlayer --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add intlayer react-intlayer
+yarn add vite-intlayer --save-dev
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer
+bun add vite-intlayer --dev
+```
+
+| Package          | 作用                                                |
+| ---------------- | --------------------------------------------------- |
+| `intlayer`       | 核心 - 配置、内容编译、CLI                          |
+| `react-intlayer` | React 绑定 - `IntlayerProvider`、`useIntlayer` hook |
+| `vite-intlayer`  | Vite 插件 - 监视和编译内容声明文件                  |
+
+---
+
+</Step>
+
+<Step number={2} title="创建 Intlayer 配置">
+
+在项目的根目录（或在你的设计系统包内）创建 `intlayer.config.ts`：
+
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH,
+      // 根据需要添加更多语言
+    ],
+    defaultLocale: Locales.ENGLISH,
+  },
+  content: {
+    contentDir: ["./src"], // 你的 *.content.ts 文件所在位置
+  },
+};
+
+export default config;
+```
+
+> 有关完整的选项列表，请参阅[配置参考](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
+
+---
+
+</Step>
+
+<Step number={3} title="将 Vite 插件添加到 Storybook">
+
+Storybook 的 `viteFinal` hook 可让你扩展内部 Vite 配置。在那里导入并添加 `intlayer()` 插件：
 
 ```typescript fileName=".storybook/main.ts" codeFormat="typescript"
 import type { StorybookConfig } from "@storybook/react-vite";
@@ -119,9 +189,196 @@ const config: StorybookConfig = {
 export default config;
 ```
 
-`intlayer()` 插件会监听您的 `*.content.ts` 文件，并在 Storybook 开发过程中文件发生变化时自动重新构建字典。
+`intlayer()` 插件会监视你的 `*.content.ts` 文件，并在 Storybook 开发过程中任何更改时自动重建字典。
 
 ---
+
+</Step>
+
+<Step number={4} title="添加 `IntlayerProvider` 装饰器和语言工具栏">
+
+Storybook 的 `preview` 文件是用 `IntlayerProvider` 包装每个故事并在工具栏中公开语言切换器的合适位置：
+
+```tsx fileName=".storybook/preview.tsx" codeFormat="typescript"
+import type { Preview, StoryContext } from "@storybook/react";
+import { IntlayerProvider } from "react-intlayer";
+
+const preview: Preview = {
+  // 用 IntlayerProvider 包装每个故事
+  decorators: [
+    (Story, context: StoryContext) => {
+      const locale = context.globals.locale ?? "en";
+      return (
+        <IntlayerProvider locale={locale}>
+          <Story />
+        </IntlayerProvider>
+      );
+    },
+  ],
+
+  // 在 Storybook 工具栏中公开语言切换器
+  globalTypes: {
+    locale: {
+      description: "活跃的语言",
+      defaultValue: "en",
+      toolbar: {
+        title: "语言",
+        icon: "globe",
+        items: [
+          { value: "en", title: "English" },
+          { value: "fr", title: "Français" },
+          { value: "es", title: "Español" },
+        ],
+        dynamicTitle: true,
+      },
+    },
+  },
+
+  parameters: {
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/i,
+      },
+    },
+  },
+};
+
+export default preview;
+```
+
+> `locale` 值必须与 `intlayer.config.ts` 中声明的语言匹配。
+
+</Step>
+</Steps>
+</Tab>
+<Tab value="Webpack Setup">
+<Steps>
+
+<Step number={1} title="安装依赖">
+
+```bash packageManager="npm"
+npm install intlayer react-intlayer
+npm install @intlayer/webpack --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer react-intlayer
+pnpm add @intlayer/webpack --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add intlayer react-intlayer
+yarn add @intlayer/webpack --save-dev
+```
+
+```bash packageManager="bun"
+bun add intlayer react-intlayer
+bun add @intlayer/webpack --dev
+```
+
+---
+
+</Step>
+
+<Step number={2} title="创建 Intlayer 配置">
+
+在项目的根目录创建 `intlayer.config.ts`：
+
+```typescript fileName="intlayer.config.ts" codeFormat="typescript"
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
+    defaultLocale: Locales.ENGLISH,
+  },
+  content: {
+    contentDir: ["./src"],
+  },
+};
+
+export default config;
+```
+
+---
+
+</Step>
+
+<Step number={3} title="配置 Storybook 的 Webpack">
+
+对于基于 Webpack 的 Storybook 设置（例如 `@storybook/react-webpack5`），通过 `webpackFinal` 扩展 webpack 配置以添加 Intlayer 别名和加载器：
+
+```typescript fileName=".storybook/main.ts" codeFormat="typescript"
+import type { StorybookConfig } from "@storybook/react-webpack5";
+import { IntlayerPlugin } from "@intlayer/webpack";
+
+const config: StorybookConfig = {
+  stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
+  addons: ["@storybook/addon-essentials"],
+  framework: {
+    name: "@storybook/react-webpack5",
+    options: {},
+  },
+
+  webpackFinal: async (baseConfig) => {
+    baseConfig.plugins = [...(baseConfig.plugins ?? []), new IntlayerPlugin()];
+    return baseConfig;
+  },
+};
+
+export default config;
+```
+
+---
+
+</Step>
+
+<Step number={4} title="添加 `IntlayerProvider` 装饰器和语言工具栏">
+
+与 Vite 设置相同 - 在 `.storybook/preview.tsx` 中添加装饰器和全局语言类型：
+
+```tsx fileName=".storybook/preview.tsx" codeFormat="typescript"
+import type { Preview, StoryContext } from "@storybook/react";
+import { IntlayerProvider } from "react-intlayer";
+
+const preview: Preview = {
+  decorators: [
+    (Story, context: StoryContext) => {
+      const locale = context.globals.locale ?? "en";
+      return (
+        <IntlayerProvider locale={locale}>
+          <Story />
+        </IntlayerProvider>
+      );
+    },
+  ],
+
+  globalTypes: {
+    locale: {
+      description: "活跃的语言",
+      defaultValue: "en",
+      toolbar: {
+        title: "语言",
+        icon: "globe",
+        items: [
+          { value: "en", title: "English" },
+          { value: "fr", title: "Français" },
+          { value: "es", title: "Español" },
+        ],
+        dynamicTitle: true,
+      },
+    },
+  },
+};
+
+export default preview;
+```
+
+</Step>
+</Steps>
+</Tab>
+</Tabs>
 
 ## 声明内容
 

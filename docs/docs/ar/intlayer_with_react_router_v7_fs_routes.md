@@ -165,98 +165,55 @@ app/
 - `_index` - مسار الفهرس (يتم عرضه في مسار العنصر الأب)
 - `.` (نقطة) - فاصل مقاطع المسار (مثال: `($locale).about` → `/:locale?/about`)
 
-## دليل خطوة بخطوة لإعداد Intlayer في تطبيق React Router v7 مع مسارات قائمة على نظام الملفات
+#### مكون التخطيط
 
-<Tabs defaultTab="video">
-  <Tab label="Video" value="video">
+```tsx fileName="app/root.tsx"
+import { getLocaleFromPath } from "intlayer";
+import { IntlayerProvider } from "react-intlayer";
+import {
+  isRouteErrorResponse,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useLoaderData,
+} from "react-router";
 
-<iframe title="How to translate an React Router v7 (File-System Routes) app using Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
+import type { Route } from "./+types/root";
 
-  </Tab>
-  <Tab label="Code" value="code">
+import "./app.css";
 
-<iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-react-router-v7-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
+// ... كود App و links و ErrorBoundary دون تغيير
 
-  </Tab>
-  <Tab label="تجربة" value="demo">
+export async function loader({ request }: Route.LoaderArgs) {
+  const locale = getLocaleFromPath(request.url);
 
-<iframe
-  src="https://intlayer-react-router-v7.vercel.app"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="تجربة - intlayer-react-router-v7-template"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
+  return { locale };
+}
 
-  </Tab>
-</Tabs>
+export function Layout({
+  children,
+}: { children: React.ReactNode } & Route.ComponentProps) {
+  const data = useLoaderData<typeof loader>();
+  const { locale } = data ?? {};
 
-See [Application Template](https://github.com/aymericzip/intlayer-react-router-v7-template) on GitHub.
-
-قم بإنشاء ملف تكوين لتكوين لغات تطبيقك:
-
-```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import { type IntlayerConfig, Locales } from "intlayer";
-
-const config: IntlayerConfig = {
-  internationalization: {
-    defaultLocale: Locales.ENGLISH, // اللغة الافتراضية
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH], // اللغات المدعومة
-  },
-};
-
-export default config;
+  return (
+    <html lang={locale}>
+      <head>
+        <meta charSet="utf-8" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+    </html>
+  );
+}
 ```
-
-> من خلال ملف التكوين هذا، يمكنك إعداد عناوين URL محلية، إعادة توجيه الوسيط، أسماء ملفات تعريف الارتباط، موقع وامتداد إعلانات المحتوى الخاصة بك، تعطيل سجلات Intlayer في وحدة التحكم، والمزيد. للحصول على قائمة كاملة بالمعلمات المتاحة، راجع [توثيق التكوين](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md).
-
-<Steps>
-
-<Step number={3} title="دمج Intlayer في تكوين Vite الخاص بك">
-
-أضف مكون intlayer الإضافي إلى تكوينك:
-
-```typescript fileName="vite.config.ts"
-import { reactRouter } from "@react-router/dev/vite";
-import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [reactRouter(), intlayer()],
-});
-```
-
-> يتم استخدام مكون Vite الإضافي `intlayer()` لدمج Intlayer مع Vite. يضمن بناء ملفات إعلان المحتوى ويراقبها في وضع التطوير. كما يحدد متغيرات بيئة Intlayer داخل تطبيق Vite. بالإضافة إلى ذلك، يوفر أسماء مستعارة لتحسين الأداء.
-
-</Step>
-
-<Step number={4} title="تكوين مسارات React Router v7">
-
-قم بإعداد تكوين التوجيه الخاص بك مع مسارات مدركة للغة:
-
-```typescript fileName="app/routes.ts"
-typescript fileName="app/routes.ts"
-import { layout, route, type RouteConfig } from "@react-router/dev/routes";
-
-export default [
-  layout("routes/layout.tsx", [
-    route("/:lang?", "routes/page.tsx"), // الصفحة الرئيسية المحلية
-    route("/:lang?/about", "routes/about/page.tsx"), // صفحة حول المحلية
-  ]),
-] satisfies RouteConfig;
-```
-
-</Step>
-
-<Step number={5} title="إنشاء مكونات التخطيط">
-
-قم بإعداد التخطيط الجذري والتخطيطات الخاصة باللغة:
 
 #### التخطيط الجذري
 

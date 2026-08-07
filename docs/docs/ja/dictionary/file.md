@@ -23,7 +23,9 @@ history:
 author: aymericzip
 ---
 
-# ファイルコンテンツ / Intlayerでのファイル埋め込み
+# Intlayerでのファイルコンテンツ / ファイルの埋め込み
+
+Intlayerでは、`file`関数により外部ファイルのコンテンツを辞書に埋め込むことができます。このアプローチにより、Intlayerがソースファイルを認識し、Intlayer Visual EditorおよびCMSとのシームレスな統合が可能になります。
 
 ## ファイル埋め込みの仕組み
 

@@ -64,6 +64,53 @@ export default firstDictionary;
 }
 ```
 
+### Referencing with Nest
+
+Ora, crea un altro modulo di contenuto che utilizza la funzione `nest` per fare riferimento al contenuto precedente. Puoi fare riferimento all'intero contenuto o a un valore annidato specifico:
+
+```typescript fileName="secondDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { nest, type Dictionary } from "intlayer";
+
+const myNestingContent = {
+  key: "key_of_my_second_dictionary",
+  content: {
+    // Fa riferimento all'intero dizionario:
+    fullNestedContent: nest("key_of_my_first_dictionary"),
+    // Fa riferimento a un valore annidato specifico:
+    partialNestedContent: nest(
+      "key_of_my_first_dictionary",
+      "subContent.contentNumber"
+    ),
+  },
+} satisfies Dictionary;
+
+export default myNestingContent;
+```
+
+```json fileName="secondDictionary.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "key_of_my_second_dictionary",
+  "content": {
+    "fullNestedContent": {
+      "nodeType": "nested",
+      "nested": {
+        "dictionaryKey": "key_of_my_first_dictionary"
+      }
+    },
+    "partialNestedContent": {
+      "nodeType": "nested",
+      "nested": {
+        "dictionaryKey": "key_of_my_first_dictionary",
+        "path": "subContent.contentNumber"
+      }
+    }
+  }
+}
+```
+
+Come secondo parametro, puoi specificare un percorso a un valore annidato all'interno di quel contenuto. Quando non viene fornito alcun percorso, viene restituito l'intero contenuto del dizionario di riferimento.
+
 ## Configurazione dell'Annidamento
 
 <Tabs group="framework">
@@ -257,36 +304,6 @@ document.getElementById("nested")!.textContent = content.partialNestedContent;
 
   </Tab>
 </Tabs>
-
-## Utilizzo dell'Annidamento con React Intlayer
-
-Per utilizzare contenuti annidati in un componente React, sfrutta il hook `useIntlayer` del pacchetto `react-intlayer`. Questo hook recupera il contenuto corretto in base alla chiave specificata. Ecco un esempio di come utilizzarlo:
-
-```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { useIntlayer } from "react-intlayer";
-
-const NestComponent: FC = () => {
-  const { fullNestedContent, partialNestedContent } = useIntlayer(
-    "key_of_my_second_dictionary"
-  );
-
-  return (
-    <div>
-      <p>
-        Contenuto Annidato Completo: {JSON.stringify(fullNestedContent)}
-        {/* Output: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
-      </p>
-      <p>
-        Valore Annidato Parziale: {partialNestedContent}
-        {/* Output: 0 */}
-      </p>
-    </div>
-  );
-};
-
-export default NestComponent;
-```
 
 ## Risorse Aggiuntive
 

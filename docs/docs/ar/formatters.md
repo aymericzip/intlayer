@@ -46,34 +46,6 @@ author: aymericzip
 
 يوفر Intlayer مجموعة من المساعدين الخفيفين المبنيين على واجهات برمجة التطبيقات الأصلية `Intl`، بالإضافة إلى غلاف `Intl` مخزن مؤقت لتجنب إنشاء أدوات تنسيق ثقيلة بشكل متكرر. هذه الأدوات مدركة تمامًا للغة ويمكن استخدامها من الحزمة الرئيسية `intlayer`.
 
-### الاستيراد
-
-```ts
-import {
-  Intl,
-  number,
-  percentage,
-  currency,
-  date,
-  relativeTime,
-  units,
-  compact,
-  list,
-  getLocaleName,
-  getLocaleLang,
-  getLocaleFromPath,
-  getPathWithoutLocale,
-  getLocalizedUrl,
-  getHTMLTextDir,
-  getContent,
-  getTranslation,
-  getIntlayer,
-  getIntlayerAsync,
-} from "intlayer";
-```
-
-إذا كنت تستخدم React، فإن الخطافات متاحة أيضًا؛ راجع `react-intlayer/format`.
-
 ## Intl المخزن مؤقتًا
 
 الـ `Intl` المصدر هو غلاف رقيق مخزن مؤقت حول الـ `Intl` العالمي. يقوم بتخزين نسخ من `NumberFormat`، `DateTimeFormat`، `RelativeTimeFormat`، `ListFormat`، `DisplayNames`، `Collator`، و `PluralRules`، مما يتجنب إعادة بناء نفس أداة التنسيق مرارًا وتكرارًا.
@@ -110,85 +82,7 @@ pluralRules.select(1); // "واحد"
 pluralRules.select(2); // "آخر"
 ```
 
-## أدوات Intl إضافية
-
-بعيدًا عن مساعدي التنسيق، يمكنك أيضًا استخدام الغلاف المؤقت لـ Intl مباشرةً لميزات Intl الأخرى:
-
-### `Intl.DisplayNames`
-
-لأسماء اللغات والمناطق والعملات والكتابات المحلية:
-
-```ts
-import { Intl } from "intlayer";
-
-const languageNames = new Intl.DisplayNames("en", { type: "language" });
-languageNames.of("fr"); // "French"
-
-const regionNames = new Intl.DisplayNames("fr", { type: "region" });
-regionNames.of("US"); // "États-Unis"
-```
-
-### `Intl.Collator`
-
-للمقارنة والفرز النصي المعتمد على اللغة:
-
-```ts
-import { Intl } from "intlayer";
-
-const collator = new Intl.Collator("de", {
-  sensitivity: "base",
-  numeric: true,
-});
-
-const words = ["äpfel", "zebra", "100", "20"];
-words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
-```
-
-### `Intl.PluralRules`
-
-لتحديد أشكال الجمع في لغات مختلفة:
-
-```ts
-import { Intl } from "intlayer";
-
-const pluralRules = new Intl.PluralRules("ar");
-pluralRules.select(0); // "zero"
-pluralRules.select(1); // "one"
-pluralRules.select(2); // "two"
-pluralRules.select(3); // "few"
-pluralRules.select(11); // "many"
-```
-
 ## أدوات اللغة
-
-### `getLocaleName(displayLocale, targetLocale?)`
-
-يحصل على الاسم المحلي للغة في لغة أخرى:
-
-```ts
-import { getLocaleName } from "intlayer";
-
-getLocaleName("fr", "en"); // "French"
-getLocaleName("en", "fr"); // "anglais"
-getLocaleName("de", "es"); // "alemán"
-```
-
-- **displayLocale**: اللغة التي سيتم الحصول على اسمها
-- **targetLocale**: اللغة التي سيتم عرض الاسم بها (افتراضيًا تكون نفس displayLocale)
-
-### `getLocaleLang(locale?)`
-
-يستخرج رمز اللغة من سلسلة اللغة:
-
-```ts
-import { getLocaleLang } from "intlayer";
-
-getLocaleLang("en-US"); // "en"
-getLocaleLang("fr-CA"); // "fr"
-getLocaleLang("de"); // "de"
-```
-
-- **locale**: اللغة التي سيتم استخراج رمز اللغة منها (افتراضيًا اللغة الحالية)
 
 ### `getLocaleFromPath(inputUrl)`
 
@@ -330,23 +224,6 @@ const content = await getIntlayerAsync("common", "fr");
 
 جميع الأدوات التالية مُصدرة من `intlayer`.
 
-### `number(value, options?)`
-
-يقوم بتنسيق قيمة رقمية باستخدام التجميع والفواصل العشرية المعتمدة على اللغة.
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-
-أمثلة:
-
-```ts
-import { number } from "intlayer";
-
-number(123456.789); // "123,456.789" (في en-US)
-number("1000000", { locale: "fr" }); // "1 000 000"
-number(1234.5, { minimumFractionDigits: 2 }); // "1,234.50"
-```
-
 ### `percentage(value, options?)`
 
 يقوم بتنسيق رقم كسلسلة نسبة مئوية.
@@ -366,97 +243,187 @@ percentage(25); // "25%"
 percentage(0.237, { minimumFractionDigits: 1 }); // "23.7%"
 ```
 
-### `currency(value, options?)`
+### ميزات Intl إضافية
 
-يقوم بتنسيق قيمة كعملة محلية. الافتراضي هو `USD` مع رقمين عشريين.
+#### `number(value, options?)`
+
+تنسيق قيمة رقمية باستخدام التجميع والفواصل العشرية الموجهة للغة.
 
 - **value**: `number | string`
 - **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-  - الحقول الشائعة: `currency` (مثلاً، `"EUR"`)، `currencyDisplay` (`"symbol" | "code" | "name"`)
-
-أمثلة:
 
 ```ts
-import { currency } from "intlayer";
+number(123456.789); // "123,456.789" (in en-US)
+number("1000000", { locale: "fr" }); // "1 000 000"
+number(1234.5, { minimumFractionDigits: 2 }); // "1,234.50"
+```
 
+#### `percentage(value, options?)`
+
+تنسّق رقماً كسلسلة نسبة مئوية. يتم تطبيع القيم الأكبر من 1 (على سبيل المثال، `25` → `25%`، `0.25` → `25%`).
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+
+```ts
+percentage(0.25); // "25%"
+percentage(25); // "25%"
+percentage(0.237, { minimumFractionDigits: 1 }); // "23.7%"
+```
+
+#### `currency(value, options?)`
+
+تنسيق قيمة كعملة محلية. القيمة الافتراضية هي `USD`.
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+  - Common: `currency`, `currencyDisplay` (`"symbol" | "code" | "name"`)
+
+```ts
 currency(1234.5, { currency: "EUR" }); // "€1,234.50"
 currency("5000", { locale: "fr", currency: "CAD", currencyDisplay: "code" }); // "5 000,00 CAD"
 ```
 
-### `date(date, optionsOrPreset?)`
+#### `date(date, optionsOrPreset?)`
 
-يقوم بتنسيق قيمة التاريخ/الوقت باستخدام `Intl.DateTimeFormat`.
+تنسيق قيمة التاريخ/الوقت.
 
 - **date**: `Date | string | number`
-- **optionsOrPreset**: `Intl.DateTimeFormatOptions & { locale?: LocalesValues }` أو أحد الإعدادات المسبقة:
-  - الإعدادات المسبقة: `"short" | "long" | "dateOnly" | "timeOnly" | "full"`
-
-أمثلة:
+- **optionsOrPreset**: `Intl.DateTimeFormatOptions & { locale?: LocalesValues }` أو preset: `"short" | "long" | "dateOnly" | "timeOnly" | "full"`
 
 ```ts
-import { date } from "intlayer";
-
-date(new Date(), "short"); // على سبيل المثال، "08/02/25, 14:30"
+date(new Date(), "short"); // مثال، "08/02/25, 14:30"
 date("2025-08-02T14:30:00Z", { locale: "fr", month: "long", day: "numeric" }); // "2 août"
+```
+
+#### `relativeTime(from, to?, options?)`
+
+تنسيق الوقت النسبي بين لحظتين.
+
+- **from**: `Date | string | number`
+- **to**: `Date | string | number` (الافتراضي `new Date()`)
+- **options**: `{ locale?, unit?, numeric?, style? }`
+
+```ts
+const now = new Date();
+const in3Days = new Date(now.getTime() + 3 * 864e5);
+relativeTime(now, in3Days, { unit: "day" }); // "خلال 3 أيام"
+
+const twoHoursAgo = new Date(now.getTime() - 2 * 3600e3);
+relativeTime(now, twoHoursAgo, { unit: "hour", numeric: "auto" }); // "قبل ساعتين"
+```
+
+#### `units(value, options?)`
+
+تنسيق قيمة رقمية مع وحدة.
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+  - Common: `unit` (على سبيل المثال، `"kilometer"`، `"byte"`), `unitDisplay` (`"short" | "narrow" | "long"`)
+
+```ts
+units(5, { unit: "kilometer", unitDisplay: "long", locale: "en-GB" }); // "5 kilometers"
+units(1024, { unit: "byte", unitDisplay: "narrow" }); // "1,024B"
+```
+
+#### `compact(value, options?)`
+
+تنسيق رقم باستخدام الترميز المضغوط.
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+
+```ts
+compact(1200); // "1.2K"
+compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
+```
+
+#### `list(values, options?)`
+
+تنسيق مصفوفة إلى سلسلة قائمة محلية.
+
+- **values**: `(string | number)[]`
+- **options**: `Intl.ListFormatOptions & { locale?: LocalesValues }`
+  - Common: `type` (`"conjunction" | "disjunction" | "unit"`), `style` (`"long" | "short" | "narrow"`)
+
+```ts
+list(["apple", "banana", "orange"]); // "apple, banana, and orange"
+list(["red", "green", "blue"], { locale: "fr", type: "disjunction" }); // "rouge, vert ou bleu"
+```
+
+## Cached Intl
+
+الـ `Intl` المُصدَّر من `intlayer` هو غلاف مُخزّن مؤقتاً حول الـ `Intl` العام. يقوم بحفظ نسخ من instances المُنسِّقات (`NumberFormat`، `DateTimeFormat`، إلخ.) لتجنب بنائها بشكل متكرر، مما يحسّن الأداء.
+
+```ts
+import { Intl } from "intlayer";
+
+// تنسيق الأرقام
+const numberFormat = new Intl.NumberFormat("en-GB", {
+  style: "currency",
+  currency: "GBP",
+});
+numberFormat.format(1234.5); // "£1,234.50"
+
+// عرض الأسماء للغات والمناطق وما إلى ذلك
+const displayNames = new Intl.DisplayNames("fr", { type: "language" });
+displayNames.of("en"); // "anglais"
+
+// المصادفة للفرز
+const collator = new Intl.Collator("fr", { sensitivity: "base" });
+collator.compare("é", "e"); // 0 (متساوية)
+
+// قواعد الجمع
+const pluralRules = new Intl.PluralRules("fr");
+pluralRules.select(1); // "one"
+pluralRules.select(2); // "other"
 ```
 
 ### ميزات Intl إضافية
 
-### `relativeTime(from, to = new Date(), options?)`
+#### `Intl.DisplayNames`
 
-يقوم بتنسيق الوقت النسبي بين لحظتين باستخدام `Intl.RelativeTimeFormat`.
-
-- مرر "now" كوسيط أول والهدف كوسيط ثاني للحصول على تعبير طبيعي.
-- **from**: `Date | string | number`
-- **to**: `Date | string | number` (افتراضيًا `new Date()`)
-- **options**: `{ locale?: LocalesValues; unit?: Intl.RelativeTimeFormatUnit; numeric?: Intl.RelativeTimeFormatNumeric; style?: Intl.RelativeTimeFormatStyle }`
-  - الوحدة الافتراضية `unit` هي `"second"`.
-
-أمثلة:
+للحصول على الأسماء المحلية للغات والمناطق والعملات والنصوص:
 
 ```ts
-import { relativeTime } from "intlayer";
+import { Intl } from "intlayer";
 
-const now = new Date();
-const in3Days = new Date(now.getTime() + 3 * 864e5);
-relativeTime(now, in3Days, { unit: "day" }); // "بعد 3 أيام"
+const languageNames = new Intl.DisplayNames("en", { type: "language" });
+languageNames.of("fr"); // "French"
 
-const twoHoursAgo = new Date(now.getTime() - 2 * 3600e3);
-relativeTime(now, twoHoursAgo, { unit: "hour", numeric: "auto" }); // "منذ ساعتين"
+const regionNames = new Intl.DisplayNames("fr", { type: "region" });
+regionNames.of("US"); // "États-Unis"
 ```
 
-### `units(value, options?)`
+#### `Intl.Collator`
 
-يقوم بتنسيق قيمة رقمية كسلسلة وحدة محلية باستخدام `Intl.NumberFormat` مع `style: 'unit'`.
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-  - الحقول الشائعة: `unit` (مثلًا، `"kilometer"`، `"byte"`)، `unitDisplay` (`"short" | "narrow" | "long"`)
-  - القيم الافتراضية: `unit: 'day'`، `unitDisplay: 'short'`، `useGrouping: false`
-
-أمثلة:
+لمقارنة وترتيب السلاسل النصية مع الوعي بالإعدادات المحلية:
 
 ```ts
-import { units } from "intlayer";
+import { Intl } from "intlayer";
 
-units(5, { unit: "kilometer", unitDisplay: "long", locale: "en-GB" }); // "5 kilometers"
-units(1024, { unit: "byte", unitDisplay: "narrow" }); // "1,024B" (يعتمد على اللغة)
+const collator = new Intl.Collator("de", {
+  sensitivity: "base",
+  numeric: true,
+});
+
+const words = ["äpfel", "zebra", "100", "20"];
+words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
 ```
 
-### `compact(value, options?)`
+#### `Intl.PluralRules`
 
-يقوم بتنسيق رقم باستخدام التدوين المضغوط (مثلًا، `1.2K`، `1M`).
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }` (يستخدم `notation: 'compact'` ضمنيًا)
-
-أمثلة:
+لتحديد أشكال الجمع في لغات مختلفة:
 
 ```ts
-import { compact } from "intlayer";
+import { Intl } from "intlayer";
 
-compact(1200); // "1.2K"
-compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
+const pluralRules = new Intl.PluralRules("ar");
+pluralRules.select(0); // "zero"
+pluralRules.select(1); // "one"
+pluralRules.select(2); // "two"
+pluralRules.select(3); // "few"
+pluralRules.select(11); // "many"
 ```
 
 ## أدوات المناطق الإقليمية
@@ -491,11 +458,17 @@ getLocaleLang("en-US"); // "en"
 getLocaleLang("fr-CA"); // "fr"
 ```
 
-## ملاحظات
+### `getLocaleFromPath(inputUrl)`
 
-- جميع الأدوات المساعدة تقبل مدخلات من نوع `string`؛ حيث يتم تحويلها داخليًا إلى أرقام أو تواريخ.
-- اللغة الافتراضية هي `internationalization.defaultLocale` التي قمت بتكوينها إذا لم يتم توفير لغة.
-- هذه الأدوات هي أغلفة رقيقة؛ للتنسيق المتقدم، استخدم خيارات `Intl` القياسية.
+استخراج جزء اللغة من عنوان URL أو مسار:
+
+```ts
+import { getLocaleFromPath } from "intlayer";
+
+getLocaleFromPath("/en/dashboard"); // "en"
+getLocaleFromPath("/fr/dashboard"); // "fr"
+getLocaleFromPath("/dashboard"); // "en" (اللغة الافتراضية)
+```
 
 ### `getPathWithoutLocale(inputUrl, locales?)`
 
@@ -519,34 +492,16 @@ getLocalizedUrl("/about", "fr", ["en", "fr"], "en", false); // "/fr/about"
 getLocalizedUrl("/about", "en", ["en", "fr"], "en", false); // "/about"
 ```
 
-## نقاط الدخول وإعادة التصدير (`@index.ts`)
+### `getHTMLTextDir(locale?)`
 
-تعيش أدوات التنسيق في الحزمة الأساسية ويتم إعادة تصديرها من الحزم الأعلى للحفاظ على سهولة الاستيراد عبر بيئات التشغيل المختلفة:
-
-أمثلة:
+يعيد اتجاه النص للغة معينة:
 
 ```ts
-// كود التطبيق (موصى به)
-import {
-  number,
-  currency,
-  date,
-  relativeTime,
-  units,
-  compact,
-  list,
-  Intl,
-  getLocaleName,
-  getLocaleLang,
-  getLocaleFromPath,
-  getPathWithoutLocale,
-  getLocalizedUrl,
-  getHTMLTextDir,
-  getContent,
-  getTranslation,
-  getIntlayer,
-  getIntlayerAsync,
-} from "intlayer";
+import { getHTMLTextDir } from "intlayer";
+
+getHTMLTextDir("en-US"); // "ltr"
+getHTMLTextDir("ar"); // "rtl"
+getHTMLTextDir("he"); // "rtl"
 ```
 
 ## أدوات معالجة المحتوى

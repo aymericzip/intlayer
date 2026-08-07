@@ -253,16 +253,6 @@ La sincronización en vivo permite que tu aplicación refleje los cambios de con
 
 Para la guía de configuración completa (activación, inicio del servidor Live Sync, flujo de trabajo de desarrollo local y restricciones), consulta la [documentación de Live Sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/live-sync.md).
 
-## Auto-alojamiento
-
-Intlayer puede ejecutarse completamente en tu propia infraestructura — no se requiere cuenta de Intlayer Cloud. Un solo comando arranca toda la pila (panel de control, API, base de datos, almacenamiento de objetos y correo electrónico) mediante Docker Compose:
-
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
-```
-
-Esto descarga un `docker-compose.yml` y un `.env`, genera automáticamente los secretos necesarios (`BETTER_AUTH_SECRET`, credenciales de MinIO) y arranca todos los contenedores con `docker compose up -d`. Volver a ejecutar el mismo comando en una instalación existente realiza una actualización progresiva sin pérdida de datos.
-
 ### Servicios iniciados
 
 | Servicio                   | Puerto(s)                            | Propósito                                             |
@@ -363,6 +353,41 @@ Puertos expuestos en el host:
 | `9001` | Consola de MinIO                                                    |
 
 Para una referencia completa de todas las variables de entorno disponibles y opciones avanzadas (proxy inverso, dominios personalizados, respaldo/restauración), consulta la [Guía de Auto-alojamiento](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/self_hosting.md).
+
+---
+
+### Extrayendo un método único
+
+Cada método de endpoint ya está autenticado y es independiente (maneja su propio token), por lo que puedes extraer uno y pasarlo — por ejemplo para inyectarlo como una dependencia:
+
+```typescript fileName="push.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const dictionary = dictionaryEndpoint(createIntlayerCMS());
+
+// Ya autenticado — refresca el token automáticamente en cada llamada
+export const pushDictionaries = dictionary.pushDictionaries;
+
+// Uso
+await pushDictionaries([{ key: "home", content: { title: "Home" } }]);
+```
+
+## Live sync
+
+Live Sync permite que tu aplicación refleje los cambios de contenido del CMS en tiempo de ejecución — sin necesidad de reconstruir o redeplegar. Cuando está habilitado, las actualizaciones se transmiten a un servidor Live Sync que actualiza los diccionarios que tu aplicación lee.
+
+Para la guía de configuración completa (configuración, iniciar el servidor Live Sync, el flujo de trabajo de desarrollo local y limitaciones), consulta la [documentación de Live Sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/live-sync.md).
+
+## Auto-hospedaje
+
+Intlayer puede ejecutarse completamente en tu propia infraestructura. Una sola línea arranca el stack completo (dashboard, API, base de datos, almacenamiento de objetos y correo electrónico) con Docker Compose:
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh
+```
+
+Para la guía de configuración completa, referencia de variables de entorno, instrucciones de actualización y procedimientos de copia de seguridad/restauración, consulta la [Guía de Auto-hospedaje](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/self_hosting.md).
 
 ---
 

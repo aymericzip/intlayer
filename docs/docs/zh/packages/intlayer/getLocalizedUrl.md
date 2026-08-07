@@ -66,30 +66,32 @@ getLocalizedUrl(
   - **Type**: `Locales`
   - **Required**: Yes
 
-## 参数
+### 可选参数
 
-- `url: string`
-  - **描述**：需要添加语言环境前缀的原始 URL 字符串。
-  - **类型**：`string`
+- `options?: object`
+  - **Description**: URL 本地化行为的配置对象。
+  - **Type**: `object`
+  - **Required**: No (Optional)
 
-- `currentLocale: Locales`
-  - **描述**：当前正在本地化的语言环境。
-  - **类型**：`Locales`
+  - `options.locales?: Locales[]`
+    - **Description**: 支持的 locale 数组。如果未提供，将使用项目配置中配置的 locale。
+    - **Type**: `Locales[]`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md#middleware)
 
-- `locales: Locales[]`
-  - **描述**：可选的支持语言环境数组。默认情况下，提供项目中配置的语言环境。
-  - **类型**：`Locales[]`
-  - **默认值**：[`项目配置`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md#middleware)
+  - `options.defaultLocale?: Locales`
+    - **Description**: 应用程序的默认 locale。如果未提供，将使用项目配置中配置的默认 locale。
+    - **Type**: `Locales`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md#middleware)
 
-- `defaultLocale: Locales`
-  - **描述**：应用程序的默认语言环境。默认情况下，提供项目中配置的默认语言环境。
-  - **类型**：`Locales`
-  - **默认值**：[`项目配置`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md#middleware)
-
-- `prefixDefault: boolean`
-  - **描述**：是否为默认语言环境的 URL 添加前缀。默认情况下，提供项目中配置的值。
-  - **类型**：`boolean`
-  - **默认值**：[`项目配置`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md#middleware)
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Description**: 用于 locale 处理的 URL 路由模式。如果未提供，将使用项目配置中配置的模式。
+    - **Type**: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md#middleware)
+    - **Modes**:
+      - `prefix-no-default`: 默认 locale 无前缀，其他 locale 有前缀
+      - `prefix-all`: 所有 locale（包括默认 locale）都有前缀
+      - `no-prefix`: URL 中无 locale 前缀
+      - `search-params`: 使用查询参数表示 locale（例如 `?locale=fr`）
 
 ### 返回值
 

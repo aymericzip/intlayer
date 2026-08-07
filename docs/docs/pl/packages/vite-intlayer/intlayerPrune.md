@@ -30,16 +30,89 @@ Wtyczka Vite `intlayerPrune` służy do tree-shakingu i usuwania nieużywanych s
 
 ## Użycie
 
+### W ramach `intlayer()` (zalecane)
+
+Włącz pruning poprzez konfigurację Intlayer, a główny plugin zajmie się wszystkim:
+
 ```ts
-// vite.config.ts
-import { defineConfig } from "vite";
-import { intlayer, intlayerPrune } from "vite-intlayer";
+// intlayer.config.ts
+import { defineConfig } from "intlayer";
 
 export default defineConfig({
-  plugins: [intlayer(), intlayerPrune()],
+  build: {
+    optimize: true, // włącza zarówno prune, jak i minify
+  },
 });
 ```
 
-## Opis
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
 
-Wtyczka analizuje kod źródłowy, aby zidentyfikować, które klucze słowników są faktycznie używane. Następnie usuwa wszelkie nieużywane treści z zabundlowanych plików słowników. Jest to szczególnie przydatne w dużych projektach z wieloma słownikami, gdzie tylko podzbiór jest używany na określonych stronach lub w komponentach.
+export default defineConfig({
+  plugins: [intlayer()],
+});
+```
+
+### Standalone
+
+Jeśli ręcznie komponujesz stos pluginów, `intlayerPrune` i `intlayerMinify` współdzielą obiekt `PruneContext`, który musi być utworzony raz i przekazany do obu:
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import { intlayerPrune, intlayerMinify } from "vite-intlayer";
+import { createPruneContext } from "@intlayer/babel";
+import { getConfiguration } from "@intlayer/config/node";
+
+const intlayerConfig = getConfiguration();
+const pruneContext = createPruneContext();
+
+export default defineConfig({
+  plugins: [
+    intlayerPrune(intlayerConfig, pruneContext),
+    intlayerMinify(intlayerConfig, pruneContext), // opcjonalnie, odczytuje z tego samego kontekstu
+  ],
+});
+```
+
+## Jak to działa
+
+### 1. Analiza użycia (buildStart)
+
+Podczas `buildStart`, plugin `intlayerOptimize` (również część `intlayer()`) skanuje każdy plik źródłowy komponentu wymieniony w `build.filesList`. Dla każdego wywołania `useIntlayer('key')` lub `getIntlayer('key')` rejestruje dokładnie, które pola są dostępne, np.:
+
+```ts
+const { title, description } = useIntlayer("myDict");
+// rejestruje: myDict → { title, description }
+```
+
+To buduje `pruneContext.fieldUsageMap` przed uruchomieniem jakichkolwiek wywołań `transform`.
+
+### 2. JSON pruning (transform, enforce: 'pre')
+
+When Vite processes a compiled dictionary JSON file, `intlayerPrune` intercepts it before Vite's built-in JSON → ESM conversion. It reads the field-usage map from `pruneContext` and removes any content field that is not in the recorded usage set.
+
+Two content shapes are supported:
+
+- **Static dictionaries** — `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Fields are pruned per-locale inside `translation`.
+- **Dynamic (per-locale) dictionaries** — flat `{ fieldA: ..., fieldB: ... }`. Fields are pruned at the top level.
+
+### 3. Przypadki szczególne
+
+Jeśli struktura zawartości słownika nie może być rozpoznana (np. niezwykły kształt zagnieżdżenia), jest dodawana do `pruneContext.dictionariesWithEdgeCases` i **pozostawiana bez zmian**. Rejestrowane jest ostrzeżenie. `intlayerMinify` również pomija te słowniki.
+
+### 4. Mapa zmian nazw pól
+
+Gdy przycinanie przebiegnie pomyślnie, `intlayerPrune` zapisuje również `pruneContext.dictionaryKeyToFieldRenameMap` — mapowanie z oryginalnych nazw pól na krótkie aliasy. `intlayerMinify` odczytuje tę mapę, aby zmienić nazwy pól w wyjściowym JSON, a przebieg zmiany nazwy Babel w `intlayerOptimize` aktualizuje dostępy do właściwości w plikach źródłowych odpowiednio.
+
+## Warunki aktywacji
+
+`intlayerPrune` jest aktywny **tylko** wtedy, gdy wszystkie poniższe warunki są spełnione:
+
+1. Polecenie Vite to `build`.
+2. `build.optimize` to `true` (lub `undefined`, które domyślnie przyjmuje wartość `true` dla kompilacji).
+3. `build.purge` to `true` w konfiguracji Intlayer.
+
+Jest automatycznie **wyłączony** gdy `editor.enabled` to `true`, ponieważ edytor wymaga pełnej zawartości słownika.

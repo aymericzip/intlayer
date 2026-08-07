@@ -30,15 +30,82 @@ El plugin `intlayerPrune` para Vite se utiliza para aplicar tree-shaking y elimi
 
 ## Uso
 
+### Como parte de `intlayer()` (recomendado)
+
+Habilita la poda a través de tu configuración de Intlayer y el plugin principal se encarga de todo:
+
+```ts
+// intlayer.config.ts
+import { defineConfig } from "intlayer";
+
+export default defineConfig({
+  build: {
+    optimize: true, // habilita tanto poda como minificación
+  },
+});
+```
+
 ```ts
 // vite.config.ts
 import { defineConfig } from "vite";
-import { intlayer, intlayerPrune } from "vite-intlayer";
+import { intlayer } from "vite-intlayer";
 
 export default defineConfig({
-  plugins: [intlayer(), intlayerPrune()],
+  plugins: [intlayer()],
 });
 ```
+
+### Independiente
+
+Si está componiendo manualmente la pila de plugins, `intlayerPrune` e `intlayerMinify` comparten un objeto `PruneContext` que debe crearse una vez y pasarse a ambos:
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import { intlayerPrune, intlayerMinify } from "vite-intlayer";
+import { createPruneContext } from "@intlayer/babel";
+import { getConfiguration } from "@intlayer/config/node";
+
+const intlayerConfig = getConfiguration();
+const pruneContext = createPruneContext();
+
+export default defineConfig({
+  plugins: [
+    intlayerPrune(intlayerConfig, pruneContext),
+    intlayerMinify(intlayerConfig, pruneContext), // opcional, lee del mismo contexto
+  ],
+});
+```
+
+## Cómo funciona
+
+### 1. Análisis de uso (buildStart)
+
+Durante `buildStart`, el plugin `intlayerOptimize` (también parte de `intlayer()`) escanea cada archivo de componente fuente listado en `build.filesList`. Para cada llamada `useIntlayer('key')` o `getIntlayer('key')`, registra exactamente qué campos se acceden, por ejemplo:
+
+```ts
+const { title, description } = useIntlayer("myDict");
+// registra: myDict → { title, description }
+```
+
+Esto construye `pruneContext.fieldUsageMap` antes de que se ejecuten las llamadas `transform`.
+
+### 2. JSON pruning (transform, enforce: 'pre')
+
+When Vite processes a compiled dictionary JSON file, `intlayerPrune` intercepts it before Vite's built-in JSON → ESM conversion. It reads the field-usage map from `pruneContext` and removes any content field that is not in the recorded usage set.
+
+Two content shapes are supported:
+
+- **Static dictionaries** — `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Fields are pruned per-locale inside `translation`.
+- **Dynamic (per-locale) dictionaries** — flat `{ fieldA: ..., fieldB: ... }`. Fields are pruned at the top level.
+
+### 3. Casos especiales
+
+Si la estructura de contenido de un diccionario no puede ser reconocida (por ejemplo, una forma anidada inusual), se añade a `pruneContext.dictionariesWithEdgeCases` y se **deja sin modificar**. Se registra una advertencia. `intlayerMinify` también omite estos diccionarios.
+
+### 4. Mapa de renombrado de campos
+
+Cuando la poda tiene éxito, `intlayerPrune` también escribe `pruneContext.dictionaryKeyToFieldRenameMap` — un mapeo de nombres de campos originales a alias cortos. `intlayerMinify` lee este mapa para renombrar campos en el JSON de salida, y el paso de renombrado de Babel de `intlayerOptimize` actualiza los accesos a propiedades en los archivos de origen en consecuencia.
 
 ## Descripción
 

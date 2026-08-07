@@ -25,9 +25,9 @@ history:
 author: aymericzip
 ---
 
-## Kamus
+# Dokumentasi Hook useIntlayer
 
-Semua kunci kamus harus dideklarasikan dalam file deklarasi konten untuk meningkatkan keamanan tipe dan menghindari kesalahan. Anda dapat menemukan [instruksi pengaturan di sini](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/dictionary/content_file.md).
+Hook `useIntlayer` memungkinkan Anda untuk mengambil konten terlokalisasi dari kamus menggunakan kuncinya. Hook ini didasarkan pada `useDictionary` tetapi secara otomatis menyuntikkan versi yang dioptimalkan dari kamus dari deklarasi yang dihasilkan.
 
 ## Contoh Penggunaan di React
 

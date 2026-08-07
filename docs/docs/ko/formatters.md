@@ -46,34 +46,6 @@ author: aymericzip
 
 Intlayer는 네이티브 `Intl` API 위에 구축된 경량 헬퍼 세트와 무거운 포매터를 반복 생성하지 않도록 하는 캐시된 `Intl` 래퍼를 제공합니다. 이 유틸리티들은 완전한 로케일 인식을 지원하며 메인 `intlayer` 패키지에서 사용할 수 있습니다.
 
-### 임포트
-
-```ts
-import {
-  Intl,
-  number,
-  percentage,
-  currency,
-  date,
-  relativeTime,
-  units,
-  compact,
-  list,
-  getLocaleName,
-  getLocaleLang,
-  getLocaleFromPath,
-  getPathWithoutLocale,
-  getLocalizedUrl,
-  getHTMLTextDir,
-  getContent,
-  getTranslation,
-  getIntlayer,
-  getIntlayerAsync,
-} from "intlayer";
-```
-
-React를 사용하는 경우, 훅도 제공됩니다; `react-intlayer/format`을 참조하세요.
-
 ## 캐시된 Intl
 
 내보내진 `Intl`은 전역 `Intl`을 감싼 얇은 캐시 래퍼입니다. 이는 `NumberFormat`, `DateTimeFormat`, `RelativeTimeFormat`, `ListFormat`, `DisplayNames`, `Collator`, `PluralRules` 인스턴스를 메모이제이션하여 동일한 포매터를 반복 생성하는 것을 방지합니다.
@@ -110,71 +82,7 @@ pluralRules.select(1); // "one"
 pluralRules.select(2); // "other"
 ```
 
-## 추가 Intl 유틸리티
-
-포매터 헬퍼 외에도, 캐시된 Intl 래퍼를 직접 사용하여 다른 Intl 기능을 활용할 수 있습니다:
-
-### `Intl.DisplayNames`
-
-언어, 지역, 통화, 스크립트의 현지화된 이름을 위한 기능:
-
-```ts
-import { Intl } from "intlayer";
-
-const languageNames = new Intl.DisplayNames("en", { type: "language" });
-languageNames.of("fr"); // "French"
-
-const regionNames = new Intl.DisplayNames("fr", { type: "region" });
-regionNames.of("US"); // "États-Unis"
-```
-
-### `Intl.Collator`
-
-로케일 인식 문자열 비교 및 정렬을 위해:
-
-```ts
-import { Intl } from "intlayer";
-
-const collator = new Intl.Collator("de", {
-  sensitivity: "base",
-  numeric: true,
-});
-
-const words = ["äpfel", "zebra", "100", "20"];
-words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
-```
-
-### `Intl.PluralRules`
-
-다양한 로케일에서 복수형을 결정하기 위해:
-
-```ts
-import { Intl } from "intlayer";
-
-const pluralRules = new Intl.PluralRules("ar");
-pluralRules.select(0); // "zero"
-pluralRules.select(1); // "one"
-pluralRules.select(2); // "two"
-pluralRules.select(3); // "few"
-pluralRules.select(11); // "many"
-```
-
 ## 로케일 유틸리티
-
-### `getLocaleName(displayLocale, targetLocale?)`
-
-다른 로케일에서 로케일의 현지화된 이름을 가져옵니다:
-
-```ts
-import { getLocaleName } from "intlayer";
-
-getLocaleName("fr", "en"); // "French"
-getLocaleName("en", "fr"); // "anglais"
-getLocaleName("de", "es"); // "alemán"
-```
-
-- **displayLocale**: 이름을 가져올 로케일
-- **targetLocale**: 이름을 표시할 로케일 (기본값은 displayLocale)
 
 ### `getLocaleLang(locale?)`
 
@@ -205,22 +113,6 @@ getLocaleFromPath("https://example.com/es/about"); // "es"
 
 - **inputUrl**: 처리할 전체 URL 문자열 또는 경로명
 - **returns**: 감지된 로케일 또는 로케일이 없을 경우 기본 로케일
-
-### `getPathWithoutLocale(inputUrl, locales?)`
-
-URL 또는 경로명에서 로케일 세그먼트를 제거합니다:
-
-```ts
-import { getPathWithoutLocale } from "intlayer";
-
-getPathWithoutLocale("/en/dashboard"); // "/dashboard"
-getPathWithoutLocale("/fr/dashboard"); // "/dashboard"
-getPathWithoutLocale("https://example.com/en/about"); // "https://example.com/about"
-```
-
-- **inputUrl**: 처리할 전체 URL 문자열 또는 경로명
-- **locales**: 선택적 지원 로케일 배열 (기본값은 구성된 로케일)
-- **returns**: 로케일 세그먼트가 제거된 URL
 
 ### `getLocalizedUrl(url, currentLocale, locales?, defaultLocale?, prefixDefault?)`
 
@@ -330,23 +222,6 @@ const content = await getIntlayerAsync("common", "fr");
 
 아래의 모든 헬퍼는 `intlayer`에서 내보내집니다.
 
-### `number(value, options?)`
-
-로케일 인식 그룹화 및 소수점 표기를 사용하여 숫자 값을 포맷합니다.
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-
-예시:
-
-```ts
-import { number } from "intlayer";
-
-number(123456.789); // "123,456.789" (en-US 기준)
-number("1000000", { locale: "fr" }); // "1 000 000"
-number(1234.5, { minimumFractionDigits: 2 }); // "1,234.50"
-```
-
 ### `percentage(value, options?)`
 
 숫자를 백분율 문자열로 포맷합니다.
@@ -366,21 +241,112 @@ percentage(25); // "25%"
 percentage(0.237, { minimumFractionDigits: 1 }); // "23.7%"
 ```
 
-### `currency(value, options?)`
+### Formatter Functions
 
-값을 현지화된 통화 형식으로 포맷합니다. 기본값은 소수점 두 자리의 `USD`입니다.
+#### `number(value, options?)`
+
+로케일을 인식하는 그룹핑 및 소수점으로 숫자 값을 포맷합니다.
 
 - **value**: `number | string`
 - **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-  - 일반 필드: `currency` (예: `"EUR"`), `currencyDisplay` (`"symbol" | "code" | "name"`)
-
-예시:
 
 ```ts
-import { currency } from "intlayer";
+number(123456.789); // "123,456.789" (in en-US)
+number("1000000", { locale: "fr" }); // "1 000 000"
+number(1234.5, { minimumFractionDigits: 2 }); // "1,234.50"
+```
 
+#### `percentage(value, options?)`
+
+숫자를 백분율 문자열로 포맷합니다. 1보다 큰 값은 정규화됩니다 (예: `25` → `25%`, `0.25` → `25%`).
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+
+```ts
+percentage(0.25); // "25%"
+percentage(25); // "25%"
+percentage(0.237, { minimumFractionDigits: 1 }); // "23.7%"
+```
+
+#### `currency(value, options?)`
+
+값을 로컬화된 통화로 포맷합니다. 기본값은 `USD`입니다.
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+  - Common: `currency`, `currencyDisplay` (`"symbol" | "code" | "name"`)
+
+```ts
 currency(1234.5, { currency: "EUR" }); // "€1,234.50"
 currency("5000", { locale: "fr", currency: "CAD", currencyDisplay: "code" }); // "5 000,00 CAD"
+```
+
+#### `date(date, optionsOrPreset?)`
+
+날짜/시간 값을 포맷합니다.
+
+- **date**: `Date | string | number`
+- **optionsOrPreset**: `Intl.DateTimeFormatOptions & { locale?: LocalesValues }` 또는 preset: `"short" | "long" | "dateOnly" | "timeOnly" | "full"`
+
+```ts
+date(new Date(), "short"); // 예: "08/02/25, 14:30"
+date("2025-08-02T14:30:00Z", { locale: "fr", month: "long", day: "numeric" }); // "2 août"
+```
+
+#### `relativeTime(from, to?, options?)`
+
+두 순간 사이의 상대 시간을 형식화합니다.
+
+- **from**: `Date | string | number`
+- **to**: `Date | string | number` (기본값: `new Date()`)
+- **options**: `{ locale?, unit?, numeric?, style? }`
+
+```ts
+const now = new Date();
+const in3Days = new Date(now.getTime() + 3 * 864e5);
+relativeTime(now, in3Days, { unit: "day" }); // "in 3 days"
+
+const twoHoursAgo = new Date(now.getTime() - 2 * 3600e3);
+relativeTime(now, twoHoursAgo, { unit: "hour", numeric: "auto" }); // "2 hours ago"
+```
+
+#### `units(value, options?)`
+
+단위를 포함하여 숫자 값을 포맷팅합니다.
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+  - Common: `unit` (예: `"kilometer"`, `"byte"`), `unitDisplay` (`"short" | "narrow" | "long"`)
+
+```ts
+units(5, { unit: "kilometer", unitDisplay: "long", locale: "en-GB" }); // "5 kilometers"
+units(1024, { unit: "byte", unitDisplay: "narrow" }); // "1,024B"
+```
+
+#### `compact(value, options?)`
+
+압축 표기법을 사용하여 숫자를 포맷팅합니다.
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+
+```ts
+compact(1200); // "1.2K"
+compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
+```
+
+#### `list(values, options?)`
+
+배열을 로컬라이즈된 리스트 문자열로 포맷합니다.
+
+- **values**: `(string | number)[]`
+- **options**: `Intl.ListFormatOptions & { locale?: LocalesValues }`
+  - 일반적: `type` (`"conjunction" | "disjunction" | "unit"`), `style` (`"long" | "short" | "narrow"`)
+
+```ts
+list(["apple", "banana", "orange"]); // "apple, banana, and orange"
+list(["red", "green", "blue"], { locale: "fr", type: "disjunction" }); // "rouge, vert ou bleu"
 ```
 
 ## Cached Intl
@@ -413,44 +379,34 @@ pluralRules.select(2); // "other"
 
 ### 추가 Intl 기능
 
-### `date(date, optionsOrPreset?)`
+#### `Intl.DisplayNames`
 
-`Intl.DateTimeFormat`을 사용하여 날짜/시간 값을 포맷합니다.
-
-- **date**: `Date | string | number`
-- **optionsOrPreset**: `Intl.DateTimeFormatOptions & { locale?: LocalesValues }` 또는 다음 프리셋 중 하나:
-  - 프리셋: `"short" | "long" | "dateOnly" | "timeOnly" | "full"`
-
-예시:
+언어, 지역, 통화 및 스크립트의 지역화된 이름을 위해:
 
 ```ts
-import { date } from "intlayer";
+import { Intl } from "intlayer";
 
-date(new Date(), "short"); // 예: "08/02/25, 14:30"
-date("2025-08-02T14:30:00Z", { locale: "fr", month: "long", day: "numeric" }); // "2 août"
+const languageNames = new Intl.DisplayNames("en", { type: "language" });
+languageNames.of("fr"); // "French"
+
+const regionNames = new Intl.DisplayNames("fr", { type: "region" });
+regionNames.of("US"); // "États-Unis"
 ```
 
-### `relativeTime(from, to = new Date(), options?)`
+#### `Intl.Collator`
 
-`Intl.RelativeTimeFormat`을 사용하여 두 시점 간의 상대 시간을 포맷합니다.
-
-- 첫 번째 인수로 "now"를 전달하고 두 번째 인수로 대상 시점을 전달하면 자연스러운 표현을 얻을 수 있습니다.
-- **from**: `Date | string | number`
-- **to**: `Date | string | number` (기본값은 `new Date()`)
-- **options**: `{ locale?: LocalesValues; unit?: Intl.RelativeTimeFormatUnit; numeric?: Intl.RelativeTimeFormatNumeric; style?: Intl.RelativeTimeFormatStyle }`
-  - 기본 `unit`은 `"second"`입니다.
-
-예시:
+로케일을 인식한 문자열 비교 및 정렬:
 
 ```ts
-import { relativeTime } from "intlayer";
+import { Intl } from "intlayer";
 
-const now = new Date();
-const in3Days = new Date(now.getTime() + 3 * 864e5);
-relativeTime(now, in3Days, { unit: "day" }); // "3일 후"
+const collator = new Intl.Collator("de", {
+  sensitivity: "base",
+  numeric: true,
+});
 
-const twoHoursAgo = new Date(now.getTime() - 2 * 3600e3);
-relativeTime(now, twoHoursAgo, { unit: "hour", numeric: "auto" }); // "2시간 전"
+const words = ["äpfel", "zebra", "100", "20"];
+words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
 ```
 
 #### `Intl.PluralRules`
@@ -545,43 +501,19 @@ list(["red", "green", "blue"], { locale: "fr", type: "disjunction" }); // "rouge
 list([1, 2, 3], { type: "unit" }); // "1, 2, 3"
 ```
 
-## 참고 사항
+### `getHTMLTextDir(locale?)`
 
-- 모든 헬퍼는 `string` 입력을 허용하며, 내부적으로 숫자나 날짜로 강제 변환됩니다.
-- 로케일이 제공되지 않으면 구성된 `internationalization.defaultLocale`이 기본값으로 사용됩니다.
-- 이 유틸리티들은 얇은 래퍼이며, 고급 포맷팅이 필요할 경우 표준 `Intl` 옵션을 직접 전달하세요.
-
-## Content Handling Utilities
-
-## 진입점 및 재내보내기 (`@index.ts`)
-
-포매터들은 코어 패키지에 존재하며, 런타임 전반에 걸쳐 임포트를 편리하게 하기 위해 상위 패키지에서 재내보내기됩니다:
-
-예시:
+로케일에 대한 텍스트 방향을 반환합니다:
 
 ```ts
-// 앱 코드 (권장)
-import {
-  number,
-  currency,
-  date,
-  relativeTime,
-  units,
-  compact,
-  list,
-  Intl,
-  getLocaleName,
-  getLocaleLang,
-  getLocaleFromPath,
-  getPathWithoutLocale,
-  getLocalizedUrl,
-  getHTMLTextDir,
-  getContent,
-  getTranslation,
-  getIntlayer,
-  getIntlayerAsync,
-} from "intlayer";
+import { getHTMLTextDir } from "intlayer";
+
+getHTMLTextDir("en-US"); // "ltr"
+getHTMLTextDir("ar"); // "rtl"
+getHTMLTextDir("he"); // "rtl"
 ```
+
+## Content Handling Utilities
 
 ### React
 
@@ -662,6 +594,20 @@ import {
 ```
 
 > 이 훅들은 `IntlayerProvider` 또는 `IntlayerServerProvider`에서 설정된 로케일을 고려합니다.
+
+### `getTranslation(languageContent, locale?, fallback?)`
+
+특정 로케일의 콘텐츠를 추출합니다:
+
+```ts
+import { getTranslation } from "intlayer";
+
+const content = getTranslation(
+  { ko: "안녕하세요", en: "Hello", fr: "Bonjour", de: "Hallo" },
+  "fr",
+  true
+); // "Bonjour"
+```
 
 ### Vue
 

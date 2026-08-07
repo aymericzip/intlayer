@@ -607,13 +607,6 @@ export default aboutPageMetaContent;
 
 辞書が外部ソースから自動的に補完されたかどうかを示します。競合が発生した場合、ベース辞書が自動補完された辞書より優先されます。
 
-##### `location` ('distant' | 'locale')
-
-辞書の場所を示します：
-
-- `'locale'`: ローカル辞書（コンテンツファイルから）
-- `'distant'`: リモート辞書（外部ソースから）
-
 ## コンテンツノードタイプ
 
 Intlayerは、基本的なプリミティブ値を拡張するいくつかの専門的なコンテンツノードタイプを提供します。
@@ -649,6 +642,21 @@ conditionalContent: cond({
 ```
 
 > 詳細については、 [条件コンテンツ (`cond`) ドキュメント](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/condition.md) を参照してください。
+
+### 複数形コンテンツ (`plural`)
+
+複数形ルールに基づいて変わるコンテンツ:
+
+```typescript
+import { plural } from "intlayer";
+
+pluralContent: plural({
+  one: "One car",
+  other: "{{count}} cars",
+});
+```
+
+> 詳細については、[Plural Doc](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/dictionary/plural.md) を参照してください。
 
 ### 列挙コンテンツ (`enu`)
 

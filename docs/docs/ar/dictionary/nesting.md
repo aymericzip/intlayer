@@ -64,6 +64,53 @@ export default firstDictionary;
 }
 ```
 
+### الإشارة باستخدام Nest
+
+الآن، قم بإنشاء وحدة محتوى أخرى تستخدم دالة `nest` للإشارة إلى المحتوى أعلاه. يمكنك الإشارة إلى المحتوى بالكامل أو قيمة محددة متداخلة:
+
+```typescript fileName="secondDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { nest, type Dictionary } from "intlayer";
+
+const myNestingContent = {
+  key: "key_of_my_second_dictionary",
+  content: {
+    // الإشارة إلى القاموس بالكامل:
+    fullNestedContent: nest("key_of_my_first_dictionary"),
+    // الإشارة إلى قيمة متداخلة محددة:
+    partialNestedContent: nest(
+      "key_of_my_first_dictionary",
+      "subContent.contentNumber"
+    ),
+  },
+} satisfies Dictionary;
+
+export default myNestingContent;
+```
+
+```json fileName="secondDictionary.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "key_of_my_second_dictionary",
+  "content": {
+    "fullNestedContent": {
+      "nodeType": "nested",
+      "nested": {
+        "dictionaryKey": "key_of_my_first_dictionary"
+      }
+    },
+    "partialNestedContent": {
+      "nodeType": "nested",
+      "nested": {
+        "dictionaryKey": "key_of_my_first_dictionary",
+        "path": "subContent.contentNumber"
+      }
+    }
+  }
+}
+```
+
+كمعامل ثانٍ، يمكنك تحديد المسار إلى قيمة متداخلة داخل هذا المحتوى. عندما لا يتم توفير مسار، يتم إرجاع محتوى القاموس المرجعي بالكامل.
+
 ## إعداد التعشيش
 
 <Tabs group="framework">
@@ -257,36 +304,6 @@ document.getElementById("nested")!.textContent = content.partialNestedContent;
 
   </Tab>
 </Tabs>
-
-## استخدام التعشيش مع React Intlayer
-
-لاستخدام المحتوى المتعشش في مكون React، استخدم الخطاف `useIntlayer` من حزمة `react-intlayer`. يسترجع هذا الخطاف المحتوى الصحيح بناءً على المفتاح المحدد. إليك مثال على كيفية استخدامه:
-
-```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { useIntlayer } from "react-intlayer";
-
-const NestComponent: FC = () => {
-  const { fullNestedContent, partialNestedContent } = useIntlayer(
-    "key_of_my_second_dictionary"
-  );
-
-  return (
-    <div>
-      <p>
-        Full Nested Content: {JSON.stringify(fullNestedContent)}
-        {/* الإخراج: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
-      </p>
-      <p>
-        Partial Nested Value: {partialNestedContent}
-        {/* الإخراج: 0 */}
-      </p>
-    </div>
-  );
-};
-
-export default NestComponent;
-```
 
 ## موارد إضافية
 

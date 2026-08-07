@@ -33,7 +33,7 @@ author: aymericzip
 
 <Tabs defaultTab="video">
   <Tab label="视频" value="video">
-  
+
 <iframe title="The best i18n solution for Vite and Preact? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?si=VaKmrYMmXjo3xpk2"/>
 
   </Tab>
@@ -99,7 +99,69 @@ Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的
 
 ---
 
-### 第 2 步：配置项目
+## 在 Vite 和 Preact 应用中设置 Intlayer 的分步指南
+
+查看 GitHub 上的[应用模板](https://github.com/aymericzip/intlayer-vite-preact-template)。
+
+<Steps>
+
+<Step number={1} title="安装依赖">
+
+使用 npm 安装必要的包：
+
+```bash packageManager="npm"
+npx intlayer init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer@canary init --interactive
+```
+
+> `--interactive` 标志是可选的。如果您是 AI 代理，请使用 `intlayer-cli init`。
+
+> 此命令将检测您的环境并安装所需的包。例如：
+
+```bash packageManager="npm"
+npm install intlayer preact-intlayer
+npm install vite-intlayer --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer preact-intlayer
+pnpm add vite-intlayer --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add intlayer preact-intlayer
+yarn add vite-intlayer --save-dev
+```
+
+```bash packageManager="bun"
+bun add intlayer preact-intlayer
+bun add vite-intlayer --dev
+```
+
+- **intlayer**
+
+  核心包，为配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、转译和 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)提供国际化工具。
+
+- **preact-intlayer**
+  将 Intlayer 与 Preact 应用集成的包。它为 Preact 国际化提供上下文提供程序和钩子。
+
+- **vite-intlayer**
+  包含用于将 Intlayer 与 [Vite 打包器](https://vite.dev/guide/why.html#why-bundle-for-production)集成的 Vite 插件，以及用于检测用户首选语言、管理 Cookie 和处理 URL 重定向的中间件。
+
+</Step>
+
+<Step number={2} title="配置您的项目">
 
 创建一个配置文件来配置应用程序的语言：
 
@@ -117,17 +179,19 @@ const config: IntlayerConfig = {
     defaultLocale: Locales.ENGLISH,
   },
   routing: {
-    mode: "prefix-no-default", // 默认：除默认语言环境外，为所有语言环境添加前缀
-    storage: ["cookie", "header"], // 默认：在 cookie 中存储语言环境并从 header 中检测
+    mode: "prefix-no-default", // 默认：为除默认语言外的所有语言添加前缀
+    storage: ["cookie", "header"], // 默认：将语言存储在 Cookie 中并从标头检测
   },
 };
 
 export default config;
 ```
 
-> 通过此配置文件，您可以设置本地化 URL、路由模式、存储选项、cookie 名称、内容声明的位置和扩展名、禁用控制台中的 Intlayer 日志等。有关可用参数的完整列表，请参阅 [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
+> 通过此配置文件，您可以设置本地化 URL、路由模式、存储选项、Cookie 名称、内容声明的位置和扩展名、禁用控制台中的 Intlayer 日志等。有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
-### 第 3 步：在 Vite 配置中集成 Intlayer
+</Step>
+
+<Step number={3} title="在您的 Vite 配置中集成 Intlayer">
 
 将 intlayer 插件添加到您的配置中。
 
@@ -142,11 +206,13 @@ export default defineConfig({
 });
 ```
 
-> `intlayer()` Vite 插件用于将 Intlayer 与 Vite 集成。它确保构建内容声明文件并在开发模式下监视它们。它在 Vite 应用程序中定义了 Intlayer 环境变量。此外，它还提供别名以优化性能。
+> `intlayer()` Vite 插件用于将 Intlayer 与 Vite 集成。它确保内容声明文件的构建，并在开发模式下监视它们。它在 Vite 应用中定义 Intlayer 环境变量。此外，它还提供别名以优化性能。
 
-### 第 4 步：声明内容
+</Step>
 
-创建并管理您的内容声明以存储翻译：
+<Step number={4} title="声明您的内容">
+
+创建和管理您的内容声明以存储翻译：
 
 ```tsx fileName="src/app.content.tsx" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
 import { t, type Dictionary } from "intlayer";
@@ -156,11 +222,13 @@ const appContent = {
   key: "app",
   content: {
     viteLogo: t({
+      zh: "Vite 徽标",
       en: "Vite logo",
       fr: "Logo Vite",
       es: "Logo Vite",
     }),
     preactLogo: t({
+      zh: "Preact 徽标",
       en: "Preact logo",
       fr: "Logo Preact",
       es: "Logo Preact",
@@ -169,12 +237,18 @@ const appContent = {
     title: "Vite + Preact",
 
     count: t({
+      zh: "计数是 ",
       en: "count is ",
       fr: "le compte est ",
       es: "el recuento es ",
     }),
 
     edit: t<ComponentChildren>({
+      zh: (
+        <>
+          编辑 <code>src/app.tsx</code> 并保存以测试 HMR
+        </>
+      ),
       en: (
         <>
           Edit <code>src/app.tsx</code> and save to test HMR
@@ -193,6 +267,7 @@ const appContent = {
     }),
 
     readTheDocs: t({
+      zh: "点击 Vite 和 Preact 徽标了解更多",
       en: "Click on the Vite and Preact logos to learn more",
       fr: "Cliquez sur les logos Vite et Preact pour en savoir plus",
       es: "Haga clic en los logotipos de Vite y Preact para obtener más información",
@@ -211,6 +286,7 @@ export default appContent;
     "viteLogo": {
       "nodeType": "translation",
       "translation": {
+        "zh": "Vite 徽标",
         "en": "Vite logo",
         "fr": "Logo Vite",
         "es": "Logo Vite"
@@ -219,6 +295,7 @@ export default appContent;
     "preactLogo": {
       "nodeType": "translation",
       "translation": {
+        "zh": "Preact 徽标",
         "en": "Preact logo",
         "fr": "Logo Preact",
         "es": "Logo Preact"
@@ -227,6 +304,7 @@ export default appContent;
     "title": {
       "nodeType": "translation",
       "translation": {
+        "zh": "Vite + Preact",
         "en": "Vite + Preact",
         "fr": "Vite + Preact",
         "es": "Vite + Preact"
@@ -235,6 +313,7 @@ export default appContent;
     "count": {
       "nodeType": "translation",
       "translation": {
+        "zh": "计数是 ",
         "en": "count is ",
         "fr": "le compte est ",
         "es": "el recuento es "
@@ -243,6 +322,7 @@ export default appContent;
     "edit": {
       "nodeType": "translation",
       "translation": {
+        "zh": "编辑 src/app.tsx 并保存以测试 HMR",
         "en": "Edit src/app.tsx and save to test HMR",
         "fr": "Éditez src/app.tsx et enregistrez pour tester HMR",
         "es": "Edita src/app.tsx y guarda para probar HMR"
@@ -251,6 +331,7 @@ export default appContent;
     "readTheDocs": {
       "nodeType": "translation",
       "translation": {
+        "zh": "点击 Vite 和 Preact 徽标了解更多",
         "en": "Click on the Vite and Preact logos to learn more",
         "fr": "Cliquez sur les logos Vite et Preact pour en savoir plus",
         "es": "Haga clic en los logotipos de Vite y Preact para obtener más información"
@@ -260,15 +341,91 @@ export default appContent;
 }
 ```
 
-> 只要您的内容声明包含在 `contentDir` 目录（默认情况下为 `./src`）中，就可以在应用程序的任何位置定义它们。并且需匹配内容声明文件扩展名（默认情况下为 `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`）。
+> 您的内容声明可以在应用程序中的任何位置定义，只要它们包含在 `contentDir` 目录中（默认为 `./src`），并且匹配内容声明文件扩展名（默认为 `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`）。
 
-> 有关更多详细信息，请参考 [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
+> 有关更多详情，请参阅[内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
 
-> 如果您的内容文件包含 TSX 代码，您可能需要导入 `import { h } from "preact";` 或确保正确设置 Preact 的 JSX pragma。
+> 如果您的内容文件包含 TSX 代码，您可能需要导入 `import { h } from "preact";` 或确保您的 JSX pragma 为 Preact 正确设置。
 
-### （可选）第 6 步：更改内容语言
+</Step>
 
-要更改内容的语言，您可以使用 `useLocale` 钩子提供的 `setLocale` 函数。此函数允许您设置应用程序的语言环境并相应地更新内容。
+<Step number={5} title="在您的代码中使用 Intlayer">
+
+在整个应用程序中访问您的内容字典：
+
+```tsx {6,10} fileName="src/app.tsx" codeFormat={["typescript", "esm"]}
+import { useState } from "preact/hooks";
+import type { FunctionalComponent } from "preact";
+import preactLogo from "./assets/preact.svg"; // 假设您有 preact.svg
+import viteLogo from "/vite.svg";
+import "./app.css"; // 假设您的 CSS 文件名为 app.css
+import { IntlayerProvider, useIntlayer } from "preact-intlayer";
+
+const AppContent: FunctionalComponent = () => {
+  const [count, setCount] = useState(0);
+  const content = useIntlayer("app");
+
+  return (
+    <>
+      <div>
+        <a href="https://vitejs.dev" target="_blank">
+          <img src={viteLogo} class="logo" alt={content.viteLogo.value} />
+        </a>
+        <a href="https://preactjs.com" target="_blank">
+          <img
+            src={preactLogo}
+            class="logo preact"
+            alt={content.preactLogo.value}
+          />
+        </a>
+      </div>
+      <h1>{content.title}</h1>
+      <div class="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          {content.count}
+          {count}
+        </button>
+        <p>{content.edit}</p>
+      </div>
+      {/* Markdown 内容 */}
+      <div>{content.myMarkdownContent}</div>
+
+      {/* HTML 内容 */}
+      <div>{content.myHtmlContent}</div>
+
+      <p class="read-the-docs">{content.readTheDocs}</p>
+    </>
+  );
+};
+
+const App: FunctionalComponent = () => (
+  <IntlayerProvider>
+    <AppContent />
+  </IntlayerProvider>
+);
+
+export default App;
+```
+
+> 如果您想在 `string` 属性中使用您的内容，例如 `alt`、`title`、`href`、`aria-label` 等，您可以使用函数的值，如：
+
+> ```html
+> <img src="{content.image.src.value}" alt="{content.image.value}" />
+> <img src="{content.image.src.toString()}" alt="{content.image.toString()}" />
+> <img src="{String(content.image.src)}" alt="{String(content.image)}" />
+> ```
+
+> 注意：在 Preact 中，`className` 通常写成 `class`。
+
+> 要了解更多关于 `useIntlayer` 钩子的信息，请参阅[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useIntlayer.md)（对于 `preact-intlayer` 的 API 类似）。
+
+> 如果您的应用程序已经存在，您可以使用 [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 以及[提取命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md)在一秒内转换数千个组件。
+
+</Step>
+
+<Step number={6} title="更改您的内容语言" isOptional={true}>
+
+要更改您的内容语言，您可以使用 `useLocale` 钩子提供的 `setLocale` 函数。此函数允许您设置应用程序的语言环境并相应地更新内容。
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 import type { FunctionalComponent } from "preact";
@@ -279,22 +436,20 @@ const LocaleSwitcher: FunctionalComponent = () => {
   const { setLocale } = useLocale();
 
   return (
-    <button onClick={() => setLocale(Locales.ENGLISH)}>
-      Change Language to English
-    </button>
+    <button onClick={() => setLocale(Locales.ENGLISH)}>更改语言为英文</button>
   );
 };
 
 export default LocaleSwitcher;
 ```
 
-> 要了解有关 `useLocale` 钩子的更多信息，请参考 [文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)（`preact-intlayer` 的 API 类似）。
+> 要了解更多关于 `useLocale` 钩子的信息，请参阅[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)（对于 `preact-intlayer` 的 API 类似）。
 
-<Steps>
+</Step>
 
-<Step number={7} title="为您的应用程序添加本地化路由">
+<Step number={7} title="向您的应用程序添加本地化路由" isOptional={true}>
 
-此步骤的目的是为每种语言设置唯一的路由。这对于 SEO 和 SEO 友好的 URL 非常有用。
+此步骤的目的是为每种语言创建唯一的路由。这对 SEO 和 SEO 友好的 URL 很有用。
 示例：
 
 ```plaintext
@@ -303,9 +458,9 @@ export default LocaleSwitcher;
 - https://example.com/fr/about
 ```
 
-> 默认情况下，默认语言环境的路由不带前缀。如果您想为默认语言环境添加前缀，可以在配置中将 `routing.mode` 选项设置为 `"prefix-all"`。有关更多信息，请参阅 [配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
+> 默认情况下，默认语言的路由不带前缀。如果您想为默认语言添加前缀，可以在配置中将 `routing.mode` 选项设置为 `"prefix-all"`。有关更多信息，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
-要为您的应用程序添加本地化路由，您可以创建一个 `LocaleRouter` 组件，该组件包裹您的应用程序路由并处理基于语言环境的路由。以下是使用 [preact-iso](https://github.com/preactjs/preact-iso) 的示例：
+要向您的应用程序添加本地化路由，您可以创建一个 `LocaleRouter` 组件来包装您的应用程序的路由并处理基于语言的路由。这是一个使用 [preact-iso](https://github.com/preactjs/preact-iso) 的示例：
 
 ```tsx fileName="src/components/LocaleRouter.tsx" codeFormat={["typescript", "esm"]}
 import { localeMap } from "intlayer";
@@ -314,8 +469,8 @@ import { LocationProvider, Router, Route } from "preact-iso";
 import type { ComponentChildren, FunctionalComponent } from "preact";
 
 /**
- * 设置特定语言环境路由的路由组件。
- * 它使用 preact-iso 管理导航并渲染本地化组件。
+ * 设置特定于语言的路由的路由器组件。
+ * 它使用 preact-iso 来管理导航和呈现本地化的组件。
  */
 export const LocaleRouter: FunctionalComponent<{
   children: ComponentChildren;
@@ -338,7 +493,7 @@ export const LocaleRouter: FunctionalComponent<{
 );
 ```
 
-然后，您可以在应用程序中使用 `LocaleRouter` 组件：
+然后，您可以在您的应用程序中使用 `LocaleRouter` 组件：
 
 ```tsx fileName="src/app.tsx" codeFormat={["typescript", "esm"]}
 import { LocaleRouter } from "./components/LocaleRouter";
@@ -355,11 +510,35 @@ const App: FunctionalComponent = () => (
 export default App;
 ```
 
+同时，您也可以使用 `intlayerProxy` 向您的应用程序添加服务器端路由。此插件将根据 URL 自动检测当前的语言环境并设置适当的语言 Cookie。如果未指定语言环境，该插件将根据用户的浏览器语言偏好确定最合适的语言环境。如果未检测到任何语言环境，它将重定向到默认语言环境。
+
+> 注意，要在生产中使用 `intlayerProxy`，您需要将 `vite-intlayer` 包从 `devDependencies` 切换到 `dependencies`。
+
+> 自 Intlayer v9 起，`intlayerProxy()` 直接捆绑到 `intlayer()` 插件中，并通过 `routing.enableProxy` 选项默认启用（默认为 `true`）。如下所示单独注册它现在是可选的——为了向后兼容和需要控制插件顺序的设置而保留。设置 `routing.enableProxy: false` 以选择退出。查看 [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
+
+```typescript {3,7} fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+import preact from "@preact/preset-vite";
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    preact(),
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
+});
+```
+
 </Step>
 
-<Step number={8} title="在语言环境更改时更改 URL">
+<Step number={8} title="当语言环境更改时更改 URL" isOptional={true}>
 
-要在语言环境更改时更改 URL，可以使用 `useLocale` 钩子提供的 `onLocaleChange` 属性。同时，您可以使用 `preact-iso` 中 `useLocation` 的 `route` 方法来更新 URL 路径。
+要在语言环境更改时更改 URL，您可以使用 `useLocale` 钩子提供的 `onLocaleChange` 属性。同时，您可以使用 `preact-iso` 中 `useLocation` 的 `route` 方法来更新 URL 路径。
 
 ```tsx fileName="src/components/LocaleSwitcher.tsx" codeFormat={["typescript", "esm"]}
 import { useLocation } from "preact-iso";
@@ -376,12 +555,12 @@ const LocaleSwitcher: FunctionalComponent = () => {
   const { url, route } = useLocation();
   const { locale, availableLocales, setLocale } = useLocale({
     onLocaleChange: (newLocale) => {
-      // 使用更新后的语言环境构建 URL
+      // 使用更新的语言环境构造 URL
       // 示例：/es/about?foo=bar
       const pathWithLocale = getLocalizedUrl(url, newLocale);
 
       // 更新 URL 路径
-      route(pathWithLocale, true); // true 表示替换 (replace)
+      route(pathWithLocale, true); // true 用于替换
     },
   });
 
@@ -397,7 +576,7 @@ const LocaleSwitcher: FunctionalComponent = () => {
             onClick={(e) => {
               e.preventDefault();
               setLocale(localeItem);
-              // 设置语言环境后的程序化导航将由 onLocaleChange 处理
+              // 设置语言环境后的编程导航将由 onLocaleChange 处理
             }}
             key={localeItem}
           >
@@ -406,15 +585,15 @@ const LocaleSwitcher: FunctionalComponent = () => {
               {localeItem}
             </span>
             <span>
-              {/* 该语言环境自身的语言名称 - 例如 Français */}
+              {/* 其自身语言环境中的语言 - 例如 Français */}
               {getLocaleName(localeItem, localeItem)}
             </span>
             <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
-              {/* 当前语言环境下的语言名称 - 例如当当前语言环境为 Locales.SPANISH 时显示 Francés */}
+              {/* 当前语言环境中的语言 - 例如 Francés（当前语言环境设置为 Locales.SPANISH 时） */}
               {getLocaleName(localeItem, locale)}
             </span>
             <span dir="ltr" lang={Locales.ENGLISH}>
-              {/* 英语名称 - 例如 French */}
+              {/* 英文中的语言 - 例如 French */}
               {getLocaleName(localeItem, Locales.ENGLISH)}
             </span>
           </a>
@@ -429,119 +608,31 @@ export default LocaleSwitcher;
 
 > 文档参考：
 >
-> > - [`useLocale` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)（`preact-intlayer` 的 API 类似）> - [`getLocaleName` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocaleName.md)> - [`getLocalizedUrl` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedUrl.md)> - [`getHTMLTextDir` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getHTMLTextDir.md)> - [`hreflang` 属性](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)> - [`lang` 属性](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Global_attributes/lang)> - [`dir` 属性](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Global_attributes/dir)> - [`aria-current` 属性](https://developer.mozilla.org/zh-CN/docs/Web/Accessibility/ARIA/Attributes/aria-current)> - [Popover API](https://developer.mozilla.org/zh-CN/docs/Web/API/Popover_API)
-> >   </Step>
+> > - [`useLocale` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)（对于 `preact-intlayer` 的 API 类似）
+> > - [`getLocaleName` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocaleName.md)
+> > - [`getLocalizedUrl` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getLocalizedUrl.md)
+> > - [`getHTMLTextDir` 钩子](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/intlayer/getHTMLTextDir.md)
+> > - [`hreflang` 属性](https://developers.google.com/search/docs/specialty/international/localized-versions?hl=fr)
+> > - [`lang` 属性](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Global_attributes/lang)
+> > - [`dir` 属性](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Global_attributes/dir)
+> > - [`aria-current` 属性](https://developer.mozilla.org/zh-CN/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+> > - [Popover API](https://developer.mozilla.org/zh-CN/docs/Web/API/Popover_API)
 
-<Step number={1} title="提取组件内容" isOptional={true}>
+以下是更新的**步骤 9**，包含添加的解释和精制的代码示例：
 
-如果您有现有的代码库，转换数千个文件可能会非常耗时。
+---
 
-为了简化此过程，Intlayer 提出了 [编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) / [提取器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 来转换您的组件并提取内容。
-
-要进行设置，您可以在 `intlayer.config.ts` 文件中添加 `compiler` 部分：
-
-```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import { type IntlayerConfig } from "intlayer";
-
-const config: IntlayerConfig = {
-  // ... 您的其他配置
-  compiler: {
-    /**
-     * 指示是否应启用编译器。
-     */
-    enabled: true,
-
-    /**
-     * 定义输出文件路径
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * 指示在转换后是否应保存组件。这样，编译器只需运行一次即可转换应用程序，然后即可将其删除。
-     */
-    saveComponents: false,
-
-    /**
-     * 字典键前缀
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-<Tabs>
- <Tab value='提取命令'>
-
-运行提取器以转换组件并提取内容
-
-```bash packageManager="npm"
-npx intlayer extract
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer extract
-```
-
-```bash packageManager="yarn"
-yarn intlayer extract
-```
-
-```bash packageManager="bun"
-bun x intlayer extract
-```
-
- </Tab>
- <Tab value='Babel 编译器'>
-
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-更新您的 `vite.config.ts` 以包含 `intlayerCompiler` 插件：
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
-  ],
-});
-```
-
-```bash packageManager="npm"
-npm run build # 或 npm run dev
-```
-
-```bash packageManager="pnpm"
-pnpm run build # 或 pnpm run dev
-```
-
-```bash packageManager="yarn"
-yarn build # 或 yarn dev
-```
-
-```bash packageManager="bun"
-bun run build # Or bun run dev
-```
-
- </Tab>
-</Tabs>
 </Step>
 
-</Steps>
+<Step number={9} title="切换 HTML 语言和方向属性" isOptional={true}>
 
-### （可选）第 9 步：切换 HTML 语言和方向属性
+当您的应用程序支持多种语言时，关键是要更新 `<html>` 标签的 `lang` 和 `dir` 属性以匹配当前的语言环境。这样做可以确保：
 
-当您的应用程序支持多种语言时，更新 `<html>` 标签的 `lang` 和 `dir` 属性以匹配当前语言环境至关重要。这样做可以确保：
+- **可访问性**：屏幕阅读器和辅助技术依赖正确的 `lang` 属性来准确地发音和解释内容。
+- **文本渲染**：`dir`（方向）属性确保文本以适当的顺序呈现（例如，英文为从左到右，阿拉伯语或希伯来语为从右到左），这对可读性至关重要。
+- **SEO**：搜索引擎使用 `lang` 属性来确定您页面的语言，帮助在搜索结果中提供正确的本地化内容。
 
-- **无障碍性**：屏幕阅读器和辅助技术依靠正确的 `lang` 属性来准确发音和解释内容。
-- **文本渲染**：`dir`（方向）属性确保文本以正确的顺序呈现（例如，英语从左到右，阿拉伯语或希伯来语从右到左），这对于可读性至关重要。
-- **SEO**：搜索引擎使用 `lang` 属性来确定页面的语言，有助于在搜索结果中提供正确的本地化内容。
-
-通过在语言环境更改时动态更新这些属性，您可以确保所有支持语言的用户都能获得一致且无障碍的体验。
+通过在语言环境更改时动态更新这些属性，您可以为所有支持的语言的用户保证一致和可访问的体验。
 
 #### 实现钩子
 
@@ -600,6 +691,160 @@ const App: FunctionalComponent = () => (
 export default App;
 ```
 
+#### 工作原理
+
+- **检测外部链接**:  
+  辅助函数 `checkIsExternalLink` 用于判断 URL 是否为外部链接。外部链接保持不变，因为它们不需要本地化。
+- **获取当前语言环境**:  
+  `useLocale` hook 提供当前的语言环境（例如，`fr` 代表法语）。
+- **本地化 URL**:  
+  对于内部链接（即非外部链接），使用 `getLocalizedUrl` 自动为 URL 添加当前语言环境前缀。这意味着如果用户处于法语环境，传递 `/about` 作为 `href` 将被转换为 `/fr/about`。
+- **返回链接**:  
+  该组件返回一个 `<a>` 元素，其 URL 已本地化，确保导航与语言环境一致。
+
+</Step>
+
+<Step number={11} title="渲染 Markdown 和 HTML" isOptional={true}>
+
+Intlayer 支持在 Preact 中渲染 Markdown 和 HTML 内容。
+
+您可以使用 `.use()` 方法自定义 Markdown 和 HTML 内容的渲染方式。该方法允许您覆盖特定标签的默认渲染。
+
+```tsx
+import { useIntlayer } from "preact-intlayer";
+
+const { myMarkdownContent, myHtmlContent } = useIntlayer("my-component");
+
+// ...
+
+return (
+  <div>
+    {/* 基础渲染 */}
+    {myMarkdownContent}
+
+    {/* Markdown 自定义渲染 */}
+    {myMarkdownContent.use({
+      h1: (props) => <h1 style={{ color: "red" }} {...props} />,
+    })}
+
+    {/* HTML 基础渲染 */}
+    {myHtmlContent}
+
+    {/* HTML 自定义渲染 */}
+    {myHtmlContent.use({
+      b: (props) => <strong style={{ color: "blue" }} {...props} />,
+    })}
+  </div>
+);
+```
+
+</Step>
+
+<Step number={12} title="提取组件内容" isOptional={true}>
+
+如果您有现有的 codebase，转换数千个文件可能很耗时。
+
+为了简化此过程，Intlayer 提供了一个 [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) / [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 来转换您的组件并提取内容。
+
+要设置它，您可以在 `intlayer.config.ts` 文件中添加一个 `compiler` 部分：
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  // ... 其余配置
+  compiler: {
+    /**
+     * 指示编译器是否应启用。
+     */
+    enabled: true,
+
+    /**
+     * 定义输出文件路径
+     */
+    output: ({ fileName, extension }) => `./${fileName}${extension}`,
+
+    /**
+     * 指示转换后是否应保存组件。
+     *
+     * - 如果为 `true`，编译器将重写磁盘上的组件文件。所以转换将是永久的，编译器将在下一个过程中跳过转换。这样，编译器可以转换应用程序，然后可以被删除。
+     *
+     * - 如果为 `false`，编译器仅在构建输出中注入 `useIntlayer()` 函数调用，并保持基础 codebase 完整。转换仅在内存中完成。
+     */
+    saveComponents: false,
+
+    /**
+     * 字典键前缀
+     */
+    dictionaryKeyPrefix: "",
+  },
+};
+
+export default config;
+```
+
+<Tabs>
+ <Tab value='Extract command'>
+
+运行提取器来转换您的组件并提取内容
+
+```bash packageManager="npm"
+npx intlayer extract
+```
+
+```bash packageManager="pnpm"
+pnpm intlayer extract
+```
+
+```bash packageManager="yarn"
+yarn intlayer extract
+```
+
+```bash packageManager="bun"
+bun x intlayer extract
+```
+
+ </Tab>
+ <Tab value='Babel compiler'>
+
+> 从 v9 起，`intlayerCompiler` 已包含在 `intlayer` 插件中。所以您不需要手动添加它。
+
+更新您的 `vite.config.ts` 以包含 `intlayerCompiler` 插件：
+
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    intlayer(),
+    intlayerCompiler(), // 添加编译器插件
+  ],
+});
+```
+
+```bash packageManager="npm"
+npm run build # 或 npm run dev
+```
+
+```bash packageManager="pnpm"
+pnpm run build # 或 pnpm run dev
+```
+
+```bash packageManager="yarn"
+yarn build # 或 yarn dev
+```
+
+```bash packageManager="bun"
+bun run build # 或 bun run dev
+```
+
+ </Tab>
+</Tabs>
+</Step>
+
+</Steps>
+
 ### （可选）第 10 步：创建本地化链接组件
 
 为了确保您的应用程序导航尊重当前语言环境，您可以创建一个自定义 `Link` 组件。此组件会自动为内部 URL 添加当前语言前缀。
@@ -653,6 +898,67 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
 
 Link.displayName = "Link";
 ```
+
+#### Sitemap
+
+Intlayer 的 sitemap 生成器遵守你的本地化设置，并包括用于爬虫的常见元数据。
+
+> 生成的 sitemap 支持 `xhtml:link` 命名空间（hreflang XML 扩展）。与只生成平面 URL 的基本生成器不同，Intlayer 在每个页面的所有本地化变体之间连接双向链接（例如 `/about`、`/fr/about` 或 `/about?lang=fr`，具体取决于你的路由模式），这有助于搜索引擎关联本地化 URL。
+
+#### Robots.txt
+
+使用 `getMultilingualUrls` 以便 `Disallow` 条目涵盖敏感路径的每个本地化拼写。
+
+#### 1. 在项目根目录添加 `generate-seo.mjs`
+
+```javascript fileName="generate-seo.mjs"
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import { generateSitemap, getMultilingualUrls } from "intlayer";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// 站点 URL，默认为本地开发环境
+const SITE_URL = (process.env.SITE_URL || "http://localhost:5173").replace(
+  /\/$/,
+  ""
+);
+
+// 定义需要生成的路径列表
+const pathList = [
+  { path: "/", changefreq: "daily", priority: 1.0 },
+  { path: "/about", changefreq: "monthly", priority: 0.7 },
+];
+
+// 生成 sitemap.xml
+const sitemapXml = generateSitemap(pathList, { siteUrl: SITE_URL });
+fs.writeFileSync(path.join(__dirname, "public", "sitemap.xml"), sitemapXml);
+
+// 获取所有多语言 URL
+const getAllMultilingualUrls = (urls) =>
+  urls.flatMap((url) => Object.values(getMultilingualUrls(url)));
+
+// 定义禁止访问的路径
+const disallowedPaths = getAllMultilingualUrls(["/admin", "/private"]);
+
+// 生成 robots.txt
+const robotsTxt = [
+  "User-agent: *",
+  "Allow: /",
+  ...disallowedPaths.map((path) => `Disallow: ${path}`),
+  "",
+  `Sitemap: ${SITE_URL}/sitemap.xml`,
+].join("\n");
+
+fs.writeFileSync(path.join(__dirname, "public", "robots.txt"), robotsTxt);
+
+console.log("SEO files generated successfully.");
+```
+
+必须安装 `intlayer` 以便脚本能够导入它。在生产环境中设置环境变量 `SITE_URL`（例如在 CI 中）。
+
+> 对于 Node ESM，建议使用 `generate-seo.mjs`。如果改用 `generate-seo.js`，请确保在 `package.json` 中设置 `"type": "module"`，或以 ESM 模式运行 Node。
 
 #### 工作原理
 

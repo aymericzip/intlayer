@@ -75,11 +75,30 @@ v7'de, `fill` komutunun davranışı güncellenmiştir:
 
 Başka bir dosyaya yazmak için bir yol seçeneği kullanırken, doldurma mekanizması içerik deklarasyon dosyaları arasında _ana-köle_ ilişkisi aracılığıyla çalışır. Ana (master) dosya gerçeğin kaynağı olarak hizmet eder ve güncellendiğinde, Intlayer bu değişiklikleri otomatik olarak yol tarafından belirtilen türetilmiş (doldurulmuş) deklarasyon dosyalarına uygular.
 
-# Otomatik Doldurma İçerik Beyan Dosyası Çevirileri
+### Locale Başına Özelleştirme
 
-**Otomatik doldurma içerik beyan dosyaları**, geliştirme iş akışınızı hızlandırmanın bir yoludur.
+Bir nesne kullanarak her locale için davranışı özelleştirebilirsiniz:
 
-Otomatik doldurma mekanizması, içerik beyan dosyaları arasında bir _ana-uydu_ ilişkisi üzerinden çalışır. Ana (master) dosya güncellendiğinde, Intlayer bu değişiklikleri türetilmiş (otomatik doldurulmuş) beyan dosyalarına otomatik olarak uygular.
+```ts fileName="intlayer.config.ts"
+const config: IntlayerConfig = {
+  content: {
+    internationalization: {
+      locales: [Locales.ENGLISH, Locales.FRENCH, Locales.POLISH],
+      defaultLocale: Locales.ENGLISH,
+      requiredLocales: [Locales.ENGLISH], // İngilizce için mevcut dosyayı doldur ve düzenle, Fransızca için ayrı dosya oluştur, İspanyolca için doldurmayı devre dışı bırak önerilir - t fonksiyonunuzda '{ en: string; xxx }' türünde 'pl' özelliğinin eksik olmasını önlemek için
+    },
+  },
+  dictionary: {
+    fill: {
+      en: true, // İngilizce için mevcut dosyayı doldur ve düzenle
+      fr: "./translations/fr.json", // Fransızca için ayrı dosya oluştur
+      es: false, // İspanyolca için doldurmayı devre dışı bırak
+    },
+  },
+};
+```
+
+Bu, aynı proje içinde farklı locale'ler için farklı doldurma davranışlarına sahip olmanızı sağlar.
 
 ```ts fileName="src/components/example/example.content.ts"
 import { Locales, type Dictionary } from "intlayer";
@@ -87,18 +106,18 @@ import { Locales, type Dictionary } from "intlayer";
 const exampleContent = {
   key: "example",
   locale: Locales.ENGLISH,
-  autoFill: "./example.content.json",
+  fill: "./example.content.json",
   content: {
-    contentExample: "Bu bir içerik örneğidir",
+    contentExample: "This is an example of content",
   },
 } satisfies Dictionary;
 
 export default exampleContent;
 ```
 
-İşte `autoFill` talimatını kullanan bir [her dil için içerik beyan dosyası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/per_locale_file.md).
+`fill` talimatını kullanan [locale başına içerik bildirim dosyası](https://github.com/aymericzip/intlayer/blob/main/docs/docs/tr/per_locale_file.md).
 
-Sonra, aşağıdaki komutu çalıştırdığınızda:
+Daha sonra, aşağıdaki komutu çalıştırdığınızda:
 
 ```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
@@ -116,7 +135,7 @@ pnpm intlayer fill --file 'src/components/example/example.content.ts'
 bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
-Intlayer, ana dosyada henüz beyan edilmemiş tüm yerelleri doldurarak, türetilmiş beyan dosyasını `src/components/example/example.content.json` konumunda otomatik olarak oluşturacaktır.
+Intlayer, `src/components/example/example.content.json` adresinde türetilmiş bildirim dosyasını otomatik olarak oluşturacak ve ana dosyada zaten bildirilmemiş olan tüm locale'leri dolduracaktır.
 
 ```json5 fileName="src/components/example/example.content.json"
 {
@@ -133,7 +152,7 @@ Intlayer, ana dosyada henüz beyan edilmemiş tüm yerelleri doldurarak, türeti
 }
 ```
 
-Daha sonra, her iki beyan dosyası tek bir sözlükte birleştirilecek ve standart `useIntlayer("example")` hook'u (react) / composable'ı (vue) kullanılarak erişilebilir olacaktır.
+Bundan sonra, her iki bildirim dosyası da standart `useIntlayer("example")` hook'u (react) / composable (vue) kullanılarak erişilebilen tek bir sözlükte birleştirilecektir.
 
 ## Genel Konfigürasyon
 

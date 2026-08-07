@@ -59,36 +59,44 @@ getLocalizedUrl(
 
 ## Параметры
 
-## Описание
-
-Функция `getLocalizedUrl` генерирует локализованный URL, добавляя в начало заданного URL указанный локаль. Она обрабатывает как абсолютные, так и относительные URL, обеспечивая применение правильного префикса локали в соответствии с конфигурацией.
-
----
-
-## Параметры
+### Обязательные параметры
 
 - `url: string`
-  - **Описание**: Исходная строка URL, к которой будет добавлен префикс локали.
-  - **Тип**: `string`
+  - **Description**: Исходная строка URL, которая должна быть дополнена локалью.
+  - **Type**: `string`
+  - **Required**: Yes
 
 - `currentLocale: Locales`
-  - **Описание**: Текущая локаль, для которой локализуется URL.
-  - **Тип**: `Locales`
+  - **Description**: Текущая локаль, для которой выполняется локализация URL.
+  - **Type**: `Locales`
+  - **Required**: Yes
 
-- `locales: Locales[]`
-  - **Описание**: Необязательный массив поддерживаемых локалей. По умолчанию используются локали, настроенные в проекте.
-  - **Тип**: `Locales[]`
-  - **По умолчанию**: [`Конфигурация проекта`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md#middleware)
+### Дополнительные параметры
 
-- `defaultLocale: Locales`
-  - **Описание**: Локаль по умолчанию для приложения. По умолчанию используется локаль по умолчанию, настроенная в проекте.
-  - **Тип**: `Locales`
-  - **По умолчанию**: [`Конфигурация проекта`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md#middleware)
+- `options?: object`
+  - **Description**: Объект конфигурации для поведения локализации URL.
+  - **Type**: `object`
+  - **Required**: No (Optional)
 
-- `prefixDefault: boolean`
-  - **Описание**: Нужно ли добавлять префикс для локали по умолчанию. По умолчанию используется значение, настроенное в проекте.
-  - **Тип**: `boolean`
-  - **По умолчанию**: [`Конфигурация проекта`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md#middleware)
+  - `options.locales?: Locales[]`
+    - **Description**: Массив поддерживаемых локалей. Если не предоставлен, использует настроенные локали из конфигурации вашего проекта.
+    - **Type**: `Locales[]`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md#middleware)
+
+  - `options.defaultLocale?: Locales`
+    - **Description**: Локаль по умолчанию для приложения. Если не предоставлена, использует настроенную локаль по умолчанию из конфигурации вашего проекта.
+    - **Type**: `Locales`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md#middleware)
+
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Description**: Режим маршрутизации URL для обработки локалей. Если не предоставлен, использует настроенный режим из конфигурации вашего проекта.
+    - **Type**: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ru/configuration.md#middleware)
+    - **Modes**:
+      - `prefix-no-default`: Без префикса для локали по умолчанию, с префиксом для всех остальных
+      - `prefix-all`: Префикс для всех локалей, включая локаль по умолчанию
+      - `no-prefix`: Без префикса локали в URL
+      - `search-params`: Использование параметров запроса для локали (например, `?locale=fr`)
 
 ### Возвращает
 

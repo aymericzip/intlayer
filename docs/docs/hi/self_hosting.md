@@ -80,6 +80,18 @@ curl -fsSL https://intlayer.org/install.sh | sh
 
 ---
 
+## पहली बार सेटअप
+
+एक नए instance (खाली डेटाबेस) पर, डैशबोर्ड खोलने से आप **`/init`** पृष्ठ पर रीडायरेक्ट हो जाते हैं:
+
+1. पहला खाता बनाएँ। क्योंकि users collection खाली है, यह खाता स्वचालित रूप से **super admin** को प्रचारित किया जाता है।
+2. एक सत्यापन ईमेल भेजा जाता है (Resend के माध्यम से)। ईमेल सत्यापन **अनिवार्य** है — यही कारण है कि `RESEND_API_KEY` को शुरू करने से पहले सेट किया जाना चाहिए।
+3. ईमेल में लिंक पर क्लिक करें, फिर साइन इन करें।
+
+एक बार admin मौजूद हो जाने पर, `/init` मानक साइन-इन पृष्ठ पर रीडायरेक्ट करता है।
+
+---
+
 ## सेवाएँ
 
 | सर्विस      | इमेज                                 | होस्ट पोर्ट(s)                 | उद्देश्य                                            |
@@ -97,9 +109,18 @@ curl -fsSL https://intlayer.org/install.sh | sh
 
 ---
 
-## एनवायरनमेंट वेरिएबल
+## Environment variables
 
-इंस्टॉलर एक तैयार-से-उपयोग `.env` जेनरेट करता है। नीचे दी गई तालिका प्रत्येक वेरिएबल का वर्णन करती है।
+### आवश्यक
+
+| Variable               | Example                      | Description                                                                                                                                  |
+| ---------------------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `DB_ID`                | `intlayer`                   | MongoDB Atlas user                                                                                                                           |
+| `DB_MDP`               | _(your password)_            | MongoDB Atlas password                                                                                                                       |
+| `DB_CLUSTER`           | `cluster0.xxxxx.mongodb.net` | MongoDB Atlas cluster host (used in the `mongodb+srv://` URI)                                                                                |
+| `BETTER_AUTH_SECRET`   | _(generated)_                | 32-byte secret for session signing                                                                                                           |
+| `S3_SECRET_ACCESS_KEY` | _(generated)_                | Secret for the bundled MinIO                                                                                                                 |
+| `RESEND_API_KEY`       | _(your key)_                 | Transactional email via Resend. Required for first-run setup unless you configure a global SMTP mailer (see [Global mailer](#global-mailer)) |
 
 ### आवश्यक (स्वतः जेनरेटेड या प्रॉम्प्टेड)
 
@@ -124,6 +145,17 @@ curl -fsSL https://intlayer.org/install.sh | sh
 | `S3_SECRET_ACCESS_KEY` | _(जेनरेटेड)_                                    | MinIO सीक्रेट की                                   |
 | `VITE_BACKEND_URL`     | `http://localhost:3100`                         | बिल्ड टाइम पर डैशबोर्ड में बेक किया गया बैकएंड URL |
 | `VITE_DOMAIN`          | `localhost`                                     | बिल्ड टाइम पर डैशबोर्ड में बेक किया गया डोमेन      |
+
+### Optional (features degrade gracefully when absent)
+
+| Variable                                                 | Feature                                   |
+| -------------------------------------------------------- | ----------------------------------------- |
+| `OPENAI_API_KEY`                                         | AI-assisted translation and content audit |
+| `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_*` | Billing and subscription management       |
+| `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`               | GitHub OAuth login                        |
+| `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`               | Google OAuth login                        |
+| `GITLAB_CLIENT_ID`, `GITLAB_CLIENT_SECRET`               | GitLab OAuth login                        |
+| `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Microsoft OAuth login                     |
 
 ### वैकल्पिक (अनुपस्थिति में फीचर धीरे-धीरे खराब हो जाते हैं)
 
@@ -259,47 +291,11 @@ docker run --rm \
 
 ---
 
-## रिवर्स प्रॉक्सी (Nginx / Caddy) का उपयोग करना
+## सीमाएं
 
-प्रोडक्शन डिप्लॉयमेंट के लिए, ऐप और बैकएंड कंटेनरों को सीधे एक्सपोज़ करने के बजाय उनके सामने एक रिवर्स प्रॉक्सी रखें।
-
-### Nginx उदाहरण
-
-```nginx
-server {
-    listen 80;
-    server_name cms.example.com;
-
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-
-server {
-    listen 80;
-    server_name api.example.com;
-
-    location / {
-        proxy_pass http://localhost:3100;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-```
-
-अपने पब्लिक डोमेन से मेल खाने के लिए निम्नलिखित `.env` वेरिएबल को अपडेट करें:
-
-```sh
-BACKEND_URL=https://api.example.com
-APP_URL=https://cms.example.com
-DOMAIN=example.com
-VITE_BACKEND_URL=https://api.example.com
-VITE_DOMAIN=example.com
-```
-
-> `VITE_*` वेरिएबल बिल्ड टाइम पर डैशबोर्ड इमेज में बेक किए जाते हैं। यदि आप इमेज बनने के बाद उन्हें बदलते हैं, तो आपको `app` इमेज (`docker compose build app`) को फिर से बनाना होगा या रनटाइम कॉन्फ़िग इंजेक्शन का उपयोग करना होगा।
+- **MongoDB बाहरी (Atlas) होना चाहिए।** बैकएंड केवल `mongodb+srv://` पर कनेक्ट करता है (जो `DB_ID` / `DB_MDP` / `DB_CLUSTER` से बनाया गया है), इसलिए एक सादा `mongodb://host:27017` — कंटेनर के अपने बंडल किए गए `mongod` सहित — का उपयोग नहीं किया जा सकता है। एक MongoDB Atlas क्लस्टर प्रदान करें।
+- **कोई कस्टम डोमेन नहीं।** सभी ब्राउज़र-सामने वाले `VITE_*` URLs बिल्ड टाइम पर ऐप में इनलाइन किए जाते हैं, और प्रकाशित इमेज `localhost` मानों के साथ आती है। डैशबोर्ड को `http://localhost:3000` पर एक्सेस किया जाना चाहिए; इसे एक सार्वजनिक डोमेन पर सर्व करने के लिए इमेज को लक्ष्य URLs के साथत: फिर से बनाने की आवश्यकता होगी और इसे तुरंत समर्थित नहीं किया जाता है।
+- **ईमेल को एक काम करने वाले मेलर की आवश्यकता है।** पहली बार सेटअप ईमेल सत्यापन को लागू करता है, इसलिए या तो `RESEND_API_KEY` या एक [global SMTP mailer](#global-mailer) (`MAIL_PROVIDER=smtp` + `MAIL_SMTP_*`) को कॉन्फ़िगर किया जाना चाहिए। पहले एडमिन साइन इन करने के बाद, प्रत्येक संगठन डैशबोर्ड से अपना स्वयं का SMTP या Resend मेलर भी कॉन्फ़िगर कर सकता है।
 
 ---
 
@@ -313,15 +309,6 @@ VITE_DOMAIN=example.com
 docker compose ps
 docker compose logs mongo
 docker compose logs redis
-```
-
-### डैशबोर्ड API तक नहीं पहुँच सकता
-
-सत्यापित करें कि `VITE_BACKEND_URL` उस URL से मेल खाता है जहाँ बैकएंड **ब्राउज़र** से (डॉकर नेटवर्क से नहीं) पहुँच योग्य है। यदि आपने बैकएंड पोर्ट बदला है या एक रिवर्स प्रॉक्सी जोड़ा है, तो डैशबोर्ड इमेज को फिर से बनाएँ:
-
-```sh
-docker compose build app
-docker compose up -d app
 ```
 
 ### ईमेल नहीं भेजा जा रहा है

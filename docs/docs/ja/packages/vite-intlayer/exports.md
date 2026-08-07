@@ -48,3 +48,18 @@ import "vite-intlayer";
 | `intlayerProxy`      | ロケール検出とルーティングを処理する開発用ミドルウェアプラグイン。 | -                                                                                                                      |
 | `intlayerMiddleware` | (**非推奨**) `intlayerProxy` のエイリアス。                        | -                                                                                                                      |
 | `intlayerPrune`      | ビルド時に未使用の辞書をツリーシェイクしてプルーンするプラグイン。 | [intlayerPrune](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/intlayerPrune.md) |
+
+### ユーティリティ
+
+| エクスポート                 | 説明                                                                                                            | 関連ドキュメント                                                                                                       |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `createIntlayerProxyHandler` | フレームワークに依存しないNode.js `(req, res, next)` ミドルウェアをロケールルーティングロジック付きで返します。 | [intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/packages/vite-intlayer/intlayerProxy.md) |
+
+### Types
+
+| Export                       | Description                                                                                                              |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `IntlayerPluginOptions`      | `intlayer()` で受け入れられるオプション。`GetConfigurationOptions` を `compatCallers` と `proxy` で拡張します。          |
+| `IntlayerProxyPluginOptions` | `intlayerProxy()` と `createIntlayerProxyHandler()` で受け入れられるオプション。`ignore` と `configOptions` を含みます。 |
+| `IntlayerCompilerOptions`    | `intlayerCompiler()` で受け入れられるオプション。`configOptions` と `compilerConfig` を含みます。                        |
+| `CompatCallerConfig`         | `@intlayer/babel` から再エクスポート。フィールド使用分析のための compat-adapter caller パターンを説明します。            |

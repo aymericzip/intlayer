@@ -84,9 +84,101 @@ Intlayer는 단순한 i18n 솔루션 그 이상으로 관리에 도움이 되는
 
 ---
 
-## 5단계: 콘텐츠 선언
+### 패키지
 
-프로젝트 내 어디에서나 **콘텐츠 선언** 파일을 생성하세요(일반적으로 `src/` 내). Intlayer가 지원하는 확장 형식을 사용할 수 있습니다:
+- **intlayer**  
+  설정, 사전 콘텐츠, 타입 생성 및 CLI 명령을 위한 핵심 i18n 도구 모음입니다.
+
+- **react-intlayer**  
+  Lynx에서 로케일을 얻고 전환하기 위해 사용할 컨텍스트 제공자와 React 훅을 제공하는 React 통합입니다.
+
+- **lynx-intlayer**  
+  Intlayer를 Lynx bundler와 통합하기 위한 플러그인을 제공하는 Lynx 통합입니다.
+
+---
+
+</Step>
+
+<Step number={2} title="Intlayer 설정 파일 생성">
+
+프로젝트 루트(또는 편한 위치)에 **Intlayer 설정** 파일을 생성합니다. 다음과 같이 보일 수 있습니다:
+
+```ts fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH,
+      // ... 필요한 다른 로케일을 추가합니다
+    ],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+이 설정 내에서 다음을 수행할 수 있습니다:
+
+- **지원하는 로케일 목록**을 구성합니다.
+- **기본** 로케일을 설정합니다.
+- 나중에 더 고급 옵션을 추가할 수 있습니다(예: 로그, 사용자 정의 콘텐츠 디렉터리 등).
+- [Intlayer 설정 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
+
+</Step>
+
+<Step number={3} title="Intlayer 플러그인을 Lynx bundler에 추가">
+
+Intlayer를 Lynx와 함께 사용하려면 `lynx.config.ts` 파일에 플러그인을 추가해야 합니다:
+
+```ts fileName="lynx.config.ts"
+import { defineConfig } from "@lynx-js/rspeedy";
+import { pluginIntlayerLynx } from "lynx-intlayer/plugin";
+
+export default defineConfig({
+  plugins: [
+    // ... 다른 플러그인
+    pluginIntlayerLynx(),
+  ],
+});
+```
+
+</Step>
+
+<Step number={4} title="Intlayer 제공자 추가">
+
+애플리케이션 전체에서 사용자 언어를 동기화된 상태로 유지하려면 `react-intlayer`의 `IntlayerProvider` 컴포넌트로 루트 컴포넌트를 감싸야 합니다.
+
+또한 Intlayer가 제대로 작동하도록 보장하기 위해 `intlayerPolyfill` 함수 파일을 추가해야 합니다.
+
+```tsx fileName="src/index.tsx"
+import { root } from "@lynx-js/react";
+
+import { App } from "./App.js";
+import { IntlayerProvider } from "react-intlayer";
+import { intlayerPolyfill } from "lynx-intlayer";
+
+intlayerPolyfill();
+
+root.render(
+  <IntlayerProvider>
+    <App />
+  </IntlayerProvider>
+);
+
+if (import.meta.webpackHot) {
+  import.meta.webpackHot.accept();
+}
+```
+
+</Step>
+
+<Step number={5} title="콘텐츠 선언">
+
+프로젝트의 어느 곳이든(일반적으로 `src/` 내) Intlayer가 지원하는 모든 확장명 형식을 사용하여 **콘텐츠 선언** 파일을 생성합니다:
 
 - `.content.json`
 - `.content.jsonc`
@@ -114,12 +206,13 @@ const appContent = {
   content: {
     title: "React",
     subtitle: t({
+      ko: "Lynx에서",
       en: "on Lynx",
       fr: "sur Lynx",
       es: "en Lynx",
     }),
     description: t({
-      ko: "로고를 누르고 즐기세요!",
+      ko: "로고를 탭하고 즐겨보세요!",
       en: "Tap the logo and have fun!",
       fr: "Appuyez sur le logo et amusez-vous!",
       es: "¡Toca el logo y diviértete!",
@@ -133,7 +226,7 @@ const appContent = {
       }),
       " src/App.tsx ",
       t({
-        ko: "업데이트를 확인하세요!",
+        ko: "업데이트를 보려면!",
         en: "to see updates!",
         fr: "pour voir les mises à jour!",
         es: "para ver actualizaciones!",
@@ -159,50 +252,50 @@ export default appContent;
         "fr": "sur Lynx",
         "es": "en Lynx"
       }
-    }
-  },
-  "description": {
-    "nodeType": "translation",
-    "translation": {
-      "ko": "로고를 누르고 즐기세요!",
-      "en": "Tap the logo and have fun!",
-      "fr": "Appuyez sur le logo et amusez-vous!",
-      "es": "¡Toca el logo y diviértete!"
-    }
-  },
-  "hint": [
-    {
+    },
+    "description": {
       "nodeType": "translation",
       "translation": {
-        "ko": "편집",
-        "en": "Edit",
-        "fr": "Modifier",
-        "es": "Editar"
+        "ko": "로고를 탭하고 즐겨보세요!",
+        "en": "Tap the logo and have fun!",
+        "fr": "Appuyez sur le logo et amusez-vous!",
+        "es": "¡Toca el logo y diviértete!"
       }
     },
-    " src/App.tsx ",
-    {
-      "nodeType": "translation",
-      "translation": {
-        "ko": "업데이트를 확인하세요!",
-        "en": "to see updates!",
-        "fr": "pour voir les mises à jour!",
-        "es": "para ver actualizaciones!"
+    "hint": [
+      {
+        "nodeType": "translation",
+        "translation": {
+          "ko": "편집",
+          "en": "Edit",
+          "fr": "Modifier",
+          "es": "Editar"
+        }
+      },
+      " src/App.tsx ",
+      {
+        "nodeType": "translation",
+        "translation": {
+          "ko": "업데이트를 보려면!",
+          "en": "to see updates!",
+          "fr": "pour voir les mises à jour!",
+          "es": "para ver actualizaciones!"
+        }
       }
-    }
-  ]
+    ]
+  }
 }
 ```
 
-> 콘텐츠 선언에 대한 자세한 내용은 [Intlayer의 콘텐츠 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
+> 콘텐츠 선언에 대한 자세한 내용은 [Intlayer 콘텐츠 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/dictionary/content_file.md)를 참조하세요.
 
 ---
 
-<Steps>
+</Step>
 
-<Step number={1} title="컴포넌트에서 Intlayer 사용하기">
+<Step number={6} title="컴포넌트에서 Intlayer 사용">
 
-`useIntlayer` 훅을 자식 컴포넌트에서 사용하여 로컬라이즈된 콘텐츠를 가져옵니다.
+자식 컴포넌트에서 `useIntlayer` 훅을 사용하여 지역화된 콘텐츠를 얻습니다.
 
 ```tsx fileName="src/App.tsx"
 import { useCallback, useState } from "@lynx-js/react";
@@ -217,8 +310,9 @@ import { LocaleSwitcher } from "./components/LocaleSwitcher.jsx";
 export const App = () => {
   const [alterLogo, setAlterLogo] = useState(false);
   const { title, subtitle, description, hint } = useIntlayer("app");
+
   const onTap = useCallback(() => {
-    // 배경만 변경
+    "background only";
     setAlterLogo(!alterLogo);
   }, [alterLogo]);
 
@@ -254,13 +348,13 @@ export const App = () => {
 };
 ```
 
-> 문자열 기반 속성(예: 버튼의 `title` 또는 `Text` 컴포넌트의 `children`)에서 `content.someKey`를 사용할 때, **`content.someKey.value`를 호출**하여 실제 문자열을 가져오세요.
+> 문자열 기반 props(예: 버튼의 `title` 또는 `Text` 컴포넌트의 `children`)에서 `content.someKey`를 사용할 때는 **실제 문자열을 얻기 위해 `content.someKey.value`를 호출합니다**.
 
 ---
 
 </Step>
 
-<Step number={2} title="앱 로케일 변경하기">
+<Step number={7} title="앱 로케일 변경" isOptional={true}>
 
 컴포넌트 내에서 로케일을 전환하려면 `useLocale` 훅의 `setLocale` 메서드를 사용할 수 있습니다:
 
@@ -299,7 +393,7 @@ export const LocaleSwitcher: FC = () => {
 };
 ```
 
-이 작업은 Intlayer 콘텐츠를 사용하는 모든 컴포넌트를 다시 렌더링하며, 새로운 로케일에 대한 번역을 표시합니다.
+이것은 Intlayer 콘텐츠를 사용하는 모든 컴포넌트의 다시 렌더링을 트리거하며, 이제 새로운 로케일에 대한 번역을 표시합니다.
 
 > 자세한 내용은 [`useLocale` 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/packages/react-intlayer/useLocale.md)를 참조하세요.
 

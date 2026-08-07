@@ -61,30 +61,32 @@ author: aymericzip
   - **Type**: `Locales`
   - **Required**: Yes
 
-## पैरामीटर
+### Optional Parameters
 
-- `url: string`
-  - **विवरण**: मूल URL स्ट्रिंग जिसे लोकल के साथ उपसर्गित किया जाना है।
-  - **प्रकार**: `string`
+- `options?: object`
+  - **Description**: URL localization व्यवहार के लिए Configuration object।
+  - **Type**: `object`
+  - **Required**: No (Optional)
 
-- `currentLocale: Locales`
-  - **विवरण**: वर्तमान लोकल जिसके लिए URL लोकलाइज़ किया जा रहा है।
-  - **प्रकार**: `Locales`
+  - `options.locales?: Locales[]`
+    - **Description**: समर्थित locales का Array। यदि प्रदान नहीं किया गया है, तो आपके project configuration से configured locales का उपयोग करता है।
+    - **Type**: `Locales[]`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md#middleware)
 
-- `locales: Locales[]`
-  - **विवरण**: समर्थित लोकल की वैकल्पिक सूची। डिफ़ॉल्ट रूप से, परियोजना में कॉन्फ़िगर किए गए लोकल प्रदान किए जाते हैं।
-  - **प्रकार**: `Locales[]`
-  - **डिफ़ॉल्ट**: [`परियोजना कॉन्फ़िगरेशन`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md#middleware)
+  - `options.defaultLocale?: Locales`
+    - **Description**: Application के लिए default locale। यदि प्रदान नहीं किया गया है, तो आपके project configuration से configured default locale का उपयोग करता है।
+    - **Type**: `Locales`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md#middleware)
 
-- `defaultLocale: Locales`
-  - **विवरण**: एप्लिकेशन के लिए डिफ़ॉल्ट लोकल। डिफ़ॉल्ट रूप से, परियोजना में कॉन्फ़िगर किया गया डिफ़ॉल्ट लोकल प्रदान किया जाता है।
-  - **प्रकार**: `Locales`
-  - **डिफ़ॉल्ट**: [`परियोजना कॉन्फ़िगरेशन`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md#middleware)
-
-- `prefixDefault: boolean`
-  - **विवरण**: क्या डिफ़ॉल्ट लोकल के लिए URL के आगे उपसर्ग जोड़ा जाए। डिफ़ॉल्ट रूप से, परियोजना में कॉन्फ़िगर किया गया मान प्रदान किया जाता है।
-  - **प्रकार**: `boolean`
-  - **डिफ़ॉल्ट**: [`परियोजना कॉन्फ़िगरेशन`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md#middleware)
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Description**: Locale handling के लिए URL routing mode। यदि प्रदान नहीं किया गया है, तो आपके project configuration से configured mode का उपयोग करता है।
+    - **Type**: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md#middleware)
+    - **Modes**:
+      - `prefix-no-default`: Default locale के लिए कोई prefix नहीं, सभी अन्य के लिए prefix
+      - `prefix-all`: Default सहित सभी locales के लिए prefix
+      - `no-prefix`: URL में कोई locale prefix नहीं
+      - `search-params`: Locale के लिए query parameters का उपयोग करें (उदाहरण के लिए, `?locale=fr`)
 
 ### रिटर्न्स
 

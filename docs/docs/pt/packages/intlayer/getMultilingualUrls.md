@@ -50,26 +50,12 @@ getMultilingualUrls(
 
 ## Parâmetros
 
-## Parâmetros
+### Parâmetros Obrigatórios
 
 - `url: string`
-  - **Descrição**: A string da URL original a ser prefixada com as localidades.
-  - **Tipo**: `string`
-
-- `locales: Locales[]`
-  - **Descrição**: Array opcional de localidades suportadas. O padrão são as localidades configuradas no projeto.
-  - **Tipo**: `Locales[]`
-  - **Padrão**: `localesDefault`
-
-- `defaultLocale: Locales`
-  - **Descrição**: A localidade padrão para a aplicação. O padrão é a localidade padrão configurada no projeto.
-  - **Tipo**: `Locales`
-  - **Padrão**: `defaultLocaleDefault`
-
-- `prefixDefault: boolean`
-  - **Descrição**: Se deve prefixar a localidade padrão. O padrão é o valor configurado no projeto.
-  - **Tipo**: `boolean`
-  - **Padrão**: `prefixDefaultDefault`
+  - **Description**: A string de URL original a ser prefixada com locales.
+  - **Type**: `string`
+  - **Required**: Sim
 
 ### Parâmetros Opcionais
 

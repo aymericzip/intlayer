@@ -64,6 +64,32 @@ Chromium (використовується для генерації скрін�
 
 ## Швидкий старт
 
+Витягніть і запустіть опубліковану image, надавши ваші облікові дані та секрети MongoDB Atlas:
+
+```sh
+docker run -d --name intlayer \
+  -p 3000:3000 \
+  -p 3100:3100 \
+  -p 9000:9000 \
+  -p 9001:9001 \
+  -v intlayer-data:/data \
+  -e DB_ID="<atlas-user>" \
+  -e DB_MDP="<atlas-password>" \
+  -e DB_CLUSTER="<cluster>.xxxxx.mongodb.net" \
+  -e BETTER_AUTH_SECRET="$(openssl rand -hex 32)" \
+  -e S3_SECRET_ACCESS_KEY="$(openssl rand -hex 16)" \
+  -e RESEND_API_KEY="<your-resend-key>" \
+  aymericzip/intlayer-selfhost
+```
+
+Потім відкрийте **http://localhost:3000**.
+
+> Dashboard доступний на `localhost`. Див. [Обмеження](#limitations) — користувацькі домени не підтримуються опублікованою image.
+
+---
+
+## Швидкий старт
+
 ```sh
 curl -fsSL https://intlayer.org/install.sh | sh
 ```
@@ -99,7 +125,16 @@ curl -fsSL https://intlayer.org/install.sh | sh
 
 ## Змінні середовища
 
-Інсталятор генерує готовий до використання файл `.env`. Таблиця нижче описує кожну змінну.
+### Обов'язково
+
+| Variable               | Example                      | Description                                                                                                                                            |
+| ---------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `DB_ID`                | `intlayer`                   | MongoDB Atlas користувач                                                                                                                               |
+| `DB_MDP`               | _(ваш пароль)_               | MongoDB Atlas пароль                                                                                                                                   |
+| `DB_CLUSTER`           | `cluster0.xxxxx.mongodb.net` | MongoDB Atlas cluster хост (використовується в URI `mongodb+srv://`)                                                                                   |
+| `BETTER_AUTH_SECRET`   | _(згенерований)_             | 32-байтовий secret для підписання сеансу                                                                                                               |
+| `S3_SECRET_ACCESS_KEY` | _(згенерований)_             | Secret для bundled MinIO                                                                                                                               |
+| `RESEND_API_KEY`       | _(ваш ключ)_                 | Transactional email через Resend. Обов'язково для першого запуску, якщо ви не налаштуєте глобальний SMTP mailer (див. [Global mailer](#global-mailer)) |
 
 ### Обов'язкові (автоматично генеруються або запитуються)
 
@@ -138,6 +173,26 @@ curl -fsSL https://intlayer.org/install.sh | sh
 | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Вхід через Microsoft OAuth                                                          |
 | `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`           | Вхід через LinkedIn OAuth                                                           |
 | `ATLASSIAN_CLIENT_ID`, `ATLASSIAN_CLIENT_SECRET`         | Вхід через Atlassian OAuth                                                          |
+
+---
+
+### Глобальний поштовик
+
+За замовчуванням усі транзакційні електронні листи відправляються через Resend з використанням `RESEND_API_KEY`. Самостійно розгорнуті розгортання можуть натомість маршрутизувати **кожну** електронну пошту — включаючи не-організаційні листи, такі як скидання паролів і магічні посилання — через глобальний поштовик, налаштований за допомогою змінних середовища.
+
+Встановіть `MAIL_PROVIDER`, щоб активувати це. Коли не встановлено, використовується поштовик за замовчуванням Resend.
+
+| Змінна               | Приклад                        | Опис                                                                                                 |
+| -------------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------- |
+| `MAIL_PROVIDER`      | `smtp`                         | Глобальний транспорт: `smtp` або `resend`. Залиште не встановленим для використання за замовчуванням |
+| `MAIL_FROM`          | `Intlayer <no-reply@acme.com>` | Заголовок відправника. Приймає просту адресу або формат `Name <email>`                               |
+| `MAIL_SMTP_HOST`     | `smtp.acme.com`                | Хост SMTP (обов'язково, коли `MAIL_PROVIDER=smtp`)                                                   |
+| `MAIL_SMTP_PORT`     | `587`                          | Порт SMTP (за замовчуванням `587`)                                                                   |
+| `MAIL_SMTP_SECURE`   | `false`                        | Неявний TLS. Встановіть `true` для порту `465`                                                       |
+| `MAIL_SMTP_USER`     | _(ваш користувач)_             | Ім'я користувача SMTP (необов'язково; пропустіть для незаповнених реле)                              |
+| `MAIL_SMTP_PASSWORD` | _(ваш пароль)_                 | Пароль SMTP                                                                                          |
+
+> Пріоритет: власний поштовик організації (налаштований з панелі керування **Organization**) має пріоритет над глобальним поштовиком, який у свою чергу має пріоритет над ключем Resend за замовчуванням.
 
 ---
 
@@ -259,47 +314,11 @@ docker run --rm \
 
 ---
 
-## Використання зворотного проксі (Nginx / Caddy)
+## Обмеження
 
-Для виробничих розгортань розмістіть зворотний проксі перед контейнерами застосунку та бекенду замість прямого їх виставлення.
-
-### Приклад Nginx
-
-```nginx
-server {
-    listen 80;
-    server_name cms.example.com;
-
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-
-server {
-    listen 80;
-    server_name api.example.com;
-
-    location / {
-        proxy_pass http://localhost:3100;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-```
-
-Оновіть наступні змінні `.env`, щоб вони відповідали вашим публічним доменам:
-
-```sh
-BACKEND_URL=https://api.example.com
-APP_URL=https://cms.example.com
-DOMAIN=example.com
-VITE_BACKEND_URL=https://api.example.com
-VITE_DOMAIN=example.com
-```
-
-> Змінні `VITE_*` вбудовуються в образ дашборду під час збірки. Якщо ви зміните їх після збірки образу, вам потрібно перезібрати образ `app` (`docker compose build app`) або використовувати ін'єкцію конфігурації під час виконання.
+- **MongoDB має бути зовнішньою (Atlas).** Backend підключається лише через `mongodb+srv://` (побудований на основі `DB_ID` / `DB_MDP` / `DB_CLUSTER`), тому звичайний `mongodb://host:27017` — включаючи вбудований `mongod` контейнера — не може бути використаний. Надайте кластер MongoDB Atlas.
+- **Немає користувацького домену.** Усі `VITE_*` URL-адреси, видимі браузером, вбудовуються в додаток під час збирання, а опублікований образ поставляється зі значеннями `localhost`. Доступ до панелі керування має здійснюватися через `http://localhost:3000`; обслуговування її на публічному домені потребувало б перебудови образу з цільовими URL-адресами вбудованими та не підтримується з коробки.
+- **Email вимагає працюючого mailer.** Перша установка примушує перевірку електронної пошти, тому має бути налаштований або `RESEND_API_KEY`, або [глобальний SMTP mailer](#global-mailer) (`MAIL_PROVIDER=smtp` + `MAIL_SMTP_*`). Після того як перший адміністратор увійде, кожна організація також може налаштувати власний SMTP або Resend mailer з панелі керування.
 
 ---
 
@@ -313,15 +332,6 @@ MongoDB та Redis повинні бути справними, перш ніж �
 docker compose ps
 docker compose logs mongo
 docker compose logs redis
-```
-
-### Дашборд не може дістатися до API
-
-Переконайтеся, що `VITE_BACKEND_URL` відповідає URL-адресі, за якою бекенд доступний з **браузера** (не мережі Docker). Якщо ви змінили порт бекенду або додали зворотний проксі, перезіберіть образ дашборду:
-
-```sh
-docker compose build app
-docker compose up -d app
 ```
 
 ### Електронні листи не надсилаються

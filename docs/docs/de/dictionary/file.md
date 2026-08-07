@@ -23,7 +23,9 @@ history:
 author: aymericzip
 ---
 
-# Dateiinhalte / Einbetten von Dateien in Intlayer
+# Dateiinhalte / Einbettung von Dateien in Intlayer
+
+In Intlayer ermöglicht die `file`-Funktion das Einbetten von externem Dateiinhalt in ein Dictionary. Dieser Ansatz stellt sicher, dass Intlayer die Quelldatei erkennt und ermöglicht eine nahtlose Integration mit dem Intlayer Visual Editor und CMS.
 
 ## Wie das Einbetten von Dateien funktioniert
 

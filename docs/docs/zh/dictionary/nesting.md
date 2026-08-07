@@ -64,6 +64,53 @@ export default firstDictionary;
 }
 ```
 
+### 使用 Nest 进行引用
+
+现在，创建另一个内容模块，使用 `nest` 函数来引用上述内容。您可以引用整个内容或特定的嵌套值：
+
+```typescript fileName="secondDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { nest, type Dictionary } from "intlayer";
+
+const myNestingContent = {
+  key: "key_of_my_second_dictionary",
+  content: {
+    // 引用整个字典：
+    fullNestedContent: nest("key_of_my_first_dictionary"),
+    // 引用特定的嵌套值：
+    partialNestedContent: nest(
+      "key_of_my_first_dictionary",
+      "subContent.contentNumber"
+    ),
+  },
+} satisfies Dictionary;
+
+export default myNestingContent;
+```
+
+```json fileName="secondDictionary.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "key_of_my_second_dictionary",
+  "content": {
+    "fullNestedContent": {
+      "nodeType": "nested",
+      "nested": {
+        "dictionaryKey": "key_of_my_first_dictionary"
+      }
+    },
+    "partialNestedContent": {
+      "nodeType": "nested",
+      "nested": {
+        "dictionaryKey": "key_of_my_first_dictionary",
+        "path": "subContent.contentNumber"
+      }
+    }
+  }
+}
+```
+
+作为第二个参数，您可以指定该内容中嵌套值的路径。如果未提供路径，则返回引用字典的全部内容。
+
 ## 设置嵌套
 
 <Tabs group="framework">
@@ -257,36 +304,6 @@ document.getElementById("nested")!.textContent = content.partialNestedContent;
 
   </Tab>
 </Tabs>
-
-## 在 React Intlayer 中使用嵌套
-
-要在 React 组件中使用嵌套内容，可以利用 `react-intlayer` 包中的 `useIntlayer` 钩子。此钩子根据指定的键检索正确的内容。以下是如何使用它的示例：
-
-```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { useIntlayer } from "react-intlayer";
-
-const NestComponent: FC = () => {
-  const { fullNestedContent, partialNestedContent } = useIntlayer(
-    "key_of_my_second_dictionary"
-  );
-
-  return (
-    <div>
-      <p>
-        Full Nested Content: {JSON.stringify(fullNestedContent)}
-        {/* 输出: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
-      </p>
-      <p>
-        Partial Nested Value: {partialNestedContent}
-        {/* 输出: 0 */}
-      </p>
-    </div>
-  );
-};
-
-export default NestComponent;
-```
 
 ## 其他资源
 

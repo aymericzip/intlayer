@@ -30,9 +30,7 @@ history:
 author: aymericzip
 ---
 
-# Intlayer로 Vite and Vue 번역하기 | 국제화(i18n)
-
-GitHub에서 [애플리케이션 템플릿](https://github.com/aymericzip/intlayer-vite-vue-template)을 확인하세요.
+# Intlayer를 사용하여 Vite 및 Vue 웹사이트 번역 | 국제화 (i18n)
 
 ## 목차
 

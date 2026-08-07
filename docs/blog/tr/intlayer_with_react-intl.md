@@ -29,7 +29,9 @@ history:
 author: aymericzip
 ---
 
-# React-intl JSON çevirilerinizi Intlayer kullanarak nasıl otomatikleştirirsiniz
+# Intlayer kullanarak react-intl JSON çevirilerinizi nasıl otomatikleştirilebilir
+
+<iframe title="How to automate your react-intl JSON translations using Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/MpGMxniDHNg?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
 ## İçindekiler
 

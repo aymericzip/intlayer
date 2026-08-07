@@ -61,6 +61,22 @@ export const identifySegmentsToReview = ({
   return { segmentsToReview };
 };
 
+/** Markdown separates two blocks with a blank line. */
+const endsWithBlockBoundary = (text: string): boolean =>
+  /\n[ \t]*\n$/.test(text);
+
+/**
+ * The newlines missing at the end of `text` for it to close a markdown block.
+ *
+ * @param text - The document built so far.
+ * @returns `''`, `'\n'` or `'\n\n'` depending on how the text already ends.
+ */
+const buildBlockSeparator = (text: string): string => {
+  if (text.length === 0 || endsWithBlockBoundary(text)) return '';
+
+  return text.endsWith('\n') ? '\n' : '\n\n';
+};
+
 /**
  * Merge reviewed translations back into the final document following the
  * alignment plan, reusing untouched target blocks as-is.
@@ -75,22 +91,44 @@ export const mergeReviewedSegments = (
   targetBlocks: FingerprintedBlock[],
   reviewedSegments: Map<number, string>
 ): string => {
-  const outputParts: string[] = [];
+  let mergedText = '';
+  let previousPartWasGenerated = false;
+
+  /**
+   * Append one part, keeping a blank line around the content this run produced.
+   *
+   * Blocks own the blank lines that trail them, so two verbatim blocks already
+   * separate themselves and are appended untouched — a document with nothing to
+   * change merges back byte for byte. Generated content is the exception: the
+   * block it lands after may be the one that used to end the document, which
+   * carries no trailing blank line, and the two would be glued into a single
+   * markdown block (a heading swallowed by the paragraph above it).
+   */
+  const appendPart = (content: string, isGenerated: boolean): void => {
+    if (content.length === 0) return;
+
+    if (isGenerated || previousPartWasGenerated) {
+      mergedText += buildBlockSeparator(mergedText);
+    }
+
+    mergedText += content;
+    previousPartWasGenerated = isGenerated;
+  };
 
   plan.actions.forEach((action, actionIndex) => {
     if (action.kind === 'reuse') {
-      outputParts.push(targetBlocks[action.targetIndex].content);
+      appendPart(targetBlocks[action.targetIndex]!.content, false);
     } else if (action.kind === 'review' || action.kind === 'insert_new') {
       const reviewedContent = reviewedSegments.get(actionIndex);
 
       if (reviewedContent !== undefined) {
-        outputParts.push(reviewedContent);
+        appendPart(reviewedContent, true);
       } else {
         // Fallback: if review failed, use existing or blank
         if (action.kind === 'review' && action.targetIndex !== null) {
-          outputParts.push(targetBlocks[action.targetIndex].content);
+          appendPart(targetBlocks[action.targetIndex]!.content, false);
         } else {
-          outputParts.push('\n');
+          appendPart('\n', false);
         }
       }
     } else if (action.kind === 'delete') {
@@ -98,15 +136,15 @@ export const mergeReviewedSegments = (
       if (reviewedContent !== undefined) {
         // Caller explicitly resolved this block: empty string = actually delete,
         // non-empty string = replacement content.
-        if (reviewedContent) outputParts.push(reviewedContent);
+        appendPart(reviewedContent, true);
       } else {
         // Default: keep verbatim. A target block with no base counterpart may
         // just be a section the aligner could not follow (reordering, split
         // prose) — keeping it prevents accidental data loss in log/read-only mode.
-        outputParts.push(targetBlocks[action.targetIndex].content);
+        appendPart(targetBlocks[action.targetIndex]!.content, false);
       }
     }
   });
 
-  return outputParts.join('');
+  return mergedText;
 };

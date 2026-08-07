@@ -247,6 +247,158 @@ bun x intlayer dictionary push -d my-first-dictionary-key --env production
 
 Потім ви зможете переглядати та керувати своїм словником у [Intlayer CMS](https://app.intlayer.org/content).
 
+## Програмний доступ за допомогою `@intlayer/api` SDK
+
+Крім CLI і візуального редактора, Intlayer поставляється з типізованим SDK у пакеті [`@intlayer/api`](https://www.npmjs.com/package/@intlayer/api). Це дозволяє вам розглядати CMS як **headless content database**: ви можете отримувати проекти, отримувати словники та безпосередньо змінювати їх з вашого власного додатку, скриптів або CI pipeline.
+
+SDK обробляє автентифікацію за вас. Доки ваші `clientId` і `clientSecret` доступні (у вашій конфігурації Intlayer або середовищі), він автоматично отримує та оновлює OAuth2 access token та підписує кожен запит.
+
+### Установка
+
+```bash packageManager="npm"
+npm install @intlayer/api
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/api
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/api
+```
+
+```bash packageManager="bun"
+bun add @intlayer/api
+```
+
+### Як це працює: authenticator + endpoints
+
+SDK розділений на **два окремі імпорти** навмисне, щоб зберегти ваш bundle компактним:
+
+1. `createIntlayerCMS` — створює легкий **authenticator**. Він містить лише облікові дані та керований токен доступу; він нічого не знає про будь-який конкретний домен.
+2. `dictionaryEndpoint`, `projectEndpoint`, … — привʼязки **endpoint** для кожного домену, кожна імпортується з власного підпапки (`@intlayer/api/dictionary`, `@intlayer/api/project`, …). Ви передаєте authenticator потрібному вам endpoint.
+
+Оскільки кожний endpoint імпортується окремо, ваш bundle містить лише домени, які ви насправді використовуєте — імпортування `dictionaryEndpoint` ніколи не потягне за собою project, AI або будь-який інший клієнт домену.
+
+```typescript fileName="cms.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+
+// Конфігурація є необов'язковою: якщо її опущено, облікові дані читаються з
+// `@intlayer/config/built`, що розв'язує змінні середовища INTLAYER_CLIENT_ID та
+// INTLAYER_CLIENT_SECRET.
+export const cmsAuthenticator = createIntlayerCMS();
+```
+
+> [!WARNING]
+> Облікові дані CMS (`clientId` / `clientSecret`) надають **доступ до запису** вашого контенту. Завжди створюйте authenticator лише на **серверній стороні** (server actions, route handlers, scripts, CI). Ніколи не імпортуйте його в код на стороні клієнта та не розкривайте ваші облікові дані браузеру.
+
+Якщо ви воліте не покладатися на конфігурацію на етапі збирання, передайте облікові дані явно:
+
+```typescript fileName="cms.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+
+export const cmsAuthenticator = createIntlayerCMS({
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+    // Необов'язково, для самостійно розміщених backend:
+    // backendURL: process.env.INTLAYER_BACKEND_URL,
+  },
+});
+```
+
+> Отримайте свої облікові дані, створивши новий ключ доступу в [Intlayer Dashboard - Projects](https://app.intlayer.org/projects).
+
+### Завантажити проекти
+
+```typescript fileName="projects.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { projectEndpoint } from "@intlayer/api/project";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// Список проектів, доступних з вашими облікові даними
+const { data: projects } =
+  await projectEndpoint(cmsAuthenticator).getProjects();
+
+// Читання агрегованих інформацій про локалізацію вибраного проекту
+const { data: insights } =
+  await projectEndpoint(cmsAuthenticator).getProjectInsights();
+```
+
+### Отримання словників
+
+```typescript fileName="read-dictionaries.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// Список усіх віддалених словників проекту
+const { data: dictionaries } =
+  await dictionaryEndpoint(cmsAuthenticator).getDictionaries();
+
+// Або отримайте один словник за ключем
+const { data: dictionary } = await dictionaryEndpoint(
+  cmsAuthenticator
+).getDictionary("my-first-dictionary-key");
+```
+
+### Отправка та оновлення словників
+
+Використовуйте CMS як базу даних для запису вмісту назад:
+
+```typescript fileName="write-dictionaries.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// Створення нового словника
+await dictionaryEndpoint(cmsAuthenticator).addDictionary({
+  key: "my-first-dictionary-key",
+  content: { title: "Hello world" },
+});
+
+// Upsert пакету словників (створення або оновлення в одному викликі)
+await dictionaryEndpoint(cmsAuthenticator).pushDictionaries([
+  { key: "home", content: { title: "Home" } },
+  { key: "about", content: { title: "About" } },
+]);
+
+// Оновлення існуючого словника
+await dictionaryEndpoint(cmsAuthenticator).updateDictionary({
+  id: "<dictionary-id>",
+  key: "home",
+  content: { title: "Updated title" },
+});
+```
+
+> Порада: повторно використовуйте прив'язану endpoint, щоб уникнути повторень:
+>
+> ```typescript codeFormat="typescript"
+> const dictionary = dictionaryEndpoint(cmsAuthenticator);
+> await dictionary.pushDictionaries([myDictionary]);
+> const { data } = await dictionary.getDictionaries();
+> ```
+
+### Вилучення одного методу
+
+Кожен метод endpoint уже автентифікований та самостійний (він має власну обробку токена), тому ви можете вилучити один і передавати його навколо — наприклад, щоб інжектувати його як залежність:
+
+```typescript fileName="push.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const dictionary = dictionaryEndpoint(createIntlayerCMS());
+
+// Уже автентифіковано — автоматично оновлює токен при кожному виклику
+export const pushDictionaries = dictionary.pushDictionaries;
+
+// Використання
+await pushDictionaries([{ key: "home", content: { title: "Home" } }]);
+```
+
 ## Live Sync
 
 Live Sync дозволяє вашому застосунку відображати зміни контенту з CMS під час виконання. Немає потреби у перебудові або повторному розгортанні. Коли увімкнено, оновлення передаються на сервер Live Sync, який оновлює словники, які читає ваш застосунок.

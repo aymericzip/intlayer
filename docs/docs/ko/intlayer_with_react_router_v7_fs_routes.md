@@ -183,203 +183,55 @@ app/
 - `_index` - 인덱스 경로 (부모 경로에서 렌더링)
 - `.` (점) - 경로 세그먼트 구분 (예: `($locale).about` → `/:locale?/about`)
 
-## 파일 시스템 기반 라우트를 사용한 React Router v7 애플리케이션에서 Intlayer 설정을 위한 단계별 가이드
+#### Layout 컴포넌트
 
-<Tabs defaultTab="video">
-  <Tab label="Video" value="video">
+```tsx fileName="app/root.tsx"
+import { getLocaleFromPath } from "intlayer";
+import { IntlayerProvider } from "react-intlayer";
+import {
+  isRouteErrorResponse,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useLoaderData,
+} from "react-router";
 
-<iframe title="How to translate an React Router v7 (File-System Routes) app using Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
+import type { Route } from "./+types/root";
 
-  </Tab>
-  <Tab label="Code" value="code">
+import "./app.css";
 
-<iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-react-router-v7-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
+// ... 변경되지 않은 App, links 및 ErrorBoundary 코드
 
-  </Tab>
-  <Tab label="데모" value="demo">
+export async function loader({ request }: Route.LoaderArgs) {
+  const locale = getLocaleFromPath(request.url);
 
-<iframe
-  src="https://intlayer-react-router-v7.vercel.app"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="데모 - intlayer-react-router-v7-template"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
+  return { locale };
+}
 
-  </Tab>
-</Tabs>
+export function Layout({
+  children,
+}: { children: React.ReactNode } & Route.ComponentProps) {
+  const data = useLoaderData<typeof loader>();
+  const { locale } = data ?? {};
 
-See [Application Template](https://github.com/aymericzip/intlayer-react-router-v7-template) on GitHub.
-
-애플리케이션의 언어를 구성하기 위한 설정 파일을 만드세요:
-
-```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import { type IntlayerConfig, Locales } from "intlayer";
-
-const config: IntlayerConfig = {
-  internationalization: {
-    defaultLocale: Locales.ENGLISH, // 기본 로케일 설정
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH], // 지원하는 로케일 목록
-  },
-};
-
-export default config;
+  return (
+    <html lang={locale}>
+      <head>
+        <meta charSet="utf-8" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+    </html>
+  );
+}
 ```
-
-> 이 구성 파일을 통해 지역화된 URL, 미들웨어 리디렉션, 쿠키 이름, 콘텐츠 선언의 위치 및 확장자 설정, 콘솔에서 Intlayer 로그 비활성화 등 다양한 설정을 할 수 있습니다. 사용 가능한 모든 매개변수 목록은 [구성 문서](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/configuration.md)를 참조하세요.
-
-<Steps>
-
-<Step number={3} title="Vite 구성에 Intlayer 통합하기">
-
-구성에 intlayer 플러그인을 추가하세요:
-
-```typescript fileName="vite.config.ts"
-import { reactRouter } from "@react-router/dev/vite";
-import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [reactRouter(), intlayer()],
-});
-```
-
-> `intlayer()` Vite 플러그인은 Intlayer를 Vite와 통합하는 데 사용됩니다. 이 플러그인은 콘텐츠 선언 파일의 빌드를 보장하고 개발 모드에서 이를 모니터링합니다. 또한 Vite 애플리케이션 내에서 Intlayer 환경 변수를 정의하며, 성능 최적화를 위한 별칭(alias)도 제공합니다.
-
-</Step>
-
-</Steps>
-
-<Steps>
-
-<Step number={4} title="React Router v7 라우트 구성">
-
-로케일 인식 라우트로 라우팅 구성을 설정하세요:
-
-```typescript fileName="app/routes.ts"
-import { layout, route, type RouteConfig } from "@react-router/dev/routes";
-
-export default [
-  layout("routes/layout.tsx", [
-    route("/:lang?", "routes/page.tsx"), // 지역화된 홈 페이지
-    route("/:lang?/about", "routes/about/page.tsx"), // 지역화된 소개 페이지
-  ]),
-] satisfies RouteConfig;
-```
-
-</Step>
-
-<Step number={5} title="컴포넌트 콘텐츠 추출" isOptional={true}>
-
-기존 코드베이스가 있는 경우 수천 개의 파일을 변환하는 데 시간이 많이 걸릴 수 있습니다.
-
-이 프로세스를 용이하게 하기 위해 Intlayer는 컴포넌트를 변환하고 콘텐츠를 추출하기 위한 [컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md) / [추출기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)를 제안합니다.
-
-설정하려면 `intlayer.config.ts` 파일에 `compiler` 섹션을 추가할 수 있습니다.
-
-```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import { type IntlayerConfig } from "intlayer";
-
-const config: IntlayerConfig = {
-  // ... 나머지 구성
-  compiler: {
-    /**
-     * 컴파일러 활성화 여부를 나타냅니다.
-     */
-    enabled: true,
-
-    /**
-     * 출력 파일 경로를 정의합니다.
-     */
-    output: ({ fileName, extension }) => `./${fileName}${extension}`,
-
-    /**
-     * 변환 후 컴포넌트를 저장할지 여부를 나타냅니다. 그렇게 하면 컴파일러를 한 번만 실행하여 앱을 변환한 다음 제거할 수 있습니다.
-     */
-    saveComponents: false,
-
-    /**
-     * 사전 키 접두사
-     */
-    dictionaryKeyPrefix: "",
-  },
-};
-
-export default config;
-```
-
-<Tabs>
- <Tab value='추출 명령'>
-
-컴포넌트를 변환하고 콘텐츠를 추출하기 위해 추출기를 실행합니다
-
-```bash packageManager="npm"
-npx intlayer extract
-```
-
-```bash packageManager="pnpm"
-pnpm intlayer extract
-```
-
-```bash packageManager="yarn"
-yarn intlayer extract
-```
-
-```bash packageManager="bun"
-bun x intlayer extract
-```
-
- </Tab>
- <Tab value='Babel 컴파일러'>
-
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
-
-`vite.config.ts`를 업데이트하여 `intlayerCompiler` 플러그인을 포함합니다.
-
-```ts fileName="vite.config.ts"
-import { defineConfig } from "vite";
-import { intlayer, intlayerCompiler } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [
-    intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
-  ],
-});
-```
-
-```bash packageManager="npm"
-npm run build # 또는 npm run dev
-```
-
-```bash packageManager="pnpm"
-pnpm run build # 또는 pnpm run dev
-```
-
-```bash packageManager="yarn"
-yarn build # 또는 yarn dev
-```
-
-```bash packageManager="bun"
-bun run build # Or bun run dev
-```
-
- </Tab>
-</Tabs>
-
----
-
-</Step>
-
-<Step number={5} title="레이아웃 컴포넌트 생성">
-
-루트 레이아웃과 로케일별 레이아웃을 설정하세요:
 
 #### 루트 레이아웃
 

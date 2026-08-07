@@ -49,26 +49,12 @@ author: aymericzip
 
 ## Parametreler
 
-## Parametreler
+### Gerekli Parametreler
 
 - `url: string`
-  - **Açıklama**: Yerel ayarlarla öneklendirilecek orijinal URL dizesi.
-  - **Tür**: `string`
-
-- `locales: Locales[]`
-  - **Açıklama**: İsteğe bağlı desteklenen yerel ayarlar dizisi. Varsayılan olarak projede yapılandırılan yerel ayarları kullanır.
-  - **Tür**: `Locales[]`
-  - **Varsayılan**: `localesDefault`
-
-- `defaultLocale: Locales`
-  - **Açıklama**: Uygulamanın varsayılan yerel ayarı. Varsayılan olarak projede yapılandırılan varsayılan yerel ayarı kullanır.
-  - **Tür**: `Locales`
-  - **Varsayılan**: `defaultLocaleDefault`
-
-- `prefixDefault: boolean`
-  - **Açıklama**: Varsayılan yerel ayarı öneklendirip öneklendirmeyeceğinizi belirtir. Varsayılan olarak projede yapılandırılan değeri kullanır.
-  - **Tür**: `boolean`
-  - **Varsayılan**: `prefixDefaultDefault`
+  - **Description**: Locale'ler ile ön ek eklenecek orijinal URL string'i.
+  - **Type**: `string`
+  - **Required**: Yes
 
 ### İsteğe Bağlı Parametreler
 

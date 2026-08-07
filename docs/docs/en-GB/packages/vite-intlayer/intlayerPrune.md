@@ -30,16 +30,89 @@ The `intlayerPrune` Vite plugin is used to tree-shake and prune unused dictionar
 
 ## Usage
 
+### As part of `intlayer()` (recommended)
+
+Enable pruning through your Intlayer config and the main plugin handles everything:
+
 ```ts
-// vite.config.ts
-import { defineConfig } from "vite";
-import { intlayer, intlayerPrune } from "vite-intlayer";
+// intlayer.config.ts
+import { defineConfig } from "intlayer";
 
 export default defineConfig({
-  plugins: [intlayer(), intlayerPrune()],
+  build: {
+    optimize: true, // enables both prune and minify
+  },
 });
 ```
 
-## Description
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
 
-The plugin analyses your source code to identify which dictionary keys are actually used. It then removes any unused content from the bundled dictionary files. This is particularly useful for large projects with many dictionaries where only a subset is used on specific pages or in certain components.
+export default defineConfig({
+  plugins: [intlayer()],
+});
+```
+
+### Standalone
+
+If you are composing the plugin stack manually, `intlayerPrune` and `intlayerMinify` share a `PruneContext` object that must be created once and passed to both:
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import { intlayerPrune, intlayerMinify } from "vite-intlayer";
+import { createPruneContext } from "@intlayer/babel";
+import { getConfiguration } from "@intlayer/config/node";
+
+const intlayerConfig = getConfiguration();
+const pruneContext = createPruneContext();
+
+export default defineConfig({
+  plugins: [
+    intlayerPrune(intlayerConfig, pruneContext),
+    intlayerMinify(intlayerConfig, pruneContext), // optional, reads from same context
+  ],
+});
+```
+
+## How it works
+
+### 1. Usage analysis (buildStart)
+
+During `buildStart`, the `intlayerOptimize` plugin (also part of `intlayer()`) scans every component source file listed in `build.filesList`. For each `useIntlayer('key')` or `getIntlayer('key')` call, it records exactly which fields are accessed, e.g.:
+
+```ts
+const { title, description } = useIntlayer("myDict");
+// records: myDict → { title, description }
+```
+
+This builds `pruneContext.fieldUsageMap` before any `transform` calls run.
+
+### 2. JSON pruning (transform, enforce: 'pre')
+
+When Vite processes a compiled dictionary JSON file, `intlayerPrune` intercepts it before Vite's built-in JSON → ESM conversion. It reads the field-usage map from `pruneContext` and removes any content field that is not in the recorded usage set.
+
+Two content shapes are supported:
+
+- **Static dictionaries** — `{ nodeType: "translation", translation: { en: {...}, fr: {...} } }`. Fields are pruned per-locale inside `translation`.
+- **Dynamic (per-locale) dictionaries** — flat `{ fieldA: ..., fieldB: ... }`. Fields are pruned at the top level.
+
+### 3. Edge cases
+
+If a dictionary's content structure cannot be recognised (e.g. an unusual nested shape), it is added to `pruneContext.dictionariesWithEdgeCases` and **left untouched**. A warning is logged. `intlayerMinify` also skips these dictionaries.
+
+### 4. Field-rename map
+
+When pruning succeeds, `intlayerPrune` also writes `pruneContext.dictionaryKeyToFieldRenameMap` — a mapping from original field names to short aliases. `intlayerMinify` reads this map to rename fields in the output JSON, and `intlayerOptimize`'s Babel rename pass updates property accesses in source files accordingly.
+
+## Activation conditions
+
+`intlayerPrune` is active **only** when all of the following are true:
+
+1. The Vite command is `build`.
+2. `build.optimize` is `true` (or `undefined`, which defaults to `true` for builds).
+3. `build.purge` is `true` in your Intlayer config.
+
+It is automatically **disabled** when `editor.enabled` is `true` because the editor needs the full dictionary content.

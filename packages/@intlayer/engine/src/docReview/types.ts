@@ -20,6 +20,15 @@ export type BlockType =
 export type Block = {
   type: BlockType;
   content: string;
+  /**
+   * Depth of the ATX heading opening the block (`#` → 1, `######` → 6), or
+   * `null` when the block does not start with a heading.
+   *
+   * Heading depth is the one structural signal that survives translation, so it
+   * is used as decisive evidence when aligning a document with its translation:
+   * a `##` section is never the counterpart of a `###` section.
+   */
+  headingDepth: number | null;
   /** 1-based line number where the block starts (inclusive). */
   lineStart: number;
   /** 1-based line number where the block ends (inclusive). */

@@ -24,12 +24,9 @@ history:
 author: aymericzip
 ---
 
-## Parameter
+# useDictionary Hook Documentation
 
-Der Hook akzeptiert zwei Parameter:
-
-1. **`dictionary`**: Ein deklariertes Wörterbuchobjekt, das lokalisierte Inhalte für bestimmte Schlüssel enthält.
-2. **`locale`** (optional): Die gewünschte Locale. Standardmäßig wird die Locale des aktuellen Kontexts verwendet, wenn keine angegeben ist.
+Der `useDictionary` Hook ermöglicht es dir, ein Objekt zu verarbeiten, das wie ein Dictionary aussieht (mit Schlüsseln und Inhalten), und Übersetzungen, Aufzählungen usw. darin zu handhaben. Im Gegensatz zu `useIntlayer`, das für die Arbeit mit generierten Dictionary-Deklarationen ausgelegt ist, ist `useDictionary` flexibler und kann mit jedem Objekt verwendet werden, das der Dictionary-Struktur folgt.
 
 ## Beispiel für die Verwendung in React
 

@@ -48,3 +48,18 @@ import "vite-intlayer";
 | `intlayerProxy`      | Плагін middleware для розробки, що обробляє визначення локалі та маршрутизацію. | -                                                                                                                      |
 | `intlayerMiddleware` | (**Застарілий**) Аліас для `intlayerProxy`.                                     | -                                                                                                                      |
 | `intlayerPrune`      | Плагін для tree-shake та видалення невикористаних словників під час збірки.     | [intlayerPrune](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/vite-intlayer/intlayerPrune.md) |
+
+### Утиліти
+
+| Export                       | Опис                                                                                               | Пов'язана документація                                                                                                 |
+| ---------------------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `createIntlayerProxyHandler` | Повертає framework-agnostic Node.js `(req, res, next)` middleware з логікою маршрутизації локалей. | [intlayerProxy](https://github.com/aymericzip/intlayer/blob/main/docs/docs/uk/packages/vite-intlayer/intlayerProxy.md) |
+
+### Типи
+
+| Export                       | Опис                                                                                                          |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `IntlayerPluginOptions`      | Параметри, прийняті `intlayer()`. Розширює `GetConfigurationOptions` за допомогою `compatCallers` та `proxy`. |
+| `IntlayerProxyPluginOptions` | Параметри, прийняті `intlayerProxy()` та `createIntlayerProxyHandler()`. Включає `ignore` та `configOptions`. |
+| `IntlayerCompilerOptions`    | Параметри, прийняті `intlayerCompiler()`. Включає `configOptions` та `compilerConfig`.                        |
+| `CompatCallerConfig`         | Re-export з `@intlayer/babel`. Описує compat-adapter caller pattern для аналізу field-usage.                  |

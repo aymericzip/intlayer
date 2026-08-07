@@ -67,9 +67,218 @@ Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的
 
 ---
 
-## 第 4 步：在组件中使用 Intlayer
+### Packages
 
-在子组件中使用 `useIntlayer` 钩子以获取本地化内容。
+- **intlayer**  
+  用于配置、字典内容、类型生成和 CLI 命令的核心 i18n 工具包。
+
+- **react-intlayer**  
+  React 集成，提供上下文提供者和 React hooks，您将在 Lynx 中使用它们来获取和切换语言环境。
+
+- **lynx-intlayer**  
+  Lynx 集成，提供用于将 Intlayer 与 Lynx bundler 集成的插件。
+
+---
+
+</Step>
+
+<Step number={2} title="创建 Intlayer 配置">
+
+在您的项目根目录（或任何方便的位置）中，创建一个 **Intlayer 配置**文件。它可能如下所示：
+
+```ts fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH,
+      // ... 添加您需要的任何其他语言环境
+    ],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+在此配置中，您可以：
+
+- 配置您的**受支持语言环境列表**。
+- 设置**默认**语言环境。
+- 稍后，您可以添加更多高级选项（例如，日志、自定义内容目录等）。
+- 有关更多信息，请参阅 [Intlayer 配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
+
+</Step>
+
+<Step number={3} title="将 Intlayer 插件添加到 Lynx bundler">
+
+要在 Lynx 中使用 Intlayer，您需要将插件添加到您的 `lynx.config.ts` 文件中：
+
+```ts fileName="lynx.config.ts"
+import { defineConfig } from "@lynx-js/rspeedy";
+import { pluginIntlayerLynx } from "lynx-intlayer/plugin";
+
+export default defineConfig({
+  plugins: [
+    // ... 其他插件
+    pluginIntlayerLynx(),
+  ],
+});
+```
+
+</Step>
+
+<Step number={4} title="添加 Intlayer 提供者">
+
+为了在您的应用程序中保持用户语言同步，您需要使用 `react-intlayer` 中的 `IntlayerProvider` 组件包装您的根组件。
+
+此外，您需要添加 `intlayerPolyfill` 函数文件以确保 Intlayer 能正常工作。
+
+```tsx fileName="src/index.tsx"
+import { root } from "@lynx-js/react";
+
+import { App } from "./App.js";
+import { IntlayerProvider } from "react-intlayer";
+import { intlayerPolyfill } from "lynx-intlayer";
+
+intlayerPolyfill();
+
+root.render(
+  <IntlayerProvider>
+    <App />
+  </IntlayerProvider>
+);
+
+if (import.meta.webpackHot) {
+  import.meta.webpackHot.accept();
+}
+```
+
+</Step>
+
+<Step number={5} title="声明您的内容">
+
+在您的项目中的任何位置（通常在 `src/` 中）创建**内容声明**文件，使用 Intlayer 支持的任何扩展格式：
+
+- `.content.json`
+- `.content.jsonc`
+- `.content.json5`
+- `.content.ts`
+- `.content.tsx`
+- `.content.js`
+- `.content.jsx`
+- `.content.mjs`
+- `.content.mjx`
+- `.content.cjs`
+- `.content.md`
+- `.content.mdx`
+- `.content.yaml`
+- `.content.yml`
+- 等等
+
+示例：
+
+```tsx fileName="src/app.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { t, type Dictionary } from "intlayer";
+
+const appContent = {
+  key: "app",
+  content: {
+    title: "React",
+    subtitle: t({
+      zh: "在 Lynx 上",
+      en: "on Lynx",
+      fr: "sur Lynx",
+      es: "en Lynx",
+    }),
+    description: t({
+      zh: "点击徽标并享受乐趣！",
+      en: "Tap the logo and have fun!",
+      fr: "Appuyez sur le logo et amusez-vous!",
+      es: "¡Toca el logo y diviértete!",
+    }),
+    hint: [
+      t({
+        zh: "编辑",
+        en: "Edit",
+        fr: "Modifier",
+        es: "Editar",
+      }),
+      " src/App.tsx ",
+      t({
+        zh: "以查看更新！",
+        en: "to see updates!",
+        fr: "pour voir les mises à jour!",
+        es: "para ver actualizaciones!",
+      }),
+    ],
+  },
+} satisfies Dictionary;
+
+export default appContent;
+```
+
+```json fileName="src/app.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "app",
+  "content": {
+    "title": "React",
+    "subtitle": {
+      "nodeType": "translation",
+      "translation": {
+        "zh": "在 Lynx 上",
+        "en": "on Lynx",
+        "fr": "sur Lynx",
+        "es": "en Lynx"
+      }
+    },
+    "description": {
+      "nodeType": "translation",
+      "translation": {
+        "zh": "点击徽标并享受乐趣！",
+        "en": "Tap the logo and have fun!",
+        "fr": "Appuyez sur le logo et amusez-vous!",
+        "es": "¡Toca el logo y diviértete!"
+      }
+    },
+    "hint": [
+      {
+        "nodeType": "translation",
+        "translation": {
+          "zh": "编辑",
+          "en": "Edit",
+          "fr": "Modifier",
+          "es": "Editar"
+        }
+      },
+      " src/App.tsx ",
+      {
+        "nodeType": "translation",
+        "translation": {
+          "zh": "以查看更新！",
+          "en": "to see updates!",
+          "fr": "pour voir les mises à jour!",
+          "es": "para ver actualizaciones!"
+        }
+      }
+    ]
+  }
+}
+```
+
+> 有关内容声明的详细信息，请参阅 [Intlayer 的内容文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
+
+---
+
+</Step>
+
+<Step number={6} title="在您的组件中使用 Intlayer">
+
+在子组件中使用 `useIntlayer` hook 来获取本地化内容。
 
 ```tsx fileName="src/App.tsx"
 import { useCallback, useState } from "@lynx-js/react";
@@ -84,8 +293,9 @@ import { LocaleSwitcher } from "./components/LocaleSwitcher.jsx";
 export const App = () => {
   const [alterLogo, setAlterLogo] = useState(false);
   const { title, subtitle, description, hint } = useIntlayer("app");
+
   const onTap = useCallback(() => {
-    // 仅更改背景
+    "background only";
     setAlterLogo(!alterLogo);
   }, [alterLogo]);
 
@@ -121,9 +331,58 @@ export const App = () => {
 };
 ```
 
-> 当在基于字符串的属性中使用 `content.someKey`（例如按钮的 `title` 或 `Text` 组件的 `children`）时，**调用 `content.someKey.value`** 以获取实际字符串。
+> 在基于字符串的 props 中使用 `content.someKey` 时（例如，按钮的 `title` 或 `Text` 组件的 `children`），**调用 `content.someKey.value`** 来获取实际字符串。
 
 ---
+
+</Step>
+
+<Step number={7} title="更改应用语言环境" isOptional={true}>
+
+要从您的组件中切换语言环境，您可以使用 `useLocale` hook 的 `setLocale` 方法：
+
+```tsx fileName="src/components/LocaleSwitcher.tsx"
+import { type FC } from "react";
+import { getLocaleName } from "intlayer";
+import { useLocale } from "react-intlayer";
+
+export const LocaleSwitcher: FC = () => {
+  const { setLocale, availableLocales, locale } = useLocale();
+
+  return (
+    <view
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 10,
+      }}
+    >
+      {availableLocales.map((localeEl) => (
+        <text
+          key={localeEl}
+          style={{
+            color: localeEl === locale ? "#fff" : "#888",
+            fontSize: "12px",
+          }}
+          bindtap={() => setLocale(localeEl)}
+        >
+          {getLocaleName(localeEl)}
+        </text>
+      ))}
+    </view>
+  );
+};
+```
+
+这会触发所有使用 Intlayer 内容的组件的重新渲染，现在显示新语言环境的翻译。
+
+> 有关更多详细信息，请参阅 [`useLocale` 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)。
+
+</Step>
+
+</Steps>
 
 ## 配置 TypeScript（如果您使用 TypeScript）
 

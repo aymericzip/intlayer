@@ -24,6 +24,10 @@ history:
 author: aymericzip
 ---
 
+# useDictionary Hook दस्तावेज़
+
+`useDictionary` hook आपको एक ऐसी object को प्रोसेस करने की अनुमति देता है जो एक dictionary जैसी दिखती है (जिसमें keys और content हों) और इसके भीतर translations, enumerations आदि को handle करे। `useIntlayer` के विपरीत, जो generated dictionary declarations के साथ काम करने के लिए डिज़ाइन किया गया है, `useDictionary` अधिक flexible है और किसी भी object के साथ उपयोग किया जा सकता है जो dictionary structure का पालन करता है।
+
 ## React में उदाहरण उपयोग
 
 नीचे एक उदाहरण दिया गया है कि कैसे `useDictionary` हुक को एक React कंपोनेंट में उपयोग किया जाए:
@@ -40,27 +44,6 @@ const ComponentExample: FC = () => {
     <div>
       <h1>{title}</h1>
       <p>{content}</p>
-    </div>
-  );
-};
-```
-
-## सर्वर एकीकरण
-
-यदि आप `IntlayerProvider` के बाहर `useDictionary` हुक का उपयोग कर रहे हैं, तो कंपोनेंट को रेंडर करते समय लोकल को स्पष्ट रूप से एक पैरामीटर के रूप में प्रदान करना आवश्यक है:
-
-```tsx fileName="./ServerComponentExample.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { useDictionary } from "react-intlayer/server";
-import clientComponentExampleContent from "./component.content";
-
-const ServerComponentExample: FC<{ locale: string }> = ({ locale }) => {
-  const { content } = useDictionary(clientComponentExampleContent, locale);
-
-  return (
-    <div>
-      <h1>{content.title}</h1>
-      <p>{content.content}</p>
     </div>
   );
 };

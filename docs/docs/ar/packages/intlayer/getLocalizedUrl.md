@@ -63,30 +63,32 @@ getLocalizedUrl(
   - **Type**: `Locales`
   - **Required**: Yes
 
-## المعاملات
+### المعاملات الاختيارية
 
-- `url: string`
-  - **الوصف**: سلسلة عنوان URL الأصلية التي سيتم إضافة بادئة اللغة إليها.
-  - **النوع**: `string`
+- `options?: object`
+  - **الوصف**: كائن التكوين لسلوك تحديد موقع عناوين URL.
+  - **النوع**: `object`
+  - **مطلوب**: لا (اختياري)
 
-- `currentLocale: Locales`
-  - **الوصف**: اللغة الحالية التي يتم تعريب العنوان لها.
-  - **النوع**: `Locales`
+  - `options.locales?: Locales[]`
+    - **الوصف**: مصفوفة اللغات المدعومة. إذا لم يتم توفيرها، فسيتم استخدام اللغات المكونة من تكوين مشروعك.
+    - **النوع**: `Locales[]`
+    - **القيمة الافتراضية**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md#middleware)
 
-- `locales: Locales[]`
-  - **الوصف**: مصفوفة اختيارية من اللغات المدعومة. بشكل افتراضي، يتم توفير اللغات المكونة في المشروع.
-  - **النوع**: `Locales[]`
-  - **الافتراضي**: [`تكوين المشروع`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md#middleware)
+  - `options.defaultLocale?: Locales`
+    - **الوصف**: اللغة الافتراضية للتطبيق. إذا لم يتم توفيرها، فسيتم استخدام اللغة الافتراضية المكونة من تكوين مشروعك.
+    - **النوع**: `Locales`
+    - **القيمة الافتراضية**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md#middleware)
 
-- `defaultLocale: Locales`
-  - **الوصف**: اللغة الافتراضية للتطبيق. بشكل افتراضي، يتم توفير اللغة الافتراضية المكونة في المشروع.
-  - **النوع**: `Locales`
-  - **الافتراضي**: [`تكوين المشروع`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md#middleware)
-
-- `prefixDefault: boolean`
-  - **الوصف**: ما إذا كان يجب إضافة بادئة للعنوان الافتراضي. بشكل افتراضي، يتم توفير القيمة المكونة في المشروع.
-  - **النوع**: `boolean`
-  - **الافتراضي**: [`تكوين المشروع`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md#middleware)
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **الوصف**: وضع التوجيه للعنوان لمعالجة اللغة. إذا لم يتم توفيره، فسيتم استخدام الوضع المكون من تكوين مشروعك.
+    - **النوع**: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **القيمة الافتراضية**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ar/configuration.md#middleware)
+    - **الأوضاع**:
+      - `prefix-no-default`: بدون بادئة للغة الافتراضية، بادئة لجميع اللغات الأخرى
+      - `prefix-all`: بادئة لجميع اللغات بما في ذلك اللغة الافتراضية
+      - `no-prefix`: بدون بادئة لغة في العنوان
+      - `search-params`: استخدام معاملات الاستعلام للغة (مثل `?locale=fr`)
 
 ### الإرجاع
 

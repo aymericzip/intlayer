@@ -18,6 +18,7 @@ slugs:
   - environment
   - solid-start
 applicationTemplate: https://github.com/aymericzip/intlayer-solid-start-template
+applicationShowcase: https://intlayer-solid-start-template.vercel.app
 history:
   - version: 9.1.3
     date: 2025-08-06
@@ -39,6 +40,18 @@ author: aymericzip
   src="https://ide.intlayer.org/aymericzip/intlayer-solid-start-template?file=intlayer.config.ts"
   className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
   title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+
+  <Tab label="Demo" value="demo">
+
+<iframe
+  src="https://intlayer-solid-start-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo Intlayer Solid Start Template"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
   loading="lazy"
 />

@@ -64,6 +64,32 @@ Chromium (Puppeteer 스크린샷 생성에 사용됨)은 백엔드 이미지 내
 
 ## 빠른 시작
 
+게시된 이미지를 pull하고 실행한 후 MongoDB Atlas 자격증명과 보안 키를 제공합니다:
+
+```sh
+docker run -d --name intlayer \
+  -p 3000:3000 \
+  -p 3100:3100 \
+  -p 9000:9000 \
+  -p 9001:9001 \
+  -v intlayer-data:/data \
+  -e DB_ID="<atlas-user>" \
+  -e DB_MDP="<atlas-password>" \
+  -e DB_CLUSTER="<cluster>.xxxxx.mongodb.net" \
+  -e BETTER_AUTH_SECRET="$(openssl rand -hex 32)" \
+  -e S3_SECRET_ACCESS_KEY="$(openssl rand -hex 16)" \
+  -e RESEND_API_KEY="<your-resend-key>" \
+  aymericzip/intlayer-selfhost
+```
+
+그 다음 **http://localhost:3000**을 엽니다.
+
+> 대시보드는 `localhost`에서 제공됩니다. [제한 사항](#limitations)을 참고하세요 — 게시된 이미지에서는 커스텀 도메인이 지원되지 않습니다.
+
+---
+
+## 빠른 시작
+
 ```sh
 curl -fsSL https://intlayer.org/install.sh | sh
 ```
@@ -99,7 +125,16 @@ curl -fsSL https://intlayer.org/install.sh | sh
 
 ## 환경 변수
 
-설치 프로그램은 즉시 사용할 수 있는 `.env` 파일을 생성합니다. 아래 표는 모든 변수를 설명합니다.
+### 필수
+
+| Variable               | Example                      | Description                                                                                                                                  |
+| ---------------------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `DB_ID`                | `intlayer`                   | MongoDB Atlas user                                                                                                                           |
+| `DB_MDP`               | _(your password)_            | MongoDB Atlas password                                                                                                                       |
+| `DB_CLUSTER`           | `cluster0.xxxxx.mongodb.net` | MongoDB Atlas cluster host (used in the `mongodb+srv://` URI)                                                                                |
+| `BETTER_AUTH_SECRET`   | _(generated)_                | 32-byte secret for session signing                                                                                                           |
+| `S3_SECRET_ACCESS_KEY` | _(generated)_                | Secret for the bundled MinIO                                                                                                                 |
+| `RESEND_API_KEY`       | _(your key)_                 | Transactional email via Resend. Required for first-run setup unless you configure a global SMTP mailer (see [Global mailer](#global-mailer)) |
 
 ### 필수 (자동 생성 또는 프롬프트)
 
@@ -138,6 +173,26 @@ curl -fsSL https://intlayer.org/install.sh | sh
 | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Microsoft OAuth 로그인                                 |
 | `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`           | LinkedIn OAuth 로그인                                  |
 | `ATLASSIAN_CLIENT_ID`, `ATLASSIAN_CLIENT_SECRET`         | Atlassian OAuth 로그인                                 |
+
+---
+
+### Global mailer
+
+기본적으로 모든 트랜잭션 이메일은 `RESEND_API_KEY`를 사용하여 Resend를 통해 전송됩니다. Self-hosted 배포는 대신 환경 변수로 구성된 global mailer를 통해 비조직 이메일(예: 비밀번호 재설정 및 magic link)을 포함한 **모든** 이메일을 라우팅할 수 있습니다.
+
+`MAIL_PROVIDER`를 설정하여 활성화합니다. 설정하지 않으면 기본 Resend mailer가 사용됩니다.
+
+| Variable             | Example                        | Description                                                               |
+| -------------------- | ------------------------------ | ------------------------------------------------------------------------- |
+| `MAIL_PROVIDER`      | `smtp`                         | Global transport: `smtp` 또는 `resend`. 기본값을 사용하려면 설정하지 않음 |
+| `MAIL_FROM`          | `Intlayer <no-reply@acme.com>` | Sender header. 단순 주소 또는 `Name <email>` 형식 허용                    |
+| `MAIL_SMTP_HOST`     | `smtp.acme.com`                | SMTP host (`MAIL_PROVIDER=smtp`일 때 필수)                                |
+| `MAIL_SMTP_PORT`     | `587`                          | SMTP port (기본값: `587`)                                                 |
+| `MAIL_SMTP_SECURE`   | `false`                        | Implicit TLS. port `465`에서는 `true`로 설정                              |
+| `MAIL_SMTP_USER`     | _(your user)_                  | SMTP username (선택사항; unauthenticated relay의 경우 생략)               |
+| `MAIL_SMTP_PASSWORD` | _(your password)_              | SMTP password                                                             |
+
+> Precedence: 조직의 자체 mailer (**Organization** dashboard에서 구성)가 global mailer보다 우선하며, global mailer는 기본 Resend key보다 우선합니다.
 
 ---
 
@@ -259,47 +314,11 @@ docker run --rm \
 
 ---
 
-## 리버스 프록시 사용 (Nginx / Caddy)
+## 제한 사항
 
-프로덕션 배포의 경우, 앱 및 백엔드 컨테이너를 직접 노출하는 대신 리버스 프록시를 앞에 배치하세요.
-
-### Nginx 예시
-
-```nginx
-server {
-    listen 80;
-    server_name cms.example.com;
-
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-
-server {
-    listen 80;
-    server_name api.example.com;
-
-    location / {
-        proxy_pass http://localhost:3100;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-```
-
-공개 도메인과 일치하도록 다음 `.env` 변수를 업데이트하세요:
-
-```sh
-BACKEND_URL=https://api.example.com
-APP_URL=https://cms.example.com
-DOMAIN=example.com
-VITE_BACKEND_URL=https://api.example.com
-VITE_DOMAIN=example.com
-```
-
-> `VITE_*` 변수는 빌드 시 대시보드 이미지에 내장됩니다. 이미지가 빌드된 후 이를 변경하는 경우, `app` 이미지를 다시 빌드(`docker compose build app`)하거나 런타임 구성 주입을 사용해야 합니다.
+- **MongoDB는 외부(Atlas)여야 합니다.** 백엔드는 `mongodb+srv://`로만 연결되며(`DB_ID` / `DB_MDP` / `DB_CLUSTER`로 구성됨), 일반 `mongodb://host:27017` — 컨테이너의 자체 번들 `mongod` 포함 — 은 사용할 수 없습니다. MongoDB Atlas 클러스터를 제공하세요.
+- **사용자 정의 도메인 없음.** 모든 브라우저 대면 `VITE_*` URL은 빌드 시 앱에 인라인되며, 게시된 이미지는 `localhost` 값으로 제공됩니다. 대시보드는 `http://localhost:3000`에서 액세스해야 합니다. 공개 도메인에서 제공하려면 대상 URL을 포함하여 이미지를 다시 빌드해야 하며 기본적으로 지원되지 않습니다.
+- **이메일에는 작동하는 메일러가 필요합니다.** 초기 실행 설정은 이메일 확인을 강제하므로 `RESEND_API_KEY` 또는 [글로벌 SMTP 메일러](#global-mailer)(`MAIL_PROVIDER=smtp` + `MAIL_SMTP_*`)를 구성해야 합니다. 첫 번째 관리자가 로그인한 후 각 조직은 대시보드에서 자신의 SMTP 또는 Resend 메일러를 구성할 수도 있습니다.
 
 ---
 
@@ -322,14 +341,6 @@ docker compose logs redis
 ```sh
 docker compose build app
 docker compose up -d app
-```
-
-### 이메일이 전송되지 않음
-
-기본적으로 모든 발신 이메일은 Mailpit에 의해 캡처됩니다. `http://localhost:8025`를 열어 전송된 메시지를 확인하세요. 실제 이메일을 보내려면 `.env` 파일에 `MAIL_PROVIDER=resend` 및 `RESEND_API_KEY=<your-key>`를 설정한 다음 백엔드를 다시 시작하세요:
-
-```sh
-docker compose restart backend
 ```
 
 ### MinIO 버킷 누락

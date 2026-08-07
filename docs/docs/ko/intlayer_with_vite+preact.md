@@ -715,41 +715,71 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
 Link.displayName = "Link";
 ```
 
-### VS Code 확장 프로그램
+#### 작동 방식
 
-Intlayer 개발 경험을 향상시키기 위해 공식 **Intlayer VS Code 확장 프로그램**을 설치할 수 있습니다.
+- **외부 링크 감지**:  
+  헬퍼 함수 `checkIsExternalLink`는 URL이 외부 링크인지 여부를 결정합니다. 외부 링크는 로컬라이제이션이 필요하지 않기 때문에 변경되지 않습니다.
+- **현재 로케일 검색**:  
+  `useLocale` 훅은 현재 로케일(예: 프랑스어의 경우 `fr`)을 제공합니다.
+- **URL 로컬라이징**:  
+  내부 링크(즉, 외부가 아닌)의 경우, `getLocalizedUrl`을 사용하여 자동으로 URL에 현재 로케일을 접두사로 추가합니다. 이는 사용자가 프랑스어를 사용 중인 경우 `href`로 `/about`을 전달하면 `/fr/about`으로 변환된다는 의미입니다.
+- **링크 반환**:  
+  컴포넌트는 로컬라이징된 URL과 함께 `<a>` 요소를 반환하여 네비게이션이 로케일과 일치하도록 보장합니다.
 
-[VS Code 마켓플레이스에서 설치](https://marketplace.visualstudio.com/items?itemName=intlayer.intlayer-vs-code-extension)
+</Step>
 
-이 확장 프로그램은 다음을 제공합니다:
+<Step number={11} title="Markdown 및 HTML 렌더링" isOptional={true}>
 
-- 번역 키에 대한 **자동 완성**.
-- 누락된 번역에 대한 **실시간 오류 감지**.
-- 번역된 콘텐츠의 **인라인 미리보기**.
-- 번역을 쉽게 생성하고 업데이트할 수 있는 **빠른 작업**.
+Intlayer는 Preact에서 Markdown 및 HTML 콘텐츠 렌더링을 지원합니다.
 
-확장 프로그램 사용법에 대한 자세한 내용은 [Intlayer VS Code 확장 프로그램 문서](https://intlayer.org/doc/vs-code-extension)를 참조하세요.
+`.use()` 메서드를 사용하여 Markdown 및 HTML 콘텐츠의 렌더링을 커스터마이징할 수 있습니다. 이 메서드를 사용하면 특정 태그의 기본 렌더링을 재정의할 수 있습니다.
 
----
+```tsx
+import { useIntlayer } from "preact-intlayer";
 
-<Steps>
+const { myMarkdownContent, myHtmlContent } = useIntlayer("my-component");
 
-<Step number={1} title="컴포넌트 콘텐츠 추출" isOptional={true}>
+// ...
 
-기존 코드베이스가 있는 경우 수천 개의 파일을 변환하는 데 시간이 많이 걸릴 수 있습니다.
+return (
+  <div>
+    {/* 기본 렌더링 */}
+    {myMarkdownContent}
 
-이 프로세스를 용이하게 하기 위해 Intlayer는 컴포넌트를 변환하고 콘텐츠를 추출하기 위한 [컴파일러](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md) / [추출기](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)를 제안합니다.
+    {/* Markdown에 대한 커스텀 렌더링 */}
+    {myMarkdownContent.use({
+      h1: (props) => <h1 style={{ color: "red" }} {...props} />,
+    })}
 
-설정하려면 `intlayer.config.ts` 파일에 `compiler` 섹션을 추가할 수 있습니다.
+    {/* HTML에 대한 기본 렌더링 */}
+    {myHtmlContent}
+
+    {/* HTML에 대한 커스텀 렌더링 */}
+    {myHtmlContent.use({
+      b: (props) => <strong style={{ color: "blue" }} {...props} />,
+    })}
+  </div>
+);
+```
+
+</Step>
+
+<Step number={12} title="컴포넌트의 콘텐츠 추출" isOptional={true}>
+
+기존 codebase가 있는 경우 수천 개의 파일을 변환하는 것은 시간이 많이 걸릴 수 있습니다.
+
+이 프로세스를 용이하게 하기 위해 Intlayer는 컴포넌트를 변환하고 콘텐츠를 추출할 수 있는 [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/compiler.md) / [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ko/cli/extract.md)를 제공합니다.
+
+이를 설정하려면 `intlayer.config.ts` 파일에 `compiler` 섹션을 추가할 수 있습니다:
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  // ... 나머지 구성
+  // ... 나머지 설정
   compiler: {
     /**
-     * 컴파일러 활성화 여부를 나타냅니다.
+     * 컴파일러를 활성화할지 여부를 나타냅니다.
      */
     enabled: true,
 
@@ -759,7 +789,11 @@ const config: IntlayerConfig = {
     output: ({ fileName, extension }) => `./${fileName}${extension}`,
 
     /**
-     * 변환 후 컴포넌트를 저장할지 여부를 나타냅니다. 그렇게 하면 컴파일러를 한 번만 실행하여 앱을 변환한 다음 제거할 수 있습니다.
+     * 변환 후 컴포넌트를 저장할지 여부를 나타냅니다.
+     *
+     * - `true`인 경우, 컴파일러는 컴포넌트 파일을 디스크에 다시 작성합니다. 따라서 변환이 영구적이고 컴파일러는 다음 프로세스에서 변환을 건너뜁니다. 이렇게 하면 컴파일러가 앱을 변환한 후 제거할 수 있습니다.
+     *
+     * - `false`인 경우, 컴파일러는 빌드 출력에만 `useIntlayer()` 함수 호출을 주입하고 기본 codebase를 그대로 유지합니다. 변환은 메모리에서만 수행됩니다.
      */
     saveComponents: false,
 
@@ -776,7 +810,7 @@ export default config;
 <Tabs>
  <Tab value='추출 명령'>
 
-컴포넌트를 변환하고 콘텐츠를 추출하기 위해 추출기를 실행합니다
+추출기를 실행하여 컴포넌트를 변환하고 콘텐츠를 추출합니다.
 
 ```bash packageManager="npm"
 npx intlayer extract
@@ -797,9 +831,9 @@ bun x intlayer extract
  </Tab>
  <Tab value='Babel 컴파일러'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+> v9부터 `intlayerCompiler`는 `intlayer` 플러그인에 포함되어 있습니다. 따라서 수동으로 추가할 필요가 없습니다.
 
-`vite.config.ts`를 업데이트하여 `intlayerCompiler` 플러그인을 포함합니다.
+`intlayerCompiler` 플러그인을 포함하도록 `vite.config.ts`를 업데이트합니다:
 
 ```ts fileName="vite.config.ts"
 import { defineConfig } from "vite";
@@ -808,7 +842,7 @@ import { intlayer, intlayerCompiler } from "vite-intlayer";
 export default defineConfig({
   plugins: [
     intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
+    intlayerCompiler(), // 컴파일러 플러그인 추가
   ],
 });
 ```
@@ -826,7 +860,7 @@ yarn build # 또는 yarn dev
 ```
 
 ```bash packageManager="bun"
-bun run build # Or bun run dev
+bun run build # 또는 bun run dev
 ```
 
  </Tab>

@@ -253,28 +253,61 @@ A Sincronização ao Vivo permite que a sua aplicação reflita as alterações 
 
 Para o guia de configuração completo (ativação, início do servidor Live Sync, fluxo de trabalho de desenvolvimento local e restrições), consulte a [documentação do Live Sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/live-sync.md).
 
-## Auto-hospedagem
+### Instalação
 
-O Intlayer pode ser executado inteiramente na sua própria infraestrutura — sem necessidade de conta no Intlayer Cloud. Um único comando inicializa toda a pilha (dashboard, API, banco de dados, armazenamento de objetos e e-mail) usando Docker Compose:
-
-```sh
-curl -fsSL https://intlayer.org/install.sh | sh
+```bash packageManager="npm"
+npm install @intlayer/api
 ```
 
-Isso baixa um `docker-compose.yml` e um `.env`, gera automaticamente os secrets necessários (`BETTER_AUTH_SECRET`, credenciais do MinIO) e inicia todos os contêineres com `docker compose up -d`. Executar o mesmo comando novamente em uma instalação existente realiza uma atualização gradual sem perda de dados.
+```bash packageManager="yarn"
+yarn add @intlayer/api
+```
 
-### Serviços iniciados
+```bash packageManager="pnpm"
+pnpm add @intlayer/api
+```
 
-| Serviço             | Porta(s)                              | Finalidade                                         |
-| ------------------- | ------------------------------------- | -------------------------------------------------- |
-| **app** (dashboard) | `3000`                                | Interface CMS TanStack Start                       |
-| **backend** (API)   | `3100`                                | API REST Fastify                                   |
-| **MongoDB 7**       | interno                               | Banco de dados principal (replica set de nó único) |
-| **Redis 7**         | interno                               | Filas de tarefas e cache                           |
-| **MinIO**           | `9000` (S3), `9001` (console)         | Armazenamento de objetos compatível com S3         |
-| **Mailpit**         | `1025` (SMTP), `8025` (interface web) | Sumidouro local de e-mail transacional             |
+```bash packageManager="bun"
+bun add @intlayer/api
+```
 
-O Chromium (para geração de capturas de tela com Puppeteer) está incluído na imagem do backend — nenhum contêiner adicional é necessário.
+### Como funciona: autenticador + endpoints
+
+O SDK é dividido em **duas importações separadas** propositalmente, para manter seu bundle pequeno:
+
+1. `createIntlayerCMS` — cria um **autenticador** leve. Ele apenas contém as credenciais e o token de acesso gerenciado; não sabe nada sobre nenhum domínio específico.
+2. `dictionaryEndpoint`, `projectEndpoint`, … — **vinculadores de endpoint** por domínio, cada um importado de seu próprio subcaminho (`@intlayer/api/dictionary`, `@intlayer/api/project`, …). Você passa o autenticador para o endpoint que precisa.
+
+Como cada endpoint é importado separadamente, seu bundle inclui apenas os domínios que você realmente usa — importar `dictionaryEndpoint` nunca puxa o cliente de projeto, IA ou qualquer outro domínio.
+
+```typescript fileName="cms.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+
+// A configuração é opcional: quando omitida, as credenciais são lidas de
+// `@intlayer/config/built`, que resolve as variáveis de ambiente
+// INTLAYER_CLIENT_ID e INTLAYER_CLIENT_SECRET.
+export const cmsAuthenticator = createIntlayerCMS();
+```
+
+> [!WARNING]
+> As credenciais do CMS (`clientId` / `clientSecret`) concedem **acesso de escrita** ao seu conteúdo. Sempre crie o autenticador apenas no **lado do servidor** (server actions, route handlers, scripts, CI). Nunca importe para código do lado do cliente ou exponha suas credenciais ao navegador.
+
+Se preferir não depender da configuração em tempo de build, passe as credenciais explicitamente:
+
+```typescript fileName="cms.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+
+export const cmsAuthenticator = createIntlayerCMS({
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+    // Opcional, para backends auto-hospedados:
+    // backendURL: process.env.INTLAYER_BACKEND_URL,
+  },
+});
+```
+
+> Obtenha suas credenciais criando uma nova chave de acesso no [Intlayer Dashboard - Projects](https://app.intlayer.org/projects).
 
 ### Conectando seu projeto a uma instância auto-hospedada
 
@@ -363,6 +396,24 @@ Portas expostas no host:
 | `9001` | Console do MinIO                                                      |
 
 Para uma referência completa de todas as variáveis de ambiente disponíveis e opções avançadas (proxy reverso, domínios personalizados, backup/restauração), consulte o [Guia de Auto-hospedagem](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/self_hosting.md).
+
+---
+
+## Live Sync
+
+O Live Sync permite que seu aplicativo reflita as alterações de conteúdo do CMS em tempo de execução — sem necessidade de reconstrução ou reimplantação. Quando habilitado, as atualizações são transmitidas para um servidor Live Sync que atualiza os dicionários que seu aplicativo lê.
+
+Para o guia de configuração completo (configuração, iniciando o servidor Live Sync, fluxo de trabalho de desenvolvimento local e restrições), consulte a [documentação do Live Sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/live-sync.md).
+
+## Auto-hospedagem
+
+O Intlayer pode ser executado inteiramente em sua própria infraestrutura. Um comando único inicializa a pilha completa (dashboard, API, banco de dados, armazenamento de objetos e email) com Docker Compose:
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh
+```
+
+Para o guia de configuração completo, referência de variáveis de ambiente, instruções de atualização e procedimentos de backup/restauração, consulte o [Guia de Auto-hospedagem](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/self_hosting.md).
 
 ---
 

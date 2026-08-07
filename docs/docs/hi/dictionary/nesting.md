@@ -64,6 +64,53 @@ export default firstDictionary;
 }
 ```
 
+### Nest के साथ संदर्भित करना
+
+अब एक और content module बनाएं जो `nest` फ़ंक्शन का उपयोग करके उपरोक्त content को संदर्भित करे। आप संपूर्ण content या किसी विशिष्ट nested value को संदर्भित कर सकते हैं:
+
+```typescript fileName="secondDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { nest, type Dictionary } from "intlayer";
+
+const myNestingContent = {
+  key: "key_of_my_second_dictionary",
+  content: {
+    // संपूर्ण dictionary को संदर्भित करता है:
+    fullNestedContent: nest("key_of_my_first_dictionary"),
+    // किसी विशिष्ट nested value को संदर्भित करता है:
+    partialNestedContent: nest(
+      "key_of_my_first_dictionary",
+      "subContent.contentNumber"
+    ),
+  },
+} satisfies Dictionary;
+
+export default myNestingContent;
+```
+
+```json fileName="secondDictionary.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "key_of_my_second_dictionary",
+  "content": {
+    "fullNestedContent": {
+      "nodeType": "nested",
+      "nested": {
+        "dictionaryKey": "key_of_my_first_dictionary"
+      }
+    },
+    "partialNestedContent": {
+      "nodeType": "nested",
+      "nested": {
+        "dictionaryKey": "key_of_my_first_dictionary",
+        "path": "subContent.contentNumber"
+      }
+    }
+  }
+}
+```
+
+दूसरे पैरामीटर के रूप में, आप उस content के भीतर किसी nested value का पथ निर्दिष्ट कर सकते हैं। जब कोई पथ प्रदान नहीं किया जाता है, तो संदर्भित dictionary की संपूर्ण content वापस की जाती है।
+
 ## नेस्टिंग सेट करना
 
 <Tabs group="framework">
@@ -257,36 +304,6 @@ document.getElementById("nested")!.textContent = content.partialNestedContent;
 
   </Tab>
 </Tabs>
-
-## React Intlayer के साथ नेस्टिंग का उपयोग करना
-
-React कंपोनेंट में नेस्टेड सामग्री का उपयोग करने के लिए, `react-intlayer` पैकेज से `useIntlayer` हुक का उपयोग करें। यह हुक निर्दिष्ट कुंजी के आधार पर सही सामग्री प्राप्त करता है। इसका उपयोग करने का एक उदाहरण यहां दिया गया है:
-
-```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { useIntlayer } from "react-intlayer";
-
-const NestComponent: FC = () => {
-  const { fullNestedContent, partialNestedContent } = useIntlayer(
-    "key_of_my_second_dictionary"
-  );
-
-  return (
-    <div>
-      <p>
-        Full Nested Content: {JSON.stringify(fullNestedContent)}
-        {/* आउटपुट: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
-      </p>
-      <p>
-        Partial Nested Value: {partialNestedContent}
-        {/* आउटपुट: 0 */}
-      </p>
-    </div>
-  );
-};
-
-export default NestComponent;
-```
 
 ## अतिरिक्त संसाधन
 

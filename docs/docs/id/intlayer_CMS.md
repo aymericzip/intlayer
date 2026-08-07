@@ -244,11 +244,175 @@ Perintah ini mengunggah kamus konten awal Anda, sehingga tersedia untuk pengambi
 
 Kemudian Anda akan dapat melihat dan mengelola kamus Anda di [Intlayer CMS](https://app.intlayer.org/content).
 
+## Akses programatis dengan SDK `@intlayer/api`
+
+Selain CLI dan editor visual, Intlayer menyediakan SDK yang ter-type dalam paket [`@intlayer/api`](https://www.npmjs.com/package/@intlayer/api). Ini memungkinkan Anda memperlakukan CMS sebagai **database konten headless**: Anda dapat mengambil proyek, mengambil dictionary, dan mendorong atau memperbarui mereka langsung dari aplikasi, skrip, atau pipeline CI Anda sendiri.
+
+SDK menangani autentikasi untuk Anda. Selama `clientId` dan `clientSecret` Anda tersedia (dalam konfigurasi Intlayer atau environment), SDK memperoleh dan menyegarkan token akses OAuth2 secara otomatis serta menandatangani setiap permintaan.
+
+### Instalasi
+
+```bash packageManager="npm"
+npm install @intlayer/api
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/api
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/api
+```
+
+```bash packageManager="bun"
+bun add @intlayer/api
+```
+
+### Cara kerjanya: authenticator + endpoints
+
+SDK dibagi menjadi **dua import terpisah** dengan tujuan, untuk membuat bundle Anda tetap kecil:
+
+1. `createIntlayerCMS` — membuat **authenticator** yang ringan. Ini hanya membawa kredensial dan token akses yang dikelola; ia tidak mengetahui apa pun tentang domain tertentu.
+2. `dictionaryEndpoint`, `projectEndpoint`, … — **endpoint binders** per-domain, masing-masing diimpor dari subpath-nya sendiri (`@intlayer/api/dictionary`, `@intlayer/api/project`, …). Anda melewatkan authenticator ke endpoint yang Anda butuhkan.
+
+Karena setiap endpoint diimpor secara terpisah, bundle Anda hanya mencakup domain yang benar-benar Anda gunakan — mengimpor `dictionaryEndpoint` tidak akan pernah menarik klien project, AI, atau domain lainnya.
+
+```typescript fileName="cms.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+
+// Konfigurasi bersifat opsional: ketika dihilangkan, kredensial dibaca dari
+// `@intlayer/config/built`, yang menyelesaikan variabel lingkungan INTLAYER_CLIENT_ID dan
+// INTLAYER_CLIENT_SECRET.
+export const cmsAuthenticator = createIntlayerCMS();
+```
+
+> [!WARNING]
+> Kredensial CMS (`clientId` / `clientSecret`) memberikan **akses tulis** ke konten Anda. Selalu buat authenticator hanya di **sisi server** (server actions, route handlers, scripts, CI). Jangan pernah mengimpor ke kode sisi klien atau membuka kredensial Anda ke browser.
+
+Jika Anda lebih suka tidak mengandalkan konfigurasi waktu build, teruskan kredensial secara eksplisit:
+
+```typescript fileName="cms.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+
+export const cmsAuthenticator = createIntlayerCMS({
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+    // Opsional, untuk backend yang di-host sendiri:
+    // backendURL: process.env.INTLAYER_BACKEND_URL,
+  },
+});
+```
+
+> Dapatkan kredensial Anda dengan membuat kunci akses baru di [Intlayer Dashboard - Projects](https://app.intlayer.org/projects).
+
+### Fetch projects
+
+```typescript fileName="projects.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { projectEndpoint } from "@intlayer/api/project";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// Daftar proyek yang dapat diakses dengan kredensial Anda
+const { data: projects } =
+  await projectEndpoint(cmsAuthenticator).getProjects();
+
+// Baca wawasan lokalisasi agregat dari proyek yang dipilih
+const { data: insights } =
+  await projectEndpoint(cmsAuthenticator).getProjectInsights();
+```
+
+### Fetch dictionaries
+
+```typescript fileName="read-dictionaries.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// Daftar setiap kamus jarak jauh dari proyek
+const { data: dictionaries } =
+  await dictionaryEndpoint(cmsAuthenticator).getDictionaries();
+
+// Atau dapatkan satu kamus berdasarkan kunci
+const { data: dictionary } = await dictionaryEndpoint(
+  cmsAuthenticator
+).getDictionary("my-first-dictionary-key");
+```
+
+### Push and update dictionaries
+
+Use the CMS as a database to write content back:
+
+```typescript fileName="write-dictionaries.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// Buat kamus baru
+await dictionaryEndpoint(cmsAuthenticator).addDictionary({
+  key: "my-first-dictionary-key",
+  content: { title: "Hello world" },
+});
+
+// Upsert batch kamus (buat atau perbarui dalam satu panggilan)
+await dictionaryEndpoint(cmsAuthenticator).pushDictionaries([
+  { key: "home", content: { title: "Home" } },
+  { key: "about", content: { title: "About" } },
+]);
+
+// Perbarui kamus yang ada
+await dictionaryEndpoint(cmsAuthenticator).updateDictionary({
+  id: "<dictionary-id>",
+  key: "home",
+  content: { title: "Updated title" },
+});
+```
+
+> Tip: gunakan kembali endpoint yang terikat untuk menghindari pengulangan:
+>
+> ```typescript codeFormat="typescript"
+> const dictionary = dictionaryEndpoint(cmsAuthenticator);
+> await dictionary.pushDictionaries([myDictionary]);
+> const { data } = await dictionary.getDictionaries();
+> ```
+
+### Mengekstrak satu method
+
+Setiap endpoint method sudah terauthentikasi dan standalone (membawa penanganan token-nya sendiri), jadi Anda dapat mengekstraknya dan meneruskannya — misalnya untuk melakukannya sebagai dependency:
+
+```typescript fileName="push.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const dictionary = dictionaryEndpoint(createIntlayerCMS());
+
+// Sudah terauthentikasi — menyegarkan token secara otomatis pada setiap panggilan
+export const pushDictionaries = dictionary.pushDictionaries;
+
+// Penggunaan
+await pushDictionaries([{ key: "home", content: { title: "Home" } }]);
+```
+
 ## Sinkronisasi langsung
 
 Sinkronisasi Langsung memungkinkan aplikasi Anda mencerminkan perubahan konten CMS secara real-time. Tidak perlu membangun ulang atau menerapkan ulang. Saat diaktifkan, pembaruan dikirimkan ke server Sinkronisasi Langsung yang menyegarkan kamus yang dibaca aplikasi Anda.
 
 Untuk panduan pengaturan lengkap (mengaktifkan, menjalankan server Live Sync, alur kerja pengembangan lokal, dan batasan), lihat [dokumentasi Live Sync](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/live-sync.md).
+
+## Self-Hosting
+
+Intlayer dapat berjalan sepenuhnya pada infrastruktur Anda sendiri. Satu baris perintah bootstrap stack lengkap (dashboard, API, database, object storage, dan email) dengan Docker Compose:
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh
+```
+
+Untuk panduan setup lengkap, referensi variabel environment, instruksi upgrade, dan prosedur backup/restore, lihat [Self-Hosting Guide](https://github.com/aymericzip/intlayer/blob/main/docs/docs/id/self_hosting.md).
+
+---
 
 ## Debug
 

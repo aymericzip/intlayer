@@ -247,6 +247,158 @@ bun x intlayer dictionary push -d my-first-dictionary-key --env production
 
 بعد ذلك، ستتمكن من رؤية وإدارة قاموسك في [نظام إدارة محتوى Intlayer](https://app.intlayer.org/content).
 
+## الوصول البرمجي باستخدام SDK `@intlayer/api`
+
+بالإضافة إلى واجهة سطر الأوامر والمحرر المرئي، يأتي Intlayer مع SDK مكتوب بشكل آمن من حيث النوع في حزمة [`@intlayer/api`](https://www.npmjs.com/package/@intlayer/api). يتيح لك التعامل مع نظام إدارة المحتوى كـ **قاعدة بيانات محتوى بدون رأس**: يمكنك جلب المشاريع وجلب القواميس، وتحديثها مباشرة من تطبيقك الخاص أو البرامج النصية أو خط أنابيب CI.
+
+يتعامل SDK مع المصادقة من أجلك. طالما أن `clientId` و `clientSecret` متاحة (في تكوين Intlayer أو البيئة)، فإنه يحصل على رمز OAuth2 للوصول وينعشه تلقائياً ويوقع كل طلب.
+
+### التثبيت
+
+```bash packageManager="npm"
+npm install @intlayer/api
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/api
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/api
+```
+
+```bash packageManager="bun"
+bun add @intlayer/api
+```
+
+### كيفية عملها: المصادق + نقاط النهاية
+
+تم تقسيم SDK إلى **استيرادين منفصلين** عن قصد، للحفاظ على حجم حزمتك صغيرًا:
+
+1. `createIntlayerCMS` — ينشئ **مصادقًا** خفيف الوزن. يحمل فقط بيانات الاعتماد والرمز المميز للوصول المُدار؛ لا يعرف شيئًا عن أي مجال محدد.
+2. `dictionaryEndpoint`, `projectEndpoint`, … — **محررات نقاط النهاية** لكل مجال، يتم استيراد كل منها من مسارها الخاص (`@intlayer/api/dictionary`, `@intlayer/api/project`, …). تمرر المصادق إلى نقطة النهاية التي تحتاجها.
+
+لأن كل نقطة نهاية يتم استيرادها بشكل منفصل، تتضمن حزمتك فقط المجالات التي تستخدمها فعليًا — استيراد `dictionaryEndpoint` لا يسحب أبدًا المشروع أو الذكاء الاصطناعي أو أي عميل مجال آخر.
+
+```typescript fileName="cms.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+
+// التكوين اختياري: عند حذفه، يتم قراءة بيانات الاعتماد من
+// `@intlayer/config/built`، الذي يحل متغيرات البيئة INTLAYER_CLIENT_ID و
+// INTLAYER_CLIENT_SECRET.
+export const cmsAuthenticator = createIntlayerCMS();
+```
+
+> [!WARNING]
+> بيانات اعتماد CMS (`clientId` / `clientSecret`) تمنح **حق الوصول للكتابة** إلى محتواك. لا تنشئ المصادق أبدًا إلا على **الجانب الخادم** (إجراءات الخادم، معالجات المسارات، البرامج النصية، CI). لا تستورده أبدًا في الكود من جانب العميل أو تعرض بيانات اعتمادك للمتصفح.
+
+إذا فضلت عدم الاعتماد على تكوين وقت البناء، مرر بيانات الاعتماد بشكل صريح:
+
+```typescript fileName="cms.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+
+export const cmsAuthenticator = createIntlayerCMS({
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+    // اختياري، للخوادم الذاتية الاستضافة:
+    // backendURL: process.env.INTLAYER_BACKEND_URL,
+  },
+});
+```
+
+> احصل على بيانات اعتمادك بإنشاء مفتاح وصول جديد في [لوحة معلومات Intlayer - المشاريع](https://app.intlayer.org/projects).
+
+### جلب المشاريع
+
+```typescript fileName="projects.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { projectEndpoint } from "@intlayer/api/project";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// قائمة المشاريع التي يمكن الوصول إليها باستخدام بيانات اعتمادك
+const { data: projects } =
+  await projectEndpoint(cmsAuthenticator).getProjects();
+
+// قراءة رؤى التوطين المجمعة للمشروع المحدد
+const { data: insights } =
+  await projectEndpoint(cmsAuthenticator).getProjectInsights();
+```
+
+### جلب القواميیس
+
+```typescript fileName="read-dictionaries.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// قائمة بكل قاموس بعید من المشروع
+const { data: dictionaries } =
+  await dictionaryEndpoint(cmsAuthenticator).getDictionaries();
+
+// أو الحصول على قاموس واحد حسب المفتاح
+const { data: dictionary } = await dictionaryEndpoint(
+  cmsAuthenticator
+).getDictionary("my-first-dictionary-key");
+```
+
+### دفع وتحديث القواميس
+
+استخدم نظام إدارة المحتوى (CMS) كقاعدة بيانات لكتابة المحتوى مرة أخرى:
+
+```typescript fileName="write-dictionaries.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// إنشاء قاموس جديد
+await dictionaryEndpoint(cmsAuthenticator).addDictionary({
+  key: "my-first-dictionary-key",
+  content: { title: "Hello world" },
+});
+
+// Upsert مجموعة من القواميس (إنشاء أو تحديثها في استدعاء واحد)
+await dictionaryEndpoint(cmsAuthenticator).pushDictionaries([
+  { key: "home", content: { title: "Home" } },
+  { key: "about", content: { title: "About" } },
+]);
+
+// تحديث قاموس موجود
+await dictionaryEndpoint(cmsAuthenticator).updateDictionary({
+  id: "<dictionary-id>",
+  key: "home",
+  content: { title: "Updated title" },
+});
+```
+
+> نصيحة: أعد استخدام نقطة النهاية المرتبطة لتجنب تكرار نفسك:
+>
+> ```typescript codeFormat="typescript"
+> const dictionary = dictionaryEndpoint(cmsAuthenticator);
+> await dictionary.pushDictionaries([myDictionary]);
+> const { data } = await dictionary.getDictionaries();
+> ```
+
+### استخراج طريقة واحدة
+
+كل طريقة endpoint مصادق عليها بالفعل وقائمة بذاتها (تحمل معالجة الرمز الخاص بها)، لذا يمكنك استخراج واحدة وتمريرها حوله — على سبيل المثال لحقنها كتبعية:
+
+```typescript fileName="push.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const dictionary = dictionaryEndpoint(createIntlayerCMS());
+
+// مصادق عليه بالفعل — ينعش الرمز تلقائياً في كل استدعاء
+export const pushDictionaries = dictionary.pushDictionaries;
+
+// الاستخدام
+await pushDictionaries([{ key: "home", content: { title: "Home" } }]);
+```
+
 ## التزامن الحي
 
 يتيح التزامن الحي لتطبيقك عكس تغييرات محتوى نظام إدارة المحتوى أثناء وقت التشغيل. لا حاجة لإعادة البناء أو إعادة النشر. عند التمكين، يتم بث التحديثات إلى خادم التزامن الحي الذي يقوم بتحديث القواميس التي يقرأها تطبيقك.

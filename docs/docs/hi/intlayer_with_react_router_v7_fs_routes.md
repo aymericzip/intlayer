@@ -166,98 +166,55 @@ app/
 - `_index` - Index route (parent path पर renders होता है)
 - `.` (dot) - Path segments को अलग करता है (उदा., `($locale).about` → `/:locale?/about`)
 
-## फ़ाइल-सिस्टम आधारित रूट्स के साथ React Router v7 एप्लिकेशन में Intlayer सेटअप करने के लिए चरण-दर-चरण मार्गदर्शिका
+#### Layout Component
 
-<Tabs defaultTab="video">
-  <Tab label="Video" value="video">
+```tsx fileName="app/root.tsx"
+import { getLocaleFromPath } from "intlayer";
+import { IntlayerProvider } from "react-intlayer";
+import {
+  isRouteErrorResponse,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useLoaderData,
+} from "react-router";
 
-<iframe title="How to translate an React Router v7 (File-System Routes) app using Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
+import type { Route } from "./+types/root";
 
-  </Tab>
-  <Tab label="Code" value="code">
+import "./app.css";
 
-<iframe
-  src="https://ide.intlayer.org/aymericzip/intlayer-react-router-v7-template?file=intlayer.config.ts"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
+// ... अपरिवर्तित App, links और ErrorBoundary code
 
-  </Tab>
-  <Tab label="डेमो" value="demo">
+export async function loader({ request }: Route.LoaderArgs) {
+  const locale = getLocaleFromPath(request.url);
 
-<iframe
-  src="https://intlayer-react-router-v7.vercel.app"
-  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
-  title="डेमो - intlayer-react-router-v7-template"
-  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  loading="lazy"
-/>
+  return { locale };
+}
 
-  </Tab>
-</Tabs>
+export function Layout({
+  children,
+}: { children: React.ReactNode } & Route.ComponentProps) {
+  const data = useLoaderData<typeof loader>();
+  const { locale } = data ?? {};
 
-See [Application Template](https://github.com/aymericzip/intlayer-react-router-v7-template) on GitHub.
-
-अपने एप्लिकेशन की भाषाओं को कॉन्फ़िगर करने के लिए एक कॉन्फ़िग फ़ाइल बनाएं:
-
-```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
-import { type IntlayerConfig, Locales } from "intlayer";
-
-const config: IntlayerConfig = {
-  internationalization: {
-    defaultLocale: Locales.ENGLISH,
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
-  },
-};
-
-export default config;
+  return (
+    <html lang={locale}>
+      <head>
+        <meta charSet="utf-8" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <IntlayerProvider locale={locale}>{children}</IntlayerProvider>
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+    </html>
+  );
+}
 ```
-
-> इस कॉन्फ़िगरेशन फ़ाइल के माध्यम से, आप स्थानीयकृत URL, मिडलवेयर पुनर्निर्देशन, कुकी नाम, आपकी सामग्री घोषणाओं का स्थान और एक्सटेंशन, कंसोल में Intlayer लॉग को अक्षम करना, और भी बहुत कुछ सेट कर सकते हैं। उपलब्ध सभी पैरामीटर की पूरी सूची के लिए, [कॉन्फ़िगरेशन दस्तावेज़](https://github.com/aymericzip/intlayer/blob/main/docs/docs/hi/configuration.md) देखें।
-
-<Steps>
-
-<Step number={3} title="अपने Vite कॉन्फ़िगरेशन में Intlayer को एकीकृत करें">
-
-अपने कॉन्फ़िगरेशन में intlayer प्लगइन जोड़ें:
-
-```typescript fileName="vite.config.ts"
-import { reactRouter } from "@react-router/dev/vite";
-import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [reactRouter(), intlayer()],
-});
-```
-
-> `intlayer()` Vite प्लगइन का उपयोग Intlayer को Vite के साथ एकीकृत करने के लिए किया जाता है। यह सामग्री घोषणा फ़ाइलों के निर्माण को सुनिश्चित करता है और विकास मोड में उनकी निगरानी करता है। यह Vite एप्लिकेशन के भीतर Intlayer पर्यावरण चर को परिभाषित करता है। इसके अतिरिक्त, यह प्रदर्शन को अनुकूलित करने के लिए उपनाम प्रदान करता है।
-
-</Step>
-
-<Step number={4} title="React Router v7 रूट्स कॉन्फ़िगर करें">
-
-अपने रूटिंग कॉन्फ़िगरेशन को स्थानीय-जानकारी वाले रूट्स के साथ सेट करें:
-
-```typescript fileName="app/routes.ts"
-typescript;
-import { layout, route, type RouteConfig } from "@react-router/dev/routes";
-
-export default [
-  layout("routes/layout.tsx", [
-    route("/:lang?", "routes/page.tsx"), // स्थानीयकृत होम पेज
-    route("/:lang?/about", "routes/about/page.tsx"), // स्थानीयकृत अबाउट पेज
-  ]),
-] satisfies RouteConfig;
-```
-
-</Step>
-
-<Step number={5} title="लेआउट कंपोनेंट बनाएं">
-
-अपने रूट लेआउट और स्थानीय-विशिष्ट लेआउट सेट करें:
 
 #### रूट लेआउट
 

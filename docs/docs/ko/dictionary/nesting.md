@@ -64,6 +64,53 @@ export default firstDictionary;
 }
 ```
 
+### Nest를 통한 참조
+
+이제 위의 콘텐츠를 참조하기 위해 `nest` 함수를 사용하는 다른 콘텐츠 모듈을 만듭니다. 전체 콘텐츠 또는 특정 중첩된 값을 참조할 수 있습니다:
+
+```typescript fileName="secondDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { nest, type Dictionary } from "intlayer";
+
+const myNestingContent = {
+  key: "key_of_my_second_dictionary",
+  content: {
+    // 전체 딕셔너리를 참조합니다:
+    fullNestedContent: nest("key_of_my_first_dictionary"),
+    // 특정 중첩된 값을 참조합니다:
+    partialNestedContent: nest(
+      "key_of_my_first_dictionary",
+      "subContent.contentNumber"
+    ),
+  },
+} satisfies Dictionary;
+
+export default myNestingContent;
+```
+
+```json fileName="secondDictionary.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "key_of_my_second_dictionary",
+  "content": {
+    "fullNestedContent": {
+      "nodeType": "nested",
+      "nested": {
+        "dictionaryKey": "key_of_my_first_dictionary"
+      }
+    },
+    "partialNestedContent": {
+      "nodeType": "nested",
+      "nested": {
+        "dictionaryKey": "key_of_my_first_dictionary",
+        "path": "subContent.contentNumber"
+      }
+    }
+  }
+}
+```
+
+두 번째 파라미터로는 해당 콘텐츠 내의 중첩된 값으로의 경로를 지정할 수 있습니다. 경로가 제공되지 않으면 참조된 딕셔너리의 전체 콘텐츠가 반환됩니다.
+
 ## 중첩 설정
 
 <Tabs group="framework">
@@ -257,36 +304,6 @@ document.getElementById("nested")!.textContent = content.partialNestedContent;
 
   </Tab>
 </Tabs>
-
-## React Intlayer와 함께 중첩 사용
-
-React 컴포넌트에서 중첩된 콘텐츠를 사용하려면 `react-intlayer` 패키지의 `useIntlayer` 훅을 활용하세요. 이 훅은 지정된 키를 기반으로 올바른 콘텐츠를 가져옵니다. 사용 예제는 다음과 같습니다:
-
-```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { useIntlayer } from "react-intlayer";
-
-const NestComponent: FC = () => {
-  const { fullNestedContent, partialNestedContent } = useIntlayer(
-    "key_of_my_second_dictionary"
-  );
-
-  return (
-    <div>
-      <p>
-        Full Nested Content: {JSON.stringify(fullNestedContent)}
-        {/* 출력: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
-      </p>
-      <p>
-        Partial Nested Value: {partialNestedContent}
-        {/* 출력: 0 */}
-      </p>
-    </div>
-  );
-};
-
-export default NestComponent;
-```
 
 ## 추가 자료
 

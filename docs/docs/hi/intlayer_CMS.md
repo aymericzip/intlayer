@@ -247,6 +247,158 @@ bun x intlayer dictionary push -d my-first-dictionary-key --env production
 
 फिर आप अपने शब्दकोश को [Intlayer CMS](https://app.intlayer.org/content) में देख और प्रबंधित कर सकेंगे।
 
+## `@intlayer/api` SDK के साथ प्रोग्रामेटिक एक्सेस
+
+CLI और विजुअल एडिटर के अलावा, Intlayer [`@intlayer/api`](https://www.npmjs.com/package/@intlayer/api) पैकेज में एक typed SDK प्रदान करता है। यह आपको CMS को एक **headless content database** के रूप में उपयोग करने देता है: आप प्रोजेक्ट प्राप्त कर सकते हैं, डिक्शनरी प्राप्त कर सकते हैं, और उन्हें सीधे अपने एप्लिकेशन, स्क्रिप्ट या CI pipeline से push या अपडेट कर सकते हैं।
+
+SDK आपके लिए प्रमाणीकरण को हैंडल करता है। जब तक आपका `clientId` और `clientSecret` उपलब्ध हैं (आपकी Intlayer कॉन्फ़िगरेशन या environment में), यह स्वचालित रूप से एक OAuth2 एक्सेस टोकन प्राप्त करता है और रीफ्रेश करता है और हर अनुरोध को साइन करता है।
+
+### इंस्टॉलेशन
+
+```bash packageManager="npm"
+npm install @intlayer/api
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/api
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/api
+```
+
+```bash packageManager="bun"
+bun add @intlayer/api
+```
+
+### यह कैसे काम करता है: authenticator + endpoints
+
+SDK को **दो अलग-अलग imports** में विभाजित किया गया है, ताकि आपका bundle छोटा रहे:
+
+1. `createIntlayerCMS` — एक हल्का **authenticator** बनाता है। यह केवल credentials और managed access token को ले जाता है; यह किसी विशिष्ट domain के बारे में कुछ नहीं जानता।
+2. `dictionaryEndpoint`, `projectEndpoint`, … — प्रति-domain **endpoint binders**, प्रत्येक अपने subpath से imported (`@intlayer/api/dictionary`, `@intlayer/api/project`, …)। आप authenticator को उस endpoint पर पास करते हैं जिसकी आपको जरूरत है।
+
+क्योंकि प्रत्येक endpoint अलग से imported है, आपका bundle केवल उन domains को शामिल करता है जिन्हें आप वास्तव में use करते हैं — `dictionaryEndpoint` को import करना कभी भी project, AI, या किसी अन्य domain client को pull नहीं करता।
+
+```typescript fileName="cms.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+
+// कॉन्फ़िगरेशन वैकल्पिक है: जब छोड़ा जाता है, तो credentials को पढ़ा जाता है
+// `@intlayer/config/built` से, जो INTLAYER_CLIENT_ID और
+// INTLAYER_CLIENT_SECRET environment variables को resolve करता है।
+export const cmsAuthenticator = createIntlayerCMS();
+```
+
+> [!WARNING]
+> CMS credentials (`clientId` / `clientSecret`) आपके content को **write access** प्रदान करते हैं। authenticator को केवल **server side** पर बनाएं (server actions, route handlers, scripts, CI)। इसे कभी भी client-side code में import न करें या अपने credentials को browser में expose न करें।
+
+यदि आप build-time configuration पर निर्भर नहीं करना पसंद करते हैं, तो credentials को explicitly पास करें:
+
+```typescript fileName="cms.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+
+export const cmsAuthenticator = createIntlayerCMS({
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+    // वैकल्पिक, self-hosted backends के लिए:
+    // backendURL: process.env.INTLAYER_BACKEND_URL,
+  },
+});
+```
+
+> [Intlayer Dashboard - Projects](https://app.intlayer.org/projects) में एक नई access key बनाकर अपने credentials प्राप्त करें।
+
+### Projects को Fetch करें
+
+```typescript fileName="projects.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { projectEndpoint } from "@intlayer/api/project";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// अपने credentials के साथ accessible projects को list करें
+const { data: projects } =
+  await projectEndpoint(cmsAuthenticator).getProjects();
+
+// चुने गए project की aggregated localization insights को read करें
+const { data: insights } =
+  await projectEndpoint(cmsAuthenticator).getProjectInsights();
+```
+
+### शब्दकोश प्राप्त करें
+
+```typescript fileName="read-dictionaries.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// प्रोजेक्ट के हर दूरस्थ शब्दकोश को सूचीबद्ध करें
+const { data: dictionaries } =
+  await dictionaryEndpoint(cmsAuthenticator).getDictionaries();
+
+// या कुंजी द्वारा एक एकल शब्दकोश प्राप्त करें
+const { data: dictionary } = await dictionaryEndpoint(
+  cmsAuthenticator
+).getDictionary("my-first-dictionary-key");
+```
+
+### शब्दकोश को Push और Update करें
+
+सामग्री वापस लिखने के लिए CMS को डेटाबेस के रूप में उपयोग करें:
+
+```typescript fileName="write-dictionaries.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// एक नया शब्दकोश बनाएं
+await dictionaryEndpoint(cmsAuthenticator).addDictionary({
+  key: "my-first-dictionary-key",
+  content: { title: "Hello world" },
+});
+
+// शब्दकोशों का एक बैच Upsert करें (एक कॉल में उन्हें बनाएं या अपडेट करें)
+await dictionaryEndpoint(cmsAuthenticator).pushDictionaries([
+  { key: "home", content: { title: "Home" } },
+  { key: "about", content: { title: "About" } },
+]);
+
+// एक मौजूदा शब्दकोश को अपडेट करें
+await dictionaryEndpoint(cmsAuthenticator).updateDictionary({
+  id: "<dictionary-id>",
+  key: "home",
+  content: { title: "Updated title" },
+});
+```
+
+> टिप: बंधे हुए endpoint को दोबारा उपयोग करें ताकि आपको अपने आप को दोहराना न पड़े:
+>
+> ```typescript codeFormat="typescript"
+> const dictionary = dictionaryEndpoint(cmsAuthenticator);
+> await dictionary.pushDictionaries([myDictionary]);
+> const { data } = await dictionary.getDictionaries();
+> ```
+
+### एक single method निकालना
+
+हर endpoint method पहले से authenticated है और standalone है (यह अपना token handling करता है), इसलिए आप एक को निकाल सकते हैं और इसे around pass कर सकते हैं — उदाहरण के लिए इसे dependency के रूप में inject करने के लिए:
+
+```typescript fileName="push.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const dictionary = dictionaryEndpoint(createIntlayerCMS());
+
+// पहले से authenticated — हर call पर token को automatically refresh करता है
+export const pushDictionaries = dictionary.pushDictionaries;
+
+// उपयोग
+await pushDictionaries([{ key: "home", content: { title: "Home" } }]);
+```
+
 ## लाइव सिंक
 
 लाइव सिंक आपकी ऐप को रनटाइम पर CMS सामग्री परिवर्तनों को प्रतिबिंबित करने देता है। पुनर्निर्माण या पुनः तैनाती की आवश्यकता नहीं होती। जब सक्षम किया जाता है, तो अपडेट्स लाइव सिंक सर्वर को स्ट्रीम किए जाते हैं जो आपके एप्लिकेशन द्वारा पढ़े जाने वाले शब्दकोशों को ताज़ा करता है।

@@ -63,30 +63,32 @@ getLocalizedUrl(
   - **Type**: `Locales`
   - **Required**: Yes
 
-## パラメーター
+### オプションパラメータ
 
-- `url: string`
-  - **説明**: ロケールのプレフィックスを付加する元の URL 文字列。
-  - **型**: `string`
+- `options?: object`
+  - **Description**: URL ローカライゼーション動作の設定オブジェクト。
+  - **Type**: `object`
+  - **Required**: No (Optional)
 
-- `currentLocale: Locales`
-  - **説明**: URL をローカライズする対象の現在のロケール。
-  - **型**: `Locales`
+  - `options.locales?: Locales[]`
+    - **Description**: サポートされているロケールの配列。指定されない場合、プロジェクト設定から設定されたロケールを使用します。
+    - **Type**: `Locales[]`
+    - **Default**: [`プロジェクト設定`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md#middleware)
 
-- `locales: Locales[]`
-  - **説明**: サポートされているロケールのオプション配列。デフォルトでは、プロジェクトで設定されたロケールが提供されます。
-  - **型**: `Locales[]`
-  - **デフォルト**: [`プロジェクト設定`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md#middleware)
+  - `options.defaultLocale?: Locales`
+    - **Description**: アプリケーションのデフォルトロケール。指定されない場合、プロジェクト設定から設定されたデフォルトロケールを使用します。
+    - **Type**: `Locales`
+    - **Default**: [`プロジェクト設定`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md#middleware)
 
-- `defaultLocale: Locales`
-  - **説明**: アプリケーションのデフォルトロケール。デフォルトでは、プロジェクトで設定されたデフォルトロケールが提供されます。
-  - **型**: `Locales`
-  - **デフォルト**: [`プロジェクト設定`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md#middleware)
-
-- `prefixDefault: boolean`
-  - **説明**: デフォルトロケールの URL にプレフィックスを付けるかどうか。デフォルトでは、プロジェクトで設定された値が提供されます。
-  - **型**: `boolean`
-  - **デフォルト**: [`プロジェクト設定`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md#middleware)
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Description**: ロケール処理のための URL ルーティングモード。指定されない場合、プロジェクト設定から設定されたモードを使用します。
+    - **Type**: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Default**: [`プロジェクト設定`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/configuration.md#middleware)
+    - **Modes**:
+      - `prefix-no-default`: デフォルトロケールにはプレフィックスなし、その他すべてにプレフィックスあり
+      - `prefix-all`: すべてのロケール（デフォルトを含む）にプレフィックスあり
+      - `no-prefix`: URL にロケールプレフィックスなし
+      - `search-params`: ロケールのクエリパラメータを使用（例：`?locale=fr`）
 
 ### 戻り値
 

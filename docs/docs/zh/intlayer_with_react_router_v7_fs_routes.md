@@ -84,7 +84,7 @@ Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的
 
 <Tabs defaultTab="video">
   <Tab label="视频" value="video">
-  
+
 <iframe title="How to translate an React Router v7 (File-System Routes) app using Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/dS9L7uJeak4?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
 
   </Tab>
@@ -131,21 +131,24 @@ export default config;
 
 > 通过此配置文件，您可以设置本地化的 URL、中间件重定向、cookie 名称、内容声明的位置和扩展名，禁用控制台中的 Intlayer 日志等。有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
 
-### 第三步：在您的 Vite 配置中集成 Intlayer
+#### 文件结构
 
-将 intlayer 插件添加到您的配置中：
-
-```typescript fileName="vite.config.ts"
-import { reactRouter } from "@react-router/dev/vite";
-import { defineConfig } from "vite";
-import { intlayer } from "vite-intlayer";
-
-export default defineConfig({
-  plugins: [reactRouter(), intlayer()],
-});
+```bash
+app/
+├── root.tsx                         # 用于本地化路由的布局包装器
+└──routes/
+    ├── ($locale)._index.tsx         # 主页 (/, /es, 等)
+    ├── ($locale)._index.content.ts  # 主页内容
+    ├── ($locale).about.tsx          # 关于页面 (/about, /es/about, 等)
+    └── ($locale).about.content.ts   # 关于页面内容
 ```
 
-> `intlayer()` Vite 插件用于将 Intlayer 集成到 Vite 中。它确保内容声明文件的构建，并在开发模式下监视这些文件。它在 Vite 应用中定义了 Intlayer 的环境变量。此外，它还提供别名以优化性能。
+命名约定：
+
+- `($locale)` - 本地化参数的可选动态段
+- `_layout` - 包装子路由的布局路由
+- `_index` - 索引路由（在父路径处呈现）
+- `.` (点号) - 分隔路径段（例如，`($locale).about` → `/:locale?/about`）
 
 #### 根布局
 
@@ -191,9 +194,255 @@ export default function Page() {
 
 > 如果您的应用程序已经存在，您可以结合使用 [Intlayer 编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 和 [提取命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 在一秒钟内转换成干个组件。
 
-### 第10步：添加HTML属性管理（可选）
+#### 关于页面
 
-创建一个钩子来管理HTML的 lang 和 dir 属性：
+```tsx fileName="app/routes/($locale).about.tsx"
+import { getIntlayer, validatePrefix } from "intlayer";
+import { useIntlayer } from "react-intlayer";
+import { data } from "react-router";
+
+import { LocaleSwitcher } from "~/components/locale-switcher";
+import { Navbar } from "~/components/navbar";
+
+import type { Route } from "./+types/($locale).about";
+
+export const loader = ({ params }: Route.LoaderArgs) => {
+  const { locale } = params;
+
+  const { isValid } = validatePrefix(locale);
+
+  if (!isValid) {
+    throw data("Locale not supported", { status: 404 });
+  }
+};
+
+export const meta: Route.MetaFunction = ({ params }) => {
+  const content = getIntlayer("about", params.locale);
+
+  return [
+    { title: content.title },
+    { content: content.description, name: "description" },
+  ];
+};
+
+export default function AboutPage() {
+  const { title, content, homeLink } = useIntlayer("about");
+
+  return (
+    <div>
+      <h1>{title}</h1>
+      <p>{content}</p>
+      <nav>
+        <LocalizedLink to="/">{homeLink}</LocalizedLink>
+      </nav>
+    </div>
+  );
+}
+```
+
+</Step>
+
+<Step number={6} title="声明您的内容">
+
+创建并管理您的内容声明以存储翻译。将内容文件放在路由文件旁边：
+
+```tsx fileName="app/routes/($locale)._index.content.ts"
+import { t, type Dictionary } from "intlayer";
+
+const pageContent = {
+  key: "page",
+  content: {
+    title: t({
+      zh: "欢迎使用 React Router v7 + Intlayer",
+      en: "Welcome to React Router v7 + Intlayer",
+      es: "Bienvenido a React Router v7 + Intlayer",
+      fr: "Bienvenue sur React Router v7 + Intlayer",
+    }),
+    description: t({
+      zh: "使用 React Router v7 和 Intlayer 轻松构建多语言应用程序。",
+      en: "Build multilingual applications with ease using React Router v7 and Intlayer.",
+      es: "Cree aplicaciones multilingües fácilmente usando React Router v7 y Intlayer.",
+      fr: "Créez des applications multilingues facilement avec React Router v7 et Intlayer.",
+    }),
+    aboutLink: t({
+      zh: "了解我们",
+      en: "Learn About Us",
+      es: "Aprender Sobre Nosotros",
+      fr: "En savoir plus sur nous",
+    }),
+  },
+} satisfies Dictionary;
+
+export default pageContent;
+```
+
+```tsx fileName="app/routes/($locale).about.content.ts"
+import { t, type Dictionary } from "intlayer";
+
+const aboutContent = {
+  key: "about",
+  content: {
+    title: t({
+      zh: "关于我们",
+      en: "About Us",
+      es: "Sobre Nosotros",
+      fr: "À propos de nous",
+    }),
+    content: t({
+      zh: "这是关于页面的内容。",
+      en: "This is the about page content.",
+      es: "Este es el contenido de la página de información.",
+      fr: "Ceci est le contenu de la page à propos.",
+    }),
+    homeLink: t({
+      zh: "主页",
+      en: "Home",
+      es: "Inicio",
+      fr: "Accueil",
+    }),
+  },
+} satisfies Dictionary;
+
+export default aboutContent;
+```
+
+> 您的内容声明可以在应用程序中的任何位置定义，只要它们包含在 `contentDir` 目录中（默认为 `./app`）。并且匹配内容声明文件扩展名（默认为 `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`）。
+
+> 有关更多详细信息，请参考[内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
+
+> 如果您的应用程序已经存在，您可以使用 [Intlayer Compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) 以及 [extract 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 在一秒内转换数千个组件。
+
+</Step>
+
+<Step number={7} title="创建区域感知组件">
+
+为区域感知导航创建 `LocalizedLink` 组件：
+
+```tsx fileName="app/components/localized-link.tsx"
+import type { FC } from "react";
+
+import { getLocalizedUrl, type LocalesValues } from "intlayer";
+import { useLocale } from "react-intlayer";
+import { Link, type LinkProps, type To } from "react-router";
+
+const isExternalLink = (to: string) => /^(https?:)?\/\//.test(to);
+
+export const locacalizeTo = (to: To, locale: LocalesValues): To => {
+  if (typeof to === "string") {
+    if (isExternalLink(to)) {
+      return to;
+    }
+
+    return getLocalizedUrl(to, locale);
+  }
+
+  if (isExternalLink(to.pathname ?? "")) {
+    return to;
+  }
+
+  return {
+    ...to,
+    pathname: getLocalizedUrl(to.pathname ?? "", locale),
+  };
+};
+
+export const LocalizedLink: FC<LinkProps> = (props) => {
+  const { locale } = useLocale();
+
+  return <Link {...props} to={locacalizeTo(props.to, locale)} />;
+};
+```
+
+如果您想导航到本地化路由，可以使用 `useLocalizedNavigate` hook：
+
+```tsx fileName="app/hooks/useLocalizedNavigate.ts"
+import { useLocale } from "react-intlayer";
+import { type NavigateOptions, type To, useNavigate } from "react-router";
+
+import { locacalizeTo } from "~/components/localized-link";
+
+export const useLocalizedNavigate = () => {
+  const navigate = useNavigate();
+  const { locale } = useLocale();
+
+  const localizedNavigate = (to: To, options?: NavigateOptions) => {
+    const localedTo = locacalizeTo(to, locale);
+
+    navigate(localedTo, options);
+  };
+
+  return localizedNavigate;
+};
+```
+
+</Step>
+
+<Step number={8} title="创建区域切换器组件">
+
+创建一个组件以允许用户更改语言：
+
+```tsx fileName="app/components/locale-switcher.tsx"
+import type { FC } from "react";
+
+import {
+  getHTMLTextDir,
+  getLocaleName,
+  getLocalizedUrl,
+  getPathWithoutLocale,
+  Locales,
+} from "intlayer";
+import { useIntlayer, useLocale } from "react-intlayer";
+import { Link, useLocation } from "react-router";
+
+export const LocaleSwitcher: FC = () => {
+  const { localeSwitcherLabel } = useIntlayer("locale-switcher");
+  const { pathname } = useLocation();
+
+  const { availableLocales, locale } = useLocale();
+
+  const pathWithoutLocale = getPathWithoutLocale(pathname);
+
+  return (
+    <ol>
+      {availableLocales.map((localeItem) => (
+        <li key={localeItem}>
+          <Link
+            aria-current={localeItem === locale ? "page" : undefined}
+            aria-label={`${localeSwitcherLabel.value} ${getLocaleName(localeItem)}`}
+            reloadDocument // 重新加载页面以应用新的区域设置
+            to={getLocalizedUrl(pathWithoutLocale, localeItem)}
+          >
+            <span>
+              {/* 区域设置 - 例如 FR */}
+              {localeItem}
+            </span>
+            <span>
+              {/* 语言在其自己的区域设置中 - 例如 Français */}
+              {getLocaleName(localeItem, locale)}
+            </span>
+            <span dir={getHTMLTextDir(localeItem)} lang={localeItem}>
+              {/* 语言在当前区域设置中 - 例如当前区域设置为 Locales.SPANISH 时的 Francés */}
+              {getLocaleName(localeItem)}
+            </span>
+            <span dir="ltr" lang={Locales.ENGLISH}>
+              {/* 英文语言 - 例如 French */}
+              {getLocaleName(localeItem, Locales.ENGLISH)}
+            </span>
+          </Link>
+        </li>
+      ))}
+    </ol>
+  );
+};
+```
+
+> 若要了解更多关于 `useLocale` hook 的信息，请参考[文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/packages/react-intlayer/useLocale.md)。
+
+</Step>
+
+<Step number={9} title="添加 HTML 属性管理">
+
+创建 hook 以管理 HTML lang 和 dir 属性：
 
 ```tsx fileName="app/hooks/useI18nHTMLAttributes.tsx"
 import { getHTMLTextDir } from "intlayer";
@@ -210,43 +459,54 @@ export const useI18nHTMLAttributes = () => {
 };
 ```
 
-然后在你的根组件中使用它：
+此 hook 已在第 5 步中显示的布局组件（`($locale)._layout.tsx`）中使用。
 
-```tsx fileName="app/routes/layout.tsx"
-import { Outlet } from "react-router";
-import { IntlayerProvider } from "react-intlayer";
+</Step>
 
-import { useI18nHTMLAttributes } from "app/hooks/useI18nHTMLAttributes"; // 导入该钩子
+<Step number={10} title="添加中间件">
 
-export default function RootLayout() {
-  useI18nHTMLAttributes(); // 调用该钩子
+您也可以使用 `intlayerProxy` 为您的应用程序添加服务器端路由。此插件将自动根据 URL 检测当前区域设置并设置适当的区域 cookie。如果未指定区域设置，该插件将根据用户的浏览器语言偏好确定最合适的区域设置。如果未检测到任何区域设置，它将重定向到默认区域设置。
 
-  return (
-    <IntlayerProvider>
-      <Outlet />
-    </IntlayerProvider>
-  );
-}
+> 请注意，要在生产环境中使用 `intlayerProxy`，您需要将 `vite-intlayer` 包从 `devDependencies` 切换到 `dependencies`。
+
+> 从 Intlayer v9 开始，`intlayerProxy()` 被直接捆绑到 `intlayer()` 插件中，并通过 `routing.enableProxy` 选项（默认为 `true`）默认启用。按如下所示单独注册它现在是可选的 — 保留它是为了向后兼容性以及需要控制插件顺序的设置。设置 `routing.enableProxy: false` 以选择退出。请参阅 [v9 发布说明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/releases/v9.md)。
+
+```typescript {3,7} fileName="vite.config.ts"
+import { reactRouter } from "@react-router/dev/vite";
+import { defineConfig } from "vite";
+import { intlayer } from "vite-intlayer";
+
+export default defineConfig({
+  plugins: [
+    reactRouter(),
+
+    intlayer({
+      proxy: {
+        ignore: (req) => req.url?.startsWith("/api"),
+      },
+    }),
+  ],
+});
 ```
 
-<Steps>
+</Step>
 
-<Step number={1} title="提取组件内容" isOptional={true}>
+<Step number={11} title="提取您的组件内容" isOptional={true}>
 
-如果您有现有的代码库，转换数千个文件可能会非常耗时。
+如果您有现有的 codebase，转换数千个文件可能会很耗时。
 
-为了简化此过程，Intlayer 提出了 [编译器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) / [提取器](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 来转换您的组件并提取内容。
+为了简化此过程，Intlayer 提供了一个 [compiler](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/compiler.md) / [extractor](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/extract.md) 来转换您的组件并提取内容。
 
-要进行设置，您可以在 `intlayer.config.ts` 文件中添加 `compiler` 部分：
+要进行设置，您可以在 `intlayer.config.ts` 文件中添加一个 `compiler` 部分：
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  // ... 您的其他配置
+  // ... 您的配置的其余部分
   compiler: {
     /**
-     * 指示是否应启用编译器。
+     * 指示编译器是否应该启用。
      */
     enabled: true,
 
@@ -256,7 +516,11 @@ const config: IntlayerConfig = {
     output: ({ fileName, extension }) => `./${fileName}${extension}`,
 
     /**
-     * 指示在转换后是否应保存组件。这样，编译器只需运行一次即可转换应用程序，然后即可将其删除。
+     * 指示转换后是否应保存组件。
+     *
+     * - 如果为 `true`，编译器将重写磁盘中的组件文件。所以转换将是永久的，编译器将跳过下一个过程的转换。这样，编译器可以转换应用程序，然后可以将其删除。
+     *
+     * - 如果为 `false`，编译器将仅在构建输出中将 `useIntlayer()` 函数调用注入到代码中，并保持基本 codebase 完整。转换将仅在内存中完成。
      */
     saveComponents: false,
 
@@ -271,9 +535,9 @@ export default config;
 ```
 
 <Tabs>
- <Tab value='提取命令'>
+ <Tab value='Extract command'>
 
-运行提取器以转换组件并提取内容
+运行提取器来转换您的组件并提取内容
 
 ```bash packageManager="npm"
 npx intlayer extract
@@ -292,9 +556,9 @@ bun x intlayer extract
 ```
 
  </Tab>
- <Tab value='Babel 编译器'>
+ <Tab value='Babel compiler'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+> 从 v9 开始，`intlayerCompiler` 包含在 `intlayer` 插件中。所以您不需要手动添加它。
 
 更新您的 `vite.config.ts` 以包含 `intlayerCompiler` 插件：
 
@@ -305,7 +569,7 @@ import { intlayer, intlayerCompiler } from "vite-intlayer";
 export default defineConfig({
   plugins: [
     intlayer(),
-    intlayerCompiler(), // Adds the compiler plugin
+    intlayerCompiler(), // 添加编译器插件
   ],
 });
 ```
@@ -323,7 +587,7 @@ yarn build # 或 yarn dev
 ```
 
 ```bash packageManager="bun"
-bun run build # Or bun run dev
+bun run build # 或 bun run dev
 ```
 
  </Tab>

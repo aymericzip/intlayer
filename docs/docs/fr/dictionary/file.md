@@ -25,6 +25,8 @@ author: aymericzip
 
 # Contenu de fichier / Intégration de fichiers dans Intlayer
 
+Dans Intlayer, la fonction `file` permet d'intégrer le contenu de fichiers externes dans un dictionnaire. Cette approche garantit qu'Intlayer reconnaît le fichier source, permettant une intégration transparente avec l'Intlayer Visual Editor et le CMS.
+
 ## Comment fonctionne l'intégration de fichiers
 
 Dans Intlayer, la fonction `file` permet d'intégrer le contenu d'un fichier externe dans un dictionnaire. Cette approche garantit qu'Intlayer reconnaît le fichier source, permettant une intégration fluide avec l'éditeur visuel Intlayer et le CMS. Contrairement aux méthodes directes `import`, `require` ou de lecture de fichier via `fs`, l'utilisation de `file` associe le fichier au dictionnaire, ce qui permet à Intlayer de suivre et de mettre à jour dynamiquement le contenu lorsque le fichier est modifié.

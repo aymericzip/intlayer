@@ -49,37 +49,6 @@ author: aymericzip
 
 <TOC/>
 
-## Огляд
-
-Intlayer надає набір легких хелперів, побудованих поверх рідних API `Intl`, а також кешований обгорток `Intl`, щоб уникнути повторного створення важких форматерів. Ці утиліти повністю враховують локаль і можуть використовуватися з основного пакета `intlayer`.
-
-### Імпорт
-
-```ts
-import {
-  Intl,
-  number,
-  percentage,
-  currency,
-  date,
-  relativeTime,
-  units,
-  compact,
-  list,
-  getLocaleName,
-  getLocaleLang,
-  getLocaleFromPath,
-  getPathWithoutLocale,
-  getLocalizedUrl,
-  getHTMLTextDir,
-  getContent,
-  getTranslation,
-  getIntlayer,
-} from "intlayer";
-```
-
-If you are using React, hooks are also available; see `react-intlayer/format`.
-
 ## Cached Intl
 
 The exported `Intl` is a thin, cached wrapper around the global `Intl`. It memoizes instances of `NumberFormat`, `DateTimeFormat`, `RelativeTimeFormat`, `ListFormat`, `DisplayNames`, `Collator`, and `PluralRules`, which avoids rebuilding the same formatter repeatedly.
@@ -116,51 +85,6 @@ pluralRules.select(1); // "one"
 pluralRules.select(2); // "інше"
 ```
 
-### `Intl.DisplayNames`
-
-Для локалізованих назв мов, регіонів, валют та писемностей:
-
-```ts
-import { Intl } from "intlayer";
-
-const languageNames = new Intl.DisplayNames("en", { type: "language" });
-languageNames.of("fr"); // "французька"
-
-const regionNames = new Intl.DisplayNames("fr", { type: "region" });
-regionNames.of("US"); // "Сполучені Штати"
-```
-
-### `Intl.Collator`
-
-Для порівняння рядків та сортування з урахуванням локалі:
-
-```ts
-import { Intl } from "intlayer";
-
-const collator = new Intl.Collator("de", {
-  sensitivity: "base",
-  numeric: true,
-});
-
-const words = ["äpfel", "zebra", "100", "20"];
-words.sort(collator.compare); // ["20", "100", "äpfel", "zebra"]
-```
-
-### `Intl.PluralRules`
-
-Для визначення форм множини в різних локалях:
-
-```ts
-import { Intl } from "intlayer";
-
-const pluralRules = new Intl.PluralRules("ar");
-pluralRules.select(0); // "нуль"
-pluralRules.select(1); // "один"
-pluralRules.select(2); // "два"
-pluralRules.select(3); // "кілька"
-pluralRules.select(11); // "багато"
-```
-
 ## Утиліти локалей
 
 ### `getLocaleName(displayLocale, targetLocale?)`
@@ -177,22 +101,6 @@ getLocaleName("de", "es"); // іспанською: "alemán"
 
 - **displayLocale**: Локаль, для якої потрібно отримати назву
 - **targetLocale**: Локаль, в якій відображається назва (за замовчуванням displayLocale)
-
-### `getLocaleFromPath(inputUrl)`
-
-Витягує сегмент локалі з URL або шляху:
-
-```ts
-import { getLocaleFromPath } from "intlayer";
-
-getLocaleFromPath("/en/dashboard"); // "en"
-getLocaleFromPath("/fr/dashboard"); // "fr"
-getLocaleFromPath("/dashboard"); // "en" (default locale)
-getLocaleFromPath("https://example.com/es/about"); // "es"
-```
-
-- **inputUrl**: Повний рядок URL або шлях (pathname) для обробки
-- **returns**: Виявлена локаль або локаль за замовчуванням, якщо локаль не знайдена
 
 ### `getLocalizedUrl(url, currentLocale, locales?, defaultLocale?, prefixDefault?)`
 
@@ -211,21 +119,6 @@ getLocalizedUrl("https://example.com/about", "fr", ["en", "fr"], "en", true); //
 - **locales**: Необов'язковий масив підтримуваних локалей (за замовчуванням, сконфігуровані локалі)
 - **defaultLocale**: Необов'язкова локаль за замовчуванням (за замовчуванням, сконфігурована локаль за замовчуванням)
 - **prefixDefault**: Чи додавати префікс для локалі за замовчуванням (за замовчуванням, сконфігуроване значення)
-
-### `getHTMLTextDir(locale?)`
-
-Повертає напрямок тексту для локалі:
-
-```ts
-import { getHTMLTextDir } from "intlayer";
-
-getHTMLTextDir("en-US"); // повертає "ltr"
-getHTMLTextDir("ar"); // повертає "rtl"
-getHTMLTextDir("he"); // повертає "rtl"
-```
-
-- **locale**: Локаль, для якої потрібно отримати напрямок тексту (за замовчуванням, поточна локаль)
-- **повертає**: `"ltr"`, `"rtl"`, або `"auto"`
 
 ### `getContent(node, nodeProps, locale?)`
 
@@ -281,25 +174,6 @@ number("1000000", { locale: "fr" }); // "1 000 000"
 number(1234.5, { minimumFractionDigits: 2 }); // "1,234.50"
 ```
 
-### `percentage(value, options?)`
-
-Форматує число у рядок відсотків.
-
-Поведінка: значення більше за 1 інтерпретується як повні відсотки та нормалізується (наприклад, `25` → `25%`, `0.25` → `25%`).
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
-
-Приклади:
-
-```ts
-import { percentage } from "intlayer";
-
-percentage(0.25); // "25%"
-percentage(25); // "25%"
-percentage(0.237, { minimumFractionDigits: 1 }); // "23.7%"
-```
-
 ### `currency(value, options?)`
 
 Форматує значення як локалізовану валюту. За замовчуванням `USD` з двома знаками після коми.
@@ -315,23 +189,6 @@ import { currency } from "intlayer";
 
 currency(1234.5, { currency: "EUR" }); // "€1,234.50"
 currency("5000", { locale: "fr", currency: "CAD", currencyDisplay: "code" }); // "5 000,00 CAD"
-```
-
-### `date(date, optionsOrPreset?)`
-
-Форматує значення дати/часу за допомогою `Intl.DateTimeFormat`.
-
-- **date**: `Date | string | number`
-- **optionsOrPreset**: `Intl.DateTimeFormatOptions & { locale?: LocalesValues }` або один із пресетів:
-  - Presets: `"short" | "long" | "dateOnly" | "timeOnly" | "full"`
-
-Приклади:
-
-```ts
-import { date } from "intlayer";
-
-date(new Date(), "short"); // наприклад: "08/02/25, 14:30"
-date("2025-08-02T14:30:00Z", { locale: "fr", month: "long", day: "numeric" }); // "2 août"
 ```
 
 ### `relativeTime(from, to = new Date(), options?)`
@@ -375,21 +232,9 @@ units(5, { unit: "kilometer", unitDisplay: "long", locale: "en-GB" }); // "5 к�
 units(1024, { unit: "byte", unitDisplay: "narrow" }); // "1,024B" (залежить від локалі)
 ```
 
-### `compact(value, options?)`
+## Vanilla JS / Node.js Formatters
 
-Форматує число з використанням компактної нотації (наприклад, `1.2K`, `1M`).
-
-- **value**: `number | string`
-- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }` (використовує `notation: 'compact'` під капотом)
-
-Приклади:
-
-```ts
-import { compact } from "intlayer";
-
-compact(1200); // результат: "1.2K"
-compact("1000000", { locale: "fr", compactDisplay: "long" }); // результат: "1 million"
-```
+Для контекстів без фреймворку імпортуйте форматери безпосередньо з `intlayer`. Зверніть увагу, що ви повинні передати locale вручну.
 
 ### `list(values, options?)`
 
@@ -408,6 +253,114 @@ import { list } from "intlayer";
 list(["apple", "banana", "orange"]); // результат: "apple, banana, and orange"
 list(["red", "green", "blue"], { locale: "fr", type: "disjunction" }); // "rouge, vert ou bleu"
 list([1, 2, 3], { type: "unit" }); // "1, 2, 3"
+```
+
+### Функції форматування
+
+#### `number(value, options?)`
+
+Форматує числове значення з врахуванням локалі для групування та десяткових знаків.
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+
+```ts
+number(123456.789); // "123,456.789" (in en-US)
+number("1000000", { locale: "fr" }); // "1 000 000"
+number(1234.5, { minimumFractionDigits: 2 }); // "1,234.50"
+```
+
+#### `percentage(value, options?)`
+
+Форматує число як рядок відсотка. Значення більше 1 нормалізуються (наприклад, `25` → `25%`, `0.25` → `25%`).
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+
+```ts
+percentage(0.25); // "25%"
+percentage(25); // "25%"
+percentage(0.237, { minimumFractionDigits: 1 }); // "23.7%"
+```
+
+#### `currency(value, options?)`
+
+Форматує значення як локалізовану валюту. За замовчуванням використовує `USD`.
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+  - Common: `currency`, `currencyDisplay` (`"symbol" | "code" | "name"`)
+
+```ts
+currency(1234.5, { currency: "EUR" }); // "€1,234.50"
+currency("5000", { locale: "fr", currency: "CAD", currencyDisplay: "code" }); // "5 000,00 CAD"
+```
+
+#### `date(date, optionsOrPreset?)`
+
+Форматує значення дати/часу.
+
+- **date**: `Date | string | number`
+- **optionsOrPreset**: `Intl.DateTimeFormatOptions & { locale?: LocalesValues }` або preset: `"short" | "long" | "dateOnly" | "timeOnly" | "full"`
+
+```ts
+date(new Date(), "short"); // наприклад, "08/02/25, 14:30"
+date("2025-08-02T14:30:00Z", { locale: "fr", month: "long", day: "numeric" }); // "2 août"
+```
+
+#### `relativeTime(from, to?, options?)`
+
+Форматує відносний час між двома моментами.
+
+- **from**: `Date | string | number`
+- **to**: `Date | string | number` (за замовчуванням `new Date()`)
+- **options**: `{ locale?, unit?, numeric?, style? }`
+
+```ts
+const now = new Date();
+const in3Days = new Date(now.getTime() + 3 * 864e5);
+relativeTime(now, in3Days, { unit: "day" }); // "через 3 дні"
+
+const twoHoursAgo = new Date(now.getTime() - 2 * 3600e3);
+relativeTime(now, twoHoursAgo, { unit: "hour", numeric: "auto" }); // "2 години тому"
+```
+
+#### `units(value, options?)`
+
+Форматує числове значення з одиницею виміру.
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+  - Common: `unit` (e.g., `"kilometer"`, `"byte"`), `unitDisplay` (`"short" | "narrow" | "long"`)
+
+```ts
+units(5, { unit: "kilometer", unitDisplay: "long", locale: "en-GB" }); // "5 kilometers"
+units(1024, { unit: "byte", unitDisplay: "narrow" }); // "1,024B"
+```
+
+#### `compact(value, options?)`
+
+Форматує число за допомогою компактного запису.
+
+- **value**: `number | string`
+- **options**: `Intl.NumberFormatOptions & { locale?: LocalesValues }`
+
+```ts
+compact(1200); // "1.2K"
+compact("1000000", { locale: "fr", compactDisplay: "long" }); // "1 million"
+```
+
+#### `list(values, options?)`
+
+Форматує масив у локалізований рядок списку.
+
+- **values**: `(string | number)[]`
+- **options**: `Intl.ListFormatOptions & { locale?: LocalesValues }`
+  - Поширені: `type` (`"conjunction" | "disjunction" | "unit"`), `style` (`"long" | "short" | "narrow"`)
+
+```ts
+list(["apple", "banana", "orange"]); // "apple, banana, and orange"
+list(["red", "green", "blue"], { locale: "fr", type: "disjunction" }); // "rouge, vert ou bleu"
 ```
 
 ## Cached Intl
@@ -440,11 +393,19 @@ pluralRules.select(2); // "other"
 
 ### Додаткові функції Intl
 
-## Примітки
+#### `Intl.DisplayNames`
 
-- Усі утиліти приймають вхідні значення як `string`; всередині вони приводяться до чисел або дат.
-- Якщо локаль не вказана, за замовчуванням використовується налаштована вами `internationalization.defaultLocale`.
-- Ці утиліти, тонкі обгортки; для просунутого форматування передавайте стандартні опції `Intl`.
+Для локалізованих назв мов, регіонів, валют та письмових систем:
+
+```ts
+import { Intl } from "intlayer";
+
+const languageNames = new Intl.DisplayNames("en", { type: "language" });
+languageNames.of("fr"); // "French"
+
+const regionNames = new Intl.DisplayNames("fr", { type: "region" });
+regionNames.of("US"); // "États-Unis"
+```
 
 #### `Intl.Collator`
 
@@ -491,33 +452,15 @@ getLocaleName("en", "fr"); // "anglais"
 getLocaleName("de", "es"); // "alemán"
 ```
 
-## Точки входу та повторні експорти (`@index.ts`)
+### `getLocaleLang(locale?)`
 
-Форматери містяться в core-пакеті і реекспортуються з пакетів вищого рівня, щоб зробити імпорти зручними в різних середовищах виконання:
-
-Приклади:
+Витягує код мови з рядка локалі:
 
 ```ts
-// Код додатку (рекомендовано)
-import {
-  number,
-  currency,
-  date,
-  relativeTime,
-  units,
-  compact,
-  list,
-  Intl,
-  getLocaleName,
-  getLocaleLang,
-  getLocaleFromPath,
-  getPathWithoutLocale,
-  getLocalizedUrl,
-  getHTMLTextDir,
-  getContent,
-  getTranslation,
-  getIntlayer,
-} from "intlayer";
+import { getLocaleLang } from "intlayer";
+
+getLocaleLang("en-US"); // "en"
+getLocaleLang("fr-CA"); // "fr"
 ```
 
 ### `getLocaleFromPath(inputUrl)`

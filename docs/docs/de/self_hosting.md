@@ -80,6 +80,18 @@ Nachdem der Stack gestartet ist, öffnen Sie **http://localhost:3000** und erste
 
 ---
 
+## Erstmalige Einrichtung
+
+Bei einer frischen Instanz (leere Datenbank) leitet Sie das Öffnen des Dashboards zur Seite **`/init`** weiter:
+
+1. Erstellen Sie das erste Konto. Da die users-Collection leer ist, wird dieses Konto automatisch zum **super admin** befördert.
+2. Eine Verifizierungs-E-Mail wird gesendet (über Resend). E-Mail-Verifizierung ist **erforderlich** — deshalb muss `RESEND_API_KEY` vor dem Start gesetzt werden.
+3. Klicken Sie auf den Link in der E-Mail und melden Sie sich an.
+
+Sobald ein Admin existiert, leitet `/init` zur Standard-Anmeldeseite weiter.
+
+---
+
 ## Dienste
 
 | Service     | Image                                | Host port(s)                                   | Zweck                                                     |
@@ -99,7 +111,16 @@ Interne Ports (mongo, redis) werden standardmäßig nicht zum Host exponiert.
 
 ## Umgebungsvariablen
 
-Der Installer generiert eine gebrauchsfertige `.env`. Die folgende Tabelle beschreibt jede Variable.
+### Erforderlich
+
+| Variable               | Beispiel                     | Beschreibung                                                                                                                                                         |
+| ---------------------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `DB_ID`                | `intlayer`                   | MongoDB Atlas Benutzer                                                                                                                                               |
+| `DB_MDP`               | _(dein Passwort)_            | MongoDB Atlas Passwort                                                                                                                                               |
+| `DB_CLUSTER`           | `cluster0.xxxxx.mongodb.net` | MongoDB Atlas Cluster Host (verwendet in der `mongodb+srv://` URI)                                                                                                   |
+| `BETTER_AUTH_SECRET`   | _(generiert)_                | 32-Byte Secret für Session-Signierung                                                                                                                                |
+| `S3_SECRET_ACCESS_KEY` | _(generiert)_                | Secret für das gebündelte MinIO                                                                                                                                      |
+| `RESEND_API_KEY`       | _(dein Schlüssel)_           | Transaktionale E-Mail via Resend. Erforderlich für das erste Setup, es sei denn, du konfigurierst einen globalen SMTP Mailer (siehe [Global mailer](#global-mailer)) |
 
 ### Erforderlich (automatisch generiert oder abgefragt)
 
@@ -138,6 +159,26 @@ Der Installer generiert eine gebrauchsfertige `.env`. Die folgende Tabelle besch
 | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Microsoft OAuth-Login                                                |
 | `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`           | LinkedIn OAuth-Login                                                 |
 | `ATLASSIAN_CLIENT_ID`, `ATLASSIAN_CLIENT_SECRET`         | Atlassian OAuth-Login                                                |
+
+---
+
+### Global mailer
+
+By default, all transactional emails are sent through Resend using `RESEND_API_KEY`. Self-hosted deployments can instead route **every** email — including non-organization emails such as password resets and magic links — through a global mailer configured with environment variables.
+
+Set `MAIL_PROVIDER` to activate it. When unset, the default Resend mailer is used.
+
+| Variable             | Example                        | Description                                                       |
+| -------------------- | ------------------------------ | ----------------------------------------------------------------- |
+| `MAIL_PROVIDER`      | `smtp`                         | Global transport: `smtp` or `resend`. Leave unset to use defaults |
+| `MAIL_FROM`          | `Intlayer <no-reply@acme.com>` | Sender header. Accepts a bare address or `Name <email>` format    |
+| `MAIL_SMTP_HOST`     | `smtp.acme.com`                | SMTP host (required when `MAIL_PROVIDER=smtp`)                    |
+| `MAIL_SMTP_PORT`     | `587`                          | SMTP port (defaults to `587`)                                     |
+| `MAIL_SMTP_SECURE`   | `false`                        | Implicit TLS. Set `true` for port `465`                           |
+| `MAIL_SMTP_USER`     | _(your user)_                  | SMTP username (optional; omit for unauthenticated relays)         |
+| `MAIL_SMTP_PASSWORD` | _(your password)_              | SMTP password                                                     |
+
+> Precedence: an organization's own mailer (configured from the **Organization** dashboard) takes priority over the global mailer, which in turn takes priority over the default Resend key.
 
 ---
 
@@ -259,47 +300,11 @@ docker run --rm \
 
 ---
 
-## Verwendung eines Reverse-Proxys (Nginx / Caddy)
+## Einschränkungen
 
-Für Produktionsbereitstellungen platzieren Sie einen Reverse-Proxy vor den App- und Backend-Containern, anstatt sie direkt zu exponieren.
-
-### Nginx-Beispiel
-
-```nginx
-server {
-    listen 80;
-    server_name cms.example.com;
-
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-
-server {
-    listen 80;
-    server_name api.example.com;
-
-    location / {
-        proxy_pass http://localhost:3100;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-```
-
-Aktualisieren Sie die folgenden `.env`-Variablen, um sie an Ihre öffentlichen Domains anzupassen:
-
-```sh
-BACKEND_URL=https://api.example.com
-APP_URL=https://cms.example.com
-DOMAIN=example.com
-VITE_BACKEND_URL=https://api.example.com
-VITE_DOMAIN=example.com
-```
-
-> `VITE_*`-Variablen werden zur Build-Zeit in das Dashboard-Image integriert. Wenn Sie diese nach dem Bau des Images ändern, müssen Sie das `app`-Image neu erstellen (`docker compose build app`) oder die Laufzeitkonfigurationsinjektion verwenden.
+- **MongoDB muss extern sein (Atlas).** Das Backend verbindet sich nur über `mongodb+srv://` (zusammengesetzt aus `DB_ID` / `DB_MDP` / `DB_CLUSTER`), daher kann ein einfaches `mongodb://host:27017` — einschließlich des eigenen `mongod` des Containers — nicht verwendet werden. Stellen Sie einen MongoDB Atlas Cluster bereit.
+- **Keine benutzerdefinierte Domain.** Alle browsergestützten `VITE_*` URLs werden zur Build-Zeit in die App inline eingefügt, und das veröffentlichte Image wird mit `localhost` Werten ausgeliefert. Das Dashboard muss unter `http://localhost:3000` aufgerufen werden; das Serving auf einer öffentlichen Domain würde ein Neubau des Images mit den eingebetteten Ziel-URLs erfordern und wird out-of-the-box nicht unterstützt.
+- **E-Mail erfordert einen funktionierenden Mailer.** Das Setup beim ersten Durchlauf erzwingt eine E-Mail-Verifizierung, daher muss entweder `RESEND_API_KEY` oder ein [globaler SMTP Mailer](#global-mailer) (`MAIL_PROVIDER=smtp` + `MAIL_SMTP_*`) konfiguriert sein. Nach der ersten Anmeldung eines Administrators kann jede Organisation auch ihren eigenen SMTP oder Resend Mailer vom Dashboard aus konfigurieren.
 
 ---
 
@@ -313,15 +318,6 @@ MongoDB und Redis müssen fehlerfrei sein, bevor das Backend startet. Die Compos
 docker compose ps
 docker compose logs mongo
 docker compose logs redis
-```
-
-### Dashboard kann die API nicht erreichen
-
-Stellen Sie sicher, dass `VITE_BACKEND_URL` der URL entspricht, unter der das Backend vom **Browser** (nicht vom Docker-Netzwerk) aus erreichbar ist. Wenn Sie den Backend-Port geändert oder einen Reverse-Proxy hinzugefügt haben, erstellen Sie das Dashboard-Image neu:
-
-```sh
-docker compose build app
-docker compose up -d app
 ```
 
 ### E-Mail wird nicht gesendet

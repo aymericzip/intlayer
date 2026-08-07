@@ -70,9 +70,184 @@ Intlayer 不仅仅是一个 i18n 解决方案，还提供了一个**自托管的
 
 ---
 
-### 第5步：在代码中使用 Intlayer
+## 在 Nuxt 应用中设置 Intlayer 的分步指南
 
-在整个 Nuxt 应用中使用 `useIntlayer` 组合式函数访问您的内容字典：
+<Tabs defaultTab="video">
+  <Tab label="视频" value="video">
+
+<iframe title="How to translate an Nuxt and Vue app using Intlayer? Discover Intlayer" class="m-auto aspect-16/9 w-full overflow-hidden rounded-lg border-0" allow="autoplay; gyroscope;" loading="lazy" width="1080" height="auto" src="https://www.youtube.com/embed/nhUcUAVQ6eQ?autoplay=0&amp;origin=https://intlayer.org&amp;controls=0&amp;rel=1"/>
+
+  </Tab>
+  <Tab label="代码" value="code">
+
+<iframe
+  src="https://ide.intlayer.org/aymericzip/intlayer-nuxt-4-template?file=intlayer.config.ts"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo CodeSandbox - How to Internationalize your application using Intlayer"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+  <Tab label="演示" value="demo">
+
+<iframe
+  src="https://intlayer-nuxt-4-template.vercel.app"
+  className="m-auto overflow-hidden rounded-lg border-0 max-md:size-full max-md:h-[700px] md:aspect-16/9 md:w-full"
+  title="Demo - intlayer-nuxt-4-template"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  loading="lazy"
+/>
+
+  </Tab>
+</Tabs>
+
+查看 GitHub 上的[应用模板](https://github.com/aymericzip/intlayer-nuxt-4-template)。
+
+<Steps>
+
+<Step number={1} title="安装依赖">
+
+使用 npm 安装必要的包：
+
+```bash packageManager="npm"
+npx intlayer init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer@canary init --interactive
+```
+
+> `--interactive` 标志是可选的。如果您是 AI 代理，请使用 `intlayer-cli init`。
+
+> 此命令将检测您的环境并安装所需的包。例如：
+
+```bash packageManager="npm"
+npm install intlayer vue-intlayer
+npm install --save-dev nuxt-intlayer
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer vue-intlayer
+pnpm add --save-dev nuxt-intlayer
+```
+
+```bash packageManager="yarn"
+yarn add intlayer vue-intlayer
+yarn add --save-dev nuxt-intlayer
+```
+
+```bash packageManager="bun"
+bun add intlayer vue-intlayer
+bun add --dev nuxt-intlayer
+```
+
+- **intlayer**
+
+  核心包，为配置管理、翻译、[内容声明](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)、转译和 [CLI 命令](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md)提供国际化工具。
+
+- **vue-intlayer**
+  将 Intlayer 与 Vue 应用集成的包。为 Vue 组件提供 composables。
+
+- **nuxt-intlayer**
+  将 Intlayer 与 Nuxt 应用集成的 Nuxt 模块。它提供自动设置、locale 检测中间件、cookie 管理和 URL 重定向。
+
+</Step>
+
+<Step number={2} title="配置您的项目">
+
+创建一个配置文件来配置您的应用程序的语言：
+
+```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
+import { Locales, type IntlayerConfig } from "intlayer";
+
+const config: IntlayerConfig = {
+  internationalization: {
+    locales: [
+      Locales.ENGLISH,
+      Locales.FRENCH,
+      Locales.SPANISH,
+      // 您的其他 locales
+    ],
+    defaultLocale: Locales.ENGLISH,
+  },
+};
+
+export default config;
+```
+
+> 通过此配置文件，您可以设置本地化 URL、中间件重定向、cookie 名称、内容声明的位置和扩展名、禁用控制台中的 Intlayer 日志等。有关可用参数的完整列表，请参阅[配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md)。
+
+</Step>
+
+<Step number={3} title="在您的 Nuxt 配置中集成 Intlayer">
+
+将 intlayer 模块添加到您的 Nuxt 配置中：
+
+```typescript fileName="nuxt.config.ts"
+import { defineNuxtConfig } from "nuxt/config";
+
+export default defineNuxtConfig({
+  // ... 您现有的 Nuxt 配置
+  modules: ["nuxt-intlayer"],
+});
+```
+
+> `nuxt-intlayer` 模块自动处理 Intlayer 与 Nuxt 的集成。它设置内容声明构建、在开发模式下监视文件、提供 locale 检测中间件，并管理本地化路由。
+
+</Step>
+
+<Step number={4} title="声明您的内容">
+
+创建并管理您的内容声明以存储翻译：
+
+```tsx fileName="content/home-page.content.ts" contentDeclarationFormat=["typescript", "esm", "cjs"]
+import { type Dictionary, t } from "intlayer";
+
+const content = {
+  key: "home-page",
+  content: {
+    title: t({
+      zh: "你好，世界",
+      en: "Hello world",
+      fr: "Bonjour le monde",
+      es: "Hola mundo",
+    }),
+    metaTitle: t({
+      zh: "欢迎 | 我的应用",
+      en: "Welcome | My Application",
+      fr: "Bienvenue | Mon Application",
+      es: "Bienvenido | Mi Aplicación",
+    }),
+    metaDescription: t({
+      zh: "发现由 Intlayer 支持的多语言 Nuxt 应用主页。",
+      en: "Discover your multilingual Nuxt app homepage powered by Intlayer.",
+      fr: "Découvrez la page d'accueil multilingue de votre application Nuxt propulsée par Intlayer.",
+      es: "Descubre la página de inicio multilingüe de tu aplicación Nuxt impulsada por Intlayer.",
+    }),
+  },
+} satisfies Dictionary;
+
+export default content;
+```
+
+> 您的内容声明可以定义在应用程序中的任何位置，只要它们包含在 `contentDir` 目录中（默认情况下为 `./src`）。并匹配内容声明文件扩展名（默认情况下为 `.content.{json,ts,tsx,js,jsx,mjs,cjs,md,mdx,yaml,yml}`）。
+
+> 有关更多详细信息，请参阅[内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。
+
+</Step>
+
+<Step number={5} title="在您的代码中使用 Intlayer">
+
+使用 `useIntlayer` composable 在整个 Nuxt 应用中访问您的内容字典：
 
 ```vue fileName="components/HelloWorld.vue"
 <script setup lang="ts">
@@ -80,7 +255,7 @@ import { ref } from "vue";
 import { useIntlayer } from "vue-intlayer";
 
 defineProps({
-  msg: String, // 消息属性
+  msg: String,
 });
 
 const {
@@ -91,8 +266,8 @@ const {
   learnMore,
   nuxtDocs,
   readTheDocs,
-} = useIntlayer("helloworld"); // 使用名为 "helloworld" 的内容字典
-const countRef = ref(0); // 计数引用
+} = useIntlayer("helloworld");
+const countRef = ref(0);
 </script>
 
 <template>
@@ -110,11 +285,11 @@ const countRef = ref(0); // 计数引用
     <checkOut />
     <a href="https://nuxt.com/docs/getting-started/introduction" target="_blank"
       >Nuxt</a
-    >，<nuxtIntlayer />
+    >, <nuxtIntlayer />
   </p>
   <p>
     <learnMore />
-    <a href="https://nuxt.com" target="_blank"><nuxtDocs /></a>。
+    <a href="https://nuxt.com" target="_blank"><nuxtDocs /></a>.
   </p>
   <p class="read-the-docs"><readTheDocs /></p>
   <p class="read-the-docs">{{ readTheDocs }}</p>

@@ -24,26 +24,9 @@ history:
 author: aymericzip
 ---
 
-## Przykład użycia w React
+# Dokumentacja hooka useDictionary
 
-Poniżej znajduje się przykład, jak użyć hooka `useDictionary` w komponencie React:
-
-```tsx fileName="./ComponentExample.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { useDictionary } from "react-intlayer";
-import componentContent from "./component.content";
-
-const ComponentExample: FC = () => {
-  const { title, content } = useDictionary(componentContent);
-
-  return (
-    <div>
-      <h1>{title}</h1>
-      <p>{content}</p>
-    </div>
-  );
-};
-```
+Hook `useDictionary` umożliwia przetwarzanie obiektu wyglądającego jak słownik (zawierającego klucze i zawartość) oraz obsługę tłumaczeń, enumeracji itp. w jego obrębie. W przeciwieństwie do `useIntlayer`, który jest przeznaczony do pracy z wygenerowanymi deklaracjami słownika, `useDictionary` jest bardziej elastyczny i może być używany z dowolnym obiektem, który następuje strukturę słownika.
 
 ## Integracja z serwerem
 

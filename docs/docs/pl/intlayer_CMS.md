@@ -247,6 +247,158 @@ To polecenie przesyła Twoje początkowe słowniki treści, udostępniając je d
 
 Następnie będziesz mógł zobaczyć i zarządzać swoim słownikiem w [Intlayer CMS](https://app.intlayer.org/content).
 
+## Programmatyczny dostęp za pomocą SDK `@intlayer/api`
+
+Oprócz CLI i edytora wizualnego, Intlayer dostarcza typizowany SDK w pakiecie [`@intlayer/api`](https://www.npmjs.com/package/@intlayer/api). Umożliwia traktowanie CMS jako **headless'owej bazy zawartości**: możesz pobierać projekty, pobierać słowniki oraz wypychać lub aktualizować je bezpośrednio z własnej aplikacji, skryptów lub pipeline'u CI.
+
+SDK obsługuje uwierzytelnianie za Ciebie. Dopóki Twoje `clientId` i `clientSecret` są dostępne (w konfiguracji Intlayer lub zmiennych środowiskowych), automatycznie uzyskuje i odświeża token dostępu OAuth2 oraz podpisuje każde żądanie.
+
+### Instalacja
+
+```bash packageManager="npm"
+npm install @intlayer/api
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/api
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/api
+```
+
+```bash packageManager="bun"
+bun add @intlayer/api
+```
+
+### Jak to działa: authenticator + endpoints
+
+SDK jest podzielony na **dwa odrębne importy** celowo, aby utrzymać rozmiar bundla na małym poziomie:
+
+1. `createIntlayerCMS` — tworzy lekki **authenticator**. Zawiera tylko poświadczenia i zarządzany token dostępu; nic nie wie o żadnej konkretnej domenie.
+2. `dictionaryEndpoint`, `projectEndpoint`, … — bindery **endpoint'ów** dla poszczególnych domen, każdy importowany z własnej ścieżki (`@intlayer/api/dictionary`, `@intlayer/api/project`, …). Przekazujesz authenticator do potrzebnego Ci endpoint'u.
+
+Ponieważ każdy endpoint jest importowany oddzielnie, Twój bundle zawiera tylko domeny, których faktycznie używasz — importowanie `dictionaryEndpoint` nigdy nie ściąga projektu, AI lub żadnego innego klienta domeny.
+
+```typescript fileName="cms.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+
+// Konfiguracja jest opcjonalna: gdy jest pominięta, poświadczenia są odczytywane z
+// `@intlayer/config/built`, które rozwiązuje zmienne środowiskowe INTLAYER_CLIENT_ID i
+// INTLAYER_CLIENT_SECRET.
+export const cmsAuthenticator = createIntlayerCMS();
+```
+
+> [!WARNING]
+> Poświadczenia CMS (`clientId` / `clientSecret`) przyznają **dostęp do zapisu** do Twojej zawartości. Zawsze twórz authenticator wyłącznie po **stronie serwera** (server actions, route handlers, skrypty, CI). Nigdy nie importuj go do kodu po stronie klienta ani nie ujawniaj swoich poświadczeń przeglądarce.
+
+Jeśli wolisz nie polegać na konfiguracji w czasie budowania, przekaż poświadczenia jawnie:
+
+```typescript fileName="cms.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+
+export const cmsAuthenticator = createIntlayerCMS({
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+    // Opcjonalnie, dla backendów self-hosted:
+    // backendURL: process.env.INTLAYER_BACKEND_URL,
+  },
+});
+```
+
+> Pobierz swoje poświadczenia, tworząc nowy klucz dostępu w [Panelu Intlayer - Projekty](https://app.intlayer.org/projects).
+
+### Pobierz projekty
+
+```typescript fileName="projects.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { projectEndpoint } from "@intlayer/api/project";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// Wylistuj projekty dostępne z twoimi danymi uwierzytelniającymi
+const { data: projects } =
+  await projectEndpoint(cmsAuthenticator).getProjects();
+
+// Przeczytaj zagregowane spostrzeżenia lokalizacyjne wybranego projektu
+const { data: insights } =
+  await projectEndpoint(cmsAuthenticator).getProjectInsights();
+```
+
+### Pobieranie słowników
+
+```typescript fileName="read-dictionaries.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// Wyświetl listę wszystkich zdalnych słowników projektu
+const { data: dictionaries } =
+  await dictionaryEndpoint(cmsAuthenticator).getDictionaries();
+
+// Lub pobierz pojedynczy słownik według klucza
+const { data: dictionary } = await dictionaryEndpoint(
+  cmsAuthenticator
+).getDictionary("my-first-dictionary-key");
+```
+
+### Wysyłanie i aktualizowanie słowników
+
+Użyj CMS jako bazy danych do zapisywania zawartości:
+
+```typescript fileName="write-dictionaries.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// Utwórz nowy słownik
+await dictionaryEndpoint(cmsAuthenticator).addDictionary({
+  key: "my-first-dictionary-key",
+  content: { title: "Hello world" },
+});
+
+// Upsert partii słowników (utwórz lub zaktualizuj je w jednym wywołaniu)
+await dictionaryEndpoint(cmsAuthenticator).pushDictionaries([
+  { key: "home", content: { title: "Home" } },
+  { key: "about", content: { title: "About" } },
+]);
+
+// Zaktualizuj istniejący słownik
+await dictionaryEndpoint(cmsAuthenticator).updateDictionary({
+  id: "<dictionary-id>",
+  key: "home",
+  content: { title: "Updated title" },
+});
+```
+
+> Wskazówka: ponownie użyj powiązanego punktu końcowego, aby uniknąć powtórzeń:
+>
+> ```typescript codeFormat="typescript"
+> const dictionary = dictionaryEndpoint(cmsAuthenticator);
+> await dictionary.pushDictionaries([myDictionary]);
+> const { data } = await dictionary.getDictionaries();
+> ```
+
+### Wyodrębnianie pojedynczej metody
+
+Każda metoda endpointu jest już uwierzytelniona i niezależna (obsługuje własne zarządzanie tokenami), więc możesz wyodrębnić jedną i przekazywać ją — na przykład aby wstrzyknąć ją jako zależność:
+
+```typescript fileName="push.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const dictionary = dictionaryEndpoint(createIntlayerCMS());
+
+// Już uwierzytelnione — automatycznie odświeża token przy każdym wywołaniu
+export const pushDictionaries = dictionary.pushDictionaries;
+
+// Użycie
+await pushDictionaries([{ key: "home", content: { title: "Home" } }]);
+```
+
 ## Synchronizacja na żywo
 
 Synchronizacja na żywo pozwala Twojej aplikacji odzwierciedlać zmiany treści CMS w czasie rzeczywistym. Nie jest wymagane ponowne budowanie ani wdrażanie. Po włączeniu aktualizacje są przesyłane do serwera synchronizacji na żywo, który odświeża słowniki odczytywane przez Twoją aplikację.

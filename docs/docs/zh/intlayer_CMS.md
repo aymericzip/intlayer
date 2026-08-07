@@ -244,11 +244,175 @@ bun x intlayer dictionary push -d my-first-dictionary-key --env production
 
 然后，您将能够在 [Intlayer CMS](https://app.intlayer.org/content) 中查看和管理您的字典。
 
+## 使用 `@intlayer/api` SDK 进行编程访问
+
+除了 CLI 和可视化编辑器，Intlayer 在 [`@intlayer/api`](https://www.npmjs.com/package/@intlayer/api) 包中提供了一个类型化的 SDK。它让你可以将 CMS 视为一个**无头内容数据库**：你可以直接从自己的应用程序、脚本或 CI 流水线中获取项目、获取字典，以及推送或更新它们。
+
+SDK 为你处理身份验证。只要你的 `clientId` 和 `clientSecret` 可用（在你的 Intlayer 配置或环境中），它就会自动获取和刷新 OAuth2 访问令牌，并对每个请求进行签名。
+
+### 安装
+
+```bash packageManager="npm"
+npm install @intlayer/api
+```
+
+```bash packageManager="yarn"
+yarn add @intlayer/api
+```
+
+```bash packageManager="pnpm"
+pnpm add @intlayer/api
+```
+
+```bash packageManager="bun"
+bun add @intlayer/api
+```
+
+### 工作原理：身份验证器 + 端点
+
+SDK 被拆分为**两个独立的导入**，目的是保持您的包体积小：
+
+1. `createIntlayerCMS` — 创建一个轻量级**身份验证器**。它只携带凭证和托管的访问令牌；对任何特定的域一无所知。
+2. `dictionaryEndpoint`、`projectEndpoint` 等 — 按域名的**端点绑定器**，每个都从自己的子路径导入（`@intlayer/api/dictionary`、`@intlayer/api/project` 等）。您将身份验证器传递给您需要的端点。
+
+因为每个端点都是单独导入的，您的包只包含您实际使用的域 — 导入 `dictionaryEndpoint` 永远不会拉入项目、AI 或任何其他域客户端。
+
+```typescript fileName="cms.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+
+// 配置是可选的：当省略时，凭证从
+// `@intlayer/config/built` 读取，该配置解析 INTLAYER_CLIENT_ID 和
+// INTLAYER_CLIENT_SECRET 环境变量。
+export const cmsAuthenticator = createIntlayerCMS();
+```
+
+> [!WARNING]
+> CMS 凭证（`clientId` / `clientSecret`）授予您的内容**写入访问权限**。只在**服务器端**创建身份验证器（服务器操作、路由处理程序、脚本、CI）。永远不要将其导入客户端代码或向浏览器暴露您的凭证。
+
+如果您更倾向于不依赖构建时配置，请显式传递凭证：
+
+```typescript fileName="cms.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+
+export const cmsAuthenticator = createIntlayerCMS({
+  editor: {
+    clientId: process.env.INTLAYER_CLIENT_ID,
+    clientSecret: process.env.INTLAYER_CLIENT_SECRET,
+    // 可选的，用于自托管后端：
+    // backendURL: process.env.INTLAYER_BACKEND_URL,
+  },
+});
+```
+
+> 通过在 [Intlayer 仪表板 - 项目](https://app.intlayer.org/projects)中创建新的访问密钥来获取您的凭证。
+
+### 获取项目
+
+```typescript fileName="projects.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { projectEndpoint } from "@intlayer/api/project";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// 列出您的凭证可访问的项目
+const { data: projects } =
+  await projectEndpoint(cmsAuthenticator).getProjects();
+
+// 读取所选项目的聚合本地化见解
+const { data: insights } =
+  await projectEndpoint(cmsAuthenticator).getProjectInsights();
+```
+
+### 获取字典
+
+```typescript fileName="read-dictionaries.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// 列出项目的所有远程字典
+const { data: dictionaries } =
+  await dictionaryEndpoint(cmsAuthenticator).getDictionaries();
+
+// 或按 key 获取单个字典
+const { data: dictionary } = await dictionaryEndpoint(
+  cmsAuthenticator
+).getDictionary("my-first-dictionary-key");
+```
+
+### 推送和更新字典
+
+使用 CMS 作为数据库来写回内容：
+
+```typescript fileName="write-dictionaries.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const cmsAuthenticator = createIntlayerCMS();
+
+// 创建一个新的字典
+await dictionaryEndpoint(cmsAuthenticator).addDictionary({
+  key: "my-first-dictionary-key",
+  content: { title: "Hello world" },
+});
+
+// 批量插入字典（在一次调用中创建或更新它们）
+await dictionaryEndpoint(cmsAuthenticator).pushDictionaries([
+  { key: "home", content: { title: "Home" } },
+  { key: "about", content: { title: "About" } },
+]);
+
+// 更新现有字典
+await dictionaryEndpoint(cmsAuthenticator).updateDictionary({
+  id: "<dictionary-id>",
+  key: "home",
+  content: { title: "Updated title" },
+});
+```
+
+> 提示：重复使用绑定的端点以避免重复代码：
+>
+> ```typescript codeFormat="typescript"
+> const dictionary = dictionaryEndpoint(cmsAuthenticator);
+> await dictionary.pushDictionaries([myDictionary]);
+> const { data } = await dictionary.getDictionaries();
+> ```
+
+### 提取单个方法
+
+每个端点方法都已经过身份验证且独立（它包含自己的令牌处理），因此您可以提取一个并将其传递——例如将其注入作为依赖项：
+
+```typescript fileName="push.ts" codeFormat="typescript"
+import { createIntlayerCMS } from "@intlayer/api";
+import { dictionaryEndpoint } from "@intlayer/api/dictionary";
+
+const dictionary = dictionaryEndpoint(createIntlayerCMS());
+
+// 已认证 — 每次调用时自动刷新令牌
+export const pushDictionaries = dictionary.pushDictionaries;
+
+// 使用示例
+await pushDictionaries([{ key: "home", content: { title: "Home" } }]);
+```
+
 ## 实时同步
 
 实时同步让您的应用在运行时反映 CMS 内容的更改。无需重新构建或重新部署。启用后，更新会被流式传输到实时同步服务器，刷新您的应用读取的字典。
 
 完整的设置指南（启用方式、启动 Live Sync 服务器、本地开发工作流程和限制条件）请参阅 [Live Sync 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/live-sync.md)。
+
+## 自托管
+
+Intlayer 可以完全在您自己的基础设施上运行。一条命令可以使用 Docker Compose 启动完整的堆栈（仪表板、API、数据库、对象存储和电子邮件）：
+
+```sh
+curl -fsSL https://intlayer.org/install.sh | sh
+```
+
+有关完整的设置指南、环境变量参考、升级说明和备份/恢复过程，请参阅[自托管指南](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/self_hosting.md)。
+
+---
 
 ## 调试
 

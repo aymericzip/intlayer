@@ -33,6 +33,7 @@ import { getOutputFilePath } from '../utils/getOutputFilePath';
 import { type AIClient, setupAI } from '../utils/setupAI';
 import { reviewFileBlockAware } from './reviewDocBlockAware';
 import { buildFileReviewReport, logReviewFileBlocks } from './reviewDocLog';
+import { createReviewProgressLogger } from './reviewDocProgress';
 import {
   formatReviewSynthesis,
   type ReviewFileResult,
@@ -303,11 +304,22 @@ export const reviewDoc = async ({
     })
   );
 
+  // The per-file logs are muted in `synthesis` mode, so a progress line keeps
+  // the run readable while every document is compared.
+  const progressLogger = createReviewProgressLogger(allTasks.length);
+
+  if (mode === 'synthesis') progressLogger.start();
+
   await parallelize(
     allTasks,
-    (task) => task(),
+    async (task) => {
+      await task();
+      progressLogger.increment();
+    },
     nbSimultaneousFileProcessed ?? 3
   );
+
+  progressLogger.stop();
 
   const synthesis = formatReviewSynthesis(reviewResults, {
     hasAppliedChanges: mode === 'apply',

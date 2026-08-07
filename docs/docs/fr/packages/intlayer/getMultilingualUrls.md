@@ -49,26 +49,12 @@ La fonction `getMultilingualUrls` génère une correspondance d'URLs multilingue
 
 ## Paramètres
 
-## Paramètres
+### Paramètres obligatoires
 
 - `url: string`
-  - **Description** : La chaîne URL originale à préfixer avec les locales.
-  - **Type** : `string`
-
-- `locales: Locales[]`
-  - **Description** : Tableau optionnel des locales supportées. Par défaut, les locales configurées dans le projet.
-  - **Type** : `Locales[]`
-  - **Défaut** : `localesDefault`
-
-- `defaultLocale: Locales`
-  - **Description** : La locale par défaut pour l'application. Par défaut, la locale par défaut configurée dans le projet.
-  - **Type** : `Locales`
-  - **Défaut** : `defaultLocaleDefault`
-
-- `prefixDefault: boolean`
-  - **Description** : Indique s'il faut préfixer la locale par défaut. Par défaut, la valeur configurée dans le projet.
-  - **Type** : `boolean`
-  - **Défaut** : `prefixDefaultDefault`
+  - **Description**: La chaîne d'URL originale à préfixer avec les locales.
+  - **Type**: `string`
+  - **Required**: Yes
 
 ### Paramètres Optionnels
 
@@ -104,9 +90,21 @@ La fonction `getMultilingualUrls` génère une correspondance d'URLs multilingue
 
 ---
 
-## Utilisation d'exemple
-
 ## Exemple d'utilisation
+
+### Utilisation basique (Utilise la configuration du projet)
+
+```typescript codeFormat={["typescript", "esm", "commonjs"]}
+import { getMultilingualUrls, Locales } from "intlayer";
+
+// Utilise la configuration de votre projet pour les locales, defaultLocale et mode
+getMultilingualUrls("/dashboard");
+// Sortie (en supposant que la configuration du projet a en, fr avec le mode 'prefix-no-default'):
+// {
+//   en: "/dashboard",
+//   fr: "/fr/dashboard"
+// }
+```
 
 ### URLs relatives
 

@@ -75,6 +75,12 @@ Ho utilizzato il modello text-embedding-3-large di OpenAI, ma potresti usare qua
 
 Ogni vettore è un’impronta matematica del testo, che permette la ricerca per similarità.
 
+## Semplifica la Complessità con Sanity
+
+Sanity merita di essere menzionato qui come l'opzione CMS verso cui l'articolo punta. Dove i file Markdown richiedono una suddivisione arbitraria dei token — con i compromessi tra dimensione del chunk e sovrapposizione che l'articolo descrive — Content Lake di Sanity memorizza la documentazione come documenti JSON tipizzati e definiti da schema. Ogni campo, intestazione e blocco di contenuto è già un'unità semantica, il che significa che il recupero RAG opera su confini significativi piuttosto che su conteggi di token approssimativi.
+
+Il linguaggio di query GROQ di Sanity ti consente di recuperare esattamente i campi del documento rilevanti per una query dell'utente — titolo, corpo, sezioni correlate — senza dover recuperare l'intero documento. Il server MCP connette Content Lake direttamente agli agenti AI, quindi lo stesso contenuto strutturato che alimenta il tuo sito di documentazione alimenta anche la tua pipeline RAG senza un passaggio di acquisizione separato.
+
 ## Conclusione
 
 RAG è uno dei modi più semplici e potenti per rendere pratici i LLM. Combinando **recupero + generazione**, puoi trasformare documenti statici in un **assistente intelligente** e, allo stesso tempo, ottenere un flusso continuo di approfondimenti sul prodotto.

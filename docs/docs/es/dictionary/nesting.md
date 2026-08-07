@@ -64,6 +64,53 @@ export default firstDictionary;
 }
 ```
 
+### Referencing with Nest
+
+Ahora, crea otro módulo de contenido que use la función `nest` para referenciar el contenido anterior. Puedes referenciar el contenido completo o un valor anidado específico:
+
+```typescript fileName="secondDictionary.content.ts" contentDeclarationFormat={["typescript", "esm", "commonjs"]}
+import { nest, type Dictionary } from "intlayer";
+
+const myNestingContent = {
+  key: "key_of_my_second_dictionary",
+  content: {
+    // Referencia el diccionario completo:
+    fullNestedContent: nest("key_of_my_first_dictionary"),
+    // Referencia un valor anidado específico:
+    partialNestedContent: nest(
+      "key_of_my_first_dictionary",
+      "subContent.contentNumber"
+    ),
+  },
+} satisfies Dictionary;
+
+export default myNestingContent;
+```
+
+```json fileName="secondDictionary.content.json" contentDeclarationFormat="json"
+{
+  "$schema": "https://intlayer.org/schema.json",
+  "key": "key_of_my_second_dictionary",
+  "content": {
+    "fullNestedContent": {
+      "nodeType": "nested",
+      "nested": {
+        "dictionaryKey": "key_of_my_first_dictionary"
+      }
+    },
+    "partialNestedContent": {
+      "nodeType": "nested",
+      "nested": {
+        "dictionaryKey": "key_of_my_first_dictionary",
+        "path": "subContent.contentNumber"
+      }
+    }
+  }
+}
+```
+
+Como segundo parámetro, puedes especificar una ruta a un valor anidado dentro de ese contenido. Cuando no se proporciona ninguna ruta, se devuelve el contenido completo del diccionario referenciado.
+
 ## Configuración de la Anidación
 
 <Tabs group="framework">
@@ -257,36 +304,6 @@ document.getElementById("nested")!.textContent = content.partialNestedContent;
 
   </Tab>
 </Tabs>
-
-## Usando Anidación con React Intlayer
-
-Para usar contenido anidado en un componente de React, utiliza el hook `useIntlayer` del paquete `react-intlayer`. Este hook recupera el contenido correcto basado en la clave especificada. Aquí tienes un ejemplo de cómo usarlo:
-
-```tsx fileName="**/*.tsx" codeFormat={["typescript", "esm"]}
-import type { FC } from "react";
-import { useIntlayer } from "react-intlayer";
-
-const NestComponent: FC = () => {
-  const { fullNestedContent, partialNestedContent } = useIntlayer(
-    "key_of_my_second_dictionary"
-  );
-
-  return (
-    <div>
-      <p>
-        Contenido Anidado Completo: {JSON.stringify(fullNestedContent)}
-        {/* Salida: {"content": "content", "subContent": {"contentNumber": 0, "contentString": "string"}} */}
-      </p>
-      <p>
-        Valor Anidado Parcial: {partialNestedContent}
-        {/* Salida: 0 */}
-      </p>
-    </div>
-  );
-};
-
-export default NestComponent;
-```
 
 ## Recursos Adicionales
 

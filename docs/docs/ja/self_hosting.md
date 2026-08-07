@@ -80,6 +80,18 @@ curl -fsSL https://intlayer.org/install.sh | sh
 
 ---
 
+## 初回セットアップ
+
+新規インスタンス（空のデータベース）でダッシュボードを開くと、**`/init`** ページにリダイレクトされます：
+
+1. 最初のアカウントを作成します。ユーザーコレクションが空のため、このアカウントは自動的に **super admin** に昇格されます。
+2. 検証メールが送信されます（Resend経由）。メール検証は **必須** です — これが `RESEND_API_KEY` を開始前に設定する必要がある理由です。
+3. メール内のリンクをクリックしてサインインします。
+
+管理者が存在すると、`/init` は標準的なサインインページにリダイレクトされます。
+
+---
+
 ## サービス
 
 | サービス    | イメージ                             | ホストポート                     | 目的                                                         |
@@ -99,7 +111,16 @@ curl -fsSL https://intlayer.org/install.sh | sh
 
 ## 環境変数
 
-インストーラーはすぐに使用できる `.env` を生成します。以下の表は、すべての変数について説明しています。
+### 必須
+
+| Variable               | Example                      | Description                                                                                                                                          |
+| ---------------------- | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `DB_ID`                | `intlayer`                   | MongoDB Atlas ユーザー                                                                                                                               |
+| `DB_MDP`               | _(your password)_            | MongoDB Atlas パスワード                                                                                                                             |
+| `DB_CLUSTER`           | `cluster0.xxxxx.mongodb.net` | MongoDB Atlas クラスターホスト (`mongodb+srv://` URI で使用)                                                                                         |
+| `BETTER_AUTH_SECRET`   | _(generated)_                | セッション署名用の 32 バイトシークレット                                                                                                             |
+| `S3_SECRET_ACCESS_KEY` | _(generated)_                | バンドルされた MinIO のシークレット                                                                                                                  |
+| `RESEND_API_KEY`       | _(your key)_                 | Resend 経由のトランザクショナルメール。グローバル SMTP メーラーを設定しない限り、初回セットアップで必須 ([グローバルメーラー](#global-mailer)を参照) |
 
 ### 必須 (自動生成またはプロンプトによる入力)
 
@@ -138,6 +159,26 @@ curl -fsSL https://intlayer.org/install.sh | sh
 | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`         | Microsoft OAuthログイン                                                    |
 | `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`           | LinkedIn OAuthログイン                                                     |
 | `ATLASSIAN_CLIENT_ID`, `ATLASSIAN_CLIENT_SECRET`         | Atlassian OAuthログイン                                                    |
+
+---
+
+### グローバルメーラー
+
+デフォルトでは、すべてのトランザクションメールは `RESEND_API_KEY` を使用して Resend 経由で送信されます。セルフホストされたデプロイメントでは、パスワードリセットやマジックリンクなどの非組織メールを含む**すべての**メールを、環境変数で設定されたグローバルメーラー経由でルーティングできます。
+
+`MAIL_PROVIDER` を設定して有効にしてください。設定されていない場合は、デフォルトの Resend メーラーが使用されます。
+
+| Variable             | Example                        | Description                                                                                            |
+| -------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `MAIL_PROVIDER`      | `smtp`                         | グローバルトランスポート: `smtp` または `resend`。デフォルトを使用する場合は未設定のままにしてください |
+| `MAIL_FROM`          | `Intlayer <no-reply@acme.com>` | 送信者ヘッダー。ベアアドレスまたは `Name <email>` 形式を受け入れます                                   |
+| `MAIL_SMTP_HOST`     | `smtp.acme.com`                | SMTP ホスト (`MAIL_PROVIDER=smtp` の場合は必須)                                                        |
+| `MAIL_SMTP_PORT`     | `587`                          | SMTP ポート (デフォルトは `587`)                                                                       |
+| `MAIL_SMTP_SECURE`   | `false`                        | 暗黙的な TLS。ポート `465` の場合は `true` に設定してください                                          |
+| `MAIL_SMTP_USER`     | _(your user)_                  | SMTP ユーザー名 (オプション; 認証されていないリレーの場合は省略可)                                     |
+| `MAIL_SMTP_PASSWORD` | _(your password)_              | SMTP パスワード                                                                                        |
+
+> 優先順位: 組織独自のメーラー (**Organization** ダッシュボードから設定) が優先され、次にグローバルメーラーが優先され、最後にデフォルトの Resend キーが優先されます。
 
 ---
 
@@ -259,47 +300,11 @@ docker run --rm \
 
 ---
 
-## リバースプロキシの使用 (Nginx / Caddy)
+## 制限事項
 
-本番環境のデプロイでは、appコンテナとbackendコンテナを直接公開するのではなく、リバースプロキシをそれらの前に配置します。
-
-### Nginxの例
-
-```nginx
-server {
-    listen 80;
-    server_name cms.example.com;
-
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-
-server {
-    listen 80;
-    server_name api.example.com;
-
-    location / {
-        proxy_pass http://localhost:3100;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-```
-
-公開ドメインに合わせて、以下の `.env` 変数を更新してください。
-
-```sh
-BACKEND_URL=https://api.example.com
-APP_URL=https://cms.example.com
-DOMAIN=example.com
-VITE_BACKEND_URL=https://api.example.com
-VITE_DOMAIN=example.com
-```
-
-> `VITE_*` 変数はビルド時にダッシュボードイメージに組み込まれます。イメージがビルドされた後に変更した場合、`app` イメージをリビルドするか (`docker compose build app`)、ランタイム設定インジェクションを使用する必要があります。
+- **MongoDB は外部 (Atlas) である必要があります。** バックエンドは `mongodb+srv://` 経由でのみ接続します (`DB_ID` / `DB_MDP` / `DB_CLUSTER` から構築)。したがって、プレーンな `mongodb://host:27017` — コンテナにバンドルされた `mongod` を含む — は使用できません。MongoDB Atlas クラスタを提供してください。
+- **カスタムドメインはサポートされていません。** すべてのブラウザ向け `VITE_*` URL はビルド時にアプリにインラインされ、公開されたイメージには `localhost` の値が付属します。ダッシュボードには `http://localhost:3000` でアクセスする必要があります。パブリックドメインでサービスするには、イメージをターゲット URL を焼き込んで再構築する必要があり、そのままではサポートされていません。
+- **メールは機能するメーラーが必要です。** 初回実行セットアップではメール検証が強制されるため、`RESEND_API_KEY` または [グローバル SMTP メーラー](#global-mailer) (`MAIL_PROVIDER=smtp` + `MAIL_SMTP_*`) を設定する必要があります。最初の管理者がサインインした後、各組織はダッシュボードから独自の SMTP または Resend メーラーを設定することもできます。
 
 ---
 
@@ -313,15 +318,6 @@ VITE_DOMAIN=example.com
 docker compose ps
 docker compose logs mongo
 docker compose logs redis
-```
-
-### ダッシュボードがAPIに到達できない
-
-`VITE_BACKEND_URL` が、バックエンドが**ブラウザ**から到達可能なURL (Dockerネットワークではなく) と一致していることを確認してください。バックエンドポートを変更したり、リバースプロキシを追加した場合は、ダッシュボードイメージをリビルドしてください。
-
-```sh
-docker compose build app
-docker compose up -d app
 ```
 
 ### メールが送信されない

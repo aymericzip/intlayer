@@ -170,11 +170,11 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-### Cách hoạt động
+#### Cách thức hoạt động
 
-- Đọc: plugin phát hiện các tệp JSON từ builder `source` của bạn và tải chúng như các từ điển Intlayer.
-- Ghi: sau khi build và điền, plugin ghi các tệp JSON đã được bản địa hóa trở lại cùng đường dẫn (với một dòng mới cuối cùng để tránh lỗi định dạng).
-- Tự động điền: plugin khai báo một đường dẫn `autoFill` cho mỗi từ điển. Chạy lệnh `intlayer fill` sẽ chỉ cập nhật các bản dịch còn thiếu trong các tệp JSON của bạn theo mặc định.
+- Read: plugin khám phá các tệp JSON từ builder `source` của bạn và tải chúng dưới dạng từ điển Intlayer.
+- Write: sau khi builds và fills, nó ghi JSON được localize trở lại cùng các đường dẫn (với một dòng mới cuối cùng để tránh vấn đề định dạng).
+- Auto‑fill: plugin khai báo đường dẫn `autoFill` cho mỗi từ điển. Chạy `intlayer fill` cập nhật chỉ các bản dịch bị thiếu trong các tệp JSON của bạn theo mặc định.
 
 API:
 
@@ -183,8 +183,8 @@ syncJSON({
   source: ({ key, locale }) => string, // bắt buộc
   location?: string, // nhãn tùy chọn, mặc định: "plugin"
   priority?: number, // ưu tiên tùy chọn để giải quyết xung đột, mặc định: 0
-  format?: 'intlayer' | 'icu' | 'i18next', // bộ định dạng tùy chọn, được sử dụng cho tương thích runtime Intlayer
-  splitKeys?: boolean, // tùy chọn, chia một tệp thành một từ điển cho mỗi khóa cấp cao nhất (tự động phát hiện)
+  format?: 'intlayer' | 'icu' | 'i18next', // formatter tùy chọn, được sử dụng cho tính tương thích runtime của intlayer
+  splitKeys?: boolean, // tùy chọn, chia một tệp duy nhất thành một từ điển cho mỗi khóa cấp cao nhất (tự động phát hiện)
 });
 ```
 

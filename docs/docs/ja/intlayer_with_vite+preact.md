@@ -749,41 +749,90 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
 Link.displayName = "Link";
 ```
 
-## Vite と Preact アプリケーションで Intlayer をセットアップするステップバイステップガイド
+#### 動作方法
 
-<Steps>
+- **外部リンクの検出**:  
+  ヘルパー関数 `checkIsExternalLink` は、URL が外部かどうかを判定します。外部リンクはローカライズが不要なため、変更されません。
+- **現在のロケールの取得**:  
+  `useLocale` フックが現在のロケール（例：フランス語の場合 `fr`）を提供します。
+- **URL のローカライズ**:  
+  内部リンク（つまり外部ではないリンク）の場合、`getLocalizedUrl` を使用して、URL に現在のロケールを自動的にプレフィックスします。つまり、ユーザーがフランス語を使用している場合、`href` として `/about` を渡すと `/fr/about` に変換されます。
+- **リンクの返却**:  
+  コンポーネントはローカライズされた URL を含む `<a>` 要素を返し、ナビゲーションがロケールと一貫していることを確認します。
 
-<Step number={1} title="コンポーネントのコンテンツを抽出する" isOptional={true}>
+</Step>
 
-既存のコードベースがある場合、数千のファイルを変換するのは時間がかかることがあります。
+<Step number={11} title="Markdown と HTML をレンダリング" isOptional={true}>
 
-このプロセスを容易にするために、Intlayerは、コンポーネントを変換しコンテンツを抽出するための [コンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md) / [エクストラクタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md) を提案しています。
+Intlayer は Preact での Markdown および HTML コンテンツのレンダリングをサポートしています。
 
-セットアップするには、`intlayer.config.ts` ファイルに `compiler` セクションを追加します。
+`.use()` メソッドを使用して、Markdown および HTML コンテンツのレンダリングをカスタマイズできます。このメソッドにより、特定のタグのデフォルトレンダリングをオーバーライドできます。
+
+```tsx
+import { useIntlayer } from "preact-intlayer";
+
+const { myMarkdownContent, myHtmlContent } = useIntlayer("my-component");
+
+// ...
+
+return (
+  <div>
+    {/* 基本的なレンダリング */}
+    {myMarkdownContent}
+
+    {/* Markdown のカスタムレンダリング */}
+    {myMarkdownContent.use({
+      h1: (props) => <h1 style={{ color: "red" }} {...props} />,
+    })}
+
+    {/* HTML の基本的なレンダリング */}
+    {myHtmlContent}
+
+    {/* HTML のカスタムレンダリング */}
+    {myHtmlContent.use({
+      b: (props) => <strong style={{ color: "blue" }} {...props} />,
+    })}
+  </div>
+);
+```
+
+</Step>
+
+<Step number={12} title="コンポーネントのコンテンツを抽出する" isOptional={true}>
+
+既存の codebase がある場合、数千のファイルを変換するのは時間がかかる可能性があります。
+
+このプロセスを簡素化するために、Intlayer は[コンパイラ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/compiler.md) / [エクストラクタ](https://github.com/aymericzip/intlayer/blob/main/docs/docs/ja/cli/extract.md)を提供して、コンポーネントを変換し、コンテンツを抽出します。
+
+これを設定するには、`intlayer.config.ts` ファイルに `compiler` セクションを追加できます：
 
 ```typescript fileName="intlayer.config.ts" codeFormat={["typescript", "esm", "commonjs"]}
 import { type IntlayerConfig } from "intlayer";
 
 const config: IntlayerConfig = {
-  // ... 他の構成
+  // ... 残りの設定
   compiler: {
     /**
-     * コンパイラを有効にするかどうかを指定します。
+     * コンパイラを有効にするかどうかを示します。
      */
     enabled: true,
 
     /**
-     * 出力ファイルのパスを定義します。
+     * 出力ファイルパスを定義します
      */
     output: ({ fileName, extension }) => `./${fileName}${extension}`,
 
     /**
-     * 変換後にコンポーネントを保存するかどうかを指定します。これにより、コンパイラを一度だけ実行してアプリを変換し、その後削除することができます。
+     * 変換後、コンポーネントを保存するかどうかを示します。
+     *
+     * - `true` の場合、コンパイラはディスク上のコンポーネントファイルを上書きします。したがって、変換は永続的になり、コンパイラは次のプロセスで変換をスキップします。このように、コンパイラはアプリを変換してから削除できます。
+     *
+     * - `false` の場合、コンパイラはビルド出力のコード内にのみ `useIntlayer()` 関数呼び出しを挿入し、ベース codebase をそのままにします。変換はメモリ内でのみ行われます。
      */
     saveComponents: false,
 
     /**
-     * 辞書キーの接頭辞
+     * 辞書キープレフィックス
      */
     dictionaryKeyPrefix: "",
   },
@@ -793,9 +842,9 @@ export default config;
 ```
 
 <Tabs>
- <Tab value='抽出コマンド'>
+ <Tab value='Extract command'>
 
-コンポーネントを変換してコンテンツを抽出するためにエクストラクタを実行します
+エクストラクタを実行してコンポーネントを変換し、コンテンツを抽出します
 
 ```bash packageManager="npm"
 npx intlayer extract
@@ -814,39 +863,22 @@ bun x intlayer extract
 ```
 
  </Tab>
- <Tab value='Babelコンパイラ'>
+ <Tab value='Babel compiler'>
 
-> Since v9, the `intlayerCompiler` is included in the `intlayer` plugin. So you don't need to add it manually.
+> v9 以降、`intlayerCompiler` は `intlayer` プラグインに含まれています。したがって、手動で追加する必要はありません。
 
-```bash packageManager="npm"
-npm install @intlayer/babel --save-dev
-```
+`vite.config.ts` を更新して、`intlayerCompiler` プラグインを含めます：
 
-```bash packageManager="pnpm"
-pnpm add @intlayer/babel --save-dev
-```
+```ts fileName="vite.config.ts"
+import { defineConfig } from "vite";
+import { intlayer, intlayerCompiler } from "vite-intlayer";
 
-```bash packageManager="yarn"
-yarn add @intlayer/babel --save-dev
-```
-
-```bash packageManager="bun"
-bun add @intlayer/babel --dev
-```
-
-```js fileName="babel.config.js"
-const {
-  intlayerExtractBabelPlugin,
-  getExtractPluginOptions,
-} = require("@intlayer/babel");
-
-module.exports = {
-  presets: ["next/babel"],
+export default defineConfig({
   plugins: [
-    // コンポーネントから辞書へコンテンツを抽出する
-    [intlayerExtractBabelPlugin, getExtractPluginOptions()],
+    intlayer(),
+    intlayerCompiler(), // コンパイラプラグインを追加
   ],
-};
+});
 ```
 
 ```bash packageManager="npm"
@@ -862,7 +894,7 @@ yarn build # または yarn dev
 ```
 
 ```bash packageManager="bun"
-bun run build # Or bun run dev
+bun run build # または bun run dev
 ```
 
  </Tab>

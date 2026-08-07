@@ -59,36 +59,44 @@ getLocalizedUrl(
 
 ## Parâmetros
 
-## Descrição
-
-A função `getLocalizedUrl` gera uma URL localizada prefixando a URL fornecida com o locale especificado. Ela lida tanto com URLs absolutas quanto relativas, garantindo que o prefixo de locale correto seja aplicado com base na configuração.
-
----
-
-## Parâmetros
+### Parâmetros Obrigatórios
 
 - `url: string`
-  - **Descrição**: A string da URL original a ser prefixada com um locale.
-  - **Tipo**: `string`
+  - **Description**: A string de URL original a ser prefixada com um locale.
+  - **Type**: `string`
+  - **Required**: Yes
 
 - `currentLocale: Locales`
-  - **Descrição**: O locale atual para o qual a URL está sendo localizada.
-  - **Tipo**: `Locales`
+  - **Description**: O locale atual para o qual a URL está sendo localizada.
+  - **Type**: `Locales`
+  - **Required**: Yes
 
-- `locales: Locales[]`
-  - **Descrição**: Array opcional de locales suportados. Por padrão, os locales configurados no projeto são fornecidos.
-  - **Tipo**: `Locales[]`
-  - **Padrão**: [`Configuração do Projeto`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md#middleware)
+### Parâmetros Opcionais
 
-- `defaultLocale: Locales`
-  - **Descrição**: O locale padrão para a aplicação. Por padrão, o locale padrão configurado no projeto é fornecido.
-  - **Tipo**: `Locales`
-  - **Padrão**: [`Configuração do Projeto`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md#middleware)
+- `options?: object`
+  - **Description**: Objeto de configuração para o comportamento de localização de URL.
+  - **Type**: `object`
+  - **Required**: Não (Opcional)
 
-- `prefixDefault: boolean`
-  - **Descrição**: Indica se deve prefixar a URL para o locale padrão. Por padrão, o valor configurado no projeto é fornecido.
-  - **Tipo**: `boolean`
-  - **Padrão**: [`Configuração do Projeto`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md#middleware)
+  - `options.locales?: Locales[]`
+    - **Description**: Array de locales suportados. Se não fornecido, usa os locales configurados na configuração do seu projeto.
+    - **Type**: `Locales[]`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md#middleware)
+
+  - `options.defaultLocale?: Locales`
+    - **Description**: O locale padrão para a aplicação. Se não fornecido, usa o locale padrão configurado na configuração do seu projeto.
+    - **Type**: `Locales`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md#middleware)
+
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Description**: O modo de roteamento de URL para o tratamento de locale. Se não fornecido, usa o modo configurado na configuração do seu projeto.
+    - **Type**: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/pt/configuration.md#middleware)
+    - **Modes**:
+      - `prefix-no-default`: Sem prefixo para o locale padrão, prefixo para todos os outros
+      - `prefix-all`: Prefixo para todos os locales, incluindo o padrão
+      - `no-prefix`: Sem prefixo de locale na URL
+      - `search-params`: Usa parâmetros de query para locale (ex: `?locale=fr`)
 
 ### Retorno
 

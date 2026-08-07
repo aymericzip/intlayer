@@ -29,19 +29,23 @@ history:
     changes: "Erste Version der Dokumentation"
 ---
 
-### Praktische Anwendungsfälle
+# Übersetzen Sie Ihre Nest-Backend-Website mit Intlayer | Internationalisierung (i18n)
 
-- **Anzeige von Backend-Fehlermeldungen in der Sprache des Benutzers**: Wenn ein Fehler auftritt, verbessert die Anzeige von Nachrichten in der Muttersprache des Benutzers das Verständnis und reduziert Frustration. Dies ist besonders nützlich für dynamische Fehlermeldungen, die in Frontend-Komponenten wie Toasts oder Modals angezeigt werden können.
+`express-intlayer` ist eine leistungsstarke Internationalisierungs-Middleware (i18n) für Express-Anwendungen, die Ihre Backend-Services global zugänglich macht, indem sie lokalisierte Antworten basierend auf den Vorlieben des Clients bereitstellt. Da NestJS auf Express aufgebaut ist, können Sie `express-intlayer` nahtlos in Ihre NestJS-Anwendungen integrieren, um mehrsprachige Inhalte effektiv zu verwalten.
 
-- **Abrufen mehrsprachiger Inhalte**: Für Anwendungen, die Inhalte aus einer Datenbank abrufen, stellt die Internationalisierung sicher, dass diese Inhalte in mehreren Sprachen bereitgestellt werden können. Dies ist entscheidend für Plattformen wie E-Commerce-Websites oder Content-Management-Systeme, die Produktbeschreibungen, Artikel und andere Inhalte in der vom Benutzer bevorzugten Sprache anzeigen müssen.
+Praktische Use Cases
 
-- **Versand mehrsprachiger E-Mails**: Ob Transaktions-E-Mails, Marketingkampagnen oder Benachrichtigungen – das Versenden von E-Mails in der Sprache des Empfängers kann die Engagement-Rate und Effektivität erheblich steigern.
+- **Backend-Fehler in der Sprache des Benutzers anzeigen**: Wenn ein Fehler auftritt, verbessert die Anzeige von Meldungen in der Muttersprache des Benutzers das Verständnis und reduziert Frustration. Dies ist besonders nützlich für dynamische Fehlermeldungen, die in Frontend-Komponenten wie Toasts oder Modals angezeigt werden.
 
-- **Mehrsprachige Push-Benachrichtigungen**: Für mobile Anwendungen kann das Versenden von Push-Benachrichtigungen in der bevorzugten Sprache des Nutzers die Interaktion und Bindung verbessern. Diese persönliche Note lässt Benachrichtigungen relevanter und handlungsorientierter erscheinen.
+- **Mehrsprachige Inhalte abrufen**: Für Anwendungen, die Inhalte aus einer Datenbank abrufen, stellt Internationalisierung sicher, dass Sie diesen Inhalt in mehreren Sprachen bereitstellen können. Dies ist entscheidend für Plattformen wie E-Commerce-Websites oder Content-Management-Systeme, die Produktbeschreibungen, Artikel und andere Inhalte in der vom Benutzer bevorzugten Sprache anzeigen müssen.
 
-- **Andere Kommunikationsformen**: Jegliche Kommunikation vom Backend, wie SMS-Nachrichten, Systemwarnungen oder Benutzeroberflächen-Updates, profitiert davon, in der Sprache des Nutzers zu erfolgen, was Klarheit schafft und das gesamte Benutzererlebnis verbessert.
+- **Mehrsprachige E-Mails versenden**: Ob es sich um Transaktions-E-Mails, Marketingkampagnen oder Benachrichtigungen handelt, das Versenden von E-Mails in der Sprache des Empfängers kann die Engagement und Effektivität erheblich steigern.
 
-Durch die Internationalisierung des Backends respektiert Ihre Anwendung nicht nur kulturelle Unterschiede, sondern passt sich auch besser an die Bedürfnisse des globalen Marktes an, was einen wichtigen Schritt zur Skalierung Ihrer Dienste weltweit darstellt.
+- **Mehrsprachige Push-Benachrichtigungen**: Für mobile Anwendungen kann das Versenden von Push-Benachrichtigungen in einer bevorzugten Sprache des Benutzers die Interaktion und Bindung verbessern. Dieser persönliche Ansatz kann Benachrichtigungen relevanter und handlungsorientierter wirken lassen.
+
+- **Weitere Kommunikation**: Jede Form der Kommunikation vom Backend, wie SMS-Nachrichten, Systemwarnungen oder Benutzeroberflächenupdates, profitiert davon, in der Sprache des Benutzers zu sein, um Klarheit zu gewährleisten und die Gesamtbenutzererfahrung zu verbessern.
+
+Durch die Internationalisierung des Backends respektiert Ihre Anwendung nicht nur kulturelle Unterschiede, sondern entspricht auch besser den globalen Marktanforderungen, was einen wichtigen Schritt für die weltweite Skalierung Ihrer Services darstellt.
 
 ## Erste Schritte
 

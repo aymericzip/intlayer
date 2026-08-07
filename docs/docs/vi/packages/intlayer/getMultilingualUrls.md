@@ -50,26 +50,12 @@ getMultilingualUrls(
 
 ## Tham số
 
-## Tham số
+### Các Tham Số Bắt Buộc
 
 - `url: string`
-  - **Mô tả**: Chuỗi URL gốc sẽ được thêm tiền tố ngôn ngữ.
-  - **Kiểu**: `string`
-
-- `locales: Locales[]`
-  - **Mô tả**: Mảng tùy chọn các ngôn ngữ được hỗ trợ. Mặc định là các ngôn ngữ đã cấu hình trong dự án.
-  - **Kiểu**: `Locales[]`
-  - **Mặc định**: `localesDefault`
-
-- `defaultLocale: Locales`
-  - **Mô tả**: Ngôn ngữ mặc định cho ứng dụng. Mặc định là ngôn ngữ mặc định đã cấu hình trong dự án.
-  - **Kiểu**: `Locales`
-  - **Mặc định**: `defaultLocaleDefault`
-
-- `prefixDefault: boolean`
-  - **Mô tả**: Có thêm tiền tố cho ngôn ngữ mặc định hay không. Mặc định theo giá trị đã cấu hình trong dự án.
-  - **Kiểu**: `boolean`
-  - **Mặc định**: `prefixDefaultDefault`
+  - **Description**: Chuỗi URL gốc được thêm tiền tố với các locale.
+  - **Type**: `string`
+  - **Required**: Yes
 
 ### Tham số tùy chọn
 

@@ -59,36 +59,44 @@ getLocalizedUrl(
 
 ## Parameters
 
-## Description
-
-The `getLocalizedUrl` function generates a localised URL by prefixing the given URL with the specified locale. It handles both absolute and relative URLs, ensuring that the correct locale prefix is applied based on the configuration.
-
----
-
-## Parameters
+### Required Parameters
 
 - `url: string`
   - **Description**: The original URL string to be prefixed with a locale.
   - **Type**: `string`
+  - **Required**: Yes
 
 - `currentLocale: Locales`
   - **Description**: The current locale for which the URL is being localised.
   - **Type**: `Locales`
+  - **Required**: Yes
 
-- `locales: Locales[]`
-  - **Description**: Optional array of supported locales. By default, the configured locales in the project are provided.
-  - **Type**: `Locales[]`
-  - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/configuration.md#middleware)
+### Optional Parameters
 
-- `defaultLocale: Locales`
-  - **Description**: The default locale for the application. By default, the configured default locale in the project is provided.
-  - **Type**: `Locales`
-  - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/configuration.md#middleware)
+- `options?: object`
+  - **Description**: Configuration object for URL localisation behaviour.
+  - **Type**: `object`
+  - **Required**: No (Optional)
 
-- `prefixDefault: boolean`
-  - **Description**: Whether to prefix the URL for the default locale. By default, the configured value in the project is provided.
-  - **Type**: `boolean`
-  - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/{{locale}}/configuration.md#middleware)
+  - `options.locales?: Locales[]`
+    - **Description**: Array of supported locales. If not provided, uses the configured locales from your project configuration.
+    - **Type**: `Locales[]`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md#middleware)
+
+  - `options.defaultLocale?: Locales`
+    - **Description**: The default locale for the application. If not provided, uses the configured default locale from your project configuration.
+    - **Type**: `Locales`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md#middleware)
+
+  - `options.mode?: 'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Description**: The URL routing mode for locale handling. If not provided, uses the configured mode from your project configuration.
+    - **Type**: `'prefix-no-default' | 'prefix-all' | 'no-prefix' | 'search-params'`
+    - **Default**: [`Project Configuration`](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/configuration.md#middleware)
+    - **Modes**:
+      - `prefix-no-default`: No prefix for default locale, prefix for all others
+      - `prefix-all`: Prefix for all locales including default
+      - `no-prefix`: No locale prefix in URL
+      - `search-params`: Use query parameters for locale (e.g., `?locale=fr`)
 
 ### Returns
 

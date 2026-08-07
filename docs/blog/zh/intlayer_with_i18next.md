@@ -61,11 +61,62 @@ author: aymericzip
 
 <TOC/>
 
-### 第2步：实现 Intlayer 插件以封装 JSON
+## 分步指南：使用 i18next 设置 Intlayer
 
-创建一个 Intlayer 配置文件以定义支持的语言环境：
+<Steps>
 
-**如果您还想导出用于 i18next 的 JSON 字典**，请添加 `syncJSON` 插件：
+<Step number={1} title="安装依赖项">
+
+安装必要的包：
+
+```bash packageManager="npm"
+npx intlayer init --interactive
+```
+
+```bash packageManager="pnpm"
+pnpm dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="yarn"
+yarn dlx intlayer@canary init --interactive
+```
+
+```bash packageManager="bun"
+bunx intlayer@canary init --interactive
+```
+
+> `--interactive` 标志是可选的。如果你是 AI 代理，请使用 `intlayer-cli init`。
+
+> 此命令将检测你的环境并安装所需的包。例如：
+
+```bash packageManager="npm"
+npm install intlayer @intlayer/sync-json-plugin --save-dev
+```
+
+```bash packageManager="pnpm"
+pnpm add intlayer @intlayer/sync-json-plugin --save-dev
+```
+
+```bash packageManager="yarn"
+yarn add intlayer @intlayer/sync-json-plugin --dev
+```
+
+```bash packageManager="bun"
+bun add intlayer @intlayer/sync-json-plugin --dev
+```
+
+**包描述：**
+
+- **intlayer**: 国际化管理、内容声明和构建的核心库
+- **@intlayer/sync-json-plugin**: 将 Intlayer 内容声明导出为 i18next 兼容 JSON 格式的插件
+
+</Step>
+
+<Step number={2} title="实现 Intlayer 插件来包装 JSON">
+
+创建一个 Intlayer 配置文件来定义你支持的语言：
+
+**如果你还想为 i18next 导出 JSON 字典**，添加 `syncJSON` 插件：
 
 ```typescript fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -86,24 +137,32 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-`syncJSON` 插件会自动包装 JSON。它会读取和写入 JSON 文件，而不会改变内容结构。
+`syncJSON` 插件将自动包装 JSON。它将读取和写入 JSON 文件，而不改变内容架构。
 
-如果你想让 JSON 与 intlayer 内容声明文件（`.content` 文件）共存，Intlayer 会按以下方式处理：
+如果你想让 JSON 与 Intlayer 内容声明文件（`.content` 文件）共存，Intlayer 将按以下方式处理：
 
-1. 加载 JSON 和内容声明文件，并将它们转换为 intlayer 字典。
-2. 如果 JSON 和内容声明文件之间存在冲突，Intlayer 会合并所有字典。具体合并方式取决于插件的优先级以及内容声明文件的优先级（所有这些都是可配置的）。
+1. 加载 JSON 和内容声明文件，并将它们转换为 Intlayer 字典。
+2. 如果 JSON 和内容声明文件之间存在冲突，Intlayer 将合并所有字典。这取决于插件的优先级和内容声明文件的优先级（都可以配置）。
 
-如果通过 CLI 翻译 JSON 或使用 CMS 进行更改，Intlayer 会使用新的翻译更新 JSON 文件。
+如果使用 CLI 翻译 JSON 或使用 CMS 进行更改，Intlayer 将使用新的翻译更新 JSON 文件。
 
-要查看更多关于 `syncJSON` 插件的详细信息，请参阅 [syncJSON 插件文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md)。
+要了解有关 `syncJSON` 插件的更多详细信息，请参阅 [syncJSON 插件文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/plugins/sync-json.md)。
 
-<Steps>
+</Step>
 
-<Step number={1} title="实现按组件的 JSON 翻译" isOptional={true}>
+<Step number={3} title="设置 AI 提供商">
 
-默认情况下，Intlayer 会加载、合并并同步 JSON 文件和内容声明文件。更多详情请参阅 [内容声明文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/dictionary/content_file.md)。但如果你愿意，也可以使用 Intlayer 插件，在代码库中的任意位置实现按组件管理本地化的 JSON。
+Intlayer 为你的 i18next 工作流解锁了一套高级自动化和开发者友好的功能。
 
-为此，你可以使用 `loadJSON` 插件。
+- **自动检测和填充缺失翻译**：Intlayer 扫描你的 JSON 字典，查找未翻译或缺失的键，仅翻译这些，因此你的 JSON 的 99% 保持不变。
+- **大型 JSON 文件的分块翻译**：当你的翻译文件非常大时，Intlayer 自动将处理分成可管理的块，独立翻译它们以避免 API 限制和内存问题。
+- **命名空间并行化**：如果你有数百个命名空间（或文件），Intlayer 并行化翻译任务，有效地加快你的 CI/CD 或批量翻译操作。
+- **灵活的 AI 提供商支持**：选择你首选的 AI 提供商（例如 OpenAI、Claude、Gemini），只需配置凭据。使用你自己的 API 密钥，并根据需要切换提供商。
+- **弹性 AI 响应处理**：Intlayer 可以处理你的 AI 提供商将文本作为字符串或对象返回的边界情况，甚至在格式不一致时自动重试。
+- **CLI 和 CI/CD 就绪**：直接在你的测试或管道中运行 Intlayer 的检查和自动填充，使你的本地化过程健壮且自动化。
+- **集成到你现有的设置之上**：你不需要改变你的 i18next 或 Next.js 基础。Intlayer 作为插件添加到你的当前设置中，为你提供所有这些好处，同时实现最小迁移。
+
+以下是如何设置 AI 提供商的示例：
 
 ```ts fileName="intlayer.config.ts"
 import { Locales, type IntlayerConfig } from "intlayer";
@@ -114,23 +173,14 @@ const config: IntlayerConfig = {
     locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH],
     defaultLocale: Locales.ENGLISH,
   },
-
-  // 保持当前的 JSON 文件与 Intlayer 字典同步
+  ai: {
+    provider: "openai",
+    model: "gpt-5-mini",
+    apiKey: process.env.OPENAI_API_KEY,
+  },
   plugins: [
-    /**
-     * 将加载 src 目录中所有匹配模式 {key}.i18n.json 的 JSON 文件
-     */
-    loadJSON({
-      source: ({ key }) => `./src/**/${key}.i18n.json`,
-      locale: Locales.ENGLISH,
-      priority: 1, // 确保这些 JSON 文件优先于 `./locales/en/${key}.json` 中的文件
-    }),
-    /**
-     * 将加载并将输出和翻译写回到 locales 目录中的 JSON 文件
-     */
     syncJSON({
       source: ({ key, locale }) => `./locales/${locale}/${key}.json`,
-      priority: 0,
     }),
   ],
 };
@@ -138,7 +188,16 @@ const config: IntlayerConfig = {
 export default config;
 ```
 
-这将加载 `src` 目录中所有匹配 `{key}.i18n.json` 模式的 JSON 文件，并将它们作为 Intlayer 字典加载。
+然后你可以执行以下命令来填充你的翻译：
+
+```bash
+npx intlayer fill
+```
+
+这将使用你配置的 AI 提供商填充你的翻译。
+
+> 在 [Intlayer AI 配置文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/configuration.md#ai-configuration) 中查看所有可用的 AI 提供商。
+> 在 [Intlayer CLI 文档](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/cli/index.md) 中查看所有可用的命令。
 
 ---
 

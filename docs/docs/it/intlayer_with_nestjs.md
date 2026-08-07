@@ -29,19 +29,23 @@ history:
     changes: "Documentazione iniziale"
 ---
 
-### Casi d'Uso Pratici
+# Traduci il tuo sito backend Nest usando Intlayer | Internazionalizzazione (i18n)
 
-- **Visualizzare gli Errori del Backend nella Lingua dell'Utente**: Quando si verifica un errore, mostrare i messaggi nella lingua madre dell'utente migliora la comprensione e riduce la frustrazione. Questo è particolarmente utile per messaggi di errore dinamici che potrebbero essere mostrati in componenti front-end come toast o modali.
+`express-intlayer` è un potente middleware di internazionalizzazione (i18n) per applicazioni Express, progettato per rendere i tuoi servizi backend accessibili a livello globale fornendo risposte localizzate in base alle preferenze del client. Poiché NestJS è costruito su Express, puoi integrare perfettamente `express-intlayer` nelle tue applicazioni NestJS per gestire efficacemente contenuti multilingue.
 
-- **Recuperare Contenuti Multilingue**: Per applicazioni che estraggono contenuti da un database, l'internazionalizzazione garantisce che tu possa fornire questi contenuti in più lingue. Questo è cruciale per piattaforme come siti di e-commerce o sistemi di gestione dei contenuti che devono mostrare descrizioni di prodotti, articoli e altri contenuti nella lingua preferita dall'utente.
+Casi d'uso pratici
 
-- **Invio di Email Multilingue**: Che si tratti di email transazionali, campagne di marketing o notifiche, inviare email nella lingua del destinatario può aumentare significativamente l'engagement e l'efficacia.
+- **Visualizzazione degli errori del backend nella lingua dell'utente**: Quando si verifica un errore, visualizzare i messaggi nella lingua nativa dell'utente migliora la comprensione e riduce la frustrazione. Questo è particolarmente utile per i messaggi di errore dinamici che potrebbero essere visualizzati in componenti front-end come toast o modali.
 
-- **Notifiche Push Multilingue**: Per le applicazioni mobili, inviare notifiche push nella lingua preferita dell'utente può migliorare l'interazione e la fidelizzazione. Questo tocco personale può rendere le notifiche più rilevanti e azionabili.
+- **Recupero di contenuti multilingue**: Per le applicazioni che estraggono contenuti da un database, l'internazionalizzazione garantisce che tu possa servire questo contenuto in più lingue. Questo è fondamentale per piattaforme come siti di e-commerce o sistemi di gestione dei contenuti che devono visualizzare descrizioni di prodotti, articoli e altri contenuti nella lingua preferita dall'utente.
 
-- **Altre Comunicazioni**: Qualsiasi forma di comunicazione dal backend, come messaggi SMS, avvisi di sistema o aggiornamenti dell'interfaccia utente, beneficia di essere nella lingua dell'utente, garantendo chiarezza e migliorando l'esperienza complessiva dell'utente.
+- **Invio di email multilingue**: Che si tratti di email transazionali, campagne di marketing o notifiche, inviare email nella lingua del destinatario può aumentare significativamente il coinvolgimento e l'efficacia.
 
-Internazionalizzando il backend, la tua applicazione non solo rispetta le differenze culturali, ma si allinea anche meglio alle esigenze del mercato globale, rendendolo un passaggio chiave per scalare i tuoi servizi a livello mondiale.
+- **Notifiche push multilingue**: Per le applicazioni mobili, inviare notifiche push nella lingua preferita dall'utente può migliorare l'interazione e la fidelizzazione. Questo tocco personale può rendere le notifiche più rilevanti e attuabili.
+
+- **Altre comunicazioni**: Qualsiasi forma di comunicazione dal backend, come messaggi SMS, avvisi di sistema o aggiornamenti dell'interfaccia utente, beneficia dall'essere nella lingua dell'utente, garantendo chiarezza e migliorando l'esperienza utente complessiva.
+
+Internazionalizzando il backend, la tua applicazione non solo rispetta le differenze culturali ma si allinea anche meglio alle esigenze del mercato globale, rendendola un passo chiave nel ridimensionamento dei tuoi servizi a livello mondiale.
 
 ## Iniziare
 

@@ -75,11 +75,30 @@ Dans v7, le comportement de la commande `fill` a été mis à jour :
 
 Lors de l'utilisation d'une option de chemin pour écrire dans un autre fichier, le mécanisme de remplissage fonctionne via une relation _maître-esclave_ entre les fichiers de déclaration de contenu. Le fichier principal (maître) sert de source de vérité, et lorsqu'il est mis à jour, Intlayer applique automatiquement ces modifications aux fichiers de déclaration dérivés (remplis) spécifiés par le chemin.
 
-# Traductions des fichiers de déclaration de contenu avec remplissage automatique
+### Personnalisation par locale
 
-**Les fichiers de déclaration de contenu avec remplissage automatique** sont un moyen d'accélérer votre flux de travail de développement.
+Vous pouvez également personnaliser le comportement pour chaque locale en utilisant un objet :
 
-Le mécanisme de remplissage automatique fonctionne via une relation _maître-esclave_ entre les fichiers de déclaration de contenu. Lorsque le fichier principal (maître) est mis à jour, Intlayer applique automatiquement ces modifications aux fichiers de déclaration dérivés (remplis automatiquement).
+```ts fileName="intlayer.config.ts"
+const config: IntlayerConfig = {
+  content: {
+    internationalization: {
+      locales: [Locales.ENGLISH, Locales.FRENCH, Locales.POLISH],
+      defaultLocale: Locales.ENGLISH,
+      requiredLocales: [Locales.ENGLISH], // Recommandé pour éviter Property 'pl' is missing in type '{ en: string; xxx } on your t function if
+    },
+  },
+  dictionary: {
+    fill: {
+      en: true, // Remplir et modifier le fichier courant pour l'anglais
+      fr: "./translations/fr.json", // Créer un fichier séparé pour le français
+      es: false, // Désactiver le remplissage pour l'espagnol
+    },
+  },
+};
+```
+
+Cela vous permet d'avoir différents comportements de remplissage pour différentes locales au sein du même projet.
 
 ```ts fileName="src/components/example/example.content.ts"
 import { Locales, type Dictionary } from "intlayer";
@@ -87,16 +106,16 @@ import { Locales, type Dictionary } from "intlayer";
 const exampleContent = {
   key: "example",
   locale: Locales.ENGLISH,
-  autoFill: "./example.content.json",
+  fill: "./example.content.json",
   content: {
-    contentExample: "Ceci est un exemple de contenu", // Exemple de contenu
+    contentExample: "This is an example of content",
   },
 } satisfies Dictionary;
 
 export default exampleContent;
 ```
 
-Voici un [fichier de déclaration de contenu par langue](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/per_locale_file.md) utilisant l'instruction `autoFill`.
+Voici un [fichier de déclaration de contenu par locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/fr/per_locale_file.md) utilisant l'instruction `fill`.
 
 Ensuite, lorsque vous exécutez la commande suivante :
 
@@ -116,7 +135,7 @@ pnpm intlayer fill --file 'src/components/example/example.content.ts'
 bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
-Intlayer générera automatiquement le fichier de déclaration dérivé à `src/components/example/example.content.json`, en remplissant toutes les locales non déjà déclarées dans le fichier principal.
+Intlayer générera automatiquement le fichier de déclaration dérivé à `src/components/example/example.content.json`, en remplissant toutes les locales non déclarées dans le fichier principal.
 
 ```json5 fileName="src/components/example/example.content.json"
 {
@@ -133,7 +152,7 @@ Intlayer générera automatiquement le fichier de déclaration dérivé à `src/
 }
 ```
 
-Ensuite, les deux fichiers de déclaration seront fusionnés en un seul dictionnaire, accessible via le hook standard `useIntlayer("example")` (react) / composable (vue).
+Après cela, les deux fichiers de déclaration seront fusionnés en un seul dictionnaire, accessible à l'aide du hook `useIntlayer("example")` standard (react) / composable (vue).
 
 ## Configuration globale
 

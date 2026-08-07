@@ -75,11 +75,30 @@ Intlayer 还将考虑以下自动填充指令：
 
 使用路径选项写入另一个文件时，填充机制通过内容声明文件之间的 _主从_ 关系工作。主（master）文件作为真实来源，当它被更新时，Intlayer 将自动将这些更改应用到由路径指定的派生（填充）声明文件。
 
-# 自动填充内容声明文件翻译
+### 按语言环境自定义
 
-**自动填充内容声明文件** 是加快开发工作流程的一种方式。
+您也可以使用对象为每个语言环境自定义行为：
 
-自动填充机制通过内容声明文件之间的 _主从_ 关系来实现。当主（master）文件被更新时，Intlayer 会自动将这些更改应用到派生的（自动填充的）声明文件中。
+```ts fileName="intlayer.config.ts"
+const config: IntlayerConfig = {
+  content: {
+    internationalization: {
+      locales: [Locales.ENGLISH, Locales.FRENCH, Locales.POLISH],
+      defaultLocale: Locales.ENGLISH,
+      requiredLocales: [Locales.ENGLISH], // 建议设置以避免在 t 函数中出现"Property 'pl' is missing in type '{ en: string; xxx }"错误
+    },
+  },
+  dictionary: {
+    fill: {
+      en: true, // 为英文填充并编辑当前文件
+      fr: "./translations/fr.json", // 为法文创建单独的文件
+      es: false, // 禁用西班牙文的填充
+    },
+  },
+};
+```
+
+这允许您在同一项目中为不同的语言环境设置不同的填充行为。
 
 ```ts fileName="src/components/example/example.content.ts"
 import { Locales, type Dictionary } from "intlayer";
@@ -87,18 +106,18 @@ import { Locales, type Dictionary } from "intlayer";
 const exampleContent = {
   key: "example",
   locale: Locales.ENGLISH,
-  autoFill: "./example.content.json",
+  fill: "./example.content.json",
   content: {
-    contentExample: "这是一个内容示例",
+    contentExample: "This is an example of content",
   },
 } satisfies Dictionary;
 
 export default exampleContent;
 ```
 
-这是一个使用 `autoFill` 指令的[按语言环境划分的内容声明文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/per_locale_file.md)。
+这是一个[按语言环境的内容声明文件](https://github.com/aymericzip/intlayer/blob/main/docs/docs/zh/per_locale_file.md)，使用了 `fill` 指令。
 
-然后，当你运行以下命令时：
+然后，当您运行以下命令时：
 
 ```bash packageManager="npm"
 npx intlayer fill --file 'src/components/example/example.content.ts'
@@ -116,7 +135,7 @@ pnpm intlayer fill --file 'src/components/example/example.content.ts'
 bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
-Intlayer 将自动生成派生的声明文件，路径为 `src/components/example/example.content.json`，并填充主文件中尚未声明的所有语言环境。
+Intlayer 将自动在 `src/components/example/example.content.json` 生成派生声明文件，填充主文件中尚未声明的所有语言环境。
 
 ```json5 fileName="src/components/example/example.content.json"
 {
@@ -133,7 +152,7 @@ Intlayer 将自动生成派生的声明文件，路径为 `src/components/exampl
 }
 ```
 
-之后，这两个声明文件将合并为一个字典，可以通过标准的 `useIntlayer("example")` 钩子（React）或组合函数（Vue）访问。
+之后，两个声明文件将被合并为一个单一字典，可以使用标准的 `useIntlayer("example")` hook (react) / composable (vue) 访问。
 
 ## 全局配置
 

@@ -75,11 +75,30 @@ In v7, the `fill` command behaviour has been updated:
 
 When using a path option to write to another file, the fill mechanism works through a _master-slave_ relationship between content declaration files. The main (master) file serves as the source of truth, and when it's updated, Intlayer will automatically apply those changes to the derived (filled) declaration files specified by the path.
 
-# Autofill Content Declaration File Translations
+### Per-Locale Customisation
 
-**Autofill content declaration files** are a way to speed up your development workflow.
+You can also customise the behaviour for each locale by using an object:
 
-The autofill mechanism works through a _master-slave_ relationship between content declaration files. When the main (master) file is updated, Intlayer will automatically apply those changes to the derived (autofilled) declaration files.
+```ts fileName="intlayer.config.ts"
+const config: IntlayerConfig = {
+  content: {
+    internationalization: {
+      locales: [Locales.ENGLISH, Locales.FRENCH, Locales.POLISH],
+      defaultLocale: Locales.ENGLISH,
+      requiredLocales: [Locales.ENGLISH], // Recommended to avoid Property 'pl' is missing in type '{ en: string; xxx } on your t function if
+    },
+  },
+  dictionary: {
+    fill: {
+      en: true, // Fill and edit the current file for English
+      fr: "./translations/fr.json", // Create separate file for French
+      es: false, // Disable fill for Spanish
+    },
+  },
+};
+```
+
+This allows you to have different fill behaviours for different locales within the same project.
 
 ```ts fileName="src/components/example/example.content.ts"
 import { Locales, type Dictionary } from "intlayer";
@@ -87,7 +106,7 @@ import { Locales, type Dictionary } from "intlayer";
 const exampleContent = {
   key: "example",
   locale: Locales.ENGLISH,
-  autoFill: "./example.content.json",
+  fill: "./example.content.json",
   content: {
     contentExample: "This is an example of content",
   },
@@ -96,7 +115,7 @@ const exampleContent = {
 export default exampleContent;
 ```
 
-Here is a [per-locale content declaration file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/per_locale_file.md) using the `autoFill` instruction.
+Here is a [per-locale content declaration file](https://github.com/aymericzip/intlayer/blob/main/docs/docs/en-GB/per_locale_file.md) using the `fill` instruction.
 
 Then, when you run the following command:
 
@@ -126,14 +145,14 @@ Intlayer will automatically generate the derived declaration file at `src/compon
       "nodeType": "translation",
       "translation": {
         "fr": "Ceci est un exemple de contenu",
-        "es": "Este es un exemple de contenu",
+        "es": "Este es un ejemplo de contenido",
       },
     },
   },
 }
 ```
 
-Afterwards, both declaration files will be merged into a single dictionary, accessible using the standard `useIntlayer("example")` hook (React) / composable (Vue).
+Afterwards, both declaration files will be merged into a single dictionary, accessible using the standard `useIntlayer("example")` hook (react) / composable (vue).
 
 ## Global Configuration
 

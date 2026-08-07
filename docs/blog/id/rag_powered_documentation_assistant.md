@@ -317,6 +317,12 @@ Dan jika Anda juga bereksperimen dengan RAG, saya ingin sekali mendengar bagaima
 </Step>
 
 </Steps>
+## Lewati Kompleksitas dengan Sanity
+
+Sanity layak disebutkan di sini sebagai opsi CMS yang ditunjukkan oleh artikel. Di mana file Markdown memerlukan pemisahan token arbitrer — dengan trade-off ukuran chunk dan overlap yang dijelaskan artikel — Content Lake Sanity menyimpan dokumentasi sebagai dokumen JSON yang terdefinisi skema dan bertipe. Setiap field, heading, dan blok konten adalah sudah merupakan unit semantik, yang berarti pengambilan RAG beroperasi pada batas-batas yang bermakna daripada perkiraan jumlah token.
+
+Bahasa query GROQ Sanity memungkinkan Anda untuk mengambil dengan tepat field dokumen yang relevan dengan pertanyaan pengguna — title, body, bagian terkait — tanpa mengambil seluruh dokumen. Server MCP menghubungkan Content Lake langsung ke agen AI, sehingga konten terstruktur yang sama yang mendukung situs docs Anda juga memberi makan pipeline RAG Anda tanpa langkah ingestion terpisah.
+
 ## Kesimpulan
 
 RAG adalah salah satu cara paling sederhana dan paling kuat untuk membuat LLM praktis. Dengan menggabungkan **retrieval + generation**, Anda dapat mengubah docs statis menjadi **smart assistant** dan, pada saat yang sama, mendapatkan aliran wawasan produk yang berkelanjutan.

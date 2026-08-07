@@ -75,11 +75,30 @@ En v7, el comportamiento del comando `fill` ha sido actualizado:
 
 Cuando se utiliza una opción de ruta para escribir en otro archivo, el mecanismo de completación funciona a través de una relación _maestro-esclavo_ entre archivos de declaración de contenido. El archivo principal (maestro) sirve como la fuente de verdad, y cuando se actualiza, Intlayer aplicará automáticamente esos cambios a los archivos de declaración completados (derivados) especificados por la ruta.
 
-# Traducciones de Archivos de Declaración de Contenido con Relleno Automático
+### Personalización por Locale
 
-**Los archivos de declaración de contenido con relleno automático** son una forma de acelerar tu flujo de trabajo de desarrollo.
+También puedes personalizar el comportamiento de cada locale utilizando un objeto:
 
-El mecanismo de relleno automático funciona mediante una relación _maestro-esclavo_ entre archivos de declaración de contenido. Cuando el archivo principal (maestro) se actualiza, Intlayer aplicará automáticamente esos cambios a los archivos de declaración derivados (rellenados automáticamente).
+```ts fileName="intlayer.config.ts"
+const config: IntlayerConfig = {
+  content: {
+    internationalization: {
+      locales: [Locales.ENGLISH, Locales.FRENCH, Locales.POLISH],
+      defaultLocale: Locales.ENGLISH,
+      requiredLocales: [Locales.ENGLISH], // Recomendado para evitar Property 'pl' is missing in type '{ en: string; xxx } on your t function if
+    },
+  },
+  dictionary: {
+    fill: {
+      en: true, // Llenar y editar el archivo actual para inglés
+      fr: "./translations/fr.json", // Crear archivo separado para francés
+      es: false, // Desactivar fill para español
+    },
+  },
+};
+```
+
+Esto te permite tener diferentes comportamientos de fill para diferentes locales dentro del mismo proyecto.
 
 ```ts fileName="src/components/example/example.content.ts"
 import { Locales, type Dictionary } from "intlayer";
@@ -87,16 +106,16 @@ import { Locales, type Dictionary } from "intlayer";
 const exampleContent = {
   key: "example",
   locale: Locales.ENGLISH,
-  autoFill: "./example.content.json",
+  fill: "./example.content.json",
   content: {
-    contentExample: "Este es un ejemplo de contenido",
+    contentExample: "This is an example of content",
   },
 } satisfies Dictionary;
 
 export default exampleContent;
 ```
 
-Aquí hay un [archivo de declaración de contenido por idioma](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/per_locale_file.md) que usa la instrucción `autoFill`.
+Aquí hay un [archivo de declaración de contenido por locale](https://github.com/aymericzip/intlayer/blob/main/docs/docs/es/per_locale_file.md) usando la instrucción `fill`.
 
 Luego, cuando ejecutes el siguiente comando:
 
@@ -116,7 +135,7 @@ pnpm intlayer fill --file 'src/components/example/example.content.ts'
 bun x intlayer fill --file 'src/components/example/example.content.ts'
 ```
 
-Intlayer generará automáticamente el archivo de declaración derivado en `src/components/example/example.content.json`, completando todos los locales que no estén ya declarados en el archivo principal.
+Intlayer generará automáticamente el archivo de declaración derivado en `src/components/example/example.content.json`, llenando todos los locales que aún no estén declarados en el archivo principal.
 
 ```json5 fileName="src/components/example/example.content.json"
 {
@@ -125,15 +144,15 @@ Intlayer generará automáticamente el archivo de declaración derivado en `src/
     "contentExample": {
       "nodeType": "translation",
       "translation": {
-        "fr": "Ceci est un exemple de contenu",
         "es": "Este es un ejemplo de contenido",
+        "fr": "Ceci est un exemple de contenu",
       },
     },
   },
 }
 ```
 
-Después, ambos archivos de declaración se fusionarán en un único diccionario, accesible mediante el hook estándar `useIntlayer("example")` (react) / composable (vue).
+Posteriormente, ambos archivos de declaración se fusionarán en un único diccionario, accesible mediante el hook `useIntlayer("example")` estándar (react) / composable (vue).
 
 ## Configuración Global
 
