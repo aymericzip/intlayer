@@ -48,7 +48,8 @@ export const prepareIntlayer = async (
   const versionCache = cacheDisk(configuration, ['intlayer-version']);
   const intlayerCacheVersion = await versionCache.get();
   const isCorrectVersion = Boolean(
-    intlayerCacheVersion && intlayerCacheVersion === packageJson.version
+    intlayerCacheVersion === undefined ||
+      intlayerCacheVersion === packageJson.version
   );
 
   const isConfigSimilar = await isCachedConfigurationUpToDate(configuration);
@@ -83,12 +84,23 @@ export const prepareIntlayer = async (
   // Skip preparation if it has already been done recently
   await runOnce(
     sentinelPath,
-    async () => {
+    async ({ renewLock }) => {
       // comment because of issue with next and webpack
       // await checkVersionsConsistency(configuration);
 
-      if (clean || !isCorrectVersion) {
+      // Re-read the cached version now that the lock is held: another process
+      // may have upgraded the output directory while this call was queued, in
+      // which case cleaning it would throw away a build that just completed.
+      const isCorrectVersionUnderLock =
+        (await versionCache.get()) === packageJson.version;
+
+      if (clean || !isCorrectVersionUnderLock) {
         await cleanOutputDir(configuration);
+        // `cleanOutputDir` wipes the cache directory the sentinel lives in.
+        // Re-create it immediately, otherwise a concurrent process (e.g. the
+        // `intlayer watch` CLI next to a dev server) sees no lock, starts its
+        // own run, and cleans the output directory while this one writes.
+        await renewLock();
       }
 
       await versionCache.set(packageJson.version);
