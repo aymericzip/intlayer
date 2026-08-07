@@ -68,6 +68,10 @@ bun run test              # vitest (concurrency=2)
 
 Users declare content in `.content.ts` files (co-located with components) using `t()` from `intlayer`. **Intlayer Compiler** (build-tool plugin) extracts at build time → emits JSON to `.intlayer/`. At runtime, `useIntlayer` (react-intlayer etc.) reads compiled dictionaries.
 
+## Git
+
+Except if explicitly formulated, you cannot use git commit, stash, push, pull or changing branch
+
 ## Commit conventions
 
 Format: `<type>(<scope>): <subject>` — enforced by commitlint + husky.
