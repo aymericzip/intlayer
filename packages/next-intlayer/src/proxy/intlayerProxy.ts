@@ -1,11 +1,8 @@
-import { internationalization, routing } from '@intlayer/config/built';
+import { internationalization, log, routing } from '@intlayer/config/built';
 import { ROUTING_MODE } from '@intlayer/config/defaultValues';
-
-// ── Tree-shake constants ──────────────────────────────────────────────────────
-// When these env vars are injected at build time, bundlers eliminate the
-// branches guarded by these constants.
-
+import { getAppLogger } from '@intlayer/config/logger';
 import {
+  formatProxyEnabledMessage,
   getCanonicalPath,
   getDomainHostname,
   getDomainOrigin,
@@ -13,7 +10,9 @@ import {
   getLocaleFromDomain,
   getLocalizedPath,
   getRewriteRules,
+  isProxyStorageLocaleEnabled,
   type LocaleDomainMap,
+  resolveProxyMode,
 } from '@intlayer/core/localization';
 import {
   getLocaleFromStorageServer,
@@ -61,12 +60,37 @@ const DEFAULT_DETECT_LOCALE_ON_PREFETCH_NO_PREFIX = false;
 const { locales, defaultLocale } = internationalization ?? {};
 const { basePath, mode, rewrite, domains, enableProxy } = routing ?? {};
 
-// Whether the locale-routing proxy is enabled (default: true). When disabled,
-// `intlayerProxy` becomes a pass-through so apps can handle routing themselves.
-// The env var is injected at build time so bundlers can tree-shake this branch.
-const isProxyEnabled =
-  process.env.INTLAYER_ROUTING_ENABLE_PROXY !== 'false' &&
-  (enableProxy ?? true);
+// Resolved behaviour of the locale-routing proxy. `disabled` turns
+// `intlayerProxy` into a pass-through so apps can handle routing themselves.
+// The env var backing this is injected at build time so bundlers can tree-shake
+// the guarded branches.
+const proxyMode = resolveProxyMode(enableProxy);
+
+// Next.js inlines NODE_ENV into every bundle, edge middleware included, so this
+// is both reliable and statically eliminable. `next build` is the only command
+// that injects `INTLAYER_ROUTING_ENABLE_PROXY`, meaning a dev server always
+// reaches `resolveProxyMode` through the configuration value.
+//
+// Matched against `development` rather than "not production" on purpose: only
+// `next dev` runs a dev server. Any other value (`test`, a custom staging env)
+// has no dev server in play and must keep the full production behaviour.
+const isDevServer = process.env.NODE_ENV === 'development';
+
+// In auto mode, a dev server keeps locale routing URL-driven: the stored locale
+// is not used as a redirect source, so a stale cookie cannot keep pulling every
+// navigation to another locale while developing.
+const canUseStorageLocale = isProxyStorageLocaleEnabled(proxyMode, isDevServer);
+
+// Announce the proxy the way the Vite plugin does on `configureServer`. Next
+// has no server-start hook for middleware, so this runs when the middleware
+// module is first evaluated — at the first request `next dev` routes through
+// it. Restricted to the dev server on purpose: in production this module is
+// re-evaluated on every edge cold start, and the line would be pure noise.
+if (isDevServer && proxyMode !== 'disabled') {
+  getAppLogger({ log })(formatProxyEnabledMessage(!canUseStorageLocale), {
+    level: 'info',
+  });
+}
 
 // Note: cookie names are resolved inside LocaleStorage based on configuration
 
@@ -168,7 +192,7 @@ export const intlayerProxy = (
   _response?: NextResponse
 ): NextResponse => {
   // When the proxy is disabled, pass the request through untouched.
-  if (!isProxyEnabled) {
+  if (proxyMode === 'disabled') {
     return NextResponse.next();
   }
 
@@ -239,14 +263,21 @@ export const intlayerProxy = (
 /**
  * Retrieves the locale from the request cookies if available and valid.
  *
+ * Returns `undefined` when the stored locale is not allowed to drive locale
+ * resolution (auto mode on a dev server), which makes every caller fall through
+ * to `Accept-Language` detection and then the default locale.
+ *
  * @param request - The incoming Next.js request object.
  * @returns - The locale found in the cookies, or undefined if not found or invalid.
  */
-const getLocalLocale = (request: NextRequest): Locale | undefined =>
-  getLocaleFromStorageServer({
+const getLocalLocale = (request: NextRequest): Locale | undefined => {
+  if (!canUseStorageLocale) return undefined;
+
+  return getLocaleFromStorageServer({
     getCookie: (name: string) => request.cookies.get(name)?.value ?? null,
     getHeader: (name: string) => request.headers.get(name) ?? null,
   });
+};
 
 /**
  * Handles the case where URLs do not have locale prefixes.

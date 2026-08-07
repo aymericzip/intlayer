@@ -47,6 +47,9 @@ const mockGetRewriteRules = vi.hoisted(() =>
   vi.fn((_rewrite: unknown, _type: string): undefined => undefined)
 );
 
+/** Captures the module-scope "proxy enabled" announcement. */
+const mockAppLogger = vi.hoisted(() => vi.fn());
+
 const mockNextResponseActions = vi.hoisted(() => ({
   redirect: vi.fn((url: URL) => ({
     __type: 'redirect' as const,
@@ -85,6 +88,13 @@ vi.mock('@intlayer/core/localization', async (importOriginal) => ({
 vi.mock('@intlayer/core/utils', () => ({
   getLocaleFromStorageServer: mockGetLocaleFromStorage,
   setLocaleInStorageServer: mockSetLocaleInStorage,
+}));
+
+// Only getAppLogger is stubbed; `colorize` keeps its real implementation so the
+// announcement is asserted exactly as it reaches the terminal.
+vi.mock('@intlayer/config/logger', async (importOriginal) => ({
+  ...(await importOriginal<Record<string, unknown>>()),
+  getAppLogger: () => mockAppLogger,
 }));
 
 vi.mock('./localeDetector', () => ({
@@ -203,6 +213,8 @@ describe('intlayerProxy', () => {
     vi.doMock('@intlayer/config/built', () => ({
       internationalization: mockConfig.internationalization,
       routing: mockConfig.routing,
+      // Consumed by the module-scope "proxy enabled" announcement.
+      log: undefined,
     }));
     vi.doMock('@intlayer/config/defaultValues', () => ({
       ROUTING_MODE: 'prefix-no-default',
@@ -1153,6 +1165,157 @@ describe('intlayerProxy', () => {
       const result = intlayerProxy(makeRequest('/about'));
       expect(result.__type).toBe('rewrite');
       expect(getResponsePathname(result)).toBe('/en/about');
+    });
+  });
+
+  // ── routing.enableProxy modes ───────────────────────────────────────────────
+  // `undefined` (auto) suppresses the stored locale as a redirect source, but
+  // only while `next dev` is running. `true` forces the full behaviour, `false`
+  // turns the proxy into a pass-through.
+
+  describe('routing.enableProxy modes', () => {
+    /**
+     * Re-imports the proxy for one point of the {mode} × {dev, prod} matrix.
+     * NODE_ENV is stubbed before the re-import because `isDevServer` is a
+     * module-level constant evaluated once at import time.
+     */
+    const reimportFor = async ({
+      enableProxy,
+      nodeEnv,
+    }: {
+      enableProxy?: boolean;
+      nodeEnv: string;
+    }): Promise<void> => {
+      vi.stubEnv('NODE_ENV', nodeEnv);
+      mockConfig.routing = {
+        basePath: '',
+        mode: 'prefix-no-default',
+        rewrite: undefined,
+        domains: undefined,
+        ...(enableProxy === undefined ? {} : { enableProxy }),
+      } as typeof mockConfig.routing;
+      await reimportProxy();
+    };
+
+    afterAll(() => {
+      vi.unstubAllEnvs();
+      mockConfig.routing = {
+        basePath: '',
+        mode: 'prefix-no-default',
+        rewrite: undefined,
+        domains: undefined,
+      };
+    });
+
+    beforeEach(restorePathMocks);
+
+    it('auto mode under next dev ignores the stored locale on /about', async () => {
+      // The point of auto mode: a lingering INTLAYER_LOCALE=fr cookie must not
+      // keep dragging every unprefixed navigation to /fr while developing.
+      await reimportFor({ enableProxy: undefined, nodeEnv: 'development' });
+      mockGetLocaleFromStorage.mockReturnValue('fr');
+
+      const result = intlayerProxy(makeRequest('/about'));
+      expect(result.__type).toBe('rewrite');
+      expect(getResponsePathname(result)).toBe('/en/about');
+    });
+
+    it('auto mode under next dev still honours Accept-Language detection', async () => {
+      // Only the storage read is suppressed — header detection stays active.
+      await reimportFor({ enableProxy: undefined, nodeEnv: 'development' });
+      mockGetLocaleFromStorage.mockReturnValue('fr');
+      mockLocaleDetectorFn.mockReturnValue('es');
+
+      const result = intlayerProxy(makeRequest('/about'));
+      expect(result.__type).toBe('redirect');
+      expect(getResponsePathname(result)).toBe('/es/about');
+    });
+
+    it('auto mode under next dev still strips the default locale prefix', async () => {
+      // Regression guard: suppressing the storage read must not disable prefix
+      // normalisation.
+      await reimportFor({ enableProxy: undefined, nodeEnv: 'development' });
+
+      const result = intlayerProxy(makeRequest('/en/about'));
+      expect(result.__type).toBe('redirect');
+      expect(getResponsePathname(result)).toBe('/about');
+    });
+
+    it('auto mode in production honours the stored locale', async () => {
+      await reimportFor({ enableProxy: undefined, nodeEnv: 'production' });
+      mockGetLocaleFromStorage.mockReturnValue('fr');
+
+      const result = intlayerProxy(makeRequest('/about'));
+      expect(result.__type).toBe('redirect');
+      expect(getResponsePathname(result)).toBe('/fr/about');
+    });
+
+    it('treats a non-development NODE_ENV as production', async () => {
+      // Only `next dev` runs a dev server; `test` or a custom staging env must
+      // keep the full behaviour.
+      await reimportFor({ enableProxy: undefined, nodeEnv: 'test' });
+      mockGetLocaleFromStorage.mockReturnValue('fr');
+
+      const result = intlayerProxy(makeRequest('/about'));
+      expect(result.__type).toBe('redirect');
+      expect(getResponsePathname(result)).toBe('/fr/about');
+    });
+
+    it('forced mode honours the stored locale even under next dev', async () => {
+      await reimportFor({ enableProxy: true, nodeEnv: 'development' });
+      mockGetLocaleFromStorage.mockReturnValue('fr');
+
+      const result = intlayerProxy(makeRequest('/about'));
+      expect(result.__type).toBe('redirect');
+      expect(getResponsePathname(result)).toBe('/fr/about');
+    });
+
+    it('disabled mode passes the request through untouched', async () => {
+      await reimportFor({ enableProxy: false, nodeEnv: 'production' });
+      mockGetLocaleFromStorage.mockReturnValue('fr');
+
+      const result = intlayerProxy(makeRequest('/en/about'));
+      expect(result.__type).toBe('next');
+    });
+
+    // ── Startup announcement ─────────────────────────────────────────────────
+    // Next has no server-start hook for middleware, so the line is emitted when
+    // the module is first evaluated. Without it the Next dev server printed
+    // nothing at all, unlike the Vite plugin.
+
+    it('announces the proxy under next dev, naming the suppressed storage', async () => {
+      mockAppLogger.mockClear();
+      await reimportFor({ enableProxy: undefined, nodeEnv: 'development' });
+
+      expect(mockAppLogger).toHaveBeenCalledTimes(1);
+      const message = String(mockAppLogger.mock.calls[0]?.[0]);
+      expect(message).toContain('Intlayer proxy');
+      expect(message).toContain('enabled');
+      expect(message).toContain('storage redirection disabled for dev purpose');
+    });
+
+    it('announces the proxy without the storage note in forced mode', async () => {
+      mockAppLogger.mockClear();
+      await reimportFor({ enableProxy: true, nodeEnv: 'development' });
+
+      expect(mockAppLogger).toHaveBeenCalledTimes(1);
+      const message = String(mockAppLogger.mock.calls[0]?.[0]);
+      expect(message).toContain('enabled');
+      expect(message).not.toContain('storage redirection disabled');
+    });
+
+    it('stays silent when the proxy is disabled', async () => {
+      mockAppLogger.mockClear();
+      await reimportFor({ enableProxy: false, nodeEnv: 'development' });
+
+      expect(mockAppLogger).not.toHaveBeenCalled();
+    });
+
+    it('stays silent in production to avoid noise on every edge cold start', async () => {
+      mockAppLogger.mockClear();
+      await reimportFor({ enableProxy: undefined, nodeEnv: 'production' });
+
+      expect(mockAppLogger).not.toHaveBeenCalled();
     });
   });
 });

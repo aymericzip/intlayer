@@ -20,7 +20,10 @@ import {
   listGitLines,
   logConfigDetails,
 } from '@intlayer/engine/cli';
-import { buildReviewReport } from '@intlayer/engine/docReview';
+import {
+  buildReviewReport,
+  type ReviewReportSummary,
+} from '@intlayer/engine/docReview';
 import { formatLocale, formatPath, parallelize } from '@intlayer/engine/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 import fg from 'fast-glob';
@@ -29,7 +32,23 @@ import { formatLineRanges } from '../utils/formatLineRanges';
 import { getOutputFilePath } from '../utils/getOutputFilePath';
 import { type AIClient, setupAI } from '../utils/setupAI';
 import { reviewFileBlockAware } from './reviewDocBlockAware';
-import { logReviewFileBlocks } from './reviewDocLog';
+import { buildFileReviewReport, logReviewFileBlocks } from './reviewDocLog';
+import {
+  formatReviewSynthesis,
+  type ReviewFileResult,
+  type ReviewOutcome,
+} from './reviewDocSynthesis';
+
+/**
+ * How the review should be run.
+ *
+ * - `apply`: translate the diverging blocks with AI and write the target files.
+ * - `report`: no AI. Log every block that needs attention (line numbers and
+ *   content, for both locales) so another agent can generate the translations.
+ * - `synthesis`: no AI, no per-block output. Only log the final synthesis of the
+ *   documents that are up to date and the ones that still have blocks to edit.
+ */
+export type ReviewDocMode = 'apply' | 'report' | 'synthesis';
 
 type ReviewDocOptions = {
   docPattern: string[];
@@ -44,12 +63,8 @@ type ReviewDocOptions = {
   skipIfModifiedAfter?: number | string | Date;
   skipIfExists?: boolean;
   gitOptions?: ListGitFilesOptions;
-  /**
-   * Log-only mode. Instead of translating the changed blocks with AI, log the
-   * blocks that need attention (with line numbers and content) for the base and
-   * target locales, so another agent can generate the translations.
-   */
-  log?: boolean;
+  /** How the review should be run. Defaults to `apply`. See {@link ReviewDocMode}. */
+  mode?: ReviewDocMode;
 };
 
 /**
@@ -69,21 +84,22 @@ export const reviewDoc = async ({
   skipIfModifiedAfter,
   skipIfExists,
   gitOptions,
-  log,
+  mode = 'apply',
 }: ReviewDocOptions) => {
   const configuration = getConfiguration(configOptions);
   logConfigDetails(configOptions);
 
   const appLogger = getAppLogger({ log: { ...configuration.log, prefix: '' } });
 
-  // Log-only mode does not call any AI, so the AI access checks are skipped.
+  // The `report` and `synthesis` modes never call an AI, so the AI access
+  // checks are skipped.
   let aiClient: AIClient | undefined;
   let aiConfig: AIConfig | undefined;
 
-  if (!log) {
+  if (mode === 'apply') {
     const aiResult = await setupAI(configuration, aiOptions);
 
-    if (!aiResult?.hasAIAccess) return;
+    if (!aiResult?.hasAIAccess) return [];
 
     aiClient = aiResult.aiClient;
     aiConfig = aiResult.aiConfig;
@@ -92,7 +108,7 @@ export const reviewDoc = async ({
       const { hasAIAccess, error } = await aiClient.checkAISDKAccess(aiConfig);
       if (!hasAIAccess) {
         appLogger(`${x} ${error}`);
-        return;
+        return [];
       }
     }
   }
@@ -131,10 +147,26 @@ export const reviewDoc = async ({
   appLogger(`Reviewing ${colorizeNumber(docList.length)} files:`);
   appLogger(docList.map((path) => ` - ${formatPath(path)}\n`));
 
+  // In `synthesis` mode only the final recap is printed, so the per-file
+  // progress logs are muted.
+  const logProgress: typeof appLogger = (...content) => {
+    if (mode === 'synthesis') return;
+    appLogger(...content);
+  };
+
+  // Filled by every task, then rendered as the end-of-run synthesis.
+  const reviewResults: ReviewFileResult[] = [];
+
+  /** A document is up to date when no block has to be added, reviewed or removed. */
+  const getOutcome = (summary: ReviewReportSummary): ReviewOutcome =>
+    summary.review + summary.insertNew + summary.delete > 0
+      ? 'toEdit'
+      : 'upToDate';
+
   // Create all tasks to be processed
   const allTasks = docList.flatMap((docPath) =>
     locales.map((locale) => async () => {
-      appLogger(
+      logProgress(
         `Reviewing file: ${formatPath(docPath)} to ${formatLocale(locale)}`
       );
 
@@ -151,9 +183,10 @@ export const reviewDoc = async ({
           configuration.system.baseDir,
           outputFilePath
         );
-        appLogger(
+        logProgress(
           `${colorize('⊘', ANSIColors.YELLOW)} File ${formatPath(relativePath)} already exists, skipping.`
         );
+        reviewResults.push({ docPath, locale, outcome: 'skipped' });
         return;
       }
 
@@ -165,12 +198,13 @@ export const reviewDoc = async ({
         });
 
         if (fileModificationData.isSkipped) {
-          appLogger(fileModificationData.message);
+          logProgress(fileModificationData.message);
+          reviewResults.push({ docPath, locale, outcome: 'skipped' });
           return;
         }
       } else if (skipIfModifiedBefore || skipIfModifiedAfter) {
         // Log if we intended to check modification time but couldn't because the file doesn't exist
-        appLogger(
+        logProgress(
           `${colorize('!', ANSIColors.YELLOW)} File ${formatPath(outputFilePath)} does not exist, skipping modification date check.`
         );
       }
@@ -189,7 +223,7 @@ export const reviewDoc = async ({
         // re-translate. `review` blocks are exactly the aligned base blocks the
         // changed lines touched, so their `targetLineRange` is the matching span
         // in the existing translation.
-        appLogger(
+        logProgress(
           `Changed lines (${formatLocale(baseLocale)}): ${formatLineRanges(gitChangedLines)}`
         );
 
@@ -216,24 +250,38 @@ export const reviewDoc = async ({
           );
         });
 
-        appLogger(
+        logProgress(
           `Corresponding block (${formatLocale(locale)}): ${formatLineRanges(correspondingTargetLines)}`
         );
       }
 
-      if (log) {
-        await logReviewFileBlocks(
+      if (mode !== 'apply') {
+        const report = await buildFileReviewReport(
           absoluteBaseFilePath,
           outputFilePath,
-          locale as Locale,
-          baseLocale,
-          configOptions,
           changedLines
         );
+
+        if (mode === 'report') {
+          logReviewFileBlocks(
+            report,
+            absoluteBaseFilePath,
+            locale as Locale,
+            baseLocale,
+            configOptions
+          );
+        }
+
+        reviewResults.push({
+          docPath,
+          locale,
+          outcome: getOutcome(report.summary),
+          summary: report.summary,
+        });
         return;
       }
 
-      await reviewFileBlockAware(
+      const reviewSummary = await reviewFileBlockAware(
         absoluteBaseFilePath,
         outputFilePath,
         locale as Locale,
@@ -245,6 +293,13 @@ export const reviewDoc = async ({
         aiClient,
         aiConfig
       );
+
+      reviewResults.push({
+        docPath,
+        locale,
+        outcome: getOutcome(reviewSummary),
+        summary: reviewSummary,
+      });
     })
   );
 
@@ -253,4 +308,14 @@ export const reviewDoc = async ({
     (task) => task(),
     nbSimultaneousFileProcessed ?? 3
   );
+
+  const synthesis = formatReviewSynthesis(reviewResults, {
+    hasAppliedChanges: mode === 'apply',
+  });
+
+  for (const line of synthesis.split('\n')) {
+    appLogger(line);
+  }
+
+  return reviewResults;
 };

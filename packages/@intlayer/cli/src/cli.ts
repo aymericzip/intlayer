@@ -876,8 +876,9 @@ export const setAPI = (): Command => {
     .command('review')
     .description('Review the documentation')
     .option(
-      '--log',
-      'Log-only mode. Do not translate with AI; instead log the blocks that need attention (with line numbers and content) for the base and target locales, to help another agent generate the translations.'
+      '--mode [mode]',
+      'How the review runs: "apply" (default) translates the diverging blocks with AI and writes the files; "report" calls no AI and logs the blocks that need attention (line numbers and content, for both locales) to help another agent generate the translations; "synthesis" calls no AI and only logs the final recap of the documents that are up to date and the ones that have blocks to edit.',
+      'apply'
     );
 
   applyConfigOptions(reviewProgram);
@@ -887,7 +888,7 @@ export const setAPI = (): Command => {
 
   reviewProgram.action(async (options) => {
     const { reviewDoc } = await import('./reviewDoc/reviewDoc');
-    return reviewDoc({
+    await reviewDoc({
       docPattern: options.docPattern,
       excludedGlobPattern: options.excludedGlobPattern,
       locales: options.locales,
@@ -900,7 +901,7 @@ export const setAPI = (): Command => {
       skipIfModifiedBefore: options.skipIfModifiedBefore,
       skipIfModifiedAfter: options.skipIfModifiedAfter,
       skipIfExists: options.skipIfExists,
-      log: options.log,
+      mode: options.mode,
     });
   });
 

@@ -16,6 +16,7 @@ import {
   getHasDictionarySelector,
   getUnusedNodeTypesAsync,
 } from '@intlayer/config/utils';
+import { resolveProxyMode } from '@intlayer/core/localization';
 import { getDictionaries } from '@intlayer/dictionaries-entry';
 import { logConfigDetails } from '@intlayer/engine/logConfigDetails';
 import type { PluginOption } from 'vite';
@@ -51,9 +52,10 @@ export type IntlayerPluginOptions = GetConfigurationOptions & {
    * Options forwarded to the bundled locale-routing proxy (`intlayerProxy`).
    *
    * Since Intlayer v9 the proxy is plugged directly into the main `intlayer()`
-   * plugin (controlled by `routing.enableProxy`, `true` by default). These
-   * routing options let you tune that bundled proxy without registering it
-   * separately — e.g. ignore API routes from locale routing.
+   * plugin (controlled by `routing.enableProxy`, unset by default, which
+   * selects auto mode). These routing options let you tune that bundled proxy
+   * without registering it separately — e.g. ignore API routes from locale
+   * routing.
    *
    * @example
    * ```ts
@@ -266,10 +268,13 @@ export const intlayerPlugin = (
 
   // Proxy: locale-routing middleware (detection / redirect / rewrite) for dev,
   // preview, and production SSR. Bundled directly into the main plugin and
-  // controlled by the `routing.enableProxy` option (true by default).
+  // controlled by the `routing.enableProxy` option, which is unset by default
+  // and therefore resolves to auto mode. Only an explicit `false` skips
+  // registration — a plain truthiness check would wrongly drop the proxy for
+  // every project that never set the option.
   // Registering `intlayerProxy()` manually as well is safe — the proxy
   // deduplicates itself.
-  if (intlayerConfig.routing.enableProxy) {
+  if (resolveProxyMode(intlayerConfig.routing.enableProxy) !== 'disabled') {
     plugins.push(intlayerProxy({ ...proxy, configOptions: getConfigOptions }));
   }
 

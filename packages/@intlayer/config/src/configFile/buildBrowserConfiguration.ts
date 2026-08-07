@@ -168,7 +168,12 @@ export const buildRoutingFields = (
      * automatically wires the locale-detection / redirect / rewrite middleware in
      * development, preview, and production SSR.
      *
-     * Default: true
+     * - `undefined` (auto, default): the proxy runs, but development and preview
+     *   servers ignore the stored locale (cookie / header) as a redirect source.
+     * - `true`: full proxy behaviour in every environment.
+     * - `false`: no locale routing; the proxy is not registered.
+     *
+     * Default: undefined (auto)
      */
     enableProxy: customConfiguration?.enableProxy ?? ENABLE_PROXY,
 

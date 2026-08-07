@@ -89,8 +89,13 @@ export const getConfigEnvVars = (
     [wrapKey('INTLAYER_ROUTING_MODE')]: wrapValue(routing.mode),
   };
 
+  // Only the two explicit states are emitted. An absent variable means the
+  // option was left unset, which `resolveProxyMode` reads as auto mode — it
+  // then defers to the configuration value available at runtime.
   if (routing.enableProxy === false) {
     envVars[wrapKey('INTLAYER_ROUTING_ENABLE_PROXY')] = wrapValue('false');
+  } else if (routing.enableProxy === true) {
+    envVars[wrapKey('INTLAYER_ROUTING_ENABLE_PROXY')] = wrapValue('true');
   }
 
   if (!routing.rewrite) {

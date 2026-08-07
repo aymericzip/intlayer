@@ -25,6 +25,12 @@ export { getPrefix } from './getPrefix';
 export { localeDetector } from './localeDetector';
 export { localeFlatMap, localeMap, localeRecord } from './localeMapper';
 export { localeResolver } from './localeResolver';
+export type { ProxyMode } from './proxyMode';
+export {
+  formatProxyEnabledMessage,
+  isProxyStorageLocaleEnabled,
+  resolveProxyMode,
+} from './proxyMode';
 export type { LocalizedPathResult } from './rewriteUtils';
 export {
   getCanonicalPath,

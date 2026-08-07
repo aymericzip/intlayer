@@ -20,6 +20,8 @@ import { getLocaleName } from '@intlayer/core/localization';
 import {
   buildAlignmentPlan,
   mergeReviewedSegments,
+  type PlannedAction,
+  type ReviewReportSummary,
 } from '@intlayer/engine/docReview';
 import { formatLocale, formatPath } from '@intlayer/engine/utils';
 import type { Locale } from '@intlayer/types/allLocales';
@@ -39,6 +41,9 @@ import type { AIClient } from '../utils/setupAI';
  * 5. Sends changed/new blocks to AI in bottom-up order (last block first), so
  *    line numbers of earlier blocks are not shifted by edits below them.
  * 6. Rewrites the file after each block so progress is persisted incrementally.
+ *
+ * @returns The per-action block counts of the alignment plan, so the caller can
+ * synthesize what was reused and what had to be edited.
  */
 export const reviewFileBlockAware = async (
   baseFilePath: string,
@@ -51,7 +56,7 @@ export const reviewFileBlockAware = async (
   changedLines?: number[],
   aiClient?: AIClient,
   aiConfig?: AIConfig
-) => {
+): Promise<ReviewReportSummary> => {
   const configuration = getConfiguration(configOptions);
   const applicationLogger = getAppLogger({
     log: { ...configuration.log, prefix: '' },
@@ -85,13 +90,23 @@ export const reviewFileBlockAware = async (
       changedLines,
     });
 
-  const deleteCount = plan.actions.filter((a) => a.kind === 'delete').length;
+  const countActions = (kind: PlannedAction['kind']): number =>
+    plan.actions.filter((action: PlannedAction) => action.kind === kind).length;
+
+  const reviewSummary: ReviewReportSummary = {
+    reuse: countActions('reuse'),
+    review: countActions('review'),
+    insertNew: countActions('insert_new'),
+    delete: countActions('delete'),
+  };
+
+  const deleteCount = reviewSummary.delete;
 
   applicationLogger(
     `${filePrefix}Block-aware alignment complete. Total blocks: base=${colorizeNumber(baseBlocks.length)}, target=${colorizeNumber(targetBlocks.length)}`
   );
   applicationLogger(
-    `${filePrefix}Actions: reuse=${colorizeNumber(plan.actions.filter((a) => a.kind === 'reuse').length)}, review=${colorizeNumber(plan.actions.filter((a) => a.kind === 'review').length)}, new=${colorizeNumber(plan.actions.filter((a) => a.kind === 'insert_new').length)}, delete=${colorizeNumber(deleteCount)}`
+    `${filePrefix}Actions: reuse=${colorizeNumber(reviewSummary.reuse)}, review=${colorizeNumber(reviewSummary.review)}, new=${colorizeNumber(reviewSummary.insertNew)}, delete=${colorizeNumber(deleteCount)}`
   );
 
   // Map shared across the entire run: each entry overrides the default behavior
@@ -132,7 +147,7 @@ export const reviewFileBlockAware = async (
     applicationLogger(
       `${colorize('✔', ANSIColors.GREEN)} File ${formatPath(outputFilePath)} updated successfully (no AI changes needed).`
     );
-    return;
+    return reviewSummary;
   }
 
   applicationLogger(
@@ -216,4 +231,6 @@ export const reviewFileBlockAware = async (
   applicationLogger(
     `${colorize('✔', ANSIColors.GREEN)} File ${formatPath(outputFilePath)} created/updated successfully.`
   );
+
+  return reviewSummary;
 };

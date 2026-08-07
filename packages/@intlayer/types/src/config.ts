@@ -300,14 +300,27 @@ export type RoutingConfig = {
   /**
    * Enables the Intlayer locale-routing proxy (middleware).
    *
-   * When enabled, the build-tool integration (e.g. the `intlayer()` Vite plugin)
-   * automatically wires the locale-detection / redirect / rewrite middleware in
-   * development, preview, and production SSR. Disable it when you want to handle
-   * locale routing yourself, or when your routing mode does not require a proxy.
+   * The build-tool integration (e.g. the `intlayer()` Vite plugin) wires the
+   * locale-detection / redirect / rewrite middleware in development, preview,
+   * and production SSR. This option controls how much of that behaviour is
+   * active:
    *
-   * Default: true
+   * - `undefined` (auto, default) — the proxy runs, but while a development or
+   *   preview server is serving the app it stays URL-driven: the locale held in
+   *   storage (cookie / header) is not used as a redirect source. Locale
+   *   prefixes still resolve (`/en` still redirects to `/`), the locale is
+   *   still persisted onto responses, and `Accept-Language` detection still
+   *   applies. In production the proxy behaves exactly as with `true`.
+   * - `true` — full proxy behaviour in every environment, storage-driven
+   *   redirects included.
+   * - `false` — no locale routing at all. The Vite plugin does not register the
+   *   proxy, and the Next.js `intlayerProxy` middleware becomes a pass-through.
+   *   Use it when you want to handle locale routing yourself, or when your
+   *   routing mode does not require a proxy.
+   *
+   * Default: undefined (auto)
    */
-  enableProxy: boolean;
+  enableProxy?: boolean;
 
   /**
    * Pre-computed storage attributes derived from the raw `storage` input.

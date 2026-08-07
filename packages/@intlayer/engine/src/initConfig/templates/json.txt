@@ -23,7 +23,10 @@
     /**
      * Enables the Intlayer locale-routing proxy (middleware).
      * Handles locale detection, redirects and rewrites in dev, preview and SSR.
-     * Default: true
+     * Leave unset for auto mode: dev and preview servers keep locale routing
+     * URL-driven by ignoring the stored locale. `true` forces the full
+     * behaviour everywhere, `false` disables the proxy.
+     * Default: undefined (auto)
      */
     "enableProxy": false
   },

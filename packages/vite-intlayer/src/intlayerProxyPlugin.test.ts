@@ -13,6 +13,8 @@ const mockConfig = vi.hoisted(() => ({
     mode: 'prefix-no-default' as string,
     rewrite: undefined as undefined,
     domains: undefined as Record<string, string> | undefined,
+    // Unset by default, which resolves to the proxy's auto mode.
+    enableProxy: undefined as boolean | undefined,
   },
 }));
 
@@ -115,6 +117,22 @@ vi.mock('@intlayer/core/localization', () => {
       );
       return matchingLocales.length === 1 ? matchingLocales[0]?.[0] : undefined;
     },
+    resolveProxyMode: (enableProxy?: boolean): string => {
+      const environmentValue = process.env.INTLAYER_ROUTING_ENABLE_PROXY;
+      if (environmentValue === 'false') return 'disabled';
+      if (environmentValue === 'true') return 'forced';
+      if (enableProxy === false) return 'disabled';
+      if (enableProxy === true) return 'forced';
+      return 'auto';
+    },
+    isProxyStorageLocaleEnabled: (
+      proxyMode: string,
+      isDevServer: boolean
+    ): boolean => !(proxyMode === 'auto' && isDevServer),
+    formatProxyEnabledMessage: (isStorageLocaleSuppressed: boolean): string =>
+      isStorageLocaleSuppressed
+        ? 'Intlayer proxy enabled - storage redirection disabled for dev purpose'
+        : 'Intlayer proxy enabled',
   };
 });
 vi.mock('@intlayer/core/utils', () => ({
@@ -285,6 +303,127 @@ describe('createIntlayerProxyHandler (prefix-no-default)', () => {
     expect(lastRes.writeHead).toHaveBeenCalledWith(500, {
       'Content-Type': 'text/plain',
     });
+  });
+});
+
+describe('createIntlayerProxyHandler (routing.enableProxy modes)', () => {
+  type ProxyHandler = (
+    req: IncomingMessage,
+    res: ServerResponse<IncomingMessage>,
+    next: () => void
+  ) => void;
+
+  /**
+   * Builds a handler for one point of the {mode} × {dev, prod} matrix, with a
+   * stored `fr` locale and an `en`-preferring Accept-Language so the two
+   * locale sources can be told apart by the resulting redirect.
+   */
+  const createHandler = async ({
+    enableProxy,
+    isDevServer,
+  }: {
+    enableProxy?: boolean;
+    isDevServer: boolean;
+  }): Promise<ProxyHandler> => {
+    vi.resetModules();
+    mockConfig.routing.enableProxy = enableProxy;
+    mockGetLocaleFromStorage.mockReturnValue('fr');
+    mockLocaleDetector.mockImplementation((_h, _l, def: string) => def);
+    const mod = await import('./intlayerProxyPlugin');
+    return mod.createIntlayerProxyHandler({ isDevServer });
+  };
+
+  afterEach(() => {
+    mockConfig.routing.enableProxy = undefined;
+    mockGetLocaleFromStorage.mockReturnValue(undefined);
+  });
+
+  it('auto mode on a dev server ignores the stored locale on /', async () => {
+    // The whole point of auto mode: a lingering INTLAYER_LOCALE=fr cookie must
+    // not keep dragging every unprefixed navigation to /fr while developing.
+    const handler = await createHandler({
+      enableProxy: undefined,
+      isDevServer: true,
+    });
+    const req = makeReq('/');
+    const res = makeRes();
+    const next = vi.fn();
+    handler(req, res, next);
+
+    expect(res.writeHead).not.toHaveBeenCalled();
+    expect(req.url).toBe('/');
+    expect(next).toHaveBeenCalled();
+  });
+
+  it('auto mode on a dev server still honours Accept-Language on /', async () => {
+    // Only the storage read is suppressed — header detection stays active, so
+    // a French browser is still redirected.
+    const handler = await createHandler({
+      enableProxy: undefined,
+      isDevServer: true,
+    });
+    // Set after createHandler: the helper resets the detector to its
+    // default-locale implementation.
+    mockLocaleDetector.mockReturnValue('fr');
+    const req = makeReq('/', { 'accept-language': 'fr-FR,fr;q=0.9' });
+    const res = makeRes();
+    handler(req, res, vi.fn());
+
+    expect(res.writeHead).toHaveBeenCalledWith(302, { Location: '/fr' });
+  });
+
+  it('auto mode on a dev server still strips /en → / and persists the locale', async () => {
+    // Regression guard: suppressing the storage read must not disable prefix
+    // normalisation or the Set-Cookie that carries the locale across it.
+    const handler = await createHandler({
+      enableProxy: undefined,
+      isDevServer: true,
+    });
+    const req = makeReq('/en');
+    const res = makeRes();
+    handler(req, res, vi.fn());
+
+    expect(res.writeHead).toHaveBeenCalledWith(302, { Location: '/' });
+    expect(String(res.__headers['Set-Cookie'])).toContain('INTLAYER_LOCALE=en');
+  });
+
+  it('auto mode outside a dev server honours the stored locale on /', async () => {
+    // Production behaves exactly like `enableProxy: true`.
+    const handler = await createHandler({
+      enableProxy: undefined,
+      isDevServer: false,
+    });
+    const req = makeReq('/');
+    const res = makeRes();
+    handler(req, res, vi.fn());
+
+    expect(res.writeHead).toHaveBeenCalledWith(302, { Location: '/fr' });
+  });
+
+  it('defaults to production behaviour when isDevServer is omitted', async () => {
+    // `createIntlayerProxyHandler()` is mounted directly in production Nitro
+    // servers, so the flag must default to false.
+    vi.resetModules();
+    mockConfig.routing.enableProxy = undefined;
+    mockGetLocaleFromStorage.mockReturnValue('fr');
+    const mod = await import('./intlayerProxyPlugin');
+    const handler = mod.createIntlayerProxyHandler();
+    const res = makeRes();
+    handler(makeReq('/'), res, vi.fn());
+
+    expect(res.writeHead).toHaveBeenCalledWith(302, { Location: '/fr' });
+  });
+
+  it('forced mode honours the stored locale even on a dev server', async () => {
+    const handler = await createHandler({
+      enableProxy: true,
+      isDevServer: true,
+    });
+    const req = makeReq('/');
+    const res = makeRes();
+    handler(req, res, vi.fn());
+
+    expect(res.writeHead).toHaveBeenCalledWith(302, { Location: '/fr' });
   });
 });
 

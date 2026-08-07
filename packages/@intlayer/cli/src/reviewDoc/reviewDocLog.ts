@@ -14,38 +14,46 @@ import { formatLocale, formatPath } from '@intlayer/engine/utils';
 import type { Locale } from '@intlayer/types/allLocales';
 
 /**
- * Log-only review of a single file/locale pair.
- *
- * Instead of calling an AI to translate the changed blocks, this compares the
- * base document with its translation and logs the blocks that need attention
- * (with their line ranges and content) so another agent or a human can generate
- * the missing translations.
+ * Compare a base document with its translation without calling any AI.
  *
  * @param baseFilePath - Absolute path of the base (source) document.
  * @param outputFilePath - Absolute path of the target (translated) document.
- * @param locale - The target locale being reviewed.
- * @param baseLocale - The base locale used as reference.
- * @param configOptions - Optional Intlayer configuration overrides.
  * @param changedLines - 1-based base line numbers that changed (from git), if any.
  * @returns The structured review report.
  */
-export const logReviewFileBlocks = async (
+export const buildFileReviewReport = async (
   baseFilePath: string,
   outputFilePath: string,
-  locale: Locale,
-  baseLocale: Locale,
-  configOptions?: GetConfigurationOptions,
   changedLines?: number[]
 ): Promise<ReviewReport> => {
-  const configuration = getConfiguration(configOptions);
-  const appLogger = getAppLogger({ log: { ...configuration.log, prefix: '' } });
-
   const baseText = await readFile(baseFilePath, 'utf-8');
   const targetText = existsSync(outputFilePath)
     ? await readFile(outputFilePath, 'utf-8').catch(() => '')
     : '';
 
-  const report = buildReviewReport({ baseText, targetText, changedLines });
+  return buildReviewReport({ baseText, targetText, changedLines });
+};
+
+/**
+ * Log the blocks that need attention (with their line ranges and content) for a
+ * single file/locale pair, so another agent or a human can generate the missing
+ * translations.
+ *
+ * @param report - The report built by {@link buildFileReviewReport}.
+ * @param baseFilePath - Absolute path of the base (source) document.
+ * @param locale - The target locale being reviewed.
+ * @param baseLocale - The base locale used as reference.
+ * @param configOptions - Optional Intlayer configuration overrides.
+ */
+export const logReviewFileBlocks = (
+  report: ReviewReport,
+  baseFilePath: string,
+  locale: Locale,
+  baseLocale: Locale,
+  configOptions?: GetConfigurationOptions
+): void => {
+  const configuration = getConfiguration(configOptions);
+  const appLogger = getAppLogger({ log: { ...configuration.log, prefix: '' } });
 
   const formatted = formatReviewReport(report, {
     baseLabel: formatLocale(baseLocale),
@@ -56,6 +64,4 @@ export const logReviewFileBlocks = async (
   for (const line of formatted.split('\n')) {
     appLogger(line);
   }
-
-  return report;
 };

@@ -1,13 +1,13 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import { fileURLToPath, parse } from 'node:url';
-import * as ANSIColors from '@intlayer/config/colors';
 import { ROUTING_MODE } from '@intlayer/config/defaultValues';
-import { colorize, getAppLogger } from '@intlayer/config/logger';
+import { getAppLogger } from '@intlayer/config/logger';
 import {
   type GetConfigurationOptions,
   getConfiguration,
 } from '@intlayer/config/node';
 import {
+  formatProxyEnabledMessage,
   getCanonicalPath,
   getDomainHostname,
   getDomainOrigin,
@@ -15,7 +15,9 @@ import {
   getLocaleFromDomain,
   getLocalizedPath,
   getRewriteRules,
+  isProxyStorageLocaleEnabled,
   localeDetector,
+  resolveProxyMode,
 } from '@intlayer/core/localization';
 import {
   getCookie,
@@ -55,6 +57,20 @@ export type IntlayerProxyPluginOptions = {
    * ```
    */
   configOptions?: GetConfigurationOptions;
+  /**
+   * Whether a development or preview server is serving the app.
+   *
+   * Set internally by the plugin from `configureServer` /
+   * `configurePreviewServer`. It only matters in the proxy's auto mode, where
+   * a dev server keeps locale routing URL-driven by ignoring the stored locale
+   * as a redirect source.
+   *
+   * Defaults to `false` so that mounting `createIntlayerProxyHandler()`
+   * manually — the documented production Nitro setup — keeps full behaviour.
+   *
+   * @default false
+   */
+  isDevServer?: boolean;
 };
 
 /**
@@ -95,13 +111,28 @@ type NodeMiddleware = (
 export const createIntlayerProxyHandler = (
   options?: IntlayerProxyPluginOptions
 ): NodeMiddleware => {
-  const { ignore, configOptions } = options ?? {};
+  const { ignore, configOptions, isDevServer = false } = options ?? {};
   const intlayerConfig = getConfiguration(configOptions);
 
   const { internationalization, routing } = intlayerConfig;
   const { locales: supportedLocales, defaultLocale } = internationalization;
 
-  const { basePath = '', mode = ROUTING_MODE, rewrite, domains } = routing;
+  const {
+    basePath = '',
+    mode = ROUTING_MODE,
+    rewrite,
+    domains,
+    enableProxy,
+  } = routing;
+
+  // In auto mode a dev/preview server ignores the stored locale when resolving
+  // which locale a request maps to, so a lingering cookie cannot keep pulling
+  // navigation to another locale while developing. Prefix redirects, locale
+  // persistence and `Accept-Language` detection are unaffected.
+  const canUseStorageLocale = isProxyStorageLocaleEnabled(
+    resolveProxyMode(enableProxy),
+    isDevServer
+  );
 
   type RedirectCounter = { count: number; lastSeen: number };
   const redirectCounts = new Map<string, RedirectCounter>();
@@ -149,8 +180,14 @@ export const createIntlayerProxyHandler = (
 
   /**
    * Retrieves the locale from storage (cookies, localStorage, sessionStorage).
+   *
+   * Returns `undefined` when the stored locale is not allowed to drive locale
+   * resolution (auto mode on a dev/preview server), which makes every caller
+   * fall through to `Accept-Language` detection and then the default locale.
    */
   const getStorageLocale = (req: IncomingMessage): Locale | undefined => {
+    if (!canUseStorageLocale) return undefined;
+
     const locale = getLocaleFromStorageServer({
       getCookie: (name: string) => getCookie(name, req.headers.cookie),
     });
@@ -1022,12 +1059,29 @@ export const createIntlayerProxyHandler = (
  * });
  * ```
  *
- * @deprecated Since Intlayer v9, `intlayerProxy()` is bundled directly into the `intlayer()` plugin and enabled by default through the `routing.enableProxy` option (`true` by default). Registering it separately as shown below is now optional.
+ * @deprecated Since Intlayer v9, `intlayerProxy()` is bundled directly into the `intlayer()` plugin and enabled by default through the `routing.enableProxy` option (unset by default, which selects auto mode). Registering it separately as shown below is now optional.
  */
 export const intlayerProxy = (options?: IntlayerProxyPluginOptions): Plugin => {
-  const handler = createIntlayerProxyHandler(options);
+  // Dev and preview servers run the same handler; both are "dev servers" as far
+  // as auto mode is concerned, so a single instance covers both hooks.
+  const handler = createIntlayerProxyHandler({ ...options, isDevServer: true });
   const intlayerConfig = getConfiguration(options?.configOptions);
   const logger = getAppLogger(intlayerConfig);
+
+  // Both hooks below serve a dev or preview server, hence the hard-coded true.
+  const isStorageLocaleSuppressed = !isProxyStorageLocaleEnabled(
+    resolveProxyMode(intlayerConfig.routing.enableProxy),
+    true
+  );
+
+  /**
+   * Logs that the proxy is serving requests, spelling out when auto mode has
+   * suppressed the stored locale so the reported state matches the behaviour.
+   */
+  const logProxyEnabled = () =>
+    logger(formatProxyEnabledMessage(isStorageLocaleSuppressed), {
+      level: 'info',
+    });
 
   // Ensures the proxy registers its middleware only once, even when it is
   // registered both via `intlayer()` (which now bundles it) and a manual
@@ -1095,17 +1149,13 @@ export const intlayerProxy = (options?: IntlayerProxyPluginOptions): Plugin => {
     // Vite dev server
     configureServer: (server) => {
       if (!guard.isPrimary) return;
-      logger(`Intlayer proxy ${colorize('enabled', ANSIColors.GREEN)}`, {
-        level: 'info',
-      });
+      logProxyEnabled();
       server.middlewares.use(handler);
     },
     // Vite preview server
     configurePreviewServer: (server) => {
       if (!guard.isPrimary) return;
-      logger(`Intlayer proxy ${colorize('enabled', ANSIColors.GREEN)}`, {
-        level: 'info',
-      });
+      logProxyEnabled();
       server.middlewares.use(handler);
     },
   } as Plugin;

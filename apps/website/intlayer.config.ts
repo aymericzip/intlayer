@@ -35,7 +35,7 @@ const config: CustomIntlayerConfig = {
   },
 
   routing: {
-    enableProxy: true,
+    enableProxy: undefined, // auto handling disabling storage redirection in dev mode
     mode: 'prefix-no-default',
     rewrite: nextjsRewrite({
       '/[locale]/doc/releases/v8': {
