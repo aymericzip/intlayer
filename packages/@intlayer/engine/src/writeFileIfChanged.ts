@@ -9,7 +9,7 @@ import {
   stat,
   writeFile,
 } from 'node:fs/promises';
-import { basename, join } from 'node:path';
+import { basename, dirname, join } from 'node:path';
 
 const activeTempFiles = new Set<string>();
 
@@ -107,22 +107,35 @@ export const writeFileIfChanged = async (
   activeTempFiles.add(tempPath);
 
   try {
-    await writeFile(tempPath, newData);
+    for (let attempt = 0; ; attempt++) {
+      try {
+        await writeFile(tempPath, newData);
 
-    if (modeToRestore !== undefined) {
-      // Learn the ambient default mode once from a real temp file, then only
-      // chmod when the source file used a non-default mode.
-      if (defaultFileMode === undefined) {
-        try {
-          defaultFileMode = (await stat(tempPath)).mode & 0o777;
-        } catch {}
-      }
-      if (modeToRestore !== defaultFileMode) {
-        await chmod(tempPath, modeToRestore);
+        if (modeToRestore !== undefined) {
+          // Learn the ambient default mode once from a real temp file, then only
+          // chmod when the source file used a non-default mode.
+          if (defaultFileMode === undefined) {
+            try {
+              defaultFileMode = (await stat(tempPath)).mode & 0o777;
+            } catch {}
+          }
+          if (modeToRestore !== defaultFileMode) {
+            await chmod(tempPath, modeToRestore);
+          }
+        }
+
+        await rename(tempPath, path);
+        break;
+      } catch (error) {
+        const isMissingDirectory =
+          (error as NodeJS.ErrnoException).code === 'ENOENT';
+
+        if (!isMissingDirectory || attempt > 0) throw error;
+
+        await mkdir(dirname(path), { recursive: true });
+        if (tempDir) await mkdir(tempDir, { recursive: true });
       }
     }
-
-    await rename(tempPath, path);
   } catch (error) {
     try {
       await rm(tempPath, { force: true });
