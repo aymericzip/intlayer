@@ -84,7 +84,7 @@
     "fast-glob": "3.3.3"
   },
   "devDependencies": {
-    "@types/node": "26.1.2",
+    "@types/node": "26.2.0",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
@@ -92,8 +92,8 @@
     "tsdown": "0.22.14",
     "typescript": "7.0.2",
     "vitest": "4.1.10",
-    "webpack": "5.107.2",
-    "webpack-dev-server": "5.2.4"
+    "webpack": "5.109.2",
+    "webpack-dev-server": "5.2.6"
   },
   "peerDependencies": {
     "webpack": ">=5.0.0",

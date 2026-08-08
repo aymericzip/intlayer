@@ -151,12 +151,12 @@
     "@parcel/watcher": "2.6.0",
     "defu": "6.1.7",
     "fast-glob": "3.3.3",
-    "recast": "0.23.14",
+    "recast": "0.23.19",
     "simple-git": "3.36.0",
     "zod-to-ts": "2.1.0"
   },
   "devDependencies": {
-    "@types/node": "26.1.2",
+    "@types/node": "26.2.0",
     "@utils/ts-config": "workspace:*",
     "@utils/ts-config-types": "workspace:*",
     "@utils/tsdown-config": "workspace:*",
