@@ -1,12 +1,127 @@
 import { getNodeType } from '@intlayer/core/dictionaryManipulator';
 import type { Locale } from '@intlayer/types/allLocales';
 import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
+import type { NodeType } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
 import * as recast from 'recast';
 import { babelTsParser } from '../utils/babelParser';
 
 const b = recast.types.builders;
 const n = recast.types.namedTypes;
+
+/**
+ * Name of an `intlayer` helper function a node type is printed as.
+ *
+ * Mirrors the transpiler helpers re-exported by the `intlayer` package
+ * (`@intlayer/core/transpiler`).
+ */
+type HelperName =
+  | 't'
+  | 'enu'
+  | 'plural'
+  | 'cond'
+  | 'gender'
+  | 'select'
+  | 'insert'
+  | 'md'
+  | 'html'
+  | 'file'
+  | 'nest';
+
+/**
+ * How a {@link NodeType} is materialized back into source code.
+ *
+ * - `helperRecord` — printed as `helper({ … })`. The node data is a record of
+ *   variants (locales, plural categories, conditions, cases…) whose values are
+ *   rebuilt recursively and merged into the existing object literal.
+ * - `helperValue` — printed as `helper(value)`. The node data is a single
+ *   content, itself possibly another node (e.g. `md(t({ … }))`).
+ * - `nesting` — printed as `nest(dictionaryKey, path?)`.
+ * - `unwrap` — not a source-level helper: the wrapped value replaces the node,
+ *   so `{ nodeType: 'text', text: 'Hello' }` is printed as `"Hello"`.
+ * - `preserve` — framework elements have no data representation, so the
+ *   existing source expression is kept untouched and nothing is written when
+ *   there is none.
+ * - `structural` — plain objects, arrays and unrecognized nodes, rebuilt by the
+ *   generic object/array branches.
+ */
+type NodeTypeStrategy =
+  | {
+      kind: 'helperRecord';
+      helper: HelperName;
+      /**
+       * Extra arguments appended after the record argument, rebuilt from the
+       * node attributes (e.g. the variable name carried by a `select` node).
+       */
+      getExtraArguments?: (
+        node: Record<string, unknown>
+      ) => recast.types.namedTypes.Literal[];
+    }
+  | { kind: 'helperValue'; helper: HelperName }
+  | { kind: 'nesting'; helper: HelperName }
+  | { kind: 'unwrap' }
+  | { kind: 'preserve' }
+  | { kind: 'structural' };
+
+/**
+ * Every {@link NodeType} and how it is written back to a JS/TS declaration file.
+ *
+ * Typed as `Record<NodeType, NodeTypeStrategy>` so that adding a node type to
+ * `@intlayer/types` without registering it here becomes a compile-time error —
+ * the same guarantee `getNodeType` gives on the read side.
+ */
+const nodeTypeStrategies: Record<NodeType, NodeTypeStrategy> = {
+  [NodeTypes.TRANSLATION]: { kind: 'helperRecord', helper: 't' },
+  [NodeTypes.ENUMERATION]: { kind: 'helperRecord', helper: 'enu' },
+  [NodeTypes.PLURAL]: { kind: 'helperRecord', helper: 'plural' },
+  [NodeTypes.CONDITION]: { kind: 'helperRecord', helper: 'cond' },
+  [NodeTypes.GENDER]: { kind: 'helperRecord', helper: 'gender' },
+  [NodeTypes.SELECT]: {
+    kind: 'helperRecord',
+    helper: 'select',
+    getExtraArguments: (node) =>
+      typeof node.variable === 'string' && node.variable.length > 0
+        ? [b.literal(node.variable)]
+        : [],
+  },
+  [NodeTypes.INSERTION]: { kind: 'helperValue', helper: 'insert' },
+  [NodeTypes.MARKDOWN]: { kind: 'helperValue', helper: 'md' },
+  [NodeTypes.HTML]: { kind: 'helperValue', helper: 'html' },
+  [NodeTypes.FILE]: { kind: 'helperValue', helper: 'file' },
+  [NodeTypes.NESTED]: { kind: 'nesting', helper: 'nest' },
+  [NodeTypes.TEXT]: { kind: 'unwrap' },
+  [NodeTypes.NUMBER]: { kind: 'unwrap' },
+  [NodeTypes.BOOLEAN]: { kind: 'unwrap' },
+  [NodeTypes.NULL]: { kind: 'unwrap' },
+  [NodeTypes.REACT_NODE]: { kind: 'preserve' },
+  [NodeTypes.PREACT_NODE]: { kind: 'preserve' },
+  [NodeTypes.SOLID_NODE]: { kind: 'preserve' },
+  [NodeTypes.OBJECT]: { kind: 'structural' },
+  [NodeTypes.ARRAY]: { kind: 'structural' },
+  [NodeTypes.UNKNOWN]: { kind: 'structural' },
+};
+
+/** Every `intlayer` helper the transform is allowed to rewrite. */
+const helperNames = new Set<string>(
+  Object.values(nodeTypeStrategies).flatMap((strategy) =>
+    'helper' in strategy ? [strategy.helper] : []
+  )
+);
+
+/** Helpers wrapping a single content, e.g. `md(t({ … }))`. */
+const wrapperHelperNames = new Set<string>(
+  Object.values(nodeTypeStrategies).flatMap((strategy) =>
+    strategy.kind === 'helperValue' ? [strategy.helper] : []
+  )
+);
+
+/**
+ * Returned by {@link buildNodeForValue} when a value must not be written to the
+ * source file — framework elements and functions have no data representation,
+ * so the original expression (when there is one) is left untouched and no new
+ * property is created otherwise.
+ */
+const SKIP_WRITE = Symbol('intlayer.skipWrite');
 
 /**
  * Unwraps TypeScript/Babel expression wrappers (satisfies, as, !, <Type>).
@@ -109,8 +224,10 @@ const syncNumericSuffixAcrossLocales = (
 
 /**
  * Checks if a value represents a multilingual Intlayer node.
- * A node is multilingual if it is a Translation node, or if it is a specialized node
- * (Markdown, HTML, etc.) that contains a Translation node.
+ *
+ * A node is multilingual if it is a Translation node, if it wraps one
+ * (Markdown, HTML, Insertion…), or if any of its variants contains one
+ * (Enumeration, Plural, Condition, Gender, Select…).
  */
 const isMultilingualNode = (val: any): boolean => {
   if (typeof val !== 'object' || val === null || Array.isArray(val)) {
@@ -123,33 +240,64 @@ const isMultilingualNode = (val: any): boolean => {
     return true;
   }
 
-  if (
-    nodeType === NodeTypes.MARKDOWN ||
-    nodeType === NodeTypes.HTML ||
-    nodeType === NodeTypes.INSERTION
-  ) {
-    return isMultilingualNode((val as any)[nodeType]);
+  const strategy = nodeTypeStrategies[nodeType];
+  const nodeData = (val as any)[nodeType];
+
+  if (strategy.kind === 'helperValue' || strategy.kind === 'unwrap') {
+    return isMultilingualNode(nodeData);
   }
 
   if (
-    nodeType === NodeTypes.ENUMERATION ||
-    nodeType === NodeTypes.PLURAL ||
-    nodeType === NodeTypes.CONDITION ||
-    nodeType === NodeTypes.GENDER ||
-    nodeType === NodeTypes.SELECT
+    strategy.kind === 'helperRecord' &&
+    nodeData &&
+    typeof nodeData === 'object'
   ) {
-    const data = (val as any)[nodeType];
-
-    if (data && typeof data === 'object') {
-      return Object.values(data).some((v) => isMultilingualNode(v));
-    }
+    return Object.values(nodeData).some((variant) =>
+      isMultilingualNode(variant)
+    );
   }
 
   return false;
 };
 
 /**
+ * Checks whether two AST nodes are literals holding the same value.
+ */
+const isEquivalentLiteral = (left: any, right: any): boolean => {
+  const isLiteral = (node: any) =>
+    n.Literal.check(node) ||
+    n.StringLiteral.check(node) ||
+    n.NumericLiteral.check(node) ||
+    n.BooleanLiteral.check(node);
+
+  return isLiteral(left) && isLiteral(right) && left.value === right.value;
+};
+
+/**
+ * Aligns the arguments of an existing call expression with the desired ones.
+ *
+ * Mutates the call only when the arguments actually differ, so Recast keeps the
+ * original formatting (and quote style) of calls that did not change.
+ */
+const syncCallArguments = (callNode: any, desiredArguments: any[]) => {
+  const isUnchanged =
+    callNode.arguments.length === desiredArguments.length &&
+    desiredArguments.every((desired, index) => {
+      const current = callNode.arguments[index];
+
+      return current === desired || isEquivalentLiteral(current, desired);
+    });
+
+  if (!isUnchanged) {
+    callNode.arguments = desiredArguments;
+  }
+};
+
+/**
  * Recursively builds or updates an AST node for a given dictionary value.
+ *
+ * Returns {@link SKIP_WRITE} when the value cannot be represented in source and
+ * no existing expression can be kept.
  */
 const buildNodeForValue = (
   val: any,
@@ -157,6 +305,11 @@ const buildNodeForValue = (
   fallbackLocale: string | undefined, // In per-locale mode, this is the locale of the file
   requiredImports: Set<string>
 ): any => {
+  // Values with no source representation must never overwrite existing code.
+  if (val === undefined || typeof val === 'function') {
+    return existingNode ?? SKIP_WRITE;
+  }
+
   const unwrappedExisting = unwrap(existingNode);
 
   // --- CRITICAL GUARD: STRICT AST PRESERVATION ---
@@ -173,19 +326,7 @@ const buildNodeForValue = (
       n.ArrayExpression.check(unwrappedExisting) ||
       (n.CallExpression.check(unwrappedExisting) &&
         n.Identifier.check(unwrappedExisting.callee) &&
-        [
-          't',
-          'enu',
-          'plural',
-          'cond',
-          'gender',
-          'select',
-          'insert',
-          'md',
-          'html',
-          'file',
-          'nest',
-        ].includes(unwrappedExisting.callee.name));
+        helperNames.has(unwrappedExisting.callee.name));
 
     if (!isUpdatableNode) {
       return existingNode;
@@ -239,12 +380,15 @@ const buildNodeForValue = (
       }
     }
 
+    // Wrapped translations — `md(t({ … }))`, `html(t({ … }))`, `insert(t({ … }))`:
+    // update the inner translation in place instead of replacing the wrapper.
     if (
       (!val || typeof val !== 'object') &&
       n.CallExpression.check(existingNode) &&
       n.Identifier.check(existingNode.callee) &&
-      existingNode.callee.name === 'md'
+      wrapperHelperNames.has(existingNode.callee.name)
     ) {
+      const wrapperName = existingNode.callee.name;
       const innerArg = existingNode.arguments[0];
 
       if (
@@ -264,7 +408,7 @@ const buildNodeForValue = (
             fallbackLocale,
             requiredImports
           );
-          requiredImports.add('md');
+          requiredImports.add(wrapperName);
           requiredImports.add('t');
 
           return existingNode;
@@ -284,6 +428,7 @@ const buildNodeForValue = (
       // Preserve existing template literals (backticks)
       if (
         n.TemplateLiteral.check(unwrappedExisting) &&
+        unwrappedExisting.quasis[0] &&
         unwrappedExisting.expressions.length === 0
       ) {
         unwrappedExisting.quasis[0].value.raw = String(val);
@@ -315,12 +460,17 @@ const buildNodeForValue = (
     if (unwrappedExisting && n.ArrayExpression.check(unwrappedExisting)) {
       const elements = [...unwrappedExisting.elements];
       val.forEach((item, i) => {
-        elements[i] = buildNodeForValue(
+        const elementNode = buildNodeForValue(
           item,
           elements[i],
           fallbackLocale,
           requiredImports
         );
+
+        elements[i] =
+          elementNode === SKIP_WRITE
+            ? (elements[i] ?? b.literal(null))
+            : elementNode;
       });
 
       if (elements.length > val.length) elements.length = val.length;
@@ -329,118 +479,130 @@ const buildNodeForValue = (
       return existingNode;
     } else {
       return b.arrayExpression(
-        val.map((item) =>
-          buildNodeForValue(item, null, fallbackLocale, requiredImports)
-        )
+        val.map((item) => {
+          const elementNode = buildNodeForValue(
+            item,
+            null,
+            fallbackLocale,
+            requiredImports
+          );
+
+          return elementNode === SKIP_WRITE ? b.literal(null) : elementNode;
+        })
       );
     }
   }
 
-  // 3. Intlayer Specialized Nodes
+  // 3. Intlayer Specialized Nodes — dispatched through the exhaustive registry
   const nodeType =
     val && typeof val === 'object' && !Array.isArray(val)
       ? getNodeType(val as ContentNode)
       : null;
 
-  if (
-    nodeType &&
-    [
-      NodeTypes.TRANSLATION,
-      NodeTypes.ENUMERATION,
-      NodeTypes.PLURAL,
-      NodeTypes.CONDITION,
-      NodeTypes.GENDER,
-      NodeTypes.SELECT,
-      NodeTypes.INSERTION,
-      NodeTypes.MARKDOWN,
-      NodeTypes.HTML,
-      NodeTypes.FILE,
-      NodeTypes.NESTED,
-      NodeTypes.ARRAY,
-      NodeTypes.OBJECT,
-      NodeTypes.REACT_NODE,
-      NodeTypes.NUMBER,
-      NodeTypes.BOOLEAN,
-      NodeTypes.NULL,
-      NodeTypes.UNKNOWN,
-    ].includes(nodeType as any) &&
-    nodeType !== NodeTypes.TEXT
-  ) {
+  if (nodeType) {
+    const strategy = nodeTypeStrategies[nodeType];
+
+    // Framework elements (React/Preact/Solid) cannot be serialized back to
+    // source: keep whatever the file already declares.
+    if (strategy.kind === 'preserve') {
+      return existingNode ?? SKIP_WRITE;
+    }
+
+    const hasNodeData = Object.hasOwn(val as object, nodeType);
     const nodeData = (val as any)[nodeType];
-    let calleeName = '';
 
-    if (nodeType === NodeTypes.TRANSLATION) calleeName = 't';
-    else if (nodeType === NodeTypes.ENUMERATION) calleeName = 'enu';
-    else if (nodeType === NodeTypes.PLURAL) calleeName = 'plural';
-    else if (nodeType === NodeTypes.CONDITION) calleeName = 'cond';
-    else if (nodeType === NodeTypes.GENDER) calleeName = 'gender';
-    else if (nodeType === NodeTypes.SELECT) calleeName = 'select';
-    else if (nodeType === NodeTypes.INSERTION) calleeName = 'insert';
-    else if (nodeType === NodeTypes.MARKDOWN) calleeName = 'md';
-    else if (nodeType === NodeTypes.HTML) calleeName = 'html';
-    else if (nodeType === NodeTypes.FILE) calleeName = 'file';
-    else if (nodeType === NodeTypes.NESTED) calleeName = 'nest';
-
-    if (calleeName) requiredImports.add(calleeName);
-
-    const isMatchingCall =
-      existingNode &&
-      n.CallExpression.check(existingNode) &&
-      n.Identifier.check(existingNode.callee) &&
-      existingNode.callee.name === calleeName;
-
-    if (
-      ['t', 'enu', 'plural', 'cond', 'gender', 'select'].includes(calleeName)
-    ) {
-      let objArg: any = null;
-
-      if (
-        isMatchingCall &&
-        existingNode.arguments.length > 0 &&
-        n.ObjectExpression.check(existingNode.arguments[0])
-      ) {
-        objArg = existingNode.arguments[0];
-      } else {
-        objArg = b.objectExpression([]);
+    // A typed node missing its payload is malformed — fall back to the generic
+    // object branch rather than printing a broken helper call.
+    if (strategy.kind !== 'structural' && hasNodeData) {
+      if (strategy.kind === 'unwrap') {
+        return buildNodeForValue(
+          nodeData,
+          existingNode,
+          fallbackLocale,
+          requiredImports
+        );
       }
-      updateObjectLiteral(objArg, nodeData, fallbackLocale, requiredImports);
 
-      return isMatchingCall
-        ? existingNode
-        : b.callExpression(b.identifier(calleeName), [objArg]);
-    }
+      const { helper } = strategy;
 
-    if (['md', 'html', 'insert', 'file'].includes(calleeName)) {
-      const argNode = buildNodeForValue(
-        nodeData,
-        isMatchingCall && existingNode.arguments.length > 0
-          ? existingNode.arguments[0]
-          : null,
-        fallbackLocale,
-        requiredImports
-      );
+      requiredImports.add(helper);
+
+      const isMatchingCall =
+        existingNode &&
+        n.CallExpression.check(existingNode) &&
+        n.Identifier.check(existingNode.callee) &&
+        existingNode.callee.name === helper;
+
+      if (strategy.kind === 'helperRecord') {
+        const recordArgument =
+          isMatchingCall &&
+          existingNode.arguments.length > 0 &&
+          n.ObjectExpression.check(existingNode.arguments[0])
+            ? existingNode.arguments[0]
+            : b.objectExpression([]);
+
+        updateObjectLiteral(
+          recordArgument,
+          nodeData ?? {},
+          fallbackLocale,
+          requiredImports
+        );
+
+        const callArguments = [
+          recordArgument,
+          ...(strategy.getExtraArguments?.(val as Record<string, unknown>) ??
+            []),
+        ];
+
+        if (isMatchingCall) {
+          syncCallArguments(existingNode, callArguments);
+
+          return existingNode;
+        }
+
+        return b.callExpression(b.identifier(helper), callArguments);
+      }
+
+      if (strategy.kind === 'helperValue') {
+        const contentArgument = buildNodeForValue(
+          nodeData,
+          isMatchingCall && existingNode.arguments.length > 0
+            ? existingNode.arguments[0]
+            : null,
+          fallbackLocale,
+          requiredImports
+        );
+
+        if (contentArgument === SKIP_WRITE) {
+          return existingNode ?? SKIP_WRITE;
+        }
+
+        if (isMatchingCall) {
+          // Keep any extra argument the source declares (custom components
+          // passed to `md()` / `html()`), which the node does not carry back.
+          syncCallArguments(existingNode, [
+            contentArgument,
+            ...existingNode.arguments.slice(1),
+          ]);
+
+          return existingNode;
+        }
+
+        return b.callExpression(b.identifier(helper), [contentArgument]);
+      }
+
+      // strategy.kind === 'nesting'
+      const callArguments = [b.literal(nodeData?.dictionaryKey ?? '')];
+
+      if (nodeData?.path) callArguments.push(b.literal(nodeData.path));
 
       if (isMatchingCall) {
-        existingNode.arguments[0] = argNode;
+        syncCallArguments(existingNode, callArguments);
 
         return existingNode;
       }
 
-      return b.callExpression(b.identifier(calleeName), [argNode]);
-    }
-
-    if (calleeName === 'nest') {
-      const args = [b.literal(nodeData.dictionaryKey)];
-
-      if (nodeData.path) args.push(b.literal(nodeData.path));
-
-      if (isMatchingCall) {
-        existingNode.arguments = args;
-
-        return existingNode;
-      }
-
-      return b.callExpression(b.identifier('nest'), args);
+      return b.callExpression(b.identifier(helper), callArguments);
     }
   }
 
@@ -472,12 +634,16 @@ const updateObjectLiteral = (
     const existingProp = getMatchingProperty(node, key);
 
     if (existingProp) {
-      existingProp.value = buildNodeForValue(
+      const valueNode = buildNodeForValue(
         val,
         existingProp.value,
         fallbackLocale,
         requiredImports
       );
+
+      if (valueNode !== SKIP_WRITE) {
+        existingProp.value = valueNode;
+      }
     } else {
       const isValidId = /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(key);
       const keyNode = isValidId ? b.identifier(key) : b.literal(key);
@@ -487,6 +653,9 @@ const updateObjectLiteral = (
         fallbackLocale,
         requiredImports
       );
+
+      if (valueNode === SKIP_WRITE) continue;
+
       node.properties.push(b.property('init', keyNode, valueNode));
     }
   }

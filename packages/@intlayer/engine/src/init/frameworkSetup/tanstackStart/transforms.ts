@@ -135,7 +135,7 @@ const setHtmlLangAndDir = (ast: any): void => {
         if (existing) {
           existing.value = value;
         } else {
-          node.attributes.push(b.jsxAttribute(b.jsxIdentifier(name), value));
+          node.attributes?.push(b.jsxAttribute(b.jsxIdentifier(name), value));
         }
       };
 

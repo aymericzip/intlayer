@@ -5,14 +5,19 @@ import {
   cond,
   enu,
   gender,
+  html,
   insert,
   md,
   nest,
+  plural,
+  select,
   t,
 } from '@intlayer/core/transpiler';
 import type { CustomIntlayerConfig } from '@intlayer/types/config';
 import type { Dictionary } from '@intlayer/types/dictionary';
 import * as Locales from '@intlayer/types/locales';
+import type { NodeType } from '@intlayer/types/nodeType';
+import * as NodeTypes from '@intlayer/types/nodeType';
 import { defu } from 'defu';
 import { describe, expect, it, vi } from 'vitest';
 import { transformJSFile } from './transformJSFile';
@@ -866,5 +871,290 @@ export default appContent;
     // Verify it parsed and preserved the JSX structure
     expect(result).toContain('en: <>test</>,');
     expect(result).toContain('satisfies Dictionary');
+  });
+});
+
+describe('transformJSFile — node type coverage', () => {
+  const emptyFile = `export default { key: 'test', content: {} };`;
+
+  const transformEmpty = (content: Record<string, unknown>) =>
+    transformJSFile(emptyFile, {
+      key: 'test',
+      content,
+    } as unknown as Dictionary);
+
+  /**
+   * Every node type, with the source it must be written back as.
+   *
+   * `null` means the node has no source representation and must never be
+   * written (framework elements), `undefined` means the node is rebuilt by the
+   * generic object branch.
+   */
+  const nodeTypeCases: Record<
+    NodeType,
+    { node: unknown; expected: string | null }
+  > = {
+    [NodeTypes.TRANSLATION]: {
+      node: t({ en: 'Hello' }),
+      expected: 'entry: t({',
+    },
+    [NodeTypes.ENUMERATION]: {
+      node: enu({ '1': 'one' }),
+      expected: 'entry: enu({',
+    },
+    [NodeTypes.PLURAL]: {
+      node: plural({ one: '{{count}} item', other: '{{count}} items' }),
+      expected: 'entry: plural({',
+    },
+    [NodeTypes.CONDITION]: {
+      node: cond({ true: 'y', false: 'n' }),
+      expected: 'entry: cond({',
+    },
+    [NodeTypes.GENDER]: {
+      node: gender({ male: 'm', female: 'f', fallback: 'x' }),
+      expected: 'entry: gender({',
+    },
+    [NodeTypes.SELECT]: {
+      node: select({ draft: 'D', fallback: 'F' }),
+      expected: 'entry: select({',
+    },
+    [NodeTypes.INSERTION]: {
+      node: insert('Hi {{name}}'),
+      expected: 'entry: insert("Hi {{name}}")',
+    },
+    [NodeTypes.MARKDOWN]: {
+      node: md('# Title'),
+      expected: 'entry: md("# Title")',
+    },
+    [NodeTypes.HTML]: {
+      node: html('<p>hi</p>'),
+      expected: 'entry: html("<p>hi</p>")',
+    },
+    [NodeTypes.FILE]: {
+      node: file('./a.md'),
+      expected: 'entry: file("./a.md")',
+    },
+    [NodeTypes.NESTED]: {
+      node: nest('other-key' as never),
+      expected: 'entry: nest("other-key")',
+    },
+    [NodeTypes.TEXT]: {
+      node: { nodeType: NodeTypes.TEXT, [NodeTypes.TEXT]: 'plain text' },
+      expected: 'entry: "plain text"',
+    },
+    [NodeTypes.NUMBER]: {
+      node: { nodeType: NodeTypes.NUMBER, [NodeTypes.NUMBER]: 42 },
+      expected: 'entry: 42',
+    },
+    [NodeTypes.BOOLEAN]: {
+      node: { nodeType: NodeTypes.BOOLEAN, [NodeTypes.BOOLEAN]: true },
+      expected: 'entry: true',
+    },
+    [NodeTypes.NULL]: {
+      node: { nodeType: NodeTypes.NULL, [NodeTypes.NULL]: null },
+      expected: 'entry: null',
+    },
+    [NodeTypes.REACT_NODE]: {
+      node: {
+        nodeType: NodeTypes.REACT_NODE,
+        [NodeTypes.REACT_NODE]: { type: 'div', props: {}, key: null },
+      },
+      expected: null,
+    },
+    [NodeTypes.PREACT_NODE]: {
+      node: {
+        nodeType: NodeTypes.PREACT_NODE,
+        [NodeTypes.PREACT_NODE]: { type: 'div', props: {}, key: null },
+      },
+      expected: null,
+    },
+    [NodeTypes.SOLID_NODE]: {
+      node: {
+        nodeType: NodeTypes.SOLID_NODE,
+        [NodeTypes.SOLID_NODE]: { type: 'div', props: {}, key: null },
+      },
+      expected: null,
+    },
+    [NodeTypes.OBJECT]: {
+      node: { nested: 'value' },
+      expected: 'nested: "value"',
+    },
+    [NodeTypes.ARRAY]: {
+      node: ['a', 'b'],
+      expected: 'entry: ["a", "b"]',
+    },
+    [NodeTypes.UNKNOWN]: {
+      node: { nodeType: 'notARealNodeType', foo: 'bar' },
+      expected: 'nodeType: "notARealNodeType"',
+    },
+  };
+
+  it.each(Object.entries(nodeTypeCases))(
+    'writes back the "%s" node type',
+    async (_nodeType, { node, expected }) => {
+      const result = await transformEmpty({ entry: node });
+
+      if (expected === null) {
+        // Framework elements have no source representation: nothing is written,
+        // and in particular no raw node object is leaked into the file.
+        expect(result).not.toContain('entry:');
+        expect(result).not.toContain('nodeType');
+      } else {
+        expect(result).toContain(expected);
+      }
+    }
+  );
+
+  it('never leaks a raw node object for helper-backed node types', async () => {
+    const helperBackedNodes = Object.fromEntries(
+      Object.entries(nodeTypeCases)
+        .filter(
+          ([nodeType]) =>
+            ![NodeTypes.OBJECT, NodeTypes.ARRAY, NodeTypes.UNKNOWN].includes(
+              nodeType as never
+            )
+        )
+        .map(([nodeType, { node }]) => [nodeType, node])
+    );
+
+    const result = await transformEmpty(helperBackedNodes);
+
+    expect(result).not.toContain('nodeType');
+  });
+
+  it('writes the select variable as a second argument', async () => {
+    const result = await transformEmpty({
+      status: select({ draft: 'D', published: 'P' }, 'publishType'),
+    });
+
+    expect(result).toContain('import { select } from "intlayer"');
+    expect(result).toMatch(/}, "publishType"\)/);
+  });
+
+  it('keeps the select variable when updating an existing select node', async () => {
+    const source = `import { select } from "intlayer";
+export default {
+  key: 'test',
+  content: {
+    status: select({ draft: 'D', published: 'P' }, "publishType"),
+  },
+};`;
+
+    const result = await transformJSFile(source, {
+      key: 'test',
+      content: {
+        status: select({ draft: 'Draft', published: 'P' }, 'publishType'),
+      },
+    } as unknown as Dictionary);
+
+    expect(result).toContain('draft: "Draft"');
+    expect(result).toContain("published: 'P'");
+    expect(result).toMatch(/}, "publishType"\)/);
+  });
+
+  it('unwraps text nodes nested inside a translation', async () => {
+    const result = await transformEmpty({
+      edit: {
+        nodeType: NodeTypes.TRANSLATION,
+        [NodeTypes.TRANSLATION]: {
+          en: { nodeType: NodeTypes.TEXT, [NodeTypes.TEXT]: 'Hello' },
+          fr: { nodeType: NodeTypes.TEXT, [NodeTypes.TEXT]: 'Bonjour' },
+        },
+      },
+    });
+
+    expect(result).toContain('en: "Hello"');
+    expect(result).toContain('fr: "Bonjour"');
+    expect(result).not.toContain('nodeType');
+  });
+
+  it('preserves the existing JSX expression of a react node', async () => {
+    const source = `import { t } from "intlayer";
+export default {
+  key: 'test',
+  content: {
+    edit: t({ en: <b>hello</b> }),
+  },
+};`;
+
+    const result = await transformJSFile(source, {
+      key: 'test',
+      content: {
+        edit: t({
+          en: {
+            nodeType: NodeTypes.REACT_NODE,
+            [NodeTypes.REACT_NODE]: { type: 'b', props: {}, key: null },
+          },
+        }),
+      },
+    } as unknown as Dictionary);
+
+    expect(result).toContain('en: <b>hello</b>');
+    expect(result).not.toContain('nodeType');
+  });
+
+  it('preserves the custom components passed to md()', async () => {
+    const source = `import { md } from "intlayer";
+export default {
+  key: 'test',
+  content: {
+    doc: md('# Title', { Button: 'string' }),
+  },
+};`;
+
+    const result = await transformJSFile(source, {
+      key: 'test',
+      content: { doc: md('# Updated') },
+    } as unknown as Dictionary);
+
+    expect(result).toContain('md("# Updated", { Button: \'string\' })');
+  });
+
+  it('writes the nest path when the node declares one', async () => {
+    const result = await transformEmpty({
+      nested: nest('other-key' as never, 'a.b' as never),
+    });
+
+    expect(result).toContain('nest("other-key", "a.b")');
+  });
+
+  it('updates the translation wrapped in html() in per-locale mode', async () => {
+    const source = `import { html, t } from "intlayer";
+export default {
+  key: 'test',
+  content: {
+    banner: html(t({ en: 'Old', fr: '<b>Ancien</b>' })),
+  },
+};`;
+
+    const result = await transformJSFile(
+      source,
+      { key: 'test', content: { banner: 'New' } } as unknown as Dictionary,
+      Locales.ENGLISH
+    );
+
+    expect(result).toContain('banner: html(t({');
+    expect(result).toContain('en: "New"');
+    expect(result).toContain("fr: '<b>Ancien</b>'");
+  });
+
+  it('leaves non-Intlayer expressions untouched', async () => {
+    const source = `import { t } from "intlayer";
+const shared = 'shared value';
+export default {
+  key: 'test',
+  content: {
+    computed: shared,
+    fn: () => 'dynamic',
+  },
+};`;
+
+    const result = await transformJSFile(source, {
+      key: 'test',
+      content: { computed: 'other value', fn: 'other value' },
+    } as unknown as Dictionary);
+
+    expect(result).toContain('computed: shared');
+    expect(result).toContain("fn: () => 'dynamic'");
   });
 });
