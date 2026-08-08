@@ -1,28 +1,49 @@
 import type { ContentNode, Dictionary } from '@intlayer/types/dictionary';
 import type { LocalesValues } from '@intlayer/types/module_augmentation';
+import type { TypedNodeModel } from '@intlayer/types/nodeType';
 import * as NodeTypes from '@intlayer/types/nodeType';
 
+/**
+ * Structural view of a dictionary content tree.
+ *
+ * `ContentNode` describes leaves and typed nodes only — the plain objects and
+ * arrays that hold them are typed as `any` by the public `Dictionary['content']`.
+ * Declaring those containers explicitly lets the diff walk a whole content tree
+ * without casting at every step.
+ */
+type ContentTree = ContentNode | ContentTree[] | { [key: string]: ContentTree };
+
 /** A `translation` node, e.g. `{ nodeType: 'translation', translation: { en, fr } }`. */
-type TranslationNode = {
-  nodeType: typeof NodeTypes.TRANSLATION;
-  [NodeTypes.TRANSLATION]: Record<string, unknown>;
+type TranslationNode = TypedNodeModel<
+  typeof NodeTypes.TRANSLATION,
+  Record<string, ContentTree>
+>;
+
+/**
+ * Any typed node — a wrapper holding its value under the key named by its own
+ * `nodeType` (e.g. `{ nodeType: 'plural', plural: … }`).
+ */
+type TypedContentNode = {
+  nodeType: string;
+  [wrappedValueKey: string]: ContentTree;
 };
 
-const isTranslationNode = (node: unknown): node is TranslationNode =>
-  typeof node === 'object' &&
-  node !== null &&
-  (node as { nodeType?: unknown }).nodeType === NodeTypes.TRANSLATION;
+/** Whether `node` is a plain (non-array) object, i.e. a content branch. */
+const isRecordNode = (node: ContentTree): node is Record<string, ContentTree> =>
+  typeof node === 'object' && node !== null && !Array.isArray(node);
 
-const isTypedNode = (
-  node: unknown
-): node is { nodeType: string; [key: string]: unknown } =>
-  typeof node === 'object' &&
-  node !== null &&
-  !Array.isArray(node) &&
-  typeof (node as { nodeType?: unknown }).nodeType === 'string';
+/** Whether `node` is a typed node, whatever its `nodeType`. */
+const isTypedNode = (node: ContentTree): node is TypedContentNode =>
+  isRecordNode(node) && typeof node.nodeType === 'string';
+
+/** Whether `node` is a `translation` node holding a locale map. */
+const isTranslationNode = (node: ContentTree): node is TranslationNode =>
+  isTypedNode(node) &&
+  node.nodeType === NodeTypes.TRANSLATION &&
+  isRecordNode(node[NodeTypes.TRANSLATION]);
 
 /** Structural equality for leaf source values (string / number / nested objects). */
-const isSameValue = (a: unknown, b: unknown): boolean =>
+const isSameValue = (a: ContentTree, b: ContentTree): boolean =>
   JSON.stringify(a) === JSON.stringify(b);
 
 /**
@@ -31,15 +52,15 @@ const isSameValue = (a: unknown, b: unknown): boolean =>
  * changed. Returns `undefined` when nothing changed at this node.
  */
 const getEditedNode = (
-  previous: ContentNode | undefined,
-  next: ContentNode,
+  previous: ContentTree,
+  next: ContentTree,
   defaultLocale: LocalesValues
-): ContentNode | undefined => {
+): ContentTree | undefined => {
   // Translation node: compare the default-locale leaf only.
   if (isTranslationNode(next)) {
-    const nextValue = next[NodeTypes.TRANSLATION]?.[defaultLocale as string];
+    const nextValue = next[NodeTypes.TRANSLATION][defaultLocale];
     const previousValue = isTranslationNode(previous)
-      ? previous[NodeTypes.TRANSLATION]?.[defaultLocale as string]
+      ? previous[NodeTypes.TRANSLATION][defaultLocale]
       : undefined;
 
     // Nothing to (re)translate if the source locale is absent.
@@ -55,8 +76,8 @@ const getEditedNode = (
     // Reduce to the source locale only, so every target locale is regenerated.
     return {
       nodeType: NodeTypes.TRANSLATION,
-      [NodeTypes.TRANSLATION]: { [defaultLocale as string]: nextValue },
-    } as ContentNode;
+      [NodeTypes.TRANSLATION]: { [defaultLocale]: nextValue },
+    } satisfies TranslationNode;
   }
 
   // Other typed nodes (enumeration, condition, nested, …): recurse into the
@@ -64,11 +85,11 @@ const getEditedNode = (
   if (isTypedNode(next)) {
     const { nodeType } = next;
     const previousInner = isTypedNode(previous)
-      ? (previous[nodeType] as ContentNode | undefined)
+      ? previous[nodeType]
       : undefined;
     const editedInner = getEditedNode(
       previousInner,
-      next[nodeType] as ContentNode,
+      next[nodeType],
       defaultLocale
     );
 
@@ -79,7 +100,7 @@ const getEditedNode = (
     return {
       nodeType,
       [nodeType]: editedInner,
-    } as ContentNode;
+    } satisfies TypedContentNode;
   }
 
   // Arrays: keep changed items reduced to source-only, unchanged items as-is to
@@ -90,8 +111,8 @@ const getEditedNode = (
 
     const result = next.map((child, index) => {
       const editedChild = getEditedNode(
-        previousArray[index] as ContentNode | undefined,
-        child as ContentNode,
+        previousArray[index],
+        child,
         defaultLocale
       );
       if (typeof editedChild !== 'undefined') {
@@ -103,25 +124,20 @@ const getEditedNode = (
       return child;
     });
 
-    return hasChange ? (result as ContentNode) : undefined;
+    return hasChange ? result : undefined;
   }
 
   // Plain objects: recurse into each key, keeping only changed branches.
-  if (typeof next === 'object' && next !== null) {
-    const previousObject =
-      typeof previous === 'object' &&
-      previous !== null &&
-      !Array.isArray(previous)
-        ? (previous as Record<string, ContentNode>)
-        : undefined;
+  if (isRecordNode(next)) {
+    const previousObject = isRecordNode(previous) ? previous : undefined;
 
-    const result: Record<string, ContentNode> = {};
+    const result: Record<string, ContentTree> = {};
     let hasChange = false;
 
-    for (const key of Object.keys(next as Record<string, ContentNode>)) {
+    for (const key of Object.keys(next)) {
       const editedChild = getEditedNode(
         previousObject?.[key],
-        (next as Record<string, ContentNode>)[key],
+        next[key],
         defaultLocale
       );
       if (typeof editedChild !== 'undefined') {
@@ -130,7 +146,7 @@ const getEditedNode = (
       }
     }
 
-    return hasChange ? (result as ContentNode) : undefined;
+    return hasChange ? result : undefined;
   }
 
   // Primitive leaves are not locale-aware on their own — nothing to translate.
@@ -158,8 +174,11 @@ export const getEditedContent = (
   newContent: ContentNode,
   defaultLocale: LocalesValues
 ): ContentNode =>
-  getEditedNode(previousContent, newContent, defaultLocale) ??
-  ({} as ContentNode);
+  // The result is a sub-tree of `newContent`, so narrowing the structural
+  // `ContentTree` back to the public `ContentNode` is sound: only the plain
+  // containers `ContentNode` leaves untyped are dropped from the type.
+  (getEditedNode(previousContent, newContent, defaultLocale) ??
+    {}) as ContentNode;
 
 /**
  * Dictionary-level wrapper around {@link getEditedContent}. Returns a partial
